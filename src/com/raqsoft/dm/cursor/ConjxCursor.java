@@ -1,0 +1,110 @@
+package com.raqsoft.dm.cursor;
+
+import com.raqsoft.dm.Context;
+import com.raqsoft.dm.Sequence;
+
+/**
+ * 把多个游标纵向连成一个游标，取数时会依次遍历每个游标，直到最后一个游标取数结束
+ * 结构以第一个游标为准
+ * @author 
+ *
+ */
+public class ConjxCursor extends ICursor {
+	private ICursor []cursors; // 游标数组
+	private int curIndex = 0; // 当前正在读数的游标索引
+
+	/**
+	 * 构建纵向连接游标对象
+	 * @param cursors
+	 */
+	public ConjxCursor(ICursor []cursors) {
+		this.cursors = cursors;
+		setDataStruct(cursors[0].getDataStruct());
+	}
+	
+	// 并行计算时需要改变上下文
+	// 继承类如果用到了表达式还需要用新上下文重新解析表达式
+	protected void resetContext(Context ctx) {
+		if (this.ctx != ctx) {
+			for (ICursor cursor : cursors) {
+				cursor.resetContext(ctx);
+			}
+			
+			super.resetContext(ctx);
+		}
+	}
+
+	/**
+	 * 读取指定条数的数据返回
+	 * @param n 数量
+	 * @return Sequence
+	 */
+	protected Sequence get(int n) {
+		if (cursors.length == curIndex || n < 1) return null;
+		Sequence table = cursors[curIndex].fetch(n);
+		if (table == null || table.length() < n) {
+			curIndex++;
+			if (curIndex < cursors.length) {
+				if (table == null) {
+					return get(n);
+				} else {
+					Sequence rest;
+					if (n == MAXSIZE) {
+						rest = get(n);
+					} else {
+						rest = get(n - table.length());
+					}
+					
+					table = append(table, rest);
+				}
+			}
+		}
+
+		return table;
+	}
+
+	/**
+	 * 跳过指定条数的数据
+	 * @param n 数量
+	 * @return long 实际跳过的条数
+	 */
+	protected long skipOver(long n) {
+		if (cursors.length == curIndex || n < 1) return 0;
+
+		long count = cursors[curIndex].skip(n);
+		if (count < n) {
+			curIndex++;
+			if (curIndex < cursors.length) {
+				count += skipOver(n - count);
+			}
+		}
+
+		return count;
+	}
+
+	/**
+	 * 关闭游标
+	 */
+	public synchronized void close() {
+		super.close();
+		
+		for (int i = 0, count = cursors.length; i < count; ++i) {
+			cursors[i].close();
+		}
+	}
+	
+	/**
+	 * 重置游标
+	 * @return 返回是否成功，true：游标可以从头重新取数，false：不可以从头重新取数
+	 */
+	public boolean reset() {
+		curIndex = 0;
+		for (int i = 0, count = cursors.length; i < count; ++i) {
+			if (!cursors[i].reset()) {
+				return false;
+			}
+		}
+		
+		return true;
+	}
+}

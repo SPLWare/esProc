@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<RAQSOFT>
+<CONFIG splashFile="logo/esproc-en.png" Server="com.raqsoft.ide.custom.server.ReportCenterServer"/>
+<DATASOURCE>
+<ds0 config="isaddtilde=&quot;false&quot;;convertdata=&quot;false&quot;;extend=&quot;&quot;;charset=&quot;GBK&quot;;casesentence=&quot;false&quot;;type=&quot;13&quot;;password=&quot;&quot;;url=&quot;jdbc:hsqldb:hsql://127.0.0.1/demo&quot;;clientcharset=&quot;GBK&quot;;convertsql=&quot;false&quot;;title=&quot;HSQL&quot;;useschema=&quot;false&quot;;driver=&quot;org.hsqldb.jdbcDriver&quot;;user=&quot;sa&quot;" name="demo"/>
+</DATASOURCE>
+<!-- database type number: UNKNOWN:0; ORACLE:1; SQLSVR:2; SYBASE:3; SQLANY:4; INFMIX:5; FOXPRO:6; ACCESS:7; FOXBAS:8; DB2:9; MYSQL:10; KINGBASE:11; DERBY:12; HSQL:13; TERADATA:14;POSTGRES:15;DATALOGIC:16;IMPALA:17; DBOne£º20; ESSBASE:101;-->
+<DATABASE titles="MS_SQL_Server,ORACLE,IBM_DB2,Sybase,Access,My_SQL,HSQL,TERADATA,POSTGRES,DBOne,Other" types="2,1,4,3,7,10,13,14,15,20,0">
+
+<other driver1="Sample temporarily unavailable" 
+	url1="Sample temporarily unavailable" 
+	errormessage="Please download the jdbc driver of database, and put the .jar file into [The install directory of esProc]/common/jdbc directory."/>
+<ORACLE driver1="oracle.jdbc.driver.OracleDriver" 
+	url1="jdbc:oracle:thin:@192.168.0.1:1521:[database name]" 
+	errormessage="Please download the jdbc driver of oracle database, and put the .jar file into [The install directory of esProc]/common/jdbc directory. The reference URL is http://www.oracle.com/technetwork/database/features/jdbc/index-091264.html."/>
+
+<MS_SQL_Server driver1="com.newatlanta.jturbo.driver.Driver"
+	driver2="com.microsoft.sqlserver.jdbc.SQLServerDriver" 
+	url1="jdbc:JTurbo://192.168.0.1/[database name]/charset=ISO-8859-1"
+	url2="jdbc:sqlserver://192.168.0.1:1433;DatabaseName=[dbName]" 
+	errormessage="Please download the jdbc driver of SQL Server database, and put the .jar file into [The install directory of esProc]/common/jdbc directory. The reference URL is http://www.microsoft.com/downloads/en/resultsForCategory.aspx?displaylang=en&amp;categoryId=3&amp;stype=n_dc"/>
+
+<Sybase driver1="com.sybase.jdbc2.jdbc.SybDriver" 
+	url1="jdbc:sybase:Tds:192.168.0.1:2048/[database name]" 
+	errormessage="Please download the jdbc driver of Sybase database, and put the .jar file into [The install directory of esProc]/common/jdbc directory. The reference URL is http://www.sybase.com/products/allproductsa-z/softwaredeveloperkit/jconnect"/>
+
+<Access driver1="sun.jdbc.odbc.JdbcOdbcDriver" 
+	url1="jdbc:odbc:[odbc data source name]" 
+	errormessage="Please download the jdbc driver of Access database, and put the .jar file into [The install directory of esProc]/common/jdbc directory."/>
+
+<IBM_DB2 driver1="COM.ibm.db2.jdbc.app.DB2Driver"
+	driver2="COM.ibm.db2.jdbc.net.DB2Driver"
+	driver3="com.ibm.db2.jcc.DB2Driver" 
+	url1="jdbc:Db2:[database name]"
+	url2="jdbc:db2://192.168.0.1:6789/[sample]" 
+	errormessage="Please find the jdbc driver of DB2 database from [The install directory of DB2]/sqllib/java, and put the .jar file into [The install directory of esProc]/common/jdbc directory."/>
+
+<My_SQL driver1="com.mysql.jdbc.Driver" 
+	url1="jdbc:mysql://192.168.0.1:3306/[database name]?useCursorFetch=[true/false]" 
+	errormessage="Please download the jdbc driver of MYSQL database, and put the .jar file into [The install directory of esProc]/common/jdbc directory. The reference URL is http://dev.mysql.com/downloads/connector/j/5.0.html"/>
+
+<HSQL driver1="org.hsqldb.jdbcDriver" 
+	url1="jdbc:hsqldb:hsql://192.168.0.1/" 
+	errormessage="Please download the jdbc driver of MYSQL database, and put the .jar file into [The install directory of esProc]/common/jdbc directory. The reference URL is http://hsqldb.org"/>
+
+<TERADATA driver1="com.ncr.teradata.TeraDriver" 
+	url1="jdbc:teradata://192.168.0.1/CLIENT_CHARSET=EUC_CN,TMODE=TERA,CHARSET=ASCII,DATABASE=[database name]" 
+	errormessage="Please download the jdbc driver of TERADATA database, and put the .jar file into [The install directory of esProc]/common/jdbc directory. The reference URL is http://downloads.teradata.com/download/connectivity/jdbc-driver"/>
+<POSTGRES driver1="org.postgresql.Driver"
+	url1="jdbc:postgresql://192.168.0.1:5432/[database name]"
+	errormessage="Please download the jdbc driver of Postgres database, and put the .jar file into [The install directory of esProc]/common/jdbc directory. The reference URL is http://www.postgresql.org/download"/>
+<DBOne driver1="com.intple.dbone.Driver"
+	url1="jdbc:dbone://127.0.0.1:9001/[dbname]"
+	errormessage="Please download the jdbc driver of DBOne database, and put the .jar file into [The install directory of esProc]/common/jdbc directory."/>
+</DATABASE>
+</RAQSOFT>
