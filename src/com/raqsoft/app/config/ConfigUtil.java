@@ -605,7 +605,7 @@ public class ConfigUtil {
 		try { // 绝对路径
 			if (IOUtils.isAbsolutePath(path))
 				in = new FileInputStream(path);
-		} catch (Exception e) {
+		} catch (Throwable e) {
 		}
 
 		if (in == null) {// 相对路径
@@ -616,7 +616,7 @@ public class ConfigUtil {
 					if (f.exists())
 						in = new FileInputStream(realPath);
 				}
-			} catch (Exception e) {
+			} catch (Throwable e) {
 			}
 		}
 
@@ -625,20 +625,21 @@ public class ConfigUtil {
 			if (cl != null) {
 				try {
 					in = cl.getResourceAsStream(path);
-				} catch (Exception e) {
+				} catch (Throwable e) {
 				}
 			}
 		}
 		if (in == null) {// 当前类装载器
 			try {
 				in = ConfigUtil.class.getResourceAsStream(path);
-			} catch (Exception e) {
+			} catch (Throwable e) {
 			}
 		}
 		if (in == null) {// App查找
 			try {
-				in = app.getResourceAsStream(path);
-			} catch (Exception e) {
+				if (app != null)
+					in = app.getResourceAsStream(path);
+			} catch (Throwable e) {
 			}
 		}
 		if (in == null) {
