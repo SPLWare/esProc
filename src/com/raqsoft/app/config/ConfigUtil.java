@@ -632,7 +632,7 @@ public class ConfigUtil {
 		if (in == null) {// 当前类装载器
 			try {
 				in = ConfigUtil.class.getResourceAsStream(path);
-			} catch (Throwable e) {
+			} catch (Throwable t) {
 			}
 		}
 		if (in == null) {// App查找
