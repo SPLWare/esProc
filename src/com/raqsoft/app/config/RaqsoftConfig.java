@@ -12,7 +12,7 @@ import com.raqsoft.common.DBConfig;
 import com.raqsoft.common.JNDIConfig;
 
 /**
- * raqsoftConfig.xml
+ * ≈‰÷√Œƒº˛raqsoftConfig.xml
  *
  */
 public class RaqsoftConfig implements Cloneable, Externalizable {
