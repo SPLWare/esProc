@@ -623,14 +623,22 @@ public class PseudoTable extends Pseudo implements Operable, IPseudo {
 			return false;
 	}
 	
-	// 添加外键
+	/**
+	 * 添加外键
+	 * @param fkName	外键名
+	 * @param fieldNames 外键字段
+	 * @param code	外表
+	 * @return
+	 */
 	public PseudoTable addForeignKeys(String fkName, String []fieldNames, PseudoTable code) {
+		PseudoTable table = null;
 		try {
-			PseudoTable table = (PseudoTable) clone(ctx);
+			table = (PseudoTable) clone(ctx);
+			table.getPd().addPseudoColumn(new PseudoColumn(fkName, fieldNames, code));
 		} catch (CloneNotSupportedException e) {
 			e.printStackTrace();
 		}
-		return null;
+		return table;
 	}
 	
 	// 主子表按主表主键做有序连接
