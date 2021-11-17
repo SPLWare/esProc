@@ -42,6 +42,7 @@ public class PseudoTable extends Pseudo implements Operable, IPseudo {
 	protected boolean hasPseudoColumns = false;//是否需要根据伪字段转换（枚举、二值）表达式
 	
 	public PseudoTable() {
+		
 	}
 	
 	/**
