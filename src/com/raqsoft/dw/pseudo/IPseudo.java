@@ -12,4 +12,5 @@ public interface IPseudo {
 	public boolean isColumn(String col);
 	public Context getContext();
 	public Object clone(Context ctx) throws CloneNotSupportedException;
+	public void append(ICursor cursor, String option);
 }

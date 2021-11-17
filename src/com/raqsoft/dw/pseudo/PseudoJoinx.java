@@ -127,4 +127,8 @@ public class PseudoJoinx implements Operable, IPseudo {
 		}
 		return obj;
 	}
+	
+	public void append(ICursor cursor, String option) {
+		throw new RQException("never run to here");
+	}
 }
