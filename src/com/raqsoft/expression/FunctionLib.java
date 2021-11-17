@@ -564,8 +564,8 @@ public final class FunctionLib {
 		//Ðé±í
 		addMemberFunction("import", "com.raqsoft.expression.mfn.pseudo.Import");
 		addMemberFunction("cursor", "com.raqsoft.expression.mfn.pseudo.CreateCursor");
-		addMemberFunction("append", "com.raqsoft.expression.mfn.pseudo.Append");
-		addMemberFunction("groups", "com.raqsoft.expression.mfn.pseudo.Groups");
+		//addMemberFunction("append", "com.raqsoft.expression.mfn.pseudo.Append");
+		//addMemberFunction("groups", "com.raqsoft.expression.mfn.pseudo.Groups");
 		
 		//¼¯Èº
 		addMemberFunction("create", "com.raqsoft.expression.mfn.cluster.Create");
