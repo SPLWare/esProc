@@ -7,6 +7,8 @@ import com.raqsoft.dm.Sequence;
 import com.raqsoft.dm.cursor.ICursor;
 import com.raqsoft.dm.cursor.JoinxCursor_u;
 import com.raqsoft.dm.cursor.MemoryCursor;
+import com.raqsoft.dw.pseudo.IPseudo;
+import com.raqsoft.dw.pseudo.PseudoJoinx;
 import com.raqsoft.expression.Expression;
 import com.raqsoft.expression.Function;
 import com.raqsoft.expression.IParam;
@@ -134,6 +136,7 @@ public class Joinx extends Function {
 
 		int count = param.getSubSize();
 		ICursor []cursors = new ICursor[count];
+		IPseudo []pseudos = new IPseudo[count];
 		String []names = new String[count];
 		Expression [][]exps = new Expression[count][];
 				
@@ -183,6 +186,8 @@ public class Joinx extends Function {
 					cursors[i] = (ICursor)obj;
 				} else if (obj instanceof Sequence) {
 					cursors[i] = new MemoryCursor((Sequence)obj);
+				} else if (obj instanceof IPseudo) {
+					pseudos[i] = (IPseudo) obj;
 				} else if (obj == null) {
 					cursors[i] = new MemoryCursor(null);
 				} else {
@@ -206,6 +211,8 @@ public class Joinx extends Function {
 					cursors[i] = (ICursor)obj;
 				} else if (obj instanceof Sequence) {
 					cursors[i] = new MemoryCursor((Sequence)obj);
+				} else if (obj instanceof IPseudo) {
+					pseudos[i] = (IPseudo) obj;
 				} else if (obj == null) {
 					cursors[i] = new MemoryCursor(null);
 				} else {
@@ -218,6 +225,18 @@ public class Joinx extends Function {
 					names[i] = sub1.getLeafExpression().getIdentifierName();
 				}
 			}
+		}
+
+		if (pseudos[0] != null) {
+//			if (pseudos[0] instanceof ClusterPseudo) {
+//				ClusterPseudo cps [] = new ClusterPseudo[count];
+//				for (int i = 0; i < count; i++) {
+//					cps[i] = (ClusterPseudo) pseudos[i];
+//				}
+//				return ClusterPseudo.joinx(cps, exps, names, option, ctx);
+//			} else {
+				return new PseudoJoinx(pseudos, exps, names, option);
+//			}
 		}
 		return CursorUtil.joinx(cursors, names, exps, option, ctx);
 	}

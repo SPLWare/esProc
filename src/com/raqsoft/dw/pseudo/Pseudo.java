@@ -14,7 +14,6 @@ import com.raqsoft.dm.op.Operable;
 import com.raqsoft.dm.op.Operation;
 import com.raqsoft.dm.op.Select;
 import com.raqsoft.dm.op.Switch;
-import com.raqsoft.dw.ITableMetaData;
 import com.raqsoft.expression.Expression;
 import com.raqsoft.expression.operator.And;
 import com.raqsoft.resources.EngineMessage;
@@ -331,5 +330,9 @@ public class Pseudo {
 
 	public PseudoDefination getPd() {
 		return pd;
+	}
+	
+	public void append(ICursor cursor, String option) {
+		throw new RQException("never run to here");
 	}
 }
