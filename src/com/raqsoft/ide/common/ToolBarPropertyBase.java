@@ -142,43 +142,46 @@ public abstract class ToolBarPropertyBase extends ToolbarGradient {
 		cellName.setToolTipText(mm.getMessage("toolbarproperty.cellname"));
 		cellName.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String sCell = cellName.getText();
-				boolean hasSet = false;
-				String error = null;
-				if (StringUtils.isValidString(sCell)) {
-					sCell = sCell.toUpperCase();
-					Pattern p = Pattern.compile("[A-Z]+\\d+$");
-					Matcher m = p.matcher(sCell);
-					if (m.matches()) {
-						p = Pattern.compile("\\d");
-						m = p.matcher(sCell);
-						if (m.find()) {
-							int index = m.start();
-							String pre = sCell.substring(0, index);
-							String suffix = sCell.substring(index);
-							int row = Integer.parseInt(suffix);
-							int col = GM.getColByName(pre);
-							CellLocation maxCL = getMaxCellLocation();
-							if (row > maxCL.getRow()) {
-								error = mm
-										.getMessage("toolbarpropertybase.invalidrow");
-							} else if (col > maxCL.getCol()) {
-								error = mm
-										.getMessage("toolbarpropertybase.invalidcol");
-							} else {
-								setActiveCell(row, col);
-								hasSet = true;
+				try {
+					String sCell = cellName.getText();
+					boolean hasSet = false;
+					String error = null;
+					if (StringUtils.isValidString(sCell)) {
+						sCell = sCell.toUpperCase();
+						Pattern p = Pattern.compile("[A-Z]+\\d+$");
+						Matcher m = p.matcher(sCell);
+						if (m.matches()) {
+							p = Pattern.compile("\\d");
+							m = p.matcher(sCell);
+							if (m.find()) {
+								int index = m.start();
+								String pre = sCell.substring(0, index);
+								String suffix = sCell.substring(index);
+								int row = Integer.parseInt(suffix);
+								int col = GM.getColByName(pre);
+								CellLocation maxCL = getMaxCellLocation();
+								if (row > maxCL.getRow()) {
+									error = mm
+											.getMessage("toolbarpropertybase.invalidrow");
+								} else if (col > maxCL.getCol()) {
+									error = mm
+											.getMessage("toolbarpropertybase.invalidcol");
+								} else {
+									setActiveCell(row, col);
+									hasSet = true;
+								}
 							}
+						} else {
+							error = mm
+									.getMessage("toolbarpropertybase.invalidcell");
 						}
-					} else {
-						error = mm
-								.getMessage("toolbarpropertybase.invalidcell");
 					}
+					if (StringUtils.isValidString(error))
+						JOptionPane.showMessageDialog(GV.appFrame, error);
+					if (!hasSet)
+						cellName.setText(getActiveCellId());
+				} catch (Exception ex) {
 				}
-				if (StringUtils.isValidString(error))
-					JOptionPane.showMessageDialog(GV.appFrame, error);
-				if (!hasSet)
-					cellName.setText(getActiveCellId());
 			}
 		});
 		gbc = GM.getGBC(1, 1);
@@ -571,8 +574,11 @@ public abstract class ToolBarPropertyBase extends ToolbarGradient {
 	 * Initialize the value of the components
 	 */
 	protected void initProperties() {
-		cellName.setText("");
-		textEditor.setText("");
+		try {
+			cellName.setText("");
+			textEditor.setText("");
+		} catch (Exception ex) {
+		}
 	}
 
 	/**

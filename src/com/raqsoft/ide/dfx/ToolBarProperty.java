@@ -153,10 +153,12 @@ public class ToolBarProperty extends ToolBarPropertyBase {
 		}
 		GVDfx.cmdSender = this;
 		GV.isCellEditing = false;
-		String text = textEditor.getText();
-		resetTextWindow();
-
-		GVDfx.dfxEditor.setEditingText(text);
+		try {
+			String text = textEditor.getText();
+			resetTextWindow();
+			GVDfx.dfxEditor.setEditingText(text);
+		} catch (Exception ex) {
+		}
 	}
 
 	/**
@@ -294,7 +296,10 @@ public class ToolBarProperty extends ToolBarPropertyBase {
 				control.getActiveCell().getCol());
 		String value = nc.getExpString();
 		value = value == null ? GCDfx.NULL : value;
-		textEditor.setText(value);
-		textEdited(null);
+		try {
+			textEditor.setText(value);
+			textEdited(null);
+		} catch (Exception ex) {
+		}
 	}
 }
