@@ -38,7 +38,7 @@ public class HttpFile implements IFile {
         HostnameVerifier ignoreHostnameVerifier = new HostnameVerifier() {
             public boolean verify( String s, SSLSession sslsession) {
                 return true;
-            }
+            }  
         };
         HttpsURLConnection.setDefaultHostnameVerifier(ignoreHostnameVerifier);
 	}
