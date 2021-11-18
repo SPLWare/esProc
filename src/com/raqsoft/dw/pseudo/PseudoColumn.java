@@ -20,7 +20,7 @@ public class PseudoColumn {
 	private Sequence _enum;//伪字段对应的枚举列表
 	private Sequence bits;//二值维度伪字段名
 	private Object dim;//指向的维表
-	private String fkey;//外键字段
+	private String fkey[];//外键字段
 	
 	public String getName() {
 		return name;
@@ -78,12 +78,18 @@ public class PseudoColumn {
 		this.dim = dim;
 	}
 
-	public String getFkey() {
+	public String[] getFkey() {
 		return fkey;
 	}
 
-	public void setFkey(String fkey) {
+	public void setFkey(String[] fkey) {
 		this.fkey = fkey;
+	}
+	
+	public PseudoColumn(String name, String fkey[], Object dim) {
+		this.name = name;
+		this.fkey = fkey;
+		this.dim = dim;
 	}
 	
 	public PseudoColumn(Record rec) {
@@ -94,7 +100,13 @@ public class PseudoColumn {
 		_enum = (Sequence) PseudoDefination.getFieldValue(rec, PD_ENUM);
 		bits = (Sequence) PseudoDefination.getFieldValue(rec, PD_BITS);
 		dim = PseudoDefination.getFieldValue(rec, PD_DIM);
-		fkey = (String) PseudoDefination.getFieldValue(rec, PD_FKEY);
+		
+		Object obj = PseudoDefination.getFieldValue(rec, PD_FKEY);
+		if (obj != null) {
+			Sequence seq = (Sequence) obj;
+			fkey = new String[seq.length()];
+			seq.toArray(fkey);
+		}
 	}
 
     public boolean equals(Object anObject) {

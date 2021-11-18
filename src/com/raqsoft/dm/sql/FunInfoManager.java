@@ -31,6 +31,7 @@ public class FunInfoManager {
 
 	private static TreeMap<FunInfo, FunInfo> funMap = new TreeMap<FunInfo, FunInfo>(); // [FunInfo-FunInfo]
 
+
 	//<dbtype<name<paramcount:value>>>
 	public static Map<String, Map<String, Map<Integer, String>>> dbMap = new HashMap<String,Map<String, Map<Integer, String>>>();
 

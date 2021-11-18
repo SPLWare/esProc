@@ -1,9 +1,12 @@
 package com.raqsoft.dw.pseudo;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.raqsoft.common.RQException;
 import com.raqsoft.dm.Context;
+import com.raqsoft.dm.DataStruct;
 import com.raqsoft.dm.Machines;
 import com.raqsoft.dm.Record;
 import com.raqsoft.dm.Sequence;
@@ -12,6 +15,8 @@ import com.raqsoft.dm.cursor.ICursor;
 import com.raqsoft.dm.cursor.MergeCursor;
 import com.raqsoft.dm.cursor.MultipathCursors;
 import com.raqsoft.dm.op.Derive;
+import com.raqsoft.dm.op.Join;
+import com.raqsoft.dm.op.New;
 import com.raqsoft.dm.op.Operable;
 import com.raqsoft.dm.op.Operation;
 import com.raqsoft.dm.op.Switch;
@@ -303,18 +308,38 @@ public class PseudoTable extends Pseudo implements Operable, IPseudo {
 		
 		if (getPd() != null && getPd().getColumns() != null) {
 			for (PseudoColumn column : getPd().getColumns()) {
-				//如果存在外键，则添加一个switch的延迟计算
-				if (column.getDim() != null) {
-					String[] fkNames = new String[] {column.getName()};
-					Sequence[] codes = new Sequence[] {(Sequence) column.getDim()};
-					Expression[] expressions = new Expression[1];
-					if (column.getFkey() != null) {
-						expressions[0] = new Expression(column.getFkey());
+				if (column.getDim() != null) {//如果存在外键，则添加一个switch的延迟计算
+					Sequence dim;
+					if (column.getDim() instanceof Sequence) {
+						dim = (Sequence) column.getDim();
 					} else {
-						expressions[0] = new Expression(column.getName());
+						dim = ((IPseudo) column.getDim()).cursor(null, null).fetch();
 					}
-					Switch s = new Switch(fkNames, codes, expressions, null);
-					cursor.addOperation(s, ctx);
+					
+					String fkey[] = column.getFkey();
+					if (fkey == null) {
+						String[] fkNames = new String[] {column.getName()};//此时name就是外键字段
+						Sequence[] codes = new Sequence[] {dim};
+						Switch s = new Switch(fkNames, codes, null, null);
+						cursor.addOperation(s, ctx);
+//					} else if (fkey.length == 1) {
+//						Sequence[] codes = new Sequence[] {dim};
+//						Switch s = new Switch(fkey, codes, null, null);
+//						cursor.addOperation(s, ctx);
+					} else {
+						int size = fkey.length;
+						Expression[][] exps = new Expression[1][];
+						exps[0] = new Expression[size];
+						for (int i = 0; i < size; i++) {
+							exps[0][i] = new Expression(fkey[i]);
+						}
+						Expression[][] newExps = new Expression[1][];
+						newExps[0] = new Expression[] {new Expression("~")};
+						String[][] newNames = new String[1][];
+						newNames[0] = new String[] {column.getName()};
+						Join join = new Join(null, null, exps, codes, null, newExps, newNames, null);
+						cursor.addOperation(join, ctx);
+					}
 				}
 			}
 		}
@@ -515,6 +540,132 @@ public class PseudoTable extends Pseudo implements Operable, IPseudo {
 			parseFilter(node);
 		}
 		return super.addOperation(op, ctx);
+	}
+	
+	public void append(ICursor cursor, String option) {
+		//把数据追加到file，如果有多个file则取最后一个
+		List<ITableMetaData> tables = getPd().getTables();
+		int size = tables.size();
+		if (size == 0) {
+			return;
+		}
+		ITableMetaData table = tables.get(size - 1);
+
+		List<PseudoColumn> columns = pd.getColumns();
+		if (columns != null) {
+			//先把不是伪字段的赋值过来
+			String fields[] = table.getAllColNames();
+			DataStruct ds = new DataStruct(fields);
+			size = ds.getFieldCount();
+			Expression []exps = new Expression[size];
+			String []names = new String[size];
+			for (int c = 0; c < size; c++) {
+				exps[c] = new Expression(fields[c]);
+				names[c] = fields[c];
+			}
+			
+			//转换游标里的伪字段
+			size = columns.size();
+			for (int c = 0; c < size; c++) {
+				PseudoColumn column = columns.get(c);
+				String pseudoName = column.getPseudo();
+				Sequence bitNames = column.getBits();
+				int idx = ds.getFieldIndex(column.getName());
+				
+				if (column.getExp() != null) {
+					//有表达式的伪列
+					exps[idx] = new Expression(column.getExp());
+					names[idx] = column.getName();
+				} else if (pseudoName != null && column.get_enum() != null) {
+					//枚举伪列
+					String var = "pseudo_enum_value_" + c;
+					Context context = cursor.getContext();
+					if (context == null) {
+						context = new Context();
+						cursor.setContext(context);
+						context.setParamValue(var, column.get_enum());
+					} else {
+						context.setParamValue(var, column.get_enum());
+					}
+					exps[idx] = new Expression(var + ".pos(" + pseudoName + ")");
+					names[idx] = column.getName();
+				} else if (bitNames != null) {
+					//处理二值伪字段(多个伪字段按位转换为一个真字段)
+					String exp = "0";
+					int len = bitNames.length();
+					for (int i = 1; i <= len; i++) {
+						String field = (String) bitNames.get(i);
+						//转换为bit值,并累加
+						exp += "+ if(" + field + ",0,shift(1,-" + (i - 1) + "))";
+					}
+					exps[idx] = new Expression(exp);
+					names[idx] = column.getName();
+				}
+			}
+			
+			New _new = new New(exps, names, null);
+			cursor.addOperation(_new, null);
+		}
+		
+		try {
+			table.append(cursor, option);
+		} catch (IOException e) {
+			throw new RQException(e.getMessage(), e);
+		}
+	}
+	
+	// 判断是否配置了指定名称的外键
+	public boolean hasForeignKey(String fkName) {
+		PseudoColumn column = pd.findColumnByName(fkName);
+		if (column.getDim() != null)
+			return true;
+		else
+			return false;
+	}
+	
+	/**
+	 * 添加外键
+	 * @param fkName	外键名
+	 * @param fieldNames 外键字段
+	 * @param code	外表
+	 * @return
+	 */
+	public PseudoTable addForeignKeys(String fkName, String []fieldNames, PseudoTable code) {
+		PseudoTable table = null;
+		try {
+			table = (PseudoTable) clone(ctx);
+			table.getPd().addPseudoColumn(new PseudoColumn(fkName, fieldNames, code));
+		} catch (CloneNotSupportedException e) {
+			e.printStackTrace();
+		}
+		return table;
+	}
+	
+	// 主子表按主表主键做有序连接
+	public static ICursor join(PseudoTable masterTable, PseudoTable subTable) {
+		return null;
+	}
+	
+	// 取虚表主键
+	public String[] getPrimaryKey() {
+		return getPd().getAllSortedColNames();
+	}
+	
+	// 取字段做switch指向的虚表，如果没做则返回空
+	PseudoTable getFieldSwitchTable(String fieldName) {
+		List<PseudoColumn> columns = pd.getColumns();
+		for (PseudoColumn column : columns) {
+			if (column.getDim() != null) {
+				if (column.getFkey() == null && column.getName().equals(fieldName)) {
+					return (PseudoTable) column.getDim();
+				} else if (column.getFkey() != null 
+						&& column.getFkey().length == 1
+						&& column.getFkey()[0].equals(fieldName)) {
+					return (PseudoTable) column.getDim();
+				}
+			}
+		}
+		return null;
 	}
 }
 

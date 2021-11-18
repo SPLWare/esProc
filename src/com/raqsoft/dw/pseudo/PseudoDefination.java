@@ -189,4 +189,8 @@ public class PseudoDefination {
 	public String[] getAllSortedColNames() {
 		return tables.get(0).getAllSortedColNames();
 	}
+	
+	public void addPseudoColumn(PseudoColumn column) {
+		columns.add(column);
+	}
 }
