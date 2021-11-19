@@ -335,4 +335,8 @@ public class Pseudo {
 	public void append(ICursor cursor, String option) {
 		throw new RQException("never run to here");
 	}
+	
+	public Sequence update(Sequence data, String opt) {
+		throw new RQException("never run to here");
+	}
 }

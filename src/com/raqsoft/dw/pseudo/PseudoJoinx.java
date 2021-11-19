@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.raqsoft.common.RQException;
 import com.raqsoft.dm.Context;
+import com.raqsoft.dm.Sequence;
 import com.raqsoft.dm.cursor.ICursor;
 import com.raqsoft.dm.op.Operable;
 import com.raqsoft.dm.op.Operation;
@@ -129,6 +130,10 @@ public class PseudoJoinx implements Operable, IPseudo {
 	}
 	
 	public void append(ICursor cursor, String option) {
+		throw new RQException("never run to here");
+	}
+
+	public Sequence update(Sequence data, String opt) {
 		throw new RQException("never run to here");
 	}
 }

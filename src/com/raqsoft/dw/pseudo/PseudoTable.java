@@ -12,6 +12,7 @@ import com.raqsoft.dm.Record;
 import com.raqsoft.dm.Sequence;
 import com.raqsoft.dm.cursor.ConjxCursor;
 import com.raqsoft.dm.cursor.ICursor;
+import com.raqsoft.dm.cursor.MemoryCursor;
 import com.raqsoft.dm.cursor.MergeCursor;
 import com.raqsoft.dm.cursor.MultipathCursors;
 import com.raqsoft.dm.op.Derive;
@@ -543,6 +544,66 @@ public class PseudoTable extends Pseudo implements Operable, IPseudo {
 		return super.addOperation(op, ctx);
 	}
 	
+	/**
+	 * 把游标的伪列转换为真字段，用于update和append
+	 * @param cursor
+	 * @param columns
+	 * @param fields
+	 */
+	private void convertPseudoColumn(ICursor cursor, List<PseudoColumn> columns, String fields[]) {
+		//先把不是伪字段的赋值过来
+		DataStruct ds = new DataStruct(fields);
+		int size = ds.getFieldCount();
+		Expression []exps = new Expression[size];
+		String []names = new String[size];
+		for (int c = 0; c < size; c++) {
+			exps[c] = new Expression(fields[c]);
+			names[c] = fields[c];
+		}
+		
+		//转换游标里的伪字段
+		size = columns.size();
+		for (int c = 0; c < size; c++) {
+			PseudoColumn column = columns.get(c);
+			String pseudoName = column.getPseudo();
+			Sequence bitNames = column.getBits();
+			int idx = ds.getFieldIndex(column.getName());
+			
+			if (column.getExp() != null) {
+				//有表达式的伪列
+				exps[idx] = new Expression(column.getExp());
+				names[idx] = column.getName();
+			} else if (pseudoName != null && column.get_enum() != null) {
+				//枚举伪列
+				String var = "pseudo_enum_value_" + c;
+				Context context = cursor.getContext();
+				if (context == null) {
+					context = new Context();
+					cursor.setContext(context);
+					context.setParamValue(var, column.get_enum());
+				} else {
+					context.setParamValue(var, column.get_enum());
+				}
+				exps[idx] = new Expression(var + ".pos(" + pseudoName + ")");
+				names[idx] = column.getName();
+			} else if (bitNames != null) {
+				//处理二值伪字段(多个伪字段按位转换为一个真字段)
+				String exp = "0";
+				int len = bitNames.length();
+				for (int i = 1; i <= len; i++) {
+					String field = (String) bitNames.get(i);
+					//转换为bit值,并累加
+					exp += "+ if(" + field + ",0,shift(1,-" + (i - 1) + "))";
+				}
+				exps[idx] = new Expression(exp);
+				names[idx] = column.getName();
+			}
+		}
+		
+		New _new = new New(exps, names, null);
+		cursor.addOperation(_new, null);
+	}
+	
 	public void append(ICursor cursor, String option) {
 		//把数据追加到file，如果有多个file则取最后一个
 		List<ITableMetaData> tables = getPd().getTables();
@@ -554,62 +615,36 @@ public class PseudoTable extends Pseudo implements Operable, IPseudo {
 
 		List<PseudoColumn> columns = pd.getColumns();
 		if (columns != null) {
-			//先把不是伪字段的赋值过来
 			String fields[] = table.getAllColNames();
-			DataStruct ds = new DataStruct(fields);
-			size = ds.getFieldCount();
-			Expression []exps = new Expression[size];
-			String []names = new String[size];
-			for (int c = 0; c < size; c++) {
-				exps[c] = new Expression(fields[c]);
-				names[c] = fields[c];
-			}
-			
-			//转换游标里的伪字段
-			size = columns.size();
-			for (int c = 0; c < size; c++) {
-				PseudoColumn column = columns.get(c);
-				String pseudoName = column.getPseudo();
-				Sequence bitNames = column.getBits();
-				int idx = ds.getFieldIndex(column.getName());
-				
-				if (column.getExp() != null) {
-					//有表达式的伪列
-					exps[idx] = new Expression(column.getExp());
-					names[idx] = column.getName();
-				} else if (pseudoName != null && column.get_enum() != null) {
-					//枚举伪列
-					String var = "pseudo_enum_value_" + c;
-					Context context = cursor.getContext();
-					if (context == null) {
-						context = new Context();
-						cursor.setContext(context);
-						context.setParamValue(var, column.get_enum());
-					} else {
-						context.setParamValue(var, column.get_enum());
-					}
-					exps[idx] = new Expression(var + ".pos(" + pseudoName + ")");
-					names[idx] = column.getName();
-				} else if (bitNames != null) {
-					//处理二值伪字段(多个伪字段按位转换为一个真字段)
-					String exp = "0";
-					int len = bitNames.length();
-					for (int i = 1; i <= len; i++) {
-						String field = (String) bitNames.get(i);
-						//转换为bit值,并累加
-						exp += "+ if(" + field + ",0,shift(1,-" + (i - 1) + "))";
-					}
-					exps[idx] = new Expression(exp);
-					names[idx] = column.getName();
-				}
-			}
-			
-			New _new = new New(exps, names, null);
-			cursor.addOperation(_new, null);
+			convertPseudoColumn(cursor, columns, fields);
 		}
 		
 		try {
 			table.append(cursor, option);
+		} catch (IOException e) {
+			throw new RQException(e.getMessage(), e);
+		}
+	}
+	
+	public Sequence update(Sequence data, String opt) {
+		//更新到最后一个file
+		List<ITableMetaData> tables = getPd().getTables();
+		int size = tables.size();
+		if (size == 0) {
+			return null;
+		}
+		ITableMetaData table = tables.get(size - 1);
+
+		List<PseudoColumn> columns = pd.getColumns();
+		if (columns != null) {
+			String fields[] = table.getAllColNames();
+			ICursor cursor = new MemoryCursor(data);
+			convertPseudoColumn(cursor, columns, fields);
+			data = cursor.fetch();
+		}
+		
+		try {
+			return table.update(data, opt);
 		} catch (IOException e) {
 			throw new RQException(e.getMessage(), e);
 		}
@@ -666,7 +701,7 @@ public class PseudoTable extends Pseudo implements Operable, IPseudo {
 	}
 	
 	// 取字段做switch指向的虚表，如果没做则返回空
-	PseudoTable getFieldSwitchTable(String fieldName) {
+	public PseudoTable getFieldSwitchTable(String fieldName) {
 		List<PseudoColumn> columns = pd.getColumns();
 		for (PseudoColumn column : columns) {
 			if (column.getDim() != null) {
