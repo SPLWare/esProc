@@ -534,33 +534,41 @@ public class Palette {
 
 	private static Palette getDefaultPalette2() {
 		Palette pl = new Palette(26);
-
-		pl.addColor(MakeRGBColor(128, 128, 0, 255));
-		pl.addColor(MakeRGBColor(255, 128, 0, 255));
-		pl.addColor(MakeRGBColor(192, 255, 0, 255));
-		pl.addColor(MakeRGBColor(0, 0, 128, 255));
-		pl.addColor(MakeRGBColor(128, 0, 128, 255));
-		pl.addColor(MakeRGBColor(255, 0, 128, 255));
-		pl.addColor(MakeRGBColor(0, 128, 128, 255));
-		pl.addColor(MakeRGBColor(128, 128, 128, 255));
-		pl.addColor(MakeRGBColor(0, 255, 255, 255));
-		pl.addColor(MakeRGBColor(192, 192, 192, 255));
-		pl.addColor(MakeRGBColor(255, 128, 128, 255));
-		pl.addColor(MakeRGBColor(0, 255, 128, 255));
-		pl.addColor(MakeRGBColor(192, 255, 128, 255));
-		pl.addColor(MakeRGBColor(255, 255, 0, 255));
-		pl.addColor(MakeRGBColor(255, 255, 128, 255));
-		pl.addColor(MakeRGBColor(128, 0, 255, 255));
-		pl.addColor(MakeRGBColor(255, 0, 255, 255));
-		pl.addColor(MakeRGBColor(0, 128, 255, 255));
-		pl.addColor(MakeRGBColor(128, 128, 255, 255));
-		pl.addColor(MakeRGBColor(255, 128, 255, 255));
-		pl.addColor(MakeRGBColor(192, 255, 255, 255));
-		pl.addColor(MakeRGBColor(255, 0, 0, 255));
-		pl.addColor(MakeRGBColor(0, 255, 0, 255));
-		pl.addColor(MakeRGBColor(0, 0, 255, 255));
-		pl.addColor(MakeRGBColor(0, 128, 0, 255));
-		pl.addColor(MakeRGBColor(255, 255, 255, 255));
+		       
+		pl.addColor(0x5b9bd5);
+		pl.addColor(0xa5cb50);
+		pl.addColor(0xfffb12);
+		pl.addColor(0xf39725);
+		pl.addColor(0xe34b48);
+		pl.addColor(0x8f68b7);
+		pl.addColor(0x91cbeb);
+		
+//		pl.addColor(MakeRGBColor(255, 0, 0, 255));
+//		pl.addColor(MakeRGBColor(255, 128, 0, 255));
+//		pl.addColor(MakeRGBColor(192, 255, 0, 255));
+//		pl.addColor(MakeRGBColor(0, 0, 128, 255));
+//		pl.addColor(MakeRGBColor(128, 0, 128, 255));
+//		pl.addColor(MakeRGBColor(255, 0, 128, 255));
+//		pl.addColor(MakeRGBColor(0, 128, 128, 255));
+//		pl.addColor(MakeRGBColor(128, 128, 128, 255));
+//		pl.addColor(MakeRGBColor(0, 255, 255, 255));
+//		pl.addColor(MakeRGBColor(192, 192, 192, 255));
+//		pl.addColor(MakeRGBColor(255, 128, 128, 255));
+//		pl.addColor(MakeRGBColor(0, 255, 128, 255));
+//		pl.addColor(MakeRGBColor(192, 255, 128, 255));
+//		pl.addColor(MakeRGBColor(255, 255, 0, 255));
+//		pl.addColor(MakeRGBColor(255, 255, 128, 255));
+//		pl.addColor(MakeRGBColor(128, 0, 255, 255));
+//		pl.addColor(MakeRGBColor(255, 0, 255, 255));
+//		pl.addColor(MakeRGBColor(0, 128, 255, 255));
+//		pl.addColor(MakeRGBColor(128, 128, 255, 255));
+//		pl.addColor(MakeRGBColor(255, 128, 255, 255));
+//		pl.addColor(MakeRGBColor(192, 255, 255, 255));
+//		pl.addColor(MakeRGBColor(255, 0, 0, 255));
+//		pl.addColor(MakeRGBColor(0, 255, 0, 255));
+//		pl.addColor(MakeRGBColor(0, 0, 255, 255));
+//		pl.addColor(MakeRGBColor(0, 128, 0, 255));
+//		pl.addColor(MakeRGBColor(255, 255, 255, 255));
 
 		return pl;
 	}
