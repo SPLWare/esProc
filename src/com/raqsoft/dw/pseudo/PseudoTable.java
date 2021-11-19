@@ -33,6 +33,7 @@ import com.raqsoft.expression.operator.DotOperator;
 import com.raqsoft.expression.operator.Equals;
 import com.raqsoft.expression.operator.NotEquals;
 import com.raqsoft.expression.operator.Or;
+import com.raqsoft.util.CursorUtil;
 
 public class PseudoTable extends Pseudo implements Operable, IPseudo {	
 	//创建游标需要的参数
@@ -643,6 +644,19 @@ public class PseudoTable extends Pseudo implements Operable, IPseudo {
 	
 	// 主子表按主表主键做有序连接
 	public static ICursor join(PseudoTable masterTable, PseudoTable subTable) {
+		String[] keys = masterTable.getPrimaryKey();
+		if (keys != null) {
+			int size = keys.length;
+			Expression[] exps = new Expression[size];
+			for (int i = 0; i < size; i++) {
+				exps[i] = new Expression(keys[i]);
+			}
+			Expression [][]joinExps = new Expression [][] {exps, exps};//使用主表的主键做join
+			
+			ICursor cursors[] = new ICursor[]{masterTable.cursor(null, null), subTable.cursor(null, null)};
+			ICursor cursor = CursorUtil.joinx(cursors, null, joinExps, null, masterTable.getContext());
+			return cursor;
+		}
 		return null;
 	}
 	
@@ -658,11 +672,12 @@ public class PseudoTable extends Pseudo implements Operable, IPseudo {
 			if (column.getDim() != null) {
 				if (column.getFkey() == null && column.getName().equals(fieldName)) {
 					return (PseudoTable) column.getDim();
-				} else if (column.getFkey() != null 
-						&& column.getFkey().length == 1
-						&& column.getFkey()[0].equals(fieldName)) {
-					return (PseudoTable) column.getDim();
-				}
+				} 
+//				else if (column.getFkey() != null 
+//						&& column.getFkey().length == 1
+//						&& column.getFkey()[0].equals(fieldName)) {
+//					return (PseudoTable) column.getDim();
+//				}
 			}
 		}
 		return null;
