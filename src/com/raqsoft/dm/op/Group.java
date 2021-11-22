@@ -309,4 +309,8 @@ public class Group extends Operation {
 			return group_o(seq, ctx);
 		}
 	}
+	
+	public String getOpt() {
+		return opt;
+	}
 }

@@ -10,6 +10,7 @@ import com.raqsoft.dm.Sequence;
 import com.raqsoft.dw.pseudo.PseudoTable;
 import com.raqsoft.expression.Function;
 import com.raqsoft.expression.IParam;
+import com.raqsoft.parallel.ClusterPseudo;
 import com.raqsoft.resources.EngineMessage;
 
 public class CreatePseudo extends Function {
@@ -94,7 +95,10 @@ public class CreatePseudo extends Function {
 		} else if (n == 0) {
 			n = Env.getCursorParallelNum();
 		}
-		return new PseudoTable((Record) pd.get(1), hs, n, ctx);
+		if (hs != null) {
+			return ClusterPseudo.createClusterPseudo((Record) pd.get(1), hs, n, ctx);
+		} else {
+			return new PseudoTable((Record) pd.get(1), n, ctx);
+		}
 	}
-
 }
