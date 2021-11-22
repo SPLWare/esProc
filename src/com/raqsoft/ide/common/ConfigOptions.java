@@ -55,8 +55,7 @@ public class ConfigOptions {
 	/** Whether to change the cell in the comment cell */
 	public static Boolean bAdjustNoteCell = Boolean.TRUE;
 	/** App appearance */
-	public static Byte iLookAndFeel = new Byte(
-			LookAndFeelManager.LNF_OFFICE_SILVER);
+	public static Byte iLookAndFeel = new Byte(LookAndFeelManager.LNF_OFFICE_SILVER);
 	/** Longest wait while connecting to the database */
 	public static Integer iConnectTimeout = new Integer(10);
 	/** Parallel number */
@@ -76,8 +75,7 @@ public class ConfigOptions {
 	/** DEMO is displayed in the file tree */
 	public static Boolean bFileTreeDemo = Boolean.TRUE;
 	/** Log file name */
-	public static String sLogFileName = GM.getAbsolutePath(GC.PATH_TMP
-			+ File.separator + "esproc.log");
+	public static String sLogFileName = GM.getAbsolutePath(GC.PATH_TMP + File.separator + "esproc.log");
 	/** Paths for dfx files */
 	public static String sPaths = null;
 	/** Main path */
@@ -198,8 +196,8 @@ public class ConfigOptions {
 	public static Color COLOR_NULL = new Color(255, 0, 255);
 
 	/**
-	 * Increase the background color configuration of some positions in the
-	 * designer in the system configuration file
+	 * Increase the background color configuration of some positions in the designer
+	 * in the system configuration file
 	 */
 	/** Reserved, not used in esProc for now */
 	public static String fileColor;
@@ -208,8 +206,7 @@ public class ConfigOptions {
 	/** Select the background color of the first column of the table row */
 	public static String headerColor;
 	/**
-	 * Select the background color transparency at the first column of the table
-	 * row
+	 * Select the background color transparency at the first column of the table row
 	 */
 	public static String headerColorOpacity;
 	/**
@@ -240,6 +237,8 @@ public class ConfigOptions {
 	public static Boolean bCopyPresentHeader = Boolean.TRUE;
 	/** Column separator */
 	public static String sCopyPresentSep = "\t";
+	/** The max of undo and redo */
+	public static Integer iUndoCount = new Integer(20);
 
 	/**
 	 * Static loading options
@@ -304,6 +303,8 @@ public class ConfigOptions {
 		options.put("iLocale", iLocale);
 		options.put("sSlimerjsDirectory", sSlimerjsDirectory);
 		options.put("sFileTreeExpand", sFileTreeExpand);
+		options.put("iUndoCount", iUndoCount);
+
 	}
 
 	/**
@@ -363,8 +364,7 @@ public class ConfigOptions {
 	 * @param applyOptions
 	 * @throws Throwable
 	 */
-	public static void load2(boolean holdConsole, boolean applyOptions)
-			throws Throwable {
+	public static void load2(boolean holdConsole, boolean applyOptions) throws Throwable {
 		cf = ConfigFile.getConfigFile();
 		cf.setConfigNode(ConfigFile.NODE_OPTIONS);
 		Iterator<String> it = options.keySet().iterator();
@@ -432,6 +432,8 @@ public class ConfigOptions {
 				iHttpPort = ii;
 			} else if (option.equalsIgnoreCase("iLocale")) {
 				iLocale = new Byte(ii.byteValue());
+			} else if (option.equalsIgnoreCase("iUndoCount")) {
+				iUndoCount = ii;
 			}
 		} else if (type.equalsIgnoreCase("f")) {
 			Float ii = Float.valueOf(val);
@@ -536,8 +538,7 @@ public class ConfigOptions {
 		if (ConfigOptions.bItalic.booleanValue()) {
 			style += Font.ITALIC;
 		}
-		GC.font = new Font(ConfigOptions.sFontName, style,
-				ConfigOptions.iFontSize.intValue());
+		GC.font = new Font(ConfigOptions.sFontName, style, ConfigOptions.iFontSize.intValue());
 		Env.setPaths(GM.getPaths());
 		String tempPath = ConfigOptions.sTempPath;
 		if (tempPath != null)
@@ -545,8 +546,7 @@ public class ConfigOptions {
 				tempPath = null;
 		Env.setTempPath(null);
 		if (StringUtils.isValidString(ConfigOptions.sMainPath)) {
-			String mainPath = ConfigUtil.getPath(
-					System.getProperty("start.home"), ConfigOptions.sMainPath);
+			String mainPath = ConfigUtil.getPath(System.getProperty("start.home"), ConfigOptions.sMainPath);
 			Env.setMainPath(mainPath);
 			if (StringUtils.isValidString(tempPath)) {
 				Env.setTempPath(ConfigUtil.getPath(mainPath, tempPath));
@@ -668,8 +668,7 @@ public class ConfigOptions {
 			int blue = Integer.parseInt(color.substring(5, 7), 16);
 			int opacity;
 			if (StringUtils.isValidString(headerColorOpacity)) {
-				opacity = Math
-						.round(255 * Float.parseFloat(headerColorOpacity));
+				opacity = Math.round(255 * Float.parseFloat(headerColorOpacity));
 			} else {
 				opacity = 255;
 			}
