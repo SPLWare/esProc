@@ -188,7 +188,7 @@ class TypeItem {
 			name = "gongzi";
 			break;
 		}
-		return "/com/raqsoft/ide/dfx/chart/image/graph_" + name + ".gif";
+		return "/com/scudata/ide/dfx/chart/image/graph_" + name + ".gif";
 	}
 	
 }
