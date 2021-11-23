@@ -8,10 +8,8 @@ import com.scudata.app.common.*;
 import com.scudata.cellset.*;
 import com.scudata.cellset.graph.config.*;
 import com.scudata.cellset.graph.draw.*;
-import com.scudata.chart.Utils;
 import com.scudata.common.*;
 import com.scudata.dm.*;
-import com.scudata.ide.common.control.*;
 import com.scudata.util.*;
 
 import org.w3c.dom.*;
@@ -309,47 +307,4 @@ public class StatisticGraph {
 		g.drawImage(image, 1, 1, w, h, null);
 	}
 
-	/**
-	 * 获取svg格式的图形设备
-	 * @return 图形设备
-	 * @throws Exception
-	 */
-	public static Graphics2D getSvgGraphics() throws Exception {
-		Object batikDom = Class.forName(
-				"org.apache.batik.dom.GenericDOMImplementation").newInstance();
-
-		DOMImplementation domImpl = (DOMImplementation) AppUtil.invokeMethod(
-				batikDom, "getDOMImplementation", new Object[] {});
-
-		// Create an instance of org.w3c.dom.Document.
-		String svgNS = "http://www.w3.org/2000/svg";
-		Document document = domImpl.createDocument(svgNS, "svg", null);
-
-		// Create an instance of the SVG Generator.
-		Class cls = Class.forName("com.raqsoft.report.view.svg.SvgGraphics");//"org.apache.batik.svggen.SVGGraphics2D");
-		Constructor con = cls.getConstructor(new Class[] { Document.class });
-		Object g2d = con.newInstance(new Object[] { document });
-		return (Graphics2D) g2d;
-	}
-
-	/**
-	 * 将svg图形设备转换为字节内容数据
-	 * @param g2d svg格式的图形设备
-	 * @return svg格式的字节数据
-	 * @throws Exception
-	 */
-	public static byte[] svgGraphics2Bytes(Graphics2D g2d) throws Exception {
-		// Finally, stream out SVG to the standard output using
-		// UTF-8 encoding.
-		boolean useCSS = true; // we want to use CSS style attributes
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		Writer out = new OutputStreamWriter(baos, "UTF-8");
-		AppUtil.invokeMethod(g2d, "stream", new Object[] { out,
-				new Boolean(useCSS) }, new Class[] { Writer.class,
-				boolean.class });
-		out.flush();
-		out.close();
-		baos.close();
-		return baos.toByteArray();
-	}
 }

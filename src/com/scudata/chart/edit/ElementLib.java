@@ -122,30 +122,30 @@ public class ElementLib {
 	 */
 	public static void loadSystemElements() {
 		String group = "axis";
-		addElement(group, "MapAxis", "com.raqsoft.chart.element.MapAxis");
+		addElement(group, "MapAxis", "com.scudata.chart.element.MapAxis");
 		addElement(group, "NumericAxis",
-				"com.raqsoft.chart.element.NumericAxis");
-		addElement(group, "EnumAxis", "com.raqsoft.chart.element.EnumAxis");
-		addElement(group, "DateAxis", "com.raqsoft.chart.element.DateAxis");
-		addElement(group, "TimeAxis", "com.raqsoft.chart.element.TimeAxis");
+				"com.scudata.chart.element.NumericAxis");
+		addElement(group, "EnumAxis", "com.scudata.chart.element.EnumAxis");
+		addElement(group, "DateAxis", "com.scudata.chart.element.DateAxis");
+		addElement(group, "TimeAxis", "com.scudata.chart.element.TimeAxis");
 
 		group = "element";
-		addElement(group, "Dot", "com.raqsoft.chart.element.Dot");
-		addElement(group, "Line", "com.raqsoft.chart.element.Line");
-		addElement(group, "Column", "com.raqsoft.chart.element.Column");
-		// addElement(group,"Polygon","com.raqsoft.chart.element.Polygon");
-		addElement(group, "Sector", "com.raqsoft.chart.element.Sector");
-		addElement(group, "Text", "com.raqsoft.chart.element.Text");
+		addElement(group, "Dot", "com.scudata.chart.element.Dot");
+		addElement(group, "Line", "com.scudata.chart.element.Line");
+		addElement(group, "Column", "com.scudata.chart.element.Column");
+		// addElement(group,"Polygon","com.scudata.chart.element.Polygon");
+		addElement(group, "Sector", "com.scudata.chart.element.Sector");
+		addElement(group, "Text", "com.scudata.chart.element.Text");
 
 		group = "Graph";
-		addElement(group, "GraphColumn", "com.raqsoft.chart.graph.GraphColumn");
-		addElement(group, "GraphLine", "com.raqsoft.chart.graph.GraphLine");
-		addElement(group, "GraphPie", "com.raqsoft.chart.graph.GraphPie");
-		addElement(group, "Graph2Axis", "com.raqsoft.chart.graph.Graph2Axis");
+		addElement(group, "GraphColumn", "com.scudata.chart.graph.GraphColumn");
+		addElement(group, "GraphLine", "com.scudata.chart.graph.GraphLine");
+		addElement(group, "GraphPie", "com.scudata.chart.graph.GraphPie");
+		addElement(group, "Graph2Axis", "com.scudata.chart.graph.Graph2Axis");
 
 		group = "other";
-		addElement(group, "BackGround", "com.raqsoft.chart.element.BackGround");
-		addElement(group, "Legend", "com.raqsoft.chart.element.Legend");
+		addElement(group, "BackGround", "com.scudata.chart.element.BackGround");
+		addElement(group, "Legend", "com.scudata.chart.element.Legend");
 	}
 
 	/**
