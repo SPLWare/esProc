@@ -89,7 +89,7 @@ public class ImQuery extends ImFunction {
 				if(e.isConstExpression()){
 					m_sql = ((Expression) e).getIdentifierName();					
 				}else{
-					INormalCell cell = e.getHome().getSourceCell();
+					INormalCell cell = e.getHome().calculateCell(ctx);
 					if (cell==null) continue;
 					m_sql = cell.getValue().toString();
 				}
@@ -156,7 +156,7 @@ public class ImQuery extends ImFunction {
 				m_frag.setSegment(m_seg[0], m_seg[1]);
 			}
 		}else{ //2. for ifx_cursor:f
-			INormalCell cell = e.getHome().getSourceCell();
+			INormalCell cell = e.getHome().calculateCell(ctx);
 			ImCursor cursor = (ImCursor)cell.getValue();
 			String cursorTable = cursor.getTableName();
 			if (cursorTable!=null){

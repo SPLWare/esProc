@@ -232,7 +232,7 @@ public class ImQuery extends ImFunction {
 		Table subT = null;
 		try {
 			if (array.length()<1) return null;
-			String[] sCols=JSONObject.getNames(array.get(0));
+			String[] sCols=JSONObject.getNames((JSONObject)array.get(0));
 			  subT = new Table(sCols);
 			  for(int n = 0;n<array.length();n++) {
 				  JSONObject item = array.getJSONObject(n);

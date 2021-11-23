@@ -60,7 +60,7 @@ public class ImOpen extends Function {
 			if(e.isConstExpression()){
 				s = e.getIdentifierName();
 			}else{
-				INormalCell cell = e.getHome().getSourceCell();
+				INormalCell cell = e.getHome().calculateCell(ctx);
 				s = cell.getValue().toString();
 			}
 			vals[i+list1.size()+nOffset] = s.replace("\"", "");
