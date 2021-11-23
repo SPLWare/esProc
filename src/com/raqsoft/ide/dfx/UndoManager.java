@@ -3,6 +3,7 @@ package com.raqsoft.ide.dfx;
 import java.util.Vector;
 
 import com.raqsoft.common.LimitedStack;
+import com.raqsoft.ide.common.ConfigOptions;
 import com.raqsoft.ide.common.IAtomicCmd;
 import com.raqsoft.ide.common.control.IEditorListener;
 import com.raqsoft.ide.dfx.control.ControlUtils;
@@ -17,11 +18,11 @@ public class UndoManager {
 	/**
 	 * 撤销原子命令容器
 	 */
-	private LimitedStack undoContainer = new LimitedStack(20);
+	private LimitedStack undoContainer = new LimitedStack(ConfigOptions.iUndoCount);
 	/**
 	 * 重做原子命令容器
 	 */
-	private LimitedStack redoContainer = new LimitedStack(20);
+	private LimitedStack redoContainer = new LimitedStack(ConfigOptions.iUndoCount);
 	/**
 	 * 网格编辑器
 	 */
@@ -34,8 +35,7 @@ public class UndoManager {
 	/**
 	 * 构造函数
 	 * 
-	 * @param editor
-	 *            网格编辑器
+	 * @param editor 网格编辑器
 	 */
 	public UndoManager(DfxEditor editor) {
 		mEditor = editor;
@@ -85,8 +85,7 @@ public class UndoManager {
 	/**
 	 * 执行原子命令集
 	 *
-	 * @param microCmds
-	 *            ，要执行的原子集向量
+	 * @param microCmds ，要执行的原子集向量
 	 */
 	public void doing(Vector<IAtomicCmd> microCmds) {
 		if (microCmds == null || microCmds.size() == 0) {
@@ -111,8 +110,7 @@ public class UndoManager {
 	/**
 	 * 恢复原子命令集
 	 * 
-	 * @param v
-	 *            原子命令集
+	 * @param v 原子命令集
 	 * @return
 	 */
 	private Vector<IAtomicCmd> reverseVector(Vector<IAtomicCmd> v) {
@@ -126,10 +124,8 @@ public class UndoManager {
 	/**
 	 * 执行原子命令集
 	 * 
-	 * @param cmds
-	 *            原子命令集
-	 * @param stack
-	 *            堆栈
+	 * @param cmds  原子命令集
+	 * @param stack 堆栈
 	 */
 	private void executeCommands(Vector<IAtomicCmd> cmds, LimitedStack stack) {
 		Vector<IAtomicCmd> vReverseCmds = new Vector<IAtomicCmd>();

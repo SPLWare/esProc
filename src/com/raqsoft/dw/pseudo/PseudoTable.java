@@ -7,7 +7,6 @@ import java.util.List;
 import com.raqsoft.common.RQException;
 import com.raqsoft.dm.Context;
 import com.raqsoft.dm.DataStruct;
-import com.raqsoft.dm.Machines;
 import com.raqsoft.dm.Record;
 import com.raqsoft.dm.Sequence;
 import com.raqsoft.dm.cursor.ConjxCursor;
@@ -15,7 +14,9 @@ import com.raqsoft.dm.cursor.ICursor;
 import com.raqsoft.dm.cursor.MemoryCursor;
 import com.raqsoft.dm.cursor.MergeCursor;
 import com.raqsoft.dm.cursor.MultipathCursors;
+import com.raqsoft.dm.op.Conj;
 import com.raqsoft.dm.op.Derive;
+import com.raqsoft.dm.op.Group;
 import com.raqsoft.dm.op.Join;
 import com.raqsoft.dm.op.New;
 import com.raqsoft.dm.op.Operable;
@@ -58,7 +59,7 @@ public class PseudoTable extends Pseudo implements Operable, IPseudo {
 	 * @param n 并行数
 	 * @param ctx
 	 */
-	public PseudoTable(Record rec, Machines hs, int n, Context ctx) {
+	public PseudoTable(Record rec, int n, Context ctx) {
 		pd = new PseudoDefination(rec, ctx);
 		pathCount = n;
 		this.ctx = ctx;
@@ -213,7 +214,6 @@ public class PseudoTable extends Pseudo implements Operable, IPseudo {
 	}
 	
 	private String[] getFetchColNames(String []fields) {
-		//if (fields == null) return null;
 		ArrayList<String> tempList = new ArrayList<String>();
 		if (fields != null) {
 			for (String name : fields) {
@@ -536,10 +536,30 @@ public class PseudoTable extends Pseudo implements Operable, IPseudo {
 	}
 	
 	public Operable addOperation(Operation op, Context ctx) {
+		if (op == null) {
+			return this;
+		}
 		if (hasPseudoColumns) {
+			/**
+			 * 处理伪字段，二值字段，枚举字段
+			 */
 			Expression exp = op.getFunction().getParam().getLeafExpression();
 			Node node = exp.getHome();
 			parseFilter(node);
+			
+			/**
+			 * 当虚表的user存在，并且是做group@u(user)，并且user不是首字段时
+			 * 把group@u(user)转换为.group(首字段).conj(~.group(user))
+			 */
+			if (pd.getUser() != null && op instanceof Group) {
+				String ugrp = pd.getAllColNames()[0];//首字段
+				Group group = (Group) op;
+				if (!(pd.getUser().equals(ugrp)) && group.getOpt() != null && group.getOpt().indexOf("u") >= 0) {
+					Group newGroup = new Group(new Expression[] {new Expression(ugrp)}, null);
+					Conj conj = new Conj(new Expression("~.group(" + pd.getUser() + ")"));
+					return super.addOperation(newGroup, ctx).addOperation(conj, ctx);
+				}
+			}
 		}
 		return super.addOperation(op, ctx);
 	}

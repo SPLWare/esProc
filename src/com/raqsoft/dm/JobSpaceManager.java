@@ -51,14 +51,14 @@ public class JobSpaceManager {
 		}
 	}
 
-	public static synchronized HashMap listSpaceParams() {
-		HashMap hm = new HashMap();
+	public static synchronized HashMap<String, Param[]> listSpaceParams() {
+		HashMap<String, Param[]> hm = new HashMap<String, Param[]>();
 		JobSpace js;// = JobSpaceManager.getDefSpace();
 		// hm.put( js.getID(), js.getAllParams());
-		ArrayList al = spaces;
+		ArrayList<JobSpace> al = spaces;
 		if (al != null) {
 			for (int i = 0; i < al.size(); i++) {
-				js = (JobSpace) al.get(i);
+				js = al.get(i);
 				hm.put(js.getID(), js.getAllParams());
 			}
 		}

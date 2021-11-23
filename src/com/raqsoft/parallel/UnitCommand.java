@@ -211,6 +211,16 @@ public class UnitCommand implements Serializable {
 				return ClusterTableMetaData.executeNews(attributes);
 			case GT_GET_COL_NAMES:
 				return ClusterTableMetaData.executeGetAllColNames(attributes);
+			case PSEUDO_CURSOR:
+				return ClusterPseudo.executeCreateCursor(attributes);
+			case PSEUDO_ADD_OPERATION:
+				return ClusterPseudo.executeAddOperation(attributes);
+			case PSEUDO_ADD_COLNAME:
+				return ClusterPseudo.executeAddColName(attributes);
+			case PSEUDO_CLONE:
+				return ClusterPseudo.executeClone(attributes);
+			case PSEUDO_CREATE:
+				return ClusterPseudo.executeCreateClusterPseudo(attributes);
 			default:
 				throw new RuntimeException();
 		}
