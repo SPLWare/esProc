@@ -282,7 +282,7 @@ public class Esproc {
 					arg = new String(argchars);
 				}
 
-				if (arg.toLowerCase().equals("com.raqsoft.ide.dfx.esproc")) { // 用bat打开的文件，类名本身会是参数
+				if (arg.toLowerCase().equals("com.scudata.ide.dfx.esproc")) { // 用bat打开的文件，类名本身会是参数
 					continue;
 				}
 				if (arg.toLowerCase().startsWith("-r")) {

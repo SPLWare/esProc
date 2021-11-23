@@ -13,7 +13,7 @@ import com.scudata.common.StringUtils;
 
 /**
  * IDE data source list. Inherited from javax.swing.DefaultListModel. The member
- * is com.raqsoft.ide.common.DataSource.
+ * is com.scudata.ide.common.DataSource.
  *
  */
 public class DataSourceListModel extends DefaultListModel<DataSource> implements

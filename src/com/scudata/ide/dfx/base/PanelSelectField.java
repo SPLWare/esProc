@@ -160,7 +160,7 @@ public class PanelSelectField extends JPanel {
 							if (ds.getDBInfo() instanceof DBConfig) {
 								DBConfig dbConfig = ((DBConfig) ds.getDBInfo());
 								if (dbConfig.getDriver().toLowerCase()
-										.startsWith("com.raqsoft.datahub")) {
+										.startsWith("com.scudata.datahub")) {
 									// datahub
 									ResultSet rs = null;
 									DatabaseMetaData dbmd = null;

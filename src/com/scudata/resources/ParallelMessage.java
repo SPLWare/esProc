@@ -14,11 +14,11 @@ public class ParallelMessage {
 	private ParallelMessage() {}
 
 	public static MessageManager get() {
-		return MessageManager.getManager("com.raqsoft.resources.parallelMessage");
+		return MessageManager.getManager("com.scudata.resources.parallelMessage");
 	}
 
 	public static MessageManager get(Locale locale) {
-		return MessageManager.getManager("com.raqsoft.resources.parallelMessage", locale);
+		return MessageManager.getManager("com.scudata.resources.parallelMessage", locale);
 	}
 
 }

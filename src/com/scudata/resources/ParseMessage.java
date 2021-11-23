@@ -9,11 +9,11 @@ public class ParseMessage {
 	private ParseMessage() {}
 
 	public static MessageManager get() {
-		return MessageManager.getManager("com.raqsoft.resources.parseMessage");
+		return MessageManager.getManager("com.scudata.resources.parseMessage");
 	}
 
 	public static MessageManager get(Locale locale) {
-		return MessageManager.getManager("com.raqsoft.resources.parseMessage", locale);
+		return MessageManager.getManager("com.scudata.resources.parseMessage", locale);
 	}
 
 }

@@ -1206,13 +1206,13 @@ public class DFX extends AppFrame {
 	public static String prepareEnv(String args[]) throws Throwable {
 		String openDfx = "";
 		String arg = "";
-		String usage = "Usage: com.raqsoft.ide.dfx.DFX\n"
+		String usage = "Usage: com.scudata.ide.dfx.DFX\n"
 				+ "where possible options include:\n"
 				+ "-help                            Print out these messages\n"
 				+ "-?                               Print out these messages\n"
 				+ "where dfx file option is to specify the default dfx file to be openned\n"
 				+ "Example:\n"
-				+ "java com.raqsoft.ide.dfx.DFX d:\\test.dfx      Start IDE with default file d:\\test.dfx\n";
+				+ "java com.scudata.ide.dfx.DFX d:\\test.dfx      Start IDE with default file d:\\test.dfx\n";
 
 		if (args.length == 1) { // exe 传来的参数仍然是一个长串
 			arg = args[0].trim();
@@ -1227,7 +1227,7 @@ public class DFX extends AppFrame {
 		if (args.length > 0) {
 			for (int i = 0; i < args.length; i++) {
 				arg = args[i].toLowerCase();
-				if (arg.equalsIgnoreCase("com.raqsoft.ide.dfx.DFX")) {
+				if (arg.equalsIgnoreCase("com.scudata.ide.dfx.DFX")) {
 					// 用bat打开的文件，类名本身会是参数
 					continue;
 				}

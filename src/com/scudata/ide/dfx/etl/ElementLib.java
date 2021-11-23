@@ -59,7 +59,7 @@ public class ElementLib {
 	 */
 	public static void addElement(String name) {
 		try {
-			String packageName = "com.raqsoft.ide.dfx.etl.element.";
+			String packageName = "com.scudata.ide.dfx.etl.element.";
 			String className = packageName + name;
 			Class elemClass = Class.forName(className);
 			String title = mm.getMessage(name);

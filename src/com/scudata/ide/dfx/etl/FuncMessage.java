@@ -20,7 +20,7 @@ public class FuncMessage {
 
 	public static MessageManager get(Locale locale) {
 		return MessageManager.getManager(
-				"com.raqsoft.ide.dfx.etl.funcMessage", locale);
+				"com.scudata.ide.dfx.etl.funcMessage", locale);
 	}
 
 }

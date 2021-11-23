@@ -9,12 +9,12 @@ public class ExcelVersionCompatibleUtilGetter {
 	public static ExcelVersionCompatibleUtilInterface getInstance(){
 		if(e == null)
 			try {
-				e = (ExcelVersionCompatibleUtilInterface) Class.forName("com.raqsoft.excel.ExcelVersionCompatibleUtil").newInstance();
+				e = (ExcelVersionCompatibleUtilInterface) Class.forName("com.scudata.excel.ExcelVersionCompatibleUtil").newInstance();
 				//e = new ExcelVersionCompatibleUtil();
 			} catch (Exception e1) {
 				e1.printStackTrace();
 //				try {
-//					e = (ExcelVersionCompatibleUtilInterface) Class.forName("com.raqsoft.excel.ExcelVersionCompatibleUtil").newInstance();
+//					e = (ExcelVersionCompatibleUtilInterface) Class.forName("com.scudata.excel.ExcelVersionCompatibleUtil").newInstance();
 //				} catch (InstantiationException e2) {
 //					e2.printStackTrace();
 //				} catch (IllegalAccessException e2) {
