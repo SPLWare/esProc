@@ -1,4 +1,4 @@
-package com.raqsoft.app.config;
+package com.scudata.app.config;
 
 /**
  * Constants in the configuration file

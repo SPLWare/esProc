@@ -1,4 +1,4 @@
-package com.raqsoft.app.config;
+package com.scudata.app.config;
 
 import java.io.BufferedOutputStream;
 import java.io.FileOutputStream;
@@ -18,11 +18,11 @@ import javax.xml.transform.stream.StreamResult;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
-import com.raqsoft.app.common.Segment;
-import com.raqsoft.common.DBConfig;
-import com.raqsoft.common.JNDIConfig;
-import com.raqsoft.common.StringUtils;
-import com.raqsoft.parallel.UnitConfig;
+import com.scudata.app.common.Segment;
+import com.scudata.common.DBConfig;
+import com.scudata.common.JNDIConfig;
+import com.scudata.common.StringUtils;
+import com.scudata.parallel.UnitConfig;
 
 /**
  * Used to write out raqsoftConfig.xml

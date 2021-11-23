@@ -1,12 +1,12 @@
-package com.raqsoft.app.common;
+package com.scudata.app.common;
 
 import java.util.Iterator;
 import java.util.Set;
 import java.util.Vector;
 
-import com.raqsoft.common.ArgumentTokenizer;
-import com.raqsoft.common.Escape;
-import com.raqsoft.common.StringUtils;
+import com.scudata.common.ArgumentTokenizer;
+import com.scudata.common.Escape;
+import com.scudata.common.StringUtils;
 
 /**
  * Object of subsection Separate ordered string with ",". And the section cannot

@@ -1,4 +1,4 @@
-package com.raqsoft.app.common;
+package com.scudata.app.common;
 
 import java.awt.Color;
 import java.io.InputStream;
@@ -20,15 +20,15 @@ import java.util.List;
 import sun.net.util.IPAddressUtil;
 
 import com.esproc.jdbc.JDBCUtil;
-import com.raqsoft.common.Escape;
-import com.raqsoft.common.Logger;
-import com.raqsoft.common.StringUtils;
-import com.raqsoft.common.Types;
-import com.raqsoft.dm.Context;
-import com.raqsoft.dm.Env;
-import com.raqsoft.dm.Sequence;
-import com.raqsoft.dm.query.SimpleSQL;
-import com.raqsoft.util.CellSetUtil;
+import com.scudata.common.Escape;
+import com.scudata.common.Logger;
+import com.scudata.common.StringUtils;
+import com.scudata.common.Types;
+import com.scudata.dm.Context;
+import com.scudata.dm.Env;
+import com.scudata.dm.Sequence;
+import com.scudata.dm.query.SimpleSQL;
+import com.scudata.util.CellSetUtil;
 
 /**
  * Public tools

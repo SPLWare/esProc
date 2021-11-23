@@ -1,4 +1,4 @@
-package com.raqsoft.app.config;
+package com.scudata.app.config;
 
 import java.io.Externalizable;
 import java.io.IOException;
@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import com.raqsoft.common.DBConfig;
-import com.raqsoft.common.JNDIConfig;
+import com.scudata.common.DBConfig;
+import com.scudata.common.JNDIConfig;
 
 /**
  * ≈‰÷√Œƒº˛raqsoftConfig.xml

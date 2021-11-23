@@ -1,10 +1,10 @@
-package com.raqsoft.app.common;
+package com.scudata.app.common;
 
 import java.util.Iterator;
 import java.util.Set;
 
-import com.raqsoft.common.Escape;
-import com.raqsoft.common.SegmentSet;
+import com.scudata.common.Escape;
+import com.scudata.common.SegmentSet;
 
 /**
  * Used to extend SegmentSet.

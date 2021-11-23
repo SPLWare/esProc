@@ -1,4 +1,4 @@
-package com.raqsoft.app.config;
+package com.scudata.app.config;
 
 import java.io.Externalizable;
 import java.io.IOException;

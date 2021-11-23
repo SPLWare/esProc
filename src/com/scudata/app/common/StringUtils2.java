@@ -1,10 +1,10 @@
-package com.raqsoft.app.common;
+package com.scudata.app.common;
 
 import java.awt.FontMetrics;
 import java.util.ArrayList;
 
-import com.raqsoft.common.ArgumentTokenizer;
-import com.raqsoft.common.StringUtils;
+import com.scudata.common.ArgumentTokenizer;
+import com.scudata.common.StringUtils;
 
 /**
  * Tool class for processing String. Solve some functions that are not

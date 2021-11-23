@@ -1,4 +1,4 @@
-package com.raqsoft.app.config;
+package com.scudata.app.config;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,11 +8,11 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-import com.raqsoft.common.DBConfig;
-import com.raqsoft.common.DBTypes;
-import com.raqsoft.common.JNDIConfig;
-import com.raqsoft.common.Logger;
-import com.raqsoft.common.StringUtils;
+import com.scudata.common.DBConfig;
+import com.scudata.common.DBTypes;
+import com.scudata.common.JNDIConfig;
+import com.scudata.common.Logger;
+import com.scudata.common.StringUtils;
 
 /**
  * Used to read raqsoftConfig.xml.
