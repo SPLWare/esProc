@@ -1,6 +1,6 @@
 package com.scudata.excel;
 
-import com.raqsoft.common.Logger;
+import com.scudata.common.Logger;
 
 /**
  * 获取Poi5.0.0或Poi3.17版本的导出工具实现类
@@ -9,7 +9,7 @@ import com.raqsoft.common.Logger;
 public class ExcelVersionCompatibleUtilGetter {
 	private static ExcelVersionCompatibleUtilInterface e = null;
 	public static String version5 = "com.scudata.excel.ExcelVersionCompatibleUtil5";
-	public static String version3 = "com.scudata.excel.ExcelVersionCompatibleUtil3";
+	public static String version3 = "com.raqsoft.report.util.ExcelVersionCompatibleUtil3";
 	public static String version = null;
 	
 	public static ExcelVersionCompatibleUtilInterface getInstance(){

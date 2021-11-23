@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -36,9 +37,7 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.openxmlformats.schemas.drawingml.x2006.spreadsheetDrawing.CTMarker;
 
-import com.raqsoft.common.ImageUtils;
-import com.raqsoft.input.usermodel.Consts;
-import com.raqsoft.report.usermodel.INormalCell;
+import com.scudata.common.ImageUtils;
 
 public class ExcelVersionCompatibleUtil5 implements ExcelVersionCompatibleUtilInterface{
 	
@@ -166,40 +165,14 @@ public class ExcelVersionCompatibleUtil5 implements ExcelVersionCompatibleUtilIn
 	 * @return Excel的边框样式
 	 */
 	public short getBorderStyle( byte borderStyle, float width ) {
-		if ( borderStyle == INormalCell.LINE_NONE ) {
-			return BorderStyle.NONE.getCode();
-		} else if ( borderStyle == INormalCell.LINE_DASHED ) {
-			if ( width > 1.0 ) {
-				return BorderStyle.MEDIUM_DASHED.getCode();
-			}
-			return BorderStyle.DASHED.getCode();
-		}else if ( borderStyle == INormalCell.LINE_DOTTED ) {
-			if ( width > 1.0 ) {
-				return BorderStyle.MEDIUM_DASH_DOT.getCode();
-			}
-			return BorderStyle.DASH_DOT.getCode();
-		} else if ( borderStyle == INormalCell.LINE_DOUBLE ) {
-			return BorderStyle.DOUBLE.getCode();
-		} else if ( borderStyle == INormalCell.LINE_SOLID ) {
-			if ( width < 0.75 ) {
-				return BorderStyle.THIN.getCode();
-			}
-			if ( width <= 1.0 ) {
-				return BorderStyle.THIN.getCode();
-			}
-			if ( width <= 1.5 ) {
-				return BorderStyle.MEDIUM.getCode();
-			}
-			if ( width <= 2.0 ) {
-				return BorderStyle.THICK.getCode();
-			}
-			return BorderStyle.THICK.getCode();
-    }
-    //added by bdl, 2010.3.8, 新加线形：点线
-    else if ( borderStyle == INormalCell.LINE_DOTDOT ) {
-      return BorderStyle.DOTTED.getCode();
-    }
-		return BorderStyle.THIN.getCode();
+		try {
+			Class clazz = Class.forName("com.raqsoft.report.view.ExportExcelUtil2");
+			Object o = clazz.newInstance();
+			Method m = clazz.getMethod("getBorderStyle", Byte.class, Float.class);
+			return (short) m.invoke(o, borderStyle, width);
+		}catch(Exception e) {
+			return BorderStyle.THIN.getCode();	
+		}
 	}
 	
 
@@ -213,41 +186,14 @@ public class ExcelVersionCompatibleUtil5 implements ExcelVersionCompatibleUtilIn
 	 * @return Excel的边框样式
 	 */
 	public short getISheetBorderStyle(byte borderStyle) {
-		float width = 1;
-		if (borderStyle == Consts.LINE_NONE) {
-			return BorderStyle.NONE.getCode();
-		} else if (borderStyle == Consts.LINE_DASHED) {
-			if (width > 1.0) {
-				return BorderStyle.MEDIUM_DASHED.getCode();
-			}
-			return BorderStyle.DASHED.getCode();
-		} else if (borderStyle == Consts.LINE_DASH_DOT) {
-			if (width > 1.0) {
-				return BorderStyle.MEDIUM_DASH_DOT.getCode();
-			}
-			return BorderStyle.DASH_DOT.getCode();
-		} else if (borderStyle == Consts.LINE_DOUBLE) {
-			return BorderStyle.DOUBLE.getCode();
-		} else if (borderStyle == Consts.LINE_THIN) {
-			if (width < 0.75) {
-				return BorderStyle.THIN.getCode();
-			}
-			if (width <= 1.0) {
-				return BorderStyle.THIN.getCode();
-			}
-			if (width <= 1.5) {
-				return BorderStyle.MEDIUM.getCode();
-			}
-			if (width <= 2.0) {
-				return BorderStyle.THICK.getCode();
-			}
-			return BorderStyle.THICK.getCode();
+		try {
+			Class clazz = Class.forName("com.raqsoft.report.view.ExportExcelUtil2");
+			Object o = clazz.newInstance();
+			Method m = clazz.getMethod("getISheetBorderStyle");
+			return (short) m.invoke(o, borderStyle);
+		}catch(Exception e) {
+			return BorderStyle.THIN.getCode();	
 		}
-		// added by bdl, 2010.3.8, 新加线形：点线
-		else if (borderStyle == Consts.LINE_THIN) {
-			return BorderStyle.DOTTED.getCode();
-		}
-		return BorderStyle.THIN.getCode();
 	}
 	
 	public CellType getCellType(CellValue value){
