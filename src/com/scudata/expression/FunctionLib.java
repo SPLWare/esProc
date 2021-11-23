@@ -883,7 +883,7 @@ public final class FunctionLib {
 		
 		//loader√ª÷∏∂®∏∏
 		URLClassLoader loader = new URLClassLoader(list.toArray(new URL[]{}), FunctionLib.class.getClassLoader());
-		Pattern p = Pattern.compile("com/raqsoft/lib/(\\w+)/functions.properties");
+		Pattern p = Pattern.compile("com/scudata/lib/(\\w+)/functions.properties");
 		
 		for (File f : jars) {
 			JarFile jf = null;
