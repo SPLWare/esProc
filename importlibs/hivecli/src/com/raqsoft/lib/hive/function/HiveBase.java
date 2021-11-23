@@ -1,4 +1,4 @@
-package com.raqsoft.lib.hive.function;
+package com.scudata.lib.hive.function;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -9,10 +9,10 @@ import org.apache.hadoop.hive.metastore.api.Schema;
 import org.apache.hadoop.hive.ql.Driver;
 import org.apache.hadoop.hive.ql.processors.CommandProcessorResponse;
 
-import com.raqsoft.common.RQException;
-import com.raqsoft.dm.Table;
-import com.raqsoft.dm.cursor.ICursor;
-import com.raqsoft.lib.hive.function.Utils;
+import com.scudata.common.RQException;
+import com.scudata.dm.Table;
+import com.scudata.dm.cursor.ICursor;
+import com.scudata.lib.hive.function.Utils;
 
 public class HiveBase {
 	public Driver driver;

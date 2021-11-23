@@ -1,10 +1,10 @@
-package com.raqsoft.lib.mongo.function;
+package com.scudata.lib.mongo.function;
 
 import org.bson.Document;
 import com.mongodb.client.MongoDatabase;
-import com.raqsoft.common.*;
-import com.raqsoft.util.JSONUtil;
-import com.raqsoft.dm.*;
+import com.scudata.common.*;
+import com.scudata.util.JSONUtil;
+import com.scudata.dm.*;
 
 // mdb.shell@x(s)
 public class ImShell extends ImFunction {

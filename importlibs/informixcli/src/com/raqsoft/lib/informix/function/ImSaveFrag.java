@@ -1,8 +1,8 @@
-package com.raqsoft.lib.informix.function;
+package com.scudata.lib.informix.function;
 
-import com.raqsoft.common.Logger;
-import com.raqsoft.dm.Context;
-import com.raqsoft.expression.Node;
+import com.scudata.common.Logger;
+import com.scudata.dm.Context;
+import com.scudata.expression.Node;
 
 public class ImSaveFrag extends ImFunction {
 	boolean bFresh = false;

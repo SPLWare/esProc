@@ -1,9 +1,9 @@
-package com.raqsoft.lib.informix.function.multiCursor;
+package com.scudata.lib.informix.function.multiCursor;
 
-import com.raqsoft.common.*;
-import com.raqsoft.dm.*;
-import com.raqsoft.dm.cursor.ICursor;
-import com.raqsoft.lib.informix.helper.ImTableInfo;
+import com.scudata.common.*;
+import com.scudata.dm.*;
+import com.scudata.dm.cursor.ICursor;
+import com.scudata.lib.informix.helper.ImTableInfo;
 
 public class BPipeCursor extends ICursor {
 	private String m_fileName;

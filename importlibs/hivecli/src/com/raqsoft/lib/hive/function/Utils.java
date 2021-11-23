@@ -1,14 +1,14 @@
-package com.raqsoft.lib.hive.function;
+package com.scudata.lib.hive.function;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import com.raqsoft.common.RQException;
-import com.raqsoft.dm.DataStruct;
-import com.raqsoft.dm.Record;
-import com.raqsoft.dm.Table;
+import com.scudata.common.RQException;
+import com.scudata.dm.DataStruct;
+import com.scudata.dm.Record;
+import com.scudata.dm.Table;
 
 public class Utils {
 	public static String[] objectArray2StringArray(Object[] objs) {

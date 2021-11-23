@@ -1,4 +1,4 @@
-package com.raqsoft.lib.hive.function;
+package com.scudata.lib.hive.function;
 
 import java.util.regex.Matcher;
 
@@ -7,10 +7,10 @@ import org.apache.hadoop.hive.ql.Driver;
 import org.apache.hadoop.hive.ql.QueryState;
 import org.apache.hadoop.hive.ql.session.SessionState;
 
-import com.raqsoft.common.Logger;
-import com.raqsoft.dm.Context;
-import com.raqsoft.dm.IResource;
-import com.raqsoft.dm.cursor.ICursor;
+import com.scudata.common.Logger;
+import com.scudata.dm.Context;
+import com.scudata.dm.IResource;
+import com.scudata.dm.cursor.ICursor;
 
 public class HiveDriverCli implements IResource{
 	public HiveBase hiveBase = null; 

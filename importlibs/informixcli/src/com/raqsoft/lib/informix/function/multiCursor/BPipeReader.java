@@ -1,4 +1,4 @@
-package com.raqsoft.lib.informix.function.multiCursor;
+package com.scudata.lib.informix.function.multiCursor;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -7,10 +7,10 @@ import java.util.Date;
 import java.util.Map;
 
 import com.informix.lang.IfxToJavaType;
-import com.raqsoft.common.Logger;
-import com.raqsoft.dm.Table;
-import com.raqsoft.lib.informix.helper.ImColumn;
-import com.raqsoft.lib.informix.helper.ImTableInfo;
+import com.scudata.common.Logger;
+import com.scudata.dm.Table;
+import com.scudata.lib.informix.helper.ImColumn;
+import com.scudata.lib.informix.helper.ImTableInfo;
 
 public class BPipeReader {
 	public static int BUF_SIZE = 1024*1024*5;

@@ -1,10 +1,10 @@
-package com.raqsoft.lib.informix.function;
+package com.scudata.lib.informix.function;
 
 import java.util.Map;
-import com.raqsoft.dm.Context;
-import com.raqsoft.expression.Node;
-import com.raqsoft.lib.informix.helper.Fragment;
-import com.raqsoft.lib.informix.helper.ImSQLParser;
+import com.scudata.dm.Context;
+import com.scudata.expression.Node;
+import com.scudata.lib.informix.helper.Fragment;
+import com.scudata.lib.informix.helper.ImSQLParser;
 
 public class ImTakeFrag extends ImFunction {
 	boolean bCursor = false;

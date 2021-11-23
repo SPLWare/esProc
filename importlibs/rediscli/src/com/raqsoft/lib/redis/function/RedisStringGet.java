@@ -1,10 +1,10 @@
-package com.raqsoft.lib.redis.function;
+package com.scudata.lib.redis.function;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.raqsoft.dm.Context;
-import com.raqsoft.expression.Node;
+import com.scudata.dm.Context;
+import com.scudata.expression.Node;
 
 public class RedisStringGet extends RedisBase {
 	public Node optimize(Context ctx) {

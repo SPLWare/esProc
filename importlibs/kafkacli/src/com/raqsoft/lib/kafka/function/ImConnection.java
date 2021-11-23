@@ -1,4 +1,4 @@
-package com.raqsoft.lib.kafka.function;
+package com.scudata.lib.kafka.function;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -9,10 +9,10 @@ import java.util.List;
 import java.util.Properties;
 import java.util.Set;
 
-import com.raqsoft.common.Logger;
-import com.raqsoft.common.RQException;
-import com.raqsoft.dm.Context;
-import com.raqsoft.dm.IResource;
+import com.scudata.common.Logger;
+import com.scudata.common.RQException;
+import com.scudata.dm.Context;
+import com.scudata.dm.IResource;
 
 import org.apache.kafka.clients.admin.AdminClient;
 import org.apache.kafka.clients.admin.CreateTopicsResult;

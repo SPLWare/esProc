@@ -1,9 +1,9 @@
-package com.raqsoft.lib.redis.function;
+package com.scudata.lib.redis.function;
 
-import com.raqsoft.common.RQException;
-import com.raqsoft.dm.Context;
-import com.raqsoft.dm.Table;
-import com.raqsoft.expression.Node;
+import com.scudata.common.RQException;
+import com.scudata.dm.Context;
+import com.scudata.dm.Table;
+import com.scudata.expression.Node;
 
 public class RedisSortSetCount extends RedisBase {
 	protected String m_paramTypes2[];

@@ -1,18 +1,18 @@
-package com.raqsoft.lib.kafka.function;
+package com.scudata.lib.kafka.function;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import com.raqsoft.common.MessageManager;
-import com.raqsoft.common.RQException;
-import com.raqsoft.dm.Context;
-import com.raqsoft.dm.FileObject;
-import com.raqsoft.expression.Function;
-import com.raqsoft.expression.IParam;
-import com.raqsoft.expression.Node;
-import com.raqsoft.resources.EngineMessage;
+import com.scudata.common.MessageManager;
+import com.scudata.common.RQException;
+import com.scudata.dm.Context;
+import com.scudata.dm.FileObject;
+import com.scudata.expression.Function;
+import com.scudata.expression.IParam;
+import com.scudata.expression.Node;
+import com.scudata.resources.EngineMessage;
 
 // kafka_open(endpoint, accessKeyId, accessKeySecret, instanceName)
 public class ImOpen extends Function {
