@@ -7,7 +7,6 @@ import com.raqsoft.cellset.graph.*;
  * 统计图中的警戒线属性类
  */
 public class ExtAlarmLine {
-
 	/**　警戒线名称　*/
 	private String name = null;
 	/**　警戒值　*/

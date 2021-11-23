@@ -32,7 +32,6 @@ public class DrawRadar extends DrawBase {
 		Graphics2D g = db.g;
 		int VALUE_RADIUS = db.VALUE_RADIUS;
 		ArrayList<ValuePoint> pointList = db.pointList;
-
 		double r, thick = 2.5f;
 		double tmpInt, tmpInt1, tmpInt2;
 		double cx, cy, x, y, x2, y2;

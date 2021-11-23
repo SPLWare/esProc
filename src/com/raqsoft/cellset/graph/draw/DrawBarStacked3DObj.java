@@ -42,7 +42,6 @@ public class DrawBarStacked3DObj extends DrawBase {
 		double delx;
 		double tmpInt;
 		double x, y;
-
 		gp.maxValue = gp.maxPositive;
 		gp.minValue = gp.minNegative;
 		db.initGraphInset();

@@ -35,7 +35,6 @@ public class GraphParam {
 	public double maxValue = 0.0; /* 最大值 */
 	public double minValue = 0.0; /* 最小值 */
 	public double interval = 0.0; /* 统计值间隔 */
-
 	public double maxValue2 = 0; /* 最大值 */
 	public double minValue2 = 0; /* 最小值 */
 	public double interval2 = 0.0; /* 统计值间隔 */

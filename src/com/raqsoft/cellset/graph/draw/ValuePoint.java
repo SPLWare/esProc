@@ -17,7 +17,6 @@ public class ValuePoint {
 	public Color borderColor,fillColor=null;
 	public int shape = Consts.PT_CIRCLE;
 	public int radius = -1;
-
 	/**
 	 * 构造一个数据点
 	 * @param p 坐标

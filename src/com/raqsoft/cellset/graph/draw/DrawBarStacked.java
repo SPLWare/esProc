@@ -40,7 +40,6 @@ public class DrawBarStacked extends DrawBase {
 		double categorySpan;
 		double delx;
 		double x, y;
-
 		gp.maxValue = gp.maxPositive;
 		gp.minValue = gp.minNegative;
 		gp.coorWidth = 0;

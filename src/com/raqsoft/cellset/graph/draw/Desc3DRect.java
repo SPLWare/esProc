@@ -15,4 +15,5 @@ public class Desc3DRect {
   public float borderWeight,transparent;
   public boolean drawShade,convexEdge,isVertical;
   public ChartColor fillColor;
+  
 }

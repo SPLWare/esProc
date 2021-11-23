@@ -34,6 +34,7 @@ import com.raqsoft.util.*;
  * 不带数字的方法均为简单函数，不需要分步的图像，且风格在上层程序已经设置
  * 
  */
+
 public class Utils {
 	public static int SHADE_SPAN = 3;
 	private static ArrayList globalFonts = new ArrayList();

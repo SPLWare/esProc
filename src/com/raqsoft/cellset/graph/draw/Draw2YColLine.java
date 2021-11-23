@@ -24,6 +24,7 @@ public class Draw2YColLine extends DrawBase {
 		StringBuffer colLink = new StringBuffer();
 		int serNum = DrawCol.drawing(db,colLink);
 		
+
 //		双轴柱线图时，不能原点重合
 		db.gp.isOverlapOrigin = false;
 		Draw2Y2Line.drawY2Line(db, serNum, htmlLink);

@@ -7,7 +7,6 @@ import com.raqsoft.chart.*;
 import com.raqsoft.dm.*;
 import com.raqsoft.chart.edit.*;
 import com.raqsoft.common.RQException;
-
 /**
  * 枚举轴
  * 枚举轴的数值通常为字符串，且要表述分类跟系列时，采用英文逗号分隔的串表示

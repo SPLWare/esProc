@@ -18,7 +18,6 @@ import com.raqsoft.chart.edit.*;
 
 public abstract class TickAxis extends ObjectElement implements IAxis {
 	private static int ARROW_SHIFT = 8;
-
 	/***** Âß¼­ÖáÊôÐÔ *****/
 	// ÖáÃû³Æ
 	public String name; // Ãû³Æ

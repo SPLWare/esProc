@@ -19,7 +19,6 @@ import com.raqsoft.chart.Para;
 import com.raqsoft.chart.Utils;
 import com.raqsoft.chart.edit.ParamInfo;
 import com.raqsoft.chart.edit.ParamInfoList;
-
 /**
  * 文本图元
  * 文本图元不光可以文本形式展现，还可以以条形码展示

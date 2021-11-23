@@ -20,7 +20,6 @@ public class BackGround extends ObjectElement {
 	public ChartColor backColor = new ChartColor(Color.white);
 	public float transparent = 1f;
 	public boolean visible = true;
-
 	// Í¼Æ¬±³¾°
 	public Para imageValue = new Para();
 	// Í¼Æ¬Ìî³äÄ£Ê½

@@ -33,7 +33,6 @@ public class DrawDot3D extends DrawBase {
 		ExtGraphProperty egp = db.egp;
 		Graphics2D g = db.g;
 		ArrayList<ValueLabel> labelList = db.labelList;
-		
 		double seriesWidth;
 		double seriesDeep;
 		double coorWidth;

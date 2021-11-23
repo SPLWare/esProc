@@ -40,7 +40,6 @@ public class DrawCurve extends DrawBase {
 		ArrayList<ValueLabel> labelList = db.labelList;
 		int VALUE_RADIUS = db.VALUE_RADIUS;
 		ArrayList<ValuePoint> pointList = db.pointList;
-
 		double seriesWidth;
 		double coorWidth;
 		double categorySpan;

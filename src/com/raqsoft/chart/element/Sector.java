@@ -9,7 +9,6 @@ import java.awt.geom.*;
 import com.raqsoft.dm.*;
 import com.raqsoft.util.Variant;
 import com.raqsoft.chart.edit.*;
-
 /**
  * 扇形图，只能应用于极坐标系
  * 通常表现为饼图

@@ -20,7 +20,6 @@ import com.raqsoft.chart.edit.*;
 public class Column extends Ring {
 	// 柱子高度轴的另一个逻辑坐标，格式[w1,w2,...,wn]或w
 	public Sequence data3 = null;
-
 	// 柱子宽度,如果是枚举轴上：<=1表示跟系列占宽的比例，>1表示绝对像素宽度。如果是日期或者数值轴时，<=1表示跟轴长的比例，>1表示绝对像素宽度
 	public Para columnWidth = new Para(new Double(0.9));
 

@@ -19,7 +19,6 @@ public class GraphFontView {
 	public static final byte FONT_XTITLE = 4;
 	public static final byte FONT_YTITLE = 5;
 	public static final byte FONT_VALUE = 6;
-
 	public static final byte TEXT_FIXED = 0; // 文字不作校准
 	public static final byte TEXT_ON_TOP = 1; // 文字位于中心点上方
 	public static final byte TEXT_ON_BOTTOM = 2; // 文字位于中心点下方

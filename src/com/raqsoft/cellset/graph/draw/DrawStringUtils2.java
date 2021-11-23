@@ -29,7 +29,6 @@ public class DrawStringUtils2 {
 				return false;
 			}
 		}
-
 		return true;
 	}
 

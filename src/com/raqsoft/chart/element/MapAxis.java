@@ -15,7 +15,6 @@ import com.raqsoft.chart.edit.*;
 public class MapAxis extends ObjectElement implements IMapAxis{
 	// ÖáÃû³Æ
 	public String name;
-
 	// Âß¼­ÖµĞòÁĞ
 	public Sequence logicalData;
 

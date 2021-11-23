@@ -44,7 +44,6 @@ public class DrawArea3D extends DrawBase {
 		Point2D.Double prePoints1[];
 		Point2D.Double prePoints2[];
 		db.initGraphInset();
-
 		db.createCoorValue();
 
 		db.drawLegend(htmlLink);

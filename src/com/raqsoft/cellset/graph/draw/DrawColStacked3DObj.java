@@ -32,7 +32,6 @@ public class DrawColStacked3DObj extends DrawBase {
 		GraphParam gp = db.gp;
 		ExtGraphProperty egp = db.egp;
 		Graphics2D g = db.g;
-
 		double seriesWidth;
 		double coorWidth;
 		double categorySpan;

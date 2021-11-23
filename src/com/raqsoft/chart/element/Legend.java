@@ -20,7 +20,6 @@ import com.raqsoft.chart.resources.ChartMessage;
 public class Legend extends LinkElement implements IMapAxis{
 	// 轴名称
 	public String name;
-
 	// 物理坐标,小于1表示比例，大于1表示像素
 	public double x = 0.82;
 	public double y = 0.2;

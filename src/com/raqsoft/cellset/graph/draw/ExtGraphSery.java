@@ -8,7 +8,6 @@ import com.raqsoft.chart.Consts;
  *
  */
 public class ExtGraphSery implements Comparable{
-
   /** ÏµÁÐÃû³Æ  */
   private String name;
 

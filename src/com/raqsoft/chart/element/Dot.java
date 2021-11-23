@@ -6,7 +6,6 @@ import java.awt.geom.*;
 import com.raqsoft.chart.*;
 import com.raqsoft.common.*;
 import com.raqsoft.chart.edit.*;
-
 /**
  * 点图元
  * 点图元通常可以表现气泡图

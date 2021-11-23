@@ -5,7 +5,6 @@ package com.raqsoft.cellset.graph.draw;
  * @author Joancy
  *
  */
-
 public class Draw2YColStackedLine extends DrawBase {
 	/**
 	 * 实现绘图功能
@@ -22,7 +21,6 @@ public class Draw2YColStackedLine extends DrawBase {
 	public static void drawing(DrawBase db,StringBuffer htmlLink) {
 //		锚点有重合时，谁在前面，浏览器先找到谁。由于点小，将点的锚点放在柱子前面。 xq 2017年11月13日
 		StringBuffer colLink = new StringBuffer();
-		
 		int serNum = DrawColStacked.drawing(db,colLink,true);
 
 //		双轴柱线图时，不能原点重合

@@ -9,7 +9,6 @@ import com.raqsoft.dm.*;
 import com.raqsoft.chart.edit.*;
 import com.raqsoft.chart.resources.ChartMessage;
 import com.raqsoft.common.MessageManager;
-
 /**
  * 线图元
  * 线图元仅可表现折线图，也可配合属性closeArea表现为区域图

@@ -34,7 +34,6 @@ public class DrawLine extends DrawBase {
 		ArrayList<ValueLabel> labelList = db.labelList;
 		int VALUE_RADIUS = db.getPointRadius();
 		ArrayList<ValuePoint> pointList = db.pointList;
-
 		double seriesWidth;
 		double coorWidth;
 		double categorySpan;

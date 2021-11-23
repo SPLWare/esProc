@@ -32,7 +32,6 @@ public class DrawCol3DObj extends DrawBase {
 		ExtGraphProperty egp = db.egp;
 		Graphics2D g = db.g;
 		ArrayList<ValueLabel> labelList = db.labelList;
-		
 		double seriesWidth;
 		double coorWidth;
 		double categorySpan;

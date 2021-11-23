@@ -22,7 +22,6 @@ import com.raqsoft.common.*;
 public class NumericAxis extends TickAxis {
 	// 自动计算最大小值的范围
 	public boolean autoCalcValueRange = true;
-
 	// 自动范围时从0起始值
 	public boolean autoRangeFromZero = true;
 

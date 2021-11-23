@@ -12,7 +12,6 @@ import com.raqsoft.util.*;
 public class ExtGraphCategory implements Comparable{
   /** 分类表达式 或者 时序状态图分类表达式或甘特图和里程碑图的项目*/
   private Object name;
-  private String nameFmt = null;//显示值所用的格式串
 
   /**此分类下的系列 (ExtGraphSery或者 ExtGraphTimeStatus)*/
   private ArrayList series;

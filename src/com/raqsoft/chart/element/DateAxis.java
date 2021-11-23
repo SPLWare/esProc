@@ -16,7 +16,6 @@ import com.raqsoft.util.*;
 public class DateAxis extends TickAxis {
 	// 自动计算最大小值的范围
 	public boolean autoCalcValueRange = true;
-
 	// 值轴属性，最大值
 	public Date endDate = GregorianCalendar.getInstance().getTime();
 

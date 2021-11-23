@@ -3,7 +3,6 @@ package com.raqsoft.cellset.graph.draw;
 import java.awt.*;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
-import java.awt.geom.Rectangle2D.Double;
 import java.util.ArrayList;
 import com.raqsoft.cellset.graph.*;
 import com.raqsoft.chart.Consts;

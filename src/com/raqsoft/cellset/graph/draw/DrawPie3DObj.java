@@ -38,7 +38,6 @@ public class DrawPie3DObj extends DrawBase {
 		GraphParam gp = db.gp;
 		ExtGraphProperty egp = db.egp;
 		Graphics2D g = db.g;
-
 		double radiusx = 0;
 		double radiusy = 0;
 		double dely;

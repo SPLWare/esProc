@@ -13,7 +13,6 @@ import com.raqsoft.chart.Utils;
  * @author Joancy
  *
  */
-
 public class DrawArea extends DrawBase {
 	/**
 	 * 实现绘图功能

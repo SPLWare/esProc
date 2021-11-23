@@ -41,7 +41,6 @@ public abstract class DrawBase implements IGraph {
 
 	private boolean disableLink = true;
 	private transient Point2D.Double vShift, hShift;// 纵轴因为透明或者3D平台时，因为位置不同的x,y向偏移量，纵向总是减去偏移；横向总是加上偏移
-
 	// 标题加上对齐属性后，需要先保留出空间，最后根据gp.gRect2来绘制对齐
 	private ValueLabel vlTitle, vlYTitle1, vlYTitle2, vlXTitle;
 

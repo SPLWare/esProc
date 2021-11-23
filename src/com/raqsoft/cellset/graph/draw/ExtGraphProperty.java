@@ -17,7 +17,6 @@ import com.raqsoft.chart.Consts;
 public class ExtGraphProperty {
 	public ArrayList categories;
 	public ArrayList category2 = null;
-
 	private BackGraphConfig bgc = null;
 	private boolean isSplitByAxis = false;
 

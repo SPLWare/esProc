@@ -26,7 +26,6 @@ public class TimeAxis extends ObjectElement implements IAxis{
 	public String name;
 	// 自动计算最大小值的范围
 	public boolean autoCalcValueRange = true;
-
 	// 保留轨迹
 	public boolean keepTrack = true;
 

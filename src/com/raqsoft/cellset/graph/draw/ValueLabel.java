@@ -2,7 +2,6 @@ package com.raqsoft.cellset.graph.draw;
 
 import java.awt.*;
 import java.awt.geom.Point2D;
-
 /**
  * 文本标签的封装类
  * 绘制图形时，文本值需要在最后统一绘制以防止被覆盖

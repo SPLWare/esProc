@@ -33,7 +33,6 @@ public class DrawDot extends DrawBase {
 		Graphics2D g = db.g;
 		ArrayList<ValueLabel> labelList = db.labelList;
 		int VALUE_RADIUS = db.VALUE_RADIUS;
-
 		double seriesWidth;
 		double coorWidth;
 		double categorySpan;

@@ -5,11 +5,8 @@ import com.raqsoft.common.*;
 
 import java.awt.*;
 import java.awt.geom.*;
-import java.util.ArrayList;
-
 import com.raqsoft.dm.*;
 import com.raqsoft.chart.edit.*;
-import com.raqsoft.chart.resources.ChartMessage;
 
 /**
  * 柱和扇的基类，环
