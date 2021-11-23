@@ -13,13 +13,13 @@ import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.raqsoft.app.config.ConfigUtil;
-import com.raqsoft.app.config.RaqsoftConfig;
-import com.raqsoft.common.IOUtils;
-import com.raqsoft.common.Logger;
-import com.raqsoft.common.StringUtils;
-import com.raqsoft.dm.Env;
-import com.raqsoft.dm.LocalFile;
+import com.scudata.app.config.ConfigUtil;
+import com.scudata.app.config.RaqsoftConfig;
+import com.scudata.common.IOUtils;
+import com.scudata.common.Logger;
+import com.scudata.common.StringUtils;
+import com.scudata.dm.Env;
+import com.scudata.dm.LocalFile;
 
 /**
  * JDBC service

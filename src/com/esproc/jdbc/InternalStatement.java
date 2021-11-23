@@ -9,20 +9,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.raqsoft.app.config.RaqsoftConfig;
-import com.raqsoft.cellset.datamodel.PgmCellSet;
-import com.raqsoft.common.Logger;
-import com.raqsoft.common.StringUtils;
-import com.raqsoft.dm.Context;
-import com.raqsoft.dm.FileObject;
-import com.raqsoft.dm.IResource;
-import com.raqsoft.dm.LocalFile;
-import com.raqsoft.dm.ParamList;
-import com.raqsoft.dm.RetryException;
-import com.raqsoft.dm.Sequence;
-import com.raqsoft.parallel.Request;
-import com.raqsoft.parallel.UnitClient;
-import com.raqsoft.util.CellSetUtil;
+import com.scudata.app.config.RaqsoftConfig;
+import com.scudata.cellset.datamodel.PgmCellSet;
+import com.scudata.common.Logger;
+import com.scudata.common.StringUtils;
+import com.scudata.dm.Context;
+import com.scudata.dm.FileObject;
+import com.scudata.dm.IResource;
+import com.scudata.dm.LocalFile;
+import com.scudata.dm.ParamList;
+import com.scudata.dm.RetryException;
+import com.scudata.dm.Sequence;
+import com.scudata.parallel.Request;
+import com.scudata.parallel.UnitClient;
+import com.scudata.util.CellSetUtil;
 
 /**
  * Implementation of java.sql.Statement

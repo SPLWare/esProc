@@ -26,23 +26,23 @@ import java.util.concurrent.Executor;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.raqsoft.app.config.RaqsoftConfig;
-import com.raqsoft.cellset.datamodel.PgmCellSet;
-import com.raqsoft.common.DBSession;
-import com.raqsoft.common.ISessionFactory;
-import com.raqsoft.common.Logger;
-import com.raqsoft.common.StringUtils;
-import com.raqsoft.common.UUID;
-import com.raqsoft.dm.Context;
-import com.raqsoft.dm.Env;
-import com.raqsoft.dm.FileObject;
-import com.raqsoft.dm.JobSpace;
-import com.raqsoft.dm.JobSpaceManager;
-import com.raqsoft.dm.Param;
-import com.raqsoft.dm.ParamList;
-import com.raqsoft.dm.Table;
-import com.raqsoft.parallel.UnitClient;
-import com.raqsoft.util.CellSetUtil;
+import com.scudata.app.config.RaqsoftConfig;
+import com.scudata.cellset.datamodel.PgmCellSet;
+import com.scudata.common.DBSession;
+import com.scudata.common.ISessionFactory;
+import com.scudata.common.Logger;
+import com.scudata.common.StringUtils;
+import com.scudata.common.UUID;
+import com.scudata.dm.Context;
+import com.scudata.dm.Env;
+import com.scudata.dm.FileObject;
+import com.scudata.dm.JobSpace;
+import com.scudata.dm.JobSpaceManager;
+import com.scudata.dm.Param;
+import com.scudata.dm.ParamList;
+import com.scudata.dm.Table;
+import com.scudata.parallel.UnitClient;
+import com.scudata.util.CellSetUtil;
 
 /**
  * Implementation of java.sql.Connection

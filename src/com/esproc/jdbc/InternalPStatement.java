@@ -24,8 +24,8 @@ import java.sql.Types;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import com.raqsoft.common.Logger;
-import com.raqsoft.dm.Sequence;
+import com.scudata.common.Logger;
+import com.scudata.dm.Sequence;
 
 /**
  * Implementation of java.sql.PreparedStatement

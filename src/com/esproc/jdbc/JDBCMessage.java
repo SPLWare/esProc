@@ -2,7 +2,7 @@ package com.esproc.jdbc;
 
 import java.util.Locale;
 
-import com.raqsoft.common.MessageManager;
+import com.scudata.common.MessageManager;
 
 /**
  * Message Manager of the esProc JDBC

@@ -17,23 +17,23 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.raqsoft.app.common.AppUtil;
-import com.raqsoft.cellset.datamodel.Command;
-import com.raqsoft.common.ArgumentTokenizer;
-import com.raqsoft.common.Escape;
-import com.raqsoft.common.Logger;
-import com.raqsoft.common.StringUtils;
-import com.raqsoft.dm.Context;
-import com.raqsoft.dm.DataStruct;
-import com.raqsoft.dm.LocalFile;
-import com.raqsoft.dm.Record;
-import com.raqsoft.dm.Sequence;
-import com.raqsoft.dm.Table;
-import com.raqsoft.dm.cursor.ICursor;
-import com.raqsoft.dm.query.SimpleSelect;
-import com.raqsoft.expression.Expression;
-import com.raqsoft.expression.fn.Eval;
-import com.raqsoft.util.CellSetUtil;
+import com.scudata.app.common.AppUtil;
+import com.scudata.cellset.datamodel.Command;
+import com.scudata.common.ArgumentTokenizer;
+import com.scudata.common.Escape;
+import com.scudata.common.Logger;
+import com.scudata.common.StringUtils;
+import com.scudata.dm.Context;
+import com.scudata.dm.DataStruct;
+import com.scudata.dm.LocalFile;
+import com.scudata.dm.Record;
+import com.scudata.dm.Sequence;
+import com.scudata.dm.Table;
+import com.scudata.dm.cursor.ICursor;
+import com.scudata.dm.query.SimpleSelect;
+import com.scudata.expression.Expression;
+import com.scudata.expression.fn.Eval;
+import com.scudata.util.CellSetUtil;
 
 /**
  * JDBC tool class
@@ -813,7 +813,7 @@ public class JDBCUtil {
 							}
 						}
 					}
-					colType = com.raqsoft.common.Types
+					colType = com.scudata.common.Types
 							.getTypeBySQLType(colType);
 					t.newLast(new Object[] { name, fname, colType });
 				}
@@ -1222,9 +1222,9 @@ public class JDBCUtil {
 	 */
 	public static byte getProperDataType(Object o) {
 		if (o instanceof Integer) {
-			return com.raqsoft.common.Types.DT_INT;
+			return com.scudata.common.Types.DT_INT;
 		} else {
-			return com.raqsoft.common.Types.getProperDataType(o);
+			return com.scudata.common.Types.getProperDataType(o);
 		}
 	}
 
@@ -1270,30 +1270,30 @@ public class JDBCUtil {
 	 */
 	public static int getSQLTypeByType(byte type) {
 		switch (type) {
-		case com.raqsoft.common.Types.DT_INT:
+		case com.scudata.common.Types.DT_INT:
 			return java.sql.Types.INTEGER;
-		case com.raqsoft.common.Types.DT_SHORT:
+		case com.scudata.common.Types.DT_SHORT:
 			return java.sql.Types.SMALLINT;
-		case com.raqsoft.common.Types.DT_LONG:
-		case com.raqsoft.common.Types.DT_BIGINT:
+		case com.scudata.common.Types.DT_LONG:
+		case com.scudata.common.Types.DT_BIGINT:
 			return java.sql.Types.BIGINT;
-		case com.raqsoft.common.Types.DT_FLOAT:
+		case com.scudata.common.Types.DT_FLOAT:
 			return java.sql.Types.FLOAT;
-		case com.raqsoft.common.Types.DT_DOUBLE:
+		case com.scudata.common.Types.DT_DOUBLE:
 			return java.sql.Types.DOUBLE;
-		case com.raqsoft.common.Types.DT_DECIMAL:
+		case com.scudata.common.Types.DT_DECIMAL:
 			return java.sql.Types.DECIMAL;
-		case com.raqsoft.common.Types.DT_DATE:
+		case com.scudata.common.Types.DT_DATE:
 			return java.sql.Types.DATE;
-		case com.raqsoft.common.Types.DT_TIME:
+		case com.scudata.common.Types.DT_TIME:
 			return java.sql.Types.TIME;
-		case com.raqsoft.common.Types.DT_DATETIME:
+		case com.scudata.common.Types.DT_DATETIME:
 			return java.sql.Types.TIMESTAMP;
-		case com.raqsoft.common.Types.DT_STRING:
+		case com.scudata.common.Types.DT_STRING:
 			return java.sql.Types.VARCHAR;
-		case com.raqsoft.common.Types.DT_BOOLEAN:
+		case com.scudata.common.Types.DT_BOOLEAN:
 			return java.sql.Types.BOOLEAN;
-		case com.raqsoft.common.Types.DT_BYTE_SERIES:
+		case com.scudata.common.Types.DT_BYTE_SERIES:
 			return java.sql.Types.BINARY;
 		}
 		return java.sql.Types.JAVA_OBJECT;

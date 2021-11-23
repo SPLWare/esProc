@@ -29,15 +29,15 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
-import com.raqsoft.common.Logger;
-import com.raqsoft.dm.DataStruct;
-import com.raqsoft.dm.Param;
-import com.raqsoft.dm.ParamList;
-import com.raqsoft.dm.Record;
-import com.raqsoft.dm.Sequence;
-import com.raqsoft.dm.Table;
-import com.raqsoft.dm.cursor.ICursor;
-import com.raqsoft.util.Variant;
+import com.scudata.common.Logger;
+import com.scudata.dm.DataStruct;
+import com.scudata.dm.Param;
+import com.scudata.dm.ParamList;
+import com.scudata.dm.Record;
+import com.scudata.dm.Sequence;
+import com.scudata.dm.Table;
+import com.scudata.dm.cursor.ICursor;
+import com.scudata.util.Variant;
 
 /**
  * Implementation of java.sql.ResultSet

@@ -8,9 +8,9 @@ import java.sql.SQLException;
 import java.sql.SQLFeatureNotSupportedException;
 import java.util.Properties;
 
-import com.raqsoft.app.config.RaqsoftConfig;
-import com.raqsoft.common.Logger;
-import com.raqsoft.common.StringUtils;
+import com.scudata.app.config.RaqsoftConfig;
+import com.scudata.common.Logger;
+import com.scudata.common.StringUtils;
 
 /**
  * esProc jdbc driver class. Implementation of java.sql.Driver URL URL参数如下:

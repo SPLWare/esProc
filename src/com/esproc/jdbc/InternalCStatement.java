@@ -20,7 +20,7 @@ import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Map;
 
-import com.raqsoft.common.Logger;
+import com.scudata.common.Logger;
 
 /**
  * Implementation of java.sql.CallableStatement

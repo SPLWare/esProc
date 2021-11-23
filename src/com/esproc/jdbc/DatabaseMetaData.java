@@ -5,8 +5,8 @@ import java.sql.ResultSet;
 import java.sql.RowIdLifetime;
 import java.sql.SQLException;
 
-import com.raqsoft.common.Logger;
-import com.raqsoft.common.StringUtils;
+import com.scudata.common.Logger;
+import com.scudata.common.StringUtils;
 
 /**
  * Comprehensive information about the database as a whole. Implementation of

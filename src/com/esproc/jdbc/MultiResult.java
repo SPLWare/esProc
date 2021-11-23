@@ -1,7 +1,7 @@
 package com.esproc.jdbc;
 
-import com.raqsoft.dm.IResource;
-import com.raqsoft.dm.Sequence;
+import com.scudata.dm.IResource;
+import com.scudata.dm.Sequence;
 
 /**
  * Multiple result set
