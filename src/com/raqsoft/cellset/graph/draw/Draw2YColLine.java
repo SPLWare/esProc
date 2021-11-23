@@ -1,12 +1,5 @@
 package com.raqsoft.cellset.graph.draw;
 
-import java.awt.*;
-import java.util.ArrayList;
-
-import com.raqsoft.cellset.graph.*;
-import com.raqsoft.chart.Consts;
-import com.raqsoft.chart.Utils;
-
 /**
  * 双轴柱线图的实现
  * @author Joancy

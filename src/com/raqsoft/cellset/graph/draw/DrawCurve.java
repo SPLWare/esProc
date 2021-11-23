@@ -2,6 +2,8 @@ package com.raqsoft.cellset.graph.draw;
 
 import java.awt.*;
 import java.awt.geom.Line2D;
+import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 import java.util.*;
 
 import com.raqsoft.cellset.graph.*;
@@ -43,12 +45,12 @@ public class DrawCurve extends DrawBase {
 		double coorWidth;
 		double categorySpan;
 		double dely;
-		int tmpInt;
-		int x, y;
+		double tmpInt;
+		double x, y;
 
 		gp.coorWidth = 0;
 
-		Point beginPoint[];
+		Point2D.Double beginPoint[];
 		double beginVal[];
 		ArrayList catPoints[];
 
@@ -60,7 +62,7 @@ public class DrawCurve extends DrawBase {
 		db.keepGraphSpace();
 
 		db.adjustCoorInset();
-		gp.graphRect = new Rectangle(gp.leftInset, gp.topInset, gp.graphWidth
+		gp.graphRect = new Rectangle2D.Double(gp.leftInset, gp.topInset, gp.graphWidth
 				- gp.leftInset - gp.rightInset, gp.graphHeight - gp.topInset
 				- gp.bottomInset);
 
@@ -78,18 +80,18 @@ public class DrawCurve extends DrawBase {
 		coorWidth = seriesWidth * (gp.coorWidth / 200.0);
 		categorySpan = seriesWidth * (gp.categorySpan / 100.0);
 
-		tmpInt = (int) ((gp.catNum + 1) * categorySpan + coorWidth + gp.catNum
+		tmpInt =  ((gp.catNum + 1) * categorySpan + coorWidth + gp.catNum
 				* gp.serNum * seriesWidth);
 		gp.graphRect.x += (gp.graphRect.width - tmpInt) / 2;
 		gp.graphRect.width = tmpInt;
 
 		dely = (gp.graphRect.height - coorWidth) / gp.tickNum;
-		tmpInt = (int) (dely * gp.tickNum + coorWidth);
+		tmpInt =  (dely * gp.tickNum + coorWidth);
 		gp.graphRect.y += (gp.graphRect.height - tmpInt) / 2;
 		gp.graphRect.height = tmpInt;
 
-		gp.gRect1 = new Rectangle(gp.graphRect);
-		gp.gRect2 = new Rectangle(gp.graphRect);
+		gp.gRect1 = (Rectangle2D.Double)gp.graphRect.clone();
+		gp.gRect2 = (Rectangle2D.Double)gp.graphRect.clone();
 
 		gp.gRect1.y += coorWidth;
 		gp.gRect1.width -= coorWidth;
@@ -107,18 +109,18 @@ public class DrawCurve extends DrawBase {
 			String scoory = db.getFormattedValue(coory.doubleValue());
 
 			x = gp.gRect1.x - gp.tickLen;
-			y = (int) (gp.gRect1.y + gp.gRect1.height - i * dely);
+			y =  (gp.gRect1.y + gp.gRect1.height - i * dely);
 			gp.GFV_YLABEL.outText(x, y, scoory);
 			// 设置基线
 			if (coory.doubleValue() == gp.baseValue + gp.minValue) {
-				gp.valueBaseLine = (int) (gp.gRect1.y + gp.gRect1.height - i
+				gp.valueBaseLine =  (gp.gRect1.y + gp.gRect1.height - i
 						* dely);
 			}
 		}
 		// 画警戒线
 		db.drawWarnLine();
 		/* 画X轴 */
-		beginPoint = new Point[gp.serNum];
+		beginPoint = new Point2D.Double[gp.serNum];
 		beginVal = new double[gp.serNum];
 		catPoints = new ArrayList[gp.serNum];
 		for (int j = 0; j < gp.serNum; j++) {
@@ -131,7 +133,7 @@ public class DrawCurve extends DrawBase {
 		Color c;
 		for (int i = 0; i < cc; i++) {
 			ExtGraphCategory egc = (ExtGraphCategory) cats.get(i);
-			int posx = DrawLine.getPosX(gp, i, cc, categorySpan, seriesWidth);
+			double posx = DrawLine.getPosX(gp, i, cc, categorySpan, seriesWidth);
 
 			boolean valvis = (i % (gp.graphXInterval + 1) == 0);// 柱顶是否显示值跟画Table分开
 			boolean vis = valvis && !gp.isDrawTable;
@@ -152,17 +154,17 @@ public class DrawCurve extends DrawBase {
 				ExtGraphSery egs = egc.getExtGraphSery(gp.serNames.get(j));
 				double val = egs.getValue();
 				double tmp = val - gp.baseValue;
-				int len = (int) (dely * gp.tickNum * (tmp - gp.minValue) / (gp.maxValue * gp.coorScale));
+				double len =  (dely * gp.tickNum * (tmp - gp.minValue) / (gp.maxValue * gp.coorScale));
 
 				if (gp.isDrawTable) {
-					posx = (int) db.getDataTableX(i);
+					posx =  db.getDataTableX(i);
 				}
 
-				Point endPoint;
+				Point2D.Double endPoint;
 				if (egs.isNull()) {
 					endPoint = null;
 				} else {
-					endPoint = new Point(posx, gp.valueBaseLine - len);
+					endPoint = new Point2D.Double(posx, gp.valueBaseLine - len);
 				}
 
 				// 输出文字
@@ -175,14 +177,14 @@ public class DrawCurve extends DrawBase {
 					} else {
 						c = db.getColor(j);
 					}
-					ValueLabel vl = new ValueLabel(sval, new Point(x, y
+					ValueLabel vl = new ValueLabel(sval, new Point2D.Double(x, y
 							- VALUE_RADIUS), c);
 					labelList.add(vl);
 				}
 
 				boolean vis2 = (i % (gp.graphXInterval + 1) == 0);
 				if (!egs.isNull() && gp.drawLineDot && vis2) {
-					int xx, yy, ww, hh;
+					double xx, yy, ww, hh;
 					xx = endPoint.x - VALUE_RADIUS;
 					yy = endPoint.y - VALUE_RADIUS;
 					ww = 2 * VALUE_RADIUS;
@@ -289,7 +291,7 @@ public class DrawCurve extends DrawBase {
 				x1 = p1.x;
 				y1 = p1.y;
 				for (x2 = p1.x + 1; x2 <= p2.x; x2 += 1) {
-					y2 = (int) sample(xs, ys, x2);
+					y2 =  sample(xs, ys, x2);
 					dLine = new Line2D.Double(x1, y1, x2, y2);
 					g.draw(dLine);
 					x1 = x2;
@@ -307,8 +309,8 @@ public class DrawCurve extends DrawBase {
 				+ gp.gRect1.width, gp.valueBaseLine,
 				egp.getAxisColor(GraphProperty.AXIS_BOTTOM));
 		db.drawLine(gp.gRect1.x + gp.gRect1.width, gp.valueBaseLine,
-				(int) (gp.gRect1.x + gp.gRect1.width + coorWidth),
-				(int) (gp.valueBaseLine - coorWidth),
+				 (gp.gRect1.x + gp.gRect1.width + coorWidth),
+				 (gp.valueBaseLine - coorWidth),
 				egp.getAxisColor(GraphProperty.AXIS_BOTTOM));
 	}
 

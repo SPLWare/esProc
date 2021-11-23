@@ -40,7 +40,7 @@ public abstract class DrawBase implements IGraph {
 	public ArrayList<ValuePoint> pointList = new ArrayList<ValuePoint>();
 
 	private boolean disableLink = true;
-	private transient Point vShift, hShift;// 纵轴因为透明或者3D平台时，因为位置不同的x,y向偏移量，纵向总是减去偏移；横向总是加上偏移
+	private transient Point2D.Double vShift, hShift;// 纵轴因为透明或者3D平台时，因为位置不同的x,y向偏移量，纵向总是减去偏移；横向总是加上偏移
 
 	// 标题加上对齐属性后，需要先保留出空间，最后根据gp.gRect2来绘制对齐
 	private ValueLabel vlTitle, vlYTitle1, vlYTitle2, vlXTitle;
@@ -49,16 +49,16 @@ public abstract class DrawBase implements IGraph {
 		return egp.getImageFormat() == IGraphProperty.IMAGE_SVG;
 	}
 
-	Point getVTickPoint(double shift) {
-		int x = gp.gRect1.x - vShift.x;
-		int y = (int) (gp.gRect1.y + gp.gRect1.height - shift - vShift.y);
-		return new Point(x, y);
+	Point2D.Double getVTickPoint(double shift) {
+		double x = gp.gRect1.x - vShift.x;
+		double y = gp.gRect1.y + gp.gRect1.height - shift - vShift.y;
+		return new Point2D.Double(x, y);
 	}
 
-	Point getHTickPoint(double shift) {
-		int x = (int) (gp.gRect1.x + shift + hShift.x);
-		int y = gp.gRect1.y + gp.gRect1.height + hShift.y;
-		return new Point(x, y);
+	Point2D.Double getHTickPoint(double shift) {
+		double x = gp.gRect1.x + shift + hShift.x;
+		double y = gp.gRect1.y + gp.gRect1.height + hShift.y;
+		return new Point2D.Double(x, y);
 	}
 /**
  * 设置禁止超链接
@@ -77,7 +77,7 @@ public abstract class DrawBase implements IGraph {
 	 * 防止文本被覆盖
 	 */
 	public void outLabels() {
-		int x, y;
+		double x, y;
 		String text;
 		byte direction;
 		Color c;
@@ -96,7 +96,7 @@ public abstract class DrawBase implements IGraph {
 		}
 		labelList.clear();
 
-		int[] buf;
+		double[] buf;
 		if (vlTitle != null) {
 			buf = getHTitleX(gp.gRect2, egp.getGraphTitleAlign());
 			TR = gp.GFV_TITLE.getTextSize();
@@ -138,8 +138,8 @@ public abstract class DrawBase implements IGraph {
 		}
 	}
 
-	private int[] getHTitleX(Rectangle rect,byte align) {
-		int x[] = new int[2];
+	private double[] getHTitleX(Rectangle2D.Double rect,byte align) {
+		double x[] = new double[2];
 		if (align == IStyle.HALIGN_LEFT) {
 			x[0] = rect.x;
 			x[1] = GraphFontView.TEXT_ON_RIGHT;
@@ -153,8 +153,8 @@ public abstract class DrawBase implements IGraph {
 		return x;
 	}
 
-	private int getVTitleY(Rectangle rect, byte align) {
-		int y;
+	private double getVTitleY(Rectangle2D.Double rect, byte align) {
+		double y;
 		if (align == IStyle.VALIGN_TOP) {
 			y = rect.y;
 		} else if (align == IStyle.VALIGN_BOTTOM) {
@@ -184,7 +184,7 @@ public abstract class DrawBase implements IGraph {
 
 		for (int i = 0; i < pointList.size(); i++) {
 			ValuePoint vp = pointList.get(i);
-			Point p = vp.p;
+			Point2D.Double p = vp.p;
 			int radius;
 			if (vp.radius < 0) {
 				radius = getPointRadius();
@@ -436,7 +436,7 @@ public abstract class DrawBase implements IGraph {
 			gp.graphMargin = (int) egp.getTitleMargin();
 		}
 		if (egp.isUserSetBarDistance()) {
-			gp.barDistance = (int) egp.getBarDistance();
+			gp.barDistance = egp.getBarDistance();
 		}
 		if (egp.isUserSetXInterval()) {
 			gp.graphXInterval = (int) egp.getXInterval();
@@ -875,7 +875,7 @@ public abstract class DrawBase implements IGraph {
 	 * @param c 填充颜色
 	 * @param verticalPillar 是否竖向圆柱
 	 */
-	public void setPaint(int x, int y, int w, int h, Color c,
+	public void setPaint(double x, double y, double w, double h, Color c,
 			boolean verticalPillar) {
 		setPaint(x, y, w, h, c, verticalPillar, Palette.PATTERN_DEFAULT);
 	}
@@ -889,14 +889,14 @@ public abstract class DrawBase implements IGraph {
 	 * @param pIndex 颜色序号
 	 * @param verticalPillar 是否竖向圆柱
 	 */
-	public void setPaint(int x, int y, int w, int h, int pIndex,
+	public void setPaint(double x, double y, double w, double h, int pIndex,
 			boolean verticalPillar) {
 		Color c = getColor(pIndex);
 		byte p = palette.getPattern(pIndex);
 		setPaint(x, y, w, h, c, verticalPillar, p);
 	}
 
-	protected void setPaint(int x, int y, int w, int h, Color c,
+	protected void setPaint(double x, double y, double w, double h, Color c,
 			boolean verticalPillar, byte fillPattern) {
 		GradientPaint paint;
 		if (gp.gradientColor) {
@@ -916,9 +916,9 @@ public abstract class DrawBase implements IGraph {
 			}
 
 			if (verticalPillar) { // 纵向柱子
-				paint = new GradientPaint(x, y, cc, x + w, y, dd);
+				paint = new GradientPaint((float)x, (float)y, cc, (float)(x + w), (float)y, dd);
 			} else {
-				paint = new GradientPaint(x, y, cc, x, y + h, dd);
+				paint = new GradientPaint((float)x, (float)y, cc, (float)x, (float)(y + h), dd);
 			}
 			g.setPaint(paint);
 		} else if (egp.isRaisedBorder()
@@ -1032,12 +1032,12 @@ public abstract class DrawBase implements IGraph {
 	 * @param h 高度
 	 * @param c 边框颜色
 	 */
-	public void drawRect(int x, int y, int w, int h, Color c) {
+	public void drawRect(double x, double y, double w, double h, Color c) {
 		if (c == null) {
 			return;
 		}
 		g.setColor(c);
-		g.drawRect(x, y, w, h);
+		Utils.drawRect(g, x, y, w, h);
 	}
 
 	/**
@@ -1049,12 +1049,12 @@ public abstract class DrawBase implements IGraph {
 	 * @param y2 点2纵坐标
 	 * @param c 颜色，null时不绘制
 	 */
-	public void drawLine(int x1, int y1, int x2, int y2, Color c) {
+	public void drawLine(double x1, double y1, double x2, double y2, Color c) {
 		if (c == null) {
 			return;
 		}
 		g.setColor(c);
-		g.drawLine(x1, y1, x2, y2);
+		Utils.drawLine(g,x1, y1, x2, y2);
 	}
 
 	/**
@@ -1096,12 +1096,22 @@ public abstract class DrawBase implements IGraph {
 	 * @param n 点的个数
 	 * @param c 颜色，null时不绘制
 	 */
+	public void drawPolygon(double[] x, double[] y, int n, Color c) {
+		if (c == null) {
+			return;
+		}
+		g.setColor(c);
+		Shape poly = Utils.newPolygon2D(x, y);
+		g.draw(poly);
+	}
+
 	public void drawPolygon(int[] x, int[] y, int n, Color c) {
 		if (c == null) {
 			return;
 		}
 		g.setColor(c);
-		g.drawPolygon(x, y, n);
+		Polygon poly = new Polygon(x, y, n);
+		g.draw(poly);
 	}
 
 	/**
@@ -1146,7 +1156,7 @@ public abstract class DrawBase implements IGraph {
 	 * @param w 宽度
 	 * @param h 高度
 	 */
-	public void fillRect(int x, int y, int w, int h) {
+	public void fillRect(double x, double y, double w, double h) {
 		Color bc = null;
 		int bs = 0;
 		float bw = 0;
@@ -1221,10 +1231,10 @@ public abstract class DrawBase implements IGraph {
 	 * @param egs
 	 *            ExtGraphSery 系列
 	 */
-	public void drawRectCube(int x, int w, int h, int z, int dz,
+	public void drawRectCube(double x, double w, double h, double z, double dz,
 			int colorIndex, StringBuffer sb, Object cat, ExtGraphSery egs) {
 		ChartColor chartColor = getChartColor(getColor(colorIndex));
-		int xx, yy, ww, hh;
+		double xx, yy, ww, hh;
 		if (h >= 0) {
 			xx = x + dz;
 			yy = gp.valueBaseLine - h - dz;
@@ -1239,7 +1249,7 @@ public abstract class DrawBase implements IGraph {
 		Color bc = egp.getAxisColor(PublicProperty.AXIS_COLBORDER);
 		int bs = Consts.LINE_SOLID;
 		float bw = 1;
-		int coorShift = z;
+		double coorShift = z;
 		Utils.draw3DRect(g, xx, yy, ww, hh, bc, bs, bw, egp.isDrawShade(),
 				egp.isRaisedBorder(), getTransparent(), chartColor,
 				!egp.isBarGraph(this), coorShift);
@@ -1247,7 +1257,7 @@ public abstract class DrawBase implements IGraph {
 
 	}
 
-	protected Rectangle rightTop, rightBottom, leftTop, leftBottom; // 四周相应已经占用了的位置
+	protected Rectangle2D.Double rightTop, rightBottom, leftTop, leftBottom; // 四周相应已经占用了的位置
 
 	/**
 	 * 画圆形外的数值，根据角度调整Text的坐标。雷达图以及饼图用到
@@ -1264,7 +1274,7 @@ public abstract class DrawBase implements IGraph {
 	 *            int 文本的y
 	 */
 	public void drawOutCircleText(GraphFontView gfv, String text, double angle,
-			int x, int y) {
+			double x, double y) {
 		if (!StringUtils.isValidString(text)) {
 			return;
 		}
@@ -1344,7 +1354,7 @@ public abstract class DrawBase implements IGraph {
 	}
 
 	protected boolean drawOutCircleText(GraphFontView gfv, String text,
-			double angle, int x, int y, boolean drawExtend) {
+			double angle, double x, double y, boolean drawExtend) {
 		double tmpAngle = angle;
 		int w = gfv.getTextSize(text).width;
 		int h = gfv.getTextSize(text).height;
@@ -1359,54 +1369,54 @@ public abstract class DrawBase implements IGraph {
 		boolean isLeft = tmpAngle > 90 && tmpAngle < 270;
 		boolean isTop = !(tmpAngle > 180 && tmpAngle < 360);
 		if (drawExtend) {
-			int x1 = x, y1 = y;
+			double x1 = x, y1 = y;
 			if (isLeft && isTop) { // 左上 - 左边 //
 				if (leftTop == null) {
-					leftTop = new Rectangle(gp.gRect2.x, gp.gRect2.y, 0, 0);
+					leftTop = new Rectangle2D.Double(gp.gRect2.x, gp.gRect2.y, 0, 0);
 				}
 				x = leftTop.x;
 				y = leftTop.y + leftTop.height + 5;
-				leftTop = new Rectangle(leftTop.x, y, w, h);
+				leftTop = new Rectangle2D.Double(leftTop.x, y, w, h);
 
-				g.drawLine(x1, y1, x1, y);
-				g.drawLine(x1, y, x, y);
+				Utils.drawLine(g,x1, y1, x1, y);
+				Utils.drawLine(g,x1, y, x, y);
 				y += h / 2;
 			} else if (isLeft && !isTop) { // 左下 － 下边
 				if (leftBottom == null) {
-					leftBottom = new Rectangle(gp.gRect2.x, gp.gRect2.y
+					leftBottom = new Rectangle2D.Double(gp.gRect2.x, gp.gRect2.y
 							+ gp.gRect2.height, 0, 0);
 				}
 				x = leftBottom.x;
 				y = leftBottom.y - h;
-				leftBottom = new Rectangle(x, leftBottom.y, w, h);
-				g.drawLine(x1, y1, x1, y);
-				g.drawLine(x1, y, x, y);
+				leftBottom = new Rectangle2D.Double(x, leftBottom.y, w, h);
+				Utils.drawLine(g,x1, y1, x1, y);
+				Utils.drawLine(g,x1, y, x, y);
 				w /= 2;
 			} else if (!isLeft && isTop) { // 右上 － 上边
 				if (rightTop == null) {
-					rightTop = new Rectangle(gp.gRect2.x + gp.gRect2.width,
+					rightTop = new Rectangle2D.Double(gp.gRect2.x + gp.gRect2.width,
 							gp.gRect2.y, 0, 0);
 				}
 				x = rightTop.x - w - 2;
 				x = x1 > x ? rightTop.x : x;
 
 				y = rightTop.y + h;
-				rightTop = new Rectangle(x, rightTop.y, w, h);
-				g.drawLine(x1, y1, x1, y);
-				g.drawLine(x1, y, x, y);
+				rightTop = new Rectangle2D.Double(x, rightTop.y, w, h);
+				Utils.drawLine(g,x1, y1, x1, y);
+				Utils.drawLine(g,x1, y, x, y);
 				x -= w / 2;
 			} else { // 右下 － 右边
 				if (rightBottom == null) {
-					rightBottom = new Rectangle(gp.gRect2.x + gp.gRect2.width,
+					rightBottom = new Rectangle2D.Double(gp.gRect2.x + gp.gRect2.width,
 							gp.gRect2.y + gp.gRect2.height, 0, 0);
 				}
 				x = rightBottom.x - w;
 				x = x1 > x ? rightBottom.x : x;
 
 				y = rightBottom.y - h - 5;
-				rightBottom = new Rectangle(rightBottom.x, y, w, h);
-				g.drawLine(x1, y1, x1, y);
-				g.drawLine(x1, y, x, y);
+				rightBottom = new Rectangle2D.Double(rightBottom.x, y, w, h);
+				Utils.drawLine(g,x1, y1, x1, y);
+				Utils.drawLine(g,x1, y, x, y);
 				h /= 2;
 			}
 
@@ -1416,7 +1426,7 @@ public abstract class DrawBase implements IGraph {
 
 			if (!(this instanceof DrawRadar)) {// 雷达图时，不使用延长线
 				int shiftX = 10;
-				int x1 = x, y1 = y, x2 = x, y2 = y;
+				double x1 = x, y1 = y, x2 = x, y2 = y;
 				if (direction == GraphFontView.TEXT_ON_LEFT) {
 					x1 = x - shiftX;
 					x = x1;
@@ -1480,15 +1490,15 @@ public abstract class DrawBase implements IGraph {
 		g.setColor(gp.gridColor);
 		g.setStroke(stroke);
 
-		g.drawLine((int) (gp.gRect2.x + ci * delx), gp.gRect2.y
-				+ gp.gRect2.height, (int) (gp.gRect2.x + ci * delx),
+		Utils.drawLine(g,gp.gRect2.x + ci * delx, gp.gRect2.y
+				+ gp.gRect2.height, gp.gRect2.x + ci * delx,
 				gp.gRect2.y + 1);
 		g.setStroke(new BasicStroke(0.00001f));
-		g.drawLine(
+		Utils.drawLine(g,
 				// 斜边线太短，只用直线
-				(int) (gp.gRect1.x + ci * delx),
+				gp.gRect1.x + ci * delx,
 				gp.gRect1.y + gp.gRect1.height,
-				(int) (gp.gRect2.x + ci * delx), gp.gRect2.y + gp.gRect2.height);
+				gp.gRect2.x + ci * delx, gp.gRect2.y + gp.gRect2.height);
 	}
 
 	/**
@@ -1498,7 +1508,7 @@ public abstract class DrawBase implements IGraph {
 	 */
 	public void drawGridLine(double dely, int ci) {
 		Color c = egp.getAxisColor(IGraphProperty.AXIS_LEFT);
-		int tmpi = (int) (gp.gRect1.y + gp.gRect1.height - ci * dely);
+		double tmpi = gp.gRect1.y + gp.gRect1.height - ci * dely;
 		if (c != null) {
 			Utils.setStroke(g, c, Consts.LINE_SOLID, 1.0f);
 			drawLine(gp.gRect1.x - vShift.x - gp.tickLen, tmpi, gp.gRect1.x
@@ -1519,15 +1529,15 @@ public abstract class DrawBase implements IGraph {
 		}
 		g.setColor(gp.gridColor);
 		g.setStroke(bs);
-		g.drawLine(gp.gRect2.x, (int) (gp.gRect2.y + gp.gRect2.height - ci
-				* dely), gp.gRect2.x + gp.gRect2.width - 1, (int) (gp.gRect2.y
-				+ gp.gRect2.height - ci * dely));
+		Utils.drawLine(g,gp.gRect2.x, gp.gRect2.y + gp.gRect2.height - ci
+				* dely, gp.gRect2.x + gp.gRect2.width - 1, gp.gRect2.y
+				+ gp.gRect2.height - ci * dely);
 
 		if (c != null) {// 如果纵轴不为透明色时，需要绘制斜边网格
 			// 斜边线太短，只用直线 ;
-			g.drawLine(gp.gRect1.x, (int) (gp.gRect1.y + gp.gRect1.height - ci
-					* dely), gp.gRect2.x,
-					(int) (gp.gRect2.y + gp.gRect2.height - ci * dely));
+			Utils.drawLine(g,gp.gRect1.x, gp.gRect1.y + gp.gRect1.height - ci
+					* dely, gp.gRect2.x,
+					gp.gRect2.y + gp.gRect2.height - ci * dely);
 		}
 	}
 
@@ -1536,7 +1546,7 @@ public abstract class DrawBase implements IGraph {
 	 * 画纵向分类网格线
 	 * @param catX 分类的横坐标
 	 */
-	public void drawGridLineCategoryV(int catX) {
+	public void drawGridLineCategoryV(double catX) {
 		if (gp.gridLineStyle == IGraphProperty.LINE_NONE) {
 			return;
 		}
@@ -1550,7 +1560,7 @@ public abstract class DrawBase implements IGraph {
 		g.setColor(gp.gridColor);
 		g.setStroke(stroke);
 
-		g.drawLine(catX, gp.gRect2.y+ gp.gRect2.height, 
+		Utils.drawLine(g,catX, gp.gRect2.y+ gp.gRect2.height, 
 				catX,gp.gRect2.y + 1);
 	}
 
@@ -1558,7 +1568,7 @@ public abstract class DrawBase implements IGraph {
 	 * 画横向分类网格线
 	 * @param catY 分类的纵坐标
 	 */
-	public void drawGridLineCategory(int catY) {
+	public void drawGridLineCategory(double catY) {
 		if (gp.gridLineStyle == IGraphProperty.LINE_NONE) {
 			return;
 		}
@@ -1572,7 +1582,7 @@ public abstract class DrawBase implements IGraph {
 		g.setColor(gp.gridColor);
 		g.setStroke(stroke);
 
-		g.drawLine(gp.gRect2.x+1, catY,gp.gRect2.x+gp.gRect2.width,catY);
+		Utils.drawLine(g,gp.gRect2.x+1, catY,gp.gRect2.x+gp.gRect2.width,catY);
 	}
 	
 	/**
@@ -1660,9 +1670,8 @@ public abstract class DrawBase implements IGraph {
 		TR = gp.GFV_TITLE.getTextSize();
 		y = gp.topInset + TR.height;
 
-		Point p = new Point(0, y);
+		Point2D.Double p = new Point2D.Double(0, y);
 		vlTitle = new ValueLabel(gp.GFV_TITLE.text, p, null);
-		// gp.GFV_TITLE.outText(x, y);
 		gp.topInset += TR.height + 4;
 	}
 
@@ -1671,7 +1680,7 @@ public abstract class DrawBase implements IGraph {
 	 */
 	public void drawGraphRect() {
 		if (gp.graphBackColor != null) {
-			int bx, by, bw, bh;
+			double bx, by, bw, bh;
 			bx = gp.gRect2.x;
 			by = gp.gRect2.y;
 			bw = gp.gRect2.width;
@@ -1686,18 +1695,18 @@ public abstract class DrawBase implements IGraph {
 			} else {
 				g.setColor(gp.graphBackColor);
 			}
-			g.fillRect(bx, by, bw, bh);
+			Utils.fillRect(g,bx, by, bw, bh);
 		}
 
-		int vx = 0, vy = 0, hx = 0, hy = 0;
+		double vx = 0, vy = 0, hx = 0, hy = 0;
 		// 纵轴的x和y偏移以及横轴的
 
 		g.setStroke(new BasicStroke(1f));
 		Color c;
-		int x1 = gp.gRect2.x;
-		int y1 = gp.gRect2.y;
-		int x2 = x1 + gp.gRect2.width;
-		int y2 = y1;
+		double x1 = gp.gRect2.x;
+		double y1 = gp.gRect2.y;
+		double x2 = x1 + gp.gRect2.width;
+		double y2 = y1;
 		c = egp.getAxisColor(IGraphProperty.AXIS_TOP);
 		drawLine(x1, y1, x2, y2, c);
 
@@ -1706,8 +1715,8 @@ public abstract class DrawBase implements IGraph {
 		c = egp.getAxisColor(IGraphProperty.AXIS_RIGHT);
 		drawLine(x1, y1, x2, y2, c);
 
-		int x, y, w, h;
-		int coorShift = gp.gRect2.x - gp.gRect1.x;
+		double x, y, w, h;
+		double coorShift = gp.gRect2.x - gp.gRect1.x;
 		c = egp.getAxisColor(IGraphProperty.AXIS_BOTTOM);
 		if (c != null) {
 			if (coorShift != 0) {
@@ -1744,7 +1753,7 @@ public abstract class DrawBase implements IGraph {
 			hx = coorShift;
 			hy = -coorShift;
 		}
-		hShift = new Point(hx, hy);
+		hShift = new Point2D.Double(hx, hy);
 
 		c = egp.getAxisColor(IGraphProperty.AXIS_LEFT);
 		if (c != null) {
@@ -1780,17 +1789,7 @@ public abstract class DrawBase implements IGraph {
 			vx = -coorShift;
 			vy = coorShift;
 		}
-		vShift = new Point(vx, vy);
-	}
-
-	private int getLeftReserve() {
-		int yTitleSpace = 0;
-		String label = getLeftText();
-		if (StringUtils.isValidString(label)) {
-			TR = gp.GFV_XTITLE.getTextSize(label);
-			yTitleSpace = TR.width;
-		}
-		return 0;
+		vShift = new Point2D.Double(vx, vy);
 	}
 
 	private String getLeftText() {
@@ -1815,7 +1814,7 @@ public abstract class DrawBase implements IGraph {
 		if (StringUtils.isValidString(label)) {
 			TR = gp.GFV_XTITLE.getTextSize(label);
 			y = gp.graphHeight - gp.bottomInset;
-			vlXTitle = new ValueLabel(label, new Point(0, y), null);
+			vlXTitle = new ValueLabel(label, new Point2D.Double(0, y), null);
 			gp.bottomInset += TR.height + 2;
 		}
 
@@ -1832,7 +1831,7 @@ public abstract class DrawBase implements IGraph {
 			x = gp.leftInset;
 
 			// 绘制数据表时，数据表的位置会侵占纵轴位置，挪到后面去画
-			vlYTitle1 = new ValueLabel(label, new Point(x, 0), null);
+			vlYTitle1 = new ValueLabel(label, new Point2D.Double(x, 0), null);
 			gp.leftInset += TR.width + 4;
 		}
 
@@ -1840,7 +1839,7 @@ public abstract class DrawBase implements IGraph {
 			TR = gp.GFV_YTITLE.getTextSize(gp.GFV_YTITLE.text2);
 			x = gp.graphWidth - gp.rightInset;
 
-			vlYTitle2 = new ValueLabel(gp.GFV_YTITLE.text2, new Point(x, 0),
+			vlYTitle2 = new ValueLabel(gp.GFV_YTITLE.text2, new Point2D.Double(x, 0),
 					null);
 			gp.rightInset += TR.width + 4;
 		}
@@ -1857,7 +1856,7 @@ public abstract class DrawBase implements IGraph {
 	 * @param backColor 背景色
 	 * @param foreColor 边框颜色
 	 */
-	public void drawPoint(Point pt, int shape, double radius, int borderStyle,
+	public void drawPoint(Point2D.Double pt, int shape, double radius, int borderStyle,
 			float borderWeight, Color backColor, Color foreColor) {
 		if (egp.isDrawShade()) {
 			Utils.drawCartesianPoint1(g, pt, shape, radius, radius, radius,
@@ -1878,7 +1877,7 @@ public abstract class DrawBase implements IGraph {
 	 * @param category 分类值
 	 * @param egs 系列值
 	 */
-	public void htmlLink(int x1, int y1, int w, int h, StringBuffer sb,
+	public void htmlLink(double x1, double y1, double w, double h, StringBuffer sb,
 			Object category, ExtGraphSery egs) {
 		if (disableLink()) {
 			return;
@@ -1898,10 +1897,10 @@ public abstract class DrawBase implements IGraph {
 				return;
 			}
 
-			coordx = "x=\"" + x1 + "\" y=\"" + y1 + "\" width=\"" + w
-					+ "\" height=\"" + h + "\"";
+			coordx = "x=\"" + (int)x1 + "\" y=\"" + (int)y1 + "\" width=\"" + (int)w
+					+ "\" height=\"" + (int)h + "\"";
 		} else {
-			coordx = x1 + "," + y1 + "," + (x1 + w) + "," + (y1 + h);
+			coordx = (int)x1 + "," + (int)y1 + "," + (int)(x1 + w) + "," + (int)(y1 + h);
 		}
 		sb.append(getStgLinkHtml(egp.getLink(), "rect", coordx,
 				egp.getLinkTarget(), egs.getName(), category,
@@ -1918,7 +1917,7 @@ public abstract class DrawBase implements IGraph {
 	 * @param category 分类值
 	 * @param egs 系列值
 	 */
-	public void htmlLink2(int x1, int y1, int w, int h, StringBuffer sb,
+	public void htmlLink2(double x1, double y1, double w, double h, StringBuffer sb,
 			Object category, ExtGraphSery egs) {
 		// 超连接处理
 		if (disableLink()) {
@@ -1936,10 +1935,10 @@ public abstract class DrawBase implements IGraph {
 			if (!StringUtils.isValidString(egp.getLink())) {
 				return;
 			}
-			coordx = "x=\"" + x1 + "\" y=\"" + y1 + "\" width=\"" + w
-					+ "\" height=\"" + h + "\"";
+			coordx = "x=\"" + (int)x1 + "\" y=\"" + (int)y1 + "\" width=\"" + (int)w
+					+ "\" height=\"" + (int)h + "\"";
 		} else {
-			coordx = x1 + "," + y1 + "," + (x1 + w) + "," + (y1 + h);
+			coordx = (int)x1 + "," + (int)y1 + "," + (int)(x1 + w) + "," + (int)(y1 + h);
 		}
 		sb.append(getStgLinkHtml(egp.getLink(), "rect", coordx,
 				egp.getLinkTarget(), egs.getName(), category,
@@ -2089,7 +2088,7 @@ public abstract class DrawBase implements IGraph {
 	 *            double 警戒值
 	 * @return Point null
 	 */
-	public Point getCoorPoint(double alarmVal) {
+	public Point2D.Double getCoorPoint(double alarmVal) {
 		return null;
 	}
 
@@ -2102,7 +2101,7 @@ public abstract class DrawBase implements IGraph {
 			return;
 		}
 
-		int x1, y1, x2, y2;
+		double x1, y1, x2, y2;
 		Stroke s = g.getStroke();
 		int cc = warnLines.size();
 
@@ -2126,13 +2125,13 @@ public abstract class DrawBase implements IGraph {
 			g.setColor(new Color(lineColor));
 
 			double value = eal.getAlarmValue() / gp.scaleMark;
-			y1 = (int) (gp.gRect2.y + (Math.abs(value - topTickVal) / tickArea)
-					* gp.gRect2.height);
+			y1 = gp.gRect2.y + (Math.abs(value - topTickVal) / tickArea)
+					* gp.gRect2.height;
 
 			x1 = gp.gRect2.x;
 			x2 = x1 + gp.gRect2.width;
 			y2 = y1;
-			g.drawLine(x1, y1, x2, y2);
+			Utils.drawLine(g,x1, y1, x2, y2);
 			if(!eal.isDrawAlarmValue()){
 				continue;
 			}
@@ -2156,7 +2155,7 @@ public abstract class DrawBase implements IGraph {
 		if (warnLines == null) {
 			return;
 		}
-		int x1, y1, x2, y2;
+		double x1, y1, x2, y2;
 		Stroke s = g.getStroke();
 		int cc = warnLines.size();
 
@@ -2177,13 +2176,13 @@ public abstract class DrawBase implements IGraph {
 			g.setColor(new Color(lineColor));
 
 			double value = eal.getAlarmValue() / gp.scaleMark;
-			x1 = (int) (gp.gRect2.x + (Math.abs(value - leftTickVal) / tickArea)
-					* gp.gRect2.width);
+			x1 = gp.gRect2.x + (Math.abs(value - leftTickVal) / tickArea)
+					* gp.gRect2.width;
 
 			y1 = gp.gRect2.y;
 			x2 = x1;
 			y2 = y1 + gp.gRect2.height;
-			g.drawLine(x1, y1, x2, y2);
+			Utils.drawLine(g,x1, y1, x2, y2);
 			if(!eal.isDrawAlarmValue()){
 				continue;
 			}
@@ -3159,7 +3158,7 @@ public abstract class DrawBase implements IGraph {
 	 * @param b 起始点
 	 * @param e 结束点
 	 */
-	public void drawLine(Point b, Point e) {
+	public void drawLine(Point2D.Double b, Point2D.Double e) {
 		drawLine(b, e, egp.isDrawShade());
 	}
 
@@ -3169,7 +3168,7 @@ public abstract class DrawBase implements IGraph {
 	 * @param e 结束点
 	 * @param drawShade 是否绘制阴影
 	 */
-	public void drawLine(Point b, Point e, boolean drawShade) {
+	public void drawLine(Point2D.Double b, Point2D.Double e, boolean drawShade) {
 		if (b == null || e == null) {
 			return;
 		}
@@ -3180,11 +3179,11 @@ public abstract class DrawBase implements IGraph {
 			if (drawShade) {
 				Color c = g.getColor();
 				g.setColor(Color.lightGray);
-				g.drawLine(b.x + SHADE_SPAN, b.y + SHADE_SPAN,
+				Utils.drawLine(g,b.x + SHADE_SPAN, b.y + SHADE_SPAN,
 						e.x + SHADE_SPAN, e.y + SHADE_SPAN);
 				g.setColor(c);
 			}
-			g.drawLine(b.x, b.y, e.x, e.y);
+			Utils.drawLine(g,b.x, b.y, e.x, e.y);
 		}
 		g.setStroke(old);
 	}
@@ -3243,7 +3242,6 @@ public abstract class DrawBase implements IGraph {
 		}
 		PgmCellSet cs = new PgmCellSet(rows, cols);
 		double catWidth = axisLen / gp.catNum;
-		double serWidth = gp.leftInset < catWidth ? gp.leftInset : catWidth;
 		IColCell cc = cs.getColCell(1);
 		cc.setWidth(gp.leftInset-5);
 

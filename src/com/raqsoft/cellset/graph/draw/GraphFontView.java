@@ -152,7 +152,7 @@ public class GraphFontView {
 	 * @param x 横坐标
 	 * @param y 纵坐标
 	 */
-	public void outText(int x, int y) {
+	public void outText(double x, double y) {
 		outText(x, y, text);
 	}
 
@@ -168,7 +168,7 @@ public class GraphFontView {
 	 * @param visible
 	 *            boolean 是否可见
 	 */
-	public void outText(int x, int y, String text, boolean visible) {
+	public void outText(double x, double y, String text, boolean visible) {
 		if (visible) {
 			outText(x, y, text);
 		}
@@ -182,7 +182,7 @@ public class GraphFontView {
 	 * @param visible 可见
 	 * @param direction 方位
 	 */
-	public void outText(int x, int y, String text, boolean visible,
+	public void outText(double x, double y, String text, boolean visible,
 			byte direction) {
 		if (visible) {
 			outText(x, y, text, direction);
@@ -194,11 +194,11 @@ public class GraphFontView {
 	 * @param text 
 	 *            String 文本
 	 * @param x
-	 *            int 文本输出时的左下角x
+	 *            double 文本输出时的左下角x
 	 * @param y
-	 *            int 文本输出时的左下角y
+	 *            double 文本输出时的左下角y
 	 */
-	public boolean outText(int x, int y, String text) {
+	public boolean outText(double x, double y, String text) {
 		return outText(x, y, text, textPosition);
 	}
 
@@ -221,7 +221,7 @@ public class GraphFontView {
 	 * @param tmpColor 颜色
 	 * @return 绘制完成返回true，否则返回false
 	 */
-	public boolean outText(int x, int y, String text, Color tmpColor) {
+	public boolean outText(double x, double y, String text, Color tmpColor) {
 		return outText(x, y, text, textPosition, tmpColor);
 	}
 
@@ -233,7 +233,7 @@ public class GraphFontView {
 	 * @param direction 方位
 	 * @return 绘制完成返回true，否则返回false
 	 */
-	public boolean outText(int x, int y, String text, byte direction) {
+	public boolean outText(double x, double y, String text, byte direction) {
 		return outText(x, y, text, direction, color);
 	}
 
@@ -247,7 +247,7 @@ public class GraphFontView {
 	 * @return 绘制了文本返回true，否则返回false
 	 */
 
-	public boolean outText(int x, int y, String text, byte direction,
+	public boolean outText(double x, double y, String text, byte direction,
 			Color textColor) {
 		if (text == null || text.trim().length() == 0) {
 			return false;
@@ -264,7 +264,7 @@ public class GraphFontView {
 			vertical = false;
 		}
 		FontMetrics fm = db.g.getFontMetrics(font);
-		Point rop = getActualTextPoint(x, y, direction, TA, fm, text); 
+		Point rop = getActualTextPoint((int)x, (int)y, direction, TA, fm, text); 
 		TA.x = rop.x;
 		TA.y = rop.y;
 		if (textColor != color) { // 当输出颜色跟编辑的颜色不一致时，表示使用了系列的动态颜色来区分标签，该状态下
@@ -302,7 +302,7 @@ public class GraphFontView {
 				String ch = text.substring(i, i + 1);
 				if ("()[]{}".indexOf(ch) >= 0) {
 					AffineTransform at = db.g.getTransform();
-					int yy = y + i * (fm.getAscent() + 2);
+					double yy = y + i * (fm.getAscent() + 2);
 					if ("([{".indexOf(ch) >= 0) {
 						yy -= fm.getAscent() / 2;
 					} else {
@@ -319,11 +319,11 @@ public class GraphFontView {
 					db.g.drawString(ch, 0, 0);
 					db.g.setTransform(at);
 				} else {
-					db.g.drawString(ch, x, y + i * (fm.getAscent() + 2));
+					db.g.drawString(ch, (int)x, (int)(y + i * (fm.getAscent() + 2)));
 				}
 			}
 		} else if (angle == 0) {
-			db.g.drawString(text, x, y);
+			db.g.drawString(text, (int)x, (int)y);
 		} else {
 			double rotateAngle = Math.toRadians(-angle);
 			AffineTransform at = db.g.getTransform();
@@ -331,7 +331,7 @@ public class GraphFontView {
 					rotateAngle, x, y);
 			db.g.transform(at1);
 			db.g.setStroke(new BasicStroke(1f));
-			db.g.drawString(text, x, y);
+			db.g.drawString(text, (int)x, (int)y);
 
 			db.g.setTransform(at);
 		}
@@ -495,7 +495,7 @@ public class GraphFontView {
 		FontMetrics fm = db.g.getFontMetrics(font);
 		int hw = fm.stringWidth(text);
 		int hh = fm.getAscent();
-		double djx = (int) Math.sqrt(hw * hw + hh * hh); // 对角线长度
+		double djx =  Math.sqrt(hw * hw + hh * hh); // 对角线长度
 		double textAngle = Math.atan(hh / (hw * 1.0f)), tmpAngle; // 文字本身的对角线与底边的角度
 																	// 单位：弧度
 		int aw, ah;

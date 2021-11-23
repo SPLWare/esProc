@@ -1,6 +1,8 @@
 package com.raqsoft.cellset.graph.draw;
 
 import java.awt.*;
+import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 import java.util.*;
 
 import com.raqsoft.cellset.graph.*;
@@ -35,8 +37,8 @@ public class DrawCol3DObj extends DrawBase {
 		double coorWidth;
 		double categorySpan;
 		double dely;
-		int tmpInt;
-		int x, y;
+		double tmpInt;
+		double x, y;
 
 		db.initGraphInset();
 		db.createCoorValue();
@@ -45,7 +47,7 @@ public class DrawCol3DObj extends DrawBase {
 		db.drawLabel();
 		db.keepGraphSpace();
 		db.adjustCoorInset();
-		gp.graphRect = new Rectangle(gp.leftInset, gp.topInset, gp.graphWidth
+		gp.graphRect = new Rectangle2D.Double(gp.leftInset, gp.topInset, gp.graphWidth
 				- gp.leftInset - gp.rightInset, gp.graphHeight - gp.topInset
 				- gp.bottomInset);
 
@@ -76,18 +78,18 @@ public class DrawCol3DObj extends DrawBase {
 			categorySpan = (seriesWidth * (gp.categorySpan / 100.0));
 		}
 		coorWidth = (seriesWidth * (gp.coorWidth / 200.0));
-		tmpInt = (int) ((gp.catNum + 1) * categorySpan + coorWidth + gp.catNum
-				* gp.serNum * seriesWidth);
+		tmpInt = (gp.catNum + 1) * categorySpan + coorWidth + gp.catNum
+				* gp.serNum * seriesWidth;
 		gp.graphRect.x += (gp.graphRect.width - tmpInt) / 2;
 		gp.graphRect.width = tmpInt;
 
 		dely = (gp.graphRect.height - coorWidth) / gp.tickNum;
-		tmpInt = (int) (dely * gp.tickNum + coorWidth);
+		tmpInt =  (dely * gp.tickNum + coorWidth);
 		gp.graphRect.y += (gp.graphRect.height - tmpInt) / 2;
 		gp.graphRect.height = tmpInt;
 
-		gp.gRect1 = new Rectangle(gp.graphRect);
-		gp.gRect2 = new Rectangle(gp.graphRect);
+		gp.gRect1 = (Rectangle2D.Double)gp.graphRect.clone();
+		gp.gRect2 = (Rectangle2D.Double)gp.graphRect.clone();
 
 		gp.gRect1.y += coorWidth;
 		gp.gRect1.width -= coorWidth;
@@ -99,7 +101,7 @@ public class DrawCol3DObj extends DrawBase {
 		/* 画坐标轴 */
 		db.drawGraphRect();
 		/* 画Y轴 */
-		Point p;
+		Point2D.Double p;
 		for (int i = 0; i <= gp.tickNum; i++) {
 			db.drawGridLine(dely, i);
 			Number coory = (Number) gp.coorValue.get(i);
@@ -108,7 +110,7 @@ public class DrawCol3DObj extends DrawBase {
 			gp.GFV_YLABEL.outText(p.x-gp.tickLen, p.y, scoory);
 			// 设置基线
 			if (coory.doubleValue() == gp.baseValue + gp.minValue) {
-				gp.valueBaseLine = (int) (gp.gRect1.y + gp.gRect1.height - i
+				gp.valueBaseLine =  (gp.gRect1.y + gp.gRect1.height - i
 						* dely);
 			}
 		}
@@ -136,7 +138,7 @@ public class DrawCol3DObj extends DrawBase {
 				Utils.setStroke(g, c, Consts.LINE_SOLID, 1.0f);
 				db.drawLine(p.x, p.y,p.x, p.y + gp.tickLen,c);
 				// 画背景虚线
-				db.drawGridLineCategoryV(gp.gRect2.x + (int)delx);
+				db.drawGridLineCategoryV(gp.gRect2.x + delx);
 			}
 
 			String value = egc.getNameString();
@@ -149,10 +151,10 @@ public class DrawCol3DObj extends DrawBase {
 				}
 				double val = egs.getValue();
 				double tmp = val - gp.baseValue;
-				int len = (int) (dely * gp.tickNum * (tmp - gp.minValue) / (gp.maxValue * gp.coorScale));
-				int lb = (int) (gp.gRect1.x + (i + 1) * categorySpan + (i
+				double len = dely * gp.tickNum * (tmp - gp.minValue) / (gp.maxValue * gp.coorScale);
+				double lb = gp.gRect1.x + (i + 1) * categorySpan + (i
 						* gp.serNum + j)
-						* seriesWidth);
+						* seriesWidth;
 				if (len > 0) {
 					continue;
 				}
@@ -163,11 +165,11 @@ public class DrawCol3DObj extends DrawBase {
 				} else {
 					cIndex = j;
 				}
-				db.drawRectCube(lb, (int) seriesWidth, len, (int) coorWidth, 0,
+				db.drawRectCube(lb, seriesWidth, len, coorWidth, 0,
 						cIndex, htmlLink, egc.getNameString(), egs);
 				if (gp.dispValueOntop && !egs.isNull() && vis) { // 柱顶显示数值
 					String sval = db.getDispValue(egc,egs,gp.serNum);
-					x = lb + (int) seriesWidth / 2; // - TR.width / 2;
+					x = lb + seriesWidth / 2; // - TR.width / 2;
 					y = gp.valueBaseLine - len;
 					if (!gp.isMultiSeries) {
 						c = db.getColor(i);
@@ -176,10 +178,10 @@ public class DrawCol3DObj extends DrawBase {
 					}
 					ValueLabel vl;
 					if (len < 0) {
-						vl = new ValueLabel(sval, new Point(x, y), c,
+						vl = new ValueLabel(sval, new Point2D.Double(x, y), c,
 								GraphFontView.TEXT_ON_BOTTOM);
 					} else {
-						vl = new ValueLabel(sval, new Point(x, y), c,
+						vl = new ValueLabel(sval, new Point2D.Double(x, y), c,
 								GraphFontView.TEXT_ON_TOP);
 					}
 					labelList.add(vl);
@@ -189,13 +191,13 @@ public class DrawCol3DObj extends DrawBase {
 		
 		// 绘制基线透明平面，
 		if (gp.valueBaseLine != gp.gRect1.y + gp.gRect1.height) {
-			int xx[] = { gp.gRect1.x, (int) (gp.gRect1.x + coorWidth),
-					(int) (gp.gRect1.x + gp.gRect1.width + coorWidth),
-					(int) (gp.gRect1.x + gp.gRect1.width) };
-			int yy[] = { gp.valueBaseLine,
-					(int) (gp.valueBaseLine - coorWidth),
-					(int) (gp.valueBaseLine - coorWidth), gp.valueBaseLine };
-			Polygon poly = new Polygon(xx, yy, 4);
+			double xx[] = { gp.gRect1.x, gp.gRect1.x + coorWidth,
+					gp.gRect1.x + gp.gRect1.width + coorWidth,
+					gp.gRect1.x + gp.gRect1.width};
+			double yy[] = { gp.valueBaseLine,
+					gp.valueBaseLine - coorWidth,
+					gp.valueBaseLine - coorWidth, gp.valueBaseLine };
+			Shape poly = Utils.newPolygon2D(xx, yy);
 
 			Color ccc = egp.getAxisColor(GraphProperty.AXIS_BOTTOM);
 			if (ccc == null) {// 如果底边为透明色时，使用缺省灰
@@ -222,10 +224,10 @@ public class DrawCol3DObj extends DrawBase {
 				}
 				double val = egs.getValue();
 				double tmp = val - gp.baseValue;
-				int len = (int) (dely * gp.tickNum * (tmp - gp.minValue) / (gp.maxValue * gp.coorScale));
-				int lb = (int) (gp.gRect1.x + (i + 1) * categorySpan + (i
+				double len = dely * gp.tickNum * (tmp - gp.minValue) / (gp.maxValue * gp.coorScale);
+				double lb = gp.gRect1.x + (i + 1) * categorySpan + (i
 						* gp.serNum + j)
-						* seriesWidth);
+						* seriesWidth;
 				if (len < 0) {
 					continue;
 				}
@@ -236,11 +238,11 @@ public class DrawCol3DObj extends DrawBase {
 				} else {
 					cIndex = j;
 				}
-				db.drawRectCube(lb, (int) seriesWidth, len, (int) coorWidth, 0,
+				db.drawRectCube(lb, seriesWidth, len, coorWidth, 0,
 						cIndex, htmlLink, egc.getNameString(), egs);
 				if (gp.dispValueOntop && !egs.isNull() && vis) { // 柱顶显示数值
 					String sval = db.getDispValue(egc,egs,gp.serNum);
-					x = lb + (int) seriesWidth / 2; // - TR.width / 2;
+					x = lb + seriesWidth / 2; // - TR.width / 2;
 					y = gp.valueBaseLine - len;
 					if (!gp.isMultiSeries) {
 						c = db.getColor(i);
@@ -249,10 +251,10 @@ public class DrawCol3DObj extends DrawBase {
 					}
 					ValueLabel vl;
 					if (len < 0) {
-						vl = new ValueLabel(sval, new Point(x, y), c,
+						vl = new ValueLabel(sval, new Point2D.Double(x, y), c,
 								GraphFontView.TEXT_ON_BOTTOM);
 					} else {
-						vl = new ValueLabel(sval, new Point(x, y), c,
+						vl = new ValueLabel(sval, new Point2D.Double(x, y), c,
 								GraphFontView.TEXT_ON_TOP);
 					}
 					labelList.add(vl);
@@ -273,8 +275,8 @@ public class DrawCol3DObj extends DrawBase {
 					+ gp.gRect1.width, gp.valueBaseLine,
 					egp.getAxisColor(GraphProperty.AXIS_BOTTOM));
 			db.drawLine(gp.gRect1.x + gp.gRect1.width, gp.valueBaseLine,
-					(int) (gp.gRect1.x + gp.gRect1.width + coorWidth),
-					(int) (gp.valueBaseLine - coorWidth),
+					gp.gRect1.x + gp.gRect1.width + coorWidth,
+					gp.valueBaseLine - coorWidth,
 					egp.getAxisColor(GraphProperty.AXIS_BOTTOM));
 		}
 	}

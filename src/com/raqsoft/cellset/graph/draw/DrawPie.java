@@ -35,10 +35,10 @@ public class DrawPie extends DrawBase {
 		Graphics2D g = db.g;
 
 		double x, y, w, h;
-		int radiusx = 0;
-		int radiusy = 0;
-		int dely;
-		int tmpInt1, tmpInt2;
+		double radiusx = 0;
+		double radiusy = 0;
+		double dely;
+		double tmpInt1, tmpInt2;
 
 		gp.coorWidth = 0;
 		gp.pieHeight = 0;
@@ -66,13 +66,13 @@ public class DrawPie extends DrawBase {
 		db.drawLegend(htmlLink);
 		db.drawTitle();
 		db.drawLabel();
-		gp.gRect2 = new Rectangle(gp.leftInset, gp.topInset, gp.graphWidth
+		gp.gRect2 = new Rectangle2D.Double(gp.leftInset, gp.topInset, gp.graphWidth
 				- gp.leftInset - gp.rightInset, gp.graphHeight - gp.topInset
 				- gp.bottomInset);
-		gp.gRect1 = new Rectangle(gp.gRect2);
+		gp.gRect1 = (Rectangle2D.Double)gp.gRect2.clone();
 		db.keepGraphSpace();
 
-		gp.graphRect = new Rectangle(gp.leftInset,
+		gp.graphRect = new Rectangle2D.Double(gp.leftInset,
 				gp.topInset, // + 20,
 				gp.graphWidth - gp.leftInset - gp.rightInset,
 				gp.graphHeight - gp.topInset - gp.bottomInset);
@@ -81,11 +81,11 @@ public class DrawPie extends DrawBase {
 			return;
 		}
 		if (gp.serNum == 0) {
-			radiusx = (int) (gp.graphRect.width / 2);
+			radiusx =  (gp.graphRect.width / 2);
 		} else {
-			radiusx = (int) (gp.graphRect.width / (2 * gp.serNum));
+			radiusx =  (gp.graphRect.width / (2 * gp.serNum));
 		}
-		radiusy = (int) (gp.graphRect.height / (2 * gp.serNum + (gp.pieHeight / 100.0)));
+		radiusy =  (gp.graphRect.height / (2 * gp.serNum + (gp.pieHeight / 100.0)));
 		if (gp.pieRotation < 10) {
 			gp.pieRotation = 10;
 		}
@@ -93,20 +93,20 @@ public class DrawPie extends DrawBase {
 			gp.pieRotation = 100;
 		}
 		if (radiusx * (gp.pieRotation / 100.0) > radiusy) {
-			radiusx = (int) (radiusy / (gp.pieRotation / 100.0));
+			radiusx =  (radiusy / (gp.pieRotation / 100.0));
 		} else {
-			radiusy = (int) (radiusx * gp.pieRotation / 100.0);
+			radiusy =  (radiusx * gp.pieRotation / 100.0);
 		}
-		dely = (int) (radiusy * (gp.pieHeight / 100.0));
+		dely =  (radiusy * (gp.pieHeight / 100.0));
 		tmpInt1 = radiusx * (2 * gp.serNum);
 		tmpInt2 = radiusy * (2 * gp.serNum)
-				+ (int) (radiusy * (gp.pieHeight / 100.0));
-		gp.graphRect = new Rectangle(gp.graphRect.x
+				+  (radiusy * (gp.pieHeight / 100.0));
+		gp.graphRect = new Rectangle2D.Double(gp.graphRect.x
 				+ (gp.graphRect.width - tmpInt1) / 2, gp.graphRect.y
 				+ (gp.graphRect.height - tmpInt2) / 2, tmpInt1, tmpInt2);
 
-		int orgx = gp.graphRect.x + gp.graphRect.width / 2;
-		int orgy = gp.graphRect.y + dely + (gp.graphRect.height - dely) / 2;
+		double orgx = gp.graphRect.x + gp.graphRect.width / 2;
+		double orgy = gp.graphRect.y + dely + (gp.graphRect.height - dely) / 2;
 		boolean cut = gp.serNum == 1 && egp.isCutPie();
 
 		/* 开始循环画饼 */
@@ -115,27 +115,27 @@ public class DrawPie extends DrawBase {
 			double totAmount = 0.0;
 			double totAngle = 0;
 			/* 算出当前序列的半径 */
-			int radx = (gp.serNum - j) * radiusx;
-			int rady = (gp.serNum - j) * radiusy;
+			double radx = (gp.serNum - j) * radiusx;
+			double rady = (gp.serNum - j) * radiusy;
 			w = 2 * radx;
 			h = 2 * rady;
 			// 超链接时需要得到下一系列的半径矩形，以确定环状链接坐标
-			int rxx = (gp.serNum - j - 1) * radiusx;
-			int ryy = (gp.serNum - j - 1) * radiusy;
-			int xx, yy;
-			int ww = 2 * rxx;
-			int hh = 2 * ryy;
+			double rxx = (gp.serNum - j - 1) * radiusx;
+			double ryy = (gp.serNum - j - 1) * radiusy;
+			double xx, yy;
+			double ww = 2 * rxx;
+			double hh = 2 * ryy;
 
 			double max = 0;
-			int maxi = -1, maxX = 0, maxY = 0; // 最大块饼的坐标
+			double maxi = -1, maxX = 0, maxY = 0; // 最大块饼的坐标
 			ExtGraphCategory maxEgc = null;
 			ExtGraphSery maxEgs = null;
 
 
 			double maxAngle = 0; // 最大块所处的饼图角度
 
-			int movex = 0;
-			int movey = 0;
+			double movex = 0;
+			double movey = 0;
 			/* 先算出总和 */
 			ArrayList cats = egp.categories;
 			int cc = cats.size();
@@ -171,9 +171,9 @@ public class DrawPie extends DrawBase {
 						/* 如果当前扇区被切出，则圆心作一位移，沿对角线 */
 					}
 					if (cut && maxi == i) {
-						movex = (int) (20 * Math.cos(Math.toRadians(totAngle
+						movex =  (20 * Math.cos(Math.toRadians(totAngle
 								+ angle / 2)));
-						movey = (int) (-20 * Math.sin(Math.toRadians(totAngle
+						movey =  (-20 * Math.sin(Math.toRadians(totAngle
 								+ angle / 2)));
 					} else {
 						movex = 0;
@@ -208,9 +208,9 @@ public class DrawPie extends DrawBase {
 					/* 如果当前扇区被切出，则圆心作一位移，沿对角线 */
 				}
 				if (cut && maxi == i) {
-					movex = (int) (20 * Math.cos(Math.toRadians(totAngle
+					movex =  (20 * Math.cos(Math.toRadians(totAngle
 							+ angle / 2)));
-					movey = (int) (-20 * Math.sin(Math.toRadians(totAngle
+					movey =  (-20 * Math.sin(Math.toRadians(totAngle
 							+ angle / 2)));
 				} else {
 					movex = 0;
@@ -265,9 +265,9 @@ public class DrawPie extends DrawBase {
 					/* 如果当前扇区被切出，则圆心作一位移，沿对角线 */
 				}
 				if (cut && maxi == i) {
-					movex = (int) (20 * Math.cos(Math.toRadians(totAngle
+					movex =  (20 * Math.cos(Math.toRadians(totAngle
 							+ angle / 2)));
-					movey = (int) (-20 * Math.sin(Math.toRadians(totAngle
+					movey =  (-20 * Math.sin(Math.toRadians(totAngle
 							+ angle / 2)));
 				} else {
 					movex = 0;
@@ -276,11 +276,11 @@ public class DrawPie extends DrawBase {
 
 				if (gp.serNum == 1) { // 画百分比标识
 					double tAngle = Math.toRadians(totAngle + angle / 2);
-					int x1 = orgx
-							+ (int) Math.round((radx) * Math.cos(tAngle))
+					double x1 = orgx
+							+  Math.round((radx) * Math.cos(tAngle))
 							+ movex;
-					int y1 = orgy
-							- (int) Math.round((rady) * Math.sin(tAngle))
+					double y1 = orgy
+							-  Math.round((rady) * Math.sin(tAngle))
 							+ movey;
 					double shiftx = radx*(gp.pieLine/100f);
 					double shifty = shiftx;
@@ -290,11 +290,11 @@ public class DrawPie extends DrawBase {
 					if(shifty<5){
 						shifty=5;
 					}
-					int x2 = orgx
-							+ (int) Math.round((radx + shiftx) * Math.cos(tAngle))
+					double x2 = orgx
+							+  Math.round((radx + shiftx) * Math.cos(tAngle))
 							+ movex;
-					int y2 = orgy
-							- (int) Math.round((rady + shifty) * Math.sin(tAngle))
+					double y2 = orgy
+							-  Math.round((rady + shifty) * Math.sin(tAngle))
 							+ movey;
 					g.setColor(gp.coorColor);
 
@@ -364,17 +364,17 @@ public class DrawPie extends DrawBase {
 				int angle = Math.round(360 / gp.serNum) * j;
 				double tAngle = Math.toRadians(angle);
 				g.setColor(gp.coorColor);
-				int x1 = orgx
-						+ (int) Math.round((radx - radiusx / 2)
+				double x1 = orgx
+						+  Math.round((radx - radiusx / 2)
 								* Math.cos(tAngle));
-				int y1 = orgy
-						- (int) Math.round((rady - radiusy / 2)
+				double y1 = orgy
+						-  Math.round((rady - radiusy / 2)
 								* Math.sin(tAngle));
-				int x2 = orgx
-						+ (int) Math.round((radiusx * gp.serNum + 5)
+				double x2 = orgx
+						+  Math.round((radiusx * gp.serNum + 5)
 								* Math.cos(tAngle));
-				int y2 = orgy
-						- (int) Math.round((radiusy * gp.serNum + 5)
+				double y2 = orgy
+						-  Math.round((radiusy * gp.serNum + 5)
 								* Math.sin(tAngle));
 				db.drawLine(x1, y1, x2, y2,
 						egp.getAxisColor(GraphProperty.AXIS_PIEJOIN));

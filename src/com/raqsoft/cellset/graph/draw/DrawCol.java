@@ -1,6 +1,8 @@
 package com.raqsoft.cellset.graph.draw;
 
 import java.awt.*;
+import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 import java.util.*;
 
 import com.raqsoft.cellset.graph.*;
@@ -36,7 +38,7 @@ public class DrawCol extends DrawBase {
 		double coorWidth;
 		double categorySpan;
 		double dely;
-		int x, y;
+		double x, y;
 
 		gp.coorWidth = 0;
 		db.initGraphInset();
@@ -49,7 +51,7 @@ public class DrawCol extends DrawBase {
 		db.drawLabel();
 		db.keepGraphSpace();
 		db.adjustCoorInset();
-		gp.graphRect = new Rectangle(gp.leftInset, gp.topInset, gp.graphWidth
+		gp.graphRect = new Rectangle2D.Double(gp.leftInset, gp.topInset, gp.graphWidth
 				- gp.leftInset - gp.rightInset, gp.graphHeight - gp.topInset
 				- gp.bottomInset);
 		if (gp.graphRect.width < 10 || gp.graphRect.height < 10) {
@@ -80,8 +82,8 @@ public class DrawCol extends DrawBase {
 		}
 		coorWidth = (seriesWidth * (gp.coorWidth / 200.0));
 		dely = (gp.graphRect.height - coorWidth) / gp.tickNum;
-		gp.gRect1 = new Rectangle(gp.graphRect);
-		gp.gRect2 = new Rectangle(gp.graphRect);
+		gp.gRect1 = (Rectangle2D.Double)gp.graphRect.clone();
+		gp.gRect2 = (Rectangle2D.Double)gp.graphRect.clone();
 		/* 画坐标轴 */
 		db.drawGraphRect();
 		/* 画Y轴 */
@@ -92,12 +94,11 @@ public class DrawCol extends DrawBase {
 			Number coory = (Number) gp.coorValue.get(i);
 			String scoory = db.getFormattedValue(coory.doubleValue());
 			x = gp.gRect1.x - gp.tickLen;
-			y = (int) (gp.gRect1.y + gp.gRect1.height - i * dely);
+			y = gp.gRect1.y + gp.gRect1.height - i * dely;
 			gp.GFV_YLABEL.outText(x, y, scoory);
 			// 设置基线
 			if (coory.doubleValue() == gp.baseValue + gp.minValue) {
-				gp.valueBaseLine = (int) (gp.gRect1.y + gp.gRect1.height - i
-						* dely);
+				gp.valueBaseLine = (gp.gRect1.y + gp.gRect1.height - i* dely);
 			}
 		}
 
@@ -109,8 +110,8 @@ public class DrawCol extends DrawBase {
 		Color c;
 		for (int i = 0; i < gp.catNum; i++) {
 			ExtGraphCategory egc = (ExtGraphCategory) cats.get(i);
-			int delx = (int) ((i + 1) * categorySpan + i * seriesWidth
-					* gp.serNum + seriesWidth * gp.serNum / 2.0);
+			double delx = (i + 1) * categorySpan + i * seriesWidth
+					* gp.serNum + seriesWidth * gp.serNum / 2.0;
 			boolean valvis = (i % (gp.graphXInterval + 1) == 0);//柱顶是否显示值跟画Table分开
 			boolean vis = valvis && !gp.isDrawTable;
 
@@ -136,14 +137,14 @@ public class DrawCol extends DrawBase {
 				}
 				double val = egs.getValue();
 				double tmp = val - gp.baseValue;
-				int len = (int) (dely * gp.tickNum * (tmp - gp.minValue) / (gp.maxValue * gp.coorScale));
-				int lb;
+				double len = dely * gp.tickNum * (tmp - gp.minValue) / (gp.maxValue * gp.coorScale);
+				double lb;
 				if( gp.isDrawTable && gp.serNum==1){
-					lb = (int)(db.getDataTableX( i )-seriesWidth/2);
+					lb = db.getDataTableX( i )-seriesWidth/2;
 				}else{
-					lb = (int) (gp.gRect1.x + (i + 1) * categorySpan + (i
+					lb = gp.gRect1.x + (i + 1) * categorySpan + (i
 							* gp.serNum + j)
-							* seriesWidth);
+							* seriesWidth;
 				}
 				
 				// 画柱子
@@ -158,10 +159,10 @@ public class DrawCol extends DrawBase {
 					int bs = Consts.LINE_SOLID;
 					float bw = 1.0f;
 					Utils.draw2DRect(g, lb, gp.valueBaseLine - len,
-							(int) (seriesWidth), len, bc, bs, bw,
+							seriesWidth, len, bc, bs, bw,
 							egp.isDrawShade(), egp.isRaisedBorder(),
 							db.getTransparent(), db.getChartColor(tmpc), true);
-					db.htmlLink(lb, gp.valueBaseLine - len, (int) (seriesWidth),
+					db.htmlLink(lb, gp.valueBaseLine - len, seriesWidth,
 							len, htmlLink, egc.getNameString(), egs);
 				} else {
 					Color tmpc;
@@ -174,17 +175,17 @@ public class DrawCol extends DrawBase {
 					int bs = Consts.LINE_SOLID;
 					float bw = 1.0f;
 					Utils.draw2DRect(g, lb, gp.valueBaseLine,
-							(int) (seriesWidth), Math.abs(len), bc, bs, bw,
+							seriesWidth, Math.abs(len), bc, bs, bw,
 							egp.isDrawShade(), egp.isRaisedBorder(),
 							db.getTransparent(), db.getChartColor(tmpc), true);
-					db.htmlLink(lb, gp.valueBaseLine, (int) (seriesWidth),
+					db.htmlLink(lb, gp.valueBaseLine, seriesWidth,
 							Math.abs(len), htmlLink, egc.getNameString(), egs);
 				}
 
 				// 在柱顶显示数值
 				if (gp.dispValueOntop && !egs.isNull() && valvis) {
 					sval = db.getDispValue(egc,egs,gp.serNum);
-					x = lb + (int) seriesWidth / 2;
+					x = lb + seriesWidth / 2;
 					y = gp.valueBaseLine - len;
 
 					if (!gp.isMultiSeries) {
@@ -194,10 +195,10 @@ public class DrawCol extends DrawBase {
 					}
 					ValueLabel vl;
 					if (len < 0) {
-						vl = new ValueLabel(sval, new Point(x, y), c,
+						vl = new ValueLabel(sval, new Point2D.Double(x, y), c,
 								GraphFontView.TEXT_ON_BOTTOM);
 					} else {
-						vl = new ValueLabel(sval, new Point(x, y), c,
+						vl = new ValueLabel(sval, new Point2D.Double(x, y), c,
 								GraphFontView.TEXT_ON_TOP);
 					}
 					labelList.add(vl);
@@ -210,8 +211,8 @@ public class DrawCol extends DrawBase {
 		db.drawLine(gp.gRect1.x, gp.valueBaseLine, gp.gRect1.x + gp.gRect1.width,
 				gp.valueBaseLine, egp.getAxisColor(GraphProperty.AXIS_BOTTOM));
 		db.drawLine(gp.gRect1.x + gp.gRect1.width, gp.valueBaseLine,
-				(int) (gp.gRect1.x + gp.gRect1.width + coorWidth),
-				(int) (gp.valueBaseLine - coorWidth),
+				 (gp.gRect1.x + gp.gRect1.width + coorWidth),
+				 (gp.valueBaseLine - coorWidth),
 				egp.getAxisColor(GraphProperty.AXIS_BOTTOM));
 		if (!gp.isMultiSeries) {
 			return gp.catNum;

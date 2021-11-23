@@ -1,6 +1,7 @@
 package com.raqsoft.cellset.graph.draw;
 
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 import java.util.*;
 import java.text.*;
 
@@ -83,14 +84,14 @@ public class GraphParam {
 	public int pieLine = 8; /* 饼图连接线占半径比值，范围0~100 */
 
 	// **********************此标注以上的属性均需要从ExtGraphProperty初始化过来,以下为画图过程中用到的中间变量
-	public Rectangle graphRect, gRect1, gRect2; /* 坐标区域 */
+	public Rectangle2D.Double graphRect, gRect1, gRect2; /* 坐标区域 */
 	public double coorScale = 1.0; /* 上述Mark为Auto时,计算实际缩放比例且放到这个变量 */
 	public double coorScale2 = 1.0; /* 值坐标比例 */
 	public Vector coorValue = new Vector(); /* 值数据,如果是时间序列图，则为x轴时间刻度值 */
 	public Vector coorValue2 = new Vector(); /* 值数据,如果是时间序列图，则为x轴时间刻度值 */
 	public int tickNum = 10; /* 值轴标度数 */
 	public int tickNum2 = 10; /* 值轴标度数 */
-	public int valueBaseLine = 0; /* 值轴基线 */
+	public double valueBaseLine = 0; /* 值轴基线 */
 	public double baseValue = 0; /* 如果以最小值作为画图的基线，则该值用于存储最小值 */
 	public double baseValue2 = 0; /* 如果以最小值作为画图的基线，则该值用于存储最小值 */
 	public int graphWidth = 640; /* 图象宽度 */

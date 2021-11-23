@@ -9,8 +9,8 @@ import com.raqsoft.chart.ChartColor;
  *
  */
 public class Desc3DRect {
-  public int x,y,w,h;
-  public int borderStyle,coorShift;
+  public double x,y,w,h,coorShift;
+  public int borderStyle;
   public Color borderColor;
   public float borderWeight,transparent;
   public boolean drawShade,convexEdge,isVertical;

@@ -54,7 +54,7 @@ public class DrawRadar extends DrawBase {
 			gp.leftInset += (tmpInt1 - tmpInt2) / 2;
 		}
 
-		gp.graphRect = new Rectangle(gp.leftInset, gp.topInset, (int)tmpInt, (int)tmpInt);
+		gp.graphRect = new Rectangle2D.Double(gp.leftInset, gp.topInset, tmpInt, tmpInt);
 
 		r = tmpInt / 2.0f;
 		cx = gp.leftInset + r;
@@ -63,8 +63,8 @@ public class DrawRadar extends DrawBase {
 		if (gp.graphRect.width < 10 || gp.graphRect.height < 10) {
 			return;
 		}
-		gp.gRect1 = new Rectangle(gp.graphRect);
-		gp.gRect2 = new Rectangle(gp.graphRect);
+		gp.gRect1 = (Rectangle2D.Double)gp.graphRect.clone();
+		gp.gRect2 = (Rectangle2D.Double)gp.graphRect.clone();
 
 
 		Color backColor = gp.graphBackColor;
@@ -91,12 +91,12 @@ public class DrawRadar extends DrawBase {
 			double angle = deltaAngle * i + 90;
 			double rAngle = Math.toRadians(angle);
 
-			x2 = cx + (int) ((r + thick) * Math.cos(rAngle));
-			y2 = cy - (int) ((r + thick) * Math.sin(rAngle));
+			x2 = cx +  ((r + thick) * Math.cos(rAngle));
+			y2 = cy -  ((r + thick) * Math.sin(rAngle));
 			g.setStroke(new BasicStroke(1.0f));
-			db.drawLine((int) cx, (int) cy, (int) x2, (int) y2,
+			db.drawLine( cx,  cy,  x2,  y2,
 					egp.getAxisColor(GraphProperty.AXIS_PIEJOIN));
-			db.drawOutCircleText(gp.GFV_XLABEL, cat, angle, (int) x2, (int) y2);
+			db.drawOutCircleText(gp.GFV_XLABEL, cat, angle,  x2,  y2);
 		}
 
 		/* 刻度,网格线 */
@@ -107,13 +107,13 @@ public class DrawRadar extends DrawBase {
 
 		for (int i = 0; i < gp.tickNum; i++) {
 			dr = i * deltaR;
-			x = cx - (int) dr;
-			y = cy - (int) dr;
+			x = cx -  dr;
+			y = cy -  dr;
 			g.setColor(gp.gridColor);
 
 			if (gridStroke != null) {
 				g.setStroke(gridStroke);
-				g.drawOval((int) x, (int) y, (int) dr * 2, (int) dr * 2);
+				g.drawOval( (int)x,  (int)y,  (int)dr * 2,  (int)dr * 2);
 			}
 
 			Number coory = (Number) gp.coorValue.get(i);
@@ -122,14 +122,14 @@ public class DrawRadar extends DrawBase {
 			}
 			String scoory = db.getFormattedValue(coory.doubleValue());
 			x = cx;
-			y = cy - (int) dr;
-			gp.GFV_YLABEL.outText((int) x, (int) y, scoory);
+			y = cy -  dr;
+			gp.GFV_YLABEL.outText( x,  y, scoory);
 		}
 
 		//值输出
-		Point prePoints[] = new Point[gp.serNum];
-		Point lastPoint[] = new Point[gp.serNum];
-		Point startPoints[] = new Point[gp.serNum];
+		Point2D.Double prePoints[] = new Point2D.Double[gp.serNum];
+		Point2D.Double lastPoint[] = new Point2D.Double[gp.serNum];
+		Point2D.Double startPoints[] = new Point2D.Double[gp.serNum];
 		for (int i = 0; i < cc; i++) {
 			ExtGraphCategory egc = (ExtGraphCategory) cats.get(i);
 
@@ -137,25 +137,25 @@ public class DrawRadar extends DrawBase {
 				ExtGraphSery egs = egc.getExtGraphSery(gp.serNames.get(j));
 				double val = egs.getValue();
 				double tmp = val - gp.baseValue;
-				int len = (int) (deltaR * gp.tickNum * (tmp - gp.minValue) / (gp.maxValue * gp.coorScale));
+				double len =  (deltaR * gp.tickNum * (tmp - gp.minValue) / (gp.maxValue * gp.coorScale));
 
 				double angle = deltaAngle * i + 90;
 				double rAngle = Math.toRadians(angle);
 				r = len;
 
-				x = cx + (int) (r * Math.cos(rAngle));
-				y = cy - (int) (r * Math.sin(rAngle));
+				x = cx +  (r * Math.cos(rAngle));
+				y = cy -  (r * Math.sin(rAngle));
 
-				Point pt;
+				Point2D.Double pt;
 				if (egs.isNull()) {
 					pt = null;
 				} else {
-					pt = new Point((int) x, (int) y);
+					pt = new Point2D.Double( x,  y);
 				}
 
 				if (gp.drawLineDot && pt != null) {
 					backColor = db.getColor(j);
-					int xx, yy, ww, hh;
+					double xx, yy, ww, hh;
 					xx = pt.x - VALUE_RADIUS;
 					yy = pt.y - VALUE_RADIUS;
 					ww = 2 * VALUE_RADIUS;

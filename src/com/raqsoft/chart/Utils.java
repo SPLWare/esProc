@@ -252,9 +252,9 @@ public class Utils {
 	 * @param angle
 	 * @return
 	 */
-	private static synchronized Paint getGradientPaint(int x, int y, int width,
-			int height, Color color1, Color color2, int angle) {
-		int x1 = 0, y1 = 0, x2 = 0, y2 = 0, h = 0;
+	private static synchronized Paint getGradientPaint(double x, double y, double width,
+			double height, Color color1, Color color2, int angle) {
+		double x1 = 0, y1 = 0, x2 = 0, y2 = 0, h = 0;
 		h = height;
 		double antiAngleLen = Math.sqrt(width * width + h * h);// 对角线长度
 		double rad = angle * Math.PI / 180;// 角度的弧度数
@@ -272,8 +272,8 @@ public class Utils {
 			} else {
 				x1 = x;
 				y1 = y + h;
-				x2 = x1 + (int) (antiAngleLen * Math.cos(rad));
-				y2 = y1 - (int) (antiAngleLen * Math.sin(rad));
+				x2 = x1 + antiAngleLen * Math.cos(rad);
+				y2 = y1 - antiAngleLen * Math.sin(rad);
 			}
 		} else if (angle > 90 && angle <= 180) {
 			if (angle == 180) {
@@ -284,8 +284,8 @@ public class Utils {
 			} else {
 				x1 = x + width;
 				y1 = y + h;
-				x2 = x1 + (int) (antiAngleLen * Math.cos(rad));
-				y2 = y1 - (int) (antiAngleLen * Math.sin(rad));
+				x2 = x1 + antiAngleLen * Math.cos(rad);
+				y2 = y1 - antiAngleLen * Math.sin(rad);
 			}
 		} else if (angle > 180 && angle <= 270) {
 			if (angle == 270) {
@@ -296,8 +296,8 @@ public class Utils {
 			} else {
 				x1 = x + width;
 				y1 = y;
-				x2 = x1 + (int) (antiAngleLen * Math.cos(rad));
-				y2 = y1 - (int) (antiAngleLen * Math.sin(rad));
+				x2 = x1 + antiAngleLen * Math.cos(rad);
+				y2 = y1 - antiAngleLen * Math.sin(rad);
 			}
 		} else if (angle > 270 && angle <= 360) {
 			if (angle == 360) {
@@ -308,12 +308,12 @@ public class Utils {
 			} else {
 				x1 = x;
 				y1 = y;
-				x2 = x1 + (int) (antiAngleLen * Math.cos(rad));
-				y2 = y1 - (int) (antiAngleLen * Math.sin(rad));
+				x2 = x1 + antiAngleLen * Math.cos(rad);
+				y2 = y1 - antiAngleLen * Math.sin(rad);
 			}
 		}
 
-		return new GradientPaint(x1, y1, color1, x2, y2, color2, false);
+		return new GradientPaint((int)x1, (int)y1, color1, (int)x2, (int)y2, color2, false);
 	}
 
 	/**
@@ -326,9 +326,9 @@ public class Utils {
 	 * @param cc 定义了填充风格的 填充颜色类
 	 * @return 填充设置完成返回true，否则返回false
 	 */
-	public static boolean setPaint(Graphics2D g, int x, int y, int width,
-			int height, ChartColor cc) {
-		Rectangle rect = null;
+	public static boolean setPaint(Graphics2D g, double x, double y, double width,
+			double height, ChartColor cc) {
+		Rectangle2D.Double rect = null;
 		BufferedImage tempbi = null;
 		Graphics2D tempG = null;
 		Paint paint = null;
@@ -351,7 +351,7 @@ public class Utils {
 			}
 			break;
 		case Consts.PATTERN_H_THIN_LINE: // 填充图案，水平细线
-			rect = new Rectangle(x + 1, y + 1, 6, 6);
+			rect = new Rectangle2D.Double(x + 1, y + 1, 6, 6);
 			tempbi = new BufferedImage(6, 6, BufferedImage.TYPE_INT_RGB);
 			tempG = (Graphics2D) tempbi.getGraphics();
 			tempG.setColor(c1);
@@ -364,7 +364,7 @@ public class Utils {
 			paint = new TexturePaint(tempbi, rect);
 			break;
 		case Consts.PATTERN_H_THICK_LINE: // 填充图案，水平粗线
-			rect = new Rectangle(x + 1, y + 1, 6, 6);
+			rect = new Rectangle2D.Double(x + 1, y + 1, 6, 6);
 			tempbi = new BufferedImage(6, 6, BufferedImage.TYPE_INT_RGB);
 			tempG = (Graphics2D) tempbi.getGraphics();
 			tempG.setColor(c1);
@@ -376,7 +376,7 @@ public class Utils {
 			paint = new TexturePaint(tempbi, rect);
 			break;
 		case Consts.PATTERN_V_THIN_LINE: // 填充图案，垂直细线
-			rect = new Rectangle(x + 1, y + 1, 6, 6);
+			rect = new Rectangle2D.Double(x + 1, y + 1, 6, 6);
 			tempbi = new BufferedImage(6, 6, BufferedImage.TYPE_INT_RGB);
 			tempG = (Graphics2D) tempbi.getGraphics();
 			tempG.setColor(c1);
@@ -389,7 +389,7 @@ public class Utils {
 			paint = new TexturePaint(tempbi, rect);
 			break;
 		case Consts.PATTERN_V_THICK_LINE: // 填充图案，垂直粗线
-			rect = new Rectangle(x + 1, y + 1, 6, 6);
+			rect = new Rectangle2D.Double(x + 1, y + 1, 6, 6);
 			tempbi = new BufferedImage(6, 6, BufferedImage.TYPE_INT_RGB);
 			tempG = (Graphics2D) tempbi.getGraphics();
 			tempG.setColor(c1);
@@ -401,7 +401,7 @@ public class Utils {
 			paint = new TexturePaint(tempbi, rect);
 			break;
 		case Consts.PATTERN_THIN_SLASH: // 填充图案，细斜线
-			rect = new Rectangle(x + 1, y + 1, 3, 3);
+			rect = new Rectangle2D.Double(x + 1, y + 1, 3, 3);
 			tempbi = new BufferedImage(3, 3, BufferedImage.TYPE_INT_RGB);
 			tempG = (Graphics2D) tempbi.getGraphics();
 			tempG.setColor(c1);
@@ -412,7 +412,7 @@ public class Utils {
 			paint = new TexturePaint(tempbi, rect);
 			break;
 		case Consts.PATTERN_THICK_SLASH: // 填充图案，粗斜线
-			rect = new Rectangle(x + 1, y + 1, 4, 4);
+			rect = new Rectangle2D.Double(x + 1, y + 1, 4, 4);
 			tempbi = new BufferedImage(4, 4, BufferedImage.TYPE_INT_RGB);
 			tempG = (Graphics2D) tempbi.getGraphics();
 			setGraphAntiAliasingOn(tempG);
@@ -427,7 +427,7 @@ public class Utils {
 			paint = new TexturePaint(tempbi, rect);
 			break;
 		case Consts.PATTERN_THIN_BACKSLASH: // 填充图案，细反斜线
-			rect = new Rectangle(x + 1, y + 1, 3, 3);
+			rect = new Rectangle2D.Double(x + 1, y + 1, 3, 3);
 			tempbi = new BufferedImage(3, 3, BufferedImage.TYPE_INT_RGB);
 			tempG = (Graphics2D) tempbi.getGraphics();
 			tempG.setColor(c1);
@@ -438,7 +438,7 @@ public class Utils {
 			paint = new TexturePaint(tempbi, rect);
 			break;
 		case Consts.PATTERN_THICK_BACKSLASH: // 填充图案，粗反斜线
-			rect = new Rectangle(x + 1, y + 1, 4, 4);
+			rect = new Rectangle2D.Double(x + 1, y + 1, 4, 4);
 			tempbi = new BufferedImage(4, 4, BufferedImage.TYPE_INT_RGB);
 			tempG = (Graphics2D) tempbi.getGraphics();
 			setGraphAntiAliasingOn(tempG);
@@ -453,7 +453,7 @@ public class Utils {
 			paint = new TexturePaint(tempbi, rect);
 			break;
 		case Consts.PATTERN_THIN_GRID: // 填充图案，细网格
-			rect = new Rectangle(x + 1, y + 1, 3, 3);
+			rect = new Rectangle2D.Double(x + 1, y + 1, 3, 3);
 			tempbi = new BufferedImage(3, 3, BufferedImage.TYPE_INT_RGB);
 			tempG = (Graphics2D) tempbi.getGraphics();
 			tempG.setColor(c1);
@@ -466,7 +466,7 @@ public class Utils {
 			paint = new TexturePaint(tempbi, rect);
 			break;
 		case Consts.PATTERN_THICK_GRID: // 填充图案，粗网格
-			rect = new Rectangle(x + 1, y + 1, 5, 5);
+			rect = new Rectangle2D.Double(x + 1, y + 1, 5, 5);
 			tempbi = new BufferedImage(5, 5, BufferedImage.TYPE_INT_RGB);
 			tempG = (Graphics2D) tempbi.getGraphics();
 			tempG.setColor(c1);
@@ -479,7 +479,7 @@ public class Utils {
 			paint = new TexturePaint(tempbi, rect);
 			break;
 		case Consts.PATTERN_THIN_BEVEL_GRID: // 填充图案，细斜网格
-			rect = new Rectangle(x + 1, y + 1, 5, 5);
+			rect = new Rectangle2D.Double(x + 1, y + 1, 5, 5);
 			tempbi = new BufferedImage(5, 5, BufferedImage.TYPE_INT_RGB);
 			tempG = (Graphics2D) tempbi.getGraphics();
 			tempG.setColor(c1);
@@ -492,7 +492,7 @@ public class Utils {
 			paint = new TexturePaint(tempbi, rect);
 			break;
 		case Consts.PATTERN_THICK_BEVEL_GRID: // 填充图案，粗斜网格
-			rect = new Rectangle(x + 1, y + 1, 6, 6);
+			rect = new Rectangle2D.Double(x + 1, y + 1, 6, 6);
 			tempbi = new BufferedImage(6, 6, BufferedImage.TYPE_INT_RGB);
 			tempG = (Graphics2D) tempbi.getGraphics();
 			setGraphAntiAliasingOn(tempG);
@@ -506,7 +506,7 @@ public class Utils {
 			paint = new TexturePaint(tempbi, rect);
 			break;
 		case Consts.PATTERN_DOT_1: // 填充图案，稀疏点
-			rect = new Rectangle(x, y, 12, 12);
+			rect = new Rectangle2D.Double(x, y, 12, 12);
 			tempbi = new BufferedImage(12, 12, BufferedImage.TYPE_INT_RGB);
 			tempG = (Graphics2D) tempbi.getGraphics();
 			setGraphAntiAliasingOn(tempG);
@@ -520,7 +520,7 @@ public class Utils {
 			paint = new TexturePaint(tempbi, rect);
 			break;
 		case Consts.PATTERN_DOT_2: // 填充图案，较稀点
-			rect = new Rectangle(x, y, 12, 12);
+			rect = new Rectangle2D.Double(x, y, 12, 12);
 			tempbi = new BufferedImage(12, 12, BufferedImage.TYPE_INT_RGB);
 			tempG = (Graphics2D) tempbi.getGraphics();
 			tempG.setColor(c1);
@@ -534,7 +534,7 @@ public class Utils {
 			paint = new TexturePaint(tempbi, rect);
 			break;
 		case Consts.PATTERN_DOT_3: // 填充图案，较密点
-			rect = new Rectangle(x, y, 9, 9);
+			rect = new Rectangle2D.Double(x, y, 9, 9);
 			tempbi = new BufferedImage(9, 9, BufferedImage.TYPE_INT_RGB);
 			tempG = (Graphics2D) tempbi.getGraphics();
 			setGraphAntiAliasingOn(tempG);
@@ -549,7 +549,7 @@ public class Utils {
 			paint = new TexturePaint(tempbi, rect);
 			break;
 		case Consts.PATTERN_DOT_4: // 填充图案，稠密点
-			rect = new Rectangle(x, y, 4, 4);
+			rect = new Rectangle2D.Double(x, y, 4, 4);
 			tempbi = new BufferedImage(4, 4, BufferedImage.TYPE_INT_RGB);
 			tempG = (Graphics2D) tempbi.getGraphics();
 			tempG.setColor(c1);
@@ -562,7 +562,7 @@ public class Utils {
 			paint = new TexturePaint(tempbi, rect);
 			break;
 		case Consts.PATTERN_SQUARE_FLOOR: // 填充图案，正方块地板砖
-			rect = new Rectangle(0, 0, 8, 8);
+			rect = new Rectangle2D.Double(0, 0, 8, 8);
 			tempbi = new BufferedImage(8, 8, BufferedImage.TYPE_INT_RGB);
 			tempG = (Graphics2D) tempbi.getGraphics();
 			tempG.setColor(c1);
@@ -573,7 +573,7 @@ public class Utils {
 			paint = new TexturePaint(tempbi, rect);
 			break;
 		case Consts.PATTERN_DIAMOND_FLOOR: // 填充图案，菱形地板砖
-			rect = new Rectangle(x + 1, y + 1, 8, 8);
+			rect = new Rectangle2D.Double(x + 1, y + 1, 8, 8);
 			tempbi = new BufferedImage(8, 8, BufferedImage.TYPE_INT_RGB);
 			tempG = (Graphics2D) tempbi.getGraphics();
 			tempG.setColor(c1);
@@ -585,7 +585,7 @@ public class Utils {
 			paint = new TexturePaint(tempbi, rect);
 			break;
 		case Consts.PATTERN_BRICK_WALL: // 填充图案，砖墙
-			rect = new Rectangle(x + 1, y + 1, 12, 12);
+			rect = new Rectangle2D.Double(x + 1, y + 1, 12, 12);
 			tempbi = new BufferedImage(12, 12, BufferedImage.TYPE_INT_RGB);
 			tempG = (Graphics2D) tempbi.getGraphics();
 			tempG.setColor(c1);
@@ -1377,6 +1377,26 @@ public class Utils {
 		}
 	}
 
+	public static void drawRect(Graphics2D g,double x, double y,double w,double h) {
+		Rectangle2D.Double rect = new Rectangle2D.Double(x, y, w, h);
+		g.draw(rect);
+	}
+
+	public static void fillRect(Graphics2D g,double x, double y,double w,double h) {
+		Rectangle2D.Double rect = new Rectangle2D.Double(x, y, w, h);
+		g.fill(rect);
+	}
+	
+	public static void fillPolygon(Graphics2D g,double[] x, double[] y) {
+		Shape s = newPolygon2D(x,y);
+		g.fill(s);
+	};
+	
+	public static void drawPolygon(Graphics2D g,double[] x, double[] y) {
+		Shape s = newPolygon2D(x,y);
+		g.draw(s);
+	};
+
 	/**
 	 * 按照指定参数给形状设置填充
 	 * @param g 图形设备
@@ -1464,7 +1484,7 @@ public class Utils {
 	 * @param fillColor 填充颜色
 	 * @param isVertical 是否竖向柱子(柱子的横纵不同时，采用的填充渐变色不同)
 	 */
-	public static void draw2DRect(Graphics2D g, int x, int y, int w, int h,
+	public static void draw2DRect(Graphics2D g, double x, double y, double w, double h,
 			Color borderColor, int borderStyle, float borderWeight,
 			boolean drawShade, boolean convexEdge, float transparent,
 			ChartColor fillColor, boolean isVertical) {
@@ -1475,13 +1495,13 @@ public class Utils {
 		setTransparent(g, transparent);
 		if(fillColor.getType()!=Consts.PATTERN_DEFAULT){
 			Utils.setPaint(g, x, y, w, h, fillColor);
-			g.fillRect(x, y, w, h);
+			fillRect(g, x, y, w, h);
 		}else if (fillColor.getColor1() != null) {
 			// 炫效果
 			if (fillColor.isDazzle()) {
 				CubeColor ccr = new CubeColor(fillColor.getColor1());
 				Color c1 = ccr.getR1(), c2 = ccr.getT1();
-				int x1, y1, x2, y2;
+				double x1, y1, x2, y2;
 				if (isVertical) {
 					x1 = x;
 					y1 = y;
@@ -1494,14 +1514,14 @@ public class Utils {
 					y2 = y1 + h / 2;
 				}
 				if (c1 != null && c2 != null) {
-					GradientPaint paint = new GradientPaint(x1, y1, c1, x2, y2,
+					GradientPaint paint = new GradientPaint((int)x1, (int)y1, c1, (int)x2, (int)y2,
 							c2, true);
 					g.setPaint(paint);
-					g.fillRect(x1, y1, w, h);
+					fillRect(g,x1, y1, w, h);
 				}
 			} else if (fillColor.isGradient()) {
 				if (setPaint(g, x, y, w, h, fillColor)) {
-					g.fillRect(x, y, w, h);
+					fillRect(g,x, y, w, h);
 				}
 			} else {
 				if (convexEdge) {
@@ -1511,7 +1531,7 @@ public class Utils {
 				} else {
 					g.setColor(fillColor.getColor1());
 				}
-				g.fillRect(x, y, w, h);
+				fillRect(g,x, y, w, h);
 			}
 		}
 
@@ -1524,7 +1544,7 @@ public class Utils {
 			if (borderColor != null) {// 边框color为null表示用当前使用中的画笔
 				g.setColor(borderColor);
 			}
-			g.drawRect(x, y, w, h);
+			drawRect(g,x, y, w, h);
 		}
 		setTransparent(g, transparent);
 	}
@@ -1552,6 +1572,9 @@ public class Utils {
 		return path2D;
 	}
 
+	public static Shape newPolygon2D(double[] x, double[] y) {
+		return newPolygon2DShape(x,y);
+	}
 	/**
 	 * 采用路径依次连接给定的点坐标
 	 * @param x x坐标
@@ -1568,8 +1591,8 @@ public class Utils {
 		return polygon2D;
 	}
 
-	private static void drawRaisedBorder(Graphics2D g, int x, int y, int w,
-			int h, Color borderColor) {
+	private static void drawRaisedBorder(Graphics2D g, double x, double y, double w,
+			double h, Color borderColor) {
 		// 太细的柱子也不绘制凸出边框
 		// T1最亮，R1相对暗.渐变色的凸出边框不好看，渐变色时忽略凸出边框属性；
 		Color dazzel = CubeColor.getDazzelColor(borderColor);
@@ -1578,14 +1601,14 @@ public class Utils {
 		for (int i = 0; i < d; i++) {
 			Color tmp = ccr.getLight((i + 1) * 0.2f);
 			Utils.setStroke(g, tmp, Consts.LINE_SOLID, 1);
-			g.drawLine(x + i, y + i, x + i, y + h - i);
-			g.drawLine(x + i, y + i, x + w - i, y + i);
+			drawLine(g,x + i, y + i, x + i, y + h - i);
+			drawLine(g,x + i, y + i, x + w - i, y + i);
 		}
 		for (int i = 0; i < d; i++) {
 			Color tmp = ccr.getDark((i + 1) * 0.2f);
 			Utils.setStroke(g, tmp, Consts.LINE_SOLID, 1);
-			g.drawLine(x + w - i, y + i, x + w - i, y + h - i);
-			g.drawLine(x + i, y + h - i, x + w - i, y + h - i);
+			drawLine(g,x + w - i, y + i, x + w - i, y + h - i);
+			drawLine(g,x + i, y + h - i, x + w - i, y + h - i);
 		}
 	}
 
@@ -1598,13 +1621,13 @@ public class Utils {
 	 * @param h 高度
 	 * @return 阴影通常需要偏移，返回这个偏移量，单位像素
 	 */
-	public static int drawRectShadow(Graphics2D g, int x, int y, int w, int h) {
+	public static int drawRectShadow(Graphics2D g, double x, double y, double w, double h) {
 		if (w == 0 || h == 0)
 			return 0;
 		int dShadow = 4;
 		w -= dShadow;
 		h -= dShadow;
-		int x1, y1, x2, y2;
+		double x1, y1, x2, y2;
 		int z = 0;
 		Color cz = new Color(shadowColors[z * 3], shadowColors[z * 3 + 1],
 				shadowColors[z * 3 + 2]);
@@ -1616,12 +1639,12 @@ public class Utils {
 		y1 = y - 1;
 		x2 = x1;
 		y2 = y + h - 1;
-		g.drawLine(x1, y1, x2, y2);
+		drawLine(g,x1, y1, x2, y2);
 		x1 = x + w + 3;
 		y1 = y - 2;
 		x2 = x1;
 		y2 = y1;
-		g.drawLine(x1, y1, x2, y2);
+		drawLine(g,x1, y1, x2, y2);
 
 		z = 2;
 		cz = new Color(shadowColors[z * 3], shadowColors[z * 3 + 1],
@@ -1631,12 +1654,12 @@ public class Utils {
 		y1 = y - 2;
 		x2 = x + w + 2;
 		y2 = y1;
-		g.drawLine(x1, y1, x2, y2);
+		drawLine(g,x1, y1, x2, y2);
 		x1 = x + w + 3;
 		y1 = y - 1;
 		x2 = x1;
 		y2 = y + h - 1;
-		g.drawLine(x1, y1, x2, y2);
+		drawLine(g,x1, y1, x2, y2);
 
 		z = 3;
 		cz = new Color(shadowColors[z * 3], shadowColors[z * 3 + 1],
@@ -1646,12 +1669,12 @@ public class Utils {
 		y1 = y - 1;
 		x2 = x + w + 2;
 		y2 = y1;
-		g.drawLine(x1, y1, x2, y2);
+		drawLine(g,x1, y1, x2, y2);
 		x1 = x + w + 2;
 		y1 = y - 1;
 		x2 = x1;
 		y2 = y + h - 1;
-		g.drawLine(x1, y1, x2, y2);
+		drawLine(g,x1, y1, x2, y2);
 
 		z = 4;
 		cz = new Color(shadowColors[z * 3], shadowColors[z * 3 + 1],
@@ -1659,7 +1682,7 @@ public class Utils {
 		Utils.setStroke(g, cz, Consts.LINE_SOLID, 2);
 		x1 = x + w;
 		y1 = y;
-		g.fillRect(x1, y1, 2, h);
+		fillRect(g,x1, y1, 2, h);
 		return dShadow;
 	}
 
@@ -1668,8 +1691,8 @@ public class Utils {
 	 * @param coorShift 3D坐标偏移量
 	 * @return 调整后的适中偏移量
 	 */
-	public static int getPlatformH(int coorShift) {
-		int h = coorShift;
+	public static double getPlatformH(double coorShift) {
+		double h = coorShift;
 		if (h < 2)
 			h = 2;
 		if (h > 6)
@@ -1694,10 +1717,10 @@ public class Utils {
 	 * @param coorShift 三维厚度
 	 * @return 包含上述参数的封装类
 	 */
-	public static Desc3DRect get3DRect(int x, int y, int w, int h,
+	public static Desc3DRect get3DRect(double x, double y, double w, double h,
 			Color borderColor, int borderStyle, float borderWeight,
 			boolean drawShade, boolean convexEdge, float transparent,
-			ChartColor fillColor, boolean isVertical, int coorShift) {
+			ChartColor fillColor, boolean isVertical, double coorShift) {
 		Desc3DRect d3 = new Desc3DRect();
 		d3.x = x;
 		d3.y = y;
@@ -1734,11 +1757,11 @@ public class Utils {
 	 * 由于累积方向相反，所以，除第一个靠近
 	 * 轴的柱子全画，其余的都不绘制顶部，否则会造成柱子间覆盖
 	 */
-	public static void draw3DRect(Graphics2D g, int x, int y, int w, int h,
+	public static void draw3DRect(Graphics2D g, double x, double y, double w, double h,
 			Color borderColor, int borderStyle, float borderWeight,
 			boolean drawShade, boolean convexEdge, float transparent,
-			ChartColor fillColor, boolean isVertical, int coorShift) {
-		java.awt.Polygon poly;
+			ChartColor fillColor, boolean isVertical, double coorShift) {
+		Shape poly;
 		if (drawShade && fillColor.getColor1() != null) {
 			drawRectShadow(g, x + coorShift, y - coorShift, w, h);
 		}
@@ -1746,41 +1769,40 @@ public class Utils {
 		if (transparent < 1) {
 			// 1:被遮挡的背面，透明时才能看到；
 			// g.setColor(fillColor.getColor1());
-			Utils.fill(g, new Rectangle(x + coorShift, y - coorShift, w, h),
+			Utils.fill(g, new Rectangle2D.Double(x + coorShift, y - coorShift, w, h),
 					transparent, fillColor.getColor1());
 			if (Utils.setStroke(g, borderColor, borderStyle, borderWeight)
 					&& borderColor != null) {
-				g.drawRect(x + coorShift, y - coorShift, w, h);
+				drawRect(g,x + coorShift, y - coorShift, w, h);
 			}
 			// 2:被遮挡的底面
-			int[] xPointsB = { x, x + w, x + w + coorShift, x + coorShift };
-			int[] yPointsB = { y + h, y + h, y + h - coorShift,
-					y + h - coorShift };
-			poly = new java.awt.Polygon(xPointsB, yPointsB, 4);
+			double[] xPointsB = { x, x + w, x + w + coorShift, x + coorShift };
+			double[] yPointsB = { y + h, y + h, y + h - coorShift,y + h - coorShift };
+			poly = newPolygon2D(xPointsB, yPointsB);
 			// g.setColor(fillColor.getColor1());
 			Utils.fill(g, poly, transparent, fillColor.getColor1());
 			if (Utils.setStroke(g, borderColor, borderStyle, borderWeight)
 					&& borderColor != null) {
-				g.drawPolygon(xPointsB, yPointsB, 4);
+				g.draw(poly);
 			}
 
 			// 3:被遮挡的左侧面
-			int[] xPointsL = { x, x, x + coorShift, x + coorShift };
-			int[] yPointsL = { y, y + h, y + h - coorShift, y - coorShift };
+			double[] xPointsL = { x, x, x + coorShift, x + coorShift };
+			double[] yPointsL = { y, y + h, y + h - coorShift, y - coorShift };
 			// g.setColor(fillColor.getColor1());
-			Utils.fill(g, new java.awt.Polygon(xPointsL, yPointsL, 4),
-					transparent, fillColor.getColor1());
+			poly = newPolygon2D(xPointsL, yPointsL);
+			Utils.fill(g, poly,transparent, fillColor.getColor1());
 			if (Utils.setStroke(g, borderColor, borderStyle, borderWeight)
 					&& borderColor != null) {
-				g.drawPolygon(xPointsL, yPointsL, 4);
+				g.draw( poly );
 			}
 		}
 		Rectangle bound;
 		// 4:右边侧面
 		// if (isDrawRight) {
-		int[] xPointsR = { x + w, x + w, x + w + coorShift, x + w + coorShift };
-		int[] yPointsR = { y, y + h, y + h - coorShift, y - coorShift };
-		poly = new java.awt.Polygon(xPointsR, yPointsR, 4);
+		double[] xPointsR = { x + w, x + w, x + w + coorShift, x + w + coorShift };
+		double[] yPointsR = { y, y + h, y + h - coorShift, y - coorShift };
+		poly = newPolygon2D(xPointsR, yPointsR);
 		bound = poly.getBounds();
 		if (fillColor.isGradient()) {
 			ChartColor tmpcc = new ChartColor();
@@ -1804,15 +1826,15 @@ public class Utils {
 
 		if (Utils.setStroke(g, borderColor, borderStyle, borderWeight)
 				&& borderColor != null) {
-			g.drawPolygon(xPointsR, yPointsR, 4);
+			g.draw(poly);
 		}
 		// }
 
 		// 5:顶面
 		// if (isDrawTop) {
-		int[] xPointsT = { x, x + w, x + w + coorShift, x + coorShift };
-		int[] yPointsT = { y, y, y - coorShift, y - coorShift };
-		poly = new java.awt.Polygon(xPointsT, yPointsT, 4);
+		double[] xPointsT = { x, x + w, x + w + coorShift, x + coorShift };
+		double[] yPointsT = { y, y, y - coorShift, y - coorShift };
+		poly = newPolygon2D(xPointsT, yPointsT);
 		bound = poly.getBounds();
 		if (fillColor.isGradient()) {// ，右面和顶面都使用渐变时就炫
 			ChartColor tmpcc = new ChartColor();
@@ -1836,7 +1858,7 @@ public class Utils {
 
 		if (Utils.setStroke(g, borderColor, borderStyle, borderWeight)
 				&& borderColor != null) {
-			g.drawPolygon(xPointsT, yPointsT, 4);
+			g.draw(poly);
 		}
 		// }
 
@@ -1858,7 +1880,7 @@ public class Utils {
 			isSet = Utils.setPaint(g, x, y, w, h, fillColor);
 		}
 		if (isSet) {
-			Utils.fillPaint(g, new Rectangle(x, y, w, h), transparent);
+			Utils.fillPaint(g, new Rectangle2D.Double(x, y, w, h), transparent);
 		}
 
 		if (convexEdge && !fillColor.isGradient() && w > 10 && h > 10) {
@@ -1867,7 +1889,7 @@ public class Utils {
 
 		if (Utils.setStroke(g, borderColor, borderStyle, borderWeight)
 				&& borderColor != null) {
-			g.drawRect(x, y, w, h);
+			drawRect(g,x, y, w, h);
 		}
 	}
 

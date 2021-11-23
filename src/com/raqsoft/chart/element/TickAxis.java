@@ -754,7 +754,7 @@ public abstract class TickAxis extends ObjectElement implements IAxis {
 				break;
 			}
 		} else if (useGradient) {// 无边框而且使用了渐变色的3D坐标轴，绘制3d炫平台
-			int x, y, w, h;
+			double x, y, w, h;
 			if (location == Consts.AXIS_LOC_H) { // 直角坐标系绘制3DCube平台
 				for (int i = 0; i < coorList.size(); i++) {
 					Object coor = coorList.get(i);
@@ -1453,7 +1453,7 @@ public abstract class TickAxis extends ObjectElement implements IAxis {
 		} else {
 			c = titleColor;
 		}
-		int tmp;
+		double tmp;
 		switch (location) {
 		case Consts.AXIS_LOC_H:
 		case Consts.AXIS_LOC_POLAR:
@@ -1590,7 +1590,7 @@ public abstract class TickAxis extends ObjectElement implements IAxis {
 	transient Sequence t_coorValue = new Sequence();
 	transient int t_coorWidth = 0;
 	transient Engine e;
-	transient int coorThick = 0;// 缺省3D坐标台的厚度
+	transient double coorThick = 0;// 缺省3D坐标台的厚度
 	transient boolean useGradient = false;// 该属性根据轴上的图元是否使用了渐变色来绘制一些炫效果，比如3D平台
 
 	/**

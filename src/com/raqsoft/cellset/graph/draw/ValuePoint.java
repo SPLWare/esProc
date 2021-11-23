@@ -1,6 +1,7 @@
 package com.raqsoft.cellset.graph.draw;
 
 import java.awt.*;
+import java.awt.geom.Point2D;
 
 import com.raqsoft.chart.Consts;
 
@@ -12,7 +13,7 @@ import com.raqsoft.chart.Consts;
  *
  */
 public class ValuePoint {
-	public Point p;
+	public Point2D.Double p;
 	public Color borderColor,fillColor=null;
 	public int shape = Consts.PT_CIRCLE;
 	public int radius = -1;
@@ -22,7 +23,7 @@ public class ValuePoint {
 	 * @param p 坐标
 	 * @param bc 边框颜色
 	 */
-	public ValuePoint(Point p, Color bc) {
+	public ValuePoint(Point2D.Double p, Color bc) {
 		this.p = p;
 		this.borderColor = bc;
 	}
@@ -35,7 +36,7 @@ public class ValuePoint {
 	 * @param shape 点的形状
 	 * @param radius 点的半径
 	 */
-	public ValuePoint(Point p, Color bc,Color fillColor, int shape, int radius) {
+	public ValuePoint(Point2D.Double p, Color bc,Color fillColor, int shape, int radius) {
 		this(p, bc);
 		this.fillColor = fillColor;
 		this.shape = shape;

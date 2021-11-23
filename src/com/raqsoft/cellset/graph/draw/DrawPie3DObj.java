@@ -2,7 +2,6 @@ package com.raqsoft.cellset.graph.draw;
 
 import java.awt.*;
 import java.awt.geom.*;
-import java.awt.geom.Line2D.Double;
 import java.util.*;
 
 import com.raqsoft.cellset.graph.*;
@@ -39,9 +38,6 @@ public class DrawPie3DObj extends DrawBase {
 		GraphParam gp = db.gp;
 		ExtGraphProperty egp = db.egp;
 		Graphics2D g = db.g;
-		ArrayList<ValueLabel> labelList = db.labelList;
-		int VALUE_RADIUS = db.VALUE_RADIUS;
-		ArrayList<ValuePoint> pointList = db.pointList;
 
 		double radiusx = 0;
 		double radiusy = 0;
@@ -71,14 +67,14 @@ public class DrawPie3DObj extends DrawBase {
 		db.drawLegend(htmlLink);
 		db.drawTitle();
 		db.drawLabel();
-		gp.gRect2 = new Rectangle(gp.leftInset, gp.topInset, gp.graphWidth
+		gp.gRect2 = new Rectangle2D.Double(gp.leftInset, gp.topInset, gp.graphWidth
 				- gp.leftInset - gp.rightInset, gp.graphHeight - gp.topInset
 				- gp.bottomInset);
-		gp.gRect1 = new Rectangle(gp.gRect2);
+		gp.gRect1 = (Rectangle2D.Double)gp.gRect2.clone();
 
 		db.keepGraphSpace();
 
-		gp.graphRect = new Rectangle(gp.leftInset, 
+		gp.graphRect = new Rectangle2D.Double(gp.leftInset, 
 				gp.topInset, // + 20,
 				gp.graphWidth - gp.leftInset - gp.rightInset,
 				gp.graphHeight - gp.topInset - gp.bottomInset);
@@ -99,19 +95,19 @@ public class DrawPie3DObj extends DrawBase {
 			gp.pieRotation = 100;
 		}
 		if (radiusx * (gp.pieRotation / 100.0) > radiusy) {
-			radiusx = (int) (radiusy / (gp.pieRotation / 100.0));
+			radiusx =  (radiusy / (gp.pieRotation / 100.0));
 		} else {
-			radiusy = (int) (radiusx * gp.pieRotation / 100.0);
+			radiusy =  (radiusx * gp.pieRotation / 100.0);
 		}
-		dely = (int) (radiusy * (gp.pieHeight / 100.0));
+		dely =  (radiusy * (gp.pieHeight / 100.0));
 
 		tmpInt1 = radiusx * (2 * gp.serNum);
 		tmpInt2 = radiusy * (2 * gp.serNum) + radiusy * (gp.pieHeight / 100.0);
 
-		gp.graphRect = new Rectangle2D.Double(gp.graphRect.x
+		gp.graphRect = (Rectangle2D.Double)(new Rectangle2D.Double(gp.graphRect.x
 				+ (gp.graphRect.width - tmpInt1) / 2, gp.graphRect.y
 				+ (gp.graphRect.height - tmpInt2) / 2, tmpInt1, tmpInt2)
-				.getBounds();
+				.getBounds().clone());
 
 		double orgx = gp.graphRect.x + gp.graphRect.width / 2;
 		double orgy = gp.graphRect.y + dely + (gp.graphRect.height - dely) / 2;
@@ -216,7 +212,7 @@ public class DrawPie3DObj extends DrawBase {
 				ExtGraphSery egs = egc.getExtGraphSery(serName);
 				double amount = egs.getValue();
 				double angle = 0;
-				angle = (int) (360.0 * amount / totAmount);
+				angle =  (360.0 * amount / totAmount);
 				if (i == gp.catNum - 1) {
 					angle = 360 - totAngle;
 				}
@@ -568,8 +564,8 @@ public class DrawPie3DObj extends DrawBase {
 						}
 						break;
 					}
-					db.drawOutCircleText(gp.GFV_VALUE, text, tmpAngle, (int) x2,
-							(int) y2);
+					db.drawOutCircleText(gp.GFV_VALUE, text, tmpAngle,  x2,
+							 y2);
 				}
 				totAngle += angle;
 			}
@@ -594,8 +590,8 @@ public class DrawPie3DObj extends DrawBase {
 				tmpShape = new Line2D.Double(x1, y1, x2, y2);
 				db.g.setStroke(new BasicStroke(1.0f));
 				db.drawShape(tmpShape, tmpc);
-				db.drawOutCircleText(gp.GFV_XLABEL, serName, angle, (int) x2,
-						(int) y2);
+				db.drawOutCircleText(gp.GFV_XLABEL, serName, angle,  x2,
+						 y2);
 			} else {
 				// 循环画完饼后再输出最大块的数值
 				if (gp.dispValueType == GraphProperty.DISPDATA_PERCENTAGE
@@ -611,8 +607,8 @@ public class DrawPie3DObj extends DrawBase {
 					if(gp.dispValueType==GraphProperty.DISPDATA_NAME_PERCENTAGE){
 						text = getDispName(maxEgc,maxEgs,gp.serNum)+","+text;
 					}
-					db.drawOutCircleText(gp.GFV_VALUE, text, maxAngle, (int) maxX,
-							(int) maxY);
+					db.drawOutCircleText(gp.GFV_VALUE, text, maxAngle,  maxX,
+							 maxY);
 				}
 			}
 			orgy -= dely;
@@ -671,12 +667,8 @@ public class DrawPie3DObj extends DrawBase {
 	private static void drawFrontBaffle(DrawBase db,double totAngle, double orgx, double radx,
 			double movex, double orgy, double rady, double movey, double dely,
 			double angle, int i, boolean isCurve) {
-		GraphParam gp = db.gp;
 		ExtGraphProperty egp = db.egp;
 		Graphics2D g = db.g;
-		ArrayList<ValueLabel> labelList = db.labelList;
-		int VALUE_RADIUS = db.VALUE_RADIUS;
-		ArrayList<ValuePoint> pointList = db.pointList;
 
 		double ex1 = 0;
 		double bx1 = 0;
@@ -758,12 +750,7 @@ public class DrawPie3DObj extends DrawBase {
 	private static void drawBackBaffle(DrawBase db,double totAngle, double orgx, double radx,
 			double movex, double orgy, double rady, double movey, double dely,
 			double angle, int i) {
-		GraphParam gp = db.gp;
-		ExtGraphProperty egp = db.egp;
 		Graphics2D g = db.g;
-		ArrayList<ValueLabel> labelList = db.labelList;
-		int VALUE_RADIUS = db.VALUE_RADIUS;
-		ArrayList<ValuePoint> pointList = db.pointList;
 
 		double ex1 = 0;
 		double bx1 = 0;
@@ -780,10 +767,10 @@ public class DrawPie3DObj extends DrawBase {
 		ddd1 = new Arc2D.Double(orgx - radx + movex,
 				orgy - rady + movey - dely, 2 * radx, 2 * rady, totAngle,
 				totAngle1 - totAngle, Arc2D.PIE);
-		ex1 = (int) ddd.getEndPoint().getX();
-		bx1 = (int) ddd.getStartPoint().getX();
-		ey1 = (int) ddd.getEndPoint().getY();
-		by1 = (int) ddd.getStartPoint().getY();
+		ex1 =  ddd.getEndPoint().getX();
+		bx1 =  ddd.getStartPoint().getX();
+		ey1 =  ddd.getEndPoint().getY();
+		by1 =  ddd.getStartPoint().getY();
 		double ptx1[] = { bx1, bx1, ex1, ex1 };
 		double pty1[] = { -dely + by1, by1, ey1, -dely + ey1 };
 		// Polygon pp1 = new Polygon(ptx1, pty1, 4);
@@ -811,9 +798,6 @@ public class DrawPie3DObj extends DrawBase {
 		GraphParam gp = db.gp;
 		ExtGraphProperty egp = db.egp;
 		Graphics2D g = db.g;
-		ArrayList<ValueLabel> labelList = db.labelList;
-		int VALUE_RADIUS = db.VALUE_RADIUS;
-		ArrayList<ValuePoint> pointList = db.pointList;
 
 		double ptx1[], pty1[];
 		curveY = Math.ceil(curveY / 2.0f);
@@ -843,12 +827,8 @@ public class DrawPie3DObj extends DrawBase {
 	private static void drawCut2(DrawBase db,double bx1, double by1, double orgx, double orgy,
 			double movex, double movey, double dely, int i, double bx2,
 			double by2, double curveY) {
-		GraphParam gp = db.gp;
 		ExtGraphProperty egp = db.egp;
 		Graphics2D g = db.g;
-		ArrayList<ValueLabel> labelList = db.labelList;
-		int VALUE_RADIUS = db.VALUE_RADIUS;
-		ArrayList<ValuePoint> pointList = db.pointList;
 
 		curveY = curveY / 2;
 		double ptx1[], pty1[];
@@ -873,12 +853,8 @@ public class DrawPie3DObj extends DrawBase {
 	private static void drawCut3(DrawBase db,double ex1, double ey1, double orgx, double orgy,
 			double movex, double movey, double dely, int i, double ex2,
 			double ey2, double curveY) {
-		GraphParam gp = db.gp;
 		ExtGraphProperty egp = db.egp;
 		Graphics2D g = db.g;
-		ArrayList<ValueLabel> labelList = db.labelList;
-		int VALUE_RADIUS = db.VALUE_RADIUS;
-		ArrayList<ValuePoint> pointList = db.pointList;
 
 		curveY = curveY / 2;
 		double ptx1[], pty1[];
@@ -908,9 +884,6 @@ public class DrawPie3DObj extends DrawBase {
 		GraphParam gp = db.gp;
 		ExtGraphProperty egp = db.egp;
 		Graphics2D g = db.g;
-		ArrayList<ValueLabel> labelList = db.labelList;
-		int VALUE_RADIUS = db.VALUE_RADIUS;
-		ArrayList<ValuePoint> pointList = db.pointList;
 
 		curveY = curveY / 2;
 		double ptx1[], pty1[];

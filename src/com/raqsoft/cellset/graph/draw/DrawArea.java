@@ -1,6 +1,9 @@
 package com.raqsoft.cellset.graph.draw;
 
 import java.awt.*;
+import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
+
 import java.util.ArrayList;
 import com.raqsoft.cellset.graph.*;
 import com.raqsoft.chart.Consts;
@@ -36,10 +39,10 @@ public class DrawArea extends DrawBase {
 		double coorWidth;
 		double categorySpan;
 		double dely;
-		int tmpInt;
-		int x, y;
+		double tmpInt;
+		double x, y;
 		gp.coorWidth = 0;
-		Point headPoint[];
+		Point2D.Double headPoint[];
 
 		db.initGraphInset();
 		db.createCoorValue();
@@ -50,7 +53,7 @@ public class DrawArea extends DrawBase {
 		db.keepGraphSpace();
 
 		db.adjustCoorInset();
-		gp.graphRect = new Rectangle(gp.leftInset, gp.topInset, gp.graphWidth
+		gp.graphRect = new Rectangle2D.Double(gp.leftInset, gp.topInset, gp.graphWidth
 				- gp.leftInset - gp.rightInset, gp.graphHeight - gp.topInset
 				- gp.bottomInset);
 
@@ -68,18 +71,18 @@ public class DrawArea extends DrawBase {
 		coorWidth = seriesWidth * (gp.coorWidth / 200.0);
 		categorySpan = seriesWidth * (gp.categorySpan / 100.0);
 
-		tmpInt = (int) ((gp.catNum + 1) * categorySpan + coorWidth + gp.catNum
-				* gp.serNum * seriesWidth);
+		tmpInt = (gp.catNum + 1) * categorySpan + coorWidth + gp.catNum
+				* gp.serNum * seriesWidth;
 		gp.graphRect.x += (gp.graphRect.width - tmpInt) / 2;
 		gp.graphRect.width = tmpInt;
 
 		dely = (gp.graphRect.height - coorWidth) / gp.tickNum;
-		tmpInt = (int) (dely * gp.tickNum + coorWidth);
+		tmpInt = dely * gp.tickNum + coorWidth;
 		gp.graphRect.y += (gp.graphRect.height - tmpInt) / 2;
 		gp.graphRect.height = tmpInt;
 
-		gp.gRect1 = new Rectangle(gp.graphRect);
-		gp.gRect2 = new Rectangle(gp.graphRect);
+		gp.gRect1 = (Rectangle2D.Double)gp.graphRect.clone();
+		gp.gRect2 = (Rectangle2D.Double)gp.graphRect.clone();
 
 		gp.gRect1.y += coorWidth;
 		gp.gRect1.width -= coorWidth;
@@ -97,14 +100,12 @@ public class DrawArea extends DrawBase {
 			Number coory = (Number) gp.coorValue.get(i);
 			String scoory = db.getFormattedValue(coory.doubleValue());
 			x = gp.gRect1.x - gp.tickLen; // - TR.width
-			y = (int) (gp.gRect1.y + gp.gRect1.height - i * dely); // +
-																	// TR.height
-																	// / 2
+			y = gp.gRect1.y + gp.gRect1.height - i * dely; 
 			gp.GFV_YLABEL.outText(x, y, scoory);
 			// 设置基线
 			if (coory.doubleValue() == gp.baseValue + gp.minValue) {
-				gp.valueBaseLine = (int) (gp.gRect1.y + gp.gRect1.height - i
-						* dely);
+				gp.valueBaseLine = gp.gRect1.y + gp.gRect1.height - i
+						* dely;
 
 			}
 		}
@@ -116,13 +117,13 @@ public class DrawArea extends DrawBase {
 		}
 
 		/* 画X轴 */
-		headPoint = new Point[gp.serNum];
+		headPoint = new Point2D.Double[gp.serNum];
 		ArrayList cats = egp.getCategories();
 		int cc = cats.size();
 		Color c;
 		for (int i = 0; i < cc; i++) {
 			ExtGraphCategory egc = (ExtGraphCategory) cats.get(i);
-			int posx = DrawLine.getPosX(gp,i,cc,categorySpan,seriesWidth);
+			double posx = DrawLine.getPosX(gp,i,cc,categorySpan,seriesWidth);
 			
 			boolean valvis = (i % (gp.graphXInterval + 1) == 0);//柱顶是否显示值跟画Table分开
 			boolean vis = valvis && !gp.isDrawTable;
@@ -148,33 +149,33 @@ public class DrawArea extends DrawBase {
 				}
 				double val = egs.getValue();
 				double tmp = val - gp.baseValue;
-				int len = (int) (dely * gp.tickNum * (tmp - gp.minValue) / (gp.maxValue * gp.coorScale));
+				double len = dely * gp.tickNum * (tmp - gp.minValue) / (gp.maxValue * gp.coorScale);
 
 				if( gp.isDrawTable ){
-					posx = (int)db.getDataTableX( i );
+					posx = db.getDataTableX( i );
 				}
 
-				Point endPoint;
+				Point2D.Double endPoint;
 				if (egs.isNull()) {
 					endPoint = null;
 				} else {
-					endPoint = new Point(posx, gp.valueBaseLine - len);
+					endPoint = new Point2D.Double(posx, gp.valueBaseLine - len);
 				}
 
 				// 画带子
 				if (headPoint[j] != null && endPoint != null) {
-					int ptx1[] = { headPoint[j].x, headPoint[j].x, endPoint.x,
+					double ptx1[] = { headPoint[j].x, headPoint[j].x, endPoint.x,
 							endPoint.x };
-					int pty1[] = { headPoint[j].y, headPoint[j].y, endPoint.y,
+					double pty1[] = { headPoint[j].y, headPoint[j].y, endPoint.y,
 							endPoint.y };
 					g.setColor(db.getColor(j));
 					fillPolygon(db,ptx1, pty1, 4);
 					db.drawPolygon(ptx1, pty1, 4,
 							egp.getAxisColor(GraphProperty.AXIS_COLBORDER));
 					// 画区域
-					int ptx2[] = { headPoint[j].x, headPoint[j].x, endPoint.x,
+					double ptx2[] = { headPoint[j].x, headPoint[j].x, endPoint.x,
 							endPoint.x };
-					int pty2[] = { headPoint[j].y, gp.valueBaseLine,
+					double pty2[] = { headPoint[j].y, gp.valueBaseLine,
 							gp.valueBaseLine, endPoint.y };
 					db.setPaint(headPoint[j].x, headPoint[j].y, endPoint.x
 							- headPoint[j].x, endPoint.y - gp.valueBaseLine, j,
@@ -196,13 +197,13 @@ public class DrawArea extends DrawBase {
 					} else {
 						c = db.getColor(j);
 					}
-					ValueLabel vl = new ValueLabel(sval, new Point(x, y
+					ValueLabel vl = new ValueLabel(sval, new Point2D.Double(x, y
 							- VALUE_RADIUS), c);
 					labelList.add(vl);
 				}
 				boolean vis2 = (i % (gp.graphXInterval + 1) == 0);
 				if (!egs.isNull() && gp.drawLineDot && vis2) {
-					int xx, yy, ww, hh;
+					double xx, yy, ww, hh;
 					xx = endPoint.x - VALUE_RADIUS;
 					yy = endPoint.y - VALUE_RADIUS;
 					ww = 2 * VALUE_RADIUS;
@@ -230,35 +231,31 @@ public class DrawArea extends DrawBase {
 		db.drawLine(gp.gRect1.x, gp.valueBaseLine, gp.gRect1.x + gp.gRect1.width,
 				gp.valueBaseLine, egp.getAxisColor(GraphProperty.AXIS_BOTTOM));
 		db.drawLine(gp.gRect1.x + gp.gRect1.width, gp.valueBaseLine,
-				(int) (gp.gRect1.x + gp.gRect1.width + coorWidth),
-				(int) (gp.valueBaseLine - coorWidth),
+				gp.gRect1.x + gp.gRect1.width + coorWidth,
+				gp.valueBaseLine - coorWidth,
 				egp.getAxisColor(GraphProperty.AXIS_BOTTOM));
 	}
 
-	private static void fillPolygon(DrawBase db,int[] x, int[] y, int n) {
+	private static void fillPolygon(DrawBase db,double[] x, double[] y, int n) {
 		//少改动代码，同名引出要用到的实例
-		GraphParam gp = db.gp;
 		ExtGraphProperty egp = db.egp;
 		Graphics2D g = db.g;
-		ArrayList<ValueLabel> labelList = db.labelList;
-		int VALUE_RADIUS = db.VALUE_RADIUS;
-		ArrayList<ValuePoint> pointList = db.pointList;
 
 		if (egp.isDrawShade()) {
 			Color c = g.getColor();
 			Paint p = g.getPaint();
-			int[] xx = new int[n];
-			int[] yy = new int[n];
+			double[] xx = new double[n];
+			double[] yy = new double[n];
 			for (int i = 0; i < n; i++) {
 				xx[i] = x[i] + db.SHADE_SPAN;
 				yy[i] = y[i] + db.SHADE_SPAN;
 			}
 			g.setColor(Color.lightGray);
-			g.fillPolygon(xx, yy, n);
+			Utils.fillPolygon(g, xx, yy);
 			g.setColor(c);
 			g.setPaint(p);
 		}
-		g.fillPolygon(x, y, n);
+		Utils.fillPolygon(g,x, y);
 	}
 
 }

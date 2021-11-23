@@ -1,6 +1,8 @@
 package com.raqsoft.cellset.graph.draw;
 
 import java.awt.*;
+import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 import java.util.*;
 
 import com.raqsoft.cellset.graph.*;
@@ -37,24 +39,20 @@ public class DrawBarStacked extends DrawBase {
 		double coorWidth;
 		double categorySpan;
 		double delx;
-		int x, y;
+		double x, y;
 
 		gp.maxValue = gp.maxPositive;
 		gp.minValue = gp.minNegative;
-
 		gp.coorWidth = 0;
-
 		db.initGraphInset();
-
 		db.createCoorValue();
-
 		db.drawLegend(htmlLink);
 		db.drawTitle();
 		db.drawLabel();
 		db.keepGraphSpace();
 
 		db.adjustCoorInset();
-		gp.graphRect = new Rectangle(gp.leftInset, gp.topInset, gp.graphWidth
+		gp.graphRect = new Rectangle2D.Double(gp.leftInset, gp.topInset, gp.graphWidth
 				- gp.leftInset - gp.rightInset, gp.graphHeight - gp.topInset
 				- gp.bottomInset);
 		if (gp.graphRect.width < 10 || gp.graphRect.height < 10) {
@@ -88,8 +86,8 @@ public class DrawBarStacked extends DrawBase {
 		
 		coorWidth = (seriesWidth * (gp.coorWidth / 200.0));
 		delx = (gp.graphRect.width - coorWidth) / gp.tickNum;
-		gp.gRect1 = new Rectangle(gp.graphRect);
-		gp.gRect2 = new Rectangle(gp.graphRect);
+		gp.gRect1 = (Rectangle2D.Double)gp.graphRect.clone();
+		gp.gRect2 = (Rectangle2D.Double)gp.graphRect.clone();
 		/* 画坐标轴 */
 		db.drawGraphRect();
 		/* 画X轴 */
@@ -100,12 +98,12 @@ public class DrawBarStacked extends DrawBase {
 			Number coorx = (Number) gp.coorValue.get(i);
 			String scoorx = db.getFormattedValue(coorx.doubleValue());
 
-			x = (int) (gp.gRect1.x + i * delx);// - TR.width / 2
-			y = gp.gRect1.y + gp.gRect1.height + gp.tickLen;// + TR.height;
+			x = gp.gRect1.x + i * delx;
+			y = gp.gRect1.y + gp.gRect1.height + gp.tickLen;
 			gp.GFV_XLABEL.outText(x, y, scoorx);
 			// 设置基线
 			if (coorx.doubleValue() == gp.baseValue + gp.minValue) {
-				gp.valueBaseLine = (int) (gp.gRect1.x + i * delx);
+				gp.valueBaseLine =  (gp.gRect1.x + i * delx);
 			}
 		}
 
@@ -124,19 +122,19 @@ public class DrawBarStacked extends DrawBase {
 			if (vis) {
 				c = egp.getAxisColor(GraphProperty.AXIS_LEFT);
 				Utils.setStroke(g, c, Consts.LINE_SOLID, 1.0f);
-				db.drawLine(gp.gRect1.x, gp.gRect1.y + gp.gRect1.height - (int)dely,
+				db.drawLine(gp.gRect1.x, gp.gRect1.y + gp.gRect1.height - dely,
 						gp.gRect1.x - gp.tickLen, gp.gRect1.y
-								+ gp.gRect1.height - (int)dely,c);
-				db.drawGridLineCategory( gp.gRect1.y + (int)dely );
+								+ gp.gRect1.height - dely,c);
+				db.drawGridLineCategory( gp.gRect1.y + dely );
 			}
 
 			String value = egc.getNameString();
-			x = gp.gRect1.x - gp.tickLen;// - TR.width
-			y = gp.gRect1.y + (int)dely;// + TR.height / 2;
+			x = gp.gRect1.x - gp.tickLen;
+			y = gp.gRect1.y + dely;
 			gp.GFV_YLABEL.outText(x, y, value, vis);
 
-			int positiveBase = gp.valueBaseLine;
-			int negativeBase = gp.valueBaseLine;
+			double positiveBase = gp.valueBaseLine;
+			double negativeBase = gp.valueBaseLine;
 			double lb;
 
 			if (egp.category2 == null) {
@@ -173,14 +171,14 @@ public class DrawBarStacked extends DrawBase {
 	}
 	
 	private static void drawSeries(int serNumBase, Vector serNames,ExtGraphCategory egc,
-			double delx, DrawBase db, double dlb, int positiveBase,
-			double seriesWidth, StringBuffer htmlLink, int negativeBase,
+			double delx, DrawBase db, double dlb, double positiveBase,
+			double seriesWidth, StringBuffer htmlLink, double negativeBase,
 			double coorWidth, boolean vis) {
 		GraphParam gp = db.gp;
 		ExtGraphProperty egp = db.egp;
 		Graphics2D g = db.g;
 		ArrayList<ValueLabel> labelList = db.labelList;
-		int lb = (int)Math.round(dlb);
+		double lb = Math.round(dlb);
 		int bs = Consts.LINE_SOLID;
 		float bw = 1.0f;
 		int serNum = serNames.size();
@@ -192,7 +190,7 @@ public class DrawBarStacked extends DrawBase {
 			}
 			double val = egs.getValue();
 			double tmp = val - gp.baseValue;
-			int len = (int) (delx * gp.tickNum * (tmp - gp.minValue) / (gp.maxValue * gp.coorScale));
+			double len = delx * gp.tickNum * (tmp - gp.minValue) / (gp.maxValue * gp.coorScale);
 
 			if (len == 0) {
 				continue;
@@ -202,19 +200,19 @@ public class DrawBarStacked extends DrawBase {
 			Color tmpc = db.getColor(j+serNumBase);
 			if (len > 0) {
 				Utils.draw2DRect(g, positiveBase, lb, len,
-						(int) (seriesWidth), bc, bs, bw,
+						seriesWidth, bc, bs, bw,
 						egp.isDrawShade(), egp.isRaisedBorder(),
 						db.getTransparent(), db.getChartColor(tmpc), false);
 				db.htmlLink(positiveBase, lb, len,
-						(int) (seriesWidth), htmlLink, egc.getNameString(),
+						seriesWidth, htmlLink, egc.getNameString(),
 						egs);
 			} else {
 				Utils.draw2DRect(g, negativeBase + len, lb,
-						Math.abs(len), (int) (seriesWidth), bc, bs, bw,
+						Math.abs(len), seriesWidth, bc, bs, bw,
 						egp.isDrawShade(), egp.isRaisedBorder(),
 						db.getTransparent(), db.getChartColor(tmpc), false);
 				db.htmlLink(negativeBase + len, lb,
-						Math.abs(len), (int) (seriesWidth), htmlLink,
+						Math.abs(len), seriesWidth, htmlLink,
 						egc.getNameString(), egs);
 			}
 
@@ -239,7 +237,7 @@ public class DrawBarStacked extends DrawBase {
 				}
 				
 				if(StringUtils.isValidString( sval )){
-					vl = new ValueLabel(sval, new Point(positiveBase+len/2, (int) (lb-seriesWidth/2)), gp.GFV_VALUE.color,
+					vl = new ValueLabel(sval, new Point2D.Double((positiveBase+len/2),  (lb-seriesWidth/2)), gp.GFV_VALUE.color,
 							GraphFontView.TEXT_ON_CENTER);
 				}
 				
@@ -255,7 +253,7 @@ public class DrawBarStacked extends DrawBase {
 				}
 				
 				if(StringUtils.isValidString( sval )){
-					vl = new ValueLabel(sval, new Point(negativeBase + len/2, (int) (lb-seriesWidth/2)), gp.GFV_VALUE.color,
+					vl = new ValueLabel(sval, new Point2D.Double((negativeBase + len/2),  (lb-seriesWidth/2)), gp.GFV_VALUE.color,
 							GraphFontView.TEXT_ON_CENTER);
 				}
 				
@@ -273,19 +271,19 @@ public class DrawBarStacked extends DrawBase {
 			ValueLabel vl = null;
 			if (val > 0) {
 				sval = db.getFormattedValue(val);
-				int x = positiveBase + 3;
-				int y = (int) lb - (int) (seriesWidth / 2);// + TR.height / 2;
-				vl = new ValueLabel(sval, new Point(x, y), gp.GFV_VALUE.color,
+				double x = positiveBase + 3;
+				double y =  lb -  (seriesWidth / 2);
+				vl = new ValueLabel(sval, new Point2D.Double(x, y), gp.GFV_VALUE.color,
 						GraphFontView.TEXT_ON_RIGHT);
 									
 			}
 			val = db.getScaledValue(egc.getNegativeSumSeries(), true);
 			if (val < 0) {
 				sval = db.getFormattedValue(val);
-				int x = negativeBase - 3;// - TR.width
-				int y = (int) lb - (int) (seriesWidth / 2);// + TR.height / 2;
+				double x = negativeBase - 3;
+				double y =  lb -  (seriesWidth / 2);
 				
-				vl = new ValueLabel(sval, new Point(x, y), gp.GFV_VALUE.color,
+				vl = new ValueLabel(sval, new Point2D.Double(x, y), gp.GFV_VALUE.color,
 						GraphFontView.TEXT_ON_LEFT);
 				
 			}

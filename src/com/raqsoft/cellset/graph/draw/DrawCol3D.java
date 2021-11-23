@@ -1,6 +1,8 @@
 package com.raqsoft.cellset.graph.draw;
 
 import java.awt.*;
+import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 import java.util.*;
 
 import com.raqsoft.cellset.graph.*;
@@ -30,8 +32,6 @@ public class DrawCol3D extends DrawBase {
 		ExtGraphProperty egp = db.egp;
 		Graphics2D g = db.g;
 		ArrayList<ValueLabel> labelList = db.labelList;
-		int VALUE_RADIUS = db.VALUE_RADIUS;
-		ArrayList<ValuePoint> pointList = db.pointList;
 		
 		double seriesWidth;
 		double seriesDeep;
@@ -39,8 +39,8 @@ public class DrawCol3D extends DrawBase {
 		double categorySpan;
 		double seriesSpan;
 		double dely = 0;
-		int tmpInt;
-		int x, y;
+		double tmpInt;
+		double x, y;
 
 		db.initGraphInset();
 
@@ -52,7 +52,7 @@ public class DrawCol3D extends DrawBase {
 		db.keepGraphSpace();
 
 		db.adjustCoorInset();
-		gp.graphRect = new Rectangle(gp.leftInset, gp.topInset, gp.graphWidth
+		gp.graphRect = new Rectangle2D.Double(gp.leftInset, gp.topInset, gp.graphWidth
 				- gp.leftInset - gp.rightInset, gp.graphHeight - gp.topInset
 				- gp.bottomInset);
 
@@ -60,8 +60,8 @@ public class DrawCol3D extends DrawBase {
 			return;
 		}
 
-		gp.gRect1 = new Rectangle(gp.graphRect);
-		gp.gRect2 = new Rectangle(gp.graphRect);
+		gp.gRect1 = (Rectangle2D.Double)gp.graphRect.clone();
+		gp.gRect2 = (Rectangle2D.Double)gp.graphRect.clone();
 
 		coorWidth = (Math.min(gp.graphRect.width, gp.graphRect.height)) / 2;
 		gp.gRect1.y += coorWidth;
@@ -70,13 +70,13 @@ public class DrawCol3D extends DrawBase {
 
 		dely = gp.gRect1.height / gp.tickNum;
 		gp.gRect1.y += (gp.gRect1.height - dely * gp.tickNum) / 2;
-		gp.gRect1.height = (int) (dely * gp.tickNum);
+		gp.gRect1.height =  (dely * gp.tickNum);
 
 		seriesDeep = (coorWidth / (((gp.serNum + 1) * gp.seriesSpan / 100.0) + gp.serNum));
 		seriesSpan = (seriesDeep * (gp.seriesSpan / 100.0));
 
-		tmpInt = (int) ((gp.serNum + 1) * seriesSpan + gp.serNum * seriesDeep);
-		tmpInt = (int) ((coorWidth - tmpInt) / 2);
+		tmpInt =  ((gp.serNum + 1) * seriesSpan + gp.serNum * seriesDeep);
+		tmpInt =  ((coorWidth - tmpInt) / 2);
 		gp.gRect1.y += tmpInt;
 
 		if (gp.barDistance > 0) {
@@ -97,14 +97,14 @@ public class DrawCol3D extends DrawBase {
 			categorySpan = (seriesWidth * (gp.categorySpan / 100.0));
 
 		}
-		gp.gRect2.x = (int) (gp.gRect1.x + coorWidth);
+		gp.gRect2.x =  (gp.gRect1.x + coorWidth);
 		gp.gRect2.width = gp.gRect1.width;
-		gp.gRect2.y = (int) (gp.gRect1.y - coorWidth);
+		gp.gRect2.y =  (gp.gRect1.y - coorWidth);
 		gp.gRect2.height = gp.gRect1.height;
 
 		/* 画坐标轴 */
 		db.drawGraphRect();
-		Point p;
+		Point2D.Double p;
 		/* 画Y轴 */
 		for (int i = 0; i <= gp.tickNum; i++) {
 			db.drawGridLine(dely, i);
@@ -116,7 +116,7 @@ public class DrawCol3D extends DrawBase {
 			gp.GFV_YLABEL.outText(p.x-gp.tickLen, p.y, scoory);
 			// 设置基线
 			if (coory.doubleValue() == gp.baseValue + gp.minValue) {
-				gp.valueBaseLine = (int) (gp.gRect1.y + gp.gRect1.height - i
+				gp.valueBaseLine =  (gp.gRect1.y + gp.gRect1.height - i
 						* dely);
 			}
 		}
@@ -139,8 +139,8 @@ public class DrawCol3D extends DrawBase {
 			float dashes[] = { 2 };
 			g.setStroke(new BasicStroke(0.1f, BasicStroke.CAP_ROUND,
 					BasicStroke.JOIN_ROUND, 1, dashes, 0));
-			g.drawLine(gp.gRect1.x + (int)delx, gp.valueBaseLine, (int) (gp.gRect1.x
-					+ delx + coorWidth), (int) (gp.valueBaseLine - coorWidth));
+			Utils.drawLine(g,gp.gRect1.x + delx, gp.valueBaseLine, gp.gRect1.x
+					+ delx + coorWidth, gp.valueBaseLine - coorWidth);
 
 			boolean vis = (i % (gp.graphXInterval + 1) == 0);
 			p = db.getHTickPoint(delx);
@@ -149,7 +149,7 @@ public class DrawCol3D extends DrawBase {
 				Utils.setStroke(g, c, Consts.LINE_SOLID, 1.0f);
 				db.drawLine(p.x,p.y,p.x,p.y+gp.tickLen,c);
 				// 画背景虚线
-				db.drawGridLineCategoryV(gp.gRect2.x + (int)delx);
+				db.drawGridLineCategoryV(gp.gRect2.x + delx);
 			}
 
 			String value = egc.getNameString();
@@ -162,12 +162,12 @@ public class DrawCol3D extends DrawBase {
 				}
 				double val = egs.getValue();
 				double tmp = val - gp.baseValue;
-				int len = (int) Math.round(dely * gp.tickNum
+				double len = Math.round(dely * gp.tickNum
 						* (tmp - gp.minValue) / (gp.maxValue * gp.coorScale));
 
-				int lb = (int) Math.round(gp.gRect1.x + (i + 1) * categorySpan
+				double lb = Math.round(gp.gRect1.x + (i + 1) * categorySpan
 						+ i * seriesWidth);
-				int br = (int) Math
+				double br = Math
 						.round((j + 1) * seriesSpan + j * seriesDeep);
 				if (len > 0) {
 					continue;
@@ -179,12 +179,12 @@ public class DrawCol3D extends DrawBase {
 				} else {
 					cIndex = j;
 				}
-				db.drawRectCube(lb, (int) seriesWidth, len, (int) seriesDeep, br,
+				db.drawRectCube(lb, seriesWidth, len, seriesDeep, br,
 						cIndex, htmlLink, egc.getNameString(), egs);
 				// 最后输出文字，否则会被图形覆盖
 				if (gp.dispValueOntop && !egs.isNull() && vis) {
 					String sval = db.getDispValue(egc,egs,gp.serNum);
-					x = lb + br + (int) seriesWidth / 2;// - TR.width / 2;
+					x = lb + br +  seriesWidth / 2;// - TR.width / 2;
 					y = gp.valueBaseLine - len - br;
 
 					if (!gp.isMultiSeries) {
@@ -194,10 +194,10 @@ public class DrawCol3D extends DrawBase {
 					}
 					ValueLabel vl;
 					if (len < 0) {
-						vl = new ValueLabel(sval, new Point(x, y), c,
+						vl = new ValueLabel(sval, new Point2D.Double(x, y), c,
 								GraphFontView.TEXT_ON_BOTTOM);
 					} else {
-						vl = new ValueLabel(sval, new Point(x, y), c,
+						vl = new ValueLabel(sval, new Point2D.Double(x, y), c,
 								GraphFontView.TEXT_ON_TOP);
 					}
 					labelList.add(vl);
@@ -210,13 +210,13 @@ public class DrawCol3D extends DrawBase {
 		db.outLabels();
 		// 绘制基线透明平面，
 		if (gp.valueBaseLine != gp.gRect1.y + gp.gRect1.height) {
-			int xx[] = { gp.gRect1.x, (int) (gp.gRect1.x + coorWidth),
-					(int) (gp.gRect1.x + gp.gRect1.width + coorWidth),
-					(int) (gp.gRect1.x + gp.gRect1.width) };
-			int yy[] = { gp.valueBaseLine,
-					(int) (gp.valueBaseLine - coorWidth),
-					(int) (gp.valueBaseLine - coorWidth), gp.valueBaseLine };
-			Polygon poly = new Polygon(xx, yy, 4);
+			double xx[] = { gp.gRect1.x,  (gp.gRect1.x + coorWidth),
+					 (gp.gRect1.x + gp.gRect1.width + coorWidth),
+					 (gp.gRect1.x + gp.gRect1.width) };
+			double yy[] = { gp.valueBaseLine,
+					 (gp.valueBaseLine - coorWidth),
+					 (gp.valueBaseLine - coorWidth), gp.valueBaseLine };
+			Shape poly = Utils.newPolygon2D(xx, yy);
 
 			Color ccc = egp.getAxisColor(GraphProperty.AXIS_BOTTOM);
 			if (ccc == null) {// 如果底边为透明色时，使用缺省灰
@@ -238,8 +238,8 @@ public class DrawCol3D extends DrawBase {
 			float dashes[] = { 2 };
 			g.setStroke(new BasicStroke(1f, BasicStroke.CAP_ROUND,
 					BasicStroke.JOIN_ROUND, 1, dashes, 0));
-			g.drawLine(gp.gRect1.x + (int)delx, gp.valueBaseLine, (int) (gp.gRect1.x
-					+ delx + coorWidth), (int) (gp.valueBaseLine - coorWidth));
+			Utils.drawLine(g,gp.gRect1.x + delx, gp.valueBaseLine,  (gp.gRect1.x
+					+ delx + coorWidth),  (gp.valueBaseLine - coorWidth));
 
 			boolean vis = (i % (gp.graphXInterval + 1) == 0);
 
@@ -250,12 +250,12 @@ public class DrawCol3D extends DrawBase {
 				}
 				double val = egs.getValue();
 				double tmp = val - gp.baseValue;
-				int len = (int) Math.round(dely * gp.tickNum
+				double len = Math.round(dely * gp.tickNum
 						* (tmp - gp.minValue) / (gp.maxValue * gp.coorScale));
 
-				int lb = (int) Math.round(gp.gRect1.x + (i + 1) * categorySpan
+				double lb = Math.round(gp.gRect1.x + (i + 1) * categorySpan
 						+ i * seriesWidth);
-				int br = (int) Math
+				double br = Math
 						.round((j + 1) * seriesSpan + j * seriesDeep);
 				if (len < 0) {
 					continue;
@@ -267,12 +267,12 @@ public class DrawCol3D extends DrawBase {
 				} else {
 					cIndex = j;
 				}
-				db.drawRectCube(lb, (int) seriesWidth, len, (int) seriesDeep, br,
+				db.drawRectCube(lb, seriesWidth, len, seriesDeep, br,
 						cIndex, htmlLink, egc.getNameString(), egs);
 				// 最后输出文字，否则会被图形覆盖
 				if (gp.dispValueOntop && !egs.isNull() && vis) {
 					String sval = db.getDispValue(egc,egs,gp.serNum);
-					x = lb + br + (int) seriesWidth / 2;// - TR.width / 2;
+					x = lb + br +  seriesWidth / 2;// - TR.width / 2;
 					y = gp.valueBaseLine - len - br;
 
 					if (!gp.isMultiSeries) {
@@ -282,10 +282,10 @@ public class DrawCol3D extends DrawBase {
 					}
 					ValueLabel vl;
 					if (len < 0) {
-						vl = new ValueLabel(sval, new Point(x, y), c,
+						vl = new ValueLabel(sval, new Point2D.Double(x, y), c,
 								GraphFontView.TEXT_ON_BOTTOM);
 					} else {
-						vl = new ValueLabel(sval, new Point(x, y), c,
+						vl = new ValueLabel(sval, new Point2D.Double(x, y), c,
 								GraphFontView.TEXT_ON_TOP);
 					}
 					labelList.add(vl);
@@ -306,8 +306,8 @@ public class DrawCol3D extends DrawBase {
 					+ gp.gRect1.width, gp.valueBaseLine,
 					egp.getAxisColor(GraphProperty.AXIS_BOTTOM));
 			db.drawLine(gp.gRect1.x + gp.gRect1.width, gp.valueBaseLine,
-					(int) (gp.gRect1.x + gp.gRect1.width + coorWidth),
-					(int) (gp.valueBaseLine - coorWidth),
+					gp.gRect1.x + gp.gRect1.width + coorWidth,
+					gp.valueBaseLine - coorWidth,
 					egp.getAxisColor(GraphProperty.AXIS_BOTTOM));
 		}
 	}
