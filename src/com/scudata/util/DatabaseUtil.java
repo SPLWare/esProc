@@ -44,7 +44,7 @@ public class DatabaseUtil {
 	 * 对指定的数据库连接执行sql语句，返回结果构成的序列
 	 * @param sql	String sql语句
 	 * @param params	Object[] 参数值列表
-	 * @param types	byte[] 参数类型列表，可空，参数类型参见com.raqsoft.common.Types，可用数组如字符串组等类型
+	 * @param types	byte[] 参数类型列表，可空，参数类型参见com.scudata.common.Types，可用数组如字符串组等类型
 	 * 						当参数类型空时，认为等同于“默认”类型，此时注意参数值不能为null
 	 * @param dbs	DBSession
 	 * @return Sequence
@@ -340,7 +340,7 @@ public class DatabaseUtil {
 	 * @param params
 	 *            Object[] 参数值列表
 	 * @param types
-	 *            byte[] 参数类型列表，可空，参数类型参见com.raqsoft.common.Types，可用数组如字符串组等类型
+	 *            byte[] 参数类型列表，可空，参数类型参见com.scudata.common.Types，可用数组如字符串组等类型
 	 *            当参数类型空时，认为等同于“默认”类型，此时注意参数值不能为null
 	 * @param dbs
 	 *            DBSession
@@ -1187,7 +1187,7 @@ public class DatabaseUtil {
 	 * 在dbName中执行sql语句
 	 * @param sql	String sql语句
 	 * @param params	Object[] 参数列表，可空
-	 * @param types	byte[] 参数类型列表，可空，参数类型参见com.raqsoft.common.Types，可用数组如字符串组等类型
+	 * @param types	byte[] 参数类型列表，可空，参数类型参见com.scudata.common.Types，可用数组如字符串组等类型
 	 *            			当参数类型空时，认为等同于“默认”类型，此时注意参数值不能为null
 	 * @param dbs	DBSession edited by bdl, 2012.9.18, 增加返回值
 	 * @return	运行结果 更新语句返回Integer，普通sql返回Boolean
@@ -1200,7 +1200,7 @@ public class DatabaseUtil {
 	 * 在dbName中执行sql语句，用多组参数执行同一SQL语句，为提高效率，在执行时不去置换语句中的?，这样就要求参数中不能有数组
 	 * @param sql	String sql语句
 	 * @param params	Object[][] 参数列表的列表，可空
-	 * @param types	byte[] 参数类型列表，可空，参数类型参见com.raqsoft.common.Types，可用数组如字符串组等类型
+	 * @param types	byte[] 参数类型列表，可空，参数类型参见com.scudata.common.Types，可用数组如字符串组等类型
 	 *            			当参数类型空时，认为等同于“默认”类型，此时注意参数值不能为null
 	 * @param dbs	DBSession
 	 * @param interrupt	boolean 是否中断
@@ -1297,7 +1297,7 @@ public class DatabaseUtil {
 	 * 在dbName中执行sql语句，用多组参数执行同一SQL语句，为提高效率，在执行时不去置换语句中的?，这样就要求参数中不能有数组
 	 * @param sql	String sql语句
 	 * @param params	Object[][] 参数列表的列表，可空
-	 * @param types	byte[] 参数类型列表，可空，参数类型参见com.raqsoft.common.Types，可用数组如字符串组等类型
+	 * @param types	byte[] 参数类型列表，可空，参数类型参见com.scudata.common.Types，可用数组如字符串组等类型
 	 *            			当参数类型空时，认为等同于“默认”类型，此时注意参数值不能为null
 	 * @param dbs	DBSession
 	 * @param interrupt	boolean 是否中断
@@ -1439,7 +1439,7 @@ public class DatabaseUtil {
 	 * @param paramsGroup
 	 *            Object[][] 参数列表的列表，可空
 	 * @param types
-	 *            byte[] 参数类型列表，可空，参数类型参见com.raqsoft.common.Types，可用数组
+	 *            byte[] 参数类型列表，可空，参数类型参见com.scudata.common.Types，可用数组
 	 *            如字符串组等类型。当参数类型空时，认为等同于“默认”类型，此时注意参数值不能为null
 	 * @param dbs
 	 *            DBSession 数据库信息，记录错误状态用
@@ -1542,7 +1542,7 @@ public class DatabaseUtil {
 	 * @param params
 	 *            Object[][] 参数列表的列表，可空
 	 * @param types
-	 *            byte[] 参数类型列表，可空，参数类型参见com.raqsoft.common.Types，可用数组如字符串组等类型
+	 *            byte[] 参数类型列表，可空，参数类型参见com.scudata.common.Types，可用数组如字符串组等类型
 	 *            当参数类型空时，认为等同于“默认”类型，此时注意参数值不能为null
 	 * @param dbs
 	 *            DBSession
@@ -1594,7 +1594,7 @@ public class DatabaseUtil {
 	 * 在dbName中执行sql语句
 	 * @param sql	String sql语句
 	 * @param params	Object[] 参数列表，可空
-	 * @param types	byte[] 参数类型列表，可空，参数类型参见com.raqsoft.common.Types，可用数组如字符串组等类型
+	 * @param types	byte[] 参数类型列表，可空，参数类型参见com.scudata.common.Types，可用数组如字符串组等类型
 	 *           			 当参数类型空时，认为等同于“默认”类型，此时注意参数值不能为null
 	 * @param dbs	DBSession
 	 * @return Sequence
@@ -1648,7 +1648,7 @@ public class DatabaseUtil {
 	 * 以多组参数来执行同一sql语句，返回结果序列的序列，added by bdl, 2009.1.8
 	 * @param sql	String sql语句
 	 * @param params	Object[][] 参数列表，不可空，若为空则返回null，参数列表中的参数不允许是数组，否则有可能会出错
-	 * @param types	byte[] 参数类型列表，可空，参数类型参见com.raqsoft.common.Types，可用数组如字符串组等类型
+	 * @param types	byte[] 参数类型列表，可空，参数类型参见com.scudata.common.Types，可用数组如字符串组等类型
 	 *            			当参数类型空时，认为等同于“默认”类型，此时注意参数值不能为null
 	 * @param dbs	DBSession
 	 * @return Sequence
@@ -2645,7 +2645,7 @@ public class DatabaseUtil {
 	 * @param params
 	 *            Object[] 参数值列表
 	 * @param types
-	 *            byte[] 参数类型列表，可空，参数类型参见com.raqsoft.common.Types，可用数组如字符串组等类型
+	 *            byte[] 参数类型列表，可空，参数类型参见com.scudata.common.Types，可用数组如字符串组等类型
 	 *            当参数类型空时，认为等同于“默认”类型，此时注意参数值不能为null
 	 * @param dbs
 	 *            DBSession
@@ -5561,7 +5561,7 @@ public class DatabaseUtil {
 	 * 批量执行，根据某个序列，计算参数后，执行某个sql
 	 * @param sql	String sql语句
 	 * @param params	Expression[] 各字段参数的表达式
-	 * @param types	byte[] 参数类型列表，可空，参数类型参见com.raqsoft.common.Types，可用数组
+	 * @param types	byte[] 参数类型列表，可空，参数类型参见com.scudata.common.Types，可用数组
 	 *            	如字符串组等类型。当参数类型空时，认为等同于“默认”类型，此时注意参数值不能为null
 	 * @param ctx	Context 上下文，计算上面的参数用
 	 * @param dbs	DBSession 数据库信息，记录错误状态用

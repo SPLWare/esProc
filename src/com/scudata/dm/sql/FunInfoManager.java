@@ -14,7 +14,6 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import com.scudata.common.DBTypes;
 import com.scudata.common.Logger;
 import com.scudata.common.RQException;
 import com.scudata.dm.sql.simple.IFunction;
@@ -37,8 +36,7 @@ public class FunInfoManager {
 
 	static { // 自动加载函数文件
 		try {
-			InputStream in = FunInfoManager.class
-					.getResourceAsStream("/com/raqsoft/dm/sql/function.xml");
+			InputStream in = FunInfoManager.class.getResourceAsStream("/com/scudata/dm/sql/function.xml");
 			addFrom(in, COVER);
 		} catch (Exception e) {
 			Logger.debug(e);
@@ -137,7 +135,7 @@ public class FunInfoManager {
 				if (funcNode.getNodeType() != Node.ELEMENT_NODE) {
 					continue;
 				}
-				FunInfo fi;
+				//FunInfo fi;
 				if (isFix) {
 					String name = getAttribute(funcNode, KEY_NAME);
 					String sParamCount = getAttribute(funcNode, KEY_PARAM_COUNT);

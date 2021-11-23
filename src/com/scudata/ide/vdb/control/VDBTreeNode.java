@@ -153,7 +153,7 @@ public class VDBTreeNode extends DefaultMutableTreeNode {
 	}
 
 	public ImageIcon getDispIcon() {
-		String imgPath = "/com/raqsoft/ide/vdb/img/";
+		String imgPath = "/com/scudata/ide/vdb/img/";
 		switch(type){
 		case TYPE_HOME:
 			imgPath += "home.png";

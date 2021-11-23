@@ -7,11 +7,11 @@ public class CommonMessage {
 	private CommonMessage() {}
 
 	public static MessageManager get() {
-		return MessageManager.getManager( "com.raqsoft.common.resources.commonMessage" );
+		return MessageManager.getManager( "com.scudata.common.resources.commonMessage" );
 	}
 
 	public static MessageManager get( Locale locale ) {
-		return MessageManager.getManager( "com.raqsoft.common.resources.commonMessage", locale );
+		return MessageManager.getManager( "com.scudata.common.resources.commonMessage", locale );
 	}
 
 }

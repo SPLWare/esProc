@@ -101,7 +101,7 @@ public class DialogSplash extends JDialog {
 	 * @return
 	 */
 	private String getDefaultImage() {
-		String img = "/com/raqsoft/ide/common/resources/esproc"
+		String img = "/com/scudata/ide/common/resources/esproc"
 				+ GM.getLanguageSuffix() + ".png";
 		return img;
 	}
