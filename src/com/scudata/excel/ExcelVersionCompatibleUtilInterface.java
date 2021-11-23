@@ -24,7 +24,7 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 
 /**
  * 公用poi版本方法兼容工具接口，实现类手动添加到poi-5.0.0.jar、poi-3.17.jar 
- * com/raqsoft/excel/ExcelVersionCompatibleUtil.class
+ * com/scudata/excel/ExcelVersionCompatibleUtil.class
  * 根据版本不同，方法实现有区别
 */
 public interface ExcelVersionCompatibleUtilInterface {

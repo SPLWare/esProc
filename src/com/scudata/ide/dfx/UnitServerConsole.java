@@ -222,7 +222,7 @@ public class UnitServerConsole extends JFrame implements StartUnitListener {
 //		ImageIcon ii = BTX.getLogoImage(true, "unit_logo.png");
 
 //		if (ii == null) {
-			ImageIcon ii = GM.getImageIcon("com/raqsoft/ide/common/resources/unitserver.gif");
+			ImageIcon ii = GM.getImageIcon("com/scudata/ide/common/resources/unitserver.gif");
 //		}
 		return ii;
 	}
