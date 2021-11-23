@@ -14,11 +14,11 @@ public class AppMessage {
 	}
 
 	public static MessageManager get() {
-		return MessageManager.getManager("com.raqsoft.resources.appMessage");
+		return MessageManager.getManager("com.scudata.resources.appMessage");
 	}
 
 	public static MessageManager get(Locale locale) {
-		return MessageManager.getManager("com.raqsoft.resources.appMessage",
+		return MessageManager.getManager("com.scudata.resources.appMessage",
 				locale);
 	}
 

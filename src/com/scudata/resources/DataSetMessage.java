@@ -9,11 +9,11 @@ public class DataSetMessage {
 	private DataSetMessage() {}
 
 	public static MessageManager get() {
-		return MessageManager.getManager("com.raqsoft.resources.dataSetMessage");
+		return MessageManager.getManager("com.scudata.resources.dataSetMessage");
 	}
 
 	public static MessageManager get(Locale locale) {
-		return MessageManager.getManager("com.raqsoft.resources.dataSetMessage", locale);
+		return MessageManager.getManager("com.scudata.resources.dataSetMessage", locale);
 	}
 
 }
