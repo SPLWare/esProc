@@ -15,7 +15,7 @@ public class ChartMessage {
 
 	public static MessageManager get(Locale locale) {
 		return MessageManager.getManager(
-				"com.raqsoft.chart.resources.chartMessage", locale);
+				"com.scudata.chart.resources.chartMessage", locale);
 	}
 
 }
