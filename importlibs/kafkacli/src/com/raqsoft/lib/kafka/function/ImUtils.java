@@ -1,4 +1,4 @@
-package com.raqsoft.lib.kafka.function;
+package com.scudata.lib.kafka.function;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

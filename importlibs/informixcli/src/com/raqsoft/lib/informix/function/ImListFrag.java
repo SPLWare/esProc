@@ -1,8 +1,8 @@
-package com.raqsoft.lib.informix.function;
+package com.scudata.lib.informix.function;
 
-import com.raqsoft.dm.Context;
-import com.raqsoft.dm.Table;
-import com.raqsoft.expression.Node;
+import com.scudata.dm.Context;
+import com.scudata.dm.Table;
+import com.scudata.expression.Node;
 
 public class ImListFrag extends ImFunction {
 	boolean bCursor = false;

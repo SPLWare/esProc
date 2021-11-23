@@ -1,4 +1,4 @@
-package com.raqsoft.lib.influx.function;
+package com.scudata.lib.influx.function;
 
 import java.util.Date;
 import java.sql.Timestamp;
@@ -9,8 +9,8 @@ import java.util.Map;
 import org.influxdb.dto.QueryResult;
 import org.influxdb.dto.QueryResult.Result;
 import org.influxdb.dto.QueryResult.Series;
-import com.raqsoft.common.Logger;
-import com.raqsoft.dm.Table;
+import com.scudata.common.Logger;
+import com.scudata.dm.Table;
 
 public class ImUtils {
 	public static Table getTableByResult(QueryResult results){

@@ -1,14 +1,14 @@
-package com.raqsoft.lib.redis.function;
+package com.scudata.lib.redis.function;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import com.raqsoft.common.RQException;
-import com.raqsoft.dm.Context;
-import com.raqsoft.dm.Sequence;
-import com.raqsoft.expression.Node;
+import com.scudata.common.RQException;
+import com.scudata.dm.Context;
+import com.scudata.dm.Sequence;
+import com.scudata.expression.Node;
 
 public class RedisSetDiff extends RedisBase {
 	public Node optimize(Context ctx) {

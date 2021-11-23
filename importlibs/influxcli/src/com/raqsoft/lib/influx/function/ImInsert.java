@@ -1,4 +1,4 @@
-package com.raqsoft.lib.influx.function;
+package com.scudata.lib.influx.function;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -15,12 +15,12 @@ import org.influxdb.InfluxDB.ConsistencyLevel;
 import org.influxdb.dto.BatchPoints;
 import org.influxdb.dto.Point;
 import org.influxdb.dto.QueryResult;
-import com.raqsoft.common.Logger;
-import com.raqsoft.common.RQException;
-import com.raqsoft.dm.Context;
-import com.raqsoft.dm.Sequence;
-import com.raqsoft.dm.Table;
-import com.raqsoft.expression.Node;
+import com.scudata.common.Logger;
+import com.scudata.common.RQException;
+import com.scudata.dm.Context;
+import com.scudata.dm.Sequence;
+import com.scudata.dm.Table;
+import com.scudata.expression.Node;
 
 // sql≤È—Ø
 public class ImInsert extends ImFunction {

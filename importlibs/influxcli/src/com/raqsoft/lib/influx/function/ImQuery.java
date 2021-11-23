@@ -1,11 +1,11 @@
-package com.raqsoft.lib.influx.function;
+package com.scudata.lib.influx.function;
 
 import org.influxdb.dto.QueryResult;
-import com.raqsoft.common.Logger;
-import com.raqsoft.common.RQException;
-import com.raqsoft.dm.Context;
-import com.raqsoft.dm.Table;
-import com.raqsoft.expression.Node;
+import com.scudata.common.Logger;
+import com.scudata.common.RQException;
+import com.scudata.dm.Context;
+import com.scudata.dm.Table;
+import com.scudata.expression.Node;
 
 // sql≤È—Ø
 public class ImQuery extends ImFunction {

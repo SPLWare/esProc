@@ -1,19 +1,19 @@
-package com.raqsoft.lib.informix.function;
+package com.scudata.lib.informix.function;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import com.raqsoft.common.Logger;
-import com.raqsoft.dm.Context;
-import com.raqsoft.dm.Sequence;
-import com.raqsoft.dm.Table;
-import com.raqsoft.dm.cursor.ICursor;
-import com.raqsoft.lib.informix.helper.Fragment;
-import com.raqsoft.lib.informix.helper.IfxConn;
-import com.raqsoft.lib.informix.helper.ImCommand;
-import com.raqsoft.lib.informix.helper.ImTableInfo;
-import com.raqsoft.lib.informix.function.multiCursor.BPipeReader;
+import com.scudata.common.Logger;
+import com.scudata.dm.Context;
+import com.scudata.dm.Sequence;
+import com.scudata.dm.Table;
+import com.scudata.dm.cursor.ICursor;
+import com.scudata.lib.informix.helper.Fragment;
+import com.scudata.lib.informix.helper.IfxConn;
+import com.scudata.lib.informix.helper.ImCommand;
+import com.scudata.lib.informix.helper.ImTableInfo;
+import com.scudata.lib.informix.function.multiCursor.BPipeReader;
 
 public class ImCursor extends ICursor {
 	private Context m_ctx;	

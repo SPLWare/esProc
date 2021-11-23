@@ -1,9 +1,9 @@
-package com.raqsoft.lib.kafka.function;
+package com.scudata.lib.kafka.function;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.raqsoft.dm.Sequence;
+import com.scudata.dm.Sequence;
 /*
  * ImPoll(fd, timeout)
  * 

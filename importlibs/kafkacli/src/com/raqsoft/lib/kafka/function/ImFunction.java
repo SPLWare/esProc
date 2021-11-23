@@ -1,4 +1,4 @@
-package com.raqsoft.lib.kafka.function;
+package com.scudata.lib.kafka.function;
 
 import java.io.IOException;
 import java.time.Duration;
@@ -10,16 +10,16 @@ import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.common.TopicPartition;
 
-import com.raqsoft.common.Logger;
-import com.raqsoft.common.MessageManager;
-import com.raqsoft.common.RQException;
-import com.raqsoft.dm.Context;
-import com.raqsoft.dm.FileObject;
-import com.raqsoft.dm.Sequence;
-import com.raqsoft.dm.Table;
-import com.raqsoft.expression.Function;
-import com.raqsoft.expression.Node;
-import com.raqsoft.resources.EngineMessage;
+import com.scudata.common.Logger;
+import com.scudata.common.MessageManager;
+import com.scudata.common.RQException;
+import com.scudata.dm.Context;
+import com.scudata.dm.FileObject;
+import com.scudata.dm.Sequence;
+import com.scudata.dm.Table;
+import com.scudata.expression.Function;
+import com.scudata.expression.Node;
+import com.scudata.resources.EngineMessage;
 
 public class ImFunction extends Function {
 	protected int m_paramSize = 0; // 参数个数

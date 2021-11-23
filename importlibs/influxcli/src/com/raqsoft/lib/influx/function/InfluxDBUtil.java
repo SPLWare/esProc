@@ -1,4 +1,4 @@
-package com.raqsoft.lib.influx.function;
+package com.scudata.lib.influx.function;
 
 
 import java.util.List;

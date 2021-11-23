@@ -1,4 +1,4 @@
-package com.raqsoft.lib.kafka.function;
+package com.scudata.lib.kafka.function;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -9,10 +9,10 @@ import org.apache.kafka.clients.producer.Callback;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.clients.producer.RecordMetadata;
-import com.raqsoft.common.Logger;
-import com.raqsoft.common.RQException;
-import com.raqsoft.dm.FileObject;
-import com.raqsoft.dm.Sequence;
+import com.scudata.common.Logger;
+import com.scudata.common.RQException;
+import com.scudata.dm.FileObject;
+import com.scudata.dm.Sequence;
 
 /*
  * ImSend(fd, topic, value)

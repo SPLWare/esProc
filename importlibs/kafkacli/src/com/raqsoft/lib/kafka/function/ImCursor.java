@@ -1,15 +1,15 @@
-package com.raqsoft.lib.kafka.function;
+package com.scudata.lib.kafka.function;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import com.raqsoft.common.Logger;
-import com.raqsoft.common.RQException;
-import com.raqsoft.dm.Context;
-import com.raqsoft.dm.Sequence;
+import com.scudata.common.Logger;
+import com.scudata.common.RQException;
+import com.scudata.dm.Context;
+import com.scudata.dm.Sequence;
 
-import com.raqsoft.dm.cursor.ICursor;
+import com.scudata.dm.cursor.ICursor;
 
 public class ImCursor extends ICursor {
 	private Context m_ctx;	

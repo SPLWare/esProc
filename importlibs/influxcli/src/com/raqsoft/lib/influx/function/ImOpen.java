@@ -1,6 +1,6 @@
-package com.raqsoft.lib.influx.function;
+package com.scudata.lib.influx.function;
 
-import com.raqsoft.common.RQException;
+import com.scudata.common.RQException;
 
 public class ImOpen extends ImFunction {
 

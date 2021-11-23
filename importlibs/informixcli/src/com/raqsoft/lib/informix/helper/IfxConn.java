@@ -1,4 +1,4 @@
-package com.raqsoft.lib.informix.helper;
+package com.scudata.lib.informix.helper;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -22,14 +22,14 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import java.util.Set;
-import com.raqsoft.common.DBConfig;
-import com.raqsoft.common.DBSession;
-import com.raqsoft.common.Logger;
-import com.raqsoft.dm.Context;
-import com.raqsoft.dm.DBObject;
-import com.raqsoft.dm.IResource;
-import com.raqsoft.dm.Table;
-import com.raqsoft.dm.cursor.ICursor;
+import com.scudata.common.DBConfig;
+import com.scudata.common.DBSession;
+import com.scudata.common.Logger;
+import com.scudata.dm.Context;
+import com.scudata.dm.DBObject;
+import com.scudata.dm.IResource;
+import com.scudata.dm.Table;
+import com.scudata.dm.cursor.ICursor;
 
 public class IfxConn extends DBObject implements IResource {
 	public ImConnection m_connect;

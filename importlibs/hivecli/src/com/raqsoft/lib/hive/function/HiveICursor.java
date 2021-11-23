@@ -1,10 +1,10 @@
-package com.raqsoft.lib.hive.function;
+package com.scudata.lib.hive.function;
 
-import com.raqsoft.common.RQException;
-import com.raqsoft.dm.Context;
-import com.raqsoft.dm.Sequence;
-import com.raqsoft.dm.Table;
-import com.raqsoft.dm.cursor.ICursor;
+import com.scudata.common.RQException;
+import com.scudata.dm.Context;
+import com.scudata.dm.Sequence;
+import com.scudata.dm.Table;
+import com.scudata.dm.cursor.ICursor;
 
 public class HiveICursor extends ICursor {
 	private HiveBase m_hiveBase;

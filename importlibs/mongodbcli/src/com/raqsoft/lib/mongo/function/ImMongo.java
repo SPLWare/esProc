@@ -1,11 +1,11 @@
-package com.raqsoft.lib.mongo.function;
+package com.scudata.lib.mongo.function;
 
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoDatabase;
-import com.raqsoft.common.RQException;
-import com.raqsoft.dm.Context;
-import com.raqsoft.dm.IResource;
+import com.scudata.common.RQException;
+import com.scudata.dm.Context;
+import com.scudata.dm.IResource;
 
 public class ImMongo implements IResource {
 	public MongoClient m_client;

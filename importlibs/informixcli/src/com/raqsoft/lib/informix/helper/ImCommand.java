@@ -1,4 +1,4 @@
-package com.raqsoft.lib.informix.helper;
+package com.scudata.lib.informix.helper;
 
 import java.io.BufferedReader;
 import java.io.File;

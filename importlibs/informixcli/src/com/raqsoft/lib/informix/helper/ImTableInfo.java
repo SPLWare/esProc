@@ -1,4 +1,4 @@
-package com.raqsoft.lib.informix.helper;
+package com.scudata.lib.informix.helper;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -12,8 +12,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import com.informix.jdbc.IfmxResultSetMetaData;
 import com.informix.jdbc.IfxConnection;
-import com.raqsoft.common.Logger;
-import com.raqsoft.common.SQLParser;
+import com.scudata.common.Logger;
+import com.scudata.common.SQLParser;
 
 public class ImTableInfo {
 	public Map<Integer, ImColumn> m_colMap;

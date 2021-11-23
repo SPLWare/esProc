@@ -1,11 +1,11 @@
-package com.raqsoft.lib.mongo.function;
+package com.scudata.lib.mongo.function;
 
 import org.bson.Document;
 import com.mongodb.client.MongoDatabase;
-import com.raqsoft.common.*;
-import com.raqsoft.dm.*;
-import com.raqsoft.dm.cursor.ICursor;
-import com.raqsoft.util.JSONUtil;
+import com.scudata.common.*;
+import com.scudata.dm.*;
+import com.scudata.dm.cursor.ICursor;
+import com.scudata.util.JSONUtil;
 
 public class ImCursor extends ICursor {
 	private String m_cmd;

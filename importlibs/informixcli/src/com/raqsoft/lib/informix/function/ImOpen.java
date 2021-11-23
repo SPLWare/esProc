@@ -1,21 +1,21 @@
-package com.raqsoft.lib.informix.function;
+package com.scudata.lib.informix.function;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.raqsoft.cellset.INormalCell;
-import com.raqsoft.common.DBConfig;
-import com.raqsoft.common.DBSession;
-import com.raqsoft.common.DBTypes;
-import com.raqsoft.common.MessageManager;
-import com.raqsoft.common.RQException;
-import com.raqsoft.dm.Context;
-import com.raqsoft.expression.Expression;
-import com.raqsoft.expression.Function;
-import com.raqsoft.expression.Node;
-import com.raqsoft.lib.informix.helper.IfxConn;
-import com.raqsoft.resources.EngineMessage;
+import com.scudata.cellset.INormalCell;
+import com.scudata.common.DBConfig;
+import com.scudata.common.DBSession;
+import com.scudata.common.DBTypes;
+import com.scudata.common.MessageManager;
+import com.scudata.common.RQException;
+import com.scudata.dm.Context;
+import com.scudata.expression.Expression;
+import com.scudata.expression.Function;
+import com.scudata.expression.Node;
+import com.scudata.lib.informix.helper.IfxConn;
+import com.scudata.resources.EngineMessage;
 
 // ifx_open(url; fragfile)
 public class ImOpen extends Function {

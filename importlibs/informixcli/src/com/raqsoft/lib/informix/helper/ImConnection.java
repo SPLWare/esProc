@@ -1,4 +1,4 @@
-package com.raqsoft.lib.informix.helper;
+package com.scudata.lib.informix.helper;
 
 /**************************************************************************
  *
@@ -22,7 +22,7 @@ import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-import com.raqsoft.common.Logger;
+import com.scudata.common.Logger;
 
 import sqlj.runtime.ref.DefaultContext;
 

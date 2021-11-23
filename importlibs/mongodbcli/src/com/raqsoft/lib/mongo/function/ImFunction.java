@@ -1,11 +1,11 @@
-package com.raqsoft.lib.mongo.function;
+package com.scudata.lib.mongo.function;
 
 import java.util.ArrayList;
-import com.raqsoft.dm.Context;
-import com.raqsoft.expression.Expression;
-import com.raqsoft.expression.Function;
-import com.raqsoft.expression.IParam;
-import com.raqsoft.expression.Node;
+import com.scudata.dm.Context;
+import com.scudata.expression.Expression;
+import com.scudata.expression.Function;
+import com.scudata.expression.IParam;
+import com.scudata.expression.Node;
 
 public class ImFunction extends Function {
 	protected Context m_ctx;

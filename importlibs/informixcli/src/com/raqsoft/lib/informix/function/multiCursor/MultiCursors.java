@@ -1,9 +1,9 @@
-package com.raqsoft.lib.informix.function.multiCursor;
+package com.scudata.lib.informix.function.multiCursor;
 
-import com.raqsoft.dm.Context;
-import com.raqsoft.dm.Sequence;
-import com.raqsoft.dm.cursor.ICursor;
-import com.raqsoft.dm.cursor.MultipathCursors;
+import com.scudata.dm.Context;
+import com.scudata.dm.Sequence;
+import com.scudata.dm.cursor.ICursor;
+import com.scudata.dm.cursor.MultipathCursors;
 
 public class MultiCursors extends  MultipathCursors
 {

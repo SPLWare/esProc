@@ -1,4 +1,4 @@
-package com.raqsoft.lib.redis.function;
+package com.scudata.lib.redis.function;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,8 +7,8 @@ import java.util.Map.Entry;
 import org.springframework.data.redis.core.Cursor;
 import org.springframework.data.redis.core.ScanOptions;
 
-import com.raqsoft.dm.Context;
-import com.raqsoft.expression.Node;
+import com.scudata.dm.Context;
+import com.scudata.expression.Node;
 
 public class RedisHashScan extends RedisBase {
 	public Node optimize(Context ctx) {

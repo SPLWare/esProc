@@ -1,8 +1,8 @@
-package com.raqsoft.lib.hive.function;
+package com.scudata.lib.hive.function;
 
-import com.raqsoft.dm.Context;
-import com.raqsoft.expression.Node;
-import com.raqsoft.lib.hive.function.HiveFunction;
+import com.scudata.dm.Context;
+import com.scudata.expression.Node;
+import com.scudata.lib.hive.function.HiveFunction;
 
 public class HiveExecute extends HiveFunction {
 	public Node optimize(Context ctx) {

@@ -1,4 +1,4 @@
-package com.raqsoft.lib.redis.function;
+package com.scudata.lib.redis.function;
 
 import java.io.File;
 import java.net.URL;
@@ -6,13 +6,13 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.data.redis.core.StringRedisTemplate;
 
-import com.raqsoft.common.MessageManager;
-import com.raqsoft.common.RQException;
-import com.raqsoft.dm.Context;
-import com.raqsoft.expression.Function;
-import com.raqsoft.expression.Node;
-import com.raqsoft.resources.EngineMessage;
-import com.raqsoft.lib.redis.function.Utils.JEDIS_CONNECT_TYPE;
+import com.scudata.common.MessageManager;
+import com.scudata.common.RQException;
+import com.scudata.dm.Context;
+import com.scudata.expression.Function;
+import com.scudata.expression.Node;
+import com.scudata.resources.EngineMessage;
+import com.scudata.lib.redis.function.Utils.JEDIS_CONNECT_TYPE;
 
 //½âÎöxmlÎÄ¼þ
 public class JedisOpen extends Function {

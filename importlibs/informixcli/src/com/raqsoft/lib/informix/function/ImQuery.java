@@ -1,4 +1,4 @@
-package com.raqsoft.lib.informix.function;
+package com.scudata.lib.informix.function;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -7,19 +7,19 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import com.raqsoft.cellset.INormalCell;
-import com.raqsoft.common.Logger;
-import com.raqsoft.common.MessageManager;
-import com.raqsoft.common.RQException;
-import com.raqsoft.common.SQLParser;
-import com.raqsoft.dm.Context;
-import com.raqsoft.expression.Expression;
-import com.raqsoft.expression.IParam;
-import com.raqsoft.expression.Node;
-import com.raqsoft.lib.informix.helper.Fragment;
-import com.raqsoft.lib.informix.helper.IfxConn;
-import com.raqsoft.lib.informix.helper.ImSQLParser;
-import com.raqsoft.resources.EngineMessage;
+import com.scudata.cellset.INormalCell;
+import com.scudata.common.Logger;
+import com.scudata.common.MessageManager;
+import com.scudata.common.RQException;
+import com.scudata.common.SQLParser;
+import com.scudata.dm.Context;
+import com.scudata.expression.Expression;
+import com.scudata.expression.IParam;
+import com.scudata.expression.Node;
+import com.scudata.lib.informix.helper.Fragment;
+import com.scudata.lib.informix.helper.IfxConn;
+import com.scudata.lib.informix.helper.ImSQLParser;
+import com.scudata.resources.EngineMessage;
 
 public class ImQuery extends ImFunction {
 	private String m_table=null;

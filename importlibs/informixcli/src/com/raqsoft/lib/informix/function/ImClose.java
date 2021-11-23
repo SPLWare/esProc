@@ -1,12 +1,12 @@
-package com.raqsoft.lib.informix.function;
+package com.scudata.lib.informix.function;
 
-import com.raqsoft.common.MessageManager;
-import com.raqsoft.common.RQException;
-import com.raqsoft.dm.Context;
-import com.raqsoft.expression.Function;
-import com.raqsoft.expression.Node;
-import com.raqsoft.lib.informix.helper.IfxConn;
-import com.raqsoft.resources.EngineMessage;
+import com.scudata.common.MessageManager;
+import com.scudata.common.RQException;
+import com.scudata.dm.Context;
+import com.scudata.expression.Function;
+import com.scudata.expression.Node;
+import com.scudata.lib.informix.helper.IfxConn;
+import com.scudata.resources.EngineMessage;
 
 // ifx_close(ali_client)
 public class ImClose extends Function {
