@@ -13,7 +13,7 @@ public class ChartMessage {
 	}
 
 	public static MessageManager get( Locale locale ) {
-		return MessageManager.getManager( "com.raqsoft.ide.dfx.resources.chart", locale );
+		return MessageManager.getManager( "com.scudata.ide.dfx.resources.chart", locale );
 	}
 
 }

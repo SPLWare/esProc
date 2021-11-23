@@ -34,7 +34,7 @@ public class IdeDfxMessage {
 	 */
 	public static MessageManager get(Locale locale) {
 		return MessageManager.getManager(
-				"com.raqsoft.ide.dfx.resources.ideDfxMessage", locale);
+				"com.scudata.ide.dfx.resources.ideDfxMessage", locale);
 	}
 
 }

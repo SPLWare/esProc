@@ -9,10 +9,10 @@ public class IdeMessage {
 	}
 
 	public static MessageManager get() {
-		return MessageManager.getManager("com.raqsoft.ide.vdb.resources.Ide");
+		return MessageManager.getManager("com.scudata.ide.vdb.resources.Ide");
 	}
 
 	public static MessageManager get(Locale locale) {
-		return MessageManager.getManager("com.raqsoft.ide.vdb.resources.Ide", locale);
+		return MessageManager.getManager("com.scudata.ide.vdb.resources.Ide", locale);
 	}
 }

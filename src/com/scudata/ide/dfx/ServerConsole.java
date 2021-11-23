@@ -219,7 +219,7 @@ public class ServerConsole {
 		if (args.length > 0) {
 			for (int i = 0; i < args.length; i++) {
 				arg = args[i].toLowerCase();
-				if (arg.equalsIgnoreCase("com.raqsoft.ide.dfx.ServerConsole")) { // 用bat打开的文件，类名本身会是参数
+				if (arg.equalsIgnoreCase("com.scudata.ide.dfx.ServerConsole")) { // 用bat打开的文件，类名本身会是参数
 					continue;
 				}
 				if (arg.equals("-a")) {

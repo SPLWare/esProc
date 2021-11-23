@@ -50,7 +50,7 @@ public class UpdateManager {
 		String localVersion = (String) map.get("version");
 		String serverVersion;
 		try {
-			Class clz = Class.forName("com.raqsoft.ide.dfx.update.GetVersion");
+			Class clz = Class.forName("com.scudata.ide.dfx.update.GetVersion");
 			Method m = clz.getMethod("getVersion");
 			Object version = m.invoke(clz.newInstance());
 			serverVersion = version == null ? null : (String) version;
@@ -97,7 +97,7 @@ public class UpdateManager {
 	 */
 	public static boolean canUpdate() {
 		try {
-			Class clz = Class.forName("com.raqsoft.ide.dfx.update.GetVersion");
+			Class clz = Class.forName("com.scudata.ide.dfx.update.GetVersion");
 			Method m = clz.getMethod("getVersion");
 			return m != null;
 		} catch (Exception e) {

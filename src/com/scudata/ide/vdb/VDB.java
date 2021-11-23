@@ -146,7 +146,7 @@ public class VDB extends AppFrame implements EditListener {
 		loadConnections();
 
 		// 替换掉基础应用的窗口尺寸加载器
-		// com.raqsoft.ide.common.GM.setDialogDimensionListener(GM.getDDListener());
+		// com.scudata.ide.common.GM.setDialogDimensionListener(GM.getDDListener());
 	}
 
 	private void showNodePanel(final VDBTreeNode node) {

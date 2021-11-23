@@ -10,14 +10,12 @@ public class IdeCommonMessage {
 	}
 
 	public static MessageManager get() {
-//		return MessageManager
-//				.getManager("com.raqsoft.ide.common.resources.ideCommonMessage");
 	  return get(Locale.getDefault());
 	}
 
 	public static MessageManager get(Locale locale) {
 		return MessageManager.getManager(
-				"com.raqsoft.ide.common.resources.ideCommonMessage", locale);
+				"com.scudata.ide.common.resources.ideCommonMessage", locale);
 	}
 
 }

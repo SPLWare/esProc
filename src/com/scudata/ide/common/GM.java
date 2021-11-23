@@ -2802,7 +2802,7 @@ public class GM {
 			}
 			if (tce.getClass()
 					.getName()
-					.equals("com.raqsoft.ide.common.swing.JTableEx$SimpleEditor")) {
+					.equals("com.scudata.ide.common.swing.JTableEx$SimpleEditor")) {
 				tc.setCellEditor(new AllPurposeEditor(new JTextField(), tableEx));
 				tc.setCellRenderer(new AllPurposeRenderer());
 			}
