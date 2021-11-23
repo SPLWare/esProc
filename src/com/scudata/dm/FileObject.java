@@ -342,7 +342,7 @@ public class FileObject implements Externalizable {
 	 * @param segSeq int 段号，从1开始计数
 	 * @param segCount int 分段数
 	 * @param fields String[] 选出字段名
-	 * @param types byte[] 选出字段类型，可空。参照com.raqsoft.common.Types
+	 * @param types byte[] 选出字段类型，可空。参照com.scudata.common.Types
 	 * @param s Object excel sheet名（序号）或列分隔符
 	 * @param opt String t：第一行为标题，b：二进制文件，c：写成逗号分隔的csv文件
 	 * 	s：不拆分字段，读成单字段串构成的序表，i：结果集只有1列时返回成序列

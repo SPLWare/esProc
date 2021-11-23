@@ -187,7 +187,7 @@ public class DBCursor extends ICursor {
 	 * @param params
 	 *            Object[] 参数值列表
 	 * @param types
-	 *            byte[] 参数类型列表，可空，参数类型参见com.raqsoft.common.Types，可用数组如字符串组等类型
+	 *            byte[] 参数类型列表，可空，参数类型参见com.scudata.common.Types，可用数组如字符串组等类型
 	 *            当参数类型空时，认为等同于“默认”类型，此时注意参数值不能为null
 	 * @param dbs
 	 *            DBSession

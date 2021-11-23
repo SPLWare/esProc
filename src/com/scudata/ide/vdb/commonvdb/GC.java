@@ -10,9 +10,9 @@ import java.awt.Font;
  */
 public class GC {
 	// 资源路径
-	public final static String RESOURCE_PATH = "/com/raqsoft/ide/vdb/resources/";
+	public final static String RESOURCE_PATH = "/com/scudata/ide/vdb/resources/";
 	// 图片路径
-	public final static String IMAGES_PATH = "/com/raqsoft/ide/vdb/img/";
+	public final static String IMAGES_PATH = "/com/scudata/ide/vdb/img/";
 	// 配置
 	public final static String PATH_CONFIG = "/config";
 	// 图标

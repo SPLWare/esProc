@@ -226,7 +226,7 @@ public class DialogExtLibs extends JDialog implements ActionListener {
 			}
 		}
 		Pattern p = Pattern
-				.compile("com/raqsoft/lib/(\\w+)/functions.properties");
+				.compile("com/scudata/lib/(\\w+)/functions.properties");
 		for (File f : jars) {
 			JarFile jf = null;
 			try {

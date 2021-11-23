@@ -70,7 +70,7 @@ public class FileCursor extends ICursor {
 	 * @param segSeq 段号，从1开始计数
 	 * @param segCount 分段数
 	 * @param fields 选出字段名数组
-	 * @param types 选出字段类型数组（可空），参照com.raqsoft.common.Types
+	 * @param types 选出字段类型数组（可空），参照com.scudata.common.Types
 	 * @param s 列分隔符
 	 * @param opt 选项  t：第一行为标题，b：二进制文件，c：写成逗号分隔的csv文件
 	 * 	s：不拆分字段，读成单字段串构成的序表，i：结果集只有1列时返回成序列

@@ -111,7 +111,7 @@ public class ElementLib {
 	}
 
 	/**
-	 * 装载系统目录下全部实现辅助编辑的函数元素 路径：/com/raqsoft/ide/dfx/etl/element
+	 * 装载系统目录下全部实现辅助编辑的函数元素 路径：/com/scudata/ide/dfx/etl/element
 	 */
 	public static void loadSystemElements() {
 		String names = "ACreate,ADelete,ADerive,AGroup,AGroup2,AGroups,AInsert,"
