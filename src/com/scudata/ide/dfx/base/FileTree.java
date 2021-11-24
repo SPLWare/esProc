@@ -673,7 +673,7 @@ public class FileTree extends JTree implements IResourceTree {
 	 * ²Ëµ¥ÃüÁî¼àÌıÆ÷
 	 *
 	 */
-	class MenuListener implements ActionListener {
+	protected class MenuListener implements ActionListener {
 		FileTreeNode node;
 
 		public MenuListener(FileTreeNode node) {

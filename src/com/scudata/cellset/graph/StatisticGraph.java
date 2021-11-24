@@ -2,22 +2,14 @@ package com.scudata.cellset.graph;
 
 import java.awt.*;
 import java.awt.image.*;
-import java.util.*;
 
 import com.scudata.app.common.*;
 import com.scudata.cellset.*;
 import com.scudata.cellset.graph.config.*;
 import com.scudata.cellset.graph.draw.*;
-import com.scudata.chart.Utils;
 import com.scudata.common.*;
 import com.scudata.dm.*;
-import com.scudata.ide.common.control.*;
-import com.scudata.util.*;
-
-import org.w3c.dom.*;
 import java.io.*;
-import java.lang.reflect.*;
-
 import javax.swing.*;
 
 /**
@@ -110,122 +102,6 @@ public class StatisticGraph {
 		return catMap;
 	}
 
-	private static ExtGraphCategory locateCategory(ArrayList list, String name) {
-		for (int i = 0; i < list.size(); i++) {
-			ExtGraphCategory egc = (ExtGraphCategory) list.get(i);
-			if (egc.getName().equals(name)) {
-				return egc;
-			}
-		}
-		return null;
-	}
-
-	private static ArrayList demoCategories = null;
-
-	private static void transferData(ExtGraphProperty egp, Table data) {
-		if (data == null) {
-			if (demoCategories == null) {
-				demoCategories = new ArrayList();
-				ExtGraphCategory egc = new ExtGraphCategory();
-				egc.setName("A");
-				ArrayList series = new ArrayList();
-				egc.setSeries(series);
-				ExtGraphSery egs = new ExtGraphSery();
-				egs.setName("Series1");
-				egs.setValue(new Integer(80));
-				series.add(egs);
-				demoCategories.add(egc);
-
-				egc = new ExtGraphCategory();
-				egc.setName("B");
-				series = new ArrayList();
-				egc.setSeries(series);
-				egs = new ExtGraphSery();
-				egs.setName("Series1");
-				egs.setValue(new Integer(55));
-				series.add(egs);
-				demoCategories.add(egc);
-
-				egc = new ExtGraphCategory();
-				egc.setName("C");
-				series = new ArrayList();
-				egc.setSeries(series);
-				egs = new ExtGraphSery();
-				egs.setName("Series1");
-				egs.setValue(new Integer(70));
-				series.add(egs);
-				demoCategories.add(egc);
-			}
-
-			egp.setCategories(demoCategories);
-			return;
-		}
-
-		ArrayList categories = new ArrayList();
-		GraphProperty gp = (GraphProperty) egp.getIGraphProperty();
-		if (StringUtils.isValidString(gp.getSeries())) {
-			for (int i = 1; i <= data.length(); i++) {
-				Record r = data.getRecord(i);
-				String cat = Variant.toString(r.getFieldValue(0));
-				if (cat == null)
-					continue;
-				String ser = Variant.toString(r.getFieldValue(1));
-				Object val = r.getFieldValue(2);
-				ExtGraphCategory egc = locateCategory(categories, cat);
-				if (egc == null) {
-					egc = new ExtGraphCategory();
-					egc.setName(cat);
-					egc.setSeries(new ArrayList());
-					categories.add(egc);
-				}
-
-				ExtGraphSery egs = new ExtGraphSery();
-				egs.setName(ser);
-				if (val != null) {
-					if (val instanceof Number) {
-						egs.setValue((Number) val);
-					} else {
-						try {
-							egs.setValue(new Double(val.toString()));
-						} catch (Exception x) {
-						}
-					}
-				}
-				egc.getSeries().add(egs);
-			}
-		} else {
-			for (int i = 1; i <= data.length(); i++) {
-				Record r = data.getRecord(i);
-				String cat = Variant.toString(r.getFieldValue(0));
-				if (cat == null)
-					continue;
-				Object val = r.getFieldValue(2);
-				ExtGraphCategory egc = locateCategory(categories, cat);
-				if (egc == null) {
-					egc = new ExtGraphCategory();
-					egc.setName(cat);
-					egc.setSeries(new ArrayList());
-					categories.add(egc);
-				}
-				ExtGraphSery egs = new ExtGraphSery();
-				egs.setName("Series");
-				if (val != null) {
-					if (val instanceof Number) {
-						egs.setValue((Number) val);
-					} else {
-						try {
-							egs.setValue(new Double(val.toString()));
-						} catch (Exception x) {
-						}
-					}
-				}
-				egc.getSeries().add(egs);
-			}
-		}
-		egp.setCategories(categories);
-	}
-
-
 	/**
 	 * 将缓冲图像按照指定格式转为图像数据
 	 * @param bi 缓冲图像
@@ -309,47 +185,4 @@ public class StatisticGraph {
 		g.drawImage(image, 1, 1, w, h, null);
 	}
 
-	/**
-	 * 获取svg格式的图形设备
-	 * @return 图形设备
-	 * @throws Exception
-	 */
-	public static Graphics2D getSvgGraphics() throws Exception {
-		Object batikDom = Class.forName(
-				"org.apache.batik.dom.GenericDOMImplementation").newInstance();
-
-		DOMImplementation domImpl = (DOMImplementation) AppUtil.invokeMethod(
-				batikDom, "getDOMImplementation", new Object[] {});
-
-		// Create an instance of org.w3c.dom.Document.
-		String svgNS = "http://www.w3.org/2000/svg";
-		Document document = domImpl.createDocument(svgNS, "svg", null);
-
-		// Create an instance of the SVG Generator.
-		Class cls = Class.forName("com.raqsoft.report.view.svg.SvgGraphics");//"org.apache.batik.svggen.SVGGraphics2D");
-		Constructor con = cls.getConstructor(new Class[] { Document.class });
-		Object g2d = con.newInstance(new Object[] { document });
-		return (Graphics2D) g2d;
-	}
-
-	/**
-	 * 将svg图形设备转换为字节内容数据
-	 * @param g2d svg格式的图形设备
-	 * @return svg格式的字节数据
-	 * @throws Exception
-	 */
-	public static byte[] svgGraphics2Bytes(Graphics2D g2d) throws Exception {
-		// Finally, stream out SVG to the standard output using
-		// UTF-8 encoding.
-		boolean useCSS = true; // we want to use CSS style attributes
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		Writer out = new OutputStreamWriter(baos, "UTF-8");
-		AppUtil.invokeMethod(g2d, "stream", new Object[] { out,
-				new Boolean(useCSS) }, new Class[] { Writer.class,
-				boolean.class });
-		out.flush();
-		out.close();
-		baos.close();
-		return baos.toByteArray();
-	}
 }
