@@ -157,8 +157,6 @@ public class ExcelVersionCompatibleUtil5 implements ExcelVersionCompatibleUtilIn
 		}
 	 }
 	
-	//以下两个方法从com.raqsoft.report.view.excelbase.ExcelUtil317.java复制过来；测试5.x版本通用，以后可以废除上述类
-	
 	/** 获得边框样式
 	 * @param borderStyle 润乾报表中定义的边框样式
 	 * @param borderWidth 边框宽度
@@ -169,7 +167,7 @@ public class ExcelVersionCompatibleUtil5 implements ExcelVersionCompatibleUtilIn
 			Class clazz = Class.forName("com.raqsoft.report.view.ExportExcelUtil2");
 			Object o = clazz.newInstance();
 			Method m = clazz.getMethod("getBorderStyle", Byte.class, Float.class);
-			return (short) m.invoke(o, borderStyle, width);
+			return (Short) m.invoke(o, borderStyle, width);
 		}catch(Exception e) {
 			return BorderStyle.THIN.getCode();	
 		}
@@ -190,7 +188,7 @@ public class ExcelVersionCompatibleUtil5 implements ExcelVersionCompatibleUtilIn
 			Class clazz = Class.forName("com.raqsoft.report.view.ExportExcelUtil2");
 			Object o = clazz.newInstance();
 			Method m = clazz.getMethod("getISheetBorderStyle");
-			return (short) m.invoke(o, borderStyle);
+			return (Short) m.invoke(o, borderStyle);
 		}catch(Exception e) {
 			return BorderStyle.THIN.getCode();	
 		}
