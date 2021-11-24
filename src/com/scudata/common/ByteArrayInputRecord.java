@@ -273,9 +273,9 @@ public class ByteArrayInputRecord {
 				rec = (IRecord) Class.forName(className).newInstance();
 			} catch (Exception e) {
 				// 包路径由com.raqsoft修改为了com.scudata，旧包保存的对象可能用到了IRecord的派生类
-				if (className.startsWith("com/raqsoft/")) {
+				if (className.startsWith("com.raqsoft.")) {
 					try {
-						className = "com/scudata/" + className.substring(12);
+						className = "com.scudata." + className.substring(12);
 						rec = (IRecord) Class.forName(className).newInstance();
 					} catch (Exception e2) {
 						e.printStackTrace();
