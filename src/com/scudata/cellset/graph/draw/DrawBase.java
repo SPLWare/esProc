@@ -1178,7 +1178,7 @@ public abstract class DrawBase implements IGraph {
 	 * @param cy 
 	 *            int 中心点y
 	 */
-	public void fillDotGradientShape(Shape s, Color c1, Color c2, int cx, int cy) {
+	public void fillDotGradientShape(Shape s, Color c1, Color c2, double cx, double cy) {
 		Rectangle sBounds = s.getBounds();
 		double w = sBounds.getWidth();
 		double h = sBounds.getHeight();
@@ -1301,7 +1301,7 @@ public abstract class DrawBase implements IGraph {
 	 *            int 文本的y
 	 */
 	public void drawInnerCircleText(GraphFontView gfv, String text,
-			double angle, int x, int y) {
+			double angle, double x, double y) {
 		if (!StringUtils.isValidString(text)) {
 			return;
 		}
