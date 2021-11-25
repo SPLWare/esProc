@@ -19,10 +19,10 @@ import javax.swing.JSplitPane;
 import javax.swing.JTextArea;
 import javax.swing.JToolBar;
 import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
 
 import com.scudata.common.StringUtils;
 import com.scudata.ide.common.AppFrame;
+import com.scudata.ide.common.Console;
 import com.scudata.ide.common.EditListener;
 import com.scudata.ide.common.GM;
 import com.scudata.ide.common.GV;
