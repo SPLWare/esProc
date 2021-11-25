@@ -40,8 +40,23 @@ public class Distance extends Function {
 			Object o1 = sub1.getLeafExpression().calculate(ctx);
 			Object o2 = sub2.getLeafExpression().calculate(ctx);
 			if (o1 instanceof Sequence && o2 instanceof Sequence) {
-				Matrix A = new Matrix((Sequence)o1);
-				Matrix B = new Matrix((Sequence)o2);
+				// edited by bd, 2021.11.17, 在dis函数中，单层序列认为是横向量
+				Sequence s1 = (Sequence) o1;
+				Sequence s2 = (Sequence) o2;
+				Matrix A = new Matrix(s1);
+				Matrix B = new Matrix(s2);
+				
+				Object o11 = s1.length() > 0 ? s1.get(1) : null;
+				Object o21 = s2.length() > 0 ? s2.get(1) : null;
+				if (!(o11 instanceof Sequence)) {
+					// A为单序列定义的向量，转成横向量
+					A = A.transpose();
+				}
+				if (!(o21 instanceof Sequence)) {
+					// A为单序列定义的向量，转成横向量
+					B = B.transpose();
+				}
+				
 				if (A.getCols() == 0 && A.getRows() == 0) {
 					MessageManager mm = EngineMessage.get();
 					throw new RQException("dis" + mm.getMessage("function.paramTypeError"));

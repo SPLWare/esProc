@@ -23,7 +23,15 @@ public class Covm extends Function{
 				MessageManager mm = EngineMessage.get();
 				throw new RQException("covm" + mm.getMessage("function.paramTypeError"));
 			}
-			Matrix A = new Matrix((Sequence) result1);
+			// edited by bd, 2021.11.17, 在dis函数中，单层序列认为是横向量
+			Sequence s1 = (Sequence) result1;
+			Matrix A = new Matrix(s1);
+			
+			Object o11 = s1.length() > 0 ? s1.get(1) : null;
+			if (!(o11 instanceof Sequence)) {
+				// A为单序列定义的向量，转成横向量
+				A = A.transpose();
+			}
 			if (A.getCols() == 0 || A.getRows() == 0) {
 				return new Sequence(0);
 			}
