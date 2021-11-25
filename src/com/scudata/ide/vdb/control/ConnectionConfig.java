@@ -1,6 +1,5 @@
 package com.scudata.ide.vdb.control;
 
-import com.scudata.common.Logger;
 import com.scudata.common.SegmentSet;
 import com.scudata.vdb.Library;
 import com.scudata.vdb.VDB;

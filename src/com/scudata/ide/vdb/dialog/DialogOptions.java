@@ -15,9 +15,10 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import com.scudata.common.StringUtils;
+import com.scudata.ide.common.swing.JComboBoxEx;
 import com.scudata.ide.vdb.commonvdb.*;
 import com.scudata.ide.vdb.config.ConfigOptions;
-import com.scudata.ide.vdb.control.JComboBoxEx;
+
 import com.scudata.ide.vdb.resources.IdeMessage;
 
 public class DialogOptions extends RQDialog implements ActionListener {

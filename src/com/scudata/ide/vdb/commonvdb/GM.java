@@ -30,11 +30,11 @@ import javax.swing.plaf.ComponentUI;
 import com.scudata.common.Sentence;
 import com.scudata.common.StringUtils;
 import com.scudata.ide.common.IDialogDimensionListener;
+import com.scudata.ide.common.dialog.DialogInputText;
 import com.scudata.ide.vdb.VDB;
 import com.scudata.ide.vdb.config.ConfigOptions;
 import com.scudata.ide.vdb.control.FileChooserUICN;
 import com.scudata.ide.vdb.control.ImageFileView;
-import com.scudata.ide.vdb.dialog.DialogInputText;
 import com.scudata.ide.vdb.resources.IdeMessage;
 
 public class GM {

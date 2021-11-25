@@ -11,7 +11,6 @@ import javax.swing.JPanel;
 
 import com.scudata.ide.vdb.VDB;
 import com.scudata.ide.vdb.commonvdb.*;
-import com.scudata.ide.vdb.control.VFlowLayout;
 import com.scudata.ide.vdb.resources.IdeMessage;
 
 public class RQDialog extends JDialog {
@@ -22,7 +21,7 @@ public class RQDialog extends JDialog {
 
 	protected int m_option = JOptionPane.CLOSED_OPTION;
 	protected JPanel panelCenter = new JPanel(new BorderLayout());
-	protected JPanel panelEast = new JPanel(new VFlowLayout());
+	protected JPanel panelEast = new JPanel(new com.scudata.ide.common.swing.VFlowLayout());
 
 	public RQDialog() {
 		this(400, 300);
