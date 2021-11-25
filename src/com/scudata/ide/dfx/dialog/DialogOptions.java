@@ -511,7 +511,14 @@ public class DialogOptions extends JDialog {
 			}
 			initUI();
 			load();
-			setSize(GC.LANGUAGE == GC.ASIAN_CHINESE ? 700 : 800, 530);
+			int dialogWidth = 800;
+			if (GC.LANGUAGE == GC.ASIAN_CHINESE && !isUnit) {
+				dialogWidth = 700;
+			}
+			setSize(dialogWidth, 530);
+			if (isUnit) {
+				ConfigOptions.bWindowSize = Boolean.FALSE;
+			}
 			GM.setDialogDefaultButton(this, jBOK, jBCancel);
 			resetLangText();
 			jCBMultiLineExpEditor.setVisible(false);
@@ -1232,7 +1239,14 @@ public class DialogOptions extends JDialog {
 
 		panelFiles.add(panelFileTop, GM.getGBC(1, 1, true));
 		panelFiles.add(panelEnv, GM.getGBC(2, 1, true, false));
+
 		panelFiles.add(new JPanel(), GM.getGBC(3, 1, false, true));
+
+		if (isUnit) {
+			JPanel panelRestartMessage = new JPanel(new FlowLayout(FlowLayout.LEFT));
+			panelRestartMessage.add(jLabel6);
+			panelFiles.add(panelRestartMessage, GM.getGBC(4, 1, true));
+		}
 
 		JPanel panelDfx = new JPanel();
 		panelDfx.setLayout(new BorderLayout());
