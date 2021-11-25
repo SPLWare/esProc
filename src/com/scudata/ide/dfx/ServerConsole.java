@@ -18,7 +18,6 @@ import javax.swing.UIManager;
 import com.scudata.app.common.Section;
 import com.scudata.app.config.ConfigUtil;
 import com.scudata.app.config.RaqsoftConfig;
-import com.scudata.parallel.HostManager;
 import com.scudata.parallel.UnitClient;
 import com.scudata.parallel.UnitContext;
 import com.scudata.server.IServer;
