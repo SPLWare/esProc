@@ -77,11 +77,14 @@ public class ServerConsole {
 	 * @return 配置文件对象
 	 * @throws Exception
 	 */
+	private static RaqsoftConfig rc = null;
 	public static RaqsoftConfig loadRaqsoftConfig() throws Exception {
-		InputStream inputStream = getConfigIS("raqsoftConfig.xml");
-		RaqsoftConfig raqsoftConfig = ConfigUtil.load(inputStream,true);
-		inputStream.close();
-		return raqsoftConfig;
+		if(rc==null) {
+			InputStream inputStream = getConfigIS("raqsoftConfig.xml");
+			rc = ConfigUtil.load(inputStream,true);
+			inputStream.close();
+		}
+		return rc;
 	}
 
 	private static boolean isWindows() {
