@@ -339,7 +339,7 @@ public class PseudoTable extends Pseudo implements Operable, IPseudo {
 						newExps[0] = new Expression[] {new Expression("~")};
 						String[][] newNames = new String[1][];
 						newNames[0] = new String[] {column.getName()};
-						Join join = new Join(null, null, exps, codes, null, newExps, newNames, null);
+						Join join = new Join(null, null, exps, new Sequence[] {dim}, new Expression[1][], newExps, newNames, null);
 						cursor.addOperation(join, ctx);
 					}
 				}
@@ -613,7 +613,7 @@ public class PseudoTable extends Pseudo implements Operable, IPseudo {
 				for (int i = 1; i <= len; i++) {
 					String field = (String) bitNames.get(i);
 					//转换为bit值,并累加
-					exp += "+ if(" + field + ",0,shift(1,-" + (i - 1) + "))";
+					exp += "+ if(" + field + ",shift(1,-" + (i - 1) + ",0))";
 				}
 				exps[idx] = new Expression(exp);
 				names[idx] = column.getName();
