@@ -48,6 +48,7 @@ import com.scudata.cellset.graph.config.GraphTypes;
 import com.scudata.chart.Consts;
 import com.scudata.chart.Engine;
 import com.scudata.common.AnimatedGifEncoder;
+import com.scudata.common.Escape;
 import com.scudata.common.MessageManager;
 import com.scudata.common.StringUtils;
 import com.scudata.dm.Context;
@@ -666,10 +667,10 @@ public class DialogDisplayChart extends JDialog {
 		if(sCategory==null){
 			return null;
 		}
-		String exp = sCategory;
+		String exp = Escape.addEscAndQuote(sCategory,false);
 		String sSeries = (String)cbSeries.getSelectedItem();
 		if(StringUtils.isValidString(sSeries)){
-			exp += ","+sSeries;
+			exp += ","+Escape.addEscAndQuote(sSeries,false);
 		}
 		
 		return exp;
