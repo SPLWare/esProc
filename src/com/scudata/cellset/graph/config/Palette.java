@@ -535,7 +535,9 @@ public class Palette {
 	}
 
 	private static Palette getDefaultPalette2() {
-		Palette pl = new Palette(26);
+//		注意初始size要跟后续addColor的个数匹配，否则颜色循环不对
+		int size = 7;
+		Palette pl = new Palette( size );
 		       
 		pl.addColor(0x5b9bd5);
 		pl.addColor(0xa5cb50);
