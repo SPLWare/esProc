@@ -175,6 +175,7 @@ public class PseudoTable extends Pseudo implements Operable, IPseudo {
 				}
 			}
 			
+			
 			ArrayList<String> tempNameList = new ArrayList<String>();
 			ArrayList<Expression> tempExpList = new ArrayList<Expression>();
 			int size = exps.length;
@@ -185,17 +186,16 @@ public class PseudoTable extends Pseudo implements Operable, IPseudo {
 				if (node instanceof UnknownSymbol) {
 					tempExpList.add(exp);
 					tempNameList.add(name);
-				} else if (node instanceof DotOperator) {
-					Node left = node.getLeft();
-					if (left != null && left instanceof UnknownSymbol) {
-						PseudoColumn col = getPd().findColumnByName( ((UnknownSymbol)left).getName());
-						if (col != null) {
-							Derive derive = new Derive(new Expression[] {exp}, new String[] {name}, null);
-							extraOpList.add(derive);
-						}
-					}
+//				} else if (node instanceof DotOperator) {
+//					Node left = node.getLeft();
+//					if (left != null && left instanceof UnknownSymbol) {
+//						PseudoColumn col = getPd().findColumnByName( ((UnknownSymbol)left).getName());
+//						if (col != null) {
+//							Derive derive = new Derive(new Expression[] {exp}, new String[] {name}, null);
+//							extraOpList.add(derive);
+//						}
+//					}
 				} else {
-					
 				}
 			}
 			
@@ -211,6 +211,12 @@ public class PseudoTable extends Pseudo implements Operable, IPseudo {
 			this.names = new String[size];
 			tempNameList.toArray(this.names);
 		}
+		
+		if (extraNameList.size() > 0) {
+			New _new = new New(exps, fields, null);
+			extraOpList.add(_new);
+		}
+		return;
 	}
 	
 	private String[] getFetchColNames(String []fields) {
@@ -346,13 +352,13 @@ public class PseudoTable extends Pseudo implements Operable, IPseudo {
 			}
 		}
 	
-		if (extraOpList != null) {
-			for (Operation op : extraOpList) {
+		if (opList != null) {
+			for (Operation op : opList) {
 				cursor.addOperation(op, ctx);
 			}
 		}
-		if (opList != null) {
-			for (Operation op : opList) {
+		if (extraOpList != null) {
+			for (Operation op : extraOpList) {
 				cursor.addOperation(op, ctx);
 			}
 		}
