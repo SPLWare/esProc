@@ -103,8 +103,7 @@ public class DrawPie3DObj extends DrawBase {
 		tmpInt1 = radiusx * (2 * gp.serNum);
 		tmpInt2 = radiusy * (2 * gp.serNum) + radiusy * (gp.pieHeight / 100.0);
 
-		gp.graphRect = new Rectangle2D.Double(gp.graphRect.x
-				+ (gp.graphRect.width - tmpInt1) / 2, gp.graphRect.y
+		gp.graphRect = new Rectangle2D.Double(gp.graphRect.x + (gp.graphRect.width - tmpInt1) / 2, gp.graphRect.y
 				+ (gp.graphRect.height - tmpInt2) / 2, tmpInt1, tmpInt2);
 
 		double orgx = gp.graphRect.x + gp.graphRect.width / 2;
