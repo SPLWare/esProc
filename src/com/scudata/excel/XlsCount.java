@@ -62,12 +62,9 @@ public class XlsCount {
 	/**
 	 * Constructor
 	 * 
-	 * @param fo
-	 *            FileObject
-	 * @param isXlsx
-	 *            Use xlsx format
-	 * @param getCount
-	 *            Only return quantity
+	 * @param fo       FileObject
+	 * @param isXlsx   Use xlsx format
+	 * @param getCount Only return quantity
 	 */
 	public XlsCount(FileObject fo, boolean isXlsx, boolean getCount) {
 		this(fo, isXlsx, getCount, null, 1, null);
@@ -76,21 +73,14 @@ public class XlsCount {
 	/**
 	 * Constructor
 	 * 
-	 * @param fo
-	 *            FileObject
-	 * @param isXlsx
-	 *            Use xlsx format
-	 * @param getCount
-	 *            Only return quantity
-	 * @param s
-	 *            Sheet serial number or sheet name
-	 * @param titleRow
-	 *            Header line number
-	 * @param pwd
-	 *            Excel password
+	 * @param fo       FileObject
+	 * @param isXlsx   Use xlsx format
+	 * @param getCount Only return quantity
+	 * @param s        Sheet serial number or sheet name
+	 * @param titleRow Header line number
+	 * @param pwd      Excel password
 	 */
-	public XlsCount(FileObject fo, boolean isXlsx, boolean getCount, Object s,
-			int titleRow, String pwd) {
+	public XlsCount(FileObject fo, boolean isXlsx, boolean getCount, Object s, int titleRow, String pwd) {
 		this.fo = fo;
 		this.isXlsx = isXlsx;
 		this.getCount = getCount;
@@ -100,8 +90,8 @@ public class XlsCount {
 	}
 
 	/**
-	 * When s is omitted, it returns the sequence of the Excel file sheet name,
-	 * if there is s, it returns the column heading (in row b).
+	 * When s is omitted, it returns the sequence of the Excel file sheet name, if
+	 * there is s, it returns the column heading (in row b).
 	 * 
 	 * @return
 	 * @throws Exception
@@ -113,9 +103,7 @@ public class XlsCount {
 				in = fo.getInputStream();
 				Object[] titles;
 				if (isXlsx) {
-					XlsxSImporter importer = new XlsxSImporter(
-							fo.getFileName(), null, titleRow, titleRow, s, "t",
-							pwd);
+					XlsxSImporter importer = new XlsxSImporter(fo, null, titleRow, titleRow, s, "t", pwd);
 					titles = importer.readLine();
 					try {
 						importer.close();
@@ -165,8 +153,7 @@ public class XlsCount {
 			in = fo.getInputStream();
 			Biff8EncryptionKey.setCurrentUserPassword(pwd);
 			wb = new HSSFWorkbook(in);
-			int sheetCount = ExcelVersionCompatibleUtilGetter.getInstance()
-					.getNumberOfSheets(wb);
+			int sheetCount = ExcelVersionCompatibleUtilGetter.getInstance().getNumberOfSheets(wb);
 			if (getCount) {
 				return sheetCount;
 			}
@@ -215,8 +202,7 @@ public class XlsCount {
 				EncryptionInfo info = new EncryptionInfo(pfs);
 				Decryptor d = Decryptor.getInstance(info);
 				if (!d.verifyPassword(pwd)) {
-					throw new RQException(AppMessage.get().getMessage(
-							"excel.invalidpwd", pwd));
+					throw new RQException(AppMessage.get().getMessage("excel.invalidpwd", pwd));
 				}
 				in = d.getDataStream(pfs);
 				pkg = OPCPackage.open(in);
@@ -226,8 +212,7 @@ public class XlsCount {
 			XSSFReader reader = new XSSFReader(pkg);
 			// Get the sheet list from the workbook
 			workbook = reader.getWorkbookData();
-			XMLReader wbParser = XMLReaderFactory
-					.createXMLReader("org.apache.xerces.parsers.SAXParser");
+			XMLReader wbParser = XMLReaderFactory.createXMLReader("org.apache.xerces.parsers.SAXParser");
 			WorkbookHandler wbHandler = new WorkbookHandler();
 			wbParser.setContentHandler(wbHandler);
 			InputSource wbSource = new InputSource(workbook);
@@ -291,8 +276,7 @@ public class XlsCount {
 		/**
 		 * Processing element start
 		 */
-		public void startElement(String uri, String localName, String name,
-				Attributes attributes) throws SAXException {
+		public void startElement(String uri, String localName, String name, Attributes attributes) throws SAXException {
 			if (name.equals("sheet")) {
 				String sheetName = attributes.getValue("name");
 				sheetNames.add(sheetName);
@@ -302,15 +286,13 @@ public class XlsCount {
 		/**
 		 * Processing element end
 		 */
-		public void endElement(String uri, String localName, String name)
-				throws SAXException {
+		public void endElement(String uri, String localName, String name) throws SAXException {
 		}
 
 		/**
 		 * Processing element characters
 		 */
-		public void characters(char[] ch, int start, int length)
-				throws SAXException {
+		public void characters(char[] ch, int start, int length) throws SAXException {
 		}
 
 		/**

@@ -51,10 +51,8 @@ public class FileXlsR extends XlsFileObject {
 	/**
 	 * Constructor
 	 * 
-	 * @param fo
-	 *            FileObject
-	 * @param pwd
-	 *            Excel password
+	 * @param fo  FileObject
+	 * @param pwd Excel password
 	 */
 	public FileXlsR(FileObject fo, String pwd) {
 		super();
@@ -62,21 +60,30 @@ public class FileXlsR extends XlsFileObject {
 		InputStream is = null, in = null;
 		BufferedInputStream bis = null;
 		POIFSFileSystem pfs = null;
+		String filePath = fo.getFileName();
 		try {
-			String filePath = fo.getFileName();
-			filePath = ConfigUtil.getPath(Env.getMainPath(), filePath);
-			is = new FileInputStream(filePath);
+			if (fo.isRemoteFile()) {
+				is = fo.getInputStream();
+			} else {
+				// 本地的支持相对路径
+				filePath = ConfigUtil.getPath(Env.getMainPath(), filePath);
+				is = new FileInputStream(filePath);
+			}
 			if (!is.markSupported()) {
 				is = new PushbackInputStream(is, 8);
 			}
+
+			boolean isXlsx = false;
 			try {
-				if (!StringUtils.isValidString(pwd))
-					if (!ExcelUtils.isXlsxFile(is)) {
-						MessageManager mm = AppMessage.get();
-						throw new RQException("xlsopen"
-								+ mm.getMessage("filexls.rwforxlsx"));
-					}
-			} catch (Throwable t) {
+				isXlsx = ExcelUtils.isXlsxFile(is);
+			} catch (Throwable e1) {
+				if (StringUtils.isValidString(fo.getFileName())) {
+					isXlsx = fo.getFileName().toLowerCase().endsWith(".xlsx");
+				}
+			}
+			if (!isXlsx) {
+				MessageManager mm = AppMessage.get();
+				throw new RQException("xlsopen" + mm.getMessage("filexls.rwforxlsx"));
 			}
 			if (pwd != null) {
 				bis = new BufferedInputStream(is, Env.FILE_BUFSIZE);
@@ -84,11 +91,15 @@ public class FileXlsR extends XlsFileObject {
 				in = ExcelUtils.decrypt(pfs, pwd);
 				xlsxPackage = OPCPackage.open(in);
 			} else {
-				try {
-					is.close();
-				} catch (Throwable t) {
+				if (fo.isRemoteFile()) {
+					xlsxPackage = OPCPackage.open(is);
+				} else {
+					try {
+						is.close();
+					} catch (Throwable t) {
+					}
+					xlsxPackage = OPCPackage.open(filePath, PackageAccess.READ);
 				}
-				xlsxPackage = OPCPackage.open(filePath, PackageAccess.READ);
 			}
 			xssfReader = new XSSFReader(xlsxPackage);
 			initSheetInfos(xssfReader);
@@ -125,18 +136,15 @@ public class FileXlsR extends XlsFileObject {
 	/**
 	 * Initialize the information of the sheets
 	 * 
-	 * @param xssfReader
-	 *            XSSFReader
+	 * @param xssfReader XSSFReader
 	 * @throws IOException
 	 * @throws OpenXML4JException
 	 * @throws SAXException
 	 */
-	private void initSheetInfos(XSSFReader xssfReader) throws IOException,
-			OpenXML4JException, SAXException {
+	private void initSheetInfos(XSSFReader xssfReader) throws IOException, OpenXML4JException, SAXException {
 		final Vector<String> countSet = new Vector<String>();
 		HashSet<String> nameSet = new HashSet<String>();
-		XSSFReader.SheetIterator iter = (XSSFReader.SheetIterator) xssfReader
-				.getSheetsData();
+		XSSFReader.SheetIterator iter = (XSSFReader.SheetIterator) xssfReader.getSheetsData();
 		int index = 0;
 		while (iter.hasNext()) {
 			final InputStream stream = iter.next();
@@ -145,14 +153,12 @@ public class FileXlsR extends XlsFileObject {
 				continue;
 			}
 			nameSet.add(sheetName);
-			final Record record = newLast(new Object[] { sheetName,
-					new Integer(0), new Integer(0) });
-			Thread t = new Thread(Thread.currentThread().getThreadGroup(),
-					new Runnable() {
-						public void run() {
-							initSheetInfo(stream, sheetName, record, countSet);
-						}
-					});
+			final Record record = newLast(new Object[] { sheetName, new Integer(0), new Integer(0) });
+			Thread t = new Thread(Thread.currentThread().getThreadGroup(), new Runnable() {
+				public void run() {
+					initSheetInfo(stream, sheetName, record, countSet);
+				}
+			});
 			t.start();
 			index++;
 		}
@@ -167,18 +173,14 @@ public class FileXlsR extends XlsFileObject {
 	/**
 	 * Initialize the information of the sheets
 	 * 
-	 * @param sheetInputStream
-	 *            InputStream
-	 * @param sheetName
-	 *            Sheet name
-	 * @param record
-	 *            Record
-	 * @param countSet
-	 *            Used to count the number of sheets loaded in multi-threaded
-	 *            loading
+	 * @param sheetInputStream InputStream
+	 * @param sheetName        Sheet name
+	 * @param record           Record
+	 * @param countSet         Used to count the number of sheets loaded in
+	 *                         multi-threaded loading
 	 */
-	private void initSheetInfo(final InputStream sheetInputStream,
-			String sheetName, Record record, Vector<String> countSet) {
+	private void initSheetInfo(final InputStream sheetInputStream, String sheetName, Record record,
+			Vector<String> countSet) {
 		SheetInfo si = new SheetInfo(sheetName);
 		try {
 			final InputSource sheetSource = new InputSource(sheetInputStream);
@@ -219,15 +221,13 @@ public class FileXlsR extends XlsFileObject {
 	 */
 	public void xlswrite(FileObject fo, String pwd) {
 		// : xlsopen@r() can not xlswrite
-		throw new RQException("xlswrite"
-				+ AppMessage.get().getMessage("filexls.xlswriter"));
+		throw new RQException("xlswrite" + AppMessage.get().getMessage("filexls.xlswriter"));
 	}
 
 	/**
 	 * Get sheet information by sheet name
 	 * 
-	 * @param name
-	 *            Sheet name
+	 * @param name Sheet name
 	 * @return
 	 */
 	private SheetInfo getSheetInfo(String name) {
@@ -242,8 +242,7 @@ public class FileXlsR extends XlsFileObject {
 	/**
 	 * Get sheet information by sheet number
 	 * 
-	 * @param sheet
-	 *            Start from 1
+	 * @param sheet Start from 1
 	 * @return
 	 */
 	private SheetInfo getSheetInfo(int index) {
@@ -257,16 +256,14 @@ public class FileXlsR extends XlsFileObject {
 	/**
 	 * Get sheet object according to parameter s.
 	 * 
-	 * @param s
-	 *            Sheet serial number or name
-	 * @param createSheet
-	 *            Whether to create a new sheet when the sheet is not found
-	 * @param deleteOldSheet
-	 *            Whether to delete the old sheet when getting the sheet.
+	 * @param s              Sheet serial number or name
+	 * @param createSheet    Whether to create a new sheet when the sheet is not
+	 *                       found
+	 * @param deleteOldSheet Whether to delete the old sheet when getting the sheet.
 	 * @return
 	 */
-	public synchronized SheetObject getSheetObject(Object s,
-			boolean createSheet, boolean deleteOldSheet) throws Exception {
+	public synchronized SheetObject getSheetObject(Object s, boolean createSheet, boolean deleteOldSheet)
+			throws Exception {
 		SheetObject sx;
 		synchronized (sheets) {
 			if (s == null) {
@@ -277,13 +274,11 @@ public class FileXlsR extends XlsFileObject {
 			if (StringUtils.isValidString(s)) {
 				si = getSheetInfo((String) s);
 				if (si == null)
-					throw new RQException(AppMessage.get().getMessage(
-							"excel.nosheetname", s));
+					throw new RQException(AppMessage.get().getMessage("excel.nosheetname", s));
 			} else if (s instanceof Number) {
 				int index = ((Number) s).intValue();
 				if (index > length() || index < 1) {
-					throw new RQException(AppMessage.get().getMessage(
-							"excel.nosheetindex", index));
+					throw new RQException(AppMessage.get().getMessage("excel.nosheetindex", index));
 				}
 				si = getSheetInfo(index);
 			} else {

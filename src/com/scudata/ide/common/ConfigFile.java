@@ -11,7 +11,6 @@ import com.scudata.app.common.Section;
 import com.scudata.common.Logger;
 import com.scudata.common.StringUtils;
 import com.scudata.ide.common.resources.IdeCommonMessage;
-import com.scudata.ide.dfx.DFX;
 
 /**
  * Used to edit XML configuration files. For example, userconfig.xml and
@@ -492,13 +491,11 @@ public class ConfigFile {
 			if (f.isFile()) {
 				file = new XMLFile(fp);
 				if (!file.isPathExists("RAQSOFT")) {
-					if (GV.appFrame instanceof DFX)
-						cf = newInstance(fp);
+					cf = newInstance(fp);
 					return cf;
 				}
 			} else {
-				if (GV.appFrame instanceof DFX)
-					cf = newInstance(fp);
+				cf = newInstance(fp);
 				return cf;
 			}
 		} catch (Throwable err) {

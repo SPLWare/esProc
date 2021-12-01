@@ -50,16 +50,14 @@ public class XlsImport extends FileFunction {
 		String wOrSText = isW ? "w" : "s";
 		if (isW || isS) {
 			if (hasTitle || removeBlank || isCursor) {
-				throw new RQException(AppMessage.get().getMessage(
-						"xlsimport.nowtbc", wOrSText));
+				throw new RQException(AppMessage.get().getMessage("xlsimport.nowtbc", wOrSText));
 			}
 		}
 
 		if (!isW) {
 			if (isP) {
 				// 选项@{0}只能和选项@w同时使用。
-				throw new RQException(AppMessage.get().getMessage(
-						"xlsimport.pnnotw", "p"));
+				throw new RQException(AppMessage.get().getMessage("xlsimport.pnnotw", "p"));
 			}
 		}
 
@@ -81,14 +79,11 @@ public class XlsImport extends FileFunction {
 				if (isCursor && !isXlsx) {
 					// @c only supports the xlsx format.
 					MessageManager mm = AppMessage.get();
-					throw new RQException("xlsimport"
-							+ mm.getMessage("xlsfile.needxlsx"));
+					throw new RQException("xlsimport" + mm.getMessage("xlsfile.needxlsx"));
 				}
 
 				if (isCursor) {
-					XlsxSImporter importer = new XlsxSImporter(
-							file.getFileName(), null, 0, -1, new Integer(1),
-							opt);
+					XlsxSImporter importer = new XlsxSImporter(file, null, 0, -1, new Integer(1), opt);
 					String cursorOpt = "";
 					if (hasTitle)
 						cursorOpt += "t";
@@ -127,8 +122,7 @@ public class XlsImport extends FileFunction {
 		if (param.getType() == IParam.Semicolon) {
 			if (param.getSubSize() != 2 && param.getSubSize() != 3) { // 兼容一下之前的
 				MessageManager mm = EngineMessage.get();
-				throw new RQException("xlsimport"
-						+ mm.getMessage("function.invalidParam"));
+				throw new RQException("xlsimport" + mm.getMessage("function.invalidParam"));
 			}
 
 			fieldParam = param.getSub(0);
@@ -150,8 +144,7 @@ public class XlsImport extends FileFunction {
 			} else {
 				if (param1.getSubSize() != 2) {
 					MessageManager mm = EngineMessage.get();
-					throw new RQException("xlsimport"
-							+ mm.getMessage("function.invalidParam"));
+					throw new RQException("xlsimport" + mm.getMessage("function.invalidParam"));
 				}
 
 				IParam sParam = param1.getSub(0);
@@ -165,16 +158,14 @@ public class XlsImport extends FileFunction {
 					Object obj = posParam.getLeafExpression().calculate(ctx);
 					if (!(obj instanceof Number)) {
 						MessageManager mm = EngineMessage.get();
-						throw new RQException("xlsimport"
-								+ mm.getMessage("function.paramTypeError"));
+						throw new RQException("xlsimport" + mm.getMessage("function.paramTypeError"));
 					}
 
 					start = ((Number) obj).intValue();
 				} else { // start:end
 					if (posParam.getSubSize() != 2) {
 						MessageManager mm = EngineMessage.get();
-						throw new RQException("xlsimport"
-								+ mm.getMessage("function.invalidParam"));
+						throw new RQException("xlsimport" + mm.getMessage("function.invalidParam"));
 					}
 
 					IParam sub0 = posParam.getSub(0);
@@ -183,8 +174,7 @@ public class XlsImport extends FileFunction {
 						Object obj = sub0.getLeafExpression().calculate(ctx);
 						if (!(obj instanceof Number)) {
 							MessageManager mm = EngineMessage.get();
-							throw new RQException("xlsimport"
-									+ mm.getMessage("function.paramTypeError"));
+							throw new RQException("xlsimport" + mm.getMessage("function.paramTypeError"));
 						}
 
 						start = ((Number) obj).intValue();
@@ -194,8 +184,7 @@ public class XlsImport extends FileFunction {
 						Object obj = sub1.getLeafExpression().calculate(ctx);
 						if (!(obj instanceof Number)) {
 							MessageManager mm = EngineMessage.get();
-							throw new RQException("xlsimport"
-									+ mm.getMessage("function.paramTypeError"));
+							throw new RQException("xlsimport" + mm.getMessage("function.paramTypeError"));
 						}
 
 						end = ((Number) obj).intValue();
@@ -208,8 +197,7 @@ public class XlsImport extends FileFunction {
 
 		if (fieldParam != null) {
 			if (fieldParam.isLeaf()) {
-				fields = new String[] { fieldParam.getLeafExpression()
-						.getIdentifierName() };
+				fields = new String[] { fieldParam.getLeafExpression().getIdentifierName() };
 			} else {
 				int count = fieldParam.getSubSize();
 				fields = new String[count];
@@ -217,8 +205,7 @@ public class XlsImport extends FileFunction {
 					IParam sub = fieldParam.getSub(i);
 					if (sub == null || !sub.isLeaf()) {
 						MessageManager mm = EngineMessage.get();
-						throw new RQException("xlsimport"
-								+ mm.getMessage("function.invalidParam"));
+						throw new RQException("xlsimport" + mm.getMessage("function.invalidParam"));
 					}
 
 					fields[i] = sub.getLeafExpression().getIdentifierName();
@@ -231,23 +218,18 @@ public class XlsImport extends FileFunction {
 			isXlsx = ExcelUtils.isXlsxFile(file, pwd);
 		} catch (Throwable e1) {
 			if (StringUtils.isValidString(file.getFileName())) {
-				String name = file.getFileName().toLowerCase();
-				if (name.endsWith("xlsx")) {
-					isXlsx = true;
-				}
+				isXlsx = file.getFileName().toLowerCase().endsWith(".xlsx");
 			}
 		}
 		if (isCursor && !isXlsx) {
 			// @c only supports the xlsx format.
 			MessageManager mm = AppMessage.get();
-			throw new RQException("xlsimport"
-					+ mm.getMessage("xlsfile.needxlsx"));
+			throw new RQException("xlsimport" + mm.getMessage("xlsfile.needxlsx"));
 		}
 
 		if (isW || isS) {
 			if (fields != null) {
-				throw new RQException(AppMessage.get().getMessage(
-						"xlsimport.nowfields", wOrSText));
+				throw new RQException(AppMessage.get().getMessage("xlsimport.nowfields", wOrSText));
 			}
 		}
 
@@ -255,8 +237,7 @@ public class XlsImport extends FileFunction {
 		BufferedInputStream bis = null;
 		try {
 			if (isCursor) {
-				XlsxSImporter importer = new XlsxSImporter(file.getFileName(),
-						fields, start, end, s, opt, pwd);
+				XlsxSImporter importer = new XlsxSImporter(file, fields, start, end, s, opt, pwd);
 				String cursorOpt = "";
 				if (hasTitle)
 					cursorOpt += "t";

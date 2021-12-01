@@ -871,34 +871,35 @@ public class GM {
 			iDDListener.saveWindowDimension(dlg);
 			return;
 		}
-		ConfigFile cf = null;
-		try {
-			cf = ConfigFile.getConfigFile();
-			if (cf != null) {
-				String oldNode = cf.getConfigNode();
-				Dimension d = dlg.getSize();
-				String width = String.valueOf(d.getWidth());
-				String height = String.valueOf(d.getHeight());
-				int index;
-				index = width.indexOf(".");
-				if (index > 0) {
-					width = width.substring(0, index);
+		if (ConfigOptions.bWindowSize.booleanValue()) {
+			try {
+				ConfigFile cf = ConfigFile.getConfigFile();
+				if (cf != null) {
+					String oldNode = cf.getConfigNode();
+					Dimension d = dlg.getSize();
+					String width = String.valueOf(d.getWidth());
+					String height = String.valueOf(d.getHeight());
+					int index;
+					index = width.indexOf(".");
+					if (index > 0) {
+						width = width.substring(0, index);
+					}
+					index = height.indexOf(".");
+					if (index > 0) {
+						height = height.substring(0, index);
+					}
+					cf.setConfigNode(ConfigFile.NODE_DIMENSION);
+					String className = dlg.getClass().getName();
+					index = className.indexOf("$");
+					if (index > -1) {
+						className = className.substring(0, index);
+					}
+					cf.setAttrValue(className + STRING_DIMENSION,
+							width + "," + height + "," + String.valueOf(dlg.getX()) + "," + String.valueOf(dlg.getY()));
+					cf.setConfigNode(oldNode);
 				}
-				index = height.indexOf(".");
-				if (index > 0) {
-					height = height.substring(0, index);
-				}
-				cf.setConfigNode(ConfigFile.NODE_DIMENSION);
-				String className = dlg.getClass().getName();
-				index = className.indexOf("$");
-				if (index > -1) {
-					className = className.substring(0, index);
-				}
-				cf.setAttrValue(className + STRING_DIMENSION,
-						width + "," + height + "," + String.valueOf(dlg.getX()) + "," + String.valueOf(dlg.getY()));
-				cf.setConfigNode(oldNode);
+			} catch (Throwable ex) {
 			}
-		} catch (Throwable ex) {
 		}
 	}
 
