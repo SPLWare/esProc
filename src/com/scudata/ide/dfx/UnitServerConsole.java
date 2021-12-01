@@ -158,8 +158,8 @@ public class UnitServerConsole extends JFrame implements StartUnitListener {
 		setIconImage(ii.getImage());
 
 		rqInit();
-		refreshUI();
 		restLangText();
+		refreshUI();
 		publicConsole = generateConsole();
 		autoStart();
 
@@ -228,6 +228,13 @@ public class UnitServerConsole extends JFrame implements StartUnitListener {
 	}
 
 	private void restLangText() {
+		UNITSERVER = ParallelMessage.get().getMessage(
+				"UnitServerConsole.UnitServer");
+		ODBCSERVER = ParallelMessage.get().getMessage(
+				"UnitServerConsole.OdbcServer");
+		HTTPSERVER = ParallelMessage.get().getMessage(
+				"UnitServerConsole.HttpServer");
+		
 		jBStart.setText(ParallelMessage.get().getMessage(
 				"UnitServerConsole.start"));
 		jBReset.setText(ParallelMessage.get().getMessage(
@@ -406,9 +413,16 @@ public class UnitServerConsole extends JFrame implements StartUnitListener {
 
 	private void refreshUI() {
 		tabServer.setForegroundAt(0, getStatusColor(unitServer));
+		tabServer.setTitleAt(0, UNITSERVER);
+		tabServer.setToolTipTextAt(0, UNITSERVER);
 		tabServer.setForegroundAt(1, getStatusColor(odbcServer));
+		tabServer.setTitleAt(1, ODBCSERVER);
+		tabServer.setToolTipTextAt(1, ODBCSERVER);
 		tabServer.setForegroundAt(2, getStatusColor(httpServer));
-
+		tabServer.setTitleAt(2, HTTPSERVER);
+		tabServer.setToolTipTextAt(2, HTTPSERVER);
+		setTitle(UNITSERVER);
+		
 		boolean isAllStoped = true;
 		if (isServerRunning(unitServer)) {
 			isAllStoped = false;
@@ -420,7 +434,7 @@ public class UnitServerConsole extends JFrame implements StartUnitListener {
 			isAllStoped = false;
 		}
 		jBQuit.setEnabled(isAllStoped);
-
+		
 	}
 
 	private void resetButtons() {
