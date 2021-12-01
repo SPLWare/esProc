@@ -497,7 +497,8 @@ public class ConfigFile {
 					return cf;
 				}
 			} else {
-				cf = newInstance(fp);
+				if (GV.appFrame instanceof DFX)
+					cf = newInstance(fp);
 				return cf;
 			}
 		} catch (Throwable err) {
