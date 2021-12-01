@@ -234,6 +234,14 @@ public class UnitServerConsole extends JFrame implements StartUnitListener {
 				"UnitServerConsole.OdbcServer");
 		HTTPSERVER = ParallelMessage.get().getMessage(
 				"UnitServerConsole.HttpServer");
+
+		tabServer.setTitleAt(0, UNITSERVER);
+		tabServer.setToolTipTextAt(0, UNITSERVER);
+		tabServer.setTitleAt(1, ODBCSERVER);
+		tabServer.setToolTipTextAt(1, ODBCSERVER);
+		tabServer.setTitleAt(2, HTTPSERVER);
+		tabServer.setToolTipTextAt(2, HTTPSERVER);
+		setTitle(UNITSERVER);
 		
 		jBStart.setText(ParallelMessage.get().getMessage(
 				"UnitServerConsole.start"));
@@ -413,15 +421,8 @@ public class UnitServerConsole extends JFrame implements StartUnitListener {
 
 	private void refreshUI() {
 		tabServer.setForegroundAt(0, getStatusColor(unitServer));
-		tabServer.setTitleAt(0, UNITSERVER);
-		tabServer.setToolTipTextAt(0, UNITSERVER);
 		tabServer.setForegroundAt(1, getStatusColor(odbcServer));
-		tabServer.setTitleAt(1, ODBCSERVER);
-		tabServer.setToolTipTextAt(1, ODBCSERVER);
 		tabServer.setForegroundAt(2, getStatusColor(httpServer));
-		tabServer.setTitleAt(2, HTTPSERVER);
-		tabServer.setToolTipTextAt(2, HTTPSERVER);
-		setTitle(UNITSERVER);
 		
 		boolean isAllStoped = true;
 		if (isServerRunning(unitServer)) {
