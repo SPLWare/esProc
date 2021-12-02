@@ -13,15 +13,12 @@ import com.scudata.dw.Cuboid;
 import com.scudata.dw.ITableMetaData;
 import com.scudata.dw.TableMetaData;
 import com.scudata.dw.pseudo.PseudoTable;
-import com.scudata.expression.CursorFunction;
 import com.scudata.expression.Expression;
 import com.scudata.expression.Gather;
 import com.scudata.expression.IParam;
 import com.scudata.expression.Node;
 import com.scudata.expression.ParamInfo2;
 import com.scudata.expression.PseudoFunction;
-import com.scudata.expression.UnknownSymbol;
-import com.scudata.expression.operator.DotOperator;
 import com.scudata.parallel.ClusterCursor;
 import com.scudata.resources.EngineMessage;
 

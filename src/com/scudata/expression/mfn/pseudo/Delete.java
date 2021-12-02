@@ -1,13 +1,10 @@
 package com.scudata.expression.mfn.pseudo;
 
-import java.io.IOException;
-
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
 import com.scudata.dm.Sequence;
 import com.scudata.expression.PseudoFunction;
-import com.scudata.expression.TableMetaDataFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
