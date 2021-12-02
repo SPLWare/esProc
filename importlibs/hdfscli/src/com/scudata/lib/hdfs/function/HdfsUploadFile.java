@@ -10,7 +10,6 @@ import com.scudata.common.RQException;
 public class HdfsUploadFile extends HdfsFunction {
 	public Object doQuery( Object[] objs){
 		try {
-			// System.out.println("upload start....");
 			if(objs==null ){
 				throw new RQException("upload function.invalidParam");
 			}else if (objs.length!=2){
@@ -30,13 +29,12 @@ public class HdfsUploadFile extends HdfsFunction {
 			
 			// for d, p, default option.
 			HdfsFileImpl hfile = new HdfsFileImpl(m_hdfs);
-			//System.out.println("upload start100....");
 			if (bDirCopy){
 				hfile.uploadFiles(localFile, hdFile);
 			}else{
 				hfile.uploadFile(localFile, hdFile);
 			}
-			//System.out.println("upload start200....");
+
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
