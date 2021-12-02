@@ -1,7 +1,5 @@
 package com.scudata.dw.pseudo;
 
-import java.io.IOException;
-
 import com.scudata.dm.Context;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.cursor.ICursor;

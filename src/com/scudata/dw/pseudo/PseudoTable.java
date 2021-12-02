@@ -15,7 +15,6 @@ import com.scudata.dm.cursor.MemoryCursor;
 import com.scudata.dm.cursor.MergeCursor;
 import com.scudata.dm.cursor.MultipathCursors;
 import com.scudata.dm.op.Conj;
-import com.scudata.dm.op.Derive;
 import com.scudata.dm.op.Group;
 import com.scudata.dm.op.Join;
 import com.scudata.dm.op.New;
@@ -643,7 +642,8 @@ public class PseudoTable extends Pseudo implements Operable, IPseudo {
 				for (int i = 1; i <= len; i++) {
 					String field = (String) bitNames.get(i);
 					//转换为bit值,并累加
-					exp += "+ if(" + field + ",shift(1,-" + (i - 1) + ",0))";
+					int bit = 1 << (i - 1);
+					exp += "+ if(" + field + "," + bit + ",0)";
 				}
 				exps[idx] = new Expression(exp);
 				names[idx] = column.getName();
