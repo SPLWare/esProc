@@ -236,14 +236,16 @@ public class Groups extends PseudoFunction {
 			parseNode(exp.getHome(), ctx, fieldList);
 		}
 		int size = fieldList.size();
+		Expression[] expArray = new Expression[size];
 		if (size > 0) {
 			fields = new String[size];
 			for (int i = 0; i < size; i++) {
 				fields[i] = fieldList.get(i);
+				expArray[i] = new Expression(fields[i]);
 			}
 		}
-		
-		ICursor cursor = pseudo.cursor(null, fields);
+
+		ICursor cursor = pseudo.cursor(expArray, fields);
 		Sequence result = null;
 		if (cursor instanceof ClusterCursor) {
 			ClusterCursor clusterCursor = (ClusterCursor)cursor;

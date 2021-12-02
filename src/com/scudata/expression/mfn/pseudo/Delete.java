@@ -25,12 +25,7 @@ public class Delete extends PseudoFunction {
 		
 		Object obj = param.getLeafExpression().calculate(ctx);
 		if (obj instanceof Sequence) {
-			try {
-				pseudo.
-				return table.delete((Sequence)obj, option);
-			} catch (IOException e) {
-				throw new RQException(e);
-			}
+			return pseudo.delete((Sequence)obj, option);
 		} else if (obj != null) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("delete" + mm.getMessage("function.paramTypeError"));
