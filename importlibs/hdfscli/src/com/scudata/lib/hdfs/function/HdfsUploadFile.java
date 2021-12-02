@@ -3,8 +3,8 @@ package com.scudata.lib.hdfs.function;
 import com.scudata.common.RQException;
 
 /*** @author 
- * hdfs_upload(hd, localFile, removeFile/removePath)
- * removePath时，路径必须存在.
+ * hdfs_upload(hd, localFile, remoteFile/remotePath)
+ * remotePath时，路径必须存在.
  * 选项d,要求源与目标都是文件夹
  */
 public class HdfsUploadFile extends HdfsFunction {
