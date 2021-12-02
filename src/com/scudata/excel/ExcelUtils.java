@@ -55,20 +55,16 @@ public class ExcelUtils {
 	/**
 	 * Open excel file with password
 	 * 
-	 * @param pfs
-	 *            POIFSFileSystem
-	 * @param pwd
-	 *            Excel password
+	 * @param pfs POIFSFileSystem
+	 * @param pwd Excel password
 	 * @return
 	 * @throws Exception
 	 */
-	public static InputStream decrypt(POIFSFileSystem pfs, String pwd)
-			throws Exception {
+	public static InputStream decrypt(POIFSFileSystem pfs, String pwd) throws Exception {
 		EncryptionInfo info = new EncryptionInfo(pfs);
 		Decryptor d = Decryptor.getInstance(info);
 		if (!d.verifyPassword(pwd)) {
-			throw new RQException(AppMessage.get().getMessage(
-					"excel.invalidpwd", pwd));
+			throw new RQException(AppMessage.get().getMessage("excel.invalidpwd", pwd));
 		}
 		return d.getDataStream(pfs);
 	}
@@ -76,10 +72,8 @@ public class ExcelUtils {
 	/**
 	 * Export excel file using password
 	 * 
-	 * @param fo
-	 *            FileObject
-	 * @param pwd
-	 *            Excel password
+	 * @param fo  FileObject
+	 * @param pwd Excel password
 	 */
 	public static void encrypt(FileObject fo, String pwd) {
 		POIFSFileSystem fs = new POIFSFileSystem();
@@ -135,18 +129,15 @@ public class ExcelUtils {
 	/**
 	 * Whether it is an excel file in xlsx format.
 	 * 
-	 * @param fo
-	 *            FileObject
-	 * @param pwd
-	 *            Excel password
+	 * @param fo  FileObject
+	 * @param pwd Excel password
 	 * @return true means xlsx format, false means xls format.
 	 * @throws IOException
 	 */
-	public static boolean isXlsxFile(FileObject fo, String pwd)
-			throws IOException {
+	public static boolean isXlsxFile(FileObject fo, String pwd) throws IOException {
 		/*
-		 * There is an error in the interface of the POI when there is a
-		 * password. The xlsx file hasPOIFSHeader also returns true.
+		 * There is an error in the interface of the POI when there is a password. The
+		 * xlsx file hasPOIFSHeader also returns true.
 		 */
 		if (StringUtils.isValidString(pwd)) {
 			return fo.getFileName().toLowerCase().endsWith(".xlsx");
@@ -186,8 +177,7 @@ public class ExcelUtils {
 	/**
 	 * Whether it is an excel file in xlsx format.
 	 * 
-	 * @param is
-	 *            InputStream
+	 * @param is InputStream
 	 * @return true means xlsx format, false means xls format.
 	 * @throws IOException
 	 */
@@ -198,10 +188,8 @@ public class ExcelUtils {
 	/**
 	 * Whether the excel cell is in date format.
 	 * 
-	 * @param cell
-	 *            Cell
-	 * @param df
-	 *            DataFormat
+	 * @param cell Cell
+	 * @param df   DataFormat
 	 * @return
 	 */
 	public static boolean isCellDateFormatted(Cell cell, DataFormat df) {
@@ -227,8 +215,7 @@ public class ExcelUtils {
 	/**
 	 * Whether the excel cell is in date format.
 	 * 
-	 * @param cell
-	 *            Cell
+	 * @param cell Cell
 	 * @return
 	 */
 	private static boolean isCellDateFormatted(Cell cell) {
@@ -249,8 +236,7 @@ public class ExcelUtils {
 	/**
 	 * Whether date format characters are included in the pattern
 	 * 
-	 * @param pattern
-	 *            String
+	 * @param pattern String
 	 * @return
 	 */
 	private static boolean hasYMDHMS(String pattern) {
@@ -280,8 +266,7 @@ public class ExcelUtils {
 				}
 				break;
 			case 'a': // Week
-				if (i <= len - 3 && pattern.charAt(i + 1) == 'a'
-						&& pattern.charAt(i + 2) == 'a')
+				if (i <= len - 3 && pattern.charAt(i + 1) == 'a' && pattern.charAt(i + 2) == 'a')
 					return true;
 				i++;
 				break;
@@ -418,16 +403,14 @@ public class ExcelUtils {
 			return 1;
 		if (sformat != null) {
 			/*
-			 * There are many cells that are not in the above range, but are not
-			 * in the date format. Make a simple judgment based on the format
-			 * string.
+			 * There are many cells that are not in the above range, but are not in the date
+			 * format. Make a simple judgment based on the format string.
 			 */
 			String s = sformat.toLowerCase();
 			if (s.indexOf("y") < 0 && s.indexOf("d") < 0) {
 				return TYPE_TIME;
 			}
-			if (s.indexOf("h") > -1 || s.indexOf("s") > -1
-					|| s.indexOf("amp") > -1) {
+			if (s.indexOf("h") > -1 || s.indexOf("s") > -1 || s.indexOf("amp") > -1) {
 				return TYPE_DATETIME;
 			}
 		}
@@ -437,24 +420,17 @@ public class ExcelUtils {
 	/**
 	 * Import excel file
 	 * 
-	 * @param importer
-	 *            IExcelTool
-	 * @param fields
-	 *            Fields to be imported, null means all fields.
-	 * @param startRow
-	 *            Start row
-	 * @param endRow
-	 *            End row
-	 * @param s
-	 *            Sheet number or sheet name
-	 * @param opt
-	 *            The options. t:The first line is the title line.
+	 * @param importer IExcelTool
+	 * @param fields   Fields to be imported, null means all fields.
+	 * @param startRow Start row
+	 * @param endRow   End row
+	 * @param s        Sheet number or sheet name
+	 * @param opt      The options. t:The first line is the title line.
 	 * @return Table
 	 * @throws IOException
 	 */
-	public static Table import_x(IExcelTool importer, String[] fields,
-			int startRow, int endRow, Object s, boolean bTitle)
-			throws IOException {
+	public static Table import_x(IExcelTool importer, String[] fields, int startRow, int endRow, Object s,
+			boolean bTitle) throws IOException {
 		Object[] line;
 
 		// If the start line is specified, the title line is at the start line.
@@ -532,14 +508,12 @@ public class ExcelUtils {
 				int q = ds.getFieldIndex(fields[i]);
 				if (q < 0) {
 					MessageManager mm = EngineMessage.get();
-					throw new RQException(fields[i]
-							+ mm.getMessage("ds.fieldNotExist"));
+					throw new RQException(fields[i] + mm.getMessage("ds.fieldNotExist"));
 				}
 
 				if (index[q] != -1) {
 					MessageManager mm = EngineMessage.get();
-					throw new RQException(fields[i]
-							+ mm.getMessage("ds.colNameRepeat"));
+					throw new RQException(fields[i] + mm.getMessage("ds.colNameRepeat"));
 				}
 
 				index[q] = i;
@@ -573,10 +547,8 @@ public class ExcelUtils {
 	/**
 	 * Convert a string separated by \n and \t into a Matrix object.
 	 * 
-	 * @param data
-	 *            String separated by \n and \t
-	 * @param parse
-	 *            Whether to parse cell value
+	 * @param data  String separated by \n and \t
+	 * @param parse Whether to parse cell value
 	 * @return
 	 */
 	public static Matrix getStringMatrix(String data, boolean parse) {
@@ -606,8 +578,7 @@ public class ExcelUtils {
 				item = items.nextToken();
 				Object val = item;
 				if (parse) {
-					if (item.startsWith(KeyWord.CONSTSTRINGPREFIX)
-							&& !item.endsWith(KeyWord.CONSTSTRINGPREFIX)) {
+					if (item.startsWith(KeyWord.CONSTSTRINGPREFIX) && !item.endsWith(KeyWord.CONSTSTRINGPREFIX)) {
 						val = item.substring(1);
 					} else {
 						val = Variant.parseCellValue(item);
@@ -628,23 +599,18 @@ public class ExcelUtils {
 	 * @return
 	 */
 	public static String getLineSeparator() {
-		return AppUtil.isWindowsOS() ? "\n" : System.getProperties()
-				.getProperty("line.separator");
+		return AppUtil.isWindowsOS() ? "\n" : System.getProperties().getProperty("line.separator");
 	}
 
 	/**
 	 * Get a row of data
 	 * 
-	 * @param row
-	 *            Row
-	 * @param dataFormat
-	 *            DataFormat
-	 * @param evaluator
-	 *            FormulaEvaluator
+	 * @param row        Row
+	 * @param dataFormat DataFormat
+	 * @param evaluator  FormulaEvaluator
 	 * @return
 	 */
-	public static Object[] getRowData(Row row, DataFormat dataFormat,
-			FormulaEvaluator evaluator) {
+	public static Object[] getRowData(Row row, DataFormat dataFormat, FormulaEvaluator evaluator) {
 		if (row == null)
 			return new Object[0];
 		short maxCol = row.getLastCellNum();
@@ -660,11 +626,9 @@ public class ExcelUtils {
 				continue;
 			}
 
-			CellType type = ExcelVersionCompatibleUtilGetter.getInstance()
-					.getCellType(cell);
+			CellType type = ExcelVersionCompatibleUtilGetter.getInstance().getCellType(cell);
 			if (CellType.FORMULA.compareTo(type) == 0) {
-				type = ExcelVersionCompatibleUtilGetter.getInstance()
-						.getCellType(evaluator.evaluate(cell));
+				type = ExcelVersionCompatibleUtilGetter.getInstance().getCellType(evaluator.evaluate(cell));
 			}
 			if (CellType.BLANK.compareTo(type) == 0) {
 				items[colIndex] = null;
@@ -675,83 +639,94 @@ public class ExcelUtils {
 			} else if (CellType.ERROR.compareTo(type) == 0) {
 				try {
 					if (cell instanceof XSSFCell) {
-						items[colIndex] = ((XSSFCell) cell)
-								.getErrorCellString();
+						items[colIndex] = ((XSSFCell) cell).getErrorCellString();
 					} else {
 						items[colIndex] = null;
 					}
 				} catch (Exception ex) {
 					items[colIndex] = null;
-				}
-			} else if (CellType.NUMERIC.compareTo(type) == 0) {
-				try {
-					CellStyle cellStyle = cell.getCellStyle();
-					String dataFormatString = cellStyle.getDataFormatString();
-					double d = cell.getNumericCellValue();
-					if ("@".equals(dataFormatString)) { // 数值内容，文本格式
-						DataFormatter dataFormatter = new DataFormatter();
-						items[colIndex] = dataFormatter.formatCellValue(cell);
-					} else {
-						if (ExcelUtils.isCellDateFormatted(cell, dataFormat)) {
-							java.util.Date dd = DateUtil.getJavaDate(d);
-
-							items[colIndex] = dd;
-							int dateType = ExcelUtils.getDateType(
-									cellStyle.getDataFormat(),
-									cellStyle.getDataFormatString());
-							if (dateType == TYPE_DATE)
-								items[colIndex] = new java.sql.Date(
-										dd.getTime());
-							else if (dateType == TYPE_TIME)
-								items[colIndex] = new Time(dd.getTime());
-							else if (dateType == TYPE_DATETIME)
-								items[colIndex] = new Timestamp(dd.getTime());
-						} else {
-							try {
-								BigDecimal big = new BigDecimal(
-										cell.getNumericCellValue());
-								String v = big.toString();
-								int pos = v.indexOf(".");
-								if (pos >= 0) {
-									boolean allZero = true;
-									pos++;
-									while (pos < v.length()) {
-										if (v.charAt(pos) != '0') {
-											allZero = false;
-											break;
-										}
-										pos++;
-									}
-									if (allZero)
-										v = v.substring(0, v.indexOf("."));
-								}
-								items[colIndex] = PgmNormalCell
-										.parseConstValue(v);
-
-							} catch (Exception e) {
-								items[colIndex] = new Double(d);
+					String errorMessage = ex.getMessage();
+					if (StringUtils.isValidString(errorMessage)) {
+						try {
+							if (errorMessage.toUpperCase().indexOf("NUMERIC") > -1) {
+								items[colIndex] = getNumericCellValue(cell, type, dataFormat);
+							} else if (errorMessage.toUpperCase().indexOf("BOOLEAN") > -1) {
+								items[colIndex] = new Boolean(cell.getBooleanCellValue());
+							} else if (errorMessage.toUpperCase().indexOf("STRING") > -1) {
+								items[colIndex] = cell.getStringCellValue();
 							}
+						} catch (Exception ex1) {
+							items[colIndex] = null;
 						}
 					}
-				} catch (Exception e) {
-					if (CellType.FORMULA.compareTo(type) == 0)
-						try {
-							items[colIndex] = cell.getStringCellValue();
-						} catch (Exception ex) {
-						}
+
 				}
+			} else if (CellType.NUMERIC.compareTo(type) == 0) {
+				items[colIndex] = getNumericCellValue(cell, type, dataFormat);
 			}
 		}
 		return items;
 	}
 
+	private static Object getNumericCellValue(Cell cell, CellType type, DataFormat dataFormat) {
+		try {
+			CellStyle cellStyle = cell.getCellStyle();
+			String dataFormatString = cellStyle.getDataFormatString();
+			double d = cell.getNumericCellValue();
+			if ("@".equals(dataFormatString)) { // 数值内容，文本格式
+				DataFormatter dataFormatter = new DataFormatter();
+				return dataFormatter.formatCellValue(cell);
+			} else {
+				if (ExcelUtils.isCellDateFormatted(cell, dataFormat)) {
+					java.util.Date dd = DateUtil.getJavaDate(d);
+					Object date = dd;
+					int dateType = ExcelUtils.getDateType(cellStyle.getDataFormat(), cellStyle.getDataFormatString());
+					if (dateType == TYPE_DATE)
+						date = new java.sql.Date(dd.getTime());
+					else if (dateType == TYPE_TIME)
+						date = new Time(dd.getTime());
+					else if (dateType == TYPE_DATETIME)
+						date = new Timestamp(dd.getTime());
+					return date;
+				} else {
+					try {
+						BigDecimal big = new BigDecimal(cell.getNumericCellValue());
+						String v = big.toString();
+						int pos = v.indexOf(".");
+						if (pos >= 0) {
+							boolean allZero = true;
+							pos++;
+							while (pos < v.length()) {
+								if (v.charAt(pos) != '0') {
+									allZero = false;
+									break;
+								}
+								pos++;
+							}
+							if (allZero)
+								v = v.substring(0, v.indexOf("."));
+						}
+						return PgmNormalCell.parseConstValue(v);
+					} catch (Exception e) {
+						return new Double(d);
+					}
+				}
+			}
+		} catch (Exception e) {
+			if (CellType.FORMULA.compareTo(type) == 0)
+				try {
+					return cell.getStringCellValue();
+				} catch (Exception ex) {
+				}
+		}
+		return null;
+	}
+
 	/**
 	 * Set value to cell
 	 * 
-	 * @param cell
-	 *            Cell
-	 * @param value
-	 *            Cell value
+	 * @param cell  Cell
+	 * @param value Cell value
 	 * @return
 	 */
 	public static boolean setCellValue(Cell cell, Object value) {
@@ -821,12 +796,9 @@ public class ExcelUtils {
 		if (cell == null) {
 			return true;
 		}
-		CellType type = ExcelVersionCompatibleUtilGetter.getInstance()
-				.getCellType(cell);
-		if (CellType.BOOLEAN.compareTo(type) == 0
-				|| CellType.NUMERIC.compareTo(type) == 0
-				|| CellType.FORMULA.compareTo(type) == 0
-				|| CellType.ERROR.compareTo(type) == 0) {
+		CellType type = ExcelVersionCompatibleUtilGetter.getInstance().getCellType(cell);
+		if (CellType.BOOLEAN.compareTo(type) == 0 || CellType.NUMERIC.compareTo(type) == 0
+				|| CellType.FORMULA.compareTo(type) == 0 || CellType.ERROR.compareTo(type) == 0) {
 			return false;
 		} else if (CellType.STRING.compareTo(type) == 0) {
 			return !StringUtils.isValidString(cell.getStringCellValue());
@@ -894,9 +866,8 @@ public class ExcelUtils {
 	 */
 	public static float transferRowHeight(float poundValue) {
 		/*
-		 * The point is a unit for measuring the size of printed fonts,
-		 * approximately equal to seventy-twoths of an inch. 1 inch (in) = 25.4
-		 * millimeters (mm)
+		 * The point is a unit for measuring the size of printed fonts, approximately
+		 * equal to seventy-twoths of an inch. 1 inch (in) = 25.4 millimeters (mm)
 		 */
 		// Pixels per inch
 		int dpi = Toolkit.getDefaultToolkit().getScreenResolution();
@@ -951,8 +922,7 @@ public class ExcelUtils {
 	/**
 	 * Transpose sequence
 	 * 
-	 * @param seq
-	 *            The sequence to be transposed
+	 * @param seq The sequence to be transposed
 	 * @return
 	 */
 	public static Sequence transpose(Sequence seq) {
@@ -1012,8 +982,7 @@ public class ExcelUtils {
 	/**
 	 * Convert time to long
 	 * 
-	 * @param time
-	 *            Time
+	 * @param time Time
 	 * @return
 	 */
 	public static double getTimeDouble(Time time) {
