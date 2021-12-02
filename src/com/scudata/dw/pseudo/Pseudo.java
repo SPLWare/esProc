@@ -31,7 +31,7 @@ public class Pseudo {
 	protected ArrayList<String> fkNameList;
 	protected ArrayList<Sequence> codeList;
 
-	protected ArrayList<String> extraNameList;//需要额外取出的字段名
+	protected ArrayList<String> extraNameList;//因为过滤或伪字段而需要额外取出的字段名
 	protected ArrayList<String> allNameList;//实表的所有字段
 	
 	protected String []deriveNames;//由derive添加的
@@ -337,6 +337,10 @@ public class Pseudo {
 	}
 	
 	public Sequence update(Sequence data, String opt) {
+		throw new RQException("never run to here");
+	}
+	
+	public Sequence delete(Sequence data, String opt) {
 		throw new RQException("never run to here");
 	}
 }

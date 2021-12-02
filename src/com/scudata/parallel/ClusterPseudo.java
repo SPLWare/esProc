@@ -293,7 +293,12 @@ public class ClusterPseudo implements IClusterObject, Operable, IPseudo {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
+	public Sequence delete(Sequence data, String opt) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 	public Operable addOperation(Operation op, Context ctx) {
 		Cluster cluster = getCluster();
 		int count = cluster.getUnitCount();

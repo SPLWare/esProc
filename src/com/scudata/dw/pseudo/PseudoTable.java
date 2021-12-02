@@ -139,6 +139,8 @@ public class PseudoTable extends Pseudo implements Operable, IPseudo {
 	private void setFetchInfo(Expression []exps, String []fields) {
 		this.exps = null;
 		this.names = null;
+		boolean needNew = extraNameList.size() > 0;
+		Expression newExps[] = null;
 		
 		extraOpList.clear();
 		
@@ -159,9 +161,13 @@ public class PseudoTable extends Pseudo implements Operable, IPseudo {
 				this.names = getFetchColNames(fields);//有取出字段
 			}
 		} else {
-			//有取出表达式也有取出字段
-			//检查extraNameList里是否包含exps里的字段
-			//如果有，就去掉
+			
+			newExps = exps.clone();//备份一下
+			
+			/**
+			 * 有取出表达式也有取出字段,则检查extraNameList里是否包含exps里的字段
+			 * 如果包含就去掉
+			 */
 			ArrayList<String> tempList = new ArrayList<String>();
 			for (String name : extraNameList) {
 				if (!tempList.contains(name)) {
@@ -175,7 +181,6 @@ public class PseudoTable extends Pseudo implements Operable, IPseudo {
 				}
 			}
 			
-			
 			ArrayList<String> tempNameList = new ArrayList<String>();
 			ArrayList<Expression> tempExpList = new ArrayList<Expression>();
 			int size = exps.length;
@@ -184,8 +189,25 @@ public class PseudoTable extends Pseudo implements Operable, IPseudo {
 				String name = fields[i];
 				Node node = exp.getHome();
 				if (node instanceof UnknownSymbol) {
+					/**
+					 * 先检查一下取出表达式是否枚举字段，如果是则做个转换
+					 */
+					String expName = exp.getIdentifierName();
+					if (!allNameList.contains(expName)) {
+						PseudoColumn col = pd.findColumnByPseudoName(expName);
+						if (col.get_enum() != null) {
+							String var = "pseudo_enum_value_" + i;
+							ctx.setParamValue(var, col.get_enum());
+							name = col.getName();
+							newExps[i] = new Expression(var + "(" + name + "+1)");
+							exp = new Expression(name);
+							needNew = true;
+						}
+					}
+					
 					tempExpList.add(exp);
 					tempNameList.add(name);
+					
 //				} else if (node instanceof DotOperator) {
 //					Node left = node.getLeft();
 //					if (left != null && left instanceof UnknownSymbol) {
@@ -212,8 +234,8 @@ public class PseudoTable extends Pseudo implements Operable, IPseudo {
 			tempNameList.toArray(this.names);
 		}
 		
-		if (extraNameList.size() > 0) {
-			New _new = new New(exps, fields, null);
+		if (needNew) {
+			New _new = new New(newExps, fields, null);
 			extraOpList.add(_new);
 		}
 		return;
@@ -483,6 +505,7 @@ public class PseudoTable extends Pseudo implements Operable, IPseudo {
 					if (seq != null) {
 						node.setLeft(new UnknownSymbol(col.getName()));//改为真字段
 						Integer obj = seq.firstIndexOf(node.getRight().calculate(ctx));
+						obj--;
 						node.setRight(new Constant(obj));//把枚举值改为对应的真的值
 					}
 					
@@ -532,6 +555,7 @@ public class PseudoTable extends Pseudo implements Operable, IPseudo {
 						int size = value.length();
 						for (int i = 1; i <= size; i++) {
 							Integer obj = col.get_enum().firstIndexOf(value.get(i));
+							obj--;
 							newValue.add(obj);
 						}
 						node.setLeft(new Constant(newValue));
@@ -676,6 +700,32 @@ public class PseudoTable extends Pseudo implements Operable, IPseudo {
 		}
 	}
 	
+	public Sequence delete(Sequence data, String opt) {
+		List<ITableMetaData> tables = getPd().getTables();
+		int size = tables.size();
+		if (size == 0) {
+			return null;
+		}
+		
+		Sequence result = null;
+		for (ITableMetaData table : tables) {
+			List<PseudoColumn> columns = pd.getColumns();
+			if (columns != null) {
+				String fields[] = table.getAllColNames();
+				ICursor cursor = new MemoryCursor(data);
+				convertPseudoColumn(cursor, columns, fields);
+				data = cursor.fetch();
+			}
+			
+			try {
+				result = table.delete(data, opt);
+			} catch (IOException e) {
+				throw new RQException(e.getMessage(), e);
+			}
+		}
+		return result;
+	}
+	
 	// 判断是否配置了指定名称的外键
 	public boolean hasForeignKey(String fkName) {
 		PseudoColumn column = pd.findColumnByName(fkName);
@@ -744,4 +794,5 @@ public class PseudoTable extends Pseudo implements Operable, IPseudo {
 		return null;
 	}
 }
+
 

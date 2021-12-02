@@ -136,4 +136,8 @@ public class PseudoJoinx implements Operable, IPseudo {
 	public Sequence update(Sequence data, String opt) {
 		throw new RQException("never run to here");
 	}
+	
+	public Sequence delete(Sequence data, String opt) {
+		throw new RQException("never run to here");
+	}
 }

@@ -1,5 +1,7 @@
 package com.scudata.dw.pseudo;
 
+import java.io.IOException;
+
 import com.scudata.dm.Context;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.cursor.ICursor;
@@ -15,4 +17,5 @@ public interface IPseudo {
 	public Object clone(Context ctx) throws CloneNotSupportedException;
 	public void append(ICursor cursor, String option);
 	public Sequence update(Sequence data, String opt);
+	public Sequence delete(Sequence data, String opt);
 }
