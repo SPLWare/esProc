@@ -272,7 +272,7 @@ public class PseudoTable extends Pseudo implements Operable, IPseudo {
 		ICursor cursors[] = new ICursor[size];
 		
 		for (int i = 0; i < size; i++) {
-			cursors[i] = getCursor(tables.get(i), null);
+			cursors[i] = getCursor(tables.get(i), null, true);
 		}
 		return cursors;
 	}
@@ -281,9 +281,10 @@ public class PseudoTable extends Pseudo implements Operable, IPseudo {
 	 * 得到table的游标
 	 * @param table
 	 * @param mcs
+	 * @param addOpt 是否把附加计算添加
 	 * @return
 	 */
-	private ICursor getCursor(ITableMetaData table, ICursor mcs) {
+	private ICursor getCursor(ITableMetaData table, ICursor mcs, boolean addOpt) {
 		ICursor cursor = null;
 		if (fkNames != null) {
 			if (mcs != null ) {
@@ -373,6 +374,52 @@ public class PseudoTable extends Pseudo implements Operable, IPseudo {
 			}
 		}
 	
+		if (addOpt) {
+			if (opList != null) {
+				for (Operation op : opList) {
+					cursor.addOperation(op, ctx);
+				}
+			}
+			if (extraOpList != null) {
+				for (Operation op : extraOpList) {
+					cursor.addOperation(op, ctx);
+				}
+			}
+		}
+
+		return cursor;
+	
+	}
+	
+	/**
+	 * 归并或者连接游标
+	 * @param cursors
+	 * @return
+	 */
+	static ICursor mergeCursor(ICursor cursors[],String user, Context ctx) {
+		DataStruct ds = cursors[0].getDataStruct();
+		int[] sortFields = null;
+		
+		/**
+		 * 如果存在user（账户属性）就使用user字段归并,否则使用主键归并。
+		 * 没有主键就不归并。
+		 */
+		if (user != null) {
+			int idx = ds.getFieldIndex(user);
+			if (idx >= 0) {
+				sortFields = new int[] {idx};
+			}
+		} else {
+			sortFields = ds.getPKIndex();
+		}
+		if (sortFields != null) {
+			return new MergeCursor(cursors, sortFields, null, ctx);//有序则归并
+		} else {
+			return new ConjxCursor(cursors);//无序则连接
+		}
+	}
+	
+	private ICursor addOptionToCursor(ICursor cursor) {
 		if (opList != null) {
 			for (Operation op : opList) {
 				cursor.addOperation(op, ctx);
@@ -383,23 +430,7 @@ public class PseudoTable extends Pseudo implements Operable, IPseudo {
 				cursor.addOperation(op, ctx);
 			}
 		}
-		
 		return cursor;
-	
-	}
-	
-	/**
-	 * 归并或者连接游标
-	 * @param cursors
-	 * @return
-	 */
-	static ICursor mergeCursor(ICursor cursors[], Context ctx) {
-		int[] sortFields = cursors[0].getDataStruct().getPKIndex();
-		if (sortFields != null) {
-			return new MergeCursor(cursors, sortFields, null, ctx);//有序则归并
-		} else {
-			return new ConjxCursor(cursors);//无序则连接
-		}
 	}
 	
 	//返回虚表的游标
@@ -418,26 +449,26 @@ public class PseudoTable extends Pseudo implements Operable, IPseudo {
 		 * 3 有多个游标且并行时，先对第一个游标分段，然后其它游标按第一个同步分段，最后把每个游标的每个段进行归并
 		 */
 		if (size == 1) {//只有一个游标直接返回
-			return getCursor(tables.get(0), null);
+			return getCursor(tables.get(0), null, true);
 		} else {
 			if (pathCount > 1) {//指定了并行数，此时忽略mcsTable
-				cursors[0] = getCursor(tables.get(0), null);
+				cursors[0] = getCursor(tables.get(0), null, false);
 				for (int i = 1; i < size; i++) {
-					cursors[i] = getCursor(tables.get(i), cursors[0]);
+					cursors[i] = getCursor(tables.get(i), cursors[0], false);
 				}
 			} else {//没有指定并行数
 				if (mcsTable == null) {//没有指定分段参考虚表mcsTable
 					for (int i = 0; i < size; i++) {
-						cursors[i] = getCursor(tables.get(i), null);
+						cursors[i] = getCursor(tables.get(i), null, false);
 					}
-					return mergeCursor(cursors, ctx);
+					return addOptionToCursor(mergeCursor(cursors, pd.getUser(), ctx));
 				} else {//指定了分段参考虚表mcsTable
 					ICursor mcs = null;
 					if (mcsTable != null) {
 						mcs = mcsTable.cursor();
 					}
 					for (int i = 0; i < size; i++) {
-						cursors[i] = getCursor(tables.get(i), mcs);
+						cursors[i] = getCursor(tables.get(i), mcs, false);
 					}
 					mcs.close();
 				}
@@ -451,9 +482,9 @@ public class PseudoTable extends Pseudo implements Operable, IPseudo {
 				for (int i = 0; i < size; i++) {
 					cursorArray[i] = ((MultipathCursors)cursors[i]).getCursors()[m];
 				}
-				mcursors[m] = mergeCursor(cursorArray, ctx);
+				mcursors[m] = mergeCursor(cursorArray, pd.getUser(), ctx);
 			}
-			return new MultipathCursors(mcursors, ctx);
+			return addOptionToCursor(new MultipathCursors(mcursors, ctx));
 		}
 	}
 	
@@ -575,21 +606,22 @@ public class PseudoTable extends Pseudo implements Operable, IPseudo {
 			Expression exp = op.getFunction().getParam().getLeafExpression();
 			Node node = exp.getHome();
 			parseFilter(node);
-			
-			/**
-			 * 当虚表的user存在，并且是做group@u(user)，并且user不是首字段时
-			 * 把group@u(user)转换为.group(首字段).conj(~.group(user))
-			 */
-			if (pd.getUser() != null && op instanceof Group) {
-				String ugrp = pd.getAllColNames()[0];//首字段
-				Group group = (Group) op;
-				if (!(pd.getUser().equals(ugrp)) && group.getOpt() != null && group.getOpt().indexOf("u") >= 0) {
-					Group newGroup = new Group(new Expression[] {new Expression(ugrp)}, null);
-					Conj conj = new Conj(new Expression("~.group(" + pd.getUser() + ")"));
-					return super.addOperation(newGroup, ctx).addOperation(conj, ctx);
-				}
+		}
+		
+		/**
+		 * 当虚表的user存在，并且是做group@u(user)，并且user不是首字段时
+		 * 把group@u(user)转换为.group(首字段).conj(~.group(user))
+		 */
+		if (pd.getUser() != null && op instanceof Group) {
+			String ugrp = pd.getAllColNames()[0];//首字段
+			Group group = (Group) op;
+			if (!(pd.getUser().equals(ugrp)) && group.getOpt() != null && group.getOpt().indexOf("u") >= 0) {
+				Group newGroup = new Group(new Expression[] {new Expression(ugrp)}, null);
+				Conj conj = new Conj(new Expression("~.group(" + pd.getUser() + ")"));
+				return super.addOperation(newGroup, ctx).addOperation(conj, ctx);
 			}
 		}
+		
 		return super.addOperation(op, ctx);
 	}
 	
