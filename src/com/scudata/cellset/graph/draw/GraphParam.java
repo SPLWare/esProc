@@ -56,11 +56,13 @@ public class GraphParam {
 	public int gridLineLocation = Consts.GRID_VALUE; /* 网格线位置 */
 	public int gridLineStyle; /* 网格线风格 */
 	public int dispValueType = 0; // 是否在柱形图顶部显示值标识
+	public int dispValueType2 = 0; // 是否在柱形图顶部显示值标识
 	public boolean graphTransparent = false; /* 立体图像是否透明 */
 
 	public String dataMarkFormat = ""; // 图中数据值标识的格式
 	public String dataMarkFormat2 = ""; // 图中数据值标识的格式2
 	public boolean dispValueOntop = false; // 是否在柱形图顶部显示值标识
+	public boolean dispValueOntop2 = false; // 是否在柱形图顶部显示值标识
 	public boolean dispStackSumValue = false; // 是否在堆栈图顶部显示统计值
 	public boolean dispIntersectValue = true; /* 显示重叠的数值 */
 	public boolean gradientColor = true; /* 颜色渐变 */

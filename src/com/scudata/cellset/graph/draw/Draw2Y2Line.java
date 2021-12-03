@@ -309,7 +309,7 @@ public class Draw2Y2Line extends DrawBase {
 
 				boolean valvis = i % (db.gp.graphXInterval + 1) == 0;
 				// 显示值标示
-				if (db.gp.dispValueOntop && !egs.isNull() && valvis) {
+				if (db.gp.dispValueOntop2 && !egs.isNull() && valvis) {
 					String sval = db.getDispValue2(egc,egs,db.gp.serNum);
 					x = endPoint.x;
 					y = endPoint.y;

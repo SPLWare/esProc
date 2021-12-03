@@ -449,9 +449,11 @@ public abstract class DrawBase implements IGraph {
 			gp.serNum2 = gp.serNames2.size();
 		}
 		gp.dispValueType = egp.getDisplayData();
-
 		gp.dispValueOntop = (gp.dispValueType == IGraphProperty.DISPDATA_VALUE
 				|| gp.dispValueType == IGraphProperty.DISPDATA_NAME_VALUE || gp.dispValueType == IGraphProperty.DISPDATA_TITLE);
+		gp.dispValueType2 = egp.getDisplayData2();
+		gp.dispValueOntop2 = (gp.dispValueType2 == IGraphProperty.DISPDATA_VALUE
+				|| gp.dispValueType2 == IGraphProperty.DISPDATA_NAME_VALUE || gp.dispValueType2 == IGraphProperty.DISPDATA_TITLE);
 
 		gp.dispStackSumValue = egp.isDispStackSumValue();
 		gp.scaleMark = egp.getDataUnit();
@@ -3131,7 +3133,7 @@ public abstract class DrawBase implements IGraph {
 		double scaledVal = getScaledValue(egs.getValue(), false);
 		String txt = getDispValue(scaledVal, egs.getTips(), gp.dataMarkFormat2);
 		if (egc != null
-				&& gp.dispValueType == IGraphProperty.DISPDATA_NAME_VALUE) {
+				&& gp.dispValueType2 == IGraphProperty.DISPDATA_NAME_VALUE) {
 			txt = getDispName(egc, egs, serNum) + "," + txt;
 		}
 		return txt;

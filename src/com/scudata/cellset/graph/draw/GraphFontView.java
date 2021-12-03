@@ -291,8 +291,8 @@ public class GraphFontView {
 //		程序中禁止关闭anti，保证所有的线和文字都是平滑的
 //		文字要求不平滑，看起来更清晰，所以，改成绘制文字时关闭锯齿，绘制完后恢复平滑
 		Composite com = db.g.getComposite();
-		db.g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-				RenderingHints.VALUE_ANTIALIAS_OFF);
+//		db.g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+//				RenderingHints.VALUE_ANTIALIAS_OFF);
 		// 不能使用异或输出，两个原因： 1,透明背景时异或根本就画不出来；2，异或总有某个相近的颜色异或后仍然不清晰
 
 		x = TA.x;
@@ -337,8 +337,8 @@ public class GraphFontView {
 		}
 
 //		文字输出完毕，再恢复平滑
-		db.g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-				RenderingHints.VALUE_ANTIALIAS_ON);
+//		db.g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+//				RenderingHints.VALUE_ANTIALIAS_ON);
 
 		db.g.setComposite(com);
 		db.g.setStroke(new BasicStroke(0.00001f));

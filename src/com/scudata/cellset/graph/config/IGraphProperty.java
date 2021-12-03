@@ -169,6 +169,7 @@ public interface IGraphProperty{
   public GraphFonts getFonts();
   public AlarmLine[] getAlarmLines();
   public byte getDisplayData();
+  public byte getDisplayData2();
   public boolean isDispStackSumValue();
   public byte getLegendLocation();
   
@@ -212,6 +213,7 @@ public interface IGraphProperty{
   public void setGradientColor(boolean b);
   public void setFonts(GraphFonts font);
   public void setDisplayData(byte data);
+  public void setDisplayData2(byte data);
   public void setLegendLocation(byte location);
   public void setDataUnit(double unit);
   public void setDrawLineDot(boolean b);

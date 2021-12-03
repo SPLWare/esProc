@@ -782,6 +782,9 @@ public class ExtGraphProperty {
 	public byte getDisplayData() {
 		return prop.getDisplayData();
 	}
+	public byte getDisplayData2() {
+		return prop.getDisplayData2();
+	}
 
 	/**
 	 * 参考PublicProperty的同名方法
@@ -1392,6 +1395,9 @@ public class ExtGraphProperty {
 	 */
 	public void setDisplayData(byte data) {
 		prop.setDisplayData(data);
+	}
+	public void setDisplayData2(byte data) {
+		prop.setDisplayData2(data);
 	}
 
 	/**

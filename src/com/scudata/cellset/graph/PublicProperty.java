@@ -95,6 +95,7 @@ public class PublicProperty implements IGraphProperty, ICloneable,
 
 	/** 图中显示数据定义 */
 	private byte displayData = DISPDATA_NONE;
+	private byte displayData2 = DISPDATA_NONE;
 
 	/** 图中显示数据格式定义 */
 	private String displayDataFormat;
@@ -806,6 +807,9 @@ public class PublicProperty implements IGraphProperty, ICloneable,
 	public byte getDisplayData() {
 		return displayData;
 	}
+	public byte getDisplayData2() {
+		return displayData2;
+	}
 
 	/**
 	 * 设置图中显示数据定义
@@ -815,6 +819,9 @@ public class PublicProperty implements IGraphProperty, ICloneable,
 	 */
 	public void setDisplayData(byte displayData) {
 		this.displayData = displayData;
+	}
+	public void setDisplayData2(byte displayData) {
+		this.displayData2 = displayData;
 	}
 
 	/**
@@ -1597,6 +1604,7 @@ public class PublicProperty implements IGraphProperty, ICloneable,
 			alarms = aline;
 		}
 		displayData = pp.getDisplayData();
+		displayData2 = pp.getDisplayData2();
 		displayDataFormat = pp.getDisplayDataFormat();
 		link = pp.getLink();
 		linkTarget = pp.getLinkTarget();
@@ -1660,7 +1668,7 @@ public class PublicProperty implements IGraphProperty, ICloneable,
 	 * 按版本序列化
 	 */
 	public void writeExternal(ObjectOutput out) throws IOException {
-		out.writeByte(7);
+		out.writeByte(9);
 		out.writeByte(type);
 		out.writeInt(axisColor);
 		out.writeInt(canvasColor);
@@ -1734,6 +1742,8 @@ public class PublicProperty implements IGraphProperty, ICloneable,
 		out.writeInt(legendVerticalGap);
 		out.writeInt(legendHorizonGap);
 		out.writeBoolean(isDataCenter);
+		out.writeByte(displayData2);
+
 	}
 
 	/**
@@ -1827,6 +1837,9 @@ public class PublicProperty implements IGraphProperty, ICloneable,
 		}
 		if(ver>7){
 			isDataCenter = in.readBoolean();
+		}
+		if(ver>8){
+			displayData2 = in.readByte();
 		}
 		
 	}
@@ -1927,6 +1940,7 @@ public class PublicProperty implements IGraphProperty, ICloneable,
 		out.writeInt(legendVerticalGap);
 		out.writeInt(legendHorizonGap);
 		out.writeBoolean(isDataCenter);
+		out.writeByte(displayData2);
 		return out.toByteArray();
 	}
 
@@ -2034,6 +2048,9 @@ public class PublicProperty implements IGraphProperty, ICloneable,
 		}
 		if(in.available()>0){
 			isDataCenter = in.readBoolean();
+		}
+		if(in.available()>0){
+			displayData2 = in.readByte();
 		}
 	}
 

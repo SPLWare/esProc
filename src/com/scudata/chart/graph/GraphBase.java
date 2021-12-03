@@ -67,6 +67,7 @@ public class GraphBase extends ObjectElement{
 	public Color dataColor = Color.black;
 	public int dataAngle;
 	public int displayData = IGraphProperty.DISPDATA_NONE;
+	public int displayData2 = IGraphProperty.DISPDATA_NONE;
 	public String displayDataFormat;
 
 	/** Í¼Àý */
@@ -133,6 +134,8 @@ public class GraphBase extends ObjectElement{
 
 		group = "dataMarks";
 		paramInfos.add(group, new ParamInfo("displayData",
+				Consts.INPUT_DISPLAYDATA));
+		paramInfos.add(group, new ParamInfo("displayData2",
 				Consts.INPUT_DISPLAYDATA));
 		paramInfos.add(group, new ParamInfo("displayDataFormat",
 				Consts.INPUT_NORMAL));
@@ -237,6 +240,7 @@ public class GraphBase extends ObjectElement{
 		pp.setFonts(getGraphFonts());
 		pp.setTitleMargin(graphTitleMargin);
 		pp.setDisplayData((byte) displayData);
+		pp.setDisplayData2((byte) displayData2);
 		pp.setDisplayDataFormat(displayDataFormat);
 		pp.setLegendLocation(legendLocation);
 		pp.setLegendVerticalGap(legendVerticalGap);
