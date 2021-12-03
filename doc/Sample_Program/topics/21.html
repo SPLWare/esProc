@@ -1,0 +1,995 @@
+<!--create by iword1.0 pro, http://www.voland.com.cn-->
+<!-- saved from url=(0026)http://www.runqian.com.cn/ -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>9. Commodities with the Longest Accumulated Out-of-Stock Time in a Month</title>
+<link rel="stylesheet" href="../images/template.css" type="text/css" />
+<link rel="stylesheet" href="document.css" type="text/css" />
+<script language="JavaScript" src="../resource/url.js"></script>
+</head>
+
+<body>
+
+<div id="content-bg">
+	<div id="centent">
+	<div id="centent-title"><h2 style='mso-list:l22 level1 lfo40'><span lang=X-NONE
+style='mso-fareast-font-family:"Times New Roman"'><span style='mso-list:Ignore'>9.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><span lang=X-NONE>Commodities with the Longest
+Accumulated Out-of-Stock Time in a Month</span></h2></div>
+	<p class=MsoNormal style='margin-left:18.0pt;text-indent:-18.0pt;line-height:
+16.0pt;mso-line-height-rule:exactly;mso-list:l1 level2 lfo18;tab-stops:list 21.0pt'><span
+lang=EN-US style='mso-bidi-font-size:12.0pt;font-family:Wingdings;mso-fareast-font-family:
+Wingdings;mso-bidi-font-family:Wingdings'><span style='mso-list:Ignore'>l<span
+style='font:7.0pt "Times New Roman"'>&nbsp; </span></span></span><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
+12.0pt'>Problem</span></b></p>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02;
+line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US
+style='mso-bidi-font-size:10.5pt'>The tables below are from a simplified
+supermarket stock control system. To check if the purchase policy is proper,
+the supermarket needs to </span><span lang=EN-US>find out the commodity with
+the longest accumulated out-of-stock time</span><span lang=EN-US
+style='mso-bidi-font-size:10.5pt'> in the month of June. The supermarket opens
+at 8 a.m. and closes at 9:30 p.m.
+The out-of-stock time of non-business hours will not be counted. The desired
+table is as follows:</span></p>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt'><img width=304 height=269
+src="Sample_Program.files/image049.gif" v:shapes="_x0000_i1053"></span></p>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02;
+line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US
+style='mso-bidi-font-size:10.5pt'>The supermarket replenishes its stock at 5 a.m. every day as shown in the below
+purchase table which records the volume of every piece of commodity. </span></p>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt'><img width=301 height=269
+src="Sample_Program.files/image050.gif" v:shapes="_x0000_i1054"></span></p>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02;
+line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US
+style='mso-bidi-font-size:10.5pt'>The table below is a table about the
+remaining stock by the last day of May:</span></p>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt'><img width=251 height=269
+src="Sample_Program.files/image051.gif" v:shapes="_x0000_i1055"></span></p>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02;
+line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US
+style='mso-bidi-font-size:10.5pt'>The table below is a detailed sales record of
+the supermarket:</span></p>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt'><img width=304 height=269
+src="Sample_Program.files/image052.gif" v:shapes="_x0000_i1056"></span></p>
+
+<p class=MsoNormal style='text-indent:17.85pt;mso-char-indent-count:1.7'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-left:18.0pt;text-indent:-18.0pt;line-height:
+16.0pt;mso-line-height-rule:exactly;mso-list:l1 level2 lfo18;tab-stops:list 21.0pt'><span
+lang=EN-US style='mso-bidi-font-size:12.0pt;font-family:Wingdings;mso-fareast-font-family:
+Wingdings;mso-bidi-font-family:Wingdings'><span style='mso-list:Ignore'>l<span
+style='font:7.0pt "Times New Roman"'>&nbsp; </span></span></span><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
+12.0pt'>Tip</span></b></p>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02;
+line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US
+style='mso-bidi-font-size:10.5pt'>General steps: Create a table to record the
+remaining stocks and the </span><span lang=EN-US>out-of-stock commodities</span><span
+lang=EN-US style='mso-bidi-font-size:10.5pt'> first. Group the purchase table
+and sales table by date and loop every day. Traverse every </span><span
+lang=EN-US>purchase and sales record</span><span lang=EN-US style='mso-bidi-font-size:
+10.5pt'> to get statistics of </span><span lang=EN-US>out-of-stock</span><span
+lang=EN-US style='mso-bidi-font-size:10.5pt'> commodities and the accumulated out-of-stock
+time. Then, aggregate the total out-of-stock time and the commodity with the longest
+accumulated out-of-stock time can be found out. </span></p>
+
+<p class=MsoNormal style='margin-left:0cm;text-indent:21.3pt;line-height:16.0pt;
+mso-line-height-rule:exactly;mso-list:l12 level1 lfo20'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:"Times New Roman"'><span
+style='mso-list:Ignore'>1.<span style='font:7.0pt "Times New Roman"'>&nbsp;
+</span></span></span><span lang=EN-US style='mso-bidi-font-size:10.5pt'>Create
+a sequence of all dates of the month and align the purchase and sales tables
+with it. This is to ensure that the purchase table and sales table are aligned
+completely, so as to avoid the mistake that there are days when no commodities are
+replenished. </span></p>
+
+<p class=MsoNormal style='margin-left:0cm;text-indent:21.3pt;line-height:16.0pt;
+mso-line-height-rule:exactly;mso-list:l12 level1 lfo20'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:"Times New Roman"'><span
+style='mso-list:Ignore'>2.<span style='font:7.0pt "Times New Roman"'>&nbsp;
+</span></span></span><span lang=EN-US style='mso-bidi-font-size:10.5pt'>Align
+the purchase table and sales table with the date sequence. Two sequences
+grouped by dates will be created.<span style='mso-spacerun:yes'>&nbsp; </span></span></p>
+
+<p class=MsoNormal style='margin-left:0cm;text-indent:21.3pt;line-height:16.0pt;
+mso-line-height-rule:exactly;mso-list:l12 level1 lfo20'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:"Times New Roman"'><span
+style='mso-list:Ignore'>3.<span style='font:7.0pt "Times New Roman"'>&nbsp;
+</span></span></span><span lang=EN-US style='mso-bidi-font-size:10.5pt'>Create
+a table sequence A to record the remaining stocks and the out-of-stock
+commodities. Table sequence A comprise Commodity, Stock, OosTime, and TotalOosTime
+fields. </span></p>
+
+<p class=MsoNormal style='margin-left:0cm;text-indent:21.3pt;line-height:16.0pt;
+mso-line-height-rule:exactly;mso-list:l12 level1 lfo20'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:"Times New Roman"'><span
+style='mso-list:Ignore'>4.<span style='font:7.0pt "Times New Roman"'>&nbsp;
+</span></span></span><span lang=EN-US style='mso-bidi-font-size:10.5pt'>Set
+the primary key for this table as Commodity to facilitate the future searches. </span></p>
+
+<p class=MsoNormal style='margin-left:0cm;text-indent:21.3pt;line-height:16.0pt;
+mso-line-height-rule:exactly;mso-list:l12 level1 lfo20'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:"Times New Roman"'><span
+style='mso-list:Ignore'>5.<span style='font:7.0pt "Times New Roman"'>&nbsp;
+</span></span></span><span lang=EN-US style='mso-bidi-font-size:10.5pt'>Write
+the remaining stocks of last month to table A as the initial stock. </span></p>
+
+<p class=MsoNormal style='margin-left:0cm;text-indent:21.3pt;line-height:16.0pt;
+mso-line-height-rule:exactly;mso-list:l12 level1 lfo20'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:"Times New Roman"'><span
+style='mso-list:Ignore'>6.<span style='font:7.0pt "Times New Roman"'>&nbsp;
+</span></span></span><span lang=EN-US style='mso-bidi-font-size:10.5pt'>Loop
+the date sequence of this month, that is, loop each day. </span></p>
+
+<p class=MsoNormal style='margin-left:0cm;text-indent:21.3pt;line-height:16.0pt;
+mso-line-height-rule:exactly;mso-list:l12 level1 lfo20'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:"Times New Roman"'><span
+style='mso-list:Ignore'>7.<span style='font:7.0pt "Times New Roman"'>&nbsp;
+</span></span></span><span lang=EN-US style='mso-bidi-font-size:10.5pt'>In
+the loop body, retrieve the morning purchase data of this day and add it to
+table A.</span></p>
+
+<p class=MsoNormal style='margin-left:0cm;text-indent:21.3pt;line-height:16.0pt;
+mso-line-height-rule:exactly;mso-list:l12 level1 lfo20'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:"Times New Roman"'><span
+style='mso-list:Ignore'>8.<span style='font:7.0pt "Times New Roman"'>&nbsp;
+</span></span></span><span lang=EN-US style='mso-bidi-font-size:10.5pt'>Find
+out the commodities whose stock is 0 in
+table A. The OosTime is the opening time of the supermarket, that is, 8 a.m. </span></p>
+
+<p class=MsoNormal style='margin-left:0cm;text-indent:21.3pt;line-height:16.0pt;
+mso-line-height-rule:exactly;mso-list:l12 level1 lfo20'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:"Times New Roman"'><span
+style='mso-list:Ignore'>9.<span style='font:7.0pt "Times New Roman"'>&nbsp;
+</span></span></span><span lang=EN-US style='mso-bidi-font-size:10.5pt'>Loop
+all sales records of the day. </span></p>
+
+<p class=MsoNormal style='margin-left:0cm;text-indent:21.3pt;line-height:16.0pt;
+mso-line-height-rule:exactly;mso-list:l12 level1 lfo20'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:"Times New Roman"'><span
+style='mso-list:Ignore'>10.<span style='font:7.0pt "Times New Roman"'>&nbsp;
+</span></span></span><span lang=EN-US style='mso-bidi-font-size:10.5pt'>In
+the loop body, find out the current commodity in table A and as aggregate its
+stock changes.</span></p>
+
+<p class=MsoNormal style='margin-left:0cm;text-indent:21.3pt;line-height:16.0pt;
+mso-line-height-rule:exactly;mso-list:l12 level1 lfo20'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:"Times New Roman"'><span
+style='mso-list:Ignore'>11.<span style='font:7.0pt "Times New Roman"'>&nbsp;
+</span></span></span><span lang=EN-US style='mso-bidi-font-size:10.5pt'>Check
+if the Stock value of the current commodity turns to 0. If so, then it is out
+of stock on that day. Write down the OosTime as current time in table A. </span></p>
+
+<p class=MsoNormal style='margin-left:0cm;text-indent:21.3pt;line-height:16.0pt;
+mso-line-height-rule:exactly;mso-list:l12 level1 lfo20'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:"Times New Roman"'><span
+style='mso-list:Ignore'>12.<span style='font:7.0pt "Times New Roman"'>&nbsp;
+</span></span></span><span lang=EN-US style='mso-bidi-font-size:10.5pt'>At
+the end of the loop, select all out-of-stock commodities of the day in table A.
+The closing time of the supermarket is the end time. Work out the out-of-stock
+time and add it to the field of TotalOosTime in table A.</span></p>
+
+<p class=MsoNormal style='margin-left:0cm;text-indent:21.3pt;line-height:16.0pt;
+mso-line-height-rule:exactly;mso-list:l12 level1 lfo20'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:"Times New Roman"'><span
+style='mso-list:Ignore'>13.<span style='font:7.0pt "Times New Roman"'>&nbsp;
+</span></span></span><span lang=EN-US style='mso-bidi-font-size:10.5pt'>The
+accumulation for table A is over at the end of the date loop. Get the commodity
+with the longest TotalOosTime.</span></p>
+
+<p class=MsoNormal style='text-indent:17.85pt;mso-char-indent-count:1.7'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-left:18.0pt;text-indent:-18.0pt;mso-list:l1 level2 lfo18;
+tab-stops:list 21.0pt'><span lang=EN-US style='mso-bidi-font-size:
+12.0pt;font-family:Wingdings;mso-fareast-font-family:Wingdings;mso-bidi-font-family:
+Wingdings'><span style='mso-list:Ignore'>l<span style='font:7.0pt "Times New Roman"'>&nbsp;
+</span></span></span><b style='mso-bidi-font-weight:normal'><span
+lang=EN-US style='mso-bidi-font-size:12.0pt'>Code</span></b></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='margin-left:21.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:
+ #B2B2B2;mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
+ .5pt;mso-yfti-tbllook:1184;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:
+ .5pt solid #B2B2B2;mso-border-insidev:.5pt solid #B2B2B2'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=29 style='width:21.8pt;border:solid black 1.0pt;mso-border-alt:
+  solid black .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel><span lang=EN-US>&nbsp;</span></p>
+  </td>
+  <td width=137 style='width:102.95pt;border:solid black 1.0pt;border-left:
+  none;mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel><span lang=EN-US>A</span></p>
+  </td>
+  <td width=94 style='width:70.85pt;border:solid black 1.0pt;border-left:none;
+  mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel><span lang=EN-US>B</span></p>
+  </td>
+  <td width=45 style='width:34.0pt;border:solid black 1.0pt;border-left:none;
+  mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel><span lang=EN-US>C</span></p>
+  </td>
+  <td width=45 style='width:34.0pt;border:solid black 1.0pt;border-left:none;
+  mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel><span lang=EN-US>D</span></p>
+  </td>
+  <td width=174 style='width:130.4pt;border:none;mso-border-left-alt:solid #B2B2B2 .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel><span lang=EN-US>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
+  <td width=29 style='width:21.8pt;border:solid black 1.0pt;border-top:none;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLaEnd><span lang=EN-US>1</span></p>
+  </td>
+  <td width=137 style='width:102.95pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-top-alt:windowtext;mso-border-left-alt:windowtext;mso-border-bottom-alt:
+  #B2B2B2;mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
+  .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>=file(&quot;C:\\txt\\Stock.txt&quot;).import@t().select(month(Datetime)==6)</span></p>
+  </td>
+  <td width=94 style='width:70.85pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid #B2B2B2 .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-top-alt:solid windowtext .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></p>
+  </td>
+  <td width=45 style='width:34.0pt;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid windowtext .5pt;
+  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  mso-border-top-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></p>
+  </td>
+  <td width=45 style='width:34.0pt;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid windowtext .5pt;
+  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  mso-border-top-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></p>
+  </td>
+  <td width=174 style='width:130.4pt;border:none;mso-border-left-alt:solid #B2B2B2 .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabHelp><i style='mso-bidi-font-style:normal'><span lang=EN-US>Stock</span></i><span
+  lang=EN-US> table of June</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
+  <td width=29 style='width:21.8pt;border:solid black 1.0pt;border-top:none;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLaEnd><span lang=EN-US>2</span></p>
+  </td>
+  <td width=137 style='width:102.95pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>=file(&quot;C:\\txt\\Sale.txt&quot;).import@t().select(month(Datetime)==6)</span></p>
+  </td>
+  <td width=94 style='width:70.85pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid #B2B2B2 .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></p>
+  </td>
+  <td width=45 style='width:34.0pt;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></p>
+  </td>
+  <td width=45 style='width:34.0pt;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></p>
+  </td>
+  <td width=174 style='width:130.4pt;border:none;mso-border-left-alt:solid #B2B2B2 .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabHelp><i style='mso-bidi-font-style:normal'><span lang=EN-US>Sales</span></i><span
+  lang=EN-US> table of June</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;page-break-inside:avoid;height:14.15pt'>
+  <td width=29 style='width:21.8pt;border:solid black 1.0pt;border-top:none;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLaEnd><span lang=EN-US>3</span></p>
+  </td>
+  <td width=137 style='width:102.95pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>=file(&quot;C:\\txt\\Storage.txt&quot;).import@t().select(month(Date)==5)</span></p>
+  </td>
+  <td width=94 style='width:70.85pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid #B2B2B2 .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></p>
+  </td>
+  <td width=45 style='width:34.0pt;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></p>
+  </td>
+  <td width=45 style='width:34.0pt;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></p>
+  </td>
+  <td width=174 style='width:130.4pt;border:none;mso-border-left-alt:solid #B2B2B2 .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabHelp><span lang=EN-US>Remaining stocks at the end of May</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4;page-break-inside:avoid;height:14.15pt'>
+  <td width=29 style='width:21.8pt;border:solid black 1.0pt;border-top:none;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLaEnd><span lang=EN-US>4</span></p>
+  </td>
+  <td width=137 style='width:102.95pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>=file(&quot;C:\\txt\\Commodity.txt&quot;).import@t()</span></p>
+  </td>
+  <td width=94 style='width:70.85pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid #B2B2B2 .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></p>
+  </td>
+  <td width=45 style='width:34.0pt;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></p>
+  </td>
+  <td width=45 style='width:34.0pt;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></p>
+  </td>
+  <td width=174 style='width:130.4pt;border:none;mso-border-left-alt:solid #B2B2B2 .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabHelp><i style='mso-bidi-font-style:normal'><span lang=EN-US>Commodity</span></i><span
+  lang=EN-US> table</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:5;page-break-inside:avoid;height:14.15pt'>
+  <td width=29 style='width:21.8pt;border:solid black 1.0pt;border-top:none;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLaEnd><span lang=EN-US>5</span></p>
+  </td>
+  <td width=137 style='width:102.95pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCodepink><span lang=EN-US style='font-family:"Times New Roman",serif'>'08:00:00</span></p>
+  </td>
+  <td width=94 style='width:70.85pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid #B2B2B2 .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCodepink><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></p>
+  </td>
+  <td width=45 style='width:34.0pt;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCodepink><span lang=EN-US style='font-family:"Times New Roman",serif'>'21:30:00</span></p>
+  </td>
+  <td width=45 style='width:34.0pt;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></p>
+  </td>
+  <td width=174 style='width:130.4pt;border:none;mso-border-left-alt:solid #B2B2B2 .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabHelp><span lang=EN-US>Business hours of the supermarket</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:6;page-break-inside:avoid;height:14.15pt'>
+  <td width=29 style='width:21.8pt;border:solid black 1.0pt;border-top:none;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLaEnd><span lang=EN-US>6</span></p>
+  </td>
+  <td width=137 style='width:102.95pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>=periods@d(date(&quot;2009-6-1&quot;),
+  date(&quot;2009-6-30&quot;), 1)</span></p>
+  </td>
+  <td width=94 style='width:70.85pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid #B2B2B2 .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></p>
+  </td>
+  <td width=45 style='width:34.0pt;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></p>
+  </td>
+  <td width=45 style='width:34.0pt;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></p>
+  </td>
+  <td width=174 style='width:130.4pt;border:none;mso-border-left-alt:solid #B2B2B2 .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabHelp><span lang=EN-US>Create a sequence with all days of the
+  month</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:7;page-break-inside:avoid;height:14.15pt'>
+  <td width=29 style='width:21.8pt;border:solid black 1.0pt;border-top:none;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLaEnd><span lang=EN-US>7</span></p>
+  </td>
+  <td width=137 style='width:102.95pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>=A1.align@a(A6:~,date(Datetime))</span></p>
+  </td>
+  <td width=94 style='width:70.85pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid #B2B2B2 .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></p>
+  </td>
+  <td width=45 style='width:34.0pt;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></p>
+  </td>
+  <td width=45 style='width:34.0pt;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></p>
+  </td>
+  <td width=174 style='width:130.4pt;border:none;mso-border-left-alt:solid #B2B2B2 .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabHelp><span lang=EN-US>Align the purchase table by dates to get
+  the record grouped by dates.</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:8;page-break-inside:avoid;height:14.15pt'>
+  <td width=29 style='width:21.8pt;border:solid black 1.0pt;border-top:none;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLaEnd><span lang=EN-US>8</span></p>
+  </td>
+  <td width=137 style='width:102.95pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>=A2.align@a(A6:~,date(Datetime))</span></p>
+  </td>
+  <td width=94 style='width:70.85pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid #B2B2B2 .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></p>
+  </td>
+  <td width=45 style='width:34.0pt;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></p>
+  </td>
+  <td width=45 style='width:34.0pt;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></p>
+  </td>
+  <td width=174 style='width:130.4pt;border:none;mso-border-left-alt:solid #B2B2B2 .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabHelp><span lang=EN-US>Align the sales table by dates once again.</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:9;page-break-inside:avoid;height:14.15pt'>
+  <td width=29 style='width:21.8pt;border:solid black 1.0pt;border-top:none;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLaEnd><span lang=EN-US>9</span></p>
+  </td>
+  <td width=137 style='width:102.95pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>=A4.new(ID:Commodity,0:Stock,:OosTime,0:TotalOosTime)</span></p>
+  </td>
+  <td width=94 style='width:70.85pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid #B2B2B2 .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></p>
+  </td>
+  <td width=45 style='width:34.0pt;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></p>
+  </td>
+  <td width=45 style='width:34.0pt;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></p>
+  </td>
+  <td width=174 style='width:130.4pt;border:none;mso-border-left-alt:solid #B2B2B2 .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabHelp><span lang=EN-US>Create a table to get statistics of
+  remaining stocks and out-of-stock commodities. </span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:10;page-break-inside:avoid;height:14.15pt'>
+  <td width=29 style='width:21.8pt;border:solid black 1.0pt;border-top:none;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLaEnd><span lang=EN-US>10</span></p>
+  </td>
+  <td width=137 style='width:102.95pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>&gt;A9.keys(Commodity)</span></p>
+  </td>
+  <td width=94 style='width:70.85pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid #B2B2B2 .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></p>
+  </td>
+  <td width=45 style='width:34.0pt;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></p>
+  </td>
+  <td width=45 style='width:34.0pt;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></p>
+  </td>
+  <td width=174 style='width:130.4pt;border:none;mso-border-left-alt:solid #B2B2B2 .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabHelp><span lang=EN-US>Set the primary key of the table. </span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:11;page-break-inside:avoid;height:14.15pt'>
+  <td width=29 style='width:21.8pt;border:solid black 1.0pt;border-top:none;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLaEnd><span lang=EN-US>11</span></p>
+  </td>
+  <td width=137 style='width:102.95pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>=A3.run(A9.find(Commodity).Stock=Stock)</span></p>
+  </td>
+  <td width=94 style='width:70.85pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid #B2B2B2 .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></p>
+  </td>
+  <td width=45 style='width:34.0pt;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></p>
+  </td>
+  <td width=45 style='width:34.0pt;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></p>
+  </td>
+  <td width=174 style='width:130.4pt;border:none;mso-border-left-alt:solid #B2B2B2 .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabHelp><span lang=EN-US style='mso-bidi-font-size:10.5pt'>Write the
+  remaining stocks of May to table A as the initial stocks. </span></p>
+  <p class=TabHelp><span lang=EN-US>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:12;page-break-inside:avoid;height:14.15pt'>
+  <td width=29 style='width:21.8pt;border:solid black 1.0pt;border-top:none;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLaEnd><span lang=EN-US>12</span></p>
+  </td>
+  <td width=137 style='width:102.95pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>for
+  A6</span></p>
+  </td>
+  <td width=94 style='width:70.85pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid #B2B2B2 .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>=A7(#A12).run(A9.find(Commodity).run(Stock=Stock+Volume))</span></p>
+  </td>
+  <td width=45 style='width:34.0pt;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></p>
+  </td>
+  <td width=45 style='width:34.0pt;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></p>
+  </td>
+  <td width=174 style='width:130.4pt;border:none;mso-border-left-alt:solid #B2B2B2 .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabHelp><span lang=EN-US>Loop every day. Summarize commodity
+  purchase volumes in every morning first.</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:13;page-break-inside:avoid;height:14.15pt'>
+  <td width=29 style='width:21.8pt;border:solid black 1.0pt;border-top:none;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLaEnd><span lang=EN-US>13</span></p>
+  </td>
+  <td width=137 style='width:102.95pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></p>
+  </td>
+  <td width=94 style='width:70.85pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid #B2B2B2 .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>=A9.select(Stock&lt;=0).run(OosTime=string(A12)+&quot;
+  &quot;+A5)</span></p>
+  </td>
+  <td width=45 style='width:34.0pt;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></p>
+  </td>
+  <td width=45 style='width:34.0pt;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></p>
+  </td>
+  <td width=174 style='width:130.4pt;border:none;mso-border-left-alt:solid #B2B2B2 .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabHelp><span lang=EN-US>Find out the out-of-stock commodities. The
+  opening hour of the supermarket should be recorded as the start point of
+  out-of-stock time.</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:14;page-break-inside:avoid;height:14.15pt'>
+  <td width=29 style='width:21.8pt;border:solid black 1.0pt;border-top:none;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLaEnd><span lang=EN-US>14</span></p>
+  </td>
+  <td width=137 style='width:102.95pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></p>
+  </td>
+  <td width=94 style='width:70.85pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid #B2B2B2 .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>for
+  A8(#A12)</span></p>
+  </td>
+  <td width=45 style='width:34.0pt;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>=A9.find(B14.Commodity)</span></p>
+  </td>
+  <td width=45 style='width:34.0pt;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></p>
+  </td>
+  <td width=174 style='width:130.4pt;border:none;mso-border-left-alt:solid #B2B2B2 .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabHelp><span lang=EN-US>To make it further, loop every sales record
+  of the day. </span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:15;page-break-inside:avoid;height:14.15pt'>
+  <td width=29 style='width:21.8pt;border:solid black 1.0pt;border-top:none;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLaEnd><span lang=EN-US>15</span></p>
+  </td>
+  <td width=137 style='width:102.95pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></p>
+  </td>
+  <td width=94 style='width:70.85pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid #B2B2B2 .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></p>
+  </td>
+  <td width=45 style='width:34.0pt;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>&gt;C14.run(Stock=Stock-B14.Volume)</span></p>
+  </td>
+  <td width=45 style='width:34.0pt;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></p>
+  </td>
+  <td width=174 style='width:130.4pt;border:none;mso-border-left-alt:solid #B2B2B2 .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabHelp><span lang=EN-US>Accumulate all stocks changes.</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:16;page-break-inside:avoid;height:14.15pt'>
+  <td width=29 style='width:21.8pt;border:solid black 1.0pt;border-top:none;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLaEnd><span lang=EN-US>16</span></p>
+  </td>
+  <td width=137 style='width:102.95pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></p>
+  </td>
+  <td width=94 style='width:70.85pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid #B2B2B2 .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></p>
+  </td>
+  <td width=45 style='width:34.0pt;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>if
+  C14.Stock&lt;=0</span></p>
+  </td>
+  <td width=45 style='width:34.0pt;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>&gt;C14.OosTime=B14.Datetime</span></p>
+  </td>
+  <td width=174 style='width:130.4pt;border:none;mso-border-left-alt:solid #B2B2B2 .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabHelp><span lang=EN-US>If the commodities run out of stock after
+  transactions, write down the current time as the start point of out-of-stock.</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:17;page-break-inside:avoid;height:14.15pt'>
+  <td width=29 style='width:21.8pt;border:solid black 1.0pt;border-top:none;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLaEnd><span lang=EN-US>17</span></p>
+  </td>
+  <td width=137 style='width:102.95pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></p>
+  </td>
+  <td width=94 style='width:70.85pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid #B2B2B2 .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>=A9.select(Stock&lt;=0)</span></p>
+  </td>
+  <td width=45 style='width:34.0pt;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></p>
+  </td>
+  <td width=45 style='width:34.0pt;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></p>
+  </td>
+  <td width=174 style='width:130.4pt;border:none;mso-border-left-alt:solid #B2B2B2 .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabHelp><span lang=EN-US>Select all commodities that run out of
+  stock today.</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:18;page-break-inside:avoid;height:14.15pt'>
+  <td width=29 style='width:21.8pt;border:solid black 1.0pt;border-top:none;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLaEnd><span lang=EN-US>18</span></p>
+  </td>
+  <td width=137 style='width:102.95pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></p>
+  </td>
+  <td width=94 style='width:70.85pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid #B2B2B2 .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>&gt;B17.run(TotalOosTime=TotalOosTime+interval@s
+  (OosTime,string(A12)+&quot; &quot;+C5))</span></p>
+  </td>
+  <td width=45 style='width:34.0pt;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></p>
+  </td>
+  <td width=45 style='width:34.0pt;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></p>
+  </td>
+  <td width=174 style='width:130.4pt;border:none;mso-border-left-alt:solid #B2B2B2 .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabHelp><span lang=EN-US>Count the out-of-stock time with the
+  closing time of the supermarket as the end point.</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:19;mso-yfti-lastrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=29 style='width:21.8pt;border:solid black 1.0pt;border-top:none;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLaEnd><span lang=EN-US>19</span></p>
+  </td>
+  <td width=137 style='width:102.95pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>=A9.maxp(TotalOosTime).Commodity</span></p>
+  </td>
+  <td width=94 style='width:70.85pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid #B2B2B2 .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></p>
+  </td>
+  <td width=45 style='width:34.0pt;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></p>
+  </td>
+  <td width=45 style='width:34.0pt;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></p>
+  </td>
+  <td width=174 style='width:130.4pt;border:none;mso-border-left-alt:solid #B2B2B2 .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabHelp><span lang=EN-US>Select out the commodity with the longest
+  out-of-stock time.</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal style='line-height:16.0pt;mso-line-height-rule:exactly'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-left:18.0pt;text-indent:-18.0pt;line-height:
+16.0pt;mso-line-height-rule:exactly;mso-list:l1 level2 lfo18;tab-stops:list 21.0pt'><span
+lang=EN-US style='mso-bidi-font-size:12.0pt;font-family:Wingdings;mso-fareast-font-family:
+Wingdings;mso-bidi-font-family:Wingdings'><span style='mso-list:Ignore'>l<span
+style='font:7.0pt "Times New Roman"'>&nbsp; </span></span></span><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
+12.0pt'>Result</span></b></p>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
+lang=EN-US style='mso-no-proof:yes'><img width=200 height=41
+src="Sample_Program.files/image054.jpg" v:shapes="_x0000_i1057"></span><span
+lang=EN-US style='mso-bidi-font-size:10.5pt'></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='mso-bidi-font-size:10.5pt'>&nbsp;</span></p>
+	</div>
+	<div id="previous-next">
+		<div id="next"><a href="22.html">Next</a></div>
+		<div id="previous"><a href="20.html">Previous</a></div>		
+	</div>
+	<div id="related">
+		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="12.html">Database Computation</a></span></li>
+</div>
+	</div>
+	<div id="footer">	
+		
+		
+    <div class="copyright"> Copyright&reg; 2021 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+      </a></div>
+	</div>
+</div>
+
+</body>
+</html>

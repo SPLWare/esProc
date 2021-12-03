@@ -1,0 +1,525 @@
+<!--create by iword1.0 pro, http://www.voland.com.cn-->
+<!-- saved from url=(0026)http://www.runqian.com.cn/ -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>10. Average Residence Time of Certain Types of Commodities in the Supermarket before Being Sold Out</title>
+<link rel="stylesheet" href="../images/template.css" type="text/css" />
+<link rel="stylesheet" href="document.css" type="text/css" />
+<script language="JavaScript" src="../resource/url.js"></script>
+</head>
+
+<body>
+
+<div id="content-bg">
+	<div id="centent">
+	<div id="centent-title"><h2 style='mso-list:l22 level1 lfo40'><span lang=X-NONE
+style='mso-fareast-font-family:"Times New Roman"'><span style='mso-list:Ignore'>10.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span></span><span
+lang=X-NONE>Average Residence Time of Certain Types of Commodities in the
+Supermarket before Being Sold Out</span><span
+lang=EN-US> </span></h2></div>
+	<p class=MsoNormal style='margin-left:18.0pt;text-indent:-18.0pt;line-height:
+16.0pt;mso-line-height-rule:exactly;mso-list:l1 level2 lfo18;tab-stops:list 21.0pt'><span
+lang=EN-US style='mso-bidi-font-size:12.0pt;font-family:Wingdings;mso-fareast-font-family:
+Wingdings;mso-bidi-font-family:Wingdings'><span style='mso-list:Ignore'>l<span
+style='font:7.0pt "Times New Roman"'>&nbsp; </span></span></span><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
+12.0pt'>Problem</span></b></p>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02;
+line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US
+style='mso-bidi-font-size:10.5pt'>The tables below are some tables from
+simplified supermarket stock control system. To investigate the sales status in
+a supermarket, it is required to compute the average time before the “Fresh”
+type commodities are sold. The related tables are given as below:</span></p>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02;
+line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US
+style='mso-bidi-font-size:10.5pt'>The following commodity table records the
+detailed information of commodities.</span></p>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt'><img width=304 height=269
+src="Sample_Program.files/image049.gif" v:shapes="_x0000_i1058"></span></p>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02;
+line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US
+style='mso-bidi-font-size:10.5pt'>The purchase table has the purchase records
+of each piece of commodity. The supermarket replenishes its stock at 5 a.m. every day.</span></p>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt'><img width=301 height=269
+src="Sample_Program.files/image050.gif" v:shapes="_x0000_i1059"></span></p>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02;
+line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US
+style='mso-bidi-font-size:10.5pt'>The third table is a detailed sales table of
+the supermarket. </span></p>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt'><img width=304 height=269
+src="Sample_Program.files/image052.gif" v:shapes="_x0000_i1060"></span></p>
+
+<p class=MsoNormal style='text-indent:17.85pt;mso-char-indent-count:1.7'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-left:18.0pt;text-indent:-18.0pt;line-height:
+16.0pt;mso-line-height-rule:exactly;mso-list:l1 level2 lfo18;tab-stops:list 21.0pt'><span
+lang=EN-US style='mso-bidi-font-size:12.0pt;font-family:Wingdings;mso-fareast-font-family:
+Wingdings;mso-bidi-font-family:Wingdings'><span style='mso-list:Ignore'>l<span
+style='font:7.0pt "Times New Roman"'>&nbsp; </span></span></span><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
+12.0pt'><span style='mso-spacerun:yes'>&nbsp;</span>Tip</span></b></p>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02;
+line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US
+style='mso-bidi-font-size:10.5pt'>General steps: First, decide the way to work
+out the “average residence time before being sold”. The supermarket cannot make
+a separate record for every piece of commodity, so counting the residence time
+of every piece of commodity individually cannot work out. According to
+mathematical conversion, it is known that the “average residence time” is the
+difference between the average sold-out time and the average purchase time. The
+problem can be solved by this algorithm. As long as the purchase and sold-out
+records of the specified item has been filtered, it will be much easier tocompute
+the time average.</span></p>
+
+<p class=MsoNormal style='margin-left:0cm;text-indent:21.3pt;line-height:16.0pt;
+mso-line-height-rule:exactly;mso-list:l36 level1 lfo21'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:"Times New Roman"'><span
+style='mso-list:Ignore'>1.<span style='font:7.0pt "Times New Roman"'>&nbsp;
+</span></span></span><span lang=EN-US style='mso-bidi-font-size:10.5pt'>Replace
+the <b style='mso-bidi-font-weight:normal'>Commodity</b> field in the purchase
+table and sales table with corresponding records of the commodity table.</span></p>
+
+<p class=MsoNormal style='margin-left:0cm;text-indent:21.3pt;line-height:16.0pt;
+mso-line-height-rule:exactly;mso-list:l36 level1 lfo21'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:"Times New Roman"'><span
+style='mso-list:Ignore'>2.<span style='font:7.0pt "Times New Roman"'>&nbsp;
+</span></span></span><span lang=EN-US style='mso-bidi-font-size:10.5pt'>Filter
+out the purchase records by category Fresh.</span></p>
+
+<p class=MsoNormal style='margin-left:0cm;text-indent:21.3pt;line-height:16.0pt;
+mso-line-height-rule:exactly;mso-list:l36 level1 lfo21'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:"Times New Roman"'><span
+style='mso-list:Ignore'>3.<span style='font:7.0pt "Times New Roman"'>&nbsp;
+</span></span></span><span lang=EN-US style='mso-bidi-font-size:10.5pt'>Filter
+out the sales record by category Fresh.</span></p>
+
+<p class=MsoNormal style='margin-left:0cm;text-indent:21.3pt;line-height:16.0pt;
+mso-line-height-rule:exactly;mso-list:l36 level1 lfo21'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:"Times New Roman"'><span
+style='mso-list:Ignore'>4.<span style='font:7.0pt "Times New Roman"'>&nbsp;
+</span></span></span><span lang=EN-US style='mso-bidi-font-size:10.5pt'>Count
+the total purchase volume. </span></p>
+
+<p class=MsoNormal style='margin-left:0cm;text-indent:21.3pt;line-height:16.0pt;
+mso-line-height-rule:exactly;mso-list:l36 level1 lfo21'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:"Times New Roman"'><span
+style='mso-list:Ignore'>5.<span style='font:7.0pt "Times New Roman"'>&nbsp;
+</span></span></span><span lang=EN-US style='mso-bidi-font-size:10.5pt'>The
+start point should be the beginning of the month. Work out the time difference
+between every purchase time and the start point, multiply it with the purchase
+volume and sum up the results. </span></p>
+
+<p class=MsoNormal style='margin-left:0cm;text-indent:21.3pt;line-height:16.0pt;
+mso-line-height-rule:exactly;mso-list:l36 level1 lfo21'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:"Times New Roman"'><span
+style='mso-list:Ignore'>6.<span style='font:7.0pt "Times New Roman"'>&nbsp;
+</span></span></span><span lang=EN-US style='mso-bidi-font-size:10.5pt'>Count
+the total sales volume. </span></p>
+
+<p class=MsoNormal style='margin-left:0cm;text-indent:21.3pt;line-height:16.0pt;
+mso-line-height-rule:exactly;mso-list:l36 level1 lfo21'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:"Times New Roman"'><span
+style='mso-list:Ignore'>7.<span style='font:7.0pt "Times New Roman"'>&nbsp;
+</span></span></span><span lang=EN-US style='mso-bidi-font-size:10.5pt'>The
+start point should be the beginning of the month. Work out the time difference
+of the every sales time and the start point, multiply it with the sales volume,
+and sum up the results.</span></p>
+
+<p class=MsoNormal style='margin-left:0cm;text-indent:21.3pt;line-height:16.0pt;
+mso-line-height-rule:exactly;mso-list:l36 level1 lfo21'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:"Times New Roman"'><span
+style='mso-list:Ignore'>8.<span style='font:7.0pt "Times New Roman"'>&nbsp;
+</span></span></span><span lang=EN-US style='mso-bidi-font-size:10.5pt'>For
+the remaining commodities (the unsold commodities), set their “sales time” as
+the end of the month. </span></p>
+
+<p class=MsoNormal style='margin-left:0cm;text-indent:21.3pt;line-height:16.0pt;
+mso-line-height-rule:exactly;mso-list:l36 level1 lfo21'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:"Times New Roman"'><span
+style='mso-list:Ignore'>9.<span style='font:7.0pt "Times New Roman"'>&nbsp;
+</span></span></span><span lang=EN-US style='mso-bidi-font-size:10.5pt'>The
+average sales time minus the average purchase time is the average residence
+time. </span></p>
+
+<p class=MsoNormal style='margin-left:0cm;text-indent:21.3pt;line-height:16.0pt;
+mso-line-height-rule:exactly;mso-list:l36 level1 lfo21'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:"Times New Roman"'><span
+style='mso-list:Ignore'>10.<span style='font:7.0pt "Times New Roman"'>&nbsp;
+</span></span></span><span lang=EN-US style='mso-bidi-font-size:10.5pt'>Finally,
+adjust the result format, convert the time unit to “days”, and round off the
+decimal number to get the result.</span></p>
+
+<p class=MsoNormal style='text-indent:17.85pt;mso-char-indent-count:1.7;
+line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US
+style='mso-bidi-font-size:10.5pt'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-left:18.0pt;text-indent:-18.0pt;line-height:
+16.0pt;mso-line-height-rule:exactly;mso-list:l1 level2 lfo18;tab-stops:list 21.0pt'><span
+lang=EN-US style='mso-bidi-font-size:12.0pt;font-family:Wingdings;mso-fareast-font-family:
+Wingdings;mso-bidi-font-family:Wingdings'><span style='mso-list:Ignore'>l<span
+style='font:7.0pt "Times New Roman"'>&nbsp; </span></span></span><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
+12.0pt'>Code</span></b></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=518
+ style='margin-left:21.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:
+ #B2B2B2;mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
+ .5pt;mso-yfti-tbllook:1184;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:
+ .5pt solid #B2B2B2;mso-border-insidev:.5pt solid #B2B2B2'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=29 style='width:21.8pt;border:solid black 1.0pt;mso-border-alt:
+  solid black .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel><span lang=EN-US>&nbsp;</span></p>
+  </td>
+  <td width=307 style='width:230.5pt;border:solid black 1.0pt;border-left:none;
+  mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel><span lang=EN-US>A</span></p>
+  </td>
+  <td width=181 style='width:136.05pt;border:none;mso-border-left-alt:solid #B2B2B2 .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel><span lang=EN-US>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
+  <td width=29 style='width:21.8pt;border:solid black 1.0pt;border-top:none;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel><span lang=EN-US>1</span></p>
+  </td>
+  <td width=307 style='width:230.5pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-top-alt:windowtext;mso-border-left-alt:windowtext;mso-border-bottom-alt:
+  #B2B2B2;mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
+  .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>=file(&quot;C:\\txt\\Stock.txt&quot;).import@t().select(month(Datetime)==6).
+  derive()</span></p>
+  </td>
+  <td width=181 style='width:136.05pt;border:none;mso-border-left-alt:solid #B2B2B2 .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabHelp><span lang=EN-US>Stock table of June</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
+  <td width=29 style='width:21.8pt;border:solid black 1.0pt;border-top:none;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel><span lang=EN-US>2</span></p>
+  </td>
+  <td width=307 style='width:230.5pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>=file(&quot;C:\\txt\\Sale.txt&quot;).import@t().select(month(Datetime)==6).
+  derive()</span></p>
+  </td>
+  <td width=181 style='width:136.05pt;border:none;mso-border-left-alt:solid #B2B2B2 .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabHelp><span lang=EN-US>Sales table of June</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;page-break-inside:avoid;height:14.15pt'>
+  <td width=29 style='width:21.8pt;border:solid black 1.0pt;border-top:none;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel><span lang=EN-US>3</span></p>
+  </td>
+  <td width=307 style='width:230.5pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>=file(&quot;C:\\txt\\Commodity.txt&quot;).import@t()</span></p>
+  </td>
+  <td width=181 style='width:136.05pt;border:none;mso-border-left-alt:solid #B2B2B2 .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabHelp><span lang=EN-US>Commodity list</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4;page-break-inside:avoid;height:14.15pt'>
+  <td width=29 style='width:21.8pt;border:solid black 1.0pt;border-top:none;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel><span lang=EN-US>4</span></p>
+  </td>
+  <td width=307 style='width:230.5pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCodepink><span lang=EN-US style='font-family:"Times New Roman",serif'>Fresh</span></p>
+  </td>
+  <td width=181 style='width:136.05pt;border:none;mso-border-left-alt:solid #B2B2B2 .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabHelp><span lang=EN-US>Specified category</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:5;page-break-inside:avoid;height:14.15pt'>
+  <td width=29 style='width:21.8pt;border:solid black 1.0pt;border-top:none;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel><span lang=EN-US>5</span></p>
+  </td>
+  <td width=307 style='width:230.5pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>&gt;A1.keys(Commodity),
+  A2.keys(Commodity), A3.keys(ID)</span></p>
+  </td>
+  <td width=181 style='width:136.05pt;border:none;mso-border-left-alt:solid #B2B2B2 .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabHelp><span lang=EN-US>Set the primary key of the 3 tables</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:6;page-break-inside:avoid;height:14.15pt'>
+  <td width=29 style='width:21.8pt;border:solid black 1.0pt;border-top:none;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel><span lang=EN-US>6</span></p>
+  </td>
+  <td width=307 style='width:230.5pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>&gt;A1.switch(Commodity,A3),
+  A2.switch(Commodity,A3)</span></p>
+  </td>
+  <td width=181 style='width:136.05pt;border:none;mso-border-left-alt:solid #B2B2B2 .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabHelp><span lang=EN-US>Update the fields of Commodity in the
+  purchase table and sales table with corresponding records of the commodity
+  list.</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:7;page-break-inside:avoid;height:14.15pt'>
+  <td width=29 style='width:21.8pt;border:solid black 1.0pt;border-top:none;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel><span lang=EN-US>7</span></p>
+  </td>
+  <td width=307 style='width:230.5pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>=A1.select(Commodity.Category==A4)</span></p>
+  </td>
+  <td width=181 style='width:136.05pt;border:none;mso-border-left-alt:solid #B2B2B2 .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabHelp><span lang=EN-US>Filter out the purchase record of specified
+  category </span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:8;page-break-inside:avoid;height:14.15pt'>
+  <td width=29 style='width:21.8pt;border:solid black 1.0pt;border-top:none;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel><span lang=EN-US>8</span></p>
+  </td>
+  <td width=307 style='width:230.5pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>=A2.select(Commodity.Category==A4)</span></p>
+  </td>
+  <td width=181 style='width:136.05pt;border:none;mso-border-left-alt:solid #B2B2B2 .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabHelp><span lang=EN-US>Filter out the sales record of specified
+  category</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:9;page-break-inside:avoid;height:14.15pt'>
+  <td width=29 style='width:21.8pt;border:solid black 1.0pt;border-top:none;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel><span lang=EN-US>9</span></p>
+  </td>
+  <td width=307 style='width:230.5pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>=A7.sum(Volume)</span></p>
+  </td>
+  <td width=181 style='width:136.05pt;border:none;mso-border-left-alt:solid #B2B2B2 .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabHelp><span lang=EN-US>Sum up the total purchase volume.</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:10;page-break-inside:avoid;height:14.15pt'>
+  <td width=29 style='width:21.8pt;border:solid black 1.0pt;border-top:none;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel><span lang=EN-US>10</span></p>
+  </td>
+  <td width=307 style='width:230.5pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>=A7.sum(long(interval@s(&quot;2009-6-1
+  00:00:00&quot;,Datetime)*Volume))</span></p>
+  </td>
+  <td width=181 style='width:136.05pt;border:none;mso-border-left-alt:solid #B2B2B2 .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabHelp><span lang=EN-US>Work out the total time difference between
+  purchase time and starting point. The starting point is the beginning of the
+  month.</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:11;page-break-inside:avoid;height:14.15pt'>
+  <td width=29 style='width:21.8pt;border:solid black 1.0pt;border-top:none;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel><span lang=EN-US>11</span></p>
+  </td>
+  <td width=307 style='width:230.5pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>=A8.sum(Volume)</span></p>
+  </td>
+  <td width=181 style='width:136.05pt;border:none;mso-border-left-alt:solid #B2B2B2 .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabHelp><span lang=EN-US>Sum up the total sales value.</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:12;page-break-inside:avoid;height:14.15pt'>
+  <td width=29 style='width:21.8pt;border:solid black 1.0pt;border-top:none;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel><span lang=EN-US>12</span></p>
+  </td>
+  <td width=307 style='width:230.5pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>=A8.sum(long(interval@s(&quot;2009-6-1
+  00:00:00&quot;,Datetime)*Volume))</span></p>
+  </td>
+  <td width=181 style='width:136.05pt;border:none;mso-border-left-alt:solid #B2B2B2 .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabHelp><span lang=EN-US>Work out the total time differences between
+  sales time point and start time point. The start time point should be the
+  beginning of the month.</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:13;page-break-inside:avoid;height:14.15pt'>
+  <td width=29 style='width:21.8pt;border:solid black 1.0pt;border-top:none;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel><span lang=EN-US>13</span></p>
+  </td>
+  <td width=307 style='width:230.5pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>=long((A9-A11)*interval@s(&quot;2009-6-1
+  00:00:00&quot;,&quot;2009-7-1 00:00:00&quot;))</span></p>
+  </td>
+  <td width=181 style='width:136.05pt;border:none;mso-border-left-alt:solid #B2B2B2 .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabHelp><span lang=EN-US>For the remaining commodities, the “sales
+  time” can be set as the end of the month.</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:14;page-break-inside:avoid;height:14.15pt'>
+  <td width=29 style='width:21.8pt;border:solid black 1.0pt;border-top:none;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel><span lang=EN-US>14</span></p>
+  </td>
+  <td width=307 style='width:230.5pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>=(A12+A13)/A9-A10/A9</span></p>
+  </td>
+  <td width=181 style='width:136.05pt;border:none;mso-border-left-alt:solid #B2B2B2 .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabHelp><span lang=EN-US>The average sales time minus the average
+  purchase time is the average residence time. </span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:15;mso-yfti-lastrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=29 style='width:21.8pt;border:solid black 1.0pt;border-top:none;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLaEnd><span lang=EN-US>15</span></p>
+  </td>
+  <td width=307 style='width:230.5pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>=floor(A14/60/60/24,1)</span></p>
+  </td>
+  <td width=181 style='width:136.05pt;border:none;mso-border-left-alt:solid #B2B2B2 .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabHelp><span lang=EN-US>Change the unit of time to days and reject
+  excessive decimal numbers for easier viewing.</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal><span lang=EN-US style='mso-bidi-font-size:10.5pt'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-left:18.0pt;text-indent:-18.0pt;mso-list:l1 level2 lfo18;
+tab-stops:list 21.0pt'><span lang=EN-US style='mso-bidi-font-size:
+12.0pt;font-family:Wingdings;mso-fareast-font-family:Wingdings;mso-bidi-font-family:
+Wingdings'><span style='mso-list:Ignore'>l<span style='font:7.0pt "Times New Roman"'>&nbsp;
+</span></span></span><b style='mso-bidi-font-weight:normal'><span
+lang=EN-US style='mso-bidi-font-size:12.0pt'>Result</span></b></p>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
+lang=EN-US style='mso-no-proof:yes'><img width=200 height=41
+src="Sample_Program.files/image056.jpg" v:shapes="_x0000_i1061"></span><span
+lang=EN-US style='mso-bidi-font-size:10.5pt'></span></p>
+
+<p class=MsoNormal><span lang=EN-US style='mso-bidi-font-size:10.5pt'>&nbsp;</span></p>
+	</div>
+	<div id="previous-next">
+		<div id="next"><a href="23.html">Next</a></div>
+		<div id="previous"><a href="21.html">Previous</a></div>		
+	</div>
+	<div id="related">
+		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="12.html">Database Computation</a></span></li>
+</div>
+	</div>
+	<div id="footer">	
+		
+		
+    <div class="copyright"> Copyright&reg; 2021 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+      </a></div>
+	</div>
+</div>
+
+</body>
+</html>

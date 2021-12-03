@@ -1,0 +1,246 @@
+<!--create by iword1.0 pro, http://www.voland.com.cn-->
+<!-- saved from url=(0026)http://www.runqian.com.cn/ -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>10. Inspect Checksum of Barcode (#60)</title>
+<link rel="stylesheet" href="../images/template.css" type="text/css" />
+<link rel="stylesheet" href="document.css" type="text/css" />
+<script language="JavaScript" src="../resource/url.js"></script>
+</head>
+
+<body>
+
+<div id="content-bg">
+	<div id="centent">
+	<div id="centent-title"><h2 style='mso-list:l22 level1 lfo40'><span lang=X-NONE
+style='mso-fareast-font-family:"Times New Roman"'><span style='mso-list:Ignore'>10.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span></span><span
+lang=X-NONE>Inspect Checksum of Barcode (#60)</span></h2></div>
+	<p class=MsoNormal style='margin-left:18.0pt;text-indent:-18.0pt;line-height:
+16.0pt;mso-line-height-rule:exactly;mso-list:l24 level2 lfo12'><span
+lang=EN-US style='font-family:Wingdings;mso-fareast-font-family:Wingdings;
+mso-bidi-font-family:Wingdings;mso-bidi-font-weight:bold'><span
+style='mso-list:Ignore'>l<span style='font:7.0pt "Times New Roman"'>&nbsp; </span></span></span><b><span
+lang=EN-US>Problem</span></b></p>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02;
+line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>A 13-digit
+string will be presented after the barcode is scanned. In order to deal with
+the scanning mistake , the method of calculateing checksum is used to inspect
+whether the barcode is error-free or not. Detailed calculation process is as
+follows: </span></p>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02;
+line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>Extract the
+first 12 digits from the 13-digit string, add the numbers at odd positions to
+obtain a sum S1, and add the numbers at even positions to obtain a sum S2.
+Subtract S2 from S1, perform a mod with the result and 10 to obtain the remainder,
+and compute the absolute value. The result should be the 13<sup>th</sup> digit
+of the barcode. Otherwise, this barcode is not correct.</span></p>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02;
+line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>Evaluate the
+correctness of a given barcode.</span></p>
+
+<p class=MsoNormal style='text-indent:17.85pt;mso-char-indent-count:1.7;
+line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-left:18.0pt;text-indent:-18.0pt;line-height:
+16.0pt;mso-line-height-rule:exactly;mso-list:l24 level2 lfo12'><span
+lang=EN-US style='font-family:Wingdings;mso-fareast-font-family:Wingdings;
+mso-bidi-font-family:Wingdings;mso-bidi-font-weight:bold'><span
+style='mso-list:Ignore'>l<span style='font:7.0pt "Times New Roman"'>&nbsp; </span></span></span><b><span
+lang=EN-US>Tip</span></b></p>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02;
+line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>General steps:
+Convert the 13 digits of the given barcode into a sequence, find out the sum of
+numbers at odd positions and that at even positions among the first 12 digits
+in the sequence, implement subtraction for the two sums, then perform a mod
+with the difference and 10 to obtain a remainder, whose absolute value will
+then be found, finally evaluate whether the result is equal to the last digit
+of the barcode.</span></p>
+
+<p class=MsoNormal style='text-indent:17.85pt;mso-char-indent-count:1.7;
+line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-left:18.0pt;text-indent:-18.0pt;line-height:
+16.0pt;mso-line-height-rule:exactly;mso-list:l24 level2 lfo12'><span
+lang=EN-US style='font-family:Wingdings;mso-fareast-font-family:Wingdings;
+mso-bidi-font-family:Wingdings;mso-bidi-font-weight:bold'><span
+style='mso-list:Ignore'>l<span style='font:7.0pt "Times New Roman"'>&nbsp; </span></span></span><b><span
+lang=EN-US>Code</span></b></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=495
+ style='margin-left:21.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:
+ #B2B2B2;mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
+ .5pt;mso-yfti-tbllook:1184;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:
+ .5pt solid #B2B2B2;mso-border-insidev:.5pt solid #B2B2B2'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=29 style='width:21.8pt;border:solid black 1.0pt;mso-border-alt:
+  solid black .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel><span lang=EN-US>&nbsp;</span></p>
+  </td>
+  <td width=164 style='width:122.8pt;border:solid black 1.0pt;border-left:none;
+  mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel><span lang=EN-US>A</span></p>
+  </td>
+  <td width=302 style='width:226.75pt;border:none;mso-border-left-alt:solid #B2B2B2 .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel><span lang=EN-US>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
+  <td width=29 style='width:21.8pt;border:solid black 1.0pt;border-top:none;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel><span lang=EN-US>1</span></p>
+  </td>
+  <td width=164 style='width:122.8pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-top-alt:windowtext;mso-border-left-alt:windowtext;mso-border-bottom-alt:
+  #B2B2B2;mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
+  .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>=&quot;1234567890123&quot;</span></p>
+  </td>
+  <td width=302 style='width:226.75pt;border:none;mso-border-left-alt:solid #B2B2B2 .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabHelp><span lang=EN-US>The given barcode</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
+  <td width=29 style='width:21.8pt;border:solid black 1.0pt;border-top:none;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel><span lang=EN-US>2</span></p>
+  </td>
+  <td width=164 style='width:122.8pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>=A1.split@p()</span></p>
+  </td>
+  <td width=302 style='width:226.75pt;border:none;mso-border-left-alt:solid #B2B2B2 .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabHelp><span lang=EN-US>Convert the barcode into a sequence</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;page-break-inside:avoid;height:14.15pt'>
+  <td width=29 style='width:21.8pt;border:solid black 1.0pt;border-top:none;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel><span lang=EN-US>3</span></p>
+  </td>
+  <td width=164 style='width:122.8pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>=A2(to(12)).step(2,1).sum()</span></p>
+  </td>
+  <td width=302 style='width:226.75pt;border:none;mso-border-left-alt:solid #B2B2B2 .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabHelp><span lang=EN-US>The sum of numbers on odd digits for the
+  first 12 digits</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4;page-break-inside:avoid;height:14.15pt'>
+  <td width=29 style='width:21.8pt;border:solid black 1.0pt;border-top:none;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel><span lang=EN-US>4</span></p>
+  </td>
+  <td width=164 style='width:122.8pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>=A2(to(12)).step(2,2).sum()</span></p>
+  </td>
+  <td width=302 style='width:226.75pt;border:none;mso-border-left-alt:solid #B2B2B2 .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabHelp><span lang=EN-US>The sum of numbers on even digits for the
+  first 12 digits</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:5;page-break-inside:avoid;height:14.15pt'>
+  <td width=29 style='width:21.8pt;border:solid black 1.0pt;border-top:none;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel><span lang=EN-US>5</span></p>
+  </td>
+  <td width=164 style='width:122.8pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>=abs((A3-A4)%10)</span></p>
+  </td>
+  <td width=302 style='width:226.75pt;border:none;mso-border-left-alt:solid #B2B2B2 .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabHelp><span lang=EN-US>The difference between the two sums, mod
+  10, take the remainder's absolute value</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:6;mso-yfti-lastrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=29 style='width:21.8pt;border:solid black 1.0pt;border-top:none;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLaEnd><span lang=EN-US>6</span></p>
+  </td>
+  <td width=164 style='width:122.8pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode><span lang=EN-US style='font-family:"Times New Roman",serif'>=A5==A2.m(-1)</span></p>
+  </td>
+  <td width=302 style='width:226.75pt;border:none;mso-border-left-alt:solid #B2B2B2 .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabHelp><span lang=EN-US>Evaluate whether the result of A5 is the
+  same as the number on the last digit of the barcode</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-left:18.0pt;text-indent:-18.0pt;line-height:
+16.0pt;mso-line-height-rule:exactly;mso-list:l24 level2 lfo12'><span
+lang=EN-US style='font-family:Wingdings;mso-fareast-font-family:Wingdings;
+mso-bidi-font-family:Wingdings;mso-bidi-font-weight:bold'><span
+style='mso-list:Ignore'>l<span style='font:7.0pt "Times New Roman"'>&nbsp; </span></span></span><b><span
+lang=EN-US>Result</span></b></p>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
+lang=EN-US style='mso-no-proof:yes'><img width=200 height=41
+src="Sample_Program.files/image024.jpg" v:shapes="_x0000_i1036"></span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+	</div>
+	<div id="previous-next">
+		<div id="next"><a href="12.html">Next</a></div>
+		<div id="previous"><a href="10.html">Previous</a></div>		
+	</div>
+	<div id="related">
+		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="1.html">Nonstructur ed Computation</a></span></li>
+</div>
+	</div>
+	<div id="footer">	
+		
+		
+    <div class="copyright"> Copyright&reg; 2021 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+      </a></div>
+	</div>
+</div>
+
+</body>
+</html>
