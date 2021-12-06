@@ -23,9 +23,9 @@ Install
 Document
 -----------------------------------------------------------------------------------------------------------------------
 
-*   [Tutorial](http://doc.raqsoft.com/esproc/tutorial/)
-*   [Function Reference](http://doc.raqsoft.com/esproc/func/)
-*   [Sample Program](http://doc.raqsoft.com/esproc/spd/)
-*   [Code Reference](http://doc.raqsoft.com/esproc/coderefer/ )
-*   [User Reference](http://doc.raqsoft.com/esproc/manual/)
-*   [External Library Guide](http://doc.raqsoft.com/esproc/ext/)
+*   [Tutorial](http://doc.raqsoft.com/esproc/tutorial/) esProc download, installation, as well as principles and applications
+*   [Function Reference](http://doc.raqsoft.com/esproc/func/) esProc syntax, applications and examples
+*   [Sample Program](http://doc.raqsoft.com/esproc/spd/) Guide to all functions under menus in esProc
+*   [Code Reference](http://doc.raqsoft.com/esproc/coderefer/ ) esProc grid-style code examples
+*   [User Reference](http://doc.raqsoft.com/esproc/manual/) esProc programming by examples
+*   [External Library Guide](http://doc.raqsoft.com/esproc/ext/) Deployment of and connection to esProc external libraries
