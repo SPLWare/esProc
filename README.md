@@ -3,7 +3,9 @@
  **What does esProc solve?**
  
 [![](https://github.com/SPLWare/esProc/blob/master/logo/1.png)](http://www.scudata.com/html/file-processor.html)
-![2](https://github.com/SPLWare/esProc/blob/master/logo/2.png) ![3](https://github.com/SPLWare/esProc/blob/master/logo/3.png) ![4](https://github.com/SPLWare/esProc/blob/master/logo/4.png)
+[![](https://github.com/SPLWare/esProc/blob/master/logo/2.png)](http://www.scudata.com/html/sql-enhancer.html)
+[![](https://github.com/SPLWare/esProc/blob/master/logo/3.png)](http://www.scudata.com/html/report-data-source.html) 
+[![](https://github.com/SPLWare/esProc/blob/master/logo/4.png)](http://www.scudata.com/html/java-computing-layer.html)
 
 -----------------------------------------------------------------------------------------------------------------------
 
