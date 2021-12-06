@@ -9,16 +9,6 @@
 
 -----------------------------------------------------------------------------------------------------------------------
 
-esProc Official WebSite: http://www.scudata.com
-
-Please head to http://c.raqsoft.com/article/1595817756260 to download esProc executable files
-
-User and programer documents are available at http://doc.raqsoft.com/esproc/
-
-More detail materials can be found at http://c.raqsoft.com
-
------------------------------------------------------------------------------------------------------------------------
-
 Install
 -----------------------------------------------------------------------------------------------------------------------
 
@@ -39,4 +29,11 @@ Document
 *   [External Library Guide](http://doc.raqsoft.com/esproc/ext/) Deployment of and connection to esProc external libraries
 
 -----------------------------------------------------------------------------------------------------------------------
-LINK: RAQSOFT | About us | Contact us | Sitemap
+
+esProc Official WebSite: http://www.scudata.com
+
+Please head to http://c.raqsoft.com/article/1595817756260 to download esProc executable files
+
+User and programer documents are available at http://doc.raqsoft.com/esproc/
+
+More detail materials can be found at http://c.raqsoft.com
