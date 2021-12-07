@@ -1,4 +1,4 @@
-![esProc](https://github.com/SPLWare/esProc/blob/master/logo/esProc1.jpg)
+![esProc](http://www.raqsoft.com/raqesproc/update/img/esProc1.jpg)
 
  **What does esProc solve?**
  -----------------------------------------------------------------------------------------------------------------------
