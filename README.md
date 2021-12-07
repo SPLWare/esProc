@@ -2,10 +2,10 @@
 
  **What does esProc solve?**
  -----------------------------------------------------------------------------------------------------------------------
-[![](https://github.com/SPLWare/esProc/blob/master/logo/1.png)](http://www.scudata.com/html/file-processor.html)
-[![](https://github.com/SPLWare/esProc/blob/master/logo/2.png)](http://www.scudata.com/html/sql-enhancer.html)
-[![](https://github.com/SPLWare/esProc/blob/master/logo/3.png)](http://www.scudata.com/html/report-data-source.html) 
-[![](https://github.com/SPLWare/esProc/blob/master/logo/4.png)](http://www.scudata.com/html/java-computing-layer.html)
+[![](http://www.raqsoft.com/raqesproc/update/img/1.png)](http://www.scudata.com/html/file-processor.html)
+[![](http://www.raqsoft.com/raqesproc/update/img/2.png)](http://www.scudata.com/html/sql-enhancer.html)
+[![](http://www.raqsoft.com/raqesproc/update/img/3.png)](http://www.scudata.com/html/report-data-source.html) 
+[![](http://www.raqsoft.com/raqesproc/update/img/4.png)](http://www.scudata.com/html/java-computing-layer.html)
 
 
 
