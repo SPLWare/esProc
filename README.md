@@ -94,6 +94,32 @@ The professional data computing engine for structured data computing.
 
 - __Cooperate DB__
 
+    __The computing power of the database is closed and cannot process data outside the database. It is often necessary to perform ETL to import data into the same       database before processing.__
+    
+    __SPL provides open and simple computing power, which can directly read multiple databases, realize mixed data calculation, and assist the database to do           better calculation.__
+
+    - Fetch data in parallel to accelerate JDBC
+    
+    - SQL migration among different types of databases
+    
+    - Cross database operations
+    
+    - T+0 statistics and query
+    
+    - Replace stored procedure operation, improve code portability and reduce coupling
+    
+    - Avoid making ETL into ELT or even LET
+    
+    - Mixed calculation of multiple data sources
+    
+    - Reduce intermediate tables in the database
+    
+    - Report data source development, support hot switching, multiple data sources and improve development efficiency
+    
+    - Implement microservices, occupy less resources and support hot switching
+
+
+
 - __Surpass DB__
 
 - __For Excel__
