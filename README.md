@@ -1,11 +1,19 @@
-![esProc](http://www.raqsoft.com/raqesproc/update/img/esProc1.jpg)
 
- **What does esProc solve?**
- -----------------------------------------------------------------------------------------------------------------------
-[![](http://www.raqsoft.com/raqesproc/update/img/11.png)](http://www.scudata.com/html/file-processor.html)
-[![](http://www.raqsoft.com/raqesproc/update/img/22.png)](http://www.scudata.com/html/sql-enhancer.html)
-[![](http://www.raqsoft.com/raqesproc/update/img/33.png)](http://www.scudata.com/html/report-data-source.html) 
-[![](http://www.raqsoft.com/raqesproc/update/img/44.png)](http://www.scudata.com/html/java-computing-layer.html)
+
+
+## What is SPL?
+
+<b>S</b>tructured <b>P</b>rocess <b>L</b>anguage — <b>SPL</b>
+
+SPL is the programming language used by esProc, the professional data computing engine for structured data computing.
+
+- __Beyond the computing power of the database__
+
+- __Open computing system__
+
+- __Agile syntax__
+
+
 
 
 
