@@ -44,6 +44,31 @@ The professional data computing engine for structured data computing.
 
 - __Got SQL__
 
+    __SQL has certain computing power, but it is not available in many scenarios, so you will have to hard code in Java. 
+    SPL provides lightweight computing power independent of database and can process data in any scenario:__
+    
+    - Structured text (txt/csv) calculation
+    
+    - Excel calculation
+    
+    - Perform SQL on files
+    
+    - Multi-layer json calculation
+    
+    - Multi-layer xml calculation
+    
+    - Java computing class library, surpass Stream/Kotlin/Scala
+    
+    - Replace ORM to implement business logic
+    
+    - SQL-like calculation on Mongodb, association calculation
+    
+    - Post calculation of WebService/Restful
+    
+    - Post calculation of Salesforce, Post calculation of SAP
+    
+    - Post calculation of various data sources: HBase,Cassandra,Redis,ElasticSearch,Kafka,…
+
 - __Beyond SQL__
 
 - __Cooperate DB__
