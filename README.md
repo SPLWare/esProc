@@ -5,9 +5,24 @@ The professional data computing engine for structured data computing.
 
 - __Beyond the computing power of the database__
 
+
+    esProc does not rely on the computing power of the database, and has an independent computing engine.
+
 - __Open computing system__
 
+    Universal computing can be implemented for any data source.
+
 - __Agile syntax__
+
+    Full combination of discreteness and set-orientation.
+
+    Supper ordered calculation.
+
+    Good at complex operations.
+
+    High performance basic algorithms and storage mechanisms.
+
+
 
 
 ## What is SPL?
@@ -23,6 +38,10 @@ The professional data computing engine for structured data computing.
 - __Well designed rich library functions and consistency syntax__
 
   Easier to master and better performance than Python
+  
+- __Seamless integration into Java applications__
+
+
 
 
 Useful Links
