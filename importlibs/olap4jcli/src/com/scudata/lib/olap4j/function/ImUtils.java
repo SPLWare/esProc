@@ -1,4 +1,4 @@
-package com.raqsoft.lib.olap4j.function;
+package com.scudata.lib.olap4j.function;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,10 +12,10 @@ import org.olap4j.Position;
 import org.olap4j.metadata.Dimension;
 import org.olap4j.metadata.Member;
 
-import com.raqsoft.common.RQException;
-import com.raqsoft.dm.DataStruct;
-import com.raqsoft.dm.Record;
-import com.raqsoft.dm.Table;
+import com.scudata.common.RQException;
+import com.scudata.dm.DataStruct;
+import com.scudata.dm.Record;
+import com.scudata.dm.Table;
 
 public class ImUtils {
 	public static String[] objectArray2StringArray(Object[] objs) {

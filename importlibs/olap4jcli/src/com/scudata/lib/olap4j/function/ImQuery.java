@@ -1,10 +1,10 @@
-package com.raqsoft.lib.olap4j.function;
+package com.scudata.lib.olap4j.function;
 
 import java.sql.SQLException;
 import org.olap4j.CellSet;
-import com.raqsoft.common.Logger;
-import com.raqsoft.dm.Context;
-import com.raqsoft.expression.Node;
+import com.scudata.common.Logger;
+import com.scudata.dm.Context;
+import com.scudata.expression.Node;
 
 public class ImQuery extends ImFunction {
 	boolean bCursor = false;

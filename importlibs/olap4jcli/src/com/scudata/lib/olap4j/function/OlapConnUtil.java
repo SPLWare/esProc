@@ -1,4 +1,4 @@
-package com.raqsoft.lib.olap4j.function;
+package com.scudata.lib.olap4j.function;
 import java.sql.Connection;
 //https://sourceforge.net/p/olap4j/discussion/577988/thread/93729c12/
 import java.sql.DriverManager;  
@@ -6,7 +6,7 @@ import java.sql.SQLException;
   
 import org.olap4j.OlapConnection;  
 import org.olap4j.OlapWrapper;
-import com.raqsoft.common.Logger;  
+import com.scudata.common.Logger;  
   
 public class OlapConnUtil {  
   

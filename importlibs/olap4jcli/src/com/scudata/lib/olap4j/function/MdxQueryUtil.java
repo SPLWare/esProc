@@ -1,4 +1,4 @@
-package com.raqsoft.lib.olap4j.function;
+package com.scudata.lib.olap4j.function;
 
 import java.io.PrintWriter;  
 import java.sql.SQLException;  
@@ -12,9 +12,9 @@ import org.olap4j.Position;
 //import org.olap4j.driver.xmla.XmlaOlap4jConnection;
 import org.olap4j.metadata.Member;
 
-import com.raqsoft.common.Logger;
-import com.raqsoft.dm.Context;
-import com.raqsoft.dm.IResource;  
+import com.scudata.common.Logger;
+import com.scudata.dm.Context;
+import com.scudata.dm.IResource;  
   
 public class MdxQueryUtil implements IResource {   
 	public OlapConnection m_olapConn = null;  

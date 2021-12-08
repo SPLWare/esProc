@@ -1,4 +1,4 @@
-package com.raqsoft.lib.olap4j.function;
+package com.scudata.lib.olap4j.function;
 
 import java.util.List;
 
@@ -6,11 +6,11 @@ import org.olap4j.Cell;
 import org.olap4j.CellSet;
 import org.olap4j.Position;
 import org.olap4j.metadata.Member;
-import com.raqsoft.common.RQException;
-import com.raqsoft.dm.Context;
-import com.raqsoft.dm.Sequence;
-import com.raqsoft.dm.Table;
-import com.raqsoft.dm.cursor.ICursor;
+import com.scudata.common.RQException;
+import com.scudata.dm.Context;
+import com.scudata.dm.Sequence;
+import com.scudata.dm.Table;
+import com.scudata.dm.cursor.ICursor;
 
 public class ImCursor extends ICursor {
 	private Context m_ctx;
