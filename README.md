@@ -71,6 +71,27 @@ The professional data computing engine for structured data computing.
 
 - __Beyond SQL__
 
+    __SQL is difficult to deal with complex sets and ordered operations, and it is often read out and calculated in Java.
+    SPL has complete set capability, especially supports ordered and step-by-step calculation, which can simplify these operations:__
+
+    - Ordered set
+
+    - Position reference
+    
+    - Grouping subsets
+    
+    - Non-equivalence grouping
+    
+    - Multi-level association operation
+    
+    - Static and dynamic pivot
+    
+    - Recursion and iteration
+    
+    - Step-by-step and loop operation
+    
+    - Text and date time operation
+
 - __Cooperate DB__
 
 - __Surpass DB__
