@@ -24,7 +24,6 @@ The professional data computing engine for structured data computing.
 
 
 
-
 ## What is SPL?
 
 <b>S</b>tructured <b>P</b>rocess <b>L</b>anguage — <b>SPL</b> is the programming language used by esProc.
@@ -40,6 +39,20 @@ The professional data computing engine for structured data computing.
   Easier to master and better performance than Python
   
 - __Seamless integration into Java applications__
+
+## SPL application scenarios
+
+- __Got SQL__
+
+- __Beyond SQL__
+
+- __Cooperate DB__
+
+- __Surpass DB__
+
+- __For Excel__
+
+- __For Industry__
 
 
 
