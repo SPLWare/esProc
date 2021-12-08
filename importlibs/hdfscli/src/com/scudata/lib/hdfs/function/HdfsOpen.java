@@ -1,15 +1,7 @@
 package com.scudata.lib.hdfs.function;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
-import com.scudata.common.MessageManager;
-import com.scudata.common.RQException;
 import com.scudata.dm.Context;
-import com.scudata.expression.IParam;
 import com.scudata.expression.Node;
-import com.scudata.resources.EngineMessage;
 
 /****
  * 
