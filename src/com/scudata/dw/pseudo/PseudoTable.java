@@ -503,12 +503,26 @@ public class PseudoTable extends Pseudo implements Operable, IPseudo {
 		return obj;
 	}
 
-	public void setPathCount(int pathCount) {
-		this.pathCount = pathCount;
+	public PseudoTable setPathCount(int pathCount) {
+		PseudoTable table = null;
+		try {
+			table = (PseudoTable) clone(ctx);
+			table.pathCount = pathCount;
+		} catch (CloneNotSupportedException e) {
+			e.printStackTrace();
+		}
+		return table;
 	}
 
-	public void setMcsTable(PseudoTable mcsTable) {
-		this.mcsTable = mcsTable;
+	public PseudoTable setMcsTable(PseudoTable mcsTable) {
+		PseudoTable table = null;
+		try {
+			table = (PseudoTable) clone(ctx);
+			table.mcsTable = mcsTable;
+		} catch (CloneNotSupportedException e) {
+			e.printStackTrace();
+		}
+		return table;
 	}
 	
 	/**
