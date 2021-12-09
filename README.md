@@ -202,15 +202,12 @@ Note： This diagram focuses on the mainstream embedded and Java application arc
     - …
 
 
+## License
 
+esProc is under the Apache 2.0 license. See the [LICENSE](./LICENSE) file for details.
 
+## Useful Links
 
-
-
-
-
-Useful Links
------------------------------------------------------------------------------------------------------------------------
 
 *   [Tutorial](http://doc.raqsoft.com.cn/esproc/tutorial/) esProc download, installation, as well as principles and applications
 *   [Function Reference](http://doc.raqsoft.com.cn/esproc/func/) esProc syntax, applications and examples
