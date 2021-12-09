@@ -74,6 +74,8 @@
 - __Seamless integration into Java applications__
 
   <img src="http://www.scudata.com/wp-content/themes/scudata-en/images/agile-computing/agile-computing-6.png" width="600" height="250">
+  
+  For more details, see [Call an SPL Script in Java](http://c.raqsoft.com/article/1544066331124).
 
 ## SPL application scenarios
 
