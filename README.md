@@ -57,7 +57,11 @@ Note： This diagram focuses on the mainstream embedded and Java application arc
   |5|=A4.(\~.sort(-amount).to(8))|
   |6|=A5.isect(\~.(name))|
 
+- __Seamless integration into Java applications__
+  
+  For more details, see [Call SPL Script in Java](http://c.raqsoft.com/article/1544066331124).
 
+  For other integrations, see [Call SPL in applications](http://c.raqsoft.com/article/1638429720790)
 
 
 ## SPL application scenarios
