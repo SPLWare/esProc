@@ -1,28 +1,15 @@
 
-# esProc - Agile Data Computing Engine
-
 ## Know about esProc
 
-- __Beyond the computing power of the database__
+- __Agile Data Computing Middleware__
 
-    esProc does not rely on the computing power of the database, and has an independent computing engine.
-    
-- __Open computing system__
+    Computing middleware: a programmable general software between application and data, which can perform computing independently. It is often used to solve problems such as loose coupling, high performance, special source computing, multi-source hybrid computing, complex logic, etc.
 
-    Universal computing can be implemented for any data source.   
-    
-- __Agile syntax__
+    ![image](https://user-images.githubusercontent.com/2794999/145353353-d74a5b54-751c-45be-8589-aa65a1978ae9.png)
 
-    Full combination of discreteness and set-orientation.
+Note： This diagram focuses on the mainstream embedded and Java application architecture, and esProc also supports the independent and non Java application architecture. 
 
-    Supper ordered calculation.
-
-    Good at complex operations.
-
-    High performance basic algorithms and storage mechanisms.
-
-
-
+  
 ## Know about SPL
 
 <b>S</b>tructured <b>P</b>rocess <b>L</b>anguage — <b>SPL</b> is the programming language used by esProc.
@@ -37,7 +24,8 @@
 
 - __Well designed rich library functions and consistency syntax__
 
-  __Easier to master and better performance than Python__
+  Easier to master and better performance than Python.
+  
   
   Example: Find out the sales clerks whose sales are within top 8 for every moth in 1995.
 
@@ -70,12 +58,14 @@
   |5|=A4.(\~.sort(-amount).to(8))|
   |6|=A5.isect(\~.(name))|
 
-  
-- __Seamless integration into Java applications__
+## How to use SPL in Java
 
-  <img src="http://www.scudata.com/wp-content/themes/scudata-en/images/agile-computing/agile-computing-6.png" width="600" height="250">
+Java application integrates esProc and calls the SPL script file. 
+
+<img src="http://www.raqsoft.com/wp-content/themes/raqsoft2017-en/images/java-computing/3.png" width="600" height="250">
   
-  For more details, see [Call an SPL Script in Java](http://c.raqsoft.com/article/1544066331124).
+For more details, see [Call an SPL Script in Java](http://c.raqsoft.com/article/1544066331124).
+
 
 ## SPL application scenarios
 
