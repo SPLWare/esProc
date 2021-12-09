@@ -25,7 +25,7 @@
 
 
 
-## What is SPL?
+## Know about SPL
 
 <b>S</b>tructured <b>P</b>rocess <b>L</b>anguage — <b>SPL</b> is the programming language used by esProc.
 
