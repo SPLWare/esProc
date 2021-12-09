@@ -119,12 +119,68 @@ The professional data computing engine for structured data computing.
     - Implement microservices, occupy less resources and support hot switching
 
 
-
 - __Surpass DB__
+
+    __SQL is difficult to implement high-performance algorithms. The performance of big data operations can only rely on the optimization engine of the database,       but it is often unreliable in complex situations.__
+    
+    __SPL provides a large number of basic high-performance algorithms (many of which are pioneered in the industry) and efficient storage formats. Under the same     hardware environment, it can obtain much better computing performance than the database, and can comprehensively replace the big data platform and data             warehouse.__
+
+    - In-memory search：binary search, sequence number positioning, position index, hash index, multi-layer sequence number positioning
+
+    - Dataset in external storage：parallel computing of text file, binary storage, double increment segmentation, columnar 
+    storage composite table, ordered storage and update
+
+    - Search in external storage：binary search, hash index, sorting index, row-based storage and valued index, index preloading, batch search and set search, multi index merging, full-text searching
+
+    - Traversing technique：post filter of cursor, multi-purpose traversal, parallel traversing and multi cursors, aggregation extension, ordered traversing, program cursor, partially ordered grouping and sorting, sequence number grouping and controllable segmentation
+
+    - Association technique： foreign key addressing, foreign key serialization, index reuse, alignment sequence, large dimension table search, unilateral splitting, orderly merging, association positioning, schedule
+
+    - Multidimensional analysis：pre summary and time period pre summary, alignment sequence, tag bit dimension 
+
+    - Distributed：free computing and data distribution, cluster multi-zone composite table, cluster dimension table, redundant fault tolerance, spare tire fault tolerance, Fork-Reduce, multi job load balancing
 
 - __For Excel__
 
+
+
 - __For Industry__
+
+    __There are a large number of time series data in industrial scenarios, and databases often only provide SQL. The ordered calculation capability of SQL is very     weak, resulting in that it can only be used for data retrieval and cannot assist in calculation.__
+
+    __Many basic mathematical operations are often involved in industrial scenarios. SQL lacks these functions and the data can only be read out to process.__
+
+    __SPL can well support ordered calculation, and provides rich mathematical functions, such as matrix and fitting, and can more conveniently meet the               calculation requirements of industrial scenes.__
+
+    - Time series cursor: aggregation by granularity, translation, adjacence reference, association and merging
+
+    - Historical data compression and solidification, transparent reference
+
+    - Vector and matrix operations
+
+    - Various linear fitting: least squares, partial least squares, Lasso, ridge …
+
+    - …
+
+    __Industrial algorithms often need repeated experiments. SPL development efficiency is very high, and you can try more
+    within the same time period:__
+
+    - Instrument anomaly discovery algorithm
+
+    - Abnormal measurement sample locating
+
+    - Curve lifting and oscillation pattern recognition
+
+    - Constrained linear fitting
+
+    - Pipeline transmission scheduling algorithm
+
+    - …
+
+
+
+
+
 
 
 
