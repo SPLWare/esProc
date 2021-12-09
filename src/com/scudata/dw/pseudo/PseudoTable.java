@@ -81,13 +81,10 @@ public class PseudoTable extends Pseudo implements Operable, IPseudo {
 //		init();
 //	}
 //	
-//	public PseudoTable(ITableMetaData table, PseudoTable ptable, Context ctx) {
-//		this.table = table;
-//		this.ctx = ctx;
-//		extraNameList = new ArrayList<String>();
-//		mcsTable = ptable;
-//		init();
-//	}
+	public PseudoTable(Record rec, PseudoTable mcs, Context ctx) {
+		this(rec, 0, ctx);
+		mcsTable = mcs;
+	}
 	
 	private void init() {
 		if (getPd() != null) {
