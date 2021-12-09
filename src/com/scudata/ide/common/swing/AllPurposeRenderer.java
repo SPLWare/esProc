@@ -3,6 +3,9 @@ package com.scudata.ide.common.swing;
 import java.awt.Color;
 import java.awt.Component;
 import java.math.BigDecimal;
+import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.JLabel;
 import javax.swing.JTable;
@@ -15,6 +18,7 @@ import com.scudata.dm.Sequence;
 import com.scudata.ide.common.ConfigOptions;
 import com.scudata.ide.common.GC;
 import com.scudata.ide.common.GM;
+import com.scudata.util.Variant;
 
 /**
  * JTable的单元格渲染器
@@ -31,6 +35,11 @@ public class AllPurposeRenderer implements TableCellRenderer {
 	private boolean hasIndex = false;
 
 	/**
+	 * 显示格式
+	 */
+	private String format;
+
+	/**
 	 * NULL的显示值
 	 */
 	public static String DISP_NULL = "(null)";
@@ -45,18 +54,38 @@ public class AllPurposeRenderer implements TableCellRenderer {
 	/**
 	 * 构造函数
 	 * 
-	 * @param hasIndex
-	 *            是否有序号列
+	 * @param hasIndex 是否有序号列
 	 */
 	public AllPurposeRenderer(boolean hasIndex) {
 		this.hasIndex = hasIndex;
 	}
 
 	/**
+	 * 构造函数
+	 * 
+	 * @param format 显示格式
+	 */
+	public AllPurposeRenderer(String format) {
+		this(format, false);
+	}
+
+	/**
+	 * 构造函数
+	 * 
+	 * @param format   显示格式
+	 * @param hasIndex 是否有序号列
+	 */
+	public AllPurposeRenderer(String format, boolean hasIndex) {
+		this.format = format;
+		this.hasIndex = hasIndex;
+		textField.setBorder(null);
+	}
+
+	/**
 	 * 取显示控件
 	 */
-	public Component getTableCellRendererComponent(JTable table, Object value,
-			boolean isSelected, boolean hasFocus, int row, int column) {
+	public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
+			int row, int column) {
 		if (isSelected) {
 			textField.setForeground(table.getSelectionForeground());
 			// 设置设计器右上角的格中背景色
@@ -74,12 +103,29 @@ public class AllPurposeRenderer implements TableCellRenderer {
 		if (isRefVal(value)) {
 			textField.setForeground(Color.CYAN.darker());
 		}
-		String strText = GM.renderValueText(value);
 		boolean isNumber = value != null && value instanceof Number;
+		boolean isDate = value != null && value instanceof Date;
 		if (isNumber) {
 			textField.setHorizontalAlignment(JLabel.RIGHT);
 		} else {
 			textField.setHorizontalAlignment(JLabel.LEFT);
+		}
+
+		String strText = null;
+		try {
+			// 满足以下条件的才format
+			Pattern p = Pattern.compile("[#\\.0]");
+			Matcher m = p.matcher(format);
+			boolean numFormat = m.find();
+			if ((numFormat && isNumber) || (isDate && !numFormat)) { // 有合法格式的用格式显示
+				strText = Variant.format(value, format);
+			} else {
+				strText = GM.renderValueText(value);
+			}
+		} catch (Exception e) {
+			if (value != null) {
+				strText = GM.renderValueText(value);
+			}
 		}
 		if (StringUtils.isValidString(strText)) { // 缩进临时用一个空格
 			if (isNumber) {

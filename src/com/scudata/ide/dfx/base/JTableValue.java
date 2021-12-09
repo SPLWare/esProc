@@ -70,7 +70,6 @@ import com.scudata.ide.common.control.TransferableObject;
 import com.scudata.ide.common.dialog.DialogCellFormat;
 import com.scudata.ide.common.swing.AllPurposeEditor;
 import com.scudata.ide.common.swing.AllPurposeRenderer;
-import com.scudata.ide.common.swing.GeneralRenderer;
 import com.scudata.ide.common.swing.JTableEx;
 import com.scudata.ide.common.swing.JTextFieldReadOnly;
 import com.scudata.ide.dfx.GVDfx;
@@ -209,8 +208,7 @@ public class JTableValue extends JTableEx {
 			}
 		};
 		DragSource ds = DragSource.getDefaultDragSource();
-		ds.createDefaultDragGestureRecognizer(this, DnDConstants.ACTION_COPY,
-				dgl);
+		ds.createDefaultDragGestureRecognizer(this, DnDConstants.ACTION_COPY, dgl);
 
 		DropTargetListener dtl = new DropTargetListener() {
 			public void dragEnter(DropTargetDragEvent dtde) {
@@ -252,8 +250,7 @@ public class JTableValue extends JTableEx {
 				}
 				Object value = null;
 				try {
-					value = dtde.getTransferable().getTransferData(
-							TransferableObject.objectFlavor);
+					value = dtde.getTransferable().getTransferData(TransferableObject.objectFlavor);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -400,13 +397,11 @@ public class JTableValue extends JTableEx {
 	/**
 	 * 鼠标右键菜单
 	 */
-	public void rightClicked(int xpos, int ypos, final int row, final int col,
-			MouseEvent e) {
+	public void rightClicked(int xpos, int ypos, final int row, final int col, MouseEvent e) {
 		JPopupMenu pm = new JPopupMenu();
 		JMenuItem mItem;
 		int selectedCol = getSelectedColumn();
-		if (selectedCol > -1
-				&& (m_type == TYPE_TABLE || m_type == TYPE_PMT || m_type == TYPE_SERIESPMT)) {
+		if (selectedCol > -1 && (m_type == TYPE_TABLE || m_type == TYPE_PMT || m_type == TYPE_SERIESPMT)) {
 			mItem = new JMenuItem(mm.getMessage("jtablevalue.editformat")); // 列格式编辑
 			mItem.setIcon(GM.getMenuImageIcon("blank"));
 			mItem.setName(String.valueOf(iFORMAT));
@@ -423,8 +418,7 @@ public class JTableValue extends JTableEx {
 			final Object cellVal = data.getValueAt(row, col);
 			if (cellVal != null && cellVal instanceof String) {
 				mItem = new JMenuItem(LABEL_VIEW_TEXT);
-				mItem.setIcon(GM
-						.getImageIcon(GC.IMAGES_PATH + "b_showtext.gif"));
+				mItem.setIcon(GM.getImageIcon(GC.IMAGES_PATH + "b_showtext.gif"));
 				mItem.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						showText(row, col, cellVal);
@@ -437,11 +431,9 @@ public class JTableValue extends JTableEx {
 	}
 
 	/** 复制列名 */
-	public static final String LABEL_COPY_COLUMN = mm
-			.getMessage("jtablevalue.copycolnames");
+	public static final String LABEL_COPY_COLUMN = mm.getMessage("jtablevalue.copycolnames");
 	/** 查看长文本 */
-	public static final String LABEL_VIEW_TEXT = mm
-			.getMessage("dialogtexteditor.title1");
+	public static final String LABEL_VIEW_TEXT = mm.getMessage("dialogtexteditor.title1");
 
 	/**
 	 * 右键菜单事件监听
@@ -496,15 +488,13 @@ public class JTableValue extends JTableEx {
 	/**
 	 * 设置列格式
 	 * 
-	 * @param col
-	 *            列号
-	 * @param format
-	 *            格式
+	 * @param col    列号
+	 * @param format 格式
 	 */
 	private void setColFormat(int col, String format) {
 		TableColumn tc = getColumn(col);
 		tc.setCellEditor(getAllPurposeEditor());
-		tc.setCellRenderer(new GeneralRenderer(format));
+		tc.setCellRenderer(new AllPurposeRenderer(format));
 		this.repaint();
 	}
 
@@ -527,8 +517,7 @@ public class JTableValue extends JTableEx {
 	/**
 	 * 设置是否计算模式锁
 	 * 
-	 * @param locked1
-	 *            是否计算模式锁
+	 * @param locked1 是否计算模式锁
 	 */
 	public void setLocked1(boolean locked1) {
 		this.isLocked1 = locked1;
@@ -547,8 +536,7 @@ public class JTableValue extends JTableEx {
 	/**
 	 * 设置是否锁定单元格
 	 * 
-	 * @param locked
-	 *            是否锁定单元格
+	 * @param locked 是否锁定单元格
 	 */
 	public void setLocked(boolean locked) {
 		this.isLocked = locked;
@@ -612,8 +600,7 @@ public class JTableValue extends JTableEx {
 	/**
 	 * 重置数据
 	 * 
-	 * @param index
-	 *            开始行号
+	 * @param index 开始行号
 	 */
 	public void resetData(int index) {
 		dispStartIndex = index;
@@ -675,12 +662,9 @@ public class JTableValue extends JTableEx {
 		/**
 		 * 构造函数
 		 * 
-		 * @param s
-		 *            序列
-		 * @param index
-		 *            开始行
-		 * @param dataType
-		 *            类型
+		 * @param s        序列
+		 * @param index    开始行
+		 * @param dataType 类型
 		 */
 		ResetDataThread(Sequence s, int index, byte dataType) {
 			this.seq = s;
@@ -733,17 +717,13 @@ public class JTableValue extends JTableEx {
 					if (isStoped)
 						return;
 					rowData = seq.get(i);
-					if (rowData instanceof Record
-							&& (dataType == TYPE_PMT || dataType == TYPE_TABLE
-									|| dataType == TYPE_SERIESPMT || dataType == TYPE_DB)) {
-						setRecordRow((Record) seq.get(i), i - startRow, isSeq,
-								i);
+					if (rowData instanceof Record && (dataType == TYPE_PMT || dataType == TYPE_TABLE
+							|| dataType == TYPE_SERIESPMT || dataType == TYPE_DB)) {
+						setRecordRow((Record) seq.get(i), i - startRow, isSeq, i);
 					} else {
 						if (isSeq) {
-							data.setValueAt(new Integer(i), i - startRow,
-									COL_FIRST);
-							data.setValueAt(seq.get(i), i - startRow,
-									COL_FIRST + 1);
+							data.setValueAt(new Integer(i), i - startRow, COL_FIRST);
+							data.setValueAt(seq.get(i), i - startRow, COL_FIRST + 1);
 						} else {
 							data.setValueAt(seq.get(i), i - startRow, COL_FIRST);
 						}
@@ -896,8 +876,7 @@ public class JTableValue extends JTableEx {
 	/**
 	 * 设置单元格值
 	 * 
-	 * @param value
-	 *            单元格值
+	 * @param value 单元格值
 	 */
 	public void setValue(Object value) {
 		setValue(value, false);
@@ -906,10 +885,8 @@ public class JTableValue extends JTableEx {
 	/**
 	 * 立即设置单元格值，不考虑锁定状态
 	 * 
-	 * @param value
-	 *            单元格值
-	 * @param id
-	 *            单元格名称
+	 * @param value 单元格值
+	 * @param id    单元格名称
 	 */
 	public void setValue1(Object value, String id) {
 		this.originalValue = value;
@@ -920,10 +897,8 @@ public class JTableValue extends JTableEx {
 	/**
 	 * 设置单元格值
 	 * 
-	 * @param value
-	 *            单元格值
-	 * @param editable
-	 *            是否可以编辑
+	 * @param value    单元格值
+	 * @param editable 是否可以编辑
 	 */
 	public void setValue(Object value, boolean editable) {
 		setValue(value, editable, false);
@@ -932,15 +907,11 @@ public class JTableValue extends JTableEx {
 	/**
 	 * 设置单元格值
 	 * 
-	 * @param value
-	 *            单元格值
-	 * @param editable
-	 *            是否可以编辑
-	 * @param forceSetValue
-	 *            是否无视锁定状态，强行设置格值
+	 * @param value         单元格值
+	 * @param editable      是否可以编辑
+	 * @param forceSetValue 是否无视锁定状态，强行设置格值
 	 */
-	private synchronized void setValue(Object value, boolean editable,
-			final boolean forceSetValue) {
+	private synchronized void setValue(Object value, boolean editable, final boolean forceSetValue) {
 		setValue(value, editable, forceSetValue, null);
 	}
 
@@ -948,17 +919,12 @@ public class JTableValue extends JTableEx {
 	 * 
 	 * 设置单元格值
 	 * 
-	 * @param value
-	 *            单元格值
-	 * @param editable
-	 *            是否可以编辑
-	 * @param forceSetValue
-	 *            是否无视锁定状态，强行设置格值
-	 * @param dispStartRow
-	 *            显示开始行
+	 * @param value         单元格值
+	 * @param editable      是否可以编辑
+	 * @param forceSetValue 是否无视锁定状态，强行设置格值
+	 * @param dispStartRow  显示开始行
 	 */
-	private synchronized void setValue(Object value, boolean editable,
-			final boolean forceSetValue, UndoObject uo) {
+	private synchronized void setValue(Object value, boolean editable, final boolean forceSetValue, UndoObject uo) {
 		if (isLocked && !forceSetValue) {
 			return;
 		}
@@ -1012,13 +978,10 @@ public class JTableValue extends JTableEx {
 	/**
 	 * 重设格值
 	 * 
-	 * @param forceSetValue
-	 *            强行设置格值
-	 * @param aValue
-	 *            值
+	 * @param forceSetValue 强行设置格值
+	 * @param aValue        值
 	 */
-	private synchronized void resetValue(boolean forceSetValue, Object aValue,
-			int dispStartIndex) {
+	private synchronized void resetValue(boolean forceSetValue, Object aValue, int dispStartIndex) {
 		try {
 			initJTable();
 			if (!forceSetValue) {
@@ -1095,8 +1058,7 @@ public class JTableValue extends JTableEx {
 	/**
 	 * 取值的类型
 	 * 
-	 * @param value
-	 *            值
+	 * @param value 值
 	 * @return
 	 */
 	private byte getValueType(Object value) {
@@ -1133,8 +1095,7 @@ public class JTableValue extends JTableEx {
 	/**
 	 * 初始化序表
 	 * 
-	 * @param table
-	 *            序表
+	 * @param table 序表
 	 * @return
 	 */
 	private int initTable(Table table) {
@@ -1147,8 +1108,7 @@ public class JTableValue extends JTableEx {
 	/**
 	 * 初始化纯排列
 	 * 
-	 * @param pmt
-	 *            纯排列
+	 * @param pmt 纯排列
 	 * @return
 	 */
 	private int initPmt(Sequence pmt) {
@@ -1203,8 +1163,7 @@ public class JTableValue extends JTableEx {
 		tc = getColumn(TITLE_INDEX);
 		tc.setCellEditor(getAllPurposeEditor());
 		tc.setCellRenderer(new AllPurposeRenderer(true));
-		final int INDEX_WIDTH = getIndexColWidth(series == null ? 0 : series
-				.length());
+		final int INDEX_WIDTH = getIndexColWidth(series == null ? 0 : series.length());
 		tc.setMinWidth(INDEX_WIDTH);
 		tc.setWidth(INDEX_WIDTH);
 		tc.setPreferredWidth(INDEX_WIDTH);
@@ -1218,8 +1177,7 @@ public class JTableValue extends JTableEx {
 	/**
 	 * 初始化记录
 	 * 
-	 * @param record
-	 *            记录
+	 * @param record 记录
 	 * @return
 	 */
 	private int initRecord(Record record) {
@@ -1237,10 +1195,8 @@ public class JTableValue extends JTableEx {
 	/**
 	 * 是否主键
 	 * 
-	 * @param primaries
-	 *            主键数组
-	 * @param colName
-	 *            字段名
+	 * @param primaries 主键数组
+	 * @param colName   字段名
 	 * @return
 	 */
 	private boolean isPrimary(String[] primaries, String colName) {
@@ -1258,10 +1214,8 @@ public class JTableValue extends JTableEx {
 	/**
 	 * 设置编辑风格
 	 * 
-	 * @param ds
-	 *            数据结构
-	 * @param hasIndex
-	 *            是否有序号列
+	 * @param ds       数据结构
+	 * @param hasIndex 是否有序号列
 	 */
 	private void setEditStyle(DataStruct ds, boolean hasIndex) {
 		if (ds == null)
@@ -1286,7 +1240,7 @@ public class JTableValue extends JTableEx {
 
 			String format = GM.getColumnFormat(cols[i]);
 			if (StringUtils.isValidString(format)) {
-				tc.setCellRenderer(new GeneralRenderer(format));
+				tc.setCellRenderer(new AllPurposeRenderer(format));
 			} else {
 				tc.setCellRenderer(new AllPurposeRenderer(hasIndex));
 			}
@@ -1296,12 +1250,9 @@ public class JTableValue extends JTableEx {
 	/**
 	 * 设置表格的列
 	 * 
-	 * @param ds
-	 *            数据结构
-	 * @param len
-	 *            数据长度，用于计算序号列宽度
-	 * @param isSeq
-	 *            是否序列（也包含排列、序表）
+	 * @param ds    数据结构
+	 * @param len   数据长度，用于计算序号列宽度
+	 * @param isSeq 是否序列（也包含排列、序表）
 	 */
 	private void setTableColumns(DataStruct ds, int len, boolean isSeq) {
 		if (ds == null)
@@ -1355,8 +1306,7 @@ public class JTableValue extends JTableEx {
 				if (isPK(pkIndex, i - 1)) {
 					tc = getColumn(i);
 					tc.setHeaderRenderer(new PKRenderer());
-					int titleWidth = getFontMetrics(getFont()).stringWidth(
-							getColumnName(i));
+					int titleWidth = getFontMetrics(getFont()).stringWidth(getColumnName(i));
 					colWidth = tc.getWidth();
 					final int IMAGE_WIDTH = 35;
 					if (titleWidth + IMAGE_WIDTH > colWidth) {
@@ -1380,18 +1330,15 @@ public class JTableValue extends JTableEx {
 		public PKRenderer() {
 		}
 
-		public Component getTableCellRendererComponent(JTable table,
-				Object value, boolean isSelected, boolean hasFocus, int row,
-				int column) {
-			Component c = super.getTableCellRendererComponent(table, value,
-					isSelected, hasFocus, row, column);
+		public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
+				int row, int column) {
+			Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
 			c.setBackground(table.getBackground());
 			c.setForeground(table.getForeground());
 			if (c instanceof JLabel) {
 				((JLabel) c).setText((String) value);
 				((JLabel) c).setHorizontalAlignment(JLabel.CENTER);
-				((JLabel) c).setIcon(GM
-						.getImageIcon(GC.IMAGES_PATH + "key.png"));
+				((JLabel) c).setIcon(GM.getImageIcon(GC.IMAGES_PATH + "key.png"));
 			}
 			return c;
 		}
@@ -1400,10 +1347,8 @@ public class JTableValue extends JTableEx {
 	/**
 	 * 列是否主键
 	 * 
-	 * @param pkIndex
-	 *            主键序号
-	 * @param index
-	 *            列序号
+	 * @param pkIndex 主键序号
+	 * @param index   列序号
 	 * @return
 	 */
 	private boolean isPK(int[] pkIndex, int index) {
@@ -1461,8 +1406,7 @@ public class JTableValue extends JTableEx {
 	/**
 	 * 初始化DBInfo对象
 	 * 
-	 * @param db
-	 *            DBInfo对象
+	 * @param db DBInfo对象
 	 * @return
 	 */
 	private int initDB(DBObject db) {
@@ -1499,8 +1443,7 @@ public class JTableValue extends JTableEx {
 	/**
 	 * 设置DBInfo对象到表格
 	 * 
-	 * @param db
-	 *            DBInfo对象
+	 * @param db DBInfo对象
 	 */
 	private void initDBTable(DBObject db) {
 		DBInfo info = db.getDbSession().getInfo();
@@ -1510,8 +1453,7 @@ public class JTableValue extends JTableEx {
 		dbTable.newLast(new Object[] { DB_NAME, info.getName() });
 		if (info instanceof DBConfig) {
 			int type = info.getDBType();
-			dbTable.newLast(new Object[] { DB_TYPE,
-					DBTypeEx.getDBTypeName(type) });
+			dbTable.newLast(new Object[] { DB_TYPE, DBTypeEx.getDBTypeName(type) });
 
 			DBConfig dc = (DBConfig) info;
 			dbTable.newLast(new Object[] { DRIVER, dc.getDriver() });
@@ -1519,18 +1461,15 @@ public class JTableValue extends JTableEx {
 			dbTable.newLast(new Object[] { USER, dc.getUser() });
 			String pwd = dc.getPassword();
 			dbTable.newLast(new Object[] { PASSWORD, pwd });
-			dbTable.newLast(new Object[] { USE_SCHEMA,
-					Boolean.toString(dc.isUseSchema()) });
-			dbTable.newLast(new Object[] { ADD_TILDE,
-					Boolean.toString(dc.isAddTilde()) });
+			dbTable.newLast(new Object[] { USE_SCHEMA, Boolean.toString(dc.isUseSchema()) });
+			dbTable.newLast(new Object[] { ADD_TILDE, Boolean.toString(dc.isAddTilde()) });
 		}
 	}
 
 	/**
 	 * 初始化FileObject对象
 	 * 
-	 * @param file
-	 *            FileObject对象
+	 * @param file FileObject对象
 	 * @return
 	 */
 	private int initFile(FileObject file) {
@@ -1541,8 +1480,7 @@ public class JTableValue extends JTableEx {
 	/**
 	 * 初始化普通值
 	 * 
-	 * @param value
-	 *            普通值
+	 * @param value 普通值
 	 * @return
 	 */
 	private int initDefault(Object value) {
@@ -1579,8 +1517,7 @@ public class JTableValue extends JTableEx {
 	/**
 	 * 取多类型值的编辑器
 	 * 
-	 * @param editable
-	 *            是否可以编辑
+	 * @param editable 是否可以编辑
 	 * @return
 	 */
 	public AllPurposeEditor getAllPurposeEditor(boolean editable) {
@@ -1605,10 +1542,8 @@ public class JTableValue extends JTableEx {
 	/**
 	 * 钻取成员值
 	 * 
-	 * @param row
-	 *            行号
-	 * @param col
-	 *            列号
+	 * @param row 行号
+	 * @param col 列号
 	 */
 	private void drillValue(int row, int col) {
 		if (editable) {
@@ -1629,8 +1564,7 @@ public class JTableValue extends JTableEx {
 			Object temp = s.get(realRow);
 			if (temp instanceof Record) {
 				Record r = (Record) temp;
-				if (r.dataStruct() != null && s.dataStruct() != null
-						&& !r.dataStruct().isCompatible(s.dataStruct())) { // 异构排列
+				if (r.dataStruct() != null && s.dataStruct() != null && !r.dataStruct().isCompatible(s.dataStruct())) { // 异构排列
 					newValue = temp;
 				} else if ((TYPE_SERIES == m_type || TYPE_SERIESPMT == m_type)) {
 					newValue = temp;
@@ -1811,8 +1745,7 @@ public class JTableValue extends JTableEx {
 	/**
 	 * 复制数据
 	 * 
-	 * @param copyTitle
-	 *            是否复制标题
+	 * @param copyTitle 是否复制标题
 	 * @return
 	 */
 	public boolean copyValue(boolean copyTitle) {
@@ -1835,8 +1768,7 @@ public class JTableValue extends JTableEx {
 			rowCount += 1;
 		}
 		Matrix matrix;
-		CellRect cr = new CellRect(0, (short) 0, selectedRows.size() - 1,
-				(short) (cc - 1));
+		CellRect cr = new CellRect(0, (short) 0, selectedRows.size() - 1, (short) (cc - 1));
 		Sequence seq = null;
 		switch (m_type) {
 		case TYPE_DB:
@@ -2009,12 +1941,9 @@ public class JTableValue extends JTableEx {
 	/**
 	 * 设置格子或数据矩阵到表格
 	 * 
-	 * @param matrix
-	 *            数据矩阵
-	 * @param row
-	 *            起始行
-	 * @param col
-	 *            起始列
+	 * @param matrix 数据矩阵
+	 * @param row    起始行
+	 * @param col    起始列
 	 */
 	private void setMatrix2Table(Matrix matrix, int row, int col) {
 		int rowCount = matrix.getRowSize();

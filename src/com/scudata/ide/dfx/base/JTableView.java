@@ -36,7 +36,6 @@ import com.scudata.ide.common.control.CellSelection;
 import com.scudata.ide.common.dialog.DialogCellFormat;
 import com.scudata.ide.common.swing.AllPurposeEditor;
 import com.scudata.ide.common.swing.AllPurposeRenderer;
-import com.scudata.ide.common.swing.GeneralRenderer;
 import com.scudata.ide.common.swing.JTableEx;
 import com.scudata.ide.dfx.resources.IdeDfxMessage;
 import com.scudata.util.Variant;
@@ -125,8 +124,7 @@ public abstract class JTableView extends JTableEx {
 		mItem.setEnabled(selectCell);
 		pm.add(mItem);
 
-		if (selectedCol > -1
-				&& (m_type == TYPE_TABLE || m_type == TYPE_PMT || m_type == TYPE_SERIESPMT)) {
+		if (selectedCol > -1 && (m_type == TYPE_TABLE || m_type == TYPE_PMT || m_type == TYPE_SERIESPMT)) {
 			mItem = new JMenuItem(mm.getMessage("jtablevalue.editformat")); // 列格式编辑
 			mItem.setIcon(GM.getMenuImageIcon("blank"));
 			mItem.setName(String.valueOf(iFORMAT));
@@ -185,15 +183,13 @@ public abstract class JTableView extends JTableEx {
 	/**
 	 * 设置列格式
 	 * 
-	 * @param col
-	 *            列号
-	 * @param format
-	 *            格式
+	 * @param col    列号
+	 * @param format 格式
 	 */
 	private void setColFormat(int col, String format) {
 		TableColumn tc = getColumn(col);
 		tc.setCellEditor(new AllPurposeEditor(new JTextField(), this));
-		tc.setCellRenderer(new GeneralRenderer(format));
+		tc.setCellRenderer(new AllPurposeRenderer(format));
 		this.repaint();
 	}
 
@@ -279,9 +275,7 @@ public abstract class JTableView extends JTableEx {
 					rowData = seq.get(i);
 
 					if (rowData instanceof Record) {
-						insertRow(-1,
-								getRecordData((Record) seq.get(i), i - 1),
-								false);
+						insertRow(-1, getRecordData((Record) seq.get(i), i - 1), false);
 					} else {
 						insertRow(-1, new Object[] { seq.get(i) }, false);
 					}
@@ -305,10 +299,8 @@ public abstract class JTableView extends JTableEx {
 	/**
 	 * 获取记录的数据
 	 * 
-	 * @param record
-	 *            记录对象
-	 * @param r
-	 *            行号
+	 * @param record 记录对象
+	 * @param r      行号
 	 * @return
 	 */
 	private Object[] getRecordData(Record record, int r) {
@@ -361,8 +353,7 @@ public abstract class JTableView extends JTableEx {
 	/**
 	 * 设置单元格值
 	 * 
-	 * @param value
-	 *            单元格值
+	 * @param value 单元格值
 	 */
 	public void setValue(Object value) {
 		setValue(value, false);
@@ -371,10 +362,8 @@ public abstract class JTableView extends JTableEx {
 	/**
 	 * 设置单元格值
 	 * 
-	 * @param value
-	 *            单元格值
-	 * @param privateAction
-	 *            是否内部设置动作
+	 * @param value         单元格值
+	 * @param privateAction 是否内部设置动作
 	 */
 	private synchronized void setValue(Object value, boolean privateAction) {
 		this.value = value;
@@ -450,8 +439,7 @@ public abstract class JTableView extends JTableEx {
 	/**
 	 * 取值的类型
 	 * 
-	 * @param value
-	 *            值
+	 * @param value 值
 	 * @return
 	 */
 	private byte getValueType(Object value) {
@@ -478,8 +466,7 @@ public abstract class JTableView extends JTableEx {
 	/**
 	 * 初始化序表
 	 * 
-	 * @param table
-	 *            序表
+	 * @param table 序表
 	 * @return
 	 */
 	private int initTable(Table table) {
@@ -492,8 +479,7 @@ public abstract class JTableView extends JTableEx {
 	/**
 	 * 初始化纯排列
 	 * 
-	 * @param pmt
-	 *            纯排列
+	 * @param pmt 纯排列
 	 * @return
 	 */
 	private int initPmt(Sequence pmt) {
@@ -534,8 +520,7 @@ public abstract class JTableView extends JTableEx {
 	/**
 	 * 初始化记录
 	 * 
-	 * @param record
-	 *            记录
+	 * @param record 记录
 	 * @return
 	 */
 	private int initRecord(Record record) {
@@ -553,8 +538,7 @@ public abstract class JTableView extends JTableEx {
 	/**
 	 * 设置编辑风格
 	 * 
-	 * @param ds
-	 *            数据结构
+	 * @param ds 数据结构
 	 */
 	private void setEditStyle(DataStruct ds) {
 		String cols[] = ds.getFieldNames();
@@ -564,7 +548,7 @@ public abstract class JTableView extends JTableEx {
 			String format = GM.getColumnFormat(cols[i]);
 			if (StringUtils.isValidString(format)) {
 				tc.setCellEditor(new AllPurposeEditor(new JTextField(), this));
-				tc.setCellRenderer(new GeneralRenderer(format));
+				tc.setCellRenderer(new AllPurposeRenderer(format));
 			}
 		}
 
@@ -574,8 +558,7 @@ public abstract class JTableView extends JTableEx {
 	/**
 	 * 设置表格的列
 	 * 
-	 * @param ds
-	 *            数据结构
+	 * @param ds 数据结构
 	 */
 	private void setTableColumns(DataStruct ds) {
 		String nNames[] = ds.getFieldNames();
@@ -599,8 +582,7 @@ public abstract class JTableView extends JTableEx {
 	/**
 	 * 初始化DBInfo对象
 	 * 
-	 * @param db
-	 *            DBInfo对象
+	 * @param db DBInfo对象
 	 * @return
 	 */
 	private int initDB(DBObject db) {
@@ -637,25 +619,21 @@ public abstract class JTableView extends JTableEx {
 		dbTable.newLast(new Object[] { DB_NAME, info.getName() });
 		if (info instanceof DBConfig) {
 			int type = info.getDBType();
-			dbTable.newLast(new Object[] { DB_TYPE,
-					DBTypeEx.getDBTypeName(type) });
+			dbTable.newLast(new Object[] { DB_TYPE, DBTypeEx.getDBTypeName(type) });
 
 			DBConfig dc = (DBConfig) info;
 			dbTable.newLast(new Object[] { DRIVER, dc.getDriver() });
 			dbTable.newLast(new Object[] { URL, dc.getUrl() });
 			dbTable.newLast(new Object[] { USER, dc.getUser() });
-			dbTable.newLast(new Object[] { USE_SCHEMA,
-					Boolean.toString(dc.isUseSchema()) });
-			dbTable.newLast(new Object[] { ADD_TILDE,
-					Boolean.toString(dc.isAddTilde()) });
+			dbTable.newLast(new Object[] { USE_SCHEMA, Boolean.toString(dc.isUseSchema()) });
+			dbTable.newLast(new Object[] { ADD_TILDE, Boolean.toString(dc.isAddTilde()) });
 		}
 	}
 
 	/**
 	 * 初始化FileObject对象
 	 * 
-	 * @param file
-	 *            FileObject对象
+	 * @param file FileObject对象
 	 * @return
 	 */
 	private int initFile(FileObject file) {
@@ -666,8 +644,7 @@ public abstract class JTableView extends JTableEx {
 	/**
 	 * 初始化普通值
 	 * 
-	 * @param value
-	 *            普通值
+	 * @param value 普通值
 	 * @return
 	 */
 	private int initDefault(Object value) {
@@ -705,10 +682,8 @@ public abstract class JTableView extends JTableEx {
 	/**
 	 * 钻取成员值
 	 * 
-	 * @param row
-	 *            行号
-	 * @param col
-	 *            列号
+	 * @param row 行号
+	 * @param col 列号
 	 */
 	private void drillValue(int row, int col) {
 		Object newValue = null;
@@ -721,8 +696,7 @@ public abstract class JTableView extends JTableEx {
 			Object temp = s.get(row + 1);
 			if (temp instanceof Record) {
 				Record r = (Record) temp;
-				if (r.dataStruct() != null && s.dataStruct() != null
-						&& !r.dataStruct().equals(s.dataStruct())) { // 异构排列
+				if (r.dataStruct() != null && s.dataStruct() != null && !r.dataStruct().equals(s.dataStruct())) { // 异构排列
 					newValue = temp;
 				}
 			}
@@ -802,8 +776,7 @@ public abstract class JTableView extends JTableEx {
 		}
 		int cc = getColumnCount();
 		Matrix matrix = new Matrix(rows.length, cc);
-		CellRect cr = new CellRect(0, (short) 0, rows.length - 1,
-				(short) (cc - 1));
+		CellRect cr = new CellRect(0, (short) 0, rows.length - 1, (short) (cc - 1));
 		for (int r = 0; r < rows.length; r++) {
 			for (int c = 0; c < getColumnCount(); c++) {
 				Object value = data.getValueAt(rows[r], c);
