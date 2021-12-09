@@ -1,7 +1,7 @@
 
-## What is esProc?
+# esProc - Agile Data Computing Engine
 
-__Agile Data Computing Engine for structured data.__
+## How does esProc do it?
 
 - __Beyond the computing power of the database__
 
