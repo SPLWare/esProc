@@ -1,7 +1,7 @@
 
 # esProc - Agile Data Computing Engine
 
-## How does esProc do it?
+## Know about esProc
 
 - __Beyond the computing power of the database__
 
