@@ -5,10 +5,8 @@
 
 - __Beyond the computing power of the database__
 
-
     esProc does not rely on the computing power of the database, and has an independent computing engine.
     
-
 - __Open computing system__
 
     Universal computing can be implemented for any data source.   
