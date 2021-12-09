@@ -1,7 +1,7 @@
 
 ## What is esProc?
 
-The professional data computing engine for structured data computing.
+__Agile Data Computing Engine for structured data.__
 
 - __Beyond the computing power of the database__
 
