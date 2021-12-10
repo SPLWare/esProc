@@ -92,7 +92,8 @@ For latest package and release notes, see [Download esProc Community Edition Pac
     __SQL has certain computing power, but it is not available in many scenarios, so you will have to hard code in Java. 
     SPL provides lightweight computing power independent of database and can process data in any scenario:__
     
-    - Structured text (txt/csv) calculation
+    - Structured text (txt/csv) calculation &nbsp;&nbsp;&nbsp;&nbsp; Ref. <a href="http://c.raqsoft.com/article/1619428670986" title="Read and reorder specific columns on a CSV file">[1]</a>
+    
     
     - Excel calculation
     
