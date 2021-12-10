@@ -9,23 +9,44 @@ Computing middleware: a programmable general software between application and da
 
 Note： This diagram focuses on the mainstream embedded and Java application architecture, and esProc also supports the independent and non Java application architecture. 
 
-  
+For latest package and release notes, see [Download esProc Community Edition Package](http://c.raqsoft.com/article/1595817756260).
+
 ## Know about SPL
 
 <b>S</b>tructured <b>P</b>rocess <b>L</b>anguage — <b>SPL</b> is the scripting language on which esProc is based. SPL script is the counterpart of the stored procedure in RDB. A SPL script will be passed to a Java program through JDBC interface to be executed or to achieve the structured computation.
 
    <img src="http://www.raqsoft.com/wp-content/themes/raqsoft2017-en/images/java-computing/3.png" width="800" height="300">
 
-- __Combined the common advantages of SQL and Java__
+- __Combined the advantages of Java, Beyond SQL__
 
-  Adapt to set batch computation (SQL advantage)
-  
-  Good at step-by-step procedure computing (Java advantage)
+  [Comparison of SQL & SPL: Set-oriented Operations](http://c.raqsoft.com/article/1622598686173)
 
-- __Well designed rich library functions and consistency syntax__
+  [Comparison of SQL & SPL: Select Operation](http://c.raqsoft.com/article/1625729370376)
 
-  Easier to master and better performance than Python.
-  
+  [Comparison of SQL & SPL: Order-based Computations](http://c.raqsoft.com/article/1621587675540)
+
+  [Comparison of SQL & SPL: Equi-grouping](http://c.raqsoft.com/article/1620289765361)
+
+  [Comparison of SQL & SPL: Non-equi-grouping](http://c.raqsoft.com/article/1621233528244)
+
+  [Comparison of SQL & SPL: Order-based Computations](http://c.raqsoft.com/article/1621232555689)
+
+  [Comparison of SQL & SPL: Join Operations (Ⅰ)](http://c.raqsoft.com/article/1622615623417)
+
+  [Comparison of SQL & SPL: Join Operations (Ⅱ)](http://c.raqsoft.com/article/1623046924829)
+
+  [Comparison of SQL & SPL: Join Operations (Ⅲ)](http://c.raqsoft.com/article/1625738996195)
+
+  [Comparison of SQL & SPL: Static Transposition](http://c.raqsoft.com/article/1621588427124)
+
+  [Comparison of SQL & SPL: Complicated Static Transposition](http://c.raqsoft.com/article/1621588222144)
+
+  [Comparison of SQL & SPL: Dynamic Transposition](http://c.raqsoft.com/article/1625729514671)
+
+  [Comparison of SQL & SPL: Recursion Operation](http://c.raqsoft.com/article/1621234716519)
+
+- __Well designed rich library functions and consistency syntax,Easier to master and better performance than Python.__
+
   Example: Find out the sales clerks whose sales are within top 8 for every moth in 1995.
 
   Python:
@@ -61,7 +82,7 @@ Note： This diagram focuses on the mainstream embedded and Java application arc
   
   For more details, see [Call SPL Script in Java](http://c.raqsoft.com/article/1544066331124).
 
-  For other integrations, see [Call SPL in applications](http://c.raqsoft.com/article/1638429720790)
+  For other integrations, see [Call SPL in applications](http://c.raqsoft.com/article/1638429720790).
 
 
 ## SPL application scenarios
