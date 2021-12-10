@@ -582,6 +582,7 @@ public class ListBase1 implements Externalizable, IRecord {
 	 * @throws IOException
 	 */
 	public void writeExternal(java.io.ObjectOutput out) throws java.io.IOException {
+		out.writeByte(1);
 		Object elementData[] = this.elementData;
 		out.writeInt(size);
 		out.writeInt(elementData.length);
@@ -598,6 +599,7 @@ public class ListBase1 implements Externalizable, IRecord {
 	 * @throws ClassNotFoundException
 	 */
 	public void readExternal(java.io.ObjectInput in) throws java.io.IOException, ClassNotFoundException {
+		in.readByte(); // °æ±¾
 		size = in.readInt();
 		int length = in.readInt();
 		Object elementData[] = new Object[length];

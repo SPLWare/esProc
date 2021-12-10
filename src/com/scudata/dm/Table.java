@@ -204,13 +204,15 @@ public class Table extends Sequence {
 	}
 
 	public void writeExternal(ObjectOutput out) throws IOException {
-		out.writeObject(ds);
 		super.writeExternal(out);
+		out.writeByte(1); // °æ±¾ºÅ
+		out.writeObject(ds);
 	}
 
 	public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
-		ds = (DataStruct)in.readObject();
 		super.readExternal(in);
+		in.readByte(); // °æ±¾ºÅ
+		ds = (DataStruct)in.readObject();
 	}
 
 	/**

@@ -88,11 +88,13 @@ public class DataStruct implements Externalizable, IRecord {
 	}
 
 	public void writeExternal(ObjectOutput out) throws IOException {
+		out.writeByte(2); // °æ±¾ºÅ
 		out.writeObject(fieldNames);
 		out.writeObject(primary);
 	}
 
 	public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+		in.readByte(); // °æ±¾ºÅ
 		fieldNames = (String[])in.readObject();
 		setPrimary((String[])in.readObject());
 	}

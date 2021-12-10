@@ -127,11 +127,13 @@ public class Record implements IComputeItem, Externalizable, IRecord, Comparable
 	}
 
 	public void writeExternal(ObjectOutput out) throws IOException {
+		out.writeByte(1); // °æ±¾ºÅ
 		out.writeObject(ds);
 		out.writeObject(values);
 	}
 
 	public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+		in.readByte(); // °æ±¾ºÅ
 		ds = (DataStruct) in.readObject();
 		values = (Object[]) in.readObject();
 	}

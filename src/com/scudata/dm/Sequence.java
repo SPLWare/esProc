@@ -350,10 +350,12 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	public void writeExternal(ObjectOutput out) throws IOException {
+		out.writeByte(1); // °æ±¾ºÅ
 		out.writeObject(mems);
 	}
 
 	public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+		in.readByte(); // °æ±¾ºÅ
 		mems = (ListBase1)in.readObject();
 	}
 
