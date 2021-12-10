@@ -67,14 +67,15 @@ public class ThreadPool{
 
 	private ThreadPool(int threadCount) {
 		ThreadGroup group = Thread.currentThread().getThreadGroup();
-		while (true) {
+		// 根组不是ide产生的，ide会调用ide产生的线程组的结束线程方法，此方法会递归结束下面所有线程组的线程
+		/*while (true) {
 			ThreadGroup g = group.getParent();
 			if (g == null) {
 				break;
 			} else {
 				group = g;
 			}
-		}
+		}*/
 
 		threads = new WorkThread[threadCount];
 		for (int i = 0; i < threadCount; ++i) {

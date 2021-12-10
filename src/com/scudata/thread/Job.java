@@ -19,7 +19,8 @@ public abstract class Job implements Runnable {
 			try {
 				wait();
 			} catch (InterruptedException e) {
-				throw new RQException(e);
+				// ide结束线程，此处抛出异常可能导致jvm崩溃
+				//throw new RQException(e);
 			}
 		}
 		
