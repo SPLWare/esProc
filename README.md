@@ -120,7 +120,7 @@ For latest package and release notes, see [Download esProc Community Edition Pac
     __SQL is difficult to deal with complex sets and ordered operations, and it is often read out and calculated in Java.
     SPL has complete set capability, especially supports ordered and step-by-step calculation, which can simplify these operations:__
 
-    - Ordered set
+    - Ordered set &nbsp;&nbsp;&nbsp;&nbsp; Ref. <a href="http://c.raqsoft.com/article/1621587675540" title="Comparison of SQL & SPL: Order-based Computations">[1]</a>
 
     - Position reference
     
@@ -130,7 +130,7 @@ For latest package and release notes, see [Download esProc Community Edition Pac
     
     - Multi-level association operation
     
-    - Static and dynamic pivot
+    - Static and dynamic pivot  &nbsp;&nbsp;&nbsp;&nbsp; Ref. <a href="http://c.raqsoft.com/article/1621588427124" title="Comparison of SQL & SPL: Static Transposition">[1]</a> <a href="http://c.raqsoft.com/article/1621588222144" title="Comparison of SQL & SPL: Complicated Static Transposition">[2]</a> <a href="http://c.raqsoft.com/article/1625729514671" title="Comparison of SQL & SPL: Dynamic Transposition">[3]</a>
     
     - Recursion and iteration
     
