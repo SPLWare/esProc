@@ -11,6 +11,7 @@ import java.awt.event.WindowEvent;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -68,8 +69,7 @@ public class DialogTextEditor extends JDialog implements ActionListener {
 	/**
 	 * 自动换行复选框
 	 */
-	private JCheckBox jCBLineWrap = new JCheckBox(
-			mm.getMessage("dialogtexteditor.linewrap"));
+	private JCheckBox jCBLineWrap = new JCheckBox(mm.getMessage("dialogtexteditor.linewrap"));
 
 	/**
 	 * 退出选项
@@ -86,18 +86,26 @@ public class DialogTextEditor extends JDialog implements ActionListener {
 	/**
 	 * 构造函数
 	 * 
-	 * @param isEditable
-	 *            是否可以编辑
+	 * @param isEditable 是否可以编辑
 	 */
 	public DialogTextEditor(boolean isEditable) {
-		super(GV.appFrame, "", true);
+		this(GV.appFrame, isEditable);
+	}
+
+	/**
+	 * 构造函数
+	 * 
+	 * @param parent     父组件
+	 * @param isEditable 是否可以编辑
+	 */
+	public DialogTextEditor(JFrame parent, boolean isEditable) {
+		super(parent, "", true);
 		init();
 
 		GM.setWindowToolSize(this);
 		GM.setDialogDefaultButton(this, okButton, cancelButton);
 		this.setResizable(true);
-		jCBLineWrap.setSelected(ConfigOptions.bTextEditorLineWrap
-				.booleanValue());
+		jCBLineWrap.setSelected(ConfigOptions.bTextEditorLineWrap.booleanValue());
 		textEditor.setLineWrap(jCBLineWrap.isSelected());
 		if (!isEditable) {
 			textEditor.setEditable(false);
@@ -159,7 +167,7 @@ public class DialogTextEditor extends JDialog implements ActionListener {
 		textEditor.setEditable(true);
 		textEditor.setCodeFoldingEnabled(true);
 		textEditor.setFont(GC.font);
-		textEditor.setToolTipText(mm.getMessage("toolbarproperty.cellexp")); // 单元格表达式
+		// textEditor.setToolTipText(mm.getMessage("toolbarproperty.cellexp")); // 单元格表达式
 		textEditor.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_SQL);
 
 		this.addWindowListener(new WindowAdapter() {
