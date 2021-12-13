@@ -36,7 +36,7 @@ import com.scudata.expression.operator.NotEquals;
 import com.scudata.expression.operator.Or;
 import com.scudata.util.CursorUtil;
 
-public class PseudoTable extends Pseudo implements Operable, IPseudo {	
+public class PseudoTable extends Pseudo {	
 	//创建游标需要的参数
 	private String []fkNames;
 	private Sequence []codes;
@@ -617,6 +617,13 @@ public class PseudoTable extends Pseudo implements Operable, IPseudo {
 			Expression exp = op.getFunction().getParam().getLeafExpression();
 			Node node = exp.getHome();
 			parseFilter(node);
+		}
+		
+		/**
+		 * 
+		 */
+		if (op instanceof Group) {
+			//Group group = (Group) op;
 		}
 		
 		/**

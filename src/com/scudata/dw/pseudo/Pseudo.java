@@ -18,7 +18,7 @@ import com.scudata.expression.Expression;
 import com.scudata.expression.operator.And;
 import com.scudata.resources.EngineMessage;
 
-public class Pseudo {
+public class Pseudo implements IPseudo{
 	protected PseudoDefination pd;//实表的定义
 	//protected ITableMetaData table;//实表
 	
@@ -341,6 +341,18 @@ public class Pseudo {
 	}
 	
 	public Sequence delete(Sequence data, String opt) {
+		throw new RQException("never run to here");
+	}
+
+	public void addColNames(String[] nameArray) {
+		throw new RQException("never run to here");
+	}
+
+	public ICursor cursor(Expression[] exps, String[] names) {
+		throw new RQException("never run to here");
+	}
+
+	public Object clone(Context ctx) throws CloneNotSupportedException {
 		throw new RQException("never run to here");
 	}
 }

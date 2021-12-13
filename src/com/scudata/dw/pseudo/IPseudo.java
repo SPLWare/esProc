@@ -3,9 +3,10 @@ package com.scudata.dw.pseudo;
 import com.scudata.dm.Context;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.cursor.ICursor;
+import com.scudata.dm.op.Operable;
 import com.scudata.expression.Expression;
 
-public interface IPseudo {
+public interface IPseudo extends Operable {
 	public void addColNames(String []nameArray);
 	public void addColName(String name);
 	public ICursor cursor(Expression []exps, String []names);

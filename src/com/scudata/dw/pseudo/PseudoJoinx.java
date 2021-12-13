@@ -11,7 +11,7 @@ import com.scudata.dm.op.Operation;
 import com.scudata.expression.Expression;
 import com.scudata.util.CursorUtil;
 
-public class PseudoJoinx implements Operable, IPseudo {
+public class PseudoJoinx extends Pseudo {
 	private IPseudo []joinxTables;
 	private Expression [][]joinExps;
 	private String []joinNames;
@@ -57,7 +57,7 @@ public class PseudoJoinx implements Operable, IPseudo {
 		return (Operable) newObj;
 	}
 	
-	private void addOpt(Operation op, Context ctx) {
+	public void addOpt(Operation op, Context ctx) {
 		if (opList == null) {
 			opList = new ArrayList<Operation>();
 		}

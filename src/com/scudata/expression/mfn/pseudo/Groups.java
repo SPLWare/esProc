@@ -242,6 +242,20 @@ public class Groups extends PseudoFunction {
 			}
 		}
 
+		/**
+		 * 判断分组字段是否对虚表有序。如果有序就增加@o属性。
+		 */
+		if (pseudo instanceof PseudoTable) {
+			PseudoTable ptable = (PseudoTable) pseudo;
+			if (ptable.getPd().isSortedFields(expStrs)) {
+				if (option == null) {
+					option = "o";
+				} else {
+					option += "o";
+				}
+			}
+		}
+		
 		ICursor cursor = pseudo.cursor(expArray, fields);
 		Sequence result = null;
 		if (cursor instanceof ClusterCursor) {
@@ -261,7 +275,6 @@ public class Groups extends PseudoFunction {
 					((Table)result).setPrimary(pk);
 				}
 			}
-	
 			return result;
 		}
 	}

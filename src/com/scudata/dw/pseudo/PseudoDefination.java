@@ -26,6 +26,8 @@ public class PseudoDefination {
 	private List<PseudoColumn> columns;//部分特殊字段定义
 	private List<ITableMetaData> tables;//存所有文件的table对象
 	
+	private String[] sortedFields;//排序字段
+	
 	public PseudoDefination(Record pd, Context ctx) {
 		file = getFieldValue(pd, PD_FILE);
 		zone = (Sequence) getFieldValue(pd, PD_ZONE);
@@ -41,6 +43,7 @@ public class PseudoDefination {
 			}
 		}
 		parseFileToTable(ctx);
+		sortedFields = getAllSortedColNames();
 	}
 	
 	public Object getFile() {
@@ -178,8 +181,6 @@ public class PseudoDefination {
 				parseFileToTable((String) seq.get(i), partitions, ctx);
 			}
 		}
-	
-	
 	}
 
 	public String[] getAllColNames() {
@@ -192,5 +193,31 @@ public class PseudoDefination {
 	
 	public void addPseudoColumn(PseudoColumn column) {
 		columns.add(column);
+	}
+	
+	/**
+	 * 判断fields是否是虚表的有序字段
+	 * @param fields
+	 * @return
+	 */
+	public boolean isSortedFields(String[] fields) {
+		if (sortedFields == null || fields == null) {
+			return false;
+		}
+		
+		int len = fields.length;
+		if (len > sortedFields.length || len == 0) {
+			return false;
+		}
+		
+		for (int i = 0; i < len; i++) {
+			if (fields[i] == null) {
+				return false;
+			}
+			if (!fields[i].equals(sortedFields[i])) {
+				return false;
+			}
+		}
+		return true;
 	}
 }
