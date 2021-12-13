@@ -9,7 +9,8 @@ import org.apache.spark.api.java.JavaSparkContext;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
-import org.apache.log4j.Logger;
+
+import com.scudata.common.Logger;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
 import com.scudata.dm.DataStruct;
@@ -28,8 +29,6 @@ public class SparkCli implements IResource{
 	private ClassLoader  m_classLoader=null;
 	Iterator<Row> iterator = null;
 	JavaSparkContext sc = null;
-
-	private static final Logger log = Logger.getLogger(SparkCli.class);
 
 	public SparkCli(Context ctx, String hdfsUrl, String thriftUrl, String dbName) {
 		init(hdfsUrl, thriftUrl, dbName);	
@@ -50,7 +49,7 @@ public class SparkCli implements IResource{
 		try {
 			Matcher m[] = new Matcher[1];
 			if (!isMatch(hdfsUrl, "hdfs:\\/\\/(.*?):(\\d+)", m)){
-				log.debug("url:"+hdfsUrl + " is error expression");
+				Logger.debug("url:"+hdfsUrl + " is error expression");
 				return;
 			}
 			String masterName = "master";
@@ -59,7 +58,7 @@ public class SparkCli implements IResource{
 			}
 			
 			if (!isMatch(thriftUrl, "thrift:\\/\\/(.*?):(\\d+)", m)){
-				log.debug("url:"+thriftUrl + " is error expression");
+				Logger.debug("url:"+thriftUrl + " is error expression");
 				return;
 			}
 			
@@ -95,7 +94,7 @@ public class SparkCli implements IResource{
 			spark.sql(cmd);
 			System.out.println("Init Spark Success");
 		} catch (Exception e) {
-			log.error(e.getMessage());
+			Logger.error(e.getMessage());
 		} 
 	}
 
@@ -110,35 +109,21 @@ public class SparkCli implements IResource{
 		Table tb = null;
 
 		try {
-			do{
-				// table records
-				System.out.println("Running:" + sql);
-				result = spark.sql(sql);
-				
-				if (result.count()==0){
-					log.debug("no data");
-					break;
-				}
-				iterator = result.toLocalIterator();
-				tb = toTable(iterator, result.columns(), (int)result.count());
-				if (tb==null){
-					log.debug("no data");
-					break;
-				}
-				//test for raq.table 
-//				if (1==2){
-//					testPrintTable(tb);
-//				}
-				
-			}while(false);
+			// table records
+			Logger.info("Running:" + sql);
+			result = spark.sql(sql);
+			if (result.count()<1){
+				return tb;
+			}
+			
+			iterator = result.toLocalIterator();
+			tb = toTable(iterator, result.columns(), (int)result.count());
 		} catch (Exception e) {
-			log.error(e.getMessage());
+			Logger.error(e.getMessage());
 		} 
 
 		return tb;
 	}
-	
-	
 	
 	public int skipOver(long n){
 		int count = 0;
@@ -149,7 +134,7 @@ public class SparkCli implements IResource{
 				count++;
 			}
 		} catch (Exception e) {
-			log.error(e.getMessage());
+			Logger.error(e.getMessage());
 		} 	
 		
 		return count;
@@ -171,7 +156,7 @@ public class SparkCli implements IResource{
 			
 			tb = toTable(iterator, result.columns(), nCnt);			
 		} catch (Exception e) {
-			log.error(e.getMessage());
+			Logger.error(e.getMessage());
 		} 
 		
 		return tb;
@@ -230,14 +215,16 @@ public class SparkCli implements IResource{
 	private boolean execSql(String sql)
 	{
 		try {			
-			//System.out.println("Running100:" + sql + " driver=" + driver);
+
 			iterator = null;
 			result = spark.sql(sql);
-			if (result.count()<1) return false;
-			// table colName info
+			if (result.count()<1){
+				return false;
+			}
+
 			iterator = result.toLocalIterator();
 		} catch (Exception e) {
-			log.error(e.getMessage());
+			Logger.error(e.getMessage());
 		}
 
 		return true;
@@ -260,7 +247,6 @@ public class SparkCli implements IResource{
 	  System.out.println(pattern);//输出正则表达式
 	  
 	  boolean bRet = span.matches(pattern);//是否比配
-	  //System.out.println("isMatch=" + bRet);
 	  
 	  return bRet;
 	 }
