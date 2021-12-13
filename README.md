@@ -92,16 +92,16 @@ For latest package and release notes, see [Download esProc Community Edition Pac
     __SQL has certain computing power, but it is not available in many scenarios, so you will have to hard code in Java. 
     SPL provides lightweight computing power independent of database and can process data in any scenario:__
     
-    - Structured text (txt/csv) calculation &nbsp;&nbsp;&nbsp;&nbsp; Ref. <a href="http://c.raqsoft.com/article/1619428670986" title="Read and reorder specific columns on a CSV file">[1]</a>
+    - Structured text (txt/csv) calculation &nbsp;&nbsp;&nbsp;&nbsp; *Ref. <a href="http://c.raqsoft.com/article/1630909963011" title="SPL: Reading and Writing Structured Text Files">[1]</a>*
     
     
-    - Excel calculation
+    - Excel calculation &nbsp;&nbsp;&nbsp;&nbsp; *Ref. <a href="http://c.raqsoft.com/article/1632902735334" title="SPL: Reading and Writing Excel Files">[1]</a>*
     
-    - Perform SQL on files
+    - Perform SQL on files &nbsp;&nbsp;&nbsp;&nbsp; *Ref. <a href="http://c.raqsoft.com/article/1603680860113" title="SQL Query over File Examples">[1]</a>*
     
-    - Multi-layer json calculation
+    - Multi-layer json calculation &nbsp;&nbsp;&nbsp;&nbsp; *Ref. <a href="http://c.raqsoft.com/article/1637121581613" title="How to Parse and Compute JSON in Java?">[1]</a> <a href="http://c.raqsoft.com/article/1634550595176" title="SPL: Reading and Writing JSON Data">[2]</a>*
     
-    - Multi-layer xml calculation
+    - Multi-layer xml calculation &nbsp;&nbsp;&nbsp;&nbsp; *Ref. <a href="http://c.raqsoft.com/article/1637121972080" title="How to Parse and Compute XML in Java?">[1]</a> <a href="http://c.raqsoft.com/article/1634615560629" title="SPL: Reading and Writing XML Data">[2]</a>*
     
     - Java computing class library, surpass Stream/Kotlin/Scala
     
@@ -109,7 +109,7 @@ For latest package and release notes, see [Download esProc Community Edition Pac
     
     - SQL-like calculation on Mongodb, association calculation
     
-    - Post calculation of WebService/Restful
+    - Post calculation of WebService/Restful &nbsp;&nbsp;&nbsp;&nbsp; *Ref. <a href="http://c.raqsoft.com/article/1637830939009" title="How Java Handles Data Returned from WebService/RESTful">[1]</a> <a href="http://c.raqsoft.com/article/1636534963649" title="SPL: Access to HTTP/WebService/Restful service">[2]</a>*
     
     - Post calculation of Salesforce, Post calculation of SAP
     
@@ -120,7 +120,7 @@ For latest package and release notes, see [Download esProc Community Edition Pac
     __SQL is difficult to deal with complex sets and ordered operations, and it is often read out and calculated in Java.
     SPL has complete set capability, especially supports ordered and step-by-step calculation, which can simplify these operations:__
 
-    - Ordered set &nbsp;&nbsp;&nbsp;&nbsp; Ref. <a href="http://c.raqsoft.com/article/1621587675540" title="Comparison of SQL & SPL: Order-based Computations">[1]</a>
+    - Ordered set &nbsp;&nbsp;&nbsp;&nbsp; *Ref. <a href="http://c.raqsoft.com/article/1621587675540" title="Comparison of SQL & SPL: Order-based Computations">[1]</a>*
 
     - Position reference
     
@@ -130,7 +130,7 @@ For latest package and release notes, see [Download esProc Community Edition Pac
     
     - Multi-level association operation
     
-    - Static and dynamic pivot  &nbsp;&nbsp;&nbsp;&nbsp; Ref. <a href="http://c.raqsoft.com/article/1621588427124" title="Comparison of SQL & SPL: Static Transposition">[1]</a> <a href="http://c.raqsoft.com/article/1621588222144" title="Comparison of SQL & SPL: Complicated Static Transposition">[2]</a> <a href="http://c.raqsoft.com/article/1625729514671" title="Comparison of SQL & SPL: Dynamic Transposition">[3]</a>
+    - Static and dynamic pivot  &nbsp;&nbsp;&nbsp;&nbsp; *Ref. <a href="http://c.raqsoft.com/article/1621588427124" title="Comparison of SQL & SPL: Static Transposition">[1]</a> <a href="http://c.raqsoft.com/article/1621588222144" title="Comparison of SQL & SPL: Complicated Static Transposition">[2]</a> <a href="http://c.raqsoft.com/article/1625729514671" title="Comparison of SQL & SPL: Dynamic Transposition">[3]</a>*
     
     - Recursion and iteration
     
