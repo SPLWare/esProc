@@ -1,11 +1,13 @@
 
 ## esProc
 
-esProc is the unique name for esProc SPL package. <b>esProc SPL</b> is a script language between application and data, which can perform computing independently. For latest package and release notes, see [Download esProc Community Edition Package](http://c.raqsoft.com/article/1595817756260).
+esProc is the unique name for esProc SPL package. <b>esProc SPL</b> is  an open-source programming language, which can perform computing independently. For latest package and release notes, see [Download esProc Community Edition Package](http://c.raqsoft.com/article/1595817756260).
+
+SPL focuses on the mainstream embedded and Java application architecture. SPL script is the counterpart of the stored procedure in RDB. A SPL script will be passed to a Java program through JDBC interface to be executed or to achieve the structured computation.
 
 <img src="http://www.raqsoft.com/wp-content/themes/raqsoft2017-en/images/java-computing/3.png" width="800" height="300">
 
-SPL focuses on the mainstream embedded and Java application architecture. SPL script is the counterpart of the stored procedure in RDB. A SPL script will be passed to a Java program through JDBC interface to be executed or to achieve the structured computation.
+
 
 
 ## SPL -  Structured Programming Language
