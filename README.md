@@ -1,21 +1,14 @@
 
-## Know about esProc
+## esProc
 
-__Agile Data Computing Middleware__
+esProc is the unique name for esProc SPL package. <b>esProc SPL</b> is a script language between application and data, which can perform computing independently. For latest package and release notes, see [Download esProc Community Edition Package](http://c.raqsoft.com/article/1595817756260).
 
-Computing middleware: a programmable general software between application and data, which can perform computing independently. It is often used to solve problems such as loose coupling, high performance, special source computing, multi-source hybrid computing, complex logic, etc.
+<img src="http://www.raqsoft.com/wp-content/themes/raqsoft2017-en/images/java-computing/3.png" width="800" height="300">
 
-![image](https://user-images.githubusercontent.com/2794999/145353353-d74a5b54-751c-45be-8589-aa65a1978ae9.png)
+SPL focuses on the mainstream embedded and Java application architecture. SPL script is the counterpart of the stored procedure in RDB. A SPL script will be passed to a Java program through JDBC interface to be executed or to achieve the structured computation.
 
-Note： This diagram focuses on the mainstream embedded and Java application architecture, and esProc also supports the independent and non Java application architecture. 
 
-For latest package and release notes, see [Download esProc Community Edition Package](http://c.raqsoft.com/article/1595817756260).
-
-## Know about SPL
-
-<b>S</b>tructured <b>P</b>rocess <b>L</b>anguage — <b>SPL</b> is the scripting language on which esProc is based. SPL script is the counterpart of the stored procedure in RDB. A SPL script will be passed to a Java program through JDBC interface to be executed or to achieve the structured computation.
-
-   <img src="http://www.raqsoft.com/wp-content/themes/raqsoft2017-en/images/java-computing/3.png" width="800" height="300">
+__SPL -  Structured Programming Language__   
 
 - __Combined the advantages of Java, Beyond SQL__
 
