@@ -183,6 +183,29 @@ SPL focuses on the mainstream embedded and Java application architecture. SPL sc
 
 - __For Excel__
 
+    __SPL provides Excel-oriented set operations__
+    
+    __The combination of SPL and Excel can enhance the calculation ability of Excel and reduce the difficulty of calculation implementation.__
+
+    __Through SPL's Excel plug-in, you can use SPL functions in Excel to calculate, and you can also call SPL scripts in VBA.__
+    
+    - Cell value and summary value calculation
+
+    - Set operation and subordinate judgment
+
+    - Duplication judgment, count and deduplication
+
+    - Sorting and ranking
+
+    - Special grouping and aggregate methods
+
+    - Association and comparison
+
+    - Row-column transpose
+
+    - Expansion and supplement
+
+
 
 
 - __For Industry__
