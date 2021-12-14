@@ -8,7 +8,7 @@ esProc is the unique name for esProc SPL package. <b>esProc SPL</b> is a script 
 SPL focuses on the mainstream embedded and Java application architecture. SPL script is the counterpart of the stored procedure in RDB. A SPL script will be passed to a Java program through JDBC interface to be executed or to achieve the structured computation.
 
 
-__SPL -  Structured Programming Language__   
+## SPL -  Structured Programming Language
 
 - __Combined the advantages of Java, Beyond SQL__
 
