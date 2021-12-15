@@ -20,7 +20,7 @@ import com.scudata.resources.EngineMessage;
 
 public class Pseudo implements IPseudo{
 	protected PseudoDefination pd;//实表的定义
-	//protected ITableMetaData table;//实表
+	protected Sequence cache = null;//对import的结果的cache
 	
 	//创建游标需要的参数
 	protected String []names;
@@ -354,5 +354,13 @@ public class Pseudo implements IPseudo{
 
 	public Object clone(Context ctx) throws CloneNotSupportedException {
 		throw new RQException("never run to here");
+	}
+
+	public void setCache(Sequence cache) {
+		this.cache = cache;
+	}
+	
+	public Sequence getCache() {
+		return cache;
 	}
 }

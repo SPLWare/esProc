@@ -17,4 +17,6 @@ public interface IPseudo extends Operable {
 	public void append(ICursor cursor, String option);
 	public Sequence update(Sequence data, String opt);
 	public Sequence delete(Sequence data, String opt);
+	public void setCache(Sequence cache);
+	public Sequence getCache();
 }

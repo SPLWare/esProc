@@ -46,20 +46,20 @@ import com.sun.net.httpserver.HttpHandler;
  * Http服务处理器
  * 
  * 支持的url写法:
- * 1  http://..../dfx1.dfx()
- * 2  http://..../dfx1.dfx(arg1,arg2,...)
- * 3  http://localhost:.../dfx1.dfx(...)dfx2.dfx
+ * 1  http://..../splx1.splx()
+ * 2  http://..../splx1.splx(arg1,arg2,...)
+ * 3  http://localhost:.../splx1.splx(...)splx2.splx
  * HTTP服务的url串格式，分两种情况：
- * 1、只有一个dfx文件。如果dfx有参数，则在括号里依次写参数值，值间用逗号分隔；
+ * 1、只有一个splx文件。如果splx有参数，则在括号里依次写参数值，值间用逗号分隔；
  * 如果没有参数，则写个空括号。 计算结果按系统默认格式转化成字符串返回
- * 2、有两个dfx，这种情况用于用户想要的返回串格式与系统默认的不同。
- * 		 第1个dfx的写法与第1种情况相同。dfx2是单参数的程序，参数值为dfx1的返回值。
- * 用户在dfx2中将dfx1的返回值转换成自己需要格式的字符串，然后作为dfx2的返回值
+ * 2、有两个splx，这种情况用于用户想要的返回串格式与系统默认的不同。
+ * 		 第1个splx的写法与第1种情况相同。splx2是单参数的程序，参数值为splx1的返回值。
+ * 用户在splx2中将splx1的返回值转换成自己需要格式的字符串，然后作为splx2的返回值
  *  
  * @author Joancy
  *
  */
-public class DfxHttpHandler implements HttpHandler {
+public class SplxHttpHandler implements HttpHandler {
 	private IServer server = null;
 	static MessageManager mm = ParallelMessage.get();
 
@@ -108,7 +108,7 @@ public class DfxHttpHandler implements HttpHandler {
 			result = StringUtils.replace( result, "\n", "<br>" );
 			t.printStackTrace();
 
-			DfxServerInIDE dsi = (DfxServerInIDE)server;
+			SplxServerInIDE dsi = (SplxServerInIDE)server;
 			byte[] bytes = result.getBytes("UTF-8");
 			httpExchange.getResponseHeaders().add( "Content-Type", "text/html;charset=UTF-8" );
 			httpExchange.sendResponseHeaders( 500, bytes.length );
@@ -157,7 +157,7 @@ public class DfxHttpHandler implements HttpHandler {
 				String path = uri.getPath().trim();
 
 				if (path.equals("/")) {
-					String url = DfxServerInIDE.getInstance().getContext().getDefaultUrl();
+					String url = SplxServerInIDE.getInstance().getContext().getDefaultUrl();
 					result = mm.getMessage("DfxHttpHandler.demo", url);
 				} else {
 					String ext = null;
@@ -189,13 +189,13 @@ public class DfxHttpHandler implements HttpHandler {
 							try{ is.close(); }catch( Throwable t ){}
 						}
 					}
-					else {    //没有扩展名的，都当成dfx
+					else {    //没有扩展名的，都当成splx
 						String fileName = "";
-						String dfx2 = "";
+						String splx2 = "";
 						String params = "";
 						int pos = path.indexOf( "(" );
 						if( pos > 0 ) { 
-							if (path.indexOf(".dfx") < 0)
+							if( path.indexOf(".splx") < 0 && path.indexOf(".spl") < 0 && path.indexOf(".dfx") < 0 )
 								throw new Exception(
 										mm.getMessage("DfxHttpHandler.errorurl"));
 							path = path.trim();
@@ -205,7 +205,7 @@ public class DfxHttpHandler implements HttpHandler {
 										"DfxHttpHandler.erroruri", path));
 							String path1 = path.substring(0, pos);
 							if (pos < path.length() - 1)
-								dfx2 = path.substring(pos + 1).trim();
+								splx2 = path.substring(pos + 1).trim();
 							int start = path1.indexOf("(");
 							if (start < 0)
 								throw new Exception(mm.getMessage(
@@ -218,7 +218,7 @@ public class DfxHttpHandler implements HttpHandler {
 							//其中argvalue是参数名与值合在一起书写，参数名全是字母，参数值全是数字开头
 							//没有dfx2
 							path = path.trim();
-							ArrayList<String> saps = DfxServerInIDE.getInstance().getContext().getSapPath();
+							ArrayList<String> saps = SplxServerInIDE.getInstance().getContext().getSapPath();
 							String prefix = "";
 							for( int k = 0; k < saps.size(); k++ ) {
 								String sap = saps.get( k );
@@ -237,7 +237,7 @@ public class DfxHttpHandler implements HttpHandler {
 							}
 							path1 = prefix + path1;
 							fileName = path1.substring(1).trim();
-							if( !fileName.toLowerCase().endsWith( ".dfx" ) ) fileName += ".dfx";
+							if( !fileName.toLowerCase().endsWith( ".splx" ) ) fileName += ".splx";
 							if( args.length() > 0 ) {
 								ArgumentTokenizer at = new ArgumentTokenizer( args, '/' );
 								while( at.hasMoreTokens() ) {
@@ -294,7 +294,7 @@ public class DfxHttpHandler implements HttpHandler {
 								try{ if( reqis != null ) reqis.close(); }catch(Throwable t){}
 							}
 							//post end
-							DfxServerInIDE server = DfxServerInIDE.instance;
+							SplxServerInIDE server = SplxServerInIDE.instance;
 							if (server != null) {
 								RaqsoftConfig rc = server.getRaqsoftConfig();
 								if (rc != null) {
@@ -312,13 +312,13 @@ public class DfxHttpHandler implements HttpHandler {
 								JobSpaceManager.closeSpace( ctx1.getJobSpace().getID() );
 							}
 							Object obj1 = pcs1.nextResult();
-							if (dfx2.length() == 0) { // 说明只有一个dfx
+							if (splx2.length() == 0) { // 说明只有一个splx
 								result = obj2String(obj1);
 							} else {
-								if (!dfx2.startsWith("/"))
-									dfx2 = "/" + dfx2;
+								if (!splx2.startsWith("/"))
+									splx2 = "/" + splx2;
 								PgmCellSet pcs2 = CellSetUtil
-										.readPgmCellSet(HttpContext.dfxHome + dfx2);
+										.readPgmCellSet(HttpContext.dfxHome + splx2);
 								ParamList list2 = pcs2.getParamList();
 								Context ctx2 = new Context();
 								ctx2.setParamValue(((Param) list2.get(0)).getName(), obj1);

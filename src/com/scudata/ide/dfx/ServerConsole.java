@@ -21,7 +21,7 @@ import com.scudata.app.config.RaqsoftConfig;
 import com.scudata.parallel.UnitClient;
 import com.scudata.parallel.UnitContext;
 import com.scudata.server.IServer;
-import com.scudata.server.http.DfxServerInIDE;
+import com.scudata.server.http.SplxServerInIDE;
 import com.scudata.server.http.HttpContext;
 import com.scudata.server.odbc.DataTypes;
 import com.scudata.server.odbc.OdbcContext;
@@ -401,10 +401,10 @@ public class ServerConsole {
 		}
 		
 		// Æô¶¯HttpServer
-		DfxServerInIDE thServer = null;
+		SplxServerInIDE thServer = null;
 		if (isH) {
 			try {
-				thServer = DfxServerInIDE.getInstance();
+				thServer = SplxServerInIDE.getInstance();
 				thServer.setRaqsoftConfig(rc);
 				thServer.start();
 			} catch (Throwable e) {

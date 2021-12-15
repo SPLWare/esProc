@@ -65,22 +65,7 @@ public class PseudoTable extends Pseudo {
 		extraNameList = new ArrayList<String>();
 		init();
 	}
-	
-//	public PseudoTable(ITableMetaData table, Context ctx) {
-//		this.table = table;
-//		this.ctx = ctx;
-//		extraNameList = new ArrayList<String>();
-//		init();
-//	}
-//	
-//	public PseudoTable(ITableMetaData table, int n, Context ctx) {
-//		this.table = table;
-//		this.ctx = ctx;
-//		extraNameList = new ArrayList<String>();
-//		pathCount = n;
-//		init();
-//	}
-//	
+
 	public PseudoTable(Record rec, PseudoTable mcs, Context ctx) {
 		this(rec, 0, ctx);
 		mcsTable = mcs;
@@ -617,13 +602,6 @@ public class PseudoTable extends Pseudo {
 			Expression exp = op.getFunction().getParam().getLeafExpression();
 			Node node = exp.getHome();
 			parseFilter(node);
-		}
-		
-		/**
-		 * 
-		 */
-		if (op instanceof Group) {
-			//Group group = (Group) op;
 		}
 		
 		/**
