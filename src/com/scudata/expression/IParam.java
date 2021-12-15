@@ -67,6 +67,14 @@ public interface IParam {
 	Expression[] toArray(String function, boolean canNull);
 	
 	/**
+	 * 返回表达式字符串数组，只支持单层的参数
+	 * @param function 函数名，用于抛出异常
+	 * @param canNull 参数是否可空
+	 * @return 表达式串数组
+	 */
+	String []toStringArray(String function, boolean canNull);
+	
+	/**
 	 * 返回是否包含指定参数
 	 * @param name 参数名
 	 * @return boolean true：包含，false：不包含

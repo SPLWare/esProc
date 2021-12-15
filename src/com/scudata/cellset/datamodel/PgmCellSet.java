@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 
 import com.scudata.cellset.ICellSet;
@@ -24,6 +25,7 @@ import com.scudata.dm.Context;
 import com.scudata.dm.DBObject;
 import com.scudata.dm.FileObject;
 import com.scudata.dm.JobSpace;
+import com.scudata.dm.KeyWord;
 import com.scudata.dm.Machines;
 import com.scudata.dm.ParallelCaller;
 import com.scudata.dm.Param;
@@ -38,6 +40,7 @@ import com.scudata.dm.query.SimpleSQL;
 import com.scudata.expression.Expression;
 import com.scudata.expression.IParam;
 import com.scudata.expression.ParamInfo2;
+import com.scudata.expression.ParamParser;
 import com.scudata.resources.EngineMessage;
 import com.scudata.thread.CursorLooper;
 import com.scudata.thread.Job;
@@ -75,6 +78,9 @@ public class PgmCellSet extends CellSet {
 	transient private boolean hasReturn = false;
 	
 	transient private String name; // 网名，在DfxManager中使用
+	
+	// func fn(arg,…)
+	transient private HashMap<String, FuncInfo> fnMap; // [函数名, 函数信息]映射
 	
 	private String isvHash; // 有功能点14（KIT）时，写出dfx时需要写出授权文件中isv的MD5值
 
@@ -286,6 +292,37 @@ public class PgmCellSet extends CellSet {
 
 		public void run() {
 			runForkCmd(param, row, col, endRow, ctx);
+		}
+	}
+	
+	/**
+	 * 网格中定义的函数信息
+	 * @author RunQian
+	 *
+	 */
+	public class FuncInfo {
+		private PgmNormalCell cell; // 函数所在单元格
+		private String []argNames; // 参数名
+		
+		public FuncInfo(PgmNormalCell cell, String []argNames) {
+			this.cell = cell;
+			this.argNames = argNames;
+		}
+
+		/**
+		 * 取函数所在的单元格
+		 * @return
+		 */
+		public PgmNormalCell getCell() {
+			return cell;
+		}
+
+		/**
+		 * 取函数的参数名
+		 * @return
+		 */
+		public String[] getArgNames() {
+			return argNames;
 		}
 	}
 	
@@ -2117,29 +2154,30 @@ public class PgmCellSet extends CellSet {
 	}
 
 	/**
-	 * 执行子函数，可递归调用
+	 * 执行指定格子的子函数，可递归调用
 	 * @param row int 子函数所在的行
 	 * @param col int 子函数所在的列
 	 * @param args Object[] 参数数组
 	 * @return Object 子函数返回值
 	 */
 	public Object executeFunc(int row, int col, Object []args) {
-		int rowCount = getRowCount();
-		int colCount = getColCount();
-		if (row < 1 || row > rowCount || col < 1 || col > colCount) {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException(mm.getMessage("engine.callNeedSub"));
-		}
-
 		PgmNormalCell cell = getPgmNormalCell(row, col);
 		Command cmd = cell.getCommand();
 		if (cmd == null || cmd.getType() != Command.FUNC) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException(mm.getMessage("engine.callNeedSub"));
 		}
+		
+		String expStr = cmd.getExpression();
+		if (expStr != null && expStr.length() > 0) {
+			int nameEnd = KeyWord.scanId(expStr, 0);
+			String fnName = expStr.substring(0, nameEnd);
+			return executeFunc(fnName, args);
+		}
 
 		// 共享函数体外的格子
 		PgmCellSet pcs = newCalc();
+		int colCount = getColCount();
 		int endRow = getCodeBlockEndRow(row, col);
 		for (int r = row; r <= endRow; ++r) {
 			for (int c = col; c <= colCount; ++c) {
@@ -2151,6 +2189,116 @@ public class PgmCellSet extends CellSet {
 		}
 		
 		return pcs.executeFunc(row, col, endRow, args);
+	}
+	
+	/**
+	 * 根据函数名取函数信息
+	 * @param fnName 函数名
+	 * @return
+	 */
+	private FuncInfo getFuncInfo(String fnName) {
+		if (fnMap == null) {
+			// 变量网格中定义的函数，生成函数名映射表
+			fnMap = new HashMap<String, FuncInfo>();
+			int rowCount = getRowCount();
+			int colCount = getColCount();
+			Context ctx = getContext();
+			
+			for (int r = 1; r <= rowCount; ++r) {
+				for (int c = 1; c <= colCount; ++c) {
+					PgmNormalCell cell = getPgmNormalCell(r, c);
+					Command command = cell.getCommand();
+					if (command == null || command.getType() != Command.FUNC) {
+						continue;
+					}
+					
+					String expStr = command.getExpression();
+					if (expStr == null || expStr.length() == 0) {
+						continue;
+					}
+					
+					int len = expStr.length();
+					int nameEnd = KeyWord.scanId(expStr, 0);
+					if (nameEnd == len) {
+						FuncInfo funcInfo = new FuncInfo(cell, null);
+						fnMap.put(expStr, funcInfo);
+					} else {
+						String name = expStr.substring(0, nameEnd);
+						for (; nameEnd < len && Character.isWhitespace(expStr.charAt(nameEnd)); ++nameEnd) {
+						}
+						
+						if (nameEnd == len) {
+							FuncInfo funcInfo = new FuncInfo(cell, null);
+							fnMap.put(name, funcInfo);
+						} else if (expStr.charAt(nameEnd) == '(' && expStr.charAt(len - 1) == ')') {
+							String []argNames = null;
+							IParam param = ParamParser.parse(expStr.substring(nameEnd + 1, len - 1), this, ctx, false);
+							if (param != null) {
+								argNames = param.toStringArray("func", false);
+							}
+							
+							FuncInfo funcInfo = new FuncInfo(cell, argNames);
+							fnMap.put(name, funcInfo);
+						} else {
+							MessageManager mm = EngineMessage.get();
+							throw new RQException("func" + mm.getMessage("function.invalidParam"));
+						}
+					}
+				}
+			}
+		}
+		
+		FuncInfo funcInfo = fnMap.get(fnName);
+		if (funcInfo != null) {
+			return funcInfo;
+		} else {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException(fnName + mm.getMessage("Expression.unknownFunction"));
+		}
+	}
+	
+	/**
+	 * 执行指定名字的子函数，可递归调用
+	 * @param fnName 函数名
+	 * @param args Object[] 参数数组
+	 * @return Object 子函数返回值
+	 */
+	public Object executeFunc(String fnName, Object []args) {
+		FuncInfo funcInfo = getFuncInfo(fnName);
+		PgmNormalCell cell = funcInfo.getCell();
+		int row = cell.getRow();
+		int col = cell.getCol();
+		int colCount = getColCount();
+		
+		// 共享函数体外的格子
+		PgmCellSet pcs = newCalc();
+		String []argNames = funcInfo.getArgNames();
+		if (argNames != null) {
+			// 把参数设到上下文中
+			int argCount = argNames.length;
+			if (args == null || args.length != argCount) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException(fnName + mm.getMessage("function.paramCountNotMatch"));
+			}
+			
+			Context ctx = pcs.getContext();
+			for (int i = 0; i < argCount; ++i) {
+				ctx.setParamValue(argNames[i], args[i]);
+			}
+		}
+		
+		int endRow = getCodeBlockEndRow(row, col);
+		for (int r = row; r <= endRow; ++r) {
+			for (int c = col; c <= colCount; ++c) {
+				INormalCell tmp = getCell(r, c);
+				INormalCell cellClone = (INormalCell)tmp.deepClone();
+				cellClone.setCellSet(pcs);
+				pcs.cellMatrix.set(r, c, cellClone);
+			}
+		}
+		
+		// 定义了名字和参数的函数不再将参数填入单元格
+		return pcs.executeFunc(row, col, endRow, null); // args
 	}
 
 	private Object executeFunc(int row, int col, int endRow, Object []args) {
@@ -2316,6 +2464,7 @@ public class PgmCellSet extends CellSet {
 		resultLct = null;
 		interrupt = false;
 		isInterrupted = false;
+		fnMap = null;
 	}
 
 	//---------------------------calc end------------------------------

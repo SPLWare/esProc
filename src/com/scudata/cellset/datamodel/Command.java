@@ -76,7 +76,7 @@ public class Command {
 
 	/**
 	 * goto：  单元格位置
-	 * func c:   子程序的位置
+	 * break  for所在格的位置
 	 * next：  for所在格的位置
 	 */
 	private String lctStr;
@@ -366,6 +366,7 @@ public class Command {
 		case END:
 		case FORK:
 		case CHANNEL:
+		case FUNC: // func fn(arg,…)
 			exp = param;
 			break;
 		case CONTINUE:
@@ -384,7 +385,6 @@ public class Command {
 				}
 			}
 			break;
-		case FUNC:
 		case REDUCE:
 		case TRY:
 			if (param.length() > 0) {

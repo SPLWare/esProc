@@ -87,6 +87,33 @@ public final class ParamParser {
 			
 			return exps;
 		}
+		
+		/**
+		 * 返回表达式字符串数组，只支持单层的参数
+		 * @param function 函数名，用于抛出异常
+		 * @param canNull 参数是否可空
+		 * @return 表达式串数组
+		 */
+		public String []toStringArray(String function, boolean canNull) {
+			int size = getSubSize();
+			String []expStrs = new String[size];
+			for (int i = 0; i < size; ++i) {
+				IParam sub = getSub(i);
+				if (sub != null) {
+					if (sub.isLeaf()) {
+						expStrs[i] = sub.getLeafExpression().toString();
+					} else {
+						MessageManager mm = EngineMessage.get();
+						throw new RQException(function + mm.getMessage("function.invalidParam"));
+					}
+				} else if (!canNull) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException(function + mm.getMessage("function.invalidParam"));
+				}
+			}
+			
+			return expStrs;
+		}
 
 		public IParam create(int start, int end) {
 			if (end == start + 1) {
@@ -192,6 +219,16 @@ public final class ParamParser {
 		 */
 		public Expression[] toArray(String function, boolean canNull) {
 			return new Expression[]{exp};
+		}
+		
+		/**
+		 * 返回表达式字符串数组，只支持单层的参数
+		 * @param function 函数名，用于抛出异常
+		 * @param canNull 参数是否可空
+		 * @return 表达式串数组
+		 */
+		public String []toStringArray(String function, boolean canNull) {
+			return new String[]{exp.toString()};
 		}
 
 		public IParam create(int start, int end) {

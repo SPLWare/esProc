@@ -1,11 +1,12 @@
 package com.scudata.expression.fn;
 
-import com.scudata.cellset.ICellSet;
 import com.scudata.cellset.INormalCell;
 import com.scudata.cellset.datamodel.PgmCellSet;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
+import com.scudata.expression.CSVariable;
+import com.scudata.expression.Expression;
 import com.scudata.expression.Function;
 import com.scudata.expression.IParam;
 import com.scudata.expression.Node;
@@ -19,18 +20,26 @@ import com.scudata.resources.EngineMessage;
  */
 public class Func extends Function {
 	public class CallInfo {
-		private INormalCell cell;
+		private INormalCell cell; // 定义函数时没有起名字，用函数所在的单元格引用
+		private String fnName; // 定义函数时起了名字
 		private Object []args;
 		
-		public CallInfo(INormalCell cell, Object []args) {
+		public CallInfo(INormalCell cell) {
 			this.cell = cell;
-			this.args = args;
+		}
+		
+		public CallInfo(String fnName) {
+			this.fnName = fnName;
 		}
 		
 		public PgmCellSet getPgmCellSet() {
 			return (PgmCellSet)cs;
 		}
 		
+		public INormalCell getCell() {
+			return cell;
+		}
+
 		public int getRow(){
 			return cell.getRow();
 		}
@@ -42,6 +51,14 @@ public class Func extends Function {
 		public Object[] getArgs() {
 			return args;
 		}
+
+		public void setArgs(Object[] args) {
+			this.args = args;
+		}
+
+		public String getFnName() {
+			return fnName;
+		}
 	}
 
 	public Node optimize(Context ctx) {
@@ -50,51 +67,25 @@ public class Func extends Function {
 	}
 	
 	public Object calculate(Context ctx) {
-		IParam param = this.param;
-		if (param == null) {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException("func" + mm.getMessage("function.missingParam"));
-		}
-
-		INormalCell cell;
-		Object []args = null;
-		if (param.isLeaf()) {
-			cell = param.getLeafExpression().calculateCell(ctx);
-			if (cell == null) {
-				MessageManager mm = EngineMessage.get();
-				throw new RQException("func" + mm.getMessage("function.invalidParam"));
-			}
-		} else {
-			IParam sub0 = param.getSub(0);
-			if (sub0 == null) {
-				MessageManager mm = EngineMessage.get();
-				throw new RQException("func" + mm.getMessage("function.invalidParam"));
-			}
-
-			cell = sub0.getLeafExpression().calculateCell(ctx);
-			if (cell == null) {
-				MessageManager mm = EngineMessage.get();
-				throw new RQException("func" + mm.getMessage("function.invalidParam"));
-			}
-			
-			int size = param.getSubSize();
-			args = new Object[size - 1];
-			for (int i = 1; i < size; ++i) {
-				IParam sub = param.getSub(i);
-				if (sub != null) {
-					args[i - 1] = sub.getLeafExpression().calculate(ctx);
-				}
-			}
-		}
-
-		ICellSet cs = cell.getCellSet();
-		if (!(cs instanceof PgmCellSet)) {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException("func" + mm.getMessage("function.invalidParam"));
-		}
-
+		CallInfo callInfo = getCallInfo(ctx);
 		PgmCellSet pcs = (PgmCellSet)cs;
-		return pcs.executeFunc(cell.getRow(), cell.getCol(), args);
+		INormalCell cell = callInfo.getCell();
+		Object []args = callInfo.getArgs();
+		
+		if (cell != null) {
+			return pcs.executeFunc(cell.getRow(), cell.getCol(), args);
+		} else {
+			return pcs.executeFunc(callInfo.getFnName(), args);
+		}
+	}
+	
+	private CallInfo getCallInfo(Expression exp, Context ctx) {
+		if(exp.getHome() instanceof CSVariable) {
+			INormalCell cell = exp.calculateCell(ctx);
+			return new CallInfo(cell);
+		} else {
+			return new CallInfo(exp.toString());
+		}
 	}
 	
 	// ide用来取调用信息进行单步跟踪
@@ -104,14 +95,9 @@ public class Func extends Function {
 			throw new RQException("func" + mm.getMessage("function.missingParam"));
 		}
 
-		INormalCell cell;
-		Object []args = null;
+		CallInfo callInfo;
 		if (param.isLeaf()) {
-			cell = param.getLeafExpression().calculateCell(ctx);
-			if (cell == null) {
-				MessageManager mm = EngineMessage.get();
-				throw new RQException("func" + mm.getMessage("function.invalidParam"));
-			}
+			callInfo = getCallInfo(param.getLeafExpression(), ctx);
 		} else {
 			IParam sub0 = param.getSub(0);
 			if (sub0 == null) {
@@ -119,14 +105,11 @@ public class Func extends Function {
 				throw new RQException("func" + mm.getMessage("function.invalidParam"));
 			}
 
-			cell = sub0.getLeafExpression().calculateCell(ctx);
-			if (cell == null) {
-				MessageManager mm = EngineMessage.get();
-				throw new RQException("func" + mm.getMessage("function.invalidParam"));
-			}
-			
 			int size = param.getSubSize();
-			args = new Object[size - 1];
+			Object []args = new Object[size - 1];
+			callInfo = getCallInfo(sub0.getLeafExpression(), ctx);
+			callInfo.setArgs(args);
+			
 			for (int i = 1; i < size; ++i) {
 				IParam sub = param.getSub(i);
 				if (sub != null) {
@@ -134,13 +117,7 @@ public class Func extends Function {
 				}
 			}
 		}
-
-		ICellSet cs = cell.getCellSet();
-		if (!(cs instanceof PgmCellSet)) {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException("func" + mm.getMessage("function.invalidParam"));
-		}
 		
-		return new CallInfo(cell, args);
+		return callInfo;
 	}
 }
