@@ -23,7 +23,7 @@ import com.scudata.expression.Expression;
 import com.scudata.expression.Function;
 import com.scudata.expression.FunctionLib;
 
-public class ClusterPseudo implements IClusterObject, Operable, IPseudo {
+public class ClusterPseudo implements IClusterObject, IPseudo {
 	public static final int TYPE_TABLE = 0;
 	public static final int TYPE_NEW = 1;
 	public static final int TYPE_NEWS = 2;
@@ -31,6 +31,7 @@ public class ClusterPseudo implements IClusterObject, Operable, IPseudo {
 	
 	private Cluster cluster; // 节点机信息
 	private int []pseudoProxyIds; // 对应的节点机虚表代理标识
+	private Sequence cache;//对import的结果的cache
 	
 	public ClusterPseudo(Cluster cluster, int[] pseudoProxyIds) {
 		this.cluster = cluster;
@@ -355,5 +356,13 @@ public class ClusterPseudo implements IClusterObject, Operable, IPseudo {
 			response.setException(e);
 			return response;
 		}
+	}
+	
+	public void setCache(Sequence cache) {
+		this.cache = cache;
+	}
+	
+	public Sequence getCache() {
+		return cache;
 	}
 }
