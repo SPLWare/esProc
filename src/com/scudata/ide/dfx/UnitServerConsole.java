@@ -54,7 +54,7 @@ import com.scudata.parallel.TaskManager;
 import com.scudata.resources.ParallelMessage;
 import com.scudata.server.IServer;
 import com.scudata.server.StartUnitListener;
-import com.scudata.server.http.DfxServerInIDE;
+import com.scudata.server.http.SplxServerInIDE;
 import com.scudata.server.odbc.OdbcServer;
 import com.scudata.server.unit.UnitServer;
 import com.scudata.util.Variant;
@@ -82,7 +82,7 @@ public class UnitServerConsole extends JFrame implements StartUnitListener {
 	JTabbedPane tabServer = new JTabbedPane();
 	UnitServer unitServer = null;
 	OdbcServer odbcServer = null;
-	DfxServerInIDE httpServer = null;
+	SplxServerInIDE httpServer = null;
 	JPanel panelUnit = new JPanel();
 	JPanel panelOdbc = new JPanel();
 	JPanel panelHttp = new JPanel();
@@ -185,7 +185,7 @@ public class UnitServerConsole extends JFrame implements StartUnitListener {
 	private void autoStart() {
 		// 每个服务器的启动状态，要设置到当前的界面，比如显示端口号；所以下面的启动服务器，只能串行，一个启动完成后，才能启动下一个服务。
 		try {
-			httpServer = DfxServerInIDE.getInstance();
+			httpServer = SplxServerInIDE.getInstance();
 			if (httpServer.isAutoStart()) {
 				tabServer.setSelectedIndex(2);
 				doStart();
@@ -367,7 +367,7 @@ public class UnitServerConsole extends JFrame implements StartUnitListener {
 			break;
 		default:
 			try {
-				httpServer = DfxServerInIDE.getInstance();
+				httpServer = SplxServerInIDE.getInstance();
 				httpServer.setRaqsoftConfig(rc);
 			} catch (Throwable e) {
 				enableStart(true);
