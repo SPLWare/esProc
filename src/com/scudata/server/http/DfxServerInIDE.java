@@ -13,14 +13,14 @@ import com.scudata.server.StartUnitListener;
 import com.sun.net.httpserver.HttpServer;
 
 /**
- * splx计算的Http服务器实现
+ * dfx计算的Http服务器实现
  * 
  * @author Joancy
  *
  */
-public class SplxServerInIDE implements IServer {
+public class DfxServerInIDE implements IServer {
 	public static final String HTTP_CONFIG_FILE = "HttpServer.xml";
-	public static SplxServerInIDE instance=null;
+	public static DfxServerInIDE instance=null;
 	
 	private HttpServer httpServer;
 	private HttpContext ctx=null;
@@ -55,9 +55,9 @@ public class SplxServerInIDE implements IServer {
 	 * @return 服务器实例
 	 * @throws Exception 产生实例出错时抛出异常
 	 */
-	public static SplxServerInIDE getInstance() throws Exception {
+	public static DfxServerInIDE getInstance() throws Exception {
 		if (instance == null) {
-			instance = new SplxServerInIDE();
+			instance = new DfxServerInIDE();
 		}
 		return instance;
 	}
@@ -85,7 +85,7 @@ public class SplxServerInIDE implements IServer {
 		}catch(java.net.BindException ex){
 			throw new Exception(ParallelMessage.get().getMessage("DfxServerInIDE.portbind",port));
 		}
-		SplxHttpHandler dhh = new SplxHttpHandler();
+		DfxHttpHandler dhh = new DfxHttpHandler();
 		dhh.setIServer(this);
 		httpServer.createContext("/", dhh);
 		httpServer.setExecutor(null);
