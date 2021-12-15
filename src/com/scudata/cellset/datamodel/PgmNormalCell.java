@@ -59,10 +59,6 @@ public class PgmNormalCell extends NormalCell {
 	 * @param exp String
 	 */
 	public void setExpString(String exp) {
-		if (cs != null && cs.isExecuteOnly()) {
-			return;
-		}
-
 		if (exp != null && exp.equals(this.expStr)) {
 			return;
 		}

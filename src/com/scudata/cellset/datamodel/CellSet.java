@@ -2246,14 +2246,6 @@ abstract public class CellSet implements ICellSet {
 
 		return strNew == null ? str : strNew.toString();
 	}
-
-	/**
-	 * 返回网格是否是只执行网
-	 * @return boolean
-	 */
-	public boolean isExecuteOnly() {
-		return false;
-	}
 	
 	public static int scanId(String expStr, int start) {
 		int len = expStr.length();

@@ -22,6 +22,7 @@ import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.common.Sentence;
 import com.scudata.dm.Context;
+import com.scudata.dm.KeyWord;
 import com.scudata.dm.LineImporter;
 import com.scudata.dm.Param;
 import com.scudata.dm.ParamList;
@@ -621,7 +622,55 @@ public class CellSetUtil {
 		}
 		
 		pcs.removeRow(curRow, rowCount - curRow + 1);
+		changeAliasNameToCell(pcs);
 		return pcs;
+	}
+	
+	// 文本程序中可以用@x:...给单元格定义一个别名，表达式可以通过这个别名引用格子
+	// 读成网格后把别名的引用转成格子的引用
+	private static void changeAliasNameToCell(PgmCellSet pcs) {
+		int rowCount = pcs.getRowCount();
+		int colCount = pcs.getColCount();
+		
+		for (int r = 1; r <= rowCount; ++r) {
+			for (int c = 1; c <= colCount; ++c) {
+				PgmNormalCell cell = pcs.getPgmNormalCell(r, c);
+				String expStr = cell.getExpString();
+				if (expStr != null && expStr.length() > 1 && expStr.charAt(0) == '@') {
+					int end = expStr.indexOf(':');
+					if (end != -1) {
+						String aliasName = expStr.substring(1, end).trim();
+						if (aliasName.length() > 0) {
+							if (end + 1 < expStr.length()) {
+								expStr = expStr.substring(end + 1);
+								cell.setExpString(expStr);
+							} else {
+								cell.setExpString(null);
+							}
+							
+							changeAliasNameToCell(pcs, aliasName, cell.getCellId());
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	private static void changeAliasNameToCell(PgmCellSet pcs, String aliasName, String cellId) {
+		int rowCount = pcs.getRowCount();
+		int colCount = pcs.getColCount();
+		int aliasNameLen = aliasName.length();
+		
+		for (int r = 1; r <= rowCount; ++r) {
+			for (int c = 1; c <= colCount; ++c) {
+				PgmNormalCell cell = pcs.getPgmNormalCell(r, c);
+				String expStr = cell.getExpString();
+				if (expStr != null && expStr.length() > aliasNameLen) {
+					expStr = Sentence.replace(expStr, aliasName, cellId, Sentence.IGNORE_PARS);
+					cell.setExpString(expStr);
+				}
+			}
+		}
 	}
 	
 	/**

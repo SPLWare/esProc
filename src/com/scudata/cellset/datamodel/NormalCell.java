@@ -10,9 +10,6 @@ import com.scudata.common.ByteArrayInputRecord;
 import com.scudata.common.ByteArrayOutputRecord;
 import com.scudata.common.ByteMap;
 import com.scudata.common.CellLocation;
-import com.scudata.common.MessageManager;
-import com.scudata.common.RQException;
-import com.scudata.resources.EngineMessage;
 
 abstract public class NormalCell implements INormalCell {
 	private static final long serialVersionUID = 0x02010014;
@@ -91,11 +88,6 @@ abstract public class NormalCell implements INormalCell {
 	 * @param cs ICellSet
 	 */
 	public void setCellSet(ICellSet cs) {
-		if (this.cs != null && this.cs.isExecuteOnly()) {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException(mm.getMessage("cellset.executeOnly"));
-		}
-
 		this.cs = (CellSet)cs;
 	}
 
@@ -120,10 +112,6 @@ abstract public class NormalCell implements INormalCell {
 	 * @param exp String
 	 */
 	public void setExpString(String exp) {
-		if (cs != null && cs.isExecuteOnly()) {
-			return;
-		}
-
 		this.expStr = exp;
 	}
 
@@ -131,10 +119,6 @@ abstract public class NormalCell implements INormalCell {
 	 * @return String 返回单元格表达式
 	 */
 	public String getExpString() {
-		if (cs != null && cs.isExecuteOnly()) {
-			return null;
-		}
-
 		return expStr;
 	}
 
@@ -279,10 +263,6 @@ abstract public class NormalCell implements INormalCell {
 	 * @param tip String
 	 */
 	public void setTip(String tip) {
-		if (cs != null && cs.isExecuteOnly()) {
-			return;
-		}
-
 		this.tip = tip;
 	}
 
