@@ -22,7 +22,6 @@ import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.common.Sentence;
 import com.scudata.dm.Context;
-import com.scudata.dm.KeyWord;
 import com.scudata.dm.LineImporter;
 import com.scudata.dm.Param;
 import com.scudata.dm.ParamList;
