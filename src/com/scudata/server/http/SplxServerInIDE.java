@@ -18,9 +18,9 @@ import com.sun.net.httpserver.HttpServer;
  * @author Joancy
  *
  */
-public class DfxServerInIDE implements IServer {
+public class SplxServerInIDE implements IServer {
 	public static final String HTTP_CONFIG_FILE = "HttpServer.xml";
-	public static DfxServerInIDE instance=null;
+	public static SplxServerInIDE instance=null;
 	
 	private HttpServer httpServer;
 	private HttpContext ctx=null;
@@ -55,9 +55,9 @@ public class DfxServerInIDE implements IServer {
 	 * @return 服务器实例
 	 * @throws Exception 产生实例出错时抛出异常
 	 */
-	public static DfxServerInIDE getInstance() throws Exception {
+	public static SplxServerInIDE getInstance() throws Exception {
 		if (instance == null) {
-			instance = new DfxServerInIDE();
+			instance = new SplxServerInIDE();
 		}
 		return instance;
 	}
@@ -76,16 +76,16 @@ public class DfxServerInIDE implements IServer {
 		ctx = new HttpContext(true);
 		String host = ctx.getHost();
 		int port = ctx.getPort();
-		Logger.info(ParallelMessage.get().getMessage("DfxServerInIDE.starting"));
+		Logger.info(ParallelMessage.get().getMessage("SplxServerInIDE.starting"));
 		
 		InetAddress ia = InetAddress.getByName(host);
 		try{
 			InetSocketAddress inetSock = new InetSocketAddress(ia,port);
 			httpServer = HttpServer.create(inetSock, ctx.getMaxLinks());
 		}catch(java.net.BindException ex){
-			throw new Exception(ParallelMessage.get().getMessage("DfxServerInIDE.portbind",port));
+			throw new Exception(ParallelMessage.get().getMessage("SplxServerInIDE.portbind",port));
 		}
-		DfxHttpHandler dhh = new DfxHttpHandler();
+		SplxHttpHandler dhh = new SplxHttpHandler();
 		dhh.setIServer(this);
 		httpServer.createContext("/", dhh);
 		httpServer.setExecutor(null);
@@ -94,7 +94,7 @@ public class DfxServerInIDE implements IServer {
 			listener.serverStarted(port);
 		}
 
-		Logger.info(ParallelMessage.get().getMessage("DfxServerInIDE.started", ctx.getDefaultUrl()));
+		Logger.info(ParallelMessage.get().getMessage("SplxServerInIDE.started", ctx.getDefaultUrl()));
 		return true;
 	}
 
@@ -114,7 +114,7 @@ public class DfxServerInIDE implements IServer {
 			return false;
 		httpServer.stop(2); // 最多等待2秒
 		httpServer = null;
-		Logger.info(ParallelMessage.get().getMessage("DfxServerInIDE.stop"));
+		Logger.info(ParallelMessage.get().getMessage("SplxServerInIDE.stop"));
 		return true;
 	}
 
