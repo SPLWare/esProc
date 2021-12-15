@@ -59,7 +59,7 @@ import com.sun.net.httpserver.HttpHandler;
  * @author Joancy
  *
  */
-public class DfxHttpHandler implements HttpHandler {
+public class SplxHttpHandler implements HttpHandler {
 	private IServer server = null;
 	static MessageManager mm = ParallelMessage.get();
 
@@ -108,7 +108,7 @@ public class DfxHttpHandler implements HttpHandler {
 			result = StringUtils.replace( result, "\n", "<br>" );
 			t.printStackTrace();
 
-			DfxServerInIDE dsi = (DfxServerInIDE)server;
+			SplxServerInIDE dsi = (SplxServerInIDE)server;
 			byte[] bytes = result.getBytes("UTF-8");
 			httpExchange.getResponseHeaders().add( "Content-Type", "text/html;charset=UTF-8" );
 			httpExchange.sendResponseHeaders( 500, bytes.length );
@@ -157,7 +157,7 @@ public class DfxHttpHandler implements HttpHandler {
 				String path = uri.getPath().trim();
 
 				if (path.equals("/")) {
-					String url = DfxServerInIDE.getInstance().getContext().getDefaultUrl();
+					String url = SplxServerInIDE.getInstance().getContext().getDefaultUrl();
 					result = mm.getMessage("DfxHttpHandler.demo", url);
 				} else {
 					String ext = null;
@@ -218,7 +218,7 @@ public class DfxHttpHandler implements HttpHandler {
 							//其中argvalue是参数名与值合在一起书写，参数名全是字母，参数值全是数字开头
 							//没有dfx2
 							path = path.trim();
-							ArrayList<String> saps = DfxServerInIDE.getInstance().getContext().getSapPath();
+							ArrayList<String> saps = SplxServerInIDE.getInstance().getContext().getSapPath();
 							String prefix = "";
 							for( int k = 0; k < saps.size(); k++ ) {
 								String sap = saps.get( k );
@@ -294,7 +294,7 @@ public class DfxHttpHandler implements HttpHandler {
 								try{ if( reqis != null ) reqis.close(); }catch(Throwable t){}
 							}
 							//post end
-							DfxServerInIDE server = DfxServerInIDE.instance;
+							SplxServerInIDE server = SplxServerInIDE.instance;
 							if (server != null) {
 								RaqsoftConfig rc = server.getRaqsoftConfig();
 								if (rc != null) {
