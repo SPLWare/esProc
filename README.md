@@ -166,18 +166,20 @@ SPL focuses on the mainstream embedded and Java application architecture. SPL sc
     
     __SPL provides a large number of basic high-performance algorithms (many of which are pioneered in the industry) and efficient storage formats. Under the same     hardware environment, it can obtain much better computing performance than the database, and can comprehensively replace the big data platform and data             warehouse.__
 
-    - In-memory search：binary search, sequence number positioning, position index, hash index, multi-layer sequence number positioning
+    - In-memory search：binary search, sequence number positioning, position index, hash index, multi-layer sequence number positioning  &nbsp;&nbsp;&nbsp;&nbsp; <sub><sup>*Ref. <a href="http://c.raqsoft.com/article/1568871695709" title="Performance optimization - Search">[1]</a>*</sub></sup>
+
 
     - Dataset in external storage：parallel computing of text file, binary storage, double increment segmentation, columnar 
     storage composite table, ordered storage and update
 
-    - Search in external storage：binary search, hash index, sorting index, row-based storage and valued index, index preloading, batch search and set search, multi index merging, full-text searching
+    - Search in external storage：binary search, hash index, sorting index, row-based storage and valued index, index preloading, batch search and set search, multi index merging, full-text searching  &nbsp;&nbsp;&nbsp;&nbsp; <sub><sup>*Ref. <a href="http://c.raqsoft.com/article/1568871695709" title="Performance optimization - Search">[1]</a>*</sub></sup>
 
-    - Traversing technique：post filter of cursor, multi-purpose traversal, parallel traversing and multi cursors, aggregation extension, ordered traversing, program cursor, partially ordered grouping and sorting, sequence number grouping and controllable segmentation
+    - Traversing technique：post filter of cursor, multi-purpose traversal, parallel traversing and multi cursors, aggregation extension, ordered traversing, program cursor, partially ordered grouping and sorting, sequence number grouping and controllable segmentation  &nbsp;&nbsp;&nbsp;&nbsp; <sub><sup>*Ref. <a href="http://c.raqsoft.com/article/1568870773966" title="Performance optimization - Traversal">[1]</a>*</sub></sup>
 
-    - Association technique： foreign key addressing, foreign key serialization, index reuse, alignment sequence, large dimension table search, unilateral splitting, orderly merging, association positioning, schedule
 
-    - Multidimensional analysis：pre summary and time period pre summary, alignment sequence, tag bit dimension 
+    - Association technique： foreign key addressing, foreign key serialization, index reuse, alignment sequence, large dimension table search, unilateral splitting, orderly merging, association positioning, schedule  &nbsp;&nbsp;&nbsp;&nbsp; <sub><sup>*Ref. <a href="http://c.raqsoft.com/article/1568950208760" title="Performance optimization - Join">[1]</a>*</sub></sup>
+
+    - Multidimensional analysis：pre summary and time period pre summary, alignment sequence, tag bit dimension  &nbsp;&nbsp;&nbsp;&nbsp; <sub><sup>*Ref. <a href="http://c.raqsoft.com/article/1567994414051" title="Performance optimization - Multidimensional analysis">[1]</a>*</sub></sup>
 
     - Distributed：free computing and data distribution, cluster multi-zone composite table, cluster dimension table, redundant fault tolerance, spare tire fault tolerance, Fork-Reduce, multi job load balancing
 
