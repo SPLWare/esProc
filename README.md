@@ -108,7 +108,7 @@ SPL focuses on the mainstream embedded and Java application architecture. SPL sc
     
     - Post calculation of Salesforce, Post calculation of SAP &nbsp;&nbsp;&nbsp;&nbsp; <sub><sup>*Ref. <a href="http://c.raqsoft.com/article/1638173742332" title="How to Achieve More Queries and Analyses on Salesforce Data">[1]</a> <a href="http://c.raqsoft.com/article/1638173973358" title="How to Achieve Complex Logic Queries and Analyses on Data from SAP BW">[2]</a>*</sub></sup>
     
-    - Post calculation of various data sources: HBase,Cassandra,Redis,ElasticSearch,Kafka,…
+    - Post calculation of various data sources: HBase,Cassandra,Redis,ElasticSearch,Kafka,… &nbsp;&nbsp;&nbsp;&nbsp; <sub><sup>*Ref. <a href="http://doc.raqsoft.com/esproc/ext/" title=" esProc External Library Guide">[1]</a>*</sub></sup>
 
 - __Beyond SQL__
 
@@ -117,21 +117,21 @@ SPL focuses on the mainstream embedded and Java application architecture. SPL sc
 
     - Ordered set &nbsp;&nbsp;&nbsp;&nbsp; <sub><sup>*Ref. <a href="http://c.raqsoft.com/article/1621587675540" title="Comparison of SQL & SPL: Order-based Computations">[1]</a>*</sub></sup>
 
-    - Position reference
+    - Position reference &nbsp;&nbsp;&nbsp;&nbsp; <sub><sup>*Ref. <a href="http://c.raqsoft.com/article/1607498662414" title="Locate Operation on Ordered Sets">[1]</a> <a href="http://c.raqsoft.com/article/1635933200916" title="SPL: adjacent record reference">[2]</a> <a href="http://c.raqsoft.com/article/1637565000649" title="SPL: Recursively Search Referenced Records">[3]</a>*</sub></sup>
     
-    - Grouping subsets
+    - Grouping subsets  &nbsp;&nbsp;&nbsp;&nbsp; <sub><sup>*Ref. <a href="http://c.raqsoft.com/article/1583482802281" title="Grouped subsets">[1]</a>*</sub></sup>
     
-    - Non-equivalence grouping
+    - Non-equivalence grouping  &nbsp;&nbsp;&nbsp;&nbsp; <sub><sup>*Ref. <a href="http://c.raqsoft.com/article/1621233528244" title="Comparison of SQL & SPL: Non-equi-grouping">[1]</a>*</sub></sup>
     
-    - Multi-level association operation
+    - Multi-level association operation  &nbsp;&nbsp;&nbsp;&nbsp; <sub><sup>*Ref. <a href="http://c.raqsoft.com/article/1558938121942" title="SPL Simplified SQL - Multilevel Join">[1]</a>*</sub></sup>
     
     - Static and dynamic pivot  &nbsp;&nbsp;&nbsp;&nbsp; <sub><sup>*Ref. <a href="http://c.raqsoft.com/article/1621588427124" title="Comparison of SQL & SPL: Static Transposition">[1]</a> <a href="http://c.raqsoft.com/article/1621588222144" title="Comparison of SQL & SPL: Complicated Static Transposition">[2]</a> <a href="http://c.raqsoft.com/article/1625729514671" title="Comparison of SQL & SPL: Dynamic Transposition">[3]</a>*</sub></sup>
     
-    - Recursion and iteration
+    - Recursion and iteration   &nbsp;&nbsp;&nbsp;&nbsp; <sub><sup>*Ref. <a href="http://c.raqsoft.com/article/1621234716519" title="Comparison of SQL & SPL: Recursion Operation">[1]</a>*</sub></sup>
     
-    - Step-by-step and loop operation
+    - Step-by-step and loop operation  &nbsp;&nbsp;&nbsp;&nbsp; <sub><sup>*Ref. <a href="http://c.raqsoft.com/article/1619769733786" title="Loop Computations">[1]</a>*</sub></sup>
     
-    - Text and date time operation
+    - Text and date time operation  &nbsp;&nbsp;&nbsp;&nbsp; <sub><sup>*Ref. <a href="http://c.raqsoft.com/article/1636542243583" title="SPL: Text Handling">[1]</a> <a href="http://c.raqsoft.com/article/1636538168186" title="SPL: Date, Time and Datetime Handling">[2]</a>*</sub></sup>
 
 - __Cooperate DB__
 
