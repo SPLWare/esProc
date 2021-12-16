@@ -185,27 +185,28 @@ SPL focuses on the mainstream embedded and Java application architecture. SPL sc
 
 - __For Excel__
 
-    __SPL provides Excel-oriented set operations__
+    __SPL provides Excel-oriented set operations.__
     
     __The combination of SPL and Excel can enhance the calculation ability of Excel and reduce the difficulty of calculation implementation.__
 
     __Through SPL's Excel plug-in, you can use SPL functions in Excel to calculate, and you can also call SPL scripts in VBA.__
     
-    - Cell value and summary value calculation
+    - Cell value and summary value calculation &nbsp;&nbsp;&nbsp;&nbsp; <sub><sup>*Ref. <a href="http://c.raqsoft.com/article/1617693922993#toc_h1_4" title="Calculate cell and Summarize value">[1]</a>*</sub></sup>
 
-    - Set operation and subordinate judgment
+    - Set operation and subordinate judgment  &nbsp;&nbsp;&nbsp;&nbsp; <sub><sup>*Ref. <a href="http://c.raqsoft.com/article/1617693922993#toc_h1_5" title="Set operation and Containing judgment">[1]</a>*</sub></sup>
 
-    - Duplication judgment, count and deduplication
+    - Duplication judgment, count and deduplication &nbsp;&nbsp;&nbsp;&nbsp; <sub><sup>*Ref. <a href="http://c.raqsoft.com/article/1617693922993#toc_h1_6" title="Find duplicates, counting and removal">[1]</a>*</sub></sup>
 
-    - Sorting and ranking
+    - Sorting and ranking  &nbsp;&nbsp;&nbsp;&nbsp; <sub><sup>*Ref. <a href="http://c.raqsoft.com/article/1617693922993#toc_h1_7" title="Sorting and ranking">[1]</a>*</sub></sup>
 
-    - Special grouping and aggregate methods
+    - Special grouping and aggregate methods  &nbsp;&nbsp;&nbsp;&nbsp; <sub><sup>*Ref. <a href="http://c.raqsoft.com/article/1617693922993#toc_h1_8" title="Special grouping and aggregation methods">[1]</a>*</sub></sup>
 
-    - Association and comparison
+    - Association and comparison  &nbsp;&nbsp;&nbsp;&nbsp; <sub><sup>*Ref. <a href="http://c.raqsoft.com/article/1617693922993#toc_h1_9" title="Association and comparison">[1]</a>*</sub></sup>
 
-    - Row-column transpose
+    - Row-column transpose  &nbsp;&nbsp;&nbsp;&nbsp; <sub><sup>*Ref. <a href="http://c.raqsoft.com/article/1617693922993#toc_h1_10" title="Convert rows and columns">[1]</a>*</sub></sup>
 
-    - Expansion and supplement
+    - Expansion and supplement  &nbsp;&nbsp;&nbsp;&nbsp; <sub><sup>*Ref. <a href="http://c.raqsoft.com/article/1617693922993#toc_h1_11" title="Expansion and Complement">[1]</a>*</sub></sup>
+
 
 
 
