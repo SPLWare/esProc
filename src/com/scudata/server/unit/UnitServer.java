@@ -25,7 +25,7 @@ import java.text.*;
  */
 public class UnitServer implements IServer {
 	public static UnitServer instance;
-	public static String version = "Inner version£º20210909";
+	public static String version = "Inner version£º20211216";
 	
 	ServerSocket serverSocket = null;
 	UnitContext unitContext=null;

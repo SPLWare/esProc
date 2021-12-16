@@ -4,6 +4,7 @@ import java.io.File;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
+import com.scudata.app.common.AppConsts;
 import com.scudata.app.common.AppUtil;
 import com.scudata.app.common.Section;
 import com.scudata.app.config.ConfigUtil;
@@ -28,7 +29,6 @@ import com.scudata.ide.common.ConfigOptions;
 import com.scudata.ide.common.DataSource;
 import com.scudata.ide.common.GC;
 import com.scudata.ide.common.XMLFile;
-import com.scudata.parallel.Task;
 import com.scudata.resources.ParallelMessage;
 import com.scudata.util.CellSetUtil;
 import com.scudata.util.DatabaseUtil;
@@ -195,7 +195,7 @@ public class Esproc {
 		+ " [etlFile]   相对于寻址路径或者主路径的etl文件名，也可以是绝对路径。\r\n"
 		+ " [argN]      etlFile有参数时，参数按照 参数顺序 指定。\r\n";
 		
-		String fileExts = GC.FILE_DFX + "/" + "etl"; 
+		String fileExts = AppConsts.SPL_FILE_EXTS + "," + "etl"; 
 
 		String usage = "用于执行一个" + fileExts
 				+ "文件、一个简易的表达式、简单SQL或一个文本描述的dfx脚本。\r\n\r\n"
@@ -208,8 +208,8 @@ public class Esproc {
 				+ "Esprocx [-r] [exp]\r\n"
 				+ " [exp]   一句dfx脚本命令。\r\n\r\n" + "示例:\r\n"
 				+ "  Esprocx -r -c\r\n" + "    执行一个待录入的文本式网格并打印返回结果。\r\n"
-				+ "  Esprocx -r demo.dfx arg1 arg2\r\n"
-				+ "    用参数arg1、arg2执行寻址路径上的demo.dfx，打印返回结果。\r\n"
+				+ "  Esprocx -r demo.splx arg1 arg2\r\n"
+				+ "    用参数arg1、arg2执行寻址路径上的demo.splx，打印返回结果。\r\n"
 				+ "  Esprocx SELECT count(*) FROM t.json\r\n"
 				+ "    执行一句简单SQL。\r\n"
 				+ "  Esprocx demo.etl 1\r\n"
@@ -224,17 +224,17 @@ public class Esproc {
 				+ "Esprocx [-r] [-c]\r\n"
 				+ " [-r]   Print result to the console. \r\n"
 				+ " [-c]   Read from the console a multiline cellset script in which columns are separated by the Tab to execute (Ctrl+C for finishing  input).  \r\n\r\n"
-				+ "Esprocx [-r] [dfxFile] [arg0] [arg1]...\r\n"
-				+ " [dfxFile]   A dfx file name relative to a search path or a main path; can be an absolute path. \r\n"
-				+ " [argN]      If the dfxFile contains parameters, pass values to them in order. \r\n\r\n"
+				+ "Esprocx [-r] [splxFile] [arg0] [arg1]...\r\n"
+				+ " [splxFile]   A splx file name relative to a search path or a main path; can be an absolute path. \r\n"
+				+ " [argN]      If the splxFile contains parameters, pass values to them in order. \r\n\r\n"
 				+ "Esprocx [-r] [exp]\r\n"
 				+ " [exp]   A dfx script command. \r\n\r\n"
 				+ etlUsageEn
 				+ "Example:\r\n"
 				+ "  Esprocx -r -c\r\n"
 				+ "    Execute a to-be-input text formatting cellset and print the returned result. \r\n"
-				+ "  Esprocx -r demo.dfx arg1 arg2\r\n"
-				+ "    Execute demo.dfx on a search path with parameters arg1 and arg2, and print the returned result. \r\n"
+				+ "  Esprocx -r demo.splx arg1 arg2\r\n"
+				+ "    Execute demo.splx on a search path with parameters arg1 and arg2, and print the returned result. \r\n"
 				+ "  Esprocx SELECT count(*) FROM t.json\r\n"
 				+ "    Execute a simple SQL statement. \r\n"
 				+ "  Esprocx demo.etl 1\r\n"
@@ -345,7 +345,7 @@ public class Esproc {
 
 		try {
 			if (debug) {
-				dfxFile = "d:\\p2.dfx";
+				dfxFile = "d:\\p2.splx";
 			}
 			initEnv();// 设定跟IDE相同的StartHome
 			checkMainPath();
@@ -356,19 +356,20 @@ public class Esproc {
 			}
 
 			long workBegin = System.currentTimeMillis();
-			boolean isFile = false, isDfx = false,  isEtl = false;//isSpl = false,
+			boolean isFile = false, isDfx = false,  isEtl = false,isSplx = false;
 			if (dfxFile != null) {
 				String lower = dfxFile.toLowerCase();
 				isDfx = lower.endsWith("." + GC.FILE_DFX);
+				isSplx = lower.endsWith("." + AppConsts.FILE_SPLX);
 				isEtl = lower.endsWith(".etl");
-				isFile = (isDfx|| isEtl);  
+				isFile = (isDfx|| isEtl || isSplx);  
 			}
 			if (isFile) {
-				if (isDfx || isEtl) {
+				if (isDfx || isEtl || isSplx) {
 					PgmCellSet pcs=null;
-					if (isDfx) {
+					if (isDfx || isSplx) {
 						pcs = fo.readPgmCellSet();
-					}else{//ETL
+					}else{
 						System.err.println("Unsupported file:"+fo.getFileName());
 						Thread.sleep(3000);
 						System.exit(0);
