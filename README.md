@@ -100,7 +100,7 @@ SPL focuses on the mainstream embedded and Java application architecture. SPL sc
     
     - Java computing class library, surpass Stream/Kotlin/Scala &nbsp;&nbsp;&nbsp;&nbsp; <sub><sup>*Ref. <a href="http://c.raqsoft.com/article/1625618421728" title="Are You Trying to Replace SQL with Java 8 Stream?">[1]</a> <a href="http://c.raqsoft.com/article/1626426250010" title="Are You Trying to Replace SQL with Kotlin?">[2]</a>*</sub></sup>
     
-    - Replace ORM to implement business logic &nbsp;&nbsp;&nbsp;&nbsp; <sub><sup>*Ref. <a href="http://c.raqsoft.com/article/1631184524246" title="Is ORM a Convenient Option for Data Migration between Databases?">[1]</a>*</sub></sup>
+    - Replace ORM to implement business logic &nbsp;&nbsp;&nbsp;&nbsp; <sub><sup>*Ref. <a href="http://c.raqsoft.com/article/1631184524246" title="Is ORM a Convenient Option for Data Migration between Databases?">[1]</a> <a href="http://c.raqsoft.com/article/1636957186884" title="How to Write Universal SQL That Can Be Executed in All Databases?">[2]</a>*</sub></sup>
     
     - SQL-like calculation on Mongodb, association calculation &nbsp;&nbsp;&nbsp;&nbsp; <sub><sup>*Ref. <a href="http://c.raqsoft.com/article/1637915238984" title="How Java Executes SQL on MongoDB">[1]</a> <a href="http://c.raqsoft.com/article/1637831059095" title="How Java Queries or Analyzes MongoDB Data">[2]</a> <a href="http://c.raqsoft.com/article/1637914459491" title="How Java Performs JOINs on MongoDB">[3]</a>*</sub></sup>
     
@@ -115,15 +115,15 @@ SPL focuses on the mainstream embedded and Java application architecture. SPL sc
     __SQL is difficult to deal with complex sets and ordered operations, and it is often read out and calculated in Java.
     SPL has complete set capability, especially supports ordered and step-by-step calculation, which can simplify these operations:__
 
-    - Ordered set &nbsp;&nbsp;&nbsp;&nbsp; <sub><sup>*Ref. <a href="http://c.raqsoft.com/article/1621587675540" title="Comparison of SQL & SPL: Order-based Computations">[1]</a>*</sub></sup>
+    - Ordered set &nbsp;&nbsp;&nbsp;&nbsp; <sub><sup>*Ref. <a href="http://c.raqsoft.com/article/1622598686173" title="Comparison of SQL & SPL: Set-oriented Operations">[1]</a> <a href="http://c.raqsoft.com/article/1621587675540" title="Comparison of SQL & SPL: Order-based Computations">[2]</a> <a href="http://c.raqsoft.com/article/1635932635595" title="SPL: order-related grouping">[3]</a>*</sub></sup>
 
-    - Position reference &nbsp;&nbsp;&nbsp;&nbsp; <sub><sup>*Ref. <a href="http://c.raqsoft.com/article/1607498662414" title="Locate Operation on Ordered Sets">[1]</a> <a href="http://c.raqsoft.com/article/1635933200916" title="SPL: adjacent record reference">[2]</a> <a href="http://c.raqsoft.com/article/1637565000649" title="SPL: Recursively Search Referenced Records">[3]</a>*</sub></sup>
+    - Position reference &nbsp;&nbsp;&nbsp;&nbsp; <sub><sup>*Ref. <a href="http://c.raqsoft.com/article/1635933200916" title="SPL: adjacent record reference">[1]</a> <a href="http://c.raqsoft.com/article/1637565000649" title="SPL: Recursively Search Referenced Records">[2]</a> <a href="http://c.raqsoft.com/article/1607498662414" title="Locate Operation on Ordered Sets">[3]</a>*</sub></sup>
     
     - Grouping subsets  &nbsp;&nbsp;&nbsp;&nbsp; <sub><sup>*Ref. <a href="http://c.raqsoft.com/article/1583482802281" title="Grouped subsets">[1]</a>*</sub></sup>
     
     - Non-equivalence grouping  &nbsp;&nbsp;&nbsp;&nbsp; <sub><sup>*Ref. <a href="http://c.raqsoft.com/article/1621233528244" title="Comparison of SQL & SPL: Non-equi-grouping">[1]</a>*</sub></sup>
     
-    - Multi-level association operation  &nbsp;&nbsp;&nbsp;&nbsp; <sub><sup>*Ref. <a href="http://c.raqsoft.com/article/1558938121942" title="SPL Simplified SQL - Multilevel Join">[1]</a>*</sub></sup>
+    - Multi-level association operation  &nbsp;&nbsp;&nbsp;&nbsp; <sub><sup>*Ref. <a href="http://c.raqsoft.com/article/1558938121942" title="SPL Simplified SQL - Multilevel Join">[1]</a> <a href="http://c.raqsoft.com/article/1622615623417" title="Comparison of SQL & SPL: Join Operations (Ⅰ)">[2]</a> <a href="http://c.raqsoft.com/article/1623046924829" title="Comparison of SQL & SPL: Join Operations (Ⅱ)">[3]</a> <a href="http://c.raqsoft.com/article/1625738996195" title="Comparison of SQL & SPL: Join Operations (Ⅲ)">[4]</a>*</sub></sup>
     
     - Static and dynamic pivot  &nbsp;&nbsp;&nbsp;&nbsp; <sub><sup>*Ref. <a href="http://c.raqsoft.com/article/1621588427124" title="Comparison of SQL & SPL: Static Transposition">[1]</a> <a href="http://c.raqsoft.com/article/1621588222144" title="Comparison of SQL & SPL: Complicated Static Transposition">[2]</a> <a href="http://c.raqsoft.com/article/1625729514671" title="Comparison of SQL & SPL: Dynamic Transposition">[3]</a>*</sub></sup>
     
