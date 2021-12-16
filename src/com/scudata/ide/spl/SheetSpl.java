@@ -294,8 +294,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 		}
 		String filePath = f.getAbsolutePath();
 		try {
-			String cellSetStr = CellSetUtil.toString(splControl.cellSet);
-			AppUtil.writeSPLFile(filePath, cellSetStr);
+			AppUtil.writeSPLFile(filePath, splControl.cellSet);
 		} catch (Throwable e) {
 			GM.showException(e);
 			return false;
@@ -364,8 +363,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 				}
 				GVSpl.panelValue.setCellSet((PgmCellSet) splControl.cellSet);
 				if (filePath.toLowerCase().endsWith("." + AppConsts.FILE_SPL)) {
-					String cellSetStr = CellSetUtil.toString(splControl.cellSet);
-					AppUtil.writeSPLFile(filePath, cellSetStr);
+					AppUtil.writeSPLFile(filePath, splControl.cellSet);
 				} else {
 					CellSetUtil.writePgmCellSet(filePath, splControl.cellSet);
 				}

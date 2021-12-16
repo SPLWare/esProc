@@ -236,8 +236,7 @@ public class DialogFileReplace extends RQDialog {
 					continue;
 				if (isReplace) {
 					if (isSplFile) {
-						String cellSetStr = CellSetUtil.toString(cellSet);
-						AppUtil.writeSPLFile(filePath, cellSetStr);
+						AppUtil.writeSPLFile(filePath, cellSet);
 					} else {
 						CellSetUtil.writePgmCellSet(filePath, cellSet);
 					}
