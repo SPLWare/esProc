@@ -563,6 +563,7 @@ public final class FunctionLib {
 		
 		//Ðé±í
 		addMemberFunction("import", "com.scudata.expression.mfn.pseudo.Import");
+		addMemberFunction("memory", "com.scudata.expression.mfn.pseudo.Memory");
 		addMemberFunction("cursor", "com.scudata.expression.mfn.pseudo.CreateCursor");
 		addMemberFunction("append", "com.scudata.expression.mfn.pseudo.Append");
 		addMemberFunction("update", "com.scudata.expression.mfn.pseudo.Update");
