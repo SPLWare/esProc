@@ -4,18 +4,16 @@ import java.awt.Font;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Vector;
 
 import javax.swing.SwingUtilities;
 
+import com.scudata.app.common.AppConsts;
+import com.scudata.app.common.AppUtil;
 import com.scudata.app.common.Segment;
 import com.scudata.cellset.datamodel.CellSet;
 import com.scudata.cellset.datamodel.NormalCell;
@@ -23,9 +21,6 @@ import com.scudata.cellset.datamodel.PgmCellSet;
 import com.scudata.common.Logger;
 import com.scudata.common.Matrix;
 import com.scudata.common.StringUtils;
-import com.scudata.dm.Env;
-import com.scudata.dm.Param;
-import com.scudata.dm.ParamList;
 import com.scudata.ide.common.ConfigFile;
 import com.scudata.ide.common.ConfigOptions;
 import com.scudata.ide.common.ConfigUtilIde;
@@ -47,15 +42,13 @@ import com.scudata.ide.dfx.control.DfxEditor;
 import com.scudata.ide.dfx.dialog.DialogAbout;
 import com.scudata.ide.dfx.dialog.DialogExecCmd;
 import com.scudata.ide.dfx.update.UpdateManager;
-import com.scudata.util.CellSetUtil;
 
 public class GMDfx extends GM {
 
 	/**
 	 * 执行菜单或者Sheet命令
 	 * 
-	 * @param cmd
-	 *            GCDfx及GC中定义的菜单常量
+	 * @param cmd GCDfx及GC中定义的菜单常量
 	 * @throws Exception
 	 */
 	public static void executeCmd(short cmd) throws Exception {
@@ -67,7 +60,7 @@ public class GMDfx extends GM {
 			GV.appFrame.openSheetFile("");
 			return;
 		case GC.iOPEN:
-			String ext = GC.FILE_DFX;
+			String ext = AppConsts.SPL_FILE_EXTS;
 			File file = GM.dialogSelectFile(ext);
 			if (file != null) {
 				GV.appFrame.openSheetFile(file.getAbsolutePath());
@@ -153,18 +146,17 @@ public class GMDfx extends GM {
 		case GC.iMEMORYTIDY:
 			if (GV.dialogMemory == null) {
 				GV.dialogMemory = new DialogMemory();
-				GV.dialogMemory
-						.setWrapStringBuffer(ControlUtilsBase.wrapStringBuffer);
+				GV.dialogMemory.setWrapStringBuffer(ControlUtilsBase.wrapStringBuffer);
 			}
 			GV.dialogMemory.setVisible(true);
 			return;
 		case GCDfx.iFILE_EXPORTTXT:
 			((SheetDfx) GV.appSheet).exportTxt();
 			return;
-			// case GCDfx.iFUNC_MANAGER:
-			// DialogFuncEditor dfe = new DialogFuncEditor(GV.appFrame, false);
-			// dfe.setVisible(true);
-			// return;
+		// case GCDfx.iFUNC_MANAGER:
+		// DialogFuncEditor dfe = new DialogFuncEditor(GV.appFrame, false);
+		// dfe.setVisible(true);
+		// return;
 		}
 		if (cmd == GCDfx.iEXEC_CMD) {
 			if (GV.appSheet == null) {
@@ -180,10 +172,8 @@ public class GMDfx extends GM {
 	/**
 	 * 从网格的指定区域取单元格矩阵
 	 * 
-	 * @param cellSet
-	 *            网格
-	 * @param rect
-	 *            区域
+	 * @param cellSet 网格
+	 * @param rect    区域
 	 * @return
 	 */
 	public static Matrix getMatrixCells(CellSet cellSet, CellRect rect) {
@@ -193,16 +183,12 @@ public class GMDfx extends GM {
 	/**
 	 * 从网格的指定区域取单元格矩阵
 	 * 
-	 * @param cellSet
-	 *            网格
-	 * @param rect
-	 *            区域
-	 * @param cloneCell
-	 *            单元格是否克隆
+	 * @param cellSet   网格
+	 * @param rect      区域
+	 * @param cloneCell 单元格是否克隆
 	 * @return
 	 */
-	public static Matrix getMatrixCells(CellSet cellSet, CellRect rect,
-			boolean cloneCell) {
+	public static Matrix getMatrixCells(CellSet cellSet, CellRect rect, boolean cloneCell) {
 		if (rect == null) {
 			return null;
 		}
@@ -254,16 +240,12 @@ public class GMDfx extends GM {
 	/**
 	 * 取移动区域格子的原子命令集合
 	 * 
-	 * @param editor
-	 *            网格编辑器
-	 * @param srcRect
-	 *            源区域
-	 * @param tarRect
-	 *            目标区域
+	 * @param editor  网格编辑器
+	 * @param srcRect 源区域
+	 * @param tarRect 目标区域
 	 * @return
 	 */
-	public static Vector<IAtomicCmd> getMoveRectCmd(DfxEditor editor,
-			CellRect srcRect, CellRect tarRect) {
+	public static Vector<IAtomicCmd> getMoveRectCmd(DfxEditor editor, CellRect srcRect, CellRect tarRect) {
 		if (srcRect.getColCount() == 0) {
 			return null;
 		}
@@ -280,8 +262,7 @@ public class GMDfx extends GM {
 		}
 
 		Matrix srcCells = getMatrixCells(ics, srcRect);
-		CellSelection cs = new CellSelection(srcCells, srcRect, editor
-				.getComponent().getCellSet());
+		CellSelection cs = new CellSelection(srcCells, srcRect, editor.getComponent().getCellSet());
 		AtomicDfx ad = new AtomicDfx(editor.getComponent());
 		ad.setType(AtomicDfx.MOVE_RECT);
 		ad.setRect(tarRect);
@@ -293,10 +274,8 @@ public class GMDfx extends GM {
 	/**
 	 * 取最大的列宽度
 	 * 
-	 * @param cs
-	 *            网格
-	 * @param col
-	 *            列
+	 * @param cs  网格
+	 * @param col 列
 	 * @return
 	 */
 	public static float getMaxColWidth(CellSet cs, int col) {
@@ -331,10 +310,8 @@ public class GMDfx extends GM {
 	/**
 	 * 取最大的行高度
 	 * 
-	 * @param cs
-	 *            网格
-	 * @param row
-	 *            行号
+	 * @param cs  网格
+	 * @param row 行号
 	 * @return
 	 */
 	public static float getMaxRowHeight(CellSet cs, int row) {
@@ -385,14 +362,14 @@ public class GMDfx extends GM {
 	 * @return
 	 */
 	public static boolean importTxt2Dfx() {
-		File file = GM.dialogSelectFile(GC.FILE_SPL);
+		File file = GM.dialogSelectFile(AppConsts.FILE_SPL);
 		if (file == null) {
 			return false;
 		}
 		try {
 			String filePath = file.getAbsolutePath();
 			PgmCellSet cellSet = readSPL(filePath);
-			filePath = getNotDuplicateName(filePath, GC.FILE_SPL);
+			filePath = getNotDuplicateName(filePath, AppConsts.FILE_SPL);
 			((DFX) GV.appFrame).openSheet(filePath, cellSet, false);
 			invokeSheetChanged();
 		} catch (Throwable ex) {
@@ -405,136 +382,29 @@ public class GMDfx extends GM {
 	/**
 	 * 读取SPL文件到dfx网格
 	 * 
-	 * @param filePath
-	 *            SPL文件路径
+	 * @param filePath SPL文件路径
 	 * @return
 	 * @throws Exception
 	 */
 	public static PgmCellSet readSPL(String filePath) throws Exception {
-		String spl = readSPLString(filePath);
-		PgmCellSet cellSet;
-		if (!StringUtils.isValidString(spl)) {
-			cellSet = new PgmCellSet(ConfigOptions.iRowCount.intValue(),
-					ConfigOptions.iColCount.intValue());
-		} else {
-			cellSet = CellSetUtil.toPgmCellSet(spl);
-		}
-		if (cellSet != null) {
-			ParamList pl = cellSet.getParamList();
-			if (pl != null) {
-				for (int i = 0; i < pl.count(); i++) {
-					Param p = pl.get(i);
-					if (p != null) {
-						if (p.getValue() != null && p.getEditValue() == null) {
-							p.setEditValue(p.getValue());
-						}
-					}
-				}
-			}
+		PgmCellSet cellSet = AppUtil.readSPL(filePath);
+		if (cellSet == null) {
+			return new PgmCellSet(ConfigOptions.iRowCount.intValue(), ConfigOptions.iColCount.intValue());
 		}
 		return cellSet;
 	}
 
 	/**
-	 * 读取SPL文件为字符串
-	 * 
-	 * @param filePath
-	 *            SPL文件路径
-	 * @return
-	 * @throws Exception
-	 */
-	private static String readSPLString(String filePath) throws Exception {
-		FileInputStream fis = null;
-		InputStreamReader isr = null;
-		BufferedReader br = null;
-		StringBuffer buf = new StringBuffer();
-		try {
-			fis = new FileInputStream(filePath);
-			isr = new InputStreamReader(fis, Env.getDefaultCharsetName());
-			br = new BufferedReader(isr);
-			String rowStr = br.readLine();
-			boolean isFirst = true;
-			while (rowStr != null) {
-				if (isFirst) {
-					isFirst = false;
-				} else {
-					buf.append('\n');
-				}
-				buf.append(rowStr);
-				rowStr = br.readLine();
-			}
-			return buf.toString();
-		} finally {
-			try {
-				if (br != null)
-					br.close();
-			} catch (Exception ex) {
-			}
-			try {
-				if (isr != null)
-					isr.close();
-			} catch (Exception ex) {
-			}
-			try {
-				if (fis != null)
-					fis.close();
-			} catch (Exception ex) {
-			}
-		}
-	}
-
-	/**
-	 * 导出网格字符串到SPL文件
-	 * 
-	 * @param filePath
-	 *            SPL文件路径
-	 * @param cellSetStr
-	 *            网格字符串
-	 * @throws Exception
-	 */
-	public static void writeSPLFile(String filePath, String cellSetStr)
-			throws Exception {
-		FileOutputStream fo = null;
-		OutputStreamWriter ow = null;
-		BufferedWriter bw = null;
-		try {
-			fo = new FileOutputStream(filePath);
-			ow = new OutputStreamWriter(fo, Env.getDefaultCharsetName());
-			bw = new BufferedWriter(ow);
-			bw.write(cellSetStr);
-		} finally {
-			if (bw != null)
-				try {
-					bw.close();
-				} catch (Exception e) {
-				}
-			if (ow != null)
-				try {
-					ow.close();
-				} catch (Exception e) {
-				}
-			if (fo != null)
-				try {
-					fo.close();
-				} catch (Exception e) {
-				}
-		}
-	}
-
-	/**
 	 * 取不重复的dfx名称
 	 * 
-	 * @param filePath
-	 *            文件路径
-	 * @param postfix
-	 *            后缀
+	 * @param filePath 文件路径
+	 * @param postfix  后缀
 	 * @return
 	 */
 	private static String getNotDuplicateName(String filePath, String postfix) {
 		String preName = filePath;
 		if (postfix != null && filePath.endsWith("." + postfix)) {
-			preName = filePath.substring(0, preName.length() - postfix.length()
-					- 1);
+			preName = filePath.substring(0, preName.length() - postfix.length() - 1);
 		}
 		String newName = preName;
 		int index = 1;
@@ -629,8 +499,7 @@ public class GMDfx extends GM {
 	/**
 	 * 修改保存按钮状态
 	 * 
-	 * @param isDataChanged
-	 *            是否激活保存按钮
+	 * @param isDataChanged 是否激活保存按钮
 	 */
 	public static void enableSave(boolean isDataChanged) {
 		if (GV.appMenu != null) {
@@ -719,8 +588,7 @@ public class GMDfx extends GM {
 		FileReader fr = null;
 		BufferedReader br = null;
 		try {
-			String configFile = GM.getAbsolutePath("bin" + File.separator
-					+ "config.txt");
+			String configFile = GM.getAbsolutePath("bin" + File.separator + "config.txt");
 			fr = new FileReader(configFile);
 			br = new BufferedReader(fr);
 			String segValue = br.readLine();
@@ -752,8 +620,7 @@ public class GMDfx extends GM {
 	 * @param value
 	 */
 	public static void setConfigValue(String key, String value) {
-		String configFile = GM.getAbsolutePath("bin" + File.separator
-				+ "config.txt");
+		String configFile = GM.getAbsolutePath("bin" + File.separator + "config.txt");
 		FileReader fr = null;
 		BufferedReader br = null;
 		Segment seg = null;

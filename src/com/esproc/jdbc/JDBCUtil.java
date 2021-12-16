@@ -17,6 +17,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.scudata.app.common.AppConsts;
 import com.scudata.app.common.AppUtil;
 import com.scudata.cellset.datamodel.Command;
 import com.scudata.common.ArgumentTokenizer;
@@ -31,7 +32,6 @@ import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
 import com.scudata.dm.cursor.ICursor;
 import com.scudata.dm.query.SimpleSelect;
-import com.scudata.expression.Expression;
 import com.scudata.expression.fn.Eval;
 import com.scudata.util.CellSetUtil;
 
@@ -48,8 +48,7 @@ public class JDBCUtil {
 	 * @param ctx
 	 * @throws SQLException
 	 */
-	public static Object executeCmd(String cmd, Context ctx)
-			throws SQLException {
+	public static Object executeCmd(String cmd, Context ctx) throws SQLException {
 		return executeCmd(cmd, null, ctx);
 	}
 
@@ -62,8 +61,7 @@ public class JDBCUtil {
 	 * @return
 	 * @throws SQLException
 	 */
-	public static Object executeCmd(String cmd, Sequence args, Context ctx)
-			throws SQLException {
+	public static Object executeCmd(String cmd, Sequence args, Context ctx) throws SQLException {
 		if (!StringUtils.isValidString(cmd)) {
 			return null;
 		}
@@ -87,25 +85,6 @@ public class JDBCUtil {
 	}
 
 	/**
-	 * JDBC keywords
-	 */
-
-	/** select */
-	public static final String KEY_SELECT = "select";
-	/** with */
-	public static final String KEY_WITH = "with";
-	/** call */
-	public static final String KEY_CALL = "call";
-	/** calls */
-	public static final String KEY_CALLS = "calls";
-	/** set */
-	public static final String KEY_SET = "set";
-	/** sqlfirst */
-	public static final String KEY_SQLFIRST = "sqlfirst";
-	/** simple */
-	public static final String KEY_SIMPLE = "simple";
-
-	/**
 	 * Get call expression
 	 * 
 	 * @param dfxName
@@ -113,14 +92,12 @@ public class JDBCUtil {
 	 * @return
 	 * @throws SQLException
 	 */
-	public static String getCallExp(String dfxName, String params)
-			throws SQLException {
+	public static String getCallExp(String dfxName, String params) throws SQLException {
 		if (params == null)
 			params = "";
 		else
 			params = params.trim();
-		String sql = "jdbccall(\"" + dfxName + "\""
-				+ (params.length() > 0 ? ("," + params) : "") + ")";
+		String sql = "jdbccall(\"" + dfxName + "\"" + (params.length() > 0 ? ("," + params) : "") + ")";
 		return sql;
 	}
 
@@ -133,8 +110,7 @@ public class JDBCUtil {
 	 * @return
 	 * @throws SQLException
 	 */
-	public static String getCallExp(String dfxName, String params,
-			boolean isOnlyServer) throws SQLException {
+	public static String getCallExp(String dfxName, String params, boolean isOnlyServer) throws SQLException {
 		if (params == null)
 			params = "";
 		else
@@ -165,39 +141,15 @@ public class JDBCUtil {
 			if (!dfxName.startsWith("\"") || !dfxName.endsWith("\"")) {
 				dfxName = Escape.addEscAndQuote(dfxName, true);
 			}
-			sql = "callx@j(" + dfxName
-					+ (params.length() > 0 ? ("," + params) : "") + hosts
-					+ ")(1)";
+			sql = "callx@j(" + dfxName + (params.length() > 0 ? ("," + params) : "") + hosts + ")(1)";
 		} else {
 			if (isOnlyServer) {
-				throw new SQLException(JDBCMessage.get().getMessage(
-						"jdbcutil.noserverconfig"));
+				throw new SQLException(JDBCMessage.get().getMessage("jdbcutil.noserverconfig"));
 			}
-			sql = "call(\"" + dfxName + "\""
-					+ (params.length() > 0 ? ("," + params) : "") + ")";
+			sql = "call(\"" + dfxName + "\"" + (params.length() > 0 ? ("," + params) : "") + ")";
 		}
 		return sql;
 	}
-
-	/**
-	 * JDBC statement types
-	 */
-	/** unknown */
-	public static final byte TYPE_NONE = 0;
-	/** Execute statement */
-	public static final byte TYPE_EXE = 1;
-	/** Expression statement */
-	public static final byte TYPE_EXP = 2;
-	/** Call statement */
-	public static final byte TYPE_CALL = 3;
-	/** Call statements */
-	public static final byte TYPE_CALLS = 4;
-	/** Execute dfx statement */
-	public static final byte TYPE_DFX = 5;
-	/** Execute SQL statement */
-	public static final byte TYPE_SQL = 6;
-	/** Execute simple SQL statement */
-	public static final byte TYPE_SIMPLE_SQL = 7;
 
 	/**
 	 * Get the type of SQL statement
@@ -207,7 +159,7 @@ public class JDBCUtil {
 	 */
 	public static byte getJdbcSqlType(String sql) {
 		if (!StringUtils.isValidString(sql)) {
-			return TYPE_NONE;
+			return JDBCConsts.TYPE_NONE;
 		}
 		sql = sql.trim();
 		/* Procedure may be enclosed in braces */
@@ -216,27 +168,27 @@ public class JDBCUtil {
 			sql = sql.trim();
 		}
 		if (sql.startsWith(">")) {
-			return TYPE_EXE;
+			return JDBCConsts.TYPE_EXE;
 		} else if (sql.startsWith("=")) {
-			return TYPE_EXP;
-		} else if (sql.toLowerCase().startsWith(JDBCUtil.KEY_CALLS)) {
-			return TYPE_CALLS;
-		} else if (sql.toLowerCase().startsWith(JDBCUtil.KEY_CALL)) {
-			return TYPE_CALL;
+			return JDBCConsts.TYPE_EXP;
+		} else if (sql.toLowerCase().startsWith(JDBCConsts.KEY_CALLS)) {
+			return JDBCConsts.TYPE_CALLS;
+		} else if (sql.toLowerCase().startsWith(JDBCConsts.KEY_CALL)) {
+			return JDBCConsts.TYPE_CALL;
 		} else if (sql.startsWith("$")) {
 			String s = sql;
 			s = s.substring(1).trim();
 			if (s.startsWith("(")) {
 				s = s.substring(1).trim();
 				if (s.startsWith(")")) {
-					return TYPE_SIMPLE_SQL;
+					return JDBCConsts.TYPE_SIMPLE_SQL;
 				}
 			}
-			return TYPE_SQL;
+			return JDBCConsts.TYPE_SQL;
 		} else if (AppUtil.isSQL(sql)) {
-			return TYPE_SIMPLE_SQL;
+			return JDBCConsts.TYPE_SIMPLE_SQL;
 		}
-		return TYPE_NONE;
+		return JDBCConsts.TYPE_NONE;
 	}
 
 	/**
@@ -255,7 +207,7 @@ public class JDBCUtil {
 			sql = sql.trim();
 		}
 		byte sqlType = JDBCUtil.getJdbcSqlType(sql);
-		return sqlType == JDBCUtil.TYPE_CALLS;
+		return sqlType == JDBCConsts.TYPE_CALLS;
 	}
 
 	/**
@@ -267,27 +219,21 @@ public class JDBCUtil {
 	 * @return
 	 * @throws Exception
 	 */
-	public static Object execute(String sql, ArrayList<Object> parameters,
-			Context ctx) throws Exception {
+	public static Object execute(String sql, ArrayList<Object> parameters, Context ctx) throws Exception {
 		return execute(sql, parameters, ctx, true);
 	}
 
 	/**
 	 * Execute JDBC statement
 	 * 
-	 * @param sql
-	 *            语句
-	 * @param parameters
-	 *            参数列表
-	 * @param ctx
-	 *            上下文
-	 * @param logInfo
-	 *            是否输出日志
+	 * @param sql        语句
+	 * @param parameters 参数列表
+	 * @param ctx        上下文
+	 * @param logInfo    是否输出日志
 	 * @return
 	 * @throws Exception
 	 */
-	public static Object execute(String sql, ArrayList<?> parameters,
-			Context ctx, boolean logInfo) throws Exception {
+	public static Object execute(String sql, ArrayList<?> parameters, Context ctx, boolean logInfo) throws Exception {
 		if (logInfo)
 			Logger.debug("SQL:[" + sql + "]");
 		if (!StringUtils.isValidString(sql)) {
@@ -299,8 +245,7 @@ public class JDBCUtil {
 			sql = sql.trim();
 		}
 		if (logInfo)
-			Logger.debug("param size="
-					+ (parameters == null ? "0" : ("" + parameters.size())));
+			Logger.debug("param size=" + (parameters == null ? "0" : ("" + parameters.size())));
 		boolean hasReturn = true;
 		boolean isGrid = false;
 		String dfxName = null;
@@ -310,8 +255,8 @@ public class JDBCUtil {
 		} else if (sql.startsWith("=")) {
 			isGrid = AppUtil.isGrid(sql);
 			sql = sql.substring(1);
-		} else if (sql.toLowerCase().startsWith(JDBCUtil.KEY_CALLS)) {
-			sql = sql.substring(JDBCUtil.KEY_CALLS.length());
+		} else if (sql.toLowerCase().startsWith(JDBCConsts.KEY_CALLS)) {
+			sql = sql.substring(JDBCConsts.KEY_CALLS.length());
 			sql = sql.trim();
 			int left = sql.indexOf('(');
 			String name, params;
@@ -337,8 +282,7 @@ public class JDBCUtil {
 							totalParams.append("?");
 							continue;
 						}
-						totalParams.append("["
-								+ (param == null ? "" : param.trim()) + "]");
+						totalParams.append("[" + (param == null ? "" : param.trim()) + "]");
 					}
 					params = totalParams.toString();
 				} else {
@@ -347,8 +291,7 @@ public class JDBCUtil {
 					if (len >= 1) {
 						boolean needTransParam = false;
 						StringBuffer totalParams = new StringBuffer();
-						ArgumentTokenizer at = new ArgumentTokenizer(params,
-								',');
+						ArgumentTokenizer at = new ArgumentTokenizer(params, ',');
 						while (at.hasNext()) {
 							if (totalParams.length() > 0) {
 								totalParams.append(",");
@@ -370,8 +313,7 @@ public class JDBCUtil {
 									repParams.append(param.trim());
 								}
 							}
-							totalParams
-									.append("[" + repParams.toString() + "]");
+							totalParams.append("[" + repParams.toString() + "]");
 						}
 						if (needTransParam) {
 							params = totalParams.toString();
@@ -379,8 +321,7 @@ public class JDBCUtil {
 					}
 				}
 			} else {
-				throw new SQLException(
-						"Stored procedure formatting error. For example: calls dfx(...)");
+				throw new SQLException("Stored procedure formatting error. For example: calls dfx(...)");
 			}
 			isCalls = true;
 			dfxName = name;
@@ -390,13 +331,15 @@ public class JDBCUtil {
 				if (dfxName.startsWith("\"") && dfxName.endsWith("\"")) {
 					dfxName = dfxName.substring(1, dfxName.length() - 2);
 					dfxName = dfxName.trim();
-				} else if (!dfxName.toLowerCase().endsWith(".dfx")) {
-					dfxName += ".dfx";
 				}
+				// 这里不加后缀名了，在JDBCCall中支持。
+				// else if (!dfxName.toLowerCase().endsWith("." + AppConsts.FILE_DFX)) {
+				// 	dfxName += "." + AppConsts.FILE_DFX;
+				//}
 			}
 			sql = JDBCUtil.getCallExp(dfxName, params);
-		} else if (sql.toLowerCase().startsWith(JDBCUtil.KEY_CALL)) {
-			sql = sql.substring(JDBCUtil.KEY_CALL.length());
+		} else if (sql.toLowerCase().startsWith(JDBCConsts.KEY_CALL)) {
+			sql = sql.substring(JDBCConsts.KEY_CALL.length());
 			sql = sql.trim();
 			int left = sql.indexOf('(');
 			String name, params;
@@ -408,8 +351,7 @@ public class JDBCUtil {
 				name = name.replaceAll("'", "");
 				params = sql.substring(left + 1, sql.length() - 1).trim();
 			} else {
-				throw new SQLException(
-						"Stored procedure formatting error. For example: call dfx(...)");
+				throw new SQLException("Stored procedure formatting error. For example: call dfx(...)");
 			}
 			dfxName = name;
 			if (dfxName != null) {
@@ -418,9 +360,11 @@ public class JDBCUtil {
 				if (dfxName.startsWith("\"") && dfxName.endsWith("\"")) {
 					dfxName = dfxName.substring(1, dfxName.length() - 2);
 					dfxName = dfxName.trim();
-				} else if (!dfxName.toLowerCase().endsWith(".dfx")) {
-					dfxName += ".dfx";
 				}
+				// 这里不加后缀名了，在JDBCCall中支持。
+				// else if (!dfxName.toLowerCase().endsWith("." + AppConsts.FILE_DFX)) {
+				// 	dfxName += "." + AppConsts.FILE_DFX;
+				//}
 			}
 			sql = JDBCUtil.getCallExp(dfxName, params);
 		} else if (sql.startsWith("$")) {
@@ -430,8 +374,7 @@ public class JDBCUtil {
 				s = s.substring(1).trim();
 				if (s.startsWith(")")) {
 					sql = s.substring(1).trim();
-					return AppUtil.executeSql(sql,
-							(ArrayList<Object>) parameters, ctx);
+					return AppUtil.executeSql(sql, (ArrayList<Object>) parameters, ctx);
 				}
 			}
 			Command command = Command.parse(sql);
@@ -494,8 +437,7 @@ public class JDBCUtil {
 	 * @return
 	 * @throws SQLException
 	 */
-	public static Sequence prepareArg(List<Object> parameters)
-			throws SQLException {
+	public static Sequence prepareArg(List<Object> parameters) throws SQLException {
 		Sequence arg = new Sequence();
 		if (parameters != null && parameters.size() > 0) {
 			for (int i = 0; i < parameters.size(); i++) {
@@ -515,8 +457,7 @@ public class JDBCUtil {
 	 * @return
 	 * @throws SQLException
 	 */
-	public static Sequence prepareCallsArg(List<Sequence> parameters)
-			throws SQLException {
+	public static Sequence prepareCallsArg(List<Sequence> parameters) throws SQLException {
 		Sequence arg = new Sequence();
 		if (parameters != null) {
 			Object obj;
@@ -643,18 +584,12 @@ public class JDBCUtil {
 			params = params.trim();
 		}
 		dfx = dfx.trim();
-		if (!dfx.toLowerCase().endsWith(".dfx"))
-			dfx += ".dfx";
+		// 这里不加后缀名了，在JDBCCall中支持。
+		// if (!dfx.toLowerCase().endsWith("." + AppConsts.FILE_DFX))
+		// 	dfx += "." + AppConsts.FILE_DFX;
 		sql = JDBCUtil.getCallExp(dfx, params);
 		return sql;
 	}
-
-	/**
-	 * Field names in the result set
-	 */
-	public static final String TABLE_NAME = "TABLE_NAME";
-	public static final String COLUMN_NAME = "COLUMN_NAME";
-	public static final String DATA_TYPE = "DATA_TYPE";
 
 	/**
 	 * Get the table names in the specified pattern
@@ -666,7 +601,7 @@ public class JDBCUtil {
 	public static Table getTables(String tableNamePattern) throws SQLException {
 		Map<String, String> map = Server.getTables(tableNamePattern);
 		Iterator<String> iter = map.keySet().iterator();
-		Table t = new Table(new String[] { TABLE_NAME });
+		Table t = new Table(new String[] { JDBCConsts.TABLE_NAME });
 		while (iter.hasNext()) {
 			String key = iter.next().toString();
 			String value = map.get(key).toString();
@@ -712,14 +647,10 @@ public class JDBCUtil {
 	 * @return
 	 * @throws SQLException
 	 */
-	public static Table getColumns(String tableNamePattern,
-			String columnNamePattern, Context ctx) throws SQLException {
-		Table meta = getMeta();
-		Map<String, String> tableFileMap = getTableFileMap(meta, false);
+	public static Table getColumns(String tableNamePattern, String columnNamePattern, Context ctx) throws SQLException {
 		Map<String, String> map = Server.getTables(tableNamePattern);
 		Iterator<String> iter = map.keySet().iterator();
-		Table t = new Table(new String[] { "TABLE_NAME", "COLUMN_NAME",
-				"DATA_TYPE" });
+		Table t = new Table(new String[] { "TABLE_NAME", "COLUMN_NAME", "DATA_TYPE" });
 
 		Pattern columnPattern = JDBCUtil.getPattern(columnNamePattern, null);
 
@@ -731,61 +662,17 @@ public class JDBCUtil {
 			SimpleSelect ss = new SimpleSelect(null, ctx);
 			ICursor cursor = null;
 			try {
-				String fileName = null;
-				if (tableFileMap != null) {
-					fileName = tableFileMap.get(name);
-				}
-				if (!StringUtils.isValidString(fileName)) {
-					fileName = name;
-				}
-				cursor = ss.query("select * from "
-						+ Escape.addEscAndQuote(fileName));
+				cursor = ss.query("select * from " + Escape.addEscAndQuote(name));
 				ds = ss.getDataStruct();
 				data = cursor.fetch(10);
 			} catch (Exception e) {
-				throw new SQLException(JDBCMessage.get().getMessage(
-						"jdbcutil.dserror", name)
-						+ e.getMessage(), e);
+				throw new SQLException(JDBCMessage.get().getMessage("jdbcutil.dserror", name) + e.getMessage(), e);
 			} finally {
 				if (cursor != null)
 					cursor.close();
 			}
 			if (ds != null) {
 				Map<String, Integer> colTypes = new HashMap<String, Integer>();
-				try {
-					if (meta != null && meta.length() > 0) {
-						Sequence tableMeta = (Sequence) meta.select(
-								new Expression("#" + (COL_TABLE + 1) + "=="
-										+ Escape.addEscAndQuote(name)), null,
-								ctx);
-						if (tableMeta != null && tableMeta.length() > 0) {
-							for (int c = 0; c < ds.getFieldCount(); c++) {
-								String colName = ds.getFieldName(c);
-								Sequence colMeta = (Sequence) tableMeta
-										.select(new Expression(
-												"#"
-														+ (COL_COLUMN + 1)
-														+ "=="
-														+ Escape.addEscAndQuote(colName)),
-												null, ctx);
-								if (colMeta != null && colMeta.length() > 0) {
-									Record record = (Record) colMeta.get(1);
-									Object colType = record
-											.getFieldValue(COL_TYPE);
-									if (colType != null
-											&& colType instanceof Number) {
-										byte esprocType = ((Number) colType)
-												.byteValue();
-										int sqlType = getSQLTypeByType(esprocType);
-										colTypes.put(colName, sqlType);
-									}
-								}
-							}
-						}
-					}
-				} catch (Exception e) {
-					Logger.error(e.getMessage());
-				}
 				for (int i = 0; i < ds.getFieldCount(); i++) {
 					String fname = ds.getFieldName(i);
 					if (columnPattern != null) {
@@ -813,96 +700,12 @@ public class JDBCUtil {
 							}
 						}
 					}
-					colType = com.scudata.common.Types
-							.getTypeBySQLType(colType);
+					colType = com.scudata.common.Types.getTypeBySQLType(colType);
 					t.newLast(new Object[] { name, fname, colType });
 				}
 			}
 		}
 		return t;
-	}
-
-	/**
-	 * Fields in the file meta.txt
-	 */
-	private static final int COL_TABLE = 0;
-	private static final int COL_FILE = 1;
-	private static final int COL_COLUMN = 2;
-	private static final int COL_TYPE = 3;
-
-	/**
-	 * Read the meta.txt file
-	 * 
-	 * @return
-	 */
-	public static Table getMeta() {
-		// 简单SQL不再支持元数据
-		// String mainPath = Env.getMainPath();
-		// if (!StringUtils.isValidString(mainPath))
-		// return null;
-		// FileObject fo = new FileObject("meta.txt", "UTF-8", null, null);
-		// if (fo.isExists())
-		// try {
-		// return (Table) fo.importSeries("t");
-		// } catch (Exception e) {
-		// }
-		return null;
-	}
-
-	/**
-	 * Get the mapping of file name and title
-	 * 
-	 * @return
-	 */
-	public static Map<String, String> getTableFileMap() {
-		return getTableFileMap(getMeta(), false);
-	}
-
-	/**
-	 * Get the mapping of file name and title
-	 * 
-	 * @param fileTableMap
-	 * @return
-	 */
-	public static Map<String, String> getTableFileMap(boolean fileTableMap) {
-		return getTableFileMap(getMeta(), fileTableMap);
-	}
-
-	/**
-	 * Get the mapping of file name and title
-	 * 
-	 * @param t
-	 * @param fileTableMap
-	 * @return
-	 */
-	public static Map<String, String> getTableFileMap(Table t,
-			boolean fileTableMap) {
-		if (t == null)
-			return null;
-		Map<String, String> map = new HashMap<String, String>();
-		StringBuffer buf = new StringBuffer();
-		for (int i = 1, len = t.length(); i <= len; i++) {
-			Record r = t.getRecord(i);
-			Object table = r.getFieldValue(COL_TABLE);
-			Object file = r.getFieldValue(COL_FILE);
-			if (StringUtils.isValidString(table)
-					&& StringUtils.isValidString(file)) {
-				if (fileTableMap) {
-					map.put((String) file, (String) table);
-				} else {
-					map.put((String) table, (String) file);
-				}
-				if (buf.length() > 0)
-					buf.append(";");
-				buf.append((String) table + "," + file);
-			}
-		}
-		if (buf.length() > 0) {
-			log("meta tables:" + buf.toString());
-		} else {
-			log("meta tables: null");
-		}
-		return map;
 	}
 
 	/**
@@ -916,12 +719,11 @@ public class JDBCUtil {
 		String dfx;
 		String params = null;
 		sql = sql.trim();
-		if (sql.toLowerCase().startsWith(JDBCUtil.KEY_CALL)
-				|| sql.toLowerCase().startsWith(JDBCUtil.KEY_CALLS)) {
-			if (sql.toLowerCase().startsWith(JDBCUtil.KEY_CALLS)) {
-				sql = sql.substring(JDBCUtil.KEY_CALLS.length());
+		if (sql.toLowerCase().startsWith(JDBCConsts.KEY_CALL) || sql.toLowerCase().startsWith(JDBCConsts.KEY_CALLS)) {
+			if (sql.toLowerCase().startsWith(JDBCConsts.KEY_CALLS)) {
+				sql = sql.substring(JDBCConsts.KEY_CALLS.length());
 			} else {
-				sql = sql.substring(JDBCUtil.KEY_CALL.length());
+				sql = sql.substring(JDBCConsts.KEY_CALL.length());
 			}
 			sql = sql.trim();
 			int left = sql.indexOf('(');
@@ -933,17 +735,18 @@ public class JDBCUtil {
 				dfx = dfx.replaceAll("'", "");
 				params = sql.substring(left + 1, sql.length() - 1).trim();
 			} else {
-				throw new SQLException(
-						"Stored procedure formatting error. For example: call dfx(...)");
+				throw new SQLException("Stored procedure formatting error. For example: call dfx(...)");
 			}
 			if (dfx != null) {
 				dfx = dfx.trim();
 				if (dfx.startsWith("\"") && dfx.endsWith("\"")) {
 					dfx = dfx.substring(1, dfx.length() - 2);
 					dfx = dfx.trim();
-				} else if (!dfx.toLowerCase().endsWith(".dfx")) {
-					dfx += ".dfx";
 				}
+				// 这里不加后缀名了，在JDBCCall中支持。
+				// else if (!dfx.toLowerCase().endsWith("." + AppConsts.FILE_DFX)) {
+				// 	dfx += "." + AppConsts.FILE_DFX;
+				// }
 			}
 		} else {
 			dfx = sql;
@@ -971,8 +774,9 @@ public class JDBCUtil {
 				params = params.trim();
 			}
 			dfx = dfx.trim();
-			if (!dfx.toLowerCase().endsWith(".dfx"))
-				dfx += ".dfx";
+			// 这里不加后缀名了，在JDBCCall中支持。
+			// if (!dfx.toLowerCase().endsWith("." + AppConsts.FILE_DFX))
+			// 	dfx += "." + AppConsts.FILE_DFX;
 		}
 		return new String[] { dfx, params };
 	}
@@ -1014,8 +818,7 @@ public class JDBCUtil {
 	 * @return
 	 * @throws SQLException
 	 */
-	public static ResultSet generateResultSet(Object obj, int fetchSize)
-			throws SQLException {
+	public static ResultSet generateResultSet(Object obj, int fetchSize) throws SQLException {
 		return generateResultSet(obj, "Field", fetchSize);
 	}
 
@@ -1028,8 +831,7 @@ public class JDBCUtil {
 	 * @return
 	 * @throws SQLException
 	 */
-	public static ResultSet generateResultSet(Object obj, String colName,
-			int fetchSize) throws SQLException {
+	public static ResultSet generateResultSet(Object obj, String colName, int fetchSize) throws SQLException {
 		if (obj == null)
 			return null;
 		String fields[] = null;
@@ -1100,8 +902,7 @@ public class JDBCUtil {
 					dealTypes = new int[fields.length];
 					datas = new ArrayList<ArrayList<Object>>(seq.length());
 					for (int i = 1; i <= seq.length(); i++) {
-						ArrayList<Object> row = new ArrayList<Object>(
-								fields.length);
+						ArrayList<Object> row = new ArrayList<Object>(fields.length);
 						Object seqi = seq.get(i);
 						if (seqi != null && seqi instanceof Record) {
 							Record r = (Record) seq.get(i);
@@ -1156,8 +957,7 @@ public class JDBCUtil {
 			datas.add(row);
 		}
 		ResultSetMetaData metaData = new ResultSetMetaData(fields, types);
-		com.esproc.jdbc.ResultSet set = new com.esproc.jdbc.ResultSet(datas,
-				metaData);
+		com.esproc.jdbc.ResultSet set = new com.esproc.jdbc.ResultSet(datas, metaData);
 		set.setFetchSize(fetchSize);
 		return set;
 	}
@@ -1235,9 +1035,7 @@ public class JDBCUtil {
 	 * @return
 	 */
 	private static boolean isIntType(int type) {
-		return type == java.sql.Types.TINYINT
-				|| type == java.sql.Types.SMALLINT
-				|| type == java.sql.Types.INTEGER;
+		return type == java.sql.Types.TINYINT || type == java.sql.Types.SMALLINT || type == java.sql.Types.INTEGER;
 	}
 
 	/**
@@ -1247,8 +1045,7 @@ public class JDBCUtil {
 	 * @return
 	 */
 	private static boolean isNumberType(int type) {
-		return type == java.sql.Types.FLOAT || type == java.sql.Types.DOUBLE
-				|| isIntType(type);
+		return type == java.sql.Types.FLOAT || type == java.sql.Types.DOUBLE || isIntType(type);
 	}
 
 	/**
@@ -1258,8 +1055,7 @@ public class JDBCUtil {
 	 * @return
 	 */
 	private static boolean isDateType(int type) {
-		return type == java.sql.Types.DATE || type == java.sql.Types.TIME
-				|| type == java.sql.Types.TIMESTAMP;
+		return type == java.sql.Types.DATE || type == java.sql.Types.TIME || type == java.sql.Types.TIMESTAMP;
 	}
 
 	/**
@@ -1342,8 +1138,7 @@ public class JDBCUtil {
 	 * @param list
 	 * @throws IOException
 	 */
-	public static void writeArrayList(ObjectOutput out, ArrayList<Object> list)
-			throws IOException {
+	public static void writeArrayList(ObjectOutput out, ArrayList<Object> list) throws IOException {
 		if (list == null) {
 			out.writeShort((short) 0);
 		} else {
@@ -1363,8 +1158,7 @@ public class JDBCUtil {
 	 * @throws IOException
 	 * @throws ClassNotFoundException
 	 */
-	public static ArrayList<Object> readArrayList(ObjectInput in)
-			throws IOException, ClassNotFoundException {
+	public static ArrayList<Object> readArrayList(ObjectInput in) throws IOException, ClassNotFoundException {
 		int count = in.readShort();
 		ArrayList<Object> list = null;
 		if (count > 0) {
@@ -1383,8 +1177,7 @@ public class JDBCUtil {
 	 * @param list
 	 * @throws IOException
 	 */
-	public static void writeArrayList2(ObjectOutput out,
-			ArrayList<ArrayList<Object>> list) throws IOException {
+	public static void writeArrayList2(ObjectOutput out, ArrayList<ArrayList<Object>> list) throws IOException {
 		if (list == null) {
 			out.writeShort((short) 0);
 		} else {
@@ -1470,7 +1263,6 @@ public class JDBCUtil {
 	 * @throws SQLException
 	 */
 	public static ResultSet getEmptyResultSet() throws SQLException {
-		return new com.esproc.jdbc.ResultSet(
-				(byte) com.esproc.jdbc.ResultSet.GET_EMPTY_RESULT);
+		return new com.esproc.jdbc.ResultSet((byte) com.esproc.jdbc.ResultSet.GET_EMPTY_RESULT);
 	}
 }

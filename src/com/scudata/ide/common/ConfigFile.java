@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.swing.JMenuItem;
 
+import com.scudata.app.common.AppConsts;
 import com.scudata.app.common.Section;
 import com.scudata.common.Logger;
 import com.scudata.common.StringUtils;
@@ -134,7 +135,7 @@ public class ConfigFile {
 	 * @return
 	 */
 	public static ConfigFile getSystemConfigFile() {
-		String file = GC.PATH_CONFIG + "/systemconfig" + GM.getLanguageSuffix() + "." + GC.FILE_XML;
+		String file = GC.PATH_CONFIG + "/systemconfig" + GM.getLanguageSuffix() + "." + AppConsts.FILE_XML;
 		String filePath = GM.getAbsolutePath(file);
 		try {
 			File f = new File(filePath);

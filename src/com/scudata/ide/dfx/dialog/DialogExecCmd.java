@@ -17,6 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
+import com.scudata.app.common.AppConsts;
 import com.scudata.cellset.datamodel.PgmCellSet;
 import com.scudata.common.StringUtils;
 import com.scudata.dm.Param;
@@ -69,25 +70,22 @@ public class DialogExecCmd extends RQDialog {
 		String dfxFile = textDFX.getText();
 		if (!StringUtils.isValidString(dfxFile)) {
 			// 请选择要执行的DFX文件。
-			JOptionPane.showMessageDialog(GV.appFrame, IdeDfxMessage.get()
-					.getMessage("dialogexeccmd.emptydfx"));
+			JOptionPane.showMessageDialog(GV.appFrame, IdeDfxMessage.get().getMessage("dialogexeccmd.emptydfx"));
 			return false;
 		}
 		final File f = new File(dfxFile);
 		if (!f.isFile() || !f.exists()) {
 			// DFX文件：{0}不存在。
-			JOptionPane.showMessageDialog(GV.appFrame, IdeDfxMessage.get()
-					.getMessage("dialogexeccmd.dfxnotexist", dfxFile));
+			JOptionPane.showMessageDialog(GV.appFrame,
+					IdeDfxMessage.get().getMessage("dialogexeccmd.dfxnotexist", dfxFile));
 			return false;
 		}
 		String startHome = System.getProperty("start.home");
 		File binDir = new File(startHome, "bin");
 		if (!binDir.exists() || !binDir.isDirectory()) {
 			// 目录：{0}不存在。
-			JOptionPane.showMessageDialog(
-					GV.appFrame,
-					IdeDfxMessage.get().getMessage("dialogexeccmd.binnotexist",
-							binDir.getAbsolutePath()));
+			JOptionPane.showMessageDialog(GV.appFrame,
+					IdeDfxMessage.get().getMessage("dialogexeccmd.binnotexist", binDir.getAbsolutePath()));
 			return false;
 		}
 		String suffix;
@@ -99,10 +97,8 @@ public class DialogExecCmd extends RQDialog {
 		final File exeFile = new File(binDir, "esprocx." + suffix);
 		if (!exeFile.isFile() || !exeFile.exists()) {
 			// 可执行文件：{0}不存在。
-			JOptionPane.showMessageDialog(
-					GV.appFrame,
-					IdeDfxMessage.get().getMessage("dialogexeccmd.exenotexist",
-							exeFile.getAbsolutePath()));
+			JOptionPane.showMessageDialog(GV.appFrame,
+					IdeDfxMessage.get().getMessage("dialogexeccmd.exenotexist", exeFile.getAbsolutePath()));
 			return false;
 		}
 		paramTable.acceptText();
@@ -196,8 +192,7 @@ public class DialogExecCmd extends RQDialog {
 						break;
 					while (br.hasNextLine()) {
 						String tempStream = br.nextLine();
-						if (tempStream.trim() == null
-								|| tempStream.trim().equals(""))
+						if (tempStream.trim() == null || tempStream.trim().equals(""))
 							continue;
 						System.out.println(tempStream);
 					}
@@ -240,8 +235,7 @@ public class DialogExecCmd extends RQDialog {
 						break;
 					while (br.hasNextLine()) {
 						String tempStream = br.nextLine();
-						if (tempStream.trim() == null
-								|| tempStream.trim().equals(""))
+						if (tempStream.trim() == null || tempStream.trim().equals(""))
 							continue;
 						System.out.println(tempStream);
 					}
@@ -266,28 +260,21 @@ public class DialogExecCmd extends RQDialog {
 	private void init() {
 		JPanel panelNorth = new JPanel(new GridBagLayout());
 		// DFX文件
-		panelNorth.add(
-				new JLabel(IdeDfxMessage.get().getMessage(
-						"dialogexeccmd.dfxfile")), GM.getGBC(0, 0));
+		panelNorth.add(new JLabel(IdeDfxMessage.get().getMessage("dialogexeccmd.dfxfile")), GM.getGBC(0, 0));
 		panelNorth.add(textDFX, GM.getGBC(0, 1, true, false, 2));
 		panelNorth.add(buttonFile, GM.getGBC(0, 2));
 		panelCenter.add(panelNorth, BorderLayout.NORTH);
 		JPanel panelParam = new JPanel(new GridBagLayout());
 		// 网格参数
-		panelParam.add(
-				new JLabel(IdeDfxMessage.get().getMessage(
-						"dialogexeccmd.dfxparam")), GM.getGBC(0, 0));
-		panelParam
-				.add(new JScrollPane(paramTable), GM.getGBC(1, 0, true, true));
+		panelParam.add(new JLabel(IdeDfxMessage.get().getMessage("dialogexeccmd.dfxparam")), GM.getGBC(0, 0));
+		panelParam.add(new JScrollPane(paramTable), GM.getGBC(1, 0, true, true));
 		panelCenter.add(panelParam, BorderLayout.CENTER);
 		buttonFile.setIcon(GM.getMenuImageIcon(GC.OPEN));
-		buttonFile.setToolTipText(IdeDfxMessage.get().getMessage(
-				"dialogexeccmd.openfile")); // 打开文件
+		buttonFile.setToolTipText(IdeDfxMessage.get().getMessage("dialogexeccmd.openfile")); // 打开文件
 		buttonFile.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				File f = GM.dialogSelectFile(GC.FILE_DFX + "," + GC.FILE_SPL,
-						false);
+				File f = GM.dialogSelectFile(AppConsts.SPL_FILE_EXTS, false);
 				if (f != null) {
 					textDFX.setText(f.getAbsolutePath());
 					loadFile();
@@ -318,19 +305,18 @@ public class DialogExecCmd extends RQDialog {
 				return;
 			}
 			PgmCellSet cellSet;
-			if (filePath.toLowerCase().endsWith(GC.FILE_DFX)) {
-				cellSet = CellSetUtil.readPgmCellSet(filePath);
-			} else {
+			if (filePath.toLowerCase().endsWith(AppConsts.FILE_SPL)) {
 				cellSet = GMDfx.readSPL(filePath);
+			} else {
+				cellSet = CellSetUtil.readPgmCellSet(filePath);
 			}
 			ParamList pl = cellSet.getParamList();
 			if (pl != null) {
 				for (int i = 0, size = pl.count(); i < size; i++) {
 					Param p = pl.get(i);
 					int row = paramTable.addRow();
-					paramTable.data.setValueAt(StringUtils.isValidString(p
-							.getRemark()) ? p.getRemark() : p.getName(), row,
-							COL_DISP);
+					paramTable.data.setValueAt(StringUtils.isValidString(p.getRemark()) ? p.getRemark() : p.getName(),
+							row, COL_DISP);
 					paramTable.data.setValueAt(p.getValue(), row, COL_VALUE);
 				}
 			}
@@ -352,19 +338,15 @@ public class DialogExecCmd extends RQDialog {
 	/** 参数值列 */
 	private final int COL_VALUE = 1;
 	/** 参数名或中文说明 */
-	private final String TITLE_DISP = IdeDfxMessage.get().getMessage(
-			"dialogexeccmd.name");
+	private final String TITLE_DISP = IdeDfxMessage.get().getMessage("dialogexeccmd.name");
 	/** 参数值 */
-	private final String TITLE_VALUE = IdeDfxMessage.get().getMessage(
-			"dialogexeccmd.value");
+	private final String TITLE_VALUE = IdeDfxMessage.get().getMessage("dialogexeccmd.value");
 	/** 参数表格控件 */
-	private JTableEx paramTable = new JTableEx(new String[] { TITLE_DISP,
-			TITLE_VALUE }) {
+	private JTableEx paramTable = new JTableEx(new String[] { TITLE_DISP, TITLE_VALUE }) {
 
 		private static final long serialVersionUID = 1L;
 
-		public void doubleClicked(int xpos, int ypos, int row, int col,
-				MouseEvent e) {
+		public void doubleClicked(int xpos, int ypos, int row, int col, MouseEvent e) {
 			if (col != COL_VALUE) {
 				return;
 			}

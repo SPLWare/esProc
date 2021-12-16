@@ -28,6 +28,8 @@ import javax.swing.JToolBar;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
+import com.scudata.app.common.AppConsts;
+import com.scudata.app.common.AppUtil;
 import com.scudata.app.common.Section;
 import com.scudata.app.config.ConfigUtil;
 import com.scudata.app.config.RaqsoftConfig;
@@ -161,8 +163,7 @@ public class DFX extends AppFrame {
 	/**
 	 * 构造函数
 	 * 
-	 * @param openFile
-	 *            启动时自动打开文件
+	 * @param openFile 启动时自动打开文件
 	 */
 	public DFX(String openFile) {
 		this(openFile, true);
@@ -171,17 +172,14 @@ public class DFX extends AppFrame {
 	/**
 	 * 构造函数
 	 * 
-	 * @param openFile
-	 *            启动时自动打开文件
-	 * @param terminalVMwhileExit
-	 *            退出时是否关闭JVM
+	 * @param openFile            启动时自动打开文件
+	 * @param terminalVMwhileExit 退出时是否关闭JVM
 	 */
 	public DFX(String openFile, boolean terminalVMwhileExit) {
 		super();
 		try {
 			ConfigFile.getConfigFile().setConfigNode(ConfigFile.NODE_OPTIONS);
-			GV.lastDirectory = ConfigFile.getConfigFile().getAttrValue(
-					"fileDirectory");
+			GV.lastDirectory = ConfigFile.getConfigFile().getAttrValue("fileDirectory");
 		} catch (Throwable t) {
 			GM.outputMessage(t);
 		}
@@ -267,10 +265,8 @@ public class DFX extends AppFrame {
 			splitMain.setOneTouchExpandable(true);
 			splitMain.setDividerSize(SPLIT_WIDTH);
 			splitMain.setOrientation(JSplitPane.HORIZONTAL_SPLIT);
-			final int POS_MAIN = new Double(0.25 * Toolkit.getDefaultToolkit()
-					.getScreenSize().getWidth()).intValue();
-			final int POS_DESK = new Double((1 - 0.25)
-					* Toolkit.getDefaultToolkit().getScreenSize().getWidth())
+			final int POS_MAIN = new Double(0.25 * Toolkit.getDefaultToolkit().getScreenSize().getWidth()).intValue();
+			final int POS_DESK = new Double((1 - 0.25) * Toolkit.getDefaultToolkit().getScreenSize().getWidth())
 					.intValue();
 			splitMain.setDividerLocation(POS_DESK - POS_MAIN);
 
@@ -285,8 +281,7 @@ public class DFX extends AppFrame {
 			JTabbedPane jTPRight = new JTabbedPane();
 			jTPRight.setMinimumSize(new Dimension(0, 0));
 
-			jTPLeft.addTab(mm.getMessage("public.file"), new JScrollPane(
-					fileTree.getComponent()));
+			jTPLeft.addTab(mm.getMessage("public.file"), new JScrollPane(fileTree.getComponent()));
 
 			jTPRight.addTab(mm.getMessage("dfx.tabvalue"), panelValue);
 			tabParam = new JTabbedParam() {
@@ -305,12 +300,10 @@ public class DFX extends AppFrame {
 			splitCenter.setLeftComponent(jTPLeft);
 			// 将文件树和控制台放在设计器的左侧
 			// 因tab标签增加文件树，tab标签会一直存在，将控住控制台宽度的代码提到外面
-			if (ConfigOptions.iConsoleLocation != null
-					&& ConfigOptions.iConsoleLocation.intValue() > -1) {
+			if (ConfigOptions.iConsoleLocation != null && ConfigOptions.iConsoleLocation.intValue() > -1) {
 				lastLeftLocation = ConfigOptions.iConsoleLocation.intValue();
 				if (lastLeftLocation <= SPLIT_GAP) {
-					splitCenter.setDividerLocation(Math
-							.round((POS_DESK - POS_MAIN) * 0.4f));
+					splitCenter.setDividerLocation(Math.round((POS_DESK - POS_MAIN) * 0.4f));
 				} else {
 					splitCenter.setDividerLocation(0);
 				}
@@ -323,8 +316,8 @@ public class DFX extends AppFrame {
 			fileTree.changeMainPath(ConfigOptions.sMainPath);
 
 			if (ConfigOptions.bWindowSize.booleanValue()) {
-				lastRightLocation = (int) (Toolkit.getDefaultToolkit()
-						.getScreenSize().getWidth() - panelValue.getWidth());
+				lastRightLocation = (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth()
+						- panelValue.getWidth());
 				splitMain.setDividerLocation(lastRightLocation);
 			} else {
 				lastRightLocation = POS_DESK;
@@ -334,8 +327,7 @@ public class DFX extends AppFrame {
 			splitEast.setOneTouchExpandable(true);
 			splitEast.setDividerSize(SPLIT_WIDTH);
 			splitEast.setOrientation(JSplitPane.VERTICAL_SPLIT);
-			final int POS_RIGHT_DFX = new Double(0.45 * Toolkit
-					.getDefaultToolkit().getScreenSize().getHeight())
+			final int POS_RIGHT_DFX = new Double(0.45 * Toolkit.getDefaultToolkit().getScreenSize().getHeight())
 					.intValue();
 			splitEast.setDividerLocation(POS_RIGHT_DFX);
 			JPanel panelRight = new JPanel();
@@ -491,10 +483,8 @@ public class DFX extends AppFrame {
 	/**
 	 * 关闭指定页
 	 * 
-	 * @param sheet
-	 *            页对象
-	 * @param showSheet
-	 *            关闭后是否显示其他页。关闭全部页时应该用false
+	 * @param sheet     页对象
+	 * @param showSheet 关闭后是否显示其他页。关闭全部页时应该用false
 	 * @return
 	 */
 	public boolean closeSheet(Object sheet, boolean showSheet) {
@@ -514,8 +504,7 @@ public class DFX extends AppFrame {
 
 		if (frames.length == 0) {
 			changeMenuAndToolBar(newMenuBase(), GVDfx.getBaseTool());
-			GV.appMenu.setEnable(((PrjxAppMenu) (GV.appMenu)).getMenuItems(),
-					false);
+			GV.appMenu.setEnable(((PrjxAppMenu) (GV.appMenu)).getMenuItems(), false);
 			GV.appTool.setBarEnabled(false);
 			GV.toolWin.setVisible(false);
 			GV.appSheet = null;
@@ -528,8 +517,7 @@ public class DFX extends AppFrame {
 				// 找不到可显示的就算啦
 			}
 			try {
-				((PrjxAppMenu) GV.appMenu).refreshRecentFileOnClose(sheetTitle,
-						frames);
+				((PrjxAppMenu) GV.appMenu).refreshRecentFileOnClose(sheetTitle, frames);
 			} catch (Throwable t) {
 			}
 		}
@@ -587,8 +575,7 @@ public class DFX extends AppFrame {
 
 			if (fileTree != null && fileTree instanceof FileTree) {
 				// 退出时，记住本次打开文件树面板的宽度
-				((FileTree) fileTree).saveExpandState(splitCenter
-						.getDividerLocation());
+				((FileTree) fileTree).saveExpandState(splitCenter.getDividerLocation());
 			}
 			GV.config.setAutoConnectList(connectedDSNames);
 			ConfigUtilIde.writeConfig(false);
@@ -601,8 +588,7 @@ public class DFX extends AppFrame {
 				ConfigOptions.iConsoleLocation = new Integer(-1);
 			} else {
 				int dl = splitCenter.getDividerLocation();
-				if (GV.toolWin != null
-						&& ConfigOptions.bViewWinList.booleanValue()) {
+				if (GV.toolWin != null && ConfigOptions.bViewWinList.booleanValue()) {
 				}
 				ConfigOptions.iConsoleLocation = new Integer(dl);
 			}
@@ -700,16 +686,12 @@ public class DFX extends AppFrame {
 	/**
 	 * 打开输入流文件
 	 * 
-	 * @param in
-	 *            输入流
-	 * @param fileName
-	 *            文件名
-	 * @param isRemote
-	 *            是否是远程服务器文件
+	 * @param in       输入流
+	 * @param fileName 文件名
+	 * @param isRemote 是否是远程服务器文件
 	 * @return
 	 */
-	public JInternalFrame openSheetFile(InputStream in, String filePath,
-			boolean isRemote) throws Exception {
+	public JInternalFrame openSheetFile(InputStream in, String filePath, boolean isRemote) throws Exception {
 		synchronized (desk) {
 			JInternalFrame o = getSheet(filePath);
 			ICellSet cs = CellSetUtil.readPgmCellSet(in);
@@ -736,10 +718,8 @@ public class DFX extends AppFrame {
 	/**
 	 * 新建文件
 	 * 
-	 * @param filePath
-	 *            文件路径
-	 * @param isServerFile
-	 *            是否是添加到远程服务器的文件
+	 * @param filePath     文件路径
+	 * @param isServerFile 是否是添加到远程服务器的文件
 	 * @return
 	 */
 	public JInternalFrame newSheetFile(String filePath, boolean isServerFile) {
@@ -753,8 +733,7 @@ public class DFX extends AppFrame {
 					sheet.setBounds(0, 0, d.width, d.height);
 				}
 				boolean setMax = false;
-				if (GV.appSheet != null && GV.appSheet.isMaximum()
-						&& !GV.appSheet.isIcon()) {
+				if (GV.appSheet != null && GV.appSheet.isMaximum() && !GV.appSheet.isIcon()) {
 					GV.appSheet.resumeSheet();
 					if (loadSheet) // not max
 						((IPrjxSheet) sheet).setForceMax();
@@ -765,8 +744,7 @@ public class DFX extends AppFrame {
 				if (setMax || !GM.loadWindowSize(sheet))
 					sheet.setMaximum(true);
 				sheet.setSelected(true);
-				if (!GV.toolWin.isVisible()
-						&& ConfigOptions.bViewWinList.booleanValue())
+				if (!GV.toolWin.isVisible() && ConfigOptions.bViewWinList.booleanValue())
 					GV.toolWin.setVisible(true);
 				GV.toolWin.refresh();
 				((IPrjxSheet) sheet).resetSheetStyle();
@@ -781,10 +759,8 @@ public class DFX extends AppFrame {
 	/**
 	 * 打开页面
 	 * 
-	 * @param filePath
-	 *            文件路径
-	 * @param cellSet
-	 *            网格对象
+	 * @param filePath 文件路径
+	 * @param cellSet  网格对象
 	 * @return
 	 */
 	public synchronized JInternalFrame openSheet(String filePath, Object cellSet) {
@@ -794,37 +770,28 @@ public class DFX extends AppFrame {
 	/**
 	 * 打开页面
 	 * 
-	 * @param filePath
-	 *            文件路径
-	 * @param cellSet
-	 *            网格对象
-	 * @param refreshRecentFile
-	 *            是否刷新最近文件
+	 * @param filePath          文件路径
+	 * @param cellSet           网格对象
+	 * @param refreshRecentFile 是否刷新最近文件
 	 * @return
 	 */
-	public synchronized JInternalFrame openSheet(String filePath,
-			Object cellSet, boolean refreshRecentFile) {
+	public synchronized JInternalFrame openSheet(String filePath, Object cellSet, boolean refreshRecentFile) {
 		return openSheet(filePath, cellSet, refreshRecentFile, null);
 	}
 
 	/**
 	 * 打开页面
 	 * 
-	 * @param filePath
-	 *            文件路径
-	 * @param cellSet
-	 *            网格对象
-	 * @param refreshRecentFile
-	 *            是否刷新最近文件
-	 * @param stepInfo
-	 *            分步调试信息。没有的传null
+	 * @param filePath          文件路径
+	 * @param cellSet           网格对象
+	 * @param refreshRecentFile 是否刷新最近文件
+	 * @param stepInfo          分步调试信息。没有的传null
 	 * @return
 	 */
-	public synchronized JInternalFrame openSheet(String filePath,
-			Object cellSet, boolean refreshRecentFile, StepInfo stepInfo) {
+	public synchronized JInternalFrame openSheet(String filePath, Object cellSet, boolean refreshRecentFile,
+			StepInfo stepInfo) {
 		try {
-			JInternalFrame sheet = new SheetDfx(filePath, (PgmCellSet) cellSet,
-					stepInfo);
+			JInternalFrame sheet = new SheetDfx(filePath, (PgmCellSet) cellSet, stepInfo);
 
 			Dimension d = desk.getSize();
 			boolean loadSheet = GM.loadWindowSize(sheet);
@@ -832,8 +799,7 @@ public class DFX extends AppFrame {
 				sheet.setBounds(0, 0, d.width, d.height);
 			}
 			boolean setMax = false;
-			if (GV.appSheet != null && GV.appSheet.isMaximum()
-					&& !GV.appSheet.isIcon()) {
+			if (GV.appSheet != null && GV.appSheet.isMaximum() && !GV.appSheet.isIcon()) {
 				GV.appSheet.resumeSheet();
 				if (loadSheet) // not max
 					((IPrjxSheet) sheet).setForceMax();
@@ -846,8 +812,7 @@ public class DFX extends AppFrame {
 			sheet.setSelected(true);
 			if (refreshRecentFile)
 				((PrjxAppMenu) GV.appMenu).refreshRecentFile(sheet.getTitle());
-			if (!GV.toolWin.isVisible()
-					&& ConfigOptions.bViewWinList.booleanValue())
+			if (!GV.toolWin.isVisible() && ConfigOptions.bViewWinList.booleanValue())
 				GV.toolWin.setVisible(true);
 			GV.toolWin.refresh();
 			((IPrjxSheet) sheet).resetSheetStyle();
@@ -865,21 +830,21 @@ public class DFX extends AppFrame {
 	 * @return
 	 * @throws Exception
 	 */
-	public static ICellSet readCellSet(String filePath) throws Exception {
+	public static PgmCellSet readCellSet(String filePath) throws Exception {
 		// 从浏览器双击过来的路径含有空格符号
 		filePath = filePath.trim();
-		ICellSet cs = null;
+		PgmCellSet cs = null;
 		String path = filePath.toLowerCase();
 		String psw = null;
-		if (path.endsWith(GC.FILE_DFX) || path.endsWith(GC.FILE_SPL)) {
+		if (AppUtil.isSPLFile(path)) {
 			BufferedInputStream bis = null;
 			try {
 				FileObject fo = new FileObject(filePath, "s");
 				bis = new BufferedInputStream(fo.getInputStream());
-				if (path.endsWith(GC.FILE_DFX)) {
-					cs = CellSetUtil.readPgmCellSet(bis, psw);
-				} else {
+				if (path.endsWith("." + AppConsts.FILE_SPL)) {
 					cs = GMDfx.readSPL(filePath);
+				} else {
+					cs = CellSetUtil.readPgmCellSet(bis, psw);
 				}
 			} finally {
 				if (bis != null)
@@ -894,8 +859,7 @@ public class DFX extends AppFrame {
 	 */
 	public void refreshOptions() {
 		try {
-			((PrjxAppMenu) GV.appMenu)
-					.refreshRecentMainPath(ConfigOptions.sMainPath);
+			((PrjxAppMenu) GV.appMenu).refreshRecentMainPath(ConfigOptions.sMainPath);
 		} catch (Throwable e) {
 		}
 		fileTree.changeMainPath(ConfigOptions.sMainPath); // 刷新资源树主目录
@@ -918,8 +882,7 @@ public class DFX extends AppFrame {
 	/**
 	 * 显示下一个页面
 	 * 
-	 * @param isCtrlDown
-	 *            是否按了CTRL键
+	 * @param isCtrlDown 是否按了CTRL键
 	 */
 	public void showNextSheet(boolean isCtrlDown) {
 		JInternalFrame[] frames = desk.getAllFrames();
@@ -956,8 +919,7 @@ public class DFX extends AppFrame {
 	 * 切换窗口列表
 	 */
 	public void switchWinList() {
-		ConfigOptions.bViewWinList = new Boolean(
-				!ConfigOptions.bViewWinList.booleanValue());
+		ConfigOptions.bViewWinList = new Boolean(!ConfigOptions.bViewWinList.booleanValue());
 		try {
 			ConfigOptions.save();
 		} catch (Throwable e) {
@@ -992,8 +954,7 @@ public class DFX extends AppFrame {
 		int pos = splitCenter.getDividerLocation();
 		int width = splitCenter.getWidth();
 		if (pos <= 0 || (1 < pos && pos <= SPLIT_GAP)) { // 收缩状态，展开
-			lastLeftLocation = lastLeftLocation == 0 ? Math.round(width * 0.4f)
-					: lastLeftLocation;
+			lastLeftLocation = lastLeftLocation == 0 ? Math.round(width * 0.4f) : lastLeftLocation;
 			splitCenter.setDividerLocation(lastLeftLocation);
 		} else { // 展开状态，收缩
 			lastLeftLocation = pos;
@@ -1042,8 +1003,7 @@ public class DFX extends AppFrame {
 			if (ConfigOptions.bAutoConnect.booleanValue()) {
 				if (startDsNames != null) {
 					for (int i = 0; i < startDsNames.length; i++) {
-						final DataSource ds = GV.dsModel
-								.getDataSource(startDsNames[i]);
+						final DataSource ds = GV.dsModel.getDataSource(startDsNames[i]);
 						if (ds != null) {
 							autoConnect = true;
 							new Thread() {
@@ -1053,8 +1013,7 @@ public class DFX extends AppFrame {
 									} catch (Throwable autox) {
 										GM.outputMessage(autox);
 									}
-									startDBCount = new Integer(
-											startDBCount.intValue() + 1);
+									startDBCount = new Integer(startDBCount.intValue() + 1);
 									resetDBEnv();
 								}
 							}.start();
@@ -1088,8 +1047,7 @@ public class DFX extends AppFrame {
 				ConfigUtil.calcInitDfx(dfxPath, ctx);
 			} catch (Throwable t) {
 				// 计算初始化程序{0}失败：
-				GM.showException(t, true, null, IdeCommonMessage.get()
-						.getMessage("dfx.calcinitdfx", dfxPath));
+				GM.showException(t, true, null, IdeCommonMessage.get().getMessage("dfx.calcinitdfx", dfxPath));
 			}
 		}
 
@@ -1105,8 +1063,7 @@ public class DFX extends AppFrame {
 	 */
 	private void resetDBEnv() {
 		synchronized (startDBCount) {
-			if (startDsNames != null
-					&& startDsNames.length == startDBCount.intValue()) {
+			if (startDsNames != null && startDsNames.length == startDBCount.intValue()) {
 				GVDfx.tabParam.resetEnv();
 				ConfigUtilIde.setTask();
 				calcInitDfx();
@@ -1135,8 +1092,7 @@ public class DFX extends AppFrame {
 	 * 收缩展开右侧面板
 	 */
 	public void swapRightTab() {
-		if (splitMain.getDividerLocation() == splitMain
-				.getMaximumDividerLocation()) {
+		if (splitMain.getDividerLocation() == splitMain.getMaximumDividerLocation()) {
 			splitMain.setDividerLocation(splitMain.getLastDividerLocation());
 		} else {
 			splitMain.setDividerLocation(splitMain.getMaximumDividerLocation());
@@ -1198,20 +1154,17 @@ public class DFX extends AppFrame {
 	/**
 	 * 准备环境
 	 * 
-	 * @param args
-	 *            JVM参数
+	 * @param args JVM参数
 	 * @return
 	 * @throws Throwable
 	 */
 	public static String prepareEnv(String args[]) throws Throwable {
 		String openDfx = "";
 		String arg = "";
-		String usage = "Usage: com.scudata.ide.dfx.DFX\n"
-				+ "where possible options include:\n"
+		String usage = "Usage: com.scudata.ide.dfx.DFX\n" + "where possible options include:\n"
 				+ "-help                            Print out these messages\n"
 				+ "-?                               Print out these messages\n"
-				+ "where dfx file option is to specify the default dfx file to be openned\n"
-				+ "Example:\n"
+				+ "where dfx file option is to specify the default dfx file to be openned\n" + "Example:\n"
 				+ "java com.scudata.ide.dfx.DFX d:\\test.dfx      Start IDE with default file d:\\test.dfx\n";
 
 		if (args.length == 1) { // exe 传来的参数仍然是一个长串
@@ -1249,8 +1202,7 @@ public class DFX extends AppFrame {
 		if (sTmp.compareTo("1.4.1") < 0) {
 			String t1 = mm.getMessage("prjx.jdkversion", "", sPath, sTmp);
 			String t2 = mm.getMessage("public.prompt");
-			JOptionPane.showMessageDialog(null, t1, t2,
-					JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, t1, t2, JOptionPane.ERROR_MESSAGE);
 			System.exit(0);
 		}
 		return openDfx;
@@ -1274,8 +1226,7 @@ public class DFX extends AppFrame {
 	/**
 	 * 程序主函数
 	 * 
-	 * @param args
-	 *            JVM参数
+	 * @param args JVM参数
 	 */
 	public static void main(final String args[]) {
 		mainInit();
@@ -1326,8 +1277,7 @@ public class DFX extends AppFrame {
 			if (StringUtils.isValidString(splashFile)) {
 				splashFile = GM.getAbsolutePath(splashFile);
 			} else {
-				splashFile = GC.IMAGES_PATH + "esproc" + GM.getLanguageSuffix()
-						+ ".png";
+				splashFile = GC.IMAGES_PATH + "esproc" + GM.getLanguageSuffix() + ".png";
 			}
 			splashWindow = new DialogSplash(splashFile);
 			splashWindow.setVisible(true);
@@ -1335,8 +1285,7 @@ public class DFX extends AppFrame {
 
 		if (GV.config != null) {
 			try {
-				ConfigUtil.loadExtLibs(System.getProperty("start.home"),
-						GV.config);
+				ConfigUtil.loadExtLibs(System.getProperty("start.home"), GV.config);
 			} catch (Throwable t) {
 				GM.outputMessage(t);
 			}
@@ -1346,15 +1295,11 @@ public class DFX extends AppFrame {
 			if (sysConfig != null) {
 				// 从系统配置中读取背景颜色和透明度
 				ConfigOptions.fileColor = sysConfig.getAttrValue("fileColor");
-				ConfigOptions.fileColorOpacity = sysConfig
-						.getAttrValue("fileColorOpacity");
-				ConfigOptions.headerColor = sysConfig
-						.getAttrValue("headerColor");
-				ConfigOptions.headerColorOpacity = sysConfig
-						.getAttrValue("headerColorOpacity");
+				ConfigOptions.fileColorOpacity = sysConfig.getAttrValue("fileColorOpacity");
+				ConfigOptions.headerColor = sysConfig.getAttrValue("headerColor");
+				ConfigOptions.headerColorOpacity = sysConfig.getAttrValue("headerColorOpacity");
 				ConfigOptions.cellColor = sysConfig.getAttrValue("cellColor");
-				ConfigOptions.cellColorOpacity = sysConfig
-						.getAttrValue("cellColorOpacity");
+				ConfigOptions.cellColorOpacity = sysConfig.getAttrValue("cellColorOpacity");
 			}
 		} catch (Throwable e) {
 			GM.outputMessage(e);
@@ -1372,15 +1317,12 @@ public class DFX extends AppFrame {
 				isHighVersionJDK = true;
 			}
 			if (!isHighVersionJDK) {
-				UIManager.setLookAndFeel(LookAndFeelManager
-						.getLookAndFeelName());
+				UIManager.setLookAndFeel(LookAndFeelManager.getLookAndFeelName());
 				if (GM.isMacOS()) {
-					UIManager.put("ColorChooserUI",
-							"javax.swing.plaf.basic.BasicColorChooserUI");
+					UIManager.put("ColorChooserUI", "javax.swing.plaf.basic.BasicColorChooserUI");
 				}
 			} else {
-				UIManager.setLookAndFeel(UIManager
-						.getSystemLookAndFeelClassName());
+				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 			}
 			initGlobalFontSetting(new Font("Dialog", Font.PLAIN, 12));
 		} catch (Throwable x) {

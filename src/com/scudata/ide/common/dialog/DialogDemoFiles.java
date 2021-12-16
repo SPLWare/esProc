@@ -23,6 +23,7 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 
+import com.scudata.app.common.AppConsts;
 import com.scudata.common.ByteMap;
 import com.scudata.common.MessageManager;
 import com.scudata.ide.common.GC;
@@ -73,14 +74,13 @@ public class DialogDemoFiles extends JDialog {
 	 * 构造函数
 	 */
 	public DialogDemoFiles() {
-		this(new String[] { GC.FILE_DFX });
+		this(AppConsts.SPL_FILE_EXTS.split(","));
 	}
 
 	/**
 	 * 构造函数
 	 * 
-	 * @param fileExts
-	 *            文件后缀
+	 * @param fileExts 文件后缀
 	 */
 	public DialogDemoFiles(String[] fileExts) {
 		super(GV.appFrame, "例子文件", true);
@@ -99,10 +99,8 @@ public class DialogDemoFiles extends JDialog {
 	/**
 	 * 子文件列表
 	 * 
-	 * @param filePath
-	 *            父文件路径
-	 * @param fileExts
-	 *            文件后缀
+	 * @param filePath 父文件路径
+	 * @param fileExts 文件后缀
 	 * @return
 	 */
 	private static File[] listSubFiles(String filePath, final String[] fileExts) {
@@ -125,10 +123,8 @@ public class DialogDemoFiles extends JDialog {
 	/**
 	 * 加载子文件
 	 * 
-	 * @param parent
-	 *            父结点
-	 * @param filePath
-	 *            文件路径
+	 * @param parent   父结点
+	 * @param filePath 文件路径
 	 * @return
 	 */
 	private boolean loadSubFiles(DefaultMutableTreeNode parent, String filePath) {
@@ -166,8 +162,7 @@ public class DialogDemoFiles extends JDialog {
 					}
 				}
 				FileNode fileObject = new FileNode(absolutePath, title, desc);
-				DefaultMutableTreeNode fileNode = new DefaultMutableTreeNode(
-						fileObject);
+				DefaultMutableTreeNode fileNode = new DefaultMutableTreeNode(fileObject);
 				parent.add(fileNode);
 				r = true;
 			}
@@ -182,8 +177,7 @@ public class DialogDemoFiles extends JDialog {
 	 * @return
 	 */
 	public static boolean isExistDemoFiles(String[] fileExts) {
-		String filePath = GM.getAbsolutePath("demo/"
-				+ GM.getLanguageSuffix().substring(1));
+		String filePath = GM.getAbsolutePath("demo/" + GM.getLanguageSuffix().substring(1));
 		File[] list = listSubFiles(filePath, fileExts);
 		if (list == null || list.length == 0) {
 			return false;
@@ -195,8 +189,7 @@ public class DialogDemoFiles extends JDialog {
 	 * 加载
 	 */
 	private void load() {
-		String filePath = GM.getAbsolutePath("demo/"
-				+ GM.getLanguageSuffix().substring(1));
+		String filePath = GM.getAbsolutePath("demo/" + GM.getLanguageSuffix().substring(1));
 		DefaultMutableTreeNode root = new DefaultMutableTreeNode(filePath);
 		DefaultTreeModel m_TreeModel = new DefaultTreeModel(root);
 		m_Tree.setModel(m_TreeModel);
@@ -217,8 +210,7 @@ public class DialogDemoFiles extends JDialog {
 	 * 重设语言资源
 	 */
 	private void resetLangText() {
-		this.setTitle(new StringTokenizer(mm.getMessage("menu.help.demofiles"),
-				"(").nextToken());
+		this.setTitle(new StringTokenizer(mm.getMessage("menu.help.demofiles"), "(").nextToken());
 		jBOpen.setText(mm.getMessage("menu.file.open"));
 		jBClose.setText(mm.getMessage("button.close"));
 	}
@@ -234,8 +226,7 @@ public class DialogDemoFiles extends JDialog {
 		jBOpen.addActionListener(new DialogDemoFiles_jBOpen_actionAdapter(this));
 		jBClose.setMnemonic('C');
 		jBClose.setText("关闭(C)");
-		jBClose.addActionListener(new DialogDemoFiles_jBClose_actionAdapter(
-				this));
+		jBClose.addActionListener(new DialogDemoFiles_jBClose_actionAdapter(this));
 		JPanel jPanel2 = new JPanel();
 		VFlowLayout vFlowLayout1 = new VFlowLayout();
 		JScrollPane jScrollPane1 = new JScrollPane();
@@ -244,8 +235,7 @@ public class DialogDemoFiles extends JDialog {
 		this.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 		this.addWindowListener(new DialogDemoFiles_this_windowAdapter(this));
 		m_Tree.addMouseListener(new DialogDemoFiles_m_Tree_mouseAdapter(this));
-		m_Tree.addTreeSelectionListener(new DialogDemoFiles_m_Tree_treeSelectionAdapter(
-				this));
+		m_Tree.addTreeSelectionListener(new DialogDemoFiles_m_Tree_treeSelectionAdapter(this));
 		this.getContentPane().add(jPanel2, BorderLayout.EAST);
 		jPanel2.add(jBOpen, null);
 		jPanel2.add(jBClose, null);
@@ -287,9 +277,7 @@ public class DialogDemoFiles extends JDialog {
 		}
 		if (selectedNode instanceof FileNode) {
 			try {
-				JInternalFrame sheet = GV.appFrame
-						.openSheetFile(((FileNode) selectedNode)
-								.getAbsolutePath());
+				JInternalFrame sheet = GV.appFrame.openSheetFile(((FileNode) selectedNode).getAbsolutePath());
 				if (sheet != null) {
 					GM.setWindowDimension(this);
 					dispose();
@@ -300,8 +288,7 @@ public class DialogDemoFiles extends JDialog {
 			if (GM.getOperationSytem() == GC.OS_WINDOWS) {
 				try {
 					String directory = (String) selectedNode;
-					Runtime.getRuntime().exec(
-							"cmd /C start explorer.exe " + directory);
+					Runtime.getRuntime().exec("cmd /C start explorer.exe " + directory);
 				} catch (Exception x) {
 					GM.showException(x);
 				}
@@ -330,8 +317,7 @@ public class DialogDemoFiles extends JDialog {
 			return null;
 		}
 
-		DefaultMutableTreeNode dmt = (DefaultMutableTreeNode) paths[paths.length - 1]
-				.getLastPathComponent();
+		DefaultMutableTreeNode dmt = (DefaultMutableTreeNode) paths[paths.length - 1].getLastPathComponent();
 		Object lastNode = dmt.getUserObject();
 		if (lastNode instanceof FileNode) {
 			return lastNode;
@@ -416,12 +402,9 @@ class FileNode {
 	/**
 	 * 构造函数
 	 * 
-	 * @param absolutePath
-	 *            路径
-	 * @param title
-	 *            标题
-	 * @param desc
-	 *            描述
+	 * @param absolutePath 路径
+	 * @param title        标题
+	 * @param desc         描述
 	 */
 	public FileNode(String absolutePath, String title, String desc) {
 		this.absolutePath = absolutePath;
@@ -464,8 +447,7 @@ class FileNode {
 	}
 }
 
-class DialogDemoFiles_jBOpen_actionAdapter implements
-		java.awt.event.ActionListener {
+class DialogDemoFiles_jBOpen_actionAdapter implements java.awt.event.ActionListener {
 	DialogDemoFiles adaptee;
 
 	DialogDemoFiles_jBOpen_actionAdapter(DialogDemoFiles adaptee) {
@@ -477,8 +459,7 @@ class DialogDemoFiles_jBOpen_actionAdapter implements
 	}
 }
 
-class DialogDemoFiles_jBClose_actionAdapter implements
-		java.awt.event.ActionListener {
+class DialogDemoFiles_jBClose_actionAdapter implements java.awt.event.ActionListener {
 	DialogDemoFiles adaptee;
 
 	DialogDemoFiles_jBClose_actionAdapter(DialogDemoFiles adaptee) {
@@ -514,8 +495,7 @@ class DialogDemoFiles_m_Tree_mouseAdapter extends java.awt.event.MouseAdapter {
 	}
 }
 
-class DialogDemoFiles_m_Tree_treeSelectionAdapter implements
-		javax.swing.event.TreeSelectionListener {
+class DialogDemoFiles_m_Tree_treeSelectionAdapter implements javax.swing.event.TreeSelectionListener {
 	DialogDemoFiles adaptee;
 
 	DialogDemoFiles_m_Tree_treeSelectionAdapter(DialogDemoFiles adaptee) {

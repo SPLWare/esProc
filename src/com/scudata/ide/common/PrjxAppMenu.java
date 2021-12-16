@@ -24,6 +24,7 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import com.scudata.app.common.AppConsts;
 import com.scudata.common.IntArrayList;
 import com.scudata.common.MessageManager;
 import com.scudata.common.StringUtils;
@@ -84,25 +85,21 @@ public abstract class PrjxAppMenu extends AppMenu {
 			return windowMenu;
 		}
 		JMenu menu = getCommonMenuItem(GC.WINDOW, 'W', true);
-		menu.add(newCommonMenuItem(GC.iSHOW_WINLIST, GC.SHOW_WINLIST, 'W',
-				GC.NO_MASK, false));
-		JMenuItem mi = newCommonMenuItem(GC.iVIEW_CONSOLE, GC.VIEW_CONSOLE,
-				'Q', ActionEvent.ALT_MASK + ActionEvent.SHIFT_MASK, false);
-		mi.setEnabled(showViewConsole);
-		mi.setVisible(showViewConsole);
-		menu.add(mi);
-		mi = newCommonMenuItem(GC.iVIEW_RIGHT, GC.VIEW_RIGHT, 'R',
+		menu.add(newCommonMenuItem(GC.iSHOW_WINLIST, GC.SHOW_WINLIST, 'W', GC.NO_MASK, false));
+		JMenuItem mi = newCommonMenuItem(GC.iVIEW_CONSOLE, GC.VIEW_CONSOLE, 'Q',
 				ActionEvent.ALT_MASK + ActionEvent.SHIFT_MASK, false);
 		mi.setEnabled(showViewConsole);
 		mi.setVisible(showViewConsole);
 		menu.add(mi);
+		mi = newCommonMenuItem(GC.iVIEW_RIGHT, GC.VIEW_RIGHT, 'R', ActionEvent.ALT_MASK + ActionEvent.SHIFT_MASK,
+				false);
+		mi.setEnabled(showViewConsole);
+		mi.setVisible(showViewConsole);
+		menu.add(mi);
 		menu.addSeparator();
-		menu.add(newCommonMenuItem(GC.iCASCADE, GC.CASCADE, 'C', GC.NO_MASK,
-				true));
-		menu.add(newCommonMenuItem(GC.iTILEHORIZONTAL, GC.TILEHORIZONTAL, 'H',
-				GC.NO_MASK));
-		menu.add(newCommonMenuItem(GC.iTILEVERTICAL, GC.TILEVERTICAL, 'V',
-				GC.NO_MASK));
+		menu.add(newCommonMenuItem(GC.iCASCADE, GC.CASCADE, 'C', GC.NO_MASK, true));
+		menu.add(newCommonMenuItem(GC.iTILEHORIZONTAL, GC.TILEHORIZONTAL, 'H', GC.NO_MASK));
+		menu.add(newCommonMenuItem(GC.iTILEVERTICAL, GC.TILEVERTICAL, 'V', GC.NO_MASK));
 		menu.add(newCommonMenuItem(GC.iLAYER, GC.LAYER, 'L', GC.NO_MASK));
 		windowMenu = menu;
 		return menu;
@@ -111,8 +108,7 @@ public abstract class PrjxAppMenu extends AppMenu {
 	/**
 	 * Get help menu
 	 * 
-	 * @param canUpdate
-	 *            是否可以更新
+	 * @param canUpdate 是否可以更新
 	 * @return
 	 */
 	public JMenu getHelpMenu(boolean canUpdate) {
@@ -137,8 +133,7 @@ public abstract class PrjxAppMenu extends AppMenu {
 
 		canUpdate = canUpdate && UpdateManager.canUpdate();
 
-		JMenuItem update = newCommonMenuItem(GC.iCHECK_UPDATE, GC.CHECK_UPDATE,
-				'U', GC.NO_MASK, true);
+		JMenuItem update = newCommonMenuItem(GC.iCHECK_UPDATE, GC.CHECK_UPDATE, 'U', GC.NO_MASK, true);
 		update.setEnabled(canUpdate);
 		update.setVisible(canUpdate);
 		menu.add(update);
@@ -147,8 +142,7 @@ public abstract class PrjxAppMenu extends AppMenu {
 
 		menu.add(newCommonMenuItem(GC.iABOUT, GC.ABOUT, 'A', GC.NO_MASK, true));
 
-		menu.add(newCommonMenuItem(GC.iMEMORYTIDY, GC.MEMORYTIDY, 'G',
-				GC.NO_MASK));
+		menu.add(newCommonMenuItem(GC.iMEMORYTIDY, GC.MEMORYTIDY, 'G', GC.NO_MASK));
 
 		helpMenu = menu;
 		return menu;
@@ -157,12 +151,9 @@ public abstract class PrjxAppMenu extends AppMenu {
 	/**
 	 * Get common menu item
 	 * 
-	 * @param menuId
-	 *            Menu ID defined in GC
-	 * @param mneKey
-	 *            The Mnemonic
-	 * @param isMain
-	 *            Whether it is a menu. Menu item when false
+	 * @param menuId Menu ID defined in GC
+	 * @param mneKey The Mnemonic
+	 * @param isMain Whether it is a menu. Menu item when false
 	 * @return
 	 */
 	public JMenu getCommonMenuItem(String menuId, char mneKey, boolean isMain) {
@@ -180,8 +171,7 @@ public abstract class PrjxAppMenu extends AppMenu {
 	/**
 	 * Refresh the recent files
 	 * 
-	 * @param fileName
-	 *            The new file name is placed first
+	 * @param fileName The new file name is placed first
 	 * @throws Throwable
 	 */
 	public void refreshRecentFile(String fileName) throws Throwable {
@@ -207,8 +197,7 @@ public abstract class PrjxAppMenu extends AppMenu {
 		}
 		fileItem[0].setText(fileName);
 		fileItem[0].setVisible(true);
-		ConfigFile.getConfigFile()
-				.storeRecentFiles(ConfigFile.APP_DM, fileItem);
+		ConfigFile.getConfigFile().storeRecentFiles(ConfigFile.APP_DM, fileItem);
 	}
 
 	/**
@@ -218,8 +207,7 @@ public abstract class PrjxAppMenu extends AppMenu {
 	 * @param frames
 	 * @throws Throwable
 	 */
-	public void refreshRecentFileOnClose(String fileName,
-			JInternalFrame[] frames) throws Throwable {
+	public void refreshRecentFileOnClose(String fileName, JInternalFrame[] frames) throws Throwable {
 		if (!StringUtils.isValidString(fileName)) {
 			return;
 		}
@@ -274,8 +262,7 @@ public abstract class PrjxAppMenu extends AppMenu {
 			fileItem[frames.length].setText(fileName);
 			fileItem[frames.length].setVisible(true);
 		}
-		ConfigFile.getConfigFile()
-				.storeRecentFiles(ConfigFile.APP_DM, fileItem);
+		ConfigFile.getConfigFile().storeRecentFiles(ConfigFile.APP_DM, fileItem);
 	}
 
 	/**
@@ -301,8 +288,7 @@ public abstract class PrjxAppMenu extends AppMenu {
 								int len = fileItem.length;
 								int index = -1;
 								for (int i = 0; i < len; i++) {
-									if (tt.getText().equalsIgnoreCase(
-											fileItem[i].getText())) {
+									if (tt.getText().equalsIgnoreCase(fileItem[i].getText())) {
 										index = i;
 										break;
 									}
@@ -311,22 +297,17 @@ public abstract class PrjxAppMenu extends AppMenu {
 									return;
 								JMenuItem[] newFileItem = new JMenuItem[GC.RECENT_MENU_COUNT];
 								if (index > 0) {
-									System.arraycopy(fileItem, 0, newFileItem,
-											0, index);
+									System.arraycopy(fileItem, 0, newFileItem, 0, index);
 								}
 								if (index < len - 1) {
-									System.arraycopy(fileItem, index + 1,
-											newFileItem, index, len - index - 1);
+									System.arraycopy(fileItem, index + 1, newFileItem, index, len - index - 1);
 								}
 								newFileItem[len - 1] = new JMenuItem("");
 								newFileItem[len - 1].setVisible(false);
 								newFileItem[len - 1].addActionListener(this);
 								fileItem = newFileItem;
 								try {
-									ConfigFile
-											.getConfigFile()
-											.storeRecentFiles(
-													ConfigFile.APP_DM, fileItem);
+									ConfigFile.getConfigFile().storeRecentFiles(ConfigFile.APP_DM, fileItem);
 								} catch (Throwable e1) {
 									e1.printStackTrace();
 								}
@@ -363,8 +344,7 @@ public abstract class PrjxAppMenu extends AppMenu {
 			fileItem[i].addActionListener(actionNew);
 			if (fileItem[i].isVisible())
 				menu.add(fileItem[i]);
-			if (i == 0 && StringUtils.isValidString(fileItem[0].getText())
-					&& ConfigOptions.bAutoOpen.booleanValue()) {
+			if (i == 0 && StringUtils.isValidString(fileItem[0].getText()) && ConfigOptions.bAutoOpen.booleanValue()) {
 				if (!StringUtils.isValidString(GV.autoOpenFileName)) { // 如果没有打开参数才设置
 					GV.autoOpenFileName = fileItem[0].getText();
 				}
@@ -375,8 +355,7 @@ public abstract class PrjxAppMenu extends AppMenu {
 	/**
 	 * "Other" on the recent main path menu
 	 */
-	private static final String MAINPATH_OTHER = IdeCommonMessage.get()
-			.getMessage("prjxappmenu.other");
+	private static final String MAINPATH_OTHER = IdeCommonMessage.get().getMessage("prjxappmenu.other");
 
 	/**
 	 * Refresh the recent main paths
@@ -405,8 +384,7 @@ public abstract class PrjxAppMenu extends AppMenu {
 		}
 		mainPathItem[0].setText(fileName);
 		mainPathItem[0].setVisible(false);
-		ConfigFile.getConfigFile().storeRecentMainPaths(ConfigFile.APP_DM,
-				mainPathItem);
+		ConfigFile.getConfigFile().storeRecentMainPaths(ConfigFile.APP_DM, mainPathItem);
 	}
 
 	/**
@@ -424,8 +402,7 @@ public abstract class PrjxAppMenu extends AppMenu {
 				try {
 					if (MAINPATH_OTHER.equals(tt.getText())) {
 						// Other
-						String sdir = GM
-								.dialogSelectDirectory(GV.lastDirectory);
+						String sdir = GM.dialogSelectDirectory(GV.lastDirectory);
 						if (sdir == null)
 							return;
 						ConfigOptions.sMainPath = sdir;
@@ -435,18 +412,13 @@ public abstract class PrjxAppMenu extends AppMenu {
 						refreshRecentMainPath(sdir);
 						if (GVDfx.fileTree != null)
 							GVDfx.fileTree.changeMainPath(sdir);
-						JOptionPane.showMessageDialog(
-								GV.appFrame,
-								IdeCommonMessage.get().getMessage(
-										"prjxappmenu.setmainpath", sdir));
+						JOptionPane.showMessageDialog(GV.appFrame,
+								IdeCommonMessage.get().getMessage("prjxappmenu.setmainpath", sdir));
 					} else {
 						File f = new File(tt.getText());
 						if (!f.exists() || !f.isDirectory()) {
-							JOptionPane.showMessageDialog(
-									GV.appFrame,
-									IdeCommonMessage.get().getMessage(
-											"prjxappmenu.nomainpath",
-											tt.getText()));
+							JOptionPane.showMessageDialog(GV.appFrame,
+									IdeCommonMessage.get().getMessage("prjxappmenu.nomainpath", tt.getText()));
 						} else {
 							String sdir = tt.getText();
 							ConfigOptions.sMainPath = sdir;
@@ -456,10 +428,8 @@ public abstract class PrjxAppMenu extends AppMenu {
 								GVDfx.fileTree.changeMainPath(sdir);
 							ConfigUtilIde.writeConfig();
 							refreshRecentMainPath(sdir);
-							JOptionPane.showMessageDialog(
-									GV.appFrame,
-									IdeCommonMessage.get().getMessage(
-											"prjxappmenu.setmainpath", sdir));
+							JOptionPane.showMessageDialog(GV.appFrame,
+									IdeCommonMessage.get().getMessage("prjxappmenu.setmainpath", sdir));
 							return;
 						}
 					}
@@ -474,8 +444,7 @@ public abstract class PrjxAppMenu extends AppMenu {
 							int len = mainPathItem.length;
 							int index = -1;
 							for (int i = 0; i < len; i++) {
-								if (tt.getText().equalsIgnoreCase(
-										mainPathItem[i].getText())) {
+								if (tt.getText().equalsIgnoreCase(mainPathItem[i].getText())) {
 									index = i;
 									break;
 								}
@@ -484,22 +453,17 @@ public abstract class PrjxAppMenu extends AppMenu {
 								return;
 							JMenuItem[] newFileItem = new JMenuItem[GC.RECENT_MENU_COUNT];
 							if (index > 0) {
-								System.arraycopy(mainPathItem, 0, newFileItem,
-										0, index);
+								System.arraycopy(mainPathItem, 0, newFileItem, 0, index);
 							}
 							if (index < len - 1) {
-								System.arraycopy(mainPathItem, index + 1,
-										newFileItem, index, len - index - 1);
+								System.arraycopy(mainPathItem, index + 1, newFileItem, index, len - index - 1);
 							}
 							newFileItem[len - 1] = new JMenuItem("");
 							newFileItem[len - 1].setVisible(false);
 							newFileItem[len - 1].addActionListener(this);
 							mainPathItem = newFileItem;
 							try {
-								ConfigFile
-										.getConfigFile()
-										.storeRecentMainPaths(
-												ConfigFile.APP_DM, mainPathItem);
+								ConfigFile.getConfigFile().storeRecentMainPaths(ConfigFile.APP_DM, mainPathItem);
 							} catch (Throwable e1) {
 								e1.printStackTrace();
 							}
@@ -528,11 +492,9 @@ public abstract class PrjxAppMenu extends AppMenu {
 	 * @param actionNew
 	 * @throws Throwable
 	 */
-	private void loadRecentMainPaths(JMenu menu, Action actionNew)
-			throws Throwable {
+	private void loadRecentMainPaths(JMenu menu, Action actionNew) throws Throwable {
 		menu.removeAll();
-		boolean hasVisible = ConfigFile.getConfigFile().loadRecentMainPaths(
-				ConfigFile.APP_DM, mainPathItem);
+		boolean hasVisible = ConfigFile.getConfigFile().loadRecentMainPaths(ConfigFile.APP_DM, mainPathItem);
 		for (int i = 0; i < GC.RECENT_MENU_COUNT; i++) {
 			mainPathItem[i].addActionListener(actionNew);
 			menu.add(mainPathItem[i]);
@@ -575,16 +537,14 @@ public abstract class PrjxAppMenu extends AppMenu {
 	/**
 	 * Execute command
 	 * 
-	 * @param cmdId
-	 *            Command ID
+	 * @param cmdId Command ID
 	 */
 	public abstract void executeCmd(short cmdId);
 
 	/**
 	 * Clone menu item
 	 * 
-	 * @param cmdId
-	 *            Command ID
+	 * @param cmdId Command ID
 	 * @return
 	 */
 	public JMenuItem cloneMenuItem(short cmdId) {
@@ -594,10 +554,8 @@ public abstract class PrjxAppMenu extends AppMenu {
 	/**
 	 * Clone menu item
 	 * 
-	 * @param cmdId
-	 *            Command ID
-	 * @param listener
-	 *            ActionListener
+	 * @param cmdId    Command ID
+	 * @param listener ActionListener
 	 * @return
 	 */
 	public JMenuItem cloneMenuItem(short cmdId, ActionListener listener) {
@@ -625,44 +583,32 @@ public abstract class PrjxAppMenu extends AppMenu {
 	/**
 	 * New menu item
 	 * 
-	 * @param cmdId
-	 *            Command ID
-	 * @param menuId
-	 *            Menu name
-	 * @param mneKey
-	 *            char, The Mnemonic
-	 * @param mask
-	 *            int, Because ActionEvent.META_MASK is almost not used. This
-	 *            key seems to be only available on Macintosh keyboards. It is
-	 *            used here instead of no accelerator key.
+	 * @param cmdId  Command ID
+	 * @param menuId Menu name
+	 * @param mneKey char, The Mnemonic
+	 * @param mask   int, Because ActionEvent.META_MASK is almost not used. This key
+	 *               seems to be only available on Macintosh keyboards. It is used
+	 *               here instead of no accelerator key.
 	 * @return
 	 */
-	protected JMenuItem newCommonMenuItem(short cmdId, String menuId,
-			char mneKey, int mask) {
+	protected JMenuItem newCommonMenuItem(short cmdId, String menuId, char mneKey, int mask) {
 		return newCommonMenuItem(cmdId, menuId, mneKey, mask, false);
 	}
 
 	/**
 	 * New menu item
 	 * 
-	 * @param cmdId
-	 *            Command ID
-	 * @param menuId
-	 *            Menu name
-	 * @param mneKey
-	 *            char, The Mnemonic
-	 * @param mask
-	 *            int, Because ActionEvent.META_MASK is almost not used. This
-	 *            key seems to be only available on Macintosh keyboards. It is
-	 *            used here instead of no accelerator key.
-	 * @param hasIcon
-	 *            Whether the menu item has an icon
+	 * @param cmdId   Command ID
+	 * @param menuId  Menu name
+	 * @param mneKey  char, The Mnemonic
+	 * @param mask    int, Because ActionEvent.META_MASK is almost not used. This
+	 *                key seems to be only available on Macintosh keyboards. It is
+	 *                used here instead of no accelerator key.
+	 * @param hasIcon Whether the menu item has an icon
 	 * @return
 	 */
-	protected JMenuItem newCommonMenuItem(short cmdId, String menuId,
-			char mneKey, int mask, boolean hasIcon) {
-		JMenuItem mItem = GM.getMenuItem(cmdId, menuId, mneKey, mask, hasIcon,
-				mm.getMessage(GC.MENU + menuId));
+	protected JMenuItem newCommonMenuItem(short cmdId, String menuId, char mneKey, int mask, boolean hasIcon) {
+		JMenuItem mItem = GM.getMenuItem(cmdId, menuId, mneKey, mask, hasIcon, mm.getMessage(GC.MENU + menuId));
 		mItem.addActionListener(menuAction);
 		menuItems.put(cmdId, mItem);
 		return mItem;
@@ -671,10 +617,8 @@ public abstract class PrjxAppMenu extends AppMenu {
 	/**
 	 * Set whether the menu is enabled
 	 * 
-	 * @param cmdId
-	 *            Command ID
-	 * @param enabled
-	 *            Whether the menu is enabled
+	 * @param cmdId   Command ID
+	 * @param enabled Whether the menu is enabled
 	 */
 	public void setMenuEnabled(short cmdId, boolean enabled) {
 		JMenuItem mi = menuItems.get(cmdId);
@@ -686,8 +630,7 @@ public abstract class PrjxAppMenu extends AppMenu {
 	/**
 	 * Whether the menu is enabled
 	 * 
-	 * @param cmdId
-	 *            Command ID
+	 * @param cmdId Command ID
 	 * @return
 	 */
 	public boolean isMenuEnabled(short cmdId) {
@@ -701,10 +644,8 @@ public abstract class PrjxAppMenu extends AppMenu {
 	/**
 	 * Set whether the menus are enabled
 	 * 
-	 * @param cmdIds
-	 *            Command IDs
-	 * @param enabled
-	 *            Whether the menus are enabled
+	 * @param cmdIds  Command IDs
+	 * @param enabled Whether the menus are enabled
 	 */
 	public void setMenuEnabled(IntArrayList cmdIds, boolean enabled) {
 		if (cmdIds == null) {
@@ -719,10 +660,8 @@ public abstract class PrjxAppMenu extends AppMenu {
 	/**
 	 * Set whether the menus are enabled
 	 * 
-	 * @param cmdIds
-	 *            Command IDs
-	 * @param enabled
-	 *            Whether the menus are enabled
+	 * @param cmdIds  Command IDs
+	 * @param enabled Whether the menus are enabled
 	 */
 	public void setMenuEnabled(short[] cmdIds, boolean enabled) {
 		if (cmdIds == null) {
@@ -737,10 +676,8 @@ public abstract class PrjxAppMenu extends AppMenu {
 	/**
 	 * Set whether the menu is visible
 	 * 
-	 * @param cmdId
-	 *            Command ID
-	 * @param visible
-	 *            Whether the menu is visible
+	 * @param cmdId   Command ID
+	 * @param visible Whether the menu is visible
 	 */
 	public void setMenuVisible(short cmdId, boolean visible) {
 		JMenuItem mi = menuItems.get(cmdId);
@@ -752,10 +689,8 @@ public abstract class PrjxAppMenu extends AppMenu {
 	/**
 	 * Set whether the menus are visible
 	 * 
-	 * @param cmdIds
-	 *            Command IDs
-	 * @param visible
-	 *            Whether the menus are visible
+	 * @param cmdIds  Command IDs
+	 * @param visible Whether the menus are visible
 	 */
 	public void setMenuVisible(IntArrayList cmdIds, boolean visible) {
 		if (cmdIds == null) {
@@ -783,9 +718,8 @@ public abstract class PrjxAppMenu extends AppMenu {
 		List<Object> helpMenus = new ArrayList<Object>();
 		try {
 			Document doc = null;
-			doc = buildDocument(GM.getAbsolutePath(GC.PATH_CONFIG
-					+ "/menuconfig" + GM.getLanguageSuffix() + "."
-					+ GC.FILE_XML));
+			doc = buildDocument(GM.getAbsolutePath(
+					GC.PATH_CONFIG + "/menuconfig" + GM.getLanguageSuffix() + "." + AppConsts.FILE_XML));
 			Element root = doc.getDocumentElement();
 			NodeList list = root.getChildNodes();
 			for (int i = 0; i < list.getLength(); i++) {
@@ -797,11 +731,9 @@ public abstract class PrjxAppMenu extends AppMenu {
 						el = (Node) helpList.item(j);
 						if (el.getNodeName().equalsIgnoreCase("menu")) {
 							helpMenus.add(buildMenu(el));
-						} else if (el.getNodeName()
-								.equalsIgnoreCase("menuitem")) {
+						} else if (el.getNodeName().equalsIgnoreCase("menuitem")) {
 							helpMenus.add(getNewItem(el));
-						} else if (el.getNodeName().equalsIgnoreCase(
-								"separator")) {
+						} else if (el.getNodeName().equalsIgnoreCase("separator")) {
 							helpMenus.add(new JSeparator());
 						}
 					}
@@ -816,15 +748,13 @@ public abstract class PrjxAppMenu extends AppMenu {
 	/**
 	 * Generate Document based on xml file
 	 * 
-	 * @param filename
-	 *            Configuration file name
+	 * @param filename Configuration file name
 	 * @return
 	 * @throws Exception
 	 */
 	private Document buildDocument(String filename) throws Exception {
 		Document doc = null;
-		DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory
-				.newInstance();
+		DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();
 		doc = docBuilder.parse(new File(filename));
 		return doc;

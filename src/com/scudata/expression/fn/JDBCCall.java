@@ -1,10 +1,10 @@
 package com.scudata.expression.fn;
 
+import com.scudata.app.common.AppUtil;
 import com.scudata.cellset.datamodel.PgmCellSet;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
-import com.scudata.dm.FileObject;
 import com.scudata.dm.Param;
 import com.scudata.dm.ParamList;
 import com.scudata.expression.Function;
@@ -13,8 +13,7 @@ import com.scudata.expression.Node;
 import com.scudata.resources.EngineMessage;
 
 /**
- * 函数仅用于JDBC调用 jdbccall(dfx,…)
- *
+ * 函数仅用于JDBC调用 jdbccall(spl,…)。文件名无后缀时，按splx,spl,dfx顺序查找
  */
 public class JDBCCall extends Function {
 	public Node optimize(Context ctx) {
@@ -27,8 +26,7 @@ public class JDBCCall extends Function {
 		IParam param = this.param;
 		if (param == null) {
 			MessageManager mm = EngineMessage.get();
-			throw new RQException("jdbccall"
-					+ mm.getMessage("function.missingParam"));
+			throw new RQException("jdbccall" + mm.getMessage("function.missingParam"));
 		}
 
 		PgmCellSet pcs;
@@ -36,31 +34,39 @@ public class JDBCCall extends Function {
 			Object strObj = param.getLeafExpression().calculate(ctx);
 			if (!(strObj instanceof String)) {
 				MessageManager mm = EngineMessage.get();
-				throw new RQException("jdbccall"
-						+ mm.getMessage("function.paramTypeError"));
+				throw new RQException("jdbccall" + mm.getMessage("function.paramTypeError"));
 			}
-
-			FileObject fo = new FileObject((String) strObj, "s");
-			pcs = fo.readPgmCellSet();
+			// 支持无后缀时按顺序查找网格文件
+			try {
+				pcs = AppUtil.readCellSet((String) strObj);
+			} catch (Exception e) {
+				throw new RQException(e.getMessage(), e);
+			}
+			// FileObject fo = new FileObject((String) strObj, "s");
+			// pcs = fo.readPgmCellSet();
 			// 不再使用缓存，只有call是用缓存
 			// pcs = dfxManager.removeDfx((String)strObj, ctx);
 		} else {
 			IParam sub0 = param.getSub(0);
 			if (sub0 == null) {
 				MessageManager mm = EngineMessage.get();
-				throw new RQException("jdbccall"
-						+ mm.getMessage("function.invalidParam"));
+				throw new RQException("jdbccall" + mm.getMessage("function.invalidParam"));
 			}
 
 			Object strObj = sub0.getLeafExpression().calculate(ctx);
 			if (!(strObj instanceof String)) {
 				MessageManager mm = EngineMessage.get();
-				throw new RQException("jdbccall"
-						+ mm.getMessage("function.paramTypeError"));
+				throw new RQException("jdbccall" + mm.getMessage("function.paramTypeError"));
 			}
 
-			FileObject fo = new FileObject((String) strObj, "s");
-			pcs = fo.readPgmCellSet();
+			// 支持无后缀时按顺序查找网格文件
+			try {
+				pcs = AppUtil.readCellSet((String) strObj);
+			} catch (Exception e) {
+				throw new RQException(e.getMessage(), e);
+			}
+			// FileObject fo = new FileObject((String) strObj, "s");
+			// pcs = fo.readPgmCellSet();
 
 			// 不再使用缓存，只有call是用缓存
 			// pcs = dfxManager.removeDfx((String)strObj, ctx);

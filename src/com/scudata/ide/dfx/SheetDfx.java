@@ -20,6 +20,8 @@ import javax.swing.SwingUtilities;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
 
+import com.scudata.app.common.AppConsts;
+import com.scudata.app.common.AppUtil;
 import com.scudata.cellset.ICellSet;
 import com.scudata.cellset.INormalCell;
 import com.scudata.cellset.datamodel.CellSet;
@@ -153,10 +155,8 @@ public class SheetDfx extends IPrjxSheet implements IEditorListener {
 	/**
 	 * 构造函数
 	 * 
-	 * @param filePath
-	 *            文件路径
-	 * @param cs
-	 *            网格对象
+	 * @param filePath 文件路径
+	 * @param cs       网格对象
 	 * @throws Exception
 	 */
 	public SheetDfx(String filePath, PgmCellSet cs) throws Exception {
@@ -166,16 +166,12 @@ public class SheetDfx extends IPrjxSheet implements IEditorListener {
 	/**
 	 * 构造函数
 	 * 
-	 * @param filePath
-	 *            文件路径
-	 * @param cs
-	 *            网格对象
-	 * @param stepInfo
-	 *            单步调试的信息
+	 * @param filePath 文件路径
+	 * @param cs       网格对象
+	 * @param stepInfo 单步调试的信息
 	 * @throws Exception
 	 */
-	public SheetDfx(String filePath, PgmCellSet cs, StepInfo stepInfo)
-			throws Exception {
+	public SheetDfx(String filePath, PgmCellSet cs, StepInfo stepInfo) throws Exception {
 		super(filePath);
 		this.stepInfo = stepInfo;
 		if (stepInfo != null) {
@@ -188,8 +184,7 @@ public class SheetDfx extends IPrjxSheet implements IEditorListener {
 		try {
 			ImageIcon image = GM.getLogoImage(true);
 			final int size = 20;
-			image.setImage(image.getImage().getScaledInstance(size, size,
-					Image.SCALE_DEFAULT));
+			image.setImage(image.getImage().getScaledInstance(size, size, Image.SCALE_DEFAULT));
 			setFrameIcon(image);
 		} catch (Throwable t) {
 		}
@@ -208,8 +203,7 @@ public class SheetDfx extends IPrjxSheet implements IEditorListener {
 			if (currentCell == null) {
 				setExeLocation(stepInfo.startLocation);
 			} else {
-				setExeLocation(new CellLocation(currentCell.getRow(),
-						currentCell.getCol()));
+				setExeLocation(new CellLocation(currentCell.getRow(), currentCell.getCol()));
 			}
 			dfxControl.contentView.setEditable(false);
 		}
@@ -288,28 +282,25 @@ public class SheetDfx extends IPrjxSheet implements IEditorListener {
 		int index = oldFileName.lastIndexOf(".");
 		if (index > 0) {
 			oldFileName = oldFileName.substring(0, index + 1);
-			oldFileName += GC.FILE_SPL;
+			oldFileName += AppConsts.FILE_SPL;
 		}
-		File f = GM.dialogSelectFile(GC.FILE_SPL, GV.lastDirectory,
-				IdeDfxMessage.get().getMessage("public.export"), oldFileName,
-				GV.appFrame);
+		File f = GM.dialogSelectFile(AppConsts.FILE_SPL, GV.lastDirectory,
+				IdeDfxMessage.get().getMessage("public.export"), oldFileName, GV.appFrame);
 		if (f == null)
 			return false;
 		if (f.exists() && !f.canWrite()) {
-			JOptionPane.showMessageDialog(GV.appFrame, IdeCommonMessage.get()
-					.getMessage("public.readonly", filePath));
+			JOptionPane.showMessageDialog(GV.appFrame, IdeCommonMessage.get().getMessage("public.readonly", filePath));
 			return false;
 		}
 		String filePath = f.getAbsolutePath();
 		try {
 			String cellSetStr = CellSetUtil.toString(dfxControl.dfx);
-			GMDfx.writeSPLFile(filePath, cellSetStr);
+			AppUtil.writeSPLFile(filePath, cellSetStr);
 		} catch (Throwable e) {
 			GM.showException(e);
 			return false;
 		}
-		JOptionPane.showMessageDialog(GV.appFrame, IdeDfxMessage.get()
-				.getMessage("public.exportsucc", filePath));
+		JOptionPane.showMessageDialog(GV.appFrame, IdeDfxMessage.get().getMessage("public.exportsucc", filePath));
 		return true;
 	}
 
@@ -324,11 +315,13 @@ public class SheetDfx extends IPrjxSheet implements IEditorListener {
 				if (server != null) {
 					try {
 						ByteArrayOutputStream out = new ByteArrayOutputStream();
-						CellSetUtil.writePgmCellSet(out,
-								(PgmCellSet) getCellSet());
-						String fileName = filePath.substring(
-								filePath.indexOf(':') + 1).replaceAll("\\\\",
-								"/");
+						if (filePath.toLowerCase().endsWith("." + AppConsts.FILE_SPL)) {
+							String cellSetStr = CellSetUtil.toString(dfxControl.dfx);
+							out.write(cellSetStr.getBytes());
+						} else {
+							CellSetUtil.writePgmCellSet(out, dfxControl.dfx);
+						}
+						String fileName = filePath.substring(filePath.indexOf(':') + 1).replaceAll("\\\\", "/");
 						if (fileName.startsWith("/")) {
 							fileName = fileName.substring(1);
 						}
@@ -339,8 +332,7 @@ public class SheetDfx extends IPrjxSheet implements IEditorListener {
 					}
 				}
 			}
-		} else if (GMDfx.isNewGrid(filePath, GCDfx.PRE_NEWPGM)
-				|| !filePath.toLowerCase().endsWith(GC.FILE_DFX)) { // 新建
+		} else if (GMDfx.isNewGrid(filePath, GCDfx.PRE_NEWPGM) || !AppUtil.isSPLFile(filePath)) { // 新建
 			boolean hasSaveAs = saveAs();
 			if (hasSaveAs) {
 				storeBreakPoints();
@@ -358,8 +350,8 @@ public class SheetDfx extends IPrjxSheet implements IEditorListener {
 		} else {
 			File f = new File(filePath);
 			if (f.exists() && !f.canWrite()) {
-				JOptionPane.showMessageDialog(GV.appFrame, IdeCommonMessage
-						.get().getMessage("public.readonly", filePath));
+				JOptionPane.showMessageDialog(GV.appFrame,
+						IdeCommonMessage.get().getMessage("public.readonly", filePath));
 				return false;
 			}
 
@@ -371,8 +363,12 @@ public class SheetDfx extends IPrjxSheet implements IEditorListener {
 					f.renameTo(fb);
 				}
 				GVDfx.panelValue.setCellSet((PgmCellSet) dfxControl.dfx);
-				CellSetUtil.writePgmCellSet(filePath,
-						(PgmCellSet) dfxControl.dfx);
+				if (filePath.toLowerCase().endsWith("." + AppConsts.FILE_SPL)) {
+					String cellSetStr = CellSetUtil.toString(dfxControl.dfx);
+					AppUtil.writeSPLFile(filePath, cellSetStr);
+				} else {
+					CellSetUtil.writePgmCellSet(filePath, dfxControl.dfx);
+				}
 				DfxManager.getInstance().clear();
 				((PrjxAppMenu) GV.appMenu).refreshRecentFile(filePath);
 			} catch (Throwable e) {
@@ -391,26 +387,15 @@ public class SheetDfx extends IPrjxSheet implements IEditorListener {
 	 * 另存为
 	 */
 	public boolean saveAs() {
-		boolean isNewFile;
-		String fileExt;
-		// if (dfxEditor.isEtlCellSet()) {
-		// isNewFile = GMDfx.isNewGrid(filePath, GCDfx.PRE_NEWETL)
-		// || !filePath.toLowerCase().endsWith(GC.FILE_SPL);
-		// fileExt = GC.FILE_SPL;
-		// } else {
-		isNewFile = GMDfx.isNewGrid(filePath, GCDfx.PRE_NEWPGM)
-				|| !filePath.toLowerCase().endsWith(GC.FILE_DFX);
-		fileExt = GC.FILE_DFX;
-		// }
+		boolean isNewFile = GMDfx.isNewGrid(filePath, GCDfx.PRE_NEWPGM) || !AppUtil.isSPLFile(filePath);
+		String fileExt = AppConsts.SPL_FILE_EXTS;
 		String path = filePath;
 		if (stepInfo != null && isStepStop) {
 			if (StringUtils.isValidString(stepInfo.filePath))
 				path = stepInfo.filePath;
 		}
 		File saveFile = GM.dialogSelectFile(fileExt, GV.lastDirectory,
-				IdeCommonMessage.get().getMessage("public.saveas"), path,
-				GV.appFrame); // Save //edit by ryz 2017.08.02 增加参数owner
-		// as
+				IdeCommonMessage.get().getMessage("public.saveas"), path, GV.appFrame);
 		if (saveFile == null) {
 			return false;
 		}
@@ -419,8 +404,7 @@ public class SheetDfx extends IPrjxSheet implements IEditorListener {
 		GV.lastDirectory = saveFile.getParent();
 
 		if (!sfile.toLowerCase().endsWith(fileExt)) {
-			saveFile = new File(saveFile.getParent(), saveFile.getName() + "."
-					+ fileExt);
+			saveFile = new File(saveFile.getParent(), saveFile.getName() + "." + fileExt);
 			sfile = saveFile.getAbsolutePath();
 		}
 
@@ -467,8 +451,7 @@ public class SheetDfx extends IPrjxSheet implements IEditorListener {
 	/**
 	 * 刷新
 	 * 
-	 * @param keyEvent
-	 *            是否按键事件
+	 * @param keyEvent 是否按键事件
 	 */
 	private void refresh(boolean keyEvent) {
 		refresh(keyEvent, true);
@@ -477,10 +460,8 @@ public class SheetDfx extends IPrjxSheet implements IEditorListener {
 	/**
 	 * 刷新
 	 * 
-	 * @param keyEvent
-	 *            是否按键事件
-	 * @param isRefreshState
-	 *            是否刷新状态
+	 * @param keyEvent       是否按键事件
+	 * @param isRefreshState 是否刷新状态
 	 */
 	private void refresh(boolean keyEvent, boolean isRefreshState) {
 		if (dfxEditor == null) {
@@ -512,94 +493,60 @@ public class SheetDfx extends IPrjxSheet implements IEditorListener {
 		md.setMenuEnabled(GCDfx.iCOPY_HTML, canCopy);
 		md.setMenuEnabled(GCDfx.iCUT, canCopy);
 
-		md.setMenuEnabled(GCDfx.iMOVE_COPY_UP,
-				selectState != GCDfx.SELECT_STATE_NONE);
-		md.setMenuEnabled(GCDfx.iMOVE_COPY_DOWN,
-				selectState != GCDfx.SELECT_STATE_NONE);
-		md.setMenuEnabled(GCDfx.iMOVE_COPY_LEFT,
-				selectState != GCDfx.SELECT_STATE_NONE);
-		md.setMenuEnabled(GCDfx.iMOVE_COPY_RIGHT,
-				selectState != GCDfx.SELECT_STATE_NONE);
+		md.setMenuEnabled(GCDfx.iMOVE_COPY_UP, selectState != GCDfx.SELECT_STATE_NONE);
+		md.setMenuEnabled(GCDfx.iMOVE_COPY_DOWN, selectState != GCDfx.SELECT_STATE_NONE);
+		md.setMenuEnabled(GCDfx.iMOVE_COPY_LEFT, selectState != GCDfx.SELECT_STATE_NONE);
+		md.setMenuEnabled(GCDfx.iMOVE_COPY_RIGHT, selectState != GCDfx.SELECT_STATE_NONE);
 
-		boolean canPaste = GMDfx.canPaste()
-				&& selectState != GCDfx.SELECT_STATE_NONE;
+		boolean canPaste = GMDfx.canPaste() && selectState != GCDfx.SELECT_STATE_NONE;
 		md.setMenuEnabled(GCDfx.iPASTE, canPaste);
 		md.setMenuEnabled(GCDfx.iPASTE_ADJUST, canPaste);
 		md.setMenuEnabled(GCDfx.iPASTE_SPECIAL, canPaste);
 
-		md.setMenuEnabled(GCDfx.iCTRL_ENTER,
-				selectState != GCDfx.SELECT_STATE_NONE);
-		md.setMenuEnabled(GCDfx.iDUP_ROW,
-				selectState != GCDfx.SELECT_STATE_NONE);
-		md.setMenuEnabled(GCDfx.iDUP_ROW_ADJUST,
-				selectState != GCDfx.SELECT_STATE_NONE);
-		md.setMenuEnabled(GCDfx.iCTRL_INSERT,
-				selectState != GCDfx.SELECT_STATE_NONE);
-		md.setMenuEnabled(GCDfx.iALT_INSERT,
-				selectState != GCDfx.SELECT_STATE_NONE);
+		md.setMenuEnabled(GCDfx.iCTRL_ENTER, selectState != GCDfx.SELECT_STATE_NONE);
+		md.setMenuEnabled(GCDfx.iDUP_ROW, selectState != GCDfx.SELECT_STATE_NONE);
+		md.setMenuEnabled(GCDfx.iDUP_ROW_ADJUST, selectState != GCDfx.SELECT_STATE_NONE);
+		md.setMenuEnabled(GCDfx.iCTRL_INSERT, selectState != GCDfx.SELECT_STATE_NONE);
+		md.setMenuEnabled(GCDfx.iALT_INSERT, selectState != GCDfx.SELECT_STATE_NONE);
 
 		md.setMenuEnabled(GCDfx.iCLEAR, selectState != GCDfx.SELECT_STATE_NONE);
-		md.setMenuEnabled(GCDfx.iFULL_CLEAR,
-				selectState != GCDfx.SELECT_STATE_NONE);
-		md.setMenuEnabled(GCDfx.iBREAKPOINTS,
-				selectState != GCDfx.SELECT_STATE_NONE);
-		md.setMenuEnabled(GCDfx.iDELETE_ROW,
-				selectState != GCDfx.SELECT_STATE_NONE);
-		md.setMenuEnabled(GCDfx.iDELETE_COL,
-				selectState != GCDfx.SELECT_STATE_NONE);
-		md.setMenuEnabled(GCDfx.iCTRL_BACK,
-				selectState != GCDfx.SELECT_STATE_NONE);
-		md.setMenuEnabled(GCDfx.iCTRL_DELETE,
-				selectState != GCDfx.SELECT_STATE_NONE);
+		md.setMenuEnabled(GCDfx.iFULL_CLEAR, selectState != GCDfx.SELECT_STATE_NONE);
+		md.setMenuEnabled(GCDfx.iBREAKPOINTS, selectState != GCDfx.SELECT_STATE_NONE);
+		md.setMenuEnabled(GCDfx.iDELETE_ROW, selectState != GCDfx.SELECT_STATE_NONE);
+		md.setMenuEnabled(GCDfx.iDELETE_COL, selectState != GCDfx.SELECT_STATE_NONE);
+		md.setMenuEnabled(GCDfx.iCTRL_BACK, selectState != GCDfx.SELECT_STATE_NONE);
+		md.setMenuEnabled(GCDfx.iCTRL_DELETE, selectState != GCDfx.SELECT_STATE_NONE);
 
-		md.setMenuRowColEnabled(selectState == GCDfx.SELECT_STATE_ROW
-				|| selectState == GCDfx.SELECT_STATE_COL);
-		md.setMenuVisible(GCDfx.iROW_HEIGHT,
-				selectState == GCDfx.SELECT_STATE_ROW);
-		md.setMenuVisible(GCDfx.iROW_ADJUST,
-				selectState == GCDfx.SELECT_STATE_ROW);
-		md.setMenuVisible(GCDfx.iROW_HIDE,
-				selectState == GCDfx.SELECT_STATE_ROW);
-		md.setMenuVisible(GCDfx.iROW_VISIBLE,
-				selectState == GCDfx.SELECT_STATE_ROW);
+		md.setMenuRowColEnabled(selectState == GCDfx.SELECT_STATE_ROW || selectState == GCDfx.SELECT_STATE_COL);
+		md.setMenuVisible(GCDfx.iROW_HEIGHT, selectState == GCDfx.SELECT_STATE_ROW);
+		md.setMenuVisible(GCDfx.iROW_ADJUST, selectState == GCDfx.SELECT_STATE_ROW);
+		md.setMenuVisible(GCDfx.iROW_HIDE, selectState == GCDfx.SELECT_STATE_ROW);
+		md.setMenuVisible(GCDfx.iROW_VISIBLE, selectState == GCDfx.SELECT_STATE_ROW);
 
-		md.setMenuVisible(GCDfx.iCOL_WIDTH,
-				selectState == GCDfx.SELECT_STATE_COL);
-		md.setMenuVisible(GCDfx.iCOL_ADJUST,
-				selectState == GCDfx.SELECT_STATE_COL);
-		md.setMenuVisible(GCDfx.iCOL_HIDE,
-				selectState == GCDfx.SELECT_STATE_COL);
-		md.setMenuVisible(GCDfx.iCOL_VISIBLE,
-				selectState == GCDfx.SELECT_STATE_COL);
+		md.setMenuVisible(GCDfx.iCOL_WIDTH, selectState == GCDfx.SELECT_STATE_COL);
+		md.setMenuVisible(GCDfx.iCOL_ADJUST, selectState == GCDfx.SELECT_STATE_COL);
+		md.setMenuVisible(GCDfx.iCOL_HIDE, selectState == GCDfx.SELECT_STATE_COL);
+		md.setMenuVisible(GCDfx.iCOL_VISIBLE, selectState == GCDfx.SELECT_STATE_COL);
 
-		md.setMenuEnabled(GCDfx.iTEXT_EDITOR,
-				selectState != GCDfx.SELECT_STATE_NONE);
+		md.setMenuEnabled(GCDfx.iTEXT_EDITOR, selectState != GCDfx.SELECT_STATE_NONE);
 		md.setMenuEnabled(GCDfx.iNOTE, selectState != GCDfx.SELECT_STATE_NONE);
 		md.setMenuEnabled(GCDfx.iTIPS, selectState != GCDfx.SELECT_STATE_NONE);
 		md.setMenuEnabled(GCDfx.iSEARCH, selectState != GCDfx.SELECT_STATE_NONE);
-		md.setMenuEnabled(GCDfx.iREPLACE,
-				selectState != GCDfx.SELECT_STATE_NONE);
+		md.setMenuEnabled(GCDfx.iREPLACE, selectState != GCDfx.SELECT_STATE_NONE);
 
-		md.setMenuEnabled(GCDfx.iEDIT_CHART,
-				selectState != GCDfx.SELECT_STATE_NONE);
-		md.setMenuEnabled(GCDfx.iFUNC_ASSIST,
-				selectState != GCDfx.SELECT_STATE_NONE);
-		md.setMenuEnabled(GCDfx.iSHOW_VALUE,
-				selectState != GCDfx.SELECT_STATE_NONE);
-		md.setMenuEnabled(GCDfx.iCLEAR_VALUE,
-				selectState != GCDfx.SELECT_STATE_NONE);
+		md.setMenuEnabled(GCDfx.iEDIT_CHART, selectState != GCDfx.SELECT_STATE_NONE);
+		md.setMenuEnabled(GCDfx.iFUNC_ASSIST, selectState != GCDfx.SELECT_STATE_NONE);
+		md.setMenuEnabled(GCDfx.iSHOW_VALUE, selectState != GCDfx.SELECT_STATE_NONE);
+		md.setMenuEnabled(GCDfx.iCLEAR_VALUE, selectState != GCDfx.SELECT_STATE_NONE);
 
-		md.setMenuEnabled(GCDfx.iDRAW_CHART,
-				GVDfx.panelValue.tableValue.canDrawChart());
+		md.setMenuEnabled(GCDfx.iDRAW_CHART, GVDfx.panelValue.tableValue.canDrawChart());
 		md.setMenuVisible(GCDfx.iEDIT_CHART, true);
 		md.setMenuVisible(GCDfx.iDRAW_CHART, true);
 		// Toolbar
 		GVDfx.appTool.setBarEnabled(true);
 		GVDfx.appTool.setButtonEnabled(GCDfx.iSAVE, isDataChanged);
-		GVDfx.appTool.setButtonEnabled(GCDfx.iCLEAR,
-				selectState != GCDfx.SELECT_STATE_NONE);
-		GVDfx.appTool.setButtonEnabled(GCDfx.iBREAKPOINTS,
-				selectState != GCDfx.SELECT_STATE_NONE && !isStepStop);
+		GVDfx.appTool.setButtonEnabled(GCDfx.iCLEAR, selectState != GCDfx.SELECT_STATE_NONE);
+		GVDfx.appTool.setButtonEnabled(GCDfx.iBREAKPOINTS, selectState != GCDfx.SELECT_STATE_NONE && !isStepStop);
 		GVDfx.appTool.setButtonEnabled(GCDfx.iUNDO, dfxEditor.canUndo());
 		GVDfx.appTool.setButtonEnabled(GCDfx.iREDO, dfxEditor.canRedo());
 
@@ -613,8 +560,7 @@ public class SheetDfx extends IPrjxSheet implements IEditorListener {
 				GVDfx.panelValue.tableValue.setCellId(nc.getCellId());
 				String oldId = GVDfx.panelValue.tableValue.getCellId();
 				if (nc.getCellId().equals(oldId)) { // refresh
-					GVDfx.panelValue.tableValue
-							.setValue1(value, nc.getCellId());
+					GVDfx.panelValue.tableValue.setValue1(value, nc.getCellId());
 				} else {
 					lockOtherCell = true;
 					GVDfx.panelValue.tableValue.setValue(value);
@@ -627,8 +573,7 @@ public class SheetDfx extends IPrjxSheet implements IEditorListener {
 				if (StringUtils.isValidString(cellId)) {
 					try {
 						INormalCell lockCell = dfxControl.dfx.getCell(cellId);
-						Object oldVal = GVDfx.panelValue.tableValue
-								.getOriginalValue();
+						Object oldVal = GVDfx.panelValue.tableValue.getOriginalValue();
 						Object newVal = lockCell.getValue();
 						boolean isValChanged = false;
 						if (oldVal == null) {
@@ -637,8 +582,7 @@ public class SheetDfx extends IPrjxSheet implements IEditorListener {
 							isValChanged = !oldVal.equals(newVal);
 						}
 						if (isValChanged)
-							GVDfx.panelValue.tableValue.setValue1(newVal,
-									cellId);
+							GVDfx.panelValue.tableValue.setValue1(newVal, cellId);
 					} catch (Exception e) {
 					}
 				}
@@ -668,8 +612,7 @@ public class SheetDfx extends IPrjxSheet implements IEditorListener {
 		}
 
 		boolean canShow = false;
-		if (GV.useRemoteServer && GV.fileTree != null
-				&& GV.fileTree.getServerList() != null
+		if (GV.useRemoteServer && GV.fileTree != null && GV.fileTree.getServerList() != null
 				&& GV.fileTree.getServerList().size() > 0) {
 			canShow = true;
 		}
@@ -677,8 +620,7 @@ public class SheetDfx extends IPrjxSheet implements IEditorListener {
 		md.setMenuEnabled(GCDfx.iREMOTE_SERVER_DATASOURCE, canShow);
 		md.setMenuEnabled(GCDfx.iREMOTE_SERVER_UPLOAD_FILE, canShow);
 
-		md.setMenuEnabled(GCDfx.iVIEW_CONSOLE,
-				ConfigOptions.bIdeConsole.booleanValue());
+		md.setMenuEnabled(GCDfx.iVIEW_CONSOLE, ConfigOptions.bIdeConsole.booleanValue());
 		if (stepInfo != null) {
 			// 中断单步调试以后,当前网格是call(dfx)时菜单可用
 			if (!isStepStopCall()) {
@@ -741,8 +683,7 @@ public class SheetDfx extends IPrjxSheet implements IEditorListener {
 	/**
 	 * 计算当前格
 	 * 
-	 * @param lock
-	 *            是否加锁
+	 * @param lock 是否加锁
 	 */
 	public void calcActiveCell(boolean lock) {
 		dfxControl.getContentPanel().submitEditor();
@@ -774,8 +715,7 @@ public class SheetDfx extends IPrjxSheet implements IEditorListener {
 		/**
 		 * 构造函数
 		 * 
-		 * @param cl
-		 *            单元格坐标
+		 * @param cl 单元格坐标
 		 */
 		public CalcCellThread(CellLocation cl) {
 			this.cl = cl;
@@ -797,8 +737,7 @@ public class SheetDfx extends IPrjxSheet implements IEditorListener {
 				NormalCell nc = (NormalCell) dfxControl.dfx.getCell(row, col);
 				if (nc != null) {
 					Object value = nc.getValue();
-					GVDfx.panelValue.tableValue
-							.setValue1(value, nc.getCellId());
+					GVDfx.panelValue.tableValue.setValue1(value, nc.getCellId());
 				}
 			} catch (Exception x) {
 				String msg = x.getMessage();
@@ -833,8 +772,7 @@ public class SheetDfx extends IPrjxSheet implements IEditorListener {
 	/**
 	 * 弹出搜索对话框
 	 * 
-	 * @param replace
-	 *            boolean 是否是替换对话框
+	 * @param replace boolean 是否是替换对话框
 	 */
 	public void dialogSearch(boolean replace) {
 		if (GVDfx.searchDialog != null) {
@@ -848,8 +786,7 @@ public class SheetDfx extends IPrjxSheet implements IEditorListener {
 	/**
 	 * 因为XML的Node命名规则不能数字或者特殊符号开头
 	 * 
-	 * @param name
-	 *            节点名
+	 * @param name 节点名
 	 * @return
 	 */
 	private String getBreakPointNodeName(String nodeName) {
@@ -899,10 +836,8 @@ public class SheetDfx extends IPrjxSheet implements IEditorListener {
 	/**
 	 * 保存断点
 	 * 
-	 * @param oldName
-	 *            旧节点名
-	 * @param filePath
-	 *            新路径
+	 * @param oldName  旧节点名
+	 * @param filePath 新路径
 	 */
 	private void storeBreakPoints(String oldName, String filePath) {
 		if (preventStoreBreak) {
@@ -913,8 +848,7 @@ public class SheetDfx extends IPrjxSheet implements IEditorListener {
 			return;
 		}
 
-		if (GMDfx.isNewGrid(filePath, GCDfx.PRE_NEWPGM)
-				|| !filePath.toLowerCase().endsWith(GC.FILE_DFX)) {
+		if (GMDfx.isNewGrid(filePath, GCDfx.PRE_NEWPGM) || !AppUtil.isSPLFile(filePath)) {
 			return;
 		}
 
@@ -924,8 +858,7 @@ public class SheetDfx extends IPrjxSheet implements IEditorListener {
 			cf = ConfigFile.getConfigFile();
 			oldNode = cf.getConfigNode();
 			cf.setConfigNode(ConfigFile.NODE_BREAKPOINTS);
-			ArrayList<CellLocation> breaks = dfxEditor.getComponent()
-					.getBreakPoints();
+			ArrayList<CellLocation> breaks = dfxEditor.getComponent().getBreakPoints();
 			StringBuffer sb = new StringBuffer();
 			for (int i = 0; i < breaks.size(); i++) {
 				CellLocation cp = breaks.get(i);
@@ -1013,8 +946,7 @@ public class SheetDfx extends IPrjxSheet implements IEditorListener {
 	/**
 	 * 调试执行
 	 * 
-	 * @param debugType
-	 *            调试方式
+	 * @param debugType 调试方式
 	 */
 	public void debug(byte debugType) {
 		synchronized (threadLock) {
@@ -1142,10 +1074,8 @@ public class SheetDfx extends IPrjxSheet implements IEditorListener {
 	/**
 	 * 单步调试后，接受子页执行结果
 	 * 
-	 * @param returnVal
-	 *            返回值
-	 * @param continueRun
-	 *            是否继续执行
+	 * @param returnVal   返回值
+	 * @param continueRun 是否继续执行
 	 */
 	public void acceptResult(final Object returnVal, final boolean continueRun) {
 		SwingUtilities.invokeLater(new Runnable() {
@@ -1157,16 +1087,14 @@ public class SheetDfx extends IPrjxSheet implements IEditorListener {
 					}
 					if (exeLocation == null)
 						return;
-					PgmNormalCell lastCell = (PgmNormalCell) dfxControl.dfx
-							.getCell(exeLocation.getRow(), exeLocation.getCol());
+					PgmNormalCell lastCell = (PgmNormalCell) dfxControl.dfx.getCell(exeLocation.getRow(),
+							exeLocation.getCol());
 					lastCell.setValue(returnVal);
 					dfxControl.dfx.setCurrent(lastCell);
-					dfxControl.dfx.setNext(exeLocation.getRow(),
-							exeLocation.getCol() + 1, false);
+					dfxControl.dfx.setNext(exeLocation.getRow(), exeLocation.getCol() + 1, false);
 					INormalCell nextCell = dfxControl.dfx.getCurrent();
 					if (nextCell != null)
-						setExeLocation(new CellLocation(nextCell.getRow(),
-								nextCell.getCol()));
+						setExeLocation(new CellLocation(nextCell.getRow(), nextCell.getCol()));
 					else {
 						setExeLocation(null);
 						synchronized (threadLock) {
@@ -1194,8 +1122,7 @@ public class SheetDfx extends IPrjxSheet implements IEditorListener {
 	/**
 	 * 单步调试停止
 	 * 
-	 * @param stopOther
-	 *            是否停止其他页
+	 * @param stopOther 是否停止其他页
 	 */
 	public void stepStop(boolean stopOther) {
 		stepStopOther = stopOther;
@@ -1261,12 +1188,9 @@ public class SheetDfx extends IPrjxSheet implements IEditorListener {
 		/**
 		 * 构造函数
 		 * 
-		 * @param tg
-		 *            线程组
-		 * @param name
-		 *            线程名称
-		 * @param isDebugMode
-		 *            是否调试模式
+		 * @param tg          线程组
+		 * @param name        线程名称
+		 * @param isDebugMode 是否调试模式
 		 */
 		public RunThread(ThreadGroup tg, String name, boolean isDebugMode) {
 			super(tg, name);
@@ -1289,8 +1213,7 @@ public class SheetDfx extends IPrjxSheet implements IEditorListener {
 						if (runState == PAUSING) {
 							stepFinish();
 							if (!GVDfx.panelDfxWatch.isCalculating())
-								GVDfx.panelDfxWatch.watch(dfxControl.dfx
-										.getContext());
+								GVDfx.panelDfxWatch.watch(dfxControl.dfx.getContext());
 						}
 					}
 					while (isPaused) {
@@ -1304,12 +1227,10 @@ public class SheetDfx extends IPrjxSheet implements IEditorListener {
 						long start = System.currentTimeMillis();
 						PgmNormalCell pnc = null;
 						if (exeLocation != null) {
-							pnc = curCellSet.getPgmNormalCell(
-									exeLocation.getRow(), exeLocation.getCol());
+							pnc = curCellSet.getPgmNormalCell(exeLocation.getRow(), exeLocation.getCol());
 						} else if (curCellSet.getCurrent() != null) {
 							INormalCell icell = curCellSet.getCurrent();
-							pnc = curCellSet.getPgmNormalCell(icell.getRow(),
-									icell.getCol());
+							pnc = curCellSet.getPgmNormalCell(icell.getRow(), icell.getCol());
 						}
 						if (pnc != null) {
 							if (stepInfo != null && stepInfo.endRow > -1) {
@@ -1327,55 +1248,39 @@ public class SheetDfx extends IPrjxSheet implements IEditorListener {
 										Node home = exp.getHome();
 										if (home instanceof Call) { // call函数
 											Call call = (Call) home;
-											PgmCellSet subCellSet = call
-													.getCallPgmCellSet(dfxCtx);
-											subCellSet.setCurrent(subCellSet
-													.getPgmNormalCell(1, 1));
+											PgmCellSet subCellSet = call.getCallPgmCellSet(dfxCtx);
+											subCellSet.setCurrent(subCellSet.getPgmNormalCell(1, 1));
 											subCellSet.setNext(1, 1, true); // 从子格开始执行
-											openSubSheet(pnc, subCellSet, null,
-													null, -1, call);
+											openSubSheet(pnc, subCellSet, null, null, -1, call);
 										} else if (home instanceof Func) { // Func块
 											// Func使用新网是为了支持递归
 											Func func = (Func) home;
-											CallInfo ci = func
-													.getCallInfo(dfxCtx);
-											PgmCellSet cellSet = ci
-													.getPgmCellSet();
+											CallInfo ci = func.getCallInfo(dfxCtx);
+											PgmCellSet cellSet = ci.getPgmCellSet();
 											int row = ci.getRow();
 											int col = ci.getCol();
 											Object[] args = ci.getArgs();
 											int rc = cellSet.getRowCount();
 											int cc = cellSet.getColCount();
-											if (row < 1 || row > rc || col < 1
-													|| col > cc) {
-												MessageManager mm = EngineMessage
-														.get();
-												throw new RQException(
-														mm.getMessage("engine.callNeedSub"));
+											if (row < 1 || row > rc || col < 1 || col > cc) {
+												MessageManager mm = EngineMessage.get();
+												throw new RQException(mm.getMessage("engine.callNeedSub"));
 											}
 
-											PgmNormalCell nc = cellSet
-													.getPgmNormalCell(row, col);
+											PgmNormalCell nc = cellSet.getPgmNormalCell(row, col);
 											Command command = nc.getCommand();
-											if (command == null
-													|| command.getType() != Command.FUNC) {
-												MessageManager mm = EngineMessage
-														.get();
-												throw new RQException(
-														mm.getMessage("engine.callNeedSub"));
+											if (command == null || command.getType() != Command.FUNC) {
+												MessageManager mm = EngineMessage.get();
+												throw new RQException(mm.getMessage("engine.callNeedSub"));
 											}
 
 											// 共享函数体外的格子
 											PgmCellSet pcs = cellSet.newCalc();
-											int endRow = cellSet
-													.getCodeBlockEndRow(row,
-															col);
+											int endRow = cellSet.getCodeBlockEndRow(row, col);
 											for (int r = row; r <= endRow; ++r) {
 												for (int c = col; c <= cc; ++c) {
-													INormalCell tmp = cellSet
-															.getCell(r, c);
-													INormalCell cellClone = (INormalCell) tmp
-															.deepClone();
+													INormalCell tmp = cellSet.getCell(r, c);
+													INormalCell cellClone = (INormalCell) tmp.deepClone();
 													cellClone.setCellSet(pcs);
 													pcs.setCell(r, c, cellClone);
 												}
@@ -1387,9 +1292,7 @@ public class SheetDfx extends IPrjxSheet implements IEditorListener {
 												int paramRow = row;
 												int paramCol = col;
 												for (int i = 0, pcount = args.length; i < pcount; ++i) {
-													pcs.getPgmNormalCell(
-															paramRow, paramCol)
-															.setValue(args[i]);
+													pcs.getPgmNormalCell(paramRow, paramCol).setValue(args[i]);
 													if (paramCol < colCount) {
 														paramCol++;
 													} else {
@@ -1397,26 +1300,21 @@ public class SheetDfx extends IPrjxSheet implements IEditorListener {
 													}
 												}
 											}
-											pcs.setCurrent(pcs
-													.getPgmNormalCell(row, col));
+											pcs.setCurrent(pcs.getPgmNormalCell(row, col));
 											pcs.setNext(row, col + 1, false); // 从子格开始执行
-											openSubSheet(pnc, pcs, ci,
-													new CellLocation(row,
-															col + 1), endRow,
-													null);
+											openSubSheet(pnc, pcs, ci, new CellLocation(row, col + 1), endRow, null);
 										}
 										final SheetDfx subSheet = getSubSheet();
 										if (subSheet != null) {
-											SwingUtilities
-													.invokeLater(new Runnable() {
-														public void run() {
-															try {
-																subSheet.debug(STEP_INTO_WAIT);
-															} catch (Exception e) {
-																GM.showException(e);
-															}
-														}
-													});
+											SwingUtilities.invokeLater(new Runnable() {
+												public void run() {
+													try {
+														subSheet.debug(STEP_INTO_WAIT);
+													} catch (Exception e) {
+														GM.showException(e);
+													}
+												}
+											});
 										}
 									}
 								}
@@ -1426,8 +1324,7 @@ public class SheetDfx extends IPrjxSheet implements IEditorListener {
 									SwingUtilities.invokeLater(new Runnable() {
 										public void run() {
 											try {
-												((DFX) GV.appFrame)
-														.showSheet(subSheet);
+												((DFX) GV.appFrame).showSheet(subSheet);
 											} catch (Exception e) {
 											}
 										}
@@ -1453,11 +1350,9 @@ public class SheetDfx extends IPrjxSheet implements IEditorListener {
 							} else {
 								if (stepInfo != null && stepInfo.endRow > -1) {
 									Command cmd = pnc.getCommand();
-									if (cmd != null
-											&& cmd.getType() == Command.RETURN) {
+									if (cmd != null && cmd.getType() == Command.RETURN) {
 										hasReturn = true;
-										Expression exp1 = cmd.getExpression(
-												curCellSet, dfxCtx);
+										Expression exp1 = cmd.getExpression(curCellSet, dfxCtx);
 										if (exp1 != null) {
 											returnVal = exp1.calculate(dfxCtx);
 										}
@@ -1469,16 +1364,14 @@ public class SheetDfx extends IPrjxSheet implements IEditorListener {
 						}
 						if (isDebugMode && pnc != null) {
 							long end = System.currentTimeMillis();
-							String cellId = CellLocation.getCellId(
-									pnc.getRow(), pnc.getCol());
+							String cellId = CellLocation.getCellId(pnc.getRow(), pnc.getCol());
 							debugTimeMap.put(cellId, end - start);
 						}
 					}
 					if (isDebugMode) {
 						if (checkBreak()) {
 							if (!GVDfx.panelDfxWatch.isCalculating()) {
-								GVDfx.panelDfxWatch.watch(dfxControl.dfx
-										.getContext());
+								GVDfx.panelDfxWatch.watch(dfxControl.dfx.getContext());
 							}
 							while (true) {
 								if (isPaused) {
@@ -1538,12 +1431,9 @@ public class SheetDfx extends IPrjxSheet implements IEditorListener {
 								int endRow = stepInfo.endRow;
 								CallInfo ci = stepInfo.callInfo;
 								for (int r = endRow; r >= ci.getRow(); --r) {
-									for (int c = curCellSet.getColCount(); c > ci
-											.getCol(); --c) {
-										PgmNormalCell cell = curCellSet
-												.getPgmNormalCell(r, c);
-										if (cell.isCalculableCell()
-												|| cell.isCalculableBlock()) {
+									for (int c = curCellSet.getColCount(); c > ci.getCol(); --c) {
+										PgmNormalCell cell = curCellSet.getPgmNormalCell(r, c);
+										if (cell.isCalculableCell() || cell.isCalculableBlock()) {
 											returnVal = cell.getValue();
 										}
 									}
@@ -1570,25 +1460,19 @@ public class SheetDfx extends IPrjxSheet implements IEditorListener {
 		/**
 		 * 单步调试进入打开子页
 		 * 
-		 * @param pnc
-		 *            网格对象
-		 * @param subCellSet
-		 *            子网格对象
-		 * @param ci
-		 *            CallInfo对象
-		 * @param startLocation
-		 *            子网开始计算的坐标
-		 * @param endRow
-		 *            子网结束行
-		 * @param call
-		 *            Call对象
+		 * @param pnc           网格对象
+		 * @param subCellSet    子网格对象
+		 * @param ci            CallInfo对象
+		 * @param startLocation 子网开始计算的坐标
+		 * @param endRow        子网结束行
+		 * @param call          Call对象
 		 */
-		private void openSubSheet(PgmNormalCell pnc,
-				final PgmCellSet subCellSet, CallInfo ci,
+		private void openSubSheet(PgmNormalCell pnc, final PgmCellSet subCellSet, CallInfo ci,
 				CellLocation startLocation, int endRow, Call call) {
 			String newName = new File(filePath).getName();
-			if (newName.toLowerCase().endsWith("." + GC.FILE_DFX)) {
-				newName = newName.substring(0, newName.length() - 4);
+			if (AppUtil.isSPLFile(newName)) {
+				int index = newName.lastIndexOf(".");
+				newName = newName.substring(0, index);
 			}
 			String cellId = CellLocation.getCellId(pnc.getRow(), pnc.getCol());
 			newName += "(" + cellId + ")";
@@ -1608,8 +1492,7 @@ public class SheetDfx extends IPrjxSheet implements IEditorListener {
 				stepInfo.filePath = SheetDfx.this.stepInfo.filePath;
 			}
 			stepInfo.dfxCtx = dfxCtx;
-			stepInfo.parentLocation = new CellLocation(pnc.getRow(),
-					pnc.getCol());
+			stepInfo.parentLocation = new CellLocation(pnc.getRow(), pnc.getCol());
 			stepInfo.callInfo = ci;
 			stepInfo.startLocation = startLocation;
 			stepInfo.endRow = endRow;
@@ -1617,8 +1500,7 @@ public class SheetDfx extends IPrjxSheet implements IEditorListener {
 			subSheetOpened = true;
 			SwingUtilities.invokeLater(new Runnable() {
 				public void run() {
-					((DFX) GV.appFrame).openSheet(nn, subCellSet, false,
-							stepInfo);
+					((DFX) GV.appFrame).openSheet(nn, subCellSet, false, stepInfo);
 				}
 			});
 		}
@@ -1640,23 +1522,20 @@ public class SheetDfx extends IPrjxSheet implements IEditorListener {
 		private boolean checkBreak() {
 			if (exeLocation == null)
 				return false;
-			if (debugType == STEP_INTO_WAIT || debugType == STEP_OVER
-					|| debugType == STEP_INTO) {
+			if (debugType == STEP_INTO_WAIT || debugType == STEP_OVER || debugType == STEP_INTO) {
 				stepFinish();
 				if (ConfigOptions.bStepLastLocation.booleanValue()) {
 					if (lastLocation != null) {
 						SwingUtilities.invokeLater(new Thread() {
 							public void run() {
-								dfxEditor.selectCell(lastLocation.getRow(),
-										lastLocation.getCol());
+								dfxEditor.selectCell(lastLocation.getRow(), lastLocation.getCol());
 							}
 						});
 					}
 				}
 				return true;
 			}
-			if (dfxControl.isBreakPointCell(exeLocation.getRow(),
-					exeLocation.getCol())) {
+			if (dfxControl.isBreakPointCell(exeLocation.getRow(), exeLocation.getCol())) {
 				stepFinish();
 				return true;
 			}
@@ -1696,8 +1575,7 @@ public class SheetDfx extends IPrjxSheet implements IEditorListener {
 			if (debugType == CURSOR) {
 				CellLocation activeCell = dfxControl.getActiveCell();
 				if (activeCell != null)
-					clCursor = new CellLocation(activeCell.getRow(),
-							activeCell.getCol());
+					clCursor = new CellLocation(activeCell.getRow(), activeCell.getCol());
 			}
 		}
 
@@ -1720,8 +1598,7 @@ public class SheetDfx extends IPrjxSheet implements IEditorListener {
 		/**
 		 * 继续执行
 		 * 
-		 * @param debugType
-		 *            调试方式
+		 * @param debugType 调试方式
 		 */
 		public void continueRun(byte debugType) {
 			runState = RUN;
@@ -1773,9 +1650,8 @@ public class SheetDfx extends IPrjxSheet implements IEditorListener {
 	 * 执行菜单状态改为不可用，防止多次运行
 	 */
 	private void preventRun() {
-		setMenuToolEnabled(new short[] { GCDfx.iEXEC, GCDfx.iEXE_DEBUG,
-				GCDfx.iSTEP_CURSOR, GCDfx.iSTEP_NEXT, GCDfx.iCALC_AREA,
-				GCDfx.iCALC_LOCK }, false);
+		setMenuToolEnabled(new short[] { GCDfx.iEXEC, GCDfx.iEXE_DEBUG, GCDfx.iSTEP_CURSOR, GCDfx.iSTEP_NEXT,
+				GCDfx.iCALC_AREA, GCDfx.iCALC_LOCK }, false);
 	}
 
 	/**
@@ -1788,13 +1664,10 @@ public class SheetDfx extends IPrjxSheet implements IEditorListener {
 	/**
 	 * 重置执行菜单状态
 	 * 
-	 * @param isRefresh
-	 *            是否刷新方法调用的
-	 * @param afterRun
-	 *            是否执行结束调用的
+	 * @param isRefresh 是否刷新方法调用的
+	 * @param afterRun  是否执行结束调用的
 	 */
-	private synchronized void resetRunState(final boolean isRefresh,
-			final boolean afterRun) {
+	private synchronized void resetRunState(final boolean isRefresh, final boolean afterRun) {
 		SwingUtilities.invokeLater(new Thread() {
 			public void run() {
 				resetRunStateThread(isRefresh, afterRun);
@@ -1805,27 +1678,23 @@ public class SheetDfx extends IPrjxSheet implements IEditorListener {
 	/**
 	 * 重置执行菜单状态线程
 	 * 
-	 * @param isRefresh
-	 *            是否刷新方法调用的
-	 * @param afterRun
-	 *            是否执行结束调用的
+	 * @param isRefresh 是否刷新方法调用的
+	 * @param afterRun  是否执行结束调用的
 	 */
-	private synchronized void resetRunStateThread(boolean isRefresh,
-			boolean afterRun) {
+	private synchronized void resetRunStateThread(boolean isRefresh, boolean afterRun) {
 		if (!(GV.appMenu instanceof MenuDfx))
 			return;
 		MenuDfx md = (MenuDfx) GV.appMenu;
 
 		if (isStepStop) {
-			setMenuToolEnabled(new short[] { GCDfx.iEXEC, GCDfx.iEXE_DEBUG,
-					GCDfx.iSTEP_CURSOR, GCDfx.iSTEP_NEXT, GCDfx.iSTEP_INTO,
-					GCDfx.iCALC_AREA, GCDfx.iCALC_LOCK, GCDfx.iSTEP_RETURN,
-					GCDfx.iSTEP_STOP, GCDfx.iPAUSE }, false);
+			setMenuToolEnabled(
+					new short[] { GCDfx.iEXEC, GCDfx.iEXE_DEBUG, GCDfx.iSTEP_CURSOR, GCDfx.iSTEP_NEXT, GCDfx.iSTEP_INTO,
+							GCDfx.iCALC_AREA, GCDfx.iCALC_LOCK, GCDfx.iSTEP_RETURN, GCDfx.iSTEP_STOP, GCDfx.iPAUSE },
+					false);
 			setMenuToolEnabled(new short[] { GCDfx.iSTOP }, true); // 只能中断了
 			boolean editable = dfxControl.dfx.getCurrentPrivilege() == PgmCellSet.PRIVILEGE_FULL;
 			if (!isRefresh) {
-				dfxEditor.getComponent().getContentPanel()
-						.setEditable(editable);
+				dfxEditor.getComponent().getContentPanel().setEditable(editable);
 				if (editable)
 					dfxControl.contentView.initEditor(ContentPanel.MODE_HIDE);
 			}
@@ -1857,76 +1726,52 @@ public class SheetDfx extends IPrjxSheet implements IEditorListener {
 			}
 		}
 		if (isThreadNull) {
-			setMenuToolEnabled(new short[] { GCDfx.iEXEC, GCDfx.iEXE_DEBUG },
-					stepInfo == null);
-			setMenuToolEnabled(new short[] { GCDfx.iSTEP_CURSOR,
-					GCDfx.iSTEP_NEXT }, true);
+			setMenuToolEnabled(new short[] { GCDfx.iEXEC, GCDfx.iEXE_DEBUG }, stepInfo == null);
+			setMenuToolEnabled(new short[] { GCDfx.iSTEP_CURSOR, GCDfx.iSTEP_NEXT }, true);
 			setMenuToolEnabled(new short[] { GCDfx.iPAUSE }, false);
 			setMenuToolEnabled(new short[] { GCDfx.iSTOP }, stepInfo != null);
-			setMenuToolEnabled(new short[] { GCDfx.iSTEP_INTO }, canStepInto
-					&& stepInfo != null);
-			setMenuToolEnabled(new short[] { GCDfx.iSTEP_RETURN },
-					stepInfo != null);
-			setMenuToolEnabled(new short[] { GCDfx.iSTEP_STOP },
-					stepInfo != null && stepInfo.parentCall != null);
-			setMenuToolEnabled(
-					new short[] { GCDfx.iCALC_AREA, GCDfx.iCALC_LOCK },
+			setMenuToolEnabled(new short[] { GCDfx.iSTEP_INTO }, canStepInto && stepInfo != null);
+			setMenuToolEnabled(new short[] { GCDfx.iSTEP_RETURN }, stepInfo != null);
+			setMenuToolEnabled(new short[] { GCDfx.iSTEP_STOP }, stepInfo != null && stepInfo.parentCall != null);
+			setMenuToolEnabled(new short[] { GCDfx.iCALC_AREA, GCDfx.iCALC_LOCK },
 					canRunCell() && (stepInfo == null || isStepStop));
 		} else {
 			switch (runState) {
 			case RunThread.RUN:
-				setMenuToolEnabled(new short[] { GCDfx.iEXEC, GCDfx.iEXE_DEBUG,
-						GCDfx.iSTEP_CURSOR, GCDfx.iSTEP_NEXT, GCDfx.iSTEP_INTO,
-						GCDfx.iCALC_AREA, GCDfx.iCALC_LOCK }, false);
-				setMenuToolEnabled(new short[] { GCDfx.iSTEP_RETURN },
-						stepInfo != null);
-				setMenuToolEnabled(new short[] { GCDfx.iSTEP_STOP },
-						stepInfo != null && stepInfo.parentCall != null);
-				setMenuToolEnabled(new short[] { GCDfx.iPAUSE, GCDfx.iSTOP },
-						true);
+				setMenuToolEnabled(new short[] { GCDfx.iEXEC, GCDfx.iEXE_DEBUG, GCDfx.iSTEP_CURSOR, GCDfx.iSTEP_NEXT,
+						GCDfx.iSTEP_INTO, GCDfx.iCALC_AREA, GCDfx.iCALC_LOCK }, false);
+				setMenuToolEnabled(new short[] { GCDfx.iSTEP_RETURN }, stepInfo != null);
+				setMenuToolEnabled(new short[] { GCDfx.iSTEP_STOP }, stepInfo != null && stepInfo.parentCall != null);
+				setMenuToolEnabled(new short[] { GCDfx.iPAUSE, GCDfx.iSTOP }, true);
 				editable = false;
 				break;
 			case RunThread.PAUSING:
-				setMenuToolEnabled(new short[] { GCDfx.iEXEC, GCDfx.iEXE_DEBUG,
-						GCDfx.iSTEP_CURSOR, GCDfx.iSTEP_NEXT, GCDfx.iSTEP_INTO,
-						GCDfx.iCALC_AREA, GCDfx.iCALC_LOCK, GCDfx.iPAUSE },
-						false);
-				setMenuToolEnabled(new short[] { GCDfx.iSTEP_RETURN },
-						stepInfo != null);
-				setMenuToolEnabled(new short[] { GCDfx.iSTEP_STOP },
-						stepInfo != null && stepInfo.parentCall != null);
+				setMenuToolEnabled(new short[] { GCDfx.iEXEC, GCDfx.iEXE_DEBUG, GCDfx.iSTEP_CURSOR, GCDfx.iSTEP_NEXT,
+						GCDfx.iSTEP_INTO, GCDfx.iCALC_AREA, GCDfx.iCALC_LOCK, GCDfx.iPAUSE }, false);
+				setMenuToolEnabled(new short[] { GCDfx.iSTEP_RETURN }, stepInfo != null);
+				setMenuToolEnabled(new short[] { GCDfx.iSTEP_STOP }, stepInfo != null && stepInfo.parentCall != null);
 				setMenuToolEnabled(new short[] { GCDfx.iSTOP }, true);
 				break;
 			case RunThread.PAUSED:
-				setMenuToolEnabled(
-						new short[] { GCDfx.iEXEC, GCDfx.iEXE_DEBUG }, false);
-				setMenuToolEnabled(new short[] { GCDfx.iSTEP_CURSOR,
-						GCDfx.iSTEP_NEXT }, isDebugMode);
-				setMenuToolEnabled(new short[] { GCDfx.iSTEP_INTO },
-						canStepInto);
-				setMenuToolEnabled(new short[] { GCDfx.iSTEP_RETURN },
-						stepInfo != null);
-				setMenuToolEnabled(new short[] { GCDfx.iSTEP_STOP },
-						stepInfo != null && stepInfo.parentCall != null);
-				setMenuToolEnabled(new short[] { GCDfx.iPAUSE, GCDfx.iSTOP },
-						true);
+				setMenuToolEnabled(new short[] { GCDfx.iEXEC, GCDfx.iEXE_DEBUG }, false);
+				setMenuToolEnabled(new short[] { GCDfx.iSTEP_CURSOR, GCDfx.iSTEP_NEXT }, isDebugMode);
+				setMenuToolEnabled(new short[] { GCDfx.iSTEP_INTO }, canStepInto);
+				setMenuToolEnabled(new short[] { GCDfx.iSTEP_RETURN }, stepInfo != null);
+				setMenuToolEnabled(new short[] { GCDfx.iSTEP_STOP }, stepInfo != null && stepInfo.parentCall != null);
+				setMenuToolEnabled(new short[] { GCDfx.iPAUSE, GCDfx.iSTOP }, true);
 				isPaused = true;
 				break;
 			case RunThread.FINISH:
-				setMenuToolEnabled(new short[] { GCDfx.iEXEC, GCDfx.iEXE_DEBUG,
-						GCDfx.iSTEP_CURSOR, GCDfx.iSTEP_NEXT }, true);
-				setMenuToolEnabled(new short[] { GCDfx.iSTEP_INTO,
-						GCDfx.iSTEP_RETURN, GCDfx.iSTEP_STOP }, false);
-				setMenuToolEnabled(new short[] { GCDfx.iPAUSE, GCDfx.iSTOP },
-						false);
-				setMenuToolEnabled(new short[] { GCDfx.iCALC_AREA,
-						GCDfx.iCALC_LOCK }, canRunCell());
+				setMenuToolEnabled(new short[] { GCDfx.iEXEC, GCDfx.iEXE_DEBUG, GCDfx.iSTEP_CURSOR, GCDfx.iSTEP_NEXT },
+						true);
+				setMenuToolEnabled(new short[] { GCDfx.iSTEP_INTO, GCDfx.iSTEP_RETURN, GCDfx.iSTEP_STOP }, false);
+				setMenuToolEnabled(new short[] { GCDfx.iPAUSE, GCDfx.iSTOP }, false);
+				setMenuToolEnabled(new short[] { GCDfx.iCALC_AREA, GCDfx.iCALC_LOCK }, canRunCell());
 				break;
 			}
 		}
 		if (dfxControl.dfx.getCurrentPrivilege() != PgmCellSet.PRIVILEGE_FULL) {
-			setMenuToolEnabled(new short[] { GCDfx.iEXE_DEBUG,
-					GCDfx.iSTEP_CURSOR, GCDfx.iSTEP_NEXT, GCDfx.iSTEP_INTO,
+			setMenuToolEnabled(new short[] { GCDfx.iEXE_DEBUG, GCDfx.iSTEP_CURSOR, GCDfx.iSTEP_NEXT, GCDfx.iSTEP_INTO,
 					GCDfx.iSTEP_RETURN, GCDfx.iSTEP_STOP, GCDfx.iPAUSE }, false);
 			isPaused = false;
 			editable = false;
@@ -2043,8 +1888,7 @@ public class SheetDfx extends IPrjxSheet implements IEditorListener {
 							if (runThread != null) {
 								runThread.pause();
 							}
-							if (runThread != null
-									&& runThread.getRunState() != RunThread.FINISH) {
+							if (runThread != null && runThread.getRunState() != RunThread.FINISH) {
 								if (tg != null) {
 									try {
 										if (tg != null)
@@ -2136,14 +1980,12 @@ public class SheetDfx extends IPrjxSheet implements IEditorListener {
 	/**
 	 * 设置执行格坐标
 	 * 
-	 * @param cl
-	 *            坐标
+	 * @param cl 坐标
 	 */
 	private void setExeLocation(CellLocation cl) {
 		exeLocation = cl;
 		if (cl != null) {
-			dfxControl.setStepPosition(new CellLocation(cl.getRow(), cl
-					.getCol()));
+			dfxControl.setStepPosition(new CellLocation(cl.getRow(), cl.getCol()));
 			lastLocation = new CellLocation(cl.getRow(), cl.getCol());
 		} else {
 			dfxControl.setStepPosition(null);
@@ -2280,11 +2122,10 @@ public class SheetDfx extends IPrjxSheet implements IEditorListener {
 		// 没有子程序的网格，或者有子程序但是已经中断执行的call网格，都提示保存
 		if (isChanged && (stepInfo == null || isStepStopCall())) {
 			String t1, t2;
-			t1 = IdeCommonMessage.get().getMessage("public.querysave",
-					IdeCommonMessage.get().getMessage("public.file"), filePath);
+			t1 = IdeCommonMessage.get().getMessage("public.querysave", IdeCommonMessage.get().getMessage("public.file"),
+					filePath);
 			t2 = IdeCommonMessage.get().getMessage("public.save");
-			int option = JOptionPane.showConfirmDialog(GV.appFrame, t1, t2,
-					JOptionPane.YES_NO_CANCEL_OPTION);
+			int option = JOptionPane.showConfirmDialog(GV.appFrame, t1, t2, JOptionPane.YES_NO_CANCEL_OPTION);
 			switch (option) {
 			case JOptionPane.YES_OPTION:
 				if (!save())
@@ -2387,8 +2228,7 @@ public class SheetDfx extends IPrjxSheet implements IEditorListener {
 	/**
 	 * 请先保存当前文件
 	 */
-	private static final String ERROR_NOT_SAVE = IdeDfxMessage.get()
-			.getMessage("sheetdfx.savefilebefore");
+	private static final String ERROR_NOT_SAVE = IdeDfxMessage.get().getMessage("sheetdfx.savefilebefore");
 
 	/**
 	 * 导入同名文本文件
@@ -2409,12 +2249,9 @@ public class SheetDfx extends IPrjxSheet implements IEditorListener {
 			synchronized (threadLock) {
 				if (runThread != null) {
 					// 有未执行完成的任务，是否中断执行？
-					int option = JOptionPane.showOptionDialog(
-							GV.appFrame,
-							IdeDfxMessage.get().getMessage(
-									"sheetdfx.queryclosethread"), IdeDfxMessage
-									.get().getMessage("sheetdfx.closethread"),
-							JOptionPane.YES_NO_OPTION,
+					int option = JOptionPane.showOptionDialog(GV.appFrame,
+							IdeDfxMessage.get().getMessage("sheetdfx.queryclosethread"),
+							IdeDfxMessage.get().getMessage("sheetdfx.closethread"), JOptionPane.YES_NO_OPTION,
 							JOptionPane.QUESTION_MESSAGE, null, null, null);
 					if (option == JOptionPane.OK_OPTION) {
 						runThread.closeThread();
@@ -2432,13 +2269,10 @@ public class SheetDfx extends IPrjxSheet implements IEditorListener {
 			EditControl control = (EditControl) dfxEditor.getComponent();
 			boolean isEditable = control.getContentPanel().isEditable();
 			PgmCellSet cellSet = dfxControl.dfx;
-			String txtPath = filePath.substring(0, filePath.length()
-					- GC.FILE_DFX.length())
-					+ GC.FILE_TXT;
-			CellRect rect = new CellRect(1, 1, cellSet.getRowCount(),
-					cellSet.getColCount());
-			Vector<IAtomicCmd> cmds = dfxEditor.getClearRectCmds(rect,
-					DfxEditor.CLEAR);
+			int index = filePath.lastIndexOf(".");
+			String txtPath = filePath.substring(0, index) + "." + AppConsts.FILE_TXT;
+			CellRect rect = new CellRect(1, 1, cellSet.getRowCount(), cellSet.getColCount());
+			Vector<IAtomicCmd> cmds = dfxEditor.getClearRectCmds(rect, DfxEditor.CLEAR);
 			dfxEditor.executeCmd(cmds);
 			CellSetTxtUtil.readCellSet(txtPath, cellSet);
 			dfxEditor.setCellSet(cellSet);
@@ -2475,12 +2309,9 @@ public class SheetDfx extends IPrjxSheet implements IEditorListener {
 			synchronized (threadLock) {
 				if (runThread != null) {
 					// 有未执行完成的任务，是否中断执行？
-					int option = JOptionPane.showOptionDialog(
-							GV.appFrame,
-							IdeDfxMessage.get().getMessage(
-									"sheetdfx.queryclosethread"), IdeDfxMessage
-									.get().getMessage("sheetdfx.closethread"),
-							JOptionPane.YES_NO_OPTION,
+					int option = JOptionPane.showOptionDialog(GV.appFrame,
+							IdeDfxMessage.get().getMessage("sheetdfx.queryclosethread"),
+							IdeDfxMessage.get().getMessage("sheetdfx.closethread"), JOptionPane.YES_NO_OPTION,
 							JOptionPane.QUESTION_MESSAGE, null, null, null);
 					if (option == JOptionPane.OK_OPTION) {
 						runThread.closeThread();
@@ -2518,8 +2349,7 @@ public class SheetDfx extends IPrjxSheet implements IEditorListener {
 	/**
 	 * 执行命令
 	 * 
-	 * @param cmd
-	 *            GCDfx中定义的常量
+	 * @param cmd GCDfx中定义的常量
 	 */
 	public void executeCmd(short cmd) {
 		switch (cmd) {
@@ -2770,8 +2600,7 @@ public class SheetDfx extends IPrjxSheet implements IEditorListener {
 			}
 			break;
 		case GCDfx.iSQLGENERATOR: {
-			DialogSelectDataSource dsds = new DialogSelectDataSource(
-					DialogSelectDataSource.TYPE_SQL);
+			DialogSelectDataSource dsds = new DialogSelectDataSource(DialogSelectDataSource.TYPE_SQL);
 			dsds.setVisible(true);
 			if (dsds.getOption() != JOptionPane.OK_OPTION) {
 				return;
@@ -2793,11 +2622,9 @@ public class SheetDfx extends IPrjxSheet implements IEditorListener {
 			if (isChanged) {
 				String t1, t2;
 				t1 = IdeCommonMessage.get().getMessage("public.querysave",
-						IdeCommonMessage.get().getMessage("public.file"),
-						filePath);
+						IdeCommonMessage.get().getMessage("public.file"), filePath);
 				t2 = IdeCommonMessage.get().getMessage("public.save");
-				int option = JOptionPane.showConfirmDialog(GV.appFrame, t1, t2,
-						JOptionPane.YES_NO_CANCEL_OPTION);
+				int option = JOptionPane.showConfirmDialog(GV.appFrame, t1, t2, JOptionPane.YES_NO_CANCEL_OPTION);
 				switch (option) {
 				case JOptionPane.YES_OPTION:
 					if (!save())
@@ -2865,8 +2692,7 @@ public class SheetDfx extends IPrjxSheet implements IEditorListener {
 	/**
 	 * 设置网格对象
 	 * 
-	 * @param cellSet
-	 *            网格对象
+	 * @param cellSet 网格对象
 	 */
 	public void setCellSet(Object cellSet) {
 		try {
@@ -2879,8 +2705,7 @@ public class SheetDfx extends IPrjxSheet implements IEditorListener {
 	/**
 	 * 设置网格是否修改了
 	 * 
-	 * @param isChanged
-	 *            网格是否修改了
+	 * @param isChanged 网格是否修改了
 	 */
 	public void setChanged(boolean isChanged) {
 		dfxEditor.setDataChanged(isChanged);
@@ -2899,8 +2724,7 @@ public class SheetDfx extends IPrjxSheet implements IEditorListener {
 		/**
 		 * 构造函数
 		 * 
-		 * @param sheet
-		 *            页对象
+		 * @param sheet 页对象
 		 */
 		public Listener(SheetDfx sheet) {
 			super();
@@ -2918,9 +2742,7 @@ public class SheetDfx extends IPrjxSheet implements IEditorListener {
 
 					GVDfx.dfxEditor = sheet.dfxEditor;
 					sheet.dfxControl.repaint();
-					GV.appFrame.changeMenuAndToolBar(
-							((DFX) GV.appFrame).newMenuDfx(),
-							GVDfx.getDfxTool());
+					GV.appFrame.changeMenuAndToolBar(((DFX) GV.appFrame).newMenuDfx(), GVDfx.getDfxTool());
 
 					GV.appMenu.addLiveMenu(sheet.getSheetTitle());
 					GV.appMenu.resetPrivilegeMenu();
@@ -2940,8 +2762,7 @@ public class SheetDfx extends IPrjxSheet implements IEditorListener {
 					GVDfx.panelDfxWatch.setCellSet(sheet.dfxControl.dfx);
 					GVDfx.panelDfxWatch.watch(sheet.getDfxContext());
 					GVDfx.panelValue.setCellSet(sheet.dfxControl.dfx);
-					if (GVDfx.searchDialog != null
-							&& GVDfx.searchDialog.isVisible()) {
+					if (GVDfx.searchDialog != null && GVDfx.searchDialog.isVisible()) {
 						if (dfxEditor != null)
 							GVDfx.searchDialog.setControl(dfxEditor);
 					}

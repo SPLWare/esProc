@@ -40,17 +40,15 @@ public class ConfigWriter {
 	/**
 	 * System line separator
 	 */
-	protected final String separator = System.getProperties()
-			.getProperty("os.name").toUpperCase().indexOf("WINDOWS") != -1 ? "\n"
-			: System.getProperties().getProperty("line.separator");
+	protected final String separator = System.getProperties().getProperty("os.name").toUpperCase()
+			.indexOf("WINDOWS") != -1 ? "\n" : System.getProperties().getProperty("line.separator");
 
 	/**
 	 * Constructor
 	 */
 	public ConfigWriter() {
 		try {
-			SAXTransformerFactory fac = (SAXTransformerFactory) SAXTransformerFactory
-					.newInstance();
+			SAXTransformerFactory fac = (SAXTransformerFactory) SAXTransformerFactory.newInstance();
 			handler = fac.newTransformerHandler();
 			Transformer transformer = handler.getTransformer();
 			/* Set the encoding method used for output */
@@ -58,8 +56,7 @@ public class ConfigWriter {
 			/* Whether to automatically add extra blanks */
 			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 			/* Whether to ignore the xml declaration */
-			transformer
-					.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "no");
+			transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "no");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -72,8 +69,7 @@ public class ConfigWriter {
 	 * @param attrs
 	 * @throws SAXException
 	 */
-	protected void startElement(String objectElement, AttributesImpl attrs)
-			throws SAXException {
+	protected void startElement(String objectElement, AttributesImpl attrs) throws SAXException {
 		if (attrs == null) {
 			attrs = new AttributesImpl();
 		}
@@ -137,8 +133,8 @@ public class ConfigWriter {
 	}
 
 	/**
-	 * Write out the configuration file. Version 2 changes: logLevel is moved
-	 * from Esproc to Runtime.
+	 * Write out the configuration file. Version 2 changes: logLevel is moved from
+	 * Esproc to Runtime.
 	 * 
 	 * @param out
 	 * @param config
@@ -151,7 +147,7 @@ public class ConfigWriter {
 		handler.startDocument();
 		/* Set the root node and version */
 		handler.startElement("", "", ConfigConsts.CONFIG,
-				getAttributesImpl(new String[] { ConfigConsts.VERSION, "2" }));
+				getAttributesImpl(new String[] { ConfigConsts.VERSION, "3" }));
 		writeRuntime(config);
 		writeInit(config);
 		writeServer(config);
@@ -187,28 +183,20 @@ public class ConfigWriter {
 			for (int i = 0, size = dbList.size(); i < size; i++) {
 				dbConfig = dbList.get(i);
 				level = 3;
-				startElement(ConfigConsts.DB, getAttributesImpl(new String[] {
-						ConfigConsts.NAME, dbConfig.getName() }));
+				startElement(ConfigConsts.DB,
+						getAttributesImpl(new String[] { ConfigConsts.NAME, dbConfig.getName() }));
 				level = 4;
 				writeNameValueElement(ConfigConsts.DB_URL, dbConfig.getUrl());
-				writeNameValueElement(ConfigConsts.DB_DRIVER,
-						dbConfig.getDriver());
-				writeNameValueElement(ConfigConsts.DB_TYPE,
-						dbConfig.getDBType() + "");
+				writeNameValueElement(ConfigConsts.DB_DRIVER, dbConfig.getDriver());
+				writeNameValueElement(ConfigConsts.DB_TYPE, dbConfig.getDBType() + "");
 				writeNameValueElement(ConfigConsts.DB_USER, dbConfig.getUser());
 				String pwd = dbConfig.getPassword();
 				writeNameValueElement(ConfigConsts.DB_PASSWORD, pwd);
-				writeNameValueElement(ConfigConsts.DB_BATCH_SIZE,
-						dbConfig.getBatchSize() + "");
-				writeNameValueElement(
-						ConfigConsts.DB_AUTO_CONNECT,
-						String.valueOf(autoConnectedList != null
-								&& autoConnectedList.contains(dbConfig
-										.getName())));
-				writeNameValueElement(ConfigConsts.DB_USE_SCHEMA,
-						String.valueOf(dbConfig.isUseSchema()));
-				writeNameValueElement(ConfigConsts.DB_ADD_TILDE,
-						String.valueOf(dbConfig.isAddTilde()));
+				writeNameValueElement(ConfigConsts.DB_BATCH_SIZE, dbConfig.getBatchSize() + "");
+				writeNameValueElement(ConfigConsts.DB_AUTO_CONNECT,
+						String.valueOf(autoConnectedList != null && autoConnectedList.contains(dbConfig.getName())));
+				writeNameValueElement(ConfigConsts.DB_USE_SCHEMA, String.valueOf(dbConfig.isUseSchema()));
+				writeNameValueElement(ConfigConsts.DB_ADD_TILDE, String.valueOf(dbConfig.isAddTilde()));
 				String extend = dbConfig.getExtend();
 				if (extend != null && extend.trim().length() > 0) {
 					Segment s = new Segment(extend);
@@ -220,19 +208,14 @@ public class ConfigWriter {
 					}
 				}
 				if (StringUtils.isValidString(dbConfig.getDBCharset())) {
-					writeNameValueElement(ConfigConsts.DB_CHARSET,
-							dbConfig.getDBCharset());
+					writeNameValueElement(ConfigConsts.DB_CHARSET, dbConfig.getDBCharset());
 				}
 				if (StringUtils.isValidString(dbConfig.getClientCharset())) {
-					writeNameValueElement(ConfigConsts.DB_CLIENT_CHARSET,
-							dbConfig.getClientCharset());
+					writeNameValueElement(ConfigConsts.DB_CLIENT_CHARSET, dbConfig.getClientCharset());
 				}
-				writeNameValueElement(ConfigConsts.DB_TRANS_CONTENT,
-						String.valueOf(dbConfig.getNeedTranContent()));
-				writeNameValueElement(ConfigConsts.DB_TRANS_SENTENCE,
-						String.valueOf(dbConfig.getNeedTranSentence()));
-				writeNameValueElement(ConfigConsts.DB_CASE_SENTENCE,
-						String.valueOf(dbConfig.isCaseSentence()));
+				writeNameValueElement(ConfigConsts.DB_TRANS_CONTENT, String.valueOf(dbConfig.getNeedTranContent()));
+				writeNameValueElement(ConfigConsts.DB_TRANS_SENTENCE, String.valueOf(dbConfig.getNeedTranSentence()));
+				writeNameValueElement(ConfigConsts.DB_CASE_SENTENCE, String.valueOf(dbConfig.isCaseSentence()));
 				level = 3;
 				endElement(ConfigConsts.DB);
 			}
@@ -260,16 +243,13 @@ public class ConfigWriter {
 			for (int i = 0, size = xmlaList.size(); i < size; i++) {
 				xmla = xmlaList.get(i);
 				level = 3;
-				startElement(ConfigConsts.XMLA, getAttributesImpl(new String[] {
-						ConfigConsts.NAME, xmla.getName() }));
+				startElement(ConfigConsts.XMLA, getAttributesImpl(new String[] { ConfigConsts.NAME, xmla.getName() }));
 				level = 4;
 				writeNameValueElement(ConfigConsts.XMLA_TYPE, xmla.getType());
 				writeNameValueElement(ConfigConsts.XMLA_URL, xmla.getUrl());
-				writeNameValueElement(ConfigConsts.XMLA_CATALOG,
-						xmla.getCatalog());
+				writeNameValueElement(ConfigConsts.XMLA_CATALOG, xmla.getCatalog());
 				writeNameValueElement(ConfigConsts.XMLA_USER, xmla.getUser());
-				writeNameValueElement(ConfigConsts.XMLA_PASSWORD,
-						xmla.getPassword());
+				writeNameValueElement(ConfigConsts.XMLA_PASSWORD, xmla.getPassword());
 				level = 3;
 				endElement(ConfigConsts.XMLA);
 			}
@@ -301,8 +281,7 @@ public class ConfigWriter {
 		}
 		writeAttribute(ConfigConsts.DATE_FORMAT, config.getDateFormat());
 		writeAttribute(ConfigConsts.TIME_FORMAT, config.getTimeFormat());
-		writeAttribute(ConfigConsts.DATE_TIME_FORMAT,
-				config.getDateTimeFormat());
+		writeAttribute(ConfigConsts.DATE_TIME_FORMAT, config.getDateTimeFormat());
 
 		writeAttribute(ConfigConsts.MAIN_PATH, config.getMainPath());
 		writeAttribute(ConfigConsts.TEMP_PATH, config.getTempPath());
@@ -310,8 +289,7 @@ public class ConfigWriter {
 		writeAttribute(ConfigConsts.LOCAL_HOST, config.getLocalHost());
 		writeAttribute(ConfigConsts.LOCAL_PORT, config.getLocalPort());
 		writeAttribute(ConfigConsts.PARALLEL_NUM, config.getParallelNum());
-		writeAttribute(ConfigConsts.CURSOR_PARALLEL_NUM,
-				config.getCursorParallelNum());
+		writeAttribute(ConfigConsts.CURSOR_PARALLEL_NUM, config.getCursorParallelNum());
 		writeAttribute(ConfigConsts.BLOCK_SIZE, config.getBlockSize());
 		writeAttribute(ConfigConsts.NULL_STRINGS, config.getNullStrings());
 		writeAttribute(ConfigConsts.FETCH_COUNT, config.getFetchCount());
@@ -327,8 +305,7 @@ public class ConfigWriter {
 	 * @param importLibs
 	 * @throws SAXException
 	 */
-	protected void writeImportLibList(List<String> importLibs)
-			throws SAXException {
+	protected void writeImportLibList(List<String> importLibs) throws SAXException {
 		if (importLibs == null || importLibs.isEmpty())
 			return;
 		level = 3;
@@ -366,8 +343,7 @@ public class ConfigWriter {
 		String defDataSource = config.getDefDataSource();
 		if (!StringUtils.isValidString(defDataSource)) {
 			if (config.getJNDIList() == null || config.getJNDIList().isEmpty()) {
-				if (config.getServerProperties() == null
-						|| config.getServerProperties().isEmpty())
+				if (config.getServerProperties() == null || config.getServerProperties().isEmpty())
 					return;
 			}
 		}
@@ -375,8 +351,7 @@ public class ConfigWriter {
 		startElement(ConfigConsts.SERVER, null);
 		level = 2;
 		if (StringUtils.isValidString(defDataSource)) {
-			writeAttribute(ConfigConsts.DEF_DATA_SOURCE,
-					config.getDefDataSource());
+			writeAttribute(ConfigConsts.DEF_DATA_SOURCE, config.getDefDataSource());
 		}
 		writeJNDIList(config.getJNDIList());
 		writeServerProperties(config.getServerProperties());
@@ -411,15 +386,12 @@ public class ConfigWriter {
 		if (config == null)
 			return;
 		level = 3;
-		startElement(ConfigConsts.JNDI, getAttributesImpl(new String[] {
-				ConfigConsts.NAME, config.getName() }));
+		startElement(ConfigConsts.JNDI, getAttributesImpl(new String[] { ConfigConsts.NAME, config.getName() }));
 		writeNameValueElement(ConfigConsts.DB_TYPE, config.getDBType() + "");
-		writeNameValueElement(ConfigConsts.BATCH_SIZE, config.getBatchSize()
-				+ "");
+		writeNameValueElement(ConfigConsts.BATCH_SIZE, config.getBatchSize() + "");
 		writeNameValueElement(ConfigConsts.LOOKUP, config.getJNDI());
 		if (StringUtils.isValidString(config.getDBCharset()))
-			writeNameValueElement(ConfigConsts.DB_CHARSET,
-					config.getDBCharset());
+			writeNameValueElement(ConfigConsts.DB_CHARSET, config.getDBCharset());
 		endElement(ConfigConsts.JNDI);
 	}
 
@@ -448,8 +420,7 @@ public class ConfigWriter {
 	 * @param value
 	 * @throws SAXException
 	 */
-	protected void writeNameValueElement(String name, String value)
-			throws SAXException {
+	protected void writeNameValueElement(String name, String value) throws SAXException {
 		writeNameValueElement(ConfigConsts.PROPERTY, name, value);
 	}
 
@@ -460,24 +431,21 @@ public class ConfigWriter {
 	 * @param value
 	 * @throws SAXException
 	 */
-	protected void writeExtendedDBElement(String name, String value)
-			throws SAXException {
+	protected void writeExtendedDBElement(String name, String value) throws SAXException {
 		writeNameValueElement(ConfigConsts.EXTENDED, name, value);
 	}
 
 	/**
 	 * Write out the element containing the name and value
 	 * 
-	 * @param elementName
-	 *            the element name
+	 * @param elementName the element name
 	 * @param name
 	 * @param value
 	 * @throws SAXException
 	 */
-	protected void writeNameValueElement(String elementName, String name,
-			String value) throws SAXException {
-		startElement(elementName, getAttributesImpl(new String[] {
-				ConfigConsts.NAME, name, ConfigConsts.VALUE, value }));
+	protected void writeNameValueElement(String elementName, String name, String value) throws SAXException {
+		startElement(elementName,
+				getAttributesImpl(new String[] { ConfigConsts.NAME, name, ConfigConsts.VALUE, value }));
 		endEmptyElement(elementName);
 	}
 
@@ -494,7 +462,7 @@ public class ConfigWriter {
 		level = 1;
 		startElement(ConfigConsts.INIT, null);
 		level = 2;
-		writeAttribute(ConfigConsts.DFX, config.getInitDfx());
+		writeAttribute(ConfigConsts.SPL, config.getInitDfx());
 		level = 1;
 		endElement(ConfigConsts.INIT);
 	}
@@ -506,11 +474,9 @@ public class ConfigWriter {
 	 * @throws SAXException
 	 */
 	protected void writeJDBC(RaqsoftConfig config) throws SAXException {
-		boolean hasLoad = !new RaqsoftConfig().getJdbcLoad().equals(
-				config.getJdbcLoad());
+		boolean hasLoad = !new RaqsoftConfig().getJdbcLoad().equals(config.getJdbcLoad());
 		boolean hasGateway = StringUtils.isValidString(config.getGateway());
-		boolean hasUnit = config.getUnitList() != null
-				&& !config.getUnitList().isEmpty();
+		boolean hasUnit = config.getUnitList() != null && !config.getUnitList().isEmpty();
 		if (!config.isJdbcNode())
 			if (!hasGateway && !hasUnit) {
 				return;
@@ -560,8 +526,7 @@ public class ConfigWriter {
 		int size = attrs.length;
 		for (int i = 0; i < size; i += 2) {
 			if (attrs[i + 1] != null)
-				attrImpl.addAttribute("", "", attrs[i], String.class.getName(),
-						String.valueOf(attrs[i + 1]));
+				attrImpl.addAttribute("", "", attrs[i], String.class.getName(), String.valueOf(attrs[i + 1]));
 		}
 		return attrImpl;
 	}
@@ -574,8 +539,7 @@ public class ConfigWriter {
 	 * @throws SAXException
 	 * @throws IOException
 	 */
-	public void writeUnitConfig(String filePath, UnitConfig config)
-			throws SAXException, IOException {
+	public void writeUnitConfig(String filePath, UnitConfig config) throws SAXException, IOException {
 		FileOutputStream fos = null;
 		BufferedOutputStream bos = null;
 		try {
@@ -598,14 +562,12 @@ public class ConfigWriter {
 	 * @param config
 	 * @throws SAXException
 	 */
-	public void writeUnitConfig(OutputStream out, UnitConfig config)
-			throws SAXException {
+	public void writeUnitConfig(OutputStream out, UnitConfig config) throws SAXException {
 		Result resultxml = new StreamResult(out);
 		handler.setResult(resultxml);
 		level = 0;
 		handler.startDocument();
-		handler.startElement("", "", "SERVER", getAttributesImpl(new String[] {
-				ConfigConsts.VERSION, "1" }));
+		handler.startElement("", "", "SERVER", getAttributesImpl(new String[] { ConfigConsts.VERSION, "1" }));
 		level = 1;
 		writeAttribute("TempTimeOut", config.getTempTimeOut() + "");
 		writeAttribute("Interval", config.getInterval() + "");

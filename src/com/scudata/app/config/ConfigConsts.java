@@ -137,7 +137,7 @@ public class ConfigConsts {
 	 * Initialize dfx
 	 */
 	public static String INIT = "Init";
-	public static String DFX = "dfx";
+	public static String SPL = "SPL";
 
 	/**
 	 * Server Configuration

@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.util.Locale;
 
+import com.scudata.app.common.AppConsts;
 import com.scudata.ide.common.resources.IdeCommonMessage;
 
 /**
@@ -157,27 +158,27 @@ public class GC {
 	 * File extension
 	 */
 	/** DFX file extension */
-	public static final String FILE_DFX = "dfx";
+	public static final String FILE_DFX = AppConsts.FILE_DFX;
 	/** SPL file extension */
-	public static final String FILE_SPL = "spl";
+	public static final String FILE_SPL = AppConsts.FILE_SPL;
 	/** TXT file extension */
-	public static final String FILE_TXT = "txt";
+	public static final String FILE_TXT = AppConsts.FILE_TXT;
 	/** CSV file extension */
-	public static final String FILE_CSV = "csv";
+	public static final String FILE_CSV = AppConsts.FILE_CSV;
 	/** XLS file extension */
-	public static final String FILE_XLS = "xls";
+	public static final String FILE_XLS = AppConsts.FILE_XLS;
 	/** XLSX file extension */
-	public static final String FILE_XLSX = "xlsx";
+	public static final String FILE_XLSX = AppConsts.FILE_XLSX;
 	/** HTML file extension */
-	public static final String FILE_HTML = "html";
+	public static final String FILE_HTML = AppConsts.FILE_HTML;
 	/** XML file extension */
-	public static final String FILE_XML = "xml";
+	public static final String FILE_XML = AppConsts.FILE_XML;
 	/** LOG file extension */
-	public static final String FILE_LOG = "log";
+	public static final String FILE_LOG = AppConsts.FILE_LOG;
 	/** Binary file extension */
-	public static final String FILE_BTX = "btx";
+	public static final String FILE_BTX = AppConsts.FILE_BTX;;
 	/** Group table file extension */
-	public static final String FILE_CTX = "ctx";
+	public static final String FILE_CTX = AppConsts.FILE_CTX;
 
 	/**
 	 * Tree node status

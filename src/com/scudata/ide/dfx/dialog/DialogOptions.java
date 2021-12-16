@@ -40,6 +40,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 
+import com.scudata.app.common.AppConsts;
 import com.scudata.app.config.ConfigUtil;
 import com.scudata.app.config.RaqsoftConfig;
 import com.scudata.cellset.IStyle;
@@ -1039,7 +1040,7 @@ public class DialogOptions extends JDialog {
 		jBInitDfx.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				File f = GM.dialogSelectFile(GC.FILE_DFX, parent);
+				File f = GM.dialogSelectFile(AppConsts.SPL_FILE_EXTS, parent);
 				if (f != null) {
 					jTFInitDfx.setText(f.getAbsolutePath());
 				}

@@ -29,6 +29,7 @@ import javax.swing.tree.ExpandVetoException;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
+import com.scudata.app.common.AppUtil;
 import com.scudata.app.config.ConfigUtil;
 import com.scudata.common.Logger;
 import com.scudata.common.MessageManager;
@@ -68,13 +69,11 @@ public class FileTree extends JTree implements IResourceTree {
 	/**
 	 * 未设置应用资源路径
 	 */
-	private static final String NO_MAIN_PATH = mm
-			.getMessage("filetree.nomainpath");
+	private static final String NO_MAIN_PATH = mm.getMessage("filetree.nomainpath");
 	/**
 	 * DEMO目录不存在
 	 */
-	private static final String NO_DEMO_DIR = mm
-			.getMessage("filetree.nodemodir");
+	private static final String NO_DEMO_DIR = mm.getMessage("filetree.nodemodir");
 	/**
 	 * 应用资源
 	 */
@@ -82,13 +81,11 @@ public class FileTree extends JTree implements IResourceTree {
 	/**
 	 * 服务器资源
 	 */
-	private static final String SERVER_FILE_TREE = mm
-			.getMessage("filetree.serverfiletree");
+	private static final String SERVER_FILE_TREE = mm.getMessage("filetree.serverfiletree");
 	/**
 	 * 无服务器资源
 	 */
-	private static final String NO_SERVER_FILE_TREE = mm
-			.getMessage("filetree.noserverfiletree");
+	private static final String NO_SERVER_FILE_TREE = mm.getMessage("filetree.noserverfiletree");
 
 	/**
 	 * 构造函数
@@ -124,14 +121,12 @@ public class FileTree extends JTree implements IResourceTree {
 		addMouseListener(new mTree_mouseAdapter());
 		this.addTreeWillExpandListener(new TreeWillExpandListener() {
 
-			public void treeWillExpand(TreeExpansionEvent event)
-					throws ExpandVetoException {
+			public void treeWillExpand(TreeExpansionEvent event) throws ExpandVetoException {
 				TreePath path = event.getPath();
 				if (path == null)
 					return;
 				FileTreeNode node = (FileTreeNode) path.getLastPathComponent();
-				if (node.getUserObject() instanceof Server
-						|| node.getUserObject() instanceof FileInfo) {
+				if (node.getUserObject() instanceof Server || node.getUserObject() instanceof FileInfo) {
 					GV.selectServer = node.getServerName();
 				}
 				if (node != null && !node.isLoaded()) {
@@ -151,8 +146,7 @@ public class FileTree extends JTree implements IResourceTree {
 				}
 			}
 
-			public void treeWillCollapse(TreeExpansionEvent event)
-					throws ExpandVetoException {
+			public void treeWillCollapse(TreeExpansionEvent event) throws ExpandVetoException {
 				TreePath path = event.getPath();
 				if (path == null)
 					return;
@@ -173,8 +167,7 @@ public class FileTree extends JTree implements IResourceTree {
 	/**
 	 * 保存展开状态
 	 * 
-	 * @param dl
-	 *            文件树的位置
+	 * @param dl 文件树的位置
 	 */
 	public void saveExpandState(int dl) {
 		try {
@@ -232,8 +225,7 @@ public class FileTree extends JTree implements IResourceTree {
 		if (ConfigOptions.bFileTreeDemo) {
 			File demoDir = new File(home, "demo");
 			if (demoDir.exists()) {
-				if (GC.LANGUAGE == GC.ASIAN_CHINESE
-						|| GC.LANGUAGE == GC.ASIAN_CHINESE_TRADITIONAL) {
+				if (GC.LANGUAGE == GC.ASIAN_CHINESE || GC.LANGUAGE == GC.ASIAN_CHINESE_TRADITIONAL) {
 					demoDir = new File(demoDir, "zh");
 				} else {
 					demoDir = new File(demoDir, "en");
@@ -289,8 +281,7 @@ public class FileTree extends JTree implements IResourceTree {
 					List<String> expandList = Arrays.asList(expands);
 					int count = localRoot.getChildCount();
 					for (int i = 0; i < count; i++) {
-						expandTree((FileTreeNode) localRoot.getChildAt(i),
-								expandList);
+						expandTree((FileTreeNode) localRoot.getChildAt(i), expandList);
 					}
 				}
 			} catch (Exception ex) {
@@ -314,14 +305,11 @@ public class FileTree extends JTree implements IResourceTree {
 					FileTreeNode serverNode;
 					Server server = GV.serverList.get(i);
 					if (server != null) {
-						serverNode = new FileTreeNode(server,
-								FileTreeNode.TYPE_SERVER);
+						serverNode = new FileTreeNode(server, FileTreeNode.TYPE_SERVER);
 						serverNode.setDir(true);
-						serverNode.setTitle(server.getName() + " : "
-								+ server.getUrl());
+						serverNode.setTitle(server.getName() + " : " + server.getUrl());
 						serverNode.setServerName(server.getName());
-						if (StringUtils.isValidString(serverName)
-								&& serverName.equals(server.getName())) {
+						if (StringUtils.isValidString(serverName) && serverName.equals(server.getName())) {
 							serverNode.setExpanded(true);
 						} else {
 							serverNode.setExpanded(false);
@@ -335,11 +323,8 @@ public class FileTree extends JTree implements IResourceTree {
 				if (count > 0) {
 					Enumeration children = serverRoot.children();
 					if (children.hasMoreElements()) {
-						FileTreeNode serverNode = (FileTreeNode) children
-								.nextElement();
-						if (StringUtils.isValidString(serverName)
-								&& serverName
-										.equals(serverNode.getServerName())) {
+						FileTreeNode serverNode = (FileTreeNode) children.nextElement();
+						if (StringUtils.isValidString(serverName) && serverName.equals(serverNode.getServerName())) {
 							serverNode.setExpanded(true);
 							loadServerFileTree(serverNode, true);
 							return;
@@ -371,8 +356,7 @@ public class FileTree extends JTree implements IResourceTree {
 				String fileName = fileInfo.getFilename();
 				if (!StringUtils.isValidString(fileName))
 					continue;
-				FileTreeNode node = new FileTreeNode(fileInfo,
-						FileTreeNode.TYPE_SERVER);
+				FileTreeNode node = new FileTreeNode(fileInfo, FileTreeNode.TYPE_SERVER);
 				node.setTitle(fileName);
 				node.setServerName(server.getName());
 				boolean isDir = fileInfo.isDirectory();
@@ -386,14 +370,12 @@ public class FileTree extends JTree implements IResourceTree {
 				}
 			}
 			for (FileInfo fileInfo : files) {
-				if (fileInfo == null
-						|| !StringUtils.isValidString(fileInfo.getFilename()))
+				if (fileInfo == null || !StringUtils.isValidString(fileInfo.getFilename()))
 					continue;
 				String fileName = fileInfo.getFilename();
 				if (!StringUtils.isValidString(fileName))
 					continue;
-				FileTreeNode node = new FileTreeNode(fileInfo,
-						FileTreeNode.TYPE_SERVER);
+				FileTreeNode node = new FileTreeNode(fileInfo, FileTreeNode.TYPE_SERVER);
 				node.setTitle(fileName);
 				node.setServerName(server.getName());
 				boolean isDir = fileInfo.isDirectory();
@@ -404,8 +386,7 @@ public class FileTree extends JTree implements IResourceTree {
 					}
 				}
 			}
-		} else if (serverNode != null
-				&& serverNode.getUserObject() instanceof FileInfo) {
+		} else if (serverNode != null && serverNode.getUserObject() instanceof FileInfo) {
 			Server server = GV.getServer(serverNode.getServerName());
 			if (server == null)
 				return;
@@ -420,8 +401,7 @@ public class FileTree extends JTree implements IResourceTree {
 				String fileName = fileInfo.getFilename();
 				if (!StringUtils.isValidString(fileName))
 					continue;
-				FileTreeNode node = new FileTreeNode(fileInfo,
-						FileTreeNode.TYPE_SERVER);
+				FileTreeNode node = new FileTreeNode(fileInfo, FileTreeNode.TYPE_SERVER);
 				node.setTitle(fileName);
 				node.setServerName(server.getName());
 				boolean isDir = fileInfo.isDirectory();
@@ -440,8 +420,7 @@ public class FileTree extends JTree implements IResourceTree {
 				String fileName = fileInfo.getFilename();
 				if (!StringUtils.isValidString(fileName))
 					continue;
-				FileTreeNode node = new FileTreeNode(fileInfo,
-						FileTreeNode.TYPE_SERVER);
+				FileTreeNode node = new FileTreeNode(fileInfo, FileTreeNode.TYPE_SERVER);
 				node.setTitle(fileName);
 				node.setServerName(server.getName());
 				boolean isDir = fileInfo.isDirectory();
@@ -455,8 +434,7 @@ public class FileTree extends JTree implements IResourceTree {
 		} else {
 			if (GV.serverList != null && GV.serverList.size() > 0) {
 				for (Server server : GV.serverList) {
-					FileTreeNode sn = new FileTreeNode(server,
-							FileTreeNode.TYPE_SERVER);
+					FileTreeNode sn = new FileTreeNode(server, FileTreeNode.TYPE_SERVER);
 					sn.setDir(true);
 					sn.setExpanded(true);
 					sn.setTitle(server.getName());
@@ -494,8 +472,7 @@ public class FileTree extends JTree implements IResourceTree {
 	/**
 	 * 加载子结点
 	 * 
-	 * @param pNode
-	 *            父结点
+	 * @param pNode 父结点
 	 */
 	private void loadSubNode(FileTreeNode pNode) {
 		try {
@@ -512,8 +489,7 @@ public class FileTree extends JTree implements IResourceTree {
 				if (!StringUtils.isValidString(fileName)) {
 					continue;
 				}
-				FileTreeNode node = new FileTreeNode(f.getAbsolutePath(),
-						FileTreeNode.TYPE_LOCAL);
+				FileTreeNode node = new FileTreeNode(f.getAbsolutePath(), FileTreeNode.TYPE_LOCAL);
 				node.setTitle(fileName);
 				boolean isDir = f.isDirectory();
 				if (isDir) {
@@ -523,10 +499,8 @@ public class FileTree extends JTree implements IResourceTree {
 					if (subFiles != null && subFiles.length > 0) {
 						for (File subFile : subFiles) {
 							String subName = subFile.getName();
-							if (subFile.isDirectory()
-									|| (subFile.isFile() && isValidFile(subName))) {
-								FileTreeNode subNode = new FileTreeNode(
-										subFile.getAbsolutePath(),
+							if (subFile.isDirectory() || (subFile.isFile() && isValidFile(subName))) {
+								FileTreeNode subNode = new FileTreeNode(subFile.getAbsolutePath(),
 										FileTreeNode.TYPE_LOCAL);
 								subNode.setTitle(subName);
 								subNode.setDir(subFile.isDirectory());
@@ -550,8 +524,7 @@ public class FileTree extends JTree implements IResourceTree {
 				if (existNames.contains(fileName)) { // 已经加载过的子结点
 					continue;
 				}
-				FileTreeNode node = new FileTreeNode(f.getAbsolutePath(),
-						FileTreeNode.TYPE_LOCAL);
+				FileTreeNode node = new FileTreeNode(f.getAbsolutePath(), FileTreeNode.TYPE_LOCAL);
 				node.setTitle(fileName);
 				boolean isDir = f.isDirectory();
 				if (!isDir) {
@@ -574,10 +547,7 @@ public class FileTree extends JTree implements IResourceTree {
 	 * @return
 	 */
 	private boolean isValidFile(String fileName) {
-		if (!StringUtils.isValidString(fileName)) {
-			return false;
-		}
-		return fileName.endsWith(GC.FILE_DFX);
+		return AppUtil.isSPLFile(fileName);
 	}
 
 	/**
@@ -591,8 +561,7 @@ public class FileTree extends JTree implements IResourceTree {
 	/**
 	 * 取右键弹出菜单
 	 * 
-	 * @param node
-	 *            选择的结点
+	 * @param node 选择的结点
 	 * @return
 	 */
 	protected JPopupMenu getPopupMenu(final FileTreeNode node) {
@@ -692,8 +661,7 @@ public class FileTree extends JTree implements IResourceTree {
 
 	protected void menuAction(FileTreeNode node, JMenuItem mi) {
 		String sAction = mi.getName();
-		if (node.getUserObject() instanceof Server
-				|| node.getUserObject() instanceof FileInfo) {
+		if (node.getUserObject() instanceof Server || node.getUserObject() instanceof FileInfo) {
 			// 当点击文件树上服务器节点时，保存该节点所属服务器名称
 			GV.selectServer = node.getServerName();
 		}
@@ -703,17 +671,14 @@ public class FileTree extends JTree implements IResourceTree {
 			break;
 		case OPEN_DIR:
 			try {
-				Desktop.getDesktop().open(
-						new File((String) node.getUserObject()));
+				Desktop.getDesktop().open(new File((String) node.getUserObject()));
 			} catch (Exception ex) {
 				GM.showException(ex);
 			}
 			break;
 		case OPEN_FILE_DIR:
 			try {
-				Desktop.getDesktop()
-						.open(new File((String) node.getUserObject())
-								.getParentFile());
+				Desktop.getDesktop().open(new File((String) node.getUserObject()).getParentFile());
 			} catch (Exception ex) {
 				GM.showException(ex);
 			}
@@ -733,8 +698,7 @@ public class FileTree extends JTree implements IResourceTree {
 			nodeStructureChanged(node);
 			break;
 		case SWITCH_PATH:
-			ConfigOptions.bFileTreeDemo = !ConfigOptions.bFileTreeDemo
-					.booleanValue();
+			ConfigOptions.bFileTreeDemo = !ConfigOptions.bFileTreeDemo.booleanValue();
 			refresh();
 			break;
 		}
@@ -795,8 +759,7 @@ public class FileTree extends JTree implements IResourceTree {
 			} else {
 				showNode(node);
 			}
-			if (node.getUserObject() instanceof Server
-					|| node.getUserObject() instanceof FileInfo) {
+			if (node.getUserObject() instanceof Server || node.getUserObject() instanceof FileInfo) {
 				// 当点击文件树上服务器节点时，保存该节点所属服务器名称
 				GV.selectServer = node.getServerName();
 			}
@@ -814,8 +777,7 @@ public class FileTree extends JTree implements IResourceTree {
 			JPopupMenu pop = getPopupMenu(node);
 			if (pop != null)
 				pop.show(e.getComponent(), e.getX(), e.getY());
-			if (node.getUserObject() instanceof Server
-					|| node.getUserObject() instanceof FileInfo) {
+			if (node.getUserObject() instanceof Server || node.getUserObject() instanceof FileInfo) {
 				// 当点击文件树上服务器节点时，保存该节点所属服务器名称
 				GV.selectServer = node.getServerName();
 			}
@@ -829,8 +791,7 @@ public class FileTree extends JTree implements IResourceTree {
 			if (path == null)
 				return;
 			FileTreeNode node = (FileTreeNode) path.getLastPathComponent();
-			if (node.getUserObject() instanceof Server
-					|| node.getUserObject() instanceof FileInfo) {
+			if (node.getUserObject() instanceof Server || node.getUserObject() instanceof FileInfo) {
 				// 当点击文件树上服务器节点时，保存该节点所属服务器名称
 				GV.selectServer = node.getServerName();
 			}
@@ -923,8 +884,7 @@ public class FileTree extends JTree implements IResourceTree {
 	 * @param data
 	 * @return
 	 */
-	protected FileTreeNode addFileNode(FileTreeNode pNode, String path,
-			Object data) {
+	protected FileTreeNode addFileNode(FileTreeNode pNode, String path, Object data) {
 		if (path == null)
 			return null;
 		StringTokenizer st = new StringTokenizer(path, File.separator);
@@ -1022,8 +982,7 @@ public class FileTree extends JTree implements IResourceTree {
 		TreePath path = new TreePath(node.getPath());
 		expandPath(path);
 		setSelectionPath(path);
-		if (node.getUserObject() instanceof Server
-				|| node.getUserObject() instanceof FileInfo) {
+		if (node.getUserObject() instanceof Server || node.getUserObject() instanceof FileInfo) {
 			// 当点击文件树上服务器节点时，保存该节点所属服务器名称
 			GV.selectServer = node.getServerName();
 		}
@@ -1080,8 +1039,7 @@ public class FileTree extends JTree implements IResourceTree {
 		if (GV.serverList == null)
 			GV.serverList = new ArrayList<Server>();
 		GV.serverList.add(server);
-		FileTreeNode serverNode = new FileTreeNode(server,
-				FileTreeNode.TYPE_SERVER);
+		FileTreeNode serverNode = new FileTreeNode(server, FileTreeNode.TYPE_SERVER);
 		serverNode.setDir(true);
 		serverNode.setExpanded(true);
 		serverNode.setTitle(server.getName());
@@ -1100,8 +1058,7 @@ public class FileTree extends JTree implements IResourceTree {
 			GV.dsModelRemote = new HashMap<String, DataSourceListModel>();
 		}
 		try {
-			GV.dsModelRemote.put(server.getName(),
-					GV.getServerDataSourceListModel(server));
+			GV.dsModelRemote.put(server.getName(), GV.getServerDataSourceListModel(server));
 		} catch (Throwable t) {
 			GM.showException(t);
 		}
@@ -1120,8 +1077,7 @@ public class FileTree extends JTree implements IResourceTree {
 		// 在关闭服务器之前，关闭打开的文件
 		List<String> sheetNameList = GV.appFrame.getSheetNameList();
 		for (String name : sheetNameList) {
-			if (StringUtils.isValidString(name)
-					&& name.startsWith(server.getName())) {
+			if (StringUtils.isValidString(name) && name.startsWith(server.getName())) {
 				((DFX) GV.appFrame).closeSheet(GV.appFrame.getSheet(name));
 			}
 		}
@@ -1152,8 +1108,7 @@ public class FileTree extends JTree implements IResourceTree {
 		GV.dsModelRemote.remove(server.getName());
 		loadServerFileTree(serverRoot, true);
 		nodeStructureChanged(serverRoot);
-		if (server.getName().equals(GV.selectServer)
-				&& GV.serverList.size() > 0) {
+		if (server.getName().equals(GV.selectServer) && GV.serverList.size() > 0) {
 			GV.selectServer = GV.getServerNames().get(0);
 		}
 		// 将注销的远程服务数据源移除到全局配置中
