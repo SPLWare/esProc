@@ -43,8 +43,8 @@ public class MenuBase extends PrjxAppMenu {
 		menu.add(newCommonMenuItem(GC.iNEW, GC.NEW, 'N', ActionEvent.CTRL_MASK, true));
 		menu.add(newCommonMenuItem(GC.iOPEN, GC.OPEN, 'O', ActionEvent.CTRL_MASK, true));
 
-		menuTemp = newSplMenuItem(GCSpl.iSPL_IMPORT_TXT, GCSpl.FILE_LOADTXT, 'I', GC.NO_MASK, true);
-		menu.add(menuTemp);
+		// menuTemp = newSplMenuItem(GCSpl.iSPL_IMPORT_TXT, GCSpl.FILE_LOADTXT, 'I', GC.NO_MASK, true);
+		// menu.add(menuTemp);
 		menu.addSeparator();
 		menu.add(getRecentMainPaths());
 		menu.add(getRecentFile());

@@ -76,11 +76,11 @@ public class MenuSpl extends PrjxAppMenu {
 		// 职场版不显示远程功能
 		menuTemp = newSplMenuItem(GCSpl.iSAVE_FTP, GCSpl.SAVE_FTP, 'P', GC.NO_MASK, true);
 		menu.add(menuTemp);
-		menu.addSeparator();
-		menuTemp = newSplMenuItem(GCSpl.iSPL_IMPORT_TXT, GCSpl.FILE_LOADTXT, 'I', GC.NO_MASK, true);
-		menu.add(menuTemp);
-		menuTemp = newSplMenuItem(GCSpl.iFILE_EXPORTTXT, GCSpl.FILE_EXPORTTXT, 'E', ActionEvent.CTRL_MASK, false);
-		menu.add(menuTemp);
+		// menu.addSeparator();
+		// menuTemp = newSplMenuItem(GCSpl.iSPL_IMPORT_TXT, GCSpl.FILE_LOADTXT, 'I', GC.NO_MASK, true);
+		// menu.add(menuTemp);
+		// menuTemp = newSplMenuItem(GCSpl.iFILE_EXPORTTXT, GCSpl.FILE_EXPORTTXT, 'E', ActionEvent.CTRL_MASK, false);
+		// menu.add(menuTemp);
 
 		menu.addSeparator();
 		menu.add(getRecentMainPaths());
@@ -453,8 +453,8 @@ public class MenuSpl extends PrjxAppMenu {
 	public short[] getAllMenuItems() {
 		short[] menus = new short[] {
 				// 文件
-				GCSpl.iSAVE, GCSpl.iSAVEAS, GCSpl.iSAVEALL, GCSpl.iFILE_REOPEN, GCSpl.iSPL_IMPORT_TXT,
-				GCSpl.iFILE_EXPORTTXT, GCSpl.iSAVE_FTP,
+				GCSpl.iSAVE, GCSpl.iSAVEAS, GCSpl.iSAVEALL, GCSpl.iFILE_REOPEN, GCSpl.iSAVE_FTP,
+				// GCSpl.iSPL_IMPORT_TXT, GCSpl.iFILE_EXPORTTXT,
 				// 编辑
 				GCSpl.iUNDO, GCSpl.iREDO, GCSpl.iCOPY, GCSpl.iCOPYVALUE, GCSpl.iCODE_COPY, GCSpl.iCOPY_HTML_DIALOG,
 				GCSpl.iCUT, GCSpl.iPASTE, GCSpl.iPASTE_ADJUST, GCSpl.iPASTE_SPECIAL, GCSpl.iADD_COL, GCSpl.iCTRL_ENTER,

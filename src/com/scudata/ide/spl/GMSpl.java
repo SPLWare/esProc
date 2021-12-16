@@ -84,9 +84,9 @@ public class GMSpl extends GM {
 		case GC.iFILE_CLOSE_ALL:
 			GV.appFrame.closeAll();
 			return;
-		case GCSpl.iSPL_IMPORT_TXT:
-			importTxt2Spl();
-			return;
+		// case GCSpl.iSPL_IMPORT_TXT:
+		// importTxt2Spl();
+		// return;
 		case GC.iQUIT:
 			GV.appFrame.quit();
 			return;
@@ -150,9 +150,9 @@ public class GMSpl extends GM {
 			}
 			GV.dialogMemory.setVisible(true);
 			return;
-		case GCSpl.iFILE_EXPORTTXT:
-			((SheetSpl) GV.appSheet).exportTxt();
-			return;
+		// case GCSpl.iFILE_EXPORTTXT:
+		// ((SheetSpl) GV.appSheet).exportTxt();
+		// return;
 		// case GCSpl.iFUNC_MANAGER:
 		// DialogFuncEditor dfe = new DialogFuncEditor(GV.appFrame, false);
 		// dfe.setVisible(true);
@@ -361,23 +361,23 @@ public class GMSpl extends GM {
 	 * 
 	 * @return
 	 */
-	public static boolean importTxt2Spl() {
-		File file = GM.dialogSelectFile(AppConsts.FILE_SPL);
-		if (file == null) {
-			return false;
-		}
-		try {
-			String filePath = file.getAbsolutePath();
-			PgmCellSet cellSet = readSPL(filePath);
-			filePath = getNotDuplicateName(filePath, AppConsts.FILE_SPL);
-			((SPL) GV.appFrame).openSheet(filePath, cellSet, false);
-			invokeSheetChanged();
-		} catch (Throwable ex) {
-			GM.showException(ex);
-			return false;
-		}
-		return true;
-	}
+//	public static boolean importTxt2Spl() {
+//		File file = GM.dialogSelectFile(AppConsts.FILE_SPL);
+//		if (file == null) {
+//			return false;
+//		}
+//		try {
+//			String filePath = file.getAbsolutePath();
+//			PgmCellSet cellSet = readSPL(filePath);
+//			filePath = getNotDuplicateName(filePath, AppConsts.FILE_SPL);
+//			((SPL) GV.appFrame).openSheet(filePath, cellSet, false);
+//			invokeSheetChanged();
+//		} catch (Throwable ex) {
+//			GM.showException(ex);
+//			return false;
+//		}
+//		return true;
+//	}
 
 	/**
 	 * 读取SPL文件到程序网格

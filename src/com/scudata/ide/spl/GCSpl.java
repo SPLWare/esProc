@@ -32,9 +32,9 @@ public class GCSpl extends GC {
 	/** 保存到FTP(P) */
 	public static final String SAVE_FTP = "file.saveftp";
 	/** 导入SPL文件(I) */
-	public static final String FILE_LOADTXT = "file.loadtxt";
+	// public static final String FILE_LOADTXT = "file.loadtxt";
 	/** 导出成SPL文件(E) */
-	public static final String FILE_EXPORTTXT = "file.exporttxt";
+	// public static final String FILE_EXPORTTXT = "file.exporttxt";
 	/** 重新打开文件(R) */
 	public static final String FILE_REOPEN = "file.reopen";
 
@@ -43,9 +43,9 @@ public class GCSpl extends GC {
 	/** 保存到FTP(P) */
 	public static final short iSAVE_FTP = MENU_SPL + 5;
 	/** 导入SPL文件(I) */
-	public static final short iSPL_IMPORT_TXT = MENU_SPL + 11;
+	// public static final short iSPL_IMPORT_TXT = MENU_SPL + 11;
 	/** 导出成SPL文件(E) */
-	public static final short iFILE_EXPORTTXT = MENU_SPL + 21;
+	// public static final short iFILE_EXPORTTXT = MENU_SPL + 21;
 	/** 重新打开文件(R) */
 	public static final short iFILE_REOPEN = MENU_SPL + 31;
 

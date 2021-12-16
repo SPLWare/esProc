@@ -276,32 +276,32 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 	 * 
 	 * @return
 	 */
-	public boolean exportTxt() {
-		File oldFile = new File(filePath);
-		String oldFileName = oldFile.getName();
-		int index = oldFileName.lastIndexOf(".");
-		if (index > 0) {
-			oldFileName = oldFileName.substring(0, index + 1);
-			oldFileName += AppConsts.FILE_SPL;
-		}
-		File f = GM.dialogSelectFile(AppConsts.FILE_SPL, GV.lastDirectory,
-				IdeSplMessage.get().getMessage("public.export"), oldFileName, GV.appFrame);
-		if (f == null)
-			return false;
-		if (f.exists() && !f.canWrite()) {
-			JOptionPane.showMessageDialog(GV.appFrame, IdeCommonMessage.get().getMessage("public.readonly", filePath));
-			return false;
-		}
-		String filePath = f.getAbsolutePath();
-		try {
-			AppUtil.writeSPLFile(filePath, splControl.cellSet);
-		} catch (Throwable e) {
-			GM.showException(e);
-			return false;
-		}
-		JOptionPane.showMessageDialog(GV.appFrame, IdeSplMessage.get().getMessage("public.exportsucc", filePath));
-		return true;
-	}
+//	public boolean exportTxt() {
+//		File oldFile = new File(filePath);
+//		String oldFileName = oldFile.getName();
+//		int index = oldFileName.lastIndexOf(".");
+//		if (index > 0) {
+//			oldFileName = oldFileName.substring(0, index + 1);
+//			oldFileName += AppConsts.FILE_SPL;
+//		}
+//		File f = GM.dialogSelectFile(AppConsts.FILE_SPL, GV.lastDirectory,
+//				IdeSplMessage.get().getMessage("public.export"), oldFileName, GV.appFrame);
+//		if (f == null)
+//			return false;
+//		if (f.exists() && !f.canWrite()) {
+//			JOptionPane.showMessageDialog(GV.appFrame, IdeCommonMessage.get().getMessage("public.readonly", filePath));
+//			return false;
+//		}
+//		String filePath = f.getAbsolutePath();
+//		try {
+//			AppUtil.writeSPLFile(filePath, splControl.cellSet);
+//		} catch (Throwable e) {
+//			GM.showException(e);
+//			return false;
+//		}
+//		JOptionPane.showMessageDialog(GV.appFrame, IdeSplMessage.get().getMessage("public.exportsucc", filePath));
+//		return true;
+//	}
 
 	/**
 	 * ±£´æ
@@ -385,14 +385,19 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 	 * Áí´æÎª
 	 */
 	public boolean saveAs() {
-		boolean isNewFile = GMSpl.isNewGrid(filePath, GCSpl.PRE_NEWPGM) || !AppUtil.isSPLFile(filePath);
-		String fileExt = AppConsts.SPL_FILE_EXTS;
+		boolean isSplFile = AppUtil.isSPLFile(filePath);
+		boolean isNewFile = GMSpl.isNewGrid(filePath, GCSpl.PRE_NEWPGM) || !isSplFile;
+		String fileExt = AppConsts.FILE_SPLX;
+		if (isSplFile) {
+			int index = filePath.lastIndexOf(".");
+			fileExt = filePath.substring(index + 1);
+		}
 		String path = filePath;
 		if (stepInfo != null && isStepStop) {
 			if (StringUtils.isValidString(stepInfo.filePath))
 				path = stepInfo.filePath;
 		}
-		File saveFile = GM.dialogSelectFile(fileExt, GV.lastDirectory,
+		File saveFile = GM.dialogSelectFile(AppConsts.SPL_FILE_EXTS, GV.lastDirectory,
 				IdeCommonMessage.get().getMessage("public.saveas"), path, GV.appFrame);
 		if (saveFile == null) {
 			return false;
@@ -401,7 +406,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 		String sfile = saveFile.getAbsolutePath();
 		GV.lastDirectory = saveFile.getParent();
 
-		if (!sfile.toLowerCase().endsWith(fileExt)) {
+		if (!AppUtil.isSPLFile(sfile)) {
 			saveFile = new File(saveFile.getParent(), saveFile.getName() + "." + fileExt);
 			sfile = saveFile.getAbsolutePath();
 		}
