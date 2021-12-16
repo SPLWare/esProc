@@ -87,10 +87,10 @@ SPL focuses on the mainstream embedded and Java application architecture. SPL sc
     __SQL has certain computing power, but it is not available in many scenarios, so you will have to hard code in Java. 
     SPL provides lightweight computing power independent of database and can process data in any scenario:__
     
-    - Structured text (txt/csv) calculation &nbsp;&nbsp;&nbsp;&nbsp; <sub><sup>*Ref. <a href="http://c.raqsoft.com/article/1630909963011" title="SPL: Reading and Writing Structured Text Files">[1]</a>*</sub></sup>
+    - Structured text (txt/csv) calculation &nbsp;&nbsp;&nbsp;&nbsp; <sub><sup>*Ref. <a href="http://c.raqsoft.com/article/1616139619037" title="SPL general table operations">[1]</a> <a href="http://c.raqsoft.com/article/1600309450633" title="Samples of Merging and Splitting Files">[2]</a> <a href="http://c.raqsoft.com/article/1600309188122" title="Samples of Comparing Files">[3]</a> <a href="http://c.raqsoft.com/article/1600308846480" title="Sample Programs of Performing Distinct on a File">[4]</a> <a href="Samples of Processing Big Text File" title="Samples of Processing Big Text File">[5]</a>*</sub></sup>
     
     
-    - Excel calculation &nbsp;&nbsp;&nbsp;&nbsp; <sub><sup>*Ref. <a href="http://c.raqsoft.com/article/1632902735334" title="SPL: Reading and Writing Excel Files">[1]</a>*</sub></sup>
+    - Excel calculation &nbsp;&nbsp;&nbsp;&nbsp; <sub><sup>*Ref. <a href="http://c.raqsoft.com/article/1599103426577" title="Sample Programs of Structuralizing Excel Files">[1]</a> <a href="http://c.raqsoft.com/article/1600312426331" title="Samples of Generating Various Excel Files">[2]</a>*</sub></sup>
     
     - Perform SQL on files &nbsp;&nbsp;&nbsp;&nbsp; <sub><sup>*Ref. <a href="http://c.raqsoft.com/article/1603680860113" title="SQL Query over File Examples">[1]</a>*</sub></sup>
     
@@ -184,12 +184,12 @@ SPL focuses on the mainstream embedded and Java application architecture. SPL sc
     - Distributed：free computing and data distribution, cluster multi-zone composite table, cluster dimension table, redundant fault tolerance, spare tire fault tolerance, Fork-Reduce, multi job load balancing
 
 - __For Excel__
-
-    __SPL provides Excel-oriented set operations.__
     
-    __The combination of SPL and Excel can enhance the calculation ability of Excel and reduce the difficulty of calculation implementation.__
+    __The combination of SPL and Excel can enhance the calculation ability of Excel and reduce the difficulty of calculation implementation.__  &nbsp;&nbsp; <sub><sup>*Ref. <a href="http://c.raqsoft.com/article/1603680361405" title="Enhance Excel Calculations by Clipboard">[1]</a>*</sub></sup>
 
-    __Through SPL's Excel plug-in, you can use SPL functions in Excel to calculate, and you can also call SPL scripts in VBA.__
+    __Through SPL's Excel plug-in, you can use SPL functions in Excel, and you can also call SPL scripts in VBA.__  &nbsp;&nbsp; <sub><sup>*Ref. <a href="http://c.raqsoft.com/article/1616138220586" title="Use esProc add-in in Excel">[1]</a>*</sub></sup>
+    
+    __SPL provides Excel-oriented set operations:__
     
     - Cell value and summary value calculation &nbsp;&nbsp;&nbsp;&nbsp; <sub><sup>*Ref. <a href="http://c.raqsoft.com/article/1617693922993#toc_h1_4" title="Calculate cell and Summarize value">[1]</a>*</sub></sup>
 
