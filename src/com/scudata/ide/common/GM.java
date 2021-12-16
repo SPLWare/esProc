@@ -701,10 +701,30 @@ public class GM {
 		chooser.setFileView(new ImageFileView());
 		chooser.setMultiSelectionEnabled(multiSelect);
 		chooser.setAcceptAllFileFilterUsed(useAllFileFilter);
-		Section st = new Section(fileExts);
 
-		for (int i = st.size() - 1; i >= 0; i--) {
-			chooser.setFileFilter(getFileFilter("." + st.get(i), "*." + st.get(i)));
+		String[] extArr = fileExts.split(",");
+
+		// 如果有文件名，下拉选择该文件后缀
+		if (!multiSelect && extArr.length > 1) {
+			if (oldFiles != null) {
+				File oldFile = (File) oldFiles;
+				if (oldFile != null) {
+					for (int i = 0; i < extArr.length; i++) {
+						String ext = extArr[i];
+						if (oldFile.getName().toLowerCase().endsWith("." + ext)) {
+							extArr[i] = extArr[0];
+							extArr[0] = ext;
+							break;
+						}
+					}
+
+				}
+			}
+		}
+
+		for (int i = extArr.length - 1; i >= 0; i--) {
+			String ext = extArr[i];
+			chooser.setFileFilter(getFileFilter("." + ext, "*." + ext));
 		}
 
 		if (multiSelect) {
