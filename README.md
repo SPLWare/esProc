@@ -92,7 +92,7 @@ SPL focuses on the mainstream embedded and Java application architecture. SPL sc
     
     - Excel calculation &nbsp;&nbsp;&nbsp;&nbsp; <sub><sup>*Ref. <a href="http://c.raqsoft.com/article/1599103426577" title="Sample Programs of Structuralizing Excel Files">[1]</a> <a href="http://c.raqsoft.com/article/1600312426331" title="Samples of Generating Various Excel Files">[2]</a>*</sub></sup>
     
-    - Perform SQL on files &nbsp;&nbsp;&nbsp;&nbsp; <sub><sup>*Ref. <a href="http://c.raqsoft.com/article/1603680860113" title="SQL Query over File Examples">[1]</a>*</sub></sup>
+    - Perform SQL on files &nbsp;&nbsp;&nbsp;&nbsp; <sub><sup>*Ref. <a href="http://c.raqsoft.com/article/1636624789262" title="Can We Execute SQL on TXT/CSV Files in Java?">[1]</a> <a href="http://c.raqsoft.com/article/1603680860113" title="SQL Query over File Examples">[2]</a>*</sub></sup>
     
     - Multi-layer json calculation &nbsp;&nbsp;&nbsp;&nbsp; <sub><sup>*Ref. <a href="http://c.raqsoft.com/article/1637121581613" title="How to Parse and Compute JSON in Java?">[1]</a> <a href="http://c.raqsoft.com/article/1634550595176" title="SPL: Reading and Writing JSON Data">[2]</a>*</sub></sup>
     
