@@ -14,7 +14,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
 
-import com.scudata.ide.dfx.base.PanelValue;
+import com.scudata.ide.spl.base.PanelValue;
 import com.scudata.ide.vdb.control.VDBTreeNode;
 import com.scudata.ide.vdb.menu.MenuVDB;
 

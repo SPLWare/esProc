@@ -587,6 +587,28 @@ public class AppUtil {
 	 */
 	public static PgmCellSet readSPL(String filePath) throws Exception {
 		String spl = readSPLString(filePath);
+		return spl2CellSet(spl);
+	}
+
+	/**
+	 * 流式读取SPL文件到程序网格
+	 * 
+	 * @param in 文件输入流
+	 * @return
+	 * @throws Exception
+	 */
+	public static PgmCellSet readSPL(InputStream in) throws Exception {
+		String spl = readSPLString(in);
+		return spl2CellSet(spl);
+	}
+
+	/**
+	 * 通过字符串SPL创建程序网格
+	 * 
+	 * @param spl
+	 * @return
+	 */
+	private static PgmCellSet spl2CellSet(String spl) {
 		PgmCellSet cellSet;
 		if (!StringUtils.isValidString(spl)) {
 			return null;
@@ -618,12 +640,30 @@ public class AppUtil {
 	 */
 	private static String readSPLString(String filePath) throws Exception {
 		FileInputStream fis = null;
+		try {
+			fis = new FileInputStream(filePath);
+			return readSPLString(fis);
+		} finally {
+			try {
+				if (fis != null)
+					fis.close();
+			} catch (Exception ex) {
+			}
+		}
+	}
+
+	/**
+	 * 
+	 * @param filePath
+	 * @return
+	 * @throws Exception
+	 */
+	private static String readSPLString(InputStream is) throws Exception {
 		InputStreamReader isr = null;
 		BufferedReader br = null;
 		StringBuffer buf = new StringBuffer();
 		try {
-			fis = new FileInputStream(filePath);
-			isr = new InputStreamReader(fis, Env.getDefaultCharsetName());
+			isr = new InputStreamReader(is, Env.getDefaultCharsetName());
 			br = new BufferedReader(isr);
 			String rowStr = br.readLine();
 			boolean isFirst = true;
@@ -646,11 +686,6 @@ public class AppUtil {
 			try {
 				if (isr != null)
 					isr.close();
-			} catch (Exception ex) {
-			}
-			try {
-				if (fis != null)
-					fis.close();
 			} catch (Exception ex) {
 			}
 		}
@@ -743,15 +778,14 @@ public class AppUtil {
 		if (!isSearched)
 			return null;
 		PgmCellSet cs = null;
-		String psw = null;
 		BufferedInputStream bis = null;
 		try {
-			FileObject fo = new FileObject(filePath, "s");
-			bis = new BufferedInputStream(fo.getInputStream());
 			if (filePath.toLowerCase().endsWith("." + AppConsts.FILE_SPL)) {
 				cs = readSPL(filePath);
 			} else {
-				cs = CellSetUtil.readPgmCellSet(bis, psw);
+				FileObject fo = new FileObject(filePath, "s");
+				bis = new BufferedInputStream(fo.getInputStream());
+				cs = CellSetUtil.readPgmCellSet(bis);
 			}
 		} finally {
 			if (bis != null)

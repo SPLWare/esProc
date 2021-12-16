@@ -21,6 +21,7 @@ import javax.xml.parsers.SAXParserFactory;
 import org.xml.sax.InputSource;
 import org.xml.sax.XMLReader;
 
+import com.scudata.app.common.AppUtil;
 import com.scudata.cellset.datamodel.PgmCellSet;
 import com.scudata.common.ArgumentTokenizer;
 import com.scudata.common.DBConfig;
@@ -35,13 +36,11 @@ import com.scudata.common.StringUtils;
 import com.scudata.common.UUID;
 import com.scudata.dm.Context;
 import com.scudata.dm.Env;
-import com.scudata.dm.FileObject;
 import com.scudata.dm.JobSpace;
 import com.scudata.dm.JobSpaceManager;
 import com.scudata.dm.cursor.ICursor;
 import com.scudata.expression.FunctionLib;
 import com.scudata.resources.AppMessage;
-import com.scudata.util.CellSetUtil;
 
 /**
  * Configuration file tools
@@ -262,7 +261,7 @@ public class ConfigUtil {
 
 		Context ctx = new Context();
 		List<String> autoConnectList = config.getAutoConnectList();
-		boolean calcInitDfx = StringUtils.isValidString(config.getInitDfx());
+		boolean calcInitSpl = StringUtils.isValidString(config.getInitSpl());
 
 		if (loadRuntime) {
 			if (setLogLevel) {
@@ -279,16 +278,16 @@ public class ConfigUtil {
 			/* Set Env */
 			if (StringUtils.isValidString(config.getCharSet()))
 				Env.setDefaultChartsetName(config.getCharSet());
-			List<String> dfxPathList = config.getDfxPathList();
-			if (dfxPathList == null || dfxPathList.isEmpty()) {
+			List<String> splPathList = config.getSplPathList();
+			if (splPathList == null || splPathList.isEmpty()) {
 				Env.setPaths(null);
-				Logger.debug("Dfx path: null");
+				Logger.debug("Spl path: null");
 			} else {
-				String[] paths = new String[dfxPathList.size()];
+				String[] paths = new String[splPathList.size()];
 				for (int i = 0; i < paths.length; i++)
-					if (dfxPathList.get(i) != null) {
-						paths[i] = IOUtils.getPath(home, (String) dfxPathList.get(i));
-						Logger.debug("Dfx path: " + paths[i]);
+					if (splPathList.get(i) != null) {
+						paths[i] = IOUtils.getPath(home, (String) splPathList.get(i));
+						Logger.debug("Spl path: " + paths[i]);
 					}
 				Env.setPaths(paths);
 			}
@@ -407,7 +406,7 @@ public class ConfigUtil {
 					try {
 						isf = db.createSessionFactory();
 						Env.setDBSessionFactory(dbName, isf);
-						if (calcInitDfx) {
+						if (calcInitSpl) {
 							ctx.setDBSessionFactory(dbName, isf);
 							if (autoConnectList != null && autoConnectList.contains(dbName)) {
 								ctx.setDBSession(dbName, isf.getSession());
@@ -433,7 +432,7 @@ public class ConfigUtil {
 					try {
 						JNDISessionFactory jndisf = new JNDISessionFactory(jndiConfig);
 						Env.setDBSessionFactory(jndiName, jndisf);
-						if (calcInitDfx && autoConnectList != null && autoConnectList.contains(jndiName)) {
+						if (calcInitSpl && autoConnectList != null && autoConnectList.contains(jndiName)) {
 							ctx.setDBSessionFactory(jndiName, jndisf);
 							ctx.setDBSession(jndiName, jndisf.getSession());
 						}
@@ -443,8 +442,8 @@ public class ConfigUtil {
 				}
 			}
 		}
-		if (calcInit && calcInitDfx) {
-			calcInitDfx(config.getInitDfx(), ctx);
+		if (calcInit && calcInitSpl) {
+			calcInitSpl(config.getInitSpl(), ctx);
 		}
 		return ctx;
 	}
@@ -508,14 +507,14 @@ public class ConfigUtil {
 	}
 
 	/**
-	 * Calculation initialization dfx
+	 * Calculation initialization spl
 	 * 
-	 * @param dfxPath The file path of the dfx
+	 * @param splPath The file path of the spl
 	 * @param ctx     Context
 	 * @throws Exception
 	 */
-	public static void calcInitDfx(String dfxPath, Context ctx) throws Exception {
-		if (!StringUtils.isValidString(dfxPath)) {
+	public static void calcInitSpl(String splPath, Context ctx) throws Exception {
+		if (!StringUtils.isValidString(splPath)) {
 			return;
 		}
 		if (ctx == null)
@@ -524,19 +523,14 @@ public class ConfigUtil {
 		JobSpace jobSpace = JobSpaceManager.getSpace(spaceId);
 		ctx.setJobSpace(jobSpace);
 		try {
-			FileObject fo = new FileObject(dfxPath, "s", ctx);
-			PgmCellSet dfx;
+			PgmCellSet cellSet;
 			try {
-				InputStream in = fo.getInputStream();
-				if (in == null) {
-					throw new RQException("Init dfx: " + dfxPath + " not found.");
-				}
-				dfx = CellSetUtil.readPgmCellSet(in);
+				cellSet = AppUtil.readCellSet(splPath);
 			} catch (Exception e) {
-				throw new RQException("Failed to read init dfx: " + dfxPath, e);
+				throw new RQException("Failed to read init spl: " + splPath, e);
 			}
-			dfx.setContext(ctx);
-			dfx.run();
+			cellSet.setContext(ctx);
+			cellSet.run();
 		} finally {
 			JobSpaceManager.closeSpace(spaceId);
 		}

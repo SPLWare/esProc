@@ -1,6 +1,5 @@
 package com.esproc.jdbc;
 
-import java.io.InputStream;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.SQLWarning;
@@ -9,12 +8,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.scudata.app.common.AppUtil;
 import com.scudata.app.config.RaqsoftConfig;
 import com.scudata.cellset.datamodel.PgmCellSet;
 import com.scudata.common.Logger;
 import com.scudata.common.StringUtils;
 import com.scudata.dm.Context;
-import com.scudata.dm.FileObject;
 import com.scudata.dm.IResource;
 import com.scudata.dm.LocalFile;
 import com.scudata.dm.ParamList;
@@ -22,7 +21,6 @@ import com.scudata.dm.RetryException;
 import com.scudata.dm.Sequence;
 import com.scudata.parallel.Request;
 import com.scudata.parallel.UnitClient;
-import com.scudata.util.CellSetUtil;
 
 /**
  * Implementation of java.sql.Statement
@@ -215,8 +213,8 @@ public class InternalStatement implements java.sql.Statement {
 			RaqsoftConfig config = Server.getInstance().getConfig();
 			if (config != null && StringUtils.isValidString(config.getGateway())) {
 				/*
-				 * After the gateway is configured, the statements are parsed by dfx and the
-				 * table sequence or cursor is returned. dfx only has parameters sql and args
+				 * After the gateway is configured, the statements are parsed by spl and the
+				 * table sequence or cursor is returned. spl only has parameters sql and args
 				 * (sql parameter value sequence).
 				 */
 				try {
@@ -230,18 +228,18 @@ public class InternalStatement implements java.sql.Statement {
 				}
 			}
 			Logger.debug("param size=" + (parameters == null ? "0" : ("" + parameters.size())));
-			String[] dfxParams;
+			String[] splParams;
 			boolean isRemote = false;
 			if (con.isOnlyServer()) {
 				isRemote = true;
 			} else {
 				if (sqlType == JDBCConsts.TYPE_CALL || sqlType == JDBCConsts.TYPE_CALLS
-						|| sqlType == JDBCConsts.TYPE_DFX) {
+						|| sqlType == JDBCConsts.TYPE_SPL) {
 					List<String> hosts = Server.getInstance().getHostNames();
 					if (hosts != null && !hosts.isEmpty()) {
-						dfxParams = JDBCUtil.parseCallDfxSql(sql);
-						String dfx = dfxParams[0];
-						LocalFile f = new LocalFile(dfx, "s");
+						splParams = JDBCUtil.parseCallSpl(sql);
+						String spl = splParams[0];
+						LocalFile f = new LocalFile(spl, "s");
 						if (!f.exists())
 							isRemote = true;
 					}
@@ -292,7 +290,7 @@ public class InternalStatement implements java.sql.Statement {
 	}
 
 	/**
-	 * Execute the gateway dfx file. The gateway is configured in raqsoftConfig.xml.
+	 * Execute the gateway spl file. The gateway is configured in raqsoftConfig.xml.
 	 * 
 	 * @param sql        The SQL string
 	 * @param parameters The parameter list
@@ -304,33 +302,36 @@ public class InternalStatement implements java.sql.Statement {
 	private Object executeGateway(String sql, ArrayList<Object> parameters, InternalConnection con,
 			RaqsoftConfig config) throws SQLException {
 		/*
-		 * After the gateway is configured, the statements are parsed by dfx and the
-		 * table sequence or cursor is returned. dfx only has parameters sql and args
+		 * After the gateway is configured, the statements are parsed by spl and the
+		 * table sequence or cursor is returned. spl only has parameters sql and args
 		 * (sql parameter value sequence).
 		 */
 		String gateway = config.getGateway();
 		Sequence args = JDBCUtil.prepareArg(parameters);
 		Context ctx = con.getCtx();
-		FileObject fo = new FileObject(gateway, "s", ctx);
-		PgmCellSet dfx;
+
+		// FileObject fo = new FileObject(gateway, "s", ctx);
+		PgmCellSet cellSet;
 		try {
-			InputStream in = fo.getInputStream();
-			if (in == null) {
-				throw new SQLException("Gateway file: " + gateway + " not found.");
-			}
-			dfx = CellSetUtil.readPgmCellSet(in);
+			// 支持无后缀时按顺序查找
+			cellSet = AppUtil.readCellSet(gateway);
+			// InputStream in = fo.getInputStream();
+			// if (in == null) {
+			// throw new SQLException("Gateway file: " + gateway + " not found.");
+			// }
+			// cellSet = CellSetUtil.readPgmCellSet(in);
 		} catch (Exception e) {
 			throw new SQLException("Failed to read gateway file: " + gateway, e);
 		}
-		ParamList pl = dfx.getParamList();
+		ParamList pl = cellSet.getParamList();
 		if (pl == null || pl.count() != 2) {
-			throw new SQLException("The parameters of the gateway dfx file should be sql and arguments.");
+			throw new SQLException("The parameters of the gateway spl file should be sql and arguments.");
 		}
 		ctx.setParamValue(pl.get(0).getName(), sql);
 		ctx.setParamValue(pl.get(1).getName(), args);
-		dfx.setContext(ctx);
-		dfx.run();
-		return dfx;
+		cellSet.setContext(ctx);
+		cellSet.run();
+		return cellSet;
 	}
 
 	/**

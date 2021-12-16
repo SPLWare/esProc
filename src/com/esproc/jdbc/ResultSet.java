@@ -140,13 +140,13 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 		dataArray = new ArrayList<ArrayList<Object>>();
 		if (type == GET_PROCEDURES) {
 			if (infos != null) {
-				String[] dfxNames = (String[]) infos.get(0);
+				String[] splNames = (String[]) infos.get(0);
 				String[] filePaths = (String[]) infos.get(1);
-				for (int i = 0; i < dfxNames.length; i++) {
+				for (int i = 0; i < splNames.length; i++) {
 					ArrayList<Object> list = new ArrayList<Object>(rsmd.getColumnCount());
 					list.add(null);
 					list.add(null);
-					list.add(dfxNames[i]);
+					list.add(splNames[i]);
 					list.add(null);
 					list.add(null);
 					list.add(null);
@@ -158,18 +158,18 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 			}
 		} else if (type == GET_PROCEDURE_COLUMNS) {
 			if (infos != null) {
-				List<String> dfxNames = (List<String>) infos.get(0);
+				List<String> splNames = (List<String>) infos.get(0);
 				List<ParamList> plList = (List<ParamList>) infos.get(1);
 				if (plList != null) {
-					for (int n = 0; n < dfxNames.size(); n++) {
-						String dfxName = dfxNames.get(n);
+					for (int n = 0; n < splNames.size(); n++) {
+						String splName = splNames.get(n);
 						ParamList pl = plList.get(n);
 						for (int i = 0, count = pl.count(); i < count; i++) {
 							Param param = pl.get(i);
 							ArrayList<Object> list = new ArrayList<Object>(rsmd.getColumnCount());
 							list.add(null);
 							list.add(null);
-							list.add(dfxName);
+							list.add(splName);
 							list.add(param.getName());
 							list.add(DatabaseMetaData.procedureColumnIn);
 							list.add(java.sql.Types.JAVA_OBJECT);

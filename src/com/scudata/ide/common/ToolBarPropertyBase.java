@@ -41,7 +41,7 @@ import com.scudata.ide.common.control.FuncWindow;
 import com.scudata.ide.common.resources.IdeCommonMessage;
 import com.scudata.ide.common.swing.JTextPaneEx;
 import com.scudata.ide.common.swing.ToolbarGradient;
-import com.scudata.ide.dfx.GVDfx;
+import com.scudata.ide.spl.GVSpl;
 
 /**
  * The base class of the IDE toolbar property
@@ -341,8 +341,8 @@ public abstract class ToolBarPropertyBase extends ToolbarGradient {
 					GM.addText(textEditor, "\n");
 					textEdited(e);
 				} else {
-					if (GVDfx.matchWindow != null) {
-						GVDfx.matchWindow.selectName();
+					if (GVSpl.matchWindow != null) {
+						GVSpl.matchWindow.selectName();
 						return;
 					}
 					submitEditor(textEditor.getText(),

@@ -90,10 +90,10 @@ public class ConfigConsts {
 	public static String ESPROC = "Esproc";
 	/** Default charSet */
 	public static String CHAR_SET = "charSet";
-	/** Dfx search paths */
-	public static String DFX_PATH_LIST = "dfxPathList";
-	/** Dfx search path */
-	public static String DFX_PATH = "dfxPath";
+	/** Spl search paths */
+	public static String SPL_PATH_LIST = "splPathList";
+	/** Spl search path */
+	public static String SPL_PATH = "splPath";
 	/** Default date format */
 	public static String DATE_FORMAT = "dateFormat";
 	/** Default time format */
@@ -134,7 +134,7 @@ public class ConfigConsts {
 	/** Log level */
 	public static String LEVEL = "Level";
 	/**
-	 * Initialize dfx
+	 * Initialize spl
 	 */
 	public static String INIT = "Init";
 	public static String SPL = "SPL";

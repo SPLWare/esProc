@@ -269,15 +269,15 @@ public class ConfigWriter {
 		startElement(ConfigConsts.ESPROC, null);
 		level = 3;
 		writeAttribute(ConfigConsts.CHAR_SET, config.getCharSet());
-		List<String> paths = config.getDfxPathList();
+		List<String> paths = config.getSplPathList();
 		if (paths != null && !paths.isEmpty()) {
-			startElement(ConfigConsts.DFX_PATH_LIST, null);
+			startElement(ConfigConsts.SPL_PATH_LIST, null);
 			level = 4;
 			for (int i = 0; i < paths.size(); i++) {
-				writeAttribute(ConfigConsts.DFX_PATH, (String) paths.get(i));
+				writeAttribute(ConfigConsts.SPL_PATH, (String) paths.get(i));
 			}
 			level = 3;
-			endElement(ConfigConsts.DFX_PATH_LIST);
+			endElement(ConfigConsts.SPL_PATH_LIST);
 		}
 		writeAttribute(ConfigConsts.DATE_FORMAT, config.getDateFormat());
 		writeAttribute(ConfigConsts.TIME_FORMAT, config.getTimeFormat());
@@ -456,13 +456,13 @@ public class ConfigWriter {
 	 * @throws SAXException
 	 */
 	protected void writeInit(RaqsoftConfig config) throws SAXException {
-		if (!StringUtils.isValidString(config.getInitDfx())) {
+		if (!StringUtils.isValidString(config.getInitSpl())) {
 			return;
 		}
 		level = 1;
 		startElement(ConfigConsts.INIT, null);
 		level = 2;
-		writeAttribute(ConfigConsts.SPL, config.getInitDfx());
+		writeAttribute(ConfigConsts.SPL, config.getInitSpl());
 		level = 1;
 		endElement(ConfigConsts.INIT);
 	}

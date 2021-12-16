@@ -42,18 +42,16 @@ public class PanelConsole extends JPanel {
 	/**
 	 * 计算前自动清理
 	 */
-	private JCheckBox jCBAutoClean = new JCheckBox(IdeCommonMessage.get()
-			.getMessage("panelconsole.autoclean"));
+	private JCheckBox jCBAutoClean = new JCheckBox(IdeCommonMessage.get().getMessage("panelconsole.autoclean"));
 	/**
 	 * 是否集算器IDE
 	 */
-	private boolean isDFX = false;
+	private boolean isSPL = false;
 
 	/**
 	 * 构造函数
 	 * 
-	 * @param console
-	 *            控制台对象
+	 * @param console 控制台对象
 	 */
 	public PanelConsole(Console console) {
 		this(console, false);
@@ -62,15 +60,13 @@ public class PanelConsole extends JPanel {
 	/**
 	 * 构造函数
 	 * 
-	 * @param console
-	 *            控制台对象
-	 * @param isDFX
-	 *            是否集算器IDE
+	 * @param console 控制台对象
+	 * @param isSPL   是否集算器IDE
 	 */
-	public PanelConsole(Console console, boolean isDFX) {
+	public PanelConsole(Console console, boolean isSPL) {
 		super(new BorderLayout());
 		this.console = console;
-		this.isDFX = isDFX;
+		this.isSPL = isSPL;
 		try {
 			rqInit();
 			jCBAutoClean.setSelected(ConfigOptions.bAutoCleanOutput);
@@ -115,17 +111,15 @@ public class PanelConsole extends JPanel {
 		JTextArea jTextArea1 = console.getTextArea();
 		jTextArea1.setEditable(false);
 		jTextArea1.setBackground(Color.WHITE);
-		if (isDFX) {
+		if (isSPL) {
 			jBCopy.setPreferredSize(new Dimension(55, 25));
 			jBClean.setPreferredSize(new Dimension(55, 25));
 		}
 		add(new JScrollPane(jTextArea1), BorderLayout.CENTER);
 		JPanel panelNorth = new JPanel(new GridBagLayout());
 		add(panelNorth, BorderLayout.NORTH);
-		if (!isDFX)
-			panelNorth.add(
-					new JLabel(IdeCommonMessage.get().getMessage(
-							"dialogconsole.title")), GM.getGBC(0, 0, true));
+		if (!isSPL)
+			panelNorth.add(new JLabel(IdeCommonMessage.get().getMessage("dialogconsole.title")), GM.getGBC(0, 0, true));
 		else {
 			panelNorth.add(jCBAutoClean, GM.getGBC(0, 0, false, false, 4));
 			panelNorth.add(new JPanel(), GM.getGBC(0, 1, true, false, 0));
@@ -166,8 +160,7 @@ public class PanelConsole extends JPanel {
 	}
 }
 
-class PanelConsole_jBCopy_actionAdapter implements
-		java.awt.event.ActionListener {
+class PanelConsole_jBCopy_actionAdapter implements java.awt.event.ActionListener {
 	PanelConsole adaptee;
 
 	PanelConsole_jBCopy_actionAdapter(PanelConsole adaptee) {
@@ -179,8 +172,7 @@ class PanelConsole_jBCopy_actionAdapter implements
 	}
 }
 
-class PanelConsole_jBClean_actionAdapter implements
-		java.awt.event.ActionListener {
+class PanelConsole_jBClean_actionAdapter implements java.awt.event.ActionListener {
 	PanelConsole adaptee;
 
 	PanelConsole_jBClean_actionAdapter(PanelConsole adaptee) {

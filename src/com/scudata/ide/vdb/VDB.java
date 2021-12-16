@@ -26,7 +26,7 @@ import com.scudata.ide.common.Console;
 import com.scudata.ide.common.EditListener;
 import com.scudata.ide.common.GM;
 import com.scudata.ide.common.GV;
-import com.scudata.ide.dfx.DFX;
+import com.scudata.ide.spl.SPL;
 import com.scudata.ide.vdb.commonvdb.*;
 import com.scudata.ide.vdb.config.ConfigFile;
 import com.scudata.ide.vdb.config.ConfigOptions;
@@ -303,7 +303,7 @@ public class VDB extends AppFrame implements EditListener {
 
 		SwingUtilities.invokeLater(new Thread() {
 			public void run() {
-				DFX.initLNF();
+				SPL.initLNF();
 				try {
 					activeFrame = new VDB();
 					GV.appFrame = activeFrame;

@@ -30,7 +30,7 @@ import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
 import com.scudata.expression.mfn.sequence.Export;
-import com.scudata.ide.dfx.Esproc;
+import com.scudata.ide.spl.Esproc;
 import com.scudata.parallel.Task;
 import com.scudata.resources.ParallelMessage;
 import com.scudata.server.IServer;

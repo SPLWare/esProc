@@ -109,7 +109,7 @@ public class Server {
 	 *               one character.
 	 * @return
 	 */
-	public static Map<String, String> getDfxList(String filter) {
+	public static Map<String, String> getSplList(String filter) {
 		List<String> fileExts = new ArrayList<String>();
 		String[] exts = AppConsts.SPL_FILE_EXTS.split(",");
 		for (String ext : exts)

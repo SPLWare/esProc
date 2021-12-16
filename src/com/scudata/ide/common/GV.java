@@ -16,7 +16,7 @@ import com.scudata.ide.common.dialog.DialogMemory;
 import com.scudata.ide.custom.FileInfo;
 import com.scudata.ide.custom.IResourceTree;
 import com.scudata.ide.custom.Server;
-import com.scudata.ide.dfx.base.FileTreeNode;
+import com.scudata.ide.spl.base.FileTreeNode;
 
 /**
  * Global Variant

@@ -22,7 +22,7 @@ public class ConfigHandler extends DefaultHandler {
 	/**
 	 * Version
 	 * 
-	 * version3:初始化dfx节点名改为spl。将之前版本的初始化dfx设置为spl。
+	 * version3:节点名称中的dfx改为spl。
 	 * version2:增加了多路游标路数CursorParallelNum。将之前版本的ParallelNum设置为CursorParallelNum。logLevel从Esproc挪到Runtime下。
 	 */
 	protected int version = 3;
@@ -77,8 +77,11 @@ public class ConfigHandler extends DefaultHandler {
 			activeNode = RUNTIME_XMLA;
 		} else if (qName.equalsIgnoreCase(ConfigConsts.ESPROC)) {
 			activeNode = RUNTIME_ESPROC;
-		} else if (qName.equalsIgnoreCase(ConfigConsts.DFX_PATH_LIST)) {
-			config.setDfxPathList(new ArrayList<String>());
+		} else if (qName.equalsIgnoreCase("dfxPathList")) {
+			if (version < 3)
+				config.setSplPathList(new ArrayList<String>());
+		} else if (qName.equalsIgnoreCase(ConfigConsts.SPL_PATH_LIST)) {
+			config.setSplPathList(new ArrayList<String>());
 		} else if (qName.equalsIgnoreCase(ConfigConsts.IMPORT_LIBS)) {
 			config.setImportLibs(new ArrayList<String>());
 		} else if (qName.equalsIgnoreCase(ConfigConsts.LOGGER)) {
@@ -310,8 +313,11 @@ public class ConfigHandler extends DefaultHandler {
 		if (activeNode == RUNTIME_ESPROC) {
 			if (qName.equalsIgnoreCase(ConfigConsts.CHAR_SET)) {
 				config.setCharSet(value);
-			} else if (qName.equalsIgnoreCase(ConfigConsts.DFX_PATH)) {
-				config.getDfxPathList().add(value);
+			} else if (qName.equalsIgnoreCase("dfxPath")) {
+				if (version < 3)
+					config.getSplPathList().add(value);
+			} else if (qName.equalsIgnoreCase(ConfigConsts.SPL_PATH)) {
+				config.getSplPathList().add(value);
 			} else if (qName.equalsIgnoreCase(ConfigConsts.DATE_FORMAT)) {
 				config.setDateFormat(value);
 			} else if (qName.equalsIgnoreCase(ConfigConsts.TIME_FORMAT)) {
@@ -365,12 +371,12 @@ public class ConfigHandler extends DefaultHandler {
 		} else if (activeNode == INIT) {
 			if (version < 3) { // 兼容旧版本节点名为<dfx>
 				if (qName.equalsIgnoreCase("dfx")) {
-					if (config.getInitDfx() == null)
-						config.setInitDfx(value);
+					if (config.getInitSpl() == null)
+						config.setInitSpl(value);
 				}
 			}
 			if (qName.equalsIgnoreCase(ConfigConsts.SPL)) {
-				config.setInitDfx(value);
+				config.setInitSpl(value);
 			}
 		} else if (activeNode >= SERVER) {
 			if (qName.equalsIgnoreCase(ConfigConsts.DEF_DATA_SOURCE)) {

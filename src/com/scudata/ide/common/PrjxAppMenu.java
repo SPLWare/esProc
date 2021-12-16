@@ -29,8 +29,8 @@ import com.scudata.common.IntArrayList;
 import com.scudata.common.MessageManager;
 import com.scudata.common.StringUtils;
 import com.scudata.ide.common.resources.IdeCommonMessage;
-import com.scudata.ide.dfx.GVDfx;
-import com.scudata.ide.dfx.update.UpdateManager;
+import com.scudata.ide.spl.GVSpl;
+import com.scudata.ide.spl.update.UpdateManager;
 
 /**
  * The base class of the IDE application menu
@@ -410,8 +410,8 @@ public abstract class PrjxAppMenu extends AppMenu {
 						ConfigOptions.applyOptions();
 						ConfigUtilIde.writeConfig();
 						refreshRecentMainPath(sdir);
-						if (GVDfx.fileTree != null)
-							GVDfx.fileTree.changeMainPath(sdir);
+						if (GVSpl.fileTree != null)
+							GVSpl.fileTree.changeMainPath(sdir);
 						JOptionPane.showMessageDialog(GV.appFrame,
 								IdeCommonMessage.get().getMessage("prjxappmenu.setmainpath", sdir));
 					} else {
@@ -424,8 +424,8 @@ public abstract class PrjxAppMenu extends AppMenu {
 							ConfigOptions.sMainPath = sdir;
 							GV.config.setMainPath(sdir);
 							ConfigOptions.applyOptions();
-							if (GVDfx.fileTree != null)
-								GVDfx.fileTree.changeMainPath(sdir);
+							if (GVSpl.fileTree != null)
+								GVSpl.fileTree.changeMainPath(sdir);
 							ConfigUtilIde.writeConfig();
 							refreshRecentMainPath(sdir);
 							JOptionPane.showMessageDialog(GV.appFrame,

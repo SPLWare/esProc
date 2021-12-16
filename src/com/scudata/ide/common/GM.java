@@ -3062,7 +3062,7 @@ public class GM {
 	public static void setCurrentPath(String filePath) {
 		try {
 			/*
-			 * When the main path is not set in the IDE, the directory where the current dfx
+			 * When the main path is not set in the IDE, the directory where the current spl
 			 * file is located is used.
 			 */
 			if (!StringUtils.isValidString(ConfigOptions.sMainPath)) {
