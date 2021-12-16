@@ -23,8 +23,8 @@ public class RaqsoftConfig implements Cloneable, Externalizable {
 	/** Esproc */
 	/** Main path */
 	private String mainPath = null;
-	/** Dfx path list */
-	private List<String> dfxPathList = null;
+	/** Spl path list */
+	private List<String> splPathList = null;
 	/** Temporary path */
 	private String tempPath = null;
 	/** Default charSet */
@@ -68,8 +68,8 @@ public class RaqsoftConfig implements Cloneable, Externalizable {
 	/** Server properties **/
 	private Properties serverProps = null;
 
-	/** Initialized dfx **/
-	private String initDfx = null;
+	/** Initialized spl **/
+	private String initSpl = null;
 
 	/** JDBC **/
 	/** Has JDBC node */
@@ -77,9 +77,8 @@ public class RaqsoftConfig implements Cloneable, Externalizable {
 	/** JDBC loading environment. Including Runtime and Server. */
 	private String jdbcLoad = "Runtime,Server";
 	/**
-	 * After the SQL gateway is configured, select statements are parsed by dfx.
-	 * The parameters of the dfx file are sql and args (sql parameter value
-	 * sequence).
+	 * After the SQL gateway is configured, select statements are parsed by spl. The
+	 * parameters of the spl file are sql and args (sql parameter value sequence).
 	 */
 	private String gateway = null;
 	/** Unit list */
@@ -130,21 +129,21 @@ public class RaqsoftConfig implements Cloneable, Externalizable {
 	}
 
 	/**
-	 * Get dfx path list
+	 * Get spl path list
 	 * 
 	 * @return
 	 */
-	public List<String> getDfxPathList() {
-		return dfxPathList;
+	public List<String> getSplPathList() {
+		return splPathList;
 	}
 
 	/**
-	 * Set dfx path list
+	 * Set spl path list
 	 * 
-	 * @param dfxPathList
+	 * @param splPathList
 	 */
-	public void setDfxPathList(List<String> dfxPathList) {
-		this.dfxPathList = dfxPathList;
+	public void setSplPathList(List<String> splPathList) {
+		this.splPathList = splPathList;
 	}
 
 	/**
@@ -455,8 +454,8 @@ public class RaqsoftConfig implements Cloneable, Externalizable {
 
 	/**
 	 * Get the gateway of JDBC. After the SQL gateway is configured, select
-	 * statements are parsed by dfx. The parameters of the dfx file are sql and
-	 * args (sql parameter value sequence).
+	 * statements are parsed by spl. The parameters of the spl file are sql and args
+	 * (sql parameter value sequence).
 	 * 
 	 * @return
 	 */
@@ -466,8 +465,8 @@ public class RaqsoftConfig implements Cloneable, Externalizable {
 
 	/**
 	 * Set the gateway of JDBC. After the SQL gateway is configured, select
-	 * statements are parsed by dfx. The parameters of the dfx file are sql and
-	 * args (sql parameter value sequence).
+	 * statements are parsed by spl. The parameters of the spl file are sql and args
+	 * (sql parameter value sequence).
 	 * 
 	 * @param gateway
 	 */
@@ -566,21 +565,21 @@ public class RaqsoftConfig implements Cloneable, Externalizable {
 	}
 
 	/**
-	 * Get initialized dfx
+	 * Get initialized spl
 	 * 
 	 * @return
 	 */
-	public String getInitDfx() {
-		return initDfx;
+	public String getInitSpl() {
+		return initSpl;
 	}
 
 	/**
-	 * Set initialized dfx
+	 * Set initialized spl
 	 * 
-	 * @param initDfx
+	 * @param initSpl
 	 */
-	public void setInitDfx(String initDfx) {
-		this.initDfx = initDfx;
+	public void setInitSpl(String initSpl) {
+		this.initSpl = initSpl;
 	}
 
 	/**
@@ -644,10 +643,10 @@ public class RaqsoftConfig implements Cloneable, Externalizable {
 			config.setDBList(cloneDBList);
 		}
 		config.setMainPath(mainPath);
-		if (dfxPathList != null) {
-			List<String> cloneDfxPathList = new ArrayList<String>();
-			cloneDfxPathList.addAll(dfxPathList);
-			config.setDfxPathList(cloneDfxPathList);
+		if (splPathList != null) {
+			List<String> cloneSplPathList = new ArrayList<String>();
+			cloneSplPathList.addAll(splPathList);
+			config.setSplPathList(cloneSplPathList);
 		}
 		config.setTempPath(tempPath);
 		config.setCharSet(charSet);
@@ -687,7 +686,7 @@ public class RaqsoftConfig implements Cloneable, Externalizable {
 			config.setServerProperties(cloneServerProps);
 		}
 
-		config.setInitDfx(initDfx);
+		config.setInitSpl(initSpl);
 		config.setJdbcLoad(jdbcLoad);
 		config.setGateway(gateway);
 		if (unitList != null) {
@@ -713,7 +712,7 @@ public class RaqsoftConfig implements Cloneable, Externalizable {
 		out.writeByte(1);
 		out.writeObject(dbList);
 		out.writeObject(mainPath);
-		out.writeObject(dfxPathList);
+		out.writeObject(splPathList);
 		out.writeObject(tempPath);
 		out.writeObject(charSet);
 		out.writeObject(dateFormat);
@@ -734,7 +733,7 @@ public class RaqsoftConfig implements Cloneable, Externalizable {
 		out.writeObject(defDataSource);
 		out.writeObject(jndiList);
 		out.writeObject(serverProps);
-		out.writeObject(initDfx);
+		out.writeObject(initSpl);
 		out.writeObject(jdbcLoad);
 		out.writeObject(gateway);
 		out.writeObject(unitList);
@@ -746,13 +745,12 @@ public class RaqsoftConfig implements Cloneable, Externalizable {
 	/**
 	 * Realize serialization
 	 */
-	public void readExternal(ObjectInput in) throws IOException,
-			ClassNotFoundException {
+	public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
 		/* Version type */
 		in.readByte();
 		dbList = (List<DBConfig>) in.readObject();
 		mainPath = (String) in.readObject();
-		dfxPathList = (List<String>) in.readObject();
+		splPathList = (List<String>) in.readObject();
 		tempPath = (String) in.readObject();
 		charSet = (String) in.readObject();
 		dateFormat = (String) in.readObject();
@@ -773,7 +771,7 @@ public class RaqsoftConfig implements Cloneable, Externalizable {
 		defDataSource = (String) in.readObject();
 		jndiList = (List<JNDIConfig>) in.readObject();
 		serverProps = (Properties) in.readObject();
-		initDfx = (String) in.readObject();
+		initSpl = (String) in.readObject();
 		jdbcLoad = (String) in.readObject();
 		gateway = (String) in.readObject();
 		unitList = (List<String>) in.readObject();

@@ -23,7 +23,7 @@ import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
 import com.scudata.dm.cursor.ICursor;
 import com.scudata.dm.cursor.MemoryCursor;
-import com.scudata.ide.dfx.Esproc;
+import com.scudata.ide.spl.Esproc;
 import com.scudata.resources.ParallelMessage;
 import com.scudata.server.odbc.OdbcServer;
 import com.scudata.server.unit.UnitServer;

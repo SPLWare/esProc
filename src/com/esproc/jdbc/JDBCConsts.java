@@ -39,8 +39,8 @@ public class JDBCConsts {
 	public static final byte TYPE_CALL = 3;
 	/** Call statements */
 	public static final byte TYPE_CALLS = 4;
-	/** Execute dfx statement */
-	public static final byte TYPE_DFX = 5;
+	/** Execute spl statement */
+	public static final byte TYPE_SPL = 5;
 	/** Execute SQL statement */
 	public static final byte TYPE_SQL = 6;
 	/** Execute simple SQL statement */

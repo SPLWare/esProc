@@ -459,11 +459,11 @@ public class GC {
 	 * In order to distinguish it from general menus, esProc's menu items need to
 	 * add this constant.
 	 */
-	public static final short MENU_DFX = 4000;
+	public static final short MENU_SPL = 4000;
 	/**
 	 * EsProc¡¯s pop-up menu adds this constant
 	 */
-	public static final short POPMENU_DFX = 5000;
+	public static final short POPMENU_SPL = 5000;
 
 	/**
 	 * Indentation of the tips

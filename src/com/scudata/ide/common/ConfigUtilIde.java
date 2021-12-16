@@ -34,8 +34,7 @@ public class ConfigUtilIde {
 	/**
 	 * Configuration file name of the Unit
 	 */
-	public static final String UNIT_CONFIG_FILE = GC.PATH_CONFIG + "/"
-			+ UnitContext.UNIT_XML;
+	public static final String UNIT_CONFIG_FILE = GC.PATH_CONFIG + "/" + UnitContext.UNIT_XML;
 
 	/**
 	 * Set the data source name to Task
@@ -80,8 +79,7 @@ public class ConfigUtilIde {
 		String filePath = GM.getAbsolutePath(CONFIG_FILE);
 		File f = new File(filePath);
 		if (f.exists() && !f.canWrite()) {
-			String msg = IdeCommonMessage.get().getMessage("public.readonly",
-					f.getName());
+			String msg = IdeCommonMessage.get().getMessage("public.readonly", f.getName());
 			throw new RQException(msg);
 		}
 		if (GV.config == null)
@@ -120,8 +118,7 @@ public class ConfigUtilIde {
 		String filePath = GM.getAbsolutePath(UNIT_CONFIG_FILE);
 		File f = new File(filePath);
 		if (f.exists() && !f.canWrite()) {
-			String msg = IdeCommonMessage.get().getMessage("public.readonly",
-					f.getName());
+			String msg = IdeCommonMessage.get().getMessage("public.readonly", f.getName());
 			// Logger.debug(msg);
 			// return false;
 			throw new RQException(msg);
@@ -137,8 +134,7 @@ public class ConfigUtilIde {
 	 * @param config
 	 * @throws Exception
 	 */
-	public static void writeUnitConfig(String filePath, UnitConfig config)
-			throws Exception {
+	public static void writeUnitConfig(String filePath, UnitConfig config) throws Exception {
 		FileOutputStream fos = null;
 		BufferedOutputStream bos = null;
 		try {
@@ -158,28 +154,23 @@ public class ConfigUtilIde {
 	/**
 	 * Load the configuration file by IDE
 	 * 
-	 * @param setLogLevel
-	 *            是否设置日志级别
+	 * @param setLogLevel 是否设置日志级别
 	 * @return
 	 * @throws IOException
 	 */
-	public static RaqsoftConfig loadConfig(boolean setLogLevel)
-			throws IOException {
+	public static RaqsoftConfig loadConfig(boolean setLogLevel) throws IOException {
 		return loadConfig(System.getProperty("start.home"), setLogLevel);
 	}
 
 	/**
 	 * Load the configuration file
 	 * 
-	 * @param home
-	 *            主目录
-	 * @param setLogLevel
-	 *            是否设置日志级别
+	 * @param home        主目录
+	 * @param setLogLevel 是否设置日志级别
 	 * @return
 	 * @throws IOException
 	 */
-	public static RaqsoftConfig loadConfig(String home, boolean setLogLevel)
-			throws IOException {
+	public static RaqsoftConfig loadConfig(String home, boolean setLogLevel) throws IOException {
 		String filePath = ConfigUtil.getPath(home, CONFIG_FILE);
 		FileInputStream fis = null;
 		BufferedInputStream bis = null;
@@ -198,8 +189,7 @@ public class ConfigUtilIde {
 	/**
 	 * Load the configuration file
 	 * 
-	 * @param is
-	 *            文件输入流
+	 * @param is 文件输入流
 	 * @return
 	 */
 	public static RaqsoftConfig loadConfig(InputStream is) {
@@ -209,31 +199,26 @@ public class ConfigUtilIde {
 	/**
 	 * Load the configuration file
 	 * 
-	 * @param is
-	 *            文件输入流
-	 * @param setLogLevel
-	 *            是否设置日志级别
+	 * @param is          文件输入流
+	 * @param setLogLevel 是否设置日志级别
 	 * @return
 	 */
 	public static RaqsoftConfig loadConfig(InputStream is, boolean setLogLevel) {
 		try {
 			RaqsoftConfig config = ConfigUtil.load(is);
 			if (config != null)
-				ConfigUtil.setConfig(Env.getApplication(),
-						System.getProperty("start.home"), config, setLogLevel,
+				ConfigUtil.setConfig(Env.getApplication(), System.getProperty("start.home"), config, setLogLevel,
 						false);
 
 			try {
-				ConfigOptions.iParallelNum = new Integer(
-						config.getParallelNum());
+				ConfigOptions.iParallelNum = new Integer(config.getParallelNum());
 			} catch (Exception ex) {
 			}
 			if (ConfigOptions.iParallelNum.intValue() < 1)
 				ConfigOptions.iParallelNum = new Integer(1);
 
 			try {
-				ConfigOptions.iCursorParallelNum = new Integer(
-						config.getCursorParallelNum());
+				ConfigOptions.iCursorParallelNum = new Integer(config.getCursorParallelNum());
 			} catch (Exception ex) {
 			}
 			if (ConfigOptions.iCursorParallelNum.intValue() < 1)
@@ -249,18 +234,17 @@ public class ConfigUtilIde {
 	/**
 	 * Set the configuration options
 	 * 
-	 * @param config
-	 *            集算器配置对象
+	 * @param config 集算器配置对象
 	 */
 	public static void setConfigOptions(RaqsoftConfig config) {
-		List<String> dfxList = config.getDfxPathList();
+		List<String> splList = config.getSplPathList();
 		StringBuffer paths = null;
-		if (dfxList != null && !dfxList.isEmpty()) {
+		if (splList != null && !splList.isEmpty()) {
 			paths = new StringBuffer();
-			for (int i = 0; i < dfxList.size(); i++) {
+			for (int i = 0; i < splList.size(); i++) {
 				if (i > 0)
 					paths.append(";");
-				paths.append(dfxList.get(i));
+				paths.append(splList.get(i));
 			}
 		}
 		ConfigOptions.sPaths = paths == null ? null : paths.toString();
@@ -301,7 +285,7 @@ public class ConfigUtilIde {
 			}
 		}
 		ConfigOptions.sExtLibsPath = config.getExtLibsPath();
-		ConfigOptions.sInitDfx = config.getInitDfx();
+		ConfigOptions.sInitSpl = config.getInitSpl();
 
 		if (StringUtils.isValidString(config.getBufSize()))
 			ConfigOptions.sFileBuffer = config.getBufSize();

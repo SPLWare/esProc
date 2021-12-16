@@ -30,7 +30,7 @@ import com.scudata.common.Sentence;
 import com.scudata.common.StringUtils;
 import com.scudata.ide.common.GM;
 import com.scudata.ide.common.resources.IdeCommonMessage;
-import com.scudata.ide.dfx.GMDfx;
+import com.scudata.ide.spl.GMSpl;
 import com.scudata.util.CellSetUtil;
 
 /**
@@ -191,7 +191,7 @@ public class DialogFileReplace extends RQDialog {
 				boolean isSplFile = filePath.toLowerCase().endsWith("." + AppConsts.FILE_SPL);
 				PgmCellSet cellSet;
 				if (isSplFile) {
-					cellSet = GMDfx.readSPL(filePath);
+					cellSet = GMSpl.readSPL(filePath);
 				} else if (CellSetUtil.isEncrypted(filePath)) {
 					DialogInputPassword dip = new DialogInputPassword(true);
 					String title = dip.getTitle();
@@ -236,8 +236,7 @@ public class DialogFileReplace extends RQDialog {
 					continue;
 				if (isReplace) {
 					if (isSplFile) {
-						String cellSetStr = CellSetUtil.toString(cellSet);
-						AppUtil.writeSPLFile(filePath, cellSetStr);
+						AppUtil.writeSPLFile(filePath, cellSet);
 					} else {
 						CellSetUtil.writePgmCellSet(filePath, cellSet);
 					}

@@ -17,7 +17,6 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.scudata.app.common.AppConsts;
 import com.scudata.app.common.AppUtil;
 import com.scudata.cellset.datamodel.Command;
 import com.scudata.common.ArgumentTokenizer;
@@ -41,8 +40,8 @@ import com.scudata.util.CellSetUtil;
 public class JDBCUtil {
 	/**
 	 * Execute JDBC commands. Currently supports: $(db)sql, simple sql, cellSet
-	 * expression (separated by \t and \n). Does not support call dfx and the
-	 * beginning of dfx.
+	 * expression (separated by \t and \n). Does not support call spl and the
+	 * beginning of spl.
 	 * 
 	 * @param cmd
 	 * @param ctx
@@ -87,35 +86,35 @@ public class JDBCUtil {
 	/**
 	 * Get call expression
 	 * 
-	 * @param dfxName
+	 * @param splName
 	 * @param params
 	 * @return
 	 * @throws SQLException
 	 */
-	public static String getCallExp(String dfxName, String params) throws SQLException {
+	public static String getCallExp(String splName, String params) throws SQLException {
 		if (params == null)
 			params = "";
 		else
 			params = params.trim();
-		String sql = "jdbccall(\"" + dfxName + "\"" + (params.length() > 0 ? ("," + params) : "") + ")";
+		String sql = "jdbccall(\"" + splName + "\"" + (params.length() > 0 ? ("," + params) : "") + ")";
 		return sql;
 	}
 
 	/**
 	 * Get call expression
 	 * 
-	 * @param dfxName
+	 * @param splName
 	 * @param params
 	 * @param isOnlyServer
 	 * @return
 	 * @throws SQLException
 	 */
-	public static String getCallExp(String dfxName, String params, boolean isOnlyServer) throws SQLException {
+	public static String getCallExp(String splName, String params, boolean isOnlyServer) throws SQLException {
 		if (params == null)
 			params = "";
 		else
 			params = params.trim();
-		String hosts = JDBCUtil.getNodesString(dfxName, isOnlyServer);
+		String hosts = JDBCUtil.getNodesString(splName, isOnlyServer);
 
 		String sql;
 		if (hosts != null) {
@@ -138,15 +137,15 @@ public class JDBCUtil {
 				}
 			} else
 				params = ""; // [null]
-			if (!dfxName.startsWith("\"") || !dfxName.endsWith("\"")) {
-				dfxName = Escape.addEscAndQuote(dfxName, true);
+			if (!splName.startsWith("\"") || !splName.endsWith("\"")) {
+				splName = Escape.addEscAndQuote(splName, true);
 			}
-			sql = "callx@j(" + dfxName + (params.length() > 0 ? ("," + params) : "") + hosts + ")(1)";
+			sql = "callx@j(" + splName + (params.length() > 0 ? ("," + params) : "") + hosts + ")(1)";
 		} else {
 			if (isOnlyServer) {
 				throw new SQLException(JDBCMessage.get().getMessage("jdbcutil.noserverconfig"));
 			}
-			sql = "call(\"" + dfxName + "\"" + (params.length() > 0 ? ("," + params) : "") + ")";
+			sql = "call(\"" + splName + "\"" + (params.length() > 0 ? ("," + params) : "") + ")";
 		}
 		return sql;
 	}
@@ -192,7 +191,7 @@ public class JDBCUtil {
 	}
 
 	/**
-	 * 是否calls dfx语句
+	 * 是否calls spl语句
 	 * 
 	 * @param sql
 	 * @return
@@ -248,7 +247,7 @@ public class JDBCUtil {
 			Logger.debug("param size=" + (parameters == null ? "0" : ("" + parameters.size())));
 		boolean hasReturn = true;
 		boolean isGrid = false;
-		String dfxName = null;
+		String splName = null;
 		boolean isCalls = false;
 		if (sql.startsWith(">")) {
 			hasReturn = false;
@@ -321,23 +320,19 @@ public class JDBCUtil {
 					}
 				}
 			} else {
-				throw new SQLException("Stored procedure formatting error. For example: calls dfx(...)");
+				throw new SQLException("Stored procedure formatting error. For example: calls spl(...)");
 			}
 			isCalls = true;
-			dfxName = name;
-			if (dfxName != null) {
-				dfxName = dfxName.trim();
+			splName = name;
+			if (splName != null) {
+				splName = splName.trim();
 				// 脚本
-				if (dfxName.startsWith("\"") && dfxName.endsWith("\"")) {
-					dfxName = dfxName.substring(1, dfxName.length() - 2);
-					dfxName = dfxName.trim();
+				if (splName.startsWith("\"") && splName.endsWith("\"")) {
+					splName = splName.substring(1, splName.length() - 2);
+					splName = splName.trim();
 				}
-				// 这里不加后缀名了，在JDBCCall中支持。
-				// else if (!dfxName.toLowerCase().endsWith("." + AppConsts.FILE_DFX)) {
-				// 	dfxName += "." + AppConsts.FILE_DFX;
-				//}
 			}
-			sql = JDBCUtil.getCallExp(dfxName, params);
+			sql = JDBCUtil.getCallExp(splName, params);
 		} else if (sql.toLowerCase().startsWith(JDBCConsts.KEY_CALL)) {
 			sql = sql.substring(JDBCConsts.KEY_CALL.length());
 			sql = sql.trim();
@@ -351,22 +346,18 @@ public class JDBCUtil {
 				name = name.replaceAll("'", "");
 				params = sql.substring(left + 1, sql.length() - 1).trim();
 			} else {
-				throw new SQLException("Stored procedure formatting error. For example: call dfx(...)");
+				throw new SQLException("Stored procedure formatting error. For example: call spl(...)");
 			}
-			dfxName = name;
-			if (dfxName != null) {
-				dfxName = dfxName.trim();
+			splName = name;
+			if (splName != null) {
+				splName = splName.trim();
 				// 脚本
-				if (dfxName.startsWith("\"") && dfxName.endsWith("\"")) {
-					dfxName = dfxName.substring(1, dfxName.length() - 2);
-					dfxName = dfxName.trim();
+				if (splName.startsWith("\"") && splName.endsWith("\"")) {
+					splName = splName.substring(1, splName.length() - 2);
+					splName = splName.trim();
 				}
-				// 这里不加后缀名了，在JDBCCall中支持。
-				// else if (!dfxName.toLowerCase().endsWith("." + AppConsts.FILE_DFX)) {
-				// 	dfxName += "." + AppConsts.FILE_DFX;
-				//}
 			}
-			sql = JDBCUtil.getCallExp(dfxName, params);
+			sql = JDBCUtil.getCallExp(splName, params);
 		} else if (sql.startsWith("$")) {
 			String s = sql;
 			s = s.substring(1).trim();
@@ -386,7 +377,7 @@ public class JDBCUtil {
 		} else if (AppUtil.isSQL(sql)) {
 			return AppUtil.executeSql(sql, (ArrayList<Object>) parameters, ctx);
 		} else {
-			sql = parseDfxSql(sql);
+			sql = parseSpl(sql);
 		}
 
 		Sequence arg;
@@ -548,46 +539,43 @@ public class JDBCUtil {
 	}
 
 	/**
-	 * Parse the execute dfx statement
+	 * Parse the execute spl statement
 	 * 
 	 * @param sql
 	 * @return
 	 * @throws SQLException
 	 */
-	private static String parseDfxSql(String sql) throws SQLException {
+	private static String parseSpl(String sql) throws SQLException {
 		if (sql == null || sql.length() == 0)
-			throw new SQLException("The dfx name is empty.");
+			throw new SQLException("The spl name is empty.");
 		sql = sql.trim();
-		String dfx = sql;
+		String spl = sql;
 		String params = null;
 		if (sql.endsWith(")") && sql.indexOf("(") > 0) {
 			ArgumentTokenizer at = new ArgumentTokenizer(sql, '(');
 			if (at.hasNext()) {
-				dfx = at.next();
+				spl = at.next();
 			} else {
 				int paramStart = sql.indexOf("(");
-				dfx = sql.substring(0, paramStart);
+				spl = sql.substring(0, paramStart);
 			}
-			if (dfx.length() < sql.length()) {
-				params = sql.substring(dfx.length() + 1, sql.length() - 1);
+			if (spl.length() < sql.length()) {
+				params = sql.substring(spl.length() + 1, sql.length() - 1);
 			}
 		} else {
 			ArgumentTokenizer at = new ArgumentTokenizer(sql, ' ');
 			if (at.hasNext()) {
-				dfx = at.next();
-				if (dfx.length() < sql.length()) {
-					params = sql.substring(dfx.length(), sql.length());
+				spl = at.next();
+				if (spl.length() < sql.length()) {
+					params = sql.substring(spl.length(), sql.length());
 				}
 			}
 		}
 		if (params != null) {
 			params = params.trim();
 		}
-		dfx = dfx.trim();
-		// 这里不加后缀名了，在JDBCCall中支持。
-		// if (!dfx.toLowerCase().endsWith("." + AppConsts.FILE_DFX))
-		// 	dfx += "." + AppConsts.FILE_DFX;
-		sql = JDBCUtil.getCallExp(dfx, params);
+		spl = spl.trim();
+		sql = JDBCUtil.getCallExp(spl, params);
 		return sql;
 	}
 
@@ -709,14 +697,14 @@ public class JDBCUtil {
 	}
 
 	/**
-	 * Parse call dfx statement
+	 * Parse call spl statement
 	 * 
 	 * @param sql
 	 * @return
 	 * @throws SQLException
 	 */
-	public static String[] parseCallDfxSql(String sql) throws SQLException {
-		String dfx;
+	public static String[] parseCallSpl(String sql) throws SQLException {
+		String spl;
 		String params = null;
 		sql = sql.trim();
 		if (sql.toLowerCase().startsWith(JDBCConsts.KEY_CALL) || sql.toLowerCase().startsWith(JDBCConsts.KEY_CALLS)) {
@@ -728,72 +716,65 @@ public class JDBCUtil {
 			sql = sql.trim();
 			int left = sql.indexOf('(');
 			if (left == -1 && sql.lastIndexOf(')') == -1) {
-				dfx = sql.replaceAll("'", "");
+				spl = sql.replaceAll("'", "");
 				params = null;
 			} else if (left > 0 && sql.endsWith(")")) {
-				dfx = sql.substring(0, left);
-				dfx = dfx.replaceAll("'", "");
+				spl = sql.substring(0, left);
+				spl = spl.replaceAll("'", "");
 				params = sql.substring(left + 1, sql.length() - 1).trim();
 			} else {
-				throw new SQLException("Stored procedure formatting error. For example: call dfx(...)");
+				throw new SQLException("Stored procedure formatting error. For example: call spl(...)");
 			}
-			if (dfx != null) {
-				dfx = dfx.trim();
-				if (dfx.startsWith("\"") && dfx.endsWith("\"")) {
-					dfx = dfx.substring(1, dfx.length() - 2);
-					dfx = dfx.trim();
+			if (spl != null) {
+				spl = spl.trim();
+				if (spl.startsWith("\"") && spl.endsWith("\"")) {
+					spl = spl.substring(1, spl.length() - 2);
+					spl = spl.trim();
 				}
-				// 这里不加后缀名了，在JDBCCall中支持。
-				// else if (!dfx.toLowerCase().endsWith("." + AppConsts.FILE_DFX)) {
-				// 	dfx += "." + AppConsts.FILE_DFX;
-				// }
 			}
 		} else {
-			dfx = sql;
+			spl = sql;
 			if (sql.endsWith(")") && sql.indexOf("(") > 0) {
 				ArgumentTokenizer at = new ArgumentTokenizer(sql, '(');
 				if (at.hasNext()) {
-					dfx = at.next();
+					spl = at.next();
 				} else {
 					int paramStart = sql.indexOf("(");
-					dfx = sql.substring(0, paramStart);
+					spl = sql.substring(0, paramStart);
 				}
-				if (dfx.length() < sql.length()) {
-					params = sql.substring(dfx.length() + 1, sql.length() - 1);
+				if (spl.length() < sql.length()) {
+					params = sql.substring(spl.length() + 1, sql.length() - 1);
 				}
 			} else {
 				ArgumentTokenizer at = new ArgumentTokenizer(sql, ' ');
 				if (at.hasNext()) {
-					dfx = at.next();
-					if (dfx.length() < sql.length()) {
-						params = sql.substring(dfx.length(), sql.length());
+					spl = at.next();
+					if (spl.length() < sql.length()) {
+						params = sql.substring(spl.length(), sql.length());
 					}
 				}
 			}
 			if (params != null) {
 				params = params.trim();
 			}
-			dfx = dfx.trim();
-			// 这里不加后缀名了，在JDBCCall中支持。
-			// if (!dfx.toLowerCase().endsWith("." + AppConsts.FILE_DFX))
-			// 	dfx += "." + AppConsts.FILE_DFX;
+			spl = spl.trim();
 		}
-		return new String[] { dfx, params };
+		return new String[] { spl, params };
 	}
 
 	/**
 	 * Get the string of the unit names
 	 * 
-	 * @param dfx
+	 * @param spl
 	 * @param isOnlyServer
 	 * @return
 	 */
-	public static String getNodesString(String dfx, boolean isOnlyServer) {
-		if (!StringUtils.isValidString(dfx)) {
+	public static String getNodesString(String spl, boolean isOnlyServer) {
+		if (!StringUtils.isValidString(spl)) {
 			return null;
 		}
 		if (!isOnlyServer) {
-			LocalFile f = new LocalFile(dfx, "s");
+			LocalFile f = new LocalFile(spl, "s");
 			if (f.exists())
 				return null;
 		}

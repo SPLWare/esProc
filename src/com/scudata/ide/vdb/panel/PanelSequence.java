@@ -5,7 +5,7 @@ import java.awt.BorderLayout;
 import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 import com.scudata.ide.common.EditListener;
-import com.scudata.ide.dfx.base.PanelValue;
+import com.scudata.ide.spl.base.PanelValue;
 import com.scudata.ide.vdb.control.VDBTreeNode;
 
 public class PanelSequence extends PanelEditor implements EditListener{

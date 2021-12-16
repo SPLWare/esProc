@@ -76,7 +76,7 @@ public class ConfigOptions {
 	public static Boolean bFileTreeDemo = Boolean.TRUE;
 	/** Log file name */
 	public static String sLogFileName = GM.getAbsolutePath(GC.PATH_TMP + File.separator + "esproc.log");
-	/** Paths for dfx files */
+	/** Paths for spl files */
 	public static String sPaths = null;
 	/** Main path */
 	public static String sMainPath = null;
@@ -84,8 +84,8 @@ public class ConfigOptions {
 	public static String sTempPath = "temp";
 	/** External library path */
 	public static String sExtLibsPath = null;
-	/** The dfx file used for initialization */
-	public static String sInitDfx = null;
+	/** The spl file used for initialization */
+	public static String sInitSpl = null;
 	/** The installation directory of slimerjs */
 	public static String sSlimerjsDirectory = null;
 	/** Date format */
