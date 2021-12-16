@@ -139,25 +139,25 @@ SPL focuses on the mainstream embedded and Java application architecture. SPL sc
     
     __SPL provides open and simple computing power, which can directly read multiple databases, realize mixed data calculation, and assist the database to do           better calculation.__
 
-    - Fetch data in parallel to accelerate JDBC
+    - Fetch data in parallel to accelerate JDBC &nbsp;&nbsp;&nbsp;&nbsp; <sub><sup>*Ref. <a href="http://c.raqsoft.com/article/1630377767343" title="Just How Slow is Data Retrieval via JDBC">[1]</a>*</sub></sup>
     
-    - SQL migration among different types of databases
+    - SQL migration among different types of databases &nbsp;&nbsp;&nbsp;&nbsp; <sub><sup>*Ref. <a href="http://c.raqsoft.com/article/1631184524246" title="Is ORM a Convenient Option for Data Migration between Databases?">[1]</a>*</sub></sup>
     
-    - Cross database operations
+    - Cross database operations &nbsp;&nbsp;&nbsp;&nbsp; <sub><sup>*Ref. <a href="http://c.raqsoft.com/article/1619171409712" title="Cross-database Computing Methods">[1]</a>*</sub></sup>
     
-    - T+0 statistics and query
+    - T+0 statistics and query &nbsp;&nbsp;&nbsp;&nbsp; <sub><sup>*Ref. <a href="http://c.raqsoft.com/article/1637566914909" title="How to Achieve T+0 Query and Analysis?">[1]</a>*</sub></sup>
     
-    - Replace stored procedure operation, improve code portability and reduce coupling
+    - Replace stored procedure operation, improve code portability and reduce coupling &nbsp;&nbsp;&nbsp;&nbsp; <sub><sup>*Ref. <a href="http://c.raqsoft.com/article/1619664923686" title="Drawbacks of Using Stored Procedures to Compute Data">[1]</a>*</sub></sup>
     
     - Avoid making ETL into ELT or even LET
     
-    - Mixed calculation of multiple data sources
+    - Mixed calculation of multiple data sources  &nbsp;&nbsp;&nbsp;&nbsp; <sub><sup>*Ref. <a href="http://c.raqsoft.com/article/1581303780848" title="How to Perform Table Joins between MongoDB and MySQL">[1]</a> <a href="http://c.raqsoft.com/article/1586252047161" title="Perform Join Queries over Different Databases">[2]</a>*</sub></sup>
     
     - Reduce intermediate tables in the database
     
-    - Report data source development, support hot switching, multiple data sources and improve development efficiency
+    - Report data source development, support hot switching, multiple data sources and improve development efficiency  &nbsp;&nbsp;&nbsp;&nbsp; <sub><sup>*Ref. <a href="http://c.raqsoft.com/article/1630640358062" title="Looking for the Best Tool for Using Non-RDB Data Sources in Reporting Tools">[1]</a> <a href="http://c.raqsoft.com/article/1631529039471" title="Looking for the Best Tool for Handling Diverse/Multiple Data Sources for Report Building">[2]</a> <a href="http://c.raqsoft.com/article/1632301657455" title="Looking for the Best Method of Handling Multistep Data Preparation for Reporting Tools">[3]</a>*</sub></sup>
     
-    - Implement microservices, occupy less resources and support hot switching
+    - Implement microservices, occupy less resources and support hot switching &nbsp;&nbsp;&nbsp;&nbsp; <sub><sup>*Ref. <a href="http://c.raqsoft.com/article/1634549618946" title="Looking for the Best Technique of Processing Retrieved WebService/RESTful Data">[1]</a> <a href="http://c.raqsoft.com/article/1637567561373" title="How to Achieve Hot-swappable Reports?">[2]</a>*</sub></sup>
 
 
 - __Surpass DB__
