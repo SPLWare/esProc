@@ -43,6 +43,14 @@ public class Select extends Operation {
 	}
 	
 	/**
+	 * 取过滤表达式
+	 * @return
+	 */
+	public Expression getFilterExpression() {
+		return fltExp;
+	}
+
+	/**
 	 * 取操作是否会减少元素数，比如过滤函数会减少记录
 	 * 此函数用于游标的精确取数，如果附加的操作不会使记录数减少则只需按传入的数量取数即可
 	 * @return true：会，false：不会
