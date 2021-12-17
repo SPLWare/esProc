@@ -84,7 +84,6 @@ import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableColumn;
 import javax.swing.text.JTextComponent;
 
-import com.scudata.app.common.AppUtil;
 import com.scudata.app.common.Section;
 import com.scudata.app.config.ConfigUtil;
 import com.scudata.cellset.datamodel.NormalCell;
@@ -634,6 +633,8 @@ public class GM {
 				useAllFileFilter, null);
 	}
 
+	public static String saveAsExt = null;
+
 	/**
 	 * Select file dialog
 	 * 
@@ -705,8 +706,20 @@ public class GM {
 
 		String[] extArr = fileExts.split(",");
 
-		// 如果有文件名，下拉选择该文件后缀
-		if (!multiSelect && extArr.length > 1) {
+		final String firstExt = saveAsExt;
+		saveAsExt = null;
+
+		if (firstExt != null) {
+			for (int i = 0; i < extArr.length; i++) {
+				String ext = extArr[i];
+				if (firstExt.equals(ext)) {
+					extArr[i] = extArr[0];
+					extArr[0] = ext;
+					break;
+				}
+			}
+		} else if (!multiSelect && extArr.length > 1) {
+			// 如果有文件名，在下拉列表中选择该后缀
 			if (oldFiles != null) {
 				File oldFile = (File) oldFiles;
 				if (oldFile != null) {
@@ -761,13 +774,13 @@ public class GM {
 				}
 
 				String path = chooser.getSelectedFile().getAbsolutePath();
-				if (!path.toLowerCase().endsWith(fileExt)) { // 切换了后缀
-					if (AppUtil.isSPLFile(path)) { // 仅限SPL网格文件的类型
-						// 去掉后缀
-						int index = path.lastIndexOf(".");
-						path = path.substring(0, index);
-					}
-				}
+				// if (!path.toLowerCase().endsWith(fileExt)) { // 切换了后缀
+				// if (AppUtil.isSPLFile(path)) { // 仅限SPL网格文件的类型
+				// // 去掉后缀
+				// int index = path.lastIndexOf(".");
+				// path = path.substring(0, index);
+				// }
+				// }
 				boolean fileHasExt = path.toLowerCase().endsWith(fileExt);
 				if (!fileHasExt && fileExt.startsWith(".")) {
 					File fWithExt = new File(path + fileExt);

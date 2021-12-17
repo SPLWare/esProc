@@ -397,12 +397,14 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 			if (StringUtils.isValidString(stepInfo.filePath))
 				path = stepInfo.filePath;
 		}
-		// if (AppUtil.isSPLFile(path)) {
-		// int index = path.lastIndexOf(".");
-		// path = path.substring(0, index);
-		// }
+		if (AppUtil.isSPLFile(path)) { // 另存为时文件名去掉后缀，下拉后缀中选择该后缀
+			int index = path.lastIndexOf(".");
+			path = path.substring(0, index);
+		}
+		GM.saveAsExt = fileExt;
 		File saveFile = GM.dialogSelectFile(AppConsts.SPL_FILE_EXTS, GV.lastDirectory,
 				IdeCommonMessage.get().getMessage("public.saveas"), path, GV.appFrame);
+		GM.saveAsExt = null;
 		if (saveFile == null) {
 			return false;
 		}
