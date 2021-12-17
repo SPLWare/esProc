@@ -267,7 +267,7 @@ public class UnitServer implements IServer {
 	}
 	
 	/**
-	 * 使用参数调用分机的初始化文件init.dfx
+	 * 使用参数调用分机的初始化文件init.splx
 	 * @param i，第i个分机，i=0表示分机启动时刻的调用
 	 * @param N，共N个分机
 	 * @param j，任务名称
@@ -293,7 +293,7 @@ public class UnitServer implements IServer {
 	 * @return
 	 */
 	public static Response init(final int i,final int N, final String j, final boolean waitResult){
-		final String dfx = "init.dfx";
+		final String dfx = "init.splx";
 		synchronized (initLock) {
 			if(isIniting){
 				initResult.setException( new Exception("UnitServer is initing, please try again later."));
