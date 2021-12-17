@@ -84,6 +84,7 @@ import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableColumn;
 import javax.swing.text.JTextComponent;
 
+import com.scudata.app.common.AppUtil;
 import com.scudata.app.common.Section;
 import com.scudata.app.config.ConfigUtil;
 import com.scudata.cellset.datamodel.NormalCell;
@@ -752,7 +753,7 @@ public class GM {
 				return chooser.getSelectedFiles();
 			} else {
 				String fileExt = chooser.getFileFilter().getDescription();
-				int dot = fileExt.indexOf(".");
+				int dot = fileExt.lastIndexOf(".");
 				if (dot < 0) {
 					fileExt = "";
 				} else {
@@ -760,8 +761,14 @@ public class GM {
 				}
 
 				String path = chooser.getSelectedFile().getAbsolutePath();
+				if (!path.toLowerCase().endsWith(fileExt)) { // 切换了后缀
+					if (AppUtil.isSPLFile(path)) { // 仅限SPL网格文件的类型
+						// 去掉后缀
+						int index = path.lastIndexOf(".");
+						path = path.substring(0, index);
+					}
+				}
 				boolean fileHasExt = path.toLowerCase().endsWith(fileExt);
-
 				if (!fileHasExt && fileExt.startsWith(".")) {
 					File fWithExt = new File(path + fileExt);
 					return fWithExt;

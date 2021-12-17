@@ -397,6 +397,10 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 			if (StringUtils.isValidString(stepInfo.filePath))
 				path = stepInfo.filePath;
 		}
+		// if (AppUtil.isSPLFile(path)) {
+		// int index = path.lastIndexOf(".");
+		// path = path.substring(0, index);
+		// }
 		File saveFile = GM.dialogSelectFile(AppConsts.SPL_FILE_EXTS, GV.lastDirectory,
 				IdeCommonMessage.get().getMessage("public.saveas"), path, GV.appFrame);
 		if (saveFile == null) {

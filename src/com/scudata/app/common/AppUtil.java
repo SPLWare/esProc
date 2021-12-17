@@ -24,8 +24,6 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 
-import sun.net.util.IPAddressUtil;
-
 import com.esproc.jdbc.JDBCConsts;
 import com.scudata.cellset.datamodel.PgmCellSet;
 import com.scudata.common.Escape;
@@ -41,6 +39,8 @@ import com.scudata.dm.Sequence;
 import com.scudata.dm.query.SimpleSQL;
 import com.scudata.util.CellSetUtil;
 
+import sun.net.util.IPAddressUtil;
+
 /**
  * Public tools
  *
@@ -49,34 +49,27 @@ public class AppUtil {
 
 	/**
 	 * Execute JDBC statement. Supports: $(db)sql, simple sql, grid
-	 * expression(separated by \t and \n). Call spl and execute spl statements
-	 * are not supported.
+	 * expression(separated by \t and \n). Call spl and execute spl statements are
+	 * not supported.
 	 * 
-	 * @param cmd
-	 *            JDBC statement
-	 * @param ctx
-	 *            The context
+	 * @param cmd JDBC statement
+	 * @param ctx The context
 	 * @throws SQLException
 	 */
-	public static Object executeCmd(String cmd, Context ctx)
-			throws SQLException {
+	public static Object executeCmd(String cmd, Context ctx) throws SQLException {
 		return executeCmd(cmd, null, ctx);
 	}
 
 	/**
 	 * Execute JDBC statement
 	 * 
-	 * @param cmd
-	 *            JDBC statement
-	 * @param args
-	 *            Parameters
-	 * @param ctx
-	 *            The context
+	 * @param cmd  JDBC statement
+	 * @param args Parameters
+	 * @param ctx  The context
 	 * @return
 	 * @throws SQLException
 	 */
-	public static Object executeCmd(String cmd, Sequence args, Context ctx)
-			throws SQLException {
+	public static Object executeCmd(String cmd, Sequence args, Context ctx) throws SQLException {
 		if (!StringUtils.isValidString(cmd)) {
 			return null;
 		}
@@ -134,10 +127,8 @@ public class AppUtil {
 	 * Prepare SQL. Achieve two functions: 1. Automatically spell parameters. 2.
 	 * $(db)sql has no return value, so put the return statement.
 	 * 
-	 * @param cmd
-	 *            JDBC statement
-	 * @param args
-	 *            Parameters
+	 * @param cmd  JDBC statement
+	 * @param args Parameters
 	 * @return
 	 */
 	public static String prepareSql(String cmd, Sequence args) {
@@ -173,8 +164,7 @@ public class AppUtil {
 	/**
 	 * Convert Sequence to List
 	 * 
-	 * @param args
-	 *            The parameters sequence
+	 * @param args The parameters sequence
 	 * @return
 	 */
 	private static List<Object> sequence2List(Sequence args) {
@@ -190,12 +180,9 @@ public class AppUtil {
 	/**
 	 * JDBC execute SQL statement
 	 * 
-	 * @param sql
-	 *            The SQL string
-	 * @param args
-	 *            The parameter list
-	 * @param ctx
-	 *            The context
+	 * @param sql  The SQL string
+	 * @param args The parameter list
+	 * @param ctx  The context
 	 * @return
 	 */
 	public static Object executeSql(String sql, List<Object> args, Context ctx) {
@@ -267,11 +254,10 @@ public class AppUtil {
 
 	/**
 	 * There are many places in the application that need to convert the stored
-	 * integer colors into corresponding classes. Use cache to optimize
-	 * performance. If it is a transparent color, null is returned.
+	 * integer colors into corresponding classes. Use cache to optimize performance.
+	 * If it is a transparent color, null is returned.
 	 * 
-	 * @param c
-	 *            int
+	 * @param c int
 	 * @return Color
 	 */
 	public static Color getColor(int c) {
@@ -290,10 +276,8 @@ public class AppUtil {
 	 * Generate the corresponding Format object according to the format and the
 	 * current data type. When invalid, it returns null.
 	 * 
-	 * @param fmt
-	 *            String
-	 * @param dataType
-	 *            byte
+	 * @param fmt      String
+	 * @param dataType byte
 	 * @return Format
 	 */
 	public static Format getFormatter(String fmt, byte dataType) {
@@ -335,8 +319,7 @@ public class AppUtil {
 	 * @return
 	 * @throws Exception
 	 */
-	public static Object invokeMethod(Object owner, String methodName,
-			Object[] args) throws Exception {
+	public static Object invokeMethod(Object owner, String methodName, Object[] args) throws Exception {
 		return invokeMethod(owner, methodName, args, null);
 	}
 
@@ -350,15 +333,14 @@ public class AppUtil {
 	 * @return
 	 * @throws Exception
 	 */
-	public static Object invokeMethod(Object owner, String methodName,
-			Object[] args, Class[] argClasses) throws Exception {
+	public static Object invokeMethod(Object owner, String methodName, Object[] args, Class[] argClasses)
+			throws Exception {
 		Class ownerClass = owner.getClass();
 		if (argClasses == null) {
 			Method[] ms = ownerClass.getMethods();
 			for (int i = 0; i < ms.length; i++) {
 				Method m = ms[i];
-				if (m.getName().equals(methodName)
-						&& isArgsMatchMethod(m, args)) {
+				if (m.getName().equals(methodName) && isArgsMatchMethod(m, args)) {
 					return m.invoke(owner, args);
 				}
 			}
@@ -408,8 +390,7 @@ public class AppUtil {
 	 * @return
 	 * @throws Exception
 	 */
-	public static Object invokeStaticMethod(String classPath,
-			String methodName, Object[] args, Class[] argClasses)
+	public static Object invokeStaticMethod(String classPath, String methodName, Object[] args, Class[] argClasses)
 			throws Exception {
 		Class ownerClass = Class.forName(classPath);
 		Method m = ownerClass.getMethod(methodName, argClasses);
@@ -419,8 +400,7 @@ public class AppUtil {
 	/**
 	 * Get the byte array in the input stream
 	 * 
-	 * @param is
-	 *            the input stream
+	 * @param is the input stream
 	 * @throws Exception
 	 * @return the byte array
 	 */
@@ -509,8 +489,8 @@ public class AppUtil {
 	}
 
 	/**
-	 * List the IP addresses of all network cards of the current machine.
-	 * Contains IP4 and IP6.
+	 * List the IP addresses of all network cards of the current machine. Contains
+	 * IP4 and IP6.
 	 * 
 	 * @throws Exception
 	 * @return String[]
@@ -556,8 +536,7 @@ public class AppUtil {
 	 * @return
 	 * @throws UnknownHostException
 	 */
-	private static InetAddress[] getAllLocalUsingNetworkInterface()
-			throws UnknownHostException {
+	private static InetAddress[] getAllLocalUsingNetworkInterface() throws UnknownHostException {
 		ArrayList<InetAddress> addresses = new ArrayList<InetAddress>();
 		Enumeration<NetworkInterface> e = null;
 		try {
@@ -574,8 +553,7 @@ public class AppUtil {
 			} catch (Exception x) {
 			}
 
-			for (Enumeration<InetAddress> e2 = ni.getInetAddresses(); e2
-					.hasMoreElements();) {
+			for (Enumeration<InetAddress> e2 = ni.getInetAddresses(); e2.hasMoreElements();) {
 				InetAddress ia = e2.nextElement();
 				if (ia.getHostAddress().equals("0:0:0:0:0:0:0:1")) {
 					continue;
@@ -603,8 +581,7 @@ public class AppUtil {
 	/**
 	 * 读取SPL文件到程序网格
 	 * 
-	 * @param filePath
-	 *            SPL文件路径
+	 * @param filePath SPL文件路径
 	 * @return
 	 * @throws Exception
 	 */
@@ -616,8 +593,7 @@ public class AppUtil {
 	/**
 	 * 流式读取SPL文件到程序网格
 	 * 
-	 * @param in
-	 *            文件输入流
+	 * @param in 文件输入流
 	 * @return
 	 * @throws Exception
 	 */
@@ -658,8 +634,7 @@ public class AppUtil {
 	/**
 	 * 读取SPL文件为字符串
 	 * 
-	 * @param filePath
-	 *            SPL文件路径
+	 * @param filePath SPL文件路径
 	 * @return
 	 * @throws Exception
 	 */
@@ -719,14 +694,11 @@ public class AppUtil {
 	/**
 	 * 导出网格到SPL文件
 	 * 
-	 * @param filePath
-	 *            SPL文件路径
-	 * @param cellSet
-	 *            程序网对象
+	 * @param filePath SPL文件路径
+	 * @param cellSet  程序网对象
 	 * @throws Exception
 	 */
-	public static void writeSPLFile(String filePath, PgmCellSet cellSet)
-			throws Exception {
+	public static void writeSPLFile(String filePath, PgmCellSet cellSet) throws Exception {
 		String cellSetStr = CellSetUtil.toString(cellSet);
 		writeSPLFile(filePath, cellSetStr);
 	}
@@ -734,14 +706,11 @@ public class AppUtil {
 	/**
 	 * 导出网格字符串到SPL文件
 	 * 
-	 * @param filePath
-	 *            SPL文件路径
-	 * @param cellSetStr
-	 *            网格字符串
+	 * @param filePath   SPL文件路径
+	 * @param cellSetStr 网格字符串
 	 * @throws Exception
 	 */
-	public static void writeSPLFile(String filePath, String cellSetStr)
-			throws Exception {
+	public static void writeSPLFile(String filePath, String cellSetStr) throws Exception {
 		FileOutputStream fo = null;
 		OutputStreamWriter ow = null;
 		BufferedWriter bw = null;
@@ -772,8 +741,7 @@ public class AppUtil {
 	/**
 	 * 是否SPL文件
 	 * 
-	 * @param fileName
-	 *            文件名
+	 * @param fileName 文件名
 	 * @return
 	 */
 	public static boolean isSPLFile(String fileName) {
@@ -791,8 +759,7 @@ public class AppUtil {
 	/**
 	 * 读取程序网格
 	 * 
-	 * @param filePath
-	 *            网格文件路径
+	 * @param filePath 网格文件路径
 	 * @return
 	 * @throws Exception
 	 */
@@ -825,11 +792,11 @@ public class AppUtil {
 		PgmCellSet cs = null;
 		BufferedInputStream bis = null;
 		try {
+			FileObject fo = new FileObject(filePath, "s");
+			bis = new BufferedInputStream(fo.getInputStream());
 			if (filePath.toLowerCase().endsWith("." + AppConsts.FILE_SPL)) {
-				cs = readSPL(filePath);
+				cs = readSPL(bis);
 			} else {
-				FileObject fo = new FileObject(filePath, "s");
-				bis = new BufferedInputStream(fo.getInputStream());
 				cs = CellSetUtil.readPgmCellSet(bis);
 			}
 		} finally {
