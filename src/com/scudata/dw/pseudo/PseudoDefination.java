@@ -192,6 +192,9 @@ public class PseudoDefination {
 	}
 	
 	public void addPseudoColumn(PseudoColumn column) {
+		if (columns == null) {
+			columns = new ArrayList<PseudoColumn>();
+		}
 		columns.add(column);
 	}
 	
