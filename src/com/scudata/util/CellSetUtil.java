@@ -22,6 +22,7 @@ import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.common.Sentence;
 import com.scudata.dm.Context;
+import com.scudata.dm.KeyWord;
 import com.scudata.dm.LineImporter;
 import com.scudata.dm.Param;
 import com.scudata.dm.ParamList;
@@ -665,10 +666,68 @@ public class CellSetUtil {
 				PgmNormalCell cell = pcs.getPgmNormalCell(r, c);
 				String expStr = cell.getExpString();
 				if (expStr != null && expStr.length() > aliasNameLen) {
-					expStr = Sentence.replace(expStr, aliasName, cellId, Sentence.IGNORE_PARS);
+					expStr = changeAliasNameToCell(expStr, aliasName, cellId);
 					cell.setExpString(expStr);
 				}
 			}
+		}
+	}
+	
+	private static String changeAliasNameToCell(String expStr, String aliasName, String cellId) {
+		int aliasLen = aliasName.length();
+		if (expStr == null || expStr.length() < aliasLen) {
+			return expStr;
+		}
+		
+		StringBuffer sb = null;
+		int len = expStr.length();
+		for (int i = 0; i < len;) {
+			char c = expStr.charAt(i);
+			if (c == '"' || c == '\'') {
+				int match = Sentence.scanQuotation(expStr, i);
+				if (match == -1) {
+					if (sb != null) {
+						sb.append(expStr.substring(i));
+					}
+					
+					break;
+				} else {
+					if (sb != null) {
+						sb.append(expStr.substring(i, match + 1));
+					}
+					
+					i = match + 1;
+				}
+			} else if (KeyWord.isSymbol(c) || c == '#') {
+				// #aliasName用于取for的当前循环序号
+				if (sb != null) {
+					sb.append(c);
+				}
+				
+				i++;
+			} else {
+				int end = KeyWord.scanId(expStr, i + 1);
+				if (end - i == aliasLen && aliasName.equals(expStr.substring(i, end))) {
+					if (sb == null) {
+						sb = new StringBuffer();
+						sb.append(expStr.substring(0, i));
+					}
+					
+					sb.append(cellId);
+				} else {
+					if (sb != null) {
+						sb.append(expStr.substring(i, end));
+					}
+				}
+				
+				i = end;
+			}
+		}
+		
+		if (sb == null) {
+			return expStr;
+		} else {
+			return sb.toString();
 		}
 	}
 	
