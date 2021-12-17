@@ -807,6 +807,10 @@ public class PseudoTable extends Pseudo {
 	// 取字段做switch指向的虚表，如果没做则返回空
 	public PseudoTable getFieldSwitchTable(String fieldName) {
 		List<PseudoColumn> columns = pd.getColumns();
+		if (columns == null) {
+			return null;
+		}
+		
 		for (PseudoColumn column : columns) {
 			if (column.getDim() != null) {
 				if (column.getFkey() == null && column.getName().equals(fieldName)) {

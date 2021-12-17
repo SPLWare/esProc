@@ -65,7 +65,7 @@ public class Pseudo implements IPseudo{
 			ArrayList<String> tempList = new ArrayList<String>();
 			new Expression(op.getFunction()).getUsedFields(ctx, tempList);
 			
-			if (op instanceof Select) {
+			if (op instanceof Select && op.getFunction() != null) {
 				Expression exp = op.getFunction().getParam().getLeafExpression();
 				boolean flag = true;//true表示都是本表的字段。 用于news、new、derive
 				for (String name : tempList) {
