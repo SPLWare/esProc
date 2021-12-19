@@ -88,7 +88,13 @@ public class PseudoTable extends Pseudo {
 						hasPseudoColumns = true;
 					}
 					if (column.getDim() != null) {
-						addColName(column.getName());
+						if (column.getFkey() == null) {
+							addColName(column.getName());
+						} else {
+							for (String key : column.getFkey()) {
+								addColName(key);
+							}
+						}
 					}
 				}
 			}
@@ -139,81 +145,87 @@ public class PseudoTable extends Pseudo {
 			if (fields == null) {
 				return;
 			} else {
-				this.names = getFetchColNames(fields);//有取出字段
-			}
-		} else {
-			
-			newExps = exps.clone();//备份一下
-			
-			/**
-			 * 有取出表达式也有取出字段,则检查extraNameList里是否包含exps里的字段
-			 * 如果包含就去掉
-			 */
-			ArrayList<String> tempList = new ArrayList<String>();
-			for (String name : extraNameList) {
-				if (!tempList.contains(name)) {
-					tempList.add(name);
+				int len = fields.length;
+				exps = new Expression[len];
+				for (int i = 0; i < len; i++) {
+					exps[i] = new Expression(fields[i]);
 				}
 			}
-			for (Expression exp : exps) {
+		}
+		
+		newExps = exps.clone();//备份一下
+		
+		/**
+		 * 有取出表达式也有取出字段,则检查extraNameList里是否包含exps里的字段
+		 * 如果包含就去掉
+		 */
+		ArrayList<String> tempList = new ArrayList<String>();
+		for (String name : extraNameList) {
+			if (!tempList.contains(name)) {
+				tempList.add(name);
+			}
+		}
+		for (Expression exp : exps) {
+			String expName = exp.getIdentifierName();
+			if (tempList.contains(expName)) {
+				tempList.remove(expName);
+			}
+		}
+		
+		ArrayList<String> tempNameList = new ArrayList<String>();
+		ArrayList<Expression> tempExpList = new ArrayList<Expression>();
+		int size = exps.length;
+		for (int i = 0; i < size; i++) {
+			Expression exp = exps[i];
+			String name = fields[i];
+			Node node = exp.getHome();
+			if (node instanceof UnknownSymbol) {
+				/**
+				 * 先检查一下取出表达式是否枚举字段，如果是则做个转换
+				 */
 				String expName = exp.getIdentifierName();
-				if (tempList.contains(expName)) {
-					tempList.remove(expName);
-				}
-			}
-			
-			ArrayList<String> tempNameList = new ArrayList<String>();
-			ArrayList<Expression> tempExpList = new ArrayList<Expression>();
-			int size = exps.length;
-			for (int i = 0; i < size; i++) {
-				Expression exp = exps[i];
-				String name = fields[i];
-				Node node = exp.getHome();
-				if (node instanceof UnknownSymbol) {
-					/**
-					 * 先检查一下取出表达式是否枚举字段，如果是则做个转换
-					 */
-					String expName = exp.getIdentifierName();
-					if (!allNameList.contains(expName)) {
-						PseudoColumn col = pd.findColumnByPseudoName(expName);
-						if (col.get_enum() != null) {
-							String var = "pseudo_enum_value_" + i;
-							ctx.setParamValue(var, col.get_enum());
-							name = col.getName();
-							newExps[i] = new Expression(var + "(" + name + "+1)");
-							exp = new Expression(name);
-							needNew = true;
-						}
+				if (!allNameList.contains(expName)) {
+					PseudoColumn col = pd.findColumnByPseudoName(expName);
+					if (col != null && col.get_enum() != null) {
+						String var = "pseudo_enum_value_" + i;
+						ctx.setParamValue(var, col.get_enum());
+						name = col.getName();
+						newExps[i] = new Expression(var + "(" + name + "+1)");
+						exp = new Expression(name);
+						needNew = true;
+						tempExpList.add(exp);
+						tempNameList.add(name);
 					}
-					
+				} else {
 					tempExpList.add(exp);
 					tempNameList.add(name);
-					
-//				} else if (node instanceof DotOperator) {
-//					Node left = node.getLeft();
-//					if (left != null && left instanceof UnknownSymbol) {
-//						PseudoColumn col = getPd().findColumnByName( ((UnknownSymbol)left).getName());
-//						if (col != null) {
-//							Derive derive = new Derive(new Expression[] {exp}, new String[] {name}, null);
-//							extraOpList.add(derive);
-//						}
-//					}
-				} else {
 				}
+				
+//			} else if (node instanceof DotOperator) {
+//				Node left = node.getLeft();
+//				if (left != null && left instanceof UnknownSymbol) {
+//					PseudoColumn col = getPd().findColumnByName( ((UnknownSymbol)left).getName());
+//					if (col != null) {
+//						Derive derive = new Derive(new Expression[] {exp}, new String[] {name}, null);
+//						extraOpList.add(derive);
+//					}
+//				}
+			} else {
 			}
-			
-			for (String name : tempList) {
-				tempExpList.add(new Expression(name));
-				tempNameList.add(name);
-			}
-			
-			size = tempExpList.size();
-			this.exps = new Expression[size];
-			tempExpList.toArray(this.exps);
-			
-			this.names = new String[size];
-			tempNameList.toArray(this.names);
 		}
+		
+		for (String name : tempList) {
+			tempExpList.add(new Expression(name));
+			tempNameList.add(name);
+		}
+		
+		size = tempExpList.size();
+		this.exps = new Expression[size];
+		tempExpList.toArray(this.exps);
+		
+		this.names = new String[size];
+		tempNameList.toArray(this.names);
+	
 		
 		if (needNew) {
 			New _new = new New(newExps, fields, null);
@@ -775,6 +787,13 @@ public class PseudoTable extends Pseudo {
 		try {
 			table = (PseudoTable) clone(ctx);
 			table.getPd().addPseudoColumn(new PseudoColumn(fkName, fieldNames, code));
+			if (fieldNames == null) {
+				table.addColName(fkName);
+			} else {
+				for (String key : fieldNames) {
+					table.addColName(key);
+				}
+			}
 		} catch (CloneNotSupportedException e) {
 			e.printStackTrace();
 		}

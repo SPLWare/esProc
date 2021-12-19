@@ -15,13 +15,13 @@ import com.scudata.expression.PseudoFunction;
  */
 public class Import extends PseudoFunction {
 	public Object calculate(Context ctx) {
-		if (pseudo.getCache() != null) {
-			return pseudo.getCache();
-		}
+//		if (pseudo.getCache() != null) {
+//			return pseudo.getCache();
+//		}
 		
 		ICursor cursor = CreateCursor.createCursor("import", pseudo, param, ctx);
 		Sequence seq = cursor.fetch();
-		pseudo.setCache(seq);
+		//pseudo.setCache(seq);
 		
 		if (seq != null) {
 			return seq;
