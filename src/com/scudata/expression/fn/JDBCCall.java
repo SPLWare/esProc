@@ -26,7 +26,8 @@ public class JDBCCall extends Function {
 		IParam param = this.param;
 		if (param == null) {
 			MessageManager mm = EngineMessage.get();
-			throw new RQException("jdbccall" + mm.getMessage("function.missingParam"));
+			throw new RQException("jdbccall"
+					+ mm.getMessage("function.missingParam"));
 		}
 
 		PgmCellSet pcs;
@@ -34,7 +35,8 @@ public class JDBCCall extends Function {
 			Object strObj = param.getLeafExpression().calculate(ctx);
 			if (!(strObj instanceof String)) {
 				MessageManager mm = EngineMessage.get();
-				throw new RQException("jdbccall" + mm.getMessage("function.paramTypeError"));
+				throw new RQException("jdbccall"
+						+ mm.getMessage("function.paramTypeError"));
 			}
 			// 支持无后缀时按顺序查找网格文件
 			try {
@@ -50,19 +52,23 @@ public class JDBCCall extends Function {
 			IParam sub0 = param.getSub(0);
 			if (sub0 == null) {
 				MessageManager mm = EngineMessage.get();
-				throw new RQException("jdbccall" + mm.getMessage("function.invalidParam"));
+				throw new RQException("jdbccall"
+						+ mm.getMessage("function.invalidParam"));
 			}
 
 			Object strObj = sub0.getLeafExpression().calculate(ctx);
 			if (!(strObj instanceof String)) {
 				MessageManager mm = EngineMessage.get();
-				throw new RQException("jdbccall" + mm.getMessage("function.paramTypeError"));
+				throw new RQException("jdbccall"
+						+ mm.getMessage("function.paramTypeError"));
 			}
 
 			// 支持无后缀时按顺序查找网格文件
 			try {
 				pcs = AppUtil.readCellSet((String) strObj);
 			} catch (Exception e) {
+				if (e instanceof RQException)
+					throw (RQException) e;
 				throw new RQException(e.getMessage(), e);
 			}
 			// FileObject fo = new FileObject((String) strObj, "s");
