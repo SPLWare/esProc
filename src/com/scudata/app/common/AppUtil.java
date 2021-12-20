@@ -750,7 +750,7 @@ public class AppUtil {
 		}
 		String[] fileExts = AppConsts.SPL_FILE_EXTS.split(",");
 		for (String ext : fileExts) {
-			if (fileName.toLowerCase().endsWith(ext))
+			if (fileName.toLowerCase().endsWith("." + ext))
 				return true;
 		}
 		return false;
