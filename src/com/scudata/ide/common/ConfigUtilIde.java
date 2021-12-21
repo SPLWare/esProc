@@ -207,8 +207,12 @@ public class ConfigUtilIde {
 		try {
 			RaqsoftConfig config = ConfigUtil.load(is);
 			if (config != null)
-				ConfigUtil.setConfig(Env.getApplication(), System.getProperty("start.home"), config, setLogLevel,
-						false);
+				try {
+					ConfigUtil.setConfig(Env.getApplication(), System.getProperty("start.home"), config, setLogLevel,
+							false, false, false);
+				} catch (Exception e) {
+					GM.showException(e);
+				}
 
 			try {
 				ConfigOptions.iParallelNum = new Integer(config.getParallelNum());
