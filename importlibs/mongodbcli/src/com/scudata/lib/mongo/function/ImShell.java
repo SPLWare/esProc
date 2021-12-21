@@ -40,82 +40,86 @@ public class ImShell extends ImFunction {
 			}
 			
 			//游标的实现
-			if (option!=null && option.contains("c")){
-				return doCursorData(mongo, docs);
-			}
-			
-			//非游标的实现
-			Document cur = (Document)docs.get("cursor");
 			Record rootNode = null;
-			if (cur==null){
-				rootNode = ImCursor.parse(docs);
-				return rootNode;
-			}
-			
-			rootNode = ImCursor.parse(cur);
-			//获取表数据			
-			if (rootNode.dataStruct().getFieldIndex("firstBatch")>-1){
-				obj = rootNode.getFieldValue("firstBatch");
-				if (obj instanceof Sequence){
-					if ( ((Sequence)obj).length()==0){
-						obj = rootNode;
-					}
+			if (option!=null && option.contains("d")){
+				if (option.contains("c")){
+					return doCursorData(mongo, docs);
 				}
+				//非游标的实现
+				Document cur = (Document)docs.get("cursor");				
+				if (cur==null){
+					rootNode = ImCursor.parse(docs);
+					return rootNode;
+				}
+				obj=doNormalData(mongo, cur);
+			}else{
+				return ImCursor.parse(docs);
 			}
-				
 		}catch(Exception e){
 			String info = e.getMessage();
 			if (info.indexOf("{")>-1 && info.indexOf("}")>0){
 				info = info.substring(info.indexOf("{"));
 				char[] chars = info.toCharArray();
 				obj = JSONUtil.parseJSON(chars, 0, chars.length - 1);
-				//游标选项的实现
-				if (option!=null && option.contains("c")){
-					Table bufTbl = null;
-					if (obj instanceof Record){
-						Record r = (Record)obj;
-						bufTbl = new Table(r.dataStruct());
-						bufTbl.newLast(r.getFieldValues());
-					}
-					return new ImCursor(mongo, null, bufTbl, m_ctx);		
-				}
 			}else{			
-				Logger.error(e.getMessage());
+				Logger.error(info);
 			}
 		}
 		
 		return obj;
 	}
 	
+	//将当前的数据缓存后放入序表中
+	private Object doNormalData(ImMongo mongo, Document cur) {
+		Object obj = null;		
+		Record rcd = ImCursor.parse(cur);
+		
+		if (rcd.dataStruct().getFieldIndex("firstBatch")>-1){
+			obj = rcd.getFieldValue("firstBatch");
+			if (obj instanceof Sequence){
+				if ( ((Sequence)obj).length()==0){
+					obj = rcd;
+				}
+			}
+		}
+		
+		String cmd = null;
+		long pid = cur.getLong("id");
+		if (pid>0){
+			String collectName = cur.getString("ns");
+			collectName= collectName.replace(mongo.m_db.getName()+".", "");
+			cmd = String.format("{'getMore':NumberLong('%d'), 'collection':'%s', batchSize:101 }", pid, collectName);
+		}
+		
+		Table bufTbl = null;
+		if (obj instanceof Table){
+			bufTbl = (Table)obj;
+		}
+		
+		ImCursor cursor = new ImCursor(mongo, cmd, bufTbl, m_ctx);
+		return cursor.fetch();
+	}
+	
 	//将当前的数据缓存后放入游标中
 	private Object doCursorData(ImMongo mongo, Document docs) {
-		Object r = null;
-		String s = null;
+		Record r = null;
+		Object obj = null;
 		Document cur = (Document)docs.get("cursor");
 				
 		if (cur==null){
-			s = docs.toJson();
-			char[] chars = s.toCharArray();
-			r = JSONUtil.parseJSON(chars, 0, chars.length - 1);
+			r = ImCursor.parse(docs);
 		}else{
-			s = cur.toJson();
-			char[] chars = s.toCharArray();
-			r = JSONUtil.parseJSON(chars, 0, chars.length - 1);
+			r = ImCursor.parse(cur);
 		}
 		
-		Object obj = null;
-		if (r instanceof Record){
-			Record rcd = (Record)r;
-			if (rcd.dataStruct().getFieldIndex("firstBatch")>-1){
-				obj = rcd.getFieldValue("firstBatch");
-				//System.out.println(obj);
-				if (obj instanceof Sequence){
-					if ( ((Sequence)obj).length()==0){
-						obj = r;
-					}
+		if (r.dataStruct().getFieldIndex("firstBatch")>-1){
+			obj = r.getFieldValue("firstBatch");
+			if (obj instanceof Sequence){
+				if ( ((Sequence)obj).length()==0){
+					obj = r;
 				}
 			}
-		}	
+		}
 		
 		String cmd = null;
 		long pid = cur.getLong("id");
@@ -131,4 +135,6 @@ public class ImShell extends ImFunction {
 		}
 		return new ImCursor(mongo, cmd, bufTbl, m_ctx);		
 	}
+	
+	
 }

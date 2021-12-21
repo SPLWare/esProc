@@ -1,6 +1,6 @@
 package com.scudata.lib.mongo.function;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,12 +12,11 @@ import com.mongodb.client.MongoDatabase;
 import com.scudata.common.*;
 import com.scudata.dm.*;
 import com.scudata.dm.cursor.ICursor;
-import com.scudata.util.JSONUtil;
 
 public class ImCursor extends ICursor {
 	private String m_cmd;
 	private ImMongo m_mongo;
-	private String[] m_cols;
+	private static String[] m_cols;
 	private Table m_bufTable;
 	private long cursorId = 1; //若为0，则无数据了。
 	
@@ -82,6 +81,7 @@ public class ImCursor extends ICursor {
 	
 	//还不清楚getMore关闭cursor方法，而不是断开连接.
 	public synchronized void close() {
+		m_cols = null;
 //		super.close();
 //		
 //		try {
@@ -98,6 +98,8 @@ public class ImCursor extends ICursor {
 
 	protected Sequence get(int n) {		
 		Table vTbl = null;
+		Table[] vTables = new Table[1];
+		
 		if (m_mongo == null || n < 1) {
 			if (m_cols!=null){
 				return new Table(m_cols);
@@ -135,41 +137,107 @@ public class ImCursor extends ICursor {
 				vTbl = new Table(buf.dataStruct());
 			}
 			
-			if (buf.length()>n){ //2.1 有足够缓存
-				for(int i=0; i<n; i++){
-					Object o = buf.get(i+1);
-					if (o instanceof Record){
-						vTbl.newLast(((Record)o).getFieldValues());
-					}else if(o instanceof Sequence){
-						vTbl.addAll((Sequence)o);
-					}
-				}
-				for(int i=n; i>0; i--){
-					buf.delete(i);
-				}
-				//2.2 剩余存入缓冲.
-				m_bufTable = new Table(buf.dataStruct());
-				m_bufTable.addAll(buf);
-				return vTbl;
-			}else{			//2.3  缓存数不足	
-				vTbl.addAll(buf);
-				n -= buf.length();
-				buf.clear();				
-			}			
+			if(mergeTable(vTables, buf, n)){
+				vTbl = vTables[0];
+				break;
+			}
+			
 		}
 		
 		if (n > 0) {
 			close();
 		}
-		if (vTbl==null && m_cols!=null){
+		if (vTables[0]!=null){
+			vTables[0] = vTbl;
+		}else if (vTbl==null && m_cols!=null){
 			vTbl = new Table(m_cols);
 		}
 
 		return vTbl;
 	}
+	
+	//序表与序表合并，字段不一致时字段数据对齐
+	//将bufTbl合并到vTbls中,先将两表结构调整为一致，再过滤数据。
+	private boolean mergeTable(Table[] vTbls, Table bufTbl, int n) {
+		boolean bBreak = false;
+		Table vTbl = vTbls[0];
+		//A.相同结构合并 
+		if (Arrays.equals(vTbl.dataStruct().getFieldNames(), bufTbl.dataStruct().getFieldNames())){
+			;//skip
+		//B.包括结构合并 (vTbl>bufTbl)，只处理bufTbl数据
+		}else if(isColumnContain(vTbl.dataStruct().getFieldNames(), bufTbl.dataStruct().getFieldNames())){
+			Table tmpTable = new Table(vTbl.dataStruct());
+			modifyTableData(tmpTable, bufTbl);
+			bufTbl.clear();
+			bufTbl.addAll(tmpTable);
+			tmpTable.clear();
+		//C. 不同结构合并
+		}else{ 
+			String[] newCols = mergeColumns(vTbl.dataStruct().getFieldNames(), 
+											bufTbl.dataStruct().getFieldNames());
+			Table tmpTable = new Table(newCols);
+			ListBase1 mems = vTbl.getMems();
+			
+			// oldData
+			Record r = null;
+			for(int i=0; i<mems.size(); i++){
+				r = (Record)mems.get(i+1);
+				tmpTable.newLast(r.getFieldValues());
+			}
+			vTbl.clear();
+			vTbl=new Table(newCols);
+			vTbl.addAll(tmpTable);
+			tmpTable.clear();
+			// newData
+			modifyTableData(tmpTable, bufTbl);
+			bufTbl.clear();
+			bufTbl.addAll(tmpTable);
+			tmpTable.clear();
+		}
+		
+		if (bufTbl.length()>n){ //2.1 有足够缓存
+			for(int i=0; i<n; i++){
+				Record r = bufTbl.getRecord(i+1);
+				vTbl.newLast(r.getFieldValues());
+			}
+			for(int i=n; i>0; i--){
+				bufTbl.delete(i);
+			}
+			//2.2 剩余存入缓冲.
+			m_bufTable = new Table(bufTbl.dataStruct());
+			m_bufTable.addAll(bufTbl);
+			//return vTbl;
+			bBreak = true;
+		}else{			//2.3  缓存数不足	
+			vTbl.addAll(bufTbl);
+			n -= bufTbl.length();
+			bufTbl.clear();				
+		}
+		
+		vTbls[0] = vTbl;
+		return bBreak;
+	}
 
 	protected void finalize() throws Throwable {
 		close();
+	}
+	
+	//更改表结构交，将旧表数据填充到新到中。
+	private void modifyTableData(Table newTbl, Table oldTbl)
+	{
+		Object[] subLine = null;
+		String[] newCols=newTbl.dataStruct().getFieldNames();
+		String[] cols = oldTbl.dataStruct().getFieldNames();
+		subLine = new Object[newCols.length];
+		for(int i=0; i<oldTbl.length(); i++){
+			Record rcd = oldTbl.getRecord(i+1);
+			for(int j=0; j<newCols.length; j++){	
+				if (ArrayUtils.contains(cols, newCols[j])) {
+					 subLine[j] = rcd.getFieldValue(newCols[j]);
+				}
+			}
+			newTbl.newLast(subLine);
+		}
 	}
 	
 	public Table runCommand(MongoDatabase db, String cmd) {
@@ -212,7 +280,8 @@ public class ImCursor extends ICursor {
 	public static Record parse(Document doc){
 		int idx = 0;
 		Set<String>set = doc.keySet();
-		DataStruct ds1 = new DataStruct(set.toArray(new String[set.size()]));
+		String[] curCols = set.toArray(new String[set.size()]);
+		DataStruct ds1 = new DataStruct(curCols);
 		
 		Object[] line = new Object[set.size()];;
 		for(String k:set){
@@ -259,7 +328,7 @@ public class ImCursor extends ICursor {
 	}
 	
 	//按数组原顺序去重合并数组
-	private static String[] merge(String[] oldArr, String[] newArr){
+	private static String[] mergeColumns(String[] oldArr, String[] newArr){
         Map<String, Integer> map = new LinkedHashMap<String, Integer>();
        
         for (String anOldArr : oldArr) {
@@ -276,10 +345,8 @@ public class ImCursor extends ICursor {
     }
 	
 	//参数oldDs是否包含newDs
-	private static boolean isDataStructContain(DataStruct oldDs, DataStruct newDs){
+	private static boolean isColumnContain(String[] oldArr, String[] newArr){
 		boolean bRet = true;
-		String[] oldArr = oldDs.getFieldNames();
-		String[] newArr = newDs.getFieldNames();
 		if (oldArr.length<newArr.length){
 			bRet = false;
 		}else{
@@ -294,31 +361,21 @@ public class ImCursor extends ICursor {
 		return bRet;
 	}
 	
-	//字段不一致时字段数据对齐
+	//序表与记录合并，字段不一致时字段数据对齐
 	private static Table doRecord(Table subNode, Record subRec) {
 		Table ret = null;
 		// 1.结构相同。
 		if (subNode.dataStruct().isCompatible(subRec.dataStruct())){
 			subNode.newLast(subRec.getFieldValues());	
 			ret = subNode;			
-		//2. 结构包括关系, 直接追加数据
-		}else if(isDataStructContain(subNode.dataStruct(), subRec.dataStruct())){
+		//2. 结构包括关系, 直接追加数据并字段对齐
+		}else if(isColumnContain(subNode.dataStruct().getFieldNames(), 
+				subRec.dataStruct().getFieldNames())){
 			// newData
-			Object[] subLine = null;
-			String[] fullCols = subNode.dataStruct().getFieldNames();
-
-			String[] cols = subRec.getFieldNames();
-			subLine = new Object[fullCols.length];
-			for(int j=0; j<fullCols.length; j++){	
-				 if (ArrayUtils.contains(cols, fullCols[j])) {
-					 subLine[j] = subRec.getFieldValue(fullCols[j]);
-				 }
-			}
-			subNode.newLast(subLine);
-			ret = subNode;
-		//3. 结构不同时，重构序表
-		}else{
-			String[] newCols = merge(subNode.dataStruct().getFieldNames(), 
+			appendRecord(subNode, subRec);
+			ret = subNode;		
+		}else{//3. 结构不同时，重构序表
+			String[] newCols = mergeColumns(subNode.dataStruct().getFieldNames(), 
 									 subRec.dataStruct().getFieldNames());
 			Table newTable = new Table(newCols);
 			ListBase1 mems = subNode.getMems();
@@ -345,5 +402,20 @@ public class ImCursor extends ICursor {
 		}
 		subNode = null;
 		return ret;
+	}
+	
+	//表结构包括记录结构情况下，将记录追加到表中，
+	private static void appendRecord(Table vTbl, Record subRec){
+		Object[] subLine = null;
+		String[] fullCols = vTbl.dataStruct().getFieldNames();
+
+		String[] cols = subRec.getFieldNames();
+		subLine = new Object[fullCols.length];
+		for(int j=0; j<fullCols.length; j++){	
+			 if (ArrayUtils.contains(cols, fullCols[j])) {
+				 subLine[j] = subRec.getFieldValue(fullCols[j]);
+			 }
+		}
+		vTbl.newLast(subLine);
 	}
 }
