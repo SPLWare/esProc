@@ -128,6 +128,7 @@ public class ImCursor extends ICursor {
 		}
 		
 		//2. 查询新数据。
+		int bufSize = 0;
 		while (n > 0 && cursorId>0) {
 			Table buf = runCommand(m_mongo.m_db, m_cmd);
 			if (buf==null){
@@ -136,20 +137,22 @@ public class ImCursor extends ICursor {
 			if (vTbl==null){
 				vTbl = new Table(buf.dataStruct());
 			}
-			
-			if(mergeTable(vTables, buf, n)){
+			bufSize = buf.length();
+			vTables[0] = vTbl;
+			if(mergeTable(vTables, buf, n)){	
 				vTbl = vTables[0];
+				n -= bufSize;
 				break;
 			}
 			
+			vTbl = vTables[0];
+			n -= bufSize;
 		}
 		
 		if (n > 0) {
 			close();
 		}
-		if (vTables[0]!=null){
-			vTables[0] = vTbl;
-		}else if (vTbl==null && m_cols!=null){
+		if (vTbl==null && m_cols!=null){
 			vTbl = new Table(m_cols);
 		}
 
