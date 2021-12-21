@@ -834,7 +834,8 @@ public class UnitServerConsole extends JFrame implements StartUnitListener {
 		if (isGraph) {
 			ServerConsole.setDefaultLNF();
 			try {
-				ConfigOptions.load2(false);
+//				仅加载选项字体到内存，不应用，界面启动前应用字体；
+				ConfigOptions.load2(false,false);
 			} catch (Throwable e) {
 				e.printStackTrace();
 			}
