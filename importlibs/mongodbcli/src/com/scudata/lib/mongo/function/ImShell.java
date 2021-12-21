@@ -48,7 +48,7 @@ public class ImShell extends ImFunction {
 			Document cur = (Document)docs.get("cursor");
 			Record rootNode = null;
 			if (cur==null){
-				rootNode = ImCursor.parse(cur);
+				rootNode = ImCursor.parse(docs);
 				return rootNode;
 			}
 			
@@ -65,7 +65,7 @@ public class ImShell extends ImFunction {
 				
 		}catch(Exception e){
 			String info = e.getMessage();
-			if (info.indexOf("getLastError")>0){
+			if (info.indexOf("{")>-1 && info.indexOf("}")>0){
 				info = info.substring(info.indexOf("{"));
 				char[] chars = info.toCharArray();
 				obj = JSONUtil.parseJSON(chars, 0, chars.length - 1);
@@ -97,7 +97,7 @@ public class ImShell extends ImFunction {
 			s = docs.toJson();
 			char[] chars = s.toCharArray();
 			r = JSONUtil.parseJSON(chars, 0, chars.length - 1);
-		}else{		
+		}else{
 			s = cur.toJson();
 			char[] chars = s.toCharArray();
 			r = JSONUtil.parseJSON(chars, 0, chars.length - 1);
