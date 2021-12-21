@@ -1,5 +1,12 @@
 package com.scudata.lib.mongo.function;
 
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import org.apache.commons.lang.ArrayUtils;
 import org.bson.Document;
 import com.mongodb.client.MongoDatabase;
 import com.scudata.common.*;
@@ -11,7 +18,6 @@ public class ImCursor extends ICursor {
 	private String m_cmd;
 	private ImMongo m_mongo;
 	private String[] m_cols;
-	private int m_nFetchSize = 10000; //fetch() 缺省记录数量
 	private Table m_bufTable;
 	private long cursorId = 1; //若为0，则无数据了。
 	
@@ -55,7 +61,6 @@ public class ImCursor extends ICursor {
 				break;
 			}
 			
-			
 			if (buf.length()>fetchSize){ //2.1 有足够缓存
 				for(int i=(int)fetchSize; i>0; i--){
 					buf.delete(i);
@@ -72,26 +77,23 @@ public class ImCursor extends ICursor {
 			}			
 		}
 		
-		if (fetchSize>0) {
-			close();
-		}
-		
 		return count;
 	}
-
+	
+	//还不清楚getMore关闭cursor方法，而不是断开连接.
 	public synchronized void close() {
-		super.close();
-		
-		try {
-			if (ctx != null) ctx.removeResource(this);			
-			cursorId = 0;
-			if (m_mongo != null) {
-				m_mongo.close();
-				m_mongo = null;
-			}
-		} catch (Exception e) {
-			throw new RQException(e.getMessage(), e);
-		}
+//		super.close();
+//		
+//		try {
+//			if (ctx != null) ctx.removeResource(this);			
+//			cursorId = 0;
+//			if (m_mongo != null) {
+//				m_mongo.close();
+//				m_mongo = null;
+//			}
+//		} catch (Exception e) {
+//			throw new RQException(e.getMessage(), e);
+//		}
 	}
 
 	protected Sequence get(int n) {		
@@ -103,11 +105,6 @@ public class ImCursor extends ICursor {
 				return null;
 			}
 		}
-
-//		if (n == 2147483646){
-//			n = m_nFetchSize;
-//		}
-		
 		
 		//1。有缓存情况
 		if (m_bufTable!=null){
@@ -177,7 +174,11 @@ public class ImCursor extends ICursor {
 	
 	public Table runCommand(MongoDatabase db, String cmd) {
 		Table tbl = null;
-		try{			
+		try{		
+			if (cmd==null) {
+				return null;
+			}
+			
 			Object obj = null;
 			Document command = null;
 			command = Document.parse(cmd);
@@ -188,25 +189,17 @@ public class ImCursor extends ICursor {
 			}
 			Document cur = (Document)docs.get("cursor");
 			cursorId = cur.getLong("id");
-			String s = cur.toJson();
+			Record rcd = parse(cur);
 
-			char[] chars = s.toCharArray();
-			Object r = JSONUtil.parseJSON(chars, 0, chars.length - 1);
-
-			if (r instanceof Record){
-				Record rcd = (Record)r;
-				if (rcd.dataStruct().getFieldIndex("firstBatch")>-1){
-					obj = rcd.getFieldValue("firstBatch");
-					//System.out.println(obj);
-				}else if (rcd.dataStruct().getFieldIndex("nextBatch")>-1){
-					obj = rcd.getFieldValue("nextBatch");
-					//System.out.println(obj);
-				}
-				if (obj instanceof Table){
-					tbl = (Table)obj;
-					if (m_cols==null){
-						m_cols = tbl.dataStruct().getFieldNames();
-					}
+			if (rcd.dataStruct().getFieldIndex("firstBatch")>-1){
+				obj = rcd.getFieldValue("firstBatch");
+			}else if (rcd.dataStruct().getFieldIndex("nextBatch")>-1){
+				obj = rcd.getFieldValue("nextBatch");
+			}
+			if (obj instanceof Table){
+				tbl = (Table)obj;
+				if (m_cols==null){
+					m_cols = tbl.dataStruct().getFieldNames();
 				}
 			}
 		}catch(Exception e){
@@ -214,5 +207,143 @@ public class ImCursor extends ICursor {
 		}
 		
 		return tbl;
+	}
+	
+	public static Record parse(Document doc){
+		int idx = 0;
+		Set<String>set = doc.keySet();
+		DataStruct ds1 = new DataStruct(set.toArray(new String[set.size()]));
+		
+		Object[] line = new Object[set.size()];;
+		for(String k:set){
+			Object val = doc.get(k);			
+			if (val instanceof Document){				
+				Object subObj = parse((Document)val);
+				line[idx++] = subObj;
+			}else if(val instanceof List){
+				List<?> list = (List<?>)val;
+				if (list.size()==0){
+					idx++;
+					continue;
+				}
+				Object o = ((List<?>)val).get(0);
+				// List<Document>结构
+				if (o instanceof Document){
+					Table subNode = null;
+					Record subRec = null;
+					List<Document> dlist = (List<Document>)val;
+					
+					for(Document sub:dlist){
+						if (subNode == null){
+							subRec = parse(sub);
+							subNode = new Table(subRec.dataStruct());
+							subNode.newLast(subRec.getFieldValues());
+						}else{
+							subRec = parse(sub);	
+							subNode = doRecord(subNode, subRec);
+						}
+					}
+					line[idx++] = subNode;
+				}else{ // List<Object>结构
+					Object[] objs = list.toArray(new Object[list.size()]);
+					Sequence seq = new Sequence(objs);					
+					line[idx++] = seq;
+				}
+			}else{
+				line[idx++] = val;				
+			}
+		}
+
+		Record rcd = new Record(ds1,line);
+		return rcd;
+	}
+	
+	//按数组原顺序去重合并数组
+	private static String[] merge(String[] oldArr, String[] newArr){
+        Map<String, Integer> map = new LinkedHashMap<String, Integer>();
+       
+        for (String anOldArr : oldArr) {
+           map.put(anOldArr, 1);
+        }
+ 
+        for (String aNewArr : newArr) {
+        	map.put(aNewArr, 1);
+        }
+        
+        Set<String> set = map.keySet();
+        String[] ss = set.toArray(new String[set.size()]);
+        return ss;
+    }
+	
+	//参数oldDs是否包含newDs
+	private static boolean isDataStructContain(DataStruct oldDs, DataStruct newDs){
+		boolean bRet = true;
+		String[] oldArr = oldDs.getFieldNames();
+		String[] newArr = newDs.getFieldNames();
+		if (oldArr.length<newArr.length){
+			bRet = false;
+		}else{
+			for(int i=0; i<newArr.length; i++){
+				if (!ArrayUtils.contains(oldArr, newArr[i])){
+					bRet = false;
+					break;
+				}
+			}
+		}
+		
+		return bRet;
+	}
+	
+	//字段不一致时字段数据对齐
+	private static Table doRecord(Table subNode, Record subRec) {
+		Table ret = null;
+		// 1.结构相同。
+		if (subNode.dataStruct().isCompatible(subRec.dataStruct())){
+			subNode.newLast(subRec.getFieldValues());	
+			ret = subNode;			
+		//2. 结构包括关系, 直接追加数据
+		}else if(isDataStructContain(subNode.dataStruct(), subRec.dataStruct())){
+			// newData
+			Object[] subLine = null;
+			String[] fullCols = subNode.dataStruct().getFieldNames();
+
+			String[] cols = subRec.getFieldNames();
+			subLine = new Object[fullCols.length];
+			for(int j=0; j<fullCols.length; j++){	
+				 if (ArrayUtils.contains(cols, fullCols[j])) {
+					 subLine[j] = subRec.getFieldValue(fullCols[j]);
+				 }
+			}
+			subNode.newLast(subLine);
+			ret = subNode;
+		//3. 结构不同时，重构序表
+		}else{
+			String[] newCols = merge(subNode.dataStruct().getFieldNames(), 
+									 subRec.dataStruct().getFieldNames());
+			Table newTable = new Table(newCols);
+			ListBase1 mems = subNode.getMems();
+			
+			// oldData
+			Record r = null;
+			for(int i=0; i<mems.size(); i++){
+				r = (Record)mems.get(i+1);
+				newTable.newLast(r.getFieldValues());
+			}
+			// newData
+			Object[] subLine = null;
+			String[] cols = subRec.getFieldNames();
+			subLine = new Object[newCols.length];
+			for(int j=0; j<newCols.length; j++){	
+				 if (ArrayUtils.contains(cols, newCols[j])) {
+					 subLine[j] = subRec.getFieldValue(newCols[j]);
+				 }
+			}
+			newTable.newLast(subLine);
+
+			ret = newTable;
+			newTable = null;
+		}
+		subNode = null;
+		return ret;
 	}
 }
