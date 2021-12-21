@@ -299,6 +299,7 @@ public class Esproc {
 				} else if (arg.toLowerCase().startsWith("-c")) {
 					dfxFile = null;
 					fileArgs.setLength(0);
+					fileArgs.append("=");
 					int row = 1;
 					while (true) {
 						String line = System.console()
