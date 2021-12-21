@@ -1,4 +1,4 @@
-The application encapsulates esProc IDE designer, node service, ODBC service, HTTP service and the command line interface. Below lists sh files for starting these services:
+## The application encapsulates esProc IDE designer, node service, ODBC service, HTTP service and the command line interface. Below lists sh files for starting these services:
 
 To start esProc IDE：startup.sh.
 
