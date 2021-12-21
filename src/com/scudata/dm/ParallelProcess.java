@@ -230,7 +230,8 @@ public class ParallelProcess implements IResource{
 		b = dfx.toLowerCase().startsWith("return ");// 只有一行代码时，写了返回的也是脚本
 		if (b)
 			return true;
-		b = dfx.toLowerCase().endsWith(".dfx");
+		String lowDfx = dfx.toLowerCase();
+		b = lowDfx.endsWith(".dfx") || lowDfx.endsWith(".splx");
 		return !b;// 形如 123 串当脚本处理
 	}
 
