@@ -16,3 +16,5 @@ To close node service, ODBC service and HTTP service on a non-GUI interface: Ser
 
 Command line execution script: esprocx.sh.
 
+Install/Uninstall ODBC：esprocOdbcinst.exe/esprocOdbcuninst.exe/esprocOdbc.dll
+
