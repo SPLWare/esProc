@@ -69,10 +69,12 @@ public class XlsxSImporter implements ILineInput {
 	 * The file is closed
 	 */
 	private boolean isClosed = false;
+	
+	public static final int QUEUE_SIZE = 500;
 	/**
 	 * Queue for buffering data
 	 */
-	private final ArrayBlockingQueue<Object> que = new ArrayBlockingQueue<Object>(100);
+	private final ArrayBlockingQueue<Object> que = new ArrayBlockingQueue<Object>(QUEUE_SIZE);
 
 	/**
 	 * Object is used to mark the end
@@ -286,10 +288,12 @@ public class XlsxSImporter implements ILineInput {
 			return null;
 		synchronized (que) {
 			while (que.isEmpty()) {
-				synchronized (parseFinished) {
-					// The parsing is complete, and the buffer area is empty
-					if (parseFinished.booleanValue())
-						return null;
+				// The parsing is complete, and the buffer area is empty
+				if (parseFinished.booleanValue())
+					return null;
+				try {
+					Thread.sleep(10);
+				} catch (Exception e) {
 				}
 			}
 		}

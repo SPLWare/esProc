@@ -33,8 +33,7 @@ public class SheetXlsR extends SheetObject implements ILineInput {
 	/**
 	 * The queue used to cache data
 	 */
-	private final ArrayBlockingQueue<Object> que = new ArrayBlockingQueue<Object>(
-			500);
+	private final ArrayBlockingQueue<Object> que = new ArrayBlockingQueue<Object>(XlsxSImporter.QUEUE_SIZE);
 	/**
 	 * Start row
 	 */
@@ -63,16 +62,13 @@ public class SheetXlsR extends SheetObject implements ILineInput {
 	/**
 	 * Constructor
 	 * 
-	 * @param xssfReader
-	 *            XSSFReader
-	 * @param si
-	 *            SheetInfo
+	 * @param xssfReader XSSFReader
+	 * @param si         SheetInfo
 	 * @throws IOException
 	 * @throws OpenXML4JException
 	 * @throws SAXException
 	 */
-	public SheetXlsR(XSSFReader xssfReader, SheetInfo si) throws IOException,
-			OpenXML4JException, SAXException {
+	public SheetXlsR(XSSFReader xssfReader, SheetInfo si) throws IOException, OpenXML4JException, SAXException {
 		this.xssfReader = xssfReader;
 		this.sheetInfo = si;
 	}
@@ -80,30 +76,22 @@ public class SheetXlsR extends SheetObject implements ILineInput {
 	/**
 	 * Import the excel sheet and return the sequence object.
 	 * 
-	 * @param fields
-	 *            Field names
-	 * @param startRow
-	 *            Start row
-	 * @param endRow
-	 *            End row
-	 * @param bTitle
-	 *            Include title line
-	 * @param isCursor
-	 *            Whether to return the cursor
-	 * @param removeBlank
-	 *            Whether to delete blank lines at the beginning and end
+	 * @param fields      Field names
+	 * @param startRow    Start row
+	 * @param endRow      End row
+	 * @param bTitle      Include title line
+	 * @param isCursor    Whether to return the cursor
+	 * @param removeBlank Whether to delete blank lines at the beginning and end
 	 * @return
 	 * @throws Exception
 	 */
-	public synchronized Object xlsimport(String[] fields, int startRow,
-			int endRow, boolean bTitle, boolean isCursor, boolean removeBlank)
-			throws Exception {
+	public synchronized Object xlsimport(String[] fields, int startRow, int endRow, boolean bTitle, boolean isCursor,
+			boolean removeBlank) throws Exception {
 		this.bTitle = bTitle;
 		if (startRow > 0) {
 			startRow--;
 		} else if (startRow < 0) {
-			throw new RQException("xlsimport"
-					+ EngineMessage.get().getMessage("function.invalidParam"));
+			throw new RQException("xlsimport" + EngineMessage.get().getMessage("function.invalidParam"));
 		}
 
 		if (endRow > 0) {
@@ -112,8 +100,7 @@ public class SheetXlsR extends SheetObject implements ILineInput {
 			endRow = IExcelTool.MAX_XLSX_LINECOUNT;
 		} else if (endRow < 0) {
 			// End row must be a positive integer.
-			throw new RQException("xlsimport"
-					+ AppMessage.get().getMessage("filexls.eerror"));
+			throw new RQException("xlsimport" + AppMessage.get().getMessage("filexls.eerror"));
 		}
 
 		if (endRow < startRow)
@@ -134,8 +121,7 @@ public class SheetXlsR extends SheetObject implements ILineInput {
 			if (line == null) {
 				if (fields != null && fields.length > 0) {
 					MessageManager mm = EngineMessage.get();
-					throw new RQException(fields[0]
-							+ mm.getMessage("ds.fieldNotExist"));
+					throw new RQException(fields[0] + mm.getMessage("ds.fieldNotExist"));
 				}
 				return null;
 			}
@@ -155,8 +141,7 @@ public class SheetXlsR extends SheetObject implements ILineInput {
 			if (fcount == 0) {
 				if (fields != null && fields.length > 0) {
 					MessageManager mm = EngineMessage.get();
-					throw new RQException(fields[0]
-							+ mm.getMessage("ds.fieldNotExist"));
+					throw new RQException(fields[0] + mm.getMessage("ds.fieldNotExist"));
 				}
 				return null;
 			}
@@ -209,14 +194,12 @@ public class SheetXlsR extends SheetObject implements ILineInput {
 					int q = ds.getFieldIndex(fields[i]);
 					if (q < 0) {
 						MessageManager mm = EngineMessage.get();
-						throw new RQException(fields[i]
-								+ mm.getMessage("ds.fieldNotExist"));
+						throw new RQException(fields[i] + mm.getMessage("ds.fieldNotExist"));
 					}
 
 					if (index[q] != -1) {
 						MessageManager mm = EngineMessage.get();
-						throw new RQException(fields[i]
-								+ mm.getMessage("ds.colNameRepeat"));
+						throw new RQException(fields[i] + mm.getMessage("ds.colNameRepeat"));
 					}
 
 					index[q] = i;
@@ -267,11 +250,9 @@ public class SheetXlsR extends SheetObject implements ILineInput {
 			return null;
 		synchronized (que) {
 			while (que.isEmpty()) {
-				synchronized (parseFinished) {
-					// The parsing is complete, and the buffer area is empty
-					if (parseFinished.booleanValue())
-						return null;
-				}
+				// The parsing is complete, and the buffer area is empty
+				if (parseFinished.booleanValue())
+					return null;
 				try {
 					Thread.sleep(10);
 				} catch (Exception e) {
@@ -310,8 +291,7 @@ public class SheetXlsR extends SheetObject implements ILineInput {
 			throws IOException, OpenXML4JException, SAXException {
 		SharedStringsTable sst = xssfReader.getSharedStringsTable();
 		StylesTable styles = xssfReader.getStylesTable();
-		XSSFReader.SheetIterator iter = (XSSFReader.SheetIterator) xssfReader
-				.getSheetsData();
+		XSSFReader.SheetIterator iter = (XSSFReader.SheetIterator) xssfReader.getSheetsData();
 		while (iter.hasNext()) {
 			InputStream stream = iter.next();
 			if (!sheetInfo.getSheetName().equals(iter.getSheetName())) {
@@ -330,25 +310,19 @@ public class SheetXlsR extends SheetObject implements ILineInput {
 	/**
 	 * Read sheet information
 	 * 
-	 * @param styles
-	 *            StylesTable
-	 * @param sst
-	 *            SharedStringsTable
-	 * @param sheetInputStream
-	 *            InputStream
-	 * @param removeBlank
-	 *            Whether to remove the first and last blank lines
+	 * @param styles           StylesTable
+	 * @param sst              SharedStringsTable
+	 * @param sheetInputStream InputStream
+	 * @param removeBlank      Whether to remove the first and last blank lines
 	 * @throws IOException
 	 * @throws SAXException
 	 */
-	private void processSheet(StylesTable styles, SharedStringsTable sst,
-			final InputStream sheetInputStream, boolean removeBlank)
-			throws IOException, SAXException {
+	private void processSheet(StylesTable styles, SharedStringsTable sst, final InputStream sheetInputStream,
+			boolean removeBlank) throws IOException, SAXException {
 		final InputSource sheetSource = new InputSource(sheetInputStream);
 		try {
 			final XMLReader parser = XMLReaderFactory.createXMLReader();
-			ContentHandler handler = new SheetHandler(styles, sst, fields,
-					startRow, endRow, removeBlank, bTitle, que);
+			ContentHandler handler = new SheetHandler(styles, sst, fields, startRow, endRow, removeBlank, bTitle, que);
 			parser.setContentHandler(handler);
 			Thread parseThread = new Thread() {
 				public void run() {
