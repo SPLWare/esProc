@@ -362,9 +362,7 @@ public class SheetXlsR extends SheetObject implements ILineInput {
 								sheetInputStream.close();
 							} catch (IOException e) {
 							}
-						synchronized (parseFinished) {
-							parseFinished = Boolean.TRUE;
-						}
+						parseFinished = Boolean.TRUE;
 					}
 				}
 			};

@@ -267,9 +267,7 @@ public class XlsxSImporter implements ILineInput {
 								sheetInputStream.close();
 							} catch (IOException e) {
 							}
-						synchronized (parseFinished) {
-							parseFinished = Boolean.TRUE;
-						}
+						parseFinished = Boolean.TRUE;
 					}
 				}
 			};
