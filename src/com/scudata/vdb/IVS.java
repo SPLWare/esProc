@@ -190,19 +190,21 @@ public interface IVS {
 	 * 根据条件检索数据
 	 * @param dirNames 路径名数组
 	 * @param dirValues 路径值数组，用于过滤
+	 * @param valueSigns true：对目录提条件，此时如果传入的目录值是null，则会选值是null的目录，false：省略目录值，即不对此目录提条件
 	 * @param fields 单据中要读的字段名数组
 	 * @param filter 过滤条件
 	 * @param opt 选项，r：归去找子路径，缺省将读到参数所涉及层即停止
 	 * @param ctx 计算上下文
 	 * @return 结果集排列
 	 */
-	Sequence retrieve(String []dirNames, Object []dirValues, 
+	Sequence retrieve(String []dirNames, Object []dirValues, boolean []valueSigns,
 			String []fields, Expression filter, String opt, Context ctx);
 	
 	/**
 	 * 找出满足条件的单据后改写单据的字段值
 	 * @param dirNames 路径名数组
 	 * @param dirValues 路径值数组，用于过滤
+	 * @param valueSigns true：对目录提条件，此时如果传入的目录值是null，则会选值是null的目录，false：省略目录值，即不对此目录提条件
 	 * @param fvals 单据中的字段值数组
 	 * @param fields 单据中的字段名数组
 	 * @param filter 过滤条件
@@ -210,7 +212,7 @@ public interface IVS {
 	 * @param ctx 计算上下文
 	 * @return 成功：VDB.S_SUCCESS，其它：失败
 	 */
-	int update(String []dirNames, Object []dirValues, 
+	int update(String []dirNames, Object []dirValues, boolean []valueSigns, 
 			Object []fvals, String []fields, Expression filter, String opt, Context ctx);
 	
 	/**

@@ -123,14 +123,14 @@ public class VS implements IVS {
 		return vdb.write(section, seq, pathExp, fieldExps, fields, filter, ctx);
 	}
 	
-	public Sequence retrieve(String []dirNames, Object []dirValues, 
+	public Sequence retrieve(String []dirNames, Object []dirValues, boolean []valueSigns, 
 			String []fields, Expression filter, String opt, Context ctx) {
-		return vdb.retrieve(section, dirNames, dirValues, fields, filter, opt, ctx);
+		return vdb.retrieve(section, dirNames, dirValues, valueSigns, fields, filter, opt, ctx);
 	}
 	
-	public int update(String []dirNames, Object []dirValues, 
+	public int update(String []dirNames, Object []dirValues, boolean []valueSigns, 
 			Object []fvals, String []fields, Expression filter, String opt, Context ctx) {
-		return vdb.update(section, dirNames, dirValues, fvals, fields, filter, opt, ctx);
+		return vdb.update(section, dirNames, dirValues, valueSigns, fvals, fields, filter, opt, ctx);
 	}
 
 	public Sequence saveBlob(Sequence oldValues, Sequence newValues, Object path, String name) {

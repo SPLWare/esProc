@@ -11,9 +11,11 @@ import com.scudata.util.Variant;
 class DirFilter {
 	private Object rightValue;
 	private Sequence values; // 序列表示从属关系
+	private boolean valueSign; // true：对目录提条件，此时如果传入的目录值是null，则会选值是null的目录，false：省略目录值，即不对此目录提条件
 
-	public DirFilter(Object rightValue) {
+	public DirFilter(Object rightValue, boolean valueSign) {
 		this.rightValue = rightValue;
+		this.valueSign = valueSign;
 		if (rightValue instanceof Sequence) {
 			values = (Sequence)rightValue;
 		}
@@ -21,7 +23,7 @@ class DirFilter {
 	
 	public boolean match(Object value) {
 		if (values == null) {
-			if (rightValue != null) {
+			if (valueSign) {
 				return Variant.isEquals(value, rightValue);
 			} else {
 				return true;

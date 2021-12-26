@@ -446,7 +446,7 @@ class ArchiveSection extends ISection {
 		throw getModifyException();
 	}
 
-	public int update(VDB vdb, String[] dirNames, Object[] dirValues, Object[] fvals, String[] fields, 
+	public int update(VDB vdb, String[] dirNames, Object[] dirValues, boolean []valueSigns, Object[] fvals, String[] fields, 
 			Expression exp, boolean isRecursion, Context ctx) {
 		throw getModifyException();
 	}

@@ -1,6 +1,5 @@
 package com.scudata.expression.mfn.string;
 
-import com.scudata.common.DBTypes;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
