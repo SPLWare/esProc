@@ -2,9 +2,9 @@ package com.scudata.lib.ftp;
 
 import java.io.File;  
 import java.util.Properties;  
+  
 import org.apache.commons.logging.Log;  
 import org.apache.commons.logging.LogFactory;  
-  
 import com.jcraft.jsch.Channel;  
 import com.jcraft.jsch.ChannelSftp;  
 import com.jcraft.jsch.JSch;  
@@ -53,7 +53,8 @@ public class FtpUtil {
         ChannelSftp chSftp = (ChannelSftp) channel;  
   
         String ftpFilePath = ftpPath + "/" + fileName;  
-       
+        String localFilePath = localPath + File.separatorChar + fileName;  
+  
         try {  
             chSftp.get(ftpFilePath, localPath);  
         } catch (Exception e) {  

@@ -69,14 +69,10 @@ public class FtpDir  extends Function {
 		
 		Sequence s = null;
 		try {
-			if (client != null) {			
-				if (mkdir){
-					s = client.mkdir(patterns);
-				}else if (deldir) {
-					s = client.deldir(patterns);
-				} else{
-					s = client.dirList(path, patterns,onlyDir,fullPath);
-				}
+			if (client != null) {				
+				if (mkdir) s = client.mkdir(patterns);
+				else if (deldir) s = client.deldir(patterns);
+				else s = client.dirList(path, patterns,onlyDir,fullPath);
 			} else {
 				s = sclient.dirList(path, patterns,onlyDir,fullPath);
 			}

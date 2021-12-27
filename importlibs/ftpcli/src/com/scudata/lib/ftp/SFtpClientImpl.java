@@ -1,7 +1,15 @@
 package com.scudata.lib.ftp;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Properties;
+
+import org.apache.commons.net.ftp.FTPClient;
+import org.apache.commons.net.ftp.FTPClientConfig;
+import org.apache.commons.net.ftp.FTPFile;
 
 import com.jcraft.jsch.Channel;
 import com.jcraft.jsch.ChannelSftp;
@@ -9,6 +17,7 @@ import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.Session;
 import com.scudata.common.Logger;
 import com.scudata.dm.Context;
+import com.scudata.dm.FileObject;
 import com.scudata.dm.IResource;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;

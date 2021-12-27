@@ -328,6 +328,9 @@ public class FtpClientImpl extends Table implements IResource {
 				result = new Table(new String[]{"errorCode","localExistFiles"});
 				Record r = result.insert(0);
 				r.set("errorCode", 1);
+				Sequence seq = new Sequence();
+				//for (int i=0; i<localExists.)
+				//seq.addAll(localExists.toArray(new String[localExists.size()]));
 				r.set("localExistFiles",s);
 				return result;
 			}
@@ -447,6 +450,9 @@ public class FtpClientImpl extends Table implements IResource {
 				result = new Table(new String[]{"errorCode","remoteExistFiles"});
 				Record r = result.insert(0);
 				r.set("errorCode", 1);
+				Sequence seq = new Sequence();
+				//for (int i=0; i<localExists.)
+				//seq.addAll(localExists.toArray(new String[localExists.size()]));
 				r.set("remoteExistFiles",s);
 				return result;
 			}
@@ -463,7 +469,8 @@ public class FtpClientImpl extends Table implements IResource {
 				String st = ftp.getStatus(remotes.get(i));
 				String sts[] = st.split("\r\n");
 				if (dirs.get(i)) {
-					ftp.makeDirectory(remotes.get(i));
+					if (st == null) ftp.makeDirectory(remotes.get(i));
+					continue;
 				} else {
 					if (sts.length == 3) {
 						if (overwrite) {
@@ -477,13 +484,11 @@ public class FtpClientImpl extends Table implements IResource {
 					InputStream is = new FileObject(locali.getAbsolutePath()).getInputStream();
 					//System.out.println("r = " + is.available());
 					//System.out.println("r = " + remotes.get(i));
-					//boolean r = ftp.appendFile(remotes.get(i), is);
+					boolean r = ftp.appendFile(remotes.get(i), is);
 					//System.out.println("r = " + r);
 					is.close();
 					sucs.add(remotes.get(i));
-					if (remoteExists.get(i) && overwrite) {
-						overwrites.add(remotes.get(i));
-					}
+					if (remoteExists.get(i) && overwrite) overwrites.add(remotes.get(i));
 				}
 			} catch (IOException e) {
 				fails.add(remotes.get(i));

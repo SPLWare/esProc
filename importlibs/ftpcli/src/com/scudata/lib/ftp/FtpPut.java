@@ -1,11 +1,15 @@
 package com.scudata.lib.ftp;
 
+import java.io.InputStream;
+import java.util.ArrayList;
+
 import com.scudata.common.Logger;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
 import com.scudata.dm.FileObject;
 import com.scudata.expression.Function;
+import com.scudata.expression.IParam;
 import com.scudata.expression.Node;
 import com.scudata.resources.EngineMessage;
 

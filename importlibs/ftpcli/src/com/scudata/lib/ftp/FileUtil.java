@@ -46,7 +46,7 @@ public class FileUtil {
 
 
 	public static byte[] getStreamBytes( InputStream is ) throws Exception {
-		ArrayList<byte[]> al = new ArrayList<byte[]>();
+		ArrayList al = new ArrayList();
 		int totalBytes = 0;
 		byte[] b = new byte[102400];
 		int readBytes = 0;
