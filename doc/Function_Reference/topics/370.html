@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>f .import()</title>
+<title>ifx_takefrag()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,1807 +13,212 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h3 style='text-align:justify;text-justify:inter-ideograph'><span
-style='mso-bookmark:"_A\.in\(\)"'><a name="f_import"></a><i style='mso-bidi-font-style:
-normal'><span lang=EN-US>f</span></i><span lang=EN-US>.import()</span></span><span
+	<div id="centent-title"><h2><span style='mso-bookmark:"_A\.in\(\)"'><a name="ifx_takefrag"></a><span
+lang=EN-US>ifx_takefrag()</span></span><span
 style='mso-bookmark:"_A\.in\(\)"'></span><span
-style='mso-bookmark:"_A\.in\(\)"'></span></h3></div>
-	<p class=afe style='line-height:200%'><span style='mso-bookmark:"_A\.in\(\)"'><span
-lang=EN-US style='mso-bidi-font-size:14.0pt;line-height:200%'>Description:</span></span></p>
+style='mso-bookmark:"_A\.in\(\)"'></span></h2></div>
+	<p class=MsoNormal align=left style='text-align:left;line-height:200%;
+tab-stops:18.0pt'><span style='mso-bookmark:"_A\.in\(\)"'><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:12.0pt;
+line-height:200%'>Description:</span></b></span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-style='mso-bookmark:"_A\.in\(\)"'><span lang=EN-US>Read contents from a file
-and return them as a table sequence. </span></span></p>
+style='mso-bookmark:"_A\.in\(\)"'><span lang=EN-US>Extract fragmentation
+information from the database.</span></span></p>
 
-<p class=afe style='line-height:200%'><span style='mso-bookmark:"_A\.in\(\)"'><span
-lang=EN-US style='mso-bidi-font-size:14.0pt;line-height:200%'>Syntax: </span></span></p>
+<p class=MsoNormal align=left style='text-align:left;line-height:200%;
+tab-stops:18.0pt'><span style='mso-bookmark:"_A\.in\(\)"'><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:12.0pt;
+line-height:200%'>Syntax:</span></b></span></p>
+
+<p class=MsoNormal align=left style='margin-left:21.0pt;text-align:left'><span
+style='mso-bookmark:"_A\.in\(\)"'><b style='mso-bidi-font-weight:normal'><span
+lang=EN-US style='mso-fareast-font-family:黑体'>ifx_takefrag</span></b></span><span
+style='mso-bookmark:"_A\.in\(\)"'><i><span lang=EN-US style='mso-bidi-font-size:
+10.5pt'>(ifxconn, table1,table2,...)</span></i></span></p>
+
+<p class=MsoNormal align=left style='text-align:left;line-height:200%;
+tab-stops:18.0pt'><span style='mso-bookmark:"_A\.in\(\)"'><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:12.0pt;
+line-height:200%'>Note: </span></b></span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+style='mso-bookmark:"_A\.in\(\)"'><span lang=EN-US>The external library
+function extracts the fragmentation information of the specified table(s) from
+the database and writes it into the Ifxconn object. As there isn’t the
+fragmentation information in <i style='mso-bidi-font-style:normal'>fragfile</i>
+file, the <i style='mso-bidi-font-style:normal'>txt</i> file is empty; get the
+fragmentation file of all tables being fragmented if parameter <i
+style='mso-bidi-font-style:normal'>table</i> is absent.</span></span></p>
+
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><span
+style='mso-bookmark:"_A\.in\(\)"'><b style='mso-bidi-font-weight:normal'><span
+lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:12.0pt;line-height:200%'>Parameters:</span></b></span></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ style='margin-left:6.2pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=183 valign=top style='width:137.25pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=var2><span
-  lang=EN-US>f</span></span><span lang=EN-US>.</span></span><span
-  style='mso-bookmark:"_A\.in\(\)"'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'>import</span></span><span
-  lang=EN-US>()</span></span><span style='mso-bookmark:"_A\.in\(\)"'><span
-  class=var2><span lang=EN-US></span></span></span></p>
+  <td width=122 valign=top style='width:73.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><i><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt'>ifxconn</span></i></span></p>
   </td>
   <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=362 valign=top style='width:271.85pt;padding:0cm 5.4pt 0cm 5.4pt'><span
-  style='mso-bookmark:"_A\.in\(\)"'></span>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span lang=EN-US>&nbsp;</span></span></p>
+  <td width=546 valign=top style='width:327.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span lang=EN-US>An
+  Ifxconn object</span></span></p>
   </td>
   <span style='mso-bookmark:"_A\.in\(\)"'></span>
  </tr>
  <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
-  <td width=183 valign=top style='width:137.25pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=var2><span
-  lang=EN-US>f</span></span><span lang=EN-US>.</span></span><span
-  style='mso-bookmark:"_A\.in\(\)"'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'>import</span></span><span
-  lang=EN-US>(<i style='mso-bidi-font-style:normal'>F<sub>i:</sub>type:fmt</i>,…;<i
-  style='mso-bidi-font-style:normal'>k</i>:<i style='mso-bidi-font-style:normal'>n,s</i>)</span></span><span
-  style='mso-bookmark:"_A\.in\(\)"'><span class=var2><span lang=EN-US></span></span></span></p>
+  <td width=122 valign=top style='width:73.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><i><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt'>table</span></i></span></p>
   </td>
   <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=362 valign=top style='width:271.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span lang=EN-US>Retrieve
-  the <i style='mso-bidi-font-style:normal'>k<sup>th</sup></i> segment of the <i
-  style='mso-bidi-font-style:normal'>n</i> segments from the text file. <i
-  style='mso-bidi-font-style:normal'>F<sub>i</sub></i> represents the retrieved
-  field; all fields will be retrieved by default. <i style='mso-bidi-font-style:
-  normal'>s</i> is the user-defined separator; the default is tab. When retrieving
-  a file segment by segment, it intelligently identifies the ending points to
-  ensure the retrieved records in each segment are complete and all retrieved records
-  are continuous and unique</span></span></p>
+  <td width=546 valign=top style='width:327.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span lang=EN-US>The
+  table being fragmented; can be omitted and can have multiple number of it</span></span></p>
   </td>
   <span style='mso-bookmark:"_A\.in\(\)"'></span>
  </tr>
 </table>
 
-<p class=afe style='line-height:200%'><span style='mso-bookmark:"_A\.in\(\)"'><span
-lang=EN-US style='mso-bidi-font-size:14.0pt;line-height:200%'>Note: </span></span></p>
+<p class=MsoNormal align=left style='text-align:left;line-height:200%;
+tab-stops:18.0pt'><span style='mso-bookmark:"_A\.in\(\)"'><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:12.0pt;
+line-height:200%'>Example: </span></b></span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-style='mso-bookmark:"_A\.in\(\)"'><span lang=EN-US>The function retrieves file <i
-style='mso-bidi-font-style:normal'>f</i> and returns a table sequence where
-each record consists of a line of <i style='mso-bidi-font-style:normal'>f</i>. </span></span></p>
-
-<p class=afe style='line-height:200%'><span style='mso-bookmark:"_A\.in\(\)"'><span
-lang=EN-US style='mso-bidi-font-size:14.0pt;line-height:200%'>Parameters: </span></span></p>
-
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='margin-left:16.7pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
+ mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=var2><span
-  lang=EN-US>f</span></span></span></p>
+  <td width=30 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
+  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'><span
+  style='mso-bookmark:"_A\.in\(\)"'></span>
+  <p class=MsoNormal align=left style='text-align:left'><span style='mso-bookmark:
+  "_A\.in\(\)"'><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>&nbsp;</span></b></span></p>
   </td>
   <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span lang=EN-US>A
+  <td width=403 valign=top style='width:241.8pt;border:solid #A6A6A6 1.0pt;
+  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:"_A\.in\(\)"'><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US style='mso-fareast-font-family:黑体'>A</span></b></span></p>
+  </td>
+  <span style='mso-bookmark:"_A\.in\(\)"'></span>
+  <td width=247 valign=top style='width:148.0pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span style='mso-bookmark:"_A\.in\(\)"'></span>
+  <p class=MsoNormal align=left style='text-align:left'><span style='mso-bookmark:
+  "_A\.in\(\)"'><span lang=EN-US>&nbsp;</span></span></p>
+  </td>
+  <span style='mso-bookmark:"_A\.in\(\)"'></span>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=30 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=left style='text-align:left'><span style='mso-bookmark:
+  "_A\.in\(\)"'><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>1</span></b></span></p>
+  </td>
+  <span style='mso-bookmark:"_A\.in\(\)"'></span>
+  <td width=403 valign=top style='width:241.8pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=left style='text-align:left'><span style='mso-bookmark:
+  "_A\.in\(\)"'><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>=&quot;d:/frag1.txt&quot;</span></b></span></p>
+  </td>
+  <span style='mso-bookmark:"_A\.in\(\)"'></span>
+  <td width=247 valign=top style='width:148.0pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=left style='text-align:left'><span style='mso-bookmark:
+  "_A\.in\(\)"'><span lang=EN-US>Create and save a fragmentation information
   file</span></span></p>
   </td>
   <span style='mso-bookmark:"_A\.in\(\)"'></span>
  </tr>
- <tr style='mso-yfti-irow:1'>
-  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><i
-  style='mso-bidi-font-style:normal'><span lang=EN-US>F<sub>i</sub></span></i></span><span
-  style='mso-bookmark:"_A\.in\(\)"'><span class=var2><span lang=EN-US></span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span lang=EN-US>Fields
-  to be retrieved. All fields will be retrieved by default</span></span><span
-  style='mso-bookmark:"_A\.in\(\)"'><span class=var2><span lang=EN-US
-  style='font-style:normal;mso-bidi-font-style:italic'>.</span></span></span><span
-  style='mso-bookmark:"_A\.in\(\)"'><span class=3Char10><i style='mso-bidi-font-style:
-  normal'><span lang=EN-US style='font-size:16.0pt'> </span></i></span><span
-  lang=EN-US>The sign # is used to represent a field with a sequence number.</span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
- </tr>
  <tr style='mso-yfti-irow:2'>
-  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><i
-  style='mso-bidi-font-style:normal'><span lang=EN-US>type</span></i></span><span
-  style='mso-bookmark:"_A\.in\(\)"'><span class=var2><span lang=EN-US></span></span></span></p>
+  <td width=30 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=left style='text-align:left'><span style='mso-bookmark:
+  "_A\.in\(\)"'><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>2</span></b></span></p>
   </td>
   <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span lang=EN-US>Field
-  types include bool, int, long, float, decimal, string, date, time and
-  datetime. Data type of the first row will be used by default. </span></span><span
-  style='mso-bookmark:"_A\.in\(\)"'><span lang=EN-US style='mso-bidi-language:
-  AR'>It is the length of a serial byte when it is an integer.</span></span></p>
+  <td width=403 valign=top style='width:241.8pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=left style='text-align:left'><span style='mso-bookmark:
+  "_A\.in\(\)"'><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>=ifx_conn(&quot;com.informix.jdbc.IfxDriver&quot;,&quot;jdbc:informix-sqli:192.168.0.7:8000/tpch:informixserver=tramsserver&amp;user=informix&amp;pwd=informix&quot;;A1)</span></b></span></p>
+  </td>
+  <span style='mso-bookmark:"_A\.in\(\)"'></span>
+  <td width=247 valign=top style='width:148.0pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=left style='text-align:left'><span style='mso-bookmark:
+  "_A\.in\(\)"'><span lang=EN-US>Connect to Informix database</span></span></p>
   </td>
   <span style='mso-bookmark:"_A\.in\(\)"'></span>
  </tr>
  <tr style='mso-yfti-irow:3'>
-  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><i
-  style='mso-bidi-font-style:normal'><span lang=EN-US>fmt</span></i></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span lang=EN-US>Date\time
-  format</span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
- </tr>
- <tr style='mso-yfti-irow:4'>
-  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=var2><span
-  lang=EN-US>s</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span lang=EN-US>User-defined
-  separator. The default separator is tab. When the parameter is omitted, the
-  comma preceding it can be omitted, too.</span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
- </tr>
- <tr style='mso-yfti-irow:5'>
-  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=var2><span
-  lang=EN-US>k</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span lang=EN-US>The
-  segment number.</span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
- </tr>
- <tr style='mso-yfti-irow:6;mso-yfti-lastrow:yes'>
-  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=var2><span
-  lang=EN-US>n</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=var2><span
-  lang=EN-US style='font-style:normal;mso-bidi-font-style:italic'>The number of
-  segments. Retrieve the whole file when both </span><span lang=EN-US>k</span></span></span><span
-  style='mso-bookmark:"_A\.in\(\)"'><span class=var2><span lang=EN-US
-  style='font-style:normal;mso-bidi-font-style:italic'> and </span><span
-  lang=EN-US>n</span></span></span><span style='mso-bookmark:"_A\.in\(\)"'><span
-  class=var2><span lang=EN-US style='font-style:normal;mso-bidi-font-style:
-  italic'> are omitted.</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
- </tr>
-</table>
-
-<p class=afe style='line-height:200%'><span style='mso-bookmark:"_A\.in\(\)"'><span
-lang=EN-US style='mso-bidi-font-size:14.0pt;line-height:200%'>Options: </span></span></p>
-
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>@t</span></span></span><span
-  style='mso-bookmark:"_A\.in\(\)"'><span class=var2><span lang=EN-US></span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span lang=EN-US>Use
-  the first row of </span></span><span style='mso-bookmark:"_A\.in\(\)"'><span
-  class=var2><span lang=EN-US>f</span></span><span lang=EN-US> as the field
-  name. <span style='mso-bidi-font-weight:bold'>If this option is not used,</span></span></span><span
-  style='mso-bookmark:"_A\.in\(\)"'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'> _1, _2,…</span></span><span
-  lang=EN-US> will be used as field names;</span></span><span style='mso-bookmark:
-  "_A\.in\(\)"'><span lang=EN-US style='color:red;mso-bidi-language:AR'> </span></span><span
-  style='mso-bookmark:"_A\.in\(\)"'><span lang=EN-US style='color:black;
-  mso-bidi-language:AR'>keep the original field names if <i style='mso-bidi-font-style:
-  normal'>F<sub>i</sub></i> is #<i style='mso-bidi-font-style:normal'>i</i></span><span
-  lang=EN-US style='color:black'> </span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
- </tr>
- <tr style='mso-yfti-irow:1'>
-  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=var2><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-style:normal;
-  mso-bidi-font-style:italic'>@b</span></b><span lang=EN-US></span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span lang=EN-US>Retrieve
-  data from the exported binary file, with the support for parameter <i
-  style='mso-bidi-font-style:normal'>F<sub>i</sub></i>, <i style='mso-bidi-font-style:
-  normal'>k</i> and <i style='mso-bidi-font-style:normal'>n</i>, and with no
-  support available for<sub> </sub>parameters <i style='mso-bidi-font-style:
-  normal'>type </i>and <i style='mso-bidi-font-style:normal'>s</i>. Options @t,<i
-  style='mso-bidi-font-style:normal'> </i>@s, @i, @q and @m will be ignored.
-  The segmental retrieval could result in empty segment in cases when a file
-  has only a very small number of records or it is unable to be segmented. </span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
- </tr>
- <tr style='mso-yfti-irow:2'>
-  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif;mso-bidi-font-style:
-  italic'>@e</span></span></span><span style='mso-bookmark:"_A\.in\(\)"'><span
-  class=var2><span lang=EN-US></span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span lang=EN-US>Make
-  the function return null when <i style='mso-bidi-font-style:normal'>F<sub>i </sub></i>doesn’t
-  exist in the file; raise an error when the option is absent. </span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
- </tr>
- <tr style='mso-yfti-irow:3'>
-  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif;mso-bidi-font-style:
-  italic'>@s</span></span></span><span style='mso-bookmark:"_A\.in\(\)"'><span
-  class=var2><span lang=EN-US></span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span lang=EN-US>Do
-  not split the to-be-retrieved field when it is imported as a cursor whose
-  content is a table sequence consisting of strings of a single field; in this
-  case the parameters will be ignored.<i style='mso-bidi-font-style:normal'></i></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
- </tr>
- <tr style='mso-yfti-irow:4'>
-  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif;mso-bidi-font-style:
-  italic'>@i</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span lang=EN-US>If
-  the result set has only one column, return it as a sequence</span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
- </tr>
- <tr style='mso-yfti-irow:5'>
-  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>@q</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span lang=EN-US>Remove
-  the quotation marks, if any, from both ends of each data item, including
-  those in the field names and handle the escape sequences; quotation marks not
-  located in the ends are left alone </span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
- </tr>
- <tr style='mso-yfti-irow:6'>
-  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif;mso-hansi-font-family:
-  "Arial Narrow"'>@a</span></span></span><span style='mso-bookmark:"_A\.in\(\)"'><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'></span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span lang=EN-US>Treat
-  single quotes as quotes, including scenarios where the option cooperates with
-  @q option; single quotes are left not handled when both options are absent </span></span></p>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span lang=EN-US>&nbsp;</span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
- </tr>
- <tr style='mso-yfti-irow:7'>
-  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif;mso-hansi-font-family:
-  "Arial Narrow"'>@p</span></span></span><span style='mso-bookmark:"_A\.in\(\)"'><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'></span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span lang=EN-US>Enable
-  handling the matching of parentheses (not including the separators within the
-  parentheses) and quotes, as well as the the escape sequences outside of the
-  quotes</span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
- </tr>
- <tr style='mso-yfti-irow:8'>
-  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif;mso-hansi-font-family:
-  "Arial Narrow"'>@f</span></span></span><span style='mso-bookmark:"_A\.in\(\)"'><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'></span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span lang=EN-US>Split
-  the file content into a string by the separator without parsing</span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
- </tr>
- <tr style='mso-yfti-irow:9'>
-  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif;mso-hansi-font-family:
-  "Arial Narrow"'>@l</span></span></span><span style='mso-bookmark:"_A\.in\(\)"'><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'></span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span lang=EN-US>Allow
-  line continuation where there is an escape character \ at the end of the line</span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
- </tr>
- <tr style='mso-yfti-irow:10'>
-  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>@</span></span></span><span
-  style='mso-bookmark:"_A\.in\(\)"'><span class=var2><b style='mso-bidi-font-weight:
-  normal'><span lang=EN-US style='font-style:normal;mso-bidi-font-style:italic'>m</span></b><span
-  lang=EN-US></span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span lang=EN-US>Use
-  multithreads to increase data retrieval speed, but this will leave an
-  indefinite order for members of the result set. This option will be ignored
-  when parameters <i style='mso-bidi-font-style:normal'>k</i> and <i
-  style='mso-bidi-font-style:normal'>n</i> exist and it is often used to
-  retrieve data from big files. More than one parallel thread should be
-  specified in configuration information. This option and @x option are mutual
-  exclusive; errors may appear when @o option or parameters <i>k:n </i>are
-  present </span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
- </tr>
- <tr style='mso-yfti-irow:11'>
-  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>@c</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=var2><span
-  lang=EN-US style='mso-bidi-font-size:10.0pt;font-style:normal'>Use comma as
-  the separator when the parameter </span></span><span class=var2><span
-  lang=EN-US style='mso-bidi-font-size:10.0pt;mso-bidi-font-style:normal'>s</span></span><span
-  class=var2><span lang=EN-US style='mso-bidi-font-size:10.0pt;font-style:normal'>
-  is absent, but the user-defined separator </span></span><span class=var2><span
-  lang=EN-US style='mso-bidi-font-size:10.0pt;mso-bidi-font-style:normal'>s</span></span><span
-  class=var2><span lang=EN-US style='mso-bidi-font-size:10.0pt;font-style:normal'>
-  should take priority when there are both </span></span><span class=var2><span
-  lang=EN-US style='mso-bidi-font-size:10.0pt;mso-bidi-font-style:normal'>s</span></span><span
-  class=var2><span lang=EN-US style='mso-bidi-font-size:10.0pt;font-style:normal'>
-  and @c option. </span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
- </tr>
- <tr style='mso-yfti-irow:12'>
-  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=var2><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-style:normal;
-  mso-bidi-font-style:italic'>@o</span></b></span></span><span
-  style='mso-bookmark:"_A\.in\(\)"'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'></span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span lang=EN-US
-  style='mso-bidi-font-size:10.5pt'>Perform escaping according to the Excel
-  rule, which identifies two double quotation marks as one and does not escape
-  the other characters</span><span class=var2><span lang=EN-US
-  style='mso-bidi-font-size:10.0pt;font-style:normal'></span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
- </tr>
- <tr style='mso-yfti-irow:13'>
-  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=var2><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-style:normal;
-  mso-bidi-font-style:italic'>@k</span></b></span></span><span
-  style='mso-bookmark:"_A\.in\(\)"'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'></span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span lang=EN-US
-  style='mso-bidi-font-size:10.5pt'>Retain the whitespaces on both sides of the
-  data item; without it a trim operation will be automatically performed</span><span
-  class=var2><span lang=EN-US style='mso-bidi-font-size:10.0pt;font-style:normal'></span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
- </tr>
- <tr style='mso-yfti-irow:14'>
-  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=var2><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-style:normal;
-  mso-bidi-font-style:italic'>@d</span></b></span></span><span
-  style='mso-bookmark:"_A\.in\(\)"'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'></span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span lang=EN-US
-  style='mso-bidi-font-size:10.5pt'>Delete a record if it contains unmatching
-  data types or data formats and start examining data by type, or if the
-  parentheses and the quotation marks in it do not match when @p option and @q
-  option respectively are present<span class=var2><span style='font-style:normal'></span></span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
- </tr>
- <tr style='mso-yfti-irow:15'>
-  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=code><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt;font-family:"Times New Roman",serif;
-  mso-fareast-font-family:宋体;mso-bidi-font-style:italic'>@n</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=var2><span
-  lang=EN-US style='font-style:normal'>Ignore and discard rows whose number of
-  columns don’t match the first row</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
- </tr>
- <tr style='mso-yfti-irow:16;mso-yfti-lastrow:yes'>
-  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=var2><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-style:normal;
-  mso-bidi-font-style:italic'>@v</span></b></span></span></p>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=var2><span
-  lang=EN-US>&nbsp;</span></span></span></p>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=code><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt;font-family:"Times New Roman",serif;
-  mso-fareast-font-family:宋体;mso-bidi-font-style:italic'>&nbsp;</span></span></span></p>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=code><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt;font-family:"Times New Roman",serif;
-  mso-fareast-font-family:宋体;mso-bidi-font-style:italic'>&nbsp;</span></span></span></p>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=code><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt;font-family:"Times New Roman",serif;
-  mso-fareast-font-family:宋体;mso-bidi-font-style:italic'>@w</span></span></span><span
-  style='mso-bookmark:"_A\.in\(\)"'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'></span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span lang=EN-US
-  style='mso-bidi-font-size:10.5pt'>Verify data type matching when @d option
-  and @n option are present, and, if error reports, throw an exception,
-  terminate the execution and output the content of the problem record<i
-  style='mso-bidi-font-style:normal'> </i></span></span></p>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=var2><span
-  lang=EN-US style='mso-bidi-font-size:10.0pt;font-style:normal'>Read each row,
-  including the column headers row, as a sequence and return a sequence of
-  sequences</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
- </tr>
-</table>
-
-<p class=afe style='line-height:200%'><span style='mso-bookmark:"_A\.in\(\)"'><span
-lang=EN-US style='mso-bidi-font-size:14.0pt;line-height:200%'>Return value: </span></span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><span style='mso-bookmark:"_A\.in\(\)"'><span
-lang=EN-US>The new table sequence whose records are contents of the file object
-<i style='mso-bidi-font-style:normal'>f</i>.</span></span></p>
-
-<p class=afe style='line-height:200%'><span style='mso-bookmark:"_A\.in\(\)"'><span
-lang=EN-US style='mso-bidi-font-size:14.0pt;line-height:200%'>Example: </span></span></p>
-
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=581
- style='margin-left:18.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
- mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
-  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'><span
-  style='mso-bookmark:"_A\.in\(\)"'></span>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=336 valign=top style='width:252.3pt;border:solid #A6A6A6 1.0pt;
-  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:"_A\.in\(\)"'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'>A</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=221 valign=top style='width:165.75pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
- </tr>
- <tr style='mso-yfti-irow:1'>
-  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
+  <td width=30 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>1</span></span></span></p>
+  <p class=MsoNormal align=left style='text-align:left'><span style='mso-bookmark:
+  "_A\.in\(\)"'><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>3</span></b></span></p>
   </td>
   <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=336 valign=top style='width:252.3pt;border-top:none;border-left:
+  <td width=403 valign=top style='width:241.8pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>=file(&quot;D:\\score.txt&quot;).import()</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=221 valign=top style='width:165.75pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span lang=zh-CN
-  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=179 height=76
-  src="Function_Reference.files/image826.jpg" v:shapes="_x0000_i1544"></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
- </tr>
- <tr style='mso-yfti-irow:2'>
-  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>2</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=336 valign=top style='width:252.3pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>=file(&quot;D:\\score.txt&quot;).import@t()</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=221 valign=top style='width:165.75pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span lang=zh-CN
-  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=189 height=55
-  src="Function_Reference.files/image828.jpg" v:shapes="图片_x0020_44"></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
- </tr>
- <tr style='mso-yfti-irow:3'>
-  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>3</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=336 valign=top style='width:252.3pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>=file(&quot;D:\\score.txt&quot;).import(;1:2)</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=221 valign=top style='width:165.75pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span lang=EN-US>With
-  <i style='mso-bidi-font-style:normal'>F<sub>i</sub></i> and <i
-  style='mso-bidi-font-style:normal'>s</i> omitted, get the data of the first
-  of the multiple segments</span></span><span style='mso-bookmark:"_A\.in\(\)"'><span
-  lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
- </tr>
- <tr style='mso-yfti-irow:4'>
-  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>4</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=336 valign=top style='width:252.3pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>=file(&quot;D:\\Department2.txt&quot;).import(;&quot;|&quot;)</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=221 valign=top style='width:165.75pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:"_A\.in\(\)"'><span lang=zh-CN style='mso-ansi-language:
-  #0400;mso-fareast-language:#0400'><img border=0 width=123 height=179
-  src="Function_Reference.files/image829.png" v:shapes="_x0000_i1546"></span></span><span
-  style='mso-bookmark:"_A\.in\(\)"'><span lang=EN-US style='font-size:12.0pt;
-  mso-bidi-font-size:10.0pt;mso-font-kerning:0pt'></span></span></p>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span lang=zh-CN
-  style='mso-ansi-language:#0400;mso-fareast-language:#0400'>With </span><i
-  style='mso-bidi-font-style:normal'><span lang=EN-US>F<sub>i</sub></span></i><span
-  lang=EN-US>, <i style='mso-bidi-font-style:normal'>k</i> and <i
-  style='mso-bidi-font-style:normal'>n</i> omitted, the whole file is imported</span></span><span
-  style='mso-bookmark:"_A\.in\(\)"'><span lang=zh-CN style='mso-ansi-language:
-  #0400;mso-fareast-language:#0400'></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
- </tr>
- <tr style='mso-yfti-irow:5'>
-  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>5</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=336 valign=top style='width:252.3pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>=file(&quot;D:\\Department2.txt&quot;).import(;1:3,&quot;|&quot;)</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=221 valign=top style='width:165.75pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span lang=zh-CN
-  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=125 height=77
-  src="Function_Reference.files/image830.png" v:shapes="_x0000_i1547"></span></span></p>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span lang=EN-US>Omit
-  the fields to be imported</span></span><span style='mso-bookmark:"_A\.in\(\)"'><b
+  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><b
   style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
-  黑体;mso-ansi-language:#0400;mso-fareast-language:#0400'> </span></b></span><span
-  style='mso-bookmark:"_A\.in\(\)"'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif;font-weight:normal'></span></span></span></p>
+  黑体'>=ifx_takefrag(A2)</span></b></span></p>
+  </td>
+  <span style='mso-bookmark:"_A\.in\(\)"'></span>
+  <td width=247 valign=top style='width:148.0pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=left style='text-align:left'><span style='mso-bookmark:
+  "_A\.in\(\)"'><span lang=EN-US>Extract fragmentation information of all
+  specified tables</span></span></p>
   </td>
   <span style='mso-bookmark:"_A\.in\(\)"'></span>
  </tr>
- <tr style='mso-yfti-irow:6'>
-  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes'>
+  <td width=30 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>6</span></span></span></p>
+  <p class=MsoNormal align=left style='text-align:left'><span style='mso-bookmark:
+  "_A\.in\(\)"'><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>4</span></b></span></p>
   </td>
   <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=336 valign=top style='width:252.3pt;border-top:none;border-left:
+  <td width=403 valign=top style='width:241.8pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>=file(&quot;D:\\</span></span><span
-  lang=EN-US> </span></span><span style='mso-bookmark:"_A\.in\(\)"'><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>EMPLOYEE.txt&quot;).import@c(GENDER;1:2)</span></span></span></p>
+  <p class=MsoNormal align=left style='text-align:left'><span style='mso-bookmark:
+  "_A\.in\(\)"'><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>=ifx_takefrag(A2,&quot;lineitem&quot;)</span></b></span></p>
   </td>
   <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=221 valign=top style='width:165.75pt;border:none;mso-border-left-alt:
+  <td width=247 valign=top style='width:148.0pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span lang=zh-CN
-  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=66 height=92
-  src="Function_Reference.files/image267.png" v:shapes="_x0000_i1548"></span></span></p>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=code><span
-  lang=zh-CN style='font-family:"Times New Roman",serif;mso-fareast-font-family:
-  宋体;mso-ansi-language:#0400;mso-fareast-language:#0400;font-weight:normal'>Retrieve
-  the first segment of GENDER field of comma-seperated <i style='mso-bidi-font-style:
-  normal'>EMPLOYEE1</i>.txt</span></span></span><span style='mso-bookmark:"_A\.in\(\)"'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:12.0pt;
-  mso-bidi-font-size:10.0pt'></span></b></span></p>
+  <p class=MsoNormal align=left style='text-align:left'><span style='mso-bookmark:
+  "_A\.in\(\)"'><span lang=EN-US>Extract fragmentation information of table<i
+  style='mso-bidi-font-style:normal'> lineitem</i></span></span></p>
   </td>
   <span style='mso-bookmark:"_A\.in\(\)"'></span>
- </tr>
- <tr style='mso-yfti-irow:7'>
-  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>7</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=336 valign=top style='width:252.3pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>=file(&quot;D:\\Department5.txt&quot;).import@t(DEPT,</span></span></span><span
-  style='mso-bookmark:"_A\.in\(\)"'><span class=110><span lang=EN-US
-  style='font-size:18.0pt;mso-bidi-font-size:12.0pt;font-family:"Times New Roman",serif'>
-  </span></span></span><span style='mso-bookmark:"_A\.in\(\)"'><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>MANAGER:int;
-  1:3,&quot;/&quot;)</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=221 valign=top style='width:165.75pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif;font-weight:normal'>The
-  contents of <i style='mso-bidi-font-style:normal'>Department5.txt</i> are
-  separated with slash and retrieved by the specified fields </span></span></span><span
-  style='mso-bookmark:"_A\.in\(\)"'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'>DEPT</span></span></span><span
-  style='mso-bookmark:"_A\.in\(\)"'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif;font-weight:normal'> and </span></span></span><span
-  style='mso-bookmark:"_A\.in\(\)"'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'>MANAGER</span></span></span><span
-  style='mso-bookmark:"_A\.in\(\)"'><span lang=zh-CN style='mso-ansi-language:
-  #0400;mso-fareast-language:#0400'><img border=0 width=162 height=62
-  src="Function_Reference.files/image831.png" v:shapes="_x0000_i1549"></span></span><span
-  style='mso-bookmark:"_A\.in\(\)"'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt'></span></span></p>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span lang=zh-CN
-  style='mso-ansi-language:#0400;mso-fareast-language:#0400'>&nbsp;</span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
- </tr>
- <tr style='mso-yfti-irow:8'>
-  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>8</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=336 valign=top style='width:252.3pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>=file(&quot;D:\\
-  score.txt&quot;).import@e(EID;1:3)</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=221 valign=top style='width:165.75pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span lang=EN-US>Return
-  null because there’s no EID field in <b style='mso-bidi-font-weight:normal'>score.txt</b></span></span><span
-  style='mso-bookmark:"_A\.in\(\)"'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif;font-weight:normal'></span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
- </tr>
- <tr style='mso-yfti-irow:9'>
-  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>9</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=336 valign=top style='width:252.3pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>=file(&quot;D:\\Department.txt&quot;).import@ts()</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=221 valign=top style='width:165.75pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span lang=EN-US
-  style='font-size:12.0pt;mso-bidi-font-size:10.0pt;mso-font-kerning:0pt'><img border=0 width=124 height=183
-  src="Function_Reference.files/image264.jpg" v:shapes="图片_x0020_206"></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
- </tr>
- <tr style='mso-yfti-irow:10'>
-  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>10</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=336 valign=top style='width:252.3pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>=file(&quot;D:\\EMPLOYEE.btx&quot;).import@b(;1:2)</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=221 valign=top style='width:165.75pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span lang=zh-CN
-  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=225 height=80
-  src="Function_Reference.files/image833.jpg" v:shapes="_x0000_i1551"></span></span><span
-  style='mso-bookmark:"_A\.in\(\)"'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt'></span></span></p>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span lang=EN-US
-  style='mso-bidi-font-size:10.5pt'>Retrieve the first segment of the bin file
-  (a segmented binary file) </span></span><span style='mso-bookmark:"_A\.in\(\)"'><span
-  class=code><i style='mso-bidi-font-style:normal'><span lang=EN-US
-  style='font-family:"Times New Roman",serif;font-weight:normal'>EMPLOYEE.btx</span></i></span></span><span
-  style='mso-bookmark:"_A\.in\(\)"'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif;font-weight:normal'>,</span></span></span><span
-  style='mso-bookmark:"_A\.in\(\)"'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'> </span></span></span><span
-  style='mso-bookmark:"_A\.in\(\)"'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt'>which is exported from<b style='mso-bidi-font-weight:normal'> </b></span><i
-  style='mso-bidi-font-style:normal'><span lang=EN-US>f.</span></i><span
-  lang=EN-US>export<i style='mso-bidi-font-style:normal'>(A,x:F,…)</i>.</span></span><span
-  style='mso-bookmark:"_A\.in\(\)"'><span lang=zh-CN style='mso-ansi-language:
-  #0400;mso-fareast-language:#0400'></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
- </tr>
- <tr style='mso-yfti-irow:11'>
-  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>11</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=336 valign=top style='width:252.3pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>=file(&quot;D:\\orders.txt&quot;).import@mt(;&quot;,&quot;)</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=221 valign=top style='width:165.75pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span lang=EN-US>Increase
-  the speed of retrieving data from the big file. The record order in the
-  result is not the same as that in the file.</span></span><span
-  style='mso-bookmark:"_A\.in\(\)"'><span lang=EN-US style='mso-bidi-font-size:
-  11.0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
- </tr>
- <tr style='mso-yfti-irow:12'>
-  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>12</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=336 valign=top style='width:252.3pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>=file(&quot;D:\\StuName.txt&quot;).import@i()</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=221 valign=top style='width:165.75pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span lang=zh-CN
-  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=85 height=86
-  src="Function_Reference.files/image834.png" v:shapes="_x0000_i1552"></span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  mso-fareast-font-family:宋体;font-weight:normal'></span></span></span></p>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
-  宋体;font-weight:normal'>StuName.txt </span></span><span lang=EN-US>has only
-  one column, so return it as a sequence</span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
- </tr>
- <tr style='mso-yfti-irow:13'>
-  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>13</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=336 valign=top style='width:252.3pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>=file(&quot;D:\\test.txt&quot;).import@t()</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=221 valign=top style='width:165.75pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span lang=zh-CN
-  style='mso-ansi-language:#0400;mso-fareast-language:#0400'>Certain field
-  names and field values are quoted</span></span></p>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:"_A\.in\(\)"'><span lang=zh-CN style='mso-ansi-language:
-  #0400;mso-fareast-language:#0400'><img border=0 width=271 height=263
-  src="Function_Reference.files/image836.jpg" v:shapes="_x0000_i1553"></span></span><span
-  style='mso-bookmark:"_A\.in\(\)"'><span lang=EN-US style='font-size:12.0pt;
-  mso-font-kerning:0pt'></span></span></p>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span lang=zh-CN
-  style='mso-ansi-language:#0400;mso-fareast-language:#0400'>&nbsp;</span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
- </tr>
- <tr style='mso-yfti-irow:14'>
-  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>14</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=336 valign=top style='width:252.3pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>=file(&quot;D:\\test.txt&quot;).import@tq()</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=221 valign=top style='width:165.75pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span lang=zh-CN
-  style='mso-ansi-language:#0400;mso-fareast-language:#0400'>With @q option,
-  quotation marks at both ends of each data item (including each field name)
-  are removed without handling those within</span></span></p>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:"_A\.in\(\)"'><span lang=EN-US style='font-size:12.0pt;
-  mso-font-kerning:0pt'>&nbsp;</span></span></p>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span lang=zh-CN
-  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=283 height=289
-  src="Function_Reference.files/image838.jpg" v:shapes="_x0000_i1554"></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
- </tr>
- <tr style='mso-yfti-irow:15'>
-  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>15</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=336 valign=top style='width:252.3pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>=file(&quot;D:\\Sale1.txt&quot;).import()</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=221 valign=top style='width:165.75pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:"_A\.in\(\)"'><span lang=EN-US style='font-size:12.0pt;
-  mso-font-kerning:0pt'><img border=0 width=148 height=187
-  src="Function_Reference.files/image840.jpg" v:shapes="_x0000_i1555"></span></span></p>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:"_A\.in\(\)"'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'>Get all records from <i style='mso-bidi-font-style:
-  normal'>Sale1.txt</i></span></span><span style='mso-bookmark:"_A\.in\(\)"'><span
-  lang=EN-US style='font-size:12.0pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
- </tr>
- <tr style='mso-yfti-irow:16'>
-  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>16</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=336 valign=top style='width:252.3pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>=file(&quot;D:\\
-  Sale1.txt&quot;).import(#1,#3)</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=221 valign=top style='width:165.75pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:"_A\.in\(\)"'><span lang=EN-US style='font-size:12.0pt;
-  mso-font-kerning:0pt'><img border=0 width=114 height=170
-  src="Function_Reference.files/image842.jpg" v:shapes="_x0000_i1556"></span></span></p>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:"_A\.in\(\)"'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'>Get the first column and the third column from <i
-  style='mso-bidi-font-style:normal'>Sale1.txt</i> </span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
- </tr>
- <tr style='mso-yfti-irow:17'>
-  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>17</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=336 valign=top style='width:252.3pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>=file(&quot;D:/Dep3.txt&quot;).import@cqo()</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=221 valign=top style='width:165.75pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:"_A\.in\(\)"'><span class=code><span lang=EN-US
-  style='mso-bidi-font-size:10.5pt;font-family:"Times New Roman",serif;
-  mso-fareast-font-family:宋体;mso-font-kerning:0pt;font-weight:normal'>Here is
-  the <i style='mso-bidi-font-style:normal'>Dep3.txt</i> file:</span></span></span></p>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:"_A\.in\(\)"'><span lang=zh-CN style='mso-ansi-language:
-  #0400;mso-fareast-language:#0400'><img border=0 width=102 height=52
-  src="Function_Reference.files/image844.jpg" v:shapes="_x0000_i1557"></span></span><span
-  style='mso-bookmark:"_A\.in\(\)"'><span lang=EN-US style='font-size:12.0pt;
-  mso-font-kerning:0pt'></span></span></p>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:"_A\.in\(\)"'><span lang=EN-US>With @o option, two double
-  quotation marks are treated as one and r</span></span><span style='mso-bookmark:
-  "_A\.in\(\)"'><span lang=EN-US style='mso-bidi-font-size:10.5pt;mso-font-kerning:
-  0pt'>eturn the result as follows:</span></span></p>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:"_A\.in\(\)"'><span lang=zh-CN style='mso-ansi-language:
-  #0400;mso-fareast-language:#0400'><img border=0 width=238 height=71
-  src="Function_Reference.files/image846.jpg" v:shapes="_x0000_i1558"></span></span><span
-  style='mso-bookmark:"_A\.in\(\)"'><span lang=EN-US style='font-size:12.0pt;
-  mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
- </tr>
- <tr style='mso-yfti-irow:18'>
-  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>18</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=336 valign=top style='width:252.3pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>=file(&quot;D:/Dep1.txt&quot;).import@k()</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=221 valign=top style='width:165.75pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:"_A\.in\(\)"'><span lang=EN-US style='font-size:12.0pt;
-  mso-font-kerning:0pt'><img border=0 width=82 height=43
-  src="Function_Reference.files/image280.png" v:shapes="_x0000_i1559"></span></span></p>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:"_A\.in\(\)"'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'>Retain the whitespaces on both sides of the data
-  item</span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
- </tr>
- <tr style='mso-yfti-irow:19'>
-  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>19</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=336 valign=top style='width:252.3pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>=file(&quot;D:/Department1.txt&quot;).import@t(id:int,name;,&quot;|&quot;)</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=221 valign=top style='width:165.75pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:"_A\.in\(\)"'><span lang=EN-US style='font-size:12.0pt;
-  mso-font-kerning:0pt'><img border=0 width=136 height=183
-  src="Function_Reference.files/image281.png" v:shapes="_x0000_i1560"></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
- </tr>
- <tr style='mso-yfti-irow:20'>
-  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>20</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=336 valign=top style='width:252.3pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>=file(&quot;D:/Department1.txt&quot;).import@td(id:int,name;,&quot;|&quot;)</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=221 valign=top style='width:165.75pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:"_A\.in\(\)"'><span lang=EN-US style='font-size:12.0pt;
-  mso-font-kerning:0pt'><img border=0 width=125 height=163
-  src="Function_Reference.files/image282.png" v:shapes="_x0000_i1561"></span></span></p>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:"_A\.in\(\)"'><span lang=zh-CN style='mso-ansi-language:
-  #0400;mso-fareast-language:#0400'>Delete the record as it contains unmatching
-  data types</span></span><span style='mso-bookmark:"_A\.in\(\)"'><span
-  lang=EN-US style='font-size:12.0pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
- </tr>
- <tr style='mso-yfti-irow:21'>
-  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>21</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=336 valign=top style='width:252.3pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>=file(&quot;D:/Department1.txt&quot;).import@tv(id:int,name;,&quot;|&quot;)</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=221 valign=top style='width:165.75pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:"_A\.in\(\)"'><span lang=zh-CN style='mso-ansi-language:
-  #0400;mso-fareast-language:#0400'>Check data type matching, and, if error
-  reports, throw an exception, terminate the execution and output the content
-  of the problem record</span></span><span style='mso-bookmark:"_A\.in\(\)"'><span
-  lang=EN-US style='font-size:12.0pt;mso-font-kerning:0pt'></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
- </tr>
- <tr style='mso-yfti-irow:22'>
-  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>22</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=336 valign=top style='width:252.3pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>=file(&quot;Dep2.txt&quot;).import@tdn(id:int,name,surname;,&quot;|&quot;)</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=221 valign=top style='width:165.75pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:"_A\.in\(\)"'><span lang=zh-CN style='mso-ansi-language:
-  #0400;mso-fareast-language:#0400'>Here’s the file <i style='mso-bidi-font-style:
-  normal'>Dep2.txt</i>:</span></span></p>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:"_A\.in\(\)"'><span lang=zh-CN style='mso-ansi-language:
-  #0400;mso-fareast-language:#0400'><img border=0 width=144 height=155
-  src="Function_Reference.files/image285.png" v:shapes="_x0000_i1562"></span></span></p>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:"_A\.in\(\)"'><span lang=zh-CN style='mso-ansi-language:
-  #0400;mso-fareast-language:#0400'>Ignore and discard row 6 and row 8 because
-  the number of columns don’t match that of the first row</span></span></p>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:"_A\.in\(\)"'><span lang=zh-CN style='mso-ansi-language:
-  #0400;mso-fareast-language:#0400'><img border=0 width=230 height=143
-  src="Function_Reference.files/image286.png" v:shapes="_x0000_i1563"></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
- </tr>
- <tr style='mso-yfti-irow:23'>
-  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>23</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=336 valign=top style='width:252.3pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>=file(&quot;D://EMP1.txt&quot;).import@s(;1:2)</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=221 valign=top style='width:165.75pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:"_A\.in\(\)"'><span lang=zh-CN style='mso-ansi-language:
-  #0400;mso-fareast-language:#0400'><img border=0 width=154 height=140
-  src="Function_Reference.files/image848.jpg" v:shapes="图片_x0020_988"></span></span></p>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:"_A\.in\(\)"'><span lang=zh-CN style='mso-ansi-language:
-  #0400;mso-fareast-language:#0400'>Don’t split field values to import as a
-  single-field table; ignore the parameters</span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
- </tr>
- <tr style='mso-yfti-irow:24'>
-  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>24</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=336 valign=top style='width:252.3pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>=file(&quot;D://EMP2.txt&quot;).import(#1:date:&quot;yyyy/MM/dd&quot;)</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=221 valign=top style='width:165.75pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:"_A\.in\(\)"'><i style='mso-bidi-font-style:normal'><span
-  lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'>EMP2txt</span></i></span><span
-  style='mso-bookmark:"_A\.in\(\)"'><span lang=zh-CN style='mso-ansi-language:
-  #0400;mso-fareast-language:#0400'>:</span></span></p>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:"_A\.in\(\)"'><span lang=zh-CN style='mso-ansi-language:
-  #0400;mso-fareast-language:#0400'><img border=0 width=172 height=78
-  src="Function_Reference.files/image850.jpg" v:shapes="_x0000_i1565"></span></span></p>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:"_A\.in\(\)"'><span lang=zh-CN style='mso-ansi-language:
-  #0400;mso-fareast-language:#0400'>Parse data in yyyy/MM/dd format as a date
-  type field</span></span></p>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:"_A\.in\(\)"'><span lang=zh-CN style='mso-ansi-language:
-  #0400;mso-fareast-language:#0400'><img border=0 width=130 height=122
-  src="Function_Reference.files/image852.jpg" v:shapes="图片_x0020_990"></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
- </tr>
- <tr style='mso-yfti-irow:25'>
-  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>25</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=336 valign=top style='width:252.3pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=code><span
-  lang=EN-US style='mso-bidi-font-size:11.0pt;font-family:"Times New Roman",serif'>=file(&quot;City.txt&quot;).import@w()</span></span></span><span
-  style='mso-bookmark:"_A\.in\(\)"'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'></span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=221 valign=top style='width:165.75pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:"_A\.in\(\)"'><span lang=zh-CN style='mso-ansi-language:
-  #0400;mso-fareast-language:#0400'>Use @w option to return a sequence of
-  sequences</span></span></p>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:"_A\.in\(\)"'><span lang=zh-CN style='mso-ansi-language:
-  #0400;mso-fareast-language:#0400'><img border=0 width=185 height=212
-  src="Function_Reference.files/image854.jpg" v:shapes="_x0000_i1567"><i
-  style='mso-bidi-font-style:normal'></i></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
- </tr>
- <tr style='mso-yfti-irow:26'>
-  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>26</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=336 valign=top style='width:252.3pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=code><span
-  lang=EN-US style='mso-bidi-font-size:11.0pt;font-family:"Times New Roman",serif'>=file(&quot;D://t1.txt&quot;).import@cp()</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=221 valign=top style='width:165.75pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span lang=zh-CN
-  style='mso-ansi-language:#0400;mso-fareast-language:#0400'>Below is file <i>t1.txt</i>:</span></span></p>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span lang=zh-CN
-  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=227 height=30
-  src="Function_Reference.files/image855.jpg" v:shapes="_x0000_i1568"></span></span></p>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span lang=zh-CN
-  style='mso-ansi-language:#0400;mso-fareast-language:#0400'>With @c option,
-  use the comma as the separator by default and return result as follows:</span></span></p>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:"_A\.in\(\)"'><span lang=zh-CN style='mso-ansi-language:
-  #0400;mso-fareast-language:#0400'><img border=0 width=508 height=56
-  src="Function_Reference.files/image856.jpg" v:shapes="_x0000_i1569"></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
- </tr>
- <tr style='mso-yfti-irow:27'>
-  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>27</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=336 valign=top style='width:252.3pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=code><span
-  lang=EN-US style='mso-bidi-font-size:11.0pt;font-family:"Times New Roman",serif'>=file(&quot;D://t1.txt&quot;).import@cp()</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=221 valign=top style='width:165.75pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span lang=zh-CN
-  style='mso-ansi-language:#0400;mso-fareast-language:#0400'>With @p option,
-  parentheses and quotation marks matching will be handled during parsing</span></span></p>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:"_A\.in\(\)"'><span lang=zh-CN style='mso-ansi-language:
-  #0400;mso-fareast-language:#0400'><img border=0 width=494 height=65
-  src="Function_Reference.files/image293.png" v:shapes="_x0000_i1570"></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
- </tr>
- <tr style='mso-yfti-irow:28'>
-  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>28</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=336 valign=top style='width:252.3pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=code><span
-  lang=EN-US style='mso-bidi-font-size:11.0pt;font-family:"Times New Roman",serif'>=file(&quot;D://t1.txt&quot;).import@cpa()</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=221 valign=top style='width:165.75pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span lang=zh-CN
-  style='mso-ansi-language:#0400;mso-fareast-language:#0400'>With @a option,
-  single quotation marks are identified as quotation marks</span></span></p>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:"_A\.in\(\)"'><span lang=zh-CN style='mso-ansi-language:
-  #0400;mso-fareast-language:#0400'><img border=0 width=447 height=66
-  src="Function_Reference.files/image294.png" v:shapes="_x0000_i1571"></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
- </tr>
- <tr style='mso-yfti-irow:29'>
-  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>29</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=336 valign=top style='width:252.3pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=code><span
-  lang=EN-US style='mso-bidi-font-size:11.0pt;font-family:"Times New Roman",serif'>=file(&quot;D://t2.txt&quot;).import@l()</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=221 valign=top style='width:165.75pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span lang=zh-CN
-  style='mso-ansi-language:#0400;mso-fareast-language:#0400'>Below is file <i>t2.txt</i>:</span></span></p>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span lang=zh-CN
-  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=90 height=70
-  src="Function_Reference.files/image857.jpg" v:shapes="_x0000_i1572"></span></span></p>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span lang=zh-CN
-  style='mso-ansi-language:#0400;mso-fareast-language:#0400'>With @1 option,
-  allow line continuation when there is an escape character at the end of the
-  line</span></span></p>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:"_A\.in\(\)"'><span lang=zh-CN style='mso-ansi-language:
-  #0400;mso-fareast-language:#0400'><img border=0 width=177 height=68
-  src="Function_Reference.files/image824.jpg" v:shapes="_x0000_i1573"></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
- </tr>
- <tr style='mso-yfti-irow:30;mso-yfti-lastrow:yes'>
-  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>30</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=336 valign=top style='width:252.3pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=code><span
-  lang=EN-US style='mso-bidi-font-size:11.0pt;font-family:"Times New Roman",serif'>=file(&quot;D://t3.txt&quot;).import@f()</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=221 valign=top style='width:165.75pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span lang=zh-CN
-  style='mso-ansi-language:#0400;mso-fareast-language:#0400'>With @f option,
-  just split the file as a string using the separator</span></span></p>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span
-  style='mso-bookmark:"_A\.in\(\)"'><span lang=zh-CN style='mso-ansi-language:
-  #0400;mso-fareast-language:#0400'><img border=0 width=177 height=261
-  src="Function_Reference.files/image858.jpg" v:shapes="_x0000_i1574"></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
- </tr>
-</table>
-
-<p class=afe style='line-height:200%'><span style='mso-bookmark:"_A\.in\(\)"'><span
-lang=EN-US style='mso-bidi-font-size:14.0pt;line-height:200%'>Note: </span></span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-style='mso-bookmark:"_A\.in\(\)"'><span lang=EN-US>Text file format: Separate records
-by carriage return, and fields by the user-defined separator. The default
-separator is the tab.</span></span></p>
-
-<p class=afe style='line-height:200%'><span style='mso-bookmark:"_A\.in\(\)"'><span
-lang=EN-US style='mso-bidi-font-size:14.0pt;line-height:200%'>Related
-functions: </span></span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><span style='mso-bookmark:"_A\.in\(\)"'></span><a
- href="206.html"><span style='mso-bookmark:"_A\.in\(\)"'><span
-lang=EN-US style='mso-bidi-font-size:10.5pt'>f.export()</span></span><span
-style='mso-bookmark:"_A\.in\(\)"'></span></a><span style='mso-bookmark:"_A\.in\(\)"'></span><a
-name="f_importxls"></a><a name="A_in"></a><a name="_A.len_()"></a><a name=in></a><span
-lang=EN-US style='mso-bidi-font-size:10.5pt'></span></p>
-
-<p class=MsoNormal><u><span lang=EN-US style='mso-bidi-font-size:10.5pt'><span
- style='text-decoration:none'>&nbsp;</span></span></u></p>
-
-<p class=MsoNormal style='margin-top:13.0pt;margin-right:0cm;margin-bottom:
-13.0pt;margin-left:0cm;line-height:172%;mso-pagination:lines-together;
-page-break-after:avoid;mso-outline-level:3;tab-stops:-179.95pt'><a
-name="T_import_xi_Ci"></a><a name="_Hlt63288646"></a><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US style='font-size:14.0pt;line-height:172%'>T.import()<a
-name="T_import"></a></span></b></p>
-
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Description:</span></b></p>
-
-<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
-lang=EN-US style='mso-bidi-font-size:10.5pt'>Read in records from an entity
-table and return them as a sequence, record sequence or table sequence.</span></p>
-
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Syntax: </span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><i><span
-lang=EN-US style='mso-bidi-font-size:10.5pt'>T</span></i><span lang=EN-US
-style='mso-bidi-font-size:10.5pt'>.<b>import</b>(...)<b style='mso-bidi-font-weight:
-normal'></b></span></p>
-
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Remark: </span></b></p>
-
-<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
-lang=EN-US style='mso-bidi-font-size:10.5pt'>The function, which is equivalent
-to <i>T</i>.cursor(...).fetch(), retrieves records from entity table T and
-returns them as a sequence, record sequence or table sequence.</span></p>
-
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Parameters:</span></b></p>
-
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:9.05pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'>
-  <td width=51 valign=top style='width:38.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal style='text-indent:10.5pt;mso-char-indent-count:1.0'><i><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt'>T</span></i></p>
-  </td>
-  <td width=484 valign=top style='width:362.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-size:10.5pt'>An
-  entity table</span></p>
-  </td>
- </tr>
-</table>
-
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Return value: </span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
-style='mso-bidi-font-size:10.5pt'>A sequence/record sequence/table sequence</span></p>
-
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Example: </span></b></p>
-
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
- style='margin-left:18.55pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
- mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=25 valign=top style='width:18.95pt;border:solid #A6A6A6 1.0pt;
-  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-bidi-font-size:10.5pt'>&nbsp;</span></b></p>
-  </td>
-  <td width=416 valign=top style='width:311.95pt;border:solid #A6A6A6 1.0pt;
-  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt'>A</span></b></p>
-  </td>
-  <td width=264 valign=top style='width:198.0pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-bidi-font-size:10.5pt'>&nbsp;</span></b></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:1'>
-  <td width=25 valign=top style='width:18.95pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-bidi-font-size:10.5pt'>1</span></b></p>
-  </td>
-  <td width=416 valign=top style='width:311.95pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b><span lang=EN-US style='mso-bidi-font-size:10.5pt'>for
-  100</span></b></p>
-  </td>
-  <td width=264 valign=top style='width:198.0pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-size:10.5pt'>&nbsp;</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:2'>
-  <td width=25 valign=top style='width:18.95pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-bidi-font-size:10.5pt'>2</span></b></p>
-  </td>
-  <td width=416 valign=top style='width:311.95pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b><span lang=EN-US style='mso-bidi-font-size:10.5pt'>=to(10000).new(#:k1,rand():c1).sort@o(k1)</span></b></p>
-  </td>
-  <td width=264 valign=top style='width:198.0pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-size:10.5pt'>Generate
-  a set of random data</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:3'>
-  <td width=25 valign=top style='width:18.95pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-bidi-font-size:10.5pt'>3</span></b></p>
-  </td>
-  <td width=416 valign=top style='width:311.95pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b><span lang=EN-US style='mso-bidi-font-size:10.5pt'>=to(10000).new(#:k1,rand(10000):c2,rand()*1000:c3).sort@o(k1)</span></b></p>
-  </td>
-  <td width=264 valign=top style='width:198.0pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-size:10.5pt'>&nbsp;</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:4'>
-  <td width=25 valign=top style='width:18.95pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-bidi-font-size:10.5pt'>4</span></b></p>
-  </td>
-  <td width=416 valign=top style='width:311.95pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b><span lang=EN-US style='mso-bidi-font-size:10.5pt'>=A2.cursor()</span></b></p>
-  </td>
-  <td width=264 valign=top style='width:198.0pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-size:10.5pt'>&nbsp;</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:5'>
-  <td width=25 valign=top style='width:18.95pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-bidi-font-size:10.5pt'>5</span></b></p>
-  </td>
-  <td width=416 valign=top style='width:311.95pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b><span lang=EN-US style='mso-bidi-font-size:10.5pt'>=A3.cursor()</span></b></p>
-  </td>
-  <td width=264 valign=top style='width:198.0pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-size:10.5pt'>&nbsp;</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:6'>
-  <td width=25 valign=top style='width:18.95pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-bidi-font-size:10.5pt'>6</span></b></p>
-  </td>
-  <td width=416 valign=top style='width:311.95pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b><span lang=EN-US style='mso-bidi-font-size:10.5pt'>=file(&quot;D:\\tb1.ctx&quot;)</span></b></p>
-  </td>
-  <td width=264 valign=top style='width:198.0pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-size:10.5pt'>Create
-  composite table’s base table</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:7'>
-  <td width=25 valign=top style='width:18.95pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-bidi-font-size:10.5pt'>7</span></b></p>
-  </td>
-  <td width=416 valign=top style='width:311.95pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b><span lang=EN-US style='mso-bidi-font-size:10.5pt'>=A6.create(#k1,c1)
-  </span></b></p>
-  </td>
-  <td width=264 valign=top style='width:198.0pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-size:10.5pt'>&nbsp;</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:8'>
-  <td width=25 valign=top style='width:18.95pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-bidi-font-size:10.5pt'>8</span></b></p>
-  </td>
-  <td width=416 valign=top style='width:311.95pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b><span lang=EN-US style='mso-bidi-font-size:10.5pt'>=A7.append(A4)</span></b></p>
-  </td>
-  <td width=264 valign=top style='width:198.0pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-size:10.5pt'>&nbsp;</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:9'>
-  <td width=25 valign=top style='width:18.95pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-bidi-font-size:10.5pt'>9</span></b></p>
-  </td>
-  <td width=416 valign=top style='width:311.95pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b><span lang=EN-US style='mso-bidi-font-size:10.5pt'>=A7.attach(table4,c2,c3)</span></b></p>
-  </td>
-  <td width=264 valign=top style='width:198.0pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-size:10.5pt'>&nbsp;</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:10'>
-  <td width=25 valign=top style='width:18.95pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-bidi-font-size:10.5pt'>10</span></b></p>
-  </td>
-  <td width=416 valign=top style='width:311.95pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b><span lang=EN-US style='mso-bidi-font-size:10.5pt'>=A9.append(A5)</span></b></p>
-  </td>
-  <td width=264 valign=top style='width:198.0pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-size:10.5pt'>&nbsp;</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:11'>
-  <td width=25 valign=top style='width:18.95pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-bidi-font-size:10.5pt'>11</span></b></p>
-  </td>
-  <td width=416 valign=top style='width:311.95pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b><span lang=EN-US style='mso-bidi-font-size:10.5pt'>=A9.cursor(;c2&lt;1000;2:3)</span></b></p>
-  </td>
-  <td width=264 valign=top style='width:198.0pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-size:10.5pt;
-  color:#5C5C5C;mso-bidi-language:AR'>Divide records in A9’s attached table
-  where c2 is less than 1000 into 3 segments and return columns in the 2<sup>nd</sup>
-  segment as a cursor</span><span lang=EN-US style='mso-bidi-font-size:10.5pt'></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:12'>
-  <td width=25 valign=top style='width:18.95pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-bidi-font-size:10.5pt'>12</span></b></p>
-  </td>
-  <td width=416 valign=top style='width:311.95pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b><span lang=EN-US style='mso-bidi-font-size:10.5pt'>=A11.fetch()</span></b></p>
-  </td>
-  <td width=264 valign=top style='width:198.0pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-size:10.5pt'>Fetch
-  data from A11’s cursor</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:13;mso-yfti-lastrow:yes'>
-  <td width=25 valign=top style='width:18.95pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-bidi-font-size:10.5pt'>13</span></b></p>
-  </td>
-  <td width=416 valign=top style='width:311.95pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b><span lang=EN-US style='mso-bidi-font-size:10.5pt'>=A9.import(;c2&lt;1000;2:3)</span></b></p>
-  </td>
-  <td width=264 valign=top style='width:198.0pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-size:10.5pt'>Same
-  result as A12</span></p>
-  </td>
  </tr>
 </table>
 	</div>
@@ -1823,14 +228,17 @@ style='font-size:14.0pt'>Example: </span></b></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="368.html">import()</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="21.html">Functions</a></span></li>
 </div>
 	</div>
 	<div id="footer">	
 		
-		
-    <div class="copyright"> Copyright&reg; 2021 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+		<div class="copyright"> Copyright&reg; 2021 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+      </a></div> 
+        <!--
+		<div class="copyright"> Copyright&reg; 2017 <a href="http://www.yimming.com" target="_Blank"> Beijing Yimming Ltd. Co. 
       </a></div>
+	  -->
 	</div>
 </div>
 

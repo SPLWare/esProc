@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>pearson()</title>
+<title>pca()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,33 +13,38 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h2><span lang=EN-US style='mso-fareast-font-family:宋体;color:black'>pearson()<a
-name=pearson></a></span></h2></div>
+	<div id="centent-title"><h2><a name="f_pastexls"></a><span lang=EN-US style='mso-fareast-font-family:
+宋体;color:black'>pca()<a name=pca></a><a
+name="_Hlt63031921"></a></span></h2></div>
 	<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
 style='font-size:14.0pt;color:black'>Description:</span></b></p>
 
 <p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
-style='color:black'>Calculate Pearson’s correlation coefficient between two
-vectors.</span></p>
+style='color:black'>Perform PCA on a matrix and return data for dimensionality
+reduction</span></p>
 
 <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
 style='font-size:14.0pt;color:black'>Syntax:</span></b></p>
 
 <p class=MsoNormal style='text-indent:21.0pt'><span class=code><span
-lang=EN-US style='font-family:"Times New Roman",serif;color:black'>pearson(</span></span><span
-class=var2><span lang=EN-US style='color:black;mso-bidi-font-weight:bold'>A,B</span></span><span
-class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-color:black'>)</span></span><span lang=EN-US style='color:black'></span></p>
+lang=EN-US style='font-family:"Times New Roman","serif";color:black'>pca(</span></span><span
+class=var1><span lang=EN-US style='color:black'>A,n</span></span><span
+class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
+color:black'>)<span style='mso-spacerun:yes'>&nbsp; </span></span></span><span
+lang=EN-US style='color:black'>Perform PCA (Principal Component Analysis) on
+matrix <i style='mso-bidi-font-style:normal'>A </i><span style='mso-bidi-font-style:
+italic'>and return data for dimensionality reduction;</span><i
+style='mso-bidi-font-style:normal'> n </i>is the number of principal components</span><span
+class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
+color:black'></span></span></p>
 
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt;color:black'>Note:</span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
-style='color:black'>The function calculates the Pearson’s correlation
-coefficient between vector <i style='mso-bidi-font-style:normal'>A </i>and
-vector <i style='mso-bidi-font-style:normal'>B</i>. Default value of <i
-style='mso-bidi-font-style:normal'>B </i>is an integer sequence made up of
-numbers from 1 to vector <i>A</i>’s length . </span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span class=code><span
+lang=EN-US style='font-family:"Times New Roman","serif";color:black'>pca(</span></span><span
+class=var1><span lang=EN-US style='color:black'>A,F</span></span><span
+class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
+color:black'>)<span style='mso-spacerun:yes'>&nbsp; </span></span></span><span
+lang=EN-US style='color:black'>Reduce dimensionality for another matrix having
+same number of columns</span></p>
 
 <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
 style='font-size:14.0pt;color:black'>Parameters:</span></b></p>
@@ -48,19 +53,33 @@ style='font-size:14.0pt;color:black'>Parameters:</span></b></p>
  style='margin-left:21.3pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=47 valign=top style='width:35.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var2><span lang=EN-US style='color:black'>A</span></span></p>
+  <td width=47 valign=top style='width:1.0cm;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=var1><span lang=EN-US style='color:black'>A</span></span></p>
   </td>
-  <td width=469 valign=top style='width:351.8pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US style='color:black'>A vector</span></p>
+  <td width=595 valign=top style='width:357.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='color:black'>A matrix </span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
-  <td width=47 valign=top style='width:35.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var2><span lang=EN-US style='color:black'>B</span></span></p>
+ <tr style='mso-yfti-irow:1'>
+  <td width=47 valign=top style='width:1.0cm;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=var1><span lang=EN-US style='color:black'>n</span></span></p>
   </td>
-  <td width=469 valign=top style='width:351.8pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US style='color:black'>A vector</span></p>
+  <td width=595 valign=top style='width:357.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='color:black'>Number of principal
+  components</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes'>
+  <td width=47 valign=top style='width:1.0cm;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=var1><span lang=EN-US style='color:black'>F</span></span></p>
+  </td>
+  <td width=595 valign=top style='width:357.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='color:black'>The PCA fiiting
+  object returned by </span><span class=code><span lang=EN-US style='font-family:
+  "Times New Roman","serif";color:black'>pca(</span></span><span class=var1><span
+  lang=EN-US style='color:black'>A,n</span></span><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman","serif";color:black'>)</span></span><span
+  lang=EN-US style='color:black'></span></p>
   </td>
  </tr>
 </table>
@@ -73,30 +92,17 @@ color:black'> </span></b></p>
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
  style='margin-left:21.3pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=47 valign=top style='width:35.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  color:black'>@r</span></span><span class=var2><span lang=EN-US
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'>
+  <td width=59 valign=top style='width:35.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
+  color:black'>@r</span></span><span class=var1><span lang=EN-US
   style='color:black'></span></span></p>
   </td>
-  <td width=464 valign=top style='width:347.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US style='color:black'>Enable the calculation
-  of r<sup>2</sup>, that is, pearson(norm@0(<i style='mso-bidi-font-style:normal'>A</i>),norm@0(<i
-  style='mso-bidi-font-style:normal'>B</i>))</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
-  <td width=47 valign=top style='width:35.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  color:black'>@a</span></span></p>
-  </td>
-  <td width=464 valign=top style='width:347.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US style='color:black;mso-bidi-font-style:
-  italic'>Equivalent to </span><b style='mso-bidi-font-weight:normal'><span
-  lang=EN-US style='color:black'>@a</span></b><span lang=EN-US
-  style='color:black'>(…;<i style='mso-bidi-font-style:normal'>k</i>) that
-  calculates the adjusted r<sup>2 </sup>with degrees of freedom being<u> </u><i
-  style='mso-bidi-font-style:normal'>k</i></span></p>
+  <td width=580 valign=top style='width:347.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='color:black'>Enable returning the
+  result of demenionality reduction on matrix <i style='mso-bidi-font-style:
+  normal'>A</i>, which is a matrix of <i style='mso-bidi-font-style:normal'>n </i>columns,
+  directly</span></p>
   </td>
  </tr>
 </table>
@@ -105,7 +111,7 @@ color:black'> </span></b></p>
 style='font-size:14.0pt;color:black'>Return value:</span></b></p>
 
 <p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
-style='color:black'>A numeric value</span></p>
+style='color:black'>A PCA fitting object or a sequence</span></p>
 
 <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
 style='font-size:14.0pt;color:black'>Example:</span></b></p>
@@ -115,145 +121,125 @@ style='font-size:14.0pt;color:black'>Example:</span></b></p>
  border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
  mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=31 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
+  <td width=38 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
   mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span lang=EN-US style='color:black'>&nbsp;</span></p>
   </td>
-  <td width=272 valign=top style='width:204.25pt;border:solid #A6A6A6 1.0pt;
+  <td width=340 valign=top style='width:204.25pt;border:solid #A6A6A6 1.0pt;
   border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif;color:black'>A</span></span></p>
+  lang=EN-US style='font-family:"Times New Roman","serif";color:black'>A</span></span></p>
   </td>
-  <td width=265 valign=top style='width:7.0cm;border:none;mso-border-left-alt:
+  <td width=331 valign=top style='width:7.0cm;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=EN-US
   style='color:black'>&nbsp;</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=31 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
+  <td width=38 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
   color:black'>1</span></span></p>
   </td>
-  <td width=272 valign=top style='width:204.25pt;border-top:none;border-left:
+  <td width=340 valign=top style='width:204.25pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=var2><b style='mso-bidi-font-weight:normal'><span
-  lang=EN-US style='color:black;font-style:normal'>=[3,5,2,8]</span></b></span></p>
+  <p class=MsoNormal><span class=var1><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US style='color:black;font-style:normal'>[[1,2,3,4],[2,3,1,2],[1,1,1,-1],[1,0,-2,-6]]</span></b></span></p>
   </td>
-  <td width=265 valign=top style='width:7.0cm;border:none;mso-border-left-alt:
+  <td width=331 valign=top style='width:7.0cm;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=EN-US
   style='color:black'>&nbsp;</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:2'>
-  <td width=31 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
+  <td width=38 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
   color:black'>2</span></span></p>
   </td>
-  <td width=272 valign=top style='width:204.25pt;border-top:none;border-left:
+  <td width=340 valign=top style='width:204.25pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=var2><b style='mso-bidi-font-weight:normal'><span
-  lang=EN-US style='color:black;font-style:normal'>=[4,6,2,4]</span></b></span></p>
+  <p class=MsoNormal><span class=var1><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US style='color:black;font-style:normal'>=pca(A1,2)</span></b></span></p>
   </td>
-  <td width=265 valign=top style='width:7.0cm;border:none;mso-border-left-alt:
+  <td width=331 valign=top style='width:7.0cm;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=EN-US
-  style='color:black'>&nbsp;</span></p>
+  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=zh-CN
+  style='color:black;mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=330 height=23
+  src="Function_Reference.files/image1323.jpg" v:shapes="图片_x0020_22"></span><span
+  lang=EN-US style='color:black'></span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:3;height:17.25pt'>
-  <td width=31 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
+  <td width=38 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:17.25pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
   color:black'>3</span></span></p>
   </td>
-  <td width=272 valign=top style='width:204.25pt;border-top:none;border-left:
+  <td width=340 valign=top style='width:204.25pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:17.25pt'>
-  <p class=MsoNormal><span class=var2><b style='mso-bidi-font-weight:normal'><span
-  lang=EN-US style='color:black;font-style:normal'>=pearson(A1,A2)</span></b></span></p>
+  <p class=MsoNormal><span class=var1><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US style='color:black;font-style:normal'>=pca@r(A1,2)</span></b></span></p>
   </td>
-  <td width=265 valign=top style='width:7.0cm;border:none;mso-border-left-alt:
+  <td width=331 valign=top style='width:7.0cm;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:17.25pt'>
+  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=zh-CN
+  style='color:black;mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=330 height=106
+  src="Function_Reference.files/image1324.png" v:shapes="_x0000_i1847"></span><span
+  lang=EN-US style='color:black'></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4;height:17.25pt'>
+  <td width=38 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:17.25pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
+  color:black'>4</span></span></p>
+  </td>
+  <td width=340 valign=top style='width:204.25pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:17.25pt'>
+  <p class=MsoNormal><span class=var1><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US style='color:black;font-style:normal'>[[4,6,2,4],[2,3,1,2],[1,1,1,-1]]</span></b></span></p>
+  </td>
+  <td width=331 valign=top style='width:7.0cm;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:17.25pt'>
   <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=EN-US
   style='color:black'>&nbsp;</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:4;height:17.25pt'>
-  <td width=31 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:5;mso-yfti-lastrow:yes;height:17.25pt'>
+  <td width=38 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:17.25pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  color:black'>4</span></span></p>
-  </td>
-  <td width=272 valign=top style='width:204.25pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:17.25pt'>
-  <p class=MsoNormal><span class=var2><b style='mso-bidi-font-weight:normal'><span
-  lang=EN-US style='color:black;font-style:normal'>=pearson@r(A1,A2)</span></b></span></p>
-  </td>
-  <td width=265 valign=top style='width:7.0cm;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:17.25pt'>
-  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=zh-CN
-  style='color:black;mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=205 height=44
-  src="Function_Reference.files/image1277.png" v:shapes="_x0000_i1856"></span><span
-  lang=EN-US style='color:black'></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:5;height:17.25pt'>
-  <td width=31 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:17.25pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
   color:black'>5</span></span></p>
   </td>
-  <td width=272 valign=top style='width:204.25pt;border-top:none;border-left:
+  <td width=340 valign=top style='width:204.25pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:17.25pt'>
-  <p class=MsoNormal><span class=var2><b style='mso-bidi-font-weight:normal'><span
-  lang=EN-US style='color:black;font-style:normal'>=pearson@a(A1,A2;3)</span></b></span></p>
+  <p class=MsoNormal><span class=var1><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US style='color:black;font-style:normal'>=pca(A4,A2)</span></b></span></p>
   </td>
-  <td width=265 valign=top style='width:7.0cm;border:none;mso-border-left-alt:
+  <td width=331 valign=top style='width:7.0cm;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:17.25pt'>
   <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=zh-CN
-  style='color:black;mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=206 height=44
-  src="Function_Reference.files/image1278.png" v:shapes="_x0000_i1857"></span><span
-  lang=EN-US style='color:black'></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:6;mso-yfti-lastrow:yes;height:17.25pt'>
-  <td width=31 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:17.25pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  color:black'>6</span></span></p>
-  </td>
-  <td width=272 valign=top style='width:204.25pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:17.25pt'>
-  <p class=MsoNormal><span class=var2><b style='mso-bidi-font-weight:normal'><span
-  lang=EN-US style='color:black;font-style:normal'>=pearson(A1)</span></b></span></p>
-  </td>
-  <td width=265 valign=top style='width:7.0cm;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:17.25pt'>
-  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=zh-CN
-  style='color:black;mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=206 height=43
-  src="Function_Reference.files/image1279.png" v:shapes="_x0000_i1858"></span><span
+  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=330 height=85
+  src="Function_Reference.files/image1325.png" v:shapes="_x0000_i1848"></span><span
   lang=EN-US style='color:black'></span></p>
   </td>
  </tr>
@@ -270,9 +256,12 @@ style='font-size:14.0pt;color:black'>Example:</span></b></p>
 	</div>
 	<div id="footer">	
 		
-		
-    <div class="copyright"> Copyright&reg; 2021 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+		<div class="copyright"> Copyright&reg; 2021 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+      </a></div> 
+        <!--
+		<div class="copyright"> Copyright&reg; 2017 <a href="http://www.yimming.com" target="_Blank"> Beijing Yimming Ltd. Co. 
       </a></div>
+	  -->
 	</div>
 </div>
 

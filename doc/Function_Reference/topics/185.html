@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>P .enum()</title>
+<title>elapse()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,341 +13,385 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h3 style='text-align:justify;text-justify:inter-ideograph'><a name="P_enum"></a><span
-class=code><i style='mso-bidi-font-style:normal'><span lang=EN-US
-style='font-size:15.0pt;line-height:172%;font-family:"Times New Roman",serif'>P</span></i></span><span
-class=code><span lang=EN-US style='font-size:15.0pt;line-height:172%;
-font-family:"Times New Roman",serif'>.enum()</span></span><span
-class=code><span lang=EN-US style='font-size:15.0pt;line-height:172%;
-font-family:"Times New Roman",serif'></span></span></h3></div>
-	<p class=afe style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Description:</span></p>
+	<div id="centent-title"><h2><span lang=EN-US>elapse()<a name=elapse></a></span></h2></div>
+	<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%'>Description:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Generate a new
-record sequence by performing enumeration grouping on an record sequence
-according to another record sequence.</span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Get the
+date/time which is a certain time period before or after a given date/time.</span></p>
 
-<p class=afe style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%;mso-fareast-font-family:"Times New Roman"'>Syntax:</span><span
-lang=EN-US style='mso-bidi-font-size:14.0pt;line-height:200%'></span></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%'>Syntax:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span class=var2><span
-lang=EN-US>P</span></span><span lang=EN-US>.</span><span class=code><span
-lang=EN-US style='font-family:"Times New Roman",serif'>enum(</span></span><span
-class=var2><span lang=EN-US>E</span></span><span lang=EN-US>, </span><span
-class=var2><span lang=EN-US>y</span></span><span class=code><span lang=EN-US
-style='font-family:"Times New Roman",serif'>)</span></span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US style='mso-fareast-font-family:黑体'>elapse(</span></b><i><span
+lang=EN-US style='mso-bidi-font-size:10.5pt'>dateExp</span></i><span
+lang=EN-US>, </span><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>n</span></i><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+黑体'>)</span></b></p>
 
-<p class=afe style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%;mso-fareast-font-family:"Times New Roman"'>Note:</span><span
-lang=EN-US style='mso-bidi-font-size:14.0pt;line-height:200%'></span></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%'>Note:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>The function
-generates a new record sequence by grouping the record sequence </span><span
-class=var2><span lang=EN-US>P</span></span><span lang=EN-US> according to the
-record sequence/sequence </span><span class=var2><span lang=EN-US>E</span></span><span
-lang=EN-US>.</span></p>
+<p class=MsoNormal style='text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:
+exactly'><span lang=EN-US>The function computes the new date which is </span><span
+class=var1><span lang=EN-US>n</span></span><span lang=EN-US> days/</span><span
+class=var1><span lang=EN-US>n</span></span><span lang=EN-US> months/</span><span
+class=var1><span lang=EN-US>n</span></span><span lang=EN-US> years before or after
+the date</span><span class=var1><span lang=EN-US> dateExp</span></span><span
+class=var1><span lang=EN-US style='font-style:normal;mso-bidi-font-style:italic'>.</span></span><span
+lang=EN-US> When getting the same date in last year according to the specified
+date, if the desired date does not exist, then return the last day of the same
+month. For example, </span><span class=code><span lang=EN-US style='font-family:
+"Times New Roman","serif"'>elapse@m(&quot;2009-03-31&quot;,-1)</span></span><span
+lang=EN-US> returns </span><span class=code><span lang=EN-US style='font-family:
+"Times New Roman","serif"'>2009-02-28</span></span><span class=code><span
+lang=EN-US style='font-family:"Times New Roman","serif";font-weight:normal'>.</span></span><span
+class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'> </span></span></p>
 
-<p class=afe style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%;mso-fareast-font-family:"Times New Roman"'>Parameters:</span><span
-lang=EN-US style='mso-bidi-font-size:14.0pt;line-height:200%'></span></p>
-
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var2><span lang=EN-US>P</span></span></p>
-  </td>
-  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Record sequence to be grouped</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:1'>
-  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var2><span lang=EN-US>E</span></span></p>
-  </td>
-  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Record sequence/sequence</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes'>
-  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var2><span lang=EN-US>y</span></span></p>
-  </td>
-  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>A field name or an expression in <i
-  style='mso-bidi-font-style:normal'>P</i>. </span><span class=var2><span
-  lang=EN-US>y</span></span><span lang=EN-US> is allowed to be omitted</span></p>
-  </td>
- </tr>
-</table>
-
-<p class=afe style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%;mso-fareast-font-family:"Times New Roman"'>Option</span><span
-lang=EN-US style='mso-bidi-font-size:14.0pt;line-height:200%'>s</span><span
-lang=EN-US style='mso-bidi-font-size:14.0pt;line-height:200%;mso-fareast-font-family:
-"Times New Roman"'>: </span><span lang=EN-US style='mso-bidi-font-size:14.0pt;
-line-height:200%'></span></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%'>Parameters:</span></b></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
  style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>@</span></span><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>r</span></b><span
-  class=var2><span lang=EN-US></span></span></p>
+  <td width=99 valign=top style='width:59.3pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US>dateExp</span></i><i><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt'></span></i></p>
   </td>
-  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Repetitive enum, that is, allocate a
-  certain record of </span><span class=var2><span lang=EN-US>P</span></span><span
-  lang=EN-US> to multiple groups. </span></p>
+  <td width=569 valign=top style='width:341.6pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>A specified date expression that should
+  return a date or a string of standard date format.</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:1'>
-  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>@</span></span><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>p</span></b><span
-  class=var2><span lang=EN-US></span></span></p>
+ <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
+  <td width=99 valign=top style='width:59.3pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US>n</span></i><i><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt'></span></i></p>
   </td>
-  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>The return value is composed of the
-  sequence numbers of members that exist in <i style='mso-bidi-font-style:normal'>P</i></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes'>
-  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>@n</span></span><span
-  class=var2><span lang=EN-US></span></span></p>
-  </td>
-  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Group <i style='mso-bidi-font-style:normal'>P</i>’s
-  records according to <i style='mso-bidi-font-style:normal'>E</i>’s members
-  and return the result groups. In the result set, there is a group to store
-  the unaligned member(s).</span></p>
+  <td width=569 valign=top style='width:341.6pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>An integer expression according to which
+  a date/time </span><i style='mso-bidi-font-style:normal'><span lang=EN-US
+  style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:Wingdings'>n </span></i><span
+  lang=EN-US>days/years/months/seconds after or before a given date/time is
+  computed, depending on whether <i style='mso-bidi-font-style:normal'>n</i> is
+  positive or negative.</span></p>
   </td>
  </tr>
 </table>
 
-<p class=afe style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%;mso-fareast-font-family:"Times New Roman"'>Function
-Keyword:</span><span lang=EN-US style='mso-bidi-font-size:14.0pt;line-height:
-200%'></span></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%'>Options:</span></b></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
  style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'>
-  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>?</span></span><span
-  class=var2><span lang=EN-US></span></span></p>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;height:15.25pt'>
+  <td width=87 valign=top style='width:52.2pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:15.25pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>@y</span></b></p>
   </td>
-  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>It represents the value of </span><span
-  class=var2><span lang=EN-US>y</span></span></p>
+  <td width=583 valign=top style='width:349.6pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:15.25pt'>
+  <p class=MsoNormal><span lang=EN-US>Compute the date which is </span><span
+  class=var1><span lang=EN-US>n</span></span><span lang=EN-US> years before or
+  after the specified date.</span><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US style='mso-fareast-font-family:黑体'></span></b></p>
   </td>
  </tr>
-</table>
-
-<p class=afe style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%;mso-fareast-font-family:"Times New Roman"'>Return
-value:</span><span lang=EN-US style='mso-bidi-font-size:14.0pt;line-height:
-200%'></span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>The new record
-sequence generated by grouping </span><span class=var2><span lang=EN-US>P</span></span></p>
-
-<p class=afe style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%;mso-fareast-font-family:"Times New Roman"'>Example:</span><span
-lang=EN-US style='mso-bidi-font-size:14.0pt;line-height:200%'></span></p>
-
-<p class=aff7 style='margin-top:0cm;margin-right:0cm;margin-bottom:0cm;
-margin-left:36.75pt;margin-bottom:.0001pt;mso-add-space:auto;text-align:justify;
-text-justify:inter-ideograph;text-indent:-21.0pt;mso-list:l17 level1 lfo12'><span
-lang=EN-US style='font-family:Wingdings;mso-fareast-font-family:Wingdings;
-mso-bidi-font-family:Wingdings'><span style='mso-list:Ignore'>&Oslash;<span
-style='font:7.0pt "Times New Roman"'>&nbsp; </span></span></span><span
-class=var2><span lang=EN-US>E</span></span><span lang=EN-US> is a sequence</span></p>
-
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
- style='margin-left:18.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
- mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=21 valign=top style='width:15.6pt;border:solid #A6A6A6 1.0pt;
-  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+ <tr style='mso-yfti-irow:1;height:3.85pt'>
+  <td width=87 valign=top style='width:52.2pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:3.85pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>@q</span></b></p>
+  </td>
+  <td width=583 valign=top style='width:349.6pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:3.85pt'>
+  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-size:10.5pt'>Compute
+  the date which is n quarters before or after the specified date.</span><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'></span></b></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;height:14.5pt'>
+  <td width=87 valign=top style='width:52.2pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:14.5pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>@m</span></b></p>
+  </td>
+  <td width=583 valign=top style='width:349.6pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:14.5pt'>
+  <p class=MsoNormal><span lang=EN-US>Compute the date which is </span><span
+  class=var1><span lang=EN-US>n</span></span><span lang=EN-US> months before or
+  after the specified date.</span><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US style='mso-fareast-font-family:黑体'></span></b></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;height:14.5pt'>
+  <td width=87 valign=top style='width:52.2pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:14.5pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>@e</span></b></p>
+  </td>
+  <td width=583 valign=top style='width:349.6pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:14.5pt'>
+  <p class=MsoNormal><span lang=EN-US>If the specified date is the last day of
+  a month, the new date will not be adjusted to the last day of the month to
+  which it belongs. Without the option the new date will be automatically
+  adjusted to the last day of the corresponding month. This option works with
+  @yqm.</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4;height:14.5pt'>
+  <td width=87 valign=top style='width:52.2pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:14.5pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>@s</span></b></p>
+  </td>
+  <td width=583 valign=top style='width:349.6pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:14.5pt'>
+  <p class=MsoNormal><span lang=EN-US>Compute the datetime which is </span><span
+  class=var1><span lang=EN-US>n</span></span><span lang=EN-US> seconds before
+  or after the specified datetime</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:5;height:10.75pt'>
+  <td width=87 valign=top style='width:52.2pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:10.75pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>@ms</span></b></p>
+  </td>
+  <td width=583 valign=top style='width:349.6pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:10.75pt'>
+  <p class=MsoNormal><span lang=EN-US>Compute the datetime which is </span><i><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt'>n </span></i><span lang=EN-US>milliseconds
+  before or after the specified datetime; by default the function computes the
+  date which is </span><span class=var1><span lang=EN-US>n</span></span><span
+  lang=EN-US> days after the specified date.</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:6;mso-yfti-lastrow:yes;height:14.5pt'>
+  <td width=87 valign=top style='width:52.2pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:14.5pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>&nbsp;</span></b></p>
+  </td>
+  <td width=583 valign=top style='width:349.6pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:14.5pt'>
   <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
   </td>
-  <td width=239 valign=top style='width:179.5pt;border:solid #A6A6A6 1.0pt;
-  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>A</span></span></p>
+ </tr>
+</table>
+
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%'>Return value:</span></b></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Datetime</span></p>
+
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%'>Example:</span></b></p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:5.4pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=496 valign=top style='width:297.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-left:10.55pt;tab-stops:35.2pt 48.75pt'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;mso-fareast-font-family:黑体'>elapse(datetime(&quot;19800227&quot;,&quot;yyyyMMdd&quot;),5)</span></b><i><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt'></span></i></p>
   </td>
-  <td width=270 valign=top style='width:202.45pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  <td width=205 valign=top style='width:123.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>1980-03-03 00:00:00</span></b></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=21 valign=top style='width:15.6pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>1</span></span></p>
+  <td width=496 valign=top style='width:297.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-left:10.55pt;tab-stops:35.2pt 48.75pt'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;mso-fareast-font-family:黑体'>elapse@s(datetime(&quot;19800227&quot;,&quot;yyyyMMdd&quot;),5)</span></b></p>
   </td>
-  <td width=239 style='width:179.5pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=[&quot;?&lt;=60&quot;,&quot;?&gt;=60
-  &amp;&amp; ?&lt;=90&quot;,&quot;?&gt;=90&quot;]</span></span></p>
-  </td>
-  <td width=270 valign=top style='width:202.45pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Use </span><span class=var2><span
-  lang=EN-US>y</span></span><span lang=EN-US> to replace </span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>?</span></span><span
-  lang=EN-US> in the group condition when computing</span></p>
+  <td width=205 valign=top style='width:123.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>1980-02-27 00:00:05</span></b></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:2'>
-  <td width=21 valign=top style='width:15.6pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>2</span></span></p>
+  <td width=496 valign=top style='width:297.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-left:10.55pt;tab-stops:35.2pt 48.75pt'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;mso-fareast-font-family:黑体'>elapse@ms(datetime(&quot;19800227&quot;,&quot;yyyyMMdd&quot;),5)</span></b></p>
   </td>
-  <td width=239 style='width:179.5pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=demo.query(&quot;select
-  * from SCORES&quot;)</span></span></p>
-  </td>
-  <td width=270 valign=top style='width:202.45pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  <td width=205 valign=top style='width:123.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>1980-02-27 00:00:00</span></b></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:3'>
-  <td width=21 valign=top style='width:15.6pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>3</span></span></p>
+  <td width=496 valign=top style='width:297.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-left:10.55pt;tab-stops:35.2pt 48.75pt'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;mso-fareast-font-family:黑体'>elapse(datetime(&quot;19800227&quot;,&quot;yyyyMMdd&quot;),-3)</span></b></p>
   </td>
-  <td width=239 style='width:179.5pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=A2.enum(A1,SCORE)</span></span></p>
-  </td>
-  <td width=270 valign=top style='width:202.45pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>3 groups in total, and a member will not
-  appear in multiple groups </span></p>
+  <td width=205 valign=top style='width:123.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>1980-02-24 00:00:00</span></b></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:4'>
-  <td width=21 valign=top style='width:15.6pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>4</span></span></p>
+  <td width=496 valign=top style='width:297.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-left:10.55pt;tab-stops:35.2pt 48.75pt'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;mso-fareast-font-family:黑体'>elapse@y(datetime(&quot;19800227&quot;,&quot;yyyyMMdd&quot;),-3)</span></b></p>
   </td>
-  <td width=239 valign=top style='width:179.5pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=A2.enum@r(A1,SCORE)</span></span></p>
-  </td>
-  <td width=270 valign=top style='width:202.45pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>3 groups in total; 60 and 90 are
-  allocated to multiple groups </span></p>
+  <td width=205 valign=top style='width:123.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>1977-02-27 00:00:00</span></b></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:5'>
-  <td width=21 valign=top style='width:15.6pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>5</span></span></p>
+  <td width=496 valign=top style='width:297.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-left:10.55pt;tab-stops:35.2pt 48.75pt'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;mso-fareast-font-family:黑体'>elapse@q(datetime(&quot;19800227&quot;,&quot;yyyyMMdd&quot;),-3)</span></b></p>
   </td>
-  <td width=239 valign=top style='width:179.5pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=A2.enum@p(A1,SCORE)</span></span></p>
-  </td>
-  <td width=270 valign=top style='width:202.45pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>3 groups in total; return the sequence
-  numbers of members that exist in A2 by group</span></p>
+  <td width=205 valign=top style='width:123.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>1979-05-27 00:00:00</span></b></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:6'>
-  <td width=21 valign=top style='width:15.6pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>6</span></span></p>
+  <td width=496 valign=top style='width:297.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-left:10.55pt;tab-stops:35.2pt 48.75pt'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;mso-fareast-font-family:黑体'>elapse@m(datetime(&quot;19800227&quot;,&quot;yyyyMMdd&quot;),-3)</span></b></p>
   </td>
-  <td width=239 valign=top style='width:179.5pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=[&quot;?&lt;=60&quot;,&quot;?&gt;=60
-  &amp;&amp; ?&lt;=90&quot;]</span></span></p>
-  </td>
-  <td width=270 valign=top style='width:202.45pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  <td width=205 valign=top style='width:123.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>1979-11-27 00:00:00</span></b></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:7;mso-yfti-lastrow:yes'>
-  <td width=21 valign=top style='width:15.6pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>7</span></span></p>
+ <tr style='mso-yfti-irow:7'>
+  <td width=496 valign=top style='width:297.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-left:10.55pt;tab-stops:35.2pt 48.75pt'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;mso-fareast-font-family:黑体'>elapse@s(datetime(&quot;19800227&quot;,&quot;yyyyMMdd&quot;),-3)</span></b></p>
   </td>
-  <td width=239 valign=top style='width:179.5pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=A2.enum@n(A6,SCORE)</span></span></p>
+  <td width=205 valign=top style='width:123.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>1980-02-26 23:59:57</span></b></p>
   </td>
-  <td width=270 valign=top style='width:202.45pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>3 groups in total, group 1 for those not
-  greater than 60, group 2 for those greater than 60 and not greater than 90,
-  and group 3 for the remaining values.</span></p>
+ </tr>
+ <tr style='mso-yfti-irow:8'>
+  <td width=496 valign=top style='width:297.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-left:10.55pt;tab-stops:35.2pt 48.75pt'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;mso-fareast-font-family:黑体'>elapse@ms(datetime(&quot;19800227&quot;,&quot;yyyyMMdd&quot;),-3)</span></b></p>
+  </td>
+  <td width=205 valign=top style='width:123.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>1980-02-26 23:59:59</span></b></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:9'>
+  <td width=496 valign=top style='width:297.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-left:10.55pt;tab-stops:35.2pt 48.75pt'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;mso-fareast-font-family:黑体'>datetime(&quot;19800227&quot;,&quot;yyyyMMdd&quot;)+5</span></b></p>
+  </td>
+  <td width=205 valign=top style='width:123.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>1980-03-03 00:00:00</span></b></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:10'>
+  <td width=496 valign=top style='width:297.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-left:10.55pt;tab-stops:35.2pt 48.75pt'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;mso-fareast-font-family:黑体'>datetime(&quot;19800227&quot;,&quot;yyyyMMdd&quot;)-5</span></b></p>
+  </td>
+  <td width=205 valign=top style='width:123.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>1980-02-22 00:00:00</span></b></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:11'>
+  <td width=496 valign=top style='width:297.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='text-indent:10.55pt;mso-char-indent-count:1.0;
+  tab-stops:35.2pt 48.75pt'><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:黑体'>elapse@y(datetime(&quot;19770228&quot;,&quot;yyyyMMdd&quot;),3)</span></b></p>
+  </td>
+  <td width=205 valign=top style='width:123.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>1980-02-29 00:00:00</span></b></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:12'>
+  <td width=496 valign=top style='width:297.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='text-indent:10.55pt;mso-char-indent-count:1.0;
+  tab-stops:35.2pt 48.75pt'><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:黑体'>elapse@ey(datetime(&quot;19770228&quot;,&quot;yyyyMMdd&quot;),3)</span></b></p>
+  </td>
+  <td width=205 valign=top style='width:123.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>1980-02-28 00:00:00</span></b></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:13'>
+  <td width=496 valign=top style='width:297.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='text-indent:10.55pt;mso-char-indent-count:1.0;
+  tab-stops:35.2pt 48.75pt'><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:黑体'>elapse@q(datetime(&quot;19800229&quot;,&quot;yyyyMMdd&quot;),1)</span></b></p>
+  </td>
+  <td width=205 valign=top style='width:123.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>1980-05-31 00:00:00</span></b></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:14'>
+  <td width=496 valign=top style='width:297.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='text-indent:10.55pt;mso-char-indent-count:1.0;
+  tab-stops:35.2pt 48.75pt'><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:黑体'>elapse@eq(datetime(&quot;19800229&quot;,&quot;yyyyMMdd&quot;),1)</span></b></p>
+  </td>
+  <td width=205 valign=top style='width:123.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>1980-05-29 00:00:00</span></b></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:15'>
+  <td width=496 valign=top style='width:297.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='text-indent:10.55pt;mso-char-indent-count:1.0;
+  tab-stops:35.2pt 48.75pt'><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:黑体'>elapse@m(datetime(&quot;19800229&quot;,&quot;yyyyMMdd&quot;),5)</span></b></p>
+  </td>
+  <td width=205 valign=top style='width:123.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>1980-07-31 00:00:00</span></b></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:16;mso-yfti-lastrow:yes'>
+  <td width=496 valign=top style='width:297.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='text-indent:10.55pt;mso-char-indent-count:1.0;
+  tab-stops:35.2pt 48.75pt'><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:黑体'>elapse@em(datetime(&quot;19800229&quot;,&quot;yyyyMMdd&quot;),5)</span></b></p>
+  </td>
+  <td width=205 valign=top style='width:123.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>1980-07-29 00:00:00</span></b></p>
   </td>
  </tr>
 </table>
-
-<p class=afe style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%;mso-fareast-font-family:"Times New Roman"'>Note:</span><span
-lang=EN-US style='mso-bidi-font-size:14.0pt;line-height:200%'></span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:
-exactly'><span class=var2><span lang=EN-US>p</span></span><span class=code><span
-lang=EN-US style='font-family:"Times New Roman",serif'>.enum()</span></span><span
-lang=EN-US> is mainly used to conduct the enum grouping on a single record
-sequence. The grouping result is a sequence composed of multiple record sets,
-and each record set is a group. This sequence is in an order exactly equal to
-that of </span><span class=var2><span lang=EN-US>E</span></span><span
-lang=EN-US>. Therefore, you can retrieve the associated group information from </span><span
-class=var2><span lang=EN-US>E</span></span><span lang=EN-US> via the sequence
-numbers. The group result is not a record sequence, so no new data structure
-will be generated</span></p>
-
-<p class=afe style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%;mso-fareast-font-family:"Times New Roman"'>Related
-functions:</span><span lang=EN-US style='mso-bidi-font-size:14.0pt;line-height:
-200%'></span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US><a  href="543.html"><span
-style='mso-bidi-font-size:10.5pt;font-style:normal'>E</span><span
-style='mso-bidi-font-size:12.0pt;font-style:normal'>.pen<span style='mso-bookmark:
-_Hlt414993356'><span style='mso-bookmark:_Hlt414993333'>u</span></span>m()</span></a><a
-name="_Hlt414993333"></a><a name="_Hlt414993356"></a></span></i></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="186.html">Next</a></div>
@@ -355,14 +399,17 @@ name="_Hlt414993333"></a><a name="_Hlt414993356"></a></span></i></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="184.html">enum()</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="21.html">Functions</a></span></li>
 </div>
 	</div>
 	<div id="footer">	
 		
-		
-    <div class="copyright"> Copyright&reg; 2021 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+		<div class="copyright"> Copyright&reg; 2021 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+      </a></div> 
+        <!--
+		<div class="copyright"> Copyright&reg; 2017 <a href="http://www.yimming.com" target="_Blank"> Beijing Yimming Ltd. Co. 
       </a></div>
+	  -->
 	</div>
 </div>
 

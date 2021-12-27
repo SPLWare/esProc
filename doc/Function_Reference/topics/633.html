@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>redis_sunion()</title>
+<title>redis_sscan()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,171 +13,184 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h2><span lang=EN-US>redis_sunion()</span></h2></div>
-	<p class=afe style='line-height:200%'><span lang=EN-US>Description:</span></p>
+	<div id="centent-title"><h2><a name="_Hlk483572445"></a><a name="_Hlt485633348"></a><a
+name="_Hlt485634713"></a><a name="_Hlt485634779"></a><a name="_Hlt485634792"></a><a
+name="_Hlt485634964"></a><span style='mso-bookmark:_Hlk483572445'><span
+lang=EN-US style='mso-fareast-font-family:宋体'>redis_sscan()<a name="redis_sscan"></a></span></span><span
+style='mso-bookmark:_Hlk483572445'></span><span
+style='mso-bookmark:_Hlk483572445'><span lang=EN-US style='mso-fareast-font-family:
+宋体'></span></span></h2></div>
+	<p class=MsoNormal><span style='mso-bookmark:_Hlk483572445'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Description:</span></b></span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-tab-stops:18.0pt'><span lang=EN-US>Get the members of the union of all the
-given sets. </span><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt;mso-bidi-font-size:12.0pt'></span></b></p>
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02;
+tab-stops:0cm'><span style='mso-bookmark:_Hlk483572445'><span lang=EN-US>Scan
+elements of the key in a set iteratively.</span></span></p>
 
-<p class=afe style='line-height:200%'><span lang=EN-US>Syntax:</span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Hlk483572445'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Syntax:</span></b></span></p>
 
-<p class=MsoNormal style='text-indent:21.1pt;mso-char-indent-count:2.0;
-tab-stops:18.0pt'><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>redis_sunion</span></span><span
-lang=EN-US>(</span><span class=var2><span lang=EN-US>con,key[,key1,key2,...]</span></span><span
-lang=EN-US>)</span><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt;mso-bidi-font-size:12.0pt'></span></b></p>
+<p class=MsoNormal style='text-indent:21.3pt;mso-char-indent-count:2.02;
+tab-stops:0cm'><span style='mso-bookmark:_Hlk483572445'><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US>redis_hkeys</span></b><span lang=EN-US>(con,key,regex,[count])</span></span></p>
 
-<p class=afe style='line-height:200%'><span lang=EN-US>Note: </span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Hlk483572445'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Note:
+</span></b></span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-tab-stops:18.0pt'><span lang=EN-US>External library function. A nonexistent key
-is treated as an empty set.</span><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:12.0pt'></span></b></p>
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02;
+tab-stops:0cm'><span style='mso-bookmark:_Hlk483572445'><span lang=EN-US>The
+external library scans elements of the key in a set iteratively and stores the
+data in a corresponding data structure. Error will be reported if such a data
+structure has not defined at store.</span></span></p>
 
-<p class=afe style='line-height:200%'><span lang=EN-US>Parameters:</span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Hlk483572445'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Parameters:</span></b></span></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ style='margin-left:3.65pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=47 valign=top style='width:35.35pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>con</span></i></p>
+  <td width=59 valign=top style='width:35.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlk483572445'><span class=var1><span
+  lang=EN-US>con</span></span></span></p>
   </td>
-  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Database connection string</span></p>
+  <span style='mso-bookmark:_Hlk483572445'></span>
+  <td width=589 valign=top style='width:353.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlk483572445'><span lang=EN-US>Database
+  connection string</span></span></p>
   </td>
+  <span style='mso-bookmark:_Hlk483572445'></span>
  </tr>
- <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
-  <td width=47 valign=top style='width:35.35pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>key</span></i></p>
+ <tr style='mso-yfti-irow:1'>
+  <td width=59 valign=top style='width:35.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlk483572445'><span class=var1><span
+  lang=EN-US>key</span></span></span></p>
   </td>
-  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Set name</span></p>
+  <span style='mso-bookmark:_Hlk483572445'></span>
+  <td width=589 valign=top style='width:353.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlk483572445'><span lang=EN-US>Set
+  name</span></span></p>
   </td>
+  <span style='mso-bookmark:_Hlk483572445'></span>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=59 valign=top style='width:35.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlk483572445'><span class=var1><span
+  lang=EN-US>regex</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlk483572445'></span>
+  <td width=589 valign=top style='width:353.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlk483572445'><span lang=EN-US>A
+  regular expression</span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlk483572445'></span>
+ </tr>
+ <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
+  <td width=59 valign=top style='width:35.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlk483572445'><span class=var1><span
+  lang=EN-US>count</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlk483572445'></span>
+  <td width=589 valign=top style='width:353.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlk483572445'><span lang=EN-US>Number
+  of elements in a key scanned at a time</span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlk483572445'></span>
  </tr>
 </table>
 
-<p class=afe style='line-height:200%'><span lang=EN-US>Return value:</span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Hlk483572445'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Return
+value:</span></b></span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-tab-stops:18.0pt'><span lang=EN-US>A list of all members of the union set.</span><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-mso-bidi-font-size:12.0pt'></span></b></p>
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02;
+tab-stops:0cm'><span style='mso-bookmark:_Hlk483572445'><span lang=EN-US>A
+table sequence</span></span></p>
 
-<p class=afe style='line-height:200%'><span lang=EN-US>Example:</span></p>
+<p class=MsoNormal><span style='mso-bookmark:_Hlk483572445'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'>Example:</span></b></span></p>
 
 <table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
- style='margin-left:18.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ style='margin-left:17.9pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
  mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
-  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span lang=EN-US>&nbsp;</span></p>
+  <td width=50 valign=top style='width:30.05pt;border:solid #A6A6A6 1.0pt;
+  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'><span
+  style='mso-bookmark:_Hlk483572445'></span>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlk483572445'><span lang=EN-US>&nbsp;</span></span></p>
   </td>
-  <td width=283 valign=top style='width:212.05pt;border:solid #A6A6A6 1.0pt;
+  <span style='mso-bookmark:_Hlk483572445'></span>
+  <td width=333 valign=top style='width:199.7pt;border:solid #A6A6A6 1.0pt;
   border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
-  黑体'>A</span></b></p>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:_Hlk483572445'><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman","serif"'>A</span></span></span></p>
   </td>
-  <td width=237 valign=top style='width:177.45pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  <span style='mso-bookmark:_Hlk483572445'></span>
+  <td width=296 valign=top style='width:177.45pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;background:white;padding:0cm 0cm 0cm 0cm'><span
+  style='mso-bookmark:_Hlk483572445'></span>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlk483572445'><span lang=EN-US>&nbsp;</span></span></p>
   </td>
+  <span style='mso-bookmark:_Hlk483572445'></span>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
+  <td width=50 valign=top style='width:30.05pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>1</span></b></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlk483572445'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>1</span></span></span></p>
   </td>
-  <td width=283 valign=top style='width:212.05pt;border-top:none;border-left:
+  <span style='mso-bookmark:_Hlk483572445'></span>
+  <td width=333 valign=top style='width:199.7pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>=redis(&quot;192.168.18.131:6379&quot;,&quot;runqian&quot;)</span></b></p>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlk483572445'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>=redis_open()</span></span></span></p>
   </td>
-  <td width=237 valign=top style='width:177.45pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  <span style='mso-bookmark:_Hlk483572445'></span>
+  <td width=296 valign=top style='width:177.45pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span style='mso-bookmark:_Hlk483572445'></span>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlk483572445'><span lang=EN-US>&nbsp;</span></span></p>
   </td>
+  <span style='mso-bookmark:_Hlk483572445'></span>
  </tr>
- <tr style='mso-yfti-irow:2'>
-  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes;height:39.05pt'>
+  <td width=50 valign=top style='width:30.05pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>2</span></b></p>
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:39.05pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlk483572445'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>2</span></span></span></p>
   </td>
-  <td width=283 valign=top style='width:212.05pt;border-top:none;border-left:
+  <span style='mso-bookmark:_Hlk483572445'></span>
+  <td width=333 valign=top style='width:199.7pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>=redis_srandmember(A1,&quot;fruit&quot;,5)</span></b></p>
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:39.05pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlk483572445'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>=redis_sscan(A1,
+  &quot;runoobkey&quot;, &quot;*i*&quot;, 3)</span></span></span></p>
   </td>
-  <td width=237 valign=top style='width:177.45pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'><img border=0 width=236 height=62
-  src="Function_Reference.files/image1460.jpg" v:shapes="图片_x0020_40"></span><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
-  黑体'></span></b></p>
+  <span style='mso-bookmark:_Hlk483572445'></span>
+  <td width=296 valign=top style='width:177.45pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:39.05pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlk483572445'><span lang=EN-US><img border=0 width=132 height=51
+  src="Function_Reference.files/image1515.png" v:shapes="图片_x0020_1321"></span></span><span
+  style='mso-bookmark:_Hlk483572445'><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman","serif"'></span></span></span></p>
   </td>
- </tr>
- <tr style='mso-yfti-irow:3'>
-  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>3</span></b></p>
-  </td>
-  <td width=283 valign=top style='width:212.05pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>=redis_srandmember(A1,&quot;tool&quot;,5)</span></b></p>
-  </td>
-  <td width=237 valign=top style='width:177.45pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'><img border=0 width=236 height=62
-  src="Function_Reference.files/image1462.jpg" v:shapes="图片_x0020_41"></span><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
-  黑体'></span></b></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes'>
-  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>4</span></b></p>
-  </td>
-  <td width=283 valign=top style='width:212.05pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>=redis_sunion(A1,&quot;tool&quot;,&quot;fruit&quot;)</span></b></p>
-  </td>
-  <td width=237 valign=top style='width:177.45pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'><img border=0 width=236 height=91
-  src="Function_Reference.files/image1486.jpg" v:shapes="图片_x0020_42"></span><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
-  黑体'></span></b></p>
-  </td>
+  <span style='mso-bookmark:_Hlk483572445'></span>
  </tr>
 </table>
+
+<p class=MsoNormal><span style='mso-bookmark:_Hlk483572445'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:12.0pt;
+mso-bidi-font-size:10.0pt'>&nbsp;</span></b></span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="634.html">Next</a></div>
@@ -190,9 +203,12 @@ mso-bidi-font-size:12.0pt'></span></b></p>
 	</div>
 	<div id="footer">	
 		
-		
-    <div class="copyright"> Copyright&reg; 2021 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+		<div class="copyright"> Copyright&reg; 2021 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+      </a></div> 
+        <!--
+		<div class="copyright"> Copyright&reg; 2017 <a href="http://www.yimming.com" target="_Blank"> Beijing Yimming Ltd. Co. 
       </a></div>
+	  -->
 	</div>
 </div>
 
