@@ -41,6 +41,7 @@ import com.scudata.ide.spl.control.ControlUtils;
 import com.scudata.ide.spl.control.SplEditor;
 import com.scudata.ide.spl.dialog.DialogAbout;
 import com.scudata.ide.spl.dialog.DialogExecCmd;
+import com.scudata.ide.spl.resources.IdeSplMessage;
 import com.scudata.ide.spl.update.UpdateManager;
 
 public class GMSpl extends GM {
@@ -48,7 +49,8 @@ public class GMSpl extends GM {
 	/**
 	 * 执行菜单或者Sheet命令
 	 * 
-	 * @param cmd GCSpl及GC中定义的菜单常量
+	 * @param cmd
+	 *            GCSpl及GC中定义的菜单常量
 	 * @throws Exception
 	 */
 	public static void executeCmd(short cmd) throws Exception {
@@ -84,9 +86,9 @@ public class GMSpl extends GM {
 		case GC.iFILE_CLOSE_ALL:
 			GV.appFrame.closeAll();
 			return;
-		// case GCSpl.iSPL_IMPORT_TXT:
-		// importTxt2Spl();
-		// return;
+			// case GCSpl.iSPL_IMPORT_TXT:
+			// importTxt2Spl();
+			// return;
 		case GC.iQUIT:
 			GV.appFrame.quit();
 			return;
@@ -140,23 +142,25 @@ public class GMSpl extends GM {
 			try {
 				UpdateManager.checkUpdate(false);
 			} catch (Exception e) {
-				GM.showException(e);
+				GM.showException(e, true, GM.getLogoImage(true), IdeSplMessage
+						.get().getMessage("spl.updateerrorpre"));
 			}
 			return;
 		case GC.iMEMORYTIDY:
 			if (GV.dialogMemory == null) {
 				GV.dialogMemory = new DialogMemory();
-				GV.dialogMemory.setWrapStringBuffer(ControlUtilsBase.wrapStringBuffer);
+				GV.dialogMemory
+						.setWrapStringBuffer(ControlUtilsBase.wrapStringBuffer);
 			}
 			GV.dialogMemory.setVisible(true);
 			return;
-		// case GCSpl.iFILE_EXPORTTXT:
-		// ((SheetSpl) GV.appSheet).exportTxt();
-		// return;
-		// case GCSpl.iFUNC_MANAGER:
-		// DialogFuncEditor dfe = new DialogFuncEditor(GV.appFrame, false);
-		// dfe.setVisible(true);
-		// return;
+			// case GCSpl.iFILE_EXPORTTXT:
+			// ((SheetSpl) GV.appSheet).exportTxt();
+			// return;
+			// case GCSpl.iFUNC_MANAGER:
+			// DialogFuncEditor dfe = new DialogFuncEditor(GV.appFrame, false);
+			// dfe.setVisible(true);
+			// return;
 		}
 		if (cmd == GCSpl.iEXEC_CMD) {
 			if (GV.appSheet == null) {
@@ -172,8 +176,10 @@ public class GMSpl extends GM {
 	/**
 	 * 从网格的指定区域取单元格矩阵
 	 * 
-	 * @param cellSet 网格
-	 * @param rect    区域
+	 * @param cellSet
+	 *            网格
+	 * @param rect
+	 *            区域
 	 * @return
 	 */
 	public static Matrix getMatrixCells(CellSet cellSet, CellRect rect) {
@@ -183,12 +189,16 @@ public class GMSpl extends GM {
 	/**
 	 * 从网格的指定区域取单元格矩阵
 	 * 
-	 * @param cellSet   网格
-	 * @param rect      区域
-	 * @param cloneCell 单元格是否克隆
+	 * @param cellSet
+	 *            网格
+	 * @param rect
+	 *            区域
+	 * @param cloneCell
+	 *            单元格是否克隆
 	 * @return
 	 */
-	public static Matrix getMatrixCells(CellSet cellSet, CellRect rect, boolean cloneCell) {
+	public static Matrix getMatrixCells(CellSet cellSet, CellRect rect,
+			boolean cloneCell) {
 		if (rect == null) {
 			return null;
 		}
@@ -240,12 +250,16 @@ public class GMSpl extends GM {
 	/**
 	 * 取移动区域格子的原子命令集合
 	 * 
-	 * @param editor  网格编辑器
-	 * @param srcRect 源区域
-	 * @param tarRect 目标区域
+	 * @param editor
+	 *            网格编辑器
+	 * @param srcRect
+	 *            源区域
+	 * @param tarRect
+	 *            目标区域
 	 * @return
 	 */
-	public static Vector<IAtomicCmd> getMoveRectCmd(SplEditor editor, CellRect srcRect, CellRect tarRect) {
+	public static Vector<IAtomicCmd> getMoveRectCmd(SplEditor editor,
+			CellRect srcRect, CellRect tarRect) {
 		if (srcRect.getColCount() == 0) {
 			return null;
 		}
@@ -262,7 +276,8 @@ public class GMSpl extends GM {
 		}
 
 		Matrix srcCells = getMatrixCells(ics, srcRect);
-		CellSelection cs = new CellSelection(srcCells, srcRect, editor.getComponent().getCellSet());
+		CellSelection cs = new CellSelection(srcCells, srcRect, editor
+				.getComponent().getCellSet());
 		AtomicSpl ad = new AtomicSpl(editor.getComponent());
 		ad.setType(AtomicSpl.MOVE_RECT);
 		ad.setRect(tarRect);
@@ -274,8 +289,10 @@ public class GMSpl extends GM {
 	/**
 	 * 取最大的列宽度
 	 * 
-	 * @param cs  网格
-	 * @param col 列
+	 * @param cs
+	 *            网格
+	 * @param col
+	 *            列
 	 * @return
 	 */
 	public static float getMaxColWidth(CellSet cs, int col) {
@@ -310,8 +327,10 @@ public class GMSpl extends GM {
 	/**
 	 * 取最大的行高度
 	 * 
-	 * @param cs  网格
-	 * @param row 行号
+	 * @param cs
+	 *            网格
+	 * @param row
+	 *            行号
 	 * @return
 	 */
 	public static float getMaxRowHeight(CellSet cs, int row) {
@@ -361,35 +380,37 @@ public class GMSpl extends GM {
 	 * 
 	 * @return
 	 */
-//	public static boolean importTxt2Spl() {
-//		File file = GM.dialogSelectFile(AppConsts.FILE_SPL);
-//		if (file == null) {
-//			return false;
-//		}
-//		try {
-//			String filePath = file.getAbsolutePath();
-//			PgmCellSet cellSet = readSPL(filePath);
-//			filePath = getNotDuplicateName(filePath, AppConsts.FILE_SPL);
-//			((SPL) GV.appFrame).openSheet(filePath, cellSet, false);
-//			invokeSheetChanged();
-//		} catch (Throwable ex) {
-//			GM.showException(ex);
-//			return false;
-//		}
-//		return true;
-//	}
+	// public static boolean importTxt2Spl() {
+	// File file = GM.dialogSelectFile(AppConsts.FILE_SPL);
+	// if (file == null) {
+	// return false;
+	// }
+	// try {
+	// String filePath = file.getAbsolutePath();
+	// PgmCellSet cellSet = readSPL(filePath);
+	// filePath = getNotDuplicateName(filePath, AppConsts.FILE_SPL);
+	// ((SPL) GV.appFrame).openSheet(filePath, cellSet, false);
+	// invokeSheetChanged();
+	// } catch (Throwable ex) {
+	// GM.showException(ex);
+	// return false;
+	// }
+	// return true;
+	// }
 
 	/**
 	 * 读取SPL文件到程序网格
 	 * 
-	 * @param filePath SPL文件路径
+	 * @param filePath
+	 *            SPL文件路径
 	 * @return
 	 * @throws Exception
 	 */
 	public static PgmCellSet readSPL(String filePath) throws Exception {
 		PgmCellSet cellSet = AppUtil.readSPL(filePath);
 		if (cellSet == null) {
-			return new PgmCellSet(ConfigOptions.iRowCount.intValue(), ConfigOptions.iColCount.intValue());
+			return new PgmCellSet(ConfigOptions.iRowCount.intValue(),
+					ConfigOptions.iColCount.intValue());
 		}
 		return cellSet;
 	}
@@ -397,14 +418,17 @@ public class GMSpl extends GM {
 	/**
 	 * 取不重复的spl名称
 	 * 
-	 * @param filePath 文件路径
-	 * @param postfix  后缀
+	 * @param filePath
+	 *            文件路径
+	 * @param postfix
+	 *            后缀
 	 * @return
 	 */
 	private static String getNotDuplicateName(String filePath, String postfix) {
 		String preName = filePath;
 		if (postfix != null && filePath.endsWith("." + postfix)) {
-			preName = filePath.substring(0, preName.length() - postfix.length() - 1);
+			preName = filePath.substring(0, preName.length() - postfix.length()
+					- 1);
 		}
 		String newName = preName;
 		int index = 1;
@@ -499,7 +523,8 @@ public class GMSpl extends GM {
 	/**
 	 * 修改保存按钮状态
 	 * 
-	 * @param isDataChanged 是否激活保存按钮
+	 * @param isDataChanged
+	 *            是否激活保存按钮
 	 */
 	public static void enableSave(boolean isDataChanged) {
 		if (GV.appMenu != null) {
@@ -588,7 +613,8 @@ public class GMSpl extends GM {
 		FileReader fr = null;
 		BufferedReader br = null;
 		try {
-			String configFile = GM.getAbsolutePath("bin" + File.separator + "config.txt");
+			String configFile = GM.getAbsolutePath("bin" + File.separator
+					+ "config.txt");
 			fr = new FileReader(configFile);
 			br = new BufferedReader(fr);
 			String segValue = br.readLine();
@@ -620,7 +646,8 @@ public class GMSpl extends GM {
 	 * @param value
 	 */
 	public static void setConfigValue(String key, String value) {
-		String configFile = GM.getAbsolutePath("bin" + File.separator + "config.txt");
+		String configFile = GM.getAbsolutePath("bin" + File.separator
+				+ "config.txt");
 		FileReader fr = null;
 		BufferedReader br = null;
 		Segment seg = null;

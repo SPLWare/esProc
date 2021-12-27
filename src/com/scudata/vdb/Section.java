@@ -827,6 +827,7 @@ class Section extends ISection {
 	 * @param vdb 数据库对象
 	 * @param dirNames 路径名数组
 	 * @param dirValues 路径值数组
+	 * @param valueSigns true：对目录提条件，此时如果传入的目录值是null，则会选值是null的目录，false：省略目录值，即不对此目录提条件
 	 * @param fvals 表单里要修改的字段值数组
 	 * @param fields 表单里要修改的字段名数组
 	 * @param exp 条件表达式
@@ -834,9 +835,9 @@ class Section extends ISection {
 	 * @param ctx 计算上下文
 	 * @return 0：成功
 	 */
-	public int update(VDB vdb, String []dirNames, Object []dirValues, 
+	public int update(VDB vdb, String []dirNames, Object []dirValues, boolean []valueSigns, 
 			Object []fvals, String []fields, Expression exp, boolean isRecursion, Context ctx) {
-		Filter filter = new Filter(dirNames, dirValues, exp, ctx);
+		Filter filter = new Filter(dirNames, dirValues, valueSigns, exp, ctx);
 		
 		try {
 			return update(vdb, filter, fvals, fields, isRecursion);

@@ -1407,7 +1407,9 @@ public class SPL extends AppFrame {
 					} catch (final Exception ex) {
 						SwingUtilities.invokeLater(new Runnable() {
 							public void run() {
-								GM.showException(ex, true);
+								GM.showException(ex, true, GM
+										.getLogoImage(true), IdeSplMessage
+										.get().getMessage("spl.updateerrorpre"));
 							}
 						});
 					}

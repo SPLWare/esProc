@@ -563,6 +563,7 @@ abstract class ISection {
 	 * @param vdb 数据库对象
 	 * @param dirNames 节名数组，省略则结果集不生成此字段
 	 * @param dirValues 节值数组，省略则对此节不提条件
+	 * @param valueSigns true：对目录提条件，此时如果传入的目录值是null，则会选值是null的目录，false：省略目录值，即不对此目录提条件
 	 * @param fields 单据中的字段名数组
 	 * @param exp 其它过滤表达式
 	 * @param isRecursion true：递归去找子路径，缺省将读到参数所涉及层即停止
@@ -570,9 +571,9 @@ abstract class ISection {
 	 * @return 结果集排列
 	 * @throws IOException
 	 */
-	public Sequence retrieve(VDB vdb, String []dirNames, Object []dirValues, 
+	public Sequence retrieve(VDB vdb, String []dirNames, Object []dirValues, boolean []valueSigns, 
 			String []fields, Expression exp, boolean isRecursion, Context ctx) throws IOException {
-		Filter filter = new Filter(dirNames, dirValues, fields, exp, ctx);
+		Filter filter = new Filter(dirNames, dirValues, valueSigns, fields, exp, ctx);
 		Sequence out = new Sequence(1024);
 		retrieve(vdb, filter, isRecursion, out);
 		return out;
@@ -650,6 +651,7 @@ abstract class ISection {
 	 * @param vdb 数据库对象
 	 * @param dirNames 路径名数组
 	 * @param dirValues 路径值数组
+	 * @param valueSigns true：对目录提条件，此时如果传入的目录值是null，则会选值是null的目录，false：省略目录值，即不对此目录提条件
 	 * @param fvals 表单里要修改的字段值数组
 	 * @param fields 表单里要修改的字段名数组
 	 * @param exp 条件表达式
@@ -657,7 +659,7 @@ abstract class ISection {
 	 * @param ctx 计算上下文
 	 * @return 0：成功
 	 */
-	abstract public int update(VDB vdb, String []dirNames, Object []dirValues, 
+	abstract public int update(VDB vdb, String []dirNames, Object []dirValues, boolean []valueSigns, 
 			Object []fvals, String []fields, Expression exp, boolean isRecursion, Context ctx);
 		
 	/**

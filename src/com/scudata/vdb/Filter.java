@@ -34,7 +34,7 @@ class Filter {
 	private String []resultFields; // 结果集数据结构，如果selFields为空则只包含选出的目录字段
 	
 	// retrive使用
-	public Filter(String []dirNames, Object []dirValues, String []selFields, Expression exp, Context ctx) {
+	public Filter(String []dirNames, Object []dirValues, boolean []valueSigns, String []selFields, Expression exp, Context ctx) {
 		this.filterDirs = dirNames;
 		this.selFields = selFields;
 		this.exp = exp;
@@ -44,7 +44,7 @@ class Filter {
 			filterCount = dirNames.length;
 			filters = new DirFilter[filterCount];
 			for (int i = 0; i < filterCount; ++i) {
-				filters[i] = new DirFilter(dirValues[i]);
+				filters[i] = new DirFilter(dirValues[i], valueSigns[i]);
 				if (dirNames[i] != null) {
 					selDirCount++;
 				}
@@ -77,7 +77,7 @@ class Filter {
 	}
 	
 	// update使用
-	public Filter(String []dirNames, Object []dirValues, Expression exp, Context ctx) {
+	public Filter(String []dirNames, Object []dirValues, boolean []valueSigns, Expression exp, Context ctx) {
 		this.filterDirs = dirNames;
 		this.exp = exp;
 		this.ctx = ctx;
@@ -86,7 +86,7 @@ class Filter {
 			filterCount = dirNames.length;
 			filters = new DirFilter[filterCount];
 			for (int i = 0; i < filterCount; ++i) {
-				filters[i] = new DirFilter(dirValues[i]);
+				filters[i] = new DirFilter(dirValues[i], valueSigns[i]);
 			}
 		}
 	}

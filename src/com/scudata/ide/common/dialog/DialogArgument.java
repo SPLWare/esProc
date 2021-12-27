@@ -27,6 +27,7 @@ import com.scudata.ide.common.GV;
 import com.scudata.ide.common.resources.IdeCommonMessage;
 import com.scudata.ide.common.swing.JTableEx;
 import com.scudata.ide.common.swing.VFlowLayout;
+import com.scudata.ide.spl.resources.IdeSplMessage;
 
 /**
  * 输入参数对话框
@@ -204,15 +205,29 @@ public class DialogArgument extends DialogMaxmizable {
 	 * @return 参数列表
 	 */
 	public ParamList getParameter() {
+		return paramList;
+	}
+
+	/**
+	 * 编辑后的参数列表
+	 */
+	private ParamList paramList = null;
+
+	/**
+	 * 检查参数列
+	 * 
+	 * @return
+	 */
+	private boolean checkParam() {
 		if (paraTable.getRowCount() < 1) {
-			return null;
+			return true;
 		}
-		ParamList plist = new ParamList();
+		paramList = new ParamList();
 		ParamList otherList = new ParamList();
 		if (pl != null) {
 			pl.getAllConsts(otherList);
 		}
-		plist.setUserChangeable(jcbUserChange.isSelected());
+		paramList.setUserChangeable(jcbUserChange.isSelected());
 		Object o;
 		for (int i = 0; i < paraTable.getRowCount(); i++) {
 			String name = (String) paraTable.getValueAt(i, COL_NAME);
@@ -230,7 +245,19 @@ public class DialogArgument extends DialogMaxmizable {
 			if (editValue == null) {
 				v.setValue(null);
 			} else {
-				v.setValue(PgmNormalCell.parseConstValue((String) editValue));
+				try {
+					v.setValue(PgmNormalCell
+							.parseConstValue((String) editValue));
+				} catch (Exception ex) {
+					paraTable.selectRow(i);
+					GM.showException(
+							ex,
+							true,
+							GM.getLogoImage(true),
+							IdeSplMessage.get().getMessage(
+									"dialoginputargument.parseerrorpre", name));
+					return false;
+				}
 			}
 			o = paraTable.data.getValueAt(i, COL_REMARK);
 			if (!StringUtils.isValidString(o)) {
@@ -238,13 +265,13 @@ public class DialogArgument extends DialogMaxmizable {
 			} else {
 				v.setRemark((String) o);
 			}
-			plist.add(v);
+			paramList.add(v);
 		}
 		int count = otherList.count();
 		for (int i = 0; i < count; i++) {
-			plist.add(otherList.get(i));
+			paramList.add(otherList.get(i));
 		}
-		return plist;
+		return true;
 	}
 
 	/**
@@ -404,6 +431,10 @@ public class DialogArgument extends DialogMaxmizable {
 	 */
 	void jBOK_actionPerformed(ActionEvent e) {
 		if (!paraTable.verifyColumnData(COL_NAME, TITLE_NAME)) {
+			return;
+		}
+		if (!checkParam()) {
+			paramList = null;
 			return;
 		}
 		GM.setWindowDimension(this);

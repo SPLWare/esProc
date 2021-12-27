@@ -993,24 +993,25 @@ public class VDB implements IVS, IResource {
 	 * 根据条件检索数据
 	 * @param dirNames 路径名数组
 	 * @param dirValues 路径值数组，用于过滤
+	 * @param valueSigns true：对目录提条件，此时如果传入的目录值是null，则会选值是null的目录，false：省略目录值，即不对此目录提条件
 	 * @param fields 单据中要读的字段名数组
 	 * @param filter 过滤条件
 	 * @param opt 选项，r：归去找子路径，缺省将读到参数所涉及层即停止
 	 * @param ctx 计算上下文
 	 * @return 结果集排列
 	 */
-	public Sequence retrieve(String []dirNames, Object []dirValues, 
+	public Sequence retrieve(String []dirNames, Object []dirValues, boolean []valueSigns, 
 			String []fields, Expression filter, String opt, Context ctx) {
-		return retrieve(rootSection, dirNames, dirValues, fields, filter, opt, ctx);
+		return retrieve(rootSection, dirNames, dirValues, valueSigns, fields, filter, opt, ctx);
 	}
 	
-	Sequence retrieve(ISection section, String []dirNames, Object []dirValues, 
+	Sequence retrieve(ISection section, String []dirNames, Object []dirValues, boolean []valueSigns, 
 			String []fields, Expression filter, String opt, Context ctx) {
 		checkValid();
 		boolean isRecursion = opt != null && opt.indexOf('r') != -1;
 		
 		try {
-			return section.retrieve(this, dirNames, dirValues, fields, filter, isRecursion, ctx);
+			return section.retrieve(this, dirNames, dirValues, valueSigns, fields, filter, isRecursion, ctx);
 		} catch (IOException e) {
 			e.printStackTrace();
 			setError(S_IOERROR);
@@ -1022,6 +1023,7 @@ public class VDB implements IVS, IResource {
 	 * 找出满足条件的单据后改写单据的字段值
 	 * @param dirNames 路径名数组
 	 * @param dirValues 路径值数组，用于过滤
+	 * @param valueSigns true：对目录提条件，此时如果传入的目录值是null，则会选值是null的目录，false：省略目录值，即不对此目录提条件
 	 * @param fvals 单据中的字段值数组
 	 * @param fields 单据中的字段名数组
 	 * @param filter 过滤条件
@@ -1029,12 +1031,12 @@ public class VDB implements IVS, IResource {
 	 * @param ctx 计算上下文
 	 * @return 成功：VDB.S_SUCCESS，其它：失败
 	 */
-	public int update(String []dirNames, Object []dirValues, 
+	public int update(String []dirNames, Object []dirValues, boolean []valueSigns, 
 			Object []fvals, String []fields, Expression filter, String opt, Context ctx) {
-		return update(rootSection, dirNames, dirValues, fvals, fields, filter, opt, ctx);
+		return update(rootSection, dirNames, dirValues, valueSigns, fvals, fields, filter, opt, ctx);
 	}
 	
-	int update(ISection section, String []dirNames, Object []dirValues, 
+	int update(ISection section, String []dirNames, Object []dirValues, boolean []valueSigns, 
 			Object []fvals, String []fields, Expression filter, String opt, Context ctx) {
 		checkValid();
 		
@@ -1045,7 +1047,7 @@ public class VDB implements IVS, IResource {
 		}
 		
 		boolean isRecursion = opt != null && opt.indexOf('r') != -1;
-		int result = section.update(this, dirNames, dirValues, fvals, fields, filter, isRecursion, ctx);
+		int result = section.update(this, dirNames, dirValues, valueSigns, fvals, fields, filter, isRecursion, ctx);
 		if (isAutoCommit()) {
 			commit();
 		}
