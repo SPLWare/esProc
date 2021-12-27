@@ -25,6 +25,7 @@ import com.scudata.ide.common.GV;
 import com.scudata.ide.common.resources.IdeCommonMessage;
 import com.scudata.ide.common.swing.JTableEx;
 import com.scudata.ide.common.swing.VFlowLayout;
+import com.scudata.ide.spl.resources.IdeSplMessage;
 
 /**
  * 输入参数对话框
@@ -195,16 +196,21 @@ public class DialogInputArgument extends JDialog {
 	 * @return
 	 */
 	public HashMap<String, Object> getParamValue() {
-		return getValue();
+		return paramMap;
 	}
+
+	/**
+	 * 参数键值映射
+	 */
+	private HashMap<String, Object> paramMap = null;
 
 	/**
 	 * 取参数键值映射
 	 * 
 	 * @return
 	 */
-	private HashMap<String, Object> getValue() {
-		HashMap<String, Object> newValues = new HashMap<String, Object>();
+	private boolean checkParam() {
+		paramMap = new HashMap<String, Object>();
 		String name; // , value
 		paraTable.acceptText();
 		Object o;
@@ -216,13 +222,25 @@ public class DialogInputArgument extends JDialog {
 			name = o.toString();
 			o = paraTable.data.getValueAt(i, COL_VALUE);
 			if (StringUtils.isValidString(o)) {
-				o = PgmNormalCell.parseConstValue((String) o);
+				try {
+					// 在确认时解析参数，可以捕捉异常
+					o = PgmNormalCell.parseConstValue((String) o);
+				} catch (Exception ex) {
+					paraTable.selectRow(i);
+					GM.showException(
+							ex,
+							true,
+							GM.getLogoImage(true),
+							IdeSplMessage.get().getMessage(
+									"dialoginputargument.parseerrorpre", name));
+					return false;
+				}
 			} else {
 				o = null;
 			}
-			newValues.put(name, o);
+			paramMap.put(name, o);
 		}
-		return newValues;
+		return true;
 	}
 
 	/**
@@ -231,6 +249,11 @@ public class DialogInputArgument extends JDialog {
 	 * @param e
 	 */
 	void jBOK_actionPerformed(ActionEvent e) {
+		if (!checkParam()) {
+			paramMap = null;
+			return;
+		}
+
 		GM.setWindowDimension(this);
 		m_option = JOptionPane.OK_OPTION;
 		dispose();
