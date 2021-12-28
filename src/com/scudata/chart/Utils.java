@@ -3,7 +3,9 @@ package com.scudata.chart;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
 import com.google.zxing.MultiFormatWriter;
+import com.google.zxing.Writer;
 import com.google.zxing.common.BitMatrix;
+import com.google.zxing.datamatrix.encoder.SymbolShapeHint;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 
 import java.util.*;
@@ -3455,10 +3457,20 @@ public class Utils {
 			ecl = ErrorCorrectionLevel.H;
 		}
 		hints.put(EncodeHintType.ERROR_CORRECTION, ecl);
+		if(value.barType==Consts.TYPE_QRCODE) {
+//			二维码改成默认为正方形
+			hints.put(EncodeHintType.DATA_MATRIX_SHAPE, SymbolShapeHint.FORCE_SQUARE);
+		}
 		try {
 			BarcodeFormat bf = convertBarcodeFormat(value.barType);
-			BitMatrix bitMatrix = multiFormatWriter.encode(value.getDispText(index), bf, w,
-					h, hints);
+			BitMatrix bitMatrix;
+			if(isCode128ABC(value.barType)) {
+		         Writer writer = new Code128ABC(value.barType);
+		         bitMatrix = writer.encode(value.getDispText(index), bf, w,h, hints);
+			}else {
+				bitMatrix = multiFormatWriter.encode(value.getDispText(index), bf, w,
+						h, hints);
+			}
 			if (value.barType == Consts.TYPE_QRCODE) {
 				return toBufferedQRImage(value, bitMatrix, foreColor, backColor);
 			} else {
@@ -3690,19 +3702,28 @@ public class Utils {
 		g2.dispose();
 		return src;
 	}
+	
+	/**
+	 * zxing的code28只有auto类型，抄了一个类Code128ABC
+	  *  使用强制的ABC类型
+	 * @param raqType
+	 * @return
+	 */
+	public static boolean isCode128ABC(int raqType) {
+		return raqType==Consts.TYPE_CODE128A ||
+				raqType==Consts.TYPE_CODE128B ||
+				raqType==Consts.TYPE_CODE128C;
+	}
 
 	private static BarcodeFormat convertBarcodeFormat(int raqType) {
 		switch (raqType) {
 		case Consts.TYPE_CODABAR:
 			return BarcodeFormat.CODABAR;
 		case Consts.TYPE_CODE128:
-			return BarcodeFormat.CODE_128;
 		case Consts.TYPE_CODE128A:
-			return BarcodeFormat.CODE_128A;
 		case Consts.TYPE_CODE128B:
-			return BarcodeFormat.CODE_128B;
 		case Consts.TYPE_CODE128C:
-			return BarcodeFormat.CODE_128C;
+			return BarcodeFormat.CODE_128;
 		case Consts.TYPE_CODE39:
 			// Code 39只接受如下43个有效输入字符： 　　26个大写字母（A - Z）， 　　十个数字（0 - 9）
 			// 注意小写字母会报错
