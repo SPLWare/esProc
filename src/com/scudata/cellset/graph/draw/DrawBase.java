@@ -2839,8 +2839,7 @@ public abstract class DrawBase implements IGraph {
 		CellSet cs = getDataTable(axisWidth);
 		float tableH = getDataTableHeight(cs);
 
-		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-				RenderingHints.VALUE_ANTIALIAS_OFF);
+		Utils.setGraphAntiAliasingOff(g);
 
 		IColCell cc1 = cs.getColCell(1);
 		float col1W = cc1.getWidth();
@@ -2889,8 +2888,7 @@ public abstract class DrawBase implements IGraph {
 		}
 
 		gp.bottomInset += tableH;
-		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-				RenderingHints.VALUE_ANTIALIAS_ON);
+		Utils.setGraphAntiAliasingOn(g);
 	}
 
 	private void drawText(String text, int x, int y, int w, int h,

@@ -720,9 +720,8 @@ public class Engine {
 		}
 		Graphics2D lg = (Graphics2D) bi.getGraphics();
 
-		if (imageFmt == Consts.IMAGE_GIF) {
-			Utils.setIsGif();
-		} else if (imageFmt == Consts.IMAGE_PNG) {
+		Utils.setIsGif( imageFmt == Consts.IMAGE_GIF );
+		if (imageFmt == Consts.IMAGE_PNG) {
 		} else if (imageFmt == Consts.IMAGE_JPG) {
 			// 缺省为白色背景，否则缺省黑色难看
 			lg.setColor(Color.white);
@@ -970,9 +969,7 @@ public class Engine {
 		BufferedImage bi = new BufferedImage(633, 450,
 				BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g = bi.createGraphics();
-
-		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-				RenderingHints.VALUE_ANTIALIAS_ON);
+		Utils.setGraphAntiAliasingOn(g);
 
 		// Point2D.Double p1 = new Point2D.Double(10, 10);
 		// Point2D.Double p2 = new Point2D.Double(100, 100);

@@ -2830,8 +2830,8 @@ public class Utils {
 	 * 线程安全下的静态值，GIF格式颜色不能太多，不能使用文本的光滑效果
 	 * 用此开关来控制图形的绘制模式
 	 */
-	public static void setIsGif() {
-		tlIsGif.set(Boolean.TRUE);
+	public static void setIsGif(boolean isGif) {
+		tlIsGif.set( isGif );
 	}
 
 	/**
@@ -2843,17 +2843,21 @@ public class Utils {
 
 	// 为了保证圆弧的圆滑，以及文字的不使用锯齿的清晰状态，使用如下开关来区分画文字和圆弧的条件；
 	// 但是gif格式时，不能使用抗锯齿属性，会造成颜色过多。
-	protected static void setGraphAntiAliasingOn(Graphics2D g) {
+//	目前的用法是绘图前就将平滑打开，然后在绘制文本时，先关掉，画完文本后，再打开，保证图形平滑，文字清晰。
+	public static void setGraphAntiAliasingOn(Graphics2D g) {
 		// gif格式时不能打开锯齿开关，以防颜色过多；
-		if (isGif())
+		if (isGif()) {//gif格式时，总是关闭，此处强行关闭，以防同线程中别的格式已经设为on
+			setGraphAntiAliasingOff(g);
 			return;
+		}
+		
 		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 				RenderingHints.VALUE_ANTIALIAS_ON);
 	}
 
-	protected static void setGraphAntiAliasingOff(Graphics2D g) {
-		if (isGif())
-			return;
+	public static void setGraphAntiAliasingOff(Graphics2D g) {
+//		if (isGif())
+//			return;
 		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 				RenderingHints.VALUE_ANTIALIAS_OFF);
 	}

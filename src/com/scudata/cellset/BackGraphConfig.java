@@ -17,6 +17,7 @@ import java.io.*;
 
 import javax.swing.ImageIcon;
 
+import com.scudata.chart.Utils;
 import com.scudata.common.*;
 /**
  * 背景图配置
@@ -698,15 +699,15 @@ public class BackGraphConfig implements Externalizable, ICloneable, Cloneable,
 		return new Point(xloc, yloc);
 	}
 
-	protected static void setGraphAntiAliasingOff(Graphics2D g) {
-		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-				RenderingHints.VALUE_ANTIALIAS_OFF);
-	}
-
-	protected static void setGraphAntiAliasingOn(Graphics2D g) {
-		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-				RenderingHints.VALUE_ANTIALIAS_ON);
-	}
+//	protected static void setGraphAntiAliasingOff(Graphics2D g) {
+//		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+//				RenderingHints.VALUE_ANTIALIAS_OFF);
+//	}
+//
+//	protected static void setGraphAntiAliasingOn(Graphics2D g) {
+//		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+//				RenderingHints.VALUE_ANTIALIAS_ON);
+//	}
 
 	/**
 	 * 在指定位置处输出文本
@@ -738,7 +739,7 @@ public class BackGraphConfig implements Externalizable, ICloneable, Cloneable,
 		int xloc = drawPoint.x;
 		int yloc = drawPoint.y;
 
-		setGraphAntiAliasingOff(g);
+		Utils.setGraphAntiAliasingOff(g);
 
 		// 非竖排文字
 		if (angle != 0) {
@@ -775,7 +776,7 @@ public class BackGraphConfig implements Externalizable, ICloneable, Cloneable,
 			g.setColor(c);
 			g.drawString(txt, xloc, yloc);
 		}
-		setGraphAntiAliasingOn(g);
+		Utils.setGraphAntiAliasingOn(g);
 	}
 
 }
