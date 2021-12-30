@@ -1040,7 +1040,7 @@ public class DialogOptions extends JDialog {
 		jBInitSpl.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				File f = GM.dialogSelectFile(AppConsts.SPL_FILE_EXTS, parent);
+				File f = GM.dialogSelectFile("\"" + AppConsts.SPL_FILE_EXTS + "\"", parent);
 				if (f != null) {
 					jTFInitSpl.setText(f.getAbsolutePath());
 				}

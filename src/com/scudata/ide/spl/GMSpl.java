@@ -62,7 +62,7 @@ public class GMSpl extends GM {
 			GV.appFrame.openSheetFile("");
 			return;
 		case GC.iOPEN:
-			String ext = AppConsts.SPL_FILE_EXTS;
+			String ext = "\"" + AppConsts.SPL_FILE_EXTS + "\"";
 			File file = GM.dialogSelectFile(ext);
 			if (file != null) {
 				GV.appFrame.openSheetFile(file.getAbsolutePath());

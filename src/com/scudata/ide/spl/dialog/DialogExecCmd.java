@@ -275,7 +275,7 @@ public class DialogExecCmd extends RQDialog {
 		buttonFile.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				File f = GM.dialogSelectFile(AppConsts.SPL_FILE_EXTS, false);
+				File f = GM.dialogSelectFile("\"" + AppConsts.SPL_FILE_EXTS + "\"", false);
 				if (f != null) {
 					textSpl.setText(f.getAbsolutePath());
 					loadFile();
