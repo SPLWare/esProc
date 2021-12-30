@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.util.Locale;
 
-import com.scudata.app.common.AppConsts;
 import com.scudata.ide.common.resources.IdeCommonMessage;
 
 /**
@@ -49,10 +48,13 @@ public class GC {
 	 */
 	public static void initLocale() {
 		Locale local = Locale.getDefault();
-		if (local.equals(Locale.PRC) || local.equals(Locale.CHINA) || local.equals(Locale.CHINESE)
-				|| local.equals(Locale.SIMPLIFIED_CHINESE) || local.getLanguage().equalsIgnoreCase("zh")) {
+		if (local.equals(Locale.PRC) || local.equals(Locale.CHINA)
+				|| local.equals(Locale.CHINESE)
+				|| local.equals(Locale.SIMPLIFIED_CHINESE)
+				|| local.getLanguage().equalsIgnoreCase("zh")) {
 			LANGUAGE = ASIAN_CHINESE;
-		} else if (local.equals(Locale.TAIWAN) || local.equals(Locale.TRADITIONAL_CHINESE)
+		} else if (local.equals(Locale.TAIWAN)
+				|| local.equals(Locale.TRADITIONAL_CHINESE)
 				|| local.getLanguage().equalsIgnoreCase("tw")) {
 			LANGUAGE = ASIAN_CHINESE_TRADITIONAL;
 		} else if (local.equals(Locale.JAPAN) || local.equals(Locale.JAPANESE)) {
@@ -155,32 +157,6 @@ public class GC {
 	public static final byte SELECT_STATE_COL = 4;
 
 	/**
-	 * File extension
-	 */
-	/** DFX file extension */
-	public static final String FILE_DFX = AppConsts.FILE_DFX;
-	/** SPL file extension */
-	public static final String FILE_SPL = AppConsts.FILE_SPL;
-	/** TXT file extension */
-	public static final String FILE_TXT = AppConsts.FILE_TXT;
-	/** CSV file extension */
-	public static final String FILE_CSV = AppConsts.FILE_CSV;
-	/** XLS file extension */
-	public static final String FILE_XLS = AppConsts.FILE_XLS;
-	/** XLSX file extension */
-	public static final String FILE_XLSX = AppConsts.FILE_XLSX;
-	/** HTML file extension */
-	public static final String FILE_HTML = AppConsts.FILE_HTML;
-	/** XML file extension */
-	public static final String FILE_XML = AppConsts.FILE_XML;
-	/** LOG file extension */
-	public static final String FILE_LOG = AppConsts.FILE_LOG;
-	/** Binary file extension */
-	public static final String FILE_BTX = AppConsts.FILE_BTX;;
-	/** Group table file extension */
-	public static final String FILE_CTX = AppConsts.FILE_CTX;
-
-	/**
 	 * Tree node status
 	 */
 	/** Empty */
@@ -253,8 +229,8 @@ public class GC {
 	/** Close */
 	public static final short iFILE_CLOSE = 25;
 	/**
-	 * Because the KeyEvent.VK_F4 key conflicts, add a hidden menu for this shortcut
-	 * key.
+	 * Because the KeyEvent.VK_F4 key conflicts, add a hidden menu for this
+	 * shortcut key.
 	 */
 	public static final short iFILE_CLOSE1 = 27;
 	/** Close all */
@@ -359,25 +335,34 @@ public class GC {
 	/**
 	 * Font size code
 	 */
-	public static Short[] FONTSIZECODE = { new Short((short) 8), new Short((short) 9), new Short((short) 11),
-			new Short((short) 12), new Short((short) 14), new Short((short) 15), new Short((short) 16),
-			new Short((short) 18), new Short((short) 22), new Short((short) 24), new Short((short) 26),
-			new Short((short) 36), new Short((short) 42) };
+	public static Short[] FONTSIZECODE = { new Short((short) 8),
+			new Short((short) 9), new Short((short) 11), new Short((short) 12),
+			new Short((short) 14), new Short((short) 15),
+			new Short((short) 16), new Short((short) 18),
+			new Short((short) 22), new Short((short) 24),
+			new Short((short) 26), new Short((short) 36), new Short((short) 42) };
 
 	/**
 	 * Font size display
 	 */
-	public static String[] FONTSIZEDISP = new String[] { IdeCommonMessage.get().getMessage("gc.fontsix"),
-			IdeCommonMessage.get().getMessage("gc.fontsmallfive"), IdeCommonMessage.get().getMessage("gc.fontfive"),
-			IdeCommonMessage.get().getMessage("gc.fontsmallfour"), IdeCommonMessage.get().getMessage("gc.fontfour"),
-			IdeCommonMessage.get().getMessage("gc.fontsmallthree"), IdeCommonMessage.get().getMessage("gc.fontthree"),
-			IdeCommonMessage.get().getMessage("gc.fontsmalltwo"), IdeCommonMessage.get().getMessage("gc.fonttwo"),
-			IdeCommonMessage.get().getMessage("gc.fontsmallone"), IdeCommonMessage.get().getMessage("gc.fontone"),
-			IdeCommonMessage.get().getMessage("gc.fontsmallzero"), IdeCommonMessage.get().getMessage("gc.fontzero") };
+	public static String[] FONTSIZEDISP = new String[] {
+			IdeCommonMessage.get().getMessage("gc.fontsix"),
+			IdeCommonMessage.get().getMessage("gc.fontsmallfive"),
+			IdeCommonMessage.get().getMessage("gc.fontfive"),
+			IdeCommonMessage.get().getMessage("gc.fontsmallfour"),
+			IdeCommonMessage.get().getMessage("gc.fontfour"),
+			IdeCommonMessage.get().getMessage("gc.fontsmallthree"),
+			IdeCommonMessage.get().getMessage("gc.fontthree"),
+			IdeCommonMessage.get().getMessage("gc.fontsmalltwo"),
+			IdeCommonMessage.get().getMessage("gc.fonttwo"),
+			IdeCommonMessage.get().getMessage("gc.fontsmallone"),
+			IdeCommonMessage.get().getMessage("gc.fontone"),
+			IdeCommonMessage.get().getMessage("gc.fontsmallzero"),
+			IdeCommonMessage.get().getMessage("gc.fontzero") };
 
 	/**
-	 * NULL String. Used to set attribute values and expressions. Allows AtomicCell
-	 * to set only one value at a time
+	 * NULL String. Used to set attribute values and expressions. Allows
+	 * AtomicCell to set only one value at a time
 	 */
 	public final static String NULL = new String();
 	/**
@@ -395,21 +380,25 @@ public class GC {
 	/**
 	 * Date formats used for display
 	 */
-	public static final String[] DATE_FORMATS = LANGUAGE == ASIAN_CHINESE
-			? new String[] { "yyyy-MM-dd", "yyyy年MM月dd日", "yyyy/MM/dd", "yy-MM-dd", "yy年MM月dd日", "yy/MM/dd" }
+	public static final String[] DATE_FORMATS = LANGUAGE == ASIAN_CHINESE ? new String[] {
+			"yyyy-MM-dd", "yyyy年MM月dd日", "yyyy/MM/dd", "yy-MM-dd", "yy年MM月dd日",
+			"yy/MM/dd" }
 			: new String[] { "yyyy-MM-dd", "yyyy/MM/dd", "yy-MM-dd", "yy/MM/dd" };
 	/**
 	 * Time formats used for display
 	 */
-	public static final String[] TIME_FORMATS = new String[] { "HH:mm:ss", "HH:mm:ssS", "kk:mm:ss", "kk:mm:ssS",
-			"hh:mm:ss", "hh:mm:ssS", "KK:mm:ss", "KK:mm:ssS" };
+	public static final String[] TIME_FORMATS = new String[] { "HH:mm:ss",
+			"HH:mm:ssS", "kk:mm:ss", "kk:mm:ssS", "hh:mm:ss", "hh:mm:ssS",
+			"KK:mm:ss", "KK:mm:ssS" };
 	/**
 	 * Date time formats used for display
 	 */
-	public static final String[] DATE_TIME_FORMATS = LANGUAGE == ASIAN_CHINESE
-			? new String[] { "yyyy-MM-dd HH:mm:ss", "yyyy年MM月dd日 HH:mm:ss", "yyyy/MM/dd HH:mm:ss", "yy-MM-dd HH:mm:ss",
-					"yy年MM月dd日 HH:mm:ss", "yy/MM/dd HH:mm:ss" }
-			: new String[] { "yyyy-MM-dd HH:mm:ss", "yyyy/MM/dd HH:mm:ss", "yy-MM-dd HH:mm:ss", "yy/MM/dd HH:mm:ss" };
+	public static final String[] DATE_TIME_FORMATS = LANGUAGE == ASIAN_CHINESE ? new String[] {
+			"yyyy-MM-dd HH:mm:ss", "yyyy年MM月dd日 HH:mm:ss",
+			"yyyy/MM/dd HH:mm:ss", "yy-MM-dd HH:mm:ss", "yy年MM月dd日 HH:mm:ss",
+			"yy/MM/dd HH:mm:ss" }
+			: new String[] { "yyyy-MM-dd HH:mm:ss", "yyyy/MM/dd HH:mm:ss",
+					"yy-MM-dd HH:mm:ss", "yy/MM/dd HH:mm:ss" };
 
 	/**
 	 * Default parameter name prefix
@@ -456,8 +445,8 @@ public class GC {
 	public static final byte CELLSET_ACTIVE_CELL = 12;
 
 	/**
-	 * In order to distinguish it from general menus, esProc's menu items need to
-	 * add this constant.
+	 * In order to distinguish it from general menus, esProc's menu items need
+	 * to add this constant.
 	 */
 	public static final short MENU_SPL = 4000;
 	/**
@@ -495,13 +484,19 @@ public class GC {
 	 * After the locale changes, the language-related constants should be reset.
 	 */
 	public static void resetLocal() {
-		FONTSIZEDISP = new String[] { IdeCommonMessage.get().getMessage("gc.fontsix"),
-				IdeCommonMessage.get().getMessage("gc.fontsmallfive"), IdeCommonMessage.get().getMessage("gc.fontfive"),
-				IdeCommonMessage.get().getMessage("gc.fontsmallfour"), IdeCommonMessage.get().getMessage("gc.fontfour"),
+		FONTSIZEDISP = new String[] {
+				IdeCommonMessage.get().getMessage("gc.fontsix"),
+				IdeCommonMessage.get().getMessage("gc.fontsmallfive"),
+				IdeCommonMessage.get().getMessage("gc.fontfive"),
+				IdeCommonMessage.get().getMessage("gc.fontsmallfour"),
+				IdeCommonMessage.get().getMessage("gc.fontfour"),
 				IdeCommonMessage.get().getMessage("gc.fontsmallthree"),
-				IdeCommonMessage.get().getMessage("gc.fontthree"), IdeCommonMessage.get().getMessage("gc.fontsmalltwo"),
-				IdeCommonMessage.get().getMessage("gc.fonttwo"), IdeCommonMessage.get().getMessage("gc.fontsmallone"),
-				IdeCommonMessage.get().getMessage("gc.fontone"), IdeCommonMessage.get().getMessage("gc.fontsmallzero"),
+				IdeCommonMessage.get().getMessage("gc.fontthree"),
+				IdeCommonMessage.get().getMessage("gc.fontsmalltwo"),
+				IdeCommonMessage.get().getMessage("gc.fonttwo"),
+				IdeCommonMessage.get().getMessage("gc.fontsmallone"),
+				IdeCommonMessage.get().getMessage("gc.fontone"),
+				IdeCommonMessage.get().getMessage("gc.fontsmallzero"),
 				IdeCommonMessage.get().getMessage("gc.fontzero") };
 	}
 
