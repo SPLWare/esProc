@@ -360,7 +360,7 @@ public class Esproc {
 			boolean isFile = false, isDfx = false,  isEtl = false,isSplx = false;
 			if (dfxFile != null) {
 				String lower = dfxFile.toLowerCase();
-				isDfx = lower.endsWith("." + GC.FILE_DFX);
+				isDfx = lower.endsWith("." + AppConsts.FILE_DFX);
 				isSplx = lower.endsWith("." + AppConsts.FILE_SPLX);
 				isEtl = lower.endsWith(".etl");
 				isFile = (isDfx|| isEtl || isSplx);  
