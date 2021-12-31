@@ -115,7 +115,7 @@ public class PCA extends Function {
      * @param n_components
      * @return
      */
-    private Matrix getPrincipalComponent(double[] eigenvalueArray, Matrix eigenVectors, int n_components) {
+    private Matrix getPrincipalComponent(Matrix eigenVectors, int n_components) {
         Matrix X = eigenVectors.transpose();
         double[][] tEigenVectors = X.getArray();
         double[][] principalArray = new double[n_components][];
@@ -125,53 +125,6 @@ public class PCA extends Function {
 
         return new Matrix(principalArray);
     }
-    /*
-    private Matrix getPrincipalComponent(double[] eigenvalueArray, Matrix eigenVectors, int n_components) {
-        //edited by bd, 2021.4.9, 去除ejml的使用，这个包必须用jdk1.8比较麻烦
-        Matrix X = eigenVectors.transpose();
-        double[][] tEigenVectors = X.getArray();
-        Map<Integer, double[]> principalMap = new HashMap<Integer, double[]>();// key=主成分特征值，value=该特征值对应的特征向量
-        TreeMap<Double, double[]> eigenMap = new TreeMap<Double, double[]>(
-                Collections.reverseOrder());// key=特征值，value=对应的特征向量；初始化为翻转排序，使map按key值降序排列
-
-        for (int i = 0; i < tEigenVectors.length; i++) {
-            double[] value = new double[tEigenVectors[0].length];
-            value = tEigenVectors[i];
-            eigenMap.put(eigenvalueArray[i], value);
-        }
-
-        // 选出前几个主成分
-        List<Double> plist = new ArrayList<Double>();// 主成分特征值
-        int now_component = 0;
-        for (double key : eigenMap.keySet()) {
-            if (now_component < n_components) {
-                now_component += 1;
-                plist.add(key);
-                //principalComponentNum++;
-            }
-            else {
-                break;
-            }
-        }
-
-        // 往主成分map里输入数据
-        for (int i = 0; i < plist.size(); i++) {
-            if (eigenMap.containsKey(plist.get(i))) {
-                principalMap.put(i, eigenMap.get(plist.get(i)));
-            }
-        }
-
-        // 把map里的值存到二维数组里
-        double[][] principalArray = new double[principalMap.size()][];
-        Iterator<Map.Entry<Integer, double[]>> it = principalMap.entrySet()
-                .iterator();
-        for (int i = 0; it.hasNext(); i++) {
-            principalArray[i] = it.next().getValue();
-        }
-
-        return new Matrix(principalArray);
-    }
-    */
     
     // 训练方法
     protected FitResult fit(Matrix inputData, int n_components) {
@@ -187,8 +140,42 @@ public class PCA extends Function {
         double[][] V = evd.getV().getData();
         //math3的特征值分解处理中，ev已经做完了排序，在下面的选取主成分时不必再排序，原方法暂时保留
 
-        Matrix principalArray = getPrincipalComponent(ev, new Matrix(V), n_components);
-        return new FitResult(averageVector, new Vector(ev), principalArray.transpose());
+        //edited by bd, 2021.12.29, 测试发现math3的特征值分解并不能保证ev有序，所以还是应该排个序
+        Sequence evSeq = (new Vector(ev)).toSequence();
+        Sequence sortP = evSeq.psort("z");
+        Sequence vSeq = (Sequence) new Matrix(V).toSequence(option, true);
+        vSeq = vSeq.get(sortP);
+        evSeq = evSeq.get(sortP);
+        Matrix principalArray = getPrincipalComponent(new Matrix(vSeq), n_components);
+        
+        //edited by bd, 2021.12.29, 将特征值分解时，得到的特征向量矩阵符号与matlab统一
+        dealV(principalArray); 
+
+        //Matrix principalArray = getPrincipalComponent(ev, new Matrix(V), n_components);
+        return new FitResult(averageVector, new Vector(evSeq), principalArray.transpose());
+        //return new FitResult(averageVector, new Vector(ev), principalArray.transpose());
+    }
+    
+    private void dealV(Matrix V) {
+    	//目前发现matlab中特征值向量的规律是使向量中绝对值最大的为正数，没找到文档陈述，测试了十几个矩阵的eig(vpa(A))的结果是这样
+    	double[][] vs = V.getArray();
+    	int cols = V.getCols();
+    	for (int i = 0, len = vs.length; i < len; i++) {
+			int loc = 0;
+			double max = Math.abs(vs[i][0]);
+    		for (int j = 1; j < cols; j++) {
+    			double tmp = Math.abs(vs[i][j]); 
+    			if (tmp>max) {
+    				max = tmp;
+    				loc = j;
+    			}
+    		} 
+    		if (vs[i][loc]<0) {
+        		for (int j = 0; j < cols; j++) {
+        			vs[i][j] = -vs[i][j];
+        		} 
+    		}
+    	}
     }
     
 //    转换方法
@@ -200,8 +187,8 @@ public class PCA extends Function {
      * @return
      */
     public Matrix transform(Matrix principalMatrix, Vector averageObject, Matrix testinput){
-        testinput.changeAverageToZero(averageObject);
-        Matrix resultMatrix = testinput.times(principalMatrix);
+    	Matrix averageArray = testinput.changeAverageToZero(averageObject);
+        Matrix resultMatrix = averageArray.times(principalMatrix);
         return resultMatrix;
     }
 
@@ -213,8 +200,8 @@ public class PCA extends Function {
      * @return
      */
     protected Matrix transformj(FitResult fr, Matrix testinput) {
-    	testinput.changeAverageToZero(fr.mu);
-        Matrix resultMatrix = testinput.times(fr.coeff);
+    	Matrix averageArray = testinput.changeAverageToZero(fr.mu);
+        Matrix resultMatrix = averageArray.times(fr.coeff);
         return resultMatrix;
     }
     

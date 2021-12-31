@@ -24,7 +24,9 @@ public class Normalize extends Function {
 				throw new RQException("norm" + mm.getMessage("function.paramTypeError"));
 			}
 			boolean norm = option == null || option.indexOf('0')<0;
-			Matrix A = normalize((Sequence) result1, norm);
+			//edited by bd, 2021.12.21, 修改算法，添加@s选项支持标准归一，此时均值0，标准差为1
+			boolean std = option != null && option.indexOf('s')>-1;
+			Matrix A = normalize((Sequence) result1, norm, std);
 			return A.toSequence(option, true);
 		} else {
 			MessageManager mm = EngineMessage.get();
@@ -32,8 +34,13 @@ public class Normalize extends Function {
 		}
 	}
 	
-	protected Matrix normalize(Sequence result, boolean norm) {
+	protected Matrix normalize(Sequence result, boolean norm, boolean std) {
 		Matrix A = new Matrix(result);
+		// 处理向量为单行矩阵
+		Object o1 = result.get(1);
+		if (! (o1 instanceof Sequence)) {
+			A = A.transpose(); 
+		}
 		double[][] vs = A.getArray();
 		int rows = A.getRows();
 		int cols = A.getCols();
@@ -43,13 +50,16 @@ public class Normalize extends Function {
 			double sqrsum = 0;
 			for (int c = 0; c < cols; c++) {
 				avg += row[c];
-				if (norm) {
+				if (norm && !std) {
 					sqrsum += row[c]*row[c];
 				}
 			}
 			avg = avg/cols;
-			if (norm) {
+			if (norm && !std) {
 				sqrsum = Math.sqrt(sqrsum);
+			}
+			else if (std) {
+				sqrsum = Var.std(row, true);
 			}
 			for (int c = 0; c < cols; c++) {
 				vs[r][c] = vs[r][c]-avg;

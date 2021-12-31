@@ -51,7 +51,7 @@ public class Matrix {
 	 * 如果matrix中不为序列，按单列处理
 	 * @param matrix
 	 */
-	protected Matrix(Sequence matrix) {
+	public Matrix(Sequence matrix) {
 		int rows = matrix == null ? 0 : matrix.length();
 		if (rows > 0) {
 			if (matrix instanceof Table) {
@@ -404,7 +404,7 @@ public class Matrix {
 	 * 求当前矩阵的协方差矩阵
 	 * @return
 	 */
-	protected Matrix covm() {
+	public Matrix covm() {
 		Matrix X = new Matrix(this.cols, this.cols);
 		double[][] xs = X.getArray();
 		// 各个维度数组，用A转置
@@ -688,7 +688,7 @@ public class Matrix {
 	 * @param j		列号
 	 * @return
 	 */
-	protected double get(int r, int c) {
+	public double get(int r, int c) {
 		return this.A[r][c];
 	}
 

@@ -163,14 +163,6 @@ public class PLS extends Function {
 	 * @param components
 	 * @return
 	 */
-	
-	/**
-	 * PLS训练
-	 * @param X_input
-	 * @param Y_input
-	 * @param components
-	 * @return
-	 */
     public Matrix fit(Matrix X_input, Matrix Y_input, int components){
     	// 支持Y多列，返回值改为Matrix, 先做X_input和Y_input的中心化，得到X和Y，每列均值为0
     	Matrix X = X_input.changeAverageToZero();
