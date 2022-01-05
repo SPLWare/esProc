@@ -72,6 +72,7 @@ public class DialogFileReplace extends RQDialog {
 			this.owner = owner;
 			setTitle(mm.getMessage("dialogfilereplace.title"));
 			init();
+			GM.centerWindow(this);
 		} catch (Exception e) {
 			GM.showException(e);
 		}
@@ -289,6 +290,11 @@ public class DialogFileReplace extends RQDialog {
 			}
 		}
 		return fileName;
+	}
+
+	protected void closeDialog(int option) {
+		super.closeDialog(option);
+		GM.setWindowDimension(this);
 	}
 
 	/**

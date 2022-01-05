@@ -46,6 +46,7 @@ public class DialogCopyPresent extends RQDialog {
 		super("Copy code for presentation", 600, 500);
 		try {
 			init();
+			GM.centerWindow(this);
 		} catch (Exception e) {
 			GM.showException(e);
 		}
@@ -90,6 +91,7 @@ public class DialogCopyPresent extends RQDialog {
 	 */
 	protected void closeDialog(int option) {
 		super.closeDialog(option);
+		GM.setWindowDimension(this);
 		ConfigOptions.bTextEditorLineWrap = jCBLineWrap.isSelected();
 	}
 
