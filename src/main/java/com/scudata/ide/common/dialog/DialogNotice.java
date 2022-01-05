@@ -21,15 +21,18 @@ public class DialogNotice extends RQDialog {
 	/**
 	 * 构造函数
 	 * 
-	 * @param owner
-	 *            父组件
-	 * @param message
-	 *            提示信息
+	 * @param owner   父组件
+	 * @param message 提示信息
 	 */
 	public DialogNotice(JFrame owner, String message) {
 		super(owner, "提示", 400, 120);
-		init(message);
-		setTitle(IdeCommonMessage.get().getMessage("dialognotice.title"));
+		try {
+			init(message);
+			setTitle(IdeCommonMessage.get().getMessage("dialognotice.title"));
+			GM.centerWindow(this);
+		} catch (Exception ex) {
+			GM.showException(ex);
+		}
 	}
 
 	/**
@@ -53,8 +56,7 @@ public class DialogNotice extends RQDialog {
 	/**
 	 * 初始化控件
 	 * 
-	 * @param message
-	 *            提示信息
+	 * @param message 提示信息
 	 */
 	private void init(String message) {
 		JTextArea jtext = new JTextArea();
@@ -72,9 +74,13 @@ public class DialogNotice extends RQDialog {
 		panelSouth.add(new JLabel(), GM.getGBC(0, 1, true));
 		panelSouth.add(jBOK, GM.getGBC(0, 2, false, false, 5));
 
-		jCBNotNotice.setText(IdeCommonMessage.get().getMessage(
-				"dialognotice.notnotice"));
+		jCBNotNotice.setText(IdeCommonMessage.get().getMessage("dialognotice.notnotice"));
 		jCBNotNotice.setSelected(true);
+	}
+
+	protected void closeDialog(int option) {
+		super.closeDialog(option);
+		GM.setWindowDimension(this);
 	}
 
 	/**

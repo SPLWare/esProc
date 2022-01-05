@@ -22,14 +22,11 @@ public class DialogCheckUpdate extends RQDialog {
 	/**
 	 * 构造函数
 	 * 
-	 * @param parent
-	 *            父窗口
-	 * @param isAuto
-	 *            是否自动更新
+	 * @param parent 父窗口
+	 * @param isAuto 是否自动更新
 	 */
 	public DialogCheckUpdate(Frame parent) {
-		super(parent, IdeCommonMessage.get().getMessage(
-				"updatemanager.downloadprompt"), 350, 120);
+		super(parent, IdeCommonMessage.get().getMessage("updatemanager.downloadprompt"), 350, 120);
 		try {
 			if (!GM.isChineseLanguage()) {
 				setSize(500, 150);
@@ -48,13 +45,17 @@ public class DialogCheckUpdate extends RQDialog {
 		jBOK.requestFocusInWindow();
 	}
 
+	protected void closeDialog(int option) {
+		super.closeDialog(option);
+		GM.setWindowDimension(this);
+	}
+
 	/**
 	 * 初始化控件
 	 * 
 	 */
 	private void init() {
-		JLabel label = new JLabel(IdeCommonMessage.get().getMessage(
-				"updatemanager.loadnewversion")); // 有新版本，是否下载？
+		JLabel label = new JLabel(IdeCommonMessage.get().getMessage("updatemanager.loadnewversion")); // 有新版本，是否下载？
 		label.setFont(new Font("Dialog", Font.PLAIN, 14));
 		label.setHorizontalAlignment(JLabel.CENTER);
 		panelCenter.add(label, BorderLayout.CENTER);

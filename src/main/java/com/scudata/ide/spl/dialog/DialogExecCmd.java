@@ -29,11 +29,9 @@ import com.scudata.ide.common.GV;
 import com.scudata.ide.common.control.PanelConsole;
 import com.scudata.ide.common.dialog.RQDialog;
 import com.scudata.ide.common.swing.JTableEx;
-import com.scudata.ide.spl.GMSpl;
 import com.scudata.ide.spl.GVSpl;
 import com.scudata.ide.spl.SPL;
 import com.scudata.ide.spl.resources.IdeSplMessage;
-import com.scudata.util.CellSetUtil;
 
 /**
  * 在命令行执行网格对话框
@@ -49,6 +47,7 @@ public class DialogExecCmd extends RQDialog {
 		super(IdeSplMessage.get().getMessage("dialogexeccmd.title"), 400, 300);
 		try {
 			init();
+			GM.centerWindow(this);
 		} catch (Exception ex) {
 			GM.showException(ex);
 		}
@@ -167,6 +166,11 @@ public class DialogExecCmd extends RQDialog {
 		};
 		t.start();
 		return false;
+	}
+
+	protected void closeDialog(int option) {
+		super.closeDialog(option);
+		GM.setWindowDimension(this);
 	}
 
 	/**

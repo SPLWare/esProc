@@ -28,21 +28,17 @@ public class DialogMissingFormat extends RQDialog {
 
 	/**
 	 * 构造函数
-	 */
-	public DialogMissingFormat() {
-		super("缺失值定义");
-		init();
-	}
-
-	/**
-	 * 构造函数
 	 * 
-	 * @param owner
-	 *            父组件
+	 * @param owner 父组件
 	 */
 	public DialogMissingFormat(Dialog owner) {
 		super(owner, "缺失值定义");
-		init();
+		try {
+			init();
+			GM.centerWindow(this);
+		} catch (Exception ex) {
+			GM.showException(ex);
+		}
 	}
 
 	/**
@@ -53,8 +49,7 @@ public class DialogMissingFormat extends RQDialog {
 	public void setMissingFormat(String missingExps) {
 		tableList.removeAllRows();
 		if (StringUtils.isValidString(missingExps)) {
-			ArgumentTokenizer at = new ArgumentTokenizer(missingExps,
-					ConfigUtil.MISSING_SEP);
+			ArgumentTokenizer at = new ArgumentTokenizer(missingExps, ConfigUtil.MISSING_SEP);
 			while (at.hasNext()) {
 				String exp = at.next();
 				if (StringUtils.isValidString(exp)) {
@@ -91,11 +86,9 @@ public class DialogMissingFormat extends RQDialog {
 	private void init() {
 		MessageManager mm = IdeCommonMessage.get();
 		setTitle(mm.getMessage("dialognullstrings.title")); // 缺失值定义
-		tableList = new JTableEx(
-				new String[] { mm.getMessage("dialognullstrings.nullstrings") });
+		tableList = new JTableEx(new String[] { mm.getMessage("dialognullstrings.nullstrings") });
 		panelCenter.add(new JScrollPane(tableList), BorderLayout.CENTER);
-		JLabel labelNote = new JLabel(
-				mm.getMessage("dialognullstrings.casesen"));
+		JLabel labelNote = new JLabel(mm.getMessage("dialognullstrings.casesen"));
 		JPanel panelNorth = new JPanel(new GridBagLayout());
 		panelNorth.add(labelNote, GM.getGBC(0, 0, true));
 		panelNorth.add(buttonAdd, GM.getGBC(0, 1, false, false, 0));
@@ -115,6 +108,12 @@ public class DialogMissingFormat extends RQDialog {
 				tableList.deleteSelectedRows();
 			}
 		});
+
+	}
+
+	protected void closeDialog(int option) {
+		super.closeDialog(option);
+		GM.setWindowDimension(this);
 	}
 
 	/**
