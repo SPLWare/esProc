@@ -7,6 +7,7 @@ import java.awt.event.*;
 
 import com.scudata.chart.edit.*;
 import com.scudata.common.MessageManager;
+import com.scudata.common.StringUtils;
 import com.scudata.ide.common.*;
 import com.scudata.ide.common.swing.*;
 import com.scudata.ide.spl.resources.*;
@@ -185,6 +186,11 @@ public class DialogPlotEdit extends JDialog implements ActionListener {
 	}
 
 	void okbtn_actionPerformed(ActionEvent e) {
+		if( !StringUtils.isValidString( graphicsName ) ) {
+			String message = mm.getMessage("DialogPlotEdit.emptyCanvas");
+			JOptionPane.showMessageDialog(this, message);
+			return;
+		}
 		propPanel.getParamTable().acceptText();
 		plotFunc = elmInfo.toPlotString(propPanel.infoList);
 		m_option = JOptionPane.OK_OPTION;

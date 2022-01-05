@@ -296,11 +296,4 @@ public class ChartColorDialog extends JDialog {
 		drawSample();
 	}
 
-	/**
-	 * ´°¿ÚÊÍ·Å
-	 */
-	public void dispose() {
-		cc = null;
-	}
-
 }
