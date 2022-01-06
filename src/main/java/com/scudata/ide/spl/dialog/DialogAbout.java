@@ -168,7 +168,7 @@ public class DialogAbout extends JDialog {
 	 * @return
 	 */
 	private static String getReleaseDate() {
-		return "2021-11-04";
+		return "2022-01-06";
 	}
 
 	/**
