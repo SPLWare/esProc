@@ -52,34 +52,27 @@ public class AppUtil {
 
 	/**
 	 * Execute JDBC statement. Supports: $(db)sql, simple sql, grid
-	 * expression(separated by \t and \n). Call spl and execute spl statements
-	 * are not supported.
+	 * expression(separated by \t and \n). Call spl and execute spl statements are
+	 * not supported.
 	 * 
-	 * @param cmd
-	 *            JDBC statement
-	 * @param ctx
-	 *            The context
+	 * @param cmd JDBC statement
+	 * @param ctx The context
 	 * @throws SQLException
 	 */
-	public static Object executeCmd(String cmd, Context ctx)
-			throws SQLException {
+	public static Object executeCmd(String cmd, Context ctx) throws SQLException {
 		return executeCmd(cmd, null, ctx);
 	}
 
 	/**
 	 * Execute JDBC statement
 	 * 
-	 * @param cmd
-	 *            JDBC statement
-	 * @param args
-	 *            Parameters
-	 * @param ctx
-	 *            The context
-	 * @return
+	 * @param cmd  JDBC statement
+	 * @param args Parameters
+	 * @param ctx  The context
+	 * @return The result
 	 * @throws SQLException
 	 */
-	public static Object executeCmd(String cmd, Sequence args, Context ctx)
-			throws SQLException {
+	public static Object executeCmd(String cmd, Sequence args, Context ctx) throws SQLException {
 		if (!StringUtils.isValidString(cmd)) {
 			return null;
 		}
@@ -137,11 +130,9 @@ public class AppUtil {
 	 * Prepare SQL. Achieve two functions: 1. Automatically spell parameters. 2.
 	 * $(db)sql has no return value, so put the return statement.
 	 * 
-	 * @param cmd
-	 *            JDBC statement
-	 * @param args
-	 *            Parameters
-	 * @return
+	 * @param cmd  JDBC statement
+	 * @param args Parameters
+	 * @return The sql
 	 */
 	public static String prepareSql(String cmd, Sequence args) {
 		if (args != null && args.length() > 0) {
@@ -176,9 +167,8 @@ public class AppUtil {
 	/**
 	 * Convert Sequence to List
 	 * 
-	 * @param args
-	 *            The parameters sequence
-	 * @return
+	 * @param args The parameters sequence
+	 * @return list
 	 */
 	private static List<Object> sequence2List(Sequence args) {
 		if (args == null || args.length() == 0)
@@ -193,13 +183,10 @@ public class AppUtil {
 	/**
 	 * JDBC execute SQL statement
 	 * 
-	 * @param sql
-	 *            The SQL string
-	 * @param args
-	 *            The parameter list
-	 * @param ctx
-	 *            The context
-	 * @return
+	 * @param sql  The SQL string
+	 * @param args The parameter list
+	 * @param ctx  The context
+	 * @return The result
 	 */
 	public static Object executeSql(String sql, List<Object> args, Context ctx) {
 		SimpleSQL lq = new SimpleSQL(sql, args, ctx);
@@ -210,7 +197,7 @@ public class AppUtil {
 	 * Determine whether the statement is a SQL statement
 	 * 
 	 * @param sql
-	 * @return
+	 * @return whether the statement is a SQL statement
 	 */
 	public static boolean isSQL(String sql) {
 		if (sql.startsWith("$")) {
@@ -244,7 +231,7 @@ public class AppUtil {
 	 * Whether the statement is a cellset expression
 	 * 
 	 * @param sql
-	 * @return
+	 * @return Whether the statement is a cellset expression
 	 */
 	public static boolean isGrid(String sql) {
 		if (sql == null || sql.trim().length() == 0)
@@ -270,11 +257,10 @@ public class AppUtil {
 
 	/**
 	 * There are many places in the application that need to convert the stored
-	 * integer colors into corresponding classes. Use cache to optimize
-	 * performance. If it is a transparent color, null is returned.
+	 * integer colors into corresponding classes. Use cache to optimize performance.
+	 * If it is a transparent color, null is returned.
 	 * 
-	 * @param c
-	 *            int
+	 * @param c int
 	 * @return Color
 	 */
 	public static Color getColor(int c) {
@@ -293,10 +279,8 @@ public class AppUtil {
 	 * Generate the corresponding Format object according to the format and the
 	 * current data type. When invalid, it returns null.
 	 * 
-	 * @param fmt
-	 *            String
-	 * @param dataType
-	 *            byte
+	 * @param fmt      String
+	 * @param dataType byte
 	 * @return Format
 	 */
 	public static Format getFormatter(String fmt, byte dataType) {
@@ -335,11 +319,10 @@ public class AppUtil {
 	 * @param owner
 	 * @param methodName
 	 * @param args
-	 * @return
+	 * @return Object
 	 * @throws Exception
 	 */
-	public static Object invokeMethod(Object owner, String methodName,
-			Object[] args) throws Exception {
+	public static Object invokeMethod(Object owner, String methodName, Object[] args) throws Exception {
 		return invokeMethod(owner, methodName, args, null);
 	}
 
@@ -350,18 +333,17 @@ public class AppUtil {
 	 * @param methodName
 	 * @param args
 	 * @param argClasses
-	 * @return
+	 * @return Object
 	 * @throws Exception
 	 */
-	public static Object invokeMethod(Object owner, String methodName,
-			Object[] args, Class[] argClasses) throws Exception {
+	public static Object invokeMethod(Object owner, String methodName, Object[] args, Class[] argClasses)
+			throws Exception {
 		Class ownerClass = owner.getClass();
 		if (argClasses == null) {
 			Method[] ms = ownerClass.getMethods();
 			for (int i = 0; i < ms.length; i++) {
 				Method m = ms[i];
-				if (m.getName().equals(methodName)
-						&& isArgsMatchMethod(m, args)) {
+				if (m.getName().equals(methodName) && isArgsMatchMethod(m, args)) {
 					return m.invoke(owner, args);
 				}
 			}
@@ -386,7 +368,7 @@ public class AppUtil {
 	 * 
 	 * @param m
 	 * @param args
-	 * @return
+	 * @return Whether the parameters match the method
 	 */
 	private static boolean isArgsMatchMethod(Method m, Object[] args) {
 		Class[] mArgs = m.getParameterTypes();
@@ -408,11 +390,10 @@ public class AppUtil {
 	 * @param methodName
 	 * @param args
 	 * @param argClasses
-	 * @return
+	 * @return Object
 	 * @throws Exception
 	 */
-	public static Object invokeStaticMethod(String classPath,
-			String methodName, Object[] args, Class[] argClasses)
+	public static Object invokeStaticMethod(String classPath, String methodName, Object[] args, Class[] argClasses)
 			throws Exception {
 		Class ownerClass = Class.forName(classPath);
 		Method m = ownerClass.getMethod(methodName, argClasses);
@@ -422,8 +403,7 @@ public class AppUtil {
 	/**
 	 * Get the byte array in the input stream
 	 * 
-	 * @param is
-	 *            the input stream
+	 * @param is the input stream
 	 * @throws Exception
 	 * @return the byte array
 	 */
@@ -452,7 +432,7 @@ public class AppUtil {
 	 * Whether the local IP
 	 * 
 	 * @param ip
-	 * @return
+	 * @return Whether the local IP
 	 */
 	public static boolean isLocalIP(String ip) {
 		if (ip.startsWith("127.") || ip.equalsIgnoreCase("localhost")) {
@@ -512,8 +492,8 @@ public class AppUtil {
 	}
 
 	/**
-	 * List the IP addresses of all network cards of the current machine.
-	 * Contains IP4 and IP6.
+	 * List the IP addresses of all network cards of the current machine. Contains
+	 * IP4 and IP6.
 	 * 
 	 * @throws Exception
 	 * @return String[]
@@ -538,7 +518,7 @@ public class AppUtil {
 	/**
 	 * Get all local InetAddress
 	 * 
-	 * @return
+	 * @return local InetAddress
 	 * @throws UnknownHostException
 	 */
 	public static InetAddress[] getAllLocalInet() throws UnknownHostException {
@@ -556,11 +536,10 @@ public class AppUtil {
 	/**
 	 * Get all InetAddress instances
 	 * 
-	 * @return
+	 * @return all InetAddress instances
 	 * @throws UnknownHostException
 	 */
-	private static InetAddress[] getAllLocalUsingNetworkInterface()
-			throws UnknownHostException {
+	private static InetAddress[] getAllLocalUsingNetworkInterface() throws UnknownHostException {
 		ArrayList<InetAddress> addresses = new ArrayList<InetAddress>();
 		Enumeration<NetworkInterface> e = null;
 		try {
@@ -577,8 +556,7 @@ public class AppUtil {
 			} catch (Exception x) {
 			}
 
-			for (Enumeration<InetAddress> e2 = ni.getInetAddresses(); e2
-					.hasMoreElements();) {
+			for (Enumeration<InetAddress> e2 = ni.getInetAddresses(); e2.hasMoreElements();) {
 				InetAddress ia = e2.nextElement();
 				if (ia.getHostAddress().equals("0:0:0:0:0:0:0:1")) {
 					continue;
@@ -596,7 +574,7 @@ public class AppUtil {
 	/**
 	 * Whether the current operating system is windows
 	 * 
-	 * @return
+	 * @return Whether the current operating system is windows
 	 */
 	public static boolean isWindowsOS() {
 		String osName = System.getProperty("os.name").toLowerCase();
@@ -606,9 +584,8 @@ public class AppUtil {
 	/**
 	 * 读取SPL文件到程序网格
 	 * 
-	 * @param filePath
-	 *            SPL文件路径
-	 * @return
+	 * @param filePath SPL文件路径
+	 * @return The PgmCellSet
 	 * @throws Exception
 	 */
 	public static PgmCellSet readSPL(String filePath) throws Exception {
@@ -619,9 +596,8 @@ public class AppUtil {
 	/**
 	 * 流式读取SPL文件到程序网格
 	 * 
-	 * @param in
-	 *            文件输入流
-	 * @return
+	 * @param in 文件输入流
+	 * @return PgmCellSet
 	 * @throws Exception
 	 */
 	public static PgmCellSet readSPL(InputStream in) throws Exception {
@@ -633,7 +609,7 @@ public class AppUtil {
 	 * 通过字符串SPL创建程序网格
 	 * 
 	 * @param spl
-	 * @return
+	 * @return PgmCellSet
 	 */
 	private static PgmCellSet spl2CellSet(String spl) {
 		PgmCellSet cellSet;
@@ -661,9 +637,8 @@ public class AppUtil {
 	/**
 	 * 读取SPL文件为字符串
 	 * 
-	 * @param filePath
-	 *            SPL文件路径
-	 * @return
+	 * @param filePath SPL文件路径
+	 * @return String
 	 * @throws Exception
 	 */
 	private static String readSPLString(String filePath) throws Exception {
@@ -683,7 +658,7 @@ public class AppUtil {
 	/**
 	 * 
 	 * @param filePath
-	 * @return
+	 * @return String
 	 * @throws Exception
 	 */
 	private static String readSPLString(InputStream is) throws Exception {
@@ -722,14 +697,11 @@ public class AppUtil {
 	/**
 	 * 导出网格到SPL文件
 	 * 
-	 * @param filePath
-	 *            SPL文件路径
-	 * @param cellSet
-	 *            程序网对象
+	 * @param filePath SPL文件路径
+	 * @param cellSet  程序网对象
 	 * @throws Exception
 	 */
-	public static void writeSPLFile(String filePath, PgmCellSet cellSet)
-			throws Exception {
+	public static void writeSPLFile(String filePath, PgmCellSet cellSet) throws Exception {
 		String cellSetStr = CellSetUtil.toString(cellSet);
 		writeSPLFile(filePath, cellSetStr);
 	}
@@ -737,14 +709,11 @@ public class AppUtil {
 	/**
 	 * 导出网格字符串到SPL文件
 	 * 
-	 * @param filePath
-	 *            SPL文件路径
-	 * @param cellSetStr
-	 *            网格字符串
+	 * @param filePath   SPL文件路径
+	 * @param cellSetStr 网格字符串
 	 * @throws Exception
 	 */
-	public static void writeSPLFile(String filePath, String cellSetStr)
-			throws Exception {
+	public static void writeSPLFile(String filePath, String cellSetStr) throws Exception {
 		FileOutputStream fo = null;
 		OutputStreamWriter ow = null;
 		BufferedWriter bw = null;
@@ -775,9 +744,8 @@ public class AppUtil {
 	/**
 	 * 是否SPL文件
 	 * 
-	 * @param fileName
-	 *            文件名
-	 * @return
+	 * @param fileName 文件名
+	 * @return 是否SPL文件
 	 */
 	public static boolean isSPLFile(String fileName) {
 		if (!StringUtils.isValidString(fileName)) {
@@ -794,9 +762,8 @@ public class AppUtil {
 	/**
 	 * 读取程序网格
 	 * 
-	 * @param filePath
-	 *            网格文件路径
-	 * @return
+	 * @param filePath 网格文件路径
+	 * @return 程序网格对象
 	 * @throws Exception
 	 */
 	public static PgmCellSet readCellSet(String filePath) throws Exception {

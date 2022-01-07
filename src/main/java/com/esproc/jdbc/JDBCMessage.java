@@ -19,7 +19,7 @@ public class JDBCMessage {
 	/**
 	 * Get MessageManager object
 	 * 
-	 * @return
+	 * @return MessageManager
 	 */
 	public static MessageManager get() {
 		return MessageManager.getManager("com.esproc.jdbc.jdbcMessage");
@@ -29,7 +29,7 @@ public class JDBCMessage {
 	 * Get MessageManager object according to Locale
 	 * 
 	 * @param locale
-	 * @return
+	 * @return MessageManager
 	 */
 	public static MessageManager get(Locale locale) {
 		return MessageManager.getManager("com.esproc.jdbc.jdbcMessage", locale);

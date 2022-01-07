@@ -29,7 +29,7 @@ public class MultiResult implements IResource {
 	/**
 	 * Whether there is a next result set
 	 * 
-	 * @return
+	 * @return boolean
 	 */
 	public boolean hasNext() {
 		if (seq == null)
@@ -40,7 +40,7 @@ public class MultiResult implements IResource {
 	/**
 	 * Next result set
 	 * 
-	 * @return
+	 * @return Object
 	 */
 	public Object next() {
 		index++;

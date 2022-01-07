@@ -57,7 +57,7 @@ public class JDBCUtil {
 	 * @param cmd
 	 * @param args
 	 * @param ctx
-	 * @return
+	 * @return Object
 	 * @throws SQLException
 	 */
 	public static Object executeCmd(String cmd, Sequence args, Context ctx) throws SQLException {
@@ -88,7 +88,7 @@ public class JDBCUtil {
 	 * 
 	 * @param splName
 	 * @param params
-	 * @return
+	 * @return String
 	 * @throws SQLException
 	 */
 	public static String getCallExp(String splName, String params) throws SQLException {
@@ -106,7 +106,7 @@ public class JDBCUtil {
 	 * @param splName
 	 * @param params
 	 * @param isOnlyServer
-	 * @return
+	 * @return String
 	 * @throws SQLException
 	 */
 	public static String getCallExp(String splName, String params, boolean isOnlyServer) throws SQLException {
@@ -194,7 +194,7 @@ public class JDBCUtil {
 	 * 是否calls spl语句
 	 * 
 	 * @param sql
-	 * @return
+	 * @return boolean
 	 */
 	public static boolean isCallsStatement(String sql) {
 		if (!StringUtils.isValidString(sql)) {
@@ -215,7 +215,7 @@ public class JDBCUtil {
 	 * @param sql
 	 * @param parameters
 	 * @param ctx
-	 * @return
+	 * @return Object
 	 * @throws Exception
 	 */
 	public static Object execute(String sql, ArrayList<Object> parameters, Context ctx) throws Exception {
@@ -229,7 +229,7 @@ public class JDBCUtil {
 	 * @param parameters 参数列表
 	 * @param ctx        上下文
 	 * @param logInfo    是否输出日志
-	 * @return
+	 * @return Object
 	 * @throws Exception
 	 */
 	public static Object execute(String sql, ArrayList<?> parameters, Context ctx, boolean logInfo) throws Exception {
@@ -428,7 +428,7 @@ public class JDBCUtil {
 	 * Preparation parameters
 	 * 
 	 * @param parameters
-	 * @return
+	 * @return Sequence
 	 * @throws SQLException
 	 */
 	public static Sequence prepareArg(List<Object> parameters) throws SQLException {
@@ -448,7 +448,7 @@ public class JDBCUtil {
 	 * 准备calls参数
 	 * 
 	 * @param parameters
-	 * @return
+	 * @return Sequence
 	 * @throws SQLException
 	 */
 	public static Sequence prepareCallsArg(List<Sequence> parameters) throws SQLException {
@@ -545,7 +545,7 @@ public class JDBCUtil {
 	 * Parse the execute spl statement
 	 * 
 	 * @param sql
-	 * @return
+	 * @return String
 	 * @throws SQLException
 	 */
 	private static String parseSpl(String sql) throws SQLException {
@@ -586,7 +586,7 @@ public class JDBCUtil {
 	 * Get the table names in the specified pattern
 	 * 
 	 * @param tableNamePattern
-	 * @return
+	 * @return Table
 	 * @throws SQLException
 	 */
 	public static Table getTables(String tableNamePattern) throws SQLException {
@@ -606,7 +606,7 @@ public class JDBCUtil {
 	 * 
 	 * @param filter
 	 * @param fileExts
-	 * @return
+	 * @return Pattern
 	 */
 	public static Pattern getPattern(String filter, List<String> fileExts) {
 		Pattern pattern = null;
@@ -635,7 +635,7 @@ public class JDBCUtil {
 	 * @param tableNamePattern
 	 * @param columnNamePattern
 	 * @param ctx
-	 * @return
+	 * @return Table
 	 * @throws SQLException
 	 */
 	public static Table getColumns(String tableNamePattern, String columnNamePattern, Context ctx) throws SQLException {
@@ -703,7 +703,7 @@ public class JDBCUtil {
 	 * Parse call spl statement
 	 * 
 	 * @param sql
-	 * @return
+	 * @return String[]
 	 * @throws SQLException
 	 */
 	public static String[] parseCallSpl(String sql) throws SQLException {
@@ -770,7 +770,7 @@ public class JDBCUtil {
 	 * 
 	 * @param spl
 	 * @param isOnlyServer
-	 * @return
+	 * @return String
 	 */
 	public static String getNodesString(String spl, boolean isOnlyServer) {
 		if (!StringUtils.isValidString(spl)) {
@@ -799,7 +799,7 @@ public class JDBCUtil {
 	 * 
 	 * @param obj
 	 * @param fetchSize
-	 * @return
+	 * @return ResultSet
 	 * @throws SQLException
 	 */
 	public static ResultSet generateResultSet(Object obj, int fetchSize) throws SQLException {
@@ -812,7 +812,7 @@ public class JDBCUtil {
 	 * @param obj
 	 * @param colName
 	 * @param fetchSize
-	 * @return
+	 * @return ResultSet
 	 * @throws SQLException
 	 */
 	public static ResultSet generateResultSet(Object obj, String colName, int fetchSize) throws SQLException {
@@ -969,7 +969,7 @@ public class JDBCUtil {
 	 * 
 	 * @param o
 	 * @param type
-	 * @return
+	 * @return type
 	 */
 	public static int getType(Object o, int type) {
 		if (o == null) {
@@ -1002,7 +1002,7 @@ public class JDBCUtil {
 	 * Get the raqsoft type of data object
 	 * 
 	 * @param o
-	 * @return
+	 * @return byte
 	 */
 	public static byte getProperDataType(Object o) {
 		if (o instanceof Integer) {
@@ -1016,7 +1016,7 @@ public class JDBCUtil {
 	 * Whether integer
 	 * 
 	 * @param type
-	 * @return
+	 * @return boolean
 	 */
 	private static boolean isIntType(int type) {
 		return type == java.sql.Types.TINYINT || type == java.sql.Types.SMALLINT || type == java.sql.Types.INTEGER;
@@ -1026,7 +1026,7 @@ public class JDBCUtil {
 	 * Whether numerical
 	 * 
 	 * @param type
-	 * @return
+	 * @return boolean
 	 */
 	private static boolean isNumberType(int type) {
 		return type == java.sql.Types.FLOAT || type == java.sql.Types.DOUBLE || isIntType(type);
@@ -1036,7 +1036,7 @@ public class JDBCUtil {
 	 * Whether date
 	 * 
 	 * @param type
-	 * @return
+	 * @return boolean
 	 */
 	private static boolean isDateType(int type) {
 		return type == java.sql.Types.DATE || type == java.sql.Types.TIME || type == java.sql.Types.TIMESTAMP;
@@ -1046,7 +1046,7 @@ public class JDBCUtil {
 	 * Convert to SQL type according to raqsoft type
 	 * 
 	 * @param type
-	 * @return
+	 * @return int
 	 */
 	public static int getSQLTypeByType(byte type) {
 		switch (type) {
@@ -1083,7 +1083,7 @@ public class JDBCUtil {
 	 * Get the display name according to the data type
 	 * 
 	 * @param type
-	 * @return
+	 * @return String
 	 */
 	public static String getTypeDisp(int type) {
 		switch (type) {
@@ -1138,7 +1138,7 @@ public class JDBCUtil {
 	 * Read data from the input stream
 	 * 
 	 * @param in
-	 * @return
+	 * @return ArrayList<Object>
 	 * @throws IOException
 	 * @throws ClassNotFoundException
 	 */
@@ -1177,7 +1177,7 @@ public class JDBCUtil {
 	 * Read data from the input stream
 	 * 
 	 * @param in
-	 * @return
+	 * @return ArrayList<ArrayList<Object>>
 	 * @throws IOException
 	 * @throws ClassNotFoundException
 	 */
@@ -1198,7 +1198,7 @@ public class JDBCUtil {
 	 * Convert the Clob object to a string.
 	 * 
 	 * @param x
-	 * @return
+	 * @return String
 	 * @throws SQLException
 	 */
 	public static String clobToString(java.sql.Clob x) throws SQLException {
@@ -1243,7 +1243,7 @@ public class JDBCUtil {
 	/**
 	 * Get an empty result set.
 	 * 
-	 * @return
+	 * @return ResultSet
 	 * @throws SQLException
 	 */
 	public static ResultSet getEmptyResultSet() throws SQLException {

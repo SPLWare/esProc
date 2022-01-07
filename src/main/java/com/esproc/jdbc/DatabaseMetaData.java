@@ -1555,8 +1555,8 @@ public class DatabaseMetaData implements java.sql.DatabaseMetaData {
 	 *                          it is stored in the database
 	 * @return each row is a column privilege description
 	 */
-	public ResultSet getColumnPrivileges(String catalog, String schema, String table, String columnNamePattern)
-			throws SQLException {
+	public ResultSet getColumnPrivileges(String catalog, String schemaPattern, String tableNamePattern,
+			String columnNamePattern) throws SQLException {
 		JDBCUtil.log("DatabaseMetaData-128");
 		return JDBCUtil.getEmptyResultSet();
 	}
@@ -1950,7 +1950,7 @@ public class DatabaseMetaData implements java.sql.DatabaseMetaData {
 	 *                         DISTINCT) to include; null returns all types
 	 * @return ResultSet object in which each row describes a UDT
 	 */
-	public ResultSet getUDTs(String catalog, String schemaPattern, String typeNamePattern, int[] types)
+	public ResultSet getUDTs(String catalog, String schemaPattern, String tableNamePattern, int[] types)
 			throws SQLException {
 		JDBCUtil.log("DatabaseMetaData-150");
 		return JDBCUtil.getEmptyResultSet();
@@ -2370,7 +2370,7 @@ public class DatabaseMetaData implements java.sql.DatabaseMetaData {
 	/**
 	 * Get URL
 	 * 
-	 * @return
+	 * @return String
 	 */
 	public String getUrl() {
 		JDBCUtil.log("DatabaseMetaData-174");

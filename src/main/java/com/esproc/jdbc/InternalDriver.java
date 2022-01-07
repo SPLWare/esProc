@@ -68,7 +68,7 @@ public class InternalDriver implements java.sql.Driver, Serializable {
 	 *            arguments.
 	 * @param rc
 	 *            The RaqsoftConfig object
-	 * @return
+	 * @return Connection
 	 * @throws SQLException
 	 */
 	public Connection connect(String url, Properties info, RaqsoftConfig rc)

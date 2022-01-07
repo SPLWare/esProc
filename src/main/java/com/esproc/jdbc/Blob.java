@@ -62,7 +62,7 @@ public class Blob implements java.sql.Blob {
 	 * @param length
 	 *            The number of consecutive bytes to be copied; the value for
 	 *            length must be 0 or greater
-	 * @return
+	 * @return byte[]
 	 * @throws SQLException
 	 */
 	private byte[] getSubBytes(byte[] bytes, long pos, int length)
@@ -77,7 +77,7 @@ public class Blob implements java.sql.Blob {
 	/**
 	 * Get binary array
 	 * 
-	 * @return
+	 * @return byte[]
 	 * @throws SQLException
 	 */
 	public byte[] getBytes() throws SQLException {

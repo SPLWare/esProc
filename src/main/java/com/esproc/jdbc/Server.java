@@ -80,7 +80,7 @@ public class Server {
 	/**
 	 * Get Server instance
 	 * 
-	 * @return
+	 * @return Server instance
 	 */
 	public static Server getInstance() {
 		if (instance == null) {
@@ -96,7 +96,7 @@ public class Server {
 	/**
 	 * The server instance is alive
 	 * 
-	 * @return
+	 * @return Whether the server instance is alive
 	 */
 	public boolean isAlive() {
 		return isAlive;
@@ -107,7 +107,7 @@ public class Server {
 	 * 
 	 * @param filter SQL rules used. "%" means one or more characters, and "_" means
 	 *               one character.
-	 * @return
+	 * @return files map
 	 */
 	public static Map<String, String> getSplList(String filter) {
 		List<String> fileExts = new ArrayList<String>();
@@ -123,7 +123,7 @@ public class Server {
 	 * @param filter   File name filter
 	 * @param fileExts File extensions
 	 * @param onlyName Only match file name
-	 * @return
+	 * @return files map
 	 */
 	public static Map<String, String> getFiles(String filter, List<String> fileExts, boolean onlyName) {
 		Map<String, String> map = new HashMap<String, String>();
@@ -204,7 +204,7 @@ public class Server {
 	 * 
 	 * @param file1 Relative path
 	 * @param file2 Absolute path
-	 * @return
+	 * @return whether the two file paths are consistent
 	 */
 	private static boolean sameFileName(String file1, String file2) {
 		if (file1 == null || file2 == null)
@@ -219,7 +219,7 @@ public class Server {
 	 * 
 	 * @param rootLen
 	 * @param f
-	 * @return
+	 * @return the child path relative to the parent path
 	 */
 	private static final String getSubPath(int rootLen, File f) {
 		String path = f.getPath();
@@ -234,7 +234,7 @@ public class Server {
 	 * Get table names
 	 * 
 	 * @param filter Table name filter
-	 * @return
+	 * @return table names map
 	 */
 	public static Map<String, String> getTables(String filter) {
 		List<String> fileExts = new ArrayList<String>();
@@ -248,7 +248,7 @@ public class Server {
 	/**
 	 * Get JNDI automatic connection list
 	 * 
-	 * @return
+	 * @return JNDI automatic connection list
 	 */
 	public List<String> getJNDIAutoConnects() {
 		return jndiAutoConnects;
@@ -257,7 +257,7 @@ public class Server {
 	/**
 	 * Get host names
 	 * 
-	 * @return
+	 * @return host names
 	 */
 	public List<String> getHostNames() {
 		return hostNames;
@@ -294,7 +294,6 @@ public class Server {
 	/**
 	 * Load configuration file
 	 * 
-	 * @return
 	 * @throws SQLException
 	 */
 	private synchronized void loadConfig(String sconfig) throws SQLException {
@@ -375,7 +374,7 @@ public class Server {
 	 * Get input stream by file name
 	 * 
 	 * @param fileName The file name
-	 * @return
+	 * @return the input stream
 	 */
 	public static InputStream findResource(String fileName) {
 		InputStream in = null;
@@ -414,7 +413,7 @@ public class Server {
 	/**
 	 * Get the RaqsoftConfig object
 	 * 
-	 * @return
+	 * @return the RaqsoftConfig
 	 */
 	public RaqsoftConfig getConfig() {
 		return config;
@@ -441,7 +440,7 @@ public class Server {
 	/**
 	 * Get the maximum number of connections
 	 * 
-	 * @return
+	 * @return the maximum number of connections
 	 */
 	public int getMaxConnection() {
 		return maxConn;
@@ -452,7 +451,7 @@ public class Server {
 	 * 
 	 * @param driver
 	 * @param sconfig
-	 * @return
+	 * @return the connection
 	 * @throws SQLException
 	 */
 	public InternalConnection connect(InternalDriver driver) throws SQLException {
@@ -464,7 +463,7 @@ public class Server {
 	/**
 	 * Get the connection list
 	 * 
-	 * @return
+	 * @return the connection list
 	 */
 	public ConnectionList getConnections() {
 		return cons;
@@ -474,7 +473,7 @@ public class Server {
 	 * Get the connection by ID
 	 * 
 	 * @param id The connection ID
-	 * @return
+	 * @return the connection
 	 * @throws SQLException
 	 */
 	public InternalConnection getConnection(int id) throws SQLException {
@@ -490,7 +489,7 @@ public class Server {
 	/**
 	 * From 1 to the largest integer, then back to 1 to recycle.
 	 * 
-	 * @return
+	 * @return ID
 	 */
 	private synchronized int nextID() {
 		if (currentID == Integer.MAX_VALUE)

@@ -16,16 +16,17 @@ public class StatementList {
 	/**
 	 * Number of statements
 	 * 
-	 * @return
+	 * @return the number of statements
 	 */
 	public synchronized int count() {
 		return stats.size();
 	}
 
 	/**
+	 * Get the InternalCStatement by ID
 	 * 
 	 * @param sid
-	 * @return
+	 * @return The InternalCStatement
 	 */
 	public synchronized InternalCStatement getByID(int sid) {
 		for (int i = 0; i < stats.size(); i++) {
@@ -41,7 +42,7 @@ public class StatementList {
 	 * Get statement by serial number
 	 * 
 	 * @param index
-	 * @return
+	 * @return The InternalCStatement
 	 */
 	public synchronized InternalCStatement get(int index) {
 		return stats.get(index);

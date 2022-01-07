@@ -74,7 +74,7 @@ public class InternalPStatement extends InternalStatement implements
 	/**
 	 * Get parameter list
 	 * 
-	 * @return
+	 * @return parameter list
 	 */
 	public ArrayList<Object> getParameters() {
 		JDBCUtil.log("InternalPStatement-41");
@@ -606,7 +606,7 @@ public class InternalPStatement extends InternalStatement implements
 	 * @param sqlType
 	 *            the SQL type code defined in java.sql.Types
 	 */
-	public void setNull(int arg0, int arg1) throws SQLException {
+	public void setNull(int parameterIndex, int sqlType) throws SQLException {
 		JDBCUtil.log("InternalPStatement-23");
 	}
 

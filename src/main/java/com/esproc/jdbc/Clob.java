@@ -35,7 +35,7 @@ public class Clob implements java.sql.Clob {
 	/**
 	 * Get the string data
 	 * 
-	 * @return
+	 * @return String
 	 */
 	public String getString() {
 		return str;

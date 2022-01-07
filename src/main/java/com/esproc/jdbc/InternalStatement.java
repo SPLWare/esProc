@@ -106,7 +106,7 @@ public class InternalStatement implements java.sql.Statement {
 	 * Execute JDBC statement
 	 * 
 	 * @param parameters The parameter list
-	 * @return
+	 * @return boolean
 	 * @throws SQLException
 	 */
 	protected boolean executeJDBC(final ArrayList<?> parameters) throws SQLException {
@@ -118,7 +118,7 @@ public class InternalStatement implements java.sql.Statement {
 	 * 执行更新语句，仅支持SQL
 	 * 
 	 * @param parameters 参数
-	 * @return
+	 * @return int
 	 * @throws SQLException
 	 */
 	protected int executeUpdateJDBC(final ArrayList<Object> parameters) throws SQLException {
@@ -134,7 +134,7 @@ public class InternalStatement implements java.sql.Statement {
 	 * 
 	 * @param parameters 参数
 	 * @param isUpdate   是否更新语句
-	 * @return
+	 * @return Object
 	 * @throws SQLException
 	 */
 	protected Object executeJDBC(final ArrayList<?> parameters, final boolean isUpdate) throws SQLException {
@@ -693,7 +693,7 @@ public class InternalStatement implements java.sql.Statement {
 	 * by this Statement. If the value specified is zero, then the hint is ignored.
 	 * The default value is zero.
 	 * 
-	 * @param the number of rows to fetch
+	 * @param rows the number of rows to fetch
 	 */
 	public void setFetchSize(int rows) throws SQLException {
 		JDBCUtil.log("InternalStatement-23");
@@ -945,7 +945,7 @@ public class InternalStatement implements java.sql.Statement {
 	 * keys (the list of such statements is vendor-specific).
 	 * 
 	 * @param sql           any SQL statement
-	 * @param columnIndexes an array of the names of the columns in the inserted row
+	 * @param columnNames an array of the names of the columns in the inserted row
 	 *                      that should be made available for retrieval by a call to
 	 *                      the method getGeneratedKeys
 	 * @return true if the next result is a ResultSet object; false if it is an

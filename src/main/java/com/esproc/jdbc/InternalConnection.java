@@ -158,7 +158,7 @@ public class InternalConnection implements Connection, Serializable {
 	/**
 	 * Generate connection ID
 	 * 
-	 * @return
+	 * @return int
 	 */
 	private synchronized int nextId() {
 		JDBCUtil.log("InternalConnection-1");
@@ -171,7 +171,7 @@ public class InternalConnection implements Connection, Serializable {
 	/**
 	 * Get connection ID
 	 * 
-	 * @return
+	 * @return int
 	 */
 	public int getID() {
 		JDBCUtil.log("InternalConnection-45");
@@ -181,7 +181,7 @@ public class InternalConnection implements Connection, Serializable {
 	/**
 	 * Get the JobSpace
 	 * 
-	 * @return
+	 * @return JobSpace
 	 */
 	protected synchronized JobSpace getJobSpace() {
 		if (jobSpace == null) {
@@ -194,7 +194,7 @@ public class InternalConnection implements Connection, Serializable {
 	/**
 	 * Get the RaqsoftConfig object
 	 * 
-	 * @return
+	 * @return RaqsoftConfig
 	 */
 	public RaqsoftConfig getRaqsoftConfig() {
 		return raqsoftConfig;
@@ -241,7 +241,7 @@ public class InternalConnection implements Connection, Serializable {
 	 * Get statement by ID
 	 * 
 	 * @param id
-	 * @return
+	 * @return InternalCStatement
 	 * @throws SQLException
 	 */
 	public InternalCStatement getStatement(int id) throws SQLException {
@@ -268,7 +268,6 @@ public class InternalConnection implements Connection, Serializable {
 	/**
 	 * Set whether to always execute on the server
 	 * 
-	 * @param isOnlyServer
 	 */
 	public boolean isOnlyServer() {
 		return isOnlyServer;
@@ -287,7 +286,7 @@ public class InternalConnection implements Connection, Serializable {
 	/**
 	 * Get the last visit time
 	 * 
-	 * @return
+	 * @return long
 	 */
 	public long getLastVisitTime() {
 		JDBCUtil.log("InternalConnection-47");
@@ -297,7 +296,7 @@ public class InternalConnection implements Connection, Serializable {
 	/**
 	 * Get the list of the statements
 	 * 
-	 * @return
+	 * @return StatementList
 	 * @throws SQLException
 	 */
 	public StatementList getStatements() throws SQLException {
@@ -310,7 +309,7 @@ public class InternalConnection implements Connection, Serializable {
 	/**
 	 * Get the user name
 	 * 
-	 * @return
+	 * @return String
 	 */
 	public String getUsername() {
 		JDBCUtil.log("InternalConnection-48");
@@ -330,7 +329,7 @@ public class InternalConnection implements Connection, Serializable {
 	/**
 	 * Get the database URL
 	 * 
-	 * @return
+	 * @return String
 	 */
 	public String getUrl() {
 		JDBCUtil.log("InternalConnection-52");
@@ -350,7 +349,7 @@ public class InternalConnection implements Connection, Serializable {
 	/**
 	 * Get the esProc context
 	 * 
-	 * @return
+	 * @return Context
 	 */
 	public Context getCtx() {
 		return ctx;
@@ -359,7 +358,7 @@ public class InternalConnection implements Connection, Serializable {
 	/**
 	 * Get the unit client
 	 * 
-	 * @return
+	 * @return UnitClient
 	 * @throws SQLException
 	 */
 	public synchronized UnitClient getUnitClient() throws SQLException {
@@ -418,7 +417,7 @@ public class InternalConnection implements Connection, Serializable {
 	/**
 	 * Get the ID of the connection on server
 	 * 
-	 * @return
+	 * @return int
 	 */
 	public int getUnitConnectionId() {
 		return unitConnectionId;
@@ -428,7 +427,7 @@ public class InternalConnection implements Connection, Serializable {
 	 * Get random serial number
 	 * 
 	 * @param count
-	 * @return
+	 * @return int
 	 */
 	private int randomIndex(int count) {
 		int index = (int) (Math.random() * (count + 1) % count);
@@ -444,7 +443,7 @@ public class InternalConnection implements Connection, Serializable {
 	 * Implement the getProcedures method
 	 * 
 	 * @param procedureNamePattern
-	 * @return
+	 * @return ResultSet
 	 * @throws SQLException
 	 */
 	public ResultSet getProcedures(String procedureNamePattern) throws SQLException {
@@ -473,7 +472,7 @@ public class InternalConnection implements Connection, Serializable {
 	 * 
 	 * @param procedureNamePattern
 	 * @param columnNamePattern
-	 * @return
+	 * @return ResultSet
 	 * @throws SQLException
 	 */
 	public ResultSet getProcedureColumns(String procedureNamePattern, String columnNamePattern) throws SQLException {
@@ -526,7 +525,7 @@ public class InternalConnection implements Connection, Serializable {
 	 * Implement the getTables method
 	 * 
 	 * @param tableNamePattern
-	 * @return
+	 * @return ResultSet
 	 * @throws SQLException
 	 */
 	public ResultSet getTables(String tableNamePattern) throws SQLException {
@@ -557,7 +556,7 @@ public class InternalConnection implements Connection, Serializable {
 	 * 
 	 * @param tableNamePattern
 	 * @param columnNamePattern
-	 * @return
+	 * @return ResultSet
 	 * @throws SQLException
 	 */
 	public ResultSet getColumns(String tableNamePattern, String columnNamePattern) throws SQLException {
@@ -586,7 +585,7 @@ public class InternalConnection implements Connection, Serializable {
 	/**
 	 * Whether to always execute on the server
 	 * 
-	 * @return
+	 * @return InternalDriver
 	 * @throws SQLException
 	 */
 	public InternalDriver getDriver() throws SQLException {
@@ -1201,7 +1200,7 @@ public class InternalConnection implements Connection, Serializable {
 	 * 
 	 * @param sql           a String object that is the SQL statement to be sent to
 	 *                      the database; may contain one or more '?' IN parameters
-	 * @param columnIndexes an array of column names indicating the columns that
+	 * @param columnNames an array of column names indicating the columns that
 	 *                      should be returned from the inserted row or rows
 	 * @return a new PreparedStatement object, containing the pre-compiled
 	 *         statement, that is capable of returning the auto-generated keys

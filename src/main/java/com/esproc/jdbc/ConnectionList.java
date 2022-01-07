@@ -17,7 +17,7 @@ public class ConnectionList {
 	/**
 	 * Number of connections
 	 * 
-	 * @return
+	 * @return int
 	 */
 	public synchronized int count() {
 		return cons.size();
@@ -44,7 +44,7 @@ public class ConnectionList {
 	 * Return connection by sequence number. Start from 0.
 	 * 
 	 * @param index
-	 * @return
+	 * @return InternalConnection
 	 */
 	public synchronized InternalConnection get(int index) {
 		return cons.get(index);

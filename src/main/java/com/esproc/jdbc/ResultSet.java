@@ -2065,7 +2065,7 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 * @param columnName the label for the column specified with the SQL AS clause.
 	 *                   If the SQL AS clause was not specified, then the label is
 	 *                   the name of the column
-	 * @param x          the new column value
+	 * @param reader     The reader
 	 * @param length     the length of the stream
 	 */
 	public void updateCharacterStream(String columnName, Reader reader, int length) throws SQLException {
@@ -3089,8 +3089,7 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 * UNICODE to the database char format.
 	 * 
 	 * @param columnIndex the first column is 1, the second is 2, ...
-	 * @param inputStream An object that contains the data to set the parameter
-	 *                    value to.
+	 * @param reader      The reader
 	 * @param length      the number of characters in the parameter data.
 	 */
 	public void updateClob(int columnIndex, Reader reader, long length) throws SQLException {
@@ -3109,8 +3108,7 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 * @param columnLabel the label for the column specified with the SQL AS clause.
 	 *                    If the SQL AS clause was not specified, then the label is
 	 *                    the name of the column
-	 * @param inputStream An object that contains the data to set the parameter
-	 *                    value to.
+	 * @param reader      The reader
 	 * @param length      the number of characters in the parameter data.
 	 */
 	public void updateClob(String columnLabel, Reader reader, long length) throws SQLException {
@@ -3180,7 +3178,7 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 * @param columnLabel the label for the column specified with the SQL AS clause.
 	 *                    If the SQL AS clause was not specified, then the label is
 	 *                    the name of the column
-	 * @param inputStream the java.io.Reader object containing the new column value
+	 * @param reader      The reader
 	 * @param length      the length of the stream
 	 */
 	public void updateNCharacterStream(String columnLabel, Reader reader, long length) throws SQLException {

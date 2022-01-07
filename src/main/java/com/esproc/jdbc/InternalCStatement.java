@@ -60,7 +60,7 @@ public class InternalCStatement extends InternalPStatement implements
 	/**
 	 * Get the SQL
 	 * 
-	 * @return
+	 * @return String
 	 */
 	public String getSql() {
 		JDBCUtil.log("InternalCStatement-3");
@@ -81,7 +81,7 @@ public class InternalCStatement extends InternalPStatement implements
 	/**
 	 * Get the statement ID
 	 * 
-	 * @return
+	 * @return int
 	 */
 	public int getID() {
 		JDBCUtil.log("InternalCStatement-5");
@@ -111,7 +111,7 @@ public class InternalCStatement extends InternalPStatement implements
 	/**
 	 * Get last access time
 	 * 
-	 * @return
+	 * @return long
 	 */
 	public long getLastVisitTime() {
 		JDBCUtil.log("InternalCStatement-7");
