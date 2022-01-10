@@ -13,57 +13,56 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h3 style='margin:0cm;margin-bottom:.0001pt;text-indent:0cm;line-height:normal;
-mso-list:none;tab-stops:-179.95pt 64.2pt'><span lang=EN-US style='font-size:
-14.0pt;mso-bidi-font-size:10.0pt'>3.6.2 The primary key and the index table</span></h3></div>
-	<p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>Why, in esProc, will the efficiency increase
-significantly when the primary key is used to make query? The reason is that the
-index table of the primary key has been used for computation.</span></p>
+	<div id="centent-title"><h3 style='margin:0cm;text-indent:0cm;line-height:normal;mso-list:none;
+tab-stops:-179.95pt 64.2pt'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:10.0pt'>3.6.2 The primary key and the index table</span></h3></div>
+	<p class=T-ParCxSpFirst style='margin-bottom:0cm;mso-add-space:auto;text-align:
+justify;text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>Why,
+in esProc, will the efficiency increase significantly when the primary key is
+used to make query? The reason is that the index table of the primary key has
+been used for computation.</span></p>
 
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>When calling the <b style='mso-bidi-font-weight:normal'>keys</b>
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
+lang=EN-US>When calling the <b style='mso-bidi-font-weight:normal'>keys</b>
 function or making a primary-key-based query on a table sequence for the first
 time without an index table, an index table will be generated according to the
 primary key. A hash table will have been created according to all primary key
 values when the index table is generated. It divides the primary key values
 into multiple groups by the hash values, which correspond to the group numbers.</span></p>
 
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>Normally, records of a table sequence need to be
-traversed when performing a key-based query until each targeted record is
-found. An average of </span><span class=var0><span lang=EN-US>n</span></span><span
-lang=EN-US>/2 comparisons are needed for querying a table sequence containing <i
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
+lang=EN-US>Normally, records of a table sequence need to be traversed when
+performing a key-based query until each targeted record is found. An average of
+</span><span class=var0><span lang=EN-US>n</span></span><span lang=EN-US>/2
+comparisons are needed for querying a table sequence containing <i
 style='mso-bidi-font-style:normal'>n</i> records.</span></p>
 
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>Thanks to the index table, searching a table sequence
-for a certain record according to the primary key value would make a
-difference. First, the hash values will be computed according to the primary
-key values. According to the hash values, the group corresponding to the
-targeted record will be directly found in the index table. Then we just need to
-compare the key value with records of the identified group. In this way, for a
-table sequence containing <i style='mso-bidi-font-style:normal'>n</i> records
-and with its primary key values distributed in <i style='mso-bidi-font-style:
-normal'>k</i> groups by hash values, only an average of </span><span
-class=var0><span lang=EN-US>n</span></span><span lang=EN-US>/2</span><span
-class=var0><span lang=EN-US>k </span></span><span class=var0><span lang=EN-US
-style='font-style:normal;mso-bidi-font-style:italic'>comparisons are needed.
-Though hash values must be computed before an index table is generated and the
-query is executed, the number of comparisons is reduced significantly, and
-particularly, the index table needs to be generated only once. Therefore, the
-more the data in a table sequence and the more the queries, the higher the
-efficiency when performing the primary-key-based queries.</span></span><i
-style='mso-bidi-font-style:normal'><span lang=EN-US></span></i></p>
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
+lang=EN-US>Thanks to the index table, searching a table sequence for a certain record
+according to the primary key value would make a difference. First, the hash
+values will be computed according to the primary key values. According to the
+hash values, the group corresponding to the targeted record will be directly
+found in the index table. Then we just need to compare the key value with
+records of the identified group. In this way, for a table sequence containing <i
+style='mso-bidi-font-style:normal'>n</i> records and with its primary key
+values distributed in <i style='mso-bidi-font-style:normal'>k</i> groups by
+hash values, only an average of </span><span class=var0><span lang=EN-US>n</span></span><span
+lang=EN-US>/2</span><span class=var0><span lang=EN-US>k </span></span><span
+class=var0><span lang=EN-US style='font-style:normal;mso-bidi-font-style:italic'>comparisons
+are needed. Though hash values must be computed before an index table is
+generated and the query is executed, the number of comparisons is reduced
+significantly, and particularly, the index table needs to be generated only
+once. Therefore, the more the data in a table sequence and the more the
+queries, the higher the efficiency when performing the primary-key-based
+queries.</span></span><i style='mso-bidi-font-style:normal'><span lang=EN-US></span></i></p>
 
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span class=var0><span lang=EN-US>T</span></span><span class=code><span
-lang=EN-US style='font-family:"Times New Roman",serif'>.index(</span></span><span
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
+class=var0><span lang=EN-US>T</span></span><span class=code><span lang=EN-US
+style='font-family:"Times New Roman",serif'>.index(</span></span><span
 class=var0><span lang=EN-US>n</span></span><span class=code><span lang=EN-US
 style='font-family:"Times New Roman",serif'>) </span></span><span class=code><span
 lang=EN-US style='font-family:"Times New Roman",serif;font-weight:normal'>function
@@ -73,18 +72,17 @@ style='mso-bidi-font-style:normal'>n</i> is the length of the index table.
 Default value will be used if <i style='mso-bidi-font-style:normal'>n</i> isn¡¯t
 supplied.</span></span><b style='mso-bidi-font-weight:normal'><span lang=EN-US></span></b></p>
 
-<p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>What we should know is that the reason the
-primary-key-based query functions, such as <b style='mso-bidi-font-weight:normal'>find</b>
-and <b style='mso-bidi-font-weight:normal'>pfind</b>, can enhance computational
-performance effectively is that an index table has been created for the table
-sequence¡¯s primary key. So if the primary key itself can be used as the index
-to locate records, it is unnecessary to create one.The EID<b style='mso-bidi-font-weight:
-normal'> </b>field in the above<b style='mso-bidi-font-weight:normal'> </b>EMPLOYEE
-table, for example, represents the positions of the records in the table
-sequence, thus it is more efficient to use it to find the corresponding
-records.</span></p>
+<p class=T-ParCxSpLast style='margin-bottom:0cm;mso-add-space:auto;text-align:
+justify;text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>What
+we should know is that the reason the primary-key-based query functions, such
+as <b style='mso-bidi-font-weight:normal'>find</b> and <b style='mso-bidi-font-weight:
+normal'>pfind</b>, can enhance computational performance effectively is that an
+index table has been created for the table sequence¡¯s primary key. So if the
+primary key itself can be used as the index to locate records, it is
+unnecessary to create one.The EID<b style='mso-bidi-font-weight:normal'> </b>field
+in the above<b style='mso-bidi-font-weight:normal'> </b>EMPLOYEE table, for
+example, represents the positions of the records in the table sequence, thus it
+is more efficient to use it to find the corresponding records.</span></p>
 
 <table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
  style='margin-left:21.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
@@ -108,7 +106,8 @@ records.</span></p>
   height:14.15pt'>
   <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
   text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
-  style='font-size:9.0pt'>A</span></p>
+  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>A</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
@@ -119,7 +118,8 @@ records.</span></p>
   height:14.15pt'>
   <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
   text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
-  style='font-size:9.0pt'>1</span></p>
+  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>1</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
   </td>
   <td width=265 style='width:7.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid windowtext .5pt;
@@ -128,8 +128,9 @@ records.</span></p>
   #B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:.5pt;background:#FFFF99;
   padding:0cm 0cm 0cm 0cm;height:14.15pt'>
   <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
-  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif'>=demo.query(&quot;select
-  * from EMPLOYEE&quot;).keys(EID)</span></p>
+  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
+  color:black;mso-color-alt:windowtext'>=demo.query(&quot;select * from
+  EMPLOYEE&quot;).keys(EID)</span><span lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
@@ -140,7 +141,8 @@ records.</span></p>
   height:14.15pt'>
   <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
   text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
-  style='font-size:9.0pt'>2</span></p>
+  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>2</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
   </td>
   <td width=265 style='width:7.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
@@ -148,7 +150,9 @@ records.</span></p>
   mso-border-left-alt:solid windowtext .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
   <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
-  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif'>=10000.(A1(rand(A1.len())+1).EID)</span></p>
+  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
+  color:black;mso-color-alt:windowtext'>=10000.(A1(rand(A1.len())+1).EID)</span><span
+  lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:3;page-break-inside:avoid;height:14.15pt'>
@@ -159,7 +163,8 @@ records.</span></p>
   height:14.15pt'>
   <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
   text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
-  style='font-size:9.0pt'>3</span></p>
+  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>3</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
   </td>
   <td width=265 style='width:7.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
@@ -167,7 +172,9 @@ records.</span></p>
   mso-border-left-alt:solid windowtext .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
   <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
-  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif'>=now()</span></p>
+  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
+  color:black;mso-color-alt:windowtext'>=now()</span><span lang=EN-US
+  style='font-family:"Times New Roman",serif'></span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:4;page-break-inside:avoid;height:14.15pt'>
@@ -178,7 +185,8 @@ records.</span></p>
   height:14.15pt'>
   <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
   text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
-  style='font-size:9.0pt'>4</span></p>
+  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>4</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
   </td>
   <td width=265 style='width:7.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
@@ -186,7 +194,9 @@ records.</span></p>
   mso-border-left-alt:solid windowtext .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
   <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
-  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif'>=A2.(A1(A2.~))</span></p>
+  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
+  color:black;mso-color-alt:windowtext'>=A2.(A1(A2.~))</span><span lang=EN-US
+  style='font-family:"Times New Roman",serif'></span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:5;page-break-inside:avoid;height:14.15pt'>
@@ -197,7 +207,8 @@ records.</span></p>
   height:14.15pt'>
   <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
   text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
-  style='font-size:9.0pt'>5</span></p>
+  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>5</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
   </td>
   <td width=265 style='width:7.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
@@ -205,7 +216,9 @@ records.</span></p>
   mso-border-left-alt:solid windowtext .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
   <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
-  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif'>=interval@ms(A3,now())</span></p>
+  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
+  color:black;mso-color-alt:windowtext'>=interval@ms(A3,now())</span><span
+  lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:6;page-break-inside:avoid;height:14.15pt'>
@@ -216,7 +229,8 @@ records.</span></p>
   height:14.15pt'>
   <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
   text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
-  style='font-size:9.0pt'>6</span></p>
+  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>6</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
   </td>
   <td width=265 style='width:7.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
@@ -224,7 +238,9 @@ records.</span></p>
   mso-border-left-alt:solid windowtext .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
   <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
-  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif'>=now()</span></p>
+  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
+  color:black;mso-color-alt:windowtext'>=now()</span><span lang=EN-US
+  style='font-family:"Times New Roman",serif'></span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:7;page-break-inside:avoid;height:14.15pt'>
@@ -235,7 +251,8 @@ records.</span></p>
   height:14.15pt'>
   <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
   text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
-  style='font-size:9.0pt'>7</span></p>
+  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>7</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
   </td>
   <td width=265 style='width:7.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
@@ -243,7 +260,9 @@ records.</span></p>
   mso-border-left-alt:solid windowtext .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
   <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
-  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif'>=A2.(A1.find(A2.~))</span></p>
+  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
+  color:black;mso-color-alt:windowtext'>=A2.(A1.find(A2.~))</span><span
+  lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:8;mso-yfti-lastrow:yes;page-break-inside:avoid;
@@ -255,7 +274,8 @@ records.</span></p>
   height:14.15pt'>
   <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
   text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
-  style='font-size:9.0pt'>8</span></p>
+  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>8</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
   </td>
   <td width=265 style='width:7.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
@@ -263,46 +283,44 @@ records.</span></p>
   mso-border-left-alt:solid windowtext .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
   <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
-  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif'>=interval@ms(A6,now())</span></p>
+  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
+  color:black;mso-color-alt:windowtext'>=interval@ms(A6,now())</span><span
+  lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
   </td>
  </tr>
 </table>
 
-<p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>This time 10,000 sequence numbers of employees are
-generated randomly. A4 finds the corresponding records according to these
-sequence numbers; A7 still uses <b style='mso-bidi-font-weight:normal'>find</b>
-function to find records. A5 and A8 compute respectively the time the two methods
-take:</span></p>
+<p class=T-ParCxSpFirst style='margin-bottom:0cm;mso-add-space:auto;text-align:
+justify;text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>This
+time 10,000 sequence numbers of employees are generated randomly. A4 finds the
+corresponding records according to these sequence numbers; A7 still uses <b
+style='mso-bidi-font-weight:normal'>find</b> function to find records. A5 and
+A8 compute respectively the time the two methods take:</span></p>
 
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
-#0400'><img border=0 width=100 height=41
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
+lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=100 height=41
 src="Tutorial.files/image205.png" v:shapes="_x0000_i1561"></span><span
 lang=EN-US><span style='mso-spacerun:yes'>&nbsp; </span></span><span
 lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=100 height=41
 src="Tutorial.files/image465.png" v:shapes="_x0000_i1562"></span></p>
 
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>You see that it is much faster to locate records using
-sequence numbers directly. Because this method doesn¡¯t compare field values,
-nor does it compute the hash values and create an index table. The query
-results in A4 and A7 are same:</span></p>
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
+lang=EN-US>You see that it is much faster to locate records using sequence
+numbers directly. Because this method doesn¡¯t compare field values, nor does it
+compute the hash values and create an index table. The query results in A4 and
+A7 are same:</span></p>
 
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
-#0400'><img border=0 width=500 height=230
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
+lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=500 height=230
 src="Tutorial.files/image467.png" v:shapes="_x0000_i1563"></span></p>
 
-<p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>Thus you need to weigh the pros and cons when trying
-to increase efficiency by creating an index table for a table sequence¡¯s
-primary key in esProc.</span></p>
+<p class=T-ParCxSpLast style='margin-bottom:0cm;mso-add-space:auto;text-align:
+justify;text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>Thus
+you need to weigh the pros and cons when trying to increase efficiency by
+creating an index table for a table sequence¡¯s primary key in esProc.</span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="102.html">Next</a></div>
@@ -315,9 +333,12 @@ primary key in esProc.</span></p>
 	</div>
 	<div id="footer">	
 		
-		
-    <div class="copyright"> Copyright&reg; 2021 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+		<div class="copyright"> Copyright&reg; 2021 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+      </a></div> 
+        <!--
+		<div class="copyright"> Copyright&reg; 2017 <a href="http://www.yimming.com" target="_Blank"> Beijing Yimming Ltd. Co. 
       </a></div>
+	  -->
 	</div>
 </div>
 

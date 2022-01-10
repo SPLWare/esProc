@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>T.alter( F:x,…;F’,… )</title>
+<title>T.alter( F i ,…; F’ i ,… )</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,73 +13,66 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h3 style='text-align:justify;text-justify:inter-ideograph'><span lang=EN-US>T.alter(<i>F:x,…;F’,…</i>)<a
-name="T_alter_F_x_F"></a></span></h3></div>
+	<div id="centent-title"><h2><span lang=EN-US>T.alter(<i><span style='color:black'>F<sub>i</sub></span></i><span
+style='color:black;mso-bidi-font-style:italic'>,…;<i>F’<sub>i</sub></i>,…</span>)</span><a
+name="T_alter_Fi_Fi"></a><a name=alter></a><span
+lang=EN-US style='mso-fareast-font-family:宋体;color:black'></span></h2></div>
 	<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
 style='font-size:14.0pt;color:black'>Description:</span></b></p>
 
 <p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
-style='color:black'>Alter one or more fields in an entity table.</span></p>
+style='color:black'>The function alters fields in a table sequence. </span></p>
 
 <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
 style='font-size:14.0pt;color:black'>Syntax:</span></b></p>
 
 <p class=MsoNormal style='text-indent:21.0pt'><span class=code><span
-lang=EN-US style='font-family:"Times New Roman","serif";color:black'>T.alter(</span></span><i><span
-lang=EN-US style='color:black'>F:x</span></i><span lang=EN-US style='color:
-black;mso-bidi-font-style:italic'>,…;<i>F’</i>,…</span><span class=code><span
-lang=EN-US style='font-family:"Times New Roman","serif";color:black'>)</span></span></p>
+lang=EN-US style='font-family:"Times New Roman",serif;color:black'>T.alter(</span></span><i><span
+lang=EN-US style='color:black'>F<sub>i</sub></span></i><span lang=EN-US
+style='color:black;mso-bidi-font-style:italic'>,…;<i>F’<sub>i</sub></i>,…</span><span
+class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+color:black'>)</span></span></p>
 
 <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
 style='font-size:14.0pt;color:black'>Note:</span></b></p>
 
 <p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
-style='color:black'>The function, supported only when a table is of columnar
-storage, adds a field <i>F</i> to entity table/multi-zone entity table <i>T</i>
-and deletes an old field <i>F’</i>. Values of the new field are obtained by
-calculating expression <i>x</i> and populated to the table. The dimension and
-sorting field before it must not be modified.</span></p>
+style='color:black'>The function modifies fields of table sequence <i>T</i>
+according to the specified order <i>Fi,…</i>, and arranges the other fields in
+their original order. Add parameter <i>F<sub>i </sub></i>as a new field if
+there isn’t such a field in the table sequence; parameter <i>F’<sub>I </sub></i>is
+the field to be deleted. </span></p>
 
 <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
 style='font-size:14.0pt;color:black'>Parameters:</span></b></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:10.5pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ style='margin-left:21.3pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=52 valign=top style='width:31.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US style='color:black'>T</span></span></p>
+  <td width=41 valign=top style='width:31.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=var2><span lang=EN-US style='color:black'>T</span></span></p>
   </td>
-  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US style='color:black'>An entity
-  table/multi-zone entity table</span></p>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='color:black'>A table sequence</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=52 valign=top style='width:31.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i><span lang=EN-US style='color:black'>F</span></i><span
-  class=var1><span lang=EN-US style='color:black'></span></span></p>
+  <td width=41 valign=top style='width:31.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US style='color:black'>F<sub>i</sub></span></i><span
+  class=var2><span lang=EN-US style='color:black'></span></span></p>
   </td>
-  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US style='color:black'>Name of the
-  to-be-added field</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:2'>
-  <td width=52 valign=top style='width:31.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i><span lang=EN-US style='color:black'>x</span></i></p>
-  </td>
-  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US style='color:black'>An expression</span></p>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='color:black'>Field name</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
-  <td width=52 valign=top style='width:31.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i><span lang=EN-US style='color:black'>F’</span></i><span
-  class=var1><span lang=EN-US style='color:black'></span></span></p>
+ <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes'>
+  <td width=41 valign=top style='width:31.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US style='color:black'>F’<sub>i</sub></span></i><span
+  class=var2><span lang=EN-US style='color:black'></span></span></p>
   </td>
-  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US style='color:black'>An existing field</span></p>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='color:black'>Field name</span></p>
   </td>
  </tr>
 </table>
@@ -88,127 +81,133 @@ style='font-size:14.0pt;color:black'>Parameters:</span></b></p>
 style='font-size:14.0pt;color:black'>Return value:</span></b></p>
 
 <p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
-style='color:black'>An entity table/multi-zone entity table</span></p>
+style='color:black'>A table sequence</span></p>
 
 <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
 style='font-size:14.0pt;color:black'>Example:</span></b></p>
 
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
- style='margin-left:16.6pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=697
+ style='margin-left:17.9pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
  mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;height:14.6pt'>
-  <td width=43 valign=top style='width:26.05pt;border:solid #A6A6A6 1.0pt;
-  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm;
-  height:14.6pt'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=31 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
+  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US style='color:black'>&nbsp;</span></p>
   </td>
-  <td width=389 valign=top style='width:233.55pt;border:solid #A6A6A6 1.0pt;
+  <td width=323 valign=top style='width:241.9pt;border:solid #A6A6A6 1.0pt;
   border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:14.6pt'>
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman","serif"'>A</span></span></p>
+  lang=EN-US style='font-family:"Times New Roman",serif;color:black'>A</span></span></p>
   </td>
-  <td width=957 valign=top style='width:574.05pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:14.6pt'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:1;height:15.0pt'>
-  <td width=43 valign=top style='width:26.05pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:15.0pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>1</span></span></p>
-  </td>
-  <td width=389 valign=top style='width:233.55pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:15.0pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=file(&quot;emp.ctx&quot;)</span></span></p>
-  </td>
-  <td width=957 valign=top style='width:574.05pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:15.0pt'>
-  <p class=MsoNormal><span lang=EN-US>An existing composite table file<b
-  style='mso-bidi-font-weight:normal'></b></span></p>
+  <td width=344 valign=top style='width:258.25pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=EN-US
+  style='color:black'>&nbsp;</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:2;height:14.6pt'>
-  <td width=43 valign=top style='width:26.05pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:1'>
+  <td width=31 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:14.6pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>2</span></span></p>
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  color:black'>1</span></span></p>
   </td>
-  <td width=389 valign=top style='width:233.55pt;border-top:none;border-left:
+  <td width=323 valign=top style='width:241.9pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:14.6pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=A1.open()</span></span></p>
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=var2><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US style='color:black;font-style:normal'>=demo.query(&quot;select
+  class,studentid,subject,score from scores&quot;)</span></b></span></p>
   </td>
-  <td width=957 valign=top style='width:574.05pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:14.6pt'>
-  <p class=MsoNormal><span lang=EN-US>Open the composite table’s base table<b
-  style='mso-bidi-font-weight:normal'></b></span></p>
+  <td width=344 valign=top style='width:258.25pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=EN-US
+  style='color:black'>The <i>scores</i> table contains columns as follows:</span></p>
+  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=zh-CN
+  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=265 height=150
+  src="Function_Reference.files/image076.jpg" v:shapes="图片_x0020_15"></span><span
+  lang=EN-US style='color:black'></span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:3;height:14.6pt'>
-  <td width=43 valign=top style='width:26.05pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:2'>
+  <td width=31 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:14.6pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>3</span></span></p>
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  color:black'>2</span></span></p>
   </td>
-  <td width=389 valign=top style='width:233.55pt;border-top:none;border-left:
+  <td width=323 valign=top style='width:241.9pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:14.6pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=A2.cursor().fetch()</span></span></p>
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=var2><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US style='color:black;font-style:normal'>=A1.alter(classname;CLASS)</span></b></span></p>
   </td>
-  <td width=957 valign=top style='width:574.05pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:14.6pt'>
-  <p class=MsoNormal><span lang=EN-US>Query data in the base table</span></p>
-  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'><img border=0 width=284 height=263
-  src="Function_Reference.files/image076.jpg" v:shapes="_x0000_i1070"></span><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US></span></b></p>
+  <td width=344 valign=top style='width:258.25pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=EN-US
+  style='color:black'>Add a new field classname to A1’s table sequence and
+  deletes CLASS field</span></p>
+  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=zh-CN
+  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=264 height=128
+  src="Function_Reference.files/image078.jpg" v:shapes="图片_x0020_19"></span><span
+  lang=EN-US style='color:black'></span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:4;height:14.6pt'>
-  <td width=43 valign=top style='width:26.05pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:3;height:17.25pt'>
+  <td width=31 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:14.6pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>4</span></span></p>
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:17.25pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  color:black'>3</span></span></p>
   </td>
-  <td width=389 valign=top style='width:233.55pt;border-top:none;border-left:
+  <td width=323 valign=top style='width:241.9pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:14.6pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=A2.alter(NEW_Salary:SALARY+1000;GENDER)</span></span></p>
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:17.25pt'>
+  <p class=MsoNormal><span class=var2><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US style='color:black;font-style:normal'>=A2.alter(classname,STUDENTID,gender)</span></b></span></p>
   </td>
-  <td width=957 valign=top style='width:574.05pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:14.6pt'>
-  <p class=MsoNormal><span lang=EN-US>Add NEW_Salary field to the base table
-  through calculating expression SALARY+1000, and delete existing field GENDER</span></p>
+  <td width=344 valign=top style='width:258.25pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:17.25pt'>
+  <p class=MsoNormal style='mso-line-height-alt:0pt'><span class=var2><span
+  lang=EN-US style='color:black;mso-bidi-font-weight:bold;font-style:normal'>Add
+  a new field gender to A2’s table sequence according to the specied position
+  and arrange the rest of the fields after the specific ones in their original
+  order</span></span><span lang=EN-US style='color:black'></span></p>
+  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=zh-CN
+  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=294 height=127
+  src="Function_Reference.files/image080.jpg" v:shapes="图片_x0020_21"></span><span
+  lang=EN-US style='color:black'></span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:5;mso-yfti-lastrow:yes;height:15.0pt'>
-  <td width=43 valign=top style='width:26.05pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes;height:17.25pt'>
+  <td width=31 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:15.0pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>5</span></span></p>
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:17.25pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  color:black'>4</span></span></p>
   </td>
-  <td width=389 valign=top style='width:233.55pt;border-top:none;border-left:
+  <td width=323 valign=top style='width:241.9pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:15.0pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=A2.cursor().fetch()</span></span></p>
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:17.25pt'>
+  <p class=MsoNormal><span class=var2><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US style='color:black;font-style:normal'>=A3.alter(;gender,classname)</span></b></span></p>
   </td>
-  <td width=957 valign=top style='width:574.05pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:15.0pt'>
-  <p class=MsoNormal><span lang=EN-US>Check the base table and we can see that
-  the new field is added and GENDER field is deleted</span></p>
-  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'><img border=0 width=289 height=263
-  src="Function_Reference.files/image078.jpg" v:shapes="图片_x0020_12"></span><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US></span></b></p>
+  <td width=344 valign=top style='width:258.25pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:17.25pt'>
+  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=EN-US
+  style='color:black'>Delete </span><span class=var2><span lang=EN-US
+  style='color:black;mso-bidi-font-weight:bold;font-style:normal'>gender field and
+  classname field</span></span><span lang=EN-US style='color:black'></span></p>
+  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=zh-CN
+  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=175 height=122
+  src="Function_Reference.files/image082.jpg" v:shapes="图片_x0020_24"></span><span
+  lang=EN-US style='color:black'></span></p>
   </td>
  </tr>
 </table>
@@ -219,7 +218,8 @@ style='font-size:14.0pt;color:black'>Example:</span></b></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="45.html">T.alter( F i ,…; F’ i ,… )</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="21.html">Functions</a></span></li>
+<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="47.html">T.alter( F:x,…;F’,… )</a></span></li>
 </div>
 	</div>
 	<div id="footer">	

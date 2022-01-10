@@ -13,14 +13,14 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h3 style='text-align:justify;text-justify:inter-ideograph'><a name=channelcs2></a><span
+	<div id="centent-title"><h3 style='text-align:justify;text-justify:inter-ideograph'><a name=channelcs1></a><span
 lang=EN-US>channel(<i style='mso-bidi-font-style:normal'>cs</i>)</span><a
-name=channel3></a></h3></div>
+name=channel2></a></h3></div>
 	<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
 style='font-size:14.0pt'>Description:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Create a cluster
-channel and push data in a specified cluster cursor into it.</span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Create a channel
+and push data in a specified cursor into it.</span></p>
 
 <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
 style='font-size:14.0pt'>Syntax:</span></b><span lang=EN-US> </span></p>
@@ -29,7 +29,7 @@ style='font-size:14.0pt'>Syntax:</span></b><span lang=EN-US> </span></p>
  style='margin-left:19.85pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'>
-  <td width=156 valign=top style='width:93.55pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <td width=125 valign=top style='width:93.55pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal style='tab-stops:35.2pt 48.75pt'><b style='mso-bidi-font-weight:
   normal'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>channel</span></b><span
   lang=EN-US style='mso-bidi-font-size:10.5pt'>(<i style='mso-bidi-font-style:
@@ -39,12 +39,12 @@ style='font-size:14.0pt'>Syntax:</span></b><span lang=EN-US> </span></p>
 </table>
 
 <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Note: </span></b></p>
+style='font-size:14.0pt'>Note:</span></b></p>
 
 <p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>The function
-creates a cluster channel as synchronously segmented as cluster cursor <i
-style='mso-bidi-font-style:normal'>cs</i>, and pushes data in <i
-style='mso-bidi-font-style:normal'>cs</i> into it.</span></p>
+creates a channel, pushes data in cursor <i style='mso-bidi-font-style:normal'>cs</i>
+into it, and returns a channel. This is equivalent to <i style='mso-bidi-font-style:
+normal'>cs.push(channel())</i>. </span></p>
 
 <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
 style='font-size:14.0pt'>Parameters:</span></b></p>
@@ -53,226 +53,174 @@ style='font-size:14.0pt'>Parameters:</span></b></p>
  style='margin-left:21.3pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'>
-  <td width=64 valign=top style='width:38.25pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <td width=51 valign=top style='width:38.25pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US>cs</span></i><i><span
   lang=EN-US style='mso-bidi-font-size:10.5pt'></span></i></p>
   </td>
-  <td width=593 valign=top style='width:355.8pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>A cluster cursor</span></p>
+  <td width=474 valign=top style='width:355.8pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>A cursor</span></p>
   </td>
  </tr>
 </table>
 
 <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Return value:</span></b><span lang=EN-US> </span></p>
+style='font-size:14.0pt'>Return value: </span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>A cluster
-channel</span></p>
-
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Example:</span></b><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US style='font-size:12.0pt;mso-bidi-font-size:10.0pt'></span></b></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>A channel</span></p>
 
 <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>&nbsp;</span></b></p>
+style='font-size:14.0pt'>Example:</span></b></p>
 
 <table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
- style='margin-left:18.55pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ style='margin-left:19.85pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
  mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;height:7.2pt'>
-  <td width=26 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
+  <td width=21 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
   mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm;
   height:7.2pt'>
   <p class=MsoNormal align=center style='text-align:center'><span lang=EN-US>&nbsp;</span></p>
   </td>
-  <td width=353 valign=top style='width:212.0pt;border:solid #A6A6A6 1.0pt;
+  <td width=284 valign=top style='width:212.65pt;border:solid #A6A6A6 1.0pt;
   border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:7.2pt'>
   <p class=MsoNormal align=center style='text-align:center'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>A</span></b></p>
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='color:black;
+  mso-color-alt:windowtext'>A</span><span lang=EN-US></span></b></p>
   </td>
-  <td width=413 valign=top style='width:248.05pt;border:none;mso-border-left-alt:
+  <td width=330 valign=top style='width:247.4pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:7.2pt'>
   <p class=MsoNormal align=center style='text-align:center'><span lang=EN-US>&nbsp;</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1;height:7.2pt'>
-  <td width=26 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
+  <td width=21 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:7.2pt'>
   <p class=MsoNormal align=center style='text-align:center'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>1</span></b></p>
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='color:black;
+  mso-color-alt:windowtext'>1</span><span lang=EN-US></span></b></p>
   </td>
-  <td width=353 valign=top style='width:212.0pt;border-top:none;border-left:
+  <td width=284 valign=top style='width:212.65pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:7.2pt'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=file(&quot;emp1.ctx&quot;,&quot;192.168.0.119:8281&quot;)</span></b></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=demo.cursor(&quot;select
+  * from SCORES where CLASS = 'Class one'&quot;)</span></b></p>
   </td>
-  <td width=413 valign=top style='width:248.05pt;border:none;mso-border-left-alt:
+  <td width=330 valign=top style='width:247.4pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:7.2pt'>
   <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:2;height:7.2pt'>
-  <td width=26 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
+  <td width=21 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:7.2pt'>
   <p class=MsoNormal align=center style='text-align:center'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>2</span></b></p>
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='color:black;
+  mso-color-alt:windowtext'>2</span><span lang=EN-US></span></b></p>
   </td>
-  <td width=353 valign=top style='width:212.0pt;border-top:none;border-left:
+  <td width=284 valign=top style='width:212.65pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:7.2pt'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=A1.open()</span></b></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=channel(A1)</span></b></p>
   </td>
-  <td width=413 valign=top style='width:248.05pt;border:none;mso-border-left-alt:
+  <td width=330 valign=top style='width:247.4pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:7.2pt'>
   <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'>Open a cluster table</span></p>
+  mso-fareast-language:#0400'>Create a channel<span
+  style='mso-spacerun:yes'>&nbsp; </span>and be ready to push data in A1¡¯s
+  cursor into the new channel, which is equivalent to <i style='mso-bidi-font-style:
+  normal'>=A1.push(channel())</i>, and return a channel</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:3;height:7.2pt'>
-  <td width=26 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
+  <td width=21 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:7.2pt'>
   <p class=MsoNormal align=center style='text-align:center'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>3</span></b></p>
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='color:black;
+  mso-color-alt:windowtext'>3</span><span lang=EN-US></span></b></p>
   </td>
-  <td width=353 valign=top style='width:212.0pt;border-top:none;border-left:
+  <td width=284 valign=top style='width:212.65pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:7.2pt'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=A2.attach(table1)</span></b></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>&gt;A2.select(STUDENTID==1)</span></b></p>
   </td>
-  <td width=413 valign=top style='width:248.05pt;border:none;mso-border-left-alt:
+  <td width=330 valign=top style='width:247.4pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:7.2pt'>
   <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'>Retrieve cluster entity table <i
-  style='mso-bidi-font-style:normal'>table1</i></span></p>
+  mso-fareast-language:#0400'>Attach a computation to A2¡¯s channel</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:4;height:7.2pt'>
-  <td width=26 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
+  <td width=21 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:7.2pt'>
   <p class=MsoNormal align=center style='text-align:center'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>4</span></b></p>
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='color:black;
+  mso-color-alt:windowtext'>4</span><span lang=EN-US></span></b></p>
   </td>
-  <td width=353 valign=top style='width:212.0pt;border-top:none;border-left:
+  <td width=284 valign=top style='width:212.65pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:7.2pt'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=A3.memory()</span></b></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>&gt;A2.fetch()</span></b></p>
   </td>
-  <td width=413 valign=top style='width:248.05pt;border:none;mso-border-left-alt:
+  <td width=330 valign=top style='width:247.4pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:7.2pt'>
   <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'>Create a cluster memory table</span></p>
+  mso-fareast-language:#0400'>Keep data in A2¡¯s channel</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:5;height:7.2pt'>
-  <td width=26 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
+  <td width=21 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:7.2pt'>
   <p class=MsoNormal align=center style='text-align:center'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>5</span></b></p>
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='color:black;
+  mso-color-alt:windowtext'>5</span><span lang=EN-US></span></b></p>
   </td>
-  <td width=353 valign=top style='width:212.0pt;border-top:none;border-left:
+  <td width=284 valign=top style='width:212.65pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:7.2pt'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=A4.cursor()</span></b></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=A1.fetch()</span></b></p>
   </td>
-  <td width=413 valign=top style='width:248.05pt;border:none;mso-border-left-alt:
+  <td width=330 valign=top style='width:247.4pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:7.2pt'>
   <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'>Return a cluster cursor</span></p>
+  mso-fareast-language:#0400'>Push data into A2¡¯s channel when data is fetched
+  from the cursor</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:6;height:7.2pt'>
-  <td width=26 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:6;mso-yfti-lastrow:yes;height:7.2pt'>
+  <td width=21 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:7.2pt'>
   <p class=MsoNormal align=center style='text-align:center'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>6</span></b></p>
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='color:black;
+  mso-color-alt:windowtext'>6</span><span lang=EN-US></span></b></p>
   </td>
-  <td width=353 valign=top style='width:212.0pt;border-top:none;border-left:
+  <td width=284 valign=top style='width:212.65pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:7.2pt'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=channel(A5)</span></b></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=A2.result()</span></b></p>
   </td>
-  <td width=413 valign=top style='width:248.05pt;border:none;mso-border-left-alt:
+  <td width=330 valign=top style='width:247.4pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:7.2pt'>
   <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'>Be ready to push data in A5¡¯s cursor into A6¡¯s
-  channel and return a cluster channel</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:7;height:7.2pt'>
-  <td width=26 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:7.2pt'>
-  <p class=MsoNormal align=center style='text-align:center'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>7</span></b></p>
-  </td>
-  <td width=353 valign=top style='width:212.0pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:7.2pt'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=A6.fetch()</span></b></p>
-  </td>
-  <td width=413 valign=top style='width:248.05pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:7.2pt'>
+  mso-fareast-language:#0400'>Get data from A2¡¯s channel</span></p>
   <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'>Keep data of the cluster channel</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:8;height:7.2pt'>
-  <td width=26 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:7.2pt'>
-  <p class=MsoNormal align=center style='text-align:center'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>8</span></b></p>
-  </td>
-  <td width=353 valign=top style='width:212.0pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:7.2pt'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=A5.fetch()</span></b></p>
-  </td>
-  <td width=413 valign=top style='width:248.05pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:7.2pt'>
-  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'>&nbsp;</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:9;mso-yfti-lastrow:yes;height:7.2pt'>
-  <td width=26 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:7.2pt'>
-  <p class=MsoNormal align=center style='text-align:center'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>9</span></b></p>
-  </td>
-  <td width=353 valign=top style='width:212.0pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:7.2pt'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=A6.result()</span></b></p>
-  </td>
-  <td width=413 valign=top style='width:248.05pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:7.2pt'>
-  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'>Get data from the cluster channel</span></p>
+  mso-fareast-language:#0400'><img border=0 width=314 height=85
+  src="Function_Reference.files/image177.jpg" v:shapes="_x0000_i1132"></span></p>
   </td>
  </tr>
 </table>
-
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>&nbsp;</span></b></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="94.html">Next</a></div>
@@ -280,7 +228,7 @@ style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>&nbsp;</span></b></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:ËÎÌå;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="90.html">channel()</a></span></li>
+		<div class="related-list"><li><span style='font-family:ËÎÌå;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="91.html">channel()</a></span></li>
 </div>
 	</div>
 	<div id="footer">	

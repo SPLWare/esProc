@@ -13,24 +13,23 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h3 style='margin:0cm;margin-bottom:.0001pt;text-indent:0cm;line-height:normal;
-mso-list:none;tab-stops:-179.95pt 64.2pt'><span lang=EN-US style='font-size:
-14.0pt;mso-bidi-font-size:10.0pt'>7.10.4 Applications
+	<div id="centent-title"><h3 style='margin:0cm;text-indent:0cm;line-height:normal;mso-list:none;
+tab-stops:-179.95pt 64.2pt'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:10.0pt'>7.10.4 Applications
 </span></h3></div>
-	<p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>By invoking a cellset file, the cross-cellset cursor
-performs computations and returns result as a cursor. This allows us to use the
-cellset file to deal with some complicated data processing tasks. During the
-big data analysis and processing, for example, text data is often used as the
-source data. But as it is not as orderly as the database data, it should be
-rearranged by a routine. In this case the cross-cellset cursor is used to call
-this separate routine.</span></p>
+	<p class=T-ParCxSpFirst style='margin-bottom:0cm;mso-add-space:auto;text-align:
+justify;text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>By
+invoking a cellset file, the cross-cellset cursor performs computations and
+returns result as a cursor. This allows us to use the cellset file to deal with
+some complicated data processing tasks. During the big data analysis and
+processing, for example, text data is often used as the source data. But as it
+is not as orderly as the database data, it should be rearranged by a routine.
+In this case the cross-cellset cursor is used to call this separate routine.</span></p>
 
-<p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span class=T-CodeChar><i style='mso-bidi-font-style:normal'><span
-lang=EN-US style='font-family:"Times New Roman",serif;font-weight:normal'>D:\files\EmployeeMul.txt</span></i></span><span
+<p class=T-ParCxSpLast style='margin-bottom:0cm;mso-add-space:auto;text-align:
+justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
+class=T-CodeChar><i style='mso-bidi-font-style:normal'><span lang=EN-US
+style='font-family:"Times New Roman",serif;font-weight:normal'>D:\files\EmployeeMul.txt</span></i></span><span
 class=T-CodeChar><span lang=EN-US style='font-family:"Times New Roman",serif;
 font-weight:normal'> contains employee data, as shown below:</span></span><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US></span></b></p>
@@ -526,28 +525,27 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US></span></b></p>
  </tr>
 </table>
 
-<p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>In this text file, data of each employee hold
-information of ID, name, gender, entry date, birthday and city, etc. in three
-lines. It is common for a text file to save a record with many fields in
-multiple lines. The task is to find the data of Philadelphian employees from
-the file.</span></p>
+<p class=T-ParCxSpFirst style='margin-bottom:0cm;mso-add-space:auto;text-align:
+justify;text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>In
+this text file, data of each employee hold information of ID, name, gender,
+entry date, birthday and city, etc. in three lines. It is common for a text
+file to save a record with many fields in multiple lines. The task is to find
+the data of Philadelphian employees from the file.</span></p>
 
-<p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>The text file cannot be used directly for computation,
-because esProc requires that each line of data in the file be a record when
-directly importing text data as a table sequence or a cursor. Data in the<b
-style='mso-bidi-font-weight:normal'> </b></span><span class=T-CodeChar><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
-font-weight:normal'>EmployeeMul.txt</span></i></span><span class=T-CodeChar><span
-lang=EN-US style='font-family:"Times New Roman",serif;font-weight:normal'> </span></span><span
-lang=EN-US>file</span><span class=T-CodeChar><span lang=EN-US style='font-family:
-"Times New Roman",serif;font-weight:normal'> should be reorganized before the
-file can be used for analysis and computing. The program will become more
-intuitive if a cross-cellset cursor is used. First you can reorganize the data
-in <i style='mso-bidi-font-style:normal'>mergeRecord.dfx</i>:</span></span><b
+<p class=T-ParCxSpLast style='margin-bottom:0cm;mso-add-space:auto;text-align:
+justify;text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>The
+text file cannot be used directly for computation, because esProc requires that
+each line of data in the file be a record when directly importing text data as
+a table sequence or a cursor. Data in the<b style='mso-bidi-font-weight:normal'>
+</b></span><span class=T-CodeChar><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='font-family:"Times New Roman",serif;font-weight:normal'>EmployeeMul.txt</span></i></span><span
+class=T-CodeChar><span lang=EN-US style='font-family:"Times New Roman",serif;
+font-weight:normal'> </span></span><span lang=EN-US>file</span><span
+class=T-CodeChar><span lang=EN-US style='font-family:"Times New Roman",serif;
+font-weight:normal'> should be reorganized before the file can be used for
+analysis and computing. The program will become more intuitive if a
+cross-cellset cursor is used. First you can reorganize the data in <i
+style='mso-bidi-font-style:normal'>mergeRecord.dfx</i>:</span></span><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US> </span></b></p>
 
 <table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
@@ -572,7 +570,8 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US> </span></b></p>
   height:14.15pt'>
   <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
   text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
-  style='font-size:9.0pt'>A</span></p>
+  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>A</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
   </td>
   <td width=132 style='width:99.2pt;border-top:solid black 1.0pt;border-left:
   none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
@@ -581,7 +580,8 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US> </span></b></p>
   height:14.15pt'>
   <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
   text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
-  style='font-size:9.0pt'>B</span></p>
+  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>B</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
   </td>
   <td width=189 valign=top style='width:5.0cm;border-top:solid black 1.0pt;
   border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
@@ -590,7 +590,8 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US> </span></b></p>
   height:14.15pt'>
   <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
   text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
-  style='font-size:9.0pt'>C</span></p>
+  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>C</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
   </td>
   <td width=102 valign=top style='width:76.55pt;border-top:solid black 1.0pt;
   border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
@@ -599,7 +600,8 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US> </span></b></p>
   height:14.15pt'>
   <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
   text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
-  style='font-size:9.0pt'>D</span></p>
+  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>D</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
@@ -610,7 +612,8 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US> </span></b></p>
   height:14.15pt'>
   <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
   text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
-  style='font-size:9.0pt'>1</span></p>
+  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>1</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
   </td>
   <td width=227 colspan=2 style='width:170.05pt;border-top:none;border-left:
   none;border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
@@ -619,7 +622,9 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US> </span></b></p>
   #B2B2B2;mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
   .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
   <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
-  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif'>=file(&quot;EmployeeMul.txt&quot;).cursor()</span></p>
+  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
+  color:black;mso-color-alt:windowtext'>=file(&quot;EmployeeMul.txt&quot;).cursor()</span><span
+  lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
   </td>
   <td width=189 style='width:5.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid windowtext .5pt;
@@ -647,7 +652,8 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US> </span></b></p>
   height:14.15pt'>
   <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
   text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
-  style='font-size:9.0pt'>2</span></p>
+  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>2</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
   </td>
   <td width=94 style='width:70.85pt;border-top:none;border-left:none;
   border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
@@ -664,16 +670,18 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US> </span></b></p>
   mso-border-alt:solid #B2B2B2 .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
   <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
-  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif'>=A2.
-  step(3,1)</span></p>
+  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
+  color:black;mso-color-alt:windowtext'>=A2. step(3,1)</span><span lang=EN-US
+  style='font-family:"Times New Roman",serif'></span></p>
   </td>
   <td width=189 style='width:5.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
   mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
   background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
   <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
-  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif'>=A2.
-  step(3,2)</span></p>
+  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
+  color:black;mso-color-alt:windowtext'>=A2. step(3,2)</span><span lang=EN-US
+  style='font-family:"Times New Roman",serif'></span></p>
   </td>
   <td width=102 style='width:76.55pt;border-top:none;border-left:none;
   border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
@@ -681,8 +689,9 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US> </span></b></p>
   mso-border-alt:solid #B2B2B2 .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
   <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
-  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif'>=A2.
-  step(3,3)</span></p>
+  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
+  color:black;mso-color-alt:windowtext'>=A2. step(3,3)</span><span lang=EN-US
+  style='font-family:"Times New Roman",serif'></span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:3;page-break-inside:avoid;height:14.15pt'>
@@ -693,7 +702,8 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US> </span></b></p>
   height:14.15pt'>
   <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
   text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
-  style='font-size:9.0pt'>3</span></p>
+  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>3</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
   </td>
   <td width=94 style='width:70.85pt;border-top:none;border-left:none;
   border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
@@ -710,14 +720,18 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US> </span></b></p>
   mso-border-alt:solid #B2B2B2 .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
   <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
-  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif'>=join@p(B2:L1;C2:L2;D2:L3)</span></p>
+  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
+  color:black;mso-color-alt:windowtext'>=join@p(B2:L1;C2:L2;D2:L3)</span><span
+  lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
   </td>
   <td width=189 style='width:5.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
   mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
   background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
   <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
-  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif'>=B3.new(L1.#1:ID,L1.#2:Name,L1.#3:Gender,L1.#4:EntryDate,L2.#1:Birthday,L2.#2:City,L2.#3:State,L2.#4:Dept,L3.#1:SuperiorID,L3.#2:MailAdress)</span></p>
+  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
+  color:black;mso-color-alt:windowtext'>=B3.new(L1.#1:ID,L1.#2:Name,L1.#3:Gender,L1.#4:EntryDate,L2.#1:Birthday,L2.#2:City,L2.#3:State,L2.#4:Dept,L3.#1:SuperiorID,L3.#2:MailAdress)</span><span
+  lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
   </td>
   <td width=102 style='width:76.55pt;border-top:none;border-left:none;
   border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
@@ -737,7 +751,8 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US> </span></b></p>
   height:14.15pt'>
   <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
   text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
-  style='font-size:9.0pt'>4</span></p>
+  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>4</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
   </td>
   <td width=94 style='width:70.85pt;border-top:none;border-left:none;
   border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
@@ -754,8 +769,9 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US> </span></b></p>
   mso-border-alt:solid #B2B2B2 .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
   <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
-  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif'>return
-  C3</span></p>
+  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
+  color:black;mso-color-alt:windowtext'>return C3</span><span lang=EN-US
+  style='font-family:"Times New Roman",serif'></span></p>
   </td>
   <td width=189 style='width:5.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
@@ -776,64 +792,58 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US> </span></b></p>
  </tr>
 </table>
 
-<p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>A1 imports the text file as a cursor. A2 fetches
-5000*3 records each time and joins the fetched data within its statement block.
-For every three records, B2, C2 and D2 respectively fetch the first one, the
-second one and the third one to create a record sequence. The table sequences
-they create with the last loop are separately shown below: </span></p>
+<p class=T-ParCxSpFirst style='margin-bottom:0cm;mso-add-space:auto;text-align:
+justify;text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>A1
+imports the text file as a cursor. A2 fetches 5000*3 records each time and
+joins the fetched data within its statement block. For every three records, B2,
+C2 and D2 respectively fetch the first one, the second one and the third one to
+create a record sequence. The table sequences they create with the last loop
+are separately shown below: </span></p>
 
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
-#0400'><img border=0 width=500 height=230
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
+lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=500 height=230
 src="Tutorial.files/image783.png" v:shapes="_x0000_i1892"></span></p>
 
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
-#0400'><img border=0 width=500 height=230
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
+lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=500 height=230
 src="Tutorial.files/image784.png" v:shapes="_x0000_i1893"></span></p>
 
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
-#0400'><img border=0 width=500 height=230
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
+lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=500 height=230
 src="Tutorial.files/image785.png" v:shapes="_x0000_i1894"></span></p>
 
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>Only the first two columns of data in D2 are valid. B3
-joins the three table sequences using <b style='mso-bidi-font-weight:normal'>join@p</b>
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
+lang=EN-US>Only the first two columns of data in D2 are valid. B3 joins the
+three table sequences using <b style='mso-bidi-font-weight:normal'>join@p</b>
 function: </span></p>
 
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
-#0400'><img border=0 width=500 height=230
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
+lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=500 height=230
 src="Tutorial.files/image786.png" v:shapes="_x0000_i1895"></span></p>
 
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>After all this C3 can generate the desirable records
-using the source data: </span></p>
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
+lang=EN-US>After all this C3 can generate the desirable records using the
+source data: </span></p>
 
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
-#0400'><img border=0 width=500 height=230
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
+lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=500 height=230
 src="Tutorial.files/image787.png" v:shapes="_x0000_i1896"></span></p>
 
-<p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>Then the computation required by the task will be
-easily handled by invoking </span><span class=T-CodeChar><i style='mso-bidi-font-style:
-normal'><span lang=EN-US style='font-family:"Times New Roman",serif;font-weight:
-normal'>mergeRecord.dfx</span></i></span><span class=T-CodeChar><span
-lang=EN-US style='font-family:"Times New Roman",serif;font-weight:normal'>
-through the cross-cellset cursor. </span></span><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US></span></b></p>
+<p class=T-ParCxSpLast style='margin-bottom:0cm;mso-add-space:auto;text-align:
+justify;text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>Then
+the computation required by the task will be easily handled by invoking </span><span
+class=T-CodeChar><i style='mso-bidi-font-style:normal'><span lang=EN-US
+style='font-family:"Times New Roman",serif;font-weight:normal'>mergeRecord.dfx</span></i></span><span
+class=T-CodeChar><span lang=EN-US style='font-family:"Times New Roman",serif;
+font-weight:normal'> through the cross-cellset cursor. </span></span><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US></span></b></p>
 
 <table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
  style='margin-left:21.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
@@ -857,7 +867,8 @@ normal'><span lang=EN-US></span></b></p>
   height:14.15pt'>
   <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
   text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
-  style='font-size:9.0pt'>A</span></p>
+  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>A</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
@@ -868,7 +879,8 @@ normal'><span lang=EN-US></span></b></p>
   height:14.15pt'>
   <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
   text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
-  style='font-size:9.0pt'>1</span></p>
+  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>1</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
   </td>
   <td width=227 style='width:6.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid windowtext .5pt;
@@ -877,9 +889,11 @@ normal'><span lang=EN-US></span></b></p>
   #B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:.5pt;background:#FFFF99;
   padding:0cm 0cm 0cm 0cm;height:14.15pt'>
   <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
-  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif'>=cursor(&quot;<span
-  class=T-CodeChar><span style='mso-ansi-font-size:9.0pt;mso-bidi-font-size:
-  9.0pt;font-family:"Times New Roman",serif;font-weight:normal'>mergeRecord</span></span>.dfx&quot;)</span></p>
+  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
+  color:black;mso-color-alt:windowtext'>=cursor(&quot;<span class=T-CodeChar><span
+  style='mso-ansi-font-size:9.0pt;mso-bidi-font-size:9.0pt;font-family:"Times New Roman",serif;
+  font-weight:normal'>mergeRecord</span></span>.dfx&quot;)</span><span
+  lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
@@ -890,7 +904,8 @@ normal'><span lang=EN-US></span></b></p>
   height:14.15pt'>
   <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
   text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
-  style='font-size:9.0pt'>2</span></p>
+  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>2</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
   </td>
   <td width=227 style='width:6.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
@@ -898,7 +913,9 @@ normal'><span lang=EN-US></span></b></p>
   mso-border-left-alt:solid windowtext .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
   <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
-  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif'>=A1.select(City==&quot;Philadelphia&quot;)</span></p>
+  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
+  color:black;mso-color-alt:windowtext'>=A1.select(City==&quot;Philadelphia&quot;)</span><span
+  lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes;page-break-inside:avoid;
@@ -910,7 +927,8 @@ normal'><span lang=EN-US></span></b></p>
   height:14.15pt'>
   <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
   text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
-  style='font-size:9.0pt'>3</span></p>
+  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>3</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
   </td>
   <td width=227 style='width:6.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
@@ -918,57 +936,57 @@ normal'><span lang=EN-US></span></b></p>
   mso-border-left-alt:solid windowtext .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
   <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
-  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif'>=A2.fetch()</span></p>
+  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
+  color:black;mso-color-alt:windowtext'>=A2.fetch()</span><span lang=EN-US
+  style='font-family:"Times New Roman",serif'></span></p>
   </td>
  </tr>
 </table>
 
-<p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>A cross-cellset cursor allows preprocessing the
-complicated multi-line records in a sub-cellset, making the program focused,
-concise and readable. It is particularly handy in performing analysis and
-computation based on a big data file. Data volume is not large in this example,
-so A3 fetches all data of Philadelphian employees at once: </span></p>
+<p class=T-ParCxSpFirst style='margin-bottom:0cm;mso-add-space:auto;text-align:
+justify;text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>A
+cross-cellset cursor allows preprocessing the complicated multi-line records in
+a sub-cellset, making the program focused, concise and readable. It is
+particularly handy in performing analysis and computation based on a big data
+file. Data volume is not large in this example, so A3 fetches all data of
+Philadelphian employees at once: </span></p>
 
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
-#0400'><img border=0 width=500 height=230
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
+lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=500 height=230
 src="Tutorial.files/image788.png" v:shapes="_x0000_i1897"></span></p>
 
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>Sometimes the text data has a more complicated format
-besides the need of combining multiple lines of data into a record, as the
-following </span><span class=T-CodeChar><i style='mso-bidi-font-style:normal'><span
-lang=EN-US style='font-family:"Times New Roman",serif;font-weight:normal'>D:\files\mailInfo.txt</span></i></span><span
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
+lang=EN-US>Sometimes the text data has a more complicated format besides the
+need of combining multiple lines of data into a record, as the following </span><span
+class=T-CodeChar><i style='mso-bidi-font-style:normal'><span lang=EN-US
+style='font-family:"Times New Roman",serif;font-weight:normal'>D:\files\mailInfo.txt</span></i></span><span
 class=T-CodeChar><span lang=EN-US style='font-family:"Times New Roman",serif;
 font-weight:normal'> shows:</span></span><span class=T-CodeChar><span
 lang=EN-US style='font-family:"Times New Roman",serif'> </span></span></p>
 
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
-#0400'><img border=0 width=500 height=300
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
+lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=500 height=300
 src="Tutorial.files/image789.png" v:shapes="_x0000_i1898"></span></p>
 
-<p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>The file contains emails including recipient
-addresses, sender addresses and contents, which start respectively with </span><span
+<p class=T-ParCxSpLast style='margin-bottom:0cm;mso-add-space:auto;text-align:
+justify;text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>The
+file contains emails including recipient addresses, sender addresses and
+contents, which start respectively with </span><span class=T-CodeChar><span
+lang=EN-US style='font-family:"Times New Roman",serif;font-weight:normal'>RECIPIENT:</span></span><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US>, </span></b><span
 class=T-CodeChar><span lang=EN-US style='font-family:"Times New Roman",serif;
-font-weight:normal'>RECIPIENT:</span></span><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US>, </span></b><span class=T-CodeChar><span lang=EN-US
-style='font-family:"Times New Roman",serif;font-weight:normal'>SENDADDRESS:</span></span><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US> </span></b><span
-lang=EN-US>and </span><span class=T-CodeChar><span lang=EN-US style='font-family:
-"Times New Roman",serif;font-weight:normal'>CONTENT:. As the number of lines in
-each mail¡¯s content is different, it makes it impossible to import and combine
-a specified number of rows of data and to use them directly. Yet esProc
-supports the cross-cellset cursor through which data is allowed to be first
-reorganized in another cellset - <i style='mso-bidi-font-style:normal'>readMail.dfx</i>:
-</span></span><b style='mso-bidi-font-weight:normal'><span lang=EN-US></span></b></p>
+font-weight:normal'>SENDADDRESS:</span></span><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US> </span></b><span lang=EN-US>and </span><span
+class=T-CodeChar><span lang=EN-US style='font-family:"Times New Roman",serif;
+font-weight:normal'>CONTENT:. As the number of lines in each mail¡¯s content is
+different, it makes it impossible to import and combine a specified number of
+rows of data and to use them directly. Yet esProc supports the cross-cellset
+cursor through which data is allowed to be first reorganized in another cellset
+- <i style='mso-bidi-font-style:normal'>readMail.dfx</i>: </span></span><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US></span></b></p>
 
 <table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
  style='margin-left:21.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
@@ -992,7 +1010,8 @@ reorganized in another cellset - <i style='mso-bidi-font-style:normal'>readMail.
   height:14.15pt'>
   <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
   text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
-  style='font-size:9.0pt'>A</span></p>
+  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>A</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
   </td>
   <td width=202 style='width:151.2pt;border-top:solid black 1.0pt;border-left:
   none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
@@ -1001,7 +1020,8 @@ reorganized in another cellset - <i style='mso-bidi-font-style:normal'>readMail.
   height:14.15pt'>
   <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
   text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
-  style='font-size:9.0pt'>B</span></p>
+  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>B</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
   </td>
   <td width=170 valign=top style='width:127.6pt;border-top:solid black 1.0pt;
   border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
@@ -1010,7 +1030,8 @@ reorganized in another cellset - <i style='mso-bidi-font-style:normal'>readMail.
   height:14.15pt'>
   <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
   text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
-  style='font-size:9.0pt'>C</span></p>
+  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>C</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
@@ -1021,7 +1042,8 @@ reorganized in another cellset - <i style='mso-bidi-font-style:normal'>readMail.
   height:14.15pt'>
   <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
   text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
-  style='font-size:9.0pt'>1</span></p>
+  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>1</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
   </td>
   <td width=158 style='width:118.2pt;border-top:none;border-left:none;
   border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
@@ -1030,7 +1052,9 @@ reorganized in another cellset - <i style='mso-bidi-font-style:normal'>readMail.
   #B2B2B2;mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
   .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
   <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
-  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif'>=file(&quot;mailInfo.txt&quot;).cursor@s()</span></p>
+  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
+  color:black;mso-color-alt:windowtext'>=file(&quot;mailInfo.txt&quot;).cursor@s()</span><span
+  lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
   </td>
   <td width=202 style='width:151.2pt;border-top:none;border-left:none;
   border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
@@ -1057,7 +1081,8 @@ reorganized in another cellset - <i style='mso-bidi-font-style:normal'>readMail.
   height:14.15pt'>
   <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
   text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
-  style='font-size:9.0pt'>2</span></p>
+  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>2</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
   </td>
   <td width=158 style='width:118.2pt;border-top:none;border-left:none;
   border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
@@ -1074,7 +1099,9 @@ reorganized in another cellset - <i style='mso-bidi-font-style:normal'>readMail.
   mso-border-alt:solid #B2B2B2 .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
   <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
-  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif'>=C1+A2.(#1).concat(&quot;\r\n&quot;)</span></p>
+  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
+  color:black;mso-color-alt:windowtext'>=C1+A2.(#1).concat(&quot;\r\n&quot;)</span><span
+  lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
   </td>
   <td width=170 style='width:127.6pt;border-top:none;border-left:none;
   border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
@@ -1082,7 +1109,9 @@ reorganized in another cellset - <i style='mso-bidi-font-style:normal'>readMail.
   mso-border-alt:solid #B2B2B2 .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
   <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
-  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif'>=B2.split(&quot;RECIPIENT:&quot;)</span></p>
+  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
+  color:black;mso-color-alt:windowtext'>=B2.split(&quot;RECIPIENT:&quot;)</span><span
+  lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:3;page-break-inside:avoid;height:14.15pt'>
@@ -1093,7 +1122,8 @@ reorganized in another cellset - <i style='mso-bidi-font-style:normal'>readMail.
   height:14.15pt'>
   <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
   text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
-  style='font-size:9.0pt'>3</span></p>
+  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>3</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
   </td>
   <td width=158 style='width:118.2pt;border-top:none;border-left:none;
   border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
@@ -1110,8 +1140,9 @@ reorganized in another cellset - <i style='mso-bidi-font-style:normal'>readMail.
   mso-border-alt:solid #B2B2B2 .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
   <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
-  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif'>if
-  A1.fetch@0(1)</span></p>
+  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
+  color:black;mso-color-alt:windowtext'>if A1.fetch@0(1)</span><span
+  lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
   </td>
   <td width=170 style='width:127.6pt;border-top:none;border-left:none;
   border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
@@ -1119,7 +1150,9 @@ reorganized in another cellset - <i style='mso-bidi-font-style:normal'>readMail.
   mso-border-alt:solid #B2B2B2 .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
   <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
-  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif'>=C2.len()</span></p>
+  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
+  color:black;mso-color-alt:windowtext'>=C2.len()</span><span lang=EN-US
+  style='font-family:"Times New Roman",serif'></span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:4;page-break-inside:avoid;height:14.15pt'>
@@ -1130,7 +1163,8 @@ reorganized in another cellset - <i style='mso-bidi-font-style:normal'>readMail.
   height:14.15pt'>
   <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
   text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
-  style='font-size:9.0pt'>4</span></p>
+  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>4</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
   </td>
   <td width=158 style='width:118.2pt;border-top:none;border-left:none;
   border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
@@ -1165,7 +1199,8 @@ reorganized in another cellset - <i style='mso-bidi-font-style:normal'>readMail.
   height:14.15pt'>
   <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
   text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
-  style='font-size:9.0pt'>5</span></p>
+  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>5</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
   </td>
   <td width=158 style='width:118.2pt;border-top:none;border-left:none;
   border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
@@ -1200,7 +1235,8 @@ reorganized in another cellset - <i style='mso-bidi-font-style:normal'>readMail.
   height:14.15pt'>
   <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
   text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
-  style='font-size:9.0pt'>6</span></p>
+  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>6</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
   </td>
   <td width=158 style='width:118.2pt;border-top:none;border-left:none;
   border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
@@ -1234,7 +1270,8 @@ reorganized in another cellset - <i style='mso-bidi-font-style:normal'>readMail.
   height:14.15pt'>
   <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
   text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
-  style='font-size:9.0pt'>7</span></p>
+  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>7</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
   </td>
   <td width=158 style='width:118.2pt;border-top:none;border-left:none;
   border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
@@ -1251,7 +1288,9 @@ reorganized in another cellset - <i style='mso-bidi-font-style:normal'>readMail.
   mso-border-alt:solid #B2B2B2 .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
   <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
-  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif'>=C2.regex(&quot;(.+)[\\s\\S]+SENDADDRESS:(.+)[\\s\\S]+CONTENT:([\\s\\S]+)&quot;;Recipient,SendAddress,Content)</span></p>
+  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
+  color:black;mso-color-alt:windowtext'>=C2.regex(&quot;(.+)[\\s\\S]+SENDADDRESS:(.+)[\\s\\S]+CONTENT:([\\s\\S]+)&quot;;Recipient,SendAddress,Content)</span><span
+  lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
   </td>
   <td width=170 style='width:127.6pt;border-top:none;border-left:none;
   border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
@@ -1271,7 +1310,8 @@ reorganized in another cellset - <i style='mso-bidi-font-style:normal'>readMail.
   height:14.15pt'>
   <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
   text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
-  style='font-size:9.0pt'>8</span></p>
+  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>8</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
   </td>
   <td width=158 style='width:118.2pt;border-top:none;border-left:none;
   border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
@@ -1288,8 +1328,9 @@ reorganized in another cellset - <i style='mso-bidi-font-style:normal'>readMail.
   mso-border-alt:solid #B2B2B2 .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
   <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
-  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif'>return
-  B7</span></p>
+  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
+  color:black;mso-color-alt:windowtext'>return B7</span><span lang=EN-US
+  style='font-family:"Times New Roman",serif'></span></p>
   </td>
   <td width=170 style='width:127.6pt;border-top:none;border-left:none;
   border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
@@ -1302,24 +1343,24 @@ reorganized in another cellset - <i style='mso-bidi-font-style:normal'>readMail.
  </tr>
 </table>
 
-<p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>A1 creates a cursor based on the text file. B1 skips
-the first two lines of meaningless data. Since how many lines in the text file
-are needed to form a record can¡¯t be predetermined and thus needs extra
-consideration. C1 stores the unprocessed data left by each loop. </span></p>
+<p class=T-ParCxSpFirst style='margin-bottom:0cm;mso-add-space:auto;text-align:
+justify;text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>A1
+creates a cursor based on the text file. B1 skips the first two lines of
+meaningless data. Since how many lines in the text file are needed to form a
+record can¡¯t be predetermined and thus needs extra consideration. C1 stores the
+unprocessed data left by each loop. </span></p>
 
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>A2 runs a loop to fetch 5,000 rows from the cursor
-each time. B2 concatenates the fetched data into a big string, placing the
-unprocessed data left by the previous loop at the head of each batch of data.
-Since each email starts with </span><span class=T-CodeChar><span lang=EN-US
-style='font-family:"Times New Roman",serif;font-weight:normal'>RECIPIENT:, C2
-splits the big string into a sequence by it. The first member of the
-newly-created sequence will be an empty row and you cannot confirm if its last
-member has been processed. So the data will continue to be processed from the 3<sup>rd</sup>
-to the 7<sup>th</sup> line. B3 uses </span></span><span class=T-CodeChar><span
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
+lang=EN-US>A2 runs a loop to fetch 5,000 rows from the cursor each time. B2
+concatenates the fetched data into a big string, placing the unprocessed data
+left by the previous loop at the head of each batch of data. Since each email
+starts with </span><span class=T-CodeChar><span lang=EN-US style='font-family:
+"Times New Roman",serif;font-weight:normal'>RECIPIENT:, C2 splits the big
+string into a sequence by it. The first member of the newly-created sequence
+will be an empty row and you cannot confirm if its last member has been
+processed. So the data will continue to be processed from the 3<sup>rd</sup> to
+the 7<sup>th</sup> line. B3 uses </span></span><span class=T-CodeChar><span
 lang=EN-US style='font-family:"Times New Roman",serif'>@0</span></span><span
 class=T-CodeChar><span lang=EN-US style='font-family:"Times New Roman",serif;
 font-weight:normal'> option in</span></span><span class=T-CodeChar><span
@@ -1332,49 +1373,45 @@ cursor data has all been fetched out, rather than really fetching data from the
 cursor. If not all has been fetched out, the remaining data will be stored in
 C1. For the first batch of data, results of B2 and C2 are as follows:</span></p>
 
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
-#0400'><img border=0 width=481 height=41
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
+lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=481 height=41
 src="Tutorial.files/image790.png" v:shapes="_x0000_i1899"></span></p>
 
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
-#0400'><img border=0 width=500 height=230
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
+lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=500 height=230
 src="Tutorial.files/image791.png" v:shapes="_x0000_i1900"></span></p>
 
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>B7 performs regular expression parsing on each row of
-data in C2 using <b style='mso-bidi-font-weight:normal'>regex</b> function.
-According to another two key words </span><span class=T-CodeChar><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
-font-weight:normal'>SENDADDRESS:</span></i></span><span lang=EN-US> and<i
-style='mso-bidi-font-style:normal'> </i></span><span class=T-CodeChar><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
-font-weight:normal'>CONTENT:</span></i></span><span lang=EN-US>, it fetches the
-desirable data and makes them the field values. As the regular expression
-string used here is long, it is splitted into multiple smaller strings for
-easier viewing. The following figure shows the parsing result of the first
-batch of data in B7:<b style='mso-bidi-font-weight:normal'> </b></span></p>
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
+lang=EN-US>B7 performs regular expression parsing on each row of data in C2
+using <b style='mso-bidi-font-weight:normal'>regex</b> function. According to
+another two key words </span><span class=T-CodeChar><i style='mso-bidi-font-style:
+normal'><span lang=EN-US style='font-family:"Times New Roman",serif;font-weight:
+normal'>SENDADDRESS:</span></i></span><span lang=EN-US> and<i style='mso-bidi-font-style:
+normal'> </i></span><span class=T-CodeChar><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='font-family:"Times New Roman",serif;font-weight:normal'>CONTENT:</span></i></span><span
+lang=EN-US>, it fetches the desirable data and makes them the field values. As
+the regular expression string used here is long, it is splitted into multiple
+smaller strings for easier viewing. The following figure shows the parsing
+result of the first batch of data in B7:<b style='mso-bidi-font-weight:normal'>
+</b></span></p>
 
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
-#0400'><img border=0 width=500 height=230
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
+lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=500 height=230
 src="Tutorial.files/image792.png" v:shapes="_x0000_i1901"></span></p>
 
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>B8 returns the parsing result of each batch to the
-main program. </span></p>
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
+lang=EN-US>B8 returns the parsing result of each batch to the main program. </span></p>
 
-<p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>Despite the complexity of the parsing process, the
-main program fetches data simply using a cross-cellset cursor, whose use is
-nothing different from an ordinary cursor. </span></p>
+<p class=T-ParCxSpLast style='margin-bottom:0cm;mso-add-space:auto;text-align:
+justify;text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>Despite
+the complexity of the parsing process, the main program fetches data simply
+using a cross-cellset cursor, whose use is nothing different from an ordinary
+cursor. </span></p>
 
 <table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
  style='margin-left:21.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
@@ -1398,7 +1435,8 @@ nothing different from an ordinary cursor. </span></p>
   height:14.15pt'>
   <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
   text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
-  style='font-size:9.0pt'>A</span></p>
+  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>A</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
@@ -1409,7 +1447,8 @@ nothing different from an ordinary cursor. </span></p>
   height:14.15pt'>
   <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
   text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
-  style='font-size:9.0pt'>1</span></p>
+  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>1</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
   </td>
   <td width=227 style='width:6.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid windowtext .5pt;
@@ -1418,10 +1457,12 @@ nothing different from an ordinary cursor. </span></p>
   #B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:.5pt;background:#FFFF99;
   padding:0cm 0cm 0cm 0cm;height:14.15pt'>
   <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
-  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif'>=cursor(&quot;</span><span
+  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
+  color:black;mso-color-alt:windowtext'>=cursor(&quot;</span><span
   class=T-CodeChar><span lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman",serif;
-  font-weight:normal'>readMail</span></span><span lang=EN-US style='font-family:
-  "Times New Roman",serif'>.dfx&quot;)</span></p>
+  color:black;mso-color-alt:windowtext;font-weight:normal'>readMail</span></span><span
+  lang=EN-US style='font-family:"Times New Roman",serif;color:black;mso-color-alt:
+  windowtext'>.dfx&quot;)</span><span lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
@@ -1432,7 +1473,8 @@ nothing different from an ordinary cursor. </span></p>
   height:14.15pt'>
   <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
   text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
-  style='font-size:9.0pt'>2</span></p>
+  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>2</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
   </td>
   <td width=227 style='width:6.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
@@ -1440,7 +1482,9 @@ nothing different from an ordinary cursor. </span></p>
   mso-border-left-alt:solid windowtext .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
   <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
-  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif'>=A1.fetch(1000)</span></p>
+  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
+  color:black;mso-color-alt:windowtext'>=A1.fetch(1000)</span><span lang=EN-US
+  style='font-family:"Times New Roman",serif'></span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes;page-break-inside:avoid;
@@ -1452,7 +1496,8 @@ nothing different from an ordinary cursor. </span></p>
   height:14.15pt'>
   <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
   text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
-  style='font-size:9.0pt'>3</span></p>
+  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>3</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
   </td>
   <td width=227 style='width:6.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
@@ -1465,14 +1510,13 @@ nothing different from an ordinary cursor. </span></p>
  </tr>
 </table>
 
-<p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>A2 fetches the first 1,000 rows:</span></p>
+<p class=T-ParCxSpFirst style='margin-bottom:0cm;mso-add-space:auto;text-align:
+justify;text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>A2
+fetches the first 1,000 rows:</span></p>
 
-<p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
-#0400'><img border=0 width=500 height=230
+<p class=T-ParCxSpLast style='margin-bottom:0cm;mso-add-space:auto;text-align:
+justify;text-justify:inter-ideograph;text-indent:21.0pt'><span lang=zh-CN
+style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=500 height=230
 src="Tutorial.files/image793.png" v:shapes="_x0000_i1902"></span></p>
 	</div>
 	<div id="previous-next">
@@ -1486,9 +1530,12 @@ src="Tutorial.files/image793.png" v:shapes="_x0000_i1902"></span></p>
 	</div>
 	<div id="footer">	
 		
-		
-    <div class="copyright"> Copyright&reg; 2021 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+		<div class="copyright"> Copyright&reg; 2021 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+      </a></div> 
+        <!--
+		<div class="copyright"> Copyright&reg; 2017 <a href="http://www.yimming.com" target="_Blank"> Beijing Yimming Ltd. Co. 
       </a></div>
+	  -->
 	</div>
 </div>
 

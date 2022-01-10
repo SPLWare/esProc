@@ -13,23 +13,22 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h3 style='margin:0cm;margin-bottom:.0001pt;text-indent:0cm;line-height:normal;
-mso-list:none;tab-stops:-179.95pt 64.2pt'><span lang=EN-US style='font-size:
-14.0pt;mso-bidi-font-size:10.0pt'>10.3.3 Handling computation-intensive tasks</span></h3></div>
-	<p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>In the previous examples, cluster computing is used to
-handle data-intensive computational tasks. By processing part of the data in
-each process, it makes the most use of the limited memory. In other scenarios,
-the task involves extremely complicated computation that can also be split
-apart through cluster computing into multiple subtasks that will be distributed
-among multiple nodes for execution. Results of the subtasks will be merged by
-the main node.</span></p>
+	<div id="centent-title"><h3 style='margin:0cm;text-indent:0cm;line-height:normal;mso-list:none;
+tab-stops:-179.95pt 64.2pt'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:10.0pt'>10.3.3 Handling computation-intensive tasks</span></h3></div>
+	<p class=T-ParCxSpFirst style='margin-bottom:0cm;mso-add-space:auto;text-align:
+justify;text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>In
+the previous examples, cluster computing is used to handle data-intensive
+computational tasks. By processing part of the data in each process, it makes
+the most use of the limited memory. In other scenarios, the task involves
+extremely complicated computation that can also be split apart through cluster
+computing into multiple subtasks that will be distributed among multiple nodes
+for execution. Results of the subtasks will be merged by the main node.</span></p>
 
-<p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>Take the following subroutine <i style='mso-bidi-font-style:
-normal'>CalcPi.dfx </i>as an example:</span></p>
+<p class=T-ParCxSpLast style='margin-bottom:0cm;mso-add-space:auto;text-align:
+justify;text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>Take
+the following subroutine <i style='mso-bidi-font-style:normal'>CalcPi.dfx </i>as
+an example:</span></p>
 
 <table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
  style='margin-left:20.35pt;border-collapse:collapse;mso-table-layout-alt:fixed;
@@ -53,7 +52,8 @@ normal'>CalcPi.dfx </i>as an example:</span></p>
   height:14.15pt'>
   <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
   mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
-  lang=EN-US style='font-size:9.0pt'>A</span></p>
+  lang=EN-US style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>A</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
   </td>
   <td width=151 style='width:4.0cm;border-top:solid black 1.0pt;border-left:
   none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
@@ -62,7 +62,8 @@ normal'>CalcPi.dfx </i>as an example:</span></p>
   height:14.15pt'>
   <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
   mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
-  lang=EN-US style='font-size:9.0pt'>B</span></p>
+  lang=EN-US style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>B</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
   </td>
   <td width=151 style='width:4.0cm;border-top:solid black 1.0pt;border-left:
   none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
@@ -71,7 +72,8 @@ normal'>CalcPi.dfx </i>as an example:</span></p>
   height:14.15pt'>
   <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
   mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
-  lang=EN-US style='font-size:9.0pt'>C</span></p>
+  lang=EN-US style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>C</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
@@ -82,7 +84,8 @@ normal'>CalcPi.dfx </i>as an example:</span></p>
   height:14.15pt'>
   <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
   mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
-  lang=EN-US style='font-size:9.0pt'>1</span></p>
+  lang=EN-US style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>1</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
   </td>
   <td width=151 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid windowtext .5pt;
@@ -114,26 +117,33 @@ normal'>CalcPi.dfx </i>as an example:</span></p>
   height:14.15pt'>
   <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
   mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
-  lang=EN-US style='font-size:9.0pt'>2</span></p>
+  lang=EN-US style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>2</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
   </td>
   <td width=151 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
   mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid #B2B2B2 .5pt;
   mso-border-left-alt:solid windowtext .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>for A1</span></p>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;color:black;
+  mso-color-alt:windowtext'>for A1</span><span lang=EN-US style='font-size:
+  9.0pt'></span></p>
   </td>
   <td width=151 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
   mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
   background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=rand()</span></p>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;color:black;
+  mso-color-alt:windowtext'>=rand()</span><span lang=EN-US style='font-size:
+  9.0pt'></span></p>
   </td>
   <td width=151 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
   mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
   background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=rand()</span></p>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;color:black;
+  mso-color-alt:windowtext'>=rand()</span><span lang=EN-US style='font-size:
+  9.0pt'></span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:3;page-break-inside:avoid;height:14.15pt'>
@@ -144,7 +154,8 @@ normal'>CalcPi.dfx </i>as an example:</span></p>
   height:14.15pt'>
   <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
   mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
-  lang=EN-US style='font-size:9.0pt'>3</span></p>
+  lang=EN-US style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>3</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
   </td>
   <td width=151 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
@@ -158,7 +169,9 @@ normal'>CalcPi.dfx </i>as an example:</span></p>
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
   mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
   background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=B2*B2+C2*C2</span></p>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;color:black;
+  mso-color-alt:windowtext'>=B2*B2+C2*C2</span><span lang=EN-US
+  style='font-size:9.0pt'></span></p>
   </td>
   <td width=151 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
@@ -176,7 +189,8 @@ normal'>CalcPi.dfx </i>as an example:</span></p>
   height:14.15pt'>
   <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
   mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
-  lang=EN-US style='font-size:9.0pt'>4</span></p>
+  lang=EN-US style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>4</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
   </td>
   <td width=151 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
@@ -190,7 +204,9 @@ normal'>CalcPi.dfx </i>as an example:</span></p>
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
   mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
   background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>if B3&lt;1</span></p>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;color:black;
+  mso-color-alt:windowtext'>if B3&lt;1</span><span lang=EN-US style='font-size:
+  9.0pt'></span></p>
   </td>
   <td width=151 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
@@ -208,7 +224,8 @@ normal'>CalcPi.dfx </i>as an example:</span></p>
   height:14.15pt'>
   <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
   mso-pagination:widow-orphan;vertical-align:middle'><span lang=EN-US
-  style='font-size:9.0pt'>5</span></p>
+  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>5</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
   </td>
   <td width=151 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
@@ -222,7 +239,9 @@ normal'>CalcPi.dfx </i>as an example:</span></p>
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
   mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
   background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>return B1</span></p>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;color:black;
+  mso-color-alt:windowtext'>return B1</span><span lang=EN-US style='font-size:
+  9.0pt'></span></p>
   </td>
   <td width=151 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
@@ -234,38 +253,37 @@ normal'>CalcPi.dfx </i>as an example:</span></p>
  </tr>
 </table>
 
-<p class=T-Par style='margin-bottom:0cm;margin-bottom:.0001pt;mso-add-space:
-auto;text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
-lang=EN-US>Parameter <i style='mso-bidi-font-style:normal'>arg1</i> is used to
-record serial numbers of subtasks:</span></p>
+<p class=T-Par style='margin-bottom:0cm;mso-add-space:auto;text-align:justify;
+text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>Parameter <i
+style='mso-bidi-font-style:normal'>arg1</i> is used to record serial numbers of
+subtasks:</span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
 lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=446 height=110
-src="Tutorial.files/image935.png" v:shapes="_x0000_i2030"></span></p>
+src="Tutorial.files/image937.png" v:shapes="_x0000_i2030"></span></p>
 
-<p class=T-Par style='margin-bottom:0cm;margin-bottom:.0001pt;mso-add-space:
-auto;text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
-lang=EN-US>This subroutine is created to estimate the value of ¦Ð - ratio of
-circumference to diameter - using probability theory. Look at the following
-picture:</span></p>
+<p class=T-Par style='margin-bottom:0cm;mso-add-space:auto;text-align:justify;
+text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>This
+subroutine is created to estimate the value of ¦Ð - ratio of circumference to
+diameter - using probability theory. Look at the following picture:</span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
 lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=111 height=111
-src="Tutorial.files/image936.png" v:shapes="Í¼Æ¬_x0020_54"></span></p>
+src="Tutorial.files/image938.png" v:shapes="Í¼Æ¬_x0020_54"></span></p>
 
-<p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>There is the quarter-circle in a square with side
-length of 1. The area of the square is 1 and the area of the sector is ¦Ð/4. The
-probability of a point of the square that falls in the sector is the ratio of
-their areas, i.e.¦Ð/4. This subroutine randomly generates 1,000,000 points whose
-x, y coordinates are within the interval [0,1), computes the distance of each
-of these points from the origin, records the number of points that fall in the
-sector and then estimates the value of ¦Ð.</span></p>
+<p class=T-ParCxSpFirst style='margin-bottom:0cm;mso-add-space:auto;text-align:
+justify;text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>There
+is the quarter-circle in a square with side length of 1. The area of the square
+is 1 and the area of the sector is ¦Ð/4. The probability of a point of the
+square that falls in the sector is the ratio of their areas, i.e.¦Ð/4. This
+subroutine randomly generates 1,000,000 points whose x, y coordinates are
+within the interval [0,1), computes the distance of each of these points from
+the origin, records the number of points that fall in the sector and then estimates
+the value of ¦Ð.</span></p>
 
-<p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>Here¡¯s the main program:</span></p>
+<p class=T-ParCxSpLast style='margin-bottom:0cm;mso-add-space:auto;text-align:
+justify;text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>Here¡¯s
+the main program:</span></p>
 
 <table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
  style='margin-left:20.35pt;border-collapse:collapse;mso-table-layout-alt:fixed;
@@ -287,7 +305,7 @@ mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
   mso-border-bottom-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
   <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph'><span
-  lang=EN-US>A</span></p>
+  lang=EN-US style='color:black;mso-color-alt:windowtext'>A</span></p>
   </td>
   <td width=151 style='width:4.0cm;border-top:solid black 1.0pt;border-left:
   none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
@@ -295,7 +313,7 @@ mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
   mso-border-bottom-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
   <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph'><span
-  lang=EN-US>B</span></p>
+  lang=EN-US style='color:black;mso-color-alt:windowtext'>B</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
@@ -305,7 +323,7 @@ mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
   mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
   <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph'><span
-  lang=EN-US>1</span></p>
+  lang=EN-US style='color:black;mso-color-alt:windowtext'>1</span></p>
   </td>
   <td width=325 style='width:243.8pt;border-top:none;border-left:none;
   border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
@@ -332,7 +350,7 @@ mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
   mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
   <p class=TabLaEnd style='text-align:justify;text-justify:inter-ideograph'><span
-  lang=EN-US>2</span></p>
+  lang=EN-US style='color:black;mso-color-alt:windowtext'>2</span></p>
   </td>
   <td width=325 style='width:243.8pt;border-top:none;border-left:none;
   border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
@@ -347,8 +365,9 @@ mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
   mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
   background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
   <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>=movefile@cy(A2;&quot;/&quot;,
-  A1)</span></p>
+  lang=EN-US style='font-family:"Times New Roman",serif;color:black;mso-color-alt:
+  windowtext'>=movefile@cy(A2;&quot;/&quot;, A1)</span><span lang=EN-US
+  style='font-family:"Times New Roman",serif'></span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes;page-break-inside:avoid;
@@ -359,7 +378,7 @@ mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
   mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
   <p class=TabLaEnd style='text-align:justify;text-justify:inter-ideograph'><span
-  lang=EN-US>2</span></p>
+  lang=EN-US style='color:black;mso-color-alt:windowtext'>2</span></p>
   </td>
   <td width=325 style='width:243.8pt;border-top:none;border-left:none;
   border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
@@ -367,63 +386,66 @@ mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
   mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
   background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
   <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>=callx(A2, to(B1);A1)</span></p>
+  lang=EN-US style='font-family:"Times New Roman",serif;color:black;mso-color-alt:
+  windowtext'>=callx(A2, to(B1);A1)</span><span lang=EN-US style='font-family:
+  "Times New Roman",serif'></span></p>
   </td>
   <td width=151 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
   mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
   background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
   <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>=A3.sum()*4/(1000000d*B1)</span></p>
+  lang=EN-US style='font-family:"Times New Roman",serif;color:black;mso-color-alt:
+  windowtext'>=A3.sum()*4/(1000000d*B1)</span><span lang=EN-US
+  style='font-family:"Times New Roman",serif'></span></p>
   </td>
  </tr>
 </table>
 
-<p class=T-Par style='margin-bottom:0cm;margin-bottom:.0001pt;mso-add-space:
-auto;text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
-lang=EN-US>Start node ¢ó first and its main path is <i>D:/files/node3</i>. The
-above code, before calling the node, first copies the necessary dfx script onto
-all ndoes using <i>movefile()</i> function that uses @c option and @y option to
-disable deletion of the source file and enable overwriting a namesake file. By
-invoking the subroutine 20 times, the cluster computing distributes the
-computations of 20,000,000 points among processes (they are those used in the
-previous section). Distribution and execution information of the tasks can be
-viewed on each clustered server¡¯s System Output window:</span></p>
+<p class=T-Par style='margin-bottom:0cm;mso-add-space:auto;text-align:justify;
+text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>Start node ¢ó
+first and its main path is <i>D:/files/node3</i>. The above code, before
+calling the node, first copies the necessary dfx script onto all ndoes using <i>movefile()</i>
+function that uses @c option and @y option to disable deletion of the source
+file and enable overwriting a namesake file. By invoking the subroutine 20
+times, the cluster computing distributes the computations of 20,000,000 points
+among processes (they are those used in the previous section). Distribution and
+execution information of the tasks can be viewed on each clustered server¡¯s System
+Output window:</span></p>
 
-<p class=MsoNormalCxSpFirst style='text-indent:21.0pt;mso-char-indent-count:
-2.0'><span lang=EN-US style='mso-no-proof:yes'><img border=0 width=400 height=535
-src="Tutorial.files/image937.png" v:shapes="_x0000_i2032"></span></p>
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US style='mso-no-proof:yes'><img border=0 width=400 height=535
+src="Tutorial.files/image939.png" v:shapes="_x0000_i2032"></span></p>
 
-<p class=MsoNormalCxSpMiddle style='text-indent:21.0pt;mso-char-indent-count:
-2.0'><span lang=EN-US style='mso-no-proof:yes'><img border=0 width=400 height=535
-src="Tutorial.files/image938.png" v:shapes="_x0000_i2033"></span></p>
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US style='mso-no-proof:yes'><img border=0 width=400 height=535
+src="Tutorial.files/image940.png" v:shapes="_x0000_i2033"></span></p>
 
-<p class=MsoNormalCxSpLast style='text-indent:21.0pt;mso-char-indent-count:
-2.0'><span lang=EN-US style='mso-no-proof:yes'><img border=0 width=400 height=535
-src="Tutorial.files/image939.png" v:shapes="_x0000_i2034"></span></p>
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US style='mso-no-proof:yes'><img border=0 width=400 height=535
+src="Tutorial.files/image941.png" v:shapes="_x0000_i2034"></span></p>
 
-<p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>If the number of tasks exceeds the maximum task number
-the nodes can handle and processes on all nodes have already received their
-tasks, the subsequent tasks need to wait to be distributed until a process is
-available. In this case a task will be given to any idle process, so
-distribution solutions may vary. Each task computation process is independent.
-A task distributed later than another one may be accomplished earlier, which
-will not affect the final result of cluster computing.</span></p>
+<p class=T-ParCxSpFirst style='margin-bottom:0cm;mso-add-space:auto;text-align:
+justify;text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>If
+the number of tasks exceeds the maximum task number the nodes can handle and
+processes on all nodes have already received their tasks, the subsequent tasks
+need to wait to be distributed until a process is available. In this case a
+task will be given to any idle process, so distribution solutions may vary.
+Each task computation process is independent. A task distributed later than
+another one may be accomplished earlier, which will not affect the final result
+of cluster computing.</span></p>
 
-<p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>The approximate value of ¦Ð is computed in B2. Because
-the computation is performed based on probability, results are slightly
-different from each other.</span></p>
+<p class=T-ParCxSpLast style='margin-bottom:0cm;mso-add-space:auto;text-align:
+justify;text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>The
+approximate value of ¦Ð is computed in B2. Because the computation is performed
+based on probability, results are slightly different from each other.</span></p>
 
-<p class=MsoNormalCxSpFirst style='text-indent:21.0pt;mso-char-indent-count:
-2.0'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=100 height=41
-src="Tutorial.files/image940.png" v:shapes="_x0000_i2035"></span></p>
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=100 height=41
+src="Tutorial.files/image942.png" v:shapes="_x0000_i2035"></span></p>
 
-<p class=MsoNormalCxSpLast style='text-indent:21.0pt;mso-char-indent-count:
-2.0'><span lang=EN-US>&nbsp;</span></p>
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US>&nbsp;</span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="246.html">Next</a></div>
@@ -436,9 +458,12 @@ src="Tutorial.files/image940.png" v:shapes="_x0000_i2035"></span></p>
 	</div>
 	<div id="footer">	
 		
-		
-    <div class="copyright"> Copyright&reg; 2021 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+		<div class="copyright"> Copyright&reg; 2021 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+      </a></div> 
+        <!--
+		<div class="copyright"> Copyright&reg; 2017 <a href="http://www.yimming.com" target="_Blank"> Beijing Yimming Ltd. Co. 
       </a></div>
+	  -->
 	</div>
 </div>
 

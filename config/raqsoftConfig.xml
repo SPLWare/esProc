@@ -1,32 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Config Version="2">
+<!--Note: In order to avoid problems while the program is running, the charset of raqsoftConfig.xml must be UTF-8 -->
+<Config Version="1">
     <Runtime>
         <DBList>
+		  <!-- database type number: UNKNOWN:0; ORACLE:1; SQLSVR:2; SYBASE:3; SQLANY:4; INFMIX:5; FOXPRO:6; ACCESS:7; FOXBAS:8; DB2:9; MYSQL:10; KINGBASE:11; DERBY:12; HSQL:13; TERADATA:14;POSTGRES:15;DATALOGIC:16;IMPALA:17; ESSBASE:101;-->
         </DBList>
-        <Esproc>
+		<Esproc>
             <charSet>GBK</charSet>
-            <dfxPathList>
-                <dfxPath>demo</dfxPath>
-            </dfxPathList>
+            <splPathList>
+                <splPath>demo</splPath>
+            </splPathList>
             <dateFormat>yyyy-MM-dd</dateFormat>
             <timeFormat>HH:mm:ss</timeFormat>
             <dateTimeFormat>yyyy-MM-dd HH:mm:ss</dateTimeFormat>
-            <mainPath/>
-            <tempPath/>
+            <mainPath />
+            <tempPath />
             <bufSize>65536</bufSize>
-            <localHost/>
+            <localHost></localHost>
             <localPort>0</localPort>
-            <parallelNum/>
-            <cursorParallelNum/>
-            <blockSize/>
-            <nullStrings>nan,null,n/a</nullStrings>
-            <fetchCount/>
-            <extLibsPath/>
+            <logLevel>INFO</logLevel>
+            <callxParallel>1</callxParallel>
+            <nodeParallel>1</nodeParallel>
+            <zoneLockTryTime>3600</zoneLockTryTime>
         </Esproc>
-        <Logger>
-            <Level>INFO</Level>
-        </Logger>
     </Runtime>
-    <JDBC>
-    </JDBC>
+	<JDBC>		
+		<load>Runtime,Server</load>			
+		<gateway></gateway>	
+	</JDBC>	
 </Config>

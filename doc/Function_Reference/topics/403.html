@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>isolate()</title>
+<title>f .iselect()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,8 +13,861 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h2><a name="_isupper()"></a><a name="_isolate()"></a><span lang=EN-US>isolate()</span></h2></div>
-	<p class=MsoNormal><span lang=EN-US>Here’s how to use isolate() function.</span></p>
+	<div id="centent-title"><h3 style='text-align:justify;text-justify:inter-ideograph'><a name="f_iselect"></a><i
+style='mso-bidi-font-style:normal'><span lang=EN-US>f</span></i><span
+lang=EN-US>.iselect()</span></h3></div>
+	<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%'>Description:</span></b></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Create a cursor
+based on an ordered file and return it.</span></p>
+
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%'>Syntax:</span></b></p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=174 valign=top style='width:130.15pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>f</span></i><b style='mso-bidi-font-weight:
+  normal'><span lang=EN-US style='mso-fareast-font-family:黑体'>.iselect(</span></b><i><span
+  lang=EN-US>A</span></i><span lang=EN-US style='mso-bidi-font-style:italic'>,<i>x</i>;<i>F<sub>i</sub></i>,…;<i>s</i></span><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'>)</span></b></p>
+  </td>
+  <td width=406 valign=top style='width:304.8pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Retrieve records from file <i
+  style='mso-bidi-font-style:normal'>f</i> that is ordered by field/expression <i
+  style='mso-bidi-font-style:normal'>x</i>, according to the criterion that the
+  values of <i style='mso-bidi-font-style:normal'>x</i> should be members of
+  sequence <i style='mso-bidi-font-style:normal'>A</i> </span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
+  <td width=174 valign=top style='width:130.15pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>f</span></i><b style='mso-bidi-font-weight:
+  normal'><span lang=EN-US style='mso-fareast-font-family:黑体'>.iselect(</span></b><i><span
+  lang=EN-US>a:b,x</span></i><span lang=EN-US style='mso-bidi-font-style:italic'>;<i>F<sub>i</sub></i>,…;<i>s</i></span><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'>)</span></b><i style='mso-bidi-font-style:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'></span></i></p>
+  </td>
+  <td width=406 valign=top style='width:304.8pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Rtrieve records from file <i
+  style='mso-bidi-font-style:normal'>f</i> that is ordered by field/expression<i
+  style='mso-bidi-font-style:normal'> x</i>, according to the criterion that
+  the values of <i style='mso-bidi-font-style:normal'>x</i> should fall in the
+  interval [<i style='mso-bidi-font-style:normal'>a:b</i>]</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%'>Note:</span></b></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:
+exactly'><span lang=EN-US>The function retrieves records from file <i
+style='mso-bidi-font-style:normal'>f</i> that is ordered by <i
+style='mso-bidi-font-style:normal'>x</i> field, according to the criterion that
+the values of <i style='mso-bidi-font-style:normal'>x</i> should be members of
+sequence <i style='mso-bidi-font-style:normal'>A</i>, or fall in the interval [<i
+style='mso-bidi-font-style:normal'>a:b</i>], and returns the records as a
+cursor. </span></p>
+
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%'>Parameters:</span></b></p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=51 valign=top style='width:38.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US
+  style='mso-bidi-font-weight:bold'>f</span></i><i><span lang=EN-US
+  style='mso-bidi-font-size:10.5pt'></span></i></p>
+  </td>
+  <td width=484 valign=top style='width:362.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>A file object</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=51 valign=top style='width:38.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US>A</span></i></p>
+  </td>
+  <td width=484 valign=top style='width:362.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-size:10.5pt;
+  mso-bidi-font-style:italic'>A single value or a sequence</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=51 valign=top style='width:38.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US>a</span></i></p>
+  </td>
+  <td width=484 valign=top style='width:362.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-weight:bold'>Field
+  value</span><span lang=EN-US style='mso-bidi-font-size:10.5pt;mso-bidi-font-style:
+  italic'></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3'>
+  <td width=51 valign=top style='width:38.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US>b</span></i></p>
+  </td>
+  <td width=484 valign=top style='width:362.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-weight:bold'>Field
+  value</span><span lang=EN-US style='mso-bidi-font-size:10.5pt;mso-bidi-font-style:
+  italic'></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4'>
+  <td width=51 valign=top style='width:38.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US>x</span></i></p>
+  </td>
+  <td width=484 valign=top style='width:362.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-size:10.5pt;
+  mso-bidi-font-style:italic'>Field name/expression<span class=var2><span
+  style='font-style:normal;mso-bidi-font-style:italic'>; t</span></span></span><span
+  lang=EN-US>he sign # is used to represent a field with a sequence number </span><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-bidi-font-style:italic'></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:5'>
+  <td width=51 valign=top style='width:38.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US>F<sub>i</sub></span></i><i><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt'></span></i></p>
+  </td>
+  <td width=484 valign=top style='width:362.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Fields to be retrieved, and all fields
+  will be retrieved by default</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:6;mso-yfti-lastrow:yes'>
+  <td width=51 valign=top style='width:38.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US>s</span></i><i><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt'></span></i></p>
+  </td>
+  <td width=484 valign=top style='width:362.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>User-defined separator. The default is
+  tab. When the parameter is omitted, the comma preceding it can be omitted,
+  too</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%'>Options:</span></b></p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=73 valign=top style='width:54.8pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>@t</span></b><i><span lang=EN-US
+  style='mso-bidi-font-size:10.5pt'></span></i></p>
+  </td>
+  <td width=472 valign=top style='width:354.3pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Use the first row of </span><span
+  class=var2><span lang=EN-US>f </span></span><span class=var2><span
+  lang=EN-US style='font-style:normal;mso-bidi-font-style:italic'>as the field
+  names. If omitted, then use</span></span><span lang=EN-US>_1,_2,… as the default
+  field names</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=73 valign=top style='width:54.8pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体;mso-bidi-font-style:italic'>@b</span></b><i><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt'></span></i></p>
+  </td>
+  <td width=472 valign=top style='width:354.3pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Retrieve data from an exported binary
+  file, with the support for parameters <i style='mso-bidi-font-style:normal'>A</i>,
+  <i style='mso-bidi-font-style:normal'>x</i> and <i style='mso-bidi-font-style:
+  normal'>F<sub>i</sub></i>, and with no support available for<sub> </sub>parameter
+  <i style='mso-bidi-font-style:normal'>s</i>. Ignore options @t and<i
+  style='mso-bidi-font-style:normal'> </i>@c. Segments containing no records
+  may appear if it is a file containing a small number of records; an error
+  report will appear if the file isn’t segmented when being retrieved.</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=73 valign=top style='width:54.8pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>@c</span></b></p>
+  </td>
+  <td width=472 valign=top style='width:354.3pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=var2><span lang=EN-US style='mso-bidi-font-size:
+  10.0pt;font-style:normal'>Use comma as the separator when the parameter</span></span><span
+  class=var2><span lang=EN-US style='mso-bidi-font-size:10.0pt;mso-bidi-font-style:
+  normal'> s </span></span><span class=var2><span lang=EN-US style='mso-bidi-font-size:
+  10.0pt;font-style:normal'>is absent. But the user-defined separator </span></span><span
+  class=var2><span lang=EN-US style='mso-bidi-font-size:10.0pt;mso-bidi-font-style:
+  normal'>s</span></span><span class=var2><span lang=EN-US style='mso-bidi-font-size:
+  10.0pt;font-style:normal'> should take priority when there is one.</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3'>
+  <td width=73 valign=top style='width:54.8pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>@r</span></span></p>
+  </td>
+  <td width=472 valign=top style='width:354.3pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Find all records with the same value of <i
+  style='mso-bidi-font-style:normal'>x</i> field; by default <i
+  style='mso-bidi-font-style:normal'>x</i> is distinct in the file <i
+  style='mso-bidi-font-style:normal'>f</i>.<span class=var2><span
+  style='mso-bidi-font-size:10.0pt;font-style:normal'></span></span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4'>
+  <td width=73 valign=top style='width:54.8pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>@q</span></span></p>
+  </td>
+  <td width=472 valign=top style='width:354.3pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>First remove quotation marks surrounding
+  strings, including the headers, and then handle the escaping</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:5'>
+  <td width=73 valign=top style='width:54.8pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>@o</span></span></p>
+  </td>
+  <td width=472 valign=top style='width:354.3pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Use quotation marks as the escape
+  character</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:6'>
+  <td width=73 valign=top style='width:54.8pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>@k</span></span></p>
+  </td>
+  <td width=472 valign=top style='width:354.3pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Retain the white space on both sides of
+  the data item; without it a trim operation will be automatically performed</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:7'>
+  <td width=73 valign=top style='width:54.8pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>@e</span></span></p>
+  </td>
+  <td width=472 valign=top style='width:354.3pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Return a null column if parameter <i
+  style='mso-bidi-font-style:normal'>F<sub>i</sub></i> doesn’t exist; the
+  default way of handling is to report error</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:8'>
+  <td width=73 valign=top style='width:54.8pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>@d</span></b></p>
+  </td>
+  <td width=472 valign=top style='width:354.3pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Perform type matching and delete a record
+  if there is mismatching data type or format in it </span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:9'>
+  <td width=73 valign=top style='width:54.8pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>@v</span></b></p>
+  </td>
+  <td width=472 valign=top style='width:354.3pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Throw an exception, terminate execution,
+  and output the content of the current record when type matching error appears</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:10;mso-yfti-lastrow:yes'>
+  <td width=73 valign=top style='width:54.8pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>@n</span></span></p>
+  </td>
+  <td width=472 valign=top style='width:354.3pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Discard a row whose number of columns doesn’t
+  match the number in the first row</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%'>Return value: </span></b></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>A cursor</span></p>
+
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%'>Example:</span></b></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='margin-left:4.75pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
+ mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=22 valign=top style='width:16.8pt;border:solid #A6A6A6 1.0pt;
+  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>&nbsp;</span></b></p>
+  </td>
+  <td width=227 valign=top style='width:6.0cm;border:solid #A6A6A6 1.0pt;
+  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体;color:black;mso-color-alt:windowtext'>A</span></b><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'></span></b></p>
+  </td>
+  <td width=189 valign=top style='width:5.0cm;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;height:14.45pt'>
+  <td width=22 valign=top style='width:16.8pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:14.45pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体;color:black;mso-color-alt:windowtext'>1</span></b><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'></span></b></p>
+  </td>
+  <td width=227 valign=top style='width:6.0cm;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:14.45pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>=to(1:10)</span></b></p>
+  </td>
+  <td width=189 valign=top style='width:5.0cm;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:14.45pt'>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;height:5.25pt'>
+  <td width=22 valign=top style='width:16.8pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:5.25pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体;color:black;mso-color-alt:windowtext'>2</span></b><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'></span></b></p>
+  </td>
+  <td width=227 valign=top style='width:6.0cm;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid gray 1.0pt;mso-border-top-alt:
+  solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:
+  solid #A6A6A6 .5pt;mso-border-right-alt:solid gray .5pt;padding:0cm 0cm 0cm 0cm;
+  height:5.25pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>=file(&quot;E:/files/employee.txt&quot;).iselect(A1,#1;;&quot;|&quot;)</span></b></p>
+  </td>
+  <td width=189 valign=top style='width:5.0cm;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:5.25pt'>
+  <p class=MsoNormal><span lang=EN-US style='mso-fareast-font-family:黑体'>Below
+  is the file <i style='mso-bidi-font-style:normal'>employee.txt</i>:</span><span
+  lang=EN-US style='mso-ansi-language:#0400;mso-fareast-language:#0400'> </span><span
+  lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=157 height=129
+  src="Function_Reference.files/image912.jpg" v:shapes="_x0000_i1610"></span><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'></span></b></p>
+  <p class=MsoNormal><span lang=EN-US style='mso-fareast-font-family:黑体'>The
+  first column is ordered and is separated from the next column by
+  &quot;|&quot;. No fields are specified to be retrieved, so all will be
+  retrieved &#8211; if the value of the first one is in sequence A1 &#8211;<span
+  style='mso-spacerun:yes'>&nbsp; </span>and returned as a cursor.</span><span
+  lang=EN-US> </span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;height:5.25pt'>
+  <td width=22 valign=top style='width:16.8pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:5.25pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体;color:black;mso-color-alt:windowtext'>3</span></b><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'></span></b></p>
+  </td>
+  <td width=227 valign=top style='width:6.0cm;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid gray 1.0pt;mso-border-top-alt:
+  solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:
+  solid #A6A6A6 .5pt;mso-border-right-alt:solid gray .5pt;padding:0cm 0cm 0cm 0cm;
+  height:5.25pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>=A2.fetch()</span></b></p>
+  </td>
+  <td width=189 valign=top style='width:5.0cm;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:5.25pt'>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=178 height=187
+  src="Function_Reference.files/image914.jpg" v:shapes="_x0000_i1611"></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4;height:5.25pt'>
+  <td width=22 valign=top style='width:16.8pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:5.25pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体;color:black;mso-color-alt:windowtext'>4</span></b><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'></span></b></p>
+  </td>
+  <td width=227 valign=top style='width:6.0cm;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid gray 1.0pt;mso-border-top-alt:
+  solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:
+  solid #A6A6A6 .5pt;mso-border-right-alt:solid gray .5pt;padding:0cm 0cm 0cm 0cm;
+  height:5.25pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>=file(&quot;E:/files/employee1.txt&quot;).iselect@t(A1,EID;EID,SALARY)</span></b></p>
+  </td>
+  <td width=189 valign=top style='width:5.0cm;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:5.25pt'>
+  <p class=MsoNormal><span lang=EN-US style='mso-fareast-font-family:黑体'>Below
+  is the file <i style='mso-bidi-font-style:normal'>employee1.txt</i>:<b
+  style='mso-bidi-font-weight:normal'></b></span></p>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=184 height=152
+  src="Function_Reference.files/image916.jpg" v:shapes="_x0000_i1612"></span></p>
+  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-size:10.5pt'>Retrieve
+  corresponding EID and SALARY fields value &#8211; if EID value is in sequence A1 &#8211;
+  and return them as a cursor</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:5;height:5.25pt'>
+  <td width=22 valign=top style='width:16.8pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:5.25pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体;color:black;mso-color-alt:windowtext'>5</span></b><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'></span></b></p>
+  </td>
+  <td width=227 valign=top style='width:6.0cm;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid gray 1.0pt;mso-border-top-alt:
+  solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:
+  solid #A6A6A6 .5pt;mso-border-right-alt:solid gray .5pt;padding:0cm 0cm 0cm 0cm;
+  height:5.25pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>=A4.fetch()</span></b></p>
+  </td>
+  <td width=189 valign=top style='width:5.0cm;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:5.25pt'>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=144 height=196
+  src="Function_Reference.files/image918.jpg" v:shapes="_x0000_i1613"></span><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt'></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:6;height:5.25pt'>
+  <td width=22 valign=top style='width:16.8pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:5.25pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体;color:black;mso-color-alt:windowtext'>6</span></b><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'></span></b></p>
+  </td>
+  <td width=227 valign=top style='width:6.0cm;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid gray 1.0pt;mso-border-top-alt:
+  solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:
+  solid #A6A6A6 .5pt;mso-border-right-alt:solid gray .5pt;padding:0cm 0cm 0cm 0cm;
+  height:5.25pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>=file(&quot;E:/files/employee2.txt&quot;).iselect@tc(A1,EID)</span></b></p>
+  </td>
+  <td width=189 valign=top style='width:5.0cm;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:5.25pt'>
+  <p class=MsoNormal><span lang=EN-US style='mso-fareast-font-family:黑体'>Below
+  is the file <i style='mso-bidi-font-style:normal'>employee2.txt</i>:</span></p>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=178 height=128
+  src="Function_Reference.files/image920.jpg" v:shapes="_x0000_i1614"></span></p>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'>Comma is used as the seperator</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:7;height:5.25pt'>
+  <td width=22 valign=top style='width:16.8pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:5.25pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体;color:black;mso-color-alt:windowtext'>7</span></b><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'></span></b></p>
+  </td>
+  <td width=227 valign=top style='width:6.0cm;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid gray 1.0pt;mso-border-top-alt:
+  solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:
+  solid #A6A6A6 .5pt;mso-border-right-alt:solid gray .5pt;padding:0cm 0cm 0cm 0cm;
+  height:5.25pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>=A6.fetch()</span></b></p>
+  </td>
+  <td width=189 valign=top style='width:5.0cm;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:5.25pt'>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=141 height=192
+  src="Function_Reference.files/image921.jpg" v:shapes="_x0000_i1615"></span><span
+  lang=EN-US style='font-size:12.0pt;mso-font-kerning:0pt'></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:8;height:5.25pt'>
+  <td width=22 valign=top style='width:16.8pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:5.25pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体;color:black;mso-color-alt:windowtext'>8</span></b><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'></span></b></p>
+  </td>
+  <td width=227 valign=top style='width:6.0cm;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid gray 1.0pt;mso-border-top-alt:
+  solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:
+  solid #A6A6A6 .5pt;mso-border-right-alt:solid gray .5pt;padding:0cm 0cm 0cm 0cm;
+  height:5.25pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>=file(&quot;E:/files/employee3.txt&quot;).iselect@b(A1,EID)</span></b></p>
+  </td>
+  <td width=189 valign=top style='width:5.0cm;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:5.25pt'>
+  <p class=MsoNormal><span lang=EN-US>Retrieve the bin file <i
+  style='mso-bidi-font-style:normal'>employee3.txt</i> exported through
+  f.export@z(A,x:F,...;s) and get records where EID</span><span
+  style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:
+  "Times New Roman"'>≤</span><span lang=EN-US>1 and </span><span
+  style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:
+  "Times New Roman"'>≥</span><span lang=EN-US>10</span><span lang=zh-CN
+  style='mso-ansi-language:#0400;mso-fareast-language:#0400'></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:9;height:5.25pt'>
+  <td width=22 valign=top style='width:16.8pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:5.25pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体;color:black;mso-color-alt:windowtext'>9</span></b><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'></span></b></p>
+  </td>
+  <td width=227 valign=top style='width:6.0cm;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid gray 1.0pt;mso-border-top-alt:
+  solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:
+  solid #A6A6A6 .5pt;mso-border-right-alt:solid gray .5pt;padding:0cm 0cm 0cm 0cm;
+  height:5.25pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>=A8.fetch()</span></b></p>
+  </td>
+  <td width=189 valign=top style='width:5.0cm;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:5.25pt'>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:10;height:5.25pt'>
+  <td width=22 valign=top style='width:16.8pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:5.25pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体;color:black;mso-color-alt:windowtext'>10</span></b><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'></span></b></p>
+  </td>
+  <td width=227 valign=top style='width:6.0cm;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid gray 1.0pt;mso-border-top-alt:
+  solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:
+  solid #A6A6A6 .5pt;mso-border-right-alt:solid gray .5pt;padding:0cm 0cm 0cm 0cm;
+  height:5.25pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>=file(&quot;E:/files/employee1.txt&quot;).iselect@t(1:10,EID;EID,SALARY)</span></b></p>
+  </td>
+  <td width=189 valign=top style='width:5.0cm;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:5.25pt'>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'>Retrieve EID field and SALARY field according to
+  the condition that </span><span lang=EN-US>EID</span><span style='font-family:
+  宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'>≤</span><span
+  lang=EN-US>1 and </span><span style='font-family:宋体;mso-ascii-font-family:
+  "Times New Roman";mso-hansi-font-family:"Times New Roman"'>≥</span><span
+  lang=EN-US>10</span><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:11;height:5.25pt'>
+  <td width=22 valign=top style='width:16.8pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:5.25pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体;color:black;mso-color-alt:windowtext'>11</span></b><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'></span></b></p>
+  </td>
+  <td width=227 valign=top style='width:6.0cm;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid gray 1.0pt;mso-border-top-alt:
+  solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:
+  solid #A6A6A6 .5pt;mso-border-right-alt:solid gray .5pt;padding:0cm 0cm 0cm 0cm;
+  height:5.25pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>=A10.fetch()</span></b></p>
+  </td>
+  <td width=189 valign=top style='width:5.0cm;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:5.25pt'>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'>Same result as A5</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:12;height:5.25pt'>
+  <td width=22 valign=top style='width:16.8pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:5.25pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  color:black;mso-color-alt:windowtext'>12</span></span><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
+  </td>
+  <td width=227 valign=top style='width:6.0cm;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid gray 1.0pt;mso-border-top-alt:
+  solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:
+  solid #A6A6A6 .5pt;mso-border-right-alt:solid gray .5pt;padding:0cm 0cm 0cm 0cm;
+  height:5.25pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=file(&quot;D:/Sale2.txt&quot;).iselect@tr(7,ID;ID,ENAME)</span></span></p>
+  </td>
+  <td width=189 valign=top style='width:5.0cm;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:5.25pt'>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'>Retrieve all records where ID is 7 from <i
+  style='mso-bidi-font-style:normal'>Sales2.txt</i>:</span></p>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=186 height=257
+  src="Function_Reference.files/image922.png" v:shapes="_x0000_i1616"></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:13;height:5.25pt'>
+  <td width=22 valign=top style='width:16.8pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:5.25pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  color:black;mso-color-alt:windowtext'>13</span></span><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
+  </td>
+  <td width=227 valign=top style='width:6.0cm;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid gray 1.0pt;mso-border-top-alt:
+  solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:
+  solid #A6A6A6 .5pt;mso-border-right-alt:solid gray .5pt;padding:0cm 0cm 0cm 0cm;
+  height:5.25pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=A12.fetch()</span></span></p>
+  </td>
+  <td width=189 valign=top style='width:5.0cm;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:5.25pt'>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=173 height=35
+  src="Function_Reference.files/image924.jpg" v:shapes="_x0000_i1617"></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:14;height:5.25pt'>
+  <td width=22 valign=top style='width:16.8pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:5.25pt'>
+  <p class=MsoNormal><a name="_Hlt494268205"></a><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;color:black;mso-color-alt:
+  windowtext'>14</span></span><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif'></span></span></p>
+  </td>
+  <td width=227 valign=top style='width:6.0cm;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid gray 1.0pt;mso-border-top-alt:
+  solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:
+  solid #A6A6A6 .5pt;mso-border-right-alt:solid gray .5pt;padding:0cm 0cm 0cm 0cm;
+  height:5.25pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=file(&quot;D:/Department1.txt&quot;).iselect@t(1:5,id;id,name;&quot;|&quot;).fetch()</span></span></p>
+  </td>
+  <td width=189 valign=top style='width:5.0cm;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:5.25pt'>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=133 height=123
+  src="Function_Reference.files/image925.png" v:shapes="_x0000_i1618"></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:15;height:5.25pt'>
+  <td width=22 valign=top style='width:16.8pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:5.25pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  color:black;mso-color-alt:windowtext'>15</span></span><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
+  </td>
+  <td width=227 valign=top style='width:6.0cm;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid gray 1.0pt;mso-border-top-alt:
+  solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:
+  solid #A6A6A6 .5pt;mso-border-right-alt:solid gray .5pt;padding:0cm 0cm 0cm 0cm;
+  height:5.25pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=file(&quot;D:/Department1.txt&quot;).iselect@tk(2,id;id,name;&quot;|&quot;).fetch()</span></span></p>
+  </td>
+  <td width=189 valign=top style='width:5.0cm;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:5.25pt'>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=133 height=43
+  src="Function_Reference.files/image926.png" v:shapes="_x0000_i1619"></span></p>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'>Use @k option to retain whitespaces on both sides
+  of the data item</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:16;height:5.25pt'>
+  <td width=22 valign=top style='width:16.8pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:5.25pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  color:black;mso-color-alt:windowtext'>16</span></span><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
+  </td>
+  <td width=227 valign=top style='width:6.0cm;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid gray 1.0pt;mso-border-top-alt:
+  solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:
+  solid #A6A6A6 .5pt;mso-border-right-alt:solid gray .5pt;padding:0cm 0cm 0cm 0cm;
+  height:5.25pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=file(&quot;D:/Department1.txt&quot;).iselect@tq(1,id;id,name;&quot;|&quot;).fetch()</span></span></p>
+  </td>
+  <td width=189 valign=top style='width:5.0cm;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:5.25pt'>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=150 height=43
+  src="Function_Reference.files/image927.png" v:shapes="图片_x0020_668"></span></p>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'>Remove quotation marks surrounding strings</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:17;height:5.25pt'>
+  <td width=22 valign=top style='width:16.8pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:5.25pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  color:black;mso-color-alt:windowtext'>17</span></span><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
+  </td>
+  <td width=227 valign=top style='width:6.0cm;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid gray 1.0pt;mso-border-top-alt:
+  solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:
+  solid #A6A6A6 .5pt;mso-border-right-alt:solid gray .5pt;padding:0cm 0cm 0cm 0cm;
+  height:5.25pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=file(&quot;D:/Department1.txt&quot;).iselect@tqo(5,id;id,name;&quot;|&quot;).fetch()</span></span></p>
+  </td>
+  <td width=189 valign=top style='width:5.0cm;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:5.25pt'>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=122 height=43
+  src="Function_Reference.files/image928.png" v:shapes="_x0000_i1621"></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:18;height:5.25pt'>
+  <td width=22 valign=top style='width:16.8pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:5.25pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  color:black;mso-color-alt:windowtext'>18</span></span><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
+  </td>
+  <td width=227 valign=top style='width:6.0cm;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid gray 1.0pt;mso-border-top-alt:
+  solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:
+  solid #A6A6A6 .5pt;mso-border-right-alt:solid gray .5pt;padding:0cm 0cm 0cm 0cm;
+  height:5.25pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=file(&quot;D:/emp1.txt&quot;).iselect@et(2:5,EID;EID,SALARY,SEX).fetch()</span></span></p>
+  </td>
+  <td width=189 valign=top style='width:5.0cm;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:5.25pt'>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'>Below is the file <i style='mso-bidi-font-style:
+  normal'>emp1.txt</i>:</span></p>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=186 height=153
+  src="Function_Reference.files/image930.jpg" v:shapes="_x0000_i1622"></span></p>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'>With @e option, the function returns an empty
+  corresponding column since column SEX doesn’t exist in the file</span></p>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=186 height=92
+  src="Function_Reference.files/image932.jpg" v:shapes="_x0000_i1623"></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:19;height:5.25pt'>
+  <td width=22 valign=top style='width:16.8pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:5.25pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  color:black;mso-color-alt:windowtext'>19</span></span><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
+  </td>
+  <td width=227 valign=top style='width:6.0cm;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid gray 1.0pt;mso-border-top-alt:
+  solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:
+  solid #A6A6A6 .5pt;mso-border-right-alt:solid gray .5pt;padding:0cm 0cm 0cm 0cm;
+  height:5.25pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=file(&quot;D:/emp1.txt&quot;).iselect@tn(7:10,EID;EID,NAME,SALARY).fetch()</span></span></p>
+  </td>
+  <td width=189 valign=top style='width:5.0cm;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:5.25pt'>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'>Discard the row where EID is 10 since its number
+  of columns isn’t the same as that in the first row</span></p>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=186 height=96
+  src="Function_Reference.files/image934.jpg" v:shapes="_x0000_i1624"></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:20;height:5.25pt'>
+  <td width=22 valign=top style='width:16.8pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:5.25pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  color:black;mso-color-alt:windowtext'>20</span></span><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
+  </td>
+  <td width=227 valign=top style='width:6.0cm;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid gray 1.0pt;mso-border-top-alt:
+  solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:
+  solid #A6A6A6 .5pt;mso-border-right-alt:solid gray .5pt;padding:0cm 0cm 0cm 0cm;
+  height:5.25pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=file(&quot;D:/emp2.txt
+  &quot;).iselect@t(A1,EID-5;;&quot;,&quot;).fetch()</span></span></p>
+  </td>
+  <td width=189 valign=top style='width:5.0cm;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:5.25pt'>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'>Get 10 records whose EIDs are from 5 to 15 and
+  which satisfy the specified expression</span></p>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=184 height=162
+  src="Function_Reference.files/image936.png" v:shapes="_x0000_i1625"></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:21;mso-yfti-lastrow:yes;height:5.25pt'>
+  <td width=22 valign=top style='width:16.8pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:5.25pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  color:black;mso-color-alt:windowtext'>21</span></span><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
+  </td>
+  <td width=227 valign=top style='width:6.0cm;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid gray 1.0pt;mso-border-top-alt:
+  solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:
+  solid #A6A6A6 .5pt;mso-border-right-alt:solid gray .5pt;padding:0cm 0cm 0cm 0cm;
+  height:5.25pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=file(&quot;D:/emp2.txt
+  &quot;).iselect@t(1</span></span><span class=code><span style='font-family:
+  黑体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'>：</span></span><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>10,EID-5;;&quot;,&quot;).fetch()</span></span></p>
+  </td>
+  <td width=189 valign=top style='width:5.0cm;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:5.25pt'>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'>Use an interval to get the same result</span></p>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=184 height=162
+  src="Function_Reference.files/image937.png" v:shapes="_x0000_i1626"></span></p>
+  </td>
+ </tr>
+</table>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="404.html">Next</a></div>
@@ -22,8 +875,7 @@
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="21.html">Functions</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="404.html">db .isolate()</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="402.html">iselect()</a></span></li>
 </div>
 	</div>
 	<div id="footer">	

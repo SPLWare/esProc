@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>A .regex()</title>
+<title>redis_zrank()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,381 +13,208 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h3 style='text-align:justify;text-justify:inter-ideograph'><a name="A_regex"></a><i
-style='mso-bidi-font-style:normal'><span lang=EN-US>A</span></i><span
-lang=EN-US>.regex()</span></h3></div>
-	<p class=af2 style='line-height:200%'><span lang=EN-US>Description:</span><span
-lang=EN-US style='font-weight:normal'></span></p>
+	<div id="centent-title"><h2><a name="_Hlt485633318"></a><a name="redis_zrank"></a><span lang=EN-US>redis_zrank()</span></h2></div>
+	<p class=afe style='line-height:200%'><span lang=EN-US>Description:</span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span class=var1><span
-lang=EN-US style='font-style:normal;mso-bidi-font-style:italic'>Match members
-in a string sequence with the regular expression.</span></span></p>
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
+tab-stops:18.0pt'><span lang=EN-US>Determine the ranking of a member in a
+sorted set.</span></p>
 
-<p class=af2 style='line-height:200%'><span lang=EN-US>Syntax:</span></p>
+<p class=afe style='line-height:200%'><span lang=EN-US>Syntax:</span></p>
 
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=170 valign=top style='width:101.8pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US>A</span></span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>.regex(</span></span><span
-  class=code><i style='mso-bidi-font-style:normal'><span lang=EN-US
-  style='font-family:"Times New Roman","serif";font-weight:normal'>rs,F<sub>i</sub></span></i></span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>)</span></span><span
-  class=var1><span lang=EN-US></span></span></p>
-  </td>
-  <td width=512 valign=top style='width:307.3pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>If no extracting item is specified in<i
-  style='mso-bidi-font-style:normal'> rs</i>, match field </span><span
-  class=code><i style='mso-bidi-font-style:normal'><span lang=EN-US
-  style='font-family:"Times New Roman","serif";font-weight:normal'>F<sub>i </sub></span></i></span><span
-  lang=EN-US>of the string with <i style='mso-bidi-font-style:normal'>rs</i>
-  based on data type. Then return the new record sequence after record sequence
-  <i style='mso-bidi-font-style:normal'>A</i> is filtered. Use the current
-  record to match with <i style='mso-bidi-font-style:normal'>rs</i> if omitting
-  </span><span class=code><i style='mso-bidi-font-style:normal'><span
-  lang=EN-US style='font-family:"Times New Roman","serif";font-weight:normal'>F<sub>i</sub></span></i></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
-  <td width=170 valign=top style='width:101.8pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US>A</span></span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>.regex(</span></span><span
-  class=code><i style='mso-bidi-font-style:normal'><span lang=EN-US
-  style='font-family:"Times New Roman","serif";font-weight:normal'>rs;F<sub>i</sub>,…</span></i></span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>)</span></span><span
-  class=var1><span lang=EN-US></span></span></p>
-  </td>
-  <td width=512 valign=top style='width:307.3pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>If one or more extracting items are
-  specified in<i style='mso-bidi-font-style:normal'> rs</i>, split the string
-  members of sequence <i style='mso-bidi-font-style:normal'>A</i> according to
-  them, and return the results as a table sequence whose fields are <i
-  style='mso-bidi-font-style:normal'>F<sub>i</sub></i></span></p>
-  </td>
- </tr>
-</table>
+<p class=MsoNormal style='text-indent:21.1pt;mso-char-indent-count:2.0;
+tab-stops:18.0pt'><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>redis_zrank</span></span><span
+lang=EN-US>(</span><span class=var2><span lang=EN-US>con,key,member</span></span><span
+lang=EN-US>)<span style='mso-spacerun:yes'>&nbsp; </span></span><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt'></span></b></p>
 
-<p class=af2 style='line-height:200%'><span lang=EN-US>Note:</span><span
-lang=EN-US style='font-weight:normal'></span></p>
+<p class=afe style='line-height:200%'><span lang=EN-US>Note: </span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>The function matches
-the members of string type in the sequence <i style='mso-bidi-font-style:normal'>A</i>
-with the regular expression <i style='mso-bidi-font-style:normal'>rs</i>. The
-results will be merged into a table sequence whose fields are <i
-style='mso-bidi-font-style:normal'>F<sub>i </sub></i>for<i style='mso-bidi-font-style:
-normal'><sub> </sub></i>returning.</span></p>
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
+line-height:16.0pt;mso-line-height-rule:exactly;tab-stops:18.0pt'><span
+lang=EN-US>External library function. By default the members in a sorted set is
+arranged in an ascending order; use @z option to arrange them in a descending
+order.<span style='mso-spacerun:yes'>&nbsp; </span></span></p>
 
-<p class=af2 style='line-height:200%'><span lang=EN-US>Parameters:</span></p>
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
+line-height:16.0pt;mso-line-height-rule:exactly;tab-stops:18.0pt'><span
+lang=EN-US>The rankings start with 0, meaning the ranking of the member with
+the smallest score is 0.</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
+line-height:16.0pt;mso-line-height-rule:exactly;tab-stops:18.0pt'><span
+lang=EN-US>If the given member doesn’t belong to the sorted set, return an
+empty table.</span></p>
+
+<p class=afe style='line-height:200%'><span lang=EN-US>Options:</span></p>
+
+<p class=MsoNormal style='text-indent:21.1pt;mso-char-indent-count:2.0;
+tab-stops:18.0pt'><b style='mso-bidi-font-weight:normal'><span lang=EN-US>@z </span></b><span
+lang=EN-US><span style='mso-spacerun:yes'>&nbsp;</span>Arrange
+sorted set members in descending order.</span><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:12.0pt'></span></b></p>
+
+<p class=afe style='line-height:200%'><span lang=EN-US>Parameters:</span></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ style='margin-left:26.7pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US>A</span></i><span
-  class=var1><span lang=EN-US></span></span></p>
+  <td width=85 valign=top style='width:63.75pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>con</span></i></p>
   </td>
-  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>A sequence or a record sequence whose
-  members are strings</span></p>
+  <td width=442 valign=top style='width:331.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Database connection string</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US>rs</span></i><span
-  class=var1><span lang=EN-US></span></span></p>
+  <td width=85 valign=top style='width:63.75pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>key</span></i></p>
   </td>
-  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Regular expressions. The extracting items
-  are specified sub-regular expressions which are separated from each other by
-  separators and each is surrounded with the parentheses. They will match the
-  fields in sequence. For example, <b style='mso-bidi-font-weight:normal'>&quot;(.*),(a.*)&quot;</b>
-  are two extracting items separated by a comma.</span></p>
+  <td width=442 valign=top style='width:331.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Sorted set name</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes'>
-  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US>F<sub>i</sub></span></i><span
-  class=var1><span lang=EN-US></span></span></p>
+  <td width=85 valign=top style='width:63.75pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>member</span></i></p>
   </td>
-  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Resulting field names of string type</span></p>
-  </td>
- </tr>
-</table>
-
-<p class=af2 style='line-height:200%'><span lang=EN-US>Options:</span></p>
-
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>@<span
-  style='mso-bidi-font-weight:bold'>c</span></span></b><span class=var1><span
-  lang=EN-US></span></span></p>
-  </td>
-  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-weight:bold'>Case
-  insensitive</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
-  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>@<span
-  style='mso-bidi-font-weight:bold'>u</span></span></b><span class=var1><span
-  lang=EN-US></span></span></p>
-  </td>
-  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-weight:bold'>Use
-  Unicode to match</span></p>
+  <td width=442 valign=top style='width:331.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Sorted set member</span></p>
   </td>
  </tr>
 </table>
 
-<p class=af2 style='line-height:200%'><span lang=EN-US>Return value:</span><span
-lang=EN-US style='font-weight:normal'></span></p>
+<p class=afe style='line-height:200%'><span lang=EN-US>Return value:</span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>A table sequence</span></p>
+<p class=MsoNormal style='text-indent:21.0pt;tab-stops:18.0pt'><span
+lang=EN-US>Table sequence</span></p>
 
-<p class=af2 style='line-height:200%'><span lang=EN-US>Example:</span></p>
+<p class=afe style='line-height:200%'><span lang=EN-US>Example:</span></p>
 
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=543
  style='margin-left:18.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
  mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=28 valign=top style='width:16.6pt;border:solid #A6A6A6 1.0pt;
+  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
   mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  <p class=MsoNormal align=center style='text-align:center'><span lang=EN-US>&nbsp;</span></p>
   </td>
-  <td width=333 valign=top style='width:199.55pt;border:solid #A6A6A6 1.0pt;
+  <td width=283 valign=top style='width:212.05pt;border:solid #A6A6A6 1.0pt;
   border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>A</span></span></p>
+  <p class=MsoNormal align=center style='text-align:center'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体;color:black;mso-color-alt:windowtext'>A</span></b><b style='mso-bidi-font-weight:
+  normal'><span lang=EN-US style='mso-fareast-font-family:黑体'></span></b></p>
   </td>
-  <td width=307 valign=top style='width:184.3pt;border:none;mso-border-left-alt:
+  <td width=237 valign=top style='width:177.45pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=28 valign=top style='width:16.6pt;border:solid #A6A6A6 1.0pt;
+  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>1</span></span></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体;color:black;mso-color-alt:windowtext'>1</span></b><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'></span></b></p>
   </td>
-  <td width=333 valign=top style='width:199.55pt;border-top:none;border-left:
+  <td width=283 valign=top style='width:212.05pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=demo.query(&quot;select
-  NAME,SURNAME from EMPLOYEE&quot;)</span></span></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>=redis</span></b><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-hansi-font-family:
+  "Arial Narrow"'>_open</span></span><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US style='mso-fareast-font-family:黑体'>()</span></b></p>
   </td>
-  <td width=307 valign=top style='width:184.3pt;border:none;mso-border-left-alt:
+  <td width=237 valign=top style='width:177.45pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:2'>
-  <td width=28 valign=top style='width:16.6pt;border:solid #A6A6A6 1.0pt;
+  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>2</span></span></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体;color:black;mso-color-alt:windowtext'>2</span></b><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'></span></b></p>
   </td>
-  <td width=333 valign=top style='width:199.55pt;border-top:none;border-left:
+  <td width=283 valign=top style='width:212.05pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=A1.(~.array().concat@c())</span></span></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>=redis_zrangebyscore(A1,&quot;salary&quot;,&quot;-inf&quot;,&quot;+inf&quot;,&quot;WITHSCORES&quot;)</span></b></p>
   </td>
-  <td width=307 valign=top style='width:184.3pt;border:none;mso-border-left-alt:
+  <td width=237 valign=top style='width:177.45pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'><img border=0 width=121 height=125
-  src="Function_Reference.files/image1569.jpg" v:shapes="_x0000_i1995"><span
-  style='mso-spacerun:yes'>&nbsp;</span></span></p>
-  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'>Convert to a sequence of strings</span></p>
+  mso-fareast-language:#0400'><img border=0 width=236 height=52
+  src="Function_Reference.files/image1508.jpg" v:shapes="_x0000_i1987"></span><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'></span></b></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:3'>
-  <td width=28 valign=top style='width:16.6pt;border:solid #A6A6A6 1.0pt;
+  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>3</span></span></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体;color:black;mso-color-alt:windowtext'>3</span></b><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'></span></b></p>
   </td>
-  <td width=333 valign=top style='width:199.55pt;border-top:none;border-left:
+  <td width=283 valign=top style='width:212.05pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=A2.regex(&quot;A.*&quot;)</span></span></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>=redis_zrank(A1,&quot;salary&quot;,&quot;jack&quot;)</span></b></p>
   </td>
-  <td width=307 valign=top style='width:184.3pt;border:none;mso-border-left-alt:
+  <td width=237 valign=top style='width:177.45pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'><img border=0 width=117 height=129
-  src="Function_Reference.files/image1570.png" v:shapes="_x0000_i1996"></span></p>
-  <p class=MsoNormal><span lang=EN-US>By default, use current record to match
-  with <i style='mso-bidi-font-style:normal'>rs</i> if omitting </span><span
-  class=code><i style='mso-bidi-font-style:normal'><span lang=EN-US
-  style='font-family:"Times New Roman","serif";font-weight:normal'>F<sub>i</sub></span></i></span></p>
+  mso-fareast-language:#0400'><img border=0 width=236 height=28
+  src="Function_Reference.files/image1510.jpg" v:shapes="_x0000_i1988"></span><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'></span></b></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:4'>
-  <td width=28 valign=top style='width:16.6pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes'>
+  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>4</span></span></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体;color:black;mso-color-alt:windowtext'>4</span></b><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'></span></b></p>
   </td>
-  <td width=333 valign=top style='width:199.55pt;border-top:none;border-left:
+  <td width=283 valign=top style='width:212.05pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=A2.regex(&quot;(V.*),(.*)&quot;;name,surname)</span></span></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>=redis_zrank@z(A1,&quot;salary&quot;,&quot;jack&quot;)</span></b></p>
   </td>
-  <td width=307 valign=top style='width:184.3pt;border:none;mso-border-left-alt:
+  <td width=237 valign=top style='width:177.45pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US><img border=0 width=136 height=96
-  src="Function_Reference.files/image1572.jpg" v:shapes="图片_x0020_368"></span></p>
-  <p class=MsoNormal><span lang=EN-US>Match members of A2 with the regular
-  expressions and return a table sequence</span><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman","serif";font-weight:normal'></span></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:5'>
-  <td width=28 valign=top style='width:16.6pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>5</span></span></p>
-  </td>
-  <td width=333 valign=top style='width:199.55pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=file(&quot;D:\\a.txt&quot;).import@ts()</span></span></p>
-  </td>
-  <td width=307 valign=top style='width:184.3pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US><img border=0 width=131 height=128
-  src="Function_Reference.files/image1574.jpg" v:shapes="图片_x0020_369"></span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-  font-weight:normal'></span></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:6'>
-  <td width=28 valign=top style='width:16.6pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>6</span></span></p>
-  </td>
-  <td width=333 valign=top style='width:199.55pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=A5.(#1).regex@c(&quot;(.*),(a.*)&quot;;id,name)</span></span></p>
-  </td>
-  <td width=307 valign=top style='width:184.3pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US><img border=0 width=134 height=81
-  src="Function_Reference.files/image1576.jpg" v:shapes="图片_x0020_370"></span></p>
-  <p class=MsoNormal><span lang=EN-US>Match names that start with a or A</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:7'>
-  <td width=28 valign=top style='width:16.6pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>7</span></span></p>
-  </td>
-  <td width=333 valign=top style='width:199.55pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=file(&quot;D:\\c.txt&quot;:&quot;UTF-8&quot;).import@ts()</span></span></p>
-  </td>
-  <td width=307 valign=top style='width:184.3pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:8'>
-  <td width=28 valign=top style='width:16.6pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>8</span></span></p>
-  </td>
-  <td width=333 valign=top style='width:199.55pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=A7.(~.array().concat@c())</span></span></p>
-  </td>
-  <td width=307 valign=top style='width:184.3pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:9'>
-  <td width=28 valign=top style='width:16.6pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>9</span></span></p>
-  </td>
-  <td width=333 valign=top style='width:199.55pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=A8.regex@u(&quot;(\\u9500\\u552e\\u90e8),(.*)&quot;;SalesDep,EmployeeName)</span></span></p>
-  </td>
-  <td width=307 valign=top style='width:184.3pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US><img border=0 width=194 height=111
-  src="Function_Reference.files/image1578.jpg" v:shapes="图片_x0020_371"></span></p>
-  <p class=MsoNormal><span lang=EN-US>Use Unicode to match the Sales Dep.</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:10;mso-yfti-lastrow:yes'>
-  <td width=28 valign=top style='width:16.6pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>10</span></span></p>
-  </td>
-  <td width=333 valign=top style='width:199.55pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=A1.regex(&quot;V.*&quot;,NAME)</span></span></p>
-  </td>
-  <td width=307 valign=top style='width:184.3pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US><img border=0 width=212 height=92
-  src="Function_Reference.files/image1580.jpg" v:shapes="_x0000_i2001"><span
-  class=code><span style='font-family:"Times New Roman","serif";mso-fareast-font-family:
-  宋体;font-weight:normal'></span></span></span></p>
-  <p class=MsoNormal><span lang=EN-US>Without an extracting item, match the
-  regular expression <i style='mso-bidi-font-style:normal'>rs</i> with the
-  string type F<sub>i</sub> field</span></p>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=236 height=26
+  src="Function_Reference.files/image1512.jpg" v:shapes="_x0000_i1989"></span><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'></span></b></p>
   </td>
  </tr>
 </table>
-
-<p class=af2 style='line-height:200%'><span lang=EN-US>Related functions:</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
-style='mso-bidi-font-size:10.5pt'><a  href="646.html">s<span style='mso-bidi-font-size:
-10.0pt;mso-fareast-font-family:黑体'>.reg<span style='mso-bookmark:_Hlt415040599'>e</span><span
-style='mso-bookmark:_Hlt414972389'>x</span>()</span></a><a
-name="_Hlt414972389"></a><a name="_Hlt415040599"></a></span><span
-class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'></span></span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US><a
- href="648.html">c<span style='mso-bidi-font-size:10.5pt'>s</span><span
-style='mso-fareast-font-family:黑体'>.reg<span style='mso-bookmark:_Hlt414972358'>e</span>x()</span></a><a
-name="_Hlt414972358"></a></span><span class=code><span lang=EN-US
-style='font-family:"Times New Roman","serif";font-weight:normal'></span></span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="648.html">Next</a></div>
@@ -395,7 +222,7 @@ style='font-family:"Times New Roman","serif";font-weight:normal'></span></span><
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="645.html">regex()</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="21.html">Functions</a></span></li>
 </div>
 	</div>
 	<div id="footer">	
