@@ -89,11 +89,17 @@ public class Move extends Function {
 	 * @return 偏移后的索引
 	 */
 	public int calculateIndex(Sequence.Current current, Context ctx) {
-		if (param == null || !param.isLeaf()) {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException("[]" + mm.getMessage("function.invalidParam"));
-		}
-
+		return calculateIndex(current, param, ctx);
+	}
+	
+	/**
+	 * 计算偏移后的索引
+	 * @param current 序列的循环当前
+	 * @param param 偏移参数
+	 * @param ctx 计算上下文
+	 * @return 偏移后的索引
+	 */
+	public static int calculateIndex(Sequence.Current current, IParam param, Context ctx) {
 		Object posObj = param.getLeafExpression().calculate(ctx);
 		if (!(posObj instanceof Number)) {
 			MessageManager mm = EngineMessage.get();
@@ -115,6 +121,17 @@ public class Move extends Function {
 	 * @return [起始位置, 结束位置]，起始位置（包含）和结束位置（包含）组成的数组
 	 */
 	public int[] calculateIndexRange(Sequence.Current current, Context ctx) {
+		return calculateIndexRange(current, param, ctx);
+	}
+	
+	/**
+	 * 计算偏移后的范围
+	 * @param current 序列的循环当前
+	 * @param param 左右偏移参数
+	 * @param ctx 计算上下文
+	 * @return [起始位置, 结束位置]，起始位置（包含）和结束位置（包含）组成的数组
+	 */
+	public static int[] calculateIndexRange(Sequence.Current current, IParam param, Context ctx) {
 		Number start = null, end = null;
 		if (param.getSubSize() != 2) {
 			MessageManager mm = EngineMessage.get();
