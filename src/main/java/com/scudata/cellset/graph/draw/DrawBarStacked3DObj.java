@@ -338,11 +338,14 @@ public class DrawBarStacked3DObj extends DrawBase {
 
 			ValueLabel vl = null;
 			String percentFmt = null;
-			if (gp.dispValueType == 3 && vis) { // 如果显示百分比
-				if (StringUtils.isValidString(gp.dataMarkFormat)) {
-					percentFmt = gp.dataMarkFormat;
-				} else {
-					percentFmt = "0.00%";
+			if (vis) {
+				if (gp.dispValueType == GraphProperty.DISPDATA_PERCENTAGE
+						|| gp.dispValueType == GraphProperty.DISPDATA_NAME_PERCENTAGE) {
+					if (StringUtils.isValidString(gp.dataMarkFormat)) {
+						percentFmt = gp.dataMarkFormat;
+					} else {
+						percentFmt = "0.00%";
+					}
 				}
 			}
 
@@ -356,8 +359,12 @@ public class DrawBarStacked3DObj extends DrawBase {
 									egs.getValue()
 											/ egc.getNegativeSumSeries(),
 									percentFmt);
-				} else if (gp.dispValueType == IGraphProperty.DISPDATA_TITLE) {
-					sval = egs.getTips();
+					if (egc != null
+							&& gp.dispValueType == IGraphProperty.DISPDATA_NAME_PERCENTAGE) {
+						sval = getDispName(egc, egs, serNum) + "," + sval;
+					}
+				}else{
+					sval = db.getDispValue(egc,egs,gp.serNum);
 				}
 				if (StringUtils.isValidString(sval)) {
 					vl = new ValueLabel(sval, new Point2D.Double((negativeBase
@@ -451,13 +458,17 @@ public class DrawBarStacked3DObj extends DrawBase {
 
 			ValueLabel vl = null;
 			String percentFmt = null;
-			if (gp.dispValueType == 3 && vis) { // 如果显示百分比
-				if (StringUtils.isValidString(gp.dataMarkFormat)) {
-					percentFmt = gp.dataMarkFormat;
-				} else {
-					percentFmt = "0.00%";
+			if (vis) {
+				if (gp.dispValueType == GraphProperty.DISPDATA_PERCENTAGE
+						|| gp.dispValueType == GraphProperty.DISPDATA_NAME_PERCENTAGE) {
+					if (StringUtils.isValidString(gp.dataMarkFormat)) {
+						percentFmt = gp.dataMarkFormat;
+					} else {
+						percentFmt = "0.00%";
+					}
 				}
 			}
+			
 
 			if (len > 0) {
 				String sval = null;
@@ -465,8 +476,12 @@ public class DrawBarStacked3DObj extends DrawBase {
 					sval = db.getFormattedValue(
 							egs.getValue() / egc.getPositiveSumSeries(),
 							percentFmt);
-				} else if (gp.dispValueType == IGraphProperty.DISPDATA_TITLE) {
-					sval = egs.getTips();
+					if (egc != null
+							&& gp.dispValueType == IGraphProperty.DISPDATA_NAME_PERCENTAGE) {
+						sval = getDispName(egc, egs, serNum) + "," + sval;
+					}
+				}else{
+					sval = db.getDispValue(egc,egs,gp.serNum);
 				}
 				if (StringUtils.isValidString(sval)) {
 					vl = new ValueLabel(sval, new Point2D.Double((positiveBase + len

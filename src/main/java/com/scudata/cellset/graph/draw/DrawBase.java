@@ -2029,7 +2029,7 @@ public abstract class DrawBase implements IGraph {
 		String dispVal = null;
 		if (!egs.isNull()) {
 			double scaledVal = getScaledValue(egs.getValue(), true);
-			dispVal = getDispValue(scaledVal, egs.getTips(), gp.dataMarkFormat);
+			dispVal = getDispValue(scaledVal, egs.getTips());
 		}
 		if (isSVG()) {
 			coords.append("\"");
@@ -3099,7 +3099,7 @@ public abstract class DrawBase implements IGraph {
 			return null;
 		}
 		double scaledVal = getScaledValue(egs.getValue(), true);
-		String txt = getDispValue(scaledVal, egs.getTips(), gp.dataMarkFormat);
+		String txt = getDispValue(scaledVal, egs.getTips());
 		if (egc != null
 				&& gp.dispValueType == IGraphProperty.DISPDATA_NAME_VALUE) {
 			txt = getDispName(egc, egs, serNum) + "," + txt;
@@ -3129,11 +3129,19 @@ public abstract class DrawBase implements IGraph {
 			return null;
 		}
 		double scaledVal = getScaledValue(egs.getValue(), false);
-		String txt = getDispValue(scaledVal, egs.getTips(), gp.dataMarkFormat2);
+		String txt = getDispValue2(scaledVal, egs.getTips());
 		if (egc != null
 				&& gp.dispValueType2 == IGraphProperty.DISPDATA_NAME_VALUE) {
 			txt = getDispName(egc, egs, serNum) + "," + txt;
 		}
+		return txt;
+	}
+	
+	public String getDispValue2(double value, String title) {
+		if (gp.dispValueType2 == IGraphProperty.DISPDATA_TITLE) {
+			return title;
+		}
+		String txt = getFormattedValue(value, gp.dataMarkFormat2);
 		return txt;
 	}
 
@@ -3144,11 +3152,11 @@ public abstract class DrawBase implements IGraph {
 	 * @param fmt 格式
 	 * @return string 格式串显示值
 	 */
-	public String getDispValue(double value, String title, String fmt) {
+	public String getDispValue(double value, String title) {
 		if (gp.dispValueType == IGraphProperty.DISPDATA_TITLE) {
 			return title;
 		}
-		String txt = getFormattedValue(value, fmt);
+		String txt = getFormattedValue(value, gp.dataMarkFormat);
 		return txt;
 	}
 
