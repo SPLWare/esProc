@@ -1,5 +1,6 @@
 package com.scudata.ide.common.dialog;
 
+import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.Frame;
 
@@ -29,5 +30,16 @@ public class DialogMaxmizable extends JDialog {
 	 */
 	public DialogMaxmizable(Frame frame, String title, boolean model) {
 		super(frame, title, model);
+	}
+
+	/**
+	 * ¹¹Ôìº¯Êý
+	 * 
+	 * @param parent
+	 * @param title
+	 * @param model
+	 */
+	public DialogMaxmizable(Dialog parent, String title, boolean model) {
+		super(parent, title, model);
 	}
 }

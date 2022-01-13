@@ -99,6 +99,37 @@ public class DialogExtLibs extends JDialog implements ActionListener {
 			List<String> extLibs) {
 		super(frame, IdeSplMessage.get().getMessage("dialogselectnames.title"),
 				true);
+		initDialog(config, extLibsPath, extLibs);
+	}
+
+	/**
+	 * 构造函数
+	 * 
+	 * @param config
+	 *            集算器配置
+	 * @param jdialog
+	 *            父窗口
+	 * @param extLibsPath
+	 *            外部库根路径
+	 * @param extLibs
+	 *            配置的外部库列表
+	 */
+	public DialogExtLibs(RaqsoftConfig config, JDialog jdialog,
+			String extLibsPath, List<String> extLibs) {
+		super(jdialog, IdeSplMessage.get()
+				.getMessage("dialogselectnames.title"), true);
+		initDialog(config, extLibsPath, extLibs);
+	}
+
+	/**
+	 * 初始化对话框
+	 * 
+	 * @param config
+	 * @param extLibsPath
+	 * @param extLibs
+	 */
+	private void initDialog(RaqsoftConfig config, String extLibsPath,
+			List<String> extLibs) {
 		tableNames = new TableExtLibs();
 		try {
 			init();

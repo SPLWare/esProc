@@ -1,6 +1,7 @@
 package com.scudata.ide.common.dialog;
 
 import java.awt.BorderLayout;
+import java.awt.Dialog;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.io.File;
@@ -89,6 +90,29 @@ public class DialogInputText extends DialogMaxmizable {
 	 */
 	public DialogInputText(Frame frame, String title, boolean editable) {
 		super(frame, title, true);
+		initDialog(editable);
+	}
+
+	/**
+	 * 构造函数
+	 * 
+	 * @param frame
+	 *            父组件
+	 * @param editable
+	 *            是否可以编辑
+	 */
+	public DialogInputText(Dialog parent, boolean editable) {
+		super(parent, IdeCommonMessage.get().getMessage(
+				"dialoginputtext.texteditbox"), true);
+		initDialog(editable);
+	}
+
+	/**
+	 * 初始化对话框
+	 * 
+	 * @param editable
+	 */
+	private void initDialog(boolean editable) {
 		try {
 			initUI();
 			jTextPane1.setEditable(editable);
@@ -97,8 +121,6 @@ public class DialogInputText extends DialogMaxmizable {
 			GM.setDialogDefaultButton(this, jBOK, jBCancel);
 		} catch (Exception ex) {
 			Logger.error(ex);
-			// 会造成循环调用
-			// GM.showException(ex);
 		}
 	}
 
