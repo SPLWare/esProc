@@ -66,6 +66,7 @@ public class UnitCommand implements Serializable {
 	public static final int GT_NEWS = 89;
 	public static final int GT_CGROUPS = 90;//立方体查询
 	public static final int GT_GET_COL_NAMES = 91;
+	public static final int GT_GET_STRUCT = 92;//获得组表结构
 	
 	public static final int PSEUDO_CURSOR = 101;//虚表建立游标
 	public static final int PSEUDO_ADD_COLNAME = 102;
@@ -211,6 +212,8 @@ public class UnitCommand implements Serializable {
 				return ClusterTableMetaData.executeNews(attributes);
 			case GT_GET_COL_NAMES:
 				return ClusterTableMetaData.executeGetAllColNames(attributes);
+			case GT_GET_STRUCT:
+				return ClusterTableMetaData.executeGetStructure(attributes);
 			case PSEUDO_CURSOR:
 				return ClusterPseudo.executeCreateCursor(attributes);
 			case PSEUDO_ADD_OPERATION:

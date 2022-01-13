@@ -31,6 +31,7 @@ import com.scudata.dw.TableKeyValueIndex;
 import com.scudata.dw.TableMetaData;
 import com.scudata.dw.TableMetaDataIndex;
 import com.scudata.expression.Expression;
+import com.scudata.expression.mfn.file.Structure;
 import com.scudata.resources.EngineMessage;
 import com.scudata.thread.ThreadPool;
 import com.scudata.util.Variant;
@@ -1715,6 +1716,42 @@ public class ClusterTableMetaData implements IClusterObject, IResource {
 			String option = (String) attributes.get("option");
 			Sequence result = Cuboid.cgroups(expNames, names, newExpNames, newNames, srcTable, exp, hasM, n, option, ctx);
 			return new Response(result);
+		} catch (Exception e) {
+			Response response = new Response();
+			response.setException(e);
+			return response;
+		}
+	}
+	
+	public Record getStructure() {
+		ClusterFile clusterFile = getClusterFile();
+		Record result = null;
+		UnitClient client = new UnitClient(clusterFile.getHost(0), clusterFile.getPort(0));
+
+		try {
+			UnitCommand command = new UnitCommand(UnitCommand.GT_GET_STRUCT);
+			command.setAttribute("jobSpaceId", clusterFile.getJobSpaceId());
+			command.setAttribute("tmdProxyId", new Integer(tmdProxyIds[0]));
+			Response response = client.send(command);
+			result = (Record)response.checkResult();
+		} finally {
+			client.close();
+		}
+		
+		return result;
+	}
+	
+	public static Response executeGetStructure(HashMap<String, Object> attributes) {
+		String jobSpaceID = (String) attributes.get("jobSpaceId");
+		Integer tmdProxyId = (Integer) attributes.get("tmdProxyId");
+		String opt = (String) attributes.get("opt");
+		
+		try {
+			JobSpace js = JobSpaceManager.getSpace(jobSpaceID);
+			ResourceManager rm = js.getResourceManager();
+			TableMetaDataProxy tmd = (TableMetaDataProxy) rm.getProxy(tmdProxyId.intValue());
+			ITableMetaData table = tmd.getTableMetaData();
+			return new Response(Structure.getTableStruct((TableMetaData)table, opt));
 		} catch (Exception e) {
 			Response response = new Response();
 			response.setException(e);

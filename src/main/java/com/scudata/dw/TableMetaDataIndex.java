@@ -5683,4 +5683,14 @@ public class TableMetaDataIndex implements ITableIndex {
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	public Object getIndexStruct() {
+		Record rec = new Record(new DataStruct(INDEX_FIELD_NAMES));
+		rec.setNormalFieldValue(0, name);
+		rec.setNormalFieldValue(1, 0);
+		rec.setNormalFieldValue(2, new Sequence(ifields));
+		rec.setNormalFieldValue(3, null);
+		rec.setNormalFieldValue(4, filter.toString());
+		return rec;
+	}
 }

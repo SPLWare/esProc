@@ -2183,6 +2183,15 @@ public class Cuboid extends RowGroupTable {
     		 }
     	 }
     }
+    
+	public String[] getExps() {
+		return exps;
+	}
+
+	public String[] getNewExps() {
+		return newExps;
+	}
+
 }
 
 /**
