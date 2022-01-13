@@ -562,6 +562,7 @@ public final class FunctionLib {
 		addMemberFunction("cuboid", "com.scudata.expression.mfn.dw.CreateCuboid");
 		addMemberFunction("rename", "com.scudata.expression.mfn.dw.Rename");
 		addMemberFunction("alter", "com.scudata.expression.mfn.dw.Alter");
+		addMemberFunction("structure", "com.scudata.expression.mfn.file.Structure");
 		
 		//Ðé±í
 		addMemberFunction("import", "com.scudata.expression.mfn.pseudo.Import");
