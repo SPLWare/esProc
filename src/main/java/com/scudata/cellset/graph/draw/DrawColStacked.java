@@ -297,7 +297,8 @@ public class DrawColStacked extends DrawBase {
 
 			String percentFmt = null;
 			if (vis) {
-				if (gp.dispValueType == IGraphProperty.DISPDATA_PERCENTAGE) { // 如果显示百分比
+				if (gp.dispValueType == GraphProperty.DISPDATA_PERCENTAGE
+						|| gp.dispValueType == GraphProperty.DISPDATA_NAME_PERCENTAGE) {
 					if (StringUtils.isValidString(gp.dataMarkFormat)) {
 						percentFmt = gp.dataMarkFormat;
 					} else {
@@ -315,6 +316,10 @@ public class DrawColStacked extends DrawBase {
 					sval = db.getFormattedValue(
 							egs.getValue() / egc.getPositiveSumSeries(),
 							percentFmt);
+					if (egc != null
+							&& gp.dispValueType == IGraphProperty.DISPDATA_NAME_PERCENTAGE) {
+						sval = getDispName(egc, egs, serNum) + "," + sval;
+					}
 				}else{
 					sval = db.getDispValue(egc,egs,gp.serNum);
 				}
@@ -330,6 +335,10 @@ public class DrawColStacked extends DrawBase {
 					sval = db.getFormattedValue(
 							egs.getValue() / egc.getNegativeSumSeries(),
 							percentFmt);
+					if (egc != null
+							&& gp.dispValueType == IGraphProperty.DISPDATA_NAME_PERCENTAGE) {
+						sval = getDispName(egc, egs, serNum) + "," + sval;
+					}
 				}else{
 					sval = db.getDispValue(egc,egs,gp.serNum);
 				}

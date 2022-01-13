@@ -21,19 +21,19 @@ public class DialogSplash extends JDialog {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * splash图片路径
-	 */
-	private String splashImage;
-
-	/**
 	 * 构造函数
 	 * 
-	 * @param splashImage
+	 * @param splashImage splash图片路径
 	 */
 	public DialogSplash(String splashImage) {
-		this.splashImage = splashImage;
 		try {
-			initUI();
+			this.setUndecorated(true);
+			this.getRootPane().setWindowDecorationStyle(JRootPane.NONE);
+			this.getRootPane().setBorder(null);
+			initUI(splashImage);
+			this.setResizable(false);
+			GM.centerWindow(this);
+			this.setModal(false);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -45,11 +45,8 @@ public class DialogSplash extends JDialog {
 	 * 
 	 * @throws Exception
 	 */
-	private void initUI() throws Exception {
-		this.setUndecorated(true);
-		this.getRootPane().setWindowDecorationStyle(JRootPane.NONE);
-		this.getRootPane().setBorder(null);
-		ImageIcon ii = getImageIcon();
+	private void initUI(String splashImage) throws Exception {
+		ImageIcon ii = getImageIcon(splashImage);
 		Image image = ii.getImage();
 		ImagePanel panel = new ImagePanel(image);
 		int width = image.getWidth(this);
@@ -58,17 +55,14 @@ public class DialogSplash extends JDialog {
 		this.setSize(width, height);
 		panel.setOpaque(false);
 		panel.setLayout(new FreeLayout());
-		this.setResizable(false);
-		this.setModal(false);
+
 		this.getContentPane().add(panel);
-		GM.centerWindow(this);
 	}
 
 	/**
 	 * 关闭窗口
 	 */
 	public void closeWindow() {
-		GM.setWindowDimension(this);
 		dispose();
 	}
 
@@ -77,7 +71,7 @@ public class DialogSplash extends JDialog {
 	 * 
 	 * @return
 	 */
-	private ImageIcon getImageIcon() {
+	private ImageIcon getImageIcon(String splashImage) {
 		ImageIcon ii = null;
 		if (StringUtils.isValidString(splashImage)) {
 			String path = GM.getAbsolutePath(splashImage);
@@ -89,21 +83,10 @@ public class DialogSplash extends JDialog {
 			}
 		}
 		if (ii == null) {
-			String img = getDefaultImage();
-			ii = GM.getImageIcon(img);
+			String imgPath = "/com/scudata/ide/common/resources/esproc" + GM.getLanguageSuffix() + ".png";
+			ii = GM.getImageIcon(imgPath);
 		}
 		return ii;
-	}
-
-	/**
-	 * 图片路径
-	 * 
-	 * @return
-	 */
-	private String getDefaultImage() {
-		String img = "/com/scudata/ide/common/resources/esproc"
-				+ GM.getLanguageSuffix() + ".png";
-		return img;
 	}
 
 	/**
@@ -115,10 +98,6 @@ public class DialogSplash extends JDialog {
 		private Image image = null;
 
 		public ImagePanel(Image image) {
-			setImage(image);
-		}
-
-		public void setImage(Image image) {
 			this.image = image;
 		}
 

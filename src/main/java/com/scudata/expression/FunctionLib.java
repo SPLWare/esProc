@@ -273,11 +273,13 @@ public final class FunctionLib {
 		addFunction("mode", "com.scudata.expression.fn.Mode");
 		addFunction("median", "com.scudata.expression.fn.gather.Median");
 		addFunction("z", "com.scudata.expression.fn.ZSeq");
+		addFunction("ntile", "com.scudata.expression.fn.Ntile");
 		addFunction("iterate", "com.scudata.expression.fn.gather.Iterate");
 		addFunction("seq", "com.scudata.expression.fn.Seq");
 		addFunction("rank", "com.scudata.expression.fn.Rank");
 		addFunction("ranki", "com.scudata.expression.fn.Ranki");
 		addFunction("cum", "com.scudata.expression.fn.Cum");
+		addFunction("get", "com.scudata.expression.fn.Get");
 		
 		addFunction("k", "com.scudata.expression.fn.CreateSerialBytes");
 		addFunction("range", "com.scudata.expression.fn.Range");

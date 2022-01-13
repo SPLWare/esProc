@@ -6,6 +6,7 @@ import java.awt.geom.Rectangle2D;
 import java.util.*;
 
 import com.scudata.cellset.graph.*;
+import com.scudata.cellset.graph.config.IGraphProperty;
 import com.scudata.chart.Consts;
 import com.scudata.chart.Utils;
 import com.scudata.common.*;
@@ -329,13 +330,17 @@ public class DrawColStacked3DObj extends DrawBase {
 					coorShift));
 
 			String percentFmt = null;
-			if (gp.dispValueType == 3 && vis) { // 如果显示百分比
-				if (StringUtils.isValidString(gp.dataMarkFormat)) {
-					percentFmt = gp.dataMarkFormat;
-				} else {
-					percentFmt = "0.00%";
+			if (vis) {
+				if (gp.dispValueType == GraphProperty.DISPDATA_PERCENTAGE
+						|| gp.dispValueType == GraphProperty.DISPDATA_NAME_PERCENTAGE) {
+					if (StringUtils.isValidString(gp.dataMarkFormat)) {
+						percentFmt = gp.dataMarkFormat;
+					} else {
+						percentFmt = "0.00%";
+					}
 				}
 			}
+
 			ValueLabel vl = null;
 			double x = (lb + seriesWidth / 2);
 			if (len > 0) {
@@ -346,6 +351,10 @@ public class DrawColStacked3DObj extends DrawBase {
 					sval = db.getFormattedValue(
 							egs.getValue() / egc.getNegativeSumSeries(),
 							percentFmt);
+					if (egc != null
+							&& gp.dispValueType == IGraphProperty.DISPDATA_NAME_PERCENTAGE) {
+						sval = getDispName(egc, egs, serNum) + "," + sval;
+					}
 				}else{
 					sval = db.getDispValue(egc,egs,gp.serNum);
 				}
@@ -438,13 +447,17 @@ public class DrawColStacked3DObj extends DrawBase {
 			db.htmlLink(xx, yy, ww, hh, htmlLink, egc.getNameString(), egs);
 
 			String percentFmt = null;
-			if (gp.dispValueType == 3 && vis) { // 如果显示百分比
-				if (StringUtils.isValidString(gp.dataMarkFormat)) {
-					percentFmt = gp.dataMarkFormat;
-				} else {
-					percentFmt = "0.00%";
+			if (vis) {
+				if (gp.dispValueType == GraphProperty.DISPDATA_PERCENTAGE
+						|| gp.dispValueType == GraphProperty.DISPDATA_NAME_PERCENTAGE) {
+					if (StringUtils.isValidString(gp.dataMarkFormat)) {
+						percentFmt = gp.dataMarkFormat;
+					} else {
+						percentFmt = "0.00%";
+					}
 				}
 			}
+			
 			ValueLabel vl = null;
 			double x = (lb + seriesWidth / 2);
 			if (len > 0) {
@@ -453,6 +466,10 @@ public class DrawColStacked3DObj extends DrawBase {
 					sval = db.getFormattedValue(
 							egs.getValue() / egc.getPositiveSumSeries(),
 							percentFmt);
+					if (egc != null
+							&& gp.dispValueType == IGraphProperty.DISPDATA_NAME_PERCENTAGE) {
+						sval = getDispName(egc, egs, serNum) + "," + sval;
+					}
 				}else{
 					sval = db.getDispValue(egc,egs,gp.serNum);
 				}
