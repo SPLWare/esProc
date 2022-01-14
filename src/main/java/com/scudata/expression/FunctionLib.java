@@ -267,7 +267,6 @@ public final class FunctionLib {
 		addFunction("output", "com.scudata.expression.fn.Output");
 		addFunction("sleep", "com.scudata.expression.fn.Sleep");
 		addFunction("lock", "com.scudata.expression.fn.Lock");
-		addFunction("sizeof", "com.scudata.expression.fn.Sizeof");
 		addFunction("invoke", "com.scudata.expression.fn.Invoke");
 		addFunction("icount", "com.scudata.expression.fn.gather.ICount");
 		addFunction("mode", "com.scudata.expression.fn.Mode");
