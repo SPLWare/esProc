@@ -295,6 +295,7 @@ public class ConfigWriter {
 		writeAttribute(ConfigConsts.FETCH_COUNT, config.getFetchCount());
 		writeAttribute(ConfigConsts.EXTLIBS, config.getExtLibsPath());
 		writeImportLibList(config.getImportLibs());
+		writeAttribute(ConfigConsts.CUSTOM_FUNCTION_FILE, config.getCustomFunctionFile());
 		level = 2;
 		endElement(ConfigConsts.ESPROC);
 	}

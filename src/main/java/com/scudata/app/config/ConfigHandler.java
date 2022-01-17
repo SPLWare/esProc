@@ -363,6 +363,8 @@ public class ConfigHandler extends DefaultHandler {
 					config.setImportLibs(importLibs);
 				}
 				importLibs.add(value);
+			} else if (qName.equalsIgnoreCase(ConfigConsts.CUSTOM_FUNCTION_FILE)) {
+				config.setCustomFunctionFile(value);
 			}
 		} else if (activeNode == RUNTIME_LOGGER) {
 			if (qName.equalsIgnoreCase(ConfigConsts.LEVEL)) {

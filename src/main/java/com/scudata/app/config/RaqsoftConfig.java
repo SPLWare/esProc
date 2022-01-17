@@ -59,6 +59,8 @@ public class RaqsoftConfig implements Cloneable, Externalizable {
 	private List<String> importLibs = null;
 	/** External library directory */
 	private String extLibsPath = null;
+	/** File path of custom functions **/
+	private String customFunctionFile = null;
 
 	/** Server **/
 	/** Default data source **/
@@ -619,6 +621,24 @@ public class RaqsoftConfig implements Cloneable, Externalizable {
 	}
 
 	/**
+	 * Get the path of the custom functions file
+	 * 
+	 * @return file path
+	 */
+	public String getCustomFunctionFile() {
+		return customFunctionFile;
+	}
+
+	/**
+	 * Set the path of the custom functions file
+	 * 
+	 * @param customFunctionFile
+	 */
+	public void setCustomFunctionFile(String customFunctionFile) {
+		this.customFunctionFile = customFunctionFile;
+	}
+
+	/**
 	 * Deep clone
 	 * 
 	 * @return
@@ -673,6 +693,7 @@ public class RaqsoftConfig implements Cloneable, Externalizable {
 			config.setImportLibs(cloneImportLibs);
 		}
 		config.setExtLibsPath(extLibsPath);
+		config.setCustomFunctionFile(customFunctionFile);
 
 		config.setDefDataSource(defDataSource);
 		if (jndiList != null) {
@@ -709,7 +730,7 @@ public class RaqsoftConfig implements Cloneable, Externalizable {
 	 */
 	public void writeExternal(ObjectOutput out) throws IOException {
 		/* Version type */
-		out.writeByte(1);
+		out.writeByte(2);
 		out.writeObject(dbList);
 		out.writeObject(mainPath);
 		out.writeObject(splPathList);
@@ -739,7 +760,7 @@ public class RaqsoftConfig implements Cloneable, Externalizable {
 		out.writeObject(unitList);
 		out.writeObject(xmlaList);
 		out.writeBoolean(jdbcNode);
-
+		out.writeObject(customFunctionFile);
 	}
 
 	/**
@@ -747,7 +768,7 @@ public class RaqsoftConfig implements Cloneable, Externalizable {
 	 */
 	public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
 		/* Version type */
-		in.readByte();
+		int version = in.readByte();
 		dbList = (List<DBConfig>) in.readObject();
 		mainPath = (String) in.readObject();
 		splPathList = (List<String>) in.readObject();
@@ -777,6 +798,9 @@ public class RaqsoftConfig implements Cloneable, Externalizable {
 		unitList = (List<String>) in.readObject();
 		xmlaList = (List<Xmla>) in.readObject();
 		jdbcNode = in.readBoolean();
+		if (version > 1) {
+			customFunctionFile = (String) in.readObject();
+		}
 	}
 
 }

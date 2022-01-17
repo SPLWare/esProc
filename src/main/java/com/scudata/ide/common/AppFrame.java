@@ -52,15 +52,16 @@ public abstract class AppFrame extends JFrame implements IAppFrame {
 			Logger.error(ex);
 		}
 		/* Load custom functions */
-		String relativePath = "/config/customFunctions.properties";
-		try {
-			InputStream is = GM.getFileInputStream(relativePath);
-			if (is != null) {
-				FunctionLib.loadCustomFunctions(is);
-			}
-		} catch (Exception x) {
-			Logger.error(x);
-		}
+		// 改为在raqsoftConfig.xml中配置和加载了
+		// String relativePath = "/config/customFunctions.properties";
+		// try {
+		// InputStream is = GM.getFileInputStream(relativePath);
+		// if (is != null) {
+		// FunctionLib.loadCustomFunctions(is);
+		// }
+		// } catch (Exception x) {
+		// Logger.error(x);
+		// }
 		/*
 		 * When the execution of the grid was stopped, a FunctionLib class
 		 * initialization error occurred occasionally. So it is initialized when

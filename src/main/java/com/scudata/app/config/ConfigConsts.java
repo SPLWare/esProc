@@ -126,6 +126,8 @@ public class ConfigConsts {
 	public static String LIB = "lib";
 	/** External library directory */
 	public static String EXTLIBS = "extLibsPath";
+	/** Custom function file path */
+	public static String CUSTOM_FUNCTION_FILE = "customFunctionFile";
 
 	/**
 	 * Logger Configuration

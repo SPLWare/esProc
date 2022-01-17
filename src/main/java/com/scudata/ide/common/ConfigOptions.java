@@ -86,6 +86,8 @@ public class ConfigOptions {
 	public static String sExtLibsPath = null;
 	/** The spl file used for initialization */
 	public static String sInitSpl = null;
+	/** The path of the custom functions file */
+	public static String sCustomFunctionFile = null;
 	/** The installation directory of slimerjs */
 	public static String sSlimerjsDirectory = null;
 	/** Date format */

@@ -271,7 +271,7 @@ public class ConfigUtil {
 						Logger.setLevel(sLevel);
 					}
 				} catch (Exception ex) {
-					Logger.info("Invalid " + ConfigConsts.LEVEL + ":" + sLevel + ".");
+					Logger.error("Invalid " + ConfigConsts.LEVEL + ":" + sLevel + ".");
 				}
 			}
 
@@ -330,7 +330,7 @@ public class ConfigUtil {
 						f.mkdir();
 					}
 				} catch (Exception ex) {
-					Logger.info("Make temp directory failed:" + ex.getMessage());
+					Logger.error("Make temp directory failed:" + ex.getMessage());
 				}
 			}
 
@@ -340,7 +340,7 @@ public class ConfigUtil {
 				if (bufSize == -1) {
 					Logger.info("The bufSize is empty.");
 				} else if (bufSize == -2) {
-					Logger.info("Invalid " + ConfigConsts.BUF_SIZE + ":" + sBufSize + ".");
+					Logger.error("Invalid " + ConfigConsts.BUF_SIZE + ":" + sBufSize + ".");
 				} else {
 					Env.setFileBufSize(bufSize);
 				}
@@ -353,7 +353,7 @@ public class ConfigUtil {
 					int port = Integer.parseInt(sPort);
 					Env.setLocalPort(port);
 				} catch (Exception ex) {
-					Logger.info("Invalid " + ConfigConsts.LOCAL_PORT + ":" + sPort + ".");
+					Logger.error("Invalid " + ConfigConsts.LOCAL_PORT + ":" + sPort + ".");
 				}
 			}
 
@@ -363,7 +363,7 @@ public class ConfigUtil {
 					int paraNum = Integer.parseInt(sParallelNum);
 					Env.setParallelNum(paraNum);
 				} catch (Exception ex) {
-					Logger.info("Invalid " + ConfigConsts.PARALLEL_NUM + ":" + sParallelNum);
+					Logger.error("Invalid " + ConfigConsts.PARALLEL_NUM + ":" + sParallelNum);
 				}
 			}
 
@@ -373,7 +373,7 @@ public class ConfigUtil {
 					int cursorParaNum = Integer.parseInt(sCursorParallelNum);
 					Env.setCursorParallelNum(cursorParaNum);
 				} catch (Exception ex) {
-					Logger.info("Invalid " + ConfigConsts.CURSOR_PARALLEL_NUM + ":" + sParallelNum);
+					Logger.error("Invalid " + ConfigConsts.CURSOR_PARALLEL_NUM + ":" + sParallelNum);
 				}
 			}
 
@@ -386,7 +386,29 @@ public class ConfigUtil {
 					int fetchCount = Integer.parseInt(sFetchCount);
 					ICursor.FETCHCOUNT = fetchCount;
 				} catch (Exception ex) {
-					Logger.info("Invalid " + ConfigConsts.FETCH_COUNT + ":" + sFetchCount);
+					Logger.error("Invalid " + ConfigConsts.FETCH_COUNT + ":" + sFetchCount);
+				}
+			}
+
+			String customFunctionFile = config.getCustomFunctionFile();
+			if (StringUtils.isValidString(customFunctionFile)) {
+				// 加载自定义函数文件
+				InputStream is = null;
+				try {
+					is = ConfigUtil.getInputStream(home, customFunctionFile, appCtx);
+					if (is == null) {
+						Logger.error("File not found: " + customFunctionFile + ".");
+					} else {
+						FunctionLib.loadCustomFunctions(is);
+					}
+				} catch (Exception ex) {
+					Logger.error("Failed to load " + customFunctionFile + ": " + ex.getMessage(), ex);
+				} finally {
+					if (is != null)
+						try {
+							is.close();
+						} catch (Exception ex) {
+						}
 				}
 			}
 
@@ -413,7 +435,7 @@ public class ConfigUtil {
 							}
 						}
 					} catch (Throwable x) {
-						Logger.info("Create database factory [" + dbName + "] failed: " + x.getMessage());
+						Logger.error("Create database factory [" + dbName + "] failed: " + x.getMessage());
 						x.printStackTrace();
 					}
 				}
@@ -437,7 +459,7 @@ public class ConfigUtil {
 							ctx.setDBSession(jndiName, jndisf.getSession());
 						}
 					} catch (Exception ex) {
-						Logger.warn(AppMessage.get().getMessage("configutil.errorjndi", jndiName, ex.getMessage()));
+						Logger.error(AppMessage.get().getMessage("configutil.errorjndi", jndiName, ex.getMessage()));
 					}
 				}
 			}

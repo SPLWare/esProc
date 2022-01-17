@@ -37,6 +37,8 @@ public class AppConsts {
 	public static final String FILE_XML = "xml";
 	/** LOG file extension */
 	public static final String FILE_LOG = "log";
+	/** 资源文件 **/
+	public static final String FILE_PROPERTIES = "properties";
 
 	/** 支持的SPL文件类型 */
 	public static final String SPL_FILE_EXTS = AppConsts.FILE_SPLX + "," + AppConsts.FILE_SPL + ","
