@@ -105,8 +105,9 @@ public class Server {
 	/**
 	 * Retrieve files that match the filter.
 	 * 
-	 * @param filter SQL rules used. "%" means one or more characters, and "_" means
-	 *               one character.
+	 * @param filter
+	 *            SQL rules used. "%" means one or more characters, and "_"
+	 *            means one character.
 	 * @return files map
 	 */
 	public static Map<String, String> getSplList(String filter) {
@@ -120,18 +121,23 @@ public class Server {
 	/**
 	 * Get files
 	 * 
-	 * @param filter   File name filter
-	 * @param fileExts File extensions
-	 * @param onlyName Only match file name
+	 * @param filter
+	 *            File name filter
+	 * @param fileExts
+	 *            File extensions
+	 * @param onlyName
+	 *            Only match file name
 	 * @return files map
 	 */
-	public static Map<String, String> getFiles(String filter, List<String> fileExts, boolean onlyName) {
+	public static Map<String, String> getFiles(String filter,
+			List<String> fileExts, boolean onlyName) {
 		Map<String, String> map = new HashMap<String, String>();
 		Pattern pattern = JDBCUtil.getPattern(filter, fileExts);
 		String mainPath = Env.getMainPath();
 		if (StringUtils.isValidString(mainPath)) {
 			File mainDir = new File(mainPath);
-			getDirFiles(mainDir.getAbsolutePath().length(), mainDir, map, pattern, fileExts, onlyName);
+			getDirFiles(mainDir.getAbsolutePath().length(), mainDir, map,
+					pattern, fileExts, onlyName);
 		}
 		return map;
 	}
@@ -139,15 +145,22 @@ public class Server {
 	/**
 	 * Get the files in the specified path
 	 * 
-	 * @param rootLen  The length of the parent file path
-	 * @param pfile    The parent directory
-	 * @param map      Storage file name and title mapping
-	 * @param pattern  The Pattern object
-	 * @param fileExts File extensions
-	 * @param onlyName Only match file name
+	 * @param rootLen
+	 *            The length of the parent file path
+	 * @param pfile
+	 *            The parent directory
+	 * @param map
+	 *            Storage file name and title mapping
+	 * @param pattern
+	 *            The Pattern object
+	 * @param fileExts
+	 *            File extensions
+	 * @param onlyName
+	 *            Only match file name
 	 */
-	private static void getDirFiles(int rootLen, File pfile, Map<String, String> map, Pattern pattern,
-			List<String> fileExts, boolean onlyName) {
+	private static void getDirFiles(int rootLen, File pfile,
+			Map<String, String> map, Pattern pattern, List<String> fileExts,
+			boolean onlyName) {
 		if (pfile == null)
 			return;
 		if (pfile.isDirectory()) {
@@ -167,7 +180,8 @@ public class Server {
 							Matcher m;
 							boolean find = false;
 							/*
-							 * If it is mapped according to the table name, it must match all.
+							 * If it is mapped according to the table name, it
+							 * must match all.
 							 */
 							if (!isMapName) {
 								if (!onlyName) {
@@ -177,7 +191,8 @@ public class Server {
 							m = pattern.matcher(fileName);
 							find = m.matches();
 							if (!find) {
-								find = sameFileName(pattern.toString(), pfile.getAbsolutePath());
+								find = sameFileName(pattern.toString(),
+										pfile.getAbsolutePath());
 							}
 							if (!find) {
 								return;
@@ -186,7 +201,8 @@ public class Server {
 						if (!isMapName) {
 							if (onlyName) {
 								fileName = pfile.getName();
-								fileName = fileName.substring(0, fileName.length() - fileExt.length());
+								fileName = fileName.substring(0,
+										fileName.length() - fileExt.length());
 							} else {
 								fileName = getSubPath(rootLen, pfile);
 							}
@@ -202,8 +218,10 @@ public class Server {
 	/**
 	 * Compare whether the two file paths are consistent
 	 * 
-	 * @param file1 Relative path
-	 * @param file2 Absolute path
+	 * @param file1
+	 *            Relative path
+	 * @param file2
+	 *            Absolute path
 	 * @return whether the two file paths are consistent
 	 */
 	private static boolean sameFileName(String file1, String file2) {
@@ -233,7 +251,8 @@ public class Server {
 	/**
 	 * Get table names
 	 * 
-	 * @param filter Table name filter
+	 * @param filter
+	 *            Table name filter
 	 * @return table names map
 	 */
 	public static Map<String, String> getTables(String filter) {
@@ -268,18 +287,24 @@ public class Server {
 	 */
 	private static boolean configLoaded = false;
 
+	private static String lastConfig = null;
+
 	/**
 	 * Initialize the configuration file
 	 * 
-	 * @param rc The RaqsoftConfig object
+	 * @param rc
+	 *            The RaqsoftConfig object
 	 * @throws SQLException
 	 */
-	public void initConfig(RaqsoftConfig rc, String sconfig) throws SQLException {
+	public synchronized void initConfig(RaqsoftConfig rc, String sconfig)
+			throws SQLException {
 		if (rc != null) {
 			this.config = rc;
 			configLoaded = true;
 			try {
-				ConfigUtil.setConfig(Env.getApplication(), System.getProperty("start.home"), config, true, false, true);
+				ConfigUtil.setConfig(Env.getApplication(),
+						System.getProperty("start.home"), config, true, false,
+						true);
 			} catch (Exception e) {
 				throw new SQLException(e);
 			}
@@ -296,9 +321,15 @@ public class Server {
 	 * 
 	 * @throws SQLException
 	 */
-	private synchronized void loadConfig(String sconfig) throws SQLException {
-		if (config != null)
+	private void loadConfig(String sconfig) throws SQLException {
+		if (config != null) {
+			if (StringUtils.isValidString(sconfig))
+				if (lastConfig == null || !lastConfig.equalsIgnoreCase(sconfig)) { // 通过API加载过了
+					Logger.info(JDBCMessage.get().getMessage(
+							"server.configloadonce"));
+				}
 			return;
+		}
 		InputStream is = null;
 		String fileName = sconfig;
 		try {
@@ -314,10 +345,13 @@ public class Server {
 		if (is != null) {
 			try {
 				config = ConfigUtil.load(is, true, true);
-				Logger.info(JDBCMessage.get().getMessage("error.configloaded", fileName));
+				lastConfig = sconfig;
+				Logger.info(JDBCMessage.get().getMessage("error.configloaded",
+						fileName));
 				Logger.debug("parallelNum=" + config.getParallelNum());
 			} catch (Exception e) {
-				String errorMessage = JDBCMessage.get().getMessage("error.loadconfigerror", fileName);
+				String errorMessage = JDBCMessage.get().getMessage(
+						"error.loadconfigerror", fileName);
 				Logger.error(errorMessage);
 				e.printStackTrace();
 				throw new SQLException(errorMessage + " : " + e.getMessage(), e);
@@ -329,7 +363,8 @@ public class Server {
 					}
 			}
 		} else {
-			String errorMessage = JDBCMessage.get().getMessage("error.confignotfound", fileName);
+			String errorMessage = JDBCMessage.get().getMessage(
+					"error.confignotfound", fileName);
 			Logger.error(errorMessage);
 			if (StringUtils.isValidString(sconfig)) {
 				// URL指定的config加载出错时抛异常，默认加载类路径下的不抛异常
@@ -373,7 +408,8 @@ public class Server {
 	/**
 	 * Get input stream by file name
 	 * 
-	 * @param fileName The file name
+	 * @param fileName
+	 *            The file name
 	 * @return the input stream
 	 */
 	public static InputStream findResource(String fileName) {
@@ -400,7 +436,8 @@ public class Server {
 				if (url != null) {
 					try {
 						in = url.openStream();
-						Logger.info("raqsoftConfig.xml load from : " + url.toString());
+						Logger.info("raqsoftConfig.xml load from : "
+								+ url.toString());
 					} catch (Exception e) {
 					}
 				}
@@ -422,7 +459,8 @@ public class Server {
 	/**
 	 * Set connection and Statement timeout (in seconds).
 	 * 
-	 * @param t seconds
+	 * @param t
+	 *            seconds
 	 */
 	public void setTimeout(int t) {
 		timeOut = t;
@@ -454,8 +492,10 @@ public class Server {
 	 * @return the connection
 	 * @throws SQLException
 	 */
-	public InternalConnection connect(InternalDriver driver) throws SQLException {
-		InternalConnection con = new InternalConnection(driver, Server.getInstance().nextID(), config);
+	public InternalConnection connect(InternalDriver driver)
+			throws SQLException {
+		InternalConnection con = new InternalConnection(driver, Server
+				.getInstance().nextID(), config);
 		cons.add(con);
 		return con;
 	}
@@ -472,7 +512,8 @@ public class Server {
 	/**
 	 * Get the connection by ID
 	 * 
-	 * @param id The connection ID
+	 * @param id
+	 *            The connection ID
 	 * @return the connection
 	 * @throws SQLException
 	 */
