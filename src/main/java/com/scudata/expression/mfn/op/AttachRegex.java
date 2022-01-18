@@ -119,6 +119,7 @@ public class AttachRegex extends OperableFunction {
 		}
 		
 		Regex regex = new Regex(this, pattern, names, exp);
+		regex.setCurrentCell(cs.getCurrent());
 		return operable.addOperation(regex, ctx);
 	}
 }

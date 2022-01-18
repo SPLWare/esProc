@@ -65,6 +65,7 @@ public class AttachSwitch extends OperableFunction {
 			op = new Switch(this, fkNames, seqs, exps, option);
 		}
 		
+		op.setCurrentCell(cs.getCurrent());
 		return operable.addOperation(op, ctx);
 	}
 }

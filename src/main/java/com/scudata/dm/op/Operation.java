@@ -1,5 +1,6 @@
 package com.scudata.dm.op;
 
+import com.scudata.cellset.INormalCell;
 import com.scudata.dm.Context;
 import com.scudata.dm.Sequence;
 import com.scudata.expression.Expression;
@@ -12,6 +13,7 @@ import com.scudata.expression.Function;
  */
 public abstract class Operation {
 	protected Function function; // 当前操作对应的表达式里的函数
+	protected INormalCell currentCell; // 运算所在的单元格
 	
 	/**
 	 * 构造函数
@@ -128,5 +130,13 @@ public abstract class Operation {
 		}
 		
 		return dupExps;
+	}
+
+	public INormalCell getCurrentCell() {
+		return currentCell;
+	}
+
+	public void setCurrentCell(INormalCell currentCell) {
+		this.currentCell = currentCell;
 	}
 }

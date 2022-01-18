@@ -2,6 +2,9 @@ package com.scudata.dm.cursor;
 
 import java.util.ArrayList;
 
+import com.scudata.cellset.INormalCell;
+import com.scudata.common.MessageManager;
+import com.scudata.common.RQException;
 import com.scudata.dm.ComputeStack;
 import com.scudata.dm.Context;
 import com.scudata.dm.DataStruct;
@@ -19,6 +22,7 @@ import com.scudata.dm.op.Operable;
 import com.scudata.dm.op.Operation;
 import com.scudata.dm.op.TotalResult;
 import com.scudata.expression.Expression;
+import com.scudata.resources.EngineMessage;
 import com.scudata.util.CursorUtil;
 import com.scudata.util.Variant;
 
@@ -171,7 +175,25 @@ abstract public class ICursor implements IResource, Operable {
 				return null;
 			}
 			
-			result = op.process(result, ctx);
+			try {
+				result = op.process(result, ctx);
+			} catch (RQException e) {
+				INormalCell cell = op.getCurrentCell();
+				if (cell != null) {
+					MessageManager mm = EngineMessage.get();
+					e.setMessage(mm.getMessage("error.cell", cell.getCellId()) + e.getMessage());
+				}
+				
+				throw e;
+			} catch (RuntimeException e) {
+				INormalCell cell = op.getCurrentCell();
+				if (cell != null) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException(mm.getMessage("error.cell", cell.getCellId()) + e.getMessage(), e);
+				} else {
+					throw e;
+				}
+			}
 		}
 		
 		return result;

@@ -19,10 +19,12 @@ public class AttachConj extends OperableFunction {
 	public Object calculate(Context ctx) {
 		if (param == null) {
 			Conj op = new Conj(this, null);
+			op.setCurrentCell(cs.getCurrent());
 			return operable.addOperation(op, ctx);
 		} else if (param.isLeaf()) {
 			Expression exp = param.getLeafExpression();
 			Conj op = new Conj(this, exp);
+			op.setCurrentCell(cs.getCurrent());
 			return operable.addOperation(op, ctx);
 		} else {
 			MessageManager mm = EngineMessage.get();

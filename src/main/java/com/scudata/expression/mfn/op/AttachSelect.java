@@ -26,6 +26,7 @@ public class AttachSelect extends OperableFunction {
 		} else if (param.isLeaf()) {
 			Expression fltExp = param.getLeafExpression();
 			Select select = new Select(this, fltExp, option);
+			select.setCurrentCell(cs.getCurrent());
 			return operable.addOperation(select, ctx);
 		} else {
 			if (param.getSubSize() != 2) {
@@ -56,6 +57,7 @@ public class AttachSelect extends OperableFunction {
 			
 			Expression fltExp = sub0.getLeafExpression();
 			Select select = new Select(this, fltExp, option, pipe);
+			select.setCurrentCell(cs.getCurrent());
 			return operable.addOperation(select, ctx);
 		}
 	}
