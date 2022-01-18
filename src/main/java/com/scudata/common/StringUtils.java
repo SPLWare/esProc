@@ -6,6 +6,9 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Vector;
 
+import com.scudata.ide.common.GV;
+import com.scudata.ide.spl.SPL;
+
 /**
  * 字符串工具类
  * @author RunQian
@@ -1296,4 +1299,25 @@ public class StringUtils {
 		
 		return -1;
 	}
+	
+	/**
+	 *   用名字前缀pre产生一个在已知名字范围existsNames内的唯一新名字
+	 * @param pre 名字前缀
+	 * @param existsNames 已知的名字范围
+	 * @return 已知范围内唯一的新名字
+	 */
+	public static String getNewName(String pre,String[] existsNames) {
+		ArrayList<String> names = new ArrayList<String>();
+		if (existsNames != null) {
+			for (int i = 0; i < existsNames.length; i++) {
+				names.add(existsNames[i]);
+			}
+		}
+		int index = 1;
+		while (names.contains(pre + index)) {
+			index++;
+		}
+		return pre + index;
+	}
+
 }

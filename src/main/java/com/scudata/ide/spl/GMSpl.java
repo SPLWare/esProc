@@ -498,17 +498,19 @@ public class GMSpl extends GM {
 	 */
 	public static String getNewName(String pre) {
 		String[] titles = ((SPL) GV.appFrame).getSheetTitles();
-		ArrayList<String> names = new ArrayList<String>();
-		if (titles != null) {
-			for (int i = 0; i < titles.length; i++) {
-				names.add(titles[i]);
-			}
-		}
-		int index = 1;
-		while (names.contains(pre + index)) {
-			index++;
-		}
-		return pre + index;
+		return StringUtils.getNewName(pre, titles);
+//		String[] titles = ((SPL) GV.appFrame).getSheetTitles();
+//		ArrayList<String> names = new ArrayList<String>();
+//		if (titles != null) {
+//			for (int i = 0; i < titles.length; i++) {
+//				names.add(titles[i]);
+//			}
+//		}
+//		int index = 1;
+//		while (names.contains(pre + index)) {
+//			index++;
+//		}
+//		return pre + index;
 	}
 
 	/**
