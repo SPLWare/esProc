@@ -1,7 +1,11 @@
 package com.scudata.lib.hbase.function;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.io.IOException;
 import org.apache.hadoop.hbase.Cell;
 import org.apache.hadoop.hbase.CellUtil;
@@ -146,7 +150,8 @@ public class HbaseGet extends HbaseQuery {
   			Record r = table.newLast(objs);
   			List<Cell> cells = res.listCells();
   	        for (Cell c : cells) {
-  				//System.out.println("val = "+Bytes.toString(kv.getValue()));
+  	        	//System.out.println(c.getTimestamp());
+  	        	//System.out.println("val = "+Bytes.toString(kv.getValue()));
   				family= Bytes.toString(CellUtil.cloneFamily(c));
   				column= Bytes.toString(CellUtil.cloneQualifier(c));
   				if (column.compareTo("_0")==0){
@@ -192,9 +197,6 @@ public class HbaseGet extends HbaseQuery {
 			throw new RQException("hbaseGet param tableName is empty" );
 		}
 		int size = tb.m_family.size();
-		if (size==0){
-			throw new RQException("hbaseGet param family is empty" );
-		}
 		
 		if (tb.m_column.size()!=size){
 			throw new RQException("hbaseGet param column is not right" );
@@ -249,30 +251,20 @@ public class HbaseGet extends HbaseQuery {
   		if ( tb == null) {
   			throw new RQException("toTable param TableInfo is not null" );
   		}
-  		
-  		int colSize = 0;
-  		Object[] objs=null;
+
+  		Object obj=null;
   		String family, column,fullName;
   		
-  		// reset column;
-  		colSize = tb.m_columnAlias.size()+1; 	
-  		Table table = createTable(tb);
-  		if (table==null){
-  			throw new RQException("toTable param create table false" );
-  		}
+  		Table table = null;
   		if (res.size()==0){
   			return table;
   		}
   		
-      	String sAliasKey = "";  		
-		String rowkey=Bytes.toString(res.getRow());
-		
-		objs = new Object[colSize];  
-		objs[0] = rowkey;
-		Record r = table.newLast(objs);
-
+      	String sAliasKey = "";
 		List<Cell> cells = res.listCells();
+		Map<String, Object> map = new HashMap<String, Object>();
         for (Cell c : cells) {
+        	//System.out.println(c.getTimestamp());
 			//System.out.println("val = "+Bytes.toString(kv.getValue()));
 			family= Bytes.toString(CellUtil.cloneFamily(c));
 			column= Bytes.toString(CellUtil.cloneQualifier(c));
@@ -282,10 +274,20 @@ public class HbaseGet extends HbaseQuery {
 			
             fullName = family+"."+column;
             sAliasKey = tb.m_columnAlias.get(fullName);
-            objs[0] = ImUtils.getDataType(tb, fullName, Bytes.toString(CellUtil.cloneValue(c)));
-            r.set(sAliasKey, objs[0]);
+            if (sAliasKey==null){
+            	//r.set(0, Bytes.toString(CellUtil.cloneValue(c)));
+            	map.put(fullName, (Object)Bytes.toString(CellUtil.cloneValue(c)));
+            }else{	            
+            	obj= ImUtils.getDataType(tb, fullName, Bytes.toString(CellUtil.cloneValue(c)));
+	            map.put(sAliasKey, obj);
+            }
         }
-  		
+  		Set<String> setKey = map.keySet();
+        String[] cols = setKey.toArray(new String[setKey.size()]);
+        table = new Table(cols);
+        Collection<Object> setVal = map.values();
+        Object[] vals=setVal.toArray(new Object[setVal.size()]);
+        table.newLast(vals);
   		return table;
   	}
 	

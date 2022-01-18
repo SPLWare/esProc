@@ -227,6 +227,8 @@ public class HbaseQuery extends Function {
 		for (int i = 0; i < size; i += 2) {
 			key = ((Expression) list.get(i)).toString();
 			v = ((Expression) list.get(i + 1)).toString();
+			key = key.replace("\"", "");
+			v = v.replace("\"", "");
 			//System.out.printf("k=" + key + " v=" + v);
 			if (key.compareToIgnoreCase("filter") == 0) {
 				Object val = ((Expression) list.get(i + 1)).calculate(ctx);
@@ -427,8 +429,6 @@ public class HbaseQuery extends Function {
   				getColumnArray(res, list, vlist);
   				colNames = vlist.toArray(new String[vlist.size()]);
   				table = new Table(colNames);
-  				//list.clear();
-  							
   			 }
   			
    			objs = new Object[colNames.length];  
@@ -450,10 +450,10 @@ public class HbaseQuery extends Function {
   	        }//endfor
   		}//endfor
   		//有记录则改名
-  		if (list.size()>0 && table!=null ){
-	  		String[] cols = list.toArray(new String[list.size()]);
-	  		table.rename(colNames, cols);
-  		}
+//  		if (list.size()>0 && table!=null ){
+//	  		String[] cols = list.toArray(new String[list.size()]);
+//	  		table.rename(colNames, cols);
+//  		}
   		return table;
   	}
   	
@@ -465,30 +465,36 @@ public class HbaseQuery extends Function {
   		if ( tb == null) {
   			throw new RQException("toTable param TableInfo is not null" );
   		}
-  		if (tb.m_family.size()==0){
-  			try {
-				return toTable(scanner);
-			} catch (IOException e) {
-				Logger.error(e.getMessage());
-			}
-  		}
-  		
+
   		Table table = null;
   		Object[] objs=null;
   		String[] colNames = null;
   		String family, column,fullName,sAliasKey = "";
+  		boolean bFirst = (tb.m_columnAlias.size()<=0);
   		
   		int nCount = 0, nCol = 0;
-  		int colSize = tb.m_columnAlias.size()+1; 
-  		colNames = new String[colSize];
-  		colNames[0] = "rowkey";
-
-  		for(String val: tb.m_columnAlias.values()){
-  			colNames[++nCol] = val;
+  		if (!bFirst){
+	  		int colSize = tb.m_columnAlias.size()+1; 
+	  		colNames = new String[colSize];
+	  		colNames[0] = "rowkey";
+	
+	  		for(String val: tb.m_columnAlias.values()){
+	  			colNames[++nCol] = val;
+	  		}
+	  		table = new Table(colNames);
   		}
-  		table = new Table(colNames);
+  		
   		for(Result res:scanner){
-  			objs = new Object[colSize]; 
+  			if (bFirst){
+				bFirst = false;	
+				List<String> list = new ArrayList<String>();  		
+		  		List<String> vlist = new ArrayList<String>();
+				getColumnArray(res, list, vlist);
+				colNames = vlist.toArray(new String[vlist.size()]);
+				table = new Table(colNames);
+			}
+  			
+  			objs = new Object[colNames.length]; 
   			objs[0] = res.getRow();
   			if (objs[0] instanceof Integer){
   				objs[0] = Integer.parseInt(String.valueOf(objs[0]));
@@ -507,9 +513,14 @@ public class HbaseQuery extends Function {
   				}
   				
   	            fullName = family+"."+column;
+  	           
   	            sAliasKey = tb.m_columnAlias.get(fullName);
-	  	        objs[0] = ImUtils.getDataType(tb, fullName, Bytes.toString(CellUtil.cloneValue(c)));
-	            r.set(sAliasKey, objs[0]);
+  	            if (sAliasKey!=null){
+		  	        objs[0] = ImUtils.getDataType(tb, fullName, Bytes.toString(CellUtil.cloneValue(c)));
+		            r.set(sAliasKey, objs[0]);
+  	            }else{
+  	            	r.set(fullName, Bytes.toString(CellUtil.cloneValue(c)));
+  	            }
   	        }  			  			
   			if (limit > 0 && ++nCount>=limit) break; //最大记录数;
   		}

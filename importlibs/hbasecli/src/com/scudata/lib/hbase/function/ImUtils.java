@@ -257,7 +257,9 @@ public class ImUtils {
 	// 转换成Table前将object转换成对应的类型
 	public static Object getDataType(TableInfo tableInfo, String colFullName, Object data){
 		Object oRet = null;
-		
+		if (tableInfo.m_columnType.size()==0){
+			return data;
+		}
 		String type = tableInfo.m_columnType.get(colFullName);
 		//System.out.println("d=" + data + " type="+type + " key="+colFullName);
 		if (type.compareToIgnoreCase("string")==0){
@@ -376,6 +378,8 @@ public class ImUtils {
 	
     public static void format(Result result){        
     	List<Cell> cells = result.listCells();
+    	if (cells==null) return;
+    	
         for (Cell c : cells) {
         	String rowkey = Bytes.toString(CellUtil.cloneRow(c));
             String family= Bytes.toString(CellUtil.cloneFamily(c));
