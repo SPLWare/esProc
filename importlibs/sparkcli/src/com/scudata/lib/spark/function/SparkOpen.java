@@ -2,46 +2,34 @@ package com.scudata.lib.spark.function;
 
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
-import com.scudata.dm.Context;
-import com.scudata.expression.Function;
-import com.scudata.expression.Node;
 import com.scudata.resources.EngineMessage;
 
-// spark_open(hdfs, thrift, instanceName)
-public class SparkOpen extends Function {
-	public Node optimize(Context ctx) {
-		if (param != null) {
-			param.optimize(ctx);
+/*******************************
+ * 连接方式：
+ * spark_open()								//local
+ * spark_open(hdfsUrl)						//hdfs
+ * spark_open(hdfs, thrift, instanceName)	//sql
+ * **/
+public class SparkOpen extends ImFunction {
+	public Object doQuery(Object[] objs) {
+		if (objs == null) {
+			return new SparkCli(this.m_ctx);
+		}else if(objs.length==1 && objs[0] instanceof String){
+			return new SparkCli(this.m_ctx, objs[0].toString());
 		}
 		
-		return this;
-	}
-
-	public Object calculate(Context ctx) {
-		if (param == null) {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException("spark_client" + mm.getMessage("function.missingParam"));
-		}
-
-		int size = param.getSubSize();
-		if (size != 3) {
+		if (objs.length!=3) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("spark_client" + mm.getMessage("function.invalidParam"));
 		}
 		
-		Object objs[] = new Object[size];
-		for(int i=0; i<size; i++){
-			if (param.getSub(i) == null ) {
-				MessageManager mm = EngineMessage.get();
-				throw new RQException("spark_client" + mm.getMessage("function.invalidParam"));
-			}
-			objs[i] = param.getSub(i).getLeafExpression().calculate(ctx);
+		for(int i=0; i<objs.length; i++){
 			if (!(objs[i] instanceof String)) {
 				MessageManager mm = EngineMessage.get();
 				throw new RQException("spark_client" + mm.getMessage("function.paramTypeError"));
 			}
 		}
 		
-		return new SparkCli(ctx, (String)objs[0], (String)objs[1],(String)objs[2]);
+		return new SparkCli(m_ctx, (String)objs[0], (String)objs[1],(String)objs[2]);
 	}
 }
