@@ -5,8 +5,6 @@ import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
-import org.bouncycastle.util.Arrays;
-
 import com.scudata.common.ByteArrayInputRecord;
 import com.scudata.common.ByteArrayOutputRecord;
 import com.scudata.common.IRecord;
