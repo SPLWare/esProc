@@ -8263,6 +8263,9 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			if (ds == null) {
 				MessageManager mm = EngineMessage.get();
 				throw new RQException(mm.getMessage("engine.needPurePmt"));
+			} else {
+				// 复制数据结构，防止修改新表数据结构是影响源结构
+				ds = ds.dup();
 			}
 			
 			Context ctx = new Context();
@@ -8276,6 +8279,8 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			return newTable(ds, exps, null, ctx);
 		}
 
+		// 复制数据结构，防止修改新表数据结构是影响源结构
+		ds = ds.dup();
 		Table table = new Table(ds, len);
 		if (opt == null || opt.indexOf('o') == -1) {
 			for (int i = 1; i <= len; ++i) {
