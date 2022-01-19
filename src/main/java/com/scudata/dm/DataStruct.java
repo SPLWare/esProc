@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
+import org.bouncycastle.util.Arrays;
+
 import com.scudata.common.ByteArrayInputRecord;
 import com.scudata.common.ByteArrayOutputRecord;
 import com.scudata.common.IRecord;
@@ -103,7 +105,9 @@ public class DataStruct implements Externalizable, IRecord {
 	 * 复制数据结构
 	 */
 	public DataStruct dup() {
-		DataStruct ds = new DataStruct(fieldNames);
+		String []names = new String[fieldNames.length];
+		System.arraycopy(fieldNames, 0, names, 0, names.length);
+		DataStruct ds = new DataStruct(names);
 		ds.setPrimary(primary);
 		return ds;
 	}
