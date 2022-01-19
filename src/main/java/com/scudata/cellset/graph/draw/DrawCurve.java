@@ -51,7 +51,7 @@ public class DrawCurve extends DrawBase {
 
 		Point2D.Double beginPoint[];
 		double beginVal[];
-		ArrayList catPoints[];
+		ArrayList<Point2D.Double> catPoints[];
 
 		db.initGraphInset();
 		db.createCoorValue();
@@ -123,7 +123,7 @@ public class DrawCurve extends DrawBase {
 		beginVal = new double[gp.serNum];
 		catPoints = new ArrayList[gp.serNum];
 		for (int j = 0; j < gp.serNum; j++) {
-			ArrayList catList = new ArrayList();
+			ArrayList<Point2D.Double> catList = new ArrayList<Point2D.Double>();
 			catPoints[j] = catList;
 		}
 
@@ -208,7 +208,7 @@ public class DrawCurve extends DrawBase {
 				DrawLine.drawHTrendLine(db, beginPoint[j]);
 				beginPoint[j] = endPoint;
 				if (endPoint != null) {
-					ArrayList catList = catPoints[j];
+					ArrayList<Point2D.Double> catList = catPoints[j];
 					catList.add(endPoint);
 				}
 				beginVal[j] = val;
@@ -221,15 +221,15 @@ public class DrawCurve extends DrawBase {
 		}
 
 		for (int j = 0; j < gp.serNum; j++) {
-			ArrayList serPoints = (ArrayList) catPoints[j];
+			ArrayList<Point2D.Double> serPoints = catPoints[j];
 			if (serPoints.size() == 0) {
 				continue;
 			}
 
 			g.setColor(db.getColor(j));
 
-			Point p1;
-			Point p2;
+			Point2D.Double p1;
+			Point2D.Double p2;
 			int n;
 			double x1, y1, x2, y2;
 			double[] xs;
@@ -238,8 +238,8 @@ public class DrawCurve extends DrawBase {
 			Line2D.Double dLine;
 			switch (curveType) {
 			case GraphProperty.CURVE_LAGRANGE:
-				p1 = (Point) serPoints.get(0);
-				p2 = (Point) serPoints.get(serPoints.size() - 1);
+				p1 = serPoints.get(0);
+				p2 = serPoints.get(serPoints.size() - 1);
 				x1 = p1.x;
 				y1 = p1.y;
 				double delta = 0.2;
@@ -256,15 +256,15 @@ public class DrawCurve extends DrawBase {
 				xs = new double[n];
 				ys = new double[n];
 				for (int i = 0; i < n; i++) {
-					Point pt = (Point) serPoints.get(i);
+					Point2D.Double pt = serPoints.get(i);
 					xs[i] = pt.x;
 					ys[i] = pt.y;
 				}
 				for (int k = 0; k < serPoints.size() - 1; k++) {
-					p1 = (Point) serPoints.get(k);
+					p1 = serPoints.get(k);
 					x1 = p1.x;
 					y1 = p1.y;
-					p2 = (Point) serPoints.get(k + 1);
+					p2 = serPoints.get(k + 1);
 					double[] s = s(xs, ys, k); // , t
 					for (x2 = p1.x + 1; x2 <= p2.x; x2 += 1) {
 						y2 = akima(p1.x, x2, s);
@@ -280,13 +280,13 @@ public class DrawCurve extends DrawBase {
 				xs = new double[n];
 				ys = new double[n];
 				for (int i = 0; i < n; i++) {
-					Point pt = (Point) serPoints.get(i);
+					Point2D.Double pt = serPoints.get(i);
 					xs[i] = pt.x;
 					ys[i] = pt.y;
 				}
 
-				p1 = (Point) serPoints.get(0);
-				p2 = (Point) serPoints.get(serPoints.size() - 1);
+				p1 = serPoints.get(0);
+				p2 = serPoints.get(serPoints.size() - 1);
 				x1 = p1.x;
 				y1 = p1.y;
 				for (x2 = p1.x + 1; x2 <= p2.x; x2 += 1) {
@@ -322,14 +322,14 @@ public class DrawCurve extends DrawBase {
 	 *            int， 插值的X
 	 * @return int，插值朗日后的Y
 	 */
-	private static double Lagrange(ArrayList points, double deltaX) {
+	private static double Lagrange(ArrayList<Point2D.Double> points, double deltaX) {
 		double sum = 0;
 		double L;
 		for (int i = 0; i < points.size(); i++) {
 			L = 1;
-			Point pi = (Point) points.get(i);
+			Point2D.Double pi = points.get(i);
 			for (int j = 0; j < points.size(); j++) {
-				Point pj = (Point) points.get(j);
+				Point2D.Double pj = points.get(j);
 				if (j != i) {
 					L = L * (deltaX - pj.x) / (pi.x - pj.x);
 				}
