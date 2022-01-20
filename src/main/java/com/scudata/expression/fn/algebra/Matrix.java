@@ -23,7 +23,7 @@ public class Matrix {
 	//added by bd, 2021.1.15, 是否是向量，向量会存储为单行或单列矩阵
 	private boolean ifVector = false;
 	
-	protected Matrix(int rs, int cs) {
+	public Matrix(int rs, int cs) {
 		this.A = new double[rs][cs];
 		this.rows = rs;
 		this.cols = cs;
@@ -358,7 +358,7 @@ public class Matrix {
 	/*
 	 * 修改矩阵中某个值，added by bd, 2021.4.8
 	 */
-	protected void set(int r, int c, double v) {
+	public void set(int r, int c, double v) {
 		this.A[r][c] = v;
 	}
 
@@ -707,7 +707,7 @@ public class Matrix {
 	 * @param B		用来执行加法的矩阵
 	 * @return		矩阵相加的结果
 	 */
-	protected Matrix plus(Matrix B) {
+	public Matrix plus(Matrix B) {
 		checkMatrixSize(B);
 		Matrix X = new Matrix(this.rows, this.cols);
 		for (int r = 0; r < this.rows; r++) {
@@ -723,7 +723,7 @@ public class Matrix {
 	 * 矩阵中每个成员计算平方
 	 * @return		
 	 */
-	protected Matrix elementSquare() {
+	public Matrix elementSquare() {
 		Matrix X = new Matrix(this.rows, this.cols);
 		for (int r = 0; r < this.rows; r++) {
 			for (int c = 0; c < this.cols; c++) {
@@ -737,7 +737,7 @@ public class Matrix {
 	 * 矩阵中每个成员的总和
 	 * @return		
 	 */
-	protected double elementSum() {
+	public double elementSum() {
 		double sumup = 0d;
 		for (int r = 0; r < this.rows; r++) {
 			for (int c = 0; c < this.cols; c++) {
@@ -751,7 +751,7 @@ public class Matrix {
 	 * 用来计算向量的内积
 	 * @return		
 	 */
-	protected double dot(Matrix B) {
+	public double dot(Matrix B) {
 		double innerProduct = 0d;
 		for (int r = 0; r < this.rows; r++) {
 			for (int c = 0; c < this.cols; c++) {
@@ -782,7 +782,7 @@ public class Matrix {
 	 * @param B		用来执行减法的矩阵
 	 * @return		矩阵相减的结果
 	 */
-	protected Matrix minus(Matrix B) {
+	public Matrix minus(Matrix B) {
 		checkMatrixSize(B);
 		Matrix X = new Matrix(this.rows, this.cols);
 		for (int r = 0; r < this.rows; r++) {
@@ -798,7 +798,7 @@ public class Matrix {
 	 * @param d		用来执行加法的实数
 	 * @return		
 	 */
-	protected Matrix plus(double d) {
+	public Matrix plus(double d) {
 		Matrix X = new Matrix(this.rows, this.cols);
 		for (int r = 0; r < this.rows; r++) {
 			for (int c = 0; c < this.cols; c++) {
