@@ -1,4 +1,4 @@
-package com.scudata.expression.fn.algebra;
+package com.scudata.lib.matrix;
 
 import com.scudata.common.Logger;
 import com.scudata.common.MessageManager;
@@ -7,9 +7,10 @@ import com.scudata.dm.Context;
 import com.scudata.dm.Sequence;
 import com.scudata.expression.Function;
 import com.scudata.expression.IParam;
+import com.scudata.expression.fn.algebra.Matrix;
 import com.scudata.resources.EngineMessage;
 
-public class SavizkgGolag extends Function {
+public class SavitzkyGolay extends Function {
 	public Object calculate(Context ctx) {
 		if (param == null) {
 			MessageManager mm = EngineMessage.get();

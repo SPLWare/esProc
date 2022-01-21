@@ -746,10 +746,7 @@ public final class FunctionLib {
 		addFunction("var","com.scudata.expression.fn.algebra.Var");
 		addFunction("mse","com.scudata.expression.fn.algebra.Mse");
 		addFunction("mae","com.scudata.expression.fn.algebra.Mae");
-		addFunction("cov","com.scudata.expression.fn.algebra.Cov");
-		addFunction("covm","com.scudata.expression.fn.algebra.Covm");
 		addFunction("dis","com.scudata.expression.fn.algebra.Distance");
-		addFunction("dism","com.scudata.expression.fn.algebra.Dism");
 		addFunction("I","com.scudata.expression.fn.algebra.Identity");
 		addFunction("mul","com.scudata.expression.fn.algebra.Mul");
 		addFunction("transpose","com.scudata.expression.fn.algebra.Transpose");
@@ -761,22 +758,6 @@ public final class FunctionLib {
 		addFunction("norm","com.scudata.expression.fn.algebra.Normalize");
 		addFunction("pearson","com.scudata.expression.fn.algebra.Pearson");
 		addFunction("spearman","com.scudata.expression.fn.algebra.Spearman");
-		addFunction("pca","com.scudata.expression.fn.algebra.PCA");
-		addFunction("pls","com.scudata.expression.fn.algebra.PLS");
-		addFunction("sg","com.scudata.expression.fn.algebra.SavizkgGolag");
-		addFunction("ones","com.scudata.expression.fn.algebra.Ones");
-		addFunction("zeros","com.scudata.expression.fn.algebra.Zeros");
-		addFunction("eye","com.scudata.expression.fn.algebra.Eye");
-		addFunction("mfind","com.scudata.expression.fn.algebra.MFind");
-		addFunction("msum","com.scudata.expression.fn.algebra.MSum");
-		addFunction("mcumsum","com.scudata.expression.fn.algebra.MCumsum");
-		addFunction("mmean","com.scudata.expression.fn.algebra.MMean");
-		addFunction("mnorm","com.scudata.expression.fn.algebra.MNormalize");
-		addFunction("mstd","com.scudata.expression.fn.algebra.MStd");
-		addFunction("norminv","com.scudata.expression.fn.algebra.Norminv");
-		addFunction("lasso","com.scudata.expression.fn.algebra.Lasso");
-		addFunction("ridge","com.scudata.expression.fn.algebra.Ridge");
-		addFunction("elasticnet","com.scudata.expression.fn.algebra.ElasticNet");
 	}
 
 	/**

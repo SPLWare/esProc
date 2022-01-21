@@ -1,4 +1,4 @@
-package com.scudata.expression.fn.algebra;
+package com.scudata.lib.matrix;
 
 import static java.lang.Math.sqrt;
 

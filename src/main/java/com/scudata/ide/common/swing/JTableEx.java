@@ -1349,20 +1349,23 @@ public class JTableEx extends JTable implements MouseListener,
 	 * @return int，移动后的新行号,返回-1表示没有移动
 	 */
 	public int shiftRowUp(int row) {
-		int cr;
+		int start,end;
 		if (row < 0) {
-			cr = getSelectedRow();
+			int[] rows = getSelectedRows();
+			start = rows[0];
+			end = rows[rows.length-1];
 		} else {
-			cr = row;
+			start = row;
+			end = row;
 		}
 
-		if (cr <= 0) {
+		if (start <= 0) {
 			return -1;
 		}
-		data.moveRow(cr, cr, cr - 1);
-		selectRow(cr - 1);
+		data.moveRow(start, end, start - 1);
+		selectRows(start - 1, end - 1);
 		resetIndex();
-		return cr - 1;
+		return start - 1;
 	}
 
 	/**
@@ -1382,19 +1385,22 @@ public class JTableEx extends JTable implements MouseListener,
 	 * @return
 	 */
 	public int shiftRowDown(int row) {
-		int cr;
+		int start,end;
 		if (row < 0) {
-			cr = getSelectedRow();
+			int[] rows = getSelectedRows();
+			start = rows[0];
+			end = rows[rows.length-1];
 		} else {
-			cr = row;
+			start = row;
+			end = row;
 		}
-		if (cr < 0 || cr >= getRowCount() - 1) {
+		if (start < 0 || end >= getRowCount() - 1) {
 			return -1;
 		}
-		data.moveRow(cr, cr, cr + 1);
-		selectRow(cr + 1);
+		data.moveRow(start, end, start + 1);
+		selectRows(start + 1,end+1);
 		resetIndex();
-		return cr + 1;
+		return start + 1;
 	}
 
 	/**
@@ -1517,6 +1523,17 @@ public class JTableEx extends JTable implements MouseListener,
 		// }
 		fireRowfocusChanged(oldRow, row);
 		oldRow = n;
+	}
+
+	/**
+	 * 补充的多行移动用
+	 * @param start
+	 * @param end
+	 */
+	void selectRows(int start, int end) {
+		DefaultListSelectionModel selectModel = new DefaultListSelectionModel();
+		selectModel.addSelectionInterval(start, end);
+		setSelectionModel(selectModel);
 	}
 
 	/**

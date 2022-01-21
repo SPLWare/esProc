@@ -1,4 +1,4 @@
-package com.scudata.expression.fn.algebra;
+package com.scudata.lib.matrix;
 
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;

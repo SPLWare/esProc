@@ -1,4 +1,4 @@
-package com.scudata.expression.fn.algebra;
+package com.scudata.lib.matrix;
 
 import java.util.ArrayList;
 import java.util.Arrays;

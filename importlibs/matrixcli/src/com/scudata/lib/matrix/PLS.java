@@ -1,4 +1,4 @@
-package com.scudata.expression.fn.algebra;
+package com.scudata.lib.matrix;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,6 +11,9 @@ import com.scudata.dm.Context;
 import com.scudata.dm.Sequence;
 import com.scudata.expression.Function;
 import com.scudata.expression.IParam;
+import com.scudata.expression.fn.algebra.Matrix;
+import com.scudata.expression.fn.algebra.SVDecomposition;
+import com.scudata.expression.fn.algebra.Vector;
 import com.scudata.resources.EngineMessage;
 
 public class PLS extends Function {
