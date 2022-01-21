@@ -5,6 +5,7 @@ import com.scudata.common.RQException;
 import com.scudata.dm.ComputeStack;
 import com.scudata.dm.Context;
 import com.scudata.dm.IndexTable;
+import com.scudata.dm.MergeIndexTable;
 import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 import com.scudata.expression.CurrentSeq;
@@ -21,20 +22,27 @@ public class FilterJoin extends Operation {
 	private Expression [][]exps; // 关联字段表达式数组
 	private Sequence []codes; // 代码表数组
 	private Expression [][]dataExps; // 代码表主键表达式数组
+	private String opt; // 选项
 	
 	private IndexTable []indexTables; // 代码表按hash值分组
 	private boolean containNull; // 有的维表是否是空
+	private boolean isMerge; // 是否使用归并法进行关联（所有表按关联字段有序）
 	
 	public FilterJoin(Expression[][] exps, Sequence[] codes, Expression[][] dataExps) {
-		this(null, exps, codes, dataExps);
+		this(null, exps, codes, dataExps, null);
 	}
 
-	public FilterJoin(Function function, Expression[][] exps, Sequence[] codes, Expression[][] dataExps) {
+	public FilterJoin(Function function, Expression[][] exps, Sequence[] codes, Expression[][] dataExps, String opt) {
 		super(function);
 		this.exps = exps;
 		this.codes = codes;
 		this.dataExps = dataExps;
-
+		this.opt = opt;
+		
+		if (opt != null && opt.indexOf('m') != -1) {
+			isMerge = true;
+		}
+		
 		int count = exps.length;
 		for (int i = 0; i < count; ++i) {
 			if (codes[i] == null) {
@@ -64,7 +72,7 @@ public class FilterJoin extends Operation {
 		Expression [][]exps1 = dupExpressions(exps, ctx);
 		Expression [][]dataExps1 = dupExpressions(dataExps, ctx);
 				
-		return new FilterJoin(function, exps1, codes, dataExps1);
+		return new FilterJoin(function, exps1, codes, dataExps1, opt);
 	}
 
 	private void init(Sequence data, Context ctx) {
@@ -83,7 +91,42 @@ public class FilterJoin extends Operation {
 
 			Expression []curExps = dataExps[i];
 			IndexTable indexTable;
-			if (curExps == null) {
+			
+			if (isMerge) {
+				if (curExps == null) {
+					Object obj = code.getMem(1);
+					if (obj instanceof Record) {
+						String[] pks = ((Record)obj).dataStruct().getPrimary();
+						if (pks == null) {
+							MessageManager mm = EngineMessage.get();
+							throw new RQException(mm.getMessage("ds.lessKey"));
+						}
+						
+						int pkCount = pks.length;
+						if (exps[i].length != pkCount) {
+							MessageManager mm = EngineMessage.get();
+							throw new RQException("join" + mm.getMessage("function.invalidParam"));
+						}
+
+						curExps = new Expression[pkCount];
+						dataExps[i] = curExps;
+						for (int k = 0; k < pkCount; ++k) {
+							curExps[k] = new Expression(ctx, pks[k]);
+						}
+						
+						indexTable = new MergeIndexTable(code, curExps, ctx);
+					} else {
+						indexTable = new MergeIndexTable(code, null, ctx);
+					}
+				} else {
+					if (exps[i].length != curExps.length) {
+						MessageManager mm = EngineMessage.get();
+						throw new RQException("join" + mm.getMessage("function.invalidParam"));
+					}
+					
+					indexTable = new MergeIndexTable(code, curExps, ctx);
+				}
+			} else if (curExps == null) {
 				indexTable = code.getIndexTable();
 				if (indexTable == null) {
 					Object obj = code.getMem(1);

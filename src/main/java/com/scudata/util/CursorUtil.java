@@ -1286,9 +1286,9 @@ public final class CursorUtil {
 		
 		Operation op;
 		if (isIsect) {
-			op = new FilterJoin(null, fields, seqs, keys);
+			op = new FilterJoin(null, fields, seqs, keys, option);
 		} else if (isDiff) {
-			op = new DiffJoin(null, fields, seqs, keys);
+			op = new DiffJoin(null, fields, seqs, keys, option);
 		} else {
 			op = new Join(null, fname, fields, seqs, keys, exps, expNames, option);
 		}

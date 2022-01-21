@@ -130,9 +130,9 @@ public class JoinFK extends SequenceFunction {
 		
 		Operation op;
 		if (isIsect) {
-			op = new FilterJoin(this, exps, seqs, dataExps);
+			op = new FilterJoin(this, exps, seqs, dataExps, option);
 		} else if (isDiff) {
-			op = new DiffJoin(this, exps, seqs, dataExps);
+			op = new DiffJoin(this, exps, seqs, dataExps, option);
 		} else if (hasClusterTable) {
 			op = new JoinRemote(this, fname, exps, codes, dataExps, newExps, newNames, option);
 		} else {

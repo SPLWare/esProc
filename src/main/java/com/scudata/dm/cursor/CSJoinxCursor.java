@@ -228,9 +228,9 @@ public class CSJoinxCursor extends ICursor {
 					
 					Operation op;
 					if (isIsect) {
-						op = new FilterJoin(null, fields, seqs, keys);
+						op = new FilterJoin(null, fields, seqs, keys, option);
 					} else if (isDiff) {
-						op = new DiffJoin(null, fields, seqs, keys);
+						op = new DiffJoin(null, fields, seqs, keys, option);
 					} else {
 						op = new Join(null, fields, seqs, keys, newExps, newNames, option);
 					}
@@ -294,9 +294,9 @@ public class CSJoinxCursor extends ICursor {
 			
 			Operation op;
 			if (isIsect) {
-				op = new FilterJoin(null, lastFields, table, lastKeys);
+				op = new FilterJoin(null, lastFields, table, lastKeys, option);
 			} else if (isDiff) {
-				op = new DiffJoin(null, lastFields, table, lastKeys);
+				op = new DiffJoin(null, lastFields, table, lastKeys, option);
 			} else {
 				op = new Join(fname, lastFields, table, lastKeys, lastNewExps, lastNewNames, option);
 			}

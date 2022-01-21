@@ -10,6 +10,7 @@ import com.scudata.dm.Context;
 import com.scudata.dm.DataStruct;
 import com.scudata.dm.IndexTable;
 import com.scudata.dm.ListBase1;
+import com.scudata.dm.MergeIndexTable;
 import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
@@ -45,6 +46,7 @@ public class Join extends Operation {
 	private boolean isIsect; // 交连接，默认为左连接
 	private boolean isOrg;
 	private boolean containNull; // 是否有的代码表为空
+	private boolean isMerge; // 是否使用归并法进行关联（所有表按关联字段有序）
 	
 	public Join(String fname, Expression[][] exps, Sequence[] codes,
 			  Expression[][] dataExps, Expression[][] newExps,
@@ -66,6 +68,7 @@ public class Join extends Operation {
 		if (opt != null) {
 			if (opt.indexOf('i') != -1) isIsect = true;
 			if (opt.indexOf('o') != -1) isOrg = true;
+			if (opt.indexOf('m') != -1) isMerge = true;
 		}
 
 		ArrayList<String[]> srcFieldsList = new ArrayList<String[]>();
@@ -228,7 +231,41 @@ public class Join extends Operation {
 
 			Expression []curExps = dataExps[i];
 			IndexTable indexTable;
-			if (curExps == null) {
+			if (isMerge) {
+				if (curExps == null) {
+					Object obj = code.getMem(1);
+					if (obj instanceof Record) {
+						String[] pks = ((Record)obj).dataStruct().getPrimary();
+						if (pks == null) {
+							MessageManager mm = EngineMessage.get();
+							throw new RQException(mm.getMessage("ds.lessKey"));
+						}
+						
+						int pkCount = pks.length;
+						if (exps[i].length != pkCount) {
+							MessageManager mm = EngineMessage.get();
+							throw new RQException("join" + mm.getMessage("function.invalidParam"));
+						}
+
+						curExps = new Expression[pkCount];
+						dataExps[i] = curExps;
+						for (int k = 0; k < pkCount; ++k) {
+							curExps[k] = new Expression(ctx, pks[k]);
+						}
+						
+						indexTable = new MergeIndexTable(code, curExps, ctx);
+					} else {
+						indexTable = new MergeIndexTable(code, null, ctx);
+					}
+				} else {
+					if (exps[i].length != curExps.length) {
+						MessageManager mm = EngineMessage.get();
+						throw new RQException("join" + mm.getMessage("function.invalidParam"));
+					}
+					
+					indexTable = new MergeIndexTable(code, curExps, ctx);
+				}
+			} else if (curExps == null) {
 				indexTable = code.getIndexTable();
 				if (indexTable == null) {
 					Object obj = code.getMem(1);

@@ -17,6 +17,7 @@ public class Group extends Operation {
 	private String opt; // 选项
 	private boolean isign = false; // 是否是@i选项
 	private boolean isDistinct = false; // 是否去重
+	private boolean isReturnTable = false; // 去重时是否返回序表
 	
 	private Sequence data; // 当前组的数据
 	private Object []values; // 当前分组的分组字段值
@@ -39,6 +40,9 @@ public class Group extends Operation {
 			} else if (opt.indexOf('1') != -1) {
 				isDistinct = true;
 				values = new Object[exps.length];
+				if (opt.indexOf('t') != -1) {
+					isReturnTable = true;
+				}
 			} else {
 				values = new Object[exps.length];
 			}
@@ -228,7 +232,11 @@ public class Group extends Operation {
 		}
 
 		if (result.length() > 0) {
-			return result;
+			if (isReturnTable) {
+				return result.derive("o");
+			} else {
+				return result;
+			}
 		} else {
 			return null;
 		}
