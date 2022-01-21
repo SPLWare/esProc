@@ -60,6 +60,8 @@ import com.scudata.dm.FileObject;
 import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
+import com.scudata.dm.cursor.ICursor;
+import com.scudata.dm.cursor.IMultipath;
 import com.scudata.ide.common.AppendDataThread;
 import com.scudata.ide.common.DBTypeEx;
 import com.scudata.ide.common.EditListener;
@@ -566,6 +568,22 @@ public class JTableValue extends JTableEx {
 	}
 
 	/**
+	 * 游标取数
+	 * 
+	 * @param dispRows
+	 *            显示行数
+	 */
+	public void cursorFetch(int dispRows) {
+		if (originalValue == null || !(originalValue instanceof ICursor)
+				|| originalValue instanceof IMultipath) {
+			return;
+		}
+		ICursor cursor = (ICursor) originalValue;
+		Sequence data = cursor.fetch(dispRows);
+		forceSetValue(data);
+	}
+
+	/**
 	 * 鼠标按键事件
 	 */
 	public void mousePressed(MouseEvent e) {
@@ -1058,6 +1076,12 @@ public class JTableValue extends JTableEx {
 			selectedRows.clear();
 			dispStartIndex = 1;
 		}
+		boolean isCursor = false;
+		if (originalValue != null && originalValue instanceof ICursor) {
+			if (!(originalValue instanceof IMultipath)) // 不支持多路游标
+				isCursor = true;
+		}
+		GVSpl.panelValue.setCursorValue(isCursor);
 		final Object aValue = value;
 		SwingUtilities.invokeLater(new Thread() {
 			public void run() {
