@@ -454,6 +454,7 @@ public final class FunctionLib {
 		addMemberFunction("xlscell", "com.scudata.expression.mfn.xo.XlsCell");
 		
 		addFunction("T", "com.scudata.expression.fn.T");
+		addFunction("chardetect", "com.scudata.expression.fn.CharDetect");
 		addFunction("cellname", "com.scudata.expression.fn.CellName");
 
 		addMemberFunction("htmlparse", "com.scudata.expression.mfn.string.HTMLParse");
@@ -679,6 +680,7 @@ public final class FunctionLib {
 		addFunction("rands", "com.scudata.expression.fn.string.Rands");
 		addFunction("concat", "com.scudata.expression.fn.string.Concat");
 		addFunction("urlencode", "com.scudata.expression.fn.string.URLEncode");
+		addFunction("charencode", "com.scudata.expression.fn.string.CharEncode");
 		addFunction("base64", "com.scudata.expression.fn.string.Base64");
 		addFunction("md5", "com.scudata.expression.fn.string.MD5Encrypt");
 		addFunction("substr", "com.scudata.expression.fn.string.SubString");
