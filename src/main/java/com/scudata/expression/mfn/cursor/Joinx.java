@@ -9,6 +9,7 @@ import com.scudata.dm.FileObject;
 import com.scudata.dm.SyncReader;
 import com.scudata.dm.cursor.CSJoinxCursor;
 import com.scudata.dm.cursor.CSJoinxCursor2;
+import com.scudata.dm.cursor.CSJoinxCursor3;
 import com.scudata.dm.cursor.ICursor;
 import com.scudata.dm.cursor.MultipathCursors;
 import com.scudata.dm.op.Operation;
@@ -134,6 +135,8 @@ public class Joinx extends CursorFunction {
 
 		if (option != null && option.indexOf('q') != -1) {
 			return new CSJoinxCursor2(cursor, exps, codes, dataExps, newExps, newNames, fname, ctx, capacity, option);
+		} else if (option != null && option.indexOf('m') != -1) {
+			return CSJoinxCursor3.MergeJoinx(cursor, exps, codes, dataExps, newExps, newNames, fname, ctx, capacity, option);
 		} else {
 			return getJoinxCursor(cursor, codes, exps, dataExps, newExps, newNames, fname, ctx, option, capacity);
 		}
