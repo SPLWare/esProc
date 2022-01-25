@@ -68,7 +68,8 @@ public class ConfigUtil {
 	 * @return
 	 * @throws Exception
 	 */
-	public static RaqsoftConfig load(InputStream in, boolean setConfig) throws Exception {
+	public static RaqsoftConfig load(InputStream in, boolean setConfig)
+			throws Exception {
 		return load(in, setConfig, false);
 	}
 
@@ -82,8 +83,10 @@ public class ConfigUtil {
 	 * @return
 	 * @throws Exception
 	 */
-	public static RaqsoftConfig load(InputStream in, boolean setConfig, boolean loadFromJDBC) throws Exception {
-		return load(System.getProperty("start.home"), in, setConfig, loadFromJDBC);
+	public static RaqsoftConfig load(InputStream in, boolean setConfig,
+			boolean loadFromJDBC) throws Exception {
+		return load(System.getProperty("start.home"), in, setConfig,
+				loadFromJDBC);
 	}
 
 	/**
@@ -97,10 +100,11 @@ public class ConfigUtil {
 	 * @return
 	 * @throws Exception
 	 */
-	public static RaqsoftConfig load(String home, InputStream in, boolean setConfig, boolean loadFromJDBC)
-			throws Exception {
+	public static RaqsoftConfig load(String home, InputStream in,
+			boolean setConfig, boolean loadFromJDBC) throws Exception {
 		if (in == null) {
-			throw new RQException(AppMessage.get().getMessage("configutil.isnull"));
+			throw new RQException(AppMessage.get().getMessage(
+					"configutil.isnull"));
 		}
 		try {
 			SAXParserFactory spf = SAXParserFactory.newInstance();
@@ -111,11 +115,13 @@ public class ConfigUtil {
 			xmlReader.parse(new InputSource(in));
 			RaqsoftConfig config = handler.getRaqsoftConfig();
 			if (setConfig) {
-				setConfig(Env.getApplication(), home, config, true, true, loadFromJDBC);
+				setConfig(Env.getApplication(), home, config, true, true,
+						loadFromJDBC);
 			}
 			return config;
 		} catch (Exception ex) {
-			throw new RQException(AppMessage.get().getMessage("configutil.esprocerror", ex.getMessage()), ex);
+			throw new RQException(AppMessage.get().getMessage(
+					"configutil.esprocerror", ex.getMessage()), ex);
 		}
 	}
 
@@ -150,7 +156,8 @@ public class ConfigUtil {
 	 * @return
 	 * @throws Exception
 	 */
-	public static RaqsoftConfig load(String filePath, boolean loadFromJDBC) throws Exception {
+	public static RaqsoftConfig load(String filePath, boolean loadFromJDBC)
+			throws Exception {
 		return load(filePath, loadFromJDBC, true);
 	}
 
@@ -163,8 +170,10 @@ public class ConfigUtil {
 	 * @return
 	 * @throws Exception
 	 */
-	public static RaqsoftConfig load(String filePath, boolean loadFromJDBC, boolean setConfig) throws Exception {
-		return load(System.getProperty("start.home"), filePath, loadFromJDBC, setConfig);
+	public static RaqsoftConfig load(String filePath, boolean loadFromJDBC,
+			boolean setConfig) throws Exception {
+		return load(System.getProperty("start.home"), filePath, loadFromJDBC,
+				setConfig);
 	}
 
 	/**
@@ -177,8 +186,8 @@ public class ConfigUtil {
 	 * @return
 	 * @throws Exception
 	 */
-	public static RaqsoftConfig load(String home, String filePath, boolean loadFromJDBC, boolean setConfig)
-			throws Exception {
+	public static RaqsoftConfig load(String home, String filePath,
+			boolean loadFromJDBC, boolean setConfig) throws Exception {
 		InputStream in = getInputStream(home, filePath, null);
 		RaqsoftConfig config = load(in);
 		if (setConfig)
@@ -193,7 +202,8 @@ public class ConfigUtil {
 	 * @param appCtx ServletContext
 	 * @param home   The home path
 	 */
-	public static void loadRuntime(RaqsoftConfig config, ServletContext appCtx, String home) throws Exception {
+	public static void loadRuntime(RaqsoftConfig config, ServletContext appCtx,
+			String home) throws Exception {
 		setConfig(appCtx, home, config, true, true);
 	}
 
@@ -207,8 +217,9 @@ public class ConfigUtil {
 	 * @param loadExt     Whether to load the ext-libs
 	 * @throws Exception
 	 */
-	public static void setConfig(ServletContext appCtx, String home, RaqsoftConfig config, boolean setLogLevel,
-			boolean loadExt) throws Exception {
+	public static void setConfig(ServletContext appCtx, String home,
+			RaqsoftConfig config, boolean setLogLevel, boolean loadExt)
+			throws Exception {
 		setConfig(appCtx, home, config, setLogLevel, loadExt, false);
 	}
 
@@ -223,9 +234,11 @@ public class ConfigUtil {
 	 * @param loadFromJDBC 是否从JDBC加载的。true时根据JDBCLoad配置加载环境
 	 * @throws Exception
 	 */
-	public static void setConfig(ServletContext appCtx, String home, RaqsoftConfig config, boolean setLogLevel,
-			boolean loadExt, boolean loadFromJDBC) throws Exception {
-		setConfig(appCtx, home, config, setLogLevel, loadExt, loadFromJDBC, true);
+	public static void setConfig(ServletContext appCtx, String home,
+			RaqsoftConfig config, boolean setLogLevel, boolean loadExt,
+			boolean loadFromJDBC) throws Exception {
+		setConfig(appCtx, home, config, setLogLevel, loadExt, loadFromJDBC,
+				true);
 	}
 
 	/**
@@ -240,8 +253,9 @@ public class ConfigUtil {
 	 * @param calcInit     是否计算初始化程序
 	 * @throws Exception
 	 */
-	public static Context setConfig(ServletContext appCtx, String home, RaqsoftConfig config, boolean setLogLevel,
-			boolean loadExt, boolean loadFromJDBC, boolean calcInit) throws Exception {
+	public static Context setConfig(ServletContext appCtx, String home,
+			RaqsoftConfig config, boolean setLogLevel, boolean loadExt,
+			boolean loadFromJDBC, boolean calcInit) throws Exception {
 		String jdbcLoad = config.getJdbcLoad();
 		boolean loadRuntime = true, loadServer = true;
 		if (loadFromJDBC) {
@@ -271,7 +285,8 @@ public class ConfigUtil {
 						Logger.setLevel(sLevel);
 					}
 				} catch (Exception ex) {
-					Logger.error("Invalid " + ConfigConsts.LEVEL + ":" + sLevel + ".");
+					Logger.error("Invalid " + ConfigConsts.LEVEL + ":" + sLevel
+							+ ".");
 				}
 			}
 
@@ -286,7 +301,8 @@ public class ConfigUtil {
 				String[] paths = new String[splPathList.size()];
 				for (int i = 0; i < paths.length; i++)
 					if (splPathList.get(i) != null) {
-						paths[i] = IOUtils.getPath(home, (String) splPathList.get(i));
+						paths[i] = IOUtils.getPath(home,
+								(String) splPathList.get(i));
 						Logger.debug("Spl path: " + paths[i]);
 					}
 				Env.setPaths(paths);
@@ -302,7 +318,8 @@ public class ConfigUtil {
 			if (StringUtils.isValidString(mainPath)) {
 				File f = new File(mainPath);
 				if (!f.isDirectory() || !f.exists()) {
-					Logger.info("Esproc main path [" + mainPath + "] not exist.");
+					Logger.info("Esproc main path [" + mainPath
+							+ "] not exist.");
 				} else {
 					Logger.debug("Esproc main path: " + mainPath);
 				}
@@ -330,7 +347,8 @@ public class ConfigUtil {
 						f.mkdir();
 					}
 				} catch (Exception ex) {
-					Logger.error("Make temp directory failed:" + ex.getMessage());
+					Logger.error("Make temp directory failed:"
+							+ ex.getMessage());
 				}
 			}
 
@@ -340,7 +358,8 @@ public class ConfigUtil {
 				if (bufSize == -1) {
 					Logger.info("The bufSize is empty.");
 				} else if (bufSize == -2) {
-					Logger.error("Invalid " + ConfigConsts.BUF_SIZE + ":" + sBufSize + ".");
+					Logger.error("Invalid " + ConfigConsts.BUF_SIZE + ":"
+							+ sBufSize + ".");
 				} else {
 					Env.setFileBufSize(bufSize);
 				}
@@ -353,7 +372,8 @@ public class ConfigUtil {
 					int port = Integer.parseInt(sPort);
 					Env.setLocalPort(port);
 				} catch (Exception ex) {
-					Logger.error("Invalid " + ConfigConsts.LOCAL_PORT + ":" + sPort + ".");
+					Logger.error("Invalid " + ConfigConsts.LOCAL_PORT + ":"
+							+ sPort + ".");
 				}
 			}
 
@@ -363,7 +383,8 @@ public class ConfigUtil {
 					int paraNum = Integer.parseInt(sParallelNum);
 					Env.setParallelNum(paraNum);
 				} catch (Exception ex) {
-					Logger.error("Invalid " + ConfigConsts.PARALLEL_NUM + ":" + sParallelNum);
+					Logger.error("Invalid " + ConfigConsts.PARALLEL_NUM + ":"
+							+ sParallelNum);
 				}
 			}
 
@@ -373,7 +394,8 @@ public class ConfigUtil {
 					int cursorParaNum = Integer.parseInt(sCursorParallelNum);
 					Env.setCursorParallelNum(cursorParaNum);
 				} catch (Exception ex) {
-					Logger.error("Invalid " + ConfigConsts.CURSOR_PARALLEL_NUM + ":" + sParallelNum);
+					Logger.error("Invalid " + ConfigConsts.CURSOR_PARALLEL_NUM
+							+ ":" + sParallelNum);
 				}
 			}
 
@@ -386,7 +408,8 @@ public class ConfigUtil {
 					int fetchCount = Integer.parseInt(sFetchCount);
 					ICursor.FETCHCOUNT = fetchCount;
 				} catch (Exception ex) {
-					Logger.error("Invalid " + ConfigConsts.FETCH_COUNT + ":" + sFetchCount);
+					Logger.error("Invalid " + ConfigConsts.FETCH_COUNT + ":"
+							+ sFetchCount);
 				}
 			}
 
@@ -395,14 +418,17 @@ public class ConfigUtil {
 				// 加载自定义函数文件
 				InputStream is = null;
 				try {
-					is = ConfigUtil.getInputStream(home, customFunctionFile, appCtx);
+					is = ConfigUtil.getInputStream(home, customFunctionFile,
+							appCtx);
 					if (is == null) {
-						Logger.error("File not found: " + customFunctionFile + ".");
+						Logger.error("File not found: " + customFunctionFile
+								+ ".");
 					} else {
 						FunctionLib.loadCustomFunctions(is);
 					}
 				} catch (Exception ex) {
-					Logger.error("Failed to load " + customFunctionFile + ": " + ex.getMessage(), ex);
+					Logger.error("Failed to load " + customFunctionFile + ": "
+							+ ex.getMessage(), ex);
 				} finally {
 					if (is != null)
 						try {
@@ -430,12 +456,14 @@ public class ConfigUtil {
 						Env.setDBSessionFactory(dbName, isf);
 						if (calcInitSpl) {
 							ctx.setDBSessionFactory(dbName, isf);
-							if (autoConnectList != null && autoConnectList.contains(dbName)) {
+							if (autoConnectList != null
+									&& autoConnectList.contains(dbName)) {
 								ctx.setDBSession(dbName, isf.getSession());
 							}
 						}
 					} catch (Throwable x) {
-						Logger.error("Create database factory [" + dbName + "] failed: " + x.getMessage());
+						Logger.error("Create database factory [" + dbName
+								+ "] failed: " + x.getMessage());
 						x.printStackTrace();
 					}
 				}
@@ -452,14 +480,18 @@ public class ConfigUtil {
 					if (!StringUtils.isValidString(jndiName))
 						continue;
 					try {
-						JNDISessionFactory jndisf = new JNDISessionFactory(jndiConfig);
+						JNDISessionFactory jndisf = new JNDISessionFactory(
+								jndiConfig);
 						Env.setDBSessionFactory(jndiName, jndisf);
-						if (calcInitSpl && autoConnectList != null && autoConnectList.contains(jndiName)) {
+						if (calcInitSpl && autoConnectList != null
+								&& autoConnectList.contains(jndiName)) {
 							ctx.setDBSessionFactory(jndiName, jndisf);
 							ctx.setDBSession(jndiName, jndisf.getSession());
 						}
 					} catch (Exception ex) {
-						Logger.error(AppMessage.get().getMessage("configutil.errorjndi", jndiName, ex.getMessage()));
+						Logger.error(AppMessage.get().getMessage(
+								"configutil.errorjndi", jndiName,
+								ex.getMessage()));
 					}
 				}
 			}
@@ -484,7 +516,8 @@ public class ConfigUtil {
 	public static String[] splitNullStrings(String nullStrings) {
 		if (StringUtils.isValidString(nullStrings)) {
 			List<String> nsList = new ArrayList<String>();
-			ArgumentTokenizer at = new ArgumentTokenizer(nullStrings, MISSING_SEP);
+			ArgumentTokenizer at = new ArgumentTokenizer(nullStrings,
+					MISSING_SEP);
 			while (at.hasNext()) {
 				String exp = at.next();
 				if (StringUtils.isValidString(exp)) {
@@ -517,10 +550,13 @@ public class ConfigUtil {
 	 */
 	public static String getLanguageSuffix() {
 		Locale local = Locale.getDefault();
-		if (local.equals(Locale.PRC) || local.equals(Locale.CHINA) || local.equals(Locale.CHINESE)
-				|| local.equals(Locale.SIMPLIFIED_CHINESE) || local.getLanguage().equalsIgnoreCase("zh")) {
+		if (local.equals(Locale.PRC) || local.equals(Locale.CHINA)
+				|| local.equals(Locale.CHINESE)
+				|| local.equals(Locale.SIMPLIFIED_CHINESE)
+				|| local.getLanguage().equalsIgnoreCase("zh")) {
 			return "_zh";
-		} else if (local.equals(Locale.TAIWAN) || local.equals(Locale.TRADITIONAL_CHINESE)
+		} else if (local.equals(Locale.TAIWAN)
+				|| local.equals(Locale.TRADITIONAL_CHINESE)
 				|| local.getLanguage().equalsIgnoreCase("tw")) {
 			return "_zh_TW";
 		} else {
@@ -535,9 +571,23 @@ public class ConfigUtil {
 	 * @param ctx     Context
 	 * @throws Exception
 	 */
-	public static void calcInitSpl(String splPath, Context ctx) throws Exception {
+	public static Object calcInitSpl(String splPath, Context ctx)
+			throws Exception {
+		return calcInitSpl(splPath, ctx, true);
+	}
+
+	/**
+	 * 
+	 * @param splPath  The file path of the spl
+	 * @param ctx Context
+	 * @param closeSpace 是否关闭space
+	 * @return spaceId
+	 * @throws Exception
+	 */
+	public static Object calcInitSpl(String splPath, Context ctx,
+			boolean closeSpace) throws Exception {
 		if (!StringUtils.isValidString(splPath)) {
-			return;
+			return null;
 		}
 		if (ctx == null)
 			ctx = new Context();
@@ -553,8 +603,10 @@ public class ConfigUtil {
 			}
 			cellSet.setContext(ctx);
 			cellSet.run();
+			return spaceId;
 		} finally {
-			JobSpaceManager.closeSpace(spaceId);
+			if (closeSpace)
+				JobSpaceManager.closeSpace(spaceId);
 		}
 	}
 
@@ -567,9 +619,11 @@ public class ConfigUtil {
 	 * @param app  ServletContext
 	 * @return
 	 */
-	public static InputStream getInputStream(String home, String path, ServletContext app) {
+	public static InputStream getInputStream(String home, String path,
+			ServletContext app) {
 		if (!StringUtils.isValidString(path)) {
-			throw new RQException(AppMessage.get().getMessage("configutil.pathnull"));
+			throw new RQException(AppMessage.get().getMessage(
+					"configutil.pathnull"));
 		}
 		InputStream in = null;
 		try { // 绝对路径
@@ -627,7 +681,8 @@ public class ConfigUtil {
 	 * @param config
 	 * @throws Exception
 	 */
-	public static void write(String filePath, RaqsoftConfig config) throws Exception {
+	public static void write(String filePath, RaqsoftConfig config)
+			throws Exception {
 		FileOutputStream fos = null;
 		BufferedOutputStream bos = null;
 		try {
@@ -656,7 +711,8 @@ public class ConfigUtil {
 	 * @param config RaqsoftConfig
 	 * @throws RQException
 	 */
-	public static void loadExtLibs(String home, RaqsoftConfig config) throws RQException {
+	public static void loadExtLibs(String home, RaqsoftConfig config)
+			throws RQException {
 		if (config == null)
 			return;
 		String extLibsPath = config.getExtLibsPath();
@@ -670,7 +726,8 @@ public class ConfigUtil {
 		extLibsPath = IOUtils.getPath(home, extLibsPath);
 		File extLibsDir = new File(extLibsPath);
 		if (!extLibsDir.exists() || !extLibsDir.isDirectory()) {
-			throw new RQException(AppMessage.get().getMessage("configutil.noextpath"));
+			throw new RQException(AppMessage.get().getMessage(
+					"configutil.noextpath"));
 		}
 		File[] subDirs = extLibsDir.listFiles();
 		if (subDirs != null) {
@@ -730,7 +787,8 @@ public class ConfigUtil {
 		}
 		int buffer = -2;
 		try {
-			if (lastChar == 'k' || lastChar == 'm' || lastChar == 'g' || lastChar == 't') {
+			if (lastChar == 'k' || lastChar == 'm' || lastChar == 'g'
+					|| lastChar == 't') {
 				String num = sNum.substring(0, sNum.length() - 1);
 				float f = Float.parseFloat(num);
 				if (lastChar == 'k') {
@@ -760,7 +818,8 @@ public class ConfigUtil {
 		if (blockSize == -1) {
 			Logger.info("The block size is empty.");
 		} else if (blockSize == -2) {
-			Logger.info("Invalid " + ConfigConsts.BUF_SIZE + ":" + sBlockSize + ".");
+			Logger.info("Invalid " + ConfigConsts.BUF_SIZE + ":" + sBlockSize
+					+ ".");
 		} else {
 			if (blockSize < 4096) {
 				Logger.info("The minimum block size is 4096b.");
@@ -807,7 +866,8 @@ public class ConfigUtil {
 	 * @return
 	 */
 	public static String getPath(String home, String path) {
-		if (!StringUtils.isValidString(home) || !StringUtils.isValidString(path))
+		if (!StringUtils.isValidString(home)
+				|| !StringUtils.isValidString(path))
 			return path;
 		File f = new File(path);
 		if (!f.exists()) {
