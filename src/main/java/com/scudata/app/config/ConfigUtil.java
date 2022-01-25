@@ -571,7 +571,7 @@ public class ConfigUtil {
 	 * @param ctx     Context
 	 * @throws Exception
 	 */
-	public static Object calcInitSpl(String splPath, Context ctx)
+	public static String calcInitSpl(String splPath, Context ctx)
 			throws Exception {
 		return calcInitSpl(splPath, ctx, true);
 	}
@@ -584,7 +584,7 @@ public class ConfigUtil {
 	 * @return spaceId
 	 * @throws Exception
 	 */
-	public static Object calcInitSpl(String splPath, Context ctx,
+	public static String calcInitSpl(String splPath, Context ctx,
 			boolean closeSpace) throws Exception {
 		if (!StringUtils.isValidString(splPath)) {
 			return null;
