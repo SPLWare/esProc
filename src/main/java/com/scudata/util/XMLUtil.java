@@ -3,7 +3,6 @@ package com.scudata.util;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
@@ -29,10 +28,10 @@ import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 import com.scudata.resources.EngineMessage;
 
-import org.jdom.input.SAXBuilder;
-import org.jdom.Document;
-import org.jdom.Element;
-import org.jdom.Attribute;
+//import org.jdom.input.SAXBuilder;
+//import org.jdom.Document;
+//import org.jdom.Element;
+//import org.jdom.Attribute;
 
 /**
  * 用于把排列转成XML格式串或者把XML格式串读成排列
@@ -75,14 +74,15 @@ final public class XMLUtil {
 	 * 将形如<K F=v F=v …>D</K>的XML串解析为以K,F,…为字段的记录，
 	 * K取值为D，D是多层XML内容时解析为排列，<K …./K>时D解析为null，<K…></K>时D解析为空串
 	 * @param src XML串
-	 * @param levels 层标识，多层用/分隔 
+	 * @param levels 层标识，多层用/分隔
+	 * @param opt 选项，s：读取属性值
 	 * @return
 	 */
-	public static Object parseXml(String src, String levels) {
+	public static Object parseXml(String src, String levels, String opt) {
 		try {
 			SAXParserFactory spf = SAXParserFactory.newInstance();
 			SAXParser saxParser = spf.newSAXParser();
-			SAXTableHandler handler = new SAXTableHandler();
+			SAXTableHandler handler = new SAXTableHandler(opt);
 			
 			XMLReader xmlReader = saxParser.getXMLReader();
 			xmlReader.setContentHandler(handler);
@@ -288,7 +288,7 @@ final public class XMLUtil {
 	 * @param src XML串
 	 * @return
 	 */
-	public static Object parseXmlString(String src) {
+	/*public static Object parseXmlString(String src) {
 		try {
 			SAXBuilder saxReader = new SAXBuilder();
 			StringReader reader = new StringReader(src);
@@ -311,9 +311,9 @@ final public class XMLUtil {
 		} catch (Exception e) {
 			throw new RQException(e.getMessage(), e);
 		}
-	}
+	}*/
 	
-	private static Object parseElement(Element e) {
+	/*private static Object parseElement(Element e) {
 		List<Object> contents = e.getContent();
 		List<Attribute> attrs = e.getAttributes();
 		List<Element> childs = e.getChildren();
@@ -358,5 +358,5 @@ final public class XMLUtil {
 		
 		DataStruct ds = new DataStruct(names);
 		return new Record(ds, vals);
-	}
+	}*/
 }

@@ -48,11 +48,11 @@ public class Xml extends Function {
 		}
 		
 		if (val instanceof String) {
-			if (option == null || option.indexOf('s') == -1) {
-				return XMLUtil.parseXml((String)val, s);
-			} else {
-				return XMLUtil.parseXmlString((String)val);
-			}
+			//if (option == null || option.indexOf('s') == -1) {
+				return XMLUtil.parseXml((String)val, s, option);
+			//} else {
+			//	return XMLUtil.parseXmlString((String)val);
+			//}
 		} else if (val instanceof Sequence) {
 			return XMLUtil.toXml((Sequence)val, null, s);
 		} else if (val instanceof Record) {

@@ -18,8 +18,10 @@ import com.scudata.dm.Sequence;
 class SAXTableHandler extends DefaultHandler {
 	private XMLNode root; // 根节点
 	private XMLNode node;
+	private boolean sopt; // 是否有s选项
 	
-	public SAXTableHandler() {
+	public SAXTableHandler(String opt) {
+		sopt = opt != null && opt.indexOf('s') != -1;
 	}
 
 	/**
@@ -109,6 +111,10 @@ class SAXTableHandler extends DefaultHandler {
 
 	public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
 		XMLNode newNode = new XMLNode(qName, node);
+		if (sopt) {
+			newNode.setAttributes(attributes);
+		}
+		
 		if (node == null) {
 			if (root != null) {
 				throw new RQException(qName);
