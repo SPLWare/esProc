@@ -1535,7 +1535,31 @@ public class JTableEx extends JTable implements MouseListener,
 		selectModel.addSelectionInterval(start, end);
 		setSelectionModel(selectModel);
 	}
+	
+	public void selectRows(int[] rows) {
+		if(rows==null || rows.length==0) {
+			return;
+		}
+		DefaultListSelectionModel selectModel = new DefaultListSelectionModel();
+		for(int i=0;i<rows.length;i++) {
+			selectModel.addSelectionInterval(rows[i], rows[i]);
+		}
+		setSelectionModel(selectModel);
+	}
 
+	/**
+	 * 列选择只能是连续的区间
+	 * @param cols
+	 */
+	public void selectCols(int[] cols) {
+		if(cols==null || cols.length==0) {
+			return;
+		}
+		setColumnSelectionInterval(cols[0], cols[cols.length-1]);
+	}
+	public void selectCol(int col) {
+		setColumnSelectionInterval(col, col);
+	}
 	/**
 	 * 在表格的SearchColumn列里面查找对象value
 	 * 
