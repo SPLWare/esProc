@@ -2825,6 +2825,108 @@ public class ColumnTableMetaData extends TableMetaData {
 		return result;
 	}
 
+	/**
+	 * 重写一些列的数据
+	 * 注意：输入的数据要保证原序。这里不处理分段，所有的分段都按照旧数据的。
+	 * @param cursor 要写入的数据
+	 * @param opt	选项
+	 * @throws IOException
+	 */
+	public void update(ICursor cursor, String opt) throws IOException {
+		/**
+		 * 根据cursor数据的结构，获得要更新的列
+		 */
+		Sequence temp = cursor.peek(1);
+		String[] fields = ((Record)temp.getMem(1)).getFieldNames();
+		ColumnMetaData[] columns = getColumns(fields);
+		int columnCount = columns.length;
+		
+		/**
+		 * 获得目前每个分段的记录条数
+		 */
+		long[] recordCountArray = getSegmentInfo();
+		
+		/**
+		 * 把要更新的列清空
+		 */
+		for (ColumnMetaData col : columns) {
+			BlockLink blockLink = col.getSegmentBlockLink();//分段信息块
+			blockLink.setFirstBlockPos(blockLink.firstBlockPos);
+			blockLink.freeIndex = 0;
+			
+			blockLink = col.getDataBlockLink();//数据块
+			blockLink.setFirstBlockPos(blockLink.firstBlockPos);
+			blockLink.freeIndex = 0;
+		}
+		
+		/**
+		 * 准备写
+		 */
+		for (ColumnMetaData col : columns) {
+			col.prepareWrite();
+		}
+		
+		/**
+		 * 写入新数据
+		 */
+		for (long count : recordCountArray) {
+			BufferWriter bufferWriters[] = new BufferWriter[columnCount];
+			for (int i = 0; i < columnCount; i++) {
+				bufferWriters[i] = columns[i].getColDataBufferWriter();
+			}
+			Object []minValues = new Object[columnCount];
+			Object []maxValues = new Object[columnCount];
+			Object []startValues = new Object[columnCount];
+			
+			/**
+			 * 计算每列的最值
+			 */
+			Sequence data = cursor.fetch((int) count);
+			ListBase1 mems = data.getMems();
+			int len = mems.size();
+			for (int i = 1; i <= len; ++i) {
+				Record r = (Record) mems.get(i);
+				mems.set(i, null);
+				
+				Object[] vals = r.getFieldValues();
+				//把一条写到各列的buffer
+				for (int j = 0; j < columnCount; j++) {
+					Object obj = vals[j];
+					bufferWriters[j].writeObject(obj);
+					if (columns[j].isDim()) {
+						if (Variant.compare(obj, maxValues[j], true) > 0)
+							maxValues[j] = obj;
+						if (i == 1) {
+							minValues[j] = obj;//第一个要赋值，因为null表示最小
+							startValues[j] = obj;
+						}
+						if (Variant.compare(obj, minValues[j], true) < 0)
+							minValues[j] = obj;
+					}
+				}
+			}
+			
+			/**
+			 * 写入新数据到每个列块
+			 */
+			for (int j = 0; j < columnCount; j++) {
+				if (!columns[j].isDim()) {
+					columns[j].appendColBlock(bufferWriters[j].finish());//追加列块
+				} else {
+					columns[j].appendColBlock(bufferWriters[j].finish(), minValues[j], 
+							maxValues[j], startValues[j]);//追加维块
+				}
+			}
+		}
+		
+		//提交列信息
+		for (ColumnMetaData col : columns) {
+			col.finishWrite();
+		}
+		groupTable.save();
+		updateIndex();
+	}
+	
 	/** 按照data里数据的维值，删除指定的记录
 	 * @param data 
 	 * @param opt

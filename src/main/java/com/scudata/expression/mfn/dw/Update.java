@@ -49,33 +49,8 @@ public class Update extends TableMetaDataFunction {
 				if (opt != null && opt.indexOf('i') != -1) {
 					opt = opt.replace("i", "");
 				}
-				
-				/**
-				 * Ôö¼Ó@u
-				 */
-				if (opt == null) {
-					opt = "u";
-				} else {
-					opt += "u";
-				}
-				
-				if (!hasN) {
-					Sequence seq = cs.fetch(ICursor.FETCHCOUNT);
-					while(seq != null && seq.length() > 0) {
-						table.update(seq, opt);
-						seq = cs.fetch(ICursor.FETCHCOUNT);
-					}
-					return table;
-				} else {
-					Sequence result = new Sequence();
-					Sequence seq = cs.fetch(ICursor.FETCHCOUNT);
-					while(seq != null && seq.length() > 0) {
-						Sequence temp = table.update(seq, opt);
-						result.addAll(temp);
-						seq = cs.fetch(ICursor.FETCHCOUNT);
-					}
-					return result;
-				}
+				((ColumnTableMetaData)table).update(cs, opt);
+				return table;
 			} catch (IOException e) {
 				throw new RQException(e);
 			}
