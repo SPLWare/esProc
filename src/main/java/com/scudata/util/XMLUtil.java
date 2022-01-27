@@ -67,7 +67,20 @@ final public class XMLUtil {
 			return Variant.toString(obj);
 		}
 	}
-
+	
+	/**
+	 * 把XML格式串读成多层记录或序表
+	 * <>内的标识作为字段名，重复的同名标识生成为序表
+	 * 将形如<K F=v F=v …>D</K>的XML串解析为以K,F,…为字段的记录，
+	 * K取值为D，D是多层XML内容时解析为排列，<K …./K>时D解析为null，<K…></K>时D解析为空串
+	 * @param src XML串
+	 * @param levels 层标识，多层用/分隔
+	 * @return
+	 */
+	public static Object parseXml(String src, String levels) {
+		return parseXml(src, levels, null);
+	}
+	
 	/**
 	 * 把XML格式串读成多层记录或序表
 	 * <>内的标识作为字段名，重复的同名标识生成为序表
