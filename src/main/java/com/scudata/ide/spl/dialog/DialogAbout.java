@@ -17,6 +17,7 @@ import java.util.Properties;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -104,12 +105,27 @@ public class DialogAbout extends JDialog {
 	private JButton jBJDK = new JButton();
 
 	/**
+	 * 产品名称
+	 */
+	private String productName = null;
+
+	/**
+	 * 主面板
+	 */
+	private JFrame parent = null;
+
+	/**
 	 * 构造函数
 	 * 
 	 */
 	public DialogAbout() {
-		super(GV.appFrame, "", true);
-		String productName = GV.appFrame.getProductName();
+		this(GV.appFrame, GV.appFrame.getProductName());
+	}
+
+	public DialogAbout(JFrame frame, String productName) {
+		super(frame, "", true);
+		this.parent = frame;
+		this.productName = productName;
 		this.setTitle(mm.getMessage("dialogabout.title") + productName);
 		try {
 			jbInit();
@@ -176,7 +192,7 @@ public class DialogAbout extends JDialog {
 	 */
 	private void loadMessage() {
 		jLProductName.setText(mm.getMessage("dialogabout.productname")
-				+ "      " + GV.appFrame.getProductName());
+				+ "      " + productName);
 		jLReleaseDate.setText(mm.getMessage("dialogabout.label1",
 				getReleaseDate()));
 
@@ -313,8 +329,7 @@ public class DialogAbout extends JDialog {
 				boolean isMacOS = GM.isMacOS();
 				boolean isCmdKey = isMacOS ? e.isMetaDown() : e.isControlDown();
 				if (isCmdKey && e.getKeyCode() == KeyEvent.VK_F) {
-					DialogResourceSearch drs = new DialogResourceSearch(
-							GV.appFrame);
+					DialogResourceSearch drs = new DialogResourceSearch(parent);
 					drs.setVisible(true);
 				}
 			}
@@ -373,7 +388,7 @@ public class DialogAbout extends JDialog {
 	 * @param e
 	 */
 	void jBJDK_actionPerformed(ActionEvent e) {
-		DialogInputText dit = new DialogInputText(false);
+		DialogInputText dit = new DialogInputText(parent, false);
 		Properties p = System.getProperties();
 		String buf = p.toString();
 		buf = Sentence.replace(buf, ",", "\r\n", 0);
