@@ -627,7 +627,14 @@ public class Expression {
 					throw new RQException("{,}" + mm.getMessage("Expression.illMatched"));
 				}
 
-				node = new Moves();
+				if (preNode == null || preNode instanceof Operator) {
+					//{} 记录表达式
+					node = new CreateRecord();
+				} else {
+					// 排号运算
+					node = new Moves();
+				}
+				
 				((Function)node).setParameter(cs, ctx, expStr.substring(location + 1, match));
 				location = match + 1;
 				break;
