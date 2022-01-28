@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.scudata.common.RQException;
+import com.scudata.common.Types;
 import com.scudata.dm.Context;
 import com.scudata.dm.DataStruct;
 import com.scudata.dm.Record;
@@ -234,7 +235,7 @@ public class PseudoTable extends Pseudo {
 		return;
 	}
 	
-	private String[] getFetchColNames(String []fields) {
+	public String[] getFetchColNames(String []fields) {
 		ArrayList<String> tempList = new ArrayList<String>();
 		if (fields != null) {
 			for (String name : fields) {
@@ -843,6 +844,40 @@ public class PseudoTable extends Pseudo {
 			}
 		}
 		return null;
+	}
+	
+	/**
+	 * 获得虚表对应的组表的字段
+	 * @return
+	 */
+	public String[] getFieldNames() {
+		return getPd().getAllColNames();
+	}
+	
+	/**
+	 * 获得虚表对应的组表的每列的数据类型
+	 * 注意：返回的类型是以第一条记录为准
+	 * @return
+	 */
+	public byte[] getFieldTypes() {
+		List<ITableMetaData> tables = getPd().getTables();
+		ICursor cursor = tables.get(0).cursor(null, null, null, null, null, null, 1, ctx);
+		Sequence data = cursor.fetch(1);
+		cursor.close();
+		
+		if (data == null || data.length() == 0) {
+			return null;
+		}
+		
+		Record record = (Record) data.getMem(1);
+		Object[] objs = record.getFieldValues();
+		int len = objs.length;
+		byte[] types = new byte[len];
+		
+		for (int i = 0; i < len; i++) {
+			types[i] = Types.getProperDataType(objs[i]);
+		}
+		return types;
 	}
 }
 

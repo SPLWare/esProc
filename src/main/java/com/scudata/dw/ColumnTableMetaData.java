@@ -2827,7 +2827,7 @@ public class ColumnTableMetaData extends TableMetaData {
 
 	/**
 	 * 重写一些列的数据
-	 * 注意：输入的数据要保证原序。这里不处理分段，所有的分段都按照旧数据的。
+	 * 注意：输入的数据要保证原序。这里不处理分段，所有的分段都按照原来的。
 	 * @param cursor 要写入的数据
 	 * @param opt	选项
 	 * @throws IOException
@@ -2839,12 +2839,24 @@ public class ColumnTableMetaData extends TableMetaData {
 		Sequence temp = cursor.peek(1);
 		String[] fields = ((Record)temp.getMem(1)).getFieldNames();
 		ColumnMetaData[] columns = getColumns(fields);
-		int columnCount = columns.length;
 		
 		/**
 		 * 获得目前每个分段的记录条数
 		 */
-		long[] recordCountArray = getSegmentInfo();
+		BlockLinkReader rowCountReader = getSegmentReader();
+		int blockCount = getDataBlockCount();
+		long recordCountArray[] = new long[blockCount];
+		try {
+			for (int i = 0; i < blockCount; ++i) {
+				recordCountArray[i]  = rowCountReader.readInt32();
+			}
+		} catch (IOException e) {
+			throw new RQException(e.getMessage(), e);
+		} finally {
+			try {
+				rowCountReader.close();
+			} catch (Exception e){};
+		}
 		
 		/**
 		 * 把要更新的列清空
@@ -2860,23 +2872,24 @@ public class ColumnTableMetaData extends TableMetaData {
 		}
 		
 		/**
-		 * 准备写
+		 * 写前变量的初始化
 		 */
 		for (ColumnMetaData col : columns) {
 			col.prepareWrite();
 		}
+		int columnCount = columns.length;
+		BufferWriter bufferWriters[] = new BufferWriter[columnCount];
+		Object []minValues = new Object[columnCount];
+		Object []maxValues = new Object[columnCount];
+		Object []startValues = new Object[columnCount];
 		
 		/**
-		 * 写入新数据
+		 * 循环写入新数据
 		 */
 		for (long count : recordCountArray) {
-			BufferWriter bufferWriters[] = new BufferWriter[columnCount];
 			for (int i = 0; i < columnCount; i++) {
 				bufferWriters[i] = columns[i].getColDataBufferWriter();
 			}
-			Object []minValues = new Object[columnCount];
-			Object []maxValues = new Object[columnCount];
-			Object []startValues = new Object[columnCount];
 			
 			/**
 			 * 计算每列的最值
@@ -2888,8 +2901,10 @@ public class ColumnTableMetaData extends TableMetaData {
 				Record r = (Record) mems.get(i);
 				mems.set(i, null);
 				
+				/**
+				 * 把这一条记录的数据写到各列的bufferWriter
+				 */
 				Object[] vals = r.getFieldValues();
-				//把一条写到各列的buffer
 				for (int j = 0; j < columnCount; j++) {
 					Object obj = vals[j];
 					bufferWriters[j].writeObject(obj);
@@ -2897,7 +2912,7 @@ public class ColumnTableMetaData extends TableMetaData {
 						if (Variant.compare(obj, maxValues[j], true) > 0)
 							maxValues[j] = obj;
 						if (i == 1) {
-							minValues[j] = obj;//第一个要赋值，因为null表示最小
+							minValues[j] = obj;//第一次赋值
 							startValues[j] = obj;
 						}
 						if (Variant.compare(obj, minValues[j], true) < 0)
@@ -2907,19 +2922,21 @@ public class ColumnTableMetaData extends TableMetaData {
 			}
 			
 			/**
-			 * 写入新数据到每个列块
+			 * 写新数据到每个列块
 			 */
 			for (int j = 0; j < columnCount; j++) {
+				byte[] buf = bufferWriters[j].finish();
 				if (!columns[j].isDim()) {
-					columns[j].appendColBlock(bufferWriters[j].finish());//追加列块
+					columns[j].appendColBlock(buf);//追加列块
 				} else {
-					columns[j].appendColBlock(bufferWriters[j].finish(), minValues[j], 
-							maxValues[j], startValues[j]);//追加维块
+					columns[j].appendColBlock(buf, minValues[j], maxValues[j], startValues[j]);//追加维块
 				}
 			}
 		}
 		
-		//提交列信息
+		/**
+		 * 提交列信息
+		 */
 		for (ColumnMetaData col : columns) {
 			col.finishWrite();
 		}
