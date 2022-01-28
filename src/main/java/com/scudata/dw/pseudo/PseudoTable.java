@@ -879,6 +879,25 @@ public class PseudoTable extends Pseudo {
 		}
 		return types;
 	}
+	
+	/**
+	 * 返回虚表的所有外键列的定义
+	 * 没有外键时返回NULL
+	 * @return
+	 */
+	public List<PseudoColumn> getDimColumns() {
+		List<PseudoColumn> dims = new ArrayList<PseudoColumn>();
+		List<PseudoColumn> columns = getPd().getColumns();
+		for (PseudoColumn col : columns) {
+			if (col.getDim() != null) {
+				dims.add(col);
+			}
+		}
+		if (dims.size() == 0) {
+			return null;
+		}
+		return dims;
+	}
 }
 
 
