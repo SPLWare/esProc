@@ -172,7 +172,12 @@ public class FileCursor extends ICursor {
 		}
 		
 		InputStream in = null;
-		String []selFields = this.selFields;
+		String []selFields = null;
+		if (this.selFields != null) {
+			// 复制字段名，防止没有字段名时用#1取数，调用reset后再取数导致找不到字段
+			selFields = new String[this.selFields.length];
+			System.arraycopy(this.selFields, 0, selFields, 0, selFields.length);
+		}
 		
 		try {
 			in = fileObject.getBlockInputStream();
