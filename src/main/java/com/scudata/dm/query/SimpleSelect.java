@@ -526,7 +526,7 @@ public class SimpleSelect
 						ICursor icursor = getCursor();
 						if(icursor != null)
 						{
-							Sequence seq = icursor.fetch(1);
+							Sequence seq = icursor.peek(1);
 							if(seq != null)
 							{
 								this.struct = seq.dataStruct();
@@ -581,7 +581,7 @@ public class SimpleSelect
 				throw new RQException(mm.getMessage("syntax.error") + ":TableNode.toExpression, 无效的表节点");
 			}
 			
-			Sequence sequence = icursor.fetch(1);
+			Sequence sequence = icursor.peek(1);
 			if(sequence == null || sequence.length() != 1 || sequence.dataStruct() == null ||sequence.dataStruct().getFieldCount() != 1)
 			{
 				MessageManager mm = ParseMessage.get();
@@ -3299,12 +3299,12 @@ public class SimpleSelect
 					DataStruct struct = cursor.getDataStruct();
 					if(struct == null)
 					{
-						Sequence sq = cursor.fetch(1);
+						Sequence sq = cursor.peek(1);
 						if(sq != null)
 						{
 							struct = sq.dataStruct();
 						}
-						cursor.reset();
+						//cursor.reset();
 					}
 					this.tableNode = new TableNode(tableName, aliasName, cursor, struct);
 				}
@@ -3572,7 +3572,7 @@ public class SimpleSelect
 						DataStruct struct = cursor.getDataStruct();
 						if(struct == null)
 						{
-							Sequence sq = cursor.fetch(1);
+							Sequence sq = cursor.peek(1);
 							if(sq != null)
 							{
 								struct = sq.dataStruct();
@@ -3643,12 +3643,12 @@ public class SimpleSelect
 						DataStruct struct = cursor.getDataStruct();
 						if(struct == null)
 						{
-							Sequence sq = cursor.fetch(1);
+							Sequence sq = cursor.peek(1);
 							if(sq != null)
 							{
 								struct = sq.dataStruct();
 							}
-							cursor.reset();
+							//cursor.reset();
 						}
 						this.tableNode = new TableNode(tableName, aliasName, cursor, struct);
 					}
@@ -4814,7 +4814,7 @@ public class SimpleSelect
 					Sequence seq = null;
 					if(cursor != null)
 					{
-						seq = cursor.fetch(1);
+						seq = cursor.peek(1);
 					}
 					if(seq == null)
 					{

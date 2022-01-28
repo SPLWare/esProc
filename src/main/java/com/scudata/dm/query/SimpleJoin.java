@@ -332,7 +332,7 @@ public class SimpleJoin
 							SimpleSQL lq = new SimpleSQL(ics, subQueryTokens, 0, subQueryTokens.length, parameterList, ctx, true);
 							lq.setMemory(true);
 							ICursor cursor = lq.query();
-							Sequence seq = cursor.fetch(1);
+							Sequence seq = cursor.peek(1);
 							if(seq == null)
 							{
 								sb.append("1=1");
@@ -445,7 +445,7 @@ public class SimpleJoin
 							SimpleSQL lq = new SimpleSQL(ics, subQueryTokens, 0, subQueryTokens.length, parameterList, ctx, true);
 							lq.setMemory(true);
 							ICursor cursor = lq.query();
-							Sequence seq = cursor.fetch(1);
+							Sequence seq = cursor.peek(1);
 							if(seq == null)
 							{
 								sb.append("1=0");
@@ -2632,12 +2632,12 @@ public class SimpleJoin
 						DataStruct struct = cursor.getDataStruct();
 						if(struct == null)
 						{
-							Sequence sq = cursor.fetch(1);
+							Sequence sq = cursor.peek(1);
 							if(sq != null)
 							{
 								struct = sq.dataStruct();
 							}
-							cursor.reset();
+							//cursor.reset();
 						}
 						node = new JoinTable(cursor, struct);
 					}
@@ -2773,12 +2773,12 @@ public class SimpleJoin
 						DataStruct struct = cursor.getDataStruct();
 						if(struct == null)
 						{
-							Sequence sq = cursor.fetch(1);
+							Sequence sq = cursor.peek(1);
 							if(sq != null)
 							{
 								struct = sq.dataStruct();
 							}
-							cursor.reset();
+							//cursor.reset();
 						}
 						node = new JoinTable(cursor, struct);
 					}
@@ -4268,7 +4268,7 @@ public class SimpleJoin
 							Sequence seq = null;
 							if(cursor != null)
 							{
-								seq = cursor.fetch(1);
+								seq = cursor.peek(1);
 							}
 							if(seq == null)
 							{
@@ -4390,7 +4390,7 @@ public class SimpleJoin
 							Sequence seq = null;
 							if(cursor != null)
 							{
-								seq = cursor.fetch(1);
+								seq = cursor.peek(1);
 							}
 							if(seq == null)
 							{
@@ -5590,12 +5590,12 @@ public class SimpleJoin
 					DataStruct struct = cursor.getDataStruct();
 					if(struct == null)
 					{
-						Sequence sq = cursor.fetch(1);
+						Sequence sq = cursor.peek(1);
 						if(sq != null)
 						{
 							struct = sq.dataStruct();
 						}
-						cursor.reset();
+						//cursor.reset();
 					}
 					tableNode = new JoinTable(cursor, struct);
 				}
