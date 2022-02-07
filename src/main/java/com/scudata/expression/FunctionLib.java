@@ -301,7 +301,8 @@ public final class FunctionLib {
 		addMemberFunction("eq", "com.scudata.expression.mfn.sequence.Eq");
 		addMemberFunction("count", "com.scudata.expression.mfn.sequence.Count");
 		addMemberFunction("len", "com.scudata.expression.mfn.sequence.Len");
-		addMemberFunction("len", "com.scudata.expression.mfn.Len");
+		addMemberFunction("len", "com.scudata.expression.mfn.serial.Len");
+		addMemberFunction("sbs", "com.scudata.expression.mfn.serial.Sbs");
 		addMemberFunction("ifn", "com.scudata.expression.mfn.sequence.Ifn");
 		addMemberFunction("nvl", "com.scudata.expression.mfn.sequence.Nvl");
 		addMemberFunction("id", "com.scudata.expression.mfn.sequence.Id");
@@ -689,6 +690,7 @@ public final class FunctionLib {
 		addMemberFunction("split", "com.scudata.expression.mfn.string.Split");
 		addMemberFunction("sqlparse", "com.scudata.expression.mfn.string.SQLParse");
 		addMemberFunction("sqltranslate", "com.scudata.expression.mfn.string.SQLTranslate");
+		addMemberFunction("sbs", "com.scudata.expression.mfn.string.Sbs");
 
 		// 类型转换函数
 		addFunction("ifv", "com.scudata.expression.fn.convert.IfVariable");
