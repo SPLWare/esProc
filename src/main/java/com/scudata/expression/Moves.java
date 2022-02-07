@@ -11,8 +11,8 @@ import com.scudata.dm.SerialBytes;
 import com.scudata.resources.EngineMessage;
 
 /**
- * 取出排号k的相应字节构成的单字节排号
- * k{a,b:c,d,e} 
+ * 取出附表记录返回序表
+ * T{x:C,……} 
  * @author RunQian
  *
  */
@@ -61,50 +61,7 @@ public class Moves extends Function {
 	}
 	
 	public Object calculate(Context ctx) {
-		Object val = getLeft().calculate(ctx);
-		if (!(val instanceof SerialBytes)) {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException("{}" + mm.getMessage("function.paramTypeError"));
-		}
-		
-		if (param == null) {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException("{}" + mm.getMessage("function.missingParam"));
-		} else if (param.isLeaf()) {
-			Object obj = param.getLeafExpression().calculate(ctx);
-			if (!(obj instanceof Number)) {
-				MessageManager mm = EngineMessage.get();
-				throw new RQException("{}" + mm.getMessage("function.paramTypeError"));
-			}
-			
-			int n = ((Number)obj).intValue();
-			return ((SerialBytes)val).getByte(n);
-		} else if (param.getSubSize() == 2) {
-			IParam sub0 = param.getSub(0);
-			IParam sub1 = param.getSub(1);
-			if (sub0 == null || sub1 == null) {
-				MessageManager mm = EngineMessage.get();
-				throw new RQException("{}" + mm.getMessage("function.invalidParam"));
-			}
-			
-			Object s = sub0.getLeafExpression().calculate(ctx);
-			if (!(s instanceof Number)) {
-				MessageManager mm = EngineMessage.get();
-				throw new RQException("{}" + mm.getMessage("function.paramTypeError"));
-			}
-			
-			Object e = sub1.getLeafExpression().calculate(ctx);
-			if (!(e instanceof Number)) {
-				MessageManager mm = EngineMessage.get();
-				throw new RQException("{}" + mm.getMessage("function.paramTypeError"));
-			}
-			
-			int start = ((Number)s).intValue();
-			int end  = ((Number)e).intValue();
-			return ((SerialBytes)val).getBytes(start, end);
-		} else {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException("{}" + mm.getMessage("function.invalidParam"));
-		}
+		MessageManager mm = EngineMessage.get();
+		throw new RQException("{}" + mm.getMessage("function.invalidParam"));
 	}
 }
