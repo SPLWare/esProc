@@ -3,7 +3,6 @@ package com.scudata.expression;
 import java.util.List;
 
 import com.scudata.cellset.INormalCell;
-import com.scudata.common.IntArrayList;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
@@ -19,7 +18,6 @@ import com.scudata.resources.EngineMessage;
  */
 public class Moves extends Function {
 	private Node left;
-	private int []seqs;
 	
 	public Moves() {
 		priority = PRI_SUF;
@@ -60,136 +58,6 @@ public class Moves extends Function {
 		}
 		
 		return this;
-	}
-
-	public int[] getSeqs(Context ctx) {
-		if (seqs != null) {
-			return seqs;
-		}
-		
-		IParam param = this.param;
-		if (param == null) {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException("{}" + mm.getMessage("function.missingParam"));
-		} else if (param.isLeaf()) {
-			Object obj = param.getLeafExpression().calculate(ctx);
-			if (!(obj instanceof Number)) {
-				MessageManager mm = EngineMessage.get();
-				throw new RQException("{}" + mm.getMessage("function.paramTypeError"));
-			}
-			
-			int n = ((Number)obj).intValue();
-			if (n < 1 || n > 8) {
-				MessageManager mm = EngineMessage.get();
-				throw new RQException("{}" + mm.getMessage("function.invalidParam"));
-			}
-			
-			seqs = new int[] {n};
-		} else if (param.getType() == IParam.Colon) {
-			if (param.getSubSize() != 2) {
-				MessageManager mm = EngineMessage.get();
-				throw new RQException("{}" + mm.getMessage("function.invalidParam"));
-			}
-			
-			IParam sub0 = param.getSub(0);
-			IParam sub1 = param.getSub(1);
-			if (sub0 == null || sub1 == null) {
-				MessageManager mm = EngineMessage.get();
-				throw new RQException("{}" + mm.getMessage("function.invalidParam"));
-			}
-			
-			Object s = sub0.getLeafExpression().calculate(ctx);
-			if (!(s instanceof Number)) {
-				MessageManager mm = EngineMessage.get();
-				throw new RQException("{}" + mm.getMessage("function.paramTypeError"));
-			}
-			
-			Object e = sub1.getLeafExpression().calculate(ctx);
-			if (!(e instanceof Number)) {
-				MessageManager mm = EngineMessage.get();
-				throw new RQException("{}" + mm.getMessage("function.paramTypeError"));
-			}
-			
-			int start = ((Number)s).intValue();
-			int end  = ((Number)e).intValue();
-			if (start < 1 || start > end || end > 8) {
-				MessageManager mm = EngineMessage.get();
-				throw new RQException("{}" + mm.getMessage("function.invalidParam"));
-			}
-			
-			seqs = new int[end - start + 1];
-			for (int i = 0; start <= end; ++start, ++i) {
-				seqs[i] = start;
-			}
-		} else {
-			int size = param.getSubSize();
-			IntArrayList list = new IntArrayList(8);
-			for (int i = 0; i < size; ++i) {
-				IParam sub = param.getSub(i);
-				if (sub == null) {
-					MessageManager mm = EngineMessage.get();
-					throw new RQException("{}" + mm.getMessage("function.invalidParam"));
-				} else if (sub.isLeaf()) {
-					Object obj = sub.getLeafExpression().calculate(ctx);
-					if (!(obj instanceof Number)) {
-						MessageManager mm = EngineMessage.get();
-						throw new RQException("{}" + mm.getMessage("function.paramTypeError"));
-					}
-					
-					int n = ((Number)obj).intValue();
-					if (n < 1 || n > 8) {
-						MessageManager mm = EngineMessage.get();
-						throw new RQException("{}" + mm.getMessage("function.invalidParam"));
-					}
-					
-					list.addInt(n);
-				} else {
-					if (sub.getSubSize() != 2) {
-						MessageManager mm = EngineMessage.get();
-						throw new RQException("{}" + mm.getMessage("function.invalidParam"));
-					}
-					
-					IParam sub0 = sub.getSub(0);
-					IParam sub1 = sub.getSub(1);
-					if (sub0 == null || sub1 == null) {
-						MessageManager mm = EngineMessage.get();
-						throw new RQException("{}" + mm.getMessage("function.invalidParam"));
-					}
-					
-					Object s = sub0.getLeafExpression().calculate(ctx);
-					if (!(s instanceof Number)) {
-						MessageManager mm = EngineMessage.get();
-						throw new RQException("{}" + mm.getMessage("function.paramTypeError"));
-					}
-					
-					Object e = sub1.getLeafExpression().calculate(ctx);
-					if (!(e instanceof Number)) {
-						MessageManager mm = EngineMessage.get();
-						throw new RQException("{}" + mm.getMessage("function.paramTypeError"));
-					}
-					
-					int start = ((Number)s).intValue();
-					int end  = ((Number)e).intValue();
-					if (start < 1 || start > end || end > 8) {
-						MessageManager mm = EngineMessage.get();
-						throw new RQException("{}" + mm.getMessage("function.invalidParam"));
-					}
-					
-					for (; start <= end; ++start) {
-						list.addInt(start);
-					}
-				}
-			}
-			
-			if (list.size() > 8) {
-				MessageManager mm = EngineMessage.get();
-				throw new RQException("{}" + mm.getMessage("function.invalidParam"));
-			}
-			
-			seqs = list.toIntArray();
-		}
-		
-		return seqs;
 	}
 	
 	public Object calculate(Context ctx) {
