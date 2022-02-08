@@ -24,13 +24,13 @@ import com.scudata.expression.CurrentElement;
 import com.scudata.expression.Expression;
 import com.scudata.expression.FieldRef;
 import com.scudata.expression.IParam;
-import com.scudata.expression.Moves;
 import com.scudata.expression.Node;
 import com.scudata.expression.Operator;
 import com.scudata.expression.UnknownSymbol;
 import com.scudata.expression.ValueList;
 import com.scudata.expression.fn.string.Like;
 import com.scudata.expression.mfn.sequence.Contain;
+import com.scudata.expression.mfn.serial.Sbs;
 import com.scudata.expression.operator.Add;
 import com.scudata.expression.operator.And;
 import com.scudata.expression.operator.DotOperator;
@@ -717,7 +717,7 @@ abstract public class TableMetaData implements ITableMetaData {
 	}
 
 	/**
-	 * 提取exp里需要计算的字段(k{} k1+k2)
+	 * 提取exp里需要计算的字段(k.sbs() k1+k2)
 	 * @param exps
 	 * @return
 	 */
@@ -733,11 +733,12 @@ abstract public class TableMetaData implements ITableMetaData {
 
 		Next:
 		for (int i = 0; i < count; ++i) {
-			if (exps[i].getHome() instanceof Moves) {
+			if (exps[i].getHome() instanceof DotOperator) {
 				String col = null;
-				Object obj = exps[i].getHome().getLeft();
-				if (obj instanceof UnknownSymbol) {
-					col = ((UnknownSymbol)obj).getName();
+				Node left = exps[i].getHome().getLeft();
+				Node right = exps[i].getHome().getRight();
+				if (left instanceof UnknownSymbol && right instanceof Sbs) {
+					col = ((UnknownSymbol)left).getName();
 				} else {
 					continue;
 				}

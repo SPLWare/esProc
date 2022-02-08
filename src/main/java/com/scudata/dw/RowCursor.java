@@ -27,6 +27,7 @@ import com.scudata.expression.Node;
 import com.scudata.expression.UnknownSymbol;
 import com.scudata.expression.mfn.sequence.Contain;
 import com.scudata.expression.mfn.sequence.Find;
+import com.scudata.expression.mfn.serial.Sbs;
 import com.scudata.expression.operator.And;
 import com.scudata.expression.operator.DotOperator;
 import com.scudata.expression.operator.Equals;
@@ -810,8 +811,11 @@ public class RowCursor extends IDWCursor {
 			for (int i = 0; i < size; i++) {
 				if (exps[i] != null) {
 					if (exps[i].getHome() instanceof DotOperator) {
-						gathers[i] = new TableGather(table, exps[i], ctx);
-						exps[i] = null;
+						Node right = exps[i].getHome().getRight();
+						if (!(right instanceof Sbs)) {
+							gathers[i] = new TableGather(table, exps[i], ctx);
+							exps[i] = null;
+						}
 					} else if (exps[i].getHome() instanceof UnknownSymbol) {
 						exps[i] = null;
 						isField[i] = true;

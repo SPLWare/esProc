@@ -30,6 +30,7 @@ import com.scudata.expression.fn.Between;
 import com.scudata.expression.fn.gather.Top;
 import com.scudata.expression.mfn.sequence.Contain;
 import com.scudata.expression.mfn.sequence.Find;
+import com.scudata.expression.mfn.serial.Sbs;
 import com.scudata.expression.operator.And;
 import com.scudata.expression.operator.DotOperator;
 import com.scudata.expression.operator.Equals;
@@ -268,22 +269,33 @@ public class Cursor extends IDWCursor {
 		return appendData;
 	}
 	
+	/**
+	 * 从表达式里提取涉及到的列
+	 * @param table
+	 * @param node
+	 * @return
+	 */
 	private static ColumnMetaData getColumn(ColumnTableMetaData table, Node node) {
 		if (node instanceof UnknownSymbol) {
+			/**
+			 * 直接就是字段
+			 */
 			String keyName = ((UnknownSymbol)node).getName();
 			return table.getColumn(keyName);
 		} else if (node instanceof DotOperator && node.getLeft() instanceof CurrentElement && 
-				node.getRight() instanceof FieldRef) { // ~.key
+				node.getRight() instanceof FieldRef) {
+			/**
+			 *  ~.key格式的
+			 */
 			FieldRef fieldNode = (FieldRef)node.getRight();
 			String keyName = fieldNode.getName();
 			return table.getColumn(keyName);
-		} else if (node instanceof Moves) {
+		} else if (node instanceof DotOperator && node.getRight() instanceof Sbs) {
+			/**
+			 * 排号k.sbs()
+			 */
 			Node left = node.getLeft();
-			if (left instanceof Moves) {
-				return null;
-			} else {
-				return getColumn(table, left);
-			}
+			return getColumn(table, left);
 		} else if (node instanceof com.scudata.expression.fn.math.And) {
 			ColumnMetaData col = getColumn(table, ((Function) node).getParam().getSub(0).getLeafExpression().getHome());
 			if (col == null) {
@@ -1014,14 +1026,21 @@ public class Cursor extends IDWCursor {
 			}
 		}
 		
+		/**
+		 * 把exps里的附表表达式初始化
+		 * T.f(x),T{}
+		 */
 		if (exps != null) {
 			int size  = exps.length;
 			gathers = new TableGather[size];
 			for (int i = 0; i < size; i++) {
 				if (exps[i] != null) {
 					if (exps[i].getHome() instanceof DotOperator) {
-						gathers[i] = new TableGather(table, exps[i], ctx);
-						exps[i] = null;
+						Node right = exps[i].getHome().getRight();
+						if (!(right instanceof Sbs)) {
+							gathers[i] = new TableGather(table, exps[i], ctx);
+							exps[i] = null;
+						}
 					} else if (exps[i].getHome() instanceof UnknownSymbol) {
 						exps[i] = null;
 					} else if (exps[i].getHome() instanceof Moves) {

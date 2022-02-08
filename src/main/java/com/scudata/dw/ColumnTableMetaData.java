@@ -23,10 +23,11 @@ import com.scudata.dm.cursor.MemoryCursor;
 import com.scudata.dm.cursor.MergesCursor;
 import com.scudata.dm.cursor.MultipathCursors;
 import com.scudata.expression.Expression;
-import com.scudata.expression.Moves;
 import com.scudata.expression.Node;
 import com.scudata.expression.UnknownSymbol;
+import com.scudata.expression.mfn.serial.Sbs;
 import com.scudata.expression.operator.Add;
+import com.scudata.expression.operator.DotOperator;
 import com.scudata.expression.operator.Equals;
 import com.scudata.expression.operator.Greater;
 import com.scudata.expression.operator.NotEquals;
@@ -531,7 +532,7 @@ public class ColumnTableMetaData extends TableMetaData {
 	}
 	
 	/**
-	 * 提取exp里需要计算的列(k{} k1+k2)
+	 * 提取exp里需要计算的列(k.sbs() k1+k2)
 	 * @param exps
 	 * @return
 	 */
@@ -547,14 +548,12 @@ public class ColumnTableMetaData extends TableMetaData {
 
 		Next:
 		for (int i = 0; i < count; ++i) {
-			if (exps[i].getHome() instanceof Moves) {
+			if (exps[i].getHome() instanceof DotOperator) {
 				String col = null;
-				Object obj = exps[i].getHome().getLeft();
-				if (obj instanceof UnknownSymbol) {
-					col = ((UnknownSymbol)obj).getName();
-					if (isSubTable(col)) {
-						continue;//如果是表名
-					}
+				Object left = exps[i].getHome().getLeft();
+				Object right = exps[i].getHome().getRight();
+				if (left instanceof UnknownSymbol && right instanceof Sbs) {
+					col = ((UnknownSymbol)left).getName();
 				} else {
 					continue;
 				}
@@ -569,8 +568,7 @@ public class ColumnTableMetaData extends TableMetaData {
 
 				MessageManager mm = EngineMessage.get();
 				throw new RQException(col + mm.getMessage("ds.fieldNotExist"));
-			}
-			if (exps[i].getHome() instanceof Add) {
+			} else if (exps[i].getHome() instanceof Add) {
 				String col1 = null;
 				String col2 = null;
 				Object obj1 = exps[i].getHome().getLeft();

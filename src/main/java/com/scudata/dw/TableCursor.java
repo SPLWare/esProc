@@ -18,9 +18,9 @@ import com.scudata.dm.op.Select;
 import com.scudata.expression.CurrentElement;
 import com.scudata.expression.Expression;
 import com.scudata.expression.FieldRef;
-import com.scudata.expression.Moves;
 import com.scudata.expression.Node;
 import com.scudata.expression.UnknownSymbol;
+import com.scudata.expression.mfn.serial.Sbs;
 import com.scudata.expression.operator.And;
 import com.scudata.expression.operator.DotOperator;
 import com.scudata.expression.operator.Equals;
@@ -203,13 +203,9 @@ public class TableCursor extends IDWCursor {
 			FieldRef fieldNode = (FieldRef)node.getRight();
 			String keyName = fieldNode.getName();
 			return table.getColumn(keyName);
-		} else if (node instanceof Moves) {
+		} else if (node instanceof DotOperator && node.getRight() instanceof Sbs) {
 			Node left = node.getLeft();
-			if (left instanceof Moves) {
-				return null;
-			} else {
-				return getColumn(table, left);
-			}
+			return getColumn(table, left);
 		} else {
 			return null;
 		}
