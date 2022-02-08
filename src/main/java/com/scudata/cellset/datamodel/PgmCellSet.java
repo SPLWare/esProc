@@ -1955,32 +1955,37 @@ public class PgmCellSet extends CellSet {
 		} catch (RetryException re) {
 			throw re;
 		} catch (RQException re) {
-			if (goCatch()) {
-				Logger.error(re.getMessage(), re);
+			MessageManager mm = EngineMessage.get();
+			String msg = mm.getMessage("error.cell", curLct.toString()) + re.getMessage();
+			
+			if (goCatch(msg)) {
+				Logger.error(msg, re);
 			} else {
-				MessageManager mm = EngineMessage.get();
-				re.setMessage(mm.getMessage("error.cell", curLct.toString()) + re.getMessage());
+				re.setMessage(msg);
 				throw re;
 			}
 		} catch (Throwable e) {
-			if (goCatch()) {
-				Logger.error(e.getMessage(), e);
+			MessageManager mm = EngineMessage.get();
+			String msg = mm.getMessage("error.cell", curLct.toString()) + e.getMessage();
+			
+			if (goCatch(msg)) {
+				Logger.error(msg, e);
 			} else {
-				MessageManager mm = EngineMessage.get();
-				throw new RQException(mm.getMessage("error.cell", curLct.toString()) + e.getMessage(), e);
+				throw new RQException(msg, e);
 			}
 		}
 
 		return curLct;
 	}
 
-	private boolean goCatch() {
+	private boolean goCatch(String error) {
 		while (stack.size() > 0) {
 			// 下一个要执行的单元格是否在代码块范围内
 			CmdCode cmd = stack.getFirst();
 			if (cmd.type == Command.TRY) {
 				stack.removeFirst();
 				setNext(cmd.blockEndRow + 1, 1, true);
+				getPgmNormalCell(cmd.row, cmd.col).setValue(error);
 				return true;
 			} else {
 				stack.removeFirst();
