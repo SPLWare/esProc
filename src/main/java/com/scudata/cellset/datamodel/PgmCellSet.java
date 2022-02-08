@@ -1955,32 +1955,43 @@ public class PgmCellSet extends CellSet {
 		} catch (RetryException re) {
 			throw re;
 		} catch (RQException re) {
-			if (goCatch()) {
-				Logger.error(re.getMessage(), re);
+			String cellId = curLct.toString();
+			String msg = re.getMessage();
+			if (goCatch(cellId + ' ' + msg)) {
+				MessageManager mm = EngineMessage.get();
+				msg = mm.getMessage("error.cell", cellId) + msg;
+				Logger.error(msg, re);
 			} else {
 				MessageManager mm = EngineMessage.get();
-				re.setMessage(mm.getMessage("error.cell", curLct.toString()) + re.getMessage());
+				msg = mm.getMessage("error.cell", cellId) + msg;
+				re.setMessage(msg);
 				throw re;
 			}
 		} catch (Throwable e) {
-			if (goCatch()) {
-				Logger.error(e.getMessage(), e);
+			String cellId = curLct.toString();
+			String msg = e.getMessage();
+			if (goCatch(msg)) {
+				MessageManager mm = EngineMessage.get();
+				msg = mm.getMessage("error.cell", cellId) + msg;
+				Logger.error(msg, e);
 			} else {
 				MessageManager mm = EngineMessage.get();
-				throw new RQException(mm.getMessage("error.cell", curLct.toString()) + e.getMessage(), e);
+				msg = mm.getMessage("error.cell", cellId) + msg;
+				throw new RQException(msg, e);
 			}
 		}
 
 		return curLct;
 	}
 
-	private boolean goCatch() {
+	private boolean goCatch(String error) {
 		while (stack.size() > 0) {
 			// 下一个要执行的单元格是否在代码块范围内
 			CmdCode cmd = stack.getFirst();
 			if (cmd.type == Command.TRY) {
 				stack.removeFirst();
 				setNext(cmd.blockEndRow + 1, 1, true);
+				getPgmNormalCell(cmd.row, cmd.col).setValue(error);
 				return true;
 			} else {
 				stack.removeFirst();
