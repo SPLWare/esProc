@@ -1955,22 +1955,28 @@ public class PgmCellSet extends CellSet {
 		} catch (RetryException re) {
 			throw re;
 		} catch (RQException re) {
-			MessageManager mm = EngineMessage.get();
-			String msg = mm.getMessage("error.cell", curLct.toString()) + re.getMessage();
-			
-			if (goCatch(msg)) {
+			String cellId = curLct.toString();
+			String msg = re.getMessage();
+			if (goCatch(cellId + ' ' + msg)) {
+				MessageManager mm = EngineMessage.get();
+				msg = mm.getMessage("error.cell", cellId) + msg;
 				Logger.error(msg, re);
 			} else {
+				MessageManager mm = EngineMessage.get();
+				msg = mm.getMessage("error.cell", cellId) + msg;
 				re.setMessage(msg);
 				throw re;
 			}
 		} catch (Throwable e) {
-			MessageManager mm = EngineMessage.get();
-			String msg = mm.getMessage("error.cell", curLct.toString()) + e.getMessage();
-			
+			String cellId = curLct.toString();
+			String msg = e.getMessage();
 			if (goCatch(msg)) {
+				MessageManager mm = EngineMessage.get();
+				msg = mm.getMessage("error.cell", cellId) + msg;
 				Logger.error(msg, e);
 			} else {
+				MessageManager mm = EngineMessage.get();
+				msg = mm.getMessage("error.cell", cellId) + msg;
 				throw new RQException(msg, e);
 			}
 		}
