@@ -1313,11 +1313,14 @@ public class StringUtils {
 				names.add(existsNames[i]);
 			}
 		}
+		if(!names.contains(pre)) {
+			return pre;
+		}
 		int index = 1;
-		while (names.contains(pre + index)) {
+		while (names.contains(pre +"_"+ index)) {
 			index++;
 		}
-		return pre + index;
+		return pre +"_"+ index;
 	}
 
 }
