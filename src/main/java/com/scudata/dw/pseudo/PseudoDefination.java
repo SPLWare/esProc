@@ -13,11 +13,11 @@ import com.scudata.dw.ITableMetaData;
 
 //用于定义虚表的属性
 public class PseudoDefination {
-	private static final String PD_FILE = "file";
-	private static final String PD_ZONE = "zone";
-	private static final String PD_DATE = "date";
-	private static final String PD_USER = "user";
-	private static final String PD_COLUMN = "column";
+	public static final String PD_FILE = "file";
+	public static final String PD_ZONE = "zone";
+	public static final String PD_DATE = "date";
+	public static final String PD_USER = "user";
+	public static final String PD_COLUMN = "column";
 	
 	private Object file;//文件名或多个文件名的序列
 	private Sequence zone;//组表分区号列表
@@ -27,6 +27,10 @@ public class PseudoDefination {
 	private List<ITableMetaData> tables;//存所有文件的table对象
 	
 	private String[] sortedFields;//排序字段
+	
+	public PseudoDefination() {
+		
+	}
 	
 	public PseudoDefination(Record pd, Context ctx) {
 		file = getFieldValue(pd, PD_FILE);

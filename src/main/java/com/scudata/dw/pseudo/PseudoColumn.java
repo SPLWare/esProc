@@ -4,14 +4,14 @@ import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 
 public class PseudoColumn {
-	private static final String PD_NAME = "name";
-	private static final String PD_EXP = "exp";
-	private static final String PD_TYPE = "type";
-	private static final String PD_PSEUDO = "pseudo";
-	private static final String PD_ENUM = "enum";
-	private static final String PD_BITS = "bits";
-	private static final String PD_DIM = "dim";
-	private static final String PD_FKEY = "fkey";
+	public static final String PD_NAME = "name";
+	public static final String PD_EXP = "exp";
+	public static final String PD_TYPE = "type";
+	public static final String PD_PSEUDO = "pseudo";
+	public static final String PD_ENUM = "enum";
+	public static final String PD_BITS = "bits";
+	public static final String PD_DIM = "dim";
+	public static final String PD_FKEY = "fkey";
 	
 	private String name;//真字段的名称
 	private String exp;//真字段的表达式
@@ -21,6 +21,10 @@ public class PseudoColumn {
 	private Sequence bits;//二值维度伪字段名
 	private Object dim;//指向的维表
 	private String fkey[];//外键字段
+	
+	public PseudoColumn() {
+		
+	}
 	
 	public String getName() {
 		return name;
