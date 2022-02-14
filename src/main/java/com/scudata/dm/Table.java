@@ -1696,6 +1696,17 @@ public class Table extends Sequence {
 		ds.setPrimary(fields);
 		indexTable = null;
 	}
+	
+	/**
+	 * 设置序表的主键
+	 * @param fields String[]
+	 * @param timeKey String t：最后一个为时间键
+	 * @param opt String b：pfind/find/get/put操作自动加@b
+	 */
+	public void setPrimary(String []fields, String opt) {
+		ds.setPrimary(fields, opt);
+		indexTable = null;
+	}
 
 	/**
 	 * 用主键创建索引表
@@ -1709,7 +1720,9 @@ public class Table extends Sequence {
 			throw new RQException(mm.getMessage("ds.lessKey"));
 		}
 		
-		if (opt != null && opt.indexOf('b') != -1) {
+		if (ds.getTimeKeyCount() == 1) {
+			indexTable = new TimeIndexTable(this, fields, length());
+		} else if (opt != null && opt.indexOf('b') != -1) {
 			SortIndexTable sit = new SortIndexTable();
 			sit.create(this, fields);
 			indexTable = sit;
@@ -1733,7 +1746,11 @@ public class Table extends Sequence {
 			throw new RQException(mm.getMessage("ds.lessKey"));
 		}
 		
-		indexTable = IndexTable.instance(this, fields, capacity, opt);
+		if (ds.getTimeKeyCount() == 1) {
+			indexTable = new TimeIndexTable(this, fields, capacity);
+		} else {
+			indexTable = IndexTable.instance(this, fields, capacity, opt);
+		}
 	}
 	
 	/**

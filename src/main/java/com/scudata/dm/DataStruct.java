@@ -24,6 +24,7 @@ public class DataStruct implements Externalizable, IRecord {
 
 	private String[] fieldNames; // 字段名称
 	private String[] primary; // 结构主键
+	private int timeKeyCount = 0; // 时间键数量
 	transient private int[] pkIndex; // 主键索引
 
 	// 序列化时使用
@@ -74,6 +75,7 @@ public class DataStruct implements Externalizable, IRecord {
 		ByteArrayOutputRecord out = new ByteArrayOutputRecord();
 		out.writeStrings(fieldNames);
 		out.writeStrings(primary);
+		out.writeInt(timeKeyCount);
 		return out.toByteArray();
 	}
 
@@ -85,18 +87,27 @@ public class DataStruct implements Externalizable, IRecord {
 		ByteArrayInputRecord in = new ByteArrayInputRecord(buf);
 		fieldNames = in.readStrings();
 		setPrimary(in.readStrings());
+		
+		if (in.available() > 0) {
+			timeKeyCount = in.readInt();
+		}
 	}
 
 	public void writeExternal(ObjectOutput out) throws IOException {
-		out.writeByte(2); // 版本号
+		out.writeByte(3); // 版本号
 		out.writeObject(fieldNames);
 		out.writeObject(primary);
+		out.writeInt(timeKeyCount); // 版本3添加
 	}
 
 	public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
-		in.readByte(); // 版本号
+		int v = in.readByte(); // 版本号
 		fieldNames = (String[])in.readObject();
 		setPrimary((String[])in.readObject());
+		
+		if (v > 2) { // 版本3添加
+			timeKeyCount = in.readInt();
+		}
 	}
 
 	/**
@@ -107,6 +118,7 @@ public class DataStruct implements Externalizable, IRecord {
 		System.arraycopy(fieldNames, 0, names, 0, names.length);
 		DataStruct ds = new DataStruct(names);
 		ds.setPrimary(primary);
+		ds.timeKeyCount = timeKeyCount;
 		return ds;
 	}
 
@@ -259,9 +271,19 @@ public class DataStruct implements Externalizable, IRecord {
 	 * @param names String[]
 	 */
 	public void setPrimary(String []names) {
+		setPrimary(names, null);
+	}
+	
+	/**
+	 * 设置结构的主键
+	 * @param names String[]
+	 * @param opt String t：最后一个为
+	 */
+	public void setPrimary(String []names, String opt) {
 		if (names == null || names.length == 0) {
 			this.primary = null;
 			pkIndex = null;
+			timeKeyCount = 0;
 		} else {
 			int count = names.length;
 			int []tmpIndex = new int[count];
@@ -276,6 +298,9 @@ public class DataStruct implements Externalizable, IRecord {
 			this.primary = new String[count];
 			System.arraycopy(names, 0, this.primary, 0, count);
 			pkIndex = tmpIndex;
+			if (opt != null && opt.indexOf('t') != -1) {
+				timeKeyCount = 1;
+			}
 		}
 	}
 
@@ -285,6 +310,14 @@ public class DataStruct implements Externalizable, IRecord {
 	 */
 	public String[] getPrimary() {
 		return primary;
+	}
+
+	/**
+	 * 取时间键数量，没有时间键则返回0
+	 * @return
+	 */
+	public int getTimeKeyCount() {
+		return timeKeyCount;
 	}
 
 	/**

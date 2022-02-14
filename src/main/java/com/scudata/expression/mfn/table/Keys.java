@@ -59,7 +59,7 @@ public class Keys extends TableFunction {
 				}
 			}
 			
-			srcTable.setPrimary(cols);
+			srcTable.setPrimary(cols, option);
 			srcTable.createIndexTable(capacity, option);
 		} else {
 			String []cols;
@@ -79,7 +79,7 @@ public class Keys extends TableFunction {
 				}
 			}
 			
-			srcTable.setPrimary(cols);
+			srcTable.setPrimary(cols, option);
 			if (option != null && option.indexOf('i') != -1) {
 				srcTable.createIndexTable(option);
 			}

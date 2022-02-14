@@ -83,6 +83,19 @@ abstract public class IndexTable {
 		} else if (exps.length == 1) {
 			return instance(code, exps[0], ctx, capacity);
 		} else {
+			Object obj = null;
+			if (code.length() > 0) {
+				obj = code.getMem(1);
+			}
+			
+			if (obj instanceof Record) {
+				Record r = (Record)obj;
+				if (r.dataStruct().getTimeKeyCount() == 1) {
+					int []pkIndex = r.dataStruct().getPKIndex();
+					return new TimeIndexTable(code, pkIndex, capacity);
+				}
+			}
+			
 			HashArrayIndexTable it = new HashArrayIndexTable(capacity);
 			it.create(code, exps, ctx);
 			return it;
@@ -95,6 +108,13 @@ abstract public class IndexTable {
 			it.create(code, fields[0]);
 			return it;
 		} else {
+			if (code.length() > 0) {
+				Record r = (Record)code.getMem(1);
+				if (r.dataStruct().getTimeKeyCount() == 1) {
+					return new TimeIndexTable(code, fields, capacity);
+				}
+			}
+			
 			HashArrayIndexTable it = new HashArrayIndexTable(capacity, opt);
 			it.create(code, fields);
 			return it;
