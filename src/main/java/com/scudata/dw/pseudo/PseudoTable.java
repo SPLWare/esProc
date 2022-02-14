@@ -21,6 +21,7 @@ import com.scudata.dm.op.Join;
 import com.scudata.dm.op.New;
 import com.scudata.dm.op.Operable;
 import com.scudata.dm.op.Operation;
+import com.scudata.dm.op.Select;
 import com.scudata.dm.op.Switch;
 import com.scudata.dw.ITableMetaData;
 import com.scudata.expression.Constant;
@@ -84,8 +85,7 @@ public class PseudoTable extends Pseudo {
 				List<PseudoColumn> columns = getPd().getColumns();
 				for (PseudoColumn column : columns) {
 					//如果存在枚举伪字段和二值伪字段，要记录下来，在接下来的处理中会用到
-					if (column.getPseudo() != null && 
-							(column.getBits() != null || column.get_enum() != null)) {
+					if (column.getPseudo() != null) {
 						hasPseudoColumns = true;
 					}
 					if (column.getDim() != null) {
@@ -191,7 +191,7 @@ public class PseudoTable extends Pseudo {
 						String var = "pseudo_enum_value_" + i;
 						ctx.setParamValue(var, col.get_enum());
 						name = col.getName();
-						newExps[i] = new Expression(var + "(" + name + "+1)");
+						newExps[i] = new Expression(var + "(" + name + ")");
 						exp = new Expression(name);
 						needNew = true;
 						tempExpList.add(exp);
@@ -524,15 +524,78 @@ public class PseudoTable extends Pseudo {
 	}
 	
 	/**
-	 * 把表达式里涉及伪字段的枚举、二值运算进行转换
+	 * 转换二值伪字段节点为真字段
+	 * 转换普通伪字段节点为真字段
+	 * @param node
+	 * @return
+	 */
+	private Node bitsToBoolean(Node node) {
+		String pname = ((UnknownSymbol) node).getName();
+		PseudoColumn col = getPd().findColumnByPseudoName(pname);
+		
+		if (col == null) {
+			return null;
+		}
+		
+		if (col.getBits() != null) {
+			/**
+			 * 把一个UnknownSymbol的二值节点转换为一个Boolean节点
+			 */
+			Sequence seq;
+			seq = col.getBits();
+			int idx = seq.firstIndexOf(pname) - 1;
+			int bit = 1 << idx;
+			String str = "and(" + col.getName() + "," + bit + ")!=0";//改为真字段的位运算
+			return new Expression(str).getHome();
+		} else if (col.get_enum() != null) {
+			return null;//枚举的不在这里处理
+		} else {
+			return new UnknownSymbol(col.getName());//处理普通伪字段
+		}
+	}
+	
+	/**
+	 * 处理二值伪字段
+	 */
+	private void replaceFilter(Node node) {
+		if (node == null) {
+			return;
+		}
+		
+		if (node.getLeft() instanceof UnknownSymbol) {
+			Node left = bitsToBoolean(node.getLeft());
+			if (left != null) {
+				node.setLeft(left);
+			}
+		} else {
+			replaceFilter(node.getLeft());
+		}
+		
+		if (node.getRight() instanceof UnknownSymbol) {
+			Node right = bitsToBoolean(node.getRight());
+			if (right != null) {
+				node.setRight(right);
+			}
+		} else {
+			replaceFilter(node.getRight());
+		}
+	}
+	
+	/**
+	 * 把表达式里涉及伪字段的枚举运算进行转换
 	 * @param node
 	 */
 	private void parseFilter(Node node) {
 		if (node instanceof And || node instanceof Or) {
+			/**
+			 * 逻辑与、或时，递归处理
+			 */
 			parseFilter(node.getLeft());
 			parseFilter(node.getRight());
 		} else if (node instanceof Equals || node instanceof NotEquals) {
-			//对伪字段的==、!=进行处理
+			/**
+			 * 对伪字段的==、!=进行处理
+			 */
 			if (node.getLeft() instanceof UnknownSymbol) {
 				//判断是否是伪字段
 				String pname = ((UnknownSymbol) node.getLeft()).getName();
@@ -540,26 +603,11 @@ public class PseudoTable extends Pseudo {
 				if (col != null) {
 					Sequence seq;
 					//判断是否是对枚举伪字段进行运算
-					seq = col.get_enum();
-					if (seq != null) {
+					if (col.get_enum() != null) {
+						seq = col.get_enum();
 						node.setLeft(new UnknownSymbol(col.getName()));//改为真字段
 						Integer obj = seq.firstIndexOf(node.getRight().calculate(ctx));
-						obj--;
 						node.setRight(new Constant(obj));//把枚举值改为对应的真的值
-					}
-					
-					//判断是否是对二值伪字段进行运算
-					seq = col.getBits();
-					if (seq != null) {
-						int idx = seq.firstIndexOf(pname) - 1;
-						int bit = 1 << idx;
-						String str = "and(" + col.getName() + "," + bit + ")";
-						node.setLeft(new Expression(str).getHome());//改为真字段的位运算
-						if ((Boolean) node.getRight().calculate(ctx)) {
-							node.setRight(new Constant(bit));
-						} else {
-							node.setRight(new Constant(0));
-						}
 					}
 				}
 			} else if (node.getRight() instanceof UnknownSymbol) {
@@ -594,7 +642,6 @@ public class PseudoTable extends Pseudo {
 						int size = value.length();
 						for (int i = 1; i <= size; i++) {
 							Integer obj = col.get_enum().firstIndexOf(value.get(i));
-							obj--;
 							newValue.add(obj);
 						}
 						node.setLeft(new Constant(newValue));
@@ -614,7 +661,18 @@ public class PseudoTable extends Pseudo {
 			 */
 			Expression exp = op.getFunction().getParam().getLeafExpression();
 			Node node = exp.getHome();
-			parseFilter(node);
+			if (node instanceof UnknownSymbol) {
+				/**
+				 * 如果node就是一个伪字段
+				 */
+				Node n = bitsToBoolean(node);
+				if (n != null) {
+					op = new Select(new Expression(n), null);
+				}
+			} else {
+				replaceFilter(node);
+				parseFilter(node);
+			}
 		}
 		
 		/**
