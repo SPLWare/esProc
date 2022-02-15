@@ -17,14 +17,12 @@ public class PseudoDefination {
 	public static final String PD_ZONE = "zone";
 	public static final String PD_DATE = "date";
 	public static final String PD_USER = "user";
-	public static final String PD_TIME = "time";
 	public static final String PD_COLUMN = "column";
 	
 	private Object file;//文件名或多个文件名的序列
 	private Sequence zone;//组表分区号列表
 	private String date;//分列字段
 	private String user;//帐户字段
-	private String time;//时间字段
 	private List<PseudoColumn> columns;//部分特殊字段定义
 	private List<ITableMetaData> tables;//存所有文件的table对象
 	
@@ -39,7 +37,6 @@ public class PseudoDefination {
 		zone = (Sequence) getFieldValue(pd, PD_ZONE);
 		date = (String) getFieldValue(pd, PD_DATE);
 		user = (String) getFieldValue(pd, PD_USER);
-		setTime((String) getFieldValue(pd, PD_TIME));
 		Sequence seq = (Sequence) getFieldValue(pd, PD_COLUMN);
 		if (seq != null) {
 			columns = new ArrayList<PseudoColumn>();
@@ -87,14 +84,6 @@ public class PseudoDefination {
 
 	public List<PseudoColumn> getColumns() {
 		return columns;
-	}
-
-	public String getTime() {
-		return time;
-	}
-
-	public void setTime(String time) {
-		this.time = time;
 	}
 	
 	public void setColumns(List<PseudoColumn> columns) {

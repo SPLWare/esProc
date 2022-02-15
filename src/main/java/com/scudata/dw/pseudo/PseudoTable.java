@@ -96,8 +96,8 @@ public class PseudoTable extends Pseudo {
 								addColName(key);
 							}
 						}
-						if (pd.getTime() != null) {
-							addColName(pd.getTime());
+						if (column.getTime() != null) {
+							addColName(column.getTime());
 						}
 					}
 				}
@@ -345,8 +345,18 @@ public class PseudoTable extends Pseudo {
 					}
 					
 					String fkey[] = column.getFkey();
+					/**
+					 * 如果fkey等于null，且name不等于null，且存在time，则组织为一个新的fkey={name，time}
+					 */
+					if (fkey == null && column.getName() != null && column.getTime() != null) {
+						fkey = new String[] {column.getName(), column.getTime()};
+					}
+					
 					if (fkey == null) {
-						String[] fkNames = new String[] {column.getName()};//此时name就是外键字段
+						/**
+						 * 此时name就是外键字段
+						 */
+						String[] fkNames = new String[] {column.getName()};
 						Sequence[] codes = new Sequence[] {dim};
 						Switch s = new Switch(fkNames, codes, null, null);
 						cursor.addOperation(s, ctx);
@@ -360,11 +370,11 @@ public class PseudoTable extends Pseudo {
 						/**
 						 * 如果定义了时间字段,就把时间字段拼接到fkey末尾
 						 */
-						if (pd.getTime() != null) {
+						if (column.getTime() != null) {
 							size++;
 							fkey = new String[size];
 							System.arraycopy(column.getFkey(), 0, fkey, 0, size - 1);
-							fkey[size - 1] = pd.getTime();
+							fkey[size - 1] = column.getTime();
 						}
 						
 						Expression[][] exps = new Expression[1][];

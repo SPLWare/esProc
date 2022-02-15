@@ -12,6 +12,7 @@ public class PseudoColumn {
 	public static final String PD_BITS = "bits";
 	public static final String PD_DIM = "dim";
 	public static final String PD_FKEY = "fkey";
+	public static final String PD_TIME = "time";
 	
 	private String name;//真字段的名称
 	private String exp;//真字段的表达式
@@ -21,6 +22,7 @@ public class PseudoColumn {
 	private Sequence bits;//二值维度伪字段名
 	private Object dim;//指向的维表
 	private String fkey[];//外键字段
+	private String time;//时间字段
 	
 	public PseudoColumn() {
 		
@@ -96,6 +98,14 @@ public class PseudoColumn {
 		this.dim = dim;
 	}
 	
+	public String getTime() {
+		return time;
+	}
+
+	public void setTime(String time) {
+		this.time = time;
+	}
+	
 	public PseudoColumn(Record rec) {
 		name = (String) PseudoDefination.getFieldValue(rec, PD_NAME);
 		exp = (String) PseudoDefination.getFieldValue(rec, PD_EXP);
@@ -104,6 +114,7 @@ public class PseudoColumn {
 		_enum = (Sequence) PseudoDefination.getFieldValue(rec, PD_ENUM);
 		bits = (Sequence) PseudoDefination.getFieldValue(rec, PD_BITS);
 		dim = PseudoDefination.getFieldValue(rec, PD_DIM);
+		time = (String) PseudoDefination.getFieldValue(rec, PD_TIME);
 		
 		Object obj = PseudoDefination.getFieldValue(rec, PD_FKEY);
 		if (obj != null) {
