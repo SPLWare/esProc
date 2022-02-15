@@ -96,6 +96,9 @@ public class PseudoTable extends Pseudo {
 								addColName(key);
 							}
 						}
+						if (pd.getTime() != null) {
+							addColName(pd.getTime());
+						}
 					}
 				}
 			}
@@ -353,6 +356,17 @@ public class PseudoTable extends Pseudo {
 //						cursor.addOperation(s, ctx);
 					} else {
 						int size = fkey.length;
+						
+						/**
+						 * 如果定义了时间字段,就把时间字段拼接到fkey末尾
+						 */
+						if (pd.getTime() != null) {
+							size++;
+							fkey = new String[size];
+							System.arraycopy(column.getFkey(), 0, fkey, 0, size - 1);
+							fkey[size - 1] = pd.getTime();
+						}
+						
 						Expression[][] exps = new Expression[1][];
 						exps[0] = new Expression[size];
 						for (int i = 0; i < size; i++) {
