@@ -5403,9 +5403,10 @@ public class SimpleSelect
 				}
 			}
 
-			Set<String> fdsSet = new HashSet<String>(Arrays.asList(fds));
-			fds = new String[fdsSet.size()];
-			fdsSet.toArray(fds);
+			//xingjl  remove 20220215
+//			Set<String> fdsSet = new HashSet<String>(Arrays.asList(fds));
+//			fds = new String[fdsSet.size()];
+//			fdsSet.toArray(fds);
 
 			this.tableNode.setAccessColumn(fds);
 			
