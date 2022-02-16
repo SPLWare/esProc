@@ -3,7 +3,6 @@ package com.scudata.util;
 import java.util.Date;
 
 import com.scudata.common.Escape;
-import com.scudata.common.RQException;
 import com.scudata.common.Sentence;
 import com.scudata.common.StringUtils;
 import com.scudata.dm.DataStruct;
@@ -15,122 +14,6 @@ import com.scudata.dm.Table;
 import java.util.ArrayList;
 
 public final class JSONUtil {
-	private static class JSONImporter {
-		private char []chars;
-		private int start;
-		private int end;
-		private DataStruct ds;
-		
-		private ArrayList <String> nameList = new ArrayList<String>();
-		private ArrayList <Object> valueList = new ArrayList<Object>();
-		private boolean isPure = true; // 返回是否纯
-		
-		public JSONImporter(char []chars, int start, int end) {
-			this.chars = chars;
-			this.start = start;
-			this.end = end;
-		}
-		
-		public boolean isPure() {
-			return isPure;
-		}
-		
-		public Record next() {
-			char []chars = this.chars;
-			int i = this.start;
-			int next = this.end;
-
-			for (; i <= next; ++i) {
-				if (chars[i] == '{') {
-					next = indexOf(chars, i + 1, end, '}');
-					break;
-				} else if (!Character.isWhitespace(chars[i])) {
-					throw new RQException("table format error, position: " + i);
-				}
-			}
-
-			if (i > next) {
-				return null;
-			}
-			
-			ArrayList <String> nameList = this.nameList;
-			ArrayList <Object> valueList = this.valueList;
-			
-			i++;
-			while (i < next) {
-				int index = indexOf(chars, i, next, ':');
-				if (index < 0) break;
-
-				String name = new String(chars, i, index - i);
-				name = name.trim();
-				int len = name.length();
-				if (len > 2 && name.charAt(0) == '"' && name.charAt(len - 1) == '"') {
-					name = name.substring(1, len - 1);
-				}
-				
-				nameList.add(name);
-				i = index + 1;
-				index = indexOf(chars, i, next, ',');
-				
-				if (index < 0) {
-					Object value = parseJSON(chars, i, next - 1);
-					valueList.add(value);
-					break;
-				} else {
-					Object value = parseJSON(chars, i, index - 1);
-					valueList.add(value);
-					i = index + 1;
-				}
-			}
-			
-			Record r;
-			int size = nameList.size();
-			if (ds != null) {
-				String []names = ds.getFieldNames();
-				int fcount = names.length;
-				r = new Record(ds);
-				for (int f = 0; f < size; ++f) {
-					String name = nameList.get(f);
-					Object val = valueList.get(f);
-					if (f < fcount && names[f].equalsIgnoreCase(name)) {
-						r.setNormalFieldValue(f, val);
-					} else {
-						int index = ds.getFieldIndex(name);
-						if (index != -1) {
-							r.setNormalFieldValue(index, val);
-						} else {
-							isPure = false;
-							String []newNames = new String[fcount + 1];
-							System.arraycopy(names, 0, newNames, 0, fcount);
-							newNames[fcount] = name;
-							ds = new DataStruct(newNames);
-							r = new Record(ds, r.getFieldValues());
-							r.setNormalFieldValue(fcount, val);
-						}
-					}
-				}
-			} else {
-				String []names = new String[size];
-				nameList.toArray(names);
-				ds = new DataStruct(names);
-				r = new Record(ds);
-				valueList.toArray(r.getFieldValues());
-			}
-			
-			// 跳过记录分隔符,
-			int index = indexOf(chars, next + 1, this.end, ',');
-			if (index < 0) {
-				this.start = this.end + 1;
-			} else {
-				this.start = index + 1;
-			}
-			
-			nameList.clear();
-			valueList.clear();
-			return r;
-		}
-	}
-
 	private static int scanQuotation(char []chars, int start, int end) {
 		for (; start <= end; ++start) {
 			if (chars[start] == '"') {
@@ -177,65 +60,106 @@ public final class JSONUtil {
 		return -1;
 	}
 
-	// v,...
+	/**
+	 * v1,v2...
+	 * @param chars
+	 * @param start 值的起始位置，包含
+	 * @param end 值的结束位置，包含
+	 * @return Sequence
+	 */
 	private static Sequence parseSequence(char []chars, int start, int end) {
+		// 跳过前面的空白
 		for (; start <= end && Character.isWhitespace(chars[start]); ++start) {
 		}
 		
-		if (start > end) {
-			return new Sequence(0);
-		} else if (chars[start] == '{') {
-			JSONImporter importer = new JSONImporter(chars, start, end);
-			Record r = importer.next();
-			if (r == null) {
-				return null;
-			}
-			
-			Table table = new Table(r.dataStruct());
-			ListBase1 mems = table.getMems();
-			mems.add(r);
-			
-			while ((r = importer.next()) != null) {
-				mems.add(r);
-			}
-			
-			if (!importer.isPure()) {
-				int len = mems.size();
-				DataStruct ds = importer.ds;
-				Table result = new Table(ds, len);
-				
-				for (int i = 1; i <= len; ++i) {
-					r = (Record)mems.get(i);
-					result.newLast(r.getFieldValues());
-				}
-				
-				return result;
+		Sequence sequence = new Sequence();
+		while (start <= end) {
+			int index = indexOf(chars, start, end, ',');
+			if (index < 0) {
+				Object value = parseJSON(chars, start, end);
+				sequence.add(value);
+				break;
 			} else {
-				return table;
-			}
-		} else {
-			Sequence sequence = new Sequence();
-			ListBase1 mems = sequence.getMems();
-			
-			while (true) {
-				int index = indexOf(chars, start, end, ',');
-				if (index < 0) {
-					Object value = parseJSON(chars, start, end);
-					mems.add(value);
+				Object value = parseJSON(chars, start, index - 1);
+				sequence.add(value);
+				
+				// 跳过逗号后的空白
+				for (start = index + 1; start <= end && Character.isWhitespace(chars[start]); ++start) {
+				}
+
+				if (start > end) {
+					sequence.add(null);
 					break;
-				} else {
-					Object value = parseJSON(chars, start, index - 1);
-					mems.add(value);
-					start = index + 1;
-					if (start > end) {
-						mems.add(null);
-						break;
-					}
 				}
 			}
-			
-			return sequence;
 		}
+		
+		DataStruct ds = sequence.dataStruct();
+		if (ds == null) {
+			return sequence;
+		} else {
+			// 如果是纯排列则转为序表
+			int len = sequence.length();
+			Table table = new Table(ds, len);
+			ListBase1 memes = table.getMems();
+			for (int i = 1; i <= len; ++i) {
+				Record r = (Record)sequence.getMem(i);
+				r.setDataStruct(ds);
+				memes.add(r);
+			}
+			
+			return table;
+		}
+	}
+	
+	/**
+	 * n1:v1,n2:v2...
+	 * @param chars
+	 * @param start 值的起始位置，包含
+	 * @param end 值的结束位置，包含
+	 * @return Record
+	 */
+	private static Record parseRecord(char []chars, int start, int end) {
+		if (start > end) {
+			return null;
+		}
+		
+		ArrayList<String> nameList = new ArrayList<String>();
+		ArrayList<Object> valueList = new ArrayList<Object>();
+		
+		while (start <= end) {
+			int index = indexOf(chars, start, end, ':');
+			if (index < 0) break;
+
+			String name = new String(chars, start, index - start);
+			name = name.trim();
+			int len = name.length();
+			if (len > 2 && name.charAt(0) == '"' && name.charAt(len - 1) == '"') {
+				name = name.substring(1, len - 1);
+			}
+			
+			nameList.add(name);
+			start = index + 1;
+			index = indexOf(chars, start, end, ',');
+			
+			if (index < 0) {
+				Object value = parseJSON(chars, start, end);
+				valueList.add(value);
+				break;
+			} else {
+				Object value = parseJSON(chars, start, index - 1);
+				valueList.add(value);
+				start = index + 1;
+			}
+		}
+		
+		int size = nameList.size();
+		String []names = new String[size];
+		nameList.toArray(names);
+		DataStruct ds = new DataStruct(names);
+		Record r = new Record(ds);
+		valueList.toArray(r.getFieldValues());
+		return r;
 	}
 	
 	/**
@@ -259,8 +183,7 @@ public final class JSONUtil {
 				}
 			} else if (c == '{') {
 				if (chars[end] == '}') {
-					JSONImporter importer = new JSONImporter(chars, start, end);
-					return importer.next();
+					return parseRecord(chars, start + 1, end - 1);
 				} else {
 					return null;
 				}

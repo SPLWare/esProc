@@ -976,4 +976,12 @@ public class Record implements IComputeItem, Externalizable, IRecord, Comparable
 			}
 		}
 	}
+	
+	/**
+	 * 返回记录是否有时间键
+	 * @return true：有时间键
+	 */
+	public boolean hasTimeKey() {
+		return ds.getTimeKeyCount() > 0;
+	}
 }

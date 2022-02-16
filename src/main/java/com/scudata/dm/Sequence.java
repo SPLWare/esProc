@@ -11154,9 +11154,12 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			return -1;
 		}
 		
+		boolean hasTimeKey = false;
 		Object startVal = mems.get(1);
 		if (startVal instanceof Record) {
-			startVal = ((Record)startVal).getPKValue();
+			Record r = (Record)startVal;
+			startVal = r.getPKValue();
+			hasTimeKey = r.hasTimeKey();
 		}
 		
 		if (key instanceof Sequence) {
@@ -11226,22 +11229,70 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				}
 			}
 
-			return -low;
-		} else {
-			for (int i = 1; i <= len; ++i) {
-				Object obj = mems.get(i);
-				if (obj instanceof Record) {
-					if (Variant.isEquals(((Record)obj).getPKValue(), key)) {
-						return i;
-					}
-				} else {
-					if (Variant.isEquals(obj, key)) {
-						return i;
+			if (hasTimeKey && low > 1 && key instanceof Sequence) {
+				// 有时间键时，时间键可以不相同
+				Record r = (Record)mems.get(low - 1);
+				Sequence keyValue = (Sequence)key;
+				int []pkIndex = r.getPKIndex();
+				
+				// 如果除了时间键外其它键相同则符合条件
+				for (int i = 1, keyCount = pkIndex.length; i < keyCount; ++i) {
+					if (!Variant.isEquals(keyValue.get(i), r.getNormalFieldValue(pkIndex[i - 1]))) {
+						return -low;
 					}
 				}
+				
+				return low - 1;
 			}
-
-			return 0;
+			
+			return -low;
+		} else {
+			if (hasTimeKey && key instanceof Sequence) {
+				Object []keyValues = ((Sequence)key).toArray();
+				int keyCount = keyValues.length - 1;
+				int prevIndex = 0; // 上一条满足条件的记录的索引
+				Object prevTimeValue = null; // 上一条满足条件的记录的时间键的值，取最近的时间的
+				
+				Next:
+				for (int i = 1; i <= len; ++i) {
+					Object obj = mems.get(i);
+					if (obj instanceof Record) {
+						Record r = (Record)obj;
+						int []pkIndex = r.getPKIndex();
+						for (int f = 0; f < keyCount; ++f) {
+							if (!Variant.isEquals(r.getNormalFieldValue(pkIndex[f]), keyValues[f])) {
+								continue Next;
+							}
+						}
+						
+						Object timeValue = r.getNormalFieldValue(pkIndex[keyCount]);
+						int cmp = Variant.compare(timeValue, keyValues[keyCount]);
+						if (cmp == 0) {
+							return i;
+						} else if (prevIndex == 0 || Variant.compare(timeValue, prevTimeValue) > 0) {
+							prevIndex = i;
+							prevTimeValue = timeValue;
+						}
+					}
+				}
+				
+				return prevIndex;
+			} else {
+				for (int i = 1; i <= len; ++i) {
+					Object obj = mems.get(i);
+					if (obj instanceof Record) {
+						if (Variant.isEquals(((Record)obj).getPKValue(), key)) {
+							return i;
+						}
+					} else {
+						if (Variant.isEquals(obj, key)) {
+							return i;
+						}
+					}
+				}
+	
+				return 0;
+			}
 		}
 	}
 	
