@@ -67,6 +67,8 @@ public class JDBCConsts {
 
 	public static final String FK_NAME = "FK_NAME";
 	public static final String PK_NAME = "PK_NAME";
+	
+	public static final String KEY_SEQ = "KEY_SEQ";
 
 	/** JDBC支持的数据文件类型 **/
 	public static final String DATA_FILE_EXTS = AppConsts.FILE_BTX + "," + AppConsts.FILE_TXT + "," + AppConsts.FILE_CSV
