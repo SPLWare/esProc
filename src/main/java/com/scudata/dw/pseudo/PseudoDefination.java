@@ -4,12 +4,15 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.scudata.common.MessageManager;
+import com.scudata.common.RQException;
 import com.scudata.dm.Context;
 import com.scudata.dm.FileObject;
 import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 import com.scudata.dw.GroupTable;
 import com.scudata.dw.ITableMetaData;
+import com.scudata.resources.EngineMessage;
 
 //用于定义虚表的属性
 public class PseudoDefination {
@@ -46,6 +49,11 @@ public class PseudoDefination {
 				columns.add(new PseudoColumn(rec));
 			}
 		}
+		if (file == null) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException(mm.getMessage("file.fileNotExist", "NULL"));
+		}
+		
 		parseFileToTable(ctx);
 		sortedFields = getAllSortedColNames();
 	}
