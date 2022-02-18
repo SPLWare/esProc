@@ -49,6 +49,8 @@ public class JDBCConsts {
 	/**
 	 * Field names in the result set
 	 */
+	public static final String TABLE_CAT = "TABLE_CAT";
+	public static final String TABLE_SCHEM = "TABLE_SCHEM";
 	public static final String TABLE_NAME = "TABLE_NAME";
 	public static final String COLUMN_NAME = "COLUMN_NAME";
 	public static final String DATA_TYPE = "DATA_TYPE";
