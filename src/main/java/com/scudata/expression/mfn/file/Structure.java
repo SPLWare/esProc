@@ -25,6 +25,7 @@ import com.scudata.parallel.ClusterTableMetaData;
  */
 public class Structure extends FileFunction {
 	private static final String FIELD_NAMES[] = { "field", "keys", "row", "zip", "seg", "zonex", "index", "cuboid", "attach" };
+	private static final String ATTACH_FIELD_NAMES[] = { "name", "field", "keys", "row", "zip", "seg", "zonex", "index", "cuboid", "attach" };
 	private static final String CUBOID_FIELD_NAMES[] = { "name", "keys", "aggr" };
 	private static final String CUBOID_AGGR_FIELD_NAMES[] = { "name", "exp" };
 	
@@ -67,6 +68,7 @@ public class Structure extends FileFunction {
 	 * @param table
 	 */
 	public static Record getTableStruct(TableMetaData table, String option) {
+		int idx = 0;
 		boolean hasI = false;
 		boolean hasC = false;
 		if (option != null) {
@@ -76,21 +78,28 @@ public class Structure extends FileFunction {
 				hasC = true;
 		}
 		
-		Record rec = new Record(new DataStruct(FIELD_NAMES));
+		Record rec;
+		if (table.isBaseTable()) {
+			rec = new Record(new DataStruct(FIELD_NAMES));
+		} else {
+			rec = new Record(new DataStruct(ATTACH_FIELD_NAMES));
+			rec.setNormalFieldValue(idx++, table.getTableName());
+		}
+		
 		String[] colNames = table.getAllColNames();
-		rec.setNormalFieldValue(0, new Sequence(colNames));
-		rec.setNormalFieldValue(1, new Sequence(table.getAllKeyColNames()));
-		rec.setNormalFieldValue(2, table instanceof RowTableMetaData);
-		rec.setNormalFieldValue(3, table.getGroupTable().isCompress());
+		rec.setNormalFieldValue(idx++, new Sequence(colNames));
+		rec.setNormalFieldValue(idx++, new Sequence(table.getAllKeyColNames()));
+		rec.setNormalFieldValue(idx++, table instanceof RowTableMetaData);
+		rec.setNormalFieldValue(idx++, table.getGroupTable().isCompress());
 		
 		String seg = table.getSegmentCol();
-		rec.setNormalFieldValue(4, seg != null && colNames[0] != null && seg.equals(colNames[0]));
-		rec.setNormalFieldValue(5, table.getGroupTable().getDistribute());
+		rec.setNormalFieldValue(idx++, seg != null && colNames[0] != null && seg.equals(colNames[0]));
+		rec.setNormalFieldValue(idx++, table.getGroupTable().getDistribute());
 		if (hasI) {
-			rec.setNormalFieldValue(6, getTableIndexStruct(table));
+			rec.setNormalFieldValue(idx++, getTableIndexStruct(table));
 		}
 		if (hasC) {
-			rec.setNormalFieldValue(7, getTableCuboidStruct(table));
+			rec.setNormalFieldValue(idx++, getTableCuboidStruct(table));
 		}
 		
 		ArrayList<TableMetaData> tables = table.getTableList();
@@ -99,7 +108,7 @@ public class Structure extends FileFunction {
 			for (TableMetaData tbl : tables) {
 				seq.add(getTableStruct(tbl, option));
 			}
-			rec.setNormalFieldValue(8, seq);
+			rec.setNormalFieldValue(idx++, seq);
 		}
 		
 		return rec;

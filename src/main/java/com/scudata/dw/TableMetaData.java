@@ -93,6 +93,11 @@ abstract public class TableMetaData implements ITableMetaData {
 	
 	protected Sequence appendCache;//追加缓存
 	
+	//判断是否是基表
+	public boolean isBaseTable() {
+		return parent == null;
+	}
+	
 	// 判断组表是否只包含了一个表，即没有附表
 	public boolean isSingleTable() {
 		return parent == null && (tableList == null || tableList.size() == 0);
