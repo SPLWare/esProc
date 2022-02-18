@@ -96,11 +96,14 @@ public class Structure extends FileFunction {
 		rec.setNormalFieldValue(idx++, seg != null && colNames[0] != null && seg.equals(colNames[0]));
 		rec.setNormalFieldValue(idx++, table.getGroupTable().getDistribute());
 		if (hasI) {
-			rec.setNormalFieldValue(idx++, getTableIndexStruct(table));
+			rec.setNormalFieldValue(idx, getTableIndexStruct(table));
 		}
+		idx++;
+		
 		if (hasC) {
-			rec.setNormalFieldValue(idx++, getTableCuboidStruct(table));
+			rec.setNormalFieldValue(idx, getTableCuboidStruct(table));
 		}
+		idx++;
 		
 		ArrayList<TableMetaData> tables = table.getTableList();
 		if (tables != null && tables.size() > 0) {
@@ -108,7 +111,7 @@ public class Structure extends FileFunction {
 			for (TableMetaData tbl : tables) {
 				seq.add(getTableStruct(tbl, option));
 			}
-			rec.setNormalFieldValue(idx++, seq);
+			rec.setNormalFieldValue(idx, seq);
 		}
 		
 		return rec;
