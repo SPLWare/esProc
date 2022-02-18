@@ -2054,7 +2054,7 @@ public class TableHashIndex  implements ITableIndex {
 		rec.setNormalFieldValue(1, capacity);
 		rec.setNormalFieldValue(2, new Sequence(ifields));
 		rec.setNormalFieldValue(3, null);
-		rec.setNormalFieldValue(4, filter.toString());
+		rec.setNormalFieldValue(4, filter == null ? null : filter.toString());
 		return rec;
 	}
 }
