@@ -5690,7 +5690,7 @@ public class TableMetaDataIndex implements ITableIndex {
 		rec.setNormalFieldValue(1, 0);
 		rec.setNormalFieldValue(2, new Sequence(ifields));
 		rec.setNormalFieldValue(3, null);
-		rec.setNormalFieldValue(4, filter.toString());
+		rec.setNormalFieldValue(4, filter == null ? null : filter.toString());
 		return rec;
 	}
 }

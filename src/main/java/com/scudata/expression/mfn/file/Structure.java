@@ -99,6 +99,7 @@ public class Structure extends FileFunction {
 			for (TableMetaData tbl : tables) {
 				seq.add(getTableStruct(tbl, option));
 			}
+			rec.setNormalFieldValue(8, seq);
 		}
 		
 		return rec;
@@ -161,11 +162,11 @@ public class Structure extends FileFunction {
 				for (int i = 0; i < len; i++) {
 					Record r = new Record(new DataStruct(CUBOID_AGGR_FIELD_NAMES));
 					r.setNormalFieldValue(0, names[start + i]);
-					r.setNormalFieldValue(0, newExps[i]);
+					r.setNormalFieldValue(1, newExps[i]);
 					aggr.add(r);
 				}
 				rec.setNormalFieldValue(2, aggr);
-				
+				seq.add(rec);
 				srcCuboid.close();
 			} catch (Exception e) {
 				if (srcCuboid != null) srcCuboid.close();
