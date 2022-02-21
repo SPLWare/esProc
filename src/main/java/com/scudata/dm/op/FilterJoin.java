@@ -4,6 +4,7 @@ import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.ComputeStack;
 import com.scudata.dm.Context;
+import com.scudata.dm.DataStruct;
 import com.scudata.dm.IndexTable;
 import com.scudata.dm.MergeIndexTable;
 import com.scudata.dm.Record;
@@ -96,7 +97,8 @@ public class FilterJoin extends Operation {
 				if (curExps == null) {
 					Object obj = code.getMem(1);
 					if (obj instanceof Record) {
-						String[] pks = ((Record)obj).dataStruct().getPrimary();
+						DataStruct ds = ((Record)obj).dataStruct();
+						String[] pks = ds.getPrimary();
 						if (pks == null) {
 							MessageManager mm = EngineMessage.get();
 							throw new RQException(mm.getMessage("ds.lessKey"));
@@ -131,14 +133,15 @@ public class FilterJoin extends Operation {
 				if (indexTable == null) {
 					Object obj = code.getMem(1);
 					if (obj instanceof Record) {
-						String[] pks = ((Record)obj).dataStruct().getPrimary();
+						DataStruct ds = ((Record)obj).dataStruct();
+						String[] pks = ds.getPrimary();
 						if (pks == null) {
 							MessageManager mm = EngineMessage.get();
 							throw new RQException(mm.getMessage("ds.lessKey"));
 						}
 						
 						int pkCount = pks.length;
-						if (exps[i].length != pkCount) {
+						if (ds.getTimeKeyCount() == 0 && exps[i].length != pkCount) {
 							MessageManager mm = EngineMessage.get();
 							throw new RQException("join" + mm.getMessage("function.invalidParam"));
 						}

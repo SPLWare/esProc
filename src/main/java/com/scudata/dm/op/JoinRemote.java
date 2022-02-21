@@ -182,14 +182,15 @@ public class JoinRemote extends Operation {
 							throw new RQException("join: " + mm.getMessage("engine.needPmt"));
 						}
 
-						String[] pks = ((Record)obj).dataStruct().getPrimary();
+						DataStruct ds = ((Record)obj).dataStruct();
+						String[] pks = ds.getPrimary();
 						if (pks == null) {
 							MessageManager mm = EngineMessage.get();
 							throw new RQException(mm.getMessage("ds.lessKey"));
 						}
 						
 						int pkCount = pks.length;
-						if (exps[i].length != pkCount) {
+						if (ds.getTimeKeyCount() == 0 && exps[i].length != pkCount) {
 							MessageManager mm = EngineMessage.get();
 							throw new RQException("join" + mm.getMessage("function.invalidParam"));
 						}

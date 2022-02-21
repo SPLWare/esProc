@@ -82,7 +82,29 @@ class TimeIndexTable extends IndexTable {
 	}
 	
 	public Object find(Object key) {
-		throw new RuntimeException();
+		// 查找时没提供时间字段，取最新的
+		int hash = hashUtil.hashCode(key);
+		ListBase1 table = entries[hash];
+		if (table == null) {
+			return null;
+		}
+		
+		int index = HashUtil.bsearch_a(table, key);
+		if (index > 0) {
+			for (int i = index + 1, size = table.size; i <= size; ++i) {
+				Object []r = (Object[])table.get(i);
+				if (Variant.isEquals(r[0], key)) {
+					index = i;
+				} else {
+					break;
+				}
+			}
+			
+			Object []r = (Object[])table.get(index);
+			return code.getMem((Integer)r[totalKeyCount]);
+		} else {
+			return null;
+		}
 	}
 
 	/**
@@ -90,28 +112,54 @@ class TimeIndexTable extends IndexTable {
 	 * @param keys 键值数组
 	 */
 	public Object find(Object []keys) {
-		int totalKeyCount = keys.length;
-		int hash = hashUtil.hashCode(keys, totalKeyCount - 1);
-		ListBase1 table = entries[hash];
-		if (table == null) {
-			return null;
-		}
+		int count = keys.length;
+		if (count == totalKeyCount) {
+			int hash = hashUtil.hashCode(keys, count - 1);
+			ListBase1 table = entries[hash];
+			if (table == null) {
+				return null;
+			}
 
-		int index = HashUtil.bsearch_a(table, keys, totalKeyCount);
-		if (index > 0) {
-			Object []r = (Object[])table.get(index);
-			return code.getMem((Integer)r[totalKeyCount]);
-		} else {
-			index = -index - 1;
+			int index = HashUtil.bsearch_a(table, keys, count);
 			if (index > 0) {
-				// 如果时间键没有相等的，而取前面最近的
 				Object []r = (Object[])table.get(index);
-				if (Variant.compareArrays(r, keys, totalKeyCount - 1) == 0) {
-					return code.getMem((Integer)r[totalKeyCount]);
+				return code.getMem((Integer)r[count]);
+			} else {
+				index = -index - 1;
+				if (index > 0) {
+					// 如果时间键没有相等的，而取前面最近的
+					Object []r = (Object[])table.get(index);
+					if (Variant.compareArrays(r, keys, count - 1) == 0) {
+						return code.getMem((Integer)r[count]);
+					}
 				}
+				
+				return null; // key not found
+			}
+		} else {
+			// 查找时没提供时间字段，取最新的
+			int hash = hashUtil.hashCode(keys, count);
+			ListBase1 table = entries[hash];
+			if (table == null) {
+				return null;
 			}
 			
-			return null; // key not found
+			int index = HashUtil.bsearch_a(table, keys, count);
+			if (index > 0) {
+				for (int i = index + 1, size = table.size; i <= size; ++i) {
+					Object []r = (Object[])table.get(i);
+					if (Variant.compareArrays(r, keys, count) == 0) {
+						index = i;
+					} else {
+						break;
+					}
+				}
+				
+				Object []r = (Object[])table.get(index);
+				return code.getMem((Integer)r[totalKeyCount]);
+			} else {
+				return null;
+			}
 		}
 	}
 

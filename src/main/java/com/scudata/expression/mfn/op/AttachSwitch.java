@@ -22,24 +22,30 @@ import com.scudata.resources.EngineMessage;
 public class AttachSwitch extends OperableFunction {
 	public Object calculate(Context ctx) {
 		String []fkNames;
+		String []timeFkNames;
 		Object []codes;
 		Expression []exps;
+		Expression []timeExps;
 
 		if (param.getType() == IParam.Semicolon) { // ;
 			int count = param.getSubSize();
 			fkNames = new String[count];
+			timeFkNames = new String[count];
 			codes = new Object[count];
 			exps = new Expression[count];
+			timeExps = new Expression[count];
 
 			for (int i = 0; i < count; ++i) {
 				IParam sub = param.getSub(i);
-				parseSwitchParam(sub, i, fkNames, codes, exps, ctx);
+				parseSwitchParam(sub, i, fkNames, timeFkNames, codes, exps, timeExps, ctx);
 			}
 		} else {
 			fkNames = new String[1];
+			timeFkNames = new String[1];
 			codes = new Object[1];
 			exps = new Expression[1];
-			parseSwitchParam(param, 0, fkNames, codes, exps, ctx);
+			timeExps = new Expression[1];
+			parseSwitchParam(param, 0, fkNames, timeFkNames, codes, exps, timeExps, ctx);
 		}
 		
 		int count = codes.length;
@@ -62,7 +68,7 @@ public class AttachSwitch extends OperableFunction {
 		if (hasClusterTable) {
 			op = new SwitchRemote(this, fkNames, codes, exps, option);
 		} else {
-			op = new Switch(this, fkNames, seqs, exps, option);
+			op = new Switch(this, fkNames, timeFkNames, seqs, exps, timeExps, option);
 		}
 		
 		op.setCurrentCell(cs.getCurrent());

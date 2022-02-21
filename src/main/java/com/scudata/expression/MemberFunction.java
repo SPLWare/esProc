@@ -356,4 +356,80 @@ public abstract class MemberFunction extends Function {
 			}
 		}
 	}
+	
+	// F:FT,A:x:xt
+	protected static void parseSwitchParam(IParam param, int i,  String []fkNames, String []timeFkNames, 
+			Object []codes, Expression []exps, Expression []timeExps, Context ctx) {
+		if (param == null) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("switch" + mm.getMessage("function.missingParam"));
+		} else if (param.isLeaf()) {
+			fkNames[i] = param.getLeafExpression().getIdentifierName();
+			return;
+		} else if (param.getSubSize() != 2 || param.getType() != IParam.Comma) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("switch" + mm.getMessage("function.invalidParam"));
+		}
+		
+		IParam sub = param.getSub(0);
+		if (sub == null) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("switch" + mm.getMessage("function.invalidParam"));
+		} else if (sub.isLeaf()) {
+			fkNames[i] = sub.getLeafExpression().getIdentifierName();
+		} else if (sub.getSubSize() == 2) {
+			IParam sub0 = sub.getSub(0);
+			IParam sub1 = sub.getSub(1);
+			if (sub0 == null || sub1 == null) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException("switch" + mm.getMessage("function.invalidParam"));
+			}
+			
+			fkNames[i] = sub0.getLeafExpression().getIdentifierName();
+			timeFkNames[i] = sub1.getLeafExpression().getIdentifierName();
+		} else {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("switch" + mm.getMessage("function.invalidParam"));
+		}
+		
+		sub = param.getSub(1);
+		if (sub == null) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("switch" + mm.getMessage("function.invalidParam"));
+		} else if (sub.isLeaf()) {
+			codes[i] = sub.getLeafExpression().calculate(ctx);
+			if (codes[i] == null) {
+				codes[i] = new Sequence();
+			}
+		} else {
+			int size = sub.getSubSize();
+			if (size > 3) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException("switch" + mm.getMessage("function.invalidParam"));
+			}
+			
+			IParam sub0 = sub.getSub(0);
+			if (sub0 == null) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException("switch" + mm.getMessage("function.invalidParam"));
+			}
+			
+			codes[i] = sub0.getLeafExpression().calculate(ctx);
+			if (codes[i] == null) {
+				codes[i] = new Sequence();
+			}
+
+			IParam sub1 = sub.getSub(1);
+			if (sub1 != null) {
+				exps[i] = sub1.getLeafExpression();
+			}
+			
+			if (size > 2) {
+				IParam sub2 = sub.getSub(2);
+				if (sub2 != null) {
+					timeExps[i] = sub2.getLeafExpression();
+				}
+			}
+		}
+	}
 }

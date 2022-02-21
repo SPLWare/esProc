@@ -20,11 +20,15 @@ import com.scudata.resources.EngineMessage;
  */
 public class Switch extends Operation {
 	private String []fkNames; // 外键字段名数组
+	private String []timeFkNames; // 时间外键字段名数组
+	
 	private Sequence []codes; // 维表数组
 	private Expression []exps; // 维表的主键表达式数组
+	private Expression []timeExps; // 维表的时间更新键数组
 	private String opt; // 选项
 
 	private int []fkIndex; // 外键字段索引数组
+	private int []timeFkIndex; // 时间外键字段索引数组
 	private IndexTable []indexTables; // 维表对应的索引表数组
 	private boolean isIsect; // 做交连接
 	private boolean isDiff; // 做差连接
@@ -54,10 +58,26 @@ public class Switch extends Operation {
 	}
 	
 	public Switch(Function function, String[] fkNames, Sequence[] codes, Expression[] exps, String opt) {
+		this(function, fkNames, null, codes, exps, null, opt);
+	}
+	
+	/**
+	 * 构造函数
+	 * @param function 所属的函数对象
+	 * @param fkNames 外键字段名数组
+	 * @param timeFkNames 时间外键名数组
+	 * @param codes 维表数组
+	 * @param exps 维表主键数组
+	 * @param timeExps 维表的时间更新键数组
+	 * @param opt 选项
+	 */
+	public Switch(Function function, String[] fkNames, String[] timeFkNames, Sequence[] codes, Expression[] exps, Expression[] timeExps, String opt) {
 		super(function);
 		this.fkNames = fkNames;
+		this.timeFkNames = timeFkNames;
 		this.codes = codes;
 		this.exps = exps;
+		this.timeExps = timeExps;
 		this.opt = opt;
 
 		if (opt != null) {
@@ -85,8 +105,9 @@ public class Switch extends Operation {
 	 * @return 复制的Switch操作
 	 */
 	public Operation duplicate(Context ctx) {
-		Expression []newExps = dupExpressions(exps, ctx);				
-		return new Switch(function, fkNames, codes, newExps, opt);
+		Expression []exps = dupExpressions(this.exps, ctx);
+		Expression []timeExps = dupExpressions(this.timeExps, ctx);
+		return new Switch(function, fkNames, timeFkNames, codes, exps, timeExps, opt);
 	}
 
 	private IndexTable getIndexTable(int index, Context ctx) {
@@ -110,7 +131,18 @@ public class Switch extends Operation {
 					exp = exps[i];
 				}
 
-				if (exp == null || !(exp.getHome() instanceof CurrentSeq)) { // #
+				Expression timeExp = null;
+				if (timeExps != null && timeExps.length > i) {
+					timeExp = timeExps[i];
+				}
+				
+				if (timeExp != null) {
+					Expression []curExps = new Expression[]{exp, timeExp};
+					indexTables[i] = code.getIndexTable(curExps, ctx);
+					if (indexTables[i] == null) {
+						indexTables[i] = IndexTable.instance(code, curExps, ctx);
+					}
+				} else if (exp == null || !(exp.getHome() instanceof CurrentSeq)) { // #
 					indexTables[i] = code.getIndexTable(exp, ctx);
 					if (indexTables[i] == null) {
 						indexTables[i] = IndexTable.instance(code, exp, ctx);
@@ -170,52 +202,101 @@ public class Switch extends Operation {
 		return seq;
 	}
 	
-	private void switch1(Sequence data, Context ctx) {
-		int fkCount = fkNames.length;
+	private void getFkIndex(Sequence data) {
 		if (fkIndex == null) {
 			DataStruct ds = data.dataStruct();
 			if (ds == null) {
 				MessageManager mm = EngineMessage.get();
 				throw new RQException(mm.getMessage("engine.needPurePmt"));
 			}
-			
+	
+			int fkCount = fkNames.length;
 			fkIndex = new int[fkCount];
+			timeFkIndex = new int[fkCount];
 			for (int f = 0; f < fkCount; ++f) {
 				fkIndex[f] = ds.getFieldIndex(fkNames[f]);
 				if (fkIndex[f] == -1) {
 					MessageManager mm = EngineMessage.get();
 					throw new RQException(fkNames[f] + mm.getMessage("ds.fieldNotExist"));
 				}
+				
+				if (timeFkNames != null && timeFkNames[f] != null) {
+					timeFkIndex[f] = ds.getFieldIndex(timeFkNames[f]);
+					if (timeFkIndex[f] == -1) {
+						MessageManager mm = EngineMessage.get();
+						throw new RQException(timeFkNames[f] + mm.getMessage("ds.fieldNotExist"));
+					}
+				} else {
+					timeFkIndex[f] = -1;
+				}
 			}
 		}
-
+	}
+	
+	private void switch1(Sequence data, Context ctx) {
+		getFkIndex(data);
+		int fkCount = fkNames.length;
 		int len = data.length();
+		
 		for (int f = 0; f < fkCount; ++f) {
 			int fk = fkIndex[f];
 			IndexTable indexTable = getIndexTable(f, ctx);
 
 			if (indexTable != null) {
+				int timeFk = timeFkIndex[f];
 				if (isLeft) {
 					DataStruct ds = dataStructs[f];
 					int keySeq = keySeqs[f];
-					for (int i = 1; i <= len; ++i) {
-						Record r = (Record)data.getMem(i);
-						Object key = r.getNormalFieldValue(fk);
-						Object obj = indexTable.find(key);
-						if (obj != null) {
-							r.setNormalFieldValue(fk, obj);
-						} else {
-							Record record = new Record(ds);
-							record.setNormalFieldValue(keySeq, key);
-							r.setNormalFieldValue(fk, record);
+					if (timeFk == -1) {
+						for (int i = 1; i <= len; ++i) {
+							Record r = (Record)data.getMem(i);
+							Object key = r.getNormalFieldValue(fk);
+							Object obj = indexTable.find(key);
+							if (obj != null) {
+								r.setNormalFieldValue(fk, obj);
+							} else {
+								Record record = new Record(ds);
+								record.setNormalFieldValue(keySeq, key);
+								r.setNormalFieldValue(fk, record);
+							}
+						}
+					} else {
+						// 有时间更新键时查找时按两个字段查找
+						Object []values = new Object[2];
+						for (int i = 1; i <= len; ++i) {
+							Record r = (Record)data.getMem(i);
+							values[0] = r.getNormalFieldValue(fk);
+							values[1] = r.getNormalFieldValue(timeFk);
+							
+							Object obj = indexTable.find(values);
+							if (obj != null) {
+								r.setNormalFieldValue(fk, obj);
+							} else {
+								Record record = new Record(ds);
+								record.setNormalFieldValue(keySeq, values[0]);
+								r.setNormalFieldValue(fk, record);
+							}
 						}
 					}
 				} else {
-					for (int i = 1; i <= len; ++i) {
-						Record r = (Record)data.getMem(i);
-						Object key = r.getNormalFieldValue(fk);
-						Object obj = indexTable.find(key);
-						r.setNormalFieldValue(fk, obj);
+					if (timeFk == -1) {
+						for (int i = 1; i <= len; ++i) {
+							Record r = (Record)data.getMem(i);
+							Object key = r.getNormalFieldValue(fk);
+							Object obj = indexTable.find(key);
+							r.setNormalFieldValue(fk, obj);
+						}
+					} else {
+						// 有时间更新键时查找时按两个字段查找
+						Object []values = new Object[2];
+						for (int i = 1; i <= len; ++i) {
+							Record r = (Record)data.getMem(i);
+							values[0] = r.getNormalFieldValue(fk);
+							values[1] = r.getNormalFieldValue(timeFk);
+
+							Object obj = indexTable.find(values);
+							r.setNormalFieldValue(fk, obj);
+						}
 					}
 				}
 			} else if (codes[f] == null) {
@@ -247,25 +328,10 @@ public class Switch extends Operation {
 	}
 
 	private void switch_i(Sequence data, Context ctx) {
+		getFkIndex(data);
 		int fkCount = fkNames.length;
-		if (fkIndex == null) {
-			DataStruct ds = data.dataStruct();
-			if (ds == null) {
-				MessageManager mm = EngineMessage.get();
-				throw new RQException(mm.getMessage("engine.needPurePmt"));
-			}
-	
-			fkIndex = new int[fkCount];
-			for (int f = 0; f < fkCount; ++f) {
-				fkIndex[f] = ds.getFieldIndex(fkNames[f]);
-				if (fkIndex[f] == -1) {
-					MessageManager mm = EngineMessage.get();
-					throw new RQException(fkNames[f] + mm.getMessage("ds.fieldNotExist"));
-				}
-			}
-		}
-
 		ListBase1 mems = data.getMems();
+		
 		for (int f = 0; f < fkCount; ++f) {
 			int fk = fkIndex[f];
 			IndexTable indexTable = getIndexTable(f, ctx);
@@ -273,13 +339,31 @@ public class Switch extends Operation {
 
 			if (indexTable != null) {
 				ListBase1 resultMems = new ListBase1(len);
-				for (int i = 1; i <= len; ++i) {
-					Record r = (Record)mems.get(i);
-					Object key = r.getNormalFieldValue(fk);
-					Object obj = indexTable.find(key);
-					if (obj != null) {
-						r.setNormalFieldValue(fk, obj);
-						resultMems.add(r);
+				int timeFk = timeFkIndex[f];
+				
+				if (timeFk == -1) {
+					for (int i = 1; i <= len; ++i) {
+						Record r = (Record)mems.get(i);
+						Object key = r.getNormalFieldValue(fk);
+						Object obj = indexTable.find(key);
+						if (obj != null) {
+							r.setNormalFieldValue(fk, obj);
+							resultMems.add(r);
+						}
+					}
+				} else {
+					// 有时间更新键时查找时按两个字段查找，引用设第一个字段上
+					Object []values = new Object[2];
+					for (int i = 1; i <= len; ++i) {
+						Record r = (Record)mems.get(i);
+						values[0] = r.getNormalFieldValue(fk);
+						values[1] = r.getNormalFieldValue(timeFk);
+						
+						Object obj = indexTable.find(values);
+						if (obj != null) {
+							r.setNormalFieldValue(fk, obj);
+							resultMems.add(r);
+						}
 					}
 				}
 				
@@ -319,25 +403,10 @@ public class Switch extends Operation {
 	}
 
 	private void switch_d(Sequence data, Context ctx) {
+		getFkIndex(data);
 		int fkCount = fkNames.length;
-		if (fkIndex == null) {
-			DataStruct ds = data.dataStruct();
-			if (ds == null) {
-				MessageManager mm = EngineMessage.get();
-				throw new RQException(mm.getMessage("engine.needPurePmt"));
-			}
-	
-			fkIndex = new int[fkCount];
-			for (int f = 0; f < fkCount; ++f) {
-				fkIndex[f] = ds.getFieldIndex(fkNames[f]);
-				if (fkIndex[f] == -1) {
-					MessageManager mm = EngineMessage.get();
-					throw new RQException(fkNames[f] + mm.getMessage("ds.fieldNotExist"));
-				}
-			}
-		}
-
 		ListBase1 mems = data.getMems();
+
 		for (int f = 0; f < fkCount; ++f) {
 			int fk = fkIndex[f];
 			IndexTable indexTable = getIndexTable(f, ctx);
@@ -345,12 +414,29 @@ public class Switch extends Operation {
 
 			if (indexTable != null) {
 				ListBase1 resultMems = new ListBase1(len);
-				for (int i = 1; i <= len; ++i) {
-					Record r = (Record)mems.get(i);
-					Object key = r.getNormalFieldValue(fk);
-					Object obj = indexTable.find(key);
-					if (obj == null) {
-						resultMems.add(r);
+				int timeFk = timeFkIndex[f];
+				
+				if (timeFk == -1) {
+					for (int i = 1; i <= len; ++i) {
+						Record r = (Record)mems.get(i);
+						Object key = r.getNormalFieldValue(fk);
+						Object obj = indexTable.find(key);
+						if (obj == null) {
+							resultMems.add(r);
+						}
+					}
+				} else {
+					// 有时间更新键时查找时按两个字段查找
+					Object []values = new Object[2];
+					for (int i = 1; i <= len; ++i) {
+						Record r = (Record)mems.get(i);
+						values[0] = r.getNormalFieldValue(fk);
+						values[1] = r.getNormalFieldValue(timeFk);
+						
+						Object obj = indexTable.find(values);
+						if (obj == null) {
+							resultMems.add(r);
+						}
 					}
 				}
 

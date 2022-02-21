@@ -36,6 +36,19 @@ abstract public class IndexTable {
 	 * @return
 	 */
 	public static IndexTable instance(Sequence code, int capacity) {
+		Object obj = null;
+		if (code.length() > 0) {
+			obj = code.getMem(1);
+		}
+		
+		if (obj instanceof Record) {
+			Record r = (Record)obj;
+			if (r.dataStruct().getTimeKeyCount() == 1) {
+				int []pkIndex = r.dataStruct().getPKIndex();
+				return new TimeIndexTable(code, pkIndex, capacity);
+			}
+		}
+		
 		HashIndexTable it = new HashIndexTable(capacity);
 		it.create(code);
 		return it;
@@ -61,9 +74,13 @@ abstract public class IndexTable {
 	 * @return
 	 */
 	public static IndexTable instance(Sequence code, Expression exp, Context ctx, int capacity) {
-		HashIndexTable it = new HashIndexTable(capacity);
-		it.create(code, exp, ctx);
-		return it;
+		if (exp == null) {
+			return instance(code, capacity);
+		} else {
+			HashIndexTable it = new HashIndexTable(capacity);
+			it.create(code, exp, ctx);
+			return it;
+		}
 	}
 
 	/**
@@ -76,7 +93,7 @@ abstract public class IndexTable {
 	public static IndexTable instance(Sequence code, Expression []exps, Context ctx) {
 		return instance(code, exps, ctx, code.length());
 	}
-
+	
 	public static IndexTable instance(Sequence code, Expression []exps, Context ctx, int capacity) {
 		if (exps == null) {
 			return instance(code, capacity);
@@ -89,10 +106,12 @@ abstract public class IndexTable {
 			}
 			
 			if (obj instanceof Record) {
-				Record r = (Record)obj;
-				if (r.dataStruct().getTimeKeyCount() == 1) {
-					int []pkIndex = r.dataStruct().getPKIndex();
-					return new TimeIndexTable(code, pkIndex, capacity);
+				DataStruct ds = ((Record)obj).dataStruct();
+				if (ds.getTimeKeyCount() == 1) {
+					int []pkIndex = ds.getPKIndex();
+					if (ds.isSameFields(exps, pkIndex)) {
+						return new TimeIndexTable(code, pkIndex, capacity);
+					}
 				}
 			}
 			

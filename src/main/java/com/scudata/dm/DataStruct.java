@@ -10,6 +10,7 @@ import com.scudata.common.ByteArrayOutputRecord;
 import com.scudata.common.IRecord;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
+import com.scudata.expression.Expression;
 import com.scudata.resources.EngineMessage;
 
 /**
@@ -329,6 +330,29 @@ public class DataStruct implements Externalizable, IRecord {
 	}
 
 	/**
+	 * 取基本建的索引，不包含更新键
+	 * @return int[]
+	 */
+	public int[] getBaseKeyIndex() {
+		if (timeKeyCount == 0) {
+			return pkIndex;
+		} else {
+			int count = pkIndex.length - 1;
+			int []index = new int[count];
+			System.arraycopy(pkIndex, 0, index, 0, count);
+			return index;
+		}
+	}
+	
+	/**
+	 * 取更新时间键的索引
+	 * @return
+	 */
+	public int getTimeKeyIndex() {
+		return pkIndex[pkIndex.length - 1];
+	}
+	
+	/**
 	 * 重命名指定字段
 	 * @param srcFields
 	 * @param newFields
@@ -350,5 +374,27 @@ public class DataStruct implements Externalizable, IRecord {
 				fieldNames[f] = DefNamePrefix + (f + 1);
 			}
 		}
+	}
+	
+	/**
+	 * 判断表达式是否是指定的字段
+	 * @param exps 表达式数组
+	 * @param fields 字段索引数组
+	 * @return true：是相同字段
+	 */
+	public boolean isSameFields(Expression []exps, int []fields) {
+		int len = exps.length;
+		if (len != fields.length) {
+			return false;
+		}
+		
+		for (int i = 0; i < len; ++i) {
+			String field = exps[i].getIdentifierName();
+			if (fields[i] != getFieldIndex(field)) {
+				return false;
+			}
+		}
+		
+		return true;
 	}
 }

@@ -11154,40 +11154,156 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			return -1;
 		}
 		
-		boolean hasTimeKey = false;
 		Object startVal = mems.get(1);
+		DataStruct ds = null;
 		if (startVal instanceof Record) {
-			Record r = (Record)startVal;
-			startVal = r.getPKValue();
-			hasTimeKey = r.hasTimeKey();
+			ds = ((Record)startVal).dataStruct();
 		}
 		
-		if (key instanceof Sequence) {
-			// key可以是子表的记录，主键数多于B
-			Sequence seq = (Sequence)key;
-			int klen = seq.length();
-			if (klen == 0) {
-				return 0;
-			}
+		// 判断是否是带更新键的维表
+		if (ds != null && ds.getTimeKeyCount() > 0) {
+			int []baseKeyIndex = ds.getBaseKeyIndex();
+			int timeKeyIndex = ds.getTimeKeyIndex();
+			int baseKeyCount = baseKeyIndex.length;
+			Object []baseKeyValues = null;
+			Object timeKeyValue = null;
 			
-			if (startVal instanceof Sequence) {
-				int klen2 = ((Sequence)startVal).length();
-				if (klen > klen2) {
-					key = seq.get(1, klen2 + 1);
+			if (key instanceof Sequence) {
+				Sequence seq = (Sequence)key;
+				if (seq.length() == baseKeyCount) {
+					baseKeyValues = seq.toArray();
+				} else if (seq.length() == baseKeyCount + 1) {
+					baseKeyValues = new Object[baseKeyCount];
+					timeKeyValue = seq.getMem(baseKeyCount + 1);
+					for (int i = 1; i <= baseKeyCount; ++i) {
+						baseKeyValues[i - 1] = seq.getMem(i);
+					}
+				} else {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException(mm.getMessage("engine.keyValCountNotMatch"));
 				}
 			} else {
-				key = seq.getMem(1);
+				if (baseKeyCount != 1) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException(mm.getMessage("engine.keyValCountNotMatch"));
+				}
+				
+				baseKeyValues = new Object[] {key};
 			}
-		}
-
-		if (isSorted) {
-			Object endVal = mems.get(len);
-			if (endVal instanceof Record) {
-				endVal = ((Record)endVal).getPKValue();
+			
+			if (isSorted) {
+				// 有序，用二分法查找
+				int index = -1;
+				int low = 1, high = len;
+				while (low <= high) {
+					int mid = (low + high) >> 1;
+					Record r = (Record)mems.get(mid);
+					int value = r.compare(baseKeyIndex, baseKeyValues);
+					if (value < 0) {
+						low = mid + 1;
+					} else if (value > 0) {
+						high = mid - 1;
+					} else { // key found
+						index = mid;
+						break;
+					}
+				}
+				
+				if (index == -1) {
+					return -low;
+				} else if (timeKeyValue == null) {
+					// 没有指定时间更新字段键时取最新的
+					for (++index; index <= len; ++index) {
+						Record r = (Record)mems.get(index);
+						if (r.compare(baseKeyIndex, baseKeyValues) != 0) {
+							break;
+						}
+					}
+					
+					return index - 1;
+				} else {
+					// 指定时间更新字段键时取前面最近的
+					Record r = (Record)mems.get(index);
+					int cmp = Variant.compare(r.getNormalFieldValue(timeKeyIndex), timeKeyValue, true);
+					if (cmp == 0) {
+						return index;
+					} else if (cmp > 0) {
+						for (--index; index > 0; --index) {
+							r = (Record)mems.get(index);
+							if (r.compare(baseKeyIndex, baseKeyValues) != 0) {
+								return -index - 1;
+							} else if (Variant.compare(r.getNormalFieldValue(timeKeyIndex), timeKeyValue, true) <= 0) {
+								return index;
+							}
+						}
+						
+						return -1;
+					} else {
+						for (++index; index <= len; ++index) {
+							r = (Record)mems.get(index);
+							if (r.compare(baseKeyIndex, baseKeyValues) != 0) {
+								break;
+							}
+							
+							cmp = Variant.compare(r.getNormalFieldValue(timeKeyIndex), timeKeyValue, true);
+							if (cmp == 0) {
+								return index;
+							} else if (cmp > 0) {
+								break;
+							}
+						}
+						
+						return index - 1;
+					}
+				}
+			} else {
+				int prevIndex = 0; // 上一条满足条件的记录的索引
+				Object prevTimeValue = null; // 上一条满足条件的记录的时间键的值，取最近的时间的
+				
+				for (int i = 1; i <= len; ++i) {
+					Object obj = mems.get(i);
+					Record r = (Record)obj;
+					if (r.compare(baseKeyIndex, baseKeyValues) == 0) {
+						Object curTimeValue = r.getNormalFieldValue(timeKeyIndex);
+						int cmp = Variant.compare(curTimeValue, timeKeyValue);
+						if (cmp == 0) {
+							return i;
+						} else if (cmp < 0) {
+							if (prevIndex == 0 || Variant.compare(curTimeValue, prevTimeValue) > 0) {
+								prevIndex = i;
+								prevTimeValue = curTimeValue;
+							}
+						}
+					}
+				}
+				
+				return prevIndex;
+			}
+		} else {			
+			if (key instanceof Sequence) {
+				// key可以是子表的记录，主键数多于B
+				Sequence seq = (Sequence)key;
+				int klen = seq.length();
+				if (klen == 0) {
+					return 0;
+				}
+				
+				if (startVal instanceof Record) {
+					startVal = ((Record)startVal).getPKValue();
+				}
+				
+				if (startVal instanceof Sequence) {
+					int klen2 = ((Sequence)startVal).length();
+					if (klen > klen2) {
+						key = seq.get(1, klen2 + 1);
+					}
+				} else {
+					key = seq.getMem(1);
+				}
 			}
 
-			int low = 1, high = len;
-			if (Variant.compare(startVal, endVal, true) <= 0) { // 升序
+			if (isSorted) {
+				int low = 1, high = len;
 				while (low <= high) {
 					int mid = (low + high) >> 1;
 					Object obj = mems.get(mid);
@@ -11207,76 +11323,8 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 						return mid;
 					}
 				}
-			} else { // 降序
-				while (low <= high) {
-					int mid = (low + high) >> 1;
-					Object obj = mems.get(mid);
-					Object keyVal;
-					if (obj instanceof Record) {
-						keyVal = ((Record)obj).getPKValue();
-					} else {
-						keyVal = obj;
-					}
 
-					int value = Variant.compare(keyVal, key);
-					if (value > 0) {
-						low = mid + 1;
-					} else if (value < 0) {
-						high = mid - 1;
-					} else { // key found
-						return mid;
-					}
-				}
-			}
-
-			if (hasTimeKey && low > 1 && key instanceof Sequence) {
-				// 有时间键时，时间键可以不相同
-				Record r = (Record)mems.get(low - 1);
-				Sequence keyValue = (Sequence)key;
-				int []pkIndex = r.getPKIndex();
-				
-				// 如果除了时间键外其它键相同则符合条件
-				for (int i = 1, keyCount = pkIndex.length; i < keyCount; ++i) {
-					if (!Variant.isEquals(keyValue.get(i), r.getNormalFieldValue(pkIndex[i - 1]))) {
-						return -low;
-					}
-				}
-				
-				return low - 1;
-			}
-			
-			return -low;
-		} else {
-			if (hasTimeKey && key instanceof Sequence) {
-				Object []keyValues = ((Sequence)key).toArray();
-				int keyCount = keyValues.length - 1;
-				int prevIndex = 0; // 上一条满足条件的记录的索引
-				Object prevTimeValue = null; // 上一条满足条件的记录的时间键的值，取最近的时间的
-				
-				Next:
-				for (int i = 1; i <= len; ++i) {
-					Object obj = mems.get(i);
-					if (obj instanceof Record) {
-						Record r = (Record)obj;
-						int []pkIndex = r.getPKIndex();
-						for (int f = 0; f < keyCount; ++f) {
-							if (!Variant.isEquals(r.getNormalFieldValue(pkIndex[f]), keyValues[f])) {
-								continue Next;
-							}
-						}
-						
-						Object timeValue = r.getNormalFieldValue(pkIndex[keyCount]);
-						int cmp = Variant.compare(timeValue, keyValues[keyCount]);
-						if (cmp == 0) {
-							return i;
-						} else if (prevIndex == 0 || Variant.compare(timeValue, prevTimeValue) > 0) {
-							prevIndex = i;
-							prevTimeValue = timeValue;
-						}
-					}
-				}
-				
-				return prevIndex;
+				return -low;
 			} else {
 				for (int i = 1; i <= len; ++i) {
 					Object obj = mems.get(i);
@@ -11290,7 +11338,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 						}
 					}
 				}
-	
+
 				return 0;
 			}
 		}
@@ -11375,28 +11423,31 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			} else {
 				if (key instanceof Sequence) {
 					// key可以是子表的记录，主键数多于B
-					if (length() == 0) {
+					Sequence seq = (Sequence)key;
+					int klen = seq.length();
+					if (klen == 0 || length() == 0) {
 						return null;
 					}
 					
+					int keyCount = 1;					
 					Object startVal = mems.get(1);
 					if (startVal instanceof Record) {
-						startVal = ((Record)startVal).getPKValue();
+						int []pkIndex = ((Record)startVal).getPKIndex();
+						if (pkIndex == null) {
+							MessageManager mm = EngineMessage.get();
+							throw new RQException(mm.getMessage("ds.lessKey"));
+						}
+						
+						keyCount = pkIndex.length;
+					} else if (startVal instanceof Sequence) {
+						keyCount = ((Sequence)startVal).length();
 					}
 					
-					Sequence seq = (Sequence)key;
-					int klen = seq.length();
-					if (klen == 0) {
-						return 0;
-					}
 					
-					if (startVal instanceof Sequence) {
-						int klen2 = ((Sequence)startVal).length();
-						if (klen2 == 1) {
-							return indexTable.find(seq.getMem(1));
-						} else if (klen > klen2) {
-							Object []vals = new Object[klen2];
-							for (int i = 1; i <= klen2; ++i) {
+					if (keyCount > 1) {
+						if (klen > keyCount) {
+							Object []vals = new Object[keyCount];
+							for (int i = 1; i <= keyCount; ++i) {
 								vals[i - 1] = seq.getMem(i);
 							}
 

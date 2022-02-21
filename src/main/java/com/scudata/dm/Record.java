@@ -716,7 +716,7 @@ public class Record implements IComputeItem, Externalizable, IRecord, Comparable
 	public Object value() {
 		// 如果外键有环会导致死循环？
 		// 指引字段改为取主键？
-		int []pkIndex = getPKIndex();
+		int []pkIndex = ds.getPKIndex();
 		if (pkIndex == null) {
 			Object []values = this.values;
 			Sequence seq = new Sequence(values.length);
@@ -734,9 +734,9 @@ public class Record implements IComputeItem, Externalizable, IRecord, Comparable
 			
 			return seq;
 		} else {
-			int keyCount = pkIndex.length;
+			int keyCount = pkIndex.length - ds.getTimeKeyCount();
 			if (keyCount == 1) {
-				Object obj = getFieldValue(pkIndex[0]);
+				Object obj = getNormalFieldValue(pkIndex[0]);
 				if (obj instanceof Record) {
 					return ((Record)obj).key();
 				} else {
@@ -745,7 +745,7 @@ public class Record implements IComputeItem, Externalizable, IRecord, Comparable
 			} else {
 				Sequence keySeries = new Sequence(keyCount);
 				for (int i = 0; i < keyCount; ++i) {
-					Object obj = getFieldValue(pkIndex[i]);
+					Object obj = getNormalFieldValue(pkIndex[i]);
 					if (obj instanceof Record) {
 						//obj = ((Record)obj).value();
 						obj = ((Record)obj).key();
@@ -768,13 +768,13 @@ public class Record implements IComputeItem, Externalizable, IRecord, Comparable
 	 * @return Object
 	 */
 	public Object key() {
-		int []pkIndex = getPKIndex();
+		int []pkIndex = ds.getPKIndex();
 		if (pkIndex == null) {
 			return null;
 		} else {
-			int keyCount = pkIndex.length;
+			int keyCount = pkIndex.length - ds.getTimeKeyCount();
 			if (keyCount == 1) {
-				Object obj = getFieldValue(pkIndex[0]);
+				Object obj = getNormalFieldValue(pkIndex[0]);
 				if (obj instanceof Record) {
 					return ((Record)obj).key();
 				} else {
@@ -783,7 +783,7 @@ public class Record implements IComputeItem, Externalizable, IRecord, Comparable
 			} else {
 				Sequence keySeries = new Sequence(keyCount);
 				for (int i = 0; i < keyCount; ++i) {
-					Object obj = getFieldValue(pkIndex[i]);
+					Object obj = getNormalFieldValue(pkIndex[i]);
 					if (obj instanceof Record) {
 						obj = ((Record)obj).key();
 					}
@@ -805,15 +805,15 @@ public class Record implements IComputeItem, Externalizable, IRecord, Comparable
 	 * @return Object
 	 */
 	public Object getPKValue() {
-		int []pkIndex = getPKIndex();
+		int []pkIndex = ds.getPKIndex();
 		if (pkIndex == null) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException(mm.getMessage("ds.lessKey"));
 			//return null;
 		} else {
-			int keyCount = pkIndex.length;
+			int keyCount = pkIndex.length - ds.getTimeKeyCount();
 			if (keyCount == 1) {
-				Object obj = getFieldValue(pkIndex[0]);
+				Object obj = getNormalFieldValue(pkIndex[0]);
 				if (obj instanceof Record) {
 					return ((Record)obj).getPKValue();
 				} else {
@@ -822,7 +822,7 @@ public class Record implements IComputeItem, Externalizable, IRecord, Comparable
 			} else {
 				Sequence keySeries = new Sequence(keyCount);
 				for (int i = 0; i < keyCount; ++i) {
-					Object obj = getFieldValue(pkIndex[i]);
+					Object obj = getNormalFieldValue(pkIndex[i]);
 					if (obj instanceof Record) {
 						obj = ((Record)obj).getPKValue();
 					}
