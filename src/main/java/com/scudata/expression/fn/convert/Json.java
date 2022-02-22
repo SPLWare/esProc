@@ -5,6 +5,7 @@ import com.scudata.common.RQException;
 import com.scudata.dm.Context;
 import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
+import com.scudata.expression.Expression;
 import com.scudata.expression.Function;
 import com.scudata.resources.EngineMessage;
 import com.scudata.util.JSONUtil;
@@ -25,8 +26,13 @@ public class Json extends Function {
 		if (val == null) {
 			return null;
 		} else if (val instanceof String) {
-			char[] chars = ((String)val).toCharArray();
-			return JSONUtil.parseJSON(chars, 0, chars.length - 1);
+			if (option == null || option.indexOf('v') == -1) {
+				char[] chars = ((String)val).toCharArray();
+				return JSONUtil.parseJSON(chars, 0, chars.length - 1);
+			} else {
+				Expression exp = new Expression(cs, ctx, (String)val);
+				return exp.calculate(ctx);
+			}
 		} else if (val instanceof Sequence) {
 			return JSONUtil.toJSON((Sequence)val);
 		} else if (val instanceof Record) {
