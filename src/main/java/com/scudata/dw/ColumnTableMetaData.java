@@ -2415,7 +2415,11 @@ public class ColumnTableMetaData extends TableMetaData {
 	public Sequence update(Sequence data, String opt) throws IOException {
 		if (!hasPrimaryKey) {
 			MessageManager mm = EngineMessage.get();
-			throw new RQException(mm.getMessage("dw.lessKey"));
+			if (hasPrimaryKey) {
+				throw new RQException(mm.getMessage("dw.lessKey"));
+			} else {
+				throw new RQException(mm.getMessage("ds.lessKey"));
+			}
 		}
 		
 		GroupTable groupTable = getGroupTable();
@@ -2949,7 +2953,11 @@ public class ColumnTableMetaData extends TableMetaData {
 	public Sequence delete(Sequence data, String opt) throws IOException {
 		if (!hasPrimaryKey) {
 			MessageManager mm = EngineMessage.get();
-			throw new RQException(mm.getMessage("dw.lessKey"));
+			if (hasPrimaryKey) {
+				throw new RQException(mm.getMessage("dw.lessKey"));
+			} else {
+				throw new RQException(mm.getMessage("ds.lessKey"));
+			}
 		}
 		
 		GroupTable groupTable = getGroupTable();
