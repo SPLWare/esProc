@@ -1,7 +1,6 @@
 package com.scudata.dm.sql;
 
 import com.scudata.common.ArgumentTokenizer;
-import com.scudata.common.DBTypes;
 import com.scudata.common.IntArrayList;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
@@ -10,6 +9,11 @@ import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 import com.scudata.resources.EngineMessage;
 
+/**
+ * 用于处理sql.sqlparse、sql.sqltranslate函数
+ * @author RunQian
+ *
+ */
 public final class SQLUtil {
 	private static Sequence parseFilter(String sql, Token []tokens, int index, int endPos) {
 		Sequence seq = new Sequence();
@@ -91,6 +95,11 @@ public final class SQLUtil {
 		return -1;
 	}
 	
+	/**
+	 * 拆分SQL的各个部分返回成序列
+	 * @param sql
+	 * @return Sequence
+	 */
 	public static Sequence splitSql(String sql) {
 		Token []tokens = Tokenizer.parse(sql);
 		int len = tokens.length;
@@ -415,6 +424,13 @@ public final class SQLUtil {
 		}
 	}
 	
+	/**
+	 * 替换sql的指定部分
+	 * @param sql SQL语句
+	 * @param replacement 要替换成的内容
+	 * @param option 选项，指定替换哪些部分
+	 * @return
+	 */
 	public static String replace(String sql, String replacement, String option) {
 		if (option == null) {
 			MessageManager mm = EngineMessage.get();
@@ -509,7 +525,13 @@ public final class SQLUtil {
 			}
 		}
 		
-		int startPos = tokens[start].getPos();
+		int startPos;
+		if (start < count) {
+			startPos = tokens[start].getPos();
+		} else {
+			startPos = sql.length();
+		}
+		
 		if (end == -1) {
 			return sql.substring(0, startPos) + replacement;
 		} else {
@@ -677,52 +699,5 @@ public final class SQLUtil {
 
 		return FunInfoManager.getFunctionExp(dbType, name, params);
 		//return changeFunction(name, exp, params);
-	}
-	
-	private static String changeFunction(String name, String exp, String []params) {
-		int pcount = params.length;
-		int len = exp.length();
-		StringBuffer sb = new StringBuffer(128 + len);
-
-		for (int i = 0; i < len; ++i) {
-			// 引号内的也替换？
-			char ch = exp.charAt(i);
-			/*if (ch == '\'' || ch == '\"') { // 字符串
-				int pos = Sentence.scanQuotation(exp, i);
-				if (pos == -1) {
-					sb.append(exp.substring(i));
-					break;
-				} else {
-					sb.append(exp.substring(i, pos + 1));
-					i = pos;
-				}
-			} else */if (ch == Tokenizer.PARAMMARK) {
-				int numIndex = i + 1;
-				int next = Tokenizer.scanNumber(exp, numIndex);
-				int paramSeq = 1;
-				if (next > numIndex) { // ?n
-					try {
-						String strNum = exp.substring(numIndex, next);
-						paramSeq = Integer.parseInt(strNum);
-					} catch (NumberFormatException e) {
-						MessageManager mm = EngineMessage.get();
-						throw new RQException(name + mm.getMessage("function.invalidParam"));
-					}
-
-					if (paramSeq < 1 || paramSeq > pcount) {
-						MessageManager mm = EngineMessage.get();
-						throw new RQException(name + mm.getMessage("function.invalidParam"));
-					}
-					
-					i = next - 1;
-				}
-
-				sb.append(params[paramSeq - 1]);
-			} else {
-				sb.append(ch);
-			}
-		}
-
-		return sb.toString();
 	}
 }
