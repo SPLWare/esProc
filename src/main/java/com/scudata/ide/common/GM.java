@@ -3690,4 +3690,42 @@ public class GM {
 		/* Open at 2018-06-11 */
 		return true;
 	}
+
+	/**
+	 * 获取SQL的部分
+	 * 
+	 * @param sql
+	 * @param part
+	 * @return
+	 */
+	public static String getPartOfSql(String sql, String part) {
+		Object fromObj = com.scudata.dm.sql.SQLUtil.parse(sql, part);
+		if (fromObj == null) // null转为空串，方便IDE拼SQL
+			return "";
+		if (fromObj instanceof Sequence) {
+			StringBuffer buf = new StringBuffer();
+			Sequence seq = (Sequence) fromObj;
+			// 这里不加引号，也不加中括号，所以不使用Sequence转串方法
+			for (int i = 1, len = seq.length(); i <= len; i++) {
+				if (i > 1)
+					buf.append(",");
+				buf.append(seq.get(i));
+			}
+			return buf.toString();
+		} else {
+			return (String) fromObj;
+		}
+	}
+
+	/**
+	 * 替换部分SQL
+	 * 
+	 * @param sql
+	 * @param replace
+	 * @param part
+	 * @return
+	 */
+	public static String modifySql(String sql, String replace, String part) {
+		return com.scudata.dm.sql.SQLUtil.replace(sql, replace, part);
+	}
 }
