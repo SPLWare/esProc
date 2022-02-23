@@ -533,7 +533,9 @@ public final class SQLUtil {
 		}
 		
 		if (start == -1) {
-			if (end == -1) {
+			if (replacement.length() == 0) {
+				return sql;
+			} else if (end == -1) {
 				return sql + ' ' + keyWord + ' ' + replacement;
 			} else {
 				int endPos = tokens[end].getPos();
@@ -541,7 +543,12 @@ public final class SQLUtil {
 			}
 		} else if (start == count) {
 			// 只有关键字后面没内容
-			return sql + ' ' + replacement;
+			if (replacement.length() == 0) {
+				int startPos = tokens[keyPos].getPos();
+				return sql.substring(0, startPos);
+			} else {
+				return sql + ' ' + replacement;
+			}
 		} else {
 			if (replacement.length() == 0) {
 				start = keyPos;
