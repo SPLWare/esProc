@@ -439,10 +439,12 @@ public final class SQLUtil {
 
 		Token []tokens = Tokenizer.parse(sql);
 		int count = tokens.length;
+		String keyWord; // 关键字段名称，如果源sql中没有这部分则需要新加
 		int start = -1;
 		int end = -1;
 		
 		if (option.indexOf('s') != -1) {
+			keyWord = "SELECT";
 			for (int i = 0; i < count; ++i) {
 				if (tokens[i].isKeyWord("SELECT")) {
 					start = i;
@@ -475,19 +477,21 @@ public final class SQLUtil {
 			String startKeyWord;
 			String []endKeyWords;
 			if (option.indexOf('f') != -1) {
-				startKeyWord = "FROM";
+				keyWord = startKeyWord = "FROM";
 				endKeyWords = new String[]{"WHERE", "GROUP", "HAVING", "ORDER", "LIMIT"};
 			} else if (option.indexOf('w') != -1) {
-				startKeyWord = "WHERE";
+				keyWord = startKeyWord = "WHERE";
 				endKeyWords = new String[]{"GROUP", "HAVING", "ORDER", "LIMIT"};
 			} else if (option.indexOf('g') != -1) {
 				startKeyWord = "GROUP";
+				keyWord = "GROUP BY";
 				endKeyWords = new String[]{"HAVING", "ORDER", "LIMIT"};
 			} else if (option.indexOf('h') != -1) {
-				startKeyWord = "HAVING";
+				keyWord = startKeyWord = "HAVING";
 				endKeyWords = new String[]{"ORDER", "LIMIT"};
 			} else if (option.indexOf('o') != -1) {
 				startKeyWord = "ORDER";
+				keyWord = "ORDER BY";
 				endKeyWords = new String[]{"LIMIT"};
 			} else {
 				MessageManager mm = EngineMessage.get();
@@ -505,14 +509,10 @@ public final class SQLUtil {
 				}
 			}
 			
-			if (start == -1) {
-				return sql;
-			}
-			
 			int len = endKeyWords.length;
 			
 			Next:
-			for (int i = start; i < count; ++i) {
+			for (int i = start == -1 ? 0 : start; i < count; ++i) {
 				Token token = tokens[i];
 				if (token.isKeyWord()) {
 					for (int k = 0; k < len; ++k) {
@@ -525,18 +525,24 @@ public final class SQLUtil {
 			}
 		}
 		
-		int startPos;
-		if (start < count) {
-			startPos = tokens[start].getPos();
+		if (start == -1) {
+			if (end == -1) {
+				return sql + ' ' + keyWord + ' ' + replacement;
+			} else {
+				int endPos = tokens[end].getPos();
+				return sql.substring(0, endPos) + keyWord + ' ' + replacement + sql.substring(endPos - 1);
+			}
+		} else if (start == count) {
+			// 只有关键字后面没内容
+			return sql + ' ' + replacement;
 		} else {
-			startPos = sql.length();
-		}
-		
-		if (end == -1) {
-			return sql.substring(0, startPos) + replacement;
-		} else {
-			int endPos = tokens[end].getPos();
-			return sql.substring(0, startPos) + replacement + sql.substring(endPos - 1);
+			int startPos = tokens[start].getPos();
+			if (end == -1) {
+				return sql.substring(0, startPos) + replacement;
+			} else {
+				int endPos = tokens[end].getPos();
+				return sql.substring(0, startPos) + replacement + sql.substring(endPos - 1);
+			}
 		}
 	}
 	
