@@ -437,16 +437,22 @@ public final class SQLUtil {
 			throw new RQException("sqlparse" + mm.getMessage("engine.optError"));
 		}
 
+		if (replacement == null) {
+			replacement = "";
+		}
+		
 		Token []tokens = Tokenizer.parse(sql);
 		int count = tokens.length;
 		String keyWord; // 关键字段名称，如果源sql中没有这部分则需要新加
-		int start = -1;
+		int keyPos = -1; // 关键字的位置，如果replacement为空则删除这部分
+		int start = -1; // 关键字后内容的位置
 		int end = -1;
 		
 		if (option.indexOf('s') != -1) {
 			keyWord = "SELECT";
 			for (int i = 0; i < count; ++i) {
 				if (tokens[i].isKeyWord("SELECT")) {
+					keyPos = i;
 					start = i;
 					break;
 				}
@@ -500,6 +506,7 @@ public final class SQLUtil {
 			
 			for (int i = 0; i < count; ++i) {
 				if (tokens[i].isKeyWord(startKeyWord)) {
+					keyPos = i;
 					start = i + 1;
 					if (start < count && tokens[start].isKeyWord("BY")) {
 						start++; // group by / order by
@@ -536,6 +543,10 @@ public final class SQLUtil {
 			// 只有关键字后面没内容
 			return sql + ' ' + replacement;
 		} else {
+			if (replacement.length() == 0) {
+				start = keyPos;
+			}
+			
 			int startPos = tokens[start].getPos();
 			if (end == -1) {
 				return sql.substring(0, startPos) + replacement;

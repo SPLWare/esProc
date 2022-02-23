@@ -23,7 +23,9 @@ public class SQLParse extends StringFunction {
 			return SQLUtil.parse(srcStr, option);
 		} else if (param.isLeaf()) {
 			Object obj = param.getLeafExpression().calculate(ctx);
-			if (!(obj instanceof String)) {
+			if (obj == null) {
+				obj = "";
+			} else if (!(obj instanceof String)) {
 				MessageManager mm = EngineMessage.get();
 				throw new RQException("sqlparse" + mm.getMessage("function.paramTypeError"));
 			}
