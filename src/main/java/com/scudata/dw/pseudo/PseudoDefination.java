@@ -21,14 +21,15 @@ public class PseudoDefination {
 	public static final String PD_DATE = "date";
 	public static final String PD_USER = "user";
 	public static final String PD_COLUMN = "column";
+	public static final String PD_VAR = "var";
 	
 	private Object file;//文件名或多个文件名的序列
 	private Sequence zone;//组表分区号列表
 	private String date;//分列字段
 	private String user;//帐户字段
+	private String var;//序表/内表/集群内表变量名
 	private List<PseudoColumn> columns;//部分特殊字段定义
 	private List<ITableMetaData> tables;//存所有文件的table对象
-	
 	private String[] sortedFields;//排序字段
 	
 	public PseudoDefination() {
@@ -40,6 +41,7 @@ public class PseudoDefination {
 		zone = (Sequence) getFieldValue(pd, PD_ZONE);
 		date = (String) getFieldValue(pd, PD_DATE);
 		user = (String) getFieldValue(pd, PD_USER);
+		var = (String) getFieldValue(pd, PD_VAR);
 		Sequence seq = (Sequence) getFieldValue(pd, PD_COLUMN);
 		if (seq != null) {
 			columns = new ArrayList<PseudoColumn>();
@@ -49,13 +51,15 @@ public class PseudoDefination {
 				columns.add(new PseudoColumn(rec));
 			}
 		}
-		if (file == null) {
+		if (file == null && var == null) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException(mm.getMessage("file.fileNotExist", "NULL"));
 		}
 		
-		parseFileToTable(ctx);
-		sortedFields = getAllSortedColNames();
+		if (file != null) {
+			parseFileToTable(ctx);
+			sortedFields = getAllSortedColNames();
+		}
 	}
 	
 	public Object getFile() {
@@ -89,7 +93,15 @@ public class PseudoDefination {
 	public void setUser(String user) {
 		this.user = user;
 	}
+	
+	public String getVar() {
+		return var;
+	}
 
+	public void setVar(String var) {
+		this.var = var;
+	}
+	
 	public List<PseudoColumn> getColumns() {
 		return columns;
 	}
@@ -107,7 +119,7 @@ public class PseudoDefination {
 		this.tables = tables;
 	}
 
-	protected static Object getFieldValue(Record pd, String name) {
+	public static Object getFieldValue(Record pd, String name) {
 		int index = pd.getFieldIndex(name);
 		if (index != -1) {
 			return pd.getFieldValue(index);

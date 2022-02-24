@@ -7,6 +7,8 @@ import com.scudata.dm.Env;
 import com.scudata.dm.Machines;
 import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
+import com.scudata.dw.pseudo.PseudoDefination;
+import com.scudata.dw.pseudo.PseudoMemory;
 import com.scudata.dw.pseudo.PseudoTable;
 import com.scudata.expression.Function;
 import com.scudata.expression.IParam;
@@ -95,10 +97,18 @@ public class CreatePseudo extends Function {
 		} else if (n == 0) {
 			n = Env.getCursorParallelNum();
 		}
+		
+		String var = (String) PseudoDefination.getFieldValue((Record) pd.get(1), PseudoDefination.PD_VAR);
+		
 		if (hs != null) {
 			return ClusterPseudo.createClusterPseudo((Record) pd.get(1), hs, n, ctx);
 		} else {
-			return new PseudoTable((Record) pd.get(1), n, ctx);
+			if (var == null) {
+				return new PseudoTable((Record) pd.get(1), n, ctx);
+			} else {
+				return new PseudoMemory((Record) pd.get(1), n, ctx);
+			}
+			
 		}
 	}
 }
