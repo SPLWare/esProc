@@ -92,9 +92,14 @@ public class DialogAbout extends JDialog {
 		}
 	};
 	/**
-	 * 名称
+	 * 公司名称
 	 */
 	private JLabel jLbName = new JLabel();
+
+	/**
+	 * 公司名称2
+	 */
+	private JLabel jLbName2 = new JLabel();
 	/**
 	 * 产品名
 	 */
@@ -153,8 +158,7 @@ public class DialogAbout extends JDialog {
 	 * @param lbTitle
 	 * @param tfText
 	 */
-	private void setText(String sDefault, String sText, JLabel lbTitle,
-			Object tfText) {
+	private void setText(String sDefault, String sText, JLabel lbTitle, Object tfText) {
 		if (!StringUtils.isValidString(sText)) {
 			return;
 		}
@@ -191,10 +195,8 @@ public class DialogAbout extends JDialog {
 	 * 加载信息
 	 */
 	private void loadMessage() {
-		jLProductName.setText(mm.getMessage("dialogabout.productname")
-				+ "      " + productName);
-		jLReleaseDate.setText(mm.getMessage("dialogabout.label1",
-				getReleaseDate()));
+		jLProductName.setText(mm.getMessage("dialogabout.productname") + "      " + productName);
+		jLReleaseDate.setText(mm.getMessage("dialogabout.label1", getReleaseDate()));
 
 		String tmp = mm.getMessage("dialogabout.providername");// 公司名称
 		String vendorName = mm.getMessage("dialogabout.defvendor");
@@ -250,16 +252,12 @@ public class DialogAbout extends JDialog {
 			int h = icon.getIconHeight();
 			isLongLogo = w * 1.0 / h > 2;
 			if (isLongLogo) {
-				image = image.getScaledInstance(380, (int) (380.0 * h / w),
-						Image.SCALE_SMOOTH);
+				image = image.getScaledInstance(380, (int) (380.0 * h / w), Image.SCALE_SMOOTH);
 			} else {
 				if (w > h) {
-					image = image.getScaledInstance(128,
-							(int) (128 * (h * 1.0 / w)), Image.SCALE_SMOOTH);
+					image = image.getScaledInstance(128, (int) (128 * (h * 1.0 / w)), Image.SCALE_SMOOTH);
 				} else {
-					image = image.getScaledInstance(
-							(int) (128 * (w * 1.0 / h)), 128,
-							Image.SCALE_SMOOTH);
+					image = image.getScaledInstance((int) (128 * (w * 1.0 / h)), 128, Image.SCALE_SMOOTH);
 				}
 			}
 
@@ -302,15 +300,28 @@ public class DialogAbout extends JDialog {
 		jLCompanyName.setForeground(SystemColor.textHighlight);
 		jLTel.setForeground(SystemColor.textHighlight);
 		getContentPane().add(panelTop, BorderLayout.CENTER);
-		final int DIFF = 25;
+		final int DIFF = 26;
+		boolean isCN = GM.isChineseLanguage();
 		panelTop.add(jLabelLogo, new FreeConstraints(0, 0, 145, 123));
 		panelTop.add(jLProductName, new FreeConstraints(163, 15, -1, -1));
-		panelTop.add(jLCompanyName, new FreeConstraints(14, 174 - DIFF, 69, -1));
-		panelTop.add(jLWebsite, new FreeConstraints(14, 201 - DIFF, 69, -1));
-		panelTop.add(jLTel, new FreeConstraints(14, 227 - DIFF, -1, -1));
-		panelTop.add(jLbName, new FreeConstraints(95, 174 - DIFF, 288, -1));
-		panelTop.add(jLbHttp, new FreeConstraints(95, 201 - DIFF, 288, -1));
-		panelTop.add(jTFTele, new FreeConstraints(95, 227 - DIFF, 288, -1));
+		int bottomY = 148;
+		final int BOTTOM_X1 = 14;
+		final int BOTTOM_X2 = 95;
+		final int BOTTOM_L1 = 69;
+		final int BOTTOM_L2 = 288;
+		panelTop.add(jLCompanyName, new FreeConstraints(BOTTOM_X1, bottomY, BOTTOM_L1, -1));
+		panelTop.add(jLbName, new FreeConstraints(BOTTOM_X2, bottomY, BOTTOM_L2, -1));
+		if (isCN) {
+			bottomY += DIFF;
+			jLbName2.setText(mm.getMessage("dialogabout.defvendor1"));
+			panelTop.add(jLbName2, new FreeConstraints(BOTTOM_X2, bottomY, BOTTOM_L2, -1));
+		}
+		bottomY += DIFF;
+		panelTop.add(jLWebsite, new FreeConstraints(BOTTOM_X1, bottomY, BOTTOM_L1, -1));
+		panelTop.add(jLbHttp, new FreeConstraints(BOTTOM_X2, bottomY, BOTTOM_L2, -1));
+		bottomY += DIFF;
+		panelTop.add(jLTel, new FreeConstraints(BOTTOM_X1, bottomY, -1, -1));
+		panelTop.add(jTFTele, new FreeConstraints(BOTTOM_X2, bottomY, BOTTOM_L2, -1));
 		JPanel jPanel2 = new JPanel();
 		jPanel2.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		jPanel2.add(jBJDK);
@@ -408,8 +419,7 @@ public class DialogAbout extends JDialog {
 
 }
 
-class DialogAbout_jBClose_actionAdapter implements
-		java.awt.event.ActionListener {
+class DialogAbout_jBClose_actionAdapter implements java.awt.event.ActionListener {
 	DialogAbout adaptee;
 
 	DialogAbout_jBClose_actionAdapter(DialogAbout adaptee) {
