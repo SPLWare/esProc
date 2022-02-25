@@ -525,7 +525,7 @@ public class PseudoTable extends Pseudo {
 		return obj;
 	}
 
-	public PseudoTable setPathCount(int pathCount) {
+	public Pseudo setPathCount(int pathCount) {
 		PseudoTable table = null;
 		try {
 			table = (PseudoTable) clone(ctx);
@@ -536,11 +536,11 @@ public class PseudoTable extends Pseudo {
 		return table;
 	}
 
-	public PseudoTable setMcsTable(PseudoTable mcsTable) {
+	public Pseudo setMcsTable(Pseudo mcsTable) {
 		PseudoTable table = null;
 		try {
 			table = (PseudoTable) clone(ctx);
-			table.mcsTable = mcsTable;
+			table.mcsTable = (PseudoTable) mcsTable;
 		} catch (CloneNotSupportedException e) {
 			e.printStackTrace();
 		}
@@ -849,15 +849,6 @@ public class PseudoTable extends Pseudo {
 		return result;
 	}
 	
-	// 判断是否配置了指定名称的外键
-	public boolean hasForeignKey(String fkName) {
-		PseudoColumn column = pd.findColumnByName(fkName);
-		if (column.getDim() != null)
-			return true;
-		else
-			return false;
-	}
-	
 	/**
 	 * 添加外键
 	 * @param fkName	外键名
@@ -865,7 +856,7 @@ public class PseudoTable extends Pseudo {
 	 * @param code	外表
 	 * @return
 	 */
-	public PseudoTable addForeignKeys(String fkName, String []fieldNames, PseudoTable code) {
+	public Pseudo addForeignKeys(String fkName, String []fieldNames, Pseudo code) {
 		PseudoTable table = null;
 		try {
 			table = (PseudoTable) clone(ctx);
@@ -897,33 +888,6 @@ public class PseudoTable extends Pseudo {
 			ICursor cursors[] = new ICursor[]{masterTable.cursor(null, null), subTable.cursor(null, null)};
 			ICursor cursor = CursorUtil.joinx(cursors, null, joinExps, null, masterTable.getContext());
 			return cursor;
-		}
-		return null;
-	}
-	
-	// 取虚表主键
-	public String[] getPrimaryKey() {
-		return getPd().getAllSortedColNames();
-	}
-	
-	// 取字段做switch指向的虚表，如果没做则返回空
-	public PseudoTable getFieldSwitchTable(String fieldName) {
-		List<PseudoColumn> columns = pd.getColumns();
-		if (columns == null) {
-			return null;
-		}
-		
-		for (PseudoColumn column : columns) {
-			if (column.getDim() != null) {
-				if (column.getFkey() == null && column.getName().equals(fieldName)) {
-					return (PseudoTable) column.getDim();
-				} 
-//				else if (column.getFkey() != null 
-//						&& column.getFkey().length == 1
-//						&& column.getFkey()[0].equals(fieldName)) {
-//					return (PseudoTable) column.getDim();
-//				}
-			}
 		}
 		return null;
 	}

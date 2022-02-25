@@ -1,6 +1,7 @@
 package com.scudata.dw.pseudo;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
@@ -362,5 +363,60 @@ public class Pseudo implements IPseudo{
 	
 	public Sequence getCache() {
 		return cache;
+	}
+	
+	// 判断是否配置了指定名称的外键
+	public boolean hasForeignKey(String fkName) {
+		PseudoColumn column = pd.findColumnByName(fkName);
+		if (column.getDim() != null)
+			return true;
+		else
+			return false;
+	}
+	
+	// 取虚表主键
+	public String[] getPrimaryKey() {
+		return getPd().getAllSortedColNames();
+	}
+	
+	// 取字段做switch指向的虚表，如果没做则返回空
+	public Pseudo getFieldSwitchTable(String fieldName) {
+		List<PseudoColumn> columns = pd.getColumns();
+		if (columns == null) {
+			return null;
+		}
+		
+		for (PseudoColumn column : columns) {
+			if (column.getDim() != null) {
+				if (column.getFkey() == null && column.getName().equals(fieldName)) {
+					return (PseudoTable) column.getDim();
+				} 
+//				else if (column.getFkey() != null 
+//						&& column.getFkey().length == 1
+//						&& column.getFkey()[0].equals(fieldName)) {
+//					return (PseudoTable) column.getDim();
+//				}
+			}
+		}
+		return null;
+	}
+	
+	/**
+	 * 添加外键
+	 * @param fkName	外键名
+	 * @param fieldNames 外键字段
+	 * @param code	外表
+	 * @return
+	 */
+	public Pseudo addForeignKeys(String fkName, String []fieldNames, Pseudo code) {
+		throw new RQException("Never run to here.");
+	}
+	
+	public Pseudo setPathCount(int pathCount) {
+		throw new RQException("Never run to here.");
+	}
+	
+	public Pseudo setMcsTable(Pseudo mcsTable) {
+		throw new RQException("Never run to here.");
 	}
 }
