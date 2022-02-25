@@ -88,6 +88,10 @@ public class PseudoTable extends Pseudo {
 					if (column.getPseudo() != null) {
 						hasPseudoColumns = true;
 					}
+					if (column.getBits() != null) {
+						hasPseudoColumns = true;
+					}
+					
 					if (column.getDim() != null) {
 						if (column.getFkey() == null) {
 							addColName(column.getName());
@@ -183,22 +187,44 @@ public class PseudoTable extends Pseudo {
 			Expression exp = exps[i];
 			String name = fields[i];
 			Node node = exp.getHome();
+			
 			if (node instanceof UnknownSymbol) {
-				/**
-				 * 先检查一下取出表达式是否枚举字段，如果是则做个转换
-				 */
 				String expName = exp.getIdentifierName();
 				if (!allNameList.contains(expName)) {
+					/**
+					 * 如果是伪字段则做转换
+					 */
 					PseudoColumn col = pd.findColumnByPseudoName(expName);
-					if (col != null && col.get_enum() != null) {
-						String var = "pseudo_enum_value_" + i;
-						ctx.setParamValue(var, col.get_enum());
-						name = col.getName();
-						newExps[i] = new Expression(var + "(" + name + ")");
-						exp = new Expression(name);
-						needNew = true;
-						tempExpList.add(exp);
-						tempNameList.add(name);
+					if (col != null) {
+						if (col.get_enum() != null) {
+							/**
+							 * 枚举字段做转换
+							 */
+							String var = "pseudo_enum_value_" + i;
+							ctx.setParamValue(var, col.get_enum());
+							name = col.getName();
+							newExps[i] = new Expression(var + "(" + name + ")");
+							exp = new Expression(name);
+							needNew = true;
+							tempExpList.add(exp);
+							tempNameList.add(name);
+						} else if (col.getBits() != null) {
+							/**
+							 * 二值字段做转换
+							 */
+							name = col.getName();
+							String pname = ((UnknownSymbol) node).getName();
+							Sequence seq;
+							seq = col.getBits();
+							int idx = seq.firstIndexOf(pname) - 1;
+							int bit = 1 << idx;
+							String str = "and(" + col.getName() + "," + bit + ")!=0";//改为真字段的位运算
+							newExps[i] = new Expression(str);
+							exp = new Expression(name);
+							needNew = true;
+							tempExpList.add(exp);
+							tempNameList.add(name);
+						}
 					}
 				} else {
 					tempExpList.add(exp);
@@ -214,7 +240,6 @@ public class PseudoTable extends Pseudo {
 //						extraOpList.add(derive);
 //					}
 //				}
-			} else {
 			}
 		}
 		
