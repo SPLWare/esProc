@@ -17,8 +17,6 @@ import com.scudata.expression.Expression;
  *
  */
 public class PseudoMemory extends Pseudo {
-	private Sequence table;
-	
 	public PseudoMemory() {
 	}
 	
@@ -26,7 +24,6 @@ public class PseudoMemory extends Pseudo {
 		pd = new PseudoDefination(rec, ctx);
 		
 		this.ctx = ctx;
-		table = (Sequence) new Expression(pd.getVar()).calculate(ctx);
 	}
 	
 	public void addColNames(String []nameArray) {
@@ -36,7 +33,7 @@ public class PseudoMemory extends Pseudo {
 	}
 	
 	public ICursor cursor(Expression []exps, String []names) {
-		ICursor cs = addOptionToCursor(new MemoryCursor(table));
+		ICursor cs = addOptionToCursor(new MemoryCursor(pd.getMemoryTable()));
 		
 		if (filter != null) {
 			cs.addOperation(new Select(filter, null), ctx);
@@ -55,7 +52,7 @@ public class PseudoMemory extends Pseudo {
 	}
 	
 	public boolean isColumn(String col) {
-		DataStruct ds = table.dataStruct();
+		DataStruct ds = pd.getMemoryTable().dataStruct();
 		return (ds.getFieldIndex(col) >= 0);
 	}
 	
@@ -81,12 +78,11 @@ public class PseudoMemory extends Pseudo {
 	}
 	
 	public Sequence getTable() {
-		return table;
+		return pd.getMemoryTable();
 	}
 
 	public Object clone(Context ctx) throws CloneNotSupportedException {
 		PseudoMemory obj = new PseudoMemory();
-		obj.table = table;
 		cloneField(obj);
 		obj.ctx = ctx;
 		return obj;

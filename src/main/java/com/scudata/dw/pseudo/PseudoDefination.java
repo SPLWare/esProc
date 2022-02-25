@@ -12,6 +12,7 @@ import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 import com.scudata.dw.GroupTable;
 import com.scudata.dw.ITableMetaData;
+import com.scudata.expression.Expression;
 import com.scudata.resources.EngineMessage;
 
 //用于定义虚表的属性
@@ -30,6 +31,7 @@ public class PseudoDefination {
 	private String var;//序表/内表/集群内表变量名
 	private List<PseudoColumn> columns;//部分特殊字段定义
 	private List<ITableMetaData> tables;//存所有文件的table对象
+	private Sequence memoryTable;//内存虚表的序表对象
 	private String[] sortedFields;//排序字段
 	
 	public PseudoDefination() {
@@ -59,6 +61,10 @@ public class PseudoDefination {
 		if (file != null) {
 			parseFileToTable(ctx);
 			sortedFields = getAllSortedColNames();
+		}
+		
+		if (var != null) {
+			memoryTable = (Sequence) new Expression(var).calculate(ctx);
 		}
 	}
 	
@@ -117,6 +123,14 @@ public class PseudoDefination {
 
 	public void setTables(List<ITableMetaData> tables) {
 		this.tables = tables;
+	}
+
+	public Sequence getMemoryTable() {
+		return memoryTable;
+	}
+
+	public void setMemoryTable(Sequence memoryTable) {
+		this.memoryTable = memoryTable;
 	}
 
 	public static Object getFieldValue(Record pd, String name) {
@@ -208,11 +222,19 @@ public class PseudoDefination {
 	}
 
 	public String[] getAllColNames() {
-		return tables.get(0).getAllColNames();
+		if (var == null) {
+			return tables.get(0).getAllColNames();
+		} else {
+			return memoryTable.dataStruct().getFieldNames();
+		}
 	}
 
 	public String[] getAllSortedColNames() {
-		return tables.get(0).getAllSortedColNames();
+		if (var == null) {
+			return tables.get(0).getAllSortedColNames();
+		} else {
+			return memoryTable.dataStruct().getPrimary();
+		}
 	}
 	
 	public void addPseudoColumn(PseudoColumn column) {
