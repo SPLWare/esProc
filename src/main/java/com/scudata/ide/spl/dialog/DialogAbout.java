@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowEvent;
 import java.util.Properties;
@@ -78,9 +79,14 @@ public class DialogAbout extends JDialog {
 	private JLabel jLTel = new JLabel();
 
 	/**
-	 * HTTP
+	 * 网址
 	 */
 	private JLabel jLbHttp = new JLabel();
+	/**
+	 * 网址2
+	 */
+	private JLabel jLbHttp2 = new JLabel();
+
 	/**
 	 * 电话文本框
 	 */
@@ -207,6 +213,9 @@ public class DialogAbout extends JDialog {
 		tmp = mm.getMessage("dialogabout.providertel");// 公司电话
 		String vendorTel = "010-51295366";
 		setText(tmp, vendorTel, jLTel, jTFTele);
+
+		jLbName2.setText(mm.getMessage("dialogabout.defvendor1"));
+		jLbHttp2.setText(mm.getMessage("dialogabout.defvendorurl1"));
 	}
 
 	/**
@@ -278,6 +287,26 @@ public class DialogAbout extends JDialog {
 		jLbHttp.setForeground(Color.blue);
 		jLbHttp.setBorder(null);
 
+		jLbHttp2.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		jLbHttp2.setFont(new java.awt.Font("Comic Sans MS", 2, 13));
+		jLbHttp2.setForeground(Color.blue);
+		jLbHttp2.setBorder(null);
+		jLbHttp2.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				int b = e.getButton();
+				if (b != MouseEvent.BUTTON1) {
+					return;
+				}
+				if (GM.getOperationSytem() == GC.OS_WINDOWS) {
+					try {
+						Runtime.getRuntime().exec("cmd /C start " + jLbHttp2.getText());
+					} catch (Exception x) {
+						GM.showException(x);
+					}
+				}
+			}
+		});
+
 		jTFTele.setDisabledTextColor(Color.black);
 		jTFTele.setEditable(false);
 		Color telBg = new Color(jLbHttp.getBackground().getRGB());
@@ -313,12 +342,15 @@ public class DialogAbout extends JDialog {
 		panelTop.add(jLbName, new FreeConstraints(BOTTOM_X2, bottomY, BOTTOM_L2, -1));
 		if (isCN) {
 			bottomY += DIFF;
-			jLbName2.setText(mm.getMessage("dialogabout.defvendor1"));
 			panelTop.add(jLbName2, new FreeConstraints(BOTTOM_X2, bottomY, BOTTOM_L2, -1));
 		}
 		bottomY += DIFF;
 		panelTop.add(jLWebsite, new FreeConstraints(BOTTOM_X1, bottomY, BOTTOM_L1, -1));
 		panelTop.add(jLbHttp, new FreeConstraints(BOTTOM_X2, bottomY, BOTTOM_L2, -1));
+		if (isCN) {
+			bottomY += DIFF;
+			panelTop.add(jLbHttp2, new FreeConstraints(BOTTOM_X2, bottomY, BOTTOM_L2, -1));
+		}
 		bottomY += DIFF;
 		panelTop.add(jLTel, new FreeConstraints(BOTTOM_X1, bottomY, -1, -1));
 		panelTop.add(jTFTele, new FreeConstraints(BOTTOM_X2, bottomY, BOTTOM_L2, -1));
