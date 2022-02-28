@@ -315,9 +315,6 @@ public class DialogAbout extends JDialog {
 		jLbHttp.addMouseListener(new DialogAbout_jLbHttp_mouseAdapter(this));
 		jTFTele.setHorizontalAlignment(SwingConstants.LEFT);
 		jTFTele.addMouseListener(new DialogAbout_jTFTele_mouseAdapter(this));
-		jLbName.setFont(new java.awt.Font("Dialog", 0, 12));
-		jLbName.setForeground(Color.black);
-		jLbName.setHorizontalAlignment(SwingConstants.LEFT);
 		this.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 		this.setResizable(false);
 		this.getContentPane().setLayout(new BorderLayout());
