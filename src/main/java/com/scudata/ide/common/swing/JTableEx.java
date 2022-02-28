@@ -1232,6 +1232,7 @@ public class JTableEx extends JTable implements MouseListener, JTableExListener,
 	 * @return int，移动后的新行号,返回-1表示没有移动
 	 */
 	public int shiftRowUp(int row) {
+		acceptText();
 		int start, end;
 		if (row < 0) {
 			int[] rows = getSelectedRows();
@@ -1269,6 +1270,7 @@ public class JTableEx extends JTable implements MouseListener, JTableExListener,
 	 * @return
 	 */
 	public int shiftRowDown(int row) {
+		acceptText();
 		int start, end;
 		if (row < 0) {
 			int[] rows = getSelectedRows();
