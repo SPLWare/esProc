@@ -712,13 +712,16 @@ public class PseudoTable extends Pseudo {
 			Node node = exp.getHome();
 			if (node instanceof UnknownSymbol) {
 				/**
-				 * 如果node就是一个伪字段
+				 * node是伪字段
 				 */
 				Node n = bitsToBoolean(node);
 				if (n != null) {
 					op = new Select(new Expression(n), null);
 				}
 			} else {
+				/**
+				 * node是普通字段
+				 */
 				replaceFilter(node);
 				parseFilter(node);
 			}

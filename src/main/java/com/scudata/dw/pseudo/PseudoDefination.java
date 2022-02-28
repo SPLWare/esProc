@@ -7,6 +7,7 @@ import java.util.List;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
+import com.scudata.dm.FileGroup;
 import com.scudata.dm.FileObject;
 import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
@@ -181,25 +182,26 @@ public class PseudoDefination {
 		return null;
 	}
 
-	private void parseFileToTable(String fn, Context ctx) {
-		FileObject fo = new FileObject(fn, null, null, ctx);
-		File f = fo.getLocalFile().file();
-		tables.add(GroupTable.openBaseTable(f, ctx));
-	}
-	
+	/**
+	 * 得到文件fn的组表对象
+	 * @param fn
+	 * @param partitions
+	 * @param ctx
+	 */
 	private void parseFileToTable(String fn, int partitions[], Context ctx) {
 		if (partitions == null) {
-			parseFileToTable(fn, ctx);
+			FileObject fo = new FileObject(fn, null, null, ctx);
+			File f = fo.getLocalFile().file();
+			tables.add(GroupTable.openBaseTable(f, ctx));
 		} else {
-			for (int partition : partitions) {
-				FileObject fo = new FileObject(fn, null, null, ctx);
-				fo.setPartition(partition);
-				File f = fo.getLocalFile().file();
-				tables.add(GroupTable.openBaseTable(f, ctx));
-			}
+			tables.add(new FileGroup(fn, partitions).open(null, ctx));
 		}
 	}
 	
+	/**
+	 * 得到文件或文件组的组表对象
+	 * @param ctx
+	 */
 	private void parseFileToTable(Context ctx) {
 		Object file = this.file;
 		int partitions[] = null;
