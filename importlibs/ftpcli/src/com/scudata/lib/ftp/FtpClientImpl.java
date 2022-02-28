@@ -143,9 +143,11 @@ public class FtpClientImpl extends Table implements IResource {
 				return;
 			}
 			String fi = parent+name+(dir?"/":"");
-			_remoteFiles.add(fi);
-			_remoteIsDir.add(dir);
-			_remoteLevels.add(level);
+			if (_remoteFiles.indexOf(fi)==-1) {
+				_remoteFiles.add(fi);
+				_remoteIsDir.add(dir);
+				_remoteLevels.add(level);
+			}
 			//System.out.println(fi+" : "+dir + " : "+level);
 			if (dir) {
 				loadRemote(parent+name,(byte)(level+1),patterns);
@@ -255,8 +257,10 @@ public class FtpClientImpl extends Table implements IResource {
 		_remoteFiles.clear();
 		_remoteIsDir.clear();
 		_remoteLevels.clear();
-		for(String ss:paths){
-			loadRemote(ss, ps);
+		for(int i=0; i<paths.size(); i++){
+			ArrayList<String> psi = new ArrayList<String>();
+			psi.add(ps.get(i));
+			loadRemote(paths.get(i), psi);
 		}
 		for (int i=0; i<_remoteFiles.size(); i++) {
 			//System.out.println(_remoteFiles.get(i));
@@ -431,7 +435,7 @@ public class FtpClientImpl extends Table implements IResource {
 					locals.add(_localFiles.get(i));
 					String fi = _localFiles.get(i).substring(localFolder.length());
 					String st = ftp.getStatus(remoteFolder+fi);
-					String[] sts = st.split("\r\n");
+					String[] sts = st==null?new String[0]:st.split("\r\n");
 					remotes.add(remoteFolder+fi);
 					dirs.add(_localIsDir.get(i));
 					remoteExists.add(sts.length==3);
@@ -467,7 +471,7 @@ public class FtpClientImpl extends Table implements IResource {
 			try {
 				File locali = new File(locals.get(i));
 				String st = ftp.getStatus(remotes.get(i));
-				String sts[] = st.split("\r\n");
+				String sts[] = st==null?new String[0]:st.split("\r\n");
 				if (dirs.get(i)) {
 					if (st == null) ftp.makeDirectory(remotes.get(i));
 					continue;
@@ -556,7 +560,7 @@ public class FtpClientImpl extends Table implements IResource {
 	
 	private String getFullPath(String p) {
 		if (p.equals("./")) return dir;
-		if (!p.startsWith("/")) return dir + p;
+		if (!p.startsWith("/")) return dir + "/" + p;
 		return p;
 	}
 	

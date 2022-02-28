@@ -65,6 +65,7 @@ public class FtpMPut  extends Function {
 		Sequence r = null;
 		try {
 			if (client != null) r = client.mput(localFolder,remoteFolder, remoteFiles, overwrite, ignore);
+			else throw new RQException("ftp_mput for sftp is not implementing.");//
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new RQException("ftp_mput : " + e.getMessage());

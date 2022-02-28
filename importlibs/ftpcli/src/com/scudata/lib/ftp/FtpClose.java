@@ -25,6 +25,7 @@ public class FtpClose  extends Function {
 
 		int size = param.getSubSize();
 		FtpClientImpl client = null;
+		SFtpClientImpl sclient = null;
 		if (size == 0) {
 			Expression exp = param.getLeafExpression();
 			if (exp == null) {
@@ -32,13 +33,18 @@ public class FtpClose  extends Function {
 				throw new RQException("ws_client" + mm.getMessage("function.invalidParam"));
 			}
 			//Logger.debug("size " + size);
-			client = (FtpClientImpl)exp.calculate(ctx);
+			Object o = exp.calculate(ctx);
+			if (o instanceof FtpClientImpl) client = (FtpClientImpl)o;
+			else sclient = (SFtpClientImpl)o;
 		} else {
-			client = (FtpClientImpl)param.getSub(0).getLeafExpression().calculate(ctx);
+			Object o = param.getSub(0).getLeafExpression().calculate(ctx);
+			if (o instanceof FtpClientImpl) client = (FtpClientImpl)o;
+			else sclient = (SFtpClientImpl)o;
 		}
 				
 		try {
-			client.close();
+			if (client != null) client.close();
+			else sclient.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new RQException("ftp_close : " + e.getMessage());

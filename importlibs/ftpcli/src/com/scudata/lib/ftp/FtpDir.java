@@ -63,8 +63,10 @@ public class FtpDir  extends Function {
 			}
 		}
 		
+		
 		if (path == null){
-			path = client.getCurrentDir();
+			if (client != null) path = client.getCurrentDir();
+			else path = sclient.getCurrentDir();
 		}
 		
 		Sequence s = null;
@@ -74,7 +76,10 @@ public class FtpDir  extends Function {
 				else if (deldir) s = client.deldir(patterns);
 				else s = client.dirList(path, patterns,onlyDir,fullPath);
 			} else {
-				s = sclient.dirList(path, patterns,onlyDir,fullPath);
+				if (mkdir) s = sclient.mkdir(patterns);
+				else if (deldir) s = sclient.deldir(patterns);
+				else s = sclient.dirList(path, patterns,onlyDir,fullPath);
+				//s = sclient.dirList(path, patterns,onlyDir,fullPath);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
