@@ -24,14 +24,18 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 
+import sun.net.util.IPAddressUtil;
+
 import com.esproc.jdbc.JDBCConsts;
 import com.scudata.cellset.datamodel.PgmCellSet;
+import com.scudata.cellset.datamodel.PgmNormalCell;
 import com.scudata.common.Escape;
 import com.scudata.common.Logger;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.common.StringUtils;
 import com.scudata.common.Types;
+import com.scudata.dm.ComputeStack;
 import com.scudata.dm.Context;
 import com.scudata.dm.Env;
 import com.scudata.dm.FileObject;
@@ -39,10 +43,9 @@ import com.scudata.dm.Param;
 import com.scudata.dm.ParamList;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.query.SimpleSQL;
+import com.scudata.expression.fn.Eval;
 import com.scudata.resources.EngineMessage;
 import com.scudata.util.CellSetUtil;
-
-import sun.net.util.IPAddressUtil;
 
 /**
  * Public tools
@@ -59,7 +62,8 @@ public class AppUtil {
 	 * @param ctx The context
 	 * @throws SQLException
 	 */
-	public static Object executeCmd(String cmd, Context ctx) throws SQLException {
+	public static Object executeCmd(String cmd, Context ctx)
+			throws SQLException {
 		return executeCmd(cmd, null, ctx);
 	}
 
@@ -72,7 +76,8 @@ public class AppUtil {
 	 * @return The result
 	 * @throws SQLException
 	 */
-	public static Object executeCmd(String cmd, Sequence args, Context ctx) throws SQLException {
+	public static Object executeCmd(String cmd, Sequence args, Context ctx)
+			throws SQLException {
 		if (!StringUtils.isValidString(cmd)) {
 			return null;
 		}
@@ -105,19 +110,19 @@ public class AppUtil {
 						return executeSql(cmd, sequence2List(args), ctx);
 					}
 					cmd = prepareSql(cmd, args);
-					return CellSetUtil.execute(cmd, args, ctx);
+					return AppUtil.execute(cmd, args, ctx);
 				}
 			}
 		}
 		boolean isGrid = isGrid(cmd);
 		Object val;
 		if (isGrid) {
-			val = CellSetUtil.execute(cmd, args, ctx);
+			val = AppUtil.execute(cmd, args, ctx);
 		} else {
 			if (cmd.startsWith("=") || cmd.startsWith(">")) {
 				cmd = cmd.substring(1);
 			}
-			val = CellSetUtil.execute1(cmd, args, ctx);
+			val = AppUtil.execute1(cmd, args, ctx);
 		}
 		if (returnValue) {
 			return val;
@@ -150,7 +155,7 @@ public class AppUtil {
 				}
 				len = Math.min(len, pc);
 				for (int i = 1; i <= len; i++) {
-					String argName = "arg" + i;
+					String argName = "?" + i;
 					if (i == 1) {
 						cmd += ";";
 					} else {
@@ -246,6 +251,58 @@ public class AppUtil {
 	}
 
 	/**
+	 * 执行单表达式，不生成网格
+	 * 
+	 * @param src  表达式
+	 * @param args 参数值构成的序列，用?i引用
+	 * @param ctx
+	 * @return
+	 */
+	public static Object execute1(String src, Sequence args, Context ctx) {
+		Object obj = Eval.calc(src, args, null, ctx);
+		return obj;
+	}
+
+	/**
+	 * 执行表达式串，列用tab分隔，行用回车分隔
+	 * 
+	 * @param src
+	 * @param args 参数值构成的序列，用?argi引用
+	 * @param ctx
+	 * @return
+	 */
+	public static Object execute(String src, Sequence args, Context ctx) {
+		PgmCellSet pcs = CellSetUtil.toPgmCellSet(src);
+
+		ComputeStack stack = ctx.getComputeStack();
+
+		try {
+			stack.pushArg(args);
+
+			pcs.setContext(ctx);
+			pcs.calculateResult();
+
+			if (pcs.hasNextResult()) {
+				return pcs.nextResult();
+			} else {
+				int colCount = pcs.getColCount();
+				for (int r = pcs.getRowCount(); r > 0; --r) {
+					for (int c = colCount; c > 0; --c) {
+						PgmNormalCell cell = pcs.getPgmNormalCell(r, c);
+						if (cell.isCalculableCell() || cell.isCalculableBlock()) {
+							return cell.getValue();
+						}
+					}
+				}
+			}
+		} finally {
+			stack.popArg();
+		}
+
+		return null;
+	}
+
+	/**
 	 * Used to cache color objects
 	 */
 	private static HashMap<Integer, Object> colorMap = new HashMap<Integer, Object>();
@@ -322,7 +379,8 @@ public class AppUtil {
 	 * @return Object
 	 * @throws Exception
 	 */
-	public static Object invokeMethod(Object owner, String methodName, Object[] args) throws Exception {
+	public static Object invokeMethod(Object owner, String methodName,
+			Object[] args) throws Exception {
 		return invokeMethod(owner, methodName, args, null);
 	}
 
@@ -336,14 +394,15 @@ public class AppUtil {
 	 * @return Object
 	 * @throws Exception
 	 */
-	public static Object invokeMethod(Object owner, String methodName, Object[] args, Class[] argClasses)
-			throws Exception {
+	public static Object invokeMethod(Object owner, String methodName,
+			Object[] args, Class[] argClasses) throws Exception {
 		Class ownerClass = owner.getClass();
 		if (argClasses == null) {
 			Method[] ms = ownerClass.getMethods();
 			for (int i = 0; i < ms.length; i++) {
 				Method m = ms[i];
-				if (m.getName().equals(methodName) && isArgsMatchMethod(m, args)) {
+				if (m.getName().equals(methodName)
+						&& isArgsMatchMethod(m, args)) {
 					return m.invoke(owner, args);
 				}
 			}
@@ -393,7 +452,8 @@ public class AppUtil {
 	 * @return Object
 	 * @throws Exception
 	 */
-	public static Object invokeStaticMethod(String classPath, String methodName, Object[] args, Class[] argClasses)
+	public static Object invokeStaticMethod(String classPath,
+			String methodName, Object[] args, Class[] argClasses)
 			throws Exception {
 		Class ownerClass = Class.forName(classPath);
 		Method m = ownerClass.getMethod(methodName, argClasses);
@@ -539,7 +599,8 @@ public class AppUtil {
 	 * @return all InetAddress instances
 	 * @throws UnknownHostException
 	 */
-	private static InetAddress[] getAllLocalUsingNetworkInterface() throws UnknownHostException {
+	private static InetAddress[] getAllLocalUsingNetworkInterface()
+			throws UnknownHostException {
 		ArrayList<InetAddress> addresses = new ArrayList<InetAddress>();
 		Enumeration<NetworkInterface> e = null;
 		try {
@@ -556,7 +617,8 @@ public class AppUtil {
 			} catch (Exception x) {
 			}
 
-			for (Enumeration<InetAddress> e2 = ni.getInetAddresses(); e2.hasMoreElements();) {
+			for (Enumeration<InetAddress> e2 = ni.getInetAddresses(); e2
+					.hasMoreElements();) {
 				InetAddress ia = e2.nextElement();
 				if (ia.getHostAddress().equals("0:0:0:0:0:0:0:1")) {
 					continue;
@@ -701,7 +763,8 @@ public class AppUtil {
 	 * @param cellSet  程序网对象
 	 * @throws Exception
 	 */
-	public static void writeSPLFile(String filePath, PgmCellSet cellSet) throws Exception {
+	public static void writeSPLFile(String filePath, PgmCellSet cellSet)
+			throws Exception {
 		String cellSetStr = CellSetUtil.toString(cellSet);
 		writeSPLFile(filePath, cellSetStr);
 	}
@@ -713,7 +776,8 @@ public class AppUtil {
 	 * @param cellSetStr 网格字符串
 	 * @throws Exception
 	 */
-	public static void writeSPLFile(String filePath, String cellSetStr) throws Exception {
+	public static void writeSPLFile(String filePath, String cellSetStr)
+			throws Exception {
 		FileOutputStream fo = null;
 		OutputStreamWriter ow = null;
 		BufferedWriter bw = null;
