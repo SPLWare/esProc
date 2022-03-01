@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>next{a}</title>
+<title>movefile( fn , path )</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,28 +13,43 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h2><a name="next_a"><span lang=EN-US>next{a}</span></a></h2></div>
+	<div id="centent-title"><h3 style='text-align:justify;text-justify:inter-ideograph'><a
+name="movefile_fn_path"></a><a name="movefile_fn_path_z"></a><span lang=EN-US>movefile(<i
+style='mso-bidi-font-style:normal'>fn</i>,<i style='mso-bidi-font-style:normal'>path</i>)</span></h3></div>
 	<p class=afe style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
 14.0pt;line-height:200%'>Description:</span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>Skip the current loop and continue with the next loop.</span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Move, delete, or
+rename a file.</span></p>
 
 <p class=afe style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
 14.0pt;line-height:200%'>Syntax:</span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt'><span class=code><span
-lang=EN-US style='font-family:"Times New Roman",serif'>next</span></span><span
-lang=EN-US>{</span><span class=var2><span lang=EN-US>a</span></span><span
-lang=EN-US>}</span></p>
+lang=EN-US style='font-family:"Times New Roman",serif'>movefile(</span></span><span
+class=code><i style='mso-bidi-font-style:normal'><span lang=EN-US
+style='font-family:"Times New Roman",serif;font-weight:normal'>fn,path</span></i></span><span
+class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>)</span></span></p>
 
 <p class=afe style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
 14.0pt;line-height:200%'>Note:</span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span class=code><span
-lang=EN-US style='font-family:"Times New Roman",serif'>next</span></span><span
-lang=EN-US> is used to skip the remaining code block in the current loop and
-execute the next loop as long as the cycling does not finish.</span></p>
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US>The function moves file </span><span class=code><i style='mso-bidi-font-style:
+normal'><span lang=EN-US style='font-family:"Times New Roman",serif;font-weight:
+normal'>fn</span></i></span><span lang=EN-US> to a file specified by parameter </span><span
+class=code><i style='mso-bidi-font-style:normal'><span lang=EN-US
+style='font-family:"Times New Roman",serif;font-weight:normal'>path</span></i></span><span
+lang=EN-US>. </span><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+font-weight:normal'>Delete </span></span><span lang=EN-US>file </span><span
+class=code><i style='mso-bidi-font-style:normal'><span lang=EN-US
+style='font-family:"Times New Roman",serif;font-weight:normal'>fn</span></i></span><span
+lang=EN-US> if </span><span class=code><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='font-family:"Times New Roman",serif;font-weight:normal'>path</span></i></span><span
+lang=EN-US> is absent</span><span class=code><span lang=EN-US style='font-family:
+"Times New Roman",serif;font-weight:normal'>; rename the file if only the file
+name is specified in the <i style='mso-bidi-font-style:normal'>path</i></span></span><span
+lang=EN-US>.</span></p>
 
 <p class=afe style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
 14.0pt;line-height:200%'>Parameters:</span></p>
@@ -42,504 +57,312 @@ execute the next loop as long as the cycling does not finish.</span></p>
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
  style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'>
-  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var2><span lang=EN-US>a</span></span></p>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=70 valign=top style='width:52.2pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US
+  style='mso-bidi-font-weight:bold'>fn</span></i><span class=var2><span
+  lang=EN-US></span></span></p>
   </td>
-  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>The master cell of the loop code block.
-  If the master cell </span><span class=var2><span lang=EN-US>a</span></span><span
-  lang=EN-US> is omitted, then it is the current loop that is running.</span></p>
+  <td width=465 valign=top style='width:348.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>A file</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
+  <td width=70 valign=top style='width:52.2pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US>path</span></i><span
+  class=var2><span lang=EN-US></span></span></p>
+  </td>
+  <td width=465 valign=top style='width:348.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>The path (with file name) along which the
+  file is moved, or a file name</span></p>
   </td>
  </tr>
 </table>
 
 <p class=afe style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Example:</span></p>
+14.0pt;line-height:200%'>Options:</span></p>
 
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
- style='margin-left:7.35pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
- mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
-  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></p>
+  <td width=70 valign=top style='width:52.2pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>@y</span></span><span
+  class=var2><span lang=EN-US></span></span></p>
   </td>
-  <td width=47 valign=top style='width:35.4pt;border:solid #A6A6A6 1.0pt;
-  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  color:black;mso-color-alt:windowtext'>A</span></span><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
-  </td>
-  <td width=28 valign=top style='width:21.3pt;border:solid #A6A6A6 1.0pt;
-  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  color:black;mso-color-alt:windowtext'>B</span></span><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
-  </td>
-  <td width=85 valign=top style='width:63.75pt;border:solid #A6A6A6 1.0pt;
-  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  color:black;mso-color-alt:windowtext'>C</span></span><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
-  </td>
-  <td width=57 valign=top style='width:42.55pt;border:solid #A6A6A6 1.0pt;
-  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  color:black;mso-color-alt:windowtext'>D</span></span><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
-  </td>
-  <td width=302 valign=top style='width:8.0cm;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  <td width=465 valign=top style='width:348.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Force an execution of the function if the
+  target file already exists. Without the option you can’t force an execution.
+  Delete the target file if parameter </span><span class=code><i
+  style='mso-bidi-font-style:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
+  font-weight:normal'>path</span></i></span><span lang=EN-US> is absent. </span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+  <td width=70 valign=top style='width:52.2pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>@c</span></span><span
+  class=var2><span lang=EN-US></span></span></p>
+  </td>
+  <td width=465 valign=top style='width:348.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Copy the file. If the target file name is
+  the same as that of the specified file to which it will be moved, the copy
+  fails.</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes'>
+  <td width=70 valign=top style='width:52.2pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>@p</span></span></p>
+  </td>
+  <td width=465 valign=top style='width:348.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US>path</span></i><span lang=EN-US> is
+  relative to the main directory when it is a relative path; default is relative
+  to <i>fn</i>’s parent directory</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=afe style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
+14.0pt;line-height:200%'>Return value:</span><span lang=EN-US style='mso-bidi-font-size:
+14.0pt;line-height:200%;font-weight:normal'> </span><span lang=EN-US
+style='mso-bidi-font-size:14.0pt;line-height:200%'><span
+style='mso-spacerun:yes'>&nbsp;</span></span><span lang=EN-US style='mso-bidi-font-size:
+14.0pt;line-height:200%;font-weight:normal'></span></p>
+
+<p class=MsoNormal style='text-indent:26.25pt;mso-char-indent-count:2.5'><span
+lang=EN-US>Boolean value</span></p>
+
+<p class=afe style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
+14.0pt;line-height:200%'>Example:</span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=576
+ style='margin-left:18.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
+ mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
+  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span lang=EN-US>&nbsp;</span></p>
+  </td>
+  <td width=340 valign=top style='width:254.65pt;border:solid #A6A6A6 1.0pt;
+  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;color:black;mso-color-alt:
+  windowtext'>A</span></span><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif'></span></span></p>
+  </td>
+  <td width=213 valign=top style='width:159.95pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span lang=EN-US>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
   color:black;mso-color-alt:windowtext'>1</span></span><span class=code><span
   lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
   </td>
-  <td width=47 valign=top style='width:35.4pt;border-top:none;border-left:none;
+  <td width=340 style='width:254.65pt;border-top:none;border-left:none;
   border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=[]</span></span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=movefile(file(&quot;E://test.property&quot;),&quot;D://testfile.property&quot;)</span></span></p>
   </td>
-  <td width=28 valign=top style='width:21.3pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></p>
-  </td>
-  <td width=85 valign=top style='width:63.75pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></p>
-  </td>
-  <td width=57 valign=top style='width:42.55pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></p>
-  </td>
-  <td width=302 valign=top style='width:8.0cm;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  font-weight:normal'>[1,1,3,3]</span></span></p>
+  <td width=213 style='width:159.95pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Move the file to </span><span class=code><i
+  style='mso-bidi-font-style:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
+  font-weight:normal'>testfile.property</span></i></span><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'> </span></span><span
+  lang=EN-US>file under root directory on driver D</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:2'>
-  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
   color:black;mso-color-alt:windowtext'>2</span></span><span class=code><span
   lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
   </td>
-  <td width=47 valign=top style='width:35.4pt;border-top:none;border-left:none;
+  <td width=340 style='width:254.65pt;border-top:none;border-left:none;
   border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>for
-  5</span></span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=movefile(file(&quot;D://testfile.property&quot;),&quot;file.property&quot;)</span></span></p>
   </td>
-  <td width=28 valign=top style='width:21.3pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></p>
-  </td>
-  <td width=85 valign=top style='width:63.75pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></p>
-  </td>
-  <td width=57 valign=top style='width:42.55pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></p>
-  </td>
-  <td width=302 rowspan=5 valign=top style='width:8.0cm;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>In this example, the next </span><span
+  <td width=213 style='width:159.95pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><i style='mso-bidi-font-style:normal'><span
+  lang=EN-US style='font-family:"Times New Roman",serif;font-weight:normal'>D://testfile.property</span></i></span><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'> </span></span><span
   class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  font-weight:normal'>A2</span></span><span lang=EN-US> and the break </span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  font-weight:normal'>A2</span></span><span lang=EN-US> are to control loop of
-  the </span><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  font-weight:normal'>A2</span></span><b style='mso-bidi-font-weight:normal'><span
-  lang=EN-US> </span></b><span lang=EN-US>level. The computation of </span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  font-weight:normal'>A1</span></span><span lang=EN-US> is the sequence </span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  font-weight:normal'>[1, 1, 3, 3]</span></span></p>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  font-weight:normal'>is renamed</span></span><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'> </span></span><span
+  class=code><i style='mso-bidi-font-style:normal'><span lang=EN-US
+  style='font-family:"Times New Roman",serif;font-weight:normal'>file.property</span></i></span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:3;height:18.15pt;mso-height-rule:exactly'>
-  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:3'>
+  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:18.15pt;mso-height-rule:
-  exactly'>
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
   color:black;mso-color-alt:windowtext'>3</span></span><span class=code><span
   lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
   </td>
-  <td width=47 valign=top style='width:35.4pt;border-top:none;border-left:none;
+  <td width=340 style='width:254.65pt;border-top:none;border-left:none;
   border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:18.15pt;
-  mso-height-rule:exactly'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></p>
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=movefile(file(&quot;D://file.property&quot;))</span></span></p>
   </td>
-  <td width=28 valign=top style='width:21.3pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:18.15pt;
-  mso-height-rule:exactly'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>for
-  2</span></span></p>
-  </td>
-  <td width=85 valign=top style='width:63.75pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:18.15pt;
-  mso-height-rule:exactly'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></p>
-  </td>
-  <td width=57 valign=top style='width:42.55pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:18.15pt;
-  mso-height-rule:exactly'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></p>
+  <td width=213 style='width:159.95pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Delete </span><span class=code><i
+  style='mso-bidi-font-style:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
+  font-weight:normal'>file.property</span></i></span><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'> </span></span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:4;height:7.9pt'>
-  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:4'>
+  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:7.9pt'>
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
   color:black;mso-color-alt:windowtext'>4</span></span><span class=code><span
   lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
   </td>
-  <td width=47 valign=top style='width:35.4pt;border-top:none;border-left:none;
+  <td width=340 style='width:254.65pt;border-top:none;border-left:none;
   border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:7.9pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></p>
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=movefile@y(file(&quot;E://test1.property&quot;),&quot;D://testfile1.property&quot;)</span></span></p>
   </td>
-  <td width=28 valign=top style='width:21.3pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:7.9pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></p>
-  </td>
-  <td width=85 valign=top style='width:63.75pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:7.9pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>if
-  A2==2</span></span></p>
-  </td>
-  <td width=57 valign=top style='width:42.55pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:7.9pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>next
-  A2</span></span></p>
+  <td width=213 style='width:159.95pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>The file </span><span class=code><i
+  style='mso-bidi-font-style:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
+  font-weight:normal'>testfile1.property</span></i></span><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;color:black'> </span></span><span
+  lang=EN-US>already exists.</span><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif;color:black'> </span></span><span
+  lang=EN-US>Force the move and override the original file</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:5;height:2.1pt'>
-  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:5'>
+  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:2.1pt'>
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
   color:black;mso-color-alt:windowtext'>5</span></span><span class=code><span
   lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
   </td>
-  <td width=47 valign=top style='width:35.4pt;border-top:none;border-left:none;
+  <td width=340 style='width:254.65pt;border-top:none;border-left:none;
   border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:2.1pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></p>
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=movefile@c(file(&quot;D://testfile1.property&quot;),&quot;file.property&quot;)</span></span></p>
   </td>
-  <td width=28 valign=top style='width:21.3pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:2.1pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></p>
-  </td>
-  <td width=85 valign=top style='width:63.75pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:2.1pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>if
-  A2==4</span></span></p>
-  </td>
-  <td width=57 valign=top style='width:42.55pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:2.1pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>break
-  A2</span></span></p>
+  <td width=213 style='width:159.95pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Copy the file, instead of renaming it</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:6;height:1.95pt'>
-  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:6'>
+  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:1.95pt'>
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
   color:black;mso-color-alt:windowtext'>6</span></span><span class=code><span
   lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
   </td>
-  <td width=47 valign=top style='width:35.4pt;border-top:none;border-left:none;
+  <td width=340 style='width:254.65pt;border-top:none;border-left:none;
   border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:1.95pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></p>
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=movefile@cy(file(&quot;E://test2.property&quot;),&quot;D://
+  file.property&quot;)</span></span></p>
   </td>
-  <td width=28 valign=top style='width:21.3pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:1.95pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></p>
-  </td>
-  <td width=85 valign=top style='width:63.75pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:1.95pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>&gt;A1=A1|[A2]</span></span></p>
-  </td>
-  <td width=57 valign=top style='width:42.55pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:1.95pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></p>
+  <td width=213 style='width:159.95pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><i style='mso-bidi-font-style:normal'><span
+  lang=EN-US style='font-family:"Times New Roman",serif;font-weight:normal'>file.property</span></i></span><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  color:black'> </span></span><span lang=EN-US>already exists.</span><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  color:black'> </span></span><span lang=EN-US>Force the copy and override the
+  original file</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:7;height:1.95pt'>
-  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:7'>
+  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:1.95pt'>
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
   color:black;mso-color-alt:windowtext'>7</span></span><span class=code><span
   lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
   </td>
-  <td width=217 colspan=4 valign=top style='width:163.0pt;border-top:none;
-  border-left:none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  <td width=340 style='width:254.65pt;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:1.95pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=demo.query(&quot;select
-  * from EMPLOYEE&quot;)</span></span></p>
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=movefile@y(file(&quot;D://testfile1.property&quot;))</span></span></p>
   </td>
-  <td width=302 valign=top style='width:8.0cm;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:1.95pt'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  <td width=213 style='width:159.95pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  font-weight:normal'>Delete <i style='mso-bidi-font-style:normal'>testfile1.property</i></span></span><span
+  lang=EN-US style='mso-fareast-font-family:黑体'> </span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:8;height:1.95pt'>
-  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:8;mso-yfti-lastrow:yes'>
+  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:1.95pt'>
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
   color:black;mso-color-alt:windowtext'>8</span></span><span class=code><span
   lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
   </td>
-  <td width=161 colspan=3 valign=top style='width:120.45pt;border-top:none;
-  border-left:none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:1.95pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=create(ID,Dept)</span></span></p>
-  </td>
-  <td width=57 valign=top style='width:42.55pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:1.95pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></p>
-  </td>
-  <td width=302 valign=top style='width:8.0cm;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:1.95pt'>
-  <p class=MsoNormal><span lang=EN-US style='mso-fareast-font-family:黑体'><img border=0 width=123 height=24
-  src="Function_Reference.files/image1250.png" v:shapes="图片_x0020_319"></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:9;height:1.95pt'>
-  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:1.95pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  color:black;mso-color-alt:windowtext'>9</span></span><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
-  </td>
-  <td width=47 valign=top style='width:35.4pt;border-top:none;border-left:none;
+  <td width=340 style='width:254.65pt;border-top:none;border-left:none;
   border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:1.95pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>for
-  A7</span></span></p>
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=movefile@cp(file(&quot;D://testfile1.property&quot;),&quot;file.property&quot;)</span></span></p>
   </td>
-  <td width=28 valign=top style='width:21.3pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:1.95pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></p>
-  </td>
-  <td width=85 valign=top style='width:63.75pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:1.95pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></p>
-  </td>
-  <td width=57 valign=top style='width:42.55pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:1.95pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></p>
-  </td>
-  <td width=302 rowspan=3 valign=top style='width:8.0cm;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:1.95pt'>
-  <p class=MsoNormal><span lang=EN-US>Extract records whose </span><span
+  <td width=213 style='width:159.95pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Copy the file to the main directory and
+  rename it</span><span class=code><i><span lang=EN-US style='font-family:"Times New Roman",serif;
+  font-weight:normal;mso-bidi-font-weight:bold'> file.property</span></i></span><span
   class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  font-weight:normal'>DEPT</span></span><span lang=EN-US> values are not <b
-  style='mso-bidi-font-weight:normal'>&quot;</b></span><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif;font-weight:normal'>Sales</span></span><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>&quot;</span></b><span
-  lang=EN-US> from the </span><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif;font-weight:normal'>EMPLOYEE</span></span><span
-  lang=EN-US> table</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:10;height:1.95pt'>
-  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:1.95pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  color:black;mso-color-alt:windowtext'>10</span></span><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
-  </td>
-  <td width=47 valign=top style='width:35.4pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:1.95pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></p>
-  </td>
-  <td width=113 colspan=2 valign=top style='width:3.0cm;border-top:none;
-  border-left:none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:1.95pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>if
-  A9.</span></span><span class=110><span lang=EN-US style='font-size:18.0pt;
-  mso-bidi-font-size:12.0pt;font-family:"Times New Roman",serif'> </span></span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>DEPT==&quot;Sales&quot;</span></span></p>
-  </td>
-  <td width=57 valign=top style='width:42.55pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:1.95pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:11;height:1.95pt'>
-  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:1.95pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  color:black;mso-color-alt:windowtext'>11</span></span><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
-  </td>
-  <td width=47 valign=top style='width:35.4pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:1.95pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></p>
-  </td>
-  <td width=28 valign=top style='width:21.3pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:1.95pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></p>
-  </td>
-  <td width=85 valign=top style='width:63.75pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:1.95pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>Next</span></span></p>
-  </td>
-  <td width=57 valign=top style='width:42.55pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:1.95pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:12;mso-yfti-lastrow:yes;height:24.65pt'>
-  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:24.65pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  color:black;mso-color-alt:windowtext'>12</span></span><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
-  </td>
-  <td width=47 valign=top style='width:35.4pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:24.65pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></p>
-  </td>
-  <td width=170 colspan=3 valign=top style='width:127.6pt;border-top:none;
-  border-left:none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:24.65pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>&gt;A8.insert(0,A9.EID:
-  ID,A9.</span></span><span class=110><span lang=EN-US style='font-size:18.0pt;
-  mso-bidi-font-size:12.0pt;font-family:"Times New Roman",serif'> </span></span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>DEPT:Dept)</span></span></p>
-  </td>
-  <td width=302 valign=top style='width:8.0cm;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:24.65pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>A8</span></span><span
-  lang=EN-US> returns the result</span></p>
-  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'><img border=0 width=136 height=128
-  src="Function_Reference.files/image1251.png" v:shapes="_x0000_i1838"></span></p>
+  font-weight:normal'></span></span></p>
   </td>
  </tr>
 </table>
 
 <p class=afe style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%;color:black'>Note:</span></p>
+14.0pt;line-height:200%'>Related functions:</span></p>
 
-<p class=MsoNormal style='margin-left:42.0pt;text-indent:-21.0pt;line-height:
-16.0pt;mso-line-height-rule:exactly;mso-list:l12 level1 lfo26'><span
-lang=EN-US style='mso-fareast-font-family:"Times New Roman"'><span
-style='mso-list:Ignore'>1.<span style='font:7.0pt "Times New Roman"'>&nbsp;
-</span></span></span><span lang=EN-US>By comparison, the </span><span
-class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>break</span></span><span
-lang=EN-US> is to jump out of the cycling directly, while </span><span
-class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>next</span></span><span
-lang=EN-US> is to ignore the remaining code block in the current loop, and
-proceeds to the next loop as long as the cycling does not finish. </span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><i style='mso-bidi-font-style:
+normal'><span lang=EN-US><a  href="214.html">f<span style='font-style:normal'>.
+ex<span style='mso-bookmark:_Hlt415042025'>i</span>s<span style='mso-bookmark:
+_Hlt414994538'>t</span><span style='mso-bookmark:_Hlt414993856'>s</span>()</span></a><a
+name="_Hlt414993856"></a><a name="_Hlt414994538"></a><a name="_Hlt415042025"></a></span></i></p>
 
-<p class=MsoNormal style='margin-left:42.0pt;text-indent:-21.0pt;line-height:
-16.0pt;mso-line-height-rule:exactly;mso-list:l12 level1 lfo26'><span
-lang=EN-US style='mso-fareast-font-family:"Times New Roman"'><span
-style='mso-list:Ignore'>2.<span style='font:7.0pt "Times New Roman"'>&nbsp;
-</span></span></span><span lang=EN-US>If </span><span class=var2><span
-lang=EN-US>a</span></span><span lang=EN-US> is omitted, then the current loop
-will be under control. To control the loop at higher level, </span><span
-class=var2><span lang=EN-US>a </span></span><span lang=EN-US>is required.</span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><i style='mso-bidi-font-style:
+normal'><span lang=EN-US><a  href="158.html">f<span style='font-style:normal'>.
+dat<span style='mso-bookmark:_Hlt414993906'>e</span>()</span></a><a
+name="_Hlt414993906"></a></span></i></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><i style='mso-bidi-font-style:
+normal'><span lang=EN-US><a  href="751.html">f<span style='font-style:normal'>.
+size()</span></a></span></i></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US>&nbsp;</span></i></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="519.html">Next</a></div>
@@ -547,12 +370,12 @@ class=var2><span lang=EN-US>a </span></span><span lang=EN-US>is required.</span>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="21.html">Functions</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="517.html">movefile()</a></span></li>
 </div>
 	</div>
 	<div id="footer">	
 		
-		<div class="copyright"> Copyright&reg; 2021 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+		<div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">Scudata Inc. 
       </a></div> 
         <!--
 		<div class="copyright"> Copyright&reg; 2017 <a href="http://www.yimming.com" target="_Blank"> Beijing Yimming Ltd. Co. 

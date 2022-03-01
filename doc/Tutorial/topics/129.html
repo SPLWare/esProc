@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>4.6 Transaction Isolation Levels</title>
+<title>4.5.2 Calling stored procedures that return a single value</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,23 +13,195 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h2 style='margin-left:36.0pt;mso-para-margin-left:0gd;text-indent:-36.0pt;
-mso-list:l3 level2 lfo31'><span lang=EN-US
-style='mso-fareast-font-family:"Times New Roman"'><span style='mso-list:Ignore'>4.6<span
-style='font:7.0pt "Times New Roman"'> </span></span></span><span
-lang=EN-US>Transaction Isolation Levels</span></h2></div>
-	<p class=T-ParCxSpFirst style='margin-bottom:0cm;mso-add-space:auto;text-align:
-justify;text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US
-style='background:aqua;mso-highlight:aqua'>You can choose to skip this section
-if you are not a professional programmer. This won’t affect your learning about
-the other contents of this <i style='mso-bidi-font-style:normal'>Tutorial.</i></span></p>
+	<div id="centent-title"><h3 style='margin:0cm;text-indent:0cm;line-height:normal;mso-list:none;
+tab-stops:-179.95pt 64.2pt'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:10.0pt'>4.5.2 Calling stored procedures that return a single
+value</span></h3></div>
+	<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US style='mso-bidi-font-size:11.0pt'>Stored procedures with returned
+values can be called only by <b style='mso-bidi-font-weight:normal'>proc</b>
+function. The stored procedure below returns one parameter value, so <b
+style='mso-bidi-font-weight:normal'>proc</b> function, instead of <b
+style='mso-bidi-font-weight:normal'>execute</b> function, will be used.</span></p>
 
-<p class=T-ParCxSpLast style='margin-bottom:0cm;mso-add-space:auto;text-align:
-justify;text-justify:inter-ideograph;text-indent:21.0pt'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US><a  href="117.html">Database
-Connection Management</a></span></i><span lang=EN-US> introduces how to commit
-and rollback transaction. This section will discuss in detail the execution of
-the database transactions under different transaction isolation levels. </span></p>
+<p class=MsoNormal style='text-indent:21.25pt;mso-char-indent-count:2.36'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>create
+or replace procedure testb</span></i></p>
+
+<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>(para1
+in varchar2,para2 out varchar2)<span style='mso-spacerun:yes'>&nbsp; </span></span></i></p>
+
+<p class=MsoNormal style='text-indent:21.25pt;mso-char-indent-count:2.36'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>as</span></i></p>
+
+<p class=MsoNormal style='text-indent:21.25pt;mso-char-indent-count:2.36'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>begin</span></i></p>
+
+<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>select
+name into para2 from emp where id= para1;</span></i></p>
+
+<p class=MsoNormal style='text-indent:21.25pt;mso-char-indent-count:2.36'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>end
+testb;</span></i></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US style='mso-bidi-font-size:11.0pt'>Here’s the code for calling this
+stored procedure by esProc:</span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='margin-left:21.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:
+ #B2B2B2;mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
+ .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:.5pt solid #B2B2B2;
+ mso-border-insidev:.5pt solid #B2B2B2'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=42 valign=top style='width:31.2pt;border:solid black 1.0pt;
+  mso-border-alt:solid black .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
+  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
+  style='font-size:9.0pt'>&nbsp;</span></p>
+  </td>
+  <td width=302 valign=top style='width:226.75pt;border-top:solid black 1.0pt;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
+  mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-bottom-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
+  mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
+  lang=EN-US style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>A</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
+  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
+  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>1</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
+  </td>
+  <td width=302 style='width:226.75pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-top-alt:windowtext;mso-border-left-alt:windowtext;mso-border-bottom-alt:
+  #B2B2B2;mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
+  .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;color:black;
+  mso-color-alt:windowtext'>=connect(&quot;ora&quot;)</span><span lang=EN-US
+  style='font-size:9.0pt'></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
+  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
+  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>2</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
+  </td>
+  <td width=302 style='width:226.75pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;color:black;
+  mso-color-alt:windowtext'>=A1.proc(&quot;{call
+  testb(?,?)}&quot;,1:0:&quot;i&quot;:,:11:&quot;o&quot;:name)</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;page-break-inside:avoid;height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
+  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
+  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>3</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
+  </td>
+  <td width=302 style='width:226.75pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;color:black;
+  mso-color-alt:windowtext'>=name</span><span lang=EN-US style='font-size:9.0pt'></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
+  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
+  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>4</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
+  </td>
+  <td width=302 style='width:226.75pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>&gt;A1.close()</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US style='mso-bidi-font-size:11.0pt'>A1 connects to the database and A4
+closes the connection. </span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US style='mso-bidi-font-size:11.0pt'>A2 uses <b style='mso-bidi-font-weight:
+normal'>proc</b> function to call the stored procedure <i style='mso-bidi-font-style:
+normal'>testb</i>. Here two parameters are used: one is <b style='mso-bidi-font-weight:
+normal'><span style='mso-bidi-font-style:italic'>1:0: &quot;i&quot;</span></b>
+whose value is <b style='mso-bidi-font-weight:normal'><span style='mso-bidi-font-style:
+italic'>1</span></b> and which is an input mode with automatically identified
+data type; the other is <i>11: &quot;o&quot;:name</i> in which <i>11</i>
+represents the string type (see <i style='mso-bidi-font-style:normal'><a
+ href="132.html">Appendix: Definitions of
+Parameter Data Types</a></i> for more), <i>&quot;o&quot;</i><b
+style='mso-bidi-font-weight:normal'> </b>represents an output mode and <i
+style='mso-bidi-font-style:normal'>name</i> defines an esProc variable to
+receive the return value. </span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US style='mso-bidi-font-size:11.0pt'>A3 gets the value of the variable <i
+style='mso-bidi-font-style:normal'>name</i>, which is the output result of the
+stored procedure. The data type of the variable value is determined by the
+stored procedure. In this example, <i style='mso-bidi-font-style:normal'>name</i>
+is used to return the name of the employee of specified number and the data
+type of the returned result is string.</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US style='mso-bidi-font-size:11.0pt'>For a stored procedure, there’re 3
+parameter modes &#8211; input, output and input&amp;output &#8211; represented respectively
+by </span><i style='mso-bidi-font-style:normal'><span lang=EN-US
+style='mso-bidi-font-size:10.5pt'>&quot;i&quot;</span></i><span lang=EN-US
+style='mso-bidi-font-size:11.0pt'>,</span><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt'>&quot;o&quot;</span></i><span
+lang=EN-US style='mso-bidi-font-size:11.0pt'> and </span><i style='mso-bidi-font-style:
+normal'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>&quot;io&quot;</span></i><span
+lang=EN-US style='mso-bidi-font-size:10.5pt'>. The input&amp;output parameter
+can both input data and get assigned by the stored procedure.<b
+style='mso-bidi-font-weight:normal'> </b></span><span lang=EN-US
+style='mso-bidi-font-size:11.0pt'></span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="130.html">Next</a></div>
@@ -37,14 +209,12 @@ the database transactions under different transaction isolation levels. </span><
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="103.html">Chapter4 Database Management</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="130.html">4.6.1 Types of SQL statements</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="131.html">4.6.2 Four Levels of Transaction Isolation</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="127.html">4.5 Calling Database Stored Procedures</a></span></li>
 </div>
 	</div>
 	<div id="footer">	
 		
-		<div class="copyright"> Copyright&reg; 2021 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+		<div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">Scudata Inc. 
       </a></div> 
         <!--
 		<div class="copyright"> Copyright&reg; 2017 <a href="http://www.yimming.com" target="_Blank"> Beijing Yimming Ltd. Co. 

@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>T.news( A/cs,x:C,...;wi,... )</title>
+<title>movefile()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,207 +13,8 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h3 style='text-align:justify;text-justify:inter-ideograph'><a
-name="T_news_Acs_x_C_wi_2"></a><a name="T_news_T_A_cs_x_C_wi"></a><a
-name="T_news_X_xi_Fi"></a><span style='mso-bookmark:T_news_Acs_x_C_wi_2'><span
-lang=EN-US style='mso-bidi-font-size:11.0pt;line-height:172%;mso-bidi-font-weight:
-bold'>T.news(<i>A/cs,x:C,...;wi,...</i>)</span></span><a
-name="T_news_Acs_x_C_wi_memory"></a><span
-lang=EN-US style='mso-bidi-font-weight:bold'></span></h3></div>
-	<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Description:</span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>Get values of specified field(s) from a cluster table according to
-key values of a cluster in-memory table or a cluster cursor, and concatenate
-them into a new table sequence or a cluster multicursor.</span></p>
-
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Syntax:</span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US>T</span></i><span class=code><span lang=EN-US
-style='font-family:"Times New Roman",serif'>.news(</span></span><i><span
-lang=EN-US>A/cs,x:C,…;wi,...</span></i><span class=code><span lang=EN-US
-style='font-family:"Times New Roman",serif'>) </span></span></p>
-
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Note:</span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The function
-retrieves values of field(s) <i style='mso-bidi-font-style:normal'>x,..</i>.
-from composite table <i style='mso-bidi-font-style:normal'>T</i> according to
-key values in cluster in-memory table <i style='mso-bidi-font-style:normal'>A</i>
-or cluster cursor <i style='mso-bidi-font-style:normal'>cs</i>, and
-concatenates them to form a new table sequence or a cluster multicursor.<i> A</i>
-and <i>cs</i> should be ordered by the key, and their key should keep the same
-order as the existing key field(s) in <i style='mso-bidi-font-style:normal'>T</i>.</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>The result
-cursor should be sorted by <i>T</i>’s dimension/key.</span></p>
-
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Parameters:</span></b></p>
-
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:-7.15pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var2><span lang=EN-US>T</span></span></p>
-  </td>
-  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>A cluster table</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:1'>
-  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var2><span lang=EN-US>A/cs</span></span></p>
-  </td>
-  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>A cluster in-memory table/a cluster
-  cursor</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:2'>
-  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var2><span lang=EN-US>x</span></span></p>
-  </td>
-  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>A field vlaue</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:3'>
-  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var2><span lang=EN-US>C</span></span></p>
-  </td>
-  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Column alias</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes'>
-  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var2><span lang=EN-US>wi</span></span></p>
-  </td>
-  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Filtering condition; multiple conditions are
-  separated with comma and their relationships are AND</span></p>
-  </td>
- </tr>
-</table>
-
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Options:</span></b></p>
-
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:-7.15pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'>
-  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>@z</span></span></p>
-  </td>
-  <td width=830 valign=top style='width:622.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Match existing fields of <i>A/cs</i> with
-  <i>T</i>’s dimension/key<i style='mso-bidi-font-style:normal'></i></span></p>
-  </td>
- </tr>
-</table>
-
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Return value:</span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>A table sequence
-or a cluster multicursor</span></p>
-
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Example:</span></b></p>
-
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
- style='margin-left:16.6pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
- mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=31 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
-  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></p>
-  </td>
-  <td width=418 valign=top style='width:313.8pt;border:solid #A6A6A6 1.0pt;
-  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif;color:black;mso-color-alt:
-  windowtext'>A</span></span><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'></span></span></p>
-  </td>
-  <td width=482 valign=top style='width:361.45pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:1'>
-  <td width=31 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  color:black;mso-color-alt:windowtext'>1</span></span><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
-  </td>
-  <td width=418 valign=top style='width:313.8pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
-  11.0pt;font-family:"Times New Roman",serif'>=file(&quot;scores.ctx&quot;,[&quot;192.168.31.165:8281&quot;]).open()</span></span></p>
-  </td>
-  <td width=482 valign=top style='width:361.45pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Return a cluster table</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:2'>
-  <td width=31 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  color:black;mso-color-alt:windowtext'>2</span></span><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
-  </td>
-  <td width=418 valign=top style='width:313.8pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
-  11.0pt;font-family:"Times New Roman",serif'>=file(&quot;student.ctx&quot;,[&quot;192.168.31.165:8281&quot;]).open().memory()</span></span></p>
-  </td>
-  <td width=482 valign=top style='width:361.45pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Return a cluster in-memory table</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
-  <td width=31 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  color:black;mso-color-alt:windowtext'>3</span></span><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
-  </td>
-  <td width=418 valign=top style='width:313.8pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
-  11.0pt;font-family:"Times New Roman",serif'>=A1.news(A2,STUDENTID,SUBJECT,SCORE;SUBJECT==&quot;Math&quot;,SCORE&gt;70)</span></span></p>
-  </td>
-  <td width=482 valign=top style='width:361.45pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Return a table sequence</span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  font-weight:normal;mso-bidi-font-weight:bold'></span></span></p>
-  </td>
- </tr>
-</table>
+	<div id="centent-title"><h2><a name="_movefile()_1"></a><span lang=EN-US>movefile()</span></h2></div>
+	<p class=MsoNormal><span lang=EN-US>Here’s how to use movefile() function.</span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="518.html">Next</a></div>
@@ -221,12 +22,14 @@ style='font-size:14.0pt'>Example:</span></b></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="512.html">news()</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="21.html">Functions</a></span></li>
+<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="518.html">movefile( fn , path )</a></span></li>
+<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="519.html">movefile( fn:z,h;path,hs )</a></span></li>
 </div>
 	</div>
 	<div id="footer">	
 		
-		<div class="copyright"> Copyright&reg; 2021 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+		<div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">Scudata Inc. 
       </a></div> 
         <!--
 		<div class="copyright"> Copyright&reg; 2017 <a href="http://www.yimming.com" target="_Blank"> Beijing Yimming Ltd. Co. 

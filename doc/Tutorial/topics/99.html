@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>3.6 Primary Key and Index</title>
+<title>3.5.1 Foreign key field</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,17 +13,344 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h2 style='margin-left:36.0pt;mso-para-margin-left:0gd;text-indent:-36.0pt;
-mso-list:l21 level2 lfo29'><span lang=EN-US
-style='mso-fareast-font-family:"Times New Roman"'><span style='mso-list:Ignore'>3.6<span
-style='font:7.0pt "Times New Roman"'> </span></span></span><span
-lang=EN-US><span style='mso-spacerun:yes'>&nbsp;</span>Primary Key and Index<a
-name="Primary_Key_and_Index"></a></span></h2></div>
+	<div id="centent-title"><h3 style='margin:0cm;text-indent:0cm;line-height:normal;mso-list:none;
+tab-stops:-179.95pt 64.2pt'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:10.0pt'>3.5.1 Foreign key field</span></h3></div>
 	<p class=T-Par style='margin-bottom:0cm;mso-add-space:auto;text-align:justify;
-text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>esProc allows
-specifying one or more fields as a table sequence’s primary key, based on which
-certain functions make queries. This simplifies code and effectively increases
-performance.</span></p>
+text-justify:inter-ideograph;text-indent:21.0pt'><span class=var0><span
+lang=EN-US>T</span></span><span class=T-Bold><span lang=EN-US>.derive() </span></span><span
+class=T-Bold><span lang=EN-US style='font-weight:normal'>function is used in
+esProc to add one or more columns to a table sequence. For example:</span></span><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US></span></b></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='margin-left:21.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:
+ #B2B2B2;mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
+ .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:.5pt solid #B2B2B2;
+ mso-border-insidev:.5pt solid #B2B2B2'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=42 valign=top style='width:31.2pt;border:solid black 1.0pt;
+  mso-border-alt:solid black .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
+  text-indent:20.0pt;mso-char-indent-count:2.0'><span lang=EN-US>&nbsp;</span></p>
+  </td>
+  <td width=378 valign=top style='width:283.45pt;border:solid black 1.0pt;
+  border-left:none;mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
+  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
+  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>A</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel21 style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='mso-bidi-font-family:"Times New Roman";color:black;
+  mso-color-alt:windowtext'>1</span><span lang=EN-US style='mso-bidi-font-family:
+  "Times New Roman"'></span></p>
+  </td>
+  <td width=378 style='width:283.45pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-top-alt:black;mso-border-left-alt:windowtext;mso-border-bottom-alt:
+  #B2B2B2;mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
+  .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
+  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
+  color:black;mso-color-alt:windowtext'>=demo.query(&quot;select EID, NAME,
+  SURNAME, BIRTHDAY from EMPLOYEE&quot;)</span><span lang=EN-US
+  style='font-family:"Times New Roman",serif'></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel21 style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='mso-bidi-font-family:"Times New Roman";color:black;
+  mso-color-alt:windowtext'>2</span><span lang=EN-US style='mso-bidi-font-family:
+  "Times New Roman"'></span></p>
+  </td>
+  <td width=378 style='width:283.45pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
+  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
+  color:black;mso-color-alt:windowtext'>=A1.derive(NAME+&quot; &quot;+SURNAME:
+  FULLNAME, age(BIRTHDAY):AGE)</span><span lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=T-ParCxSpFirst style='margin-bottom:0cm;mso-add-space:auto;text-align:
+justify;text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>A1
+retrieves employee information. A2 adds computed columns - FULLNAME and AGE -
+to A1’s table sequence, returns a new table sequence, and computes the
+employees’ full names and ages.</span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
+lang=EN-US>Below is the table sequence in A1:</span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
+lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=419 height=230
+src="Tutorial.files/image479.png" v:shapes="_x0000_i1569"></span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
+lang=EN-US>With the computed columns added, A2 gets a new table sequence as
+follows:</span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
+lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=419 height=230
+src="Tutorial.files/image480.png" v:shapes="_x0000_i1570"></span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
+lang=EN-US>After learning how to add computed columns to a table sequence, we’ll
+explore the link between the computed columns and creating relationship between
+tables.</span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
+lang=EN-US>Often relationships exist between two database tables. In esProc the
+relationship can be expressed by directly referencing the records of a table
+sequence by another one, making the data search and presentation simple and the
+data structure clear.</span></p>
+
+<p class=T-ParCxSpLast style='margin-bottom:0cm;mso-add-space:auto;text-align:
+justify;text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>Using
+<b style='mso-bidi-font-weight:normal'><i>T</i>.derive()</b> function, you can
+add columns to a table sequence and make the data type of the values the
+records or the record sequences referenced from another table sequence, creating
+the foreign key for linking the two tables. For example: </span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='margin-left:21.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:
+ #B2B2B2;mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
+ .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:.5pt solid #B2B2B2;
+ mso-border-insidev:.5pt solid #B2B2B2'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=42 valign=top style='width:31.2pt;border:solid black 1.0pt;
+  mso-border-alt:solid black .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
+  text-indent:20.0pt;mso-char-indent-count:2.0'><span lang=EN-US>&nbsp;</span></p>
+  </td>
+  <td width=378 valign=top style='width:283.45pt;border:solid black 1.0pt;
+  border-left:none;mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
+  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
+  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>A</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel21 style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='mso-bidi-font-family:"Times New Roman";color:black;
+  mso-color-alt:windowtext'>1</span><span lang=EN-US style='mso-bidi-font-family:
+  "Times New Roman"'></span></p>
+  </td>
+  <td width=378 style='width:283.45pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-top-alt:black;mso-border-left-alt:windowtext;mso-border-bottom-alt:
+  #B2B2B2;mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
+  .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
+  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
+  color:black;mso-color-alt:windowtext'>=demo.query(&quot;select * from
+  CITIES&quot;)</span><span lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel21 style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='mso-bidi-font-family:"Times New Roman";color:black;
+  mso-color-alt:windowtext'>2</span><span lang=EN-US style='mso-bidi-font-family:
+  "Times New Roman"'></span></p>
+  </td>
+  <td width=378 style='width:283.45pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
+  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
+  color:black;mso-color-alt:windowtext'>=demo.query(&quot;select STATEID, NAME,
+  ABBR, CAPITAL from STATES&quot;)</span><span lang=EN-US style='font-family:
+  "Times New Roman",serif'></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;page-break-inside:avoid;height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel21 style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='mso-bidi-font-family:"Times New Roman";color:black;
+  mso-color-alt:windowtext'>3</span><span lang=EN-US style='mso-bidi-font-family:
+  "Times New Roman"'></span></p>
+  </td>
+  <td width=378 style='width:283.45pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
+  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
+  color:black;mso-color-alt:windowtext'>=A1.derive(A2.select@1(STATEID==A1.STATEID):State)</span><span
+  lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4;page-break-inside:avoid;height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel21 style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='mso-bidi-font-family:"Times New Roman";color:black;
+  mso-color-alt:windowtext'>4</span><span lang=EN-US style='mso-bidi-font-family:
+  "Times New Roman"'></span></p>
+  </td>
+  <td width=378 style='width:283.45pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
+  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
+  color:black;mso-color-alt:windowtext'>=A3.derive(State.ABBR:SA)</span><span
+  lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:5;mso-yfti-lastrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel21 style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='mso-bidi-font-family:"Times New Roman";color:black;
+  mso-color-alt:windowtext'>5</span><span lang=EN-US style='mso-bidi-font-family:
+  "Times New Roman"'></span></p>
+  </td>
+  <td width=378 style='width:283.45pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
+  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
+  color:black;mso-color-alt:windowtext'>=A2.derive(A1.select(STATEID==A2.STATEID):Cities)</span><span
+  lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=T-ParCxSpFirst style='margin-bottom:0cm;mso-add-space:auto;text-align:
+justify;text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>A1
+and A2 retrieve data from the database tables - CITIES and STATES - respectively:</span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
+lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=419 height=230
+src="Tutorial.files/image481.png" v:shapes="_x0000_i1571"></span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
+lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=419 height=230
+src="Tutorial.files/image482.png" v:shapes="_x0000_i1572"></span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
+lang=EN-US>The CITIES table is related to the STATES table through STATEID
+field. This kind of storage pattern in databases can keep data consistency,
+make data easy to maintain and, at the same time, save storage spaces. </span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
+lang=EN-US>A3 adds a State field to CITIES to create a foreign key for storing
+the records of states in which cities located. For the convenience of later
+check, A4 continues to add an SA field to CITIES to list abbreviations of these
+states. A5 adds a Cities field to STATES as the foreign key for storing records
+of cities in every state.</span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
+lang=EN-US>Execute the program and the data of A4 is as follows:</span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
+lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=500 height=230
+src="Tutorial.files/image483.png" v:shapes="_x0000_i1573"></span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
+lang=EN-US>In the above, the State field contains records of states. You can
+double-click a value to see details.</span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
+lang=EN-US>Data of A5 is as follows:</span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
+lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=500 height=230
+src="Tutorial.files/image484.png" v:shapes="_x0000_i1574"></span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
+class=var0><span lang=EN-US>The Cities</span></span><span lang=EN-US> field
+contains records of cities in each state. Double-click each value to see
+details.</span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
+lang=EN-US>Through creating foreign keys, both table sequences of A4 and A5
+have obtained all information of the two original tables: STATES and CITIES, in
+the database; relationship between the two tables is established. Note that the
+data types of these foreign key fields are different. The foreign key State in
+A4 is record data type while the foreign key Cities in A5 is record sequence
+(i.e. a sequence of records) data type.</span></p>
+
+<p class=T-ParCxSpLast style='margin-bottom:0cm;mso-add-space:auto;text-align:
+justify;text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>Actually
+the STATEID field in the STATES table is usually the primary key, through which
+a second table, like CITIES, can be linked to it using the <b style='mso-bidi-font-weight:
+normal'>switch</b> function. For details about the function, refer to <i
+style='mso-bidi-font-style:normal'><a  href="103.html">Primary Key
+and Index</a></i>. </span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="100.html">Next</a></div>
@@ -31,15 +358,12 @@ performance.</span></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="75.html">Chapter3 Associative Operations</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="100.html">3.6.1 find and pfind functions</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="101.html">3.6.2 The primary key and the index table</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="102.html">3.6.3 switch function</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="98.html">3.5 Associating Tables by the Foreign Key</a></span></li>
 </div>
 	</div>
 	<div id="footer">	
 		
-		<div class="copyright"> Copyright&reg; 2021 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+		<div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">Scudata Inc. 
       </a></div> 
         <!--
 		<div class="copyright"> Copyright&reg; 2017 <a href="http://www.yimming.com" target="_Blank"> Beijing Yimming Ltd. Co. 

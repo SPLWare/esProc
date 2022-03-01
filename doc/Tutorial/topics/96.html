@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>3.5.2 Using foreign key</title>
+<title>3.4.3 Finding the condition(s) embracing a member</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -15,19 +15,22 @@
 	<div id="centent">
 	<div id="centent-title"><h3 style='margin:0cm;text-indent:0cm;line-height:normal;mso-list:none;
 tab-stops:-179.95pt 64.2pt'><span lang=EN-US style='font-size:14.0pt;
-mso-bidi-font-size:10.0pt'>3.5.2 Using foreign key
-</span></h3></div>
+mso-bidi-font-size:10.0pt'>3.4.3 Finding the condition(s) embracing a member</span><span
+lang=EN-US style='font-size:12.0pt'></span></h3></div>
 	<p class=T-ParCxSpFirst style='margin-bottom:0cm;mso-add-space:auto;text-align:
-justify;text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>A
-foreign key field is treated as any other field during querying or presenting data
-of a table sequence. But you need to pay attention to the data type it uses. </span></p>
+justify;text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>Sometimes
+data are to be grouped not by the equivalent values but by some conditions,
+like the range of the order amount and the employees’ age groups. </span></p>
 
 <p class=T-ParCxSpLast style='margin-bottom:0cm;mso-add-space:auto;text-align:
-justify;text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>For
-example, to select from the CITIES table the cities that are located in the
-states whose names contain “<i style='mso-bidi-font-style:normal'>la</i>”, you
-can directly call the NAME field of the foreign key State in the filtering
-expression:</span></p>
+justify;text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>The
+grouping conditions can be represented by strings, like &quot;</span><span
+class=T-CodeChar><span lang=EN-US style='font-family:"Times New Roman",serif'>?&gt;3</span></span><span
+lang=EN-US>&quot;, &quot;</span><span class=T-CodeChar><span lang=EN-US
+style='font-family:"Times New Roman",serif'>[2,3,5,7].pos(?)&gt;0</span></span><span
+lang=EN-US>&quot;. The <b style='mso-bidi-font-weight:normal'>penum</b>
+function is used to judge which condition(s) a number can satisfy according to
+a sequence of strings of conditional expressions. For example: </span></p>
 
 <table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
  style='margin-left:21.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
@@ -43,9 +46,11 @@ expression:</span></p>
   <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
   text-indent:20.0pt;mso-char-indent-count:2.0'><span lang=EN-US>&nbsp;</span></p>
   </td>
-  <td width=378 valign=top style='width:283.45pt;border:solid black 1.0pt;
-  border-left:none;mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <td width=208 valign=top style='width:155.9pt;border-top:solid black 1.0pt;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
+  mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-bottom-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
   <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
   text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
   style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>A</span><span
@@ -58,21 +63,19 @@ expression:</span></p>
   mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
   mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
-  <p class=TabLabel21 style='text-align:justify;text-justify:inter-ideograph'><span
-  lang=EN-US style='mso-bidi-font-family:"Times New Roman";color:black;
-  mso-color-alt:windowtext'>1</span><span lang=EN-US style='mso-bidi-font-family:
-  "Times New Roman"'></span></p>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
+  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
+  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>1</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
   </td>
-  <td width=378 style='width:283.45pt;border-top:none;border-left:none;
+  <td width=208 style='width:155.9pt;border-top:none;border-left:none;
   border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid black .5pt;mso-border-left-alt:solid windowtext .5pt;
-  mso-border-top-alt:black;mso-border-left-alt:windowtext;mso-border-bottom-alt:
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-top-alt:windowtext;mso-border-left-alt:windowtext;mso-border-bottom-alt:
   #B2B2B2;mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
-  .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
-  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
-  color:black;mso-color-alt:windowtext'>=demo.query(&quot;select * from
-  CITIES&quot;)</span><span lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
+  .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCodepink style='text-align:justify;text-justify:inter-ideograph;
+  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif'>[?&gt;=85,?&gt;=70,?&gt;=60]</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
@@ -81,21 +84,20 @@ expression:</span></p>
   mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
   mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
-  <p class=TabLabel21 style='text-align:justify;text-justify:inter-ideograph'><span
-  lang=EN-US style='mso-bidi-font-family:"Times New Roman";color:black;
-  mso-color-alt:windowtext'>2</span><span lang=EN-US style='mso-bidi-font-family:
-  "Times New Roman"'></span></p>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
+  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
+  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>2</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
   </td>
-  <td width=378 style='width:283.45pt;border-top:none;border-left:none;
+  <td width=208 style='width:155.9pt;border-top:none;border-left:none;
   border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
   mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
   mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
   background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
   <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
   line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
-  color:black;mso-color-alt:windowtext'>=demo.query(&quot;select STATEID, NAME,
-  ABBR, CAPITAL from STATES&quot;)</span><span lang=EN-US style='font-family:
-  "Times New Roman",serif'></span></p>
+  color:black;mso-color-alt:windowtext'>=A1.penum(100)</span><span lang=EN-US
+  style='font-family:"Times New Roman",serif'></span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:3;page-break-inside:avoid;height:14.15pt'>
@@ -104,281 +106,88 @@ expression:</span></p>
   mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
   mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
-  <p class=TabLabel21 style='text-align:justify;text-justify:inter-ideograph'><span
-  lang=EN-US style='mso-bidi-font-family:"Times New Roman";color:black;
-  mso-color-alt:windowtext'>3</span><span lang=EN-US style='mso-bidi-font-family:
-  "Times New Roman"'></span></p>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
+  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
+  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>3</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
   </td>
-  <td width=378 style='width:283.45pt;border-top:none;border-left:none;
+  <td width=208 style='width:155.9pt;border-top:none;border-left:none;
   border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
   mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
   mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
   background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
   <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
   line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
-  color:black;mso-color-alt:windowtext'>=A1.derive(A2.select@1(STATEID==A1.STATEID):State)</span><span
-  lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
+  color:black;mso-color-alt:windowtext'>=A1.penum(66)</span><span lang=EN-US
+  style='font-family:"Times New Roman",serif'></span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:4;page-break-inside:avoid;height:14.15pt'>
-  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
-  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=TabLabel21 style='text-align:justify;text-justify:inter-ideograph'><span
-  lang=EN-US style='mso-bidi-font-family:"Times New Roman";color:black;
-  mso-color-alt:windowtext'>4</span><span lang=EN-US style='mso-bidi-font-family:
-  "Times New Roman"'></span></p>
-  </td>
-  <td width=378 style='width:283.45pt;border-top:none;border-left:none;
-  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
-  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
-  color:black;mso-color-alt:windowtext'>=A3.derive(State.ABBR:SA)</span><span
-  lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:5;page-break-inside:avoid;height:14.15pt'>
-  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
-  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=TabLabel21 style='text-align:justify;text-justify:inter-ideograph'><span
-  lang=EN-US style='mso-bidi-font-family:"Times New Roman";color:black;
-  mso-color-alt:windowtext'>5</span><span lang=EN-US style='mso-bidi-font-family:
-  "Times New Roman"'></span></p>
-  </td>
-  <td width=378 style='width:283.45pt;border-top:none;border-left:none;
-  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
-  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
-  color:black;mso-color-alt:windowtext'>=A2.derive(A1.select(STATEID==A2.STATEID):Cities)</span><span
-  lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:6;mso-yfti-lastrow:yes;page-break-inside:avoid;
+ <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes;page-break-inside:avoid;
   height:14.15pt'>
   <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
   border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
   mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
   mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
-  <p class=TabLabel21 style='text-align:justify;text-justify:inter-ideograph'><span
-  lang=EN-US style='mso-bidi-font-family:"Times New Roman";color:black;
-  mso-color-alt:windowtext'>6</span><span lang=EN-US style='mso-bidi-font-family:
-  "Times New Roman"'></span></p>
+  <p class=TabLaEnd style='text-align:justify;text-justify:inter-ideograph;
+  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
+  style='color:black;mso-color-alt:windowtext'>4</span></p>
   </td>
-  <td width=378 style='width:283.45pt;border-top:none;border-left:none;
+  <td width=208 style='width:155.9pt;border-top:none;border-left:none;
   border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
   mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
   mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  background:white;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
   <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
   line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
-  color:black;mso-color-alt:windowtext'>=A4.select(like(State.NAME,&quot;*la*&quot;))</span><span
-  lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
+  color:black;mso-color-alt:windowtext'>=A1.penum(54)</span><span lang=EN-US
+  style='font-family:"Times New Roman",serif'></span></p>
   </td>
  </tr>
 </table>
 
 <p class=T-ParCxSpFirst style='margin-bottom:0cm;mso-add-space:auto;text-align:
-justify;text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>Note
-that here the data type of the foreign key field is record. The result of A6 is
-as follows:</span></p>
+justify;text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>There
+is a sequence consisting of strings of conditional expressions in A1:</span></p>
 
 <p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
 text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
-lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=500 height=141
-src="Tutorial.files/image437.png" v:shapes="_x0000_i1531"></span></p>
-
-<p class=T-ParCxSpLast style='margin-bottom:0cm;mso-add-space:auto;text-align:
-justify;text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>A
-foreign key field can also be used as the sorting criterion, like sorting the
-states data in descending order according to the number of cities in a state:</span></p>
-
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
- style='margin-left:21.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- border:none;mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:
- #B2B2B2;mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
- .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:.5pt solid #B2B2B2;
- mso-border-insidev:.5pt solid #B2B2B2'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
-  height:14.15pt'>
-  <td width=42 valign=top style='width:31.2pt;border:solid black 1.0pt;
-  mso-border-alt:solid black .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
-  text-indent:20.0pt;mso-char-indent-count:2.0'><span lang=EN-US>&nbsp;</span></p>
-  </td>
-  <td width=378 valign=top style='width:283.45pt;border:solid black 1.0pt;
-  border-left:none;mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
-  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
-  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>A</span><span
-  lang=EN-US style='font-size:9.0pt'></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
-  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
-  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=TabLabel21 style='text-align:justify;text-justify:inter-ideograph'><span
-  lang=EN-US style='mso-bidi-font-family:"Times New Roman";color:black;
-  mso-color-alt:windowtext'>1</span><span lang=EN-US style='mso-bidi-font-family:
-  "Times New Roman"'></span></p>
-  </td>
-  <td width=378 style='width:283.45pt;border-top:none;border-left:none;
-  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid black .5pt;mso-border-left-alt:solid windowtext .5pt;
-  mso-border-top-alt:black;mso-border-left-alt:windowtext;mso-border-bottom-alt:
-  #B2B2B2;mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
-  .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
-  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
-  color:black;mso-color-alt:windowtext'>=demo.query(&quot;select * from
-  CITIES&quot;)</span><span lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
-  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
-  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=TabLabel21 style='text-align:justify;text-justify:inter-ideograph'><span
-  lang=EN-US style='mso-bidi-font-family:"Times New Roman";color:black;
-  mso-color-alt:windowtext'>2</span><span lang=EN-US style='mso-bidi-font-family:
-  "Times New Roman"'></span></p>
-  </td>
-  <td width=378 style='width:283.45pt;border-top:none;border-left:none;
-  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
-  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
-  color:black;mso-color-alt:windowtext'>=demo.query(&quot;select STATEID, NAME,
-  ABBR, CAPITAL from STATES&quot;)</span><span lang=EN-US style='font-family:
-  "Times New Roman",serif'></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:3;page-break-inside:avoid;height:14.15pt'>
-  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
-  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=TabLabel21 style='text-align:justify;text-justify:inter-ideograph'><span
-  lang=EN-US style='mso-bidi-font-family:"Times New Roman";color:black;
-  mso-color-alt:windowtext'>3</span><span lang=EN-US style='mso-bidi-font-family:
-  "Times New Roman"'></span></p>
-  </td>
-  <td width=378 style='width:283.45pt;border-top:none;border-left:none;
-  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
-  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
-  color:black;mso-color-alt:windowtext'>=A1.derive(A2.select@1(STATEID==A1.STATEID):State)</span><span
-  lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:4;page-break-inside:avoid;height:14.15pt'>
-  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
-  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=TabLabel21 style='text-align:justify;text-justify:inter-ideograph'><span
-  lang=EN-US style='mso-bidi-font-family:"Times New Roman";color:black;
-  mso-color-alt:windowtext'>4</span><span lang=EN-US style='mso-bidi-font-family:
-  "Times New Roman"'></span></p>
-  </td>
-  <td width=378 style='width:283.45pt;border-top:none;border-left:none;
-  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
-  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
-  color:black;mso-color-alt:windowtext'>=A3.derive(State.ABBR:SA)</span><span
-  lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:5;page-break-inside:avoid;height:14.15pt'>
-  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
-  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=TabLabel21 style='text-align:justify;text-justify:inter-ideograph'><span
-  lang=EN-US style='mso-bidi-font-family:"Times New Roman";color:black;
-  mso-color-alt:windowtext'>5</span><span lang=EN-US style='mso-bidi-font-family:
-  "Times New Roman"'></span></p>
-  </td>
-  <td width=378 style='width:283.45pt;border-top:none;border-left:none;
-  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
-  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
-  color:black;mso-color-alt:windowtext'>=A2.derive(A1.select(STATEID==A2.STATEID):Cities)</span><span
-  lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:6;mso-yfti-lastrow:yes;page-break-inside:avoid;
-  height:14.15pt'>
-  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
-  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=TabLabel21 style='text-align:justify;text-justify:inter-ideograph'><span
-  lang=EN-US style='mso-bidi-font-family:"Times New Roman";color:black;
-  mso-color-alt:windowtext'>6</span><span lang=EN-US style='mso-bidi-font-family:
-  "Times New Roman"'></span></p>
-  </td>
-  <td width=378 style='width:283.45pt;border-top:none;border-left:none;
-  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
-  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
-  color:black;mso-color-alt:windowtext'>=A5.sort(-Cities.len())</span><span
-  lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
-  </td>
- </tr>
-</table>
-
-<p class=T-ParCxSpFirst style='margin-bottom:0cm;mso-add-space:auto;text-align:
-justify;text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>Note
-that here the data type of the foreign key field is record sequence. The
-sorting result of A6 is as follows:</span></p>
+lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=130 height=81
+src="Tutorial.files/image471.png" v:shapes="_x0000_i1556"></span></p>
 
 <p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
 text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
-lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=500 height=280
-src="Tutorial.files/image438.png" v:shapes="_x0000_i1532"></span></p>
+lang=EN-US>Respectively, A2 and A3 find the condition(s) 100 and 66 satisfy.
+Results are as follows:</span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
+lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=100 height=41
+src="Tutorial.files/image096.png" v:shapes="_x0000_i1557"></span><span
+lang=EN-US><span style='mso-spacerun:yes'>&nbsp; </span></span><span
+lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=100 height=41
+src="Tutorial.files/image223.png" v:shapes="_x0000_i1558"></span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
+lang=EN-US>As is shown by the result, when a certain number satisfies multiple
+conditions, only the sequence number of the first-found condition will be
+returned. 100, for example, can satisfy all three conditions, but the returned
+result is 1. </span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
+lang=EN-US>As the number 54 in the expression in A4 doesn’t satisfy any of the
+conditions, the returned result is null. </span></p>
 
 <p class=T-ParCxSpLast style='margin-bottom:0cm;mso-add-space:auto;text-align:
-justify;text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>If
-the records referenced by a foreign key field of a table sequence also contain
-a foreign key field, they still can be referenced. For example, listing the
-cities whose states happen to contain three cities:</span></p>
+justify;text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>Similar
+to the alignment grouping, <b style='mso-bidi-font-weight:normal'>penum</b>
+function also uses <b style='mso-bidi-font-weight:normal'>@n</b> option, which returns
+<b style='mso-bidi-font-weight:normal'><i style='mso-bidi-font-style:normal'>k</i>+1
+</b>when data doesn’t satisfy any of the <b style='mso-bidi-font-weight:normal'><i
+style='mso-bidi-font-style:normal'>k</i></b> conditions. In particular, if a
+conditional expression is null, it can be satisfied by any data. For example: </span></p>
 
 <table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
  style='margin-left:21.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
@@ -394,9 +203,11 @@ cities whose states happen to contain three cities:</span></p>
   <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
   text-indent:20.0pt;mso-char-indent-count:2.0'><span lang=EN-US>&nbsp;</span></p>
   </td>
-  <td width=378 valign=top style='width:283.45pt;border:solid black 1.0pt;
-  border-left:none;mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <td width=208 valign=top style='width:155.9pt;border-top:solid black 1.0pt;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
+  mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-bottom-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
   <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
   text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
   style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>A</span><span
@@ -414,16 +225,14 @@ cities whose states happen to contain three cities:</span></p>
   mso-color-alt:windowtext'>1</span><span lang=EN-US style='mso-bidi-font-family:
   "Times New Roman"'></span></p>
   </td>
-  <td width=378 style='width:283.45pt;border-top:none;border-left:none;
+  <td width=208 style='width:155.9pt;border-top:none;border-left:none;
   border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid black .5pt;mso-border-left-alt:solid windowtext .5pt;
-  mso-border-top-alt:black;mso-border-left-alt:windowtext;mso-border-bottom-alt:
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-top-alt:windowtext;mso-border-left-alt:windowtext;mso-border-bottom-alt:
   #B2B2B2;mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
-  .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
-  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
-  color:black;mso-color-alt:windowtext'>=demo.query(&quot;select * from
-  CITIES&quot;)</span><span lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
+  .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCodepink style='text-align:justify;text-justify:inter-ideograph;
+  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif'>[?&gt;=85,?&gt;=70,?&gt;=60]</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
@@ -437,16 +246,15 @@ cities whose states happen to contain three cities:</span></p>
   mso-color-alt:windowtext'>2</span><span lang=EN-US style='mso-bidi-font-family:
   "Times New Roman"'></span></p>
   </td>
-  <td width=378 style='width:283.45pt;border-top:none;border-left:none;
+  <td width=208 style='width:155.9pt;border-top:none;border-left:none;
   border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
   mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
   mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
   background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
   <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
   line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
-  color:black;mso-color-alt:windowtext'>=demo.query(&quot;select STATEID, NAME,
-  ABBR, CAPITAL from STATES&quot;)</span><span lang=EN-US style='font-family:
-  "Times New Roman",serif'></span></p>
+  color:black;mso-color-alt:windowtext'>=A1.penum@n(54)</span><span lang=EN-US
+  style='font-family:"Times New Roman",serif'></span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:3;page-break-inside:avoid;height:14.15pt'>
@@ -460,18 +268,17 @@ cities whose states happen to contain three cities:</span></p>
   mso-color-alt:windowtext'>3</span><span lang=EN-US style='mso-bidi-font-family:
   "Times New Roman"'></span></p>
   </td>
-  <td width=378 style='width:283.45pt;border-top:none;border-left:none;
+  <td width=208 style='width:155.9pt;border-top:none;border-left:none;
   border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
   mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
   mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
-  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
-  color:black;mso-color-alt:windowtext'>=A2.derive(A1.select(STATEID==A2.STATEID):Cities)</span><span
-  lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCodepink style='text-align:justify;text-justify:inter-ideograph;
+  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif'>[?&gt;=85,?&gt;=70,?&gt;=60,null]</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:4;page-break-inside:avoid;height:14.15pt'>
+ <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
   <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
   border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
   mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
@@ -482,18 +289,142 @@ cities whose states happen to contain three cities:</span></p>
   mso-color-alt:windowtext'>4</span><span lang=EN-US style='mso-bidi-font-family:
   "Times New Roman"'></span></p>
   </td>
-  <td width=378 style='width:283.45pt;border-top:none;border-left:none;
+  <td width=208 style='width:155.9pt;border-top:none;border-left:none;
   border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
   mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
   mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
   background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
   <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
   line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
-  color:black;mso-color-alt:windowtext'>=A1.derive(A3.select@1(STATEID==A1.STATEID):State)</span><span
+  color:black;mso-color-alt:windowtext'>=A3.penum(54)</span><span lang=EN-US
+  style='font-family:"Times New Roman",serif'></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=T-ParCxSpFirst style='margin-bottom:0cm;mso-add-space:auto;text-align:
+justify;text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>Results
+of A2 and A4 are as follows:</span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
+lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=100 height=41
+src="Tutorial.files/image413.png" v:shapes="_x0000_i1559"></span><span
+lang=EN-US><span style='mso-spacerun:yes'>&nbsp; </span></span><span
+lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=100 height=41
+src="Tutorial.files/image413.png" v:shapes="_x0000_i1560"></span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
+lang=EN-US>The number 54 in A2 doesn’t satisfy any of the three conditions, so <b
+style='mso-bidi-font-weight:normal'>penum@n</b> function returns a result of <b
+style='mso-bidi-font-weight:normal'>4</b>. But in A4, it satisfies the fourth
+condition &#8211; null. Note that if the <b style='mso-bidi-font-weight:normal'>null</b>
+is listed in the conditions, it must be put at the end. </span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
+lang=EN-US>&nbsp;</span></p>
+
+<p class=T-ParCxSpLast style='margin-bottom:0cm;mso-add-space:auto;text-align:
+justify;text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>The<b
+style='mso-bidi-font-weight:normal'> penum</b> function also uses <b
+style='mso-bidi-font-weight:normal'>@r</b> option to allow returning the
+overlapped conditions the specified data can satisfy. In this case, a sequence
+composed of the sequence numbers of all eligible conditions will be returned.
+For example:</span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='margin-left:21.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:
+ #B2B2B2;mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
+ .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:.5pt solid #B2B2B2;
+ mso-border-insidev:.5pt solid #B2B2B2'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=42 valign=top style='width:31.2pt;border:solid black 1.0pt;
+  mso-border-alt:solid black .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
+  text-indent:20.0pt;mso-char-indent-count:2.0'><span lang=EN-US>&nbsp;</span></p>
+  </td>
+  <td width=208 valign=top style='width:155.9pt;border-top:solid black 1.0pt;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
+  mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-bottom-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
+  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
+  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>A</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel21 style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='mso-bidi-font-family:"Times New Roman";color:black;
+  mso-color-alt:windowtext'>1</span><span lang=EN-US style='mso-bidi-font-family:
+  "Times New Roman"'></span></p>
+  </td>
+  <td width=208 style='width:155.9pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-top-alt:windowtext;mso-border-left-alt:windowtext;mso-border-bottom-alt:
+  #B2B2B2;mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
+  .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCodepink style='text-align:justify;text-justify:inter-ideograph;
+  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif'>[?&gt;=85,?&gt;=70,?&gt;=60,null]</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel21 style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='mso-bidi-font-family:"Times New Roman";color:black;
+  mso-color-alt:windowtext'>2</span><span lang=EN-US style='mso-bidi-font-family:
+  "Times New Roman"'></span></p>
+  </td>
+  <td width=208 style='width:155.9pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
+  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
+  color:black;mso-color-alt:windowtext'>=A1.penum@r(100)</span><span
   lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:5;mso-yfti-lastrow:yes;page-break-inside:avoid;
+ <tr style='mso-yfti-irow:3;page-break-inside:avoid;height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel21 style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='mso-bidi-font-family:"Times New Roman";color:black;
+  mso-color-alt:windowtext'>3</span><span lang=EN-US style='mso-bidi-font-family:
+  "Times New Roman"'></span></p>
+  </td>
+  <td width=208 style='width:155.9pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
+  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
+  color:black;mso-color-alt:windowtext'>=A1.penum@r(66)</span><span lang=EN-US
+  style='font-family:"Times New Roman",serif'></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes;page-break-inside:avoid;
   height:14.15pt'>
   <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
   border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
@@ -502,32 +433,50 @@ cities whose states happen to contain three cities:</span></p>
   height:14.15pt'>
   <p class=TabLabel21 style='text-align:justify;text-justify:inter-ideograph'><span
   lang=EN-US style='mso-bidi-font-family:"Times New Roman";color:black;
-  mso-color-alt:windowtext'>5</span><span lang=EN-US style='mso-bidi-font-family:
+  mso-color-alt:windowtext'>4</span><span lang=EN-US style='mso-bidi-font-family:
   "Times New Roman"'></span></p>
   </td>
-  <td width=378 style='width:283.45pt;border-top:none;border-left:none;
+  <td width=208 style='width:155.9pt;border-top:none;border-left:none;
   border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
   mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
   mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
   background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
   <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
   line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
-  color:black;mso-color-alt:windowtext'>=A4.select(State.Cities.len()==3)</span><span
-  lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
+  color:black;mso-color-alt:windowtext'>=A1.penum@r(54)</span><span lang=EN-US
+  style='font-family:"Times New Roman",serif'></span></p>
   </td>
  </tr>
 </table>
 
 <p class=T-ParCxSpFirst style='margin-bottom:0cm;mso-add-space:auto;text-align:
-justify;text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>Here
-A4 references A3’s state records containing a foreign key field, instead of the
-original state records, when adding a State field to the CITIES table. Thus A5
-directly get the desired result:</span></p>
+justify;text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>A2,
+A3 and A4 return respectively a sequence composed of the sequence number(s) of
+the condition(s) 100, 66 and 54<b style='mso-bidi-font-weight:normal'> </b>satisfy.
+Results are as follows:</span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
+lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=130 height=81
+src="Tutorial.files/image186.png" v:shapes="_x0000_i1561"></span><span
+lang=EN-US><span style='mso-spacerun:yes'>&nbsp; </span></span><span
+lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=130 height=41
+src="Tutorial.files/image472.png" v:shapes="_x0000_i1562"></span><span
+lang=EN-US><span style='mso-spacerun:yes'>&nbsp;</span></span><span
+lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=130 height=41
+src="Tutorial.files/image473.png" v:shapes="_x0000_i1563"></span></p>
 
 <p class=T-ParCxSpLast style='margin-bottom:0cm;mso-add-space:auto;text-align:
-justify;text-justify:inter-ideograph;text-indent:21.0pt'><span lang=zh-CN
-style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=400 height=201
-src="Tutorial.files/image439.png" v:shapes="_x0000_i1533"></span></p>
+justify;text-justify:inter-ideograph;text-indent:21.1pt'><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US>Note</span></b><span lang=EN-US>: When using the </span><span
+class=T-CodeChar><span lang=EN-US style='font-family:"Times New Roman",serif'>penum@r
+</span></span><span class=T-CodeChar><span lang=EN-US style='font-family:"Times New Roman",serif;
+font-weight:normal'>function</span></span><span lang=EN-US>, though the
+condition <b style='mso-bidi-font-weight:normal'>null</b> is defined to be
+satisfied by any data, its sequence number won’t appear in the result if there
+is at least one eligible condition. Besides, with the <b style='mso-bidi-font-weight:
+normal'>@r</b> option the function returns a sequence, instead of a number,
+when there is only one eligible condition. </span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="97.html">Next</a></div>
@@ -535,12 +484,12 @@ src="Tutorial.files/image439.png" v:shapes="_x0000_i1533"></span></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="94.html">3.5 Associating Tables by the Foreign Key</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="93.html">3.4 Alignment Grouping and Enumeration Grouping</a></span></li>
 </div>
 	</div>
 	<div id="footer">	
 		
-		<div class="copyright"> Copyright&reg; 2021 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+		<div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">Scudata Inc. 
       </a></div> 
         <!--
 		<div class="copyright"> Copyright&reg; 2017 <a href="http://www.yimming.com" target="_Blank"> Beijing Yimming Ltd. Co. 

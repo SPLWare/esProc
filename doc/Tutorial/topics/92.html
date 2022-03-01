@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>3.4.3 Finding the condition(s) embracing a member</title>
+<title>3.3.3 Computing rankings based on a TSeq</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -15,22 +15,19 @@
 	<div id="centent">
 	<div id="centent-title"><h3 style='margin:0cm;text-indent:0cm;line-height:normal;mso-list:none;
 tab-stops:-179.95pt 64.2pt'><span lang=EN-US style='font-size:14.0pt;
-mso-bidi-font-size:10.0pt'>3.4.3 Finding the condition(s) embracing a member</span><span
-lang=EN-US style='font-size:12.0pt'></span></h3></div>
-	<p class=T-ParCxSpFirst style='margin-bottom:0cm;mso-add-space:auto;text-align:
-justify;text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>Sometimes
-data are to be grouped not by the equivalent values but by some conditions,
-like the range of the order amount and the employees’ age groups. </span></p>
-
-<p class=T-ParCxSpLast style='margin-bottom:0cm;mso-add-space:auto;text-align:
-justify;text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>The
-grouping conditions can be represented by strings, like &quot;</span><span
-class=T-CodeChar><span lang=EN-US style='font-family:"Times New Roman",serif'>?&gt;3</span></span><span
-lang=EN-US>&quot;, &quot;</span><span class=T-CodeChar><span lang=EN-US
-style='font-family:"Times New Roman",serif'>[2,3,5,7].pos(?)&gt;0</span></span><span
-lang=EN-US>&quot;. The <b style='mso-bidi-font-weight:normal'>penum</b>
-function is used to judge which condition(s) a number can satisfy according to
-a sequence of strings of conditional expressions. For example: </span></p>
+mso-bidi-font-size:10.0pt'>3.3.3 Computing rankings based on a TSeq</span></h3></div>
+	<p class=T-Par style='margin-bottom:0cm;mso-add-space:auto;text-align:justify;
+text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>There are two
+common ways for computing rankings: ranking members with/without duplicate
+values counted. For example, if there are two players tied for first place in a
+competition and the duplicate ranking values are counted, the next player following
+them would have a third ranking. But if the duplicate ranking value isn’t
+counted, the second place will follow without taking the extra ranking value
+into account. esProc has <b style='mso-bidi-font-weight:normal'>rank</b>
+function to compute the rankings and <b style='mso-bidi-font-weight:normal'>rank</b>
+to compute the ranking of a certain value. The use of <b style='mso-bidi-font-weight:
+normal'>@i</b> option with the functions will compute rankings or the ranking
+without counting the extra ranking(s). For example:</span></p>
 
 <table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
  style='margin-left:21.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
@@ -46,165 +43,7 @@ a sequence of strings of conditional expressions. For example: </span></p>
   <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
   text-indent:20.0pt;mso-char-indent-count:2.0'><span lang=EN-US>&nbsp;</span></p>
   </td>
-  <td width=208 valign=top style='width:155.9pt;border-top:solid black 1.0pt;
-  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
-  mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-bottom-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
-  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
-  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>A</span><span
-  lang=EN-US style='font-size:9.0pt'></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
-  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
-  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
-  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
-  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>1</span><span
-  lang=EN-US style='font-size:9.0pt'></span></p>
-  </td>
-  <td width=208 style='width:155.9pt;border-top:none;border-left:none;
-  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
-  mso-border-top-alt:windowtext;mso-border-left-alt:windowtext;mso-border-bottom-alt:
-  #B2B2B2;mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
-  .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=TabCodepink style='text-align:justify;text-justify:inter-ideograph;
-  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif'>[?&gt;=85,?&gt;=70,?&gt;=60]</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
-  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
-  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
-  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
-  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>2</span><span
-  lang=EN-US style='font-size:9.0pt'></span></p>
-  </td>
-  <td width=208 style='width:155.9pt;border-top:none;border-left:none;
-  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
-  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
-  color:black;mso-color-alt:windowtext'>=A1.penum(100)</span><span lang=EN-US
-  style='font-family:"Times New Roman",serif'></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:3;page-break-inside:avoid;height:14.15pt'>
-  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
-  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
-  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
-  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>3</span><span
-  lang=EN-US style='font-size:9.0pt'></span></p>
-  </td>
-  <td width=208 style='width:155.9pt;border-top:none;border-left:none;
-  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
-  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
-  color:black;mso-color-alt:windowtext'>=A1.penum(66)</span><span lang=EN-US
-  style='font-family:"Times New Roman",serif'></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes;page-break-inside:avoid;
-  height:14.15pt'>
-  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
-  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=TabLaEnd style='text-align:justify;text-justify:inter-ideograph;
-  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
-  style='color:black;mso-color-alt:windowtext'>4</span></p>
-  </td>
-  <td width=208 style='width:155.9pt;border-top:none;border-left:none;
-  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  background:white;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
-  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
-  color:black;mso-color-alt:windowtext'>=A1.penum(54)</span><span lang=EN-US
-  style='font-family:"Times New Roman",serif'></span></p>
-  </td>
- </tr>
-</table>
-
-<p class=T-ParCxSpFirst style='margin-bottom:0cm;mso-add-space:auto;text-align:
-justify;text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>There
-is a sequence consisting of strings of conditional expressions in A1:</span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
-text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
-lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=130 height=81
-src="Tutorial.files/image423.png" v:shapes="_x0000_i1512"></span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
-text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
-lang=EN-US>Respectively, A2 and A3 find the condition(s) 100 and 66 satisfy.
-Results are as follows:</span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
-text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
-lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=100 height=41
-src="Tutorial.files/image095.png" v:shapes="_x0000_i1513"></span><span
-lang=EN-US><span style='mso-spacerun:yes'>&nbsp; </span></span><span
-lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=100 height=41
-src="Tutorial.files/image219.png" v:shapes="_x0000_i1514"></span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
-text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
-lang=EN-US>As is shown by the result, when a certain number satisfies multiple
-conditions, only the sequence number of the first-found condition will be
-returned. 100, for example, can satisfy all three conditions, but the returned
-result is 1. </span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
-text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
-lang=EN-US>As the number 54 in the expression in A4 doesn’t satisfy any of the
-conditions, the returned result is null. </span></p>
-
-<p class=T-ParCxSpLast style='margin-bottom:0cm;mso-add-space:auto;text-align:
-justify;text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>Similar
-to the alignment grouping, <b style='mso-bidi-font-weight:normal'>penum</b>
-function also uses <b style='mso-bidi-font-weight:normal'>@n</b> option, which
-returns <b style='mso-bidi-font-weight:normal'><i style='mso-bidi-font-style:
-normal'>k</i>+1 </b>when data doesn’t satisfy any of the <b style='mso-bidi-font-weight:
-normal'><i style='mso-bidi-font-style:normal'>k</i></b> conditions. In
-particular, if a conditional expression is null, it can be satisfied by any
-data. For example: </span></p>
-
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
- style='margin-left:21.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- border:none;mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:
- #B2B2B2;mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
- .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:.5pt solid #B2B2B2;
- mso-border-insidev:.5pt solid #B2B2B2'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
-  height:14.15pt'>
-  <td width=42 valign=top style='width:31.2pt;border:solid black 1.0pt;
-  mso-border-alt:solid black .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
-  text-indent:20.0pt;mso-char-indent-count:2.0'><span lang=EN-US>&nbsp;</span></p>
-  </td>
-  <td width=208 valign=top style='width:155.9pt;border-top:solid black 1.0pt;
+  <td width=302 valign=top style='width:8.0cm;border-top:solid black 1.0pt;
   border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
   mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
   mso-border-bottom-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
@@ -226,159 +65,16 @@ data. For example: </span></p>
   mso-color-alt:windowtext'>1</span><span lang=EN-US style='mso-bidi-font-family:
   "Times New Roman"'></span></p>
   </td>
-  <td width=208 style='width:155.9pt;border-top:none;border-left:none;
-  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
-  mso-border-top-alt:windowtext;mso-border-left-alt:windowtext;mso-border-bottom-alt:
-  #B2B2B2;mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
-  .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=TabCodepink style='text-align:justify;text-justify:inter-ideograph;
-  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif'>[?&gt;=85,?&gt;=70,?&gt;=60]</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
-  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
-  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=TabLabel21 style='text-align:justify;text-justify:inter-ideograph'><span
-  lang=EN-US style='mso-bidi-font-family:"Times New Roman";color:black;
-  mso-color-alt:windowtext'>2</span><span lang=EN-US style='mso-bidi-font-family:
-  "Times New Roman"'></span></p>
-  </td>
-  <td width=208 style='width:155.9pt;border-top:none;border-left:none;
-  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
-  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
-  color:black;mso-color-alt:windowtext'>=A1.penum@n(54)</span><span lang=EN-US
-  style='font-family:"Times New Roman",serif'></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:3;page-break-inside:avoid;height:14.15pt'>
-  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
-  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=TabLabel21 style='text-align:justify;text-justify:inter-ideograph'><span
-  lang=EN-US style='mso-bidi-font-family:"Times New Roman";color:black;
-  mso-color-alt:windowtext'>3</span><span lang=EN-US style='mso-bidi-font-family:
-  "Times New Roman"'></span></p>
-  </td>
-  <td width=208 style='width:155.9pt;border-top:none;border-left:none;
-  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  <td width=302 style='width:8.0cm;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid windowtext .5pt;
+  mso-border-left-alt:solid windowtext .5pt;mso-border-top-alt:windowtext;
+  mso-border-left-alt:windowtext;mso-border-bottom-alt:#B2B2B2;mso-border-right-alt:
+  #B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:.5pt;background:#FFFF99;
   padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=TabCodepink style='text-align:justify;text-justify:inter-ideograph;
-  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif'>[?&gt;=85,?&gt;=70,?&gt;=60,null]</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes;page-break-inside:avoid;
-  height:14.15pt'>
-  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
-  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=TabLabel21 style='text-align:justify;text-justify:inter-ideograph'><span
-  lang=EN-US style='mso-bidi-font-family:"Times New Roman";color:black;
-  mso-color-alt:windowtext'>4</span><span lang=EN-US style='mso-bidi-font-family:
-  "Times New Roman"'></span></p>
-  </td>
-  <td width=208 style='width:155.9pt;border-top:none;border-left:none;
-  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
   <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
   line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
-  color:black;mso-color-alt:windowtext'>=A3.penum(54)</span><span lang=EN-US
-  style='font-family:"Times New Roman",serif'></span></p>
-  </td>
- </tr>
-</table>
-
-<p class=T-ParCxSpFirst style='margin-bottom:0cm;mso-add-space:auto;text-align:
-justify;text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>Results
-of A2 and A4 are as follows:</span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
-text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
-lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=100 height=41
-src="Tutorial.files/image365.png" v:shapes="_x0000_i1515"></span><span
-lang=EN-US><span style='mso-spacerun:yes'>&nbsp; </span></span><span
-lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=100 height=41
-src="Tutorial.files/image365.png" v:shapes="_x0000_i1516"></span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
-text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
-lang=EN-US>The number 54 in A2 doesn’t satisfy any of the three conditions, so <b
-style='mso-bidi-font-weight:normal'>penum@n</b> function returns a result of <b
-style='mso-bidi-font-weight:normal'>4</b>. But in A4, it satisfies the fourth
-condition &#8211; null. Note that if the <b style='mso-bidi-font-weight:normal'>null</b>
-is listed in the conditions, it must be put at the end. </span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
-text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
-lang=EN-US>&nbsp;</span></p>
-
-<p class=T-ParCxSpLast style='margin-bottom:0cm;mso-add-space:auto;text-align:
-justify;text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>The<b
-style='mso-bidi-font-weight:normal'> penum</b> function also uses <b
-style='mso-bidi-font-weight:normal'>@r</b> option to allow returning the
-overlapped conditions the specified data can satisfy. In this case, a sequence
-composed of the sequence numbers of all eligible conditions will be returned.
-For example:</span></p>
-
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
- style='margin-left:21.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- border:none;mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:
- #B2B2B2;mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
- .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:.5pt solid #B2B2B2;
- mso-border-insidev:.5pt solid #B2B2B2'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
-  height:14.15pt'>
-  <td width=42 valign=top style='width:31.2pt;border:solid black 1.0pt;
-  mso-border-alt:solid black .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
-  text-indent:20.0pt;mso-char-indent-count:2.0'><span lang=EN-US>&nbsp;</span></p>
-  </td>
-  <td width=208 valign=top style='width:155.9pt;border-top:solid black 1.0pt;
-  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
-  mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-bottom-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
-  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
-  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>A</span><span
-  lang=EN-US style='font-size:9.0pt'></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
-  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
-  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=TabLabel21 style='text-align:justify;text-justify:inter-ideograph'><span
-  lang=EN-US style='mso-bidi-font-family:"Times New Roman";color:black;
-  mso-color-alt:windowtext'>1</span><span lang=EN-US style='mso-bidi-font-family:
-  "Times New Roman"'></span></p>
-  </td>
-  <td width=208 style='width:155.9pt;border-top:none;border-left:none;
-  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
-  mso-border-top-alt:windowtext;mso-border-left-alt:windowtext;mso-border-bottom-alt:
-  #B2B2B2;mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
-  .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=TabCodepink style='text-align:justify;text-justify:inter-ideograph;
-  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif'>[?&gt;=85,?&gt;=70,?&gt;=60,null]</span></p>
+  color:black;mso-color-alt:windowtext'>=demo.query(&quot;select * from
+  EMPLOYEE&quot;)</span><span lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
@@ -392,14 +88,14 @@ For example:</span></p>
   mso-color-alt:windowtext'>2</span><span lang=EN-US style='mso-bidi-font-family:
   "Times New Roman"'></span></p>
   </td>
-  <td width=208 style='width:155.9pt;border-top:none;border-left:none;
-  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <td width=302 style='width:8.0cm;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid windowtext .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
   <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
   line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
-  color:black;mso-color-alt:windowtext'>=A1.penum@r(100)</span><span
+  color:black;mso-color-alt:windowtext'>=A1.ranks(SALARY)</span><span
   lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
   </td>
  </tr>
@@ -414,19 +110,18 @@ For example:</span></p>
   mso-color-alt:windowtext'>3</span><span lang=EN-US style='mso-bidi-font-family:
   "Times New Roman"'></span></p>
   </td>
-  <td width=208 style='width:155.9pt;border-top:none;border-left:none;
-  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <td width=302 style='width:8.0cm;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid windowtext .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
   <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
   line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
-  color:black;mso-color-alt:windowtext'>=A1.penum@r(66)</span><span lang=EN-US
-  style='font-family:"Times New Roman",serif'></span></p>
+  color:black;mso-color-alt:windowtext'>=A1.ranks@i(SALARY)</span><span
+  lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes;page-break-inside:avoid;
-  height:14.15pt'>
+ <tr style='mso-yfti-irow:4;page-break-inside:avoid;height:14.15pt'>
   <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
   border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
   mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
@@ -437,47 +132,95 @@ For example:</span></p>
   mso-color-alt:windowtext'>4</span><span lang=EN-US style='mso-bidi-font-family:
   "Times New Roman"'></span></p>
   </td>
-  <td width=208 style='width:155.9pt;border-top:none;border-left:none;
-  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <td width=302 style='width:8.0cm;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid windowtext .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
   <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
   line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
-  color:black;mso-color-alt:windowtext'>=A1.penum@r(54)</span><span lang=EN-US
-  style='font-family:"Times New Roman",serif'></span></p>
+  color:black;mso-color-alt:windowtext'>=A1.rank(10000,SALARY)</span><span
+  lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:5;mso-yfti-lastrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel21 style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='mso-bidi-font-family:"Times New Roman";color:black;
+  mso-color-alt:windowtext'>5</span><span lang=EN-US style='mso-bidi-font-family:
+  "Times New Roman"'></span></p>
+  </td>
+  <td width=302 style='width:8.0cm;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid windowtext .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
+  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
+  color:black;mso-color-alt:windowtext'>=A1.rank@i(10000,SALARY)</span><span
+  lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
   </td>
  </tr>
 </table>
 
 <p class=T-ParCxSpFirst style='margin-bottom:0cm;mso-add-space:auto;text-align:
-justify;text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>A2,
-A3 and A4 return respectively a sequence composed of the sequence number(s) of
-the condition(s) 100, 66 and 54<b style='mso-bidi-font-weight:normal'> </b>satisfy.
-Results are as follows:</span></p>
+justify;text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US
+style='color:black;mso-color-alt:windowtext'>A2 computes the rankings of
+salaries of all employees. A3 computes them without considering duplic</span><span
+lang=EN-US>ate values. Results of A2 and A3 are as follows:</span></p>
 
 <p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
 text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
-lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=130 height=81
-src="Tutorial.files/image182.png" v:shapes="_x0000_i1517"></span><span
+lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=149 height=230
+src="Tutorial.files/image452.png" v:shapes="_x0000_i1537"></span><span
 lang=EN-US><span style='mso-spacerun:yes'>&nbsp; </span></span><span
-lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=130 height=41
-src="Tutorial.files/image424.png" v:shapes="_x0000_i1518"></span><span
-lang=EN-US><span style='mso-spacerun:yes'>&nbsp;</span></span><span
-lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=130 height=41
-src="Tutorial.files/image425.png" v:shapes="_x0000_i1519"></span></p>
+lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=149 height=230
+src="Tutorial.files/image453.png" v:shapes="_x0000_i1538"></span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
+lang=EN-US>Now let’s look at the employee data in A1:</span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
+lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=500 height=230
+src="Tutorial.files/image454.png" v:shapes="_x0000_i1539"></span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
+lang=EN-US>It can be seen by comparison that the employees with the same
+salary, such as <b style='mso-bidi-font-weight:normal'>Rebecca</b> and <b
+style='mso-bidi-font-weight:normal'>Emily</b>, get the same ranking for their
+salaries either way. But obviously they rank much higher in the result of A3
+because duplicate ranking values are ignored and they won’t affect the rankings
+of the subsequent employees. In fact it is the result in A2 that reflects the
+rankings more objectively. </span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
+lang=EN-US>A4 computes the ranking of 10,000 among employee’s salaries. A5
+computes the ranking of 10,000 by not taking the duplicate values account. Results
+of A4 and A5 are as follows:</span></p>
 
 <p class=T-ParCxSpLast style='margin-bottom:0cm;mso-add-space:auto;text-align:
-justify;text-justify:inter-ideograph;text-indent:21.1pt'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US>Note</span></b><span lang=EN-US>: When using the </span><span
-class=T-CodeChar><span lang=EN-US style='font-family:"Times New Roman",serif'>penum@r
-</span></span><span class=T-CodeChar><span lang=EN-US style='font-family:"Times New Roman",serif;
-font-weight:normal'>function</span></span><span lang=EN-US>, though the
-condition <b style='mso-bidi-font-weight:normal'>null</b> is defined to be
-satisfied by any data, its sequence number won’t appear in the result if there
-is at least one eligible condition. Besides, with the <b style='mso-bidi-font-weight:
-normal'>@r</b> option the function returns a sequence, instead of a number,
-when there is only one eligible condition. </span></p>
+justify;text-justify:inter-ideograph;text-indent:21.0pt'><span lang=zh-CN
+style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=100 height=41
+src="Tutorial.files/image455.png" v:shapes="_x0000_i1540"></span><span
+lang=EN-US><span style='mso-spacerun:yes'>&nbsp; </span></span><span
+lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=100 height=41
+src="Tutorial.files/image456.png" v:shapes="_x0000_i1541"></span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US>A higher ranking is obtained without counting the duplicate values. <b
+style='mso-bidi-font-weight:normal'>rank@i</b> and <b style='mso-bidi-font-weight:
+normal'>ranks@i</b> compute rankings in a way similar to that in which <b
+style='mso-bidi-font-weight:normal'>id</b> function is used to list all the
+unique members before computing rankings.</span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="93.html">Next</a></div>
@@ -485,12 +228,12 @@ when there is only one eligible condition. </span></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="89.html">3.4 Alignment Grouping and Enumeration Grouping</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="89.html">3.3 Sorting and Ranking Data</a></span></li>
 </div>
 	</div>
 	<div id="footer">	
 		
-		<div class="copyright"> Copyright&reg; 2021 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+		<div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">Scudata Inc. 
       </a></div> 
         <!--
 		<div class="copyright"> Copyright&reg; 2017 <a href="http://www.yimming.com" target="_Blank"> Beijing Yimming Ltd. Co. 

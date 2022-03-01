@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>T .delete()</title>
+<title>datetime()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,343 +13,504 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h3 style='text-align:justify;text-justify:inter-ideograph'><a name="T_delete"></a><i
-style='mso-bidi-font-style:normal'><span lang=EN-US>T</span></i><span
-lang=EN-US>.delete()</span></h3></div>
-	<p class=afe style='line-height:200%'><span lang=EN-US>Description:</span></p>
+	<div id="centent-title"><h3 style='text-align:justify;text-justify:inter-ideograph'><a name=datetime></a><span
+lang=EN-US>datetime()</span></h3></div>
+	<p class=afe style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
+14.0pt;line-height:200%'>Description:</span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Delete specified
-records from a table sequence.</span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Convert the string
+or long integer to datetime value.</span></p>
 
-<p class=afe style='line-height:200%'><span lang=EN-US>Syntax:</span></p>
-
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=98 valign=top style='width:73.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=aff style='margin-left:10.5pt;text-align:justify;text-justify:inter-ideograph;
-  tab-stops:35.2pt 48.75pt'><i style='mso-bidi-font-style:normal'><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>T</span></i><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>.<span class=code><span
-  style='font-family:"Times New Roman",serif'>delete</span></span>(</span><span
-  class=var2><span lang=EN-US>k</span></span><span lang=EN-US style='font-family:
-  "Times New Roman",serif'>)</span><span class=var2><span lang=EN-US></span></span></p>
-  </td>
-  <td width=448 valign=top style='width:335.65pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Delete the <i>k<sup>th</sup> </i><span
-  style='mso-bidi-font-style:italic'>record</span></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:1'>
-  <td width=98 valign=top style='width:73.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=aff style='margin-left:10.55pt;text-align:justify;text-justify:inter-ideograph;
-  tab-stops:35.2pt 48.75pt'><i style='mso-bidi-font-style:normal'><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>T</span></i><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>.<span class=code><span
-  style='font-family:"Times New Roman",serif'>delete</span></span>(</span><span
-  class=var2><span lang=EN-US>p</span></span><span lang=EN-US style='font-family:
-  "Times New Roman",serif'>)<span class=code><span style='font-family:"Times New Roman",serif'></span></span></span></p>
-  </td>
-  <td width=448 valign=top style='width:335.65pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Delete records whose sequence numbers
-  exist in <i>p</i></span><span class=code><span lang=EN-US style='font-family:
-  "Times New Roman",serif'></span></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes'>
-  <td width=98 valign=top style='width:73.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=aff style='margin-left:10.55pt;text-align:justify;text-justify:inter-ideograph;
-  tab-stops:35.2pt 48.75pt'><i style='mso-bidi-font-style:normal'><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>T.</span></i><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>delete</span></span><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>(</span><span
-  class=var2><span lang=EN-US>A</span></span><span lang=EN-US style='font-family:
-  "Times New Roman",serif'>)<span class=code><span style='font-family:"Times New Roman",serif'></span></span></span></p>
-  </td>
-  <td width=448 valign=top style='width:335.65pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Delete records that exist in sequence <i>A</i></span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
-  </td>
- </tr>
-</table>
-
-<p class=afe style='line-height:200%'><span lang=EN-US>Note:</span><span
-class=ac><span lang=EN-US style='font-size:10.5pt;line-height:200%'></span></span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>The function deletes
-the specified records from table sequence </span><span class=var2><span
-lang=EN-US>T</span></span><span lang=EN-US>, and automatically updates the
-index, if any, and checks distinctness. The deleted records will be always
-saved in the delete buffer.</span><span lang=EN-US style='font-family:等线;
-mso-bidi-font-family:等线'></span></p>
-
-<p class=afe style='line-height:200%'><span lang=EN-US>Parameters:</span></p>
+<p class=afe style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
+14.0pt;line-height:200%'>Syntax: </span></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
  style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=89 valign=top style='width:66.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=aff style='margin-left:10.5pt;text-align:justify;text-justify:inter-ideograph;
-  tab-stops:35.2pt 48.75pt'><span class=var2><span lang=EN-US>T</span></span></p>
+  <td width=183 valign=top style='width:137.25pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>datetime(</span></span><span
+  class=var2><span lang=EN-US>string</span></span><span lang=EN-US>{, </span><span
+  class=var2><span lang=EN-US>format</span></span><span lang=EN-US> }<i
+  style='mso-bidi-font-style:normal'>:loc</i></span><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>)</span></span><span
+  class=var2><span lang=EN-US></span></span></p>
   </td>
-  <td width=457 valign=top style='width:342.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>A table sequence</span></p>
+  <td width=362 valign=top style='width:271.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Convert the data type of </span><i
+  style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt'>string </span></i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>to
+  datetime type according to the format defined by <i style='mso-bidi-font-style:
+  normal'>format</i><span class=var2><span style='font-style:normal;mso-bidi-font-style:
+  italic'> and return null </span></span></span><span lang=EN-US>if the
+  conversion fails</span><span lang=EN-US style='mso-bidi-font-size:10.5pt'>;
+  if parameter <i style='mso-bidi-font-style:normal'>format</i> doesn’t exist,
+  the format of <i style='mso-bidi-font-style:normal'>string</i> of string type
+  should be the same as the format of datatime value in configuration
+  information<span class=var2>t</span></span><span lang=EN-US>; parameter <i
+  style='mso-bidi-font-style:normal'>loc</i> is the language used in </span><span
+  class=var2><span lang=EN-US>stringExp</span></span><span lang=EN-US>; the
+  default is the system language</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=89 valign=top style='width:66.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=aff style='margin-left:10.55pt;text-align:justify;text-justify:inter-ideograph;
-  tab-stops:35.2pt 48.75pt'><span class=var2><span lang=EN-US>k</span></span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
+  <td width=183 valign=top style='width:137.25pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>datetime(</span></span><span
+  class=var2><span lang=EN-US>long</span></span><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>)</span></span><span
+  class=var2><span lang=EN-US></span></span></p>
   </td>
-  <td width=457 valign=top style='width:342.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>A positive integer, which specifies the
-  position of a record to be deleted</span><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'></span></span></p>
+  <td width=362 valign=top style='width:271.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Convert <i style='mso-bidi-font-style:
+  normal'>long</i> of long integer type to datetime value</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:2'>
-  <td width=89 valign=top style='width:66.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=aff style='margin-left:10.55pt;text-align:justify;text-justify:inter-ideograph;
-  tab-stops:35.2pt 48.75pt'><span class=var2><span lang=EN-US>p</span></span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
+  <td width=183 valign=top style='width:137.25pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>datetime(</span></span><span
+  class=var2><span lang=EN-US>date</span></span><i style='mso-bidi-font-style:
+  normal'><span lang=EN-US>,</span></i><span class=var2><span lang=EN-US>time</span></span><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>)</span></span><span
+  class=var2><span lang=EN-US></span></span></p>
   </td>
-  <td width=457 valign=top style='width:342.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>An integer sequence with the length of <i
-  style='mso-bidi-font-style:normal'>n</i>,</span><span class=var2><span
-  lang=EN-US style='font-style:normal;mso-bidi-font-style:italic'> which </span></span><span
-  lang=EN-US>specifies </span><span class=var2><span lang=EN-US
-  style='font-style:normal;mso-bidi-font-style:italic'>the positions of the
-  records to be deleted</span></span><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'></span></span></p>
+  <td width=362 valign=top style='width:271.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  font-weight:normal'>Concatenate date type data and time type data into data
+  of datetime type</span></span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
-  <td width=89 valign=top style='width:66.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=aff style='margin-left:10.55pt;text-align:justify;text-justify:inter-ideograph;
-  tab-stops:35.2pt 48.75pt'><span class=var2><span lang=EN-US>A</span></span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
+ <tr style='mso-yfti-irow:3'>
+  <td width=183 valign=top style='width:137.25pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>datetime(</span></span><span
+  class=var2><span lang=EN-US>y</span></span><i style='mso-bidi-font-style:
+  normal'><span lang=EN-US>,</span></i><span class=var2><span lang=EN-US>m</span></span><i
+  style='mso-bidi-font-style:normal'><span lang=EN-US>,</span></i><span
+  class=var2><span lang=EN-US>d</span></span><i style='mso-bidi-font-style:
+  normal'><span lang=EN-US>,</span></i><span class=var2><span lang=EN-US>h</span></span><i
+  style='mso-bidi-font-style:normal'><span lang=EN-US>,</span></i><span
+  class=var2><span lang=EN-US>m</span></span><i style='mso-bidi-font-style:
+  normal'><span lang=EN-US>,</span></i><span class=var2><span lang=EN-US>s</span></span><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>)</span></span><span
+  class=var2><span lang=EN-US></span></span></p>
   </td>
-  <td width=457 valign=top style='width:342.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>A sequence, which specifies the records
-  to be deleted</span><span class=code><span lang=EN-US style='font-family:
-  "Times New Roman",serif'></span></span></p>
+  <td width=362 valign=top style='width:271.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Convert </span><span class=var2><span
+  lang=EN-US>y</span></span><i style='mso-bidi-font-style:normal'><span
+  lang=EN-US>,</span></i><span class=var2><span lang=EN-US>m</span></span><i
+  style='mso-bidi-font-style:normal'><span lang=EN-US>,</span></i><span
+  class=var2><span lang=EN-US>d</span></span><i style='mso-bidi-font-style:
+  normal'><span lang=EN-US>,</span></i><span class=var2><span lang=EN-US>h</span></span><i
+  style='mso-bidi-font-style:normal'><span lang=EN-US>,</span></i><span
+  class=var2><span lang=EN-US>m</span></span><i style='mso-bidi-font-style:
+  normal'><span lang=EN-US>,</span></i><span class=var2><span lang=EN-US>s </span></span><span
+  class=var2><span lang=EN-US style='font-style:normal;mso-bidi-font-style:
+  italic'>of integer type to datetime data</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes'>
+  <td width=183 valign=top style='width:137.25pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>datetime(</span></span><span
+  class=var2><span lang=EN-US style='mso-bidi-font-size:10.0pt;mso-fareast-font-family:
+  黑体;mso-bidi-font-style:normal'>ym</span></span><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>,<span class=var2><span style='mso-bidi-font-size:
+  10.0pt;mso-fareast-font-family:黑体;mso-bidi-font-style:normal'>d</span></span>,<span
+  class=var2><span style='mso-bidi-font-size:10.0pt;mso-fareast-font-family:
+  黑体;mso-bidi-font-style:normal'>h</span></span>,<span class=var2><span
+  style='mso-bidi-font-size:10.0pt;mso-fareast-font-family:黑体;mso-bidi-font-style:
+  normal'>m</span></span>,<span class=var2><span style='mso-bidi-font-size:
+  10.0pt;mso-fareast-font-family:黑体;mso-bidi-font-style:normal'>s</span></span><span
+  class=code><span style='font-family:"Times New Roman",serif'>)</span></span></span></p>
+  </td>
+  <td width=362 valign=top style='width:271.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Convert integer ym, d, h, m, s into
+  datetime data<span class=code><span style='font-family:"Times New Roman",serif;
+  mso-fareast-font-family:宋体;font-weight:normal'></span></span></span></p>
   </td>
  </tr>
 </table>
 
-<p class=afe style='line-height:200%'><span lang=EN-US>Options:</span></p>
+<p class=afe style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
+14.0pt;line-height:200%'>Note: </span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>The format of </span><span
+class=var2><span lang=EN-US>string</span></span><span lang=EN-US> should match </span><span
+class=var2><span lang=EN-US>format</span></span><span lang=EN-US>.</span></p>
+
+<p class=afe style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
+14.0pt;line-height:200%'>Parameters: </span></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='border-collapse:collapse;mso-yfti-tbllook:1184;mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'>
-  <td width=56 valign=top style='width:42.25pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>@n</span></b></p>
+ style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=60 valign=top style='width:45.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=var2><span lang=EN-US>string</span></span></p>
   </td>
-  <td width=512 valign=top style='width:383.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Return the deleted record or a record
-  sequence of the deleted records</span></p>
+  <td width=475 valign=top style='width:356.6pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>String</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=60 valign=top style='width:45.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=var2><span lang=EN-US>format</span></span></p>
+  </td>
+  <td width=475 valign=top style='width:356.6pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Format string</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=60 valign=top style='width:45.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=var2><span lang=EN-US>loc</span></span></p>
+  </td>
+  <td width=475 valign=top style='width:356.6pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Language name, which is case insensitive.
+  The most commonly used languages are Chinese (zh) and English (en); see
+  A.sort() to know other languages supported in esProc</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3'>
+  <td width=60 valign=top style='width:45.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=var2><span lang=EN-US>long</span></span></p>
+  </td>
+  <td width=475 valign=top style='width:356.6pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Long integer counted in microseconds</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4'>
+  <td width=60 valign=top style='width:45.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=var2><span lang=EN-US>date</span></span></p>
+  </td>
+  <td width=475 valign=top style='width:356.6pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Date type</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:5'>
+  <td width=60 valign=top style='width:45.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=var2><span lang=EN-US>time</span></span></p>
+  </td>
+  <td width=475 valign=top style='width:356.6pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Time type</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:6'>
+  <td width=60 valign=top style='width:45.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=var2><span lang=EN-US>y</span></span></p>
+  </td>
+  <td width=475 valign=top style='width:356.6pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Positive integer, year</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:7'>
+  <td width=60 valign=top style='width:45.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=var2><span lang=EN-US>m</span></span></p>
+  </td>
+  <td width=475 valign=top style='width:356.6pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Positive integer, month</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:8'>
+  <td width=60 valign=top style='width:45.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=var2><span lang=EN-US>ym</span></span></p>
+  </td>
+  <td width=475 valign=top style='width:356.6pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>6-bit positive integer interpreted as
+  year and month</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:9'>
+  <td width=60 valign=top style='width:45.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=var2><span lang=EN-US>d</span></span></p>
+  </td>
+  <td width=475 valign=top style='width:356.6pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Positive integer, day</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:10'>
+  <td width=60 valign=top style='width:45.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=var2><span lang=EN-US>h</span></span></p>
+  </td>
+  <td width=475 valign=top style='width:356.6pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Positive integer, hour</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:11'>
+  <td width=60 valign=top style='width:45.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=var2><span lang=EN-US>m</span></span></p>
+  </td>
+  <td width=475 valign=top style='width:356.6pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Positive integer, minute</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:12;mso-yfti-lastrow:yes'>
+  <td width=60 valign=top style='width:45.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=var2><span lang=EN-US>s</span></span></p>
+  </td>
+  <td width=475 valign=top style='width:356.6pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Positive integer, second</span></p>
   </td>
  </tr>
 </table>
 
-<p class=afe style='line-height:200%'><span lang=EN-US>Return value:</span></p>
+<p class=afe style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
+14.0pt;line-height:200%'>Return value: </span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>The table
-sequence </span><span class=var2><span lang=EN-US>T</span></span><span
-lang=EN-US>, some records of which have been deleted</span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Datetime type
+data</span></p>
 
-<p class=afe style='line-height:200%'><span lang=EN-US>Example:</span></p>
+<p class=afe style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
+14.0pt;line-height:200%'>Example:</span></p>
 
 <table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
- style='margin-left:18.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ style='margin-left:18.55pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
  mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;height:15.4pt'>
-  <td width=19 valign=top style='width:14.0pt;border:solid #A6A6A6 1.0pt;
-  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm;
-  height:15.4pt'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=31 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
+  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span lang=EN-US><span
+  style='mso-tab-count:1'>&nbsp; </span></span></p>
   </td>
-  <td width=229 colspan=2 valign=top style='width:171.6pt;border:solid #A6A6A6 1.0pt;
+  <td width=418 valign=top style='width:313.15pt;border:solid #A6A6A6 1.0pt;
   border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:15.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  color:black;mso-color-alt:windowtext'>A</span></span><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
+  宋体;color:black;mso-color-alt:windowtext'>A</span></span><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
+  宋体'></span></span></p>
   </td>
-  <td width=286 valign=top style='width:214.85pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:15.4pt'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:1;height:15.4pt'>
-  <td width=19 valign=top style='width:14.0pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:15.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  color:black;mso-color-alt:windowtext'>1</span></span><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
-  </td>
-  <td width=229 colspan=2 valign=top style='width:171.6pt;border-top:none;
-  border-left:none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:15.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=demo.query(&quot;select
-  * from EMPLOYEE&quot;)</span></span></p>
-  </td>
-  <td width=286 valign=top style='width:214.85pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:15.4pt'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  <td width=142 valign=top style='width:106.3pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span lang=EN-US>&nbsp;</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:2;height:15.4pt'>
-  <td width=19 valign=top style='width:14.0pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:1'>
+  <td width=31 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:15.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  color:black;mso-color-alt:windowtext'>2</span></span><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
+  宋体;color:black;mso-color-alt:windowtext'>1</span></span><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
+  宋体'></span></span></p>
   </td>
-  <td width=229 colspan=2 valign=top style='width:171.6pt;border-top:none;
-  border-left:none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:15.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=A1.delete(1)</span></span></p>
-  </td>
-  <td width=286 valign=top style='width:214.85pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:15.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Delete the first record</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:3;height:30.25pt'>
-  <td width=19 valign=top style='width:14.0pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:30.25pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  color:black;mso-color-alt:windowtext'>3</span></span><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
-  </td>
-  <td width=229 colspan=2 valign=top style='width:171.6pt;border-top:none;
-  border-left:none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:30.25pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=A1.delete([2,4,6])</span></span></p>
-  </td>
-  <td width=286 valign=top style='width:214.85pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:30.25pt'>
-  <p class=MsoNormal><span lang=EN-US>Delete the second, the forth and the
-  sixth records.</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:4;height:15.4pt'>
-  <td width=19 valign=top style='width:14.0pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:15.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  color:black;mso-color-alt:windowtext'>4</span></span><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
-  </td>
-  <td width=229 colspan=2 valign=top style='width:171.6pt;border-top:none;
-  border-left:none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:15.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=A1.select(EID&gt;5)</span></span></p>
-  </td>
-  <td width=286 valign=top style='width:214.85pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:15.4pt'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:5;height:15.4pt'>
-  <td width=19 valign=top style='width:14.0pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:15.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  color:black;mso-color-alt:windowtext'>5</span></span><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
-  </td>
-  <td width=229 colspan=2 valign=top style='width:171.6pt;border-top:none;
-  border-left:none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:15.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=A1.delete(A4)</span></span></p>
-  </td>
-  <td width=286 valign=top style='width:214.85pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:15.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Delete the records whose </span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>EID</span></span><span
-  lang=EN-US> is more than </span><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'>5</span></span><span lang=EN-US>.
-  </span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:6;mso-yfti-lastrow:yes;height:15.9pt'>
-  <td width=20 colspan=2 valign=top style='width:15.3pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:15.9pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  color:black;mso-color-alt:windowtext'>6</span></span><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
-  </td>
-  <td width=227 valign=top style='width:170.3pt;border-top:none;border-left:
+  <td width=418 valign=top style='width:313.15pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:15.9pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=A1.delete@n(1)</span></span></p>
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  mso-fareast-font-family:宋体'>=datetime(&quot;2006-01-01 10:20:30&quot;)</span></span></p>
   </td>
-  <td width=286 valign=top style='width:214.85pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:15.9pt'>
-  <p class=MsoNormal><span lang=EN-US>Return the deleted record</span></p>
+  <td width=142 valign=top style='width:106.3pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  mso-fareast-font-family:宋体'>2006-01-01 10:20:30</span></span></p>
   </td>
  </tr>
- 
- <tr height=0>
-  <td width=19 style='border:none'></td>
-  <td width=2 style='border:none'></td>
-  <td width=226 style='border:none'></td>
-  <td width=284 style='border:none'></td>
+ <tr style='mso-yfti-irow:2'>
+  <td width=31 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
+  宋体;color:black;mso-color-alt:windowtext'>2</span></span><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
+  宋体'></span></span></p>
+  </td>
+  <td width=418 valign=top style='width:313.15pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  mso-fareast-font-family:宋体'>=datetime(&quot;12/28/1972
+  10:23:43&quot;,&quot;MM/dd/yyyy HH:mm:ss&quot;)</span></span></p>
+  </td>
+  <td width=142 valign=top style='width:106.3pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  mso-fareast-font-family:宋体'>1972-12-28 10:23:43</span></span></p>
+  </td>
  </tr>
- 
+ <tr style='mso-yfti-irow:3'>
+  <td width=31 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
+  宋体;color:black;mso-color-alt:windowtext'>3</span></span><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
+  宋体'></span></span></p>
+  </td>
+  <td width=418 valign=top style='width:313.15pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  mso-fareast-font-family:宋体'>=datetime(&quot;2006-01-01 10:20:30:111&quot;)</span></span></p>
+  </td>
+  <td width=142 valign=top style='width:106.3pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  mso-fareast-font-family:宋体'>2006-01-01 10:20:30</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4'>
+  <td width=31 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
+  宋体;color:black;mso-color-alt:windowtext'>4</span></span><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
+  宋体'></span></span></p>
+  </td>
+  <td width=418 valign=top style='width:313.15pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  mso-fareast-font-family:宋体'>=datetime(12345)</span></span></p>
+  </td>
+  <td width=142 valign=top style='width:106.3pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  mso-fareast-font-family:宋体'>1970-01-01 08:00:12</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:5'>
+  <td width=31 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
+  宋体;color:black;mso-color-alt:windowtext'>5</span></span><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
+  宋体'></span></span></p>
+  </td>
+  <td width=418 valign=top style='width:313.15pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  mso-fareast-font-family:宋体'>=datetime(date(&quot;1982-08-09&quot;),time(&quot;12:12:12&quot;))</span></span></p>
+  </td>
+  <td width=142 valign=top style='width:106.3pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  mso-fareast-font-family:宋体'>1982-08-09 12:12:12</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:6'>
+  <td width=31 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
+  宋体;color:black;mso-color-alt:windowtext'>6</span></span><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
+  宋体'></span></span></p>
+  </td>
+  <td width=418 valign=top style='width:313.15pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  mso-fareast-font-family:宋体'>=datetime(2006,01,01,-10,-20,30)</span></span></p>
+  </td>
+  <td width=142 valign=top style='width:106.3pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  mso-fareast-font-family:宋体'>2005-12-31 13:40:30</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:7'>
+  <td width=31 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
+  宋体;color:black;mso-color-alt:windowtext'>7</span></span><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
+  宋体'></span></span></p>
+  </td>
+  <td width=418 valign=top style='width:313.15pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  mso-fareast-font-family:宋体'>=datetime(200601,01,-10,-20,30)</span></span></p>
+  </td>
+  <td width=142 valign=top style='width:106.3pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  mso-fareast-font-family:宋体'>2005-12-31 13:40:30</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:8;mso-yfti-lastrow:yes'>
+  <td width=31 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
+  宋体;color:black;mso-color-alt:windowtext'>8</span></span><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
+  宋体'></span></span></p>
+  </td>
+  <td width=418 valign=top style='width:313.15pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  mso-fareast-font-family:宋体'>=datetime(&quot;4 </span></span><span class=code><span
+  style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:
+  "Times New Roman"'>五月</span></span><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif;mso-fareast-font-family:宋体'> 2001
+  3:08 </span></span><span class=code><span style='font-family:宋体;mso-ascii-font-family:
+  "Times New Roman";mso-hansi-font-family:"Times New Roman"'>下午</span></span><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  mso-fareast-font-family:宋体'>&quot;,&quot;d MMM yyyy h:mm
+  a&quot;:&quot;zh&quot;)</span></span></p>
+  </td>
+  <td width=142 valign=top style='width:106.3pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  mso-fareast-font-family:宋体'>2001-05-04 15:08:00</span></span></p>
+  </td>
+ </tr>
 </table>
 
-<p class=afe style='line-height:200%'><span lang=EN-US>Note:</span></p>
+<p class=afe style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
+14.0pt;line-height:200%'>Related functions:</span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>We use the store
-address, instead of the field names or field values, to judge whether the
-records specified by </span><span class=var2><span lang=EN-US>A </span></span><span
-class=var2><span lang=EN-US style='font-style:normal;mso-bidi-font-style:italic'>exist
-in</span><span lang=EN-US> T</span></span><span lang=EN-US>. So to delete the
-specified records, we generally use the function </span><span class=var2><span
-lang=EN-US>T</span></span><span class=code><span lang=EN-US style='font-family:
-"Times New Roman",serif'>.delete(</span></span><span class=var2><span
-lang=EN-US>T</span></span><span class=code><span lang=EN-US style='font-family:
-"Times New Roman",serif'>.select(…)) </span></span><span class=code><span
-lang=EN-US style='font-family:"Times New Roman",serif;font-weight:normal'>to
-locate them.</span></span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US><a  href="157.html"><span style='mso-fareast-font-family:
+黑体;font-weight:normal'>date(<span style='mso-bookmark:_Hlt415056135'>)</span></span><span
+style='mso-bookmark:_Hlt415056135'></span></a><a
+name="_Hlt415056135"></a></span></b></p>
 
-<p class=afe style='line-height:200%'><span lang=EN-US>Related functions:</span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US><a  href="798.html"><span style='mso-fareast-font-family:
+黑体;font-weight:normal'>tim<span style='mso-bookmark:_Hlt415056230'>e</span><span
+style='mso-bookmark:_Hlt415056239'>(</span>)</span></a><a
+name="_Hlt415056239"></a><a name="_Hlt415056230"></a></span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US><a  href="491.html"><span style='mso-bidi-font-size:
-10.5pt;font-style:normal'>T</span><span style='mso-bidi-font-size:12.0pt;
-font-style:normal'>.modi<span style='mso-bookmark:_Hlt414979340'>f</span>y()</span></a><a
-name="_Hlt414979340"></a></span></i></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-fareast-font-family:黑体'><a  href="156.html">date(<span
+style='mso-bookmark:_Hlt415056166'><i style='mso-bidi-font-style:normal'><span
+style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:宋体'>d</span></i></span><i
+style='mso-bidi-font-style:normal'><span style='mso-bidi-font-size:10.5pt;
+mso-fareast-font-family:宋体'>atetimeExp</span></i>)</a><a
+name="_Hlt415056166"></a></span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US><a  href="389.html"><span style='mso-bidi-font-size:
-10.5pt;font-style:normal'>T</span><span style='mso-bidi-font-size:12.0pt;
-font-style:normal'>.ins<span style='mso-bookmark:_Hlt414979346'>e</span>rt()</span></a><a
-name="_Hlt414979346"></a></span></i></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-fareast-font-family:黑体'><a  href="160.html">datetime(<i
+style='mso-bidi-font-style:normal'>da<span style='mso-bookmark:_Hlt415055896'>t</span>etimeExp</i>)</a><a
+name="_Hlt415055896"></a></span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US><a  href="162.html"><span style='mso-bidi-font-size:
-10.5pt;font-style:normal'>A</span><span style='mso-bidi-font-size:12.0pt;
-font-style:normal'>.de<span style='mso-bookmark:_Hlt406686565'>l</span>ete<span
-style='mso-bookmark:_Hlt414977735'>(</span>)</span></a><a
-name="_Hlt414977735"></a><a name="_Hlt406686565"></a></span></i></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-fareast-font-family:黑体'><a  href="797.html">time(<i
+style='mso-bidi-font-style:normal'>d<span style='mso-bookmark:_Hlt415056234'>a</span>tetimeExp</i>)</a><a
+name="_Hlt415056234"></a></span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="162.html">Next</a></div>
@@ -357,12 +518,12 @@ name="_Hlt414977735"></a><a name="_Hlt406686565"></a></span></i></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="160.html">delete()</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="159.html">datetime()</a></span></li>
 </div>
 	</div>
 	<div id="footer">	
 		
-		<div class="copyright"> Copyright&reg; 2021 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+		<div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">Scudata Inc. 
       </a></div> 
         <!--
 		<div class="copyright"> Copyright&reg; 2017 <a href="http://www.yimming.com" target="_Blank"> Beijing Yimming Ltd. Co. 

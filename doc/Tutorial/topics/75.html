@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>Chapter3 Associative Operations</title>
+<title>2.8.3 Mathematical operations</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,17 +13,770 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h1 style='margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:21.0pt;
-line-height:normal;mso-list:l17 level1 lfo3;tab-stops:42.5pt'><span
-lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
-"Times New Roman"'><span style='mso-list:Ignore'>Chapter3<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span
-lang=EN-US style='font-family:"Times New Roman",serif'>Associative Operations</span></h1></div>
-	<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>It is common that business rules are built to determine how data is
-created or summed up in real-world data analysis and manipulation. This chapter
-explains associative operations over table sequences, sequences and records in
-esProc.</span></p>
+	<div id="centent-title"><h3 style='margin-left:36.0pt;text-indent:-36.0pt;mso-list:l52 level3 lfo53;
+tab-stops:21.0pt'><span lang=EN-US style='mso-fareast-font-family:
+"Times New Roman"'><span style='mso-list:Ignore'>2.8.3<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;
+</span></span></span><span lang=EN-US>Mathematical operations</span></h3></div>
+	<p class=T-Par style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:exactly'><span
+lang=EN-US>esProc offers matrix- and vector-related mathematical functions for
+calculating variance, standard deviation, and so on. For instance:</span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='margin-left:20.35pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:
+ #B2B2B2;mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
+ .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:.5pt solid #B2B2B2;
+ mso-border-insidev:.5pt solid #B2B2B2'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=42 valign=top style='width:31.2pt;border:solid black 1.0pt;
+  mso-border-alt:solid black .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US>&nbsp;</span></p>
+  </td>
+  <td width=208 valign=top style='width:155.9pt;border-top:solid black 1.0pt;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
+  mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-bottom-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel><span lang=EN-US style='color:black;mso-color-alt:windowtext'>A</span></p>
+  </td>
+  <td width=189 style='width:5.0cm;border-top:solid black 1.0pt;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
+  mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-bottom-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel><span lang=EN-US style='color:black;mso-color-alt:windowtext'>B</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='color:black;mso-color-alt:windowtext'>1</span></p>
+  </td>
+  <td width=208 style='width:155.9pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-top-alt:windowtext;mso-border-left-alt:windowtext;mso-border-bottom-alt:
+  #B2B2B2;mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
+  .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCodepink style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>[4, 1, 10]</span></p>
+  </td>
+  <td width=189 style='width:5.0cm;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid windowtext .5pt;
+  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  mso-border-top-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCodepink style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>[-7, 4, 7]</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='color:black;mso-color-alt:windowtext'>2</span></p>
+  </td>
+  <td width=208 style='width:155.9pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman",serif;color:black;mso-color-alt:
+  windowtext'>=var(A1)</span><span lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
+  </td>
+  <td width=189 style='width:5.0cm;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman",serif;color:black;mso-color-alt:
+  windowtext'>=var@s(A1)</span><span lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;page-break-inside:avoid;height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='color:black;mso-color-alt:windowtext'>3</span></p>
+  </td>
+  <td width=208 style='width:155.9pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman",serif;color:black;mso-color-alt:
+  windowtext'>=mse(A1, B1)</span><span lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
+  </td>
+  <td width=189 style='width:5.0cm;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman",serif;color:black;mso-color-alt:
+  windowtext'>=mae(A1, B1)</span><span lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4;page-break-inside:avoid;height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='color:black;mso-color-alt:windowtext'>4</span></p>
+  </td>
+  <td width=208 style='width:155.9pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman",serif;color:black;mso-color-alt:
+  windowtext'>=dis(A1, B1)</span><span lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
+  </td>
+  <td width=189 style='width:5.0cm;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:5;mso-yfti-lastrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLaEnd style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='color:black;mso-color-alt:windowtext'>5</span></p>
+  </td>
+  <td width=208 style='width:155.9pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman",serif;color:black;mso-color-alt:
+  windowtext'>=dis@a(A1, B1)</span><span lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
+  </td>
+  <td width=189 style='width:5.0cm;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman",serif;color:black;mso-color-alt:
+  windowtext'>=dis@m(A1, B1)</span><span lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=T-ParCxSpFirst style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.1pt;line-height:16.0pt;mso-line-height-rule:exactly'><span
+class=T-Bold><span lang=EN-US>var() </span></span><span lang=EN-US>function calculates
+the <b>total variance</b> of a vector. It works with <span class=T-Bold>@s</span>
+option to calculate the <b>sample variance</b> frequently used in statistical
+analysis. Here are results of A2 and B2 respectively:</span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US style='mso-no-proof:yes'><img border=0 width=168 height=41
+src="Tutorial.files/image331.png" v:shapes="_x0000_i1404"><span
+style='mso-spacerun:yes'>&nbsp; </span><img border=0 width=168 height=41
+src="Tutorial.files/image332.png" v:shapes="_x0000_i1405"></span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.1pt;line-height:16.0pt;mso-line-height-rule:exactly'><span
+class=T-Bold><span lang=EN-US>mse() </span></span><span class=T-Bold><span
+lang=EN-US style='font-weight:normal;mso-bidi-font-weight:bold'>function</span><span
+lang=EN-US> </span></span><span lang=EN-US>and <span class=T-Bold>mae() </span>function
+respectively calculate the standard deviation and absolute deviation of two
+vectors. A3 and B3 perform the calculations and get the following results:</span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US style='mso-no-proof:yes'><img border=0 width=168 height=41
+src="Tutorial.files/image333.png" v:shapes="_x0000_i1406"><span
+style='mso-spacerun:yes'>&nbsp; </span><img border=0 width=168 height=41
+src="Tutorial.files/image334.png" v:shapes="_x0000_i1407"></span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.1pt;line-height:16.0pt;mso-line-height-rule:exactly'><span
+class=T-Bold><span lang=EN-US>dis() </span></span><span lang=EN-US>function calculates
+the Euclidean distance between two vectors. It works with <b>@a</b> option to
+calculate the sum of absolute values of Euclidean distances, and adds <b>@m</b>
+option to calculate the average distance according to the lengths of vectors.
+Below are results of A4, B5 and B5:</span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US style='mso-no-proof:yes'><img border=0 width=168 height=41
+src="Tutorial.files/image335.png" v:shapes="_x0000_i1408"><span
+style='mso-spacerun:yes'>&nbsp; </span><img border=0 width=168 height=41
+src="Tutorial.files/image336.png" v:shapes="_x0000_i1409"><span
+style='mso-spacerun:yes'>&nbsp;</span><img border=0 width=168 height=41
+src="Tutorial.files/image337.png" v:shapes="_x0000_i1410"></span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:exactly'><span
+lang=EN-US>&nbsp;</span></p>
+
+<p class=T-ParCxSpLast style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.1pt;line-height:16.0pt;mso-line-height-rule:exactly'><span
+class=T-Bold><span lang=EN-US>pearson() </span></span><span lang=EN-US>function
+and <span class=T-Bold>spearman() </span>function respectively calculate Pearson
+correlation coefficient and Spearman’s rank-order correlation coefficient:</span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='margin-left:20.35pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:
+ #B2B2B2;mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
+ .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:.5pt solid #B2B2B2;
+ mso-border-insidev:.5pt solid #B2B2B2'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=42 valign=top style='width:31.2pt;border:solid black 1.0pt;
+  mso-border-alt:solid black .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US>&nbsp;</span></p>
+  </td>
+  <td width=151 valign=top style='width:4.0cm;border-top:solid black 1.0pt;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
+  mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-bottom-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel><span lang=EN-US style='color:black;mso-color-alt:windowtext'>A</span></p>
+  </td>
+  <td width=151 style='width:4.0cm;border-top:solid black 1.0pt;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
+  mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-bottom-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel><span lang=EN-US style='color:black;mso-color-alt:windowtext'>B</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='color:black;mso-color-alt:windowtext'>1</span></p>
+  </td>
+  <td width=151 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid windowtext .5pt;
+  mso-border-left-alt:solid windowtext .5pt;mso-border-top-alt:windowtext;
+  mso-border-left-alt:windowtext;mso-border-bottom-alt:#B2B2B2;mso-border-right-alt:
+  #B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:.5pt;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabCodepink style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>[4, 1, 10]</span></p>
+  </td>
+  <td width=151 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid windowtext .5pt;
+  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  mso-border-top-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCodepink style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>[-7, 4, 7]</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='color:black;mso-color-alt:windowtext'>2</span></p>
+  </td>
+  <td width=151 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid windowtext .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman",serif;color:black;mso-color-alt:
+  windowtext'>=pearson(A1, B1)</span><span lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
+  </td>
+  <td width=151 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman",serif;color:black;mso-color-alt:
+  windowtext'>=spearman(A1, B1)</span><span lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLaEnd style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='color:black;mso-color-alt:windowtext'>3</span></p>
+  </td>
+  <td width=151 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid windowtext .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman",serif;color:black;mso-color-alt:
+  windowtext'>=pearson@r(A1, B1)</span><span lang=EN-US style='font-family:
+  "Times New Roman",serif'></span></p>
+  </td>
+  <td width=151 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman",serif;color:black;mso-color-alt:
+  windowtext'>=pearson@a(A1, B1; 2)</span><span lang=EN-US style='font-family:
+  "Times New Roman",serif'></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=T-ParCxSpFirst style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:exactly'><span
+lang=EN-US>A2 gets the Pearson c orrelation coefficient and A3 gets the Spearman’s
+correlation:</span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US style='mso-no-proof:yes'><img border=0 width=159 height=41
+src="Tutorial.files/image338.png" v:shapes="_x0000_i1411"><span
+style='mso-spacerun:yes'>&nbsp; </span><img border=0 width=159 height=41
+src="Tutorial.files/image339.png" v:shapes="_x0000_i1412"></span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.1pt;line-height:16.0pt;mso-line-height-rule:exactly'><span
+class=T-Bold><span lang=EN-US>pearson() </span></span><span lang=EN-US>function
+uses <span class=T-Bold>@r</span> option to first equalize the vector becore calculating
+the pearson correlation coefficient, and works with <span class=T-Bold>@a</span>
+option to set the degrees of freedome for the calculation. Below are results of
+A3 and B3:</span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US style='mso-no-proof:yes'><img border=0 width=159 height=41
+src="Tutorial.files/image338.png" v:shapes="_x0000_i1413"><span
+style='mso-spacerun:yes'>&nbsp; </span><img border=0 width=159 height=41
+src="Tutorial.files/image340.png" v:shapes="_x0000_i1414"></span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:exactly'><span
+lang=EN-US>&nbsp;</span></p>
+
+<p class=T-ParCxSpLast style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:exactly'><span
+lang=EN-US>There are related esProc functions to perform data processing on
+vectors and matrices. For instance:</span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='margin-left:20.35pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:
+ #B2B2B2;mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
+ .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:.5pt solid #B2B2B2;
+ mso-border-insidev:.5pt solid #B2B2B2'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=42 valign=top style='width:31.2pt;border:solid black 1.0pt;
+  mso-border-alt:solid black .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel><span lang=EN-US>&nbsp;</span></p>
+  </td>
+  <td width=151 valign=top style='width:4.0cm;border-top:solid black 1.0pt;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
+  mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-bottom-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel><span lang=EN-US style='color:black;mso-color-alt:windowtext'>A</span></p>
+  </td>
+  <td width=151 style='width:4.0cm;border-top:solid black 1.0pt;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
+  mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-bottom-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel><span lang=EN-US style='color:black;mso-color-alt:windowtext'>B</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='color:black;mso-color-alt:windowtext'>1</span></p>
+  </td>
+  <td width=151 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid windowtext .5pt;
+  mso-border-left-alt:solid windowtext .5pt;mso-border-top-alt:windowtext;
+  mso-border-left-alt:windowtext;mso-border-bottom-alt:#B2B2B2;mso-border-right-alt:
+  #B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:.5pt;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabCodepink style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>[4, 1, 10]</span></p>
+  </td>
+  <td width=151 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid windowtext .5pt;
+  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  mso-border-top-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCodepink style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>[[8, 1, 6], [3, 5, 7],
+  [4, 9, 2]]</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='color:black;mso-color-alt:windowtext'>2</span></p>
+  </td>
+  <td width=151 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid windowtext .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman",serif;color:black;mso-color-alt:
+  windowtext'>=norm(A1)</span><span lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
+  </td>
+  <td width=151 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman",serif;color:black;mso-color-alt:
+  windowtext'>=norm@0(A1)</span><span lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLaEnd style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='color:black;mso-color-alt:windowtext'>3</span></p>
+  </td>
+  <td width=151 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid windowtext .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman",serif;color:black;mso-color-alt:
+  windowtext'>=norm@s(A1)</span><span lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
+  </td>
+  <td width=151 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman",serif;color:black;mso-color-alt:
+  windowtext'>=norm(B1)</span><span lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=T-ParCxSpFirst style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.1pt;line-height:16.0pt;mso-line-height-rule:exactly'><span
+class=T-Bold><span lang=EN-US>norm() </span></span><span lang=EN-US>function normalizes
+a vector. It cooperates with <span class=T-Bold>@0 </span>option to only make a
+linear adjustment to obtain norm 0, and uses <span class=T-Bold>@s</span> option
+to adjust the vector to obtain norm 0 with standard deviation 1. Below are
+results of A2, B2 and C2:</span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US style='mso-no-proof:yes'><img border=0 width=441 height=41
+src="Tutorial.files/image341.png" v:shapes="_x0000_i1415"></span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US style='mso-no-proof:yes'><img border=0 width=159 height=41
+src="Tutorial.files/image342.png" v:shapes="_x0000_i1416"></span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US style='mso-no-proof:yes'><img border=0 width=441 height=41
+src="Tutorial.files/image343.png" v:shapes="_x0000_i1417"></span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:exactly'><span
+lang=EN-US>Besides, the <span class=T-Bold>norm()</span> function can normalize
+each row of a matrix using the matrix as the parameter. In this case, <span
+class=T-Bold>@0 </span>option becomes invalid. Here is B3’s normalization result:</span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US style='mso-no-proof:yes'><img border=0 width=456 height=81
+src="Tutorial.files/image344.png" v:shapes="_x0000_i1418"></span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:exactly'><span
+lang=EN-US>&nbsp;</span></p>
+
+<p class=T-ParCxSpLast style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.1pt;line-height:16.0pt;mso-line-height-rule:exactly'><span
+class=T-Bold><span lang=EN-US>linefit(<i style='mso-bidi-font-style:normal'>A</i>,
+<i style='mso-bidi-font-style:normal'>Y</i>) </span></span><span lang=EN-US>function
+performs linear fittting using the least squares method. Parameter <span
+class=T-Bold><i style='mso-bidi-font-style:normal'>A </i></span>is a coefficient
+matrix and parameter <span class=T-Bold><i style='mso-bidi-font-style:normal'>Y
+</i></span>is a constant matrix. Both matrices have same number of rows. When <span
+class=T-Bold><i style='mso-bidi-font-style:normal'>A</i></span> is an <i>n</i>*<i>n</i>
+matrix and <span class=T-Var>Y </span>is a vector, the calculation is
+equivalent to solving matrix equation <span class=T-Var>AX</span>=<span
+class=T-Var>Y</span>. For instance:</span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='margin-left:20.35pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:
+ #B2B2B2;mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
+ .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:.5pt solid #B2B2B2;
+ mso-border-insidev:.5pt solid #B2B2B2'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=42 valign=top style='width:31.2pt;border:solid black 1.0pt;
+  mso-border-alt:solid black .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel><span lang=EN-US>&nbsp;</span></p>
+  </td>
+  <td width=151 valign=top style='width:4.0cm;border-top:solid black 1.0pt;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
+  mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-bottom-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel><span lang=EN-US style='color:black;mso-color-alt:windowtext'>A</span></p>
+  </td>
+  <td width=151 style='width:4.0cm;border-top:solid black 1.0pt;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
+  mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-bottom-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel><span lang=EN-US style='color:black;mso-color-alt:windowtext'>B</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='color:black;mso-color-alt:windowtext'>1</span></p>
+  </td>
+  <td width=151 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid windowtext .5pt;
+  mso-border-left-alt:solid windowtext .5pt;mso-border-top-alt:windowtext;
+  mso-border-left-alt:windowtext;mso-border-bottom-alt:#B2B2B2;mso-border-right-alt:
+  #B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:.5pt;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabCodepink style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>[[1,-2, 3],[2,3,4],[3,5,7]]</span></p>
+  </td>
+  <td width=151 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid windowtext .5pt;
+  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  mso-border-top-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCodepink style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>[-10,5,7]</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLaEnd style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='color:black;mso-color-alt:windowtext'>2</span></p>
+  </td>
+  <td width=151 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid windowtext .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman",serif;color:black;mso-color-alt:
+  windowtext'>=linefit(A1,B1)</span><span lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
+  </td>
+  <td width=151 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=T-ParCxSpFirst style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:exactly'><span
+lang=EN-US>A2’s result is as follows:</span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US style='mso-no-proof:yes'><img border=0 width=159 height=81
+src="Tutorial.files/image345.png" v:shapes="_x0000_i1419"></span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:exactly'><span
+lang=EN-US>&nbsp;</span></p>
+
+<p class=T-ParCxSpLast style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.1pt;line-height:16.0pt;mso-line-height-rule:exactly'><span
+class=T-Bold><span lang=EN-US>polyfit(<i style='mso-bidi-font-style:normal'>A</i>,
+<i style='mso-bidi-font-style:normal'>B</i>, <i style='mso-bidi-font-style:
+normal'>n</i>) </span></span><span lang=EN-US>function fits together two
+vectors using a polynomial of degree n and returns a sequence of coefficients ordered
+from low order to high order. For instance:</span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='margin-left:20.35pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:
+ #B2B2B2;mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
+ .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:.5pt solid #B2B2B2;
+ mso-border-insidev:.5pt solid #B2B2B2'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=42 valign=top style='width:31.2pt;border:solid black 1.0pt;
+  mso-border-alt:solid black .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US>&nbsp;</span></p>
+  </td>
+  <td width=151 valign=top style='width:4.0cm;border-top:solid black 1.0pt;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
+  mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-bottom-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel><span lang=EN-US style='color:black;mso-color-alt:windowtext'>A</span></p>
+  </td>
+  <td width=151 style='width:4.0cm;border-top:solid black 1.0pt;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
+  mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-bottom-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel><span lang=EN-US style='color:black;mso-color-alt:windowtext'>B</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='color:black;mso-color-alt:windowtext'>1</span></p>
+  </td>
+  <td width=151 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid windowtext .5pt;
+  mso-border-left-alt:solid windowtext .5pt;mso-border-top-alt:windowtext;
+  mso-border-left-alt:windowtext;mso-border-bottom-alt:#B2B2B2;mso-border-right-alt:
+  #B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:.5pt;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabCodepink style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>[1,2,3,5]</span></p>
+  </td>
+  <td width=151 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid windowtext .5pt;
+  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  mso-border-top-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCodepink style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>[2,13,38,155]</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='color:black;mso-color-alt:windowtext'>2</span></p>
+  </td>
+  <td width=151 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid windowtext .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman",serif;color:black;mso-color-alt:
+  windowtext'>=polyfit(A1,B1,1)</span><span lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
+  </td>
+  <td width=151 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman",serif;color:black;mso-color-alt:
+  windowtext'>=polyfit(A1,B1,2)</span><span lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLaEnd style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='color:black;mso-color-alt:windowtext'>3</span></p>
+  </td>
+  <td width=151 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid windowtext .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman",serif;color:black;mso-color-alt:
+  windowtext'>=polyfit(A1,B1,3)</span><span lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
+  </td>
+  <td width=151 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=T-ParCxSpFirst style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:exactly'><span
+lang=EN-US>A2, B2 and A3 use different degrees to fit together the same two
+vectors, and respecrively get results below:</span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US style='mso-no-proof:yes'><img border=0 width=159 height=61
+src="Tutorial.files/image346.png" v:shapes="_x0000_i1420"><span
+style='mso-spacerun:yes'>&nbsp; </span><img border=0 width=159 height=81
+src="Tutorial.files/image347.png" v:shapes="_x0000_i1421"><span
+style='mso-spacerun:yes'>&nbsp;</span><img border=0 width=159 height=101
+src="Tutorial.files/image348.png" v:shapes="_x0000_i1422"></span></p>
+
+<p class=T-ParCxSpLast style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US>A3’s fitting result, for instance, is 1.041667<i>x</i>3+0.75<i>x</i>2+1.458333<i>x</i>-1.25.<span
+style='mso-no-proof:yes'></span></span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="76.html">Next</a></div>
@@ -31,17 +784,12 @@ esProc.</span></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="76.html">3.1 Creating a new or different TSeq</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="81.html">3.2 Grouping and Summarizing Data</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="85.html">3.3 Sorting and Ranking Data</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="89.html">3.4 Alignment Grouping and Enumeration Grouping</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="94.html">3.5 Associating Tables by the Foreign Key</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="99.html">3.6 Primary Key and Index</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="72.html">2.8 Linear algebra functions</a></span></li>
 </div>
 	</div>
 	<div id="footer">	
 		
-		<div class="copyright"> Copyright&reg; 2021 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+		<div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">Scudata Inc. 
       </a></div> 
         <!--
 		<div class="copyright"> Copyright&reg; 2017 <a href="http://www.yimming.com" target="_Blank"> Beijing Yimming Ltd. Co. 

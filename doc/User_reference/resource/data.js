@@ -101,5 +101,6 @@ tree.setIconPath("images/");
  tree.nodes["1_100"] = "text:SPL file;url:topics/98.html";
  tree.nodes["1_101"] = "text:Find &amp; Replace;url:topics/99.html";
  tree.nodes["1_102"] = "text:Function assist editor;url:topics/100.html";
+ tree.nodes["1_103"] = "text:Configure user-defined function file;url:topics/101.html";
 tree.setTarget("mainFrame");
 document.write(tree.toString());

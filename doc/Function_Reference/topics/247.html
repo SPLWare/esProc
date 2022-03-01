@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>Firr()</title>
+<title>file( fn:z,hs )</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,124 +13,321 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h2><a name="_Firr()"></a><a name=Firr></a><span lang=EN-US>Firr()</span></h2></div>
-	<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-line-height:200%'>Description</span></b><b style='mso-bidi-font-weight:normal'><span
-style='font-size:14.0pt;line-height:200%;font-family:宋体;mso-ascii-font-family:
-"Times New Roman";mso-hansi-font-family:"Times New Roman"'>：</span></b><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-line-height:200%'></span></b></p>
+	<div id="centent-title"><h3 style='text-align:justify;text-justify:inter-ideograph;tab-stops:-179.95pt'><a
+name="file_fn_z_h"></a><a name="_filename()_1"></a><a name="file_fn_z_h2"></a><span
+lang=EN-US>file(<i>fn:z,hs</i>)<a name="file_fn_z_hs"></a></span></h3></div>
+	<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt'>Description:</span></b></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>The function equals the Excel IRR function.</span></p>
+lang=EN-US>Generate a cluster file or a cluster homo-name files group on one or
+more nodes.</span></p>
 
-<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-line-height:200%'>Syntax</span></b><b style='mso-bidi-font-weight:normal'><span
-style='font-size:14.0pt;line-height:200%;font-family:宋体;mso-ascii-font-family:
-"Times New Roman";mso-hansi-font-family:"Times New Roman"'>：</span></b><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-line-height:200%'> </span></b></p>
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt'>Syntax:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US style='mso-fareast-font-family:黑体'>Firr(</span></b><i
-style='mso-bidi-font-style:normal'><span lang=EN-US>values</span></i><span
-lang=EN-US>,<i style='mso-bidi-font-style:normal'>guess</i></span><b
-style='mso-bidi-font-weight:normal'><i style='mso-bidi-font-style:normal'><span
-lang=EN-US style='mso-fareast-font-family:黑体'>)</span></i></b></p>
+<p class=MsoNormal style='text-indent:21.1pt;mso-char-indent-count:2.0'><b><span
+lang=EN-US style='mso-bidi-font-size:11.0pt'>file</span></b><span lang=EN-US>(<i
+style='mso-bidi-font-style:normal'>f<span style='mso-bidi-font-style:italic'>n:z,hs</span></i>)</span></p>
 
-<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-line-height:200%'>Note</span></b><b style='mso-bidi-font-weight:normal'><span
-style='font-size:14.0pt;line-height:200%;font-family:宋体;mso-ascii-font-family:
-"Times New Roman";mso-hansi-font-family:"Times New Roman"'>：</span></b><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-line-height:200%'> </span></b></p>
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt'>Note:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:
-exactly'><span lang=EN-US>The function calculates the internal rate of return
-for a series of cash flows represented by numeric values. The internal rate of
-return is the rate that makes the net present value from a particular
-investment equal to zero, that is, the current value of the returns received
-from the investment happens to be equal to the the investment cost. </span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>The function generates
+a cluster file on node or a sequence of nodes <i>hs</i>. Parameter <i>z</i> is
+zone table number. The function generates a cluster homo-name files group when <i>z</i>
+is an integer sequence.</span></p>
 
-<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-line-height:200%'>Parameters</span></b><b style='mso-bidi-font-weight:normal'><span
-style='font-size:14.0pt;line-height:200%;font-family:方正姚体;mso-ascii-font-family:
-"Times New Roman"'>：</span></b><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US style='font-size:14.0pt;line-height:200%;mso-fareast-font-family:
-方正姚体'></span></b></p>
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt'>Parameters:</span></b></p>
 
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=539
+ style='margin-left:-7.15pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=70 valign=top style='width:52.2pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US>values</span></i><span
-  class=var2><span lang=EN-US></span></span></p>
+  <td width=95 valign=top style='width:70.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='text-indent:5.25pt;mso-char-indent-count:.5'><i><span
+  lang=EN-US>fn</span></i></p>
   </td>
-  <td width=474 valign=top style='width:355.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-weight:bold'>A
-  sequence containing the values of a series of cash flows used to calculate
-  the internal rate of return. It must contain at least one periodic payment
-  (negative value) and at least one periodic income (positive value).</span></p>
+  <td width=444 valign=top style='width:333.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-style:italic'>A
+  composite table file</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
-  <td width=70 valign=top style='width:52.2pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US>guess</span></i><span
-  class=var2><span lang=EN-US></span></span></p>
+ <tr style='mso-yfti-irow:1'>
+  <td width=95 valign=top style='width:70.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='text-indent:5.25pt;mso-char-indent-count:.5'><i><span
+  lang=EN-US>z</span></i><span class=15><span lang=EN-US style='font-family:
+  "Times New Roman",serif'></span></span></p>
   </td>
-  <td width=474 valign=top style='width:355.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-weight:bold'>An
-  estimated value for IRR function’s calculation. If omitted, it will take on
-  the default value of 0.1</span></p>
+  <td width=444 valign=top style='width:333.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Zone table number(s), which is an integer
+  or an integer sequence</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes'>
+  <td width=95 valign=top style='width:70.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='text-indent:5.25pt;mso-char-indent-count:.5'><i><span
+  lang=EN-US>hs</span></i></p>
+  </td>
+  <td width=444 valign=top style='width:333.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>A node or a sequence of nodes</span></p>
   </td>
  </tr>
 </table>
 
-<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-line-height:200%'>Example</span></b><b style='mso-bidi-font-weight:normal'><span
-style='font-size:14.0pt;line-height:200%;font-family:宋体;mso-ascii-font-family:
-"Times New Roman";mso-hansi-font-family:"Times New Roman"'>：</span></b><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-line-height:200%'></span></b></p>
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt'>Options:</span></b></p>
 
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
+<p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+mso-hansi-font-family:"Arial Narrow"'>@w<span
+style='mso-spacerun:yes'>&nbsp; </span><span
+style='mso-spacerun:yes'>&nbsp;</span></span></span><span lang=EN-US>Enable a
+remote generation with parameter <i>z</i> and parameter <i>hs</i> have a
+one-one-one correspondence; and is equivalent to to(hs.len()) when parameter <i>z</i>
+is absent</span><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt'></span></b></p>
+
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt'>Return value:</span></b></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>A cluster file</span></p>
+
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt'>Example:</span></b></p>
+
+<p class=MsoNormal><span lang=EN-US>When parameter <i>fn</i> is a file group:</span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=807
+ style='margin-left:17.65pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
+ mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=353 valign=top style='width:264.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=aff style='margin-left:10.55pt;text-align:justify;text-justify:inter-ideograph;
-  tab-stops:48.75pt'><b><span lang=EN-US style='font-family:"Times New Roman",serif'>Firr([-70000,12000,15000,18000,21000])</span></b><span
-  class=var2><span lang=EN-US></span></span></p>
+  <td width=21 valign=top style='width:16.0pt;border:solid #A6A6A6 1.0pt;
+  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
   </td>
-  <td width=192 valign=top style='width:144.25pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>-0.02124484827331908</span></b></p>
+  <td width=333 valign=top style='width:249.6pt;border:solid #A6A6A6 1.0pt;
+  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;color:black;mso-color-alt:
+  windowtext'>A</span></span><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif'></span></span></p>
+  </td>
+  <td width=453 valign=top style='width:339.4pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=353 valign=top style='width:264.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=aff style='margin-left:10.55pt;text-align:justify;text-justify:inter-ideograph;
-  tab-stops:48.75pt'><b><span lang=EN-US style='font-family:"Times New Roman",serif'>Firr([-70000,12000,15000,18000,21000,26000])</span></b><span
-  class=var2><span lang=EN-US></span></span></p>
+  <td width=21 valign=top style='width:16.0pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  color:black;mso-color-alt:windowtext'>1</span></span><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
   </td>
-  <td width=192 valign=top style='width:144.25pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><b><span lang=EN-US style='mso-fareast-font-family:黑体'>0.08663094803666999</span></b></p>
+  <td width=333 valign=top style='width:249.6pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=[&quot;192.168.126.1:8281&quot;,&quot;192.168.31.165:8281&quot;]</span></span></p>
+  </td>
+  <td width=453 valign=top style='width:339.4pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>A sequence of nodes</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes'>
-  <td width=353 valign=top style='width:264.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=aff style='margin-left:10.55pt;text-align:justify;text-justify:inter-ideograph;
-  tab-stops:48.75pt'><b><span lang=EN-US style='font-family:"Times New Roman",serif'>Firr([-70000,12000,15000,18000,21000,26000],-0.1)</span></b><span
-  class=var2><span lang=EN-US></span></span></p>
+ <tr style='mso-yfti-irow:2'>
+  <td width=21 valign=top style='width:16.0pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  color:black;mso-color-alt:windowtext'>2</span></span><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
   </td>
-  <td width=192 valign=top style='width:144.25pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><b><span lang=EN-US style='mso-fareast-font-family:黑体'>0.08663094803655035</span></b></p>
+  <td width=333 valign=top style='width:249.6pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=file(&quot;emCp.ctx&quot;:[2,3],A1)</span></span></p>
+  </td>
+  <td width=453 valign=top style='width:339.4pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Generate a cluster homo-name files group
+  on A1’s nodes </span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3'>
+  <td width=21 valign=top style='width:16.0pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  color:black;mso-color-alt:windowtext'>3</span></span><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
+  </td>
+  <td width=333 valign=top style='width:249.6pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=A2.open()</span></span></p>
+  </td>
+  <td width=453 valign=top style='width:339.4pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Open A2’s cluster homo-name files group</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes'>
+  <td width=21 valign=top style='width:16.0pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  color:black;mso-color-alt:windowtext'>4</span></span><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
+  </td>
+  <td width=333 valign=top style='width:249.6pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=A2.close()</span></span></p>
+  </td>
+  <td width=453 valign=top style='width:339.4pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Close the cluster homo-name files group</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>Write to a composite table file remotely:</span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='margin-left:17.65pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
+ mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=21 valign=top style='width:16.0pt;border:solid #A6A6A6 1.0pt;
+  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span lang=EN-US>&nbsp;</span></p>
+  </td>
+  <td width=333 valign=top style='width:249.6pt;border:solid #A6A6A6 1.0pt;
+  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;color:black;mso-color-alt:
+  windowtext'>A</span></span><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif'></span></span></p>
+  </td>
+  <td width=453 valign=top style='width:339.4pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span lang=EN-US>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=21 valign=top style='width:16.0pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;color:black;mso-color-alt:
+  windowtext'>1</span></span><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif'></span></span></p>
+  </td>
+  <td width=333 valign=top style='width:249.6pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=[&quot;192.168.126.1:8281&quot;,&quot;192.168.31.165:8281&quot;]</span></span></p>
+  </td>
+  <td width=453 valign=top style='width:339.4pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>A sequence of nodes</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=21 valign=top style='width:16.0pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;color:black;mso-color-alt:
+  windowtext'>2</span></span><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif'></span></span></p>
+  </td>
+  <td width=333 valign=top style='width:249.6pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=file@w(&quot;emp.ctx&quot;:to(2),A1)</span></span></p>
+  </td>
+  <td width=453 valign=top style='width:339.4pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Generate a cluster homo-name files group
+  on A1’s node</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3'>
+  <td width=21 valign=top style='width:16.0pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;color:black;mso-color-alt:
+  windowtext'>3</span></span><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif'></span></span></p>
+  </td>
+  <td width=333 valign=top style='width:249.6pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=create(k1,v1).record([1,10,2,20,3,30,4,40,10,100])</span></span></p>
+  </td>
+  <td width=453 valign=top style='width:339.4pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US style='mso-no-proof:yes'><img border=0 width=87 height=125
+  src="Function_Reference.files/image490.jpg" v:shapes="_x0000_i1329"></span></p>
+  <p class=MsoNormal><span lang=EN-US>Return a table sequence</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4'>
+  <td width=21 valign=top style='width:16.0pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;color:black;mso-color-alt:
+  windowtext'>4</span></span><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif'></span></span></p>
+  </td>
+  <td width=333 valign=top style='width:249.6pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=A2.create(#k1,v1;if(k1&lt;4,1,2))</span></span></p>
+  </td>
+  <td width=453 valign=top style='width:339.4pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US style='mso-fareast-font-family:雅黑'>Create
+  a multi-zone composite table</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:5;mso-yfti-lastrow:yes'>
+  <td width=21 valign=top style='width:16.0pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;color:black;mso-color-alt:
+  windowtext'>5</span></span><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif'></span></span></p>
+  </td>
+  <td width=333 valign=top style='width:249.6pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=A4.append(A3.cursor())</span></span></p>
+  </td>
+  <td width=453 valign=top style='width:339.4pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Append A3’s data to A4’s </span><span
+  lang=EN-US style='mso-fareast-font-family:雅黑'>multi-zone composite table</span></p>
   </td>
  </tr>
 </table>
@@ -141,12 +338,12 @@ line-height:200%'></span></b></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="21.html">Functions</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="241.html">file()</a></span></li>
 </div>
 	</div>
 	<div id="footer">	
 		
-		<div class="copyright"> Copyright&reg; 2021 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+		<div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">Scudata Inc. 
       </a></div> 
         <!--
 		<div class="copyright"> Copyright&reg; 2017 <a href="http://www.yimming.com" target="_Blank"> Beijing Yimming Ltd. Co. 

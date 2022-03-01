@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>10.3.2 Performing cluster computations with fork statement</title>
+<title>10.2.1 Accessing a clustered file</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,754 +13,12 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h3 style='margin:0cm;text-indent:0cm;line-height:normal;mso-list:none;
-tab-stops:-179.95pt 64.2pt'><span lang=EN-US style='font-size:14.0pt;
-mso-bidi-font-size:10.0pt'>10.3.2 Performing cluster computations with fork
-statement</span></h3></div>
-	<p class=T-ParCxSpFirst style='margin-bottom:0cm;mso-add-space:auto;text-align:
-justify;text-justify:inter-ideograph;text-indent:21.0pt'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US><a  href="216.html">Multithreading</a></span></i><span
-lang=EN-US> discussed that the <i style='mso-bidi-font-style:normal'>fork</i>
-statement can be used to execute a piece of code using multiple theads. The <b
-style='mso-bidi-font-weight:normal'>callx()</b> function used in the above
-section is responsible for executing a<i style='mso-bidi-font-style:normal'>
-dfx</i> file at each of the servers in cluster.</span></p>
-
-<p class=T-ParCxSpLast style='margin-bottom:0cm;mso-add-space:auto;text-align:
-justify;text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>So <b
-style='mso-bidi-font-weight:normal'>callx</b>’s work can be done by<i
-style='mso-bidi-font-style:normal'> fork </i>statement. For example:</span></p>
-
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
- style='margin-left:20.35pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- border:none;mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:
- #B2B2B2;mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
- .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:.5pt solid #B2B2B2;
- mso-border-insidev:.5pt solid #B2B2B2'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
-  height:14.15pt'>
-  <td width=42 valign=top style='width:31.2pt;border:solid black 1.0pt;
-  mso-border-alt:solid black .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
-  mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
-  lang=EN-US style='font-size:9.0pt'>&nbsp;</span></p>
-  </td>
-  <td width=189 valign=top style='width:5.0cm;border-top:solid black 1.0pt;
-  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
-  mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-bottom-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
-  mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
-  lang=EN-US style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>A</span><span
-  lang=EN-US style='font-size:9.0pt'></span></p>
-  </td>
-  <td width=151 style='width:4.0cm;border-top:solid black 1.0pt;border-left:
-  none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
-  mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-bottom-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
-  mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
-  lang=EN-US style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>B</span><span
-  lang=EN-US style='font-size:9.0pt'></span></p>
-  </td>
-  <td width=151 style='width:4.0cm;border-top:solid black 1.0pt;border-left:
-  none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
-  mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-bottom-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
-  mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
-  lang=EN-US style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>C</span><span
-  lang=EN-US style='font-size:9.0pt'></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
-  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
-  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
-  mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
-  lang=EN-US style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>1</span><span
-  lang=EN-US style='font-size:9.0pt'></span></p>
-  </td>
-  <td width=189 style='width:5.0cm;border-top:none;border-left:none;border-bottom:
-  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid windowtext .5pt;
-  mso-border-left-alt:solid windowtext .5pt;mso-border-top-alt:windowtext;
-  mso-border-left-alt:windowtext;mso-border-bottom-alt:#B2B2B2;mso-border-right-alt:
-  #B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:.5pt;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;color:fuchsia'>[192.168.11.112:8281]</span></p>
-  </td>
-  <td width=151 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
-  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid windowtext .5pt;
-  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
-  mso-border-top-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0'><span
-  lang=EN-US style='font-size:9.0pt'>&nbsp;</span></p>
-  </td>
-  <td width=151 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
-  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid windowtext .5pt;
-  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
-  mso-border-top-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0'><span
-  lang=EN-US style='font-size:9.0pt'>&nbsp;</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
-  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
-  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
-  mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
-  lang=EN-US style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>2</span><span
-  lang=EN-US style='font-size:9.0pt'></span></p>
-  </td>
-  <td width=189 style='width:5.0cm;border-top:none;border-left:none;border-bottom:
-  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
-  mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid #B2B2B2 .5pt;
-  mso-border-left-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:
-  14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;color:fuchsia'>[124051,128857,131893,136760,139951,145380]</span></p>
-  </td>
-  <td width=151 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
-  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
-  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
-  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0'><span
-  lang=EN-US style='font-size:9.0pt'>&nbsp;</span></p>
-  </td>
-  <td width=151 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
-  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
-  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
-  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0'><span
-  lang=EN-US style='font-size:9.0pt'>&nbsp;</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:3;page-break-inside:avoid;height:14.15pt'>
-  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
-  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
-  mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
-  lang=EN-US style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>3</span><span
-  lang=EN-US style='font-size:9.0pt'></span></p>
-  </td>
-  <td width=189 style='width:5.0cm;border-top:none;border-left:none;border-bottom:
-  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
-  mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid #B2B2B2 .5pt;
-  mso-border-left-alt:solid windowtext .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;color:black;
-  mso-color-alt:windowtext'>fork A2;A1</span><span lang=EN-US style='font-size:
-  9.0pt'></span></p>
-  </td>
-  <td width=151 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
-  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
-  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
-  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>&gt;output@t(&quot;calc
-  begin, SID=&quot;+string(A3) +&quot;. &quot;)</span></p>
-  </td>
-  <td width=151 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
-  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
-  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
-  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0'><span
-  lang=EN-US style='font-size:9.0pt'>&nbsp;</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:4;page-break-inside:avoid;height:14.15pt'>
-  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
-  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
-  mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
-  lang=EN-US style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>4</span><span
-  lang=EN-US style='font-size:9.0pt'></span></p>
-  </td>
-  <td width=189 style='width:5.0cm;border-top:none;border-left:none;border-bottom:
-  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
-  mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid #B2B2B2 .5pt;
-  mso-border-left-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:
-  14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0'><span
-  lang=EN-US style='font-size:9.0pt'>&nbsp;</span></p>
-  </td>
-  <td width=151 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
-  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
-  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
-  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=file(&quot;StockRecord.txt&quot;).import@t()</span></p>
-  </td>
-  <td width=151 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
-  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
-  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
-  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=B4.select(SID==A3)</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:5;page-break-inside:avoid;height:14.15pt'>
-  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
-  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
-  mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
-  lang=EN-US style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>5</span><span
-  lang=EN-US style='font-size:9.0pt'></span></p>
-  </td>
-  <td width=189 style='width:5.0cm;border-top:none;border-left:none;border-bottom:
-  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
-  mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid #B2B2B2 .5pt;
-  mso-border-left-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:
-  14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0'><span
-  lang=EN-US style='font-size:9.0pt'>&nbsp;</span></p>
-  </td>
-  <td width=151 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
-  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
-  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
-  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=C4.count()</span></p>
-  </td>
-  <td width=151 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
-  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
-  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
-  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=C4.max(Closing)</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:6;page-break-inside:avoid;height:14.15pt'>
-  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
-  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
-  mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
-  lang=EN-US style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>6</span><span
-  lang=EN-US style='font-size:9.0pt'></span></p>
-  </td>
-  <td width=189 style='width:5.0cm;border-top:none;border-left:none;border-bottom:
-  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
-  mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid #B2B2B2 .5pt;
-  mso-border-left-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:
-  14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0'><span
-  lang=EN-US style='font-size:9.0pt'>&nbsp;</span></p>
-  </td>
-  <td width=151 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
-  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
-  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
-  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=C4.min(Closing)</span></p>
-  </td>
-  <td width=151 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
-  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
-  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
-  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=round(C4.avg(Closing),2)</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:7;page-break-inside:avoid;height:14.15pt'>
-  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
-  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
-  mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
-  lang=EN-US style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>7</span><span
-  lang=EN-US style='font-size:9.0pt'></span></p>
-  </td>
-  <td width=189 style='width:5.0cm;border-top:none;border-left:none;border-bottom:
-  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
-  mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid #B2B2B2 .5pt;
-  mso-border-left-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:
-  14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0'><span
-  lang=EN-US style='font-size:9.0pt'>&nbsp;</span></p>
-  </td>
-  <td width=151 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
-  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
-  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
-  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>&gt;output@t(&quot;calc
-  finish, SID=&quot;+string(A3) +&quot;. &quot;)</span></p>
-  </td>
-  <td width=151 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
-  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
-  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
-  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>return
-  B5,C5,B6,C6</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:8;mso-yfti-lastrow:yes;page-break-inside:avoid;
-  height:14.15pt'>
-  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
-  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
-  mso-pagination:widow-orphan;vertical-align:middle'><span lang=EN-US
-  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>8</span><span
-  lang=EN-US style='font-size:9.0pt'></span></p>
-  </td>
-  <td width=189 style='width:5.0cm;border-top:none;border-left:none;border-bottom:
-  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
-  mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid #B2B2B2 .5pt;
-  mso-border-left-alt:solid windowtext .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;color:black;
-  mso-color-alt:windowtext'>=A3.new(A2(#):SID,~(1):Count,~(2):Maximum,~(3):Minimum,~(4):Average)</span><span
-  lang=EN-US style='font-size:9.0pt'></span></p>
-  </td>
-  <td width=151 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
-  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
-  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
-  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0'><span
-  lang=EN-US style='font-size:9.0pt'>&nbsp;</span></p>
-  </td>
-  <td width=151 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
-  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
-  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
-  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0'><span
-  lang=EN-US style='font-size:9.0pt'>&nbsp;</span></p>
-  </td>
- </tr>
-</table>
-
-<p class=T-Par style='margin-bottom:0cm;mso-add-space:auto;text-align:justify;
-text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>This is
-functionally equivalent to writing a subroutine requiring repeated execution in
-a code block, saving the effort of maintaining multiple <i style='mso-bidi-font-style:
-normal'>dfx</i> files. During a cluster computation, add task number sequence <i
-style='mso-bidi-font-style:normal'>s</i> at the end of the<i style='mso-bidi-font-style:
-normal'> fork</i> statement to distribute tasks to certain nodes, like <b
-style='mso-bidi-font-weight:normal'>fork</b> A2;A1:[[4,5],[1,2,3]]. A3 collects
-results of all tasks and return the following:</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=430 height=141
-src="Tutorial.files/image929.png" v:shapes="_x0000_i2023"></span></p>
-
-<p class=T-Par style='margin-bottom:0cm;mso-add-space:auto;text-align:justify;
-text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>The order of
-the records returned by A3 is in line with the parameter order. A8 further processes
-the result of the cluster computations and return the following table:</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=400 height=141
-src="Tutorial.files/image930.png" v:shapes="_x0000_i2024"></span></p>
-
-<p class=T-ParCxSpFirst style='text-align:justify;text-justify:inter-ideograph;
+	<div id="centent-title"><h3 style='margin-left:0cm;text-indent:0cm;mso-list:none;tab-stops:21.0pt'><span
+lang=EN-US>10.2.1 Accessing a clustered file</span></h3></div>
+	<p class=T-Par style='text-align:justify;text-justify:inter-ideograph;
 text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:exactly'><span
-lang=EN-US>The computation uses one node, whose execution informatin can be
-viewed on the Node Server system output window:</span></p>
-
-<p class=T-ParCxSpLast style='text-align:justify;text-justify:inter-ideograph;
-text-indent:21.0pt'><span lang=EN-US style='mso-no-proof:yes'><img border=0 width=576 height=424
-src="Tutorial.files/image932.jpg" v:shapes="_x0000_i2025"></span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>&nbsp;</span></p>
-
-<p class=T-Par style='margin-bottom:0cm;mso-add-space:auto;text-align:justify;
-text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>We can also
-add<i style='mso-bidi-font-style:normal'> reduce</i> actions in the fork
-statement:</span></p>
-
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
- style='margin-left:20.35pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- border:none;mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:
- #B2B2B2;mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
- .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:.5pt solid #B2B2B2;
- mso-border-insidev:.5pt solid #B2B2B2'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
-  height:14.15pt'>
-  <td width=42 valign=top style='width:31.2pt;border:solid black 1.0pt;
-  mso-border-alt:solid black .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
-  mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
-  lang=EN-US style='font-size:9.0pt'>&nbsp;</span></p>
-  </td>
-  <td width=130 valign=top style='width:97.55pt;border-top:solid black 1.0pt;
-  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
-  mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-bottom-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
-  mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
-  lang=EN-US style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>A</span><span
-  lang=EN-US style='font-size:9.0pt'></span></p>
-  </td>
-  <td width=203 style='width:151.9pt;border-top:solid black 1.0pt;border-left:
-  none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
-  mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-bottom-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
-  mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
-  lang=EN-US style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>B</span><span
-  lang=EN-US style='font-size:9.0pt'></span></p>
-  </td>
-  <td width=138 style='width:103.25pt;border-top:solid black 1.0pt;border-left:
-  none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
-  mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-bottom-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
-  mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
-  lang=EN-US style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>C</span><span
-  lang=EN-US style='font-size:9.0pt'></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
-  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
-  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
-  mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
-  lang=EN-US style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>1</span><span
-  lang=EN-US style='font-size:9.0pt'></span></p>
-  </td>
-  <td width=130 style='width:97.55pt;border-top:none;border-left:none;
-  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
-  mso-border-top-alt:windowtext;mso-border-left-alt:windowtext;mso-border-bottom-alt:
-  #B2B2B2;mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
-  .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;color:fuchsia'>[192.168.1.112:8281]</span></p>
-  </td>
-  <td width=203 style='width:151.9pt;border-top:none;border-left:none;
-  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid #B2B2B2 .5pt;
-  mso-border-alt:solid #B2B2B2 .5pt;mso-border-top-alt:solid windowtext .5pt;
-  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0'><span
-  lang=EN-US style='font-size:9.0pt'>&nbsp;</span></p>
-  </td>
-  <td width=138 style='width:103.25pt;border-top:none;border-left:none;
-  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid #B2B2B2 .5pt;
-  mso-border-alt:solid #B2B2B2 .5pt;mso-border-top-alt:solid windowtext .5pt;
-  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0'><span
-  lang=EN-US style='font-size:9.0pt'>&nbsp;</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
-  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
-  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
-  mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
-  lang=EN-US style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>2</span><span
-  lang=EN-US style='font-size:9.0pt'></span></p>
-  </td>
-  <td width=130 style='width:97.55pt;border-top:none;border-left:none;
-  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;color:fuchsia'>[124051,128857,131893,136760,139951,145380]</span></p>
-  </td>
-  <td width=203 style='width:151.9pt;border-top:none;border-left:none;
-  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid #B2B2B2 .5pt;
-  mso-border-alt:solid #B2B2B2 .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0'><span
-  lang=EN-US style='font-size:9.0pt'>&nbsp;</span></p>
-  </td>
-  <td width=138 style='width:103.25pt;border-top:none;border-left:none;
-  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid #B2B2B2 .5pt;
-  mso-border-alt:solid #B2B2B2 .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0'><span
-  lang=EN-US style='font-size:9.0pt'>&nbsp;</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:3;page-break-inside:avoid;height:14.15pt'>
-  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
-  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
-  mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
-  lang=EN-US style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>3</span><span
-  lang=EN-US style='font-size:9.0pt'></span></p>
-  </td>
-  <td width=130 style='width:97.55pt;border-top:none;border-left:none;
-  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;color:black;
-  mso-color-alt:windowtext'>fork A2;A1</span><span lang=EN-US style='font-size:
-  9.0pt'></span></p>
-  </td>
-  <td width=203 style='width:151.9pt;border-top:none;border-left:none;
-  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid #B2B2B2 .5pt;
-  mso-border-alt:solid #B2B2B2 .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>&gt;output@t(&quot;calc
-  begin, SID=&quot;+string(A3) +&quot;. &quot;)</span></p>
-  </td>
-  <td width=138 style='width:103.25pt;border-top:none;border-left:none;
-  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid #B2B2B2 .5pt;
-  mso-border-alt:solid #B2B2B2 .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0'><span
-  lang=EN-US style='font-size:9.0pt'>&nbsp;</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:4;page-break-inside:avoid;height:14.15pt'>
-  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
-  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
-  mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
-  lang=EN-US style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>4</span><span
-  lang=EN-US style='font-size:9.0pt'></span></p>
-  </td>
-  <td width=130 style='width:97.55pt;border-top:none;border-left:none;
-  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0'><span
-  lang=EN-US style='font-size:9.0pt'>&nbsp;</span></p>
-  </td>
-  <td width=203 style='width:151.9pt;border-top:none;border-left:none;
-  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid #B2B2B2 .5pt;
-  mso-border-alt:solid #B2B2B2 .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=file(&quot;StockRecord.txt&quot;).import@t()</span></p>
-  </td>
-  <td width=138 style='width:103.25pt;border-top:none;border-left:none;
-  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid #B2B2B2 .5pt;
-  mso-border-alt:solid #B2B2B2 .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=B4.select(SID==A3)</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:5;page-break-inside:avoid;height:14.15pt'>
-  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
-  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
-  mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
-  lang=EN-US style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>5</span><span
-  lang=EN-US style='font-size:9.0pt'></span></p>
-  </td>
-  <td width=130 style='width:97.55pt;border-top:none;border-left:none;
-  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0'><span
-  lang=EN-US style='font-size:9.0pt'>&nbsp;</span></p>
-  </td>
-  <td width=203 style='width:151.9pt;border-top:none;border-left:none;
-  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid #B2B2B2 .5pt;
-  mso-border-alt:solid #B2B2B2 .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=C4.count()</span></p>
-  </td>
-  <td width=138 style='width:103.25pt;border-top:none;border-left:none;
-  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid #B2B2B2 .5pt;
-  mso-border-alt:solid #B2B2B2 .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=C4.max(Closing)</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:6;page-break-inside:avoid;height:14.15pt'>
-  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
-  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
-  mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
-  lang=EN-US style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>6</span><span
-  lang=EN-US style='font-size:9.0pt'></span></p>
-  </td>
-  <td width=130 style='width:97.55pt;border-top:none;border-left:none;
-  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0'><span
-  lang=EN-US style='font-size:9.0pt'>&nbsp;</span></p>
-  </td>
-  <td width=203 style='width:151.9pt;border-top:none;border-left:none;
-  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid #B2B2B2 .5pt;
-  mso-border-alt:solid #B2B2B2 .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=C4.min(Closing)</span></p>
-  </td>
-  <td width=138 style='width:103.25pt;border-top:none;border-left:none;
-  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid #B2B2B2 .5pt;
-  mso-border-alt:solid #B2B2B2 .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=round(C4.avg(Closing),2)</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:7;page-break-inside:avoid;height:14.15pt'>
-  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
-  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
-  mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
-  lang=EN-US style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>7</span><span
-  lang=EN-US style='font-size:9.0pt'></span></p>
-  </td>
-  <td width=130 style='width:97.55pt;border-top:none;border-left:none;
-  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0'><span
-  lang=EN-US style='font-size:9.0pt'>&nbsp;</span></p>
-  </td>
-  <td width=203 style='width:151.9pt;border-top:none;border-left:none;
-  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid #B2B2B2 .5pt;
-  mso-border-alt:solid #B2B2B2 .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>&gt;output@t(&quot;calc
-  finish, SID=&quot;+string(A3) +&quot;. &quot;)</span></p>
-  </td>
-  <td width=138 style='width:103.25pt;border-top:none;border-left:none;
-  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid #B2B2B2 .5pt;
-  mso-border-alt:solid #B2B2B2 .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>return
-  A3,B5,C5,B6,C6</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:8;page-break-inside:avoid;height:14.15pt'>
-  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
-  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
-  mso-pagination:widow-orphan;vertical-align:middle'><span lang=EN-US
-  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>8</span><span
-  lang=EN-US style='font-size:9.0pt'></span></p>
-  </td>
-  <td width=130 style='width:97.55pt;border-top:none;border-left:none;
-  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>reduce</span></p>
-  </td>
-  <td width=203 style='width:151.9pt;border-top:none;border-left:none;
-  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid #B2B2B2 .5pt;
-  mso-border-alt:solid #B2B2B2 .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=if(ift(A3),A3.record(A8),create(SID,
-  Count, Maximum, Minimum, Average ).record(A3).record(A8))</span></p>
-  </td>
-  <td width=138 style='width:103.25pt;border-top:none;border-left:none;
-  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid #B2B2B2 .5pt;
-  mso-border-alt:solid #B2B2B2 .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0'><span
-  lang=EN-US style='font-size:9.0pt'>&nbsp;</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:9;mso-yfti-lastrow:yes;page-break-inside:avoid;
-  height:14.15pt'>
-  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
-  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
-  mso-pagination:widow-orphan;vertical-align:middle'><span lang=EN-US
-  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>9</span><span
-  lang=EN-US style='font-size:9.0pt'></span></p>
-  </td>
-  <td width=130 style='width:97.55pt;border-top:none;border-left:none;
-  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=A3.conj()</span></p>
-  </td>
-  <td width=203 style='width:151.9pt;border-top:none;border-left:none;
-  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid #B2B2B2 .5pt;
-  mso-border-alt:solid #B2B2B2 .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>&nbsp;</span></p>
-  </td>
-  <td width=138 style='width:103.25pt;border-top:none;border-left:none;
-  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid #B2B2B2 .5pt;
-  mso-border-alt:solid #B2B2B2 .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0'><span
-  lang=EN-US style='font-size:9.0pt'>&nbsp;</span></p>
-  </td>
- </tr>
-</table>
-
-<p class=T-Par style='margin-bottom:0cm;mso-add-space:auto;text-align:justify;
-text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>The<i
-style='mso-bidi-font-style:normal'> reduce </i>code block uses <i
-style='mso-bidi-font-style:normal'>reduce</i> functions. It creates the result
-table sequence when performing the first <i style='mso-bidi-font-style:normal'>reduce</i>
-and populate the first task result in A3 that stores the current cumulative
-value and the current second task result returned by A8 to the newly-created
-table sequence. The subsequent <i style='mso-bidi-font-style:normal'>reduce</i>
-actions will add their returned records to the table sequence accordingly. A3’s
-value changes from <i>fork</i> code block to <i>reduce</i> code block. The cell
-receives the parameter value in the former and stores the cumulative value in
-the latter. Here’s the result of the cluster computation in A3 after execution:</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US style='mso-no-proof:yes'><img border=0 width=456 height=141
-src="Tutorial.files/image933.png" v:shapes="_x0000_i2026"></span></p>
-
-<p class=T-ParCxSpFirst style='margin-bottom:0cm;mso-add-space:auto;text-align:
-justify;text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>As
-only one node is involved, the table sequence it returns is the final aggregate
-result. </span></p>
-
-<p class=T-ParCxSpLast style='text-align:justify;text-justify:inter-ideograph;
-text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:exactly'><span
-lang=EN-US>The <i>fork</i> statement can also perform tasks using multiple
-nodes, for instance:</span></p>
+lang=EN-US>Files on a clustered server are used in the same way as local files.
+For example:</span></p>
 
 <table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
  style='margin-left:20.35pt;border-collapse:collapse;mso-table-layout-alt:fixed;
@@ -776,29 +34,13 @@ nodes, for instance:</span></p>
   <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph'><span
   lang=EN-US>&nbsp;</span></p>
   </td>
-  <td width=151 valign=top style='width:4.0cm;border-top:solid black 1.0pt;
+  <td width=378 valign=top style='width:283.45pt;border-top:solid black 1.0pt;
   border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
   mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
   mso-border-bottom-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
   <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph'><span
   lang=EN-US style='color:black;mso-color-alt:windowtext'>A</span></p>
-  </td>
-  <td width=246 style='width:184.25pt;border-top:solid black 1.0pt;border-left:
-  none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
-  mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-bottom-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph'><span
-  lang=EN-US style='color:black;mso-color-alt:windowtext'>B</span></p>
-  </td>
-  <td width=227 style='width:6.0cm;border-top:solid black 1.0pt;border-left:
-  none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
-  mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-bottom-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph'><span
-  lang=EN-US style='color:black;mso-color-alt:windowtext'>C</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
@@ -810,30 +52,14 @@ nodes, for instance:</span></p>
   <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph'><span
   lang=EN-US style='color:black;mso-color-alt:windowtext'>1</span></p>
   </td>
-  <td width=151 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
-  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid windowtext .5pt;
-  mso-border-left-alt:solid windowtext .5pt;mso-border-top-alt:windowtext;
-  mso-border-left-alt:windowtext;mso-border-bottom-alt:#B2B2B2;mso-border-right-alt:
-  #B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:.5pt;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=TabCodepink style='text-align:justify;text-justify:inter-ideograph'><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>[192.168.1.112:8281,
-  192.168.1.112:8282]</span></p>
-  </td>
-  <td width=246 style='width:184.25pt;border-top:none;border-left:none;
+  <td width=378 style='width:283.45pt;border-top:none;border-left:none;
   border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid #B2B2B2 .5pt;
-  mso-border-alt:solid #B2B2B2 .5pt;mso-border-top-alt:solid windowtext .5pt;
-  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></p>
-  </td>
-  <td width=227 style='width:6.0cm;border-top:none;border-left:none;border-bottom:
-  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid windowtext .5pt;
-  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
-  mso-border-top-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></p>
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-top-alt:windowtext;mso-border-left-alt:windowtext;mso-border-bottom-alt:
+  #B2B2B2;mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
+  .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCodepink style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>192.168.1.112:8281</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
@@ -845,27 +71,13 @@ nodes, for instance:</span></p>
   <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph'><span
   lang=EN-US style='color:black;mso-color-alt:windowtext'>2</span></p>
   </td>
-  <td width=151 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
-  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
-  mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid #B2B2B2 .5pt;
-  mso-border-left-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:
-  14.15pt'>
-  <p class=TabCodepink style='text-align:justify;text-justify:inter-ideograph'><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>[2010,2011,2012,2013,2014]</span></p>
-  </td>
-  <td width=246 style='width:184.25pt;border-top:none;border-left:none;
+  <td width=378 style='width:283.45pt;border-top:none;border-left:none;
   border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid #B2B2B2 .5pt;
-  mso-border-alt:solid #B2B2B2 .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=TabCodepink style='text-align:justify;text-justify:inter-ideograph'><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>[124051,128857,131893,136760,139951,145380]</span></p>
-  </td>
-  <td width=227 style='width:6.0cm;border-top:none;border-left:none;border-bottom:
-  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
-  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
   padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></p>
+  <p class=TabCodepink style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>PersonnelInfo_n1.txt</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:3;page-break-inside:avoid;height:14.15pt'>
@@ -877,29 +89,14 @@ nodes, for instance:</span></p>
   <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph'><span
   lang=EN-US style='color:black;mso-color-alt:windowtext'>3</span></p>
   </td>
-  <td width=151 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
-  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
-  mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid #B2B2B2 .5pt;
-  mso-border-left-alt:solid windowtext .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
+  <td width=378 style='width:283.45pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
   <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
   lang=EN-US style='font-family:"Times New Roman",serif;color:black;mso-color-alt:
-  windowtext'>fork A2;A1</span><span lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
-  </td>
-  <td width=246 style='width:184.25pt;border-top:none;border-left:none;
-  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid #B2B2B2 .5pt;
-  mso-border-alt:solid #B2B2B2 .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>&gt;output@t(&quot;calc
-  begin, year: &quot;+string(A3)+&quot;. &quot;)</span></p>
-  </td>
-  <td width=227 style='width:6.0cm;border-top:none;border-left:none;border-bottom:
-  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
-  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
-  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>=file(&quot;StockRecord&quot;/A3/&quot;.txt&quot;)</span></p>
+  windowtext'>=file(A2,A1)</span><span lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:4;page-break-inside:avoid;height:14.15pt'>
@@ -911,28 +108,14 @@ nodes, for instance:</span></p>
   <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph'><span
   lang=EN-US style='color:black;mso-color-alt:windowtext'>4</span></p>
   </td>
-  <td width=151 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
-  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
-  mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid #B2B2B2 .5pt;
-  mso-border-left-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:
-  14.15pt'>
-  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></p>
-  </td>
-  <td width=246 style='width:184.25pt;border-top:none;border-left:none;
+  <td width=378 style='width:283.45pt;border-top:none;border-left:none;
   border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid #B2B2B2 .5pt;
-  mso-border-alt:solid #B2B2B2 .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
   <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>if !C3.exists()</span></p>
-  </td>
-  <td width=227 style='width:6.0cm;border-top:none;border-left:none;border-bottom:
-  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
-  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
-  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>end C3.name()+&quot;
-  not found!&quot;</span></p>
+  lang=EN-US style='font-family:"Times New Roman",serif;color:black;mso-color-alt:
+  windowtext'>=A3.import@t()</span><span lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:5;page-break-inside:avoid;height:14.15pt'>
@@ -944,127 +127,36 @@ nodes, for instance:</span></p>
   <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph'><span
   lang=EN-US style='color:black;mso-color-alt:windowtext'>5</span></p>
   </td>
-  <td width=151 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
-  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
-  mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid #B2B2B2 .5pt;
-  mso-border-left-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:
-  14.15pt'>
-  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></p>
-  </td>
-  <td width=246 style='width:184.25pt;border-top:none;border-left:none;
+  <td width=378 style='width:283.45pt;border-top:none;border-left:none;
   border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid #B2B2B2 .5pt;
-  mso-border-alt:solid #B2B2B2 .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
   <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>=C3.cursor@t()</span></p>
-  </td>
-  <td width=227 style='width:6.0cm;border-top:none;border-left:none;border-bottom:
-  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
-  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
-  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></p>
+  lang=EN-US style='font-family:"Times New Roman",serif;color:black;mso-color-alt:
+  windowtext'>=A4.derive().run(if(Gender==&quot;M&quot;,
+  Gender=&quot;Male&quot;))</span><span lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:6;page-break-inside:avoid'>
+ <tr style='mso-yfti-irow:6;page-break-inside:avoid;height:14.15pt'>
   <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
   border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
   mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm'>
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
   <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph'><span
   lang=EN-US style='color:black;mso-color-alt:windowtext'>6</span></p>
   </td>
-  <td width=151 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
-  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
-  mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid #B2B2B2 .5pt;
-  mso-border-left-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></p>
-  </td>
-  <td width=246 style='width:184.25pt;border-top:none;border-left:none;
+  <td width=378 style='width:283.45pt;border-top:none;border-left:none;
   border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid #B2B2B2 .5pt;
-  mso-border-alt:solid #B2B2B2 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>=B5.select(B2.pos(SID)&gt;0).fetch()</span></p>
-  </td>
-  <td width=227 style='width:6.0cm;border-top:none;border-left:none;border-bottom:
-  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
-  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>=B6.groups(SID;count(~):Count,max(Closing):Maximum,
-  min(Closing):Minimum,sum(Closing):Sum)</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:7;page-break-inside:avoid;height:14.15pt'>
-  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
-  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph'><span
-  lang=EN-US style='color:black;mso-color-alt:windowtext'>7</span></p>
-  </td>
-  <td width=151 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
-  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
-  mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid #B2B2B2 .5pt;
-  mso-border-left-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:
-  14.15pt'>
-  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></p>
-  </td>
-  <td width=246 style='width:184.25pt;border-top:none;border-left:none;
-  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid #B2B2B2 .5pt;
-  mso-border-alt:solid #B2B2B2 .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>&gt;output@t(&quot;calc
-  finish, SID=&quot;+string(A3) +&quot;. &quot;)</span></p>
-  </td>
-  <td width=227 style='width:6.0cm;border-top:none;border-left:none;border-bottom:
-  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
-  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
   padding:0cm 0cm 0cm 0cm;height:14.15pt'>
   <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>result
-  C6.derive(A3:Year)</span></p>
+  lang=EN-US style='font-family:"Times New Roman",serif'>&gt;A3.export@t(A5)</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:8;page-break-inside:avoid;height:14.15pt'>
-  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
-  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph'><span
-  lang=EN-US style='color:black;mso-color-alt:windowtext'>8</span></p>
-  </td>
-  <td width=151 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
-  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
-  mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid #B2B2B2 .5pt;
-  mso-border-left-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:
-  14.15pt'>
-  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>reduce</span></p>
-  </td>
-  <td width=246 style='width:184.25pt;border-top:none;border-left:none;
-  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid #B2B2B2 .5pt;
-  mso-border-alt:solid #B2B2B2 .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>=A3|A8</span></p>
-  </td>
-  <td width=227 style='width:6.0cm;border-top:none;border-left:none;border-bottom:
-  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
-  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
-  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:9;mso-yfti-lastrow:yes;page-break-inside:avoid;
+ <tr style='mso-yfti-irow:7;mso-yfti-lastrow:yes;page-break-inside:avoid;
   height:14.15pt'>
   <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
   border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
@@ -1072,72 +164,298 @@ nodes, for instance:</span></p>
   mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
   <p class=TabLaEnd style='text-align:justify;text-justify:inter-ideograph'><span
-  lang=EN-US style='color:black;mso-color-alt:windowtext'>9</span></p>
+  lang=EN-US style='color:black;mso-color-alt:windowtext'>7</span></p>
   </td>
-  <td width=151 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
-  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
-  mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid #B2B2B2 .5pt;
-  mso-border-left-alt:solid windowtext .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
+  <td width=378 style='width:283.45pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
   <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
   lang=EN-US style='font-family:"Times New Roman",serif;color:black;mso-color-alt:
-  windowtext'>=A3.conj().</span><span lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
-  </td>
-  <td width=246 style='width:184.25pt;border-top:none;border-left:none;
-  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid #B2B2B2 .5pt;
-  mso-border-alt:solid #B2B2B2 .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></p>
-  </td>
-  <td width=227 style='width:6.0cm;border-top:none;border-left:none;border-bottom:
-  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
-  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
-  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></p>
+  windowtext'>=A3.import@t()</span><span lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
   </td>
  </tr>
 </table>
 
 <p class=T-ParCxSpFirst style='text-align:justify;text-justify:inter-ideograph;
 text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:exactly'><span
-lang=EN-US>In the above cellset file, <i>fork</i> statement is used to compute
-data of specified stocks in all years. In the code block, line 4 checks whether
-the necessary file exists and uses end statement to return abnormal termination
-information and enable a reassignment of the task if the file cannot be found
-on the current node. Line 8 uses <i>reduce</i> statement to concatenate result
-records returned by all nodes. Similar to the example in the previous section
-where the <i>end </i>statement is added to <i>reduce</i> script, a task that cannot
-be computed by a node will be redistributed during execution. Here is output
-information of two nodes:</span></p>
+lang=EN-US>Before executing the cellset, we need to place <i>PersonnelInfo_n1.txt</i>
+in the main path <i>D:\files\node1 </i>of the started clustererd server. We can
+directly copy the previously used <i>PersonnelInfo.txt</i> and rename it. If we
+need to use the file locally, remember not to set the same esProc main path as
+that on the clustered server. Suppose we use the following esProc main path in
+the local:</span></p>
 
 <p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
-text-indent:21.0pt'><span lang=EN-US style='mso-no-proof:yes'><img border=0 width=560 height=530
-src="Tutorial.files/image934.png" v:shapes="图片_x0020_14"></span></p>
-
-<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
-text-indent:21.0pt'><span lang=EN-US style='mso-no-proof:yes'><img border=0 width=560 height=500
-src="Tutorial.files/image935.png" v:shapes="图片_x0020_13"></span></p>
+text-indent:21.0pt'><span lang=EN-US style='mso-no-proof:yes'><img border=0 width=576 height=123
+src="Tutorial.files/image925.jpg" v:shapes="_x0000_i2018"></span></p>
 
 <p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
 text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:exactly'><span
-lang=EN-US>Task 2013 is given to node Ⅱ according to the default assignment
-order and then reallocated to node Ⅰ when the former terminates the computation
-abnormally. Make a note that both <i>reduce</i> statement and <i>reduce</i>
-script performs a cumulative operation only <b>on a single node</b> when doing
-a <i>reduce</i> action. The execution order is related to the task execution
-efficiency and assignment order. So, in the result returned by A9, we can see
-that the order of records is consistent with that of nodes and task assignment:</span></p>
+lang=EN-US>Then we execute the code and get the following result in A4:</span></p>
 
 <p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
-text-indent:21.0pt'><span lang=EN-US style='mso-no-proof:yes'><img border=0 width=479 height=252
-src="Tutorial.files/image936.png" v:shapes="_x0000_i2029"></span></p>
+text-indent:21.0pt'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
+#0400'><img border=0 width=500 height=230
+src="Tutorial.files/image516.png" v:shapes="_x0000_i2019"></span></p>
 
-<p class=T-ParCxSpLast style='margin-bottom:0cm;mso-add-space:auto;text-align:
-justify;text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>Usually,
-the result will be sorted again. If the <i>reduce</i> statement isn’t used, the
-result will have a same order with the parameters.</span></p>
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:exactly'><span
+lang=EN-US>Similar to handling a local file, we can also use <span
+class=T-Bold>file(</span><span class=T-Var><b style='mso-bidi-font-weight:normal'>fn,h</b></span><span
+class=T-Bold>) </span>function to read a composite table file <span
+class=T-Var><b style='mso-bidi-font-weight:normal'>fn </b></span>from node list
+<span class=T-Var><b style='mso-bidi-font-weight:normal'>h </b></span>and open
+a clustered file. The file, as a local file, can be saved in the main path or
+search path of the node. We can use <span class=T-Bold>file(</span><span
+class=T-Var><b style='mso-bidi-font-weight:normal'>fn</b></span><span
+class=T-Bold>:</span><span class=T-Var><b style='mso-bidi-font-weight:normal'>cs,h</b></span><span
+class=T-Bold>) </span>function to specify a special character set through
+parameter <span class=T-Var><b style='mso-bidi-font-weight:normal'>cs</b></span>
+as needed. Related information of using a clustered file will be recorded at
+esProc backend and will not be displayed in the file’s output window, as shown
+below:</span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US style='mso-no-proof:yes'><img border=0 width=352 height=172
+src="Tutorial.files/image926.png" v:shapes="_x0000_i2020"></span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:exactly'><span
+lang=EN-US>A5 copies data in A4’s table and change Gender values of male employees
+to Male. A6 exports A5’s result to the clustered file. After A6 is executed, we
+view result in A7 as follows:</span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US style='mso-no-proof:yes'><img border=0 width=500 height=233
+src="Tutorial.files/image927.png" v:shapes="_x0000_i2021"></span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:exactly'><span
+lang=EN-US>When we specify that we access a specific node to get a clustered
+file, the specified target will be accessed. The file is both readable and
+writable.</span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:exactly'><span
+lang=EN-US>&nbsp;</span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:exactly'><span
+lang=EN-US>We can specify more than one node when tyring to use clustered
+files. The nodes to be used in one computer should first be configured in<b>
+Config</b> under Node Server, as shown below:</span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US style='mso-no-proof:yes'><img border=0 width=576 height=210
+src="Tutorial.files/image929.jpg" v:shapes="_x0000_i2022"></span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:exactly'><span
+lang=EN-US>When a new clustered server is needed, the IP address and port
+number of an unstarted node in the node list will be used. In order to
+distinguish different nodes, we first set the main path <i>D:\files\node2</i> before
+starting the second clustered server, as shown below:</span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US style='mso-no-proof:yes'><img border=0 width=576 height=86
+src="Tutorial.files/image931.jpg" v:shapes="_x0000_i2023"></span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US style='mso-no-proof:yes'><img border=0 width=576 height=388
+src="Tutorial.files/image932.png" v:shapes="_x0000_i2024"></span></p>
+
+<p class=T-ParCxSpLast style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:exactly'><span
+lang=EN-US>There are not any files in the second clustered server’s main path
+for the time being. In this case we specify a node list to get and use a
+clustered file, as shown below:</span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='margin-left:20.35pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:
+ #B2B2B2;mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
+ .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:.5pt solid #B2B2B2;
+ mso-border-insidev:.5pt solid #B2B2B2'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=42 valign=top style='width:31.2pt;border:solid black 1.0pt;
+  mso-border-alt:solid black .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US>&nbsp;</span></p>
+  </td>
+  <td width=378 valign=top style='width:283.45pt;border-top:solid black 1.0pt;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
+  mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-bottom-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='color:black;mso-color-alt:windowtext'>A</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='color:black;mso-color-alt:windowtext'>1</span></p>
+  </td>
+  <td width=378 style='width:283.45pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-top-alt:windowtext;mso-border-left-alt:windowtext;mso-border-bottom-alt:
+  #B2B2B2;mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
+  .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCodepink style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>[192.168.1.112:8281,192.168.1.112:8282]</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='color:black;mso-color-alt:windowtext'>2</span></p>
+  </td>
+  <td width=378 style='width:283.45pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCodepink style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>PersonnelInfo_n1.txt</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;page-break-inside:avoid;height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='color:black;mso-color-alt:windowtext'>3</span></p>
+  </td>
+  <td width=378 style='width:283.45pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman",serif;color:black;mso-color-alt:
+  windowtext'>=file(A2,A1)</span><span lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4;page-break-inside:avoid;height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='color:black;mso-color-alt:windowtext'>4</span></p>
+  </td>
+  <td width=378 style='width:283.45pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman",serif;color:black;mso-color-alt:
+  windowtext'>=A3.import@t()</span><span lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:5;page-break-inside:avoid;height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='color:black;mso-color-alt:windowtext'>5</span></p>
+  </td>
+  <td width=378 style='width:283.45pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman",serif;color:black;mso-color-alt:
+  windowtext'>=A3.cursor@t()</span><span lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:6;page-break-inside:avoid;height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='color:black;mso-color-alt:windowtext'>6</span></p>
+  </td>
+  <td width=378 style='width:283.45pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>&gt;A5.skip(90000)</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:7;mso-yfti-lastrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLaEnd style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='color:black;mso-color-alt:windowtext'>7</span></p>
+  </td>
+  <td width=378 style='width:283.45pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman",serif;color:black;mso-color-alt:
+  windowtext'>=A5.fetch@x(5)</span><span lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=T-ParCxSpFirst style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:exactly'><span
+lang=EN-US>In order to specify multiple nodes, we use <span class=T-Bold>file(</span><span
+class=T-Var><b style='mso-bidi-font-weight:normal'>fn,hs</b></span><span
+class=T-Bold>) </span>function to specify a node list <span class=T-Var><b
+style='mso-bidi-font-weight:normal'>hs</b></span>. A4 returns result correctly,
+getting same data as A7 in the previous cellset. To access a clustered file
+through a node list, only one node containing the target file in its main path
+is sufficient for use.</span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:exactly'><span
+lang=EN-US>A clustered file can be opened as a cursor for computation. In the
+above cellset file, A5 creates the cursor, and A7 fetches records from the
+90001<sup>th</sup> to the 90005<sup>th</sup>. Below is A7’s result:</span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US style='mso-no-proof:yes'><img border=0 width=480 height=121
+src="Tutorial.files/image933.png" v:shapes="_x0000_i2025"></span></p>
+
+<p class=T-ParCxSpLast style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:exactly'><span
+lang=EN-US>When using a clustered file by specifying a node list and in the
+meantime, there is a namesake file in local esProc’s main path, the local file
+is the first choice to use in the computation. In this case, the target
+clustered file is read-only since it could come from any of the node list or
+may come from the local machine.</span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="245.html">Next</a></div>
@@ -1145,12 +463,12 @@ result will have a same order with the parameters.</span></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="242.html">10.3 Cluster computations</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="243.html">10.2 Clustered files</a></span></li>
 </div>
 	</div>
 	<div id="footer">	
 		
-		<div class="copyright"> Copyright&reg; 2021 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+		<div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">Scudata Inc. 
       </a></div> 
         <!--
 		<div class="copyright"> Copyright&reg; 2017 <a href="http://www.yimming.com" target="_Blank"> Beijing Yimming Ltd. Co. 

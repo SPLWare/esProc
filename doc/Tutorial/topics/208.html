@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>7.10.2 Cellsets that return multiple results</title>
+<title>7.9.1 Fetching data by group according to the expression</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -15,125 +15,14 @@
 	<div id="centent">
 	<div id="centent-title"><h3 style='margin:0cm;text-indent:0cm;line-height:normal;mso-list:none;
 tab-stops:-179.95pt 64.2pt'><span lang=EN-US style='font-size:14.0pt;
-mso-bidi-font-size:10.0pt'>7.10.2 Cellsets that return multiple results
-</span></h3></div>
-	<p class=T-Par style='margin-bottom:0cm;mso-add-space:auto;text-align:justify;
-text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>A cellset
-file to be invoked through the cross-cellset cursor could return multiple
-results, as </span><span class=T-CodeChar><i style='mso-bidi-font-style:normal'><span
-lang=EN-US style='font-family:"Times New Roman",serif;font-weight:normal'>D:\files\FindEmployees2.dfx</span></i></span><span
-class=T-CodeChar><span lang=EN-US style='font-family:"Times New Roman",serif;
-font-weight:normal'> shown below:</span></span><span lang=EN-US> <b
-style='mso-bidi-font-weight:normal'></b></span></p>
-
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
- style='margin-left:21.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- border:none;mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:
- #B2B2B2;mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
- .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:.5pt solid #B2B2B2;
- mso-border-insidev:.5pt solid #B2B2B2'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
-  height:14.15pt'>
-  <td width=42 valign=top style='width:31.2pt;border:solid black 1.0pt;
-  mso-border-alt:solid black .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
-  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
-  style='font-size:9.0pt'>&nbsp;</span></p>
-  </td>
-  <td width=302 valign=top style='width:226.75pt;border-top:solid black 1.0pt;
-  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
-  mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-bottom-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
-  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
-  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>A</span><span
-  lang=EN-US style='font-size:9.0pt'></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
-  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
-  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
-  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
-  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>1</span><span
-  lang=EN-US style='font-size:9.0pt'></span></p>
-  </td>
-  <td width=302 style='width:226.75pt;border-top:none;border-left:none;
-  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
-  mso-border-top-alt:windowtext;mso-border-left-alt:windowtext;mso-border-bottom-alt:
-  #B2B2B2;mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
-  .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
-  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
-  color:black;mso-color-alt:windowtext'>$(demo) select * from EMPLOYEE where
-  DEPT = ?;arg1</span><span lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
-  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
-  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
-  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
-  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>2</span><span
-  lang=EN-US style='font-size:9.0pt'></span></p>
-  </td>
-  <td width=302 style='width:226.75pt;border-top:none;border-left:none;
-  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
-  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
-  color:black;mso-color-alt:windowtext'>return A1.select(GENDER==&quot;F&quot;)</span><span
-  lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes;page-break-inside:avoid;
-  height:14.15pt'>
-  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
-  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
-  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
-  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>3</span><span
-  lang=EN-US style='font-size:9.0pt'></span></p>
-  </td>
-  <td width=302 style='width:226.75pt;border-top:none;border-left:none;
-  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
-  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
-  color:black;mso-color-alt:windowtext'>return A1.select(GENDER==&quot;M&quot;)</span><span
-  lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
-  </td>
- </tr>
-</table>
-
-<p class=T-ParCxSpFirst style='margin-bottom:0cm;mso-add-space:auto;text-align:
-justify;text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>This
-cellset program queries the database to get data of employees in a certain
-department, and returns two record sequences, composed respectively of data of
-female employees and of male employees, in A2 and A3 separately using two <b
-style='mso-bidi-font-weight:normal'>return</b> statements. It sets the same
-cellset parameter as the previous section did. </span></p>
-
-<p class=T-ParCxSpLast style='margin-bottom:0cm;mso-add-space:auto;text-align:
-justify;text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>Then
-the cellset program is called in the main cellset to generate a cross-cellset
-cursor: </span></p>
+mso-bidi-font-size:10.0pt'>7.9.1 Fetching data by group according to the
+expression</span></h3></div>
+	<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US>In esProc, you can use <b style='mso-bidi-font-weight:normal'>cs.fetch(;x)</b>
+function or <b style='mso-bidi-font-weight:normal'>cs.skip(;x)</b> function to
+get or skip a group of consecutive records depending on the value of expression
+<i style='mso-bidi-font-style:normal'>x</i>. For example, examining the sales
+information by retrieving the data of one product each time:</span></p>
 
 <table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
  style='margin-left:21.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
@@ -155,9 +44,19 @@ cursor: </span></p>
   mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
   mso-border-bottom-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
-  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
-  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
-  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>A</span><span
+  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
+  mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
+  lang=EN-US style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>A</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
+  </td>
+  <td width=113 style='width:3.0cm;border-top:solid black 1.0pt;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
+  mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-bottom-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
+  mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
+  lang=EN-US style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>B</span><span
   lang=EN-US style='font-size:9.0pt'></span></p>
   </td>
  </tr>
@@ -178,14 +77,19 @@ cursor: </span></p>
   mso-border-left-alt:windowtext;mso-border-bottom-alt:#B2B2B2;mso-border-right-alt:
   #B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:.5pt;background:#FFFF99;
   padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
-  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
-  color:black;mso-color-alt:windowtext'>=cursor(&quot;FindEmployees2.dfx&quot;)</span><span
-  lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;color:black;
+  mso-color-alt:windowtext'>=file(&quot;Order_Wines.txt&quot;)</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
+  </td>
+  <td width=113 style='width:3.0cm;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid windowtext .5pt;
+  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  mso-border-top-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0'><span
+  lang=EN-US style='font-size:9.0pt'>&nbsp;</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes;page-break-inside:avoid;
-  height:14.15pt'>
+ <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
   <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
   border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
   mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
@@ -201,118 +105,16 @@ cursor: </span></p>
   mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid #B2B2B2 .5pt;
   mso-border-left-alt:solid windowtext .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
-  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
-  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
-  color:black;mso-color-alt:windowtext'>=A1.fetch()</span><span lang=EN-US
-  style='font-family:"Times New Roman",serif'></span></p>
-  </td>
- </tr>
-</table>
-
-<p class=T-ParCxSpFirst style='margin-bottom:0cm;mso-add-space:auto;text-align:
-justify;text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>While
-creating a cross-cellset cursor with the <b style='mso-bidi-font-weight:normal'>cursor
-</b>function without specifying a parameter, use the default cellset parameter
-value, which is the HR department in this instance. After execution A2 returns
-result as follows: </span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
-text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
-lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=500 height=230
-src="Tutorial.files/image780.png" v:shapes="_x0000_i1889"></span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
-text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
-lang=EN-US>The first half of the resulting table sequence is female employees
-in HR department and the second half is the male employees in the department.
-You can see that the cross-cellset cursor will join in due order the multiple
-results that are returned via multiple <b style='mso-bidi-font-weight:normal'>return</b>
-statements by the cellset being invoked.</span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
-text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
-lang=EN-US>For the invocation of the cellset that returns multiple results, the
-results <b style='mso-bidi-font-weight:normal'>must have the same data
-structure</b> because they will be returned altogether by one cross-cellset
-cursor. Otherwise errors will occur. </span></p>
-
-<p class=T-ParCxSpLast style='margin-bottom:0cm;mso-add-space:auto;text-align:
-justify;text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>In
-order to see the detailed execution process, the <b style='mso-bidi-font-weight:
-normal'>output</b> statements are used in the cellset to be invoked, as shown
-in the following cellset </span><span class=T-CodeChar><i style='mso-bidi-font-style:
-normal'><span lang=EN-US style='font-family:"Times New Roman",serif;font-weight:
-normal'>D:\files\FindEmployees3.dfx:</span></i></span><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US> </span></b></p>
-
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
- style='margin-left:21.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- border:none;mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:
- #B2B2B2;mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
- .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:.5pt solid #B2B2B2;
- mso-border-insidev:.5pt solid #B2B2B2'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
-  height:14.15pt'>
-  <td width=42 valign=top style='width:31.2pt;border:solid black 1.0pt;
-  mso-border-alt:solid black .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
-  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
-  style='font-size:9.0pt'>&nbsp;</span></p>
-  </td>
-  <td width=302 valign=top style='width:226.75pt;border-top:solid black 1.0pt;
-  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
-  mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-bottom-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
-  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
-  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>A</span><span
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;color:black;
+  mso-color-alt:windowtext'>=file(&quot;Order_Electronics.txt&quot;)</span><span
   lang=EN-US style='font-size:9.0pt'></span></p>
   </td>
- </tr>
- <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
-  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
-  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
-  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
-  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>1</span><span
-  lang=EN-US style='font-size:9.0pt'></span></p>
-  </td>
-  <td width=302 style='width:226.75pt;border-top:none;border-left:none;
-  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
-  mso-border-top-alt:windowtext;mso-border-left-alt:windowtext;mso-border-bottom-alt:
-  #B2B2B2;mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
-  .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
-  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
-  color:black;mso-color-alt:windowtext'>$(demo) select * from EMPLOYEE where
-  DEPT = ?;arg1</span><span lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
-  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
-  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
-  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
-  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>2</span><span
-  lang=EN-US style='font-size:9.0pt'></span></p>
-  </td>
-  <td width=302 style='width:226.75pt;border-top:none;border-left:none;
-  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  <td width=113 style='width:3.0cm;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
   padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
-  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif'>&gt;output(&quot;return
-  GENDER F&quot;)</span></p>
+  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0'><span
+  lang=EN-US style='font-size:9.0pt;color:fuchsia'>&nbsp;</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:3;page-break-inside:avoid;height:14.15pt'>
@@ -326,15 +128,21 @@ normal'><span lang=EN-US> </span></b></p>
   style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>3</span><span
   lang=EN-US style='font-size:9.0pt'></span></p>
   </td>
-  <td width=302 style='width:226.75pt;border-top:none;border-left:none;
-  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
-  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
-  color:black;mso-color-alt:windowtext'>return A1.select(GENDER==&quot;F&quot;)</span><span
-  lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
+  <td width=227 style='width:6.0cm;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid windowtext .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;color:black;
+  mso-color-alt:windowtext'>=file(&quot;Order_Foods.txt&quot;)</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
+  </td>
+  <td width=113 style='width:3.0cm;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0'><span
+  lang=EN-US style='font-size:9.0pt'>&nbsp;</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:4;page-break-inside:avoid;height:14.15pt'>
@@ -348,18 +156,24 @@ normal'><span lang=EN-US> </span></b></p>
   style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>4</span><span
   lang=EN-US style='font-size:9.0pt'></span></p>
   </td>
-  <td width=302 style='width:226.75pt;border-top:none;border-left:none;
-  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  <td width=227 style='width:6.0cm;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid windowtext .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;color:black;
+  mso-color-alt:windowtext'>=file(&quot;Order_Books.txt&quot;)</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
+  </td>
+  <td width=113 style='width:3.0cm;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
   padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
-  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif'>&gt;output(&quot;return
-  GENDER M&quot;)</span></p>
+  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0'><span
+  lang=EN-US style='font-size:9.0pt'>&nbsp;</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:5;mso-yfti-lastrow:yes;page-break-inside:avoid;
-  height:14.15pt'>
+ <tr style='mso-yfti-irow:5;page-break-inside:avoid;height:14.15pt'>
   <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
   border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
   mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
@@ -370,65 +184,81 @@ normal'><span lang=EN-US> </span></b></p>
   style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>5</span><span
   lang=EN-US style='font-size:9.0pt'></span></p>
   </td>
-  <td width=302 style='width:226.75pt;border-top:none;border-left:none;
-  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  <td width=227 style='width:6.0cm;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid windowtext .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;color:black;
+  mso-color-alt:windowtext'>=[A1:A4].(~.cursor@t().sortx(PID))</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
+  </td>
+  <td width=113 style='width:3.0cm;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0'><span
+  lang=EN-US style='font-size:9.0pt'>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:6;page-break-inside:avoid;height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
+  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
+  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>6</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
+  </td>
+  <td width=227 style='width:6.0cm;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid windowtext .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;color:black;
+  mso-color-alt:windowtext'>=A5.mergex(PID)</span><span lang=EN-US
+  style='font-size:9.0pt'></span></p>
+  </td>
+  <td width=113 style='width:3.0cm;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0'><span
+  lang=EN-US style='font-size:9.0pt;color:fuchsia'>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:7;page-break-inside:avoid;height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
+  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
+  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>7</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
+  </td>
+  <td width=227 style='width:6.0cm;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid windowtext .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;color:black;
+  mso-color-alt:windowtext'>for 19</span><span lang=EN-US style='font-size:
+  9.0pt'></span></p>
+  </td>
+  <td width=113 style='width:3.0cm;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
   background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
-  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
-  color:black;mso-color-alt:windowtext'>return A1.select(GENDER==&quot;M&quot;)</span><span
-  lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;color:black;
+  mso-color-alt:windowtext'>=A6.skip(;PID)</span><span lang=EN-US
+  style='font-size:9.0pt'></span></p>
   </td>
  </tr>
-</table>
-
-<p class=T-Par style='margin-bottom:0cm;mso-add-space:auto;text-align:justify;
-text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>In this
-cellset, the program queries the database to get data of employees in a certain
-department, and returns two record sequences, composed respectively of data of
-female employees and of male employees, in A3 and A5 separately using two <b
-style='mso-bidi-font-weight:normal'>return</b> statements. Here the same
-cellset parameter is used. The cellset program is called by a cross-cellset
-cursor:</span></p>
-
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
- style='margin-left:21.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- border:none;mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:
- #B2B2B2;mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
- .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:.5pt solid #B2B2B2;
- mso-border-insidev:.5pt solid #B2B2B2'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
-  height:14.15pt'>
-  <td width=42 valign=top style='width:31.2pt;border:solid black 1.0pt;
-  mso-border-alt:solid black .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
-  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
-  style='font-size:9.0pt'>&nbsp;</span></p>
-  </td>
-  <td width=189 valign=top style='width:5.0cm;border-top:solid black 1.0pt;
-  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
-  mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-bottom-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
-  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
-  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>A</span><span
-  lang=EN-US style='font-size:9.0pt'></span></p>
-  </td>
-  <td width=189 style='width:5.0cm;border-top:solid black 1.0pt;border-left:
-  none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
-  mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-bottom-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
-  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
-  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>B</span><span
-  lang=EN-US style='font-size:9.0pt'></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
+ <tr style='mso-yfti-irow:8;page-break-inside:avoid;height:14.15pt'>
   <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
   border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
   mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
@@ -436,29 +266,28 @@ cursor:</span></p>
   height:14.15pt'>
   <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
   text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
-  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>1</span><span
+  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>8</span><span
   lang=EN-US style='font-size:9.0pt'></span></p>
   </td>
-  <td width=189 style='width:5.0cm;border-top:none;border-left:none;border-bottom:
-  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid windowtext .5pt;
-  mso-border-left-alt:solid windowtext .5pt;mso-border-top-alt:windowtext;
-  mso-border-left-alt:windowtext;mso-border-bottom-alt:#B2B2B2;mso-border-right-alt:
-  #B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:.5pt;background:#FFFF99;
-  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
-  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
-  color:black;mso-color-alt:windowtext'>=cursor(&quot;FindEmployees3.dfx&quot;)</span><span
-  lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
+  <td width=227 style='width:6.0cm;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid windowtext .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;color:black;
+  mso-color-alt:windowtext'>=A6.fetch(;PID)</span><span lang=EN-US
+  style='font-size:9.0pt'></span></p>
   </td>
-  <td width=189 style='width:5.0cm;border-top:none;border-left:none;border-bottom:
-  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid windowtext .5pt;
+  <td width=113 style='width:3.0cm;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
   mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
-  mso-border-top-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=TabCodepink style='text-align:justify;text-justify:inter-ideograph;
-  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif'>[]</span></p>
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0'><span
+  lang=EN-US style='font-size:9.0pt'>&nbsp;</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
+ <tr style='mso-yfti-irow:9;mso-yfti-lastrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
   <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
   border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
   mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
@@ -466,86 +295,40 @@ cursor:</span></p>
   height:14.15pt'>
   <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
   text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
-  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>2</span><span
+  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>9</span><span
   lang=EN-US style='font-size:9.0pt'></span></p>
   </td>
-  <td width=189 style='width:5.0cm;border-top:none;border-left:none;border-bottom:
+  <td width=227 style='width:6.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
   mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid #B2B2B2 .5pt;
   mso-border-left-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:
   14.15pt'>
-  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
-  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif'>for
-  A1,5</span></p>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>&gt;A6.close()</span></p>
   </td>
-  <td width=189 style='width:5.0cm;border-top:none;border-left:none;border-bottom:
+  <td width=113 style='width:3.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
   mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
   padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
-  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif'>&gt;output(&quot;fetch&quot;+string(#A2))</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes;page-break-inside:avoid;
-  height:14.15pt'>
-  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
-  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
-  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
-  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>3</span><span
-  lang=EN-US style='font-size:9.0pt'></span></p>
-  </td>
-  <td width=189 style='width:5.0cm;border-top:none;border-left:none;border-bottom:
-  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
-  mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid #B2B2B2 .5pt;
-  mso-border-left-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:
-  14.15pt'>
-  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
-  text-indent:18.0pt;mso-char-indent-count:2.0;line-height:normal'><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></p>
-  </td>
-  <td width=189 style='width:5.0cm;border-top:none;border-left:none;border-bottom:
-  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
-  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
-  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
-  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif'>&gt;B1=B1|A2</span></p>
+  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0'><span
+  lang=EN-US style='font-size:9.0pt'>&nbsp;</span></p>
   </td>
  </tr>
 </table>
 
-<p class=T-ParCxSpFirst style='margin-bottom:0cm;mso-add-space:auto;text-align:
-justify;text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>In
-our examples, the cross-cellset cursor only contains a very small volume of
-data, but this is sufficient for explaining the cross-cellset invocation
-through the cursor. A2 loops through data in the cursor and fetches five
-records each time. B2 outputs the execution information during loops. B3
-concatenates the records returned from the cursor into B1’s record sequence.
-After the program is executed, B1gets the same result as the previous instance
-&#8211; records of female and male employees in HR department. The output information
-received by the console is as follows:</span></p>
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US>The cursor in A6 contains the sales data of four kinds of products,
+which has been sorted by PID. From A8, records of the 20th product have been
+retrieved: </span></p>
 
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
-text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
-lang=EN-US style='mso-ansi-language:#0400;mso-fareast-language:#0400'><span
-style='mso-spacerun:yes'>&nbsp;</span></span><span lang=zh-CN style='mso-ansi-language:
-#0400;mso-fareast-language:#0400'><img border=0 width=470 height=210
-src="Tutorial.files/image781.png" v:shapes="_x0000_i1890"></span></p>
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=500 height=230
+src="Tutorial.files/image821.png" v:shapes="_x0000_i1923"></span></p>
 
-<p class=T-ParCxSpLast style='margin-bottom:0cm;mso-add-space:auto;text-align:
-justify;text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>As
-can be seen from the output information, during the invocation of </span><span
-class=T-CodeChar><i style='mso-bidi-font-style:normal'><span lang=EN-US
-style='font-family:"Times New Roman",serif;font-weight:normal'>FindEmployees3.dfx</span></i></span><span
-class=T-CodeChar><span lang=EN-US style='font-family:"Times New Roman",serif;
-font-weight:normal'> by the main cellset, the program will be executed step by
-step according to the specified way of returning the records. So it is only
-after all the records of female employees in A3 have been returned that the
-fetching of records of male employees begins. </span></span><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US></span></b></p>
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US>Note that the esProc traversal of cursor data is executed once in a
+forward-only direction. Therefore <b style='mso-bidi-font-weight:normal'>data
+in a cursor must be ordered as required when a group of records is retrieved
+each time</b>.</span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="209.html">Next</a></div>
@@ -553,12 +336,12 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US></span></b></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="206.html">7.10 Cross-cellset Cursor</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="207.html">7.9 Group Cursor</a></span></li>
 </div>
 	</div>
 	<div id="footer">	
 		
-		<div class="copyright"> Copyright&reg; 2021 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+		<div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">Scudata Inc. 
       </a></div> 
         <!--
 		<div class="copyright"> Copyright&reg; 2017 <a href="http://www.yimming.com" target="_Blank"> Beijing Yimming Ltd. Co. 

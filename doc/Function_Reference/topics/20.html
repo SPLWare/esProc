@@ -24,8 +24,8 @@ lang=EN-US style='font-family:"Times New Roman",serif'></span></h1></div>
 style='font-size:14.0pt'>Concept:</span></b></p>
 
 <p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>A simple SQL is
-used to query data in a data file, which is represented directly using the
-table name</span><span style='font-family:ËÎÌå;mso-ascii-font-family:"Times New Roman";
+used to query data in a data file, which is represented directly using the table
+name</span><span style='font-family:ËÎÌå;mso-ascii-font-family:"Times New Roman";
 mso-hansi-font-family:"Times New Roman"'>¡¾</span><span lang=EN-US>file name.extension</span><span
 style='font-family:ËÎÌå;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:
 "Times New Roman"'>¡¿</span><span lang=EN-US>and which can be treated as an
@@ -39,11 +39,11 @@ have headers. Both the relative path, which is relative to the esProc main
 directory, and the absolute path can be used in a simple SQL query.</span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>Similar to familiar SQL statements, simple SQl can be used in
-db.query(sql) and $(db)sql. While the ordinary SQL queries data from the
-database through a specified to-be-connected data source db, the simple SQL
-queries data from a file system without specifying data source name. It just
-leaves data source parameter db null with syntax connect().query(sql)/$()sql. </span></p>
+lang=EN-US>Similar to familiar SQL statements, simple SQl can be used in db.query(sql)
+and $(db)sql. While the ordinary SQL queries data from the database through a
+specified to-be-connected data source db, the simple SQL queries data from a file
+system without specifying data source name. It just leaves data source
+parameter db null with syntax connect().query(sql)/$()sql. </span></p>
 
 <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
 style='font-size:14.0pt;mso-bidi-font-size:12.0pt'>Syntax of simple SQL:</span></b><b
@@ -95,8 +95,8 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'></
   <p class=MsoNormal><span lang=EN-US>Use file <i style='mso-bidi-font-style:
   normal'>fn</i>, whose format can be txt, csv, xls, xlsx and btx (a bin file),
   directly as table <i>T</i>; the file is opened as a cursor, and by default considered
-  to have headers; use a relative path, which is relative to esProc main
-  directory, or an absolute path to access file <i>fn</i>.</span></p>
+  to have headers; use a relative path, which is relative to esProc main directory,
+  or an absolute path to access file <i>fn</i>.</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:4'>
@@ -280,8 +280,8 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'></
   </td>
   <td width=716 valign=top style='width:536.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-size:10.5pt'>Write
-  the result set to file <i style='mso-bidi-font-style:normal'>fn</i>, whose
-  format, which can be txt, csv and btx, is determined by its extension;</span></p>
+  the result set to file <i style='mso-bidi-font-style:normal'>fn</i>, whose format,
+  which can be txt, csv and btx, is determined by its extension;</span></p>
   <p class=MsoNormal><span lang=EN-US>Check whether the result set and the
   target file have same structure if the latter already exists; then perform
   appending if they have same structure, otherwise error will be reported;</span></p>
@@ -1319,8 +1319,7 @@ style='font-size:14.0pt'>Example:</span></b></p>
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:33.8pt'>
   <p class=MsoListParagraph style='text-indent:0cm;mso-char-indent-count:0'><span
   class=code><span lang=EN-US style='font-size:10.5pt;mso-bidi-font-size:10.0pt;
-  font-family:"Times New Roman",serif'>=A1.query(&quot;select * from
-  D:/Orders.txt&quot;)</span></span></p>
+  font-family:"Times New Roman",serif'>=A1.query(&quot;select * from D:/Orders.txt&quot;)</span></span></p>
   </td>
   <td width=473 valign=top style='width:354.4pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:33.8pt'>
@@ -1343,8 +1342,8 @@ style='font-size:14.0pt'>Example:</span></b></p>
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:5.25pt'>
   <p class=MsoListParagraph style='text-indent:0cm;mso-char-indent-count:0'><span
   class=code><span lang=EN-US style='font-size:10.5pt;mso-bidi-font-size:10.0pt;
-  font-family:"Times New Roman",serif'>=A1.query(&quot;select Id_P,
-  sum(OrderNo) from Orders.csv group by 1 &quot;)</span></span></p>
+  font-family:"Times New Roman",serif'>=A1.query(&quot;select Id_P, sum(OrderNo)
+  from Orders.csv group by 1 &quot;)</span></span></p>
   </td>
   <td width=473 valign=top style='width:354.4pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:5.25pt'>
@@ -1475,9 +1474,9 @@ style='font-size:14.0pt'>Example:</span></b></p>
   <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=zh-CN
   style='mso-ansi-language:#0400;mso-fareast-language:#0400'>Perform a query
   over <i style='mso-bidi-font-style:normal'>Persons.btx</i>, name the result
-  set <i style='mso-bidi-font-style:normal'>persons</i>, and perform a second
-  query over <i style='mso-bidi-font-style:normal'>persons</i>; this can
-  optimize SQL huge data processing</span></p>
+  set <i style='mso-bidi-font-style:normal'>persons</i>, and perform a second query
+  over <i style='mso-bidi-font-style:normal'>persons</i>; this can optimize SQL
+  huge data processing</span></p>
   <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=zh-CN
   style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=258 height=75
   src="Function_Reference.files/image010.jpg" v:shapes="Í¼Æ¬_x0020_299"></span><span
@@ -1524,9 +1523,9 @@ style='font-size:14.0pt'>Example:</span></b></p>
   style='mso-spacerun:yes'>&nbsp; </span>*<span style='mso-spacerun:yes'>&nbsp;
   </span>from Persons.txt<span style='mso-spacerun:yes'>&nbsp; </span>P<span
   style='mso-spacerun:yes'>&nbsp; </span>join Orders.txt<span
-  style='mso-spacerun:yes'>&nbsp; </span>O<span style='mso-spacerun:yes'>&nbsp;
-  </span>on P.Id_P = O.Id_P<span style='mso-spacerun:yes'>&nbsp;
-  </span>&quot;)</span></span></p>
+  style='mso-spacerun:yes'>&nbsp; </span>O <span
+  style='mso-spacerun:yes'>&nbsp;</span>on P.Id_P = O.Id_P<span
+  style='mso-spacerun:yes'>&nbsp; </span>&quot;)</span></span></p>
   </td>
   <td width=473 valign=top style='width:354.4pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:5.25pt'>
@@ -1551,8 +1550,8 @@ style='font-size:14.0pt'>Example:</span></b></p>
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:5.25pt'>
   <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=A1.query(&quot;select
-  distinct(Id_P),name<span style='mso-spacerun:yes'>&nbsp; </span>from
-  Orders.txt<span style='mso-spacerun:yes'>&nbsp; </span>&quot;)</span></span></p>
+  distinct(Id_P),name<span style='mso-spacerun:yes'>&nbsp; </span>from Orders.txt<span
+  style='mso-spacerun:yes'>&nbsp; </span>&quot;)</span></span></p>
   </td>
   <td width=473 valign=top style='width:354.4pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:5.25pt'>
@@ -1630,7 +1629,7 @@ style='font-size:14.0pt'>Example:</span></b></p>
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:5.25pt'>
   <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=A1.query(&quot;select
-  * from Persons.btx<span style='mso-spacerun:yes'>&nbsp; </span>where
+  * from Persons.btx <span style='mso-spacerun:yes'>&nbsp;</span>where
   Name<span style='mso-spacerun:yes'>&nbsp; </span>like<span
   style='mso-spacerun:yes'>&nbsp; </span>'_a_t%' &quot;)</span></span></p>
   </td>
@@ -1661,8 +1660,8 @@ style='font-size:14.0pt'>Example:</span></b></p>
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:5.25pt'>
   <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=A1.query(&quot;select
-  * from Persons.btx<span style='mso-spacerun:yes'>&nbsp; </span>where
-  Name<span style='mso-spacerun:yes'>&nbsp; </span>like<span
+  * from Persons.btx<span style='mso-spacerun:yes'>&nbsp; </span>where Name <span
+  style='mso-spacerun:yes'>&nbsp;</span>like<span
   style='mso-spacerun:yes'>&nbsp; </span>'%[us]%' &quot;)</span></span></p>
   </td>
   <td width=473 valign=top style='width:354.4pt;border:none;mso-border-left-alt:
@@ -2017,9 +2016,10 @@ lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'></span></p
   <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>$select<span
   style='mso-spacerun:yes'>&nbsp; </span>* <span
   style='mso-spacerun:yes'>&nbsp;</span>from Persons.txt<span
-  style='mso-spacerun:yes'>&nbsp; </span>P<span style='mso-spacerun:yes'>&nbsp;
-  </span>join Orders.txt<span style='mso-spacerun:yes'>&nbsp; </span>O<span
-  style='mso-spacerun:yes'>&nbsp; </span>on P.Id_P = O.Id_P</span></span></p>
+  style='mso-spacerun:yes'>&nbsp; </span>P <span
+  style='mso-spacerun:yes'>&nbsp;</span>join Orders.txt <span
+  style='mso-spacerun:yes'>&nbsp;</span>O<span style='mso-spacerun:yes'>&nbsp;
+  </span>on P.Id_P = O.Id_P</span></span></p>
   </td>
   <td width=378 valign=top style='width:10.0cm;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:18.6pt'>
@@ -2065,7 +2065,7 @@ lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'></span></p
 	</div>
 	<div id="footer">	
 		
-		<div class="copyright"> Copyright&reg; 2021 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+		<div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">Scudata Inc. 
       </a></div> 
         <!--
 		<div class="copyright"> Copyright&reg; 2017 <a href="http://www.yimming.com" target="_Blank"> Beijing Yimming Ltd. Co. 

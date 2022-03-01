@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>redis_zrank()</title>
+<title>redis_hmget()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,83 +13,67 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h2><a name="_Hlt485633318"></a><a name="redis_zrank"></a><span lang=EN-US>redis_zrank()</span></h2></div>
+	<div id="centent-title"><h2><a name="_Hlt485632899"></a><a name="redis_hlen"></a><a name="_Hlt485632927"></a><a
+name="redis_hmget"></a><span lang=EN-US>redis_hmget()</span></h2></div>
 	<p class=afe style='line-height:200%'><span lang=EN-US>Description:</span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-tab-stops:18.0pt'><span lang=EN-US>Determine the ranking of a member in a
-sorted set.</span></p>
+tab-stops:18.0pt'><span lang=EN-US>Get the values of all the given hash fields.
+</span><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt;mso-bidi-font-size:12.0pt'></span></b></p>
 
 <p class=afe style='line-height:200%'><span lang=EN-US>Syntax:</span></p>
 
 <p class=MsoNormal style='text-indent:21.1pt;mso-char-indent-count:2.0;
-tab-stops:18.0pt'><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>redis_zrank</span></span><span
-lang=EN-US>(</span><span class=var2><span lang=EN-US>con,key,member</span></span><span
-lang=EN-US>)<span style='mso-spacerun:yes'>&nbsp; </span></span><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-mso-bidi-font-size:12.0pt'></span></b></p>
+tab-stops:18.0pt'><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>redis_hmget</span></span><span
+lang=EN-US>(</span><span class=var2><span lang=EN-US>con,tbl,field[,field1,field2,....</span></span><span
+lang=EN-US>)</span><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt;mso-bidi-font-size:12.0pt'></span></b></p>
 
-<p class=afe style='line-height:200%'><span lang=EN-US>Note: </span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly;tab-stops:18.0pt'><span
-lang=EN-US>External library function. By default the members in a sorted set is
-arranged in an ascending order; use @z option to arrange them in a descending
-order.<span style='mso-spacerun:yes'>&nbsp; </span></span></p>
+<p class=afe style='line-height:200%'><span lang=EN-US>Note:</span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly;tab-stops:18.0pt'><span
-lang=EN-US>The rankings start with 0, meaning the ranking of the member with
-the smallest score is 0.</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly;tab-stops:18.0pt'><span
-lang=EN-US>If the given member doesn’t belong to the sorted set, return an
-empty table.</span></p>
-
-<p class=afe style='line-height:200%'><span lang=EN-US>Options:</span></p>
-
-<p class=MsoNormal style='text-indent:21.1pt;mso-char-indent-count:2.0;
-tab-stops:18.0pt'><b style='mso-bidi-font-weight:normal'><span lang=EN-US>@z </span></b><span
-lang=EN-US><span style='mso-spacerun:yes'>&nbsp;</span>Arrange
-sorted set members in descending order.</span><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:12.0pt'></span></b></p>
+tab-stops:18.0pt'><span lang=EN-US>External library function. The order of the
+returned values is consistent with that of the given hash fields; if a given
+hash field doesn’t exist, return an empty string. </span></p>
 
 <p class=afe style='line-height:200%'><span lang=EN-US>Parameters:</span></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:26.7pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=85 valign=top style='width:63.75pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>con</span></i></p>
+  <td width=47 valign=top style='width:35.35pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US>con</span></i></p>
   </td>
-  <td width=442 valign=top style='width:331.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal><span lang=EN-US>Database connection string</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=85 valign=top style='width:63.75pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>key</span></i></p>
+  <td width=47 valign=top style='width:35.35pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US>tbl</span></i></p>
   </td>
-  <td width=442 valign=top style='width:331.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Sorted set name</span></p>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Hash table name</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes'>
-  <td width=85 valign=top style='width:63.75pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>member</span></i></p>
+  <td width=47 valign=top style='width:35.35pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US>field</span></i></p>
   </td>
-  <td width=442 valign=top style='width:331.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Sorted set member</span></p>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Field name;return all fields by default</span></p>
   </td>
  </tr>
 </table>
 
 <p class=afe style='line-height:200%'><span lang=EN-US>Return value:</span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt;tab-stops:18.0pt'><span
-lang=EN-US>Table sequence</span></p>
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
+tab-stops:18.0pt'><span lang=EN-US>A table containing all the given hash field
+values. </span><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt;mso-bidi-font-size:12.0pt'></span></b></p>
 
 <p class=afe style='line-height:200%'><span lang=EN-US>Example:</span></p>
 
@@ -112,7 +96,7 @@ lang=EN-US>Table sequence</span></p>
   </td>
   <td width=237 valign=top style='width:177.45pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  <p class=MsoNormal align=center style='text-align:center'><span lang=EN-US>&nbsp;</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1'>
@@ -131,8 +115,8 @@ lang=EN-US>Table sequence</span></p>
   <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
   style='mso-fareast-font-family:黑体'>=redis</span></b><span class=code><span
   lang=EN-US style='font-family:"Times New Roman",serif;mso-hansi-font-family:
-  "Arial Narrow"'>_open</span></span><b style='mso-bidi-font-weight:normal'><span
-  lang=EN-US style='mso-fareast-font-family:黑体'>()</span></b></p>
+  "Arial Narrow"'>_open()</span></span><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US style='mso-fareast-font-family:黑体'></span></b></p>
   </td>
   <td width=237 valign=top style='width:177.45pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
@@ -152,14 +136,15 @@ lang=EN-US>Table sequence</span></p>
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>=redis_zrangebyscore(A1,&quot;salary&quot;,&quot;-inf&quot;,&quot;+inf&quot;,&quot;WITHSCORES&quot;)</span></b></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  mso-hansi-font-family:"Arial Narrow"'>=redis_hmget(A1, &quot;pet&quot;)</span></span><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'></span></b></p>
   </td>
   <td width=237 valign=top style='width:177.45pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'><img border=0 width=236 height=52
-  src="Function_Reference.files/image1508.jpg" v:shapes="_x0000_i1987"></span><b
+  <p class=MsoNormal><span lang=EN-US><img border=0 width=234 height=34
+  src="Function_Reference.files/image1507.jpg" v:shapes="图片_x0020_1309"></span><b
   style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
   黑体'></span></b></p>
   </td>
@@ -177,14 +162,15 @@ lang=EN-US>Table sequence</span></p>
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>=redis_zrank(A1,&quot;salary&quot;,&quot;jack&quot;)</span></b></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  mso-hansi-font-family:"Arial Narrow"'>=redis_hmget(A1,&quot;pet&quot;,&quot;dog&quot;)</span></span><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'></span></b></p>
   </td>
   <td width=237 valign=top style='width:177.45pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'><img border=0 width=236 height=28
-  src="Function_Reference.files/image1510.jpg" v:shapes="_x0000_i1988"></span><b
+  <p class=MsoNormal><span lang=EN-US><img border=0 width=236 height=33
+  src="Function_Reference.files/image1509.jpg" v:shapes="图片_x0020_1310"></span><b
   style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
   黑体'></span></b></p>
   </td>
@@ -202,19 +188,21 @@ lang=EN-US>Table sequence</span></p>
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>=redis_zrank@z(A1,&quot;salary&quot;,&quot;jack&quot;)</span></b></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  mso-hansi-font-family:"Arial Narrow"'>=redis_hmget(A1,&quot;pet&quot;,&quot;cat&quot;,&quot;dog&quot;,&quot;aa&quot;)</span></span></p>
   </td>
   <td width=237 valign=top style='width:177.45pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'><img border=0 width=236 height=26
-  src="Function_Reference.files/image1512.jpg" v:shapes="_x0000_i1989"></span><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
-  黑体'></span></b></p>
+  <p class=MsoNormal><span lang=EN-US><img border=0 width=209 height=42
+  src="Function_Reference.files/image1511.jpg" v:shapes="图片_x0020_1311"></span></p>
   </td>
  </tr>
 </table>
+
+<p class=afe style='line-height:200%'><span lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-fareast-font-family:黑体'><a href="#redis"></a></span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="648.html">Next</a></div>
@@ -227,7 +215,7 @@ lang=EN-US>Table sequence</span></p>
 	</div>
 	<div id="footer">	
 		
-		<div class="copyright"> Copyright&reg; 2021 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+		<div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">Scudata Inc. 
       </a></div> 
         <!--
 		<div class="copyright"> Copyright&reg; 2017 <a href="http://www.yimming.com" target="_Blank"> Beijing Yimming Ltd. Co. 

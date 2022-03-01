@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>or()</title>
+<title>T.new( A/cs,x:C,…;wi,... )</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,137 +13,243 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h2><a name=or></a><span lang=EN-US>or()</span></h2></div>
-	<p class=MsoNormal style='line-height:200%'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US style='font-size:14.0pt;line-height:200%'>Description:</span></b></p>
+	<div id="centent-title"><h3 style='text-align:justify;text-justify:inter-ideograph'><span lang=EN-US>T.new(<i>A/cs,x:C,…;wi,...</i>)<a
+name="T_new_A_cs_x_C_2"></a></span></h3></div>
+	<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt'>Description:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.75pt'><span lang=EN-US>Perform bitwise
-OR operation on integers.</span></p>
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US>Retrieve specified fields from a cluster composite table according
+to key values of a cluster table or a cluster cursor and return a cluster multicursor.</span></p>
 
-<p class=MsoNormal style='line-height:200%'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US style='font-size:14.0pt;line-height:200%'>Syntax:<span
-class=code><span style='mso-ansi-font-size:14.0pt;line-height:200%;font-family:
-"Times New Roman",serif;mso-fareast-font-family:宋体'></span></span></span></b></p>
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt'>Syntax:</span></b></p>
 
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='border-collapse:collapse;mso-yfti-tbllook:1184;mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=113 valign=top style='width:84.75pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal style='text-indent:21.0pt'><b style='mso-bidi-font-weight:
-  normal'><span lang=EN-US style='mso-fareast-font-family:黑体'>or(</span></b><i><span
-  lang=EN-US>x</span></i><i><sub><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt'>i,…</span></sub></i><b style='mso-bidi-font-weight:normal'><span
-  lang=EN-US style='mso-fareast-font-family:黑体'>)</span></b></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
-  <td width=113 valign=top style='width:84.75pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal style='text-indent:21.0pt'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>or(</span></span><span
-  class=var2><span lang=EN-US>A</span></span><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'>)</span></span></p>
-  </td>
- </tr>
-</table>
+<p class=MsoNormal style='text-indent:21.0pt'><i style='mso-bidi-font-style:
+normal'><span lang=EN-US>T</span></i><b style='mso-bidi-font-weight:normal'><span
+lang=EN-US>.new(</span></b><i><span lang=EN-US>A/cs,x:C,…;wi,…</span></i><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US>) </span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>&nbsp;</span></p>
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt'>Note:</span></b></p>
 
-<p class=MsoNormal style='line-height:200%'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US style='font-size:14.0pt;line-height:200%'>Note:</span></b></p>
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US>The function retrieves specified fields <i style='mso-bidi-font-style:
+normal'>x,... </i>from cluster composite table <i style='mso-bidi-font-style:
+normal'>T</i> according to key values of cluster in-memory table <i
+style='mso-bidi-font-style:normal'>A</i> or cluster cursor <i style='mso-bidi-font-style:
+normal'>cs</i>; parameter <i style='mso-bidi-font-style:normal'>A/cs</i> is
+ordered by their keys. </span></p>
 
-<p class=MsoNormal style='text-indent:21.75pt'><span lang=EN-US>Bitwise OR
-operation on integers. The function supports a decimal without the fractional
-part.</span></p>
-
-<p class=MsoNormal style='line-height:200%'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US style='font-size:14.0pt;line-height:200%'>Parameters:</span></b></p>
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt'>Parameters:</span></b></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ style='margin-left:19.85pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
   <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US>A</span></i><span
-  class=var2><span lang=EN-US></span></span></p>
+  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>T</span></i></p>
   </td>
   <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>A sequence</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
-  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i><span lang=EN-US>x</span></i><i><sub><span lang=EN-US
-  style='mso-bidi-font-size:10.5pt'>i</span></sub></i><span class=var2><span
-  lang=EN-US></span></span></p>
-  </td>
-  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>A numeric expression based on which you
-  perform the bitwise OR operation</span></p>
-  </td>
- </tr>
-</table>
-
-<p class=MsoNormal style='line-height:200%'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US style='font-size:14.0pt;line-height:200%'>Retrun
-value:</span></b></p>
-
-<p class=MsoNormal style='text-indent:21.75pt'><span lang=EN-US>An integer</span></p>
-
-<p class=MsoNormal style='line-height:200%'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US style='font-size:14.0pt;line-height:200%'>Example:</span></b></p>
-
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=192 valign=top style='width:144.35pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=aff style='margin-left:10.55pt;text-align:justify;text-justify:inter-ideograph;
-  tab-stops:48.75pt'><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='font-family:"Times New Roman",serif'>or(3,5)</span></b><span
-  class=var2><span lang=EN-US></span></span></p>
-  </td>
-  <td width=353 valign=top style='width:264.75pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US style='mso-fareast-font-family:黑体;
-  mso-bidi-font-weight:bold'>7</span><span lang=EN-US style='mso-bidi-font-weight:
-  bold'></span></p>
+  <p class=MsoNormal><span lang=EN-US>A cluster table</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=192 valign=top style='width:144.35pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=aff style='margin-left:10.55pt;text-align:justify;text-justify:inter-ideograph;
-  tab-stops:48.75pt'><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>or([11,13,15])</span></span></p>
+  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>A/cs</span></i></p>
   </td>
-  <td width=353 valign=top style='width:264.75pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  font-weight:normal;mso-bidi-font-weight:bold'>15</span></span></p>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>A cluster in-memory table /cluster cursor</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:2'>
-  <td width=192 valign=top style='width:144.35pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=aff style='margin-left:10.55pt;text-align:justify;text-justify:inter-ideograph;
-  tab-stops:48.75pt'><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  mso-fareast-font-family:宋体'>or(decimal(6),11)</span></span><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
+  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>x</span></i></p>
   </td>
-  <td width=353 valign=top style='width:264.75pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  font-weight:normal;mso-bidi-font-weight:bold'>15, which is the decimal type</span></span></p>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Field values</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
-  <td width=192 valign=top style='width:144.35pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=aff style='margin-left:10.55pt;text-align:justify;text-justify:inter-ideograph;
-  tab-stops:48.75pt'><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  mso-fareast-font-family:宋体'>or(decimal(6),decimal(11))</span></span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
+ <tr style='mso-yfti-irow:3'>
+  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>C</span></i></p>
   </td>
-  <td width=353 valign=top style='width:264.75pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  font-weight:normal;mso-bidi-font-weight:bold'>15,</span></span><span
-  class=CharChar2><span lang=EN-US style='font-weight:normal;mso-bidi-font-weight:
-  bold'> </span></span><span class=code><span lang=EN-US style='font-family:
-  "Times New Roman",serif;font-weight:normal;mso-bidi-font-weight:bold'>which
-  is the decimal type</span></span></p>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Column alias</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes'>
+  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=var2><span lang=EN-US>wi</span></span></p>
+  </td>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Filtering condition; separate multiple
+  conditions, which should be met at the same time, by comma(s)</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt'>Return value:</span></b></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>A cluster multicursor</span></p>
+
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt'>Example:</span></b></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=598
+ style='margin-left:19.85pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
+ mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=31 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
+  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>&nbsp;</span></b></p>
+  </td>
+  <td width=293 valign=top style='width:219.7pt;border:solid #A6A6A6 1.0pt;
+  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='color:black;
+  mso-color-alt:windowtext'>A</span><span lang=EN-US></span></b></p>
+  </td>
+  <td width=274 valign=top style='width:205.55pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span lang=EN-US>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=31 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='color:black;
+  mso-color-alt:windowtext'>1</span><span lang=EN-US></span></b></p>
+  </td>
+  <td width=293 valign=top style='width:219.7pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=file(&quot;emp10.ctx&quot;,[&quot;192.168.0.118:8281&quot;])</span></b></p>
+  </td>
+  <td width=274 valign=top style='width:205.55pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=31 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='color:black;
+  mso-color-alt:windowtext'>2</span><span lang=EN-US></span></b></p>
+  </td>
+  <td width=293 valign=top style='width:219.7pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=A1.open()</span></b></p>
+  </td>
+  <td width=274 valign=top style='width:205.55pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'>Open a cluster composite table</span></p>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=155 height=163
+  src="Function_Reference.files/image1317.jpg" v:shapes="_x0000_i1897"></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3'>
+  <td width=31 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='color:black;
+  mso-color-alt:windowtext'>3</span><span lang=EN-US></span></b></p>
+  </td>
+  <td width=293 valign=top style='width:219.7pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=file(&quot;emp11.ctx&quot;,[&quot;192.168.0.119:8281&quot;]).open().memory()</span></span><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US></span></b></p>
+  </td>
+  <td width=274 valign=top style='width:205.55pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Open a cluster memory table</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4'>
+  <td width=31 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='color:black;
+  mso-color-alt:windowtext'>4</span><span lang=EN-US></span></b></p>
+  </td>
+  <td width=293 valign=top style='width:219.7pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=A2.new(A3,NAME,GENDER)</span></b><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>.fetch()</span></span><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US></span></b></p>
+  </td>
+  <td width=274 valign=top style='width:205.55pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'>Retrieve specified fields from A2’s cluster composite
+  table accroding to the key values of A3’s memory table</span></p>
+  <p class=MsoNormal><span lang=EN-US><img border=0 width=126 height=141
+  src="Function_Reference.files/image1319.jpg" v:shapes="图片_x0020_1084"></span><span
+  lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:5'>
+  <td width=31 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='color:black;
+  mso-color-alt:windowtext'>5</span><span lang=EN-US></span></b></p>
+  </td>
+  <td width=293 valign=top style='width:219.7pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=file(&quot;emp12.ctx&quot;,[&quot;192.168.0.110:8281&quot;]).open().cursor()</span></span><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US></span></b></p>
+  </td>
+  <td width=274 valign=top style='width:205.55pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Return a cluster cursor</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:6;mso-yfti-lastrow:yes'>
+  <td width=31 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='color:black;
+  mso-color-alt:windowtext'>6</span><span lang=EN-US></span></b></p>
+  </td>
+  <td width=293 valign=top style='width:219.7pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=A2.new(A5,NAME:NAME,GENDER:GENDER).fetch()</span></b></p>
+  </td>
+  <td width=274 valign=top style='width:205.55pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'>Retrieve specified fields from A2’s cluster
+  composite table accroding to the key values of A5’s cursor</span></p>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=113 height=165
+  src="Function_Reference.files/image1321.jpg" v:shapes="_x0000_i1899"></span></p>
   </td>
  </tr>
 </table>
@@ -154,12 +260,12 @@ normal'><span lang=EN-US style='font-size:14.0pt;line-height:200%'>Example:</spa
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="21.html">Functions</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="527.html">new()</a></span></li>
 </div>
 	</div>
 	<div id="footer">	
 		
-		<div class="copyright"> Copyright&reg; 2021 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+		<div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">Scudata Inc. 
       </a></div> 
         <!--
 		<div class="copyright"> Copyright&reg; 2017 <a href="http://www.yimming.com" target="_Blank"> Beijing Yimming Ltd. Co. 

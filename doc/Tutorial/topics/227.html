@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>9.4.2 Using simple SQL in esProc ODBC</title>
+<title>9.2 JSON data</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,459 +13,669 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h3 style='margin-left:0cm;text-indent:0cm;line-height:173%;mso-list:none'><span
-lang=EN-US>9.4.2 Using simple SQL in esProc ODBC</span></h3></div>
+	<div id="centent-title"><h2 style='margin-left:18.75pt;mso-para-margin-left:0gd;text-indent:-18.75pt;
+mso-list:l26 level2 lfo43'><span lang=EN-US
+style='mso-fareast-font-family:"Times New Roman"'><span style='mso-list:Ignore'>9.2<span
+style='font:7.0pt "Times New Roman"'> </span></span></span><span
+lang=EN-US><span style='mso-spacerun:yes'>&nbsp;</span>JSON data</span></h2></div>
 	<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US style='background:aqua;mso-highlight:aqua'>You can choose to skip
-this section if you are not a professional programmer. This won’t affect your
-learning about the other contents of this <i style='mso-bidi-font-style:normal'>Tutorial</i>.</span></p>
+lang=EN-US>JSON is a common data-interchange format. JSON data may come from an
+external Java program, a local file or the HTTP server. esProc can easily parse
+the JSON strings and compute them. </span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>esProc ODBC supports external data sources that are data files with
-the commonly seen formats like <i style='mso-bidi-font-style:normal'>txt, csv,
-xls and xlsx, </i>that are esProc bin files, which are discussed in detail in<i
-style='mso-bidi-font-style:normal'> <a  href="200.html">Bin Files</a></i>, and
-that the base table of a composite table, which is expounded in<i
-style='mso-bidi-font-style:normal'> <a  href="247.html">Generating
-a composite table</a></i>.</span></p>
+lang=EN-US>The following examples will show in detail how to write an esProc
+script for doing this. </span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>You can also use a simple SQL statement in esProc ODBC to query an
-external table. For example:</span></p>
+lang=EN-US>In the first case, the JSON string is transferred from an external
+Java program through a parameter. </span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US>Suppose there is a JSON string of employee information that includes
+the following fields &#8211; EID, NAME, SURNAME, GENDER, STATE, BIRTHDAY, HIREDATE
+and DEPT. Now parse the string and find out the female employees born after
+January 1, 1981 inclusive. The string is as follows: </span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US>[{EID:1,NAME:&quot;Rebecca&quot;,SURNAME:&quot;Moore&quot;,GENDER:&quot;F&quot;,STATE:&quot;California
+&quot;,BIRTHDAY:1974-11-20,HIREDATE:2005-03-11,DEPT:&quot;R&amp;D&quot;,SALARY:7000},</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US>{EID:2,NAME:&quot;Ashley&quot;,SURNAME:&quot;Wilson&quot;,GENDER:&quot;F&quot;,STATE:&quot;New
+York&quot;,BIRTHDAY:1980-07-19,HIREDATE:2008-03-16,DEPT:&quot;Finance&quot;,SALARY:11000},</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US>{EID:3,NAME:&quot;Rachel&quot;,SURNAME:&quot;Johnson&quot;,GENDER:&quot;F&quot;,STATE:&quot;New
+Mexico&quot;,BIRTHDAY:1970-12-17,HIREDATE:2010-12-01,DEPT:&quot;Sales&quot;,SALARY:9000},…]</span></p>
+
+<p class=MsoNormal style='text-indent:21.1pt;mso-char-indent-count:2.0'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US>Solution</span></b><span
+lang=EN-US>: Call the esProc script in the Java program and meanwhile input the
+JSON string; esProc parses and filters the JSON data and then returns the
+result in the form of JSON string to the Java program. </span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US>To select female employees born after January 1, 1975 inclusive,
+esProc script inputs two parameters &#8211; “jsonstr” and “where” &#8211; from the external
+program, as shown below:</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US style='mso-no-proof:yes'><img border=0 width=439 height=283
+src="Tutorial.files/image876.jpg" v:shapes="_x0000_i1975"></span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US>“<i style='mso-bidi-font-style:normal'>where</i>” is a string, its
+value is BIRTHDAY&gt;=date(1975,1,1) &amp;&amp; GENDER==&quot;F&quot;. </span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US>Note: Parameter <i style='mso-bidi-font-style:normal'>jsonstr</i> is
+a string, its entered value needs to be preceded by a single quote.</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US>Here’s the esProc script for doing this task:</span></p>
 
 <table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
- style='margin-left:20.35pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- border:none;mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:
- #B2B2B2;mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
- .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:.5pt solid #B2B2B2;
- mso-border-insidev:.5pt solid #B2B2B2'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
-  height:14.15pt'>
-  <td width=42 valign=top style='width:31.2pt;border:solid black 1.0pt;
-  mso-border-alt:solid black .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
-  mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
-  lang=EN-US style='font-size:9.0pt'>&nbsp;</span></p>
+ style='margin-left:14.45pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
+ mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=38 valign=top style='width:1.0cm;border:solid #A6A6A6 1.0pt;
+  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+  lang=EN-US>&nbsp;</span></p>
   </td>
-  <td width=454 valign=top style='width:340.15pt;border-top:solid black 1.0pt;
-  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
-  mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-bottom-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
-  mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
-  lang=EN-US style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>A</span><span
-  lang=EN-US style='font-size:9.0pt'></span></p>
+  <td width=210 valign=top style='width:157.55pt;border:solid #A6A6A6 1.0pt;
+  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=TabLabel21 style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='mso-bidi-font-family:"Times New Roman";color:black;
+  mso-color-alt:windowtext'>A</span><span class=code><span lang=EN-US
+  style='font-size:10.5pt;mso-bidi-font-size:10.0pt;font-family:"Times New Roman",serif'></span></span></p>
+  </td>
+  <td width=377 valign=top style='width:282.65pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+  lang=EN-US>&nbsp;</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
-  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
-  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
-  mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
-  lang=EN-US style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>1</span><span
+ <tr style='mso-yfti-irow:1'>
+  <td width=38 valign=top style='width:1.0cm;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
+  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
+  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>1</span><span
   lang=EN-US style='font-size:9.0pt'></span></p>
   </td>
-  <td width=454 style='width:340.15pt;border-top:none;border-left:none;
-  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
-  mso-border-top-alt:windowtext;mso-border-left-alt:windowtext;mso-border-bottom-alt:
-  #B2B2B2;mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
-  .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;color:black;
-  mso-color-alt:windowtext'>=esProcOdbc.query(&quot;select PName, SalesID, Date
-  from Order_Electronics.txt where Amount&gt;200000 and month(Date)=5&quot;)</span><span
-  lang=EN-US style='font-size:9.0pt'></span></p>
+  <td width=210 valign=top style='width:157.55pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-size:9.0pt;
+  font-family:"Times New Roman",serif;font-weight:normal'>=json(jsonstr)</span></span></p>
+  </td>
+  <td width=377 valign=top style='width:282.65pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US style='mso-no-proof:yes'><img border=0 width=434 height=66
+  src="Tutorial.files/image878.jpg" v:shapes="_x0000_i1976"></span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
-  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
-  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
-  mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
-  lang=EN-US style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>2</span><span
+ <tr style='mso-yfti-irow:2'>
+  <td width=38 valign=top style='width:1.0cm;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
+  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
+  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>2</span><span
   lang=EN-US style='font-size:9.0pt'></span></p>
   </td>
-  <td width=454 style='width:340.15pt;border-top:none;border-left:none;
-  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;color:black;
-  mso-color-alt:windowtext'>$(esProcOdbc) select Date, count(ID) as Count,
-  sum(Quantity) as Sum from Order_Electronics.txt group by Date</span><span
-  lang=EN-US style='font-size:9.0pt'></span></p>
+  <td width=210 valign=top style='width:157.55pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-size:9.0pt;
+  font-family:"Times New Roman",serif;font-weight:normal'>=A1.select(${where})</span></span></p>
+  </td>
+  <td width=377 valign=top style='width:282.65pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US style='mso-no-proof:yes'><img border=0 width=434 height=43
+  src="Tutorial.files/image880.jpg" v:shapes="_x0000_i1977"></span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:3;page-break-inside:avoid;height:14.15pt'>
-  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
-  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
-  mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
-  lang=EN-US style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>3</span><span
-  lang=EN-US style='font-size:9.0pt'></span></p>
-  </td>
-  <td width=454 style='width:340.15pt;border-top:none;border-left:none;
-  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;color:black;
-  mso-color-alt:windowtext'>$(esProcOdbc) select Date, count(ID) as Count,
-  sum(Quantity) as Sum from Order_Electronics.txt group by 1</span><span
-  lang=EN-US style='font-size:9.0pt'></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes;page-break-inside:avoid;
-  height:14.15pt'>
-  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
-  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
-  mso-pagination:widow-orphan;vertical-align:middle'><span lang=EN-US
-  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>4</span><span
-  lang=EN-US style='font-size:9.0pt'></span></p>
-  </td>
-  <td width=454 style='width:340.15pt;border-top:none;border-left:none;
-  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;color:black;
-  mso-color-alt:windowtext'>$(esProcOdbc) select Date, count(ID) Count,
-  sum(Quantity) Sum from Order_Electronics.txt group by Date having
-  sum(Quantity)&gt;110000 order by Sum</span><span lang=EN-US style='font-size:
-  9.0pt'></span></p>
-  </td>
- </tr>
-</table>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>To make a <i style='mso-bidi-font-style:normal'>txt</i> file an
-external table, use tab as the column separator.</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>A1 uses <b style='mso-bidi-font-weight:normal'><i style='mso-bidi-font-style:
-normal'>where</i></b> to specify a query condition in the simple SQL statement
-to get the orders data where the sales in May are greater than 200,000. Here’s
-the result:</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=500 height=230
-src="Tutorial.files/image839.png" v:shapes="_x0000_i1943"></span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>The simple SQL statement in A2 groups data by Date using the group
-by clause and calculates the number of orders per day and the quantity of
-products sold per day using the aggregate functions <b style='mso-bidi-font-weight:
-normal'>count</b> and<b style='mso-bidi-font-weight:normal'> sum</b>, while
-naming certain fields in the result set with as. You can also use other
-aggregate function like <b style='mso-bidi-font-weight:normal'>max/min/distinct</b>
-in a simple SQL statement. Here’s the result set in A2:</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=500 height=230
-src="Tutorial.files/image840.png" v:shapes="_x0000_i1944"></span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>In A3’s simple SQL statement, instead of a field name, the group by
-is followed by the sequence number 1, which means grouping data by the first
-expression in the select part. This will get the same result as A2.</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>A4’ query uses the <i style='mso-bidi-font-style:normal'>having</i>
-clause after <i style='mso-bidi-font-style:normal'>group by</i> to get records
-where the sum(Quantity) value is greater than 110,000 from the result set,
-omitts as and uses the <i style='mso-bidi-font-style:normal'>order by</i>
-clause at the end to sort the result set by Sum in ascending order. Here’s the
-query result:</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=500 height=230
-src="Tutorial.files/image841.png" v:shapes="_x0000_i1945"></span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>A simple SQL statement can<i style='mso-bidi-font-style:normal'>
-join</i> two external tables. For example:</span></p>
-
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
- style='margin-left:20.35pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- border:none;mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:
- #B2B2B2;mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
- .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:.5pt solid #B2B2B2;
- mso-border-insidev:.5pt solid #B2B2B2'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
-  height:14.15pt'>
-  <td width=42 valign=top style='width:31.2pt;border:solid black 1.0pt;
-  mso-border-alt:solid black .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
-  mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
-  lang=EN-US style='font-size:9.0pt'>&nbsp;</span></p>
-  </td>
-  <td width=454 valign=top style='width:340.15pt;border-top:solid black 1.0pt;
-  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
-  mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-bottom-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
-  mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
-  lang=EN-US style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>A</span><span
-  lang=EN-US style='font-size:9.0pt'></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
-  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
-  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
-  mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
-  lang=EN-US style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>1</span><span
-  lang=EN-US style='font-size:9.0pt'></span></p>
-  </td>
-  <td width=454 style='width:340.15pt;border-top:none;border-left:none;
-  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
-  mso-border-top-alt:windowtext;mso-border-left-alt:windowtext;mso-border-bottom-alt:
-  #B2B2B2;mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
-  .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;color:black;
-  mso-color-alt:windowtext'>$(esProcOdbc) select StateId, Name, Abbr from
-  states.txt</span><span lang=EN-US style='font-size:9.0pt'></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
-  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
-  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
-  mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
-  lang=EN-US style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>2</span><span
-  lang=EN-US style='font-size:9.0pt'></span></p>
-  </td>
-  <td width=454 style='width:340.15pt;border-top:none;border-left:none;
-  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;color:black;
-  mso-color-alt:windowtext'>$(esProcOdbc) select NAME,POPULATION,STATEID from
-  Cities.txt</span><span lang=EN-US style='font-size:9.0pt'></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:3;page-break-inside:avoid;height:14.15pt'>
-  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
-  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
-  mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
-  lang=EN-US style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>3</span><span
-  lang=EN-US style='font-size:9.0pt'></span></p>
-  </td>
-  <td width=454 style='width:340.15pt;border-top:none;border-left:none;
-  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;color:black;
-  mso-color-alt:windowtext'>$(esProcOdbc) select C.NAME,C.POPULATION,
-  S.StateId, S.Abbr from states.txt S join cities.txt C on S.StateId=C.STATEID</span><span
-  lang=EN-US style='font-size:9.0pt'></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes;page-break-inside:avoid;
-  height:14.15pt'>
-  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
-  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
-  mso-pagination:widow-orphan;vertical-align:middle'><span lang=EN-US
-  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>4</span><span
-  lang=EN-US style='font-size:9.0pt'></span></p>
-  </td>
-  <td width=454 style='width:340.15pt;border-top:none;border-left:none;
-  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;color:black;
-  mso-color-alt:windowtext'>$(esProcOdbc) select C.NAME,C.POPULATION,
-  S.StateId, S.Abbr from states.txt S left join cities.txt C on
-  S.StateId=C.STATEID</span><span lang=EN-US style='font-size:9.0pt'></span></p>
-  </td>
- </tr>
-</table>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>A1 and A2 retrieve data from<i style='mso-bidi-font-style:normal'>
-states.txt</i> and <i style='mso-bidi-font-style:normal'>Cities.txt</i>. Their
-results are as follows</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=481 height=121
-src="Tutorial.files/image842.png" v:shapes="_x0000_i1946"></span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=500 height=230
-src="Tutorial.files/image843.png" v:shapes="_x0000_i1947"></span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>A3 <i style='mso-bidi-font-style:normal'>joins</i> the two external
-tables to get records of cities whose states abbreviations can be found. Here’s
-the result:</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=481 height=221
-src="Tutorial.files/image844.png" v:shapes="_x0000_i1948"></span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>A4 uses a left join to get the following result:</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=500 height=230
-src="Tutorial.files/image845.png" v:shapes="_x0000_i1949"></span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>An external table can be defined by a <i style='mso-bidi-font-style:
-normal'>with</i>, as shown in the following code:</span></p>
-
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
- style='margin-left:20.35pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- border:none;mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:
- #B2B2B2;mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
- .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:.5pt solid #B2B2B2;
- mso-border-insidev:.5pt solid #B2B2B2'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
-  height:14.15pt'>
-  <td width=42 valign=top style='width:31.2pt;border:solid black 1.0pt;
-  mso-border-alt:solid black .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
-  mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
-  lang=EN-US style='font-size:9.0pt'>&nbsp;</span></p>
-  </td>
-  <td width=454 valign=top style='width:340.15pt;border-top:solid black 1.0pt;
-  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
-  mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-bottom-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
-  mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
-  lang=EN-US style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>A</span><span
-  lang=EN-US style='font-size:9.0pt'></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
-  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
-  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
-  mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
-  lang=EN-US style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>1</span><span
-  lang=EN-US style='font-size:9.0pt'></span></p>
-  </td>
-  <td width=454 style='width:340.15pt;border-top:none;border-left:none;
-  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
-  mso-border-top-alt:windowtext;mso-border-left-alt:windowtext;mso-border-bottom-alt:
-  #B2B2B2;mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
-  .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;color:black;
-  mso-color-alt:windowtext'>$(esProcOdbc) with C as (select*from cities.txt), S
-  as (select * from</span><span lang=EN-US style='color:black;mso-color-alt:
-  windowtext'> </span><span lang=EN-US style='font-size:9.0pt;color:black;
-  mso-color-alt:windowtext'>states.txt) select C.NAME,C.POPULATION, S.StateID,
-  S.Abbr from S join C on S.StateID=C.STATEID</span><span lang=EN-US
-  style='font-size:9.0pt'></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
-  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
-  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
-  mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
-  lang=EN-US style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>2</span><span
-  lang=EN-US style='font-size:9.0pt'></span></p>
-  </td>
-  <td width=454 style='width:340.15pt;border-top:none;border-left:none;
-  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;color:black;
-  mso-color-alt:windowtext'>$(esProcOdbc) with C as (select * from</span><span
-  lang=EN-US style='color:black;mso-color-alt:windowtext'> </span><span
-  lang=EN-US style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>cities.txt),
-  S as (select * from</span><span lang=EN-US style='color:black;mso-color-alt:
-  windowtext'> </span><span lang=EN-US style='font-size:9.0pt;color:black;
-  mso-color-alt:windowtext'>states.txt), select C.NAME,C.POPULATION, S.StateID,
-  S.Abbr into citiesInfo.txt from S join C on S.StateID=C.STATEID</span><span
-  lang=EN-US style='font-size:9.0pt'></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes;page-break-inside:avoid;
-  height:14.15pt'>
-  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
-  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
-  mso-pagination:widow-orphan;vertical-align:middle'><span lang=EN-US
+ <tr style='mso-yfti-irow:3'>
+  <td width=38 valign=top style='width:1.0cm;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
+  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
   style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>3</span><span
   lang=EN-US style='font-size:9.0pt'></span></p>
   </td>
-  <td width=454 style='width:340.15pt;border-top:none;border-left:none;
-  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;color:black;
-  mso-color-alt:windowtext'>$(esProcOdbc) select * from citiesInfo.txt</span><span
+  <td width=210 valign=top style='width:157.55pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-size:9.0pt;
+  font-family:"Times New Roman",serif;font-weight:normal'>=json(A2)</span></span><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:9.0pt'></span></b></p>
+  </td>
+  <td width=377 valign=top style='width:282.65pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>[{&quot;EID&quot;:2,&quot;NAME&quot;:&quot;Ashley&quot;,&quot;SURNAME&quot;:&quot;Wilson&quot;,&quot;GENDER&quot;:&quot;F&quot;,&quot;STATE&quot;:&quot;New
+  York&quot;,&quot;BIRTHDAY&quot;:&quot;1980-07-19&quot;,&quot;HIREDATE&quot;:&quot;2008-03-16&quot;,&quot;DEPT&quot;:&quot;Finance&quot;,&quot;SALARY&quot;:11000}…]</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes'>
+  <td width=38 valign=top style='width:1.0cm;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
+  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
+  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>4</span><span
   lang=EN-US style='font-size:9.0pt'></span></p>
+  </td>
+  <td width=210 valign=top style='width:157.55pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-size:9.0pt;
+  font-family:"Times New Roman",serif;font-weight:normal'>return A3</span></span></p>
+  </td>
+  <td width=377 valign=top style='width:282.65pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+  lang=EN-US>&nbsp;</span></p>
   </td>
  </tr>
 </table>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>The query result in A1 is the same as that in A3 in the previous
-cellset.</span></p>
+lang=EN-US style='mso-bidi-font-size:10.5pt'>A1: Parse the JSON data into a
+table sequence. The result can be displayed in esProc’s Integrated Development
+Environment (IDE), as shown in the right part of the figure above. </span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>A2 uses <i style='mso-bidi-font-style:normal'>select…into</i> T…
-statement to store the query result in another external table <i
-style='mso-bidi-font-style:normal'>T</i>. You can retrieve the data from the
-external table <i style='mso-bidi-font-style:normal'>T</i> after the store is
-complete</span></p>
+lang=EN-US style='mso-bidi-font-size:10.5pt'>A2: Filter the data of the table
+sequence. A macro is used to dynamically parse the expression, in which “<i
+style='mso-bidi-font-style:normal'>where</i>” is the input parameter. esProc
+will compute the expression in ${…} to get the macro string value and, replace
+${…} with it, and then interpret and execute the generated expression. The
+final code for execution is =A1.select(BIRTHDAY&gt;=date(1975,1,1) &amp;&amp;
+GENDER==&quot;F&quot;).</span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=481 height=221
-src="Tutorial.files/image846.png" v:shapes="_x0000_i1950"></span></p>
+lang=EN-US style='mso-bidi-font-size:10.5pt'>A3: Export the data of the
+filtered table sequence in the form of a JSON string.</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt'>A4: Return the desired result set
+to the external program.</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US>Refer to related <i style='mso-bidi-font-style:normal'>Tutorial</i>
+sections for the method of calling an esProc script in Java program. </span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US>Another case is that JSON data comes from HTTP server. Suppose a
+JSON string of employee information is returned with a <i style='mso-bidi-font-style:
+normal'>testServlet</i>. Retrieve and process the data as follows:</span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='margin-left:21.55pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
+ mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=43 valign=top style='width:31.9pt;border:solid #A6A6A6 1.0pt;
+  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
+  text-indent:20.0pt;mso-char-indent-count:2.0'><span lang=EN-US>&nbsp;</span></p>
+  </td>
+  <td width=217 valign=top style='width:163.0pt;border:solid #A6A6A6 1.0pt;
+  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=TabLabel21 style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='mso-bidi-font-family:"Times New Roman";color:black;
+  mso-color-alt:windowtext'>A</span><span lang=EN-US style='mso-bidi-font-family:
+  "Times New Roman"'></span></p>
+  </td>
+  <td width=360 valign=top style='width:269.85pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+  lang=EN-US>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=43 valign=top style='width:31.9pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
+  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
+  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>1</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
+  </td>
+  <td width=217 valign=top style='width:163.0pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-size:9.0pt;
+  font-family:"Times New Roman",serif;font-weight:normal'>=httpfile(&quot;http://localhost:6080/myweb/servlet/testServlet?table=employee&amp;type=json&quot;)</span></span></p>
+  </td>
+  <td width=360 valign=top style='width:269.85pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+  lang=EN-US>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=43 valign=top style='width:31.9pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
+  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
+  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>2</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
+  </td>
+  <td width=217 valign=top style='width:163.0pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-size:9.0pt;
+  font-family:"Times New Roman",serif;font-weight:normal'>=A1.read()</span></span><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:9.0pt;
+  mso-fareast-font-family:黑体'></span></b></p>
+  </td>
+  <td width=360 valign=top style='width:269.85pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+  lang=EN-US>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3'>
+  <td width=43 valign=top style='width:31.9pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
+  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
+  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>3</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
+  </td>
+  <td width=217 valign=top style='width:163.0pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-size:9.0pt;
+  font-family:"Times New Roman",serif;font-weight:normal'>=A2.import@j()</span></span></p>
+  </td>
+  <td width=360 valign=top style='width:269.85pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+  lang=EN-US>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4'>
+  <td width=43 valign=top style='width:31.9pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
+  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
+  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>4</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
+  </td>
+  <td width=217 valign=top style='width:163.0pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-size:9.0pt;
+  font-family:"Times New Roman",serif;font-weight:normal'>=A3.select(${where})</span></span></p>
+  </td>
+  <td width=360 valign=top style='width:269.85pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+  lang=EN-US>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:5'>
+  <td width=43 valign=top style='width:31.9pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
+  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
+  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>5</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
+  </td>
+  <td width=217 valign=top style='width:163.0pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-size:9.0pt;
+  font-family:"Times New Roman",serif;font-weight:normal'>=json(A4)</span></span></p>
+  </td>
+  <td width=360 valign=top style='width:269.85pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+  lang=EN-US>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:6;mso-yfti-lastrow:yes'>
+  <td width=43 valign=top style='width:31.9pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
+  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
+  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>6</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
+  </td>
+  <td width=217 valign=top style='width:163.0pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-size:9.0pt;
+  font-family:"Times New Roman",serif;font-weight:normal'>return A5</span></span></p>
+  </td>
+  <td width=360 valign=top style='width:269.85pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+  lang=EN-US>&nbsp;</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US>A1: Define an httpfile object, the URL is </span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US>http://localhost:6080/myweb/servlet/testServlet</span></i><span
+lang=EN-US>?table=employee&amp;type=json<i style='mso-bidi-font-style:normal'>.
+</i></span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US>A2: Read the result returned by the httpfile object. </span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US>A3: Parse the JSON string and generate a table sequence.</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US>A4: Filter the data according to the specified condition. </span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US>A5: Convert the filtered table sequence to a JSON string. </span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US>A6: Return the result of A5 to the Java program invoking the esProc
+script. </span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US>esProc can also parse and compute the JSON data including nested
+object. For example, the nested comments in the blog. esProc an parse them into
+fields which can be referenced. Below is the <i style='mso-bidi-font-style:
+normal'>blogs.json</i> file:</span></p>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-size:
+10.5pt'>[<span style='mso-tab-count:1'>&nbsp; </span></span></i></p>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-size:
+10.5pt'>{<span style='mso-tab-count:1'>&nbsp; </span>&quot;id&quot;
+: 1000,</span></i></p>
+
+<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.05'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-size:
+10.5pt'>&quot;content&quot; : &quot;It is too hot&quot;,</span></i></p>
+
+<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.05'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-size:
+10.5pt'>&quot;comment&quot; : </span></i></p>
+
+<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.05'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-size:
+10.5pt'>[ </span></i></p>
+
+<p class=MsoNormal style='text-indent:63.75pt;mso-char-indent-count:6.07'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-size:
+10.5pt'>{ </span></i></p>
+
+<p class=MsoNormal style='text-indent:3.0cm;mso-char-indent-count:8.1'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-size:
+10.5pt'>&quot;author&quot; : &quot;joe&quot;, </span></i></p>
+
+<p class=MsoNormal style='text-indent:3.0cm;mso-char-indent-count:8.1'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-size:
+10.5pt'>&quot;score&quot; : 3, </span></i></p>
+
+<p class=MsoNormal style='text-indent:3.0cm;mso-char-indent-count:8.1'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-size:
+10.5pt'>&quot;comment&quot; : &quot;just so so!&quot; </span></i></p>
+
+<p class=MsoNormal style='text-indent:63.75pt;mso-char-indent-count:6.07'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-size:
+10.5pt'>}, </span></i></p>
+
+<p class=MsoNormal style='text-indent:63.75pt;mso-char-indent-count:6.07'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-size:
+10.5pt'>{ </span></i></p>
+
+<p class=MsoNormal style='text-indent:3.0cm;mso-char-indent-count:8.1'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-size:
+10.5pt'>&quot;author&quot; : &quot;jimmy&quot;, </span></i></p>
+
+<p class=MsoNormal style='text-indent:3.0cm;mso-char-indent-count:8.1'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-size:
+10.5pt'>&quot;score&quot; : 5, &quot;comment&quot; : &quot;cool! good!&quot; </span></i></p>
+
+<p class=MsoNormal style='text-indent:63.75pt;mso-char-indent-count:6.07'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-size:
+10.5pt'>} </span></i></p>
+
+<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.05'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-size:
+10.5pt'>] </span></i></p>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-size:
+10.5pt'>},</span></i></p>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-size:
+10.5pt'>{<span style='mso-tab-count:1'>&nbsp; </span>&quot;id&quot;
+: 1001, </span></i></p>
+
+<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.05'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-size:
+10.5pt'>&quot;content&quot; : &quot;It is too cold&quot;, </span></i></p>
+
+<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.05'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-size:
+10.5pt'>&quot;comment&quot; : </span></i></p>
+
+<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.05'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-size:
+10.5pt'>[ </span></i></p>
+
+<p class=MsoNormal style='text-indent:63.75pt;mso-char-indent-count:6.07'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-size:
+10.5pt'>{ </span></i></p>
+
+<p class=MsoNormal style='text-indent:3.0cm;mso-char-indent-count:8.1'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-size:
+10.5pt'>&quot;author&quot; : &quot;james&quot;, </span></i></p>
+
+<p class=MsoNormal style='text-indent:3.0cm;mso-char-indent-count:8.1'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-size:
+10.5pt'>&quot;score&quot; : 1, </span></i></p>
+
+<p class=MsoNormal style='text-indent:3.0cm;mso-char-indent-count:8.1'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-size:
+10.5pt'>&quot;comment&quot; : &quot;yes!&quot; },</span></i></p>
+
+<p class=MsoNormal style='text-indent:63.75pt;mso-char-indent-count:6.07'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-size:
+10.5pt'>{</span></i></p>
+
+<p class=MsoNormal style='text-indent:3.0cm;mso-char-indent-count:8.1'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-size:
+10.5pt'>&quot;author&quot;: &quot;jimmy&quot;, </span></i></p>
+
+<p class=MsoNormal style='text-indent:3.0cm;mso-char-indent-count:8.1'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-size:
+10.5pt'>&quot;score&quot; : 5, </span></i></p>
+
+<p class=MsoNormal style='text-indent:3.0cm;mso-char-indent-count:8.1'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-size:
+10.5pt'>&quot;comment&quot; : &quot;cool!&quot; </span></i></p>
+
+<p class=MsoNormal style='text-indent:63.75pt;mso-char-indent-count:6.07'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-size:
+10.5pt'>} </span></i></p>
+
+<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.05'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-size:
+10.5pt'>] </span></i></p>
+
+<p class=MsoNormal style='text-indent:1.0cm;mso-char-indent-count:2.7'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-size:
+10.5pt'>},</span></i></p>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-size:
+10.5pt'>{<span style='mso-tab-count:1'>&nbsp; </span>&quot;id&quot;
+: 1002, </span></i></p>
+
+<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.05'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-size:
+10.5pt'>&quot;content&quot; : &quot;It is windy day today&quot;,</span></i></p>
+
+<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.05'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-size:
+10.5pt'>&quot;comment&quot; : </span></i></p>
+
+<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.05'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-size:
+10.5pt'>[ </span></i></p>
+
+<p class=MsoNormal style='text-indent:63.75pt;mso-char-indent-count:6.07'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-size:
+10.5pt'>{</span></i></p>
+
+<p class=MsoNormal style='text-indent:3.0cm;mso-char-indent-count:8.1'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-size:
+10.5pt'>&quot;author&quot; : &quot;tom&quot;, </span></i></p>
+
+<p class=MsoNormal style='text-indent:3.0cm;mso-char-indent-count:8.1'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-size:
+10.5pt'>&quot;score&quot; : 3, </span></i></p>
+
+<p class=MsoNormal style='text-indent:3.0cm;mso-char-indent-count:8.1'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-size:
+10.5pt'>&quot;comment&quot; : &quot;I do not thinkso!&quot; </span></i></p>
+
+<p class=MsoNormal style='text-indent:63.75pt;mso-char-indent-count:6.07'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-size:
+10.5pt'>},</span></i></p>
+
+<p class=MsoNormal style='text-indent:63.75pt;mso-char-indent-count:6.07'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-size:
+10.5pt'>{ </span></i></p>
+
+<p class=MsoNormal style='text-indent:3.0cm;mso-char-indent-count:8.1'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-size:
+10.5pt'>&quot;author&quot; : &quot;jimmy&quot;,</span></i></p>
+
+<p class=MsoNormal style='text-indent:3.0cm;mso-char-indent-count:8.1'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-size:
+10.5pt'>&quot;score&quot; : 5,</span></i></p>
+
+<p class=MsoNormal style='text-indent:3.0cm;mso-char-indent-count:8.1'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-size:
+10.5pt'>&quot;comment&quot; : &quot;cool!&quot; </span></i></p>
+
+<p class=MsoNormal style='text-indent:63.75pt;mso-char-indent-count:6.07'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-size:
+10.5pt'>} </span></i></p>
+
+<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.05'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-size:
+10.5pt'>] </span></i></p>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-size:
+10.5pt'>}</span></i></p>
+
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-size:
+10.5pt'>]</span></i><span lang=EN-US style='mso-bidi-font-size:10.5pt'></span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US>Use the esProc editor to write a script for importing data from the
+JSON file, parsing and computing it: </span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='margin-left:26.7pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-alt:solid windowtext .5pt;mso-padding-alt:0cm 5.4pt 0cm 5.4pt;
+ mso-border-insideh:.5pt solid windowtext;mso-border-insidev:.5pt solid windowtext'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=32 style='width:24.15pt;border:solid windowtext 1.0pt;mso-border-alt:
+  solid windowtext .5pt;background:#A6A6A6;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+  lang=EN-US>&nbsp;</span></p>
+  </td>
+  <td width=355 style='width:266.6pt;border:solid windowtext 1.0pt;border-left:
+  none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  background:#A6A6A6;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0'><span
+  lang=EN-US style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>A</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
+  </td>
+  <td width=293 style='width:219.8pt;border:none;mso-border-left-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+  lang=EN-US>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
+  <td width=32 style='width:24.15pt;border:solid windowtext 1.0pt;border-top:
+  none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  background:#A6A6A6;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0'><span
+  lang=EN-US style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>1</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
+  </td>
+  <td width=355 style='width:266.6pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=file(&quot;D:/files/work/txt/blogs.json&quot;).read().import@j()</span></p>
+  </td>
+  <td width=293 style='width:219.8pt;border:none;mso-border-left-alt:solid windowtext .5pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+  lang=EN-US>&nbsp;</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'>Get the
+resulting table sequence and you can see that <i style='mso-bidi-font-style:
+normal'>comment</i> field is a field referencing<span
+style='mso-spacerun:yes'>&nbsp; </span>table sequences, as shown below:</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=300 height=82
+src="Tutorial.files/image881.png" v:shapes="图片_x0020_928"></span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US>Double-click the blue value in the first row to see the referenced
+table sequence in detail:</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=236 height=63
+src="Tutorial.files/image882.png" v:shapes="图片_x0020_929"></span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US>esProc can further perform more complicated set operations based on
+this table sequence with a referencing field. </span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="228.html">Next</a></div>
@@ -473,12 +683,12 @@ src="Tutorial.files/image846.png" v:shapes="_x0000_i1950"></span></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="225.html">9.4 Simple SQL</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="225.html">Chapter9 Heterogeneous Data Sources</a></span></li>
 </div>
 	</div>
 	<div id="footer">	
 		
-		<div class="copyright"> Copyright&reg; 2021 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+		<div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">Scudata Inc. 
       </a></div> 
         <!--
 		<div class="copyright"> Copyright&reg; 2017 <a href="http://www.yimming.com" target="_Blank"> Beijing Yimming Ltd. Co. 

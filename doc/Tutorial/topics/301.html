@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>12.10.1 Displaying charts on web</title>
+<title>12.8.3 Pie charts with series and categories</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -15,18 +15,17 @@
 	<div id="centent">
 	<div id="centent-title"><h3 style='margin:0cm;text-indent:0cm;line-height:normal;mso-list:none;
 tab-stops:-179.95pt 64.2pt'><span lang=EN-US style='font-size:14.0pt;
-mso-bidi-font-size:10.0pt'>12.10.1 Displaying charts on web</span></h3></div>
-	<p class=T-ParCxSpFirst style='margin-bottom:0cm;mso-add-space:auto;text-align:
-justify;text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>The
-esProc <b style='mso-bidi-font-weight:normal'><i style='mso-bidi-font-style:
-normal'>G</i>.draw()</b> function returns a plotted chart as a byte array that
-is used to generate the image on the web page. </span></p>
-
-<p class=T-ParCxSpLast style='margin-bottom:0cm;mso-add-space:auto;text-align:
-justify;text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>A
-simple plotting algorithm (<span class=T-Bold><i style='mso-bidi-font-style:
-normal'><span style='font-weight:normal'>ChartGYM.dfx</span></i>) </span>for a
-column chart showing results of athletes:</span></p>
+mso-bidi-font-size:10.0pt'>12.8.3 Pie charts with series and categories
+</span></h3></div>
+	<p class=T-Par style='margin-bottom:0cm;mso-add-space:auto;text-align:justify;
+text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>Similar to a
+stacked column chart, a pie chart can display data series and data categories
+at the same time. Yet they have differences. In a pie chart with both series
+and categories, the plotting results corresponding to data categories
+accumulate to form a ring or a circle, which represents the percentage of a
+certain category. Below is the plotting algorithm of a pie chart for showing
+results of different gym events. For the convenience of observation, A7 adds
+legends to the chart:</span></p>
 
 <table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
  style='margin-left:21.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
@@ -42,7 +41,7 @@ column chart showing results of athletes:</span></p>
   <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
   text-indent:20.0pt;mso-char-indent-count:2.0'><span lang=EN-US>&nbsp;</span></p>
   </td>
-  <td width=416 valign=top style='width:311.8pt;border-top:solid black 1.0pt;
+  <td width=384 valign=top style='width:288.25pt;border-top:solid black 1.0pt;
   border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
   mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
   mso-border-bottom-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
@@ -63,7 +62,7 @@ column chart showing results of athletes:</span></p>
   style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>1</span><span
   lang=EN-US style='font-size:9.0pt'></span></p>
   </td>
-  <td width=416 style='width:311.8pt;border-top:none;border-left:none;
+  <td width=384 style='width:288.25pt;border-top:none;border-left:none;
   border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
   mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
   mso-border-top-alt:windowtext;mso-border-left-alt:windowtext;mso-border-bottom-alt:
@@ -86,7 +85,7 @@ column chart showing results of athletes:</span></p>
   style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>2</span><span
   lang=EN-US style='font-size:9.0pt'></span></p>
   </td>
-  <td width=416 style='width:311.8pt;border-top:none;border-left:none;
+  <td width=384 style='width:288.25pt;border-top:none;border-left:none;
   border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
   mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
   mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
@@ -94,7 +93,7 @@ column chart showing results of athletes:</span></p>
   <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
   line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
   color:black;mso-color-alt:windowtext'>=demo.query(&quot;select * from
-  GYMSCORE where NAME=?&quot;,name)</span><span lang=EN-US style='font-family:
+  GYMSCORE order by NAME,EVENT&quot;)</span><span lang=EN-US style='font-family:
   "Times New Roman",serif'></span></p>
   </td>
  </tr>
@@ -109,7 +108,7 @@ column chart showing results of athletes:</span></p>
   style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>3</span><span
   lang=EN-US style='font-size:9.0pt'></span></p>
   </td>
-  <td width=416 style='width:311.8pt;border-top:none;border-left:none;
+  <td width=384 style='width:288.25pt;border-top:none;border-left:none;
   border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
   mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
   mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
@@ -131,15 +130,16 @@ column chart showing results of athletes:</span></p>
   style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>4</span><span
   lang=EN-US style='font-size:9.0pt'></span></p>
   </td>
-  <td width=416 style='width:311.8pt;border-top:none;border-left:none;
+  <td width=384 style='width:288.25pt;border-top:none;border-left:none;
   border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
   mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
   mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
   background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
   <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
   line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
-  color:black;mso-color-alt:windowtext'>=A1.plot(&quot;EnumAxis&quot;,&quot;name&quot;:&quot;x&quot;,&quot;xEnd&quot;:0.9,&quot;xPosition&quot;:0.7)</span><span
-  lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
+  color:black;mso-color-alt:windowtext'>=A1.plot(&quot;EnumAxis&quot;,&quot;name&quot;:&quot;x&quot;,&quot;location&quot;:3,&quot;polarX&quot;:0.55,&quot;polarY&quot;:
+  0.4,&quot;allowLabels&quot;:false)</span><span lang=EN-US style='font-family:
+  "Times New Roman",serif'></span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:5;page-break-inside:avoid;height:14.15pt'>
@@ -153,14 +153,14 @@ column chart showing results of athletes:</span></p>
   style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>5</span><span
   lang=EN-US style='font-size:9.0pt'></span></p>
   </td>
-  <td width=416 style='width:311.8pt;border-top:none;border-left:none;
+  <td width=384 style='width:288.25pt;border-top:none;border-left:none;
   border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
   mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
   mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
   background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
   <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
   line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
-  color:black;mso-color-alt:windowtext'>=A1.plot(&quot;NumericAxis&quot;,&quot;name&quot;:&quot;y&quot;,&quot;location&quot;:2,&quot;yStart&quot;:0.7)</span><span
+  color:black;mso-color-alt:windowtext'>=A1.plot(&quot;NumericAxis&quot;,&quot;name&quot;:&quot;y&quot;,&quot;location&quot;:4,&quot;allowLabels&quot;:false)</span><span
   lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
   </td>
  </tr>
@@ -175,15 +175,16 @@ column chart showing results of athletes:</span></p>
   style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>6</span><span
   lang=EN-US style='font-size:9.0pt'></span></p>
   </td>
-  <td width=416 style='width:311.8pt;border-top:none;border-left:none;
+  <td width=384 style='width:288.25pt;border-top:none;border-left:none;
   border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
   mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
   mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
   background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
   <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
   line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
-  color:black;mso-color-alt:windowtext'>=A1.plot(&quot;Column&quot;,&quot;axis1&quot;:&quot;x&quot;,&quot;data1&quot;:A2.(EVENT),&quot;axis2&quot;:&quot;y&quot;,
-  &quot;data2&quot;:A2.(SCORE))</span><span lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
+  color:black;mso-color-alt:windowtext'>=A1.plot(&quot;Sector&quot;,&quot;axis1&quot;:&quot;x&quot;,&quot;data1&quot;:A2.(NAME+&quot;,&quot;+EVENT),&quot;axis2&quot;:
+  &quot;y&quot;,&quot;data2&quot;:A2.(SCORE))</span><span lang=EN-US
+  style='font-family:"Times New Roman",serif'></span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:7;page-break-inside:avoid;height:14.15pt'>
@@ -197,14 +198,14 @@ column chart showing results of athletes:</span></p>
   style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>7</span><span
   lang=EN-US style='font-size:9.0pt'></span></p>
   </td>
-  <td width=416 style='width:311.8pt;border-top:none;border-left:none;
+  <td width=384 style='width:288.25pt;border-top:none;border-left:none;
   border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
   mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
   mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
   background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
   <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
   line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
-  color:black;mso-color-alt:windowtext'>=A1.plot(&quot;Text&quot;,&quot;text&quot;:name,&quot;textFont&quot;:&quot;Arial&quot;,&quot;textStyle&quot;:3,&quot;textSize&quot;:16,&quot;textColor&quot;:-10092340,&quot;data1&quot;:0.5,&quot;data2&quot;:-30)</span><span
+  color:black;mso-color-alt:windowtext'>=A1.plot(&quot;Legend&quot;,&quot;legendText&quot;:A2.id(EVENT),&quot;columns&quot;:2,&quot;x&quot;:0.2,&quot;y&quot;:0.8)</span><span
   lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
   </td>
  </tr>
@@ -219,659 +220,81 @@ column chart showing results of athletes:</span></p>
   text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
   style='color:black;mso-color-alt:windowtext'>8</span></p>
   </td>
-  <td width=416 style='width:311.8pt;border-top:none;border-left:none;
+  <td width=384 style='width:288.25pt;border-top:none;border-left:none;
   border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
   mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
   mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
   background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
   <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
   line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
-  color:black;mso-color-alt:windowtext'>return A1.draw@p(450,200)</span><span
+  color:black;mso-color-alt:windowtext'>=A1.draw@p(400,400)</span><span
   lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
   </td>
  </tr>
 </table>
 
 <p class=T-ParCxSpFirst style='margin-bottom:0cm;mso-add-space:auto;text-align:
-justify;text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>This
-is similar to the plotting algorithm used in<b style='mso-bidi-font-weight:
-normal'><i style='mso-bidi-font-style:normal'> </i></b><i style='mso-bidi-font-style:
-normal'><a  href="284.html">The Column Element</a></i>, from which
-more information can be learned. Here <i style='mso-bidi-font-style:normal'>name</i>
-is a cellset parameter for specifying the athlete name:</span></p>
+justify;text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>Still,
+an enumeration axis is used as polar axis <b style='mso-bidi-font-weight:normal'>x</b>,
+and a numeric axis used as radial axis <b style='mso-bidi-font-weight:normal'>y</b>.
+A6 specifies data properties for the sector element. Note that <b
+style='mso-bidi-font-weight:normal'>Data1</b> includes both NAME values of
+series data and EVENT values of category data. </span></p>
 
 <p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
 text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
-lang=EN-US><img border=0 width=460 height=105
-src="Tutorial.files/image1189.png" v:shapes="图片_x0020_161"></span></p>
+lang=EN-US><img border=0 width=480 height=129
+src="Tutorial.files/image1239.png" v:shapes="图片_x0020_82"></span></p>
 
 <p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
 text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
-lang=EN-US>The plotted chart needs to be returned through the <b
-style='mso-bidi-font-weight:normal'>return</b> function to be invoked by a web
-application. </span></p>
+lang=EN-US>A8’s plotting result is:</span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
+lang=EN-US style='border:solid #BFBFBF 1.0pt;mso-border-alt:solid #BFBFBF .5pt;
+padding:0cm;mso-no-proof:yes'><img border=0 width=400 height=400
+src="Tutorial.files/image1240.png" v:shapes="_x0000_i2328"></span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
+lang=EN-US>So, in a pie chart with both series and categories, polar axis data
+should contain category and series at the same time. Based on data of
+categories, a circle or a ring will be plotted, with data labels presented by
+leader lines changed to series. </span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
+lang=EN-US>By default a pie chart displaying percentage values with sector
+element will be plotted. You can only read the percentage of each event for
+each athlete. Modify the <b style='mso-bidi-font-weight:normal'>Stacking type</b>
+property in A6: </span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
+lang=EN-US><img border=0 width=349 height=94
+src="Tutorial.files/image1241.png" v:shapes="图片_x0020_84"></span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
+lang=EN-US>Here <b style='mso-bidi-font-weight:normal'>Stacking type</b>
+property is changed from the default <b style='mso-bidi-font-weight:normal'>Percent</b>
+<b style='mso-bidi-font-weight:normal'>Stacked</b> to <b style='mso-bidi-font-weight:
+normal'>Stacked</b>. Thus data in each category will be accumulated by
+statistical values, producing the following plotting result: </span></p>
 
 <p class=T-ParCxSpLast style='margin-bottom:0cm;mso-add-space:auto;text-align:
-justify;text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>The
-plotting algorithm doesn’t involve a hyperlink. The hyperlink properties will
-be covered in the next section. Now to display the chart plotted by the
-algorithm on the web, follow these deploying instructions:</span></p>
-
-<p class=T-Steps style='margin-top:0cm;margin-right:0cm;margin-bottom:0cm;
-margin-left:39.0pt;mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-text-indent:-18.0pt;mso-list:l34 level1 lfo49'><span
-lang=EN-US style='mso-fareast-font-family:"Times New Roman"'><span
-style='mso-list:Ignore'>1)<span style='font:7.0pt "Times New Roman"'>&nbsp;
-</span></span></span><span lang=EN-US>Deploy <i style='mso-bidi-font-style:
-normal'>testChart</i> application in apache-tomcat-6.0.43. </span></p>
-
-<p class=TConfig2CxSpFirst style='margin-top:0cm;margin-right:0cm;margin-bottom:
-0cm;margin-left:21.2pt;mso-add-space:auto;mso-para-margin-top:0cm;mso-para-margin-right:
-0cm;mso-para-margin-bottom:0cm;mso-para-margin-left:2.02gd;mso-add-space:auto;
-text-align:justify;text-justify:inter-ideograph;text-indent:21.25pt;mso-char-indent-count:
-2.36'><i style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-family:
-"Times New Roman"'>&lt;Context path=&quot;/testChart&quot;
-docBase=&quot;D:\tools\apache-tomcat-6.0.43\testChart&quot; debug=&quot;0&quot;
-privileged=&quot;true&quot;&gt;</span></i></p>
-
-<p class=TConfig2CxSpLast style='margin-top:0cm;margin-right:0cm;margin-bottom:
-0cm;margin-left:21.2pt;mso-add-space:auto;mso-para-margin-top:0cm;mso-para-margin-right:
-0cm;mso-para-margin-bottom:0cm;mso-para-margin-left:2.02gd;mso-add-space:auto;
-text-align:justify;text-justify:inter-ideograph;text-indent:21.25pt;mso-char-indent-count:
-2.36'><i style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-family:
-"Times New Roman"'>&lt;/Context&gt;</span></i><span lang=EN-US
-style='mso-bidi-font-family:"Times New Roman"'></span></p>
-
-<p class=T-StepsCxSpFirst style='margin-top:0cm;margin-right:0cm;margin-bottom:
-0cm;margin-left:39.0pt;mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-text-indent:-18.0pt;mso-list:l34 level1 lfo49'><span
-lang=EN-US style='mso-fareast-font-family:"Times New Roman"'><span
-style='mso-list:Ignore'>2)<span style='font:7.0pt "Times New Roman"'>&nbsp;
-</span></span></span><span lang=EN-US>Under the application directory
-<i style='mso-bidi-font-style:normal'>testChart</i>, place jars that esProc requires,
-including basic jars and the hsql driver <span class=T-Bold><i><span
-style='font-weight:normal;mso-bidi-font-weight:bold'>hsqldb-2.2.8.jar</span></i></span>,
-as well as the required configuration file<b style='mso-bidi-font-weight:normal'>
-</b><span class=T-Bold><i style='mso-bidi-font-style:normal'><span
-style='font-weight:normal'>raqsoftConfig.xml</span></i></span><span
-class=T-Bold><span style='font-weight:normal'>. See<i style='mso-bidi-font-style:
-normal'> </i></span></span><b style='mso-bidi-font-weight:normal'><i
-style='mso-bidi-font-style:normal'><a  href="165.html"><span
-style='font-weight:normal'>Deploying JDBC</span></a></i></b><span class=T-Bold><span
-style='font-weight:normal'> for more details.</span> </span></span></p>
-
-<p class=T-StepsCxSpLast style='margin-top:0cm;margin-right:0cm;margin-bottom:
-0cm;margin-left:39.0pt;mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-text-indent:-18.0pt;mso-list:l34 level1 lfo49'><span
-lang=EN-US style='mso-fareast-font-family:"Times New Roman"'><span
-style='mso-list:Ignore'>3)<span style='font:7.0pt "Times New Roman"'>&nbsp;
-</span></span></span><span lang=EN-US>Prepare a class <i
-style='mso-bidi-font-style:normal'>com.SaveChart</i> to store the image data
-during running the program, using the following code:</span></p>
-
-<p class=TConfig2CxSpFirst style='margin:0cm;mso-add-space:auto;mso-para-margin-top:
-0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:0cm;mso-para-margin-left:
-0gd;mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-text-indent:42.5pt;mso-char-indent-count:4.72'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>package
-com;</span></i></p>
-
-<p class=TConfig2CxSpMiddle style='margin:0cm;mso-add-space:auto;mso-para-margin-top:
-0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:0cm;mso-para-margin-left:
-0gd;mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-text-indent:42.5pt;mso-char-indent-count:4.72'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>import
-java.util.HashMap; </span></i></p>
-
-<p class=TConfig2CxSpMiddle style='margin:0cm;mso-add-space:auto;mso-para-margin-top:
-0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:0cm;mso-para-margin-left:
-0gd;mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-text-indent:42.5pt;mso-char-indent-count:4.72'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>public
-class SaveChart {</span></i></p>
-
-<p class=TConfig2CxSpMiddle style='margin:0cm;mso-add-space:auto;mso-para-margin-top:
-0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:0cm;mso-para-margin-left:
-0gd;mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-text-indent:63.7pt;mso-char-indent-count:7.08'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>private
-static HashMap&lt;String, byte[]&gt; chartMap = new HashMap();</span></i></p>
-
-<p class=TConfig2CxSpMiddle style='margin:0cm;mso-add-space:auto;mso-para-margin-top:
-0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:0cm;mso-para-margin-left:
-0gd;mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-text-indent:63.7pt;mso-char-indent-count:7.08'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>public
-static void addChart(String id, byte[] bytes) {</span></i></p>
-
-<p class=TConfig2CxSpMiddle style='margin:0cm;mso-add-space:auto;mso-para-margin-top:
-0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:0cm;mso-para-margin-left:
-0gd;mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-text-indent:3.0cm;mso-char-indent-count:9.45'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>chartMap.put(id,
-bytes);</span></i></p>
-
-<p class=TConfig2CxSpMiddle style='margin:0cm;mso-add-space:auto;mso-para-margin-top:
-0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:0cm;mso-para-margin-left:
-0gd;mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-text-indent:63.7pt;mso-char-indent-count:7.08'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>}</span></i></p>
-
-<p class=TConfig2CxSpMiddle style='margin:0cm;mso-add-space:auto;mso-para-margin-top:
-0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:0cm;mso-para-margin-left:
-0gd;mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-text-indent:63.7pt;mso-char-indent-count:7.08'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>public
-static byte[] getChart(String id) {<span style='mso-tab-count:2'>&nbsp; </span></span></i></p>
-
-<p class=TConfig2CxSpMiddle style='margin:0cm;mso-add-space:auto;mso-para-margin-top:
-0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:0cm;mso-para-margin-left:
-0gd;mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-text-indent:3.0cm;mso-char-indent-count:9.45'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>return
-chartMap.get(id);</span></i></p>
-
-<p class=TConfig2CxSpMiddle style='margin:0cm;mso-add-space:auto;mso-para-margin-top:
-0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:0cm;mso-para-margin-left:
-0gd;mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-text-indent:63.7pt;mso-char-indent-count:7.08'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>}</span></i><span
-lang=EN-US style='mso-bidi-font-family:"Times New Roman"'></span></p>
-
-<p class=TConfig2CxSpMiddle style='margin:0cm;mso-add-space:auto;mso-para-margin-top:
-0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:0cm;mso-para-margin-left:
-0gd;mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-text-indent:63.7pt;mso-char-indent-count:7.08'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>public
-static void clear() {</span></i></p>
-
-<p class=TConfig2CxSpMiddle style='margin:0cm;mso-add-space:auto;mso-para-margin-top:
-0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:0cm;mso-para-margin-left:
-0gd;mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-text-indent:3.0cm;mso-char-indent-count:9.45'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>chartMap.clear();</span></i></p>
-
-<p class=TConfig2CxSpMiddle style='margin:0cm;mso-add-space:auto;mso-para-margin-top:
-0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:0cm;mso-para-margin-left:
-0gd;mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-text-indent:63.7pt;mso-char-indent-count:7.08'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>}</span></i></p>
-
-<p class=TConfig2CxSpLast style='margin:0cm;mso-add-space:auto;mso-para-margin-top:
-0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:0cm;mso-para-margin-left:
-0gd;mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-text-indent:42.5pt;mso-char-indent-count:4.72'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>}</span></i><span
-lang=EN-US style='mso-bidi-font-family:"Times New Roman"'></span></p>
-
-<p class=T-Par style='margin-bottom:0cm;mso-add-space:auto;text-align:justify;
-text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>The class
-uses the static method <i style='mso-bidi-font-style:normal'>addChart</i> to
-store an array of bytes of the image, and <i style='mso-bidi-font-style:normal'>getChart</i>
-to retrieve the data. After the code is compiled, deploy the class in the <span
-class=T-Bold><i style='mso-bidi-font-style:normal'><span style='font-weight:
-normal'>WEB-INF/classes/com path</span></i></span><span class=T-Bold><span
-style='font-weight:normal'> under the application directory. </span></span><b
-style='mso-bidi-font-weight:normal'></b></span></p>
-
-<p class=T-Steps style='margin-top:0cm;margin-right:0cm;margin-bottom:0cm;
-margin-left:39.0pt;mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-text-indent:-18.0pt;mso-list:l34 level1 lfo49'><span
-lang=EN-US style='mso-fareast-font-family:"Times New Roman"'><span
-style='mso-list:Ignore'>4)<span style='font:7.0pt "Times New Roman"'>&nbsp;
-</span></span></span><span lang=EN-US>Under the application
-directory, prepare a <i style='mso-bidi-font-style:normal'>readChart.jsp</i>
-file to read in the specified PNG image from the <i style='mso-bidi-font-style:
-normal'>SavaChart</i> class:</span></p>
-
-<p class=TConfig2CxSpFirst style='margin:0cm;mso-add-space:auto;mso-para-margin-top:
-0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:0cm;mso-para-margin-left:
-0gd;mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-text-indent:42.5pt;mso-char-indent-count:4.72'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;%@page
-contentType=&quot;text/html; charset=iso-8859-1&quot; language=&quot;java&quot;
-import=&quot;com.SaveChart, java.io.*&quot; errorPage=&quot;&quot;%&gt;</span></i></p>
-
-<p class=TConfig2CxSpMiddle style='margin:0cm;mso-add-space:auto;mso-para-margin-top:
-0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:0cm;mso-para-margin-left:
-0gd;mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-text-indent:42.5pt;mso-char-indent-count:4.72'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;!DOCTYPE
-html&gt;</span></i></p>
-
-<p class=TConfig2CxSpMiddle style='margin:0cm;mso-add-space:auto;mso-para-margin-top:
-0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:0cm;mso-para-margin-left:
-0gd;mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-text-indent:42.5pt;mso-char-indent-count:4.72'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;%</span></i></p>
-
-<p class=TConfig2CxSpMiddle style='margin:0cm;mso-add-space:auto;mso-para-margin-top:
-0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:0cm;mso-para-margin-left:
-0gd;mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-text-indent:63.7pt;mso-char-indent-count:7.08'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>String
-chartID = request.getParameter(&quot;id&quot;);</span></i></p>
-
-<p class=TConfig2CxSpMiddle style='margin:0cm;mso-add-space:auto;mso-para-margin-top:
-0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:0cm;mso-para-margin-left:
-0gd;mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-text-indent:63.7pt;mso-char-indent-count:7.08'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>byte[]
-image = SaveChart.getChart(chartID);</span></i></p>
-
-<p class=TConfig2CxSpMiddle style='margin:0cm;mso-add-space:auto;mso-para-margin-top:
-0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:0cm;mso-para-margin-left:
-0gd;mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-text-indent:63.7pt;mso-char-indent-count:7.08'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>try {</span></i></p>
-
-<p class=TConfig2CxSpMiddle style='margin:0cm;mso-add-space:auto;mso-para-margin-top:
-0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:0cm;mso-para-margin-left:
-0gd;mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-text-indent:3.0cm;mso-char-indent-count:9.45'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>response.setContentType(&quot;image/png&quot;);</span></i></p>
-
-<p class=TConfig2CxSpMiddle style='margin:0cm;mso-add-space:auto;mso-para-margin-top:
-0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:0cm;mso-para-margin-left:
-0gd;mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-text-indent:3.0cm;mso-char-indent-count:9.45'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>OutputStream
-os = response.getOutputStream();</span></i></p>
-
-<p class=TConfig2CxSpMiddle style='margin:0cm;mso-add-space:auto;mso-para-margin-top:
-0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:0cm;mso-para-margin-left:
-0gd;mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-text-indent:3.0cm;mso-char-indent-count:9.45'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>os.write(image);</span></i></p>
-
-<p class=TConfig2CxSpMiddle style='margin:0cm;mso-add-space:auto;mso-para-margin-top:
-0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:0cm;mso-para-margin-left:
-0gd;mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-text-indent:3.0cm;mso-char-indent-count:9.45'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>os.close();</span></i></p>
-
-<p class=TConfig2CxSpMiddle style='margin:0cm;mso-add-space:auto;mso-para-margin-top:
-0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:0cm;mso-para-margin-left:
-0gd;mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-text-indent:63.7pt;mso-char-indent-count:7.08'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>}</span></i></p>
-
-<p class=TConfig2CxSpMiddle style='margin:0cm;mso-add-space:auto;mso-para-margin-top:
-0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:0cm;mso-para-margin-left:
-0gd;mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-text-indent:63.7pt;mso-char-indent-count:7.08'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>catch
-(Exception e) {</span></i></p>
-
-<p class=TConfig2CxSpMiddle style='margin:0cm;mso-add-space:auto;mso-para-margin-top:
-0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:0cm;mso-para-margin-left:
-0gd;mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-text-indent:63.7pt;mso-char-indent-count:7.08'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>}</span></i></p>
-
-<p class=TConfig2CxSpLast style='margin:0cm;mso-add-space:auto;mso-para-margin-top:
-0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:0cm;mso-para-margin-left:
-0gd;mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-text-indent:42.5pt;mso-char-indent-count:4.72'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>%&gt;</span></i><span
-lang=EN-US style='mso-bidi-font-family:"Times New Roman"'></span></p>
-
-<p class=T-Par style='margin-bottom:0cm;mso-add-space:auto;text-align:justify;
-text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>In the <i
-style='mso-bidi-font-style:normal'>readChart.jsp</i> file, pass the serial
-number of the specified image through the parameter <i style='mso-bidi-font-style:
-normal'>id</i>. </span></p>
-
-<p class=T-Steps style='margin-top:0cm;margin-right:0cm;margin-bottom:0cm;
-margin-left:39.0pt;mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-text-indent:-18.0pt;mso-list:l34 level1 lfo49'><span
-lang=EN-US style='mso-fareast-font-family:"Times New Roman"'><span
-style='mso-list:Ignore'>5)<span style='font:7.0pt "Times New Roman"'>&nbsp;
-</span></span></span><span lang=EN-US>In the application directory,
-prepare <i style='mso-bidi-font-style:normal'>testChart.jsp</i> file for computing
-the specified <i style='mso-bidi-font-style:normal'>dfx</i> file, store the
-resulting byte array of the image in <i style='mso-bidi-font-style:normal'>SaveChart</i>
-and call <i style='mso-bidi-font-style:normal'>readChart.jsp</i> to display the
-image:</span></p>
-
-<p class=TConfig2CxSpFirst style='margin:0cm;mso-add-space:auto;mso-para-margin-top:
-0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:0cm;mso-para-margin-left:
-0gd;mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-text-indent:42.5pt;mso-char-indent-count:4.72'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;%@page
-contentType=&quot;text/html; charset=iso-8859-1&quot; language=&quot;java&quot;
-import=&quot;java.sql.*, com.SaveChart&quot; errorPage=&quot;&quot;%&gt;</span></i></p>
-
-<p class=TConfig2CxSpMiddle style='margin:0cm;mso-add-space:auto;mso-para-margin-top:
-0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:0cm;mso-para-margin-left:
-0gd;mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-text-indent:42.5pt;mso-char-indent-count:4.72'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;!DOCTYPE
-html&gt;</span></i></p>
-
-<p class=TConfig2CxSpMiddle style='margin:0cm;mso-add-space:auto;mso-para-margin-top:
-0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:0cm;mso-para-margin-left:
-0gd;mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-text-indent:42.5pt;mso-char-indent-count:4.72'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;%</span></i></p>
-
-<p class=TConfig2CxSpMiddle style='margin:0cm;mso-add-space:auto;mso-para-margin-top:
-0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:0cm;mso-para-margin-left:
-0gd;mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-text-indent:63.7pt;mso-char-indent-count:7.08'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>String
-dfx = request.getParameter(&quot;dfx&quot;);</span></i></p>
-
-<p class=TConfig2CxSpMiddle style='margin:0cm;mso-add-space:auto;mso-para-margin-top:
-0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:0cm;mso-para-margin-left:
-0gd;mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-text-indent:63.7pt;mso-char-indent-count:7.08'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>String
-arg = request.getParameter(&quot;arg&quot;);</span></i></p>
-
-<p class=TConfig2CxSpMiddle style='margin:0cm;mso-add-space:auto;mso-para-margin-top:
-0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:0cm;mso-para-margin-left:
-0gd;mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-text-indent:63.7pt;mso-char-indent-count:7.08'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>Connection
-con = null;</span></i></p>
-
-<p class=TConfig2CxSpMiddle style='margin:0cm;mso-add-space:auto;mso-para-margin-top:
-0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:0cm;mso-para-margin-left:
-0gd;mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-text-indent:63.7pt;mso-char-indent-count:7.08'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>java.sql.PreparedStatement
-st;</span></i></p>
-
-<p class=TConfig2CxSpMiddle style='margin:0cm;mso-add-space:auto;mso-para-margin-top:
-0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:0cm;mso-para-margin-left:
-0gd;mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-text-indent:63.7pt;mso-char-indent-count:7.08'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>String
-chartID = &quot;testChart&quot;;</span></i></p>
-
-<p class=TConfig2CxSpMiddle style='margin:0cm;mso-add-space:auto;mso-para-margin-top:
-0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:0cm;mso-para-margin-left:
-0gd;mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-text-indent:63.7pt;mso-char-indent-count:7.08'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>try {</span></i></p>
-
-<p class=TConfig2CxSpMiddle style='margin:0cm;mso-add-space:auto;mso-para-margin-top:
-0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:0cm;mso-para-margin-left:
-0gd;mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-text-indent:3.0cm;mso-char-indent-count:9.45'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>Class.forName(&quot;com.esproc.jdbc.InternalDriver&quot;);</span></i></p>
-
-<p class=TConfig2CxSpMiddle style='margin:0cm;mso-add-space:auto;mso-para-margin-top:
-0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:0cm;mso-para-margin-left:
-0gd;mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-text-indent:3.0cm;mso-char-indent-count:9.45'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>con=
-DriverManager.getConnection(&quot;jdbc:esproc:local://&quot;);</span></i></p>
-
-<p class=TConfig2CxSpMiddle style='margin:0cm;mso-add-space:auto;mso-para-margin-top:
-0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:0cm;mso-para-margin-left:
-0gd;mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-text-indent:3.0cm;mso-char-indent-count:9.45'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>String
-callDfx = dfx;</span></i></p>
-
-<p class=TConfig2CxSpMiddle style='margin:0cm;mso-add-space:auto;mso-para-margin-top:
-0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:0cm;mso-para-margin-left:
-0gd;mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-text-indent:3.0cm;mso-char-indent-count:9.45'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>//
-Allow one parameter that can be called using the method of call dfx(arg)</span></i></p>
-
-<p class=TConfig2CxSpMiddle style='margin:0cm;mso-add-space:auto;mso-para-margin-top:
-0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:0cm;mso-para-margin-left:
-0gd;mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-text-indent:3.0cm;mso-char-indent-count:9.45'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>if (arg
-!= null) {</span></i></p>
-
-<p class=TConfig2CxSpMiddle style='margin:0cm;mso-add-space:auto;mso-para-margin-top:
-0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:0cm;mso-para-margin-left:
-0gd;mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-text-indent:106.3pt;mso-char-indent-count:11.81'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>callDfx
-+= &quot;(\&quot;&quot;+arg+&quot;\&quot;)&quot;;</span></i></p>
-
-<p class=TConfig2CxSpMiddle style='margin:0cm;mso-add-space:auto;mso-para-margin-top:
-0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:0cm;mso-para-margin-left:
-0gd;mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-text-indent:3.0cm;mso-char-indent-count:9.45'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>}</span></i></p>
-
-<p class=TConfig2CxSpMiddle style='margin:0cm;mso-add-space:auto;mso-para-margin-top:
-0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:0cm;mso-para-margin-left:
-0gd;mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-text-indent:3.0cm;mso-char-indent-count:9.45'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>else {</span></i></p>
-
-<p class=TConfig2CxSpMiddle style='margin:0cm;mso-add-space:auto;mso-para-margin-top:
-0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:0cm;mso-para-margin-left:
-0gd;mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-text-indent:106.3pt;mso-char-indent-count:11.81'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>callDfx
-+= &quot;()&quot;;</span></i></p>
-
-<p class=TConfig2CxSpMiddle style='margin:0cm;mso-add-space:auto;mso-para-margin-top:
-0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:0cm;mso-para-margin-left:
-0gd;mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-text-indent:3.0cm;mso-char-indent-count:9.45'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>}</span></i></p>
-
-<p class=TConfig2CxSpMiddle style='margin:0cm;mso-add-space:auto;mso-para-margin-top:
-0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:0cm;mso-para-margin-left:
-0gd;mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-text-indent:3.0cm;mso-char-indent-count:9.45'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>st
-=con.prepareCall(&quot;call &quot;+callDfx);</span></i></p>
-
-<p class=TConfig2CxSpMiddle style='margin:0cm;mso-add-space:auto;mso-para-margin-top:
-0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:0cm;mso-para-margin-left:
-0gd;mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-text-indent:3.0cm;mso-char-indent-count:9.45'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>st.execute();</span></i></p>
-
-<p class=TConfig2CxSpMiddle style='margin:0cm;mso-add-space:auto;mso-para-margin-top:
-0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:0cm;mso-para-margin-left:
-0gd;mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-text-indent:3.0cm;mso-char-indent-count:9.45'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>ResultSet
-rs = st.getResultSet();</span></i></p>
-
-<p class=TConfig2CxSpMiddle style='margin:0cm;mso-add-space:auto;mso-para-margin-top:
-0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:0cm;mso-para-margin-left:
-0gd;mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-text-indent:3.0cm;mso-char-indent-count:9.45'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>rs.next();</span></i></p>
-
-<p class=TConfig2CxSpMiddle style='margin:0cm;mso-add-space:auto;mso-para-margin-top:
-0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:0cm;mso-para-margin-left:
-0gd;mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-text-indent:3.0cm;mso-char-indent-count:9.45'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>byte[]
-image = (byte[]) rs.getObject(1);</span></i></p>
-
-<p class=TConfig2CxSpMiddle style='margin:0cm;mso-add-space:auto;mso-para-margin-top:
-0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:0cm;mso-para-margin-left:
-0gd;mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-text-indent:3.0cm;mso-char-indent-count:9.45'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>SaveChart.addChart(chartID,
-image);</span></i></p>
-
-<p class=TConfig2CxSpMiddle style='margin:0cm;mso-add-space:auto;mso-para-margin-top:
-0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:0cm;mso-para-margin-left:
-0gd;mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-text-indent:63.7pt;mso-char-indent-count:7.08'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>}</span></i></p>
-
-<p class=TConfig2CxSpMiddle style='margin:0cm;mso-add-space:auto;mso-para-margin-top:
-0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:0cm;mso-para-margin-left:
-0gd;mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-text-indent:63.7pt;mso-char-indent-count:7.08'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>catch
-(Exception e) {</span></i></p>
-
-<p class=TConfig2CxSpMiddle style='margin:0cm;mso-add-space:auto;mso-para-margin-top:
-0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:0cm;mso-para-margin-left:
-0gd;mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-text-indent:63.7pt;mso-char-indent-count:7.08'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>}</span></i></p>
-
-<p class=TConfig2CxSpMiddle style='margin:0cm;mso-add-space:auto;mso-para-margin-top:
-0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:0cm;mso-para-margin-left:
-0gd;mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-text-indent:63.7pt;mso-char-indent-count:7.08'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>finally
-{</span></i></p>
-
-<p class=TConfig2CxSpMiddle style='margin:0cm;mso-add-space:auto;mso-para-margin-top:
-0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:0cm;mso-para-margin-left:
-0gd;mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-text-indent:3.0cm;mso-char-indent-count:9.45'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>if (con
-!= null) {</span></i></p>
-
-<p class=TConfig2CxSpMiddle style='margin:0cm;mso-add-space:auto;mso-para-margin-top:
-0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:0cm;mso-para-margin-left:
-0gd;mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-text-indent:106.3pt;mso-char-indent-count:11.81'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>try {</span></i></p>
-
-<p class=TConfig2CxSpMiddle style='margin:0cm;mso-add-space:auto;mso-para-margin-top:
-0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:0cm;mso-para-margin-left:
-0gd;mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-text-indent:127.55pt;mso-char-indent-count:14.17'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>con.close();</span></i></p>
-
-<p class=TConfig2CxSpMiddle style='margin:0cm;mso-add-space:auto;mso-para-margin-top:
-0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:0cm;mso-para-margin-left:
-0gd;mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-text-indent:106.3pt;mso-char-indent-count:11.81'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>}</span></i></p>
-
-<p class=TConfig2CxSpMiddle style='margin:0cm;mso-add-space:auto;mso-para-margin-top:
-0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:0cm;mso-para-margin-left:
-0gd;mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-text-indent:106.3pt;mso-char-indent-count:11.81'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>catch
-(Exception e) {</span></i></p>
-
-<p class=TConfig2CxSpMiddle style='margin:0cm;mso-add-space:auto;mso-para-margin-top:
-0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:0cm;mso-para-margin-left:
-0gd;mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-text-indent:127.55pt;mso-char-indent-count:14.17'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>e.printStackTrace();</span></i></p>
-
-<p class=TConfig2CxSpMiddle style='margin:0cm;mso-add-space:auto;mso-para-margin-top:
-0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:0cm;mso-para-margin-left:
-0gd;mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-text-indent:106.3pt;mso-char-indent-count:11.81'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>}</span></i></p>
-
-<p class=TConfig2CxSpMiddle style='margin:0cm;mso-add-space:auto;mso-para-margin-top:
-0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:0cm;mso-para-margin-left:
-0gd;mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-text-indent:3.0cm;mso-char-indent-count:9.45'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>}</span></i></p>
-
-<p class=TConfig2CxSpMiddle style='margin:0cm;mso-add-space:auto;mso-para-margin-top:
-0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:0cm;mso-para-margin-left:
-0gd;mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-text-indent:63.7pt;mso-char-indent-count:7.08'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>}</span></i></p>
-
-<p class=TConfig2CxSpMiddle style='margin:0cm;mso-add-space:auto;mso-para-margin-top:
-0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:0cm;mso-para-margin-left:
-0gd;mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-text-indent:42.5pt;mso-char-indent-count:4.72'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>%&gt;</span></i></p>
-
-<p class=TConfig2CxSpMiddle style='margin:0cm;mso-add-space:auto;mso-para-margin-top:
-0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:0cm;mso-para-margin-left:
-0gd;mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-text-indent:42.5pt;mso-char-indent-count:4.72'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;html&gt;</span></i></p>
-
-<p class=TConfig2CxSpMiddle style='margin:0cm;mso-add-space:auto;mso-para-margin-top:
-0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:0cm;mso-para-margin-left:
-0gd;mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-text-indent:63.7pt;mso-char-indent-count:7.08'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;head&gt;</span></i></p>
-
-<p class=TConfig2CxSpMiddle style='margin:0cm;mso-add-space:auto;mso-para-margin-top:
-0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:0cm;mso-para-margin-left:
-0gd;mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-text-indent:3.0cm;mso-char-indent-count:9.45'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;meta
-http-equiv=&quot;Content-Type&quot; content=&quot;text/html;
-charset=gb2312&quot;&gt;</span></i></p>
-
-<p class=TConfig2CxSpMiddle style='margin:0cm;mso-add-space:auto;mso-para-margin-top:
-0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:0cm;mso-para-margin-left:
-0gd;mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-text-indent:3.0cm;mso-char-indent-count:9.45'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;title&gt;testChart&lt;/title&gt;</span></i></p>
-
-<p class=TConfig2CxSpMiddle style='margin:0cm;mso-add-space:auto;mso-para-margin-top:
-0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:0cm;mso-para-margin-left:
-0gd;mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-text-indent:63.7pt;mso-char-indent-count:7.08'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;/head&gt;</span></i></p>
-
-<p class=TConfig2CxSpMiddle style='margin:0cm;mso-add-space:auto;mso-para-margin-top:
-0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:0cm;mso-para-margin-left:
-0gd;mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-text-indent:63.7pt;mso-char-indent-count:7.08'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;body&gt;</span></i></p>
-
-<p class=TConfig2CxSpMiddle style='margin:0cm;mso-add-space:auto;mso-para-margin-top:
-0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:0cm;mso-para-margin-left:
-0gd;mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-text-indent:3.0cm;mso-char-indent-count:9.45'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;img
-src=&quot;readChart.jsp?id=&lt;%=chartID%&gt;&quot;&gt;</span></i></p>
-
-<p class=TConfig2CxSpMiddle style='margin:0cm;mso-add-space:auto;mso-para-margin-top:
-0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:0cm;mso-para-margin-left:
-0gd;mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-text-indent:63.7pt;mso-char-indent-count:7.08'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;/body&gt;</span></i></p>
-
-<p class=TConfig2CxSpLast style='margin:0cm;mso-add-space:auto;mso-para-margin-top:
-0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:0cm;mso-para-margin-left:
-0gd;mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;
-text-indent:42.5pt;mso-char-indent-count:4.72'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;/html&gt;</span></i><span
-lang=EN-US style='mso-bidi-font-family:"Times New Roman"'></span></p>
-
-<p class=T-ParCxSpFirst style='margin-bottom:0cm;mso-add-space:auto;text-align:
-justify;text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>In <span
-class=T-Bold><i style='mso-bidi-font-style:normal'><span style='font-weight:
-normal'>testChart.jsp</span></i></span>, pass the serial number of the
-specified image through the parameter <i style='mso-bidi-font-style:normal'>dfx</i>;
-and a parameter <i style='mso-bidi-font-style:normal'>arg </i>is allowed to be
-set. See <i style='mso-bidi-font-style:normal'><a  href="158.html">Java
-Invocation</a></i><span class=T-Bold><span style='font-weight:normal'> for
-information about calling a <i style='mso-bidi-font-style:normal'>dfx</i> file
-to perform related computations.</span></span><b style='mso-bidi-font-weight:
-normal'></b></span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
-text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
-class=T-Bold><span lang=EN-US style='font-weight:normal'>Launch Tomcat to
-display the chart plotted using the plotting algorithm above. Enter the URL </span><span
-lang=EN-US>- </span></span><span lang=EN-US>http://localhost:8080/testChart/testChart.jsp?dfx=ChartGYM&amp;arg=Ana
-Silva <b style='mso-bidi-font-weight:normal'>- </b><span class=T-Bold><span
-style='font-weight:normal'>into the web browser and you’ll see the following
-result:</span></span><b style='mso-bidi-font-weight:normal'></b></span></p>
-
-<p class=T-ParCxSpLast style='margin-bottom:0cm;mso-add-space:auto;text-align:
-justify;text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US><img border=0 width=500 height=260
-src="Tutorial.files/image1190.png" v:shapes="_x0000_i2285"></span></p>
+justify;text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US
+style='border:solid #BFBFBF 1.0pt;mso-border-alt:solid #BFBFBF .5pt;padding:
+0cm;mso-no-proof:yes'><img border=0 width=400 height=400
+src="Tutorial.files/image1242.png" v:shapes="_x0000_i2330"></span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US>As can be seen, accumulated by values, the slices for all athletes
+will be plotted based on their scores and thus the plotting result for each
+category will not be a complete circle or a complete ring any more. As a
+stacked column chart, the total scores of the athletes can be viewed clearly
+through this type of pie chart.</span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="302.html">Next</a></div>
@@ -879,12 +302,12 @@ src="Tutorial.files/image1190.png" v:shapes="_x0000_i2285"></span></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="300.html">12.10 Web Integration and Hyperlink</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="298.html">12.8 The Sector Element</a></span></li>
 </div>
 	</div>
 	<div id="footer">	
 		
-		<div class="copyright"> Copyright&reg; 2021 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+		<div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">Scudata Inc. 
       </a></div> 
         <!--
 		<div class="copyright"> Copyright&reg; 2017 <a href="http://www.yimming.com" target="_Blank"> Beijing Yimming Ltd. Co. 

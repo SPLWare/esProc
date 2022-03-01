@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>3.3.3 Computing rankings based on a TSeq</title>
+<title>3.2.3 Group and aggregate functions</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -15,19 +15,14 @@
 	<div id="centent">
 	<div id="centent-title"><h3 style='margin:0cm;text-indent:0cm;line-height:normal;mso-list:none;
 tab-stops:-179.95pt 64.2pt'><span lang=EN-US style='font-size:14.0pt;
-mso-bidi-font-size:10.0pt'>3.3.3 Computing rankings based on a TSeq</span></h3></div>
+mso-bidi-font-size:10.0pt'>3.2.3 Group and aggregate functions</span></h3></div>
 	<p class=T-Par style='margin-bottom:0cm;mso-add-space:auto;text-align:justify;
-text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>There are two
-common ways for computing rankings: ranking members with/without duplicate
-values counted. For example, if there are two players tied for first place in a
-competition and the duplicate ranking values are counted, the next player
-following them would have a third ranking. But if the duplicate ranking value
-isn’t counted, the second place will follow without taking the extra ranking
-value into account. esProc has <b style='mso-bidi-font-weight:normal'>rank</b>
-function to compute the rankings and <b style='mso-bidi-font-weight:normal'>rank</b>
-to compute the ranking of a certain value. The use of <b style='mso-bidi-font-weight:
-normal'>@i</b> option with the functions will compute rankings or the ranking
-without counting the extra ranking(s). For example:</span></p>
+text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>The previous
+section illustrates how to group the records in a table sequence and then
+summarize the records of each group using the grouping result. You can also use
+the <b style='mso-bidi-font-weight:normal'>group</b> function to directly get
+the aggregate result, saving the trouble of computing it step by step. For
+example:</span></p>
 
 <table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
  style='margin-left:21.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
@@ -40,8 +35,294 @@ without counting the extra ranking(s). For example:</span></p>
   <td width=42 valign=top style='width:31.2pt;border:solid black 1.0pt;
   mso-border-alt:solid black .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
+  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
+  mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
+  lang=EN-US style='font-size:9.0pt'>&nbsp;</span></p>
+  </td>
+  <td width=328 valign=top style='width:245.75pt;border-top:solid black 1.0pt;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
+  mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-bottom-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
   <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
-  text-indent:20.0pt;mso-char-indent-count:2.0'><span lang=EN-US>&nbsp;</span></p>
+  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
+  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>A</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
+  mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
+  lang=EN-US style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>1</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
+  </td>
+  <td width=328 style='width:245.75pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-top-alt:windowtext;mso-border-left-alt:windowtext;mso-border-bottom-alt:
+  #B2B2B2;mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
+  .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
+  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
+  color:black;mso-color-alt:windowtext'>=demo.query(&quot;select * from
+  EMPLOYEE&quot;)</span><span lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
+  mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
+  lang=EN-US style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>2</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
+  </td>
+  <td width=328 style='width:245.75pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
+  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
+  color:black;mso-color-alt:windowtext'>=A1.group(DEPT;~.count():Count,~.sum(SALARY):TotalSalary)</span><span
+  lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;page-break-inside:avoid;height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
+  mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
+  lang=EN-US style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>3</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
+  </td>
+  <td width=328 style='width:245.75pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
+  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
+  color:black;mso-color-alt:windowtext'>=A1.group(DEPT;~.count(GENDER==&quot;M&quot;):Male,
+  ~.count(GENDER==&quot;F&quot;):Female)</span><span lang=EN-US
+  style='font-family:"Times New Roman",serif'></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
+  mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
+  lang=EN-US style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>4</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
+  </td>
+  <td width=328 style='width:245.75pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
+  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
+  color:black;mso-color-alt:windowtext'>=A1.group(DEPT;round(~.avg(age(BIRTHDAY)),2):AverageAge)</span><span
+  lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=T-ParCxSpFirst style='margin-bottom:0cm;mso-add-space:auto;text-align:
+justify;text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>Both
+A2 and A3 group and summarize the records by DEPT field directly. They get the
+same result as that got by step-by-step computation:</span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
+lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=300 height=181
+src="Tutorial.files/image411.png" v:shapes="_x0000_i1495"></span><span
+lang=EN-US><span style='mso-spacerun:yes'>&nbsp; </span></span><span
+lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=300 height=181
+src="Tutorial.files/image412.png" v:shapes="_x0000_i1496"></span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
+lang=EN-US>A4 computes the average age of employees in each department:</span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
+lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=300 height=181
+src="Tutorial.files/image416.png" v:shapes="_x0000_i1497"></span></p>
+
+<p class=T-ParCxSpLast style='margin-bottom:0cm;mso-add-space:auto;text-align:
+justify;text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>esProc
+also provides <b style='mso-bidi-font-weight:normal'>groups</b> function to
+compute the grouping and summarizing result by accumulation. For example:</span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='margin-left:21.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:
+ #B2B2B2;mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
+ .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:.5pt solid #B2B2B2;
+ mso-border-insidev:.5pt solid #B2B2B2'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=42 valign=top style='width:31.2pt;border:solid black 1.0pt;
+  mso-border-alt:solid black .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
+  mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
+  lang=EN-US style='font-size:9.0pt'>&nbsp;</span></p>
+  </td>
+  <td width=309 valign=top style='width:231.55pt;border-top:solid black 1.0pt;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
+  mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-bottom-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
+  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
+  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>A</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
+  mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
+  lang=EN-US style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>1</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
+  </td>
+  <td width=309 style='width:231.55pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-top-alt:windowtext;mso-border-left-alt:windowtext;mso-border-bottom-alt:
+  #B2B2B2;mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
+  .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
+  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
+  color:black;mso-color-alt:windowtext'>=demo.query(&quot;select * from
+  EMPLOYEE&quot;)</span><span lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
+  mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
+  lang=EN-US style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>2</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
+  </td>
+  <td width=309 style='width:231.55pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
+  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
+  color:black;mso-color-alt:windowtext'>=A1.groups(DEPT;count():Count,sum(SALARY):TotalSalary)</span><span
+  lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
+  mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
+  lang=EN-US style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>3</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
+  </td>
+  <td width=309 style='width:231.55pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
+  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
+  color:black;mso-color-alt:windowtext'>=A1.groups(DEPT;count(GENDER==&quot;M&quot;):Male,
+  count(GENDER==&quot;F&quot;):Female)</span><span lang=EN-US style='font-family:
+  "Times New Roman",serif'></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=T-ParCxSpFirst style='margin-bottom:0cm;mso-add-space:auto;text-align:
+justify;text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>A2
+and A3 group and summarize the data by DEPT field simultaneously. Notice that
+&quot;</span><span class=T-CodeChar><span lang=EN-US style='font-family:"Times New Roman",serif'>~.&quot;</span></span><span
+lang=EN-US> is omitted here. This is different from the code in the above, but
+the result is the same as that got by grouping first and then summarizing:</span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
+lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=300 height=181
+src="Tutorial.files/image411.png" v:shapes="_x0000_i1498"></span><span
+lang=EN-US><span style='mso-spacerun:yes'>&nbsp; </span></span><span
+lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=300 height=181
+src="Tutorial.files/image412.png" v:shapes="_x0000_i1499"></span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
+lang=EN-US>The <b style='mso-bidi-font-weight:normal'>groups</b> function also
+returns a table sequence when grouping and summarizing data simultaneously. It
+won’t record the data in each group, but only calculate the accumulated value
+according to the grouping expression. Compared with the <b style='mso-bidi-font-weight:
+normal'>group</b> function, <b style='mso-bidi-font-weight:normal'>groups</b>
+function is more efficient. </span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:21.1pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US>Note</span></b><span
+lang=EN-US>: The <b style='mso-bidi-font-weight:normal'>groups</b> function can
+only work with simple aggregate functions, such as </span><span
+class=T-CodeChar><span lang=EN-US style='font-family:"Times New Roman",serif'>sum/count/max/min/top/avg/iterate/icount/median</span></span><span
+lang=EN-US>, to perform grouping and aggregation at the same time. To perform
+complicated grouping and aggregation operations, you should use the <b
+style='mso-bidi-font-weight:normal'>group</b> function only. <b
+style='mso-bidi-font-weight:normal'></b></span></p>
+
+<p class=T-ParCxSpLast style='margin-bottom:0cm;mso-add-space:auto;text-align:
+justify;text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>In
+particular, <b style='mso-bidi-font-weight:normal'>top</b>, one of the
+aggregate functions, can be used to compute the <b style='mso-bidi-font-weight:
+normal'><i style='mso-bidi-font-style:normal'>n</i></b> smallest values. For
+example: </span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='margin-left:21.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:
+ #B2B2B2;mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
+ .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:.5pt solid #B2B2B2;
+ mso-border-insidev:.5pt solid #B2B2B2'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=42 valign=top style='width:31.2pt;border:solid black 1.0pt;
+  mso-border-alt:solid black .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
+  mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
+  lang=EN-US style='font-size:9.0pt'>&nbsp;</span></p>
   </td>
   <td width=302 valign=top style='width:8.0cm;border-top:solid black 1.0pt;
   border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
@@ -60,10 +341,101 @@ without counting the extra ranking(s). For example:</span></p>
   mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
   mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
-  <p class=TabLabel21 style='text-align:justify;text-justify:inter-ideograph'><span
-  lang=EN-US style='mso-bidi-font-family:"Times New Roman";color:black;
-  mso-color-alt:windowtext'>1</span><span lang=EN-US style='mso-bidi-font-family:
-  "Times New Roman"'></span></p>
+  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
+  mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
+  lang=EN-US style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>1</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
+  </td>
+  <td width=302 style='width:8.0cm;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid windowtext .5pt;
+  mso-border-left-alt:solid windowtext .5pt;mso-border-top-alt:windowtext;
+  mso-border-left-alt:windowtext;mso-border-bottom-alt:#B2B2B2;mso-border-right-alt:
+  #B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:.5pt;background:#FFFF99;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
+  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
+  color:black;mso-color-alt:windowtext'>=demo.query(&quot;select * from
+  EMPLOYEE&quot;)</span><span lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
+  mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
+  lang=EN-US style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>2</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
+  </td>
+  <td width=302 style='width:8.0cm;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid windowtext .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
+  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
+  color:black;mso-color-alt:windowtext'>=A1.groups(DEPT;top(3,age(BIRTHDAY)))</span><span
+  lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=T-ParCxSpFirst style='margin-bottom:0cm;mso-add-space:auto;text-align:
+justify;text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>A2
+computes the ages of three youngest persons in each department through data
+grouping: </span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
+lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=300 height=181
+src="Tutorial.files/image417.png" v:shapes="_x0000_i1500"></span></p>
+
+<p class=T-ParCxSpLast style='margin-bottom:0cm;mso-add-space:auto;text-align:
+justify;text-justify:inter-ideograph;text-indent:21.1pt'><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US>top</span></b><span lang=EN-US> can only computes the <b
+style='mso-bidi-font-weight:normal'><i style='mso-bidi-font-style:normal'>n</i></b>
+smallest values. To find out the ages of three oldest persons are needed, you
+can use the following method:</span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='margin-left:21.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:
+ #B2B2B2;mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
+ .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:.5pt solid #B2B2B2;
+ mso-border-insidev:.5pt solid #B2B2B2'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=42 valign=top style='width:31.2pt;border:solid black 1.0pt;
+  mso-border-alt:solid black .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
+  mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
+  lang=EN-US style='font-size:9.0pt'>&nbsp;</span></p>
+  </td>
+  <td width=302 valign=top style='width:8.0cm;border-top:solid black 1.0pt;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
+  mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-bottom-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
+  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
+  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>A</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
+  mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
+  lang=EN-US style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>1</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
   </td>
   <td width=302 style='width:8.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid windowtext .5pt;
@@ -83,10 +455,10 @@ without counting the extra ranking(s). For example:</span></p>
   mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
   mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
-  <p class=TabLabel21 style='text-align:justify;text-justify:inter-ideograph'><span
-  lang=EN-US style='mso-bidi-font-family:"Times New Roman";color:black;
-  mso-color-alt:windowtext'>2</span><span lang=EN-US style='mso-bidi-font-family:
-  "Times New Roman"'></span></p>
+  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
+  mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
+  lang=EN-US style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>2</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
   </td>
   <td width=302 style='width:8.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
@@ -95,7 +467,7 @@ without counting the extra ranking(s). For example:</span></p>
   height:14.15pt'>
   <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
   line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
-  color:black;mso-color-alt:windowtext'>=A1.ranks(SALARY)</span><span
+  color:black;mso-color-alt:windowtext'>=A1.groups(DEPT;top(3,BIRTHDAY))</span><span
   lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
   </td>
  </tr>
@@ -105,10 +477,10 @@ without counting the extra ranking(s). For example:</span></p>
   mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
   mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
-  <p class=TabLabel21 style='text-align:justify;text-justify:inter-ideograph'><span
-  lang=EN-US style='mso-bidi-font-family:"Times New Roman";color:black;
-  mso-color-alt:windowtext'>3</span><span lang=EN-US style='mso-bidi-font-family:
-  "Times New Roman"'></span></p>
+  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
+  mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
+  lang=EN-US style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>3</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
   </td>
   <td width=302 style='width:8.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
@@ -117,43 +489,21 @@ without counting the extra ranking(s). For example:</span></p>
   height:14.15pt'>
   <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
   line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
-  color:black;mso-color-alt:windowtext'>=A1.ranks@i(SALARY)</span><span
+  color:black;mso-color-alt:windowtext'>=A2.new(DEPT,#2.(age(~)))</span><span
   lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:4;page-break-inside:avoid;height:14.15pt'>
-  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
-  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=TabLabel21 style='text-align:justify;text-justify:inter-ideograph'><span
-  lang=EN-US style='mso-bidi-font-family:"Times New Roman";color:black;
-  mso-color-alt:windowtext'>4</span><span lang=EN-US style='mso-bidi-font-family:
-  "Times New Roman"'></span></p>
-  </td>
-  <td width=302 style='width:8.0cm;border-top:none;border-left:none;border-bottom:
-  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
-  mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid #B2B2B2 .5pt;
-  mso-border-left-alt:solid windowtext .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
-  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
-  color:black;mso-color-alt:windowtext'>=A1.rank(10000,SALARY)</span><span
-  lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:5;mso-yfti-lastrow:yes;page-break-inside:avoid;
+ <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes;page-break-inside:avoid;
   height:14.15pt'>
   <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
   border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
   mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
   mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
-  <p class=TabLabel21 style='text-align:justify;text-justify:inter-ideograph'><span
-  lang=EN-US style='mso-bidi-font-family:"Times New Roman";color:black;
-  mso-color-alt:windowtext'>5</span><span lang=EN-US style='mso-bidi-font-family:
-  "Times New Roman"'></span></p>
+  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
+  mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
+  lang=EN-US style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>4</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
   </td>
   <td width=302 style='width:8.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
@@ -162,65 +512,41 @@ without counting the extra ranking(s). For example:</span></p>
   height:14.15pt'>
   <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
   line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
-  color:black;mso-color-alt:windowtext'>=A1.rank@i(10000,SALARY)</span><span
+  color:black;mso-color-alt:windowtext'>=A1.groups(DEPT;top(-3,age(BIRTHDAY)))</span><span
   lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
   </td>
  </tr>
 </table>
 
 <p class=T-ParCxSpFirst style='margin-bottom:0cm;mso-add-space:auto;text-align:
-justify;text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US
-style='color:black;mso-color-alt:windowtext'>A2 computes the rankings of
-salaries of all employees. A3 computes them without considering duplicate
-values. Results of A2 and A3 are as follows:</span></p>
+justify;text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>A2 first
+computes the 3 smallest birthdays in each department, and then A3 further
+computes the corresponding ages. Results of A2 and A3 are as follows:</span></p>
 
 <p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
 text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
-lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=149 height=230
-src="Tutorial.files/image404.png" v:shapes="_x0000_i1493"></span><span
-lang=EN-US><span style='mso-spacerun:yes'>&nbsp; </span></span><span
-lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=149 height=230
-src="Tutorial.files/image405.png" v:shapes="_x0000_i1494"></span></p>
+lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=300 height=181
+src="Tutorial.files/image418.png" v:shapes="_x0000_i1501"></span><span
+lang=zh-CN><span style='mso-spacerun:yes'>&nbsp;</span></span><span lang=zh-CN
+style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=300 height=181
+src="Tutorial.files/image419.png" v:shapes="_x0000_i1502"></span></p>
 
 <p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
 text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
-lang=EN-US>Now let’s look at the employee data in A1:</span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
-text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
-lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=500 height=230
-src="Tutorial.files/image406.png" v:shapes="_x0000_i1495"></span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
-text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
-lang=EN-US>It can be seen by comparison that the employees with the same
-salary, such as <b style='mso-bidi-font-weight:normal'>Rebecca</b> and <b
-style='mso-bidi-font-weight:normal'>Emily</b>, get the same ranking for their
-salaries either way. But obviously they rank much higher in the result of A3
-because duplicate ranking values are ignored and they won’t affect the rankings
-of the subsequent employees. In fact it is the result in A2 that reflects the
-rankings more objectively. </span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
-text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
-lang=EN-US>A4 computes the ranking of 10,000 among employee’s salaries. A5
-computes the ranking of 10,000 by not taking the duplicate values account.
-Results of A4 and A5 are as follows:</span></p>
+lang=EN-US>An alternative method is to add a negative sign before <b
+style='mso-bidi-font-weight:normal'>top</b>. For example, A4 gets the 3 smallest
+ages in terms of negative values, and then A5 computes the corresponding ages.
+Results of A4 and A5 are as follows: A more convenient method is using <b
+style='mso-bidi-font-weight:normal'>top(-n)</b> to directly get the three
+eldest employees, as A4 does. Here’s the result:</span></p>
 
 <p class=T-ParCxSpLast style='margin-bottom:0cm;mso-add-space:auto;text-align:
 justify;text-justify:inter-ideograph;text-indent:21.0pt'><span lang=zh-CN
-style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=100 height=41
-src="Tutorial.files/image407.png" v:shapes="_x0000_i1496"></span><span
-lang=EN-US><span style='mso-spacerun:yes'>&nbsp; </span></span><span
-lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=100 height=41
-src="Tutorial.files/image408.png" v:shapes="_x0000_i1497"></span></p>
+style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=300 height=181
+src="Tutorial.files/image420.png" v:shapes="_x0000_i1503"></span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>A higher ranking is obtained without counting the duplicate values. <b
-style='mso-bidi-font-weight:normal'>rank@i</b> and <b style='mso-bidi-font-weight:
-normal'>ranks@i</b> compute rankings in a way similar to that in which <b
-style='mso-bidi-font-weight:normal'>id</b> function is used to list all the
-unique members before computing rankings.</span></p>
+lang=EN-US>Notice that A3 and A5 get the same results.</span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="89.html">Next</a></div>
@@ -228,12 +554,12 @@ unique members before computing rankings.</span></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="85.html">3.3 Sorting and Ranking Data</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="85.html">3.2 Grouping and Summarizing Data</a></span></li>
 </div>
 	</div>
 	<div id="footer">	
 		
-		<div class="copyright"> Copyright&reg; 2021 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+		<div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">Scudata Inc. 
       </a></div> 
         <!--
 		<div class="copyright"> Copyright&reg; 2017 <a href="http://www.yimming.com" target="_Blank"> Beijing Yimming Ltd. Co. 

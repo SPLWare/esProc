@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>12.10 Web Integration and Hyperlink</title>
+<title>12.8.2 Appearance properties</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,26 +13,90 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h2 style='margin-left:36.0pt;mso-para-margin-left:0gd;text-indent:-36.0pt;
-mso-list:l20 level2 lfo47'><span lang=EN-US
-style='mso-fareast-font-family:"Times New Roman"'><span style='mso-list:Ignore'>12.10<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span></span><span
-lang=EN-US>Web Integration and Hyperlink</span></h2></div>
+	<div id="centent-title"><h3 style='margin:0cm;text-indent:0cm;line-height:normal;mso-list:none;
+tab-stops:-179.95pt 64.2pt'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:10.0pt'>12.8.2 Appearance properties</span></h3></div>
 	<p class=T-ParCxSpFirst style='margin-bottom:0cm;mso-add-space:auto;text-align:
-justify;text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US
-style='background:aqua;mso-highlight:aqua'>You can choose to skip this section
-if you are not a professional programmer. This won’t affect your learning about
-the other contents of this <i style='mso-bidi-font-style:normal'>Tutorial</i>.</span></p>
+justify;text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>As
+can be seen from the chart above, the result of chart plotting with the sector
+element is sectors with fill colors. This means the appearance properties of
+the sector element will include fill color, border style, border weight and
+border color. By default, the fill color is automatically generated with
+lighting effects. Now modify A6’s code into </span><span class=T-CodeChar><span
+lang=EN-US style='font-family:"Times New Roman",serif'>=A1.plot(&quot;Sector&quot;,&quot;borderWeight&quot;:1,&quot;borderColor&quot;:-16724839,&quot;fillColor&quot;:[[&quot;ChartColor&quot;,0,true,-52429,-13057,0],[&quot;ChartColor&quot;,0,true,-10066177,-3355393,0],[&quot;ChartColor&quot;,0,true,-13369345,-1,0]],&quot;text&quot;:A2.(NAME),&quot;axis1&quot;:&quot;x&quot;,&quot;data1&quot;:A2.(NAME),&quot;axis2&quot;:&quot;y&quot;,&quot;data2&quot;:A2.(SCORE))</span></span><span
+lang=EN-US>. By doing so, the appearance properties will be changed as follows:
+</span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
+lang=EN-US><img border=0 width=527 height=161
+src="Tutorial.files/image1233.png" v:shapes="图片_x0020_1801"></span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
+lang=EN-US>Set the color for border line as turquoise and the weight as 1, and
+specify a sequence of fill colors for the sectors. Thus the plotting result is:
+</span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
+lang=EN-US><img border=0 width=400 height=300
+src="Tutorial.files/image1234.png" v:shapes="图片_x0020_1802"></span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
+lang=EN-US>As you can see, the appearance of the pie chart has changed. The
+default lighting effects of the fill colors have vanished and the gradient
+color has been applied to the entire circle area to achieve harmony among the fill
+colors. </span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
+lang=EN-US>And, the pie chart’s data labels, different from those in other
+styles of charts, are presented by lines drew from the center of each sector.
+So you need to specify the appearance properties for these leader lines as
+well, besides those for data label texts. Modify the sector element’s chart
+properties by editing A6’s code:</span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
+lang=EN-US><img border=0 width=331 height=105
+src="Tutorial.files/image1235.png" v:shapes="图片_x0020_1804"></span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
+lang=EN-US>Then the plotting result is:</span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
+lang=EN-US><img border=0 width=400 height=300
+src="Tutorial.files/image1236.png" v:shapes="图片_x0020_1803"></span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
+lang=EN-US>Now let’s see the text properties. The above plotting algorithm sets
+the data labels as names of the athletes. Modify A6 to change the chart
+properties of the sector element:</span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
+lang=EN-US><img border=0 width=331 height=155
+src="Tutorial.files/image1237.png" v:shapes="图片_x0020_1805"></span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
+lang=EN-US>Here the text font, text style, text size and text color for the
+data label texts are modified, and the plotting result is: </span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
+text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
+lang=EN-US><img border=0 width=400 height=300
+src="Tutorial.files/image1238.png" v:shapes="图片_x0020_1806"></span></p>
 
 <p class=T-ParCxSpLast style='margin-bottom:0cm;mso-add-space:auto;text-align:
-justify;text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>In <i
-style='mso-bidi-font-style:normal'><a  href="254.html">The Basics</a></i> and
-<i style='mso-bidi-font-style:normal'><a
- href="258.html">Coordinate Systems and
-Transformation</a></i>, as well as other chart element documents, we discussed
-the method of plotting charts in esProc. To display charts on the web, however,
-hyperlinks are often required. Here let’s see how to design hyperlinks and how
-to use them when plotting charts with esProc. </span></p>
+justify;text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>It
+can be seen that the text properties apply in both the texts on the pie and
+those using leader lines. </span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="301.html">Next</a></div>
@@ -40,15 +104,12 @@ to use them when plotting charts with esProc. </span></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="253.html">Chapter12 Charts</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="301.html">12.10.1 Displaying charts on web</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="302.html">12.10.2 Hyperlink properties</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="303.html">12.10.3 Using SVG</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="298.html">12.8 The Sector Element</a></span></li>
 </div>
 	</div>
 	<div id="footer">	
 		
-		<div class="copyright"> Copyright&reg; 2021 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+		<div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">Scudata Inc. 
       </a></div> 
         <!--
 		<div class="copyright"> Copyright&reg; 2017 <a href="http://www.yimming.com" target="_Blank"> Beijing Yimming Ltd. Co. 

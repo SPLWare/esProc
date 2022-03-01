@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>f.rollback()</title>
+<title>redis_zsize()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,141 +13,110 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h3 style='text-align:justify;text-justify:inter-ideograph'><a name="_round()_3"></a><span
-lang=EN-US>f.rollback()<a name="f_rollback"></a></span></h3></div>
+	<div id="centent-title"><h2><span lang=EN-US style='mso-fareast-font-family:宋体'>redis_zsize()<a
+name="redis_zsize"></a></span></h2></div>
 	<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
 style='font-size:14.0pt'>Description:</span></b></p>
 
-<p class=MsoNormal style='text-indent:20.95pt'><span lang=EN-US>Restore a
-composite table file to the previous state when update error happens.</span></p>
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02;
+tab-stops:0cm'><span lang=EN-US>Get the number of records in an ordered set.</span></p>
 
 <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Syntax: </span></b></p>
+style='font-size:14.0pt'>Syntax:</span></b></p>
 
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:21.3pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'>
-  <td width=102 valign=top style='width:76.25pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US>f</span></i><span
-  lang=EN-US>.</span><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>rollback</span></span><span
-  lang=EN-US>()</span><span class=var2><span lang=EN-US></span></span></p>
-  </td>
- </tr>
-</table>
+<p class=MsoNormal style='text-indent:21.3pt;mso-char-indent-count:2.02;
+tab-stops:0cm'><b style='mso-bidi-font-weight:normal'><span lang=EN-US>redis_zsize</span></b><span
+lang=EN-US>(con,key)</span></p>
 
 <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
 style='font-size:14.0pt'>Note: </span></b></p>
 
-<p class=MsoNormal style='text-indent:21.3pt'><span lang=EN-US>The function
-restores a composite table file’s entity table to the previous state when an
-error happens during adding, deleting, and modifying data.</span></p>
-
-<p class=MsoNormal style='text-indent:21.3pt'><span lang=EN-US>Note: When error
-happens at the update of a composite table file, a file error prompt will
-appear if you use f.open() to open the composite table file. In this case
-rollback() is needed to do a rollback action. Different from the rollback
-operation on an ordinary database, there isn’t a special rollback mechanism for
-composite tables, users need to call f.rollback() function to to do the
-rollback manually.</span></p>
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02;
+tab-stops:0cm'><span lang=EN-US>The external library gets the length, that is,
+the number of records in an ordered set.</span></p>
 
 <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
 style='font-size:14.0pt'>Parameters:</span></b></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:21.3pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ style='margin-left:3.65pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'>
-  <td width=76 valign=top style='width:2.0cm;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>f</span></i></p>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=72 valign=top style='width:53.9pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=var2><span lang=EN-US>con</span></span></p>
   </td>
-  <td width=457 valign=top style='width:342.75pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>A composite table file or a homo-name
-  files group</span></p>
+  <td width=469 valign=top style='width:351.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Database connection string</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
+  <td width=72 valign=top style='width:53.9pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=var2><span lang=EN-US>key</span></span></p>
+  </td>
+  <td width=469 valign=top style='width:351.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Name of the ordered set</span></p>
   </td>
  </tr>
 </table>
 
 <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Return value: </span></b></p>
+style='font-size:14.0pt'>Return value:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Boolean</span></p>
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02;
+tab-stops:0cm'><span lang=EN-US>An integer</span><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:12.0pt'></span></b></p>
 
 <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Example:</span></b><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US style='font-size:12.0pt;mso-bidi-font-size:10.0pt'></span></b></p>
+style='font-size:14.0pt'>Example:</span></b></p>
 
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=581
- style='margin-left:19.85pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- mso-padding-alt:0cm 0cm 0cm 0cm'>
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='margin-left:17.9pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
+ mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=21 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
+  <td width=40 valign=top style='width:30.05pt;border:solid #A6A6A6 1.0pt;
   mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><b><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt'>&nbsp;</span></b></p>
+  <p class=MsoNormal align=center style='text-align:center'><span lang=EN-US>&nbsp;</span></p>
   </td>
-  <td width=280 valign=top style='width:210.15pt;border:solid #A6A6A6 1.0pt;
-  border-left:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-bottom-alt:
-  solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;background:#BFBFBF;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=170><span
+  <td width=266 valign=top style='width:199.7pt;border:solid #A6A6A6 1.0pt;
+  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
   lang=EN-US style='font-family:"Times New Roman",serif;color:black;mso-color-alt:
-  windowtext'>A</span></span><span class=170><span lang=EN-US style='font-family:
-  "Times New Roman",serif'></span></span></p>
-  </td>
-  <td width=280 valign=top style='width:209.75pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-size:10.5pt;
-  mso-bidi-font-weight:bold'>&nbsp;</span></p>
+  windowtext'>A</span></span><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif'></span></span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=21 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
+  <td width=40 valign=top style='width:30.05pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=170><span
-  lang=EN-US style='font-family:"Times New Roman",serif;color:black;mso-color-alt:
-  windowtext'>1</span></span><span class=170><span lang=EN-US style='font-family:
-  "Times New Roman",serif'></span></span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  color:black;mso-color-alt:windowtext'>1</span></span><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
   </td>
-  <td width=280 valign=top style='width:210.15pt;border-top:none;border-left:
+  <td width=266 valign=top style='width:199.7pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=170><span lang=EN-US style='font-family:"Times New Roman",serif'>=file(&quot;D:/ckv.ctx&quot;)</span></span></p>
-  </td>
-  <td width=280 valign=top style='width:209.75pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-size:10.5pt;
-  mso-bidi-font-weight:bold'>There is an eror about <i style='mso-bidi-font-style:
-  normal'>ckv.ctx</i> in executing T.update(<i style='mso-bidi-font-style:normal'>P</i>),
-  so error is reported when f.open() is used: Error about <i style='mso-bidi-font-style:
-  normal'>ckv.ctx</i>, call f.rollback() to restore.</span><span class=170><span
-  lang=EN-US style='font-family:"Times New Roman",serif;font-weight:normal;
-  mso-bidi-font-weight:bold'></span></span></p>
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=redis_open()</span></span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes'>
-  <td width=21 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
+  <td width=40 valign=top style='width:30.05pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=170><span
-  lang=EN-US style='font-family:"Times New Roman",serif;color:black;mso-color-alt:
-  windowtext'>2</span></span><span class=170><span lang=EN-US style='font-family:
-  "Times New Roman",serif'></span></span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  color:black;mso-color-alt:windowtext'>2</span></span><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
   </td>
-  <td width=280 valign=top style='width:210.15pt;border-top:none;border-left:
+  <td width=266 valign=top style='width:199.7pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=170><span lang=EN-US style='font-family:"Times New Roman",serif'>=A1.rollback()</span></span></p>
-  </td>
-  <td width=280 valign=top style='width:209.75pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-size:10.5pt;
-  mso-bidi-font-weight:bold'>Restore composite table file <i style='mso-bidi-font-style:
-  normal'>ckv.ctx</i> to the state before update is performed </span><span
-  class=170><span lang=EN-US style='font-family:"Times New Roman",serif;
-  font-weight:normal;mso-bidi-font-weight:bold'></span></span></p>
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=</span></span><span
+  lang=EN-US> </span><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>redis_zsize(A1,
+  &quot;runoobkey&quot;)</span></span></p>
   </td>
  </tr>
 </table>
@@ -158,12 +127,12 @@ normal'><span lang=EN-US style='font-size:12.0pt;mso-bidi-font-size:10.0pt'></sp
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="674.html">rollback()</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="21.html">Functions</a></span></li>
 </div>
 	</div>
 	<div id="footer">	
 		
-		<div class="copyright"> Copyright&reg; 2021 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+		<div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">Scudata Inc. 
       </a></div> 
         <!--
 		<div class="copyright"> Copyright&reg; 2017 <a href="http://www.yimming.com" target="_Blank"> Beijing Yimming Ltd. Co. 

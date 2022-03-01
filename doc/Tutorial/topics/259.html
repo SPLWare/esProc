@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>12.2.1 Coordinate systems and axes</title>
+<title>11.7.2 Pseudo table merge</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,78 +13,352 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h3 style='margin:0cm;text-indent:0cm;line-height:normal;mso-list:none;
-tab-stops:-179.95pt 64.2pt'><span lang=EN-US style='font-size:14.0pt;
-mso-bidi-font-size:10.0pt'>12.2.1 Coordinate systems and axes
-</span></h3></div>
-	<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>esProc provides two commonly used coordinate systems &#8211; <b
-style='mso-bidi-font-weight:normal'>Cartesian coordinate</b> <b
-style='mso-bidi-font-weight:normal'>system</b> and <b style='mso-bidi-font-weight:
-normal'>polar coordinate system</b>. </span></p>
+	<div id="centent-title"><h3 style='margin-left:0cm;text-indent:0cm;mso-list:none;tab-stops:21.0pt'><span
+lang=EN-US>11.7.2 Pseudo table merge</span></h3></div>
+	<p class=T-Par style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:exactly'><span
+lang=EN-US>Usually, file data is stored and used by user, such as the orders
+records stored by salespeople in the previous section. We can define a <b>user</b>
+field for the future pseudo table, by which a merge or group operation will be
+performed at data retrieval or grouping. For example:</span></p>
 
-<p class=T-Par style='margin-bottom:0cm;mso-add-space:auto;text-align:justify;
-text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>Different
-coordinate systems have different types of coordinate axes &#8211; <b
-style='mso-bidi-font-weight:normal'>x-axis</b> and <b style='mso-bidi-font-weight:
-normal'>y-axis</b>, or <b style='mso-bidi-font-weight:normal'>polar axis</b>
-and <b style='mso-bidi-font-weight:normal'>radial axis</b>. Each type of axis
-has its own plotting properties with which the corresponding coordinate
-transformation operation is handled. </span></p>
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='margin-left:21.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:
+ #B2B2B2;mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
+ .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:.5pt solid #B2B2B2;
+ mso-border-insidev:.5pt solid #B2B2B2'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=42 valign=top style='width:31.2pt;border:solid black 1.0pt;
+  mso-border-alt:solid black .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel><span lang=EN-US>&nbsp;</span></p>
+  </td>
+  <td width=454 valign=top style='width:340.15pt;border-top:solid black 1.0pt;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
+  mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-bottom-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel><span lang=EN-US style='color:black;mso-color-alt:windowtext'>A</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='color:black;mso-color-alt:windowtext'>1</span></p>
+  </td>
+  <td width=454 style='width:340.15pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-top-alt:windowtext;mso-border-left-alt:windowtext;mso-border-bottom-alt:
+  #B2B2B2;mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
+  .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman",serif;color:black;mso-color-alt:
+  windowtext'>=create(file,user).record([[&quot;pseudo/orders2020.ctx&quot;,&quot;pseudo/orders2021.ctx&quot;],&quot;SID&quot;])</span><span
+  lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='color:black;mso-color-alt:windowtext'>2</span></p>
+  </td>
+  <td width=454 style='width:340.15pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman",serif;color:black;mso-color-alt:
+  windowtext'>=pseudo(A1)</span><span lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;page-break-inside:avoid;height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='color:black;mso-color-alt:windowtext'>3</span></p>
+  </td>
+  <td width=454 style='width:340.15pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman",serif;color:black;mso-color-alt:
+  windowtext'>=A2.import()</span><span lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4;page-break-inside:avoid;height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='color:black;mso-color-alt:windowtext'>4</span></p>
+  </td>
+  <td width=454 style='width:340.15pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman",serif;color:black;mso-color-alt:
+  windowtext'>=A2.group(year(OTime)).import()</span><span lang=EN-US
+  style='font-family:"Times New Roman",serif'></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:5;page-break-inside:avoid;height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='color:black;mso-color-alt:windowtext'>5</span></p>
+  </td>
+  <td width=454 style='width:340.15pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman",serif;color:black;mso-color-alt:
+  windowtext'>=A4.new(SID,year(OTime):Year,sum(Amount):Total)</span><span
+  lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:6;mso-yfti-lastrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='color:black;mso-color-alt:windowtext'>6</span></p>
+  </td>
+  <td width=454 style='width:340.15pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='color:black;mso-color-alt:windowtext'>=A2.groups(SID,
+  year(OTime):Year;sum(Amount):Total)</span><span lang=EN-US style='font-family:
+  "Times New Roman",serif'></span></p>
+  </td>
+ </tr>
+</table>
 
-<p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
-line-height:normal'><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:12.0pt;font-family:"Times New Roman",serif'>Cartesian
-coordinate system</span></b></p>
+<p class=T-ParCxSpFirst style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:exactly'><span
+lang=EN-US>A1 generates a pseudo table definition record:</span></p>
 
-<p class=T-Par0372CxSpFirst style='margin-bottom:0cm;mso-add-space:auto;
-text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
-lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>A Cartesian
-coordinate system has two mutually perpendicular axes, denoted the x-axis and
-y-axis. The logical coordinates on the horizontal x-axis determine the
-horizontal location of the chart, and those on the vertical y-axis determine
-the vertical location of the chart. Actually, in a Cartesian coordinate system
-the abscissa and ordinate of physical coordinates can be calculated
-individually based on their corresponding logical axes, without any mutual
-influences. </span></p>
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US style='mso-no-proof:yes'><img border=0 width=441 height=41
+src="Tutorial.files/image1068.png" v:shapes="_x0000_i2157"></span><span
+lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'></span></p>
 
-<p class=T-Par0372CxSpLast style='margin-bottom:0cm;mso-add-space:auto;
-text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
-lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>In all the examples
-we have cited, the system of Cartesian coordinates is used to position chart
-elements. The native physical axes on the canvas also belong to a Cartesian
-coordinate system. The system is used in plotting most of the charts such as
-column chart, line chart, area chart, scatter chart, bubble chart and stock
-chart. </span></p>
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:exactly'><span
+lang=EN-US>Generally, the desired field under <b>user</b> field is the first
+field in a data file. A3 imports data from the pseudo table as follows:</span></p>
 
-<p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
-line-height:normal'><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:12.0pt;font-family:"Times New Roman",serif'>Polar coordinate
-system</span></b></p>
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US style='mso-no-proof:yes'><img border=0 width=460 height=251
+src="Tutorial.files/image1069.png" v:shapes="_x0000_i2158"></span><span
+lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'></span></p>
 
-<p class=T-Par0372CxSpFirst style='margin-bottom:0cm;mso-add-space:auto;
-text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
-lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>The axes in a polar
-coordinate system are polar axis and radial axis. For the polar axis, you need
-to define the <b style='mso-bidi-font-weight:normal'>pole</b> position and the <b
-style='mso-bidi-font-weight:normal'>polar axis length</b>; and for the radial
-axis, the <b style='mso-bidi-font-weight:normal'>start angle</b> and <b
-style='mso-bidi-font-weight:normal'>end angle</b> of the polar coordinates.
-Conventionally the angle horizontally from the pole to the right is 0&#61616; and the
-counterclockwise angle from the polar axis is positive. By default the start
-angle of a polar coordinate system is 0 and the end angle is 360.</span></p>
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:exactly'><span
+lang=EN-US>This time data is not retrieved according to the original order, but
+by merging two years’ records of same SID under <b>user</b> field in the pseudo
+table.</span></p>
 
-<p class=T-Par0372CxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
-text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
-lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>The system of polar
-coordinates is used to plot pie chart, doughnut chart, radar chart and etc. </span></p>
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:exactly'><span
+lang=EN-US>A4 groups the pseudo table by year:</span></p>
 
-<p class=T-Par0372CxSpLast style='margin-bottom:0cm;mso-add-space:auto;
-text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
-lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>When performing
-coordinate transformation operation with polar coordinates, a point’s line
-segment length is calculated from the coordinates on the polar axis and its
-polar angle is calculated from the coordinates on the radial axis. </span></p>
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US style='mso-no-proof:yes'><img border=0 width=460 height=251
+src="Tutorial.files/image1070.png" v:shapes="_x0000_i2159"></span><span
+lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'></span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:exactly'><span
+lang=EN-US>The grouping operation is performed first by <b>user</b> field. Viewing
+the following results of amount summing operations in A5 based on the grouped pseudo
+table can make this easy to understand: </span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US style='mso-no-proof:yes'><img border=0 width=460 height=251
+src="Tutorial.files/image1071.png" v:shapes="_x0000_i2160"></span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US>We can also use <b><i>T</i>.groups()</b> function
+to perform the above grouping and sum operation. Note that this method will not
+automatically handle <span class=T-Bold>user </span>field, and we need to write
+it explicitly as the grouping field. Here’s A6’s result:</span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US style='mso-no-proof:yes'><img border=0 width=460 height=251
+src="Tutorial.files/image1072.png" v:shapes="_x0000_i2161"></span><span
+lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'></span></p>
+
+<p class=T-ParCxSpLast style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:exactly'><span
+lang=EN-US>Besides the <b>user</b> field, we can configure a <b>date</b> field
+in a pseudo table. This field, when multiple files are used to generate a
+pseudo table, should be aligned to them, but it does not need to be ordered when
+being considered in each single file. Intervals which date field values are
+belong to will be recorded for each file at creation of the pseudo table, and used
+to automatically locate the corresponding file for a query or filter operaion.
+For example:</span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='margin-left:21.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:
+ #B2B2B2;mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
+ .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:.5pt solid #B2B2B2;
+ mso-border-insidev:.5pt solid #B2B2B2'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=42 valign=top style='width:31.2pt;border:solid black 1.0pt;
+  mso-border-alt:solid black .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel><span lang=EN-US>&nbsp;</span></p>
+  </td>
+  <td width=454 valign=top style='width:340.15pt;border-top:solid black 1.0pt;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
+  mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-bottom-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel><span lang=EN-US style='color:black;mso-color-alt:windowtext'>A</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='color:black;mso-color-alt:windowtext'>1</span></p>
+  </td>
+  <td width=454 style='width:340.15pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-top-alt:windowtext;mso-border-left-alt:windowtext;mso-border-bottom-alt:
+  #B2B2B2;mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
+  .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman",serif;color:black;mso-color-alt:
+  windowtext'>=create(file,user,date).record([[&quot;pseudo/orders2020.ctx&quot;,
+  &quot;pseudo/orders2021.ctx&quot;],&quot;SID&quot;,&quot;OTime&quot;])</span><span
+  lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='color:black;mso-color-alt:windowtext'>2</span></p>
+  </td>
+  <td width=454 style='width:340.15pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman",serif;color:black;mso-color-alt:
+  windowtext'>=pseudo(A1)</span><span lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;page-break-inside:avoid;height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='color:black;mso-color-alt:windowtext'>3</span></p>
+  </td>
+  <td width=454 style='width:340.15pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman",serif;color:black;mso-color-alt:
+  windowtext'>=A2.select(OTime&gt;date(2020,12,20) &amp;&amp; OTime&lt;date(2021,1,10))</span><span
+  lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='color:black;mso-color-alt:windowtext'>4</span></p>
+  </td>
+  <td width=454 style='width:340.15pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman",serif;color:black;mso-color-alt:
+  windowtext'>=A3.import()</span><span lang=EN-US style='font-family:"Times New Roman",serif'></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=T-ParCxSpFirst style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:exactly'><span
+lang=EN-US>A1 generates a pseudo table definition record:</span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US style='mso-no-proof:yes'><img border=0 width=441 height=41
+src="Tutorial.files/image1073.png" v:shapes="_x0000_i2162"></span><span
+lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'></span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:exactly'><span
+lang=EN-US>A3 queries records of orders whose dates belong to a time period between
+2020-12-20 and 2021-01-10. A4 gets the desired records:</span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US style='mso-no-proof:yes'><img border=0 width=460 height=251
+src="Tutorial.files/image1074.png" v:shapes="_x0000_i2163"></span><span
+lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'></span></p>
+
+<p class=T-ParCxSpLast style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:exactly'><span
+lang=EN-US>Since there is also the <b>user</b> field in the pseudo table, the desired
+records will be merged by <b>user</b> after they are retrieved from the two data
+files. If the field isn’t set, the desired records will be returned in their
+original order.</span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="260.html">Next</a></div>
@@ -92,12 +366,12 @@ polar angle is calculated from the coordinates on the radial axis. </span></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="258.html">12.2 Coordinate Systems and Transformation</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="257.html">11.7 Pseudo table</a></span></li>
 </div>
 	</div>
 	<div id="footer">	
 		
-		<div class="copyright"> Copyright&reg; 2021 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+		<div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">Scudata Inc. 
       </a></div> 
         <!--
 		<div class="copyright"> Copyright&reg; 2017 <a href="http://www.yimming.com" target="_Blank"> Beijing Yimming Ltd. Co. 

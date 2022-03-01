@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>4.6.2 Four Levels of Transaction Isolation</title>
+<title>4.5.4 Calling stored procedures that return multiple result sets</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -14,66 +14,260 @@
 <div id="content-bg">
 	<div id="centent">
 	<div id="centent-title"><h3 style='margin:0cm;text-indent:0cm;line-height:normal;mso-list:none;
-tab-stops:-179.95pt 64.2pt'><span lang=EN-US>4.6.2 Four Levels of Transaction
-Isolation</span></h3></div>
-	<p class=T-ParCxSpFirst style='margin-bottom:0cm;mso-add-space:auto;text-align:
-justify;text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>A
-transaction isolation level determines whether the changes made by one data
-access operation become visible when there is concurrent execution of
-transactions trying to update the data in a database. esProc defines a
-transaction as the execution of a set of SQL statements within one database
-connection.</span></p>
+tab-stops:-179.95pt 64.2pt'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:10.0pt'>4.5.4 Calling stored procedures that return multiple
+result sets</span></h3></div>
+	<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US style='mso-bidi-font-size:11.0pt'>Stored procedures can also return
+multiple result sets. For example, the following oracle stored procedure
+returns two result sets using the cursor:</span></p>
 
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
-text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
-lang=EN-US>Generally data will be committed or rolled back only when a
-corresponding TCL statement is executed in a transaction. But when a DDL statement
-is executed in a transaction, a COMMIT will be automatically executed to update
-the unstored data into the database. For instance, a COMMIT operation will be
-automatically executed for a CREATE TABLE statement creating a table in the
-database.</span></p>
+<p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>create
+or replace procedure proAA</span></i></p>
 
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
-text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
-lang=EN-US>There are four levels of transaction isolation:</span></p>
+<p class=MsoNormal style='text-indent:21.25pt;mso-char-indent-count:2.36'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>(</span></i></p>
 
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
-text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
-lang=EN-US>(1) Read committed. This is the default isolation level supported by
-most of the databases. It allows a transaction to read the committed data.</span></p>
+<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>out_var
+out sys_refcursor,</span></i></p>
 
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
-text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
-lang=EN-US>(2) Read uncommitted. The isolation level allows each transaction to
-read the uncommitted data of any other running transaction. The data read by a
-transaction may not be the final result, which is called dirty reads.</span></p>
+<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>out_var2
+out sys_refcursor</span></i></p>
 
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
-text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
-lang=EN-US>(3) Repeatable read. The isolation level allows multiple parallel
-instances in one transaction to read the same data. These instances may
-influence each other and lead to phantom reads.</span></p>
+<p class=MsoNormal style='text-indent:21.25pt;mso-char-indent-count:2.36'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>)</span></i></p>
 
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
-text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
-lang=EN-US>(4) Serializable. This is the highest isolation level. It guarantees
-a serializable execution of the concurrent transactions, preventing dirty reads
-or phantom reads as well as having the lowest efficiency because of time
-override or competition for the shared lock.</span></p>
+<p class=MsoNormal style='text-indent:21.25pt;mso-char-indent-count:2.36'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>as</span></i></p>
 
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
-text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
-lang=EN-US>esProc supports using options in the connect function to specifiy
-different transation isolation levels - @ c for read committed, @u for read
-uncommitted, @r for repeatable read, and @s for serializable.</span></p>
+<p class=MsoNormal style='text-indent:21.25pt;mso-char-indent-count:2.36'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>begin</span></i></p>
 
-<p class=T-ParCxSpLast style='margin-bottom:0cm;mso-add-space:auto;text-align:
-justify;text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US
-style='mso-bidi-font-style:italic'>esProc also provides <span class=T-Var><b
-style='mso-bidi-font-weight:normal'>db</b></span></span><span class=T-Bold><span
-lang=EN-US>.isolate() </span></span><span lang=EN-US style='mso-bidi-font-style:
-italic'>function to get the transaction isolation level in an existing database
-connection, or to change the isolation level by adding different options.</span></p>
+<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>openout_var
+for select * from emp;</span></i></p>
+
+<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>open
+out_var2 for select * from test;</span></i></p>
+
+<p class=MsoNormal style='text-indent:21.25pt;mso-char-indent-count:2.36'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>end;</span></i><span
+lang=EN-US style='font-size:9.0pt'></span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US style='mso-bidi-font-size:11.0pt'>The simple stored procedure
+returns the result sets of querying two tables <i>emp</i> and <i>test</i>.
+Below is the esProc program for calling the stored procedure and for receiving
+the two result sets:</span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='margin-left:21.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:
+ #B2B2B2;mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
+ .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:.5pt solid #B2B2B2;
+ mso-border-insidev:.5pt solid #B2B2B2'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=42 valign=top style='width:31.2pt;border:solid black 1.0pt;
+  mso-border-alt:solid black .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
+  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
+  style='font-size:9.0pt'>&nbsp;</span></p>
+  </td>
+  <td width=302 valign=top style='width:226.75pt;border-top:solid black 1.0pt;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
+  mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-bottom-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
+  mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
+  lang=EN-US style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>A</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
+  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
+  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>1</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
+  </td>
+  <td width=302 style='width:226.75pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-top-alt:windowtext;mso-border-left-alt:windowtext;mso-border-bottom-alt:
+  #B2B2B2;mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
+  .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;color:black;
+  mso-color-alt:windowtext'>=connect(&quot;ora&quot;)</span><span lang=EN-US
+  style='font-size:9.0pt'></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
+  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
+  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>2</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
+  </td>
+  <td width=302 style='width:226.75pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;color:black;
+  mso-color-alt:windowtext'>=A1.proc(&quot;{call
+  proAA(?,?)}&quot;,:101:&quot;o&quot;:a,:101:&quot;o&quot;:b)</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;page-break-inside:avoid;height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
+  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
+  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>3</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
+  </td>
+  <td width=302 style='width:226.75pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;color:black;
+  mso-color-alt:windowtext'>=A2(1)</span><span lang=EN-US style='font-size:
+  9.0pt'></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4;page-break-inside:avoid;height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
+  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
+  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>4</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
+  </td>
+  <td width=302 style='width:226.75pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;color:black;
+  mso-color-alt:windowtext'>=a</span><span lang=EN-US style='font-size:9.0pt'></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:5;page-break-inside:avoid;height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
+  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
+  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>5</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
+  </td>
+  <td width=302 style='width:226.75pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;color:black;
+  mso-color-alt:windowtext'>=b</span><span lang=EN-US style='font-size:9.0pt'></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:6;mso-yfti-lastrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
+  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
+  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>6</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
+  </td>
+  <td width=302 style='width:226.75pt;border-top:none;border-left:none;
+  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
+  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>&gt;A1.close()</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US style='mso-bidi-font-size:11.0pt'>A2 uses <b style='mso-bidi-font-weight:
+normal'>proc</b> function to call the stored procedure: </span><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
+10.5pt'>=</span></b><i style='mso-bidi-font-style:normal'><span lang=EN-US
+style='mso-bidi-font-size:10.5pt'>A1.proc(&quot;{call
+proAA(?,?)}&quot;,:101:&quot;o&quot;:a,:101:&quot;o&quot;:b)</span></i><span
+lang=EN-US style='mso-bidi-font-size:11.0pt'>, which returns two result sets
+(table sequences) to form a set of table sequences, i.e. a sequence, to be
+assigned to A2. The following explains the parameters used in<b
+style='mso-bidi-font-weight:normal'> proc</b> function.</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US style='mso-bidi-font-size:11.0pt'>The SQL string <i>&quot;{call
+proAA(?,?)}&quot;</i> contains the stored procedure name. The question marks
+represent the SQL parameters. </span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><i><span
+lang=EN-US style='mso-bidi-font-size:11.0pt'>:101:&quot;o&quot;:a</span></i><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
+11.0pt'> </span></b><span lang=EN-US style='mso-bidi-font-size:11.0pt'>defines
+an output parameter. <i>101</i> represents the cursor data type, <i>&quot;o&quot;</i>
+represents an output mode and <b style='mso-bidi-font-weight:normal'><span
+style='mso-bidi-font-style:italic'>a</span></b> is a variable for storing the
+returned result.</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><i><span
+lang=EN-US style='mso-bidi-font-size:11.0pt'>:101:&quot;o&quot;:b</span></i><span
+lang=EN-US style='mso-bidi-font-size:11.0pt'> defines another output parameter.
+<i>101</i> represents the cursor data type, <i>&quot;o&quot;</i> represents an
+output mode and <b style='mso-bidi-font-weight:normal'><span style='mso-bidi-font-style:
+italic'>b</span></b> is a variable for storing the returned result.</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US style='mso-bidi-font-size:11.0pt'>A3 returns A2’s first table
+sequence (result set of querying the <b style='mso-bidi-font-weight:normal'>emp</b>
+table).</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US style='mso-bidi-font-size:11.0pt'>A4 and A5 respectively use the
+output variables <b style='mso-bidi-font-weight:normal'><span style='mso-bidi-font-style:
+italic'>a</span></b><i> </i>and <b style='mso-bidi-font-weight:normal'><span
+style='mso-bidi-font-style:italic'>b</span></b> in A2 to obtain the
+corresponding result of executing the stored procedure. <b style='mso-bidi-font-weight:
+normal'><span style='mso-bidi-font-style:italic'>a</span></b> corresponds to
+the result of querying the <b style='mso-bidi-font-weight:normal'>emp</b> table<i>
+</i>and is assigned to A4; <b style='mso-bidi-font-weight:normal'><span
+style='mso-bidi-font-style:italic'>b</span></b> corresponds to the result of
+querying the <b style='mso-bidi-font-weight:normal'>test</b> table and is
+assigned to A5. Actually, the result of A2 is the sequence composed of the
+table sequences in A4 and A5. </span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="132.html">Next</a></div>
@@ -81,12 +275,12 @@ connection, or to change the isolation level by adding different options.</span>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="129.html">4.6 Transaction Isolation Levels</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="127.html">4.5 Calling Database Stored Procedures</a></span></li>
 </div>
 	</div>
 	<div id="footer">	
 		
-		<div class="copyright"> Copyright&reg; 2021 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+		<div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">Scudata Inc. 
       </a></div> 
         <!--
 		<div class="copyright"> Copyright&reg; 2017 <a href="http://www.yimming.com" target="_Blank"> Beijing Yimming Ltd. Co. 

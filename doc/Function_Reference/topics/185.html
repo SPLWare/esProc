@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>dyna_query()</title>
+<title>dis()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,169 +13,202 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h2 style='mso-pagination:widow-orphan'><span lang=EN-US style='mso-fareast-font-family:
-宋体'>dyna_query()<a name="dyna_query"></a></span></h2></div>
-	<p class=MsoNormal><b><span lang=EN-US style='font-size:14.0pt'>Description:</span></b></p>
+	<div id="centent-title"><h2><a name="A_dup"></a><a name="_end_s_2"></a><span lang=EN-US>dis()<a
+name=dis></a></span></h2></div>
+	<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt'>Description:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Query data
-stored in DynamoDB.</span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Calculate the
+Euclidean distance between two vectors.</span></p>
 
-<p class=MsoNormal><b><span lang=EN-US style='font-size:14.0pt'>Syntax:</span></b></p>
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt'>Syntax:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><b><span lang=EN-US
-style='mso-fareast-font-family:黑体'>dyna_query(</span></b><span lang=EN-US>dyna_open,
-sql</span><b><span lang=EN-US style='mso-fareast-font-family:黑体'>)</span></b></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span class=code><span
+lang=EN-US style='font-family:"Times New Roman",serif'>dis(</span></span><span
+class=code><i><span lang=EN-US style='font-family:"Times New Roman",serif;
+mso-bidi-font-weight:bold'>A,B</span></i></span><span class=code><span
+lang=EN-US style='font-family:"Times New Roman",serif'>)</span></span></p>
 
-<p class=MsoNormal><b><span lang=EN-US style='font-size:14.0pt'>Note:</span></b></p>
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt'>Note:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>The external
-library function queries data in DynamoDB using a SQL statement and return
-result as a table sequence.</span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>The function
+gets the true straight line distance, the Euclidean distance, between vector <i
+style='mso-bidi-font-style:normal'>A</i> and vector <i style='mso-bidi-font-style:
+normal'>B</i> in an <i style='mso-bidi-font-style:normal'>n</i>-dimensional
+space. </span></p>
 
-<p class=MsoNormal><b><span lang=EN-US style='font-size:14.0pt'>Parameters:</span></b></p>
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt'>Parameters:</span></b></p>
 
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=976
- style='margin-left:-1.75pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- mso-yfti-tbllook:1184;mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=79 valign=top style='width:59.3pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>dyna_open</span></p>
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:9.05pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'>
+  <td width=51 valign=top style='width:38.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=var2><span lang=EN-US>A/B</span></span></p>
   </td>
-  <td width=897 valign=top style='width:672.5pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>The DynamoDB connection object </span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
-  <td width=79 valign=top style='width:59.3pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i><span lang=EN-US>sql</span></i></p>
-  </td>
-  <td width=897 valign=top style='width:672.5pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>A SQL statement</span></p>
+  <td width=484 valign=top style='width:362.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Vector</span></p>
   </td>
  </tr>
 </table>
 
-<p class=MsoNormal><b><span lang=EN-US style='font-size:14.0pt'>Return value:</span></b></p>
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt'>Options: </span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>A table sequence</span></p>
-
-<p class=MsoNormal><b><span lang=EN-US style='font-size:14.0pt'>Example:</span></b></p>
-
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=912
- style='margin-left:22.65pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-yfti-tbllook:1184;
- mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:.5pt solid #A6A6A6;
- mso-border-insidev:.5pt solid #A6A6A6'>
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:9.05pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
+  <td width=51 valign=top style='width:38.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>@a</span></span><span
+  class=var2><span lang=EN-US></span></span></p>
+  </td>
+  <td width=484 valign=top style='width:362.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Calculate the sum of absolute values of
+  the differences between numbers at same positions in vector <i
+  style='mso-bidi-font-style:normal'>A</i> and vector <i style='mso-bidi-font-style:
+  normal'>B</i></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
+  <td width=51 valign=top style='width:38.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>@m</span></span><span
+  class=var2><span lang=EN-US></span></span></p>
+  </td>
+  <td width=484 valign=top style='width:362.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Average out the Euclidean distance before
+  getting its square root </span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt'>Return value:</span></b></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Numeric value</span></p>
+
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt'>Example:</span></b></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='margin-left:18.55pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
+ mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=31 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
   mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span lang=EN-US>&nbsp;</span></p>
   </td>
-  <td width=457 valign=top style='width:342.55pt;border:solid #A6A6A6 1.0pt;
-  border-left:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-bottom-alt:
-  solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;background:#BFBFBF;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><b><span
-  lang=EN-US style='mso-fareast-font-family:黑体;color:black;mso-color-alt:windowtext'>A</span></b></p>
+  <td width=220 valign=top style='width:164.85pt;border:solid #A6A6A6 1.0pt;
+  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;color:black;mso-color-alt:
+  windowtext'>A</span></span><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif'></span></span></p>
   </td>
-  <td width=432 valign=top style='width:323.8pt;border:none;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  <td width=309 valign=top style='width:232.05pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span lang=EN-US>&nbsp;</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
+  <td width=31 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b><span lang=EN-US style='mso-fareast-font-family:黑体;
-  color:black;mso-color-alt:windowtext'>1</span></b></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  color:black;mso-color-alt:windowtext'>1</span></span><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
   </td>
-  <td width=457 valign=top style='width:342.55pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  <td width=220 style='width:164.85pt;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>[2,0,-8]</span></span></p>
+  </td>
+  <td width=309 style='width:232.05pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
   padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b><span lang=EN-US style='mso-fareast-font-family:黑体'>=dyna_open(&quot;http://localhost:8000&quot;,
-  &quot;us-east-2&quot;)</span></b></p>
-  </td>
-  <td width=432 valign=top style='width:323.8pt;border:none;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:2'>
-  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
+  <td width=31 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b><span lang=EN-US style='mso-fareast-font-family:黑体;
-  color:black;mso-color-alt:windowtext'>2</span></b></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  color:black;mso-color-alt:windowtext'>2</span></span><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
   </td>
-  <td width=457 valign=top style='width:342.55pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  <td width=220 style='width:164.85pt;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>[0,-9,-2]</span></span></p>
+  </td>
+  <td width=309 style='width:232.05pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
   padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b><span lang=EN-US style='mso-fareast-font-family:黑体'>=dyna_query(A1,
-  &quot;select * from Music&quot;)</span></b></p>
-  </td>
-  <td width=432 valign=top style='width:323.8pt;border:none;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:3'>
-  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
+  <td width=31 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b><span lang=EN-US style='mso-fareast-font-family:黑体;
-  color:black;mso-color-alt:windowtext'>3</span></b></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  color:black;mso-color-alt:windowtext'>3</span></span><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
   </td>
-  <td width=457 valign=top style='width:342.55pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  <td width=220 style='width:164.85pt;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=dis(A1,A2)</span></span></p>
+  </td>
+  <td width=309 style='width:232.05pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
   padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b><span lang=EN-US style='mso-fareast-font-family:黑体'>=dyna_query(A1,
-  &quot;select * from Music&nbsp;where Artist between ? and ?&quot;,
-  &quot;Hello&quot;, &quot;No One You Know&quot; )</span></b></p>
-  </td>
-  <td width=432 valign=top style='width:323.8pt;border:none;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b><span lang=EN-US>&nbsp;</span></b></p>
+  <p class=MsoNormal><b><span lang=EN-US>11</span></b></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:4'>
-  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
+  <td width=31 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b><span lang=EN-US style='mso-fareast-font-family:黑体;
-  color:black;mso-color-alt:windowtext'>4</span></b></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  color:black;mso-color-alt:windowtext'>4</span></span><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
   </td>
-  <td width=457 valign=top style='width:342.55pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  <td width=220 style='width:164.85pt;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=dis@a(A1,A2)</span></span></p>
+  </td>
+  <td width=309 style='width:232.05pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
   padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b><span lang=EN-US style='mso-fareast-font-family:黑体'>=dyna_query(A1,
-  &quot;SELECT * FROM Music&nbsp;where Artist=? and SongTitle=?&quot;,
-  &quot;Acme Band&quot;, &quot;Happy Day&quot;)</span></b></p>
-  </td>
-  <td width=432 valign=top style='width:323.8pt;border:none;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>&nbsp;</span></p>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  <p class=MsoNormal><b><span lang=EN-US>17</span></b></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:5;mso-yfti-lastrow:yes'>
-  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
+  <td width=31 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b><span lang=EN-US style='mso-fareast-font-family:黑体;
-  color:black;mso-color-alt:windowtext'>5</span></b></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  color:black;mso-color-alt:windowtext'>5</span></span><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
   </td>
-  <td width=457 valign=top style='width:342.55pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  <td width=220 style='width:164.85pt;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=dis@m([0,1],[1,2])</span></span></p>
+  </td>
+  <td width=309 style='width:232.05pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
   padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b><span lang=EN-US style='mso-fareast-font-family:黑体'>&gt;dyna_close(A1)</span></b></p>
+  <p class=MsoNormal><b><span lang=EN-US>1</span></b></p>
   </td>
-  <td width=432 valign=top style='width:323.8pt;border:none;padding:0cm 0cm 0cm 0cm'></td>
  </tr>
 </table>
 	</div>
@@ -190,7 +223,7 @@ result as a table sequence.</span></p>
 	</div>
 	<div id="footer">	
 		
-		<div class="copyright"> Copyright&reg; 2021 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+		<div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">Scudata Inc. 
       </a></div> 
         <!--
 		<div class="copyright"> Copyright&reg; 2017 <a href="http://www.yimming.com" target="_Blank"> Beijing Yimming Ltd. Co. 

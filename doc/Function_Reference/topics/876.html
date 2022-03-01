@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>G .plot()</title>
+<title>Comparison operation</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,295 +13,505 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h2><a name="G_plot"></a><i style='mso-bidi-font-style:normal'><span
-lang=EN-US>G</span></i><span lang=EN-US>.plot()</span></h2></div>
+	<div id="centent-title"><h2><a name="Comparison_operation"></a><span lang=EN-US>Comparison operation</span></h2></div>
 	<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-line-height:200%'>Description:</span></b></p>
+mso-bidi-font-size:10.0pt;line-height:200%'>Description:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Compute the
-chart plotting string and its parameters, plot them onto the canvas, and return
-a chart element.</span></p>
-
-<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-line-height:200%'>Syntax:</span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><i><span lang=EN-US>G</span></i><span
-lang=EN-US>.<b style='mso-bidi-font-weight:normal'>plot</b>(<i>e,a<sub>i</sub></i>:<i>x<sub>i</sub></i>:<i>A<sub>i</sub></i>,…)</span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Compare two
+numerical values, sequences, characters or serial bytes.</span><span
+lang=EN-US style='font-family:等线;mso-bidi-font-family:等线'></span></p>
 
 <p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-line-height:200%'>Note:</span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>The function computes
-the plotting string on the canvas <i>G</i> to plot the chart element <i>e</i>;
-and assigns the chart element parameter <i>a<sub>i</sub></i> with the value <i>x<sub>i</sub></i>.
-If the corresponding coordinate axis is available for this parameter value,
-then this coordinate axis is <i>A<sub>i</sub></i>. The text element, when
-certain properties are present, can be used to generated two-dimensional code.</span></p>
-
-<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-line-height:200%'>Parameters:</span></b></p>
+mso-bidi-font-size:10.0pt;line-height:200%'>Syntax:</span></b></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
  style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=79 valign=top style='width:59.3pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i><span lang=EN-US>G</span></i><span class=var2><span
-  lang=EN-US></span></span></p>
+  <td width=60 valign=top style='width:45.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US>x</span></i><b style='mso-bidi-font-weight:
+  normal'><span lang=EN-US style='mso-fareast-font-family:黑体;mso-bidi-font-style:
+  italic'>==</span></b><i><span lang=EN-US>y</span></i><i><span lang=EN-US
+  style='mso-bidi-font-size:10.5pt'></span></i></p>
   </td>
-  <td width=466 valign=top style='width:349.8pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-style:italic'>Canvas</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:1'>
-  <td width=79 valign=top style='width:59.3pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i><span lang=EN-US>e</span></i><span class=var2><span
-  lang=EN-US></span></span></p>
-  </td>
-  <td width=466 valign=top style='width:349.8pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-size:10.5pt'>Chart
-  element, for example, MapAxis, NumericAxis, EnumAxis, DateAxis, BackGround,
-  Column, Line, Dot, Polygon, Text, Legend and Sector.</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:2'>
-  <td width=79 valign=top style='width:59.3pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i><span lang=EN-US>a<sub>i</sub></span></i><span
-  class=var2><span lang=EN-US></span></span></p>
-  </td>
-  <td width=466 valign=top style='width:349.8pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Parameters of chart element, for example,
-  the name, logicData, and physicalData parameters in the chart element of
-  MapAxis. For more details, please refer to sections about chart element
-  parameters.</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:3'>
-  <td width=79 valign=top style='width:59.3pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i><span lang=EN-US>x<sub>i</sub></span></i><span
-  class=var2><span lang=EN-US></span></span></p>
-  </td>
-  <td width=466 valign=top style='width:349.8pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-style:italic'>Parameter
-  value</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes'>
-  <td width=79 valign=top style='width:59.3pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i><span lang=EN-US>A<sub>i</sub></span></i><span
-  class=var2><span lang=EN-US></span></span></p>
-  </td>
-  <td width=466 valign=top style='width:349.8pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-style:italic'>Coordinate
-  axis corresponding to the parameter value</span></p>
-  </td>
- </tr>
-</table>
-
-<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-line-height:200%'>Return value:</span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Chart element</span></p>
-
-<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-line-height:200%'>Example:</span></b></p>
-
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>&nbsp;</span></b></p>
-
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=542
- style='margin-left:19.85pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
- mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=40 valign=top style='width:30.05pt;border:solid #A6A6A6 1.0pt;
-  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US>&nbsp;</span></span></p>
-  </td>
-  <td width=183 valign=top style='width:137.3pt;border:solid #A6A6A6 1.0pt;
-  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif;color:black;mso-color-alt:
-  windowtext'>A</span></span><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'></span></span></p>
-  </td>
-  <td width=319 valign=top style='width:239.2pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  <td width=474 valign=top style='width:355.8pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-style:italic'>If
+  values of two operands are equal, then the result is true. Otherwise, it is
+  false.</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=40 valign=top style='width:30.05pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='color:black;mso-color-alt:windowtext'>1</span><span
-  lang=EN-US></span></span></p>
+  <td width=60 valign=top style='width:45.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US>x</span></i><b style='mso-bidi-font-weight:
+  normal'><span lang=EN-US style='mso-fareast-font-family:黑体;mso-bidi-font-style:
+  italic'>!</span></b><span lang=EN-US style='mso-fareast-font-family:黑体;
+  mso-bidi-font-style:italic'> <b style='mso-bidi-font-weight:normal'>=</b></span><i><span
+  lang=EN-US>y</span></i><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'></span></i></p>
   </td>
-  <td width=183 style='width:137.3pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>[Apple,Banana,Peach,Strawberry]</span></span></p>
-  </td>
-  <td width=319 style='width:239.2pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  <td width=474 valign=top style='width:355.8pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-style:italic'>If
+  values of two operands are not equal, then the result is true. Otherwise, it
+  is false.</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:2'>
-  <td width=40 valign=top style='width:30.05pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif;color:black;mso-color-alt:
-  windowtext'>2</span></span><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'></span></span></p>
+  <td width=60 valign=top style='width:45.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US>x</span></i><b style='mso-bidi-font-weight:
+  normal'><span lang=EN-US style='mso-fareast-font-family:黑体;mso-bidi-font-style:
+  italic'>&lt;</span></b><i><span lang=EN-US>y</span></i><i><span lang=EN-US
+  style='mso-bidi-font-size:10.5pt'></span></i></p>
   </td>
-  <td width=183 style='width:137.3pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=canvas()</span></span><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US></span></b></p>
-  </td>
-  <td width=319 style='width:239.2pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  <td width=474 valign=top style='width:355.8pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-style:italic'>If <i>x</i>
+  is less than <i>y</i>, then the result is true. Otherwise, it is false.</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:3'>
-  <td width=40 valign=top style='width:30.05pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif;color:black;mso-color-alt:
-  windowtext'>3</span></span><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'></span></span></p>
+  <td width=60 valign=top style='width:45.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US>x</span></i><b style='mso-bidi-font-weight:
+  normal'><span lang=EN-US style='mso-fareast-font-family:黑体;mso-bidi-font-style:
+  italic'>&gt;</span></b><i><span lang=EN-US>y</span></i><i><span lang=EN-US
+  style='mso-bidi-font-size:10.5pt'></span></i></p>
   </td>
-  <td width=183 style='width:137.3pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=A2.plot(&quot;Legend&quot;,&quot;legendText&quot;:A1,&quot;x&quot;:0.81,&quot;y&quot;:0.2,&quot;width&quot;:0.18)</span></span><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US></span></b></p>
-  </td>
-  <td width=319 style='width:239.2pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Draw legend</span></p>
+  <td width=474 valign=top style='width:355.8pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-style:italic'>If <i>x</i>
+  is greater than <i>y</i>, then the result is true. Otherwise, it is false.</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:4'>
-  <td width=40 valign=top style='width:30.05pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif;color:black;mso-color-alt:
-  windowtext'>4</span></span><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'></span></span></p>
+  <td width=60 valign=top style='width:45.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US>x</span></i><b style='mso-bidi-font-weight:
+  normal'><span lang=EN-US style='mso-fareast-font-family:黑体;mso-bidi-font-style:
+  italic'>&lt;=</span></b><i><span lang=EN-US>y</span></i><i><span lang=EN-US
+  style='mso-bidi-font-size:10.5pt'></span></i></p>
   </td>
-  <td width=183 style='width:137.3pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=A2.draw(500,200)</span></span><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US></span></b></p>
-  </td>
-  <td width=319 style='width:239.2pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>View the legend</span></p>
-  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'><img border=0 width=111 height=127
-  src="Function_Reference.files/image1940.png" v:shapes="_x0000_i2249"></span></p>
+  <td width=474 valign=top style='width:355.8pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-style:italic'>If <i>x</i>
+  is not greater than <i>y</i>, then the result is true. Otherwise, it is
+  false.</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:5'>
-  <td width=40 valign=top style='width:30.05pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif;color:black;mso-color-alt:
-  windowtext'>5</span></span><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'></span></span></p>
+ <tr style='mso-yfti-irow:5;mso-yfti-lastrow:yes'>
+  <td width=60 valign=top style='width:45.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US>x</span></i><b style='mso-bidi-font-weight:
+  normal'><span lang=EN-US style='mso-fareast-font-family:黑体;mso-bidi-font-style:
+  italic'>&gt;=</span></b><i><span lang=EN-US>y</span></i><i><span lang=EN-US
+  style='mso-bidi-font-size:10.5pt'></span></i></p>
   </td>
-  <td width=183 style='width:137.3pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=canvas()</span></b><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
-  </td>
-  <td width=319 style='width:239.2pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:6'>
-  <td width=40 valign=top style='width:30.05pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif;color:black;mso-color-alt:
-  windowtext'>6</span></span><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'></span></span></p>
-  </td>
-  <td width=183 style='width:137.3pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=A5.plot(&quot;Text&quot;,&quot;text&quot;:&quot;hello
-  word!&quot;,&quot;width&quot;:200,&quot;height&quot;:200,&quot;barType&quot;:256,&quot;data1&quot;:250,&quot;data2&quot;:250)</span></b><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
-  </td>
-  <td width=319 style='width:239.2pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Generate two-dimensional code using the
-  text element</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:7;mso-yfti-lastrow:yes'>
-  <td width=40 valign=top style='width:30.05pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif;color:black;mso-color-alt:
-  windowtext'>7</span></span><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'></span></span></p>
-  </td>
-  <td width=183 style='width:137.3pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=A5.draw(200,200)</span></b><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
-  </td>
-  <td width=319 valign=top style='width:239.2pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Return a canvas with both width and
-  height being 200 pixels; click Chart plotting under the Value column or
-  right-click the current cell to select Chart plotting to generate the
-  following two-dimensional code</span></p>
-  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'><img border=0 width=211 height=210
-  src="Function_Reference.files/image1941.png" v:shapes="_x0000_i2250"><span
-  style='mso-spacerun:yes'>&nbsp;</span></span></p>
+  <td width=474 valign=top style='width:355.8pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-style:italic'>If <i>x</i>
+  is not less than <i>y</i>, then the result is true. Otherwise, it is false.</span></p>
   </td>
  </tr>
 </table>
 
 <p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-line-height:200%'>&nbsp;</span></b></p>
+mso-bidi-font-size:10.0pt;line-height:200%'>Note:</span></b><span lang=EN-US
+style='font-size:14.0pt;mso-bidi-font-size:10.0pt;line-height:200%'></span></p>
 
-<p class=MsoNormal><span lang=EN-US style='mso-fareast-font-family:黑体'>&nbsp;</span></p>
+<p class=MsoNormal style='margin-top:0cm;margin-right:.85pt;margin-bottom:0cm;
+margin-left:5.25pt;margin-bottom:.0001pt;mso-para-margin-top:0cm;mso-para-margin-right:
+.85pt;mso-para-margin-bottom:0cm;mso-para-margin-left:.5gd;mso-para-margin-bottom:
+.0001pt;text-indent:21.0pt;mso-char-indent-count:2.0;line-height:16.0pt;
+mso-line-height-rule:exactly;mso-layout-grid-align:none;text-autospace:none'><span
+lang=EN-US>The comparison operation requires the numeric or character operands,
+and a boolean result value. For the Not Less Than (or Not Greater Than)
+comparison operators, the result value is false only when both the Greater than
+(or Less than) and Equal to relations are not true, and the result is still
+true as long as either of the relations is true.</span></p>
+
+<p class=MsoNormal style='margin-top:0cm;margin-right:.85pt;margin-bottom:0cm;
+margin-left:5.25pt;margin-bottom:.0001pt;mso-para-margin-top:0cm;mso-para-margin-right:
+.85pt;mso-para-margin-bottom:0cm;mso-para-margin-left:.5gd;mso-para-margin-bottom:
+.0001pt;text-indent:21.0pt;mso-char-indent-count:2.0;line-height:16.0pt;
+mso-line-height-rule:exactly;mso-layout-grid-align:none;text-autospace:none'><span
+lang=EN-US>If <i style='mso-bidi-font-style:normal'>x</i> and <i
+style='mso-bidi-font-style:normal'>y</i> are sequences, then <i
+style='mso-bidi-font-style:normal'>x</i></span><span lang=EN-US
+style='mso-bidi-font-size:10.5pt;mso-bidi-font-style:italic'> and </span><i
+style='mso-bidi-font-style:normal'><span lang=EN-US>y</span></i><span
+lang=EN-US> will be compared in one-to-one relationship in the sequential order
+of members. Return the result according to the relationship of first pair of
+unequal members undergoing the alignment comparison. Return true if the conditions
+are met; Otherwise, return false. However, for the comparison operator == used
+for alignment comparison, the true will only be returned when all members are
+equal. Otherwise, return false. If the numbers of members in sequences <i
+style='mso-bidi-font-style:normal'>x</i> and <i style='mso-bidi-font-style:
+normal'>y</i> are not the same, and those compared members are the same, then
+the one with fewer members is smaller.</span></p>
+
+<p class=MsoNormal style='margin-top:0cm;margin-right:.85pt;margin-bottom:0cm;
+margin-left:5.25pt;margin-bottom:.0001pt;mso-para-margin-top:0cm;mso-para-margin-right:
+.85pt;mso-para-margin-bottom:0cm;mso-para-margin-left:.5gd;mso-para-margin-bottom:
+.0001pt;text-indent:21.0pt;mso-char-indent-count:2.0;line-height:16.0pt;
+mso-line-height-rule:exactly;mso-layout-grid-align:none;text-autospace:none'><span
+lang=EN-US>If <i style='mso-bidi-font-style:normal'>x</i> and <i
+style='mso-bidi-font-style:normal'>y</i> are serial bytes, the comparison
+starts from the first byte and stops if the the first pair of different bytes
+appears. Return true if the conditions are met; Otherwise, return false.
+Relational operators include &gt;, &gt;=, &lt;, &lt;=. <i style='mso-bidi-font-style:
+normal'>x</i> and <i style='mso-bidi-font-style:normal'>y</i> need to have the
+same number of bytes; otherwise they are incomparable.</span></p>
+
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:10.0pt;line-height:200%'>Parameters:</span></b></p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US>x</span></i><i><span lang=EN-US
+  style='mso-bidi-font-size:10.5pt'></span></i></p>
+  </td>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Sequence, numerical, character data or
+  serial bytes</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
+  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US>y</span></i><i><span lang=EN-US
+  style='mso-bidi-font-size:10.5pt'></span></i></p>
+  </td>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Sequence, numerical, character data or
+  serial bytes</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:10.0pt;line-height:200%'>Return value:</span></b><span
+lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:10.0pt;line-height:200%'></span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-fareast-font-family:黑体'>True/False</span><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US></span></b></p>
+
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:10.0pt;line-height:200%'>Example:</span></b><span
+lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:10.0pt;line-height:200%'></span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='margin-left:18.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
+ mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=21 valign=top style='width:16.0pt;border:solid #A6A6A6 1.0pt;
+  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  </td>
+  <td width=248 valign=top style='width:185.65pt;border:solid #A6A6A6 1.0pt;
+  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体;color:black;mso-color-alt:windowtext'>A</span></b><span
+  lang=EN-US style='mso-fareast-font-family:黑体'></span></p>
+  </td>
+  <td width=261 valign=top style='width:195.9pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=21 valign=top style='width:16.0pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体;color:black;mso-color-alt:windowtext'>1</span></b><span
+  lang=EN-US style='mso-fareast-font-family:黑体'></span></p>
+  </td>
+  <td width=248 style='width:185.65pt;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>=2==3</span></b></p>
+  </td>
+  <td width=261 style='width:195.9pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US style='mso-fareast-font-family:黑体'>false</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=21 valign=top style='width:16.0pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体;color:black;mso-color-alt:windowtext'>2</span></b><span
+  lang=EN-US style='mso-fareast-font-family:黑体'></span></p>
+  </td>
+  <td width=248 style='width:185.65pt;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>=2!<span style='color:black'>=5</span></span></b></p>
+  </td>
+  <td width=261 style='width:195.9pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US style='mso-fareast-font-family:黑体'>true</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3'>
+  <td width=21 valign=top style='width:16.0pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体;color:black;mso-color-alt:windowtext'>3</span></b><span
+  lang=EN-US style='mso-fareast-font-family:黑体'></span></p>
+  </td>
+  <td width=248 style='width:185.65pt;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>=2&gt;5</span></b></p>
+  </td>
+  <td width=261 style='width:195.9pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US style='mso-fareast-font-family:黑体'>false</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4'>
+  <td width=21 valign=top style='width:16.0pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体;color:black;mso-color-alt:windowtext'>4</span></b><span
+  lang=EN-US style='mso-fareast-font-family:黑体'></span></p>
+  </td>
+  <td width=248 style='width:185.65pt;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>=10&lt;5</span></b></p>
+  </td>
+  <td width=261 style='width:195.9pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US style='mso-fareast-font-family:黑体'>false</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:5'>
+  <td width=21 valign=top style='width:16.0pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体;color:black;mso-color-alt:windowtext'>5</span></b><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'></span></b></p>
+  </td>
+  <td width=248 style='width:185.65pt;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>=2&lt;=3</span></b><span lang=EN-US
+  style='mso-fareast-font-family:黑体;color:black'></span></p>
+  </td>
+  <td width=261 style='width:195.9pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US style='mso-fareast-font-family:黑体'>true</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:6'>
+  <td width=21 valign=top style='width:16.0pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体;color:black;mso-color-alt:windowtext'>6</span></b><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'></span></b></p>
+  </td>
+  <td width=248 style='width:185.65pt;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>=3&gt;=4</span></b></p>
+  </td>
+  <td width=261 style='width:195.9pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US style='mso-fareast-font-family:黑体'>false</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:7'>
+  <td width=21 valign=top style='width:16.0pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体;color:black;mso-color-alt:windowtext'>7</span></b><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'></span></b></p>
+  </td>
+  <td width=248 style='width:185.65pt;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>=&quot;a&quot;==&quot;b&quot;</span></b></p>
+  </td>
+  <td width=261 style='width:195.9pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US style='mso-fareast-font-family:黑体'>false</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:8'>
+  <td width=21 valign=top style='width:16.0pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体;color:black;mso-color-alt:windowtext'>8</span></b><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'></span></b></p>
+  </td>
+  <td width=248 style='width:185.65pt;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>=[5,2,1,2]&lt;=[5,2,1,2,-3]</span></b></p>
+  </td>
+  <td width=261 style='width:195.9pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US style='mso-fareast-font-family:黑体'>true</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:9'>
+  <td width=21 valign=top style='width:16.0pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体;color:black;mso-color-alt:windowtext'>9</span></b><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'></span></b></p>
+  </td>
+  <td width=248 style='width:185.65pt;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>=k(1)==k(1:2)</span></b></p>
+  </td>
+  <td width=261 style='width:195.9pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US style='mso-fareast-font-family:黑体'>false</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:10'>
+  <td width=21 valign=top style='width:16.0pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体;color:black;mso-color-alt:windowtext'>10</span></b><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'></span></b></p>
+  </td>
+  <td width=248 style='width:185.65pt;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>=k(3)!=k(1:2)</span></b></p>
+  </td>
+  <td width=261 style='width:195.9pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US style='mso-fareast-font-family:黑体'>true</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:11'>
+  <td width=21 valign=top style='width:16.0pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体;color:black;mso-color-alt:windowtext'>11</span></b><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'></span></b></p>
+  </td>
+  <td width=248 style='width:185.65pt;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>=k(1:2)&lt;k(3:2)</span></b></p>
+  </td>
+  <td width=261 style='width:195.9pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US style='mso-fareast-font-family:黑体'>true</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:12'>
+  <td width=21 valign=top style='width:16.0pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体;color:black;mso-color-alt:windowtext'>12</span></b><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'></span></b></p>
+  </td>
+  <td width=248 style='width:185.65pt;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>=k(1:2)&gt;k(3:2)</span></b></p>
+  </td>
+  <td width=261 style='width:195.9pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US style='mso-fareast-font-family:黑体'>false</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:13'>
+  <td width=21 valign=top style='width:16.0pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体;color:black;mso-color-alt:windowtext'>13</span></b><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'></span></b></p>
+  </td>
+  <td width=248 style='width:185.65pt;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>=k(2:2)&lt;=k(1:2)</span></b></p>
+  </td>
+  <td width=261 style='width:195.9pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US style='mso-fareast-font-family:黑体'>false</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:14;mso-yfti-lastrow:yes'>
+  <td width=21 valign=top style='width:16.0pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体;color:black;mso-color-alt:windowtext'>14</span></b><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'></span></b></p>
+  </td>
+  <td width=248 style='width:185.65pt;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>=k(2:2)&gt;=k(1:2)</span></b></p>
+  </td>
+  <td width=261 style='width:195.9pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US style='mso-fareast-font-family:黑体'>true</span></p>
+  </td>
+ </tr>
+</table>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="877.html">Next</a></div>
@@ -309,12 +519,12 @@ line-height:200%'>&nbsp;</span></b></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="873.html">Chart Elements</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="21.html">Functions</a></span></li>
 </div>
 	</div>
 	<div id="footer">	
 		
-		<div class="copyright"> Copyright&reg; 2021 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+		<div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">Scudata Inc. 
       </a></div> 
         <!--
 		<div class="copyright"> Copyright&reg; 2017 <a href="http://www.yimming.com" target="_Blank"> Beijing Yimming Ltd. Co. 

@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>influx_insert()</title>
+<title>ifx_setfrag()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,226 +13,296 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h2><a name="_influx_insert()767768"><span lang=EN-US style='font-size:14.0pt;
-line-height:150%;mso-fareast-font-family:宋体'>influx_insert()</span></a><a
-name="influx_insert"></a><span style='mso-bookmark:"_influx_insert\(\)767768"'></span><span
-style='mso-bookmark:"_influx_insert\(\)767768"'></span><span
-style='mso-bookmark:"_influx_insert\(\)767768"'><span lang=EN-US
-style='font-size:14.0pt;line-height:150%;mso-fareast-font-family:宋体'></span></span></h2></div>
-	<span style='mso-bookmark:"_influx_insert\(\)767768"'></span>
+	<div id="centent-title"><h2><span style='mso-bookmark:"_A\.in\(\)"'><a name="ifx_setfrag"></a><span
+lang=EN-US>ifx_setfrag()</span></span><span
+style='mso-bookmark:"_A\.in\(\)"'></span><span
+style='mso-bookmark:"_A\.in\(\)"'></span></h2></div>
+	<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><span
+style='mso-bookmark:"_A\.in\(\)"'><b style='mso-bidi-font-weight:normal'><span
+lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:12.0pt;line-height:200%'>Description:</span></b></span></p>
 
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Description:</span></b></p>
+<p class=MsoNormal style='text-indent:15.75pt;mso-char-indent-count:1.5'><span
+style='mso-bookmark:"_A\.in\(\)"'><span lang=EN-US>Set the fragmentation
+information of a specified table. </span></span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US style='mso-bidi-font-size:10.5pt'>Insert one or more records to
-InfluxDB database.</span></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><span
+style='mso-bookmark:"_A\.in\(\)"'><b style='mso-bidi-font-weight:normal'><span
+lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:12.0pt;line-height:200%'>Syntax:
+</span></b></span></p>
 
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Syntax: </span></b></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span style='mso-bookmark:"_A\.in\(\)"'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+黑体'>ifx_setfrag </span></b><span lang=EN-US>(</span></span><span
+style='mso-bookmark:"_A\.in\(\)"'><i><span lang=EN-US style='mso-bidi-font-size:
+10.5pt'>ifxconn, table, fieldName, min1, min2,....</span></i><span lang=EN-US>)</span></span></p>
 
-<p class=MsoNormal style='margin-left:21.0pt'><span class=code><span
-lang=EN-US style='mso-bidi-font-size:10.5pt;font-family:"Times New Roman",serif'>influx_insert</span></span><span
-class=var2><span lang=EN-US>(hd,string/string[])</span></span><span lang=EN-US
-style='mso-bidi-font-size:10.5pt'></span></p>
+<p class=MsoNormal style='tab-stops:18.0pt'><span style='mso-bookmark:"_A\.in\(\)"'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt'>Note: </span></b></span></p>
 
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Note:</span></b></p>
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
+tab-stops:18.0pt'><span style='mso-bookmark:"_A\.in\(\)"'><span lang=EN-US>The external
+library function sets the fragmentation information of the specified table. If
+the parameters after parameter <i style='mso-bidi-font-style:normal'>fieldname</i>
+are absent, then delete the specified table’s fragmentation information stored
+in the IfxConn object. The the number of the values of parameter <i
+style='mso-bidi-font-style:normal'>min</i> is the number of fragmented files
+the specified table has.</span></span><span style='mso-bookmark:"_A\.in\(\)"'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt'></span></b></span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US style='mso-bidi-font-size:10.5pt'>The external library function
-inserts one or more records to InfluxDB database.</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US style='mso-bidi-font-size:10.5pt'>The format of string parameters is
-&lt;measurement&gt;[,&lt;tag-key&gt;=&lt;tag-value&gt;...]
-&lt;field-key&gt;=&lt;field-value&gt;[,&lt;field2-key&gt;=&lt;field2-value&gt;...]
-[unix-nano-timestamp]. Their order is table name (create one if the table does
-not exist), tag-key=tag-value, field-key=field-value, and time stamp. Note that
-there is a space before the time stamp.</span></p>
-
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Parameters:</span></b><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US style='mso-bidi-font-size:10.5pt'> </span></b></p>
+<p class=MsoNormal style='tab-stops:18.0pt'><span style='mso-bookmark:"_A\.in\(\)"'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt'>Parameters:</span></b></span></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:7.35pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ style='margin-left:6.2pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=87 valign=top style='width:65.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var2><span lang=EN-US>hd</span></span></p>
+  <td width=98 valign=top style='width:73.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><i><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt'>ifxconn</span></i></span></p>
   </td>
+  <span style='mso-bookmark:"_A\.in\(\)"'></span>
   <td width=437 valign=top style='width:327.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-size:10.5pt'>Connecton
-  object</span></p>
+  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span lang=EN-US>An
+  ifxconn object </span></span></p>
   </td>
+  <span style='mso-bookmark:"_A\.in\(\)"'></span>
  </tr>
- <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
-  <td width=87 valign=top style='width:65.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var2><span lang=EN-US>string</span></span></p>
+ <tr style='mso-yfti-irow:1'>
+  <td width=98 valign=top style='width:73.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><i><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt'>table</span></i></span></p>
   </td>
+  <span style='mso-bookmark:"_A\.in\(\)"'></span>
   <td width=437 valign=top style='width:327.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-size:10.5pt'>Line
-  protocol characters or line protocol arrays of characters. Data format should
-  meet the requirements of InfluxDB line protocol; time stamp is represented in
-  UTC or is in the format of yyyy-MM-ddTHH:mm:ss/yyyy-MM-ddTHH:mm:ssXXZ</span></p>
+  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span lang=EN-US>A
+  table being fragmented</span></span></p>
   </td>
+  <span style='mso-bookmark:"_A\.in\(\)"'></span>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=98 valign=top style='width:73.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><i><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt'>fieldName</span></i></span></p>
+  </td>
+  <span style='mso-bookmark:"_A\.in\(\)"'></span>
+  <td width=437 valign=top style='width:327.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span lang=EN-US>Fragmented
+  field</span></span></p>
+  </td>
+  <span style='mso-bookmark:"_A\.in\(\)"'></span>
+ </tr>
+ <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
+  <td width=98 valign=top style='width:73.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><i><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt'>min</span></i></span></p>
+  </td>
+  <span style='mso-bookmark:"_A\.in\(\)"'></span>
+  <td width=437 valign=top style='width:327.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span lang=EN-US>The
+  minimum value in a fragmented file; can be omitted and can have multiple
+  values</span></span></p>
+  </td>
+  <span style='mso-bookmark:"_A\.in\(\)"'></span>
  </tr>
 </table>
 
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Return value:</span></b></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><span
+style='mso-bookmark:"_A\.in\(\)"'><b style='mso-bidi-font-weight:normal'><span
+lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:12.0pt;line-height:200%'>Return
+value: </span></b></span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US style='mso-bidi-font-size:10.5pt'>Number of records inserted</span></p>
+<p class=MsoNormal style='text-indent:31.5pt;mso-char-indent-count:3.0'><span
+style='mso-bookmark:"_A\.in\(\)"'><span lang=EN-US>Table sequence/null</span></span></p>
 
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Example: </span></b></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><span
+style='mso-bookmark:"_A\.in\(\)"'><b style='mso-bidi-font-weight:normal'><span
+lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:12.0pt;line-height:200%'>Example:
+</span></b></span></p>
 
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=575
- style='margin-left:11.2pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='margin-left:16.7pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
  mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=16 valign=top style='width:12.15pt;border:solid #A6A6A6 1.0pt;
-  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt;font-family:"Times New Roman",serif'>&nbsp;</span></span></p>
+  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
+  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'><span
+  style='mso-bookmark:"_A\.in\(\)"'></span>
+  <p class=MsoNormal align=left style='text-align:left'><span style='mso-bookmark:
+  "_A\.in\(\)"'><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>&nbsp;</span></b></span></p>
   </td>
-  <td width=559 valign=top style='width:419.05pt;border:solid #A6A6A6 1.0pt;
+  <span style='mso-bookmark:"_A\.in\(\)"'></span>
+  <td width=285 valign=top style='width:213.45pt;border:solid #A6A6A6 1.0pt;
   border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt;font-family:"Times New Roman",serif;
-  color:black;mso-color-alt:windowtext'>A</span></span><span class=code><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt;font-family:"Times New Roman",serif'></span></span></p>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:"_A\.in\(\)"'><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US style='mso-fareast-font-family:黑体;color:black;mso-color-alt:windowtext'>A</span></b></span><span
+  style='mso-bookmark:"_A\.in\(\)"'><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US style='mso-fareast-font-family:黑体'></span></b></span></p>
   </td>
+  <span style='mso-bookmark:"_A\.in\(\)"'></span>
+  <td width=235 valign=top style='width:176.35pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span style='mso-bookmark:"_A\.in\(\)"'></span>
+  <p class=MsoNormal align=left style='text-align:left'><span style='mso-bookmark:
+  "_A\.in\(\)"'><span lang=EN-US>&nbsp;</span></span></p>
+  </td>
+  <span style='mso-bookmark:"_A\.in\(\)"'></span>
  </tr>
- <tr style='mso-yfti-irow:1;height:18.45pt'>
-  <td width=16 valign=top style='width:12.15pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:1'>
+  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:18.45pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;font-family:"Times New Roman",serif;color:black;mso-color-alt:windowtext'>1</span></span><span
-  class=code><span lang=EN-US style='mso-bidi-font-size:10.5pt;font-family:
-  "Times New Roman",serif'></span></span></p>
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=left style='text-align:left'><span style='mso-bookmark:
+  "_A\.in\(\)"'><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体;color:black;mso-color-alt:windowtext'>1</span></b></span><span
+  style='mso-bookmark:"_A\.in\(\)"'><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US style='mso-fareast-font-family:黑体'></span></b></span></p>
   </td>
-  <td width=559 style='width:419.05pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  <span style='mso-bookmark:"_A\.in\(\)"'></span>
+  <td width=285 valign=top style='width:213.45pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:18.45pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;font-family:"Times New Roman",serif;font-weight:normal;mso-bidi-font-weight:
-  bold'>=influx_open(&quot;http://127.0.0.1:8086&quot;, &quot;mydb&quot;,
-  &quot;autogen&quot;, &quot;admin&quot;, &quot;admin&quot;)</span></span><span
-  class=code><span lang=EN-US style='mso-bidi-font-size:10.5pt;font-family:
-  "Times New Roman",serif'></span></span></p>
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=left style='text-align:left'><span style='mso-bookmark:
+  "_A\.in\(\)"'><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>=&quot;d:/frag1.txt&quot;</span></b></span></p>
   </td>
+  <span style='mso-bookmark:"_A\.in\(\)"'></span>
+  <td width=235 valign=top style='width:176.35pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=left style='text-align:left'><span style='mso-bookmark:
+  "_A\.in\(\)"'><span lang=EN-US>Create and save a fragmentation information
+  file</span></span></p>
+  </td>
+  <span style='mso-bookmark:"_A\.in\(\)"'></span>
  </tr>
  <tr style='mso-yfti-irow:2'>
-  <td width=16 valign=top style='width:12.15pt;border:solid #A6A6A6 1.0pt;
+  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;font-family:"Times New Roman",serif'>&nbsp;</span></span></p>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;font-family:"Times New Roman",serif;color:black;mso-color-alt:windowtext'>2</span></span><span
-  class=code><span lang=EN-US style='mso-bidi-font-size:10.5pt;font-family:
-  "Times New Roman",serif'></span></span></p>
+  <p class=MsoNormal align=left style='text-align:left'><span style='mso-bookmark:
+  "_A\.in\(\)"'><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体;color:black;mso-color-alt:windowtext'>2</span></b></span><span
+  style='mso-bookmark:"_A\.in\(\)"'><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US style='mso-fareast-font-family:黑体'></span></b></span></p>
   </td>
-  <td width=559 style='width:419.05pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  <span style='mso-bookmark:"_A\.in\(\)"'></span>
+  <td width=285 valign=top style='width:213.45pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal style='margin-right:-117.4pt;mso-para-margin-right:-11.18gd'><span
-  class=code><span lang=EN-US style='mso-bidi-font-size:10.5pt;font-family:
-  "Times New Roman",serif;font-weight:normal'>=influx_insert(A1,
-  &quot;h2o_feet,location=santa_monica,direct=5 water_level=2.064
-  1566086400000000000&quot;)</span></span><span class=code><span lang=EN-US
-  style='mso-bidi-font-size:10.5pt;font-family:"Times New Roman",serif'></span></span></p>
+  <p class=MsoNormal align=left style='text-align:left'><span style='mso-bookmark:
+  "_A\.in\(\)"'><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>=ifx_conn(&quot;com.informix.jdbc.IfxDriver&quot;,&quot;jdbc:informix-sqli:192.168.0.7:8000/tpch:informixserver=tramsserver&amp;user=informix&amp;pwd=informix&quot;;A1)</span></b></span></p>
   </td>
+  <span style='mso-bookmark:"_A\.in\(\)"'></span>
+  <td width=235 valign=top style='width:176.35pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=left style='text-align:left'><span style='mso-bookmark:
+  "_A\.in\(\)"'><span lang=EN-US>Connect to Informix database</span></span></p>
+  </td>
+  <span style='mso-bookmark:"_A\.in\(\)"'></span>
  </tr>
  <tr style='mso-yfti-irow:3'>
-  <td width=16 valign=top style='width:12.15pt;border:solid #A6A6A6 1.0pt;
+  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;font-family:"Times New Roman",serif;color:black;mso-color-alt:windowtext'>3</span></span><span
-  class=code><span lang=EN-US style='mso-bidi-font-size:10.5pt;font-family:
-  "Times New Roman",serif'></span></span></p>
+  <p class=MsoNormal align=left style='text-align:left'><span style='mso-bookmark:
+  "_A\.in\(\)"'><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体;color:black;mso-color-alt:windowtext'>3</span></b></span><span
+  style='mso-bookmark:"_A\.in\(\)"'><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US style='mso-fareast-font-family:黑体'></span></b></span></p>
   </td>
-  <td width=559 style='width:419.05pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  <span style='mso-bookmark:"_A\.in\(\)"'></span>
+  <td width=285 valign=top style='width:213.45pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;font-family:"Times New Roman",serif;font-weight:normal'>=influx_insert(A1,
-  &quot;h2o_feet,location=santa_jack,direct=5 water_level=2.164
-  2019-08-18T00:30:00Z&quot;)</span></span><span class=code><span lang=EN-US
-  style='mso-bidi-font-size:10.5pt;font-family:"Times New Roman",serif'></span></span></p>
+  <p class=MsoNormal align=left style='text-align:left'><span style='mso-bookmark:
+  "_A\.in\(\)"'><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>=ifx_takefrag(A2,&quot;orders&quot;)</span></b></span></p>
   </td>
+  <span style='mso-bookmark:"_A\.in\(\)"'></span>
+  <td width=235 valign=top style='width:176.35pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=left style='text-align:left'><span style='mso-bookmark:
+  "_A\.in\(\)"'><span lang=EN-US>Extract fragmentation information of the <i
+  style='mso-bidi-font-style:normal'>orders</i> table</span></span></p>
+  <p class=MsoNormal align=left style='text-align:left'><span style='mso-bookmark:
+  "_A\.in\(\)"'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
+  #0400'><img border=0 width=197 height=126
+  src="Function_Reference.files/image842.jpg" v:shapes="_x0000_i1548"></span></span></p>
+  </td>
+  <span style='mso-bookmark:"_A\.in\(\)"'></span>
  </tr>
  <tr style='mso-yfti-irow:4'>
-  <td width=16 valign=top style='width:12.15pt;border:solid #A6A6A6 1.0pt;
+  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;font-family:"Times New Roman",serif;color:black;mso-color-alt:windowtext'>4</span></span><span
-  class=code><span lang=EN-US style='mso-bidi-font-size:10.5pt;font-family:
-  "Times New Roman",serif'></span></span></p>
+  <p class=MsoNormal align=left style='text-align:left'><span style='mso-bookmark:
+  "_A\.in\(\)"'><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体;color:black;mso-color-alt:windowtext'>4</span></b></span><span
+  style='mso-bookmark:"_A\.in\(\)"'><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US style='mso-fareast-font-family:黑体'></span></b></span></p>
   </td>
-  <td width=559 style='width:419.05pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  <span style='mso-bookmark:"_A\.in\(\)"'></span>
+  <td width=285 valign=top style='width:213.45pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;font-family:"Times New Roman",serif;font-weight:normal'>=influx_insert(A1,
-  [&quot;h2o_feet,location=santa_jack,direct=7 water_level=2.264
-  1566087500000000&quot;,&quot;h2o_feet,location=santa_php,direct=8
-  water_level=2.316 1566086770000000000&quot;])</span></span><span class=code><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt;font-family:"Times New Roman",serif'></span></span></p>
+  <p class=MsoNormal align=left style='text-align:left'><span style='mso-bookmark:
+  "_A\.in\(\)"'><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>=ifx_setfrag(A2,&quot;orders&quot;,&quot;o_orderkey&quot;,1,400000000)</span></b></span></p>
   </td>
+  <span style='mso-bookmark:"_A\.in\(\)"'></span>
+  <td width=235 valign=top style='width:176.35pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=left style='text-align:left'><span style='mso-bookmark:
+  "_A\.in\(\)"'><span lang=EN-US>Set fragmentation information of the <i
+  style='mso-bidi-font-style:normal'>orders</i> table</span></span></p>
+  <p class=MsoNormal align=left style='text-align:left'><span style='mso-bookmark:
+  "_A\.in\(\)"'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
+  #0400'><img border=0 width=206 height=37
+  src="Function_Reference.files/image844.jpg" v:shapes="_x0000_i1549"></span></span></p>
+  </td>
+  <span style='mso-bookmark:"_A\.in\(\)"'></span>
  </tr>
- <tr style='mso-yfti-irow:5'>
-  <td width=16 valign=top style='width:12.15pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:5;mso-yfti-lastrow:yes'>
+  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;font-family:"Times New Roman",serif;color:black;mso-color-alt:windowtext'>5</span></span><span
-  class=code><span lang=EN-US style='mso-bidi-font-size:10.5pt;font-family:
-  "Times New Roman",serif'></span></span></p>
+  <p class=MsoNormal align=left style='text-align:left'><span style='mso-bookmark:
+  "_A\.in\(\)"'><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体;color:black;mso-color-alt:windowtext'>5</span></b></span><span
+  style='mso-bookmark:"_A\.in\(\)"'><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US style='mso-fareast-font-family:黑体'></span></b></span></p>
   </td>
-  <td width=559 style='width:419.05pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  <span style='mso-bookmark:"_A\.in\(\)"'></span>
+  <td width=285 valign=top style='width:213.45pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;font-family:"Times New Roman",serif;font-weight:normal'>=influx_insert(A1,
-  [&quot;h2o_feet,location=santa_last,direct=9 water_level=2.464 1566087200000&quot;,&quot;h2o_feet,location=santa_php,direct=8
-  water_level=2.516 1566086780000000000&quot;])</span></span><span class=code><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt;font-family:"Times New Roman",serif'></span></span></p>
+  <p class=MsoNormal align=left style='text-align:left'><span style='mso-bookmark:
+  "_A\.in\(\)"'><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>=ifx_setfrag(A2,&quot;orders&quot;,&quot;o_orderkey&quot;)</span></b></span></p>
   </td>
- </tr>
- <tr style='mso-yfti-irow:6;mso-yfti-lastrow:yes'>
-  <td width=16 valign=top style='width:12.15pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;font-family:"Times New Roman",serif;color:black;mso-color-alt:windowtext'>6</span></span><span
-  class=code><span lang=EN-US style='mso-bidi-font-size:10.5pt;font-family:
-  "Times New Roman",serif'></span></span></p>
+  <span style='mso-bookmark:"_A\.in\(\)"'></span>
+  <td width=235 valign=top style='width:176.35pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=left style='text-align:left'><span style='mso-bookmark:
+  "_A\.in\(\)"'><span lang=EN-US>Delete the fragmentation information</span></span></p>
+  <p class=MsoNormal align=left style='text-align:left'><span style='mso-bookmark:
+  "_A\.in\(\)"'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
+  #0400'><img border=0 width=206 height=56
+  src="Function_Reference.files/image846.jpg" v:shapes="_x0000_i1550"></span></span></p>
   </td>
-  <td width=559 style='width:419.05pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;font-family:"Times New Roman",serif'>=insert_close(A1)</span></span></p>
-  </td>
+  <span style='mso-bookmark:"_A\.in\(\)"'></span>
  </tr>
 </table>
-
-<p class=MsoNormal><span lang=EN-US style='mso-bidi-font-size:10.5pt'>&nbsp;</span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="385.html">Next</a></div>
@@ -245,7 +315,7 @@ style='font-size:14.0pt'>Example: </span></b></p>
 	</div>
 	<div id="footer">	
 		
-		<div class="copyright"> Copyright&reg; 2021 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+		<div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">Scudata Inc. 
       </a></div> 
         <!--
 		<div class="copyright"> Copyright&reg; 2017 <a href="http://www.yimming.com" target="_Blank"> Beijing Yimming Ltd. Co. 

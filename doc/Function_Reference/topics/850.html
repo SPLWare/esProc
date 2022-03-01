@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>x+y</title>
+<title>ym_env()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,95 +13,129 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h3 style='text-align:justify;text-justify:inter-ideograph'><a name=xy></a><span
-lang=EN-US>x+y</span></h3></div>
-	<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-line-height:200%'>Description:</span></b></p>
+	<div id="centent-title"><h2><span lang=EN-US>ym_env()<a name="ym_env"></a></span></h2></div>
+	<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt'>Description:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Join two or more
-strings end-to-end.</span></p>
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
+tab-stops:0cm'><span lang=EN-US style='mso-bidi-font-style:italic'>Initialize
+the environment by setting an environment variable.</span></p>
 
-<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-line-height:200%'>Syntax:</span></b></p>
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt'>Syntax:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><i><span lang=EN-US
-style='mso-bidi-font-size:10.5pt'>x</span></i><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US style='mso-fareast-font-family:黑体'>+</span></b><i><span
-lang=EN-US style='mso-bidi-font-size:10.5pt'>y</span></i></p>
+<p class=MsoNormal style='text-indent:21.1pt;mso-char-indent-count:2.0;
+tab-stops:0cm'><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='mso-bidi-font-style:italic'>ym_env</span></b><span lang=EN-US
+style='mso-bidi-font-style:italic'>()</span><span lang=EN-US style='mso-bidi-font-size:
+10.5pt;mso-bidi-font-family:宋体;mso-bidi-font-style:italic'></span></p>
 
-<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-line-height:200%'>Note:</span></b></p>
+<p class=MsoNormal style='text-indent:21.1pt;mso-char-indent-count:2.0;
+tab-stops:0cm'><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='mso-bidi-font-size:10.5pt;mso-bidi-font-family:宋体;mso-bidi-font-style:
+italic'>ym_env(1)</span></b><span lang=EN-US style='mso-bidi-font-style:italic'></span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>A string and a
-numeric value cannot be concatenated.</span></p>
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt'>Note:</span></b></p>
 
-<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-line-height:200%'>Parameters:</span></b></p>
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
+tab-stops:0cm'><span lang=EN-US style='mso-bidi-font-style:italic'>It is an external
+library function. You need to first configure certain parameters, such as <i>sAppHome</i>,
+<i>sLicenseFile</i> and <i>sPythonHome</i>, in <i>userconfig.xml</i> file under
+YModelCli external library’s directory before environment initialization. For
+more information, see Section <i>2.18</i> in <i>External Libray Guide</i>.</span></p>
 
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>x</span></i></p>
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
+tab-stops:0cm'><span lang=EN-US style='mso-bidi-font-style:italic'>When the
+function is executed, a store directory with subdirectories under it will be
+generated. By default: <span style='mso-tab-count:2'>&nbsp; </span></span></p>
+
+<p class=MsoNormal style='text-indent:42.0pt;mso-char-indent-count:4.0;
+tab-stops:0cm'><span lang=EN-US style='mso-bidi-font-style:italic'>[sAppHome]/store/data_md<span
+style='mso-spacerun:yes'>&nbsp; </span>Contains data files for model building
+by default</span></p>
+
+<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.05;
+tab-stops:0cm'><span lang=EN-US style='mso-bidi-font-style:italic'>[sAppHome]/store/data_pd<span
+style='mso-spacerun:yes'>&nbsp; </span>Contains data files to be scored by
+default</span></p>
+
+<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.05;
+tab-stops:0cm'><span lang=EN-US style='mso-bidi-font-style:italic'>[sAppHome]/store/predict<span
+style='mso-spacerun:yes'>&nbsp; </span>Contains the model file by default</span><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;mso-bidi-font-family:宋体;mso-bidi-font-style:
+italic'> </span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
+tab-stops:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt;mso-bidi-font-family:
+宋体;mso-bidi-font-style:italic'>ym_env(1) forces a restart of Python service.</span><span
+lang=EN-US style='mso-bidi-font-style:italic'></span></p>
+
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt'>Return value:</span></b></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>An env object</span></p>
+
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt'>Example:</span></b></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='margin-left:19.85pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
+ mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;height:13.7pt'>
+  <td width=21 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
+  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm;
+  height:13.7pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span lang=EN-US>&nbsp;</span></p>
   </td>
-  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>A string constant</span></p>
+  <td width=253 valign=top style='width:189.7pt;border:solid #A6A6A6 1.0pt;
+  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:13.7pt'>
+  <p class=MsoNormal align=center style='text-align:center'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='color:black;
+  mso-color-alt:windowtext'>A</span><span lang=EN-US></span></b></p>
+  </td>
+  <td width=248 valign=top style='width:185.8pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:13.7pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span lang=EN-US>&nbsp;</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
-  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>y</span></i></p>
-  </td>
-  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>A string constant</span></p>
-  </td>
- </tr>
-</table>
-
-<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-line-height:200%'>Return value:</span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>A string formed
-by joining </span><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>x</span></i><span
-lang=EN-US> and </span><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>y</span></i><span
-lang=EN-US>.</span></p>
-
-<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-line-height:200%'>Example:</span></b></p>
-
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=107 valign=top style='width:80.55pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal style='margin-left:10.55pt;tab-stops:48.75pt'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-fareast-font-family:黑体'>&quot;abc&quot;+&quot;def&quot;</span></b><i><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt'></span></i></p>
-  </td>
-  <td width=438 valign=top style='width:328.55pt;padding:0cm 5.4pt 0cm 5.4pt'>
+ <tr style='mso-yfti-irow:1;height:14.35pt'>
+  <td width=21 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:14.35pt'>
   <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>abcdef</span></b></p>
+  style='color:black;mso-color-alt:windowtext'>1</span><span lang=EN-US></span></b></p>
+  </td>
+  <td width=253 valign=top style='width:189.7pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:14.35pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=ym_env()</span></b></p>
+  </td>
+  <td width=248 valign=top style='width:185.8pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:14.35pt'>
+  <p class=MsoNormal><span lang=EN-US>Initialize the environment to start
+  Python service</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
-  <td width=107 valign=top style='width:80.55pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal style='margin-left:10.55pt;tab-stops:48.75pt'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-fareast-font-family:黑体'>&quot;abc&quot;+123</span></b></p>
-  </td>
-  <td width=438 valign=top style='width:328.55pt;padding:0cm 5.4pt 0cm 5.4pt'>
+ <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes;height:13.7pt'>
+  <td width=21 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:13.7pt'>
   <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>123</span></b><span lang=EN-US>. A string
-  and a numeric value cannot be concatenated.</span><b style='mso-bidi-font-weight:
-  normal'><span lang=EN-US style='mso-fareast-font-family:黑体'></span></b></p>
+  style='color:black;mso-color-alt:windowtext'>2</span><span lang=EN-US></span></b></p>
+  </td>
+  <td width=253 valign=top style='width:189.7pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:13.7pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>&gt;ym_close(A1)</span></b></p>
+  </td>
+  <td width=248 valign=top style='width:185.8pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:13.7pt'>
+  <p class=MsoNormal><span lang=EN-US>Reduce resource usage</span></p>
   </td>
  </tr>
 </table>
@@ -112,12 +146,12 @@ line-height:200%'>Example:</span></b></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="849.html">String</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="21.html">Functions</a></span></li>
 </div>
 	</div>
 	<div id="footer">	
 		
-		<div class="copyright"> Copyright&reg; 2021 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+		<div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">Scudata Inc. 
       </a></div> 
         <!--
 		<div class="copyright"> Copyright&reg; 2017 <a href="http://www.yimming.com" target="_Blank"> Beijing Yimming Ltd. Co. 

@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>10.1.1 esProc server cluster</title>
+<title>9.5.3 Sequence type parameters</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -15,55 +15,169 @@
 	<div id="centent">
 	<div id="centent-title"><h3 style='margin:0cm;text-indent:0cm;line-height:normal;mso-list:none;
 tab-stops:-179.95pt 64.2pt'><span lang=EN-US style='font-size:14.0pt;
-mso-bidi-font-size:10.0pt'>10.1.1 esProc server cluster</span></h3></div>
+mso-bidi-font-size:10.0pt'>9.5.3 Sequence type parameters
+</span></h3></div>
 	<p class=T-ParCxSpFirst style='margin-bottom:0cm;mso-add-space:auto;text-align:
-justify;text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>A
-cluster computing system usually consists of multiple nodes. There is a <b
-style='mso-bidi-font-weight:normal'>main node</b> at the highest level of all
-processes that controls the computing jobs on all nodes. A running node
-receives computing tasks, computes <b style='mso-bidi-font-weight:normal'>local
-cellset files</b> and returns results to the main node. In a cluster network, nodes
-may run on multiple machines or a single machine. Each node is identified
-through the IP address and the port number. In a cluster system, one
-computational transaction is called an <b>assignment</b>; each assignment
-consists of one or more <b>task</b>s. Tasks are assigned to nodes by the main
-node for execution. One node can perform multiple tasks concurrently. All
-running nodes form a cluster system for parallel processing. </span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
-text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
-lang=EN-US>esProc provides the server class &#8211; <i style='mso-bidi-font-style:
-normal'>com.raqsoft.ide.dfx.UnitServerConsole </i>&#8211; to get addresses and ports
-according to the configuration files and to launch clustered servers.</span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
-text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
-lang=EN-US>esProc parallel system <b style='mso-bidi-font-weight:normal'>hasn’t
-a certain single &quot;manager&quot; node centrally conducting a group of
-&quot;worker&quot; nodes. An available computer is designated to serve as the
-provisional node for execution of each parallel task.</b></span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
-text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
-lang=EN-US>Yet each assignment has its logical center &#8211; the main node &#8211; from
-which instructions are given and to which results are returned for being
-combined. The task usually fails if a node malfunctions; in certain cases, <b
-style='mso-bidi-font-weight:normal'>the main node will redistribute the subtask</b>
-to another capable one. To know more about the execution of parallel tasks in
-esProc, see <i style='mso-bidi-font-style:normal'><a
- href="242.html">Cluster computations</a></i>.</span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
-text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
-lang=EN-US>&nbsp;</span></p>
+justify;text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>User-defined
+functions use esProc-specific parameters. The correspondence between data types
+of the parameters and those of Java objects is the same as that mentioned
+above. For an invocation, the parameter used in the user-defined function needs
+to be in consistent with the one used in the static method. </span></p>
 
 <p class=T-ParCxSpLast style='margin-bottom:0cm;mso-add-space:auto;text-align:
-justify;text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>Data
-can be also stored on a Network File System (NFS), such as HDFS, over which it
-can be accessed by the computing nodes. The NFS redundancy management is
-simpler than the strategy of storing data on certain computing nodes for
-fault-tolerance. But compared with accessing files stored locally, it may
-sacrifice some performance due to the network transmission.</span></p>
+justify;text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>Particularly,
+sequence is the most frequently used data type in esProc. Besides returning a
+sequence as the result, user-defined functions can also use sequence type
+parameters. For example: </span></p>
+
+<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>public
+static Double distance6(com.raqsoft.dm.Sequence seq1, com.raqsoft.dm.Sequence
+seq2) {</span></i></p>
+
+<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>int
+len1 = seq1.length();</span></i></p>
+
+<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>int
+len2 = seq2.length();</span></i></p>
+
+<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>double
+x1 = len1 &gt; 0 ? ((Number) seq1.get(1)).doubleValue(): 0;</span></i></p>
+
+<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>double
+x2 = len2 &gt; 0 ? ((Number) seq2.get(1)).doubleValue(): 0;</span></i></p>
+
+<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>double
+y1 = len1 &gt; 1 ? ((Number) seq1.get(2)).doubleValue(): 0;</span></i></p>
+
+<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>double
+y2 = len2 &gt; 1 ? ((Number) seq2.get(2)).doubleValue(): 0;</span></i></p>
+
+<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>double
+len = Math.sqrt((x1-x2)*(x1-x2)+(y1-y2)*(y1-y2));</span></i></p>
+
+<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>len
+= Math.round(len*1000)/1000d;</span></i></p>
+
+<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>return
+Double.valueOf(len);</span></i></p>
+
+<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>}</span></i></p>
+
+<p class=T-Par style='margin-bottom:0cm;mso-add-space:auto;text-align:justify;
+text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>The
+user-defined function<b style='mso-bidi-font-weight:normal'><i
+style='mso-bidi-font-style:normal'> distance6 </i></b>computes the distance
+between two points in a rectangular coordinate system. Coordinates of the two
+points need to be input using sequence type parameters during invocation. For
+example: </span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='margin-left:21.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:
+ #B2B2B2;mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
+ .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:.5pt solid #B2B2B2;
+ mso-border-insidev:.5pt solid #B2B2B2'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=42 valign=top style='width:31.2pt;border:solid black 1.0pt;
+  mso-border-alt:solid black .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
+  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
+  style='font-size:9.0pt'>&nbsp;</span></p>
+  </td>
+  <td width=227 valign=top style='width:6.0cm;border-top:solid black 1.0pt;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
+  mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-bottom-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
+  mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
+  lang=EN-US style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>A</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
+  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
+  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>1</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
+  </td>
+  <td width=227 style='width:6.0cm;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid windowtext .5pt;
+  mso-border-left-alt:solid windowtext .5pt;mso-border-top-alt:windowtext;
+  mso-border-left-alt:windowtext;mso-border-bottom-alt:#B2B2B2;mso-border-right-alt:
+  #B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:.5pt;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;color:fuchsia'>[1,1]</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
+  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
+  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>2</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
+  </td>
+  <td width=227 style='width:6.0cm;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:
+  14.15pt'>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;color:fuchsia'>[3,3]</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
+  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
+  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>3</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
+  </td>
+  <td width=227 style='width:6.0cm;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid windowtext .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;color:black;
+  mso-color-alt:windowtext'>=invoke(test.Calc01.distance6,A1,A2)</span><span
+  lang=EN-US style='font-size:9.0pt'></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=T-Par style='margin-bottom:0cm;mso-add-space:auto;text-align:justify;
+text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>Here’s A3’s
+result after computation:</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=100 height=41
+src="Tutorial.files/image905.png" v:shapes="_x0000_i2003"></span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="236.html">Next</a></div>
@@ -71,12 +185,12 @@ sacrifice some performance due to the network transmission.</span></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="234.html">10.1 The Server Cluster</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="232.html">9.5 User-defined Functions</a></span></li>
 </div>
 	</div>
 	<div id="footer">	
 		
-		<div class="copyright"> Copyright&reg; 2021 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+		<div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">Scudata Inc. 
       </a></div> 
         <!--
 		<div class="copyright"> Copyright&reg; 2017 <a href="http://www.yimming.com" target="_Blank"> Beijing Yimming Ltd. Co. 
