@@ -359,7 +359,24 @@ public class LocalFile implements IFile {
 	 * @return boolean
 	 */
 	public boolean exists() {
-		return getFile() != null;
+		// resource里的用File没法找到
+		//return getFile() != null;
+		
+		InputStream is = null;
+		try {
+			// 如果文件不存在会抛异常
+			is = getInputStream();
+			return true;
+		} catch (Exception e) {
+			return false;
+		} finally {
+			if (is != null) {
+				try {
+					is.close();
+				} catch (IOException e) {
+				}
+			}
+		}
 	}
 
 	/**
