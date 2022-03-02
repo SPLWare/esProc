@@ -6,10 +6,10 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Vector;
 
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 import com.scudata.app.common.AppConsts;
@@ -24,6 +24,7 @@ import com.scudata.common.StringUtils;
 import com.scudata.ide.common.ConfigFile;
 import com.scudata.ide.common.ConfigOptions;
 import com.scudata.ide.common.ConfigUtilIde;
+import com.scudata.ide.common.DataSource;
 import com.scudata.ide.common.GC;
 import com.scudata.ide.common.GM;
 import com.scudata.ide.common.GV;
@@ -36,6 +37,8 @@ import com.scudata.ide.common.control.ControlUtilsBase;
 import com.scudata.ide.common.dialog.DialogDataSource;
 import com.scudata.ide.common.dialog.DialogFileReplace;
 import com.scudata.ide.common.dialog.DialogMemory;
+import com.scudata.ide.common.dialog.DialogSQLEditor;
+import com.scudata.ide.common.dialog.DialogSelectDataSource;
 import com.scudata.ide.spl.control.CellSetParser;
 import com.scudata.ide.spl.control.ControlUtils;
 import com.scudata.ide.spl.control.SplEditor;
@@ -114,6 +117,23 @@ public class GMSpl extends GM {
 				}
 			}
 			return;
+		case GCSpl.iSQLGENERATOR: {
+			DialogSelectDataSource dsds = new DialogSelectDataSource(
+					DialogSelectDataSource.TYPE_SQL);
+			dsds.setVisible(true);
+			if (dsds.getOption() != JOptionPane.OK_OPTION) {
+				return;
+			}
+			DataSource ds = dsds.getDataSource();
+			try {
+				DialogSQLEditor dse = new DialogSQLEditor(ds);
+				dse.setCopyMode();
+				dse.setVisible(true);
+			} catch (Throwable ex) {
+				GM.showException(ex);
+			}
+			return;
+		}
 		case GCSpl.iFILE_REPLACE:
 			DialogFileReplace dfr = new DialogFileReplace(GV.appFrame);
 			dfr.setVisible(true);
@@ -499,18 +519,18 @@ public class GMSpl extends GM {
 	public static String getNewName(String pre) {
 		String[] titles = ((SPL) GV.appFrame).getSheetTitles();
 		return StringUtils.getNewName(pre, titles);
-//		String[] titles = ((SPL) GV.appFrame).getSheetTitles();
-//		ArrayList<String> names = new ArrayList<String>();
-//		if (titles != null) {
-//			for (int i = 0; i < titles.length; i++) {
-//				names.add(titles[i]);
-//			}
-//		}
-//		int index = 1;
-//		while (names.contains(pre + index)) {
-//			index++;
-//		}
-//		return pre + index;
+		// String[] titles = ((SPL) GV.appFrame).getSheetTitles();
+		// ArrayList<String> names = new ArrayList<String>();
+		// if (titles != null) {
+		// for (int i = 0; i < titles.length; i++) {
+		// names.add(titles[i]);
+		// }
+		// }
+		// int index = 1;
+		// while (names.contains(pre + index)) {
+		// index++;
+		// }
+		// return pre + index;
 	}
 
 	/**

@@ -1954,6 +1954,32 @@ public abstract class SplEditor {
 		GM.clipBoard(Escape.addEscAndQuote(buf.toString()));
 		return true;
 	}
+	
+	/**
+	 * Excel复制
+	 * @return 是否复制
+	 */
+	public boolean excelCopy(){
+		if (isNothingSelected()) {
+			return false;
+		}
+		CellRect cr = getSelectedRect();
+		int row = cr.getBeginRow();
+		int col = cr.getBeginCol();
+		// TODO
+		return true;
+	}
+	
+	public boolean excelPaste(){
+		if (isNothingSelected()) {
+			return false;
+		}
+		CellRect cr = getSelectedRect();
+		int row = cr.getBeginRow();
+		int col = cr.getBeginCol();
+		// TODO
+		return true;
+	}
 
 	/**
 	 * 取选择的格子矩阵

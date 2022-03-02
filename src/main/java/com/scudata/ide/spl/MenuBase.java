@@ -40,10 +40,13 @@ public class MenuBase extends PrjxAppMenu {
 		JMenuItem menuTemp;
 		// 文件菜单项
 		menu = getCommonMenuItem(GC.FILE, 'F', true);
-		menu.add(newCommonMenuItem(GC.iNEW, GC.NEW, 'N', ActionEvent.CTRL_MASK, true));
-		menu.add(newCommonMenuItem(GC.iOPEN, GC.OPEN, 'O', ActionEvent.CTRL_MASK, true));
+		menu.add(newCommonMenuItem(GC.iNEW, GC.NEW, 'N', ActionEvent.CTRL_MASK,
+				true));
+		menu.add(newCommonMenuItem(GC.iOPEN, GC.OPEN, 'O',
+				ActionEvent.CTRL_MASK, true));
 
-		// menuTemp = newSplMenuItem(GCSpl.iSPL_IMPORT_TXT, GCSpl.FILE_LOADTXT, 'I', GC.NO_MASK, true);
+		// menuTemp = newSplMenuItem(GCSpl.iSPL_IMPORT_TXT, GCSpl.FILE_LOADTXT,
+		// 'I', GC.NO_MASK, true);
 		// menu.add(menuTemp);
 		menu.addSeparator();
 		menu.add(getRecentMainPaths());
@@ -76,20 +79,26 @@ public class MenuBase extends PrjxAppMenu {
 	protected JMenu getToolMenu() {
 		JMenu menu = getCommonMenuItem(GC.TOOL, 'T', true);
 		JMenuItem menuTemp;
-		menuTemp = newCommonMenuItem(GC.iDATA_SOURCE, GC.DATA_SOURCE, 'S', GC.NO_MASK, true);
+		menuTemp = newCommonMenuItem(GC.iDATA_SOURCE, GC.DATA_SOURCE, 'S',
+				GC.NO_MASK, true);
 		menu.add(menuTemp);
-		JMenuItem miCmd = newSplMenuItem(GCSpl.iEXEC_CMD, GCSpl.EXEC_CMD, 'C', GC.NO_MASK, true);
+		JMenuItem miCmd = newSplMenuItem(GCSpl.iEXEC_CMD, GCSpl.EXEC_CMD, 'C',
+				GC.NO_MASK, true);
 		boolean isWin = GM.isWindowsOS();
 		miCmd.setVisible(isWin);
 		miCmd.setEnabled(isWin);
 		menu.add(miCmd);
-
-		JMenuItem miRep = newSplMenuItem(GCSpl.iFILE_REPLACE, GCSpl.FILE_REPLACE, 'R', GC.NO_MASK);
+		menu.add(newSplMenuItem(GCSpl.iSQLGENERATOR, GCSpl.SQLGENERATOR, 'Q',
+				GC.NO_MASK, true));
+		JMenuItem miRep = newSplMenuItem(GCSpl.iFILE_REPLACE,
+				GCSpl.FILE_REPLACE, 'R', GC.NO_MASK);
 		menu.add(miRep);
 		menu.addSeparator();
-		menu.add(newCommonMenuItem(GC.iOPTIONS, GC.OPTIONS, 'O', GC.NO_MASK, true));
+		menu.add(newCommonMenuItem(GC.iOPTIONS, GC.OPTIONS, 'O', GC.NO_MASK,
+				true));
 		if (ConfigOptions.bIdeConsole.booleanValue()) {
-			JMenuItem miConsole = newCommonMenuItem(GC.iCONSOLE, GC.CONSOLE, 'A', GC.NO_MASK);
+			JMenuItem miConsole = newCommonMenuItem(GC.iCONSOLE, GC.CONSOLE,
+					'A', GC.NO_MASK);
 			miConsole.setVisible(false);
 			miConsole.setEnabled(false);
 			menu.add(miConsole);
@@ -108,7 +117,8 @@ public class MenuBase extends PrjxAppMenu {
 	 *               here instead of no accelerator key.
 	 * @return
 	 */
-	protected JMenuItem newSplMenuItem(short cmdId, String menuId, char mneKey, int mask) {
+	protected JMenuItem newSplMenuItem(short cmdId, String menuId, char mneKey,
+			int mask) {
 		return newSplMenuItem(cmdId, menuId, mneKey, mask, false);
 	}
 
@@ -124,7 +134,8 @@ public class MenuBase extends PrjxAppMenu {
 	 * @param hasIcon 菜单项是否有图标
 	 * @return
 	 */
-	protected JMenuItem newSplMenuItem(short cmdId, String menuId, char mneKey, int mask, boolean hasIcon) {
+	protected JMenuItem newSplMenuItem(short cmdId, String menuId, char mneKey,
+			int mask, boolean hasIcon) {
 		String menuText = menuId;
 		if (menuText.indexOf('.') > 0) {
 			menuText = IdeSplMessage.get().getMessage(GC.MENU + menuId);
@@ -145,9 +156,10 @@ public class MenuBase extends PrjxAppMenu {
 	 * @param menuText 菜单项文本
 	 * @return
 	 */
-	protected JMenuItem newMenuItem(short cmdId, String menuId, char mneKey, int mask, boolean hasIcon,
-			String menuText) {
-		JMenuItem mItem = GM.getMenuItem(cmdId, menuId, mneKey, mask, hasIcon, menuText);
+	protected JMenuItem newMenuItem(short cmdId, String menuId, char mneKey,
+			int mask, boolean hasIcon, String menuText) {
+		JMenuItem mItem = GM.getMenuItem(cmdId, menuId, mneKey, mask, hasIcon,
+				menuText);
 		mItem.addActionListener(menuAction);
 		menuItems.put(cmdId, mItem);
 		return mItem;

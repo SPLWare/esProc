@@ -21,7 +21,6 @@ import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.util.Arrays;
 import java.util.List;
-import java.util.StringTokenizer;
 import java.util.Vector;
 
 import javax.swing.BorderFactory;
@@ -416,7 +415,7 @@ public class DialogSQLEditor extends JDialog {
 	 *            สýพÝิด
 	 */
 	public DialogSQLEditor(DataSource ds) {
-		super(GV.appFrame);
+		super(GV.appFrame, "", false);
 		this.ds = ds;
 		enableEvents(AWTEvent.WINDOW_EVENT_MASK);
 		try {
@@ -1024,19 +1023,13 @@ public class DialogSQLEditor extends JDialog {
 			public void mouseClicked(MouseEvent evt) {
 				if (evt.getClickCount() == 2) {
 					int index = orderListRight.getSelectedIndex();
-					String direction = "", item = orderListRight.data
-							.getElementAt(index).toString();
-					StringTokenizer st = new StringTokenizer(item);
-					if (st.hasMoreTokens()) {
-						item = st.nextToken();
-					}
-					if (st.hasMoreTokens()) {
-						direction = st.nextToken();
-					}
-					if (direction.equalsIgnoreCase("ASC")) {
-						item += " DESC";
+					String item = orderListRight.data.getElementAt(index)
+							.toString();
+					item = item.trim();
+					if (item.toUpperCase().endsWith("ASC")) {
+						item = item.substring(0, item.length() - 3) + "DESC";
 					} else {
-						item += " ASC";
+						item = item.substring(0, item.length() - 4) + "ASC";
 					}
 					orderListRight.data.set(index, item);
 				}
@@ -1308,7 +1301,6 @@ public class DialogSQLEditor extends JDialog {
 
 		jTabbedPaneSql.setSelectedComponent(fromPanel);
 
-		setModal(true);
 	}
 
 	/**

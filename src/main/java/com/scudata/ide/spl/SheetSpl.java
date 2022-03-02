@@ -53,7 +53,6 @@ import com.scudata.expression.fn.Func.CallInfo;
 import com.scudata.ide.common.CellSetTxtUtil;
 import com.scudata.ide.common.ConfigFile;
 import com.scudata.ide.common.ConfigOptions;
-import com.scudata.ide.common.DataSource;
 import com.scudata.ide.common.GC;
 import com.scudata.ide.common.GM;
 import com.scudata.ide.common.GV;
@@ -69,8 +68,6 @@ import com.scudata.ide.common.dialog.DialogEditConst;
 import com.scudata.ide.common.dialog.DialogInputArgument;
 import com.scudata.ide.common.dialog.DialogInputPassword;
 import com.scudata.ide.common.dialog.DialogRowHeight;
-import com.scudata.ide.common.dialog.DialogSQLEditor;
-import com.scudata.ide.common.dialog.DialogSelectDataSource;
 import com.scudata.ide.common.resources.IdeCommonMessage;
 import com.scudata.ide.custom.Server;
 import com.scudata.ide.spl.control.ContentPanel;
@@ -171,7 +168,8 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 	 * @param stepInfo 单步调试的信息
 	 * @throws Exception
 	 */
-	public SheetSpl(String filePath, PgmCellSet cs, StepInfo stepInfo) throws Exception {
+	public SheetSpl(String filePath, PgmCellSet cs, StepInfo stepInfo)
+			throws Exception {
 		super(filePath);
 		this.stepInfo = stepInfo;
 		if (stepInfo != null) {
@@ -184,7 +182,8 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 		try {
 			ImageIcon image = GM.getLogoImage(true);
 			final int size = 20;
-			image.setImage(image.getImage().getScaledInstance(size, size, Image.SCALE_DEFAULT));
+			image.setImage(image.getImage().getScaledInstance(size, size,
+					Image.SCALE_DEFAULT));
 			setFrameIcon(image);
 		} catch (Throwable t) {
 		}
@@ -203,7 +202,8 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 			if (currentCell == null) {
 				setExeLocation(stepInfo.startLocation);
 			} else {
-				setExeLocation(new CellLocation(currentCell.getRow(), currentCell.getCol()));
+				setExeLocation(new CellLocation(currentCell.getRow(),
+						currentCell.getCol()));
 			}
 			splControl.contentView.setEditable(false);
 		}
@@ -276,32 +276,35 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 	 * 
 	 * @return
 	 */
-//	public boolean exportTxt() {
-//		File oldFile = new File(filePath);
-//		String oldFileName = oldFile.getName();
-//		int index = oldFileName.lastIndexOf(".");
-//		if (index > 0) {
-//			oldFileName = oldFileName.substring(0, index + 1);
-//			oldFileName += AppConsts.FILE_SPL;
-//		}
-//		File f = GM.dialogSelectFile(AppConsts.FILE_SPL, GV.lastDirectory,
-//				IdeSplMessage.get().getMessage("public.export"), oldFileName, GV.appFrame);
-//		if (f == null)
-//			return false;
-//		if (f.exists() && !f.canWrite()) {
-//			JOptionPane.showMessageDialog(GV.appFrame, IdeCommonMessage.get().getMessage("public.readonly", filePath));
-//			return false;
-//		}
-//		String filePath = f.getAbsolutePath();
-//		try {
-//			AppUtil.writeSPLFile(filePath, splControl.cellSet);
-//		} catch (Throwable e) {
-//			GM.showException(e);
-//			return false;
-//		}
-//		JOptionPane.showMessageDialog(GV.appFrame, IdeSplMessage.get().getMessage("public.exportsucc", filePath));
-//		return true;
-//	}
+	// public boolean exportTxt() {
+	// File oldFile = new File(filePath);
+	// String oldFileName = oldFile.getName();
+	// int index = oldFileName.lastIndexOf(".");
+	// if (index > 0) {
+	// oldFileName = oldFileName.substring(0, index + 1);
+	// oldFileName += AppConsts.FILE_SPL;
+	// }
+	// File f = GM.dialogSelectFile(AppConsts.FILE_SPL, GV.lastDirectory,
+	// IdeSplMessage.get().getMessage("public.export"), oldFileName,
+	// GV.appFrame);
+	// if (f == null)
+	// return false;
+	// if (f.exists() && !f.canWrite()) {
+	// JOptionPane.showMessageDialog(GV.appFrame,
+	// IdeCommonMessage.get().getMessage("public.readonly", filePath));
+	// return false;
+	// }
+	// String filePath = f.getAbsolutePath();
+	// try {
+	// AppUtil.writeSPLFile(filePath, splControl.cellSet);
+	// } catch (Throwable e) {
+	// GM.showException(e);
+	// return false;
+	// }
+	// JOptionPane.showMessageDialog(GV.appFrame,
+	// IdeSplMessage.get().getMessage("public.exportsucc", filePath));
+	// return true;
+	// }
 
 	/**
 	 * 保存
@@ -314,13 +317,18 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 				if (server != null) {
 					try {
 						ByteArrayOutputStream out = new ByteArrayOutputStream();
-						if (filePath.toLowerCase().endsWith("." + AppConsts.FILE_SPL)) {
-							String cellSetStr = CellSetUtil.toString(splControl.cellSet);
+						if (filePath.toLowerCase().endsWith(
+								"." + AppConsts.FILE_SPL)) {
+							String cellSetStr = CellSetUtil
+									.toString(splControl.cellSet);
 							out.write(cellSetStr.getBytes());
 						} else {
-							CellSetUtil.writePgmCellSet(out, splControl.cellSet);
+							CellSetUtil
+									.writePgmCellSet(out, splControl.cellSet);
 						}
-						String fileName = filePath.substring(filePath.indexOf(':') + 1).replaceAll("\\\\", "/");
+						String fileName = filePath.substring(
+								filePath.indexOf(':') + 1).replaceAll("\\\\",
+								"/");
 						if (fileName.startsWith("/")) {
 							fileName = fileName.substring(1);
 						}
@@ -331,7 +339,8 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 					}
 				}
 			}
-		} else if (GMSpl.isNewGrid(filePath, GCSpl.PRE_NEWPGM) || !AppUtil.isSPLFile(filePath)) { // 新建
+		} else if (GMSpl.isNewGrid(filePath, GCSpl.PRE_NEWPGM)
+				|| !AppUtil.isSPLFile(filePath)) { // 新建
 			boolean hasSaveAs = saveAs();
 			if (hasSaveAs) {
 				storeBreakPoints();
@@ -349,8 +358,8 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 		} else {
 			File f = new File(filePath);
 			if (f.exists() && !f.canWrite()) {
-				JOptionPane.showMessageDialog(GV.appFrame,
-						IdeCommonMessage.get().getMessage("public.readonly", filePath));
+				JOptionPane.showMessageDialog(GV.appFrame, IdeCommonMessage
+						.get().getMessage("public.readonly", filePath));
 				return false;
 			}
 
@@ -386,7 +395,8 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 	 */
 	public boolean saveAs() {
 		boolean isSplFile = AppUtil.isSPLFile(filePath);
-		boolean isNewFile = GMSpl.isNewGrid(filePath, GCSpl.PRE_NEWPGM) || !isSplFile;
+		boolean isNewFile = GMSpl.isNewGrid(filePath, GCSpl.PRE_NEWPGM)
+				|| !isSplFile;
 		String fileExt = AppConsts.FILE_SPLX;
 		if (isSplFile) {
 			int index = filePath.lastIndexOf(".");
@@ -402,8 +412,10 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 			path = path.substring(0, index);
 		}
 		GM.saveAsExt = fileExt;
-		File saveFile = GM.dialogSelectFile(AppConsts.SPL_FILE_EXTS, GV.lastDirectory,
-				IdeCommonMessage.get().getMessage("public.saveas"), path, GV.appFrame);
+		File saveFile = GM.dialogSelectFile(AppConsts.SPL_FILE_EXTS,
+				GV.lastDirectory,
+				IdeCommonMessage.get().getMessage("public.saveas"), path,
+				GV.appFrame);
 		GM.saveAsExt = null;
 		if (saveFile == null) {
 			return false;
@@ -413,7 +425,8 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 		GV.lastDirectory = saveFile.getParent();
 
 		if (!AppUtil.isSPLFile(sfile)) {
-			saveFile = new File(saveFile.getParent(), saveFile.getName() + "." + fileExt);
+			saveFile = new File(saveFile.getParent(), saveFile.getName() + "."
+					+ fileExt);
 			sfile = saveFile.getAbsolutePath();
 		}
 
@@ -500,62 +513,98 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 		md.setMenuEnabled(GCSpl.iCOPYVALUE, canCopy);
 		md.setMenuEnabled(GCSpl.iCODE_COPY, canCopy);
 		md.setMenuEnabled(GCSpl.iCOPY_HTML, canCopy);
+		md.setMenuEnabled(GCSpl.iEXCEL_COPY, canCopy);
 		md.setMenuEnabled(GCSpl.iCUT, canCopy);
 
-		md.setMenuEnabled(GCSpl.iMOVE_COPY_UP, selectState != GCSpl.SELECT_STATE_NONE);
-		md.setMenuEnabled(GCSpl.iMOVE_COPY_DOWN, selectState != GCSpl.SELECT_STATE_NONE);
-		md.setMenuEnabled(GCSpl.iMOVE_COPY_LEFT, selectState != GCSpl.SELECT_STATE_NONE);
-		md.setMenuEnabled(GCSpl.iMOVE_COPY_RIGHT, selectState != GCSpl.SELECT_STATE_NONE);
+		md.setMenuEnabled(GCSpl.iMOVE_COPY_UP,
+				selectState != GCSpl.SELECT_STATE_NONE);
+		md.setMenuEnabled(GCSpl.iMOVE_COPY_DOWN,
+				selectState != GCSpl.SELECT_STATE_NONE);
+		md.setMenuEnabled(GCSpl.iMOVE_COPY_LEFT,
+				selectState != GCSpl.SELECT_STATE_NONE);
+		md.setMenuEnabled(GCSpl.iMOVE_COPY_RIGHT,
+				selectState != GCSpl.SELECT_STATE_NONE);
 
-		boolean canPaste = GMSpl.canPaste() && selectState != GCSpl.SELECT_STATE_NONE;
+		boolean canPaste = GMSpl.canPaste()
+				&& selectState != GCSpl.SELECT_STATE_NONE;
 		md.setMenuEnabled(GCSpl.iPASTE, canPaste);
 		md.setMenuEnabled(GCSpl.iPASTE_ADJUST, canPaste);
 		md.setMenuEnabled(GCSpl.iPASTE_SPECIAL, canPaste);
+		md.setMenuEnabled(GCSpl.iEXCEL_PASTE, canPaste);
 
-		md.setMenuEnabled(GCSpl.iCTRL_ENTER, selectState != GCSpl.SELECT_STATE_NONE);
-		md.setMenuEnabled(GCSpl.iDUP_ROW, selectState != GCSpl.SELECT_STATE_NONE);
-		md.setMenuEnabled(GCSpl.iDUP_ROW_ADJUST, selectState != GCSpl.SELECT_STATE_NONE);
-		md.setMenuEnabled(GCSpl.iCTRL_INSERT, selectState != GCSpl.SELECT_STATE_NONE);
-		md.setMenuEnabled(GCSpl.iALT_INSERT, selectState != GCSpl.SELECT_STATE_NONE);
+		md.setMenuEnabled(GCSpl.iCTRL_ENTER,
+				selectState != GCSpl.SELECT_STATE_NONE);
+		md.setMenuEnabled(GCSpl.iDUP_ROW,
+				selectState != GCSpl.SELECT_STATE_NONE);
+		md.setMenuEnabled(GCSpl.iDUP_ROW_ADJUST,
+				selectState != GCSpl.SELECT_STATE_NONE);
+		md.setMenuEnabled(GCSpl.iCTRL_INSERT,
+				selectState != GCSpl.SELECT_STATE_NONE);
+		md.setMenuEnabled(GCSpl.iALT_INSERT,
+				selectState != GCSpl.SELECT_STATE_NONE);
 
 		md.setMenuEnabled(GCSpl.iCLEAR, selectState != GCSpl.SELECT_STATE_NONE);
-		md.setMenuEnabled(GCSpl.iFULL_CLEAR, selectState != GCSpl.SELECT_STATE_NONE);
-		md.setMenuEnabled(GCSpl.iBREAKPOINTS, selectState != GCSpl.SELECT_STATE_NONE);
-		md.setMenuEnabled(GCSpl.iDELETE_ROW, selectState != GCSpl.SELECT_STATE_NONE);
-		md.setMenuEnabled(GCSpl.iDELETE_COL, selectState != GCSpl.SELECT_STATE_NONE);
-		md.setMenuEnabled(GCSpl.iCTRL_BACK, selectState != GCSpl.SELECT_STATE_NONE);
-		md.setMenuEnabled(GCSpl.iCTRL_DELETE, selectState != GCSpl.SELECT_STATE_NONE);
+		md.setMenuEnabled(GCSpl.iFULL_CLEAR,
+				selectState != GCSpl.SELECT_STATE_NONE);
+		md.setMenuEnabled(GCSpl.iBREAKPOINTS,
+				selectState != GCSpl.SELECT_STATE_NONE);
+		md.setMenuEnabled(GCSpl.iDELETE_ROW,
+				selectState != GCSpl.SELECT_STATE_NONE);
+		md.setMenuEnabled(GCSpl.iDELETE_COL,
+				selectState != GCSpl.SELECT_STATE_NONE);
+		md.setMenuEnabled(GCSpl.iCTRL_BACK,
+				selectState != GCSpl.SELECT_STATE_NONE);
+		md.setMenuEnabled(GCSpl.iCTRL_DELETE,
+				selectState != GCSpl.SELECT_STATE_NONE);
 
-		md.setMenuRowColEnabled(selectState == GCSpl.SELECT_STATE_ROW || selectState == GCSpl.SELECT_STATE_COL);
-		md.setMenuVisible(GCSpl.iROW_HEIGHT, selectState == GCSpl.SELECT_STATE_ROW);
-		md.setMenuVisible(GCSpl.iROW_ADJUST, selectState == GCSpl.SELECT_STATE_ROW);
-		md.setMenuVisible(GCSpl.iROW_HIDE, selectState == GCSpl.SELECT_STATE_ROW);
-		md.setMenuVisible(GCSpl.iROW_VISIBLE, selectState == GCSpl.SELECT_STATE_ROW);
+		md.setMenuRowColEnabled(selectState == GCSpl.SELECT_STATE_ROW
+				|| selectState == GCSpl.SELECT_STATE_COL);
+		md.setMenuVisible(GCSpl.iROW_HEIGHT,
+				selectState == GCSpl.SELECT_STATE_ROW);
+		md.setMenuVisible(GCSpl.iROW_ADJUST,
+				selectState == GCSpl.SELECT_STATE_ROW);
+		md.setMenuVisible(GCSpl.iROW_HIDE,
+				selectState == GCSpl.SELECT_STATE_ROW);
+		md.setMenuVisible(GCSpl.iROW_VISIBLE,
+				selectState == GCSpl.SELECT_STATE_ROW);
 
-		md.setMenuVisible(GCSpl.iCOL_WIDTH, selectState == GCSpl.SELECT_STATE_COL);
-		md.setMenuVisible(GCSpl.iCOL_ADJUST, selectState == GCSpl.SELECT_STATE_COL);
-		md.setMenuVisible(GCSpl.iCOL_HIDE, selectState == GCSpl.SELECT_STATE_COL);
-		md.setMenuVisible(GCSpl.iCOL_VISIBLE, selectState == GCSpl.SELECT_STATE_COL);
+		md.setMenuVisible(GCSpl.iCOL_WIDTH,
+				selectState == GCSpl.SELECT_STATE_COL);
+		md.setMenuVisible(GCSpl.iCOL_ADJUST,
+				selectState == GCSpl.SELECT_STATE_COL);
+		md.setMenuVisible(GCSpl.iCOL_HIDE,
+				selectState == GCSpl.SELECT_STATE_COL);
+		md.setMenuVisible(GCSpl.iCOL_VISIBLE,
+				selectState == GCSpl.SELECT_STATE_COL);
 
-		md.setMenuEnabled(GCSpl.iTEXT_EDITOR, selectState != GCSpl.SELECT_STATE_NONE);
+		md.setMenuEnabled(GCSpl.iTEXT_EDITOR,
+				selectState != GCSpl.SELECT_STATE_NONE);
 		md.setMenuEnabled(GCSpl.iNOTE, selectState != GCSpl.SELECT_STATE_NONE);
 		md.setMenuEnabled(GCSpl.iTIPS, selectState != GCSpl.SELECT_STATE_NONE);
 		md.setMenuEnabled(GCSpl.iSEARCH, selectState != GCSpl.SELECT_STATE_NONE);
-		md.setMenuEnabled(GCSpl.iREPLACE, selectState != GCSpl.SELECT_STATE_NONE);
+		md.setMenuEnabled(GCSpl.iREPLACE,
+				selectState != GCSpl.SELECT_STATE_NONE);
 
-		md.setMenuEnabled(GCSpl.iEDIT_CHART, selectState != GCSpl.SELECT_STATE_NONE);
-		md.setMenuEnabled(GCSpl.iFUNC_ASSIST, selectState != GCSpl.SELECT_STATE_NONE);
-		md.setMenuEnabled(GCSpl.iSHOW_VALUE, selectState != GCSpl.SELECT_STATE_NONE);
-		md.setMenuEnabled(GCSpl.iCLEAR_VALUE, selectState != GCSpl.SELECT_STATE_NONE);
+		md.setMenuEnabled(GCSpl.iEDIT_CHART,
+				selectState != GCSpl.SELECT_STATE_NONE);
+		md.setMenuEnabled(GCSpl.iFUNC_ASSIST,
+				selectState != GCSpl.SELECT_STATE_NONE);
+		md.setMenuEnabled(GCSpl.iSHOW_VALUE,
+				selectState != GCSpl.SELECT_STATE_NONE);
+		md.setMenuEnabled(GCSpl.iCLEAR_VALUE,
+				selectState != GCSpl.SELECT_STATE_NONE);
 
-		md.setMenuEnabled(GCSpl.iDRAW_CHART, GVSpl.panelValue.tableValue.canDrawChart());
+		md.setMenuEnabled(GCSpl.iDRAW_CHART,
+				GVSpl.panelValue.tableValue.canDrawChart());
 		md.setMenuVisible(GCSpl.iEDIT_CHART, true);
 		md.setMenuVisible(GCSpl.iDRAW_CHART, true);
 		// Toolbar
 		GVSpl.appTool.setBarEnabled(true);
 		GVSpl.appTool.setButtonEnabled(GCSpl.iSAVE, isDataChanged);
-		GVSpl.appTool.setButtonEnabled(GCSpl.iCLEAR, selectState != GCSpl.SELECT_STATE_NONE);
-		GVSpl.appTool.setButtonEnabled(GCSpl.iBREAKPOINTS, selectState != GCSpl.SELECT_STATE_NONE && !isStepStop);
+		GVSpl.appTool.setButtonEnabled(GCSpl.iCLEAR,
+				selectState != GCSpl.SELECT_STATE_NONE);
+		GVSpl.appTool.setButtonEnabled(GCSpl.iBREAKPOINTS,
+				selectState != GCSpl.SELECT_STATE_NONE && !isStepStop);
 		GVSpl.appTool.setButtonEnabled(GCSpl.iUNDO, splEditor.canUndo());
 		GVSpl.appTool.setButtonEnabled(GCSpl.iREDO, splEditor.canRedo());
 
@@ -569,7 +618,8 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 				GVSpl.panelValue.tableValue.setCellId(nc.getCellId());
 				String oldId = GVSpl.panelValue.tableValue.getCellId();
 				if (nc.getCellId().equals(oldId)) { // refresh
-					GVSpl.panelValue.tableValue.setValue1(value, nc.getCellId());
+					GVSpl.panelValue.tableValue
+							.setValue1(value, nc.getCellId());
 				} else {
 					lockOtherCell = true;
 					GVSpl.panelValue.tableValue.setValue(value);
@@ -581,8 +631,10 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 				String cellId = GVSpl.panelValue.tableValue.getCellId();
 				if (StringUtils.isValidString(cellId)) {
 					try {
-						INormalCell lockCell = splControl.cellSet.getCell(cellId);
-						Object oldVal = GVSpl.panelValue.tableValue.getOriginalValue();
+						INormalCell lockCell = splControl.cellSet
+								.getCell(cellId);
+						Object oldVal = GVSpl.panelValue.tableValue
+								.getOriginalValue();
 						Object newVal = lockCell.getValue();
 						boolean isValChanged = false;
 						if (oldVal == null) {
@@ -591,7 +643,8 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 							isValChanged = !oldVal.equals(newVal);
 						}
 						if (isValChanged)
-							GVSpl.panelValue.tableValue.setValue1(newVal, cellId);
+							GVSpl.panelValue.tableValue.setValue1(newVal,
+									cellId);
 					} catch (Exception e) {
 					}
 				}
@@ -621,7 +674,8 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 		}
 
 		boolean canShow = false;
-		if (GV.useRemoteServer && GV.fileTree != null && GV.fileTree.getServerList() != null
+		if (GV.useRemoteServer && GV.fileTree != null
+				&& GV.fileTree.getServerList() != null
 				&& GV.fileTree.getServerList().size() > 0) {
 			canShow = true;
 		}
@@ -629,7 +683,8 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 		md.setMenuEnabled(GCSpl.iREMOTE_SERVER_DATASOURCE, canShow);
 		md.setMenuEnabled(GCSpl.iREMOTE_SERVER_UPLOAD_FILE, canShow);
 
-		md.setMenuEnabled(GCSpl.iVIEW_CONSOLE, ConfigOptions.bIdeConsole.booleanValue());
+		md.setMenuEnabled(GCSpl.iVIEW_CONSOLE,
+				ConfigOptions.bIdeConsole.booleanValue());
 		if (stepInfo != null) {
 			// 中断单步调试以后,当前网格是call(spl)时菜单可用
 			if (!isStepStopCall()) {
@@ -743,10 +798,12 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 				long t2 = System.currentTimeMillis();
 				String cellId = CellLocation.getCellId(row, col);
 				debugTimeMap.put(cellId, t2 - t1);
-				NormalCell nc = (NormalCell) splControl.cellSet.getCell(row, col);
+				NormalCell nc = (NormalCell) splControl.cellSet.getCell(row,
+						col);
 				if (nc != null) {
 					Object value = nc.getValue();
-					GVSpl.panelValue.tableValue.setValue1(value, nc.getCellId());
+					GVSpl.panelValue.tableValue
+							.setValue1(value, nc.getCellId());
 				}
 			} catch (Exception x) {
 				String msg = x.getMessage();
@@ -857,7 +914,8 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 			return;
 		}
 
-		if (GMSpl.isNewGrid(filePath, GCSpl.PRE_NEWPGM) || !AppUtil.isSPLFile(filePath)) {
+		if (GMSpl.isNewGrid(filePath, GCSpl.PRE_NEWPGM)
+				|| !AppUtil.isSPLFile(filePath)) {
 			return;
 		}
 
@@ -867,7 +925,8 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 			cf = ConfigFile.getConfigFile();
 			oldNode = cf.getConfigNode();
 			cf.setConfigNode(ConfigFile.NODE_BREAKPOINTS);
-			ArrayList<CellLocation> breaks = splEditor.getComponent().getBreakPoints();
+			ArrayList<CellLocation> breaks = splEditor.getComponent()
+					.getBreakPoints();
 			StringBuffer sb = new StringBuffer();
 			for (int i = 0; i < breaks.size(); i++) {
 				CellLocation cp = breaks.get(i);
@@ -1096,14 +1155,16 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 					}
 					if (exeLocation == null)
 						return;
-					PgmNormalCell lastCell = (PgmNormalCell) splControl.cellSet.getCell(exeLocation.getRow(),
-							exeLocation.getCol());
+					PgmNormalCell lastCell = (PgmNormalCell) splControl.cellSet
+							.getCell(exeLocation.getRow(), exeLocation.getCol());
 					lastCell.setValue(returnVal);
 					splControl.cellSet.setCurrent(lastCell);
-					splControl.cellSet.setNext(exeLocation.getRow(), exeLocation.getCol() + 1, false);
+					splControl.cellSet.setNext(exeLocation.getRow(),
+							exeLocation.getCol() + 1, false);
 					INormalCell nextCell = splControl.cellSet.getCurrent();
 					if (nextCell != null)
-						setExeLocation(new CellLocation(nextCell.getRow(), nextCell.getCol()));
+						setExeLocation(new CellLocation(nextCell.getRow(),
+								nextCell.getCol()));
 					else {
 						setExeLocation(null);
 						synchronized (threadLock) {
@@ -1222,7 +1283,8 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 						if (runState == PAUSING) {
 							stepFinish();
 							if (!GVSpl.panelSplWatch.isCalculating())
-								GVSpl.panelSplWatch.watch(splControl.cellSet.getContext());
+								GVSpl.panelSplWatch.watch(splControl.cellSet
+										.getContext());
 						}
 					}
 					while (isPaused) {
@@ -1236,10 +1298,12 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 						long start = System.currentTimeMillis();
 						PgmNormalCell pnc = null;
 						if (exeLocation != null) {
-							pnc = curCellSet.getPgmNormalCell(exeLocation.getRow(), exeLocation.getCol());
+							pnc = curCellSet.getPgmNormalCell(
+									exeLocation.getRow(), exeLocation.getCol());
 						} else if (curCellSet.getCurrent() != null) {
 							INormalCell icell = curCellSet.getCurrent();
-							pnc = curCellSet.getPgmNormalCell(icell.getRow(), icell.getCol());
+							pnc = curCellSet.getPgmNormalCell(icell.getRow(),
+									icell.getCol());
 						}
 						if (pnc != null) {
 							if (stepInfo != null && stepInfo.endRow > -1) {
@@ -1257,39 +1321,55 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 										Node home = exp.getHome();
 										if (home instanceof Call) { // call函数
 											Call call = (Call) home;
-											PgmCellSet subCellSet = call.getCallPgmCellSet(splCtx);
-											subCellSet.setCurrent(subCellSet.getPgmNormalCell(1, 1));
+											PgmCellSet subCellSet = call
+													.getCallPgmCellSet(splCtx);
+											subCellSet.setCurrent(subCellSet
+													.getPgmNormalCell(1, 1));
 											subCellSet.setNext(1, 1, true); // 从子格开始执行
-											openSubSheet(pnc, subCellSet, null, null, -1, call);
+											openSubSheet(pnc, subCellSet, null,
+													null, -1, call);
 										} else if (home instanceof Func) { // Func块
 											// Func使用新网是为了支持递归
 											Func func = (Func) home;
-											CallInfo ci = func.getCallInfo(splCtx);
-											PgmCellSet cellSet = ci.getPgmCellSet();
+											CallInfo ci = func
+													.getCallInfo(splCtx);
+											PgmCellSet cellSet = ci
+													.getPgmCellSet();
 											int row = ci.getRow();
 											int col = ci.getCol();
 											Object[] args = ci.getArgs();
 											int rc = cellSet.getRowCount();
 											int cc = cellSet.getColCount();
-											if (row < 1 || row > rc || col < 1 || col > cc) {
-												MessageManager mm = EngineMessage.get();
-												throw new RQException(mm.getMessage("engine.callNeedSub"));
+											if (row < 1 || row > rc || col < 1
+													|| col > cc) {
+												MessageManager mm = EngineMessage
+														.get();
+												throw new RQException(
+														mm.getMessage("engine.callNeedSub"));
 											}
 
-											PgmNormalCell nc = cellSet.getPgmNormalCell(row, col);
+											PgmNormalCell nc = cellSet
+													.getPgmNormalCell(row, col);
 											Command command = nc.getCommand();
-											if (command == null || command.getType() != Command.FUNC) {
-												MessageManager mm = EngineMessage.get();
-												throw new RQException(mm.getMessage("engine.callNeedSub"));
+											if (command == null
+													|| command.getType() != Command.FUNC) {
+												MessageManager mm = EngineMessage
+														.get();
+												throw new RQException(
+														mm.getMessage("engine.callNeedSub"));
 											}
 
 											// 共享函数体外的格子
 											PgmCellSet pcs = cellSet.newCalc();
-											int endRow = cellSet.getCodeBlockEndRow(row, col);
+											int endRow = cellSet
+													.getCodeBlockEndRow(row,
+															col);
 											for (int r = row; r <= endRow; ++r) {
 												for (int c = col; c <= cc; ++c) {
-													INormalCell tmp = cellSet.getCell(r, c);
-													INormalCell cellClone = (INormalCell) tmp.deepClone();
+													INormalCell tmp = cellSet
+															.getCell(r, c);
+													INormalCell cellClone = (INormalCell) tmp
+															.deepClone();
 													cellClone.setCellSet(pcs);
 													pcs.setCell(r, c, cellClone);
 												}
@@ -1301,7 +1381,9 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 												int paramRow = row;
 												int paramCol = col;
 												for (int i = 0, pcount = args.length; i < pcount; ++i) {
-													pcs.getPgmNormalCell(paramRow, paramCol).setValue(args[i]);
+													pcs.getPgmNormalCell(
+															paramRow, paramCol)
+															.setValue(args[i]);
 													if (paramCol < colCount) {
 														paramCol++;
 													} else {
@@ -1309,21 +1391,26 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 													}
 												}
 											}
-											pcs.setCurrent(pcs.getPgmNormalCell(row, col));
+											pcs.setCurrent(pcs
+													.getPgmNormalCell(row, col));
 											pcs.setNext(row, col + 1, false); // 从子格开始执行
-											openSubSheet(pnc, pcs, ci, new CellLocation(row, col + 1), endRow, null);
+											openSubSheet(pnc, pcs, ci,
+													new CellLocation(row,
+															col + 1), endRow,
+													null);
 										}
 										final SheetSpl subSheet = getSubSheet();
 										if (subSheet != null) {
-											SwingUtilities.invokeLater(new Runnable() {
-												public void run() {
-													try {
-														subSheet.debug(STEP_INTO_WAIT);
-													} catch (Exception e) {
-														GM.showException(e);
-													}
-												}
-											});
+											SwingUtilities
+													.invokeLater(new Runnable() {
+														public void run() {
+															try {
+																subSheet.debug(STEP_INTO_WAIT);
+															} catch (Exception e) {
+																GM.showException(e);
+															}
+														}
+													});
 										}
 									}
 								}
@@ -1333,7 +1420,8 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 									SwingUtilities.invokeLater(new Runnable() {
 										public void run() {
 											try {
-												((SPL) GV.appFrame).showSheet(subSheet);
+												((SPL) GV.appFrame)
+														.showSheet(subSheet);
 											} catch (Exception e) {
 											}
 										}
@@ -1359,9 +1447,11 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 							} else {
 								if (stepInfo != null && stepInfo.endRow > -1) {
 									Command cmd = pnc.getCommand();
-									if (cmd != null && cmd.getType() == Command.RETURN) {
+									if (cmd != null
+											&& cmd.getType() == Command.RETURN) {
 										hasReturn = true;
-										Expression exp1 = cmd.getExpression(curCellSet, splCtx);
+										Expression exp1 = cmd.getExpression(
+												curCellSet, splCtx);
 										if (exp1 != null) {
 											returnVal = exp1.calculate(splCtx);
 										}
@@ -1373,14 +1463,16 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 						}
 						if (isDebugMode && pnc != null) {
 							long end = System.currentTimeMillis();
-							String cellId = CellLocation.getCellId(pnc.getRow(), pnc.getCol());
+							String cellId = CellLocation.getCellId(
+									pnc.getRow(), pnc.getCol());
 							debugTimeMap.put(cellId, end - start);
 						}
 					}
 					if (isDebugMode) {
 						if (checkBreak()) {
 							if (!GVSpl.panelSplWatch.isCalculating()) {
-								GVSpl.panelSplWatch.watch(splControl.cellSet.getContext());
+								GVSpl.panelSplWatch.watch(splControl.cellSet
+										.getContext());
 							}
 							while (true) {
 								if (isPaused) {
@@ -1440,9 +1532,12 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 								int endRow = stepInfo.endRow;
 								CallInfo ci = stepInfo.callInfo;
 								for (int r = endRow; r >= ci.getRow(); --r) {
-									for (int c = curCellSet.getColCount(); c > ci.getCol(); --c) {
-										PgmNormalCell cell = curCellSet.getPgmNormalCell(r, c);
-										if (cell.isCalculableCell() || cell.isCalculableBlock()) {
+									for (int c = curCellSet.getColCount(); c > ci
+											.getCol(); --c) {
+										PgmNormalCell cell = curCellSet
+												.getPgmNormalCell(r, c);
+										if (cell.isCalculableCell()
+												|| cell.isCalculableBlock()) {
 											returnVal = cell.getValue();
 										}
 									}
@@ -1476,7 +1571,8 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 		 * @param endRow        子网结束行
 		 * @param call          Call对象
 		 */
-		private void openSubSheet(PgmNormalCell pnc, final PgmCellSet subCellSet, CallInfo ci,
+		private void openSubSheet(PgmNormalCell pnc,
+				final PgmCellSet subCellSet, CallInfo ci,
 				CellLocation startLocation, int endRow, Call call) {
 			String newName = new File(filePath).getName();
 			if (AppUtil.isSPLFile(newName)) {
@@ -1501,7 +1597,8 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 				stepInfo.filePath = SheetSpl.this.stepInfo.filePath;
 			}
 			stepInfo.splCtx = splCtx;
-			stepInfo.parentLocation = new CellLocation(pnc.getRow(), pnc.getCol());
+			stepInfo.parentLocation = new CellLocation(pnc.getRow(),
+					pnc.getCol());
 			stepInfo.callInfo = ci;
 			stepInfo.startLocation = startLocation;
 			stepInfo.endRow = endRow;
@@ -1509,7 +1606,8 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 			subSheetOpened = true;
 			SwingUtilities.invokeLater(new Runnable() {
 				public void run() {
-					((SPL) GV.appFrame).openSheet(nn, subCellSet, false, stepInfo);
+					((SPL) GV.appFrame).openSheet(nn, subCellSet, false,
+							stepInfo);
 				}
 			});
 		}
@@ -1531,20 +1629,23 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 		private boolean checkBreak() {
 			if (exeLocation == null)
 				return false;
-			if (debugType == STEP_INTO_WAIT || debugType == STEP_OVER || debugType == STEP_INTO) {
+			if (debugType == STEP_INTO_WAIT || debugType == STEP_OVER
+					|| debugType == STEP_INTO) {
 				stepFinish();
 				if (ConfigOptions.bStepLastLocation.booleanValue()) {
 					if (lastLocation != null) {
 						SwingUtilities.invokeLater(new Thread() {
 							public void run() {
-								splEditor.selectCell(lastLocation.getRow(), lastLocation.getCol());
+								splEditor.selectCell(lastLocation.getRow(),
+										lastLocation.getCol());
 							}
 						});
 					}
 				}
 				return true;
 			}
-			if (splControl.isBreakPointCell(exeLocation.getRow(), exeLocation.getCol())) {
+			if (splControl.isBreakPointCell(exeLocation.getRow(),
+					exeLocation.getCol())) {
 				stepFinish();
 				return true;
 			}
@@ -1584,7 +1685,8 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 			if (debugType == CURSOR) {
 				CellLocation activeCell = splControl.getActiveCell();
 				if (activeCell != null)
-					clCursor = new CellLocation(activeCell.getRow(), activeCell.getCol());
+					clCursor = new CellLocation(activeCell.getRow(),
+							activeCell.getCol());
 			}
 		}
 
@@ -1659,8 +1761,9 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 	 * 执行菜单状态改为不可用，防止多次运行
 	 */
 	private void preventRun() {
-		setMenuToolEnabled(new short[] { GCSpl.iEXEC, GCSpl.iEXE_DEBUG, GCSpl.iSTEP_CURSOR, GCSpl.iSTEP_NEXT,
-				GCSpl.iCALC_AREA, GCSpl.iCALC_LOCK }, false);
+		setMenuToolEnabled(new short[] { GCSpl.iEXEC, GCSpl.iEXE_DEBUG,
+				GCSpl.iSTEP_CURSOR, GCSpl.iSTEP_NEXT, GCSpl.iCALC_AREA,
+				GCSpl.iCALC_LOCK }, false);
 	}
 
 	/**
@@ -1676,7 +1779,8 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 	 * @param isRefresh 是否刷新方法调用的
 	 * @param afterRun  是否执行结束调用的
 	 */
-	private synchronized void resetRunState(final boolean isRefresh, final boolean afterRun) {
+	private synchronized void resetRunState(final boolean isRefresh,
+			final boolean afterRun) {
 		SwingUtilities.invokeLater(new Thread() {
 			public void run() {
 				resetRunStateThread(isRefresh, afterRun);
@@ -1690,20 +1794,22 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 	 * @param isRefresh 是否刷新方法调用的
 	 * @param afterRun  是否执行结束调用的
 	 */
-	private synchronized void resetRunStateThread(boolean isRefresh, boolean afterRun) {
+	private synchronized void resetRunStateThread(boolean isRefresh,
+			boolean afterRun) {
 		if (!(GV.appMenu instanceof MenuSpl))
 			return;
 		MenuSpl md = (MenuSpl) GV.appMenu;
 
 		if (isStepStop) {
-			setMenuToolEnabled(
-					new short[] { GCSpl.iEXEC, GCSpl.iEXE_DEBUG, GCSpl.iSTEP_CURSOR, GCSpl.iSTEP_NEXT, GCSpl.iSTEP_INTO,
-							GCSpl.iCALC_AREA, GCSpl.iCALC_LOCK, GCSpl.iSTEP_RETURN, GCSpl.iSTEP_STOP, GCSpl.iPAUSE },
-					false);
+			setMenuToolEnabled(new short[] { GCSpl.iEXEC, GCSpl.iEXE_DEBUG,
+					GCSpl.iSTEP_CURSOR, GCSpl.iSTEP_NEXT, GCSpl.iSTEP_INTO,
+					GCSpl.iCALC_AREA, GCSpl.iCALC_LOCK, GCSpl.iSTEP_RETURN,
+					GCSpl.iSTEP_STOP, GCSpl.iPAUSE }, false);
 			setMenuToolEnabled(new short[] { GCSpl.iSTOP }, true); // 只能中断了
 			boolean editable = splControl.cellSet.getCurrentPrivilege() == PgmCellSet.PRIVILEGE_FULL;
 			if (!isRefresh) {
-				splEditor.getComponent().getContentPanel().setEditable(editable);
+				splEditor.getComponent().getContentPanel()
+						.setEditable(editable);
 				if (editable)
 					splControl.contentView.initEditor(ContentPanel.MODE_HIDE);
 			}
@@ -1735,52 +1841,76 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 			}
 		}
 		if (isThreadNull) {
-			setMenuToolEnabled(new short[] { GCSpl.iEXEC, GCSpl.iEXE_DEBUG }, stepInfo == null);
-			setMenuToolEnabled(new short[] { GCSpl.iSTEP_CURSOR, GCSpl.iSTEP_NEXT }, true);
+			setMenuToolEnabled(new short[] { GCSpl.iEXEC, GCSpl.iEXE_DEBUG },
+					stepInfo == null);
+			setMenuToolEnabled(new short[] { GCSpl.iSTEP_CURSOR,
+					GCSpl.iSTEP_NEXT }, true);
 			setMenuToolEnabled(new short[] { GCSpl.iPAUSE }, false);
 			setMenuToolEnabled(new short[] { GCSpl.iSTOP }, stepInfo != null);
-			setMenuToolEnabled(new short[] { GCSpl.iSTEP_INTO }, canStepInto && stepInfo != null);
-			setMenuToolEnabled(new short[] { GCSpl.iSTEP_RETURN }, stepInfo != null);
-			setMenuToolEnabled(new short[] { GCSpl.iSTEP_STOP }, stepInfo != null && stepInfo.parentCall != null);
-			setMenuToolEnabled(new short[] { GCSpl.iCALC_AREA, GCSpl.iCALC_LOCK },
+			setMenuToolEnabled(new short[] { GCSpl.iSTEP_INTO }, canStepInto
+					&& stepInfo != null);
+			setMenuToolEnabled(new short[] { GCSpl.iSTEP_RETURN },
+					stepInfo != null);
+			setMenuToolEnabled(new short[] { GCSpl.iSTEP_STOP },
+					stepInfo != null && stepInfo.parentCall != null);
+			setMenuToolEnabled(
+					new short[] { GCSpl.iCALC_AREA, GCSpl.iCALC_LOCK },
 					canRunCell() && (stepInfo == null || isStepStop));
 		} else {
 			switch (runState) {
 			case RunThread.RUN:
-				setMenuToolEnabled(new short[] { GCSpl.iEXEC, GCSpl.iEXE_DEBUG, GCSpl.iSTEP_CURSOR, GCSpl.iSTEP_NEXT,
-						GCSpl.iSTEP_INTO, GCSpl.iCALC_AREA, GCSpl.iCALC_LOCK }, false);
-				setMenuToolEnabled(new short[] { GCSpl.iSTEP_RETURN }, stepInfo != null);
-				setMenuToolEnabled(new short[] { GCSpl.iSTEP_STOP }, stepInfo != null && stepInfo.parentCall != null);
-				setMenuToolEnabled(new short[] { GCSpl.iPAUSE, GCSpl.iSTOP }, true);
+				setMenuToolEnabled(new short[] { GCSpl.iEXEC, GCSpl.iEXE_DEBUG,
+						GCSpl.iSTEP_CURSOR, GCSpl.iSTEP_NEXT, GCSpl.iSTEP_INTO,
+						GCSpl.iCALC_AREA, GCSpl.iCALC_LOCK }, false);
+				setMenuToolEnabled(new short[] { GCSpl.iSTEP_RETURN },
+						stepInfo != null);
+				setMenuToolEnabled(new short[] { GCSpl.iSTEP_STOP },
+						stepInfo != null && stepInfo.parentCall != null);
+				setMenuToolEnabled(new short[] { GCSpl.iPAUSE, GCSpl.iSTOP },
+						true);
 				editable = false;
 				break;
 			case RunThread.PAUSING:
-				setMenuToolEnabled(new short[] { GCSpl.iEXEC, GCSpl.iEXE_DEBUG, GCSpl.iSTEP_CURSOR, GCSpl.iSTEP_NEXT,
-						GCSpl.iSTEP_INTO, GCSpl.iCALC_AREA, GCSpl.iCALC_LOCK, GCSpl.iPAUSE }, false);
-				setMenuToolEnabled(new short[] { GCSpl.iSTEP_RETURN }, stepInfo != null);
-				setMenuToolEnabled(new short[] { GCSpl.iSTEP_STOP }, stepInfo != null && stepInfo.parentCall != null);
+				setMenuToolEnabled(new short[] { GCSpl.iEXEC, GCSpl.iEXE_DEBUG,
+						GCSpl.iSTEP_CURSOR, GCSpl.iSTEP_NEXT, GCSpl.iSTEP_INTO,
+						GCSpl.iCALC_AREA, GCSpl.iCALC_LOCK, GCSpl.iPAUSE },
+						false);
+				setMenuToolEnabled(new short[] { GCSpl.iSTEP_RETURN },
+						stepInfo != null);
+				setMenuToolEnabled(new short[] { GCSpl.iSTEP_STOP },
+						stepInfo != null && stepInfo.parentCall != null);
 				setMenuToolEnabled(new short[] { GCSpl.iSTOP }, true);
 				break;
 			case RunThread.PAUSED:
-				setMenuToolEnabled(new short[] { GCSpl.iEXEC, GCSpl.iEXE_DEBUG }, false);
-				setMenuToolEnabled(new short[] { GCSpl.iSTEP_CURSOR, GCSpl.iSTEP_NEXT }, isDebugMode);
-				setMenuToolEnabled(new short[] { GCSpl.iSTEP_INTO }, canStepInto);
-				setMenuToolEnabled(new short[] { GCSpl.iSTEP_RETURN }, stepInfo != null);
-				setMenuToolEnabled(new short[] { GCSpl.iSTEP_STOP }, stepInfo != null && stepInfo.parentCall != null);
-				setMenuToolEnabled(new short[] { GCSpl.iPAUSE, GCSpl.iSTOP }, true);
+				setMenuToolEnabled(
+						new short[] { GCSpl.iEXEC, GCSpl.iEXE_DEBUG }, false);
+				setMenuToolEnabled(new short[] { GCSpl.iSTEP_CURSOR,
+						GCSpl.iSTEP_NEXT }, isDebugMode);
+				setMenuToolEnabled(new short[] { GCSpl.iSTEP_INTO },
+						canStepInto);
+				setMenuToolEnabled(new short[] { GCSpl.iSTEP_RETURN },
+						stepInfo != null);
+				setMenuToolEnabled(new short[] { GCSpl.iSTEP_STOP },
+						stepInfo != null && stepInfo.parentCall != null);
+				setMenuToolEnabled(new short[] { GCSpl.iPAUSE, GCSpl.iSTOP },
+						true);
 				isPaused = true;
 				break;
 			case RunThread.FINISH:
-				setMenuToolEnabled(new short[] { GCSpl.iEXEC, GCSpl.iEXE_DEBUG, GCSpl.iSTEP_CURSOR, GCSpl.iSTEP_NEXT },
-						true);
-				setMenuToolEnabled(new short[] { GCSpl.iSTEP_INTO, GCSpl.iSTEP_RETURN, GCSpl.iSTEP_STOP }, false);
-				setMenuToolEnabled(new short[] { GCSpl.iPAUSE, GCSpl.iSTOP }, false);
-				setMenuToolEnabled(new short[] { GCSpl.iCALC_AREA, GCSpl.iCALC_LOCK }, canRunCell());
+				setMenuToolEnabled(new short[] { GCSpl.iEXEC, GCSpl.iEXE_DEBUG,
+						GCSpl.iSTEP_CURSOR, GCSpl.iSTEP_NEXT }, true);
+				setMenuToolEnabled(new short[] { GCSpl.iSTEP_INTO,
+						GCSpl.iSTEP_RETURN, GCSpl.iSTEP_STOP }, false);
+				setMenuToolEnabled(new short[] { GCSpl.iPAUSE, GCSpl.iSTOP },
+						false);
+				setMenuToolEnabled(new short[] { GCSpl.iCALC_AREA,
+						GCSpl.iCALC_LOCK }, canRunCell());
 				break;
 			}
 		}
 		if (splControl.cellSet.getCurrentPrivilege() != PgmCellSet.PRIVILEGE_FULL) {
-			setMenuToolEnabled(new short[] { GCSpl.iEXE_DEBUG, GCSpl.iSTEP_CURSOR, GCSpl.iSTEP_NEXT, GCSpl.iSTEP_INTO,
+			setMenuToolEnabled(new short[] { GCSpl.iEXE_DEBUG,
+					GCSpl.iSTEP_CURSOR, GCSpl.iSTEP_NEXT, GCSpl.iSTEP_INTO,
 					GCSpl.iSTEP_RETURN, GCSpl.iSTEP_STOP, GCSpl.iPAUSE }, false);
 			isPaused = false;
 			editable = false;
@@ -1897,7 +2027,8 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 							if (runThread != null) {
 								runThread.pause();
 							}
-							if (runThread != null && runThread.getRunState() != RunThread.FINISH) {
+							if (runThread != null
+									&& runThread.getRunState() != RunThread.FINISH) {
 								if (tg != null) {
 									try {
 										if (tg != null)
@@ -1994,7 +2125,8 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 	private void setExeLocation(CellLocation cl) {
 		exeLocation = cl;
 		if (cl != null) {
-			splControl.setStepPosition(new CellLocation(cl.getRow(), cl.getCol()));
+			splControl.setStepPosition(new CellLocation(cl.getRow(), cl
+					.getCol()));
 			lastLocation = new CellLocation(cl.getRow(), cl.getCol());
 		} else {
 			splControl.setStepPosition(null);
@@ -2131,10 +2263,11 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 		// 没有子程序的网格，或者有子程序但是已经中断执行的call网格，都提示保存
 		if (isChanged && (stepInfo == null || isStepStopCall())) {
 			String t1, t2;
-			t1 = IdeCommonMessage.get().getMessage("public.querysave", IdeCommonMessage.get().getMessage("public.file"),
-					filePath);
+			t1 = IdeCommonMessage.get().getMessage("public.querysave",
+					IdeCommonMessage.get().getMessage("public.file"), filePath);
 			t2 = IdeCommonMessage.get().getMessage("public.save");
-			int option = JOptionPane.showConfirmDialog(GV.appFrame, t1, t2, JOptionPane.YES_NO_CANCEL_OPTION);
+			int option = JOptionPane.showConfirmDialog(GV.appFrame, t1, t2,
+					JOptionPane.YES_NO_CANCEL_OPTION);
 			switch (option) {
 			case JOptionPane.YES_OPTION:
 				if (!save())
@@ -2237,7 +2370,8 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 	/**
 	 * 请先保存当前文件
 	 */
-	private static final String ERROR_NOT_SAVE = IdeSplMessage.get().getMessage("sheetdfx.savefilebefore");
+	private static final String ERROR_NOT_SAVE = IdeSplMessage.get()
+			.getMessage("sheetdfx.savefilebefore");
 
 	/**
 	 * 导入同名文本文件
@@ -2258,9 +2392,12 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 			synchronized (threadLock) {
 				if (runThread != null) {
 					// 有未执行完成的任务，是否中断执行？
-					int option = JOptionPane.showOptionDialog(GV.appFrame,
-							IdeSplMessage.get().getMessage("sheetdfx.queryclosethread"),
-							IdeSplMessage.get().getMessage("sheetdfx.closethread"), JOptionPane.YES_NO_OPTION,
+					int option = JOptionPane.showOptionDialog(
+							GV.appFrame,
+							IdeSplMessage.get().getMessage(
+									"sheetdfx.queryclosethread"), IdeSplMessage
+									.get().getMessage("sheetdfx.closethread"),
+							JOptionPane.YES_NO_OPTION,
 							JOptionPane.QUESTION_MESSAGE, null, null, null);
 					if (option == JOptionPane.OK_OPTION) {
 						runThread.closeThread();
@@ -2279,9 +2416,12 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 			boolean isEditable = control.getContentPanel().isEditable();
 			PgmCellSet cellSet = splControl.cellSet;
 			int index = filePath.lastIndexOf(".");
-			String txtPath = filePath.substring(0, index) + "." + AppConsts.FILE_TXT;
-			CellRect rect = new CellRect(1, 1, cellSet.getRowCount(), cellSet.getColCount());
-			Vector<IAtomicCmd> cmds = splEditor.getClearRectCmds(rect, SplEditor.CLEAR);
+			String txtPath = filePath.substring(0, index) + "."
+					+ AppConsts.FILE_TXT;
+			CellRect rect = new CellRect(1, 1, cellSet.getRowCount(),
+					cellSet.getColCount());
+			Vector<IAtomicCmd> cmds = splEditor.getClearRectCmds(rect,
+					SplEditor.CLEAR);
 			splEditor.executeCmd(cmds);
 			CellSetTxtUtil.readCellSet(txtPath, cellSet);
 			splEditor.setCellSet(cellSet);
@@ -2318,9 +2458,12 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 			synchronized (threadLock) {
 				if (runThread != null) {
 					// 有未执行完成的任务，是否中断执行？
-					int option = JOptionPane.showOptionDialog(GV.appFrame,
-							IdeSplMessage.get().getMessage("sheetdfx.queryclosethread"),
-							IdeSplMessage.get().getMessage("sheetdfx.closethread"), JOptionPane.YES_NO_OPTION,
+					int option = JOptionPane.showOptionDialog(
+							GV.appFrame,
+							IdeSplMessage.get().getMessage(
+									"sheetdfx.queryclosethread"), IdeSplMessage
+									.get().getMessage("sheetdfx.closethread"),
+							JOptionPane.YES_NO_OPTION,
 							JOptionPane.QUESTION_MESSAGE, null, null, null);
 					if (option == JOptionPane.OK_OPTION) {
 						runThread.closeThread();
@@ -2435,6 +2578,9 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 		case GCSpl.iCODE_COPY:
 			splEditor.codeCopy();
 			break;
+		case GCSpl.iEXCEL_COPY:
+			splEditor.excelCopy();
+			break;
 		case GCSpl.iCOPY_HTML:
 			if (splEditor.canCopyPresent())
 				splEditor.copyPresent();
@@ -2456,6 +2602,9 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 			if (o != SplEditor.PASTE_OPTION_NORMAL) {
 				splEditor.paste(isAdjustPaste, o);
 			}
+			break;
+		case GCSpl.iEXCEL_PASTE:
+			splEditor.excelPaste();
 			break;
 		case GCSpl.iCLEAR_VALUE:
 			splEditor.clear(SplEditor.CLEAR_VAL);
@@ -2608,22 +2757,6 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 				refresh();
 			}
 			break;
-		case GCSpl.iSQLGENERATOR: {
-			DialogSelectDataSource dsds = new DialogSelectDataSource(DialogSelectDataSource.TYPE_SQL);
-			dsds.setVisible(true);
-			if (dsds.getOption() != JOptionPane.OK_OPTION) {
-				return;
-			}
-			DataSource ds = dsds.getDataSource();
-			try {
-				DialogSQLEditor dse = new DialogSQLEditor(ds);
-				dse.setCopyMode();
-				dse.setVisible(true);
-			} catch (Throwable ex) {
-				GM.showException(ex);
-			}
-			break;
-		}
 		case GCSpl.iEXEC_CMD:
 			// 先停止所有编辑器的编辑
 			((EditControl) splEditor.getComponent()).acceptText();
@@ -2631,9 +2764,11 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 			if (isChanged) {
 				String t1, t2;
 				t1 = IdeCommonMessage.get().getMessage("public.querysave",
-						IdeCommonMessage.get().getMessage("public.file"), filePath);
+						IdeCommonMessage.get().getMessage("public.file"),
+						filePath);
 				t2 = IdeCommonMessage.get().getMessage("public.save");
-				int option = JOptionPane.showConfirmDialog(GV.appFrame, t1, t2, JOptionPane.YES_NO_CANCEL_OPTION);
+				int option = JOptionPane.showConfirmDialog(GV.appFrame, t1, t2,
+						JOptionPane.YES_NO_CANCEL_OPTION);
 				switch (option) {
 				case JOptionPane.YES_OPTION:
 					if (!save())
@@ -2751,7 +2886,9 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 
 					GVSpl.splEditor = sheet.splEditor;
 					sheet.splControl.repaint();
-					GV.appFrame.changeMenuAndToolBar(((SPL) GV.appFrame).newMenuSpl(), GVSpl.getSplTool());
+					GV.appFrame.changeMenuAndToolBar(
+							((SPL) GV.appFrame).newMenuSpl(),
+							GVSpl.getSplTool());
 
 					GV.appMenu.addLiveMenu(sheet.getSheetTitle());
 					GV.appMenu.resetPrivilegeMenu();
@@ -2771,7 +2908,8 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 					GVSpl.panelSplWatch.setCellSet(sheet.splControl.cellSet);
 					GVSpl.panelSplWatch.watch(sheet.getSplContext());
 					GVSpl.panelValue.setCellSet(sheet.splControl.cellSet);
-					if (GVSpl.searchDialog != null && GVSpl.searchDialog.isVisible()) {
+					if (GVSpl.searchDialog != null
+							&& GVSpl.searchDialog.isVisible()) {
 						if (splEditor != null)
 							GVSpl.searchDialog.setControl(splEditor);
 					}

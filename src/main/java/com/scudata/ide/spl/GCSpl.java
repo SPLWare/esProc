@@ -63,6 +63,8 @@ public class GCSpl extends GC {
 	public static final String COPYVALUE = "edit.copyvalue";
 	/** 代码复制ctrl-shift-C */
 	public static final String CODE_COPY = "edit.codecopy";
+	/** Excel复制alt-C */
+	public static final String EXCEL_COPY = "edit.excelcopy";
 	/** 复制可呈现代码(C)无窗口html */
 	public static final String COPY_HTML = "edit.copyhtml";
 	/** 复制可呈现代码(P) */
@@ -79,6 +81,8 @@ public class GCSpl extends GC {
 	public static final String PASTE_INSERT = "edit.pasteinsert";
 	/** 插入变迁粘贴ctrl-alt-B */
 	public static final String PASTE_ADJUST_INSERT = "edit.pasteadjustinsert";
+	/** Excel粘贴alt-B */
+	public static final String EXCEL_PASTE = "edit.excelpaste";
 	/** 插入 */
 	public static final String INSERT = "edit.insert";
 	/** 插入行(R) */
@@ -166,6 +170,8 @@ public class GCSpl extends GC {
 	public static final short iCOPYVALUE = MENU_SPL + 113;
 	/** 代码复制ctrl-shift-C */
 	public static final short iCODE_COPY = MENU_SPL + 115;
+	/** Excel复制alt-C */
+	public static final short iEXCEL_COPY = MENU_SPL + 116;
 	/** 复制可呈现代码(C)无窗口html */
 	public static final short iCOPY_HTML = MENU_SPL + 117;
 	/** 复制可呈现代码(P) */
@@ -178,6 +184,8 @@ public class GCSpl extends GC {
 	public static final short iPASTE_ADJUST = MENU_SPL + 125;
 	/** Ctrl-Shift-V */
 	public static final short iPASTE_SPECIAL = MENU_SPL + 127;
+	/** Excel粘贴alt-V */
+	public static final short iEXCEL_PASTE = MENU_SPL + 129;
 	/** 插入列(C) */
 	public static final short iINSERT_COL = MENU_SPL + 131;
 	/** 追加列(D) */

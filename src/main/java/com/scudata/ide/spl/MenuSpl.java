@@ -49,6 +49,33 @@ public class MenuSpl extends PrjxAppMenu {
 	 * 初始化菜单
 	 */
 	protected void init() {
+		// 文件菜单
+		add(getFileMenu());
+		// 编辑菜单
+		add(getEditMenu());
+		// 程序菜单
+		add(getProgramMenu());
+
+		// 工具菜单
+		add(getToolMenu());
+
+		// 窗口菜单
+		tmpLiveMenu = getWindowMenu();
+		add(tmpLiveMenu);
+
+		// 帮助菜单
+		add(getHelpMenu(true));
+
+		setEnable(getMenuItems(), false);
+		resetLiveMenu();
+	}
+
+	/**
+	 * 文件菜单
+	 * 
+	 * @return 文件菜单
+	 */
+	protected JMenu getFileMenu() {
 		JMenu menu;
 		JMenuItem menuTemp;
 		menu = getCommonMenuItem(GCSpl.FILE, 'F', true);
@@ -76,12 +103,6 @@ public class MenuSpl extends PrjxAppMenu {
 		// 职场版不显示远程功能
 		menuTemp = newSplMenuItem(GCSpl.iSAVE_FTP, GCSpl.SAVE_FTP, 'P', GC.NO_MASK, true);
 		menu.add(menuTemp);
-		// menu.addSeparator();
-		// menuTemp = newSplMenuItem(GCSpl.iSPL_IMPORT_TXT, GCSpl.FILE_LOADTXT, 'I', GC.NO_MASK, true);
-		// menu.add(menuTemp);
-		// menuTemp = newSplMenuItem(GCSpl.iFILE_EXPORTTXT, GCSpl.FILE_EXPORTTXT, 'E', ActionEvent.CTRL_MASK, false);
-		// menu.add(menuTemp);
-
 		menu.addSeparator();
 		menu.add(getRecentMainPaths());
 		menu.add(getRecentFile());
@@ -89,9 +110,16 @@ public class MenuSpl extends PrjxAppMenu {
 		menu.addSeparator();
 		menuTemp = newCommonMenuItem(GCSpl.iQUIT, GCSpl.QUIT, 'X', GC.NO_MASK, true);
 		menu.add(menuTemp);
-		add(menu);
-		// 编辑菜单项
-		menu = getSplMenuItem(GCSpl.EDIT, 'E', true);
+		return menu;
+	}
+
+	/**
+	 * 编辑菜单
+	 * 
+	 * @return 编辑菜单
+	 */
+	protected JMenu getEditMenu() {
+		JMenu menu = getSplMenuItem(GCSpl.EDIT, 'E', true);
 
 		menu.add(newSplMenuItem(GCSpl.iUNDO, GCSpl.UNDO, 'Z', ActionEvent.CTRL_MASK, true));
 		JMenuItem menuRedo = newSplMenuItem(GCSpl.iREDO, GCSpl.REDO, 'Y', ActionEvent.CTRL_MASK, true);
@@ -114,7 +142,11 @@ public class MenuSpl extends PrjxAppMenu {
 		temp.add(miCopyHtml);
 
 		temp.add(newSplMenuItem(GCSpl.iCOPY_HTML_DIALOG, GCSpl.COPY_HTML_DIALOG, 'P', GC.NO_MASK));
-
+		boolean isExcelVisible = false;
+		mi = newSplMenuItem(GCSpl.iEXCEL_COPY, GCSpl.EXCEL_COPY, 'C', ActionEvent.ALT_MASK);
+		mi.setEnabled(isExcelVisible);
+		mi.setVisible(isExcelVisible);
+		temp.add(mi);
 		temp.add(newSplMenuItem(GCSpl.iCUT, GCSpl.CUT, 'X', ActionEvent.CTRL_MASK, true));
 		menu.add(temp);
 		temp = getSplMenuItem(GCSpl.PASTE, 'V', false);
@@ -123,6 +155,10 @@ public class MenuSpl extends PrjxAppMenu {
 				ActionEvent.CTRL_MASK + ActionEvent.ALT_MASK));
 		temp.add(newSplMenuItem(GCSpl.iPASTE_SPECIAL, GCSpl.PASTE_SPECIAL, 'V',
 				ActionEvent.CTRL_MASK + ActionEvent.SHIFT_MASK));
+		mi = newSplMenuItem(GCSpl.iEXCEL_PASTE, GCSpl.EXCEL_PASTE, 'V', ActionEvent.ALT_MASK);
+		mi.setEnabled(isExcelVisible);
+		mi.setVisible(isExcelVisible);
+		temp.add(mi);
 		menu.add(temp);
 		temp = getSplMenuItem(GCSpl.INSERT, 'I', false);
 		temp.add(newSplMenuItem(GCSpl.iCTRL_ENTER, GCSpl.INSERT_ROW, (char) KeyEvent.VK_ENTER, ActionEvent.CTRL_MASK,
@@ -167,7 +203,7 @@ public class MenuSpl extends PrjxAppMenu {
 
 		menu.add(newSplMenuItem(GCSpl.iTEXT_EDITOR, GCSpl.TEXT_EDITOR, 'E', GC.NO_MASK));
 		menu.add(newSplMenuItem(GCSpl.iNOTE, GCSpl.NOTE, '/', ActionEvent.CTRL_MASK));
-		menuTemp = newCommonMenuItem(GC.iTIPS, GC.TIPS, 'T', GC.NO_MASK);
+		JMenuItem menuTemp = newCommonMenuItem(GC.iTIPS, GC.TIPS, 'T', GC.NO_MASK);
 
 		menu.add(menuTemp);
 		menu.addSeparator();
@@ -190,10 +226,53 @@ public class MenuSpl extends PrjxAppMenu {
 		menu.addSeparator();
 		menu.add(newSplMenuItem(GCSpl.iSEARCH, GCSpl.SEARCH, 'F', ActionEvent.CTRL_MASK, true));
 		menu.add(newSplMenuItem(GCSpl.iREPLACE, GCSpl.REPLACE, 'R', ActionEvent.CTRL_MASK, true));
-		add(menu);
-		// 程序菜单项
-		menu = getSplMenuItem(GCSpl.PROGRAM, 'P', true);
-		menuTemp = newSplMenuItem(GCSpl.iPARAM, GCSpl.PARAM, 'P', GC.NO_MASK, true);
+		return menu;
+	}
+
+	/**
+	 * 工具菜单
+	 * 
+	 * @return 工具菜单
+	 */
+	protected JMenu getToolMenu() {
+		JMenu menu = getSplMenuItem(GCSpl.TOOL, 'T', true);
+		JMenuItem menuTemp = newCommonMenuItem(GC.iPROPERTY, GC.PROPERTY1, 'D', GC.NO_MASK);
+		menu.add(menuTemp);
+		pswMenuItem = newCommonMenuItem(GCSpl.iPASSWORD, GCSpl.PASSWORD, 'W', GC.NO_MASK);
+		menu.add(pswMenuItem);
+		menuTemp = newSplMenuItem(GCSpl.iCONST, GCSpl.CONST, 'N', GC.NO_MASK);
+		menu.add(menuTemp);
+		menu.addSeparator();
+		menu.add(newCommonMenuItem(GC.iDATA_SOURCE, GC.DATA_SOURCE, 'S', GC.NO_MASK, true));
+		JMenuItem miCmd = newSplMenuItem(GCSpl.iEXEC_CMD, GCSpl.EXEC_CMD, 'C', GC.NO_MASK, true);
+		boolean isWin = GM.isWindowsOS();
+		miCmd.setVisible(isWin);
+		miCmd.setEnabled(isWin);
+		menu.add(miCmd);
+		menu.add(newSplMenuItem(GCSpl.iSQLGENERATOR, GCSpl.SQLGENERATOR, 'Q', GC.NO_MASK, true));
+
+		JMenuItem miRep = newSplMenuItem(GCSpl.iFILE_REPLACE, GCSpl.FILE_REPLACE, 'R', GC.NO_MASK);
+		menu.add(miRep);
+		menu.addSeparator();
+
+		menu.add(newCommonMenuItem(GC.iOPTIONS, GC.OPTIONS, 'O', GC.NO_MASK, true));
+		if (ConfigOptions.bIdeConsole.booleanValue()) {
+			JMenuItem miConsole = newCommonMenuItem(GC.iCONSOLE, GC.CONSOLE, 'A', GC.NO_MASK);
+			miConsole.setVisible(false);
+			miConsole.setEnabled(false);
+			menu.add(miConsole);
+		}
+		return menu;
+	}
+
+	/**
+	 * 程序菜单
+	 * 
+	 * @return 程序菜单
+	 */
+	protected JMenu getProgramMenu() {
+		JMenu menu = getSplMenuItem(GCSpl.PROGRAM, 'P', true);
+		JMenuItem menuTemp = newSplMenuItem(GCSpl.iPARAM, GCSpl.PARAM, 'P', GC.NO_MASK, true);
 		menu.add(menuTemp);
 		menu.addSeparator();
 		menu.add(newSplMenuItem(GCSpl.iRESET, GCSpl.RESET, 'R', GC.NO_MASK));
@@ -239,52 +318,7 @@ public class MenuSpl extends PrjxAppMenu {
 		menu.addSeparator();
 		menuTemp = newSplMenuItem(GCSpl.iDRAW_CHART, GCSpl.DRAW_CHART, 'A', GC.NO_MASK, true);
 		menu.add(menuTemp);
-		add(menu);
-
-		// 工具菜单
-		menu = getSplMenuItem(GCSpl.TOOL, 'T', true);
-		menuTemp = newCommonMenuItem(GC.iPROPERTY, GC.PROPERTY1, 'D', GC.NO_MASK);
-		menu.add(menuTemp);
-		pswMenuItem = newCommonMenuItem(GCSpl.iPASSWORD, GCSpl.PASSWORD, 'W', GC.NO_MASK);
-		menu.add(pswMenuItem);
-		menuTemp = newSplMenuItem(GCSpl.iCONST, GCSpl.CONST, 'N', GC.NO_MASK);
-		menu.add(menuTemp);
-		menu.addSeparator();
-		menu.add(newCommonMenuItem(GC.iDATA_SOURCE, GC.DATA_SOURCE, 'S', GC.NO_MASK, true));
-		JMenuItem miCmd = newSplMenuItem(GCSpl.iEXEC_CMD, GCSpl.EXEC_CMD, 'C', GC.NO_MASK, true);
-		boolean isWin = GM.isWindowsOS();
-		miCmd.setVisible(isWin);
-		miCmd.setEnabled(isWin);
-		menu.add(miCmd);
-		menu.add(newSplMenuItem(GCSpl.iSQLGENERATOR, GCSpl.SQLGENERATOR, 'Q', GC.NO_MASK, true));
-
-		JMenuItem miRep = newSplMenuItem(GCSpl.iFILE_REPLACE, GCSpl.FILE_REPLACE, 'R', GC.NO_MASK);
-		menu.add(miRep);
-		menu.addSeparator();
-
-		menu.add(newCommonMenuItem(GC.iOPTIONS, GC.OPTIONS, 'O', GC.NO_MASK, true));
-		if (ConfigOptions.bIdeConsole.booleanValue()) {
-			JMenuItem miConsole = newCommonMenuItem(GC.iCONSOLE, GC.CONSOLE, 'A', GC.NO_MASK);
-			miConsole.setVisible(false);
-			miConsole.setEnabled(false);
-			menu.add(miConsole);
-		}
-		// menu.addSeparator();
-		// menuTemp = newSplMenuItem(GCSpl.iFUNC_MANAGER, GCSpl.FUNC_MANAGER,
-		// 'N',
-		// GC.NO_MASK);
-		// menu.add(menuTemp);
-		add(menu);
-
-		// 窗口菜单
-		tmpLiveMenu = getWindowMenu();
-		add(tmpLiveMenu);
-
-		// 帮助菜单
-		add(getHelpMenu(true));
-
-		setEnable(getMenuItems(), false);
-		resetLiveMenu();
+		return menu;
 	}
 
 	/**
@@ -430,14 +464,15 @@ public class MenuSpl extends PrjxAppMenu {
 				// 文件
 				GCSpl.iSAVE, GCSpl.iSAVEAS,
 				// 编辑
-				GCSpl.iUNDO, GCSpl.iREDO, GCSpl.iCOPY, GCSpl.iCOPYVALUE, GCSpl.iCODE_COPY, GCSpl.iCOPY_HTML_DIALOG,
-				GCSpl.iCUT, GCSpl.iPASTE, GCSpl.iPASTE_ADJUST, GCSpl.iPASTE_SPECIAL, GCSpl.iADD_COL, GCSpl.iCTRL_ENTER,
-				GCSpl.iCTRL_INSERT, GCSpl.iALT_INSERT, GCSpl.iDUP_ROW, GCSpl.iDUP_ROW_ADJUST, GCSpl.iCLEAR,
-				GCSpl.iFULL_CLEAR, GCSpl.iDELETE_ROW, GCSpl.iDELETE_COL, GCSpl.iCTRL_BACK, GCSpl.iCTRL_DELETE,
-				GCSpl.iTEXT_EDITOR, GCSpl.iNOTE, GCSpl.iTIPS, GCSpl.iROW_HEIGHT, GCSpl.iROW_ADJUST, GCSpl.iROW_HIDE,
-				GCSpl.iROW_VISIBLE, GCSpl.iCOL_WIDTH, GCSpl.iCOL_ADJUST, GCSpl.iCOL_HIDE, GCSpl.iCOL_VISIBLE,
-				GCSpl.iEDIT_CHART, GCSpl.iFUNC_ASSIST, GCSpl.iSEARCH, GCSpl.iREPLACE, GCSpl.iMOVE_COPY_UP,
-				GCSpl.iMOVE_COPY_DOWN, GCSpl.iMOVE_COPY_LEFT, GCSpl.iMOVE_COPY_RIGHT,
+				GCSpl.iUNDO, GCSpl.iREDO, GCSpl.iCOPY, GCSpl.iCOPYVALUE, GCSpl.iCODE_COPY, GCSpl.iEXCEL_COPY,
+				GCSpl.iCOPY_HTML_DIALOG, GCSpl.iCUT, GCSpl.iPASTE, GCSpl.iPASTE_ADJUST, GCSpl.iPASTE_SPECIAL,
+				GCSpl.iEXCEL_PASTE, GCSpl.iADD_COL, GCSpl.iCTRL_ENTER, GCSpl.iCTRL_INSERT, GCSpl.iALT_INSERT,
+				GCSpl.iDUP_ROW, GCSpl.iDUP_ROW_ADJUST, GCSpl.iCLEAR, GCSpl.iFULL_CLEAR, GCSpl.iDELETE_ROW,
+				GCSpl.iDELETE_COL, GCSpl.iCTRL_BACK, GCSpl.iCTRL_DELETE, GCSpl.iTEXT_EDITOR, GCSpl.iNOTE, GCSpl.iTIPS,
+				GCSpl.iROW_HEIGHT, GCSpl.iROW_ADJUST, GCSpl.iROW_HIDE, GCSpl.iROW_VISIBLE, GCSpl.iCOL_WIDTH,
+				GCSpl.iCOL_ADJUST, GCSpl.iCOL_HIDE, GCSpl.iCOL_VISIBLE, GCSpl.iEDIT_CHART, GCSpl.iFUNC_ASSIST,
+				GCSpl.iSEARCH, GCSpl.iREPLACE, GCSpl.iMOVE_COPY_UP, GCSpl.iMOVE_COPY_DOWN, GCSpl.iMOVE_COPY_LEFT,
+				GCSpl.iMOVE_COPY_RIGHT,
 				// 程序
 				GCSpl.iPARAM, GCSpl.iPASSWORD, GCSpl.iEXEC, GCSpl.iEXE_DEBUG, GCSpl.iCALC_AREA, GCSpl.iCALC_LOCK,
 				GCSpl.iSTEP_NEXT, GCSpl.iSTEP_CURSOR, GCSpl.iSTOP, GCSpl.iSHOW_VALUE, GCSpl.iCLEAR_VALUE, GCSpl.iPAUSE,
@@ -456,14 +491,15 @@ public class MenuSpl extends PrjxAppMenu {
 				GCSpl.iSAVE, GCSpl.iSAVEAS, GCSpl.iSAVEALL, GCSpl.iFILE_REOPEN, GCSpl.iSAVE_FTP,
 				// GCSpl.iSPL_IMPORT_TXT, GCSpl.iFILE_EXPORTTXT,
 				// 编辑
-				GCSpl.iUNDO, GCSpl.iREDO, GCSpl.iCOPY, GCSpl.iCOPYVALUE, GCSpl.iCODE_COPY, GCSpl.iCOPY_HTML_DIALOG,
-				GCSpl.iCUT, GCSpl.iPASTE, GCSpl.iPASTE_ADJUST, GCSpl.iPASTE_SPECIAL, GCSpl.iADD_COL, GCSpl.iCTRL_ENTER,
-				GCSpl.iCTRL_INSERT, GCSpl.iALT_INSERT, GCSpl.iINSERT_COL, GCSpl.iDUP_ROW, GCSpl.iDUP_ROW_ADJUST,
-				GCSpl.iCLEAR, GCSpl.iFULL_CLEAR, GCSpl.iDELETE_ROW, GCSpl.iDELETE_COL, GCSpl.iCTRL_BACK,
-				GCSpl.iCTRL_DELETE, GCSpl.iTEXT_EDITOR, GCSpl.iNOTE, GCSpl.iTIPS, GCSpl.iROW_HEIGHT, GCSpl.iROW_ADJUST,
-				GCSpl.iROW_HIDE, GCSpl.iROW_VISIBLE, GCSpl.iCOL_WIDTH, GCSpl.iCOL_ADJUST, GCSpl.iCOL_HIDE,
-				GCSpl.iCOL_VISIBLE, GCSpl.iEDIT_CHART, GCSpl.iFUNC_ASSIST, GCSpl.iSEARCH, GCSpl.iREPLACE,
-				GCSpl.iMOVE_COPY_UP, GCSpl.iMOVE_COPY_DOWN, GCSpl.iMOVE_COPY_LEFT, GCSpl.iMOVE_COPY_RIGHT,
+				GCSpl.iUNDO, GCSpl.iREDO, GCSpl.iCOPY, GCSpl.iCOPYVALUE, GCSpl.iCODE_COPY, GCSpl.iEXCEL_COPY,
+				GCSpl.iCOPY_HTML_DIALOG, GCSpl.iCUT, GCSpl.iPASTE, GCSpl.iPASTE_ADJUST, GCSpl.iPASTE_SPECIAL,
+				GCSpl.iEXCEL_PASTE, GCSpl.iADD_COL, GCSpl.iCTRL_ENTER, GCSpl.iCTRL_INSERT, GCSpl.iALT_INSERT,
+				GCSpl.iINSERT_COL, GCSpl.iDUP_ROW, GCSpl.iDUP_ROW_ADJUST, GCSpl.iCLEAR, GCSpl.iFULL_CLEAR,
+				GCSpl.iDELETE_ROW, GCSpl.iDELETE_COL, GCSpl.iCTRL_BACK, GCSpl.iCTRL_DELETE, GCSpl.iTEXT_EDITOR,
+				GCSpl.iNOTE, GCSpl.iTIPS, GCSpl.iROW_HEIGHT, GCSpl.iROW_ADJUST, GCSpl.iROW_HIDE, GCSpl.iROW_VISIBLE,
+				GCSpl.iCOL_WIDTH, GCSpl.iCOL_ADJUST, GCSpl.iCOL_HIDE, GCSpl.iCOL_VISIBLE, GCSpl.iEDIT_CHART,
+				GCSpl.iFUNC_ASSIST, GCSpl.iSEARCH, GCSpl.iREPLACE, GCSpl.iMOVE_COPY_UP, GCSpl.iMOVE_COPY_DOWN,
+				GCSpl.iMOVE_COPY_LEFT, GCSpl.iMOVE_COPY_RIGHT,
 				// 程序
 				GCSpl.iPARAM, GCSpl.iPASSWORD, GCSpl.iEXEC, GCSpl.iEXE_DEBUG, GCSpl.iRESET, GCSpl.iCALC_AREA,
 				GCSpl.iCALC_LOCK, GCSpl.iSTEP_NEXT, GCSpl.iSTEP_CURSOR, GCSpl.iSTOP, GCSpl.iSHOW_VALUE,
