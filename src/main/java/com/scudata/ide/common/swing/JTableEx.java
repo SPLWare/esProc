@@ -1220,6 +1220,7 @@ public class JTableEx extends JTable implements MouseListener,
 
 		HashSet<String> keys = new HashSet<String>();
 		int r = getRowCount();
+		int nullCount = 0;
 		String key;
 		for (int i = 0; i < r; i++) {
 			key = (String) data.getValueAt(i, colIndex);
@@ -1243,7 +1244,16 @@ public class JTableEx extends JTable implements MouseListener,
 				return false;
 			}
 			if (!StringUtils.isValidString(key)) {
-				key = "";
+				nullCount++;
+			}
+			if (caseRepeat && nullCount > 1) { // 为了让空值也不能重复
+				JOptionPane
+						.showMessageDialog(parent,
+								mm.getMessage("jtableex.repeat") + colDesc
+										+ ": " + key,
+								mm.getMessage("public.note"),
+								JOptionPane.WARNING_MESSAGE);
+				return false;
 			}
 			keys.add(key);
 		}
