@@ -53,7 +53,8 @@ import com.scudata.ide.common.resources.IdeCommonMessage;
  * 扩展的JTable。注意: 由于通过jTable.getValueAt不能访问被隐藏了的列,所以 一般用 jTable.data.getValueAt
  */
 
-public class JTableEx extends JTable implements MouseListener, JTableExListener, ChangeListener {
+public class JTableEx extends JTable implements MouseListener,
+		JTableExListener, ChangeListener {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -232,7 +233,8 @@ public class JTableEx extends JTable implements MouseListener, JTableExListener,
 			for (int col = 0; col < cols; col++) {
 				CellEditor editor = getCellEditor(row, col);
 				if (editor != null && editor instanceof DefaultCellEditor) {
-					((DefaultCellEditor) editor).setClickCountToStart(startCount);
+					((DefaultCellEditor) editor)
+							.setClickCountToStart(startCount);
 				}
 			}
 		}
@@ -275,7 +277,8 @@ public class JTableEx extends JTable implements MouseListener, JTableExListener,
 	 * @return
 	 * @throws Exception
 	 */
-	public boolean exportData(boolean exportTitle, FileWriter fw, boolean dosFormat) throws Exception {
+	public boolean exportData(boolean exportTitle, FileWriter fw,
+			boolean dosFormat) throws Exception {
 		String sRow = "", sTmp = "";
 		int rc, cc, r, c;
 		cc = getColumnCount();
@@ -528,7 +531,8 @@ public class JTableEx extends JTable implements MouseListener, JTableExListener,
 		if (tc.getPreferredWidth() == 0) {
 			return;
 		}
-		String oldConfig = tc.getMaxWidth() + "|" + tc.getMinWidth() + "|" + tc.getPreferredWidth();
+		String oldConfig = tc.getMaxWidth() + "|" + tc.getMinWidth() + "|"
+				+ tc.getPreferredWidth();
 		minimizedColumn.put(columnIndex, oldConfig);
 		tc.setMaxWidth(0);
 		tc.setMinWidth(0);
@@ -671,7 +675,8 @@ public class JTableEx extends JTable implements MouseListener, JTableExListener,
 	 * @param columnName 列名
 	 */
 	public void setColumnSpinner(String columnName) {
-		DefaultCellEditor integerEditor = new JTextAreaEditor(this, JTextAreaEditor.TYPE_UNSIGNED_INTEGER);
+		DefaultCellEditor integerEditor = new JTextAreaEditor(this,
+				JTextAreaEditor.TYPE_UNSIGNED_INTEGER);
 		TableColumn tc = getColumn(columnName);
 		tc.setCellEditor(integerEditor);
 	}
@@ -728,9 +733,10 @@ public class JTableEx extends JTable implements MouseListener, JTableExListener,
 				return enable;
 			}
 
-			public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row,
-					int column) {
-				Component c = super.getTableCellEditorComponent(table, value, isSelected, row, column);
+			public Component getTableCellEditorComponent(JTable table,
+					Object value, boolean isSelected, int row, int column) {
+				Component c = super.getTableCellEditorComponent(table, value,
+						isSelected, row, column);
 				if (isSelected) {
 					setForeground(table.getSelectionForeground());
 					setBackground(table.getSelectionBackground());
@@ -757,8 +763,10 @@ public class JTableEx extends JTable implements MouseListener, JTableExListener,
 	 * @param dispItems   显示值
 	 * @return
 	 */
-	public JComboBoxEx setColumnDropDown(int columnIndex, Vector codeItems, Vector dispItems) {
-		return setColumnDropDown(getColumnName(columnIndex), codeItems, dispItems);
+	public JComboBoxEx setColumnDropDown(int columnIndex, Vector codeItems,
+			Vector dispItems) {
+		return setColumnDropDown(getColumnName(columnIndex), codeItems,
+				dispItems);
 	}
 
 	/**
@@ -770,11 +778,13 @@ public class JTableEx extends JTable implements MouseListener, JTableExListener,
 	 * @param editable    是否可编辑
 	 * @return
 	 */
-	public JComboBoxEx setColumnDropDown(int columnIndex, Vector codeItems, Vector dispItems, boolean editable) {
+	public JComboBoxEx setColumnDropDown(int columnIndex, Vector codeItems,
+			Vector dispItems, boolean editable) {
 		// 多次反复设置下拉列时，当前的下拉控件要先清除掉，否则不能立刻刷新
 		acceptText();
 
-		return setColumnDropDown(getColumnName(columnIndex), codeItems, dispItems, editable);
+		return setColumnDropDown(getColumnName(columnIndex), codeItems,
+				dispItems, editable);
 	}
 
 	/**
@@ -785,7 +795,8 @@ public class JTableEx extends JTable implements MouseListener, JTableExListener,
 	 * @param dispItems  显示值
 	 * @return
 	 */
-	public JComboBoxEx setColumnDropDown(String columnName, Vector codeItems, Vector dispItems) {
+	public JComboBoxEx setColumnDropDown(String columnName, Vector codeItems,
+			Vector dispItems) {
 		return setColumnDropDown(columnName, codeItems, dispItems, false);
 	}
 
@@ -798,8 +809,8 @@ public class JTableEx extends JTable implements MouseListener, JTableExListener,
 	 * @param editable   是否可编辑
 	 * @return
 	 */
-	public JComboBoxEx setColumnDropDown(final String columnName, Vector codeItems, Vector dispItems,
-			boolean editable) {
+	public JComboBoxEx setColumnDropDown(final String columnName,
+			Vector codeItems, Vector dispItems, boolean editable) {
 		JComboBoxEx combo = new JComboBoxEx();
 		ActionListener al = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -835,7 +846,8 @@ public class JTableEx extends JTable implements MouseListener, JTableExListener,
 	 * @param allowEdit   是否可编辑
 	 * @param centerAlign 是否居中显示
 	 */
-	public void setColumnEditable(int columnIndex, boolean allowEdit, boolean centerAlign) {
+	public void setColumnEditable(int columnIndex, boolean allowEdit,
+			boolean centerAlign) {
 		setColumnEditable(getColumnName(columnIndex), allowEdit, centerAlign);
 	}
 
@@ -856,22 +868,25 @@ public class JTableEx extends JTable implements MouseListener, JTableExListener,
 	 * @param allowEdit   是否可编辑
 	 * @param centerAlign 是否居中显示
 	 */
-	public void setColumnEditable(String columnName, boolean allowEdit, final boolean centerAlign) {
+	public void setColumnEditable(String columnName, boolean allowEdit,
+			final boolean centerAlign) {
 		if (!isColumnVisible(columnName)) {
 			return;
 		}
 		if (!allowEdit) {
 			TableColumn col = getColumn(columnName);
-			col.setCellEditor(new JTextAreaEditor(this, JTextAreaEditor.TYPE_TEXT_READONLY) {
+			col.setCellEditor(new JTextAreaEditor(this,
+					JTextAreaEditor.TYPE_TEXT_READONLY) {
 				private static final long serialVersionUID = 1L;
 
 				public boolean isCellEditable(EventObject anEvent) {
 					return false;
 				}
 
-				public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row,
-						int column) {
-					Component c = super.getTableCellEditorComponent(table, value, isSelected, row, column);
+				public Component getTableCellEditorComponent(JTable table,
+						Object value, boolean isSelected, int row, int column) {
+					Component c = super.getTableCellEditorComponent(table,
+							value, isSelected, row, column);
 					if (isSelected) {
 						setForeground(table.getSelectionForeground());
 						setBackground(table.getSelectionBackground());
@@ -892,9 +907,11 @@ public class JTableEx extends JTable implements MouseListener, JTableExListener,
 			TableCellRenderer tcr = new DefaultTableCellRenderer() {
 				private static final long serialVersionUID = 1L;
 
-				public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
-						boolean hasFocus, int row, int column) {
-					Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+				public Component getTableCellRendererComponent(JTable table,
+						Object value, boolean isSelected, boolean hasFocus,
+						int row, int column) {
+					Component c = super.getTableCellRendererComponent(table,
+							value, isSelected, hasFocus, row, column);
 					if (isSelected) {
 						setForeground(table.getSelectionForeground());
 						setBackground(table.getSelectionBackground());
@@ -986,13 +1003,15 @@ public class JTableEx extends JTable implements MouseListener, JTableExListener,
 		}
 		TableColumn col = getColumn(columnName);
 		Object oldRender = col.getCellRenderer();
-		if (oldRender == null || (oldRender != null && oldRender instanceof DefaultTableCellRenderer)) {
+		if (oldRender == null
+				|| (oldRender != null && oldRender instanceof DefaultTableCellRenderer)) {
 			DefaultTableCellRenderer cbRender = new DefaultTableCellRenderer();
 			cbRender.setHorizontalAlignment(alignment);
 			col.setCellRenderer(cbRender);
 		}
 		Object oldEditor = col.getCellEditor();
-		if (oldEditor == null || (oldEditor != null && oldEditor instanceof SimpleEditor)) {
+		if (oldEditor == null
+				|| (oldEditor != null && oldEditor instanceof SimpleEditor)) {
 			JTextField tf = new JTextField();
 			tf.setHorizontalAlignment(alignment);
 			col.setCellEditor(new SimpleEditor(tf, this));
@@ -1166,7 +1185,8 @@ public class JTableEx extends JTable implements MouseListener, JTableExListener,
 	 * @param caseRepeat 是否检查列数据重复
 	 * @return
 	 */
-	public boolean verifyColumnData(int colIndex, String colDesc, boolean caseRepeat) {
+	public boolean verifyColumnData(int colIndex, String colDesc,
+			boolean caseRepeat) {
 		return verifyColumnData(colIndex, colDesc, caseRepeat, GV.appFrame);
 	}
 
@@ -1179,7 +1199,23 @@ public class JTableEx extends JTable implements MouseListener, JTableExListener,
 	 * @param parent     父组件
 	 * @return
 	 */
-	public boolean verifyColumnData(int colIndex, String colDesc, boolean caseRepeat, Component parent) {
+	public boolean verifyColumnData(int colIndex, String colDesc,
+			boolean caseRepeat, Component parent) {
+		return verifyColumnData(colIndex, colDesc, true, caseRepeat, parent);
+	}
+
+	/**
+	 * 检查列数据
+	 * 
+	 * @param colIndex   列序号
+	 * @param colDesc    列描述
+	 * @param caseNull 是否检查列数据是否为空
+	 * @param caseRepeat 是否检查列数据重复
+	 * @param parent     父组件
+	 * @return
+	 */
+	public boolean verifyColumnData(int colIndex, String colDesc,
+			boolean caseNull, boolean caseRepeat, Component parent) {
 		acceptText();
 
 		HashSet<String> keys = new HashSet<String>();
@@ -1187,15 +1223,27 @@ public class JTableEx extends JTable implements MouseListener, JTableExListener,
 		String key;
 		for (int i = 0; i < r; i++) {
 			key = (String) data.getValueAt(i, colIndex);
-			if (!StringUtils.isValidString(key)) {
-				JOptionPane.showMessageDialog(parent, mm.getMessage("jtableex.null", String.valueOf((i + 1)), colDesc),
-						mm.getMessage("public.note"), JOptionPane.WARNING_MESSAGE); // 第：{0}行的{1}为空。
+			if (caseNull && !StringUtils.isValidString(key)) {
+				JOptionPane
+						.showMessageDialog(
+								parent,
+								mm.getMessage("jtableex.null",
+										String.valueOf((i + 1)), colDesc),
+								mm.getMessage("public.note"),
+								JOptionPane.WARNING_MESSAGE); // 第：{0}行的{1}为空。
 				return false;
 			}
 			if (caseRepeat && keys.contains(key)) {
-				JOptionPane.showMessageDialog(parent, mm.getMessage("jtableex.repeat") + colDesc + ": " + key,
-						mm.getMessage("public.note"), JOptionPane.WARNING_MESSAGE);
+				JOptionPane
+						.showMessageDialog(parent,
+								mm.getMessage("jtableex.repeat") + colDesc
+										+ ": " + key,
+								mm.getMessage("public.note"),
+								JOptionPane.WARNING_MESSAGE);
 				return false;
+			}
+			if (!StringUtils.isValidString(key)) {
+				key = "";
 			}
 			keys.add(key);
 		}
@@ -1686,7 +1734,8 @@ public class JTableEx extends JTable implements MouseListener, JTableExListener,
 	 * 缺省的单元格编辑器
 	 *
 	 */
-	class SimpleEditor extends DefaultCellEditor implements KeyListener, MouseListener, FocusListener {
+	class SimpleEditor extends DefaultCellEditor implements KeyListener,
+			MouseListener, FocusListener {
 
 		private static final long serialVersionUID = 1L;
 		JTableEx parent;
@@ -1706,7 +1755,8 @@ public class JTableEx extends JTable implements MouseListener, JTableExListener,
 
 			java.awt.Container p;
 			java.awt.Container ct = editor.getTopLevelAncestor();
-			int absoluteX = e.getX() + editor.getX(), absoluteY = e.getY() + editor.getY();
+			int absoluteX = e.getX() + editor.getX(), absoluteY = e.getY()
+					+ editor.getY();
 			p = editor.getParent();
 			while (p != ct) {
 				absoluteX += p.getX();
