@@ -51,7 +51,6 @@ import com.scudata.common.DBInfo;
 import com.scudata.common.Escape;
 import com.scudata.common.Logger;
 import com.scudata.common.MessageManager;
-import com.scudata.common.SQLParser;
 import com.scudata.common.StringUtils;
 import com.scudata.ide.common.DataSource;
 import com.scudata.ide.common.GC;
@@ -1414,6 +1413,29 @@ public class DialogSQLEditor extends JDialog {
 				schema = GM.convertDBSearchString(ds, schema);
 				tableName = GM.convertDBSearchString(ds, tableName);
 			}
+			String name;
+			String tilde = dbmd.getIdentifierQuoteString();
+			int index = tableName.indexOf('.');
+			if (index > -1) {
+				schema = tableName.substring(0, index);
+				if (schema.startsWith(tilde)) {
+					schema = schema.substring(tilde.length(), schema.length()
+							- tilde.length());
+				}
+				name = tableName.substring(index + 1, tableName.length());
+				if (name.startsWith(tilde)) {
+					name = name.substring(tilde.length(),
+							name.length() - tilde.length());
+				}
+			} else {
+				name = tableName;
+				if (name.startsWith(tilde)) {
+					name = name.substring(tilde.length(),
+							name.length() - tilde.length());
+				}
+			}
+
+			boolean isAddTilde = ds.getDBConfig().isAddTilde();
 			ResultSet rs = dbmd.getColumns(con.getCatalog(), schema, tableName,
 					null);
 			String colName;
@@ -1421,6 +1443,9 @@ public class DialogSQLEditor extends JDialog {
 				colName = rs.getString("COLUMN_NAME");
 				if (convert) {
 					colName = GM.convertDBString(ds, colName);
+				}
+				if (isAddTilde) {
+					colName = GM.tildeString(colName, tilde);
 				}
 				colNames.addElement(colName);
 			}
@@ -1548,13 +1573,10 @@ public class DialogSQLEditor extends JDialog {
 		setSelectedItems(null, fromListLeft, fromListRight);
 		String sSql = jTextPaneSql.getText();
 		String tmpFrom = addTableQuote(fromListRight.totalItems());
-		sSql = SQLParser.modify(sSql, SQLParser.KEY_FROM, tmpFrom);
-		if (!sSql.toLowerCase().startsWith("select")) {
-			sSql = "SELECT * " + sSql;
+		if (!sSql.trim().toLowerCase().startsWith("select")) {
+			sSql = "SELECT *";
 		}
-
-		jTextPaneSql.setText(SQLParser
-				.modify(sSql, SQLParser.KEY_FROM, tmpFrom));
+		jTextPaneSql.setText(GM.modifySql(sSql, tmpFrom, "f"));
 		selectedTableChanged();
 	}
 
@@ -1570,7 +1592,7 @@ public class DialogSQLEditor extends JDialog {
 		if (!com.scudata.common.StringUtils.isValidString(tmpFrom)) {
 			sSql = "";
 		} else {
-			sSql = SQLParser.modify(sSql, SQLParser.KEY_FROM, tmpFrom);
+			sSql = GM.modifySql(sSql, tmpFrom, "f");
 		}
 		jTextPaneSql.setText(sSql);
 		selectedTableChanged();
@@ -1608,6 +1630,9 @@ public class DialogSQLEditor extends JDialog {
 			GM.setWindowDimension(this);
 			dispose();
 		} else {
+			if (jTabbedPaneSql.getSelectedIndex() != TAB_SQL) {
+				jTabbedPaneSql.setSelectedIndex(TAB_SQL);
+			}
 			GM.clipBoard(getSQL());
 		}
 	}
@@ -1860,7 +1885,7 @@ public class DialogSQLEditor extends JDialog {
 			if (!com.scudata.common.StringUtils.isValidString(sTmp)) {
 				sTmp = "*";
 			}
-			sSql = SQLParser.modify(sSql, SQLParser.KEY_SELECT, sTmp);
+			sSql = GM.modifySql(sSql, sTmp, "s");
 			break;
 		case TAB_WHERE:
 		case TAB_JOIN:
@@ -1873,23 +1898,23 @@ public class DialogSQLEditor extends JDialog {
 			} else if (StringUtils.isValidString(where2)) {
 				where1 = where2;
 			}
-			sSql = SQLParser.modify(sSql, SQLParser.KEY_WHERE, where1);
+			sSql = GM.modifySql(sSql, where1, "w");
 			break;
 		case TAB_GROUP:
 			selects = new Section(groupListRight.totalItems(), ',', false,
 					false);
 			sTmp = selects.toString();
-			sSql = SQLParser.modify(sSql, SQLParser.KEY_GROUPBY, sTmp);
+			sSql = GM.modifySql(sSql, sTmp, "g");
 			break;
 		case TAB_HAVING:
 			sTmp = getWhere(havingTable);
-			sSql = SQLParser.modify(sSql, SQLParser.KEY_HAVING, sTmp);
+			sSql = GM.modifySql(sSql, sTmp, "h");
 			break;
 		case TAB_ORDER:
 			selects = new Section(orderListRight.totalItems(), ',', false,
 					false);
 			sTmp = selects.toString();
-			sSql = SQLParser.modify(sSql, SQLParser.KEY_ORDERBY, sTmp);
+			sSql = GM.modifySql(sSql, sTmp, "o");
 			break;
 		case TAB_SQL:
 			return sSql;

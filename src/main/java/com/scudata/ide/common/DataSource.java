@@ -261,7 +261,9 @@ public class DataSource implements Serializable {
 				schemas.add(schema);
 			}
 		} catch (SQLException se) {
-			Logger.debug(se);
+			if (se != null)
+				Logger.debug("Exception occurred while getSchemas():"
+						+ se.getMessage());
 		} finally {
 			if (rs != null)
 				rs.close();
