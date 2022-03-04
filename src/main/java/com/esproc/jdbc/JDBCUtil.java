@@ -25,6 +25,7 @@ import com.scudata.common.Logger;
 import com.scudata.common.StringUtils;
 import com.scudata.dm.Context;
 import com.scudata.dm.DataStruct;
+import com.scudata.dm.KeyWord;
 import com.scudata.dm.LocalFile;
 import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
@@ -291,9 +292,12 @@ public class JDBCUtil {
 							totalParams.append(",");
 						}
 						String param = at.next();
-						if (param != null && param.trim().equals("?")) {
-							totalParams.append("?");
-							continue;
+						if (param != null) {
+							param = param.trim();
+							if (KeyWord.isArg(param)) {
+								totalParams.append(param);
+								continue;
+							}
 						}
 						totalParams.append("["
 								+ (param == null ? "" : param.trim()) + "]");
@@ -312,9 +316,12 @@ public class JDBCUtil {
 								totalParams.append(",");
 							}
 							String param = at.next();
-							if (param != null && param.trim().equals("?")) {
-								totalParams.append("?");
-								continue;
+							if (param != null) {
+								param = param.trim();
+								if (KeyWord.isArg(param)) {
+									totalParams.append(param);
+									continue;
+								}
 							}
 							needTransParam = true;
 							StringBuffer repParams = new StringBuffer();
