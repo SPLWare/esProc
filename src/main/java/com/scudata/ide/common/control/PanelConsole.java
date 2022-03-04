@@ -42,7 +42,8 @@ public class PanelConsole extends JPanel {
 	/**
 	 * 计算前自动清理
 	 */
-	private JCheckBox jCBAutoClean = new JCheckBox(IdeCommonMessage.get().getMessage("panelconsole.autoclean"));
+	private JCheckBox jCBAutoClean = new JCheckBox(IdeCommonMessage.get()
+			.getMessage("panelconsole.autoclean"));
 	/**
 	 * 是否集算器IDE
 	 */
@@ -101,11 +102,11 @@ public class PanelConsole extends JPanel {
 	 * @throws Exception
 	 */
 	private void rqInit() throws Exception {
-		jBCopy.setMnemonic('C');
-		jBCopy.setText("复制(C)");
+		// jBCopy.setMnemonic('C');
+		// jBCopy.setText("复制(C)");
 		jBCopy.addActionListener(new PanelConsole_jBCopy_actionAdapter(this));
-		jBClean.setMnemonic('R');
-		jBClean.setText("清除(R)");
+		// jBClean.setMnemonic('R');
+		// jBClean.setText("清除(R)");
 		jBClean.setVerticalAlignment(javax.swing.SwingConstants.CENTER);
 		jBClean.addActionListener(new PanelConsole_jBClean_actionAdapter(this));
 		JTextArea jTextArea1 = console.getTextArea();
@@ -119,7 +120,9 @@ public class PanelConsole extends JPanel {
 		JPanel panelNorth = new JPanel(new GridBagLayout());
 		add(panelNorth, BorderLayout.NORTH);
 		if (!isSPL)
-			panelNorth.add(new JLabel(IdeCommonMessage.get().getMessage("dialogconsole.title")), GM.getGBC(0, 0, true));
+			panelNorth.add(
+					new JLabel(IdeCommonMessage.get().getMessage(
+							"dialogconsole.title")), GM.getGBC(0, 0, true));
 		else {
 			panelNorth.add(jCBAutoClean, GM.getGBC(0, 0, false, false, 4));
 			panelNorth.add(new JPanel(), GM.getGBC(0, 1, true, false, 0));
@@ -160,7 +163,8 @@ public class PanelConsole extends JPanel {
 	}
 }
 
-class PanelConsole_jBCopy_actionAdapter implements java.awt.event.ActionListener {
+class PanelConsole_jBCopy_actionAdapter implements
+		java.awt.event.ActionListener {
 	PanelConsole adaptee;
 
 	PanelConsole_jBCopy_actionAdapter(PanelConsole adaptee) {
@@ -172,7 +176,8 @@ class PanelConsole_jBCopy_actionAdapter implements java.awt.event.ActionListener
 	}
 }
 
-class PanelConsole_jBClean_actionAdapter implements java.awt.event.ActionListener {
+class PanelConsole_jBClean_actionAdapter implements
+		java.awt.event.ActionListener {
 	PanelConsole adaptee;
 
 	PanelConsole_jBClean_actionAdapter(PanelConsole adaptee) {

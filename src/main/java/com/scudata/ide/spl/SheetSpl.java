@@ -508,12 +508,12 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 		md.setMenuEnabled(GCSpl.iREDO, splEditor.canRedo());
 		md.setMenuEnabled(GCSpl.iUNDO, splEditor.canUndo());
 
-		boolean canCopy = selectState != GCSpl.SELECT_STATE_NONE && true;
+		boolean canCopy = selectState != GCSpl.SELECT_STATE_NONE;
 		md.setMenuEnabled(GCSpl.iCOPY, canCopy);
 		md.setMenuEnabled(GCSpl.iCOPYVALUE, canCopy);
 		md.setMenuEnabled(GCSpl.iCODE_COPY, canCopy);
 		md.setMenuEnabled(GCSpl.iCOPY_HTML, canCopy);
-		md.setMenuEnabled(GCSpl.iEXCEL_COPY, canCopy);
+		md.setMenuEnabled(GCSpl.iEXCEL_COPY, true);
 		md.setMenuEnabled(GCSpl.iCUT, canCopy);
 
 		md.setMenuEnabled(GCSpl.iMOVE_COPY_UP,
@@ -530,7 +530,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 		md.setMenuEnabled(GCSpl.iPASTE, canPaste);
 		md.setMenuEnabled(GCSpl.iPASTE_ADJUST, canPaste);
 		md.setMenuEnabled(GCSpl.iPASTE_SPECIAL, canPaste);
-		md.setMenuEnabled(GCSpl.iEXCEL_PASTE, canPaste);
+		md.setMenuEnabled(GCSpl.iEXCEL_PASTE, GMSpl.canPaste());
 
 		md.setMenuEnabled(GCSpl.iCTRL_ENTER,
 				selectState != GCSpl.SELECT_STATE_NONE);

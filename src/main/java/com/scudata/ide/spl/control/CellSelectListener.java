@@ -37,7 +37,8 @@ import com.scudata.ide.spl.SheetSpl;
  * 单元格选择监听器
  *
  */
-public class CellSelectListener implements MouseMotionListener, MouseListener, KeyListener {
+public class CellSelectListener implements MouseMotionListener, MouseListener,
+		KeyListener {
 	/** 编辑控件 */
 	private SplControl control;
 
@@ -99,7 +100,8 @@ public class CellSelectListener implements MouseMotionListener, MouseListener, K
 	 * @param panel    内容面板
 	 * @param editable 是否可以编辑
 	 */
-	public CellSelectListener(SplControl control, ContentPanel panel, boolean editable) {
+	public CellSelectListener(SplControl control, ContentPanel panel,
+			boolean editable) {
 		this.control = control;
 		this.cp = panel;
 		this.editable = editable;
@@ -125,7 +127,8 @@ public class CellSelectListener implements MouseMotionListener, MouseListener, K
 			showPopup(e);
 			return;
 		}
-		CellLocation pos = ControlUtils.lookupCellPosition(e.getX(), e.getY(), cp);
+		CellLocation pos = ControlUtils.lookupCellPosition(e.getX(), e.getY(),
+				cp);
 		if (pos == null) {
 			return;
 		}
@@ -137,7 +140,8 @@ public class CellSelectListener implements MouseMotionListener, MouseListener, K
 		int col = pos.getCol();
 		boolean isActiveCell = false;
 		if (control.getActiveCell() != null) {
-			if (control.getActiveCell().getRow() == row && control.getActiveCell().getCol() == col) {
+			if (control.getActiveCell().getRow() == row
+					&& control.getActiveCell().getCol() == col) {
 				isActiveCell = true;
 			}
 		}
@@ -179,12 +183,14 @@ public class CellSelectListener implements MouseMotionListener, MouseListener, K
 				}
 				a = new Area(startRow, startCol, endRow, endCol);
 				control.addSelectedArea(a, true);
-				ControlUtils.scrollToVisible(control.getViewport(), control, pos.getRow(), pos.getCol());
+				ControlUtils.scrollToVisible(control.getViewport(), control,
+						pos.getRow(), pos.getCol());
 				control.repaint();
 			} else {
 				cp.rememberedRow = pos.getRow();
 				cp.rememberedCol = pos.getCol();
-				a = new Area(pos.getRow(), pos.getCol(), pos.getRow(), pos.getCol());
+				a = new Area(pos.getRow(), pos.getCol(), pos.getRow(),
+						pos.getCol());
 				a = control.setActiveCell(pos);
 				control.addSelectedArea(a, false);
 				control.repaint();
@@ -192,7 +198,8 @@ public class CellSelectListener implements MouseMotionListener, MouseListener, K
 			}
 		}
 
-		if (isActiveCell && e.getButton() == MouseEvent.BUTTON1 && e.getClickCount() != 2) {
+		if (isActiveCell && e.getButton() == MouseEvent.BUTTON1
+				&& e.getClickCount() != 2) {
 			cp.initEditor(ContentPanel.MODE_SHOW);
 			cp.editorMousePressed(e, row, col);
 		}
@@ -223,7 +230,8 @@ public class CellSelectListener implements MouseMotionListener, MouseListener, K
 		if (control.isSelectingCell()) {
 			return;
 		}
-		CellLocation pos = ControlUtils.lookupCellPosition(e.getX(), e.getY(), cp);
+		CellLocation pos = ControlUtils.lookupCellPosition(e.getX(), e.getY(),
+				cp);
 		if (pos == null) {
 			return;
 		}
@@ -281,15 +289,18 @@ public class CellSelectListener implements MouseMotionListener, MouseListener, K
 	 * 鼠标移动事件
 	 */
 	public void mouseMoved(MouseEvent e) {
-		CellLocation pos = ControlUtils.lookupCellPosition(e.getX(), e.getY(), cp);
+		CellLocation pos = ControlUtils.lookupCellPosition(e.getX(), e.getY(),
+				cp);
 		if (pos == null) {
 			cp.setToolTipText(null);
 			return;
 		}
 		int row = pos.getRow();
 		int col = pos.getCol();
-		if (row <= control.cellSet.getRowCount() && col <= control.cellSet.getColCount()) {
-			String tips = ((PgmNormalCell) control.cellSet.getCell(row, col)).getTip();
+		if (row <= control.cellSet.getRowCount()
+				&& col <= control.cellSet.getColCount()) {
+			String tips = ((PgmNormalCell) control.cellSet.getCell(row, col))
+					.getTip();
 			tips = GM.transTips(tips);
 			if (StringUtils.isValidString(tips)) {
 				cp.setToolTipText(tips);
@@ -348,7 +359,8 @@ public class CellSelectListener implements MouseMotionListener, MouseListener, K
 			}
 			forward += FORWARD_UP;
 		}
-		if (y > cp.cellY[cp.drawEndRow][cp.drawStartCol] + cp.cellH[cp.drawEndRow][cp.drawStartCol]) { // down
+		if (y > cp.cellY[cp.drawEndRow][cp.drawStartCol]
+				+ cp.cellH[cp.drawEndRow][cp.drawStartCol]) { // down
 			int count = control.cellSet.getRowCount();
 			row = cp.drawEndRow;
 			for (int r = cp.drawEndRow + 1; r <= count; r++) { // 第一个非隐藏行
@@ -369,7 +381,8 @@ public class CellSelectListener implements MouseMotionListener, MouseListener, K
 			}
 			forward += FORWARD_LEFT;
 		}
-		if (x > cp.cellX[cp.drawStartRow][cp.drawEndCol] + cp.cellW[cp.drawStartRow][cp.drawEndCol]) { // right
+		if (x > cp.cellX[cp.drawStartRow][cp.drawEndCol]
+				+ cp.cellW[cp.drawStartRow][cp.drawEndCol]) { // right
 			int count = control.cellSet.getColCount();
 			col = cp.drawEndCol;
 			for (int c = cp.drawEndCol + 1; c <= count; c++) { // 第一个非隐藏行
@@ -383,7 +396,8 @@ public class CellSelectListener implements MouseMotionListener, MouseListener, K
 		if (row == 0 || row > control.cellSet.getRowCount()) {
 			for (int i = 1; i < cp.cellX.length; i++) {
 				for (int j = 1; j < cp.cellX[i].length; j++) {
-					if (y > cp.cellY[i][j] && y <= cp.cellY[i][j] + cp.cellH[i][j]) {
+					if (y > cp.cellY[i][j]
+							&& y <= cp.cellY[i][j] + cp.cellH[i][j]) {
 						row = i;
 						break;
 					}
@@ -393,7 +407,8 @@ public class CellSelectListener implements MouseMotionListener, MouseListener, K
 		if (col == 0 || col > control.cellSet.getColCount()) {
 			for (int i = 1; i < cp.cellX.length; i++) {
 				for (int j = 1; j < cp.cellX[i].length; j++) {
-					if (x > cp.cellX[i][j] && x <= cp.cellX[i][j] + cp.cellW[i][j]) {
+					if (x > cp.cellX[i][j]
+							&& x <= cp.cellX[i][j] + cp.cellW[i][j]) {
 						col = j;
 						break;
 					}
@@ -445,7 +460,8 @@ public class CellSelectListener implements MouseMotionListener, MouseListener, K
 	 */
 	private void scrollToArea(int row, int col) {
 		control.status = GC.STATUS_SELECTING;
-		Area area = new Area(control.getActiveCell().getRow(), control.getActiveCell().getCol(), row, col);
+		Area area = new Area(control.getActiveCell().getRow(), control
+				.getActiveCell().getCol(), row, col);
 		area = ControlUtils.adjustArea(area);
 		ControlUtils.scrollToVisible(control.getViewport(), control, row, col);
 		control.addSelectedArea(area, true);
@@ -510,7 +526,8 @@ public class CellSelectListener implements MouseMotionListener, MouseListener, K
 					if (parser.isColVisible(c)) {
 						cell = control.cellSet.getPgmNormalCell(curRow, c);
 						if (!cell.isNoteBlock() && !cell.isNoteCell()) {
-							if (StringUtils.isValidString(parser.getDispText(curRow, c))) {
+							if (StringUtils.isValidString(parser.getDispText(
+									curRow, c))) {
 								nextCol = c;
 								break;
 							}
@@ -518,7 +535,8 @@ public class CellSelectListener implements MouseMotionListener, MouseListener, K
 					}
 				}
 				if (nextCol > 0) {
-					control.scrollToArea(control.setActiveCell(new CellLocation(curRow, nextCol)));
+					control.scrollToArea(control
+							.setActiveCell(new CellLocation(curRow, nextCol)));
 				} else {
 					if (curRow == ics.getRowCount()) {
 						editor.appendRows(1);
@@ -539,14 +557,16 @@ public class CellSelectListener implements MouseMotionListener, MouseListener, K
 					if (curCol > 1) {
 						int moveCols = (int) (ics.getColCount() - curCol + 1);
 						srcRect = new CellRect(curRow, curCol, 1, moveCols);
-						tarRect = new CellRect(curRow, (int) (curCol - 1), 1, moveCols);
+						tarRect = new CellRect(curRow, (int) (curCol - 1), 1,
+								moveCols);
 						moveRect(srcRect, tarRect);
 					} else if (curRow > 1) {
 						int topUsedCols = getUsedCols(curRow - 1);
 						connectRowUpTo(curRow, (int) (topUsedCols + 1));
 					}
 				} else {
-					AtomicCell ac = new AtomicCell(control, ics.getCell(activeCell.getRow(), activeCell.getCol()));
+					AtomicCell ac = new AtomicCell(control, ics.getCell(
+							activeCell.getRow(), activeCell.getCol()));
 					ac.setProperty(AtomicCell.CELL_EXP);
 					ac.setValue(null);
 					cmds.add(ac);
@@ -558,7 +578,8 @@ public class CellSelectListener implements MouseMotionListener, MouseListener, K
 			int ca = 0;
 			try {
 				CellLocation cl = control.getActiveCell();
-				String text = ControlUtils.getCellText(control.cellSet, cl.getRow(), cl.getCol(), true);
+				String text = ControlUtils.getCellText(control.cellSet,
+						cl.getRow(), cl.getCol(), true);
 				ca = text.length();
 			} catch (Throwable t) {
 			}
@@ -576,17 +597,22 @@ public class CellSelectListener implements MouseMotionListener, MouseListener, K
 				}
 				if (e.isShiftDown()) {
 					Area area = control.getSelectedArea(0);
-					Area newArea = new Area(firstVisibleRow, area.getBeginCol(), activeCell.getRow(), area.getEndCol());
+					Area newArea = new Area(firstVisibleRow,
+							area.getBeginCol(), activeCell.getRow(),
+							area.getEndCol());
 					control.selectToArea(newArea);
 				} else {
-					control.scrollToArea(control.setActiveCell(new CellLocation(firstVisibleRow, curCol)));
+					control.scrollToArea(control
+							.setActiveCell(new CellLocation(firstVisibleRow,
+									curCol)));
 				}
 			} else {
 				int firstCol = getFirstNonEmptyColumn(curRow);
 				if (curCol == firstCol) {
 					firstCol = 1;
 				}
-				control.scrollToArea(control.setActiveCell(new CellLocation(curRow, firstCol)));
+				control.scrollToArea(control.setActiveCell(new CellLocation(
+						curRow, firstCol)));
 			}
 			break;
 		case KeyEvent.VK_END:
@@ -600,13 +626,18 @@ public class CellSelectListener implements MouseMotionListener, MouseListener, K
 				}
 				if (e.isShiftDown()) {
 					Area area = control.getSelectedArea(0);
-					Area newArea = new Area(activeCell.getRow(), area.getBeginCol(), lastVisibleRow, area.getEndCol());
+					Area newArea = new Area(activeCell.getRow(),
+							area.getBeginCol(), lastVisibleRow,
+							area.getEndCol());
 					control.selectToArea(newArea);
 				} else {
-					control.scrollToArea(control.setActiveCell(new CellLocation(lastVisibleRow, curCol)));
+					control.scrollToArea(control
+							.setActiveCell(new CellLocation(lastVisibleRow,
+									curCol)));
 				}
 			} else {
-				control.scrollToArea(control.setActiveCell(new CellLocation(curRow, (int) ics.getColCount())));
+				control.scrollToArea(control.setActiveCell(new CellLocation(
+						curRow, (int) ics.getColCount())));
 			}
 			break;
 		case KeyEvent.VK_PAGE_UP: {
@@ -627,10 +658,13 @@ public class CellSelectListener implements MouseMotionListener, MouseListener, K
 				}
 				if (e.isShiftDown()) {
 					Area area = control.getSelectedArea(0);
-					Area newArea = new Area(area.getBeginRow(), preVisibleCol, area.getEndRow(), activeCell.getCol());
+					Area newArea = new Area(area.getBeginRow(), preVisibleCol,
+							area.getEndRow(), activeCell.getCol());
 					control.selectToArea(newArea);
 				} else {
-					control.scrollToArea(control.setActiveCell(new CellLocation(curRow, preVisibleCol)));
+					control.scrollToArea(control
+							.setActiveCell(new CellLocation(curRow,
+									preVisibleCol)));
 				}
 			} else {
 				int tmpHeight = parser.getRowHeight(curRow, control.scale);
@@ -644,7 +678,8 @@ public class CellSelectListener implements MouseMotionListener, MouseListener, K
 						break;
 					}
 				}
-				control.scrollToArea(control.setActiveCell(new CellLocation(preVisibleRow, curCol)));
+				control.scrollToArea(control.setActiveCell(new CellLocation(
+						preVisibleRow, curCol)));
 				if (preVisibleRow == 1) {
 					control.getVerticalScrollBar().setValue(0);
 				}
@@ -656,7 +691,8 @@ public class CellSelectListener implements MouseMotionListener, MouseListener, K
 			final int PAGE_WIDTH = GM.getPageWidth(control.scale);
 			final int PAGE_HEIGHT = GM.getPageHeight(control.scale);
 			if (e.isControlDown()) {
-				int deltaW = cp.getColOffset(curCol) - control.getHorizontalScrollBar().getValue();
+				int deltaW = cp.getColOffset(curCol)
+						- control.getHorizontalScrollBar().getValue();
 				int subVisibleCol = curCol;
 				int colCount = control.cellSet.getColCount();
 				int tmpWidth = parser.getColWidth(curCol, control.scale);
@@ -671,12 +707,17 @@ public class CellSelectListener implements MouseMotionListener, MouseListener, K
 				}
 				if (e.isShiftDown()) {
 					Area area = control.getSelectedArea(0);
-					Area newArea = new Area(area.getBeginRow(), activeCell.getCol(), area.getEndRow(), subVisibleCol);
+					Area newArea = new Area(area.getBeginRow(),
+							activeCell.getCol(), area.getEndRow(),
+							subVisibleCol);
 					control.selectToArea(newArea);
 				} else {
-					control.scrollToArea(control.setActiveCell(new CellLocation(curRow, subVisibleCol)));
+					control.scrollToArea(control
+							.setActiveCell(new CellLocation(curRow,
+									subVisibleCol)));
 				}
-				control.getHorizontalScrollBar().setValue(cp.getColOffset(subVisibleCol) - deltaW);
+				control.getHorizontalScrollBar().setValue(
+						cp.getColOffset(subVisibleCol) - deltaW);
 			} else {
 				int tmpHeight = parser.getRowHeight(curRow, control.scale);
 				int subVisibleRow = curRow;
@@ -690,7 +731,8 @@ public class CellSelectListener implements MouseMotionListener, MouseListener, K
 						break;
 					}
 				}
-				control.scrollToArea(control.setActiveCell(new CellLocation(subVisibleRow, curCol)));
+				control.scrollToArea(control.setActiveCell(new CellLocation(
+						subVisibleRow, curCol)));
 			}
 		}
 			break;
@@ -699,7 +741,8 @@ public class CellSelectListener implements MouseMotionListener, MouseListener, K
 				CellLocation tarPos = null;
 				if (e.isControlDown()) {
 					Area area = control.getSelectedArea(0);
-					CellLocation pos = new CellLocation(activeCell.getRow(), activeCell.getCol());
+					CellLocation pos = new CellLocation(activeCell.getRow(),
+							activeCell.getCol());
 					if (area.getEndRow() == activeCell.getRow()) {
 						pos.setRow(area.getBeginRow());
 					}
@@ -711,7 +754,8 @@ public class CellSelectListener implements MouseMotionListener, MouseListener, K
 			} else if (e.isMetaDown()) {
 				return;
 			} else if (e.isControlDown()) {
-				control.scrollToArea(control.setActiveCell(getNextPos(activeCell, NEXT_TOP)));
+				control.scrollToArea(control.setActiveCell(getNextPos(
+						activeCell, NEXT_TOP)));
 			} else {
 				control.scrollToArea(control.toUpCell());
 			}
@@ -721,7 +765,8 @@ public class CellSelectListener implements MouseMotionListener, MouseListener, K
 				CellLocation tarPos = null;
 				if (e.isControlDown()) {
 					Area area = control.getSelectedArea(0);
-					CellLocation pos = new CellLocation(activeCell.getRow(), activeCell.getCol());
+					CellLocation pos = new CellLocation(activeCell.getRow(),
+							activeCell.getCol());
 					if (area.getBeginRow() == activeCell.getRow()) {
 						pos.setRow(area.getEndRow());
 					}
@@ -733,7 +778,8 @@ public class CellSelectListener implements MouseMotionListener, MouseListener, K
 			} else if (e.isMetaDown()) {
 				return;
 			} else if (e.isControlDown()) {
-				control.scrollToArea(control.setActiveCell(getNextPos(activeCell, NEXT_BOTTOM)));
+				control.scrollToArea(control.setActiveCell(getNextPos(
+						activeCell, NEXT_BOTTOM)));
 			} else {
 				control.scrollToArea(control.toDownCell());
 			}
@@ -743,7 +789,8 @@ public class CellSelectListener implements MouseMotionListener, MouseListener, K
 				CellLocation tarPos = null;
 				if (e.isControlDown()) {
 					Area area = control.getSelectedArea(0);
-					CellLocation pos = new CellLocation(activeCell.getRow(), activeCell.getCol());
+					CellLocation pos = new CellLocation(activeCell.getRow(),
+							activeCell.getCol());
 					if (area.getEndCol() == activeCell.getCol()) {
 						pos.setRow(area.getBeginCol());
 					}
@@ -755,7 +802,8 @@ public class CellSelectListener implements MouseMotionListener, MouseListener, K
 			} else if (e.isMetaDown()) {
 				return;
 			} else if (e.isControlDown()) {
-				control.scrollToArea(control.setActiveCell(getNextPos(activeCell, NEXT_LEFT)));
+				control.scrollToArea(control.setActiveCell(getNextPos(
+						activeCell, NEXT_LEFT)));
 			} else {
 				control.scrollToArea(control.toLeftCell());
 			}
@@ -765,7 +813,8 @@ public class CellSelectListener implements MouseMotionListener, MouseListener, K
 				CellLocation tarPos = null;
 				if (e.isControlDown()) {
 					Area area = control.getSelectedArea(0);
-					CellLocation pos = new CellLocation(activeCell.getRow(), activeCell.getCol());
+					CellLocation pos = new CellLocation(activeCell.getRow(),
+							activeCell.getCol());
 					if (area.getBeginCol() == activeCell.getCol()) {
 						pos.setCol(area.getEndCol());
 					}
@@ -777,14 +826,16 @@ public class CellSelectListener implements MouseMotionListener, MouseListener, K
 			} else if (e.isMetaDown()) {
 				return;
 			} else if (e.isControlDown()) {
-				control.scrollToArea(control.setActiveCell(getNextPos(activeCell, NEXT_RIGHT)));
+				control.scrollToArea(control.setActiveCell(getNextPos(
+						activeCell, NEXT_RIGHT)));
 			} else {
 				control.scrollToArea(control.toRightCell());
 			}
 			break;
 		case KeyEvent.VK_DELETE:
 			if (GM.isMacOS()) {
-				AtomicCell ac = new AtomicCell(control, ics.getCell(activeCell.getRow(), activeCell.getCol()));
+				AtomicCell ac = new AtomicCell(control, ics.getCell(
+						activeCell.getRow(), activeCell.getCol()));
 				ac.setProperty(AtomicCell.CELL_EXP);
 				ac.setValue(null);
 				cmds.add(ac);
@@ -831,11 +882,32 @@ public class CellSelectListener implements MouseMotionListener, MouseListener, K
 			}
 			break;
 		default:
-			if (e.getKeyCode() == KeyEvent.VK_A && e.isControlDown() && !e.isShiftDown() && !e.isAltDown()) {
+			if (e.getKeyCode() == KeyEvent.VK_C && e.isAltDown()
+					&& !e.isControlDown()) {
+				if (e.isShiftDown()) {
+					if (editor.canCopyPresent()) {
+						editor.copyPresent();
+						break;
+					}
+				} else {
+					editor.excelCopy();
+					break;
+				}
+			}
+			if (e.getKeyCode() == KeyEvent.VK_V && e.isAltDown()
+					&& !e.isControlDown()) {
+				if (!e.isShiftDown()) {
+					editor.excelPaste();
+					break;
+				}
+			}
+			if (e.getKeyCode() == KeyEvent.VK_A && e.isControlDown()
+					&& !e.isShiftDown() && !e.isAltDown()) {
 				control.selectAll();
 				break;
 			}
-			if (e.getKeyCode() == KeyEvent.VK_W && e.isControlDown() && !e.isShiftDown() && !e.isAltDown()) {
+			if (e.getKeyCode() == KeyEvent.VK_W && e.isControlDown()
+					&& !e.isShiftDown() && !e.isAltDown()) {
 				if (GV.appSheet != null)
 					GV.appFrame.closeSheet(GV.appSheet);
 				break;
@@ -843,7 +915,8 @@ public class CellSelectListener implements MouseMotionListener, MouseListener, K
 			if (e.isActionKey()) {
 				return;
 			}
-			if (e.isControlDown() || e.isAltDown() || e.getKeyCode() == KeyEvent.VK_SHIFT || e.isMetaDown()) {
+			if (e.isControlDown() || e.isAltDown()
+					|| e.getKeyCode() == KeyEvent.VK_SHIFT || e.isMetaDown()) {
 				return;
 			}
 			if (cp.getEditor() == null || !cp.getEditor().isVisible()) {
@@ -892,15 +965,18 @@ public class CellSelectListener implements MouseMotionListener, MouseListener, K
 		}
 		CellRect srcRect = new CellRect(connectRow, (int) 1, 1, usedCols);
 		CellRect tarRect = new CellRect(connectRow - 1, upCol, 1, usedCols);
-		Vector<IAtomicCmd> cmds = GMSpl.getMoveRectCmd(ControlUtils.extractSplEditor(control), srcRect, tarRect);
+		Vector<IAtomicCmd> cmds = GMSpl.getMoveRectCmd(
+				ControlUtils.extractSplEditor(control), srcRect, tarRect);
 		if (cmds != null && !cmds.isEmpty()) {
 			AtomicSpl cmd = new AtomicSpl(control);
 			cmd.setType(AtomicSpl.REMOVE_ROW);
-			CellRect rect = new CellRect(connectRow, (int) 1, 1, (int) control.cellSet.getColCount());
+			CellRect rect = new CellRect(connectRow, (int) 1, 1,
+					(int) control.cellSet.getColCount());
 			cmd.setRect(rect);
 			cmds.add(cmd);
 			ControlUtils.extractSplEditor(control).executeCmd(cmds);
-			control.scrollToArea(control.setActiveCell(new CellLocation(tarRect.getBeginRow(), tarRect.getBeginCol())));
+			control.scrollToArea(control.setActiveCell(new CellLocation(tarRect
+					.getBeginRow(), tarRect.getBeginCol())));
 		}
 	}
 
@@ -1070,14 +1146,17 @@ public class CellSelectListener implements MouseMotionListener, MouseListener, K
 	 * @param scrollToTarget 是否滚动到目标区域
 	 * @return
 	 */
-	public boolean moveRect(CellRect srcRect, CellRect tarRect, boolean scrollToTarget) {
-		Vector<IAtomicCmd> cmds = GMSpl.getMoveRectCmd(ControlUtils.extractSplEditor(control), srcRect, tarRect);
+	public boolean moveRect(CellRect srcRect, CellRect tarRect,
+			boolean scrollToTarget) {
+		Vector<IAtomicCmd> cmds = GMSpl.getMoveRectCmd(
+				ControlUtils.extractSplEditor(control), srcRect, tarRect);
 		if (cmds == null) {
 			return false;
 		}
 		ControlUtils.extractSplEditor(control).executeCmd(cmds);
 		if (scrollToTarget) {
-			control.scrollToArea(control.setActiveCell(new CellLocation(tarRect.getBeginRow(), tarRect.getBeginCol())));
+			control.scrollToArea(control.setActiveCell(new CellLocation(tarRect
+					.getBeginRow(), tarRect.getBeginCol())));
 		}
 		return true;
 	}

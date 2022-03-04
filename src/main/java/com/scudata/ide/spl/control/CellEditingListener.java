@@ -150,7 +150,8 @@ public class CellEditingListener implements KeyListener {
 	 */
 	public void keyPressed(KeyEvent e) {
 		int key = e.getKeyCode();
-		boolean isMatching = GVSpl.matchWindow != null && GVSpl.matchWindow.isVisible();
+		boolean isMatching = GVSpl.matchWindow != null
+				&& GVSpl.matchWindow.isVisible();
 		switch (key) {
 		case KeyEvent.VK_ENTER:
 			if (!GV.isCellEditing) {// 来自工具栏命令
@@ -197,7 +198,8 @@ public class CellEditingListener implements KeyListener {
 					if (parser.isColVisible(c)) {
 						cell = control.cellSet.getPgmNormalCell(curRow, c);
 						if (!cell.isNoteBlock() && !cell.isNoteCell()) {
-							if (StringUtils.isValidString(parser.getDispText(curRow, c))) {
+							if (StringUtils.isValidString(parser.getDispText(
+									curRow, c))) {
 								nextCol = c;
 								break;
 							}
@@ -207,13 +209,15 @@ public class CellEditingListener implements KeyListener {
 				if (nextCol > 0) {
 					control.getContentPanel().submitEditor();
 					control.getContentPanel().revalidate();
-					control.scrollToArea(control.setActiveCell(new CellLocation(curRow, nextCol), true));
+					control.scrollToArea(control.setActiveCell(
+							new CellLocation(curRow, nextCol), true));
 				} else {
 					if (control.getActiveCell() != null) {
 						CellSet ics = control.getCellSet();
 						if (curRow == ics.getRowCount()) {
 							control.getContentPanel().submitEditor();
-							SplEditor editor = ControlUtils.extractSplEditor(control);
+							SplEditor editor = ControlUtils
+									.extractSplEditor(control);
 							control.getContentPanel().revalidate();
 							editor.appendRows(1);
 						}
@@ -232,7 +236,8 @@ public class CellEditingListener implements KeyListener {
 				stopMatch();
 			}
 			JTextComponent ta = getSource(e);
-			NormalCell nc = (NormalCell) control.getCellSet().getCell(control.getActiveCell().getRow(),
+			NormalCell nc = (NormalCell) control.getCellSet().getCell(
+					control.getActiveCell().getRow(),
 					control.getActiveCell().getCol());
 			String value = nc.getExpString();
 			value = value == null ? GCSpl.NULL : value;
@@ -341,6 +346,27 @@ public class CellEditingListener implements KeyListener {
 			break;
 		}
 		default:
+			SplEditor editor = ControlUtils.extractSplEditor(control);
+			if (e.getKeyCode() == KeyEvent.VK_C && e.isAltDown()
+					&& !e.isControlDown()) {
+				if (e.isShiftDown()) {
+					if (editor.canCopyPresent()) {
+						editor.copyPresent();
+						break;
+					}
+				} else {
+					editor.excelCopy();
+					break;
+				}
+			}
+			if (e.getKeyCode() == KeyEvent.VK_V && e.isAltDown()
+					&& !e.isControlDown()) {
+				if (!e.isShiftDown()) {
+					if (GM.canPaste())
+						editor.excelPaste();
+					break;
+				}
+			}
 			return;
 		}
 		e.consume();
@@ -369,7 +395,9 @@ public class CellEditingListener implements KeyListener {
 			if (p <= 0)
 				return false;
 			String preStr = text.substring(0, p);
-			while (preStr != null && (preStr.startsWith("=") || preStr.startsWith(">") || preStr.startsWith("/"))) {
+			while (preStr != null
+					&& (preStr.startsWith("=") || preStr.startsWith(">") || preStr
+							.startsWith("/"))) {
 				preStr = preStr.substring(1);
 			}
 			if (!StringUtils.isValidString(preStr)) {
@@ -466,7 +494,8 @@ public class CellEditingListener implements KeyListener {
 				// 看主对象是否格名
 				cl = CellLocation.parse(preStr);
 				if (cl != null) {
-					PgmNormalCell cell = control.cellSet.getPgmNormalCell(cl.getRow(), cl.getCol());
+					PgmNormalCell cell = control.cellSet.getPgmNormalCell(
+							cl.getRow(), cl.getCol());
 					val = cell.getValue(false);
 				} else {
 					// 再看主对象是否变量
@@ -534,8 +563,8 @@ public class CellEditingListener implements KeyListener {
 	 * @return
 	 * @throws BadLocationException
 	 */
-	private boolean showMatchWindow(final JTextComponent jtext, final int p, boolean isPeriod, Object val)
-			throws BadLocationException {
+	private boolean showMatchWindow(final JTextComponent jtext, final int p,
+			boolean isPeriod, Object val) throws BadLocationException {
 		if (val == null)
 			return false;
 		DataStruct ds = null;
@@ -572,7 +601,9 @@ public class CellEditingListener implements KeyListener {
 					if (lineEnd >= p) {
 						y += (r + 1) * (jta.getHeight() / jta.getRows());
 						int lineStart = jta.getLineStartOffset(r);
-						x += fmText.stringWidth(jta.getText(lineStart, p - lineStart) + ".");
+						x += fmText.stringWidth(jta.getText(lineStart, p
+								- lineStart)
+								+ ".");
 						break;
 					}
 				}
@@ -583,12 +614,15 @@ public class CellEditingListener implements KeyListener {
 				CellLocation activeCell = control.getActiveCell();
 				int cellW = control.cellW[activeCell.getCol()];
 				if (ConfigOptions.bDispOutCell.booleanValue()) {
-					cellW = control.contentView.getPaintableWidth(activeCell.getRow(), activeCell.getCol());
+					cellW = control.contentView.getPaintableWidth(
+							activeCell.getRow(), activeCell.getCol());
 				}
 				int rowHeight = fmText.getHeight();
-				ArrayList<String> rows = ControlUtilsBase.wrapString(preStr, fmText, cellW);
+				ArrayList<String> rows = ControlUtilsBase.wrapString(preStr,
+						fmText, cellW);
 				y += rows.size() * rowHeight;
-				x += fmText.stringWidth((String) rows.get(rows.size() - 1) + ".");
+				x += fmText.stringWidth((String) rows.get(rows.size() - 1)
+						+ ".");
 				x -= dx;
 				y -= dy;
 
@@ -602,7 +636,8 @@ public class CellEditingListener implements KeyListener {
 			final int MAX_WIDTH = 300;
 			final int MAX_HEIGHT = 220;
 			int w = 150;
-			FontMetrics fmWindow = GVSpl.matchWindow.getFontMetrics(GVSpl.matchWindow.getFont());
+			FontMetrics fmWindow = GVSpl.matchWindow
+					.getFontMetrics(GVSpl.matchWindow.getFont());
 			for (String name : fieldNames) {
 				if (StringUtils.isValidString(name)) {
 					w = Math.max(w, fmWindow.stringWidth(name));
@@ -654,7 +689,8 @@ public class CellEditingListener implements KeyListener {
 			return false;
 		Node left = node.getLeft();
 		while (left != null) {
-			if (!(left instanceof VarParam) && !(left instanceof CSVariable) && !(left instanceof DotOperator)
+			if (!(left instanceof VarParam) && !(left instanceof CSVariable)
+					&& !(left instanceof DotOperator)
 					&& !(left instanceof ElementRef)) {
 				return false;
 			}
