@@ -455,6 +455,7 @@ public final class FunctionLib {
 		addMemberFunction("xlscell", "com.scudata.expression.mfn.xo.XlsCell");
 		
 		addFunction("T", "com.scudata.expression.fn.T");
+		addFunction("E", "com.scudata.expression.fn.E");
 		addFunction("chardetect", "com.scudata.expression.fn.CharDetect");
 		addFunction("cellname", "com.scudata.expression.fn.CellName");
 
