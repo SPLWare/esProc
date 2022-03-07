@@ -765,7 +765,8 @@ public class RowTableMetaData extends TableMetaData {
 							pkeyIndex = 1;
 							pkeyDataLen = pkeyData.length();
 						}
-						
+						curPkey = (GroupTableRecord) pkeyData.get(pkeyIndex);
+						curPkeyVals = curPkey.getFieldValues();
 					} else if (cmp > 0) {
 						//不应该出现，抛异常
 						MessageManager mm = EngineMessage.get();

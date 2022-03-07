@@ -621,6 +621,7 @@ abstract public class GroupTable implements IBlockStorage {
 					((JoinTableCursor) cs).setSegment(startBlock, t.getDataBlockCount());
 				}
 				newTable.append(cs);
+				newTable.appendCache();
 			}
 
 			if (file != null) {
