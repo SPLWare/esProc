@@ -1323,23 +1323,16 @@ public class StringUtils {
 	 * @param existsNames 已知的名字范围
 	 * @return 已知范围内唯一的新名字
 	 */
-	public static String getNewName(String pre, String[] existsNames) {
+	public static String getNewName(String pre,String[] existsNames) {
 		ArrayList<String> names = new ArrayList<String>();
-		if (existsNames != null) {
-			for (int i = 0; i < existsNames.length; i++) {
-				names.add(existsNames[i]);
+		if(existsNames!=null) {
+			int size = existsNames.length;
+			for(int i=0;i<size; i++) {
+				names.add( existsNames[i]);
 			}
 		}
-		if (!names.contains(pre)) {
-			return pre;
-		}
-		int index = 1;
-		while (names.contains(pre + "_" + index)) {
-			index++;
-		}
-		return pre + "_" + index;
+		return getNewName( pre, names);
 	}
-
 	/**
 	 * 用前缀pre，根据已有的names，产生一个新的不重复的名字
 	 * @param pre 前缀
