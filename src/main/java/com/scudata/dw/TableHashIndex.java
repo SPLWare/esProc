@@ -2049,6 +2049,18 @@ public class TableHashIndex  implements ITableIndex {
 	}
 	
 	public Object getIndexStruct() {
+		InputStream is = indexFile.getInputStream();
+		ObjectReader reader = new ObjectReader(is, BUFFER_SIZE);
+		try {
+			readHeader(reader);
+		} catch (IOException e) {
+			throw new RQException(e.getMessage(), e);
+		} finally {
+			try {
+				reader.close();
+			} catch (IOException ie){};
+		}
+		
 		Record rec = new Record(new DataStruct(INDEX_FIELD_NAMES));
 		rec.setNormalFieldValue(0, name);
 		rec.setNormalFieldValue(1, capacity);
