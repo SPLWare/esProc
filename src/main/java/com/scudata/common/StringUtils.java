@@ -51,14 +51,14 @@ public class StringUtils {
 		if (s == null) {
 			return true;
 		}
-		
+
 		for (int i = 0, len = s.length(); i < len; i++) {
 			char c = s.charAt(i);
 			if (!Character.isWhitespace(c)) {
 				return false;
 			}
 		}
-		
+
 		return true;
 	}
 
@@ -96,13 +96,14 @@ public class StringUtils {
 	 * @param specialChars 需要加前导\的特别字符串
 	 * @return 若sb!=null则返回sb，否则返回追加了处理结果的新StringBuffer
 	 */
-	public final static StringBuffer deunicode(String s, StringBuffer sb, String specialChars) {
+	public final static StringBuffer deunicode(String s, StringBuffer sb,
+			String specialChars) {
 		int len = s.length();
 		if (sb == null) {
 			sb = new StringBuffer(len * 2);
 
 		}
-		
+
 		for (int i = 0; i < len; i++) {
 			char ch = s.charAt(i);
 			switch (ch) {
@@ -132,12 +133,12 @@ public class StringUtils {
 					if (specialChars != null && specialChars.indexOf(ch) != -1) {
 						sb.append('\\');
 					}
-					
+
 					sb.append(ch);
 				}
 			}
 		}
-		
+
 		return sb;
 	}
 
@@ -180,18 +181,20 @@ public class StringUtils {
 	 * @param w 宽度
 	 * @return 字符串列表
 	 */
-	public static ArrayList<String> wrapString(String text, FontMetrics fm, float w) {
+	public static ArrayList<String> wrapString(String text, FontMetrics fm,
+			float w) {
 		w = (float) Math.ceil(w) - 1.01f;
 		ArrayList<String> al = new ArrayList<String>();
 		text = StringUtils.replace(text, "\\n", "\n");
-		ArgumentTokenizer at = new ArgumentTokenizer(text, '\n', true, true, true);
-		
+		ArgumentTokenizer at = new ArgumentTokenizer(text, '\n', true, true,
+				true);
+
 		while (at.hasNext()) {
 			String line = at.next();
 			if (at.hasNext()) {
 				line += "\n";
 			}
-			
+
 			int len = line.length();
 			String tmp = "";
 			for (int i = 0; i < len; i++) {
@@ -203,10 +206,10 @@ public class StringUtils {
 					tmp = tmp.substring(cut);
 				}
 			}
-			
+
 			al.add(tmp);
 		}
-		
+
 		return al;
 	}
 
@@ -638,7 +641,8 @@ public class StringUtils {
 		return toRMB(money, true, true);
 	}
 
-	public final static String toRMB(double money, boolean abbreviate, boolean uppercase) {
+	public final static String toRMB(double money, boolean abbreviate,
+			boolean uppercase) {
 		char[] cDigit = uppercase ? c1Digit : c2Digit;
 		char[] cUnit = uppercase ? c1Unit : c2Unit;
 		StringBuffer sb = new StringBuffer(64);
@@ -673,8 +677,9 @@ public class StringUtils {
 		}
 		return sb.toString();
 	}
-	
-	public final static String toChinese(long l, boolean abbreviate, boolean uppercase) {
+
+	public final static String toChinese(long l, boolean abbreviate,
+			boolean uppercase) {
 		String fu = "";
 		if (l == 0) {
 			return "零";
@@ -705,10 +710,11 @@ public class StringUtils {
 	 * @param pos2 格式串起始位置
 	 * @return true：匹配，false：不匹配
 	 */
-	private final static boolean matches(String src, int pos1, String fmt, int pos2) {
+	private final static boolean matches(String src, int pos1, String fmt,
+			int pos2) {
 		int len1 = src.length(), len2 = fmt.length();
 		boolean any = false; // 是否有星号
-		
+
 		while (pos2 < len2) {
 			char ch = fmt.charAt(pos2);
 			if (ch == '*') {
@@ -719,7 +725,7 @@ public class StringUtils {
 				if (++pos1 > len1) {
 					return false;
 				}
-				
+
 				pos2++;
 			} else if (any) {
 				// \* 表示此位置需要字符'*'，而不是通配符*
@@ -730,7 +736,7 @@ public class StringUtils {
 						pos2++;
 					}
 				}
-				
+
 				while (pos1 < len1) {
 					// 找到首个匹配的字符
 					if (src.charAt(pos1++) == ch) {
@@ -740,7 +746,7 @@ public class StringUtils {
 						}
 					}
 				}
-				
+
 				return false;
 			} else {
 				// \* 表示此位置需要字符'*'，而不是通配符*
@@ -751,12 +757,12 @@ public class StringUtils {
 						pos2++;
 					}
 				}
-				
+
 				// 源串当前字符需要与格式串当前字符匹配
 				if (pos1 == len1 || src.charAt(pos1++) != ch) {
 					return false;
 				}
-				
+
 				for (++pos2; pos2 < len2;) {
 					ch = fmt.charAt(pos2);
 					if (ch == '*') {
@@ -767,7 +773,7 @@ public class StringUtils {
 						if (++pos1 > len1) {
 							return false;
 						}
-						
+
 						pos2++;
 					} else {
 						// \* 表示此位置需要字符'*'，而不是通配符*
@@ -778,20 +784,20 @@ public class StringUtils {
 								pos2++;
 							}
 						}
-						
+
 						if (pos1 == len1 || src.charAt(pos1++) != ch) {
 							return false;
 						}
-						
+
 						pos2++;
 					}
 				}
 			}
 		}
-		
+
 		return any || pos1 == len1;
 	}
-	
+
 	/**
 	 * 不区分大小写的格式匹配
 	 * @param src 源串
@@ -800,10 +806,11 @@ public class StringUtils {
 	 * @param pos2 格式串起始位置
 	 * @return true：匹配，false：不匹配
 	 */
-	private final static boolean matchesIgnoreCase(String src, int pos1, String fmt, int pos2) {
+	private final static boolean matchesIgnoreCase(String src, int pos1,
+			String fmt, int pos2) {
 		int len1 = src.length(), len2 = fmt.length();
 		boolean any = false; // 是否有星号
-		
+
 		while (pos2 < len2) {
 			char ch = fmt.charAt(pos2);
 			if (ch == '*') {
@@ -814,7 +821,7 @@ public class StringUtils {
 				if (++pos1 > len1) {
 					return false;
 				}
-				
+
 				pos2++;
 			} else if (any) {
 				// \* 表示此位置需要字符'*'，而不是通配符*
@@ -825,17 +832,18 @@ public class StringUtils {
 						pos2++;
 					}
 				}
-				
+
 				while (pos1 < len1) {
 					// 找到首个匹配的字符
-					if (Character.toUpperCase(src.charAt(pos1++)) == Character.toUpperCase(ch)) {
+					if (Character.toUpperCase(src.charAt(pos1++)) == Character
+							.toUpperCase(ch)) {
 						// 判断剩下的串是否匹配，如果不匹配跳过源串一个字符与格式串重新匹配
 						if (matchesIgnoreCase(src, pos1, fmt, pos2 + 1)) {
 							return true;
 						}
 					}
 				}
-				
+
 				return false;
 			} else {
 				// \* 表示此位置需要字符'*'，而不是通配符*
@@ -848,10 +856,12 @@ public class StringUtils {
 				}
 
 				// 源串当前字符需要与格式串当前字符匹配
-				if (pos1 == len1 || Character.toUpperCase(src.charAt(pos1++)) != Character.toUpperCase(ch)) {
+				if (pos1 == len1
+						|| Character.toUpperCase(src.charAt(pos1++)) != Character
+								.toUpperCase(ch)) {
 					return false;
 				}
-				
+
 				for (++pos2; pos2 < len2;) {
 					ch = fmt.charAt(pos2);
 					if (ch == '*') {
@@ -862,7 +872,7 @@ public class StringUtils {
 						if (++pos1 > len1) {
 							return false;
 						}
-						
+
 						pos2++;
 					} else {
 						// \* 表示此位置需要字符'*'，而不是通配符*
@@ -874,16 +884,18 @@ public class StringUtils {
 							}
 						}
 
-						if (pos1 == len1 || Character.toUpperCase(src.charAt(pos1++)) != Character.toUpperCase(ch)) {
+						if (pos1 == len1
+								|| Character.toUpperCase(src.charAt(pos1++)) != Character
+										.toUpperCase(ch)) {
 							return false;
 						}
-						
+
 						pos2++;
 					}
 				}
 			}
 		}
-		
+
 		return any || pos1 == len1;
 	}
 
@@ -894,11 +906,12 @@ public class StringUtils {
 	 * @param ignoreCase true：忽略大小写，false：大小写敏感
 	 * @return 若value或fmt为null时返回false，若不匹配时也返回false，否则返回true
 	 */
-	public final static boolean matches(String value, String fmt, boolean ignoreCase) {
+	public final static boolean matches(String value, String fmt,
+			boolean ignoreCase) {
 		if (value == null || fmt == null) {
 			return false;
 		}
-		
+
 		if (ignoreCase) {
 			return matchesIgnoreCase(value, 0, fmt, 0);
 		} else {
@@ -999,11 +1012,12 @@ public class StringUtils {
 		return true;
 	}
 
-	public static String replace(String src, String findString, String replaceString) {
+	public static String replace(String src, String findString,
+			String replaceString) {
 		if (src == null || findString == null) {
 			return src;
 		}
-		
+
 		int len = src.length();
 		if (len == 0) {
 			return src;
@@ -1013,7 +1027,7 @@ public class StringUtils {
 		if (len1 == 0) {
 			return src;
 		}
-		
+
 		if (replaceString == null) {
 			return src;
 		}
@@ -1040,7 +1054,7 @@ public class StringUtils {
 				break;
 			}
 		}
-		
+
 		if (sb != null) {
 			return sb.toString();
 		} else {
@@ -1113,7 +1127,7 @@ public class StringUtils {
 		}
 		return true;
 	}
-	
+
 	/**
 	 * 找出compare在keys中的位置
 	 *
@@ -1214,15 +1228,15 @@ public class StringUtils {
 	 * @param hosts，指定多个机器名时，用英文逗号分开。hosts为空时，不检查，直接返回true
 	 * @return
 	 */
-	public static boolean checkHosts(String hosts){
-		String host=null;
+	public static boolean checkHosts(String hosts) {
+		String host = null;
 		try {
 			host = InetAddress.getLocalHost().getHostName();
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
 			return false;
 		}
-		
+
 		if (!isValidString(hosts)) {
 			return true;
 		}
@@ -1245,12 +1259,12 @@ public class StringUtils {
 	 * @param scale
 	 * @return
 	 */
-	public static int getScaledFontSize(int fontSize,float scale){
+	public static int getScaledFontSize(int fontSize, float scale) {
 		int size = fontSize;
-		//由于字体放大后，只取整数部分，会造成部分接近Ceiling的一些字号会偏小，所以加上0.3以后，再取整
-		return (int) (size * scale+0.3f);
+		// 由于字体放大后，只取整数部分，会造成部分接近Ceiling的一些字号会偏小，所以加上0.3以后，再取整
+		return (int) (size * scale + 0.3f);
 	}
-	
+
 	/**
 	 * 查找子串的位置，忽略大小写
 	 * @param source 源串
@@ -1258,29 +1272,30 @@ public class StringUtils {
 	 * @param fromIndex 源串的起始查找位置
 	 * @return 位置，找不到返回-1
 	 */
-	public static int indexOfIgnoreCase(String source, String target, int fromIndex) {
+	public static int indexOfIgnoreCase(String source, String target,
+			int fromIndex) {
 		int sourceCount = source.length();
 		int targetCount = target.length();
 		if (fromIndex >= sourceCount) {
 			return (targetCount == 0 ? sourceCount : -1);
 		}
-		
+
 		if (fromIndex < 0) {
 			fromIndex = 0;
 		}
-		
+
 		if (targetCount == 0) {
 			return fromIndex;
 		}
-		
+
 		char first = target.charAt(0);
 		char upFirst = Character.toUpperCase(first);
 		int max = sourceCount - targetCount;
-		
-		Next:
-		for (int i = fromIndex; i <= max; ++i) {
+
+		Next: for (int i = fromIndex; i <= max; ++i) {
 			// Look for first character.
-			while(source.charAt(i) != first && Character.toUpperCase(source.charAt(i)) != upFirst) {
+			while (source.charAt(i) != first
+					&& Character.toUpperCase(source.charAt(i)) != upFirst) {
 				if (++i > max) {
 					return -1;
 				}
@@ -1288,39 +1303,60 @@ public class StringUtils {
 
 			// Found first character, now look at the rest of v2
 			for (int j = i + 1, k = 1; k < targetCount; ++j, ++k) {
-				if (source.charAt(j) != target.charAt(k) && Character.toUpperCase(source.charAt(j)) != Character.toUpperCase(target.charAt(k))) {
+				if (source.charAt(j) != target.charAt(k)
+						&& Character.toUpperCase(source.charAt(j)) != Character
+								.toUpperCase(target.charAt(k))) {
 					continue Next;
 				}
 			}
-			
+
 			// Found whole string.
 			return i;
 		}
-		
+
 		return -1;
 	}
-	
+
 	/**
 	 *   用名字前缀pre产生一个在已知名字范围existsNames内的唯一新名字
 	 * @param pre 名字前缀
 	 * @param existsNames 已知的名字范围
 	 * @return 已知范围内唯一的新名字
 	 */
-	public static String getNewName(String pre,String[] existsNames) {
+	public static String getNewName(String pre, String[] existsNames) {
 		ArrayList<String> names = new ArrayList<String>();
 		if (existsNames != null) {
 			for (int i = 0; i < existsNames.length; i++) {
 				names.add(existsNames[i]);
 			}
 		}
-		if(!names.contains(pre)) {
+		if (!names.contains(pre)) {
 			return pre;
 		}
 		int index = 1;
-		while (names.contains(pre +"_"+ index)) {
+		while (names.contains(pre + "_" + index)) {
 			index++;
 		}
-		return pre +"_"+ index;
+		return pre + "_" + index;
 	}
 
+	/**
+	 * 用前缀pre，根据已有的names，产生一个新的不重复的名字
+	 * @param pre 前缀
+	 * @param names 已有的名称列表
+	 * @return
+	 */
+	public static String getNewName(String pre, ArrayList<String> names) {
+		if (names == null) {
+			names = new ArrayList<String>();
+		}
+		if (!names.contains(pre)) {
+			return pre;
+		}
+		int index = 1;
+		while (names.contains(pre + "_" + index)) {
+			index++;
+		}
+		return pre + "_" + index;
+	}
 }
