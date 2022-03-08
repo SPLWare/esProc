@@ -16,7 +16,7 @@ import com.scudata.ide.common.swing.ToolbarGradient;
  * The base class of the IDE application toolbar
  *
  */
-public abstract class PrjxAppToolBar extends ToolbarGradient {
+public abstract class AppToolBar extends ToolbarGradient {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -36,7 +36,7 @@ public abstract class PrjxAppToolBar extends ToolbarGradient {
 	/**
 	 * Constructor
 	 */
-	public PrjxAppToolBar() {
+	public AppToolBar() {
 		this(IdeCommonMessage.get().getMessage("public.toolbar"));
 	}
 
@@ -46,7 +46,7 @@ public abstract class PrjxAppToolBar extends ToolbarGradient {
 	 * @param name
 	 *            Tooltip of the toolbar
 	 */
-	public PrjxAppToolBar(String name) {
+	public AppToolBar(String name) {
 		super(name);
 		this.setFloatable(false);
 		setToolTipText(mm.getMessage("public.toolbar"));

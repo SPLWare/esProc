@@ -29,8 +29,8 @@ import com.scudata.ide.common.GC;
 import com.scudata.ide.common.GM;
 import com.scudata.ide.common.GV;
 import com.scudata.ide.common.IAtomicCmd;
-import com.scudata.ide.common.PrjxAppMenu;
-import com.scudata.ide.common.PrjxAppToolBar;
+import com.scudata.ide.common.AppMenu;
+import com.scudata.ide.common.AppToolBar;
 import com.scudata.ide.common.control.CellRect;
 import com.scudata.ide.common.control.CellSelection;
 import com.scudata.ide.common.control.ControlUtilsBase;
@@ -550,10 +550,10 @@ public class GMSpl extends GM {
 	 */
 	public static void enableSave(boolean isDataChanged) {
 		if (GV.appMenu != null) {
-			((PrjxAppMenu) GV.appMenu).enableSave(isDataChanged);
+			((AppMenu) GV.appMenu).enableSave(isDataChanged);
 		}
 		if (GV.appTool != null) {
-			((PrjxAppToolBar) GV.appTool).enableSave(isDataChanged);
+			((AppToolBar) GV.appTool).enableSave(isDataChanged);
 		}
 	}
 

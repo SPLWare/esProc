@@ -50,6 +50,7 @@ import com.scudata.expression.Node;
 import com.scudata.expression.fn.Call;
 import com.scudata.expression.fn.Func;
 import com.scudata.expression.fn.Func.CallInfo;
+import com.scudata.ide.common.AppMenu;
 import com.scudata.ide.common.CellSetTxtUtil;
 import com.scudata.ide.common.ConfigFile;
 import com.scudata.ide.common.ConfigOptions;
@@ -58,7 +59,6 @@ import com.scudata.ide.common.GM;
 import com.scudata.ide.common.GV;
 import com.scudata.ide.common.IAtomicCmd;
 import com.scudata.ide.common.IPrjxSheet;
-import com.scudata.ide.common.PrjxAppMenu;
 import com.scudata.ide.common.control.CellRect;
 import com.scudata.ide.common.control.IEditorListener;
 import com.scudata.ide.common.control.PanelConsole;
@@ -377,7 +377,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 					CellSetUtil.writePgmCellSet(filePath, splControl.cellSet);
 				}
 				DfxManager.getInstance().clear();
-				((PrjxAppMenu) GV.appMenu).refreshRecentFile(filePath);
+				((AppMenu) GV.appMenu).refreshRecentFile(filePath);
 			} catch (Throwable e) {
 				GM.showException(e);
 				return false;
@@ -2964,7 +2964,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 		try {
 			CellSetUtil.writePgmCellSet(os, (PgmCellSet) splControl.cellSet);
 			DfxManager.getInstance().clear();
-			((PrjxAppMenu) GV.appMenu).refreshRecentFile(filePath);
+			((AppMenu) GV.appMenu).refreshRecentFile(filePath);
 		} catch (Throwable e) {
 			GM.showException(e);
 			return false;

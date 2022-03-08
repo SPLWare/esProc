@@ -10,16 +10,16 @@ import javax.swing.JButton;
 import javax.swing.JToggleButton;
 
 import com.scudata.common.StringUtils;
+import com.scudata.ide.common.AppToolBar;
 import com.scudata.ide.common.GC;
 import com.scudata.ide.common.GM;
-import com.scudata.ide.common.PrjxAppToolBar;
 import com.scudata.ide.spl.resources.IdeSplMessage;
 
 /**
  * 集算器工具栏（页面打开后）
  *
  */
-public class ToolBarSpl extends PrjxAppToolBar {
+public class ToolBarSpl extends AppToolBar {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -108,7 +108,8 @@ public class ToolBarSpl extends PrjxAppToolBar {
 	 * @return
 	 */
 	private JButton getSplButton(short cmdId, String menuId) {
-		JButton b = getButton(cmdId, menuId, IdeSplMessage.get().getMessage(GC.MENU + menuId), actionNormal);
+		JButton b = getButton(cmdId, menuId,
+				IdeSplMessage.get().getMessage(GC.MENU + menuId), actionNormal);
 		buttonHolder.put(cmdId, b);
 		b.setFocusable(false);
 		return b;
@@ -122,7 +123,8 @@ public class ToolBarSpl extends PrjxAppToolBar {
 	 * @param toolTip 提示信息
 	 * @return
 	 */
-	public JToggleButton getToggleButton(short cmdId, String menuId, String toolTip) {
+	public JToggleButton getToggleButton(short cmdId, String menuId,
+			String toolTip) {
 		ImageIcon img = GM.getMenuImageIcon(menuId);
 		JToggleButton b = new JToggleButton(img);
 		b.setOpaque(false);
@@ -158,9 +160,11 @@ public class ToolBarSpl extends PrjxAppToolBar {
 	}
 
 	/** 继续执行 */
-	private final String S_CONTINUE = IdeSplMessage.get().getMessage("menu.program.continue");
+	private final String S_CONTINUE = IdeSplMessage.get().getMessage(
+			"menu.program.continue");
 	/** 暂停 */
-	private final String S_PAUSE = IdeSplMessage.get().getMessage("menu.program.pause");
+	private final String S_PAUSE = IdeSplMessage.get().getMessage(
+			"menu.program.pause");
 	/** 继续执行图标 */
 	private final ImageIcon I_CONTINUE = GM.getMenuImageIcon(GCSpl.CONTINUE);
 	/** 暂停图标 */

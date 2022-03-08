@@ -7,17 +7,17 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
 import com.scudata.common.MessageManager;
+import com.scudata.ide.common.AppMenu;
 import com.scudata.ide.common.ConfigOptions;
 import com.scudata.ide.common.GC;
 import com.scudata.ide.common.GM;
-import com.scudata.ide.common.PrjxAppMenu;
 import com.scudata.ide.spl.resources.IdeSplMessage;
 
 /**
  * 基础菜单（无文件打开时）
  *
  */
-public class MenuBase extends PrjxAppMenu {
+public class MenuBase extends AppMenu {
 	private static final long serialVersionUID = 1L;
 
 	/**

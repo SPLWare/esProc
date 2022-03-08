@@ -10,10 +10,10 @@ import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
 import com.scudata.common.MessageManager;
+import com.scudata.ide.common.AppMenu;
 import com.scudata.ide.common.ConfigOptions;
 import com.scudata.ide.common.GC;
 import com.scudata.ide.common.GM;
-import com.scudata.ide.common.PrjxAppMenu;
 import com.scudata.ide.common.resources.IdeCommonMessage;
 import com.scudata.ide.spl.resources.IdeSplMessage;
 
@@ -21,7 +21,7 @@ import com.scudata.ide.spl.resources.IdeSplMessage;
  * 集算器菜单（打开文件后）
  *
  */
-public class MenuSpl extends PrjxAppMenu {
+public class MenuSpl extends AppMenu {
 
 	private static final long serialVersionUID = 1L;
 

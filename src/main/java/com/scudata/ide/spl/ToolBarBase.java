@@ -1,14 +1,14 @@
 package com.scudata.ide.spl;
 
+import com.scudata.ide.common.AppToolBar;
 import com.scudata.ide.common.GC;
 import com.scudata.ide.common.GM;
-import com.scudata.ide.common.PrjxAppToolBar;
 
 /**
  * 基础工具栏（无页面打开）
  *
  */
-public class ToolBarBase extends PrjxAppToolBar {
+public class ToolBarBase extends AppToolBar {
 	private static final long serialVersionUID = 1L;
 
 	/**

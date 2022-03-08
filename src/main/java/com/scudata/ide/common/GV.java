@@ -91,7 +91,7 @@ public class GV {
 	/**
 	 * Active toolbar
 	 */
-	public static PrjxAppToolBar appTool = null;
+	public static AppToolBar appTool = null;
 
 	/**
 	 * Active property toolbar

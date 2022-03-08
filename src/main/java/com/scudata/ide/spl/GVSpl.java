@@ -1,8 +1,8 @@
 package com.scudata.ide.spl;
 
 import com.scudata.ide.common.AppMenu;
+import com.scudata.ide.common.AppToolBar;
 import com.scudata.ide.common.GV;
-import com.scudata.ide.common.PrjxAppToolBar;
 import com.scudata.ide.common.ToolBarPropertyBase;
 import com.scudata.ide.common.control.JWindowNames;
 import com.scudata.ide.spl.base.JTabbedParam;
@@ -91,7 +91,7 @@ public class GVSpl extends GV {
 	 * 
 	 * @return
 	 */
-	public static PrjxAppToolBar getBaseTool() {
+	public static AppToolBar getBaseTool() {
 		appTool = new ToolBarBase();
 		return appTool;
 	}
