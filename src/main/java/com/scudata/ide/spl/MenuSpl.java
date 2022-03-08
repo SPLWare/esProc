@@ -1,7 +1,6 @@
 package com.scudata.ide.spl;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
 import javax.swing.ImageIcon;
@@ -11,7 +10,6 @@ import javax.swing.KeyStroke;
 
 import com.scudata.common.MessageManager;
 import com.scudata.ide.common.AppMenu;
-import com.scudata.ide.common.ConfigOptions;
 import com.scudata.ide.common.GC;
 import com.scudata.ide.common.GM;
 import com.scudata.ide.common.resources.IdeCommonMessage;
@@ -309,13 +307,6 @@ public class MenuSpl extends AppMenu {
 
 		menu.add(newCommonMenuItem(GC.iOPTIONS, GC.OPTIONS, 'O', GC.NO_MASK,
 				true));
-		if (ConfigOptions.bIdeConsole.booleanValue()) {
-			JMenuItem miConsole = newCommonMenuItem(GC.iCONSOLE, GC.CONSOLE,
-					'A', GC.NO_MASK);
-			miConsole.setVisible(false);
-			miConsole.setEnabled(false);
-			menu.add(miConsole);
-		}
 		return menu;
 	}
 
@@ -414,95 +405,6 @@ public class MenuSpl extends AppMenu {
 		menuRowCol.setEnabled(isEnabled);
 	}
 
-	/**
-	 * 
-	 * 新建集算器菜单项
-	 * 
-	 * @param cmdId  在GCSpl中定义的命令
-	 * @param menuId 在GCSpl中定义的菜单名
-	 * @param isMain 是否菜单，true菜单，false菜单项
-	 * @return
-	 */
-	protected JMenu getSplMenuItem(String menuId, char mneKey, boolean isMain) {
-		return GM.getMenuItem(mm.getMessage(GC.MENU + menuId), mneKey, isMain);
-	}
-
-	/**
-	 * 新建集算器菜单项
-	 * 
-	 * @param cmdId  在GCSpl中定义的命令
-	 * @param menuId 在GCSpl中定义的菜单名
-	 * @param mneKey The Mnemonic
-	 * @param mask   int, Because ActionEvent.META_MASK is almost not used. This key
-	 *               seems to be only available on Macintosh keyboards. It is used
-	 *               here instead of no accelerator key.
-	 * @return
-	 */
-	protected JMenuItem newSplMenuItem(short cmdId, String menuId, char mneKey,
-			int mask) {
-		return newSplMenuItem(cmdId, menuId, mneKey, mask, false);
-	}
-
-	/**
-	 * 新建集算器菜单项
-	 * 
-	 * @param cmdId   在GCSpl中定义的命令
-	 * @param menuId  在GCSpl中定义的菜单名
-	 * @param mneKey  The Mnemonic
-	 * @param mask    int, Because ActionEvent.META_MASK is almost not used. This
-	 *                key seems to be only available on Macintosh keyboards. It is
-	 *                used here instead of no accelerator key.
-	 * @param hasIcon 菜单项是否有图标
-	 * @return
-	 */
-	protected JMenuItem newSplMenuItem(short cmdId, String menuId, char mneKey,
-			int mask, boolean hasIcon) {
-		String menuText = menuId;
-		if (menuText.indexOf('.') > 0) {
-			menuText = mm.getMessage(GC.MENU + menuId);
-		}
-		return newMenuItem(cmdId, menuId, mneKey, mask, hasIcon, menuText);
-	}
-
-	/**
-	 * 新建集算器菜单项
-	 * 
-	 * @param cmdId    在GCSpl中定义的命令
-	 * @param menuId   在GCSpl中定义的菜单名
-	 * @param mneKey   The Mnemonic
-	 * @param mask     int, Because ActionEvent.META_MASK is almost not used. This
-	 *                 key seems to be only available on Macintosh keyboards. It is
-	 *                 used here instead of no accelerator key.
-	 * @param hasIcon  菜单项是否有图标
-	 * @param menuText 菜单项文本
-	 * @return
-	 */
-	protected JMenuItem newMenuItem(short cmdId, String menuId, char mneKey,
-			int mask, boolean hasIcon, String menuText) {
-		JMenuItem mItem = GM.getMenuItem(cmdId, menuId, mneKey, mask, hasIcon,
-				menuText);
-		mItem.addActionListener(menuAction);
-		menuItems.put(cmdId, mItem);
-		return mItem;
-	}
-
-	/**
-	 * 菜单执行的监听器
-	 */
-	private ActionListener menuAction = new ActionListener() {
-		public void actionPerformed(ActionEvent e) {
-			String menuId = "";
-			try {
-				JMenuItem mi = (JMenuItem) e.getSource();
-				menuId = mi.getName();
-				short cmdId = Short.parseShort(menuId);
-				executeCmd(cmdId);
-			} catch (Exception ex) {
-				GM.showException(ex);
-			}
-		}
-	};
-
 	/** 继续执行 */
 	private final String S_CONTINUE = mm.getMessage("menu.program.continue");
 	/** 暂停 */
@@ -576,7 +478,6 @@ public class MenuSpl extends AppMenu {
 				GCSpl.iSAVEALL,
 				GCSpl.iFILE_REOPEN,
 				GCSpl.iSAVE_FTP,
-				// GCSpl.iSPL_IMPORT_TXT, GCSpl.iFILE_EXPORTTXT,
 				// 编辑
 				GCSpl.iUNDO, GCSpl.iREDO, GCSpl.iCOPY, GCSpl.iCOPYVALUE,
 				GCSpl.iCODE_COPY, GCSpl.iEXCEL_COPY, GCSpl.iCOPY_HTML_DIALOG,
@@ -605,17 +506,6 @@ public class MenuSpl extends AppMenu {
 
 				GC.iPROPERTY, GCSpl.iCONST, GCSpl.iEXEC_CMD };
 		return menus;
-	}
-
-	/**
-	 * 执行菜单命令
-	 */
-	public void executeCmd(short cmdId) {
-		try {
-			GMSpl.executeCmd(cmdId);
-		} catch (Exception e) {
-			GM.showException(e);
-		}
 	}
 
 	/**

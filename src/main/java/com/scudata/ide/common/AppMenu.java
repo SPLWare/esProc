@@ -34,7 +34,9 @@ import com.scudata.common.Logger;
 import com.scudata.common.MessageManager;
 import com.scudata.common.StringUtils;
 import com.scudata.ide.common.resources.IdeCommonMessage;
+import com.scudata.ide.spl.GMSpl;
 import com.scudata.ide.spl.GVSpl;
+import com.scudata.ide.spl.resources.IdeSplMessage;
 import com.scudata.ide.spl.update.UpdateManager;
 
 /**
@@ -813,7 +815,7 @@ public abstract class AppMenu extends JMenuBar {
 	}
 
 	/**
-	 * Menu ActionListener
+	 * 菜单执行的监听器
 	 */
 	protected ActionListener menuAction = new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
@@ -830,11 +832,92 @@ public abstract class AppMenu extends JMenuBar {
 	};
 
 	/**
-	 * Execute command
-	 * 
-	 * @param cmdId Command ID
+	 * 执行菜单命令
 	 */
-	public abstract void executeCmd(short cmdId);
+	public void executeCmd(short cmdId) {
+		try {
+			GMSpl.executeCmd(cmdId);
+		} catch (Exception e) {
+			GM.showException(e);
+		}
+	}
+	
+	/**
+	 * 集算器资源管理器
+	 */
+	protected MessageManager mmSpl = IdeSplMessage.get();
+
+	/**
+	 * 
+	 * 新建集算器菜单项
+	 * 
+	 * @param cmdId  在GCSpl中定义的命令
+	 * @param menuId 在GCSpl中定义的菜单名
+	 * @param isMain 是否菜单，true菜单，false菜单项
+	 * @return
+	 */
+	protected JMenu getSplMenuItem(String menuId, char mneKey, boolean isMain) {
+		return GM.getMenuItem(mmSpl.getMessage(GC.MENU + menuId), mneKey, isMain);
+	}
+
+	/**
+	 * 新建集算器菜单项
+	 * 
+	 * @param cmdId  在GCSpl中定义的命令
+	 * @param menuId 在GCSpl中定义的菜单名
+	 * @param mneKey The Mnemonic
+	 * @param mask   int, Because ActionEvent.META_MASK is almost not used. This key
+	 *               seems to be only available on Macintosh keyboards. It is used
+	 *               here instead of no accelerator key.
+	 * @return
+	 */
+	protected JMenuItem newSplMenuItem(short cmdId, String menuId, char mneKey,
+			int mask) {
+		return newSplMenuItem(cmdId, menuId, mneKey, mask, false);
+	}
+
+	/**
+	 * 新建集算器菜单项
+	 * 
+	 * @param cmdId   在GCSpl中定义的命令
+	 * @param menuId  在GCSpl中定义的菜单名
+	 * @param mneKey  The Mnemonic
+	 * @param mask    int, Because ActionEvent.META_MASK is almost not used. This
+	 *                key seems to be only available on Macintosh keyboards. It is
+	 *                used here instead of no accelerator key.
+	 * @param hasIcon 菜单项是否有图标
+	 * @return
+	 */
+	protected JMenuItem newSplMenuItem(short cmdId, String menuId, char mneKey,
+			int mask, boolean hasIcon) {
+		String menuText = menuId;
+		if (menuText.indexOf('.') > 0) {
+			menuText = mmSpl.getMessage(GC.MENU + menuId);
+		}
+		return newMenuItem(cmdId, menuId, mneKey, mask, hasIcon, menuText);
+	}
+
+	/**
+	 * 新建集算器菜单项
+	 * 
+	 * @param cmdId    在GCSpl中定义的命令
+	 * @param menuId   在GCSpl中定义的菜单名
+	 * @param mneKey   The Mnemonic
+	 * @param mask     int, Because ActionEvent.META_MASK is almost not used. This
+	 *                 key seems to be only available on Macintosh keyboards. It is
+	 *                 used here instead of no accelerator key.
+	 * @param hasIcon  菜单项是否有图标
+	 * @param menuText 菜单项文本
+	 * @return
+	 */
+	protected JMenuItem newMenuItem(short cmdId, String menuId, char mneKey,
+			int mask, boolean hasIcon, String menuText) {
+		JMenuItem mItem = GM.getMenuItem(cmdId, menuId, mneKey, mask, hasIcon,
+				menuText);
+		mItem.addActionListener(menuAction);
+		menuItems.put(cmdId, mItem);
+		return mItem;
+	}
 
 	/**
 	 * Clone menu item
