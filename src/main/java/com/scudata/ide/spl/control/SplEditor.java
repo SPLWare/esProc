@@ -2065,8 +2065,7 @@ public abstract class SplEditor {
 			}
 
 		StringBuffer buf = new StringBuffer();
-		buf.append("=spl(\"=");
-
+		buf.append("=");
 		PgmNormalCell cell;
 		String cellExpStr;
 		for (int r = startRow; r <= endRow; r++) {
@@ -2088,7 +2087,13 @@ public abstract class SplEditor {
 				}
 			}
 		}
-		buf.append("\"");
+		String spl = buf.toString();
+		spl = Escape.addEscAndQuote(spl, '\"');
+		spl = spl.replaceAll("\"t", COL_SEP);
+		spl = spl.replaceAll("\"n", ROW_SEP);
+		buf = new StringBuffer();
+		buf.append("=spl(");
+		buf.append(spl);
 		if (!usedParams.isEmpty()) {
 			for (String pname : usedParams) {
 				buf.append(",");
@@ -2102,7 +2107,7 @@ public abstract class SplEditor {
 	}
 
 	private static final String COL_SEP = "\t";
-	private static final String ROW_SEP = GM.getLineSeparator();
+	private static final String ROW_SEP = "\n";
 
 	/**
 	 * 是否无效的行
@@ -2180,7 +2185,7 @@ public abstract class SplEditor {
 				if (arg != null) {
 					buf.append(arg);
 				} else {
-					buf.append(expStr.substring(i, match));
+					buf.append(expStr.substring(i, match + 1));
 				}
 				match++;
 				i = match;

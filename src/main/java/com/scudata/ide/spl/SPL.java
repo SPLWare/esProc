@@ -10,7 +10,6 @@ import java.awt.event.WindowEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.BufferedInputStream;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,7 +58,7 @@ import com.scudata.ide.common.ToolBarPropertyBase;
 import com.scudata.ide.common.ToolBarWindow;
 import com.scudata.ide.common.control.PanelConsole;
 import com.scudata.ide.common.resources.IdeCommonMessage;
-import com.scudata.ide.custom.IResourceTree;
+import com.scudata.ide.custom.IResourceTreeBase;
 import com.scudata.ide.spl.base.FileTree;
 import com.scudata.ide.spl.base.JTabbedParam;
 import com.scudata.ide.spl.base.PanelSplWatch;
@@ -140,7 +139,7 @@ public class SPL extends AppFrame {
 	/**
 	 * 资源树控件
 	 */
-	protected IResourceTree fileTree;
+	protected IResourceTreeBase fileTree;
 
 	/**
 	 * 集算器资源管理器
@@ -242,7 +241,17 @@ public class SPL extends AppFrame {
 			GM.resetEnvDataSource(GV.dsModel);
 
 			PanelValue panelValue = new PanelValue();
-			PanelSplWatch panelSplWatch = new PanelSplWatch();
+			PanelSplWatch panelSplWatch = new PanelSplWatch() {
+				private static final long serialVersionUID = 1L;
+
+				public Object watch(String expStr) {
+					if (GV.appSheet != null && GV.appSheet instanceof SheetSpl) {
+						return ((SheetSpl) GV.appSheet).calcExp(expStr);
+					}
+					return null;
+				}
+
+			};
 			GVSpl.panelSplWatch = panelSplWatch;
 
 			// ToolBar
@@ -693,89 +702,6 @@ public class SPL extends AppFrame {
 	}
 
 	/**
-	 * 打开输入流文件
-	 * 
-	 * @param in       输入流
-	 * @param fileName 文件名
-	 * @param isRemote 是否是远程服务器文件
-	 * @return
-	 */
-	public JInternalFrame openSheetFile(InputStream in, String filePath,
-			boolean isRemote) throws Exception {
-		synchronized (desk) {
-			JInternalFrame o = getSheet(filePath);
-			PgmCellSet cs;
-			if (filePath != null
-					&& filePath.toLowerCase()
-							.endsWith("." + AppConsts.FILE_SPL)) {
-				cs = AppUtil.readSPL(in);
-			} else {
-				cs = CellSetUtil.readPgmCellSet(in);
-			}
-			if (o != null) {
-				((SheetSpl) o).setCellSet(cs);
-				((SheetSpl) o).isServerFile = isRemote;
-				if (showSheet(o)) {
-					GV.toolWin.refresh();
-					return null;
-				}
-			}
-			if (!StringUtils.isValidString(filePath)) { // 新建
-				filePath = GMSpl.getNewName();
-			} else {
-				// 不同的参数传递，可能会在后面多加空格
-				filePath = filePath.trim();
-			}
-			JInternalFrame sheet = openSheet(filePath, cs);
-			((SheetSpl) sheet).isServerFile = isRemote;
-			return sheet;
-		}
-	}
-
-	/**
-	 * 新建文件
-	 * 
-	 * @param filePath     文件路径
-	 * @param isServerFile 是否是添加到远程服务器的文件
-	 * @return
-	 */
-	public JInternalFrame newSheetFile(String filePath, boolean isServerFile) {
-		synchronized (desk) {
-			try {
-				SheetSpl sheet = new SheetSpl(filePath, null);
-				sheet.isServerFile = isServerFile;
-				Dimension d = desk.getSize();
-				boolean loadSheet = GM.loadWindowSize(sheet);
-				if (!loadSheet) {
-					sheet.setBounds(0, 0, d.width, d.height);
-				}
-				boolean setMax = false;
-				if (GV.appSheet != null && GV.appSheet.isMaximum()
-						&& !GV.appSheet.isIcon()) {
-					GV.appSheet.resumeSheet();
-					if (loadSheet) // not max
-						((IPrjxSheet) sheet).setForceMax();
-					setMax = true;
-				}
-				sheet.show();
-				desk.add(sheet);
-				if (setMax || !GM.loadWindowSize(sheet))
-					sheet.setMaximum(true);
-				sheet.setSelected(true);
-				if (!GV.toolWin.isVisible()
-						&& ConfigOptions.bViewWinList.booleanValue())
-					GV.toolWin.setVisible(true);
-				GV.toolWin.refresh();
-				((IPrjxSheet) sheet).resetSheetStyle();
-				return sheet;
-			} catch (Exception e) {
-				GM.showException(e);
-			}
-			return null;
-		}
-	}
-
-	/**
 	 * 打开页面
 	 * 
 	 * @param filePath 文件路径
@@ -784,6 +710,29 @@ public class SPL extends AppFrame {
 	 */
 	public synchronized JInternalFrame openSheet(String filePath, Object cellSet) {
 		return openSheet(filePath, cellSet, cellSet != null);
+	}
+
+	/**
+	 * 创建网格页面
+	 * @param filePath
+	 * @param cs
+	 * @return
+	 */
+	protected SheetSpl newSheetSpl(String filePath, PgmCellSet cs)
+			throws Exception {
+		return newSheetSpl(filePath, cs, null);
+	}
+
+	/**
+	 * 创建网格页面
+	 * @param filePath
+	 * @param cs
+	 * @param stepInfo
+	 * @return
+	 */
+	protected SheetSpl newSheetSpl(String filePath, PgmCellSet cs,
+			StepInfo stepInfo) throws Exception {
+		return new SheetSpl(filePath, cs, stepInfo);
 	}
 
 	/**
@@ -811,7 +760,7 @@ public class SPL extends AppFrame {
 	public synchronized JInternalFrame openSheet(String filePath,
 			Object cellSet, boolean refreshRecentFile, StepInfo stepInfo) {
 		try {
-			JInternalFrame sheet = new SheetSpl(filePath, (PgmCellSet) cellSet,
+			SheetSpl sheet = newSheetSpl(filePath, (PgmCellSet) cellSet,
 					stepInfo);
 
 			Dimension d = desk.getSize();

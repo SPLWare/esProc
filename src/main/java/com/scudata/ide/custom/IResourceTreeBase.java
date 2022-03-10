@@ -15,7 +15,7 @@ import java.util.List;
  * systemconfig_zh.xml. Example: <CONFIG
  * IResourceTree="com.custom.MyResourceTree"/>
  */
-public interface IResourceTree {
+public interface IResourceTreeBase {
 	/**
 	 * Get esProc resource tree component
 	 * 
@@ -31,26 +31,4 @@ public interface IResourceTree {
 	 */
 	public void changeMainPath(String mainPath);
 
-	/**
-	 * Add server after successful login
-	 * 
-	 * @param server
-	 *            Remote server
-	 */
-	public void addServer(Server server);
-
-	/**
-	 * Delete the specified server after successful logout
-	 * 
-	 * @param server
-	 *            Remote server
-	 */
-	public void deleteServer(Server server);
-
-	/**
-	 * Get server list
-	 * 
-	 * @return Server list
-	 */
-	public List<Server> getServerList();
 }

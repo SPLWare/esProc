@@ -10,9 +10,7 @@ import javax.swing.SwingUtilities;
 import com.scudata.cellset.datamodel.PgmCellSet;
 import com.scudata.common.ByteMap;
 import com.scudata.common.StringUtils;
-import com.scudata.dm.Context;
 import com.scudata.dm.Sequence;
-import com.scudata.expression.fn.Eval;
 import com.scudata.ide.common.GC;
 import com.scudata.ide.common.GM;
 import com.scudata.ide.common.swing.JTableEx;
@@ -24,7 +22,7 @@ import com.scudata.ide.spl.resources.IdeSplMessage;
  * 查看表达式
  *
  */
-public class PanelSplWatch extends JPanel {
+public abstract class PanelSplWatch extends JPanel {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -126,10 +124,11 @@ public class PanelSplWatch extends JPanel {
 	 * 网格对象
 	 */
 	private PgmCellSet cs;
+
 	/**
 	 * 上下文
 	 */
-	private Context ctx;
+	// private Context ctx;
 
 	/**
 	 * 构造函数
@@ -233,10 +232,10 @@ public class PanelSplWatch extends JPanel {
 	 * 
 	 * @param ctx
 	 */
-	public void watch(Context ctx) {
+	public void watch() { // Context ctx
 		try {
 			preventChange = true;
-			this.ctx = ctx;
+			// this.ctx = ctx;
 			recalcTable();
 		} finally {
 			preventChange = false;
@@ -265,11 +264,13 @@ public class PanelSplWatch extends JPanel {
 		}
 	}
 
+	public abstract Object watch(String expStr);
+
 	/**
 	 * 重新计算
 	 */
 	private synchronized void recalcTable() {
-		if (cs == null || ctx == null)
+		if (cs == null) // || ctx == null
 			return;
 		SwingUtilities.invokeLater(new Thread() {
 			public void run() {
@@ -280,12 +281,12 @@ public class PanelSplWatch extends JPanel {
 						tableWatch.data.setValueAt(null, i, COL_VALUE);
 					}
 					Object exp, val;
-					Sequence arg = new Sequence();
+
 					for (int i = 0; i < rowCount; i++) {
 						exp = tableWatch.data.getValueAt(i, COL_EXP);
 						if (StringUtils.isValidString(exp)) {
 							try {
-								val = Eval.calc((String) exp, arg, cs, ctx);
+								val = watch((String) exp);
 								tableWatch.data.setValueAt(val, i, COL_VALUE);
 							} catch (Throwable ex) {
 								tableWatch.data.setValueAt(ex.getMessage(), i,

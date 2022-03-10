@@ -10,7 +10,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -35,21 +34,17 @@ import com.scudata.common.Logger;
 import com.scudata.common.MessageManager;
 import com.scudata.common.StringUtils;
 import com.scudata.ide.common.ConfigOptions;
-import com.scudata.ide.common.DataSourceListModel;
 import com.scudata.ide.common.GC;
 import com.scudata.ide.common.GM;
 import com.scudata.ide.common.GV;
-import com.scudata.ide.custom.FileInfo;
-import com.scudata.ide.custom.IResourceTree;
-import com.scudata.ide.custom.Server;
-import com.scudata.ide.spl.SPL;
+import com.scudata.ide.custom.IResourceTreeBase;
 import com.scudata.ide.spl.resources.IdeSplMessage;
 
 /**
  * 资源树控件
  *
  */
-public class FileTree extends JTree implements IResourceTree {
+public class FileTree extends JTree implements IResourceTreeBase {
 	private static final long serialVersionUID = 1L;
 
 	public static MessageManager mm = IdeSplMessage.get();
@@ -63,29 +58,19 @@ public class FileTree extends JTree implements IResourceTree {
 	 */
 	protected FileTreeNode localRoot;
 	/**
-	 * 服务器资源
-	 */
-	protected FileTreeNode serverRoot;
-	/**
 	 * 未设置应用资源路径
 	 */
-	private static final String NO_MAIN_PATH = mm.getMessage("filetree.nomainpath");
+	private static final String NO_MAIN_PATH = mm
+			.getMessage("filetree.nomainpath");
 	/**
 	 * DEMO目录不存在
 	 */
-	private static final String NO_DEMO_DIR = mm.getMessage("filetree.nodemodir");
+	private static final String NO_DEMO_DIR = mm
+			.getMessage("filetree.nodemodir");
 	/**
 	 * 应用资源
 	 */
 	public static final String ROOT_TITLE = mm.getMessage("filetree.roottitle");
-	/**
-	 * 服务器资源
-	 */
-	private static final String SERVER_FILE_TREE = mm.getMessage("filetree.serverfiletree");
-	/**
-	 * 无服务器资源
-	 */
-	private static final String NO_SERVER_FILE_TREE = mm.getMessage("filetree.noserverfiletree");
 
 	/**
 	 * 构造函数
@@ -105,13 +90,6 @@ public class FileTree extends JTree implements IResourceTree {
 		}
 		this.root.add(this.localRoot);
 
-		if (GV.useRemoteServer) {
-			this.serverRoot = new FileTreeNode("", FileTreeNode.TYPE_SERVER);
-			this.serverRoot.setDir(true);
-			this.serverRoot.setTitle(NO_SERVER_FILE_TREE);
-			this.root.add(this.serverRoot);
-		}
-
 		setModel(new DefaultTreeModel(root));
 		setCellRenderer(new FileTreeRender());
 		setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
@@ -121,32 +99,17 @@ public class FileTree extends JTree implements IResourceTree {
 		addMouseListener(new mTree_mouseAdapter());
 		this.addTreeWillExpandListener(new TreeWillExpandListener() {
 
-			public void treeWillExpand(TreeExpansionEvent event) throws ExpandVetoException {
+			public void treeWillExpand(TreeExpansionEvent event)
+					throws ExpandVetoException {
 				TreePath path = event.getPath();
 				if (path == null)
 					return;
 				FileTreeNode node = (FileTreeNode) path.getLastPathComponent();
-				if (node.getUserObject() instanceof Server || node.getUserObject() instanceof FileInfo) {
-					GV.selectServer = node.getServerName();
-				}
-				if (node != null && !node.isLoaded()) {
-					// 根据节点类型，调用刷新加载节点的方法
-					if (node.getType() == FileTreeNode.TYPE_LOCAL) {
-						loadSubNode(node);
-					} else if (node.getType() == FileTreeNode.TYPE_SERVER) {
-						// 刷新服务器节点
-						loadServerFileTree(node, true);
-					} else {
-						// 刷新根节点，即刷新所有节点（包含本地和服务器）
-						refresh();
-						refreshServer("/", true);
-					}
-					node.setExpanded(true);
-					nodeStructureChanged(node);
-				}
+				treeNodeWillExpand(node);
 			}
 
-			public void treeWillCollapse(TreeExpansionEvent event) throws ExpandVetoException {
+			public void treeWillCollapse(TreeExpansionEvent event)
+					throws ExpandVetoException {
 				TreePath path = event.getPath();
 				if (path == null)
 					return;
@@ -206,26 +169,27 @@ public class FileTree extends JTree implements IResourceTree {
 	 * @param local
 	 * @param server
 	 */
-	public synchronized void refresh(boolean local, boolean server) {
-		if (local) {
-			refresh();
-		}
-		if (server) {
-			refreshServer("/", true);
-		}
-	}
+	// public synchronized void refresh(boolean local, boolean server) {
+	// if (local) {
+	// refreshLocal();
+	// }
+	// if (server) {
+	// refreshServer("/", true);
+	// }
+	// }
 
 	/**
 	 * 刷新本地文件
 	 */
-	public synchronized void refresh() {
+	public synchronized void refreshLocal() {
 		localRoot.removeAllChildren();
 		String home = System.getProperty("start.home");
 		String mainPath = null;
 		if (ConfigOptions.bFileTreeDemo) {
 			File demoDir = new File(home, "demo");
 			if (demoDir.exists()) {
-				if (GC.LANGUAGE == GC.ASIAN_CHINESE || GC.LANGUAGE == GC.ASIAN_CHINESE_TRADITIONAL) {
+				if (GC.LANGUAGE == GC.ASIAN_CHINESE
+						|| GC.LANGUAGE == GC.ASIAN_CHINESE_TRADITIONAL) {
 					demoDir = new File(demoDir, "zh");
 				} else {
 					demoDir = new File(demoDir, "en");
@@ -281,7 +245,8 @@ public class FileTree extends JTree implements IResourceTree {
 					List<String> expandList = Arrays.asList(expands);
 					int count = localRoot.getChildCount();
 					for (int i = 0; i < count; i++) {
-						expandTree((FileTreeNode) localRoot.getChildAt(i), expandList);
+						expandTree((FileTreeNode) localRoot.getChildAt(i),
+								expandList);
 					}
 				}
 			} catch (Exception ex) {
@@ -291,163 +256,18 @@ public class FileTree extends JTree implements IResourceTree {
 
 	}
 
-	/**
-	 * 刷新服务器资源
-	 * 
-	 * @param serverName
-	 * @param allRefresh
-	 */
-	public synchronized void refreshServer(String serverName, boolean allRefresh) {
-		if (GV.serverList != null && GV.serverList.size() > 0) {
-			if (allRefresh) {
-				serverRoot.removeAllChildren();
-				for (int i = 0; i < GV.serverList.size(); i++) {
-					FileTreeNode serverNode;
-					Server server = GV.serverList.get(i);
-					if (server != null) {
-						serverNode = new FileTreeNode(server, FileTreeNode.TYPE_SERVER);
-						serverNode.setDir(true);
-						serverNode.setTitle(server.getName() + " : " + server.getUrl());
-						serverNode.setServerName(server.getName());
-						if (StringUtils.isValidString(serverName) && serverName.equals(server.getName())) {
-							serverNode.setExpanded(true);
-						} else {
-							serverNode.setExpanded(false);
-						}
-						loadServerFileTree(serverNode, true);
-						serverRoot.add(serverNode);
-					}
-				}
-			} else {
-				int count = serverRoot.getChildCount();
-				if (count > 0) {
-					Enumeration children = serverRoot.children();
-					if (children.hasMoreElements()) {
-						FileTreeNode serverNode = (FileTreeNode) children.nextElement();
-						if (StringUtils.isValidString(serverName) && serverName.equals(serverNode.getServerName())) {
-							serverNode.setExpanded(true);
-							loadServerFileTree(serverNode, true);
-							return;
-						}
-					}
-				}
+	protected void treeNodeWillExpand(FileTreeNode node) {
+		if (node != null && !node.isLoaded()) {
+			// 根据节点类型，调用刷新加载节点的方法
+			if (node.getType() == FileTreeNode.TYPE_LOCAL) {
+				loadSubNode(node);
+			} else if (node.getType() == FileTreeNode.TYPE_ROOT) {
+				// 刷新根节点
+				refreshLocal();
 			}
+			node.setExpanded(true);
+			nodeStructureChanged(node);
 		}
-	}
-
-	/**
-	 * 加载服务器节点
-	 * 
-	 * @param serverNode
-	 */
-	protected void loadServerFileTree(FileTreeNode serverNode, boolean first) {
-		serverNode.removeAllChildren();
-		if (serverNode != null && serverNode.getUserObject() instanceof Server) {
-			Server server = (Server) serverNode.getUserObject();
-			if (server == null)
-				return;
-			List<FileInfo> files = server.listFiles(null);
-			if (files == null || files.size() == 0)
-				return;
-			serverNode.setExpanded(true);
-			for (FileInfo fileInfo : files) {
-				if (fileInfo == null)
-					continue;
-				String fileName = fileInfo.getFilename();
-				if (!StringUtils.isValidString(fileName))
-					continue;
-				FileTreeNode node = new FileTreeNode(fileInfo, FileTreeNode.TYPE_SERVER);
-				node.setTitle(fileName);
-				node.setServerName(server.getName());
-				boolean isDir = fileInfo.isDirectory();
-				if (isDir) {
-					node.setDir(isDir);
-					node.setLoaded(false);
-					serverNode.add(node);
-					if (first) { // 只加载当前节点的子节点
-						loadServerFileTree(node, false);
-					}
-				}
-			}
-			for (FileInfo fileInfo : files) {
-				if (fileInfo == null || !StringUtils.isValidString(fileInfo.getFilename()))
-					continue;
-				String fileName = fileInfo.getFilename();
-				if (!StringUtils.isValidString(fileName))
-					continue;
-				FileTreeNode node = new FileTreeNode(fileInfo, FileTreeNode.TYPE_SERVER);
-				node.setTitle(fileName);
-				node.setServerName(server.getName());
-				boolean isDir = fileInfo.isDirectory();
-				if (!isDir) {
-					if (isValidFile(fileName)) {
-						node.setDir(isDir);
-						serverNode.add(node);
-					}
-				}
-			}
-		} else if (serverNode != null && serverNode.getUserObject() instanceof FileInfo) {
-			Server server = GV.getServer(serverNode.getServerName());
-			if (server == null)
-				return;
-			String p = GV.getServerPath(serverNode);
-			List<FileInfo> subFiles = server.listFiles(p);
-			if (subFiles == null || subFiles.size() <= 0)
-				return;
-			serverNode.removeAllChildren();
-			for (FileInfo fileInfo : subFiles) {
-				if (fileInfo == null)
-					continue;
-				String fileName = fileInfo.getFilename();
-				if (!StringUtils.isValidString(fileName))
-					continue;
-				FileTreeNode node = new FileTreeNode(fileInfo, FileTreeNode.TYPE_SERVER);
-				node.setTitle(fileName);
-				node.setServerName(server.getName());
-				boolean isDir = fileInfo.isDirectory();
-				if (isDir) {
-					node.setDir(isDir);
-					node.setLoaded(false);
-					serverNode.add(node);
-					if (first) {
-						loadServerFileTree(node, false);
-					}
-				}
-			}
-			for (FileInfo fileInfo : subFiles) {
-				if (fileInfo == null)
-					continue;
-				String fileName = fileInfo.getFilename();
-				if (!StringUtils.isValidString(fileName))
-					continue;
-				FileTreeNode node = new FileTreeNode(fileInfo, FileTreeNode.TYPE_SERVER);
-				node.setTitle(fileName);
-				node.setServerName(server.getName());
-				boolean isDir = fileInfo.isDirectory();
-				if (!isDir) {
-					if (isValidFile(fileName)) {
-						node.setDir(isDir);
-						serverNode.add(node);
-					}
-				}
-			}
-		} else {
-			if (GV.serverList != null && GV.serverList.size() > 0) {
-				for (Server server : GV.serverList) {
-					FileTreeNode sn = new FileTreeNode(server, FileTreeNode.TYPE_SERVER);
-					sn.setDir(true);
-					sn.setExpanded(true);
-					sn.setTitle(server.getName());
-					sn.setServerName(server.getName());
-					serverRoot.add(sn);
-					serverRoot.setTitle(SERVER_FILE_TREE);
-					loadServerFileTree(sn, true);
-				}
-			} else {
-				serverNode.setTitle(NO_SERVER_FILE_TREE);
-			}
-		}
-		serverNode.setLoaded(false);
 	}
 
 	/**
@@ -474,7 +294,7 @@ public class FileTree extends JTree implements IResourceTree {
 	 * 
 	 * @param pNode 父结点
 	 */
-	private void loadSubNode(FileTreeNode pNode) {
+	protected void loadSubNode(FileTreeNode pNode) {
 		try {
 			String pDir = (String) pNode.getUserObject();
 			File dir = new File(pDir);
@@ -489,7 +309,8 @@ public class FileTree extends JTree implements IResourceTree {
 				if (!StringUtils.isValidString(fileName)) {
 					continue;
 				}
-				FileTreeNode node = new FileTreeNode(f.getAbsolutePath(), FileTreeNode.TYPE_LOCAL);
+				FileTreeNode node = new FileTreeNode(f.getAbsolutePath(),
+						FileTreeNode.TYPE_LOCAL);
 				node.setTitle(fileName);
 				boolean isDir = f.isDirectory();
 				if (isDir) {
@@ -499,8 +320,10 @@ public class FileTree extends JTree implements IResourceTree {
 					if (subFiles != null && subFiles.length > 0) {
 						for (File subFile : subFiles) {
 							String subName = subFile.getName();
-							if (subFile.isDirectory() || (subFile.isFile() && isValidFile(subName))) {
-								FileTreeNode subNode = new FileTreeNode(subFile.getAbsolutePath(),
+							if (subFile.isDirectory()
+									|| (subFile.isFile() && isValidFile(subName))) {
+								FileTreeNode subNode = new FileTreeNode(
+										subFile.getAbsolutePath(),
 										FileTreeNode.TYPE_LOCAL);
 								subNode.setTitle(subName);
 								subNode.setDir(subFile.isDirectory());
@@ -524,7 +347,8 @@ public class FileTree extends JTree implements IResourceTree {
 				if (existNames.contains(fileName)) { // 已经加载过的子结点
 					continue;
 				}
-				FileTreeNode node = new FileTreeNode(f.getAbsolutePath(), FileTreeNode.TYPE_LOCAL);
+				FileTreeNode node = new FileTreeNode(f.getAbsolutePath(),
+						FileTreeNode.TYPE_LOCAL);
 				node.setTitle(fileName);
 				boolean isDir = f.isDirectory();
 				if (!isDir) {
@@ -546,7 +370,7 @@ public class FileTree extends JTree implements IResourceTree {
 	 * @param fileName
 	 * @return
 	 */
-	private boolean isValidFile(String fileName) {
+	protected boolean isValidFile(String fileName) {
 		return AppUtil.isSPLFile(fileName);
 	}
 
@@ -661,24 +485,23 @@ public class FileTree extends JTree implements IResourceTree {
 
 	protected void menuAction(FileTreeNode node, JMenuItem mi) {
 		String sAction = mi.getName();
-		if (node.getUserObject() instanceof Server || node.getUserObject() instanceof FileInfo) {
-			// 当点击文件树上服务器节点时，保存该节点所属服务器名称
-			GV.selectServer = node.getServerName();
-		}
 		switch (Byte.parseByte(sAction)) {
 		case OPEN_FILE:
 			openFile(node);
 			break;
 		case OPEN_DIR:
 			try {
-				Desktop.getDesktop().open(new File((String) node.getUserObject()));
+				Desktop.getDesktop().open(
+						new File((String) node.getUserObject()));
 			} catch (Exception ex) {
 				GM.showException(ex);
 			}
 			break;
 		case OPEN_FILE_DIR:
 			try {
-				Desktop.getDesktop().open(new File((String) node.getUserObject()).getParentFile());
+				Desktop.getDesktop()
+						.open(new File((String) node.getUserObject())
+								.getParentFile());
 			} catch (Exception ex) {
 				GM.showException(ex);
 			}
@@ -687,19 +510,16 @@ public class FileTree extends JTree implements IResourceTree {
 			node.setLoaded(false);
 			if (node.getType() == FileTreeNode.TYPE_LOCAL) {
 				loadSubNode(node);
-			} else if (node.getType() == FileTreeNode.TYPE_SERVER) {
-				// 刷新服务器节点
-				loadServerFileTree(node, true);
-			} else {
-				// 刷新根节点，即刷新所有节点（包含本地和服务器）
-				refresh();
-				refreshServer("/", true);
+			} else if (node.getType() == FileTreeNode.TYPE_ROOT) {
+				// 刷新根节点
+				refreshLocal();
 			}
 			nodeStructureChanged(node);
 			break;
 		case SWITCH_PATH:
-			ConfigOptions.bFileTreeDemo = !ConfigOptions.bFileTreeDemo.booleanValue();
-			refresh();
+			ConfigOptions.bFileTreeDemo = !ConfigOptions.bFileTreeDemo
+					.booleanValue();
+			refreshLocal();
 			break;
 		}
 	}
@@ -759,10 +579,7 @@ public class FileTree extends JTree implements IResourceTree {
 			} else {
 				showNode(node);
 			}
-			if (node.getUserObject() instanceof Server || node.getUserObject() instanceof FileInfo) {
-				// 当点击文件树上服务器节点时，保存该节点所属服务器名称
-				GV.selectServer = node.getServerName();
-			}
+			nodeSelected(node);
 		}
 
 		public void mouseReleased(MouseEvent e) {
@@ -777,10 +594,7 @@ public class FileTree extends JTree implements IResourceTree {
 			JPopupMenu pop = getPopupMenu(node);
 			if (pop != null)
 				pop.show(e.getComponent(), e.getX(), e.getY());
-			if (node.getUserObject() instanceof Server || node.getUserObject() instanceof FileInfo) {
-				// 当点击文件树上服务器节点时，保存该节点所属服务器名称
-				GV.selectServer = node.getServerName();
-			}
+			nodeSelected(node);
 		}
 
 		public void mouseClicked(MouseEvent e) {
@@ -791,13 +605,17 @@ public class FileTree extends JTree implements IResourceTree {
 			if (path == null)
 				return;
 			FileTreeNode node = (FileTreeNode) path.getLastPathComponent();
-			if (node.getUserObject() instanceof Server || node.getUserObject() instanceof FileInfo) {
-				// 当点击文件树上服务器节点时，保存该节点所属服务器名称
-				GV.selectServer = node.getServerName();
-			}
+			nodeSelected(node);
 			if (!node.isDir())
 				openFile(node);
 		}
+	}
+
+	/**
+	 * 树节点的点击
+	 * @param node
+	 */
+	protected void nodeSelected(FileTreeNode node) {
 	}
 
 	/**
@@ -884,7 +702,8 @@ public class FileTree extends JTree implements IResourceTree {
 	 * @param data
 	 * @return
 	 */
-	protected FileTreeNode addFileNode(FileTreeNode pNode, String path, Object data) {
+	protected FileTreeNode addFileNode(FileTreeNode pNode, String path,
+			Object data) {
 		if (path == null)
 			return null;
 		StringTokenizer st = new StringTokenizer(path, File.separator);
@@ -982,10 +801,7 @@ public class FileTree extends JTree implements IResourceTree {
 		TreePath path = new TreePath(node.getPath());
 		expandPath(path);
 		setSelectionPath(path);
-		if (node.getUserObject() instanceof Server || node.getUserObject() instanceof FileInfo) {
-			// 当点击文件树上服务器节点时，保存该节点所属服务器名称
-			GV.selectServer = node.getServerName();
-		}
+		nodeSelected(node);
 	}
 
 	/**
@@ -1029,99 +845,7 @@ public class FileTree extends JTree implements IResourceTree {
 	 */
 	public void changeMainPath(String mainPath) {
 		ConfigOptions.sMainPath = mainPath;
-		refresh();
-	}
-
-	/**
-	 * 增加服务器
-	 */
-	public void addServer(Server server) {
-		if (GV.serverList == null)
-			GV.serverList = new ArrayList<Server>();
-		GV.serverList.add(server);
-		FileTreeNode serverNode = new FileTreeNode(server, FileTreeNode.TYPE_SERVER);
-		serverNode.setDir(true);
-		serverNode.setExpanded(true);
-		serverNode.setTitle(server.getName());
-		serverNode.setServerName(server.getName());
-		serverRoot.add(serverNode);
-		serverRoot.setTitle(SERVER_FILE_TREE);
-		serverRoot.setExpanded(true);
-		serverRoot.setLoaded(true);
-		try {
-			loadServerFileTree(serverNode, true);
-		} catch (Throwable t) {
-			GM.showException(t);
-		}
-		GV.selectServer = server.getName();
-		if (GV.dsModelRemote == null) {
-			GV.dsModelRemote = new HashMap<String, DataSourceListModel>();
-		}
-		try {
-			GV.dsModelRemote.put(server.getName(), GV.getServerDataSourceListModel(server));
-		} catch (Throwable t) {
-			GM.showException(t);
-		}
-		nodeStructureChanged(serverRoot);
-		GV.selectServer = server.getName();
-		// 将登录远程服务数据源加载到全局配置中
-		GM.resetEnvDataSource(GV.dsModel);
-	}
-
-	/**
-	 * 删除服务器
-	 */
-	public void deleteServer(Server server) {
-		if (GV.serverList == null || server == null)
-			return;
-		// 在关闭服务器之前，关闭打开的文件
-		List<String> sheetNameList = GV.appFrame.getSheetNameList();
-		for (String name : sheetNameList) {
-			if (StringUtils.isValidString(name) && name.startsWith(server.getName())) {
-				((SPL) GV.appFrame).closeSheet(GV.appFrame.getSheet(name));
-			}
-		}
-		if (GV.dsModelRemote != null && GV.dsModelRemote.size() > 0) {
-			DataSourceListModel dsl = GV.dsModelRemote.get(server.getName());
-			for (int i = 0; i < dsl.size(); i++) {
-				if (!dsl.getDataSource(i).isClosed()) {
-					dsl.getDataSource(i).close();
-				}
-			}
-		}
-		try {
-			server.logout();
-		} catch (Throwable e) {
-			GM.showException(e);
-			GV.serverList.remove(server);
-			serverRoot.setLoaded(false);
-		}
-		GV.serverList.remove(server);
-		serverRoot.setLoaded(false);
-		Enumeration<FileTreeNode> children = serverRoot.children();
-		while (children.hasMoreElements()) {
-			FileTreeNode fileTreeNode = (FileTreeNode) children.nextElement();
-			if (server.getName().equals(fileTreeNode.getServerName())) {
-				serverRoot.remove(fileTreeNode);
-			}
-		}
-		GV.dsModelRemote.remove(server.getName());
-		loadServerFileTree(serverRoot, true);
-		nodeStructureChanged(serverRoot);
-		if (server.getName().equals(GV.selectServer) && GV.serverList.size() > 0) {
-			GV.selectServer = GV.getServerNames().get(0);
-		}
-		// 将注销的远程服务数据源移除到全局配置中
-		GM.resetEnvDataSource(GV.dsModel);
-	}
-
-	/**
-	 * 取服务器列表
-	 */
-	public List<Server> getServerList() {
-		if (GV.serverList == null)
-			return null;
-		return GV.serverList;
+		refreshLocal();
 	}
 
 }

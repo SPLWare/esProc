@@ -135,15 +135,14 @@ public abstract class JTableJobSpace extends JScrollPane {
 	/**
 	 * 重置任务空间
 	 */
-	public synchronized void resetJobSpaces() {
+	public synchronized void setJobSpaces(HashMap<String, Param[]> hm) {
 		tableVar.acceptText();
 		tableVar.removeAllRows();
 		preventChange = true;
-		HashMap hm = JobSpaceManager.listSpaceParams();
-		Iterator it = hm.keySet().iterator();
+		Iterator<String> it = hm.keySet().iterator();
 		while (it.hasNext()) {
-			String jsId = (String) it.next();
-			Param[] paras = (Param[]) hm.get(jsId);
+			String jsId = it.next();
+			Param[] paras = hm.get(jsId);
 			addJobSpaceRow(jsId, paras);
 		}
 		preventChange = false;

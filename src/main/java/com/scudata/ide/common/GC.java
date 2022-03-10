@@ -504,10 +504,5 @@ public class GC {
 	 * Upper limit of recent files
 	 */
 	public static final int RECENT_MENU_COUNT = 20;
-	/**
-	 * The number of recent login information saved in the remote service login
-	 * interface
-	 */
-	public static final int REMOTESERVER_COUNT = 5;
 
 }

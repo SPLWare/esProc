@@ -135,7 +135,8 @@ public class ConfigFile {
 	 * @return
 	 */
 	public static ConfigFile getSystemConfigFile() {
-		String file = GC.PATH_CONFIG + "/systemconfig" + GM.getLanguageSuffix() + "." + AppConsts.FILE_XML;
+		String file = GC.PATH_CONFIG + "/systemconfig" + GM.getLanguageSuffix()
+				+ "." + AppConsts.FILE_XML;
 		String filePath = GM.getAbsolutePath(file);
 		try {
 			File f = new File(filePath);
@@ -172,20 +173,6 @@ public class ConfigFile {
 		file.newElement(NODE_RAQSOFT, "FUNCTIONS");
 		file.newElement(NODE_RAQSOFT + "//FUNCTIONS", "DataSet");
 		file.newElement(NODE_RAQSOFT + "//FUNCTIONS", "Normal");
-		if (GV.useRemoteServer) { // 在使用远程服务功能是，增加保存最近远程服务登录的用户信息
-			file.newElement(NODE_RAQSOFT, "REMOTE_SERVER");
-			String sTmp;
-			for (int i = 0; i < GC.REMOTESERVER_COUNT; i++) {
-				sTmp = "serveruser" + Integer.toString(i);
-				file.newElement(NODE_RAQSOFT + "//REMOTE_SERVER", sTmp);
-				file.newAttribute(NODE_RAQSOFT + "//REMOTE_SERVER//" + sTmp, "name");
-				file.newAttribute(NODE_RAQSOFT + "//REMOTE_SERVER//" + sTmp, "user");
-				file.newAttribute(NODE_RAQSOFT + "//REMOTE_SERVER//" + sTmp, "password");
-				file.newAttribute(NODE_RAQSOFT + "//REMOTE_SERVER//" + sTmp, "auto");
-				file.newAttribute(NODE_RAQSOFT + "//REMOTE_SERVER//" + sTmp, "url");
-				file.newAttribute(NODE_RAQSOFT + "//REMOTE_SERVER//" + sTmp, "savepwd");
-			}
-		}
 		file.save();
 		return new ConfigFile(file);
 	}
@@ -199,7 +186,8 @@ public class ConfigFile {
 	public void loadRecentFiles(String appName, JMenuItem[] items) {
 		for (int i = 0; i < GC.RECENT_MENU_COUNT; i++) {
 			String sTmp = "f" + i;
-			String name = configFile.getAttribute(NODE_RAQSOFT + "/" + appName + "/" + NODE_RECENT_FILES + "/" + sTmp);
+			String name = configFile.getAttribute(NODE_RAQSOFT + "/" + appName
+					+ "/" + NODE_RECENT_FILES + "/" + sTmp);
 			items[i] = new JMenuItem(name);
 			if (name.equals("")) {
 				items[i].setVisible(false);
@@ -221,7 +209,8 @@ public class ConfigFile {
 			}
 			path += "/" + NODE_RECENT_FILES;
 			if (!configFile.isPathExists(path)) {
-				configFile.newElement(NODE_RAQSOFT + "/" + appName, NODE_RECENT_FILES);
+				configFile.newElement(NODE_RAQSOFT + "/" + appName,
+						NODE_RECENT_FILES);
 			}
 			String sTmp;
 			for (int i = 0; i < GC.RECENT_MENU_COUNT; i++) {
@@ -244,8 +233,8 @@ public class ConfigFile {
 		List<String> mainPaths = new ArrayList<String>();
 		for (int i = 0; i < GC.RECENT_MENU_COUNT; i++) {
 			String sTmp = "m" + i;
-			String name = configFile
-					.getAttribute(NODE_RAQSOFT + "/" + appName + "/" + NODE_RECENT_MAINPATHS + "/" + sTmp);
+			String name = configFile.getAttribute(NODE_RAQSOFT + "/" + appName
+					+ "/" + NODE_RECENT_MAINPATHS + "/" + sTmp);
 			if (StringUtils.isValidString(name)) {
 				mainPaths.add(name);
 			}
@@ -264,8 +253,8 @@ public class ConfigFile {
 		boolean hasVisible = false;
 		for (int i = 0; i < GC.RECENT_MENU_COUNT; i++) {
 			String sTmp = "m" + i;
-			String name = configFile
-					.getAttribute(NODE_RAQSOFT + "/" + appName + "/" + NODE_RECENT_MAINPATHS + "/" + sTmp);
+			String name = configFile.getAttribute(NODE_RAQSOFT + "/" + appName
+					+ "/" + NODE_RECENT_MAINPATHS + "/" + sTmp);
 			items[i] = new JMenuItem(name);
 			if (!StringUtils.isValidString(name)) {
 				items[i].setVisible(false);
@@ -292,7 +281,8 @@ public class ConfigFile {
 			}
 			path += "/" + NODE_RECENT_MAINPATHS;
 			if (!configFile.isPathExists(path)) {
-				configFile.newElement(NODE_RAQSOFT + "/" + appName, NODE_RECENT_MAINPATHS);
+				configFile.newElement(NODE_RAQSOFT + "/" + appName,
+						NODE_RECENT_MAINPATHS);
 			}
 			String sTmp;
 			for (int i = 0; i < GC.RECENT_MENU_COUNT; i++) {
@@ -319,27 +309,31 @@ public class ConfigFile {
 		FTPInfo[] ftpInfos = new FTPInfo[ftps.size()];
 		for (int i = 0; i < ftpInfos.length; i++) {
 			ftpInfos[i] = new FTPInfo();
-			String host = configFile.getAttribute("RAQSOFT/" + appName + "/FTP/" + ftps.getSection(i) + "/HOST");
+			String host = configFile.getAttribute("RAQSOFT/" + appName
+					+ "/FTP/" + ftps.getSection(i) + "/HOST");
 			ftpInfos[i].setHost(host);
-			String port = configFile.getAttribute("RAQSOFT/" + appName + "/FTP/" + ftps.getSection(i) + "/PORT");
+			String port = configFile.getAttribute("RAQSOFT/" + appName
+					+ "/FTP/" + ftps.getSection(i) + "/PORT");
 			if (StringUtils.isValidString(port)) {
 				try {
 					ftpInfos[i].setPort(Integer.parseInt((String) port));
 				} catch (Exception ex) {
 				}
 			}
-			String user = configFile.getAttribute("RAQSOFT/" + appName + "/FTP/" + ftps.getSection(i) + "/USER");
+			String user = configFile.getAttribute("RAQSOFT/" + appName
+					+ "/FTP/" + ftps.getSection(i) + "/USER");
 			ftpInfos[i].setUser(user);
-			String password = configFile
-					.getAttribute("RAQSOFT/" + appName + "/FTP/" + ftps.getSection(i) + "/PASSWORD");
+			String password = configFile.getAttribute("RAQSOFT/" + appName
+					+ "/FTP/" + ftps.getSection(i) + "/PASSWORD");
 			ftpInfos[i].setPassword(password);
-			String directory = configFile
-					.getAttribute("RAQSOFT/" + appName + "/FTP/" + ftps.getSection(i) + "/DIRECTORY");
+			String directory = configFile.getAttribute("RAQSOFT/" + appName
+					+ "/FTP/" + ftps.getSection(i) + "/DIRECTORY");
 			ftpInfos[i].setDirectory(directory);
-			String selected = configFile
-					.getAttribute("RAQSOFT/" + appName + "/FTP/" + ftps.getSection(i) + "/SELECTED");
+			String selected = configFile.getAttribute("RAQSOFT/" + appName
+					+ "/FTP/" + ftps.getSection(i) + "/SELECTED");
 			try {
-				ftpInfos[i].setSelected(Boolean.valueOf(selected).booleanValue());
+				ftpInfos[i].setSelected(Boolean.valueOf(selected)
+						.booleanValue());
 			} catch (Exception ex) {
 			}
 		}
@@ -366,11 +360,16 @@ public class ConfigFile {
 			for (int i = 0; i < ftpInfos.length; i++) {
 				String nodeName = "ftp" + i;
 				configFile.newElement(path, nodeName);
-				configFile.setAttribute(path + "/" + nodeName + "/HOST", ftpInfos[i].getHost());
-				configFile.setAttribute(path + "/" + nodeName + "/PORT", ftpInfos[i].getPort() + "");
-				configFile.setAttribute(path + "/" + nodeName + "/USER", ftpInfos[i].getUser());
-				configFile.setAttribute(path + "/" + nodeName + "/PASSWORD", ftpInfos[i].getPassword());
-				configFile.setAttribute(path + "/" + nodeName + "/DIRECTORY", ftpInfos[i].getDirectory());
+				configFile.setAttribute(path + "/" + nodeName + "/HOST",
+						ftpInfos[i].getHost());
+				configFile.setAttribute(path + "/" + nodeName + "/PORT",
+						ftpInfos[i].getPort() + "");
+				configFile.setAttribute(path + "/" + nodeName + "/USER",
+						ftpInfos[i].getUser());
+				configFile.setAttribute(path + "/" + nodeName + "/PASSWORD",
+						ftpInfos[i].getPassword());
+				configFile.setAttribute(path + "/" + nodeName + "/DIRECTORY",
+						ftpInfos[i].getDirectory());
 				configFile.setAttribute(path + "/" + nodeName + "/SELECTED",
 						new Boolean(ftpInfos[i].isSelected()).toString());
 			}
@@ -388,7 +387,8 @@ public class ConfigFile {
 	public void loadRecentConnection(JMenuItem[] items) {
 		for (int i = 0; i < GC.RECENT_MENU_COUNT; i++) {
 			String sTmp = "c" + i;
-			String name = configFile.getAttribute("RAQSOFT/RECENTCONNECTIONS/" + sTmp);
+			String name = configFile.getAttribute("RAQSOFT/RECENTCONNECTIONS/"
+					+ sTmp);
 			items[i] = new JMenuItem(name);
 			if (name.equals("")) {
 				items[i].setVisible(false);
@@ -425,7 +425,8 @@ public class ConfigFile {
 	 * @param dsFrom
 	 * @throws Exception
 	 */
-	public void loadDataSource(DataSourceListModel list, byte dsFrom) throws Exception {
+	public void loadDataSource(DataSourceListModel list, byte dsFrom)
+			throws Exception {
 		DataSource ds;
 		Section ss = new Section();
 		ss = configFile.listElement(PATH_DATASOURCE);
@@ -433,13 +434,16 @@ public class ConfigFile {
 		String config;
 		for (int i = 0; i < ss.size(); i++) {
 			sId = ss.getSection(i);
-			name = configFile.getAttribute(ConfigFile.PATH_DATASOURCE + "/" + sId + "/name");
+			name = configFile.getAttribute(ConfigFile.PATH_DATASOURCE + "/"
+					+ sId + "/name");
 
 			if (list.existDSName(name)) {
-				Logger.debug("Notice: datasource[ " + name + " ] exist, ignore.");
+				Logger.debug("Notice: datasource[ " + name
+						+ " ] exist, ignore.");
 				continue;
 			}
-			config = configFile.getAttribute(ConfigFile.PATH_DATASOURCE + "/" + sId + "/config");
+			config = configFile.getAttribute(ConfigFile.PATH_DATASOURCE + "/"
+					+ sId + "/config");
 			ds = new DataSource(config);
 			ds.setName(name);
 			ds.setDSFrom(dsFrom);
@@ -469,8 +473,10 @@ public class ConfigFile {
 			}
 			String sId = "ds" + i;
 			configFile.newElement(ConfigFile.PATH_DATASOURCE, sId);
-			configFile.setAttribute(ConfigFile.PATH_DATASOURCE + "/" + sId + "/name", ds.getName());
-			configFile.setAttribute(ConfigFile.PATH_DATASOURCE + "/" + sId + "/config", ds.toString());
+			configFile.setAttribute(ConfigFile.PATH_DATASOURCE + "/" + sId
+					+ "/name", ds.getName());
+			configFile.setAttribute(ConfigFile.PATH_DATASOURCE + "/" + sId
+					+ "/config", ds.toString());
 		}
 		configFile.save();
 	}
@@ -511,16 +517,19 @@ public class ConfigFile {
 				File bakFile = new File(f.getParentFile(), name + "_bak.xml");
 				int index = 1;
 				while (bakFile.exists()) {
-					bakFile = new File(f.getParentFile(), name + "_bak" + index + ".xml");
+					bakFile = new File(f.getParentFile(), name + "_bak" + index
+							+ ".xml");
 					index++;
 				}
 				f.renameTo(bakFile);
-				renameMessage = IdeCommonMessage.get().getMessage("configfile.renamefile", bakFile.getName(),
-						f.getName());
+				renameMessage = IdeCommonMessage.get()
+						.getMessage("configfile.renamefile", bakFile.getName(),
+								f.getName());
 			} catch (Exception e1) {
 			}
 			String errorMessage = err == null ? "" : err.getMessage();
-			GM.showException(IdeCommonMessage.get().getMessage("configfile.damagedfile", filePath,
+			GM.showException(IdeCommonMessage.get().getMessage(
+					"configfile.damagedfile", filePath,
 					errorMessage + "\n" + renameMessage));
 			cf = newInstance(fp);
 			return cf;
@@ -573,7 +582,8 @@ public class ConfigFile {
 			if (!configFile.isPathExists("RAQSOFT/" + configNode)) {
 				configFile.newElement("RAQSOFT", configNode);
 			}
-			configFile.setAttribute("RAQSOFT/" + configNode + "/" + attr, val.toString());
+			configFile.setAttribute("RAQSOFT/" + configNode + "/" + attr,
+					val.toString());
 		} catch (Exception x) {
 			x.printStackTrace();
 		}
@@ -608,7 +618,8 @@ public class ConfigFile {
 	public String getAttrValue(String attr) {
 		String value = "";
 		try {
-			value = configFile.getAttribute("RAQSOFT/" + configNode + "/" + attr);
+			value = configFile.getAttribute("RAQSOFT/" + configNode + "/"
+					+ attr);
 		} catch (Throwable t) {
 		}
 		return value;
