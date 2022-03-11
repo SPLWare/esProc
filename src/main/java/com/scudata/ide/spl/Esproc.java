@@ -143,7 +143,7 @@ public class Esproc {
 
 		try {
 			ConfigOptions.load2(false, false);
-			if (ConfigOptions.bLogException) {
+			if (StringUtils.isValidString(ConfigOptions.sLogFileName)) {
 				String file = ConfigOptions.sLogFileName;
 				File f = new File(file);
 				File fp = f.getParentFile();

@@ -1476,35 +1476,34 @@ public class GM {
 	public static void writeLog(Object e) {
 		if (e == null)
 			return;
-		if (ConfigOptions.bLogException.booleanValue()) {
-			Logger.error(e);
-			// File f = new
-			// File(GM.getAbsolutePath(ConfigOptions.sLogFileName));
-			// if (!f.exists()) {
-			// try {
-			// f.createNewFile();
-			// } catch (Exception xf) {
-			// xf.printStackTrace();
-			// return;
-			// }
-			// }
-			// try {
-			// FileOutputStream fos = new FileOutputStream(f, true);
-			// PrintWriter pw = new PrintWriter(fos);
-			// pw.println(new java.util.Date());
-			// if (e instanceof Throwable) {
-			// ((Throwable) e).printStackTrace(pw);
-			// } else {
-			// pw.write((String) e);
-			// }
-			// fos.flush();
-			// pw.close();
-			// } catch (Exception logError) {
-			// logError.printStackTrace();
-			// return;
-			// }
-
-		}
+		// if (ConfigOptions.bLogException.booleanValue()) {
+		Logger.error(e);
+		// File f = new
+		// File(GM.getAbsolutePath(ConfigOptions.sLogFileName));
+		// if (!f.exists()) {
+		// try {
+		// f.createNewFile();
+		// } catch (Exception xf) {
+		// xf.printStackTrace();
+		// return;
+		// }
+		// }
+		// try {
+		// FileOutputStream fos = new FileOutputStream(f, true);
+		// PrintWriter pw = new PrintWriter(fos);
+		// pw.println(new java.util.Date());
+		// if (e instanceof Throwable) {
+		// ((Throwable) e).printStackTrace(pw);
+		// } else {
+		// pw.write((String) e);
+		// }
+		// fos.flush();
+		// pw.close();
+		// } catch (Exception logError) {
+		// logError.printStackTrace();
+		// return;
+		// }
+		// }
 	}
 
 	/**

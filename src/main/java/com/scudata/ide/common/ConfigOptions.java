@@ -40,7 +40,7 @@ public class ConfigOptions {
 	/** Automatic backup when saving */
 	public static Boolean bAutoBackup = Boolean.TRUE;
 	/** Write the exception to the log file */
-	public static Boolean bLogException = Boolean.FALSE;
+	// public static Boolean bLogException = Boolean.FALSE;
 	/** Automatically connect (recently connected) */
 	public static Boolean bAutoConnect = Boolean.FALSE;
 	/** Memory window position size */
@@ -77,8 +77,8 @@ public class ConfigOptions {
 	/** DEMO is displayed in the file tree */
 	public static Boolean bFileTreeDemo = Boolean.TRUE;
 	/** Log file name */
-	public static String sLogFileName = GM.getAbsolutePath(GC.PATH_TMP
-			+ File.separator + "esproc.log");
+	public static String sLogFileName = null;
+	// GM.getAbsolutePath(GC.PATH_TMP + File.separator + "esproc.log")
 	/** Paths for spl files */
 	public static String sPaths = null;
 	/** Main path */
@@ -259,7 +259,7 @@ public class ConfigOptions {
 		options.put("bIdeConsole", bIdeConsole);
 		options.put("bAutoOpen", bAutoOpen);
 		options.put("bAutoBackup", bAutoBackup);
-		options.put("bLogException", bLogException);
+		// options.put("bLogException", bLogException);
 		options.put("bAutoConnect", bAutoConnect);
 		options.put("bWindowSize", bWindowSize);
 		options.put("bViewWinList", bViewWinList);
@@ -456,8 +456,8 @@ public class ConfigOptions {
 				bAutoOpen = ii;
 			} else if (option.equalsIgnoreCase("bAutoBackup")) {
 				bAutoBackup = ii;
-			} else if (option.equalsIgnoreCase("bLogException")) {
-				bLogException = ii;
+				// } else if (option.equalsIgnoreCase("bLogException")) {
+				// bLogException = ii;
 			} else if (option.equalsIgnoreCase("bAutoConnect")) {
 				bAutoConnect = ii;
 			} else if (option.equalsIgnoreCase("bWindowSize")) {

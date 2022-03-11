@@ -101,11 +101,13 @@ public class DialogOptions extends JDialog {
 	/**
 	 * 撤销和重做最大次数标签
 	 */
-	private JLabel jLUndoCount = new JLabel(IdeSplMessage.get().getMessage("dialogoptions.undocount")); // 撤销/重做的最大次数
+	private JLabel jLUndoCount = new JLabel(IdeSplMessage.get().getMessage(
+			"dialogoptions.undocount")); // 撤销/重做的最大次数
 	/**
 	 * 撤销和重做最大次数控件
 	 */
-	private JSpinner jSUndoCount = new JSpinner(new SpinnerNumberModel(20, 5, Integer.MAX_VALUE, 1));
+	private JSpinner jSUndoCount = new JSpinner(new SpinnerNumberModel(20, 5,
+			Integer.MAX_VALUE, 1));
 
 	/**
 	 * 多标签控件
@@ -115,12 +117,14 @@ public class DialogOptions extends JDialog {
 	/**
 	 * 数据库连接超时时间
 	 */
-	private JSpinner jSConnectTimeout = new JSpinner(new SpinnerNumberModel(10, 1, 120, 1));
+	private JSpinner jSConnectTimeout = new JSpinner(new SpinnerNumberModel(10,
+			1, 120, 1));
 
 	/**
 	 * 字体大小控件
 	 */
-	private JSpinner jSFontSize = new JSpinner(new SpinnerNumberModel(12, 1, 36, 1));
+	private JSpinner jSFontSize = new JSpinner(new SpinnerNumberModel(12, 1,
+			36, 1));
 	/**
 	 * 最优并行数标签
 	 */
@@ -143,7 +147,7 @@ public class DialogOptions extends JDialog {
 	/**
 	 * 将异常写入日志文件控件
 	 */
-	private JCheckBox jCBLogException = new JCheckBox();
+	// private JCheckBox jCBLogException = new JCheckBox();
 	/**
 	 * 连接到数据库时最长等待
 	 */
@@ -212,7 +216,8 @@ public class DialogOptions extends JDialog {
 	/**
 	 * 是否变迁注释格中的单元格
 	 */
-	private JCheckBox jCBAdjustNoteCell = new JCheckBox(mm.getMessage("dialogoptions.adjustnotecell"));
+	private JCheckBox jCBAdjustNoteCell = new JCheckBox(
+			mm.getMessage("dialogoptions.adjustnotecell"));
 
 	/**
 	 * 日志级别标签
@@ -321,7 +326,8 @@ public class DialogOptions extends JDialog {
 	/**
 	 * 字号
 	 */
-	private JLabel labelFontSize = new JLabel(mm.getMessage("dialogoptions.fontsize"));
+	private JLabel labelFontSize = new JLabel(
+			mm.getMessage("dialogoptions.fontsize"));
 
 	/**
 	 * 序列显示成员数编辑控件
@@ -330,11 +336,13 @@ public class DialogOptions extends JDialog {
 	/**
 	 * 语言
 	 */
-	private JLabel labelLocale = new JLabel(mm.getMessage("dialogoptions.labellocale"));
+	private JLabel labelLocale = new JLabel(
+			mm.getMessage("dialogoptions.labellocale"));
 	/**
 	 * 字体
 	 */
-	private JLabel labelFontName = new JLabel(mm.getMessage("dialogoptions.fontname"));
+	private JLabel labelFontName = new JLabel(
+			mm.getMessage("dialogoptions.fontname"));
 
 	/**
 	 * 本机语言下拉框
@@ -497,7 +505,8 @@ public class DialogOptions extends JDialog {
 		jCBIdeConsole.setText(mm.getMessage("dialogoptions.ideconsole")); // 接管控制台
 		jCBAutoOpen.setText(mm.getMessage("dialogoptions.autoopen")); // 自动打开（最近文件）
 		jCBAutoBackup.setText(mm.getMessage("dialogoptions.autobackup")); // 保存时自动备份（加文件后缀.BAK）
-		jCBLogException.setText(mm.getMessage("dialogoptions.logexception")); // 将异常写入日志文件
+		// jCBLogException.setText(mm.getMessage("dialogoptions.logexception"));
+		// // 将异常写入日志文件
 		jCBAutoConnect.setText(mm.getMessage("dialogoptions.autoconnect")); // 自动连接（最近连接）
 		jCBAutoTrimChar0.setText(mm.getMessage("dialogoptions.autotrimchar0")); // 自动清除字符串尾部\0
 		jCBWindow.setText(mm.getMessage("dialogoptions.windowsize")); // 记忆窗口位置大小
@@ -507,13 +516,16 @@ public class DialogOptions extends JDialog {
 		jLabel6.setText(mm.getMessage("dialogoptions.attention")); // 注意：常规选项里面蓝色的选项需要重新启动IDE才能生效。
 		jLabelLevel.setText(mm.getMessage("dialogoptions.loglevel")); // 日志级别
 		jCBDispOutCell.setText(mm.getMessage("dialogoptions.dispoutcell")); // 内容冲出单元格显示
-		jCBAutoSizeRowHeight.setText(mm.getMessage("dialogoptions.autosizerowheight")); // 自动调整行高
+		jCBAutoSizeRowHeight.setText(mm
+				.getMessage("dialogoptions.autosizerowheight")); // 自动调整行高
 		jCBShowDBStruct.setText(mm.getMessage("dialogoptions.showdbstruct"));
 		labelParallelNum.setText(mm.getMessage("dialogoptions.parnum")); // 最优并行数
-		labelCursorParallelNum.setText(mm.getMessage("dialogoptions.curparnum"));
+		labelCursorParallelNum
+				.setText(mm.getMessage("dialogoptions.curparnum"));
 
 		jCBMultiLineExpEditor.setText(mm.getMessage("dialogoptions.multiline")); // 自增长表达式编辑框
-		jCBStepLastLocation.setText(mm.getMessage("dialogoptions.steplastlocation")); // 单步执行时光标跟随
+		jCBStepLastLocation.setText(mm
+				.getMessage("dialogoptions.steplastlocation")); // 单步执行时光标跟随
 
 	}
 
@@ -537,36 +549,48 @@ public class DialogOptions extends JDialog {
 		ConfigOptions.bIdeConsole = new Boolean(jCBIdeConsole.isSelected());
 		ConfigOptions.bAutoOpen = new Boolean(jCBAutoOpen.isSelected());
 		ConfigOptions.bAutoBackup = new Boolean(jCBAutoBackup.isSelected());
-		ConfigOptions.bLogException = new Boolean(jCBLogException.isSelected());
+		// ConfigOptions.bLogException = new
+		// Boolean(jCBLogException.isSelected());
 		ConfigOptions.bAutoConnect = new Boolean(jCBAutoConnect.isSelected());
-		ConfigOptions.bAutoTrimChar0 = new Boolean(jCBAutoTrimChar0.isSelected());
+		ConfigOptions.bAutoTrimChar0 = new Boolean(
+				jCBAutoTrimChar0.isSelected());
 		// ConfigOptions.bCheckUpdate = new
 		// Boolean(jCBCheckUpdate.isSelected());
-		ConfigOptions.bAdjustNoteCell = new Boolean(jCBAdjustNoteCell.isSelected());
+		ConfigOptions.bAdjustNoteCell = new Boolean(
+				jCBAdjustNoteCell.isSelected());
 		ConfigOptions.bWindowSize = new Boolean(jCBWindow.isSelected());
 		ConfigOptions.iLookAndFeel = (Byte) jCBLNF.x_getSelectedItem();
 		ConfigOptions.iConnectTimeout = (Integer) jSConnectTimeout.getValue();
-		ConfigOptions.iFontSize = ((Integer) jSFontSize.getValue()).shortValue();
+		ConfigOptions.iFontSize = ((Integer) jSFontSize.getValue())
+				.shortValue();
 		ConfigOptions.bDispOutCell = new Boolean(jCBDispOutCell.isSelected());
-		ConfigOptions.bMultiLineExpEditor = new Boolean(jCBMultiLineExpEditor.isSelected());
-		ConfigOptions.bStepLastLocation = new Boolean(jCBStepLastLocation.isSelected());
-		ConfigOptions.bAutoSizeRowHeight = new Boolean(jCBAutoSizeRowHeight.isSelected());
+		ConfigOptions.bMultiLineExpEditor = new Boolean(
+				jCBMultiLineExpEditor.isSelected());
+		ConfigOptions.bStepLastLocation = new Boolean(
+				jCBStepLastLocation.isSelected());
+		ConfigOptions.bAutoSizeRowHeight = new Boolean(
+				jCBAutoSizeRowHeight.isSelected());
 		ConfigOptions.bShowDBStruct = new Boolean(jCBShowDBStruct.isSelected());
 		ConfigOptions.iParallelNum = (Integer) jSParallelNum.getValue();
-		ConfigOptions.iCursorParallelNum = (Integer) jSCursorParallelNum.getValue();
+		ConfigOptions.iCursorParallelNum = (Integer) jSCursorParallelNum
+				.getValue();
 
 		ConfigOptions.iRowCount = (Integer) jSPRowCount.getValue();
 		ConfigOptions.iColCount = (Integer) jSPColCount.getValue();
 		ConfigOptions.fRowHeight = new Float(jSPRowHeight.getValue().toString());
 		ConfigOptions.fColWidth = new Float(jSPColWidth.getValue().toString());
-		ConfigOptions.iConstFColor = new Color(constFColor.getColor().intValue());
-		ConfigOptions.iConstBColor = new Color(constBColor.getColor().intValue());
+		ConfigOptions.iConstFColor = new Color(constFColor.getColor()
+				.intValue());
+		ConfigOptions.iConstBColor = new Color(constBColor.getColor()
+				.intValue());
 		ConfigOptions.iNoteFColor = new Color(noteFColor.getColor().intValue());
 		ConfigOptions.iNoteBColor = new Color(noteBColor.getColor().intValue());
 		ConfigOptions.iValueFColor = new Color(valFColor.getColor().intValue());
 		ConfigOptions.iValueBColor = new Color(valBColor.getColor().intValue());
-		ConfigOptions.iNValueFColor = new Color(nValFColor.getColor().intValue());
-		ConfigOptions.iNValueBColor = new Color(nValBColor.getColor().intValue());
+		ConfigOptions.iNValueFColor = new Color(nValFColor.getColor()
+				.intValue());
+		ConfigOptions.iNValueBColor = new Color(nValBColor.getColor()
+				.intValue());
 		ConfigOptions.sFontName = (String) jCBFontName.getSelectedItem();
 		Object oSize = jCBFontSize.x_getSelectedItem();
 		Short iSize;
@@ -615,33 +639,41 @@ public class DialogOptions extends JDialog {
 		jCBIdeConsole.setSelected(ConfigOptions.bIdeConsole.booleanValue());
 		jCBAutoOpen.setSelected(ConfigOptions.bAutoOpen.booleanValue());
 		jCBAutoBackup.setSelected(ConfigOptions.bAutoBackup.booleanValue());
-		jCBLogException.setSelected(ConfigOptions.bLogException.booleanValue());
+		// jCBLogException.setSelected(ConfigOptions.bLogException.booleanValue());
 		jCBAutoConnect.setSelected(ConfigOptions.bAutoConnect.booleanValue());
-		jCBAutoTrimChar0.setSelected(ConfigOptions.bAutoTrimChar0.booleanValue());
+		jCBAutoTrimChar0.setSelected(ConfigOptions.bAutoTrimChar0
+				.booleanValue());
 		jCBWindow.setSelected(ConfigOptions.bWindowSize.booleanValue());
 		jCBDispOutCell.setSelected(ConfigOptions.bDispOutCell.booleanValue());
-		jCBMultiLineExpEditor.setSelected(ConfigOptions.bMultiLineExpEditor.booleanValue());
-		jCBStepLastLocation.setSelected(ConfigOptions.bStepLastLocation.booleanValue());
-		jCBAutoSizeRowHeight.setSelected(ConfigOptions.bAutoSizeRowHeight.booleanValue());
+		jCBMultiLineExpEditor.setSelected(ConfigOptions.bMultiLineExpEditor
+				.booleanValue());
+		jCBStepLastLocation.setSelected(ConfigOptions.bStepLastLocation
+				.booleanValue());
+		jCBAutoSizeRowHeight.setSelected(ConfigOptions.bAutoSizeRowHeight
+				.booleanValue());
 
 		jCBShowDBStruct.setSelected(ConfigOptions.bShowDBStruct.booleanValue());
 		// jCBCheckUpdate.setSelected(ConfigOptions.bCheckUpdate.booleanValue());
-		jCBAdjustNoteCell.setSelected(ConfigOptions.bAdjustNoteCell.booleanValue());
+		jCBAdjustNoteCell.setSelected(ConfigOptions.bAdjustNoteCell
+				.booleanValue());
 		jCBAdjustNoteCell.setSelected(Env.isAdjustNoteCell());
 
-		jSParallelNum.setModel(new SpinnerNumberModel(1, 1, Integer.MAX_VALUE, 1));
+		jSParallelNum.setModel(new SpinnerNumberModel(1, 1, Integer.MAX_VALUE,
+				1));
 		int parallelNum = ConfigOptions.iParallelNum.intValue();
 		if (parallelNum < 1)
 			parallelNum = 1;
 		jSParallelNum.setValue(new Integer(parallelNum));
-		jSCursorParallelNum.setModel(new SpinnerNumberModel(1, 1, Integer.MAX_VALUE, 1));
+		jSCursorParallelNum.setModel(new SpinnerNumberModel(1, 1,
+				Integer.MAX_VALUE, 1));
 		int cursorParallelNum = ConfigOptions.iCursorParallelNum;
 		if (cursorParallelNum < 1)
 			cursorParallelNum = 1;
 		jSCursorParallelNum.setValue(cursorParallelNum);
 
 		jCBLevel.x_setSelectedCodeItem(Logger.getLevelName(Logger.getLevel()));
-		jCBLNF.x_setSelectedCodeItem(LookAndFeelManager.getValidLookAndFeel(ConfigOptions.iLookAndFeel));
+		jCBLNF.x_setSelectedCodeItem(LookAndFeelManager
+				.getValidLookAndFeel(ConfigOptions.iLookAndFeel));
 		jSConnectTimeout.setValue(ConfigOptions.iConnectTimeout);
 		jSFontSize.setValue(new Integer(ConfigOptions.iFontSize.intValue()));
 		jSPRowCount.setValue(ConfigOptions.iRowCount);
@@ -649,14 +681,22 @@ public class DialogOptions extends JDialog {
 		jSPRowHeight.setValue(new Double(ConfigOptions.fRowHeight));
 		jSPColWidth.setValue(new Double(ConfigOptions.fColWidth));
 
-		constFColor.setSelectedItem(new Integer(ConfigOptions.iConstFColor.getRGB()));
-		constBColor.setSelectedItem(new Integer(ConfigOptions.iConstBColor.getRGB()));
-		noteFColor.setSelectedItem(new Integer(ConfigOptions.iNoteFColor.getRGB()));
-		noteBColor.setSelectedItem(new Integer(ConfigOptions.iNoteBColor.getRGB()));
-		valFColor.setSelectedItem(new Integer(ConfigOptions.iValueFColor.getRGB()));
-		valBColor.setSelectedItem(new Integer(ConfigOptions.iValueBColor.getRGB()));
-		nValFColor.setSelectedItem(new Integer(ConfigOptions.iNValueFColor.getRGB()));
-		nValBColor.setSelectedItem(new Integer(ConfigOptions.iNValueBColor.getRGB()));
+		constFColor.setSelectedItem(new Integer(ConfigOptions.iConstFColor
+				.getRGB()));
+		constBColor.setSelectedItem(new Integer(ConfigOptions.iConstBColor
+				.getRGB()));
+		noteFColor.setSelectedItem(new Integer(ConfigOptions.iNoteFColor
+				.getRGB()));
+		noteBColor.setSelectedItem(new Integer(ConfigOptions.iNoteBColor
+				.getRGB()));
+		valFColor.setSelectedItem(new Integer(ConfigOptions.iValueFColor
+				.getRGB()));
+		valBColor.setSelectedItem(new Integer(ConfigOptions.iValueBColor
+				.getRGB()));
+		nValFColor.setSelectedItem(new Integer(ConfigOptions.iNValueFColor
+				.getRGB()));
+		nValBColor.setSelectedItem(new Integer(ConfigOptions.iNValueBColor
+				.getRGB()));
 
 		jCBFontName.setSelectedItem(ConfigOptions.sFontName);
 		jCBFontSize.setSelectedItem(ConfigOptions.iFontSize);
@@ -665,8 +705,10 @@ public class DialogOptions extends JDialog {
 		jCBUnderline.setSelected(ConfigOptions.bUnderline.booleanValue());
 		jSPIndent.setValue(ConfigOptions.iIndent);
 		jSSeqMembers.setValue(ConfigOptions.iSequenceDispMembers);
-		jCBHAlign.x_setSelectedCodeItem(compatibleHalign(ConfigOptions.iHAlign));
-		jCBVAlign.x_setSelectedCodeItem(compatibleValign(ConfigOptions.iVAlign));
+		jCBHAlign
+				.x_setSelectedCodeItem(compatibleHalign(ConfigOptions.iHAlign));
+		jCBVAlign
+				.x_setSelectedCodeItem(compatibleValign(ConfigOptions.iVAlign));
 
 		panelEnv.load();
 
@@ -716,7 +758,7 @@ public class DialogOptions extends JDialog {
 		jCBAutoConnect.setEnabled(true);
 		jCBAutoConnect.setForeground(Color.blue);
 		labelLocale.setForeground(Color.blue);
-		jCBLogException.setText("将异常写入日志文件");
+		// jCBLogException.setText("将异常写入日志文件");
 		jLabelTimeout.setText("连接到数据库时最长等待");
 		jSConnectTimeout.setBorder(BorderFactory.createLoweredBevelBorder());
 
@@ -762,12 +804,14 @@ public class DialogOptions extends JDialog {
 		jBOK.setMnemonic('O');
 		jBCancel.setActionCommand("");
 		jBCancel.setText("取消(C)");
-		jBCancel.addActionListener(new DialogOptions_jBCancel_actionAdapter(this));
+		jBCancel.addActionListener(new DialogOptions_jBCancel_actionAdapter(
+				this));
 		jBCancel.setMnemonic('C');
 		jPanelButton.add(jBOK, null);
 		jPanelButton.add(jBCancel, null);
 		jLabelLevel.setText("日志级别");
-		jCBLevel.x_setData(ConfigOptions.dispLevels(), ConfigOptions.dispLevels());
+		jCBLevel.x_setData(ConfigOptions.dispLevels(),
+				ConfigOptions.dispLevels());
 		jCBLevel.x_setSelectedCodeItem(Logger.DEBUG);
 		// Normal
 		panelNormal.setLayout(new VFlowLayout(VFlowLayout.TOP));
@@ -776,7 +820,7 @@ public class DialogOptions extends JDialog {
 		jPanel2.add(jCBIdeConsole, null);
 		jPanel2.add(jCBAutoOpen, null);
 		jPanel2.add(jCBAutoBackup, null);
-		jPanel2.add(jCBLogException, null);
+		// jPanel2.add(jCBLogException, null);
 		jPanel2.add(jCBAutoConnect, null);
 		jPanel2.add(jCBWindow, null);
 		jPanel2.add(jCBDispOutCell, null);
@@ -838,8 +882,10 @@ public class DialogOptions extends JDialog {
 			panelMid.add(jSUndoCount, GM.getGBC(4, 2, true));
 		}
 		// 当撤销/重做的最大次数过大时，可能会占用更多的内存。
-		jLUndoCount.setToolTipText(IdeSplMessage.get().getMessage("dialogoptions.undocountcause"));
-		jSUndoCount.setToolTipText(IdeSplMessage.get().getMessage("dialogoptions.undocountcause"));
+		jLUndoCount.setToolTipText(IdeSplMessage.get().getMessage(
+				"dialogoptions.undocountcause"));
+		jSUndoCount.setToolTipText(IdeSplMessage.get().getMessage(
+				"dialogoptions.undocountcause"));
 		jLUndoCount.setForeground(Color.BLUE);
 		GridBagConstraints gbc;
 		FlowLayout fl1 = new FlowLayout(FlowLayout.LEFT);
@@ -866,30 +912,41 @@ public class DialogOptions extends JDialog {
 		JPanel panelSplGrid = new JPanel();
 		panelSpl.add(panelSplGrid, BorderLayout.NORTH);
 		panelSplGrid.setLayout(new GridBagLayout());
-		JLabel labelRowCount = new JLabel(mm.getMessage("dialogoptions.rowcount")); // 行数
-		JLabel labelColCount = new JLabel(mm.getMessage("dialogoptions.colcount")); // 列数
-		JLabel labelRowHeight = new JLabel(mm.getMessage("dialogoptions.rowheight")); // 行高
-		JLabel labelColWidth = new JLabel(mm.getMessage("dialogoptions.colwidth")); // 列宽
+		JLabel labelRowCount = new JLabel(
+				mm.getMessage("dialogoptions.rowcount")); // 行数
+		JLabel labelColCount = new JLabel(
+				mm.getMessage("dialogoptions.colcount")); // 列数
+		JLabel labelRowHeight = new JLabel(
+				mm.getMessage("dialogoptions.rowheight")); // 行高
+		JLabel labelColWidth = new JLabel(
+				mm.getMessage("dialogoptions.colwidth")); // 列宽
 		JLabel labelCFColor = new JLabel(mm.getMessage("dialogoptions.cfcolor")); // 常量前景色
 		JLabel labelCBColor = new JLabel(mm.getMessage("dialogoptions.cbcolor")); // 常量背景色
 		JLabel labelNFColor = new JLabel(mm.getMessage("dialogoptions.nfcolor")); // 注释前景色
 		JLabel labelNBColor = new JLabel(mm.getMessage("dialogoptions.nbcolor")); // 注释背景色
 		JLabel labelVFColor = new JLabel(mm.getMessage("dialogoptions.vfcolor")); // 有值表达式前景色
 		JLabel labelVBColor = new JLabel(mm.getMessage("dialogoptions.vbcolor")); // 有值表达式背景色
-		JLabel labelNVFColor = new JLabel(mm.getMessage("dialogoptions.nvfcolor")); // 无值表达式前景色
-		JLabel labelNVBColor = new JLabel(mm.getMessage("dialogoptions.nvbcolor")); // 无值表达式背景色
+		JLabel labelNVFColor = new JLabel(
+				mm.getMessage("dialogoptions.nvfcolor")); // 无值表达式前景色
+		JLabel labelNVBColor = new JLabel(
+				mm.getMessage("dialogoptions.nvbcolor")); // 无值表达式背景色
 		JLabel labelIndent = new JLabel(mm.getMessage("dialogoptions.indent")); // 缩进
-		JLabel labelSeqMembers = new JLabel(mm.getMessage("dialogoptions.seqmembers")); // 序列显示成员上限
+		JLabel labelSeqMembers = new JLabel(
+				mm.getMessage("dialogoptions.seqmembers")); // 序列显示成员上限
 
-		JLabel labelHAlign = new JLabel(IdeSplMessage.get().getMessage("dialogoptionsdfx.halign")); // 水平对齐
-		JLabel labelVAlign = new JLabel(IdeSplMessage.get().getMessage("dialogoptionsdfx.valign")); // 纵向对齐
+		JLabel labelHAlign = new JLabel(IdeSplMessage.get().getMessage(
+				"dialogoptionsdfx.halign")); // 水平对齐
+		JLabel labelVAlign = new JLabel(IdeSplMessage.get().getMessage(
+				"dialogoptionsdfx.valign")); // 纵向对齐
 		jSPRowCount = new JSpinner(new SpinnerNumberModel(20, 1, 100000, 1));
 		jSPColCount = new JSpinner(new SpinnerNumberModel(6, 1, 10000, 1));
 		jSPRowHeight = new JSpinner(new SpinnerNumberModel(25f, 1f, 100f, 1f));
 		jSPColWidth = new JSpinner(new SpinnerNumberModel(150f, 1f, 1000f, 1f));
 
-		jSParallelNum.setModel(new SpinnerNumberModel(1, 1, Integer.MAX_VALUE, 1));
-		jSCursorParallelNum.setModel(new SpinnerNumberModel(1, 1, Integer.MAX_VALUE, 1));
+		jSParallelNum.setModel(new SpinnerNumberModel(1, 1, Integer.MAX_VALUE,
+				1));
+		jSCursorParallelNum.setModel(new SpinnerNumberModel(1, 1,
+				Integer.MAX_VALUE, 1));
 		constFColor = new ColorComboBox();
 		constBColor = new ColorComboBox();
 		noteFColor = new ColorComboBox();
@@ -905,7 +962,8 @@ public class DialogOptions extends JDialog {
 		jCBItalic = new JCheckBox(mm.getMessage("dialogoptions.italic")); // 倾斜
 		jCBUnderline = new JCheckBox(mm.getMessage("dialogoptions.underline")); // 下划线
 		jSPIndent = new JSpinner(new SpinnerNumberModel(0, 0, 100, 1));
-		jSSeqMembers = new JSpinner(new SpinnerNumberModel(3, 1, Integer.MAX_VALUE, 1));
+		jSSeqMembers = new JSpinner(new SpinnerNumberModel(3, 1,
+				Integer.MAX_VALUE, 1));
 		jCBHAlign = new JComboBoxEx();
 		jCBHAlign.x_setData(getHAlignCodes(), getHAlignDisps());
 		jCBVAlign = new JComboBoxEx();
@@ -962,7 +1020,8 @@ public class DialogOptions extends JDialog {
 
 		jCBLocale.x_setData(GM.getCodeLocale(), GM.getDispLocale());
 
-		panelEnv = new PanelEnv(this, isUnit ? PanelEnv.TYPE_UNIT : PanelEnv.TYPE_ESPROC) {
+		panelEnv = new PanelEnv(this, isUnit ? PanelEnv.TYPE_UNIT
+				: PanelEnv.TYPE_ESPROC) {
 
 			private static final long serialVersionUID = 1L;
 
@@ -982,7 +1041,8 @@ public class DialogOptions extends JDialog {
 			}
 		};
 		if (isUnit) {
-			JPanel panelRestartMessage = new JPanel(new FlowLayout(FlowLayout.LEFT));
+			JPanel panelRestartMessage = new JPanel(new FlowLayout(
+					FlowLayout.LEFT));
 			panelRestartMessage.add(jLabel6);
 			panelEnv.add(panelRestartMessage, GM.getGBC(4, 1, true));
 		}
@@ -1026,7 +1086,8 @@ public class DialogOptions extends JDialog {
 		if (buffer == -1) {
 			return true; // 不填就不设置了
 		} else if (buffer == -2) {
-			JOptionPane.showMessageDialog(parent, mm.getMessage("dialogoptions.invalidxmx"));
+			JOptionPane.showMessageDialog(parent,
+					mm.getMessage("dialogoptions.invalidxmx"));
 			return false;
 		}
 		return true;
@@ -1056,7 +1117,8 @@ public class DialogOptions extends JDialog {
 			} catch (Exception ex) {
 				if (!isUnit)
 					tabMain.setSelectedIndex(TAB_ENV);
-				JOptionPane.showMessageDialog(DialogOptions.this, ex.getMessage());
+				JOptionPane.showMessageDialog(DialogOptions.this,
+						ex.getMessage());
 			}
 			if (save()) {
 				GM.setWindowDimension(this);
@@ -1167,7 +1229,8 @@ public class DialogOptions extends JDialog {
 	}
 }
 
-class DialogOptions_jBCancel_actionAdapter implements java.awt.event.ActionListener {
+class DialogOptions_jBCancel_actionAdapter implements
+		java.awt.event.ActionListener {
 	DialogOptions adaptee;
 
 	DialogOptions_jBCancel_actionAdapter(DialogOptions adaptee) {
