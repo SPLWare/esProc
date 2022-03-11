@@ -2027,82 +2027,103 @@ public abstract class SplEditor {
 	 * @return ÊÇ·ñ¸´ÖÆ
 	 */
 	public boolean excelCopy() {
-		control.getContentPanel().submitEditor();
+		try {
+			control.getContentPanel().submitEditor();
 
-		PgmCellSet cellSet = control.cellSet;
-		int startRow = 1, startCol = 1;
-		int endRow = cellSet.getRowCount();
-		int endCol = cellSet.getColCount();
-		for (int r = 1; r <= cellSet.getRowCount(); r++) {
-			if (!isUselessRow(r)) {
-				startRow = r;
-				break;
-			}
-		}
-		for (int r = cellSet.getRowCount(); r >= 1; r--) {
-			if (!isUselessRow(r)) {
-				endRow = r;
-				break;
-			}
-		}
-		for (int c = 1; c <= cellSet.getColCount(); c++) {
-			if (!isUselessCol(c)) {
-				startCol = c;
-				break;
-			}
-		}
-		for (int c = cellSet.getColCount(); c >= 1; c--) {
-			if (!isUselessCol(c)) {
-				endCol = c;
-				break;
-			}
-		}
-		List<String> params = new ArrayList<String>(), usedParams = new ArrayList<String>();
-		ParamList pl = cellSet.getParamList();
-		if (pl != null)
-			for (int i = 0; i < pl.count(); i++) {
-				params.add(pl.get(i).getName());
-			}
-
-		StringBuffer buf = new StringBuffer();
-		buf.append("=");
-		PgmNormalCell cell;
-		String cellExpStr;
-		for (int r = startRow; r <= endRow; r++) {
-			if (r > startRow) {
-				buf.append(ROW_SEP);
-			}
-			for (int c = startCol; c <= endCol; c++) {
-				if (c > startCol) {
-					buf.append(COL_SEP);
+			PgmCellSet cellSet = control.cellSet;
+			int startRow = 1, startCol = 1;
+			int endRow = cellSet.getRowCount();
+			int endCol = cellSet.getColCount();
+			for (int r = 1; r <= cellSet.getRowCount(); r++) {
+				if (!isUselessRow(r)) {
+					startRow = r;
+					break;
 				}
-				cell = cellSet.getPgmNormalCell(r, c);
-				if (!isUselessCell(cell)) {
-					cellExpStr = cell.getExpString();
-					if (StringUtils.isValidString(cellExpStr)) {
-						cellExpStr = replaceCopyParam(cellExpStr, params,
-								usedParams);
-						buf.append(cellExpStr);
+			}
+			for (int r = cellSet.getRowCount(); r >= 1; r--) {
+				if (!isUselessRow(r)) {
+					endRow = r;
+					break;
+				}
+			}
+			for (int c = 1; c <= cellSet.getColCount(); c++) {
+				if (!isUselessCol(c)) {
+					startCol = c;
+					break;
+				}
+			}
+			for (int c = cellSet.getColCount(); c >= 1; c--) {
+				if (!isUselessCol(c)) {
+					endCol = c;
+					break;
+				}
+			}
+			List<String> params = new ArrayList<String>(), usedParams = new ArrayList<String>();
+			ParamList pl = cellSet.getParamList();
+			if (pl != null)
+				for (int i = 0; i < pl.count(); i++) {
+					params.add(pl.get(i).getName());
+				}
+
+			StringBuffer buf = new StringBuffer();
+			buf.append("=");
+			PgmNormalCell cell;
+			String cellExpStr;
+			for (int r = startRow; r <= endRow; r++) {
+				if (r > startRow) {
+					buf.append(ROW_SEP);
+				}
+				for (int c = startCol; c <= endCol; c++) {
+					if (c > startCol) {
+						buf.append(COL_SEP);
+					}
+					cell = cellSet.getPgmNormalCell(r, c);
+					if (!isUselessCell(cell)) {
+						cellExpStr = cell.getExpString();
+						if (StringUtils.isValidString(cellExpStr)) {
+							if (!cell.isConstCell()) {
+								cellExpStr = replaceCopyParam(cellExpStr,
+										params, usedParams);
+							}
+							if (cellExpStr.indexOf("\\") > 0) {
+								boolean isQuote = cellExpStr.startsWith("\'")
+										&& cellExpStr.endsWith("\'");
+								boolean isDoubleQuote = cellExpStr
+										.startsWith("\"")
+										&& cellExpStr.endsWith("\"");
+								cellExpStr = Escape
+										.removeEscAndQuote(cellExpStr);
+								if (isQuote) {
+									cellExpStr = "\'" + cellExpStr + "\'";
+								} else if (isDoubleQuote) {
+									cellExpStr = "\"" + cellExpStr + "\"";
+								}
+							}
+							buf.append(cellExpStr);
+						}
 					}
 				}
 			}
-		}
-		String spl = buf.toString();
-		spl = Escape.addEscAndQuote(spl, '\"');
-		spl = spl.replaceAll("\"t", COL_SEP);
-		spl = spl.replaceAll("\"n", ROW_SEP);
-		buf = new StringBuffer();
-		buf.append("=spl(");
-		buf.append(spl);
-		if (!usedParams.isEmpty()) {
-			for (String pname : usedParams) {
-				buf.append(",");
-				pname = Escape.removeEscAndQuote(pname);
-				buf.append(pname);
+			String spl = buf.toString();
+			spl = Escape.addEscAndQuote(spl, '\"');
+			spl = spl.replaceAll("\"t", COL_SEP);
+			spl = spl.replaceAll("\"n", ROW_SEP);
+			buf = new StringBuffer();
+			buf.append("=spl(");
+			buf.append(spl);
+			if (!usedParams.isEmpty()) {
+				for (String pname : usedParams) {
+					buf.append(",");
+					pname = Escape.removeEscAndQuote(pname);
+					buf.append(pname);
+				}
 			}
+			buf.append(")");
+			GM.clipBoard(buf.toString());
+		} catch (Exception ex) {
+			GM.showException(ex);
+			return false;
 		}
-		buf.append(")");
-		GM.clipBoard(buf.toString());
 		return true;
 	}
 

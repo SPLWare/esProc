@@ -2572,26 +2572,34 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 			splEditor.redo();
 			break;
 		case GCSpl.iCOPY:
-			splEditor.copy();
+			if (splEditor.copy())
+				refresh();
 			break;
 		case GCSpl.iCOPYVALUE:
-			splEditor.copy(false, true);
+			if (splEditor.copy(false, true))
+				refresh();
 			break;
 		case GCSpl.iCODE_COPY:
-			splEditor.codeCopy();
+			if (splEditor.codeCopy())
+				refresh();
 			break;
 		case GCSpl.iEXCEL_COPY:
-			splEditor.excelCopy();
+			if (splEditor.excelCopy())
+				refresh();
 			break;
 		case GCSpl.iCOPY_HTML:
-			if (splEditor.canCopyPresent())
+			if (splEditor.canCopyPresent()) {
 				splEditor.copyPresent();
+				refresh();
+			}
 			break;
 		case GCSpl.iCOPY_HTML_DIALOG:
-			splEditor.copyPresentDialog();
+			if (splEditor.copyPresentDialog())
+				refresh();
 			break;
 		case GCSpl.iCUT:
-			splEditor.cut();
+			if (splEditor.cut())
+				refresh();
 			break;
 		case GCSpl.iPASTE:
 			splEditor.paste(false);

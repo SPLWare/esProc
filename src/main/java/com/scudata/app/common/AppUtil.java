@@ -4,11 +4,13 @@ import java.awt.Color;
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.io.PrintStream;
 import java.lang.reflect.Method;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
@@ -873,5 +875,40 @@ public class AppUtil {
 				bis.close();
 		}
 		return cs;
+	}
+
+	/**
+	 * 将异常信息转为字符串
+	 * @param e 异常
+	 * @return String
+	 */
+	public static String getThrowableString(Throwable e) {
+		if (e != null) {
+			if (e instanceof ThreadDeath)
+				return null;
+			Throwable cause = e.getCause();
+			int i = 0;
+			while (cause != null) {
+				if (cause instanceof ThreadDeath)
+					return null;
+				cause = cause.getCause();
+				i++;
+				if (i > 10) {
+					break;
+				}
+			}
+		} else {
+			return null;
+		}
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		try {
+			e.printStackTrace(new PrintStream(baos));
+		} finally {
+			try {
+				baos.close();
+			} catch (Exception e1) {
+			}
+		}
+		return baos.toString();
 	}
 }

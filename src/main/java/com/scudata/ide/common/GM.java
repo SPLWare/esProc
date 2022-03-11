@@ -31,10 +31,8 @@ import java.awt.event.MouseEvent;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Method;
 import java.net.URI;
@@ -1461,9 +1459,6 @@ public class GM {
 				dit.setIconImage(logo.getImage());
 			}
 			dit.setVisible(true);
-			if (e != null) {
-				e.printStackTrace();
-			}
 		} else {
 			JOptionPane.showMessageDialog(frame, msg, IdeCommonMessage.get()
 					.getMessage("gm.errorprompt"),
@@ -1482,47 +1477,43 @@ public class GM {
 		if (e == null)
 			return;
 		if (ConfigOptions.bLogException.booleanValue()) {
-			File f = new File(GM.getAbsolutePath(ConfigOptions.sLogFileName));
-			if (!f.exists()) {
-				try {
-					f.createNewFile();
-				} catch (Exception xf) {
-					xf.printStackTrace();
-					return;
-				}
-			}
-			try {
-				FileOutputStream fos = new FileOutputStream(f, true);
-				PrintWriter pw = new PrintWriter(fos);
-				pw.println(new java.util.Date());
-				if (e instanceof Throwable) {
-					((Throwable) e).printStackTrace(pw);
-				} else {
-					pw.write((String) e);
-				}
-				fos.flush();
-				pw.close();
-			} catch (Exception logError) {
-				logError.printStackTrace();
-				return;
-			}
+			Logger.error(e);
+			// File f = new
+			// File(GM.getAbsolutePath(ConfigOptions.sLogFileName));
+			// if (!f.exists()) {
+			// try {
+			// f.createNewFile();
+			// } catch (Exception xf) {
+			// xf.printStackTrace();
+			// return;
+			// }
+			// }
+			// try {
+			// FileOutputStream fos = new FileOutputStream(f, true);
+			// PrintWriter pw = new PrintWriter(fos);
+			// pw.println(new java.util.Date());
+			// if (e instanceof Throwable) {
+			// ((Throwable) e).printStackTrace(pw);
+			// } else {
+			// pw.write((String) e);
+			// }
+			// fos.flush();
+			// pw.close();
+			// } catch (Exception logError) {
+			// logError.printStackTrace();
+			// return;
+			// }
 
 		}
 	}
 
 	/**
-	 * 输出信息到控制台和IDE日志文件
+	 * 输出异常信息到控制台和IDE日志文件
 	 * 
 	 * @param e Throwable or String
 	 */
 	public static void outputMessage(Object e) {
-		if (e == null)
-			return;
-		if (e instanceof Throwable) {
-			((Throwable) e).printStackTrace();
-		} else {
-			System.out.println((String) e);
-		}
+		// 现在Logger同时输出到控制台和日志了，直接调用writeLog
 		writeLog(e);
 	}
 
