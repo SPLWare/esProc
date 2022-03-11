@@ -2105,7 +2105,7 @@ public abstract class SplEditor {
 				}
 			}
 			String spl = buf.toString();
-			spl = Escape.addEscAndQuote(spl, '\"');
+			spl = Escape.addEscAndQuote(spl, '"');
 			spl = spl.replaceAll("\"t", COL_SEP);
 			spl = spl.replaceAll("\"n", ROW_SEP);
 			buf = new StringBuffer();
@@ -2365,11 +2365,11 @@ public abstract class SplEditor {
 			tmp = at.nextToken();
 			if (tmp != null) {
 				tmp = tmp.trim();
-				tmp = Escape.removeEscAndQuote(tmp, '\"');
 			}
 			if (isFirst) {
 				isFirst = false;
 				spl = tmp;
+
 			} else {
 				argIndex++;
 				if (!StringUtils.isValidString(tmp)) {
@@ -2393,6 +2393,14 @@ public abstract class SplEditor {
 			setDataChanged(true);
 			return true;
 		}
+		if (!spl.startsWith("\"") || !spl.endsWith("\"")) {
+			// SPL函数格式不正确，应为=spl(...)。
+			JOptionPane.showMessageDialog(GV.appFrame, IdeSplMessage.get()
+					.getMessage("spleditor.errorexcelspl"));
+			return false;
+		}
+		spl = Escape.removeEscAndQuote(spl, '"');
+
 		PgmCellSet cellSet = CellSetUtil.toPgmCellSet(spl);
 		if (cellSet.getRowCount() > 1 || cellSet.getColCount() > 1) {
 			if (spl.startsWith("=")) {
@@ -2424,6 +2432,16 @@ public abstract class SplEditor {
 				cell = cellSet.getPgmNormalCell(r, c);
 				if (cell != null) {
 					cellExpStr = cell.getExpString();
+					// if (StringUtils.isValidString(cellExpStr)) {
+					// cellExpStr = cellExpStr
+					// .replaceAll("\"\"", "\\\\\\\\\"");
+					// cellExpStr = Escape.removeEscAndQuote(cellExpStr, '\\');
+					// }
+					if (StringUtils.isValidString(cellExpStr)) {
+						cellExpStr = addEscape(cellExpStr, '\\');
+						// cellExpStr = cellExpStr.replaceAll("\"\"", "\\\\\"");
+						// cellExpStr = Escape.removeEscAndQuote(cellExpStr);
+					}
 					if (!args.isEmpty()) {
 						cellExpStr = replacePasteParam(cellExpStr, args);
 					}
@@ -2441,6 +2459,65 @@ public abstract class SplEditor {
 		return true;
 	}
 
+	/**
+	 *  引号中的双引号增加转义字符，Escape中的方法不够用
+	 */
+	private String addEscape(String expStr, char escapeChar) {
+		if (expStr == null)
+			return null;
+		int firstIndex = expStr.indexOf("\"");
+		int lastIndex = expStr.lastIndexOf("\"");
+		if (firstIndex > -1 && lastIndex > -1 && lastIndex > firstIndex) {
+			int len = expStr.length();
+			StringBuffer buf = new StringBuffer();
+			for (int i = firstIndex + 1; i < lastIndex; i++) {
+				char c = expStr.charAt(i);
+				if (c == '"') {
+					buf.append(escapeChar);
+				}
+				buf.append(c);
+			}
+			String before = "", after = "";
+			if (firstIndex > 0) {
+				before = expStr.substring(0, firstIndex + 1);
+			}
+			if (lastIndex < expStr.length()) {
+				after = expStr.substring(lastIndex);
+			}
+			return before + buf.toString() + after;
+		} else {
+			return expStr;
+		}
+		//
+		// int len = expStr.length();
+		// StringBuffer buf = new StringBuffer();
+		// for (int i = 0; i < len; i++) {
+		// char c = expStr.charAt(i);
+		// if (c == '"' || c == '\'') {
+		// int match = Sentence.scanQuotation(expStr, i, '"');
+		// if (match == -1) {
+		// if (i == 0 && c == '\'') {
+		// return expStr;
+		// }
+		// MessageManager mm = EngineMessage.get();
+		// throw new RQException("\""
+		// + mm.getMessage("Expression.illMatched"));
+		// }
+		//
+		// buf.append(str);
+		// i = match;
+		// } else {
+		// buf.append(c);
+		// }
+		// }
+		// return buf.toString();
+	}
+
+	/**
+	 * 设置参数
+	 * @param cmds
+	 * @param pl
+	 */
 	private void addParamCmd(Vector<IAtomicCmd> cmds, ParamList pl) {
 		AtomicSpl as = new AtomicSpl(control);
 		as.setType(AtomicSpl.SET_PARAM);
