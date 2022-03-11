@@ -720,8 +720,8 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 	 * @param expStr
 	 */
 	public Object calcExp(String expStr) {
-		Object val = Eval.calc((String) expStr, new Sequence(),
-				splControl.cellSet, splControl.cellSet.getContext());
+		Object val = Eval.calc(expStr, new Sequence(), splControl.cellSet,
+				splControl.cellSet.getContext());
 		return val;
 	}
 
@@ -1218,6 +1218,148 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 	}
 
 	/**
+	 * 单步调试返回
+	 */
+	protected void stepReturn() {
+		debug(RunThread.STEP_RETURN);
+	}
+
+	/**
+	 * 单步调试进入
+	 * @param pnc
+	 */
+	protected void stepInto(PgmNormalCell pnc) {
+		Expression exp = pnc.getExpression();
+		if (exp != null) {
+			CallInfo ci = null;
+			CellLocation startCellLocation = null; // 子网开始计算的坐标
+			PgmCellSet subCellSet = null;
+			int endRow = -1;
+			Call call = null;
+			Node home = exp.getHome();
+			if (home instanceof Call) { // call函数
+				call = (Call) home;
+				subCellSet = call.getCallPgmCellSet(splCtx);
+				subCellSet.setCurrent(subCellSet.getPgmNormalCell(1, 1));
+				subCellSet.setNext(1, 1, true); // 从子格开始执行
+			} else if (home instanceof Func) { // Func块
+				// Func使用新网是为了支持递归
+				Func func = (Func) home;
+				ci = func.getCallInfo(splCtx);
+				PgmCellSet cellSet = ci.getPgmCellSet();
+				int row = ci.getRow();
+				int col = ci.getCol();
+				Object[] args = ci.getArgs();
+				int rc = cellSet.getRowCount();
+				int cc = cellSet.getColCount();
+				if (row < 1 || row > rc || col < 1 || col > cc) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException(mm.getMessage("engine.callNeedSub"));
+				}
+
+				PgmNormalCell nc = cellSet.getPgmNormalCell(row, col);
+				Command command = nc.getCommand();
+				if (command == null || command.getType() != Command.FUNC) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException(mm.getMessage("engine.callNeedSub"));
+				}
+
+				// 共享函数体外的格子
+				subCellSet = cellSet.newCalc();
+				endRow = cellSet.getCodeBlockEndRow(row, col);
+				for (int r = row; r <= endRow; ++r) {
+					for (int c = col; c <= cc; ++c) {
+						INormalCell tmp = cellSet.getCell(r, c);
+						INormalCell cellClone = (INormalCell) tmp.deepClone();
+						cellClone.setCellSet(subCellSet);
+						subCellSet.setCell(r, c, cellClone);
+					}
+				}
+				int colCount = subCellSet.getColCount();
+
+				// 把参数值设到func单元格上及后面的格子
+				if (args != null) {
+					int paramRow = row;
+					int paramCol = col;
+					for (int i = 0, pcount = args.length; i < pcount; ++i) {
+						subCellSet.getPgmNormalCell(paramRow, paramCol)
+								.setValue(args[i]);
+						if (paramCol < colCount) {
+							paramCol++;
+						} else {
+							break;
+						}
+					}
+				}
+				subCellSet.setCurrent(subCellSet.getPgmNormalCell(row, col));
+				subCellSet.setNext(row, col + 1, false); // 从子格开始执行
+				startCellLocation = new CellLocation(row, col + 1);
+			}
+			openSubSheet(pnc, subCellSet, ci, startCellLocation, endRow, call);
+			final SheetSpl subSheet = getSubSheet();
+			if (subSheet != null) {
+				SwingUtilities.invokeLater(new Runnable() {
+					public void run() {
+						try {
+							subSheet.debug(RunThread.STEP_INTO_WAIT);
+						} catch (Exception e) {
+							GM.showException(e);
+						}
+					}
+				});
+			}
+		}
+	}
+
+	/**
+	 * 单步调试进入打开子页
+	 * 
+	 * @param pnc           网格对象
+	 * @param subCellSet    子网格对象
+	 * @param ci            CallInfo对象
+	 * @param startLocation 子网开始计算的坐标
+	 * @param endRow        子网结束行
+	 * @param call          Call对象
+	 */
+	private void openSubSheet(PgmNormalCell pnc, final PgmCellSet subCellSet,
+			CallInfo ci, CellLocation startLocation, int endRow, Call call) {
+		String newName = new File(filePath).getName();
+		if (AppUtil.isSPLFile(newName)) {
+			int index = newName.lastIndexOf(".");
+			newName = newName.substring(0, index);
+		}
+		String cellId = CellLocation.getCellId(pnc.getRow(), pnc.getCol());
+		newName += "(" + cellId + ")";
+		final String nn = newName;
+		List<SheetSpl> sheets = SheetSpl.this.sheets;
+		if (sheets == null) {
+			sheets = new ArrayList<SheetSpl>();
+			sheets.add(SheetSpl.this);
+			SheetSpl.this.sheets = sheets;
+		}
+		final StepInfo stepInfo = new StepInfo(sheets);
+		if (call != null) { // call spl
+			stepInfo.filePath = call.getDfxPathName(splCtx);
+		} else if (SheetSpl.this.stepInfo == null) { // 当前是主程序
+			stepInfo.filePath = filePath;
+		} else { // 当前是子程序，从上一步中取
+			stepInfo.filePath = SheetSpl.this.stepInfo.filePath;
+		}
+		stepInfo.splCtx = splCtx;
+		stepInfo.parentLocation = new CellLocation(pnc.getRow(), pnc.getCol());
+		stepInfo.callInfo = ci;
+		stepInfo.startLocation = startLocation;
+		stepInfo.endRow = endRow;
+		stepInfo.parentCall = call;
+		subSheetOpened = true;
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				((SPL) GV.appFrame).openSheet(nn, subCellSet, false, stepInfo);
+			}
+		});
+	}
+
+	/**
 	 * 执行线程
 	 *
 	 */
@@ -1333,103 +1475,8 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 						if (debugType == STEP_INTO) {
 							if (!subSheetOpened) {
 								if (pnc != null) {
-									Expression exp = pnc.getExpression();
-									if (exp != null) {
-										Node home = exp.getHome();
-										if (home instanceof Call) { // call函数
-											Call call = (Call) home;
-											PgmCellSet subCellSet = call
-													.getCallPgmCellSet(splCtx);
-											subCellSet.setCurrent(subCellSet
-													.getPgmNormalCell(1, 1));
-											subCellSet.setNext(1, 1, true); // 从子格开始执行
-											openSubSheet(pnc, subCellSet, null,
-													null, -1, call);
-										} else if (home instanceof Func) { // Func块
-											// Func使用新网是为了支持递归
-											Func func = (Func) home;
-											CallInfo ci = func
-													.getCallInfo(splCtx);
-											PgmCellSet cellSet = ci
-													.getPgmCellSet();
-											int row = ci.getRow();
-											int col = ci.getCol();
-											Object[] args = ci.getArgs();
-											int rc = cellSet.getRowCount();
-											int cc = cellSet.getColCount();
-											if (row < 1 || row > rc || col < 1
-													|| col > cc) {
-												MessageManager mm = EngineMessage
-														.get();
-												throw new RQException(
-														mm.getMessage("engine.callNeedSub"));
-											}
+									stepInto(pnc);
 
-											PgmNormalCell nc = cellSet
-													.getPgmNormalCell(row, col);
-											Command command = nc.getCommand();
-											if (command == null
-													|| command.getType() != Command.FUNC) {
-												MessageManager mm = EngineMessage
-														.get();
-												throw new RQException(
-														mm.getMessage("engine.callNeedSub"));
-											}
-
-											// 共享函数体外的格子
-											PgmCellSet pcs = cellSet.newCalc();
-											int endRow = cellSet
-													.getCodeBlockEndRow(row,
-															col);
-											for (int r = row; r <= endRow; ++r) {
-												for (int c = col; c <= cc; ++c) {
-													INormalCell tmp = cellSet
-															.getCell(r, c);
-													INormalCell cellClone = (INormalCell) tmp
-															.deepClone();
-													cellClone.setCellSet(pcs);
-													pcs.setCell(r, c, cellClone);
-												}
-											}
-											int colCount = pcs.getColCount();
-
-											// 把参数值设到func单元格上及后面的格子
-											if (args != null) {
-												int paramRow = row;
-												int paramCol = col;
-												for (int i = 0, pcount = args.length; i < pcount; ++i) {
-													pcs.getPgmNormalCell(
-															paramRow, paramCol)
-															.setValue(args[i]);
-													if (paramCol < colCount) {
-														paramCol++;
-													} else {
-														break;
-													}
-												}
-											}
-											pcs.setCurrent(pcs
-													.getPgmNormalCell(row, col));
-											pcs.setNext(row, col + 1, false); // 从子格开始执行
-											openSubSheet(pnc, pcs, ci,
-													new CellLocation(row,
-															col + 1), endRow,
-													null);
-										}
-										final SheetSpl subSheet = getSubSheet();
-										if (subSheet != null) {
-											SwingUtilities
-													.invokeLater(new Runnable() {
-														public void run() {
-															try {
-																subSheet.debug(STEP_INTO_WAIT);
-															} catch (Exception e) {
-																GM.showException(e);
-															}
-														}
-													});
-										}
-									}
 								}
 							} else {
 								final SheetSpl subSheet = getSubSheet();
@@ -1575,57 +1622,6 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 					}
 				}
 			}
-		}
-
-		/**
-		 * 单步调试进入打开子页
-		 * 
-		 * @param pnc           网格对象
-		 * @param subCellSet    子网格对象
-		 * @param ci            CallInfo对象
-		 * @param startLocation 子网开始计算的坐标
-		 * @param endRow        子网结束行
-		 * @param call          Call对象
-		 */
-		private void openSubSheet(PgmNormalCell pnc,
-				final PgmCellSet subCellSet, CallInfo ci,
-				CellLocation startLocation, int endRow, Call call) {
-			String newName = new File(filePath).getName();
-			if (AppUtil.isSPLFile(newName)) {
-				int index = newName.lastIndexOf(".");
-				newName = newName.substring(0, index);
-			}
-			String cellId = CellLocation.getCellId(pnc.getRow(), pnc.getCol());
-			newName += "(" + cellId + ")";
-			final String nn = newName;
-			List<SheetSpl> sheets = SheetSpl.this.sheets;
-			if (sheets == null) {
-				sheets = new ArrayList<SheetSpl>();
-				sheets.add(SheetSpl.this);
-				SheetSpl.this.sheets = sheets;
-			}
-			final StepInfo stepInfo = new StepInfo(sheets);
-			if (call != null) { // call spl
-				stepInfo.filePath = call.getDfxPathName(splCtx);
-			} else if (SheetSpl.this.stepInfo == null) { // 当前是主程序
-				stepInfo.filePath = filePath;
-			} else { // 当前是子程序，从上一步中取
-				stepInfo.filePath = SheetSpl.this.stepInfo.filePath;
-			}
-			stepInfo.splCtx = splCtx;
-			stepInfo.parentLocation = new CellLocation(pnc.getRow(),
-					pnc.getCol());
-			stepInfo.callInfo = ci;
-			stepInfo.startLocation = startLocation;
-			stepInfo.endRow = endRow;
-			stepInfo.parentCall = call;
-			subSheetOpened = true;
-			SwingUtilities.invokeLater(new Runnable() {
-				public void run() {
-					((SPL) GV.appFrame).openSheet(nn, subCellSet, false,
-							stepInfo);
-				}
-			});
 		}
 
 		/**
@@ -2555,7 +2551,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 			debug(RunThread.STEP_INTO);
 			break;
 		case GCSpl.iSTEP_RETURN:
-			debug(RunThread.STEP_RETURN);
+			stepReturn();
 			break;
 		case GCSpl.iSTEP_STOP:
 			stepStop(true);

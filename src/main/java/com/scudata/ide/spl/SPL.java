@@ -1375,6 +1375,9 @@ public class SPL extends AppFrame {
 			}
 		}
 		GM.resetClipBoard();
+		if (GV.appSheet != null) {
+			GV.appSheet.refresh();
+		}
 		checkUpdate();
 	}
 
