@@ -1797,6 +1797,7 @@ public class RowTableMetaData extends TableMetaData {
 				if (seqs[i] > 0) {
 					if (isUpdate) {
 						ModifyRecord r = new ModifyRecord(seqs[i], ModifyRecord.STATE_UPDATE, sr);
+						r.setParentRecordSeq(recNum[i]);
 						modifyRecords.add(r);
 						if (result != null) {
 							result.add(sr);
@@ -1846,6 +1847,7 @@ public class RowTableMetaData extends TableMetaData {
 								// ×´Ì¬¶¼ÓÃupdate
 								Record sr = (Record)data.getMem(t);
 								mr.setRecord(sr, ModifyRecord.STATE_UPDATE);
+								mr.setParentRecordSeq(recNum[t]);
 								if (result != null) {
 									result.add(sr);
 								}
@@ -1859,6 +1861,7 @@ public class RowTableMetaData extends TableMetaData {
 						if (isUpdate) {
 							Record sr = (Record)data.getMem(t);
 							mr = new ModifyRecord(seq2, ModifyRecord.STATE_UPDATE, sr);
+							mr.setParentRecordSeq(recNum[t]);
 							tmp.add(mr);
 							
 							if (result != null) {

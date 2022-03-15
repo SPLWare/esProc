@@ -1451,6 +1451,11 @@ public class RowCursor extends IDWCursor {
 						}
 						mems.add(r);
 					} else {
+						bufReader.skipObject();//跳过伪号
+						if (!isPrimaryTable) {
+							guideSeq = (Long) bufReader.readObject();//导列伪号
+						}
+						
 						// 可能插入多条
 						boolean isInsert = true;
 						while (true) {
@@ -1468,7 +1473,12 @@ public class RowCursor extends IDWCursor {
 										r.setNormalFieldValue(f, sr.getNormalFieldValue(findex[f]));
 									}
 								} else {
-									long seq = mr.getParentRecordSeq();
+									long seq;
+									if (isInsert) {
+										seq = mr.getParentRecordSeq();
+									} else {
+										seq = guideSeq;
+									}
 									if (seq > 0) {
 										//主表里找对应的
 										while (seq != baseSeq) {
@@ -1534,10 +1544,6 @@ public class RowCursor extends IDWCursor {
 						
 						if (isInsert) {
 							//读出来一整行
-							bufReader.skipObject();//跳过伪号
-							if (!isPrimaryTable) {
-								guideSeq = (Long) bufReader.readObject();//导列伪号
-							}
 							for (int f = 0; f < allCount; ++f) {
 								if (f >= baseKeyCount) {
 									if (serialBytesLen[f] > 0) {
@@ -1582,10 +1588,6 @@ public class RowCursor extends IDWCursor {
 							}
 							mems.add(r);
 						} else {
-							bufReader.skipObject();//跳过伪号
-							if (!isPrimaryTable) {
-								bufReader.skipObject();//跳过导列伪号
-							}
 							for (int f = 0; f < allCount; ++f) {
 								if (f >= baseKeyCount) {
 									bufReader.skipObject();
