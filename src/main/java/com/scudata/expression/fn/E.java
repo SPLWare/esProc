@@ -187,7 +187,7 @@ public class E extends Function {
 					for (int c = 1; c <= cc; c++) {
 						val = rowSeq.get(c);
 						if (val != null) {
-							colName = (String) val;
+							colName = String.valueOf(val);
 						} else {
 							colName = null;
 						}
