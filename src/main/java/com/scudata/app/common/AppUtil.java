@@ -305,6 +305,91 @@ public class AppUtil {
 	}
 
 	/**
+	 * 执行Excel中的SPL函数。目前支持单句、多句表达式，执行脚本文件。
+	 * @param spl 已经转义过的SPL
+	 * @param args
+	 * @return 返回值
+	 * @throws Exception 异常
+	 */
+	public static Object executeExcel(String spl, Sequence args)
+			throws Exception {
+		if (!StringUtils.isValidString(spl))
+			return null;
+		spl = excelToJdbcSpl(spl);
+		Object val = executeCmd(spl, args, new Context());
+		if (val instanceof PgmCellSet) {
+			PgmCellSet cellSet = (PgmCellSet) val;
+			if (cellSet.hasNextResult())
+				return cellSet.nextResult();
+			return null;
+		}
+		return val;
+	}
+
+	/**
+	 * 将excel中的spl转换为jdbc支持的形式
+	 * @return
+	 */
+	public static String excelToJdbcSpl(String spl) {
+		byte type = getExcelSplType(spl);
+		switch (type) {
+		case EXCEL_NULL:
+			return null;
+		case EXCEL_CALL:
+			// spl是脚本文件名，拼成jdbccall(splx, args)
+			spl = spl.trim();
+			int index = spl.indexOf("(");
+			String splFile = spl.substring(0, index);
+			String splArgs = "";
+			if (index < spl.length() - 2) {
+				splArgs = "," + spl.substring(index + 1, spl.length() - 1);
+			}
+			spl = "jdbccall(" + Escape.addEscAndQuote(splFile) + splArgs + ")";
+			return spl;
+		case EXCEL_EXP:
+			return "=" + spl;
+		default:
+			return spl;
+		}
+	}
+
+	public static final byte EXCEL_NULL = 0; // NULL
+	public static final byte EXCEL_CALL = 1; // 脚本文件
+	public static final byte EXCEL_EXP = 2; // 表达式(单句或多句)
+	public static final byte EXCEL_OTHER = 3; // 无需处理的
+
+	public static byte getExcelSplType(String spl) {
+		if (!StringUtils.isValidString(spl))
+			return EXCEL_NULL;
+		spl = spl.trim();
+		PgmCellSet cellSet = CellSetUtil.toPgmCellSet(spl);
+		if (cellSet.getRowCount() == 1 && cellSet.getColCount() == 1) {
+			// 区分单句表达式和脚本文件
+			PgmNormalCell cell = cellSet.getPgmNormalCell(1, 1);
+			switch (cell.getType()) {
+			case PgmNormalCell.TYPE_CONST_CELL:
+				String cellExp = cell.getExpString();
+				if (cellExp.indexOf("(") > 0 && cellExp.endsWith(")")) {
+					// spl是脚本文件名
+					return EXCEL_CALL;
+				} else {
+					// 单句表达式
+					return EXCEL_EXP;
+				}
+			case PgmNormalCell.TYPE_NOTE_CELL:
+			case PgmNormalCell.TYPE_NOTE_BLOCK:
+			case PgmNormalCell.TYPE_BLANK_CELL:
+				return EXCEL_NULL;
+			default:
+				return EXCEL_OTHER;
+			}
+		} else {
+			// 多句表达式，拼成=expression
+			return EXCEL_EXP;
+		}
+	}
+
+	/**
 	 * Used to cache color objects
 	 */
 	private static HashMap<Integer, Object> colorMap = new HashMap<Integer, Object>();

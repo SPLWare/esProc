@@ -14,6 +14,8 @@ import java.util.regex.Pattern;
 
 import javax.swing.JOptionPane;
 
+import com.scudata.app.common.AppConsts;
+import com.scudata.app.common.AppUtil;
 import com.scudata.cellset.IColCell;
 import com.scudata.cellset.INormalCell;
 import com.scudata.cellset.IRowCell;
@@ -2059,13 +2061,41 @@ public class SplEditor {
 					params.add(pl.get(i).getName());
 				}
 
-			boolean isSingleCell = startRow == endRow && startCol == endCol;
 			StringBuffer buf = new StringBuffer();
-			if (!isSingleCell) { // 只有单个格子时，不加等号
-				buf.append("=");
-			}
 			PgmNormalCell cell;
 			String cellExpStr;
+			// boolean isCall = false;
+			// if (startRow == endRow && startCol == endCol) { // 只有一个call splx格
+			// cell = cellSet.getPgmNormalCell(startRow, startCol);
+			// if (cell.getType() == PgmNormalCell.TYPE_CALCULABLE_CELL) {
+			// cellExpStr = cell.getExpString();
+			// if (StringUtils.isValidString(cellExpStr)) {
+			// cellExpStr = cellExpStr.trim();
+			// // 有选项的是用户自己编辑的，不处理了
+			// if (cellExpStr.startsWith("=call(")
+			// && cellExpStr.endsWith(")")) {
+			// cellExpStr = cellExpStr.substring(6);
+			// int index = cellExpStr.indexOf(",");
+			// if (index > 0) { // 有参数
+			// cellExpStr = Escape
+			// .removeEscAndQuote(cellExpStr
+			// .substring(0, index))
+			// + cellExpStr.substring(index + 1);
+			// } else { // 无参数
+			// cellExpStr = cellExpStr.substring(0,
+			// cellExpStr.length() - 1);
+			// cellExpStr = Escape
+			// .removeEscAndQuote(cellExpStr) + "()";
+			// }
+			// cellExpStr = replaceCopyParam(cellExpStr, params,
+			// usedParams);
+			// buf.append(cellExpStr);
+			// isCall = true;
+			// }
+			// }
+			// }
+			// }
+			// if (!isCall)
 			for (int r = startRow; r <= endRow; r++) {
 				if (r > startRow) {
 					buf.append(ROW_SEP);
@@ -2398,13 +2428,20 @@ public class SplEditor {
 		}
 		spl = Escape.removeEscAndQuote(spl, '"');
 
+		// byte splType = AppUtil.getExcelSplType(spl);
+		// if (splType == AppUtil.EXCEL_CALL) {
+		// // spl是脚本文件名，将splx(...)拼成=call(splx,...)
+		// int index = spl.indexOf("(");
+		// String splFile = spl.substring(0, index);
+		// if (!AppUtil.isSPLFile(splFile))
+		// splFile = splFile + "." + AppConsts.FILE_SPLX;
+		// String splArgs = "";
+		// if (index < spl.length() - 2) {
+		// splArgs = "," + spl.substring(index + 1, spl.length() - 1);
+		// }
+		// spl = "=call(" + Escape.addEscAndQuote(splFile) + splArgs + ")";
+		// }
 		PgmCellSet cellSet = CellSetUtil.toPgmCellSet(spl);
-		if (cellSet.getRowCount() > 1 || cellSet.getColCount() > 1) {
-			if (spl.startsWith("=")) {
-				spl = spl.substring(1);
-				cellSet = CellSetUtil.toPgmCellSet(spl);
-			}
-		}
 		boolean isAdd = false;
 		if (control.cellSet.getRowCount() < cellSet.getRowCount()) {
 			// 增加行
