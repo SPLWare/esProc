@@ -2059,8 +2059,11 @@ public class SplEditor {
 					params.add(pl.get(i).getName());
 				}
 
+			boolean isSingleCell = startRow == endRow && startCol == endCol;
 			StringBuffer buf = new StringBuffer();
-			buf.append("=");
+			if (!isSingleCell) { // 只有单个格子时，不加等号
+				buf.append("=");
+			}
 			PgmNormalCell cell;
 			String cellExpStr;
 			for (int r = startRow; r <= endRow; r++) {
