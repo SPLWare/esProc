@@ -76,7 +76,7 @@ public abstract class AppFrame extends JFrame implements IAppFrame {
 	public static void holdConsole() {
 		Font font;
 		if (StringUtils.isValidString(ConfigOptions.sFontName)) {
-			font = new Font(ConfigOptions.sFontName, Font.PLAIN, 12);
+			font = new Font(ConfigOptions.sFontName, Font.PLAIN, ConfigOptions.iFontSize.intValue());
 		} else {
 			font = GC.font;
 		}
@@ -120,12 +120,12 @@ public abstract class AppFrame extends JFrame implements IAppFrame {
 	 *            Input stream
 	 * @param fileName
 	 *            file name
-	 * @param isRemote
-	 *            remote server file
+	 * @param type
+	 *            SheetSplC.TYPE_REMOTE,SheetSplC.TYPE_CLOUD 
 	 * @return
 	 */
 	public JInternalFrame openSheetFile(InputStream in, String fileName,
-			boolean isRemote) throws Exception {
+			byte sheetType) throws Exception {
 		return null;
 	}
 
@@ -171,7 +171,8 @@ public abstract class AppFrame extends JFrame implements IAppFrame {
 	 * 
 	 * @param part
 	 */
-	ImageIcon frameIcon=null;
+	ImageIcon frameIcon = null;
+
 	public void setProgramPart() {
 		String fixTitle = getFixTitle();
 		setTitle(fixTitle);
@@ -180,12 +181,12 @@ public abstract class AppFrame extends JFrame implements IAppFrame {
 			setIconImage(frameIcon.getImage());
 		}
 	}
-	
+
 	/**
 	 * Get application image icon
 	 * @return
 	 */
-	public ImageIcon getFrameIcon(){
+	public ImageIcon getFrameIcon() {
 		return frameIcon;
 	}
 

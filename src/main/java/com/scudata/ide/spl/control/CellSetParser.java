@@ -237,6 +237,52 @@ public class CellSetParser {
 	}
 
 	/**
+	 * 取单元格类型对应的颜色
+	 * 
+	 * @param row
+	 *            行号
+	 * @param col
+	 *            列号
+	 * @param isGetForeground
+	 *            是否取前景色。true前景色，false背景色
+	 * @return
+	 */
+	protected Color getCellTypeColor(int row, int col, boolean isGetForeground) {
+		byte type = getCellType(row, col);
+		NormalCell cell = getCell(row, col);
+		if (type == TYPE_NOTE) { // 注释格或者在注释块中
+			return isGetForeground ? ConfigOptions.iNoteFColor
+					: ConfigOptions.iNoteBColor;
+		}
+		if (cell.getType() == NormalCell.TYPE_CONST_CELL) { // 常量格
+			if (isSubCell(row, col)) {
+				return isGetForeground ? ConfigOptions.iNValueFColor
+						: ConfigOptions.iNValueBColor;
+			}
+			if (type != TYPE_CALC) { // 计算格执行格、在计算块执行块中,按表达式格显示 并且不是续格
+				return isGetForeground ? ConfigOptions.iConstFColor
+						: ConfigOptions.iConstBColor;
+			}
+		}
+		if (!hasCellValue(cell)) { // 无值表达式
+			return isGetForeground ? ConfigOptions.iNValueFColor
+					: ConfigOptions.iNValueBColor;
+		} else { // 有值表达式
+			return isGetForeground ? ConfigOptions.iValueFColor
+					: ConfigOptions.iValueBColor;
+		}
+	}
+
+	/**
+	 * 单元格是否有值
+	 * @param cell 单元格
+	 * @return 单元格是否有值
+	 */
+	protected boolean hasCellValue(NormalCell cell) {
+		return cell.getValue() != null;
+	}
+
+	/**
 	 * 取单元格显示文本
 	 * 
 	 * @param row
@@ -367,43 +413,6 @@ public class CellSetParser {
 	 */
 	public boolean isUnderline(int row, int col) {
 		return ConfigOptions.bUnderline.booleanValue();
-	}
-
-	/**
-	 * 取单元格类型对应的颜色
-	 * 
-	 * @param row
-	 *            行号
-	 * @param col
-	 *            列号
-	 * @param isGetForeground
-	 *            是否取前景色。true前景色，false背景色
-	 * @return
-	 */
-	private Color getCellTypeColor(int row, int col, boolean isGetForeground) {
-		byte type = getCellType(row, col);
-		NormalCell cell = getCell(row, col);
-		if (type == TYPE_NOTE) { // 注释格或者在注释块中
-			return isGetForeground ? ConfigOptions.iNoteFColor
-					: ConfigOptions.iNoteBColor;
-		}
-		if (cell.getType() == NormalCell.TYPE_CONST_CELL) { // 常量格
-			if (isSubCell(row, col)) {
-				return isGetForeground ? ConfigOptions.iNValueFColor
-						: ConfigOptions.iNValueBColor;
-			}
-			if (type != TYPE_CALC) { // 计算格执行格、在计算块执行块中,按表达式格显示 并且不是续格
-				return isGetForeground ? ConfigOptions.iConstFColor
-						: ConfigOptions.iConstBColor;
-			}
-		}
-		if (cell.getValue() == null) { // 无值表达式
-			return isGetForeground ? ConfigOptions.iNValueFColor
-					: ConfigOptions.iNValueBColor;
-		} else { // 有值表达式
-			return isGetForeground ? ConfigOptions.iValueFColor
-					: ConfigOptions.iValueBColor;
-		}
 	}
 
 	/**

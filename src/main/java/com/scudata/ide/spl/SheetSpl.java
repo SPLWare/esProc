@@ -188,12 +188,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 		} catch (Throwable t) {
 		}
 		this.filePath = filePath;
-		splEditor = new SplEditor(splCtx) {
-			public PgmCellSet generateCellSet(int rows, int cols) {
-				return new PgmCellSet(rows, cols);
-			}
-
-		};
+		splEditor = newSplEditor();
 		this.splControl = splEditor.getComponent();
 		splControl.setSplScrollBarListener();
 		splEditor.addSplListener(this);
@@ -224,6 +219,13 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 			resetCellSet();
 		}
 
+	}
+
+	/**
+	 * ¹¹ÔìSPL±à¼­Æ÷
+	 */
+	protected SplEditor newSplEditor() {
+		return new SplEditor(splCtx);
 	}
 
 	/**
@@ -572,7 +574,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 			if (nc != null) {
 				IByteMap values = splEditor.getProperty();
 				GV.toolBarProperty.refresh(selectState, values);
-				Object value = nc.getValue();
+				Object value = getCellValue(nc.getRow(), nc.getCol());
 				GVSpl.panelValue.tableValue.setCellId(nc.getCellId());
 				String oldId = GVSpl.panelValue.tableValue.getCellId();
 				if (nc.getCellId().equals(oldId)) { // refresh
@@ -593,7 +595,8 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 								.getCell(cellId);
 						Object oldVal = GVSpl.panelValue.tableValue
 								.getOriginalValue();
-						Object newVal = lockCell.getValue();
+						Object newVal = getCellValue(lockCell.getRow(),
+								lockCell.getCol());
 						boolean isValChanged = false;
 						if (oldVal == null) {
 							isValChanged = newVal != null;
@@ -1601,7 +1604,9 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 												.getPgmNormalCell(r, c);
 										if (cell.isCalculableCell()
 												|| cell.isCalculableBlock()) {
-											returnVal = cell.getValue();
+											returnVal = getCellValue(
+													cell.getRow(),
+													cell.getCol());
 										}
 									}
 								}

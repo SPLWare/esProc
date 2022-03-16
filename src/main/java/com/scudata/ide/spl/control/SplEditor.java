@@ -70,7 +70,7 @@ import com.scudata.util.CellSetUtil;
  * 网格编辑器
  *
  */
-public abstract class SplEditor {
+public class SplEditor {
 	/** CTRL-ENTER事件，插入行 */
 	public static final byte HK_CTRL_ENTER = 0;
 	/** CTRL-INSERT事件，右移单元格 */
@@ -140,15 +140,8 @@ public abstract class SplEditor {
 	 * @param context 上下文
 	 */
 	public SplEditor(Context context) {
-		control = new EditControl(ConfigOptions.iRowCount.intValue(),
-				ConfigOptions.iColCount.intValue()) {
-			private static final long serialVersionUID = 1L;
-
-			public PgmCellSet newCellSet(int rows, int cols) {
-				return generateCellSet(rows, cols);
-			}
-
-		};
+		control = newEditControl(ConfigOptions.iRowCount.intValue(),
+				ConfigOptions.iColCount.intValue());
 		CellSetTxtUtil.initDefaultProperty(control.cellSet);
 		control.draw();
 		SplControlListener qcl = new SplControlListener(this);
@@ -158,13 +151,14 @@ public abstract class SplEditor {
 	};
 
 	/**
-	 * 生成网格
-	 * 
-	 * @param rows 初始行数
-	 * @param cols 初始列数
-	 * @return
+	 * 构造编辑控件
+	 * @param rows 行数
+	 * @param cols 列数
+	 * @return EditControl
 	 */
-	public abstract PgmCellSet generateCellSet(int rows, int cols);
+	protected EditControl newEditControl(int rows, int cols) {
+		return new EditControl(rows, cols);
+	}
 
 	/**
 	 * 设置网格数据是否变化了
@@ -2227,7 +2221,7 @@ public abstract class SplEditor {
 				}
 				String arg = null;
 				if (params.contains(id)) { // 参数名，但是也可能和函数名冲突
-					if (i == 0 || '.' == expStr.charAt(i - 1)) { // 前一位是.的可能是函数名
+					if (i == 0 || '.' != expStr.charAt(i - 1)) { // 前一位是.的可能是函数名
 						int pIndex = usedParams.indexOf(id);
 						if (pIndex < 0) {
 							usedParams.add(id);
@@ -2432,15 +2426,8 @@ public abstract class SplEditor {
 				cell = cellSet.getPgmNormalCell(r, c);
 				if (cell != null) {
 					cellExpStr = cell.getExpString();
-					// if (StringUtils.isValidString(cellExpStr)) {
-					// cellExpStr = cellExpStr
-					// .replaceAll("\"\"", "\\\\\\\\\"");
-					// cellExpStr = Escape.removeEscAndQuote(cellExpStr, '\\');
-					// }
 					if (StringUtils.isValidString(cellExpStr)) {
 						cellExpStr = addEscape(cellExpStr, '\\');
-						// cellExpStr = cellExpStr.replaceAll("\"\"", "\\\\\"");
-						// cellExpStr = Escape.removeEscAndQuote(cellExpStr);
 					}
 					if (!args.isEmpty()) {
 						cellExpStr = replacePasteParam(cellExpStr, args);
@@ -2468,7 +2455,6 @@ public abstract class SplEditor {
 		int firstIndex = expStr.indexOf("\"");
 		int lastIndex = expStr.lastIndexOf("\"");
 		if (firstIndex > -1 && lastIndex > -1 && lastIndex > firstIndex) {
-			int len = expStr.length();
 			StringBuffer buf = new StringBuffer();
 			for (int i = firstIndex + 1; i < lastIndex; i++) {
 				char c = expStr.charAt(i);
@@ -2488,29 +2474,6 @@ public abstract class SplEditor {
 		} else {
 			return expStr;
 		}
-		//
-		// int len = expStr.length();
-		// StringBuffer buf = new StringBuffer();
-		// for (int i = 0; i < len; i++) {
-		// char c = expStr.charAt(i);
-		// if (c == '"' || c == '\'') {
-		// int match = Sentence.scanQuotation(expStr, i, '"');
-		// if (match == -1) {
-		// if (i == 0 && c == '\'') {
-		// return expStr;
-		// }
-		// MessageManager mm = EngineMessage.get();
-		// throw new RQException("\""
-		// + mm.getMessage("Expression.illMatched"));
-		// }
-		//
-		// buf.append(str);
-		// i = match;
-		// } else {
-		// buf.append(c);
-		// }
-		// }
-		// return buf.toString();
 	}
 
 	/**

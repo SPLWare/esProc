@@ -618,22 +618,22 @@ public class ConfigOptions {
 	 */
 	public static Properties getLoggerProperty() {
 		Properties props = new Properties();
-		String logName = "LOG2";
+		String logName = "IDE_CONSOLE";
 		String logPath = null;
 		if (StringUtils.isValidString(ConfigOptions.sLogFileName)) {
-			logName += ",LOG1";
+			logName += ",IDE_LOGFILE";
 			logPath = GM.getAbsolutePath(ConfigOptions.sLogFileName);
 		}
 		props.put("Logger", logName);
 		String sLogLevel = GV.config.getLogLevel();
 		if (logPath != null) {
-			props.put("LOG1", logPath);
-			props.put("LOG1.Level", sLogLevel);
-			props.put("LOG1.Encoding", "UTF-8");
+			props.put("IDE_LOGFILE", logPath);
+			props.put("IDE_LOGFILE.Level", sLogLevel);
+			props.put("IDE_LOGFILE.Encoding", "UTF-8");
 		}
-		props.put("LOG2", "Console");
-		props.put("LOG2.Level", sLogLevel);
-		props.put("LOG2.Encoding", "UTF-8");
+		props.put("IDE_CONSOLE", "Console");
+		props.put("IDE_CONSOLE.Level", sLogLevel);
+		props.put("IDE_CONSOLE.Encoding", "UTF-8");
 		return props;
 	}
 

@@ -183,7 +183,7 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 			int startCol, int endCol, boolean isEditing,
 			boolean onlyDrawCellInWin, JScrollPane jsp) {
 		this.cellSet = cellSet;
-		this.parser = new CellSetParser(cellSet);
+		this.parser = newCellSetParser(cellSet);
 		this.startRow = startRow;
 		this.endRow = endRow;
 		this.startCol = startCol;
@@ -285,6 +285,15 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 			};
 			multiEditor.addMouseListener(ma);
 		}
+	}
+
+	/**
+	 * 创建网格解析器
+	 * @param cellSet 网格 
+	 * @return CellSetParser
+	 */
+	protected CellSetParser newCellSetParser(CellSet cellSet) {
+		return new CellSetParser(cellSet);
 	}
 
 	/**

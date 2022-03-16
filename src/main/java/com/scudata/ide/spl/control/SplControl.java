@@ -128,17 +128,8 @@ public abstract class SplControl extends ControlBase {
 		m_editorListener = new ArrayList<EditorListener>();
 		getHorizontalScrollBar().setUnitIncrement(10);
 		getVerticalScrollBar().setUnitIncrement(10);
-		cellSet = newCellSet(rows, cols);
+		cellSet = new PgmCellSet(rows, cols);
 	}
-
-	/**
-	 * 新建网格对象
-	 * 
-	 * @param rows 行数
-	 * @param cols 列数
-	 * @return
-	 */
-	public abstract PgmCellSet newCellSet(int rows, int cols);
 
 	/**
 	 * 设置上下文
@@ -160,11 +151,12 @@ public abstract class SplControl extends ControlBase {
 			}
 		});
 
-		getHorizontalScrollBar().addAdjustmentListener(new AdjustmentListener() {
-			public void adjustmentValueChanged(AdjustmentEvent e) {
-				contentView.repaint();
-			}
-		});
+		getHorizontalScrollBar().addAdjustmentListener(
+				new AdjustmentListener() {
+					public void adjustmentValueChanged(AdjustmentEvent e) {
+						contentView.repaint();
+					}
+				});
 
 	}
 
@@ -415,7 +407,8 @@ public abstract class SplControl extends ControlBase {
 	 * @param scrollToVisible 当前格没有显示时，是否滚动到当前格使其显示
 	 * @return
 	 */
-	public Area setActiveCell(CellLocation pos, boolean clearSelection, boolean scrollToVisible) {
+	public Area setActiveCell(CellLocation pos, boolean clearSelection,
+			boolean scrollToVisible) {
 		pos = ControlUtilsBase.checkPosition(pos, getCellSet());
 		Area a;
 		if (pos == null) {
@@ -441,7 +434,8 @@ public abstract class SplControl extends ControlBase {
 			contentView.submitEditor();
 			m_activeCell = pos;
 			if (scrollToVisible)
-				ControlUtils.scrollToVisible(getViewport(), this, pos.getRow(), pos.getCol());
+				ControlUtils.scrollToVisible(getViewport(), this, pos.getRow(),
+						pos.getCol());
 			repaint();
 			contentView.initEditor(ContentPanel.MODE_HIDE);
 			contentView.requestFocus();
@@ -590,7 +584,8 @@ public abstract class SplControl extends ControlBase {
 		m_selectedRows.clear();
 		m_cornerSelected = false;
 		fireRegionSelect(true);
-		ControlUtils.scrollToVisible(getViewport(), this, region.getBeginRow(), region.getEndCol());
+		ControlUtils.scrollToVisible(getViewport(), this, region.getBeginRow(),
+				region.getEndCol());
 		repaint();
 		contentView.requestFocus();
 	}
@@ -655,7 +650,8 @@ public abstract class SplControl extends ControlBase {
 				}
 			}
 		}
-		if (endRow > contentView.cellSet.getRowCount() || !parser.isRowVisible(endRow)) {
+		if (endRow > contentView.cellSet.getRowCount()
+				|| !parser.isRowVisible(endRow)) {
 			return;
 		}
 		region = new Area(startRow, startCol, endRow, endCol);
@@ -664,7 +660,8 @@ public abstract class SplControl extends ControlBase {
 		m_selectedRows.clear();
 		m_cornerSelected = false;
 		fireRegionSelect(true);
-		ControlUtils.scrollToVisible(getViewport(), this, region.getEndRow(), region.getEndCol());
+		ControlUtils.scrollToVisible(getViewport(), this, region.getEndRow(),
+				region.getEndCol());
 		repaint();
 		contentView.requestFocus();
 	}
@@ -739,7 +736,8 @@ public abstract class SplControl extends ControlBase {
 		m_selectedRows.clear();
 		m_cornerSelected = false;
 		fireRegionSelect(true);
-		ControlUtils.scrollToVisible(getViewport(), this, region.getBeginRow(), region.getEndCol());
+		ControlUtils.scrollToVisible(getViewport(), this, region.getBeginRow(),
+				region.getEndCol());
 		repaint();
 		contentView.requestFocus();
 	}
@@ -801,7 +799,8 @@ public abstract class SplControl extends ControlBase {
 		m_selectedRows.clear();
 		m_cornerSelected = false;
 		fireRegionSelect(true);
-		ControlUtils.scrollToVisible(getViewport(), this, region.getEndRow(), region.getEndCol());
+		ControlUtils.scrollToVisible(getViewport(), this, region.getEndRow(),
+				region.getEndCol());
 		repaint();
 		contentView.requestFocus();
 	}
@@ -863,7 +862,8 @@ public abstract class SplControl extends ControlBase {
 		m_selectedRows.clear();
 		m_cornerSelected = false;
 		fireRegionSelect(true);
-		ControlUtils.scrollToVisible(getViewport(), this, region.getBeginRow(), region.getBeginCol());
+		ControlUtils.scrollToVisible(getViewport(), this, region.getBeginRow(),
+				region.getBeginCol());
 		repaint();
 		contentView.requestFocus();
 	}
@@ -1020,7 +1020,8 @@ public abstract class SplControl extends ControlBase {
 			return;
 		}
 		setSelectedArea(newArea);
-		if (ControlUtils.scrollToVisible(getViewport(), this, newArea.getBeginRow(), newArea.getBeginCol())) {
+		if (ControlUtils.scrollToVisible(getViewport(), this,
+				newArea.getBeginRow(), newArea.getBeginCol())) {
 			ContentPanel cp = getContentPanel();
 			JScrollBar hBar = getHorizontalScrollBar();
 			JScrollBar vBar = getVerticalScrollBar();
@@ -1143,12 +1144,15 @@ public abstract class SplControl extends ControlBase {
 	 */
 	void fireRowHeaderResized(Vector<Integer> vectHeader, float newHeight) {
 		for (int i = 0; i < this.m_editorListener.size(); i++) {
-			EditorListener listener = (EditorListener) this.m_editorListener.get(i);
+			EditorListener listener = (EditorListener) this.m_editorListener
+					.get(i);
 			listener.rowHeightChange(vectHeader, newHeight);
 		}
 		Point hp = this.getRowHeader().getViewPosition();
 		Point p = this.getViewport().getViewPosition();
-		this.getRowHeader().setView(this.rowHeaderView == null ? this.createRowHeaderView() : this.rowHeaderView);
+		this.getRowHeader().setView(
+				this.rowHeaderView == null ? this.createRowHeaderView()
+						: this.rowHeaderView);
 		this.getRowHeader().setViewPosition(hp);
 		this.getViewport().setViewPosition(p);
 		contentView.requestFocus();
@@ -1163,12 +1167,15 @@ public abstract class SplControl extends ControlBase {
 	 */
 	void fireColHeaderResized(Vector<Integer> vectHeader, float newWidth) {
 		for (int i = 0; i < this.m_editorListener.size(); i++) {
-			EditorListener listener = (EditorListener) this.m_editorListener.get(i);
+			EditorListener listener = (EditorListener) this.m_editorListener
+					.get(i);
 			listener.columnWidthChange(vectHeader, newWidth);
 		}
 		Point hp = this.getColumnHeader().getViewPosition();
 		Point p = this.getViewport().getViewPosition();
-		this.getColumnHeader().setView(this.colHeaderView == null ? this.createColHeaderView() : this.colHeaderView);
+		this.getColumnHeader().setView(
+				this.colHeaderView == null ? this.createColHeaderView()
+						: this.colHeaderView);
 		this.getColumnHeader().setViewPosition(hp);
 		this.getViewport().setViewPosition(p);
 		contentView.requestFocus();
@@ -1199,9 +1206,10 @@ public abstract class SplControl extends ControlBase {
 	 */
 	void fireRegionSelect(boolean keyEvent) {
 		for (int i = 0; i < this.m_editorListener.size(); i++) {
-			EditorListener listener = (EditorListener) this.m_editorListener.get(i);
-			listener.regionsSelect(m_selectedAreas, this.m_selectedRows, this.m_selectedCols, this.m_cornerSelected,
-					keyEvent);
+			EditorListener listener = (EditorListener) this.m_editorListener
+					.get(i);
+			listener.regionsSelect(m_selectedAreas, this.m_selectedRows,
+					this.m_selectedCols, this.m_cornerSelected, keyEvent);
 		}
 	}
 
@@ -1213,7 +1221,8 @@ public abstract class SplControl extends ControlBase {
 	 */
 	public void fireCellTextInput(CellLocation pos, String text) {
 		for (int i = 0; i < this.m_editorListener.size(); i++) {
-			EditorListener listener = (EditorListener) this.m_editorListener.get(i);
+			EditorListener listener = (EditorListener) this.m_editorListener
+					.get(i);
 			listener.cellTextInput(pos.getRow(), pos.getCol(), text);
 		}
 	}
@@ -1225,7 +1234,8 @@ public abstract class SplControl extends ControlBase {
 	 */
 	void fireEditorInputing(String text) {
 		for (int i = 0; i < this.m_editorListener.size(); i++) {
-			EditorListener listener = (EditorListener) this.m_editorListener.get(i);
+			EditorListener listener = (EditorListener) this.m_editorListener
+					.get(i);
 			listener.editorInputing(text);
 		}
 	}
@@ -1238,7 +1248,8 @@ public abstract class SplControl extends ControlBase {
 	 */
 	void fireMouseMove(int row, int col) {
 		for (int i = 0; i < this.m_editorListener.size(); i++) {
-			EditorListener listener = (EditorListener) this.m_editorListener.get(i);
+			EditorListener listener = (EditorListener) this.m_editorListener
+					.get(i);
 			listener.mouseMove(row, col);
 		}
 	}
@@ -1251,7 +1262,8 @@ public abstract class SplControl extends ControlBase {
 	 */
 	void fireRightClicked(MouseEvent e, int clickPlace) {
 		for (int i = 0; i < this.m_editorListener.size(); i++) {
-			EditorListener listener = (EditorListener) this.m_editorListener.get(i);
+			EditorListener listener = (EditorListener) this.m_editorListener
+					.get(i);
 			listener.rightClicked(e, clickPlace);
 		}
 	}
@@ -1263,7 +1275,8 @@ public abstract class SplControl extends ControlBase {
 	 */
 	void fireDoubleClicked(MouseEvent e) {
 		for (int i = 0; i < this.m_editorListener.size(); i++) {
-			EditorListener listener = (EditorListener) this.m_editorListener.get(i);
+			EditorListener listener = (EditorListener) this.m_editorListener
+					.get(i);
 			listener.doubleClicked(e);
 		}
 	}
@@ -1477,13 +1490,17 @@ public abstract class SplControl extends ControlBase {
 		int usedCols = getUsedCols(curRow);
 		CellRect srcRect, tarRect;
 
-		if ((a.getBeginRow() == a.getEndRow() && a.getBeginCol() == a.getEndCol()) && usedCols <= curCol
+		if ((a.getBeginRow() == a.getEndRow() && a.getBeginCol() == a
+				.getEndCol())
+				&& usedCols <= curCol
 				&& curRow < ics.getRowCount()) {
 			connectRowUpTo(curRow + 1, curCol);
 		} else {
 			int moveCols = ics.getColCount() - a.getEndCol();
-			srcRect = new CellRect(a.getBeginRow(), a.getEndCol() + 1, rect.getRowCount(), moveCols);
-			tarRect = new CellRect(a.getBeginRow(), a.getBeginCol(), rect.getRowCount(), moveCols);
+			srcRect = new CellRect(a.getBeginRow(), a.getEndCol() + 1,
+					rect.getRowCount(), moveCols);
+			tarRect = new CellRect(a.getBeginRow(), a.getBeginCol(),
+					rect.getRowCount(), moveCols);
 			moveRect(srcRect, tarRect);
 		}
 		this.contentView.reloadEditorText();
@@ -1508,14 +1525,17 @@ public abstract class SplControl extends ControlBase {
 	 * @param scrollToTarget 目标区域未显示时，是否滚动到目标区域使其显示
 	 * @return
 	 */
-	private boolean moveRect(CellRect srcRect, CellRect tarRect, boolean scrollToTarget) {
-		Vector<IAtomicCmd> cmds = GMSpl.getMoveRectCmd(ControlUtils.extractSplEditor(this), srcRect, tarRect);
+	private boolean moveRect(CellRect srcRect, CellRect tarRect,
+			boolean scrollToTarget) {
+		Vector<IAtomicCmd> cmds = GMSpl.getMoveRectCmd(
+				ControlUtils.extractSplEditor(this), srcRect, tarRect);
 		if (cmds == null) {
 			return false;
 		}
 		ControlUtils.extractSplEditor(this).executeCmd(cmds);
 		if (scrollToTarget) {
-			scrollToArea(setActiveCell(new CellLocation(tarRect.getBeginRow(), tarRect.getBeginCol())));
+			scrollToArea(setActiveCell(new CellLocation(tarRect.getBeginRow(),
+					tarRect.getBeginCol())));
 		}
 		return true;
 	}
@@ -1563,15 +1583,18 @@ public abstract class SplControl extends ControlBase {
 		}
 		CellRect srcRect = new CellRect(connectRow, (int) 1, 1, usedCols);
 		CellRect tarRect = new CellRect(connectRow - 1, upCol, 1, usedCols);
-		Vector<IAtomicCmd> cmds = GMSpl.getMoveRectCmd(ControlUtils.extractSplEditor(this), srcRect, tarRect);
+		Vector<IAtomicCmd> cmds = GMSpl.getMoveRectCmd(
+				ControlUtils.extractSplEditor(this), srcRect, tarRect);
 		if (cmds != null && !cmds.isEmpty()) {
 			AtomicSpl cmd = new AtomicSpl(this);
 			cmd.setType(AtomicSpl.REMOVE_ROW);
-			CellRect rect = new CellRect(connectRow, (int) 1, 1, (int) cellSet.getColCount());
+			CellRect rect = new CellRect(connectRow, (int) 1, 1,
+					(int) cellSet.getColCount());
 			cmd.setRect(rect);
 			cmds.add(cmd);
 			ControlUtils.extractSplEditor(this).executeCmd(cmds);
-			scrollToArea(setActiveCell(new CellLocation(tarRect.getBeginRow(), tarRect.getBeginCol())));
+			scrollToArea(setActiveCell(new CellLocation(tarRect.getBeginRow(),
+					tarRect.getBeginCol())));
 		}
 	}
 
