@@ -81,6 +81,20 @@ public class AppUtil {
 	 */
 	public static Object executeCmd(String cmd, Sequence args, Context ctx)
 			throws SQLException {
+		return executeCmd(cmd, args, ctx, true);
+	}
+
+	/**
+	 * 执行脚本
+	 * @param cmd  statement
+	 * @param args Parameters
+	 * @param ctx The context
+	 * @param escape 是否脱引号
+	 * @return The result
+	 * @throws SQLException
+	 */
+	private static Object executeCmd(String cmd, Sequence args, Context ctx,
+			boolean escape) throws SQLException {
 		if (!StringUtils.isValidString(cmd)) {
 			return null;
 		}
@@ -95,7 +109,8 @@ public class AppUtil {
 			isExp = true;
 		}
 		cmd = cmd.trim();
-		cmd = Escape.removeEscAndQuote(cmd);
+		if (escape)
+			cmd = Escape.removeEscAndQuote(cmd);
 		if (!isExp) {
 			if (isSQL(cmd)) {
 				if (cmd.startsWith("$")) {
@@ -308,23 +323,25 @@ public class AppUtil {
 	/**
 	 * 执行Excel中的SPL函数。目前支持单句、多句表达式，执行脚本文件。
 	 * 
-	 * @param spl  已经转义过的SPL
+	 * @param spl 没有转义过的SPL，注意Excel中转义字符是双引号
 	 * @param args
+	 * @param ctx
 	 * @return 返回值
 	 * @throws Exception 异常
 	 */
-	public static Object executeExcel(String spl, Sequence args)
+	public static Object executeExcel(String spl, Sequence args, Context ctx)
 			throws Exception {
 		if (!StringUtils.isValidString(spl))
 			return null;
-		spl = excelToJdbcSpl(spl);
-		Object val = executeCmd(spl, args, new Context());
+		PgmCellSet cellSet = excelSplToCellSet(spl);
+		spl = cellSetToJdbcSpl(cellSet);
+		Object val = executeCmd(spl, args, ctx, false);
 		if (val == null)
 			return null;
 		if (val instanceof PgmCellSet) { // 多结果集只返回第一个
-			PgmCellSet cellSet = (PgmCellSet) val;
-			if (cellSet.hasNextResult())
-				val = cellSet.nextResult();
+			PgmCellSet result = (PgmCellSet) val;
+			if (result.hasNextResult())
+				val = result.nextResult();
 			else
 				return null;
 		}
@@ -337,66 +354,111 @@ public class AppUtil {
 	}
 
 	/**
-	 * 将excel中的spl转换为jdbc支持的形式
+	 * 去掉excel表达式的引号，转换成网格对象。注意excel中转义字符是双引号
 	 * 
-	 * @return
+	 * @param spl 脚本
+	 * @return 转义后的字符
 	 */
-	public static String excelToJdbcSpl(String spl) {
-		byte type = getExcelSplType(spl);
-		switch (type) {
-		case EXCEL_NULL:
+	public static PgmCellSet excelSplToCellSet(String spl) {
+		if (!StringUtils.isValidString(spl))
 			return null;
-		case EXCEL_CALL:
-			// spl是脚本文件名，拼成jdbccall(splx, args)
-			spl = spl.trim();
-			int index = spl.indexOf("(");
-			String splFile = spl.substring(0, index);
-			String splArgs = "";
-			if (index < spl.length() - 2) {
-				splArgs = "," + spl.substring(index + 1, spl.length() - 1);
+		spl = spl.trim();
+		spl = Escape.removeEscAndQuote(spl, '"');
+		PgmCellSet cellSet = CellSetUtil.toPgmCellSet(spl);
+		PgmNormalCell cell;
+		String cellExpStr;
+		for (int r = 1; r <= cellSet.getRowCount(); r++) {
+			for (int c = 1; c <= cellSet.getColCount(); c++) {
+				cell = cellSet.getPgmNormalCell(r, c);
+				if (cell != null) {
+					cellExpStr = cell.getExpString();
+					if (StringUtils.isValidString(cellExpStr)) {
+						cellExpStr = addEscape(cellExpStr, '\\');
+					}
+					cell.setExpString(cellExpStr);
+				}
 			}
-			spl = "jdbccall(" + Escape.addEscAndQuote(splFile) + splArgs + ")";
-			return spl;
-		case EXCEL_EXP:
-			return "=" + spl;
-		default:
-			return spl;
+		}
+
+		return cellSet;
+	}
+
+	/**
+	 * 引号中的双引号增加转义字符，Escape中的方法不够用
+	 */
+	private static String addEscape(String expStr, char escapeChar) {
+		if (expStr == null)
+			return null;
+		int firstIndex = expStr.indexOf("\"");
+		int lastIndex = expStr.lastIndexOf("\"");
+		if (firstIndex > -1 && lastIndex > -1 && lastIndex > firstIndex) {
+			StringBuffer buf = new StringBuffer();
+			for (int i = firstIndex + 1; i < lastIndex; i++) {
+				char c = expStr.charAt(i);
+				if (c == '"') {
+					buf.append(escapeChar);
+				}
+				buf.append(c);
+			}
+			String before = "", after = "";
+			if (firstIndex > 0) {
+				before = expStr.substring(0, firstIndex + 1);
+			}
+			if (lastIndex < expStr.length()) {
+				after = expStr.substring(lastIndex);
+			}
+			return before + buf.toString() + after;
+		} else {
+			return expStr;
 		}
 	}
 
-	public static final byte EXCEL_NULL = 0; // NULL
-	public static final byte EXCEL_CALL = 1; // 脚本文件
-	public static final byte EXCEL_EXP = 2; // 表达式(单句或多句)
-	public static final byte EXCEL_OTHER = 3; // 无需处理的
-
-	public static byte getExcelSplType(String spl) {
-		if (!StringUtils.isValidString(spl))
-			return EXCEL_NULL;
-		spl = spl.trim();
-		PgmCellSet cellSet = CellSetUtil.toPgmCellSet(spl);
+	/**
+	 * 将网格对象转换为jdbc支持的形式
+	 * 
+	 * @return
+	 */
+	public static String cellSetToJdbcSpl(PgmCellSet cellSet) {
 		if (cellSet.getRowCount() == 1 && cellSet.getColCount() == 1) {
 			// 区分单句表达式和脚本文件
 			PgmNormalCell cell = cellSet.getPgmNormalCell(1, 1);
+			String cellExp = cell.getExpString();
 			switch (cell.getType()) {
 			case PgmNormalCell.TYPE_CONST_CELL:
-				String cellExp = cell.getExpString();
+			case PgmNormalCell.TYPE_COMMAND_CELL:
+				if (PgmNormalCell.TYPE_COMMAND_CELL == cell.getType()
+						&& cellExp.startsWith("$")) {
+					// 单句表达式
+					return "=" + cellExp;
+				}
 				if (cellExp.indexOf("(") > 0 && cellExp.endsWith(")")) {
-					// spl是脚本文件名
-					return EXCEL_CALL;
+					// spl是脚本文件名，拼成jdbccall(splx, args)
+					String spl = cellExp.trim();
+					int index = spl.indexOf("(");
+					String splFile = spl.substring(0, index);
+					String splArgs = "";
+					if (index < spl.length() - 2) {
+						splArgs = ","
+								+ spl.substring(index + 1, spl.length() - 1);
+					}
+					spl = "jdbccall(" + Escape.addEscAndQuote(splFile)
+							+ splArgs + ")";
+					return spl;
 				} else {
 					// 单句表达式
-					return EXCEL_EXP;
+					return "=" + cellExp;
 				}
 			case PgmNormalCell.TYPE_NOTE_CELL:
 			case PgmNormalCell.TYPE_NOTE_BLOCK:
 			case PgmNormalCell.TYPE_BLANK_CELL:
-				return EXCEL_NULL;
-			default:
-				return EXCEL_OTHER;
+				return null;
+			default: // 命令格，执行格
+				return cellExp;
 			}
 		} else {
 			// 多句表达式，拼成=expression
-			return EXCEL_EXP;
+			String spl = CellSetUtil.toString(cellSet);
+			return "=" + spl;
 		}
 	}
 
