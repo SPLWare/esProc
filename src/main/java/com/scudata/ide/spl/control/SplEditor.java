@@ -140,7 +140,8 @@ public class SplEditor {
 	 * @param context 上下文
 	 */
 	public SplEditor(Context context) {
-		control = newEditControl(ConfigOptions.iRowCount.intValue(), ConfigOptions.iColCount.intValue());
+		control = newEditControl(ConfigOptions.iRowCount.intValue(),
+				ConfigOptions.iColCount.intValue());
 		CellSetTxtUtil.initDefaultProperty(control.cellSet);
 		control.draw();
 		SplControlListener qcl = new SplControlListener(this);
@@ -205,7 +206,8 @@ public class SplEditor {
 	 * 选择第一个格子
 	 */
 	public void selectFirstCell() {
-		if (control.cellSet.getRowCount() < 1 || control.cellSet.getColCount() < 1)
+		if (control.cellSet.getRowCount() < 1
+				|| control.cellSet.getColCount() < 1)
 			return;
 		selectState = GC.SELECT_STATE_CELL;
 		CellRect rect = new CellRect(1, 1, 1, 1);
@@ -230,7 +232,8 @@ public class SplEditor {
 	 * @param col 列号
 	 */
 	public void selectCell(int row, int col) {
-		if (control.cellSet.getRowCount() < row || control.cellSet.getColCount() < col)
+		if (control.cellSet.getRowCount() < row
+				|| control.cellSet.getColCount() < col)
 			return;
 		selectState = GC.SELECT_STATE_CELL;
 		CellRect rect = new CellRect(row, col, 1, 1);
@@ -379,7 +382,8 @@ public class SplEditor {
 		exp = "=" + dpe.getPlotFunction();
 		Vector<IAtomicCmd> cmds = new Vector<IAtomicCmd>();
 
-		Vector<CellLocation> cells = ControlUtils.listSelectedCells(selectedRects);
+		Vector<CellLocation> cells = ControlUtils
+				.listSelectedCells(selectedRects);
 		for (int i = 0; i < cells.size(); i++) {
 			CellLocation cp = (CellLocation) cells.get(i);
 			nc = (NormalCell) control.cellSet.getCell(cp.getRow(), cp.getCol());
@@ -389,7 +393,8 @@ public class SplEditor {
 			ac.setValue(exp);
 			cmds.add(ac);
 
-			ac = SplControlListener.getCellHeightCmd(control, cp.getRow(), cp.getCol(), exp);
+			ac = SplControlListener.getCellHeightCmd(control, cp.getRow(),
+					cp.getCol(), exp);
 			if (ac != null) {
 				cmds.add(ac);
 			}
@@ -408,7 +413,8 @@ public class SplEditor {
 		List<String> gNames = new ArrayList<String>();
 		PgmCellSet cellSet = control.cellSet;
 		PgmNormalCell cell;
-		Pattern p = Pattern.compile("\\s*(\\S*\\s*=)?\\s*canvas\\s*\\(\\s*\\)\\s*");
+		Pattern p = Pattern
+				.compile("\\s*(\\S*\\s*=)?\\s*canvas\\s*\\(\\s*\\)\\s*");
 		Matcher m;
 		CellRect cr = (CellRect) selectedRects.get(0);
 		int row = cr.getBeginRow();
@@ -448,7 +454,8 @@ public class SplEditor {
 					if (!StringUtils.isValidString(paramName))
 						paramName = cell.getCellId();
 					else
-						paramName = paramName.substring(0, paramName.length() - 1);
+						paramName = paramName.substring(0,
+								paramName.length() - 1);
 					if (!gNames.contains(paramName))
 						gNames.add(paramName);
 				}
@@ -466,7 +473,8 @@ public class SplEditor {
 	 * 
 	 * @return
 	 */
-	private ObjectElement getFuncObj(int row, int col, HashMap<String, ObjectElement> oes) {
+	private ObjectElement getFuncObj(int row, int col,
+			HashMap<String, ObjectElement> oes) {
 		INormalCell nc = control.cellSet.getCell(row, col);
 		return ObjectElement.parseString(nc.getExpString(), oes);
 	}
@@ -572,7 +580,8 @@ public class SplEditor {
 			rect = new CellRect(1, (int) 1, 1, (int) cc);
 		} else {
 			if (isMultiRectSelected()) {
-				JOptionPane.showMessageDialog(GV.appFrame, mm.getMessage("dfxeditor.insertmore"));
+				JOptionPane.showMessageDialog(GV.appFrame,
+						mm.getMessage("dfxeditor.insertmore"));
 				return false;
 			}
 			rect = getSelectedRect();
@@ -647,7 +656,8 @@ public class SplEditor {
 			aq.setType(AtomicSpl.ADD_ROW);
 		}
 
-		ArrayList<RowCell> oneRowCells = getApprCopiedRowCells(rect.getBeginRow());
+		ArrayList<RowCell> oneRowCells = getApprCopiedRowCells(rect
+				.getBeginRow());
 		aq.setValue(oneRowCells);
 		aq.setRect(rect);
 		return aq;
@@ -690,7 +700,8 @@ public class SplEditor {
 		CellLocation cp;
 		Object cell;
 		Vector<IAtomicCmd> cmds = new Vector<IAtomicCmd>();
-		Vector<CellLocation> cells = ControlUtils.listSelectedCells(selectedRects);
+		Vector<CellLocation> cells = ControlUtils
+				.listSelectedCells(selectedRects);
 		CellSetParser parser = new CellSetParser(control.getCellSet());
 		switch (type) {
 		case GCSpl.SELECT_STATE_CELL:
@@ -700,13 +711,16 @@ public class SplEditor {
 				if (isCellIgnoreable(parser, cp)) {
 					continue;
 				}
-				AtomicCell ac = new AtomicCell(control, control.cellSet.getCell(cp.getRow(), cp.getCol()));
+				AtomicCell ac = new AtomicCell(control,
+						control.cellSet.getCell(cp.getRow(), cp.getCol()));
 				ac.setProperty(property);
 				ac.setValue(value);
 				cmds.add(ac);
 
-				if (property == AtomicCell.CELL_EXP || property == AtomicCell.CELL_VALUE) {
-					ac = SplControlListener.getCellHeightCmd(control, cp.getRow(), cp.getCol(), String.valueOf(value));
+				if (property == AtomicCell.CELL_EXP
+						|| property == AtomicCell.CELL_VALUE) {
+					ac = SplControlListener.getCellHeightCmd(control,
+							cp.getRow(), cp.getCol(), String.valueOf(value));
 					if (ac != null) {
 						cmds.add(ac);
 					}
@@ -715,7 +729,8 @@ public class SplEditor {
 			break;
 		case GCSpl.SELECT_STATE_ROW:
 			for (int r = 0; r < selectedRows.size(); r++) {
-				cell = control.getCellSet().getRowCell(((Integer) selectedRows.get(r)).intValue());
+				cell = control.getCellSet().getRowCell(
+						((Integer) selectedRows.get(r)).intValue());
 				if (cell == null) {
 					continue;
 				}
@@ -727,7 +742,8 @@ public class SplEditor {
 			break;
 		case GCSpl.SELECT_STATE_COL:
 			for (int c = 0; c < selectedCols.size(); c++) {
-				cell = control.getCellSet().getColCell(((Integer) selectedCols.get(c)).intValue());
+				cell = control.getCellSet().getColCell(
+						((Integer) selectedCols.get(c)).intValue());
 				if (cell == null) {
 					continue;
 				}
@@ -795,7 +811,8 @@ public class SplEditor {
 				}
 			}
 		}
-		control.getHorizontalScrollBar().setValue(control.getHorizontalScrollBar().getValue());
+		control.getHorizontalScrollBar().setValue(
+				control.getHorizontalScrollBar().getValue());
 		control.getHorizontalScrollBar().repaint();
 		return true;
 	}
@@ -806,7 +823,8 @@ public class SplEditor {
 	 * @param cols 追加的列数
 	 */
 	public void appendCols(int cols) {
-		insertCol(new CellRect(1, (int) control.cellSet.getColCount(), 1, (int) cols), false);
+		insertCol(new CellRect(1, (int) control.cellSet.getColCount(), 1,
+				(int) cols), false);
 	}
 
 	/**
@@ -816,7 +834,9 @@ public class SplEditor {
 	 * @return
 	 */
 	public IAtomicCmd getAppendCols(int cols) {
-		return getInsertCol(false, new CellRect(1, (int) control.cellSet.getColCount(), 1, (int) cols));
+		return getInsertCol(false,
+				new CellRect(1, (int) control.cellSet.getColCount(), 1,
+						(int) cols));
 	}
 
 	/**
@@ -835,7 +855,8 @@ public class SplEditor {
 	 * @return
 	 */
 	public IAtomicCmd getAppendRows(int rows) {
-		return getInsertRow(false, new CellRect(control.cellSet.getRowCount(), (int) 1, rows, (int) 1));
+		return getInsertRow(false, new CellRect(control.cellSet.getRowCount(),
+				(int) 1, rows, (int) 1));
 	}
 
 	/**
@@ -1133,25 +1154,32 @@ public class SplEditor {
 			int newRow = -1;
 			if (curCol == 1) { // 如果当前格是第一列，直接插入行
 				newRow = curRow + rect.getRowCount();
-				cmds.add(getInsertRow(true, new CellRect(curRow, curCol, rect.getRowCount(), 1)));
+				cmds.add(getInsertRow(true,
+						new CellRect(curRow, curCol, rect.getRowCount(), 1)));
 			} else {// 第一步先在下面插入或者追加一行，第二步把当前格以及右边格子下移
 				if (curRow < ics.getRowCount()) {
-					cmds.add(getInsertRow(true, new CellRect(curRow + 1, curCol, 1, 1)));
+					cmds.add(getInsertRow(true, new CellRect(curRow + 1,
+							curCol, 1, 1)));
 				} else {
-					cmds.add(getInsertRow(false, new CellRect(curRow, curCol, 1, 1)));
+					cmds.add(getInsertRow(false, new CellRect(curRow, curCol,
+							1, 1)));
 				}
 
 				int colCount = ics.getColCount();
-				srcRect = new CellRect(curRow, (int) curCol, 1, (int) (colCount - curCol + 1));
-				tarRect = new CellRect(curRow + 1, (int) curCol, 1, (int) (colCount - curCol + 1));
-				Vector<IAtomicCmd> tmp = GMSpl.getMoveRectCmd(this, srcRect, tarRect);
+				srcRect = new CellRect(curRow, (int) curCol, 1, (int) (colCount
+						- curCol + 1));
+				tarRect = new CellRect(curRow + 1, (int) curCol, 1,
+						(int) (colCount - curCol + 1));
+				Vector<IAtomicCmd> tmp = GMSpl.getMoveRectCmd(this, srcRect,
+						tarRect);
 				if (tmp != null)
 					cmds.addAll(tmp);
 			}
 			// 这个构造函数特殊，现在还没有插入行
 			AtomicCell ac = new AtomicCell(control, curRow + 1);
 			ac.setProperty(AtomicCell.ROW_HEIGHT);
-			ac.setValue(new Float(control.cellSet.getRowCell(curRow).getHeight()));
+			ac.setValue(new Float(control.cellSet.getRowCell(curRow)
+					.getHeight()));
 			cmds.add(ac);
 			executeCmd(cmds);
 
@@ -1165,7 +1193,8 @@ public class SplEditor {
 				}
 			}
 			if (newRow > 0) {
-				control.scrollToArea(control.setActiveCell(new CellLocation(newRow, control.getActiveCell().getCol())));
+				control.scrollToArea(control.setActiveCell(new CellLocation(
+						newRow, control.getActiveCell().getCol())));
 			} else {
 				control.scrollToArea(control.toDownCell());
 			}
@@ -1179,10 +1208,11 @@ public class SplEditor {
 				}
 			}
 			if (maxUsedRow >= rect.getBeginRow()) {
-				srcRect = new CellRect(rect.getBeginRow(), rect.getBeginCol(), maxUsedRow - rect.getBeginRow() + 1,
-						rect.getColCount());
-				tarRect = new CellRect(rect.getEndRow() + 1, rect.getBeginCol(), maxUsedRow - rect.getBeginRow() + 1,
-						rect.getColCount());
+				srcRect = new CellRect(rect.getBeginRow(), rect.getBeginCol(),
+						maxUsedRow - rect.getBeginRow() + 1, rect.getColCount());
+				tarRect = new CellRect(rect.getEndRow() + 1,
+						rect.getBeginCol(),
+						maxUsedRow - rect.getBeginRow() + 1, rect.getColCount());
 				getCellSelectListener().moveRect(srcRect, tarRect, false);
 			}
 		}
@@ -1196,9 +1226,11 @@ public class SplEditor {
 				}
 			}
 			if (maxUsedCol >= rect.getBeginCol()) {
-				srcRect = new CellRect(rect.getBeginRow(), rect.getBeginCol(), rect.getRowCount(),
-						(int) (maxUsedCol - rect.getBeginCol() + 1));
-				tarRect = new CellRect(rect.getBeginRow(), (int) (rect.getEndCol() + 1), rect.getRowCount(),
+				srcRect = new CellRect(rect.getBeginRow(), rect.getBeginCol(),
+						rect.getRowCount(), (int) (maxUsedCol
+								- rect.getBeginCol() + 1));
+				tarRect = new CellRect(rect.getBeginRow(),
+						(int) (rect.getEndCol() + 1), rect.getRowCount(),
 						(int) (maxUsedCol - rect.getBeginCol() + 1));
 				getCellSelectListener().moveRect(srcRect, tarRect, false);
 			}
@@ -1214,7 +1246,8 @@ public class SplEditor {
 	 */
 	public void moveCopy(short key) {
 		if (this.isMultiRectSelected()) {
-			JOptionPane.showMessageDialog(GV.appFrame, mm.getMessage("dfxeditor.copymore"));
+			JOptionPane.showMessageDialog(GV.appFrame,
+					mm.getMessage("dfxeditor.copymore"));
 			return;
 		}
 		CellLocation activeCell = control.getActiveCell();
@@ -1292,7 +1325,8 @@ public class SplEditor {
 	 * @return
 	 */
 	private CellSelectListener getCellSelectListener() {
-		return (CellSelectListener) control.getContentPanel().getMouseListeners()[0];
+		return (CellSelectListener) control.getContentPanel()
+				.getMouseListeners()[0];
 	}
 
 	/**
@@ -1304,10 +1338,12 @@ public class SplEditor {
 	public boolean insertCol(boolean insertBefore) {
 		CellRect rect;
 		if (isNothingSelected()) {
-			rect = new CellRect(1, (int) 1, control.cellSet.getRowCount(), (int) 1);
+			rect = new CellRect(1, (int) 1, control.cellSet.getRowCount(),
+					(int) 1);
 		} else {
 			if (isMultiRectSelected()) {
-				JOptionPane.showMessageDialog(GV.appFrame, mm.getMessage("dfxeditor.insertmore"));
+				JOptionPane.showMessageDialog(GV.appFrame,
+						mm.getMessage("dfxeditor.insertmore"));
 				return false;
 			}
 			rect = getSelectedRect();
@@ -1322,14 +1358,16 @@ public class SplEditor {
 	 */
 	public void dupRow(boolean isAdjust) {
 		if (isMultiRectSelected()) {
-			JOptionPane.showMessageDialog(GV.appFrame, mm.getMessage("dfxeditor.insertmore"));
+			JOptionPane.showMessageDialog(GV.appFrame,
+					mm.getMessage("dfxeditor.insertmore"));
 			return;
 		}
 		CellRect rect = getSelectedRect();
 		if (rect == null)
 			return;
 		Matrix matrix = GMSpl.getMatrixCells(control.cellSet,
-				new CellRect(rect.getBeginRow(), 1, rect.getRowCount(), control.cellSet.getColCount()), true);
+				new CellRect(rect.getBeginRow(), 1, rect.getRowCount(),
+						control.cellSet.getColCount()), true);
 		Vector<IAtomicCmd> cmds = new Vector<IAtomicCmd>();
 		AtomicSpl insertCmd = new AtomicSpl(control);
 		if (rect.getEndRow() != control.cellSet.getRowCount()) {
@@ -1337,8 +1375,10 @@ public class SplEditor {
 		} else {
 			insertCmd.setType(AtomicSpl.ADD_ROW);
 		}
-		CellRect newRect = new CellRect(rect.getEndRow() + 1, 1, rect.getRowCount(), control.cellSet.getColCount());
-		ArrayList<RowCell> oneRowCells = getApprCopiedRowCells(rect.getBeginRow());
+		CellRect newRect = new CellRect(rect.getEndRow() + 1, 1,
+				rect.getRowCount(), control.cellSet.getColCount());
+		ArrayList<RowCell> oneRowCells = getApprCopiedRowCells(rect
+				.getBeginRow());
 		insertCmd.setValue(oneRowCells);
 		insertCmd.setRect(newRect);
 		cmds.add(insertCmd);
@@ -1361,7 +1401,8 @@ public class SplEditor {
 		if (cr == null)
 			return;
 		// 显示结果并自动钉住、不移动光标
-		NormalCell nc = (NormalCell) control.cellSet.getCell(cr.getBeginRow(), cr.getBeginCol());
+		NormalCell nc = (NormalCell) control.cellSet.getCell(cr.getBeginRow(),
+				cr.getBeginCol());
 		if (nc != null) {
 			Object value = nc.getValue();
 			GVSpl.panelValue.tableValue.setValue1(value, nc.getCellId());
@@ -1385,7 +1426,8 @@ public class SplEditor {
 		}
 		aq.setRect(rect);
 
-		ArrayList<ColCell> oneColCells = getApprCopiedColCells(rect.getBeginCol());
+		ArrayList<ColCell> oneColCells = getApprCopiedColCells(rect
+				.getBeginCol());
 		aq.setValue(oneColCells);
 
 		return aq;
@@ -1438,13 +1480,15 @@ public class SplEditor {
 			break;
 		case GCSpl.SELECT_STATE_COL:
 			if (!selectedCols.isEmpty()) {
-				ColCell cc = (ColCell) control.cellSet.getColCell(((Integer) selectedCols.get(0)).intValue());
+				ColCell cc = (ColCell) control.cellSet
+						.getColCell(((Integer) selectedCols.get(0)).intValue());
 				bm.put(AtomicCell.COL_WIDTH, new Float(cc.getWidth()));
 			}
 			break;
 		case GCSpl.SELECT_STATE_ROW:
 			if (!selectedRows.isEmpty()) {
-				RowCell rc = (RowCell) control.cellSet.getRowCell(((Integer) selectedRows.get(0)).intValue());
+				RowCell rc = (RowCell) control.cellSet
+						.getRowCell(((Integer) selectedRows.get(0)).intValue());
 				bm.put(AtomicCell.ROW_HEIGHT, new Float(rc.getHeight()));
 			}
 			break;
@@ -1490,14 +1534,18 @@ public class SplEditor {
 		int TOTAL_COLS = (int) cellSet.getColCount();
 		if (cmd == GCSpl.iDELETE_COL) {
 			if (TOTAL_COLS == selectedCols.size()) {
-				JOptionPane.showMessageDialog(GV.appFrame, mm.getMessage("dfxeditor.notdelallcol"),
-						mm.getMessage("public.prompt"), JOptionPane.WARNING_MESSAGE);
+				JOptionPane.showMessageDialog(GV.appFrame,
+						mm.getMessage("dfxeditor.notdelallcol"),
+						mm.getMessage("public.prompt"),
+						JOptionPane.WARNING_MESSAGE);
 				return false;
 			}
 		} else if (cmd == GCSpl.iDELETE_ROW) {
 			if (TOTAL_ROWS == selectedRows.size()) {
-				JOptionPane.showMessageDialog(GV.appFrame, mm.getMessage("dfxeditor.notdelallrow"),
-						mm.getMessage("public.prompt"), JOptionPane.WARNING_MESSAGE);
+				JOptionPane.showMessageDialog(GV.appFrame,
+						mm.getMessage("dfxeditor.notdelallrow"),
+						mm.getMessage("public.prompt"),
+						JOptionPane.WARNING_MESSAGE);
 				return false;
 			}
 		}
@@ -1535,8 +1583,11 @@ public class SplEditor {
 	public boolean note() {
 		if (isMultiRectSelected()) {
 			// 不能注释多片区域。
-			JOptionPane.showMessageDialog(GV.appFrame, mm.getMessage("dfxeditor.notemore"),
-					mm.getMessage("public.prompt"), JOptionPane.WARNING_MESSAGE);
+			JOptionPane
+					.showMessageDialog(GV.appFrame,
+							mm.getMessage("dfxeditor.notemore"),
+							mm.getMessage("public.prompt"),
+							JOptionPane.WARNING_MESSAGE);
 			return false;
 		}
 		control.getContentPanel().submitEditor();
@@ -1610,8 +1661,11 @@ public class SplEditor {
 	public boolean cut() {
 		if (isMultiRectSelected()) {
 			// 不能剪切多片区域。
-			JOptionPane.showMessageDialog(GV.appFrame, mm.getMessage("dfxeditor.cutmore"),
-					mm.getMessage("public.prompt"), JOptionPane.WARNING_MESSAGE);
+			JOptionPane
+					.showMessageDialog(GV.appFrame,
+							mm.getMessage("dfxeditor.cutmore"),
+							mm.getMessage("public.prompt"),
+							JOptionPane.WARNING_MESSAGE);
 			return false;
 		}
 		return copy(true, false);
@@ -1638,12 +1692,14 @@ public class SplEditor {
 			return false;
 		}
 		if (isMultiRectSelected()) {
-			JOptionPane.showMessageDialog(GV.appFrame, mm.getMessage("dfxeditor.copymore"));
+			JOptionPane.showMessageDialog(GV.appFrame,
+					mm.getMessage("dfxeditor.copymore"));
 			return false;
 		}
 		CellRect cr = getSelectedRect();
 		Matrix matrix = getSelectedMatrix(cr);
-		GVSpl.cellSelection = new CellSelection(matrix, cr, control.getCellSet(), valueCopy);
+		GVSpl.cellSelection = new CellSelection(matrix, cr,
+				control.getCellSet(), valueCopy);
 		CellSet cellSet = control.cellSet;
 		ArrayList<IRowCell> rowHeaders = new ArrayList<IRowCell>();
 		CellSetParser parser = new CellSetParser(control.getCellSet());
@@ -1696,7 +1752,8 @@ public class SplEditor {
 			return false;
 		}
 		if (isMultiRectSelected()) {
-			JOptionPane.showMessageDialog(GV.appFrame, mm.getMessage("dfxeditor.copymore"));
+			JOptionPane.showMessageDialog(GV.appFrame,
+					mm.getMessage("dfxeditor.copymore"));
 			return false;
 		}
 		CellRect cr = getSelectedRect();
@@ -1783,7 +1840,8 @@ public class SplEditor {
 				if (!parser.isRowVisible(row))
 					continue;
 				buf.append(LINE_SEP);
-				buf.append(COL_SEP + "<tr height=" + parser.getRowHeight(row) + "px>");
+				buf.append(COL_SEP + "<tr height=" + parser.getRowHeight(row)
+						+ "px>");
 				if (copyHeader) {
 					buf.append(LINE_SEP);
 					buf.append(COL_SEP + COL_SEP + "<td");
@@ -1829,7 +1887,8 @@ public class SplEditor {
 					Color bc = parser.getBackColor(row, col);
 					Color fc = parser.getForeColor(row, col);
 					buf.append(" bgcolor=" + color2Html(bc));
-					buf.append(" style=\"font-size:" + parser.getFontSize(row, col) + "px");
+					buf.append(" style=\"font-size:"
+							+ parser.getFontSize(row, col) + "px");
 					buf.append(";color:" + color2Html(fc));
 					buf.append("\">");
 					String text = parser.getDispText(row, col);
@@ -1929,7 +1988,8 @@ public class SplEditor {
 			return false;
 		}
 		if (isMultiRectSelected()) {
-			JOptionPane.showMessageDialog(GV.appFrame, mm.getMessage("dfxeditor.copymore"));
+			JOptionPane.showMessageDialog(GV.appFrame,
+					mm.getMessage("dfxeditor.copymore"));
 			return false;
 		}
 		CellRect cr = getSelectedRect();
@@ -2049,12 +2109,17 @@ public class SplEditor {
 						cellExpStr = cell.getExpString();
 						if (StringUtils.isValidString(cellExpStr)) {
 							if (!cell.isConstCell()) {
-								cellExpStr = replaceCopyParam(cellExpStr, params, usedParams);
+								cellExpStr = replaceCopyParam(cellExpStr,
+										params, usedParams);
 							}
 							if (cellExpStr.indexOf("\\") > 0) {
-								boolean isQuote = cellExpStr.startsWith("\'") && cellExpStr.endsWith("\'");
-								boolean isDoubleQuote = cellExpStr.startsWith("\"") && cellExpStr.endsWith("\"");
-								cellExpStr = Escape.removeEscAndQuote(cellExpStr);
+								boolean isQuote = cellExpStr.startsWith("\'")
+										&& cellExpStr.endsWith("\'");
+								boolean isDoubleQuote = cellExpStr
+										.startsWith("\"")
+										&& cellExpStr.endsWith("\"");
+								cellExpStr = Escape
+										.removeEscAndQuote(cellExpStr);
 								if (isQuote) {
 									cellExpStr = "\'" + cellExpStr + "\'";
 								} else if (isDoubleQuote) {
@@ -2070,6 +2135,23 @@ public class SplEditor {
 			spl = Escape.addEscAndQuote(spl, '"');
 			spl = spl.replaceAll("\"t", COL_SEP);
 			spl = spl.replaceAll("\"n", ROW_SEP);
+
+			if (spl.length() > AppUtil.EXCEL_EXP_LENGTH) {
+				buf = new StringBuffer();
+				while (spl.length() > 0) {
+					if (buf.length() > 0) {
+						buf.append("\"+&+\"");
+					}
+					if (spl.length() > AppUtil.EXCEL_EXP_LENGTH) {
+						buf.append(spl.substring(0, AppUtil.EXCEL_EXP_LENGTH));
+						spl = spl.substring(AppUtil.EXCEL_EXP_LENGTH);
+					} else {
+						buf.append(spl);
+						break;
+					}
+				}
+				spl = buf.toString();
+			}
 			buf = new StringBuffer();
 			buf.append("=spl(");
 			buf.append(spl);
@@ -2142,7 +2224,8 @@ public class SplEditor {
 	 * @param usedParams 表达式中用到的参数名
 	 * @return 替换后的字符串
 	 */
-	private static String replaceCopyParam(String expStr, List<String> params, List<String> usedParams) {
+	private static String replaceCopyParam(String expStr, List<String> params,
+			List<String> usedParams) {
 		if (expStr == null)
 			return null;
 		int len = expStr.length();
@@ -2153,7 +2236,8 @@ public class SplEditor {
 				int match = Sentence.scanQuotation(expStr, i);
 				if (match == -1) {
 					MessageManager mm = EngineMessage.get();
-					throw new RQException("\"" + mm.getMessage("Expression.illMatched"));
+					throw new RQException("\""
+							+ mm.getMessage("Expression.illMatched"));
 				}
 				String arg = null;
 				if (c == '\'') {
@@ -2306,14 +2390,16 @@ public class SplEditor {
 		expStr = expStr.trim();
 		if (!expStr.startsWith("=spl(") || !expStr.endsWith(")")) {
 			// SPL函数格式不正确，应为=spl(...)。
-			JOptionPane.showMessageDialog(GV.appFrame, IdeSplMessage.get().getMessage("spleditor.errorexcelspl"));
+			JOptionPane.showMessageDialog(GV.appFrame, IdeSplMessage.get()
+					.getMessage("spleditor.errorexcelspl"));
 			return false;
 		}
 
 		expStr = expStr.substring(5, expStr.length() - 1).trim();
 
-		Vector<IAtomicCmd> cmds = getClearRectCmds(
-				new CellRect(1, 1, control.cellSet.getRowCount(), control.cellSet.getColCount()), CLEAR);
+		Vector<IAtomicCmd> cmds = getClearRectCmds(new CellRect(1, 1,
+				control.cellSet.getRowCount(), control.cellSet.getColCount()),
+				CLEAR);
 		ParamList pl = new ParamList();
 
 		if (!StringUtils.isValidString(expStr)) {
@@ -2363,7 +2449,8 @@ public class SplEditor {
 		}
 		if (!spl.startsWith("\"") || !spl.endsWith("\"")) {
 			// SPL函数格式不正确，应为=spl(...)。
-			JOptionPane.showMessageDialog(GV.appFrame, IdeSplMessage.get().getMessage("spleditor.errorexcelspl"));
+			JOptionPane.showMessageDialog(GV.appFrame, IdeSplMessage.get()
+					.getMessage("spleditor.errorexcelspl"));
 			return false;
 		}
 
@@ -2385,12 +2472,14 @@ public class SplEditor {
 		boolean isAdd = false;
 		if (control.cellSet.getRowCount() < cellSet.getRowCount()) {
 			// 增加行
-			cmds.add(getAppendRows(cellSet.getRowCount() - control.cellSet.getRowCount()));
+			cmds.add(getAppendRows(cellSet.getRowCount()
+					- control.cellSet.getRowCount()));
 			isAdd = true;
 		}
 		if (control.cellSet.getColCount() < cellSet.getColCount()) {
 			// 增加列
-			cmds.add(getAppendCols(cellSet.getColCount() - control.cellSet.getColCount()));
+			cmds.add(getAppendCols(cellSet.getColCount()
+					- control.cellSet.getColCount()));
 			isAdd = true;
 		}
 		if (isAdd) {
@@ -2453,7 +2542,8 @@ public class SplEditor {
 				int match = Sentence.scanQuotation(expStr, i);
 				if (match == -1) {
 					MessageManager mm = EngineMessage.get();
-					throw new RQException("\"" + mm.getMessage("Expression.illMatched"));
+					throw new RQException("\""
+							+ mm.getMessage("Expression.illMatched"));
 				}
 				buf.append(expStr.subSequence(i, match));
 				match++;
@@ -2483,7 +2573,9 @@ public class SplEditor {
 						int num = Integer.parseInt(sNum);
 						if (args.size() < num) {
 							// {0}与参数的数量不匹配。
-							throw new RQException(IdeSplMessage.get().getMessage("spleditor.excelparamnotmatch", id));
+							throw new RQException(IdeSplMessage.get()
+									.getMessage("spleditor.excelparamnotmatch",
+											id));
 						}
 						arg = args.get(num - 1);
 						argIndex = num;
@@ -2573,7 +2665,8 @@ public class SplEditor {
 		RowCell rc;
 		for (int r = row + 1; r <= subEnd; r++) {
 			rc = (RowCell) control.cellSet.getRowCell(r);
-			rc.setVisible(isExpand ? RowCell.VISIBLE_ALWAYSNOT : RowCell.VISIBLE_ALWAYS);
+			rc.setVisible(isExpand ? RowCell.VISIBLE_ALWAYSNOT
+					: RowCell.VISIBLE_ALWAYS);
 		}
 		setDataChanged(true);
 		return true;
@@ -2608,23 +2701,28 @@ public class SplEditor {
 		}
 
 		if (isMultiRectSelected()) {
-			JOptionPane.showMessageDialog(GV.appFrame, mm.getMessage("dfxeditor.pastemore"));
+			JOptionPane.showMessageDialog(GV.appFrame,
+					mm.getMessage("dfxeditor.pastemore"));
 			return false;
 		}
 
 		CellRect targetArea = new CellRect(curRow, curCol, 1, (int) 1);
 		Vector<IAtomicCmd> cmds = null;
 		String sysclip = GM.clipBoard();
-		if (GVSpl.cellSelection != null && GVSpl.cellSelection.srcCellSet instanceof PgmCellSet) {
+		if (GVSpl.cellSelection != null
+				&& GVSpl.cellSelection.srcCellSet instanceof PgmCellSet) {
 			Object clip = GVSpl.cellSelection.systemClip;
 			if (clip.equals(sysclip)) {
 				if (pasteOption != PASTE_OPTION_NORMAL) {
-					targetArea.setRowCount(GVSpl.cellSelection.matrix.getRowSize());
-					targetArea.setColCount(GVSpl.cellSelection.matrix.getColSize());
+					targetArea.setRowCount(GVSpl.cellSelection.matrix
+							.getRowSize());
+					targetArea.setColCount(GVSpl.cellSelection.matrix
+							.getColSize());
 					try {
 						cmds = executePasteOption(targetArea, pasteOption);
 					} catch (Exception e) {
-						JOptionPane.showMessageDialog(GV.appFrame, e.getMessage());
+						JOptionPane.showMessageDialog(GV.appFrame,
+								e.getMessage());
 						return false;
 					}
 				}
@@ -2643,7 +2741,8 @@ public class SplEditor {
 					try {
 						cmds = executePasteOption(targetArea, pasteOption);
 					} catch (Exception e) {
-						JOptionPane.showMessageDialog(GV.appFrame, e.getMessage());
+						JOptionPane.showMessageDialog(GV.appFrame,
+								e.getMessage());
 						return false;
 					}
 				}
@@ -2661,17 +2760,23 @@ public class SplEditor {
 	 * @param option 粘贴选项
 	 * @return
 	 */
-	private Vector<IAtomicCmd> executePasteOption(CellRect rect, byte option) throws Exception {
+	private Vector<IAtomicCmd> executePasteOption(CellRect rect, byte option)
+			throws Exception {
 		Vector<IAtomicCmd> cmds;
 		CellSelection cs = GV.cellSelection;
 		switch (option) {
 		case PASTE_OPTION_INSERT_ROW:
 			cmds = new Vector<IAtomicCmd>();
-			cmds.add(getInsertRow(true, new CellRect(rect.getBeginRow(), rect.getBeginCol(), rect.getRowCount(), 1)));
+			cmds.add(getInsertRow(
+					true,
+					new CellRect(rect.getBeginRow(), rect.getBeginCol(), rect
+							.getRowCount(), 1)));
 			return cmds;
 		case PASTE_OPTION_INSERT_COL:
 			cmds = new Vector<IAtomicCmd>();
-			cmds.add(getInsertCol(true, new CellRect(rect.getBeginRow(), rect.getBeginCol(), 1, rect.getColCount())));
+			cmds.add(getInsertCol(true,
+					new CellRect(rect.getBeginRow(), rect.getBeginCol(), 1,
+							rect.getColCount())));
 			return cmds;
 		case PASTE_OPTION_PUSH_RIGHT:
 			try {
@@ -2707,7 +2812,8 @@ public class SplEditor {
 		}
 		CellRect targetRect = getSelectedRect();
 		if (targetRect == null) {
-			JOptionPane.showMessageDialog(GV.appFrame, mm.getMessage("dfxeditor.notselecttarget"));
+			JOptionPane.showMessageDialog(GV.appFrame,
+					mm.getMessage("dfxeditor.notselecttarget"));
 			return false;
 		}
 		CellSelection cs = GVSpl.cellSelection;
@@ -2720,40 +2826,49 @@ public class SplEditor {
 		targetRect.setColCount((int) cs.matrix.getColSize());
 		targetRect.setRowCount(cs.matrix.getRowSize());
 
-		boolean isCut = (cs.srcCellSet == control.getCellSet()) && cs.isCutStatus();
+		boolean isCut = (cs.srcCellSet == control.getCellSet())
+				&& cs.isCutStatus();
 		if (isCut) {
 			// 剪切时用移动矩形, 不是同一个sheet,不支持剪切操作
 			cmds = GMSpl.getMoveRectCmd(this, cs.rect, targetRect);
 			GM.clipBoard(null);
 		} else {
 			int hideRowCount = 0;
-			for (int r = targetRect.getBeginRow(); r <= control.cellSet.getRowCount(); r++) {
+			for (int r = targetRect.getBeginRow(); r <= control.cellSet
+					.getRowCount(); r++) {
 				if (!parser.isRowVisible(r)) {
 					hideRowCount++;
 				}
 			}
-			if (targetRect.getEndRow() + hideRowCount > control.cellSet.getRowCount()) {
+			if (targetRect.getEndRow() + hideRowCount > control.cellSet
+					.getRowCount()) {
 				// 行数不够补充
-				int addRowCount = targetRect.getEndRow() + hideRowCount - control.cellSet.getRowCount();
+				int addRowCount = targetRect.getEndRow() + hideRowCount
+						- control.cellSet.getRowCount();
 				cmds.add(getAppendRows(addRowCount));
 			}
 			int hideColCount = 0;
-			for (int c = targetRect.getBeginCol(); c <= control.cellSet.getColCount(); c++) {
+			for (int c = targetRect.getBeginCol(); c <= control.cellSet
+					.getColCount(); c++) {
 				if (!parser.isColVisible(c)) {
 					hideColCount++;
 				}
 			}
-			if (targetRect.getEndCol() + hideColCount > control.cellSet.getColCount()) {
+			if (targetRect.getEndCol() + hideColCount > control.cellSet
+					.getColCount()) {
 				// 列数不够补充
-				int addColCount = targetRect.getEndCol() + hideColCount - control.cellSet.getColCount();
+				int addColCount = targetRect.getEndCol() + hideColCount
+						- control.cellSet.getColCount();
 				cmds.add(getAppendCols(addColCount));
 			}
 			Area area = control.getSelectedArea(0);
-			if (area.getEndRow() == area.getBeginRow() && area.getBeginCol() == area.getEndCol()) {
+			if (area.getEndRow() == area.getBeginRow()
+					&& area.getBeginCol() == area.getEndCol()) {
 				// 只选择一个格子的情况，粘贴全部
 				int endRow = targetRect.getEndRow();
 				int rc = 0;
-				for (int r = targetRect.getBeginRow(); r <= control.cellSet.getRowCount(); r++) {
+				for (int r = targetRect.getBeginRow(); r <= control.cellSet
+						.getRowCount(); r++) {
 					if (parser.isRowVisible(r)) {
 						rc++;
 						if (rc >= targetRect.getRowCount()) {
@@ -2764,7 +2879,8 @@ public class SplEditor {
 				}
 				int endCol = targetRect.getEndCol();
 				int cc = 0;
-				for (int c = targetRect.getBeginCol(); c <= control.cellSet.getColCount(); c++) {
+				for (int c = targetRect.getBeginCol(); c <= control.cellSet
+						.getColCount(); c++) {
 					if (parser.isColVisible(c)) {
 						cc++;
 						if (cc >= targetRect.getColCount()) {
@@ -2773,13 +2889,16 @@ public class SplEditor {
 						}
 					}
 				}
-				area = new Area(targetRect.getBeginRow(), targetRect.getBeginCol(), endRow, endCol);
+				area = new Area(targetRect.getBeginRow(),
+						targetRect.getBeginCol(), endRow, endCol);
 				targetRect = new CellRect(area);
 			} else if (selectState == cs.selectState) {
 				// 选择一行或者一列，而且源区域也是对应的选择行列的情况，也粘贴全部
 				if ((selectState == GC.SELECT_STATE_ROW && selectedRows.size() == 1)
-						|| (selectState == GC.SELECT_STATE_COL && selectedCols.size() == 1)) {
-					area = new Area(targetRect.getBeginRow(), targetRect.getBeginCol(), targetRect.getEndRow(),
+						|| (selectState == GC.SELECT_STATE_COL && selectedCols
+								.size() == 1)) {
+					area = new Area(targetRect.getBeginRow(),
+							targetRect.getBeginCol(), targetRect.getEndRow(),
 							targetRect.getEndCol());
 					targetRect = new CellRect(area);
 				}
@@ -2811,10 +2930,12 @@ public class SplEditor {
 	 * @return
 	 */
 	private boolean isCellIgnoreable(CellSetParser parser, CellLocation cp) {
-		if (!parser.isRowVisible(cp.getRow()) || !parser.isColVisible(cp.getCol())) {
+		if (!parser.isRowVisible(cp.getRow())
+				|| !parser.isColVisible(cp.getCol())) {
 			return true;
 		}
-		INormalCell cell = control.getCellSet().getCell(cp.getRow(), cp.getCol());
+		INormalCell cell = control.getCellSet().getCell(cp.getRow(),
+				cp.getCol());
 		if (cell == null) {
 			return true;
 		}
@@ -2830,7 +2951,8 @@ public class SplEditor {
 	private boolean pasteValue(Vector<IAtomicCmd> cmds) {
 		CellRect targetRect = getSelectedRect();
 		if (targetRect == null) {
-			JOptionPane.showMessageDialog(GV.appFrame, mm.getMessage("dfxeditor.notselecttarget"));
+			JOptionPane.showMessageDialog(GV.appFrame,
+					mm.getMessage("dfxeditor.notselecttarget"));
 			return false;
 		}
 		String data = GM.clipBoard();
@@ -2843,7 +2965,8 @@ public class SplEditor {
 		targetRect.setRowCount(matrix.getRowSize());
 		CellSetParser parser = new CellSetParser(control.cellSet);
 		int rc = 0;
-		for (int r = targetRect.getBeginRow(); r <= control.cellSet.getRowCount(); r++) {
+		for (int r = targetRect.getBeginRow(); r <= control.cellSet
+				.getRowCount(); r++) {
 			if (parser.isRowVisible(r))
 				rc++;
 			if (rc >= matrix.getRowSize())
@@ -2854,7 +2977,8 @@ public class SplEditor {
 			this.appendRows(addRowCount);
 		}
 		int cc = 0;
-		for (int c = targetRect.getBeginCol(); c <= control.cellSet.getColCount(); c++) {
+		for (int c = targetRect.getBeginCol(); c <= control.cellSet
+				.getColCount(); c++) {
 			if (parser.isColVisible(c))
 				cc++;
 			if (cc >= matrix.getColSize())
@@ -2990,7 +3114,8 @@ public class SplEditor {
 		CellRect rect = getSelectedRect();
 		if (rect != null) {
 			CellSet cs = control.getCellSet();
-			if (rect.getEndRow() > cs.getRowCount() || rect.getEndCol() > cs.getColCount()) {
+			if (rect.getEndRow() > cs.getRowCount()
+					|| rect.getEndCol() > cs.getColCount()) {
 				control.clearSelectedAreas();
 			}
 		}
@@ -3023,18 +3148,22 @@ public class SplEditor {
 					selectedAreas.clear();
 					int endRow = control.cellSet.getRowCount();
 					if (selectState == GC.SELECT_STATE_ROW) {
-						selectedAreas.add(new Area(endRow, 1, endRow, control.cellSet.getColCount()));
+						selectedAreas.add(new Area(endRow, 1, endRow,
+								control.cellSet.getColCount()));
 					} else if (selectState == GC.SELECT_STATE_CELL) {
-						selectedAreas.add(new Area(endRow, area.getBeginCol(), endRow, area.getEndCol()));
+						selectedAreas.add(new Area(endRow, area.getBeginCol(),
+								endRow, area.getEndCol()));
 					}
 					break;
 				} else if (area.getEndCol() > control.cellSet.getColCount()) {
 					selectedAreas.clear();
 					int endCol = control.cellSet.getColCount();
 					if (selectState == GC.SELECT_STATE_COL) {
-						selectedAreas.add(new Area(1, endCol, control.cellSet.getRowCount(), endCol));
+						selectedAreas.add(new Area(1, endCol, control.cellSet
+								.getRowCount(), endCol));
 					} else if (selectState == GC.SELECT_STATE_CELL) {
-						selectedAreas.add(new Area(area.getBeginRow(), endCol, area.getEndRow(), endCol));
+						selectedAreas.add(new Area(area.getBeginRow(), endCol,
+								area.getEndRow(), endCol));
 					}
 					break;
 				}
@@ -3048,7 +3177,8 @@ public class SplEditor {
 						bc = area.getBeginCol();
 						ec = area.getEndCol();
 						if (bc == 1 && ec == control.cellSet.getColCount()) {
-							for (int r = area.getBeginRow(); r <= area.getEndRow(); r++) {
+							for (int r = area.getBeginRow(); r <= area
+									.getEndRow(); r++) {
 								selectedRows.add(new Integer(r));
 							}
 						}
@@ -3061,7 +3191,8 @@ public class SplEditor {
 						br = area.getBeginRow();
 						er = area.getEndRow();
 						if (br == 1 && er == control.cellSet.getRowCount()) {
-							for (int r = area.getBeginCol(); r <= area.getEndCol(); r++) {
+							for (int r = area.getBeginCol(); r <= area
+									.getEndCol(); r++) {
 								selectedCols.add(new Integer(r));
 							}
 						}
@@ -3069,7 +3200,8 @@ public class SplEditor {
 				}
 				selectedRects.clear();
 				for (int i = 0; i < selectedAreas.size(); i++) {
-					selectedRects.add(new CellRect((Area) selectedAreas.get(i)));
+					selectedRects
+							.add(new CellRect((Area) selectedAreas.get(i)));
 				}
 			}
 		}
@@ -3103,12 +3235,16 @@ public class SplEditor {
 			int rc = control.cellSet.getRowCount();
 			int cc = control.cellSet.getColCount();
 			if (cell != null && row <= rc && col <= cc) {
-				PgmNormalCell cellNew = control.cellSet.getPgmNormalCell(row, col);
+				PgmNormalCell cellNew = control.cellSet.getPgmNormalCell(row,
+						col);
 				if (cellNew != cell) {
-					control.setActiveCell(new CellLocation(cell.getRow(), cell.getCol()), false);
+					control.setActiveCell(
+							new CellLocation(cell.getRow(), cell.getCol()),
+							false);
 				}
 				if (!parser.isRowVisible(row)
-						|| ((ColCell) control.cellSet.getColCell(col)).getVisible() == ColCell.VISIBLE_ALWAYSNOT) {
+						|| ((ColCell) control.cellSet.getColCell(col))
+								.getVisible() == ColCell.VISIBLE_ALWAYSNOT) {
 					control.setActiveCell(null, false);
 				}
 			}
@@ -3150,11 +3286,13 @@ public class SplEditor {
 					control.m_activeCell = null;
 					setSelectState(GC.SELECT_STATE_NONE);
 				} else {
-					control.setActiveCell(new CellLocation(row, col), false, scrollActiveCellToVisible);
+					control.setActiveCell(new CellLocation(row, col), false,
+							scrollActiveCellToVisible);
 					if (selectState == GC.SELECT_STATE_NONE) {
 						if (selectedRows != null && !selectedRows.isEmpty()) {
 							setSelectState(GC.SELECT_STATE_ROW);
-						} else if (selectedCols != null && !selectedCols.isEmpty()) {
+						} else if (selectedCols != null
+								&& !selectedCols.isEmpty()) {
 							setSelectState(GC.SELECT_STATE_COL);
 						} else {
 							setSelectState(GC.SELECT_STATE_CELL);

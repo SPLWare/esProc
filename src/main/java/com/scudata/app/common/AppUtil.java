@@ -354,6 +354,11 @@ public class AppUtil {
 	}
 
 	/**
+	 * Excel函数的参数长度有限制，不能超过255
+	 */
+	public static final int EXCEL_EXP_LENGTH = 254;
+
+	/**
 	 * 去掉excel表达式的引号，转换成网格对象。注意excel中转义字符是双引号
 	 * 
 	 * @param spl 脚本
@@ -363,6 +368,8 @@ public class AppUtil {
 		if (!StringUtils.isValidString(spl))
 			return null;
 		spl = spl.trim();
+		// 处理SPL长度超过255的情况
+		spl = mergeExcelSpl(spl);
 		spl = Escape.removeEscAndQuote(spl, '"');
 		PgmCellSet cellSet = CellSetUtil.toPgmCellSet(spl);
 		PgmNormalCell cell;
@@ -381,6 +388,22 @@ public class AppUtil {
 		}
 
 		return cellSet;
+	}
+
+	/**
+	 * 处理SPL长度超过255的情况，脚本可能由&拼接而成
+	 * @param spl 脚本
+	 * @return 合并后的脚本
+	 */
+	public static String mergeExcelSpl(String spl) {
+		String[] spls = spl.split("\"\\s*\\+\\s*&\\s*\\+\\s*\"");
+		if (spls.length <= 1)
+			return spl;
+		StringBuffer buf = new StringBuffer();
+		for (String s : spls) {
+			buf.append(s);
+		}
+		return buf.toString();
 	}
 
 	/**
