@@ -358,8 +358,9 @@ public class Variant {
 			case DT_INT:
 				return new Integer(((Number)o1).intValue() % ((Number)o2).intValue());
 			case DT_LONG:
-			case DT_DOUBLE:
 				return new Long(((Number)o1).longValue() % ((Number)o2).longValue());
+			case DT_DOUBLE:
+				return new Double(((Number)o1).doubleValue() % ((Number)o2).doubleValue());
 			default://case DT_DECIMAL:
 				return new BigDecimal(toBigInteger((Number)o1).mod(toBigInteger((Number)o2)));
 			}
@@ -369,7 +370,89 @@ public class Variant {
 		throw new RQException(getDataType(o1) + mm.getMessage("Variant2.with") +
 							  getDataType(o2) + mm.getMessage("Variant2.illMod"));
 	}
+	
+	/**
+	 * 用于remainder函数
+	 * @param o1 左面数值
+	 * @param o2 右面数值
+	 * @return Number
+	 */
+	public static Number remainder(Object o1, Object o2) {
+		if (o1 == null || o2 == null) {
+			return null;
+		} else if (o1 instanceof Number && o2 instanceof Number) {
+			int type = getMaxNumberType(o1, o2);
+			if (type == DT_INT) {
+				int left = ((Number)o1).intValue();
+				int right = ((Number)o2).intValue();
+				if (right > 0) {
+					if (left > 0) {
+						return left % right;
+					} else {
+						int x = left % right;
+						return x == 0 ? 0 : x + right;
+					}
+				} else {
+					if (left >= 0) {
+						int x = left %(right * 2); // 得到正数
+						return x < -right ? x : x + right * 2;
+					} else {
+						int x = left %(right * 2); // 得到负数
+						return x < right ? x - right * 2 : x;
+					}
+				}
+			} else if (type == DT_LONG) {
+				long left = ((Number)o1).longValue();
+				long right = ((Number)o2).longValue();
+				if (right > 0) {
+					if (left > 0) {
+						return left % right;
+					} else {
+						long x = left % right;
+						return x == 0 ? 0 : x + right;
+					}
+				} else {
+					if (left >= 0) {
+						long x = left %(right * 2); // 得到正数
+						return x < -right ? x : x + right * 2;
+					} else {
+						long x = left %(right * 2); // 得到负数
+						return x < right ? x - right * 2 : x;
+					}
+				}
+			} else {
+				double left = ((Number)o1).doubleValue();
+				double right = ((Number)o2).doubleValue();
+				if (right > 0) {
+					if (left > 0) {
+						return left % right;
+					} else {
+						double x = left % right;
+						return isRoughlyEquals(x, 0) ? 0 : x + right;
+					}
+				} else {
+					if (left >= 0) {
+						double x = left %(right * 2); // 得到正数
+						return x > -right || isRoughlyEquals(x, -right) ? x + right * 2 : x;
+					} else {
+						double x = left %(right * 2); // 得到负数
+						return x < right && !isRoughlyEquals(x, right) ? x - right * 2 : x;
+					}
+				}
+			}
+		}
 
+		MessageManager mm = EngineMessage.get();
+		throw new RQException(getDataType(o1) + mm.getMessage("Variant2.with") +
+							  getDataType(o2) + mm.getMessage("Variant2.illMod"));
+	}
+
+	// 判断两个浮点数是否大概相等
+	private static boolean isRoughlyEquals(double d1, double d2) {
+		d1 -= d2;
+		return d1 > -0.0000001 && d1 < 0.0000001;
+	}
+	
 	/**
 	 * 返回序列成员取余构成的序列，元素个数需相同
 	 * @param s1 Sequence

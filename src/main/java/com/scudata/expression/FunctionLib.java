@@ -657,6 +657,7 @@ public final class FunctionLib {
 		addFunction("product","com.scudata.expression.fn.math.Product");
 		addFunction("rand", "com.scudata.expression.fn.math.Rand");
 		addFunction("round", "com.scudata.expression.fn.math.Round");
+		addFunction("remainder", "com.scudata.expression.fn.math.Remainder");
 		addFunction("shift","com.scudata.expression.fn.math.Shift");
 		addFunction("sign", "com.scudata.expression.fn.math.Sign");
 		addFunction("sin", "com.scudata.expression.fn.math.Sin");
