@@ -44,6 +44,7 @@ import com.scudata.dm.FileObject;
 import com.scudata.dm.Param;
 import com.scudata.dm.ParamList;
 import com.scudata.dm.Sequence;
+import com.scudata.dm.cursor.ICursor;
 import com.scudata.dm.query.SimpleSQL;
 import com.scudata.expression.fn.Eval;
 import com.scudata.resources.EngineMessage;
@@ -306,7 +307,8 @@ public class AppUtil {
 
 	/**
 	 * 执行Excel中的SPL函数。目前支持单句、多句表达式，执行脚本文件。
-	 * @param spl 已经转义过的SPL
+	 * 
+	 * @param spl  已经转义过的SPL
 	 * @param args
 	 * @return 返回值
 	 * @throws Exception 异常
@@ -317,17 +319,26 @@ public class AppUtil {
 			return null;
 		spl = excelToJdbcSpl(spl);
 		Object val = executeCmd(spl, args, new Context());
-		if (val instanceof PgmCellSet) {
+		if (val == null)
+			return null;
+		if (val instanceof PgmCellSet) { // 多结果集只返回第一个
 			PgmCellSet cellSet = (PgmCellSet) val;
 			if (cellSet.hasNextResult())
-				return cellSet.nextResult();
-			return null;
+				val = cellSet.nextResult();
+			else
+				return null;
+		}
+		// 处理游标
+		if (val instanceof ICursor) {
+			ICursor cursor = (ICursor) val;
+			return cursor.fetch();
 		}
 		return val;
 	}
 
 	/**
 	 * 将excel中的spl转换为jdbc支持的形式
+	 * 
 	 * @return
 	 */
 	public static String excelToJdbcSpl(String spl) {
@@ -964,6 +975,7 @@ public class AppUtil {
 
 	/**
 	 * 将异常信息转为字符串
+	 * 
 	 * @param e 异常
 	 * @return String
 	 */
