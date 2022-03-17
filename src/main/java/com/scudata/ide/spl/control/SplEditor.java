@@ -14,6 +14,7 @@ import java.util.regex.Pattern;
 
 import javax.swing.JOptionPane;
 
+import com.scudata.app.common.AppUtil;
 import com.scudata.cellset.IColCell;
 import com.scudata.cellset.INormalCell;
 import com.scudata.cellset.IRowCell;
@@ -64,13 +65,12 @@ import com.scudata.ide.spl.etl.EtlConsts;
 import com.scudata.ide.spl.etl.ObjectElement;
 import com.scudata.ide.spl.resources.IdeSplMessage;
 import com.scudata.resources.EngineMessage;
-import com.scudata.util.CellSetUtil;
 
 /**
  * 网格编辑器
  *
  */
-public abstract class SplEditor {
+public class SplEditor {
 	/** CTRL-ENTER事件，插入行 */
 	public static final byte HK_CTRL_ENTER = 0;
 	/** CTRL-INSERT事件，右移单元格 */
@@ -140,15 +140,8 @@ public abstract class SplEditor {
 	 * @param context 上下文
 	 */
 	public SplEditor(Context context) {
-		control = new EditControl(ConfigOptions.iRowCount.intValue(),
-				ConfigOptions.iColCount.intValue()) {
-			private static final long serialVersionUID = 1L;
-
-			public PgmCellSet newCellSet(int rows, int cols) {
-				return generateCellSet(rows, cols);
-			}
-
-		};
+		control = newEditControl(ConfigOptions.iRowCount.intValue(),
+				ConfigOptions.iColCount.intValue());
 		CellSetTxtUtil.initDefaultProperty(control.cellSet);
 		control.draw();
 		SplControlListener qcl = new SplControlListener(this);
@@ -158,13 +151,15 @@ public abstract class SplEditor {
 	};
 
 	/**
-	 * 生成网格
+	 * 构造编辑控件
 	 * 
-	 * @param rows 初始行数
-	 * @param cols 初始列数
-	 * @return
+	 * @param rows 行数
+	 * @param cols 列数
+	 * @return EditControl
 	 */
-	public abstract PgmCellSet generateCellSet(int rows, int cols);
+	protected EditControl newEditControl(int rows, int cols) {
+		return new EditControl(rows, cols);
+	}
 
 	/**
 	 * 设置网格数据是否变化了
@@ -2024,88 +2019,164 @@ public abstract class SplEditor {
 
 	/**
 	 * Excel复制
+	 * 
 	 * @return 是否复制
 	 */
 	public boolean excelCopy() {
-		control.getContentPanel().submitEditor();
+		try {
+			control.getContentPanel().submitEditor();
 
-		PgmCellSet cellSet = control.cellSet;
-		int startRow = 1, startCol = 1;
-		int endRow = cellSet.getRowCount();
-		int endCol = cellSet.getColCount();
-		for (int r = 1; r <= cellSet.getRowCount(); r++) {
-			if (!isUselessRow(r)) {
-				startRow = r;
-				break;
-			}
-		}
-		for (int r = cellSet.getRowCount(); r >= 1; r--) {
-			if (!isUselessRow(r)) {
-				endRow = r;
-				break;
-			}
-		}
-		for (int c = 1; c <= cellSet.getColCount(); c++) {
-			if (!isUselessCol(c)) {
-				startCol = c;
-				break;
-			}
-		}
-		for (int c = cellSet.getColCount(); c >= 1; c--) {
-			if (!isUselessCol(c)) {
-				endCol = c;
-				break;
-			}
-		}
-		List<String> params = new ArrayList<String>(), usedParams = new ArrayList<String>();
-		ParamList pl = cellSet.getParamList();
-		if (pl != null)
-			for (int i = 0; i < pl.count(); i++) {
-				params.add(pl.get(i).getName());
-			}
-
-		StringBuffer buf = new StringBuffer();
-		buf.append("=spl(\"=");
-
-		PgmNormalCell cell;
-		String cellExpStr;
-		for (int r = startRow; r <= endRow; r++) {
-			if (r > startRow) {
-				buf.append(ROW_SEP);
-			}
-			for (int c = startCol; c <= endCol; c++) {
-				if (c > startCol) {
-					buf.append(COL_SEP);
+			PgmCellSet cellSet = control.cellSet;
+			int startRow = 1, startCol = 1;
+			int endRow = cellSet.getRowCount();
+			int endCol = cellSet.getColCount();
+			for (int r = 1; r <= cellSet.getRowCount(); r++) {
+				if (!isUselessRow(r)) {
+					startRow = r;
+					break;
 				}
-				cell = cellSet.getPgmNormalCell(r, c);
-				if (!isUselessCell(cell)) {
-					cellExpStr = cell.getExpString();
-					if (StringUtils.isValidString(cellExpStr)) {
-						cellExpStr = replaceCopyParam(cellExpStr, params,
-								usedParams);
-						buf.append(cellExpStr);
+			}
+			for (int r = cellSet.getRowCount(); r >= 1; r--) {
+				if (!isUselessRow(r)) {
+					endRow = r;
+					break;
+				}
+			}
+			for (int c = 1; c <= cellSet.getColCount(); c++) {
+				if (!isUselessCol(c)) {
+					startCol = c;
+					break;
+				}
+			}
+			for (int c = cellSet.getColCount(); c >= 1; c--) {
+				if (!isUselessCol(c)) {
+					endCol = c;
+					break;
+				}
+			}
+			List<String> params = new ArrayList<String>(), usedParams = new ArrayList<String>();
+			ParamList pl = cellSet.getParamList();
+			if (pl != null)
+				for (int i = 0; i < pl.count(); i++) {
+					params.add(pl.get(i).getName());
+				}
+
+			StringBuffer buf = new StringBuffer();
+			PgmNormalCell cell;
+			String cellExpStr;
+			// boolean isCall = false;
+			// if (startRow == endRow && startCol == endCol) { // 只有一个call splx格
+			// cell = cellSet.getPgmNormalCell(startRow, startCol);
+			// if (cell.getType() == PgmNormalCell.TYPE_CALCULABLE_CELL) {
+			// cellExpStr = cell.getExpString();
+			// if (StringUtils.isValidString(cellExpStr)) {
+			// cellExpStr = cellExpStr.trim();
+			// // 有选项的是用户自己编辑的，不处理了
+			// if (cellExpStr.startsWith("=call(")
+			// && cellExpStr.endsWith(")")) {
+			// cellExpStr = cellExpStr.substring(6);
+			// int index = cellExpStr.indexOf(",");
+			// if (index > 0) { // 有参数
+			// cellExpStr = Escape
+			// .removeEscAndQuote(cellExpStr
+			// .substring(0, index))
+			// + cellExpStr.substring(index + 1);
+			// } else { // 无参数
+			// cellExpStr = cellExpStr.substring(0,
+			// cellExpStr.length() - 1);
+			// cellExpStr = Escape
+			// .removeEscAndQuote(cellExpStr) + "()";
+			// }
+			// cellExpStr = replaceCopyParam(cellExpStr, params,
+			// usedParams);
+			// buf.append(cellExpStr);
+			// isCall = true;
+			// }
+			// }
+			// }
+			// }
+			// if (!isCall)
+			for (int r = startRow; r <= endRow; r++) {
+				if (r > startRow) {
+					buf.append(ROW_SEP);
+				}
+				for (int c = startCol; c <= endCol; c++) {
+					if (c > startCol) {
+						buf.append(COL_SEP);
+					}
+					cell = cellSet.getPgmNormalCell(r, c);
+					if (!isUselessCell(cell)) {
+						cellExpStr = cell.getExpString();
+						if (StringUtils.isValidString(cellExpStr)) {
+							if (!cell.isConstCell()) {
+								cellExpStr = replaceCopyParam(cellExpStr,
+										params, usedParams);
+							}
+							if (cellExpStr.indexOf("\\") > 0) {
+								boolean isQuote = cellExpStr.startsWith("\'")
+										&& cellExpStr.endsWith("\'");
+								boolean isDoubleQuote = cellExpStr
+										.startsWith("\"")
+										&& cellExpStr.endsWith("\"");
+								cellExpStr = Escape
+										.removeEscAndQuote(cellExpStr);
+								if (isQuote) {
+									cellExpStr = "\'" + cellExpStr + "\'";
+								} else if (isDoubleQuote) {
+									cellExpStr = "\"" + cellExpStr + "\"";
+								}
+							}
+							buf.append(cellExpStr);
+						}
 					}
 				}
 			}
-		}
-		buf.append("\"");
-		if (!usedParams.isEmpty()) {
-			for (String pname : usedParams) {
-				buf.append(",");
-				pname = Escape.removeEscAndQuote(pname);
-				buf.append(pname);
+			String spl = buf.toString();
+			spl = Escape.addEscAndQuote(spl, '"');
+			spl = spl.replaceAll("\"t", COL_SEP);
+			spl = spl.replaceAll("\"n", ROW_SEP);
+
+			if (spl.length() > AppUtil.EXCEL_EXP_LENGTH) {
+				buf = new StringBuffer();
+				while (spl.length() > 0) {
+					if (buf.length() > 0) {
+						buf.append("\"+&+\"");
+					}
+					if (spl.length() > AppUtil.EXCEL_EXP_LENGTH) {
+						buf.append(spl.substring(0, AppUtil.EXCEL_EXP_LENGTH));
+						spl = spl.substring(AppUtil.EXCEL_EXP_LENGTH);
+					} else {
+						buf.append(spl);
+						break;
+					}
+				}
+				spl = buf.toString();
 			}
+			buf = new StringBuffer();
+			buf.append("=spl(");
+			buf.append(spl);
+			if (!usedParams.isEmpty()) {
+				for (String pname : usedParams) {
+					buf.append(",");
+					pname = Escape.removeEscAndQuote(pname);
+					buf.append(pname);
+				}
+			}
+			buf.append(")");
+			GM.clipBoard(buf.toString());
+		} catch (Exception ex) {
+			GM.showException(ex);
+			return false;
 		}
-		buf.append(")");
-		GM.clipBoard(buf.toString());
 		return true;
 	}
 
 	private static final String COL_SEP = "\t";
-	private static final String ROW_SEP = GM.getLineSeparator();
+	private static final String ROW_SEP = "\n";
 
 	/**
 	 * 是否无效的行
+	 * 
 	 * @param r 行号
 	 * @return 整行都是空格或者注释格时返回true，否则false
 	 */
@@ -2120,6 +2191,7 @@ public abstract class SplEditor {
 
 	/**
 	 * 是否无效的列
+	 * 
 	 * @param c 列号
 	 * @return 整列都是空格或者注释格时返回true，否则false
 	 */
@@ -2134,6 +2206,7 @@ public abstract class SplEditor {
 
 	/**
 	 * 是否无效格
+	 * 
 	 * @param cell 单元格对象
 	 * @return 空白格和注释格返回true，否则返回false
 	 */
@@ -2145,8 +2218,9 @@ public abstract class SplEditor {
 
 	/**
 	 * 将表达式中的参数和单引号包围的Excel格（区域）标识，替换成?i
-	 * @param expStr 单元格表达式
-	 * @param params 参数名
+	 * 
+	 * @param expStr     单元格表达式
+	 * @param params     参数名
 	 * @param usedParams 表达式中用到的参数名
 	 * @return 替换后的字符串
 	 */
@@ -2180,7 +2254,7 @@ public abstract class SplEditor {
 				if (arg != null) {
 					buf.append(arg);
 				} else {
-					buf.append(expStr.substring(i, match));
+					buf.append(expStr.substring(i, match + 1));
 				}
 				match++;
 				i = match;
@@ -2201,7 +2275,7 @@ public abstract class SplEditor {
 				}
 				String arg = null;
 				if (params.contains(id)) { // 参数名，但是也可能和函数名冲突
-					if (i == 0 || '.' == expStr.charAt(i - 1)) { // 前一位是.的可能是函数名
+					if (i == 0 || '.' != expStr.charAt(i - 1)) { // 前一位是.的可能是函数名
 						int pIndex = usedParams.indexOf(id);
 						if (pIndex < 0) {
 							usedParams.add(id);
@@ -2224,6 +2298,7 @@ public abstract class SplEditor {
 
 	/**
 	 * 是否Excel的格子（区域）引用
+	 * 
 	 * @param name
 	 * @return
 	 */
@@ -2244,6 +2319,7 @@ public abstract class SplEditor {
 
 	/**
 	 * 是否跨工作簿访问格子的情况
+	 * 
 	 * @param name
 	 * @return 是否匹配
 	 */
@@ -2268,6 +2344,7 @@ public abstract class SplEditor {
 
 	/**
 	 * 是否Excel格子区域名称，例如A1:B6
+	 * 
 	 * @param name
 	 * @return
 	 */
@@ -2285,7 +2362,8 @@ public abstract class SplEditor {
 
 	/**
 	 * 是否Excel单元格名称，例如A1,$A1,A$1,$A$1
-	 * @param name 
+	 * 
+	 * @param name
 	 * @return 是否单元格名称
 	 */
 	private static boolean isExcelCellName(String name) {
@@ -2298,6 +2376,7 @@ public abstract class SplEditor {
 
 	/**
 	 * Excel粘贴
+	 * 
 	 * @return
 	 */
 	public boolean excelPaste() {
@@ -2339,17 +2418,18 @@ public abstract class SplEditor {
 			tmp = at.nextToken();
 			if (tmp != null) {
 				tmp = tmp.trim();
-				tmp = Escape.removeEscAndQuote(tmp, '\"');
 			}
 			if (isFirst) {
 				isFirst = false;
 				spl = tmp;
+
 			} else {
 				argIndex++;
 				if (!StringUtils.isValidString(tmp)) {
 					tmp = "arg" + argIndex;
 					argIndex++;
 				} else {
+					// 给参数名加上单引号
 					tmp = Escape.addEscAndQuote(tmp, false);
 				}
 				args.add(tmp);
@@ -2367,13 +2447,28 @@ public abstract class SplEditor {
 			setDataChanged(true);
 			return true;
 		}
-		PgmCellSet cellSet = CellSetUtil.toPgmCellSet(spl);
-		if (cellSet.getRowCount() > 1 || cellSet.getColCount() > 1) {
-			if (spl.startsWith("=")) {
-				spl = spl.substring(1);
-				cellSet = CellSetUtil.toPgmCellSet(spl);
-			}
+		if (!spl.startsWith("\"") || !spl.endsWith("\"")) {
+			// SPL函数格式不正确，应为=spl(...)。
+			JOptionPane.showMessageDialog(GV.appFrame, IdeSplMessage.get()
+					.getMessage("spleditor.errorexcelspl"));
+			return false;
 		}
+
+		// byte splType = AppUtil.getExcelSplType(spl);
+		// if (splType == AppUtil.EXCEL_CALL) {
+		// // spl是脚本文件名，将splx(...)拼成=call(splx,...)
+		// int index = spl.indexOf("(");
+		// String splFile = spl.substring(0, index);
+		// if (!AppUtil.isSPLFile(splFile))
+		// splFile = splFile + "." + AppConsts.FILE_SPLX;
+		// String splArgs = "";
+		// if (index < spl.length() - 2) {
+		// splArgs = "," + spl.substring(index + 1, spl.length() - 1);
+		// }
+		// spl = "=call(" + Escape.addEscAndQuote(splFile) + splArgs + ")";
+		// }
+
+		PgmCellSet cellSet = AppUtil.excelSplToCellSet(spl);
 		boolean isAdd = false;
 		if (control.cellSet.getRowCount() < cellSet.getRowCount()) {
 			// 增加行
@@ -2415,6 +2510,12 @@ public abstract class SplEditor {
 		return true;
 	}
 
+	/**
+	 * 设置参数
+	 * 
+	 * @param cmds
+	 * @param pl
+	 */
 	private void addParamCmd(Vector<IAtomicCmd> cmds, ParamList pl) {
 		AtomicSpl as = new AtomicSpl(control);
 		as.setType(AtomicSpl.SET_PARAM);
@@ -2424,6 +2525,7 @@ public abstract class SplEditor {
 
 	/**
 	 * 替换Excel粘贴表达式中的?或?i。
+	 * 
 	 * @param expStr
 	 * @param args
 	 * @return
@@ -2497,7 +2599,8 @@ public abstract class SplEditor {
 
 	/**
 	 * 扫描ID
-	 * @param expStr 表达式字符串
+	 * 
+	 * @param expStr   表达式字符串
 	 * @param location 起始位置
 	 * @return 找到的ID
 	 */
@@ -2518,9 +2621,10 @@ public abstract class SplEditor {
 	}
 
 	/**
-	 *  返回下一个字符是否是指定字符c，空字符跳过
-	 * @param c 字符
-	 * @param expStr 表达式字符串
+	 * 返回下一个字符是否是指定字符c，空字符跳过
+	 * 
+	 * @param c        字符
+	 * @param expStr   表达式字符串
 	 * @param location 起始位置
 	 * @return 下一个字符是否是指定字符c
 	 */

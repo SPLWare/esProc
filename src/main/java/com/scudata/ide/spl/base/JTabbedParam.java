@@ -1,11 +1,12 @@
 package com.scudata.ide.spl.base;
 
 import java.awt.Dimension;
+import java.util.HashMap;
 
 import javax.swing.JTabbedPane;
 
 import com.scudata.common.MessageManager;
-import com.scudata.dm.Env;
+import com.scudata.dm.Param;
 import com.scudata.dm.ParamList;
 import com.scudata.ide.common.DataSource;
 import com.scudata.ide.common.GM;
@@ -216,10 +217,11 @@ public abstract class JTabbedParam extends JTabbedPane {
 	 * 
 	 * @param pl 参数列表
 	 */
-	public void resetParamList(ParamList pl) {
-		tableCsVar.setParamList(pl);
-		tableSpaceVar.resetJobSpaces();
-		tableGbVar.setParamList(Env.getParamList());
+	public void resetParamList(ParamList paramList,
+			HashMap<String, Param[]> hm, ParamList envParamList) {
+		tableCsVar.setParamList(paramList);
+		tableSpaceVar.setJobSpaces(hm);
+		tableGbVar.setParamList(envParamList);
 	}
 
 }

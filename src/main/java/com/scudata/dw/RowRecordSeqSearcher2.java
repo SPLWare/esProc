@@ -108,6 +108,9 @@ class RowRecordSeqSearcher2 {
 			int baseColCount = baseTable.getColNames().length;
 			int count = curRecordCount + 1;
 
+			long []guideVals = new long[count];
+			this.guideVals = guideVals;
+			
 			BufferReader reader = rowReader.readBlockBuffer(position);
 			BufferReader baseReader = baseRowReader.readBlockBuffer(basePosition);
 			
@@ -129,6 +132,7 @@ class RowRecordSeqSearcher2 {
 			for (int i = 1; i < count; ++i) {
 				reader.skipObject();//Ìø¹ýÎ±ºÅ
 				long seq = (Long) reader.readObject();//È¡µ¼Î±ºÅ
+				guideVals[i] = seq;
 				
 				for (int k = baseKeyCount; k < colCount; ++k) {
 					temp[k] = reader.readObject();

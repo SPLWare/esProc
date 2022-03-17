@@ -7,6 +7,7 @@ import java.sql.DriverManager;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Locale;
+import java.util.Properties;
 import java.util.Vector;
 
 import com.scudata.app.config.ConfigUtil;
@@ -39,7 +40,7 @@ public class ConfigOptions {
 	/** Automatic backup when saving */
 	public static Boolean bAutoBackup = Boolean.TRUE;
 	/** Write the exception to the log file */
-	public static Boolean bLogException = Boolean.FALSE;
+	// public static Boolean bLogException = Boolean.FALSE;
 	/** Automatically connect (recently connected) */
 	public static Boolean bAutoConnect = Boolean.FALSE;
 	/** Memory window position size */
@@ -55,7 +56,8 @@ public class ConfigOptions {
 	/** Whether to change the cell in the comment cell */
 	public static Boolean bAdjustNoteCell = Boolean.TRUE;
 	/** App appearance */
-	public static Byte iLookAndFeel = new Byte(LookAndFeelManager.LNF_OFFICE_SILVER);
+	public static Byte iLookAndFeel = new Byte(
+			LookAndFeelManager.LNF_OFFICE_SILVER);
 	/** Longest wait while connecting to the database */
 	public static Integer iConnectTimeout = new Integer(10);
 	/** Parallel number */
@@ -75,7 +77,8 @@ public class ConfigOptions {
 	/** DEMO is displayed in the file tree */
 	public static Boolean bFileTreeDemo = Boolean.TRUE;
 	/** Log file name */
-	public static String sLogFileName = GM.getAbsolutePath(GC.PATH_TMP + File.separator + "esproc.log");
+	public static String sLogFileName = null;
+	// GM.getAbsolutePath(GC.PATH_TMP + File.separator + "esproc.log")
 	/** Paths for spl files */
 	public static String sPaths = null;
 	/** Main path */
@@ -256,7 +259,7 @@ public class ConfigOptions {
 		options.put("bIdeConsole", bIdeConsole);
 		options.put("bAutoOpen", bAutoOpen);
 		options.put("bAutoBackup", bAutoBackup);
-		options.put("bLogException", bLogException);
+		// options.put("bLogException", bLogException);
 		options.put("bAutoConnect", bAutoConnect);
 		options.put("bWindowSize", bWindowSize);
 		options.put("bViewWinList", bViewWinList);
@@ -366,7 +369,8 @@ public class ConfigOptions {
 	 * @param applyOptions
 	 * @throws Throwable
 	 */
-	public static void load2(boolean holdConsole, boolean applyOptions) throws Throwable {
+	public static void load2(boolean holdConsole, boolean applyOptions)
+			throws Throwable {
 		cf = ConfigFile.getConfigFile();
 		cf.setConfigNode(ConfigFile.NODE_OPTIONS);
 		Iterator<String> it = options.keySet().iterator();
@@ -452,8 +456,8 @@ public class ConfigOptions {
 				bAutoOpen = ii;
 			} else if (option.equalsIgnoreCase("bAutoBackup")) {
 				bAutoBackup = ii;
-			} else if (option.equalsIgnoreCase("bLogException")) {
-				bLogException = ii;
+				// } else if (option.equalsIgnoreCase("bLogException")) {
+				// bLogException = ii;
 			} else if (option.equalsIgnoreCase("bAutoConnect")) {
 				bAutoConnect = ii;
 			} else if (option.equalsIgnoreCase("bWindowSize")) {
@@ -540,7 +544,8 @@ public class ConfigOptions {
 		if (ConfigOptions.bItalic.booleanValue()) {
 			style += Font.ITALIC;
 		}
-		GC.font = new Font(ConfigOptions.sFontName, style, ConfigOptions.iFontSize.intValue());
+		GC.font = new Font(ConfigOptions.sFontName, style,
+				ConfigOptions.iFontSize.intValue());
 		Env.setPaths(GM.getPaths());
 		String tempPath = ConfigOptions.sTempPath;
 		if (tempPath != null)
@@ -548,7 +553,8 @@ public class ConfigOptions {
 				tempPath = null;
 		Env.setTempPath(null);
 		if (StringUtils.isValidString(ConfigOptions.sMainPath)) {
-			String mainPath = ConfigUtil.getPath(System.getProperty("start.home"), ConfigOptions.sMainPath);
+			String mainPath = ConfigUtil.getPath(
+					System.getProperty("start.home"), ConfigOptions.sMainPath);
 			Env.setMainPath(mainPath);
 			if (StringUtils.isValidString(tempPath)) {
 				Env.setTempPath(ConfigUtil.getPath(mainPath, tempPath));
@@ -596,8 +602,39 @@ public class ConfigOptions {
 		Env.setAdjustNoteCell(bAdjustNoteCell.booleanValue());
 		if (holdConsole && ConfigOptions.bIdeConsole.booleanValue())
 			AppFrame.holdConsole();
-		if (!isReport)
+		if (!isReport) {
+			try {
+				Logger.setPropertyConfig(getLoggerProperty());
+			} catch (Exception e) {
+				GM.showException(e);
+			}
 			DriverManager.setLoginTimeout(iConnectTimeout.intValue());
+		}
+	}
+
+	/**
+	 * 创建日志属性对象
+	 * @return
+	 */
+	public static Properties getLoggerProperty() {
+		Properties props = new Properties();
+		String logName = "IDE_CONSOLE";
+		String logPath = null;
+		if (StringUtils.isValidString(ConfigOptions.sLogFileName)) {
+			logName += ",IDE_LOGFILE";
+			logPath = GM.getAbsolutePath(ConfigOptions.sLogFileName);
+		}
+		props.put("Logger", logName);
+		String sLogLevel = GV.config.getLogLevel();
+		if (logPath != null) {
+			props.put("IDE_LOGFILE", logPath);
+			props.put("IDE_LOGFILE.Level", sLogLevel);
+			props.put("IDE_LOGFILE.Encoding", "UTF-8");
+		}
+		props.put("IDE_CONSOLE", "Console");
+		props.put("IDE_CONSOLE.Level", sLogLevel);
+		props.put("IDE_CONSOLE.Encoding", "UTF-8");
+		return props;
 	}
 
 	/**
@@ -670,7 +707,8 @@ public class ConfigOptions {
 			int blue = Integer.parseInt(color.substring(5, 7), 16);
 			int opacity;
 			if (StringUtils.isValidString(headerColorOpacity)) {
-				opacity = Math.round(255 * Float.parseFloat(headerColorOpacity));
+				opacity = Math
+						.round(255 * Float.parseFloat(headerColorOpacity));
 			} else {
 				opacity = 255;
 			}

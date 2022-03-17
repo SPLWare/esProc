@@ -345,14 +345,4 @@ public class GCSpl extends GC {
 	/** 在文件中查找替换 */
 	public static final short iFILE_REPLACE = MENU_SPL + 341;
 
-	/** 远程 */
-	/** 登录 */
-	public static final short iREMOTE_SERVER_LOGIN = MENU_SPL + 401;
-	/** 注销 */
-	public static final short iREMOTE_SERVER_LOGOUT = MENU_SPL + 403;
-	/** 数据源 */
-	public static final short iREMOTE_SERVER_DATASOURCE = MENU_SPL + 405;
-	/** 上传文件 */
-	public static final short iREMOTE_SERVER_UPLOAD_FILE = MENU_SPL + 407;
-
 }

@@ -4,11 +4,13 @@ import java.awt.Color;
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.io.PrintStream;
 import java.lang.reflect.Method;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
@@ -42,6 +44,7 @@ import com.scudata.dm.FileObject;
 import com.scudata.dm.Param;
 import com.scudata.dm.ParamList;
 import com.scudata.dm.Sequence;
+import com.scudata.dm.cursor.ICursor;
 import com.scudata.dm.query.SimpleSQL;
 import com.scudata.expression.fn.Eval;
 import com.scudata.resources.EngineMessage;
@@ -78,6 +81,20 @@ public class AppUtil {
 	 */
 	public static Object executeCmd(String cmd, Sequence args, Context ctx)
 			throws SQLException {
+		return executeCmd(cmd, args, ctx, true);
+	}
+
+	/**
+	 * 执行脚本
+	 * @param cmd  statement
+	 * @param args Parameters
+	 * @param ctx The context
+	 * @param escape 是否脱引号
+	 * @return The result
+	 * @throws SQLException
+	 */
+	private static Object executeCmd(String cmd, Sequence args, Context ctx,
+			boolean escape) throws SQLException {
 		if (!StringUtils.isValidString(cmd)) {
 			return null;
 		}
@@ -92,7 +109,8 @@ public class AppUtil {
 			isExp = true;
 		}
 		cmd = cmd.trim();
-		cmd = Escape.removeEscAndQuote(cmd);
+		if (escape)
+			cmd = Escape.removeEscAndQuote(cmd);
 		if (!isExp) {
 			if (isSQL(cmd)) {
 				if (cmd.startsWith("$")) {
@@ -300,6 +318,171 @@ public class AppUtil {
 		}
 
 		return null;
+	}
+
+	/**
+	 * 执行Excel中的SPL函数。目前支持单句、多句表达式，执行脚本文件。
+	 * 
+	 * @param spl 没有转义过的SPL，注意Excel中转义字符是双引号
+	 * @param args
+	 * @param ctx
+	 * @return 返回值
+	 * @throws Exception 异常
+	 */
+	public static Object executeExcel(String spl, Sequence args, Context ctx)
+			throws Exception {
+		if (!StringUtils.isValidString(spl))
+			return null;
+		PgmCellSet cellSet = excelSplToCellSet(spl);
+		spl = cellSetToJdbcSpl(cellSet);
+		Object val = executeCmd(spl, args, ctx, false);
+		if (val == null)
+			return null;
+		if (val instanceof PgmCellSet) { // 多结果集只返回第一个
+			PgmCellSet result = (PgmCellSet) val;
+			if (result.hasNextResult())
+				val = result.nextResult();
+			else
+				return null;
+		}
+		// 处理游标
+		if (val instanceof ICursor) {
+			ICursor cursor = (ICursor) val;
+			return cursor.fetch();
+		}
+		return val;
+	}
+
+	/**
+	 * Excel函数的参数长度有限制，不能超过255
+	 */
+	public static final int EXCEL_EXP_LENGTH = 254;
+
+	/**
+	 * 去掉excel表达式的引号，转换成网格对象。注意excel中转义字符是双引号
+	 * 
+	 * @param spl 脚本
+	 * @return 转义后的字符
+	 */
+	public static PgmCellSet excelSplToCellSet(String spl) {
+		if (!StringUtils.isValidString(spl))
+			return null;
+		spl = spl.trim();
+		// 处理SPL长度超过255的情况
+		spl = mergeExcelSpl(spl);
+		spl = Escape.removeEscAndQuote(spl, '"');
+		PgmCellSet cellSet = CellSetUtil.toPgmCellSet(spl);
+		PgmNormalCell cell;
+		String cellExpStr;
+		for (int r = 1; r <= cellSet.getRowCount(); r++) {
+			for (int c = 1; c <= cellSet.getColCount(); c++) {
+				cell = cellSet.getPgmNormalCell(r, c);
+				if (cell != null) {
+					cellExpStr = cell.getExpString();
+					if (StringUtils.isValidString(cellExpStr)) {
+						cellExpStr = addEscape(cellExpStr, '\\');
+					}
+					cell.setExpString(cellExpStr);
+				}
+			}
+		}
+
+		return cellSet;
+	}
+
+	/**
+	 * 处理SPL长度超过255的情况，脚本可能由&拼接而成
+	 * @param spl 脚本
+	 * @return 合并后的脚本
+	 */
+	public static String mergeExcelSpl(String spl) {
+		String[] spls = spl.split("\"\\s*\\+\\s*&\\s*\\+\\s*\"");
+		if (spls.length <= 1)
+			return spl;
+		StringBuffer buf = new StringBuffer();
+		for (String s : spls) {
+			buf.append(s);
+		}
+		return buf.toString();
+	}
+
+	/**
+	 * 引号中的双引号增加转义字符，Escape中的方法不够用
+	 */
+	private static String addEscape(String expStr, char escapeChar) {
+		if (expStr == null)
+			return null;
+		int firstIndex = expStr.indexOf("\"");
+		int lastIndex = expStr.lastIndexOf("\"");
+		if (firstIndex > -1 && lastIndex > -1 && lastIndex > firstIndex) {
+			StringBuffer buf = new StringBuffer();
+			for (int i = firstIndex + 1; i < lastIndex; i++) {
+				char c = expStr.charAt(i);
+				if (c == '"') {
+					buf.append(escapeChar);
+				}
+				buf.append(c);
+			}
+			String before = "", after = "";
+			if (firstIndex > 0) {
+				before = expStr.substring(0, firstIndex + 1);
+			}
+			if (lastIndex < expStr.length()) {
+				after = expStr.substring(lastIndex);
+			}
+			return before + buf.toString() + after;
+		} else {
+			return expStr;
+		}
+	}
+
+	/**
+	 * 将网格对象转换为jdbc支持的形式
+	 * 
+	 * @return
+	 */
+	public static String cellSetToJdbcSpl(PgmCellSet cellSet) {
+		if (cellSet.getRowCount() == 1 && cellSet.getColCount() == 1) {
+			// 区分单句表达式和脚本文件
+			PgmNormalCell cell = cellSet.getPgmNormalCell(1, 1);
+			String cellExp = cell.getExpString();
+			switch (cell.getType()) {
+			case PgmNormalCell.TYPE_CONST_CELL:
+			case PgmNormalCell.TYPE_COMMAND_CELL:
+				if (PgmNormalCell.TYPE_COMMAND_CELL == cell.getType()
+						&& cellExp.startsWith("$")) {
+					// 单句表达式
+					return cellExp;
+				}
+				if (cellExp.indexOf("(") > 0 && cellExp.endsWith(")")) {
+					// spl是脚本文件名，拼成jdbccall(splx, args)
+					String spl = cellExp.trim();
+					int index = spl.indexOf("(");
+					String splFile = spl.substring(0, index);
+					String splArgs = "";
+					if (index < spl.length() - 2) {
+						splArgs = ","
+								+ spl.substring(index + 1, spl.length() - 1);
+					}
+					spl = "jdbccall(" + Escape.addEscAndQuote(splFile)
+							+ splArgs + ")";
+					return spl;
+				} else {
+					// 单句表达式
+					return "=" + cellExp;
+				}
+			case PgmNormalCell.TYPE_NOTE_CELL:
+			case PgmNormalCell.TYPE_NOTE_BLOCK:
+			case PgmNormalCell.TYPE_BLANK_CELL:
+				return null;
+			default: // 命令格，执行格
+				return cellExp;
+			}
+		} else {
+			// 多句表达式，拼成=expression
+			String spl = CellSetUtil.toString(cellSet);
+			return "=" + spl;
+		}
 	}
 
 	/**
@@ -873,5 +1056,41 @@ public class AppUtil {
 				bis.close();
 		}
 		return cs;
+	}
+
+	/**
+	 * 将异常信息转为字符串
+	 * 
+	 * @param e 异常
+	 * @return String
+	 */
+	public static String getThrowableString(Throwable e) {
+		if (e != null) {
+			if (e instanceof ThreadDeath)
+				return null;
+			Throwable cause = e.getCause();
+			int i = 0;
+			while (cause != null) {
+				if (cause instanceof ThreadDeath)
+					return null;
+				cause = cause.getCause();
+				i++;
+				if (i > 10) {
+					break;
+				}
+			}
+		} else {
+			return null;
+		}
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		try {
+			e.printStackTrace(new PrintStream(baos));
+		} finally {
+			try {
+				baos.close();
+			} catch (Exception e1) {
+			}
+		}
+		return baos.toString();
 	}
 }

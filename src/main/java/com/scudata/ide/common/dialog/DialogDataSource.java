@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowEvent;
+import java.util.List;
 import java.util.Vector;
 
 import javax.swing.JButton;
@@ -85,9 +86,14 @@ public class DialogDataSource extends JDialog implements IDataSourceEditor {
 	 */
 	private static DataSourceListModel dsModel;
 	/**
-	 * 是否是远程服务器连接数据源界面，默认false
+	 * 远程服务器列表
 	 */
-	private boolean isRemoteServer = false;
+	private List<Server> serverList = null;
+	/**
+	 * 当前的服务
+	 */
+	private String activeServer = null;
+
 	/**
 	 * 服务器列表控件
 	 */
@@ -100,7 +106,7 @@ public class DialogDataSource extends JDialog implements IDataSourceEditor {
 	 *            DataSourceListModel Object
 	 */
 	public DialogDataSource(DataSourceListModel dslm) {
-		this(dslm, false);
+		this(dslm, null, null);
 	}
 
 	/**
@@ -108,12 +114,14 @@ public class DialogDataSource extends JDialog implements IDataSourceEditor {
 	 * 
 	 * @param dslm
 	 *            DataSourceListModel Object
-	 * @param isRemoteServer
-	 *            Whether to connect to the data source from the remote server
+	 * @param serverList
+	 *            Remote server list
 	 */
-	public DialogDataSource(DataSourceListModel dslm, boolean isRemoteServer) {
+	public DialogDataSource(DataSourceListModel dslm, List<Server> serverList,
+			String activeServer) {
 		super(GV.appFrame, "Data source", true);
-		this.isRemoteServer = isRemoteServer;
+		this.serverList = serverList;
+		this.activeServer = activeServer;
 		init(dslm);
 	}
 
@@ -129,6 +137,14 @@ public class DialogDataSource extends JDialog implements IDataSourceEditor {
 		jBDisconnect.setText(mm.getMessage("button.disconnect"));
 		jBClose.setText(mm.getMessage("button.close"));
 		jBEdit.setText(mm.getMessage("button.edit"));
+	}
+
+	/**
+	 * Server被选中
+	 * @param serverName
+	 */
+	protected void serverSelected(String serverName) {
+
 	}
 
 	/**
@@ -174,16 +190,16 @@ public class DialogDataSource extends JDialog implements IDataSourceEditor {
 		panel1.add(jPanel1, BorderLayout.EAST);
 		panelCenter.setLayout(new BorderLayout());
 		panelCenter.add(new JScrollPane(jListDS), BorderLayout.CENTER);
-		if (isRemoteServer) {
+		if (serverList != null) {
 			JPanel panel = new JPanel(new GridBagLayout());
 			Vector<String> serverNames = new Vector<String>();
-			for (Server server : GV.fileTree.getServerList()) {
+			for (Server server : serverList) {
 				serverNames.add(server.getName());
 			}
 			serverJCB = new JComboBoxEx(serverNames);
 			if (serverNames.size() > 0) {
 				serverJCB.setSelectedItem(StringUtils
-						.isValidString(GV.selectServer) ? GV.selectServer
+						.isValidString(activeServer) ? activeServer
 						: serverNames.get(0));
 			}
 			serverJCB.addActionListener(new ActionListener() {
@@ -193,7 +209,7 @@ public class DialogDataSource extends JDialog implements IDataSourceEditor {
 						dsModel = GV.dsModelRemote.get(serverName);
 						jListDS.removeAll();
 						jListDS.setModel(dsModel);
-						GV.selectServer = serverName;
+						serverSelected(serverName);
 					}
 				}
 			});

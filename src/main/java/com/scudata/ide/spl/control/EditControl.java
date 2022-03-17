@@ -4,6 +4,7 @@ import java.awt.dnd.DropTarget;
 
 import javax.swing.JPanel;
 
+import com.scudata.cellset.datamodel.CellSet;
 import com.scudata.common.Area;
 import com.scudata.common.CellLocation;
 
@@ -11,7 +12,7 @@ import com.scudata.common.CellLocation;
  * 网格控件
  *
  */
-public abstract class EditControl extends SplControl {
+public class EditControl extends SplControl {
 
 	private static final long serialVersionUID = 1L;
 
@@ -76,9 +77,9 @@ public abstract class EditControl extends SplControl {
 	 * @return 内容面板
 	 */
 	ContentPanel createContentView() {
-		ContentPanel panel = new ContentPanel(cellSet, 1, cellSet.getRowCount(), 1, cellSet.getColCount(), true, true,
-				this);
-		CellSelectListener listener = new CellSelectListener(this, panel, editable);
+		ContentPanel panel = newContentPanel(cellSet);
+		CellSelectListener listener = new CellSelectListener(this, panel,
+				editable);
 		panel.addMouseListener(listener);
 		panel.addMouseMotionListener(listener);
 		panel.addKeyListener(listener);
@@ -87,6 +88,16 @@ public abstract class EditControl extends SplControl {
 		panel.setFocusTraversalKeysEnabled(false);
 
 		return panel;
+	}
+
+	/**
+	 * 创建SPL网格面板
+	 * @param cellSet
+	 * @return ContentPanel
+	 */
+	protected ContentPanel newContentPanel(CellSet cellSet) {
+		return new ContentPanel(cellSet, 1, cellSet.getRowCount(), 1,
+				cellSet.getColCount(), true, true, this);
 	}
 
 	/**

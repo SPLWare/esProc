@@ -10,8 +10,6 @@ import com.scudata.ide.common.GM;
 
 /**
  * 资源树结点
- * 
- * @author wunan
  *
  */
 public class FileTreeNode extends DefaultMutableTreeNode {
@@ -23,6 +21,8 @@ public class FileTreeNode extends DefaultMutableTreeNode {
 	public static final byte TYPE_LOCAL = 1;
 	/** 服务器资源类型 */
 	public static final byte TYPE_SERVER = 2;
+	/** 云服务资源类型 */
+	public static final byte TYPE_CLOUD = 3;
 
 	/** 未选择状态 */
 	public static final byte NOT_SELECTED = 0;
@@ -136,7 +136,7 @@ public class FileTreeNode extends DefaultMutableTreeNode {
 			imgPath += "0.gif";
 		} else if (this.getLevel() == 1) { // 本地资源和服务器资源根目录的图标
 			imgPath += "view.gif";
-		} else if (type == TYPE_LOCAL || type == TYPE_SERVER) {
+		} else {
 			if (isDir)
 				imgPath += "folder.gif";
 			else
@@ -246,7 +246,7 @@ public class FileTreeNode extends DefaultMutableTreeNode {
 	}
 
 	/**
-	 * 取服务器名称
+	 * 取服务器或云名称
 	 * 
 	 * @return
 	 */
@@ -255,7 +255,7 @@ public class FileTreeNode extends DefaultMutableTreeNode {
 	}
 
 	/**
-	 * 设置服务器名称
+	 * 设置服务器或云名称
 	 * 
 	 * @param serverName
 	 *            服务器名称
