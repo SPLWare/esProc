@@ -65,6 +65,7 @@ import com.scudata.ide.spl.etl.EtlConsts;
 import com.scudata.ide.spl.etl.ObjectElement;
 import com.scudata.ide.spl.resources.IdeSplMessage;
 import com.scudata.resources.EngineMessage;
+import com.scudata.util.CellSetUtil;
 
 /**
  * 网格编辑器
@@ -2112,19 +2113,9 @@ public class SplEditor {
 								cellExpStr = replaceCopyParam(cellExpStr,
 										params, usedParams);
 							}
-							if (cellExpStr.indexOf("\\") > 0) {
-								boolean isQuote = cellExpStr.startsWith("\'")
-										&& cellExpStr.endsWith("\'");
-								boolean isDoubleQuote = cellExpStr
-										.startsWith("\"")
-										&& cellExpStr.endsWith("\"");
-								cellExpStr = Escape
-										.removeEscAndQuote(cellExpStr);
-								if (isQuote) {
-									cellExpStr = "\'" + cellExpStr + "\'";
-								} else if (isDoubleQuote) {
-									cellExpStr = "\"" + cellExpStr + "\"";
-								}
+							if (cellExpStr.indexOf("\"") > 0) {
+								cellExpStr = AppUtil
+										.changeExcelEscape(cellExpStr);
 							}
 							buf.append(cellExpStr);
 						}
@@ -2132,15 +2123,13 @@ public class SplEditor {
 				}
 			}
 			String spl = buf.toString();
-			spl = Escape.addEscAndQuote(spl, '"');
-			spl = spl.replaceAll("\"t", COL_SEP);
-			spl = spl.replaceAll("\"n", ROW_SEP);
+			spl = "\"" + spl + "\"";
 
 			if (spl.length() > AppUtil.EXCEL_EXP_LENGTH) {
 				buf = new StringBuffer();
 				while (spl.length() > 0) {
 					if (buf.length() > 0) {
-						buf.append("\"+&+\"");
+						buf.append("\"&\"");
 					}
 					if (spl.length() > AppUtil.EXCEL_EXP_LENGTH) {
 						buf.append(spl.substring(0, AppUtil.EXCEL_EXP_LENGTH));
@@ -2263,8 +2252,8 @@ public class SplEditor {
 				i++;
 				continue;
 			} else {
-				String id = scanId(expStr, i);
-				if (id.equals("$") && isNextChar('[', expStr, i)) { // 字符串
+				String id = AppUtil.scanId(expStr, i);
+				if (id.equals("$") && AppUtil.isNextChar('[', expStr, i)) { // 字符串
 					int index = expStr.indexOf('[', i);
 					int match = Sentence.scanBracket(expStr, index);
 					if (match != -1) {
@@ -2408,32 +2397,18 @@ public class SplEditor {
 			control.getContentPanel().initEditor(ContentPanel.MODE_HIDE);
 			return true;
 		}
-		String spl = null;
 		List<String> args = new ArrayList<String>();
-		boolean isFirst = true;
-		ArgumentTokenizer at = new ArgumentTokenizer(expStr);
-		String tmp;
-		int argIndex = 0;
-		while (at.hasMoreTokens()) {
-			tmp = at.nextToken();
-			if (tmp != null) {
-				tmp = tmp.trim();
-			}
-			if (isFirst) {
-				isFirst = false;
-				spl = tmp;
-
+		List<String> splAndArgs = parseExcelSpl(expStr);
+		String spl = splAndArgs.get(0);
+		for (int i = 1; i < splAndArgs.size(); i++) {
+			String arg = splAndArgs.get(i);
+			if (!StringUtils.isValidString(arg)) {
+				arg = "arg" + i;
 			} else {
-				argIndex++;
-				if (!StringUtils.isValidString(tmp)) {
-					tmp = "arg" + argIndex;
-					argIndex++;
-				} else {
-					// 给参数名加上单引号
-					tmp = Escape.addEscAndQuote(tmp, false);
-				}
-				args.add(tmp);
+				// 给参数名加上单引号
+				arg = Escape.addEscAndQuote(arg, false);
 			}
+			args.add(arg);
 		}
 		if (!args.isEmpty()) {
 			for (String arg : args) {
@@ -2447,25 +2422,11 @@ public class SplEditor {
 			setDataChanged(true);
 			return true;
 		}
-		if (!spl.startsWith("\"") || !spl.endsWith("\"")) {
-			// SPL函数格式不正确，应为=spl(...)。
-			JOptionPane.showMessageDialog(GV.appFrame, IdeSplMessage.get()
-					.getMessage("spleditor.errorexcelspl"));
-			return false;
-		}
-
-		// byte splType = AppUtil.getExcelSplType(spl);
-		// if (splType == AppUtil.EXCEL_CALL) {
-		// // spl是脚本文件名，将splx(...)拼成=call(splx,...)
-		// int index = spl.indexOf("(");
-		// String splFile = spl.substring(0, index);
-		// if (!AppUtil.isSPLFile(splFile))
-		// splFile = splFile + "." + AppConsts.FILE_SPLX;
-		// String splArgs = "";
-		// if (index < spl.length() - 2) {
-		// splArgs = "," + spl.substring(index + 1, spl.length() - 1);
-		// }
-		// spl = "=call(" + Escape.addEscAndQuote(splFile) + splArgs + ")";
+		// if (!spl.startsWith("\"") || !spl.endsWith("\"")) {
+		// // SPL函数格式不正确，应为=spl(...)。
+		// JOptionPane.showMessageDialog(GV.appFrame, IdeSplMessage.get()
+		// .getMessage("spleditor.errorexcelspl"));
+		// return false;
 		// }
 
 		PgmCellSet cellSet = AppUtil.excelSplToCellSet(spl);
@@ -2511,6 +2472,106 @@ public class SplEditor {
 	}
 
 	/**
+	 * 将excel的spl函数解析为spl和参数的列表，参数可以没有
+	 * @param spl函数
+	 * @return List<String>
+	 */
+	private List<String> parseExcelSpl(String excelSpl) {
+		List<String> list = new ArrayList<String>();
+		excelSpl = excelSpl.trim();
+		String args = null;
+		PgmCellSet cellSet = CellSetUtil.toPgmCellSet(excelSpl);
+		String expStr = null;
+		PgmNormalCell cell;
+		if (cellSet.getRowCount() == 1 && cellSet.getColCount() == 1) {
+			// 单句
+			cell = cellSet.getPgmNormalCell(1, 1);
+			expStr = cell.getExpString();
+		} else {
+			for (int r = cellSet.getRowCount(); r >= 1; r--) {
+				for (int c = cellSet.getColCount(); c >= 1; c--) {
+					cell = cellSet.getPgmNormalCell(r, c);
+					expStr = cell.getExpString();
+					if (StringUtils.isValidString(expStr)) {
+						break;
+					}
+				}
+				if (StringUtils.isValidString(expStr)) {
+					break;
+				}
+			}
+		}
+		int len = expStr.length();
+		for (int i = 0; i < len; i++) {
+			char c = expStr.charAt(i);
+			if (c == '"') {
+				boolean isMatched = false;
+				int j = i + 1;
+				for (; j < len; j++) {
+					c = expStr.charAt(j);
+					if (c == '"') {
+						j++;
+						if (j >= len - 1) {
+							j--;
+							isMatched = true;
+							break;
+						}
+						c = expStr.charAt(j);
+						if (c == '"') { // 前一个"是转义字符
+						} else { // 前一个"匹配了
+							j--;
+							isMatched = true;
+							break;
+						}
+					}
+				}
+				if (!isMatched) {
+					if (i < len - 1) { // 引号后面还有内容
+						String afterStr = expStr.substring(i + 1);
+						afterStr = afterStr.trim();
+						if (afterStr.startsWith(",")) { // 引号后面是参数
+							args = afterStr;
+							break;
+						} else {
+							MessageManager mm = EngineMessage.get();
+							throw new RQException("\""
+									+ mm.getMessage("Expression.illMatched"));
+						}
+					}
+				}
+				i = j;
+			} else if (c == ',') {
+				args = expStr.substring(i);
+				break;
+			}
+		}
+		if (args == null) { // 没有参数
+			list.add(excelSpl);
+		} else {
+			String spl = null;
+			if (excelSpl.startsWith(",")) { // 全是参数
+				args = excelSpl.substring(1);
+			} else { // 去掉参数和逗号就是spl
+				spl = excelSpl.substring(0, excelSpl.length() - args.length());
+				spl = spl.trim();
+				list.add(spl);
+				args = args.substring(1);
+			}
+			if (StringUtils.isValidString(args)) {
+				args = args.trim();
+				ArgumentTokenizer at = new ArgumentTokenizer(args);
+				while (at.hasMoreTokens()) {
+					String arg = at.nextToken();
+					if (arg != null)
+						arg = arg.trim();
+					list.add(arg);
+				}
+			}
+		}
+		return list;
+	}
+
+	/**
 	 * 设置参数
 	 * 
 	 * @param cmds
@@ -2553,8 +2614,8 @@ public class SplEditor {
 				i++;
 				continue;
 			} else {
-				String id = scanId(expStr, i);
-				if (id.equals("$") && isNextChar('[', expStr, i)) { // 字符串
+				String id = AppUtil.scanId(expStr, i);
+				if (id.equals("$") && AppUtil.isNextChar('[', expStr, i)) { // 字符串
 					int index = expStr.indexOf('[', i);
 					int match = Sentence.scanBracket(expStr, index);
 					if (match != -1) {
@@ -2595,49 +2656,6 @@ public class SplEditor {
 			}
 		}
 		return buf.toString();
-	}
-
-	/**
-	 * 扫描ID
-	 * 
-	 * @param expStr   表达式字符串
-	 * @param location 起始位置
-	 * @return 找到的ID
-	 */
-	private static String scanId(String expStr, int location) {
-		int len = expStr.length();
-		int begin = location;
-
-		while (location < len) {
-			char c = expStr.charAt(location);
-			if (KeyWord.isSymbol(c)) {
-				break;
-			} else {
-				location++;
-			}
-		}
-
-		return expStr.substring(begin, location);
-	}
-
-	/**
-	 * 返回下一个字符是否是指定字符c，空字符跳过
-	 * 
-	 * @param c        字符
-	 * @param expStr   表达式字符串
-	 * @param location 起始位置
-	 * @return 下一个字符是否是指定字符c
-	 */
-	private static boolean isNextChar(char c, String expStr, int location) {
-		int len = expStr.length();
-		for (int i = location; i < len; ++i) {
-			if (expStr.charAt(i) == c) {
-				return true;
-			} else if (!Character.isWhitespace(expStr.charAt(i))) {
-				return false;
-			}
-		}
-		return false;
 	}
 
 	/**
