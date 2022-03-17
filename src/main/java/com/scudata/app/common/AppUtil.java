@@ -429,7 +429,7 @@ public class AppUtil {
 				if (PgmNormalCell.TYPE_COMMAND_CELL == cell.getType()
 						&& cellExp.startsWith("$")) {
 					// 单句表达式
-					return "=" + cellExp;
+					return cellExp;
 				}
 				if (cellExp.indexOf("(") > 0 && cellExp.endsWith(")")) {
 					// spl是脚本文件名，拼成jdbccall(splx, args)
