@@ -332,8 +332,8 @@ public class AppUtil {
 	 */
 	public static Object executeExcel(String spl, Sequence args, Context ctx)
 			throws Exception {
-		Logger.debug("SPL=" + spl);
-		Logger.debug("PARAMETERS=" + args);
+		Logger.debug("SPL: " + spl);
+		Logger.debug("PARAMETERS: " + args);
 		if (!StringUtils.isValidString(spl))
 			return null;
 		PgmCellSet cellSet = excelSplToCellSet(spl);
@@ -373,10 +373,10 @@ public class AppUtil {
 		spl = spl.trim();
 		// 处理SPL长度超过255的情况
 		spl = mergeExcelSpl(spl);
-		// if (spl.startsWith("\"") && spl.endsWith("\"")) {
-		// spl = spl.substring(1, spl.length() - 1);
-		// }
-		spl = Escape.removeEscAndQuote(spl, '"');
+		// excel自动调用的可能已经去了引号
+		if (spl.startsWith("\"") && spl.endsWith("\"")) {
+			spl = Escape.removeEscAndQuote(spl, '"');
+		}
 		spl = spl.trim();
 		PgmCellSet cellSet = CellSetUtil.toPgmCellSet(spl);
 		// PgmNormalCell cell;
