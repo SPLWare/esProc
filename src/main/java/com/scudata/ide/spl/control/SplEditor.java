@@ -2397,77 +2397,85 @@ public class SplEditor {
 			control.getContentPanel().initEditor(ContentPanel.MODE_HIDE);
 			return true;
 		}
-		List<String> args = new ArrayList<String>();
-		List<String> splAndArgs = parseExcelSpl(expStr);
-		String spl = splAndArgs.get(0);
-		for (int i = 1; i < splAndArgs.size(); i++) {
-			String arg = splAndArgs.get(i);
-			if (!StringUtils.isValidString(arg)) {
-				arg = "arg" + i;
-			} else {
-				// 给参数名加上单引号
-				arg = Escape.addEscAndQuote(arg, false);
-			}
-			args.add(arg);
+		expStr = expStr.trim();
+		if (!expStr.startsWith("\"")) {
+			// SPL函数格式不正确，应为=spl(...)。
+			JOptionPane.showMessageDialog(GV.appFrame, IdeSplMessage.get()
+					.getMessage("spleditor.errorexcelspl"));
+			return false;
 		}
-		if (!args.isEmpty()) {
-			for (String arg : args) {
-				pl.add(new Param(arg, Param.VAR, null));
+		try {
+			List<String> args = new ArrayList<String>();
+			List<String> splAndArgs = parseExcelSpl(expStr);
+			String spl = splAndArgs.get(0);
+			for (int i = 1; i < splAndArgs.size(); i++) {
+				String arg = splAndArgs.get(i);
+				if (!StringUtils.isValidString(arg)) {
+					arg = "arg" + i;
+				} else {
+					// 给Excel的参数名加上单引号
+					if (isExcelParam(arg)) {
+						arg = Escape.addEscAndQuote(arg, false);
+					}
+				}
+				args.add(arg);
 			}
-			addParamCmd(cmds, pl);
-		}
-		if (!StringUtils.isValidString(spl)) {
+			if (!args.isEmpty()) {
+				for (String arg : args) {
+					pl.add(new Param(arg, Param.VAR, null));
+				}
+				addParamCmd(cmds, pl);
+			}
+			if (!StringUtils.isValidString(spl)) {
+				executeCmd(cmds);
+				control.getContentPanel().initEditor(ContentPanel.MODE_HIDE);
+				setDataChanged(true);
+				return true;
+			}
+
+			PgmCellSet cellSet = AppUtil.excelSplToCellSet(spl);
+			boolean isAdd = false;
+			if (control.cellSet.getRowCount() < cellSet.getRowCount()) {
+				// 增加行
+				cmds.add(getAppendRows(cellSet.getRowCount()
+						- control.cellSet.getRowCount()));
+				isAdd = true;
+			}
+			if (control.cellSet.getColCount() < cellSet.getColCount()) {
+				// 增加列
+				cmds.add(getAppendCols(cellSet.getColCount()
+						- control.cellSet.getColCount()));
+				isAdd = true;
+			}
+			if (isAdd) {
+				executeCmd(cmds);
+				cmds.clear();
+			}
+			PgmNormalCell cell, toCell;
+			String cellExpStr;
+			for (int r = 1; r <= cellSet.getRowCount(); r++) {
+				for (int c = 1; c <= cellSet.getColCount(); c++) {
+					cell = cellSet.getPgmNormalCell(r, c);
+					if (cell != null) {
+						cellExpStr = cell.getExpString();
+						if (!args.isEmpty()) {
+							cellExpStr = replacePasteParam(cellExpStr, args);
+						}
+						toCell = control.cellSet.getPgmNormalCell(r, c);
+						AtomicCell ac = new AtomicCell(control, toCell);
+						ac.setProperty(AtomicCell.CELL_EXP);
+						ac.setValue(cellExpStr);
+						cmds.add(ac);
+					}
+				}
+			}
 			executeCmd(cmds);
 			control.getContentPanel().initEditor(ContentPanel.MODE_HIDE);
 			setDataChanged(true);
-			return true;
+		} catch (Exception ex) {
+			GM.showException(ex);
+			return false;
 		}
-		// if (!spl.startsWith("\"") || !spl.endsWith("\"")) {
-		// // SPL函数格式不正确，应为=spl(...)。
-		// JOptionPane.showMessageDialog(GV.appFrame, IdeSplMessage.get()
-		// .getMessage("spleditor.errorexcelspl"));
-		// return false;
-		// }
-
-		PgmCellSet cellSet = AppUtil.excelSplToCellSet(spl);
-		boolean isAdd = false;
-		if (control.cellSet.getRowCount() < cellSet.getRowCount()) {
-			// 增加行
-			cmds.add(getAppendRows(cellSet.getRowCount()
-					- control.cellSet.getRowCount()));
-			isAdd = true;
-		}
-		if (control.cellSet.getColCount() < cellSet.getColCount()) {
-			// 增加列
-			cmds.add(getAppendCols(cellSet.getColCount()
-					- control.cellSet.getColCount()));
-			isAdd = true;
-		}
-		if (isAdd) {
-			executeCmd(cmds);
-			cmds.clear();
-		}
-		PgmNormalCell cell, toCell;
-		String cellExpStr;
-		for (int r = 1; r <= cellSet.getRowCount(); r++) {
-			for (int c = 1; c <= cellSet.getColCount(); c++) {
-				cell = cellSet.getPgmNormalCell(r, c);
-				if (cell != null) {
-					cellExpStr = cell.getExpString();
-					if (!args.isEmpty()) {
-						cellExpStr = replacePasteParam(cellExpStr, args);
-					}
-					toCell = control.cellSet.getPgmNormalCell(r, c);
-					AtomicCell ac = new AtomicCell(control, toCell);
-					ac.setProperty(AtomicCell.CELL_EXP);
-					ac.setValue(cellExpStr);
-					cmds.add(ac);
-				}
-			}
-		}
-		executeCmd(cmds);
-		control.getContentPanel().initEditor(ContentPanel.MODE_HIDE);
-		setDataChanged(true);
 		return true;
 	}
 
@@ -2478,10 +2486,9 @@ public class SplEditor {
 	 */
 	private List<String> parseExcelSpl(String excelSpl) {
 		List<String> list = new ArrayList<String>();
-		excelSpl = excelSpl.trim();
 		String args = null;
-		PgmCellSet cellSet = CellSetUtil.toPgmCellSet(excelSpl);
-		String expStr = null;
+		String expStr = excelSpl.substring(1); // 第一个一定是双引号
+		PgmCellSet cellSet = CellSetUtil.toPgmCellSet(expStr);
 		PgmNormalCell cell;
 		if (cellSet.getRowCount() == 1 && cellSet.getColCount() == 1) {
 			// 单句
@@ -2502,6 +2509,7 @@ public class SplEditor {
 			}
 		}
 		int len = expStr.length();
+		boolean isValidSpl = false;
 		for (int i = 0; i < len; i++) {
 			char c = expStr.charAt(i);
 			if (c == '"') {
@@ -2531,32 +2539,33 @@ public class SplEditor {
 						afterStr = afterStr.trim();
 						if (afterStr.startsWith(",")) { // 引号后面是参数
 							args = afterStr;
-							break;
 						} else {
 							MessageManager mm = EngineMessage.get();
 							throw new RQException("\""
 									+ mm.getMessage("Expression.illMatched"));
 						}
 					}
+					isValidSpl = true;
+					break;
 				}
 				i = j;
-			} else if (c == ',') {
-				args = expStr.substring(i);
-				break;
 			}
 		}
+
+		if (!isValidSpl) { // 没找到最后不匹配的双引号
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("\"" + mm.getMessage("Expression.illMatched"));
+		}
+
 		if (args == null) { // 没有参数
 			list.add(excelSpl);
 		} else {
-			String spl = null;
-			if (excelSpl.startsWith(",")) { // 全是参数
-				args = excelSpl.substring(1);
-			} else { // 去掉参数和逗号就是spl
-				spl = excelSpl.substring(0, excelSpl.length() - args.length());
-				spl = spl.trim();
-				list.add(spl);
-				args = args.substring(1);
-			}
+			// 去掉参数和逗号就是spl
+			String spl = excelSpl.substring(0,
+					excelSpl.length() - args.length());
+			spl = spl.trim();
+			list.add(spl);
+			args = args.substring(1);
 			if (StringUtils.isValidString(args)) {
 				args = args.trim();
 				ArgumentTokenizer at = new ArgumentTokenizer(args);
