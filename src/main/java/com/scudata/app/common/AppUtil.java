@@ -35,12 +35,14 @@ import com.scudata.common.Escape;
 import com.scudata.common.Logger;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
+import com.scudata.common.Sentence;
 import com.scudata.common.StringUtils;
 import com.scudata.common.Types;
 import com.scudata.dm.ComputeStack;
 import com.scudata.dm.Context;
 import com.scudata.dm.Env;
 import com.scudata.dm.FileObject;
+import com.scudata.dm.KeyWord;
 import com.scudata.dm.Param;
 import com.scudata.dm.ParamList;
 import com.scudata.dm.Sequence;
@@ -356,7 +358,7 @@ public class AppUtil {
 	/**
 	 * Excel函数的参数长度有限制，不能超过255
 	 */
-	public static final int EXCEL_EXP_LENGTH = 254;
+	public static final int EXCEL_EXP_LENGTH = 250;
 
 	/**
 	 * 去掉excel表达式的引号，转换成网格对象。注意excel中转义字符是双引号
@@ -370,7 +372,10 @@ public class AppUtil {
 		spl = spl.trim();
 		// 处理SPL长度超过255的情况
 		spl = mergeExcelSpl(spl);
-		spl = Escape.removeEscAndQuote(spl, '"');
+		if (spl.startsWith("\"") && spl.endsWith("\"")) {
+			spl = spl.substring(1, spl.length() - 1);
+		}
+		// spl = Escape.removeEscAndQuote(spl, '"');
 		PgmCellSet cellSet = CellSetUtil.toPgmCellSet(spl);
 		PgmNormalCell cell;
 		String cellExpStr;
@@ -379,8 +384,11 @@ public class AppUtil {
 				cell = cellSet.getPgmNormalCell(r, c);
 				if (cell != null) {
 					cellExpStr = cell.getExpString();
+					if (r == 13 && c == 2) {
+						System.out.println(cellExpStr);
+					}
 					if (StringUtils.isValidString(cellExpStr)) {
-						cellExpStr = addEscape(cellExpStr, '\\');
+						cellExpStr = changeJavaEscape(cellExpStr);
 					}
 					cell.setExpString(cellExpStr);
 				}
@@ -396,7 +404,7 @@ public class AppUtil {
 	 * @return 合并后的脚本
 	 */
 	public static String mergeExcelSpl(String spl) {
-		String[] spls = spl.split("\"\\s*\\+\\s*&\\s*\\+\\s*\"");
+		String[] spls = spl.split("\"\\s*\\&\\s*\"");
 		if (spls.length <= 1)
 			return spl;
 		StringBuffer buf = new StringBuffer();
@@ -407,33 +415,141 @@ public class AppUtil {
 	}
 
 	/**
-	 * 引号中的双引号增加转义字符，Escape中的方法不够用
+	 * JAVA转义字符替换为Excel的
+	 * @param expStr
+	 * @return String
 	 */
-	private static String addEscape(String expStr, char escapeChar) {
+	public static String changeExcelEscape(String expStr) {
 		if (expStr == null)
 			return null;
-		int firstIndex = expStr.indexOf("\"");
-		int lastIndex = expStr.lastIndexOf("\"");
-		if (firstIndex > -1 && lastIndex > -1 && lastIndex > firstIndex) {
-			StringBuffer buf = new StringBuffer();
-			for (int i = firstIndex + 1; i < lastIndex; i++) {
-				char c = expStr.charAt(i);
-				if (c == '"') {
-					buf.append(escapeChar);
+		int len = expStr.length();
+		StringBuffer buf = new StringBuffer();
+		for (int i = 0; i < len;) {
+			char c = expStr.charAt(i);
+			if (c == '"') {
+				int match = Sentence.scanQuotation(expStr, i);
+				if (match == -1) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException("\""
+							+ mm.getMessage("Expression.illMatched"));
 				}
+				if (match > i + 1) {
+					buf.append(c);
+					for (int j = i + 1; j <= match; j++) {
+						char cs = expStr.charAt(j);
+						if (cs == '\\' && expStr.length() > j + 1
+								&& expStr.charAt(j + 1) == '"') {
+							buf.append('"');
+						} else {
+							buf.append(cs);
+						}
+					}
+				} else {
+					buf.append(expStr.subSequence(i, match));
+				}
+				match++;
+				i = match;
+			} else {
 				buf.append(c);
+				i++;
 			}
-			String before = "", after = "";
-			if (firstIndex > 0) {
-				before = expStr.substring(0, firstIndex + 1);
-			}
-			if (lastIndex < expStr.length()) {
-				after = expStr.substring(lastIndex);
-			}
-			return before + buf.toString() + after;
-		} else {
-			return expStr;
 		}
+		return buf.toString();
+	}
+
+	/**
+	 * Excel转义字符替换为JAVA的
+	 * @param expStr
+	 * @return String
+	 */
+	public static String changeJavaEscape(String expStr) {
+		if (expStr == null)
+			return null;
+		int len = expStr.length();
+		StringBuffer buf = new StringBuffer();
+		for (int i = 0; i < len;) {
+			char c = expStr.charAt(i);
+			if (c == '"') {
+				buf.append(c);
+				boolean isMatched = false;
+				for (i++; i < len; i++) {
+					c = expStr.charAt(i);
+					if (c == '"') {
+						if (i >= len - 1) { // 最后一个字符是双引号匹配
+							buf.append(c);
+							isMatched = true;
+							break;
+						}
+						i++;
+						c = expStr.charAt(i);
+						if (c == '"') { // 前一个"是转义字符
+							buf.append('\\');
+							buf.append('"');
+						} else { // 前一个"匹配了
+							buf.append('"');
+							buf.append(c);
+							isMatched = true;
+							break;
+						}
+					} else {
+						buf.append(c);
+					}
+				}
+				if (!isMatched) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException("\""
+							+ mm.getMessage("Expression.illMatched"));
+				}
+				i++;
+			} else {
+				buf.append(c);
+				i++;
+			}
+		}
+		return buf.toString();
+	}
+
+	/**
+	 * 扫描ID
+	 * 
+	 * @param expStr   表达式字符串
+	 * @param location 起始位置
+	 * @return 找到的ID
+	 */
+	public static String scanId(String expStr, int location) {
+		int len = expStr.length();
+		int begin = location;
+
+		while (location < len) {
+			char c = expStr.charAt(location);
+			if (KeyWord.isSymbol(c)) {
+				break;
+			} else {
+				location++;
+			}
+		}
+
+		return expStr.substring(begin, location);
+	}
+
+	/**
+	 * 返回下一个字符是否是指定字符c，空字符跳过
+	 * 
+	 * @param c        字符
+	 * @param expStr   表达式字符串
+	 * @param location 起始位置
+	 * @return 下一个字符是否是指定字符c
+	 */
+	public static boolean isNextChar(char c, String expStr, int location) {
+		int len = expStr.length();
+		for (int i = location; i < len; ++i) {
+			if (expStr.charAt(i) == c) {
+				return true;
+			} else if (!Character.isWhitespace(expStr.charAt(i))) {
+				return false;
+			}
+		}
+		return false;
 	}
 
 	/**
