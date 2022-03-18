@@ -985,7 +985,7 @@ public class BFileReader {
 			open(1024);
 		} catch (IOException e) {
 			MessageManager mm = EngineMessage.get();
-			throw new RQException(file.getFileName() + mm.getMessage("file.fileNotExist"));
+			throw new RQException(mm.getMessage("file.fileNotExist", file.getFileName()));
 		}
 		
 		String[] fieldNames = exp.toFields();
@@ -1387,7 +1387,7 @@ public class BFileReader {
 			open(1024);
 		} catch (IOException e) {
 			MessageManager mm = EngineMessage.get();
-			throw new RQException(mm.getMessage("file.fileNoExist"));
+			throw new RQException(mm.getMessage("file.fileNoExist", file.getFileName()));
 		}
 
 		// 多字段表达式，走另外的流程，可以大幅提高效率
