@@ -35,7 +35,6 @@ import com.scudata.common.Escape;
 import com.scudata.common.Logger;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
-import com.scudata.common.Sentence;
 import com.scudata.common.StringUtils;
 import com.scudata.common.Types;
 import com.scudata.dm.ComputeStack;
@@ -333,6 +332,8 @@ public class AppUtil {
 	 */
 	public static Object executeExcel(String spl, Sequence args, Context ctx)
 			throws Exception {
+		Logger.debug("SPL=" + spl);
+		Logger.debug("PARAMETERS=" + args);
 		if (!StringUtils.isValidString(spl))
 			return null;
 		PgmCellSet cellSet = excelSplToCellSet(spl);
@@ -356,7 +357,7 @@ public class AppUtil {
 	}
 
 	/**
-	 * Excel函数的参数长度有限制，不能超过255
+	 * Excel函数的参数长度有限制，不能超过255，因为还有符号，这里要求250以内
 	 */
 	public static final int EXCEL_EXP_LENGTH = 250;
 
@@ -372,29 +373,26 @@ public class AppUtil {
 		spl = spl.trim();
 		// 处理SPL长度超过255的情况
 		spl = mergeExcelSpl(spl);
-		if (spl.startsWith("\"") && spl.endsWith("\"")) {
-			spl = spl.substring(1, spl.length() - 1);
-		}
-		// spl = Escape.removeEscAndQuote(spl, '"');
+		// if (spl.startsWith("\"") && spl.endsWith("\"")) {
+		// spl = spl.substring(1, spl.length() - 1);
+		// }
+		spl = Escape.removeEscAndQuote(spl, '"');
+		spl = spl.trim();
 		PgmCellSet cellSet = CellSetUtil.toPgmCellSet(spl);
-		PgmNormalCell cell;
-		String cellExpStr;
-		for (int r = 1; r <= cellSet.getRowCount(); r++) {
-			for (int c = 1; c <= cellSet.getColCount(); c++) {
-				cell = cellSet.getPgmNormalCell(r, c);
-				if (cell != null) {
-					cellExpStr = cell.getExpString();
-					if (r == 13 && c == 2) {
-						System.out.println(cellExpStr);
-					}
-					if (StringUtils.isValidString(cellExpStr)) {
-						cellExpStr = changeJavaEscape(cellExpStr);
-					}
-					cell.setExpString(cellExpStr);
-				}
-			}
-		}
-
+		// PgmNormalCell cell;
+		// String cellExpStr;
+		// for (int r = 1; r <= cellSet.getRowCount(); r++) {
+		// for (int c = 1; c <= cellSet.getColCount(); c++) {
+		// cell = cellSet.getPgmNormalCell(r, c);
+		// if (cell != null) {
+		// cellExpStr = cell.getExpString();
+		// if (StringUtils.isValidString(cellExpStr)) {
+		// cellExpStr = changeJavaEscape(cellExpStr);
+		// }
+		// cell.setExpString(cellExpStr);
+		// }
+		// }
+		// }
 		return cellSet;
 	}
 
@@ -403,14 +401,39 @@ public class AppUtil {
 	 * @param spl 脚本
 	 * @return 合并后的脚本
 	 */
-	public static String mergeExcelSpl(String spl) {
-		String[] spls = spl.split("\"\\s*\\&\\s*\"");
-		if (spls.length <= 1)
-			return spl;
+	public static String mergeExcelSpl(String expStr) {
+		expStr = expStr.trim();
+		int len = expStr.length();
+		int lastStart = 0;
 		StringBuffer buf = new StringBuffer();
-		for (String s : spls) {
-			buf.append(s);
+		for (int i = 0; i < len; i++) {
+			char c = expStr.charAt(i);
+			if (c == '"') {
+				int j = i + 1;
+				for (; j < len; j++) {
+					c = expStr.charAt(j);
+					if (c == '"') {
+						j++;
+						if (j >= len - 1) { // 与最后一个引号匹配
+							i = j;
+							break;
+						}
+						c = expStr.charAt(j);
+						if (c == '"') { // 前一个"是转义字符
+						} else { // 前一个"匹配了
+							if (AppUtil.isNextChar('&', expStr, j)) { // 连接符
+								buf.append(expStr.substring(lastStart, j - 1));
+								int index = expStr.indexOf('&', j);
+								i = index + 1;
+								lastStart = i;
+							}
+							break;
+						}
+					}
+				}
+			}
 		}
+		buf.append(expStr.substring(lastStart, expStr.length()));
 		return buf.toString();
 	}
 
@@ -419,95 +442,95 @@ public class AppUtil {
 	 * @param expStr
 	 * @return String
 	 */
-	public static String changeExcelEscape(String expStr) {
-		if (expStr == null)
-			return null;
-		int len = expStr.length();
-		StringBuffer buf = new StringBuffer();
-		for (int i = 0; i < len;) {
-			char c = expStr.charAt(i);
-			if (c == '"') {
-				int match = Sentence.scanQuotation(expStr, i);
-				if (match == -1) {
-					MessageManager mm = EngineMessage.get();
-					throw new RQException("\""
-							+ mm.getMessage("Expression.illMatched"));
-				}
-				if (match > i + 1) {
-					buf.append(c);
-					for (int j = i + 1; j <= match; j++) {
-						char cs = expStr.charAt(j);
-						if (cs == '\\' && expStr.length() > j + 1
-								&& expStr.charAt(j + 1) == '"') {
-							buf.append('"');
-						} else {
-							buf.append(cs);
-						}
-					}
-				} else {
-					buf.append(expStr.subSequence(i, match));
-				}
-				match++;
-				i = match;
-			} else {
-				buf.append(c);
-				i++;
-			}
-		}
-		return buf.toString();
-	}
+	// public static String changeExcelEscape(String expStr) {
+	// if (expStr == null)
+	// return null;
+	// int len = expStr.length();
+	// StringBuffer buf = new StringBuffer();
+	// for (int i = 0; i < len;) {
+	// char c = expStr.charAt(i);
+	// if (c == '"') {
+	// int match = Sentence.scanQuotation(expStr, i);
+	// if (match == -1) {
+	// MessageManager mm = EngineMessage.get();
+	// throw new RQException("\""
+	// + mm.getMessage("Expression.illMatched"));
+	// }
+	// if (match > i + 1) {
+	// buf.append(c);
+	// for (int j = i + 1; j <= match; j++) {
+	// char cs = expStr.charAt(j);
+	// if (cs == '\\' && expStr.length() > j + 1
+	// && expStr.charAt(j + 1) == '"') {
+	// buf.append('"');
+	// } else {
+	// buf.append(cs);
+	// }
+	// }
+	// } else {
+	// buf.append(expStr.subSequence(i, match));
+	// }
+	// match++;
+	// i = match;
+	// } else {
+	// buf.append(c);
+	// i++;
+	// }
+	// }
+	// return buf.toString();
+	// }
 
 	/**
 	 * Excel转义字符替换为JAVA的
 	 * @param expStr
 	 * @return String
 	 */
-	public static String changeJavaEscape(String expStr) {
-		if (expStr == null)
-			return null;
-		int len = expStr.length();
-		StringBuffer buf = new StringBuffer();
-		for (int i = 0; i < len;) {
-			char c = expStr.charAt(i);
-			if (c == '"') {
-				buf.append(c);
-				boolean isMatched = false;
-				for (i++; i < len; i++) {
-					c = expStr.charAt(i);
-					if (c == '"') {
-						if (i >= len - 1) { // 最后一个字符是双引号匹配
-							buf.append(c);
-							isMatched = true;
-							break;
-						}
-						i++;
-						c = expStr.charAt(i);
-						if (c == '"') { // 前一个"是转义字符
-							buf.append('\\');
-							buf.append('"');
-						} else { // 前一个"匹配了
-							buf.append('"');
-							buf.append(c);
-							isMatched = true;
-							break;
-						}
-					} else {
-						buf.append(c);
-					}
-				}
-				if (!isMatched) {
-					MessageManager mm = EngineMessage.get();
-					throw new RQException("\""
-							+ mm.getMessage("Expression.illMatched"));
-				}
-				i++;
-			} else {
-				buf.append(c);
-				i++;
-			}
-		}
-		return buf.toString();
-	}
+	// public static String changeJavaEscape(String expStr) {
+	// if (expStr == null)
+	// return null;
+	// int len = expStr.length();
+	// StringBuffer buf = new StringBuffer();
+	// for (int i = 0; i < len;) {
+	// char c = expStr.charAt(i);
+	// if (c == '"') {
+	// buf.append(c);
+	// boolean isMatched = false;
+	// for (i++; i < len; i++) {
+	// c = expStr.charAt(i);
+	// if (c == '"') {
+	// if (i >= len - 1) { // 最后一个字符是双引号匹配
+	// buf.append(c);
+	// isMatched = true;
+	// break;
+	// }
+	// i++;
+	// c = expStr.charAt(i);
+	// if (c == '"') { // 前一个"是转义字符
+	// buf.append('\\');
+	// buf.append('"');
+	// } else { // 前一个"匹配了
+	// buf.append('"');
+	// buf.append(c);
+	// isMatched = true;
+	// break;
+	// }
+	// } else {
+	// buf.append(c);
+	// }
+	// }
+	// if (!isMatched) {
+	// MessageManager mm = EngineMessage.get();
+	// throw new RQException("\""
+	// + mm.getMessage("Expression.illMatched"));
+	// }
+	// i++;
+	// } else {
+	// buf.append(c);
+	// i++;
+	// }
+	// }
+	// return buf.toString();
+	// }
 
 	/**
 	 * 扫描ID
