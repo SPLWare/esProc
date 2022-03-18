@@ -65,7 +65,6 @@ import com.scudata.ide.spl.etl.EtlConsts;
 import com.scudata.ide.spl.etl.ObjectElement;
 import com.scudata.ide.spl.resources.IdeSplMessage;
 import com.scudata.resources.EngineMessage;
-import com.scudata.util.CellSetUtil;
 
 /**
  * 网格编辑器
@@ -2065,38 +2064,6 @@ public class SplEditor {
 			StringBuffer buf = new StringBuffer();
 			PgmNormalCell cell;
 			String cellExpStr;
-			// boolean isCall = false;
-			// if (startRow == endRow && startCol == endCol) { // 只有一个call splx格
-			// cell = cellSet.getPgmNormalCell(startRow, startCol);
-			// if (cell.getType() == PgmNormalCell.TYPE_CALCULABLE_CELL) {
-			// cellExpStr = cell.getExpString();
-			// if (StringUtils.isValidString(cellExpStr)) {
-			// cellExpStr = cellExpStr.trim();
-			// // 有选项的是用户自己编辑的，不处理了
-			// if (cellExpStr.startsWith("=call(")
-			// && cellExpStr.endsWith(")")) {
-			// cellExpStr = cellExpStr.substring(6);
-			// int index = cellExpStr.indexOf(",");
-			// if (index > 0) { // 有参数
-			// cellExpStr = Escape
-			// .removeEscAndQuote(cellExpStr
-			// .substring(0, index))
-			// + cellExpStr.substring(index + 1);
-			// } else { // 无参数
-			// cellExpStr = cellExpStr.substring(0,
-			// cellExpStr.length() - 1);
-			// cellExpStr = Escape
-			// .removeEscAndQuote(cellExpStr) + "()";
-			// }
-			// cellExpStr = replaceCopyParam(cellExpStr, params,
-			// usedParams);
-			// buf.append(cellExpStr);
-			// isCall = true;
-			// }
-			// }
-			// }
-			// }
-			// if (!isCall)
 			for (int r = startRow; r <= endRow; r++) {
 				if (r > startRow) {
 					buf.append(ROW_SEP);
@@ -2113,17 +2080,19 @@ public class SplEditor {
 								cellExpStr = replaceCopyParam(cellExpStr,
 										params, usedParams);
 							}
-							if (cellExpStr.indexOf("\"") > 0) {
-								cellExpStr = AppUtil
-										.changeExcelEscape(cellExpStr);
-							}
+							// if (cellExpStr.indexOf("\"") > 0) {
+							// cellExpStr = AppUtil
+							// .changeExcelEscape(cellExpStr);
+							// }
 							buf.append(cellExpStr);
 						}
 					}
 				}
 			}
 			String spl = buf.toString();
-			spl = "\"" + spl + "\"";
+			spl = Escape.addEscAndQuote(spl, '"');
+			spl = spl.replaceAll("\"n", ROW_SEP);
+			spl = spl.replaceAll("\"t", COL_SEP);
 
 			if (spl.length() > AppUtil.EXCEL_EXP_LENGTH) {
 				buf = new StringBuffer();
@@ -2458,6 +2427,9 @@ public class SplEditor {
 					cell = cellSet.getPgmNormalCell(r, c);
 					if (cell != null) {
 						cellExpStr = cell.getExpString();
+						if (cellExpStr != null) {
+							cellExpStr = cellExpStr.trim();
+						}
 						if (!args.isEmpty()) {
 							cellExpStr = replacePasteParam(cellExpStr, args);
 						}
@@ -2484,97 +2456,67 @@ public class SplEditor {
 	 * @param spl函数
 	 * @return List<String>
 	 */
-	private List<String> parseExcelSpl(String excelSpl) {
+	private List<String> parseExcelSpl(String expStr) {
 		List<String> list = new ArrayList<String>();
-		String args = null;
-		String expStr = excelSpl.substring(1); // 第一个一定是双引号
-		PgmCellSet cellSet = CellSetUtil.toPgmCellSet(expStr);
-		PgmNormalCell cell;
-		if (cellSet.getRowCount() == 1 && cellSet.getColCount() == 1) {
-			// 单句
-			cell = cellSet.getPgmNormalCell(1, 1);
-			expStr = cell.getExpString();
-		} else {
-			for (int r = cellSet.getRowCount(); r >= 1; r--) {
-				for (int c = cellSet.getColCount(); c >= 1; c--) {
-					cell = cellSet.getPgmNormalCell(r, c);
-					expStr = cell.getExpString();
-					if (StringUtils.isValidString(expStr)) {
-						break;
-					}
-				}
-				if (StringUtils.isValidString(expStr)) {
-					break;
-				}
-			}
-		}
+		expStr = expStr.trim();
 		int len = expStr.length();
-		boolean isValidSpl = false;
+		int argStart = -1;
+		boolean isMatched = false;
 		for (int i = 0; i < len; i++) {
 			char c = expStr.charAt(i);
 			if (c == '"') {
-				boolean isMatched = false;
 				int j = i + 1;
 				for (; j < len; j++) {
 					c = expStr.charAt(j);
 					if (c == '"') {
 						j++;
-						if (j >= len - 1) {
-							j--;
+						if (j >= len - 1) { // 与最后一个引号匹配，没有参数
 							isMatched = true;
 							break;
 						}
 						c = expStr.charAt(j);
 						if (c == '"') { // 前一个"是转义字符
-						} else { // 前一个"匹配了
-							j--;
+						} else { // 前一个"匹配了，后面剩下的是参数
+							if (AppUtil.isNextChar('&', expStr, j)) { // 连接符
+								int index = expStr.indexOf('&', j);
+								i = index;
+								break;
+							}
+							// 后面不是连接符就是参数了
+							if (!AppUtil.isNextChar(',', expStr, j)) {
+								MessageManager mm = EngineMessage.get();
+								throw new RQException(
+										"\""
+												+ mm.getMessage("Expression.illMatched"));
+							}
+							argStart = j;
 							isMatched = true;
 							break;
 						}
 					}
 				}
-				if (!isMatched) {
-					if (i < len - 1) { // 引号后面还有内容
-						String afterStr = expStr.substring(i + 1);
-						afterStr = afterStr.trim();
-						if (afterStr.startsWith(",")) { // 引号后面是参数
-							args = afterStr;
-						} else {
-							MessageManager mm = EngineMessage.get();
-							throw new RQException("\""
-									+ mm.getMessage("Expression.illMatched"));
-						}
-					}
-					isValidSpl = true;
+				if (isMatched)
 					break;
-				}
-				i = j;
 			}
 		}
-
-		if (!isValidSpl) { // 没找到最后不匹配的双引号
+		if (!isMatched) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("\"" + mm.getMessage("Expression.illMatched"));
 		}
 
-		if (args == null) { // 没有参数
-			list.add(excelSpl);
+		if (argStart == -1) { // 无参数
+			list.add(expStr);
 		} else {
-			// 去掉参数和逗号就是spl
-			String spl = excelSpl.substring(0,
-					excelSpl.length() - args.length());
-			spl = spl.trim();
-			list.add(spl);
-			args = args.substring(1);
-			if (StringUtils.isValidString(args)) {
-				args = args.trim();
-				ArgumentTokenizer at = new ArgumentTokenizer(args);
-				while (at.hasMoreTokens()) {
-					String arg = at.nextToken();
-					if (arg != null)
-						arg = arg.trim();
-					list.add(arg);
-				}
+			String spl = expStr.substring(0, argStart);
+			list.add(spl.trim());
+			String args = expStr.substring(argStart);
+			args = args.trim().substring(1); // 去掉第一个逗号
+			ArgumentTokenizer at = new ArgumentTokenizer(args);
+			while (at.hasMoreTokens()) {
+				String arg = at.nextToken();
+				if (arg != null)
+					arg = arg.trim();
+				list.add(arg);
 			}
 		}
 		return list;
@@ -2615,7 +2557,7 @@ public class SplEditor {
 					throw new RQException("\""
 							+ mm.getMessage("Expression.illMatched"));
 				}
-				buf.append(expStr.subSequence(i, match));
+				buf.append(expStr.subSequence(i, match + 1));
 				match++;
 				i = match;
 			} else if (KeyWord.isSymbol(c)) {
