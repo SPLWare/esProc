@@ -371,10 +371,11 @@ public class AppUtil {
 		if (!StringUtils.isValidString(spl))
 			return null;
 		spl = spl.trim();
-		// 处理SPL长度超过255的情况
-		spl = mergeExcelSpl(spl);
 		// excel自动调用的可能已经去了引号
 		if (spl.startsWith("\"") && spl.endsWith("\"")) {
+			// 处理SPL长度超过255的情况
+			spl = mergeExcelSpl(spl);
+			// 去掉转义符，注意Excel中是双引号
 			spl = Escape.removeEscAndQuote(spl, '"');
 		}
 		spl = spl.trim();
