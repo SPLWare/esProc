@@ -332,8 +332,8 @@ public class AppUtil {
 	 */
 	public static Object executeExcel(String spl, Sequence args, Context ctx)
 			throws Exception {
-		Logger.debug("SPL=" + spl);
-		Logger.debug("PARAMETERS=" + args);
+		Logger.debug("SPL: " + spl);
+		Logger.debug("PARAMETERS: " + args);
 		if (!StringUtils.isValidString(spl))
 			return null;
 		PgmCellSet cellSet = excelSplToCellSet(spl);
