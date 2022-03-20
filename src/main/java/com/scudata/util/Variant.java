@@ -372,7 +372,7 @@ public class Variant {
 	}
 	
 	/**
-	 * 用于remainder函数
+	 * 用于remainder函数，对两个数做取余运算
 	 * @param o1 左面数值
 	 * @param o2 右面数值
 	 * @return Number
