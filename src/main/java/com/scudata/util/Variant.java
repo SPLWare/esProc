@@ -485,7 +485,7 @@ public class Variant {
 			//if (((Number)o2).doubleValue() == 0) {
 			//	return INFINITY;
 			//}
-
+			
 			int type = getMaxNumberType(o1, o2);
 			try {
 				if (type == DT_DECIMAL) {
