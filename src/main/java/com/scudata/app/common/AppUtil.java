@@ -29,6 +29,7 @@ import java.util.List;
 import sun.net.util.IPAddressUtil;
 
 import com.esproc.jdbc.JDBCConsts;
+import com.scudata.cellset.datamodel.Command;
 import com.scudata.cellset.datamodel.PgmCellSet;
 import com.scudata.cellset.datamodel.PgmNormalCell;
 import com.scudata.common.Escape;
@@ -102,12 +103,17 @@ public class AppUtil {
 		cmd = cmd.trim();
 		boolean returnValue = true;
 		boolean isExp = false;
+		boolean isGrid = false;
 		if (cmd.startsWith(">")) {
 			returnValue = false;
 			isExp = true;
 		} else if (cmd.startsWith("=")) {
 			cmd = cmd.substring(1);
 			isExp = true;
+			isGrid = isGrid(cmd);
+			if (!isGrid && Command.isCommand(cmd)) { // 单个表达式也可能是网格表达式
+				isGrid = true;
+			}
 		}
 		cmd = cmd.trim();
 		if (escape)
@@ -133,7 +139,6 @@ public class AppUtil {
 				}
 			}
 		}
-		boolean isGrid = isGrid(cmd);
 		Object val;
 		if (isGrid) {
 			val = AppUtil.execute(cmd, args, ctx);

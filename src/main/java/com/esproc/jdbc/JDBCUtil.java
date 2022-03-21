@@ -266,9 +266,10 @@ public class JDBCUtil {
 		} else if (sql.startsWith("=")) {
 			isGrid = AppUtil.isGrid(sql);
 			sql = sql.substring(1);
-			if (Command.isCommand(sql)) { // 单个表达式也可能是网格表达式
-				isGrid = true;
-			}
+			if (!isGrid)
+				if (Command.isCommand(sql)) { // 单个表达式也可能是网格表达式
+					isGrid = true;
+				}
 		} else if (sql.toLowerCase().startsWith(JDBCConsts.KEY_CALLS)) {
 			sql = sql.substring(JDBCConsts.KEY_CALLS.length());
 			sql = sql.trim();
