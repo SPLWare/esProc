@@ -2215,7 +2215,15 @@ public class SplEditor {
 				String arg = null;
 				if (c == '\'') {
 					String name = expStr.substring(i, match + 1);
-					if (params.contains(name) || isExcelParam(name)) { // 参数或者excel单元格、区域、引用其他工作簿
+					boolean isParam = params.contains(name);
+					if (!isParam) {
+						if (name != null)
+							name = Escape.removeEscAndQuote(name);
+						if (isExcelParam(name)) {
+							isParam = true;
+						}
+					}
+					if (isParam) { // 参数或者excel单元格、区域、引用其他工作簿
 						int pIndex = usedParams.indexOf(name);
 						if (pIndex < 0) {
 							usedParams.add(name);
@@ -2276,6 +2284,8 @@ public class SplEditor {
 	 * @return
 	 */
 	private static boolean isExcelParam(String name) {
+		if (!StringUtils.isValidString(name))
+			return false;
 		// 首先匹配格子
 		if (isExcelCellName(name))
 			return true;
@@ -2396,12 +2406,14 @@ public class SplEditor {
 				String arg = splAndArgs.get(i);
 				if (!StringUtils.isValidString(arg)) {
 					arg = "arg" + i;
-				} else {
-					// 给Excel的参数名加上单引号
-					if (isExcelParam(arg)) {
-						arg = Escape.addEscAndQuote(arg, false);
-					}
 				}
+				// 参数名不加引号，表达式里加上引号
+				// else {
+				// // 给Excel的参数名加上单引号
+				// if (isExcelParam(arg)) {
+				// arg = Escape.addEscAndQuote(arg, false);
+				// }
+				// }
 				args.add(arg);
 			}
 			if (!args.isEmpty()) {
@@ -2608,7 +2620,11 @@ public class SplEditor {
 						argIndex = num;
 					}
 					if (arg != null) {
-						buf.append(arg);
+						if (isExcelParam(arg)) {
+							buf.append(Escape.addEscAndQuote(arg, false));
+						} else {
+							buf.append(arg);
+						}
 					} else {
 						buf.append(id);
 					}
