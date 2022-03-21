@@ -425,8 +425,8 @@ public class AppUtil {
 							if (AppUtil.isNextChar('&', expStr, j)) { // Á¬½Ó·û
 								buf.append(expStr.substring(lastStart, j - 1));
 								int index = expStr.indexOf('&', j);
-								i = index + 1;
-								lastStart = i;
+								lastStart = index + 1;
+								i = index;
 							}
 							break;
 						}

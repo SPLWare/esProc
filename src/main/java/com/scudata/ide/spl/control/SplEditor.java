@@ -2101,8 +2101,23 @@ public class SplEditor {
 						buf.append("\"&\"");
 					}
 					if (spl.length() > AppUtil.EXCEL_EXP_LENGTH) {
-						buf.append(spl.substring(0, AppUtil.EXCEL_EXP_LENGTH));
-						spl = spl.substring(AppUtil.EXCEL_EXP_LENGTH);
+						int endIndex = AppUtil.EXCEL_EXP_LENGTH;
+						if (spl.charAt(endIndex) == '"') {
+							if (spl.charAt(endIndex - 1) == '"') {
+								// 如果相邻两边都是引号，向前找到一边不是引号的地方增加连接符号
+								for (int i = endIndex - 1; i >= 0; i--) {
+									if (spl.charAt(i) != '"') {
+										endIndex = i;
+										break;
+									}
+								}
+							}
+						}
+						if (endIndex <= 1) { // 连续引号的情况就不管了
+							endIndex = AppUtil.EXCEL_EXP_LENGTH;
+						}
+						buf.append(spl.substring(0, endIndex));
+						spl = spl.substring(endIndex);
 					} else {
 						buf.append(spl);
 						break;
