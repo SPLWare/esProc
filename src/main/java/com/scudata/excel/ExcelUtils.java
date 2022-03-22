@@ -645,7 +645,7 @@ public class ExcelUtils {
 				try {
 					type = ExcelVersionCompatibleUtilGetter.getInstance()
 							.getCellType(evaluator.evaluate(cell));
-				} catch (NotImplementedException e) {
+				} catch (Exception e) {
 					// 因为poi不支持的函数抛出的异常信息
 					// 试着取值
 					try {
@@ -663,6 +663,13 @@ public class ExcelUtils {
 					if (items[colIndex] == null) {
 						try {
 							items[colIndex] = cell.getStringCellValue();
+						} catch (Exception e1) {
+						}
+					}
+					if (items[colIndex] == null) {
+						try {
+							items[colIndex] = cell.getRichStringCellValue()
+									.toString();
 						} catch (Exception e1) {
 						}
 					}
