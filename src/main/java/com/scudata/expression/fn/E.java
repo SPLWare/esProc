@@ -24,9 +24,6 @@ import com.scudata.resources.EngineMessage;
  * @b 无标题
  * @p 二层序列是转置的
  * @s x是序表时返回成回车/TAB分隔的串
- * @2 x是二层序列时不处理，x是一层序列时转换成每行一个的二层序列
- *   @1 x是二层序列时不处理，x是一层序列时转换成只有一行的二层序列
- * @1 x是一层序列时不处理，x是二层序列时用.conj()转成一层序列
  */
 public class E extends Function {
 	/**
@@ -68,9 +65,9 @@ public class E extends Function {
 		boolean isP = opt != null && opt.indexOf("p") != -1;
 		boolean isS = opt != null && opt.indexOf("s") != -1;
 
-		boolean isTwo = opt != null && opt.indexOf("2") != -1;
-		boolean isOne = opt != null && opt.indexOf("1") != -1;
-		boolean isTwoOne = isTwo && isOne;
+		// boolean isTwo = opt != null && opt.indexOf("2") != -1;
+		// boolean isOne = opt != null && opt.indexOf("1") != -1;
+		// boolean isTwoOne = isTwo && isOne;
 
 		if (x instanceof Sequence) {
 			Sequence seq = (Sequence) x;
@@ -83,31 +80,12 @@ public class E extends Function {
 				seq = pmt2Sequence(seq, !isB);
 				return seq;
 			} else if (isSeqSequence(seq)) {
-				if (isOne) {
-					// x是二层序列时用.conj()转成一层序列
-					seq = seq.conj(null);
-				} else {
-					// x是二层序列时，转换成多行序表，每行一条记录，第一行是标题。
-					if (isP) { // 二层序列是转置的
-						seq = ExcelUtils.transpose(seq);
-					}
-					seq = sequence2Pmt(seq, !isB);
+				// x是二层序列时，转换成多行序表，每行一条记录，第一行是标题。
+				if (isP) { // 二层序列是转置的
+					seq = ExcelUtils.transpose(seq);
 				}
+				seq = sequence2Pmt(seq, !isB);
 				return seq;
-			} else if (isTwoOne) {
-				// x是一层序列时转换成只有一行的二层序列
-				Sequence seq2 = new Sequence();
-				seq2.add(seq); // 将序列作为二层序列的一行
-				return seq2;
-			} else if (isTwo) {
-				// x是一层序列时转换成每行一个的二层序列
-				Sequence seq2 = new Sequence();
-				for (int i = 1, len = seq.length(); i <= len; i++) {
-					Sequence rowSeq = new Sequence();
-					rowSeq.add(seq.get(i));
-					seq2.add(rowSeq);
-				}
-				return seq2;
 			} else {
 				MessageManager mm = EngineMessage.get();
 				throw new RQException(FUNC_NAME
