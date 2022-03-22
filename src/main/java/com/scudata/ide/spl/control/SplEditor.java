@@ -31,6 +31,7 @@ import com.scudata.common.ByteMap;
 import com.scudata.common.CellLocation;
 import com.scudata.common.Escape;
 import com.scudata.common.IByteMap;
+import com.scudata.common.Logger;
 import com.scudata.common.Matrix;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
@@ -2337,9 +2338,9 @@ public class SplEditor {
 	}
 
 	/**
-	 * Excel函数的参数长度有限制，不能超过255，这里要求250以内
+	 * Excel函数的参数长度有限制不能超过255，excel中统计的长度更长，所以要求125以内
 	 */
-	private static final int EXCEL_EXP_LENGTH = 250;
+	private static final int EXCEL_EXP_LENGTH = 125;
 
 	/**
 	 * 将Excel中超过255字符限制的SPL串拆分成多段，每段以\结尾。
@@ -2465,7 +2466,8 @@ public class SplEditor {
 							cellExpStr = cellExpStr.trim();
 						}
 						if (!args.isEmpty()) {
-							cellExpStr = replacePasteParam(cellExpStr, args);
+							cellExpStr = replacePasteParam(cellExpStr, args,
+									cell.getCellId());
 						}
 						toCell = control.cellSet.getPgmNormalCell(r, c);
 						AtomicCell ac = new AtomicCell(control, toCell);
@@ -2577,12 +2579,14 @@ public class SplEditor {
 
 	/**
 	 * 替换Excel粘贴表达式中的?或?i。
+	 * 格子里的匹配错误，只输出错误不抛异常了，这样用户可以在集算器里修改。
 	 * 
 	 * @param expStr
 	 * @param args
 	 * @return
 	 */
-	private static String replacePasteParam(String expStr, List<String> args) {
+	private static String replacePasteParam(String expStr, List<String> args,
+			String cellId) {
 		if (expStr == null)
 			return null;
 		int len = expStr.length();
@@ -2594,8 +2598,9 @@ public class SplEditor {
 				int match = Sentence.scanQuotation(expStr, i);
 				if (match == -1) {
 					MessageManager mm = EngineMessage.get();
-					throw new RQException("\""
+					Logger.error(cellId + ": \""
 							+ mm.getMessage("Expression.illMatched"));
+					return expStr;
 				}
 				buf.append(expStr.subSequence(i, match + 1));
 				match++;
@@ -2625,9 +2630,11 @@ public class SplEditor {
 						int num = Integer.parseInt(sNum);
 						if (args.size() < num) {
 							// {0}与参数的数量不匹配。
-							throw new RQException(IdeSplMessage.get()
-									.getMessage("spleditor.excelparamnotmatch",
-											id));
+							Logger.error(cellId
+									+ ": "
+									+ IdeSplMessage.get().getMessage(
+											"spleditor.excelparamnotmatch", id));
+							return expStr;
 						}
 						arg = args.get(num - 1);
 						argIndex = num;
