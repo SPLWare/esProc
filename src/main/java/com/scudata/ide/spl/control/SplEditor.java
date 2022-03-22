@@ -2094,40 +2094,19 @@ public class SplEditor {
 			spl = spl.replaceAll("\"n", ROW_SEP);
 			spl = spl.replaceAll("\"t", COL_SEP);
 
-			if (spl.length() > AppUtil.EXCEL_EXP_LENGTH) {
-				buf = new StringBuffer();
-				while (spl.length() > 0) {
-					if (buf.length() > 0) {
-						buf.append("\"&\"");
-					}
-					if (spl.length() > AppUtil.EXCEL_EXP_LENGTH) {
-						int endIndex = AppUtil.EXCEL_EXP_LENGTH;
-						if (spl.charAt(endIndex) == '"') {
-							if (spl.charAt(endIndex - 1) == '"') {
-								// 如果相邻两边都是引号，向前找到一边不是引号的地方增加连接符号
-								for (int i = endIndex - 1; i >= 0; i--) {
-									if (spl.charAt(i) != '"') {
-										endIndex = i;
-										break;
-									}
-								}
-							}
-						}
-						if (endIndex <= 1) { // 连续引号的情况就不管了
-							endIndex = AppUtil.EXCEL_EXP_LENGTH;
-						}
-						buf.append(spl.substring(0, endIndex));
-						spl = spl.substring(endIndex);
-					} else {
-						buf.append(spl);
-						break;
-					}
-				}
-				spl = buf.toString();
-			}
+			String[] spls = splitExcelSpl(spl);
+
 			buf = new StringBuffer();
 			buf.append("=spl(");
-			buf.append(spl);
+			for (int i = 0; i < spls.length; i++) {
+				if (i > 0)
+					buf.append(",\"");
+				buf.append(spls[i]);
+				if (i < spls.length - 1) {
+					buf.append(AppUtil.EXCEL_SPLIT_CHAR);
+					buf.append("\"");
+				}
+			}
 			if (!usedParams.isEmpty()) {
 				for (String pname : usedParams) {
 					buf.append(",");
@@ -2358,6 +2337,41 @@ public class SplEditor {
 	}
 
 	/**
+	 * Excel函数的参数长度有限制，不能超过255，这里要求250以内
+	 */
+	private static final int EXCEL_EXP_LENGTH = 250;
+
+	/**
+	 * 将Excel中超过255字符限制的SPL串拆分成多段，每段以\结尾。
+	 * @param spl
+	 * @return
+	 */
+	private static String[] splitExcelSpl(String spl) {
+		List<String> spls = new ArrayList<String>();
+		while (spl.length() > EXCEL_EXP_LENGTH) {
+			int endIndex = EXCEL_EXP_LENGTH;
+			if (spl.charAt(endIndex) == '"') {
+				if (spl.charAt(endIndex - 1) == '"') {
+					// 如果相邻两边都是引号，向前找到一边不是引号的地方增加连接符号
+					for (int i = endIndex - 1; i >= 0; i--) {
+						if (spl.charAt(i) != '"') {
+							endIndex = i;
+							break;
+						}
+					}
+				}
+			}
+			if (endIndex <= 1) { // 连续引号的情况就不管了
+				endIndex = EXCEL_EXP_LENGTH;
+			}
+			spls.add(spl.substring(0, endIndex));
+			spl = spl.substring(endIndex);
+		}
+		spls.add(spl);
+		return spls.toArray(new String[spls.size()]);
+	}
+
+	/**
 	 * Excel粘贴
 	 * 
 	 * @return
@@ -2393,7 +2407,7 @@ public class SplEditor {
 		}
 		expStr = expStr.trim();
 		if (!expStr.startsWith("\"")) {
-			// SPL函数格式不正确，应为=spl(...)。
+			// SPL函数格式不正确，应为=spl("...", ...)。
 			JOptionPane.showMessageDialog(GV.appFrame, IdeSplMessage.get()
 					.getMessage("spleditor.errorexcelspl"));
 			return false;
@@ -2407,13 +2421,6 @@ public class SplEditor {
 				if (!StringUtils.isValidString(arg)) {
 					arg = "arg" + i;
 				}
-				// 参数名不加引号，表达式里加上引号
-				// else {
-				// // 给Excel的参数名加上单引号
-				// if (isExcelParam(arg)) {
-				// arg = Escape.addEscAndQuote(arg, false);
-				// }
-				// }
 				args.add(arg);
 			}
 			if (!args.isEmpty()) {
@@ -2429,7 +2436,7 @@ public class SplEditor {
 				return true;
 			}
 
-			PgmCellSet cellSet = AppUtil.excelSplToCellSet(spl);
+			PgmCellSet cellSet = AppUtil.excelSplToCellSet(spl, true);
 			boolean isAdd = false;
 			if (control.cellSet.getRowCount() < cellSet.getRowCount()) {
 				// 增加行
@@ -2487,11 +2494,15 @@ public class SplEditor {
 		List<String> list = new ArrayList<String>();
 		expStr = expStr.trim();
 		int len = expStr.length();
+		StringBuffer buf = new StringBuffer();
+		int lastIndex = 0;
 		int argStart = -1;
 		boolean isMatched = false;
 		for (int i = 0; i < len; i++) {
 			char c = expStr.charAt(i);
 			if (c == '"') {
+				if (i != 0)
+					lastIndex = i + 1;
 				int j = i + 1;
 				for (; j < len; j++) {
 					c = expStr.charAt(j);
@@ -2499,25 +2510,30 @@ public class SplEditor {
 						j++;
 						if (j >= len - 1) { // 与最后一个引号匹配，没有参数
 							isMatched = true;
+							buf.append(expStr.substring(lastIndex, j));
 							break;
 						}
 						c = expStr.charAt(j);
 						if (c == '"') { // 前一个"是转义字符
-						} else { // 前一个"匹配了，后面剩下的是参数
-							if (AppUtil.isNextChar('&', expStr, j)) { // 连接符
-								int index = expStr.indexOf('&', j);
-								i = index;
+						} else { // 前一个"匹配了
+							if (expStr.charAt(j - 2) != AppUtil.EXCEL_SPLIT_CHAR
+									.charAt(0)) {
+								// 如果引号前一个字符不是连接符，说明表达式结束，后面是参数
+								argStart = j;
+								isMatched = true;
+
+								buf.append(expStr.substring(lastIndex, j));
 								break;
 							}
-							// 后面不是连接符就是参数了
 							if (!AppUtil.isNextChar(',', expStr, j)) {
 								MessageManager mm = EngineMessage.get();
 								throw new RQException(
 										"\""
 												+ mm.getMessage("Expression.illMatched"));
 							}
-							argStart = j;
-							isMatched = true;
+							buf.append(expStr.substring(lastIndex, j - 2));
+							int index = expStr.indexOf(',', j);
+							i = index;
 							break;
 						}
 					}
@@ -2530,12 +2546,9 @@ public class SplEditor {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("\"" + mm.getMessage("Expression.illMatched"));
 		}
-
-		if (argStart == -1) { // 无参数
-			list.add(expStr);
-		} else {
-			String spl = expStr.substring(0, argStart);
-			list.add(spl.trim());
+		String spl = buf.toString();
+		list.add(spl.trim());
+		if (argStart != -1) { // 有参数
 			String args = expStr.substring(argStart);
 			args = args.trim().substring(1); // 去掉第一个逗号
 			ArgumentTokenizer at = new ArgumentTokenizer(args);

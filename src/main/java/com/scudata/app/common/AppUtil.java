@@ -329,20 +329,40 @@ public class AppUtil {
 	/**
 	 * 执行Excel中的SPL函数。目前支持单句、多句表达式，执行脚本文件。
 	 * 
-	 * @param spl 没有转义过的SPL，注意Excel中转义字符是双引号
-	 * @param args
+	 * @param params spl函数的参数，包括脚本和参数
 	 * @param ctx
 	 * @return 返回值
 	 * @throws Exception 异常
 	 */
-	public static Object executeExcel(String spl, Sequence args, Context ctx)
+	public static Object executeExcel(Sequence params, Context ctx)
 			throws Exception {
-		Logger.debug("SPL: " + spl);
-		Logger.debug("PARAMETERS: " + args);
-		if (!StringUtils.isValidString(spl))
+		Logger.debug("SPL Parameters: " + params);
+		if (params == null || params.length() == 0)
 			return null;
-		PgmCellSet cellSet = excelSplToCellSet(spl);
+		StringBuffer buf = new StringBuffer();
+		Sequence args = new Sequence();
+		boolean isSplEnd = false;
+		Object mem;
+		for (int i = 1, len = params.length(); i <= len; i++) {
+			mem = params.get(i);
+			if (isSplEnd) {
+				args.add(params.get(i));
+				continue;
+			}
+			String spl = String.valueOf(mem);
+			if (spl.endsWith(EXCEL_SPLIT_CHAR)) { // SPL没有结束，去掉连接符号
+				spl = spl.substring(0, spl.length() - 1);
+			} else { // SPL结束，后面是参数了
+				isSplEnd = true;
+			}
+			buf.append(spl);
+		}
+		String spl = buf.toString();
+
+		PgmCellSet cellSet = excelSplToCellSet(spl, false);
+
 		spl = cellSetToJdbcSpl(cellSet);
+
 		Object val = executeCmd(spl, args, ctx, false);
 		if (val == null)
 			return null;
@@ -362,43 +382,27 @@ public class AppUtil {
 	}
 
 	/**
-	 * Excel函数的参数长度有限制，不能超过255，因为还有符号，这里要求250以内
+	 * SPL函数的字符串连接符号，用来表示后面还是SPL表达式
 	 */
-	public static final int EXCEL_EXP_LENGTH = 250;
+	public static final String EXCEL_SPLIT_CHAR = "\\";
 
 	/**
 	 * 去掉excel表达式的引号，转换成网格对象。注意excel中转义字符是双引号
 	 * 
 	 * @param spl 脚本
+	 * @param escape 是否脱引号，去掉转义符
 	 * @return 转义后的字符
 	 */
-	public static PgmCellSet excelSplToCellSet(String spl) {
+	public static PgmCellSet excelSplToCellSet(String spl, boolean escape) {
 		if (!StringUtils.isValidString(spl))
 			return null;
 		spl = spl.trim();
-		// excel自动调用的可能已经去了引号
-		if (spl.startsWith("\"") && spl.endsWith("\"")) {
-			// 处理SPL长度超过255的情况
-			spl = mergeExcelSpl(spl);
+		if (escape) {
 			// 去掉转义符，注意Excel中是双引号
 			spl = Escape.removeEscAndQuote(spl, '"');
+			spl = spl.trim();
 		}
-		spl = spl.trim();
 		PgmCellSet cellSet = CellSetUtil.toPgmCellSet(spl);
-		// PgmNormalCell cell;
-		// String cellExpStr;
-		// for (int r = 1; r <= cellSet.getRowCount(); r++) {
-		// for (int c = 1; c <= cellSet.getColCount(); c++) {
-		// cell = cellSet.getPgmNormalCell(r, c);
-		// if (cell != null) {
-		// cellExpStr = cell.getExpString();
-		// if (StringUtils.isValidString(cellExpStr)) {
-		// cellExpStr = changeJavaEscape(cellExpStr);
-		// }
-		// cell.setExpString(cellExpStr);
-		// }
-		// }
-		// }
 		return cellSet;
 	}
 
@@ -407,41 +411,41 @@ public class AppUtil {
 	 * @param spl 脚本
 	 * @return 合并后的脚本
 	 */
-	public static String mergeExcelSpl(String expStr) {
-		expStr = expStr.trim();
-		int len = expStr.length();
-		int lastStart = 0;
-		StringBuffer buf = new StringBuffer();
-		for (int i = 0; i < len; i++) {
-			char c = expStr.charAt(i);
-			if (c == '"') {
-				int j = i + 1;
-				for (; j < len; j++) {
-					c = expStr.charAt(j);
-					if (c == '"') {
-						j++;
-						if (j >= len - 1) { // 与最后一个引号匹配
-							i = j;
-							break;
-						}
-						c = expStr.charAt(j);
-						if (c == '"') { // 前一个"是转义字符
-						} else { // 前一个"匹配了
-							if (AppUtil.isNextChar('&', expStr, j)) { // 连接符
-								buf.append(expStr.substring(lastStart, j - 1));
-								int index = expStr.indexOf('&', j);
-								lastStart = index + 1;
-								i = index;
-							}
-							break;
-						}
-					}
-				}
-			}
-		}
-		buf.append(expStr.substring(lastStart, expStr.length()));
-		return buf.toString();
-	}
+	// public static String mergeExcelSpl(String expStr) {
+	// expStr = expStr.trim();
+	// int len = expStr.length();
+	// int lastStart = 0;
+	// StringBuffer buf = new StringBuffer();
+	// for (int i = 0; i < len; i++) {
+	// char c = expStr.charAt(i);
+	// if (c == '"') {
+	// int j = i + 1;
+	// for (; j < len; j++) {
+	// c = expStr.charAt(j);
+	// if (c == '"') {
+	// j++;
+	// if (j >= len - 1) { // 与最后一个引号匹配
+	// i = j;
+	// break;
+	// }
+	// c = expStr.charAt(j);
+	// if (c == '"') { // 前一个"是转义字符
+	// } else { // 前一个"匹配了
+	// if (AppUtil.isNextChar('&', expStr, j)) { // 连接符
+	// buf.append(expStr.substring(lastStart, j - 1));
+	// int index = expStr.indexOf('&', j);
+	// lastStart = index + 1;
+	// i = index;
+	// }
+	// break;
+	// }
+	// }
+	// }
+	// }
+	// }
+	// buf.append(expStr.substring(lastStart, expStr.length()));
+	// return buf.toString();
+	// }
 
 	/**
 	 * JAVA转义字符替换为Excel的
