@@ -18,6 +18,7 @@ import com.scudata.app.config.RaqsoftConfig;
 import com.scudata.cellset.datamodel.PgmCellSet;
 import com.scudata.common.ArgumentTokenizer;
 import com.scudata.common.FileUtils;
+import com.scudata.common.Logger;
 import com.scudata.common.MessageManager;
 import com.scudata.common.StringUtils;
 import com.scudata.dm.Context;
@@ -350,7 +351,8 @@ public class SplxHttpHandler implements HttpHandler {
 				}
 				result = "error:" + baos.toString();
 				result = StringUtils.replace( (String)result, "\n", "<br>" );
-				t.printStackTrace();
+//				t.printStackTrace();
+				Logger.severe(t);
 			} finally {
 				DatabaseUtil.closeAutoDBs(ctx1);
 			}
