@@ -160,7 +160,7 @@ final public class XMLUtil {
 			toXml(handler, sequence, 0, idTable);
 			
 			if (count > 1) {
-				for (int i = 0; i < count - 1; ++i) {
+				for (int i = count - 2; i >= 0; --i) {
 					handler.endElement("", "", strs[i]);
 				}
 			} else {
