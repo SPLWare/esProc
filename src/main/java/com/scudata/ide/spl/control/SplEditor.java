@@ -2177,7 +2177,7 @@ public class SplEditor {
 	 * @param usedParams 表达式中用到的参数名
 	 * @return 替换后的字符串
 	 */
-	private static String replaceCopyParam(String expStr, List<String> params,
+	private String replaceCopyParam(String expStr, List<String> params,
 			List<String> usedParams) {
 		if (expStr == null)
 			return null;
@@ -2237,12 +2237,28 @@ public class SplEditor {
 				String arg = null;
 				if (params.contains(id)) { // 参数名，但是也可能和函数名冲突
 					if (i == 0 || '.' != expStr.charAt(i - 1)) { // 前一位是.的可能是函数名
-						int pIndex = usedParams.indexOf(id);
-						if (pIndex < 0) {
-							usedParams.add(id);
-							pIndex = usedParams.size() - 1;
+						boolean needTrans = true;
+						if (isExcelCellName(id)) { // 是格子
+							try {
+								CellLocation cl = CellLocation.parse(id);
+								if (control.cellSet.getRowCount() >= cl
+										.getRow())
+									if (control.cellSet.getColCount() >= cl
+											.getCol()) {
+										// 格子存在，说明是格子引用，不是参数
+										needTrans = false;
+									}
+							} catch (Exception e) { //不是格子
+							}
 						}
-						arg = "?" + (pIndex + 1);
+						if (needTrans) {
+							int pIndex = usedParams.indexOf(id);
+							if (pIndex < 0) {
+								usedParams.add(id);
+								pIndex = usedParams.size() - 1;
+							}
+							arg = "?" + (pIndex + 1);
+						}
 					}
 				}
 				if (arg != null) {
@@ -2338,9 +2354,9 @@ public class SplEditor {
 	}
 
 	/**
-	 * Excel函数的参数长度有限制不能超过255，excel中统计的长度更长，所以要求125以内
+	 * Excel函数的参数长度有限制不能超过255，excel中统计的长度更长，所以要求250以内
 	 */
-	private static final int EXCEL_EXP_LENGTH = 125;
+	private static final int EXCEL_EXP_LENGTH = 250;
 
 	/**
 	 * 将Excel中超过255字符限制的SPL串拆分成多段，每段以\结尾。
