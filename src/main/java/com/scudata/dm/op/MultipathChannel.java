@@ -36,6 +36,46 @@ public class MultipathChannel extends Channel {
 	}
 	
 	/**
+	 * 由多路游标构建多路管道
+	 * @param ctx 计算上下文
+	 * @param mcs 多路游标
+	 * @param doPush 是否对游标生成push操作
+		游标可能fetch@0缓存了一部分数据，如果管道的运算还没定义完就给游标附加push，会导致缓存的数据没有被管道后来附加的运算计算
+	 */
+	public MultipathChannel(Context ctx, MultipathCursors mcs, boolean doPush) {
+		super(ctx);
+		
+		ICursor []cursors = mcs.getCursors();
+		int count = cursors.length;
+		channels = new Channel[count];
+		
+		if (doPush) {
+			for (int i = 0; i < count; ++i) {
+				channels[i] = new Channel(cursors[i].getContext(), cursors[i]);
+			}
+		} else {
+			for (int i = 0; i < count; ++i) {
+				channels[i] = new Channel(cursors[i].getContext());
+			}
+		}
+	}
+	
+	/**
+	 * 给游标添加push数据到管道的操作
+	 * @param cs
+	 */
+	public void addPushToCursor(ICursor cs) {
+		MultipathCursors mcs = (MultipathCursors)cs;
+		ICursor []cursors = mcs.getCursors();
+		int count = cursors.length;
+		
+		for (int i = 0; i < count; ++i) {
+			Push push = new Push(channels[i]);
+			cursors[i].addOperation(push, cursors[i].getContext());
+		}
+	}
+	
+	/**
 	 * 为管道附加运算
 	 * @param op 运算
 	 * @param ctx 计算上下文

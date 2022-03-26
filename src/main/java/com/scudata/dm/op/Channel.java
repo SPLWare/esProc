@@ -41,6 +41,15 @@ public class Channel implements Operable, IPipe {
 	}
 	
 	/**
+	 * 给游标添加push数据到管道的操作
+	 * @param cs
+	 */
+	public void addPushToCursor(ICursor cs) {
+		Push push = new Push(this);
+		cs.addOperation(push, ctx);
+	}
+	
+	/**
 	 * 为管道附加运算
 	 * @param op 运算
 	 * @param ctx 计算上下文

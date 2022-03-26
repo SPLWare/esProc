@@ -1485,11 +1485,13 @@ public class PgmCellSet extends CellSet {
 		ArrayList<PgmNormalCell> cellList = new ArrayList<PgmNormalCell>();
 		PgmNormalCell cell = getPgmNormalCell(row, col);
 		
+		// 定义完管道的运算再给游标附件push运算，因为游标可能调用fetch@0缓存了一部分数据
+		// 如果还没定义完管道的运算，则游标缓存的数据则不会执行管道后来附加的运算
 		Channel channel;
 		if (mcs == null) {
-			channel = new Channel(ctx, cs);
+			channel = new Channel(ctx); // , cs
 		} else {
-			channel = new MultipathChannel(ctx, mcs);
+			channel = new MultipathChannel(ctx, mcs, false);
 		}
 		
 		cell.setValue(channel);
@@ -1499,6 +1501,8 @@ public class PgmCellSet extends CellSet {
 		do {
 			curLct = runNext2();
 		} while (curLct != null && curLct.getRow() <= endRow);
+		
+		channel.addPushToCursor(cs);
 		
 		// 找连续不带参数的channel代码块
 		while (isNextCommandBlock(endRow, col, Command.CHANNEL)) {
@@ -1510,9 +1514,9 @@ public class PgmCellSet extends CellSet {
 			
 			endRow = getCodeBlockEndRow(row, col);
 			if (mcs == null) {
-				channel = new Channel(ctx, cs);
+				channel = new Channel(ctx); // , cs
 			} else {
-				channel = new MultipathChannel(ctx, mcs);
+				channel = new MultipathChannel(ctx, mcs, false);
 			}
 
 			cell.setValue(channel);
@@ -1522,6 +1526,8 @@ public class PgmCellSet extends CellSet {
 			do {
 				curLct = runNext2();
 			} while (curLct != null && curLct.getRow() <= endRow);
+			
+			channel.addPushToCursor(cs);
 		}
 		
 		// 遍历游标数据
