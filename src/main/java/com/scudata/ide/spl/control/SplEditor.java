@@ -2091,10 +2091,7 @@ public class SplEditor {
 				}
 			}
 			String spl = buf.toString();
-			spl = Escape.addEscAndQuote(spl, '"');
-			spl = spl.replaceAll("\"n", ROW_SEP);
-			spl = spl.replaceAll("\"t", COL_SEP);
-
+			spl = addEscAndQuote(spl, '"');
 			String[] spls = splitExcelSpl(spl);
 
 			buf = new StringBuffer();
@@ -2122,6 +2119,50 @@ public class SplEditor {
 			return false;
 		}
 		return true;
+	}
+
+	/**
+	 * 在字符串两端增加引号，并将串中的双引号转义
+	 * @param str
+	 * @param escapeChar
+	 * @return
+	 */
+	public static String addEscAndQuote(String str, char escapeChar) {
+		if (str == null)
+			return null;
+
+		int len = str.length();
+		char[] sb = new char[2 * len + 2];
+		sb[0] = '\"';
+		int j = 1;
+		for (int i = 0; i < len; i++) {
+			char ch = str.charAt(i);
+			switch (ch) {
+			// case '\t':
+			// sb[ j++ ] = escapeChar;
+			// sb[ j++ ] = 't';
+			// break;
+			// case '\r':
+			// sb[ j++ ] = escapeChar;
+			// sb[ j++ ] = 'r';
+			// break;
+			// case '\n':
+			// sb[ j++ ] = escapeChar;
+			// sb[ j++ ] = 'n';
+			// break;
+			case '\"':
+				sb[j++] = escapeChar;
+				sb[j++] = '\"';
+				break;
+			default:
+				if (ch == escapeChar) {
+					sb[j++] = escapeChar;
+				}
+				sb[j++] = ch;
+			}
+		}
+		sb[j++] = '\"';
+		return new String(sb, 0, j);
 	}
 
 	private static final String COL_SEP = "\t";
@@ -2248,7 +2289,7 @@ public class SplEditor {
 										// 格子存在，说明是格子引用，不是参数
 										needTrans = false;
 									}
-							} catch (Exception e) { //不是格子
+							} catch (Exception e) { // 不是格子
 							}
 						}
 						if (needTrans) {
