@@ -2127,7 +2127,7 @@ public class SplEditor {
 	 * @param escapeChar
 	 * @return
 	 */
-	public static String addEscAndQuote(String str, char escapeChar) {
+	private String addEscAndQuote(String str, char escapeChar) {
 		if (str == null)
 			return null;
 
@@ -2138,26 +2138,11 @@ public class SplEditor {
 		for (int i = 0; i < len; i++) {
 			char ch = str.charAt(i);
 			switch (ch) {
-			// case '\t':
-			// sb[ j++ ] = escapeChar;
-			// sb[ j++ ] = 't';
-			// break;
-			// case '\r':
-			// sb[ j++ ] = escapeChar;
-			// sb[ j++ ] = 'r';
-			// break;
-			// case '\n':
-			// sb[ j++ ] = escapeChar;
-			// sb[ j++ ] = 'n';
-			// break;
 			case '\"':
 				sb[j++] = escapeChar;
 				sb[j++] = '\"';
 				break;
 			default:
-				if (ch == escapeChar) {
-					sb[j++] = escapeChar;
-				}
 				sb[j++] = ch;
 			}
 		}
