@@ -2380,9 +2380,9 @@ public class SplEditor {
 	}
 
 	/**
-	 * Excel函数的参数长度有限制不能超过255，excel中统计的长度更长，所以要求250以内
+	 * Excel函数的参数长度有限制不能超过255，excel中统计的长度更长，所以要求240以内
 	 */
-	private static final int EXCEL_EXP_LENGTH = 250;
+	private static final int EXCEL_EXP_LENGTH = 240;
 
 	/**
 	 * 将Excel中超过255字符限制的SPL串拆分成多段，每段以\结尾。
