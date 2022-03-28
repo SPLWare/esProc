@@ -227,6 +227,8 @@ public class SPL extends AppFrame {
 			desk.setDragMode(JDesktopPane.LIVE_DRAG_MODE);
 			desk.revalidate();
 
+			if (StringUtils.isValidString(openFile))
+				GV.autoOpenFileNames.add(openFile);
 			GV.autoOpenFileName = openFile;
 
 			newResourceTree();
@@ -489,6 +491,23 @@ public class SPL extends AppFrame {
 	}
 
 	/**
+	 * 取所有页的文件路径
+	 * @return
+	 */
+	public String[] getSheetFilePaths() {
+		JInternalFrame[] sheets = GV.appFrame.getDesk().getAllFrames();
+		if (sheets == null || sheets.length == 0) {
+			return null;
+		}
+		int len = sheets.length;
+		String[] filePaths = new String[len];
+		for (int i = 0; i < len; i++) {
+			filePaths[i] = (((IPrjxSheet) sheets[i]).getFileName());
+		}
+		return filePaths;
+	}
+
+	/**
 	 * 关闭指定页
 	 */
 	public boolean closeSheet(Object sheet) {
@@ -658,7 +677,10 @@ public class SPL extends AppFrame {
 	 * 如果关闭了所有页，则退出。
 	 */
 	public void quit() {
+		String[] filePaths = getSheetFilePaths();
 		if (closeAll()) {
+			ConfigOptions.iAutoOpenFileCount = filePaths == null ? 1
+					: filePaths.length;
 			exit();
 		}
 	}
@@ -965,13 +987,24 @@ public class SPL extends AppFrame {
 	 * 打开最近文件
 	 */
 	public void startAutoRecent() {
-		if (StringUtils.isValidString(GV.autoOpenFileName)) {
-			try {
-				openSheetFile(GV.autoOpenFileName);
-			} catch (Throwable x) {
-				Logger.error(x);
+		// if (StringUtils.isValidString(GV.autoOpenFileName)) {
+		// try {
+		// openSheetFile(GV.autoOpenFileName);
+		// } catch (Throwable x) {
+		// Logger.error(x);
+		// }
+		// }
+		if (GV.autoOpenFileNames != null) {
+			for (int i = GV.autoOpenFileNames.size() - 1; i >= 0; i--) {
+				String filePath = GV.autoOpenFileNames.get(i);
+				try {
+					openSheetFile(filePath);
+				} catch (Throwable x) {
+					Logger.error(x);
+				}
 			}
 		}
+		ConfigOptions.iAutoOpenFileCount = 1;
 
 		try {
 			if (ConfigOptions.bAutoConnect.booleanValue()) {
@@ -1416,10 +1449,13 @@ public class SPL extends AppFrame {
 	 */
 	void this_windowClosing(WindowEvent e) {
 		this.update(this.getGraphics());
+		String[] filePaths = getSheetFilePaths();
 		if (!closeAll()) {
 			this.setDefaultCloseOperation(SPL.DO_NOTHING_ON_CLOSE);
 			return;
 		}
+		ConfigOptions.iAutoOpenFileCount = filePaths == null ? 1
+				: filePaths.length;
 		if (!exit()) {
 			this.setDefaultCloseOperation(SPL.DO_NOTHING_ON_CLOSE);
 			return;

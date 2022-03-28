@@ -622,11 +622,16 @@ public abstract class AppMenu extends JMenuBar {
 			fileItem[i].addActionListener(actionNew);
 			if (fileItem[i].isVisible())
 				menu.add(fileItem[i]);
-			if (i == 0 && StringUtils.isValidString(fileItem[0].getText())
-					&& ConfigOptions.bAutoOpen.booleanValue()) {
-				if (!StringUtils.isValidString(GV.autoOpenFileName)) { // 如果没有打开参数才设置
-					GV.autoOpenFileName = fileItem[0].getText();
-				}
+			String filePath = fileItem[i].getText();
+			if (!StringUtils.isValidString(filePath)
+					|| !ConfigOptions.bAutoOpen.booleanValue())
+				continue;
+			if (!StringUtils.isValidString(GV.autoOpenFileName)) { // 如果没有打开参数才设置
+				GV.autoOpenFileName = filePath;
+			}
+			if (i < ConfigOptions.iAutoOpenFileCount.intValue()) {
+				if (!GV.autoOpenFileNames.contains(filePath))
+					GV.autoOpenFileNames.add(filePath);
 			}
 		}
 	}
@@ -841,7 +846,7 @@ public abstract class AppMenu extends JMenuBar {
 			GM.showException(e);
 		}
 	}
-	
+
 	/**
 	 * 集算器资源管理器
 	 */
@@ -857,7 +862,8 @@ public abstract class AppMenu extends JMenuBar {
 	 * @return
 	 */
 	protected JMenu getSplMenuItem(String menuId, char mneKey, boolean isMain) {
-		return GM.getMenuItem(mmSpl.getMessage(GC.MENU + menuId), mneKey, isMain);
+		return GM.getMenuItem(mmSpl.getMessage(GC.MENU + menuId), mneKey,
+				isMain);
 	}
 
 	/**

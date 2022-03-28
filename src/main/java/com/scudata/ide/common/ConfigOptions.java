@@ -60,6 +60,14 @@ public class ConfigOptions {
 			LookAndFeelManager.LNF_OFFICE_SILVER);
 	/** Longest wait while connecting to the database */
 	public static Integer iConnectTimeout = new Integer(10);
+
+	/** 是否自动保存 */
+	public static Boolean bAutoSave = Boolean.FALSE;
+	/** 新建文件备份到目录 */
+	public static String sBackupDirectory = GM.getAbsolutePath("backup");
+	/** 自动打开的文件数量 */
+	public static Integer iAutoOpenFileCount = new Integer(1);
+
 	/** Parallel number */
 	public static Integer iParallelNum = new Integer(1);
 	/** Cursor Parallel number */
@@ -277,6 +285,9 @@ public class ConfigOptions {
 		options.put("bMultiLineExpEditor", bMultiLineExpEditor);
 		options.put("bStepLastLocation", bStepLastLocation);
 		options.put("bFileTreeDemo", bFileTreeDemo);
+		options.put("bAutoSave", bAutoSave);
+		options.put("sBackupDirectory", sBackupDirectory);
+		options.put("iAutoOpenFileCount", iAutoOpenFileCount);
 		options.put("iConstFColor", new Integer(iConstFColor.getRGB()));
 		options.put("iConstBColor", new Integer(iConstBColor.getRGB()));
 		options.put("iNoteFColor", new Integer(iNoteFColor.getRGB()));
@@ -440,6 +451,8 @@ public class ConfigOptions {
 				iLocale = new Byte(ii.byteValue());
 			} else if (option.equalsIgnoreCase("iUndoCount")) {
 				iUndoCount = ii;
+			} else if (option.equalsIgnoreCase("iAutoOpenFileCount")) {
+				iAutoOpenFileCount = ii;
 			}
 		} else if (type.equalsIgnoreCase("f")) {
 			Float ii = Float.valueOf(val);
@@ -500,6 +513,8 @@ public class ConfigOptions {
 				bAutoShowTip = ii;
 			} else if (option.equalsIgnoreCase("bFileTreeDemo")) {
 				bFileTreeDemo = ii;
+			} else if (option.equalsIgnoreCase("bAutoSave")) {
+				bAutoSave = ii;
 			}
 		} else if (StringUtils.isValidString(val)) {
 			if (option.equalsIgnoreCase("sLogFileName")) {
@@ -510,6 +525,8 @@ public class ConfigOptions {
 				sSlimerjsDirectory = val;
 			} else if (option.equalsIgnoreCase("sFileTreeExpand")) {
 				sFileTreeExpand = val;
+			} else if (option.equalsIgnoreCase("sBackupDirectory")) {
+				sBackupDirectory = val;
 			}
 		}
 	}
