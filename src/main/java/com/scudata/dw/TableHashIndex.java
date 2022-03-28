@@ -1210,7 +1210,7 @@ public class TableHashIndex  implements ITableIndex {
 			index1RecordCount = 0;
 			
 			ArrayList <ICursor> cursorList;
-			setCapacity((int) (srcTable.getTotalRecordCount() / h));
+			setCapacity(h);
 			if (srcTable instanceof RowTableMetaData) {
 				cursorList = sortRow(fields, ctx, filter);
 			} else {
@@ -2063,7 +2063,7 @@ public class TableHashIndex  implements ITableIndex {
 		
 		Record rec = new Record(new DataStruct(INDEX_FIELD_NAMES));
 		rec.setNormalFieldValue(0, name);
-		rec.setNormalFieldValue(1, capacity);
+		rec.setNormalFieldValue(1, h);
 		rec.setNormalFieldValue(2, new Sequence(ifields));
 		rec.setNormalFieldValue(3, null);
 		rec.setNormalFieldValue(4, filter == null ? null : filter.toString());

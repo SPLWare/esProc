@@ -1108,6 +1108,7 @@ public class TableMetaDataIndex implements ITableIndex {
 			
 			int size = cursorList.size();
 			if (size == 0) {
+				createIndexTable(new MemoryCursor(null), tmpFile, false);
 				return;
 			} else if (size == 1) {
 				createIndexTable(cursorList.get(0), tmpFile, false);
