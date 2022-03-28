@@ -11265,13 +11265,20 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 					Record r = (Record)obj;
 					if (r.compare(baseKeyIndex, baseKeyValues) == 0) {
 						Object curTimeValue = r.getNormalFieldValue(timeKeyIndex);
-						int cmp = Variant.compare(curTimeValue, timeKeyValue);
-						if (cmp == 0) {
-							return i;
-						} else if (cmp < 0) {
+						if (timeKeyValue == null) {
 							if (prevIndex == 0 || Variant.compare(curTimeValue, prevTimeValue) > 0) {
 								prevIndex = i;
 								prevTimeValue = curTimeValue;
+							}
+						} else {
+							int cmp = Variant.compare(curTimeValue, timeKeyValue);
+							if (cmp == 0) {
+								return i;
+							} else if (cmp < 0) {
+								if (prevIndex == 0 || Variant.compare(curTimeValue, prevTimeValue) > 0) {
+									prevIndex = i;
+									prevTimeValue = curTimeValue;
+								}
 							}
 						}
 					}
