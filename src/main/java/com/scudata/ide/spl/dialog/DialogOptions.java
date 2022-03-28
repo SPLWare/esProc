@@ -94,6 +94,12 @@ public class DialogOptions extends JDialog {
 	private JCheckBox jCBAutoConnect = new JCheckBox();
 
 	/**
+	 * 是否自动保存复选框
+	 */
+	private JCheckBox jCBAutoSave = new JCheckBox(
+			mm.getMessage("dialogoptions.autosave"));
+
+	/**
 	 * 自动清除字符串尾部\0复选框
 	 */
 	private JCheckBox jCBAutoTrimChar0 = new JCheckBox();
@@ -552,6 +558,7 @@ public class DialogOptions extends JDialog {
 		// ConfigOptions.bLogException = new
 		// Boolean(jCBLogException.isSelected());
 		ConfigOptions.bAutoConnect = new Boolean(jCBAutoConnect.isSelected());
+		ConfigOptions.bAutoSave = new Boolean(jCBAutoSave.isSelected());
 		ConfigOptions.bAutoTrimChar0 = new Boolean(
 				jCBAutoTrimChar0.isSelected());
 		// ConfigOptions.bCheckUpdate = new
@@ -641,6 +648,7 @@ public class DialogOptions extends JDialog {
 		jCBAutoBackup.setSelected(ConfigOptions.bAutoBackup.booleanValue());
 		// jCBLogException.setSelected(ConfigOptions.bLogException.booleanValue());
 		jCBAutoConnect.setSelected(ConfigOptions.bAutoConnect.booleanValue());
+		jCBAutoSave.setSelected(ConfigOptions.bAutoSave.booleanValue());
 		jCBAutoTrimChar0.setSelected(ConfigOptions.bAutoTrimChar0
 				.booleanValue());
 		jCBWindow.setSelected(ConfigOptions.bWindowSize.booleanValue());
@@ -819,6 +827,7 @@ public class DialogOptions extends JDialog {
 		jPanel2.setLayout(gridLayout2);
 		jPanel2.add(jCBIdeConsole, null);
 		jPanel2.add(jCBAutoOpen, null);
+		// jPanel2.add(jCBAutoSave, null);
 		jPanel2.add(jCBAutoBackup, null);
 		// jPanel2.add(jCBLogException, null);
 		jPanel2.add(jCBAutoConnect, null);
@@ -835,7 +844,6 @@ public class DialogOptions extends JDialog {
 
 		GridBagLayout gridBagLayout3 = new GridBagLayout();
 
-		GridBagLayout gridBagLayout4 = new GridBagLayout();
 		panelMid.setLayout(gridBagLayout3);
 
 		// labelFontName.setForeground(Color.blue);

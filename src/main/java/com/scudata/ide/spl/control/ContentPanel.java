@@ -285,6 +285,8 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 			};
 			multiEditor.addMouseListener(ma);
 		}
+		spEditor.setVisible(false);
+		multiEditor.setVisible(false);
 	}
 
 	/**

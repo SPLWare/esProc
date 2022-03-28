@@ -63,6 +63,8 @@ public class ConfigOptions {
 
 	/** 是否自动保存 */
 	public static Boolean bAutoSave = Boolean.FALSE;
+	/** 自动保存时间间隔（分钟） */
+	public static Integer iAutoSaveMinutes = new Integer(5);
 	/** 新建文件备份到目录 */
 	public static String sBackupDirectory = GM.getAbsolutePath("backup");
 	/** 自动打开的文件数量 */
@@ -286,6 +288,7 @@ public class ConfigOptions {
 		options.put("bStepLastLocation", bStepLastLocation);
 		options.put("bFileTreeDemo", bFileTreeDemo);
 		options.put("bAutoSave", bAutoSave);
+		options.put("iAutoSaveMinutes", iAutoSaveMinutes);
 		options.put("sBackupDirectory", sBackupDirectory);
 		options.put("iAutoOpenFileCount", iAutoOpenFileCount);
 		options.put("iConstFColor", new Integer(iConstFColor.getRGB()));
@@ -453,6 +456,8 @@ public class ConfigOptions {
 				iUndoCount = ii;
 			} else if (option.equalsIgnoreCase("iAutoOpenFileCount")) {
 				iAutoOpenFileCount = ii;
+			} else if (option.equalsIgnoreCase("iAutoSaveMinutes")) {
+				iAutoSaveMinutes = ii;
 			}
 		} else if (type.equalsIgnoreCase("f")) {
 			Float ii = Float.valueOf(val);

@@ -491,23 +491,6 @@ public class SPL extends AppFrame {
 	}
 
 	/**
-	 * 取所有页的文件路径
-	 * @return
-	 */
-	public String[] getSheetFilePaths() {
-		JInternalFrame[] sheets = GV.appFrame.getDesk().getAllFrames();
-		if (sheets == null || sheets.length == 0) {
-			return null;
-		}
-		int len = sheets.length;
-		String[] filePaths = new String[len];
-		for (int i = 0; i < len; i++) {
-			filePaths[i] = (((IPrjxSheet) sheets[i]).getFileName());
-		}
-		return filePaths;
-	}
-
-	/**
 	 * 关闭指定页
 	 */
 	public boolean closeSheet(Object sheet) {
@@ -562,18 +545,28 @@ public class SPL extends AppFrame {
 
 	}
 
+	private int closeCount = 0;
+
 	/**
 	 * 关闭全部页
+	 * @return 返回保存和关闭的页数
 	 */
 	public boolean closeAll() {
 		JInternalFrame[] frames = desk.getAllFrames();
 		IPrjxSheet sheet;
+		closeCount = 0;
 		try {
 			for (int i = 0; i < frames.length; i++) {
 				sheet = (IPrjxSheet) frames[i];
 				if (!closeSheet(sheet, false)) {
 					return false;
 				}
+				if (sheet instanceof SheetSpl) {
+					SheetSpl ss = (SheetSpl) sheet;
+					if (ss.isCloseWithoutSave())
+						continue;
+				}
+				closeCount++;
 			}
 			closeRemoteServer();
 
@@ -677,10 +670,8 @@ public class SPL extends AppFrame {
 	 * 如果关闭了所有页，则退出。
 	 */
 	public void quit() {
-		String[] filePaths = getSheetFilePaths();
 		if (closeAll()) {
-			ConfigOptions.iAutoOpenFileCount = filePaths == null ? 1
-					: filePaths.length;
+			ConfigOptions.iAutoOpenFileCount = closeCount;
 			exit();
 		}
 	}
@@ -1100,6 +1091,26 @@ public class SPL extends AppFrame {
 	}
 
 	/**
+	 * 自动保存所有网格
+	 */
+	public boolean autoSaveAll() {
+		JInternalFrame[] sheets = getAllInternalFrames();
+		if (sheets == null) {
+			return false;
+		}
+		int count = sheets.length;
+		for (int i = 0; i < count; i++) {
+			if (sheets[i] instanceof SheetSpl) {
+				SheetSpl sheet = (SheetSpl) sheets[i];
+				if (!sheet.autoSave()) {
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+
+	/**
 	 * 收缩展开右侧面板
 	 */
 	public void swapRightTab() {
@@ -1449,13 +1460,11 @@ public class SPL extends AppFrame {
 	 */
 	void this_windowClosing(WindowEvent e) {
 		this.update(this.getGraphics());
-		String[] filePaths = getSheetFilePaths();
 		if (!closeAll()) {
 			this.setDefaultCloseOperation(SPL.DO_NOTHING_ON_CLOSE);
 			return;
 		}
-		ConfigOptions.iAutoOpenFileCount = filePaths == null ? 1
-				: filePaths.length;
+		ConfigOptions.iAutoOpenFileCount = closeCount;
 		if (!exit()) {
 			this.setDefaultCloseOperation(SPL.DO_NOTHING_ON_CLOSE);
 			return;

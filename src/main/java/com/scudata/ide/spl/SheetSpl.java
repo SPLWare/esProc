@@ -296,11 +296,22 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 	// }
 
 	/**
+	 * 自动保存
+	 */
+	public boolean autoSave() {
+		if (isNewGrid()) { // 新建
+			// 目前先不处理，将来再优化
+			return true;
+		} else {
+			return save();
+		}
+	}
+
+	/**
 	 * 保存
 	 */
 	public boolean save() {
-		if (GMSpl.isNewGrid(filePath, GCSpl.PRE_NEWPGM)
-				|| !AppUtil.isSPLFile(filePath)) { // 新建
+		if (isNewGrid()) { // 新建
 			boolean hasSaveAs = saveAs();
 			if (hasSaveAs) {
 				storeBreakPoints();
@@ -355,8 +366,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 	 */
 	public boolean saveAs() {
 		boolean isSplFile = AppUtil.isSPLFile(filePath);
-		boolean isNewFile = GMSpl.isNewGrid(filePath, GCSpl.PRE_NEWPGM)
-				|| !isSplFile;
+		boolean isNewFile = isNewGrid();
 		String fileExt = AppConsts.FILE_SPLX;
 		if (isSplFile) {
 			int index = filePath.lastIndexOf(".");
@@ -898,8 +908,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 			return;
 		}
 
-		if (GMSpl.isNewGrid(filePath, GCSpl.PRE_NEWPGM)
-				|| !AppUtil.isSPLFile(filePath)) {
+		if (isNewGrid()) {
 			return;
 		}
 
@@ -2264,30 +2273,62 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 	}
 
 	/**
+	 * 是否新建
+	 * @return
+	 */
+	public boolean isNewGrid() {
+		return GMSpl.isNewGrid(filePath, GCSpl.PRE_NEWPGM)
+				|| !AppUtil.isSPLFile(filePath);
+	}
+
+	/**
+	 * 是否关闭时未保存
+	 */
+	private boolean isCloseWithoutSave = false;
+
+	/**
+	 * 是否关闭时未保存
+	 */
+	public boolean isCloseWithoutSave() {
+		return isCloseWithoutSave;
+	}
+
+	/**
 	 * 关闭页
 	 */
 	public boolean close() {
 		// 先停止所有编辑器的编辑
 		((EditControl) splEditor.getComponent()).acceptText();
 		boolean isChanged = splEditor.isDataChanged();
+		isCloseWithoutSave = false;
 		// 没有子程序的网格，或者有子程序但是已经中断执行的call网格，都提示保存
 		if (isChanged && (stepInfo == null || isStepStopCall())) {
-			String t1, t2;
-			t1 = IdeCommonMessage.get().getMessage("public.querysave",
-					IdeCommonMessage.get().getMessage("public.file"), filePath);
-			t2 = IdeCommonMessage.get().getMessage("public.save");
-			int option = JOptionPane.showConfirmDialog(GV.appFrame, t1, t2,
-					JOptionPane.YES_NO_CANCEL_OPTION);
-			switch (option) {
-			case JOptionPane.YES_OPTION:
-				if (!save())
+			if (ConfigOptions.bAutoSave && !isNewGrid()) { // 不是新建文件的自动保存
+				if (!save()) {
 					return false;
-				break;
-			case JOptionPane.NO_OPTION:
-				break;
-			default:
-				return false;
+				}
+			} else {
+				String t1, t2;
+				t1 = IdeCommonMessage.get().getMessage("public.querysave",
+						IdeCommonMessage.get().getMessage("public.file"),
+						filePath);
+				t2 = IdeCommonMessage.get().getMessage("public.save");
+				int option = JOptionPane.showConfirmDialog(GV.appFrame, t1, t2,
+						JOptionPane.YES_NO_CANCEL_OPTION);
+				switch (option) {
+				case JOptionPane.YES_OPTION:
+					if (!save())
+						return false;
+					break;
+				case JOptionPane.NO_OPTION:
+					isCloseWithoutSave = true;
+					break;
+				default:
+					return false;
+				}
 			}
+		} else if (isNewGrid()) { // 没有编辑过的新建网格
+			isCloseWithoutSave = true;
 		}
 		if (tg != null) {
 			try {
@@ -2390,7 +2431,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 		if (stepInfo != null)
 			return;
 		try {
-			if (GMSpl.isNewGrid(filePath, GCSpl.PRE_NEWPGM)) { // 新建
+			if (isNewGrid()) { // 新建
 				JOptionPane.showMessageDialog(GV.appFrame, ERROR_NOT_SAVE);
 				return;
 			}
@@ -2453,7 +2494,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 	 */
 	public void reloadFile() {
 		try {
-			if (GMSpl.isNewGrid(filePath, GCSpl.PRE_NEWPGM)) { // 新建
+			if (isNewGrid()) { // 新建
 				JOptionPane.showMessageDialog(GV.appFrame, ERROR_NOT_SAVE);
 				return;
 			}
