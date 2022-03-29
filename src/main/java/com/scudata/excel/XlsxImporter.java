@@ -2,6 +2,7 @@ package com.scudata.excel;
 
 import java.io.InputStream;
 
+import org.apache.poi.openxml4j.exceptions.OLE2NotOfficeXmlFileException;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.apache.poi.ss.usermodel.FormulaEvaluator;
 import org.apache.poi.xssf.usermodel.XSSFDataFormat;
@@ -66,6 +67,16 @@ public class XlsxImporter implements IExcelTool {
 			evaluator = wb.getCreationHelper().createFormulaEvaluator();
 		} catch (RQException e) {
 			throw e;
+		} catch (OLE2NotOfficeXmlFileException e) {
+			if (pwd == null) {
+				// Excel文件是XLS格式，或者是加密文件。
+				throw new RQException(AppMessage.get().getMessage(
+						"xlsximporter.ole2nopwd"), e);
+			} else {
+				// Excel文件是XLS格式。
+				throw new RQException(AppMessage.get().getMessage(
+						"xlsximporter.ole2pwd"), e);
+			}
 		} catch (Exception e) {
 			throw new RQException(e.getMessage(), e);
 		} finally {
