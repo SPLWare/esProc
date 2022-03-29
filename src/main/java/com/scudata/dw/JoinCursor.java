@@ -663,7 +663,7 @@ public class JoinCursor extends ICursor {
 
 		int keyCount = this.keyCount;
 		int csFieldsCount = this.csFieldsCount;
-		int len = isNew ? ds.getFieldCount() : ds.getFieldCount() - csFieldsCount;
+		int len = ds.getFieldCount();
 		
 		
 		Object []keys2 = new Object[keyCount];
@@ -702,6 +702,7 @@ public class JoinCursor extends ICursor {
 		int []keyIndex2 = this.keyIndex2;
 		boolean isNew = this.isNew;
 		boolean isNews = this.isNews;
+		boolean hasR = this.hasR;
 		ICursor cursor2 = this.cursor2;
 		
 		Table newTable;
@@ -751,9 +752,35 @@ public class JoinCursor extends ICursor {
 						}
 					}
 					
-					if (!isNews) {
-						if (hasR) {
-							//把这一组取完
+
+					if (hasR) {
+						//把这一组取完
+						cur2++;
+						if (cur2 > len2) {
+							cur2 = 1;
+							cache2 = cursor2.fetch(ICursor.FETCHCOUNT);
+							if (cache2 == null || cache2.length() == 0) {
+								isClosed = true;
+								close();
+								break;
+							}
+							mems2 = cache2.getMems();
+							len2 = cache2.length();
+						}
+						record2 = (Record) mems2.get(cur2);
+						for (int i = 0; i < keyCount; i++) {
+							keys2[i] = record2.getFieldValue(keyIndex2[i]);
+						}
+						
+						while(0 == Variant.compareArrays(keys2, keys1)) {
+							record = newTable.newLast();
+							for (int i = 0; i < len; i++) {
+								int idx = fieldIndex1[i];
+								if (idx < 0)
+									record.setNormalFieldValue(i, record2.getFieldValue(fieldIndex2[i]));
+								else 
+									record.setNormalFieldValue(i, keys1[idx]);
+							}
 							cur2++;
 							if (cur2 > len2) {
 								cur2 = 1;
@@ -769,33 +796,6 @@ public class JoinCursor extends ICursor {
 							record2 = (Record) mems2.get(cur2);
 							for (int i = 0; i < keyCount; i++) {
 								keys2[i] = record2.getFieldValue(keyIndex2[i]);
-							}
-							
-							while(0 == Variant.compareArrays(keys2, keys1)) {
-								record = newTable.newLast();
-								for (int i = 0; i < len; i++) {
-									int idx = fieldIndex1[i];
-									if (idx < 0)
-										record.setNormalFieldValue(i, record2.getFieldValue(fieldIndex2[i]));
-									else 
-										record.setNormalFieldValue(i, keys1[idx]);
-								}
-								cur2++;
-								if (cur2 > len2) {
-									cur2 = 1;
-									cache2 = cursor2.fetch(ICursor.FETCHCOUNT);
-									if (cache2 == null || cache2.length() == 0) {
-										isClosed = true;
-										close();
-										break;
-									}
-									mems2 = cache2.getMems();
-									len2 = cache2.length();
-								}
-								record2 = (Record) mems2.get(cur2);
-								for (int i = 0; i < keyCount; i++) {
-									keys2[i] = record2.getFieldValue(keyIndex2[i]);
-								}
 							}
 						}
 					}
@@ -887,8 +887,7 @@ public class JoinCursor extends ICursor {
 		}
 
 		int keyCount = this.keyCount;
-		int csFieldsCount = this.csFieldsCount;
-		int len = (isNew || isNews) ? ds.getFieldCount() : ds.getFieldCount() - csFieldsCount;//derive时要减去A/cs的字段数
+		int len = ds.getFieldCount();
 		
 		Object []keys2 = new Object[keyCount];
 		Object []keys1 = this.keys1;
@@ -925,8 +924,7 @@ public class JoinCursor extends ICursor {
 		int []fieldIndex1 = this.fieldIndex1;
 		int []fieldIndex2 = this.fieldIndex2;
 		int []keyIndex2 = this.keyIndex2;
-		boolean isNew = this.isNew;
-		boolean isNews = this.isNews;
+		boolean hasR = this.hasR;
 		ICursor cursor2 = this.cursor2;
 		
 		Context ctx = this.ctx;
@@ -1033,16 +1031,35 @@ public class JoinCursor extends ICursor {
 						objs[f] = bufReaders[f].readObject();
 					}
 					Record record = newTable.newLast();
-					if (isNews) {
-						for (int i = 0; i < len; i++) {
-							int idx = fieldIndex1[i];
-							if (idx < 0)
-								record.setNormalFieldValue(i, record2.getFieldValue(fieldIndex2[i]));
-							else 
-								record.setNormalFieldValue(i, objs[idx]);
+					for (int i = 0; i < len; i++) {
+						int idx = fieldIndex1[i];
+						if (idx < 0)
+							record.setNormalFieldValue(i, record2.getFieldValue(fieldIndex2[i]));
+						else 
+							record.setNormalFieldValue(i, objs[idx]);
+					}
+
+					if (hasR) {
+						//把这一组取完
+						cur2++;
+						if (cur2 > len2) {
+							cur2 = 1;
+							cache2 = cursor2.fetch(ICursor.FETCHCOUNT);
+							if (cache2 == null || cache2.length() == 0) {
+								isClosed = true;
+								close();
+								break;
+							}
+							mems2 = cache2.getMems();
+							len2 = cache2.length();
 						}
-					} else {
-						if (isNew) {
+						record2 = (Record) mems2.get(cur2);
+						for (int i = 0; i < keyCount; i++) {
+							keys2[i] = record2.getFieldValue(keyIndex2[i]);
+						}
+						
+						while(0 == Variant.compareArrays(keys2, keys1)) {
+							record = newTable.newLast();
 							for (int i = 0; i < len; i++) {
 								int idx = fieldIndex1[i];
 								if (idx < 0)
@@ -1050,20 +1067,6 @@ public class JoinCursor extends ICursor {
 								else 
 									record.setNormalFieldValue(i, objs[idx]);
 							}
-						} else {
-							Object []vals = record2.getFieldValues();
-							System.arraycopy(vals, 0, record.getFieldValues(), 0, csFieldsCount);
-							for (int i = 0; i < len; i++) {
-								int idx = fieldIndex1[i];
-								if (idx < 0)
-									record.setNormalFieldValue(i + csFieldsCount, record2.getFieldValue(fieldIndex2[i]));
-								else 
-									record.setNormalFieldValue(i + csFieldsCount, objs[idx]);
-							}
-						}
-
-						if (hasR) {
-							//把这一组取完
 							cur2++;
 							if (cur2 > len2) {
 								cur2 = 1;
@@ -1080,35 +1083,9 @@ public class JoinCursor extends ICursor {
 							for (int i = 0; i < keyCount; i++) {
 								keys2[i] = record2.getFieldValue(keyIndex2[i]);
 							}
-							
-							while(0 == Variant.compareArrays(keys2, keys1)) {
-								record = newTable.newLast();
-								for (int i = 0; i < len; i++) {
-									int idx = fieldIndex1[i];
-									if (idx < 0)
-										record.setNormalFieldValue(i, record2.getFieldValue(fieldIndex2[i]));
-									else 
-										record.setNormalFieldValue(i, objs[idx]);
-								}
-								cur2++;
-								if (cur2 > len2) {
-									cur2 = 1;
-									cache2 = cursor2.fetch(ICursor.FETCHCOUNT);
-									if (cache2 == null || cache2.length() == 0) {
-										isClosed = true;
-										close();
-										break;
-									}
-									mems2 = cache2.getMems();
-									len2 = cache2.length();
-								}
-								record2 = (Record) mems2.get(cur2);
-								for (int i = 0; i < keyCount; i++) {
-									keys2[i] = record2.getFieldValue(keyIndex2[i]);
-								}
-							}
 						}
 					}
+				
 					
 					//取出下一条符合条件的
 					while (true) {
@@ -1274,8 +1251,7 @@ public class JoinCursor extends ICursor {
 		}
 
 		int keyCount = this.keyCount;
-		int csFieldsCount = this.csFieldsCount;
-		int len = (isNew || isNews) ? ds.getFieldCount() : ds.getFieldCount() - csFieldsCount;//derive时要减去A/cs的字段数
+		int len = ds.getFieldCount();
 		
 		Object []keys2 = new Object[keyCount];
 		Object []keys1 = this.keys1;
@@ -1437,7 +1413,7 @@ public class JoinCursor extends ICursor {
 						}
 						//如果不相等，表示这一组取完了，计算临时汇总数据
 						Record record = newTable.newLast();
-						calcExps(record, tempTable, r, len);
+						calcExpsForNew(record, tempTable, r, len);
 						
 						//取出下一条符合条件的
 						while (true) {
@@ -1578,7 +1554,7 @@ public class JoinCursor extends ICursor {
 				}
 				//如果不相等，表示这一组取完了，计算临时汇总数据
 				Record record = newTable.newLast();
-				calcExps(record, tempTable, r, len);
+				calcExpsForNew(record, tempTable, r, len);
 			}
 		} catch (IOException e) {
 			throw new RQException(e.getMessage(), e);
@@ -1612,17 +1588,12 @@ public class JoinCursor extends ICursor {
 		if (isClosed || n < 1) {
 			return null;
 		}
-		
-		if (hasExps) {
-			return getData2ForNew(n);
-		}
-		
+
 		if (filters != null || unknownFilter != null) {
-			return getDataForNew(n);
+			return getDataForNews(n);
 		}
 
 		int keyCount = this.keyCount;
-		int csFieldsCount = this.csFieldsCount;
 		int len = ds.getFieldCount();
 		
 		
@@ -1660,8 +1631,8 @@ public class JoinCursor extends ICursor {
 		int []fieldIndex1 = this.fieldIndex1;
 		int []fieldIndex2 = this.fieldIndex2;
 		int []keyIndex2 = this.keyIndex2;
-		boolean isNew = this.isNew;
-		boolean isNews = this.isNews;
+		boolean hasR = this.hasR;
+		boolean hasExps = this.hasExps;
 		ICursor cursor2 = this.cursor2;
 		
 		Table newTable;
@@ -1670,7 +1641,8 @@ public class JoinCursor extends ICursor {
 		} else {
 			newTable = new Table(ds, n);
 		}
-
+		Table tempTable = new Table(ds1);//用于汇总
+		
 		try {
 			if (keys1 == null) {
 				keys1 = new Object[colCount];
@@ -1691,12 +1663,16 @@ public class JoinCursor extends ICursor {
 					}
 					
 					Record record = newTable.newLast();
-					for (int i = 0; i < len; i++) {
-						int idx = fieldIndex1[i];
-						if (idx < 0)
-							record.setNormalFieldValue(i, record2.getFieldValue(fieldIndex2[i]));
-						else 
-							record.setNormalFieldValue(i, keys1[idx]);
+					if (hasExps) {
+						tempTable.newLast(keys1);//添加到临时汇总
+					} else {
+						for (int i = 0; i < len; i++) {
+							int idx = fieldIndex1[i];
+							if (idx < 0)
+								record.setNormalFieldValue(i, record2.getFieldValue(fieldIndex2[i]));
+							else 
+								record.setNormalFieldValue(i, keys1[idx]);
+						}
 					}
 					
 					cur1++;
@@ -1715,7 +1691,49 @@ public class JoinCursor extends ICursor {
 					}
 				
 					if (hasR) {
-						//TODO
+						if (hasExps) {
+							//把这一组取完
+							while(Variant.compareArrays(keys2, keys1) == 0) {
+								for (int f = keyCount; f < colCount; f++) {
+									keys1[f] = bufReaders[f].readObject();
+								}
+								tempTable.newLast(keys1);//添加到临时汇总
+								cur1++;
+								if (cur1 > len1) {
+									cur1 = 1;
+									len1 = loadBlock();
+									colReaders = this.colReaders;
+									if (len1 < 0) {
+										isClosed = true;
+										close();
+										break;
+									}
+								}
+								for (int f = 0; f < keyCount; f++) {
+									keys1[f] = bufReaders[f].readObject();
+								}
+							}
+							
+							calcExpsForNews(record, tempTable, record2, len);
+						}
+						
+						//按照cs对齐
+						cur2++;
+						if (cur2 > len2) {
+							cur2 = 1;
+							cache2 = cursor2.fetch(ICursor.FETCHCOUNT);
+							if (cache2 == null || cache2.length() == 0) {
+								isClosed = true;
+								close();
+								break;
+							}
+							mems2 = cache2.getMems();
+							len2 = cache2.length();
+						}
+						record2 = (Record) mems2.get(cur2);
+						for (int i = 0; i < keyCount; i++) {
+							keys2[i] = record2.getFieldValue(keyIndex2[i]);
+						}
 					}
 				} else if (cmp > 0) {
 					for (int f = keyCount; f < colCount; f++) {
@@ -1779,47 +1797,452 @@ public class JoinCursor extends ICursor {
 	}
 	
 	/**
+	 * T.news有filters时的取记录
+	 * @param n
+	 * @return
+	 */
+	private Sequence getDataForNews(int n) {
+		if (isClosed || n < 1) {
+			return null;
+		}
+
+		int keyCount = this.keyCount;
+		int len = ds.getFieldCount();
+		
+		Object []keys2 = new Object[keyCount];
+		Object []keys1 = this.keys1;
+		
+		//取出来一段cs的数据
+		if (cache2 == null || cache2.length() == 0) {
+			cache2 = cursor2.fetch(ICursor.FETCHCOUNT);
+			cur2 = 1;
+			Record record2 = (Record) cache2.get(1);
+			for (int i = 0; i < keyCount; i++) {
+				keys2[i] = record2.getFieldValue(keyIndex2[i]);
+			}
+			if (needSkipSeg) {
+				skipSegment(keys2);
+				needSkipSeg = false;
+			}
+		}
+		
+		int cur1 = this.cur1;
+		int len1 = this.len1;
+		if (cur1 == -1) {
+			len1 = loadBlock();
+			cur1 = this.cur1;
+		}
+
+		BlockLinkReader []colReaders = this.colReaders;
+		int colCount = colReaders.length;
+		BufferReader []bufReaders = this.bufReaders;
+		
+		int cur2 = this.cur2;
+		Sequence cache2 = this.cache2;
+		ListBase1 mems2 = cache2.getMems();
+		int len2 = cache2.length();
+		int []fieldIndex1 = this.fieldIndex1;
+		int []fieldIndex2 = this.fieldIndex2;
+		int []keyIndex2 = this.keyIndex2;
+		boolean hasR = this.hasR;
+		boolean hasExps = this.hasExps;
+		ICursor cursor2 = this.cursor2;
+		
+		Context ctx = this.ctx;
+		Expression unknownFilter = this.unknownFilter;
+		ComputeStack stack = null;
+		
+		IFilter []filters = this.filters;
+		int filterAllCount = filters == null ? 0 : filters.length;
+		int keyOffset = this.keyOffset;
+		int valueOffset = keyOffset + keyColCount;
+		int keyColIndex[] = this.keyColIndex;
+		FindFilter []findFilters = this.findFilters;
+		Record r = this.r;
+		Object objs[] = r == null ? null : r.getFieldValues();
+		
+		if (r != null && unknownFilter != null) {
+			stack = ctx.getComputeStack();
+			stack.push(r);
+		}
+		
+		Table newTable;
+		if (n > INITSIZE) {
+			newTable = new Table(ds, INITSIZE);
+		} else {
+			newTable = new Table(ds, n);
+		}
+		Table tempTable = new Table(ds1);//用于汇总
+
+		try {
+			if (keys1 == null) {
+				keys1 = new Object[keyCount];
+				r = new Record(ds1);
+				objs = r.getFieldValues();
+				if (unknownFilter != null) {
+					stack = ctx.getComputeStack();
+					stack.push(r);
+				}
+				
+				//过滤出一条符合条件的
+				while (true) {
+					//检查filter
+					boolean flag = true;
+					int f = 0;
+					//先读取filter列
+					for (; f < filterAllCount; f++) {
+						objs[f] = bufReaders[f].readObject();
+						flag = filters[f].match(objs[f]);
+						if (!flag) {
+							f++;
+							break;
+						}
+						if (findFilters != null && findFilters[f] != null) {
+							objs[f] = findFilters[f].getFindResult();
+						}
+					}
+					if (flag && unknownFilter != null) {
+						//都匹配,还要检查unknownFilter
+						for (; f < keyOffset; f++) {
+							objs[f] = bufReaders[f].readObject();
+						}
+						flag = Variant.isTrue(unknownFilter.calculate(ctx));
+					}
+					if (flag) {
+						//读取剩余key字段,组织keys1
+						for (; f < valueOffset; f++) {
+							objs[f] = bufReaders[f].readObject();
+						}
+						for (int i = 0; i < keyCount; i++) {
+							keys1[i] = objs[keyColIndex[i]];
+						}
+						break;
+					} else {
+						//跳过其余的
+						for (; f < colCount; f++) {
+							 bufReaders[f].skipObject();
+						}
+					}
+					
+					//读下一条
+					cur1++;
+					if (cur1 > len1) {
+						cur1 = 1;
+						len1 = loadBlock();
+						colReaders = this.colReaders;
+						if (len1 < 0) {
+							isClosed = true;
+							close();
+							return null;
+						}
+					}
+				}
+			}
+			
+			Record record2 = (Record) mems2.get(cur2);
+			for (int i = 0; i < keyCount; i++) {
+				keys2[i] = record2.getFieldValue(keyIndex2[i]);
+			}
+			
+			EXIT:
+			while (true) {
+				int cmp = Variant.compareArrays(keys2, keys1);
+				if (cmp == 0) {
+					//读取剩余字段
+					for (int f = valueOffset; f < colCount; f++) {
+						objs[f] = bufReaders[f].readObject();
+					}
+					Record record = newTable.newLast();
+					if (hasExps) {
+						tempTable.newLast(objs);//添加到临时汇总
+					} else {
+						for (int i = 0; i < len; i++) {
+							int idx = fieldIndex1[i];
+							if (idx < 0)
+								record.setNormalFieldValue(i, record2.getFieldValue(fieldIndex2[i]));
+							else 
+								record.setNormalFieldValue(i, objs[idx]);
+						}
+					}
+					
+					//取出下一条符合条件的
+					while (true) {
+						cur1++;
+						if (cur1 > len1) {
+							cur1 = 1;
+							len1 = loadBlock();
+							colReaders = this.colReaders;
+							if (len1 < 0) {
+								isClosed = true;
+								close();
+								break EXIT;
+							}
+						}
+						//检查filter
+						boolean flag = true;
+						int f = 0;
+						//先读取filter列
+						for (; f < filterAllCount; f++) {
+							objs[f] = bufReaders[f].readObject();
+							flag = filters[f].match(objs[f]);
+							if (!flag) {
+								f++;
+								break;
+							}
+							if (findFilters != null && findFilters[f] != null) {
+								objs[f] = findFilters[f].getFindResult();
+							}
+						}
+						if (flag && unknownFilter != null) {
+							//都匹配,还要检查unknownFilter
+							for (; f < keyOffset; f++) {
+								objs[f] = bufReaders[f].readObject();
+							}
+							flag = Variant.isTrue(unknownFilter.calculate(ctx));
+						}
+						if (flag) {
+							//读取剩余key字段,组织keys1
+							for (; f < valueOffset; f++) {
+								objs[f] = bufReaders[f].readObject();
+							}
+							for (int i = 0; i < keyCount; i++) {
+								keys1[i] = objs[keyColIndex[i]];
+							}
+							break;
+						} else {
+							//跳过其余的
+							for (; f < colCount; f++) {
+								 bufReaders[f].skipObject();
+							}
+						}
+					}
+					
+					if (hasR) {
+						if (hasExps) {
+							//把这一组取完
+							while(Variant.compareArrays(keys2, keys1) == 0) {
+								//读取剩余字段
+								for (int f = valueOffset; f < colCount; f++) {
+									objs[f] = bufReaders[f].readObject();
+								}
+								tempTable.newLast(objs);//添加到临时汇总
+								//取出下一条符合条件的
+								while (true) {
+									cur1++;
+									if (cur1 > len1) {
+										cur1 = 1;
+										len1 = loadBlock();
+										colReaders = this.colReaders;
+										if (len1 < 0) {
+											isClosed = true;
+											close();
+											break EXIT;
+										}
+									}
+									//检查filter
+									boolean flag = true;
+									int f = 0;
+									//先读取filter列
+									for (; f < filterAllCount; f++) {
+										objs[f] = bufReaders[f].readObject();
+										flag = filters[f].match(objs[f]);
+										if (!flag) {
+											f++;
+											break;
+										}
+										if (findFilters != null && findFilters[f] != null) {
+											objs[f] = findFilters[f].getFindResult();
+										}
+									}
+									if (flag && unknownFilter != null) {
+										//都匹配,还要检查unknownFilter
+										for (; f < keyOffset; f++) {
+											objs[f] = bufReaders[f].readObject();
+										}
+										flag = Variant.isTrue(unknownFilter.calculate(ctx));
+									}
+									if (flag) {
+										//读取剩余key字段,组织keys1
+										for (; f < valueOffset; f++) {
+											objs[f] = bufReaders[f].readObject();
+										}
+										for (int i = 0; i < keyCount; i++) {
+											keys1[i] = objs[keyColIndex[i]];
+										}
+										break;
+									} else {
+										//跳过其余的
+										for (; f < colCount; f++) {
+											 bufReaders[f].skipObject();
+										}
+									}
+								}
+							}
+							calcExpsForNews(record, tempTable, record2, len);
+						}
+						
+						//按照cs对齐
+						cur2++;
+						if (cur2 > len2) {
+							cur2 = 1;
+							cache2 = cursor2.fetch(ICursor.FETCHCOUNT);
+							if (cache2 == null || cache2.length() == 0) {
+								isClosed = true;
+								close();
+								break;
+							}
+							mems2 = cache2.getMems();
+							len2 = cache2.length();
+						}
+						record2 = (Record) mems2.get(cur2);
+						for (int i = 0; i < keyCount; i++) {
+							keys2[i] = record2.getFieldValue(keyIndex2[i]);
+						}
+					}
+				} else if (cmp > 0) {
+					//跳过其他
+					for (int f = valueOffset; f < colCount; f++) {
+						bufReaders[f].skipObject();
+					}
+					//取出下一条符合条件的
+					while (true) {
+						cur1++;
+						if (cur1 > len1) {
+							cur1 = 1;
+							len1 = loadBlock();
+							colReaders = this.colReaders;
+							if (len1 < 0) {
+								isClosed = true;
+								close();
+								break EXIT;
+							}
+						}
+						//检查filter
+						boolean flag = true;
+						int f = 0;
+						//先读取filter列
+						for (; f < filterAllCount; f++) {
+							objs[f] = bufReaders[f].readObject();
+							flag = filters[f].match(objs[f]);
+							if (!flag) {
+								f++;
+								break;
+							}
+							if (findFilters != null && findFilters[f] != null) {
+								objs[f] = findFilters[f].getFindResult();
+							}
+						}
+						if (flag && unknownFilter != null) {
+							//都匹配,还要检查unknownFilter
+							for (; f < keyOffset; f++) {
+								objs[f] = bufReaders[f].readObject();
+							}
+							flag = Variant.isTrue(unknownFilter.calculate(ctx));
+						}
+						if (flag) {
+							//读取剩余key字段,组织keys1
+							for (; f < valueOffset; f++) {
+								objs[f] = bufReaders[f].readObject();
+							}
+							for (int i = 0; i < keyCount; i++) {
+								keys1[i] = objs[keyColIndex[i]];
+							}
+							break;
+						} else {
+							//跳过其余的
+							for (; f < colCount; f++) {
+								 bufReaders[f].skipObject();
+							}
+						}
+					}
+				} else if (cmp < 0) {
+					cur2++;
+					if (cur2 > len2) {
+						cur2 = 1;
+						cache2 = cursor2.fetch(ICursor.FETCHCOUNT);
+						if (cache2 == null || cache2.length() == 0) {
+							isClosed = true;
+							close();
+							break;
+						}
+						mems2 = cache2.getMems();
+						len2 = cache2.length();
+					}
+					record2 = (Record) mems2.get(cur2);
+					for (int i = 0; i < keyCount; i++) {
+						keys2[i] = record2.getFieldValue(keyIndex2[i]);
+					}
+				}
+				
+				if (newTable.length() >= n) {
+					break;
+				}
+			}
+		} catch (IOException e) {
+			throw new RQException(e.getMessage(), e);
+		} finally {
+			if (stack != null) 
+				stack.pop();
+		}
+		
+		this.len1 = len1;
+		this.keys1 = keys1;
+		this.colReaders = colReaders;
+		this.bufReaders = bufReaders;
+		this.cache2 = cache2;
+		this.cur1 = cur1;
+		this.cur2 = cur2;
+		this.r = r;
+		
+		if (newTable.length() > 0) {
+			return newTable;
+		} else {
+			return null;
+		}
+	}
+	
+	/**
 	 * 基于两个记录（以及同组数据）计算表达式
 	 * @param record
 	 * @param tempTable 主键相同的一组数据
 	 * @param r
 	 * @param len
 	 */
-	private void calcExps(Record record, Table tempTable, Record r, int len) {
+	private void calcExpsForNew(Record record, Table tempTable, Record r, int len) {
 		Node nodes[] = this.nodes;
 		int fieldIndex2[] = this.fieldIndex2;
-		if (isNew) {
-			for (int i = 0; i < len; i++) {
-				Node node = nodes[i];
-				if (node instanceof FieldRef) {
-					if (fieldIndex2[i] < 0) {
-						node.setDotLeftObject(r);
-					} else {
-						node.setDotLeftObject(tempTable.get(1));
-					}
+		for (int i = 0; i < len; i++) {
+			Node node = nodes[i];
+			if (node instanceof FieldRef) {
+				if (fieldIndex2[i] < 0) {
+					node.setDotLeftObject(r);
 				} else {
-					node.setDotLeftObject(tempTable);
-				}
-				record.setNormalFieldValue(i, node.calculate(ctx));
-			}
-		} else {
-			int csFieldsCount = this.csFieldsCount;
-			Object []vals = r.getFieldValues();
-			System.arraycopy(vals, 0, record.getFieldValues(), 0, csFieldsCount);
-			for (int i = 0; i < len; i++) {
-				Node node = nodes[i];
-				if (node instanceof FieldRef) {
 					node.setDotLeftObject(tempTable.get(1));
-				} else {
-					node.setDotLeftObject(tempTable);
 				}
-				record.setNormalFieldValue(i + csFieldsCount, node.calculate(ctx));
+			} else {
+				node.setDotLeftObject(tempTable);
 			}
+			record.setNormalFieldValue(i, node.calculate(ctx));
 		}
-		tempTable.clear();
 	
+		tempTable.clear();
 	}
 
+	private void calcExpsForNews(Record record, Table tempTable, Record r, int len) {
+		Node nodes[] = this.nodes;
+		for (int i = 0; i < len; i++) {
+			Node node = nodes[i];
+			if (node instanceof FieldRef) {
+				node.setDotLeftObject(r);
+			} else {
+				node.setDotLeftObject(tempTable);
+			}
+			record.setNormalFieldValue(i, node.calculate(ctx));
+		}
+	
+		tempTable.clear();
+	}
+	
 	protected long skipOver(long n) {
 		Sequence data;
 		long rest = n;
