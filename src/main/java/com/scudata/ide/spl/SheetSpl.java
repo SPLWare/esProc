@@ -300,7 +300,19 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 	 */
 	public boolean autoSave() {
 		if (isNewGrid()) { // 新建
-			// 目前先不处理，将来再优化
+			File backupDir = new File(
+					GM.getAbsolutePath(ConfigOptions.sBackupDirectory));
+			if (!backupDir.exists()) {
+				backupDir.mkdirs();
+			}
+			File f = new File(backupDir, filePath);
+			try {
+				CellSetUtil.writePgmCellSet(f.getAbsolutePath(),
+						splControl.cellSet);
+			} catch (Exception e) {
+				GM.showException(e);
+				return false;
+			}
 			return true;
 		} else {
 			return save();
@@ -2282,53 +2294,79 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 	}
 
 	/**
-	 * 是否关闭时未保存
+	 * 关闭页
 	 */
-	private boolean isCloseWithoutSave = false;
-
-	/**
-	 * 是否关闭时未保存
-	 */
-	public boolean isCloseWithoutSave() {
-		return isCloseWithoutSave;
+	public boolean close() {
+		return close(false);
 	}
 
 	/**
 	 * 关闭页
+	 * @param isQuit 是否退出调用的
+	 * @return boolean
 	 */
-	public boolean close() {
+	public boolean close(boolean isQuit) {
 		// 先停止所有编辑器的编辑
 		((EditControl) splEditor.getComponent()).acceptText();
 		boolean isChanged = splEditor.isDataChanged();
-		isCloseWithoutSave = false;
 		// 没有子程序的网格，或者有子程序但是已经中断执行的call网格，都提示保存
-		if (isChanged && (stepInfo == null || isStepStopCall())) {
-			if (ConfigOptions.bAutoSave && !isNewGrid()) { // 不是新建文件的自动保存
-				if (!save()) {
+		if (stepInfo == null || isStepStopCall()) {
+			if (ConfigOptions.bAutoSave && isQuit) { // 退出时触发自动保存，不再询问
+				if (!autoSave()) {
 					return false;
 				}
 			} else {
-				String t1, t2;
-				t1 = IdeCommonMessage.get().getMessage("public.querysave",
-						IdeCommonMessage.get().getMessage("public.file"),
-						filePath);
-				t2 = IdeCommonMessage.get().getMessage("public.save");
-				int option = JOptionPane.showConfirmDialog(GV.appFrame, t1, t2,
-						JOptionPane.YES_NO_CANCEL_OPTION);
-				switch (option) {
-				case JOptionPane.YES_OPTION:
-					if (!save())
+				boolean querySave = false;
+				boolean isNew = isNewGrid();
+				boolean removeBackup = false;
+				if (isNew) {
+					String spl = CellSetUtil.toString(splControl.cellSet);
+					if (StringUtils.isValidString(spl)) { // 新建网格如果进行过编辑，关闭时询问
+						querySave = true;
+					} else {
+						if (ConfigOptions.bAutoSave.booleanValue()) {
+							removeBackup = true;
+						}
+					}
+				} else if (isChanged) {
+					querySave = true;
+				}
+				if (querySave) {
+					String t1, t2;
+					t1 = IdeCommonMessage.get().getMessage("public.querysave",
+							IdeCommonMessage.get().getMessage("public.file"),
+							filePath);
+					t2 = IdeCommonMessage.get().getMessage("public.save");
+					int option = JOptionPane.showConfirmDialog(GV.appFrame, t1,
+							t2, JOptionPane.YES_NO_CANCEL_OPTION);
+					switch (option) {
+					case JOptionPane.YES_OPTION:
+						if (!save())
+							return false;
+						break;
+					case JOptionPane.NO_OPTION:
+						if (ConfigOptions.bAutoSave.booleanValue() && isNew) {
+							removeBackup = true;
+						}
+						break;
+					default:
 						return false;
-					break;
-				case JOptionPane.NO_OPTION:
-					isCloseWithoutSave = true;
-					break;
-				default:
-					return false;
+					}
+				}
+
+				if (removeBackup) {
+					// 自动保存，并且新建时，如果之前有备份则删除
+					try {
+						File backupDir = new File(
+								GM.getAbsolutePath(ConfigOptions.sBackupDirectory));
+						if (backupDir.exists()) {
+							File f = new File(backupDir, filePath);
+							GM.deleteFile(f);
+						}
+					} catch (Exception e) {
+					}
 				}
 			}
-		} else if (isNewGrid()) { // 没有编辑过的新建网格
-			isCloseWithoutSave = true;
 		}
 		if (tg != null) {
 			try {
@@ -2400,6 +2438,13 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 	 */
 	public void rightClicked(Component invoker, int x, int y) {
 		popupSpl.getSplPop(selectState).show(invoker, x, y);
+	}
+
+	/**
+	 * 设置是否数据有变化
+	 */
+	public void setDataChanged(boolean isChanged) {
+		splEditor.setDataChanged(isChanged);
 	}
 
 	/**

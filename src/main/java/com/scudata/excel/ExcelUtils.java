@@ -18,7 +18,6 @@ import org.apache.poi.poifs.crypt.EncryptionMode;
 import org.apache.poi.poifs.crypt.Encryptor;
 import org.apache.poi.poifs.filesystem.FileMagic;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
-import org.apache.poi.ss.formula.eval.NotImplementedException;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.CellType;
@@ -629,6 +628,12 @@ public class ExcelUtils {
 		short maxCol = row.getLastCellNum();
 		if (maxCol < 0)
 			return new Object[0];
+		// POI支持重算公式格
+		// if (evaluator!=null) {
+		// evaluator.clearAllCachedResultValues();
+		// evaluator.evaluateAll();
+		// }
+
 		short firstCol = 0;
 		Object[] items = new Object[maxCol - firstCol];
 		for (int currCol = firstCol; currCol < maxCol; currCol++) {
@@ -646,34 +651,38 @@ public class ExcelUtils {
 					type = ExcelVersionCompatibleUtilGetter.getInstance()
 							.getCellType(evaluator.evaluate(cell));
 				} catch (Exception e) {
-					// 因为poi不支持的函数抛出的异常信息
-					// 试着取值
+					// poi不支持的函数可能抛出异常信息
 					try {
-						items[colIndex] = new Boolean(
-								cell.getBooleanCellValue());
-					} catch (Exception e1) {
-					}
-					if (items[colIndex] == null) {
+						type = cell.getCachedFormulaResultType(); // 取公式格缓存的类型
+					} catch (Exception ex) {
+						// 试着取值
 						try {
-							items[colIndex] = getNumericCellValue(cell, type,
-									dataFormat);
+							items[colIndex] = new Boolean(
+									cell.getBooleanCellValue());
 						} catch (Exception e1) {
 						}
-					}
-					if (items[colIndex] == null) {
-						try {
-							items[colIndex] = cell.getStringCellValue();
-						} catch (Exception e1) {
+						if (items[colIndex] == null) {
+							try {
+								items[colIndex] = getNumericCellValue(cell,
+										type, dataFormat);
+							} catch (Exception e1) {
+							}
 						}
-					}
-					if (items[colIndex] == null) {
-						try {
-							items[colIndex] = cell.getRichStringCellValue()
-									.toString();
-						} catch (Exception e1) {
+						if (items[colIndex] == null) {
+							try {
+								items[colIndex] = cell.getStringCellValue();
+							} catch (Exception e1) {
+							}
 						}
+						if (items[colIndex] == null) {
+							try {
+								items[colIndex] = cell.getRichStringCellValue()
+										.toString();
+							} catch (Exception e1) {
+							}
+						}
+						continue;
 					}
-					continue;
 				}
 			}
 			if (CellType.BLANK.compareTo(type) == 0) {

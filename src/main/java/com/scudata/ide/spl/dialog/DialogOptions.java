@@ -827,7 +827,7 @@ public class DialogOptions extends JDialog {
 		jPanel2.setLayout(gridLayout2);
 		jPanel2.add(jCBIdeConsole, null);
 		jPanel2.add(jCBAutoOpen, null);
-		// jPanel2.add(jCBAutoSave, null);
+		jPanel2.add(jCBAutoSave, null);
 		jPanel2.add(jCBAutoBackup, null);
 		// jPanel2.add(jCBLogException, null);
 		jPanel2.add(jCBAutoConnect, null);

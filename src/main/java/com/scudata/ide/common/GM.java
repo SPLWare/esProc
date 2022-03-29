@@ -3583,13 +3583,39 @@ public class GM {
 	 * @return
 	 */
 	public static boolean isNewGrid(String filePath, String pre) {
+		if (filePath.equals(pre)) {
+			return true;
+		}
 		if (filePath.startsWith(pre)) {
 			String end = filePath.substring(pre.length());
+			if (end.startsWith("_"))
+				end = end.substring(1);
 			try {
 				Integer.parseInt(end);
 				return true;
 			} catch (Exception ex) {
 			}
+		}
+		return false;
+	}
+
+	/**
+	 * 删除文件或目录
+	 * @param f 文件或目录
+	 * @return 是否删除成功
+	 */
+	public static boolean deleteFile(File f) {
+		if (f == null || !f.exists())
+			return true;
+		if (f.isFile()) {
+			return f.delete();
+		} else if (f.isDirectory()) {
+			File[] subFiles = f.listFiles();
+			if (subFiles != null)
+				for (File sub : subFiles) {
+					deleteFile(sub);
+				}
+			return f.delete();
 		}
 		return false;
 	}

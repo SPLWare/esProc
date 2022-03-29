@@ -1,8 +1,6 @@
 package com.scudata.ide.common;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -51,11 +49,6 @@ public class GV {
 	 * Automatically opened file name
 	 */
 	public static String autoOpenFileName = "";
-
-	/**
-	 * 自动打开的文件名称列表
-	 */
-	public static List<String> autoOpenFileNames = new ArrayList<String>();
 
 	/**
 	 * Clean up memory dialog

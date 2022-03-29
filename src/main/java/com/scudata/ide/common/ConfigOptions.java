@@ -68,7 +68,7 @@ public class ConfigOptions {
 	/** 新建文件备份到目录 */
 	public static String sBackupDirectory = GM.getAbsolutePath("backup");
 	/** 自动打开的文件数量 */
-	public static Integer iAutoOpenFileCount = new Integer(1);
+	public static String sAutoOpenFileNames = null;
 
 	/** Parallel number */
 	public static Integer iParallelNum = new Integer(1);
@@ -290,7 +290,7 @@ public class ConfigOptions {
 		options.put("bAutoSave", bAutoSave);
 		options.put("iAutoSaveMinutes", iAutoSaveMinutes);
 		options.put("sBackupDirectory", sBackupDirectory);
-		options.put("iAutoOpenFileCount", iAutoOpenFileCount);
+		options.put("sAutoOpenFileNames", sAutoOpenFileNames);
 		options.put("iConstFColor", new Integer(iConstFColor.getRGB()));
 		options.put("iConstBColor", new Integer(iConstBColor.getRGB()));
 		options.put("iNoteFColor", new Integer(iNoteFColor.getRGB()));
@@ -454,8 +454,6 @@ public class ConfigOptions {
 				iLocale = new Byte(ii.byteValue());
 			} else if (option.equalsIgnoreCase("iUndoCount")) {
 				iUndoCount = ii;
-			} else if (option.equalsIgnoreCase("iAutoOpenFileCount")) {
-				iAutoOpenFileCount = ii;
 			} else if (option.equalsIgnoreCase("iAutoSaveMinutes")) {
 				iAutoSaveMinutes = ii;
 			}
@@ -532,6 +530,8 @@ public class ConfigOptions {
 				sFileTreeExpand = val;
 			} else if (option.equalsIgnoreCase("sBackupDirectory")) {
 				sBackupDirectory = val;
+			} else if (option.equalsIgnoreCase("sAutoOpenFileNames")) {
+				sAutoOpenFileNames = val;
 			}
 		}
 	}

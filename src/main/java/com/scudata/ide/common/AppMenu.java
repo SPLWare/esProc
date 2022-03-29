@@ -629,10 +629,6 @@ public abstract class AppMenu extends JMenuBar {
 			if (!StringUtils.isValidString(GV.autoOpenFileName)) { // 如果没有打开参数才设置
 				GV.autoOpenFileName = filePath;
 			}
-			if (i < ConfigOptions.iAutoOpenFileCount.intValue()) {
-				if (!GV.autoOpenFileNames.contains(filePath))
-					GV.autoOpenFileNames.add(filePath);
-			}
 		}
 	}
 
