@@ -73,17 +73,11 @@ public class FileXlsR extends XlsFileObject {
 				is = new PushbackInputStream(is, 8);
 			}
 
-			boolean isXlsx = false;
-			try {
-				isXlsx = ExcelUtils.isXlsxFile(is);
-			} catch (Throwable e1) {
-				if (StringUtils.isValidString(fo.getFileName())) {
-					isXlsx = fo.getFileName().toLowerCase().endsWith(".xlsx");
-				}
-			}
+			boolean isXlsx = ExcelUtils.isXlsxFile(fo);
 			if (!isXlsx) {
 				MessageManager mm = AppMessage.get();
-				throw new RQException("xlsopen" + mm.getMessage("filexls.rwforxlsx"));
+				throw new RQException("xlsopen"
+						+ mm.getMessage("filexls.rwforxlsx"));
 			}
 			if (pwd != null) {
 				bis = new BufferedInputStream(is, Env.FILE_BUFSIZE);
@@ -141,10 +135,12 @@ public class FileXlsR extends XlsFileObject {
 	 * @throws OpenXML4JException
 	 * @throws SAXException
 	 */
-	private void initSheetInfos(XSSFReader xssfReader) throws IOException, OpenXML4JException, SAXException {
+	private void initSheetInfos(XSSFReader xssfReader) throws IOException,
+			OpenXML4JException, SAXException {
 		final Vector<String> countSet = new Vector<String>();
 		HashSet<String> nameSet = new HashSet<String>();
-		XSSFReader.SheetIterator iter = (XSSFReader.SheetIterator) xssfReader.getSheetsData();
+		XSSFReader.SheetIterator iter = (XSSFReader.SheetIterator) xssfReader
+				.getSheetsData();
 		int index = 0;
 		while (iter.hasNext()) {
 			final InputStream stream = iter.next();
@@ -153,12 +149,14 @@ public class FileXlsR extends XlsFileObject {
 				continue;
 			}
 			nameSet.add(sheetName);
-			final Record record = newLast(new Object[] { sheetName, new Integer(0), new Integer(0) });
-			Thread t = new Thread(Thread.currentThread().getThreadGroup(), new Runnable() {
-				public void run() {
-					initSheetInfo(stream, sheetName, record, countSet);
-				}
-			});
+			final Record record = newLast(new Object[] { sheetName,
+					new Integer(0), new Integer(0) });
+			Thread t = new Thread(Thread.currentThread().getThreadGroup(),
+					new Runnable() {
+						public void run() {
+							initSheetInfo(stream, sheetName, record, countSet);
+						}
+					});
 			t.start();
 			index++;
 		}
@@ -179,8 +177,8 @@ public class FileXlsR extends XlsFileObject {
 	 * @param countSet         Used to count the number of sheets loaded in
 	 *                         multi-threaded loading
 	 */
-	private void initSheetInfo(final InputStream sheetInputStream, String sheetName, Record record,
-			Vector<String> countSet) {
+	private void initSheetInfo(final InputStream sheetInputStream,
+			String sheetName, Record record, Vector<String> countSet) {
 		SheetInfo si = new SheetInfo(sheetName);
 		try {
 			final InputSource sheetSource = new InputSource(sheetInputStream);
@@ -221,7 +219,8 @@ public class FileXlsR extends XlsFileObject {
 	 */
 	public void xlswrite(FileObject fo, String pwd) {
 		// : xlsopen@r() can not xlswrite
-		throw new RQException("xlswrite" + AppMessage.get().getMessage("filexls.xlswriter"));
+		throw new RQException("xlswrite"
+				+ AppMessage.get().getMessage("filexls.xlswriter"));
 	}
 
 	/**
@@ -262,8 +261,8 @@ public class FileXlsR extends XlsFileObject {
 	 * @param deleteOldSheet Whether to delete the old sheet when getting the sheet.
 	 * @return
 	 */
-	public synchronized SheetObject getSheetObject(Object s, boolean createSheet, boolean deleteOldSheet)
-			throws Exception {
+	public synchronized SheetObject getSheetObject(Object s,
+			boolean createSheet, boolean deleteOldSheet) throws Exception {
 		SheetObject sx;
 		synchronized (sheets) {
 			if (s == null) {
@@ -274,11 +273,13 @@ public class FileXlsR extends XlsFileObject {
 			if (StringUtils.isValidString(s)) {
 				si = getSheetInfo((String) s);
 				if (si == null)
-					throw new RQException(AppMessage.get().getMessage("excel.nosheetname", s));
+					throw new RQException(AppMessage.get().getMessage(
+							"excel.nosheetname", s));
 			} else if (s instanceof Number) {
 				int index = ((Number) s).intValue();
 				if (index > length() || index < 1) {
-					throw new RQException(AppMessage.get().getMessage("excel.nosheetindex", index));
+					throw new RQException(AppMessage.get().getMessage(
+							"excel.nosheetindex", index));
 				}
 				si = getSheetInfo(index);
 			} else {

@@ -159,17 +159,8 @@ public class XlsExport extends FileFunction {
 			}
 		}
 
-		try { // 使用poi的方法判断版本
-			if (file != null)
-				isXlsx = ExcelUtils.isXlsxFile(file, pwd);
-		} catch (Throwable e1) {
-			// 如果判断不了，用文件后缀名判断
-			if (StringUtils.isValidString(file.getFileName())) {
-				if (file.getFileName().toLowerCase().endsWith("xlsx")) {
-					isXlsx = true;
-				}
-			}
-		}
+		if (file != null) // 使用poi的方法判断版本
+			isXlsx = ExcelUtils.isXlsxFile(file);
 
 		ExcelTool et = new ExcelTool(file, isTitle, isXlsx, isSsxxf, isAppend,
 				s, pwd, isW);

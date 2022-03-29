@@ -64,7 +64,6 @@ public class XlsxImporter implements IExcelTool {
 			sheet = wb.getSheetAt(0);
 			dataFormat = wb.createDataFormat();
 			evaluator = wb.getCreationHelper().createFormulaEvaluator();
-
 		} catch (RQException e) {
 			throw e;
 		} catch (Exception e) {

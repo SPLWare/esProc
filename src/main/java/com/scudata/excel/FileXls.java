@@ -107,7 +107,7 @@ public class FileXls extends XlsFileObject {
 						wb = new XSSFWorkbook(is);
 					}
 				} else {
-					if (!ExcelUtils.isXlsxFile(bis)) {
+					if (!ExcelUtils.isXlsxFile(fo)) {
 						isXls = true;
 						Biff8EncryptionKey.setCurrentUserPassword(pwd);
 						wb = new HSSFWorkbook(bis);

@@ -8,6 +8,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowEvent;
@@ -94,6 +95,28 @@ public class DialogOptions extends JDialog {
 	private JCheckBox jCBAutoConnect = new JCheckBox();
 
 	/**
+	 * 是否自动保存复选框
+	 */
+	private JCheckBox jCBAutoSave = new JCheckBox(
+			mm.getMessage("dialogoptions.autosave"));
+
+	private JLabel jLAutoSaveInterval = new JLabel(
+			mm.getMessage("dialogoptions.autosaveinterval")); // 每隔
+
+	/**
+	 * 自动保存的时间间隔
+	 */
+	private JSpinner jSAutoSaveInterval = new JSpinner(new SpinnerNumberModel(
+			ConfigOptions.iAutoSaveMinutes.intValue(), 1, 60 * 24, 1));
+
+	private JLabel jLAutoSaveMinutes = new JLabel(
+			mm.getMessage("dialogoptions.autosaveminutes")); // 分钟
+
+	// private JLabel jLAutoSaveDir = new JLabel("新建文件缓存路径");
+
+	// private JTextField jTFAutoSaveDir = new JTextField();
+
+	/**
 	 * 自动清除字符串尾部\0复选框
 	 */
 	private JCheckBox jCBAutoTrimChar0 = new JCheckBox();
@@ -176,7 +199,7 @@ public class DialogOptions extends JDialog {
 	/**
 	 * 注意：常规选项里面蓝色的选项需要重新启动IDE才能生效。
 	 */
-	private JLabel jLabel6 = new JLabel();
+	private JLabel jLabelNote = new JLabel();
 
 	/**
 	 * 应用程序外观标签
@@ -513,7 +536,7 @@ public class DialogOptions extends JDialog {
 		jLabel22.setText(mm.getMessage("dialogoptions.applnf")); // 应用程序外观
 		jLabelTimeout.setText(mm.getMessage("dialogoptions.timeoutnum")); // 连接到数据库时最长等待
 		jLabel9.setText(mm.getMessage("dialogoptions.second")); // 秒
-		jLabel6.setText(mm.getMessage("dialogoptions.attention")); // 注意：常规选项里面蓝色的选项需要重新启动IDE才能生效。
+		jLabelNote.setText(mm.getMessage("dialogoptions.attention")); // 注意：常规选项里面蓝色的选项需要重新启动IDE才能生效。
 		jLabelLevel.setText(mm.getMessage("dialogoptions.loglevel")); // 日志级别
 		jCBDispOutCell.setText(mm.getMessage("dialogoptions.dispoutcell")); // 内容冲出单元格显示
 		jCBAutoSizeRowHeight.setText(mm
@@ -552,6 +575,10 @@ public class DialogOptions extends JDialog {
 		// ConfigOptions.bLogException = new
 		// Boolean(jCBLogException.isSelected());
 		ConfigOptions.bAutoConnect = new Boolean(jCBAutoConnect.isSelected());
+		ConfigOptions.bAutoSave = new Boolean(jCBAutoSave.isSelected());
+		ConfigOptions.iAutoSaveMinutes = ((Number) jSAutoSaveInterval
+				.getValue()).intValue();
+		// ConfigOptions.sBackupDirectory = jTFAutoSaveDir.getText();
 		ConfigOptions.bAutoTrimChar0 = new Boolean(
 				jCBAutoTrimChar0.isSelected());
 		// ConfigOptions.bCheckUpdate = new
@@ -641,6 +668,9 @@ public class DialogOptions extends JDialog {
 		jCBAutoBackup.setSelected(ConfigOptions.bAutoBackup.booleanValue());
 		// jCBLogException.setSelected(ConfigOptions.bLogException.booleanValue());
 		jCBAutoConnect.setSelected(ConfigOptions.bAutoConnect.booleanValue());
+		jCBAutoSave.setSelected(ConfigOptions.bAutoSave.booleanValue());
+		jSAutoSaveInterval.setValue(ConfigOptions.iAutoSaveMinutes.intValue());
+		// jTFAutoSaveDir.setText(ConfigOptions.sBackupDirectory);
 		jCBAutoTrimChar0.setSelected(ConfigOptions.bAutoTrimChar0
 				.booleanValue());
 		jCBWindow.setSelected(ConfigOptions.bWindowSize.booleanValue());
@@ -745,6 +775,33 @@ public class DialogOptions extends JDialog {
 		return GV.config;
 	}
 
+	/**
+	 * 自动打开文件选项变化了
+	 */
+	private void autoOpenChanged() {
+		boolean isAutoOpen = jCBAutoOpen.isSelected();
+		jCBAutoSave.setEnabled(isAutoOpen);
+		if (!jCBAutoOpen.isSelected()) {
+			if (jCBAutoSave.isSelected()) {
+				jCBAutoSave.setSelected(false);
+				autoSaveChanged();
+			}
+		}
+
+	}
+
+	/**
+	 * 自动保存选项变化了
+	 */
+	private void autoSaveChanged() {
+		boolean isAutoSave = jCBAutoSave.isSelected();
+		jLAutoSaveInterval.setEnabled(isAutoSave);
+		jSAutoSaveInterval.setEnabled(isAutoSave);
+		jLAutoSaveMinutes.setEnabled(isAutoSave);
+		// jLAutoSaveDir.setEnabled(isAutoSave);
+		// jTFAutoSaveDir.setEnabled(isAutoSave);
+	}
+
 	public static final Color NOTE_COLOR = new Color(165, 0, 0);
 
 	/**
@@ -772,8 +829,8 @@ public class DialogOptions extends JDialog {
 
 		jLabel9.setText("秒");
 
-		jLabel6.setForeground(NOTE_COLOR);
-		jLabel6.setText("注意：选项里面蓝色的选项需要重新启动IDE才能生效。");
+		jLabelNote.setForeground(NOTE_COLOR);
+		jLabelNote.setText("注意：选项里面蓝色的选项需要重新启动IDE才能生效。");
 		jLabel22.setForeground(Color.blue);
 		jLabel22.setText("应用程序外观");
 		jCBWindow.setText("记忆窗口位置大小");
@@ -785,13 +842,6 @@ public class DialogOptions extends JDialog {
 		Vector<String> lnfDisps = LookAndFeelManager.listLNFDisp();
 		jCBLNF.x_setData(lnfCodes, lnfDisps);
 		JPanel panelNormal = new JPanel();
-
-		JPanel jPanel2 = new JPanel();
-
-		GridLayout gridLayout2 = new GridLayout();
-
-		gridLayout2.setColumns(2);
-		gridLayout2.setRows(7);
 
 		// Button
 		JPanel jPanelButton = new JPanel();
@@ -815,27 +865,26 @@ public class DialogOptions extends JDialog {
 		jCBLevel.x_setSelectedCodeItem(Logger.DEBUG);
 		// Normal
 		panelNormal.setLayout(new VFlowLayout(VFlowLayout.TOP));
-		panelNormal.add(jPanel2);
-		jPanel2.setLayout(gridLayout2);
-		jPanel2.add(jCBIdeConsole, null);
-		jPanel2.add(jCBAutoOpen, null);
-		jPanel2.add(jCBAutoBackup, null);
+		JPanel jPIdeOpt = new JPanel();
+		panelNormal.add(jPIdeOpt);
+		jPIdeOpt.setLayout(new GridLayout(5, 2));
+		jPIdeOpt.add(jCBIdeConsole, null);
+		// jPanel2.add(jCBAutoOpen, null);
+		// jPanel2.add(jCBAutoSave, null);
+		jPIdeOpt.add(jCBAutoBackup, null);
 		// jPanel2.add(jCBLogException, null);
-		jPanel2.add(jCBAutoConnect, null);
-		jPanel2.add(jCBWindow, null);
-		jPanel2.add(jCBDispOutCell, null);
-		jPanel2.add(jCBAutoSizeRowHeight, null);
-		jPanel2.add(jCBShowDBStruct, null);
-		jPanel2.add(jCBStepLastLocation, null);
-		jPanel2.add(jCBAutoTrimChar0, null);
-		jPanel2.add(jCBAdjustNoteCell, null);
+		jPIdeOpt.add(jCBAutoConnect, null);
+		jPIdeOpt.add(jCBWindow, null);
+		jPIdeOpt.add(jCBDispOutCell, null);
+		jPIdeOpt.add(jCBAutoSizeRowHeight, null);
+		jPIdeOpt.add(jCBShowDBStruct, null);
+		jPIdeOpt.add(jCBStepLastLocation, null);
+		jPIdeOpt.add(jCBAutoTrimChar0, null);
+		jPIdeOpt.add(jCBAdjustNoteCell, null);
 		// jPanel2.add(jCBCheckUpdate, null);
-
-		JPanel jPanel6 = new JPanel();
 
 		GridBagLayout gridBagLayout3 = new GridBagLayout();
 
-		GridBagLayout gridBagLayout4 = new GridBagLayout();
 		panelMid.setLayout(gridBagLayout3);
 
 		// labelFontName.setForeground(Color.blue);
@@ -887,22 +936,63 @@ public class DialogOptions extends JDialog {
 		jSUndoCount.setToolTipText(IdeSplMessage.get().getMessage(
 				"dialogoptions.undocountcause"));
 		jLUndoCount.setForeground(Color.BLUE);
-		GridBagConstraints gbc;
 		FlowLayout fl1 = new FlowLayout(FlowLayout.LEFT);
 		fl1.setHgap(0);
-		jPanel6.setLayout(fl1);
-		jPanel6.add(jLabelTimeout);
-		jPanel6.add(jSConnectTimeout);
-		jPanel6.add(jLabel9); // 秒
+		JPanel jPanelTimeout = new JPanel();
+		jPanelTimeout.setLayout(fl1);
+		jPanelTimeout.add(jSConnectTimeout);
+		jPanelTimeout.add(jLabel9); // 秒
 
-		gbc = GM.getGBC(6, 1, true);
-		gbc.gridwidth = 4;
-		panelMid.add(jPanel6, gbc);
+		panelMid.add(jLabelTimeout, GM.getGBC(5, 1));
+		panelMid.add(jPanelTimeout, GM.getGBC(5, 2, true));
+
+		// GridBagConstraints gbc;
+
+		JPanel panelAutoSave = new JPanel(new GridBagLayout());
+		panelAutoSave.add(jCBAutoOpen, GM.getGBC(0, 0, false, false, 0));
+		panelAutoSave.add(new JPanel(), GM.getGBC(0, 1));
+		panelAutoSave.add(jCBAutoSave, GM.getGBC(0, 2));
+		// panelAutoSave.add(new JPanel(), GM.getGBC(0, 3));
+		panelAutoSave.add(jLAutoSaveInterval, GM.getGBC(0, 4, false, false, 2));
+		panelAutoSave.add(jSAutoSaveInterval, GM.getGBC(0, 5, false, false, 2));
+		panelAutoSave.add(jLAutoSaveMinutes, GM.getGBC(0, 6, false, false, 2));
+		panelAutoSave.add(new JPanel(), GM.getGBC(0, 7, true, false, 0));
+
+		panelNormal.add(panelAutoSave);
+
+		// gbc = GM.getGBC(6, 1, true, false, 0);
+		// gbc.gridwidth = 4;
+		// panelMid.add(panelAutoSave, gbc);
+
+		// JPanel panelAutoSaveDir = new JPanel(new GridBagLayout());
+		// panelAutoSaveDir.add(new JPanel(), GM.getGBC(0, 0));
+		// panelAutoSaveDir.add(jLAutoSaveDir, GM.getGBC(0, 1));
+		// panelAutoSaveDir.add(jTFAutoSaveDir, GM.getGBC(0, 2, true));
+		// jTFAutoSaveDir.setEditable(false);
+		// gbc = GM.getGBC(7, 1, true, false, 0);
+		// gbc.gridwidth = 4;
+		// panelMid.add(panelAutoSaveDir, gbc);
+
+		jCBAutoOpen.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				autoOpenChanged();
+			}
+
+		});
+
+		jCBAutoSave.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				autoSaveChanged();
+			}
+
+		});
 
 		panelNormal.add(panelMid);
 		JPanel jp1 = new JPanel();
 		jp1.setLayout(new GridBagLayout());
-		jp1.add(jLabel6, GM.getGBC(1, 1, true));
+		jp1.add(jLabelNote, GM.getGBC(1, 1, true));
 		panelNormal.add(jp1);
 
 		// Env
@@ -1043,7 +1133,7 @@ public class DialogOptions extends JDialog {
 		if (isUnit) {
 			JPanel panelRestartMessage = new JPanel(new FlowLayout(
 					FlowLayout.LEFT));
-			panelRestartMessage.add(jLabel6);
+			panelRestartMessage.add(jLabelNote);
 			panelEnv.add(panelRestartMessage, GM.getGBC(4, 1, true));
 		}
 

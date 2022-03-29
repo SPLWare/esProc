@@ -10,6 +10,7 @@ import java.awt.event.WindowEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.BufferedInputStream;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,6 +35,8 @@ import com.scudata.app.config.ConfigUtil;
 import com.scudata.app.config.RaqsoftConfig;
 import com.scudata.cellset.ICellSet;
 import com.scudata.cellset.datamodel.PgmCellSet;
+import com.scudata.common.ArgumentTokenizer;
+import com.scudata.common.Escape;
 import com.scudata.common.Logger;
 import com.scudata.common.MessageManager;
 import com.scudata.common.StringUtils;
@@ -228,7 +231,7 @@ public class SPL extends AppFrame {
 			desk.revalidate();
 
 			if (StringUtils.isValidString(openFile))
-				GV.autoOpenFileNames.add(openFile);
+				ConfigOptions.sAutoOpenFileNames = openFile;
 			GV.autoOpenFileName = openFile;
 
 			newResourceTree();
@@ -491,23 +494,6 @@ public class SPL extends AppFrame {
 	}
 
 	/**
-	 * 取所有页的文件路径
-	 * @return
-	 */
-	public String[] getSheetFilePaths() {
-		JInternalFrame[] sheets = GV.appFrame.getDesk().getAllFrames();
-		if (sheets == null || sheets.length == 0) {
-			return null;
-		}
-		int len = sheets.length;
-		String[] filePaths = new String[len];
-		for (int i = 0; i < len; i++) {
-			filePaths[i] = (((IPrjxSheet) sheets[i]).getFileName());
-		}
-		return filePaths;
-	}
-
-	/**
 	 * 关闭指定页
 	 */
 	public boolean closeSheet(Object sheet) {
@@ -519,14 +505,29 @@ public class SPL extends AppFrame {
 	 * 
 	 * @param sheet     页对象
 	 * @param showSheet 关闭后是否显示其他页。关闭全部页时应该用false
-	 * @return
+	 * @return boolean
 	 */
 	public boolean closeSheet(Object sheet, boolean showSheet) {
+		return closeSheet(sheet, showSheet, false);
+	}
+
+	/**
+	 * 
+	 *关闭指定页
+	 * 
+	 * @param sheet     页对象
+	 * @param showSheet 关闭后是否显示其他页。关闭全部页时应该用false
+	 * @param isQuit 是否退出时调用的
+	 * @return boolean
+	 */
+	public boolean closeSheet(Object sheet, boolean showSheet, boolean isQuit) {
 		if (sheet == null) {
 			return false;
 		}
-
-		if (!((IPrjxSheet) sheet).close()) {
+		if (isQuit && sheet instanceof SheetSpl) { // 关闭全部
+			SheetSpl ss = (SheetSpl) sheet;
+			ss.close(true);
+		} else if (!((IPrjxSheet) sheet).close()) {
 			return false;
 		}
 
@@ -564,19 +565,45 @@ public class SPL extends AppFrame {
 
 	/**
 	 * 关闭全部页
+	 * @return boolean
 	 */
 	public boolean closeAll() {
+		return closeAll(false);
+	}
+
+	/**
+	 *  关闭全部页
+	 * @param isQuit 是否退出时触发的
+	 * @return
+	 */
+	public boolean closeAll(boolean isQuit) {
 		JInternalFrame[] frames = desk.getAllFrames();
+		StringBuffer buf = new StringBuffer();
 		IPrjxSheet sheet;
 		try {
 			for (int i = 0; i < frames.length; i++) {
 				sheet = (IPrjxSheet) frames[i];
-				if (!closeSheet(sheet, false)) {
+				if (!closeSheet(sheet, false, isQuit)) {
 					return false;
 				}
+				if (sheet instanceof SheetSpl) {
+					SheetSpl ss = (SheetSpl) sheet;
+					if (!isLocalSheet(ss)) {
+						continue;
+					}
+					if (!ConfigOptions.bAutoSave.booleanValue()
+							&& ss.isNewGrid()) {
+						continue;
+					}
+					if (buf.length() > 0) {
+						buf.append(",");
+					}
+					buf.append(Escape.addEscAndQuote(ss.getFileName()));
+				}
 			}
-			closeRemoteServer();
-
+			if (isQuit) {
+				ConfigOptions.sAutoOpenFileNames = buf.toString();
+			}
 		} catch (Exception x) {
 			GM.showException(x);
 			return false;
@@ -585,9 +612,11 @@ public class SPL extends AppFrame {
 	}
 
 	/**
-	 * 退出远程服务
+	 * 是否本地文件
+	 * @param sheet
+	 * @return
 	 */
-	protected boolean closeRemoteServer() {
+	protected boolean isLocalSheet(SheetSpl sheet) {
 		return true;
 	}
 
@@ -618,6 +647,9 @@ public class SPL extends AppFrame {
 		} catch (Exception e) {
 			GM.outputMessage(e);
 		}
+
+		if (autoSaveThread != null)
+			autoSaveThread.stopThread();
 
 		try {
 			if (splitCenter.getLeftComponent() == null) {
@@ -677,10 +709,7 @@ public class SPL extends AppFrame {
 	 * 如果关闭了所有页，则退出。
 	 */
 	public void quit() {
-		String[] filePaths = getSheetFilePaths();
-		if (closeAll()) {
-			ConfigOptions.iAutoOpenFileCount = filePaths == null ? 1
-					: filePaths.length;
+		if (closeAll(true)) {
 			exit();
 		}
 	}
@@ -871,6 +900,8 @@ public class SPL extends AppFrame {
 		if (GV.appSheet != null) {
 			GM.setCurrentPath(GV.appSheet.getSheetTitle());
 		}
+		// 自动保存
+		autoSaveOption();
 	}
 
 	/**
@@ -987,24 +1018,55 @@ public class SPL extends AppFrame {
 	 * 打开最近文件
 	 */
 	public void startAutoRecent() {
-		// if (StringUtils.isValidString(GV.autoOpenFileName)) {
-		// try {
-		// openSheetFile(GV.autoOpenFileName);
-		// } catch (Throwable x) {
-		// Logger.error(x);
-		// }
-		// }
-		if (GV.autoOpenFileNames != null) {
-			for (int i = GV.autoOpenFileNames.size() - 1; i >= 0; i--) {
-				String filePath = GV.autoOpenFileNames.get(i);
+		if (ConfigOptions.bAutoOpen.booleanValue()
+				&& ConfigOptions.sAutoOpenFileNames != null) {
+			File backupDir = new File(
+					GM.getAbsolutePath(ConfigOptions.sBackupDirectory));
+			List<String> files = new ArrayList<String>();
+			ArgumentTokenizer at = new ArgumentTokenizer(
+					ConfigOptions.sAutoOpenFileNames);
+			while (at.hasMoreTokens()) {
+				String file = at.nextToken();
+				if (file != null) {
+					file = Escape.removeEscAndQuote(file);
+					file = file.trim();
+				}
+				files.add(file);
+			}
+			for (int i = files.size() - 1; i >= 0; i--) {
+				String filePath = files.get(i);
 				try {
-					openSheetFile(filePath);
+					if (GM.isNewGrid(filePath, GCSpl.PRE_NEWPGM)) {
+						filePath = new File(backupDir, filePath)
+								.getAbsolutePath();
+						BufferedInputStream bis = null;
+						PgmCellSet cs = null;
+						try {
+							FileObject fo = new FileObject(filePath, "s");
+							bis = new BufferedInputStream(fo.getInputStream());
+							cs = CellSetUtil.readPgmCellSet(bis);
+						} finally {
+							if (bis != null)
+								bis.close();
+						}
+						if (cs != null) {
+							SheetSpl ss = (SheetSpl) openSheet(files.get(i),
+									cs, false);
+							String spl = CellSetUtil.toString(cs);
+							if (StringUtils.isValidString(spl)) {
+								ss.setDataChanged(true);
+							}
+						}
+					} else {
+						openSheetFile(filePath);
+					}
 				} catch (Throwable x) {
 					Logger.error(x);
 				}
 			}
+			// 启动时不清理了
+			// clearBackup();
 		}
-		ConfigOptions.iAutoOpenFileCount = 1;
 
 		try {
 			if (ConfigOptions.bAutoConnect.booleanValue()) {
@@ -1036,6 +1098,9 @@ public class SPL extends AppFrame {
 		if (!autoConnect) {
 			calcInitSpl(); // 有自动连接时，等连接后再计算
 		}
+
+		// 自动保存
+		autoSaveOption();
 	}
 
 	/**
@@ -1097,6 +1162,50 @@ public class SPL extends AppFrame {
 			}
 		}
 		return true;
+	}
+
+	/**
+	 * 自动保存所有网格
+	 */
+	public boolean autoSaveAll() {
+		// 清理缓存文件目录
+		clearBackup();
+
+		JInternalFrame[] sheets = getAllInternalFrames();
+		if (sheets == null) {
+			return false;
+		}
+		int count = sheets.length;
+		for (int i = 0; i < count; i++) {
+			if (sheets[i] instanceof SheetSpl) {
+				SheetSpl sheet = (SheetSpl) sheets[i];
+				if (!sheet.autoSave()) {
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+
+	/**
+	 * 清理缓存文件目录
+	 */
+	private void clearBackup() {
+		File backupDir = new File(
+				GM.getAbsolutePath(ConfigOptions.sBackupDirectory));
+		if (!backupDir.exists()) {
+			backupDir.mkdirs();
+		} else { // 清理之前缓存的文件
+			try {
+				File[] files = backupDir.listFiles();
+				if (files != null) {
+					for (File f : files) {
+						GM.deleteFile(f);
+					}
+				}
+			} catch (Exception e) {
+			}
+		}
 	}
 
 	/**
@@ -1449,13 +1558,10 @@ public class SPL extends AppFrame {
 	 */
 	void this_windowClosing(WindowEvent e) {
 		this.update(this.getGraphics());
-		String[] filePaths = getSheetFilePaths();
-		if (!closeAll()) {
+		if (!closeAll(true)) {
 			this.setDefaultCloseOperation(SPL.DO_NOTHING_ON_CLOSE);
 			return;
 		}
-		ConfigOptions.iAutoOpenFileCount = filePaths == null ? 1
-				: filePaths.length;
 		if (!exit()) {
 			this.setDefaultCloseOperation(SPL.DO_NOTHING_ON_CLOSE);
 			return;
@@ -1469,6 +1575,75 @@ public class SPL extends AppFrame {
 	 */
 	public String getProductName() {
 		return IdeSplMessage.get().getMessage("dfx.productname");
+	}
+
+	/**
+	 * 自动保存的定时线程
+	 */
+	private AutoSaveThread autoSaveThread;
+
+	/**
+	 * 处理自动保存
+	 */
+	private void autoSaveOption() {
+		if (ConfigOptions.bAutoSave) {
+			if (autoSaveThread == null || autoSaveThread.isStopped()) {
+				autoSaveThread = new AutoSaveThread();
+				autoSaveThread.start();
+			}
+
+			// 保存自动保存文件名
+			JInternalFrame[] frames = desk.getAllFrames();
+			StringBuffer buf = new StringBuffer();
+			IPrjxSheet sheet;
+			for (int i = 0; i < frames.length; i++) {
+				sheet = (IPrjxSheet) frames[i];
+				if (sheet instanceof SheetSpl) {
+					SheetSpl ss = (SheetSpl) sheet;
+					if (buf.length() > 0) {
+						buf.append(",");
+					}
+					buf.append(Escape.addEscAndQuote(ss.getFileName()));
+				}
+			}
+			ConfigOptions.sAutoOpenFileNames = buf.toString();
+		} else {
+			if (autoSaveThread != null)
+				autoSaveThread.stopThread();
+			clearBackup();
+		}
+	}
+
+	/**
+	 * 自动保存的线程
+	 *
+	 */
+	class AutoSaveThread extends Thread {
+		private boolean isStopped = false;
+
+		public AutoSaveThread() {
+			super();
+		}
+
+		public void run() {
+			while (!isStopped) {
+				try { // 根据选项调整间隔时间
+					sleep(ConfigOptions.iAutoSaveMinutes.intValue() * 60 * 1000);
+				} catch (Exception e) {
+				}
+				if (isStopped)
+					break;
+				autoSaveAll();
+			}
+		}
+
+		public void stopThread() {
+			isStopped = true;
+		}
+
+		public boolean isStopped() {
+			return isStopped;
+		}
 	}
 }
 

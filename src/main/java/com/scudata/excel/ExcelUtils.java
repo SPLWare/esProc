@@ -18,7 +18,6 @@ import org.apache.poi.poifs.crypt.EncryptionMode;
 import org.apache.poi.poifs.crypt.Encryptor;
 import org.apache.poi.poifs.filesystem.FileMagic;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
-import org.apache.poi.ss.formula.eval.NotImplementedException;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.CellType;
@@ -137,15 +136,7 @@ public class ExcelUtils {
 	 * @return true means xlsx format, false means xls format.
 	 * @throws IOException
 	 */
-	public static boolean isXlsxFile(FileObject fo, String pwd)
-			throws IOException {
-		/*
-		 * There is an error in the interface of the POI when there is a
-		 * password. The xlsx file hasPOIFSHeader also returns true.
-		 */
-		if (StringUtils.isValidString(pwd)) {
-			return fo.getFileName().toLowerCase().endsWith(".xlsx");
-		}
+	public static boolean isXlsxFile(FileObject fo) {
 		InputStream in = null;
 		PushbackInputStream pin = null;
 		BufferedInputStream bis = null;
@@ -155,7 +146,20 @@ public class ExcelUtils {
 				pin = new PushbackInputStream(in, 8);
 			}
 			bis = new BufferedInputStream(pin, Env.FILE_BUFSIZE);
-			return isXlsxFile(bis);
+			boolean isXlsx = isXlsxFile(bis);
+			if (isXlsx) { // 如果类型是OOXML可以断定文件类型是xlsx
+				return true;
+			} else { // 但是类型是OLE2的，不一定是xls，也可能是加密了的xlsx文件
+				if (fo != null) {
+					String fileName = fo.getFileName();
+					if (StringUtils.isValidString(fileName)) {
+						return fileName.toLowerCase().endsWith(".xlsx");
+					}
+				}
+				return false;
+			}
+		} catch (Exception e) {
+			return fo.getFileName().toLowerCase().endsWith(".xlsx");
 		} finally {
 			if (in != null) {
 				try {
@@ -629,6 +633,12 @@ public class ExcelUtils {
 		short maxCol = row.getLastCellNum();
 		if (maxCol < 0)
 			return new Object[0];
+		// POI支持重算公式格
+		// if (evaluator!=null) {
+		// evaluator.clearAllCachedResultValues();
+		// evaluator.evaluateAll();
+		// }
+
 		short firstCol = 0;
 		Object[] items = new Object[maxCol - firstCol];
 		for (int currCol = firstCol; currCol < maxCol; currCol++) {
@@ -646,34 +656,38 @@ public class ExcelUtils {
 					type = ExcelVersionCompatibleUtilGetter.getInstance()
 							.getCellType(evaluator.evaluate(cell));
 				} catch (Exception e) {
-					// 因为poi不支持的函数抛出的异常信息
-					// 试着取值
+					// poi不支持的函数可能抛出异常信息
 					try {
-						items[colIndex] = new Boolean(
-								cell.getBooleanCellValue());
-					} catch (Exception e1) {
-					}
-					if (items[colIndex] == null) {
+						type = cell.getCachedFormulaResultType(); // 取公式格缓存的类型
+					} catch (Exception ex) {
+						// 试着取值
 						try {
-							items[colIndex] = getNumericCellValue(cell, type,
-									dataFormat);
+							items[colIndex] = new Boolean(
+									cell.getBooleanCellValue());
 						} catch (Exception e1) {
 						}
-					}
-					if (items[colIndex] == null) {
-						try {
-							items[colIndex] = cell.getStringCellValue();
-						} catch (Exception e1) {
+						if (items[colIndex] == null) {
+							try {
+								items[colIndex] = getNumericCellValue(cell,
+										type, dataFormat);
+							} catch (Exception e1) {
+							}
 						}
-					}
-					if (items[colIndex] == null) {
-						try {
-							items[colIndex] = cell.getRichStringCellValue()
-									.toString();
-						} catch (Exception e1) {
+						if (items[colIndex] == null) {
+							try {
+								items[colIndex] = cell.getStringCellValue();
+							} catch (Exception e1) {
+							}
 						}
+						if (items[colIndex] == null) {
+							try {
+								items[colIndex] = cell.getRichStringCellValue()
+										.toString();
+							} catch (Exception e1) {
+							}
+						}
+						continue;
 					}
-					continue;
 				}
 			}
 			if (CellType.BLANK.compareTo(type) == 0) {
