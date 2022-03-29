@@ -136,15 +136,7 @@ public class ExcelUtils {
 	 * @return true means xlsx format, false means xls format.
 	 * @throws IOException
 	 */
-	public static boolean isXlsxFile(FileObject fo, String pwd)
-			throws IOException {
-		/*
-		 * There is an error in the interface of the POI when there is a
-		 * password. The xlsx file hasPOIFSHeader also returns true.
-		 */
-		if (StringUtils.isValidString(pwd)) {
-			return fo.getFileName().toLowerCase().endsWith(".xlsx");
-		}
+	public static boolean isXlsxFile(FileObject fo) {
 		InputStream in = null;
 		PushbackInputStream pin = null;
 		BufferedInputStream bis = null;
@@ -154,7 +146,20 @@ public class ExcelUtils {
 				pin = new PushbackInputStream(in, 8);
 			}
 			bis = new BufferedInputStream(pin, Env.FILE_BUFSIZE);
-			return isXlsxFile(bis);
+			boolean isXlsx = isXlsxFile(bis);
+			if (isXlsx) { // 如果类型是OOXML可以断定文件类型是xlsx
+				return true;
+			} else { // 但是类型是OLE2的，不一定是xls，也可能是加密了的xlsx文件
+				if (fo != null) {
+					String fileName = fo.getFileName();
+					if (StringUtils.isValidString(fileName)) {
+						return fileName.toLowerCase().endsWith(".xlsx");
+					}
+				}
+				return false;
+			}
+		} catch (Exception e) {
+			return fo.getFileName().toLowerCase().endsWith(".xlsx");
 		} finally {
 			if (in != null) {
 				try {
