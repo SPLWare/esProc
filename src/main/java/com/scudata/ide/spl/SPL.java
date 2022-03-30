@@ -1064,8 +1064,6 @@ public class SPL extends AppFrame {
 					Logger.error(x);
 				}
 			}
-			// 启动时不清理了
-			// clearBackup();
 		}
 
 		try {

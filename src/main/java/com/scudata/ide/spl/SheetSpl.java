@@ -2311,7 +2311,8 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 		boolean isChanged = splEditor.isDataChanged();
 		// 没有子程序的网格，或者有子程序但是已经中断执行的call网格，都提示保存
 		if (stepInfo == null || isStepStopCall()) {
-			if (ConfigOptions.bAutoSave && isQuit) { // 退出时触发自动保存，不再询问
+			// 退出调用的close，会触发自动保存（如果勾选了）
+			if (ConfigOptions.bAutoSave && isQuit) {
 				if (!autoSave()) {
 					return false;
 				}
@@ -2319,7 +2320,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 				boolean querySave = false;
 				boolean isNew = isNewGrid();
 				boolean removeBackup = false;
-				if (isNew) {
+				if (isNew) { // 新建网格如果无内容直接关闭，有内容询问是否保存
 					String spl = CellSetUtil.toString(splControl.cellSet);
 					if (StringUtils.isValidString(spl)) { // 新建网格如果进行过编辑，关闭时询问
 						querySave = true;

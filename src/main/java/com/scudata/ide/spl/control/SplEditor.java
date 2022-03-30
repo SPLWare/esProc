@@ -2333,7 +2333,9 @@ public class SplEditor {
 			return false;
 		String[] names = name.split("!");
 		if (names.length == 2) {
-			String sheetName = names[0]; // 工作簿名称不判断了，只要不为空就行
+			String sheetName = names[0];
+			// 工作簿名称可能是Sheet1!A1，也可能带文件名
+			// 工作簿名称不判断了，只要不为空就行
 			if (!StringUtils.isValidString(sheetName))
 				return false;
 			String cellName = names[1];
