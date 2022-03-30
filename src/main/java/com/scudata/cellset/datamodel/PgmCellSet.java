@@ -2175,9 +2175,10 @@ public class PgmCellSet extends CellSet {
 	 * @param row int 子函数所在的行
 	 * @param col int 子函数所在的列
 	 * @param args Object[] 参数数组
+	 * @param opt String i：不递归调用，不用复制网格
 	 * @return Object 子函数返回值
 	 */
-	public Object executeFunc(int row, int col, Object []args) {
+	public Object executeFunc(int row, int col, Object []args, String opt) {
 		PgmNormalCell cell = getPgmNormalCell(row, col);
 		Command cmd = cell.getCommand();
 		if (cmd == null || cmd.getType() != Command.FUNC) {
@@ -2189,13 +2190,20 @@ public class PgmCellSet extends CellSet {
 		if (expStr != null && expStr.length() > 0) {
 			int nameEnd = KeyWord.scanId(expStr, 0);
 			String fnName = expStr.substring(0, nameEnd);
-			return executeFunc(fnName, args);
+			return executeFunc(fnName, args, opt);
 		}
-
+		
+		int endRow = getCodeBlockEndRow(row, col);
+		if (opt != null && opt.indexOf('i') != -1) {
+			CellLocation oldLct = curLct;
+			Object result = executeFunc(row, col, endRow, args);
+			curLct = oldLct;
+			return result;
+		}
+		
 		// 共享函数体外的格子
 		PgmCellSet pcs = newCalc();
 		int colCount = getColCount();
-		int endRow = getCodeBlockEndRow(row, col);
 		for (int r = row; r <= endRow; ++r) {
 			for (int c = col; c <= colCount; ++c) {
 				INormalCell tmp = getCell(r, c);
@@ -2278,14 +2286,24 @@ public class PgmCellSet extends CellSet {
 	 * 执行指定名字的子函数，可递归调用
 	 * @param fnName 函数名
 	 * @param args Object[] 参数数组
+	 * @param opt String i：不递归调用，不用复制网格
 	 * @return Object 子函数返回值
 	 */
-	public Object executeFunc(String fnName, Object []args) {
+	public Object executeFunc(String fnName, Object []args, String opt) {
 		FuncInfo funcInfo = getFuncInfo(fnName);
 		PgmNormalCell cell = funcInfo.getCell();
 		int row = cell.getRow();
 		int col = cell.getCol();
 		int colCount = getColCount();
+		int endRow = getCodeBlockEndRow(row, col);
+		
+		if (opt != null && opt.indexOf('i') != -1) {
+			// 定义了名字和参数的函数不再将参数填入单元格
+			CellLocation oldLct = curLct;
+			Object result = executeFunc(row, col, endRow, null); // args
+			curLct = oldLct;
+			return result;
+		}
 		
 		// 共享函数体外的格子
 		PgmCellSet pcs = newCalc();
@@ -2304,7 +2322,6 @@ public class PgmCellSet extends CellSet {
 			}
 		}
 		
-		int endRow = getCodeBlockEndRow(row, col);
 		for (int r = row; r <= endRow; ++r) {
 			for (int c = col; c <= colCount; ++c) {
 				INormalCell tmp = getCell(r, c);
