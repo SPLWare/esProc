@@ -24,6 +24,10 @@ public class Alter extends TableMetaDataFunction {
 			ParamInfo2 pi = ParamInfo2.parse(param, "alter", false, false);
 			exps = pi.getExpressions2();
 			names = pi.getExpressionStrs1();
+		} else if (param.getType() == IParam.Comma) {
+			ParamInfo2 pi = ParamInfo2.parse(param, "alter", false, false);
+			exps = pi.getExpressions2();
+			names = pi.getExpressionStrs1();
 		} else if (param.getType() == IParam.Semicolon) {
 			int size = param.getSubSize();
 			if (size != 2) {
