@@ -73,9 +73,9 @@ public class Func extends Function {
 		Object []args = callInfo.getArgs();
 		
 		if (cell != null) {
-			return pcs.executeFunc(cell.getRow(), cell.getCol(), args);
+			return pcs.executeFunc(cell.getRow(), cell.getCol(), args, option);
 		} else {
-			return pcs.executeFunc(callInfo.getFnName(), args);
+			return pcs.executeFunc(callInfo.getFnName(), args, option);
 		}
 	}
 	
