@@ -2221,9 +2221,9 @@ public class PgmCellSet extends CellSet {
 	 * @param fnName 函数名
 	 * @return
 	 */
-	private FuncInfo getFuncInfo(String fnName) {
+	public FuncInfo getFuncInfo(String fnName) {
 		if (fnMap == null) {
-			// 变量网格中定义的函数，生成函数名映射表
+			// 遍历网格中定义的函数，生成函数名映射表
 			fnMap = new HashMap<String, FuncInfo>();
 			int rowCount = getRowCount();
 			int colCount = getColCount();
@@ -2296,15 +2296,7 @@ public class PgmCellSet extends CellSet {
 		int col = cell.getCol();
 		int colCount = getColCount();
 		int endRow = getCodeBlockEndRow(row, col);
-		
-		if (opt != null && opt.indexOf('i') != -1) {
-			// 定义了名字和参数的函数不再将参数填入单元格
-			CellLocation oldLct = curLct;
-			Object result = executeFunc(row, col, endRow, null); // args
-			curLct = oldLct;
-			return result;
-		}
-		
+				
 		// 共享函数体外的格子
 		PgmCellSet pcs = newCalc();
 		String []argNames = funcInfo.getArgNames();
