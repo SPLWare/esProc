@@ -67,7 +67,7 @@ public class Structure extends FileFunction {
 	 * 获得table的结构，保存到out里
 	 * @param table
 	 */
-	protected static Record getTableStruct(TableMetaData table, String option) {
+	public static Record getTableStruct(TableMetaData table, String option) {
 		int idx = 0;
 		boolean hasI = false;
 		boolean hasC = false;
