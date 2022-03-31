@@ -325,13 +325,15 @@ public class JoinCursor extends ICursor {
 			}
 		}
 		ArrayList<String> allkeyList = new ArrayList<String>();//T主键（用于判断取出字段里是否包含了T主键所有）
-		for(String f : keyNames) {
-			allkeyList.add(f);
+		if (keyNames != null) {
+			for(String f : keyNames) {
+				allkeyList.add(f);
+			}
 		}
 		
 		//4. 选出字段，exps里可能有{……}，这时要展开得到取出字段
 		ArrayList<String> fetchKeyList = new ArrayList<String>();//保存取出字段里可能是主键的字段
-		int fetchKeyListFlag[] = new int[keyNames.length];//标志：T的主键字段是否都出现在取出字段
+		int fetchKeyListFlag[] = new int[keyNames == null ? 0 : keyNames.length];//标志：T的主键字段是否都出现在取出字段
 		for (int i = 0, len = exps.length; i < len; i++) {
 			Expression exp = exps[i];
 			if (exp == null) {
