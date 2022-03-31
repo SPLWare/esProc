@@ -1620,6 +1620,10 @@ public class SPL extends AppFrame {
 				}
 			}
 		ConfigOptions.sAutoOpenFileNames = buf.toString();
+		try {
+			ConfigOptions.save(false, true);
+		} catch (Throwable e) {
+		}
 	}
 
 	/**

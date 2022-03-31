@@ -342,6 +342,18 @@ public class ConfigOptions {
 	 * @throws Throwable
 	 */
 	public static void save(boolean holdConsole) throws Throwable {
+		save(holdConsole, false);
+	}
+
+	/**
+	 * Save options
+	 * 
+	 * @param holdConsole
+	 * @param onlySave ½ö±£´æ
+	 * @throws Throwable
+	 */
+	public static void save(boolean holdConsole, boolean onlySave)
+			throws Throwable {
 		putOptions();
 		cf = ConfigFile.getConfigFile();
 		cf.setConfigNode(ConfigFile.NODE_OPTIONS);
@@ -354,6 +366,8 @@ public class ConfigOptions {
 			cf.setAttrValue(option, optionVar);
 		}
 		cf.save();
+		if (onlySave)
+			return;
 		applyOptions(holdConsole);
 	}
 
