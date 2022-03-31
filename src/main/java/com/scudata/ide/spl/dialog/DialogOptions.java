@@ -751,6 +751,8 @@ public class DialogOptions extends JDialog {
 				jCBLocale.x_setSelectedCodeItem(new Byte(GC.ENGLISH));
 			}
 		}
+		autoOpenChanged();
+
 	}
 
 	/**
@@ -784,10 +786,9 @@ public class DialogOptions extends JDialog {
 		if (!jCBAutoOpen.isSelected()) {
 			if (jCBAutoSave.isSelected()) {
 				jCBAutoSave.setSelected(false);
-				autoSaveChanged();
 			}
 		}
-
+		autoSaveChanged();
 	}
 
 	/**
