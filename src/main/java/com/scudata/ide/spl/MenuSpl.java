@@ -83,6 +83,7 @@ public class MenuSpl extends AppMenu {
 
 		menuTemp = newCommonMenuItem(GC.iOPEN, GC.OPEN, 'O',
 				ActionEvent.CTRL_MASK, true);
+		menu.add(menuTemp);
 		menuTemp = newSplMenuItem(GCSpl.iFILE_REOPEN, GCSpl.FILE_REOPEN, 'R',
 				GC.NO_MASK, true);
 		menu.add(menuTemp);
