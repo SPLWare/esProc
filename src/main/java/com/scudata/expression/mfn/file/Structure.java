@@ -59,7 +59,7 @@ public class Structure extends FileFunction {
 		}
 	}
 	
-	private static Record getTableStruct(ClusterTableMetaData table, String option) {
+	protected static Record getTableStruct(ClusterTableMetaData table, String option) {
 		return table.getStructure();
 	}
 	
@@ -67,7 +67,7 @@ public class Structure extends FileFunction {
 	 * 获得table的结构，保存到out里
 	 * @param table
 	 */
-	public static Record getTableStruct(TableMetaData table, String option) {
+	protected static Record getTableStruct(TableMetaData table, String option) {
 		int idx = 0;
 		boolean hasI = false;
 		boolean hasC = false;
@@ -122,7 +122,7 @@ public class Structure extends FileFunction {
 	 * @param table
 	 * @returnhy
 	 */
-	private static Sequence getTableIndexStruct(TableMetaData table) {
+	protected static Sequence getTableIndexStruct(TableMetaData table) {
 		String inames[] = table.getIndexNames();
 		if (inames == null) {
 			return null;
@@ -144,7 +144,7 @@ public class Structure extends FileFunction {
 	 * @param table
 	 * @return
 	 */
-	private static Sequence getTableCuboidStruct(TableMetaData table) {
+	protected static Sequence getTableCuboidStruct(TableMetaData table) {
 		String cuboids[] = table.getCuboids();
 		if (cuboids == null) {
 			return null;

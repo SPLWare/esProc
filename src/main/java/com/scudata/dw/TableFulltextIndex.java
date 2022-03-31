@@ -209,6 +209,13 @@ public class TableFulltextIndex extends TableMetaDataIndex {
 				for (int i = 1; i <= length; i++) {
 					Record r = (Record) mems.get(i);
 					Object []objs = r.getFieldValues();
+					if (objs[0] == null) {
+						continue;
+					}
+					if (!(objs[0] instanceof String)) {
+						MessageManager mm = EngineMessage.get();
+						throw new RQException("index" + mm.getMessage("function.paramTypeError"));
+					}
 					String ifield = (String) objs[0];
 					
 					list.clear();//用于判断重复的字符，例如"宝宝巴士"，重复的"宝"字不能被重复索引

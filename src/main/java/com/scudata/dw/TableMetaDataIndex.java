@@ -1253,7 +1253,7 @@ public class TableMetaDataIndex implements ITableIndex {
 				writer.writeInt(BLOCK_END);
 			} else {
 				table = cursor.fetchGroup(ifs, MAX_LEAF_BLOCK_COUNT * FETCH_SIZE, ctx);
-				if (table == null || table.length() == 0) {
+				if (table == null) {
 					MessageManager mm = EngineMessage.get();
 					throw new RQException("index" + mm.getMessage("function.invalidParam"));
 				}
