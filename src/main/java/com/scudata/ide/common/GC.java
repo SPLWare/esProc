@@ -79,6 +79,11 @@ public class GC {
 	 */
 	public final static String PATH_TMP = "log";
 	/**
+	 * Auto save default file path
+	 */
+	public final static String PATH_BACKUP = "backup";
+
+	/**
 	 * Ratio of tool window to screen
 	 */
 	public static final double TOOL_SCALE = 0.7;

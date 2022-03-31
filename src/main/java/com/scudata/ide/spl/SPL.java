@@ -1168,6 +1168,8 @@ public class SPL extends AppFrame {
 	public boolean autoSaveAll() {
 		// 清理缓存文件目录
 		clearBackup();
+		// 保存自动保存文件名
+		saveAutoOpenFileNames();
 
 		JInternalFrame[] sheets = getAllInternalFrames();
 		if (sheets == null) {
@@ -1591,9 +1593,22 @@ public class SPL extends AppFrame {
 			}
 
 			// 保存自动保存文件名
-			JInternalFrame[] frames = desk.getAllFrames();
-			StringBuffer buf = new StringBuffer();
-			IPrjxSheet sheet;
+			saveAutoOpenFileNames();
+		} else {
+			if (autoSaveThread != null)
+				autoSaveThread.stopThread();
+			clearBackup();
+		}
+	}
+
+	/**
+	 * 保存自动保存文件名
+	 */
+	private void saveAutoOpenFileNames() {
+		JInternalFrame[] frames = desk.getAllFrames();
+		StringBuffer buf = new StringBuffer();
+		IPrjxSheet sheet;
+		if (frames != null)
 			for (int i = 0; i < frames.length; i++) {
 				sheet = (IPrjxSheet) frames[i];
 				if (sheet instanceof SheetSpl) {
@@ -1604,12 +1619,7 @@ public class SPL extends AppFrame {
 					buf.append(Escape.addEscAndQuote(ss.getFileName()));
 				}
 			}
-			ConfigOptions.sAutoOpenFileNames = buf.toString();
-		} else {
-			if (autoSaveThread != null)
-				autoSaveThread.stopThread();
-			clearBackup();
-		}
+		ConfigOptions.sAutoOpenFileNames = buf.toString();
 	}
 
 	/**

@@ -76,7 +76,8 @@ public abstract class AppFrame extends JFrame implements IAppFrame {
 	public static void holdConsole() {
 		Font font;
 		if (StringUtils.isValidString(ConfigOptions.sFontName)) {
-			font = new Font(ConfigOptions.sFontName, Font.PLAIN, ConfigOptions.iFontSize.intValue());
+			font = new Font(ConfigOptions.sFontName, Font.PLAIN,
+					ConfigOptions.iFontSize.intValue());
 		} else {
 			font = GC.font;
 		}
@@ -381,7 +382,7 @@ public abstract class AppFrame extends JFrame implements IAppFrame {
 			System.setProperty("raqsoft.home", startHome + "");
 		}
 		String[] path = new String[] { GC.PATH_CONFIG, GC.PATH_LOGO,
-				GC.PATH_TMP };
+				GC.PATH_TMP, GC.PATH_BACKUP };
 		for (int i = 0; i < path.length; i++) {
 			File f = new File(GM.getAbsolutePath(path[i]));
 			if (!f.exists()) {
