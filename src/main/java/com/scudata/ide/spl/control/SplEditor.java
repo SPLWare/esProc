@@ -2031,24 +2031,25 @@ public class SplEditor {
 			int startRow = 1, startCol = 1;
 			int endRow = cellSet.getRowCount();
 			int endCol = cellSet.getColCount();
-			for (int r = 1; r <= cellSet.getRowCount(); r++) {
-				if (!isUselessRow(r)) {
-					startRow = r;
-					break;
-				}
-			}
+			// 前面的行和列不能去掉，否则影响行号列号
+			// for (int r = 1; r <= cellSet.getRowCount(); r++) {
+			// if (!isUselessRow(r)) {
+			// startRow = r;
+			// break;
+			// }
+			// }
 			for (int r = cellSet.getRowCount(); r >= 1; r--) {
 				if (!isUselessRow(r)) {
 					endRow = r;
 					break;
 				}
 			}
-			for (int c = 1; c <= cellSet.getColCount(); c++) {
-				if (!isUselessCol(c)) {
-					startCol = c;
-					break;
-				}
-			}
+			// for (int c = 1; c <= cellSet.getColCount(); c++) {
+			// if (!isUselessCol(c)) {
+			// startCol = c;
+			// break;
+			// }
+			// }
 			for (int c = cellSet.getColCount(); c >= 1; c--) {
 				if (!isUselessCol(c)) {
 					endCol = c;

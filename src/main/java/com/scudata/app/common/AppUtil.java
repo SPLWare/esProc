@@ -100,7 +100,8 @@ public class AppUtil {
 		if (!StringUtils.isValidString(cmd)) {
 			return null;
 		}
-		cmd = cmd.trim();
+		// trim会导致首尾的换行换列符号被去掉
+		// cmd = cmd.trim();
 		boolean returnValue = true;
 		boolean isExp = false;
 		boolean isGrid = false;
@@ -115,7 +116,7 @@ public class AppUtil {
 				isGrid = true;
 			}
 		}
-		cmd = cmd.trim();
+		// cmd = cmd.trim();
 		if (escape)
 			cmd = Escape.removeEscAndQuote(cmd);
 		if (!isExp) {
@@ -396,11 +397,11 @@ public class AppUtil {
 	public static PgmCellSet excelSplToCellSet(String spl, boolean escape) {
 		if (!StringUtils.isValidString(spl))
 			return null;
-		spl = spl.trim();
+		// spl = spl.trim();
 		if (escape) {
 			// 去掉转义符，注意Excel中是双引号
 			spl = Escape.removeEscAndQuote(spl, '"');
-			spl = spl.trim();
+			// spl = spl.trim();
 		}
 		PgmCellSet cellSet = CellSetUtil.toPgmCellSet(spl);
 		return cellSet;
