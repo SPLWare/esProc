@@ -230,9 +230,7 @@ public class SPL extends AppFrame {
 			desk.setDragMode(JDesktopPane.LIVE_DRAG_MODE);
 			desk.revalidate();
 
-			if (StringUtils.isValidString(openFile))
-				ConfigOptions.sAutoOpenFileNames = openFile;
-			GV.autoOpenFileName = openFile;
+			GV.directOpenFile = openFile;
 
 			newResourceTree();
 
@@ -1018,7 +1016,13 @@ public class SPL extends AppFrame {
 	 * 打开最近文件
 	 */
 	public void startAutoRecent() {
-		if (ConfigOptions.bAutoOpen.booleanValue()
+		if (StringUtils.isValidString(GV.directOpenFile)) {
+			try {
+				openSheetFile(GV.directOpenFile);
+			} catch (Throwable x) {
+				GM.showException(x);
+			}
+		} else if (ConfigOptions.bAutoOpen.booleanValue()
 				&& ConfigOptions.sAutoOpenFileNames != null) {
 			File backupDir = new File(
 					GM.getAbsolutePath(ConfigOptions.sBackupDirectory));

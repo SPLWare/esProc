@@ -46,9 +46,9 @@ public class GV {
 	public static Console console = null;
 
 	/**
-	 * Automatically opened file name
+	 * 通过参数传递的启动文件名（双击打开时传递的）
 	 */
-	public static String autoOpenFileName = "";
+	public static String directOpenFile = "";
 
 	/**
 	 * Clean up memory dialog

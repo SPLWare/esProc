@@ -622,13 +622,6 @@ public abstract class AppMenu extends JMenuBar {
 			fileItem[i].addActionListener(actionNew);
 			if (fileItem[i].isVisible())
 				menu.add(fileItem[i]);
-			String filePath = fileItem[i].getText();
-			if (!StringUtils.isValidString(filePath)
-					|| !ConfigOptions.bAutoOpen.booleanValue())
-				continue;
-			if (!StringUtils.isValidString(GV.autoOpenFileName)) { // 如果没有打开参数才设置
-				GV.autoOpenFileName = filePath;
-			}
 		}
 	}
 
