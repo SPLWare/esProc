@@ -1394,10 +1394,11 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 			if (y + h > displayWin.y + displayWin.height) {
 				h = displayWin.y + displayWin.height - y - BORDER_SIZE;
 			}
-			if (y + h > cellY[drawEndRow][col] + cellH[drawEndRow][col]) {
-				h = cellY[drawEndRow][col] + cellH[drawEndRow][col] - y
-						- BORDER_SIZE;
-			}
+			if (parser.isRowVisible(drawEndRow))
+				if (y + h > cellY[drawEndRow][col] + cellH[drawEndRow][col]) {
+					h = cellY[drawEndRow][col] + cellH[drawEndRow][col] - y
+							- BORDER_SIZE;
+				}
 		}
 		return new CellRect(x, y, w, h);
 	}
