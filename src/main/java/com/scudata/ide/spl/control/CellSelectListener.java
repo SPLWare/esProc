@@ -540,6 +540,20 @@ public class CellSelectListener implements MouseMotionListener, MouseListener,
 				} else {
 					if (curRow == ics.getRowCount()) {
 						editor.appendRows(1);
+					} else { // 后面都是隐藏行
+						boolean allHide = true;
+						for (int r = curRow + 1; r <= ics.getRowCount(); r++) {
+							if (parser.isRowVisible(r)) {
+								allHide = false;
+								break;
+							}
+						}
+						if (allHide) {
+							AtomicSpl cmd = editor.getInsertRow(false,
+									new CellRect(curRow, (int) 1, 1, (int) 1));
+							editor.executeCmd(cmd);
+							// editor.appendRows(1);
+						}
 					}
 					control.scrollToArea(control.toDownCell());
 				}
