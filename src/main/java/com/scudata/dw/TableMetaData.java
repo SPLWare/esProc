@@ -117,6 +117,7 @@ abstract public class TableMetaData implements ITableMetaData {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException(tableName + mm.getMessage("dw.tableAlreadyExist"));
 		}
+		appendCache();
 		
 		groupTable.checkWritable();
 		TableMetaData table = null;
@@ -132,6 +133,7 @@ abstract public class TableMetaData implements ITableMetaData {
 			tmd.createAnnexTable(colNames, serialBytesLen, tableName);
 		}
 		
+		groupTable.save();
 		return table;
 	}
 	

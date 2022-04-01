@@ -1035,6 +1035,9 @@ public class TableMetaDataIndex implements ITableIndex {
 			try {
 				readHeader(reader);
 				filter = this.filter;
+				if (recordCount == 0) {
+					isReset = true;//如果是空的，则不能做append
+				}
 				if (recordCount - index1RecordCount > MAX_SEC_RECORD_COUNT || isReset) {
 					isAppend = false;
 					rootItPos2 = 0;
@@ -1109,7 +1112,6 @@ public class TableMetaDataIndex implements ITableIndex {
 			int size = cursorList.size();
 			if (size == 0) {
 				createIndexTable(new MemoryCursor(null), tmpFile, false);
-				return;
 			} else if (size == 1) {
 				createIndexTable(cursorList.get(0), tmpFile, false);
 			} else {
@@ -1216,9 +1218,13 @@ public class TableMetaDataIndex implements ITableIndex {
 			
 			if (isPrimaryKey) {
 				table = cursor.fetch(MAX_LEAF_BLOCK_COUNT * FETCH_SIZE);
-				if (table == null) {
-					MessageManager mm = EngineMessage.get();
-					throw new RQException("index" + mm.getMessage("function.invalidParam"));
+				if (table == null || table.length() == 0) {
+					writer.position(0);
+					updateHeader(writer);
+					try {
+						writer.close();
+					} catch (IOException ie){};
+					return;
 				}
 				
 				while (table != null) {
@@ -1254,8 +1260,12 @@ public class TableMetaDataIndex implements ITableIndex {
 			} else {
 				table = cursor.fetchGroup(ifs, MAX_LEAF_BLOCK_COUNT * FETCH_SIZE, ctx);
 				if (table == null) {
-					MessageManager mm = EngineMessage.get();
-					throw new RQException("index" + mm.getMessage("function.invalidParam"));
+					writer.position(0);
+					updateHeader(writer);
+					try {
+						writer.close();
+					} catch (IOException ie){};
+					return;
 				}
 				
 				int p = 1;
@@ -1323,7 +1333,7 @@ public class TableMetaDataIndex implements ITableIndex {
 			if (isAppends) {
 				reader.seek(indexPos2);
 			} else {
-				indexPos = reader.position();;
+				indexPos = reader.position();
 			}
 			reader.readInt();
 			for (int i = 0; i < blockCount; ++i) {
