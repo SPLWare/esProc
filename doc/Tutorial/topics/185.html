@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>7.2 Basic Uses of Cursor</title>
+<title>7.1.1 What is cursor</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,19 +13,60 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h2 style='margin-left:36.0pt;mso-para-margin-left:0gd;text-indent:-36.0pt;
-mso-list:l10 level2 lfo40'><span lang=EN-US
-style='mso-fareast-font-family:"Times New Roman"'><span style='mso-list:Ignore'>7.2<span
-style='font:7.0pt "Times New Roman"'> </span></span></span><span
-lang=EN-US><span style='mso-spacerun:yes'>&nbsp;</span>Basic Uses of Cursor<a
-name="Basic_Uses_of_Cursor"></a></span></h2></div>
-	<p class=T-Par style='margin-bottom:0cm;mso-add-space:auto;text-align:justify;
-text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>esProc
-supports importing big data in batches with the cursor, which is the usual
-method for big data computing. Different types of cursors, including database
-cursor, external file cursor and in-memory record sequence cursor, basically
-work the same way. This part takes the external file cursor as the example to explain
-basic uses of the cursor in esProc. </span></p>
+	<div id="centent-title"><h3 style='margin:0cm;margin-bottom:.0001pt;text-indent:0cm;line-height:normal;
+mso-list:none;tab-stops:-179.95pt 64.2pt'><span lang=EN-US style='font-size:
+14.0pt;mso-bidi-font-size:10.0pt'>7.1.1 What is cursor
+</span></h3></div>
+	<p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=EN-US>Using cursor on the database enables returning data in
+batches, without having to retrieve all of it into the memory at a time. A
+cursor is like a pointer, retrieving one row each time from the result set by
+moving its position. This mechanism of retrieving data in a row-wise manner is
+usually used to process the big data table, which cannot be entirely loaded
+into the memory that has the capacity limit.</span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=EN-US>Compared with directly returning the whole result, the
+database cursor is flexible enough to avoid the memory overflow but is
+relatively slow in handling data retrieval. </span></p>
+
+<p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=EN-US>There are differences, however, between an esProc
+cursor and a database cursor: </span></p>
+
+<p class=T-StepsCxSpFirst style='margin-top:0cm;margin-right:0cm;margin-bottom:
+0cm;margin-left:39.0pt;margin-bottom:.0001pt;mso-add-space:auto;text-align:
+justify;text-justify:inter-ideograph;text-indent:-18.0pt;mso-list:l31 level1 lfo41'><span
+lang=EN-US style='mso-fareast-font-family:"Times New Roman"'><span
+style='mso-list:Ignore'>1)<span style='font:7.0pt "Times New Roman"'>&nbsp;
+</span></span></span><span lang=EN-US>An esProc cursor is only used
+to fetch data but won’t modify a result set. </span></p>
+
+<p class=T-StepsCxSpMiddle style='margin-top:0cm;margin-right:0cm;margin-bottom:
+0cm;margin-left:39.0pt;margin-bottom:.0001pt;mso-add-space:auto;text-align:
+justify;text-justify:inter-ideograph;text-indent:-18.0pt;mso-list:l31 level1 lfo41'><span
+lang=EN-US style='mso-fareast-font-family:"Times New Roman"'><span
+style='mso-list:Ignore'>2)<span style='font:7.0pt "Times New Roman"'>&nbsp;
+</span></span></span><span lang=EN-US>An esProc cursor traverses data
+only once in forward direction, which is similar to the setting of
+TYPE_FORWARD_ONLY in JDBC. </span></p>
+
+<p class=T-StepsCxSpLast style='margin-top:0cm;margin-right:0cm;margin-bottom:
+0cm;margin-left:39.0pt;margin-bottom:.0001pt;mso-add-space:auto;text-align:
+justify;text-justify:inter-ideograph;text-indent:-18.0pt;mso-list:l31 level1 lfo41'><span
+lang=EN-US style='mso-fareast-font-family:"Times New Roman"'><span
+style='mso-list:Ignore'>3)<span style='font:7.0pt "Times New Roman"'>&nbsp;
+</span></span></span><span lang=EN-US>An esProc cursor can be created
+based on either the database table or the data file, or the in-memory record
+sequence. </span></p>
+
+<p class=T-Par style='margin-bottom:0cm;margin-bottom:.0001pt;mso-add-space:
+auto;text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
+lang=EN-US>Different types of esProc cursors have similar uses and can be used
+together to suit requirements. </span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="186.html">Next</a></div>
@@ -33,10 +74,7 @@ basic uses of the cursor in esProc. </span></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="180.html">Chapter7 External Memory Computations</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="186.html">7.2.1 Data fetching</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="187.html">7.2.2 Cursor loop</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="188.html">7.2.3 Cursor-based operations</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="184.html">7.1 The Concept of Cursor</a></span></li>
 </div>
 	</div>
 	<div id="footer">	

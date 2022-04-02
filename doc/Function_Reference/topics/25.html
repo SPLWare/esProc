@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>$(db)sql;…</title>
+<title>Hbase</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,276 +13,115 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h3 style='text-align:justify;text-justify:inter-ideograph'><a
-name="_$(db)sql;…_2"></a><a name="db_sql_2"></a><span class=code><span
-lang=EN-US style='font-size:15.0pt;line-height:172%;font-family:"Times New Roman",serif'>$(db)sql;…</span></span><span
-class=code><span lang=EN-US style='font-size:15.0pt;line-height:172%;
-font-family:"Times New Roman",serif;font-weight:normal'></span></span></h3></div>
-	<p class=afe style='line-height:200%'><span lang=EN-US>Description:</span><span
-lang=EN-US style='font-weight:normal'></span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><span class=var2><span
-lang=EN-US style='font-style:normal;mso-bidi-font-style:italic'>Through esProc
-JDBC, execute the specified SQL statement in the database and return the result
-set.</span></span></p>
-
-<p class=afe style='line-height:200%'><span lang=EN-US>Syntax:</span><span
-lang=EN-US style='font-weight:normal'></span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><span class=code><span
-lang=EN-US style='font-family:"Times New Roman",serif'>$(</span></span><span
-class=var><span lang=EN-US style='mso-bidi-font-style:normal'>db</span></span><span
-class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>)</span></span><span
-class=var><span lang=EN-US style='mso-bidi-font-style:normal'>sql</span></span><span
-class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-font-weight:normal'>;</span></span><span class=code><span lang=EN-US
-style='font-family:"Times New Roman",serif'>…</span></span></p>
-
-<p class=afe style='line-height:200%'><span lang=EN-US>Note:</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><span class=var2><span
-lang=EN-US style='font-style:normal;mso-bidi-font-style:italic'>In the specified
-database </span><span lang=EN-US>db</span></span><span class=var2><span
-lang=EN-US style='font-style:normal;mso-bidi-font-style:italic'>, the function
-executes the specified SQL statement, and returns the result set once executed.
-Use </span><span lang=EN-US>st</span></span><span class=var2><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-style:normal;
-mso-bidi-font-style:italic'>.executeQuery()</span></b></span><span class=var2><span
-lang=EN-US style='font-style:normal;mso-bidi-font-style:italic'> for the
-execution and return the result set. Make sure the database </span><span
-lang=EN-US>db</span></span><span class=var2><span lang=EN-US style='font-style:
-normal;mso-bidi-font-style:italic'> must be connected. </span></span><span
-lang=EN-US style='mso-bidi-font-size:10.5pt;mso-bidi-font-style:italic'></span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
-style='mso-fareast-font-family:等线'>In JDBC, a string starting with <i
-style='mso-bidi-font-style:normal'>select</i> or <i style='mso-bidi-font-style:
-normal'>with</i> will be interpreted as a simple SQL statement for execution.
-If the string is followed by a pair of parentheses, it will be interpreted as a
-<i style='mso-bidi-font-style:normal'>dfx</i> file name. For instance, <i
-style='mso-bidi-font-style:normal'>selectTab()</i> represents a <i
-style='mso-bidi-font-style:normal'>dfx</i> file name.</span><span class=var2><span
-lang=EN-US style='font-style:normal;mso-bidi-font-style:italic'></span></span></p>
-
-<p class=afe style='line-height:200%'><span lang=EN-US>Parameters:</span><span
-lang=EN-US style='font-weight:normal'> </span></p>
-
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+	<div id="centent-title"><h2><span lang=EN-US>Hbase</span></h2></div>
+	<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:-2.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var2><span lang=EN-US>sql</span></span></p>
+  <td width=170 valign=top style='width:127.55pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-left:21.0pt;text-indent:-21.0pt;mso-list:
+  l14 level1 lfo11'><span lang=EN-US style='font-family:
+  Wingdings;mso-fareast-font-family:Wingdings;mso-bidi-font-family:Wingdings'><span
+  style='mso-list:Ignore'>&Oslash;<span style='font:7.0pt "Times New Roman"'>&nbsp; </span></span></span><span
+  lang=EN-US><a  href="hbaseclose.html#hbase_close">hbase_close()</a></span></p>
   </td>
-  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var2><span lang=EN-US style='font-style:normal;
-  mso-bidi-font-style:italic'>A SQL</span><span lang=EN-US> </span></span><span
-  lang=EN-US>statement in the form of </span><span class=code><i
-  style='mso-bidi-font-style:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
-  font-weight:normal'>select * from table;</span></i></span><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'> </span></span><span
-  lang=EN-US>it should be one of select/insert/delete/update statements</span></p>
+  <td width=387 valign=top style='width:290.6pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Close a HBase connection</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>(</span></span><span
-  class=var><span lang=EN-US style='mso-bidi-font-style:normal'>db</span></span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>)</span></span><span
-  class=var2><span lang=EN-US></span></span></p>
+  <td width=170 valign=top style='width:127.55pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-left:21.0pt;text-indent:-21.0pt;mso-list:
+  l14 level1 lfo11'><span lang=EN-US style='font-family:
+  Wingdings;mso-fareast-font-family:Wingdings;mso-bidi-font-family:Wingdings'><span
+  style='mso-list:Ignore'>&Oslash;<span style='font:7.0pt "Times New Roman"'>&nbsp; </span></span></span><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt'><a  href="hbasecmp.html#hbase_cmp">hbase_cmp()</a></span></p>
   </td>
-  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Datasource name</span></p>
+  <td width=387 valign=top style='width:290.6pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Compare data with the HBase-supplied
+  comparator</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes'>
-  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var2><span lang=EN-US>…</span></span></p>
+ <tr style='mso-yfti-irow:2'>
+  <td width=170 valign=top style='width:127.55pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-left:21.0pt;text-indent:-21.0pt;mso-list:
+  l14 level1 lfo11'><span lang=EN-US style='font-family:
+  Wingdings;mso-fareast-font-family:Wingdings;mso-bidi-font-family:Wingdings'><span
+  style='mso-list:Ignore'>&Oslash;<span style='font:7.0pt "Times New Roman"'>&nbsp; </span></span></span><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt'><a  href="hbasefilter.html#hbase_filter">hbase_filter()</a></span></p>
   </td>
-  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var2><span lang=EN-US style='font-style:normal;
-  mso-bidi-font-style:italic'>SQL parameter’s value</span></span></p>
+  <td width=387 valign=top style='width:290.6pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Filter data with the HBase-supplied
+  filter</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3'>
+  <td width=170 valign=top style='width:127.55pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-left:21.0pt;text-indent:-21.0pt;mso-list:
+  l14 level1 lfo11'><span lang=EN-US style='font-family:
+  Wingdings;mso-fareast-font-family:Wingdings;mso-bidi-font-family:Wingdings'><span
+  style='mso-list:Ignore'>&Oslash;<span style='font:7.0pt "Times New Roman"'>&nbsp; </span></span></span><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt'><a  href="hbasefilterlist.html#hbase_filterlist">hbase_filterlist()</a></span></p>
+  </td>
+  <td width=387 valign=top style='width:290.6pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Filter data with multiple filters</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4'>
+  <td width=170 valign=top style='width:127.55pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-left:21.0pt;text-indent:-21.0pt;mso-list:
+  l14 level1 lfo11'><span lang=EN-US style='font-family:
+  Wingdings;mso-fareast-font-family:Wingdings;mso-bidi-font-family:Wingdings'><span
+  style='mso-list:Ignore'>&Oslash;<span style='font:7.0pt "Times New Roman"'>&nbsp; </span></span></span><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt'><a  href="hbaseget.html#hbase_get">hbase_get()</a></span></p>
+  </td>
+  <td width=387 valign=top style='width:290.6pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Query data in HBase database and return a
+  one-row table sequence</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:5'>
+  <td width=170 valign=top style='width:127.55pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-left:21.0pt;text-indent:-21.0pt;mso-list:
+  l14 level1 lfo11'><span lang=EN-US style='font-family:
+  Wingdings;mso-fareast-font-family:Wingdings;mso-bidi-font-family:Wingdings'><span
+  style='mso-list:Ignore'>&Oslash;<span style='font:7.0pt "Times New Roman"'>&nbsp; </span></span></span><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt'><a  href="hbaseopen.html#hbase_open">hbase_open()</a></span></p>
+  </td>
+  <td width=387 valign=top style='width:290.6pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Create a HBase connection</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:6'>
+  <td width=170 valign=top style='width:127.55pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-left:21.0pt;text-indent:-21.0pt;mso-list:
+  l14 level1 lfo11'><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:Wingdings;mso-fareast-font-family:Wingdings;mso-bidi-font-family:
+  Wingdings'><span style='mso-list:Ignore'>&Oslash;<span style='font:7.0pt "Times New Roman"'>&nbsp;
+  </span></span></span><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt'><a  href="hbaserest.html#hbase_rest">hbase_rest()</a></span></p>
+  </td>
+  <td width=387 valign=top style='width:290.6pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Get cluster information and execute a complete
+  HTTP request independently</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:7;mso-yfti-lastrow:yes'>
+  <td width=170 valign=top style='width:127.55pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-left:21.0pt;text-indent:-21.0pt;mso-list:
+  l14 level1 lfo11'><span lang=EN-US style='font-family:
+  Wingdings;mso-fareast-font-family:Wingdings;mso-bidi-font-family:Wingdings'><span
+  style='mso-list:Ignore'>&Oslash;<span style='font:7.0pt "Times New Roman"'>&nbsp; </span></span></span><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt'><a  href="hbaserest.html#hbase_scan">hbase_scan()</a></span></p>
+  </td>
+  <td width=387 valign=top style='width:290.6pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Query a HBase database and return result
+  as a cursor or a table sequence</span></p>
   </td>
  </tr>
 </table>
 
-<p class=afe style='line-height:200%'><span lang=EN-US>Return value:</span><span
-lang=EN-US style='font-weight:normal'> </span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>A set</span></p>
-
-<p class=afe style='line-height:200%'><span lang=EN-US>Example:</span><span
-lang=EN-US style='font-weight:normal'></span></p>
-
-<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><b><span
-lang=EN-US style='font-size:10.0pt;color:#7F0055;mso-font-kerning:0pt'>public</span></b><span
-lang=EN-US style='font-size:10.0pt;color:black;mso-font-kerning:0pt'> </span><b><span
-lang=EN-US style='font-size:10.0pt;color:#7F0055;mso-font-kerning:0pt'>void</span></b><span
-lang=EN-US style='font-size:10.0pt;color:black;mso-font-kerning:0pt'> testDataServer()
-{</span><span lang=EN-US style='font-size:10.0pt;mso-font-kerning:0pt'></span></p>
-
-<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
-lang=EN-US style='font-size:10.0pt;color:black;mso-font-kerning:0pt'><span
-style='mso-tab-count:2'>&nbsp; </span>Connection
-con = </span><b><span lang=EN-US style='font-size:10.0pt;color:#7F0055;
-mso-font-kerning:0pt'>null</span></b><span lang=EN-US style='font-size:10.0pt;
-color:black;mso-font-kerning:0pt'>;</span><span lang=EN-US style='font-size:
-10.0pt;mso-font-kerning:0pt'></span></p>
-
-<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
-lang=EN-US style='font-size:10.0pt;color:black;mso-font-kerning:0pt'><span
-style='mso-tab-count:2'>&nbsp; </span>java.sql.Statement
-st;</span><span lang=EN-US style='font-size:10.0pt;mso-font-kerning:0pt'></span></p>
-
-<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
-lang=EN-US style='font-size:10.0pt;color:black;mso-font-kerning:0pt'><span
-style='mso-tab-count:1'>&nbsp; </span><span
-style='mso-tab-count:1'>&nbsp; </span></span><b><span
-lang=EN-US style='font-size:10.0pt;color:#7F0055;mso-font-kerning:0pt'>try</span></b><span
-lang=EN-US style='font-size:10.0pt;color:black;mso-font-kerning:0pt'>{</span><span
-lang=EN-US style='font-size:10.0pt;mso-font-kerning:0pt'></span></p>
-
-<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
-lang=EN-US style='font-size:10.0pt;color:black;mso-font-kerning:0pt'><span
-style='mso-tab-count:3'>&nbsp; </span>Class.<i>forName</i>(</span><span
-lang=EN-US style='font-size:10.0pt;color:#2A00FF;mso-font-kerning:0pt'>&quot;com.esproc.jdbc.InternalDriver&quot;</span><span
-lang=EN-US style='font-size:10.0pt;color:black;mso-font-kerning:0pt'>);</span><span
-lang=EN-US style='font-size:10.0pt;mso-font-kerning:0pt'></span></p>
-
-<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
-lang=EN-US style='font-size:10.0pt;color:black;mso-font-kerning:0pt'><span
-style='mso-tab-count:3'>&nbsp; </span>con=
-DriverManager.<i>getConnection</i>(</span><span lang=EN-US style='font-size:
-10.0pt;color:#2A00FF;mso-font-kerning:0pt'>&quot;jdbc:esproc:local://&quot;</span><span
-lang=EN-US style='font-size:10.0pt;color:black;mso-font-kerning:0pt'>);<span
-style='mso-tab-count:1'>&nbsp; </span></span><span lang=EN-US
-style='font-size:10.0pt;mso-font-kerning:0pt'></span></p>
-
-<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
-lang=EN-US style='font-size:10.0pt;color:black;mso-font-kerning:0pt'><span
-style='mso-tab-count:3'>&nbsp; </span>st=con.createStatement();</span><span
-lang=EN-US style='font-size:10.0pt;mso-font-kerning:0pt'></span></p>
-
-<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
-lang=EN-US style='font-size:10.0pt;color:black;mso-font-kerning:0pt'><span
-style='mso-tab-count:3'>&nbsp; </span></span><span
-lang=EN-US style='font-size:10.0pt;color:#3F7F5F;mso-font-kerning:0pt'>// Query
-demo database student table to find the data of students who are older than 16</span><span
-lang=EN-US style='font-size:10.0pt;mso-font-kerning:0pt'></span></p>
-
-<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
-lang=EN-US style='font-size:10.0pt;color:black;mso-font-kerning:0pt'><span
-style='mso-tab-count:3'>&nbsp; </span>ResultSet
-set = st.executeQuery(</span><span lang=EN-US style='font-size:10.0pt;
-color:#2A00FF;mso-font-kerning:0pt'>&quot;$(demo)select * from STUDENTS where
-AGE&gt;?;16&quot;</span><span lang=EN-US style='font-size:10.0pt;color:black;
-mso-font-kerning:0pt'>); </span><span lang=EN-US style='font-size:10.0pt;
-mso-font-kerning:0pt'></span></p>
-
-<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
-lang=EN-US style='font-size:10.0pt;color:black;mso-font-kerning:0pt'><span
-style='mso-tab-count:3'>&nbsp; </span>printRs(set);</span><span
-lang=EN-US style='font-size:10.0pt;mso-font-kerning:0pt'></span></p>
-
-<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
-lang=EN-US style='font-size:10.0pt;color:black;mso-font-kerning:0pt'><span
-style='mso-tab-count:2'>&nbsp; </span>}</span><span
-lang=EN-US style='font-size:10.0pt;mso-font-kerning:0pt'></span></p>
-
-<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
-lang=EN-US style='font-size:10.0pt;color:black;mso-font-kerning:0pt'><span
-style='mso-tab-count:2'>&nbsp; </span></span><b><span
-lang=EN-US style='font-size:10.0pt;color:#7F0055;mso-font-kerning:0pt'>catch</span></b><span
-lang=EN-US style='font-size:10.0pt;color:black;mso-font-kerning:0pt'>(Exception
-e){</span><span lang=EN-US style='font-size:10.0pt;mso-font-kerning:0pt'></span></p>
-
-<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
-lang=EN-US style='font-size:10.0pt;color:black;mso-font-kerning:0pt'><span
-style='mso-tab-count:3'>&nbsp; </span>System.</span><i><span
-lang=EN-US style='font-size:10.0pt;color:#0000C0;mso-font-kerning:0pt'>out</span></i><span
-lang=EN-US style='font-size:10.0pt;color:black;mso-font-kerning:0pt'>.println(e);</span><span
-lang=EN-US style='font-size:10.0pt;mso-font-kerning:0pt'></span></p>
-
-<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
-lang=EN-US style='font-size:10.0pt;color:black;mso-font-kerning:0pt'><span
-style='mso-tab-count:2'>&nbsp; </span>}</span><span
-lang=EN-US style='font-size:10.0pt;mso-font-kerning:0pt'></span></p>
-
-<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
-lang=EN-US style='font-size:10.0pt;color:black;mso-font-kerning:0pt'><span
-style='mso-tab-count:2'>&nbsp; </span></span><b><span
-lang=EN-US style='font-size:10.0pt;color:#7F0055;mso-font-kerning:0pt'>finally</span></b><span
-lang=EN-US style='font-size:10.0pt;color:black;mso-font-kerning:0pt'>{</span><span
-lang=EN-US style='font-size:10.0pt;mso-font-kerning:0pt'></span></p>
-
-<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
-lang=EN-US style='font-size:10.0pt;color:black;mso-font-kerning:0pt'><span
-style='mso-tab-count:2'>&nbsp; </span><span
-style='mso-tab-count:1'>&nbsp; </span></span><span
-lang=EN-US style='font-size:10.0pt;color:#3F7F5F;mso-font-kerning:0pt'>// Close
-the connection</span><span lang=EN-US style='font-size:10.0pt;mso-font-kerning:
-0pt'></span></p>
-
-<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
-lang=EN-US style='font-size:10.0pt;color:black;mso-font-kerning:0pt'><span
-style='mso-tab-count:3'>&nbsp; </span></span><b><span
-lang=EN-US style='font-size:10.0pt;color:#7F0055;mso-font-kerning:0pt'>if</span></b><span
-lang=EN-US style='font-size:10.0pt;color:black;mso-font-kerning:0pt'> (con!=</span><b><span
-lang=EN-US style='font-size:10.0pt;color:#7F0055;mso-font-kerning:0pt'>null</span></b><span
-lang=EN-US style='font-size:10.0pt;color:black;mso-font-kerning:0pt'>) {</span><span
-lang=EN-US style='font-size:10.0pt;mso-font-kerning:0pt'></span></p>
-
-<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
-lang=EN-US style='font-size:10.0pt;color:black;mso-font-kerning:0pt'><span
-style='mso-tab-count:4'>&nbsp; </span></span><b><span
-lang=EN-US style='font-size:10.0pt;color:#7F0055;mso-font-kerning:0pt'>try</span></b><span
-lang=EN-US style='font-size:10.0pt;color:black;mso-font-kerning:0pt'> {</span><span
-lang=EN-US style='font-size:10.0pt;mso-font-kerning:0pt'></span></p>
-
-<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
-lang=EN-US style='font-size:10.0pt;color:black;mso-font-kerning:0pt'><span
-style='mso-tab-count:5'>&nbsp; </span>con.close();</span><span
-lang=EN-US style='font-size:10.0pt;mso-font-kerning:0pt'></span></p>
-
-<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
-lang=EN-US style='font-size:10.0pt;color:black;mso-font-kerning:0pt'><span
-style='mso-tab-count:4'>&nbsp; </span>}</span><span
-lang=EN-US style='font-size:10.0pt;mso-font-kerning:0pt'></span></p>
-
-<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
-lang=EN-US style='font-size:10.0pt;color:black;mso-font-kerning:0pt'><span
-style='mso-tab-count:1'>&nbsp; </span><span
-style='mso-tab-count:3'>&nbsp; </span></span><b><span
-lang=EN-US style='font-size:10.0pt;color:#7F0055;mso-font-kerning:0pt'>catch</span></b><span
-lang=EN-US style='font-size:10.0pt;color:black;mso-font-kerning:0pt'>(Exception
-e) {</span><span lang=EN-US style='font-size:10.0pt;mso-font-kerning:0pt'></span></p>
-
-<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
-lang=EN-US style='font-size:10.0pt;color:black;mso-font-kerning:0pt'><span
-style='mso-tab-count:5'>&nbsp; </span>System.</span><i><span
-lang=EN-US style='font-size:10.0pt;color:#0000C0;mso-font-kerning:0pt'>out</span></i><span
-lang=EN-US style='font-size:10.0pt;color:black;mso-font-kerning:0pt'>.println(e);</span><span
-lang=EN-US style='font-size:10.0pt;mso-font-kerning:0pt'></span></p>
-
-<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
-lang=EN-US style='font-size:10.0pt;color:black;mso-font-kerning:0pt'><span
-style='mso-tab-count:4'>&nbsp; </span>}</span><span
-lang=EN-US style='font-size:10.0pt;mso-font-kerning:0pt'></span></p>
-
-<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
-lang=EN-US style='font-size:10.0pt;color:black;mso-font-kerning:0pt'><span
-style='mso-tab-count:3'>&nbsp; </span>}</span><span
-lang=EN-US style='font-size:10.0pt;mso-font-kerning:0pt'></span></p>
-
-<p class=MsoNormal style='mso-layout-grid-align:none;text-autospace:none'><span
-lang=EN-US style='font-size:10.0pt;color:black;mso-font-kerning:0pt'><span
-style='mso-tab-count:2'>&nbsp; </span>}</span><span
-lang=EN-US style='font-size:10.0pt;mso-font-kerning:0pt'></span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
-style='font-size:10.0pt;color:black;mso-font-kerning:0pt'><span
-style='mso-tab-count:1'>&nbsp; </span>}</span><span
-class=code><span lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="26.html">Next</a></div>
@@ -290,7 +129,7 @@ class=code><span lang=EN-US style='font-family:"Times New Roman",serif'></span><
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="23.html">$(db)sql;…</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="18.html">External Library Functions</a></span></li>
 </div>
 	</div>
 	<div id="footer">	

@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>6.1.3 Executing cellset script and simple SQL</title>
+<title>6.1 Command Line</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,79 +13,27 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h3 style='margin:0cm;text-indent:0cm;line-height:normal;mso-list:none;
-tab-stops:-179.95pt 64.2pt'><span lang=EN-US style='font-size:14.0pt;
-mso-bidi-font-size:10.0pt'>6.1.3 Executing cellset script and simple SQL</span></h3></div>
-	<p class=T-Par style='margin-bottom:0cm;mso-add-space:auto;text-align:justify;
-text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>We can add <b
-style='mso-bidi-font-weight:normal'>-c</b> option after an <b style='mso-bidi-font-weight:
-normal'>esprocx</b> command to execute an input cellset script. In the cellset
-script, columns are separated by the Tab and lines are separated by the
-carriage return. Press Ctrl+C to finish the input and start execution. For
-example:</span></p>
+	<div id="centent-title"><h2 style='margin-left:36.0pt;mso-para-margin-left:0gd;text-indent:-36.0pt;
+mso-list:l28 level2 lfo37'><span lang=EN-US
+style='mso-fareast-font-family:"Times New Roman"'><span style='mso-list:Ignore'>6.1<span
+style='font:7.0pt "Times New Roman"'> </span></span></span><span
+lang=EN-US><span style='mso-spacerun:yes'>&nbsp;</span>Command Line<a
+name="Command_Line"></a></span></h2></div>
+	<p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=EN-US>The command line refers to using commands in the form
+of strings in DOS-like environment to execute programs. All operating systems
+support the command lines, like the Linux console and the Windows command line
+window. </span></p>
 
-<p class=MsoNormal style='margin-bottom:6.0pt;mso-margin-bottom-alt:0cm;
-mso-margin-top-alt:0cm;mso-add-space:auto;text-indent:21.0pt;mso-char-indent-count:
-2.0'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=482 height=250
-src="Tutorial.files/image666.png" v:shapes="_x0000_i1772"></span></p>
-
-<p class=T-Par style='margin-bottom:0cm;mso-add-space:auto;text-align:justify;
-text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>After
-starting the execution of <b style='mso-bidi-font-weight:normal'>esprocx &#8211;c</b>,
-the following script is input:</span></p>
-
-<p class=MsoNormal style='margin-bottom:6.0pt;margin-top:0cm;mso-margin-bottom-alt:
-0cm;mso-margin-top-alt:0cm;mso-add-space:auto;text-indent:21.25pt'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
-10.5pt'>[]<span style='mso-tab-count:1'>&nbsp; </span>&gt;10.(A1=A1|#)</span></b></p>
-
-<p class=MsoNormal style='text-indent:21.25pt'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>&gt;output(A1)</span></b></p>
-
-<p class=T-ParCxSpFirst style='margin-bottom:0cm;mso-add-space:auto;text-align:
-justify;text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>According
-to the cellset script, ten numbers are added to A1’s empty sequence and line 2
-exports the sequence to the console. After pressing Ctrl+C, we get the output
-result in the console.</span></p>
-
-<p class=T-ParCxSpLast style='margin-bottom:0cm;mso-add-space:auto;text-align:
-justify;text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>To
-view the result of executing the cellset script, the common way is to add <b
-style='mso-bidi-font-weight:normal'>-r</b> option, as shown below:</span></p>
-
-<p class=MsoNormal style='margin-bottom:6.0pt;mso-margin-bottom-alt:0cm;
-mso-margin-top-alt:0cm;mso-add-space:auto;text-indent:21.0pt;mso-char-indent-count:
-2.0'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=482 height=243
-src="Tutorial.files/image667.png" v:shapes="_x0000_i1773"></span></p>
-
-<p class=T-ParCxSpFirst style='margin-bottom:0cm;mso-add-space:auto;text-align:
-justify;text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>By
-executing <b style='mso-bidi-font-weight:normal'>esprocx &#8211;r &#8211;c</b>, we get the
-result of computing the cellset script. If there isn’t a <i style='mso-bidi-font-style:
-normal'>return</i> statement in the cellset script, the command will return the
-value of executing the last cell. </span></p>
-
-<p class=T-ParCxSpLast style='margin-bottom:0cm;mso-add-space:auto;text-align:
-justify;text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>We
-can also execute a simple SQL statement at the command line to query a data
-file on the main directory. For example:</span></p>
-
-<p class=MsoNormal style='margin-bottom:6.0pt;mso-margin-bottom-alt:0cm;
-mso-margin-top-alt:0cm;mso-add-space:auto;text-indent:21.0pt;mso-char-indent-count:
-2.0'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=482 height=278
-src="Tutorial.files/image668.png" v:shapes="_x0000_i1774"></span></p>
-
-<p class=T-Par style='margin-bottom:0cm;mso-add-space:auto;text-align:justify;
-text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>Usually </span><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
-10.5pt'>-r</span></b><span lang=EN-US> option is used when executing a simple
-SQL statement. For more information about executing simple SQL at command line,
-see <i style='mso-bidi-font-style:normal'><a  href="229.html">Simple SQL</a></i>.
-To query database data, certain settings need to be first completed in </span><span
-class=T-CodeChar><i style='mso-bidi-font-style:normal'><span lang=EN-US
-style='font-family:"Times New Roman",serif'>raqsoftConfig.xml</span></i></span><span
-class=T-CodeChar><span lang=EN-US style='font-family:"Times New Roman",serif'> </span></span><span
-lang=EN-US>file. </span></p>
+<p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=EN-US>The <i style='mso-bidi-font-style:normal'>esprocx.exe</i>
+file, which is located in the </span><span class=T-CodeChar><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-family:"Times New Roman",serif'>esProc\bin</span></i></span><span
+class=T-CodeChar><span lang=EN-US style='font-family:"Times New Roman",serif'>
+path in </span></span><span lang=EN-US>esProc’s installation directory, is
+needed when using the command line to execute an esProc cellset file. </span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="162.html">Next</a></div>
@@ -93,7 +41,10 @@ lang=EN-US>file. </span></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="158.html">6.1 Command Line</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="160.html">Chapter6 Integration &amp; Application</a></span></li>
+<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="162.html">6.1.1 Cellset files without return results</a></span></li>
+<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="163.html">6.1.2 Cellset files with return results</a></span></li>
+<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="164.html">6.1.3 Executing cellset script and simple SQL</a></span></li>
 </div>
 	</div>
 	<div id="footer">	

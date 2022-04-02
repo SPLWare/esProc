@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>movefile( fn , path )</title>
+<title>A .merge()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,356 +13,568 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h3 style='text-align:justify;text-justify:inter-ideograph'><a
-name="movefile_fn_path"></a><a name="movefile_fn_path_z"></a><span lang=EN-US>movefile(<i
-style='mso-bidi-font-style:normal'>fn</i>,<i style='mso-bidi-font-style:normal'>path</i>)</span></h3></div>
-	<p class=afe style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
+	<div id="centent-title"><h3 style='text-align:justify;text-justify:inter-ideograph'><a name="A_merge"></a><i
+style='mso-bidi-font-style:normal'><span lang=EN-US>A</span></i><span
+lang=EN-US>.merge()</span></h3></div>
+	<p class=af8 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
 14.0pt;line-height:200%'>Description:</span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Move, delete, or
-rename a file.</span></p>
+<p class=MsoNormal style='text-indent:15.75pt;mso-char-indent-count:1.5'><span
+lang=EN-US>Merge multiple table sequences/record sequences.</span></p>
 
-<p class=afe style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
+<p class=af8 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
 14.0pt;line-height:200%'>Syntax:</span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span class=code><span
-lang=EN-US style='font-family:"Times New Roman",serif'>movefile(</span></span><span
-class=code><i style='mso-bidi-font-style:normal'><span lang=EN-US
-style='font-family:"Times New Roman",serif;font-weight:normal'>fn,path</span></i></span><span
-class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>)</span></span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><i style='mso-bidi-font-style:
+normal'><span lang=EN-US style='mso-bidi-font-weight:bold'>A</span></i><b><span
+lang=EN-US>.merge</span></b><span class=code><span lang=EN-US style='font-family:
+"Times New Roman",serif'> (</span></span><span class=var><span lang=EN-US>x<sub>i</sub></span></span><span
+lang=EN-US>,…</span><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>)</span></span></p>
 
-<p class=afe style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
+<p class=af8 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
 14.0pt;line-height:200%'>Note:</span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>The function moves file </span><span class=code><i style='mso-bidi-font-style:
-normal'><span lang=EN-US style='font-family:"Times New Roman",serif;font-weight:
-normal'>fn</span></i></span><span lang=EN-US> to a file specified by parameter </span><span
-class=code><i style='mso-bidi-font-style:normal'><span lang=EN-US
-style='font-family:"Times New Roman",serif;font-weight:normal'>path</span></i></span><span
-lang=EN-US>. </span><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-font-weight:normal'>Delete </span></span><span lang=EN-US>file </span><span
-class=code><i style='mso-bidi-font-style:normal'><span lang=EN-US
-style='font-family:"Times New Roman",serif;font-weight:normal'>fn</span></i></span><span
-lang=EN-US> if </span><span class=code><i style='mso-bidi-font-style:normal'><span
-lang=EN-US style='font-family:"Times New Roman",serif;font-weight:normal'>path</span></i></span><span
-lang=EN-US> is absent</span><span class=code><span lang=EN-US style='font-family:
-"Times New Roman",serif;font-weight:normal'>; rename the file if only the file
-name is specified in the <i style='mso-bidi-font-style:normal'>path</i></span></span><span
-lang=EN-US>.</span></p>
+<p class=MsoNormal style='text-indent:15.75pt;mso-char-indent-count:1.5;
+line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The function
+merges multiple table sequences/record sequences <i style='mso-bidi-font-style:
+normal'>A(i)</i>s (which can be represented as <i style='mso-bidi-font-style:
+normal'>A(i)</i>|…) according to all fields when parameter</span><span
+class=var><span lang=EN-US> x<sub>i</sub></span></span><span lang=EN-US> is
+omitted and when primary keys are not set for <i style='mso-bidi-font-style:
+normal'>A</i>, a sequence of table sequences/record sequences. For records
+having same <i style='mso-bidi-font-style:normal'>x<sub>i</sub></i>, first
+retrieve those in<i style='mso-bidi-font-style:normal'> A</i>(<i
+style='mso-bidi-font-style:normal'>i</i>) and then those in <i
+style='mso-bidi-font-style:normal'>A</i>(<i style='mso-bidi-font-style:normal'>i</i>+1).</span></p>
 
-<p class=afe style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
+<p class=af8 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
 14.0pt;line-height:200%'>Parameters:</span></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
  style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=70 valign=top style='width:52.2pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US
-  style='mso-bidi-font-weight:bold'>fn</span></i><span class=var2><span
-  lang=EN-US></span></span></p>
+  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=var><span lang=EN-US>A</span></span></p>
   </td>
-  <td width=465 valign=top style='width:348.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>A file</span></p>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Multiple table sequences/record sequences
+  of the same structure</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
-  <td width=70 valign=top style='width:52.2pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US>path</span></i><span
-  class=var2><span lang=EN-US></span></span></p>
+  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=var><span lang=EN-US>x</span></span><span
+  class=a9><span lang=EN-US>i</span></span><span class=var><span lang=EN-US></span></span></p>
   </td>
-  <td width=465 valign=top style='width:348.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>The path (with file name) along which the
-  file is moved, or a file name</span></p>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>A field of </span><span class=var><span
+  lang=EN-US>A</span></span><span class=var><span lang=EN-US style='font-style:
+  normal;mso-bidi-font-style:italic'>(</span><span lang=EN-US>i</span></span><span
+  class=var><span lang=EN-US style='font-style:normal;mso-bidi-font-style:italic'>);
+  if performing merge by multiple fields, use the comma to separate them, for
+  example, </span></span><i style='mso-bidi-font-style:normal'><span
+  lang=EN-US style='font-size:10.0pt;color:black;mso-font-kerning:0pt'>x<sub>1</sub></span></i><span
+  lang=EN-US style='font-size:10.0pt;color:black;mso-font-kerning:0pt'>,<i
+  style='mso-bidi-font-style:normal'>x<sub>2</sub></i>...</span></p>
   </td>
  </tr>
 </table>
 
-<p class=afe style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
+<p class=af8 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
 14.0pt;line-height:200%'>Options:</span></p>
 
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=0
+ style='margin-left:17.85pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ mso-padding-alt:0cm 0cm 0cm 0cm'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=70 valign=top style='width:52.2pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>@y</span></span><span
-  class=var2><span lang=EN-US></span></span></p>
+  <td width=76 valign=top style='width:2.0cm;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal style='text-indent:10.55pt;mso-char-indent-count:1.0'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>@<span style='mso-bidi-font-weight:
+  bold'>u</span></span></b></p>
   </td>
-  <td width=465 valign=top style='width:348.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Force an execution of the function if the
-  target file already exists. Without the option you can’t force an execution.
-  Delete the target file if parameter </span><span class=code><i
-  style='mso-bidi-font-style:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
-  font-weight:normal'>path</span></i></span><span lang=EN-US> is absent. </span></p>
+  <td width=458 valign=top style='width:343.65pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Remove the duplicates from the table
+  sequence/record sequence generated from unioning members of </span><span
+  class=var><span lang=EN-US>A</span></span><span class=var><span lang=EN-US
+  style='font-style:normal;mso-bidi-font-style:italic'>(</span><span
+  lang=EN-US>i</span></span><span class=var><span lang=EN-US style='font-style:
+  normal;mso-bidi-font-style:italic'>)s </span></span><span lang=EN-US>in
+  certain order; records with same <i style='mso-bidi-font-style:normal'>x<sub>i</sub></i>
+  have same corresponding members of<i style='mso-bidi-font-style:normal'> A</i>(<i
+  style='mso-bidi-font-style:normal'>i</i>)</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=70 valign=top style='width:52.2pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>@c</span></span><span
-  class=var2><span lang=EN-US></span></span></p>
+  <td width=76 valign=top style='width:2.0cm;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal style='text-indent:10.55pt;mso-char-indent-count:1.0'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>@<span style='mso-bidi-font-weight:
+  bold'>i</span></span></b></p>
   </td>
-  <td width=465 valign=top style='width:348.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Copy the file. If the target file name is
-  the same as that of the specified file to which it will be moved, the copy
-  fails.</span></p>
+  <td width=458 valign=top style='width:343.65pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Return a table sequence/record sequence
+  composed of the common members of <i style='mso-bidi-font-style:normal'>A(i)</i>s</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes'>
-  <td width=70 valign=top style='width:52.2pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>@p</span></span></p>
+ <tr style='mso-yfti-irow:2'>
+  <td width=76 valign=top style='width:2.0cm;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal style='text-indent:10.55pt;mso-char-indent-count:1.0'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>@<span style='mso-bidi-font-weight:
+  bold'>d</span></span></b></p>
   </td>
-  <td width=465 valign=top style='width:348.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i><span lang=EN-US>path</span></i><span lang=EN-US> is
-  relative to the main directory when it is a relative path; default is relative
-  to <i>fn</i>’s parent directory</span></p>
+  <td width=458 valign=top style='width:343.65pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Generate a new table sequence/record
+  sequence by removing members of <i style='mso-bidi-font-style:normal'>A(2)</i>&amp;…<i
+  style='mso-bidi-font-style:normal'>A(n) </i>from <i style='mso-bidi-font-style:
+  normal'>A(1)</i>.</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3'>
+  <td width=76 valign=top style='width:2.0cm;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal style='text-indent:10.55pt;mso-char-indent-count:1.0'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>@o</span></b></p>
+  </td>
+  <td width=458 valign=top style='width:343.65pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Do not assume that <i style='mso-bidi-font-style:
+  normal'>A</i>(<i style='mso-bidi-font-style:normal'>i</i>) is already sorted
+  by [<i style='mso-bidi-font-style:normal'>x<sub>i</sub></i>,…]</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4'>
+  <td width=76 valign=top style='width:2.0cm;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal style='text-indent:10.55pt;mso-char-indent-count:1.0'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>@0</span></b></p>
+  </td>
+  <td width=458 valign=top style='width:343.65pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Put records with null values at the end</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:5;mso-yfti-lastrow:yes'>
+  <td width=76 valign=top style='width:2.0cm;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal style='text-indent:10.55pt;mso-char-indent-count:1.0'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>@x</span></b></p>
+  </td>
+  <td width=458 valign=top style='width:343.65pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Remove common members of <i
+  style='mso-bidi-font-style:normal'>A</i>(<i style='mso-bidi-font-style:normal'>i</i>)
+  and union the other members to generate a new table sequence/sequence</span></p>
   </td>
  </tr>
 </table>
 
-<p class=afe style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Return value:</span><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%;font-weight:normal'> </span><span lang=EN-US
-style='mso-bidi-font-size:14.0pt;line-height:200%'><span
-style='mso-spacerun:yes'>&nbsp;</span></span><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%;font-weight:normal'></span></p>
+<p class=af8 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
+14.0pt;line-height:200%'>Return value:<span class=a9><span style='mso-ansi-font-size:
+14.0pt;mso-bidi-font-size:14.0pt;line-height:200%'></span></span></span></p>
 
-<p class=MsoNormal style='text-indent:26.25pt;mso-char-indent-count:2.5'><span
-lang=EN-US>Boolean value</span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Table
+sequence/record sequence</span></p>
 
-<p class=afe style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
+<p class=af8 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
 14.0pt;line-height:200%'>Example:</span></p>
 
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=576
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
  style='margin-left:18.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
  mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
   <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
   mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span lang=EN-US>&nbsp;</span></p>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
   </td>
-  <td width=340 valign=top style='width:254.65pt;border:solid #A6A6A6 1.0pt;
+  <td width=208 valign=top style='width:143.5pt;border:solid #A6A6A6 1.0pt;
   border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif;color:black;mso-color-alt:
-  windowtext'>A</span></span><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'></span></span></p>
+  lang=EN-US style='font-family:"Times New Roman",serif'>A</span></span></p>
   </td>
-  <td width=213 valign=top style='width:159.95pt;border:none;mso-border-left-alt:
+  <td width=347 valign=top style='width:260.5pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span lang=EN-US>&nbsp;</span></p>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1'>
   <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  color:black;mso-color-alt:windowtext'>1</span></span><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>1</span></span></p>
   </td>
-  <td width=340 style='width:254.65pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  <td width=208 valign=top style='width:143.5pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=movefile(file(&quot;E://test.property&quot;),&quot;D://testfile.property&quot;)</span></span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=demo.query(&quot;select
+  EID,NAME,GENDER,SALARY from EMPLOYEE where EID&lt;6&quot;)</span></span></p>
   </td>
-  <td width=213 style='width:159.95pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Move the file to </span><span class=code><i
-  style='mso-bidi-font-style:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
-  font-weight:normal'>testfile.property</span></i></span><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'> </span></span><span
-  lang=EN-US>file under root directory on driver D</span></p>
+  <td width=347 valign=top style='width:260.5pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=252 height=105
+  src="Function_Reference.files/image1169.jpg" v:shapes="_x0000_i1782"></span><b
+  style='mso-bidi-font-weight:normal'><span lang=zh-CN><span
+  style='mso-spacerun:yes'>&nbsp;</span></span><span lang=EN-US></span></b></p>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'>EID field is ordered</span><b style='mso-bidi-font-weight:
+  normal'><span lang=EN-US></span></b></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:2'>
   <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  color:black;mso-color-alt:windowtext'>2</span></span><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>2</span></span></p>
   </td>
-  <td width=340 style='width:254.65pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  <td width=208 valign=top style='width:143.5pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=movefile(file(&quot;D://testfile.property&quot;),&quot;file.property&quot;)</span></span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=demo.query(&quot;select
+  EID,NAME,GENDER,SALARY from EMPLOYEE where EID&gt;3&quot;)</span></span></p>
   </td>
-  <td width=213 style='width:159.95pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><i style='mso-bidi-font-style:normal'><span
-  lang=EN-US style='font-family:"Times New Roman",serif;font-weight:normal'>D://testfile.property</span></i></span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'> </span></span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  font-weight:normal'>is renamed</span></span><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'> </span></span><span
-  class=code><i style='mso-bidi-font-style:normal'><span lang=EN-US
-  style='font-family:"Times New Roman",serif;font-weight:normal'>file.property</span></i></span></p>
+  <td width=347 valign=top style='width:260.5pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=252 height=106
+  src="Function_Reference.files/image1171.jpg" v:shapes="_x0000_i1783"></span></p>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'>EID field is ordered</span><b style='mso-bidi-font-weight:
+  normal'><span lang=EN-US></span></b></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:3'>
   <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  color:black;mso-color-alt:windowtext'>3</span></span><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>3</span></span></p>
   </td>
-  <td width=340 style='width:254.65pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  <td width=208 valign=top style='width:143.5pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=movefile(file(&quot;D://file.property&quot;))</span></span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=[A1,A2].merge(EID)</span></span></p>
   </td>
-  <td width=213 style='width:159.95pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Delete </span><span class=code><i
-  style='mso-bidi-font-style:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
-  font-weight:normal'>file.property</span></i></span><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'> </span></span></p>
+  <td width=347 valign=top style='width:260.5pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=252 height=117
+  src="Function_Reference.files/image1173.jpg" v:shapes="_x0000_i1784"></span><span
+  class=1c><span lang=zh-CN style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><span
+  style='mso-spacerun:yes'>&nbsp;</span></span></span><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'>Merge A1 and A2 in order by EID field</span><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:4'>
   <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  color:black;mso-color-alt:windowtext'>4</span></span><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>4</span></span></p>
   </td>
-  <td width=340 style='width:254.65pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  <td width=208 valign=top style='width:143.5pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=movefile@y(file(&quot;E://test1.property&quot;),&quot;D://testfile1.property&quot;)</span></span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=[A1,A2].merge@u(EID)</span></span></p>
   </td>
-  <td width=213 style='width:159.95pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>The file </span><span class=code><i
-  style='mso-bidi-font-style:normal'><span lang=EN-US style='font-family:"Times New Roman",serif;
-  font-weight:normal'>testfile1.property</span></i></span><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif;color:black'> </span></span><span
-  lang=EN-US>already exists.</span><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif;color:black'> </span></span><span
-  lang=EN-US>Force the move and override the original file</span></p>
+  <td width=347 valign=top style='width:260.5pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=252 height=133
+  src="Function_Reference.files/image1175.jpg" v:shapes="_x0000_i1785"></span></p>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'>Merge A1 and A2 in order by EID field and remove
+  duplicates from the result</span><span class=code><span lang=zh-CN
+  style='font-family:"Times New Roman",serif'> </span></span><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:5'>
   <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  color:black;mso-color-alt:windowtext'>5</span></span><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>5</span></span></p>
   </td>
-  <td width=340 style='width:254.65pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  <td width=208 valign=top style='width:143.5pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=movefile@c(file(&quot;D://testfile1.property&quot;),&quot;file.property&quot;)</span></span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=[A1,A2].merge@i(EID)</span></span></p>
   </td>
-  <td width=213 style='width:159.95pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Copy the file, instead of renaming it</span></p>
+  <td width=347 valign=top style='width:260.5pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=263 height=57
+  src="Function_Reference.files/image1177.jpg" v:shapes="_x0000_i1786"></span></p>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'>Merge A1 and A2 in order by EID field but only
+  keep records that have duplicates<span class=code><span style='font-family:
+  "Times New Roman",serif;mso-fareast-font-family:宋体;mso-ansi-language:#0400;
+  font-weight:normal'></span></span></span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:6'>
   <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  color:black;mso-color-alt:windowtext'>6</span></span><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>6</span></span></p>
   </td>
-  <td width=340 style='width:254.65pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  <td width=208 valign=top style='width:143.5pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=movefile@cy(file(&quot;E://test2.property&quot;),&quot;D://
-  file.property&quot;)</span></span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=[A1,A2].merge@d(EID)</span></span></p>
   </td>
-  <td width=213 style='width:159.95pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><i style='mso-bidi-font-style:normal'><span
-  lang=EN-US style='font-family:"Times New Roman",serif;font-weight:normal'>file.property</span></i></span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  color:black'> </span></span><span lang=EN-US>already exists.</span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  color:black'> </span></span><span lang=EN-US>Force the copy and override the
-  original file</span></p>
+  <td width=347 valign=top style='width:260.5pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=263 height=78
+  src="Function_Reference.files/image1179.jpg" v:shapes="_x0000_i1787"></span></p>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'>Delete A2’s members from A1<span class=code><span
+  style='font-family:"Times New Roman",serif;mso-fareast-font-family:宋体;
+  mso-ansi-language:#0400;font-weight:normal'></span></span></span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:7'>
   <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  color:black;mso-color-alt:windowtext'>7</span></span><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>7</span></span></p>
   </td>
-  <td width=340 style='width:254.65pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  <td width=208 valign=top style='width:143.5pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=movefile@y(file(&quot;D://testfile1.property&quot;))</span></span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=[A1,A2].merge@o(SALARY)</span></span></p>
   </td>
-  <td width=213 style='width:159.95pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  font-weight:normal'>Delete <i style='mso-bidi-font-style:normal'>testfile1.property</i></span></span><span
-  lang=EN-US style='mso-fareast-font-family:黑体'> </span></p>
+  <td width=347 valign=top style='width:260.5pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=263 height=158
+  src="Function_Reference.files/image1181.jpg" v:shapes="_x0000_i1788"><span
+  class=code><span style='font-family:"Times New Roman",serif;mso-fareast-font-family:
+  宋体;mso-ansi-language:#0400;font-weight:normal'></span></span></span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:8;mso-yfti-lastrow:yes'>
+ <tr style='mso-yfti-irow:8'>
   <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  color:black;mso-color-alt:windowtext'>8</span></span><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>8</span></span></p>
   </td>
-  <td width=340 style='width:254.65pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  <td width=208 valign=top style='width:143.5pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=movefile@cp(file(&quot;D://testfile1.property&quot;),&quot;file.property&quot;)</span></span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  mso-fareast-font-family:宋体'>=[A1,A2].merge@x(EID)</span></span><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
   </td>
-  <td width=213 style='width:159.95pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Copy the file to the main directory and
-  rename it</span><span class=code><i><span lang=EN-US style='font-family:"Times New Roman",serif;
-  font-weight:normal;mso-bidi-font-weight:bold'> file.property</span></i></span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  font-weight:normal'></span></span></p>
+  <td width=347 valign=top style='width:260.5pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US><img border=0 width=186 height=98
+  src="Function_Reference.files/image1183.jpg" v:shapes="图片_x0020_1006"></span></p>
+  <p class=MsoNormal><span lang=EN-US>Merge A1 and A2 to get a new sequence by
+  removing their common members</span><span lang=zh-CN style='mso-ansi-language:
+  #0400;mso-fareast-language:#0400'></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:9'>
+  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>9</span></span></p>
+  </td>
+  <td width=208 valign=top style='width:143.5pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=demo.query(&quot;select
+  * from EMPLOYEE where GENDER = 'M'&quot;).keys(EID)</span></span></p>
+  </td>
+  <td width=347 valign=top style='width:260.5pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=332 height=82
+  src="Function_Reference.files/image1185.jpg" v:shapes="_x0000_i1790"></span><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:10'>
+  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>10</span></span></p>
+  </td>
+  <td width=208 valign=top style='width:143.5pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=demo.query(&quot;select
+  * from EMPLOYEE where GENDER = 'F'&quot;).keys(EID)</span></span></p>
+  </td>
+  <td width=347 valign=top style='width:260.5pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=337 height=84
+  src="Function_Reference.files/image1187.jpg" v:shapes="_x0000_i1791"></span><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:11'>
+  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>11</span></span></p>
+  </td>
+  <td width=208 valign=top style='width:143.5pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=[</span></span><span
+  class=81><span lang=EN-US style='font-size:12.0pt;mso-bidi-font-size:10.0pt;
+  font-family:"Times New Roman",serif'> </span></span><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>A9,A10].merge()</span></span></p>
+  </td>
+  <td width=347 valign=top style='width:260.5pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=323 height=150
+  src="Function_Reference.files/image1189.jpg" v:shapes="_x0000_i1792"></span></p>
+  <p class=MsoNormal><span lang=EN-US>With <i style='mso-bidi-font-style:normal'>x<sub>i</sub>
+  </i>omitted, this table sequence is the result of merge by the order of the <b
+  style='mso-bidi-font-weight:normal'>primary keys</b></span><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:12'>
+  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>12</span></span></p>
+  </td>
+  <td width=208 valign=top style='width:143.5pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=demo.query(&quot;select
+  * from EMPLOYEE where GENDER = 'M' and EID&lt;15&quot;)</span></span></p>
+  </td>
+  <td width=347 valign=top style='width:260.5pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:13'>
+  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>13</span></span></p>
+  </td>
+  <td width=208 valign=top style='width:143.5pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=demo.query(&quot;select
+  * from EMPLOYEE where GENDER = 'M' and EID&gt;=15&quot;)</span></span></p>
+  </td>
+  <td width=347 valign=top style='width:260.5pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:14'>
+  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>14</span></span></p>
+  </td>
+  <td width=208 valign=top style='width:143.5pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=[A12,A13].merge(EID,GENDER)</span></span></p>
+  </td>
+  <td width=347 valign=top style='width:260.5pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Merge by the <b style='mso-bidi-font-weight:
+  normal'>EID</b> field and <b style='mso-bidi-font-weight:normal'>GENDER</b>
+  field</span><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
+  #0400'></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:15'>
+  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><a name="_A.min(x;n)"></a><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>15</span></span></p>
+  </td>
+  <td width=208 valign=top style='width:143.5pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=A1.run(EID=null)</span></span></p>
+  </td>
+  <td width=347 valign=top style='width:260.5pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:16'>
+  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>16</span></span></p>
+  </td>
+  <td width=208 valign=top style='width:143.5pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=[A2,A15].merge(EID)</span></span></p>
+  </td>
+  <td width=347 valign=top style='width:260.5pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US><img border=0 width=246 height=231
+  src="Function_Reference.files/image1191.jpg" v:shapes="_x0000_i1793"></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:17;mso-yfti-lastrow:yes'>
+  <td width=24 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>17</span></span></p>
+  </td>
+  <td width=208 valign=top style='width:143.5pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=[A2,A15].merge@0(EID)</span></span></p>
+  </td>
+  <td width=347 valign=top style='width:260.5pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US><img border=0 width=293 height=250
+  src="Function_Reference.files/image1192.png" v:shapes="图片_x0020_590"></span></p>
+  <p class=MsoNormal><span lang=EN-US>Records with null values are put in the
+  end</span></p>
   </td>
  </tr>
 </table>
 
-<p class=afe style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
+<p class=af8 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
 14.0pt;line-height:200%'>Related functions:</span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US><a  href="214.html">f<span style='font-style:normal'>.
-ex<span style='mso-bookmark:_Hlt415042025'>i</span>s<span style='mso-bookmark:
-_Hlt414994538'>t</span><span style='mso-bookmark:_Hlt414993856'>s</span>()</span></a><a
-name="_Hlt414993856"></a><a name="_Hlt414994538"></a><a name="_Hlt415042025"></a></span></i></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US><a  href="158.html">f<span style='font-style:normal'>.
-dat<span style='mso-bookmark:_Hlt414993906'>e</span>()</span></a><a
-name="_Hlt414993906"></a></span></i></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US><a  href="751.html">f<span style='font-style:normal'>.
-size()</span></a></span></i></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US>&nbsp;</span></i></p>
+<p class=MsoNormal><span lang=EN-US style='font-size:14.0pt'><span
+style='mso-spacerun:yes'>&nbsp; </span></span><span lang=EN-US><a
+ href="csmergexx.html#CS_mergex">CS.<span style='mso-bookmark:_Hlt415822677'>m</span><span
+style='mso-bookmark:_Hlt476810719'>e</span>r<span style='mso-bookmark:_Hlt415822694'>g</span><span
+style='mso-bookmark:_Hlt478108021'><span style='mso-bookmark:_Hlt478107805'>e</span></span>x()</a><a
+name="_Hlt478107805"></a><a name="_Hlt478108021"></a><a name="_Hlt415822694"></a><a
+name="_Hlt476810719"></a><a name="_Hlt415822677"></a></span><span
+lang=EN-US style='font-size:14.0pt'></span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="519.html">Next</a></div>
@@ -370,7 +582,7 @@ style='mso-bidi-font-style:normal'><span lang=EN-US>&nbsp;</span></i></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="517.html">movefile()</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="517.html">merge()</a></span></li>
 </div>
 	</div>
 	<div id="footer">	

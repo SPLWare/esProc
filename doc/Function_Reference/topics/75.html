@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>T.C</title>
+<title>T.append( cs )</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,243 +13,562 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h3 style='text-align:justify;text-justify:inter-ideograph'><a name="T_C"></a><span
-lang=EN-US>T.C</span></h3></div>
-	<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Description:</span></b></p>
+	<div id="centent-title"><h3 style='margin:0cm;margin-bottom:.0001pt;text-align:justify;text-justify:
+inter-ideograph;line-height:173%'><a name=argpost></a><a name="f_append"></a><span
+style='mso-bookmark:argpost'><span lang=EN-US>T.append(<i style='mso-bidi-font-style:
+normal'>cs</i>)<a name="T_append_cs_2"></a></span></span><span
+style='mso-bookmark:argpost'></span><span
+style='mso-bookmark:argpost'></span></h3></div>
+	<p class=MsoNormal><span style='mso-bookmark:argpost'><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US style='font-size:14.0pt'>Description:</span></b></span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Get a specified
-column from an attached table.</span></p>
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+style='mso-bookmark:argpost'><span lang=EN-US>Append-write records of a cursor
+to a pseudo table.</span></span></p>
 
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Note:</span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Get the value of
-column <i style='mso-bidi-font-style:normal'>C</i> from attached table <i
-style='mso-bidi-font-style:normal'>T</i>. Its value will be recorded as nulls
-if the current record doesn’t have column <i style='mso-bidi-font-style:normal'>C</i>.
-If the value of column <i style='mso-bidi-font-style:normal'>C</i> corresponds
-to multiple records, only get the first record.</span></p>
-
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Parameters:</span></b></p>
+<p class=MsoNormal><span style='mso-bookmark:argpost'><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US style='font-size:14.0pt'>Syntax:</span></b></span></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:19.85pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ style='margin-left:3.65pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'>
+  <td width=110 valign=top style='width:82.25pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:argpost'><i><span lang=EN-US>T.</span></i><b><span
+  lang=EN-US>append</span></b><span lang=EN-US>(<i>cs</i>)</span></span><span
+  style='mso-bookmark:argpost'><span class=170><span lang=EN-US
+  style='font-family:"Times New Roman",serif'></span></span></span></p>
+  </td>
+  <span style='mso-bookmark:argpost'></span>
+  <td width=436 valign=top style='width:326.85pt;padding:0cm 5.4pt 0cm 5.4pt'><span
+  style='mso-bookmark:argpost'></span>
+  <p class=MsoNormal><span style='mso-bookmark:argpost'><span lang=EN-US>&nbsp;</span></span></p>
+  </td>
+  <span style='mso-bookmark:argpost'></span>
+ </tr>
+</table>
+
+<p class=MsoNormal><span style='mso-bookmark:argpost'><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US style='font-size:14.0pt'>Note:</span></b></span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+style='mso-bookmark:argpost'><span lang=EN-US>The function append-writes records
+of cursor <i>cs</i> to pseudo table <i>T</i>. When source of the pseudo table
+is multiple composite table files &#8211; a sequence of files, append-write the
+records to the last file.</span></span></p>
+
+<p class=MsoNormal><span style='mso-bookmark:argpost'><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US style='font-size:14.0pt'>Parameters:</span></b></span></p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:3.65pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=79 valign=top style='width:59.3pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var2><span lang=EN-US>T</span></span></p>
+  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:argpost'><i><span lang=EN-US>T</span></i></span><span
+  style='mso-bookmark:argpost'><span class=170><span lang=EN-US
+  style='font-family:"Times New Roman",serif'></span></span></span></p>
   </td>
-  <td width=455 valign=top style='width:341.6pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>An attached table</span></p>
+  <span style='mso-bookmark:argpost'></span>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:argpost'><span lang=EN-US>A
+  pseudo table</span></span></p>
   </td>
+  <span style='mso-bookmark:argpost'></span>
  </tr>
  <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
-  <td width=79 valign=top style='width:59.3pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var2><span lang=EN-US>C</span></span></p>
+  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:argpost'><i><span lang=EN-US>cs</span></i></span><span
+  style='mso-bookmark:argpost'><span class=170><span lang=EN-US
+  style='font-family:"Times New Roman",serif'></span></span></span></p>
   </td>
-  <td width=455 valign=top style='width:341.6pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>A column of the attached table</span></p>
+  <span style='mso-bookmark:argpost'></span>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:argpost'><span lang=EN-US>A
+  cursor</span></span></p>
   </td>
+  <span style='mso-bookmark:argpost'></span>
  </tr>
 </table>
 
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Example:</span></b></p>
+<p class=MsoNormal><span style='mso-bookmark:argpost'><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US style='font-size:14.0pt'>Options:</span></b></span></p>
 
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
- style='margin-left:19.85pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
- mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:3.65pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=19 valign=top style='width:14.55pt;border:solid #A6A6A6 1.0pt;
-  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span lang=EN-US>&nbsp;</span></p>
+  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:argpost'><b style='mso-bidi-font-weight:
+  normal'><span lang=EN-US>@i</span></b></span></p>
   </td>
-  <td width=291 valign=top style='width:218.6pt;border:solid #A6A6A6 1.0pt;
-  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='color:black;
-  mso-color-alt:windowtext'>A</span><span lang=EN-US></span></b></p>
+  <span style='mso-bookmark:argpost'></span>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:argpost'><span lang=EN-US
+  style='color:black'>Append-write immediately at exit of the program or at
+  retrieval while, by default, perform the operation when the number of records
+  reaches to a specified number </span></span></p>
   </td>
-  <td width=270 valign=top style='width:202.6pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span lang=EN-US>&nbsp;</span></p>
-  </td>
+  <span style='mso-bookmark:argpost'></span>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=19 valign=top style='width:14.55pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='color:black;
-  mso-color-alt:windowtext'>1</span><span lang=EN-US></span></b></p>
+  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:argpost'><b style='mso-bidi-font-weight:
+  normal'><span lang=EN-US>@a</span></b></span></p>
   </td>
-  <td width=291 valign=top style='width:218.6pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=create(k1,v1).record([1,10,2,20,3,30,4,40,10,100])</span></b></p>
+  <span style='mso-bookmark:argpost'></span>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:argpost'><span lang=EN-US
+  style='mso-bidi-font-size:11.0pt;color:black'>MERGE append-write to a patch
+  file, which will be created if there isn’t one</span></span></p>
   </td>
-  <td width=270 valign=top style='width:202.6pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'>Create a table sequence</span></p>
-  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'><img border=0 width=134 height=124
-  src="Function_Reference.files/image134.png" v:shapes="_x0000_i1105"></span></p>
-  </td>
+  <span style='mso-bookmark:argpost'></span>
  </tr>
- <tr style='mso-yfti-irow:2'>
-  <td width=19 valign=top style='width:14.55pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='color:black;
-  mso-color-alt:windowtext'>2</span><span lang=EN-US></span></b></p>
+ <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes'>
+  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:argpost'><b style='mso-bidi-font-weight:
+  normal'><span lang=EN-US>@x</span></b></span></p>
   </td>
-  <td width=291 valign=top style='width:218.6pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=create(k1,k2,v2).record([1,1,&quot;a&quot;,2,4,&quot;c&quot;,2,8,&quot;b&quot;])</span></b></p>
+  <span style='mso-bookmark:argpost'></span>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:argpost'><span lang=EN-US>Calculate
+  the zone table expression is at each append when append-writing data in a
+  single cursor to a pseudo table whose source composite table is a multi-zone
+  one because the cursor could correspond to multiple zones</span></span><span
+  style='mso-bookmark:argpost'><span lang=EN-US style='mso-bidi-font-size:11.0pt;
+  color:black'></span></span></p>
   </td>
-  <td width=270 valign=top style='width:202.6pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'>Create a table sequence</span></p>
-  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'><img border=0 width=172 height=83
-  src="Function_Reference.files/image135.png" v:shapes="_x0000_i1106"></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:3'>
-  <td width=19 valign=top style='width:14.55pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='color:black;
-  mso-color-alt:windowtext'>3</span><span lang=EN-US></span></b></p>
-  </td>
-  <td width=291 valign=top style='width:218.6pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=file(&quot;D:/ckv.ctx&quot;)</span></b></p>
-  </td>
-  <td width=270 valign=top style='width:202.6pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:4'>
-  <td width=19 valign=top style='width:14.55pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='color:black;
-  mso-color-alt:windowtext'>4</span><span lang=EN-US></span></b></p>
-  </td>
-  <td width=291 valign=top style='width:218.6pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=A3.create(#k1,v1)</span></b></p>
-  </td>
-  <td width=270 valign=top style='width:202.6pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Create the composite table’s base table</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:5'>
-  <td width=19 valign=top style='width:14.55pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='color:black;
-  mso-color-alt:windowtext'>5</span><span lang=EN-US></span></b></p>
-  </td>
-  <td width=291 valign=top style='width:218.6pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=A4.attach(table2,#k2,v2)</span></b></p>
-  </td>
-  <td width=270 valign=top style='width:202.6pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Add an attached table to the base table</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:6'>
-  <td width=19 valign=top style='width:14.55pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='color:black;
-  mso-color-alt:windowtext'>6</span><span lang=EN-US></span></b></p>
-  </td>
-  <td width=291 valign=top style='width:218.6pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=A4.append(A1.cursor())</span></b></p>
-  </td>
-  <td width=270 valign=top style='width:202.6pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Append data to the base table</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:7'>
-  <td width=19 valign=top style='width:14.55pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='color:black;
-  mso-color-alt:windowtext'>7</span><span lang=EN-US></span></b></p>
-  </td>
-  <td width=291 valign=top style='width:218.6pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=A5.append(A2.cursor())</span></b></p>
-  </td>
-  <td width=270 valign=top style='width:202.6pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Append data to the attached table</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:8;mso-yfti-lastrow:yes'>
-  <td width=19 valign=top style='width:14.55pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='color:black;
-  mso-color-alt:windowtext'>8</span><span lang=EN-US></span></b></p>
-  </td>
-  <td width=291 valign=top style='width:218.6pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=A4.cursor(k1,v1,table2.k2,table2.v2).fetch()</span></b></p>
-  </td>
-  <td width=270 valign=top style='width:202.6pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Retrieve columns k1 and v1 from the
-  composite table’s base table, and columns k2 and v2 from attached table <i
-  style='mso-bidi-font-style:normal'>table2</i>; record values of k2 and v2 as
-  empty if a record doesn’t have the two fields. Get the first record if there
-  are multiple records in the attached table that correspond to one value</span><span
-  lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'></span></p>
-  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'><img border=0 width=177 height=124
-  src="Function_Reference.files/image137.jpg" v:shapes="_x0000_i1107"></span></p>
-  </td>
+  <span style='mso-bookmark:argpost'></span>
  </tr>
 </table>
 
-<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+<p class=MsoNormal><span style='mso-bookmark:argpost'><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US style='font-size:14.0pt'>Return value:</span></b></span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span style='mso-bookmark:argpost'><span
+lang=EN-US>A pseudo table</span></span></p>
+
+<p class=MsoNormal><span style='mso-bookmark:argpost'><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US style='font-size:14.0pt'>Example:</span></b></span></p>
+
+<p class=MsoNormal style='margin-left:21.0pt;text-indent:-21.0pt;mso-list:l0 level1 lfo16'><span
+style='mso-bookmark:argpost'><span lang=EN-US
+style='font-family:Wingdings;mso-fareast-font-family:Wingdings;mso-bidi-font-family:
+Wingdings'><span style='mso-list:Ignore'>&Oslash;<span style='font:7.0pt "Times New Roman"'>&nbsp;
+</span></span></span><span lang=EN-US>Append-write to a pseudo table:</span></span></p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:17.9pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ mso-padding-alt:0cm 0cm 0cm 0cm'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=13 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'><span
+  style='mso-bookmark:argpost'></span>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:argpost'><span class=170><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>&nbsp;</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:argpost'></span>
+  <td width=487 valign=top style='width:336.7pt;border:solid #A6A6A6 1.0pt;
+  border-left:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-bottom-alt:
+  solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;background:#BFBFBF;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:argpost'><span class=170><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>A</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:argpost'></span>
+  <td width=184 valign=top style='width:177.2pt;padding:0cm 0cm 0cm 0cm'><span
+  style='mso-bookmark:argpost'></span>
+  <p class=MsoNormal><span style='mso-bookmark:argpost'><span lang=EN-US>&nbsp;</span></span></p>
+  </td>
+  <span style='mso-bookmark:argpost'></span>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=13 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:argpost'><span class=170><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>1</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:argpost'></span>
+  <td width=487 valign=top style='width:336.7pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:argpost'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>=create(file).record([[&quot;D:/file/pseudo/Employee1.ctx&quot;,&quot;D:/file/Employee2.ctx&quot;]])</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:argpost'></span>
+  <td width=184 valign=top style='width:177.2pt;padding:0cm 0cm 0cm 0cm'><span
+  style='mso-bookmark:argpost'></span>
+  <p class=MsoNormal><span style='mso-bookmark:argpost'><span lang=EN-US>&nbsp;</span></span></p>
+  </td>
+  <span style='mso-bookmark:argpost'></span>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=13 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:argpost'><span class=170><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>2</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:argpost'></span>
+  <td width=487 valign=top style='width:336.7pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:argpost'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>=pseudo(A1)</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:argpost'></span>
+  <td width=184 valign=top style='width:177.2pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:argpost'><span lang=EN-US>Generate
+  a pseudo table object</span></span></p>
+  </td>
+  <span style='mso-bookmark:argpost'></span>
+ </tr>
+ <tr style='mso-yfti-irow:3'>
+  <td width=13 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:argpost'><span class=170><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>3</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:argpost'></span>
+  <td width=487 valign=top style='width:336.7pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:argpost'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>=create(Dept,AvgSalary).record([&quot;CSD&quot;,6400.53])</span></span></span></p>
+  <span style='mso-bookmark:argpost'></span>
+  <p class=MsoNormal><span style='mso-bookmark:argpost'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:argpost'></span>
+  <td width=184 valign=top style='width:177.2pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:argpost'><span lang=EN-US>Create
+  a table sequence</span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:argpost'><span lang=zh-CN
+  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=135 height=43
+  src="Function_Reference.files/image096.jpg" v:shapes="_x0000_i1080"></span></span></p>
+  </td>
+  <span style='mso-bookmark:argpost'></span>
+ </tr>
+ <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes'>
+  <td width=13 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:argpost'><span class=170><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>4</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:argpost'></span>
+  <td width=487 valign=top style='width:336.7pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:argpost'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>=A2.append@i(A3.cursor())</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:argpost'></span>
+  <td width=184 valign=top style='width:177.2pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:argpost'><span lang=EN-US>Append
+  A3’s cursor record to the pseudo table corresponding to the last composite
+  table file </span></span><span style='mso-bookmark:argpost'><span class=code><i><span
+  lang=EN-US style='font-family:"Times New Roman",serif;font-weight:normal;
+  mso-bidi-font-weight:bold'>Employee2.ctx</span></i></span></span></p>
+  </td>
+  <span style='mso-bookmark:argpost'></span>
+ </tr>
+</table>
+
+<p class=MsoNormal style='margin-left:21.0pt;text-indent:-21.0pt;mso-list:l0 level1 lfo16'><span
+style='mso-bookmark:argpost'><span lang=EN-US
+style='font-family:Wingdings;mso-fareast-font-family:Wingdings;mso-bidi-font-family:
+Wingdings'><span style='mso-list:Ignore'>&Oslash;<span style='font:7.0pt "Times New Roman"'>&nbsp;
+</span></span></span><span lang=EN-US>Merge append-write to a patch
+file:</span></span></p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:17.9pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ mso-padding-alt:0cm 0cm 0cm 0cm'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=16 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'><span
+  style='mso-bookmark:argpost'></span>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:argpost'><span class=170><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>&nbsp;</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:argpost'></span>
+  <td width=394 valign=top style='width:315.45pt;border:solid #A6A6A6 1.0pt;
+  border-left:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-bottom-alt:
+  solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;background:#BFBFBF;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:argpost'><span class=170><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>A</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:argpost'></span>
+  <td width=274 valign=top style='width:248.05pt;padding:0cm 0cm 0cm 0cm'><span
+  style='mso-bookmark:argpost'></span>
+  <p class=MsoNormal><span style='mso-bookmark:argpost'><span lang=EN-US>&nbsp;</span></span></p>
+  </td>
+  <span style='mso-bookmark:argpost'></span>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=16 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:argpost'><span class=170><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>1</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:argpost'></span>
+  <td width=394 valign=top style='width:315.45pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:argpost'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>=create(file).record([[&quot;D:/file/pseudo/Employee.ctx&quot;]])</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:argpost'></span>
+  <td width=274 valign=top style='width:248.05pt;padding:0cm 0cm 0cm 0cm'><span
+  style='mso-bookmark:argpost'></span>
+  <p class=MsoNormal><span style='mso-bookmark:argpost'><span lang=EN-US>&nbsp;</span></span></p>
+  </td>
+  <span style='mso-bookmark:argpost'></span>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=16 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:argpost'><span class=170><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>2</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:argpost'></span>
+  <td width=394 valign=top style='width:315.45pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:argpost'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>=pseudo(A1)</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:argpost'></span>
+  <td width=274 valign=top style='width:248.05pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:argpost'><span lang=EN-US>Generate
+  a pseudo table object</span></span></p>
+  </td>
+  <span style='mso-bookmark:argpost'></span>
+ </tr>
+ <tr style='mso-yfti-irow:3'>
+  <td width=16 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:argpost'><span class=170><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>3</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:argpost'></span>
+  <td width=394 valign=top style='width:315.45pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:argpost'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>=create(Dept,AvgSalary).record([&quot;CSD&quot;,6400.53])</span></span></span></p>
+  <span style='mso-bookmark:argpost'></span>
+  <p class=MsoNormal><span style='mso-bookmark:argpost'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:argpost'></span>
+  <td width=274 valign=top style='width:248.05pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:argpost'><span lang=EN-US>Create
+  a table sequence</span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:argpost'><span lang=zh-CN
+  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=135 height=43
+  src="Function_Reference.files/image097.jpg" v:shapes="_x0000_i1081"></span></span></p>
+  </td>
+  <span style='mso-bookmark:argpost'></span>
+ </tr>
+ <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes'>
+  <td width=16 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:argpost'><span class=170><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>4</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:argpost'></span>
+  <td width=394 valign=top style='width:315.45pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:argpost'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>=A2.append@a(A3.cursor())</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:argpost'></span>
+  <td width=274 valign=top style='width:248.05pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:argpost'><span lang=EN-US>Employee.ctx.ext
+  With @a option, A3’s cursor record is merge-appended to the composite table
+  file’s patch table, which is auto-generated as follows:</span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:argpost'><span lang=zh-CN
+  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=122 height=41
+  src="Function_Reference.files/image099.jpg" v:shapes="_x0000_i1082"></span></span></p>
+  </td>
+  <span style='mso-bookmark:argpost'></span>
+ </tr>
+</table>
+
+<p class=MsoNormal style='margin-left:21.0pt;text-indent:-21.0pt;mso-list:l0 level1 lfo16'><span
+style='mso-bookmark:argpost'><span lang=EN-US
+style='font-family:Wingdings;mso-fareast-font-family:Wingdings;mso-bidi-font-family:
+Wingdings'><span style='mso-list:Ignore'>&Oslash;<span style='font:7.0pt "Times New Roman"'>&nbsp;
+</span></span></span><span lang=EN-US>Append-write a single cursor to
+a pseudo table:</span></span></p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:17.9pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ mso-padding-alt:0cm 0cm 0cm 0cm'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=16 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'><span
+  style='mso-bookmark:argpost'></span>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:argpost'><span class=170><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>&nbsp;</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:argpost'></span>
+  <td width=405 valign=top style='width:315.45pt;border:solid #A6A6A6 1.0pt;
+  border-left:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-bottom-alt:
+  solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;background:#BFBFBF;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:argpost'><span class=170><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>A</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:argpost'></span>
+  <td width=263 valign=top style='width:248.05pt;padding:0cm 0cm 0cm 0cm'><span
+  style='mso-bookmark:argpost'></span>
+  <p class=MsoNormal><span style='mso-bookmark:argpost'><span lang=EN-US>&nbsp;</span></span></p>
+  </td>
+  <span style='mso-bookmark:argpost'></span>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=16 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:argpost'><span class=170><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>1</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:argpost'></span>
+  <td width=405 valign=top style='width:315.45pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:argpost'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>=file(&quot;append/apps.ctx&quot;:[1,2]).create@yi(#eid,
+  deptid;(deptid%2)+1)</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:argpost'></span>
+  <td width=263 valign=top style='width:248.05pt;padding:0cm 0cm 0cm 0cm'><span
+  style='mso-bookmark:argpost'></span>
+  <p class=MsoNormal><span style='mso-bookmark:argpost'><span lang=EN-US>&nbsp;</span></span></p>
+  </td>
+  <span style='mso-bookmark:argpost'></span>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=16 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:argpost'><span class=170><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>2</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:argpost'></span>
+  <td width=405 valign=top style='width:315.45pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:argpost'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>=to(1,10000).new(~:eid,rand(5)+1:deptid)</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:argpost'></span>
+  <td width=263 valign=top style='width:248.05pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:argpost'><span lang=EN-US>Create
+  a table sequence</span></span></p>
+  <p class=MsoNormal><span style='mso-bookmark:argpost'><span lang=zh-CN
+  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=94 height=222
+  src="Function_Reference.files/image101.jpg" v:shapes="_x0000_i1083"></span></span></p>
+  </td>
+  <span style='mso-bookmark:argpost'></span>
+ </tr>
+ <tr style='mso-yfti-irow:3'>
+  <td width=16 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:argpost'><span class=170><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>3</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:argpost'></span>
+  <td width=405 valign=top style='width:315.45pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:argpost'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>=pseudo(create(file,zone).record([&quot;append/apps.ctx&quot;,[1,2]]))</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:argpost'></span>
+  <td width=263 valign=top style='width:248.05pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:argpost'><span lang=EN-US>Generate
+  a pseudo table object</span></span></p>
+  </td>
+  <span style='mso-bookmark:argpost'></span>
+ </tr>
+ <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes'>
+  <td width=16 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span
+  style='mso-bookmark:argpost'><span class=170><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>4</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:argpost'></span>
+  <td width=405 valign=top style='width:315.45pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:argpost'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>=A3.append@ix(A2.cursor())</span></span></span></p>
+  </td>
+  <span style='mso-bookmark:argpost'></span>
+  <td width=263 valign=top style='width:248.05pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span style='mso-bookmark:argpost'><span lang=EN-US>With
+  @x option, append-write A2’s single cursor to two zones of A3’s pseudo table
+  by calculating the zone table expression at each append</span></span></p>
+  </td>
+  <span style='mso-bookmark:argpost'></span>
+ </tr>
+</table>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="76.html">Next</a></div>
@@ -257,7 +576,7 @@ style='font-size:14.0pt'>Example:</span></b></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="73.html">C</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="73.html">append()</a></span></li>
 </div>
 	</div>
 	<div id="footer">	

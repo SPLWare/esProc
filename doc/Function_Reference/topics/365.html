@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>if x …else …</title>
+<title>hdfs_exists()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,266 +13,196 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h3 style='text-align:justify;text-justify:inter-ideograph'><span
-style='mso-bookmark:"_A\.in\(\)"'><a name="if_x_else"></a><span lang=EN-US>if <i
-style='mso-bidi-font-style:normal'>x</i>…else …</span></span><span
-style='mso-bookmark:"_A\.in\(\)"'></span><span
-style='mso-bookmark:"_A\.in\(\)"'></span></h3></div>
-	<p class=afe style='line-height:200%'><span style='mso-bookmark:"_A\.in\(\)"'><span
-lang=EN-US style='mso-bidi-font-size:14.0pt;line-height:200%'>Description:</span></span></p>
+	<div id="centent-title"><h2><span lang=EN-US>hdfs_exists()<a name="hdfs_exists"></a></span></h2></div>
+	<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt;mso-bidi-language:AR'>Description:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-style='mso-bookmark:"_A\.in\(\)"'><span lang=EN-US>The introduction of <b
-style='mso-bidi-font-weight:normal'>if</b> statement.</span></span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-bidi-language:AR'>Check whether there is a specified file or folder
+in HDFS and return a boolean value.</span></p>
 
-<p class=afe style='line-height:200%'><span style='mso-bookmark:"_A\.in\(\)"'><span
-lang=EN-US style='mso-bidi-font-size:14.0pt;line-height:200%'>Syntax:</span></span></p>
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt;mso-bidi-language:AR'>Syntax:</span></b><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:12.0pt;
+mso-bidi-font-size:10.0pt'></span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span style='mso-bookmark:"_A\.in\(\)"'><span
-class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>if<span
-style='mso-spacerun:yes'>&nbsp; </span></span></span></span><span
-style='mso-bookmark:"_A\.in\(\)"'><span class=var2><span lang=EN-US>x </span></span><span
-lang=EN-US>…<span style='mso-spacerun:yes'>&nbsp; </span></span></span><span
-style='mso-bookmark:"_A\.in\(\)"'><span class=code><span lang=EN-US
-style='font-family:"Times New Roman",serif'>else </span></span><span
-lang=EN-US>… <span style='mso-tab-count:1'> </span></span></span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><code><span lang=EN-US
+style='font-family:"Times New Roman",serif;mso-bidi-language:AR'>hdfs_exists(</span></code><code><i><span
+lang=EN-US style='font-family:"Times New Roman",serif;mso-bidi-language:AR;
+mso-bidi-font-weight:bold'>hd,</span></i></code><var><span lang=EN-US
+style='mso-bidi-language:AR'>file/path</span></var><code><span lang=EN-US
+style='font-family:"Times New Roman",serif;mso-bidi-language:AR'>)</span></code></p>
 
-<p class=afe style='line-height:200%'><span style='mso-bookmark:"_A\.in\(\)"'><span
-lang=EN-US style='mso-bidi-font-size:14.0pt;line-height:200%'>Note:</span></span></p>
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt;mso-bidi-language:AR'>Note:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span style='mso-bookmark:"_A\.in\(\)"'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US>if</span></b><span
-lang=EN-US> and <b style='mso-bidi-font-weight:normal'>else</b> are in the same
-line. If </span></span><span style='mso-bookmark:"_A\.in\(\)"'><span
-class=var2><span lang=EN-US>x</span></span><span lang=EN-US> is true, then
-execute the code between <b style='mso-bidi-font-weight:normal'>if</b> and <b
-style='mso-bidi-font-weight:normal'>else</b>; if </span></span><span
-style='mso-bookmark:"_A\.in\(\)"'><span class=var2><span lang=EN-US>x</span></span><span
-lang=EN-US> is false, execute the code after <b style='mso-bidi-font-weight:
-normal'>else</b> till the end of this line. The <b style='mso-bidi-font-weight:
-normal'>else…</b> part can be omitted.</span></span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-bidi-language:AR'>The external library function checks whether a
+file or a folder exists and returns a Boolean value.</span></p>
 
-<p class=afe style='line-height:200%'><span style='mso-bookmark:"_A\.in\(\)"'><span
-lang=EN-US style='mso-bidi-font-size:14.0pt;line-height:200%'>Parameters:</span></span></p>
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt;mso-bidi-language:AR'>Parameters:</span></b></p>
 
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=0
+ style='margin-left:-1.75pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'>
-  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=var2><span
-  lang=EN-US>x</span></span></span></p>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=74 valign=top style='width:55.15pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><var><span lang=EN-US style='mso-bidi-language:AR'>hd</span></var></p>
   </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span lang=EN-US>A
-  boolean expression</span></span></p>
+  <td width=486 valign=top style='width:364.8pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><var><span lang=EN-US style='mso-bidi-language:AR;
+  font-style:normal;mso-bidi-font-style:italic'>An</span></var><var><span
+  lang=EN-US style='mso-bidi-language:AR'> hd</span></var><var><span
+  lang=EN-US style='mso-bidi-language:AR;mso-bidi-font-style:italic'> </span></var><var><span
+  lang=EN-US style='mso-bidi-language:AR;font-style:normal'>connection</span></var></p>
   </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=74 valign=top style='width:55.15pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><var><span lang=EN-US style='mso-bidi-language:AR'>file</span></var></p>
+  </td>
+  <td width=486 valign=top style='width:364.8pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><var><span lang=EN-US style='mso-bidi-language:AR;
+  font-style:normal'>Hadoop file name</span></var><i style='mso-bidi-font-style:
+  normal'><span lang=EN-US></span></i></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes'>
+  <td width=74 valign=top style='width:55.15pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><var><span lang=EN-US style='mso-bidi-language:AR'>path</span></var></p>
+  </td>
+  <td width=486 valign=top style='width:364.8pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='mso-bidi-language:AR'>Hadoop path
+  name</span></p>
+  </td>
  </tr>
 </table>
 
-<p class=afe style='line-height:200%'><span style='mso-bookmark:"_A\.in\(\)"'><span
-lang=EN-US style='mso-bidi-font-size:14.0pt;line-height:200%;color:black;
-mso-color-alt:windowtext'>Example:</span></span><span style='mso-bookmark:"_A\.in\(\)"'><span
-lang=EN-US style='mso-bidi-font-size:14.0pt;line-height:200%'></span></span></p>
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt;mso-bidi-language:AR'>Return value</span></b><b
+style='mso-bidi-font-weight:normal'><span style='font-size:14.0pt;font-family:
+宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman";
+mso-bidi-language:AR'>：</span></b><b style='mso-bidi-font-weight:normal'><span
+style='font-size:12.0pt;mso-bidi-font-size:10.0pt;mso-bidi-language:AR'> </span></b><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:12.0pt;
+mso-bidi-font-size:10.0pt'></span></b></p>
 
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
- style='margin-left:18.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Boolean</span></p>
+
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt;mso-bidi-language:AR'>Example:</span></b><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'></span></b></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=0
+ style='margin-left:17.25pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
  mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=24 valign=top style='width:18.25pt;border:solid #A6A6A6 1.0pt;
-  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'><span
-  style='mso-bookmark:"_A\.in\(\)"'></span>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></span></p>
+  <td width=28 valign=top style='width:22.9pt;border:solid #A6A6A6 1.0pt;
+  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
   </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=66 valign=top style='width:49.5pt;border:solid #A6A6A6 1.0pt;
+  <td width=232 valign=top style='width:154.05pt;border:solid #A6A6A6 1.0pt;
   border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:"_A\.in\(\)"'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif;color:black;mso-color-alt:windowtext'>A</span></span></span><span
-  style='mso-bookmark:"_A\.in\(\)"'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'></span></span></span></p>
+  <p class=MsoNormal align=center style='text-align:center'><code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-bidi-language:AR'>A</span></code></p>
   </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=94 valign=top style='width:70.5pt;border:solid #A6A6A6 1.0pt;
-  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:"_A\.in\(\)"'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif;color:black;mso-color-alt:windowtext'>B</span></span></span><span
-  style='mso-bookmark:"_A\.in\(\)"'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'></span></span></span></p>
+  <td width=260 valign=top style='width:212.6pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
   </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=41 valign=top style='width:30.8pt;border:solid #A6A6A6 1.0pt;
-  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:"_A\.in\(\)"'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif;color:black;mso-color-alt:windowtext'>C</span></span></span><span
-  style='mso-bookmark:"_A\.in\(\)"'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'></span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=94 valign=top style='width:70.5pt;border:solid #A6A6A6 1.0pt;
-  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span
-  style='mso-bookmark:"_A\.in\(\)"'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif;color:black;mso-color-alt:windowtext'>D</span></span></span><span
-  style='mso-bookmark:"_A\.in\(\)"'><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'></span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=263 valign=top style='width:197.25pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span lang=EN-US>&nbsp;</span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=24 valign=top style='width:18.25pt;border:solid #A6A6A6 1.0pt;
+  <td width=28 valign=top style='width:22.9pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif;color:black;mso-color-alt:
-  windowtext'>1</span></span></span><span style='mso-bookmark:"_A\.in\(\)"'><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'></span></span></span></p>
+  <p class=MsoNormal><code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  mso-bidi-language:AR'>1</span></code></p>
   </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=66 valign=top style='width:49.5pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  <td width=232 valign=top style='width:154.05pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>=2</span></span></span></p>
+  <p class=1f2 style='text-indent:0cm;mso-char-indent-count:0;mso-pagination:
+  widow-orphan'><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Times New Roman",serif'>=hdfs_open(;&quot;hdfs://192.168.0.76:9000&quot;)</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Times New Roman",serif'></span></p>
   </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=94 valign=top style='width:70.5pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span
-  style='mso-bookmark:"_A\.in\(\)"'></span>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=41 valign=top style='width:30.8pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span
-  style='mso-bookmark:"_A\.in\(\)"'></span>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=94 valign=top style='width:70.5pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span
-  style='mso-bookmark:"_A\.in\(\)"'></span>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=263 valign=top style='width:197.25pt;border:none;mso-border-left-alt:
+  <td width=260 valign=top style='width:212.6pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>A1</span></span><span
-  lang=EN-US> returns </span></span><span style='mso-bookmark:"_A\.in\(\)"'><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>7</span></span></span></p>
+  <p class=MsoNormal><span lang=EN-US style='mso-bidi-language:AR'>Connect to
+  HDFS file system</span></p>
   </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
  </tr>
- <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes'>
-  <td width=24 valign=top style='width:18.25pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:2'>
+  <td width=28 valign=top style='width:22.9pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif;color:black;mso-color-alt:
-  windowtext'>2</span></span></span><span style='mso-bookmark:"_A\.in\(\)"'><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'></span></span></span></p>
+  <p class=MsoNormal><code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  mso-bidi-language:AR'>2</span></code></p>
   </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=66 valign=top style='width:49.5pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  <td width=232 valign=top style='width:154.05pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>if A1&gt;5</span></span></span></p>
+  <p class=1f2 style='text-indent:0cm;mso-char-indent-count:0;mso-pagination:
+  widow-orphan'><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Times New Roman",serif'>=hdfs_exists(A1,&quot;/user&quot;)</span></b><span
+  lang=EN-US style='font-size:10.0pt;font-family:"Times New Roman",serif'></span></p>
   </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=94 valign=top style='width:70.5pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  <td width=260 valign=top style='width:212.6pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-weight:bold'>Check
+  whether folder <i>user</i> exists</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3'>
+  <td width=28 valign=top style='width:22.9pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  mso-bidi-language:AR'>3</span></code></p>
+  </td>
+  <td width=232 valign=top style='width:154.05pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>&gt;A1=A1+4</span></span></span></p>
+  <p class=1f2 style='text-indent:0cm;mso-char-indent-count:0;mso-pagination:
+  widow-orphan'><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Times New Roman",serif'>=hdfs_exists(A1,&quot;/user/emp.txt&quot;)</span></b></p>
   </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=41 valign=top style='width:30.8pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  <td width=260 valign=top style='width:212.6pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-weight:bold'>Check
+  whether file <i>emp.txt</i> exists</span><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US></span></b></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes'>
+  <td width=28 valign=top style='width:22.9pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><code><span lang=EN-US style='font-family:"Times New Roman",serif;
+  mso-bidi-language:AR'>4</span></code></p>
+  </td>
+  <td width=232 valign=top style='width:154.05pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>else</span></span></span></p>
+  <p class=1f2 style='text-indent:0cm;mso-char-indent-count:0;mso-pagination:
+  widow-orphan'><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='font-size:10.0pt;font-family:"Times New Roman",serif'>=hdfs_close(A1)</span></b></p>
   </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=94 valign=top style='width:70.5pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>&gt;A1=A1+5</span></span></span></p>
+  <td width=260 valign=top style='width:212.6pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US style='mso-bidi-language:AR'>&nbsp;</span></p>
   </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <td width=263 valign=top style='width:197.25pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'><span style='mso-bookmark:"_A\.in\(\)"'></span>
-  <p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span lang=EN-US>&nbsp;</span></span></p>
-  </td>
-  <span style='mso-bookmark:"_A\.in\(\)"'></span>
  </tr>
 </table>
 
-<p class=afe style='line-height:200%'><span style='mso-bookmark:"_A\.in\(\)"'><span
-lang=EN-US style='mso-bidi-font-size:14.0pt;line-height:200%'>Related functions:</span></span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-style='mso-bookmark:"_A\.in\(\)"'></span><a  href="364.html"><span
-style='mso-bookmark:"_A\.in\(\)"'><span lang=EN-US style='mso-bidi-font-size:
-10.5pt'>if x …{ e<span style='mso-bookmark:_Hlt404328454'>l</span>se {<span
-style='mso-bookmark:_Hlt415058082'> </span>if x<span style='mso-bookmark:_Hlt415041637'>}</span>…
-}</span></span></a><a name="_Hlt415041637"></a><a
-name="_Hlt415058082"></a><a name="_Hlt404328454"></a><span
-style='mso-bookmark:"_A\.in\(\)"'><u><span lang=EN-US style='mso-bidi-font-size:
-10.5pt;color:blue'></span></u></span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-style='mso-bookmark:"_A\.in\(\)"'></span><a  href="366.html"><span
-style='mso-bookmark:"_A\.in\(\)"'><span lang=EN-US style='mso-bidi-font-size:
-10.5pt'>if x e<span style='mso-bookmark:_Hlt344284308'>l</span><span
-style='mso-bookmark:_Hlt404328466'><span style='mso-bookmark:_Hlt415041588'>s</span></span>e</span></span></a><a
-name="_Hlt415041588"></a><a name="_Hlt404328466"></a><a name="_Hlt344284308"></a><span
-style='mso-bookmark:"_A\.in\(\)"'><u><span lang=EN-US style='mso-bidi-font-size:
-10.5pt;color:blue'></span></u></span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-tab-stops:18.0pt'><span style='mso-bookmark:"_A\.in\(\)"'></span><a  href="363.html"><span
-style='mso-bookmark:"_A\.in\(\)"'><span lang=EN-US style='mso-bidi-font-size:
-10.5pt;mso-fareast-font-family:黑体'>i<span style='mso-bookmark:_Hlt415041654'>f</span></span></span><span
-style='mso-bookmark:_Hlt415041654'></span><span style='mso-bookmark:"_A\.in\(\)"'><span
-lang=EN-US style='mso-bidi-font-size:10.5pt'> <span style='mso-bookmark:_Hlt344395875'>x</span></span></span><span
-style='mso-bookmark:_Hlt344395875'></span><span style='mso-bookmark:"_A\.in\(\)"'></span></a><a
-name="_Hlt415041654"></a><a name="_Hlt344395875"></a><span
-style='mso-bookmark:"_A\.in\(\)"'><u><span lang=EN-US style='mso-bidi-font-size:
-10.5pt;mso-fareast-font-family:黑体;color:blue'></span></u></span></p>
-
-<p class=MsoNormal><span style='mso-bookmark:"_A\.in\(\)"'><span lang=EN-US>&nbsp;</span></span></p>
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="366.html">Next</a></div>
@@ -280,7 +210,7 @@ style='mso-bookmark:"_A\.in\(\)"'><u><span lang=EN-US style='mso-bidi-font-size:
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="362.html">if</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="45.html">Functions</a></span></li>
 </div>
 	</div>
 	<div id="footer">	

@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>ym_json()</title>
+<title>ym_save_pcf()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,69 +13,63 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h2 style='tab-stops:-179.95pt'><span lang=EN-US>ym_json()<a name="ym_json"></a></span></h2></div>
-	<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Description:</span></b></p>
+	<div id="centent-title"><h2 style='tab-stops:-179.95pt'><a name="_ym_save_pcf()15491550"><span
+lang=EN-US>ym_save_pcf()</span></a><a name="ym_save_pcf"></a><span
+style='mso-bookmark:"_ym_save_pcf\(\)15491550"'></span><span
+style='mso-bookmark:"_ym_save_pcf\(\)15491550"'></span><span
+style='mso-bookmark:"_ym_save_pcf\(\)15491550"'></span></h2></div>
+	<span style='mso-bookmark:"_ym_save_pcf\(\)15491550"'></span>
+
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt'>Description:<span
+style='mso-spacerun:yes'>&nbsp; </span></span></b></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-tab-stops:0cm'><span lang=EN-US style='mso-bidi-font-style:italic'>Return model
-information as a JSON string.</span></p>
+tab-stops:0cm'><span lang=EN-US style='mso-bidi-font-style:italic'>Generate a
+model file according to a model object.</span></p>
 
 <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
 style='font-size:14.0pt'>Syntax:</span></b></p>
 
 <p class=MsoNormal style='text-indent:21.1pt;mso-char-indent-count:2.0;
 tab-stops:0cm'><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='mso-bidi-font-style:italic'>ym_json</span></b><span lang=EN-US
-style='mso-bidi-font-style:italic'>(<i>pd/ps</i>)</span></p>
+style='mso-bidi-font-size:11.0pt;mso-bidi-font-style:italic'>ym_save_pcf</span></b><span
+lang=EN-US style='mso-bidi-font-style:italic'>(</span><i><span lang=EN-US
+style='mso-bidi-font-size:11.0pt'>pd,pdfile</span></i><span lang=EN-US
+style='mso-bidi-font-style:italic'>)</span></p>
 
 <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
 style='font-size:14.0pt'>Note:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-tab-stops:0cm'><span lang=EN-US style='mso-bidi-font-size:11.0pt;mso-bidi-font-style:
-italic'>The external library function gets model information from model object <i>pd</i>
-or scoring result object <i>ps</i> and return it as a JSON string.</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-tab-stops:0cm'><span lang=EN-US style='mso-bidi-font-size:11.0pt;mso-bidi-font-style:
-italic'>With parameter <i>pd</i>, the returned information includes model
-performance, model description</span><span lang=EN-US style='mso-bidi-font-size:
-10.5pt'> and importance degree of variables.</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-tab-stops:0cm'><span lang=EN-US style='mso-bidi-font-size:11.0pt;mso-bidi-font-style:
-italic'>With parameter <i>ps</i></span><span lang=EN-US style='mso-bidi-font-size:
-10.5pt'>, the function returns model performance information estimated by the
-scoring result object.</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-tab-stops:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>Read <i
-style='mso-bidi-font-style:normal'><a
-href="http://doc.raqsoft.com/AIModel/jsonpara/">JSON-style <span
-style='mso-bookmark:_Hlt29915875'>P</span>arameter Guide</a><a
-name="_Hlt29915875"></a></i> to learn more. </span></p>
+<p class=MsoNormal style='margin-left:10.5pt;mso-para-margin-left:1.0gd;
+text-indent:10.5pt;mso-char-indent-count:1.0;tab-stops:0cm'><span lang=EN-US
+style='mso-bidi-font-style:italic'>The external library function generates a
+model file with the extension pcf according to model object <i>pd</i>. The file
+can be stored in an absolute path or a relative path; the default relative path
+is <i>[sAppHome]/store/predict</i>.</span><b style='mso-bidi-font-weight:normal'><span
+lang=EN-US style='font-size:12.0pt;mso-bidi-font-size:10.0pt'></span></b></p>
 
 <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
 style='font-size:14.0pt'>Parameters:</span></b></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:22.8pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ style='margin-left:14.45pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=71 valign=top style='width:53.25pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var2><span lang=EN-US>pd</span></span></p>
+  <td width=82 valign=top style='width:61.6pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=var><span lang=EN-US>pd</span></span></p>
   </td>
   <td width=452 valign=top style='width:339.3pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>The model object</span></p>
+  <p class=MsoNormal><span lang=EN-US>A model object</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
-  <td width=71 valign=top style='width:53.25pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var2><span lang=EN-US>ps</span></span></p>
+  <td width=82 valign=top style='width:61.6pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:11.0pt'>pdfile</span></i><span
+  class=var><span lang=EN-US></span></span></p>
   </td>
   <td width=452 valign=top style='width:339.3pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>The scoring result object</span></p>
+  <p class=MsoNormal><span lang=EN-US>A model file with the extension pcf</span></p>
   </td>
  </tr>
 </table>
@@ -83,9 +77,9 @@ style='font-size:14.0pt'>Parameters:</span></b></p>
 <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
 style='font-size:14.0pt'>Return value:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-tab-stops:0cm'><span lang=EN-US style='mso-bidi-font-size:11.0pt;mso-bidi-font-style:
-italic'>A JSON string</span></p>
+<p class=MsoNormal style='margin-left:10.5pt;mso-para-margin-left:1.0gd;
+text-indent:10.5pt;mso-char-indent-count:1.0;tab-stops:0cm'><span lang=EN-US
+style='mso-bidi-font-size:11.0pt;mso-bidi-font-style:italic'>A Boolean value</span></p>
 
 <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
 style='font-size:14.0pt'>Example:</span></b></p>
@@ -100,14 +94,13 @@ style='font-size:14.0pt'>Example:</span></b></p>
   height:13.7pt'>
   <p class=MsoNormal align=center style='text-align:center'><span lang=EN-US>&nbsp;</span></p>
   </td>
-  <td width=255 valign=top style='width:191.3pt;border:solid #A6A6A6 1.0pt;
+  <td width=373 valign=top style='width:279.85pt;border:solid #A6A6A6 1.0pt;
   border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:13.7pt'>
   <p class=MsoNormal align=center style='text-align:center'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='color:black;
-  mso-color-alt:windowtext'>A</span><span lang=EN-US></span></b></p>
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>A</span></b></p>
   </td>
-  <td width=265 valign=top style='width:198.85pt;border:none;mso-border-left-alt:
+  <td width=213 valign=top style='width:159.75pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:13.7pt'>
   <p class=MsoNormal align=center style='text-align:center'><span lang=EN-US>&nbsp;</span></p>
   </td>
@@ -116,119 +109,133 @@ style='font-size:14.0pt'>Example:</span></b></p>
   <td width=21 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:14.35pt'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='color:black;mso-color-alt:windowtext'>1</span><span lang=EN-US></span></b></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>1</span></b></p>
   </td>
-  <td width=255 valign=top style='width:191.3pt;border-top:none;border-left:
+  <td width=373 valign=top style='width:279.85pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:14.35pt'>
   <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
   style='mso-bidi-font-size:11.0pt'>=ym_env()</span></b></p>
   </td>
-  <td width=265 valign=top style='width:198.85pt;border:none;mso-border-left-alt:
+  <td width=213 valign=top style='width:159.75pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:14.35pt'>
-  <p class=MsoNormal><span lang=EN-US>Environment initiation</span></p>
+  <p class=MsoNormal><span lang=EN-US>Start Python service</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:2;height:13.7pt'>
   <td width=21 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:13.7pt'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='color:black;mso-color-alt:windowtext'>2</span><span lang=EN-US></span></b></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>2</span></b></p>
   </td>
-  <td width=255 valign=top style='width:191.3pt;border-top:none;border-left:
+  <td width=373 valign=top style='width:279.85pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:13.7pt'>
   <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-bidi-font-size:11.0pt'>=ym_load_pcf(&quot;model.pcf&quot;)</span></b></p>
+  style='mso-bidi-font-size:11.0pt'>=file(&quot;train.csv&quot;)</span></b></p>
   </td>
-  <td width=265 valign=top style='width:198.85pt;border:none;mso-border-left-alt:
+  <td width=213 valign=top style='width:159.75pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:13.7pt'>
-  <p class=MsoNormal><span lang=EN-US>Generate a model object based on the
-  model building file</span></p>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:3;height:13.7pt'>
   <td width=21 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:13.7pt'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='color:black;mso-color-alt:windowtext'>3</span><span lang=EN-US></span></b></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>3</span></b></p>
   </td>
-  <td width=255 valign=top style='width:191.3pt;border-top:none;border-left:
+  <td width=373 valign=top style='width:279.85pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:13.7pt'>
   <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-bidi-font-size:11.0pt'>=ym_predict(A2,&quot;train_t.csv&quot;)</span></b></p>
+  style='mso-bidi-font-size:11.0pt'>=ym_model(A1,A2)</span></b></p>
   </td>
-  <td width=265 valign=top style='width:198.85pt;border:none;mso-border-left-alt:
+  <td width=213 valign=top style='width:159.75pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:13.7pt'>
-  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-style:italic'>Perform
-  data scoring and return the scoring result object</span></p>
+  <p class=MsoNormal><span lang=EN-US>Load the data file for model building</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:4;height:13.7pt'>
   <td width=21 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:13.7pt'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='color:black;mso-color-alt:windowtext'>4</span><span lang=EN-US></span></b></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>4</span></b></p>
   </td>
-  <td width=255 valign=top style='width:191.3pt;border-top:none;border-left:
+  <td width=373 valign=top style='width:279.85pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:13.7pt'>
   <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-bidi-font-size:11.0pt'>=ym_json(A2)</span></b></p>
+  style='mso-bidi-font-size:11.0pt'>=ym_target(A3, &quot;Survived&quot;)</span></b></p>
   </td>
-  <td width=265 valign=top style='width:198.85pt;border:none;mso-border-left-alt:
+  <td width=213 valign=top style='width:159.75pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:13.7pt'>
-  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-style:italic'>Get
-  model information from A2’s model object</span></p>
+  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-size:11.0pt;
+  mso-bidi-font-weight:bold'>Set <b>Survived</b> as the target variable</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:5;height:13.7pt'>
   <td width=21 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:13.7pt'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='color:black;mso-color-alt:windowtext'>5</span><span lang=EN-US></span></b></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>5</span></b></p>
   </td>
-  <td width=255 valign=top style='width:191.3pt;border-top:none;border-left:
+  <td width=373 valign=top style='width:279.85pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:13.7pt'>
   <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-bidi-font-size:11.0pt'>=ym_json(A3)</span></b></p>
+  style='mso-bidi-font-size:11.0pt'>=ym_build_model(A3)</span></b></p>
   </td>
-  <td width=265 valign=top style='width:198.85pt;border:none;mso-border-left-alt:
+  <td width=213 valign=top style='width:159.75pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:13.7pt'>
-  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-style:italic'>Get
-  the estimated model performance from A3’s scoring result object</span></p>
+  <p class=MsoNormal><span lang=EN-US>Perform model building and return a model
+  object</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:6;mso-yfti-lastrow:yes;height:13.7pt'>
+ <tr style='mso-yfti-irow:6;height:13.7pt'>
   <td width=21 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:13.7pt'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='color:black;mso-color-alt:windowtext'>6</span><span lang=EN-US></span></b></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>6</span></b></p>
   </td>
-  <td width=255 valign=top style='width:191.3pt;border-top:none;border-left:
+  <td width=373 valign=top style='width:279.85pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:13.7pt'>
   <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-bidi-font-size:11.0pt'>&gt;ym_close(A1)</span></b></p>
+  style='mso-bidi-font-size:11.0pt'>=ym_save_pcf(A5,&quot;tra.pcf&quot;)</span><span
+  lang=EN-US></span></b></p>
   </td>
-  <td width=265 valign=top style='width:198.85pt;border:none;mso-border-left-alt:
+  <td width=213 valign=top style='width:159.75pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:13.7pt'>
-  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-style:italic'>Release
-  resources</span></p>
+  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-style:italic'>Generate
+  model file </span><i style='mso-bidi-font-style:normal'><span lang=EN-US>tra.pcf</span></i><span
+  lang=EN-US> <span style='mso-bidi-font-style:italic'>according to A5’s model
+  object and store the file in <i>[sAppHome]/store/predict</i></span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:7;mso-yfti-lastrow:yes;height:13.7pt'>
+  <td width=21 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:13.7pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>7</span></b></p>
+  </td>
+  <td width=373 valign=top style='width:279.85pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:13.7pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>&gt;ym_close(A1)</span></b><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
+  11.0pt'></span></b></p>
+  </td>
+  <td width=213 valign=top style='width:159.75pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:13.7pt'>
+  <p class=MsoNormal><span lang=EN-US>Release resources</span></p>
   </td>
  </tr>
 </table>
@@ -239,7 +246,7 @@ style='font-size:14.0pt'>Example:</span></b></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="21.html">Functions</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="45.html">Functions</a></span></li>
 </div>
 	</div>
 	<div id="footer">	

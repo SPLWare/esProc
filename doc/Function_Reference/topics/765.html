@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>spark_read()</title>
+<title>stax_open()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,264 +13,249 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h2 style='mso-pagination:widow-orphan'><span lang=EN-US style='mso-fareast-font-family:
-宋体'>spark_read()<a name="spark_read"></a></span></h2></div>
-	<p class=MsoNormal><b><span lang=EN-US style='font-size:14.0pt'>Description:</span></b></p>
+	<div id="centent-title"><h2><span lang=EN-US>stax_open()<a name="stax_open"></a></span></h2></div>
+	<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%'>Description:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
-lang=EN-US>Read a file stored in Spark database.</span></p>
+<p class=MsoNormal style='text-indent:15.75pt;mso-char-indent-count:1.5'><span
+lang=EN-US>Create connection to the Cassandra database.</span></p>
 
-<p class=MsoNormal><b><span lang=EN-US style='font-size:14.0pt'>Syntax: </span></b></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%'>Syntax: </span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span class=16><span lang=EN-US>spark_read</span></span><span
-lang=EN-US>(</span><span class=15><i><span lang=EN-US style='font-family:"Times New Roman",serif;
-font-weight:normal'>con,sfile,k:v,..</span></i></span><span class=15><span
-lang=EN-US style='font-family:"Times New Roman",serif'>.</span></span><span
-lang=EN-US>)</span></p>
+<p class=MsoNormal style='margin-left:21.0pt;mso-para-margin-left:2.0gd'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+黑体'>stax_open</span></b><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>(<span
+class=var>nodes[:port][,keyspace][,user:pwd][,compressor][,version:verX][,clusterName:nameX][,queryOptions:optionX]</span>)<span
+style='mso-spacerun:yes'>&nbsp; </span></span></i></p>
 
-<p class=MsoNormal><b><span lang=EN-US style='font-size:14.0pt'>Note: </span></b></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%'>Note:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
-lang=EN-US>The external library function read content of a file stored in Spark
-database and return result as a table sequence.</span></p>
+<p class=MsoNormal style='text-indent:15.75pt;mso-char-indent-count:1.5'><span
+lang=EN-US style='mso-bidi-font-style:italic'>It is an external library
+function. The username and password are not required if the Cassandra database
+is started under the </span><i style='mso-bidi-font-style:normal'><span
+lang=EN-US>PasswordAuthenticator</span></i><span lang=EN-US> mode; but required
+if <span style='mso-bidi-font-style:italic'>the Cassandra database is started
+under the </span><i style='mso-bidi-font-style:normal'>authorizer:
+AllowAllAuthorizer</i> mode.<span style='mso-bidi-font-style:italic'>Use
+keyspace.table format in a CQL query when parameter </span></span><span
+class=var><span lang=EN-US>keyspace</span></span><span lang=EN-US
+style='mso-bidi-font-style:italic'> is absent.</span></p>
 
-<p class=MsoNormal><b><span lang=EN-US style='font-size:14.0pt'>Parameters:</span></b></p>
-
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:3.65pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- mso-yfti-tbllook:1184;mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=98 valign=top style='width:73.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=15><span lang=EN-US style='font-family:"Times New Roman",serif'>con</span></span></p>
-  </td>
-  <td width=437 valign=top style='width:327.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Local or HDFS connection string</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:1'>
-  <td width=98 valign=top style='width:73.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=15><span lang=EN-US style='font-family:"Times New Roman",serif'>sfile</span></span></p>
-  </td>
-  <td width=437 valign=top style='width:327.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>File name</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes'>
-  <td width=98 valign=top style='width:73.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=15><span lang=EN-US style='font-family:"Times New Roman",serif'>k:v</span></span></p>
-  </td>
-  <td width=437 valign=top style='width:327.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Parameters that can be omitted. When <i>sfile</i>
-  is a text file separated by “</span><span style='font-family:宋体;mso-ascii-font-family:
-  "Times New Roman";mso-hansi-font-family:"Times New Roman"'>；</span><span
-  lang=EN-US>”, set the pair as ”sep”:”;”; and when the text file is separated
-  by “#”, set the pair as ”sep”:”#”</span></p>
-  </td>
- </tr>
-</table>
-
-<p class=MsoNormal><b><span lang=EN-US style='font-size:14.0pt'>Options:</span></b></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%'>Parameters: </span></b></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:-1.75pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- mso-yfti-tbllook:1184;mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
+ style='margin-left:11.6pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=60 valign=top style='width:45.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><b><span lang=EN-US>@c</span></b></p>
+  <td width=135 valign=top style='width:101.55pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>nodes</span></i></p>
   </td>
-  <td width=463 valign=top style='width:347.3pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Read content of a file and return result
-  as a cursor</span></p>
+  <td width=415 valign=top style='width:311.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>The to-be-connected database’s IP address
+  </span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=60 valign=top style='width:45.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><b><span lang=EN-US>@t</span></b></p>
+  <td width=135 valign=top style='width:101.55pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>port</span></i></p>
   </td>
-  <td width=463 valign=top style='width:347.3pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Read the first row of a text file as field
-  names, which is equivalent to </span><span class=16><span lang=EN-US>&quot;header&quot;:&quot;true&quot;</span></span><span
-  lang=EN-US>; by default, use the automatically generated field names c0, _c1…</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes'>
-  <td width=60 valign=top style='width:45.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><b><span lang=EN-US>@x</span></b></p>
-  </td>
-  <td width=463 valign=top style='width:347.3pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Close Spark database connection</span></p>
-  </td>
- </tr>
-</table>
-
-<p class=MsoNormal><b><span lang=EN-US style='font-size:14.0pt'>Return value:</span></b><b><span
-lang=EN-US style='font-size:12.0pt'> </span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>A table sequence
-or a cursor</span></p>
-
-<p class=MsoNormal><b><span lang=EN-US style='font-size:14.0pt'>Example: </span></b></p>
-
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=607
- style='margin-left:23.3pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-yfti-tbllook:1184;
- mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:.5pt solid #A6A6A6;
- mso-border-insidev:.5pt solid #A6A6A6'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=40 valign=top style='width:30.05pt;border:solid #A6A6A6 1.0pt;
-  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><b><span
-  lang=EN-US>&nbsp;</span></b></p>
-  </td>
-  <td width=307 valign=top style='width:229.95pt;border:solid #A6A6A6 1.0pt;
-  border-left:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-bottom-alt:
-  solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;background:#BFBFBF;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=16><b><span
-  lang=EN-US style='color:black;mso-color-alt:windowtext;font-style:normal'>A</span></b></span><b><span
-  lang=EN-US></span></b></p>
-  </td>
-  <td width=260 valign=top style='width:195.3pt;border:none;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:1'>
-  <td width=40 valign=top style='width:30.05pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=16><b><span lang=EN-US style='color:black;
-  mso-color-alt:windowtext;font-style:normal'>1</span></b></span><b><i><span
-  lang=EN-US></span></i></b></p>
-  </td>
-  <td width=307 style='width:229.95pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=16><b><span lang=EN-US style='font-style:normal'>=spark_open()</span></b></span><b><i><span
-  lang=EN-US></span></i></b></p>
-  </td>
-  <td width=260 style='width:195.3pt;border:none;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:12.0pt'>&nbsp;</span></p>
+  <td width=415 valign=top style='width:311.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Port number; can be omitted</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:2'>
-  <td width=40 valign=top style='width:30.05pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=16><b><span lang=EN-US style='color:black;
-  mso-color-alt:windowtext;font-style:normal'>2</span></b></span><b><i><span
-  lang=EN-US></span></i></b></p>
+  <td width=135 valign=top style='width:101.55pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>user:pwd</span></i></p>
   </td>
-  <td width=307 style='width:229.95pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=16><b><span lang=EN-US style='font-style:normal'>=spark_read@t(A1,&quot;D:/people.txt&quot;,&quot;sep&quot;:&quot;,&quot;)</span></b></span></p>
-  </td>
-  <td width=260 style='width:195.3pt;border:none;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Read a semicolon-separated txt file and
-  set reading the first row as field names</span></p>
+  <td width=415 valign=top style='width:311.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>User name and password; can be omitted</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:3'>
-  <td width=40 valign=top style='width:30.05pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=16><b><span lang=EN-US style='color:black;
-  mso-color-alt:windowtext;font-style:normal'>3</span></b></span><span
-  class=16><b><span lang=EN-US style='font-style:normal'></span></b></span></p>
+  <td width=135 valign=top style='width:101.55pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>keyspace</span></i></p>
   </td>
-  <td width=307 style='width:229.95pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=16><b><span lang=EN-US style='font-style:normal'>=spark_read(A1,&quot;D:/people.txt&quot;,&quot;header&quot;:&quot;true&quot;,&quot;sep&quot;:&quot;,&quot;)</span></b></span></p>
-  </td>
-  <td width=260 valign=top style='width:195.3pt;border:none;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Same as A2</span></p>
+  <td width=415 valign=top style='width:311.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>The keyspace name; can be omitted</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:4'>
-  <td width=40 valign=top style='width:30.05pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=16><b><span lang=EN-US style='color:black;
-  mso-color-alt:windowtext;font-style:normal'>4</span></b></span><span
-  class=16><b><span lang=EN-US style='font-style:normal'></span></b></span></p>
+  <td width=135 valign=top style='width:101.55pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>compressor</span></i></p>
   </td>
-  <td width=307 style='width:229.95pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=16><b><span lang=EN-US style='font-style:normal'>=spark_read(A1,&quot;D:/people.json&quot;)</span></b></span></p>
-  </td>
-  <td width=260 style='width:195.3pt;border:none;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Read content of people.json</span></p>
+  <td width=415 valign=top style='width:311.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>A compression algorithm, which is LZ4,
+  Snappy and none; default is none</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:5'>
-  <td width=40 valign=top style='width:30.05pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=16><b><span lang=EN-US style='color:black;
-  mso-color-alt:windowtext;font-style:normal'>5</span></b></span><span
-  class=16><b><span lang=EN-US style='font-style:normal'></span></b></span></p>
+  <td width=135 valign=top style='width:101.55pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>version</span></i></p>
   </td>
-  <td width=307 style='width:229.95pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=16><b><span lang=EN-US style='font-style:normal'>=spark_read@c(A1,&quot;D:/people.csv&quot;)</span></b></span></p>
-  </td>
-  <td width=260 style='width:195.3pt;border:none;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Read content of people.csv and return
-  result as a cursor</span></p>
+  <td width=415 valign=top style='width:311.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Protocol version information; can be
+  absent</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:6'>
-  <td width=40 valign=top style='width:30.05pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=16><b><span lang=EN-US style='color:black;
-  mso-color-alt:windowtext;font-style:normal'>6</span></b></span><span
-  class=16><b><span lang=EN-US style='font-style:normal'></span></b></span></p>
+ <tr style='mso-yfti-irow:6;mso-yfti-lastrow:yes'>
+  <td width=135 valign=top style='width:101.55pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>queryOptions</span></i></p>
   </td>
-  <td width=307 style='width:229.95pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=16><b><span lang=EN-US style='font-style:normal'>=A5.fetch()</span></b></span></p>
-  </td>
-  <td width=260 style='width:195.3pt;border:none;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:7;mso-yfti-lastrow:yes'>
-  <td width=40 valign=top style='width:30.05pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=16><b><span lang=EN-US style='color:black;
-  mso-color-alt:windowtext;font-style:normal'>7</span></b></span><span
-  class=16><b><span lang=EN-US style='font-style:normal'></span></b></span></p>
-  </td>
-  <td width=307 style='width:229.95pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=16><b><span lang=EN-US style='font-style:normal'>=spark_read@x(A1,&quot;D:/people.csv&quot;)</span></b></span></p>
-  </td>
-  <td width=260 style='width:195.3pt;border:none;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Close Spark database connection</span></p>
+  <td width=415 valign=top style='width:311.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>A query option, which includes ANY, ONE,
+  TOW, THREE, ALL and QUORUM; there are details in Cssandra documentation</span></p>
   </td>
  </tr>
 </table>
+
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%'>Return value: </span></b></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>The database connection</span></p>
+
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%'>Example: </span></b></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=0
+ style='margin-left:17.35pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
+ mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=22 valign=top style='width:16.6pt;border:solid #A6A6A6 1.0pt;
+  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  </td>
+  <td width=295 valign=top style='width:221.45pt;border:solid #A6A6A6 1.0pt;
+  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'>A</span></b></p>
+  </td>
+  <td width=264 valign=top style='width:197.7pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=22 valign=top style='width:16.6pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>1</span></b></p>
+  </td>
+  <td width=295 valign=top style='width:221.45pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=stax_open(&quot;127.0.0.1&quot;:9042,
+  &quot;mycasdb&quot;,&quot;cassandra&quot;:&quot;cassandra&quot;)</span></span><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'></span></b></p>
+  </td>
+  <td width=264 valign=top style='width:197.7pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Cassandra database connection under <span
+  style='mso-bidi-font-style:italic'>the </span><i style='mso-bidi-font-style:
+  normal'>authorizer: AllowAllAuthorizer</i> mode</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=22 valign=top style='width:16.6pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>2</span></b></p>
+  </td>
+  <td width=295 style='width:221.45pt;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=stax_open(&quot;127.0.0.1&quot;:9042,
+  &quot;mycasdb&quot;)</span></span><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US style='mso-fareast-font-family:黑体'></span></b></p>
+  </td>
+  <td width=264 valign=top style='width:197.7pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Cassandra database connection under <span
+  style='mso-bidi-font-style:italic'>the </span><i style='mso-bidi-font-style:
+  normal'>PasswordAuthenticator</i> mode</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3'>
+  <td width=22 valign=top style='width:16.6pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>3</span></span><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'></span></b></p>
+  </td>
+  <td width=295 style='width:221.45pt;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=stax_open(&quot;127.0.0.1&quot;:9042,
+  &quot;mycasdb&quot;,&quot;cassandra&quot;:&quot;cassandra&quot;:&quot;lz4&quot;)</span></span></p>
+  </td>
+  <td width=264 valign=top style='width:197.7pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Set compression algorithm as LZ4</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4'>
+  <td width=22 valign=top style='width:16.6pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>4</span></span><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'></span></b></p>
+  </td>
+  <td width=295 style='width:221.45pt;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=stax_open(&quot;127.0.0.1&quot;:9042)</span></span></p>
+  </td>
+  <td width=264 valign=top style='width:197.7pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Parameter </span><span class=var><span
+  lang=EN-US>keyspace</span></span><span lang=EN-US> is absent</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:5;mso-yfti-lastrow:yes'>
+  <td width=22 valign=top style='width:16.6pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>5</span></span><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'></span></b></p>
+  </td>
+  <td width=295 style='width:221.45pt;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=stax_query(A1,&quot;select
+  * from mycasdb.user&quot;)</span></span></p>
+  </td>
+  <td width=264 valign=top style='width:197.7pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Use <span style='mso-bidi-font-style:
+  italic'>keyspace.table format in the CQL query</span></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="766.html">Next</a></div>
@@ -278,7 +263,7 @@ or a cursor</span></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="21.html">Functions</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="45.html">Functions</a></span></li>
 </div>
 	</div>
 	<div id="footer">	

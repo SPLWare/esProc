@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>month()</title>
+<title>T.memory( C,…;w )</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,154 +13,193 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h2><a name=month></a><span lang=EN-US>month()</span></h2></div>
-	<p class=afe style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Description:</span></p>
+	<div id="centent-title"><h3 style='text-align:justify;text-justify:inter-ideograph'><a name="T_memory_C"></a><a
+name="T_memory_C_w_v"></a><span style='mso-bookmark:T_memory_C'><span
+lang=EN-US>T.memory(<i style='mso-bidi-font-style:normal'>C,…;w</i>)</span></span><span
+style='mso-bookmark:T_memory_C'></span><span
+style='mso-bookmark:T_memory_C'></span></h3></div>
+	<span style='mso-bookmark:T_memory_C'></span>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Get the month
-from a specified date/datetime value.</span></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%'>Description:</span></b></p>
 
-<p class=afe style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Syntax: </span></p>
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US>Generate a cluster in-memory table from a cluster entity table.</span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span class=code><span
-lang=EN-US style='font-family:"Times New Roman",serif'>month(</span></span><span
-class=var2><span lang=EN-US>dateExp</span></span><span class=code><span
-lang=EN-US style='font-family:"Times New Roman",serif'>)</span></span></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%'>Syntax:</span></b></p>
 
-<p class=afe style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Note: </span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><i><span lang=EN-US>T.</span></i><b><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:黑体'>memory</span></b><span
+lang=EN-US>(<i>C,…;w</i>)<i></i></span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>The function
-gets the month from the date</span><span class=var2><span lang=EN-US> dateExp</span></span><span
-lang=EN-US>.</span></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%'>Note:</span></b></p>
 
-<p class=afe style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Parameters:</span></p>
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US>The function generates a cluster in-memory table, which inherits the
+zone table expression, from a cluster entity table <i style='mso-bidi-font-style:
+normal'>T</i>, which must have at least one dimension that is used to segment <i
+style='mso-bidi-font-style:normal'>T</i> and facilitates the segmentation.
+Clear a node’s memory at exit; will perform auto-clear when timeout occurs.</span></p>
 
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'>
-  <td width=79 valign=top style='width:59.3pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var2><span lang=EN-US>dateExp</span></span></p>
-  </td>
-  <td width=466 valign=top style='width:349.8pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>An expression whose result is a date or a
-  datetime value of standard format.</span></p>
-  </td>
- </tr>
-</table>
-
-<p class=afe><span lang=EN-US style='mso-bidi-font-size:14.0pt'>Options:</span></p>
-
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:19.85pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'>
-  <td width=75 valign=top style='width:56.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var2><b style='mso-bidi-font-weight:normal'><span
-  lang=EN-US>@y</span></b></span></p>
-  </td>
-  <td width=470 valign=top style='width:352.65pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Return a 6-digit number if there is a
-  year part in the parameter<span style='color:black'></span></span></p>
-  </td>
- </tr>
-</table>
-
-<p class=afe style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Return value: </span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>An integer</span></p>
-
-<p class=afe style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Example:</span></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%'>Parameters:</span></b></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
  style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=325 valign=top style='width:243.55pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=aff style='margin-left:10.55pt;text-align:justify;text-justify:inter-ideograph;
-  tab-stops:48.75pt'><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>month(datetime(&quot;19800227&quot;,&quot;yyyyMMdd&quot;))</span></span><span
-  class=var2><span lang=EN-US></span></span></p>
+  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US>C</span></i></p>
   </td>
-  <td width=221 valign=top style='width:165.55pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>2</span></span></p>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>A column name; import all columns when
+  the parameter is omitted</span><span lang=EN-US style='mso-bidi-font-size:
+  11.0pt'></span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=325 valign=top style='width:243.55pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=aff style='margin-left:10.55pt;text-align:justify;text-justify:inter-ideograph;
-  tab-stops:48.75pt'><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>month(&quot;1972-11-08
-  10:20:30&quot;)</span></span></p>
+  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US>w</span></i><b><span lang=EN-US
+  style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:黑体'></span></b></p>
   </td>
-  <td width=221 valign=top style='width:165.55pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>11</span></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:2'>
-  <td width=325 valign=top style='width:243.55pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=aff style='margin-left:10.55pt;text-align:justify;text-justify:inter-ideograph;
-  tab-stops:48.75pt'><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>month(datetime(&quot;2006-01-15
-  13:20:30&quot;))</span></span></p>
-  </td>
-  <td width=221 valign=top style='width:165.55pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>1</span></span></p>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Filtering condition; won’t perform
+  filtering when the parameter is omitted</span><span lang=EN-US
+  style='mso-bidi-font-size:11.0pt'></span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
-  <td width=325 valign=top style='width:243.55pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=aff style='margin-left:10.55pt;text-align:justify;text-justify:inter-ideograph;
-  tab-stops:48.75pt'><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>month@y(&quot;1972-11-08
-  10:20:30&quot;)</span></span></p>
+ <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes'>
+  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US>T</span></i></p>
   </td>
-  <td width=221 valign=top style='width:165.55pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>197211</span></span></p>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-size:11.0pt'>A
+  cluster composite table’s entity table with dimensions</span></p>
   </td>
  </tr>
 </table>
 
-<p class=afe style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Related functions:</span></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%'>Return value:</span></b><span
+lang=EN-US style='font-size:14.0pt;line-height:200%'></span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US><a  href="847.html"><span style='mso-fareast-font-family:
-黑体;font-weight:normal'>yea<span style='mso-bookmark:_Hlt414976450'><span
-style='mso-bookmark:_Hlt474861307'>r</span></span>()</span></a><a
-name="_Hlt474861307"></a><a name="_Hlt414976450"></a></span></b></p>
+<p class=MsoNormal><span lang=EN-US><span
+style='mso-spacerun:yes'>&nbsp; </span>A cluster in-memory table
+object</span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US><a  href="162.html"><span style='mso-fareast-font-family:
-黑体;font-weight:normal'>d<span style='mso-bookmark:_Hlt414976356'>a</span><span
-style='mso-bookmark:_Hlt414976377'>y</span>()</span></a><a
-name="_Hlt414976377"></a><a name="_Hlt414976356"></a></span></b><span
-class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-font-weight:normal'><span style='mso-tab-count:1'>&nbsp; </span></span></span></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%'>Example:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US><a  href="350.html"><span style='mso-fareast-font-family:
-黑体;font-weight:normal'>hou<span style='mso-bookmark:_Hlt414976405'><span
-style='mso-bookmark:_Hlt415058010'>r</span></span>()</span></a><a
-name="_Hlt415058010"></a><a name="_Hlt414976405"></a></span></b></p>
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:11.7pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ mso-padding-alt:0cm 0cm 0cm 0cm'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=19 valign=top style='width:14.1pt;border:solid #A6A6A6 1.0pt;
+  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><b><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:黑体'>&nbsp;</span></b></p>
+  </td>
+  <td width=419 valign=top style='width:314.0pt;border:solid #A6A6A6 1.0pt;
+  border-left:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-bottom-alt:
+  solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;background:#BFBFBF;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><b><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:黑体'>A</span></b></p>
+  </td>
+  <td width=239 valign=top style='width:179.45pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=19 valign=top style='width:14.1pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><b><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:黑体'>1</span></b></p>
+  </td>
+  <td width=419 valign=top style='width:314.0pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b><span lang=EN-US style='mso-bidi-font-size:10.5pt;
+  mso-fareast-font-family:黑体'>=file(&quot;emp1.ctx&quot;,[&quot;192.168.0.116:8281&quot;,&quot;192.168.0.129:8281&quot;])</span></b></p>
+  </td>
+  <td width=239 valign=top style='width:179.45pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Open a cluster file</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=19 valign=top style='width:14.1pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><b><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:黑体'>2</span></b></p>
+  </td>
+  <td width=419 style='width:314.0pt;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b><span lang=EN-US style='mso-bidi-font-size:10.5pt;
+  mso-fareast-font-family:黑体'>=A1.open()</span></b></p>
+  </td>
+  <td width=239 valign=top style='width:179.45pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Generate a cluster table</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3'>
+  <td width=19 valign=top style='width:14.1pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><b><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:黑体'>3</span></b></p>
+  </td>
+  <td width=419 style='width:314.0pt;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b><span lang=EN-US style='mso-bidi-font-size:10.5pt;
+  mso-fareast-font-family:黑体'>=A2.attach(t1)</span></b></p>
+  </td>
+  <td width=239 valign=top style='width:179.45pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Get cluster table <i style='mso-bidi-font-style:
+  normal'>t1</i></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes'>
+  <td width=19 valign=top style='width:14.1pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><b><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:黑体'>4</span></b></p>
+  </td>
+  <td width=419 style='width:314.0pt;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b><span lang=EN-US style='mso-bidi-font-size:10.5pt;
+  mso-fareast-font-family:黑体'>=A3.memory(NAME,GENDER;EID&lt;5)</span></b></p>
+  </td>
+  <td width=239 valign=top style='width:179.45pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Get columns NAME and GENDER with EID
+  being less than 5 from <i style='mso-bidi-font-style:normal'>t1 </i>to
+  generate an in-memory table <span style='color:red'></span></span></p>
+  </td>
+ </tr>
+</table>
 
-<p class=MsoNormal style='text-indent:21.0pt'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US><a  href="505.html"><span style='mso-fareast-font-family:
-黑体;font-weight:normal'>minu<span style='mso-bookmark:_Hlt414976165'><span
-style='mso-bookmark:_Hlt414976423'>t</span></span>e()</span></a><a
-name="_Hlt414976423"></a><a name="_Hlt414976165"></a></span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US><a  href="725.html"><span style='mso-fareast-font-family:
-黑体;font-weight:normal'>sec<span style='mso-bookmark:_Hlt414976455'>o</span><span
-style='mso-bookmark:_Hlt414976465'>n</span>d()</span></a><a
-name="_Hlt414976465"></a><a name="_Hlt414976455"></a></span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US><a  href="499.html"><span style='mso-fareast-font-family:
-黑体;font-weight:normal'>milliseco<span style='mso-bookmark:_Hlt414976459'>n</span>d()</span></a><a
-name="_Hlt414976459"></a></span></b></p>
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="517.html">Next</a></div>
@@ -168,7 +207,7 @@ name="_Hlt414976459"></a></span></b></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="21.html">Functions</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="511.html">memory()</a></span></li>
 </div>
 	</div>
 	<div id="footer">	

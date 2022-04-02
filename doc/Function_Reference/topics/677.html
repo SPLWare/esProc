@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>regex()</title>
+<title>report_config()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,8 +13,123 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h2><span lang=EN-US>regex()</span></h2></div>
-	<p class=MsoNormal><span lang=EN-US>Here’s how to use regex() function.</span></p>
+	<div id="centent-title"><h2><a name="report_config"></a><a name="_Hlt498098726"></a><span
+style='mso-bookmark:report_config'><span lang=EN-US>report_config()</span></span><span
+style='mso-bookmark:report_config'></span><span
+style='mso-bookmark:report_config'></span></h2></div>
+	<span style='mso-bookmark:report_config'></span>
+
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%'>Description:</span></b></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Read information
+from the configuration file. </span></p>
+
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%'>Syntax: </span></b></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><a name="_Hlk490657196"><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+黑体'>report</span></b><span lang=EN-US>_</span></a><span style='mso-bookmark:
+_Hlk490657196'><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='mso-fareast-font-family:黑体'>config</span></b></span><span lang=EN-US>(</span><i><span
+lang=EN-US style='mso-bidi-font-size:10.5pt'>filePath<span class=var>, funfile</span></span></i><span
+lang=EN-US>)</span></p>
+
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%'>Note:</span></b></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>This external
+library function reads information from the configuration file, including the
+main directory and the path of the reporting tool license file, and loads the
+license file for authentication.</span></p>
+
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%'>Parameters: </span></b></p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=79 valign=top style='width:59.25pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>filePath</span></i></p>
+  </td>
+  <td width=466 valign=top style='width:349.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>A file path, which is either a relative
+  path or an absolute path, or a class path; for a relative path, its base
+  directory is the config directory under esProc installation directory</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
+  <td width=79 valign=top style='width:59.25pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=var><span lang=EN-US>funfile</span></span></p>
+  </td>
+  <td width=466 valign=top style='width:349.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>The path of the configuration file of a
+  user-defined function, which is either a relative path or an absolute path,
+  or a class path; for a relative path, its base directory is the esProc
+  installation directory </span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%'>Example:</span></b></p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=531 valign=top style='width:266.5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-left:10.55pt;tab-stops:35.2pt 48.75pt'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;mso-fareast-font-family:黑体'>&gt;report_config(&quot;config\\raqsoftConfig.xml&quot;)</span></b><i><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt'></span></i></p>
+  </td>
+  <td width=154 valign=top style='width:142.6pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>A relative path</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=531 valign=top style='width:266.5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-left:10.55pt;tab-stops:35.2pt 48.75pt'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;mso-fareast-font-family:黑体'>&gt;report_config(&quot;D:\\esProc\\config\\raqsoftConfig.xml&quot;)</span></b></p>
+  </td>
+  <td width=154 valign=top style='width:142.6pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>An absolute path</span><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'></span></b></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=531 valign=top style='width:266.5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-left:10.55pt'><a name="_Hlt490810777"></a><span
+  class=code><span lang=EN-US style='mso-bidi-font-size:10.5pt;font-family:
+  "Times New Roman",serif'>&gt;report_config(&quot;config\\raqsoftConfig.xml&quot;,&quot;config\\customFunctions.properties&quot;)</span></span></p>
+  </td>
+  <td width=154 valign=top style='width:142.6pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Both filePath and funfile are relative to
+  the main directory</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
+  <td width=531 valign=top style='width:266.5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='margin-left:10.55pt'><span class=code><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt;font-family:"Times New Roman",serif'>&gt;report_config(&quot;config\\raqsoftConfig.xml&quot;,&quot;customFunctions.properties&quot;)</span></span></p>
+  </td>
+  <td width=154 valign=top style='width:142.6pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=var><span lang=EN-US style='mso-bidi-font-size:
+  10.0pt;font-style:normal'>filePath is relative to the main directory but
+  funfile is in the class path</span></span></p>
+  </td>
+ </tr>
+</table>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="678.html">Next</a></div>
@@ -22,10 +137,7 @@
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="21.html">Functions</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="678.html">s .regex()</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="679.html">A .regex()</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="680.html">cs .regex()</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="45.html">Functions</a></span></li>
 </div>
 	</div>
 	<div id="footer">	

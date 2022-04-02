@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>Fnper()</title>
+<title>file( fn : cs )</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,119 +13,168 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h2><a name="_Fnper()"></a><a name=Fnper></a><span lang=EN-US>Fnper()</span></h2></div>
-	<p class=MsoNormal style='line-height:200%'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US style='font-size:14.0pt;line-height:200%'>Description:</span></b></p>
+	<div id="centent-title"><h3 style='text-align:justify;text-justify:inter-ideograph'><a name="file_fn_cs"></a><span
+lang=EN-US>file(<i style='mso-bidi-font-style:normal'>fn</i>:<i
+style='mso-bidi-font-style:normal'>cs</i>)</span></h3></div>
+	<p class=af8 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
+14.0pt;line-height:200%'>Description:</span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>The function equals the Excel NPER function.</span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Open a file with
+the specified name. </span></p>
 
-<p class=MsoNormal style='line-height:200%'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US style='font-size:14.0pt;line-height:200%'>Syntax:</span></b></p>
+<p class=af8 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
+14.0pt;line-height:200%'>Syntax: </span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US style='mso-fareast-font-family:黑体'>Fnper(</span></b><i
-style='mso-bidi-font-style:normal'><span lang=EN-US>rate,pmt,pv,fv</span></i><b
-style='mso-bidi-font-weight:normal'><i style='mso-bidi-font-style:normal'><span
-lang=EN-US style='mso-fareast-font-family:黑体'>)</span></i></b></p>
+normal'><span lang=EN-US>file</span></b><span lang=EN-US>(<i style='mso-bidi-font-style:
+normal'> </i></span><span class=var><span lang=EN-US>fn</span></span><span
+lang=EN-US>{:cs})</span></p>
 
-<p class=MsoNormal style='line-height:200%'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US style='font-size:14.0pt;line-height:200%'>Note:</span></b></p>
+<p class=af8 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
+14.0pt;line-height:200%'>Note: </span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>The function returns the number of periods required to pay off a
-loan according to a specified periodic payment. <span style='mso-bidi-font-weight:
-bold'></span></span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>The function
+opens a file named <i>fn</i>. </span></p>
 
-<p class=MsoNormal style='line-height:200%'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US style='font-size:14.0pt;line-height:200%'>Parameters:</span></b></p>
+<p class=af8 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
+14.0pt;line-height:200%'>Parameters: </span></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
  style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
   <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US>rate</span></i><span
-  class=var2><span lang=EN-US></span></span></p>
+  <p class=MsoNormal><span class=var><span lang=EN-US>fn</span></span></p>
   </td>
   <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>The interest rate per period; it is a
-  fixed value.</span></p>
+  <p class=MsoNormal><span lang=EN-US>Name of the file to load. Both the
+  absolute path and the relative path are acceptable. If using the relative
+  path, then it is relative to the main path, which is the one configured on
+  the option menu of esProc, and which by default is the current directory (the
+  directory holding the <span style='mso-bidi-font-style:italic'>script </span>file)
+  </span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
+  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=var><span lang=EN-US>cs</span></span></p>
+  </td>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Character&nbsp;set, which supports&nbsp;jvm's&nbsp;built-in&nbsp;character&nbsp;set
+  and which by default is the default value set by OS</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=af8 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
+14.0pt;line-height:200%'>Options: </span></p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>@s</span></span><span
+  class=var><span lang=EN-US></span></span></p>
+  </td>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Search the file names on the non-absolute
+  paths in a specified order: Class path -&gt; Search path-&gt; Main path. The
+  search path is the one configured on the option menu of esProc, and the
+  default main path is the current directory. With this option, the function
+  returns the name of a read-only file </span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1'>
   <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US>pmt</span></i><span
-  class=var2><span lang=EN-US></span></span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>@t</span></span></p>
   </td>
   <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>The amount paid per period, which keeps
-  unchanged during the whole period of paying off the loan. To omit it, <i
-  style='mso-bidi-font-style:normal'>pv</i> must exist.</span></p>
+  <p class=MsoNormal><span lang=EN-US>Generate a temporary file under the
+  directory of <i style='mso-bidi-font-style:normal'>fn</i> file. Without the <i
+  style='mso-bidi-font-style:normal'>fn</i> file, create the temporary file
+  through the Tempory directory, one of esProc options under the Tool menu.
+  When the relative path is used to point to the temporary directory, it is
+  relative to the configured main directory<span
+  style='mso-spacerun:yes'>&nbsp; </span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes'>
+  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>@a</span></span></p>
+  </td>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Make the write action wait when sharing
+  violation happens</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=af8 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
+14.0pt;line-height:200%'>Return value: </span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>A file object</span></p>
+
+<p class=af8 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
+14.0pt;line-height:200%'>Example: </span></p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=230 valign=top style='width:172.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=af2 style='margin-left:10.55pt;text-align:justify;text-justify:inter-ideograph;
+  tab-stops:48.75pt'><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>file(&quot;D:/Area.txt&quot;:</span></span><span
+  class=var><span lang=EN-US style='font-style:normal;mso-bidi-font-style:italic'>&quot;</span></span><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>UTF-8</span></span><span
+  class=var><span lang=EN-US style='font-style:normal;mso-bidi-font-style:italic'>&quot;</span></span><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>)</span></span><span
+  class=var><span lang=EN-US></span></span></p>
+  </td>
+  <td width=315 valign=top style='width:236.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Load the <i style='mso-bidi-font-style:
+  normal'>Area.txt</i> file from the directory &quot;</span><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>D:\</span></span><span
+  lang=EN-US>&quot;; character set is </span><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif'>UTF-8</span></span><span
+  lang=EN-US>. </span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=230 valign=top style='width:172.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=af2 style='margin-left:10.55pt;text-align:justify;text-justify:inter-ideograph;
+  tab-stops:48.75pt'><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>file(&quot;Area.txt&quot;)</span></span></p>
+  </td>
+  <td width=315 valign=top style='width:236.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Load the <i style='mso-bidi-font-style:
+  normal'>Area.txt</i></span><span class=CharChar7><span lang=EN-US
+  style='font-family:"Times New Roman",serif'> </span></span><span lang=EN-US>file
+  under the main path.</span><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman",serif'></span></span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:2'>
-  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US>pv</span></i><span
-  class=var2><span lang=EN-US></span></span></p>
+  <td width=230 valign=top style='width:172.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=af2 style='margin-left:10.55pt;text-align:justify;text-justify:inter-ideograph;
+  tab-stops:48.75pt'><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>file@s(&quot;data/
+  Area.txt&quot;)</span></span></p>
   </td>
-  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>The present value of the loan, known as
-  the principal.That is the money that already exist when the payment for an
-  investment (or a loan) begins, or the total amount of present values of a
-  series of future payments.</span></p>
+  <td width=315 valign=top style='width:236.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Search the class path first; if not
+  found, then search throughout the list of search paths; lastly, search the
+  main path if not found in the search paths. <span class=code><span
+  style='font-family:"Times New Roman",serif;mso-fareast-font-family:宋体;
+  font-weight:normal'></span></span></span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
-  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US>fv</span></i><span
-  class=var2><span lang=EN-US></span></span></p>
+  <td width=230 valign=top style='width:172.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=af2 style='margin-left:10.55pt;text-align:justify;text-justify:inter-ideograph;
+  tab-stops:48.75pt'><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>file@t(&quot;data/Area.txt&quot;)</span></span></p>
   </td>
-  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>The future value of the loan, or the cash
-  balance you hope to achieve after the final payment. If omitted, its value
-  will be assumed as zero (for example the future value of a loan can be zero).</span></p>
-  </td>
- </tr>
-</table>
-
-<p class=afe style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Options</span><span style='mso-bidi-font-size:14.0pt;
-line-height:200%;font-family:宋体;mso-ascii-font-family:"Times New Roman";
-mso-hansi-font-family:"Times New Roman"'>：</span><span lang=EN-US
-style='mso-bidi-font-size:14.0pt;line-height:200%'></span></p>
-
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'>
-  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>@t</span></span><span
-  class=var2><span lang=EN-US></span></span></p>
-  </td>
-  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Indicating the payment type, it
-  corresponds to Excel type parameter. If using the option, choose type 1; if
-  not, choose type 0.</span></p>
-  </td>
- </tr>
-</table>
-
-<p class=MsoNormal style='line-height:200%'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US style='font-size:14.0pt;line-height:200%'>Example:</span></b></p>
-
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'>
-  <td width=249 valign=top style='width:186.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=aff style='margin-left:10.55pt;text-align:justify;text-justify:inter-ideograph;
-  tab-stops:48.75pt'><b><span lang=EN-US style='font-family:"Times New Roman",serif'>Fnper(0.06/12,-1200,150000)</span></b><span
-  class=var2><span lang=EN-US></span></span></p>
-  </td>
-  <td width=296 valign=top style='width:222.25pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>196.65585756847307</span></b></p>
+  <td width=315 valign=top style='width:236.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Create a temporary file under the
+  directory <i style='mso-bidi-font-style:normal'>data/</i></span></p>
   </td>
  </tr>
 </table>
@@ -136,7 +185,7 @@ normal'><span lang=EN-US style='font-size:14.0pt;line-height:200%'>Example:</spa
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="21.html">Functions</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="266.html">file()</a></span></li>
 </div>
 	</div>
 	<div id="footer">	

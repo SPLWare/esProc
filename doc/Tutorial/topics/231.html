@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>9.4.2 Using simple SQL in esProc ODBC</title>
+<title>9.3 XML data</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,25 +13,19 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h3 style='margin-left:0cm;text-indent:0cm;line-height:173%;mso-list:none'><span
-lang=EN-US>9.4.2 Using simple SQL in esProc ODBC</span></h3></div>
+	<div id="centent-title"><h2 style='margin-left:18.75pt;mso-para-margin-left:0gd;text-indent:-18.75pt;
+mso-list:l26 level2 lfo43'><span lang=EN-US
+style='mso-fareast-font-family:"Times New Roman"'><span style='mso-list:Ignore'>9.3<span
+style='font:7.0pt "Times New Roman"'> </span></span></span><span
+lang=EN-US>XML data</span></h2></div>
 	<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US style='background:aqua;mso-highlight:aqua'>You can choose to skip
-this section if you are not a professional programmer. This won’t affect your
-learning about the other contents of this <i style='mso-bidi-font-style:normal'>Tutorial</i>.</span></p>
+lang=EN-US>The XML format is suitable to store tree-structured data. It is thus
+usually used to store configuration files. The format can also store data in
+string format. </span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>esProc ODBC supports external data sources that are data files with
-the commonly seen formats like <i style='mso-bidi-font-style:normal'>txt, csv,
-xls and xlsx, </i>that are esProc bin files, which are discussed in detail in<i
-style='mso-bidi-font-style:normal'> <a  href="204.html">Bin Files</a></i>, and
-that the base table of a composite table, which is expounded in<i
-style='mso-bidi-font-style:normal'> <a  href="251.html">Generating
-a composite table</a></i>.</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>You can also use a simple SQL statement in esProc ODBC to query an
-external table. For example:</span></p>
+lang=EN-US>Let’s look at how to use XML data as the data source through a
+simple example:</span></p>
 
 <table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
  style='margin-left:20.35pt;border-collapse:collapse;mso-table-layout-alt:fixed;
@@ -48,15 +42,14 @@ external table. For example:</span></p>
   mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
   lang=EN-US style='font-size:9.0pt'>&nbsp;</span></p>
   </td>
-  <td width=454 valign=top style='width:340.15pt;border-top:solid black 1.0pt;
+  <td width=189 valign=top style='width:5.0cm;border-top:solid black 1.0pt;
   border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
   mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
   mso-border-bottom-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
   <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
   mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
-  lang=EN-US style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>A</span><span
-  lang=EN-US style='font-size:9.0pt'></span></p>
+  lang=EN-US style='font-size:9.0pt'>A</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
@@ -67,19 +60,15 @@ external table. For example:</span></p>
   height:14.15pt'>
   <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
   mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
-  lang=EN-US style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>1</span><span
-  lang=EN-US style='font-size:9.0pt'></span></p>
+  lang=EN-US style='font-size:9.0pt'>1</span></p>
   </td>
-  <td width=454 style='width:340.15pt;border-top:none;border-left:none;
-  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
-  mso-border-top-alt:windowtext;mso-border-left-alt:windowtext;mso-border-bottom-alt:
-  #B2B2B2;mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
-  .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;color:black;
-  mso-color-alt:windowtext'>=esProcOdbc.query(&quot;select PName, SalesID, Date
-  from Order_Electronics.txt where Amount&gt;200000 and month(Date)=5&quot;)</span><span
-  lang=EN-US style='font-size:9.0pt'></span></p>
+  <td width=189 style='width:5.0cm;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid windowtext .5pt;
+  mso-border-left-alt:solid windowtext .5pt;mso-border-top-alt:windowtext;
+  mso-border-left-alt:windowtext;mso-border-bottom-alt:#B2B2B2;mso-border-right-alt:
+  #B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:.5pt;background:#FFFF99;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=file(&quot;data.xml&quot;)</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
@@ -90,18 +79,14 @@ external table. For example:</span></p>
   height:14.15pt'>
   <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
   mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
-  lang=EN-US style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>2</span><span
-  lang=EN-US style='font-size:9.0pt'></span></p>
+  lang=EN-US style='font-size:9.0pt'>2</span></p>
   </td>
-  <td width=454 style='width:340.15pt;border-top:none;border-left:none;
-  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;color:black;
-  mso-color-alt:windowtext'>$(esProcOdbc) select Date, count(ID) as Count,
-  sum(Quantity) as Sum from Order_Electronics.txt group by Date</span><span
-  lang=EN-US style='font-size:9.0pt'></span></p>
+  <td width=189 style='width:5.0cm;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid windowtext .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=A1.read().import@x()</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:3;page-break-inside:avoid;height:14.15pt'>
@@ -112,18 +97,14 @@ external table. For example:</span></p>
   height:14.15pt'>
   <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
   mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
-  lang=EN-US style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>3</span><span
-  lang=EN-US style='font-size:9.0pt'></span></p>
+  lang=EN-US style='font-size:9.0pt'>3</span></p>
   </td>
-  <td width=454 style='width:340.15pt;border-top:none;border-left:none;
-  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;color:black;
-  mso-color-alt:windowtext'>$(esProcOdbc) select Date, count(ID) as Count,
-  sum(Quantity) as Sum from Order_Electronics.txt group by 1</span><span
-  lang=EN-US style='font-size:9.0pt'></span></p>
+  <td width=189 style='width:5.0cm;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid windowtext .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=xml(A1.read())</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes;page-break-inside:avoid;
@@ -135,69 +116,195 @@ external table. For example:</span></p>
   height:14.15pt'>
   <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
   mso-pagination:widow-orphan;vertical-align:middle'><span lang=EN-US
-  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>4</span><span
-  lang=EN-US style='font-size:9.0pt'></span></p>
+  style='font-size:9.0pt'>4</span></p>
   </td>
-  <td width=454 style='width:340.15pt;border-top:none;border-left:none;
-  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;color:black;
-  mso-color-alt:windowtext'>$(esProcOdbc) select Date, count(ID) Count,
-  sum(Quantity) Sum from Order_Electronics.txt group by Date having
-  sum(Quantity)&gt;110000 order by Sum</span><span lang=EN-US style='font-size:
-  9.0pt'></span></p>
+  <td width=189 style='width:5.0cm;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid windowtext .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=A1.read().import@x(;&quot;data&quot;)</span></p>
   </td>
  </tr>
 </table>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>To make a <i style='mso-bidi-font-style:normal'>txt</i> file an
-external table, use tab as the column separator.</span></p>
+lang=EN-US>A1 reads string data from the <i style='mso-bidi-font-style:normal'>data.xml
+</i>file. Below is the file:</span></p>
+
+<p class=MsoNormal style='text-indent:18.2pt;mso-char-indent-count:2.02'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;?xml
+version=&quot;1.0&quot; encoding=&quot;ISO-8859-13&quot;?&gt;</span></i></p>
+
+<p class=MsoNormal style='text-indent:18.2pt;mso-char-indent-count:2.02'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;data&gt;</span></i></p>
+
+<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;cities&gt;</span></i></p>
+
+<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;CID&gt;1&lt;/CID&gt;</span></i></p>
+
+<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;NAME&gt;&quot;New
+York&quot;&lt;/NAME&gt;</span></i></p>
+
+<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;POPULATION&gt;8084316&lt;/POPULATION&gt;</span></i></p>
+
+<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;STATEID&gt;32&lt;/STATEID&gt;
+</span></i></p>
+
+<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;/cities&gt;
+</span></i></p>
+
+<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;cities&gt;</span></i></p>
+
+<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;CID&gt;2&lt;/CID&gt;</span></i></p>
+
+<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;NAME&gt;&quot;Los
+Angeles&quot;&lt;/NAME&gt;</span></i></p>
+
+<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;POPULATION&gt;3798981&lt;/POPULATION&gt;</span></i></p>
+
+<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;STATEID&gt;5&lt;/STATEID&gt;
+</span></i></p>
+
+<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;/cities&gt;
+</span></i></p>
+
+<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;cities&gt;</span></i></p>
+
+<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;CID&gt;3&lt;/CID&gt;</span></i></p>
+
+<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;NAME&gt;&quot;Chicago&quot;&lt;/NAME&gt;</span></i></p>
+
+<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;POPULATION&gt;2886251&lt;/POPULATION&gt;</span></i></p>
+
+<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;STATEID&gt;13&lt;/STATEID&gt;
+</span></i></p>
+
+<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;/cities&gt;</span></i></p>
+
+<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;state&gt;</span></i></p>
+
+<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;STATEID&gt;1&lt;/STATEID&gt;</span></i></p>
+
+<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;NAME&gt;&quot;Alabama&quot;&lt;/NAME&gt;</span></i></p>
+
+<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;ABBR&gt;&quot;AL&quot;&lt;/ABBR&gt;</span></i></p>
+
+<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;/state&gt;</span></i></p>
+
+<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;state&gt;</span></i></p>
+
+<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;STATEID&gt;2&lt;/STATEID&gt;</span></i></p>
+
+<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;NAME&gt;&quot;Alaska&quot;&lt;/NAME&gt;</span></i></p>
+
+<p class=MsoNormal style='text-indent:54.65pt;mso-char-indent-count:6.07'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;ABBR&gt;&quot;AK&quot;&lt;/ABBR&gt;</span></i></p>
+
+<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;/state&gt;</span></i></p>
+
+<p class=MsoNormal style='text-indent:18.2pt;mso-char-indent-count:2.02'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;/data&gt;</span></i></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>A1 uses <b style='mso-bidi-font-weight:normal'><i style='mso-bidi-font-style:
-normal'>where</i></b> to specify a query condition in the simple SQL statement
-to get the orders data where the sales in May are greater than 200,000. Here’s
-the result:</span></p>
+lang=EN-US>The <i style='mso-bidi-font-style:normal'>xml</i> defines the
+highest level node <i style='mso-bidi-font-style:normal'>data</i> and stores
+data of two tables: <i style='mso-bidi-font-style:normal'>cities</i> and <i
+style='mso-bidi-font-style:normal'>state</i>. The node name for each record is
+the table name, under which fields and corresponding values are listed. A2
+reads a string from the file using the <b style='mso-bidi-font-weight:normal'>read</b>
+function and imports it with the<b style='mso-bidi-font-weight:normal'>
+import@x</b> function:</span></p>
+
+<p class=MsoNormalCxSpMiddle style='text-indent:21.0pt;mso-char-indent-count:
+2.0'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=325 height=41
+src="Tutorial.files/image906.png" v:shapes="_x0000_i2001"></span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=500 height=230
-src="Tutorial.files/image890.png" v:shapes="_x0000_i1987"></span></p>
+lang=EN-US>The XML string will be parsed as one record. Double click each field
+to see the detailed data:</span></p>
+
+<p class=MsoNormalCxSpMiddle style='text-indent:21.0pt;mso-char-indent-count:
+2.0'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=499 height=195
+src="Tutorial.files/image907.png" v:shapes="_x0000_i2002"></span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US>cities</span></i><span
+lang=EN-US> and <i style='mso-bidi-font-style:normal'>state</i> are interpred
+as the two fields of the record. </span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>The simple SQL statement in A2 groups data by Date using the group
-by clause and calculates the number of orders per day and the quantity of products
-sold per day using the aggregate functions <b style='mso-bidi-font-weight:normal'>count</b>
-and<b style='mso-bidi-font-weight:normal'> sum</b>, while naming certain fields
-in the result set with as. You can also use other aggregate function like <b
-style='mso-bidi-font-weight:normal'>max/min/distinct</b> in a simple SQL
-statement. Here’s the result set in A2:</span></p>
+lang=EN-US>A2’s expression can be written as A3’s<b style='mso-bidi-font-weight:
+normal'> xml()</b> function. The two methods of reading data have the same
+result:</span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=500 height=230
-src="Tutorial.files/image891.png" v:shapes="_x0000_i1988"></span></p>
+lang=EN-US>You can specify the node to be read in the <b style='mso-bidi-font-weight:
+normal'>import@x()</b> function, as shown in A4. Here’s A4’s result:</span></p>
+
+<p class=MsoNormalCxSpMiddle style='text-indent:21.0pt;mso-char-indent-count:
+2.0'><span lang=EN-US><img border=0 width=499 height=41
+src="Tutorial.files/image908.png" v:shapes="图片_x0020_24"></span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>In A3’s simple SQL statement, instead of a field name, the group by
-is followed by the sequence number 1, which means grouping data by the first
-expression in the select part. This will get the same result as A2.</span></p>
+lang=EN-US>The XML format supports using various ways to define the value of a
+node. For example:</span></p>
+
+<p class=MsoNormal style='text-indent:21.25pt;mso-char-indent-count:2.36'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;?xml
+version=&quot;1.0&quot; encoding=&quot;ISO-8859-13&quot;?&gt;</span></i></p>
+
+<p class=MsoNormal style='text-indent:21.25pt;mso-char-indent-count:2.36'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;data&gt;</span></i></p>
+
+<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;state&gt;</span></i></p>
+
+<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;STATEID
+NAME=&quot;Alabama&quot; ABBR=&quot;AL&quot;&gt;1&lt;/STATEID&gt;</span></i></p>
+
+<p class=MsoNormal style='text-indent:63.7pt;mso-char-indent-count:7.08'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;STATEID
+NAME=&quot; Alaska&quot; ABBR=&quot;AK&quot;&gt;2&lt;/STATEID&gt;</span></i></p>
+
+<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.72'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;/state&gt;
+</span></i></p>
+
+<p class=MsoNormal style='text-indent:21.25pt;mso-char-indent-count:2.36'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='font-size:9.0pt'>&lt;/data&gt;</span></i></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>A4’ query uses the <i style='mso-bidi-font-style:normal'>having</i>
-clause after <i style='mso-bidi-font-style:normal'>group by</i> to get records where
-the sum(Quantity) value is greater than 110,000 from the result set, omitts as
-and uses the <i style='mso-bidi-font-style:normal'>order by</i> clause at the
-end to sort the result set by Sum in ascending order. Here’s the query result:</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=500 height=230
-src="Tutorial.files/image892.png" v:shapes="_x0000_i1989"></span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>A simple SQL statement can<i style='mso-bidi-font-style:normal'>
-join</i> two external tables. For example:</span></p>
+lang=EN-US>We use the <b style='mso-bidi-font-weight:normal'>xml@s()</b>
+function to read this types of XML data:</span></p>
 
 <table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
  style='margin-left:20.35pt;border-collapse:collapse;mso-table-layout-alt:fixed;
@@ -214,15 +321,14 @@ join</i> two external tables. For example:</span></p>
   mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
   lang=EN-US style='font-size:9.0pt'>&nbsp;</span></p>
   </td>
-  <td width=454 valign=top style='width:340.15pt;border-top:solid black 1.0pt;
+  <td width=189 valign=top style='width:5.0cm;border-top:solid black 1.0pt;
   border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
   mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
   mso-border-bottom-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
   <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
   mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
-  lang=EN-US style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>A</span><span
-  lang=EN-US style='font-size:9.0pt'></span></p>
+  lang=EN-US style='font-size:9.0pt'>A</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
@@ -233,64 +339,19 @@ join</i> two external tables. For example:</span></p>
   height:14.15pt'>
   <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
   mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
-  lang=EN-US style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>1</span><span
-  lang=EN-US style='font-size:9.0pt'></span></p>
+  lang=EN-US style='font-size:9.0pt'>1</span></p>
   </td>
-  <td width=454 style='width:340.15pt;border-top:none;border-left:none;
-  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
-  mso-border-top-alt:windowtext;mso-border-left-alt:windowtext;mso-border-bottom-alt:
-  #B2B2B2;mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
-  .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;color:black;
-  mso-color-alt:windowtext'>$(esProcOdbc) select StateId, Name, Abbr from
-  states.txt</span><span lang=EN-US style='font-size:9.0pt'></span></p>
+  <td width=189 style='width:5.0cm;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid windowtext .5pt;
+  mso-border-left-alt:solid windowtext .5pt;mso-border-top-alt:windowtext;
+  mso-border-left-alt:windowtext;mso-border-bottom-alt:#B2B2B2;mso-border-right-alt:
+  #B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:.5pt;background:#FFFF99;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0'><span
+  lang=EN-US style='font-size:9.0pt'>file(&quot;data2.xml&quot;)</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
-  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
-  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
-  mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
-  lang=EN-US style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>2</span><span
-  lang=EN-US style='font-size:9.0pt'></span></p>
-  </td>
-  <td width=454 style='width:340.15pt;border-top:none;border-left:none;
-  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;color:black;
-  mso-color-alt:windowtext'>$(esProcOdbc) select NAME,POPULATION,STATEID from
-  Cities.txt</span><span lang=EN-US style='font-size:9.0pt'></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:3;page-break-inside:avoid;height:14.15pt'>
-  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
-  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
-  mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
-  lang=EN-US style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>3</span><span
-  lang=EN-US style='font-size:9.0pt'></span></p>
-  </td>
-  <td width=454 style='width:340.15pt;border-top:none;border-left:none;
-  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;color:black;
-  mso-color-alt:windowtext'>$(esProcOdbc) select C.NAME,C.POPULATION,
-  S.StateId, S.Abbr from states.txt S join cities.txt C on S.StateId=C.STATEID</span><span
-  lang=EN-US style='font-size:9.0pt'></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes;page-break-inside:avoid;
+ <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes;page-break-inside:avoid;
   height:14.15pt'>
   <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
   border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
@@ -299,172 +360,24 @@ join</i> two external tables. For example:</span></p>
   height:14.15pt'>
   <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
   mso-pagination:widow-orphan;vertical-align:middle'><span lang=EN-US
-  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>4</span><span
-  lang=EN-US style='font-size:9.0pt'></span></p>
+  style='font-size:9.0pt'>2</span></p>
   </td>
-  <td width=454 style='width:340.15pt;border-top:none;border-left:none;
-  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;color:black;
-  mso-color-alt:windowtext'>$(esProcOdbc) select C.NAME,C.POPULATION, S.StateId,
-  S.Abbr from states.txt S left join cities.txt C on S.StateId=C.STATEID</span><span
-  lang=EN-US style='font-size:9.0pt'></span></p>
+  <td width=189 style='width:5.0cm;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid windowtext .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=xml@s(A1.read())</span></p>
   </td>
  </tr>
 </table>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>A1 and A2 retrieve data from<i style='mso-bidi-font-style:normal'>
-states.txt</i> and <i style='mso-bidi-font-style:normal'>Cities.txt</i>. Their
-results are as follows</span></p>
+lang=EN-US>Here’s A2’s result:</span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=481 height=121
-src="Tutorial.files/image893.png" v:shapes="_x0000_i1990"></span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=500 height=230
-src="Tutorial.files/image894.png" v:shapes="_x0000_i1991"></span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>A3 <i style='mso-bidi-font-style:normal'>joins</i> the two external
-tables to get records of cities whose states abbreviations can be found. Here’s
-the result:</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=481 height=221
-src="Tutorial.files/image895.png" v:shapes="_x0000_i1992"></span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>A4 uses a left join to get the following result:</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=500 height=230
-src="Tutorial.files/image896.png" v:shapes="_x0000_i1993"></span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>An external table can be defined by a <i style='mso-bidi-font-style:
-normal'>with</i>, as shown in the following code:</span></p>
-
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
- style='margin-left:20.35pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- border:none;mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:
- #B2B2B2;mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
- .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:.5pt solid #B2B2B2;
- mso-border-insidev:.5pt solid #B2B2B2'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
-  height:14.15pt'>
-  <td width=42 valign=top style='width:31.2pt;border:solid black 1.0pt;
-  mso-border-alt:solid black .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
-  mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
-  lang=EN-US style='font-size:9.0pt'>&nbsp;</span></p>
-  </td>
-  <td width=454 valign=top style='width:340.15pt;border-top:solid black 1.0pt;
-  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
-  mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-bottom-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
-  mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
-  lang=EN-US style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>A</span><span
-  lang=EN-US style='font-size:9.0pt'></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
-  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
-  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
-  mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
-  lang=EN-US style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>1</span><span
-  lang=EN-US style='font-size:9.0pt'></span></p>
-  </td>
-  <td width=454 style='width:340.15pt;border-top:none;border-left:none;
-  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
-  mso-border-top-alt:windowtext;mso-border-left-alt:windowtext;mso-border-bottom-alt:
-  #B2B2B2;mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
-  .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;color:black;
-  mso-color-alt:windowtext'>$(esProcOdbc) with C as (select*from cities.txt), S
-  as (select * from</span><span lang=EN-US style='color:black;mso-color-alt:
-  windowtext'> </span><span lang=EN-US style='font-size:9.0pt;color:black;
-  mso-color-alt:windowtext'>states.txt) select C.NAME,C.POPULATION, S.StateID,
-  S.Abbr from S join C on S.StateID=C.STATEID</span><span lang=EN-US
-  style='font-size:9.0pt'></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
-  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
-  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
-  mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
-  lang=EN-US style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>2</span><span
-  lang=EN-US style='font-size:9.0pt'></span></p>
-  </td>
-  <td width=454 style='width:340.15pt;border-top:none;border-left:none;
-  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;color:black;
-  mso-color-alt:windowtext'>$(esProcOdbc) with C as (select * from</span><span
-  lang=EN-US style='color:black;mso-color-alt:windowtext'> </span><span
-  lang=EN-US style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>cities.txt),
-  S as (select * from</span><span lang=EN-US style='color:black;mso-color-alt:
-  windowtext'> </span><span lang=EN-US style='font-size:9.0pt;color:black;
-  mso-color-alt:windowtext'>states.txt), select C.NAME,C.POPULATION, S.StateID,
-  S.Abbr into citiesInfo.txt from S join C on S.StateID=C.STATEID</span><span
-  lang=EN-US style='font-size:9.0pt'></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes;page-break-inside:avoid;
-  height:14.15pt'>
-  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
-  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
-  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
-  mso-pagination:widow-orphan;vertical-align:middle'><span lang=EN-US
-  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>3</span><span
-  lang=EN-US style='font-size:9.0pt'></span></p>
-  </td>
-  <td width=454 style='width:340.15pt;border-top:none;border-left:none;
-  border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
-  mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
-  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;color:black;
-  mso-color-alt:windowtext'>$(esProcOdbc) select * from citiesInfo.txt</span><span
-  lang=EN-US style='font-size:9.0pt'></span></p>
-  </td>
- </tr>
-</table>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>The query result in A1 is the same as that in A3 in the previous
-cellset.</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>A2 uses <i style='mso-bidi-font-style:normal'>select…into</i> T…
-statement to store the query result in another external table <i
-style='mso-bidi-font-style:normal'>T</i>. You can retrieve the data from the
-external table <i style='mso-bidi-font-style:normal'>T</i> after the store is
-complete</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=481 height=221
-src="Tutorial.files/image897.png" v:shapes="_x0000_i1994"></span></p>
+lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=325 height=156
+src="Tutorial.files/image909.png" v:shapes="_x0000_i2004"></span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="232.html">Next</a></div>
@@ -472,7 +385,7 @@ src="Tutorial.files/image897.png" v:shapes="_x0000_i1994"></span></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="229.html">9.4 Simple SQL</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="228.html">Chapter9 Heterogeneous Data Sources</a></span></li>
 </div>
 	</div>
 	<div id="footer">	

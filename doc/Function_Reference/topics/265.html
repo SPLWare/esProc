@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>T .fno( F )</title>
+<title>A .field( F , x )</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,166 +13,275 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h3 style='text-align:justify;text-justify:inter-ideograph'><a name="T_fno_F"></a><i
-style='mso-bidi-font-style:normal'><span lang=EN-US>T</span></i><span
-lang=EN-US>.fno(<i style='mso-bidi-font-style:normal'>F</i>)</span></h3></div>
-	<p class=afe style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Description:</span></p>
+	<div id="centent-title"><h3 style='text-align:justify;text-justify:inter-ideograph'><a
+name="A_field_i_x"></a><i style='mso-bidi-font-style:normal'><span lang=EN-US>A</span></i><span
+lang=EN-US>.field(<i style='mso-bidi-font-style:normal'>F</i>,<i
+style='mso-bidi-font-style:normal'>x</i>)</span><span
+lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:10.0pt;line-height:172%'></span></h3></div>
+	<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+line-height:200%'>Description:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Get the serial
-number of a field in a table sequence.</span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Modify the value
+of a specified field in a sequence.</span></p>
 
-<p class=afe style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Syntax:</span></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+line-height:200%'>Syntax:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span class=var2><span
-lang=EN-US>T</span></span><span class=code><span lang=EN-US style='font-family:
-"Times New Roman",serif'>.fno(</span></span><span class=var2><span lang=EN-US>F</span></span><span
-class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>)</span></span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><i><span lang=EN-US>A</span></i><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+黑体;mso-bidi-font-style:italic'>.</span></b><span lang=EN-US style='mso-fareast-font-family:
+黑体;mso-bidi-font-style:italic'> <b style='mso-bidi-font-weight:normal'>field(</b></span><i><span
+lang=EN-US>F,x</span></i><b style='mso-bidi-font-weight:normal'><span
+lang=EN-US style='mso-fareast-font-family:黑体;mso-bidi-font-style:italic'>)</span></b></p>
 
-<p class=afe style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Note:</span></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+line-height:200%'>Note:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>The function gets
-the serial number of field <i style='mso-bidi-font-style:normal'>F</i> in table
-sequence <i style='mso-bidi-font-style:normal'>T</i>.<i style='mso-bidi-font-style:
-normal'> </i>If there is no parameter, the number of fields in <i
-style='mso-bidi-font-style:normal'>T </i>will be returned; if the specified
-field cannot be found, a null value will be returned.</span></p>
+<p class=MsoNormal style='text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:
+exactly'><span lang=EN-US>The function assigns members of sequence <i
+style='mso-bidi-font-style:normal'>x</i> sequentialy to values of <i
+style='mso-bidi-font-style:normal'>F<sup>th</sup></i> field in sequence <i
+style='mso-bidi-font-style:normal'>A</i>, or values of string parameter <i
+style='mso-bidi-font-style:normal'>F</i>. Count backward if <i
+style='mso-bidi-font-style:normal'>F</i>&lt;0. Do not execute if <i
+style='mso-bidi-font-style:normal'>F</i> exceeds the boundary number of the
+fields or it does not exist. <i></i></span></p>
 
-<p class=afe style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Parameters:</span></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+line-height:200%'>Parameters:</span></b></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
  style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
   <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var2><span lang=EN-US>T</span></span></p>
+  <p class=MsoNormal><i><span lang=EN-US>A</span></i><span class=var><span
+  lang=EN-US></span></span></p>
   </td>
   <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Table sequence</span></p>
+  <p class=MsoNormal><span lang=EN-US>A sequence</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
+ <tr style='mso-yfti-irow:1'>
   <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var2><span lang=EN-US>F</span></span></p>
+  <p class=MsoNormal><i><span lang=EN-US>F</span></i><span class=var><span
+  lang=EN-US></span></span></p>
   </td>
   <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Field name</span></p>
+  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-style:italic'>Sequence
+  number of a field</span><span lang=EN-US>, or the string parameter in which a
+  variable can be used to reference the field name. </span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes'>
+  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US>x</span></i><span
+  class=var><span lang=EN-US></span></span></p>
+  </td>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>A sequence whose length is equal to the
+  number of values in <i style='mso-bidi-font-style:normal'>F<sup>th</sup></i>
+  field, or a single value, which can be considered as a sequence in which
+  members have the same value and their number is equal to the number of values
+  in <i style='mso-bidi-font-style:normal'>F<sup>th</sup></i> field. </span></p>
   </td>
  </tr>
 </table>
 
-<p class=afe style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Return value:</span></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+line-height:200%'>Return value:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>The serial
-number of field <i style='mso-bidi-font-style:normal'>F</i> in <i
-style='mso-bidi-font-style:normal'>T</i></span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:黑体'>None</span></p>
 
-<p class=afe style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Example:</span></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+line-height:200%'>Example:</span></b><span lang=EN-US style='font-size:14.0pt;
+line-height:200%'> <b style='mso-bidi-font-weight:normal'><span
+style='mso-spacerun:yes'>&nbsp;</span></b></span></p>
 
 <table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
- style='margin-left:2.6pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ style='margin-left:18.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
  mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=22 valign=top style='width:16.45pt;border:solid #A6A6A6 1.0pt;
+  <td width=22 valign=top style='width:16.8pt;border:solid #A6A6A6 1.0pt;
   mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></p>
+  <p class=MsoNormal><i><span lang=EN-US>&nbsp;</span></i></p>
   </td>
-  <td width=229 valign=top style='width:171.95pt;border:solid #A6A6A6 1.0pt;
+  <td width=245 valign=top style='width:183.6pt;border:solid #A6A6A6 1.0pt;
   border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  color:black;mso-color-alt:windowtext'>A</span></span><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>A</span></b><span lang=EN-US
+  style='mso-fareast-font-family:黑体'></span></p>
   </td>
-  <td width=283 valign=top style='width:212.6pt;border:none;mso-border-left-alt:
+  <td width=314 valign=top style='width:235.35pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=22 valign=top style='width:16.45pt;border:solid #A6A6A6 1.0pt;
+  <td width=22 valign=top style='width:16.8pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  color:black;mso-color-alt:windowtext'>1</span></span><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>1</span></b><span lang=EN-US
+  style='mso-fareast-font-family:黑体'></span></p>
   </td>
-  <td width=229 valign=top style='width:171.95pt;border-top:none;border-left:
+  <td width=245 valign=top style='width:183.6pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=demo.query(&quot;select
-  * from EMPLOYEE&quot;)</span></span></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>=demo.query(&quot;select <span class=code><span
+  style='font-family:"Times New Roman",serif'>top 3 </span></span>* from
+  EMPLOYEE&quot;)</span></b><span lang=EN-US style='mso-fareast-font-family:
+  黑体'></span></p>
   </td>
-  <td width=283 valign=top style='width:212.6pt;border:none;mso-border-left-alt:
+  <td width=314 valign=top style='width:235.35pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:2'>
-  <td width=22 valign=top style='width:16.45pt;border:solid #A6A6A6 1.0pt;
+  <td width=22 valign=top style='width:16.8pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  color:black;mso-color-alt:windowtext'>2</span></span><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>2</span></b><span lang=EN-US
+  style='mso-fareast-font-family:黑体'></span></p>
   </td>
-  <td width=229 valign=top style='width:171.95pt;border-top:none;border-left:
+  <td width=245 valign=top style='width:183.6pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=A1.fno(EID)</span></span></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>=A1.field(9,8000)</span></b><span
+  lang=EN-US style='mso-fareast-font-family:黑体'></span></p>
   </td>
-  <td width=283 valign=top style='width:212.6pt;border:none;mso-border-left-alt:
+  <td width=314 valign=top style='width:235.35pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>1</span></span><span
-  lang=EN-US>, which indicates that the serial number of field </span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>&quot;EID&quot;</span></span><span
-  lang=EN-US> is </span><span class=code><span lang=EN-US style='font-family:
-  "Times New Roman",serif'>1</span></span></p>
+  <p class=MsoNormal><span lang=EN-US>Modify the value of the ninth field;
+  parameter <i style='mso-bidi-font-style:normal'>x</i> is a single value, and
+  it will be regarded as the sequence [8000,8000,8000]</span></p>
+  <p class=MsoNormal><span lang=EN-US>Here’s A1’s result:</span><span
+  lang=EN-US style='mso-ansi-language:#0400;mso-fareast-language:#0400'> </span><span
+  lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=273 height=69
+  src="Function_Reference.files/image496.jpg" v:shapes="_x0000_i1332"></span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes;height:41.2pt;mso-height-rule:
-  exactly'>
-  <td width=22 valign=top style='width:16.45pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:3'>
+  <td width=22 valign=top style='width:16.8pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:41.2pt;mso-height-rule:
-  exactly'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  color:black;mso-color-alt:windowtext'>3</span></span><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>3</span></span></p>
   </td>
-  <td width=229 valign=top style='width:171.95pt;border-top:none;border-left:
+  <td width=245 valign=top style='width:183.6pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:41.2pt;
-  mso-height-rule:exactly'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=A1.fno()</span></span></p>
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=A1.field(&quot;SALARY&quot;,7000)</span></span></p>
   </td>
-  <td width=283 valign=top style='width:212.6pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:41.2pt;mso-height-rule:
-  exactly'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>9</span></span><span
-  lang=EN-US>, which indicates that there are 9 fields in the table sequence</span></p>
+  <td width=314 valign=top style='width:235.35pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Modify all values of <span class=code><span
+  style='font-family:"Times New Roman",serif;mso-fareast-font-family:宋体;
+  font-weight:normal'>SALARY </span></span>field into 7000</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4'>
+  <td width=22 valign=top style='width:16.8pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>4</span></span></p>
+  </td>
+  <td width=245 valign=top style='width:183.6pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>&gt;arg1=&quot;SALARY&quot;</span></span></p>
+  </td>
+  <td width=314 valign=top style='width:235.35pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:5'>
+  <td width=22 valign=top style='width:16.8pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>5</span></span></p>
+  </td>
+  <td width=245 valign=top style='width:183.6pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=A1.field(arg1,7000)</span></span></p>
+  </td>
+  <td width=314 valign=top style='width:235.35pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Same as A3</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:6;mso-yfti-lastrow:yes'>
+  <td width=22 valign=top style='width:16.8pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>6</span></span></p>
+  </td>
+  <td width=245 valign=top style='width:183.6pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=A1.field(9,[8000,6500,9000])</span></span></p>
+  </td>
+  <td width=314 valign=top style='width:235.35pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Here parameter <i style='mso-bidi-font-style:
+  normal'>x</i> is a sequence, and this is A1’s result:</span></p>
+  <p class=MsoNormal><span lang=EN-US><img border=0 width=289 height=52
+  src="Function_Reference.files/image498.jpg" v:shapes="_x0000_i1333"></span></p>
   </td>
  </tr>
 </table>
 
-<p class=afe style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Related functions:</span></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+line-height:200%'>Related functions:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US><a  href="266.html"><span style='mso-bidi-font-size:
-10.5pt;font-style:normal'>r</span><span style='mso-bidi-font-size:12.0pt;
-font-style:normal'>.fno<span style='mso-bookmark:_Hlt414979464'><span
-style='mso-bookmark:_Hlt414980027'>(</span></span>)</span></a><a
-name="_Hlt414980027"></a><a name="_Hlt414979464"></a></span></i></p>
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;color:blue'><a  href="rfieldf.html#r_field"><span
+style='text-decoration:none;text-underline:none'>r</span><span
+style='mso-bidi-font-size:10.0pt;mso-fareast-font-family:黑体;text-decoration:
+none;text-underline:none'>.fiel<span style='mso-bookmark:_Hlt414981594'>d</span><span
+style='mso-bookmark:_Hlt414981579'>(</span></span><span style='mso-bookmark:
+_Hlt414981579'></span><span style='text-decoration:none;text-underline:none'>F</span><span
+style='mso-bidi-font-size:10.0pt;mso-fareast-font-family:黑体;text-decoration:
+none;text-underline:none'>)</span></a><a
+name="_Hlt414981579"></a><a name="_Hlt414981594"></a></span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;color:blue'><a  href="afieldf.html#A_field_i"><span
+style='text-decoration:none;text-underline:none'>A</span><span
+style='mso-bidi-font-size:10.0pt;mso-fareast-font-family:黑体;text-decoration:
+none;text-underline:none'>.fie<span style='mso-bookmark:_Hlt414981608'>l</span>d<span
+style='mso-bookmark:_Hlt414981599'><span style='mso-bookmark:_Hlt414981587'>(</span></span></span><span
+style='mso-bookmark:_Hlt414981587'></span><span style='mso-bookmark:_Hlt414981599'></span><span
+style='text-decoration:none;text-underline:none'>F</span><span
+style='mso-bidi-font-size:10.0pt;mso-fareast-font-family:黑体;text-decoration:
+none;text-underline:none'>)</span></a><a
+name="_Hlt414981587"></a><a name="_Hlt414981599"></a><a name="_Hlt414981608"></a></span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US style='color:blue'><a  href="rfieldfx.html#r_field_i_x"><span style='text-decoration:
+none;text-underline:none'>r.field(F,<span style='mso-bookmark:_Hlt414981604'>x</span>)</span></a><a
+name="_Hlt414981604"></a></span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="266.html">Next</a></div>
@@ -180,7 +289,7 @@ name="_Hlt414980027"></a><a name="_Hlt414979464"></a></span></i></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="264.html">fno()</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="261.html">field()</a></span></li>
 </div>
 	</div>
 	<div id="footer">	

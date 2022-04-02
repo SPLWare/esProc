@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>6.3 JDBC gateway</title>
+<title>6.2.3 Cellset files that return no results or multiple results</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,28 +13,22 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h2 style='margin-left:36.0pt;mso-para-margin-left:0gd;text-indent:-36.0pt;
-mso-list:l28 level2 lfo37'><span lang=EN-US
-style='mso-fareast-font-family:"Times New Roman"'><span style='mso-list:Ignore'>6.3<span
-style='font:7.0pt "Times New Roman"'> </span></span></span><span
-lang=EN-US><span style='mso-spacerun:yes'>&nbsp;</span>JDBC gateway</span></h2></div>
-	<p class=T-ParCxSpFirst style='margin-bottom:0cm;mso-add-space:auto;text-align:
-justify;text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US
-style='background:aqua;mso-highlight:aqua'>You can choose to skip this section
-if you are not a professional programmer. This won’t affect your learning about
-the other contents of this <i style='mso-bidi-font-style:normal'>Tutorial</i>.</span></p>
-
-<p class=T-ParCxSpLast style='margin-bottom:0cm;mso-add-space:auto;text-align:
-justify;text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>When
-calling an esProc script via JDBC, we can create a SQL gateway by configuring a
-<i style='mso-bidi-font-style:normal'>dfx</i> script file, and let it handle
-all the SQL statements to be executed in JDBC. The gateway script reads in the
-SQL statements and their parameters, handles database connection, and then
-executes SQL and returns results. Below is a gateway script <i
-style='mso-bidi-font-style:normal'>executeSQL.dfx</i>:</span></p>
+	<div id="centent-title"><h3 style='margin:0cm;margin-bottom:.0001pt;text-indent:0cm;line-height:normal;
+mso-list:none;tab-stops:-179.95pt 64.2pt'><span lang=EN-US style='font-size:
+14.0pt;mso-bidi-font-size:10.0pt'>6.2.3 Cellset files that return no results or
+multiple results</span></h3></div>
+	<p class=T-Par style='margin-bottom:0cm;margin-bottom:.0001pt;mso-add-space:
+auto;text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
+lang=EN-US>An invoked cellset file can have no return value. Take the following
+cellset file - </span><span class=T-CodeChar><i style='mso-bidi-font-style:
+normal'><span lang=EN-US style='font-family:"Times New Roman",serif;font-weight:
+normal'>outputData1.dfx</span></i></span><span class=T-CodeChar><span
+lang=EN-US style='font-family:"Times New Roman",serif;font-weight:normal'> </span></span><span
+class=T-CodeChar><span lang=EN-US style='font-family:"Times New Roman",serif'>-
+</span></span><span lang=EN-US>as an example: </span></p>
 
 <table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
- style='margin-left:20.35pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ style='margin-left:21.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  border:none;mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:
  #B2B2B2;mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
  .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:.5pt solid #B2B2B2;
@@ -44,29 +38,18 @@ style='mso-bidi-font-style:normal'>executeSQL.dfx</i>:</span></p>
   <td width=42 valign=top style='width:31.2pt;border:solid black 1.0pt;
   mso-border-alt:solid black .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
-  mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
-  lang=EN-US style='font-size:9.0pt'>&nbsp;</span></p>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
+  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
+  style='font-size:9.0pt'>&nbsp;</span></p>
   </td>
-  <td width=151 valign=top style='width:4.0cm;border-top:solid black 1.0pt;
+  <td width=227 valign=top style='width:6.0cm;border-top:solid black 1.0pt;
   border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
   mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
   mso-border-bottom-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
-  mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
-  lang=EN-US style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>A</span><span
-  lang=EN-US style='font-size:9.0pt'></span></p>
-  </td>
-  <td width=189 style='width:5.0cm;border-top:solid black 1.0pt;border-left:
-  none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
-  mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
-  mso-border-bottom-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
-  mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
-  lang=EN-US style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>B</span><span
-  lang=EN-US style='font-size:9.0pt'></span></p>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
+  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
+  style='font-size:9.0pt'>A</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
@@ -75,28 +58,19 @@ style='mso-bidi-font-style:normal'>executeSQL.dfx</i>:</span></p>
   mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
   mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
-  mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
-  lang=EN-US style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>1</span><span
-  lang=EN-US style='font-size:9.0pt'></span></p>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
+  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
+  style='font-size:9.0pt'>1</span></p>
   </td>
-  <td width=151 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
+  <td width=227 style='width:6.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid windowtext .5pt;
   mso-border-left-alt:solid windowtext .5pt;mso-border-top-alt:windowtext;
   mso-border-left-alt:windowtext;mso-border-bottom-alt:#B2B2B2;mso-border-right-alt:
   #B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:.5pt;background:#FFFF99;
   padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;color:black;
-  mso-color-alt:windowtext'>=connect(&quot;demo&quot;)</span><span lang=EN-US
-  style='font-size:9.0pt'></span></p>
-  </td>
-  <td width=189 style='width:5.0cm;border-top:none;border-left:none;border-bottom:
-  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid windowtext .5pt;
-  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
-  mso-border-top-alt:solid windowtext .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0'><span
-  lang=EN-US style='font-size:9.0pt'>&nbsp;</span></p>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
+  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif'>$(demo)
+  select * from CITIES</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
@@ -105,25 +79,17 @@ style='mso-bidi-font-style:normal'>executeSQL.dfx</i>:</span></p>
   mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
   mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
-  mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
-  lang=EN-US style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>2</span><span
-  lang=EN-US style='font-size:9.0pt'></span></p>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
+  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
+  style='font-size:9.0pt'>2</span></p>
   </td>
-  <td width=151 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
+  <td width=227 style='width:6.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
   mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid #B2B2B2 .5pt;
   mso-border-left-alt:solid windowtext .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;color:black;
-  mso-color-alt:windowtext'>if args==null || args.len()&lt;2</span><span
-  lang=EN-US style='font-size:9.0pt'></span></p>
-  </td>
-  <td width=189 style='width:5.0cm;border-top:none;border-left:none;border-bottom:
-  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
-  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
-  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>&gt;B1=A1.query(sql)</span></p>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
+  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif'>=A1.select(Arg.pos(left(NAME,1))&gt;0)</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:3;page-break-inside:avoid;height:14.15pt'>
@@ -132,25 +98,17 @@ style='mso-bidi-font-style:normal'>executeSQL.dfx</i>:</span></p>
   mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
   mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
-  mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
-  lang=EN-US style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>3</span><span
-  lang=EN-US style='font-size:9.0pt'></span></p>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
+  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
+  style='font-size:9.0pt'>3</span></p>
   </td>
-  <td width=151 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
+  <td width=227 style='width:6.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
   mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid #B2B2B2 .5pt;
-  mso-border-left-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:
-  14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>else</span></p>
-  </td>
-  <td width=189 style='width:5.0cm;border-top:none;border-left:none;border-bottom:
-  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
-  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
-  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;color:black;
-  mso-color-alt:windowtext'>&gt;B1=A1.query(sql,args(1),args(2))</span><span
-  lang=EN-US style='font-size:9.0pt'></span></p>
+  mso-border-left-alt:solid windowtext .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
+  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif'>=file(&quot;Cities.txt&quot;)</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes;page-break-inside:avoid;
@@ -160,160 +118,564 @@ style='mso-bidi-font-style:normal'>executeSQL.dfx</i>:</span></p>
   mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
   mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
-  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0;
-  mso-pagination:widow-orphan;vertical-align:middle'><span lang=EN-US
-  style='font-size:9.0pt;color:black;mso-color-alt:windowtext'>4</span><span
-  lang=EN-US style='font-size:9.0pt'></span></p>
+  <p class=TabLaEnd style='text-align:justify;text-justify:inter-ideograph;
+  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US>4</span></p>
   </td>
-  <td width=151 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
+  <td width=227 style='width:6.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
   mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid #B2B2B2 .5pt;
   mso-border-left-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:
   14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>&gt;A1.close()</span></p>
-  </td>
-  <td width=189 style='width:5.0cm;border-top:none;border-left:none;border-bottom:
-  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
-  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
-  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;color:black;
-  mso-color-alt:windowtext'>return B1</span><span lang=EN-US style='font-size:
-  9.0pt'></span></p>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
+  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif'>&gt;A3.export@t(A2)</span></p>
   </td>
  </tr>
 </table>
 
-<p class=T-Par style='margin-bottom:0cm;mso-add-space:auto;text-align:justify;
-text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>The <i
-style='mso-bidi-font-style:normal'>dfx</i> file uses two parameters:</span></p>
+<p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=EN-US>The file uses the parameter <b style='mso-bidi-font-weight:
+normal'>Arg</b>, of sequence string type:</span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=446 height=129
-src="Tutorial.files/image685.png" v:shapes="_x0000_i1792"></span></p>
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
+#0400'><img border=0 width=446 height=110
+src="Tutorial.files/image694.png" v:shapes="_x0000_i1800"></span></p>
 
-<p class=T-ParCxSpFirst style='margin-bottom:0cm;mso-add-space:auto;text-align:
-justify;text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>The
-above two parameters are necessary. The first passes the SQL statements that
-have been input at the call of the esProc script. The second passes parameters
-input for executing the SQL statements.</span></p>
+<p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=EN-US>A1 directly calls the <b style='mso-bidi-font-weight:
+normal'>demo</b> database to query data, instead of first establishing a
+connection using <b style='mso-bidi-font-weight:normal'>connect</b> statement.
+In this case, the <b style='mso-bidi-font-weight:normal'>autoConnect</b>
+property of <b style='mso-bidi-font-weight:normal'>demo</b> data source in <i
+style='mso-bidi-font-style:normal'>raqsoftConfig.xml</i>’s database
+configuration should be <b style='mso-bidi-font-weight:normal'>true</b>:</span></p>
 
-<p class=T-ParCxSpLast style='margin-bottom:0cm;mso-add-space:auto;text-align:
-justify;text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>To
-use the JDBC gateway, we need to specify the gateway script file in
-&lt;gateway&gt; under <i style='mso-bidi-font-style:normal'>raqsoftConfig.xml</i>’s
-&lt;JDBC&gt; node. To connect a data source, load the data source connection
-configuration from Runtime or Server:</span></p>
+<p class=TConfig style='margin-bottom:0cm;margin-bottom:.0001pt;mso-add-space:
+auto;text-align:justify;text-justify:inter-ideograph;text-indent:42.5pt;
+mso-char-indent-count:4.72'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;property
+name=&quot;autoConnect&quot; value=&quot;true&quot;/&gt;</span></i></p>
 
-<p class=TConfigCxSpFirst style='margin-bottom:0cm;mso-add-space:auto;
-text-align:justify;text-justify:inter-ideograph;text-indent:42.5pt;mso-char-indent-count:
-4.72'><i style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-family:
-"Times New Roman"'>&lt;JDBC&gt;</span></i></p>
+<p class=T-Par style='margin-bottom:0cm;margin-bottom:.0001pt;mso-add-space:
+auto;text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
+lang=EN-US>Refer to <i style='mso-bidi-font-style:normal'><a
+ href="jdbcbushu.html#Deploying_JDBC">Deploying JDBC</a></i><b style='mso-bidi-font-weight:
+normal'> </b>for detailed configuration. Here’s the code for calling the
+cellset file in Java:</span></p>
 
-<p class=TConfigCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
-text-align:justify;text-justify:inter-ideograph;text-indent:63.7pt;mso-char-indent-count:
-7.08'><i style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-family:
-"Times New Roman"'>&lt;load&gt;Runtime&lt;/load&gt;</span></i></p>
+<p class=TConfigCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+42.5pt;mso-char-indent-count:4.72'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>// call the stored
+procedure; outputData1 is the name of the dfx file</span></i></p>
 
-<p class=TConfigCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
-text-align:justify;text-justify:inter-ideograph;text-indent:63.7pt;mso-char-indent-count:
-7.08'><i style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-family:
-"Times New Roman"'>&lt;gateway&gt;executeSQL.dfx&lt;/gateway&gt;</span></i></p>
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+42.5pt;mso-char-indent-count:4.72'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>st
+=con.prepareCall(&quot;call outputData1(?)&quot;);</span></i></p>
 
-<p class=TConfigCxSpLast style='margin-bottom:0cm;mso-add-space:auto;
-text-align:justify;text-justify:inter-ideograph;text-indent:42.5pt;mso-char-indent-count:
-4.72'><i style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-family:
-"Times New Roman"'>&lt;/JDBC&gt;</span></i></p>
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+42.5pt;mso-char-indent-count:4.72'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>// set the parameter</span></i></p>
 
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>See <i style='mso-bidi-font-style:normal'><a
- href="171.html">Configuring ra<span style='mso-bookmark:
-_Hlt18584996'>q</span>softConfig.xml</a><a
-name="_Hlt18584996"></a></i> to learn more about JDBC tag libraries.</span></p>
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+42.5pt;mso-char-indent-count:4.72'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>com.raqsoft.dm.Sequence
+seq = new com.raqsoft.dm.Sequence();</span></i></p>
 
-<p class=T-Par style='margin-bottom:0cm;mso-add-space:auto;text-align:justify;
-text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>With required
-configuration done, all the SQL statements will be handed over to the gateway
-script for execution during the invocation of esProc JDBC from Java. For
-example:</span></p>
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+42.5pt;mso-char-indent-count:4.72'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>seq.add(&quot;A&quot;);</span></i></p>
 
-<p class=TConfigCxSpFirst style='margin-bottom:0cm;mso-add-space:auto;
-text-align:justify;text-justify:inter-ideograph;text-indent:42.5pt;mso-char-indent-count:
-4.72'><i style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-family:
-"Times New Roman"'>// Execute SQL; the question mark (?) represents the
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+42.5pt;mso-char-indent-count:4.72'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>seq.add(&quot;B&quot;);</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+42.5pt;mso-char-indent-count:4.72'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>seq.add(&quot;C&quot;);</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+42.5pt;mso-char-indent-count:4.72'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>st.setObject(1, seq);</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+42.5pt;mso-char-indent-count:4.72'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>// execute the stored
+procedure</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+42.5pt;mso-char-indent-count:4.72'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>boolean hasResult =
+st.execute();</span></i></p>
+
+<p class=TConfigCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+42.5pt;mso-char-indent-count:4.72'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>// cannot get the
+result set as there is no return result; hasResult is false</span></i><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'></span></p>
+
+<p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.1pt'><b style='mso-bidi-font-weight:normal'><span lang=EN-US>Note</span></b><span
+lang=EN-US>: The cellset file uses a parameter of sequence type, which can only
+be set by generating a <b style='mso-bidi-font-weight:normal'>Sequence</b>
+object. As with this example, a sequence parameter </span><span
+class=T-CodeChar><i style='mso-bidi-font-style:normal'><span lang=EN-US
+style='font-family:"Times New Roman",serif;font-weight:normal'>[A,B,C]</span></i></span><span
+class=T-CodeChar><span lang=EN-US style='font-family:"Times New Roman",serif;
+font-weight:normal'> is set for writing information of cities whose initials
+are A, B and C to the <i style='mso-bidi-font-style:normal'>Cities.txt</i>
+file. If no path has been specified for storing the output file, store it in
+the main path, which is specified by</span></span><span class=T-CodeChar><span
+lang=EN-US style='font-family:"Times New Roman",serif'> </span></span><i
+style='mso-bidi-font-style:normal'><span lang=EN-US>raqsoftC<span class=T-Bold><span
+style='font-weight:normal'>onfig.xml</span></span></span></i><span
+class=T-Bold><span lang=EN-US style='font-weight:normal'>’s</span></span><span
+class=T-CodeChar><span lang=EN-US style='font-family:"Times New Roman",serif'> </span></span><span
+class=T-CodeChar><i style='mso-bidi-font-style:normal'><span lang=EN-US
+style='font-family:"Times New Roman",serif;font-weight:normal'>&lt;mainPath/</span></i></span><span
+class=T-CodeChar><i style='mso-bidi-font-style:normal'><span lang=EN-US
+style='font-family:"Times New Roman",serif'>&gt;</span></i></span><span
+class=T-CodeChar><span lang=EN-US style='font-family:"Times New Roman",serif'> </span></span><span
+class=T-CodeChar><span lang=EN-US style='font-family:"Times New Roman",serif;
+font-weight:normal'>node. The output file is as follows:</span></span><span
+lang=EN-US> <b style='mso-bidi-font-weight:normal'></b></span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
+#0400'><img border=0 width=320 height=200
+src="Tutorial.files/image695.png" v:shapes="_x0000_i1801"></span></p>
+
+<p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=EN-US>A cellset file could return multiple result sets, like
+</span><span class=T-CodeChar><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='font-family:"Times New Roman",serif;font-weight:normal'>createTable3.dfx
+</span></i></span><span class=T-CodeChar><span lang=EN-US style='font-family:
+"Times New Roman",serif;font-weight:normal'>shows:</span></span><span
+class=T-CodeChar><span lang=EN-US style='font-family:"Times New Roman",serif'> </span></span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='margin-left:21.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:
+ #B2B2B2;mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
+ .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:.5pt solid #B2B2B2;
+ mso-border-insidev:.5pt solid #B2B2B2'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=42 valign=top style='width:31.2pt;border:solid black 1.0pt;
+  mso-border-alt:solid black .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
+  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
+  style='font-size:9.0pt'>&nbsp;</span></p>
+  </td>
+  <td width=265 valign=top style='width:7.0cm;border-top:solid black 1.0pt;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
+  mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-bottom-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
+  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
+  style='font-size:9.0pt'>A</span></p>
+  </td>
+  <td width=76 style='width:2.0cm;border-top:solid black 1.0pt;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
+  mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-bottom-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
+  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
+  style='font-size:9.0pt'>B</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
+  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
+  style='font-size:9.0pt'>1</span></p>
+  </td>
+  <td width=265 style='width:7.0cm;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid windowtext .5pt;
+  mso-border-left-alt:solid windowtext .5pt;mso-border-top-alt:windowtext;
+  mso-border-left-alt:windowtext;mso-border-bottom-alt:#B2B2B2;mso-border-right-alt:
+  #B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:.5pt;background:#FFFF99;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
+  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif'>$(demo)
+  select EID, NAME+' '+SURNAME FULLNAME, GENDER, STATE, BIRTHDAY from EMPLOYEE</span></p>
+  </td>
+  <td width=76 style='width:2.0cm;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid windowtext .5pt;
+  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  mso-border-top-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
+  text-indent:18.0pt;mso-char-indent-count:2.0;line-height:normal'><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
+  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
+  style='font-size:9.0pt'>2</span></p>
+  </td>
+  <td width=265 style='width:7.0cm;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid windowtext .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
+  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif'>=A1.select(STATE
+  == State &amp;&amp; Age(BIRTHDAY)&lt;age)</span></p>
+  </td>
+  <td width=76 style='width:2.0cm;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
+  text-indent:18.0pt;mso-char-indent-count:2.0;line-height:normal'><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;page-break-inside:avoid;height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
+  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
+  style='font-size:9.0pt'>3</span></p>
+  </td>
+  <td width=265 style='width:7.0cm;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid windowtext .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
+  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif'>=A2.select(GENDER==&quot;F&quot;)</span></p>
+  </td>
+  <td width=76 style='width:2.0cm;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
+  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif'>=A2\A3</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
+  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
+  style='font-size:9.0pt'>4</span></p>
+  </td>
+  <td width=265 style='width:7.0cm;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid windowtext .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
+  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif'>return
+  A3</span></p>
+  </td>
+  <td width=76 style='width:2.0cm;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
+  line-height:normal'><span lang=EN-US style='font-family:"Times New Roman",serif'>return
+  B3</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=EN-US>This cellset returns the employees who are younger
+than the specified age and who, at the same time, come from the specified state
+as two table sequences according to genders. The cellset uses two parameters,
+respectively specifying the oldest age and the state from which the employees
+come from: </span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
+#0400'><img border=0 width=446 height=129
+src="Tutorial.files/image696.png" v:shapes="_x0000_i1802"></span></p>
+
+<p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=EN-US>This cellset file will return multiple result sets
+when executed. </span></p>
+
+<p class=TConfigCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+42.5pt;mso-char-indent-count:4.72'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>// call the stored
+procedure; createTable3 is the name of the dfx file and ? represents the
 parameter</span></i></p>
 
-<p class=TConfigCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
-text-align:justify;text-justify:inter-ideograph;text-indent:42.5pt;mso-char-indent-count:
-4.72'><i style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-family:
-"Times New Roman"'>st =con.prepareCall(&quot;select * from CITIES where STATEID
-= ? and POPULATION &gt; ?&quot;);</span></i></p>
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+42.5pt;mso-char-indent-count:4.72'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>st
+=con.prepareCall(&quot;call createTable3(?,?)&quot;);</span></i></p>
 
-<p class=TConfigCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
-text-align:justify;text-justify:inter-ideograph;text-indent:42.5pt;mso-char-indent-count:
-4.72'><i style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-family:
-"Times New Roman"'>// Set parameters</span></i></p>
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+42.5pt;mso-char-indent-count:4.72'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>// set the parameters
+in order</span></i></p>
 
-<p class=TConfigCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
-text-align:justify;text-justify:inter-ideograph;text-indent:42.5pt;mso-char-indent-count:
-4.72'><i style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-family:
-"Times New Roman"'>st.setObject(1, 5); </span></i></p>
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+42.5pt;mso-char-indent-count:4.72'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>st.setObject(1, 30); </span></i></p>
 
-<p class=TConfigCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
-text-align:justify;text-justify:inter-ideograph;text-indent:42.5pt;mso-char-indent-count:
-4.72'><i style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-family:
-"Times New Roman"'>st.setObject(2, 400000);</span></i></p>
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+42.5pt;mso-char-indent-count:4.72'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>st.setObject(2,
+&quot;California&quot;);</span></i></p>
 
-<p class=TConfigCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
-text-align:justify;text-justify:inter-ideograph;text-indent:42.5pt;mso-char-indent-count:
-4.72'><i style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-family:
-"Times New Roman"'>// Execute the stored procedure</span></i></p>
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+42.5pt;mso-char-indent-count:4.72'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>// execute the stored
+procedure</span></i></p>
 
-<p class=TConfigCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
-text-align:justify;text-justify:inter-ideograph;text-indent:42.5pt;mso-char-indent-count:
-4.72'><i style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-family:
-"Times New Roman"'>st.execute();</span></i></p>
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+42.5pt;mso-char-indent-count:4.72'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>boolean hasResult =
+st.execute();</span></i></p>
 
-<p class=TConfigCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
-text-align:justify;text-justify:inter-ideograph;text-indent:42.5pt;mso-char-indent-count:
-4.72'><i style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-family:
-"Times New Roman"'>// Get the result set</span></i></p>
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+42.5pt;mso-char-indent-count:4.72'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>// get the multiple
+result sets and print them out</span></i></p>
 
-<p class=TConfigCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
-text-align:justify;text-justify:inter-ideograph;text-indent:42.5pt;mso-char-indent-count:
-4.72'><i style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-family:
-"Times New Roman"'>ResultSet rs1 = st.getResultSet();</span></i></p>
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+42.5pt;mso-char-indent-count:4.72'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>while (hasResult) { </span></i></p>
 
-<p class=TConfigCxSpMiddle style='margin-bottom:0cm;mso-add-space:auto;
-text-align:justify;text-justify:inter-ideograph;text-indent:42.5pt;mso-char-indent-count:
-4.72'><i style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-family:
-"Times New Roman"'>// Directly execute SQL with no input parameters</span></i></p>
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+63.7pt;mso-char-indent-count:7.08'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>ResultSet rs =
+st.getResultSet();</span></i></p>
 
-<p class=TConfigCxSpLast style='margin-bottom:0cm;mso-add-space:auto;
-text-align:justify;text-justify:inter-ideograph;text-indent:42.5pt;mso-char-indent-count:
-4.72'><i style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-family:
-"Times New Roman"'>ResultSet rs2 = con.createStatement().executeQuery(&quot;select
-STATEID,NAME,ABBR,CAPITAL from STATES where STATEID&lt;8&quot;);</span></i></p>
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+63.7pt;mso-char-indent-count:7.08'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>// print out the
+results</span></i></p>
 
-<p class=T-Par style='margin-bottom:0cm;mso-add-space:auto;text-align:justify;
-text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>Since the
-gateway script has checked the status of the non-input parameters, it can
-execute SQL with no input parameters. Below are the outputs of the query results<i
-style='mso-bidi-font-style:normal'> rs1</i> and <i style='mso-bidi-font-style:
-normal'>rs2</i>:</span></p>
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+63.7pt;mso-char-indent-count:7.08'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>ResultSetMetaData
+rsmd = rs.getMetaData();</span></i></p>
 
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=340 height=157
-src="Tutorial.files/image686.png" v:shapes="_x0000_i1793"></span></p>
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+63.7pt;mso-char-indent-count:7.08'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>int colCount =
+rsmd.getColumnCount();</span></i></p>
 
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=370 height=140
-src="Tutorial.files/image687.png" v:shapes="_x0000_i1794"></span></p>
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+63.7pt;mso-char-indent-count:7.08'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>for ( int c = 1; c
+&lt;= colCount;c++) {</span></i></p>
 
-<p class=T-Par style='margin-bottom:0cm;mso-add-space:auto;text-align:justify;
-text-justify:inter-ideograph;text-indent:21.0pt'><span lang=EN-US>The
-connection to and disconnection from a data source are handled by the gateway
-script. With a default data source, we can directly use its name in executing a
-query and there is no need to handle data source disconnection.</span></p>
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+3.0cm;mso-char-indent-count:9.45'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>String title = rsmd.getColumnName(c);</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+3.0cm;mso-char-indent-count:9.45'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>if ( c &gt; 1 ) {</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+106.3pt;mso-char-indent-count:11.81'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>System.out.print(&quot;\t&quot;);</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+3.0cm;mso-char-indent-count:9.45'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>}</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+3.0cm;mso-char-indent-count:9.45'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>else {</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+106.3pt;mso-char-indent-count:11.81'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>System.out.print(&quot;\n&quot;);</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+3.0cm;mso-char-indent-count:9.45'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>}</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+106.3pt;mso-char-indent-count:11.81'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>System.out.print(title);</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+3.0cm;mso-char-indent-count:9.45'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>}</span></i><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'></span></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+3.0cm;mso-char-indent-count:9.45'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>while (rs.next()) {</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+106.3pt;mso-char-indent-count:11.81'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>for (int c = 1;
+c&lt;= colCount; c++) {</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+127.55pt;mso-char-indent-count:14.17'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>if ( c &gt; 1 ) {</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+148.75pt;mso-char-indent-count:16.53'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>System.out.print(&quot;\t&quot;);</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+127.55pt;mso-char-indent-count:14.17'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>}</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+127.55pt;mso-char-indent-count:14.17'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>else {</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+148.75pt;mso-char-indent-count:16.53'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>System.out.print(&quot;\n&quot;);</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+127.55pt;mso-char-indent-count:14.17'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>}</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+127.55pt;mso-char-indent-count:14.17'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>Object o =
+rs.getObject(c);</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+127.55pt;mso-char-indent-count:14.17'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>System.out.print(o.toString());</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+106.3pt;mso-char-indent-count:11.81'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>}</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+3.0cm;mso-char-indent-count:9.45'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>}</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+3.0cm;mso-char-indent-count:9.45'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>System.out.println();</span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+3.0cm;mso-char-indent-count:9.45'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>// check if there are
+other return results </span></i></p>
+
+<p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+3.0cm;mso-char-indent-count:9.45'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>hasResult =
+st.getMoreResults();</span></i></p>
+
+<p class=TConfigCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+63.7pt;mso-char-indent-count:7.08'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>}</span></i><span
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'></span></p>
+
+<p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=EN-US>When the code is executed, the female and male
+employees who are younger than 30 and who come from the state of California
+will be fetched respectively. Here’s the printed out result: </span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=EN-US><img border=0 width=478 height=142
+src="Tutorial.files/image697.png" v:shapes="图片_x0020_695"></span></p>
+
+<p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=EN-US>In the cellset file <b style='mso-bidi-font-weight:
+normal'>-</b> </span><span class=T-CodeChar><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='font-family:"Times New Roman",serif;font-weight:normal'>createTable3.dfx</span></i></span><span
+class=T-CodeChar><span lang=EN-US style='font-family:"Times New Roman",serif'>,</span></span><span
+class=T-CodeChar><span lang=EN-US style='font-family:"Times New Roman",serif;
+font-weight:normal'> a single</span></span><span class=T-CodeChar><span
+lang=EN-US style='font-family:"Times New Roman",serif'> </span></span><span
+lang=EN-US>statement &#8211;<b style='mso-bidi-font-weight:normal'> return A3,B3</b>
+&#8211; can also be used to return </span><span class=T-CodeChar><span lang=EN-US
+style='font-family:"Times New Roman",serif;font-weight:normal'>two record
+sequences. Its invocation in Java is the same as the above.</span></span><span
+class=T-CodeChar><span lang=EN-US style='font-family:"Times New Roman",serif'> </span></span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="169.html">Next</a></div>
@@ -321,7 +683,7 @@ query and there is no need to handle data source disconnection.</span></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="157.html">Chapter6 Integration &amp; Application</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="165.html">6.2 Java Invocation</a></span></li>
 </div>
 	</div>
 	<div id="footer">	
