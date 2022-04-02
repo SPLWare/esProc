@@ -1086,17 +1086,26 @@ public abstract class AppMenu extends JMenuBar {
 	public abstract short[] getMenuItems();
 
 	/**
-	 * Create menu based on configuration file
-	 * 
-	 * @return
+	 * 加载自定义菜单，目前只有帮助菜单
+	 * @return 菜单项列表
 	 */
-	private List<Object> buildMenuFromConfig() {
+	protected List<Object> buildMenuFromConfig() {
+		return buildMenuFromConfig("menuconfig");
+	}
+
+	/**
+	 * 加载自定义菜单，目前只有帮助菜单
+	 * @param fileName 文件名
+	 * @return 菜单项列表
+	 */
+	protected List<Object> buildMenuFromConfig(String fileName) {
 		List<Object> helpMenus = new ArrayList<Object>();
 		try {
 			Document doc = null;
-			doc = buildDocument(GM.getAbsolutePath(GC.PATH_CONFIG
-					+ "/menuconfig" + GM.getLanguageSuffix() + "."
-					+ AppConsts.FILE_XML));
+			File configFile = new File(GM.getAbsolutePath(GC.PATH_CONFIG),
+					fileName + GM.getLanguageSuffix() + "."
+							+ AppConsts.FILE_XML);
+			doc = buildDocument(configFile.getAbsolutePath());
 			Element root = doc.getDocumentElement();
 			NodeList list = root.getChildNodes();
 			for (int i = 0; i < list.getLength(); i++) {
