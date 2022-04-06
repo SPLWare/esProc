@@ -135,6 +135,11 @@ public class T extends Function {
 		if (fnParam.getType() == IParam.Colon) { // fn:A
 			aParam = fnParam.getSub(1);
 			fnParam = fnParam.getSub(0);
+			if (fnParam == null) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException("file"
+						+ mm.getMessage("function.missingParam"));
+			}
 		}
 		if (!fnParam.isLeaf()) {
 			MessageManager mm = EngineMessage.get();
