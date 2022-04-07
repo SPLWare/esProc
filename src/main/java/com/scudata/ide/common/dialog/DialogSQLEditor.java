@@ -20,6 +20,7 @@ import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Vector;
 
@@ -1442,7 +1443,8 @@ public class DialogSQLEditor extends JDialog {
 				colNames.addElement(colName);
 			}
 			rs.close();
-			GM.sort(colNames, true);
+			Collections.sort(colNames);
+//			GM.sort(colNames, true);
 			return colNames;
 		} catch (Throwable ex) {
 			GM.showException(ex);

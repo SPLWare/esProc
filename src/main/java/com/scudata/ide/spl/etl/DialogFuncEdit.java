@@ -152,7 +152,8 @@ public class DialogFuncEdit extends JDialog {
 				}
 				names.add(name);
 			}
-			GM.sort(names, true);
+			Collections.sort(names);
+//			GM.sort(names, true);
 			scodes.add("");
 			sdisps.add("");
 			for (String name : names) {
@@ -208,7 +209,8 @@ public class DialogFuncEdit extends JDialog {
 				String name = it.next();
 				names.add(name);
 			}
-			GM.sort(names, true);
+			Collections.sort(names);
+//			GM.sort(names, true);
 			Vector<String> vNames = new Vector<String>();
 			Vector<String> vTitles = new Vector<String>();
 			
@@ -256,7 +258,8 @@ public class DialogFuncEdit extends JDialog {
 					vNames.add(name);
 				}
 			}
-			GM.sort(vNames, true);
+			Collections.sort(vNames);
+//			GM.sort(vNames, true);
 			
 			for (String name : vNames) {
 				vTitles.add(cellTitle(name));

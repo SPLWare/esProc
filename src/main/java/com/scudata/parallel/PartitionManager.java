@@ -170,8 +170,8 @@ public class PartitionManager {
 			String tmpPath = absPath.substring(beginIndex);
 			fileInfos.addAll(listRelativePathFiles(parent, tmpPath));
 		}
-		
-		GM.sort(fileInfos, true);
+		Collections.sort(fileInfos);
+//		GM.sort(fileInfos, true);
 		return fileInfos;
 	}
 
@@ -208,7 +208,8 @@ public class PartitionManager {
 			String tmpPath = absPath.substring(beginIndex);
 			fileInfos.addAll(listRelativePathFiles(root,tmpPath));
 		}
-		GM.sort(fileInfos, true);
+		Collections.sort(fileInfos);
+//		GM.sort(fileInfos, true);
 		return fileInfos;
 	}
 

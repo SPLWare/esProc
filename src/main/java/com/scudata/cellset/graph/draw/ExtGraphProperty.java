@@ -502,7 +502,8 @@ public class ExtGraphProperty {
 		if (topN <= 0 || topN > (originCatNum - 2)) { // 如果Other只有一个分类甚至没有时,没有意义
 			return;
 		}
-		com.scudata.ide.common.GM.sort(categories, false); // 按照每个分类的系列和排序,取前TopN个
+		Collections.reverse(categories);
+//		com.scudata.ide.common.GM.sort(categories, false); // 按照每个分类的系列和排序,取前TopN个
 
 		ArrayList dataCategory = new ArrayList();
 		for (int i = 0; i < topN; i++) {

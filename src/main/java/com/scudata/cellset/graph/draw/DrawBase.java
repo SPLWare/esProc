@@ -2533,7 +2533,8 @@ public abstract class DrawBase implements IGraph {
 					gp.coorValue.add(new Double(doubleTmp + gp.baseValue));
 				}
 			}
-			GM.sort(gp.coorValue, true);
+			Collections.sort(gp.coorValue);
+//			GM.sort(gp.coorValue, true);
 			gp.tickNum = gp.coorValue.size() - 1;
 			gp.maxValue = Math
 					.abs(((Number) gp.coorValue.get(0)).doubleValue())
@@ -2761,7 +2762,8 @@ public abstract class DrawBase implements IGraph {
 					gp.coorValue2.add(new Double(doubleTmp + gp.baseValue2));
 				}
 			}
-			GM.sort(gp.coorValue2, true);
+			Collections.sort(gp.coorValue2);
+//			GM.sort(gp.coorValue2, true);
 			gp.tickNum2 = gp.coorValue2.size() - 1;
 			gp.maxValue2 = Math.abs(((Number) gp.coorValue2.get(0))
 					.doubleValue())

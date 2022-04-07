@@ -1927,50 +1927,50 @@ public class GM {
 
 	/**
 	 * Sort the data
-	 * 
+	 * direct use  Collections.sort instead
 	 * @param v2Sort AbstractList, List to sort
 	 * @param ascend boolean, Whether to sort in ascending order
 	 * @return boolean, Return true if the sort is successful, otherwise false
 	 */
-	public static boolean sort(AbstractList list, boolean ascend) {
-		Comparable ci, cj;
-		int i, j;
-		boolean lb_exchange;
-		for (i = 0; i < list.size(); i++) {
-			Object o = list.get(i);
-			if (o != null && !(o instanceof Comparable)) {
-				return false;
-			}
-		}
-
-		for (i = 0; i < list.size() - 1; i++) {
-			for (j = i + 1; j < list.size(); j++) {
-				ci = (Comparable) list.get(i);
-				cj = (Comparable) list.get(j);
-				if (ascend) {
-					if (ci == null || cj == null) {
-						lb_exchange = (cj == null);
-					} else {
-						lb_exchange = ci.compareTo(cj) > 0;
-					}
-				} else {
-					if (ci == null || cj == null) {
-						lb_exchange = (ci == null);
-					} else {
-						lb_exchange = ci.compareTo(cj) < 0;
-					}
-				}
-				if (lb_exchange) {
-					Object o, o2;
-					o = list.get(i);
-					o2 = list.get(j);
-					list.set(i, o2);
-					list.set(j, o);
-				}
-			}
-		}
-		return true;
-	}
+//	public static boolean sort(AbstractList list, boolean ascend) {
+//		Comparable ci, cj;
+//		int i, j;
+//		boolean lb_exchange;
+//		for (i = 0; i < list.size(); i++) {
+//			Object o = list.get(i);
+//			if (o != null && !(o instanceof Comparable)) {
+//				return false;
+//			}
+//		}
+//
+//		for (i = 0; i < list.size() - 1; i++) {
+//			for (j = i + 1; j < list.size(); j++) {
+//				ci = (Comparable) list.get(i);
+//				cj = (Comparable) list.get(j);
+//				if (ascend) {
+//					if (ci == null || cj == null) {
+//						lb_exchange = (cj == null);
+//					} else {
+//						lb_exchange = ci.compareTo(cj) > 0;
+//					}
+//				} else {
+//					if (ci == null || cj == null) {
+//						lb_exchange = (ci == null);
+//					} else {
+//						lb_exchange = ci.compareTo(cj) < 0;
+//					}
+//				}
+//				if (lb_exchange) {
+//					Object o, o2;
+//					o = list.get(i);
+//					o2 = list.get(j);
+//					list.set(i, o2);
+//					list.set(j, o);
+//				}
+//			}
+//		}
+//		return true;
+//	}
 
 	/**
 	 * Whether it can be saved as the other file.
