@@ -56,7 +56,7 @@ public class FileTreeNode extends DefaultMutableTreeNode {
 	/**
 	 * 是否目录。true是目录，false是文件。
 	 */
-	private boolean isDir = false;
+	protected boolean isDir = false;
 	/**
 	 * 过滤条件
 	 */
