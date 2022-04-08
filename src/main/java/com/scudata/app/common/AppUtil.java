@@ -625,6 +625,12 @@ public class AppUtil {
 			case PgmNormalCell.TYPE_NOTE_BLOCK:
 			case PgmNormalCell.TYPE_BLANK_CELL:
 				return null;
+			case PgmNormalCell.TYPE_CALCULABLE_CELL: // 计算格
+			case PgmNormalCell.TYPE_CALCULABLE_BLOCK: // 计算块
+				return "=" + cellExp;
+			case PgmNormalCell.TYPE_EXECUTABLE_CELL: // 执行格
+			case PgmNormalCell.TYPE_EXECUTABLE_BLOCK: // 执行块
+				return cellExp;
 			default: // 命令格，执行格
 				return cellExp;
 			}
