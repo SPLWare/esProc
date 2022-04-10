@@ -2226,7 +2226,8 @@ public class SplEditor {
 					if (!isParam) {
 						if (name != null)
 							name = Escape.removeEscAndQuote(name);
-						if (isExcelParam(name)) {
+						isParam = params.contains(name);
+						if (!isParam && isExcelParam(name)) {
 							isParam = true;
 						}
 					}
@@ -2685,11 +2686,12 @@ public class SplEditor {
 						argIndex = num;
 					}
 					if (arg != null) {
-						if (isExcelParam(arg)) {
-							buf.append(Escape.addEscAndQuote(arg, false));
-						} else {
-							buf.append(arg);
-						}
+						// 总是加单引号不会出错
+						// if (isExcelParam(arg)) {
+						buf.append(Escape.addEscAndQuote(arg, false));
+						// } else {
+						// buf.append(arg);
+						// }
 					} else {
 						buf.append(id);
 					}
