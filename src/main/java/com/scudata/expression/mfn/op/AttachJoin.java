@@ -139,7 +139,10 @@ public class AttachJoin extends OperableFunction {
 			op = new Join(this, fname, exps, seqs, dataExps, newExps, newNames, option);
 		}
 		
-		op.setCurrentCell(cs.getCurrent());
+		if (cs != null) {
+			op.setCurrentCell(cs.getCurrent());
+		}
+		
 		return operable.addOperation(op, ctx);
 	}
 }

@@ -71,7 +71,10 @@ public class AttachSwitch extends OperableFunction {
 			op = new Switch(this, fkNames, timeFkNames, seqs, exps, timeExps, option);
 		}
 		
-		op.setCurrentCell(cs.getCurrent());
+		if (cs != null) {
+			op.setCurrentCell(cs.getCurrent());
+		}
+		
 		return operable.addOperation(op, ctx);
 	}
 }

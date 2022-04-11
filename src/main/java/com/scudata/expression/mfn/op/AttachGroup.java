@@ -42,7 +42,10 @@ public class AttachGroup extends OperableFunction {
 				Expression []exps = sub0.toArray("group", false);
 				Expression []sortExps = sub1.toArray("group", false);
 				Group group = new Group(this, exps, sortExps, option);
-				group.setCurrentCell(cs.getCurrent());
+				if (cs != null) {
+					group.setCurrentCell(cs.getCurrent());
+				}
+				
 				return operable.addOperation(group, ctx);
 			} else if (size == 3) {
 				IParam sub0 = param.getSub(0);
@@ -70,7 +73,10 @@ public class AttachGroup extends OperableFunction {
 				}
 
 				Groups groups = new Groups(this, exps, names, sortExps, sortNames, newExps, newNames, option, ctx);
-				groups.setCurrentCell(cs.getCurrent());
+				if (cs != null) {
+					groups.setCurrentCell(cs.getCurrent());
+				}
+				
 				return operable.addOperation(groups, ctx);
 			} else {
 				MessageManager mm = EngineMessage.get();
@@ -80,7 +86,10 @@ public class AttachGroup extends OperableFunction {
 			Expression exp = param.getLeafExpression();
 			Expression []exps = new Expression[] {exp};
 			Group group = new Group(this, exps, option);
-			group.setCurrentCell(cs.getCurrent());
+			if (cs != null) {
+				group.setCurrentCell(cs.getCurrent());
+			}
+			
 			return operable.addOperation(group, ctx);
 		} else if (param.getType() == IParam.Comma) {
 			if (option != null && option.indexOf('i') != -1) {
@@ -100,7 +109,10 @@ public class AttachGroup extends OperableFunction {
 			}
 			
 			Group group = new Group(this, exps, option);
-			group.setCurrentCell(cs.getCurrent());
+			if (cs != null) {
+				group.setCurrentCell(cs.getCurrent());
+			}
+			
 			return operable.addOperation(group, ctx);
 		} else if (param.getType() == IParam.Semicolon) {
 			if (param.getSubSize() != 2) {
@@ -133,7 +145,10 @@ public class AttachGroup extends OperableFunction {
 			}
 
 			Groups groups = new Groups(this, exps, names, newExps, newNames, option, ctx);
-			groups.setCurrentCell(cs.getCurrent());
+			if (cs != null) {
+				groups.setCurrentCell(cs.getCurrent());
+			}
+			
 			return operable.addOperation(groups, ctx);
 		} else {
 			MessageManager mm = EngineMessage.get();

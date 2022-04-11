@@ -1311,19 +1311,6 @@ public final class CursorUtil {
 			return;
 		}
 		
-		// 取源表的数据结构及外键字段的序号
-		DataStruct ds = data.dataStruct();
-		if (ds == null) {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException(mm.getMessage("engine.needPurePmt"));
-		}
-		
-		int fkIndex = ds.getFieldIndex(fkName);
-		if (fkIndex == -1) {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException(fkName + mm.getMessage("ds.fieldNotExist"));
-		}
-		
 		boolean isIsect = false, isDiff = false, isLeft = false;
 		if (opt != null) {
 			if (opt.indexOf('i') != -1) {
@@ -1337,6 +1324,9 @@ public final class CursorUtil {
 				isLeft = true;
 			}
 		}
+		
+		int col = -1; // 字段在上一条记录的索引
+		Record prevRecord = null; // 上一条记录
 
 		if (exp == null || !(exp.getHome() instanceof CurrentSeq)) { // #
 			IndexTable indexTable = code.getIndexTable(exp, ctx);
@@ -1346,13 +1336,29 @@ public final class CursorUtil {
 			
 			if (isDiff) {
 				for (int i = 1, len = data.length(); i <= len; ++i) {
-					Record r = (Record)data.getMem(i);
-					Object key = r.getNormalFieldValue(fkIndex);
-					Object obj = indexTable.find(key);
-					// 找不到时保留源值
-					if (obj != null) {
-						r.setNormalFieldValue(fkIndex, null);
-					}				}
+					Object obj = data.getMem(i);
+					if (obj instanceof Record) {
+						Record cur = (Record)obj;
+						if (prevRecord == null || !prevRecord.isSameDataStruct(cur)) {
+							col = cur.getFieldIndex(fkName);
+							if (col < 0) {
+								MessageManager mm = EngineMessage.get();
+								throw new RQException(fkName + mm.getMessage("ds.fieldNotExist"));
+							}
+
+							prevRecord = cur;							
+						}
+						
+						// 找不到时保留源值
+						Object key = cur.getNormalFieldValue(col);
+						if (indexTable.find(key) != null) {
+							cur.setNormalFieldValue(col, null);
+						}
+					} else if (obj != null) {
+						MessageManager mm = EngineMessage.get();
+						throw new RQException(mm.getMessage("engine.needPmt"));
+					}
+				}
 			} else if (isLeft) {
 				DataStruct codeDs = code.dataStruct();
 				if (codeDs == null) {
@@ -1377,51 +1383,99 @@ public final class CursorUtil {
 				}
 				
 				for (int i = 1, len = data.length(); i <= len; ++i) {
-					Record r = (Record)data.getMem(i);
-					Object key = r.getNormalFieldValue(fkIndex);
-					Object obj = indexTable.find(key);
-					if (obj != null) {
-						r.setNormalFieldValue(fkIndex, obj);
-					} else {
-						Record record = new Record(codeDs);
-						record.setNormalFieldValue(keySeq, key);
-						r.setNormalFieldValue(fkIndex, record);
+					Object obj = data.getMem(i);
+					if (obj instanceof Record) {
+						Record cur = (Record)obj;
+						if (prevRecord == null || !prevRecord.isSameDataStruct(cur)) {
+							col = cur.getFieldIndex(fkName);
+							if (col < 0) {
+								MessageManager mm = EngineMessage.get();
+								throw new RQException(fkName + mm.getMessage("ds.fieldNotExist"));
+							}
+
+							prevRecord = cur;							
+						}
+						
+						Object key = cur.getNormalFieldValue(col);
+						Object p = indexTable.find(key);
+						if (p != null) {
+							cur.setNormalFieldValue(col, p);
+						} else {
+							Record record = new Record(codeDs);
+							record.setNormalFieldValue(keySeq, key);
+							cur.setNormalFieldValue(col, record);
+						}
+					} else if (obj != null) {
+						MessageManager mm = EngineMessage.get();
+						throw new RQException(mm.getMessage("engine.needPmt"));
 					}
 				}
 			} else {
 				for (int i = 1, len = data.length(); i <= len; ++i) {
-					Record r = (Record)data.getMem(i);
-					Object key = r.getNormalFieldValue(fkIndex);
-					Object obj = indexTable.find(key);
-					r.setNormalFieldValue(fkIndex, obj);
+					Object obj = data.getMem(i);
+					if (obj instanceof Record) {
+						Record cur = (Record)obj;
+						if (prevRecord == null || !prevRecord.isSameDataStruct(cur)) {
+							col = cur.getFieldIndex(fkName);
+							if (col < 0) {
+								MessageManager mm = EngineMessage.get();
+								throw new RQException(fkName + mm.getMessage("ds.fieldNotExist"));
+							}
+
+							prevRecord = cur;							
+						}
+						
+						Object key = cur.getNormalFieldValue(col);
+						Object p = indexTable.find(key);
+						cur.setNormalFieldValue(col, p);
+					} else if (obj != null) {
+						MessageManager mm = EngineMessage.get();
+						throw new RQException(mm.getMessage("engine.needPmt"));
+					}
 				}
 			}
 		} else {
 			// 如果维表的主键表达式是#，那么外键的值实际上对应维表记录的序号，直接用序号取出维表的记录
 			int codeLen = code.length();
 			for (int i = 1, len = data.length(); i <= len; ++i) {
-				Record r = (Record)data.getMem(i);
-				Object val = r.getNormalFieldValue(fkIndex);
-				if (val instanceof Number) {
-					int seq = ((Number)val).intValue();
-					if (isDiff) {
-						// 找不到时保留源值
-						if (seq > 0 && seq <= codeLen) {
-							r.setNormalFieldValue(fkIndex, null);
+				Object obj = data.getMem(i);
+				if (obj instanceof Record) {
+					Record cur = (Record)obj;
+					if (prevRecord == null || !prevRecord.isSameDataStruct(cur)) {
+						col = cur.getFieldIndex(fkName);
+						if (col < 0) {
+							MessageManager mm = EngineMessage.get();
+							throw new RQException(fkName + mm.getMessage("ds.fieldNotExist"));
 						}
-					} else {
-						if (seq > 0 && seq <= codeLen) {
-							r.setNormalFieldValue(fkIndex, code.getMem(seq));
+
+						prevRecord = cur;							
+					}
+					
+					Object val = cur.getNormalFieldValue(col);
+					if (val instanceof Number) {
+						int seq = ((Number)val).intValue();
+						if (isDiff) {
+							// 找不到时保留源值
+							if (seq > 0 && seq <= codeLen) {
+								cur.setNormalFieldValue(col, null);
+							}
 						} else {
-							r.setNormalFieldValue(fkIndex, null);
+							if (seq > 0 && seq <= codeLen) {
+								cur.setNormalFieldValue(col, code.getMem(seq));
+							} else {
+								cur.setNormalFieldValue(col, null);
+							}
 						}
 					}
+				} else if (obj != null) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException(mm.getMessage("engine.needPmt"));
 				}
 			}
 		}
 
 		if (isIsect || isDiff) {
-			data.deleteNullFieldRecord(fkIndex);
+			data.deleteNullFieldRecord(fkName);
 		}
 	}
 	

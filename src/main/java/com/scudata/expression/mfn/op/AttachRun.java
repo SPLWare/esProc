@@ -19,7 +19,10 @@ public class AttachRun extends OperableFunction {
 		} else if (param.isLeaf()) {
 			Expression exp = param.getLeafExpression();
 			Run run = new Run(this, exp);
-			run.setCurrentCell(cs.getCurrent());
+			if (cs != null) {
+				run.setCurrentCell(cs.getCurrent());
+			}
+			
 			return operable.addOperation(run, ctx);
 		} else {
 			ParamInfo2 pi = ParamInfo2.parse(param, "run", true, false);
@@ -27,7 +30,10 @@ public class AttachRun extends OperableFunction {
 			Expression []assignExps = pi.getExpressions2();
 
 			Run run = new Run(this, assignExps, exps);
-			run.setCurrentCell(cs.getCurrent());
+			if (cs != null) {
+				run.setCurrentCell(cs.getCurrent());
+			}
+			
 			return operable.addOperation(run, ctx);
 		}
 	}

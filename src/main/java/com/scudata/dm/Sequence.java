@@ -7465,7 +7465,10 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		}
 	}
 
-	// 删除字段值为空/不空的记录
+	/**
+	 * 删除字段值为空的记录
+	 * @param f 字段序号
+	 */
 	public void deleteNullFieldRecord(int f) {
 		ListBase1 mems = this.mems;
 		int len = mems.size();
@@ -7487,6 +7490,70 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				Record r = (Record)mems.get(i);
 				if (r.getFieldValue(f) != null) {
 					tmp.add(r);
+				}
+			}
+
+			this.mems = tmp;
+			rebuildIndexTable();
+		}
+	}
+	
+	/**
+	 * 删除字段值为空的记录
+	 * @param f 字段序号
+	 */
+	public void deleteNullFieldRecord(String fieldName) {
+		ListBase1 mems = this.mems;
+		int len = mems.size();
+		int nullCount = 0;
+		
+		int col = -1; // 字段在上一条记录的索引
+		Record prevRecord = null; // 上一条记录
+
+		for (int i = 1; i <= len; ++i) {
+			Object obj = mems.get(i);
+			if (obj instanceof Record) {
+				Record cur = (Record)obj;
+				if (prevRecord == null || !prevRecord.isSameDataStruct(cur)) {
+					col = cur.getFieldIndex(fieldName);
+					if (col < 0) {
+						MessageManager mm = EngineMessage.get();
+						throw new RQException(fieldName + mm.getMessage("ds.fieldNotExist"));
+					}
+
+					prevRecord = cur;							
+				}
+				
+				if (cur.getFieldValue(col) == null) {
+					nullCount++;
+				}
+			} else {
+				nullCount++;
+			}
+		}
+
+		if (nullCount == len) {
+			this.mems = new ListBase1(1);
+			rebuildIndexTable();
+		} else if (nullCount > 0) {
+			ListBase1 tmp = new ListBase1(len - nullCount);
+			for (int i = 1; i <= len; ++i) {
+				Object obj = mems.get(i);
+				if (obj instanceof Record) {
+					Record cur = (Record)obj;
+					if (prevRecord == null || !prevRecord.isSameDataStruct(cur)) {
+						col = cur.getFieldIndex(fieldName);
+						if (col < 0) {
+							MessageManager mm = EngineMessage.get();
+							throw new RQException(fieldName + mm.getMessage("ds.fieldNotExist"));
+						}
+
+						prevRecord = cur;							
+					}
+					
+					if (cur.getFieldValue(col) != null) {
+						tmp.add(cur);
+					}
 				}
 			}
 
@@ -8252,12 +8319,14 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		int len = mems.size();
 		DataStruct ds = dataStruct();
 		if (ds == null) {
+			if (len == 0) {
+				return null;
+			}
+			
 			// 以第一条记录的结构为准
-			if (len > 0) {
-				Object val = mems.get(1);
-				if (val instanceof Record) {
-					ds = ((Record)val).dataStruct();
-				}
+			Object val = mems.get(1);
+			if (val instanceof Record) {
+				ds = ((Record)val).dataStruct();
 			}
 			
 			if (ds == null) {
@@ -8317,12 +8386,14 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		int colCount = exps.length;
 		
 		if (ds == null) {
+			if (len == 0) {
+				return null;
+			}
+			
 			// 以第一条记录的结构为准
-			if (len > 0) {
-				Object val = mems.get(1);
-				if (val instanceof Record) {
-					ds = ((Record)val).dataStruct();
-				}
+			Object val = mems.get(1);
+			if (val instanceof Record) {
+				ds = ((Record)val).dataStruct();
 			}
 			
 			if (ds == null) {
@@ -11557,23 +11628,30 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			return;
 		}
 
-		DataStruct ds = dataStruct();
-		if (ds == null) {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException(mm.getMessage("engine.needPurePmt"));
-		}
-
-		int fkIndex = ds.getFieldIndex(fkName);
-		if (fkIndex == -1) {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException(fkName + mm.getMessage("ds.fieldNotExist"));
-		}
+		int col = -1; // 字段在上一条记录的索引
+		Record prevRecord = null; // 上一条记录
 
 		for (int i = 1, len = mems.size(); i <= len; ++i) {
-			Record r = (Record)mems.get(i);
-			Object fval = r.getNormalFieldValue(fkIndex);
-			if (fval instanceof Record) {
-				r.setNormalFieldValue(fkIndex, ((Record)fval).getPKValue());
+			Object obj = mems.get(i);
+			if (obj instanceof Record) {
+				Record cur = (Record)obj;
+				if (prevRecord == null || !prevRecord.isSameDataStruct(cur)) {
+					col = cur.getFieldIndex(fkName);
+					if (col < 0) {
+						MessageManager mm = EngineMessage.get();
+						throw new RQException(fkName + mm.getMessage("ds.fieldNotExist"));
+					}
+
+					prevRecord = cur;
+				}
+				
+				Object fval = cur.getNormalFieldValue(col);
+				if (fval instanceof Record) {
+					cur.setNormalFieldValue(col, ((Record)fval).getPKValue());
+				}
+			} else if (obj != null) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException(mm.getMessage("engine.needPmt"));
 			}
 		}
 	}

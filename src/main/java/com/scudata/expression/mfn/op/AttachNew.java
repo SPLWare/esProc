@@ -36,7 +36,10 @@ public class AttachNew extends OperableFunction {
 		String []names = pi.getExpressionStrs2();
 
 		New op = new New(this, exps, names, option);
-		op.setCurrentCell(cs.getCurrent());
+		if (cs != null) {
+			op.setCurrentCell(cs.getCurrent());
+		}
+		
 		return operable.addOperation(op, ctx);
 	}
 	

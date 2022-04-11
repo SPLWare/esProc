@@ -46,7 +46,10 @@ public class AttachGroupn extends OperableFunction {
 		}
 
 		Groupn groupn = new Groupn(this, exp, out);
-		groupn.setCurrentCell(cs.getCurrent());
+		if (cs != null) {
+			groupn.setCurrentCell(cs.getCurrent());
+		}
+		
 		return operable.addOperation(groupn, ctx);
 	}
 }

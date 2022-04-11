@@ -74,7 +74,10 @@ public class AttachDerive extends OperableFunction {
 		}
 				
 		Derive derive = new Derive(this, exps, names, option, level);
-		derive.setCurrentCell(cs.getCurrent());
+		if (cs != null) {
+			derive.setCurrentCell(cs.getCurrent());
+		}
+		
 		return operable.addOperation(derive, ctx);
 	}
 	

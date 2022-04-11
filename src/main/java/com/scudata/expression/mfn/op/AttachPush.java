@@ -28,7 +28,10 @@ public class AttachPush extends OperableFunction {
 			}
 			
 			Push push = new Push(this, (Channel)obj);
-			push.setCurrentCell(cs.getCurrent());
+			if (cs != null) {
+				push.setCurrentCell(cs.getCurrent());
+			}
+			
 			return operable.addOperation(push, ctx);
 		} else {
 			for (int i = 0, size = param.getSubSize(); i < size; ++i) {
@@ -45,7 +48,10 @@ public class AttachPush extends OperableFunction {
 				}
 				
 				Push push = new Push(this, (Channel)obj);
-				push.setCurrentCell(cs.getCurrent());
+				if (cs != null) {
+					push.setCurrentCell(cs.getCurrent());
+				}
+				
 				operable.addOperation(push, ctx);
 			}
 			

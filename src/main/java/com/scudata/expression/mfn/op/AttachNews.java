@@ -56,7 +56,10 @@ public class AttachNews extends OperableFunction {
 		String []names = pi.getExpressionStrs2();
 		
 		News news = new News(this, gexp, exps, names, option);
-		news.setCurrentCell(cs.getCurrent());
+		if (cs != null) {
+			news.setCurrentCell(cs.getCurrent());
+		}
+		
 		return operable.addOperation(news, ctx);
 	}
 	

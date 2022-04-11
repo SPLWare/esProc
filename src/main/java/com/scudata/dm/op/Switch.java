@@ -27,8 +27,6 @@ public class Switch extends Operation {
 	private Expression []timeExps; // 维表的时间更新键数组
 	private String opt; // 选项
 
-	private int []fkIndex; // 外键字段索引数组
-	private int []timeFkIndex; // 时间外键字段索引数组
 	private IndexTable []indexTables; // 维表对应的索引表数组
 	private boolean isIsect; // 做交连接
 	private boolean isDiff; // 做差连接
@@ -201,126 +199,205 @@ public class Switch extends Operation {
 		
 		return seq;
 	}
-	
-	private void getFkIndex(Sequence data) {
-		if (fkIndex == null) {
-			DataStruct ds = data.dataStruct();
-			if (ds == null) {
-				MessageManager mm = EngineMessage.get();
-				throw new RQException(mm.getMessage("engine.needPurePmt"));
-			}
-	
-			int fkCount = fkNames.length;
-			fkIndex = new int[fkCount];
-			timeFkIndex = new int[fkCount];
-			for (int f = 0; f < fkCount; ++f) {
-				fkIndex[f] = ds.getFieldIndex(fkNames[f]);
-				if (fkIndex[f] == -1) {
-					MessageManager mm = EngineMessage.get();
-					throw new RQException(fkNames[f] + mm.getMessage("ds.fieldNotExist"));
-				}
-				
-				if (timeFkNames != null && timeFkNames[f] != null) {
-					timeFkIndex[f] = ds.getFieldIndex(timeFkNames[f]);
-					if (timeFkIndex[f] == -1) {
-						MessageManager mm = EngineMessage.get();
-						throw new RQException(timeFkNames[f] + mm.getMessage("ds.fieldNotExist"));
-					}
-				} else {
-					timeFkIndex[f] = -1;
-				}
-			}
-		}
-	}
-	
+		
 	private void switch1(Sequence data, Context ctx) {
-		getFkIndex(data);
 		int fkCount = fkNames.length;
-		int len = data.length();
+		ListBase1 mems = data.getMems();
+		int len = mems.size();
 		
 		for (int f = 0; f < fkCount; ++f) {
-			int fk = fkIndex[f];
 			IndexTable indexTable = getIndexTable(f, ctx);
+			String fkName = fkNames[f];
+			String timeName = timeFkNames == null ? null : timeFkNames[f];
+			int col = -1; // 字段在上一条记录的索引
+			int timeCol = -1;
+			Record prevRecord = null; // 上一条记录
 
 			if (indexTable != null) {
-				int timeFk = timeFkIndex[f];
 				if (isLeft) {
 					DataStruct ds = dataStructs[f];
 					int keySeq = keySeqs[f];
-					if (timeFk == -1) {
+					if (timeName == null) {
 						for (int i = 1; i <= len; ++i) {
-							Record r = (Record)data.getMem(i);
-							Object key = r.getNormalFieldValue(fk);
-							Object obj = indexTable.find(key);
-							if (obj != null) {
-								r.setNormalFieldValue(fk, obj);
-							} else {
-								Record record = new Record(ds);
-								record.setNormalFieldValue(keySeq, key);
-								r.setNormalFieldValue(fk, record);
+							Object obj = mems.get(i);
+							if (obj instanceof Record) {
+								Record cur = (Record)obj;
+								if (prevRecord == null || !prevRecord.isSameDataStruct(cur)) {
+									col = cur.getFieldIndex(fkName);
+									if (col < 0) {
+										MessageManager mm = EngineMessage.get();
+										throw new RQException(fkName + mm.getMessage("ds.fieldNotExist"));
+									}
+
+									prevRecord = cur;							
+								}
+								
+								Object key = cur.getNormalFieldValue(col);
+								Object p = indexTable.find(key);
+								if (p != null) {
+									cur.setNormalFieldValue(col, p);
+								} else {
+									Record record = new Record(ds);
+									record.setNormalFieldValue(keySeq, key);
+									cur.setNormalFieldValue(col, record);
+								}
+							} else if (obj != null) {
+								MessageManager mm = EngineMessage.get();
+								throw new RQException(mm.getMessage("engine.needPmt"));
 							}
 						}
 					} else {
 						// 有时间更新键时查找时按两个字段查找
 						Object []values = new Object[2];
 						for (int i = 1; i <= len; ++i) {
-							Record r = (Record)data.getMem(i);
-							values[0] = r.getNormalFieldValue(fk);
-							values[1] = r.getNormalFieldValue(timeFk);
-							
-							Object obj = indexTable.find(values);
-							if (obj != null) {
-								r.setNormalFieldValue(fk, obj);
-							} else {
-								Record record = new Record(ds);
-								record.setNormalFieldValue(keySeq, values[0]);
-								r.setNormalFieldValue(fk, record);
+							Object obj = mems.get(i);
+							if (obj instanceof Record) {
+								Record cur = (Record)obj;
+								if (prevRecord == null || !prevRecord.isSameDataStruct(cur)) {
+									col = cur.getFieldIndex(fkName);
+									if (col < 0) {
+										MessageManager mm = EngineMessage.get();
+										throw new RQException(fkName + mm.getMessage("ds.fieldNotExist"));
+									}
+									
+									timeCol = cur.getFieldIndex(timeName);
+									if (timeCol < 0) {
+										MessageManager mm = EngineMessage.get();
+										throw new RQException(timeName + mm.getMessage("ds.fieldNotExist"));
+									}
+
+									prevRecord = cur;							
+								}
+								
+								values[0] = cur.getNormalFieldValue(col);
+								values[1] = cur.getNormalFieldValue(timeCol);								
+								Object p = indexTable.find(values);
+								
+								if (p != null) {
+									cur.setNormalFieldValue(col, p);
+								} else {
+									Record record = new Record(ds);
+									record.setNormalFieldValue(keySeq, values[0]);
+									cur.setNormalFieldValue(col, record);
+								}
+							} else if (obj != null) {
+								MessageManager mm = EngineMessage.get();
+								throw new RQException(mm.getMessage("engine.needPmt"));
 							}
 						}
 					}
 				} else {
-					if (timeFk == -1) {
+					if (timeName == null) {
 						for (int i = 1; i <= len; ++i) {
-							Record r = (Record)data.getMem(i);
-							Object key = r.getNormalFieldValue(fk);
-							Object obj = indexTable.find(key);
-							r.setNormalFieldValue(fk, obj);
+							Object obj = mems.get(i);
+							if (obj instanceof Record) {
+								Record cur = (Record)obj;
+								if (prevRecord == null || !prevRecord.isSameDataStruct(cur)) {
+									col = cur.getFieldIndex(fkName);
+									if (col < 0) {
+										MessageManager mm = EngineMessage.get();
+										throw new RQException(fkName + mm.getMessage("ds.fieldNotExist"));
+									}
+
+									prevRecord = cur;							
+								}
+								
+								Object key = cur.getNormalFieldValue(col);
+								Object p = indexTable.find(key);
+								cur.setNormalFieldValue(col, p);
+							} else if (obj != null) {
+								MessageManager mm = EngineMessage.get();
+								throw new RQException(mm.getMessage("engine.needPmt"));
+							}
 						}
 					} else {
 						// 有时间更新键时查找时按两个字段查找
 						Object []values = new Object[2];
 						for (int i = 1; i <= len; ++i) {
-							Record r = (Record)data.getMem(i);
-							values[0] = r.getNormalFieldValue(fk);
-							values[1] = r.getNormalFieldValue(timeFk);
+							Object obj = mems.get(i);
+							if (obj instanceof Record) {
+								Record cur = (Record)obj;
+								if (prevRecord == null || !prevRecord.isSameDataStruct(cur)) {
+									col = cur.getFieldIndex(fkName);
+									if (col < 0) {
+										MessageManager mm = EngineMessage.get();
+										throw new RQException(fkName + mm.getMessage("ds.fieldNotExist"));
+									}
+									
+									timeCol = cur.getFieldIndex(timeName);
+									if (timeCol < 0) {
+										MessageManager mm = EngineMessage.get();
+										throw new RQException(timeName + mm.getMessage("ds.fieldNotExist"));
+									}
 
-							Object obj = indexTable.find(values);
-							r.setNormalFieldValue(fk, obj);
+									prevRecord = cur;							
+								}
+								
+								values[0] = cur.getNormalFieldValue(col);
+								values[1] = cur.getNormalFieldValue(timeCol);
+								Object p = indexTable.find(values);
+								cur.setNormalFieldValue(col, p);
+							} else if (obj != null) {
+								MessageManager mm = EngineMessage.get();
+								throw new RQException(mm.getMessage("engine.needPmt"));
+							}
 						}
 					}
 				}
 			} else if (codes[f] == null) {
 				// 指引字段变成值
 				for (int i = 1; i <= len; ++i) {
-					Record r = (Record)data.getMem(i);
-					Object val = r.getNormalFieldValue(fk);
-					if (val instanceof Record) {
-						r.setNormalFieldValue(fk, ((Record)val).getPKValue());
+					Object obj = mems.get(i);
+					if (obj instanceof Record) {
+						Record cur = (Record)obj;
+						if (prevRecord == null || !prevRecord.isSameDataStruct(cur)) {
+							col = cur.getFieldIndex(fkName);
+							if (col < 0) {
+								MessageManager mm = EngineMessage.get();
+								throw new RQException(fkName + mm.getMessage("ds.fieldNotExist"));
+							}
+
+							prevRecord = cur;							
+						}
+						
+						Object val = cur.getNormalFieldValue(col);
+						if (val instanceof Record) {
+							cur.setNormalFieldValue(col, ((Record)val).getPKValue());
+						}
+					} else if (obj != null) {
+						MessageManager mm = EngineMessage.get();
+						throw new RQException(mm.getMessage("engine.needPmt"));
 					}
 				}
 			} else { // #
 				Sequence code = codes[f];
 				int codeLen = code.length();
 				for (int i = 1; i <= len; ++i) {
-					Record r = (Record)data.getMem(i);
-					Object val = r.getNormalFieldValue(fk);
-					if (val instanceof Number) {
-						int seq = ((Number)val).intValue();
-						if (seq > 0 && seq <= codeLen) {
-							r.setNormalFieldValue(fk, code.getMem(seq));
-						} else {
-							r.setNormalFieldValue(fk, null);
+					Object obj = mems.get(i);
+					if (obj instanceof Record) {
+						Record cur = (Record)obj;
+						if (prevRecord == null || !prevRecord.isSameDataStruct(cur)) {
+							col = cur.getFieldIndex(fkName);
+							if (col < 0) {
+								MessageManager mm = EngineMessage.get();
+								throw new RQException(fkName + mm.getMessage("ds.fieldNotExist"));
+							}
+
+							prevRecord = cur;							
 						}
+						
+						Object val = cur.getNormalFieldValue(col);
+						if (val instanceof Number) {
+							int seq = ((Number)val).intValue();
+							if (seq > 0 && seq <= codeLen) {
+								cur.setNormalFieldValue(col, code.getMem(seq));
+							} else {
+								cur.setNormalFieldValue(col, null);
+							}
+						}
+					} else if (obj != null) {
+						MessageManager mm = EngineMessage.get();
+						throw new RQException(mm.getMessage("engine.needPmt"));
 					}
 				}
 			}
@@ -328,41 +405,80 @@ public class Switch extends Operation {
 	}
 
 	private void switch_i(Sequence data, Context ctx) {
-		getFkIndex(data);
 		int fkCount = fkNames.length;
 		ListBase1 mems = data.getMems();
 		
 		for (int f = 0; f < fkCount; ++f) {
-			int fk = fkIndex[f];
 			IndexTable indexTable = getIndexTable(f, ctx);
 			int len = mems.size();
 
+			String fkName = fkNames[f];
+			String timeName = timeFkNames == null ? null : timeFkNames[f];
+			int col = -1; // 字段在上一条记录的索引
+			int timeCol = -1;
+			Record prevRecord = null; // 上一条记录
+			
 			if (indexTable != null) {
 				ListBase1 resultMems = new ListBase1(len);
-				int timeFk = timeFkIndex[f];
-				
-				if (timeFk == -1) {
+				if (timeName == null) {
 					for (int i = 1; i <= len; ++i) {
-						Record r = (Record)mems.get(i);
-						Object key = r.getNormalFieldValue(fk);
-						Object obj = indexTable.find(key);
-						if (obj != null) {
-							r.setNormalFieldValue(fk, obj);
-							resultMems.add(r);
+						Object obj = mems.get(i);
+						if (obj instanceof Record) {
+							Record cur = (Record)obj;
+							if (prevRecord == null || !prevRecord.isSameDataStruct(cur)) {
+								col = cur.getFieldIndex(fkName);
+								if (col < 0) {
+									MessageManager mm = EngineMessage.get();
+									throw new RQException(fkName + mm.getMessage("ds.fieldNotExist"));
+								}
+
+								prevRecord = cur;							
+							}
+							
+							Object key = cur.getNormalFieldValue(col);
+							Object p = indexTable.find(key);
+							if (p != null) {
+								cur.setNormalFieldValue(col, p);
+								resultMems.add(cur);
+							}
+						} else if (obj != null) {
+							MessageManager mm = EngineMessage.get();
+							throw new RQException(mm.getMessage("engine.needPmt"));
 						}
 					}
 				} else {
 					// 有时间更新键时查找时按两个字段查找，引用设第一个字段上
 					Object []values = new Object[2];
 					for (int i = 1; i <= len; ++i) {
-						Record r = (Record)mems.get(i);
-						values[0] = r.getNormalFieldValue(fk);
-						values[1] = r.getNormalFieldValue(timeFk);
-						
-						Object obj = indexTable.find(values);
-						if (obj != null) {
-							r.setNormalFieldValue(fk, obj);
-							resultMems.add(r);
+						Object obj = mems.get(i);
+						if (obj instanceof Record) {
+							Record cur = (Record)obj;
+							if (prevRecord == null || !prevRecord.isSameDataStruct(cur)) {
+								col = cur.getFieldIndex(fkName);
+								if (col < 0) {
+									MessageManager mm = EngineMessage.get();
+									throw new RQException(fkName + mm.getMessage("ds.fieldNotExist"));
+								}
+								
+								timeCol = cur.getFieldIndex(timeName);
+								if (timeCol < 0) {
+									MessageManager mm = EngineMessage.get();
+									throw new RQException(timeName + mm.getMessage("ds.fieldNotExist"));
+								}
+
+								prevRecord = cur;							
+							}
+							
+							values[0] = cur.getNormalFieldValue(col);
+							values[1] = cur.getNormalFieldValue(timeCol);							
+							Object p = indexTable.find(values);
+							if (p != null) {
+								cur.setNormalFieldValue(col, p);
+								resultMems.add(cur);
+							}
+						} else if (obj != null) {
+							MessageManager mm = EngineMessage.get();
+							throw new RQException(mm.getMessage("engine.needPmt"));
 						}
 					}
 				}
@@ -371,10 +487,26 @@ public class Switch extends Operation {
 			} else if (codes[f] == null) {
 				// 指引字段变成值
 				for (int i = 1; i <= len; ++i) {
-					Record r = (Record)data.getMem(i);
-					Object val = r.getNormalFieldValue(fk);
-					if (val instanceof Record) {
-						r.setNormalFieldValue(fk, ((Record)val).getPKValue());
+					Object obj = mems.get(i);
+					if (obj instanceof Record) {
+						Record cur = (Record)obj;
+						if (prevRecord == null || !prevRecord.isSameDataStruct(cur)) {
+							col = cur.getFieldIndex(fkName);
+							if (col < 0) {
+								MessageManager mm = EngineMessage.get();
+								throw new RQException(fkName + mm.getMessage("ds.fieldNotExist"));
+							}
+
+							prevRecord = cur;							
+						}
+						
+						Object val = cur.getNormalFieldValue(col);
+						if (val instanceof Record) {
+							cur.setNormalFieldValue(col, ((Record)val).getPKValue());
+						}
+					} else if (obj != null) {
+						MessageManager mm = EngineMessage.get();
+						throw new RQException(mm.getMessage("engine.needPmt"));
 					}
 				}
 			} else { // #
@@ -382,14 +514,30 @@ public class Switch extends Operation {
 				Sequence code = codes[f];
 				int codeLen = code.length();
 				for (int i = 1; i <= len; ++i) {
-					Record r = (Record)data.getMem(i);
-					Object val = r.getNormalFieldValue(fk);
-					if (val instanceof Number) {
-						int seq = ((Number)val).intValue();
-						if (seq > 0 && seq <= codeLen) {
-							r.setNormalFieldValue(fk, code.getMem(seq));
-							resultMems.add(r);
+					Object obj = mems.get(i);
+					if (obj instanceof Record) {
+						Record cur = (Record)obj;
+						if (prevRecord == null || !prevRecord.isSameDataStruct(cur)) {
+							col = cur.getFieldIndex(fkName);
+							if (col < 0) {
+								MessageManager mm = EngineMessage.get();
+								throw new RQException(fkName + mm.getMessage("ds.fieldNotExist"));
+							}
+
+							prevRecord = cur;							
 						}
+						
+						Object val = cur.getNormalFieldValue(col);
+						if (val instanceof Number) {
+							int seq = ((Number)val).intValue();
+							if (seq > 0 && seq <= codeLen) {
+								cur.setNormalFieldValue(col, code.getMem(seq));
+								resultMems.add(cur);
+							}
+						}
+					} else if (obj != null) {
+						MessageManager mm = EngineMessage.get();
+						throw new RQException(mm.getMessage("engine.needPmt"));
 					}
 				}
 	
@@ -403,39 +551,77 @@ public class Switch extends Operation {
 	}
 
 	private void switch_d(Sequence data, Context ctx) {
-		getFkIndex(data);
 		int fkCount = fkNames.length;
 		ListBase1 mems = data.getMems();
 
 		for (int f = 0; f < fkCount; ++f) {
-			int fk = fkIndex[f];
 			IndexTable indexTable = getIndexTable(f, ctx);
 			int len = mems.size();
+			
+			String fkName = fkNames[f];
+			String timeName = timeFkNames == null ? null : timeFkNames[f];
+			int col = -1; // 字段在上一条记录的索引
+			int timeCol = -1;
+			Record prevRecord = null; // 上一条记录
 
 			if (indexTable != null) {
 				ListBase1 resultMems = new ListBase1(len);
-				int timeFk = timeFkIndex[f];
-				
-				if (timeFk == -1) {
+				if (timeName == null) {
 					for (int i = 1; i <= len; ++i) {
-						Record r = (Record)mems.get(i);
-						Object key = r.getNormalFieldValue(fk);
-						Object obj = indexTable.find(key);
-						if (obj == null) {
-							resultMems.add(r);
+						Object obj = mems.get(i);
+						if (obj instanceof Record) {
+							Record cur = (Record)obj;
+							if (prevRecord == null || !prevRecord.isSameDataStruct(cur)) {
+								col = cur.getFieldIndex(fkName);
+								if (col < 0) {
+									MessageManager mm = EngineMessage.get();
+									throw new RQException(fkName + mm.getMessage("ds.fieldNotExist"));
+								}
+
+								prevRecord = cur;							
+							}
+							
+							Object key = cur.getNormalFieldValue(col);
+							if (indexTable.find(key) == null) {
+								resultMems.add(cur);
+							}
+						} else if (obj != null) {
+							MessageManager mm = EngineMessage.get();
+							throw new RQException(mm.getMessage("engine.needPmt"));
 						}
 					}
 				} else {
 					// 有时间更新键时查找时按两个字段查找
 					Object []values = new Object[2];
 					for (int i = 1; i <= len; ++i) {
-						Record r = (Record)mems.get(i);
-						values[0] = r.getNormalFieldValue(fk);
-						values[1] = r.getNormalFieldValue(timeFk);
-						
-						Object obj = indexTable.find(values);
-						if (obj == null) {
-							resultMems.add(r);
+						Object obj = mems.get(i);
+						if (obj instanceof Record) {
+							Record cur = (Record)obj;
+							if (prevRecord == null || !prevRecord.isSameDataStruct(cur)) {
+								col = cur.getFieldIndex(fkName);
+								if (col < 0) {
+									MessageManager mm = EngineMessage.get();
+									throw new RQException(fkName + mm.getMessage("ds.fieldNotExist"));
+								}
+								
+								timeCol = cur.getFieldIndex(timeName);
+								if (timeCol < 0) {
+									MessageManager mm = EngineMessage.get();
+									throw new RQException(timeName + mm.getMessage("ds.fieldNotExist"));
+								}
+
+								prevRecord = cur;							
+							}
+							
+							values[0] = cur.getNormalFieldValue(col);
+							values[1] = cur.getNormalFieldValue(timeCol);
+							
+							if (indexTable.find(values) == null) {
+								resultMems.add(cur);
+							}
+						} else if (obj != null) {
+							MessageManager mm = EngineMessage.get();
+							throw new RQException(mm.getMessage("engine.needPmt"));
 						}
 					}
 				}
@@ -444,10 +630,26 @@ public class Switch extends Operation {
 			} else if (codes[f] == null) {
 				// 指引字段变成值
 				for (int i = 1; i <= len; ++i) {
-					Record r = (Record)data.getMem(i);
-					Object val = r.getNormalFieldValue(fk);
-					if (val instanceof Record) {
-						r.setNormalFieldValue(fk, ((Record)val).getPKValue());
+					Object obj = mems.get(i);
+					if (obj instanceof Record) {
+						Record cur = (Record)obj;
+						if (prevRecord == null || !prevRecord.isSameDataStruct(cur)) {
+							col = cur.getFieldIndex(fkName);
+							if (col < 0) {
+								MessageManager mm = EngineMessage.get();
+								throw new RQException(fkName + mm.getMessage("ds.fieldNotExist"));
+							}
+
+							prevRecord = cur;							
+						}
+						
+						Object val = cur.getNormalFieldValue(col);
+						if (val instanceof Record) {
+							cur.setNormalFieldValue(col, ((Record)val).getPKValue());
+						}
+					} else if (obj != null) {
+						MessageManager mm = EngineMessage.get();
+						throw new RQException(mm.getMessage("engine.needPmt"));
 					}
 				}
 			} else { // #
@@ -455,13 +657,29 @@ public class Switch extends Operation {
 				Sequence code = codes[f];
 				int codeLen = code.length();
 				for (int i = 1; i <= len; ++i) {
-					Record r = (Record)data.getMem(i);
-					Object val = r.getNormalFieldValue(fk);
-					if (val instanceof Number) {
-						int seq = ((Number)val).intValue();
-						if (seq < 1 || seq > codeLen) {
-							resultMems.add(r);
+					Object obj = mems.get(i);
+					if (obj instanceof Record) {
+						Record cur = (Record)obj;
+						if (prevRecord == null || !prevRecord.isSameDataStruct(cur)) {
+							col = cur.getFieldIndex(fkName);
+							if (col < 0) {
+								MessageManager mm = EngineMessage.get();
+								throw new RQException(fkName + mm.getMessage("ds.fieldNotExist"));
+							}
+
+							prevRecord = cur;							
 						}
+						
+						Object val = cur.getNormalFieldValue(col);
+						if (val instanceof Number) {
+							int seq = ((Number)val).intValue();
+							if (seq < 1 || seq > codeLen) {
+								resultMems.add(cur);
+							}
+						}
+					} else if (obj != null) {
+						MessageManager mm = EngineMessage.get();
+						throw new RQException(mm.getMessage("engine.needPmt"));
 					}
 				}
 	

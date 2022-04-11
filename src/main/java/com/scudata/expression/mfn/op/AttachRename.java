@@ -18,7 +18,10 @@ public class AttachRename extends OperableFunction {
 		String []newFields = pi.getExpressionStrs2();
 		
 		Rename rename = new Rename(this, srcFields, newFields);
-		rename.setCurrentCell(cs.getCurrent());
+		if (cs != null) {
+			rename.setCurrentCell(cs.getCurrent());
+		}
+		
 		return operable.addOperation(rename, ctx);
 	}
 }
