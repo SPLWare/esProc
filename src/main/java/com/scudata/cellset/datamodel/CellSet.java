@@ -653,7 +653,7 @@ abstract public class CellSet implements ICellSet {
 				if (ctx.getParam(param.getName()) == null) {
 					// 变量里存的都是串
 					Object value = param.getValue();
-					ctx.setParamValue(param.getName(), value);
+					ctx.setParamValue(param.getName(), value, param.getKind());
 				}
 			}
 		}
