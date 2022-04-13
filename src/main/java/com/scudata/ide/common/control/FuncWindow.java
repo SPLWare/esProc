@@ -511,7 +511,7 @@ public class FuncWindow extends JWindow {
 					// 完全一样的函数就不变化了
 					if (oldEfo == null && efo == null) {
 						return;
-					} else if (oldEfo.equals(efo)) {
+					} else if (oldEfo != null && oldEfo.equals(efo)) {
 						return;
 					}
 				}

@@ -137,7 +137,7 @@ public class FileTree extends JTree implements IResourceTreeBase {
 			ConfigOptions.iConsoleLocation = new Integer(dl); // 保存文件树、控制台宽度
 			if (!this.isExpanded(0)) { // 根节点没展开
 				ConfigOptions.sFileTreeExpand = NOT_EXPAND;
-				ConfigOptions.save();
+				ConfigOptions.save(false, true);
 				return;
 			}
 			StringBuffer buf = new StringBuffer();
@@ -152,7 +152,7 @@ public class FileTree extends JTree implements IResourceTreeBase {
 				}
 			}
 			ConfigOptions.sFileTreeExpand = buf.toString();
-			ConfigOptions.save();
+			ConfigOptions.save(false, true);
 		} catch (Throwable ex) {
 			ex.printStackTrace();
 		}

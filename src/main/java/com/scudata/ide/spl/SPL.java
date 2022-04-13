@@ -659,7 +659,7 @@ public class SPL extends AppFrame {
 				}
 				ConfigOptions.iConsoleLocation = new Integer(dl);
 			}
-			ConfigOptions.save();
+			ConfigOptions.save(false, true);
 
 			ConfigFile cf = ConfigFile.getConfigFile();
 			cf.setConfigNode(ConfigFile.NODE_OPTIONS);
