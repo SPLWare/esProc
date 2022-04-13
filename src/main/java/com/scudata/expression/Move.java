@@ -78,7 +78,7 @@ public class Move extends Function {
 			return getLeft().moveAssign(this, value, ctx);
 		} else {
 			MessageManager mm = EngineMessage.get();
-			throw new RQException("\"=\"" + mm.getMessage("assign.needVar"));
+			throw new RQException(mm.getMessage("assign.needVar"));
 		}
 	}
 

@@ -235,7 +235,7 @@ public abstract class Node {
 	 */
 	public Object assign(Object value, Context ctx) {
 		MessageManager mm = EngineMessage.get();
-		throw new RQException("\"=\"" + mm.getMessage("assign.needVar"));
+		throw new RQException(mm.getMessage("assign.needVar"));
 	}
 	
 	/**
@@ -246,7 +246,7 @@ public abstract class Node {
 	 */
 	public Object addAssign(Object value, Context ctx) {
 		MessageManager mm = EngineMessage.get();
-		throw new RQException("\"=\"" + mm.getMessage("assign.needVar"));
+		throw new RQException(mm.getMessage("assign.needVar"));
 	}
 
 	/**

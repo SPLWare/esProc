@@ -169,7 +169,7 @@ public class Expression {
 			home.assign(value, ctx);
 		} else {
 			MessageManager mm = EngineMessage.get();
-			throw new RQException("\"=\"" + mm.getMessage("assign.needVar"));
+			throw new RQException(mm.getMessage("assign.needVar"));
 		}
 	}
 
