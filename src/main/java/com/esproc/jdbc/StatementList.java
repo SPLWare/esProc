@@ -11,7 +11,7 @@ public class StatementList {
 	/**
 	 * The CallableStatement list
 	 */
-	private List<InternalCStatement> stats = new ArrayList<InternalCStatement>();
+	private List<InternalStatement> stats = new ArrayList<InternalStatement>();
 
 	/**
 	 * Number of statements
@@ -28,9 +28,9 @@ public class StatementList {
 	 * @param sid
 	 * @return The InternalCStatement
 	 */
-	public synchronized InternalCStatement getByID(int sid) {
+	public synchronized InternalStatement getByID(int sid) {
 		for (int i = 0; i < stats.size(); i++) {
-			InternalCStatement stat = (InternalCStatement) stats.get(i);
+			InternalStatement stat = stats.get(i);
 			if (stat.getID() == sid) {
 				return stat;
 			}
@@ -44,7 +44,7 @@ public class StatementList {
 	 * @param index
 	 * @return The InternalCStatement
 	 */
-	public synchronized InternalCStatement get(int index) {
+	public synchronized InternalStatement get(int index) {
 		return stats.get(index);
 	}
 
@@ -53,7 +53,7 @@ public class StatementList {
 	 * 
 	 * @param ic
 	 */
-	public synchronized void add(InternalCStatement ic) {
+	public synchronized void add(InternalStatement ic) {
 		stats.add(ic);
 	}
 
@@ -72,7 +72,7 @@ public class StatementList {
 	 * @param sid
 	 */
 	public synchronized void removeByID(int sid) {
-		InternalCStatement ic = getByID(sid);
+		InternalStatement ic = getByID(sid);
 		stats.remove(ic);
 	}
 

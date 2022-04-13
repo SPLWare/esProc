@@ -64,6 +64,23 @@ public class JdbcManager {
 						connProxy.getContext());
 				res.setResult(table);
 				break;
+			case Request.JDBC_GETPROCEDURES:
+				connId = (Integer) req.getAttr(Request.GETPROC_connID);
+				tableName = (String) req
+						.getAttr(Request.GETPROC_procedureNamePattern);
+				table = JDBCUtil.getProcedures(tableName);
+				res.setResult(table);
+				break;
+			case Request.JDBC_GETPROCECOLUMNS:
+				connId = (Integer) req.getAttr(Request.GETPROCCOLUMNS_connID);
+				tableName = (String) req
+						.getAttr(Request.GETPROCCOLUMNS_procedureNamePattern);
+				columnName = (String) req
+						.getAttr(Request.GETPROCCOLUMNS_columnNamePattern);
+				connProxy = getConnectionProxy(connId);
+				table = JDBCUtil.getProcedureColumns(tableName, columnName);
+				res.setResult(table);
+				break;
 			case Request.JDBC_PREPARE:
 				connId = (Integer) req.getAttr(Request.PREPARE_connID);
 				String dfx = (String) req.getAttr(Request.PREPARE_CMD);

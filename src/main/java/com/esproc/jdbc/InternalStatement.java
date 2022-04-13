@@ -109,7 +109,8 @@ public class InternalStatement implements java.sql.Statement {
 	 * @return boolean
 	 * @throws SQLException
 	 */
-	protected boolean executeJDBC(final ArrayList<?> parameters) throws SQLException {
+	protected boolean executeJDBC(final ArrayList<?> parameters)
+			throws SQLException {
 		Object result = executeJDBC(parameters, false);
 		return result == null ? false : ((Boolean) result).booleanValue();
 	}
@@ -121,7 +122,8 @@ public class InternalStatement implements java.sql.Statement {
 	 * @return int
 	 * @throws SQLException
 	 */
-	protected int executeUpdateJDBC(final ArrayList<Object> parameters) throws SQLException {
+	protected int executeUpdateJDBC(final ArrayList<Object> parameters)
+			throws SQLException {
 		Object result = executeJDBC(parameters, true);
 		if (result == null || !(result instanceof Number)) {
 			return 0;
@@ -137,7 +139,8 @@ public class InternalStatement implements java.sql.Statement {
 	 * @return Object
 	 * @throws SQLException
 	 */
-	protected Object executeJDBC(final ArrayList<?> parameters, final boolean isUpdate) throws SQLException {
+	protected Object executeJDBC(final ArrayList<?> parameters,
+			final boolean isUpdate) throws SQLException {
 		try {
 			ex = null;
 			execFinished = false;
@@ -189,8 +192,9 @@ public class InternalStatement implements java.sql.Statement {
 	 * @throws SQLException
 	 * @throws InterruptedException
 	 */
-	public Object executeJDBC(String sql, ArrayList<?> parameters, InternalConnection con, boolean isUpdate)
-			throws SQLException, InterruptedException {
+	public Object executeJDBC(String sql, ArrayList<?> parameters,
+			InternalConnection con, boolean isUpdate) throws SQLException,
+			InterruptedException {
 		try {
 			Logger.debug("SQL:[" + sql + "]");
 			if (!StringUtils.isValidString(sql)) {
@@ -205,35 +209,41 @@ public class InternalStatement implements java.sql.Statement {
 			byte sqlType = JDBCUtil.getJdbcSqlType(sql);
 			if (sqlType == JDBCConsts.TYPE_NONE)
 				return null;
-			if (isUpdate && (sqlType != JDBCConsts.TYPE_SQL && sqlType != JDBCConsts.TYPE_SIMPLE_SQL)) {
+			if (isUpdate
+					&& (sqlType != JDBCConsts.TYPE_SQL && sqlType != JDBCConsts.TYPE_SIMPLE_SQL)) {
 				// 仅简单SQL和SQL支持update语句
 				return null;
 			}
 			Context ctx = con.getCtx();
 			RaqsoftConfig config = Server.getInstance().getConfig();
-			if (config != null && StringUtils.isValidString(config.getGateway())) {
+			if (config != null
+					&& StringUtils.isValidString(config.getGateway())) {
 				/*
-				 * After the gateway is configured, the statements are parsed by spl and the
-				 * table sequence or cursor is returned. spl only has parameters sql and args
-				 * (sql parameter value sequence).
+				 * After the gateway is configured, the statements are parsed by
+				 * spl and the table sequence or cursor is returned. spl only
+				 * has parameters sql and args (sql parameter value sequence).
 				 */
 				try {
-					return executeGateway(sql, (ArrayList<Object>) parameters, con, config);
+					return executeGateway(sql, (ArrayList<Object>) parameters,
+							con, config);
 				} catch (RetryException re) {
 					/*
-					 * If the gateway throws a RetryException, it will be executed as before.
+					 * If the gateway throws a RetryException, it will be
+					 * executed as before.
 					 */
 				} catch (Exception e) {
 					throw new SQLException(e.getMessage(), e);
 				}
 			}
-			Logger.debug("param size=" + (parameters == null ? "0" : ("" + parameters.size())));
+			Logger.debug("param size="
+					+ (parameters == null ? "0" : ("" + parameters.size())));
 			String[] splParams;
 			boolean isRemote = false;
 			if (con.isOnlyServer()) {
 				isRemote = true;
 			} else {
-				if (sqlType == JDBCConsts.TYPE_CALL || sqlType == JDBCConsts.TYPE_CALLS
+				if (sqlType == JDBCConsts.TYPE_CALL
+						|| sqlType == JDBCConsts.TYPE_CALLS
 						|| sqlType == JDBCConsts.TYPE_SPL) {
 					List<String> hosts = Server.getInstance().getHostNames();
 					if (hosts != null && !hosts.isEmpty()) {
@@ -251,7 +261,8 @@ public class InternalStatement implements java.sql.Statement {
 				int connId = con.getUnitConnectionId();
 				Sequence args;
 				if (sqlType == JDBCConsts.TYPE_CALLS) {
-					args = JDBCUtil.prepareCallsArg((ArrayList<Sequence>) parameters);
+					args = JDBCUtil
+							.prepareCallsArg((ArrayList<Sequence>) parameters);
 				} else {
 					args = JDBCUtil.prepareArg((ArrayList<Object>) parameters);
 				}
@@ -299,12 +310,12 @@ public class InternalStatement implements java.sql.Statement {
 	 * @return The result of execution
 	 * @throws SQLException
 	 */
-	private Object executeGateway(String sql, ArrayList<Object> parameters, InternalConnection con,
-			RaqsoftConfig config) throws SQLException {
+	private Object executeGateway(String sql, ArrayList<Object> parameters,
+			InternalConnection con, RaqsoftConfig config) throws SQLException {
 		/*
-		 * After the gateway is configured, the statements are parsed by spl and the
-		 * table sequence or cursor is returned. spl only has parameters sql and args
-		 * (sql parameter value sequence).
+		 * After the gateway is configured, the statements are parsed by spl and
+		 * the table sequence or cursor is returned. spl only has parameters sql
+		 * and args (sql parameter value sequence).
 		 */
 		String gateway = config.getGateway();
 		Sequence args = JDBCUtil.prepareArg(parameters);
@@ -317,7 +328,8 @@ public class InternalStatement implements java.sql.Statement {
 			cellSet = AppUtil.readCellSet(gateway);
 			// InputStream in = fo.getInputStream();
 			// if (in == null) {
-			// throw new SQLException("Gateway file: " + gateway + " not found.");
+			// throw new SQLException("Gateway file: " + gateway +
+			// " not found.");
 			// }
 			// cellSet = CellSetUtil.readPgmCellSet(in);
 		} catch (Exception e) {
@@ -325,7 +337,8 @@ public class InternalStatement implements java.sql.Statement {
 		}
 		ParamList pl = cellSet.getParamList();
 		if (pl == null || pl.count() != 2) {
-			throw new SQLException("The parameters of the gateway spl file should be sql and arguments.");
+			throw new SQLException(
+					"The parameters of the gateway spl file should be sql and arguments.");
 		}
 		ctx.setParamValue(pl.get(0).getName(), sql);
 		ctx.setParamValue(pl.get(1).getName(), args);
@@ -345,7 +358,8 @@ public class InternalStatement implements java.sql.Statement {
 	public java.sql.ResultSet executeQuery(String sql) throws SQLException {
 		JDBCUtil.log("InternalStatement-2");
 		if (connt.isClosed())
-			throw new SQLException(JDBCMessage.get().getMessage("error.conclosed"));
+			throw new SQLException(JDBCMessage.get().getMessage(
+					"error.conclosed"));
 		this.sql = sql;
 		boolean isSucc = executeJDBC(null);
 		if (!isSucc)
@@ -370,7 +384,8 @@ public class InternalStatement implements java.sql.Statement {
 	public int executeUpdate(String sql) throws SQLException {
 		JDBCUtil.log("InternalStatement-3");
 		if (connt.isClosed())
-			throw new SQLException(JDBCMessage.get().getMessage("error.conclosed"));
+			throw new SQLException(JDBCMessage.get().getMessage(
+					"error.conclosed"));
 		this.sql = sql;
 		updateCount = executeUpdateJDBC(null);
 		return updateCount;
@@ -458,7 +473,8 @@ public class InternalStatement implements java.sql.Statement {
 	 */
 	public void setEscapeProcessing(boolean enable) throws SQLException {
 		JDBCUtil.log("InternalStatement-9");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "setEscapeProcessing(boolean enable)"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"setEscapeProcessing(boolean enable)"));
 	}
 
 	/**
@@ -485,7 +501,8 @@ public class InternalStatement implements java.sql.Statement {
 	 */
 	public void setQueryTimeout(int seconds) throws SQLException {
 		JDBCUtil.log("InternalStatement-11");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "setQueryTimeout(int seconds)"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"setQueryTimeout(int seconds)"));
 	}
 
 	/**
@@ -551,7 +568,8 @@ public class InternalStatement implements java.sql.Statement {
 	 */
 	public void setCursorName(String name) throws SQLException {
 		JDBCUtil.log("InternalStatement-15");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "setCursorName(String name)"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"setCursorName(String name)"));
 	}
 
 	/**
@@ -566,7 +584,8 @@ public class InternalStatement implements java.sql.Statement {
 	public boolean execute(String sql) throws SQLException {
 		JDBCUtil.log("InternalStatement-17");
 		if (connt.isClosed())
-			throw new SQLException(JDBCMessage.get().getMessage("error.conclosed"));
+			throw new SQLException(JDBCMessage.get().getMessage(
+					"error.conclosed"));
 		lastVisitTime = System.currentTimeMillis();
 		connt.updateLastVisitTime(lastVisitTime);
 		this.sql = sql;
@@ -588,7 +607,8 @@ public class InternalStatement implements java.sql.Statement {
 	public java.sql.ResultSet getResultSet() throws SQLException {
 		JDBCUtil.log("InternalStatement-18");
 		if (connt.isClosed())
-			throw new SQLException(JDBCMessage.get().getMessage("error.conclosed"));
+			throw new SQLException(JDBCMessage.get().getMessage(
+					"error.conclosed"));
 		if (set != null)
 			set.close();
 		lastVisitTime = System.currentTimeMillis();
@@ -634,7 +654,8 @@ public class InternalStatement implements java.sql.Statement {
 	public boolean getMoreResults() throws SQLException {
 		JDBCUtil.log("InternalStatement-20");
 		if (connt.isClosed()) {
-			throw new SQLException(JDBCMessage.get().getMessage("error.conclosed"));
+			throw new SQLException(JDBCMessage.get().getMessage(
+					"error.conclosed"));
 		}
 		lastVisitTime = System.currentTimeMillis();
 		connt.updateLastVisitTime(lastVisitTime);
@@ -670,7 +691,8 @@ public class InternalStatement implements java.sql.Statement {
 	 */
 	public void setFetchDirection(int direction) throws SQLException {
 		JDBCUtil.log("InternalStatement-21");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "setFetchDirection(int direction)"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"setFetchDirection(int direction)"));
 	}
 
 	/**
@@ -746,7 +768,8 @@ public class InternalStatement implements java.sql.Statement {
 	 */
 	public void addBatch(String sql) throws SQLException {
 		JDBCUtil.log("InternalStatement-27");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "addBatch(String sql)"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"addBatch(String sql)"));
 	}
 
 	/**
@@ -754,7 +777,8 @@ public class InternalStatement implements java.sql.Statement {
 	 */
 	public void clearBatch() throws SQLException {
 		JDBCUtil.log("InternalStatement-28");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "clearBatch()"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"clearBatch()"));
 	}
 
 	/**
@@ -771,7 +795,8 @@ public class InternalStatement implements java.sql.Statement {
 	 */
 	public int[] executeBatch() throws SQLException {
 		JDBCUtil.log("InternalStatement-29");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "executeBatch()"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"executeBatch()"));
 		return null;
 	}
 
@@ -813,7 +838,8 @@ public class InternalStatement implements java.sql.Statement {
 	 */
 	public java.sql.ResultSet getGeneratedKeys() throws SQLException {
 		JDBCUtil.log("InternalStatement-32");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "getGeneratedKeys()"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"getGeneratedKeys()"));
 		return JDBCUtil.getEmptyResultSet();
 	}
 
@@ -836,7 +862,8 @@ public class InternalStatement implements java.sql.Statement {
 	 * @return either (1) the row count for SQL Data Manipulation Language (DML)
 	 *         statements or (2) 0 for SQL statements that return nothing
 	 */
-	public int executeUpdate(String sql, int autoGeneratedKeys) throws SQLException {
+	public int executeUpdate(String sql, int autoGeneratedKeys)
+			throws SQLException {
 		JDBCUtil.log("InternalStatement-33");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"executeUpdate(String sql, int autoGeneratedKeys)"));
@@ -860,10 +887,11 @@ public class InternalStatement implements java.sql.Statement {
 	 * @return either (1) the row count for SQL Data Manipulation Language (DML)
 	 *         statements or (2) 0 for SQL statements that return nothing
 	 */
-	public int executeUpdate(String sql, int[] columnIndexes) throws SQLException {
+	public int executeUpdate(String sql, int[] columnIndexes)
+			throws SQLException {
 		JDBCUtil.log("InternalStatement-34");
-		Logger.debug(
-				JDBCMessage.get().getMessage("error.methodnotimpl", "executeUpdate(String sql, int[] columnIndexes)"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"executeUpdate(String sql, int[] columnIndexes)"));
 		return 0;
 	}
 
@@ -884,10 +912,11 @@ public class InternalStatement implements java.sql.Statement {
 	 * @return either the row count for INSERT, UPDATE, or DELETE statements, or 0
 	 *         for SQL statements that return nothing
 	 */
-	public int executeUpdate(String sql, String[] columnNames) throws SQLException {
+	public int executeUpdate(String sql, String[] columnNames)
+			throws SQLException {
 		JDBCUtil.log("InternalStatement-35");
-		Logger.debug(
-				JDBCMessage.get().getMessage("error.methodnotimpl", "executeUpdate(String sql, String[] columnNames)"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"executeUpdate(String sql, String[] columnNames)"));
 		return 0;
 	}
 
@@ -907,9 +936,11 @@ public class InternalStatement implements java.sql.Statement {
 	 * @return true if the first result is a ResultSet object; false if it is an
 	 *         update count or there are no results
 	 */
-	public boolean execute(String sql, int autoGeneratedKeys) throws SQLException {
+	public boolean execute(String sql, int autoGeneratedKeys)
+			throws SQLException {
 		JDBCUtil.log("InternalStatement-36");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "execute(String sql, int autoGeneratedKeys)"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"execute(String sql, int autoGeneratedKeys)"));
 		return false;
 	}
 
@@ -931,7 +962,8 @@ public class InternalStatement implements java.sql.Statement {
 	 */
 	public boolean execute(String sql, int[] columnIndexes) throws SQLException {
 		JDBCUtil.log("InternalStatement-37");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "execute(String sql, int[] columnIndexes)"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"execute(String sql, int[] columnIndexes)"));
 		return false;
 	}
 
@@ -951,9 +983,11 @@ public class InternalStatement implements java.sql.Statement {
 	 * @return true if the next result is a ResultSet object; false if it is an
 	 *         update count or there are no more results
 	 */
-	public boolean execute(String sql, String[] columnNames) throws SQLException {
+	public boolean execute(String sql, String[] columnNames)
+			throws SQLException {
 		JDBCUtil.log("InternalStatement-38");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "execute(String sql, String[] columnNames)"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"execute(String sql, String[] columnNames)"));
 		return false;
 	}
 
@@ -989,7 +1023,8 @@ public class InternalStatement implements java.sql.Statement {
 	 */
 	public boolean isPoolable() throws SQLException {
 		JDBCUtil.log("InternalStatement-41");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "isPoolable()"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"isPoolable()"));
 		return false;
 	}
 
@@ -1004,7 +1039,8 @@ public class InternalStatement implements java.sql.Statement {
 	 */
 	public void setPoolable(boolean poolable) throws SQLException {
 		JDBCUtil.log("InternalStatement-42");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "setPoolable(boolean poolable)"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"setPoolable(boolean poolable)"));
 	}
 
 	/**
@@ -1025,7 +1061,8 @@ public class InternalStatement implements java.sql.Statement {
 	 */
 	public boolean isWrapperFor(Class<?> iface) throws SQLException {
 		JDBCUtil.log("InternalStatement-43");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "isWrapperFor(Class<?> iface)"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"isWrapperFor(Class<?> iface)"));
 		return false;
 	}
 
@@ -1047,7 +1084,8 @@ public class InternalStatement implements java.sql.Statement {
 	 */
 	public <T> T unwrap(Class<T> iface) throws SQLException {
 		JDBCUtil.log("InternalStatement-44");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "unwrap(Class<T> iface)"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"unwrap(Class<T> iface)"));
 		return null;
 	}
 
@@ -1058,7 +1096,8 @@ public class InternalStatement implements java.sql.Statement {
 	 */
 	public void closeOnCompletion() throws SQLException {
 		JDBCUtil.log("InternalStatement-45");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "closeOnCompletion()"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"closeOnCompletion()"));
 	}
 
 	/**
@@ -1070,7 +1109,29 @@ public class InternalStatement implements java.sql.Statement {
 	 */
 	public boolean isCloseOnCompletion() throws SQLException {
 		JDBCUtil.log("InternalStatement-46");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "isCloseOnCompletion()"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"isCloseOnCompletion()"));
 		return false;
 	}
+
+	/**
+	 * Get the statement ID
+	 * 
+	 * @return int
+	 */
+	public int getID() {
+		JDBCUtil.log("InternalStatement-51");
+		return ID;
+	}
+
+	/**
+	 * Set the statement ID
+	 * 
+	 * @param id
+	 */
+	public void setID(int id) {
+		JDBCUtil.log("InternalStatement-52");
+		ID = id;
+	}
+
 }

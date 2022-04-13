@@ -55,6 +55,10 @@ public class JDBCConsts {
 	public static final String COLUMN_NAME = "COLUMN_NAME";
 	public static final String DATA_TYPE = "DATA_TYPE";
 	
+	public static final String PROCEDURE_NAME = "PROCEDURE_NAME";
+	public static final String PROCEDURE_FILE = "PROCEDURE_FILE";
+	public static final String PARAM_LIST = "PARAM_LIST";
+	
 	public static final String PKTABLE_CAT = "PKTABLE_CAT";
 	public static final String PKTABLE_SCHEM = "PKTABLE_SCHEM";
 	public static final String PKTABLE_NAME = "PKTABLE_NAME";

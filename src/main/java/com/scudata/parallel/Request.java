@@ -1,7 +1,9 @@
 package com.scudata.parallel;
 
-import java.util.*;
-import java.io.*;
+import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  * 请求命令
@@ -24,7 +26,7 @@ public class Request implements Serializable {
 	public static final int SERVER_SHUTDOWN = 1 + TYPE_SERVER; // 停止服务器
 	public static final int SERVER_LISTTASK = 2 + TYPE_SERVER; // 列出任务列表,应答Table
 	public static final int SERVER_CANACCEPTTASK = 3 + TYPE_SERVER; // 探测分机能否接受任务，应答boolean
-	public static final int SERVER_GETTASKNUMS = 4 + TYPE_SERVER; //获取适合作业数和当前作业数，应答int[2]
+	public static final int SERVER_GETTASKNUMS = 4 + TYPE_SERVER; // 获取适合作业数和当前作业数，应答int[2]
 	public static final String CANACCEPTTASK_DispatchedCount = "Dispatched count";// 已经在主叫机器上分配了的任务数，后台的最优并行数必须大于已经分配的
 
 	public static final int SERVER_LISTPARAM = 5 + TYPE_SERVER; // 列出任务机的全局变量表,应答HashMap:
@@ -32,8 +34,8 @@ public class Request implements Serializable {
 																// spaceId-
 																// Param[]
 	public static final int SERVER_GETCONCURRENTCOUNT = 6 + TYPE_SERVER; // 列出任务机的任务数目,应答Integer
-	
-//清除服务器端的垃圾代理器(用户没有正常关闭的代理或者网络断掉后的代理)
+
+	// 清除服务器端的垃圾代理器(用户没有正常关闭的代理或者网络断掉后的代理)
 	public static final int SERVER_CLOSESPACE = 10 + TYPE_SERVER; // 关闭分机的变量空间
 	public static final String CLOSESPACE_SpaceId = "Space id";
 
@@ -45,7 +47,8 @@ public class Request implements Serializable {
 	public static final String FETCHDIMS_NewExps = "New exps";// String[]
 	public static final String FETCHDIMS_NewNames = "New names";// String[]
 
-	public static final int SERVER_FETCHCLUSTERTABLE = 21 + TYPE_SERVER; // 从分机获取集群表,应答   Sequence
+	public static final int SERVER_FETCHCLUSTERTABLE = 21 + TYPE_SERVER; // 从分机获取集群表,应答
+																			// Sequence
 	public static final String FETCHCLUSTERTABLE_SpaceId = "Space id";// String
 	public static final String FETCHCLUSTERTABLE_TableName = "Table name";// String
 	public static final String FETCHCLUSTERTABLE_Seqs = "Seqs";// int[],表的记录序号
@@ -54,15 +57,16 @@ public class Request implements Serializable {
 	public static final String FETCHCLUSTERTABLE_NewNames = "New names";// String[]
 	public static final String FETCHCLUSTERTABLE_Filter = "Filter";// String
 
-	public static final int SERVER_GETTABLEMEMBERS = 22 + TYPE_SERVER; // 获取分机上内存表的成员个数,应答   int
+	public static final int SERVER_GETTABLEMEMBERS = 22 + TYPE_SERVER; // 获取分机上内存表的成员个数,应答
+																		// int
 	public static final String GETTABLEMEMBERS_SpaceId = "Space id";// String
 	public static final String GETTABLEMEMBERS_TableName = "Table name";// String
 
 	public static final int SERVER_GETUNITS_MAXNUM = 50 + TYPE_SERVER; // 列出当前分机的最大作业数
-	
+
 	public static final int SERVER_GETAREANO = 54 + TYPE_SERVER; // 获取分机的内存区号
 	public static final String GETAREANO_TaskName = "Task name";// String
-	
+
 	// DFX相关
 	public static final int DFX_TASK = 1 + TYPE_DFX; // 创建一个dfx任务，应答Integer，任务号
 	public static final String TASK_DfxName = "Dfx name";
@@ -81,7 +85,7 @@ public class Request implements Serializable {
 	public static final String CANCEL_TaskId = "Task id";
 	public static final String CANCEL_Reason = "Task reason";
 
-	public static final int DFX_GET_REDUCE = 4 + TYPE_DFX; //获取任务在分机上的reduce结果，应答Object
+	public static final int DFX_GET_REDUCE = 4 + TYPE_DFX; // 获取任务在分机上的reduce结果，应答Object
 	public static final String GET_REDUCE_SpaceId = "Space id";
 
 	// 游标服务
@@ -129,7 +133,7 @@ public class Request implements Serializable {
 	public static final int FILE_FROM_HANDLE = 10 + TYPE_FILE; // 从远程输出流打开的文件中，打开输入流
 	public static final String FROM_Handle = "From handle";
 	public static final String FROM_Pos = "From position";
-	
+
 	public static final int FILE_LOCK = 11 + TYPE_FILE; // 锁定文件，应答：布尔值
 	public static final String LOCK_Handle = "handle";
 
@@ -142,14 +146,14 @@ public class Request implements Serializable {
 	public static final String LISTFILES_Path = "path";
 
 	public static final int PARTITION_DELETE = 3 + TYPE_PARTITION; // 删除分机的文件
-//	public static final String DELETE_FileName = "FILE NAME";//以及有同名定义
+	// public static final String DELETE_FileName = "FILE NAME";//以及有同名定义
 	public static final String DELETE_Option = "Option";
 
 	public static final int PARTITION_UPLOAD = 8 + TYPE_PARTITION; // 往分机上传一个文件
 	public static final String UPLOAD_DstPath = "Dest path";
 	public static final String UPLOAD_LastModified = "Last Modified";
-	public static final String UPLOAD_IsMove = "Is move";//如果是移动模式，则不比较LastModified
-	public static final String UPLOAD_IsY = "Is y";//IsY状态时，强制覆盖，否则报错
+	public static final String UPLOAD_IsMove = "Is move";// 如果是移动模式，则不比较LastModified
+	public static final String UPLOAD_IsY = "Is y";// IsY状态时，强制覆盖，否则报错
 
 	public static final int PARTITION_SYNCTO = 11 + TYPE_PARTITION; // 将本地路径p下的文件同步到分机组machines
 	public static final String SYNC_Machines = "Machines";
@@ -162,63 +166,73 @@ public class Request implements Serializable {
 	public static final String MOVEFILE_DstPath = "Dest path";
 	public static final String MOVEFILE_Option = "Option";
 
-	public static final int PARTITION_UPLOAD_DFX = 20 + TYPE_PARTITION; 
+	public static final int PARTITION_UPLOAD_DFX = 20 + TYPE_PARTITION;
 	// 该命令上传一个文件到分机的主路径Env.getMainPath()下，跟分区无关，但是也是跟分区一样的上传文件，参数不一致，放在分区管理里面
 	// 该命令的上传动作基本等同于PARTITION_UPLOAD
-	public static final String UPLOAD_DFX_RelativePath = "Relative Path";//上传到目的机的该路径下，直接相对于主路径时，该参数为空
+	public static final String UPLOAD_DFX_RelativePath = "Relative Path";// 上传到目的机的该路径下，直接相对于主路径时，该参数为空
 	public static final String UPLOAD_DFX_LastModified = UPLOAD_LastModified;
 
-	public static final int PARTITION_UPLOAD_CTX = 30 + TYPE_PARTITION; 
+	public static final int PARTITION_UPLOAD_CTX = 30 + TYPE_PARTITION;
 	// 该命令上传一个组表、索引文件到分机的主路径；上传中进行优化，只同步增量和修改的部分
 	public static final String UPLOAD_FileSize = "File size";
 	public static final String UPLOAD_FileType = "File_type";
 	public static final String UPLOAD_BlockLinkInfo = "Block link info";
 	public static final String UPLOAD_HasExtFile = "Has Ext File";
 	public static final String UPLOAD_ExtFileLastModified = "Ext File Last Modified";
-	
+
 	// 内存加载区服务
 	public static final int ZONE_INITDFX = 2 + TYPE_ZONE; // 在分机上执行一个加载内存区的dfx程序,返回boolean，执行是否完成
 	public static final String EXECDFX_ArgList = "Arg list";
 	public static final String EXECDFX_SpaceId = "Space id";
 
 	// 王的UnitCommand
-	public static final int UNITCOMMAND_EXE = 1+ TYPE_UNITCOMMAND; // UnitCommand相关命令
+	public static final int UNITCOMMAND_EXE = 1 + TYPE_UNITCOMMAND; // UnitCommand相关命令
 	public static final String EXE_Object = "Command Object";
-	
-//	JDBC接口
-	public static final int JDBC_CONNECT = 1+ TYPE_JDBC; // 获取连接号，产生连接代理，返回值：整数，连接号
-	public static final String CONNECT_spaceID = "connect spaceId";//spaceId
-	
-	public static final int JDBC_PREPARE = 2+ TYPE_JDBC; // prepareStatement,返回值：整数，statement号
-	public static final String PREPARE_connID = "prepare connId";//connId
-	public static final String PREPARE_CMD = "prepare cmd";//JDBC cmds
-	public static final String PREPARE_Args = "prepare args";//Object[]
-	public static final String PREPARE_ENV = "prepare env";//Map<String, Object> envParams
+
+	// JDBC接口
+	public static final int JDBC_CONNECT = 1 + TYPE_JDBC; // 获取连接号，产生连接代理，返回值：整数，连接号
+	public static final String CONNECT_spaceID = "connect spaceId";// spaceId
+
+	public static final int JDBC_PREPARE = 2 + TYPE_JDBC; // prepareStatement,返回值：整数，statement号
+	public static final String PREPARE_connID = "prepare connId";// connId
+	public static final String PREPARE_CMD = "prepare cmd";// JDBC cmds
+	public static final String PREPARE_Args = "prepare args";// Object[]
+	public static final String PREPARE_ENV = "prepare env";// Map<String,
+															// Object> envParams
 	public static final String PREPARE_ENV_SQLFIRST = "sqlfirst";
-	
-	public static final int JDBC_EXECUTE = 3+ TYPE_JDBC; // 执行dfx,返回值：整数组，结果集号
-	public static final String EXECUTE_connID = "execute connId";//connId
-	public static final String EXECUTE_stateID = "execute stateId";//stateId
-	
-	public static final int JDBC_CANCEL = 4+ TYPE_JDBC; // 取消执行dfx,返回值：无
-	public static final String CANCEL_connID = EXECUTE_connID;//connId
-	public static final String CANCEL_stateID = EXECUTE_stateID;//stateId
+
+	public static final int JDBC_EXECUTE = 3 + TYPE_JDBC; // 执行dfx,返回值：整数组，结果集号
+	public static final String EXECUTE_connID = "execute connId";// connId
+	public static final String EXECUTE_stateID = "execute stateId";// stateId
+
+	public static final int JDBC_CANCEL = 4 + TYPE_JDBC; // 取消执行dfx,返回值：无
+	public static final String CANCEL_connID = EXECUTE_connID;// connId
+	public static final String CANCEL_stateID = EXECUTE_stateID;// stateId
 
 	public static final String JDBC_ISPLUS = "isplus";
 
-	public static final int JDBC_GETTABLES = 5+ TYPE_JDBC; // 读取表信息
-	public static final String GETTABLES_connID = "getTables connId";//connId
+	public static final int JDBC_GETTABLES = 5 + TYPE_JDBC; // 读取表信息
+	public static final String GETTABLES_connID = "getTables connId";// connId
 	public static final String GETTABLES_tableNamePattern = "tableNamePattern";
 
-	public static final int JDBC_GETCOLUMNS = 6+ TYPE_JDBC; // 读取字段信息
-	public static final String GETCOLUMNS_connID = "getTables connId";//connId
+	public static final int JDBC_GETCOLUMNS = 6 + TYPE_JDBC; // 读取字段信息
+	public static final String GETCOLUMNS_connID = "getTableColumns connId";// connId
 	public static final String GETCOLUMNS_tableNamePattern = "tableNamePattern";
 	public static final String GETCOLUMNS_columnNamePattern = "columnNamePattern";
 
-	public static final int JDBC_CLOSESTATEMENT = 11+ TYPE_JDBC; //关闭Statement
-	public static final int JDBC_CLOSECONNECTION = 12+ TYPE_JDBC; //关闭Connection
-	public static final String CLOSE_connID = EXECUTE_connID;//connId
-	public static final String CLOSE_stateID = EXECUTE_stateID;//stateId
+	public static final int JDBC_GETPROCEDURES = 7 + TYPE_JDBC; // 读取SPLX文件信息
+	public static final String GETPROC_connID = "getProcedures connId";// connId
+	public static final String GETPROC_procedureNamePattern = "procedureNamePattern";
+
+	public static final int JDBC_GETPROCECOLUMNS = 8 + TYPE_JDBC; // 读取SPLX文件的参数信息
+	public static final String GETPROCCOLUMNS_connID = "getProcedureColumns connId";// connId
+	public static final String GETPROCCOLUMNS_procedureNamePattern = "procedureNamePattern";
+	public static final String GETPROCCOLUMNS_columnNamePattern = "procedureColumnNamePattern";
+
+	public static final int JDBC_CLOSESTATEMENT = 11 + TYPE_JDBC; // 关闭Statement
+	public static final int JDBC_CLOSECONNECTION = 12 + TYPE_JDBC; // 关闭Connection
+	public static final String CLOSE_connID = EXECUTE_connID;// connId
+	public static final String CLOSE_stateID = EXECUTE_stateID;// stateId
 
 	private int action;
 	private Map attrs = new HashMap();
@@ -310,13 +324,14 @@ public class Request implements Serializable {
 		attrs.put(attr, value);
 	}
 
-	private String getAttrString(){
-		if(attrs.isEmpty()) return "Attr is empty/";
+	private String getAttrString() {
+		if (attrs.isEmpty())
+			return "Attr is empty/";
 		Iterator it = attrs.keySet().iterator();
 		StringBuffer sb = new StringBuffer();
-		while(it.hasNext()){
+		while (it.hasNext()) {
 			sb.append("\r\n");
-			String key = (String)it.next();
+			String key = (String) it.next();
 			sb.append(key);
 			sb.append("=");
 			Object val = attrs.get(key);
@@ -324,11 +339,11 @@ public class Request implements Serializable {
 		}
 		return sb.toString();
 	}
-	
+
 	/**
 	 * 实现toString描述信息
 	 */
 	public String toString() {
-		return "Request action:" + action+getAttrString();
+		return "Request action:" + action + getAttrString();
 	}
 }

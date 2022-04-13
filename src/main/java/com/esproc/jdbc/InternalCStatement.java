@@ -36,19 +36,6 @@ public class InternalCStatement extends InternalPStatement implements
 	 *            The connection object
 	 * @param id
 	 *            The statement ID
-	 */
-	public InternalCStatement(InternalConnection con, int id) {
-		super(con, id);
-		JDBCUtil.log("InternalCStatement-1");
-	}
-
-	/**
-	 * Constructor
-	 * 
-	 * @param con
-	 *            The connection object
-	 * @param id
-	 *            The statement ID
 	 * @param sql
 	 *            The SQL string
 	 */
@@ -79,32 +66,12 @@ public class InternalCStatement extends InternalPStatement implements
 	}
 
 	/**
-	 * Get the statement ID
-	 * 
-	 * @return int
-	 */
-	public int getID() {
-		JDBCUtil.log("InternalCStatement-5");
-		return ID;
-	}
-
-	/**
-	 * Set the statement ID
-	 * 
-	 * @param id
-	 */
-	public void setID(int id) {
-		JDBCUtil.log("InternalCStatement-6");
-		ID = id;
-	}
-
-	/**
 	 * Set query result
 	 * 
 	 * @param o
 	 */
 	public void setResult(Object o) {
-		JDBCUtil.log("InternalCStatement-85");
+		JDBCUtil.log("InternalCStatement-5");
 		this.result = o;
 	}
 

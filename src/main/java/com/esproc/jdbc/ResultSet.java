@@ -26,7 +26,6 @@ import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 import java.util.Map;
 
 import com.scudata.common.Logger;
@@ -140,33 +139,40 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 		dataArray = new ArrayList<ArrayList<Object>>();
 		if (type == GET_PROCEDURES) {
 			if (infos != null) {
-				String[] splNames = (String[]) infos.get(0);
-				String[] filePaths = (String[]) infos.get(1);
-				for (int i = 0; i < splNames.length; i++) {
-					ArrayList<Object> list = new ArrayList<Object>(rsmd.getColumnCount());
-					list.add(null);
-					list.add(null);
-					list.add(splNames[i]);
-					list.add(null);
-					list.add(null);
-					list.add(null);
-					list.add(null);
-					list.add(null);
-					list.add(filePaths[i]);
-					dataArray.add(list);
-				}
+				Table t = (Table) infos.get(0);
+				if (t != null)
+					for (int i = 1, len = t.length(); i <= len; i++) {
+						Record record = t.getRecord(i);
+						ArrayList<Object> list = new ArrayList<Object>(
+								rsmd.getColumnCount());
+						list.add(null);
+						list.add(null);
+						list.add(record
+								.getFieldValue(JDBCConsts.PROCEDURE_NAME));
+						list.add(null);
+						list.add(null);
+						list.add(null);
+						list.add(null);
+						list.add(null);
+						list.add(record
+								.getFieldValue(JDBCConsts.PROCEDURE_FILE));
+						dataArray.add(list);
+					}
 			}
 		} else if (type == GET_PROCEDURE_COLUMNS) {
 			if (infos != null) {
-				List<String> splNames = (List<String>) infos.get(0);
-				List<ParamList> plList = (List<ParamList>) infos.get(1);
-				if (plList != null) {
-					for (int n = 0; n < splNames.size(); n++) {
-						String splName = splNames.get(n);
-						ParamList pl = plList.get(n);
+				Table t = (Table) infos.get(0);
+				if (t != null) {
+					for (int r = 1, len = t.length(); r <= len; r++) {
+						Record record = t.getRecord(r);
+						Object splName = record
+								.getFieldValue(JDBCConsts.PROCEDURE_NAME);
+						ParamList pl = (ParamList) record
+								.getFieldValue(JDBCConsts.PARAM_LIST);
 						for (int i = 0, count = pl.count(); i < count; i++) {
 							Param param = pl.get(i);
-							ArrayList<Object> list = new ArrayList<Object>(rsmd.getColumnCount());
+							ArrayList<Object> list = new ArrayList<Object>(
+									rsmd.getColumnCount());
 							list.add(null);
 							list.add(null);
 							list.add(splName);
@@ -194,7 +200,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 				}
 			}
 		} else if (type == GET_TABLE_TYPES) {
-			ArrayList<Object> list = new ArrayList<Object>(rsmd.getColumnCount());
+			ArrayList<Object> list = new ArrayList<Object>(
+					rsmd.getColumnCount());
 			list.add("TABLE");
 			dataArray.add(list);
 		} else if (type == GET_TABLES) {
@@ -202,10 +209,12 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 				Table t = (Table) infos.get(0);
 				if (t != null)
 					for (int i = 1, len = t.length(); i <= len; i++) {
-						ArrayList<Object> list = new ArrayList<Object>(rsmd.getColumnCount());
+						ArrayList<Object> list = new ArrayList<Object>(
+								rsmd.getColumnCount());
 						list.add(null);
 						list.add(null);
-						list.add(t.getRecord(i).getFieldValue(JDBCConsts.TABLE_NAME));
+						list.add(t.getRecord(i).getFieldValue(
+								JDBCConsts.TABLE_NAME));
 						list.add("TABLE");
 						list.add(null);
 						list.add(null);
@@ -222,9 +231,12 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 				if (t != null) {
 					for (int i = 1, len = t.length(); i <= len; i++) {
 						Record record = t.getRecord(i);
-						byte colType = ((Number) record.getFieldValue(JDBCConsts.DATA_TYPE)).byteValue();
+						byte colType = ((Number) record
+								.getFieldValue(JDBCConsts.DATA_TYPE))
+								.byteValue();
 						int sqlType = JDBCUtil.getSQLTypeByType(colType);
-						ArrayList<Object> list = new ArrayList<Object>(rsmd.getColumnCount());
+						ArrayList<Object> list = new ArrayList<Object>(
+								rsmd.getColumnCount());
 						list.add(null);
 						list.add(null);
 						list.add(record.getFieldValue(JDBCConsts.TABLE_NAME));
@@ -263,7 +275,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 * @param rsmd      The ResultSetMetaData object
 	 * @throws SQLException
 	 */
-	public ResultSet(ArrayList<ArrayList<Object>> dataArray, ResultSetMetaData rsmd) throws SQLException {
+	public ResultSet(ArrayList<ArrayList<Object>> dataArray,
+			ResultSetMetaData rsmd) throws SQLException {
 		JDBCUtil.log("ResultSet-3");
 		this.dataArray = dataArray;
 		this.rsmd = rsmd;
@@ -563,7 +576,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 * @return the column value; if the value is SQL NULL, the value returned is
 	 *         null
 	 */
-	public BigDecimal getBigDecimal(int columnIndex, int scale) throws SQLException {
+	public BigDecimal getBigDecimal(int columnIndex, int scale)
+			throws SQLException {
 		JDBCUtil.log("ResultSet-16");
 		Object obj = curRowData.get(columnIndex - 1);
 		if (obj instanceof Double) {
@@ -683,7 +697,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 */
 	public InputStream getAsciiStream(int columnIndex) throws SQLException {
 		JDBCUtil.log("ResultSet-21");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "getAsciiStream(int columnIndex)"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"getAsciiStream(int columnIndex)"));
 		return null;
 	}
 
@@ -698,7 +713,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 */
 	public InputStream getUnicodeStream(int columnIndex) throws SQLException {
 		JDBCUtil.log("ResultSet-22");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "getUnicodeStream(int columnIndex)"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"getUnicodeStream(int columnIndex)"));
 		return null;
 	}
 
@@ -878,7 +894,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 * @return the column value; if the value is SQL NULL, the value returned is
 	 *         null
 	 */
-	public BigDecimal getBigDecimal(String columnName, int scale) throws SQLException {
+	public BigDecimal getBigDecimal(String columnName, int scale)
+			throws SQLException {
 		JDBCUtil.log("ResultSet-32");
 		int columnIndex = findColumn(columnName);
 		if (columnIndex == -1)
@@ -1114,7 +1131,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 				return i;
 			}
 		}
-		throw new SQLException("No field name: " + columnName + " can be found.");
+		throw new SQLException("No field name: " + columnName
+				+ " can be found.");
 	}
 
 	/**
@@ -1398,7 +1416,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 */
 	public void setFetchDirection(int direction) throws SQLException {
 		JDBCUtil.log("ResultSet-63");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "setFetchDirection(int direction)"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"setFetchDirection(int direction)"));
 	}
 
 	/**
@@ -1475,7 +1494,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 */
 	public boolean rowUpdated() throws SQLException {
 		JDBCUtil.log("ResultSet-69");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "rowUpdated()"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"rowUpdated()"));
 		return false;
 	}
 
@@ -1488,7 +1508,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 */
 	public boolean rowInserted() throws SQLException {
 		JDBCUtil.log("ResultSet-70");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "rowInserted()"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"rowInserted()"));
 		return false;
 	}
 
@@ -1504,7 +1525,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 */
 	public boolean rowDeleted() throws SQLException {
 		JDBCUtil.log("ResultSet-71");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "rowDeleted()"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"rowDeleted()"));
 		return false;
 	}
 
@@ -1518,7 +1540,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 */
 	public void updateNull(int columnIndex) throws SQLException {
 		JDBCUtil.log("ResultSet-72");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "updateNull(int columnIndex)"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"updateNull(int columnIndex)"));
 	}
 
 	/**
@@ -1532,7 +1555,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 */
 	public void updateBoolean(int columnIndex, boolean x) throws SQLException {
 		JDBCUtil.log("ResultSet-73");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "updateBoolean(int columnIndex, boolean x)"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"updateBoolean(int columnIndex, boolean x)"));
 	}
 
 	/**
@@ -1546,7 +1570,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 */
 	public void updateByte(int columnIndex, byte x) throws SQLException {
 		JDBCUtil.log("ResultSet-74");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "updateByte(int columnIndex, byte x)"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"updateByte(int columnIndex, byte x)"));
 	}
 
 	/**
@@ -1561,7 +1586,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 */
 	public void updateShort(int columnIndex, short x) throws SQLException {
 		JDBCUtil.log("ResultSet-75");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "updateShort(int columnIndex, short x)"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"updateShort(int columnIndex, short x)"));
 	}
 
 	/**
@@ -1575,7 +1601,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 */
 	public void updateInt(int columnIndex, int x) throws SQLException {
 		JDBCUtil.log("ResultSet-146");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "updateInt(int columnIndex, int x)"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"updateInt(int columnIndex, int x)"));
 	}
 
 	/**
@@ -1589,7 +1616,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 */
 	public void updateLong(int columnIndex, long x) throws SQLException {
 		JDBCUtil.log("ResultSet-76");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "updateLong(int columnIndex, long x)"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"updateLong(int columnIndex, long x)"));
 	}
 
 	/**
@@ -1603,7 +1631,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 */
 	public void updateFloat(int columnIndex, float x) throws SQLException {
 		JDBCUtil.log("ResultSet-77");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "updateFloat(int columnIndex, float x)"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"updateFloat(int columnIndex, float x)"));
 	}
 
 	/**
@@ -1617,7 +1646,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 */
 	public void updateDouble(int columnIndex, double x) throws SQLException {
 		JDBCUtil.log("ResultSet-78");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "updateDouble(int columnIndex, double x)"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"updateDouble(int columnIndex, double x)"));
 	}
 
 	/**
@@ -1629,10 +1659,11 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 * @param columnIndex the first column is 1, the second is 2, ...
 	 * @param x           the new column value
 	 */
-	public void updateBigDecimal(int columnIndex, BigDecimal x) throws SQLException {
+	public void updateBigDecimal(int columnIndex, BigDecimal x)
+			throws SQLException {
 		JDBCUtil.log("ResultSet-79");
-		Logger.debug(
-				JDBCMessage.get().getMessage("error.methodnotimpl", "updateBigDecimal(int columnIndex, BigDecimal x)"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"updateBigDecimal(int columnIndex, BigDecimal x)"));
 	}
 
 	/**
@@ -1646,7 +1677,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 */
 	public void updateString(int columnIndex, String x) throws SQLException {
 		JDBCUtil.log("ResultSet-80");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "updateString(int columnIndex, String x)"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"updateString(int columnIndex, String x)"));
 	}
 
 	/**
@@ -1660,7 +1692,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 */
 	public void updateBytes(int columnIndex, byte[] x) throws SQLException {
 		JDBCUtil.log("ResultSet-81");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "updateBytes(int columnIndex, byte[] x)"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"updateBytes(int columnIndex, byte[] x)"));
 	}
 
 	/**
@@ -1674,7 +1707,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 */
 	public void updateDate(int columnIndex, Date x) throws SQLException {
 		JDBCUtil.log("ResultSet-82");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "updateDate(int columnIndex, Date x)"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"updateDate(int columnIndex, Date x)"));
 	}
 
 	/**
@@ -1688,7 +1722,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 */
 	public void updateTime(int columnIndex, Time x) throws SQLException {
 		JDBCUtil.log("ResultSet-83");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "updateTime(int columnIndex, Time x)"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"updateTime(int columnIndex, Time x)"));
 	}
 
 	/**
@@ -1700,10 +1735,11 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 * @param columnIndex the first column is 1, the second is 2, ...
 	 * @param x           the new column value
 	 */
-	public void updateTimestamp(int columnIndex, Timestamp x) throws SQLException {
+	public void updateTimestamp(int columnIndex, Timestamp x)
+			throws SQLException {
 		JDBCUtil.log("ResultSet-84");
-		Logger.debug(
-				JDBCMessage.get().getMessage("error.methodnotimpl", "updateTimestamp(int columnIndex, Timestamp x)"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"updateTimestamp(int columnIndex, Timestamp x)"));
 	}
 
 	/**
@@ -1717,10 +1753,13 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 * @param x           the new column value
 	 * @param length      the length of the stream
 	 */
-	public void updateAsciiStream(int columnIndex, InputStream x, int length) throws SQLException {
+	public void updateAsciiStream(int columnIndex, InputStream x, int length)
+			throws SQLException {
 		JDBCUtil.log("ResultSet-85");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
-				"updateAsciiStream(int columnIndex, InputStream x, int length)"));
+		Logger.debug(JDBCMessage
+				.get()
+				.getMessage("error.methodnotimpl",
+						"updateAsciiStream(int columnIndex, InputStream x, int length)"));
 	}
 
 	/**
@@ -1734,10 +1773,13 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 * @param x           the new column value
 	 * @param length      the length of the stream
 	 */
-	public void updateBinaryStream(int columnIndex, InputStream x, int length) throws SQLException {
+	public void updateBinaryStream(int columnIndex, InputStream x, int length)
+			throws SQLException {
 		JDBCUtil.log("ResultSet-86");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
-				"updateBinaryStream(int columnIndex, InputStream x, int length)"));
+		Logger.debug(JDBCMessage
+				.get()
+				.getMessage("error.methodnotimpl",
+						"updateBinaryStream(int columnIndex, InputStream x, int length)"));
 	}
 
 	/**
@@ -1751,7 +1793,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 * @param x           the new column value
 	 * @param length      the length of the stream
 	 */
-	public void updateCharacterStream(int columnIndex, Reader x, int length) throws SQLException {
+	public void updateCharacterStream(int columnIndex, Reader x, int length)
+			throws SQLException {
 		JDBCUtil.log("ResultSet-87");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"updateCharacterStream(int columnIndex, Reader x, int length)"));
@@ -1771,7 +1814,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 *                      of the data in the stream or reader. For all other
 	 *                      types, this value will be ignored.
 	 */
-	public void updateObject(int columnIndex, Object x, int scaleOrLength) throws SQLException {
+	public void updateObject(int columnIndex, Object x, int scaleOrLength)
+			throws SQLException {
 		JDBCUtil.log("ResultSet-88");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"updateObject(int columnIndex, Object x, int scaleOrLength)"));
@@ -1788,7 +1832,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 */
 	public void updateObject(int columnIndex, Object x) throws SQLException {
 		JDBCUtil.log("ResultSet-89");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "updateObject(int columnIndex, Object x)"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"updateObject(int columnIndex, Object x)"));
 	}
 
 	/**
@@ -1803,7 +1848,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 */
 	public void updateNull(String columnName) throws SQLException {
 		JDBCUtil.log("ResultSet-90");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "updateNull(String columnName)"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"updateNull(String columnName)"));
 	}
 
 	/**
@@ -1819,8 +1865,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 */
 	public void updateBoolean(String columnName, boolean x) throws SQLException {
 		JDBCUtil.log("ResultSet-91");
-		Logger.debug(
-				JDBCMessage.get().getMessage("error.methodnotimpl", "updateBoolean(String columnName, boolean x)"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"updateBoolean(String columnName, boolean x)"));
 	}
 
 	/**
@@ -1836,7 +1882,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 */
 	public void updateByte(String columnName, byte x) throws SQLException {
 		JDBCUtil.log("ResultSet-92");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "updateByte(String columnName, byte x)"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"updateByte(String columnName, byte x)"));
 	}
 
 	/**
@@ -1852,7 +1899,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 */
 	public void updateShort(String columnName, short x) throws SQLException {
 		JDBCUtil.log("ResultSet-93");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "updateShort(String columnName, short x)"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"updateShort(String columnName, short x)"));
 	}
 
 	/**
@@ -1868,7 +1916,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 */
 	public void updateInt(String columnName, int x) throws SQLException {
 		JDBCUtil.log("ResultSet-94");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "updateInt(String columnName, int x)"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"updateInt(String columnName, int x)"));
 	}
 
 	/**
@@ -1884,7 +1933,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 */
 	public void updateLong(String columnName, long x) throws SQLException {
 		JDBCUtil.log("ResultSet-95");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "updateLong(String columnName, long x)"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"updateLong(String columnName, long x)"));
 	}
 
 	/**
@@ -1900,7 +1950,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 */
 	public void updateFloat(String columnName, float x) throws SQLException {
 		JDBCUtil.log("ResultSet-96");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "updateFloat(String columnName, float x)"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"updateFloat(String columnName, float x)"));
 	}
 
 	/**
@@ -1916,7 +1967,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 */
 	public void updateDouble(String columnName, double x) throws SQLException {
 		JDBCUtil.log("ResultSet-97");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "updateDouble(String columnName, double x)"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"updateDouble(String columnName, double x)"));
 	}
 
 	/**
@@ -1930,7 +1982,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 *                   the name of the column
 	 * @param x          the new column value
 	 */
-	public void updateBigDecimal(String columnName, BigDecimal x) throws SQLException {
+	public void updateBigDecimal(String columnName, BigDecimal x)
+			throws SQLException {
 		JDBCUtil.log("ResultSet-98");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"updateBigDecimal(String columnName, BigDecimal x)"));
@@ -1949,7 +2002,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 */
 	public void updateString(String columnName, String x) throws SQLException {
 		JDBCUtil.log("ResultSet-99");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "updateString(String columnName, String x)"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"updateString(String columnName, String x)"));
 	}
 
 	/**
@@ -1965,7 +2019,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 */
 	public void updateBytes(String columnName, byte[] x) throws SQLException {
 		JDBCUtil.log("ResultSet-100");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "updateBytes(String columnName, byte[] x)"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"updateBytes(String columnName, byte[] x)"));
 	}
 
 	/**
@@ -1981,7 +2036,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 */
 	public void updateDate(String columnName, Date x) throws SQLException {
 		JDBCUtil.log("ResultSet-101");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "updateDate(String columnName, Date x)"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"updateDate(String columnName, Date x)"));
 	}
 
 	/**
@@ -1997,7 +2053,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 */
 	public void updateTime(String columnName, Time x) throws SQLException {
 		JDBCUtil.log("ResultSet-102");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "updateTime(String columnName, Time x)"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"updateTime(String columnName, Time x)"));
 	}
 
 	/**
@@ -2011,10 +2068,11 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 *                   the name of the column
 	 * @param x          the new column value
 	 */
-	public void updateTimestamp(String columnName, Timestamp x) throws SQLException {
+	public void updateTimestamp(String columnName, Timestamp x)
+			throws SQLException {
 		JDBCUtil.log("ResultSet-103");
-		Logger.debug(
-				JDBCMessage.get().getMessage("error.methodnotimpl", "updateTimestamp(String columnName, Timestamp x)"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"updateTimestamp(String columnName, Timestamp x)"));
 	}
 
 	/**
@@ -2030,10 +2088,13 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 * @param x          the new column value
 	 * @param length     the length of the stream
 	 */
-	public void updateAsciiStream(String columnName, InputStream x, int length) throws SQLException {
+	public void updateAsciiStream(String columnName, InputStream x, int length)
+			throws SQLException {
 		JDBCUtil.log("ResultSet-104");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
-				"updateAsciiStream(String columnName, InputStream x, int length)"));
+		Logger.debug(JDBCMessage
+				.get()
+				.getMessage("error.methodnotimpl",
+						"updateAsciiStream(String columnName, InputStream x, int length)"));
 	}
 
 	/**
@@ -2049,10 +2110,13 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 * @param x          the new column value
 	 * @param length     the length of the stream
 	 */
-	public void updateBinaryStream(String columnName, InputStream x, int length) throws SQLException {
+	public void updateBinaryStream(String columnName, InputStream x, int length)
+			throws SQLException {
 		JDBCUtil.log("ResultSet-105");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
-				"updateBinaryStream(String columnName, InputStream x, int length)"));
+		Logger.debug(JDBCMessage
+				.get()
+				.getMessage("error.methodnotimpl",
+						"updateBinaryStream(String columnName, InputStream x, int length)"));
 	}
 
 	/**
@@ -2068,10 +2132,13 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 * @param reader     The reader
 	 * @param length     the length of the stream
 	 */
-	public void updateCharacterStream(String columnName, Reader reader, int length) throws SQLException {
+	public void updateCharacterStream(String columnName, Reader reader,
+			int length) throws SQLException {
 		JDBCUtil.log("ResultSet-106");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
-				"updateCharacterStream(String columnName, Reader reader, int length)"));
+		Logger.debug(JDBCMessage
+				.get()
+				.getMessage("error.methodnotimpl",
+						"updateCharacterStream(String columnName, Reader reader, int length)"));
 	}
 
 	/**
@@ -2090,7 +2157,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 *                      of the data in the stream or reader. For all other
 	 *                      types, this value will be ignored.
 	 */
-	public void updateObject(String columnName, Object x, int scaleOrLength) throws SQLException {
+	public void updateObject(String columnName, Object x, int scaleOrLength)
+			throws SQLException {
 		JDBCUtil.log("ResultSet-107");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"updateObject(String columnName, Object x, int scaleOrLength)"));
@@ -2109,7 +2177,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 */
 	public void updateObject(String columnName, Object x) throws SQLException {
 		JDBCUtil.log("ResultSet-108");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "updateObject(String columnName, Object x)"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"updateObject(String columnName, Object x)"));
 	}
 
 	/**
@@ -2119,7 +2188,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 */
 	public void insertRow() throws SQLException {
 		JDBCUtil.log("ResultSet-109");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "insertRow()"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"insertRow()"));
 	}
 
 	/**
@@ -2129,7 +2199,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 */
 	public void updateRow() throws SQLException {
 		JDBCUtil.log("ResultSet-110");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "updateRow()"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"updateRow()"));
 	}
 
 	/**
@@ -2138,7 +2209,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 */
 	public void deleteRow() throws SQLException {
 		JDBCUtil.log("ResultSet-111");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "deleteRow()"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"deleteRow()"));
 	}
 
 	/**
@@ -2147,7 +2219,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 */
 	public void refreshRow() throws SQLException {
 		JDBCUtil.log("ResultSet-112");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "refreshRow()"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"refreshRow()"));
 	}
 
 	/**
@@ -2159,7 +2232,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 */
 	public void cancelRowUpdates() throws SQLException {
 		JDBCUtil.log("ResultSet-113");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "cancelRowUpdates()"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"cancelRowUpdates()"));
 	}
 
 	/**
@@ -2175,7 +2249,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 */
 	public void moveToInsertRow() throws SQLException {
 		JDBCUtil.log("ResultSet-114");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "moveToInsertRow()"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"moveToInsertRow()"));
 	}
 
 	/**
@@ -2184,7 +2259,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 */
 	public void moveToCurrentRow() throws SQLException {
 		JDBCUtil.log("ResultSet-115");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "moveToCurrentRow()"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"moveToCurrentRow()"));
 	}
 
 	/**
@@ -2207,7 +2283,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 */
 	public Ref getRef(int columnIndex) throws SQLException {
 		JDBCUtil.log("ResultSet-118");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "getRef(int columnIndex)"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"getRef(int columnIndex)"));
 		return null;
 	}
 
@@ -2251,7 +2328,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 */
 	public Array getArray(int columnIndex) throws SQLException {
 		JDBCUtil.log("ResultSet-121");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "getArray(int columnIndex)"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"getArray(int columnIndex)"));
 		return null;
 	}
 
@@ -2267,7 +2345,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 */
 	public Ref getRef(String colName) throws SQLException {
 		JDBCUtil.log("ResultSet-123");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "getRef(String colName)"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"getRef(String colName)"));
 		return null;
 	}
 
@@ -2317,7 +2396,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 */
 	public Array getArray(String colName) throws SQLException {
 		JDBCUtil.log("ResultSet-126");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "getArray(String colName)"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"getArray(String colName)"));
 		return null;
 	}
 
@@ -2336,7 +2416,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 */
 	public Date getDate(int columnIndex, Calendar cal) throws SQLException {
 		JDBCUtil.log("ResultSet-127");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "getDate(int columnIndex, Calendar cal)"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"getDate(int columnIndex, Calendar cal)"));
 		return null;
 	}
 
@@ -2357,7 +2438,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 */
 	public Date getDate(String columnName, Calendar cal) throws SQLException {
 		JDBCUtil.log("ResultSet-128");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "getDate(String columnName, Calendar cal)"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"getDate(String columnName, Calendar cal)"));
 		return null;
 	}
 
@@ -2376,7 +2458,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 */
 	public Time getTime(int columnIndex, Calendar cal) throws SQLException {
 		JDBCUtil.log("ResultSet-129");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "getTime(int columnIndex, Calendar cal)"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"getTime(int columnIndex, Calendar cal)"));
 		return null;
 	}
 
@@ -2398,7 +2481,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 */
 	public Time getTime(String columnName, Calendar cal) throws SQLException {
 		JDBCUtil.log("ResultSet-130");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "getTime(String columnName, Calendar cal)"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"getTime(String columnName, Calendar cal)"));
 		return null;
 	}
 
@@ -2415,10 +2499,11 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 * @return the column value as a java.sql.Timestamp object; if the value is SQL
 	 *         NULL, the value returned is null in the Java programming language
 	 */
-	public Timestamp getTimestamp(int columnIndex, Calendar cal) throws SQLException {
+	public Timestamp getTimestamp(int columnIndex, Calendar cal)
+			throws SQLException {
 		JDBCUtil.log("ResultSet-131");
-		Logger.debug(
-				JDBCMessage.get().getMessage("error.methodnotimpl", "getTimestamp(int columnIndex, Calendar cal)"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"getTimestamp(int columnIndex, Calendar cal)"));
 		return null;
 	}
 
@@ -2437,10 +2522,11 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 * @return the column value as a java.sql.Timestamp object; if the value is SQL
 	 *         NULL, the value returned is null in the Java programming language
 	 */
-	public Timestamp getTimestamp(String columnName, Calendar cal) throws SQLException {
+	public Timestamp getTimestamp(String columnName, Calendar cal)
+			throws SQLException {
 		JDBCUtil.log("ResultSet-132");
-		Logger.debug(
-				JDBCMessage.get().getMessage("error.methodnotimpl", "getTimestamp(String columnName, Calendar cal)"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"getTimestamp(String columnName, Calendar cal)"));
 		return null;
 	}
 
@@ -2454,7 +2540,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 */
 	public URL getURL(int columnIndex) throws SQLException {
 		JDBCUtil.log("ResultSet-133");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "getURL(int columnIndex)"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"getURL(int columnIndex)"));
 		return null;
 	}
 
@@ -2470,7 +2557,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 */
 	public URL getURL(String columnName) throws SQLException {
 		JDBCUtil.log("ResultSet-134");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "getURL(String columnName)"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"getURL(String columnName)"));
 		return null;
 	}
 
@@ -2485,7 +2573,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 */
 	public void updateRef(int columnIndex, Ref x) throws SQLException {
 		JDBCUtil.log("ResultSet-135");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "updateRef(int columnIndex, Ref x)"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"updateRef(int columnIndex, Ref x)"));
 	}
 
 	/**
@@ -2501,7 +2590,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 */
 	public void updateRef(String columnName, Ref x) throws SQLException {
 		JDBCUtil.log("ResultSet-136");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "updateRef(String columnName, Ref x)"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"updateRef(String columnName, Ref x)"));
 	}
 
 	/**
@@ -2515,7 +2605,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 */
 	public void updateBlob(int columnIndex, Blob x) throws SQLException {
 		JDBCUtil.log("ResultSet-137");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "updateBlob(int columnIndex, Blob x)"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"updateBlob(int columnIndex, Blob x)"));
 	}
 
 	/**
@@ -2531,7 +2622,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 */
 	public void updateBlob(String columnName, Blob x) throws SQLException {
 		JDBCUtil.log("ResultSet-138");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "updateBlob(String columnName, Blob x)"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"updateBlob(String columnName, Blob x)"));
 	}
 
 	/**
@@ -2545,7 +2637,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 */
 	public void updateClob(int columnIndex, Clob x) throws SQLException {
 		JDBCUtil.log("ResultSet-139");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "updateClob(int columnIndex, Clob x)"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"updateClob(int columnIndex, Clob x)"));
 	}
 
 	/**
@@ -2561,7 +2654,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 */
 	public void updateClob(String columnName, Clob x) throws SQLException {
 		JDBCUtil.log("ResultSet-140");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "updateClob(String columnName, Clob x)"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"updateClob(String columnName, Clob x)"));
 	}
 
 	/**
@@ -2575,7 +2669,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 */
 	public void updateArray(int columnIndex, Array x) throws SQLException {
 		JDBCUtil.log("ResultSet-141");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "updateArray(int columnIndex, Array x)"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"updateArray(int columnIndex, Array x)"));
 	}
 
 	/**
@@ -2591,7 +2686,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 */
 	public void updateArray(String columnName, Array x) throws SQLException {
 		JDBCUtil.log("ResultSet-142");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "updateArray(String columnName, Array x)"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"updateArray(String columnName, Array x)"));
 	}
 
 	/**
@@ -2617,7 +2713,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 */
 	public Reader getNCharacterStream(int columnIndex) throws SQLException {
 		JDBCUtil.log("ResultSet-148");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "getNCharacterStream(int columnIndex)"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"getNCharacterStream(int columnIndex)"));
 		return null;
 	}
 
@@ -2635,7 +2732,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 */
 	public Reader getNCharacterStream(String columnLabel) throws SQLException {
 		JDBCUtil.log("ResultSet-149");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "getNCharacterStream(String columnLabel)"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"getNCharacterStream(String columnLabel)"));
 		return null;
 	}
 
@@ -2649,7 +2747,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 */
 	public NClob getNClob(int columnIndex) throws SQLException {
 		JDBCUtil.log("ResultSet-150");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "getNClob(int columnIndex)"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"getNClob(int columnIndex)"));
 		return null;
 	}
 
@@ -2665,7 +2764,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 */
 	public NClob getNClob(String columnLabel) throws SQLException {
 		JDBCUtil.log("ResultSet-151");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "getNClob(String columnLabel)"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"getNClob(String columnLabel)"));
 		return null;
 	}
 
@@ -2680,7 +2780,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 */
 	public String getNString(int columnIndex) throws SQLException {
 		JDBCUtil.log("ResultSet-152");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "getNString(int columnIndex)"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"getNString(int columnIndex)"));
 		return null;
 	}
 
@@ -2697,7 +2798,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 */
 	public String getNString(String columnLabel) throws SQLException {
 		JDBCUtil.log("ResultSet-153");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "getNString(String columnLabel)"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"getNString(String columnLabel)"));
 		return null;
 	}
 
@@ -2713,7 +2815,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 *                    designated column to.
 	 * @return an instance of type holding the column value
 	 */
-	public Object getObject(int columnIndex, Map<String, Class<?>> type) throws SQLException {
+	public Object getObject(int columnIndex, Map<String, Class<?>> type)
+			throws SQLException {
 		JDBCUtil.log("ResultSet-154");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"getObject(int columnIndex, Map<String, Class<?>> type)"));
@@ -2733,7 +2836,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 *                    type names to classes in the Java programming language
 	 * @return an Object representing the SQL value in the specified column
 	 */
-	public Object getObject(String columnLabel, Map<String, Class<?>> map) throws SQLException {
+	public Object getObject(String columnLabel, Map<String, Class<?>> map)
+			throws SQLException {
 		JDBCUtil.log("ResultSet-155");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"getObject(String columnLabel, Map<String, Class<?>> map)"));
@@ -2750,7 +2854,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 */
 	public RowId getRowId(int columnIndex) throws SQLException {
 		JDBCUtil.log("ResultSet-156");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "getRowId(int columnIndex)"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"getRowId(int columnIndex)"));
 		return null;
 	}
 
@@ -2766,7 +2871,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 */
 	public RowId getRowId(String columnLabel) throws SQLException {
 		JDBCUtil.log("ResultSet-157");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "getRowId(String columnLabel)"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"getRowId(String columnLabel)"));
 		return null;
 	}
 
@@ -2779,7 +2885,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 */
 	public SQLXML getSQLXML(int columnIndex) throws SQLException {
 		JDBCUtil.log("ResultSet-158");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "getSQLXML(int columnIndex)"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"getSQLXML(int columnIndex)"));
 		return null;
 	}
 
@@ -2794,7 +2901,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 */
 	public SQLXML getSQLXML(String columnLabel) throws SQLException {
 		JDBCUtil.log("ResultSet-159");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "getSQLXML(String columnLabel)"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"getSQLXML(String columnLabel)"));
 		return null;
 	}
 
@@ -2817,7 +2925,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 * @param columnIndex the first column is 1, the second is 2, ...
 	 * @param x           the new column value
 	 */
-	public void updateAsciiStream(int columnIndex, InputStream x) throws SQLException {
+	public void updateAsciiStream(int columnIndex, InputStream x)
+			throws SQLException {
 		JDBCUtil.log("ResultSet-161");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"updateAsciiStream(int columnIndex, InputStream x)"));
@@ -2832,7 +2941,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 *                    the name of the column
 	 * @param x           the new column value
 	 */
-	public void updateAsciiStream(String columnLabel, InputStream x) throws SQLException {
+	public void updateAsciiStream(String columnLabel, InputStream x)
+			throws SQLException {
 		JDBCUtil.log("ResultSet-162");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"updateAsciiStream(String columnLabel, InputStream x)"));
@@ -2846,10 +2956,13 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 * @param x           the new column value
 	 * @param length      the length of the stream
 	 */
-	public void updateAsciiStream(int columnIndex, InputStream x, long length) throws SQLException {
+	public void updateAsciiStream(int columnIndex, InputStream x, long length)
+			throws SQLException {
 		JDBCUtil.log("ResultSet-163");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
-				"updateAsciiStream(int columnIndex, InputStream x, long length)"));
+		Logger.debug(JDBCMessage
+				.get()
+				.getMessage("error.methodnotimpl",
+						"updateAsciiStream(int columnIndex, InputStream x, long length)"));
 	}
 
 	/**
@@ -2862,10 +2975,13 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 * @param x           the new column value
 	 * @param length      the length of the stream
 	 */
-	public void updateAsciiStream(String columnLabel, InputStream x, long length) throws SQLException {
+	public void updateAsciiStream(String columnLabel, InputStream x, long length)
+			throws SQLException {
 		JDBCUtil.log("ResultSet-164");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
-				"updateAsciiStream(String columnLabel, InputStream x, long length)"));
+		Logger.debug(JDBCMessage
+				.get()
+				.getMessage("error.methodnotimpl",
+						"updateAsciiStream(String columnLabel, InputStream x, long length)"));
 	}
 
 	/**
@@ -2875,7 +2991,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 * @param columnIndex the first column is 1, the second is 2, ...
 	 * @param x           the new column value
 	 */
-	public void updateBinaryStream(int columnIndex, InputStream x) throws SQLException {
+	public void updateBinaryStream(int columnIndex, InputStream x)
+			throws SQLException {
 		JDBCUtil.log("ResultSet-165");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"updateBinaryStream(int columnIndex, InputStream x)"));
@@ -2890,7 +3007,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 *                    the name of the column
 	 * @param x           the new column value
 	 */
-	public void updateBinaryStream(String columnLabel, InputStream x) throws SQLException {
+	public void updateBinaryStream(String columnLabel, InputStream x)
+			throws SQLException {
 		JDBCUtil.log("ResultSet-166");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"updateBinaryStream(String columnLabel, InputStream x)"));
@@ -2904,10 +3022,13 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 * @param x           the new column value
 	 * @param length      the length of the stream
 	 */
-	public void updateBinaryStream(int columnIndex, InputStream x, long length) throws SQLException {
+	public void updateBinaryStream(int columnIndex, InputStream x, long length)
+			throws SQLException {
 		JDBCUtil.log("ResultSet-167");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
-				"updateBinaryStream(int columnIndex, InputStream x, long length)"));
+		Logger.debug(JDBCMessage
+				.get()
+				.getMessage("error.methodnotimpl",
+						"updateBinaryStream(int columnIndex, InputStream x, long length)"));
 	}
 
 	/**
@@ -2920,10 +3041,13 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 * @param x           the new column value
 	 * @param length      the length of the stream
 	 */
-	public void updateBinaryStream(String columnLabel, InputStream x, long length) throws SQLException {
+	public void updateBinaryStream(String columnLabel, InputStream x,
+			long length) throws SQLException {
 		JDBCUtil.log("ResultSet-168");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
-				"updateBinaryStream(String columnLabel, InputStream x, long length)"));
+		Logger.debug(JDBCMessage
+				.get()
+				.getMessage("error.methodnotimpl",
+						"updateBinaryStream(String columnLabel, InputStream x, long length)"));
 	}
 
 	/**
@@ -2934,7 +3058,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 * @param inputStream An object that contains the data to set the parameter
 	 *                    value to.
 	 */
-	public void updateBlob(int columnIndex, InputStream inputStream) throws SQLException {
+	public void updateBlob(int columnIndex, InputStream inputStream)
+			throws SQLException {
 		JDBCUtil.log("ResultSet-169");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"updateBlob(int columnIndex, InputStream inputStream)"));
@@ -2950,7 +3075,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 * @param inputStream An object that contains the data to set the parameter
 	 *                    value to.
 	 */
-	public void updateBlob(String columnLabel, InputStream inputStream) throws SQLException {
+	public void updateBlob(String columnLabel, InputStream inputStream)
+			throws SQLException {
 		JDBCUtil.log("ResultSet-170");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"updateBlob(String columnLabel, InputStream inputStream)"));
@@ -2965,10 +3091,13 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 *                    value to.
 	 * @param length      the number of bytes in the parameter data.
 	 */
-	public void updateBlob(int columnIndex, InputStream inputStream, long length) throws SQLException {
+	public void updateBlob(int columnIndex, InputStream inputStream, long length)
+			throws SQLException {
 		JDBCUtil.log("ResultSet-171");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
-				"updateBlob(int columnIndex, InputStream inputStream, long length)"));
+		Logger.debug(JDBCMessage
+				.get()
+				.getMessage("error.methodnotimpl",
+						"updateBlob(int columnIndex, InputStream inputStream, long length)"));
 	}
 
 	/**
@@ -2982,10 +3111,13 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 *                    value to.
 	 * @param length      the number of bytes in the parameter data.
 	 */
-	public void updateBlob(String columnLabel, InputStream inputStream, long length) throws SQLException {
+	public void updateBlob(String columnLabel, InputStream inputStream,
+			long length) throws SQLException {
 		JDBCUtil.log("ResultSet-172");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
-				"updateBlob(int columnIndex, InputStream inputStream, long length)"));
+		Logger.debug(JDBCMessage
+				.get()
+				.getMessage("error.methodnotimpl",
+						"updateBlob(int columnIndex, InputStream inputStream, long length)"));
 	}
 
 	/**
@@ -2995,7 +3127,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 * @param columnIndex the first column is 1, the second is 2, ...
 	 * @param x           the new column value
 	 */
-	public void updateCharacterStream(int columnIndex, Reader x) throws SQLException {
+	public void updateCharacterStream(int columnIndex, Reader x)
+			throws SQLException {
 		JDBCUtil.log("ResultSet-173");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"updateCharacterStream(int columnIndex, Reader x)"));
@@ -3010,7 +3143,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 *                    the name of the column
 	 * @param reader      the java.io.Reader object containing the new column value
 	 */
-	public void updateCharacterStream(String columnLabel, Reader reader) throws SQLException {
+	public void updateCharacterStream(String columnLabel, Reader reader)
+			throws SQLException {
 		JDBCUtil.log("ResultSet-174");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"updateCharacterStream(String columnLabel, Reader reader)"));
@@ -3025,10 +3159,13 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 * @param length      the length of the stream
 	 * 
 	 */
-	public void updateCharacterStream(int columnIndex, Reader x, long length) throws SQLException {
+	public void updateCharacterStream(int columnIndex, Reader x, long length)
+			throws SQLException {
 		JDBCUtil.log("ResultSet-175");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
-				"updateCharacterStream(int columnIndex, Reader x, long length)"));
+		Logger.debug(JDBCMessage
+				.get()
+				.getMessage("error.methodnotimpl",
+						"updateCharacterStream(int columnIndex, Reader x, long length)"));
 	}
 
 	/**
@@ -3041,10 +3178,13 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 * @param reader      the java.io.Reader object containing the new column value
 	 * @param length      the length of the stream
 	 */
-	public void updateCharacterStream(String columnLabel, Reader reader, long length) throws SQLException {
+	public void updateCharacterStream(String columnLabel, Reader reader,
+			long length) throws SQLException {
 		JDBCUtil.log("ResultSet-176");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
-				"updateCharacterStream(String columnLabel, Reader reader, long length)"));
+		Logger.debug(JDBCMessage
+				.get()
+				.getMessage("error.methodnotimpl",
+						"updateCharacterStream(String columnLabel, Reader reader, long length)"));
 	}
 
 	/**
@@ -3059,7 +3199,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 */
 	public void updateClob(int columnIndex, Reader reader) throws SQLException {
 		JDBCUtil.log("ResultSet-177");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "updateClob(int columnIndex, Reader reader)"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"updateClob(int columnIndex, Reader reader)"));
 	}
 
 	/**
@@ -3075,10 +3216,11 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 * @param reader      An object that contains the data to set the parameter
 	 *                    value to.
 	 */
-	public void updateClob(String columnLabel, Reader reader) throws SQLException {
+	public void updateClob(String columnLabel, Reader reader)
+			throws SQLException {
 		JDBCUtil.log("ResultSet-178");
-		Logger.debug(
-				JDBCMessage.get().getMessage("error.methodnotimpl", "updateClob(String columnLabel, Reader reader)"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"updateClob(String columnLabel, Reader reader)"));
 	}
 
 	/**
@@ -3092,7 +3234,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 * @param reader      The reader
 	 * @param length      the number of characters in the parameter data.
 	 */
-	public void updateClob(int columnIndex, Reader reader, long length) throws SQLException {
+	public void updateClob(int columnIndex, Reader reader, long length)
+			throws SQLException {
 		JDBCUtil.log("ResultSet-179");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"updateClob(int columnIndex, Reader reader, long length)"));
@@ -3111,7 +3254,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 * @param reader      The reader
 	 * @param length      the number of characters in the parameter data.
 	 */
-	public void updateClob(String columnLabel, Reader reader, long length) throws SQLException {
+	public void updateClob(String columnLabel, Reader reader, long length)
+			throws SQLException {
 		JDBCUtil.log("ResultSet-180");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"updateClob(String columnLabel, Reader reader, long length)"));
@@ -3127,7 +3271,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 * @param columnIndex the first column is 1, the second is 2, ...
 	 * @param x           the new column value
 	 */
-	public void updateNCharacterStream(int columnIndex, Reader x) throws SQLException {
+	public void updateNCharacterStream(int columnIndex, Reader x)
+			throws SQLException {
 		JDBCUtil.log("ResultSet-181");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"updateNCharacterStream(int columnIndex, Reader x)"));
@@ -3147,7 +3292,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 *                    the name of the column
 	 * @param reader      the java.io.Reader object containing the new column value
 	 */
-	public void updateNCharacterStream(String columnLabel, Reader reader) throws SQLException {
+	public void updateNCharacterStream(String columnLabel, Reader reader)
+			throws SQLException {
 		JDBCUtil.log("ResultSet-182");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"updateNCharacterStream(String columnLabel, Reader reader)"));
@@ -3163,10 +3309,13 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 * @param x           the new column value
 	 * @param length      the length of the stream
 	 */
-	public void updateNCharacterStream(int columnIndex, Reader x, long length) throws SQLException {
+	public void updateNCharacterStream(int columnIndex, Reader x, long length)
+			throws SQLException {
 		JDBCUtil.log("ResultSet-183");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
-				"updateNCharacterStream(int columnIndex, Reader x, long length)"));
+		Logger.debug(JDBCMessage
+				.get()
+				.getMessage("error.methodnotimpl",
+						"updateNCharacterStream(int columnIndex, Reader x, long length)"));
 	}
 
 	/**
@@ -3181,10 +3330,13 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 * @param reader      The reader
 	 * @param length      the length of the stream
 	 */
-	public void updateNCharacterStream(String columnLabel, Reader reader, long length) throws SQLException {
+	public void updateNCharacterStream(String columnLabel, Reader reader,
+			long length) throws SQLException {
 		JDBCUtil.log("ResultSet-184");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
-				"updateNCharacterStream(String columnLabel, Reader reader, long length)"));
+		Logger.debug(JDBCMessage
+				.get()
+				.getMessage("error.methodnotimpl",
+						"updateNCharacterStream(String columnLabel, Reader reader, long length)"));
 	}
 
 	/**
@@ -3198,7 +3350,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 */
 	public void updateNClob(int columnIndex, NClob nClob) throws SQLException {
 		JDBCUtil.log("ResultSet-185");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "updateNClob(int columnIndex, NClob nClob)"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"updateNClob(int columnIndex, NClob nClob)"));
 	}
 
 	/**
@@ -3212,10 +3365,11 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 *                    the name of the column
 	 * @param nClob       the value for the column to be updated
 	 */
-	public void updateNClob(String columnLabel, NClob nClob) throws SQLException {
+	public void updateNClob(String columnLabel, NClob nClob)
+			throws SQLException {
 		JDBCUtil.log("ResultSet-186");
-		Logger.debug(
-				JDBCMessage.get().getMessage("error.methodnotimpl", "updateNClob(String columnLabel, NClob nClob)"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"updateNClob(String columnLabel, NClob nClob)"));
 	}
 
 	/**
@@ -3229,8 +3383,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 */
 	public void updateNClob(int columnIndex, Reader reader) throws SQLException {
 		JDBCUtil.log("ResultSet-187");
-		Logger.debug(
-				JDBCMessage.get().getMessage("error.methodnotimpl", "updateNClob(int columnIndex, Reader reader)"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"updateNClob(int columnIndex, Reader reader)"));
 	}
 
 	/**
@@ -3245,10 +3399,11 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 * @param reader      An object that contains the data to set the parameter
 	 *                    value to.
 	 */
-	public void updateNClob(String columnLabel, Reader reader) throws SQLException {
+	public void updateNClob(String columnLabel, Reader reader)
+			throws SQLException {
 		JDBCUtil.log("ResultSet-188");
-		Logger.debug(
-				JDBCMessage.get().getMessage("error.methodnotimpl", "updateNClob(String columnLabel, Reader reader)"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"updateNClob(String columnLabel, Reader reader)"));
 	}
 
 	/**
@@ -3263,7 +3418,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 *                    value to.
 	 * @param length      the number of characters in the parameter data.
 	 */
-	public void updateNClob(int columnIndex, Reader reader, long length) throws SQLException {
+	public void updateNClob(int columnIndex, Reader reader, long length)
+			throws SQLException {
 		JDBCUtil.log("ResultSet-189");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"updateNClob(int columnIndex, Reader reader, long length)"));
@@ -3283,7 +3439,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 *                    value to.
 	 * @param length      the number of characters in the parameter data.
 	 */
-	public void updateNClob(String columnLabel, Reader reader, long length) throws SQLException {
+	public void updateNClob(String columnLabel, Reader reader, long length)
+			throws SQLException {
 		JDBCUtil.log("ResultSet-190");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"updateNClob(String columnLabel, Reader reader, long length)"));
@@ -3299,10 +3456,11 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 * @param columnIndex the first column is 1, the second is 2, ...
 	 * @param nString     the value for the column to be updated
 	 */
-	public void updateNString(int columnIndex, String nString) throws SQLException {
+	public void updateNString(int columnIndex, String nString)
+			throws SQLException {
 		JDBCUtil.log("ResultSet-191");
-		Logger.debug(
-				JDBCMessage.get().getMessage("error.methodnotimpl", "updateNString(int columnIndex, String nString)"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"updateNString(int columnIndex, String nString)"));
 	}
 
 	/**
@@ -3317,7 +3475,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 *                    the name of the column
 	 * @param nString     the value for the column to be updated
 	 */
-	public void updateNString(String columnLabel, String nString) throws SQLException {
+	public void updateNString(String columnLabel, String nString)
+			throws SQLException {
 		JDBCUtil.log("ResultSet-192");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"updateNString(String columnLabel, String nString)"));
@@ -3334,7 +3493,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 */
 	public void updateRowId(int columnIndex, RowId x) throws SQLException {
 		JDBCUtil.log("ResultSet-193");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "updateRowId(int columnIndex, RowId x)"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"updateRowId(int columnIndex, RowId x)"));
 	}
 
 	/**
@@ -3350,7 +3510,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 */
 	public void updateRowId(String columnLabel, RowId x) throws SQLException {
 		JDBCUtil.log("ResultSet-194");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "updateRowId(String columnLabel, RowId x)"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"updateRowId(String columnLabel, RowId x)"));
 	}
 
 	/**
@@ -3362,10 +3523,11 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 * @param columnIndex the first column is 1, the second is 2, ...
 	 * @param xmlObject   the value for the column to be updated
 	 */
-	public void updateSQLXML(int columnIndex, SQLXML xmlObject) throws SQLException {
+	public void updateSQLXML(int columnIndex, SQLXML xmlObject)
+			throws SQLException {
 		JDBCUtil.log("ResultSet-195");
-		Logger.debug(
-				JDBCMessage.get().getMessage("error.methodnotimpl", "updateSQLXML(int columnIndex, SQLXML xmlObject)"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"updateSQLXML(int columnIndex, SQLXML xmlObject)"));
 	}
 
 	/**
@@ -3379,7 +3541,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 *                    the name of the column
 	 * @param xmlObject   the column value
 	 */
-	public void updateSQLXML(String columnLabel, SQLXML xmlObject) throws SQLException {
+	public void updateSQLXML(String columnLabel, SQLXML xmlObject)
+			throws SQLException {
 		JDBCUtil.log("ResultSet-196");
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"updateSQLXML(String columnLabel, SQLXML xmlObject)"));
@@ -3403,7 +3566,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 */
 	public boolean isWrapperFor(Class<?> iface) throws SQLException {
 		JDBCUtil.log("ResultSet-197");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "isWrapperFor(Class<?> iface)"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"isWrapperFor(Class<?> iface)"));
 		return false;
 	}
 
@@ -3425,7 +3589,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 */
 	public <T> T unwrap(Class<T> iface) throws SQLException {
 		JDBCUtil.log("ResultSet-198");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "unwrap(Class<T> iface)"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"unwrap(Class<T> iface)"));
 		return null;
 	}
 
@@ -3442,7 +3607,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 */
 	public <T> T getObject(int columnIndex, Class<T> type) throws SQLException {
 		JDBCUtil.log("ResultSet-199");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "getObject(int columnIndex, Class<T> type)"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"getObject(int columnIndex, Class<T> type)"));
 		return null;
 	}
 
@@ -3459,17 +3625,19 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 * @param type        Class representing the Java data type to convert the
 	 *                    designated column to.
 	 */
-	public <T> T getObject(String columnLabel, Class<T> type) throws SQLException {
+	public <T> T getObject(String columnLabel, Class<T> type)
+			throws SQLException {
 		JDBCUtil.log("ResultSet-200");
-		Logger.debug(
-				JDBCMessage.get().getMessage("error.methodnotimpl", "getObject(String columnLabel, Class<T> type)"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"getObject(String columnLabel, Class<T> type)"));
 		return null;
 	}
 
 	/**
 	 * Realize the serialization function of Externalizable interface
 	 */
-	public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+	public void readExternal(ObjectInput in) throws IOException,
+			ClassNotFoundException {
 		JDBCUtil.log("ResultSet-143");
 		in.readByte();
 		dataArray = JDBCUtil.readArrayList2(in);

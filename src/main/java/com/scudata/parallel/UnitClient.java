@@ -40,15 +40,15 @@ public class UnitClient implements Serializable {
 		this.host = host;
 		this.port = port;
 	}
-	
+
 	/**
 	 * 根据主机描述串(形如：  host:ip)构造分机客户端
 	 * @param add 主机描述串
 	 */
-	public UnitClient(String add){
-		if( add!=null ){
+	public UnitClient(String add) {
+		if (add != null) {
 			int index = add.lastIndexOf(':');
-			if(index>0){
+			if (index > 0) {
 				host = add.substring(0, index).trim();
 				port = Integer.parseInt(add.substring(index + 1).trim());
 			}
@@ -320,7 +320,7 @@ public class UnitClient implements Serializable {
 	}
 
 	public void closeSpace(String spaceId) {
-		if(!isAlive()){
+		if (!isAlive()) {
 			return;
 		}
 		Request req = new Request(Request.SERVER_CLOSESPACE);
@@ -334,8 +334,6 @@ public class UnitClient implements Serializable {
 			x.printStackTrace();
 		}
 	}
-	
-	
 
 	public void initNode(int i, int N, String j) throws Exception {
 		Logger.debug("Before init zone: " + i + " on " + this);
@@ -372,8 +370,7 @@ public class UnitClient implements Serializable {
 	 * @return reduce后的计算结果
 	 * @throws Exception
 	 */
-	public Object getReduceResult(String spaceId)
-			throws Exception {
+	public Object getReduceResult(String spaceId) throws Exception {
 		Request req = new Request(Request.DFX_GET_REDUCE);
 		req.setAttr(Request.GET_REDUCE_SpaceId, spaceId);
 		Response res = sendByNewSocket(req);
@@ -407,27 +404,27 @@ public class UnitClient implements Serializable {
 		return (int[]) res.getResult();
 	}
 
-//	public static Sequence exeFetchDim(String spaceId, String dimVarName,、
-//			String machineDesc, String[] newExps, Sequence keySequence,
-//			String[] newNames) throws Exception {
-//		JobSpace space = JobSpaceManager.getSpace(spaceId);
-//		Param param = space.getParam(dimVarName);
-//		if (param == null) {
-//			MessageManager mm = EngineMessage.get();
-//			throw new RQException(mm.getMessage("unitclient.exefetchdim",
-//					machineDesc, spaceId, dimVarName));
-//		}
-//		Sequence dimTable = (Sequence) param.getValue();
-//		Context ctx = new Context();
-//		Expression[] exps = new Expression[newExps.length];
-//		for (int i = 0; i < exps.length; i++) {
-//			Expression exp = new Expression(newExps[i]);
-//			exps[i] = exp;
-//		}
-//		Sequence seq = JobUtil.fetch(dimTable, keySequence, exps, newNames,
-//				null, ctx);
-//		return seq;
-//	}
+	// public static Sequence exeFetchDim(String spaceId, String dimVarName,、
+	// String machineDesc, String[] newExps, Sequence keySequence,
+	// String[] newNames) throws Exception {
+	// JobSpace space = JobSpaceManager.getSpace(spaceId);
+	// Param param = space.getParam(dimVarName);
+	// if (param == null) {
+	// MessageManager mm = EngineMessage.get();
+	// throw new RQException(mm.getMessage("unitclient.exefetchdim",
+	// machineDesc, spaceId, dimVarName));
+	// }
+	// Sequence dimTable = (Sequence) param.getValue();
+	// Context ctx = new Context();
+	// Expression[] exps = new Expression[newExps.length];
+	// for (int i = 0; i < exps.length; i++) {
+	// Expression exp = new Expression(newExps[i]);
+	// exps[i] = exp;
+	// }
+	// Sequence seq = JobUtil.fetch(dimTable, keySequence, exps, newNames,
+	// null, ctx);
+	// return seq;
+	// }
 
 	public static Sequence getMemoryTable(String spaceId, String tableName,
 			String nodeDesc) throws Exception {
@@ -450,26 +447,26 @@ public class UnitClient implements Serializable {
 		return dimTable;
 	}
 
-//	public static Sequence exeFetchClusterTable(String spaceId,
-//			String tableName, String machineDesc, String[] newExps,
-//			Sequence keySequence, int[] seqs, String[] newNames, String filter)
-//			throws Exception {
-//		Sequence dimTable = getMemoryTable(spaceId, tableName, machineDesc);
-//		Context ctx = new Context();
-//		Expression[] exps = new Expression[newExps.length];
-//		for (int i = 0; i < exps.length; i++) {
-//			Expression exp = new Expression(newExps[i]);
-//			exps[i] = exp;
-//		}
-//		Sequence seq;
-//		if (keySequence != null) {
-//			seq = JobUtil.fetch(dimTable, keySequence, exps, newNames, filter,
-//					ctx);
-//		} else {
-//			seq = JobUtil.fetch(dimTable, seqs, exps, newNames, filter, ctx);
-//		}
-//		return seq;
-//	}
+	// public static Sequence exeFetchClusterTable(String spaceId,
+	// String tableName, String machineDesc, String[] newExps,
+	// Sequence keySequence, int[] seqs, String[] newNames, String filter)
+	// throws Exception {
+	// Sequence dimTable = getMemoryTable(spaceId, tableName, machineDesc);
+	// Context ctx = new Context();
+	// Expression[] exps = new Expression[newExps.length];
+	// for (int i = 0; i < exps.length; i++) {
+	// Expression exp = new Expression(newExps[i]);
+	// exps[i] = exp;
+	// }
+	// Sequence seq;
+	// if (keySequence != null) {
+	// seq = JobUtil.fetch(dimTable, keySequence, exps, newNames, filter,
+	// ctx);
+	// } else {
+	// seq = JobUtil.fetch(dimTable, seqs, exps, newNames, filter, ctx);
+	// }
+	// return seq;
+	// }
 
 	/**
 	 * 获取指定分机上正在运行的任务数目
@@ -490,59 +487,59 @@ public class UnitClient implements Serializable {
 		}
 	}
 
-//	public Sequence fetchADimTable(String spaceId, String dimVarName,
-//			Sequence keySequence, String[] newExps, String[] newNames)
-//			throws Exception {
-//		// 如果UC分机的host和IP跟IDE设置的环境变量中的本地地址相同，则也是本地线程执行 2013.12.19
-//		if (host.equals(Env.getLocalHost()) && port == Env.getLocalPort()) {
-//			return exeFetchDim(spaceId, dimVarName, " local process", newExps,
-//					keySequence, newNames);
-//		}
-//
-//		Request req = new Request(Request.SERVER_FETCHDIMS);
-//		req.setAttr(Request.FETCHDIMS_SpaceId, spaceId);
-//		req.setAttr(Request.FETCHDIMS_DimVarName, dimVarName);
-//		req.setAttr(Request.FETCHDIMS_KeySequence, keySequence);
-//		req.setAttr(Request.FETCHDIMS_NewExps, newExps);
-//		req.setAttr(Request.FETCHDIMS_NewNames, newNames);
-//
-//		// try {
-//		Response res = sendByNewSocket(req);
-//		if (res.getException() != null) {
-//			throw res.getException();
-//		}
-//		return (Sequence) res.getResult();
-//		// }
-//		// catch (Exception x) {}
-//	}
+	// public Sequence fetchADimTable(String spaceId, String dimVarName,
+	// Sequence keySequence, String[] newExps, String[] newNames)
+	// throws Exception {
+	// // 如果UC分机的host和IP跟IDE设置的环境变量中的本地地址相同，则也是本地线程执行 2013.12.19
+	// if (host.equals(Env.getLocalHost()) && port == Env.getLocalPort()) {
+	// return exeFetchDim(spaceId, dimVarName, " local process", newExps,
+	// keySequence, newNames);
+	// }
+	//
+	// Request req = new Request(Request.SERVER_FETCHDIMS);
+	// req.setAttr(Request.FETCHDIMS_SpaceId, spaceId);
+	// req.setAttr(Request.FETCHDIMS_DimVarName, dimVarName);
+	// req.setAttr(Request.FETCHDIMS_KeySequence, keySequence);
+	// req.setAttr(Request.FETCHDIMS_NewExps, newExps);
+	// req.setAttr(Request.FETCHDIMS_NewNames, newNames);
+	//
+	// // try {
+	// Response res = sendByNewSocket(req);
+	// if (res.getException() != null) {
+	// throw res.getException();
+	// }
+	// return (Sequence) res.getResult();
+	// // }
+	// // catch (Exception x) {}
+	// }
 
-//	public Sequence fetchAClusterTable(String spaceId, String tableName,
-//			Sequence keySequence, int[] seqs, String[] newExps,
-//			String[] newNames, String filter) throws Exception {
-//		// 如果UC分机的host和IP跟IDE设置的环境变量中的本地地址相同，则也是本地线程执行 2013.12.19
-//		if (host.equals(Env.getLocalHost()) && port == Env.getLocalPort()) {
-//			return exeFetchClusterTable(spaceId, tableName, " local process",
-//					newExps, keySequence, seqs, newNames, filter);
-//		}
-//
-//		Request req = new Request(Request.SERVER_FETCHCLUSTERTABLE);
-//		req.setAttr(Request.FETCHCLUSTERTABLE_SpaceId, spaceId);
-//		req.setAttr(Request.FETCHCLUSTERTABLE_TableName, tableName);
-//		req.setAttr(Request.FETCHCLUSTERTABLE_KeySequence, keySequence);
-//		req.setAttr(Request.FETCHCLUSTERTABLE_Seqs, seqs);
-//		req.setAttr(Request.FETCHCLUSTERTABLE_NewExps, newExps);
-//		req.setAttr(Request.FETCHCLUSTERTABLE_NewNames, newNames);
-//		req.setAttr(Request.FETCHCLUSTERTABLE_Filter, filter);
-//
-//		// try {
-//		Response res = sendByNewSocket(req);
-//		if (res.getException() != null) {
-//			throw res.getException();
-//		}
-//		return (Sequence) res.getResult();
-//		// }
-//		// catch (Exception x) {}
-//	}
+	// public Sequence fetchAClusterTable(String spaceId, String tableName,
+	// Sequence keySequence, int[] seqs, String[] newExps,
+	// String[] newNames, String filter) throws Exception {
+	// // 如果UC分机的host和IP跟IDE设置的环境变量中的本地地址相同，则也是本地线程执行 2013.12.19
+	// if (host.equals(Env.getLocalHost()) && port == Env.getLocalPort()) {
+	// return exeFetchClusterTable(spaceId, tableName, " local process",
+	// newExps, keySequence, seqs, newNames, filter);
+	// }
+	//
+	// Request req = new Request(Request.SERVER_FETCHCLUSTERTABLE);
+	// req.setAttr(Request.FETCHCLUSTERTABLE_SpaceId, spaceId);
+	// req.setAttr(Request.FETCHCLUSTERTABLE_TableName, tableName);
+	// req.setAttr(Request.FETCHCLUSTERTABLE_KeySequence, keySequence);
+	// req.setAttr(Request.FETCHCLUSTERTABLE_Seqs, seqs);
+	// req.setAttr(Request.FETCHCLUSTERTABLE_NewExps, newExps);
+	// req.setAttr(Request.FETCHCLUSTERTABLE_NewNames, newNames);
+	// req.setAttr(Request.FETCHCLUSTERTABLE_Filter, filter);
+	//
+	// // try {
+	// Response res = sendByNewSocket(req);
+	// if (res.getException() != null) {
+	// throw res.getException();
+	// }
+	// return (Sequence) res.getResult();
+	// // }
+	// // catch (Exception x) {}
+	// }
 
 	public Response sendByNewSocket(Request req) throws Exception {
 		SocketData tmp = null;
@@ -634,13 +631,14 @@ public class UnitClient implements Serializable {
 	}
 
 	private transient String tmpString = null;
+
 	public String toString() {
 		if (tmpString == null) {
 			tmpString = host + ":" + port;
 		}
 		return tmpString;
 	}
-	
+
 	public boolean equals(Object other) {
 		if (other == this)
 			return true;
@@ -664,8 +662,8 @@ public class UnitClient implements Serializable {
 		return (Integer) res.getResult();
 	}
 
-	public Table JDBCGetTables(int connId, String tableNamePattern, boolean isPlus)
-			throws Exception {
+	public Table JDBCGetTables(int connId, String tableNamePattern,
+			boolean isPlus) throws Exception {
 		Request req = new Request(Request.JDBC_GETTABLES);
 		req.setAttr(Request.GETTABLES_connID, connId);
 		req.setAttr(Request.GETTABLES_tableNamePattern, tableNamePattern);
@@ -684,6 +682,37 @@ public class UnitClient implements Serializable {
 		req.setAttr(Request.GETCOLUMNS_connID, connId);
 		req.setAttr(Request.GETCOLUMNS_tableNamePattern, tableNamePattern);
 		req.setAttr(Request.GETCOLUMNS_columnNamePattern, columnNamePattern);
+		req.setAttr(Request.JDBC_ISPLUS, isPlus);
+
+		Response res = sendByNewSocket(req);
+		if (res.getException() != null) {
+			throw res.getException();
+		}
+		return (Table) res.getResult();
+	}
+
+	public Table JDBCGetProcedures(int connId, String procedureNamePattern,
+			boolean isPlus) throws Exception {
+		Request req = new Request(Request.JDBC_GETPROCEDURES);
+		req.setAttr(Request.GETPROC_connID, connId);
+		req.setAttr(Request.GETPROC_procedureNamePattern, procedureNamePattern);
+		req.setAttr(Request.JDBC_ISPLUS, isPlus);
+
+		Response res = sendByNewSocket(req);
+		if (res.getException() != null) {
+			throw res.getException();
+		}
+		return (Table) res.getResult();
+	}
+
+	public Table JDBCGetProcedureColumns(int connId,
+			String procedureNamePattern, String columnNamePattern,
+			boolean isPlus) throws Exception {
+		Request req = new Request(Request.JDBC_GETPROCECOLUMNS);
+		req.setAttr(Request.GETPROCCOLUMNS_connID, connId);
+		req.setAttr(Request.GETPROCCOLUMNS_procedureNamePattern,
+				procedureNamePattern);
+		req.setAttr(Request.GETPROCCOLUMNS_columnNamePattern, columnNamePattern);
 		req.setAttr(Request.JDBC_ISPLUS, isPlus);
 
 		Response res = sendByNewSocket(req);
@@ -755,10 +784,10 @@ public class UnitClient implements Serializable {
 		}
 		return (Boolean) res.getResult();
 	}
-	
-	public static String getHostPath(String host){
+
+	public static String getHostPath(String host) {
 		String path = host.replaceAll("::", ".");
-		path = path.replaceAll(":", ".");//将ipv6的冒号换成点
+		path = path.replaceAll(":", ".");// 将ipv6的冒号换成点
 		return path;
 	}
 

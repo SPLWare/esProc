@@ -49,19 +49,6 @@ public class InternalPStatement extends InternalStatement implements
 	 *            The connection object
 	 * @param id
 	 *            The statement ID
-	 */
-	public InternalPStatement(InternalConnection con, int id) {
-		super(con, id);
-		JDBCUtil.log("InternalPStatement-1");
-	}
-
-	/**
-	 * Constructor
-	 * 
-	 * @param con
-	 *            The connection object
-	 * @param id
-	 *            The statement ID
 	 * @param sql
 	 *            The SQL string
 	 */

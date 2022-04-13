@@ -27,6 +27,7 @@ import com.scudata.dm.Context;
 import com.scudata.dm.DataStruct;
 import com.scudata.dm.KeyWord;
 import com.scudata.dm.LocalFile;
+import com.scudata.dm.ParamList;
 import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
@@ -610,6 +611,49 @@ public class JDBCUtil {
 	}
 
 	/**
+	 * 取SPL文件名
+	 * 
+	 * @param procedureNamePattern
+	 * @return Table
+	 * @throws SQLException
+	 */
+	public static Table getProcedures(String procedureNamePattern)
+			throws SQLException {
+		Map<String, String> map = Server.getSplList(procedureNamePattern);
+		Iterator<String> iter = map.keySet().iterator();
+		Table t = new Table(new String[] { JDBCConsts.PROCEDURE_NAME,
+				JDBCConsts.PROCEDURE_FILE });
+		while (iter.hasNext()) {
+			Object key = iter.next();
+			Object value = map.get(key);
+			t.newLast(new Object[] { value, key });
+		}
+		return t;
+	}
+
+	/**
+	 * 取SPL文件和参数
+	 * 
+	 * @param procedureNamePattern
+	 * @return Table
+	 * @throws SQLException
+	 */
+	public static Table getProcedureColumns(String procedureNamePattern,
+			String columnNamePattern) throws SQLException {
+		Map<String, ParamList> map = Server.getSplParams(procedureNamePattern,
+				columnNamePattern);
+		Iterator<String> iter = map.keySet().iterator();
+		Table t = new Table(new String[] { JDBCConsts.PROCEDURE_NAME,
+				JDBCConsts.PARAM_LIST });
+		while (iter.hasNext()) {
+			Object key = iter.next();
+			Object value = map.get(key);
+			t.newLast(new Object[] { key, value });
+		}
+		return t;
+	}
+
+	/**
 	 * Get the table names in the specified pattern
 	 * 
 	 * @param tableNamePattern
@@ -669,8 +713,8 @@ public class JDBCUtil {
 			String columnNamePattern, Context ctx) throws SQLException {
 		Map<String, String> map = Server.getTables(tableNamePattern);
 		Iterator<String> iter = map.keySet().iterator();
-		Table t = new Table(new String[] { "TABLE_NAME", "COLUMN_NAME",
-				"DATA_TYPE" });
+		Table t = new Table(new String[] { JDBCConsts.TABLE_NAME,
+				JDBCConsts.COLUMN_NAME, JDBCConsts.DATA_TYPE });
 
 		Pattern columnPattern = JDBCUtil.getPattern(columnNamePattern, null);
 

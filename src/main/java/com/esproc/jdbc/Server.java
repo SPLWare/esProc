@@ -7,6 +7,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -14,13 +15,17 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.scudata.app.common.AppConsts;
+import com.scudata.app.common.AppUtil;
 import com.scudata.app.config.ConfigUtil;
 import com.scudata.app.config.RaqsoftConfig;
+import com.scudata.cellset.datamodel.PgmCellSet;
 import com.scudata.common.IOUtils;
 import com.scudata.common.Logger;
 import com.scudata.common.StringUtils;
 import com.scudata.dm.Env;
 import com.scudata.dm.LocalFile;
+import com.scudata.dm.Param;
+import com.scudata.dm.ParamList;
 
 /**
  * JDBC service
@@ -118,6 +123,56 @@ public class Server {
 	}
 
 	/**
+	 * 取SPL文件名和参数映射
+	 * @param procedureNamePattern
+	 * @param columnNamePattern
+	 * @return
+	 * @throws SQLException
+	 */
+	public static Map<String, ParamList> getSplParams(
+			String procedureNamePattern, String columnNamePattern)
+			throws SQLException {
+		Map<String, String> map = Server.getSplList(procedureNamePattern);
+		Map<String, ParamList> paramMap = new HashMap<String, ParamList>();
+		Iterator<String> iter = map.keySet().iterator();
+		while (iter.hasNext()) {
+			String key = iter.next().toString();
+			String value = map.get(key).toString();
+			String splName = value;
+			String splPath = key;
+			try {
+				PgmCellSet cs = AppUtil.readCellSet(splPath);
+				ParamList pl = cs.getParamList();
+				if (pl == null) {
+					continue;
+				}
+				Pattern columnPattern = JDBCUtil.getPattern(columnNamePattern,
+						null);
+				if (columnPattern != null) {
+					ParamList filterParams = new ParamList();
+					Param param;
+					for (int i = 0; i < pl.count(); i++) {
+						param = pl.get(i);
+						if (param != null
+								&& StringUtils.isValidString(param.getName())) {
+							Matcher m = columnPattern.matcher(param.getName());
+							if (m.matches()) {
+								filterParams.add(param);
+							}
+						}
+					}
+					pl = filterParams;
+					cs.setParamList(pl);
+				}
+				paramMap.put(splName, pl);
+			} catch (Exception e) {
+				throw new SQLException(e.getMessage(), e);
+			}
+		}
+		return paramMap;
+	}
+
+	/**
 	 * Get files
 	 * 
 	 * @param filter   File name filter
@@ -125,13 +180,15 @@ public class Server {
 	 * @param onlyName Only match file name
 	 * @return files map
 	 */
-	public static Map<String, String> getFiles(String filter, List<String> fileExts, boolean onlyName) {
+	public static Map<String, String> getFiles(String filter,
+			List<String> fileExts, boolean onlyName) {
 		Map<String, String> map = new HashMap<String, String>();
 		Pattern pattern = JDBCUtil.getPattern(filter, fileExts);
 		String mainPath = Env.getMainPath();
 		if (StringUtils.isValidString(mainPath)) {
 			File mainDir = new File(mainPath);
-			getDirFiles(mainDir.getAbsolutePath().length(), mainDir, map, pattern, fileExts, onlyName);
+			getDirFiles(mainDir.getAbsolutePath().length(), mainDir, map,
+					pattern, fileExts, onlyName);
 		}
 		return map;
 	}
@@ -146,8 +203,9 @@ public class Server {
 	 * @param fileExts File extensions
 	 * @param onlyName Only match file name
 	 */
-	private static void getDirFiles(int rootLen, File pfile, Map<String, String> map, Pattern pattern,
-			List<String> fileExts, boolean onlyName) {
+	private static void getDirFiles(int rootLen, File pfile,
+			Map<String, String> map, Pattern pattern, List<String> fileExts,
+			boolean onlyName) {
 		if (pfile == null)
 			return;
 		if (pfile.isDirectory()) {
@@ -167,7 +225,8 @@ public class Server {
 							Matcher m;
 							boolean find = false;
 							/*
-							 * If it is mapped according to the table name, it must match all.
+							 * If it is mapped according to the table name, it
+							 * must match all.
 							 */
 							if (!isMapName) {
 								if (!onlyName) {
@@ -177,7 +236,8 @@ public class Server {
 							m = pattern.matcher(fileName);
 							find = m.matches();
 							if (!find) {
-								find = sameFileName(pattern.toString(), pfile.getAbsolutePath());
+								find = sameFileName(pattern.toString(),
+										pfile.getAbsolutePath());
 							}
 							if (!find) {
 								return;
@@ -186,7 +246,8 @@ public class Server {
 						if (!isMapName) {
 							if (onlyName) {
 								fileName = pfile.getName();
-								fileName = fileName.substring(0, fileName.length() - fileExt.length());
+								fileName = fileName.substring(0,
+										fileName.length() - fileExt.length());
 							} else {
 								fileName = getSubPath(rootLen, pfile);
 							}
@@ -271,11 +332,14 @@ public class Server {
 	 * @param rc The RaqsoftConfig object
 	 * @throws SQLException
 	 */
-	public synchronized void initConfig(RaqsoftConfig rc, String sconfig) throws SQLException {
+	public synchronized void initConfig(RaqsoftConfig rc, String sconfig)
+			throws SQLException {
 		if (rc != null) {
 			this.config = rc;
 			try {
-				ConfigUtil.setConfig(Env.getApplication(), System.getProperty("start.home"), config, true, false, true);
+				ConfigUtil.setConfig(Env.getApplication(),
+						System.getProperty("start.home"), config, true, false,
+						true);
 			} catch (Exception e) {
 				throw new SQLException(e);
 			}
@@ -293,7 +357,8 @@ public class Server {
 		if (config != null) {
 			if (StringUtils.isValidString(sconfig))
 				if (lastConfig == null || !lastConfig.equalsIgnoreCase(sconfig)) { // 通过API加载过了
-					Logger.info(JDBCMessage.get().getMessage("server.configloadonce"));
+					Logger.info(JDBCMessage.get().getMessage(
+							"server.configloadonce"));
 				}
 			return;
 		}
@@ -313,10 +378,12 @@ public class Server {
 			try {
 				config = ConfigUtil.load(is, true, true);
 				lastConfig = sconfig;
-				Logger.info(JDBCMessage.get().getMessage("error.configloaded", fileName));
+				Logger.info(JDBCMessage.get().getMessage("error.configloaded",
+						fileName));
 				Logger.debug("parallelNum=" + config.getParallelNum());
 			} catch (Exception e) {
-				String errorMessage = JDBCMessage.get().getMessage("error.loadconfigerror", fileName);
+				String errorMessage = JDBCMessage.get().getMessage(
+						"error.loadconfigerror", fileName);
 				Logger.error(errorMessage);
 				e.printStackTrace();
 				throw new SQLException(errorMessage + " : " + e.getMessage(), e);
@@ -328,7 +395,8 @@ public class Server {
 					}
 			}
 		} else {
-			String errorMessage = JDBCMessage.get().getMessage("error.confignotfound", fileName);
+			String errorMessage = JDBCMessage.get().getMessage(
+					"error.confignotfound", fileName);
 			Logger.error(errorMessage);
 			if (StringUtils.isValidString(sconfig)) {
 				// URL指定的config加载出错时抛异常，默认加载类路径下的不抛异常
@@ -399,7 +467,8 @@ public class Server {
 				if (url != null) {
 					try {
 						in = url.openStream();
-						Logger.info("raqsoftConfig.xml load from : " + url.toString());
+						Logger.info("raqsoftConfig.xml load from : "
+								+ url.toString());
 					} catch (Exception e) {
 					}
 				}
@@ -453,8 +522,10 @@ public class Server {
 	 * @return the connection
 	 * @throws SQLException
 	 */
-	public InternalConnection connect(InternalDriver driver) throws SQLException {
-		InternalConnection con = new InternalConnection(driver, Server.getInstance().nextID(), config);
+	public InternalConnection connect(InternalDriver driver)
+			throws SQLException {
+		InternalConnection con = new InternalConnection(driver, Server
+				.getInstance().nextID(), config);
 		cons.add(con);
 		return con;
 	}
