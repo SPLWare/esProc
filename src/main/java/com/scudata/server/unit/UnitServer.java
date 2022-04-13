@@ -447,7 +447,7 @@ public class UnitServer implements IServer {
 		threadGroup.enumerate(threads);
 		for (int i = 0; i < threads.length; i++) {
 			Thread t = threads[i];
-			if (t.isAlive()) {
+			if (t.isAlive() && (t instanceof UnitWorker)) {
 				((UnitWorker)t).shutdown();
 			}
 		}
