@@ -1,5 +1,11 @@
 package com.scudata.expression.fn;
 
+import java.sql.Time;
+import java.util.Calendar;
+import java.util.Date;
+
+import org.apache.poi.ss.usermodel.DateUtil;
+
 import com.scudata.common.Escape;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
@@ -17,9 +23,12 @@ import com.scudata.expression.mfn.sequence.Export;
 import com.scudata.resources.EngineMessage;
 
 /**
- * E(x) x是二层序列时，转换成多行序表，每行一条记录，第一行是标题。
+ * E(x) 
+ * x是二层序列时，转换成多行序表，每行一条记录，第一行是标题。
  * x是串，理解为回车分隔行/TAB分隔列的串，先拆开再转换。
  * x是序表/排列时，转换成二层序列。
+ * x是数值则按Excel规则的日期/时间。
+ * x是日期/时间则转成数值。
  * 
  * @b 无标题
  * @p 二层序列是转置的
@@ -65,11 +74,30 @@ public class E extends Function {
 		boolean isP = opt != null && opt.indexOf("p") != -1;
 		boolean isS = opt != null && opt.indexOf("s") != -1;
 
-		// boolean isTwo = opt != null && opt.indexOf("2") != -1;
-		// boolean isOne = opt != null && opt.indexOf("1") != -1;
-		// boolean isTwoOne = isTwo && isOne;
-
-		if (x instanceof Sequence) {
+		if (x instanceof Number) { // excel日期时间的数值转成java日期时间
+			Date date = DateUtil.getJavaDate(((Number) x).doubleValue());
+			if (x instanceof Integer) { // 整数转为日期
+				date = new java.sql.Date(date.getTime());
+			} else if (new Double(((Number) x).doubleValue()).compareTo(1.0d) < 0) { // 只有小数转为时间
+				date = new Time(date.getTime());
+			}
+			return date;
+		} else if (x instanceof Date) { // java日期时间转成excel日期时间的数值
+			double time;
+			if (x instanceof Time) {
+				Calendar cal = Calendar.getInstance();
+				cal.setTime((Date) x);
+				cal.set(1900, 0, 1);
+				time = DateUtil.getExcelDate(cal.getTime());
+				time -= 1;
+			} else {
+				time = DateUtil.getExcelDate((Date) x);
+				if (Math.abs(time - Math.round(time)) < Double.MIN_VALUE) { // 是整数
+					return new Double(time).intValue();
+				}
+			}
+			return time;
+		} else if (x instanceof Sequence) {
 			Sequence seq = (Sequence) x;
 			if (isS && seq instanceof Table) {
 				// @s x是序表时返回成回车/TAB分隔的串
