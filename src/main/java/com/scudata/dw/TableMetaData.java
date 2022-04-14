@@ -1518,6 +1518,19 @@ abstract public class TableMetaData implements ITableMetaData {
 
 	public void rename(String[] srcFields, String[] newFields, Context ctx) throws IOException {
 		getGroupTable().checkWritable();
+		//检查新的名字里是否有重复的
+		ArrayList<String> list = new ArrayList<String>();
+		for (String str : newFields) {
+			if (str != null) {
+				if (list.contains(str)) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException("rename" + mm.getMessage("function.invalidParam") + " : " + str);
+				} else {
+					list.add(str);
+				}
+			}
+		}
+		
 		//检查要修改的名字是否存在
 		NEXT:
 		for (String name : srcFields) {
