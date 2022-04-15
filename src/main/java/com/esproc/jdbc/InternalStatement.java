@@ -15,7 +15,6 @@ import com.scudata.common.Logger;
 import com.scudata.common.StringUtils;
 import com.scudata.dm.Context;
 import com.scudata.dm.IResource;
-import com.scudata.dm.LocalFile;
 import com.scudata.dm.ParamList;
 import com.scudata.dm.RetryException;
 import com.scudata.dm.Sequence;
@@ -237,7 +236,6 @@ public class InternalStatement implements java.sql.Statement {
 			}
 			Logger.debug("param size="
 					+ (parameters == null ? "0" : ("" + parameters.size())));
-			String[] splParams;
 			boolean isRemote = false;
 			if (con.isOnlyServer()) {
 				isRemote = true;
@@ -247,11 +245,16 @@ public class InternalStatement implements java.sql.Statement {
 						|| sqlType == JDBCConsts.TYPE_SPL) {
 					List<String> hosts = Server.getInstance().getHostNames();
 					if (hosts != null && !hosts.isEmpty()) {
-						splParams = JDBCUtil.parseCallSpl(sql);
-						String spl = splParams[0];
-						LocalFile f = new LocalFile(spl, "s");
-						if (!f.exists())
-							isRemote = true;
+						try {
+							String splFile = JDBCUtil.getSplName(sql);
+							try {
+								AppUtil.searchSplFilePath(splFile);
+							} catch (Exception ex) {
+								isRemote = true;
+							}
+						} catch (Exception ex) {
+						}
+
 					}
 				}
 			}

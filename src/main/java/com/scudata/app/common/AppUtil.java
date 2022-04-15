@@ -1170,6 +1170,32 @@ public class AppUtil {
 	 * @throws Exception
 	 */
 	public static PgmCellSet readCellSet(String filePath) throws Exception {
+		filePath = searchSplFilePath(filePath);
+		if (filePath == null)
+			return null;
+		PgmCellSet cs = null;
+		BufferedInputStream bis = null;
+		try {
+			FileObject fo = new FileObject(filePath, "s");
+			bis = new BufferedInputStream(fo.getInputStream());
+			if (filePath.toLowerCase().endsWith("." + AppConsts.FILE_SPL)) {
+				cs = readSPL(bis);
+			} else {
+				cs = CellSetUtil.readPgmCellSet(bis);
+			}
+		} finally {
+			if (bis != null)
+				bis.close();
+		}
+		return cs;
+	}
+
+	/**
+	 * 查找SPL文件名，用于支持无后缀名的情况
+	 * @param filePath
+	 * @return
+	 */
+	public static String searchSplFilePath(String filePath) {
 		if (filePath == null)
 			return null;
 		filePath = filePath.trim();
@@ -1197,21 +1223,7 @@ public class AppUtil {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException(mm.getMessage("file.fileNotExist", filePath));
 		}
-		PgmCellSet cs = null;
-		BufferedInputStream bis = null;
-		try {
-			FileObject fo = new FileObject(filePath, "s");
-			bis = new BufferedInputStream(fo.getInputStream());
-			if (filePath.toLowerCase().endsWith("." + AppConsts.FILE_SPL)) {
-				cs = readSPL(bis);
-			} else {
-				cs = CellSetUtil.readPgmCellSet(bis);
-			}
-		} finally {
-			if (bis != null)
-				bis.close();
-		}
-		return cs;
+		return filePath;
 	}
 
 	/**
