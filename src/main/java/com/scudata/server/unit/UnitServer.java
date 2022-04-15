@@ -139,11 +139,11 @@ public class UnitServer implements IServer {
 		switch (req.getAction()) {
 		case Request.SERVER_LISTTASK:
 			List list = TaskManager.getTaskList();
-			Table table = new Table(new String[] {"Port", "TaskId", "DfxName",
+			Table table = new Table(new String[] {"Port", "TaskId", "SPLXName",
 					"ArgDesc", "BeginTime", "FinishTime" });
 			for (int i = 0; i < list.size(); i++) {
 				Task t = (Task) list.get(i);
-				if (t.getFinishTime() > 0) {
+				if (t.getFinishTime() > 0 || t.isProcessCaller())  {
 					continue;
 				}
 				table.newLast(new Object[] { hostManager.getPort(), new Integer(t.getTaskID()),

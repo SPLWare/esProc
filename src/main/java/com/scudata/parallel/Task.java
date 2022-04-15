@@ -611,6 +611,14 @@ public class Task extends Job implements IResource, ITask {
 	}
 
 	/**
+	 * 判断当前任务是否主进程任务，目前暂时取消了分进程，但是程序逻辑仍然是主进程接到作业，再依次分给分进程（此时的分进程仍然是自己）
+	 * 因此在监控管理时，需要滤掉主进程任务，因为此时主进程的作业跟分进程是一样的作业。
+	 * @return
+	 */
+	public boolean isProcessCaller() {
+		return isProcessCaller;
+	}
+	/**
 	 * 获取计算完成的响应
 	 * @return 响应对象
 	 */
