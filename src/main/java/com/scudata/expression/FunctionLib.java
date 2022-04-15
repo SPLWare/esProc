@@ -265,6 +265,7 @@ public final class FunctionLib {
 		addFunction("env", "com.scudata.expression.fn.EnvSet");
 		addFunction("system", "com.scudata.expression.fn.SystemExec");
 		addFunction("output", "com.scudata.expression.fn.Output");
+		addFunction("jvm", "com.scudata.expression.fn.JVM");
 		addFunction("sleep", "com.scudata.expression.fn.Sleep");
 		addFunction("lock", "com.scudata.expression.fn.Lock");
 		addFunction("invoke", "com.scudata.expression.fn.Invoke");
