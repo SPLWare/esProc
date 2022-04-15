@@ -4199,8 +4199,9 @@ public class DatabaseUtil {
 					if (isAutoDetect) {
 						Expression[] expParams = new Expression[primaryParams.size()];
 						primaryParams.toArray(expParams);
+						// edited by bd, 2022.4.15, 游标更新时，由于通常数据量比较大，暂时不支持对空值主键的处理
 						Sequence recordCount = query(fetchSeq, check_sql, expParams, toByteArray(primaryTypes), opt,
-								ctx, dbs);
+								ctx, dbs, null, null, keysize);
 						Sequence updateRecords = new Sequence();
 						Sequence insertRecords = new Sequence();
 						int rsize = recordCount == null ? 0 : recordCount.length();
@@ -4252,6 +4253,8 @@ public class DatabaseUtil {
 		}
 		return 0;// 批量处理，不知道在哪出错，返回值无意义，始终返回0 xq 2015.4.21
 	}
+	
+	private static byte Col_NormalKey = 0x02;
 
 	/**
 	 * db.update(A:A',tbl,F:x,…;P,…)根据源排列和对比排列，更新数据库中的tbl表
@@ -4274,7 +4277,7 @@ public class DatabaseUtil {
 			oClear = true;
 		}
 		if (oClear || compSeq == null || compSeq.length() == 0) {
-			return update(srcSeq, table, fields, fopts, exps, opt, dbs, ctx);
+			//return update(srcSeq, table, fields, fopts, exps, opt, dbs, ctx);
 		}
 		
 		Statement st = null;
@@ -4331,7 +4334,12 @@ public class DatabaseUtil {
 						if (fopt.indexOf("a") > -1) {
 							ais[i] = DataStruct.Col_AutoIncrement;
 							autoKeys.add(fields[i]);
-						} else {
+						}
+						else if (fopt.indexOf("p") > -1) {
+							// edited by bd, 2022.4.14, 更新时不再设置主键值，这里预判断
+							ais[i] = Col_NormalKey;
+						}
+						else {
 							ais[i] = 0;
 						}
 					}
@@ -4539,45 +4547,182 @@ public class DatabaseUtil {
 					clearAll = true;
 				}
 
+				// edited by bd, 2022.4.14, 把这部分赋值提前，到生成语句之前设置，这是为了用这个表达式去计算主键中可能包含的空值
+				/* 改造如下逐行执行为批量执行 xq 2015.4.21 begin */
+				ArrayList<Expression> updateParams = new ArrayList<Expression>();
+				ArrayList<Expression> updateFields = new ArrayList<Expression>();
+				ArrayList<Expression> primaryParams = new ArrayList<Expression>();
+				ArrayList<Expression> insertParams = new ArrayList<Expression>();
+				ArrayList<Byte> updateTypes = new ArrayList<Byte>();
+				ArrayList<Byte> primaryTypes = new ArrayList<Byte>();
+				ArrayList<Byte> insertTypes = new ArrayList<Byte>();
+
+				for (int iField = 0; iField < fsize; iField++) {
+					if (ais[iField] == DataStruct.Col_AutoIncrement) {
+						continue;
+					}
+					insertParams.add(exps[iField]);
+					insertTypes.add(tColTypes[iField]);
+					// edited by bd, 2022.4.14, update时不再更新主键值
+					if (ais[iField] != DatabaseUtil.Col_NormalKey) {
+						updateParams.add(exps[iField]);
+						updateFields.add(new Expression(fields[iField]));
+						updateTypes.add(tColTypes[iField]);
+					}
+				}
+				ArrayList<Expression> primaryFields = new ArrayList<Expression>();
+				for (int ki = 0; ki < keysize; ki++) {
+					primaryFields.add(new Expression(fields[kis[ki]]));
+					primaryParams.add(exps[kis[ki]]);
+					primaryTypes.add(tColTypes[kis[ki]]);
+					updateFields.add(new Expression(fields[kis[ki]]));
+				}
+
+				//updateParams.addAll(insertParams);
+				//updateTypes.addAll(insertTypes);
+				updateParams.addAll(primaryParams);
+				updateTypes.addAll(primaryTypes);
+
+				// added by bd, 2022.4.14, 计算每个主键是否是空值
+				Expression[] params = new Expression[primaryParams.size()];
+				ArrayList<Integer> nullKeys = new ArrayList<Integer>();
+				primaryParams.toArray(params);
+				int paramCount = params.length;
+				int len = srcSeq.length();
+
+				ComputeStack stack = ctx.getComputeStack();
+				Sequence.Current current = srcSeq.new Current();
+				stack.push(current);
+
+				try {
+					for (int p = 0; p < paramCount; ++p) {
+						if (params[p] == null)
+							continue;
+						for (int i = 1; i <= len; ++i) {
+							current.setCurrent(i);
+							Object pv = params[p].calculate(ctx);
+							if (pv == null) {
+								nullKeys.add(p);
+								break;
+							}
+						}
+					}
+				} finally {
+					stack.pop();
+				}
+				int nkeys = nullKeys.size();
+				int nulls = (int) Math.round(Math.pow(2, nkeys)) - 1;
+				String[] ucons = nulls > 0 ? new String[nulls] : null;
+				
 				String condition = null;
 				String key = "";
 				String check_sql = "";
 				String update_sql = "";
 				String insert_sql = "";
 				String delete_sql = "";
+				String[] ch_sqls = nulls > 0 ? new String[nulls] : null;
+				String[] up_sqls = nulls > 0 ? new String[nulls] : null;
+				String[] de_sqls = nulls > 0 ? new String[nulls] : null;
 				for (int j = 0; j < keysize; j++) {
 					key = fields[kis[j]];
 					if (key != null && key.trim().length() > 0) {
 						if (condition == null) {
 							condition = "(" + key + " = ?)";
+							// added by bd, 2022.4.14, 如果当前列可能有空值，则在对应的几个位置的条件都设上is null条件
+							if (ucons != null) {
+								int kloc = nullKeys.indexOf(j);
+								if (kloc>-1) {
+									// 当前主键可能存在空值
+									for (int k = 0; k < nulls; k++) {
+										if ((k & (1<<kloc)) == 0) {
+											ucons[k] = key + " is null";
+										}
+										else {
+											ucons[k] = "(" + key + " = ?)";
+										}
+									}
+								}
+							}
 						} else {
 							condition += " and (" + key + " = ?)";
+							// added by bd, 2022.4.14, 如果当前列可能有空值，则在对应的几个位置的条件都设上is null条件
+							if (ucons != null) {
+								int kloc = nullKeys.indexOf(j);
+								if (kloc>-1) {
+									// 当前主键可能存在空值
+									for (int k = 0; k < nulls; k++) {
+										if ((k & (1<<kloc)) == 0) {
+											ucons[k] += " and " + key + " is null";
+										}
+										else {
+											ucons[k] += " and (" + key + " = ?)";
+										}
+									}
+								}
+							}
 						}
 					}
 				}
 				check_sql = "select count(*) from " + addTilde(table, dbs) + " where " + condition;
 				delete_sql = "delete from " + addTilde(table, dbs) + " where " + condition;
-				String sets = null;
+				if (ucons != null) {
+					for (int i = 0; i < nulls; i++) {
+						ch_sqls[i] = "select count(*) from " + addTilde(table, dbs) + " where " + ucons[i];
+						de_sqls[i] = "delete from " + addTilde(table, dbs) + " where " + ucons[i];
+					}
+				}
+				String usets = null;
 				for (int iField = 0; iField < fsize; iField++) {
-					if (ais[iField] == DataStruct.Col_AutoIncrement) {
+					// edited by bd, 2022.4.14, 更新时不再将主键设一遍了
+					if (ais[iField] == DataStruct.Col_AutoIncrement || 
+							ais[iField] == DatabaseUtil.Col_NormalKey) {
 						continue;
 					}
 
 					field = fields[iField];
 					if (field != null && field.trim().length() > 0) {// ？？此处的field没有过滤是否为主键，造成主键会重设一遍，xq
 																		// 2015.4.21
-						if (sets == null) {
-							sets = field + " = ?";
+						if (usets == null) {
+							usets = field + " = ?";
 						} else {
-							sets += ", " + field + " = ?";
+							usets += ", " + field + " = ?";
 						}
 					}
 				}
-				if (sets == null || sets.trim().length() < 1) {
-					throw new RQException("Field Names of Values is Invalid!");
+				if (usets == null || usets.trim().length() < 1) {
+					if (fields == null || fields.length == 0) {
+						throw new RQException("Field Names of Values is Invalid!");
+					}
+					else {
+						// edited by bd, 2022.4.14, 如果用户只更新了主键值（其实是错误的，但是就给他更新一个主键就是了）
+						for (int iField = 0; iField < fsize; iField++) {
+							if (ais[iField] == DataStruct.Col_AutoIncrement) {
+								continue;
+							}
+
+							field = fields[iField];
+							if (field != null && field.trim().length() > 0) {
+								if (usets == null) {
+									usets = field + " = ?";
+									break;
+								}
+							}
+						}
+						if (usets == null || usets.trim().length() < 1) {
+							throw new RQException("Field Names of Values is Invalid!");
+						}
+						else {
+							Logger.warn("No field value will be updated!");
+						}
+					}
 				}
-				update_sql = "update " + addTilde(table, dbs) + " set " + sets + " where " + condition;
-				sets = null;
+				update_sql = "update " + addTilde(table, dbs) + " set " + usets + " where " + condition;
+				if (ucons != null) {
+					for (int i = 0; i < nulls; i++) {
+						up_sqls[i] = "update " + addTilde(table, dbs) + " set " + usets + " where " + ucons[i];
+					}
+				}
+				String sets = null;
 				for (int iField = 0; iField < fsize; iField++) {
 					if (ais[iField] == DataStruct.Col_AutoIncrement) {
 						continue;
@@ -4610,37 +4755,15 @@ public class DatabaseUtil {
 					update_sql = new String(update_sql.getBytes(), dbCharset);
 					insert_sql = new String(insert_sql.getBytes(), dbCharset);
 					delete_sql = new String(delete_sql.getBytes(), dbCharset);
-				}
-
-				/* 改造如下逐行执行为批量执行 xq 2015.4.21 begin */
-				ArrayList<Expression> updateParams = new ArrayList<Expression>();
-				ArrayList<Expression> updateFields = new ArrayList<Expression>();
-				ArrayList<Expression> primaryParams = new ArrayList<Expression>();
-				ArrayList<Expression> insertParams = new ArrayList<Expression>();
-				ArrayList<Byte> updateTypes = new ArrayList<Byte>();
-				ArrayList<Byte> primaryTypes = new ArrayList<Byte>();
-				ArrayList<Byte> insertTypes = new ArrayList<Byte>();
-
-				for (int iField = 0; iField < fsize; iField++) {
-					if (ais[iField] == DataStruct.Col_AutoIncrement) {
-						continue;
+					if (ucons != null) {
+						for (int i = 0; i < nulls; i++) {
+							ch_sqls[i] = new String(ch_sqls[i].getBytes(), dbCharset);
+							de_sqls[i] = new String(de_sqls[i].getBytes(), dbCharset);
+							up_sqls[i] = new String(up_sqls[i].getBytes(), dbCharset);
+						}
 					}
-					insertParams.add(exps[iField]);
-					updateFields.add(new Expression(fields[iField]));
-					insertTypes.add(tColTypes[iField]);
-				}
-				ArrayList<Expression> primaryFields = new ArrayList<Expression>();
-				for (int ki = 0; ki < keysize; ki++) {
-					primaryFields.add(new Expression(fields[kis[ki]]));
-					primaryParams.add(exps[kis[ki]]);
-					primaryTypes.add(tColTypes[kis[ki]]);
-					updateFields.add(new Expression(fields[kis[ki]]));
 				}
 
-				updateParams.addAll(insertParams);
-				updateTypes.addAll(insertTypes);
-				updateParams.addAll(primaryParams);
-				updateTypes.addAll(primaryTypes);
 
 				boolean isAutoDetect = true;
 				if (opt != null) {// 没有选项时，使用自动判断记录的插入或更新
@@ -4648,8 +4771,9 @@ public class DatabaseUtil {
 						Logger.debug("Delete-only, preparing delete records: "+delete_sql);
 						Expression[] keysFields = new Expression[primaryFields.size()];
 						primaryFields.toArray(keysFields);
+						// edited by bd, 2022.4.15, 删除时，主键如果为null，那判断时无法使用F=?，需要使用F is null，为此，需要把remainSeq中，主键为null的记录拆出来单独执行
 						executeDifferBatch(srcSeq, compSeq, delete_sql, primaryFields, primaryParams, primaryTypes, ctx, dbs, con,
-								dbCharset, tranSQL, dbType, dbName, batchSize);
+								dbCharset, tranSQL, dbType, dbName, batchSize, de_sqls, nullKeys, keysize);
 						isAutoDetect = false;
 					} else if (opt.indexOf('i') > -1) {
 						if (compSeq != null && compSeq.length() > 0) {
@@ -4680,8 +4804,9 @@ public class DatabaseUtil {
 							Sequence remainSeq = isectSequence(srcSeq, compSeq, keysParam, keysFields, ctx);
 							ListBase1 oldMems = srcSeq.getMems();
 							srcSeq.setMems(remainSeq.getMems());
+							//edited by bd, 2022.4.15, @u选项时，根据最后keysize个位置的空值设置更新语句
 							executeDifferBatch(compSeq, srcSeq, update_sql, updateParams, updateFields, updateTypes, ctx, dbs, con,
-									dbCharset, tranSQL, dbType, dbName, batchSize);
+									dbCharset, tranSQL, dbType, dbName, batchSize, up_sqls, nullKeys, keysize);
 							srcSeq.setMems(oldMems);
 						} else {
 							executeBatchSql(srcSeq, update_sql, updateParams, updateTypes, ctx, dbs, con, dbCharset,
@@ -4696,8 +4821,9 @@ public class DatabaseUtil {
 							Expression[] keysFields = new Expression[primaryFields.size()];
 							primaryFields.toArray(keysFields);
 							Logger.debug("Auto delete, preparing delete lost-records: "+delete_sql);
+							//edited by bd, 2022.4.15, @u选项时，根据最后keysize个位置的空值设置更新语句
 							executeDifferBatch(srcSeq, compSeq, delete_sql, primaryFields, primaryParams, primaryTypes, ctx, dbs, con,
-									dbCharset, tranSQL, dbType, dbName, batchSize);
+									dbCharset, tranSQL, dbType, dbName, batchSize, de_sqls, nullKeys, keysize);
 						}
 						Expression[] keysParam = new Expression[primaryParams.size()];
 						primaryParams.toArray(keysParam);
@@ -4712,15 +4838,18 @@ public class DatabaseUtil {
 						srcSeq.setMems(oldMems);
 						Logger.debug("Auto update, preparing update changed-records: "+update_sql);
 						Sequence remainSeq = mergeDiffSequence(srcSeq, insertSeq, null, ctx);
+						// edited by bd, 2022.4.14, 更新时，主键如果为null，那判断时无法使用F=?，需要使用F is null，为此，需要把remainSeq中，主键为null的记录拆出来单独执行
 						srcSeq.setMems(remainSeq.getMems());
+						//edited by bd, 2022.4.15, 根据最后keysize个位置的空值设置更新语句
 						executeDifferBatch(compSeq, srcSeq, update_sql, updateParams, updateFields, updateTypes, ctx, dbs, con,
-								dbCharset, tranSQL, dbType, dbName, batchSize);
+								dbCharset, tranSQL, dbType, dbName, batchSize, up_sqls, nullKeys, keysize);
 						srcSeq.setMems(oldMems);
 					} else {
 						Expression[] expParams = new Expression[primaryParams.size()];
 						primaryParams.toArray(expParams);
+						//edited by bd, 2022.4.15, 根据最后keysize个位置的空值设置查询语句
 						Sequence recordCount = query(srcSeq, check_sql, expParams, toByteArray(primaryTypes), opt, ctx,
-								dbs);
+								dbs, ch_sqls, nullKeys, keysize);
 						Sequence updateRecords = new Sequence();
 						Sequence insertRecords = new Sequence();
 						int rsize = recordCount == null ? 0 : recordCount.length();
@@ -4735,8 +4864,10 @@ public class DatabaseUtil {
 						}
 						if (updateRecords.length() > 0) {
 							Logger.debug("Auto update, preparing update records: "+update_sql);
-							executeBatchSql(updateRecords, update_sql, updateParams, updateTypes, ctx, dbs, con,
-									dbCharset, tranSQL, dbType, dbName, batchSize);
+							//executeBatchSql(updateRecords, update_sql, updateParams, updateTypes, ctx, dbs, con,
+							//		dbCharset, tranSQL, dbType, dbName, batchSize);
+							executeDifferBatch(null, updateRecords, update_sql, updateParams, updateFields, updateTypes, ctx, dbs, con,
+									dbCharset, tranSQL, dbType, dbName, batchSize, up_sqls, nullKeys, keysize);
 						}
 						if (insertRecords.length() > 0) {
 							Logger.debug("Auto insert, preparing insert records: "+update_sql);
@@ -4786,6 +4917,8 @@ public class DatabaseUtil {
 	 */
 	public static int update(Sequence srcSeries, String table, String[] fields, String[] fopts, Expression[] exps,
 			String opt, DBSession dbs, Context ctx) {
+		if (1 > 0)
+			return update(srcSeries, null, table, fields, fopts, exps, opt, dbs, ctx);
 		boolean oClear = false;
 		if (opt != null && opt.indexOf("a") > -1) {
 			oClear = true;
@@ -4849,7 +4982,12 @@ public class DatabaseUtil {
 						if (fopt.indexOf("a") > -1) {
 							ais[i] = DataStruct.Col_AutoIncrement;
 							autoKeys.add(fields[i]);
-						} else {
+						}
+						else if (fopt.indexOf("p") > -1) {
+							// edited by bd, 2022.4.14, 更新时不再设置主键值，这里预判断
+							ais[i] = Col_NormalKey;
+						}
+						else {
 							ais[i] = 0;
 						}
 					}
@@ -5057,6 +5195,38 @@ public class DatabaseUtil {
 					st.execute(sql);
 					st.close();
 				}
+				
+				// edited by bd, 2022.4.15, 把这部分赋值提前，到生成语句之前设置，这是为了用这个表达式去计算主键中可能包含的空值
+				// 改造如下逐行执行为批量执行 xq 2015.4.21 begin
+				ArrayList<Expression> updateParams = new ArrayList<Expression>();
+				ArrayList<Expression> primaryParams = new ArrayList<Expression>();
+				ArrayList<Expression> insertParams = new ArrayList<Expression>();
+				ArrayList<Byte> updateTypes = new ArrayList<Byte>();
+				ArrayList<Byte> primaryTypes = new ArrayList<Byte>();
+				ArrayList<Byte> insertTypes = new ArrayList<Byte>();
+
+				for (int iField = 0; iField < fsize; iField++) {
+					if (ais[iField] == DataStruct.Col_AutoIncrement) {
+						continue;
+					}
+					insertParams.add(exps[iField]);
+					insertTypes.add(tColTypes[iField]);
+					// edited by bd, 2022.4.14, update时不再更新主键值
+					if (ais[iField] != DatabaseUtil.Col_NormalKey) {
+						updateParams.add(exps[iField]);
+						updateTypes.add(tColTypes[iField]);
+					}
+				}
+
+				for (int ki = 0; ki < keysize; ki++) {
+					primaryParams.add(exps[kis[ki]]);
+					primaryTypes.add(tColTypes[kis[ki]]);
+				}
+
+				//updateParams.addAll(insertParams);
+				//updateTypes.addAll(insertTypes);
+				updateParams.addAll(primaryParams);
+				updateTypes.addAll(primaryTypes);
 
 				String condition = null;
 				String key = "";
@@ -5127,31 +5297,6 @@ public class DatabaseUtil {
 					insert_sql = new String(insert_sql.getBytes(), dbCharset);
 				}
 
-				/* 改造如下逐行执行为批量执行 xq 2015.4.21 begin */
-				ArrayList<Expression> updateParams = new ArrayList<Expression>();
-				ArrayList<Expression> primaryParams = new ArrayList<Expression>();
-				ArrayList<Expression> insertParams = new ArrayList<Expression>();
-				ArrayList<Byte> updateTypes = new ArrayList<Byte>();
-				ArrayList<Byte> primaryTypes = new ArrayList<Byte>();
-				ArrayList<Byte> insertTypes = new ArrayList<Byte>();
-
-				for (int iField = 0; iField < fsize; iField++) {
-					if (ais[iField] == DataStruct.Col_AutoIncrement) {
-						continue;
-					}
-					insertParams.add(exps[iField]);
-					insertTypes.add(tColTypes[iField]);
-				}
-
-				for (int ki = 0; ki < keysize; ki++) {
-					primaryParams.add(exps[kis[ki]]);
-					primaryTypes.add(tColTypes[kis[ki]]);
-				}
-
-				updateParams.addAll(insertParams);
-				updateTypes.addAll(insertTypes);
-				updateParams.addAll(primaryParams);
-				updateTypes.addAll(primaryTypes);
 
 				boolean isAutoDetect = true;
 				if (opt != null) {// 没有选项时，使用自动判断记录的插入或更新
@@ -5170,7 +5315,7 @@ public class DatabaseUtil {
 					primaryParams.toArray(expParams);
 					
 					Sequence recordCount = query(srcSeries, check_sql, expParams, toByteArray(primaryTypes), opt, ctx,
-							dbs);
+							dbs, null, null, 0);
 					Sequence updateRecords = new Sequence();
 					Sequence insertRecords = new Sequence();
 					int rsize = recordCount == null ? 0 : recordCount.length();
@@ -5193,7 +5338,7 @@ public class DatabaseUtil {
 					}
 				}
 
-				/* 改造如下逐行执行为批量执行 xq 2015.4.21 end */
+				// 改造如下逐行执行为批量执行 xq 2015.4.21 end 
 			} catch (RQException e) {
 				com.scudata.common.Logger.debug("update error:", e);
 				if (dbs.getErrorMode()) {
@@ -5226,9 +5371,12 @@ public class DatabaseUtil {
 		execute(srcSeries, sql, expParams, toByteArray(expTypes), ctx, dbs);
 	}
 
+	// edited by bd, 2022.4.15, 添加参数de_sqls和nullKeys，这是考虑在执行删除sql时，如果键值中有空值需要用is null的判断，对应语句从de_sqls中获取，
+	// nullKeys中记录的是各个可能空值的位置，根据空值产生的位置获取de_sqls中语句位置，如可能有3个空值，全是空值对应位置0，第1个空值对应110……等
+	// 添加keysize记录共几个键，用于update时的比较
 	private static void executeDifferBatch(Sequence srcSeq, Sequence compSeq, String sql,
 			ArrayList<Expression> paramExps, ArrayList<Expression> oldFieldExps, ArrayList<Byte> paramTypes, Context ctx, DBSession dbs, Connection con,
-			String dbCharset, boolean tranSQL, int dbType, String dbn, int batchSize) {
+			String dbCharset, boolean tranSQL, int dbType, String dbn, int batchSize, String[] nullSqls, ArrayList<Integer> nullKeys, int keysize) {
 		Expression[] params = new Expression[paramExps.size()];
 		paramExps.toArray(params);
 		Expression[] fieldParams = new Expression[oldFieldExps.size()];
@@ -5239,20 +5387,45 @@ public class DatabaseUtil {
 			return;
 		}
 		int pCount = params == null ? 0 : params.length;
+		// edited by bd, 2022.4.15, keyStart记录从第几个位置起已经是键值了。
+		int keyStart = pCount - keysize;
 		int len = compSeq.length();
 		ComputeStack stack = ctx.getComputeStack();
 		Sequence.Current current = compSeq.new Current();
 		stack.push(current);
 		Sequence usingParams = new Sequence();
+		int nulls = nullSqls == null ? 0 : nullSqls.length;
+		boolean nkeys = nullKeys != null && nullKeys.size() > 0 && nulls > 0;
+		ArrayList<Sequence> nullParams = null;
+		if (nkeys) {
+			nullParams = new ArrayList<Sequence>(nulls);
+			for (int i = 0; i < nulls; i++)
+				nullParams.add(new Sequence());
+		}
 		try {
 			for (int i = 1; i <= len; ++i) {
 				current.setCurrent(i);
 				Sequence pValues = new Sequence();
+				int nloc = 0;
 				for (int p = 0; p < pCount; ++p) {
-					if (params[p] != null)
-						pValues.add(params[p].calculate(ctx));
+					if (params[p] != null) {
+						Object pv = params[p].calculate(ctx);
+						if (nkeys && p >= keyStart && pv == null) {
+							int kloc = nullKeys.indexOf(p-keyStart);
+							nloc = nloc + (1<<kloc);
+							// 如果改成了is null判断，对应的参数不必设了
+							// 还是得先设定，不然没法执行比较了
+						}
+						pValues.add(pv);
+					}
 				}
-				usingParams.add(pValues);
+				if (nloc > 0) {
+					nloc = nulls - nloc;
+					nullParams.get(nloc).add(pValues);
+				}
+				else {
+					usingParams.add(pValues);
+				}
 			}
 		} finally {
 			stack.pop();
@@ -5282,7 +5455,7 @@ public class DatabaseUtil {
 		initParams = initParams.sort(null);
 		Sequence diffParamSeq = usingParams.diff(initParams, true);
 		len = diffParamSeq.length();
-		if (len < 1)
+		if (len < 1 && !nkeys)
 			return;
 		Object[][] valueGroup = new Object[len][pCount];
 		for (int i = 1; i <= len; ++i) {
@@ -5290,6 +5463,34 @@ public class DatabaseUtil {
 			valueGroup[i - 1] = seq.toArray();
 		}
 		executeBatch(sql, valueGroup, types, dbs, con, dbCharset, tranSQL, dbType, dbn, batchSize, true);
+
+		// 如果compSeq中包含空值键
+		if (nkeys) {
+			for (int i = 0; i < nulls; i++) {
+				Sequence nullParam = nullParams.get(i);
+				nullParam = nullParam.sort(null);
+				diffParamSeq = nullParam.diff(initParams, true);
+				len = diffParamSeq.length();
+				if (len < 1)
+					continue;
+				valueGroup = new Object[len][pCount];
+				sql = nullSqls[i];
+				for (int j = 1; j <= len; ++j) {
+					Sequence seq = (Sequence) diffParamSeq.get(j);
+					// 比较后，再在这里去掉参数中的空值
+					int psize = seq.length();
+					ArrayList<Object> ps = new ArrayList<Object>();
+					for (int p = 0; p < psize; p++) {
+						Object pv = seq.get(p+1);
+						if (p < keyStart || pv != null ) {
+							ps.add(pv);
+						}
+					}
+					valueGroup[j - 1] = ps.toArray();
+				}
+				executeBatch(sql, valueGroup, types, dbs, con, dbCharset, tranSQL, dbType, dbn, batchSize, true);
+			}
+		}
 	}
 	
 	private static Sequence mergeDiffSequence(Sequence seq1, Sequence seq2, Expression[] exps, Context ctx) {
@@ -5479,44 +5680,168 @@ public class DatabaseUtil {
 		execute(srcSeries, sql, expParams, toByteArray(expTypes), ctx, dbs, con, dbCharset, tranSQL, dbType, dbn,
 				batchSize);
 	}
-
-	/* 共享出该方法，从DBObject挪过来的， xq 2015.4.21 */
+	
 	public static Sequence query(Sequence srcSeries, String sql, Expression[] params, byte[] types, String opt,
 			Context ctx, DBSession dbs) {
+		return query(srcSeries, sql, params, types, opt, ctx, dbs, null, null, 0);
+	}
+
+	/* 共享出该方法，从DBObject挪过来的， xq 2015.4.21 */
+	private static Sequence query(Sequence srcSeries, String sql, Expression[] params, byte[] types, String opt,
+			Context ctx, DBSession dbs, String[] nullSqls, ArrayList<Integer> nullKeys, int keysize) {
 		if (srcSeries == null || srcSeries.length() == 0 || params == null || params.length == 0) {
 			return query(sql, null, null, opt, ctx, dbs);
 		}
 
-		int paramCount = params.length;
+		int pCount = params.length;
+		// edited by bd, 2022.4.15, keyStart记录从第几个位置起已经是键值了。
+		int keyStart = pCount - keysize;
 		int len = srcSeries.length();
-		Object[][] valueGroup = new Object[len][paramCount];
+		//Object[][] valueGroup = new Object[len][pCount];
+		// edited by bd, 2022.4.15, 如果需要应对空值，则参数的个数是不定的
+		ArrayList<ArrayList<Object>> vgs = new ArrayList<ArrayList<Object>>(len);
 
 		ComputeStack stack = ctx.getComputeStack();
 		Sequence.Current current = srcSeries.new Current();
 		stack.push(current);
+		
+		int nulls = nullSqls == null ? 0 : nullSqls.length;
+		boolean nkeys = nullKeys != null && nullKeys.size() > 0 && nulls > 0;
+		ArrayList<ArrayList<ArrayList<Object>>> nullParams = null;
+		// res 用来依次记录的查询结果来源，0是来自无null值的查询，其它对应nullParams中的成员位置+1
+		int[] res = new int[len];
+		if (nkeys) {
+			nullParams = new ArrayList<ArrayList<ArrayList<Object>>>(nulls);
+			for (int i = 0; i < nulls; i++)
+				nullParams.add(new ArrayList<ArrayList<Object>>());
+		}
 
 		try {
 			for (int i = 1; i <= len; ++i) {
 				current.setCurrent(i);
-				Object[] paramValues = new Object[paramCount];
+				/*
+				Object[] paramValues = new Object[pCount];
 				valueGroup[i - 1] = paramValues;
-
-				for (int p = 0; p < paramCount; ++p) {
+				for (int p = 0; p < pCount; ++p) {
 					if (params[p] != null)
 						paramValues[p] = params[p].calculate(ctx);
+				}
+				*/
+				ArrayList<Object> pValues = new ArrayList<Object>();
+				int nloc = 0;
+				for (int p = 0; p < pCount; ++p) {
+					if (params[p] != null) {
+						Object pv = params[p].calculate(ctx);
+						if (nkeys && p >= keyStart && pv == null) {
+							int kloc = nullKeys.indexOf(p-keyStart);
+							nloc = nloc + (1<<kloc);
+							// 如果改成了is null判断，对应的参数不必设了
+							// 还是得设，不然直接缺失的话，长度有变化，无法与原值比较
+						}
+						pValues.add(pv);
+					}
+				}
+				if (nloc > 0) {
+					nloc = nulls - nloc;
+					nullParams.get(nloc).add(pValues);
+					res[i-1] = nloc+1;
+				}
+				else {
+					vgs.add(pValues);
 				}
 			}
 		} finally {
 			stack.pop();
 		}
 
+		Object[][] valueGroup = toGroup(vgs);
 		Table tbl = DatabaseUtil.queryGroup(sql, valueGroup, types, dbs, opt, ctx);
 
+		// edited by bd, 2022.4.15, 这个方法在这里是为了更新db.update的，这里@i选项是插入用的，不存在query@i这种返回成一列的情况
+		/*
 		if (tbl != null && tbl.dataStruct().getFieldCount() == 1 && opt != null && opt.indexOf('i') != -1) {
 			return tbl.fieldValues(0);
 		} else {
 			return tbl;
 		}
+		*/
+
+		// 如果compSeq中包含空值键
+		if (nkeys) {
+			ArrayList<Table> nTbls = new ArrayList<Table>(nulls);
+			Table tbli = null;
+			for (int i = 0; i < nulls; i++) {
+				ArrayList<ArrayList<Object>> nullParam = nullParams.get(i);
+				valueGroup = toGroup(nullParam, keyStart);
+				if (valueGroup != null) {
+					sql = nullSqls[i];
+					// 查询时，由于空值不定，因此不设置参数类型了
+					tbli = DatabaseUtil.queryGroup(sql, valueGroup, null, dbs, opt, ctx);
+				}
+				nTbls.add(tbli);
+			}
+			Sequence result = new Sequence(len);
+			int[] locs = new int[nulls+1];
+			Object o = null;
+			for (int i = 0; i < len; i++) {
+				int ri = res[i];
+				locs[ri] = locs[ri]+1;
+				if (ri <= 0) {
+					o = tbl.get(locs[ri]);
+				}
+				else {
+					o = nTbls.get(ri-1).get(locs[ri]);
+				}
+				result.add(o);
+			}
+			return result;
+		}
+		else {
+			// 没有空值键，直接返回就是了
+			return tbl;
+		}
+	}
+	
+	private static Object[][] toGroup(ArrayList<ArrayList<Object>> lvalues) {
+		int len = lvalues.size();
+		if (len < 1) return null;
+		ArrayList<Object> o1 = lvalues.get(0);
+		int len2 = o1.size();
+		if (len2 < 1) return null;
+		Object[][] result = new Object[len][len2];
+		for (int i = 0; i < len; i++) {
+			o1 = lvalues.get(i);
+			for (int j = 0; j < len2; j++) {
+				result[i][j] = o1.get(j);
+			}
+		}
+		return result;
+	}
+	
+	private static Object[][] toGroup(ArrayList<ArrayList<Object>> lvalues, int keyStart) {
+		int len = lvalues.size();
+		if (len < 1) return null;
+		ArrayList<Object> o1 = lvalues.get(0);
+		int len2 = o1.size();
+		int len22 = len2;
+		for (int i = keyStart; i < len2; i++) {
+			Object o = o1.get(i);
+			if (o == null) len22--;
+		}
+		if (len22 < 1) return null;
+		Object[][] result = new Object[len][len22];
+		for (int i = 0; i < len; i++) {
+			o1 = lvalues.get(i);
+			int col = 0;
+			for (int j = 0; j < len2; j++) {
+				Object o = o1.get(j);
+				if (o!= null) {
+					result[i][col] = o;
+					col ++;
+				}
+			}
+		}
+		return result;
 	}
 
 	/* 共享该方法， xq 2015.4.21 */
