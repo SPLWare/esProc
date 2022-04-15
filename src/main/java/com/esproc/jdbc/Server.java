@@ -240,6 +240,14 @@ public class Server {
 										pfile.getAbsolutePath());
 							}
 							if (!find) {
+								int index = fileName.lastIndexOf(".");
+								if (index > 0) { // 去掉后缀名后再匹配
+									String name = fileName.substring(0, index);
+									m = pattern.matcher(name);
+									find = m.matches();
+								}
+							}
+							if (!find) {
 								return;
 							}
 						}

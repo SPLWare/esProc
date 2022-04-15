@@ -39,52 +39,6 @@ import com.scudata.expression.fn.Eval;
  * JDBC tool class
  */
 public class JDBCUtil {
-	/**
-	 * Execute JDBC commands. Currently supports: $(db)sql, simple sql, cellSet
-	 * expression (separated by \t and \n). Does not support call spl and the
-	 * beginning of spl.
-	 * 
-	 * @param cmd
-	 * @param ctx
-	 * @throws SQLException
-	 */
-	public static Object executeCmd(String cmd, Context ctx)
-			throws SQLException {
-		return executeCmd(cmd, null, ctx);
-	}
-
-	/**
-	 * Execute JDBC commands.
-	 * 
-	 * @param cmd
-	 * @param args
-	 * @param ctx
-	 * @return Object
-	 * @throws SQLException
-	 */
-	public static Object executeCmd(String cmd, Sequence args, Context ctx)
-			throws SQLException {
-		if (!StringUtils.isValidString(cmd)) {
-			return null;
-		}
-		cmd = cmd.trim();
-		cmd = Escape.removeEscAndQuote(cmd);
-		boolean isGrid = false;
-		if (AppUtil.isSQL(cmd)) {
-			/* Simple SQL without the beginning of $() */
-			cmd = "$()" + cmd;
-		} else if (cmd.startsWith("$")) {
-			/* $(db)sql or $()sql */
-		} else {
-			/* Cellset expression */
-			isGrid = AppUtil.isGrid(cmd);
-		}
-		if (isGrid) {
-			return AppUtil.execute(cmd, args, ctx);
-		} else {
-			return AppUtil.execute1(cmd, args, ctx);
-		}
-	}
 
 	/**
 	 * Get call expression
@@ -210,11 +164,6 @@ public class JDBCUtil {
 		if (!StringUtils.isValidString(sql)) {
 			return false;
 		}
-		sql = sql.trim();
-		if (sql.startsWith("{") && sql.endsWith("}")) {
-			sql = sql.substring(1, sql.length() - 1);
-			sql = sql.trim();
-		}
 		byte sqlType = JDBCUtil.getJdbcSqlType(sql);
 		return sqlType == JDBCConsts.TYPE_CALLS;
 	}
@@ -272,119 +221,15 @@ public class JDBCUtil {
 					isGrid = true;
 				}
 		} else if (sql.toLowerCase().startsWith(JDBCConsts.KEY_CALLS)) {
-			sql = sql.substring(JDBCConsts.KEY_CALLS.length());
-			sql = sql.trim();
-			int left = sql.indexOf('(');
-			String name, params;
-			if (left == -1 && sql.lastIndexOf(')') == -1) {
-				name = sql.replaceAll("'", "");
-				params = null;
-			} else if (left > 0 && sql.endsWith(")")) {
-				name = sql.substring(0, left);
-				name = name.replaceAll("'", "");
-				params = sql.substring(left + 1, sql.length() - 1).trim();
-
-				// 处理非?的参数
-				if (parameters.isEmpty()) {
-					// 没有传递参数时，拼成一个成员的序列
-					StringBuffer totalParams = new StringBuffer();
-					ArgumentTokenizer at = new ArgumentTokenizer(params, ',');
-					while (at.hasNext()) {
-						if (totalParams.length() > 0) {
-							totalParams.append(",");
-						}
-						String param = at.next();
-						if (param != null) {
-							param = param.trim();
-							if (KeyWord.isArg(param)) {
-								totalParams.append(param);
-								continue;
-							}
-						}
-						totalParams.append("["
-								+ (param == null ? "" : param.trim()) + "]");
-					}
-					params = totalParams.toString();
-				} else {
-					Sequence seq = (Sequence) parameters.get(0);
-					int len = seq.length();
-					if (len >= 1) {
-						boolean needTransParam = false;
-						StringBuffer totalParams = new StringBuffer();
-						ArgumentTokenizer at = new ArgumentTokenizer(params,
-								',');
-						while (at.hasNext()) {
-							if (totalParams.length() > 0) {
-								totalParams.append(",");
-							}
-							String param = at.next();
-							if (param != null) {
-								param = param.trim();
-								if (KeyWord.isArg(param)) {
-									totalParams.append(param);
-									continue;
-								}
-							}
-							needTransParam = true;
-							StringBuffer repParams = new StringBuffer();
-							for (int i = 0; i < len; i++) {
-								if (repParams.length() > 0)
-									repParams.append(",");
-								// 非?的参数应该重复N遍
-								if (param == null) {
-									repParams.append("");
-								} else {
-									repParams.append(param.trim());
-								}
-							}
-							totalParams
-									.append("[" + repParams.toString() + "]");
-						}
-						if (needTransParam) {
-							params = totalParams.toString();
-						}
-					}
-				}
-			} else {
-				throw new SQLException(
-						"Stored procedure formatting error. For example: calls spl(...)");
-			}
+			String[] nameParam = getCallsNameParam(sql, parameters);
+			splName = nameParam[0];
+			String params = nameParam[1];
 			isCalls = true;
-			splName = name;
-			if (splName != null) {
-				splName = splName.trim();
-				// 脚本
-				if (splName.startsWith("\"") && splName.endsWith("\"")) {
-					splName = splName.substring(1, splName.length() - 2);
-					splName = splName.trim();
-				}
-			}
 			sql = JDBCUtil.getCallExp(splName, params);
 		} else if (sql.toLowerCase().startsWith(JDBCConsts.KEY_CALL)) {
-			sql = sql.substring(JDBCConsts.KEY_CALL.length());
-			sql = sql.trim();
-			int left = sql.indexOf('(');
-			String name, params;
-			if (left == -1 && sql.lastIndexOf(')') == -1) {
-				name = sql.replaceAll("'", "");
-				params = null;
-			} else if (left > 0 && sql.endsWith(")")) {
-				name = sql.substring(0, left);
-				name = name.replaceAll("'", "");
-				params = sql.substring(left + 1, sql.length() - 1).trim();
-			} else {
-				throw new SQLException(
-						"Stored procedure formatting error. For example: call spl(...)");
-			}
-			splName = name;
-			if (splName != null) {
-				splName = splName.trim();
-				// 脚本
-				if (splName.startsWith("\"") && splName.endsWith("\"")) {
-					splName = splName.substring(1, splName.length() - 2);
-					splName = splName.trim();
-				}
-			}
+			String[] nameParam = getCallNameParam(sql);
+			splName = nameParam[0];
+			String params = nameParam[1];
 			sql = JDBCUtil.getCallExp(splName, params);
 		} else if (sql.startsWith("$")) {
 			String s = sql;
@@ -448,6 +293,220 @@ public class JDBCUtil {
 		if (!hasReturn)
 			return null;
 		return o;
+	}
+
+	/**
+	 * 取calls语句的spl名称和参数
+	 * @param sql
+	 * @param parameters
+	 * @return
+	 * @throws SQLException
+	 */
+	public static String[] getCallsNameParam(String sql, ArrayList<?> parameters)
+			throws SQLException {
+		return getCallsNameParam(sql, parameters, true);
+	}
+
+	/**
+	 * 取calls语句的spl名称和参数
+	 * @param sql
+	 * @param parameters
+	 * @param isExecute 是否执行时调用的，不是执行时不处理参数
+	 * @return
+	 * @throws SQLException
+	 */
+	public static String[] getCallsNameParam(String sql,
+			ArrayList<?> parameters, boolean isExecute) throws SQLException {
+		sql = sql.substring(JDBCConsts.KEY_CALLS.length());
+		sql = sql.trim();
+		int left = sql.indexOf('(');
+		String name, params;
+		if (left == -1 && sql.lastIndexOf(')') == -1) {
+			name = sql.replaceAll("'", "");
+			params = null;
+		} else if (left > 0 && sql.endsWith(")")) {
+			name = sql.substring(0, left);
+			name = name.replaceAll("'", "");
+
+			params = sql.substring(left + 1, sql.length() - 1).trim();
+			if (isExecute) {
+				// 处理非?的参数
+				if (parameters.isEmpty()) {
+					// 没有传递参数时，拼成一个成员的序列
+					StringBuffer totalParams = new StringBuffer();
+					ArgumentTokenizer at = new ArgumentTokenizer(params, ',');
+					while (at.hasNext()) {
+						if (totalParams.length() > 0) {
+							totalParams.append(",");
+						}
+						String param = at.next();
+						if (param != null) {
+							param = param.trim();
+							if (KeyWord.isArg(param)) {
+								totalParams.append(param);
+								continue;
+							}
+						}
+						totalParams.append("["
+								+ (param == null ? "" : param.trim()) + "]");
+					}
+					params = totalParams.toString();
+				} else {
+					Sequence seq = (Sequence) parameters.get(0);
+					int len = seq.length();
+					if (len >= 1) {
+						boolean needTransParam = false;
+						StringBuffer totalParams = new StringBuffer();
+						ArgumentTokenizer at = new ArgumentTokenizer(params,
+								',');
+						while (at.hasNext()) {
+							if (totalParams.length() > 0) {
+								totalParams.append(",");
+							}
+							String param = at.next();
+							if (param != null) {
+								param = param.trim();
+								if (KeyWord.isArg(param)) {
+									totalParams.append(param);
+									continue;
+								}
+							}
+							needTransParam = true;
+							StringBuffer repParams = new StringBuffer();
+							for (int i = 0; i < len; i++) {
+								if (repParams.length() > 0)
+									repParams.append(",");
+								// 非?的参数应该重复N遍
+								if (param == null) {
+									repParams.append("");
+								} else {
+									repParams.append(param.trim());
+								}
+							}
+							totalParams
+									.append("[" + repParams.toString() + "]");
+						}
+						if (needTransParam) {
+							params = totalParams.toString();
+						}
+					}
+				}
+			}
+		} else {
+			// Stored procedure formatting error. For example: calls spl(...)
+			throw new SQLException(JDBCMessage.get().getMessage(
+					"jdbcutil.errorcallsformat"));
+		}
+		String splName = name;
+		if (splName != null) {
+			splName = splName.trim();
+			// 脚本
+			if (splName.startsWith("\"") && splName.endsWith("\"")) {
+				splName = splName.substring(1, splName.length() - 2);
+				splName = splName.trim();
+			}
+		}
+		return new String[] { splName, params };
+	}
+
+	/**
+	 * 取call语句的splx名称和参数
+	 * @param sql
+	 * @return
+	 * @throws SQLException
+	 */
+	public static String[] getCallNameParam(String sql) throws SQLException {
+		sql = sql.substring(JDBCConsts.KEY_CALL.length());
+		sql = sql.trim();
+		int left = sql.indexOf('(');
+		String name, params;
+		if (left == -1 && sql.lastIndexOf(')') == -1) {
+			name = sql.replaceAll("'", "");
+			params = null;
+		} else if (left > 0 && sql.endsWith(")")) {
+			name = sql.substring(0, left);
+			name = name.replaceAll("'", "");
+			params = sql.substring(left + 1, sql.length() - 1).trim();
+		} else {
+			throw new SQLException(JDBCMessage.get().getMessage(
+					"jdbcutil.errorcallformat"));
+		}
+		String splName = name;
+		if (splName != null) {
+			splName = splName.trim();
+			// 脚本
+			if (splName.startsWith("\"") && splName.endsWith("\"")) {
+				splName = splName.substring(1, splName.length() - 2);
+				splName = splName.trim();
+			}
+		}
+		return new String[] { splName, params };
+	}
+
+	/**
+	 * 取SPL语句的splx名称和参数
+	 * @param sql
+	 * @return
+	 */
+	public static String[] getSplNameParam(String sql) {
+		sql = sql.trim();
+		String spl = sql;
+		String params = null;
+		if (sql.endsWith(")") && sql.indexOf("(") > 0) {
+			ArgumentTokenizer at = new ArgumentTokenizer(sql, '(');
+			if (at.hasNext()) {
+				spl = at.next();
+			} else {
+				int paramStart = sql.indexOf("(");
+				spl = sql.substring(0, paramStart);
+			}
+			if (spl.length() < sql.length()) {
+				params = sql.substring(spl.length() + 1, sql.length() - 1);
+			}
+		} else {
+			ArgumentTokenizer at = new ArgumentTokenizer(sql, ' ');
+			if (at.hasNext()) {
+				spl = at.next();
+				if (spl.length() < sql.length()) {
+					params = sql.substring(spl.length(), sql.length());
+				}
+			}
+		}
+		if (params != null) {
+			params = params.trim();
+		}
+		return new String[] { spl, params };
+	}
+
+	/**
+	 * 从call,calls,spl三种语句中获取SPL文件名
+	 * 
+	 * @param sql
+	 * @return String[]
+	 * @throws SQLException
+	 */
+	public static String getSplName(String sql) throws SQLException {
+		sql = sql.trim();
+		if (sql.startsWith("{") && sql.endsWith("}")) {
+			sql = sql.substring(1, sql.length() - 1);
+			sql = sql.trim();
+		}
+		byte sqlType = JDBCUtil.getJdbcSqlType(sql);
+		String splName;
+		if (sqlType == JDBCConsts.TYPE_CALLS) {
+			String[] nameParam = JDBCUtil.getCallsNameParam(sql, null, false);
+			splName = nameParam[0];
+		} else if (sqlType == JDBCConsts.TYPE_CALL) {
+			String[] nameParam = JDBCUtil.getCallNameParam(sql);
+			splName = nameParam[0];
+		} else if (sqlType == JDBCConsts.TYPE_SPL) {
+			String[] nameParam = JDBCUtil.getSplNameParam(sql);
+			splName = nameParam[0];
+		} else {
+			throw new SQLException(JDBCMessage.get().getMessage(
+					"error.onlycallsetparam"));
+		}
+		return splName;
 	}
 
 	/**
@@ -579,33 +638,9 @@ public class JDBCUtil {
 	private static String parseSpl(String sql) throws SQLException {
 		if (sql == null || sql.length() == 0)
 			throw new SQLException("The spl name is empty.");
-		sql = sql.trim();
-		String spl = sql;
-		String params = null;
-		if (sql.endsWith(")") && sql.indexOf("(") > 0) {
-			ArgumentTokenizer at = new ArgumentTokenizer(sql, '(');
-			if (at.hasNext()) {
-				spl = at.next();
-			} else {
-				int paramStart = sql.indexOf("(");
-				spl = sql.substring(0, paramStart);
-			}
-			if (spl.length() < sql.length()) {
-				params = sql.substring(spl.length() + 1, sql.length() - 1);
-			}
-		} else {
-			ArgumentTokenizer at = new ArgumentTokenizer(sql, ' ');
-			if (at.hasNext()) {
-				spl = at.next();
-				if (spl.length() < sql.length()) {
-					params = sql.substring(spl.length(), sql.length());
-				}
-			}
-		}
-		if (params != null) {
-			params = params.trim();
-		}
-		spl = spl.trim();
+		String[] nameParam = getSplNameParam(sql);
+		String spl = nameParam[0];
+		String params = nameParam[1];
 		sql = JDBCUtil.getCallExp(spl, params);
 		return sql;
 	}
@@ -774,74 +809,6 @@ public class JDBCUtil {
 			}
 		}
 		return t;
-	}
-
-	/**
-	 * Parse call spl statement
-	 * 
-	 * @param sql
-	 * @return String[]
-	 * @throws SQLException
-	 */
-	public static String[] parseCallSpl(String sql) throws SQLException {
-		String spl;
-		String params = null;
-		sql = sql.trim();
-		if (sql.toLowerCase().startsWith(JDBCConsts.KEY_CALL)
-				|| sql.toLowerCase().startsWith(JDBCConsts.KEY_CALLS)) {
-			if (sql.toLowerCase().startsWith(JDBCConsts.KEY_CALLS)) {
-				sql = sql.substring(JDBCConsts.KEY_CALLS.length());
-			} else {
-				sql = sql.substring(JDBCConsts.KEY_CALL.length());
-			}
-			sql = sql.trim();
-			int left = sql.indexOf('(');
-			if (left == -1 && sql.lastIndexOf(')') == -1) {
-				spl = sql.replaceAll("'", "");
-				params = null;
-			} else if (left > 0 && sql.endsWith(")")) {
-				spl = sql.substring(0, left);
-				spl = spl.replaceAll("'", "");
-				params = sql.substring(left + 1, sql.length() - 1).trim();
-			} else {
-				throw new SQLException(
-						"Stored procedure formatting error. For example: call spl(...)");
-			}
-			if (spl != null) {
-				spl = spl.trim();
-				if (spl.startsWith("\"") && spl.endsWith("\"")) {
-					spl = spl.substring(1, spl.length() - 2);
-					spl = spl.trim();
-				}
-			}
-		} else {
-			spl = sql;
-			if (sql.endsWith(")") && sql.indexOf("(") > 0) {
-				ArgumentTokenizer at = new ArgumentTokenizer(sql, '(');
-				if (at.hasNext()) {
-					spl = at.next();
-				} else {
-					int paramStart = sql.indexOf("(");
-					spl = sql.substring(0, paramStart);
-				}
-				if (spl.length() < sql.length()) {
-					params = sql.substring(spl.length() + 1, sql.length() - 1);
-				}
-			} else {
-				ArgumentTokenizer at = new ArgumentTokenizer(sql, ' ');
-				if (at.hasNext()) {
-					spl = at.next();
-					if (spl.length() < sql.length()) {
-						params = sql.substring(spl.length(), sql.length());
-					}
-				}
-			}
-			if (params != null) {
-				params = params.trim();
-			}
-			spl = spl.trim();
-		}
-		return new String[] { spl, params };
 	}
 
 	/**

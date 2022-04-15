@@ -1,10 +1,6 @@
 package com.scudata.expression.fn;
 
-import java.sql.Time;
-import java.util.Calendar;
 import java.util.Date;
-
-import org.apache.poi.ss.usermodel.DateUtil;
 
 import com.scudata.common.Escape;
 import com.scudata.common.MessageManager;
@@ -75,28 +71,12 @@ public class E extends Function {
 		boolean isS = opt != null && opt.indexOf("s") != -1;
 
 		if (x instanceof Number) { // excel日期时间的数值转成java日期时间
-			Date date = DateUtil.getJavaDate(((Number) x).doubleValue());
-			if (x instanceof Integer) { // 整数转为日期
-				date = new java.sql.Date(date.getTime());
-			} else if (new Double(((Number) x).doubleValue()).compareTo(1.0d) < 0) { // 只有小数转为时间
-				date = new Time(date.getTime());
-			}
+			Date date = ExcelUtils.excelDateNumber2JavaDate((Number) x);
 			return date;
 		} else if (x instanceof Date) { // java日期时间转成excel日期时间的数值
-			double time;
-			if (x instanceof Time) {
-				Calendar cal = Calendar.getInstance();
-				cal.setTime((Date) x);
-				cal.set(1900, 0, 1);
-				time = DateUtil.getExcelDate(cal.getTime());
-				time -= 1;
-			} else {
-				time = DateUtil.getExcelDate((Date) x);
-				if (Math.abs(time - Math.round(time)) < Double.MIN_VALUE) { // 是整数
-					return new Double(time).intValue();
-				}
-			}
-			return time;
+			Number excelDateNumber = ExcelUtils
+					.javaDate2ExcelDateNumber((Date) x);
+			return excelDateNumber;
 		} else if (x instanceof Sequence) {
 			Sequence seq = (Sequence) x;
 			if (isS && seq instanceof Table) {
@@ -127,6 +107,11 @@ public class E extends Function {
 						+ mm.getMessage("function.missingParam"));
 			}
 			Sequence seq = importS((String) x, !isB);
+			if (seq == null) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException(FUNC_NAME
+						+ mm.getMessage("function.invalidParam"));
+			}
 			seq = pmt2Sequence(seq, !isB);
 			return seq;
 		}

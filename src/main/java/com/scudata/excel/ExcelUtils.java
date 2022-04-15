@@ -9,6 +9,7 @@ import java.io.PushbackInputStream;
 import java.math.BigDecimal;
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.util.Calendar;
 import java.util.Date;
 
 import org.apache.poi.openxml4j.opc.OPCPackage;
@@ -1065,5 +1066,42 @@ public class ExcelUtils {
 		int ss = time.getSeconds();
 		int seconds = (hh * 60 + mm) * 60 + ss;
 		return seconds / DAY_SECONDS;
+	}
+
+	/**
+	 * 将Excel的日期时间数值转换成java的日期时间
+	 * @param excelDateNumber
+	 * @return Date
+	 */
+	public static Date excelDateNumber2JavaDate(Number excelDateNumber) {
+		Date date = DateUtil.getJavaDate(excelDateNumber.doubleValue());
+		if (excelDateNumber instanceof Integer) { // 整数转为日期
+			date = new java.sql.Date(date.getTime());
+		} else if (new Double(excelDateNumber.doubleValue()).compareTo(1.0d) < 0) { // 只有小数转为时间
+			date = new Time(date.getTime());
+		}
+		return date;
+	}
+
+	/**
+	 * 将java的日期时间转换成Excel的日期时间数值
+	 * @param date
+	 * @return double
+	 */
+	public static Number javaDate2ExcelDateNumber(Date date) {
+		double time;
+		if (date instanceof Time) {
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(date);
+			cal.set(1900, 0, 1);
+			time = DateUtil.getExcelDate(cal.getTime());
+			time -= 1;
+		} else {
+			time = DateUtil.getExcelDate(date);
+			if (Double.compare(time, Math.round(time)) == 0) { // 是整数
+				return new Double(time).intValue();
+			}
+		}
+		return time;
 	}
 }

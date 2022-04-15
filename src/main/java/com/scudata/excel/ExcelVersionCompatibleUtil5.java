@@ -187,7 +187,7 @@ public class ExcelVersionCompatibleUtil5 implements ExcelVersionCompatibleUtilIn
 		try {
 			Class clazz = Class.forName("com.raqsoft.report.view.ExportExcelUtil2");
 			Object o = clazz.newInstance();
-			Method m = clazz.getMethod("getISheetBorderStyle");
+			Method m = clazz.getMethod("getISheetBorderStyle",byte.class);
 			return (Short) m.invoke(o, borderStyle);
 		}catch(Exception e) {
 			return BorderStyle.THIN.getCode();	

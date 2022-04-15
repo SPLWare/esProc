@@ -2673,17 +2673,30 @@ public class SplEditor {
 						argIndex++;
 					} else { // ?i
 						String sNum = id.substring(KeyWord.ARGPREFIX.length());
-						int num = Integer.parseInt(sNum);
-						if (args.size() < num) {
-							// {0}与参数的数量不匹配。
-							Logger.error(cellId
-									+ ": "
-									+ IdeSplMessage.get().getMessage(
-											"spleditor.excelparamnotmatch", id));
+						try {
+							int num = Integer.parseInt(sNum);
+							if (num > 0) { // ?0不处理
+								if (args.size() < num) {
+									// {0}与参数的数量不匹配。
+									Logger.error(cellId
+											+ ": "
+											+ IdeSplMessage
+													.get()
+													.getMessage(
+															"spleditor.excelparamnotmatch",
+															id));
+									return expStr;
+								}
+								arg = args.get(num - 1);
+								argIndex = num;
+							}
+						} catch (Exception ex) {
+							Logger.error(
+									IdeSplMessage.get().getMessage(
+											"spleditor.excelparamnumerror",
+											cellId, id), ex);
 							return expStr;
 						}
-						arg = args.get(num - 1);
-						argIndex = num;
 					}
 					if (arg != null) {
 						// 总是加单引号不会出错
