@@ -13,7 +13,7 @@ import com.scudata.resources.EngineMessage;
  *
  */
 public class ArgNode extends Node {
-	private int index = 0;
+	private int index = -1; // 值为0时表示取所有参，大于0时表示取相应位置的参数
 
 	public ArgNode(String id) {
 		if (id.length() > 1) index = Integer.parseInt(id.substring(1));
@@ -29,6 +29,8 @@ public class ArgNode extends Node {
 
 		if (index > 0) {
 			return current.get(index);
+		} else if (index == 0) {
+			return current.getCurrentSequence();
 		} else {
 			index = current.getCurrentIndex() + 1;
 			if (index <= current.length()) {
