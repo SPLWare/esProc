@@ -74,7 +74,7 @@ public class E extends Function {
 			Date date = ExcelUtils.excelDateNumber2JavaDate((Number) x);
 			return date;
 		} else if (x instanceof Date) { // java日期时间转成excel日期时间的数值
-			double excelDateNumber = ExcelUtils
+			Number excelDateNumber = ExcelUtils
 					.javaDate2ExcelDateNumber((Date) x);
 			return excelDateNumber;
 		} else if (x instanceof Sequence) {
@@ -107,6 +107,11 @@ public class E extends Function {
 						+ mm.getMessage("function.missingParam"));
 			}
 			Sequence seq = importS((String) x, !isB);
+			if (seq == null) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException(FUNC_NAME
+						+ mm.getMessage("function.invalidParam"));
+			}
 			seq = pmt2Sequence(seq, !isB);
 			return seq;
 		}

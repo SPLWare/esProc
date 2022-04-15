@@ -39,52 +39,6 @@ import com.scudata.expression.fn.Eval;
  * JDBC tool class
  */
 public class JDBCUtil {
-	/**
-	 * Execute JDBC commands. Currently supports: $(db)sql, simple sql, cellSet
-	 * expression (separated by \t and \n). Does not support call spl and the
-	 * beginning of spl.
-	 * 
-	 * @param cmd
-	 * @param ctx
-	 * @throws SQLException
-	 */
-	public static Object executeCmd(String cmd, Context ctx)
-			throws SQLException {
-		return executeCmd(cmd, null, ctx);
-	}
-
-	/**
-	 * Execute JDBC commands.
-	 * 
-	 * @param cmd
-	 * @param args
-	 * @param ctx
-	 * @return Object
-	 * @throws SQLException
-	 */
-	public static Object executeCmd(String cmd, Sequence args, Context ctx)
-			throws SQLException {
-		if (!StringUtils.isValidString(cmd)) {
-			return null;
-		}
-		cmd = cmd.trim();
-		cmd = Escape.removeEscAndQuote(cmd);
-		boolean isGrid = false;
-		if (AppUtil.isSQL(cmd)) {
-			/* Simple SQL without the beginning of $() */
-			cmd = "$()" + cmd;
-		} else if (cmd.startsWith("$")) {
-			/* $(db)sql or $()sql */
-		} else {
-			/* Cellset expression */
-			isGrid = AppUtil.isGrid(cmd);
-		}
-		if (isGrid) {
-			return AppUtil.execute(cmd, args, ctx);
-		} else {
-			return AppUtil.execute1(cmd, args, ctx);
-		}
-	}
 
 	/**
 	 * Get call expression
@@ -525,7 +479,7 @@ public class JDBCUtil {
 	}
 
 	/**
-	 * Parse call spl statement
+	 * 从call,calls,spl三种语句中获取SPL文件名
 	 * 
 	 * @param sql
 	 * @return String[]

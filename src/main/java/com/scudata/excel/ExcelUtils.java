@@ -1088,7 +1088,7 @@ public class ExcelUtils {
 	 * @param date
 	 * @return double
 	 */
-	public static double javaDate2ExcelDateNumber(Date date) {
+	public static Number javaDate2ExcelDateNumber(Date date) {
 		double time;
 		if (date instanceof Time) {
 			Calendar cal = Calendar.getInstance();
@@ -1098,7 +1098,7 @@ public class ExcelUtils {
 			time -= 1;
 		} else {
 			time = DateUtil.getExcelDate(date);
-			if (Math.abs(time - Math.round(time)) < Double.MIN_VALUE) { // 是整数
+			if (Double.compare(time, Math.round(time)) == 0) { // 是整数
 				return new Double(time).intValue();
 			}
 		}
