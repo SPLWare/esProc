@@ -1398,7 +1398,8 @@ public class JTableValue extends JTableEx {
 	 * @param isSeq
 	 *            是否序列（也包含排列、序表）
 	 */
-	private void setTableColumns(DataStruct ds, int len, boolean isSeq) {
+	private synchronized void setTableColumns(DataStruct ds, int len,
+			boolean isSeq) {
 		if (ds == null)
 			return;
 		String nNames[] = ds.getFieldNames();
@@ -1432,7 +1433,11 @@ public class JTableValue extends JTableEx {
 		if (colWidth < width && cc > 0) {
 			int aveWidth;
 			if (isSeq) {
-				aveWidth = (width - INDEX_WIDTH) / (cc - 1);
+				if (cc == 1) {
+					aveWidth = width;
+				} else {
+					aveWidth = (width - INDEX_WIDTH) / (cc - 1);
+				}
 			} else {
 				aveWidth = width / cc;
 			}
