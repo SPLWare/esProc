@@ -103,8 +103,7 @@ public class Expression {
 			}
 		} catch (RQException re) {
 			MessageManager mm = EngineMessage.get();
-			re.setMessage(mm.getMessage("Expression.exp") + expStr +
-						   mm.getMessage("Expression.middle") + re.getMessage());
+			re.setMessage(mm.getMessage("Expression.inExp", expStr) + re.getMessage());
 			throw re;
 		}
 	}
