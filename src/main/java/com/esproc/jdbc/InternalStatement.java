@@ -199,12 +199,7 @@ public class InternalStatement implements java.sql.Statement {
 			if (!StringUtils.isValidString(sql)) {
 				return null;
 			}
-			sql = sql.trim();
-			/* Stored procedures may be enclosed in braces */
-			if (sql.startsWith("{") && sql.endsWith("}")) {
-				sql = sql.substring(1, sql.length() - 1);
-				sql = sql.trim();
-			}
+			sql = JDBCUtil.trimSql(sql);
 			byte sqlType = JDBCUtil.getJdbcSqlType(sql);
 			if (sqlType == JDBCConsts.TYPE_NONE)
 				return null;
@@ -1137,4 +1132,24 @@ public class InternalStatement implements java.sql.Statement {
 		ID = id;
 	}
 
+	/**
+	 * Get the SQL
+	 * 
+	 * @return String
+	 */
+	public String getSql() {
+		JDBCUtil.log("InternalStatement-53");
+		return this.sql;
+	}
+
+	/**
+	 * Set the SQL
+	 * 
+	 * @param sql
+	 *            The SQL string
+	 */
+	public void setSql(String sql) {
+		JDBCUtil.log("InternalStatement-54");
+		this.sql = sql;
+	}
 }

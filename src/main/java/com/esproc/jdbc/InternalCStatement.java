@@ -57,27 +57,6 @@ public class InternalCStatement extends InternalPStatement implements
 	}
 
 	/**
-	 * Get the SQL
-	 * 
-	 * @return String
-	 */
-	public String getSql() {
-		JDBCUtil.log("InternalCStatement-3");
-		return this.sql;
-	}
-
-	/**
-	 * Set the SQL
-	 * 
-	 * @param sql
-	 *            The SQL string
-	 */
-	public void setSql(String sql) {
-		JDBCUtil.log("InternalCStatement-4");
-		this.sql = sql;
-	}
-
-	/**
 	 * 根据参数名取参数序号
 	 * @param parameterName
 	 * @return

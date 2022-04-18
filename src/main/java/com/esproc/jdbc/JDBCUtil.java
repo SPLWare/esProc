@@ -124,12 +124,7 @@ public class JDBCUtil {
 		if (!StringUtils.isValidString(sql)) {
 			return JDBCConsts.TYPE_NONE;
 		}
-		sql = sql.trim();
-		/* Procedure may be enclosed in braces */
-		if (sql.startsWith("{") && sql.endsWith("}")) {
-			sql = sql.substring(1, sql.length() - 1);
-			sql = sql.trim();
-		}
+		sql = trimSql(sql);
 		if (sql.startsWith(">")) {
 			return JDBCConsts.TYPE_EXE;
 		} else if (sql.startsWith("=")) {
@@ -199,11 +194,7 @@ public class JDBCUtil {
 		if (!StringUtils.isValidString(sql)) {
 			return null;
 		}
-		sql = sql.trim();
-		if (sql.startsWith("{") && sql.endsWith("}")) {
-			sql = sql.substring(1, sql.length() - 1);
-			sql = sql.trim();
-		}
+		sql = trimSql(sql);
 		if (logInfo)
 			Logger.debug("param size="
 					+ (parameters == null ? "0" : ("" + parameters.size())));
@@ -293,6 +284,22 @@ public class JDBCUtil {
 		if (!hasReturn)
 			return null;
 		return o;
+	}
+
+	/**
+	 * 去除sql外的空白和大括号
+	 * @param sql
+	 * @return
+	 */
+	public static String trimSql(String sql) {
+		if (!StringUtils.isValidString(sql))
+			return null;
+		sql = sql.trim();
+		if (sql.startsWith("{") && sql.endsWith("}")) {
+			sql = sql.substring(1, sql.length() - 1);
+			sql = sql.trim();
+		}
+		return sql;
 	}
 
 	/**
@@ -486,11 +493,7 @@ public class JDBCUtil {
 	 * @throws SQLException
 	 */
 	public static String getSplName(String sql) throws SQLException {
-		sql = sql.trim();
-		if (sql.startsWith("{") && sql.endsWith("}")) {
-			sql = sql.substring(1, sql.length() - 1);
-			sql = sql.trim();
-		}
+		sql = trimSql(sql);
 		byte sqlType = JDBCUtil.getJdbcSqlType(sql);
 		String splName;
 		if (sqlType == JDBCConsts.TYPE_CALLS) {

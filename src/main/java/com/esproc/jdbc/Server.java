@@ -137,8 +137,6 @@ public class Server {
 		Iterator<String> iter = map.keySet().iterator();
 		while (iter.hasNext()) {
 			String key = iter.next().toString();
-			String value = map.get(key).toString();
-			String splName = value;
 			String splPath = key;
 			try {
 				PgmCellSet cs = AppUtil.readCellSet(splPath);
@@ -164,6 +162,7 @@ public class Server {
 					pl = filterParams;
 					cs.setParamList(pl);
 				}
+				String splName = new File(splPath).getName();
 				paramMap.put(splName, pl);
 			} catch (Exception e) {
 				throw new SQLException(e.getMessage(), e);
