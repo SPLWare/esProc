@@ -103,7 +103,7 @@ public class UpdateManager {
 	 * @return
 	 * @throws IOException
 	 */
-	private static HashMap<String, String> readProperties(InputStream is) throws IOException {
+	public static HashMap<String, String> readProperties(InputStream is) throws IOException {
 		HashMap<String, String> map = new HashMap<String, String>();
 		BufferedReader br = null;
 		try {
