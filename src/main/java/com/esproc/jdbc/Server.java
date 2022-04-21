@@ -234,17 +234,13 @@ public class Server {
 							}
 							m = pattern.matcher(fileName);
 							find = m.matches();
-							if (!find) {
-								find = sameFileName(pattern.toString(),
-										pfile.getAbsolutePath());
-							}
-							if (!find) {
-								int index = fileName.lastIndexOf(".");
-								if (index > 0) { // 去掉后缀名后再匹配
-									String name = fileName.substring(0, index);
-									m = pattern.matcher(name);
-									find = m.matches();
+							if (!find) { // pattern可能没加后缀
+								String sPattern = pattern.toString();
+								if (!sPattern.toLowerCase().endsWith(fileExt)) {
+									sPattern += fileExt;
 								}
+								find = sameFileName(sPattern,
+										pfile.getAbsolutePath());
 							}
 							if (!find) {
 								return;
