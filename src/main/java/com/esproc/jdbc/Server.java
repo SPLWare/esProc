@@ -119,7 +119,7 @@ public class Server {
 		String[] exts = AppConsts.SPL_FILE_EXTS.split(",");
 		for (String ext : exts)
 			fileExts.add("." + ext);
-		return getFiles(filter, fileExts, true);
+		return getFiles(filter, fileExts, false);
 	}
 
 	/**
@@ -176,18 +176,18 @@ public class Server {
 	 * 
 	 * @param filter   File name filter
 	 * @param fileExts File extensions
-	 * @param onlyName Only match file name
+	 * @param matchAll 是否需要匹配全路径。FALSE时可以仅匹配文件名。
 	 * @return files map
 	 */
 	public static Map<String, String> getFiles(String filter,
-			List<String> fileExts, boolean onlyName) {
+			List<String> fileExts, boolean matchAll) {
 		Map<String, String> map = new HashMap<String, String>();
 		Pattern pattern = JDBCUtil.getPattern(filter, fileExts);
 		String mainPath = Env.getMainPath();
 		if (StringUtils.isValidString(mainPath)) {
 			File mainDir = new File(mainPath);
 			getDirFiles(mainDir.getAbsolutePath().length(), mainDir, map,
-					pattern, fileExts, onlyName);
+					pattern, fileExts, matchAll);
 		}
 		return map;
 	}
@@ -200,11 +200,11 @@ public class Server {
 	 * @param map      Storage file name and title mapping
 	 * @param pattern  The Pattern object
 	 * @param fileExts File extensions
-	 * @param onlyName Only match file name
+	 * @param matchAll 是否需要匹配全路径。FALSE时可以仅匹配文件名。
 	 */
 	private static void getDirFiles(int rootLen, File pfile,
 			Map<String, String> map, Pattern pattern, List<String> fileExts,
-			boolean onlyName) {
+			boolean matchAll) {
 		if (pfile == null)
 			return;
 		if (pfile.isDirectory()) {
@@ -212,48 +212,40 @@ public class Server {
 			if (subFiles == null)
 				return;
 			for (File sf : subFiles) {
-				getDirFiles(rootLen, sf, map, pattern, fileExts, onlyName);
+				getDirFiles(rootLen, sf, map, pattern, fileExts, matchAll);
 			}
 		} else {
 			String fileName = pfile.getName();
 			if (pfile.isFile()) {
 				for (String fileExt : fileExts) {
 					if (fileName.toLowerCase().endsWith(fileExt)) {
-						boolean isMapName = false;
 						if (pattern != null) {
-							Matcher m;
-							boolean find = false;
-							/*
-							 * If it is mapped according to the table name, it
-							 * must match all.
-							 */
-							if (!isMapName) {
-								if (!onlyName) {
+							boolean find;
+							if (matchAll) { // 匹配全路径
+								fileName = getSubPath(rootLen, pfile);
+								find = matchPattern(pattern, pfile, fileName,
+										fileExt);
+							} else {
+								// 匹配文件名
+								find = matchPattern(pattern, pfile, fileName,
+										fileExt);
+								// 匹配全路径
+								if (!find) {
 									fileName = getSubPath(rootLen, pfile);
+									find = matchPattern(pattern, pfile,
+											fileName, fileExt);
 								}
-							}
-							m = pattern.matcher(fileName);
-							find = m.matches();
-							if (!find) { // pattern可能没加后缀
-								String sPattern = pattern.toString();
-								if (!sPattern.toLowerCase().endsWith(fileExt)) {
-									sPattern += fileExt;
-								}
-								find = sameFileName(sPattern,
-										pfile.getAbsolutePath());
 							}
 							if (!find) {
-								return;
+								break;
 							}
 						}
-						if (!isMapName) {
-							if (onlyName) {
-								fileName = pfile.getName();
-								fileName = fileName.substring(0,
-										fileName.length() - fileExt.length());
-							} else {
-								fileName = getSubPath(rootLen, pfile);
-							}
+						if (matchAll) {
+							fileName = getSubPath(rootLen, pfile);
+						} else {
+							fileName = pfile.getName();
+							fileName = fileName.substring(0, fileName.length()
+									- fileExt.length());
 						}
 						map.put(pfile.getPath(), fileName);
 						break;
@@ -261,6 +253,38 @@ public class Server {
 				}
 			}
 		}
+	}
+
+	/**
+	 * 正则匹配
+	 * @param pattern Pattern
+	 * @param file 文件
+	 * @param fileName 文件名
+	 * @param fileExt 文件后缀
+	 * @return 是否匹配
+	 */
+	private static boolean matchPattern(Pattern pattern, File file,
+			String fileName, String fileExt) {
+		Matcher m;
+		boolean find = false;
+		// 直接匹配正则表达式
+		m = pattern.matcher(fileName);
+		find = m.matches();
+		if (!find) {
+			// pattern可能没加后缀，fileName去掉后缀后正则匹配
+			fileName = fileName.substring(0,
+					fileName.length() - fileExt.length());
+			m = pattern.matcher(fileName);
+			find = m.matches();
+		}
+		if (!find) { // 用文件路径匹配
+			String sPattern = pattern.toString();
+			if (!sPattern.toLowerCase().endsWith(fileExt)) {
+				sPattern += fileExt;
+			}
+			find = sameFileName(sPattern, file.getAbsolutePath());
+		}
+		return find;
 	}
 
 	/**
@@ -306,7 +330,7 @@ public class Server {
 		for (String ext : exts) {
 			fileExts.add("." + ext);
 		}
-		return getFiles(filter, fileExts, false);
+		return getFiles(filter, fileExts, true);
 	}
 
 	/**
