@@ -88,10 +88,21 @@ public class InternalCStatement extends InternalPStatement implements
 				} else {
 					t = JDBCUtil.getProcedureColumns(splName, null);
 					if (t == null || t.length() == 0) { // 本地没找到，去服务器找
-						UnitClient uc = connt.getUnitClient();
-						int connId = connt.getUnitConnectionId();
-						t = uc.JDBCGetProcedureColumns(connId, splName, null,
-								false);
+						List<String> hosts = Server.getInstance()
+								.getHostNames();
+						if (hosts != null && !hosts.isEmpty()) {
+							UnitClient uc = null;
+							try {
+								uc = connt.getUnitClient();
+							} catch (Exception ex) {
+								Logger.error(ex);
+							}
+							if (uc != null) {
+								int connId = connt.getUnitConnectionId();
+								t = uc.JDBCGetProcedureColumns(connId, splName,
+										null, false);
+							}
+						}
 					}
 				}
 				if (t == null || t.length() == 0) {
