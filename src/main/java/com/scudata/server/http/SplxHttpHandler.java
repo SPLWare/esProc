@@ -175,7 +175,7 @@ public class SplxHttpHandler implements HttpHandler {
 							ext = null;
 						}
 					}
-					if( ext != null ) {
+					if( ext != null ) {   //访问图片文件
 						String fileName = path.substring( 1 );
 						FileObject fo = new FileObject(fileName, "sp");
 						InputStream is = null;
@@ -191,6 +191,9 @@ public class SplxHttpHandler implements HttpHandler {
 						}
 					}
 					else {    //没有扩展名的，都当成splx
+						if( path.endsWith( ".splx" ) || path.endsWith( ".spl" ) || path.endsWith( ".dfx" ) ) {  //以这些结尾时，自动给添加上()
+							path += "()";
+						}
 						String fileName = "";
 						String splx2 = "";
 						String params = "";
@@ -329,7 +332,7 @@ public class SplxHttpHandler implements HttpHandler {
 								Object obj2 = pcs2.nextResult();
 								result = obj2String(obj2);
 							}
-							Object hs = pcs1.nextResult();
+							Object hs = pcs1.nextResult();   //返回的第二个结果表示responseHeaders
 							if( hs != null ) {
 								headers = (String)obj2String( hs );
 							}
