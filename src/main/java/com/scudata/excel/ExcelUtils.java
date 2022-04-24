@@ -659,7 +659,8 @@ public class ExcelUtils {
 				} catch (Exception e) {
 					// poi不支持的函数可能抛出异常信息
 					try {
-						type = cell.getCachedFormulaResultType(); // 取公式格缓存的类型
+						type = ExcelVersionCompatibleUtilGetter.getInstance()
+								.getCachedFormulaResultType(cell); // 取公式格缓存的类型
 					} catch (Exception ex) {
 						// 试着取值
 						try {
