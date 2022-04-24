@@ -224,5 +224,10 @@ public interface ExcelVersionCompatibleUtilInterface {
 	 */
 	public Font getFontAt(Workbook wb, Number index);
 	
-	
+	/**
+	 * 返回单元格公式计算结果类型
+	 * @param cell
+	 * @return
+	 */
+	public CellType getCachedFormulaResultType(Cell cell) ;
 }

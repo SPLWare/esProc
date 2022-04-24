@@ -247,4 +247,8 @@ public class ExcelVersionCompatibleUtil5 implements ExcelVersionCompatibleUtilIn
 	public Font getFontAt(Workbook wb, Number index) {
 		return wb.getFontAt(index.intValue());
 	}
+
+	public CellType getCachedFormulaResultType(Cell cell) {
+		return cell.getCachedFormulaResultType();
+	}
 }
