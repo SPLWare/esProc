@@ -495,7 +495,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 		md.setMenuEnabled(GCSpl.iCOPYVALUE, canCopy);
 		md.setMenuEnabled(GCSpl.iCODE_COPY, canCopy);
 		md.setMenuEnabled(GCSpl.iCOPY_HTML, canCopy);
-		md.setMenuEnabled(GCSpl.iEXCEL_COPY, true);
+
 		md.setMenuEnabled(GCSpl.iCUT, canCopy);
 
 		md.setMenuEnabled(GCSpl.iMOVE_COPY_UP,
@@ -512,7 +512,6 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 		md.setMenuEnabled(GCSpl.iPASTE, canPaste);
 		md.setMenuEnabled(GCSpl.iPASTE_ADJUST, canPaste);
 		md.setMenuEnabled(GCSpl.iPASTE_SPECIAL, canPaste);
-		md.setMenuEnabled(GCSpl.iEXCEL_PASTE, GMSpl.canPaste());
 
 		md.setMenuEnabled(GCSpl.iCTRL_ENTER,
 				selectState != GCSpl.SELECT_STATE_NONE);
@@ -2675,10 +2674,6 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 			if (splEditor.codeCopy())
 				refresh();
 			break;
-		case GCSpl.iEXCEL_COPY:
-			if (splEditor.excelCopy())
-				refresh();
-			break;
 		case GCSpl.iCOPY_HTML:
 			if (splEditor.canCopyPresent()) {
 				splEditor.copyPresent();
@@ -2704,9 +2699,6 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 			if (o != SplEditor.PASTE_OPTION_NORMAL) {
 				splEditor.paste(isAdjustPaste, o);
 			}
-			break;
-		case GCSpl.iEXCEL_PASTE:
-			splEditor.excelPaste();
 			break;
 		case GCSpl.iCLEAR_VALUE:
 			splEditor.clear(SplEditor.CLEAR_VAL);

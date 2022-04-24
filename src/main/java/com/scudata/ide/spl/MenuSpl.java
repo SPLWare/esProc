@@ -159,9 +159,8 @@ public class MenuSpl extends AppMenu {
 		temp.add(newSplMenuItem(GCSpl.iCOPY_HTML_DIALOG,
 				GCSpl.COPY_HTML_DIALOG, 'P', GC.NO_MASK));
 
-		mi = newSplMenuItem(GCSpl.iEXCEL_COPY, GCSpl.EXCEL_COPY, 'C',
-				ActionEvent.ALT_MASK);
-		temp.add(mi);
+		addCustomCopyMenu(temp);
+
 		temp.add(newSplMenuItem(GCSpl.iCUT, GCSpl.CUT, 'X',
 				ActionEvent.CTRL_MASK, true));
 		menu.add(temp);
@@ -172,9 +171,7 @@ public class MenuSpl extends AppMenu {
 				ActionEvent.CTRL_MASK + ActionEvent.ALT_MASK));
 		temp.add(newSplMenuItem(GCSpl.iPASTE_SPECIAL, GCSpl.PASTE_SPECIAL, 'V',
 				ActionEvent.CTRL_MASK + ActionEvent.SHIFT_MASK));
-		mi = newSplMenuItem(GCSpl.iEXCEL_PASTE, GCSpl.EXCEL_PASTE, 'V',
-				ActionEvent.ALT_MASK);
-		temp.add(mi);
+		addCustomPasteMenu(temp);
 		menu.add(temp);
 		temp = getSplMenuItem(GCSpl.INSERT, 'I', false);
 		temp.add(newSplMenuItem(GCSpl.iCTRL_ENTER, GCSpl.INSERT_ROW,
@@ -272,6 +269,20 @@ public class MenuSpl extends AppMenu {
 		menu.add(newSplMenuItem(GCSpl.iREPLACE, GCSpl.REPLACE, 'R',
 				ActionEvent.CTRL_MASK, true));
 		return menu;
+	}
+
+	/**
+	 * 增加自定义的复制菜单
+	 */
+	protected void addCustomCopyMenu(JMenu copyMenu) {
+
+	}
+
+	/**
+	 * 增加自定义的粘贴菜单
+	 */
+	protected void addCustomPasteMenu(JMenu pasteMenu) {
+
 	}
 
 	/**
@@ -441,17 +452,17 @@ public class MenuSpl extends AppMenu {
 				GCSpl.iSAVEAS,
 				// 编辑
 				GCSpl.iUNDO, GCSpl.iREDO, GCSpl.iCOPY, GCSpl.iCOPYVALUE,
-				GCSpl.iCODE_COPY, GCSpl.iEXCEL_COPY, GCSpl.iCOPY_HTML_DIALOG,
-				GCSpl.iCUT, GCSpl.iPASTE, GCSpl.iPASTE_ADJUST,
-				GCSpl.iPASTE_SPECIAL, GCSpl.iEXCEL_PASTE, GCSpl.iADD_COL,
-				GCSpl.iCTRL_ENTER, GCSpl.iCTRL_INSERT, GCSpl.iALT_INSERT,
-				GCSpl.iDUP_ROW, GCSpl.iDUP_ROW_ADJUST, GCSpl.iCLEAR,
-				GCSpl.iFULL_CLEAR, GCSpl.iDELETE_ROW, GCSpl.iDELETE_COL,
-				GCSpl.iCTRL_BACK, GCSpl.iCTRL_DELETE, GCSpl.iTEXT_EDITOR,
-				GCSpl.iNOTE, GCSpl.iTIPS, GCSpl.iROW_HEIGHT, GCSpl.iROW_ADJUST,
-				GCSpl.iROW_HIDE, GCSpl.iROW_VISIBLE, GCSpl.iCOL_WIDTH,
-				GCSpl.iCOL_ADJUST, GCSpl.iCOL_HIDE, GCSpl.iCOL_VISIBLE,
-				GCSpl.iEDIT_CHART, GCSpl.iFUNC_ASSIST, GCSpl.iSEARCH,
+				GCSpl.iCODE_COPY, GCSpl.iCOPY_HTML_DIALOG, GCSpl.iCUT,
+				GCSpl.iPASTE, GCSpl.iPASTE_ADJUST, GCSpl.iPASTE_SPECIAL,
+				GCSpl.iADD_COL, GCSpl.iCTRL_ENTER, GCSpl.iCTRL_INSERT,
+				GCSpl.iALT_INSERT, GCSpl.iDUP_ROW, GCSpl.iDUP_ROW_ADJUST,
+				GCSpl.iCLEAR, GCSpl.iFULL_CLEAR, GCSpl.iDELETE_ROW,
+				GCSpl.iDELETE_COL, GCSpl.iCTRL_BACK, GCSpl.iCTRL_DELETE,
+				GCSpl.iTEXT_EDITOR, GCSpl.iNOTE, GCSpl.iTIPS,
+				GCSpl.iROW_HEIGHT, GCSpl.iROW_ADJUST, GCSpl.iROW_HIDE,
+				GCSpl.iROW_VISIBLE, GCSpl.iCOL_WIDTH, GCSpl.iCOL_ADJUST,
+				GCSpl.iCOL_HIDE, GCSpl.iCOL_VISIBLE, GCSpl.iEDIT_CHART,
+				GCSpl.iFUNC_ASSIST, GCSpl.iSEARCH,
 				GCSpl.iREPLACE,
 				GCSpl.iMOVE_COPY_UP,
 				GCSpl.iMOVE_COPY_DOWN,
@@ -481,18 +492,17 @@ public class MenuSpl extends AppMenu {
 				GCSpl.iSAVE_FTP,
 				// 编辑
 				GCSpl.iUNDO, GCSpl.iREDO, GCSpl.iCOPY, GCSpl.iCOPYVALUE,
-				GCSpl.iCODE_COPY, GCSpl.iEXCEL_COPY, GCSpl.iCOPY_HTML_DIALOG,
-				GCSpl.iCUT, GCSpl.iPASTE, GCSpl.iPASTE_ADJUST,
-				GCSpl.iPASTE_SPECIAL, GCSpl.iEXCEL_PASTE, GCSpl.iADD_COL,
-				GCSpl.iCTRL_ENTER, GCSpl.iCTRL_INSERT, GCSpl.iALT_INSERT,
-				GCSpl.iINSERT_COL, GCSpl.iDUP_ROW, GCSpl.iDUP_ROW_ADJUST,
-				GCSpl.iCLEAR, GCSpl.iFULL_CLEAR, GCSpl.iDELETE_ROW,
-				GCSpl.iDELETE_COL, GCSpl.iCTRL_BACK, GCSpl.iCTRL_DELETE,
-				GCSpl.iTEXT_EDITOR, GCSpl.iNOTE, GCSpl.iTIPS,
-				GCSpl.iROW_HEIGHT, GCSpl.iROW_ADJUST, GCSpl.iROW_HIDE,
-				GCSpl.iROW_VISIBLE, GCSpl.iCOL_WIDTH, GCSpl.iCOL_ADJUST,
-				GCSpl.iCOL_HIDE, GCSpl.iCOL_VISIBLE, GCSpl.iEDIT_CHART,
-				GCSpl.iFUNC_ASSIST, GCSpl.iSEARCH,
+				GCSpl.iCODE_COPY, GCSpl.iCOPY_HTML_DIALOG, GCSpl.iCUT,
+				GCSpl.iPASTE, GCSpl.iPASTE_ADJUST, GCSpl.iPASTE_SPECIAL,
+				GCSpl.iADD_COL, GCSpl.iCTRL_ENTER, GCSpl.iCTRL_INSERT,
+				GCSpl.iALT_INSERT, GCSpl.iINSERT_COL, GCSpl.iDUP_ROW,
+				GCSpl.iDUP_ROW_ADJUST, GCSpl.iCLEAR, GCSpl.iFULL_CLEAR,
+				GCSpl.iDELETE_ROW, GCSpl.iDELETE_COL, GCSpl.iCTRL_BACK,
+				GCSpl.iCTRL_DELETE, GCSpl.iTEXT_EDITOR, GCSpl.iNOTE,
+				GCSpl.iTIPS, GCSpl.iROW_HEIGHT, GCSpl.iROW_ADJUST,
+				GCSpl.iROW_HIDE, GCSpl.iROW_VISIBLE, GCSpl.iCOL_WIDTH,
+				GCSpl.iCOL_ADJUST, GCSpl.iCOL_HIDE, GCSpl.iCOL_VISIBLE,
+				GCSpl.iEDIT_CHART, GCSpl.iFUNC_ASSIST, GCSpl.iSEARCH,
 				GCSpl.iREPLACE,
 				GCSpl.iMOVE_COPY_UP,
 				GCSpl.iMOVE_COPY_DOWN,

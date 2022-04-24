@@ -355,7 +355,7 @@ public class CellEditingListener implements KeyListener {
 						break;
 					}
 				} else {
-					editor.excelCopy();
+					editor.altC();
 					break;
 				}
 			}
@@ -363,7 +363,7 @@ public class CellEditingListener implements KeyListener {
 					&& !e.isControlDown()) {
 				if (!e.isShiftDown()) {
 					if (GM.canPaste())
-						editor.excelPaste();
+						editor.altV();
 					break;
 				}
 			}

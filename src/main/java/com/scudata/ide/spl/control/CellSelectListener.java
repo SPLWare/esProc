@@ -904,14 +904,14 @@ public class CellSelectListener implements MouseMotionListener, MouseListener,
 						break;
 					}
 				} else {
-					editor.excelCopy();
+					editor.altC();
 					break;
 				}
 			}
 			if (e.getKeyCode() == KeyEvent.VK_V && e.isAltDown()
 					&& !e.isControlDown()) {
 				if (!e.isShiftDown()) {
-					editor.excelPaste();
+					editor.altV();
 					break;
 				}
 			}
