@@ -104,7 +104,7 @@ public class CreatePseudo extends Function {
 			return ClusterPseudo.createClusterPseudo((Record) pd.get(1), hs, n, ctx);
 		} else {
 			if (var == null) {
-				return new PseudoTable((Record) pd.get(1), n, ctx);
+				return PseudoTable.create((Record) pd.get(1), n, ctx);
 			} else {
 				return new PseudoMemory((Record) pd.get(1), n, ctx);
 			}

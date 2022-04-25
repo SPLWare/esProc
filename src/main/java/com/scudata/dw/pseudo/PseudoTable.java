@@ -38,15 +38,15 @@ import com.scudata.expression.operator.NotEquals;
 import com.scudata.expression.operator.Or;
 import com.scudata.util.CursorUtil;
 
-public class PseudoTable extends Pseudo {	
+public class PseudoTable extends Pseudo {
 	//创建游标需要的参数
-	private String []fkNames;
-	private Sequence []codes;
-	private int pathCount;
+	protected String []fkNames;
+	protected Sequence []codes;
+	protected int pathCount;
 	
-	private ArrayList<Operation> extraOpList = new ArrayList<Operation>();//其它情况产生的延迟计算（不是主动调用select添加）
+	protected ArrayList<Operation> extraOpList = new ArrayList<Operation>();//其它情况产生的延迟计算（不是主动调用select添加）
 
-	private PseudoTable mcsTable;
+	protected PseudoTable mcsTable;
 	
 	protected boolean hasPseudoColumns = false;//是否需要根据伪字段转换（枚举、二值）表达式
 	
@@ -68,12 +68,29 @@ public class PseudoTable extends Pseudo {
 		init();
 	}
 
+	public PseudoTable(PseudoDefination pd, int n, Context ctx) {
+		this.pd = pd;
+		pathCount = n;
+		this.ctx = ctx;
+		extraNameList = new ArrayList<String>();
+		init();
+	}
+	
 	public PseudoTable(Record rec, PseudoTable mcs, Context ctx) {
 		this(rec, 0, ctx);
 		mcsTable = mcs;
 	}
 	
-	private void init() {
+	public static PseudoTable create(Record rec, int n, Context ctx) {
+		PseudoDefination pd = new PseudoDefination(rec, ctx);
+		if (pd.isBFile()) {
+			return new PseudoBFile(pd, n, ctx);
+		} else {
+			return new PseudoTable(pd, n, ctx);
+		}
+	}
+	
+	protected void init() {
 		if (getPd() != null) {
 			allNameList = new ArrayList<String>();
 			String []names = getPd().getAllColNames();
@@ -131,7 +148,7 @@ public class PseudoTable extends Pseudo {
 	 * @param exps 取出表达式
 	 * @param fields 取出别名
 	 */
-	private void setFetchInfo(Expression []exps, String []fields) {
+	protected void setFetchInfo(Expression []exps, String []fields) {
 		this.exps = null;
 		this.names = null;
 		boolean needNew = extraNameList.size() > 0;

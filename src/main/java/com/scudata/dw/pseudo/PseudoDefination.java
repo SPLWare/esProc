@@ -1,12 +1,15 @@
 package com.scudata.dw.pseudo;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
+import com.scudata.dm.BFileReader;
 import com.scudata.dm.Context;
+import com.scudata.dm.DataStruct;
 import com.scudata.dm.FileGroup;
 import com.scudata.dm.FileObject;
 import com.scudata.dm.Record;
@@ -33,6 +36,9 @@ public class PseudoDefination {
 	private List<PseudoColumn> columns;//部分特殊字段定义
 	private List<ITableMetaData> tables;//存所有文件的table对象
 	private Sequence memoryTable;//内存虚表的序表对象
+	private FileObject fileObject;//集文件对象
+	private DataStruct ds;//集文件结构
+	private boolean isBFile = false;
 	private String[] sortedFields;//排序字段
 	
 	public PseudoDefination() {
@@ -60,7 +66,9 @@ public class PseudoDefination {
 		}
 		
 		if (file != null) {
-			parseFileToTable(ctx);
+			if (!checkBFile(ctx)) {
+				parseFileToTable(ctx);
+			}
 			sortedFields = getAllSortedColNames();
 		}
 		
@@ -224,7 +232,9 @@ public class PseudoDefination {
 	}
 
 	public String[] getAllColNames() {
-		if (var == null) {
+		if (isBFile) {
+			return ds.getFieldNames();
+		} else if (var == null) {
 			return tables.get(0).getAllColNames();
 		} else {
 			return memoryTable.dataStruct().getFieldNames();
@@ -232,7 +242,9 @@ public class PseudoDefination {
 	}
 
 	public String[] getAllSortedColNames() {
-		if (var == null) {
+		if (isBFile) {
+			return ds.getPrimary();
+		} else if (var == null) {
 			return tables.get(0).getAllSortedColNames();
 		} else {
 			return memoryTable.dataStruct().getPrimary();
@@ -270,5 +282,37 @@ public class PseudoDefination {
 			}
 		}
 		return true;
+	}
+	
+	/**
+	 * 检查是否是集文件
+	 * @return
+	 */
+	private boolean checkBFile(Context ctx) {
+		FileObject fo = new FileObject((String)file, null, null, ctx);;
+		BFileReader reader = new BFileReader(fo);
+		try {
+			reader.open();
+			ds = reader.getFileDataStruct();
+			reader.close();
+			
+			setFileObject(fo);
+			isBFile = true;
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
+	public boolean isBFile() {
+		return isBFile;
+	}
+
+	public FileObject getFileObject() {
+		return fileObject;
+	}
+
+	public void setFileObject(FileObject fileObject) {
+		this.fileObject = fileObject;
 	}
 }

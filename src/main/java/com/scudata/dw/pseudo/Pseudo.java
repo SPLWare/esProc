@@ -66,7 +66,8 @@ public class Pseudo implements IPseudo{
 			ArrayList<String> tempList = new ArrayList<String>();
 			new Expression(op.getFunction()).getUsedFields(ctx, tempList);
 			
-			if (op instanceof Select && op.getFunction() != null) {
+			boolean isBFile = pd.isBFile();
+			if (!isBFile && op instanceof Select && op.getFunction() != null) {
 				Expression exp = ((Select)op).getFilterExpression();
 				boolean flag = true;//true表示都是本表的字段。 用于news、new、derive
 				for (String name : tempList) {
@@ -92,7 +93,7 @@ public class Pseudo implements IPseudo{
 					opList.add(op);
 				}
 				
-			} else if (op instanceof Switch && ((Switch) op).isIsect()) {
+			} else if (!isBFile && op instanceof Switch && ((Switch) op).isIsect()) {
 				//把switch@i转换为F:K
 				//转换条件：单字段、连接字段存在且是主键、code存在主键、code没有索引表
 				String names[] = ((Switch) op).getFkNames();
