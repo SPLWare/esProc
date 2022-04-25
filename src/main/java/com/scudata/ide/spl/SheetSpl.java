@@ -66,7 +66,6 @@ import com.scudata.ide.common.dialog.DialogArgument;
 import com.scudata.ide.common.dialog.DialogCellSetProperties;
 import com.scudata.ide.common.dialog.DialogEditConst;
 import com.scudata.ide.common.dialog.DialogInputArgument;
-import com.scudata.ide.common.dialog.DialogInputPassword;
 import com.scudata.ide.common.dialog.DialogRowHeight;
 import com.scudata.ide.common.resources.IdeCommonMessage;
 import com.scudata.ide.spl.control.ContentPanel;
@@ -78,7 +77,6 @@ import com.scudata.ide.spl.dialog.DialogExecCmd;
 import com.scudata.ide.spl.dialog.DialogFTP;
 import com.scudata.ide.spl.dialog.DialogOptionPaste;
 import com.scudata.ide.spl.dialog.DialogOptions;
-import com.scudata.ide.spl.dialog.DialogPassword;
 import com.scudata.ide.spl.dialog.DialogSearch;
 import com.scudata.ide.spl.resources.IdeSplMessage;
 import com.scudata.resources.EngineMessage;
@@ -339,6 +337,8 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 			}
 			return hasSaveAs;
 		} else {
+			if (splControl.cellSet.isExecuteOnly()) // 单独的保存按钮不会亮，但是保存全部有可能调用到
+				return false;
 			File f = new File(filePath);
 			if (f.exists() && !f.canWrite()) {
 				JOptionPane.showMessageDialog(GV.appFrame, IdeCommonMessage
@@ -642,20 +642,6 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 			GVSpl.panelValue.tableValue.setLocked1(false);
 		}
 
-		if (splControl.cellSet.getCurrentPrivilege() != PgmCellSet.PRIVILEGE_FULL) {
-			md.setEnable(md.getMenuItems(), false);
-			md.setMenuEnabled(GCSpl.iSAVE, isDataChanged);
-
-			md.setMenuEnabled(GCSpl.iPROPERTY, true);
-			md.setMenuEnabled(GCSpl.iCONST, false);
-			md.setMenuEnabled(GCSpl.iPASSWORD, true);
-
-			GVSpl.appTool.setBarEnabled(false);
-			GVSpl.appTool.setButtonEnabled(GCSpl.iSAVE, isDataChanged);
-
-			GV.toolBarProperty.setEnabled(false);
-		}
-
 		md.setMenuEnabled(GCSpl.iVIEW_CONSOLE,
 				ConfigOptions.bIdeConsole.booleanValue());
 		if (stepInfo != null) {
@@ -668,7 +654,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 			}
 		}
 		resetRunState(isRefreshState, false);
-		md.resetPasswordMenu(splControl.cellSet.getCurrentPrivilege() == PgmCellSet.PRIVILEGE_FULL);
+
 	}
 
 	/**
@@ -1828,6 +1814,14 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 	}
 
 	/**
+	 * 网格文件是否可以编辑
+	 * @return
+	 */
+	public boolean isCellSetEditable() {
+		return !splControl.cellSet.isExecuteOnly();
+	}
+
+	/**
 	 * 重置执行菜单状态线程
 	 * 
 	 * @param isRefresh 是否刷新方法调用的
@@ -1845,7 +1839,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 					GCSpl.iCALC_AREA, GCSpl.iCALC_LOCK, GCSpl.iSTEP_RETURN,
 					GCSpl.iSTEP_STOP, GCSpl.iPAUSE }, false);
 			setMenuToolEnabled(new short[] { GCSpl.iSTOP }, true); // 只能中断了
-			boolean editable = splControl.cellSet.getCurrentPrivilege() == PgmCellSet.PRIVILEGE_FULL;
+			boolean editable = isCellSetEditable();
 			if (!isRefresh) {
 				splEditor.getComponent().getContentPanel()
 						.setEditable(editable);
@@ -1947,7 +1941,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 				break;
 			}
 		}
-		if (splControl.cellSet.getCurrentPrivilege() != PgmCellSet.PRIVILEGE_FULL) {
+		if (!isCellSetEditable()) {
 			setMenuToolEnabled(new short[] { GCSpl.iEXE_DEBUG,
 					GCSpl.iSTEP_CURSOR, GCSpl.iSTEP_NEXT, GCSpl.iSTEP_INTO,
 					GCSpl.iSTEP_RETURN, GCSpl.iSTEP_STOP, GCSpl.iPAUSE }, false);
@@ -2244,42 +2238,6 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 			ar.setType(AtomicSpl.SET_PARAM);
 			ar.setValue(dp.getParameter());
 			splEditor.executeCmd(ar);
-		}
-	}
-
-	/**
-	 * 网格密码对话框
-	 */
-	public void dialogPassword() {
-		DialogPassword dp = new DialogPassword();
-		dp.setCellSet(splControl.cellSet);
-		dp.setVisible(true);
-		if (dp.getOption() != JOptionPane.OK_OPTION) {
-			return;
-		}
-		refresh();
-		setChanged(true);
-	}
-
-	/**
-	 * 输入密码
-	 */
-	private void dialogInputPassword() {
-		DialogInputPassword dip = new DialogInputPassword(true);
-		dip.setPassword(null);
-		dip.setVisible(true);
-		if (dip.getOption() == JOptionPane.OK_OPTION) {
-			String psw = dip.getPassword();
-			splControl.cellSet.setCurrentPassword(psw);
-			boolean isFull = splControl.cellSet.getCurrentPrivilege() == PgmCellSet.PRIVILEGE_FULL;
-			((MenuSpl) GV.appMenu).resetPasswordMenu(isFull);
-			boolean lastEditable = splControl.contentView.isEditable();
-			if (lastEditable != isFull) {
-				splControl.contentView.setEditable(isFull);
-				if (isFull)
-					splControl.contentView.initEditor(ContentPanel.MODE_SHOW);
-			}
-			refresh();
 		}
 	}
 
@@ -2706,13 +2664,6 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 		case GCSpl.iPARAM:
 			dialogParameter();
 			break;
-		case GCSpl.iPASSWORD:
-			if (splControl.cellSet.getCurrentPrivilege() == PgmCellSet.PRIVILEGE_FULL)
-				dialogPassword();
-			else {
-				dialogInputPassword();
-			}
-			break;
 		case GCSpl.iCTRL_BACK:
 			splControl.ctrlBackSpace();
 			break;
@@ -2823,7 +2774,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 		case GC.iPROPERTY:
 			PgmCellSet pcs = (PgmCellSet) splEditor.getComponent().getCellSet();
 			DialogCellSetProperties dcsp = new DialogCellSetProperties(
-					pcs.getCurrentPrivilege() == PgmCellSet.PRIVILEGE_FULL);
+					isCellSetEditable());
 			dcsp.setPropertyMap(pcs.getCustomPropMap());
 			dcsp.setVisible(true);
 			if (dcsp.getOption() == JOptionPane.OK_OPTION) {

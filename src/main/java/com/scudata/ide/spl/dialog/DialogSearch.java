@@ -45,7 +45,8 @@ public class DialogSearch extends JDialog {
 	private SplEditor splEditor = null;
 	private EditControl splControl = null;
 
-	private static Section searchKeys = new Section(), replaceKeys = new Section();
+	private static Section searchKeys = new Section(),
+			replaceKeys = new Section();
 	private static SegmentSet status = new SegmentSet("");
 
 	/**
@@ -228,7 +229,8 @@ public class DialogSearch extends JDialog {
 	 */
 	private void rememberStatus() {
 		status.put(KEY_CASE, new Boolean(jCBSensitive.isSelected()).toString());
-		status.put(KEY_WORDONLY, new Boolean(jCBWordOnly.isSelected()).toString());
+		status.put(KEY_WORDONLY,
+				new Boolean(jCBWordOnly.isSelected()).toString());
 		status.put(KEY_QUOTE, new Boolean(jCBQuote.isSelected()).toString());
 		status.put(KEY_RARS, new Boolean(jCBPars.isSelected()).toString());
 
@@ -291,10 +293,10 @@ public class DialogSearch extends JDialog {
 	 * @throws Exception
 	 */
 	private void initUI() throws Exception {
-		titledBorder1 = new TitledBorder(BorderFactory.createEtchedBorder(Color.white, new Color(148, 145, 140)),
-				"ËÑË÷¸ñ×Ó·¶Î§");
-		titledBorder2 = new TitledBorder(BorderFactory.createEtchedBorder(Color.white, new Color(148, 145, 140)),
-				"ËÑË÷ÊôÐÔ·¶Î§");
+		titledBorder1 = new TitledBorder(BorderFactory.createEtchedBorder(
+				Color.white, new Color(148, 145, 140)), "ËÑË÷¸ñ×Ó·¶Î§");
+		titledBorder2 = new TitledBorder(BorderFactory.createEtchedBorder(
+				Color.white, new Color(148, 145, 140)), "ËÑË÷ÊôÐÔ·¶Î§");
 		JPanel panel1 = new JPanel();
 		BorderLayout borderLayout1 = new BorderLayout();
 		JPanel jPanel1 = new JPanel();
@@ -308,10 +310,13 @@ public class DialogSearch extends JDialog {
 		jBSearch.addActionListener(new DialogSearch_jBSearch_actionAdapter(this));
 		jBReplace.setText("Ìæ»»(R)");
 		jBReplace.setMnemonic('R');
-		jBReplace.addActionListener(new DialogSearch_jBReplace_actionAdapter(this));
+		jBReplace.addActionListener(new DialogSearch_jBReplace_actionAdapter(
+				this));
 		jBReplaceAll.setText("È«²¿Ìæ»»(A)");
 		jBReplaceAll.setMnemonic('A');
-		jBReplaceAll.addActionListener(new DialogSearch_jBReplaceAll_actionAdapter(this));
+		jBReplaceAll
+				.addActionListener(new DialogSearch_jBReplaceAll_actionAdapter(
+						this));
 		jBCancel.setText("¹Ø±Õ(C)");
 		jBCancel.setMnemonic('C');
 		jBCancel.addActionListener(new DialogSearch_jBCancel_actionAdapter(this));
@@ -434,7 +439,8 @@ public class DialogSearch extends JDialog {
 	 */
 	private boolean replace(boolean replaceAll, Vector<IAtomicCmd> cmds) {
 		if (search(replaceAll)) {
-			NormalCell nc = (NormalCell) splControl.cellSet.getCell(searchedRow, searchedCol);
+			NormalCell nc = (NormalCell) splControl.cellSet.getCell(
+					searchedRow, searchedCol);
 			AtomicCell ac = new AtomicCell(splControl, nc);
 			byte propId = AtomicCell.CELL_EXP;
 			ac.setProperty(propId);
@@ -443,7 +449,8 @@ public class DialogSearch extends JDialog {
 			if (!replaceAll) {
 				flag += Sentence.ONLY_FIRST;
 			}
-			exp = Sentence.replace(exp, stringIndex, searchString, replaceString, flag);
+			exp = Sentence.replace(exp, stringIndex, searchString,
+					replaceString, flag);
 			ac.setValue(exp);
 			cmds.add(ac);
 			if (!replaceAll) {
@@ -467,7 +474,8 @@ public class DialogSearch extends JDialog {
 		int startCol = 1, endCol = splControl.cellSet.getColCount();
 		searchSelectedCells = false;
 		if (!splEditor.selectedRects.isEmpty()
-				&& (splEditor.getSelectedRect().getColCount() > 1 || splEditor.getSelectedRect().getRowCount() > 1)) {
+				&& (splEditor.getSelectedRect().getColCount() > 1 || splEditor
+						.getSelectedRect().getRowCount() > 1)) {
 			startRow = splEditor.getSelectedRect().getBeginRow();
 			startCol = splEditor.getSelectedRect().getBeginCol();
 			endRow = splEditor.getSelectedRect().getEndRow();
@@ -491,20 +499,24 @@ public class DialogSearch extends JDialog {
 			if (found) {
 				return true;
 			}
-			found = search(startRow, startCol, activeRow - 1, endCol, replaceAll);
+			found = search(startRow, startCol, activeRow - 1, endCol,
+					replaceAll);
 			if (found) {
 				return true;
 			}
-			found = search(activeRow, startCol, activeRow, activeCol - 1, replaceAll);
+			found = search(activeRow, startCol, activeRow, activeCol - 1,
+					replaceAll);
 			if (found) {
 				return true;
 			}
 		} else {
-			found = search(replaceAllStartRow, replaceAllStartCol, replaceAllStartRow, endCol, replaceAll);
+			found = search(replaceAllStartRow, replaceAllStartCol,
+					replaceAllStartRow, endCol, replaceAll);
 			if (found) {
 				return true;
 			}
-			found = search(replaceAllStartRow + 1, 1, endRow, endCol, replaceAll);
+			found = search(replaceAllStartRow + 1, 1, endRow, endCol,
+					replaceAll);
 			if (found) {
 				return true;
 			}
@@ -522,17 +534,20 @@ public class DialogSearch extends JDialog {
 	 * @param replaceAll ÊÇ·ñÈ«²¿Ìæ»»¡£trueÈ«²¿Ìæ»»£¬falseÌæ»»
 	 * @return
 	 */
-	private boolean search(int startRow, int startCol, int endRow, int endCol, boolean replaceAll) {
+	private boolean search(int startRow, int startCol, int endRow, int endCol,
+			boolean replaceAll) {
 		boolean found = false;
 		for (int row = startRow; row <= endRow; row++) {
 			for (int col = startCol; col <= endCol; col++) {
-				NormalCell nc = (NormalCell) splControl.cellSet.getCell(row, col);
+				NormalCell nc = (NormalCell) splControl.cellSet.getCell(row,
+						col);
 				String exp = nc.getExpString();
 				if (exp == null) {
 					stringIndex = -1;
 					continue;
 				} else {
-					stringIndex = Sentence.indexOf(exp, stringIndex + 1, searchString, searchFlag);
+					stringIndex = Sentence.indexOf(exp, stringIndex + 1,
+							searchString, searchFlag);
 					if (stringIndex >= 0) {
 						found = true;
 					}
@@ -543,7 +558,8 @@ public class DialogSearch extends JDialog {
 					replaceAllStartRow = row;
 					replaceAllStartCol = col;
 					if (!replaceAll) {
-						splControl.setSearchedCell(row, col, searchSelectedCells);
+						splControl.setSearchedCell(row, col,
+								searchSelectedCells);
 					}
 					return true;
 				}
@@ -563,8 +579,10 @@ public class DialogSearch extends JDialog {
 		setSearchConfig((String) jCBSearch.getSelectedItem(), "");
 		if (search()) {
 		} else {
-			JOptionPane.showMessageDialog(GV.appFrame,
-					splMM.getMessage("dialogsearch.cantfindword", jCBSearch.getSelectedItem()));
+			JOptionPane.showMessageDialog(
+					GV.appFrame,
+					splMM.getMessage("dialogsearch.cantfindword",
+							jCBSearch.getSelectedItem()));
 		}
 	}
 
@@ -587,8 +605,10 @@ public class DialogSearch extends JDialog {
 
 		if (replace()) {
 		} else {
-			JOptionPane.showMessageDialog(GV.appFrame,
-					splMM.getMessage("dialogsearch.cantfindword", jCBSearch.getSelectedItem()));
+			JOptionPane.showMessageDialog(
+					GV.appFrame,
+					splMM.getMessage("dialogsearch.cantfindword",
+							jCBSearch.getSelectedItem()));
 		}
 
 	}
@@ -605,7 +625,8 @@ public class DialogSearch extends JDialog {
 		replace = (String) jCBReplace.getSelectedItem();
 		setSearchConfig(search, replace);
 		int i = replaceAll();
-		JOptionPane.showMessageDialog(GV.appFrame, splMM.getMessage("dialogsearch.totalreplace", i + ""));
+		JOptionPane.showMessageDialog(GV.appFrame,
+				splMM.getMessage("dialogsearch.totalreplace", i + ""));
 
 	}
 
@@ -633,7 +654,8 @@ public class DialogSearch extends JDialog {
 
 }
 
-class DialogSearch_jBSearch_actionAdapter implements java.awt.event.ActionListener {
+class DialogSearch_jBSearch_actionAdapter implements
+		java.awt.event.ActionListener {
 	DialogSearch adaptee;
 
 	DialogSearch_jBSearch_actionAdapter(DialogSearch adaptee) {
@@ -645,7 +667,8 @@ class DialogSearch_jBSearch_actionAdapter implements java.awt.event.ActionListen
 	}
 }
 
-class DialogSearch_jBReplace_actionAdapter implements java.awt.event.ActionListener {
+class DialogSearch_jBReplace_actionAdapter implements
+		java.awt.event.ActionListener {
 	DialogSearch adaptee;
 
 	DialogSearch_jBReplace_actionAdapter(DialogSearch adaptee) {
@@ -657,7 +680,8 @@ class DialogSearch_jBReplace_actionAdapter implements java.awt.event.ActionListe
 	}
 }
 
-class DialogSearch_jBReplaceAll_actionAdapter implements java.awt.event.ActionListener {
+class DialogSearch_jBReplaceAll_actionAdapter implements
+		java.awt.event.ActionListener {
 	DialogSearch adaptee;
 
 	DialogSearch_jBReplaceAll_actionAdapter(DialogSearch adaptee) {
@@ -669,7 +693,8 @@ class DialogSearch_jBReplaceAll_actionAdapter implements java.awt.event.ActionLi
 	}
 }
 
-class DialogSearch_jBCancel_actionAdapter implements java.awt.event.ActionListener {
+class DialogSearch_jBCancel_actionAdapter implements
+		java.awt.event.ActionListener {
 	DialogSearch adaptee;
 
 	DialogSearch_jBCancel_actionAdapter(DialogSearch adaptee) {

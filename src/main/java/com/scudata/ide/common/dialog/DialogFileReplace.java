@@ -37,7 +37,7 @@ import com.scudata.util.CellSetUtil;
  * 在文件中查找/替换对话框
  *
  */
-public class DialogFileReplace extends RQDialog {
+public abstract class DialogFileReplace extends RQDialog {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -79,6 +79,14 @@ public class DialogFileReplace extends RQDialog {
 	}
 
 	/**
+	 * 读取加密网格
+	 * @param buf
+	 * @return
+	 */
+	public abstract PgmCellSet readEncryptedCellSet(String filePath,
+			String fileName, StringBuffer buf) throws Exception;
+
+	/**
 	 * 取文件列表
 	 * 
 	 * @return
@@ -86,27 +94,32 @@ public class DialogFileReplace extends RQDialog {
 	private List<File> getFiles() {
 		String sDir = jTFDir.getText();
 		if (!StringUtils.isValidString(sDir)) {
-			JOptionPane.showMessageDialog(owner, mm.getMessage("dialogfilereplace.selectdir")); // 请选择文件所在目录。
+			JOptionPane.showMessageDialog(owner,
+					mm.getMessage("dialogfilereplace.selectdir")); // 请选择文件所在目录。
 			return null;
 		}
 		File dir = new File(sDir);
 		if (!dir.exists()) {
-			JOptionPane.showMessageDialog(owner, mm.getMessage("dialogfilereplace.dirnotexists", sDir)); // 目录：{0}不存在。
+			JOptionPane.showMessageDialog(owner,
+					mm.getMessage("dialogfilereplace.dirnotexists", sDir)); // 目录：{0}不存在。
 			return null;
 		}
 		if (!dir.isDirectory()) {
-			JOptionPane.showMessageDialog(owner, mm.getMessage("dialogfilereplace.notdir", sDir)); // {0}不是一个目录。
+			JOptionPane.showMessageDialog(owner,
+					mm.getMessage("dialogfilereplace.notdir", sDir)); // {0}不是一个目录。
 			return null;
 		}
 		File[] subFiles = dir.listFiles();
 		if (subFiles == null || subFiles.length == 0) {
-			JOptionPane.showMessageDialog(owner, mm.getMessage("dialogfilereplace.nofilefound")); // 目录下没有查找到文件。
+			JOptionPane.showMessageDialog(owner,
+					mm.getMessage("dialogfilereplace.nofilefound")); // 目录下没有查找到文件。
 			return null;
 		}
 		List<File> files = new ArrayList<File>();
 		getSubFiles(dir, files, jCBSub.isSelected());
 		if (files.isEmpty()) {
-			JOptionPane.showMessageDialog(owner, mm.getMessage("dialogfilereplace.nofilefound")); // 目录下没有查找到文件。
+			JOptionPane.showMessageDialog(owner,
+					mm.getMessage("dialogfilereplace.nofilefound")); // 目录下没有查找到文件。
 			return null;
 		}
 		return files;
@@ -166,7 +179,8 @@ public class DialogFileReplace extends RQDialog {
 	private void search(boolean isReplace) {
 		setSearchConfig();
 		if (searchString == null || "".equals(searchString)) {
-			JOptionPane.showMessageDialog(owner, mm.getMessage("dialogfilereplace.searchnull")); // 查找内容不能为空。
+			JOptionPane.showMessageDialog(owner,
+					mm.getMessage("dialogfilereplace.searchnull")); // 查找内容不能为空。
 			return;
 		}
 		List<File> files = getFiles();
@@ -182,29 +196,24 @@ public class DialogFileReplace extends RQDialog {
 				String filePath = f.getAbsolutePath();
 				String fileName = getFileName(sDir, filePath);
 				if (!f.canRead()) {
-					buf.append(mm.getMessage("dialogfilereplace.cannotread", fileName)); // 文件：{0}没有读取权限。
+					buf.append(mm.getMessage("dialogfilereplace.cannotread",
+							fileName)); // 文件：{0}没有读取权限。
 					continue;
 				}
 				if (isReplace && !f.canWrite()) {
-					buf.append(mm.getMessage("dialogfilereplace.cannotwrite", fileName)); // 文件：{0}没有写入权限。
+					buf.append(mm.getMessage("dialogfilereplace.cannotwrite",
+							fileName)); // 文件：{0}没有写入权限。
 					continue;
 				}
-				boolean isSplFile = filePath.toLowerCase().endsWith("." + AppConsts.FILE_SPL);
+				boolean isSplFile = filePath.toLowerCase().endsWith(
+						"." + AppConsts.FILE_SPL);
 				PgmCellSet cellSet;
 				if (isSplFile) {
 					cellSet = GMSpl.readSPL(filePath);
 				} else if (CellSetUtil.isEncrypted(filePath)) {
-					DialogInputPassword dip = new DialogInputPassword(true);
-					String title = dip.getTitle();
-					title += "(" + fileName + ")";
-					dip.setTitle(title);
-					dip.setVisible(true);
-					if (dip.getOption() == JOptionPane.OK_OPTION) {
-						String psw = dip.getPassword();
-						cellSet = CellSetUtil.readPgmCellSet(filePath, psw);
-					} else {
+					cellSet = readEncryptedCellSet(filePath, fileName, buf);
+					if (cellSet == null)
 						continue;
-					}
 				} else {
 					cellSet = CellSetUtil.readPgmCellSet(filePath);
 				}
@@ -220,11 +229,13 @@ public class DialogFileReplace extends RQDialog {
 						if (cell != null) {
 							String exp = cell.getExpString();
 							if (exp != null) {
-								int stringIndex = Sentence.indexOf(exp, 0, searchString, searchFlag);
+								int stringIndex = Sentence.indexOf(exp, 0,
+										searchString, searchFlag);
 								if (stringIndex >= 0) {
 									if (isReplace) {
-										exp = Sentence.replace(exp, stringIndex, searchString, replaceString,
-												searchFlag);
+										exp = Sentence.replace(exp,
+												stringIndex, searchString,
+												replaceString, searchFlag);
 										cell.setExpString(exp);
 									}
 									searchCount++;
@@ -241,9 +252,13 @@ public class DialogFileReplace extends RQDialog {
 					} else {
 						CellSetUtil.writePgmCellSet(filePath, cellSet);
 					}
-					writeMessage(buf, mm.getMessage("dialogfilereplace.replacecount", fileName, searchCount));// 文件：{0}中替换了{1}个单元格。
+					writeMessage(buf, mm.getMessage(
+							"dialogfilereplace.replacecount", fileName,
+							searchCount));// 文件：{0}中替换了{1}个单元格。
 				} else {
-					writeMessage(buf, mm.getMessage("dialogfilereplace.searchcount", fileName, searchCount));// 文件：{0}中查找到了{1}个单元格。
+					writeMessage(buf, mm.getMessage(
+							"dialogfilereplace.searchcount", fileName,
+							searchCount));// 文件：{0}中查找到了{1}个单元格。
 				}
 			}
 			jTAMessage.setText(buf.toString());
@@ -259,7 +274,7 @@ public class DialogFileReplace extends RQDialog {
 	 * @param buf
 	 * @param message
 	 */
-	private void writeMessage(StringBuffer buf, String message) {
+	protected void writeMessage(StringBuffer buf, String message) {
 		if (buf.length() > 0) {
 			buf.append("\n");
 		}
@@ -325,7 +340,8 @@ public class DialogFileReplace extends RQDialog {
 		panelCenter.add(jBCancel, GM.getGBC(3, 2));
 
 		JPanel panelOpt = new JPanel(new GridLayout(2, 2));
-		panelOpt.setBorder(BorderFactory.createTitledBorder(mm.getMessage("dialogfilereplace.option"))); // 选项
+		panelOpt.setBorder(BorderFactory.createTitledBorder(mm
+				.getMessage("dialogfilereplace.option"))); // 选项
 		panelOpt.add(jCBSensitive);
 		panelOpt.add(jCBWordOnly);
 		panelOpt.add(jCBQuote);
@@ -390,16 +406,19 @@ public class DialogFileReplace extends RQDialog {
 	/**
 	 * 选择目录
 	 */
-	private JButton jBDir = new JButton(mm.getMessage("dialogfilereplace.dirbutton"));
+	private JButton jBDir = new JButton(
+			mm.getMessage("dialogfilereplace.dirbutton"));
 
 	/**
 	 * 是否包含子目录
 	 */
-	private JCheckBox jCBSub = new JCheckBox(mm.getMessage("dialogfilereplace.containssub"));
+	private JCheckBox jCBSub = new JCheckBox(
+			mm.getMessage("dialogfilereplace.containssub"));
 	/**
 	 * 查找内容
 	 */
-	private JLabel jLSearch = new JLabel(mm.getMessage("dialogfilereplace.searchstr"));
+	private JLabel jLSearch = new JLabel(
+			mm.getMessage("dialogfilereplace.searchstr"));
 	/**
 	 * 查找内容文本框
 	 */
@@ -407,11 +426,13 @@ public class DialogFileReplace extends RQDialog {
 	/**
 	 * 查找按钮
 	 */
-	private JButton jBSearch = new JButton(mm.getMessage("dialogfilereplace.searchbutton"));
+	private JButton jBSearch = new JButton(
+			mm.getMessage("dialogfilereplace.searchbutton"));
 	/**
 	 * 替换为
 	 */
-	private JLabel jLReplace = new JLabel(mm.getMessage("dialogfilereplace.replaceto"));
+	private JLabel jLReplace = new JLabel(
+			mm.getMessage("dialogfilereplace.replaceto"));
 	/**
 	 * 替换文本框
 	 */
@@ -419,7 +440,8 @@ public class DialogFileReplace extends RQDialog {
 	/**
 	 * 替换按钮
 	 */
-	private JButton jBReplace = new JButton(mm.getMessage("dialogfilereplace.replacebutton"));
+	private JButton jBReplace = new JButton(
+			mm.getMessage("dialogfilereplace.replacebutton"));
 	/**
 	 * 是否大小写敏感
 	 */

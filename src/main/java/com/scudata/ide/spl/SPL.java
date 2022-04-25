@@ -11,6 +11,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,6 +40,7 @@ import com.scudata.common.ArgumentTokenizer;
 import com.scudata.common.Escape;
 import com.scudata.common.Logger;
 import com.scudata.common.MessageManager;
+import com.scudata.common.RQException;
 import com.scudata.common.StringUtils;
 import com.scudata.dm.Context;
 import com.scudata.dm.Env;
@@ -851,7 +853,7 @@ public class SPL extends AppFrame {
 	 * @return
 	 * @throws Exception
 	 */
-	public static PgmCellSet readCellSet(String filePath) throws Exception {
+	public PgmCellSet readCellSet(String filePath) throws Exception {
 		// 从浏览器双击过来的路径含有空格符号
 		filePath = filePath.trim();
 		PgmCellSet cs = null;
@@ -864,7 +866,7 @@ public class SPL extends AppFrame {
 				if (path.endsWith("." + AppConsts.FILE_SPL)) {
 					cs = GMSpl.readSPL(filePath);
 				} else {
-					cs = CellSetUtil.readPgmCellSet(bis);
+					cs = readPgmCellSet(bis, filePath);
 				}
 			} finally {
 				if (bis != null)
@@ -872,6 +874,20 @@ public class SPL extends AppFrame {
 			}
 		}
 		return cs;
+	}
+
+	/**
+	 * 读取网格文件
+	 * @param is
+	 * @return
+	 * @throws Exception
+	 */
+	public PgmCellSet readPgmCellSet(InputStream is, String filePath)
+			throws Exception {
+		if (CellSetUtil.isEncrypted(filePath))
+			throw new RQException(IdeSplMessage.get().getMessage(
+					"spl.errorsplfile", filePath));
+		return CellSetUtil.readPgmCellSet(is);
 	}
 
 	/**
@@ -1048,7 +1064,7 @@ public class SPL extends AppFrame {
 						try {
 							FileObject fo = new FileObject(filePath, "s");
 							bis = new BufferedInputStream(fo.getInputStream());
-							cs = CellSetUtil.readPgmCellSet(bis);
+							cs = readPgmCellSet(bis, filePath);
 						} finally {
 							if (bis != null)
 								bis.close();

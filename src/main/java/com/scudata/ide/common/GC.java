@@ -261,10 +261,6 @@ public class GC {
 	public static final String CONSOLE = "configure.console";
 	/** Cellset description */
 	public static final String PROPERTY1 = "edit.property1";
-	/** Cellset password */
-	public static final String PASSWORD = "file.password";
-	/** Unlock advanced permissions */
-	public static final String PASSWORD2 = "file.password2";
 
 	/** Data source */
 	public static final short iDATA_SOURCE = 105;
@@ -274,8 +270,6 @@ public class GC {
 	public static final short iCONSOLE = 115;
 	/** Cellset description */
 	public static final short iPROPERTY = 130;
-	/** Cellset password */
-	public static final short iPASSWORD = 141;
 
 	/**
 	 * Window menus 200-300

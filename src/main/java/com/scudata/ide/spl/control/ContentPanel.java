@@ -38,7 +38,6 @@ import com.scudata.cellset.INormalCell;
 import com.scudata.cellset.IStyle;
 import com.scudata.cellset.datamodel.CellSet;
 import com.scudata.cellset.datamodel.NormalCell;
-import com.scudata.cellset.datamodel.PgmCellSet;
 import com.scudata.cellset.datamodel.PgmNormalCell;
 import com.scudata.common.Area;
 import com.scudata.common.CellLocation;
@@ -55,6 +54,7 @@ import com.scudata.ide.common.control.JWindowNames;
 import com.scudata.ide.common.swing.JComboBoxEx;
 import com.scudata.ide.common.swing.JTextPaneEx;
 import com.scudata.ide.spl.GVSpl;
+import com.scudata.ide.spl.SheetSpl;
 import com.scudata.ide.spl.ToolBarProperty;
 
 /** Íø¸ñÄÚÈÝÃæ°å */
@@ -1274,7 +1274,8 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 		if (control.getActiveCell() == null) {
 			return;
 		}
-		if (control.cellSet.getCurrentPrivilege() != PgmCellSet.PRIVILEGE_FULL) {
+
+		if (!((SheetSpl) GV.appSheet).isCellSetEditable()) {
 			if (editor != null && editor.isVisible()) {
 				editor.setVisible(false);
 			}

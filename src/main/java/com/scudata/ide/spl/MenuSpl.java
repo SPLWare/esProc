@@ -12,7 +12,6 @@ import com.scudata.common.MessageManager;
 import com.scudata.ide.common.AppMenu;
 import com.scudata.ide.common.GC;
 import com.scudata.ide.common.GM;
-import com.scudata.ide.common.resources.IdeCommonMessage;
 import com.scudata.ide.spl.resources.IdeSplMessage;
 
 /**
@@ -295,9 +294,7 @@ public class MenuSpl extends AppMenu {
 		JMenuItem menuTemp = newCommonMenuItem(GC.iPROPERTY, GC.PROPERTY1, 'D',
 				GC.NO_MASK);
 		menu.add(menuTemp);
-		pswMenuItem = newCommonMenuItem(GCSpl.iPASSWORD, GCSpl.PASSWORD, 'W',
-				GC.NO_MASK);
-		menu.add(pswMenuItem);
+		addCustomToolMenu(menu);
 		menuTemp = newSplMenuItem(GCSpl.iCONST, GCSpl.CONST, 'N', GC.NO_MASK);
 		menu.add(menuTemp);
 		menu.addSeparator();
@@ -394,21 +391,6 @@ public class MenuSpl extends AppMenu {
 	}
 
 	/**
-	 * 网格密码菜单项
-	 */
-	protected JMenuItem pswMenuItem;
-
-	/**
-	 * 重置网格密码菜单项的文本
-	 * 
-	 * @param isFull 是否全功能
-	 */
-	public void resetPasswordMenu(boolean isFull) {
-		String str = isFull ? GC.PASSWORD : GC.PASSWORD2;
-		pswMenuItem.setText(IdeCommonMessage.get().getMessage(GC.MENU + str));
-	}
-
-	/**
 	 * 设置行列菜单是否可用
 	 * 
 	 * @param isEnabled
@@ -443,6 +425,13 @@ public class MenuSpl extends AppMenu {
 	}
 
 	/**
+	 * 增加自定义的工具菜单
+	 * @param toolMenu
+	 */
+	protected void addCustomToolMenu(JMenu toolMenu) {
+	}
+
+	/**
 	 * 取所有可变状态的菜单
 	 */
 	public short[] getMenuItems() {
@@ -454,26 +443,26 @@ public class MenuSpl extends AppMenu {
 				GCSpl.iUNDO, GCSpl.iREDO, GCSpl.iCOPY, GCSpl.iCOPYVALUE,
 				GCSpl.iCODE_COPY, GCSpl.iCOPY_HTML_DIALOG, GCSpl.iCUT,
 				GCSpl.iPASTE, GCSpl.iPASTE_ADJUST, GCSpl.iPASTE_SPECIAL,
-				GCSpl.iADD_COL, GCSpl.iCTRL_ENTER, GCSpl.iCTRL_INSERT,
-				GCSpl.iALT_INSERT, GCSpl.iDUP_ROW, GCSpl.iDUP_ROW_ADJUST,
-				GCSpl.iCLEAR, GCSpl.iFULL_CLEAR, GCSpl.iDELETE_ROW,
-				GCSpl.iDELETE_COL, GCSpl.iCTRL_BACK, GCSpl.iCTRL_DELETE,
-				GCSpl.iTEXT_EDITOR, GCSpl.iNOTE, GCSpl.iTIPS,
-				GCSpl.iROW_HEIGHT, GCSpl.iROW_ADJUST, GCSpl.iROW_HIDE,
-				GCSpl.iROW_VISIBLE, GCSpl.iCOL_WIDTH, GCSpl.iCOL_ADJUST,
-				GCSpl.iCOL_HIDE, GCSpl.iCOL_VISIBLE, GCSpl.iEDIT_CHART,
-				GCSpl.iFUNC_ASSIST, GCSpl.iSEARCH,
+				GCSpl.iADD_COL, GCSpl.iINSERT_COL, GCSpl.iCTRL_ENTER,
+				GCSpl.iCTRL_INSERT, GCSpl.iALT_INSERT, GCSpl.iDUP_ROW,
+				GCSpl.iDUP_ROW_ADJUST, GCSpl.iCLEAR, GCSpl.iFULL_CLEAR,
+				GCSpl.iDELETE_ROW, GCSpl.iDELETE_COL, GCSpl.iCTRL_BACK,
+				GCSpl.iCTRL_DELETE, GCSpl.iTEXT_EDITOR, GCSpl.iNOTE,
+				GCSpl.iTIPS, GCSpl.iROW_HEIGHT, GCSpl.iROW_ADJUST,
+				GCSpl.iROW_HIDE, GCSpl.iROW_VISIBLE, GCSpl.iCOL_WIDTH,
+				GCSpl.iCOL_ADJUST, GCSpl.iCOL_HIDE, GCSpl.iCOL_VISIBLE,
+				GCSpl.iEDIT_CHART, GCSpl.iFUNC_ASSIST, GCSpl.iSEARCH,
 				GCSpl.iREPLACE,
 				GCSpl.iMOVE_COPY_UP,
 				GCSpl.iMOVE_COPY_DOWN,
 				GCSpl.iMOVE_COPY_LEFT,
 				GCSpl.iMOVE_COPY_RIGHT,
 				// 程序
-				GCSpl.iPARAM, GCSpl.iPASSWORD, GCSpl.iEXEC, GCSpl.iEXE_DEBUG,
-				GCSpl.iCALC_AREA, GCSpl.iCALC_LOCK, GCSpl.iSTEP_NEXT,
-				GCSpl.iSTEP_CURSOR, GCSpl.iSTOP, GCSpl.iSHOW_VALUE,
-				GCSpl.iCLEAR_VALUE, GCSpl.iPAUSE, GCSpl.iBREAKPOINTS,
-				GCSpl.iDRAW_CHART };
+				GCSpl.iPARAM, GCSpl.iEXEC, GCSpl.iEXE_DEBUG, GCSpl.iCALC_AREA,
+				GCSpl.iCALC_LOCK, GCSpl.iSTEP_NEXT, GCSpl.iSTEP_CURSOR,
+				GCSpl.iSTOP, GCSpl.iSHOW_VALUE, GCSpl.iCLEAR_VALUE,
+				GCSpl.iPAUSE, GCSpl.iBREAKPOINTS, GCSpl.iDRAW_CHART,
+				GCSpl.iCONST };
 		return menus;
 	}
 
@@ -509,11 +498,11 @@ public class MenuSpl extends AppMenu {
 				GCSpl.iMOVE_COPY_LEFT,
 				GCSpl.iMOVE_COPY_RIGHT,
 				// 程序
-				GCSpl.iPARAM, GCSpl.iPASSWORD, GCSpl.iEXEC, GCSpl.iEXE_DEBUG,
-				GCSpl.iRESET, GCSpl.iCALC_AREA, GCSpl.iCALC_LOCK,
-				GCSpl.iSTEP_NEXT, GCSpl.iSTEP_CURSOR, GCSpl.iSTOP,
-				GCSpl.iSHOW_VALUE, GCSpl.iCLEAR_VALUE, GCSpl.iPAUSE,
-				GCSpl.iBREAKPOINTS, GCSpl.iDRAW_CHART,
+				GCSpl.iPARAM, GCSpl.iEXEC, GCSpl.iEXE_DEBUG, GCSpl.iRESET,
+				GCSpl.iCALC_AREA, GCSpl.iCALC_LOCK, GCSpl.iSTEP_NEXT,
+				GCSpl.iSTEP_CURSOR, GCSpl.iSTOP, GCSpl.iSHOW_VALUE,
+				GCSpl.iCLEAR_VALUE, GCSpl.iPAUSE, GCSpl.iBREAKPOINTS,
+				GCSpl.iDRAW_CHART,
 
 				GC.iPROPERTY, GCSpl.iCONST, GCSpl.iEXEC_CMD };
 		return menus;

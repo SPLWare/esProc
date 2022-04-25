@@ -21,6 +21,8 @@ import com.scudata.cellset.datamodel.PgmCellSet;
 import com.scudata.common.Logger;
 import com.scudata.common.Matrix;
 import com.scudata.common.StringUtils;
+import com.scudata.ide.common.AppMenu;
+import com.scudata.ide.common.AppToolBar;
 import com.scudata.ide.common.ConfigFile;
 import com.scudata.ide.common.ConfigOptions;
 import com.scudata.ide.common.ConfigUtilIde;
@@ -29,8 +31,6 @@ import com.scudata.ide.common.GC;
 import com.scudata.ide.common.GM;
 import com.scudata.ide.common.GV;
 import com.scudata.ide.common.IAtomicCmd;
-import com.scudata.ide.common.AppMenu;
-import com.scudata.ide.common.AppToolBar;
 import com.scudata.ide.common.control.CellRect;
 import com.scudata.ide.common.control.CellSelection;
 import com.scudata.ide.common.control.ControlUtilsBase;
@@ -135,7 +135,19 @@ public class GMSpl extends GM {
 			return;
 		}
 		case GCSpl.iFILE_REPLACE:
-			DialogFileReplace dfr = new DialogFileReplace(GV.appFrame);
+			DialogFileReplace dfr = new DialogFileReplace(GV.appFrame) {
+				private static final long serialVersionUID = 1L;
+
+				public PgmCellSet readEncryptedCellSet(String filePath,
+						String fileName, StringBuffer buf) throws Exception {
+					writeMessage(
+							buf,
+							IdeSplMessage.get().getMessage("spl.errorsplfile",
+									filePath));
+					return null;
+				}
+
+			};
 			dfr.setVisible(true);
 			return;
 		case GC.iSHOW_WINLIST:
