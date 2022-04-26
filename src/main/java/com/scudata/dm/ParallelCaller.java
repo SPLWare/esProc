@@ -191,8 +191,8 @@ public class ParallelCaller extends ParallelProcess {
 			int poolSize = ucList.size();
 			pool = ThreadPool.newSpecifiedInstance(poolSize);
 			for (int i = 0; i < size; i++) {
-				if (isCanceled)
-					continue;
+//				if (isCanceled)
+//					continue;
 				ProcessCaller pcaller = (ProcessCaller) callers.get(i);
 				UnitClient uc = getClient();
 				pcaller.setUnitClient(uc);
@@ -226,9 +226,9 @@ public class ParallelCaller extends ParallelProcess {
 	public Object execute(byte calcType) {
 		String msg;
 		if(calcType==TYPE_DEFAULT){
-			msg = "缺省顺次分配";
+			msg = "Dispatch jobs by sorting order.";
 		}else{
-			msg = "随机分配作业";
+			msg = "Dispatch jobs on random order.";
 		}
 		Logger.debug( msg );
 		ThreadPool pool = null;
@@ -307,8 +307,8 @@ public class ParallelCaller extends ParallelProcess {
 			int poolSize = Math.min(size, ucList.size());
 			pool = ThreadPool.newSpecifiedInstance(poolSize);
 			for (int i = 0; i < size; i++) {
-				if (isCanceled)
-					continue;
+//				if (isCanceled)//作业被取消后，作业仍然需要扔到线程池去走取消流程，否则这些线程就没人管，造成永远没法执行完，joinCallers就一直在等待它们线程结束
+//					continue;
 				ProcessCaller pcaller = (ProcessCaller) callers.get(i);
 				UnitClient uc = getClient();
 				if (reduce != null) {
@@ -338,6 +338,7 @@ public class ParallelCaller extends ParallelProcess {
 				Logger.severe(x);
 			}
 			interruptAll(null, x);
+
 			if (x instanceof RQException) {
 				throw (RQException) x;
 			}

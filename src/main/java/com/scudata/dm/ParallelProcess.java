@@ -359,7 +359,7 @@ public class ParallelProcess implements IResource{
 		if(showName){
 		 Iterator<Thread> it = map.keySet().iterator();
 		 while(it.hasNext())
-		 System.out.println( it.next() );
+			 System.out.println( it.next() );
 		}
 
 		return map.size();
