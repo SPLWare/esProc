@@ -214,7 +214,8 @@ public class Groups extends PseudoFunction {
 			if (pseudo instanceof PseudoTable) {
 				PseudoTable ptable = (PseudoTable) pseudo;
 				List<ITableMetaData> tables = ptable.getPd().getTables();
-				if (tables.size() == 1 
+				if (tables != null 
+						&& tables.size() == 1 
 						&& tables.get(0) instanceof TableMetaData
 						&& ((TableMetaData)tables.get(0)).getCuboids() != null) {
 					return Cuboid.cgroups(expStrs, names, calcExpStrs, calcNames, (TableMetaData) tables.get(0),

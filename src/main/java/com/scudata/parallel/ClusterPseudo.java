@@ -79,7 +79,7 @@ public class ClusterPseudo implements IClusterObject, IPseudo {
 			Integer type = (Integer) attributes.get("type");
 			
 			if (type == null) {
-				pseudo = new PseudoTable(rec, n, ctx);
+				pseudo = PseudoTable.create(rec, n, ctx);
 			} else {
 				PseudoProxy pseudoProxy = (PseudoProxy) rm.getProxy(ptableId.intValue());
 				IPseudo ptable = pseudoProxy.getPseudo();

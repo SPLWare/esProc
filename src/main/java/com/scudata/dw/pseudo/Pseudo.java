@@ -159,27 +159,6 @@ public class Pseudo implements IPseudo{
 					}
 					opList.add(op);
 				}
-//			} else if (op instanceof Derive) {
-//				Derive derive = (Derive) op;
-//				Expression []derExps = derive.getExps();
-//				String []derNames = derive.getNames();
-//				if (deriveExps == null) {
-//					deriveExps = derExps;
-//					deriveNames = derNames;
-//				} else {
-//					int oldSize = deriveExps.length;
-//					int newSize = derExps.length + oldSize;
-//					
-//					Expression []newExps = new Expression[newSize];
-//					String []newNames = new String[newSize];
-//					System.arraycopy(deriveExps, 0, newExps, 0, oldSize);
-//					System.arraycopy(derExps, 0, newExps, oldSize, derExps.length);
-//					System.arraycopy(deriveNames, 0, newNames, 0, oldSize);
-//					System.arraycopy(derNames, 0, newNames, oldSize, derExps.length);
-//					
-//					deriveExps = newExps;
-//					deriveNames = newNames;
-//				}
 			} else {
 				for (String name : tempList) {
 					addColName(name);
