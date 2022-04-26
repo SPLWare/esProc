@@ -727,7 +727,7 @@ public class ConfigUtil {
 		File extLibsDir = new File(extLibsPath);
 		if (!extLibsDir.exists() || !extLibsDir.isDirectory()) {
 			throw new RQException(AppMessage.get().getMessage(
-					"configutil.noextpath"));
+					"configutil.noextpath", extLibsPath));
 		}
 		File[] subDirs = extLibsDir.listFiles();
 		if (subDirs != null) {
