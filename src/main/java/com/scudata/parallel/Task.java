@@ -267,7 +267,7 @@ public class Task extends Job implements IResource, ITask {
 			MessageManager mm = ParallelMessage.get();
 
 			String status = mm.getMessage("Task.cancel", this, cancelCause);
-			if (cancelCause.equalsIgnoreCase(CanceledException.TYPE_DATASTORE)) {
+			if (cancelCause.equalsIgnoreCase(CanceledException.TYPE_MONITOR)) {
 				return new Exception(status);
 			}
 		}

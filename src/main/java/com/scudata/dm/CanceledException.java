@@ -12,7 +12,7 @@ public class CanceledException extends RuntimeException {
 	private static final long serialVersionUID = 4988636705167197473L;
 	static MessageManager mm = ParallelMessage.get();
 
-	public static String TYPE_DATASTORE = mm.getMessage("CanceledException.DataStore");
+	public static String TYPE_MONITOR = mm.getMessage("CanceledException.monitor");
 	public static String TYPE_IDE = "Canceled by IDE.";
 	public static String TYPE_OTHER = "Canceled by other task.";
 	
