@@ -17,7 +17,6 @@ import javax.swing.table.TableColumn;
 
 import com.scudata.common.MessageManager;
 import com.scudata.common.StringUtils;
-import com.scudata.dm.JobSpaceManager;
 import com.scudata.dm.Param;
 import com.scudata.ide.common.GM;
 import com.scudata.ide.common.control.TransferableObject;
@@ -138,14 +137,16 @@ public abstract class JTableJobSpace extends JScrollPane {
 	public synchronized void setJobSpaces(HashMap<String, Param[]> hm) {
 		tableVar.acceptText();
 		tableVar.removeAllRows();
-		preventChange = true;
-		Iterator<String> it = hm.keySet().iterator();
-		while (it.hasNext()) {
-			String jsId = it.next();
-			Param[] paras = hm.get(jsId);
-			addJobSpaceRow(jsId, paras);
+		if (hm != null) {
+			preventChange = true;
+			Iterator<String> it = hm.keySet().iterator();
+			while (it.hasNext()) {
+				String jsId = it.next();
+				Param[] paras = hm.get(jsId);
+				addJobSpaceRow(jsId, paras);
+			}
+			preventChange = false;
 		}
-		preventChange = false;
 	}
 
 	/**

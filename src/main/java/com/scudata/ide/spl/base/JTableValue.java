@@ -2,6 +2,7 @@ package com.scudata.ide.spl.base;
 
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.FontMetrics;
 import java.awt.HeadlessException;
 import java.awt.Point;
 import java.awt.datatransfer.Clipboard;
@@ -635,6 +636,17 @@ public class JTableValue extends JTableEx {
 	 *            开始行号
 	 */
 	public void resetData(int index) {
+		resetData(index, false);
+	}
+
+	/**
+	 * 重置数据
+	 * 
+	 * @param index
+	 *            开始行号
+	 * @param isFirst 是否第一次设置值
+	 */
+	public void resetData(int index, boolean isFirst) {
 		dispStartIndex = index;
 		if (resetThread != null) {
 			resetThread.stopThread();
@@ -661,8 +673,12 @@ public class JTableValue extends JTableEx {
 			return;
 		}
 		resetThread = new ResetDataThread(s, index, m_type);
+		if (isFirst)
+			resetThread.setFirst();
 		SwingUtilities.invokeLater(resetThread);
 	}
+
+	private final int DISP_ROWS = 50;
 
 	/**
 	 * 线程实例
@@ -691,6 +707,8 @@ public class JTableValue extends JTableEx {
 		 */
 		boolean isStoped = false, isFinished = false;
 
+		boolean isFirst = false;
+
 		/**
 		 * 构造函数
 		 * 
@@ -705,6 +723,10 @@ public class JTableValue extends JTableEx {
 			this.seq = s;
 			this.index = index;
 			this.dataType = dataType;
+		}
+
+		public void setFirst() {
+			this.isFirst = true;
 		}
 
 		/**
@@ -728,7 +750,7 @@ public class JTableValue extends JTableEx {
 				int height = GVSpl.panelValue.spValue.getPreferredSize().height;
 				int startRow = index;
 				int count = height / ROW_HEIGHT + 1;
-				count = Math.max(50, count);
+				count = Math.max(DISP_ROWS, count);
 				int endRow = Math.min(rowCount, startRow + count);
 
 				int oldRowCount = getRowCount();
@@ -747,6 +769,14 @@ public class JTableValue extends JTableEx {
 				}
 				if (isStoped)
 					return;
+				int[] colWidths = null;
+				if (isFirst) {
+					colWidths = new int[getColumnCount()];
+					for (int c = 0; c < colWidths.length; c++) {
+						colWidths[c] = 0;
+					}
+				}
+				FontMetrics fm = getFontMetrics(getFont());
 				boolean isDup = isDupColNames();
 				Object rowData;
 				for (int i = startRow; i <= endRow; i++) {
@@ -757,15 +787,35 @@ public class JTableValue extends JTableEx {
 							&& (dataType == TYPE_PMT || dataType == TYPE_TABLE
 									|| dataType == TYPE_SERIESPMT || dataType == TYPE_DB)) {
 						setRecordRow((Record) seq.get(i), i - startRow, isSeq,
-								i, isDup);
+								i, isDup, colWidths);
 					} else {
 						if (isSeq) {
 							data.setValueAt(new Integer(i), i - startRow,
 									COL_FIRST);
 							data.setValueAt(seq.get(i), i - startRow,
 									COL_FIRST + 1);
+							if (isFirst) {
+								String str = GM.renderValueText(seq.get(i));
+								colWidths[COL_FIRST + 1] = Math.max(
+										colWidths[COL_FIRST + 1],
+										fm.stringWidth(str));
+							}
 						} else {
 							data.setValueAt(seq.get(i), i - startRow, COL_FIRST);
+							String str = GM.renderValueText(seq.get(i));
+							colWidths[COL_FIRST] = Math.max(
+									colWidths[COL_FIRST], fm.stringWidth(str));
+						}
+					}
+				}
+				if (isFirst) {
+					for (int c = isSeq ? 1 : 0; c < colWidths.length; c++) {
+						TableColumn tc = getColumn(c);
+						colWidths[c] = Math.min(MAX_COL_WIDTH, colWidths[c]);
+						if (colWidths[c] > tc.getWidth()) {
+							tc.setMinWidth(colWidths[c]);
+							tc.setWidth(colWidths[c]);
+							tc.setPreferredWidth(colWidths[c]);
 						}
 					}
 				}
@@ -806,7 +856,7 @@ public class JTableValue extends JTableEx {
 	 *            是否有重复列名
 	 */
 	private void setRecordRow(Record record, int r, boolean isSeq, int index,
-			boolean isDup) {
+			boolean isDup, int[] colWidths) {
 		if (record == null || r < 0)
 			return;
 		if (m_type == TYPE_TABLE) {
@@ -1171,7 +1221,7 @@ public class JTableValue extends JTableEx {
 				GVSpl.panelValue.sbValue.setMaximum(rowCount);
 				GVSpl.panelValue.sbValue.setValue(dispStartIndex);
 				GVSpl.panelValue.spValue.getHorizontalScrollBar().setValue(1);
-				resetData(dispStartIndex);
+				resetData(dispStartIndex, true);
 			} finally {
 				GVSpl.panelValue.preventChange = false;
 			}
@@ -1388,6 +1438,8 @@ public class JTableValue extends JTableEx {
 		}
 	}
 
+	private final int MAX_COL_WIDTH = 300; // 列内容比较长时，最大显示的宽度
+
 	/**
 	 * 设置表格的列
 	 * 
@@ -1396,7 +1448,7 @@ public class JTableValue extends JTableEx {
 	 * @param len
 	 *            数据长度，用于计算序号列宽度
 	 * @param isSeq
-	 *            是否序列（也包含排列、序表）
+	 *            是否Sequence
 	 */
 	private synchronized void setTableColumns(DataStruct ds, int len,
 			boolean isSeq) {
@@ -1405,7 +1457,7 @@ public class JTableValue extends JTableEx {
 		String nNames[] = ds.getFieldNames();
 		if (nNames != null) {
 			Vector<String> cols = new Vector<String>();
-			if (isSeq) {
+			if (value instanceof Sequence) {
 				cols.add(TITLE_INDEX);
 			}
 			for (int i = 0; i < nNames.length; i++) {
@@ -1425,48 +1477,50 @@ public class JTableValue extends JTableEx {
 		} else {
 			INDEX_WIDTH = 0;
 		}
-		int colWidth = 0;
+
+		if (isSeq) {
+			// 根据标题长度设置列宽
+			int[] pkIndex = ds.getPKIndex();
+			final int IMAGE_WIDTH = 35;
+			for (int i = 1; i < cc; i++) {
+				tc = getColumn(i);
+				int titleWidth = getFontMetrics(getFont()).stringWidth(
+						getColumnName(i));
+				int colWidth = tc.getWidth();
+				if (isPK(pkIndex, i - 1)) {
+					tc.setHeaderRenderer(new PKRenderer());
+					titleWidth += IMAGE_WIDTH;
+				}
+				titleWidth = Math.min(titleWidth, MAX_COL_WIDTH);
+				if (titleWidth > colWidth) {
+					tc.setMinWidth(titleWidth);
+					tc.setWidth(titleWidth);
+					tc.setPreferredWidth(titleWidth);
+					tc.setMinWidth(0);
+				}
+			}
+		}
+		int totalColWidth = 0;
 		for (int i = 0; i < cc; i++) {
-			colWidth += getColumn(i).getWidth();
+			totalColWidth += getColumn(i).getWidth();
 		}
 		int width = getParent().getWidth();
-		if (colWidth < width && cc > 0) {
+		if (totalColWidth < width && cc > 0) { // 如果所有列显示的下，将剩余宽度平均分配到各列
 			int aveWidth;
-			if (isSeq) {
-				if (cc == 1) {
-					aveWidth = width;
-				} else {
-					aveWidth = (width - INDEX_WIDTH) / (cc - 1);
+			width -= totalColWidth;
+			if (cc > 1) {
+				if (isSeq) {
+					width -= INDEX_WIDTH;
 				}
+				aveWidth = width / (cc - 1);
 			} else {
-				aveWidth = width / cc;
+				aveWidth = width;
 			}
 			for (int i = 1; i < cc; i++) {
 				tc = getColumn(i);
 				tc.setMinWidth(aveWidth);
 				tc.setWidth(aveWidth);
 				tc.setPreferredWidth(aveWidth);
-				tc.setMinWidth(0);
-			}
-		}
-		if (isSeq) {
-			int[] pkIndex = ds.getPKIndex();
-			for (int i = 1; i < cc; i++) {
-				if (isPK(pkIndex, i - 1)) {
-					tc = getColumn(i);
-					tc.setHeaderRenderer(new PKRenderer());
-					int titleWidth = getFontMetrics(getFont()).stringWidth(
-							getColumnName(i));
-					colWidth = tc.getWidth();
-					final int IMAGE_WIDTH = 35;
-					if (titleWidth + IMAGE_WIDTH > colWidth) {
-						int newWidth = titleWidth + IMAGE_WIDTH;
-						tc.setMinWidth(newWidth);
-						tc.setWidth(newWidth);
-						tc.setPreferredWidth(newWidth);
-						tc.setMinWidth(0);
-					}
-				}
 			}
 		}
 	}

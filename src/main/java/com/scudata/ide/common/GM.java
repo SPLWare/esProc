@@ -41,7 +41,6 @@ import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -673,6 +672,8 @@ public class GM {
 		if (currentDirectory == null) {
 			currentDirectory = GV.lastDirectory;
 		}
+		if (fileExts == null)
+			fileExts = "";
 		fileExts = fileExts.toLowerCase();
 
 		JFileChooser chooser = new JFileChooser(currentDirectory) {
@@ -731,6 +732,7 @@ public class GM {
 
 		String[] extArr;
 		boolean isMuiltExts = false;
+
 		if (fileExts.startsWith("\"") && fileExts.endsWith("\"")) {
 			String ext = fileExts.substring(1, fileExts.length() - 1);
 			extArr = new String[] { ext };
@@ -772,15 +774,17 @@ public class GM {
 		for (int i = extArr.length - 1; i >= 0; i--) {
 			String ext = extArr[i];
 			// chooser.setFileFilter(getFileFilter("." + ext, "*." + ext));
-			String[] exts = ext.split(",");
-			StringBuffer desc = new StringBuffer();
-			for (int j = 0; j < exts.length; j++) {
-				exts[j] = "." + exts[j];
-				if (desc.length() > 0)
-					desc.append(",");
-				desc.append("*" + exts[j]);
+			if (StringUtils.isValidString(ext)) {
+				String[] exts = ext.split(",");
+				StringBuffer desc = new StringBuffer();
+				for (int j = 0; j < exts.length; j++) {
+					exts[j] = "." + exts[j];
+					if (desc.length() > 0)
+						desc.append(",");
+					desc.append("*" + exts[j]);
+				}
+				chooser.setFileFilter(GM.getFileFilter(exts, desc.toString()));
 			}
-			chooser.setFileFilter(GM.getFileFilter(exts, desc.toString()));
 		}
 
 		if (multiSelect) {
@@ -1932,45 +1936,45 @@ public class GM {
 	 * @param ascend boolean, Whether to sort in ascending order
 	 * @return boolean, Return true if the sort is successful, otherwise false
 	 */
-//	public static boolean sort(AbstractList list, boolean ascend) {
-//		Comparable ci, cj;
-//		int i, j;
-//		boolean lb_exchange;
-//		for (i = 0; i < list.size(); i++) {
-//			Object o = list.get(i);
-//			if (o != null && !(o instanceof Comparable)) {
-//				return false;
-//			}
-//		}
-//
-//		for (i = 0; i < list.size() - 1; i++) {
-//			for (j = i + 1; j < list.size(); j++) {
-//				ci = (Comparable) list.get(i);
-//				cj = (Comparable) list.get(j);
-//				if (ascend) {
-//					if (ci == null || cj == null) {
-//						lb_exchange = (cj == null);
-//					} else {
-//						lb_exchange = ci.compareTo(cj) > 0;
-//					}
-//				} else {
-//					if (ci == null || cj == null) {
-//						lb_exchange = (ci == null);
-//					} else {
-//						lb_exchange = ci.compareTo(cj) < 0;
-//					}
-//				}
-//				if (lb_exchange) {
-//					Object o, o2;
-//					o = list.get(i);
-//					o2 = list.get(j);
-//					list.set(i, o2);
-//					list.set(j, o);
-//				}
-//			}
-//		}
-//		return true;
-//	}
+	// public static boolean sort(AbstractList list, boolean ascend) {
+	// Comparable ci, cj;
+	// int i, j;
+	// boolean lb_exchange;
+	// for (i = 0; i < list.size(); i++) {
+	// Object o = list.get(i);
+	// if (o != null && !(o instanceof Comparable)) {
+	// return false;
+	// }
+	// }
+	//
+	// for (i = 0; i < list.size() - 1; i++) {
+	// for (j = i + 1; j < list.size(); j++) {
+	// ci = (Comparable) list.get(i);
+	// cj = (Comparable) list.get(j);
+	// if (ascend) {
+	// if (ci == null || cj == null) {
+	// lb_exchange = (cj == null);
+	// } else {
+	// lb_exchange = ci.compareTo(cj) > 0;
+	// }
+	// } else {
+	// if (ci == null || cj == null) {
+	// lb_exchange = (ci == null);
+	// } else {
+	// lb_exchange = ci.compareTo(cj) < 0;
+	// }
+	// }
+	// if (lb_exchange) {
+	// Object o, o2;
+	// o = list.get(i);
+	// o2 = list.get(j);
+	// list.set(i, o2);
+	// list.set(j, o);
+	// }
+	// }
+	// }
+	// return true;
+	// }
 
 	/**
 	 * Whether it can be saved as the other file.
