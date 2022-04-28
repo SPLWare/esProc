@@ -31,6 +31,7 @@ import com.scudata.cellset.datamodel.PgmNormalCell;
 import com.scudata.common.ByteMap;
 import com.scudata.common.CellLocation;
 import com.scudata.common.IByteMap;
+import com.scudata.common.Logger;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.common.StringUtils;
@@ -595,7 +596,12 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 			if (nc != null) {
 				IByteMap values = splEditor.getProperty();
 				GV.toolBarProperty.refresh(selectState, values);
-				Object value = getCellValue(nc.getRow(), nc.getCol());
+				Object value = null;
+				try {
+					value = getCellValue(nc.getRow(), nc.getCol());
+				} catch (Exception ex) {
+					Logger.error(ex);
+				}
 				GVSpl.panelValue.tableValue.setCellId(nc.getCellId());
 				String oldId = GVSpl.panelValue.tableValue.getCellId();
 				if (nc.getCellId().equals(oldId)) { // refresh
@@ -616,8 +622,13 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 								.getCell(cellId);
 						Object oldVal = GVSpl.panelValue.tableValue
 								.getOriginalValue();
-						Object newVal = getCellValue(lockCell.getRow(),
-								lockCell.getCol());
+						Object newVal = null;
+						try {
+							newVal = getCellValue(lockCell.getRow(),
+									lockCell.getCol());
+						} catch (Exception ex) {
+							Logger.error(ex);
+						}
 						boolean isValChanged = false;
 						if (oldVal == null) {
 							isValChanged = newVal != null;

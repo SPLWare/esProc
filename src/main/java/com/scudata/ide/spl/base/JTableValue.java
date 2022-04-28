@@ -769,14 +769,6 @@ public class JTableValue extends JTableEx {
 				}
 				if (isStoped)
 					return;
-				int[] colWidths = null;
-				if (isFirst) {
-					colWidths = new int[getColumnCount()];
-					for (int c = 0; c < colWidths.length; c++) {
-						colWidths[c] = 0;
-					}
-				}
-				FontMetrics fm = getFontMetrics(getFont());
 				boolean isDup = isDupColNames();
 				Object rowData;
 				for (int i = startRow; i <= endRow; i++) {
@@ -787,35 +779,42 @@ public class JTableValue extends JTableEx {
 							&& (dataType == TYPE_PMT || dataType == TYPE_TABLE
 									|| dataType == TYPE_SERIESPMT || dataType == TYPE_DB)) {
 						setRecordRow((Record) seq.get(i), i - startRow, isSeq,
-								i, isDup, colWidths);
+								i, isDup);
 					} else {
 						if (isSeq) {
 							data.setValueAt(new Integer(i), i - startRow,
 									COL_FIRST);
 							data.setValueAt(seq.get(i), i - startRow,
 									COL_FIRST + 1);
-							if (isFirst) {
-								String str = GM.renderValueText(seq.get(i));
-								colWidths[COL_FIRST + 1] = Math.max(
-										colWidths[COL_FIRST + 1],
-										fm.stringWidth(str));
-							}
 						} else {
 							data.setValueAt(seq.get(i), i - startRow, COL_FIRST);
-							String str = GM.renderValueText(seq.get(i));
-							colWidths[COL_FIRST] = Math.max(
-									colWidths[COL_FIRST], fm.stringWidth(str));
 						}
 					}
 				}
-				if (isFirst) {
-					for (int c = isSeq ? 1 : 0; c < colWidths.length; c++) {
+				if (isFirst) { // 自适应列宽
+					FontMetrics fm = getFontMetrics(getFont());
+					int cc = getColumnCount();
+					int rc = getRowCount();
+					Object val;
+					for (int c = isSeq ? 1 : 0; c < cc; c++) {
 						TableColumn tc = getColumn(c);
-						colWidths[c] = Math.min(MAX_COL_WIDTH, colWidths[c]);
-						if (colWidths[c] > tc.getWidth()) {
-							tc.setMinWidth(colWidths[c]);
-							tc.setWidth(colWidths[c]);
-							tc.setPreferredWidth(colWidths[c]);
+						int newWidth = 0;
+						for (int r = 0; r < rc; r++) {
+							val = data.getValueAt(r, c);
+							if (val != null) {
+								String dispStr = GM.renderValueText(val);
+								if (StringUtils.isValidString(dispStr)) {
+									newWidth = Math.max(newWidth,
+											fm.stringWidth(dispStr));
+								}
+							}
+						}
+						newWidth = Math
+								.min(MAX_COL_WIDTH, newWidth + WIDTH_GAP);
+						if (newWidth > tc.getWidth()) {
+							tc.setMinWidth(newWidth);
+							tc.setWidth(newWidth);
+							tc.setPreferredWidth(newWidth);
 						}
 					}
 				}
@@ -856,7 +855,7 @@ public class JTableValue extends JTableEx {
 	 *            是否有重复列名
 	 */
 	private void setRecordRow(Record record, int r, boolean isSeq, int index,
-			boolean isDup, int[] colWidths) {
+			boolean isDup) {
 		if (record == null || r < 0)
 			return;
 		if (m_type == TYPE_TABLE) {
@@ -1439,6 +1438,7 @@ public class JTableValue extends JTableEx {
 	}
 
 	private final int MAX_COL_WIDTH = 300; // 列内容比较长时，最大显示的宽度
+	private final int WIDTH_GAP = 7;
 
 	/**
 	 * 设置表格的列
@@ -1491,7 +1491,7 @@ public class JTableValue extends JTableEx {
 					tc.setHeaderRenderer(new PKRenderer());
 					titleWidth += IMAGE_WIDTH;
 				}
-				titleWidth = Math.min(titleWidth, MAX_COL_WIDTH);
+				titleWidth = Math.min(titleWidth + WIDTH_GAP, MAX_COL_WIDTH);
 				if (titleWidth > colWidth) {
 					tc.setMinWidth(titleWidth);
 					tc.setWidth(titleWidth);
@@ -1508,19 +1508,17 @@ public class JTableValue extends JTableEx {
 		if (totalColWidth < width && cc > 0) { // 如果所有列显示的下，将剩余宽度平均分配到各列
 			int aveWidth;
 			width -= totalColWidth;
-			if (cc > 1) {
-				if (isSeq) {
-					width -= INDEX_WIDTH;
-				}
+			if (cc > 1 && isSeq) {
 				aveWidth = width / (cc - 1);
 			} else {
-				aveWidth = width;
+				aveWidth = width / cc;
 			}
-			for (int i = 1; i < cc; i++) {
+			for (int i = isSeq ? 1 : 0; i < cc; i++) {
 				tc = getColumn(i);
-				tc.setMinWidth(aveWidth);
-				tc.setWidth(aveWidth);
-				tc.setPreferredWidth(aveWidth);
+				int newWidth = tc.getWidth() + aveWidth;
+				tc.setMinWidth(newWidth);
+				tc.setWidth(newWidth);
+				tc.setPreferredWidth(newWidth);
 			}
 		}
 	}
