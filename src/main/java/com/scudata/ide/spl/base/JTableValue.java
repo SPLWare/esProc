@@ -812,9 +812,7 @@ public class JTableValue extends JTableEx {
 						newWidth = Math
 								.min(MAX_COL_WIDTH, newWidth + WIDTH_GAP);
 						if (newWidth > tc.getWidth()) {
-							tc.setMinWidth(newWidth);
-							tc.setWidth(newWidth);
-							tc.setPreferredWidth(newWidth);
+							setColWidth(tc, newWidth);
 						}
 					}
 				}
@@ -1349,11 +1347,9 @@ public class JTableValue extends JTableEx {
 		tc.setCellRenderer(new AllPurposeRenderer(true));
 		final int INDEX_WIDTH = getIndexColWidth(series == null ? 0 : series
 				.length());
-		tc.setMinWidth(INDEX_WIDTH);
-		tc.setWidth(INDEX_WIDTH);
-		tc.setPreferredWidth(INDEX_WIDTH);
+		setColWidth(tc, INDEX_WIDTH, false);
 		tc = getColumn(TITLE_SERIES);
-		tc.setPreferredWidth(9999);
+		setColWidth(tc, 99999);
 		tc.setCellEditor(getAllPurposeEditor());
 		tc.setCellRenderer(new AllPurposeRenderer(true));
 		return series.length();
@@ -1438,7 +1434,7 @@ public class JTableValue extends JTableEx {
 	}
 
 	private final int MAX_COL_WIDTH = 300; // 列内容比较长时，最大显示的宽度
-	private final int WIDTH_GAP = 7;
+	private final int WIDTH_GAP = 8;
 
 	/**
 	 * 设置表格的列
@@ -1447,11 +1443,11 @@ public class JTableValue extends JTableEx {
 	 *            数据结构
 	 * @param len
 	 *            数据长度，用于计算序号列宽度
-	 * @param isSeq
-	 *            是否Sequence
+	 * @param hasIndexCol
+	 *            是否有序号列
 	 */
 	private synchronized void setTableColumns(DataStruct ds, int len,
-			boolean isSeq) {
+			boolean hasIndexCol) {
 		if (ds == null)
 			return;
 		String nNames[] = ds.getFieldNames();
@@ -1465,24 +1461,22 @@ public class JTableValue extends JTableEx {
 			}
 			data.setDataVector(null, cols);
 		}
-		int cc = getColumnCount();
-		TableColumn tc;
-		final int INDEX_WIDTH;
-		if (isSeq) {
-			INDEX_WIDTH = getIndexColWidth(len);
-			tc = getColumn(TITLE_INDEX);
-			tc.setMinWidth(INDEX_WIDTH);
-			tc.setWidth(INDEX_WIDTH);
-			tc.setPreferredWidth(INDEX_WIDTH);
-		} else {
-			INDEX_WIDTH = 0;
-		}
+		try {
+			int cc = getColumnCount();
+			TableColumn tc;
+			final int INDEX_WIDTH;
+			if (hasIndexCol) {
+				INDEX_WIDTH = getIndexColWidth(len);
+				tc = getColumn(TITLE_INDEX);
+				setColWidth(tc, INDEX_WIDTH, false);
+			} else {
+				INDEX_WIDTH = 0;
+			}
 
-		if (isSeq) {
 			// 根据标题长度设置列宽
 			int[] pkIndex = ds.getPKIndex();
 			final int IMAGE_WIDTH = 35;
-			for (int i = 1; i < cc; i++) {
+			for (int i = hasIndexCol ? 1 : 0; i < cc; i++) {
 				tc = getColumn(i);
 				int titleWidth = getFontMetrics(getFont()).stringWidth(
 						getColumnName(i));
@@ -1493,34 +1487,53 @@ public class JTableValue extends JTableEx {
 				}
 				titleWidth = Math.min(titleWidth + WIDTH_GAP, MAX_COL_WIDTH);
 				if (titleWidth > colWidth) {
-					tc.setMinWidth(titleWidth);
-					tc.setWidth(titleWidth);
-					tc.setPreferredWidth(titleWidth);
-					tc.setMinWidth(0);
+					setColWidth(tc, titleWidth);
 				}
 			}
-		}
-		int totalColWidth = 0;
-		for (int i = 0; i < cc; i++) {
-			totalColWidth += getColumn(i).getWidth();
-		}
-		int width = getParent().getWidth();
-		if (totalColWidth < width && cc > 0) { // 如果所有列显示的下，将剩余宽度平均分配到各列
-			int aveWidth;
-			width -= totalColWidth;
-			if (cc > 1 && isSeq) {
-				aveWidth = width / (cc - 1);
-			} else {
-				aveWidth = width / cc;
+
+			int totalColWidth = 0;
+			for (int i = 0; i < cc; i++) {
+				totalColWidth += getColumn(i).getWidth();
 			}
-			for (int i = isSeq ? 1 : 0; i < cc; i++) {
-				tc = getColumn(i);
-				int newWidth = tc.getWidth() + aveWidth;
-				tc.setMinWidth(newWidth);
-				tc.setWidth(newWidth);
-				tc.setPreferredWidth(newWidth);
+			int width = getParent().getWidth();
+			if (totalColWidth < width && cc > 0) { // 如果所有列显示的下，将剩余宽度平均分配到各列
+				int aveWidth;
+				width -= totalColWidth;
+				if (cc > 1 && hasIndexCol) {
+					aveWidth = width / (cc - 1);
+				} else {
+					aveWidth = width / cc;
+				}
+				for (int i = hasIndexCol ? 1 : 0; i < cc; i++) {
+					tc = getColumn(i);
+					int newWidth = tc.getWidth() + aveWidth;
+					setColWidth(tc, newWidth);
+				}
 			}
+		} catch (Exception ex) {
 		}
+	}
+
+	/**
+	 * 设置列宽
+	 * @param tc
+	 * @param colWidth
+	 */
+	private void setColWidth(TableColumn tc, int colWidth) {
+		setColWidth(tc, colWidth, true);
+	}
+
+	/**
+	 * 设置列宽
+	 * @param tc
+	 * @param colWidth
+	 */
+	private void setColWidth(TableColumn tc, int colWidth, boolean canResize) {
+		tc.setMinWidth(colWidth);
+		tc.setWidth(colWidth);
+		tc.setPreferredWidth(colWidth);
+		if (canResize)
+			tc.setMinWidth(0);
 	}
 
 	/**
