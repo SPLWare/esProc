@@ -104,6 +104,7 @@ public class BufferReader {
 
 	public void reset() {
 		index = 0;
+		repeatCount = 0;
 	}
 	
 	public void close() throws IOException {
