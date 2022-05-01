@@ -5,7 +5,7 @@ package com.scudata.dw;
  * @author runqian
  *
  */
-class LogicAnd extends IFilter {
+public class LogicAnd extends IFilter {
 	private IFilter left;
 	private IFilter right;
 	

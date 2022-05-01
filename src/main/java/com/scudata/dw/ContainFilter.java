@@ -10,7 +10,7 @@ import com.scudata.util.Variant;
  * @author runqian
  *
  */
-class ContainFilter extends IFilter {
+public class ContainFilter extends IFilter {
 	public static final int BINARYSEARCH_COUNT = 3; // 元素个数大于此值采用二分法查找
 	private Object []values;
 

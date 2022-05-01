@@ -5,7 +5,7 @@ import com.scudata.dm.Param;
 import com.scudata.expression.Node;
 import com.scudata.util.Variant;
 
-class NodeFilter extends IFilter {
+public class NodeFilter extends IFilter {
 	private Node node;
 	private Param param;
 	private Context ctx;

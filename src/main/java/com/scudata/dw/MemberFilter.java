@@ -3,7 +3,7 @@ package com.scudata.dw;
 import com.scudata.dm.Sequence;
 import com.scudata.util.Variant;
 
-class MemberFilter extends FindFilter {
+public class MemberFilter extends FindFilter {
 	private Sequence sequence;
 	private static final int MAX_CHECK_NUMBER = 500;
 	public MemberFilter(ColumnMetaData column, int priority, Sequence sequence) {

@@ -359,7 +359,7 @@ public class ColumnTableMetaData extends TableMetaData {
 		}
 	}
 	
-	ColumnMetaData[] getColumns() {
+	public ColumnMetaData[] getColumns() {
 		return columns;
 	}
 	
@@ -459,7 +459,7 @@ public class ColumnTableMetaData extends TableMetaData {
 	 * @param fields ×Ö¶ÎÃû
 	 * @return
 	 */
-	ColumnMetaData[] getColumns(String []fields) {
+	public ColumnMetaData[] getColumns(String []fields) {
 		if (fields == null) {
 			return columns;
 		}
@@ -503,7 +503,7 @@ public class ColumnTableMetaData extends TableMetaData {
 	 * @param exps
 	 * @return
 	 */
-	ColumnMetaData[] getColumns(Expression []exps) {
+	public ColumnMetaData[] getColumns(Expression []exps) {
 		if (exps == null) {
 			return columns;
 		}
@@ -536,7 +536,7 @@ public class ColumnTableMetaData extends TableMetaData {
 	 * @param exps
 	 * @return
 	 */
-	ArrayList<ColumnMetaData> getExpColumns(Expression []exps) {
+	public ArrayList<ColumnMetaData> getExpColumns(Expression []exps) {
 		if (exps == null) {
 			return null;
 		}
@@ -1550,7 +1550,7 @@ public class ColumnTableMetaData extends TableMetaData {
 	 * @param col
 	 * @return
 	 */
-	int getColumnFilterPriority(ColumnMetaData col) {
+	public int getColumnFilterPriority(ColumnMetaData col) {
 		if (sortedColumns != null) {
 			int len = sortedColumns.length;
 			for (int i = 0; i < len; ++i) {

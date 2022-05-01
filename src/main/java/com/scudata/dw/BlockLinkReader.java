@@ -213,4 +213,8 @@ public class BlockLinkReader extends InputStream {
 	public int getCaret() {
 		return caret;
 	}
+	
+	public IBlockStorage getStorage() {
+		return storage;
+	}
 }

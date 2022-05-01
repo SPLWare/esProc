@@ -9,7 +9,7 @@ import com.scudata.dm.Sequence;
 import com.scudata.resources.EngineMessage;
 import com.scudata.util.Variant;
 
-class NotFindFilter extends FindFilter {
+public class NotFindFilter extends FindFilter {
 	public NotFindFilter(ColumnMetaData column, int priority, Sequence sequence) {
 		super(column, priority);
 		it = sequence.getIndexTable();

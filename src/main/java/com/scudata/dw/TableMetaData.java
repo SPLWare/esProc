@@ -74,7 +74,7 @@ abstract public class TableMetaData implements ITableMetaData {
 	
 	protected Object []maxValues; // 最后追加的记录的维字段值，用于确定是否有序和唯一，如果无序则不再判断
 	protected boolean hasPrimaryKey = true;// 是否有主键，追加数据的时候需要判断维值是否唯一，如果唯一则必有序
-	protected boolean isSorted = true; // 是否有序，可能不唯一但有序
+	public boolean isSorted = true; // 是否有序，可能不唯一但有序
 	
 	//index
 	protected String []indexNames;
@@ -556,7 +556,7 @@ abstract public class TableMetaData implements ITableMetaData {
 	 * 总块数
 	 * @return
 	 */
-	int getDataBlockCount() {
+	public int getDataBlockCount() {
 		return dataBlockCount;
 	}
 	
@@ -583,7 +583,7 @@ abstract public class TableMetaData implements ITableMetaData {
 	
 	abstract protected void applyFirstBlock() throws IOException;
 	
-	BlockLinkReader getSegmentReader() {
+	public BlockLinkReader getSegmentReader() {
 		BlockLinkReader reader = new BlockLinkReader(segmentBlockLink);
 		try {
 			reader.loadFirstBlock();

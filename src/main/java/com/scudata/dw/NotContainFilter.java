@@ -10,7 +10,7 @@ import com.scudata.util.Variant;
  * @author runqian
  *
  */
-class NotContainFilter extends IFilter {
+public class NotContainFilter extends IFilter {
 	private Object []values;
 
 	public NotContainFilter(ColumnMetaData column, int priority, Sequence sequence, String opt) {
