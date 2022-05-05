@@ -363,14 +363,25 @@ public class Matrix {
 	}
 
 	private final static double scale = 1000000d;
+	private final static double range = 1e-10;
 	private double getValue(int r, int c, boolean real) {
 		double d = this.A[r][c];
 		if (!real) {
-			d *= scale;
+			// added by bd, 2022.5.1, 如果绝对值太小，则保留原值
+			double abs = Math.abs(d);
+			double scale1 = Matrix.scale;
+			if (abs < range) {
+				return d;
+			}
+			else if (abs < 1) {
+				scale1 *= Math.pow(10, (int) Math.round((Math.log10(1/abs))));
+			}
+			d *= scale1;
 			if (d > Long.MIN_VALUE && d < Long.MAX_VALUE) {
-				d = Math.round(d)/scale;
+				d = Math.round(d)/scale1;
 			} else {
-				d = d / scale;
+				//d = d / scale;
+				return this.A[r][c]; 
 			}
 		}
 		return d;
