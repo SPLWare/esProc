@@ -1,6 +1,6 @@
 package com.scudata.ide.common.control;
 
-import java.awt.GridBagLayout;
+import java.awt.BorderLayout;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JPanel;
@@ -11,7 +11,6 @@ import javax.swing.ListSelectionModel;
 import com.scudata.cellset.datamodel.PgmNormalCell;
 import com.scudata.common.MessageManager;
 import com.scudata.common.StringUtils;
-import com.scudata.dm.Param;
 import com.scudata.dm.Sequence;
 import com.scudata.ide.common.GM;
 import com.scudata.ide.common.resources.IdeCommonMessage;
@@ -40,7 +39,7 @@ public class PanelSeries extends JPanel {
 	/**
 	 * 常序列值的表对象
 	 */
-	private JTableEx tableParam = new JTableEx(
+	private JTableEx tableSeq = new JTableEx(
 			mm.getMessage("panelseries.tableparam")) { // 序号,值
 		private static final long serialVersionUID = 1L;
 
@@ -49,7 +48,7 @@ public class PanelSeries extends JPanel {
 		 */
 		public void doubleClicked(int xpos, int ypos, int row, int col,
 				MouseEvent e) {
-			GM.dialogEditTableText(tableParam, row, col);
+			GM.dialogEditTableText(tableSeq, row, col);
 		}
 
 		/**
@@ -67,7 +66,7 @@ public class PanelSeries extends JPanel {
 				if (StringUtils.isValidString(aValue)) {
 					aValue = PgmNormalCell.parseConstValue((String) aValue);
 				}
-				series.set(row + 1, aValue);
+				seq.set(row + 1, aValue);
 			} catch (Exception e) {
 				GM.showException(e);
 				return;
@@ -78,12 +77,8 @@ public class PanelSeries extends JPanel {
 	/**
 	 * 常序列对象
 	 */
-	private Sequence series;
+	private Sequence seq;
 
-	/**
-	 * 常量对象
-	 */
-	private Param param;
 	/**
 	 * 是否阻止变化
 	 */
@@ -107,8 +102,8 @@ public class PanelSeries extends JPanel {
 	 * @throws Exception
 	 */
 	private void rqInit() throws Exception {
-		this.setLayout(new GridBagLayout());
-		this.add(new JScrollPane(tableParam), GM.getGBC(0, 0, true, true));
+		this.setLayout(new BorderLayout());
+		this.add(new JScrollPane(tableSeq), BorderLayout.CENTER);
 	}
 
 	/**
@@ -116,13 +111,12 @@ public class PanelSeries extends JPanel {
 	 * 
 	 * @param param
 	 */
-	public void setParam(Param param) {
-		this.param = param;
-		if (param.getValue() == null) {
-			tableParam.data.setRowCount(0);
-			this.series = new Sequence();
+	public void setSequence(Sequence seq) {
+		if (seq == null) {
+			tableSeq.data.setRowCount(0);
+			this.seq = new Sequence();
 		} else {
-			this.series = (Sequence) param.getValue();
+			this.seq = seq;
 			preventChange = true;
 			refresh();
 			preventChange = false;
@@ -134,25 +128,24 @@ public class PanelSeries extends JPanel {
 	 * 
 	 * @return
 	 */
-	public Param getParam() {
-		param.setValue(series);
-		return param;
+	public Sequence getSequence() {
+		return seq;
 	}
 
 	/**
 	 * 刷新
 	 */
 	private void refresh() {
-		tableParam.removeAllRows();
-		tableParam.data.setRowCount(0);
-		int rowCount = series.length();
+		tableSeq.removeAllRows();
+		tableSeq.data.setRowCount(0);
+		int rowCount = seq.length();
 		if (rowCount < 1) {
 			return;
 		}
 		for (int i = 1; i <= rowCount; i++) {
-			int r = tableParam.addRow();
-			Object value = series.get(i);
-			tableParam.data.setValueAt(value, r, COL_VALUE);
+			int r = tableSeq.addRow();
+			Object value = seq.get(i);
+			tableSeq.data.setValueAt(value, r, COL_VALUE);
 		}
 	}
 
@@ -160,40 +153,40 @@ public class PanelSeries extends JPanel {
 	 * 全选
 	 */
 	public void selectAll() {
-		tableParam.acceptText();
-		tableParam.selectAll();
+		tableSeq.acceptText();
+		tableSeq.selectAll();
 	}
 
 	/**
 	 * 行上移
 	 */
 	public void rowUp() {
-		tableParam.acceptText();
-		int row = tableParam.getSelectedRow();
+		tableSeq.acceptText();
+		int row = tableSeq.getSelectedRow();
 		if (row < 0) {
 			return;
 		}
-		tableParam.shiftRowUp(row);
+		tableSeq.shiftRowUp(row);
 	}
 
 	/**
 	 * 行下移
 	 */
 	public void rowDown() {
-		tableParam.acceptText();
-		int row = tableParam.getSelectedRow();
+		tableSeq.acceptText();
+		int row = tableSeq.getSelectedRow();
 		if (row < 0) {
 			return;
 		}
-		tableParam.shiftRowDown(row);
+		tableSeq.shiftRowDown(row);
 	}
 
 	/**
 	 * 增加行
 	 */
 	public void addRow() {
-		tableParam.acceptText();
-		series.add(null);
+		tableSeq.acceptText();
+		seq.add(null);
 		refresh();
 	}
 
@@ -201,14 +194,14 @@ public class PanelSeries extends JPanel {
 	 * 插入行
 	 */
 	public void insertRow() {
-		tableParam.acceptText();
-		int row = tableParam.getSelectedRow();
+		tableSeq.acceptText();
+		int row = tableSeq.getSelectedRow();
 		if (row < 0) {
 			return;
 		}
-		series.insert(row + 1, null);
+		seq.insert(row + 1, null);
 		refresh();
-		tableParam.setRowSelectionInterval(row, row);
+		tableSeq.setRowSelectionInterval(row, row);
 	}
 
 	/**
@@ -217,7 +210,7 @@ public class PanelSeries extends JPanel {
 	 * @return
 	 */
 	public boolean checkData() {
-		tableParam.acceptText();
+		tableSeq.acceptText();
 		return true;
 	}
 
@@ -225,7 +218,7 @@ public class PanelSeries extends JPanel {
 	 * 将数据复制到剪贴板
 	 */
 	public void clipBoard() {
-		String blockData = tableParam.getBlockData();
+		String blockData = tableSeq.getBlockData();
 		GM.clipBoard(blockData);
 	}
 
@@ -233,13 +226,13 @@ public class PanelSeries extends JPanel {
 	 * 删除选中的行
 	 */
 	public void deleteRows() {
-		tableParam.acceptText();
-		int rows[] = tableParam.getSelectedRows();
+		tableSeq.acceptText();
+		int rows[] = tableSeq.getSelectedRows();
 		if (rows.length == 0) {
 			return;
 		}
 		for (int i = rows.length - 1; i >= 0; i--) {
-			series.delete(rows[i] + 1);
+			seq.delete(rows[i] + 1);
 		}
 		refresh();
 	}
@@ -249,13 +242,13 @@ public class PanelSeries extends JPanel {
 	 */
 	private void initTable() {
 		preventChange = true;
-		tableParam.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		tableParam.setRowHeight(20);
-		tableParam.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-		tableParam.getTableHeader().setReorderingAllowed(false);
-		tableParam.setClickCountToStart(1);
-		tableParam.setIndexCol(COL_INDEX);
-		tableParam.setColumnWidth(COL_VALUE, 250);
+		tableSeq.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		tableSeq.setRowHeight(20);
+		tableSeq.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		tableSeq.getTableHeader().setReorderingAllowed(false);
+		tableSeq.setClickCountToStart(1);
+		tableSeq.setIndexCol(COL_INDEX);
+		tableSeq.setColumnWidth(COL_VALUE, 250);
 		preventChange = false;
 	}
 }

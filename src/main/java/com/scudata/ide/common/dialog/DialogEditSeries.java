@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import com.scudata.common.MessageManager;
-import com.scudata.dm.Param;
+import com.scudata.dm.Sequence;
 import com.scudata.ide.common.GM;
 import com.scudata.ide.common.GV;
 import com.scudata.ide.common.control.PanelSeries;
@@ -105,21 +105,21 @@ public class DialogEditSeries extends JDialog {
 	}
 
 	/**
-	 * 设置变量对象
+	 * 设置序列对象
 	 * 
 	 * @param param
 	 */
-	public void setParam(Param param) {
-		panelSeries.setParam(param);
+	public void setSequence(Sequence seq) {
+		panelSeries.setSequence(seq);
 	}
 
 	/**
-	 * 取变量对象
+	 * 取序列对象
 	 * 
 	 * @return
 	 */
-	public Param getParam() {
-		return panelSeries.getParam();
+	public Sequence getSequence() {
+		return panelSeries.getSequence();
 	}
 
 	/**

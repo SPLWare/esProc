@@ -249,7 +249,7 @@ public class DialogEditConst extends DialogMaxmizable {
 					break;
 				case GC.KIND_SERIES:
 					DialogEditSeries des = new DialogEditSeries();
-					des.setParam(p);
+					des.setSequence(val == null ? null : (Sequence) val);
 					title = p.getName();
 					if (StringUtils.isValidString(title)) {
 						title += " : ";
@@ -258,7 +258,7 @@ public class DialogEditConst extends DialogMaxmizable {
 					des.setTitle(title);
 					des.setVisible(true);
 					if (des.getOption() == JOptionPane.OK_OPTION) {
-						p = des.getParam();
+						p.setValue(des.getSequence());
 						tableConst.data
 								.setValueAt(p.getValue(), row, COL_VALUE);
 						acceptText();
