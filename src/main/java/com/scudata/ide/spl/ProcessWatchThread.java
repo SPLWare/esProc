@@ -29,7 +29,7 @@ public class ProcessWatchThread extends Thread {
 					if (tempStream.trim() == null
 							|| tempStream.trim().equals(""))
 						continue;
-					System.out.println(tempStream);
+					outputLine(tempStream);
 				}
 			}
 		} catch (Exception e) {
@@ -39,6 +39,10 @@ public class ProcessWatchThread extends Thread {
 				br.close();
 			}
 		}
+	}
+
+	protected void outputLine(String line) {
+		System.out.println(line);
 	}
 
 	public void setOver(boolean over) {
