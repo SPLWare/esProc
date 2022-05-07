@@ -121,6 +121,8 @@ public class MenuSpl extends AppMenu {
 		return menu;
 	}
 
+	protected JMenu copyMenu, pasteMenu;
+
 	/**
 	 * 编辑菜单
 	 * 
@@ -140,39 +142,38 @@ public class MenuSpl extends AppMenu {
 		}
 		menu.add(menuRedo);
 		menu.addSeparator();
-		JMenu temp = getSplMenuItem(GCSpl.COPY, 'C', false);
-		temp.add(newSplMenuItem(GCSpl.iCOPY, GCSpl.COPY, 'C',
+		copyMenu = getSplMenuItem(GCSpl.COPY, 'C', false);
+		copyMenu.add(newSplMenuItem(GCSpl.iCOPY, GCSpl.COPY, 'C',
 				ActionEvent.CTRL_MASK, true));
-		temp.add(newSplMenuItem(GCSpl.iCOPYVALUE, GCSpl.COPYVALUE, 'C',
+		copyMenu.add(newSplMenuItem(GCSpl.iCOPYVALUE, GCSpl.COPYVALUE, 'C',
 				ActionEvent.CTRL_MASK + ActionEvent.ALT_MASK));
 		JMenuItem mi = newSplMenuItem(GCSpl.iCODE_COPY, GCSpl.CODE_COPY, 'C',
 				ActionEvent.CTRL_MASK + ActionEvent.SHIFT_MASK);
-		temp.add(mi);
+		copyMenu.add(mi);
 
 		JMenuItem miCopyHtml = newSplMenuItem(GCSpl.iCOPY_HTML,
 				GCSpl.COPY_HTML, 'C', ActionEvent.ALT_MASK
 						+ ActionEvent.SHIFT_MASK);
 		miCopyHtml.setVisible(false); // 不显示菜单，只有快捷键
-		temp.add(miCopyHtml);
+		copyMenu.add(miCopyHtml);
 
-		temp.add(newSplMenuItem(GCSpl.iCOPY_HTML_DIALOG,
+		copyMenu.add(newSplMenuItem(GCSpl.iCOPY_HTML_DIALOG,
 				GCSpl.COPY_HTML_DIALOG, 'P', GC.NO_MASK));
 
-		addCustomCopyMenu(temp);
+		copyMenu.add(newSplMenuItem(GCSpl.iCUT, GCSpl.CUT, 'X',
+				ActionEvent.CTRL_MASK, true));
+		menu.add(copyMenu);
 
-		temp.add(newSplMenuItem(GCSpl.iCUT, GCSpl.CUT, 'X',
+		pasteMenu = getSplMenuItem(GCSpl.PASTE, 'V', false);
+		pasteMenu.add(newSplMenuItem(GCSpl.iPASTE, GCSpl.PASTE, 'V',
 				ActionEvent.CTRL_MASK, true));
-		menu.add(temp);
-		temp = getSplMenuItem(GCSpl.PASTE, 'V', false);
-		temp.add(newSplMenuItem(GCSpl.iPASTE, GCSpl.PASTE, 'V',
-				ActionEvent.CTRL_MASK, true));
-		temp.add(newSplMenuItem(GCSpl.iPASTE_ADJUST, GCSpl.PASTE_ADJUST, 'V',
-				ActionEvent.CTRL_MASK + ActionEvent.ALT_MASK));
-		temp.add(newSplMenuItem(GCSpl.iPASTE_SPECIAL, GCSpl.PASTE_SPECIAL, 'V',
-				ActionEvent.CTRL_MASK + ActionEvent.SHIFT_MASK));
-		addCustomPasteMenu(temp);
-		menu.add(temp);
-		temp = getSplMenuItem(GCSpl.INSERT, 'I', false);
+		pasteMenu.add(newSplMenuItem(GCSpl.iPASTE_ADJUST, GCSpl.PASTE_ADJUST,
+				'V', ActionEvent.CTRL_MASK + ActionEvent.ALT_MASK));
+		pasteMenu.add(newSplMenuItem(GCSpl.iPASTE_SPECIAL, GCSpl.PASTE_SPECIAL,
+				'V', ActionEvent.CTRL_MASK + ActionEvent.SHIFT_MASK));
+		menu.add(pasteMenu);
+
+		JMenu temp = getSplMenuItem(GCSpl.INSERT, 'I', false);
 		temp.add(newSplMenuItem(GCSpl.iCTRL_ENTER, GCSpl.INSERT_ROW,
 				(char) KeyEvent.VK_ENTER, ActionEvent.CTRL_MASK, true));
 		temp.add(newSplMenuItem(GCSpl.iDUP_ROW, GCSpl.DUP_ROW,
@@ -281,7 +282,6 @@ public class MenuSpl extends AppMenu {
 	 * 增加自定义的粘贴菜单
 	 */
 	protected void addCustomPasteMenu(JMenu pasteMenu) {
-
 	}
 
 	/**
@@ -294,7 +294,6 @@ public class MenuSpl extends AppMenu {
 		JMenuItem menuTemp = newCommonMenuItem(GC.iPROPERTY, GC.PROPERTY1, 'D',
 				GC.NO_MASK);
 		menu.add(menuTemp);
-		addCustomToolMenu(menu);
 		menuTemp = newSplMenuItem(GCSpl.iCONST, GCSpl.CONST, 'N', GC.NO_MASK);
 		menu.add(menuTemp);
 		menu.addSeparator();
@@ -422,13 +421,6 @@ public class MenuSpl extends AppMenu {
 			pauseMenuItem.setIcon(I_PAUSE);
 			pauseMenuItem.setText(S_PAUSE);
 		}
-	}
-
-	/**
-	 * 增加自定义的工具菜单
-	 * @param toolMenu
-	 */
-	protected void addCustomToolMenu(JMenu toolMenu) {
 	}
 
 	/**
