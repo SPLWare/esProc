@@ -18,7 +18,7 @@ public class BufferWriter {
 	static final int TRUE = 0x01;
 	static final int FALSE = 0x02;
 	static final int LONG0 = 0x03;
-	static final int FLOAT0 = 0x04;
+	public static final int FLOAT0 = 0x04;
 	static final int DECIMAL0 = 0x05;
 	static final int NONE = 0x07;
 
@@ -28,9 +28,9 @@ public class BufferWriter {
 	static final int LONG16 = 0x12;
 	static final int LONG32 = 0x13;
 	static final int LONG64 = 0x14;
-	static final int FLOAT16 = 0x15;
-	static final int FLOAT32 = 0x16;
-	static final int FLOAT64 = 0x17;
+	public static final int FLOAT16 = 0x15;
+	public static final int FLOAT32 = 0x16;
+	public static final int FLOAT64 = 0x17;
 
 	static final int MARK2 = 0x20;
 	static final int DECIMAL = 0x20;

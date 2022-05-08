@@ -1145,4 +1145,8 @@ abstract public class GroupTable implements IBlockStorage {
 	public Integer getPartition() {
 		return partition;
 	}
+	
+	public RandomAccessFile getRaf() {
+		return raf;
+	}
 }

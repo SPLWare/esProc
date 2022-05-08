@@ -62,4 +62,7 @@ public class LZ4Util {
 		decompressor.decompress(bytes, buffer, srcCount);
 	}
 	
+	public void decompress(byte []bytes, int offset, byte []buffer, int srcCount) {
+		decompressor.decompress(bytes, offset, buffer, 0, srcCount);
+	}
 }

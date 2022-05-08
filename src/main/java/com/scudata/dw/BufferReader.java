@@ -18,15 +18,15 @@ import com.scudata.dm.Table;
  */
 public class BufferReader {
 	private StructManager structManager;
-	private byte[] buffer; // 每次读入的字节缓存
-	private int index; // 下一字节在buffer中的索引
+	protected byte[] buffer; // 每次读入的字节缓存
+	protected int index; // 下一字节在buffer中的索引
 	private int count; // 读入buffer的实际字节数目
 
 	private byte[] readBuffer = new byte[32];
 	private char[] charBuffer = new char[128];
 	
 	private Object repeatValue;//连续相同的值
-	private int repeatCount = 0;//连续相同的值的个数
+	protected int repeatCount = 0;//连续相同的值的个数
 
 	private static final String []HEXSTRINGS = new String[] {"0", "1", "2", "3", "4", "5", "6",
 		"7", "8", "9", "A", "B", "C", "D", "E", "F"};
@@ -114,12 +114,16 @@ public class BufferReader {
 	public boolean readBoolean() throws IOException {
 		return buffer[index++] != 0;
 	}
-
+	
+	public int get() throws IOException {
+		return buffer[index] & 0xff;
+	}
+	
 	public int read() throws IOException {
 		return buffer[index++] & 0xff;
 	}
 
-	private int read2() throws IOException {
+	protected int read2() throws IOException {
 		return buffer[index++] & 0xff;
 	}
 
@@ -396,7 +400,7 @@ public class BufferReader {
 		}
 	}
 
-	private int readUInt16() throws IOException {
+	protected int readUInt16() throws IOException {
 		int n = ((buffer[index] & 0xFF) << 8) + (buffer[index + 1] & 0xFF);
 		index += 2;
 		return n;
@@ -810,7 +814,7 @@ public class BufferReader {
 	
 	private int repeatInt;
 	private long repeatLong;
-	private double repeatDouble;
+	protected double repeatDouble;
 	
 	public int readBaseInt() throws IOException {
 		if (repeatCount > 0) {
@@ -974,7 +978,7 @@ public class BufferReader {
 		return repeatLong;
 	}
 	
-	private double readRepeatDouble(int b) throws IOException {
+	protected double readRepeatDouble(int b) throws IOException {
 		// 返回一个值，重复数减去1
 		int count;
 		if ((b & 0x08) == 0) {
