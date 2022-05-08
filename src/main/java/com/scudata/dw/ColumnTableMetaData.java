@@ -3827,6 +3827,45 @@ public class ColumnTableMetaData extends TableMetaData {
 	}
 	
 	/**
+	 * 返回列的最大最小值
+	 * @param key
+	 * @return
+	 * @throws IOException
+	 */
+	public Object[] getSegmentValueInfo(String key) throws IOException {
+		ColumnMetaData column = getColumn(key);
+		if (!column.isDim()) {
+			return null;
+		}
+		ObjectReader segmentReader = column.getSegmentReader();
+		
+		int blockCount = getDataBlockCount();
+		Object max, min, obj;
+		segmentReader.readLong40();
+		max = segmentReader.readObject();
+		min = segmentReader.readObject();
+		segmentReader.skipObject();
+		
+		if (!(max instanceof Number)) {
+			return null;
+		}
+		
+		for (int i = 1; i < blockCount; ++i) {
+			segmentReader.readLong40();
+			obj = segmentReader.readObject();
+			if (Variant.compare(obj, max) > 0) {
+				max = obj;
+			}
+			obj = segmentReader.readObject();
+			if (Variant.compare(obj, min) < 0) {
+				min = obj;
+			}
+			segmentReader.skipObject();
+		}
+		return new Object[] {max, min};
+	}
+	
+	/**
 	 * 返回每个分段的记录数
 	 */
 	public long[] getSegmentInfo() {
