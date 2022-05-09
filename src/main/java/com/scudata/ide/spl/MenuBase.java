@@ -45,7 +45,7 @@ public class MenuBase extends AppMenu {
 		add(tmpLiveMenu);
 
 		// °ïÖú²Ëµ¥Ïî
-		add(getHelpMenu(true));
+		add(getHelpMenu(false));
 
 		setEnable(getMenuItems(), false);
 		resetLiveMenu();

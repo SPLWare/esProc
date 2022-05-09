@@ -61,7 +61,7 @@ public class MenuSpl extends AppMenu {
 		add(tmpLiveMenu);
 
 		// °ïÖú²Ëµ¥
-		add(getHelpMenu(true));
+		add(getHelpMenu(false));
 
 		setEnable(getMenuItems(), false);
 		resetLiveMenu();
