@@ -149,7 +149,8 @@ public class LUDecomposition {
 	 */
 	private boolean isNonsingular() {
 		for (int c = 0; c < this.cols; c++) {
-			if (this.LU[c][c] == 0)
+			//if (this.LU[c][c] == 0)
+			if (Matrix.ifZero(this.LU[c][c]))
 				return false;
 		}
 		return true;

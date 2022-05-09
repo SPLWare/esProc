@@ -363,7 +363,7 @@ public class Matrix {
 	}
 
 	private final static double scale = 1000000d;
-	private final static double range = 1e-10;
+	private final static double range = 1e-14;
 	private double getValue(int r, int c, boolean real) {
 		double d = this.A[r][c];
 		if (!real) {
@@ -1180,5 +1180,9 @@ public class Matrix {
         }
 
         return new Vector(average);
+    }
+    
+    public static boolean ifZero(double d) {
+    	return d < Matrix.range && d > -Matrix.range;
     }
 }

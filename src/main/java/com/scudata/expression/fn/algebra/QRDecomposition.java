@@ -59,7 +59,8 @@ public class QRDecomposition {
 	 */
 	protected boolean isFullRank() {
 		for (int c = 0; c < this.cols; c++) {
-			if (Rdiag[c] == 0)
+			//if (Rdiag[c] == 0)
+			if (Matrix.ifZero(this.Rdiag[c]))
 				return false;
 		}
 		return true;
