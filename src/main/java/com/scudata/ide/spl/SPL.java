@@ -70,7 +70,6 @@ import com.scudata.ide.spl.base.PanelSplWatch;
 import com.scudata.ide.spl.base.PanelValue;
 import com.scudata.ide.spl.dialog.DialogSplash;
 import com.scudata.ide.spl.resources.IdeSplMessage;
-import com.scudata.ide.spl.update.UpdateManager;
 import com.scudata.util.CellSetUtil;
 
 /**
@@ -1523,7 +1522,7 @@ public class SPL extends AppFrame {
 	 * 
 	 * @param e
 	 */
-	protected void this_windowActivated(WindowEvent e) {
+	protected void windowActivated(WindowEvent e) {
 		GV.appFrame = this;
 		GV.appMenu = currentMenu;
 		GV.appMenu.resetLiveMenu();
@@ -1539,35 +1538,6 @@ public class SPL extends AppFrame {
 		GM.resetClipBoard();
 		if (GV.appSheet != null) {
 			GV.appSheet.refresh();
-		}
-		checkUpdate();
-	}
-
-	/** 只在第一次激活时检查更新 */
-	private boolean isCheckUpdate = false;
-
-	/**
-	 * 检查更新
-	 */
-	protected void checkUpdate() {
-		if (!isCheckUpdate) {
-			isCheckUpdate = true;
-			Thread cu = new Thread() {
-				public void run() {
-					try {
-						UpdateManager.checkUpdate(true);
-					} catch (final Exception ex) {
-						SwingUtilities.invokeLater(new Runnable() {
-							public void run() {
-								GM.showException(ex, true, GM
-										.getLogoImage(true), IdeSplMessage
-										.get().getMessage("spl.updateerrorpre"));
-							}
-						});
-					}
-				}
-			};
-			cu.start();
 		}
 	}
 
@@ -1687,7 +1657,7 @@ class PRJX_this_windowAdapter extends java.awt.event.WindowAdapter {
 	}
 
 	public void windowActivated(WindowEvent e) {
-		adaptee.this_windowActivated(e);
+		adaptee.windowActivated(e);
 	}
 
 	public void windowClosing(WindowEvent e) {

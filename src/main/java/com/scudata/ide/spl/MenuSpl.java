@@ -272,19 +272,6 @@ public class MenuSpl extends AppMenu {
 	}
 
 	/**
-	 * 增加自定义的复制菜单
-	 */
-	protected void addCustomCopyMenu(JMenu copyMenu) {
-
-	}
-
-	/**
-	 * 增加自定义的粘贴菜单
-	 */
-	protected void addCustomPasteMenu(JMenu pasteMenu) {
-	}
-
-	/**
 	 * 工具菜单
 	 * 
 	 * @return 工具菜单
