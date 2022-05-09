@@ -1,4 +1,4 @@
-package com.scudata.expression.fn.financial;
+package com.scudata.lib.financial;
 
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
@@ -9,22 +9,22 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.util.Variant;
 
 
+
 /**
  * @author yanjing
  * 
- * db(cost,salvage,life,period,month)   使用固定余额递减法，计算一笔资产在给定年内的折旧值
+ * Fddb(cost,salvage,life,period,factor)  使用双倍余额递减法或其他指定方法，计算一笔资产在给定期间内的折旧值
  * 
  * @return
  * 
  * 
  */
-public class Db extends Function {
+public class Ddb extends Function {
                                                                                                                             
 	public Object calculate(Context ctx) {
-		
 		if(param==null || param.isLeaf() || param.getSubSize()<4){
 			MessageManager mm = EngineMessage.get();
-			throw new RQException("Fdb:" +
+			throw new RQException("Fddb:" +
 									  mm.getMessage("function.missingParam"));
 		}
 		
@@ -36,31 +36,36 @@ public class Db extends Function {
 				result[i] = sub.getLeafExpression().calculate(ctx);
 			}
 		}
-		return db(result);
+		return ddb(result);
+
 	}
 	
-	/** 
-	 * db(cost,salvage,life,period,month)   使用固定余额递减法，计算一笔资产在给定年内的折旧值
+
+	
+	/**
+	 * Fddb(cost,salvage,life,period,factor)  使用双倍余额递减法或其他指定方法，计算一笔资产在给定期间内的折旧值
 	 * @param Cost 为资产原值
 	 * @param Salvage 为资产在折旧期末的价值（有时也称为资产残值）
-	 * @param Life 为折旧年限（有时也称作资产的使用寿命）
-	 * @param Period 为需要计算折旧值的年份。Period 必须使用与 life 相同的单位
-	 * @param Month 为第一年的月份数，如省略，则假设为 12
+	 * @param Life 为折旧期限（有时也称作资产的使用寿命）
+	 * @param Period 为需要计算折旧值的期间。Period 必须使用与 life 相同的单位
+	 * @param Factor 为余额递减速率。如果 factor 被省略，则缺省为 2（双倍余额递减法）
 	 * @return
 	 */
-	private Object db(Object[] result){
+	private Object ddb(Object[] result){
 		double cost;
 		double salvage;
 		double life;
 		double period;
-		double month=12;
-		MessageManager mm = EngineMessage.get();
+		double factor=2;
+		
 		for(int i=0;i<=3;i++){
 			if(result[i]==null){
-				throw new RQException("The "+i+"th param of Fdb:" + mm.getMessage("function.paramValNull"));
+				MessageManager mm = EngineMessage.get();
+				throw new RQException("The "+i+"th param of Fddb:" + mm.getMessage("function.paramValNull"));
 			}
 			if (!(result[i] instanceof Number)) {
-				throw new RQException("The "+i+"th param of Fdb:" + mm.getMessage("function.paramTypeError"));
+				MessageManager mm = EngineMessage.get();
+				throw new RQException("The "+i+"th param of Fddb:" + mm.getMessage("function.paramTypeError"));
 			}
 		}
 		cost=Variant.doubleValue(result[0]);
@@ -68,21 +73,16 @@ public class Db extends Function {
 		life=Variant.doubleValue(result[2]);
 		period=Variant.doubleValue(result[3]);
 		if(result[4]!=null && result[4] instanceof Number){
-			month=Variant.doubleValue(result[4]);
+			factor=Variant.doubleValue(result[4]);
 		}
-		double rate=1.0 - Math.pow(salvage/cost,1.0/life);
-		rate=new Long(Math.round(rate*1000)).doubleValue()/1000.0;
-		double value=cost * rate * month / 12.0;
-		if(period==1){
-			return new Double(value);
-		}else{			
-			for(int i=2;i<=life;i++){
-				double tmp=(cost - value ) * rate;
-				if(period==i) return new Double(tmp);
-				value+=tmp;
-			}
-			return new Double((cost - value) * rate * (12.0 - month) / 12.0);
-			
+
+		double depreciation =0;
+		double tmp=0;
+		for(int i=1;i<=period;i++){
+			tmp=Math.min((cost - depreciation ) * factor/life,cost-salvage-depreciation);
+			depreciation+=tmp;
 		}
+		return new Double(tmp);
 	}
+
 }

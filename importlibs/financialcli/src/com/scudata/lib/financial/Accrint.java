@@ -1,4 +1,4 @@
-package com.scudata.expression.fn.financial;
+package com.scudata.lib.financial;
 
 import java.util.Date;
 
