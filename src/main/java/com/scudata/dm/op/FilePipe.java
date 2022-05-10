@@ -32,6 +32,10 @@ public class FilePipe implements IPipe, IResource {
 	 * @param ctx 计算上下文
 	 */
 	public synchronized void push(Sequence seq, Context ctx) {
+		if (seq == null || seq.length() == 0) {
+			return;
+		}
+		
 		if (writer == null) {
 			if (ctx != null) {
 				ctx.addResource(this);
