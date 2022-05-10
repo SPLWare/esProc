@@ -289,6 +289,9 @@ public class PseudoDefination {
 	 * @return
 	 */
 	private boolean checkBFile(Context ctx) {
+		if (!(file instanceof String)) {
+			return false;
+		}
 		FileObject fo = new FileObject((String)file, null, null, ctx);;
 		BFileReader reader = new BFileReader(fo);
 		try {
