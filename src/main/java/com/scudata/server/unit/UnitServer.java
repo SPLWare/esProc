@@ -32,7 +32,6 @@ public class UnitServer implements IServer {
  
 	TempFileMonitor tempFileMonitor = null;
 	ProxyMonitor proxyMonitor;
-	MulticastMonitor multicastMonitor;
 	
 	private volatile boolean stop = true;
 
@@ -383,11 +382,6 @@ public class UnitServer implements IServer {
 		proxyMonitor = new ProxyMonitor();
 		proxyMonitor.start();
 		
-		multicastMonitor = new MulticastMonitor();
-		multicastMonitor.setHost(unitContext.getLocalHost(),
-				unitContext.getLocalPort());
-		multicastMonitor.start();
-
 		Logger.info(ParallelMessage.get().getMessage("UnitServer.run3", unitContext));
 		ThreadGroup threadGroup = new ThreadGroup("UnitWorkerGroup");
 		Response res = init(0,0,null);
@@ -441,7 +435,6 @@ public class UnitServer implements IServer {
 			tempFileMonitor.stopThread();
 		}
 		proxyMonitor.stopThread();
-		multicastMonitor.stopThread();
 		
 		Thread[] threads = new Thread[threadGroup.activeCount()];
 		threadGroup.enumerate(threads);
