@@ -408,7 +408,8 @@ public class Logger {
 		return formatter.format(new Date());
 	}
 
-	private File getLogFile(String fileName, boolean isFixedFileName) {
+	private Object[] getLogFile(String fileName, boolean isFixedFileName) {
+		Object[] files = new Object[2];//第0返回工作File，第1返回绝对路径
 		File f = new File(fileName);
 		if (!f.isAbsolute()) {
 			String home = System.getProperty("start.home");
@@ -427,6 +428,7 @@ public class Logger {
 					f = new File(f.getAbsolutePath());// 在当前工作路径下文件
 				}
 			}
+			files[1] = f.getAbsolutePath();
 		}
 		String filePath;
 		if (isFixedFileName) {
@@ -454,7 +456,8 @@ public class Logger {
 		if (!p.exists()) {
 			p.mkdirs();
 		}
-		return f;
+		files[0] = f;
+		return files;
 	}
 
 	abstract class Handler {
@@ -494,7 +497,7 @@ public class Logger {
 	public class FileHandler extends Handler {
 		String fileName, encoding = "UTF-8";
 		boolean isFixedFileName = false;
-
+		String absolutePath = null;//由于构造相对路径的文件时，构造条件的不同可能造成绝对路径不一致，加上绝对路径，用于一旦文件生成绝对路径后，以后所有路径都用该绝对路径
 		BufferedWriter br = null;
 		FileOutputStream fos = null;
 
@@ -508,11 +511,21 @@ public class Logger {
 			if (encode != null && !encode.isEmpty()) {
 				this.encoding = encode;
 			}
-			File f = getLogFile(fileName, isFixedFileName);
+			Object[] files = getLogFile( getBaseFile(), isFixedFileName);
+			File f = (File)files[0];
+			absolutePath = (String)files[1];
 			fos = new FileOutputStream(f, true);
 			br = new BufferedWriter(new OutputStreamWriter(fos, encoding));
 		}
 
+		private String getBaseFile() {
+			String baseFile = fileName;
+			if(absolutePath!=null) {
+				baseFile = absolutePath;
+			}
+			return baseFile;
+		}
+		
 		public void setFixedFileName(boolean fix) {
 			isFixedFileName = fix;
 		}
@@ -525,9 +538,8 @@ public class Logger {
 				if (!currentMark.equals(mark)) {
 					try {
 						br.close();
-
-						fos = new FileOutputStream(getLogFile(fileName,
-								isFixedFileName), true);
+						File f = (File)getLogFile(getBaseFile(),isFixedFileName)[0];
+						fos = new FileOutputStream(f, true);
 						br = new BufferedWriter(new OutputStreamWriter(fos,
 								encoding));
 					} catch (Exception e1) {
