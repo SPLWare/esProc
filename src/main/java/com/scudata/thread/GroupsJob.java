@@ -5,6 +5,7 @@ import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
 import com.scudata.dm.cursor.ICursor;
 import com.scudata.dm.op.IGroupsResult;
+import com.scudata.dw.IColumnCursorUtil;
 import com.scudata.expression.Expression;
 
 /**
@@ -65,7 +66,13 @@ public class GroupsJob extends Job {
 	}
 
 	public void run() {
-		IGroupsResult groups = IGroupsResult.instance(exps, names, calcExps, calcNames, opt, ctx);
+		IGroupsResult groups = null;
+		if (cursor.isColumnCursor()) {
+			groups = IColumnCursorUtil.util.getGroupsResultInstance(exps, names, calcExps, calcNames, opt, ctx);
+		} else {
+			groups = IGroupsResult.instance(exps, names, calcExps, calcNames, opt, ctx);
+		}
+		
 		if (groupCount > 1) {
 			groups.setGroupCount(groupCount);
 		}

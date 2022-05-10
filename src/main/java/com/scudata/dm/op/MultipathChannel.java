@@ -55,7 +55,7 @@ public class MultipathChannel extends Channel {
 			}
 		} else {
 			for (int i = 0; i < count; ++i) {
-				channels[i] = new Channel(cursors[i].getContext());
+				channels[i] = new Channel(cursors[i].getContext(), cursors[i].isColumnCursor());
 			}
 		}
 	}

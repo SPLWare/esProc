@@ -1616,7 +1616,7 @@ public class ColumnTableMetaData extends TableMetaData {
 		}
 	}
 
-	private IFilter getFirstDimFilter(Expression exp, Context ctx) {
+	public IFilter getFirstDimFilter(Expression exp, Context ctx) {
 		Object obj = Cursor.parseFilter(this, exp, ctx);
 		if (obj instanceof IFilter) {
 			ColumnMetaData firstDim = getSortedColumns()[0];
@@ -3842,8 +3842,8 @@ public class ColumnTableMetaData extends TableMetaData {
 		int blockCount = getDataBlockCount();
 		Object max, min, obj;
 		segmentReader.readLong40();
-		max = segmentReader.readObject();
 		min = segmentReader.readObject();
+		max = segmentReader.readObject();
 		segmentReader.skipObject();
 		
 		if (!(max instanceof Number)) {
@@ -3853,12 +3853,12 @@ public class ColumnTableMetaData extends TableMetaData {
 		for (int i = 1; i < blockCount; ++i) {
 			segmentReader.readLong40();
 			obj = segmentReader.readObject();
-			if (Variant.compare(obj, max) > 0) {
-				max = obj;
-			}
-			obj = segmentReader.readObject();
 			if (Variant.compare(obj, min) < 0) {
 				min = obj;
+			}
+			obj = segmentReader.readObject();
+			if (Variant.compare(obj, max) > 0) {
+				max = obj;
 			}
 			segmentReader.skipObject();
 		}

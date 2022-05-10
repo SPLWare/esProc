@@ -9,6 +9,7 @@ import com.scudata.dm.Env;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.cursor.ICursor;
 import com.scudata.dm.cursor.MultipathCursors;
+import com.scudata.dw.IColumnCursorUtil;
 import com.scudata.dw.ITableMetaData;
 import com.scudata.expression.Expression;
 import com.scudata.expression.IParam;
@@ -77,7 +78,10 @@ public class CreateCursor extends TableMetaDataFunction {
 	public static ICursor createCursor(ITableMetaData table, IParam param, String opt, Context ctx) {
 		// 是否产生多路游标
 		boolean isMultiThread = opt != null && opt.indexOf('m') != -1;
+		boolean hasH = opt != null && opt.indexOf('h') != -1 && IColumnCursorUtil.util != null;//列式游标
+		
 		if (param == null && !isMultiThread) {
+			if (hasH) return IColumnCursorUtil.util.cursor(table);
 			return table.cursor();
 		}
 		
@@ -221,6 +225,21 @@ public class CreateCursor extends TableMetaDataFunction {
 			names = pi.getExpressionStrs2();
 		}
 
+		if (hasH) {
+			if (mcs != null) {
+				//TODO
+				return table.cursor(exps, names, filter, fkNames, codes, opts, mcs, opt, ctx);
+			} else if (isMultiThread && segCount > 1) {
+				return IColumnCursorUtil.util.cursor(table, exps, names, filter, fkNames, codes, opts, segCount, ctx);
+			} else {
+				if (segSeq < 1) {
+					return IColumnCursorUtil.util.cursor(table, exps, names, filter, fkNames, codes, opts, ctx);
+				} else {
+					return IColumnCursorUtil.util.cursor(table, exps, names, filter, fkNames, codes, opts, segSeq, segCount, ctx);
+				}
+			}
+		}
+		
 		if (mcs != null) {
 			return table.cursor(exps, names, filter, fkNames, codes, opts, mcs, opt, ctx);
 		} else if (isMultiThread && segCount > 1) {

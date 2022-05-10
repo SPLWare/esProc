@@ -1489,7 +1489,7 @@ public class PgmCellSet extends CellSet {
 		// 如果还没定义完管道的运算，则游标缓存的数据则不会执行管道后来附加的运算
 		Channel channel;
 		if (mcs == null) {
-			channel = new Channel(ctx); // , cs
+			channel = new Channel(ctx, cs.isColumnCursor()); // , cs
 		} else {
 			channel = new MultipathChannel(ctx, mcs, false);
 		}
@@ -1514,7 +1514,7 @@ public class PgmCellSet extends CellSet {
 			
 			endRow = getCodeBlockEndRow(row, col);
 			if (mcs == null) {
-				channel = new Channel(ctx); // , cs
+				channel = new Channel(ctx, cs.isColumnCursor()); // , cs
 			} else {
 				channel = new MultipathChannel(ctx, mcs, false);
 			}

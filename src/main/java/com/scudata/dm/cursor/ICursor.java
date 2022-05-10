@@ -21,6 +21,7 @@ import com.scudata.dm.op.IGroupsResult;
 import com.scudata.dm.op.Operable;
 import com.scudata.dm.op.Operation;
 import com.scudata.dm.op.TotalResult;
+import com.scudata.dw.IColumnCursorUtil;
 import com.scudata.expression.Expression;
 import com.scudata.resources.EngineMessage;
 import com.scudata.util.CursorUtil;
@@ -1046,6 +1047,10 @@ abstract public class ICursor implements IResource, Operable {
 	 */
 	public Table groups(Expression[] exps, String[] names, Expression[] calcExps, String[] calcNames, 
 			String opt, Context ctx) {
+		if (isColumnCursor()) {
+			return IColumnCursorUtil.util.groups(this, exps, names, calcExps, calcNames, opt, ctx);
+		}
+		
 		IGroupsResult groups = IGroupsResult.instance(exps, names, calcExps, calcNames, opt, ctx);
 		groups.push(this);
 		return groups.getResultTable();
@@ -1064,6 +1069,10 @@ abstract public class ICursor implements IResource, Operable {
 	 */
 	public Table groups(Expression[] exps, String[] names, Expression[] calcExps, String[] calcNames, 
 			String opt, Context ctx, int groupCount) {
+		if (isColumnCursor()) {
+			return IColumnCursorUtil.util.groups(this, exps, names, calcExps, calcNames, opt, ctx, groupCount);
+		}
+		
 		if (groupCount < 1 || exps == null || exps.length == 0) {
 			return groups(exps, names, calcExps, calcNames, opt, ctx);
 		} else if (opt != null && opt.indexOf('n') != -1) {
@@ -1207,5 +1216,13 @@ abstract public class ICursor implements IResource, Operable {
 		TotalResult total = new TotalResult(calcExps, ctx);
 		total.push(this);
 		return total.result();
+	}
+	
+	/**
+	 * 是否是列式游标
+	 * @return
+	 */
+	public boolean isColumnCursor() {
+		return false;
 	}
 }

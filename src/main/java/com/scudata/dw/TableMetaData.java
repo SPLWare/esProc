@@ -151,6 +151,10 @@ abstract public class TableMetaData implements ITableMetaData {
 		return groupTable.getStructManager();
 	}
 	
+	public TableMetaData getParent() {
+		return parent;
+	}
+	
 	public ArrayList<TableMetaData> getTableList(){
 		return tableList;
 	}

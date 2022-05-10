@@ -414,6 +414,9 @@ public class MultipathCursors extends ICursor implements IMultipath {
 	public Table groups(Expression[] exps, String[] names, Expression[] calcExps, String[] calcNames, 
 			String opt, Context ctx) {
 		if (cursors.length == 1 || Env.getParallelNum() == 1) {
+			if (cursors[0].isColumnCursor()) {
+				return groups(cursors, exps, names, calcExps, calcNames, opt, ctx, -1);
+			}
 			return super.groups(exps, names, calcExps, calcNames, opt, ctx);
 		} else {
 			return groups(cursors, exps, names, calcExps, calcNames, opt, ctx, -1);
@@ -434,6 +437,9 @@ public class MultipathCursors extends ICursor implements IMultipath {
 	public Table groups(Expression[] exps, String[] names, Expression[] calcExps, String[] calcNames, 
 			String opt, Context ctx, int groupCount) {
 		if (cursors.length == 1 || Env.getParallelNum() == 1) {
+			if (cursors[0].isColumnCursor()) {
+				return groups(cursors, exps, names, calcExps, calcNames, opt, ctx, groupCount);
+			}
 			return super.groups(exps, names, calcExps, calcNames, opt, ctx, groupCount);
 		} else if (groupCount < 1 || exps == null || exps.length == 0) {
 			return groups(cursors, exps, names, calcExps, calcNames, opt, ctx, -1);

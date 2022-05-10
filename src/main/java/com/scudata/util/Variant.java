@@ -18,6 +18,7 @@ import com.scudata.common.Types;
 import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.SerialBytes;
+import com.scudata.dw.IAssignable;
 import com.scudata.resources.EngineMessage;
 
 /**
@@ -1254,6 +1255,8 @@ public class Variant {
 			return DT_DECIMAL;
 		} else if (o instanceof Float) {
 			return DT_DOUBLE;
+		} else if (o instanceof IAssignable) {
+			return ((IAssignable)o).getDataType();
 		} else if (o instanceof Number) { // Byte  Short
 			return DT_INT;
 		} else {
