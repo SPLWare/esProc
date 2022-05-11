@@ -126,10 +126,10 @@ public class MultipathChannel extends Channel {
 	 * @return
 	 */
 	public Object result() {
-		if (result instanceof GroupsResult) {
+		if (result instanceof IGroupsResult) {
 			Table value = null;
 			for (Channel channel : channels) {
-				GroupsResult groups = (GroupsResult)channel.getResult();
+				IGroupsResult groups = (IGroupsResult)channel.getResult();
 				if (value == null) {
 					value = groups.getTempResult();
 				} else {
@@ -137,7 +137,7 @@ public class MultipathChannel extends Channel {
 				}
 			}
 			
-			GroupsResult gr = (GroupsResult)result;
+			IGroupsResult gr = (IGroupsResult)result;
 			result = null;
 			if (value == null || gr.isSortedGroup()) {
 				return value;
