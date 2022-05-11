@@ -769,6 +769,41 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 	}
 
 	/**
+	 * 获取序列序表片段值
+	 * @param row 单元格行
+	 * @param col 单元格列
+	 * @param from 起始行
+	 * @param num 取数数量
+	 */
+	protected Sequence getSegmentValue(int row, int col, int from, int num) {
+		INormalCell nc = splControl.cellSet.getCell(row, col);
+		if (nc == null)
+			return null;
+		Object val = nc.getValue();
+		if (val != null && val instanceof Sequence) {
+			Sequence seq = (Sequence) val;
+			return seq.get(from, from + num - 1);
+		}
+		return null;
+	}
+
+	/**
+	 * 单元格表达式发生变化
+	 * @param row 行号
+	 * @param col 列号
+	 * @param exp 格子表达式
+	 */
+	protected void expChanged(int row, int col, String exp) {
+	}
+
+	/**
+	 * 单元格表达式批量发生变化
+	 * @param expMap key是格子名，value是单元格表达式
+	 */
+	protected void expChanged(Map<String, String> expMap) {
+	}
+
+	/**
 	 * 单元格计算的线程
 	 *
 	 */
@@ -988,6 +1023,13 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 		synchronized (threadLock) {
 			runThread = new RunThread(tg, "t" + threadCount, isDebugMode);
 		}
+	}
+
+	/**
+	 * 设置网格变量
+	 * @param pl
+	 */
+	protected void setContextParams(ParamList pl) {
 	}
 
 	/**
@@ -2230,6 +2272,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 					Object value = values.get(paraName);
 					splCtx.setParamValue(paraName, value, Param.VAR);
 				}
+				setContextParams(splCtx.getParamList());
 			} catch (Throwable t) {
 				GM.showException(t);
 			}

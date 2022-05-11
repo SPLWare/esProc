@@ -12,6 +12,7 @@ import com.scudata.common.CellLocation;
 import com.scudata.common.StringUtils;
 import com.scudata.ide.common.GM;
 import com.scudata.ide.common.control.TransferableObject;
+import com.scudata.ide.spl.AtomicCell;
 import com.scudata.ide.spl.GMSpl;
 
 /**
@@ -103,12 +104,19 @@ public class EditDropListener implements DropTargetListener {
 		}
 		NormalCell nc = (NormalCell) control.getCellSet().getCell(pos.getRow(),
 				pos.getCol());
+		AtomicCell ac = new AtomicCell(control, nc);
 		if (StringUtils.isValidString(data) && ((String) data).startsWith("=")) {
 			String exp = GM.getOptionTrimChar0String((String) data);
-			nc.setExpString(exp);
+			ac.setProperty(AtomicCell.CELL_EXP);
+			ac.setValue(exp);
+			// nc.setExpString(exp);
 		} else {
-			nc.setValue(GM.getOptionTrimChar0Value(data));
+			ac.setProperty(AtomicCell.CELL_VALUE);
+			ac.setValue(GM.getOptionTrimChar0Value(data));
+			// nc.setValue(GM.getOptionTrimChar0Value(data));
 		}
+		SplEditor editor = ControlUtils.extractSplEditor(control);
+		editor.executeCmd(ac);
 
 		control.setActiveCell(pos);
 		control.setSelectedArea(new Area(pos.getRow(), pos.getCol(), pos

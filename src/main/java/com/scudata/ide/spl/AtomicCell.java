@@ -10,6 +10,7 @@ import com.scudata.common.Area;
 import com.scudata.common.StringUtils;
 import com.scudata.ide.common.GC;
 import com.scudata.ide.common.GM;
+import com.scudata.ide.common.GV;
 import com.scudata.ide.common.IAtomicCmd;
 import com.scudata.ide.spl.control.ControlUtils;
 import com.scudata.ide.spl.control.SplControl;
@@ -162,7 +163,13 @@ public class AtomicCell implements IAtomicCmd {
 			// ((EtlNormalCell) nc).setFuncObj((ObjectElement) newVal);
 			break;
 		case CELL_EXP:
-			nc.setExpString(newVal == null ? null : GM.getOptionTrimChar0String(((String) newVal)));
+			String newExp = newVal == null ? null : GM
+					.getOptionTrimChar0String(((String) newVal));
+			nc.setExpString(newExp);
+			if (GV.appSheet != null && GV.appSheet instanceof SheetSpl) {
+				((SheetSpl) GV.appSheet).expChanged(nc.getRow(), nc.getCol(),
+						newExp);
+			}
 			break;
 		case CELL_TIPS:
 			nc.setTip((String) newVal);
@@ -175,11 +182,13 @@ public class AtomicCell implements IAtomicCmd {
 			break;
 		case COL_VISIBLE:
 			((ColCell) cell)
-					.setVisible(((Boolean) newVal).booleanValue() ? ColCell.VISIBLE_ALWAYS : ColCell.VISIBLE_ALWAYSNOT);
+					.setVisible(((Boolean) newVal).booleanValue() ? ColCell.VISIBLE_ALWAYS
+							: ColCell.VISIBLE_ALWAYSNOT);
 			break;
 		case ROW_VISIBLE:
 			((RowCell) cell)
-					.setVisible(((Boolean) newVal).booleanValue() ? RowCell.VISIBLE_ALWAYS : RowCell.VISIBLE_ALWAYSNOT);
+					.setVisible(((Boolean) newVal).booleanValue() ? RowCell.VISIBLE_ALWAYS
+							: RowCell.VISIBLE_ALWAYSNOT);
 			break;
 		}
 	}
@@ -213,10 +222,12 @@ public class AtomicCell implements IAtomicCmd {
 			oldValue = new Float(((RowCell) cell).getHeight());
 			break;
 		case COL_VISIBLE:
-			oldValue = new Boolean(((ColCell) cell).getVisible() != ColCell.VISIBLE_ALWAYSNOT);
+			oldValue = new Boolean(
+					((ColCell) cell).getVisible() != ColCell.VISIBLE_ALWAYSNOT);
 			break;
 		case ROW_VISIBLE:
-			oldValue = new Boolean(((RowCell) cell).getVisible() != RowCell.VISIBLE_ALWAYSNOT);
+			oldValue = new Boolean(
+					((RowCell) cell).getVisible() != RowCell.VISIBLE_ALWAYSNOT);
 			break;
 		}
 		return oldValue;
@@ -231,7 +242,8 @@ public class AtomicCell implements IAtomicCmd {
 	private void setValue(AtomicCell undoAn, Object newVal) {
 		Object oldValue = getCellProperty(cell, property);
 		if (newVal instanceof String) {
-			if (!StringUtils.isValidString(newVal) || newVal.equals(new String("\u007F"))) {
+			if (!StringUtils.isValidString(newVal)
+					|| newVal.equals(new String("\u007F"))) {
 				newVal = null;
 			}
 		}
