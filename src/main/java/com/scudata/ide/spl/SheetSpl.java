@@ -454,6 +454,13 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 	}
 
 	/**
+	 * 刷新时刷新参数
+	 */
+	public void refreshParams() {
+		refresh(false, true, true);
+	}
+
+	/**
 	 * 刷新
 	 * 
 	 * @param keyEvent 是否按键事件
@@ -469,6 +476,18 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 	 * @param isRefreshState 是否刷新状态
 	 */
 	protected void refresh(boolean keyEvent, boolean isRefreshState) {
+		refresh(keyEvent, isRefreshState, false);
+	}
+
+	/**
+	 * 刷新
+	 * 
+	 * @param keyEvent       是否按键事件
+	 * @param isRefreshState 是否刷新状态
+	 * @param refreshParams  是否刷新参数
+	 */
+	protected void refresh(boolean keyEvent, boolean isRefreshState,
+			boolean refreshParams) {
 		if (splEditor == null) {
 			return;
 		}
@@ -645,9 +664,9 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 		}
 
 		GV.toolBarProperty.setEnabled(selectState != GCSpl.SELECT_STATE_NONE);
-
-		GVSpl.tabParam.resetParamList(getContextParamList(), listSpaceParams(),
-				getEnvParamList());
+		if (refreshParams)
+			GVSpl.tabParam.resetParamList(getContextParamList(),
+					listSpaceParams(), getEnvParamList());
 
 		if (GVSpl.panelValue.tableValue.isLocked1()) {
 			GVSpl.panelValue.tableValue.setLocked1(false);
@@ -865,7 +884,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 				splControl.contentView.repaint();
 				SwingUtilities.invokeLater(new Thread() {
 					public void run() {
-						refresh();
+						refreshParams();
 					}
 				});
 			}
@@ -2025,7 +2044,10 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 			if (afterRun) {
 				setExeLocation(exeLocation);
 				splControl.contentView.repaint();
-				refresh();
+				if (isRefresh)
+					refresh();
+				else
+					refreshParams();
 			}
 			return;
 		}
@@ -2135,7 +2157,10 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 		if (afterRun) {
 			setExeLocation(exeLocation);
 			splControl.contentView.repaint();
-			refresh();
+			if (isRefresh)
+				refresh();
+			else
+				refreshParams();
 		}
 	}
 
@@ -2658,7 +2683,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 			splEditor.setCellSet(cellSet);
 			resetCellSet();
 			resetRunState();
-			refresh();
+			refreshParams();
 			splControl.repaint();
 			splEditor.selectFirstCell();
 			control.getContentPanel().setEditable(isEditable);
@@ -2715,7 +2740,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 			splCtx.setParent(pCtx);
 			splControl.cellSet.setContext(splCtx);
 			resetRunState();
-			refresh();
+			refreshParams();
 			splControl.repaint();
 			splEditor.selectFirstCell();
 			control.getContentPanel().setEditable(isEditable);

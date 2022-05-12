@@ -11,6 +11,7 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 import javax.swing.table.TableColumn;
 
 import com.scudata.common.MessageManager;
@@ -142,24 +143,76 @@ public abstract class TableVar extends JScrollPane {
 	 *            变量列表
 	 */
 	public synchronized void setParamList(ParamList pl) {
+		if (setParamThread != null) {
+			setParamThread.stopThread();
+			try {
+				setParamThread.join();
+			} catch (Exception e) {
+			}
+		}
+		setParamThread = null;
 		vl = null;
 		tableVar.acceptText();
 		tableVar.removeAllRows();
+		tableVar.clearSelection();
 		if (pl == null) {
 			return;
 		}
-		preventChange = true;
 		vl = new ParamList();
 		pl.getAllVarParams(vl);
-		Param p;
-		int count = vl.count();
-		for (int i = 0; i < count; i++) {
-			p = vl.get(i);
-			tableVar.addRow();
-			tableVar.data.setValueAt(p.getName(), i, COL_NAME);
-			tableVar.data.setValueAt(p.getValue(), i, COL_VALUE);
+
+		setParamThread = new SetParamThread(vl);
+		SwingUtilities.invokeLater(setParamThread);
+	}
+
+	/**
+	 * 设置参数的线程
+	 */
+	private SetParamThread setParamThread = null;
+
+	class SetParamThread extends Thread {
+		private ParamList pl;
+		/**
+		 * 是否停止了
+		 */
+		boolean isStoped = false;
+
+		/**
+		 * 构造函数
+		 * @param pl
+		 */
+		public SetParamThread(ParamList pl) {
+			this.pl = pl;
 		}
-		preventChange = false;
+
+		/**
+		 * 执行
+		 */
+		public void run() {
+			try {
+				preventChange = true;
+				Param p;
+				int count = pl.count();
+				for (int i = 0; i < count; i++) {
+					if (isStoped) {
+						break;
+					}
+					p = pl.get(i);
+					int r = tableVar.addRow();
+					tableVar.data.setValueAt(p.getName(), r, COL_NAME);
+					tableVar.data.setValueAt(p.getValue(), r, COL_VALUE);
+				}
+			} finally {
+				preventChange = false;
+			}
+		}
+
+		/**
+		 * 停止线程
+		 */
+		void stopThread() {
+			isStoped = true;
+		}
 	}
 
 	/**
