@@ -167,6 +167,8 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	 */
 	private String undoExp = null;
 
+	protected SheetSpl sheet;
+
 	/**
 	 * 构造函数
 	 * 
@@ -182,6 +184,27 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	public ContentPanel(CellSet cellSet, int startRow, int endRow,
 			int startCol, int endCol, boolean isEditing,
 			boolean onlyDrawCellInWin, JScrollPane jsp) {
+		this(cellSet, startRow, endRow, startCol, endCol, isEditing,
+				onlyDrawCellInWin, jsp, null);
+	}
+
+	/**
+	 * 构造函数
+	 * 
+	 * @param cellSet           网格对象
+	 * @param startRow          内容面板起始行
+	 * @param endRow            内容面板结束行
+	 * @param startCol          内容面板起始列
+	 * @param endCol            内容面板结束列
+	 * @param isEditing         面板是否位于编辑控件中
+	 * @param onlyDrawCellInWin 是否只画显示窗口大小内的面板
+	 * @param jsp               容纳面板的滚动窗格
+	 * @param sheet             页面对象
+	 */
+	public ContentPanel(CellSet cellSet, int startRow, int endRow,
+			int startCol, int endCol, boolean isEditing,
+			boolean onlyDrawCellInWin, JScrollPane jsp, SheetSpl sheet) {
+		this.sheet = sheet;
 		this.cellSet = cellSet;
 		this.parser = newCellSetParser(cellSet);
 		this.startRow = startRow;

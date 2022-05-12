@@ -128,11 +128,27 @@ public class SplEditor {
 	public Vector<Integer> selectedRows = new Vector<Integer>();
 
 	/**
+	 * 页面对象
+	 */
+	protected SheetSpl sheet;
+
+	/**
 	 * 构造函数
 	 * 
 	 * @param context 上下文
 	 */
 	public SplEditor(Context context) {
+		this(null, context);
+	}
+
+	/**
+	 * 构造函数
+	 * 
+	 * @param sheet   页面对象
+	 * @param context 上下文
+	 */
+	public SplEditor(SheetSpl sheet, Context context) {
+		this.sheet = sheet;
 		control = newEditControl(ConfigOptions.iRowCount.intValue(),
 				ConfigOptions.iColCount.intValue());
 		CellSetTxtUtil.initDefaultProperty(control.cellSet);
