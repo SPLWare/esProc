@@ -262,7 +262,7 @@ public class Groups extends PseudoFunction {
 				}
 			}
 			ICount icount = (ICount) tempExps[0].getHome();
-			list.add(icount.getExp().toString());
+			list.add(icount.getParamString());
 			String[] icountFields = new String[list.size()];
 			list.toArray(icountFields);
 			
