@@ -97,12 +97,18 @@ public class CellSetParser {
 		return ConfigOptions.iIndent.intValue();
 	}
 
-	/** 其他 */
-	public static final byte TYPE_OTHER = 0;
 	/** 注释格或者块 */
 	public static final byte TYPE_NOTE = 1;
 	/** 计算和执行格或者块 */
 	public static final byte TYPE_CALC = 2;
+	/** 常数格 */
+	public static final byte TYPE_CONST = 3;
+	/** 无值常数格 */
+	public static final byte TYPE_CONST_NULL = 4;
+	/** 表达式 */
+	public static final byte TYPE_EXP = 5;
+	/** 无值表达式 */
+	public static final byte TYPE_EXP_NULL = 6;
 
 	/**
 	 * 取单元格类型
@@ -113,10 +119,10 @@ public class CellSetParser {
 	 *            列号
 	 * @return
 	 */
-	public byte getCellType(int row, int col) {
+	public byte getCellDispType(int row, int col) {
 		NormalCell cell = getCell(row, col);
 		int type = cell.getType();
-		byte tempType = TYPE_OTHER;
+		byte dispType = TYPE_EXP_NULL;
 		switch (type) {
 		case NormalCell.TYPE_NOTE_CELL:
 		case NormalCell.TYPE_NOTE_BLOCK:
@@ -125,7 +131,7 @@ public class CellSetParser {
 		case NormalCell.TYPE_CALCULABLE_BLOCK:
 		case NormalCell.TYPE_EXECUTABLE_CELL:
 		case NormalCell.TYPE_EXECUTABLE_BLOCK:
-			tempType = TYPE_CALC;
+			dispType = TYPE_CALC;
 			break;
 		}
 		// 从第一列开始向上查找，找不到向右查找一直到col-1列
@@ -139,7 +145,7 @@ public class CellSetParser {
 					return TYPE_NOTE;
 				case NormalCell.TYPE_CALCULABLE_BLOCK:
 				case NormalCell.TYPE_EXECUTABLE_BLOCK:
-					tempType = TYPE_CALC;
+					dispType = TYPE_CALC;
 					topRow = r;
 					break;
 				default:
@@ -150,7 +156,38 @@ public class CellSetParser {
 				}
 			}
 		}
-		return tempType;
+		if (cell.getType() == NormalCell.TYPE_CONST_CELL) { // 常量格
+			if (isSubCell(row, col)) {
+				return TYPE_CONST_NULL;
+			}
+			if (dispType != TYPE_CALC) { // 计算格执行格、在计算块执行块中,按表达式格显示 并且不是续格
+				return TYPE_CONST;
+			}
+		}
+		if (cell.getValue() != null) { // 有值表达式
+			return TYPE_EXP;
+		} else { // 无值表达式
+			return TYPE_EXP_NULL;
+		}
+	}
+
+	/**
+	 * 取网格所有单元格的显示类型
+	 * @param cellSet
+	 * @return
+	 */
+	public static byte[][] getCellDispTypes(PgmCellSet cellSet) {
+		CellSetParser parser = new CellSetParser(cellSet);
+		int rc = cellSet.getRowCount();
+		int cc = cellSet.getColCount();
+		byte[][] dispTypes = new byte[rc][cc];
+		for (int r = 1; r <= rc; r++) {
+			dispTypes[r - 1] = new byte[cc];
+			for (int c = 1; c <= cc; c++) {
+				dispTypes[r - 1][c - 1] = parser.getCellDispType(r, c);
+			}
+		}
+		return dispTypes;
 	}
 
 	/**
@@ -248,38 +285,26 @@ public class CellSetParser {
 	 * @return
 	 */
 	protected Color getCellTypeColor(int row, int col, boolean isGetForeground) {
-		byte type = getCellType(row, col);
-		NormalCell cell = getCell(row, col);
+		byte type = getCellDispType(row, col);
 		if (type == TYPE_NOTE) { // 注释格或者在注释块中
 			return isGetForeground ? ConfigOptions.iNoteFColor
 					: ConfigOptions.iNoteBColor;
 		}
-		if (cell.getType() == NormalCell.TYPE_CONST_CELL) { // 常量格
-			if (isSubCell(row, col)) {
-				return isGetForeground ? ConfigOptions.iNValueFColor
-						: ConfigOptions.iNValueBColor;
-			}
-			if (type != TYPE_CALC) { // 计算格执行格、在计算块执行块中,按表达式格显示 并且不是续格
-				return isGetForeground ? ConfigOptions.iConstFColor
-						: ConfigOptions.iConstBColor;
-			}
-		}
-		if (!hasCellValue(cell)) { // 无值表达式
+		if (type == TYPE_CONST_NULL) {
 			return isGetForeground ? ConfigOptions.iNValueFColor
 					: ConfigOptions.iNValueBColor;
-		} else { // 有值表达式
+		}
+		if (type == TYPE_CONST) { // 计算格执行格、在计算块执行块中,按表达式格显示 并且不是续格
+			return isGetForeground ? ConfigOptions.iConstFColor
+					: ConfigOptions.iConstBColor;
+		}
+		if (type == TYPE_EXP) { // 有值表达式
 			return isGetForeground ? ConfigOptions.iValueFColor
 					: ConfigOptions.iValueBColor;
+		} else { // 无值表达式
+			return isGetForeground ? ConfigOptions.iNValueFColor
+					: ConfigOptions.iNValueBColor;
 		}
-	}
-
-	/**
-	 * 单元格是否有值
-	 * @param cell 单元格
-	 * @return 单元格是否有值
-	 */
-	protected boolean hasCellValue(NormalCell cell) {
-		return cell.getValue() != null;
 	}
 
 	/**

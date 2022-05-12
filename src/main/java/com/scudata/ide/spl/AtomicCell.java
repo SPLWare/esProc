@@ -165,11 +165,11 @@ public class AtomicCell implements IAtomicCmd {
 		case CELL_EXP:
 			String newExp = newVal == null ? null : GM
 					.getOptionTrimChar0String(((String) newVal));
-			nc.setExpString(newExp);
 			if (GV.appSheet != null && GV.appSheet instanceof SheetSpl) {
 				((SheetSpl) GV.appSheet).expChanged(nc.getRow(), nc.getCol(),
 						newExp);
 			}
+			nc.setExpString(newExp);
 			break;
 		case CELL_TIPS:
 			nc.setTip((String) newVal);

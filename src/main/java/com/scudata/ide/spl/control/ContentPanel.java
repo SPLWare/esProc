@@ -522,7 +522,7 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 				if (isCellSelected(row, col)) {
 
 					/**
-					 * 2017.06.29 ryz 更改单元格背景色
+					 * 更改单元格背景色
 					 */
 					Color selectCellBkcolor;
 					if (ConfigOptions.getCellColor() != null) {

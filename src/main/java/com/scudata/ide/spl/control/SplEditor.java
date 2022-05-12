@@ -420,7 +420,7 @@ public class SplEditor {
 				String exp = cell.getExpString();
 				if (exp == null)
 					continue;
-				byte cellType = parser.getCellType(r, c);
+				byte cellType = parser.getCellDispType(r, c);
 				if (cellType == CellSetParser.TYPE_NOTE) {
 					continue;
 				}
@@ -539,7 +539,7 @@ public class SplEditor {
 
 		for (int r = 1, rowCount = row; r <= rowCount; r++) {
 			for (int c = 1, colCount = col; c <= colCount; c++) {
-				byte cellType = parser.getCellType(r, c);
+				byte cellType = parser.getCellDispType(r, c);
 				if (cellType == CellSetParser.TYPE_NOTE) {
 					continue;
 				}

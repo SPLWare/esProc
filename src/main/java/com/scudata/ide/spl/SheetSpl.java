@@ -151,9 +151,9 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 	 */
 	private int threadCount = 0;
 	/**
-	 * 计算线程
+	 * 计算或调试线程
 	 */
-	protected transient RunThread runThread = null;
+	protected transient DebugThread debugThread = null;
 	/**
 	 * 任务空间
 	 */
@@ -985,7 +985,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 	 * 重置环境
 	 */
 	public void reset() {
-		if (runThread != null) {
+		if (debugThread != null) {
 			terminate();
 		}
 		closeRunThread();
@@ -1011,17 +1011,21 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 			if (jobSpace == null)
 				return;
 		beforeRun();
-		createRunThread(false);
-		runThread.start();
+		createDebugThread(false);
+		debugThread.start();
 	}
 
 	/**
-	 * 创建执行线程
+	 * 创建执行或调试线程
 	 */
-	protected void createRunThread(boolean isDebugMode) {
+	protected void createDebugThread(boolean isDebugMode) {
 		threadCount++;
 		synchronized (threadLock) {
-			runThread = new RunThread(tg, "t" + threadCount, isDebugMode);
+			if (isDebugMode)
+				debugThread = new DebugThread(tg, "t" + threadCount,
+						isDebugMode);
+			else
+				debugThread = new RunThread(tg, "t" + threadCount);
 		}
 	}
 
@@ -1048,19 +1052,19 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 	 */
 	public void debug(byte debugType) {
 		synchronized (threadLock) {
-			if (runThread == null) {
+			if (debugThread == null) {
 				if (!prepareStart())
 					return;
 				if (!isSubSheet())
 					if (jobSpace == null)
 						return;
 				beforeRun();
-				createRunThread(true);
-				runThread.setDebugType(debugType);
-				runThread.start();
+				createDebugThread(true);
+				debugThread.setDebugType(debugType);
+				debugThread.start();
 			} else {
 				preventRun();
-				runThread.continueRun(debugType);
+				debugThread.continueRun(debugType);
 			}
 		}
 	}
@@ -1070,12 +1074,12 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 	 */
 	public synchronized void pause() {
 		synchronized (threadLock) {
-			if (runThread == null)
-				return;
-			if (runThread.getRunState() == RunThread.PAUSED) {
-				runThread.continueRun();
-			} else {
-				runThread.pause();
+			if (debugThread != null) {
+				if (debugThread.getRunState() == DebugThread.PAUSED) {
+					debugThread.continueRun();
+				} else {
+					debugThread.pause();
+				}
 			}
 		}
 	}
@@ -1197,8 +1201,8 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 					else {
 						setExeLocation(null);
 						synchronized (threadLock) {
-							if (runThread != null)
-								runThread.continueRun();
+							if (debugThread != null)
+								debugThread.continueRun();
 						}
 					}
 					splControl.contentView.repaint();
@@ -1206,8 +1210,8 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 					subSheetOpened = false;
 					if (continueRun) {
 						synchronized (threadLock) {
-							if (runThread != null)
-								runThread.continueRun();
+							if (debugThread != null)
+								debugThread.continueRun();
 						}
 					}
 				} catch (Exception e) {
@@ -1225,14 +1229,14 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 	 */
 	public void stepStop(boolean stopOther) {
 		stepStopOther = stopOther;
-		debug(RunThread.STEP_STOP);
+		debug(DebugThread.STEP_STOP);
 	}
 
 	/**
 	 * 执行到光标
 	 */
 	protected void stepCursor() {
-		debug(RunThread.CURSOR);
+		debug(DebugThread.CURSOR);
 	}
 
 	/**
@@ -1283,7 +1287,28 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 	 * 单步调试返回
 	 */
 	protected void stepReturn() {
-		debug(RunThread.STEP_RETURN);
+		debug(DebugThread.STEP_RETURN);
+	}
+
+	/**
+	 * 执行网格
+	 * @param cellSet 网格对象
+	 * @return 返回下一个要执行的坐标，null表示网格执行完了。
+	 */
+	protected CellLocation runCellSet(PgmCellSet cellSet) {
+		cellSet.run();
+		INormalCell cell = cellSet.getCurrent();
+		if (cell == null) {
+			return null;
+		}
+		return new CellLocation(cell.getRow(), cell.getCol());
+	}
+
+	/**
+	 * 中断执行
+	 */
+	protected void interruptCellSet(PgmCellSet cellSet) {
+		cellSet.interrupt();
 	}
 
 	/**
@@ -1363,7 +1388,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 				SwingUtilities.invokeLater(new Runnable() {
 					public void run() {
 						try {
-							subSheet.debug(RunThread.STEP_INTO_WAIT);
+							subSheet.debug(DebugThread.STEP_INTO_WAIT);
 						} catch (Exception e) {
 							GM.showException(e);
 						}
@@ -1425,11 +1450,109 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 	 * 执行线程
 	 *
 	 */
-	class RunThread extends Thread {
+	class RunThread extends DebugThread {
+
+		/**
+		 * 构造函数
+		 * 
+		 * @param tg          线程组
+		 * @param name        线程名称
+		 * @param isDebugMode 是否调试模式
+		 */
+		public RunThread(ThreadGroup tg, String name) {
+			super(tg, name, false);
+			curCellSet = splControl.cellSet;
+		}
+
+		/**
+		 * 执行
+		 */
+		public void run() {
+			runState = RUN;
+			resetRunState();
+			boolean isThreadDeath = false;
+			try {
+				do {
+					synchronized (runState) {
+						if (runState == PAUSING) {
+							stepFinish();
+						}
+					}
+					while (isPaused) {
+						try {
+							sleep(5);
+						} catch (Exception e) {
+						}
+					}
+					setExeLocation(null);
+					splControl.contentView.repaint();
+					exeLocation = runCellSet(curCellSet);
+				} while (exeLocation != null);
+			} catch (ThreadDeath td) {
+				isThreadDeath = true;
+			} catch (Throwable x) {
+				if (x != null) {
+					Throwable cause = x.getCause();
+					if (cause != null && cause instanceof ThreadDeath) {
+						isThreadDeath = true;
+					}
+				}
+				if (!isThreadDeath) {
+					String msg = x.getMessage();
+					if (!StringUtils.isValidString(msg)) {
+						StringBuffer sb = new StringBuffer();
+						Throwable t = x.getCause();
+						if (t != null) {
+							sb.append(t.getMessage());
+							sb.append("\r\n");
+						}
+						StackTraceElement[] ste = x.getStackTrace();
+						for (int i = 0; i < ste.length; i++) {
+							sb.append(ste[i]);
+							sb.append("\r\n");
+						}
+						msg = sb.toString();
+						showException(msg);
+					} else {
+						showException(x);
+					}
+				}
+			} finally {
+				runState = FINISH;
+				if (!isThreadDeath)
+					resetRunState(false, true);
+				GVSpl.panelSplWatch.watch();
+				closeRunThread();
+			}
+		}
+
+		/**
+		 * 暂停
+		 */
+		public void pause() {
+			super.pause();
+			interruptCellSet(curCellSet);
+		}
+
+		/**
+		 * 继续执行
+		 */
+		public void continueRun() {
+			runState = RUN;
+			resetRunState();
+			isPaused = Boolean.FALSE;
+		}
+	}
+
+	/**
+	 * 调试线程
+	 *
+	 */
+	class DebugThread extends Thread {
 		/**
 		 * 是否调试模式
 		 */
-		private boolean isDebugMode = true;
+		protected boolean isDebugMode = true;
 
 		/** 执行完成 */
 		static final byte FINISH = 0;
@@ -1442,7 +1565,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 		/**
 		 * 执行的状态
 		 */
-		private Byte runState = FINISH;
+		protected Byte runState = FINISH;
 
 		/** 调试执行 */
 		static final byte DEBUG = 1;
@@ -1463,19 +1586,19 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 		/**
 		 * 调试方式
 		 */
-		private byte debugType = DEBUG;
+		protected byte debugType = DEBUG;
 		/**
 		 * 是否暂停了
 		 */
-		private Boolean isPaused = Boolean.FALSE;
+		protected Boolean isPaused = Boolean.FALSE;
 		/**
 		 * 当前格的坐标
 		 */
-		private CellLocation clCursor = null;
+		protected CellLocation clCursor = null;
 		/**
 		 * 当前网格对象
 		 */
-		private PgmCellSet curCellSet;
+		protected PgmCellSet curCellSet;
 
 		/**
 		 * 构造函数
@@ -1484,7 +1607,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 		 * @param name        线程名称
 		 * @param isDebugMode 是否调试模式
 		 */
-		public RunThread(ThreadGroup tg, String name, boolean isDebugMode) {
+		public DebugThread(ThreadGroup tg, String name, boolean isDebugMode) {
 			super(tg, name);
 			this.isDebugMode = isDebugMode;
 			curCellSet = splControl.cellSet;
@@ -1691,7 +1814,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 		/**
 		 * 单步调试完成
 		 */
-		private void stepFinish() {
+		protected void stepFinish() {
 			isPaused = Boolean.TRUE;
 			runState = PAUSED;
 			resetRunState(false, true);
@@ -1912,14 +2035,14 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 		boolean canStepInto = canStepInto();
 		boolean isDebugMode = false;
 		boolean isThreadNull;
-		byte runState = RunThread.FINISH;
+		byte runState = DebugThread.FINISH;
 		synchronized (threadLock) {
-			if (runThread != null) {
-				synchronized (runThread) {
-					isThreadNull = runThread == null;
+			if (debugThread != null) {
+				synchronized (debugThread) {
+					isThreadNull = debugThread == null;
 					if (!isThreadNull) {
-						isDebugMode = runThread.isDebugMode;
-						runState = runThread.getRunState();
+						isDebugMode = debugThread.isDebugMode;
+						runState = debugThread.getRunState();
 					}
 				}
 			} else {
@@ -1944,7 +2067,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 					canRunCell() && (stepInfo == null || isStepStop));
 		} else {
 			switch (runState) {
-			case RunThread.RUN:
+			case DebugThread.RUN:
 				setMenuToolEnabled(new short[] { GCSpl.iEXEC, GCSpl.iEXE_DEBUG,
 						GCSpl.iSTEP_CURSOR, GCSpl.iSTEP_NEXT, GCSpl.iSTEP_INTO,
 						GCSpl.iCALC_AREA, GCSpl.iCALC_LOCK }, false);
@@ -1956,7 +2079,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 						true);
 				editable = false;
 				break;
-			case RunThread.PAUSING:
+			case DebugThread.PAUSING:
 				setMenuToolEnabled(new short[] { GCSpl.iEXEC, GCSpl.iEXE_DEBUG,
 						GCSpl.iSTEP_CURSOR, GCSpl.iSTEP_NEXT, GCSpl.iSTEP_INTO,
 						GCSpl.iCALC_AREA, GCSpl.iCALC_LOCK, GCSpl.iPAUSE },
@@ -1967,7 +2090,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 						stepInfo != null && stepInfo.parentCall != null);
 				setMenuToolEnabled(new short[] { GCSpl.iSTOP }, true);
 				break;
-			case RunThread.PAUSED:
+			case DebugThread.PAUSED:
 				setMenuToolEnabled(
 						new short[] { GCSpl.iEXEC, GCSpl.iEXE_DEBUG }, false);
 				setMenuToolEnabled(new short[] { GCSpl.iSTEP_CURSOR,
@@ -1982,7 +2105,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 						true);
 				isPaused = true;
 				break;
-			case RunThread.FINISH:
+			case DebugThread.FINISH:
 				setMenuToolEnabled(new short[] { GCSpl.iEXEC, GCSpl.iEXE_DEBUG,
 						GCSpl.iSTEP_CURSOR, GCSpl.iSTEP_NEXT }, true);
 				setMenuToolEnabled(new short[] { GCSpl.iSTEP_INTO,
@@ -2048,11 +2171,11 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 	private byte[] threadLock = new byte[0];
 
 	/**
-	 * 关闭执行线程
+	 * 关闭执行和调试线程
 	 */
 	private void closeRunThread() {
 		synchronized (threadLock) {
-			runThread = null;
+			debugThread = null;
 		}
 	}
 
@@ -2108,13 +2231,13 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 		Thread t = new Thread() {
 			public void run() {
 				synchronized (threadLock) {
-					if (runThread != null) {
-						synchronized (runThread) {
-							if (runThread != null) {
-								runThread.pause();
+					if (debugThread != null) {
+						synchronized (debugThread) {
+							if (debugThread != null) {
+								debugThread.pause();
 							}
-							if (runThread != null
-									&& runThread.getRunState() != RunThread.FINISH) {
+							if (debugThread != null
+									&& debugThread.getRunState() != DebugThread.FINISH) {
 								if (tg != null) {
 									try {
 										if (tg != null)
@@ -2498,7 +2621,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 				return;
 			}
 			synchronized (threadLock) {
-				if (runThread != null) {
+				if (debugThread != null) {
 					// 有未执行完成的任务，是否中断执行？
 					int option = JOptionPane.showOptionDialog(
 							GV.appFrame,
@@ -2508,7 +2631,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 							JOptionPane.YES_NO_OPTION,
 							JOptionPane.QUESTION_MESSAGE, null, null, null);
 					if (option == JOptionPane.OK_OPTION) {
-						runThread.closeThread();
+						debugThread.closeThread();
 						try {
 							Thread.sleep(50);
 						} catch (Throwable t) {
@@ -2561,7 +2684,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 				return;
 			}
 			synchronized (threadLock) {
-				if (runThread != null) {
+				if (debugThread != null) {
 					// 有未执行完成的任务，是否中断执行？
 					int option = JOptionPane.showOptionDialog(
 							GV.appFrame,
@@ -2571,7 +2694,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 							JOptionPane.YES_NO_OPTION,
 							JOptionPane.QUESTION_MESSAGE, null, null, null);
 					if (option == JOptionPane.OK_OPTION) {
-						runThread.closeThread();
+						debugThread.closeThread();
 						try {
 							Thread.sleep(50);
 						} catch (Throwable t) {
@@ -2633,7 +2756,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 			run();
 			break;
 		case GCSpl.iEXE_DEBUG:
-			debug(RunThread.DEBUG);
+			debug(DebugThread.DEBUG);
 			break;
 		case GCSpl.iPAUSE:
 			pause();
@@ -2648,10 +2771,10 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 			showCellValue();
 			break;
 		case GCSpl.iSTEP_NEXT:
-			debug(RunThread.STEP_OVER);
+			debug(DebugThread.STEP_OVER);
 			break;
 		case GCSpl.iSTEP_INTO:
-			debug(RunThread.STEP_INTO);
+			debug(DebugThread.STEP_INTO);
 			break;
 		case GCSpl.iSTEP_RETURN:
 			stepReturn();
