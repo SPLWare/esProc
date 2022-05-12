@@ -19,6 +19,7 @@ import com.scudata.expression.IParam;
 import com.scudata.expression.Node;
 import com.scudata.expression.ParamInfo2;
 import com.scudata.expression.PseudoFunction;
+import com.scudata.expression.fn.gather.ICount;
 import com.scudata.parallel.ClusterCursor;
 import com.scudata.resources.EngineMessage;
 
@@ -227,12 +228,17 @@ public class Groups extends PseudoFunction {
 		//获得分组时使用到的所有字段
 		String fields[] = null;
 		List<String> fieldList = new ArrayList<String>();
-		for (Expression exp : exps) {
-			parseNode(exp.getHome(), ctx, fieldList);
+		if (exps != null) {
+			for (Expression exp : exps) {
+				parseNode(exp.getHome(), ctx, fieldList);
+			}
 		}
-		for (Expression exp : tempExps) {
-			parseNode(exp.getHome(), ctx, fieldList);
+		if (tempExps != null) {
+			for (Expression exp : tempExps) {
+				parseNode(exp.getHome(), ctx, fieldList);
+			}
 		}
+		
 		int size = fieldList.size();
 		Expression[] expArray = new Expression[size];
 		if (size > 0) {
@@ -244,11 +250,24 @@ public class Groups extends PseudoFunction {
 		}
 
 		/**
-		 * 判断分组字段是否对虚表有序。如果有序就增加@o属性。
+		 * 判断分组字段和icount的汇总字段是否对虚表有序。如果有序就增加@o属性。
 		 */
-		if (pseudo instanceof PseudoTable) {
+		if (pseudo instanceof PseudoTable && tempExps != null 
+				&& tempExps.length == 1 && (tempExps[0].getHome() instanceof ICount)) {
+			//取聚合字段和icount的汇总表达式
+			List<String> list = new ArrayList<String>();
+			if (exps != null) {
+				for (Expression exp : exps) {
+					list.add(exp.toString());
+				}
+			}
+			ICount icount = (ICount) tempExps[0].getHome();
+			list.add(icount.getExp().toString());
+			String[] icountFields = new String[list.size()];
+			list.toArray(icountFields);
+			
 			PseudoTable ptable = (PseudoTable) pseudo;
-			if (ptable.getPd().isSortedFields(expStrs)) {
+			if (ptable.getPd().isSortedFields(icountFields)) {
 				if (option == null) {
 					option = "o";
 				} else {

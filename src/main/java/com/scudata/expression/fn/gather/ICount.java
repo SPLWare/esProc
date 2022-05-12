@@ -288,5 +288,9 @@ public class ICount extends Gather {
 		}
 		return new Integer(((HashSet<Object>)val).size());
 	}
+	
+	public Expression getExp() {
+		return exp;
+	}
 }
 
