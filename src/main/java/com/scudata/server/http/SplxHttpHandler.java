@@ -108,15 +108,25 @@ public class SplxHttpHandler implements HttpHandler {
 			result = "error:" + baos.toString();
 			result = StringUtils.replace( result, "\n", "<br>" );
 			t.printStackTrace();
-
-			SplxServerInIDE dsi = (SplxServerInIDE)server;
-			byte[] bytes = result.getBytes("UTF-8");
-			httpExchange.getResponseHeaders().add( "Content-Type", "text/html;charset=UTF-8" );
-			httpExchange.sendResponseHeaders( 500, bytes.length );
-			OutputStream os = httpExchange.getResponseBody();
-			os.write(bytes);
-			os.close();
-			dsi.shutDown();
+			try {
+				byte[] bytes = result.getBytes("UTF-8");
+				httpExchange.getResponseHeaders().add( "Content-Type", "text/html;charset=UTF-8" );
+				httpExchange.sendResponseHeaders( 500, bytes.length );
+				OutputStream os = httpExchange.getResponseBody();
+				os.write(bytes);
+				os.close();
+			}
+			catch( Throwable th ){
+				th.printStackTrace();
+			}
+			finally {
+				try {
+					httpExchange.close();
+				}
+				catch( Throwable th){}
+			}
+			//SplxServerInIDE dsi = (SplxServerInIDE)server;
+			//dsi.shutDown();     //ΪʲôҪshutdown��
 		}
 		
 	}
@@ -348,7 +358,7 @@ public class SplxHttpHandler implements HttpHandler {
 				} finally {
 					try {
 						baos.close();
-					} catch (IOException e) {
+					} catch (Throwable e) {
 						e.printStackTrace();
 					}
 				}
@@ -404,12 +414,15 @@ public class SplxHttpHandler implements HttpHandler {
 					os.write(bytes);
 					os.close();
 				}
-			}catch(Exception x){
+			}
+			catch(Throwable x){
+				x.printStackTrace();
+			}
+			finally {
 				try {
 					httpExchange.close();
 				}
 				catch( Throwable th){}
-				x.printStackTrace();
 			}
 		}
 		
