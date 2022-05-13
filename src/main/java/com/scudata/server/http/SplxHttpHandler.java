@@ -405,6 +405,10 @@ public class SplxHttpHandler implements HttpHandler {
 					os.close();
 				}
 			}catch(Exception x){
+				try {
+					httpExchange.close();
+				}
+				catch( Throwable th){}
 				x.printStackTrace();
 			}
 		}
