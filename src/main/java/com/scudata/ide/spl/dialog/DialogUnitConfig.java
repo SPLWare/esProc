@@ -404,8 +404,10 @@ public class DialogUnitConfig extends JDialog {
 				int r = tableHosts.getRowCount();
 				String defaultIP = UnitContext.getDefaultHost();
 				String ip = defaultIP;
+				int port = 8281;
 				if (isClusterEditing) {
 					ip = fixedIP;
+					port = increasePort(port);
 				} else {
 					if (r > 0) {
 						ip = (String) tableHosts.data.getValueAt(r - 1,
@@ -413,10 +415,10 @@ public class DialogUnitConfig extends JDialog {
 						ip = increaseIP(ip);
 					}
 				}
-				Host h = new Host(ip,8281);
+				Host h = new Host(ip,port);
 				int row = tableHosts.addRow();
 				tableHosts.setValueAt(ip, row, COL_HOST);
-				tableHosts.setValueAt(8281, row, COL_PORT);
+				tableHosts.setValueAt(port, row, COL_PORT);
 				tableHosts.setValueAt(h.getMaxTaskNum(), row, COL_MAXTASKNUM);
 				boolean isLocal = AppUtil.isLocalIP(ip);
 				tableHosts.setValueAt(isLocal ? YES : NO, row, COL_ISLOCAL);
@@ -478,6 +480,29 @@ public class DialogUnitConfig extends JDialog {
 		initButton(bDeleteClient, d);
 	}
 
+	private int increasePort(int port) {
+		int rows = tableHosts.getRowCount();
+		int p = port;
+		boolean find = false;
+		while(true) {
+			for(int r=0; r<rows; r++) {
+				int tmp = (Integer)tableHosts.data.getValueAt(r,COL_PORT);
+				if( p == tmp) {
+					find = true;
+					p++;
+					break;
+				}
+				if(r==rows-1) {
+					find = false;
+				}
+			}
+			if( !find ) {
+				break;
+			}
+		}
+		return p;
+	}
+	
 	private static String increaseIP(String host) {
 		if (host.indexOf(".") < 0) {
 			return host;
