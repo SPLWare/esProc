@@ -21,7 +21,15 @@ public class LogicAnd extends IFilter {
 		this.left = left;
 		this.right = right;
 	}
-	
+
+	public IFilter getLeft() {
+		return left;
+	}
+
+	public IFilter getRight() {
+		return right;
+	}
+
 	public boolean match(Object value) {
 		return left.match(value) && right.match(value);
 	}

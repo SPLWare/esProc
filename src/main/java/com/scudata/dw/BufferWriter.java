@@ -14,7 +14,7 @@ import com.scudata.util.Variant;
 
 public class BufferWriter {
 	static final int MARK0 = 0x00;
-	static final int NULL = 0x00;
+	public static final int NULL = 0x00;
 	static final int TRUE = 0x01;
 	static final int FALSE = 0x02;
 	static final int LONG0 = 0x03;
@@ -53,7 +53,7 @@ public class BufferWriter {
 	static final int DATE64 = 0x39; // 超界表示不了都得日期用64位保存
 	
 	static final int SERIALBYTES = 0x40; // 排号
-	static final int REPEAT3 = 0x70;
+	public static final int REPEAT3 = 0x70;
 	static final int REPEAT11 = 0x78;
 	static final int MAX_REPEAT3 = 7 + 2;
 	static final int MAX_REPEAT11 = 0x7FF + 2;

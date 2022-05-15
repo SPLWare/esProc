@@ -25,7 +25,7 @@ public class BufferReader {
 	private byte[] readBuffer = new byte[32];
 	private char[] charBuffer = new char[128];
 	
-	private Object repeatValue;//连续相同的值
+	protected Object repeatValue;//连续相同的值
 	protected int repeatCount = 0;//连续相同的值的个数
 
 	private static final String []HEXSTRINGS = new String[] {"0", "1", "2", "3", "4", "5", "6",
@@ -692,7 +692,7 @@ public class BufferReader {
 		}
 	}
 	
-	private Object readRepeat(int b) throws IOException {
+	protected Object readRepeat(int b) throws IOException {
 		// 返回一个值，重复数减去1
 		int count;
 		if ((b & 0x08) == 0) {
@@ -812,14 +812,10 @@ public class BufferReader {
 		return index;
 	}
 	
-	private int repeatInt;
-	private long repeatLong;
-	protected double repeatDouble;
-	
 	public int readBaseInt() throws IOException {
 		if (repeatCount > 0) {
 			repeatCount--;
-			return repeatInt;
+			return (Integer) repeatValue;
 		}
 
 		int b = read2();
@@ -835,14 +831,14 @@ public class BufferReader {
 		} else if (mask == BufferWriter.INT12) {
 			return ((b & 0x0F) << 8) + read2();
 		} else {
-			return readRepeatInt(b);
+			return (Integer) readRepeat(b);
 		}
 	}
 	
 	public long readBaseLong() throws IOException {
 		if (repeatCount > 0) {
 			repeatCount--;
-			return repeatLong;
+			return (Long) repeatValue;
 		}
 
 		int b = read2();
@@ -868,14 +864,14 @@ public class BufferReader {
 		} else if (b == BufferWriter.LONG64){
 			return readLong64();
 		} else {
-			return readRepeatLong(b);
+			return (Long) readRepeat(b);
 		}
 	}
 	
 	public double readBaseDouble() throws IOException {
 		if (repeatCount > 0) {
 			repeatCount--;
-			return repeatDouble;
+			return (Double) repeatValue;
 		}
 		
 		int b = read2();
@@ -912,99 +908,43 @@ public class BufferReader {
 		} else if (b == BufferWriter.FLOAT64) {
 			return Double.longBitsToDouble(readLong64());
 		} else {
-			return readRepeatDouble(b);
+			return (Double) readRepeat(b);
 		}
 	}
 	
-	public long readBaseDate() throws IOException {
-		if (repeatCount > 0) {
-			repeatCount--;
-			return repeatLong;
-		}
-		
-		int b = read2();
-		
-		switch (b) {
-		case BufferWriter.DATE16:
-			return BufferWriter.BASEDATE + readUInt16() * 86400000L;
-		case BufferWriter.DATE32:
-			return BufferWriter.BASEDATE - readULong32() * 1000L;
-		case BufferWriter.DATETIME32:
-			throw new RuntimeException();
-		case BufferWriter.DATETIME33:
-			throw new RuntimeException();
-		case BufferWriter.DATETIME64:
-			throw new RuntimeException();
-		case BufferWriter.TIME16:
-			throw new RuntimeException();
-		case BufferWriter.TIME17:
-			throw new RuntimeException();
-		case BufferWriter.TIME32:
-			throw new RuntimeException();
-		case BufferWriter.DATE24:
-			return BufferWriter.BASEDATE + readUInt24() * 86400000L;
-		case BufferWriter.DATE64:
-			return readLong64();
-		default: 
-			return readRepeatDate(b);
-		}
-	}
-	
-	private int readRepeatInt(int b) throws IOException {
-		// 返回一个值，重复数减去1
-		int count;
-		if ((b & 0x08) == 0) {
-			count = (b & 0x07) + 1;
-		} else {
-			count = ((b & 0x07) << 8) + read2() + 1;
-		}
-		
-		repeatInt = readBaseInt();
-		repeatCount = count;
-		return repeatInt;
-	}
-	
-	private long readRepeatLong(int b) throws IOException {
-		// 返回一个值，重复数减去1
-		int count;
-		if ((b & 0x08) == 0) {
-			count = (b & 0x07) + 1;
-		} else {
-			count = ((b & 0x07) << 8) + read2() + 1;
-		}
-		
-		repeatLong = readBaseLong();
-		repeatCount = count;
-		return repeatLong;
-	}
-	
-	protected double readRepeatDouble(int b) throws IOException {
-		// 返回一个值，重复数减去1
-		int count;
-		if ((b & 0x08) == 0) {
-			count = (b & 0x07) + 1;
-		} else {
-			count = ((b & 0x07) << 8) + read2() + 1;
-		}
-		
-		repeatDouble = readBaseDouble();
-		repeatCount = count;
-		return repeatDouble;
-	}
-	
-	private long readRepeatDate(int b) throws IOException {
-		// 返回一个值，重复数减去1
-		int count;
-		if ((b & 0x08) == 0) {
-			count = (b & 0x07) + 1;
-		} else {
-			count = ((b & 0x07) << 8) + read2() + 1;
-		}
-		
-		repeatLong = readBaseDate();
-		repeatCount = count;
-		return repeatLong;
-	}
+//	public long readBaseDate() throws IOException {
+//		if (repeatCount > 0) {
+//			repeatCount--;
+//			return (Long) repeatValue;
+//		}
+//		
+//		int b = read2();
+//		
+//		switch (b) {
+//		case BufferWriter.DATE16:
+//			return BufferWriter.BASEDATE + readUInt16() * 86400000L;
+//		case BufferWriter.DATE32:
+//			return BufferWriter.BASEDATE - readULong32() * 1000L;
+//		case BufferWriter.DATETIME32:
+//			throw new RuntimeException();
+//		case BufferWriter.DATETIME33:
+//			throw new RuntimeException();
+//		case BufferWriter.DATETIME64:
+//			throw new RuntimeException();
+//		case BufferWriter.TIME16:
+//			throw new RuntimeException();
+//		case BufferWriter.TIME17:
+//			throw new RuntimeException();
+//		case BufferWriter.TIME32:
+//			throw new RuntimeException();
+//		case BufferWriter.DATE24:
+//			return BufferWriter.BASEDATE + readUInt24() * 86400000L;
+//		case BufferWriter.DATE64:
+//			return readLong64();
+//		default: 
+//			return readRepeat(b);
+//		}
+//	}
 	
 	public void skipBaseInt() throws IOException {
 		if (repeatCount > 0) {
@@ -1040,7 +980,7 @@ public class BufferReader {
 		case BufferWriter.HEX4:
 			break;
 		case BufferWriter.REPEAT3:
-			readRepeatInt(b);
+			readRepeat(b);
 			break;
 		case BufferWriter.SERIALBYTES:
 			int len = b & 0x0F;
@@ -1090,7 +1030,7 @@ public class BufferReader {
 		case BufferWriter.HEX4:
 			break;
 		case BufferWriter.REPEAT3:
-			readRepeatLong(b);
+			readRepeat(b);
 			break;
 		case BufferWriter.SERIALBYTES:
 			int len = b & 0x0F;
@@ -1140,7 +1080,7 @@ public class BufferReader {
 		case BufferWriter.HEX4:
 			break;
 		case BufferWriter.REPEAT3:
-			readRepeatDouble(b);
+			readRepeat(b);
 			break;
 		case BufferWriter.SERIALBYTES:
 			int len = b & 0x0F;
@@ -1190,7 +1130,7 @@ public class BufferReader {
 		case BufferWriter.HEX4:
 			break;
 		case BufferWriter.REPEAT3:
-			readRepeatDate(b);
+			readRepeat(b);
 			break;
 		case BufferWriter.SERIALBYTES:
 			int len = b & 0x0F;
