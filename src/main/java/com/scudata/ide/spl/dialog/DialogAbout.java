@@ -164,7 +164,8 @@ public class DialogAbout extends JDialog {
 	 * @param lbTitle
 	 * @param tfText
 	 */
-	private void setText(String sDefault, String sText, JLabel lbTitle, Object tfText) {
+	private void setText(String sDefault, String sText, JLabel lbTitle,
+			Object tfText) {
 		if (!StringUtils.isValidString(sText)) {
 			return;
 		}
@@ -189,20 +190,13 @@ public class DialogAbout extends JDialog {
 	}
 
 	/**
-	 * 取发布时间
-	 * 
-	 * @return
-	 */
-	private static String getReleaseDate() {
-		return "2022-04-02";
-	}
-
-	/**
 	 * 加载信息
 	 */
 	private void loadMessage() {
-		jLProductName.setText(mm.getMessage("dialogabout.productname") + "      " + productName);
-		jLReleaseDate.setText(mm.getMessage("dialogabout.label1", getReleaseDate()));
+		jLProductName.setText(mm.getMessage("dialogabout.productname")
+				+ "      " + productName);
+		jLReleaseDate.setText(mm.getMessage("dialogabout.label1",
+				GV.appFrame.getReleaseDate()));
 
 		String tmp = mm.getMessage("dialogabout.providername");// 公司名称
 		String vendorName = mm.getMessage("dialogabout.defvendor");
@@ -261,12 +255,16 @@ public class DialogAbout extends JDialog {
 			int h = icon.getIconHeight();
 			isLongLogo = w * 1.0 / h > 2;
 			if (isLongLogo) {
-				image = image.getScaledInstance(380, (int) (380.0 * h / w), Image.SCALE_SMOOTH);
+				image = image.getScaledInstance(380, (int) (380.0 * h / w),
+						Image.SCALE_SMOOTH);
 			} else {
 				if (w > h) {
-					image = image.getScaledInstance(128, (int) (128 * (h * 1.0 / w)), Image.SCALE_SMOOTH);
+					image = image.getScaledInstance(128,
+							(int) (128 * (h * 1.0 / w)), Image.SCALE_SMOOTH);
 				} else {
-					image = image.getScaledInstance((int) (128 * (w * 1.0 / h)), 128, Image.SCALE_SMOOTH);
+					image = image.getScaledInstance(
+							(int) (128 * (w * 1.0 / h)), 128,
+							Image.SCALE_SMOOTH);
 				}
 			}
 
@@ -299,7 +297,8 @@ public class DialogAbout extends JDialog {
 				}
 				if (GM.getOperationSytem() == GC.OS_WINDOWS) {
 					try {
-						Runtime.getRuntime().exec("cmd /C start " + jLbHttp2.getText());
+						Runtime.getRuntime().exec(
+								"cmd /C start " + jLbHttp2.getText());
 					} catch (Exception x) {
 						GM.showException(x);
 					}
@@ -335,22 +334,29 @@ public class DialogAbout extends JDialog {
 		final int BOTTOM_X2 = 95;
 		final int BOTTOM_L1 = 69;
 		final int BOTTOM_L2 = 288;
-		panelTop.add(jLCompanyName, new FreeConstraints(BOTTOM_X1, bottomY, BOTTOM_L1, -1));
-		panelTop.add(jLbName, new FreeConstraints(BOTTOM_X2, bottomY, BOTTOM_L2, -1));
+		panelTop.add(jLCompanyName, new FreeConstraints(BOTTOM_X1, bottomY,
+				BOTTOM_L1, -1));
+		panelTop.add(jLbName, new FreeConstraints(BOTTOM_X2, bottomY,
+				BOTTOM_L2, -1));
 		if (isCN) {
 			bottomY += DIFF;
-			panelTop.add(jLbName2, new FreeConstraints(BOTTOM_X2, bottomY, BOTTOM_L2, -1));
+			panelTop.add(jLbName2, new FreeConstraints(BOTTOM_X2, bottomY,
+					BOTTOM_L2, -1));
 		}
 		bottomY += DIFF;
-		panelTop.add(jLWebsite, new FreeConstraints(BOTTOM_X1, bottomY, BOTTOM_L1, -1));
-		panelTop.add(jLbHttp, new FreeConstraints(BOTTOM_X2, bottomY, BOTTOM_L2, -1));
+		panelTop.add(jLWebsite, new FreeConstraints(BOTTOM_X1, bottomY,
+				BOTTOM_L1, -1));
+		panelTop.add(jLbHttp, new FreeConstraints(BOTTOM_X2, bottomY,
+				BOTTOM_L2, -1));
 		if (isCN) {
 			bottomY += DIFF;
-			panelTop.add(jLbHttp2, new FreeConstraints(BOTTOM_X2, bottomY, BOTTOM_L2, -1));
+			panelTop.add(jLbHttp2, new FreeConstraints(BOTTOM_X2, bottomY,
+					BOTTOM_L2, -1));
 		}
 		bottomY += DIFF;
 		panelTop.add(jLTel, new FreeConstraints(BOTTOM_X1, bottomY, -1, -1));
-		panelTop.add(jTFTele, new FreeConstraints(BOTTOM_X2, bottomY, BOTTOM_L2, -1));
+		panelTop.add(jTFTele, new FreeConstraints(BOTTOM_X2, bottomY,
+				BOTTOM_L2, -1));
 		JPanel jPanel2 = new JPanel();
 		jPanel2.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		jPanel2.add(jBJDK);
@@ -448,7 +454,8 @@ public class DialogAbout extends JDialog {
 
 }
 
-class DialogAbout_jBClose_actionAdapter implements java.awt.event.ActionListener {
+class DialogAbout_jBClose_actionAdapter implements
+		java.awt.event.ActionListener {
 	DialogAbout adaptee;
 
 	DialogAbout_jBClose_actionAdapter(DialogAbout adaptee) {

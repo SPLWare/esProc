@@ -208,6 +208,15 @@ public abstract class AppFrame extends JFrame implements IAppFrame {
 	}
 
 	/**
+	 * 取发布时间
+	 * 
+	 * @return
+	 */
+	public String getReleaseDate() {
+		return "";
+	}
+
+	/**
 	 * Multi-window display
 	 * 
 	 * @param cmd
