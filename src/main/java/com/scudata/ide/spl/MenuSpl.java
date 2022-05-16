@@ -52,10 +52,8 @@ public class MenuSpl extends AppMenu {
 		add(getEditMenu());
 		// 程序菜单
 		add(getProgramMenu());
-
 		// 工具菜单
 		add(getToolMenu());
-
 		// 窗口菜单
 		tmpLiveMenu = getWindowMenu();
 		add(tmpLiveMenu);
