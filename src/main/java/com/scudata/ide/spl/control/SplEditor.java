@@ -34,7 +34,6 @@ import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.common.StringUtils;
 import com.scudata.dm.Context;
-import com.scudata.ide.common.CellSetTxtUtil;
 import com.scudata.ide.common.ConfigOptions;
 import com.scudata.ide.common.GC;
 import com.scudata.ide.common.GM;
@@ -151,13 +150,48 @@ public class SplEditor {
 		this.sheet = sheet;
 		control = newEditControl(ConfigOptions.iRowCount.intValue(),
 				ConfigOptions.iColCount.intValue());
-		CellSetTxtUtil.initDefaultProperty(control.cellSet);
+		initDefaultProperty(control.cellSet);
 		control.draw();
 		SplControlListener qcl = new SplControlListener(this);
 		control.addEditorListener(qcl);
 		setContext(context);
 		undoManager = new UndoManager(this);
 	};
+
+	/**
+	 * Initialize the grid with initial properties
+	 * 
+	 * @param cs
+	 *            CellSet
+	 */
+	public static void initDefaultProperty(CellSet cs) {
+		int rows, r, cols, c;
+		rows = cs.getRowCount();
+		cols = cs.getColCount();
+		for (r = 1; r <= rows; r++) {
+			IRowCell rc = cs.getRowCell(r);
+			initDefaultCell(rc);
+		}
+		for (c = 1; c <= cols; c++) {
+			IColCell cc = cs.getColCell(c);
+			initDefaultCell(cc);
+		}
+	}
+
+	/**
+	 * Initialize cell
+	 * 
+	 * @param ic
+	 */
+	private static void initDefaultCell(Object ic) {
+		if (ic instanceof RowCell) {
+			RowCell rc = (RowCell) ic;
+			rc.setHeight(ConfigOptions.fRowHeight.floatValue());
+		} else if (ic instanceof ColCell) {
+			ColCell cc = (ColCell) ic;
+			cc.setWidth(ConfigOptions.fColWidth.floatValue());
+		}
+	}
 
 	/**
 	 * ¹¹Ôì±à¼­¿Ø¼þ

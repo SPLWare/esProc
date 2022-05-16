@@ -3,7 +3,12 @@ package com.scudata.ide.spl;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Image;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,8 +33,10 @@ import com.scudata.cellset.datamodel.Command;
 import com.scudata.cellset.datamodel.NormalCell;
 import com.scudata.cellset.datamodel.PgmCellSet;
 import com.scudata.cellset.datamodel.PgmNormalCell;
+import com.scudata.common.ArgumentTokenizer;
 import com.scudata.common.ByteMap;
 import com.scudata.common.CellLocation;
+import com.scudata.common.Escape;
 import com.scudata.common.IByteMap;
 import com.scudata.common.Logger;
 import com.scudata.common.MessageManager;
@@ -52,7 +59,6 @@ import com.scudata.expression.fn.Eval;
 import com.scudata.expression.fn.Func;
 import com.scudata.expression.fn.Func.CallInfo;
 import com.scudata.ide.common.AppMenu;
-import com.scudata.ide.common.CellSetTxtUtil;
 import com.scudata.ide.common.ConfigFile;
 import com.scudata.ide.common.ConfigOptions;
 import com.scudata.ide.common.GC;
@@ -664,9 +670,12 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 		}
 
 		GV.toolBarProperty.setEnabled(selectState != GCSpl.SELECT_STATE_NONE);
-		if (refreshParams)
-			GVSpl.tabParam.resetParamList(getContextParamList(),
-					listSpaceParams(), getEnvParamList());
+		if (refreshParams) {
+			Object[] allParams = getAllParams();
+			GVSpl.tabParam.resetParamList((ParamList) allParams[0],
+					(HashMap<String, Param[]>) allParams[1],
+					(ParamList) allParams[2]);
+		}
 
 		if (GVSpl.panelValue.tableValue.isLocked1()) {
 			GVSpl.panelValue.tableValue.setLocked1(false);
@@ -1280,6 +1289,18 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 	 */
 	protected ParamList getEnvParamList() {
 		return Env.getParamList();
+	}
+
+	/**
+	 * 取网格、任务空间和全局变量
+	 * @return
+	 */
+	protected Object[] getAllParams() {
+		Object[] params = new Object[3];
+		params[0] = getContextParamList();
+		params[1] = listSpaceParams();
+		params[2] = getEnvParamList();
+		return params;
 	}
 
 	/**
@@ -2678,8 +2699,15 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 					cellSet.getColCount());
 			Vector<IAtomicCmd> cmds = splEditor.getClearRectCmds(rect,
 					SplEditor.CLEAR);
+			if (cmds == null) {
+				cmds = new Vector<IAtomicCmd>();
+			}
+			Vector<IAtomicCmd> setExpCmds = readCellSet(txtPath, cellSet);
+			if (setExpCmds != null) {
+				cmds.addAll(setExpCmds);
+			}
 			splEditor.executeCmd(cmds);
-			CellSetTxtUtil.readCellSet(txtPath, cellSet);
+
 			splEditor.setCellSet(cellSet);
 			resetCellSet();
 			resetRunState();
@@ -2692,6 +2720,129 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 		} catch (Exception e) {
 			GM.showException(e);
 		}
+	}
+
+	/**
+	 * Read cellset from text file
+	 * 
+	 * @param txtFileName
+	 *            String
+	 * @param cellSet
+	 *            CellSet
+	 * @throws FileNotFoundException
+	 * @throws IOException
+	 */
+	private Vector<IAtomicCmd> readCellSet(String txtFileName, CellSet cellSet)
+			throws FileNotFoundException, IOException {
+		FileInputStream fis = null;
+		InputStreamReader isr = null;
+		BufferedReader br = null;
+		try {
+			fis = new FileInputStream(txtFileName);
+			isr = new InputStreamReader(fis, Env.getDefaultCharsetName());
+			br = new BufferedReader(isr);
+
+			List<List<String>> datas = new ArrayList<List<String>>();
+			int rowCount = 0, colCount = 0;
+			String rowStr = br.readLine();
+			while (rowStr != null) {
+				rowCount++;
+				List<String> rowDatas = new ArrayList<String>();
+				ArgumentTokenizer at = new ArgumentTokenizer(rowStr, '\t');
+				int c = 0;
+				while (at.hasMoreTokens()) {
+					String exp = at.nextToken(); // Escape.remove(at.nextToken());
+					c++;
+					rowDatas.add(exp);
+				}
+				datas.add(rowDatas);
+				colCount = Math.max(c, colCount);
+				rowStr = br.readLine();
+			}
+
+			Vector<IAtomicCmd> cmds = new Vector<IAtomicCmd>();
+			if (rowCount > cellSet.getRowCount()) {
+				IAtomicCmd cmd = splEditor.getAppendRows(rowCount
+						- cellSet.getRowCount());
+				cmds.add(cmd);
+			}
+			if (colCount > cellSet.getColCount()) {
+				IAtomicCmd cmd = splEditor.getAppendCols(colCount
+						- cellSet.getColCount());
+				cmds.add(cmd);
+			}
+			splEditor.executeCmd(cmds);
+
+			cmds.clear();
+			for (int r = 0; r < datas.size(); r++) {
+				List<String> rowDatas = datas.get(r);
+				for (int c = 0; c < rowDatas.size(); c++) {
+					String exp = rowDatas.get(c);
+					if (!StringUtils.isValidString(exp)) {
+						continue;
+					}
+					INormalCell nc = cellSet.getCell(r + 1, c + 1);
+					exp = GM.getOptionTrimChar0String(exp);
+
+					AtomicCell ac = new AtomicCell(splEditor.getComponent(), nc);
+					ac.setProperty(AtomicCell.CELL_EXP);
+					ac.setValue(exp);
+					cmds.add(ac);
+				}
+			}
+			return cmds;
+		} finally {
+			try {
+				br.close();
+			} catch (Exception ex) {
+			}
+			try {
+				isr.close();
+			} catch (Exception ex) {
+			}
+			try {
+				fis.close();
+			} catch (Exception ex) {
+			}
+		}
+	}
+
+	/**
+	 * Set a line of text to the cellset
+	 * 
+	 * @param cellSet
+	 * @param r
+	 * @param rowStr
+	 */
+	private Vector<IAtomicCmd> setRowString(CellSet cellSet, int r,
+			String rowStr) {
+		Vector<IAtomicCmd> cmds = new Vector<IAtomicCmd>();
+		if (r > cellSet.getRowCount()) {
+			IAtomicCmd cmd = splEditor.getAppendRows(1);
+			splEditor.executeCmd(cmd);
+		}
+		ArgumentTokenizer at = new ArgumentTokenizer(rowStr, '\t');
+
+		short c = 0;
+		while (at.hasMoreTokens()) {
+			String exp = Escape.remove(at.nextToken());
+			c++;
+			if (c > cellSet.getColCount()) {
+				IAtomicCmd cmd = splEditor.getAppendCols(1);
+				splEditor.executeCmd(cmd);
+			}
+			if (!StringUtils.isValidString(exp)) {
+				continue;
+			}
+			INormalCell nc = cellSet.getCell(r, c);
+			exp = GM.getOptionTrimChar0String(exp);
+
+			AtomicCell ac = new AtomicCell(splEditor.getComponent(), nc);
+			ac.setProperty(AtomicCell.CELL_EXP);
+			ac.setValue(exp);
+			cmds.add(ac);
+		}
+		return cmds;
 	}
 
 	/**
