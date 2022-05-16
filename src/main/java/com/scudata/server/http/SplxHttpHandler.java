@@ -107,7 +107,7 @@ public class SplxHttpHandler implements HttpHandler {
 			}
 			result = "error:" + baos.toString();
 			result = StringUtils.replace( result, "\n", "<br>" );
-			t.printStackTrace();
+			Logger.severe(t);
 			try {
 				byte[] bytes = result.getBytes("UTF-8");
 				httpExchange.getResponseHeaders().add( "Content-Type", "text/html;charset=UTF-8" );
@@ -117,7 +117,7 @@ public class SplxHttpHandler implements HttpHandler {
 				os.close();
 			}
 			catch( Throwable th ){
-				th.printStackTrace();
+				Logger.severe(th);
 			}
 			finally {
 				try {
@@ -281,14 +281,13 @@ public class SplxHttpHandler implements HttpHandler {
 								for( int i = 0; i < list.count(); i++ ) {
 									Param p = (Param) list.get(i);
 									Object value = p.getValue();
-									if( value == null ) continue;
+									//if( value == null ) continue;
 									ctx1.setParamValue(p.getName(), value );
 								}
 							}
 							for (int i = 0; at.hasMoreTokens() && list != null; i++) {
 								String pvalue = at.nextToken();
-								if (pvalue == null || pvalue.trim().length() == 0)
-									continue;
+								//if (pvalue == null || pvalue.trim().length() == 0) continue;
 								Param p = (Param) list.get(i);
 								ctx1.setParamValue(p.getName(), Variant.parse(pvalue));
 							}
@@ -303,7 +302,9 @@ public class SplxHttpHandler implements HttpHandler {
 									sb.append( line ).append( "\n" );
 								}
 								ctx1.setParamValue( "argpost", sb.toString() );
-							}catch(Throwable t ){}
+							}catch(Throwable t ){
+								Logger.severe(t);
+							}
 							finally {
 								try{ if( reqis != null ) reqis.close(); }catch(Throwable t){}
 							}
@@ -416,7 +417,7 @@ public class SplxHttpHandler implements HttpHandler {
 				}
 			}
 			catch(Throwable x){
-				x.printStackTrace();
+				Logger.severe( x );
 			}
 			finally {
 				try {
