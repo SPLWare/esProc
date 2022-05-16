@@ -169,8 +169,8 @@ public abstract class JTabbedParam extends JTabbedPane {
 					GV.console.clear();
 				}
 				addTab(STR_CONSOLE, panelConsole);
-				showConsoleTab();
 			}
+			showConsoleTab();
 		} else {
 			if (index > -1) {
 				this.remove(index);
