@@ -98,17 +98,17 @@ public class SplxHttpHandler implements HttpHandler {
 			}
 			new Thread(new HandlerThread(httpExchange)).start();
 		} catch (Throwable t) {
-			String result;
-			ByteArrayOutputStream baos = new ByteArrayOutputStream();
 			try {
-				t.printStackTrace(new PrintStream(baos));
-			} finally {
-				baos.close();
-			}
-			result = "error:" + baos.toString();
-			result = StringUtils.replace( result, "\n", "<br>" );
-			Logger.severe(t);
-			try {
+				String result;
+				ByteArrayOutputStream baos = new ByteArrayOutputStream();
+				try {
+					t.printStackTrace(new PrintStream(baos));
+				} finally {
+					baos.close();
+				}
+				result = "error:" + baos.toString();
+				result = StringUtils.replace( result, "\n", "<br>" );
+				Logger.severe(t);
 				byte[] bytes = result.getBytes("UTF-8");
 				httpExchange.getResponseHeaders().add( "Content-Type", "text/html;charset=UTF-8" );
 				httpExchange.sendResponseHeaders( 500, bytes.length );
@@ -355,24 +355,31 @@ public class SplxHttpHandler implements HttpHandler {
 					}
 				}
 			}catch (Throwable t) {
-				status = 500;
-				result = "error:";
-				ByteArrayOutputStream baos = new ByteArrayOutputStream();
 				try {
-					t.printStackTrace(new PrintStream(baos));
-				} finally {
+					status = 500;
+					result = "error:";
+					ByteArrayOutputStream baos = new ByteArrayOutputStream();
 					try {
-						baos.close();
-					} catch (Throwable e) {
-						e.printStackTrace();
+						t.printStackTrace(new PrintStream(baos));
+					} finally {
+						try {
+							baos.close();
+						} catch (Throwable e) {
+							e.printStackTrace();
+						}
 					}
+					result = "error:" + baos.toString();
+					result = StringUtils.replace( (String)result, "\n", "<br>" );
+	//				t.printStackTrace();
+					Logger.severe(t);
 				}
-				result = "error:" + baos.toString();
-				result = StringUtils.replace( (String)result, "\n", "<br>" );
-//				t.printStackTrace();
-				Logger.severe(t);
+				catch( Throwable th ) {
+					Logger.severe(th);
+				}
 			} finally {
-				DatabaseUtil.closeAutoDBs(ctx1);
+				try {
+					DatabaseUtil.closeAutoDBs(ctx1);
+				}catch( Throwable ex){}
 			}
 			
 			try{
