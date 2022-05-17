@@ -29,9 +29,9 @@ import com.scudata.common.Escape;
 import com.scudata.common.IOUtils;
 import com.scudata.common.ISessionFactory;
 import com.scudata.common.JNDIConfig;
-import com.scudata.common.JNDISessionFactory;
 import com.scudata.common.Logger;
 import com.scudata.common.RQException;
+import com.scudata.common.SpringDBConfig;
 import com.scudata.common.StringUtils;
 import com.scudata.common.UUID;
 import com.scudata.dm.Context;
@@ -480,8 +480,8 @@ public class ConfigUtil {
 					if (!StringUtils.isValidString(jndiName))
 						continue;
 					try {
-						JNDISessionFactory jndisf = new JNDISessionFactory(
-								jndiConfig);
+						ISessionFactory jndisf = jndiConfig
+								.createSessionFactory();
 						Env.setDBSessionFactory(jndiName, jndisf);
 						if (calcInitSpl && autoConnectList != null
 								&& autoConnectList.contains(jndiName)) {
@@ -491,6 +491,22 @@ public class ConfigUtil {
 					} catch (Exception ex) {
 						Logger.error(AppMessage.get().getMessage(
 								"configutil.errorjndi", jndiName,
+								ex.getMessage()));
+					}
+				}
+			}
+
+			List<SpringDBConfig> springDBList = config.getSpringDBList();
+			if (springDBList != null) {
+				for (SpringDBConfig springDB : springDBList) {
+					String dsId = springDB.getId();
+					if (!StringUtils.isValidString(dsId))
+						continue;
+					try {
+						springDB.createDBSessionFactory();
+					} catch (Exception ex) {
+						Logger.error(AppMessage.get().getMessage(
+								"configutil.errorspringdb", springDB.getName(),
 								ex.getMessage()));
 					}
 				}

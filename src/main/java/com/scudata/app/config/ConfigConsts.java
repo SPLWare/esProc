@@ -148,6 +148,9 @@ public class ConfigConsts {
 	public static String DEF_DATA_SOURCE = "defDataSource";
 	public static String JNDI_LIST = "JNDIList";
 	public static String JNDI = "JNDI";
+	public static String SPRING_DB_LIST = "SpringDBList";
+	public static String SPRING_DB = "DataSource";
+	public static String SPRING_ID = "id";
 
 	/**
 	 * JNDI Configuration

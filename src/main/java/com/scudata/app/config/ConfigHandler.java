@@ -12,6 +12,7 @@ import com.scudata.common.DBConfig;
 import com.scudata.common.DBTypes;
 import com.scudata.common.JNDIConfig;
 import com.scudata.common.Logger;
+import com.scudata.common.SpringDBConfig;
 import com.scudata.common.StringUtils;
 
 /**
@@ -56,7 +57,8 @@ public class ConfigHandler extends DefaultHandler {
 	/**
 	 * Node start
 	 */
-	public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
+	public void startElement(String uri, String localName, String qName,
+			Attributes attributes) throws SAXException {
 		buf.setLength(0);
 		if (qName.equalsIgnoreCase(ConfigConsts.CONFIG)) {
 			String sVersion = attributes.getValue(ConfigConsts.VERSION);
@@ -93,6 +95,9 @@ public class ConfigHandler extends DefaultHandler {
 		} else if (qName.equalsIgnoreCase(ConfigConsts.JNDI_LIST)) {
 			activeNode = SERVER_JNDI;
 			config.setJNDIList(new ArrayList<JNDIConfig>());
+		} else if (qName.equalsIgnoreCase(ConfigConsts.SPRING_DB_LIST)) {
+			activeNode = SERVER_SPRING_DB;
+			config.setSpringDBList(new ArrayList<SpringDBConfig>());
 		} else if (qName.equalsIgnoreCase(ConfigConsts.JDBC)) {
 			activeNode = JDBC;
 			config.setJdbcNode(true);
@@ -109,10 +114,12 @@ public class ConfigHandler extends DefaultHandler {
 				if (db != null) {
 					String name = attributes.getValue(ConfigConsts.NAME);
 					String value = attributes.getValue(ConfigConsts.VALUE);
-					if (name != null && name.trim().length() > 0 && value != null && value.trim().length() > 0) {
+					if (name != null && name.trim().length() > 0
+							&& value != null && value.trim().length() > 0) {
 						if (name.equalsIgnoreCase(ConfigConsts.DB_URL)) {
 							db.setUrl(value);
-						} else if (name.equalsIgnoreCase(ConfigConsts.DB_DRIVER)) {
+						} else if (name
+								.equalsIgnoreCase(ConfigConsts.DB_DRIVER)) {
 							db.setDriver(value);
 						} else if (name.equalsIgnoreCase(ConfigConsts.DB_TYPE)) {
 							try {
@@ -123,21 +130,28 @@ public class ConfigHandler extends DefaultHandler {
 							}
 						} else if (name.equalsIgnoreCase(ConfigConsts.DB_USER)) {
 							db.setUser(value);
-						} else if (name.equalsIgnoreCase(ConfigConsts.DB_PASSWORD)) {
+						} else if (name
+								.equalsIgnoreCase(ConfigConsts.DB_PASSWORD)) {
 							db.setPassword(value);
-						} else if (name.equalsIgnoreCase(ConfigConsts.DB_BATCH_SIZE)) {
+						} else if (name
+								.equalsIgnoreCase(ConfigConsts.DB_BATCH_SIZE)) {
 							try {
 								int batchSize = Integer.parseInt(value);
 								db.setBatchSize(batchSize);
 							} catch (Exception e) {
-								Logger.debug("Invalid property " + ConfigConsts.DB_BATCH_SIZE + ":" + value + " of "
-										+ db.getName() + " DB.");
+								Logger.debug("Invalid property "
+										+ ConfigConsts.DB_BATCH_SIZE + ":"
+										+ value + " of " + db.getName()
+										+ " DB.");
 							}
-						} else if (name.equalsIgnoreCase(ConfigConsts.DB_AUTO_CONNECT)) {
+						} else if (name
+								.equalsIgnoreCase(ConfigConsts.DB_AUTO_CONNECT)) {
 							try {
-								boolean autoConnect = Boolean.valueOf(value).booleanValue();
+								boolean autoConnect = Boolean.valueOf(value)
+										.booleanValue();
 								if (autoConnect) {
-									List<String> autoConnectList = config.getAutoConnectList();
+									List<String> autoConnectList = config
+											.getAutoConnectList();
 									if (autoConnectList == null) {
 										autoConnectList = new ArrayList<String>();
 										config.setAutoConnectList(autoConnectList);
@@ -145,52 +159,76 @@ public class ConfigHandler extends DefaultHandler {
 									autoConnectList.add(db.getName());
 								}
 							} catch (Exception ex) {
-								Logger.debug("Invalid property " + ConfigConsts.DB_AUTO_CONNECT + ":" + value + " of "
-										+ db.getName() + " DB.");
+								Logger.debug("Invalid property "
+										+ ConfigConsts.DB_AUTO_CONNECT + ":"
+										+ value + " of " + db.getName()
+										+ " DB.");
 							}
-						} else if (name.equalsIgnoreCase(ConfigConsts.DB_USE_SCHEMA)) {
+						} else if (name
+								.equalsIgnoreCase(ConfigConsts.DB_USE_SCHEMA)) {
 							try {
-								boolean useSchema = Boolean.valueOf(value).booleanValue();
+								boolean useSchema = Boolean.valueOf(value)
+										.booleanValue();
 								db.setUseSchema(useSchema);
 							} catch (Exception ex) {
-								Logger.debug("Invalid property " + ConfigConsts.DB_USE_SCHEMA + ":" + value + " of "
-										+ db.getName() + " DB.");
+								Logger.debug("Invalid property "
+										+ ConfigConsts.DB_USE_SCHEMA + ":"
+										+ value + " of " + db.getName()
+										+ " DB.");
 							}
-						} else if (name.equalsIgnoreCase(ConfigConsts.DB_ADD_TILDE)) {
+						} else if (name
+								.equalsIgnoreCase(ConfigConsts.DB_ADD_TILDE)) {
 							try {
-								boolean addTilde = Boolean.valueOf(value).booleanValue();
+								boolean addTilde = Boolean.valueOf(value)
+										.booleanValue();
 								db.setAddTilde(addTilde);
 							} catch (Exception ex) {
-								Logger.debug("Invalid property " + ConfigConsts.DB_ADD_TILDE + ":" + value + " of "
-										+ db.getName() + " DB.");
+								Logger.debug("Invalid property "
+										+ ConfigConsts.DB_ADD_TILDE + ":"
+										+ value + " of " + db.getName()
+										+ " DB.");
 							}
-						} else if (name.equalsIgnoreCase(ConfigConsts.DB_CHARSET)) {
+						} else if (name
+								.equalsIgnoreCase(ConfigConsts.DB_CHARSET)) {
 							db.setDBCharset(value);
-						} else if (name.equalsIgnoreCase(ConfigConsts.DB_CLIENT_CHARSET)) {
+						} else if (name
+								.equalsIgnoreCase(ConfigConsts.DB_CLIENT_CHARSET)) {
 							db.setClientCharset(value);
-						} else if (name.equalsIgnoreCase(ConfigConsts.DB_TRANS_CONTENT)) {
+						} else if (name
+								.equalsIgnoreCase(ConfigConsts.DB_TRANS_CONTENT)) {
 							try {
-								boolean needTranContent = Boolean.valueOf(value).booleanValue();
+								boolean needTranContent = Boolean
+										.valueOf(value).booleanValue();
 								db.setNeedTranContent(needTranContent);
 							} catch (Exception ex) {
-								Logger.debug("Invalid property " + ConfigConsts.DB_TRANS_CONTENT + ":" + value + " of "
-										+ db.getName() + " DB.");
+								Logger.debug("Invalid property "
+										+ ConfigConsts.DB_TRANS_CONTENT + ":"
+										+ value + " of " + db.getName()
+										+ " DB.");
 							}
-						} else if (name.equalsIgnoreCase(ConfigConsts.DB_TRANS_SENTENCE)) {
+						} else if (name
+								.equalsIgnoreCase(ConfigConsts.DB_TRANS_SENTENCE)) {
 							try {
-								boolean needTranSentence = Boolean.valueOf(value).booleanValue();
+								boolean needTranSentence = Boolean.valueOf(
+										value).booleanValue();
 								db.setNeedTranSentence(needTranSentence);
 							} catch (Exception ex) {
-								Logger.debug("Invalid property " + ConfigConsts.DB_TRANS_SENTENCE + ":" + value + " of "
-										+ db.getName() + " DB.");
+								Logger.debug("Invalid property "
+										+ ConfigConsts.DB_TRANS_SENTENCE + ":"
+										+ value + " of " + db.getName()
+										+ " DB.");
 							}
-						} else if (name.equalsIgnoreCase(ConfigConsts.DB_CASE_SENTENCE)) {
+						} else if (name
+								.equalsIgnoreCase(ConfigConsts.DB_CASE_SENTENCE)) {
 							try {
-								boolean bcase = Boolean.valueOf(value).booleanValue();
+								boolean bcase = Boolean.valueOf(value)
+										.booleanValue();
 								db.setCaseSentence(bcase);
 							} catch (Exception ex) {
-								Logger.debug("Invalid property " + ConfigConsts.DB_CASE_SENTENCE + ":" + value + " of "
-										+ db.getName() + " DB.");
+								Logger.debug("Invalid property "
+										+ ConfigConsts.DB_CASE_SENTENCE + ":"
+										+ value + " of " + db.getName()
+										+ " DB.");
 							}
 						}
 					}
@@ -200,7 +238,8 @@ public class ConfigHandler extends DefaultHandler {
 				if (db != null) {
 					String name = attributes.getValue(ConfigConsts.NAME);
 					String value = attributes.getValue(ConfigConsts.VALUE);
-					if (name != null && name.trim().length() > 0 && value != null && value.trim().length() > 0) {
+					if (name != null && name.trim().length() > 0
+							&& value != null && value.trim().length() > 0) {
 						String extend = db.getExtend();
 						if (extend == null) {
 							extend = "";
@@ -228,7 +267,8 @@ public class ConfigHandler extends DefaultHandler {
 				Xmla xmla = getActiveXmla();
 				String name = attributes.getValue(ConfigConsts.NAME);
 				String value = attributes.getValue(ConfigConsts.VALUE);
-				if (name != null && name.trim().length() > 0 && value != null && value.trim().length() > 0) {
+				if (name != null && name.trim().length() > 0 && value != null
+						&& value.trim().length() > 0) {
 					if (name.equalsIgnoreCase(ConfigConsts.XMLA_TYPE)) {
 						xmla.setType(value);
 					} else if (name.equalsIgnoreCase(ConfigConsts.XMLA_URL)) {
@@ -237,7 +277,8 @@ public class ConfigHandler extends DefaultHandler {
 						xmla.setCatalog(value);
 					} else if (name.equalsIgnoreCase(ConfigConsts.XMLA_USER)) {
 						xmla.setUser(value);
-					} else if (name.equalsIgnoreCase(ConfigConsts.XMLA_PASSWORD)) {
+					} else if (name
+							.equalsIgnoreCase(ConfigConsts.XMLA_PASSWORD)) {
 						xmla.setPassword(value);
 					}
 				}
@@ -253,27 +294,63 @@ public class ConfigHandler extends DefaultHandler {
 				if (db != null) {
 					String name = attributes.getValue(ConfigConsts.NAME);
 					String value = attributes.getValue(ConfigConsts.VALUE);
-					if (name != null && name.trim().length() > 0 && value != null && value.trim().length() > 0) {
+					if (name != null && name.trim().length() > 0
+							&& value != null && value.trim().length() > 0) {
 						if (name.equalsIgnoreCase(ConfigConsts.DB_TYPE)) {
 							try {
 								db.setDBType(Integer.parseInt(value));
 							} catch (Exception ex) {
-								Logger.info("The " + ConfigConsts.DB_TYPE + " of " + db.getName()
-										+ " should be Integer. Can not be: " + value);
+								Logger.info("The " + ConfigConsts.DB_TYPE
+										+ " of " + db.getName()
+										+ " should be Integer. Can not be: "
+										+ value);
 							}
-						} else if (name.equalsIgnoreCase(ConfigConsts.BATCH_SIZE)) {
+						} else if (name
+								.equalsIgnoreCase(ConfigConsts.BATCH_SIZE)) {
 							try {
 								db.setBatchSize(Integer.parseInt(value));
 							} catch (Exception ex) {
-								Logger.info("The " + ConfigConsts.BATCH_SIZE + " of " + db.getName()
-										+ " should be Integer. Can not be: " + value);
+								Logger.info("The " + ConfigConsts.BATCH_SIZE
+										+ " of " + db.getName()
+										+ " should be Integer. Can not be: "
+										+ value);
 							}
 						} else if (name.equalsIgnoreCase(ConfigConsts.LOOKUP)) {
 							if (StringUtils.isValidString(value))
 								db.setJNDI(value);
-						} else if (name.equalsIgnoreCase(ConfigConsts.DB_CHARSET)) {
+						} else if (name
+								.equalsIgnoreCase(ConfigConsts.DB_CHARSET)) {
 							if (StringUtils.isValidString(value))
 								db.setDBCharset(value);
+						}
+					}
+				}
+			}
+		} else if (activeNode == SERVER_SPRING_DB) {
+			if (qName.equalsIgnoreCase(ConfigConsts.SPRING_DB)) {
+				SpringDBConfig db = new SpringDBConfig(DBTypes.UNKNOWN);
+				String name = attributes.getValue(ConfigConsts.NAME);
+				db.setName(name);
+				config.getSpringDBList().add(db);
+			} else if (qName.equalsIgnoreCase(ConfigConsts.PROPERTY)) {
+				SpringDBConfig db = getActiveSpringDB();
+				if (db != null) {
+					String name = attributes.getValue(ConfigConsts.NAME);
+					String value = attributes.getValue(ConfigConsts.VALUE);
+					if (name != null && name.trim().length() > 0
+							&& value != null && value.trim().length() > 0) {
+						if (name.equalsIgnoreCase(ConfigConsts.DB_TYPE)) {
+							try {
+								db.setDBType(Integer.parseInt(value));
+							} catch (Exception ex) {
+								Logger.info("The " + ConfigConsts.DB_TYPE
+										+ " of " + db.getName()
+										+ " should be Integer. Can not be: "
+										+ value);
+							}
+						} else if (name
+								.equalsIgnoreCase(ConfigConsts.SPRING_ID)) {
+							db.setId(value);
 						}
 					}
 				}
@@ -295,7 +372,8 @@ public class ConfigHandler extends DefaultHandler {
 	/**
 	 * End of node
 	 */
-	public void endElement(String uri, String localName, String qName) throws SAXException {
+	public void endElement(String uri, String localName, String qName)
+			throws SAXException {
 		if (qName.equalsIgnoreCase(ConfigConsts.JNDI_LIST)) {
 			activeNode = SERVER;
 			return;
@@ -363,7 +441,8 @@ public class ConfigHandler extends DefaultHandler {
 					config.setImportLibs(importLibs);
 				}
 				importLibs.add(value);
-			} else if (qName.equalsIgnoreCase(ConfigConsts.CUSTOM_FUNCTION_FILE)) {
+			} else if (qName
+					.equalsIgnoreCase(ConfigConsts.CUSTOM_FUNCTION_FILE)) {
 				config.setCustomFunctionFile(value);
 			}
 		} else if (activeNode == RUNTIME_LOGGER) {
@@ -402,7 +481,8 @@ public class ConfigHandler extends DefaultHandler {
 	/**
 	 * Get the value in the label. Stored in buf.
 	 */
-	public void characters(char[] ch, int start, int length) throws SAXException {
+	public void characters(char[] ch, int start, int length)
+			throws SAXException {
 		buf.append(ch, start, length);
 	}
 
@@ -443,6 +523,18 @@ public class ConfigHandler extends DefaultHandler {
 	}
 
 	/**
+	 * Get the current Spring DB
+	 * 
+	 * @return
+	 */
+	protected SpringDBConfig getActiveSpringDB() {
+		List<SpringDBConfig> dbList = config.getSpringDBList();
+		if (dbList == null || dbList.isEmpty())
+			return null;
+		return (SpringDBConfig) dbList.get(dbList.size() - 1);
+	}
+
+	/**
 	 * Because there may be child nodes with the same name under different nodes. So
 	 * you need to know which node is loaded.
 	 */
@@ -462,6 +554,8 @@ public class ConfigHandler extends DefaultHandler {
 	protected static final short SERVER = 11;
 	/** JNDI */
 	protected static final short SERVER_JNDI = 12;
+	/** Spring DB */
+	protected static final short SERVER_SPRING_DB = 13;
 	/** JDBC */
 	protected static final short JDBC = 14;
 	/**

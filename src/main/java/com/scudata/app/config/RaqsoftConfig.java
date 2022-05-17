@@ -10,6 +10,7 @@ import java.util.Properties;
 
 import com.scudata.common.DBConfig;
 import com.scudata.common.JNDIConfig;
+import com.scudata.common.SpringDBConfig;
 
 /**
  * ≈‰÷√Œƒº˛raqsoftConfig.xml
@@ -67,6 +68,8 @@ public class RaqsoftConfig implements Cloneable, Externalizable {
 	private String defDataSource = null;
 	/** JNDI data source list **/
 	private List<JNDIConfig> jndiList = null;
+	/** Spring data source list **/
+	private List<SpringDBConfig> springDBList = null;
 	/** Server properties **/
 	private Properties serverProps = null;
 
@@ -380,6 +383,24 @@ public class RaqsoftConfig implements Cloneable, Externalizable {
 	 */
 	public void setJNDIList(List<JNDIConfig> jndiList) {
 		this.jndiList = jndiList;
+	}
+
+	/**
+	 * Get Spring data source list
+	 * 
+	 * @return
+	 */
+	public List<SpringDBConfig> getSpringDBList() {
+		return springDBList;
+	}
+
+	/**
+	 * Set Spring data source list
+	 * 
+	 * @param jndiList
+	 */
+	public void setSpringDBList(List<SpringDBConfig> springDBList) {
+		this.springDBList = springDBList;
 	}
 
 	/**
@@ -701,6 +722,11 @@ public class RaqsoftConfig implements Cloneable, Externalizable {
 			cloneJndiList.addAll(jndiList);
 			config.setJNDIList(cloneJndiList);
 		}
+		if (springDBList != null) {
+			List<SpringDBConfig> cloneSpringDBList = new ArrayList<SpringDBConfig>();
+			cloneSpringDBList.addAll(springDBList);
+			config.setSpringDBList(cloneSpringDBList);
+		}
 		if (serverProps != null) {
 			Properties cloneServerProps = new Properties();
 			cloneServerProps.putAll(serverProps);
@@ -761,12 +787,14 @@ public class RaqsoftConfig implements Cloneable, Externalizable {
 		out.writeObject(xmlaList);
 		out.writeBoolean(jdbcNode);
 		out.writeObject(customFunctionFile);
+		out.writeObject(springDBList);
 	}
 
 	/**
 	 * Realize serialization
 	 */
-	public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+	public void readExternal(ObjectInput in) throws IOException,
+			ClassNotFoundException {
 		/* Version type */
 		int version = in.readByte();
 		dbList = (List<DBConfig>) in.readObject();
@@ -800,6 +828,9 @@ public class RaqsoftConfig implements Cloneable, Externalizable {
 		jdbcNode = in.readBoolean();
 		if (version > 1) {
 			customFunctionFile = (String) in.readObject();
+		}
+		if (version > 2) {
+			springDBList = (List<SpringDBConfig>) in.readObject();
 		}
 	}
 
