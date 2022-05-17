@@ -276,13 +276,16 @@ public class SplxHttpHandler implements HttpHandler {
 						if( status == 200 ) {
 							ParamList list = pcs1.getParamList();
 							ArgumentTokenizer at = new ArgumentTokenizer(params, ',');
+							boolean hasPost = false;
 							ctx1 = Esproc.prepareEnv();
 							if( list != null ) {
 								for( int i = 0; i < list.count(); i++ ) {
 									Param p = (Param) list.get(i);
 									Object value = p.getValue();
+									String pName = p.getName();
+									if( "argpost".equals( pName ) ) hasPost = true;
 									//if( value == null ) continue;
-									ctx1.setParamValue(p.getName(), value );
+									ctx1.setParamValue( pName, value );
 								}
 							}
 							for (int i = 0; at.hasMoreTokens() && list != null; i++) {
@@ -292,21 +295,22 @@ public class SplxHttpHandler implements HttpHandler {
 								ctx1.setParamValue(p.getName(), Variant.parse(pvalue));
 							}
 							//读取post内容
-							InputStream reqis = null;
-							try {
-								reqis = httpExchange.getRequestBody();
-								BufferedReader br = new BufferedReader( new InputStreamReader( reqis ) );
-								StringBuffer sb = new StringBuffer();
-								String line = null;
-								while( ( line = br.readLine() ) != null ) {
-									sb.append( line ).append( "\n" );
+							if( hasPost ) {
+								InputStream reqis = null;
+								try {
+									reqis = httpExchange.getRequestBody();
+									BufferedReader br = new BufferedReader( new InputStreamReader( reqis ) );
+									StringBuffer sb = new StringBuffer();
+									String line = null;
+									while( ( line = br.readLine() ) != null ) {
+										sb.append( line ).append( "\n" );
+									}
+									ctx1.setParamValue( "argpost", sb.toString() );
+									//Logger.info( "设置argpost参数为：" + sb.toString() );
 								}
-								ctx1.setParamValue( "argpost", sb.toString() );
-							}catch(Throwable t ){
-								Logger.severe(t);
-							}
-							finally {
-								try{ if( reqis != null ) reqis.close(); }catch(Throwable t){}
+								finally {
+									try{ if( reqis != null ) reqis.close(); }catch(Throwable t){}
+								}
 							}
 							//post end
 							SplxServerInIDE server = SplxServerInIDE.instance;
