@@ -17,10 +17,10 @@ import com.scudata.dm.Table;
  *
  */
 public class BufferReader {
-	private StructManager structManager;
+	protected StructManager structManager;
 	protected byte[] buffer; // 每次读入的字节缓存
 	protected int index; // 下一字节在buffer中的索引
-	private int count; // 读入buffer的实际字节数目
+	protected int count; // 读入buffer的实际字节数目
 
 	private byte[] readBuffer = new byte[32];
 	private char[] charBuffer = new char[128];
@@ -529,7 +529,7 @@ public class BufferReader {
 		}
 	}
 
-	private void skipMark1(int b) throws IOException {
+	protected void skipMark1(int b) throws IOException {
 		switch (b) {
 		case BufferWriter.INT16:
 		case BufferWriter.FLOAT16:
@@ -572,7 +572,7 @@ public class BufferReader {
 		}
 	}
 
-	private void skipMark2(int b) throws IOException {
+	protected void skipMark2(int b) throws IOException {
 		switch (b) {
 		case BufferWriter.STRING:
 			skipFully(readInt());
@@ -622,7 +622,7 @@ public class BufferReader {
 		}
 	}
 
-	private void skipMark3(int b) throws IOException {
+	protected void skipMark3(int b) throws IOException {
 		switch (b) {
 		case BufferWriter.DATE32:
 		case BufferWriter.DATETIME32:

@@ -559,6 +559,30 @@ public class Top extends Gather {
 		return exp;
 	}
 
+	public Expression getGetExp() {
+		return getExp;
+	}
+
+	public boolean isCurrent() {
+		return isCurrent;
+	}
+
+	public boolean isOne() {
+		return isOne;
+	}
+
+	public boolean isSame() {
+		return isSame;
+	}
+
+	public Comparator<Object> getComparator() {
+		return comparator;
+	}
+
+	public int getExpIndex() {
+		return expIndex;
+	}
+	
 	public Object calculate(Context ctx) {
 		MessageManager mm = EngineMessage.get();
 		throw new RQException(mm.getMessage("Expression.unknownFunction") + "top");

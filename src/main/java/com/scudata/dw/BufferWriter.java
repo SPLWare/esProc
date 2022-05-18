@@ -13,7 +13,7 @@ import com.scudata.dm.SerialBytes;
 import com.scudata.util.Variant;
 
 public class BufferWriter {
-	static final int MARK0 = 0x00;
+	public static final int MARK0 = 0x00;
 	public static final int NULL = 0x00;
 	static final int TRUE = 0x01;
 	static final int FALSE = 0x02;
@@ -22,7 +22,7 @@ public class BufferWriter {
 	static final int DECIMAL0 = 0x05;
 	static final int NONE = 0x07;
 
-	static final int MARK1 = 0x10;
+	public static final int MARK1 = 0x10;
 	static final int INT16 = 0x10;
 	static final int INT32 = 0x11;
 	static final int LONG16 = 0x12;
@@ -32,7 +32,7 @@ public class BufferWriter {
 	public static final int FLOAT32 = 0x16;
 	public static final int FLOAT64 = 0x17;
 
-	static final int MARK2 = 0x20;
+	public static final int MARK2 = 0x20;
 	static final int DECIMAL = 0x20;
 	static final int STRING = 0x21;
 	static final int SEQUENCE = 0x22;
@@ -40,7 +40,7 @@ public class BufferWriter {
 	static final int BLOB = 0x24;
 	static final int RECORD = 0x25;
 
-	static final int MARK3 = 0x30;
+	public static final int MARK3 = 0x30;
 	static final int DATE16 = 0x30; // 2000年之后的日期
 	static final int DATE32 = 0x31; // 2000年之前的日期
 	static final int TIME16 = 0x32;
@@ -52,18 +52,18 @@ public class BufferWriter {
 	static final int DATE24 = 0x38; // 2000年之后的日期
 	static final int DATE64 = 0x39; // 超界表示不了都得日期用64位保存
 	
-	static final int SERIALBYTES = 0x40; // 排号
+	public static final int SERIALBYTES = 0x40; // 排号
 	public static final int REPEAT3 = 0x70;
 	static final int REPEAT11 = 0x78;
 	static final int MAX_REPEAT3 = 7 + 2;
 	static final int MAX_REPEAT11 = 0x7FF + 2;
 	
-	static final int INT4 = 0x80;
-	static final int INT12 = 0x90;
-	static final int HEX4 = 0xA0;
-	static final int DIGIT4 = 0xB0;
-	static final int STRING4 = 0xC0;
-	static final int STRING5 = 0xD0;
+	public static final int INT4 = 0x80;
+	public static final int INT12 = 0x90;
+	public static final int HEX4 = 0xA0;
+	public static final int DIGIT4 = 0xB0;
+	public static final int STRING4 = 0xC0;
+	public static final int STRING5 = 0xD0;
 
 	private static final double MINFLOAT = 0.000001;
 	private static final int MAX_DIGIT_LEN = 30;
