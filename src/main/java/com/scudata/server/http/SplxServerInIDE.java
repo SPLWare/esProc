@@ -82,6 +82,7 @@ public class SplxServerInIDE implements IServer {
 		try{
 			InetSocketAddress inetSock = new InetSocketAddress(ia,port);
 			httpServer = HttpServer.create(inetSock, ctx.getMaxLinks());
+			LinksPool.setMaxLinks( ctx.getMaxLinks() );
 		}catch(java.net.BindException ex){
 			throw new Exception(ParallelMessage.get().getMessage("SplxServerInIDE.portbind",port));
 		}
