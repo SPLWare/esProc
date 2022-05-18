@@ -499,14 +499,19 @@ public class ConfigUtil {
 			List<SpringDBConfig> springDBList = config.getSpringDBList();
 			if (springDBList != null) {
 				for (SpringDBConfig springDB : springDBList) {
-					String dsId = springDB.getId();
-					if (!StringUtils.isValidString(dsId))
+					String name = springDB.getName();
+					if (!StringUtils.isValidString(name))
 						continue;
 					try {
-						springDB.createDBSessionFactory();
+						ISessionFactory sf = springDB.createSessionFactory();
+						if (calcInitSpl && autoConnectList != null
+								&& autoConnectList.contains(name)) {
+							ctx.setDBSessionFactory(name, sf);
+							ctx.setDBSession(name, sf.getSession());
+						}
 					} catch (Exception ex) {
 						Logger.error(AppMessage.get().getMessage(
-								"configutil.errorspringdb", springDB.getName(),
+								"configutil.errorspringdb", name,
 								ex.getMessage()));
 					}
 				}

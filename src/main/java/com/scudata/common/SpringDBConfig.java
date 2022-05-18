@@ -47,7 +47,7 @@ public class SpringDBConfig extends DBInfo implements Cloneable, Serializable {
 	/**
 	 * 创建连接工厂
 	 */
-	public void createDBSessionFactory() throws Exception {
-		SpringDBSessionFactory.create(id, dbType);
+	public ISessionFactory createSessionFactory() throws Exception {
+		return SpringDBSessionFactory.create(id, dbType);
 	}
 }
