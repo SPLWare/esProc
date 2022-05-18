@@ -21,6 +21,10 @@ public class LinksPool {
 		maxLinks = maxLink;
 	}
 	
+	public static int getMaxLinks() {
+		return maxLinks;
+	}
+	
 	public synchronized static boolean canCreateLink() {
 		return currLinks < maxLinks;
 	}

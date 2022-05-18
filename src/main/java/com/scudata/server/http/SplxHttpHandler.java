@@ -96,7 +96,13 @@ public class SplxHttpHandler implements HttpHandler {
 			if (path.equals("/favicon.ico")) {
 				return;
 			}
-			new Thread(new HandlerThread(httpExchange)).start();
+			if( LinksPool.canCreateLink() ) {
+				new Thread(new HandlerThread(httpExchange)).start();
+				LinksPool.addLink();
+			}
+			else {
+				throw new Exception( "在线连接数超过了最大值" + LinksPool.getMaxLinks() + "，请稍候再访问" );
+			}
 		} catch (Throwable t) {
 			try {
 				String result;
@@ -435,6 +441,7 @@ public class SplxHttpHandler implements HttpHandler {
 					httpExchange.close();
 				}
 				catch( Throwable th){}
+				LinksPool.removeLink();
 			}
 		}
 		
