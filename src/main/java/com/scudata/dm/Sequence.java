@@ -1438,8 +1438,8 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			throw new RQException("conj" + mm.getMessage("function.paramValNull"));
 		}
 
-		ListBase1 mems = this.mems;
-		ListBase1 mems2 = seq.mems;
+		ListBase1 mems = this.getMems();
+		ListBase1 mems2 = seq.getMems();
 		int len = mems.size();
 		int len2 = mems2.size();
 
@@ -3872,7 +3872,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		for (int i = 1; i <= size; ++i) {
 			Object obj = mems.get(i);
 			if (obj instanceof Sequence) {
-				resultMems.addAll(((Sequence)obj).mems);
+				resultMems.addAll(((Sequence)obj).getMems());
 			} else if (obj != null) {
 				resultMems.add(obj);
 			}

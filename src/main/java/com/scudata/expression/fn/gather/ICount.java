@@ -27,7 +27,7 @@ public class ICount extends Gather {
 	private boolean isSorted = false; // 数据是否按表达式有序
 	
 	// 有序icount的中间结果信息
-	static class ICountInfo_o implements Serializable {
+	public static class ICountInfo_o implements Serializable {
 		private static final long serialVersionUID = 1L;
 		
 		private int count;
@@ -291,6 +291,10 @@ public class ICount extends Gather {
 	
 	public Expression getExp() {
 		return exp;
+	}
+	
+	public boolean isSorted() {
+		return isSorted;
 	}
 }
 

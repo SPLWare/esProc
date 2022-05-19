@@ -160,4 +160,16 @@ public class Median extends Gather  {
 		Sequence seq = ((Sequence) val).sort(null);
 		return seq.median(1, seq.length(), parK, parN);	
 	}
+	
+	public int getParK() {
+		return parK;
+	}
+
+	public int getParN() {
+		return parN;
+	}
+
+	public Expression getExp() {
+		return exp;
+	}
 }
