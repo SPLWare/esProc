@@ -12,7 +12,7 @@ public class PseudoColumn {
 	public static final String PD_BITS = "bits";
 	public static final String PD_DIM = "dim";
 	public static final String PD_FKEY = "fkey";
-	public static final String PD_TIME = "time";
+	public static final String PD_TIME = "tkey";
 	
 	private String name;//真字段的名称
 	private String exp;//真字段的表达式
