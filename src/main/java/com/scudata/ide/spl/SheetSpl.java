@@ -1370,6 +1370,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 		if (exp != null) {
 			CallInfo ci = null;
 			CellLocation exeCellLocation = null; // 子网开始计算的坐标
+			CellLocation funcLocation = null;
 			PgmCellSet subCellSet = null;
 			int endRow = -1;
 			Call call = null;
@@ -1436,6 +1437,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 				subCellSet.setCurrent(subCellSet.getPgmNormalCell(row, col));
 				subCellSet.setNext(row, col + 1, false); // 从子格开始执行
 				exeCellLocation = new CellLocation(row, col + 1);
+				funcLocation = new CellLocation(ci.getRow(), ci.getCol());
 
 				if (stepInfo == null) { // 当前是主程序
 					filePath = this.filePath;
@@ -1445,11 +1447,11 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 			} else {
 				return;
 			}
+
 			CellLocation parentLocation = new CellLocation(pnc.getRow(),
 					pnc.getCol());
-
-			openSubSheet(parentLocation, stepType, subCellSet, exeCellLocation,
-					endRow, filePath);
+			openSubSheet(parentLocation, stepType, subCellSet, funcLocation,
+					exeCellLocation, endRow, filePath);
 			// final SheetSpl subSheet = getSubSheet();
 			// if (subSheet != null) {
 			// SwingUtilities.invokeLater(new Runnable() {
@@ -1466,18 +1468,48 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 	}
 
 	/**
+	 * 是否返回格
+	 * @param cell 单元格对象
+	 * @return 是否返回格
+	 */
+	protected boolean isReturnCell(PgmNormalCell cell) {
+		Command cmd = cell.getCommand();
+		return cmd != null && cmd.getType() == Command.RETURN;
+	}
+
+	/**
+	 * 计算返回值
+	 * @param cellSet 网格对象
+	 * @param cell 单元格对象
+	 * @param ctx 上下文
+	 * @return 返回值
+	 */
+	protected Object calcReturnValue(PgmCellSet cellSet, PgmNormalCell cell,
+			Context ctx) {
+		Command cmd = cell.getCommand();
+		if (cmd != null) {
+			Expression exp = cmd.getExpression(cellSet, ctx);
+			if (exp != null) {
+				return exp.calculate(ctx);
+			}
+		}
+		return null;
+	}
+
+	/**
 	 * 单步调试进入打开子页
 	 * 
 	 * @param parentLocation  call或者func函数在父网坐标
 	 * @param stepType	类型在StepInfo中定义
 	 * @param subCellSet    子网格对象
+	 * @param funcLocation func的坐标
 	 * @param exeLocation 子网开始计算的坐标
 	 * @param endRow        子网结束行
 	 * @param filePath     文件名
 	 */
 	public void openSubSheet(CellLocation parentLocation, byte stepType,
-			final PgmCellSet subCellSet, CellLocation exeLocation, int endRow,
-			String filePath) { // CallInfo
+			final PgmCellSet subCellSet, CellLocation funcLocation,
+			CellLocation exeLocation, int endRow, String filePath) { // CallInfo
 		// ci,Call
 		// call
 		String newName = new File(filePath).getName();
@@ -1506,7 +1538,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 		stepInfo.filePath = filePath;
 		stepInfo.splCtx = splCtx;
 		stepInfo.parentLocation = parentLocation;
-		// stepInfo.callInfo = ci;
+		stepInfo.funcLocation = funcLocation;
 		stepInfo.exeLocation = exeLocation;
 		stepInfo.endRow = endRow;
 		// stepInfo.parentCall = call;
@@ -1745,24 +1777,28 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 							}
 							return; // 直接结束计算线程
 						} else {
-							if (pnc == null) {
-								exeLocation = runNext(curCellSet);
-							} else {
+							if (pnc != null) {
 								if (stepInfo != null && stepInfo.endRow > -1) {
-									Command cmd = pnc.getCommand();
-									if (cmd != null
-											&& cmd.getType() == Command.RETURN) {
+									// 单步调试进入时，遇到返回格
+									if (isReturnCell(pnc)) {
 										hasReturn = true;
-										Expression exp1 = cmd.getExpression(
-												curCellSet, splCtx);
-										if (exp1 != null) {
-											returnVal = exp1.calculate(splCtx);
-										}
-										break;
+										returnVal = calcReturnValue(curCellSet,
+												pnc, splCtx);
 									}
+									// Command cmd = pnc.getCommand();
+									// if (cmd != null
+									// && cmd.getType() == Command.RETURN) {
+									// hasReturn = true;
+									// Expression exp1 = cmd.getExpression(
+									// curCellSet, splCtx);
+									// if (exp1 != null) {
+									// returnVal = exp1.calculate(splCtx);
+									// }
+									// break;
+									// }
 								}
-								exeLocation = runNext(curCellSet);
 							}
+							exeLocation = runNext(curCellSet);
 						}
 						if (isDebugMode && pnc != null) {
 							long end = System.currentTimeMillis();
@@ -1812,7 +1848,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 								// 未碰到return缺省返回代码块中最后一个计算格值
 								int endRow = stepInfo.endRow;
 								// CallInfo ci = stepInfo.callInfo;
-								CellLocation funcLocation = stepInfo.parentLocation;
+								CellLocation funcLocation = stepInfo.funcLocation;
 								for (int r = endRow; r >= funcLocation.getRow(); --r) {
 									for (int c = curCellSet.getColCount(); c > funcLocation
 											.getCol(); --c) {

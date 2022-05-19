@@ -2,9 +2,9 @@ package com.scudata.ide.spl;
 
 import java.util.List;
 
+import com.scudata.cellset.datamodel.PgmCellSet;
 import com.scudata.common.CellLocation;
 import com.scudata.dm.Context;
-import com.scudata.expression.fn.Call;
 
 /**
  * 单步调试的信息。
@@ -37,7 +37,10 @@ public class StepInfo {
 	 * 父网中call或func函数所在的坐标
 	 */
 	public CellLocation parentLocation;
-	// public CallInfo callInfo;
+	/**
+	 * func的坐标
+	 */
+	public CellLocation funcLocation;
 	/**
 	 * 子网开始计算的坐标
 	 */
@@ -51,6 +54,17 @@ public class StepInfo {
 	 * call使用
 	 */
 	// public Call parentCall;
+
+	/**
+	 * 网格对象
+	 */
+	public PgmCellSet cellSet;
+
+	/**
+	 * 构造函数
+	 */
+	public StepInfo() {
+	}
 
 	/**
 	 * 构造函数
