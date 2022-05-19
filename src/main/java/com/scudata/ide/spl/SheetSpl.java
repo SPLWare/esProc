@@ -1445,22 +1445,23 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 			} else {
 				return;
 			}
-			CellLocation cellLocation = new CellLocation(pnc.getRow(),
+			CellLocation parentLocation = new CellLocation(pnc.getRow(),
 					pnc.getCol());
-			openSubSheet(cellLocation, stepType, subCellSet, exeCellLocation,
+
+			openSubSheet(parentLocation, stepType, subCellSet, exeCellLocation,
 					endRow, filePath);
-			final SheetSpl subSheet = getSubSheet();
-			if (subSheet != null) {
-				SwingUtilities.invokeLater(new Runnable() {
-					public void run() {
-						try {
-							subSheet.debug(DebugThread.STEP_INTO_WAIT);
-						} catch (Exception e) {
-							GM.showException(e);
-						}
-					}
-				});
-			}
+			// final SheetSpl subSheet = getSubSheet();
+			// if (subSheet != null) {
+			// SwingUtilities.invokeLater(new Runnable() {
+			// public void run() {
+			// try {
+			// subSheet.debug(DebugThread.STEP_INTO_WAIT);
+			// } catch (Exception e) {
+			// GM.showException(e);
+			// }
+			// }
+			// });
+			// }
 		}
 	}
 
@@ -1468,13 +1469,13 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 	 * 单步调试进入打开子页
 	 * 
 	 * @param parentLocation  call或者func函数在父网坐标
+	 * @param stepType	类型在StepInfo中定义
 	 * @param subCellSet    子网格对象
-	 * @param ci            CallInfo对象
-	 * @param startLocation 子网开始计算的坐标
+	 * @param exeLocation 子网开始计算的坐标
 	 * @param endRow        子网结束行
-	 * @param call          Call对象
+	 * @param filePath     文件名
 	 */
-	private void openSubSheet(CellLocation parentLocation, byte stepType,
+	public void openSubSheet(CellLocation parentLocation, byte stepType,
 			final PgmCellSet subCellSet, CellLocation exeLocation, int endRow,
 			String filePath) { // CallInfo
 		// ci,Call
@@ -1512,7 +1513,13 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 		subSheetOpened = true;
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				((SPL) GV.appFrame).openSheet(nn, subCellSet, false, stepInfo);
+				SheetSpl subSheet = (SheetSpl) ((SPL) GV.appFrame).openSheet(
+						nn, subCellSet, false, stepInfo);
+				try {
+					subSheet.debug(DebugThread.STEP_INTO_WAIT);
+				} catch (Exception e) {
+					GM.showException(e);
+				}
 			}
 		});
 	}
