@@ -5,7 +5,6 @@ import java.util.List;
 import com.scudata.common.CellLocation;
 import com.scudata.dm.Context;
 import com.scudata.expression.fn.Call;
-import com.scudata.expression.fn.Func.CallInfo;
 
 /**
  * 单步调试的信息。
@@ -14,6 +13,14 @@ import com.scudata.expression.fn.Func.CallInfo;
  *
  */
 public class StepInfo {
+
+	public static final byte TYPE_CALL = 0; // call
+	public static final byte TYPE_FUNC = 1; // func
+
+	/**
+	 * 类型。TYPE_CALL,TYPE_FUNC
+	 */
+	public byte type;
 	/**
 	 * 文件路径
 	 */
@@ -27,33 +34,32 @@ public class StepInfo {
 	 */
 	public Context splCtx;
 	/**
-	 * 父页中的坐标
+	 * 父网中call或func函数所在的坐标
 	 */
 	public CellLocation parentLocation;
-	/**
-	 * func使用
-	 */
-	public CallInfo callInfo;
+	// public CallInfo callInfo;
 	/**
 	 * 子网开始计算的坐标
 	 */
-	public CellLocation startLocation;
+	public CellLocation exeLocation;
 	/**
 	 * 子网的结束行
 	 */
 	public int endRow;
+
 	/**
 	 * call使用
 	 */
-	public Call parentCall;
+	// public Call parentCall;
 
 	/**
 	 * 构造函数
 	 * 
 	 * @param sheets 有顺序的页列表
 	 */
-	public StepInfo(List<SheetSpl> sheets) {
+	public StepInfo(List<SheetSpl> sheets, byte type) {
 		this.sheets = sheets;
+		this.type = type;
 	}
 
 	/**
@@ -62,7 +68,7 @@ public class StepInfo {
 	 * @return
 	 */
 	public boolean isFunc() {
-		return callInfo != null;
+		return type == TYPE_FUNC;
 	}
 
 	/**
@@ -71,7 +77,7 @@ public class StepInfo {
 	 * @return
 	 */
 	public boolean isCall() {
-		return callInfo == null;
+		return type == TYPE_CALL;
 	}
 
 }

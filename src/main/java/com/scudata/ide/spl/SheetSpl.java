@@ -149,6 +149,11 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 	public boolean stepStopOther = false;
 
 	/**
+	 * 当前网格调用了stepInto的call对象
+	 */
+	protected Call stepCall = null;
+
+	/**
 	 * 计算的线程组
 	 */
 	private ThreadGroup tg = null;
@@ -200,7 +205,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 		if (stepInfo != null) {
 			INormalCell currentCell = cs.getCurrent();
 			if (currentCell == null) {
-				setExeLocation(stepInfo.startLocation);
+				setExeLocation(stepInfo.exeLocation);
 			} else {
 				setExeLocation(new CellLocation(currentCell.getRow(),
 						currentCell.getCol()));
@@ -672,9 +677,15 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 		GV.toolBarProperty.setEnabled(selectState != GCSpl.SELECT_STATE_NONE);
 		if (refreshParams) {
 			Object[] allParams = getAllParams();
-			GVSpl.tabParam.resetParamList((ParamList) allParams[0],
-					(HashMap<String, Param[]>) allParams[1],
-					(ParamList) allParams[2]);
+			ParamList ctxParams = null;
+			HashMap<String, Param[]> spaceParams = null;
+			ParamList envParams = null;
+			if (allParams != null) {
+				ctxParams = (ParamList) allParams[0];
+				spaceParams = (HashMap<String, Param[]>) allParams[1];
+				envParams = (ParamList) allParams[2];
+			}
+			GVSpl.tabParam.resetParamList(ctxParams, spaceParams, envParams);
 		}
 
 		if (GVSpl.panelValue.tableValue.isLocked1()) {
@@ -704,7 +715,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 	private boolean isStepStopCall() {
 		if (stepInfo == null)
 			return false;
-		return isStepStop && stepInfo.parentCall != null;
+		return isStepStop && stepInfo.isCall();
 	}
 
 	/**
@@ -1050,8 +1061,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 		threadCount++;
 		synchronized (threadLock) {
 			if (isDebugMode)
-				debugThread = new DebugThread(tg, "t" + threadCount,
-						isDebugMode);
+				debugThread = new DebugThread(tg, "t" + threadCount);
 			else
 				debugThread = new RunThread(tg, "t" + threadCount);
 		}
@@ -1359,17 +1369,22 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 		Expression exp = pnc.getExpression();
 		if (exp != null) {
 			CallInfo ci = null;
-			CellLocation startCellLocation = null; // 子网开始计算的坐标
+			CellLocation exeCellLocation = null; // 子网开始计算的坐标
 			PgmCellSet subCellSet = null;
 			int endRow = -1;
 			Call call = null;
 			Node home = exp.getHome();
+			byte stepType = StepInfo.TYPE_CALL;
+			String filePath = null;
 			if (home instanceof Call) { // call函数
 				call = (Call) home;
+				this.stepCall = call;
 				subCellSet = call.getCallPgmCellSet(splCtx);
 				subCellSet.setCurrent(subCellSet.getPgmNormalCell(1, 1));
 				subCellSet.setNext(1, 1, true); // 从子格开始执行
+				filePath = call.getDfxPathName(splCtx);
 			} else if (home instanceof Func) { // Func块
+				stepType = StepInfo.TYPE_FUNC;
 				// Func使用新网是为了支持递归
 				Func func = (Func) home;
 				ci = func.getCallInfo(splCtx);
@@ -1420,9 +1435,20 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 				}
 				subCellSet.setCurrent(subCellSet.getPgmNormalCell(row, col));
 				subCellSet.setNext(row, col + 1, false); // 从子格开始执行
-				startCellLocation = new CellLocation(row, col + 1);
+				exeCellLocation = new CellLocation(row, col + 1);
+
+				if (stepInfo == null) { // 当前是主程序
+					filePath = this.filePath;
+				} else { // 当前是子程序，从上一步中取
+					filePath = stepInfo.filePath;
+				}
+			} else {
+				return;
 			}
-			openSubSheet(pnc, subCellSet, ci, startCellLocation, endRow, call);
+			CellLocation cellLocation = new CellLocation(pnc.getRow(),
+					pnc.getCol());
+			openSubSheet(cellLocation, stepType, subCellSet, exeCellLocation,
+					endRow, filePath);
 			final SheetSpl subSheet = getSubSheet();
 			if (subSheet != null) {
 				SwingUtilities.invokeLater(new Runnable() {
@@ -1441,21 +1467,25 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 	/**
 	 * 单步调试进入打开子页
 	 * 
-	 * @param pnc           网格对象
+	 * @param parentLocation  call或者func函数在父网坐标
 	 * @param subCellSet    子网格对象
 	 * @param ci            CallInfo对象
 	 * @param startLocation 子网开始计算的坐标
 	 * @param endRow        子网结束行
 	 * @param call          Call对象
 	 */
-	private void openSubSheet(PgmNormalCell pnc, final PgmCellSet subCellSet,
-			CallInfo ci, CellLocation startLocation, int endRow, Call call) {
+	private void openSubSheet(CellLocation parentLocation, byte stepType,
+			final PgmCellSet subCellSet, CellLocation exeLocation, int endRow,
+			String filePath) { // CallInfo
+		// ci,Call
+		// call
 		String newName = new File(filePath).getName();
 		if (AppUtil.isSPLFile(newName)) {
 			int index = newName.lastIndexOf(".");
 			newName = newName.substring(0, index);
 		}
-		String cellId = CellLocation.getCellId(pnc.getRow(), pnc.getCol());
+		String cellId = CellLocation.getCellId(parentLocation.getRow(),
+				parentLocation.getCol());
 		newName += "(" + cellId + ")";
 		final String nn = newName;
 		List<SheetSpl> sheets = SheetSpl.this.sheets;
@@ -1464,20 +1494,21 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 			sheets.add(SheetSpl.this);
 			SheetSpl.this.sheets = sheets;
 		}
-		final StepInfo stepInfo = new StepInfo(sheets);
-		if (call != null) { // call spl
-			stepInfo.filePath = call.getDfxPathName(splCtx);
-		} else if (SheetSpl.this.stepInfo == null) { // 当前是主程序
-			stepInfo.filePath = filePath;
-		} else { // 当前是子程序，从上一步中取
-			stepInfo.filePath = SheetSpl.this.stepInfo.filePath;
-		}
+		final StepInfo stepInfo = new StepInfo(sheets, stepType);
+		// if (stepType == StepInfo.TYPE_CALL) { // call spl
+		// stepInfo.filePath = call.getDfxPathName(splCtx);
+		// } else if (SheetSpl.this.stepInfo == null) { // 当前是主程序
+		// stepInfo.filePath = filePath;
+		// } else { // 当前是子程序，从上一步中取
+		// stepInfo.filePath = SheetSpl.this.stepInfo.filePath;
+		// }
+		stepInfo.filePath = filePath;
 		stepInfo.splCtx = splCtx;
-		stepInfo.parentLocation = new CellLocation(pnc.getRow(), pnc.getCol());
-		stepInfo.callInfo = ci;
-		stepInfo.startLocation = startLocation;
+		stepInfo.parentLocation = parentLocation;
+		// stepInfo.callInfo = ci;
+		stepInfo.exeLocation = exeLocation;
 		stepInfo.endRow = endRow;
-		stepInfo.parentCall = call;
+		// stepInfo.parentCall = call;
 		subSheetOpened = true;
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
@@ -1500,8 +1531,8 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 		 * @param isDebugMode 是否调试模式
 		 */
 		public RunThread(ThreadGroup tg, String name) {
-			super(tg, name, false);
-			curCellSet = splControl.cellSet;
+			super(tg, name);
+			this.isDebugMode = false;
 		}
 
 		/**
@@ -1531,32 +1562,11 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 			} catch (ThreadDeath td) {
 				isThreadDeath = true;
 			} catch (Throwable x) {
-				if (x != null) {
-					Throwable cause = x.getCause();
-					if (cause != null && cause instanceof ThreadDeath) {
-						isThreadDeath = true;
-					}
+				String msg = x.getMessage();
+				if (!StringUtils.isValidString(msg)) {
+					msg = AppUtil.getThrowableString(x);
 				}
-				if (!isThreadDeath) {
-					String msg = x.getMessage();
-					if (!StringUtils.isValidString(msg)) {
-						StringBuffer sb = new StringBuffer();
-						Throwable t = x.getCause();
-						if (t != null) {
-							sb.append(t.getMessage());
-							sb.append("\r\n");
-						}
-						StackTraceElement[] ste = x.getStackTrace();
-						for (int i = 0; i < ste.length; i++) {
-							sb.append(ste[i]);
-							sb.append("\r\n");
-						}
-						msg = sb.toString();
-						showException(msg);
-					} else {
-						showException(x);
-					}
-				}
+				showException(msg);
 			} finally {
 				runState = FINISH;
 				if (!isThreadDeath)
@@ -1645,11 +1655,9 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 		 * 
 		 * @param tg          线程组
 		 * @param name        线程名称
-		 * @param isDebugMode 是否调试模式
 		 */
-		public DebugThread(ThreadGroup tg, String name, boolean isDebugMode) {
+		public DebugThread(ThreadGroup tg, String name) {
 			super(tg, name);
-			this.isDebugMode = isDebugMode;
 			curCellSet = splControl.cellSet;
 		}
 
@@ -1701,7 +1709,6 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 							if (!subSheetOpened) {
 								if (pnc != null) {
 									stepInto(pnc);
-
 								}
 							} else {
 								final SheetSpl subSheet = getSubSheet();
@@ -1778,32 +1785,11 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 			} catch (ThreadDeath td) {
 				isThreadDeath = true;
 			} catch (Throwable x) {
-				if (x != null) {
-					Throwable cause = x.getCause();
-					if (cause != null && cause instanceof ThreadDeath) {
-						isThreadDeath = true;
-					}
+				String msg = x.getMessage();
+				if (!StringUtils.isValidString(msg)) {
+					msg = AppUtil.getThrowableString(x);
 				}
-				if (!isThreadDeath) {
-					String msg = x.getMessage();
-					if (!StringUtils.isValidString(msg)) {
-						StringBuffer sb = new StringBuffer();
-						Throwable t = x.getCause();
-						if (t != null) {
-							sb.append(t.getMessage());
-							sb.append("\r\n");
-						}
-						StackTraceElement[] ste = x.getStackTrace();
-						for (int i = 0; i < ste.length; i++) {
-							sb.append(ste[i]);
-							sb.append("\r\n");
-						}
-						msg = sb.toString();
-						showException(msg);
-					} else {
-						showException(x);
-					}
-				}
+				showException(msg);
 			} finally {
 				runState = FINISH;
 				if (!isThreadDeath)
@@ -1818,9 +1804,10 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 							if (stepInfo.endRow > -1) {
 								// 未碰到return缺省返回代码块中最后一个计算格值
 								int endRow = stepInfo.endRow;
-								CallInfo ci = stepInfo.callInfo;
-								for (int r = endRow; r >= ci.getRow(); --r) {
-									for (int c = curCellSet.getColCount(); c > ci
+								// CallInfo ci = stepInfo.callInfo;
+								CellLocation funcLocation = stepInfo.parentLocation;
+								for (int r = endRow; r >= funcLocation.getRow(); --r) {
+									for (int c = curCellSet.getColCount(); c > funcLocation
 											.getCol(); --c) {
 										PgmNormalCell cell = curCellSet
 												.getPgmNormalCell(r, c);
@@ -1929,15 +1916,6 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 				else
 					clCursor = null;
 			}
-		}
-
-		/**
-		 * 是否调试模式
-		 * 
-		 * @return
-		 */
-		public boolean isDebugMode() {
-			return isDebugMode;
 		}
 
 		/**
@@ -2104,7 +2082,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 			setMenuToolEnabled(new short[] { GCSpl.iSTEP_RETURN },
 					stepInfo != null);
 			setMenuToolEnabled(new short[] { GCSpl.iSTEP_STOP },
-					stepInfo != null && stepInfo.parentCall != null);
+					stepInfo != null && stepInfo.isCall());
 			setMenuToolEnabled(
 					new short[] { GCSpl.iCALC_AREA, GCSpl.iCALC_LOCK },
 					canRunCell() && (stepInfo == null || isStepStop));
@@ -2117,7 +2095,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 				setMenuToolEnabled(new short[] { GCSpl.iSTEP_RETURN },
 						stepInfo != null);
 				setMenuToolEnabled(new short[] { GCSpl.iSTEP_STOP },
-						stepInfo != null && stepInfo.parentCall != null);
+						stepInfo != null && stepInfo.isCall());
 				setMenuToolEnabled(new short[] { GCSpl.iPAUSE, GCSpl.iSTOP },
 						true);
 				editable = false;
@@ -2130,7 +2108,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 				setMenuToolEnabled(new short[] { GCSpl.iSTEP_RETURN },
 						stepInfo != null);
 				setMenuToolEnabled(new short[] { GCSpl.iSTEP_STOP },
-						stepInfo != null && stepInfo.parentCall != null);
+						stepInfo != null && stepInfo.isCall());
 				setMenuToolEnabled(new short[] { GCSpl.iSTOP }, true);
 				break;
 			case DebugThread.PAUSED:
@@ -2143,7 +2121,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 				setMenuToolEnabled(new short[] { GCSpl.iSTEP_RETURN },
 						stepInfo != null);
 				setMenuToolEnabled(new short[] { GCSpl.iSTEP_STOP },
-						stepInfo != null && stepInfo.parentCall != null);
+						stepInfo != null && stepInfo.isCall());
 				setMenuToolEnabled(new short[] { GCSpl.iPAUSE, GCSpl.iSTOP },
 						true);
 				isPaused = true;
@@ -2561,15 +2539,8 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 		} catch (Throwable t) {
 			GM.showException(t);
 		}
-		if (stepInfo != null && stepInfo.isCall()) {
-			try {
-				if (stepInfo.parentCall != null) {
-					stepInfo.parentCall.finish(splControl.cellSet);
-				}
-			} catch (Exception e) {
-				GM.showException(e);
-			}
-		}
+		if (stepInfo != null && stepInfo.isCall())
+			finishCall();
 		GVSpl.panelValue.tableValue.setLocked1(false);
 		GVSpl.panelValue.tableValue.setCellId(null);
 		GVSpl.panelValue.tableValue.setValue(null);
@@ -2587,6 +2558,19 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 			sheets.remove(this);
 		}
 		return true;
+	}
+
+	/**
+	 * 结束Call
+	 */
+	protected void finishCall() {
+		try {
+			if (stepCall != null) {
+				stepCall.finish(splControl.cellSet);
+			}
+		} catch (Exception e) {
+			GM.showException(e);
+		}
 	}
 
 	/**
