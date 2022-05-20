@@ -85,7 +85,7 @@ public class XlsCell extends XOFunction {
 			}
 
 			// ¼ì²ésheetÃû³Æ
-			ExcelUtils.checkSheetName(s);
+			ExcelUtils.checkSheetName(content);
 
 			try {
 				file.rename(s, (String) content);

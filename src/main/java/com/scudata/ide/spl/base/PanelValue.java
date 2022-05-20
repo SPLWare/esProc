@@ -85,7 +85,7 @@ public class PanelValue extends JPanel {
 		setMinimumSize(new Dimension(0, 0));
 		valueBar = new PanelValueBar();
 		add(valueBar, BorderLayout.NORTH);
-		tableValue = new JTableValue();
+		tableValue = new JTableValue(this);
 		GM.loadWindowSize(this);
 		spValue = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_NEVER,
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);

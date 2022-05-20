@@ -77,7 +77,6 @@ import com.scudata.ide.common.swing.AllPurposeEditor;
 import com.scudata.ide.common.swing.AllPurposeRenderer;
 import com.scudata.ide.common.swing.JTableEx;
 import com.scudata.ide.common.swing.JTextFieldReadOnly;
-import com.scudata.ide.spl.GVSpl;
 import com.scudata.ide.spl.dialog.DialogDisplayChart;
 import com.scudata.ide.spl.dialog.DialogTextEditor;
 import com.scudata.ide.spl.resources.IdeSplMessage;
@@ -89,6 +88,8 @@ import com.scudata.util.Variant;
  */
 public class JTableValue extends JTableEx {
 	private static final long serialVersionUID = -4530154524747498116L;
+
+	private PanelValue panelValue;
 	/**
 	 * 集算器资源管理器
 	 */
@@ -200,7 +201,8 @@ public class JTableValue extends JTableEx {
 	/**
 	 * 构造函数
 	 */
-	public JTableValue() {
+	public JTableValue(PanelValue panelValue) {
+		this.panelValue = panelValue;
 		DragGestureListener dgl = new DragGestureListener() {
 			public void dragGestureRecognized(DragGestureEvent dge) {
 				try {
@@ -335,7 +337,7 @@ public class JTableValue extends JTableEx {
 	 * @return
 	 */
 	private int getPageRows() {
-		int height = GVSpl.panelValue.spValue.getPreferredSize().height;
+		int height = panelValue.spValue.getPreferredSize().height;
 		return height / ROW_HEIGHT + 1;
 	}
 
@@ -386,7 +388,7 @@ public class JTableValue extends JTableEx {
 					if (rotation < 0) {
 						amount = -amount;
 					}
-					JScrollBar sbValue = GVSpl.panelValue.sbValue;
+					JScrollBar sbValue = panelValue.sbValue;
 					sbValue.setValue(sbValue.getValue() + amount);
 					resetData(sbValue.getValue());
 				}
@@ -556,7 +558,7 @@ public class JTableValue extends JTableEx {
 	 */
 	public void setLocked(boolean locked) {
 		this.isLocked = locked;
-		GVSpl.panelValue.valueBar.setLocked(locked);
+		panelValue.valueBar.setLocked(locked);
 	}
 
 	/**
@@ -593,7 +595,7 @@ public class JTableValue extends JTableEx {
 		if (row < 0) {
 			return;
 		}
-		row += GVSpl.panelValue.sbValue.getValue() - 1;
+		row += panelValue.sbValue.getValue() - 1;
 		if (selectedRows.isEmpty()) {
 			selectedRows.addInt(row);
 			resetSelection();
@@ -607,7 +609,7 @@ public class JTableValue extends JTableEx {
 	 * 刷新按钮状态
 	 */
 	private void refreshValueButton() {
-		GVSpl.panelValue.valueBar.refresh();
+		panelValue.valueBar.refresh();
 	}
 
 	/**
@@ -620,7 +622,7 @@ public class JTableValue extends JTableEx {
 			int r;
 			for (int i = 0; i < selectedRows.size(); i++) {
 				r = selectedRows.getInt(i);
-				r = r - GVSpl.panelValue.sbValue.getValue() + 1;
+				r = r - panelValue.sbValue.getValue() + 1;
 				if (r > -1 && r < getRowCount()) {
 					selectModel.addSelectionInterval(r, r);
 				}
@@ -747,7 +749,7 @@ public class JTableValue extends JTableEx {
 					isSeq = true;
 					break;
 				}
-				int height = GVSpl.panelValue.spValue.getPreferredSize().height;
+				int height = panelValue.spValue.getPreferredSize().height;
 				int startRow = index;
 				int count = height / ROW_HEIGHT + 1;
 				count = Math.max(DISP_ROWS, count);
@@ -1128,7 +1130,7 @@ public class JTableValue extends JTableEx {
 			if (!(originalValue instanceof IMultipath)) // 不支持多路游标
 				isCursor = true;
 		}
-		GVSpl.panelValue.setCursorValue(isCursor);
+		panelValue.setCursorValue(isCursor);
 		final Object aValue = value;
 		SwingUtilities.invokeLater(new Thread() {
 			public void run() {
@@ -1213,14 +1215,14 @@ public class JTableValue extends JTableEx {
 			}
 		} finally {
 			try {
-				GVSpl.panelValue.preventChange = true;
-				GVSpl.panelValue.sbValue.setMinimum(1);
-				GVSpl.panelValue.sbValue.setMaximum(rowCount);
-				GVSpl.panelValue.sbValue.setValue(dispStartIndex);
-				GVSpl.panelValue.spValue.getHorizontalScrollBar().setValue(1);
+				panelValue.preventChange = true;
+				panelValue.sbValue.setMinimum(1);
+				panelValue.sbValue.setMaximum(rowCount);
+				panelValue.sbValue.setValue(dispStartIndex);
+				panelValue.spValue.getHorizontalScrollBar().setValue(1);
 				resetData(dispStartIndex, true);
 			} finally {
-				GVSpl.panelValue.preventChange = false;
+				panelValue.preventChange = false;
 			}
 		}
 	}
@@ -1779,7 +1781,7 @@ public class JTableValue extends JTableEx {
 		if (editable) {
 			return;
 		}
-		JScrollBar sbValue = GVSpl.panelValue.sbValue;
+		JScrollBar sbValue = panelValue.sbValue;
 		int scrollVal = Math.max(sbValue.getValue(), 1);
 		int realRow = scrollVal + row;
 		Object newValue = null;
