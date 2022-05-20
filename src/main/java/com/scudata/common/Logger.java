@@ -182,7 +182,14 @@ public class Logger {
 		logger.handlers.add(ch);
 	}
 
-	private void doLog(int level, Object msg, Throwable t) {
+	/**
+	 * 将synchronized 改到此处，以前在handler内部，保证循环handlers时的线程安全
+	 * http://111.198.29.167:9000/browse/REPORT-1478
+	 * @param level
+	 * @param msg
+	 * @param t
+	 */
+	private synchronized void doLog(int level, Object msg, Throwable t) {
 		String message = format(level, msg, t);
 		for (Handler h : handlers) {
 			h.log(level, message);
@@ -530,7 +537,7 @@ public class Logger {
 			isFixedFileName = fix;
 		}
 
-		synchronized void doLog(int level, String msg) {
+		void doLog(int level, String msg) {
 			if (level > logLevel)
 				return;
 			if (!isFixedFileName) {
