@@ -19,10 +19,8 @@ public class FileTreeNode extends DefaultMutableTreeNode {
 	public static final byte TYPE_ROOT = 0;
 	/** 本地资源类型 */
 	public static final byte TYPE_LOCAL = 1;
-	/** 服务器资源类型 */
-	public static final byte TYPE_SERVER = 2;
 	/** 云服务资源类型 */
-	public static final byte TYPE_CLOUD = 3;
+	public static final byte TYPE_CLOUD = 2;
 
 	/** 未选择状态 */
 	public static final byte NOT_SELECTED = 0;

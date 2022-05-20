@@ -1,6 +1,5 @@
 package com.scudata.ide.spl.base;
 
-import java.awt.Component;
 import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -37,14 +36,13 @@ import com.scudata.ide.common.ConfigOptions;
 import com.scudata.ide.common.GC;
 import com.scudata.ide.common.GM;
 import com.scudata.ide.common.GV;
-import com.scudata.ide.custom.IResourceTreeBase;
 import com.scudata.ide.spl.resources.IdeSplMessage;
 
 /**
  * 资源树控件
  *
  */
-public class FileTree extends JTree implements IResourceTreeBase {
+public class FileTree extends JTree {
 	private static final long serialVersionUID = 1L;
 
 	public static MessageManager mm = IdeSplMessage.get();
@@ -831,13 +829,6 @@ public class FileTree extends JTree implements IResourceTreeBase {
 	 */
 	public FileTreeNode getRoot() {
 		return root;
-	}
-
-	/**
-	 * 返回当前资源树控件
-	 */
-	public Component getComponent() {
-		return this;
 	}
 
 	/**

@@ -63,7 +63,6 @@ import com.scudata.ide.common.ToolBarPropertyBase;
 import com.scudata.ide.common.ToolBarWindow;
 import com.scudata.ide.common.control.PanelConsole;
 import com.scudata.ide.common.resources.IdeCommonMessage;
-import com.scudata.ide.custom.IResourceTreeBase;
 import com.scudata.ide.spl.base.FileTree;
 import com.scudata.ide.spl.base.JTabbedParam;
 import com.scudata.ide.spl.base.PanelSplWatch;
@@ -143,7 +142,7 @@ public class SPL extends AppFrame {
 	/**
 	 * 资源树控件
 	 */
-	protected IResourceTreeBase fileTree;
+	protected FileTree fileTree;
 
 	/**
 	 * 集算器资源管理器
@@ -297,7 +296,7 @@ public class SPL extends AppFrame {
 			jTPRight.setMinimumSize(new Dimension(0, 0));
 
 			jTPLeft.addTab(mm.getMessage("public.file"), new JScrollPane(
-					fileTree.getComponent()));
+					fileTree));
 
 			jTPRight.addTab(mm.getMessage("dfx.tabvalue"), panelValue);
 			tabParam = new JTabbedParam() {

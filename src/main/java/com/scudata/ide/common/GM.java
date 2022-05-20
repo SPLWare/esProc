@@ -2276,24 +2276,6 @@ public class GM {
 			if (GV.config != null)
 				GV.config.setDBList(null);
 		}
-		/* Set the remote service data source configuration to Env */
-		if (GV.dsModelRemote != null) {
-			Set<String> keys = GV.dsModelRemote.keySet();
-			for (String key : keys) {
-				DataSourceListModel dsl = GV.dsModelRemote.get(key);
-				if (dsl != null) {
-					for (int c = 0; c < dsl.size(); c++) {
-						DataSource ds = (DataSource) dsl.getElementAt(c);
-						try {
-							Env.setDBSessionFactory(ds.getName(), ds
-									.getDBInfo().createSessionFactory());
-						} catch (Throwable t) {
-							GM.showException(t);
-						}
-					}
-				}
-			}
-		}
 	}
 
 	/**
@@ -3554,26 +3536,6 @@ public class GM {
 				context.setDBSession(ds.getName(), ds.getDBSession());
 			} catch (Throwable ex) {
 				GM.showException(ex);
-			}
-		}
-		if (GV.dsModelRemote != null) {
-			Set<String> keys = GV.dsModelRemote.keySet();
-			for (String key : keys) {
-				DataSourceListModel dsl = GV.dsModelRemote.get(key);
-				if (dsl != null) {
-					for (int c = 0; c < dsl.size(); c++) {
-						DataSource ds = (DataSource) dsl.getElementAt(c);
-						if (ds == null || ds.isClosed()) {
-							continue;
-						}
-						try {
-							context.setDBSession(ds.getName(),
-									ds.getDBSession());
-						} catch (Throwable t) {
-							GM.showException(t);
-						}
-					}
-				}
 			}
 		}
 		return context;

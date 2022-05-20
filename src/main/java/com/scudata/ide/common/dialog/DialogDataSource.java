@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Cursor;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowEvent;
@@ -202,17 +201,6 @@ public class DialogDataSource extends JDialog implements IDataSourceEditor {
 						.isValidString(activeServer) ? activeServer
 						: serverNames.get(0));
 			}
-			serverJCB.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					String serverName = (String) serverJCB.getSelectedItem();
-					if (GV.dsModelRemote != null) {
-						dsModel = GV.dsModelRemote.get(serverName);
-						jListDS.removeAll();
-						jListDS.setModel(dsModel);
-						serverSelected(serverName);
-					}
-				}
-			});
 			JLabel serverJL = new JLabel();
 			serverJL.setText(mm.getMessage("public.server"));
 

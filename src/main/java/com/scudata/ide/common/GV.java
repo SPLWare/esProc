@@ -2,13 +2,12 @@ package com.scudata.ide.common;
 
 import java.util.HashSet;
 import java.util.Locale;
-import java.util.Map;
 
 import com.scudata.app.config.RaqsoftConfig;
 import com.scudata.ide.common.control.CellSelection;
 import com.scudata.ide.common.control.FuncWindow;
 import com.scudata.ide.common.dialog.DialogMemory;
-import com.scudata.ide.custom.IResourceTreeBase;
+import com.scudata.ide.spl.base.FileTree;
 
 /**
  * Global Variant
@@ -131,11 +130,6 @@ public class GV {
 	/**
 	 * EsProc Resource Tree
 	 */
-	public static IResourceTreeBase fileTree;
-
-	/**
-	 * EsProc remote service data sources
-	 */
-	public static Map<String, DataSourceListModel> dsModelRemote;
+	public static FileTree fileTree;
 
 }
