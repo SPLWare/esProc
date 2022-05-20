@@ -3,6 +3,7 @@ package com.scudata.expression.mfn.xo;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
+import com.scudata.excel.ExcelUtils;
 import com.scudata.expression.IParam;
 import com.scudata.expression.XOFunction;
 import com.scudata.resources.AppMessage;
@@ -145,6 +146,7 @@ public class XlsImport extends XOFunction {
 						+ mm.getMessage("function.paramTypeError"));
 			}
 		}
+
 		try {
 			return file.xlsimport(fields, s, start, end, hasTitle, isCursor,
 					removeBlank);

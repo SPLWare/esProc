@@ -1105,4 +1105,21 @@ public class ExcelUtils {
 		}
 		return time;
 	}
+
+	/**
+	 * Excel的sheet名称不能超过31个字符，并且不能包含[]:\/?*
+	 * @return
+	 */
+	public static void checkSheetName(Object s) {
+		if (!StringUtils.isValidString(s)) { // 非字符串或者空不检查
+			return;
+		}
+		String sheetName = s.toString();
+		// Excel工作表名称的长度不能超过31。
+		if (sheetName.length() > 31) {
+			throw new RQException(AppMessage.get().getMessage(
+					"excelutils.invalidsheetname"));
+		}
+		// 特殊字符的检查poi已经做了，不再检查了
+	}
 }

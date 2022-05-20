@@ -162,6 +162,9 @@ public class XlsExport extends FileFunction {
 		if (file != null) // 使用poi的方法判断版本
 			isXlsx = ExcelUtils.isXlsxFile(file);
 
+		// 检查sheet名称
+		ExcelUtils.checkSheetName(s);
+
 		ExcelTool et = new ExcelTool(file, isTitle, isXlsx, isSsxxf, isAppend,
 				s, pwd, isW);
 

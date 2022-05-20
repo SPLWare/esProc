@@ -7,6 +7,7 @@ import com.scudata.dm.Sequence;
 import com.scudata.dm.cursor.ICursor;
 import com.scudata.dm.cursor.MemoryCursor;
 import com.scudata.dm.cursor.SubCursor;
+import com.scudata.excel.ExcelUtils;
 import com.scudata.excel.SheetObject;
 import com.scudata.excel.SheetXls;
 import com.scudata.excel.XlsFileObject;
@@ -107,6 +108,9 @@ public class XlsExport extends XOFunction {
 		if (param1 != null) {
 			s = param1.getLeafExpression().calculate(ctx);
 		}
+
+		// ¼ì²ésheetÃû³Æ
+		ExcelUtils.checkSheetName(s);
 
 		String opt = option;
 		boolean isTitle = false, isAppend = false;

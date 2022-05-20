@@ -83,6 +83,10 @@ public class XlsCell extends XOFunction {
 				throw new RQException("xlscell"
 						+ mm.getMessage("function.invalidParam"));
 			}
+
+			// ¼ì²ésheetÃû³Æ
+			ExcelUtils.checkSheetName(s);
+
 			try {
 				file.rename(s, (String) content);
 			} catch (Exception e) {
