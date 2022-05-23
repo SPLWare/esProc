@@ -276,6 +276,7 @@ public class DialogUnitConfig extends JDialog {
 		uc.setInterval(((Integer) jSInterval.getValue()).intValue());
 		uc.setAutoStart(cbAutoStart.isSelected());
 
+		tableHosts.acceptText();
 		List<Host> hosts = new ArrayList<Host>();
 		for (int i = 0, count = tableHosts.getRowCount(); i < count; i++) {
 			String ip = (String) tableHosts.data.getValueAt(i, COL_HOST);
@@ -293,6 +294,7 @@ public class DialogUnitConfig extends JDialog {
 		uc.setCheckClients(cbCheck.isSelected());
 		List<String> starts = new ArrayList<String>();
 		List<String> ends = new ArrayList<String>();
+		tableClients.acceptText();
 		for (int i = 0, count = tableClients.getRowCount(); i < count; i++) {
 			String start = (String) tableClients.data.getValueAt(i, COL_START);
 			starts.add(start);
