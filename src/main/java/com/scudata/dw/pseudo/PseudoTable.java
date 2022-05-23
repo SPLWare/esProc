@@ -213,7 +213,15 @@ public class PseudoTable extends Pseudo {
 					 */
 					PseudoColumn col = pd.findColumnByPseudoName(expName);
 					if (col != null) {
-						if (col.get_enum() != null) {
+						if (col.getExp() != null) {
+							//有表达式的伪列
+							newExps[i] = new Expression(col.getExp());
+							name = col.getName();
+							exp = new Expression(name);
+							needNew = true;
+							tempExpList.add(exp);
+							tempNameList.add(name);
+						} else if (col.get_enum() != null) {
 							/**
 							 * 枚举字段做转换
 							 */

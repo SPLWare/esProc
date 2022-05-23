@@ -17,17 +17,17 @@ public class BufferWriter {
 	public static final int NULL = 0x00;
 	static final int TRUE = 0x01;
 	static final int FALSE = 0x02;
-	static final int LONG0 = 0x03;
+	public static final int LONG0 = 0x03;
 	public static final int FLOAT0 = 0x04;
 	static final int DECIMAL0 = 0x05;
 	static final int NONE = 0x07;
 
 	public static final int MARK1 = 0x10;
-	static final int INT16 = 0x10;
-	static final int INT32 = 0x11;
-	static final int LONG16 = 0x12;
-	static final int LONG32 = 0x13;
-	static final int LONG64 = 0x14;
+	public static final int INT16 = 0x10;
+	public static final int INT32 = 0x11;
+	public static final int LONG16 = 0x12;
+	public static final int LONG32 = 0x13;
+	public static final int LONG64 = 0x14;
 	public static final int FLOAT16 = 0x15;
 	public static final int FLOAT32 = 0x16;
 	public static final int FLOAT64 = 0x17;
