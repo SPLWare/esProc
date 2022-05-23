@@ -162,21 +162,6 @@ public class FileTree extends JTree {
 	private boolean isInit = true;
 
 	/**
-	 * 根据条件，选择刷新本地、服务器文件
-	 * 
-	 * @param local
-	 * @param server
-	 */
-	// public synchronized void refresh(boolean local, boolean server) {
-	// if (local) {
-	// refreshLocal();
-	// }
-	// if (server) {
-	// refreshServer("/", true);
-	// }
-	// }
-
-	/**
 	 * 刷新本地文件
 	 */
 	public synchronized void refreshLocal() {

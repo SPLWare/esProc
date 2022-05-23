@@ -121,8 +121,6 @@ public abstract class AppFrame extends JFrame implements IAppFrame {
 	 *            Input stream
 	 * @param fileName
 	 *            file name
-	 * @param type
-	 *            SheetSplC.TYPE_REMOTE,SheetSplC.TYPE_CLOUD 
 	 * @return
 	 */
 	public JInternalFrame openSheetFile(InputStream in, String fileName,

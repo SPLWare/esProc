@@ -19,8 +19,6 @@ public class FileTreeNode extends DefaultMutableTreeNode {
 	public static final byte TYPE_ROOT = 0;
 	/** 本地资源类型 */
 	public static final byte TYPE_LOCAL = 1;
-	/** 云服务资源类型 */
-	public static final byte TYPE_CLOUD = 2;
 
 	/** 未选择状态 */
 	public static final byte NOT_SELECTED = 0;
@@ -71,10 +69,6 @@ public class FileTreeNode extends DefaultMutableTreeNode {
 	 * 是否展开了
 	 */
 	private boolean isExpanded = false;
-	/**
-	 * 服务器名称
-	 */
-	private String serverName;
 
 	/**
 	 * 构造函数
@@ -243,24 +237,6 @@ public class FileTreeNode extends DefaultMutableTreeNode {
 		this.selectedState = selectedState;
 	}
 
-	/**
-	 * 取服务器或云名称
-	 * 
-	 * @return
-	 */
-	public String getServerName() {
-		return serverName;
-	}
-
-	/**
-	 * 设置服务器或云名称
-	 * 
-	 * @param serverName
-	 *            服务器名称
-	 */
-	public void setServerName(String serverName) {
-		this.serverName = serverName;
-	}
 
 	/**
 	 * 设置过滤条件

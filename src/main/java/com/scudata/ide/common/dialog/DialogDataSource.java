@@ -2,13 +2,10 @@ package com.scudata.ide.common.dialog;
 
 import java.awt.BorderLayout;
 import java.awt.Cursor;
-import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowEvent;
-import java.util.List;
-import java.util.Vector;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -21,7 +18,6 @@ import javax.swing.ListSelectionModel;
 import com.scudata.common.DBConfig;
 import com.scudata.common.DBInfo;
 import com.scudata.common.MessageManager;
-import com.scudata.common.StringUtils;
 import com.scudata.dm.Env;
 import com.scudata.ide.common.DataSource;
 import com.scudata.ide.common.DataSourceList;
@@ -30,9 +26,7 @@ import com.scudata.ide.common.GM;
 import com.scudata.ide.common.GV;
 import com.scudata.ide.common.IDataSourceEditor;
 import com.scudata.ide.common.resources.IdeCommonMessage;
-import com.scudata.ide.common.swing.JComboBoxEx;
 import com.scudata.ide.common.swing.VFlowLayout;
-import com.scudata.ide.custom.Server;
 
 /**
  * 数据源对话框
@@ -84,43 +78,12 @@ public class DialogDataSource extends JDialog implements IDataSourceEditor {
 	 * 数据源列表对象
 	 */
 	private static DataSourceListModel dsModel;
-	/**
-	 * 远程服务器列表
-	 */
-	private List<Server> serverList = null;
-	/**
-	 * 当前的服务
-	 */
-	private String activeServer = null;
-
-	/**
-	 * 服务器列表控件
-	 */
-	private JComboBoxEx serverJCB;
 
 	/**
 	 * Constructor
-	 * 
-	 * @param dslm
-	 *            DataSourceListModel Object
 	 */
 	public DialogDataSource(DataSourceListModel dslm) {
-		this(dslm, null, null);
-	}
-
-	/**
-	 * Constructor
-	 * 
-	 * @param dslm
-	 *            DataSourceListModel Object
-	 * @param serverList
-	 *            Remote server list
-	 */
-	public DialogDataSource(DataSourceListModel dslm, List<Server> serverList,
-			String activeServer) {
 		super(GV.appFrame, "Data source", true);
-		this.serverList = serverList;
-		this.activeServer = activeServer;
 		init(dslm);
 	}
 
@@ -189,28 +152,6 @@ public class DialogDataSource extends JDialog implements IDataSourceEditor {
 		panel1.add(jPanel1, BorderLayout.EAST);
 		panelCenter.setLayout(new BorderLayout());
 		panelCenter.add(new JScrollPane(jListDS), BorderLayout.CENTER);
-		if (serverList != null) {
-			JPanel panel = new JPanel(new GridBagLayout());
-			Vector<String> serverNames = new Vector<String>();
-			for (Server server : serverList) {
-				serverNames.add(server.getName());
-			}
-			serverJCB = new JComboBoxEx(serverNames);
-			if (serverNames.size() > 0) {
-				serverJCB.setSelectedItem(StringUtils
-						.isValidString(activeServer) ? activeServer
-						: serverNames.get(0));
-			}
-			JLabel serverJL = new JLabel();
-			serverJL.setText(mm.getMessage("public.server"));
-
-			panel.add(serverJL, GM.getGBC(0, 0));
-			panel.add(serverJCB, GM.getGBC(0, 1, true));
-			panel1.add(panel, BorderLayout.NORTH);
-			jBDelete.setVisible(false);
-			jBEdit.setVisible(false);
-			jBNew.setVisible(false);
-		}
 
 		jPanel1.add(jBConnect, null);
 		jPanel1.add(jBDisconnect, null);
