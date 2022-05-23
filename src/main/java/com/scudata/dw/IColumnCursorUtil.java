@@ -43,4 +43,11 @@ abstract public class IColumnCursorUtil {
 	
 	public abstract Table groups(ICursor cursor, Expression[] exps, String[] names, Expression[] calcExps, String[] calcNames, 
 			String opt, Context ctx, int groupCount);
+	
+	/**
+	 * 转换为行存序表
+	 * @param src
+	 * @return
+	 */
+	public abstract Sequence convert(Sequence src);
 }

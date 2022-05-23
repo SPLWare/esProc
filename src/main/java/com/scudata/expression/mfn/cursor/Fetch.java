@@ -5,6 +5,7 @@ import com.scudata.common.RQException;
 import com.scudata.dm.Context;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.cursor.ICursor;
+import com.scudata.dw.IColumnCursorUtil;
 import com.scudata.expression.CursorFunction;
 import com.scudata.expression.IParam;
 import com.scudata.resources.EngineMessage;
@@ -53,6 +54,10 @@ public class Fetch extends CursorFunction {
 				MessageManager mm = EngineMessage.get();
 				throw new RQException("fetch" + mm.getMessage("function.invalidParam"));
 			}
+		}
+		
+		if (cursor.isColumnCursor()) {
+			result = IColumnCursorUtil.util.convert(result);
 		}
 		
 		if (option != null) {
