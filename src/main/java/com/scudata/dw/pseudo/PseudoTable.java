@@ -623,6 +623,8 @@ public class PseudoTable extends Pseudo {
 			return new Expression(str).getHome();
 		} else if (col.get_enum() != null) {
 			return null;//枚举的不在这里处理
+		} else if (col.getExp() != null) {
+			return new Expression(col.getExp()).getHome();
 		} else {
 			return new UnknownSymbol(col.getName());//处理普通伪字段
 		}
@@ -729,6 +731,7 @@ public class PseudoTable extends Pseudo {
 		if (op == null) {
 			return this;
 		}
+		
 		if (hasPseudoColumns) {
 			/**
 			 * 处理伪字段，二值字段，枚举字段
@@ -742,6 +745,12 @@ public class PseudoTable extends Pseudo {
 				Node n = bitsToBoolean(node);
 				if (n != null) {
 					op = new Select(new Expression(n), null);
+					
+					ArrayList<String> tempList = new ArrayList<String>();
+					n.getUsedFields(ctx, tempList);
+					for (String name : tempList) {
+						addColName(name);
+					}
 				}
 			} else {
 				/**
