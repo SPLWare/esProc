@@ -59,7 +59,7 @@ public class MenuSpl extends AppMenu {
 		add(tmpLiveMenu);
 
 		// 帮助菜单
-		add(getHelpMenu(false));
+		add(getHelpMenu());
 
 		setEnable(getMenuItems(), false);
 		resetLiveMenu();
@@ -372,6 +372,16 @@ public class MenuSpl extends AppMenu {
 				GC.NO_MASK, true);
 		menu.add(menuTemp);
 		return menu;
+	}
+
+	/**
+	 * Get help menu
+	 * 
+	 * @param canUpdate 是否可以更新
+	 * @return
+	 */
+	public JMenu getHelpMenu() {
+		return getHelpMenu(false);
 	}
 
 	/**

@@ -45,7 +45,7 @@ public class MenuBase extends AppMenu {
 		add(tmpLiveMenu);
 
 		// 帮助菜单项
-		add(getHelpMenu(false));
+		add(getHelpMenu());
 
 		setEnable(getMenuItems(), false);
 		resetLiveMenu();
@@ -100,6 +100,16 @@ public class MenuBase extends AppMenu {
 		menu.add(newCommonMenuItem(GC.iOPTIONS, GC.OPTIONS, 'O', GC.NO_MASK,
 				true));
 		return menu;
+	}
+
+	/**
+	 * Get help menu
+	 * 
+	 * @param canUpdate 是否可以更新
+	 * @return
+	 */
+	public JMenu getHelpMenu() {
+		return getHelpMenu(false);
 	}
 
 	/**
