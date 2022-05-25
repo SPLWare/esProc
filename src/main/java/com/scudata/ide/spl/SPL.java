@@ -713,15 +713,6 @@ public class SPL extends AppFrame {
 	}
 
 	/**
-	 * 取发布时间
-	 * 
-	 * @return
-	 */
-	public String getReleaseDate() {
-		return "2022-04-02";
-	}
-
-	/**
 	 * 打开文件
 	 */
 	public JInternalFrame openSheetFile(String filePath) throws Exception {

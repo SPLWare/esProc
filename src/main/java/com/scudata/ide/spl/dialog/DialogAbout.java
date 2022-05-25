@@ -149,6 +149,23 @@ public class DialogAbout extends JDialog {
 	}
 
 	/**
+	 * 调用时可以重写此方法来替换Logo
+	 * 
+	 * @return
+	 */
+	protected ImageIcon getLogoImageIcon() {
+		return GM.getLogoImage(false);
+	}
+
+	/**
+	 * 重写此方法可以替换发布日期
+	 * @return
+	 */
+	protected String getReleaseDate() {
+		return GV.appFrame.getReleaseDate();
+	}
+
+	/**
 	 * 按语言加载
 	 */
 	private void resetLangText() {
@@ -196,7 +213,7 @@ public class DialogAbout extends JDialog {
 		jLProductName.setText(mm.getMessage("dialogabout.productname")
 				+ "      " + productName);
 		jLReleaseDate.setText(mm.getMessage("dialogabout.label1",
-				GV.appFrame.getReleaseDate()));
+				getReleaseDate()));
 
 		String tmp = mm.getMessage("dialogabout.providername");// 公司名称
 		String vendorName = mm.getMessage("dialogabout.defvendor");
@@ -228,15 +245,6 @@ public class DialogAbout extends JDialog {
 		panelTop.add(jLabelLogo, new FreeConstraints(10, 2, 380, 50));
 		panelTop.add(jLProductName, new FreeConstraints(10, 60, -1, -1));
 		panelTop.add(jLReleaseDate, new FreeConstraints(10, 90, 209, -1));
-	}
-
-	/**
-	 * 调用时可以重写此方法来替换Logo
-	 * 
-	 * @return
-	 */
-	protected ImageIcon getLogoImageIcon() {
-		return GM.getLogoImage(false);
 	}
 
 	/**
