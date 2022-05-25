@@ -8,6 +8,7 @@ import com.scudata.dm.IndexTable;
 import com.scudata.dm.ListBase1;
 import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
+import com.scudata.dw.IColumnCursorUtil;
 import com.scudata.expression.CurrentSeq;
 import com.scudata.expression.Expression;
 import com.scudata.expression.Function;
@@ -39,6 +40,10 @@ public class Switch extends Operation {
 		return fkNames;
 	}
 
+	public String [] getTimeFkNames() {
+		return timeFkNames;
+	}
+	
 	public Sequence[] getCodes() {
 		return codes;
 	}
@@ -50,7 +55,11 @@ public class Switch extends Operation {
 	public boolean isIsect() {
 		return isIsect;
 	}
-
+	
+	public boolean isDiff() {
+		return isDiff;
+	}
+	
 	public Switch(String[] fkNames, Sequence[] codes, Expression[] exps, String opt) {
 		this(null, fkNames, codes, exps, opt);
 	}
@@ -105,10 +114,10 @@ public class Switch extends Operation {
 	public Operation duplicate(Context ctx) {
 		Expression []exps = dupExpressions(this.exps, ctx);
 		Expression []timeExps = dupExpressions(this.timeExps, ctx);
-		return new Switch(function, fkNames, timeFkNames, codes, exps, timeExps, opt);
+		return new Switch(function, fkNames, getTimeFkNames(), codes, exps, timeExps, opt);
 	}
 
-	private IndexTable getIndexTable(int index, Context ctx) {
+	public IndexTable getIndexTable(int index, Context ctx) {
 		if (indexTables == null) {
 			int count = codes.length;
 			indexTables = new IndexTable[count];
@@ -183,6 +192,9 @@ public class Switch extends Operation {
 	 * @return 连接结果
 	 */
 	public Sequence process(Sequence seq, Context ctx) {
+		if (seq.isColumnTable()) {
+			return switch_column(seq, ctx);
+		}
 		if (isIsect) {
 			switch_i(seq, ctx);
 			if (seq.length() == 0) {
@@ -208,7 +220,7 @@ public class Switch extends Operation {
 		for (int f = 0; f < fkCount; ++f) {
 			IndexTable indexTable = getIndexTable(f, ctx);
 			String fkName = fkNames[f];
-			String timeName = timeFkNames == null ? null : timeFkNames[f];
+			String timeName = getTimeFkNames() == null ? null : getTimeFkNames()[f];
 			int col = -1; // 字段在上一条记录的索引
 			int timeCol = -1;
 			Record prevRecord = null; // 上一条记录
@@ -413,7 +425,7 @@ public class Switch extends Operation {
 			int len = mems.size();
 
 			String fkName = fkNames[f];
-			String timeName = timeFkNames == null ? null : timeFkNames[f];
+			String timeName = getTimeFkNames() == null ? null : getTimeFkNames()[f];
 			int col = -1; // 字段在上一条记录的索引
 			int timeCol = -1;
 			Record prevRecord = null; // 上一条记录
@@ -559,7 +571,7 @@ public class Switch extends Operation {
 			int len = mems.size();
 			
 			String fkName = fkNames[f];
-			String timeName = timeFkNames == null ? null : timeFkNames[f];
+			String timeName = getTimeFkNames() == null ? null : getTimeFkNames()[f];
 			int col = -1; // 字段在上一条记录的索引
 			int timeCol = -1;
 			Record prevRecord = null; // 上一条记录
@@ -690,5 +702,22 @@ public class Switch extends Operation {
 		if (mems.size() != data.length()) {
 			data.setMems(mems);
 		}
+	}
+	
+	private Sequence switch_column(Sequence data, Context ctx) {
+		int fkCount = fkNames.length;
+		Sequence result = data;
+		for (int f = 0; f < fkCount; ++f) {
+			IndexTable indexTable = getIndexTable(f, ctx);
+			String timeName = getTimeFkNames() == null ? null : getTimeFkNames()[f];
+			DataStruct ds = dataStructs == null ? null : dataStructs[f];
+			int keySeq = keySeqs == null ? -1 : keySeqs[f];
+			
+			result = IColumnCursorUtil.util.switchColumnTable(result, isIsect, isDiff, fkNames[f], codes[f],
+			timeName, indexTable, ds, keySeq, isLeft, ctx);
+			
+			if (result == null) return result;
+		}
+		return result;
 	}
 }

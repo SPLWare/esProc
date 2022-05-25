@@ -11704,4 +11704,12 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	public IndexTable getIndexTable(Expression []exps, Context ctx) {
 		return null;
 	}
+	
+	/**
+	 * 是否是列存序表
+	 * @return
+	 */
+	public boolean isColumnTable() {
+		return false;
+	}
 }

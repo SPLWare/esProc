@@ -1,6 +1,8 @@
 package com.scudata.dw;
 
 import com.scudata.dm.Context;
+import com.scudata.dm.DataStruct;
+import com.scudata.dm.IndexTable;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
 import com.scudata.dm.cursor.ICursor;
@@ -50,4 +52,7 @@ abstract public class IColumnCursorUtil {
 	 * @return
 	 */
 	public abstract Sequence convert(Sequence src);
+	
+	public abstract Sequence switchColumnTable(Sequence seq, boolean isIsect, boolean isDiff, String fkName, Sequence code,
+			String timeName, IndexTable indexTable, DataStruct ds, int keySeq, boolean isLeft, Context ctx);
 }
