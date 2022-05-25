@@ -128,8 +128,8 @@ public class FileTreeRender extends DefaultTreeCellRenderer {
 		panel.add(labelIcon, BorderLayout.CENTER);
 		JLabel labelName = new JLabel("  " + node.getName());
 		panel.add(labelName, BorderLayout.EAST);
+		Color backColor;
 		if (sel) {
-			Color backColor;
 			if (StringUtils.isValidString(ConfigOptions.fileColor)) {
 				// 若从配置文件读到颜色配置，则用改颜色，否则用系统默认颜色
 				String bgColor = ConfigOptions.fileColor;
@@ -154,9 +154,10 @@ public class FileTreeRender extends DefaultTreeCellRenderer {
 			labelIcon.setBackground(backColor);
 			labelName.setBackground(backColor);
 		} else {
-			labelIcon.setBackground(tree.getBackground());
-			labelName.setBackground(tree.getBackground());
-			panel.setBackground(tree.getBackground());
+			backColor = tree.getBackground();
+			labelIcon.setBackground(backColor);
+			labelName.setBackground(backColor);
+			panel.setBackground(backColor);
 		}
 		labelIcon.setForeground(tree.getForeground());
 		labelName.setForeground(tree.getForeground());
