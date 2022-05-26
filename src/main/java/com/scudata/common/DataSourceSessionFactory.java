@@ -23,9 +23,10 @@ public class DataSourceSessionFactory implements ISessionFactory{
 		return new DBSession(ds.getConnection(), dbInfo );
 	}
 
-	public static void create(String name, DataSource dataSource, int type) {
+	public static ISessionFactory create(String name, DataSource dataSource, int type) {
 		ISessionFactory sf = new DataSourceSessionFactory(dataSource, type);
 		Env.setDBSessionFactory( name, sf );
+		return sf;
 	}
 	
 }

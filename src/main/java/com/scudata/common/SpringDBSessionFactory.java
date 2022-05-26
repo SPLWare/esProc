@@ -49,4 +49,8 @@ public class SpringDBSessionFactory implements ISessionFactory{
 		return sf;
 	}
 	
+	public DataSource getDataSource() {
+		return ds; 
+	}
+	
 }
