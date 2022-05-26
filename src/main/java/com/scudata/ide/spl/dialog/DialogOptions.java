@@ -564,8 +564,12 @@ public class DialogOptions extends JDialog {
 				this.tabMain.setSelectedIndex(TAB_NORMAL);
 			return false;
 		}
-		if (showXmx)
-			GMSpl.setXmx(jTFXmx.getText());
+		if (showXmx) {
+			String newXmx = jTFXmx.getText();
+			if (StringUtils.isValidString(newXmx)
+					&& !newXmx.equalsIgnoreCase(oldXmx))
+				GMSpl.setXmx(newXmx);
+		}
 
 		// Normal
 		ConfigOptions.iUndoCount = (Integer) jSUndoCount.getValue();
@@ -653,13 +657,16 @@ public class DialogOptions extends JDialog {
 		return true;
 	}
 
+	private String oldXmx = null;
+
 	/**
 	 * º”‘ÿ—°œÓ
 	 */
 	private void load() {
 		if (showXmx)
 			try {
-				jTFXmx.setText(GMSpl.getXmx());
+				oldXmx = GMSpl.getXmx();
+				jTFXmx.setText(oldXmx);
 			} catch (Throwable t) {
 			}
 		jSUndoCount.setValue(ConfigOptions.iUndoCount);

@@ -18,6 +18,7 @@ import com.scudata.app.common.Segment;
 import com.scudata.cellset.datamodel.CellSet;
 import com.scudata.cellset.datamodel.NormalCell;
 import com.scudata.cellset.datamodel.PgmCellSet;
+import com.scudata.common.ArgumentTokenizer;
 import com.scudata.common.Logger;
 import com.scudata.common.Matrix;
 import com.scudata.common.StringUtils;
@@ -618,23 +619,39 @@ public class GMSpl extends GM {
 		} catch (Exception e) {
 		}
 		String jvmArgs = getConfigValue(KEY_JVM);
-		if (jvmArgs == null)
+		if (!StringUtils.isValidString(jvmArgs))
 			return;
-		String[] args = jvmArgs.split(" ");
-		if (args == null)
-			return;
-		for (int i = 0; i < args.length; i++) {
-			if (StringUtils.isValidString(args[i])) {
-				args[i] = args[i].trim();
-				if (args[i].toLowerCase().startsWith(KEY_XMX)) {
-					jvmArgs = jvmArgs.replaceFirst(args[i], "-Xmx" + xmx);
-				} else if (args[i].toLowerCase().startsWith(KEY_XMS)) {
-					// xms也设置成xmx一样大小
-					jvmArgs = jvmArgs.replaceFirst(args[i], "-Xms" + xmx);
-				}
+		StringBuffer buf = new StringBuffer();
+		ArgumentTokenizer at = new ArgumentTokenizer(jvmArgs, ' ');
+		while (at.hasMoreTokens()) {
+			if (buf.length() > 0) {
+				buf.append(" ");
+			}
+			String s = at.nextToken();
+			String arg = s.trim();
+			if (arg.toLowerCase().startsWith(KEY_XMX)) {
+				buf.append("-Xmx" + xmx);
+			} else if (arg.toLowerCase().startsWith(KEY_XMS)) {
+				buf.append("-Xms" + xmx);
+			} else {
+				buf.append(s);
 			}
 		}
-		setConfigValue(KEY_JVM, jvmArgs);
+		// String[] args = jvmArgs.split(" ");
+		// if (args == null)
+		// return;
+		// for (int i = 0; i < args.length; i++) {
+		// if (StringUtils.isValidString(args[i])) {
+		// args[i] = args[i].trim();
+		// if (args[i].toLowerCase().startsWith(KEY_XMX)) {
+		// jvmArgs = jvmArgs.replaceFirst(args[i], "-Xmx" + xmx);
+		// } else if (args[i].toLowerCase().startsWith(KEY_XMS)) {
+		// // xms也设置成xmx一样大小
+		// jvmArgs = jvmArgs.replaceFirst(args[i], "-Xms" + xmx);
+		// }
+		// }
+		// }
+		setConfigValue(KEY_JVM, buf.toString());
 	}
 
 	/**
