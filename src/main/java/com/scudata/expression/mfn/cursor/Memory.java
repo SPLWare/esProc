@@ -5,6 +5,7 @@ import com.scudata.common.RQException;
 import com.scudata.dm.Context;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
+import com.scudata.dw.IColumnCursorUtil;
 import com.scudata.dw.MemoryTable;
 import com.scudata.dw.TableMetaData;
 import com.scudata.expression.CursorFunction;
@@ -67,6 +68,11 @@ public class Memory extends CursorFunction {
 			}
 			
 			return table;
+		}
+		
+		//列式内表
+		if (option != null && option.indexOf('h') != -1 && IColumnCursorUtil.util != null) {
+			return IColumnCursorUtil.util.createMemoryTable(cursor, keys, option);
 		}
 		
 		seq = cursor.fetch();
