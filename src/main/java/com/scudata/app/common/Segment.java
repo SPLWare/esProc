@@ -109,6 +109,17 @@ public class Segment {
 	}
 
 	/**
+	 * 取值时不去引号
+	 * 
+	 * @param key
+	 * @return
+	 */
+	public String getValueWithoutRemove(String key) {
+		String tmp = ss.get(key);
+		return tmp;
+	}
+
+	/**
 	 * Merge another segment
 	 * 
 	 * @param other

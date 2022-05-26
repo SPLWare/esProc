@@ -1,11 +1,7 @@
 package com.scudata.ide.spl;
 
 import java.awt.Font;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.util.Locale;
 import java.util.Vector;
 
@@ -22,6 +18,8 @@ import com.scudata.common.ArgumentTokenizer;
 import com.scudata.common.Logger;
 import com.scudata.common.Matrix;
 import com.scudata.common.StringUtils;
+import com.scudata.dm.FileObject;
+import com.scudata.dm.Sequence;
 import com.scudata.ide.common.AppMenu;
 import com.scudata.ide.common.AppToolBar;
 import com.scudata.ide.common.ConfigFile;
@@ -623,11 +621,11 @@ public class GMSpl extends GM {
 			return;
 		StringBuffer buf = new StringBuffer();
 		ArgumentTokenizer at = new ArgumentTokenizer(jvmArgs, ' ');
-		while (at.hasMoreTokens()) {
+		while (at.hasNext()) {
 			if (buf.length() > 0) {
 				buf.append(" ");
 			}
-			String s = at.nextToken();
+			String s = at.next();
 			String arg = s.trim();
 			if (arg.toLowerCase().startsWith(KEY_XMX)) {
 				buf.append("-Xmx" + xmx);
@@ -637,21 +635,38 @@ public class GMSpl extends GM {
 				buf.append(s);
 			}
 		}
-		// String[] args = jvmArgs.split(" ");
-		// if (args == null)
-		// return;
-		// for (int i = 0; i < args.length; i++) {
-		// if (StringUtils.isValidString(args[i])) {
-		// args[i] = args[i].trim();
-		// if (args[i].toLowerCase().startsWith(KEY_XMX)) {
-		// jvmArgs = jvmArgs.replaceFirst(args[i], "-Xmx" + xmx);
-		// } else if (args[i].toLowerCase().startsWith(KEY_XMS)) {
-		// // xms也设置成xmx一样大小
-		// jvmArgs = jvmArgs.replaceFirst(args[i], "-Xms" + xmx);
-		// }
-		// }
-		// }
 		setConfigValue(KEY_JVM, buf.toString());
+	}
+
+	/**
+	 * 取配置文件的路径
+	 * @return
+	 */
+	private static String getConfigTxtFilePath() {
+		String binPath = GM.getAbsolutePath("bin");
+		String configFile = new File(binPath, "config.txt").getAbsolutePath();
+		return configFile;
+	}
+
+	/**
+	 * 读取bin/config.txt
+	 * @return
+	 */
+	private static String readConfigTxt() {
+		try {
+			String configFile = getConfigTxtFilePath();
+			FileObject fo = new FileObject(configFile);
+			Object obj = fo.read(0, -1, null);
+			if (obj instanceof Sequence) {
+				Sequence seq = (Sequence) obj;
+				obj = seq.ifn();
+			}
+			if (obj == null)
+				return null;
+			return obj.toString().trim();
+		} catch (Exception x) {
+		}
+		return null;
 	}
 
 	/**
@@ -661,93 +676,31 @@ public class GMSpl extends GM {
 	 * @return
 	 */
 	public static String getConfigValue(String key) {
-		FileReader fr = null;
-		BufferedReader br = null;
 		try {
-			String configFile = GM.getAbsolutePath("bin" + File.separator
-					+ "config.txt");
-			fr = new FileReader(configFile);
-			br = new BufferedReader(fr);
-			String segValue = br.readLine();
+			String segValue = readConfigTxt();
 			Segment seg = new Segment(segValue);
-			return seg.get(key);
+			return seg.getValueWithoutRemove(key);
 		} catch (Exception x) {
-			// Logger.debug(x.getMessage(), x);
-		} finally {
-			if (fr != null) {
-				try {
-					fr.close();
-				} catch (Exception e) {
-				}
-			}
-			if (br != null) {
-				try {
-					br.close();
-				} catch (Exception e) {
-				}
-			}
 		}
 		return null;
 	}
 
 	/**
-	 * 设置config.xml文件中的键值
+	 * 设置config.txt文件中的键值
 	 * 
 	 * @param key
 	 * @param value
 	 */
 	public static void setConfigValue(String key, String value) {
-		String configFile = GM.getAbsolutePath("bin" + File.separator
-				+ "config.txt");
-		FileReader fr = null;
-		BufferedReader br = null;
-		Segment seg = null;
 		try {
-			fr = new FileReader(configFile);
-			br = new BufferedReader(fr);
-			String segValue = br.readLine();
-			seg = new Segment(segValue);
+			String segValue = readConfigTxt();
+			Segment seg = new Segment(segValue);
+			seg.put(key, value, false);
+			String configFile = getConfigTxtFilePath();
+			FileObject fo = new FileObject(configFile);
+			fo.write(seg.toString(), null);
 		} catch (Exception e) {
 			GM.showException(e);
-		} finally {
-			if (fr != null) {
-				try {
-					fr.close();
-				} catch (Exception e) {
-				}
-			}
-			if (br != null) {
-				try {
-					br.close();
-				} catch (Exception e) {
-				}
-			}
-		}
-		if (seg == null)
-			return;
-		seg.put(key, value, false);
-		FileWriter fw = null;
-		BufferedWriter writer = null;
-		try {
-			fw = new FileWriter(new File(configFile));
-			writer = new BufferedWriter(fw);
-			writer.write(seg.toString());
-			writer.close();
-		} catch (Exception e) {
-			GM.showException(e);
-		} finally {
-			if (fw != null) {
-				try {
-					fw.close();
-				} catch (Exception e) {
-				}
-			}
-			if (writer != null) {
-				try {
-					writer.close();
-				} catch (Exception e) {
-				}
-			}
 		}
 	}
 }
