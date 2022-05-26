@@ -304,7 +304,8 @@ public class FileTree extends JTree {
 						for (File subFile : subFiles) {
 							String subName = subFile.getName();
 							if (subFile.isDirectory()
-									|| (subFile.isFile() && isValidFile(subName))) {
+									|| (subFile.isFile() && isValidFile(
+											FileTreeNode.TYPE_LOCAL, subName))) {
 								FileTreeNode subNode = new FileTreeNode(
 										subFile.getAbsolutePath(),
 										FileTreeNode.TYPE_LOCAL);
@@ -335,7 +336,7 @@ public class FileTree extends JTree {
 				node.setTitle(fileName);
 				boolean isDir = f.isDirectory();
 				if (!isDir) {
-					if (isValidFile(fileName)) {
+					if (isValidFile(FileTreeNode.TYPE_LOCAL, fileName)) {
 						node.setDir(isDir);
 						pNode.add(node);
 					}
@@ -353,7 +354,7 @@ public class FileTree extends JTree {
 	 * @param fileName
 	 * @return
 	 */
-	protected boolean isValidFile(String fileName) {
+	protected boolean isValidFile(byte type, String fileName) {
 		return AppUtil.isSPLFile(fileName);
 	}
 
