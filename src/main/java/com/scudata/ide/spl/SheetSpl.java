@@ -882,24 +882,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 							.setValue1(value, nc.getCellId());
 				}
 			} catch (Exception x) {
-				String msg = x.getMessage();
-				if (!StringUtils.isValidString(msg)) {
-					StringBuffer sb = new StringBuffer();
-					Throwable t = x.getCause();
-					if (t != null) {
-						sb.append(t.getMessage());
-						sb.append("\r\n");
-					}
-					StackTraceElement[] ste = x.getStackTrace();
-					for (int i = 0; i < ste.length; i++) {
-						sb.append(ste[i]);
-						sb.append("\r\n");
-					}
-					msg = sb.toString();
-					showException(msg);
-				} else {
-					showException(x);
-				}
+				showException(x);
 			} finally {
 				splControl.contentView.repaint();
 				SwingUtilities.invokeLater(new Thread() {
@@ -1601,11 +1584,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 			} catch (ThreadDeath td) {
 				isThreadDeath = true;
 			} catch (Throwable x) {
-				String msg = x.getMessage();
-				if (!StringUtils.isValidString(msg)) {
-					msg = AppUtil.getThrowableString(x);
-				}
-				showException(msg);
+				showException(x);
 			} finally {
 				runState = FINISH;
 				if (!isThreadDeath)
@@ -1828,11 +1807,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 			} catch (ThreadDeath td) {
 				isThreadDeath = true;
 			} catch (Throwable x) {
-				String msg = x.getMessage();
-				if (!StringUtils.isValidString(msg)) {
-					msg = AppUtil.getThrowableString(x);
-				}
-				showException(msg);
+				showException(x);
 			} finally {
 				runState = FINISH;
 				if (!isThreadDeath)
