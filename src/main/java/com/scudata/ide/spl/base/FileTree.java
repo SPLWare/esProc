@@ -491,14 +491,7 @@ public class FileTree extends JTree {
 			}
 			break;
 		case REFRESH:
-			node.setLoaded(false);
-			if (node.getType() == FileTreeNode.TYPE_LOCAL) {
-				loadSubNode(node);
-			} else if (node.getType() == FileTreeNode.TYPE_ROOT) {
-				// 刷新根节点
-				refreshLocal();
-			}
-			nodeStructureChanged(node);
+			refreshNode(node);
 			break;
 		case SWITCH_PATH:
 			ConfigOptions.bFileTreeDemo = !ConfigOptions.bFileTreeDemo
@@ -506,6 +499,23 @@ public class FileTree extends JTree {
 			refreshLocal();
 			break;
 		}
+	}
+
+	/**
+	 * 刷新树节点
+	 * @param node
+	 */
+	protected void refreshNode(FileTreeNode node) {
+		if (node == null)
+			return;
+		node.setLoaded(false);
+		if (node.getType() == FileTreeNode.TYPE_LOCAL) {
+			loadSubNode(node);
+		} else if (node.getType() == FileTreeNode.TYPE_ROOT) {
+			// 刷新根节点
+			refreshLocal();
+		}
+		nodeStructureChanged(node);
 	}
 
 	/**
