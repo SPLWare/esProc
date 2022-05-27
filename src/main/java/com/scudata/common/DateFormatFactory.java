@@ -87,11 +87,12 @@ public class DateFormatFactory {
 			return getFormat(fmt);
 		}
 		
-		DateFormat df = map.get(locale + fmt);
+		String key = locale + fmt;
+		DateFormat df = map.get(key);
 		if(df == null) {
 			df = new SimpleDateFormat(fmt, new Locale(locale));
 			df.getCalendar().setLenient(false);
-			map.put(fmt, df);
+			map.put(key, df);
 		}
 		
 		return df;
