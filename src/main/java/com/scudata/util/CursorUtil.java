@@ -2614,4 +2614,41 @@ public final class CursorUtil {
 			return new MergesCursor(cursors, exps, opt, ctx);
 		}
 	}
+	
+	/**
+	 * 把排列转成游标
+	 * @param data 排列
+	 * @param pathCount 游标的路数
+	 * @param ctx
+	 * @return ICursor
+	 */
+	public static ICursor cursor(Sequence data, int pathCount, Context ctx) {
+		int len = data.length();
+		if (pathCount > 1 && pathCount < len) {
+			int blockSize = len / pathCount;
+			ICursor []cursors = new ICursor[pathCount];
+			if (ctx == null) {
+				ctx = new Context();
+			}
+			
+			for (int i = 1; i <= pathCount; ++i) {
+				int start;
+				int end;
+				
+				if (i == pathCount) {
+					start = blockSize * (i - 1) + 1;
+					end = len + 1;
+				} else {
+					start = blockSize * (i - 1) + 1;
+					end = blockSize * i + 1;
+				}
+				
+				cursors[i - 1] = new MemoryCursor(data, start, end);
+			}
+			
+			return new MultipathCursors(cursors, ctx);
+		} else {
+			return new MemoryCursor(data);
+		}
+	}
 }

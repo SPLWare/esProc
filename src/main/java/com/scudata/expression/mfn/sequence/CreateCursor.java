@@ -25,6 +25,7 @@ import com.scudata.expression.ParamInfo2;
 import com.scudata.expression.SequenceFunction;
 import com.scudata.expression.operator.And;
 import com.scudata.resources.EngineMessage;
+import com.scudata.util.CursorUtil;
 
 /**
  * 把序列转成游标或多路游标
@@ -473,29 +474,7 @@ public class CreateCursor extends SequenceFunction {
 			throw new RQException("cursor" + mm.getMessage("function.invalidParam"));
 		}
 		
-		int len = seq.length();
-		if (pathCount > 1 && pathCount < len) {
-			int blockSize = len / pathCount;
-			ICursor []cursors = new ICursor[pathCount];
-			for (int i = 1; i <= pathCount; ++i) {
-				int start;
-				int end;
-				
-				if (i == pathCount) {
-					start = blockSize * (i - 1) + 1;
-					end = len + 1;
-				} else {
-					start = blockSize * (i - 1) + 1;
-					end = blockSize * i + 1;
-				}
-				
-				cursors[i - 1] = new MemoryCursor(seq, start, end);
-			}
-			
-			return new MultipathCursors(cursors, ctx);
-		} else {
-			return new MemoryCursor(seq);
-		}
+		return CursorUtil.cursor(seq, pathCount, ctx);
 	}
 	
 	// 由内存序列创建游标
