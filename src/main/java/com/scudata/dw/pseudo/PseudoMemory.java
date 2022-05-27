@@ -10,6 +10,7 @@ import com.scudata.dm.op.New;
 import com.scudata.dm.op.Operation;
 import com.scudata.dm.op.Select;
 import com.scudata.expression.Expression;
+import com.scudata.util.CursorUtil;
 
 /**
  * 内存虚表；从内存变量产生虚表
@@ -34,7 +35,13 @@ public class PseudoMemory extends Pseudo {
 	}
 	
 	public ICursor cursor(Expression []exps, String []names) {
-		ICursor cs = addOptionToCursor(new MemoryCursor(pd.getMemoryTable()));
+		ICursor cs;
+		if (pathCount > 1) {
+			cs = CursorUtil.cursor(pd.getMemoryTable(), pathCount, ctx);
+		} else {
+			cs = new MemoryCursor(pd.getMemoryTable());
+		}
+		cs = addOptionToCursor(cs);
 		
 		if (filter != null) {
 			cs.addOperation(new Select(filter, null), ctx);
@@ -43,6 +50,13 @@ public class PseudoMemory extends Pseudo {
 		if (exps == null && names == null) {
 			return cs;
 		} else {
+			if(exps == null) {
+				int len = names.length;
+				exps = new Expression[len];
+				for (int i = 0; i < len; i++) {
+					exps[i] = new Expression(names[i]);
+				}
+			}
 			New _new = new New(exps, names, null);
 			cs.addOperation(_new, ctx);
 			return cs;
