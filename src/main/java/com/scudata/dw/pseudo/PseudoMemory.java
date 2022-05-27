@@ -17,12 +17,13 @@ import com.scudata.expression.Expression;
  *
  */
 public class PseudoMemory extends Pseudo {
+	protected int pathCount;
 	public PseudoMemory() {
 	}
 	
 	public PseudoMemory(Record rec, int n, Context ctx) {
 		pd = new PseudoDefination(rec, ctx);
-		
+		pathCount = n;
 		this.ctx = ctx;
 	}
 	
@@ -81,6 +82,11 @@ public class PseudoMemory extends Pseudo {
 		return pd.getMemoryTable();
 	}
 
+	public Pseudo setPathCount(int pathCount) {
+		this.pathCount = pathCount;
+		return this;
+	}
+	
 	public Object clone(Context ctx) throws CloneNotSupportedException {
 		PseudoMemory obj = new PseudoMemory();
 		cloneField(obj);
