@@ -211,7 +211,7 @@ public abstract class AppFrame extends JFrame implements IAppFrame {
 	 * @return
 	 */
 	public String getReleaseDate() {
-		return "2022-05-27";
+		return "2022-04-02";
 	}
 
 	/**
