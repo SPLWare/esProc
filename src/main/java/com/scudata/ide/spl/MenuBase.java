@@ -103,16 +103,6 @@ public class MenuBase extends AppMenu {
 	}
 
 	/**
-	 * Get help menu
-	 * 
-	 * @param canUpdate 是否可以更新
-	 * @return
-	 */
-	public JMenu getHelpMenu() {
-		return getHelpMenu(false);
-	}
-
-	/**
 	 * 取所有可变状态的菜单项
 	 */
 	public short[] getMenuItems() {

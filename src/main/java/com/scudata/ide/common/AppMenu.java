@@ -37,7 +37,6 @@ import com.scudata.ide.common.resources.IdeCommonMessage;
 import com.scudata.ide.spl.GMSpl;
 import com.scudata.ide.spl.GVSpl;
 import com.scudata.ide.spl.resources.IdeSplMessage;
-import com.scudata.ide.spl.update.UpdateManager;
 
 /**
  * The base class of the IDE menu
@@ -375,10 +374,9 @@ public abstract class AppMenu extends JMenuBar {
 	/**
 	 * Get help menu
 	 * 
-	 * @param canUpdate 是否可以更新
 	 * @return
 	 */
-	public JMenu getHelpMenu(boolean canUpdate) {
+	public JMenu getHelpMenu() {
 		if (helpMenu != null) {
 			return helpMenu;
 		}
@@ -397,16 +395,6 @@ public abstract class AppMenu extends JMenuBar {
 				menu.add((JSeparator) o, i);
 			}
 		}
-
-		canUpdate = canUpdate && UpdateManager.canUpdate();
-
-		JMenuItem update = newCommonMenuItem(GC.iCHECK_UPDATE, GC.CHECK_UPDATE,
-				'U', GC.NO_MASK, true);
-		update.setEnabled(canUpdate);
-		update.setVisible(canUpdate);
-		menu.add(update);
-		if (canUpdate)
-			menu.addSeparator();
 
 		menu.add(newCommonMenuItem(GC.iABOUT, GC.ABOUT, 'A', GC.NO_MASK, true));
 

@@ -322,8 +322,7 @@ public class GC {
 	public static final short iABOUT = 305;
 	/** Clean up memory */
 	public static final short iMEMORYTIDY = 310;
-	/** Check for updates */
-	public static final short iCHECK_UPDATE = 355;
+	
 
 	/** Edit menus 400-500 */
 	/** Tips */

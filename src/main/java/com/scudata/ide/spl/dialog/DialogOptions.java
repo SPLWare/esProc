@@ -231,12 +231,6 @@ public class DialogOptions extends JDialog {
 	private JCheckBox jCBAutoSizeRowHeight = new JCheckBox();
 
 	/**
-	 * 启动时检查更新复选框
-	 */
-	// private JCheckBox jCBCheckUpdate = new JCheckBox(IdeCommonMessage.get()
-	// .getMessage("dialogoptions.startcheckupdate"));
-
-	/**
 	 * 是否变迁注释格中的单元格
 	 */
 	private JCheckBox jCBAdjustNoteCell = new JCheckBox(
@@ -585,8 +579,6 @@ public class DialogOptions extends JDialog {
 		// ConfigOptions.sBackupDirectory = jTFAutoSaveDir.getText();
 		ConfigOptions.bAutoTrimChar0 = new Boolean(
 				jCBAutoTrimChar0.isSelected());
-		// ConfigOptions.bCheckUpdate = new
-		// Boolean(jCBCheckUpdate.isSelected());
 		ConfigOptions.bAdjustNoteCell = new Boolean(
 				jCBAdjustNoteCell.isSelected());
 		ConfigOptions.bWindowSize = new Boolean(jCBWindow.isSelected());
@@ -690,7 +682,6 @@ public class DialogOptions extends JDialog {
 				.booleanValue());
 
 		jCBShowDBStruct.setSelected(ConfigOptions.bShowDBStruct.booleanValue());
-		// jCBCheckUpdate.setSelected(ConfigOptions.bCheckUpdate.booleanValue());
 		jCBAdjustNoteCell.setSelected(ConfigOptions.bAdjustNoteCell
 				.booleanValue());
 		jCBAdjustNoteCell.setSelected(Env.isAdjustNoteCell());
@@ -828,7 +819,6 @@ public class DialogOptions extends JDialog {
 		jSConnectTimeout.setBorder(BorderFactory.createLoweredBevelBorder());
 
 		jLXmx.setForeground(Color.BLUE);
-		// jCBCheckUpdate.setForeground(Color.BLUE);
 
 		jSFontSize.setBorder(BorderFactory.createLoweredBevelBorder());
 		jCBIdeConsole.setText("接管控制台");
@@ -889,7 +879,6 @@ public class DialogOptions extends JDialog {
 		jPIdeOpt.add(jCBStepLastLocation, null);
 		jPIdeOpt.add(jCBAutoTrimChar0, null);
 		jPIdeOpt.add(jCBAdjustNoteCell, null);
-		// jPanel2.add(jCBCheckUpdate, null);
 
 		GridBagLayout gridBagLayout3 = new GridBagLayout();
 

@@ -44,7 +44,6 @@ import com.scudata.ide.spl.control.SplEditor;
 import com.scudata.ide.spl.dialog.DialogAbout;
 import com.scudata.ide.spl.dialog.DialogExecCmd;
 import com.scudata.ide.spl.resources.IdeSplMessage;
-import com.scudata.ide.spl.update.UpdateManager;
 
 public class GMSpl extends GM {
 
@@ -168,14 +167,6 @@ public class GMSpl extends GM {
 			return;
 		case GC.iABOUT:
 			new DialogAbout().setVisible(true);
-			return;
-		case GC.iCHECK_UPDATE:
-			try {
-				UpdateManager.checkUpdate(false);
-			} catch (Exception e) {
-				GM.showException(e, true, GM.getLogoImage(true), IdeSplMessage
-						.get().getMessage("spl.updateerrorpre"));
-			}
 			return;
 		case GC.iMEMORYTIDY:
 			if (GV.dialogMemory == null) {

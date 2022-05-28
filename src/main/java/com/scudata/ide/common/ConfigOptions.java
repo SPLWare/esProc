@@ -51,8 +51,6 @@ public class ConfigOptions {
 	public static Boolean bUseUndo = Boolean.TRUE;
 	/** Automatically clear the \0 at the end of the string */
 	public static Boolean bAutoTrimChar0 = Boolean.TRUE;
-	/** Check for updates at startup */
-	// public static Boolean bCheckUpdate = Boolean.TRUE;
 	/** Whether to change the cell in the comment cell */
 	public static Boolean bAdjustNoteCell = Boolean.TRUE;
 	/** App appearance */
@@ -277,7 +275,6 @@ public class ConfigOptions {
 		options.put("bTextEditorLineWrap", bTextEditorLineWrap);
 		options.put("bAutoTrimChar0", bAutoTrimChar0);
 		options.put("bAutoCleanOutput", bAutoCleanOutput);
-		// options.put("bCheckUpdate", bCheckUpdate);
 		options.put("bAdjustNoteCell", bAdjustNoteCell);
 		options.put("iLookAndFeel", iLookAndFeel);
 		options.put("iConnectTimeout", iConnectTimeout);
@@ -504,8 +501,6 @@ public class ConfigOptions {
 				bAutoTrimChar0 = ii;
 			} else if (option.equalsIgnoreCase("bAutoCleanOutput")) {
 				bAutoCleanOutput = ii;
-				// } else if (option.equalsIgnoreCase("bCheckUpdate")) {
-				// bCheckUpdate = ii;
 			} else if (option.equalsIgnoreCase("bAdjustNoteCell")) {
 				bAdjustNoteCell = ii;
 			} else if (option.equalsIgnoreCase("bDispOutCell")) {

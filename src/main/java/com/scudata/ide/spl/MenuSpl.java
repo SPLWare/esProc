@@ -375,16 +375,6 @@ public class MenuSpl extends AppMenu {
 	}
 
 	/**
-	 * Get help menu
-	 * 
-	 * @param canUpdate 是否可以更新
-	 * @return
-	 */
-	public JMenu getHelpMenu() {
-		return getHelpMenu(false);
-	}
-
-	/**
 	 * 设置行列菜单是否可用
 	 * 
 	 * @param isEnabled
