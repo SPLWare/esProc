@@ -917,7 +917,7 @@ public class Cursor extends IDWCursor {
 				}
 			}
 
-			return node;
+			return parseFieldExp(table, node, ctx, filterCtx);
 		}
 	}
 	
