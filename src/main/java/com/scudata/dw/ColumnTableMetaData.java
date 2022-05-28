@@ -3832,11 +3832,19 @@ public class ColumnTableMetaData extends TableMetaData {
 	 * @return
 	 * @throws IOException
 	 */
-	public Object[] getSegmentValueInfo(String key) throws IOException {
+	public Object[] getMaxMinValue(String key) throws IOException {
 		ColumnMetaData column = getColumn(key);
-		if (!column.isDim()) {
+		if (column == null) {
 			return null;
 		}
+		if (!column.isDim()) {
+			Expression max = new Expression("max(" + key +")");
+			Expression min = new Expression("min(" + key +")");
+			Expression[] exps = new Expression[] {max, min};
+			Sequence seq = cursor(new String[] {key}).groups(null, null, exps, null, null, null);
+			return ((Record)seq.get(0)).getFieldValues();
+		}
+		
 		ObjectReader segmentReader = column.getSegmentReader();
 		
 		int blockCount = getDataBlockCount();
@@ -3845,10 +3853,6 @@ public class ColumnTableMetaData extends TableMetaData {
 		min = segmentReader.readObject();
 		max = segmentReader.readObject();
 		segmentReader.skipObject();
-		
-		if (!(max instanceof Number)) {
-			return null;
-		}
 		
 		for (int i = 1; i < blockCount; ++i) {
 			segmentReader.readLong40();

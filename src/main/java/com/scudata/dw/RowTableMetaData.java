@@ -3032,7 +3032,73 @@ public class RowTableMetaData extends TableMetaData {
 	}
 
 	public void deleteColumn(String colName) {
-		// TODO Auto-generated method stub
+	}
+	
+	/**
+	 * 返回列的最大最小值
+	 * @param key
+	 * @return
+	 * @throws IOException
+	 */
+	public Object[] getMaxMinValue(String key) throws IOException {
+		boolean isDim[] = this.isDim;
+		String colNames[] = this.colNames;
+		int len = colNames.length;
 		
+		boolean isColumn = false;
+		int col = -1;
+		for (int i = 0; i < len; ++i) {
+			if (key.equals(colNames[i])) {
+				isColumn = true;
+				col = i;
+				break;
+			}
+		}
+		
+		if (!isColumn) {
+			return null;
+		}
+		
+		if (!isDim[col]) {
+			Expression max = new Expression("max(" + key +")");
+			Expression min = new Expression("min(" + key +")");
+			Expression[] exps = new Expression[] {max, min};
+			Sequence seq = cursor(new String[] {key}).groups(null, null, exps, null, null, null);
+			return ((Record)seq.get(0)).getFieldValues();
+		}
+		
+		ObjectReader segmentReader = getSegmentObjectReader();
+		
+		int colCount = getAllColNames().length;
+		int blockCount = getDataBlockCount();
+		Object max = null, min = null, obj;
+		
+		segmentReader.readLong40();
+		for (int c = 0; c < colCount; c++) {
+			Object minValue = segmentReader.readObject();
+			Object maxValue = segmentReader.readObject();
+			if (c == col) {
+				min = minValue;
+				max = maxValue;
+			}
+		}
+		
+		for (int i = 1; i < blockCount; ++i) {
+			segmentReader.readLong40();
+			for (int c = 0; c < colCount; c++) {
+				Object minValue = segmentReader.readObject();
+				Object maxValue = segmentReader.readObject();
+				if (c == col) {
+					if (Variant.compare(minValue, min) < 0) {
+						min = minValue;
+					}
+					obj = segmentReader.readObject();
+					if (Variant.compare(maxValue, max) > 0) {
+						max = maxValue;
+					}
+				}
+			}
+		}
+		return new Object[] {max, min};
 	}
 }

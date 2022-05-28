@@ -53,6 +53,13 @@ public abstract class IFilter implements Comparable<IFilter> {
 		return column;
 	}
 	
+	public String getColumnName() {
+		if (columnName != null) {
+			return columnName;
+		}
+		return column.getColName();
+	}
+	
 	public int getPriority() {
 		return priority;
 	}

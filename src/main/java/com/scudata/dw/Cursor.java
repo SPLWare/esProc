@@ -837,7 +837,7 @@ public class Cursor extends IDWCursor {
 		}
 	}
 	
-	protected static Object parseFilter(ColumnTableMetaData table, Expression filter, Context ctx) {
+	public static Object parseFilter(ColumnTableMetaData table, Expression filter, Context ctx) {
 		// 为IFilter新建上下文，有的IFilter需要为上下文增加变量用来引用字段值
 		// 多线程时也需要用自己的上下文
 		Context filterCtx = new Context(ctx);

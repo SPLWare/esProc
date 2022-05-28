@@ -602,7 +602,7 @@ public class RowCursor extends IDWCursor {
 	 * @param ctx
 	 * @return
 	 */
-	protected static Object parseFilter(RowTableMetaData table, Node node, Context ctx) {
+	public static Object parseFilter(RowTableMetaData table, Node node, Context ctx) {
 		if (node instanceof And) {
 			Object left = parseFilter(table, node.getLeft(), ctx);
 			Object right = parseFilter(table, node.getRight(), ctx);

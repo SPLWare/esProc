@@ -1,6 +1,7 @@
 package com.scudata.dw.pseudo;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,12 +10,13 @@ import com.scudata.common.RQException;
 import com.scudata.dm.BFileReader;
 import com.scudata.dm.Context;
 import com.scudata.dm.DataStruct;
-import com.scudata.dm.FileGroup;
+import com.scudata.dm.Env;
 import com.scudata.dm.FileObject;
 import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 import com.scudata.dw.GroupTable;
 import com.scudata.dw.ITableMetaData;
+import com.scudata.dw.TableMetaData;
 import com.scudata.expression.Expression;
 import com.scudata.resources.EngineMessage;
 
@@ -34,6 +36,8 @@ public class PseudoDefination {
 	private String var;//序表/内表/集群内表变量名
 	private List<PseudoColumn> columns;//部分特殊字段定义
 	private List<ITableMetaData> tables;//存所有文件的table对象
+	private List<Object> maxValues;//存每个table的最大值
+	private List<Object> minValues;//存每个table的最小值
 	private Sequence memoryTable;//内存虚表的序表对象
 	private FileObject fileObject;//集文件对象
 	private DataStruct ds;//集文件结构
@@ -69,6 +73,11 @@ public class PseudoDefination {
 				parseFileToTable(ctx);
 			}
 			sortedFields = getAllSortedColNames();
+		}
+		
+		//如果存在date，则计算max、min
+		if (date != null) {
+			
 		}
 		
 		if (var != null) {
@@ -201,7 +210,13 @@ public class PseudoDefination {
 			File f = fo.getLocalFile().file();
 			tables.add(GroupTable.openBaseTable(f, ctx));
 		} else {
-			tables.add(new FileGroup(fn, partitions).open(null, ctx));
+			int pcount = partitions.length;
+			for (int i = 0; i < pcount; ++i) {
+				File file = Env.getPartitionFile(partitions[i], fn);
+				TableMetaData table = GroupTable.openBaseTable(file, ctx);
+				table.getGroupTable().setPartition(partitions[i]);
+				tables.add(table);
+			}
 		}
 	}
 	
@@ -219,13 +234,35 @@ public class PseudoDefination {
 		}
 		
 		tables = new ArrayList<ITableMetaData>();
+		
 		if (file instanceof String) {
 			parseFileToTable((String) file, partitions, ctx);
 		} else {
-			Sequence seq = (Sequence) file;
-			int size = seq.length();
-			for (int i = 1; i <= size; i++) {
-				parseFileToTable((String) seq.get(i), partitions, ctx);
+			MessageManager mm = EngineMessage.get();
+			throw new RQException(mm.getMessage("file.fileNotExist"));
+//			Sequence seq = (Sequence) file;
+//			int size = seq.length();
+//			for (int i = 1; i <= size; i++) {
+//				parseFileToTable((String) seq.get(i), partitions, ctx);
+//			}
+		}
+		
+		if (date != null) {
+			String dateName = date;
+			PseudoColumn dateCol = findColumnByPseudoName(date);
+			if (dateCol != null && dateCol.getExp() != null) {
+				dateName = dateCol.getName();
+			}
+			maxValues = new ArrayList<Object>();
+			minValues = new ArrayList<Object>();
+			for (ITableMetaData t : tables) {
+				try {
+					Object[] values = ((TableMetaData)t).getMaxMinValue(dateName);
+					maxValues.add(values[0]);
+					minValues.add(values[1]);
+				} catch (IOException e) {
+					throw new RQException(e.getMessage());
+				}
 			}
 		}
 	}
@@ -316,5 +353,13 @@ public class PseudoDefination {
 
 	public void setFileObject(FileObject fileObject) {
 		this.fileObject = fileObject;
+	}
+	
+	public List<Object> getMaxValues() {
+		return maxValues;
+	}
+
+	public List<Object> getMinValues() {
+		return minValues;
 	}
 }

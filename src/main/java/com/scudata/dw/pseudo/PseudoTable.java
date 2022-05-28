@@ -23,7 +23,14 @@ import com.scudata.dm.op.Operable;
 import com.scudata.dm.op.Operation;
 import com.scudata.dm.op.Select;
 import com.scudata.dm.op.Switch;
+import com.scudata.dw.ColumnTableMetaData;
+import com.scudata.dw.Cursor;
+import com.scudata.dw.IFilter;
 import com.scudata.dw.ITableMetaData;
+import com.scudata.dw.RowCursor;
+import com.scudata.dw.RowTableMetaData;
+import com.scudata.dw.TableMetaData;
+import com.scudata.dw.TableMetaDataGroup;
 import com.scudata.expression.Constant;
 import com.scudata.expression.Expression;
 import com.scudata.expression.IParam;
@@ -502,6 +509,79 @@ public class PseudoTable extends Pseudo {
 		return cursor;
 	}
 	
+	private TableMetaDataGroup getTabelGroup(List<ITableMetaData> tables) {
+		Sequence zone = pd.getZone();
+		int[] partitions = null;
+		if (zone != null) {
+			partitions = zone.toIntArray();
+		}
+		
+		if (filter != null && pd.getDate() != null) {
+			String dateName = pd.getDate();
+			PseudoColumn dateCol = pd.findColumnByPseudoName(dateName);
+			if (dateCol != null && dateCol.getExp() != null) {
+				dateName = dateCol.getName();
+			}
+			ITableMetaData table = tables.get(0);
+			
+			//判断是否有关于date的过滤
+			Object obj;
+			if (table instanceof ColumnTableMetaData)
+				obj = Cursor.parseFilter((ColumnTableMetaData) table, filter, ctx);
+			else 
+				obj = RowCursor.parseFilter((RowTableMetaData) table, filter.getHome(), ctx);
+			
+			IFilter dateFilter = null;
+			if (obj instanceof IFilter) {
+				if (((IFilter)obj).getColumnName().equals(dateName)) {
+					dateFilter = (IFilter)obj;
+				}
+			} else if (obj instanceof ArrayList) {
+				ArrayList<Object> list = (ArrayList<Object>)obj;
+				Node node = null;
+				for (Object f : list) {
+					if (f instanceof IFilter) {
+						if (((IFilter)f).getColumnName().equals(dateFilter)) {
+							dateFilter = (IFilter)f;
+							break;
+						}
+					}
+				}
+			}
+			
+			if (dateFilter != null) {
+				int count = tables.size();
+				List<Object> max = pd.getMaxValues();
+				List<Object> min = pd.getMinValues();
+				boolean[] match = new boolean[count];
+				int matchCount = 0;				
+				for (int i = 0; i < count; i++) {
+					if (dateFilter.match(min.get(i), max.get(i))) {
+						match[i] = true;
+						matchCount++;
+					}
+				}
+
+				ITableMetaData[] tableArray = new TableMetaData[matchCount];
+				int[] partitionArray = new int[matchCount];
+				int j = 0;
+				for (int i = 0; i < count; i++) {
+					if (match[i]) {
+						tableArray[j] = tables.get(i);
+						partitionArray[j] = partitions[i];
+						j++;
+					}
+				}
+				return new TableMetaDataGroup((String)pd.getFile(), tableArray, partitionArray, null, ctx);
+			}
+		}
+
+		TableMetaData []tableArray = new TableMetaData[tables.size()];
+		tables.toArray(tableArray);
+		return new TableMetaDataGroup((String)pd.getFile(), tableArray, partitions, null, ctx);
+	
+	}
+	
 	//返回虚表的游标
 	public ICursor cursor(Expression []exps, String []names) {
 		setFetchInfo(exps, names);//把取出字段添加进去，里面可能会对extraOpList赋值
@@ -511,6 +591,9 @@ public class PseudoTable extends Pseudo {
 		int size = tables.size();
 		ICursor cursors[] = new ICursor[size];
 		
+		if (filter != null) {
+			filter = new Expression(filter.getHome());
+		}
 		/**
 		 * 对得到游标进行归并，分为情况
 		 * 1 只有一个游标则返回；
@@ -520,40 +603,44 @@ public class PseudoTable extends Pseudo {
 		if (size == 1) {//只有一个游标直接返回
 			return getCursor(tables.get(0), null, true);
 		} else {
-			if (pathCount > 1) {//指定了并行数，此时忽略mcsTable
-				cursors[0] = getCursor(tables.get(0), null, false);
-				for (int i = 1; i < size; i++) {
-					cursors[i] = getCursor(tables.get(i), cursors[0], false);
-				}
-			} else {//没有指定并行数
-				if (mcsTable == null) {//没有指定分段参考虚表mcsTable
-					for (int i = 0; i < size; i++) {
-						cursors[i] = getCursor(tables.get(i), null, false);
-					}
-					return addOptionToCursor(mergeCursor(cursors, pd.getUser(), ctx));
-				} else {//指定了分段参考虚表mcsTable
-					ICursor mcs = null;
-					if (mcsTable != null) {
-						mcs = mcsTable.cursor();
-					}
-					for (int i = 0; i < size; i++) {
-						cursors[i] = getCursor(tables.get(i), mcs, false);
-					}
-					mcs.close();
-				}
-			}
+			//合并为文件组
+			return getCursor(getTabelGroup(tables), null, true);
 			
-			//对cursors按段归并或连接:把所有游标的第N路归并,得到N个游标,再把这N个游标做成多路游标返回
-			int mcount = ((MultipathCursors)cursors[0]).getPathCount();//分段数
-			ICursor mcursors[] = new ICursor[mcount];//结果游标
-			for (int m = 0; m < mcount; m++) {
-				ICursor cursorArray[] = new ICursor[size];
-				for (int i = 0; i < size; i++) {
-					cursorArray[i] = ((MultipathCursors)cursors[i]).getCursors()[m];
-				}
-				mcursors[m] = mergeCursor(cursorArray, pd.getUser(), ctx);
-			}
-			return addOptionToCursor(new MultipathCursors(mcursors, ctx));
+			//以下是实现file是序列的情况。已作废。仍保留注释
+//			if (pathCount > 1) {//指定了并行数，此时忽略mcsTable
+//				cursors[0] = getCursor(tables.get(0), null, false);
+//				for (int i = 1; i < size; i++) {
+//					cursors[i] = getCursor(tables.get(i), cursors[0], false);
+//				}
+//			} else {//没有指定并行数
+//				if (mcsTable == null) {//没有指定分段参考虚表mcsTable
+//					for (int i = 0; i < size; i++) {
+//						cursors[i] = getCursor(tables.get(i), null, false);
+//					}
+//					return addOptionToCursor(mergeCursor(cursors, pd.getUser(), ctx));
+//				} else {//指定了分段参考虚表mcsTable
+//					ICursor mcs = null;
+//					if (mcsTable != null) {
+//						mcs = mcsTable.cursor();
+//					}
+//					for (int i = 0; i < size; i++) {
+//						cursors[i] = getCursor(tables.get(i), mcs, false);
+//					}
+//					mcs.close();
+//				}
+//			}
+//			
+//			//对cursors按段归并或连接:把所有游标的第N路归并,得到N个游标,再把这N个游标做成多路游标返回
+//			int mcount = ((MultipathCursors)cursors[0]).getPathCount();//分段数
+//			ICursor mcursors[] = new ICursor[mcount];//结果游标
+//			for (int m = 0; m < mcount; m++) {
+//				ICursor cursorArray[] = new ICursor[size];
+//				for (int i = 0; i < size; i++) {
+//					cursorArray[i] = ((MultipathCursors)cursors[i]).getCursors()[m];
+//				}
+//				mcursors[m] = mergeCursor(cursorArray, pd.getUser(), ctx);
+//			}
+//			return addOptionToCursor(new MultipathCursors(mcursors, ctx));
 		}
 	}
 	

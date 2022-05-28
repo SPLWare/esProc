@@ -1989,4 +1989,6 @@ abstract public class TableMetaData implements ITableMetaData {
 			}
 		}
 	}
+	
+	abstract public Object[] getMaxMinValue(String column) throws IOException;
 }
