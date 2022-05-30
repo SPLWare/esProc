@@ -4,6 +4,7 @@ import com.scudata.dm.Context;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
 import com.scudata.dm.cursor.ICursor;
+import com.scudata.dw.IColumnCursorUtil;
 import com.scudata.dw.MemoryTable;
 import com.scudata.dw.TableMetaData;
 import com.scudata.expression.TableMetaDataFunction;
@@ -17,6 +18,14 @@ import com.scudata.expression.TableMetaDataFunction;
 public class Memory extends TableMetaDataFunction {
 	public Object calculate(Context ctx) {
 		TableMetaData tmd = (TableMetaData) table;
+		//列式内表
+		if (option != null && option.indexOf('h') != -1 && IColumnCursorUtil.util != null) {
+			String opt = option.replace("h", "");
+			opt += 'm';
+			ICursor cursor = CreateCursor.createCursor(tmd, param, opt, ctx);
+			return IColumnCursorUtil.util.createMemoryTable(cursor, null, option);
+		}
+		
 		ICursor cursor = CreateCursor.createCursor(tmd, param, option, ctx);
 		Sequence seq = cursor.fetch();
 		

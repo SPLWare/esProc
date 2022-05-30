@@ -24,6 +24,9 @@ public class ColumnMetaData {
 	private transient BlockLinkWriter segmentWriter;
 	private transient ObjectWriter objectWriter;
 	
+	public ColumnMetaData() {	
+	}
+	
 	public ColumnMetaData(ColumnTableMetaData table) {
 		groupTable = table.groupTable;
 		dataBlockLink = new BlockLink(groupTable);

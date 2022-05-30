@@ -591,9 +591,6 @@ public class PseudoTable extends Pseudo {
 		int size = tables.size();
 		ICursor cursors[] = new ICursor[size];
 		
-		if (filter != null) {
-			filter = new Expression(filter.getHome());
-		}
 		/**
 		 * 对得到游标进行归并，分为情况
 		 * 1 只有一个游标则返回；

@@ -56,6 +56,11 @@ public class Memory extends CursorFunction {
 			}
 		}
 		
+		//列式内表
+		if (option != null && option.indexOf('h') != -1 && IColumnCursorUtil.util != null) {
+			return IColumnCursorUtil.util.createMemoryTable(cursor, keys, option);
+		}
+		
 		if (option != null && option.indexOf('z') != -1) {
 			MemoryTable table = new MemoryTable(cursor);
 			if (keys != null) {
@@ -68,11 +73,6 @@ public class Memory extends CursorFunction {
 			}
 			
 			return table;
-		}
-		
-		//列式内表
-		if (option != null && option.indexOf('h') != -1 && IColumnCursorUtil.util != null) {
-			return IColumnCursorUtil.util.createMemoryTable(cursor, keys, option);
 		}
 		
 		seq = cursor.fetch();
