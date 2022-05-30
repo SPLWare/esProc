@@ -582,7 +582,7 @@ public class JTableValue extends JTableEx {
 			return;
 		}
 		ICursor cursor = (ICursor) originalValue;
-		Sequence data = cursor.fetch(dispRows);
+		Sequence data = cursor.peek(dispRows); // 不实际从游标取数
 		forceSetValue(data);
 	}
 
