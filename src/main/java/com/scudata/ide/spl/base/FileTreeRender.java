@@ -40,9 +40,9 @@ public class FileTreeRender extends DefaultTreeCellRenderer {
 		if (node.isCheckNode()) {
 			return getCheckNodePanel(tree, node, sel);
 		} else {
-			if (node.isMatched())
-				setForeground(Color.RED);
-			setIcon(node.getDispIcon());
+			// if (node.isMatched())
+			// setForeground(Color.RED);
+			// setIcon(node.getDispIcon());
 			// 设置文件树选中状态的背景色
 			return setSelectBackgroundColor(tree, node, sel);
 		}

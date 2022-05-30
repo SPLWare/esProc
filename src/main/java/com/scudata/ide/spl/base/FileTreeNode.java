@@ -123,16 +123,17 @@ public class FileTreeNode extends DefaultMutableTreeNode {
 	 * @return
 	 */
 	public ImageIcon getDispIcon() {
-		String imgPath = "/com/scudata/ide/common/resources/tree";
+		String imgPath = "/com/scudata/ide/common/resources/";
 		if (this.getLevel() == 0) {
-			imgPath += "0.gif";
+			imgPath += "tree0.gif";
 		} else if (this.getLevel() == 1) { // 本地资源和服务器资源根目录的图标
-			imgPath += "view.gif";
+			imgPath += "treelocal.gif";
 		} else {
 			if (isDir)
-				imgPath += "folder.gif";
-			else
-				imgPath += "new.gif";
+				imgPath += "treefolder.gif";
+			else {
+				imgPath += "file_spl.png";
+			}
 		}
 		ImageIcon img = GM.getImageIcon(imgPath);
 		return img;
@@ -236,7 +237,6 @@ public class FileTreeNode extends DefaultMutableTreeNode {
 	public void setSelectedState(byte selectedState) {
 		this.selectedState = selectedState;
 	}
-
 
 	/**
 	 * 设置过滤条件

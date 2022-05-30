@@ -1764,17 +1764,6 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 										returnVal = calcReturnValue(curCellSet,
 												pnc, splCtx);
 									}
-									// Command cmd = pnc.getCommand();
-									// if (cmd != null
-									// && cmd.getType() == Command.RETURN) {
-									// hasReturn = true;
-									// Expression exp1 = cmd.getExpression(
-									// curCellSet, splCtx);
-									// if (exp1 != null) {
-									// returnVal = exp1.calculate(splCtx);
-									// }
-									// break;
-									// }
 								}
 							}
 							exeLocation = runNext(curCellSet);
