@@ -8,6 +8,7 @@ import com.scudata.dm.Table;
 import com.scudata.dm.op.Operable;
 import com.scudata.dm.op.Operation;
 import com.scudata.dm.op.TotalResult;
+import com.scudata.dw.IColumnCursorUtil;
 import com.scudata.expression.Expression;
 import com.scudata.expression.Node;
 import com.scudata.thread.GroupsJob;
@@ -133,6 +134,9 @@ public class MultipathCursors extends ICursor implements IMultipath {
 		for (int i = 0; i < tcount; ++i) {
 			if (readers[i] != null) {
 				Sequence cur = readers[i].getTable();
+				if (cur != null && IColumnCursorUtil.util != null && cur.isColumnTable()) {
+					cur = IColumnCursorUtil.util.convert(cur);
+				}
 				if (cur != null) {
 					if (table == null) {
 						table = cur;
