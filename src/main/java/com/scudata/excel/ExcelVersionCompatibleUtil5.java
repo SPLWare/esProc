@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Iterator;
 import java.util.List;
@@ -12,6 +14,7 @@ import java.util.Map;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ooxml.POIXMLDocumentPart;
+import org.apache.poi.openxml4j.opc.PackageRelationship;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -31,7 +34,6 @@ import org.apache.poi.xssf.usermodel.XSSFClientAnchor;
 import org.apache.poi.xssf.usermodel.XSSFColor;
 import org.apache.poi.xssf.usermodel.XSSFDrawing;
 import org.apache.poi.xssf.usermodel.XSSFPicture;
-import org.apache.poi.xssf.usermodel.XSSFRelation;
 import org.apache.poi.xssf.usermodel.XSSFShape;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -148,11 +150,62 @@ public class ExcelVersionCompatibleUtil5 implements ExcelVersionCompatibleUtilIn
 			xssfWb = ((SXSSFWorkbook)wbp).getXSSFWorkbook();
 		}
 		Iterator<Sheet> poisheets = xssfWb.sheetIterator();
+		Class<?> XR = null;
+		try {
+			XR = Class.forName("org.apache.poi.xssf.usermodel.XSSFRelation");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		Field relationTypeEnumField = null;
+		try {
+			relationTypeEnumField = XR.getField("IMAGES");
+		} catch (NoSuchFieldException e) {
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			e.printStackTrace();
+		}
 		while(poisheets.hasNext()) {
 			XSSFSheet poisheet = (XSSFSheet) poisheets.next();//(XSSFSheet) s;
 			int pictureIdx = wbp.addPicture( bytes, Workbook.PICTURE_TYPE_PNG); 
 			if(poisheet.getCTWorksheet().isSetPicture()) continue;
-			String rID = poisheet.addRelation(null, XSSFRelation.IMAGES, xssfWb.getAllPictures().get(pictureIdx)).getRelationship().getId();
+			Class<? extends XSSFSheet> class1 = poisheet.getClass();
+			//String rID = poisheet.addRelation(null, XSSFRelation.IMAGES, xssfWb.getAllPictures().get(pictureIdx)).getRelationship().getId();
+			Method method = null;
+			try {
+				Class<?> poiXMlRelationClass = Class.forName("org.apache.poi.ooxml.POIXMLRelation");
+				Class<?> pOIXMLDocumentPartClass = Class.forName("org.apache.poi.ooxml.POIXMLDocumentPart");
+				method = class1.getMethod("addRelation", 
+						new Class[] {
+								String.class,
+								poiXMlRelationClass,
+								pOIXMLDocumentPartClass
+								});
+			} catch (NoSuchMethodException e) {
+				e.printStackTrace();
+			} catch (SecurityException e) {
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			}
+			PackageRelationship prs = null;
+			try {
+				Object relationPart = method.invoke(poisheet, null, relationTypeEnumField.get(XR), xssfWb.getAllPictures().get(pictureIdx));
+				Class<? extends Object> relationPartClass = relationPart.getClass();
+				Method method2 = relationPartClass.getMethod("getRelationship");
+				Object invoke = method2.invoke(relationPart);
+				prs = (org.apache.poi.openxml4j.opc.PackageRelationship) invoke;
+			} catch (IllegalAccessException e) {
+				e.printStackTrace();
+			} catch (IllegalArgumentException e) {
+				e.printStackTrace();
+			} catch (InvocationTargetException e) {
+				e.printStackTrace();
+			} catch (NoSuchMethodException e) {
+				e.printStackTrace();
+			} catch (SecurityException e) {
+				e.printStackTrace();
+			}
+			String rID = prs.getId();
 			poisheet.getCTWorksheet().addNewPicture().setId(rID); 
 		}
 	 }
