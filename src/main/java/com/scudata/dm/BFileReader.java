@@ -8,6 +8,7 @@ import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.cursor.BFileCursor;
 import com.scudata.dm.cursor.ICursor;
+import com.scudata.dm.cursor.MemoryCursor;
 import com.scudata.dm.cursor.PFileCursor;
 import com.scudata.expression.Expression;
 import com.scudata.resources.EngineMessage;
@@ -594,9 +595,11 @@ public class BFileReader {
 	 * @return			返回筛选出的数据集的游标
 	 */
 	public ICursor iselect(String key, Sequence values, String []fields, Context ctx) {
-		/** 参考值个数 **/
 		int count = values.length();
-		if (count == 0) return null;
+		if (count == 0) {
+			//return null; 改成返回空游标，这样cs.groups@t会返回空序表
+			return new MemoryCursor(null);
+		}
 		
 		try {
 			// 打开二进制文件，并设置缓冲区大小
@@ -750,7 +753,8 @@ public class BFileReader {
 			}
 			
 			if (posArray.size() == 0) {
-				return null;
+				//return null; 改成返回空游标，这样cs.groups@t会返回空序表
+				return new MemoryCursor(null);
 			}
 						
 			return new PFileCursor(file, posArray.toArray(), 1024, fields, null, ctx);
@@ -849,7 +853,8 @@ public class BFileReader {
 				readRecord(vals);
 				if (Variant.compare(vals[keyField], startVal) >= 0) {
 					if (endVal != null && Variant.compare(vals[keyField], endVal) > 0) {
-						return null;
+						//return null; 改成返回空游标，这样cs.groups@t会返回空序表
+						return new MemoryCursor(null);
 					}
 					
 					startPos = pos;
@@ -882,7 +887,8 @@ public class BFileReader {
 				cursor.setPosRange(startPos, endPos);
 				return cursor;
 			} else {
-				return null;
+				//return null; 改成返回空游标，这样cs.groups@t会返回空序表
+				return new MemoryCursor(null);
 			}
 		} catch (IOException e) {
 			throw new RQException(e);
@@ -976,38 +982,40 @@ public class BFileReader {
 	 */
 	public ICursor iselect(Expression exp, Sequence values,
 			String []fields, Context ctx) {
-		if (null == exp)
-			return null;
+		if (exp == null) {
+			//return null; 改成返回空游标，这样cs.groups@t会返回空序表
+			return new MemoryCursor(null);
+		}
+		
 		
 		// 多字段表达式，走另外的流程，可以大幅提高效率
 		//  输入表达式是否式多字符串
-		try {
-			open(1024);
-		} catch (IOException e) {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException(mm.getMessage("file.fileNotExist", file.getFileName()));
-		}
-		
 		String[] fieldNames = exp.toFields();
-		if (null != fieldNames) {
-			boolean multi = true;
-			// 判断是否式多字段
-			loop:for (int i = 0; i < fieldNames.length; i++) {
-				for (int j = 0; j < ds.getFieldCount(); j ++) {
-					if (fieldNames[i].equals(ds.getFieldName(j)))
-						continue loop;
+		if (fieldNames != null) {
+			try {
+				open(1024);
+				for (String name : fieldNames) {
+					if (ds.getFieldIndex(name) == -1) {
+						fieldNames = null;
+						break;
+					}
 				}
-				
-				multi = false;
-				break;
-			}
-			
-			if (multi) {
-				return this.iselectFields(fieldNames, values, fields, ctx);
+			} catch (IOException e) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException(mm.getMessage("file.fileNotExist", file.getFileName()));
+			} finally {
+				try {
+					close();
+				} catch (IOException e) {
+				}
 			}
 		}
-		
-		return this.iselectExpression(exp, values, fields, ctx);
+				
+		if (fieldNames != null) {
+			return iselectFields(fieldNames, values, fields, ctx);
+		} else {
+			return iselectExpression(exp, values, fields, ctx);
+		}
 	}
 	
 	/**
@@ -1043,7 +1051,10 @@ public class BFileReader {
 		
 		// 取得记录长度
 		int count = values.length();
-		if (count == 0) return null;
+		if (count == 0) {
+			//return null; 改成返回空游标，这样cs.groups@t会返回空序表
+			return new MemoryCursor(null);
+		}
 		
 		try {
 			// 打开文件
@@ -1187,7 +1198,8 @@ public class BFileReader {
 			}
 			
 			if (posArray.size() == 0) {
-				return null;
+				//return null; 改成返回空游标，这样cs.groups@t会返回空序表
+				return new MemoryCursor(null);
 			}
 						
 			return new PFileCursor(file, posArray.toArray(), 1024, fields, null, ctx);
@@ -1203,7 +1215,10 @@ public class BFileReader {
 	
 	private ICursor iselectExpression(Expression exp, Sequence values, String []fields, Context ctx) {
 		int count = values.length();
-		if (count == 0) return null;
+		if (count == 0) {
+			//return null; 改成返回空游标，这样cs.groups@t会返回空序表
+			return new MemoryCursor(null);
+		}
 		
 		try {
 			open(1024);
@@ -1354,9 +1369,10 @@ public class BFileReader {
 			}
 			
 			if (posArray.size() == 0) {
-				return null;
+				//return null; 改成返回空游标，这样cs.groups@t会返回空序表
+				return new MemoryCursor(null);
 			}
-						
+			
 			return new PFileCursor(file, posArray.toArray(), 1024, fields, null, ctx);
 		} catch (IOException e) {
 			throw new RQException(e);
@@ -1380,8 +1396,10 @@ public class BFileReader {
 	*/
 	public ICursor iselect(Expression exp, Object startVal,
 			Object endVal, String []fields, Context ctx) {
-		if (null == exp)
-			return null;
+		if (exp == null) {
+			//return null; 改成返回空游标，这样cs.groups@t会返回空序表
+			return new MemoryCursor(null);
+		}
 		
 		try {
 			open(1024);
@@ -1407,14 +1425,13 @@ public class BFileReader {
 			}
 			
 			if (multi) {
-				return this.iselectFields(fieldNames, 
-						startVal, endVal, fields, ctx);
+				return iselectFields(fieldNames, startVal, endVal, fields, ctx);
 			}
 		}
 		
 		// 走普通的流程
 		
-		return this.iselectExpression(exp, startVal, endVal, fields, ctx);
+		return iselectExpression(exp, startVal, endVal, fields, ctx);
 	}
 	/**
 	 * 单字段、多字段值，在startVal和endVal之间的记录
@@ -1513,7 +1530,8 @@ public class BFileReader {
 				readRecord(selFields, vals);
 				if (compareFields(vals, startVal) >= 0) {
 					if (endVal != null && compareFields(vals, endVal) > 0) {
-						return null;
+						//return null; 改成返回空游标，这样cs.groups@t会返回空序表
+						return new MemoryCursor(null);
 					}
 					
 					startPos = pos;
@@ -1546,7 +1564,8 @@ public class BFileReader {
 				cursor.setPosRange(startPos, endPos);
 				return cursor;
 			} else {
-				return null;
+				//return null; 改成返回空游标，这样cs.groups@t会返回空序表
+				return new MemoryCursor(null);
 			}
 		} catch (IOException e) {
 			throw new RQException(e);
@@ -1643,7 +1662,8 @@ public class BFileReader {
 				rec.values = vals;
 				if (Variant.compare(rec.calc(exp, ctx), startVal) >= 0) {
 					if (endVal != null && Variant.compare(rec.calc(exp, ctx), endVal) > 0) {
-						return null;
+						//return null; 改成返回空游标，这样cs.groups@t会返回空序表
+						return new MemoryCursor(null);
 					}
 					
 					startPos = pos;
@@ -1677,7 +1697,8 @@ public class BFileReader {
 				cursor.setPosRange(startPos, endPos);
 				return cursor;
 			} else {
-				return null;
+				//return null; 改成返回空游标，这样cs.groups@t会返回空序表
+				return new MemoryCursor(null);
 			}
 		} catch (IOException e) {
 			throw new RQException(e);
