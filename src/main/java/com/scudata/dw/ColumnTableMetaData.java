@@ -3841,7 +3841,7 @@ public class ColumnTableMetaData extends TableMetaData {
 			Expression max = new Expression("max(" + key +")");
 			Expression min = new Expression("min(" + key +")");
 			Expression[] exps = new Expression[] {max, min};
-			Sequence seq = cursor(new String[] {key}).groups(null, null, exps, null, null, null);
+			Sequence seq = cursor(new String[] {key}).groups(null, null, exps, null, null, new Context());
 			return ((Record)seq.get(0)).getFieldValues();
 		}
 		

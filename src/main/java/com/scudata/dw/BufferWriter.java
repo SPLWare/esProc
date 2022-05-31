@@ -41,16 +41,16 @@ public class BufferWriter {
 	static final int RECORD = 0x25;
 
 	public static final int MARK3 = 0x30;
-	static final int DATE16 = 0x30; // 2000年之后的日期
-	static final int DATE32 = 0x31; // 2000年之前的日期
+	public static final int DATE16 = 0x30; // 2000年之后的日期
+	public static final int DATE32 = 0x31; // 2000年之前的日期
 	static final int TIME16 = 0x32;
 	static final int TIME17 = 0x33;
 	static final int DATETIME32 = 0x34;
 	static final int DATETIME33 = 0x35;
 	static final int DATETIME64 = 0x36;
 	static final int TIME32 = 0x37;
-	static final int DATE24 = 0x38; // 2000年之后的日期
-	static final int DATE64 = 0x39; // 超界表示不了都得日期用64位保存
+	public static final int DATE24 = 0x38; // 2000年之后的日期
+	public static final int DATE64 = 0x39; // 超界表示不了都得日期用64位保存
 	
 	public static final int SERIALBYTES = 0x40; // 排号
 	public static final int REPEAT3 = 0x70;
@@ -68,7 +68,7 @@ public class BufferWriter {
 	private static final double MINFLOAT = 0.000001;
 	private static final int MAX_DIGIT_LEN = 30;
 
-	static final long BASEDATE; // 1992年之前有的日期不能被86400000整除
+	public static final long BASEDATE; // 1992年之前有的日期不能被86400000整除
 	static final long BASETIME;
 	static {
 		java.util.Calendar calendar = java.util.Calendar.getInstance();
