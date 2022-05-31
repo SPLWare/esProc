@@ -3063,8 +3063,8 @@ public class RowTableMetaData extends TableMetaData {
 			Expression max = new Expression("max(" + key +")");
 			Expression min = new Expression("min(" + key +")");
 			Expression[] exps = new Expression[] {max, min};
-			Sequence seq = cursor(new String[] {key}).groups(null, null, exps, null, null, null);
-			return ((Record)seq.get(0)).getFieldValues();
+			Sequence seq = cursor(new String[] {key}).groups(null, null, exps, null, null, new Context());
+			return ((Record)seq.get(1)).getFieldValues();
 		}
 		
 		ObjectReader segmentReader = getSegmentObjectReader();

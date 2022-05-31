@@ -3842,7 +3842,7 @@ public class ColumnTableMetaData extends TableMetaData {
 			Expression min = new Expression("min(" + key +")");
 			Expression[] exps = new Expression[] {max, min};
 			Sequence seq = cursor(new String[] {key}).groups(null, null, exps, null, null, new Context());
-			return ((Record)seq.get(0)).getFieldValues();
+			return ((Record)seq.get(1)).getFieldValues();
 		}
 		
 		ObjectReader segmentReader = column.getSegmentReader();
