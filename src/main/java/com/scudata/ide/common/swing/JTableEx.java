@@ -1218,12 +1218,13 @@ public class JTableEx extends JTable implements MouseListener,
 			boolean caseNull, boolean caseRepeat, Component parent) {
 		acceptText();
 
-		HashSet<String> keys = new HashSet<String>();
+		HashSet<Object> keys = new HashSet<Object>();
 		int r = getRowCount();
 		int nullCount = 0;
 		String key;
 		for (int i = 0; i < r; i++) {
-			key = (String) data.getValueAt(i, colIndex);
+			Object tmp = data.getValueAt(i, colIndex);
+			key = tmp != null ? tmp.toString() : null;
 			if (caseNull && !StringUtils.isValidString(key)) {
 				JOptionPane
 						.showMessageDialog(
