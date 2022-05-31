@@ -239,7 +239,7 @@ public class PseudoDefination {
 			parseFileToTable((String) file, partitions, ctx);
 		} else {
 			MessageManager mm = EngineMessage.get();
-			throw new RQException(mm.getMessage("file.fileNotExist"));
+			throw new RQException(mm.getMessage("function.invalidParam"));
 //			Sequence seq = (Sequence) file;
 //			int size = seq.length();
 //			for (int i = 1; i <= size; i++) {
