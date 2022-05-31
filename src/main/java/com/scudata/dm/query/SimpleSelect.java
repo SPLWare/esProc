@@ -5646,14 +5646,16 @@ public class SimpleSelect
 					{
 						String classifyExp = classifyList.get(i);
 						classifyExp = ExpressionTranslator.translateExp(classifyExp, stdMap);
-						classifyExp = ExpressionTranslator.translateExp(classifyExp, trMap);
+						//2022/05/31 xingjl remove
+						//classifyExp = ExpressionTranslator.translateExp(classifyExp, trMap);
 						numberList.add(classifyExp);
 					}
 					else
 					{
 						String paramExp = paramList.get(i - classifyList.size());
 						paramExp = ExpressionTranslator.translateExp(paramExp, stdMap);
-						paramExp = ExpressionTranslator.translateExp(paramExp, trMap);
+						//2022/05/31 xingjl remove
+						//paramExp = ExpressionTranslator.translateExp(paramExp, trMap);
 						String functionName = nameList.get(i - classifyList.size());
 						functionList.add(String.format("%s(%s)", functionName, paramExp));
 					}
