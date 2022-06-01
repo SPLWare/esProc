@@ -10,7 +10,6 @@ import com.scudata.dm.Context;
 import com.scudata.dm.DataStruct;
 import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
-import com.scudata.dm.cursor.ConjxCursor;
 import com.scudata.dm.cursor.ICursor;
 import com.scudata.dm.cursor.MemoryCursor;
 import com.scudata.dm.cursor.MergeCursor;
@@ -472,25 +471,23 @@ public class PseudoTable extends Pseudo {
 	 */
 	static ICursor mergeCursor(ICursor cursors[],String user, Context ctx) {
 		DataStruct ds = cursors[0].getDataStruct();
-		int[] sortFields = null;
 		
 		/**
-		 * 如果存在user（账户属性）就使用user字段归并,否则使用主键归并。
-		 * 没有主键就不归并。
+		 * 如果存在user（账户属性）则group(首字段).conj(~.group@s(user)),
+		 * 如果不存在user，则使用首字段归并。
 		 */
+		ICursor cursor = new MergeCursor(cursors, new int[] {0}, null, ctx);
 		if (user != null) {
 			int idx = ds.getFieldIndex(user);
 			if (idx >= 0) {
-				sortFields = new int[] {idx};
+				String ugrp = ds.getFieldName(0);
+				Expression[] exps = new Expression[1];
+				exps[0] = new Expression(ugrp);
+				cursor.addOperation(new Group(exps, null), ctx);
+				cursor.addOperation(new Conj(new Expression("~.group@s("+user+")")), ctx);
 			}
-		} else {
-			sortFields = ds.getPKIndex();
 		}
-		if (sortFields != null) {
-			return new MergeCursor(cursors, sortFields, null, ctx);//有序则归并
-		} else {
-			return new ConjxCursor(cursors);//无序则连接
-		}
+		return cursor;
 	}
 	
 	private ICursor addOptionToCursor(ICursor cursor) {
@@ -817,20 +814,6 @@ public class PseudoTable extends Pseudo {
 				 */
 				replaceFilter(node);
 				parseFilter(node);
-			}
-		}
-		
-		/**
-		 * 当虚表的user存在，并且是做group@u(user)，并且user不是首字段时
-		 * 把group@u(user)转换为.group(首字段).conj(~.group(user))
-		 */
-		if (pd.getUser() != null && op instanceof Group) {
-			String ugrp = pd.getAllColNames()[0];//首字段
-			Group group = (Group) op;
-			if (!(pd.getUser().equals(ugrp)) && group.getOpt() != null && group.getOpt().indexOf("u") >= 0) {
-				Group newGroup = new Group(new Expression[] {new Expression(ugrp)}, null);
-				Conj conj = new Conj(new Expression("~.group(" + pd.getUser() + ")"));
-				return super.addOperation(newGroup, ctx).addOperation(conj, ctx);
 			}
 		}
 		
