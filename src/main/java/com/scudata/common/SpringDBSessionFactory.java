@@ -21,7 +21,6 @@ public class SpringDBSessionFactory implements ISessionFactory{
 		dbInfo = new DBInfo( dbType );
 	}
 	
-	@Override
 	public DBSession getSession() throws Exception {
 		return new DBSession(ds.getConnection(), dbInfo );
 	}

@@ -11,7 +11,6 @@ public class ImportSpringBeanFactory implements ApplicationContextAware{
 	
 	public static BeanFactory beanFactory;
 
-	@Override
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
 		ImportSpringBeanFactory.beanFactory = applicationContext.getAutowireCapableBeanFactory();
 	}
