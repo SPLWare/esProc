@@ -27,6 +27,7 @@ public abstract class IFilter implements Comparable<IFilter> {
 	public IFilter(ColumnMetaData column, int priority) {
 		this.column = column;
 		this.priority = priority;
+		columnName = column.getColName();
 	}
 	
 	/**

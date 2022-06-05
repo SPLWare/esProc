@@ -35,4 +35,20 @@ public class NodeFilter extends IFilter {
 			return true;
 		}
 	}
+	
+	public Node getNode() {
+		return node;
+	}
+	
+	public void setNode(Node node) {
+		this.node = node;
+	}
+	
+	public Param getParam() {
+		return param;
+	}
+
+	public Context getCtx() {
+		return ctx;
+	}
 }

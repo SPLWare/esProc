@@ -576,7 +576,7 @@ public class ColumnTableMetaData extends TableMetaData {
 				if ((obj1 instanceof UnknownSymbol) 
 						&& (obj2 instanceof UnknownSymbol)) {
 					col1 = ((UnknownSymbol)obj1).getName();
-					col2 = ((UnknownSymbol)obj1).getName();
+					col2 = ((UnknownSymbol)obj2).getName();
 				}
 				boolean b1 = false,b2 = false;
 				for (int s = 0; s < srcCount; ++s) {

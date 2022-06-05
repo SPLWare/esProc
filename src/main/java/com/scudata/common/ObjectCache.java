@@ -31,4 +31,8 @@ final public class ObjectCache {
 		}
 		return strings[buf[0]];
 	}
+	
+	public static String getString(byte b) {
+		return strings[b];
+	}
 }

@@ -9,6 +9,7 @@ import com.scudata.dm.ListBase1;
 import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
+import com.scudata.dw.IColumnCursorUtil;
 import com.scudata.dm.Sequence.Current;
 import com.scudata.expression.Expression;
 import com.scudata.expression.Function;
@@ -109,6 +110,10 @@ public class Derive extends Operation  {
 		int oldColCount = this.oldColCount;
 		Expression[] exps = this.exps;
 		int colCount = exps.length;
+		
+		if (seq.isColumnTable() && IColumnCursorUtil.util != null) {
+			return IColumnCursorUtil.util.derive(seq, exps, newDs, containNull, ctx);
+		}
 		
 		ListBase1 mems = seq.getMems();
 		int len = mems.size();

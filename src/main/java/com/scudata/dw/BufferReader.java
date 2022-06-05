@@ -23,18 +23,18 @@ public class BufferReader {
 	protected int count; // 读入buffer的实际字节数目
 
 	private byte[] readBuffer = new byte[32];
-	private char[] charBuffer = new char[128];
+	protected char[] charBuffer = new char[128];
 	
 	protected Object repeatValue;//连续相同的值
 	protected int repeatCount = 0;//连续相同的值的个数
 
-	private static final String []HEXSTRINGS = new String[] {"0", "1", "2", "3", "4", "5", "6",
+	protected static final String []HEXSTRINGS = new String[] {"0", "1", "2", "3", "4", "5", "6",
 		"7", "8", "9", "A", "B", "C", "D", "E", "F"};
 
 	private static final Long LONG0 = new Long(0);
 	private static final Double FLOAT0 = new Double(0);
 	private static final BigDecimal DECIMAL0 = new BigDecimal(BigInteger.ZERO);
-	private static final Integer []INT15 = new Integer[]{new Integer(0), new Integer(1), new Integer(2), new Integer(3),
+	protected static final Integer []INT15 = new Integer[]{new Integer(0), new Integer(1), new Integer(2), new Integer(3),
 		new Integer(4), new Integer(5), new Integer(6), new Integer(7), new Integer(8), new Integer(9), new Integer(10),
 		new Integer(11), new Integer(12), new Integer(13), new Integer(14), new Integer(15)};
 
@@ -272,7 +272,7 @@ public class BufferReader {
 		}
 	}
 
-	private String readDigits(int size) throws IOException {
+	protected String readDigits(int size) throws IOException {
 		byte[] readBuffer = this.readBuffer;
 		readFully(readBuffer, 0, size);
 
@@ -301,7 +301,7 @@ public class BufferReader {
 		return new String(chars);
 	}
 
-	private String readString(int size) throws IOException {
+	protected String readString(int size) throws IOException {
 		if (size == 0) return "";
 
 		char []charBuffer = this.charBuffer;
@@ -469,7 +469,7 @@ public class BufferReader {
 				(data[index + 7] & 0xff));
 	}
 
-	private Object readMark0(int b) throws IOException {
+	protected Object readMark0(int b) throws IOException {
 		switch (b) {
 		case BufferWriter.NULL:
 			return null;
@@ -488,7 +488,7 @@ public class BufferReader {
 		}
 	}
 
-	private Object readMark1(int b) throws IOException {
+	protected Object readMark1(int b) throws IOException {
 		switch (b) {
 		case BufferWriter.INT16:
 			return ObjectCache.getInteger(readUInt16());
@@ -546,7 +546,7 @@ public class BufferReader {
 		}
 	}
 
-	private Object readMark2(int b) throws IOException {
+	protected Object readMark2(int b) throws IOException {
 		switch (b) {
 		case BufferWriter.STRING:
 			return readString(readInt());
@@ -597,7 +597,7 @@ public class BufferReader {
 		}
 	}
 
-	private Object readMark3(int b) throws IOException {
+	protected Object readMark3(int b) throws IOException {
 		switch (b) {
 		case BufferWriter.DATE16:
 			return DateCache.getDate(readUInt16());
@@ -654,7 +654,7 @@ public class BufferReader {
 		return innerReadObject();
 	}
 
-	private Object innerReadObject() throws IOException {
+	protected Object innerReadObject() throws IOException {
 		int b = read2();
 		switch(b & 0xF0) {
 		case BufferWriter.MARK0:
@@ -757,7 +757,7 @@ public class BufferReader {
 		}
 	}
 	
-	private Record readRecord() throws IOException {
+	protected Record readRecord() throws IOException {
 		int id = readInt();
 		DataStruct ds = structManager.getDataStruct(id);
 		int fcount = ds.getFieldCount();
@@ -770,7 +770,7 @@ public class BufferReader {
 		return new Record(ds, vals);
 	}
 	
-	private Table readTable() throws IOException {
+	protected Table readTable() throws IOException {
 		int id = readInt();
 		int len = readInt();
 		
@@ -790,7 +790,7 @@ public class BufferReader {
 		return table;
 	}
 
-	private void skipTable() throws IOException {
+	protected void skipTable() throws IOException {
 		int fcount = readInt();
 		for (int i = 0; i < fcount; ++i) {
 			readString(); // 跳过字段名

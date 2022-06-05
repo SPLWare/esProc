@@ -56,5 +56,7 @@ abstract public class IColumnCursorUtil {
 	public abstract Sequence switchColumnTable(Sequence seq, boolean isIsect, boolean isDiff, String fkName, Sequence code,
 			String timeName, IndexTable indexTable, DataStruct ds, int keySeq, boolean isLeft, Context ctx);
 	
+	public abstract Sequence derive(Sequence table, Expression[] exps, DataStruct newDs, boolean containNull, Context ctx);
+	
 	public abstract Object createMemoryTable(ICursor cursor, String[] keys, String opt);
 }
