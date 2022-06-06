@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>EnumAxis</title>
+<title>NumericAxis</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -14,35 +14,35 @@
 <div id="content-bg">
 	<div id="centent">
 	<div id="centent-title"><h3 style='margin-left:1.0cm;text-align:justify;text-justify:inter-ideograph;
-text-indent:-1.0cm'><span lang=EN-US>EnumAxis </span></h3></div>
+text-indent:-1.0cm'><span lang=EN-US>NumericAxis</span></h3></div>
 	<p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
 exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US>name </span></b></p>
+lang=EN-US style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>name </span></b></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>Enum axis
+line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>Numeric axis
 name.</span></p>
 
 <p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
 exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US>visible</span></b></p>
+lang=EN-US style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>visible </span></b></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
 line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>Show or hide
-axis.</span></p>
+axis </span></p>
 
 <p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
 exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US>location</span></b></p>
+lang=EN-US style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>location</span></b></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
 line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The position
-where an enum axis will be plotted. You can set the axis as vertical axis,
+where a numeric axis will be plotted. You can set the axis as vertical axis,
 horizontal axis, polar axis, or radial axis.</span></p>
 
 <p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
 exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US>is3D </span></b></p>
+lang=EN-US style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>is3D </span></b></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
 line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>Whether the
@@ -53,73 +53,201 @@ chart plotting.</span></p>
 
 <p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
 exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US>threeDThickRatio </span></b></p>
+lang=EN-US style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>threeDThickRatio</span><span
+lang=EN-US> </span></b></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
 line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The thickness
 ratio of 3D axes in a 3D chart. This parameter determines the <b
 style='mso-bidi-font-weight:normal'><span style='mso-bidi-font-style:italic'>3D
 Thickness</span></b>, which refers to the length of edges pointing towards the
-observer. The default maximum 3D thickness is 60 pixels.</span></p>
+observer. The threeDThickRatio takes effect on condition that there is no enum
+axis in the coordinate system on canvas, and the axis 1 is the numeric axis.
+The default maximum 3D depth is 60 pixels.</span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
 line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>To compute
-the overall 3D thickness based on the 3D thickness ratio of the enum axis, use <b
-style='mso-bidi-font-weight:normal'>3D Thickness Ratio * Enum Axis Series Width</b>.
-The axes will be auto-plotted with 60 pixels if the 3D thickness is greater
-than 60.<b style='mso-bidi-font-weight:normal'></b></span></p>
+the overall 3D thickness based on the 3D thickness ratio of axis 1, use <b
+style='mso-bidi-font-weight:normal'>3D Thickness Ratio * Canvas Height</b>. If
+the ratio is greater than 1, then it represents the absolute pixel value. In
+addition, the chart will be auto-plotted with 60 pixels if the 3D thickness is
+greater than 60.</span></p>
 
 <p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
 exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US>categories </span></b></p>
+lang=EN-US>autoCalcValueRange </span></b></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
+line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>Whether or
+not the value range of the coordinate axis will be computed automatically
+according to the coordinates of a point. If set as true, it will set
+automatically the value range of numeric axis for the computation according to
+the coordinates of the coordinate axis.</span></p>
+
+<p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
+exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
+lang=EN-US>maxValue </span></b></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
+line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>Maximum on
+the customized numeric axis. To get this, the autoCalcValueRange must be set to
+false, and thus the system will not compute the axis range automatically.</span></p>
+
+<p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
+exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
+lang=EN-US>minValue </span></b></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
+line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>Minimum on
+the customized numeric axis. To get this, the autoCalcValueRange must be set to
+false, and thus the system will not compute the axis range automatically.</span></p>
+
+<p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
+exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
+lang=EN-US>scaleNum </span></b></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
+line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The number of
+scales displayed on the customized numeric axis. The autoCalcValueRange must be
+set to false, and thus the system will not compute axis range automatically.</span></p>
+
+<p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
+exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
+lang=EN-US>format </span></b></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
+line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The display
+format of the scale and label values manually, for example, </span><span
+style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:
+"Times New Roman"'>￥</span><span lang=EN-US>0.00, and $0.0.</span></p>
+
+<p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
+exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
+lang=EN-US>transform </span></b></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
 line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The
-categories. If not specified, then select from the crossover sequence of the
-series and categories. For example, from the crossover sequence =[&quot;Tom,
-Maths&quot;,&quot;Tom, English&quot;,&quot;Tom, French&quot;,&quot;Mary,
-Maths&quot;,&quot;Mary,English&quot;,&quot;Mary,French&quot;], the
-[&quot;Tom&quot;,&quot;Mary&quot;] is auto-retrieved as the category values.</span></p>
+transformation types of scales on the numeric axis. Options include
+not-to-transform, scale, logarithm, and index.</span></p>
 
 <p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
 exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US>series </span></b></p>
+lang=EN-US>scale </span></b></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The series.
-If not specified, then select from the crossover sequence of the series and
-categories. For example, from the crossover sequence =[&quot;Tom,
-Maths&quot;,&quot;Tom, English&quot;,&quot;Tom, French&quot;,&quot;Mary,
-Maths&quot;,&quot;Mary,English&quot;,&quot;Mary,French&quot;], the
-[&quot;Maths&quot;,&quot;English&quot;,&quot;French&quot;] is auto-retrieved as
-the series values.</span></p>
+line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>It customizes
+the zooming scales for numeric axis when the transformation type is scale. The
+default value is 1.0.</span></p>
 
 <p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
 exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US>gapRatio </span></b></p>
+lang=EN-US>logBase </span></b></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The ratio of
-width of graph of each series on the category axis to the category gap,
-starting gap, or ending gap. By default, this value is 1.5, indicating the gap
-width is 1.5 times of the basic width of graph of a series.</span></p>
+line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>It customizes
+the logarithmic base of the scale values on the numeric axis if the
+transformation type is logarithm. The default value is 10.</span></p>
+
+<p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
+exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
+lang=EN-US>powerExpoment </span></b></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
+line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>It customizes
+the power exponent if the transformation type is the index. The default value
+is 2.718.</span></p>
+
+<p class=MsoNormal style='text-indent:21.1pt;mso-char-indent-count:2.0;
+line-height:16.0pt;mso-line-height-rule:exactly'><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US>warnLineStyle</span></b></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
+line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>Styles of a
+warning line, including dotted line, solid line and none, etc. </span></p>
+
+<p class=MsoNormal style='text-indent:21.1pt;mso-char-indent-count:2.0;
+line-height:16.0pt;mso-line-height-rule:exactly'><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US>warnLineweight</span></b></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
+line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The thickness
+of a warning line, whose value is an integer and which is measured by pixels.
+Being zero means hiding the warning line. </span></p>
+
+<p class=MsoNormal style='text-indent:21.1pt;mso-char-indent-count:2.0;
+line-height:16.0pt;mso-line-height-rule:exactly'><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US>warnLineColor</span></b></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
+line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The color of
+a warning line.</span></p>
+
+<p class=MsoNormal style='text-indent:21.1pt;mso-char-indent-count:2.0;
+line-height:16.0pt;mso-line-height-rule:exactly'><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US>warnLineData</span></b></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
+line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The value for
+specifying a warning line. It is numeric. </span></p>
+
+<p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
+exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
+lang=EN-US>unitFont </span></b></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
+line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The font of
+unit text displayed for the value type after setting the type of
+transformation.</span></p>
+
+<p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
+exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
+lang=EN-US>unitStyle </span></b></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
+line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The styles of
+unit text. The options include the bold, italic, underline, and vertical text.
+The vertical text setting will override the underlines if setting them both.</span></p>
+
+<p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
+exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
+lang=EN-US>unitSize </span></b></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
+line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>Size
+displayed for unit text</span></p>
+
+<p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
+exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
+lang=EN-US>unitAngle </span></b></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
+line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>Rotation
+angle of unit text</span></p>
+
+<p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
+exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
+lang=EN-US>unitColor </span></b></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
+line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>Color of unit
+text</span></p>
 
 <p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
 exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
 lang=EN-US>xStart </span></b></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The position
-of starting coordinate point on X-axis on the canvas when the enum axis is a
+line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The position of
+starting coordinate point on X-axis on the canvas when the numeric axis is a
 horizontal axis.</span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
 line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>If the
 specified value is not greater than 1 and not less than 0, it indicates the
-percentage the chart will take up the width/length of the canvas. If the
-specified value is greater than 1 or less than 0, then it represents the pixel
-values. The chart will expand across the border if the pixels are greater than
-the width/length of canvas.</span></p>
+percentage the chart will take up the width/length of the canvas. If the specified
+value is greater than 1 or less than 0, then it represents the pixel values.
+The chart will expand across the border if the pixels are greater than the
+width/length of canvas.</span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
 line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The origin
@@ -133,9 +261,9 @@ lang=EN-US>xEnd </span></b></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
 line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The position
-of ending coordinate point on X-axis on the canvas when the enum axis is a
+of ending coordinate point on X-axis on the canvas when the numeric axis is a
 horizontal axis. Please refer to the xStart property description for the
-property value setting.<span style='mso-spacerun:yes'>&nbsp; </span></span></p>
+property value setting.</span></p>
 
 <p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
 exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
@@ -143,9 +271,8 @@ lang=EN-US>xPosition</span></b></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
 line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The position
-of Y-axis coordinates on the canvas when the enum axis is the horizontal axis.
-Please refer to the description on the xStart property for the property value
-settings.</span></p>
+of Y-axis coordinates on the canvas when the numeric axis is a horizontal axis.
+Please refer to the xStart property description for the property value setting.</span></p>
 
 <p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
 exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
@@ -153,9 +280,9 @@ lang=EN-US>yStart </span></b></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
 line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The position
-of starting coordinate point on Y-axis on the canvas when the enum axis is a
+of starting coordinate point on Y-axis on the canvas when the numeric axis is a
 vertical axis. The numeric values increase from top to bottom. Please refer to
-the description on the xStart property for the property value setting.</span></p>
+the xStart property description for the property value setting.</span></p>
 
 <p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
 exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
@@ -163,9 +290,9 @@ lang=EN-US>yEnd </span></b></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
 line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The position
-of ending coordinate point on Y-axis on the canvas when the enum axis is a
-vertical axis. Please refer to the description on the xStart property for the
-property value setting.</span></p>
+of ending coordinate point on Y-axis on the canvas when the numeric axis is a
+vertical axis. Please refer to the xStart property description for the property
+value setting.</span></p>
 
 <p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
 exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
@@ -173,9 +300,9 @@ lang=EN-US>yPosition</span></b></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
 line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The position
-of X-axis coordinates on the canvas when the enum axis is a vertical axis.
-Please refer to the description on the <b style='mso-bidi-font-weight:normal'>xStart
-</b>property for the property value setting.</span></p>
+of X-axis coordinates on the canvas when the numeric axis is a vertical axis. Please
+refer to the description on the value forms of the xStart property for the
+property value setting.</span></p>
 
 <p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
 exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
@@ -183,9 +310,9 @@ lang=EN-US>polarX </span></b></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
 line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The position
-of starting coordinate point on X-axis on the canvas when the enum axis is a
-polar axis. Please refer to the description on the xStart<b style='mso-bidi-font-weight:
-normal'> </b>property for the property value setting.</span></p>
+of starting coordinate point on X-axis on the canvas when the numeric axis is a
+polar axis. Please refer to the description on the value forms of the xStart
+property for the property value setting.</span></p>
 
 <p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
 exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
@@ -193,18 +320,17 @@ lang=EN-US>polarY </span></b></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
 line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The position
-of starting coordinate point on Y-axis on the canvas when the enum axis is a
-polar axis. Please refer to the description on the xStart<b style='mso-bidi-font-weight:
-normal'> </b>property for the property value setting.</span><span lang=EN-US
-style='font-size:12.0pt;mso-bidi-font-size:10.0pt'></span></p>
+of starting coordinate point on Y-axis on the canvas when the numeric axis is a
+polar axis. Please refer to the description on the value forms of the xStart
+property for the property value setting.</span></p>
 
 <p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
 exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
 lang=EN-US>polarLength </span></b></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The polar axis
-length.</span></p>
+line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The polar
+axis length.</span></p>
 
 <p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
 exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
@@ -212,7 +338,7 @@ lang=EN-US>startAngle</span></b></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
 line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The start
-angle when the enum axis is a radial axis. In plotting the pie chart, the
+angle when the numeric axis is a radial axis. In plotting the pie chart, the
 sectors can be customized with the startAngle and endAngle properties.</span></p>
 
 <p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
@@ -221,8 +347,7 @@ lang=EN-US>endAngle </span></b></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
 line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The end angle
-of a radial axis.</span><span lang=EN-US style='font-size:12.0pt;mso-bidi-font-size:
-10.0pt'></span></p>
+of a radial axis.</span></p>
 
 <p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
 exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
@@ -230,7 +355,7 @@ lang=EN-US>axisColor </span></b></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
 line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The axis line
-color of an enum axis.</span></p>
+color of a numeric axis.</span></p>
 
 <p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
 exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
@@ -246,7 +371,7 @@ lang=EN-US>axisLineWeight </span></b></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
 line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The line
-weight of the enum axis.</span></p>
+weight of numeric axis.</span></p>
 
 <p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
 exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
@@ -254,23 +379,23 @@ lang=EN-US>axisArrow </span></b></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
 line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The arrow
-style of the enum axis.</span></p>
+style of numeric axis.</span></p>
 
 <p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
 exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
 lang=EN-US>title </span></b></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The title name
-of the enum axis.</span></p>
+line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The title
+name of numeric axis.</span></p>
 
 <p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
 exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
 lang=EN-US>titleFont </span></b></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The title
-font of the enum axis.</span></p>
+line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The font of
+title of numeric axis.</span></p>
 
 <p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
 exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
@@ -278,8 +403,7 @@ lang=EN-US>titleStyle </span></b></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
 line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The title
-style of the enum axis. Please refer to the description on unitStyle of numeric
-axis.</span></p>
+style of numeric axis. Please refer to unitStyle. </span></p>
 
 <p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
 exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
@@ -287,7 +411,7 @@ lang=EN-US>titleSize </span></b></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
 line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The title
-font size of the enum axis.</span></p>
+font size of numeric axis.</span></p>
 
 <p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
 exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
@@ -295,7 +419,7 @@ lang=EN-US>titleIndent </span></b></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
 line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The blank
-space left by indenting the title of enum axis.</span></p>
+space left by indenting the title of numeric axis.</span></p>
 
 <p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
 exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
@@ -303,7 +427,7 @@ lang=EN-US>titleColor </span></b></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
 line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The title
-color of the enum axis.</span></p>
+color of numeric axis.</span></p>
 
 <p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
 exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
@@ -311,15 +435,15 @@ lang=EN-US>titleAngle </span></b></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
 line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The rotation
-angle of the title of the enum axis.</span></p>
+angle of the title of numeric axis.</span></p>
 
 <p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
 exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
 lang=EN-US>allowLabels </span></b></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>Indicates if
-the labels will be displayed.</span></p>
+line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>Whether the
+labels will be displayed or not.</span></p>
 
 <p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
 exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
@@ -376,35 +500,35 @@ lang=EN-US>labelAngle </span></b></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
 line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The rotation
-angle of label value</span></p>
+angle of label values</span></p>
 
 <p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
 exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
 lang=EN-US>labelOverlapping</span></b></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The
-overlapping of labels. If checked,labels are allowed to be overlapped;
-Otherwise, the overlapping labels are not allowed, and they, if any, will be
-overridden and hidden.</span></p>
+line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US><span
+style='mso-spacerun:yes'>&nbsp;</span>The overlapping of labels. If checked,
+labels are allowed to be overlapped; Otherwise, the overlapping labels are not
+allowed, and they, if any, will be overridden and hidden.</span></p>
 
 <p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
 exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US>scalePosition </span></b></p>
+lang=EN-US>scalePosition<span style='mso-spacerun:yes'>&nbsp; </span></span></b></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
 line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>Positions of
-tick mark, which can be displayed on the right or top, on the left or bottom,
+tick marks, which can be displayed on the right or top, on the left or bottom,
 or across axis, or no tick marks appear. Once they are positioned, their values
 will change accordingly.</span></p>
 
 <p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
 exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US>scaleStyle</span></b></p>
+lang=EN-US>scaleStyle </span></b></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
 line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The style of
-tick marks, including the dotted line and the solid line, and so on.</span></p>
+tick marks, including the dotted line, the solid line, and so on.</span></p>
 
 <p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
 exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
@@ -444,7 +568,7 @@ exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
 lang=EN-US>regionLineStyle </span></b></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The style of
+line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The styles of
 lines in the background region.</span></p>
 
 <p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
@@ -479,7 +603,7 @@ lang=EN-US>regionTransparent </span></b></p>
 line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>Degree of
 transparency of the background region. The value range for it is [0,1], in
 which the 0 represents the 100% transparency (i.e. totally transparent), and
-the 1 represents opaqueness. The values higher than 1 give the same totally
+the 1 represents full opaqueness. The values higher than 1 give the same total
 opaque effect as 1, and the values less than 0 represent the total transparency
 as well.</span></p>
 
@@ -501,7 +625,7 @@ number of categories.</span></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="903.html">Chart Element Parameters</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="905.html">Chart Element Parameters</a></span></li>
 </div>
 	</div>
 	<div id="footer">	

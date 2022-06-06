@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>hdfs_upload()</title>
+<title>hive_query()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,248 +13,172 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h2><span lang=EN-US>hdfs_upload()<a name="hdfs_upload"></a></span></h2></div>
-	<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt;mso-bidi-language:AR'>Description:</span></b></p>
+	<div id="centent-title"><h2><a name="hive_query"></a><span lang=EN-US>hive_query()</span></h2></div>
+	<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%'>Description:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
-style='mso-bidi-language:AR'>Upload a local file to a specific position.</span></p>
+<p class=MsoNormal style='text-indent:15.75pt;mso-char-indent-count:1.5'><span
+lang=EN-US>Query a Hive database.</span></p>
 
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt;mso-bidi-language:AR'>Syntax:</span></b><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:12.0pt;
-mso-bidi-font-size:10.0pt'></span></b></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%'>Syntax: </span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><code><span lang=EN-US
-style='font-family:"Times New Roman",serif;mso-bidi-language:AR'>hdfs_upload(</span></code><span
-lang=EN-US style='mso-bidi-language:AR'> </span><var><span lang=EN-US
-style='mso-bidi-language:AR'>hd, local, remote</span></var><code><span
-lang=EN-US style='font-family:"Times New Roman",serif;mso-bidi-language:AR'>)</span></code></p>
+<p class=MsoNormal style='text-indent:21.0pt'><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US style='mso-fareast-font-family:黑体'>hive_query</span></b><span
+lang=EN-US>(</span><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>con,sql</span></i><span
+lang=EN-US>)</span></p>
 
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt;mso-bidi-language:AR'>Note:</span></b><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:12.0pt;
-mso-bidi-font-size:10.0pt'></span></b></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%'>Note:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><var><span lang=EN-US
-style='mso-bidi-language:AR;font-style:normal;mso-bidi-font-style:italic'>The
-external library function uploads a local file or folder </span></var><var><span
-lang=EN-US style='mso-bidi-language:AR'>local </span></var><var><span
-lang=EN-US style='mso-bidi-language:AR;font-style:normal;mso-bidi-font-style:
-italic'>to a remote file/folder </span></var><var><span lang=EN-US
-style='mso-bidi-language:AR'>remote</span></var><var><span lang=EN-US
-style='mso-bidi-language:AR;font-style:normal;mso-bidi-font-style:italic'>.</span></var></p>
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
+tab-stops:18.0pt'><span lang=EN-US>This external library function executes a
+certain SQL query on a Hive database, and returns the query result as a table
+sequence. </span><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt;mso-bidi-font-size:12.0pt'></span></b></p>
 
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt;mso-bidi-language:AR'>Parameters:</span></b></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%'>Parameters:</span></b></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:-1.75pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=110 valign=top style='width:82.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><var><span lang=EN-US style='mso-bidi-language:AR'>hd</span></var></p>
+  <td width=122 valign=top style='width:73.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>con</span></i></p>
   </td>
-  <td width=435 valign=top style='width:326.25pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><var><span lang=EN-US style='mso-bidi-language:AR;
-  font-style:normal;mso-bidi-font-style:italic'>An</span></var><var><span
-  lang=EN-US style='mso-bidi-language:AR'> hd</span></var><var><span
-  lang=EN-US style='mso-bidi-language:AR;mso-bidi-font-style:italic'> </span></var><var><span
-  lang=EN-US style='mso-bidi-language:AR;font-style:normal'>connection</span></var><i
-  style='mso-bidi-font-style:normal'><span lang=EN-US></span></i></p>
+  <td width=546 valign=top style='width:327.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Database connection string.</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:1'>
-  <td width=110 valign=top style='width:82.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><var><span lang=EN-US style='mso-bidi-language:AR'>local</span></var></p>
+ <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
+  <td width=122 valign=top style='width:73.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>sql</span></i></p>
   </td>
-  <td width=435 valign=top style='width:326.25pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>A local file or folder</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes'>
-  <td width=110 valign=top style='width:82.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><var><span lang=EN-US style='mso-bidi-language:AR'>remote</span></var></p>
-  </td>
-  <td width=435 valign=top style='width:326.25pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US style='mso-bidi-language:AR'>A </span><span
-  lang=EN-US>remote file or folder</span><span lang=EN-US style='mso-bidi-language:
-  AR'></span></p>
+  <td width=546 valign=top style='width:327.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>A SQL query statement, like <b
+  style='mso-bidi-font-weight:normal'>select * from tabl</b>e.</span></p>
   </td>
  </tr>
 </table>
 
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt;mso-bidi-language:AR'>Options:</span></b></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%'>Return value:</span></b></p>
 
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:-1.75pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'>
-  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-bidi-language:AR'>@d</span><span lang=EN-US></span></b></p>
-  </td>
-  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US style='mso-bidi-language:AR'>Upload all
-  files in the specified folder to the specified path, and require both the
-  source and directories are folders</span></p>
-  </td>
- </tr>
-</table>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Table sequence</span></p>
 
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt;mso-bidi-language:AR'>Return value:</span></b></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%'>Example:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
-style='mso-bidi-language:AR'>Boolean</span></p>
-
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt;mso-bidi-language:AR'>Example:</span></b><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'></span></b></p>
-
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=0
- style='margin-left:17.25pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='margin-left:18.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
  mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=31 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
+  <td width=25 valign=top style='width:14.95pt;border:solid #A6A6A6 1.0pt;
   mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>&nbsp;</span></b></p>
   </td>
-  <td width=283 valign=top style='width:212.5pt;border:solid #A6A6A6 1.0pt;
+  <td width=524 valign=top style='width:314.6pt;border:solid #A6A6A6 1.0pt;
   border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><code><span
-  lang=EN-US style='font-family:"Times New Roman",serif;mso-bidi-language:AR'>A</span></code></p>
+  <p class=MsoNormal align=center style='text-align:center'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'>A</span></b></p>
   </td>
-  <td width=251 valign=top style='width:188.4pt;border:none;mso-border-left-alt:
+  <td width=177 valign=top style='width:106.2pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=31 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
+  <td width=25 valign=top style='width:14.95pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  mso-bidi-language:AR'>1</span></code></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>1</span></b></p>
   </td>
-  <td width=283 valign=top style='width:212.5pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  <td width=524 style='width:314.6pt;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  mso-bidi-language:AR'>=hdfs_open(;&quot;hdfs://192.168.0.8:9000&quot;)</span></code></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=hive_client(&quot;hdfs://192.168.0.8:9000&quot;,&quot;thrift://192.168.0.8:9083&quot;,&quot;hive&quot;,&quot;asus&quot;)</span></span><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'></span></b></p>
   </td>
-  <td width=251 valign=top style='width:188.4pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US style='mso-bidi-language:AR'>Connect to
-  HDFS file system</span></p>
+  <td width=177 style='width:106.2pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Connect to the <i style='mso-bidi-font-style:
+  normal'>hive</i> database</span><span lang=EN-US style='font-size:12.0pt;
+  mso-bidi-font-size:10.0pt'></span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:2'>
-  <td width=31 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
+  <td width=25 valign=top style='width:14.95pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  mso-bidi-language:AR'>2</span></code></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>2</span></b></p>
   </td>
-  <td width=283 valign=top style='width:212.5pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  <td width=524 style='width:314.6pt;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  mso-bidi-language:AR'>=hdfs_upload(A1,&quot;emp.txt&quot;,&quot;/user&quot;) </span></code></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>=hive_query(A1, &quot;select<span
+  style='mso-spacerun:yes'>&nbsp; </span>*<span style='mso-spacerun:yes'>&nbsp;
+  </span>from<span style='mso-spacerun:yes'>&nbsp; </span>table&quot;)</span></b></p>
   </td>
-  <td width=251 valign=top style='width:188.4pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Upload local file <i>emp.txt</i> to the
-  path <i>/user</i></span></p>
+  <td width=177 style='width:106.2pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Query data in table </span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:3'>
-  <td width=31 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
+  <td width=25 valign=top style='width:14.95pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  mso-bidi-language:AR'>3</span></code></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>3</span></b></p>
   </td>
-  <td width=283 valign=top style='width:212.5pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  <td width=524 style='width:314.6pt;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  mso-bidi-language:AR'>=hdfs_upload(A1,&quot;stu.txt&quot;,&quot;/user/stu1.txt&quot;)
-  </span></code></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>=hive_close()</span></b></p>
   </td>
-  <td width=251 valign=top style='width:188.4pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Upload local file <i>stu.txt</i> to the
-  path <i>/user, </i>and rename it <i>stu1.txt</i></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:4'>
-  <td width=31 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  mso-bidi-language:AR'>4</span></code></p>
-  </td>
-  <td width=283 valign=top style='width:212.5pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  mso-bidi-language:AR'>=hdfs_upload(A1,&quot;/h1&quot;,&quot;/s1&quot;)</span></code></p>
-  </td>
-  <td width=251 valign=top style='width:188.4pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Upload local file <i>/h1</i> to path <i>/s1</i></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:5'>
-  <td width=31 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  mso-bidi-language:AR'>5</span></code></p>
-  </td>
-  <td width=283 valign=top style='width:212.5pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  mso-bidi-language:AR'>=hdfs_upload@d(A1,&quot;/h1&quot;,&quot;/s1&quot;) </span></code></p>
-  </td>
-  <td width=251 valign=top style='width:188.4pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Upload all files in the local folder <i>/h1</i>
-  to path <i>/s1</i></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:6;mso-yfti-lastrow:yes'>
-  <td width=31 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  mso-bidi-language:AR'>6</span></code></p>
-  </td>
-  <td width=283 valign=top style='width:212.5pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  mso-bidi-language:AR'>=hdfs_close(A1)</span></code></p>
-  </td>
-  <td width=251 valign=top style='width:188.4pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <td width=177 style='width:106.2pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
   </td>
  </tr>
 </table>
 
-<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%'>Related functions:</span></b></p>
+
+<p class=MsoNormal style='text-indent:10.5pt;mso-char-indent-count:1.0'><span
+lang=EN-US><a  href="364.html">hive_clo<span style='mso-bookmark:_Hlt474160569'><span
+style='mso-bookmark:_Hlt474160527'>s</span></span>e<span style='mso-bookmark:
+_Hlt474160512'>(</span>)</a><a name="_Hlt474160512"></a><a
+name="_Hlt474160527"></a><a name="_Hlt474160569"></a></span></p>
+
+<p class=MsoNormal style='text-indent:10.5pt;mso-char-indent-count:1.0'><span
+lang=EN-US><a  href="365.html">hive_cur<span style='mso-bookmark:_Hlt474160574'>s</span><span
+style='mso-bookmark:_Hlt474160542'>o</span><span style='mso-bookmark:_Hlt474160427'>r</span>()</a><a
+name="_Hlt474160427"></a><a name="_Hlt474160542"></a><a name="_Hlt474160574"></a></span></p>
+
+<p class=MsoNormal style='text-indent:10.5pt;mso-char-indent-count:1.0'><span
+lang=EN-US><a  href="363.html">hive_open()</a></span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="368.html">Next</a></div>

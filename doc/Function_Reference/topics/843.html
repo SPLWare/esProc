@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>ym_env()</title>
+<title>ym_build_model()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,69 +13,60 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h2><span lang=EN-US>ym_env()<a name="ym_env"></a></span></h2></div>
+	<div id="centent-title"><h2><a name="_E.penum(y,_g)"></a><a name="_E.penum()"></a><a
+name="_Escape_character"></a><a name="_Empty_sequence"></a><a
+name="_F.cursor()_1"></a><a name="_Hexadecimal_long_integer"></a><a
+name="_Escape_character_1"></a><a name="_Identifier_1"></a><a name="_逻辑运算"></a><a
+name="_Multiply_sequence"></a><a name="_Mudulos"></a><a name="_zone()"></a><span
+lang=EN-US>ym_build_model()<a name="ym_build_model"></a><sup></sup></span></h2></div>
 	<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Description:</span></b></p>
+style='font-size:14.0pt'>Description:</span></b><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US style='font-size:12.0pt;mso-bidi-font-size:10.0pt'></span></b></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-tab-stops:0cm'><span lang=EN-US style='mso-bidi-font-style:italic'>Initialize the
-environment by setting an environment variable.</span></p>
+tab-stops:0cm'><span lang=EN-US style='mso-bidi-font-style:italic'>Perform
+model building operation.</span></p>
 
 <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
 style='font-size:14.0pt'>Syntax:</span></b></p>
 
 <p class=MsoNormal style='text-indent:21.1pt;mso-char-indent-count:2.0;
 tab-stops:0cm'><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='mso-bidi-font-style:italic'>ym_env</span></b><span lang=EN-US
-style='mso-bidi-font-style:italic'>()</span><span lang=EN-US style='mso-bidi-font-size:
-10.5pt;mso-bidi-font-family:宋体;mso-bidi-font-style:italic'></span></p>
-
-<p class=MsoNormal style='text-indent:21.1pt;mso-char-indent-count:2.0;
-tab-stops:0cm'><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='mso-bidi-font-size:10.5pt;mso-bidi-font-family:宋体;mso-bidi-font-style:
-italic'>ym_env(1)</span></b><span lang=EN-US style='mso-bidi-font-style:italic'></span></p>
+style='mso-bidi-font-style:italic'>ym_build_model</span></b><span lang=EN-US
+style='mso-bidi-font-style:italic'>(</span><i><span lang=EN-US
+style='mso-bidi-font-size:11.0pt'>md</span></i><span lang=EN-US
+style='mso-bidi-font-style:italic'>)</span></p>
 
 <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
 style='font-size:14.0pt'>Note:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-tab-stops:0cm'><span lang=EN-US style='mso-bidi-font-style:italic'>It is an
-external library function. You need to first configure certain parameters, such
-as <i>sAppHome</i>, <i>sLicenseFile</i> and <i>sPythonHome</i>, in <i>userconfig.xml</i>
-file under YModelCli external library’s directory before environment initialization.
-For more information, see Section <i>2.18</i> in <i>External Libray Guide</i>.</span></p>
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US style='mso-bidi-font-style:italic'>The external library function
+executes model building and returns a PD model object. </span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-tab-stops:0cm'><span lang=EN-US style='mso-bidi-font-style:italic'>When the
-function is executed, a store directory with subdirectories under it will be
-generated. By default: <span style='mso-tab-count:1'>&nbsp; </span><span
-style='mso-tab-count:1'>&nbsp; </span></span></p>
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt'>Parameters:</span></b></p>
 
-<p class=MsoNormal style='text-indent:42.0pt;mso-char-indent-count:4.0;
-tab-stops:0cm'><span lang=EN-US style='mso-bidi-font-style:italic'>[sAppHome]/store/data_md<span
-style='mso-spacerun:yes'>&nbsp; </span>Contains data files for model building
-by default</span></p>
-
-<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.05;
-tab-stops:0cm'><span lang=EN-US style='mso-bidi-font-style:italic'>[sAppHome]/store/data_pd<span
-style='mso-spacerun:yes'>&nbsp; </span>Contains data files to be scored by
-default</span></p>
-
-<p class=MsoNormal style='text-indent:42.5pt;mso-char-indent-count:4.05;
-tab-stops:0cm'><span lang=EN-US style='mso-bidi-font-style:italic'>[sAppHome]/store/predict<span
-style='mso-spacerun:yes'>&nbsp; </span>Contains the model file by default</span><span
-lang=EN-US style='mso-bidi-font-size:10.5pt;mso-bidi-font-family:宋体;mso-bidi-font-style:
-italic'> </span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-tab-stops:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt;mso-bidi-font-family:
-宋体;mso-bidi-font-style:italic'>ym_env(1) forces a restart of Python service.</span><span
-lang=EN-US style='mso-bidi-font-style:italic'></span></p>
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:19.85pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'>
+  <td width=103 valign=top style='width:61.6pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>md</span></i></p>
+  </td>
+  <td width=566 valign=top style='width:339.3pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>An MD model</span></p>
+  </td>
+ </tr>
+</table>
 
 <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
 style='font-size:14.0pt'>Return value:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>An env object</span></p>
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
+tab-stops:0cm'><span lang=EN-US style='mso-bidi-font-size:11.0pt;mso-bidi-font-style:
+italic'>A PD model object</span><b style='mso-bidi-font-weight:normal'><span
+lang=EN-US style='font-size:12.0pt;mso-bidi-font-size:10.0pt'></span></b></p>
 
 <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
 style='font-size:14.0pt'>Example:</span></b></p>
@@ -85,55 +76,133 @@ style='font-size:14.0pt'>Example:</span></b></p>
  border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
  mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;height:13.7pt'>
-  <td width=21 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
+  <td width=26 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
   mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm;
   height:13.7pt'>
   <p class=MsoNormal align=center style='text-align:center'><span lang=EN-US>&nbsp;</span></p>
   </td>
-  <td width=253 valign=top style='width:189.7pt;border:solid #A6A6A6 1.0pt;
+  <td width=466 valign=top style='width:279.85pt;border:solid #A6A6A6 1.0pt;
   border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:13.7pt'>
   <p class=MsoNormal align=center style='text-align:center'><b
   style='mso-bidi-font-weight:normal'><span lang=EN-US>A</span></b></p>
   </td>
-  <td width=248 valign=top style='width:185.8pt;border:none;mso-border-left-alt:
+  <td width=266 valign=top style='width:159.75pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:13.7pt'>
   <p class=MsoNormal align=center style='text-align:center'><span lang=EN-US>&nbsp;</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1;height:14.35pt'>
-  <td width=21 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
+  <td width=26 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:14.35pt'>
   <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>1</span></b></p>
   </td>
-  <td width=253 valign=top style='width:189.7pt;border-top:none;border-left:
+  <td width=466 valign=top style='width:279.85pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:14.35pt'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=ym_env()</span></b></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-bidi-font-size:11.0pt'>=ym_env()</span></b></p>
   </td>
-  <td width=248 valign=top style='width:185.8pt;border:none;mso-border-left-alt:
+  <td width=266 valign=top style='width:159.75pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:14.35pt'>
-  <p class=MsoNormal><span lang=EN-US>Initialize the environment to start Python
-  service</span></p>
+  <p class=MsoNormal><span lang=EN-US>Start Python service</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes;height:13.7pt'>
-  <td width=21 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:2;height:13.7pt'>
+  <td width=26 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:13.7pt'>
   <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>2</span></b></p>
   </td>
-  <td width=253 valign=top style='width:189.7pt;border-top:none;border-left:
+  <td width=466 valign=top style='width:279.85pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:13.7pt'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>&gt;ym_close(A1)</span></b></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-bidi-font-size:11.0pt'>=file(&quot;train.csv&quot;)</span></b></p>
   </td>
-  <td width=248 valign=top style='width:185.8pt;border:none;mso-border-left-alt:
+  <td width=266 valign=top style='width:159.75pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:13.7pt'>
-  <p class=MsoNormal><span lang=EN-US>Reduce resource usage</span></p>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;height:13.7pt'>
+  <td width=26 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:13.7pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>3</span></b></p>
+  </td>
+  <td width=466 valign=top style='width:279.85pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:13.7pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-bidi-font-size:11.0pt'>=ym_model(A1,A2)</span></b></p>
+  </td>
+  <td width=266 valign=top style='width:159.75pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:13.7pt'>
+  <p class=MsoNormal><span lang=EN-US>Load necessary data for building the
+  model</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4;height:13.7pt'>
+  <td width=26 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:13.7pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>4</span></b></p>
+  </td>
+  <td width=466 valign=top style='width:279.85pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:13.7pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-bidi-font-size:11.0pt'>=ym_target(A3, &quot;Survived&quot;)</span></b></p>
+  </td>
+  <td width=266 valign=top style='width:159.75pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:13.7pt'>
+  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-size:11.0pt;
+  mso-bidi-font-weight:bold'>Set <i style='mso-bidi-font-style:normal'>Survived</i>
+  as the target variable</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:5;height:13.7pt'>
+  <td width=26 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:13.7pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>5</span></b></p>
+  </td>
+  <td width=466 valign=top style='width:279.85pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:13.7pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-bidi-font-size:11.0pt'>=ym_build_model(A3)</span></b></p>
+  </td>
+  <td width=266 valign=top style='width:159.75pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:13.7pt'>
+  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-style:italic'>Perform
+  model building operation and returns a model object </span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:6;mso-yfti-lastrow:yes;height:13.7pt'>
+  <td width=26 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:13.7pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>6</span></b></p>
+  </td>
+  <td width=466 valign=top style='width:279.85pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:13.7pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>&gt;ym_close(A1)</span></b><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
+  11.0pt'></span></b></p>
+  </td>
+  <td width=266 valign=top style='width:159.75pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:13.7pt'>
+  <p class=MsoNormal><span lang=EN-US>Release resources</span></p>
   </td>
  </tr>
 </table>

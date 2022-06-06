@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>db.update()</title>
+<title>A .union( x )</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,598 +13,162 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h3 style='text-align:justify;text-justify:inter-ideograph'><a name="db_update"></a><span
-lang=EN-US style='mso-bidi-font-size:11.0pt;line-height:172%'>db.update()</span></h3></div>
-	<p class=af8 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Description:</span></p>
+	<div id="centent-title"><h3 style='text-align:justify;text-justify:inter-ideograph'><a name="A_union_x"></a><i
+style='mso-bidi-font-style:normal'><span lang=EN-US>A</span></i><span
+lang=EN-US>.union(<i style='mso-bidi-font-style:normal'>x</i>)</span></h3></div>
+	<p class=MsoNormal style='line-height:200%'><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US style='font-size:14.0pt;line-height:200%'>Description:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Update database
-tables.</span></p>
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US>Compute <i style='mso-bidi-font-style:normal'>x</i> with each member
+of the sequence whose members are sequences, and then perform union operation
+on members of the new sequence.</span><b style='mso-bidi-font-weight:normal'><span
+lang=EN-US style='font-size:12.0pt;mso-bidi-font-size:10.0pt'> </span></b></p>
 
-<p class=af8 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Syntax: </span></p>
+<p class=MsoNormal style='line-height:200%'><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US style='font-size:14.0pt;line-height:200%'>Synatax:</span></b></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US><span
+style='mso-spacerun:yes'>&nbsp;</span></span><span class=var1><span lang=EN-US>A</span></span><span
+class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>.union(x)</span></span></p>
+
+<p class=MsoNormal style='line-height:200%'><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US style='font-size:14.0pt;line-height:200%'>Note:</span></b></p>
+
+<p class=MsoNormal style='text-indent:21.75pt'><span lang=EN-US>The function
+loops through sequence <i style='mso-bidi-font-style:normal'>A</i>, whose
+members are sequences, to compute expression <i style='mso-bidi-font-style:
+normal'>x</i> and then performs union operation on members of the resulting sequence.</span><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:12.0pt;
+mso-bidi-font-size:10.0pt'> </span></b></p>
+
+<p class=MsoNormal style='line-height:200%'><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US style='font-size:14.0pt;line-height:200%'>Parameters:</span></b></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
  style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=240 valign=top style='width:179.8pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><i style='mso-bidi-font-style:normal'><span
-  lang=EN-US style='font-family:"Times New Roman",serif;font-weight:normal'>db</span></i></span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>.update</span></span><span
-  class=code><i style='mso-bidi-font-style:normal'><span lang=EN-US
-  style='font-family:"Times New Roman",serif;font-weight:normal'>(A:A',tbl,F<sub>i</sub>:x<sub>i</sub>,…;P,…)</span></i></span><span
-  class=var><span lang=EN-US></span></span></p>
+  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US>A</span></i><span
+  class=var1><span lang=EN-US></span></span></p>
   </td>
-  <td width=306 valign=top style='width:229.3pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Update a database table based on a
-  sequence/record sequence</span></p>
+  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>A sequence <span style='mso-bidi-font-weight:
+  bold'>whose members are sequences</span></span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
-  <td width=240 valign=top style='width:179.8pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><i style='mso-bidi-font-style:normal'><span
-  lang=EN-US style='font-family:"Times New Roman",serif;font-weight:normal'>db</span></i></span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>.update</span></span><span
-  class=code><i style='mso-bidi-font-style:normal'><span lang=EN-US
-  style='font-family:"Times New Roman",serif;font-weight:normal'>(cs,tbl,F<sub>i</sub>:x<sub>i</sub>,…;P,…)</span></i></span><span
-  class=var><span lang=EN-US></span></span></p>
-  </td>
-  <td width=306 valign=top style='width:229.3pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Update a database table based on a cursor</span></p>
-  </td>
- </tr>
-</table>
-
-<p class=af8 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Note: </span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>The function
-updates <i style='mso-bidi-font-style:normal'>F</i></span><span class=a9><span
-lang=EN-US>i</span></span><span lang=EN-US> field of the <i style='mso-bidi-font-style:
-normal'>tbl</i> table with the value of computing expression <i
-style='mso-bidi-font-style:normal'>x</i></span><span class=a9><span lang=EN-US>i</span></span><span
-lang=EN-US> over the namesake field in sequence <i style='mso-bidi-font-style:
-normal'>A</i>. If both <i style='mso-bidi-font-style:normal'>F</i></span><span
-class=a0><i style='mso-bidi-font-style:normal'><span lang=EN-US
-style='font-family:"Times New Roman",serif'>i </span></i></span><span
-lang=EN-US>and </span><span class=var><span lang=EN-US>x</span></span><span
-class=a9><span lang=EN-US>i</span></span><span lang=EN-US> are omitted, use the
-namesake field of </span><span class=var><span lang=EN-US>A</span></span><span
-lang=EN-US> and its values. </span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US>P</span></i><span lang=EN-US>,<i style='mso-bidi-font-style:
-normal'>…</i> is the key of table <i style='mso-bidi-font-style:normal'>tbl</i>.
-First compare the database table<i style='mso-bidi-font-style:normal'> tbl</i>
-with <i style='mso-bidi-font-style:normal'>A'</i>, the original sequence,<i
-style='mso-bidi-font-style:normal'> </i>according to the primary key<i
-style='mso-bidi-font-style:normal'> </i>if the latter parameter exists and
-generate a delete command to delete database records that exist in <i
-style='mso-bidi-font-style:normal'>A' </i>but don’t exist in <i
-style='mso-bidi-font-style:normal'>A</i>. When a primary key value exists in <i
-style='mso-bidi-font-style:normal'>A</i> but doesn’t exist in <i
-style='mso-bidi-font-style:normal'>A'</i>, insert the corresponding record in <i
-style='mso-bidi-font-style:normal'>A</i> into the database table. If the
-primary key value exists in both <i style='mso-bidi-font-style:normal'>A</i>
-and <i style='mso-bidi-font-style:normal'>A'</i>, compare the database record
-and the records in <i style='mso-bidi-font-style:normal'>A</i> and <i
-style='mso-bidi-font-style:normal'>A'</i> to see if there’s any change between
-the value of computing expression <i style='mso-bidi-font-style:normal'>x</i></span><span
-class=a9><span lang=EN-US>i</span></span><span lang=EN-US> over <i
-style='mso-bidi-font-style:normal'>F</i></span><span class=a9><span lang=EN-US>i</span></span><span
-lang=EN-US> field in sequence <i style='mso-bidi-font-style:normal'>A</i> and
-the original<i style='mso-bidi-font-style:normal'> F</i></span><span class=a9><span
-lang=EN-US>i</span></span><span lang=EN-US> field value; and update the
-database table with the new value, if there is any. </span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>When parameter <i
-style='mso-bidi-font-style:normal'>A' </i>is absent, the function supports only
-the insert and update operattions; no delete operation exists.</span></p>
-
-<p class=af8 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Parameters: </span></p>
-
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=51 valign=top style='width:38.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US
-  style='mso-bidi-font-size:10.5pt'>db<span class=var></span></span></i></p>
-  </td>
-  <td width=484 valign=top style='width:362.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-size:10.5pt'>Database
-  connection</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:1'>
-  <td width=51 valign=top style='width:38.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US>A</span></i><span
-  class=var><span lang=EN-US></span></span></p>
-  </td>
-  <td width=484 valign=top style='width:362.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>A sequence /record sequence</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:2'>
-  <td width=51 valign=top style='width:38.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US>cs</span></i></p>
-  </td>
-  <td width=484 valign=top style='width:362.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>A cursor</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:3'>
-  <td width=51 valign=top style='width:38.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US>A'</span></i></p>
-  </td>
-  <td width=484 valign=top style='width:362.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>The original sequence/record sequence,
-  whose data is considered consistent with the database table. </span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:4'>
-  <td width=51 valign=top style='width:38.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US>tbl</span></i><span
-  class=var><span lang=EN-US></span></span></p>
-  </td>
-  <td width=484 valign=top style='width:362.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-style:italic'>The
-  name of a database table </span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:5'>
-  <td width=51 valign=top style='width:38.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US>F</span></i><span
-  class=a9><span lang=EN-US>i</span></span><span class=var><span lang=EN-US></span></span></p>
-  </td>
-  <td width=484 valign=top style='width:362.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>A field in <i style='mso-bidi-font-style:
-  normal'>tbl</i></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:6'>
-  <td width=51 valign=top style='width:38.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US>x</span></i><span
-  class=a9><span lang=EN-US>i</span></span><span class=var><span lang=EN-US></span></span></p>
+  class=var1><span lang=EN-US></span></span></p>
   </td>
-  <td width=484 valign=top style='width:362.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>An expression which will be<span
-  style='mso-bidi-font-style:italic'> computed based on <i>A</i></span> and its
-  value <span style='mso-bidi-font-style:italic'>will be the new value of </span></span><span
-  class=var><span lang=EN-US>F</span></span><span class=a9><span lang=EN-US>i</span></span><span
-  lang=EN-US style='mso-bidi-font-style:italic'>.</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:7;mso-yfti-lastrow:yes'>
-  <td width=51 valign=top style='width:38.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US>P</span></i><span
-  class=var><span lang=EN-US></span></span></p>
-  </td>
-  <td width=484 valign=top style='width:362.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>The key of <i style='mso-bidi-font-style:
-  normal'>tbl. </i>If omitted, it will be retrieved from <i style='mso-bidi-font-style:
-  normal'>tbl</i>; if the retrieval fails, then use <i style='mso-bidi-font-style:
-  normal'>A</i>’s</span></p>
+  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>An expression that returns a sequence</span></p>
   </td>
  </tr>
 </table>
 
-<p class=af8 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Options: </span></p>
+<p class=MsoNormal style='line-height:200%'><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US style='font-size:14.0pt;line-height:200%'>Return
+value:</span></b></p>
 
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=51 valign=top style='width:38.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>@u</span></span><span
-  class=var><span lang=EN-US></span></span></p>
-  </td>
-  <td width=484 valign=top style='width:362.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Compare primary keys between the database
-  table and <i style='mso-bidi-font-style:normal'>A' </i>to generate an UPDATE
-  statement; skip the comparison and directly upadate the database table with<i
-  style='mso-bidi-font-style:normal'> A</i> if <i style='mso-bidi-font-style:
-  normal'>A'</i> is absent. </span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:1'>
-  <td width=51 valign=top style='width:38.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>@i</span></span><span
-  class=var><span lang=EN-US></span></span></p>
-  </td>
-  <td width=484 valign=top style='width:362.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Compare primary keys between the database
-  table with <i style='mso-bidi-font-style:normal'>A'</i><span
-  style='mso-bidi-font-style:italic'>generate INSERT</span> statement; skip the
-  comparison and directly insert records into the database table with<i
-  style='mso-bidi-font-style:normal'> A</i> if <i style='mso-bidi-font-style:
-  normal'>A'</i> is absent.</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:2'>
-  <td width=51 valign=top style='width:38.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>@a</span></span><span
-  class=var><span lang=EN-US></span></span></p>
-  </td>
-  <td width=484 valign=top style='width:362.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-style:italic'>Clear
-  the target table before the update is executed;</span><span lang=EN-US> empty
-  the database table before executing <i style='mso-bidi-font-style:normal'>db.</i></span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>update</span></span><span
-  lang=EN-US>(<i style='mso-bidi-font-style:normal'>A</i><span
-  style='mso-bidi-font-style:italic'>:<i>A'</i></span>,<i style='mso-bidi-font-style:
-  normal'>tbl</i>,<i style='mso-bidi-font-style:normal'>F</i></span><span
-  class=a9><span lang=EN-US>i</span></span><span lang=EN-US>:<i
-  style='mso-bidi-font-style:normal'>x</i></span><span class=a9><span
-  lang=EN-US>i</span></span><span lang=EN-US>,…<i style='mso-bidi-font-style:
-  normal'>;P,…</i>). </span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:3'>
-  <td width=51 valign=top style='width:38.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>@k</span></span><span
-  class=var><span lang=EN-US></span></span></p>
-  </td>
-  <td width=484 valign=top style='width:362.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>After the execution is completed, the
-  transaction won't be committed. If this option is omitted, the transaction
-  will be committed.</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:4'>
-  <td width=51 valign=top style='width:38.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>@1</span></span><span
-  class=var><span lang=EN-US></span></span></p>
-  </td>
-  <td width=484 valign=top style='width:362.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>The first field is an auto-increment
-  field with no corresponding expression.</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:5;mso-yfti-lastrow:yes'>
-  <td width=51 valign=top style='width:38.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>@d</span></span></p>
-  </td>
-  <td width=484 valign=top style='width:362.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Only perform delete operation and <i
-  style='mso-bidi-font-style:normal'>A' </i>must be in place. </span></p>
-  </td>
- </tr>
-</table>
+<p class=MsoNormal style='text-indent:21.75pt'><span lang=EN-US>A sequence
+created through the union of new members of sequence <i style='mso-bidi-font-style:
+normal'>A</i></span></p>
 
-<p class=af8 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Return value: </span></p>
-
-<p class=MsoNormal><span lang=EN-US><span style='mso-tab-count:1'>&nbsp; </span>None</span></p>
-
-<p class=af8 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Example: </span></p>
-
-<p class=afa style='margin-top:0cm;margin-right:0cm;margin-bottom:0cm;
-margin-left:15.75pt;margin-bottom:.0001pt;mso-add-space:auto;mso-para-margin-top:
-0cm;mso-para-margin-right:0cm;mso-para-margin-bottom:0cm;mso-para-margin-left:
-1.5gd;mso-para-margin-bottom:.0001pt;mso-add-space:auto;text-align:justify;
-text-justify:inter-ideograph;tab-stops:42.0pt'><span lang=EN-US>Transaction
-commits automatically after the update is completed</span></p>
+<p class=MsoNormal style='line-height:200%'><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US style='font-size:14.0pt;line-height:200%'>Example:</span></b></p>
 
 <table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
- style='margin-left:-.4pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ style='margin-left:18.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
  mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=15 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+  <td width=25 valign=top style='width:14.7pt;border:solid #A6A6A6 1.0pt;
   mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></p>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
   </td>
-  <td width=863 valign=top style='width:205.55pt;border:solid #A6A6A6 1.0pt;
+  <td width=289 valign=top style='width:173.1pt;border:solid #A6A6A6 1.0pt;
   border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>A</span></span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>A</span></span></p>
   </td>
-  <td width=331 valign=top style='width:7.0cm;border:none;mso-border-left-alt:
+  <td width=354 valign=top style='width:212.65pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=15 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+  <td width=25 valign=top style='width:14.7pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>1</span></span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>1</span></span></p>
   </td>
-  <td width=863 valign=top style='width:205.55pt;border-top:none;border-left:
+  <td width=289 style='width:173.1pt;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=demo.query(&quot;select
+  * from EMPLOYEE where GENDER = 'M' order by NAME&quot;)</span></span></p>
+  </td>
+  <td width=354 style='width:212.65pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US style='font-size:12.0pt;mso-bidi-font-size:
+  10.0pt'>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=25 valign=top style='width:14.7pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>2</span></span></p>
+  </td>
+  <td width=289 valign=top style='width:173.1pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=demo.query(&quot;select
-  * from EMPLOYEE&quot;).keys(EID)</span></span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=demo.query(&quot;select
+  * from EMPLOYEE where GENDER = 'F' order by NAME&quot;)</span></span></p>
   </td>
-  <td width=331 valign=top style='width:7.0cm;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:2;height:5.25pt'>
-  <td width=15 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:5.25pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>2</span></span></p>
-  </td>
-  <td width=863 valign=top style='width:205.55pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:5.25pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=file(&quot;D:/employee1.txt&quot;).import@t()</span></span></p>
-  </td>
-  <td width=331 valign=top style='width:7.0cm;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:5.25pt'>
-  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'><img border=0 width=331 height=57
-  src="Function_Reference.files/image1772.jpg" v:shapes="_x0000_i2174"></span></p>
+  <td width=354 style='width:212.65pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>&nbsp;</span></span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:3;height:4.05pt'>
-  <td width=15 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
+  <td width=25 valign=top style='width:14.7pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:4.05pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>3</span></span></p>
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>3</span></span></p>
   </td>
-  <td width=863 valign=top style='width:205.55pt;border-top:none;border-left:
+  <td width=289 valign=top style='width:173.1pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:4.05pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>&gt;demo.update(A2:A1,EMPLOYEE,EID,NAME,SURNAME,GENDER,STATE,BIRTHDAY,HIREDATE,DEPT,SALARY:SALARY+10;EID)</span></span></p>
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=[A1,A2].union(~.(NAME))</span></span></p>
   </td>
-  <td width=331 valign=top style='width:7.0cm;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:4.05pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>EID</span></span><span
-  lang=EN-US> is the key, which must be included in the update fields. A1 and
-  A2 have the same field names. Compare the primary keys of the database table
-  and those of A1 and A2 to delete records that are held by A1 but not held by
-  A2; and to insert records that exist in A2 but don’t exist in A1. Finally
-  compare the primary key values to upadate field values of A2’s database table
-  by performing SALARY+10 on SALARY field of records whose field values have
-  changed</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:4;height:4.05pt'>
-  <td width=15 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:4.05pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>4</span></span></p>
-  </td>
-  <td width=863 valign=top style='width:205.55pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:4.05pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>&gt;demo.update@u(A2:A1,EMPLOYEE,EID,NAME,SURNAME,GENDER,STATE,BIRTHDAY,HIREDATE,DEPT,SALARY:SALARY+10;EID)</span></span></p>
-  </td>
-  <td width=331 valign=top style='width:7.0cm;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:4.05pt'>
-  <p class=MsoNormal><span lang=EN-US>With @u option, upadate only the field
-  values of the records in A2 by performing SALARY+10 on SALARY field of
-  records whose field values have changed</span><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:5;height:4.05pt'>
-  <td width=15 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:4.05pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>5</span></span></p>
-  </td>
-  <td width=863 valign=top style='width:205.55pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:4.05pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>&gt;demo.update@u(A2,EMPLOYEE,EID,NAME,SURNAME,GENDER,STATE,BIRTHDAY,HIREDATE,DEPT,SALARY:SALARY+10;EID)</span></span></p>
-  </td>
-  <td width=331 valign=top style='width:7.0cm;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:4.05pt'>
-  <p class=MsoNormal><span lang=EN-US>Skip the comparison of primary key values
-  and directly insert A2’s computed records to the database table if <i
-  style='mso-bidi-font-style:normal'>A'</i> is absent </span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:6;height:4.05pt'>
-  <td width=15 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:4.05pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>6</span></span></p>
-  </td>
-  <td width=863 valign=top style='width:205.55pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:4.05pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>&gt;demo.update@i(A2:A1,EMPLOYEE,EID,NAME,SURNAME,GENDER,STATE,BIRTHDAY,HIREDATE,DEPT,SALARY:SALARY+10;EID)</span></span></p>
-  </td>
-  <td width=331 valign=top style='width:7.0cm;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:4.05pt'>
-  <p class=MsoNormal><span lang=EN-US>With @i option, only insert field values
-  into records and perform SALARY+10 on SALARY field of all records </span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:7;height:4.05pt'>
-  <td width=15 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:4.05pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>7</span></span></p>
-  </td>
-  <td width=863 valign=top style='width:205.55pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:4.05pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>&gt;demo.update@i(A2,EMPLOYEE,EID,NAME,SURNAME,GENDER,STATE,BIRTHDAY,HIREDATE,DEPT,SALARY:SALARY+10;EID)</span></span></p>
-  </td>
-  <td width=331 valign=top style='width:7.0cm;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:4.05pt'>
-  <p class=MsoNormal><span lang=EN-US>Skip the comparison of primary key values
-  and directly insert records into the database table with<i style='mso-bidi-font-style:
-  normal'> A</i> if <i style='mso-bidi-font-style:normal'>A'</i> is absent</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:8;height:4.05pt'>
-  <td width=15 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:4.05pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>8</span></span></p>
-  </td>
-  <td width=863 valign=top style='width:205.55pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:4.05pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>&gt;demo.update@a(A2:A1,EMPLOYEE,EID,NAME,SURNAME,GENDER,STATE,BIRTHDAY,HIREDATE,DEPT,SALARY:SALARY+10;EID)</span></span></p>
-  </td>
-  <td width=331 valign=top style='width:7.0cm;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:4.05pt'>
-  <p class=MsoNormal><span lang=EN-US>First empty the database table </span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>EMPLOYEE
-  </span></span><span lang=EN-US>before executing <i style='mso-bidi-font-style:
-  normal'>db.</i></span><span class=code><span lang=EN-US style='font-family:
-  "Times New Roman",serif'>update</span></span><span lang=EN-US>(<i
-  style='mso-bidi-font-style:normal'>A</i><u><span style='mso-bidi-font-style:
-  italic'>:<i>A'</i></span></u>,<i style='mso-bidi-font-style:normal'>tbl</i>,<i
-  style='mso-bidi-font-style:normal'>F</i></span><span class=a9><span
-  lang=EN-US>i</span></span><span lang=EN-US>:<i style='mso-bidi-font-style:
-  normal'>x</i></span><span class=a9><span lang=EN-US>i</span></span><span
-  lang=EN-US>,…<i style='mso-bidi-font-style:normal'>;P,…</i>).</span></p>
-  <p class=MsoNormal><span lang=EN-US>Perform operation on records of the
-  resulting database table whose EID is 512 </span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:9;height:4.05pt'>
-  <td width=15 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:4.05pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>9</span></span></p>
-  </td>
-  <td width=863 valign=top style='width:205.55pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:4.05pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=file(&quot;D:/data_user.txt&quot;).import@t()</span></span></p>
-  </td>
-  <td width=331 valign=top style='width:7.0cm;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:4.05pt'>
-  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'><img border=0 width=91 height=83
-  src="Function_Reference.files/image1773.png" v:shapes="_x0000_i2175"></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:10;height:4.05pt'>
-  <td width=15 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:4.05pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>10</span></span></p>
-  </td>
-  <td width=863 valign=top style='width:205.55pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:4.05pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=mysql.query(&quot;select
-  * from user_test&quot;).keys(userid)</span></span></p>
-  </td>
-  <td width=331 valign=top style='width:7.0cm;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:4.05pt'>
-  <p class=MsoNormal><span lang=EN-US>userid, which is the key of <i
-  style='mso-bidi-font-style:normal'>user test</i> table in MySQL database, is
-  a auto-incrementing field. </span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:11;height:4.05pt'>
-  <td width=15 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:4.05pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>11</span></span></p>
-  </td>
-  <td width=863 valign=top style='width:205.55pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:4.05pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>&gt;mysql.update@1(A9:A10,user_test,USERNAME)</span></span></p>
-  </td>
-  <td width=331 valign=top style='width:7.0cm;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:4.05pt'>
-  <p class=MsoNormal><span lang=EN-US>There’s no need for an<span
-  style='mso-spacerun:yes'>&nbsp; </span>auto-incrementing field to be written
-  down as an expression </span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:12;height:4.05pt'>
-  <td width=15 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:4.05pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>12</span></span></p>
-  </td>
-  <td width=863 valign=top style='width:205.55pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:4.05pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>&gt;demo.update@k(A2:A1,EMPLOYEE,EID,NAME,SURNAME,GENDER,STATE,BIRTHDAY,HIREDATE,DEPT,SALARY:SALARY+10;EID)</span></span></p>
-  </td>
-  <td width=331 valign=top style='width:7.0cm;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:4.05pt'>
-  <p class=MsoNormal><span lang=EN-US>Do not commit a transaction after the
-  execution </span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:13;height:4.05pt'>
-  <td width=15 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:4.05pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>13</span></span></p>
-  </td>
-  <td width=863 valign=top style='width:205.55pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:4.05pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>&gt;demo.update@d(A2:A1,EMPLOYEE,EID,NAME,SURNAME,GENDER,STATE,BIRTHDAY,HIREDATE,DEPT,SALARY:SALARY+10;EID)</span></span></p>
-  </td>
-  <td width=331 valign=top style='width:7.0cm;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:4.05pt'>
-  <p class=MsoNormal><span lang=EN-US>Compare key values to delete records that
-  exist in A1 but don’t exist in A2; perform operation on records of the
-  updated database table whose EID is 1, 2 and 3 </span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:14;height:4.05pt'>
-  <td width=15 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:4.05pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>14</span></span></p>
-  </td>
-  <td width=863 valign=top style='width:205.55pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:4.05pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=file(&quot;D://data.txt&quot;).cursor@t()</span></span></p>
-  </td>
-  <td width=331 valign=top style='width:7.0cm;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:4.05pt'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:15;mso-yfti-lastrow:yes;height:4.05pt'>
-  <td width=15 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:4.05pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>15</span></span></p>
-  </td>
-  <td width=863 valign=top style='width:205.55pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:4.05pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>&gt;demo.update(A14,EMPLOYEE,EID,NAME,SURNAME,GENDER,STATE,BIRTHDAY,HIREDATE,DEPT,SALARY:SALARY+10;EID)</span></span></p>
-  </td>
-  <td width=331 valign=top style='width:7.0cm;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:4.05pt'>
-  <p class=MsoNormal><span lang=EN-US>A14 is a cursor </span></p>
+  <td width=354 style='width:212.65pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif"'>[Rebecca,Ashley,…] </span></span><span
+  lang=EN-US>Common members of A1 and A2 only appear once, and identical
+  members in the same sub-sequence are not regarded as duplicate ones</span><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt'></span></p>
   </td>
  </tr>
 </table>
+
+<p class=MsoNormal style='line-height:200%'><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US style='font-size:14.0pt;line-height:200%'>Related
+functions:</span></b></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-bidi-font-size:10.5pt'><a  href="807.html">A<span style='mso-bidi-font-size:
+10.0pt'>.unio<span style='mso-bookmark:_Hlt414983894'>n</span><span
+style='mso-bookmark:_Hlt414983875'>(</span>)</span></a><a
+name="_Hlt414983875"></a><a name="_Hlt414983894"></a></span><span
+class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'></span></span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="809.html">Next</a></div>
@@ -612,7 +176,7 @@ commits automatically after the update is completed</span></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="807.html">update()</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="806.html">union()</a></span></li>
 </div>
 	</div>
 	<div id="footer">	

@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>olap_open()</title>
+<title>olap_close()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,21 +13,21 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h2><a name="olap_open"></a><span lang=EN-US>olap_open()</span></h2></div>
+	<div id="centent-title"><h2><a name="olap_close"><span lang=EN-US>olap_close()</span></a></h2></div>
 	<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
 mso-bidi-font-size:12.0pt;line-height:200%'>Description:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Establish
-connection to multidimensional database.</span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Close connection
+to a multidimensional database.</span></p>
 
 <p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
 mso-bidi-font-size:12.0pt;line-height:200%'>Syntax:</span></b></p>
 
 <p class=MsoNormal style='text-indent:21.0pt'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US style='mso-fareast-font-family:黑体'>olap_open(</span></b><i><span
-lang=EN-US style='mso-bidi-font-size:10.5pt'>url, catalog, user, pwd</span></i><b
+normal'><span lang=EN-US style='mso-fareast-font-family:黑体'>olap_close(</span></b><i><span
+lang=EN-US style='mso-bidi-font-size:10.5pt'>conn</span></i><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
 黑体'>)</span></b></p>
 
@@ -35,10 +35,8 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-fam
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
 mso-bidi-font-size:12.0pt;line-height:200%'>Note:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
-style='mso-bidi-font-size:10.5pt;mso-bidi-font-style:italic'>An external
-library function. Whether or not the username and password are required depends
-on how the privilege levels are set up for the given server.</span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>This external
+library function closes the connection to a multidimensional database.</span></p>
 
 <p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
@@ -47,49 +45,15 @@ mso-bidi-font-size:12.0pt;line-height:200%'>Parameters:</span></b></p>
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
  style='margin-left:11.6pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=69 valign=top style='width:51.65pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>url</span></i></p>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'>
+  <td width=86 valign=top style='width:51.65pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>conn</span></i></p>
   </td>
-  <td width=477 valign=top style='width:357.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Address of the server on which a
-  multidimensional database runs</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:1'>
-  <td width=69 valign=top style='width:51.65pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>catalog</span></i></p>
-  </td>
-  <td width=477 valign=top style='width:357.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>The multidimensional database name</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:2'>
-  <td width=69 valign=top style='width:51.65pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>user</span></i></p>
-  </td>
-  <td width=477 valign=top style='width:357.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>User name for accessing a
-  multidimensional database</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
-  <td width=69 valign=top style='width:51.65pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>pwd</span></i></p>
-  </td>
-  <td width=477 valign=top style='width:357.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Password for accessing a multidimensional
-  database</span></p>
+  <td width=596 valign=top style='width:357.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Database connection string</span></p>
   </td>
  </tr>
 </table>
-
-<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-mso-bidi-font-size:12.0pt;line-height:200%'>Return value:</span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Return the
-connection object</span></p>
 
 <p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
@@ -100,63 +64,61 @@ mso-bidi-font-size:12.0pt;line-height:200%'>Example:</span></b></p>
  border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
  mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=8 valign=top style='width:20.6pt;border:solid #A6A6A6 1.0pt;
+  <td width=34 valign=top style='width:20.6pt;border:solid #A6A6A6 1.0pt;
   mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><b
   style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
   黑体'>&nbsp;</span></b></p>
   </td>
-  <td width=585 valign=top style='width:277.05pt;border:solid #A6A6A6 1.0pt;
+  <td width=462 valign=top style='width:277.05pt;border:solid #A6A6A6 1.0pt;
   border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><b
   style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
   黑体'>A</span></b></p>
   </td>
-  <td width=98 valign=top style='width:112.75pt;border:none;mso-border-left-alt:
+  <td width=188 valign=top style='width:112.75pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span lang=EN-US>&nbsp;</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=8 valign=top style='width:20.6pt;border:solid #A6A6A6 1.0pt;
+  <td width=34 valign=top style='width:20.6pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
   style='mso-fareast-font-family:黑体'>1</span></b></p>
   </td>
-  <td width=585 valign=top style='width:277.05pt;border-top:none;border-left:
+  <td width=462 valign=top style='width:277.05pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
   style='mso-fareast-font-family:黑体'>=olap_open(&quot;http://192.168.0.178:8088/msmdpump.dll&quot;,&quot;CubeTest&quot;,&quot;Administrator&quot;,&quot;admin&quot;)</span></b></p>
   </td>
-  <td width=98 valign=top style='width:112.75pt;border:none;mso-border-left-alt:
+  <td width=188 valign=top style='width:112.75pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Connect to the multidimensional database
-  named <i style='mso-bidi-font-style:normal'>CubeTest</i></span></p>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes'>
-  <td width=8 valign=top style='width:20.6pt;border:solid #A6A6A6 1.0pt;
+  <td width=34 valign=top style='width:20.6pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
   style='mso-fareast-font-family:黑体'>2</span></b></p>
   </td>
-  <td width=585 valign=top style='width:277.05pt;border-top:none;border-left:
+  <td width=462 valign=top style='width:277.05pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>=olap_open(&quot;http://192.168.0.178:8088/msmdpump.dll&quot;,&quot;Analysis
-  Services Tutorial&quot;)</span></b></p>
+  style='mso-fareast-font-family:黑体'>&gt;olap_close(A1)</span></b></p>
   </td>
-  <td width=98 valign=top style='width:112.75pt;border:none;mso-border-left-alt:
+  <td width=188 valign=top style='width:112.75pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Connect to the multidimensional database
-  named <i style='mso-bidi-font-style:normal'>Analysis Services Tutorial</i></span></p>
+  <p class=MsoNormal><span lang=EN-US>Close connection to the multidimensional
+  database</span></p>
   </td>
  </tr>
 </table>
@@ -166,12 +128,14 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
 mso-bidi-font-size:12.0pt;line-height:200%'>Related functions:</span></b></p>
 
 <p class=MsoNormal style='text-indent:21.0pt'><u><span lang=EN-US
-style='color:blue'><a  href="olapquery.html#olap_close">olap_cl<span style='mso-bookmark:_Hlt499712726'>o</span>se()</a><a
-name="_Hlt499712726"></a></span></u></p>
+style='mso-fareast-font-family:黑体;color:blue'><a  href="579.html">olap_<span
+style='mso-bookmark:_Hlt499712825'>o</span>pen()</a><a
+name="_Hlt499712825"></a></span></u></p>
 
 <p class=MsoNormal style='text-indent:21.0pt'><u><span lang=EN-US
-style='color:blue'><a  href="ones.html#olap_query">ol<span style='mso-bookmark:_Hlt499712778'>a</span>p_query()</a><a
-name="_Hlt499712778"></a></span></u></p>
+style='mso-fareast-font-family:黑体;color:blue'><a  href="580.html">olap<span
+style='mso-bookmark:_Hlt499712850'>_</span>q<span style='mso-bookmark:_Hlt499725707'>u</span>ery()</a><a
+name="_Hlt499725707"></a><a name="_Hlt499712850"></a></span></u></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="579.html">Next</a></div>

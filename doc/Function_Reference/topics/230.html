@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>es_delete()</title>
+<title>es_rest()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,185 +13,197 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h2><a name="es_delete"></a><span lang=EN-US>es_delete()</span></h2></div>
-	<p class=MsoNormal style='line-height:200%'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US style='font-size:14.0pt;line-height:200%;mso-font-kerning:
-0pt'>Description:</span></b><span lang=EN-US style='mso-font-kerning:0pt'></span></p>
+	<div id="centent-title"><h2><a name="es_close"></a><span lang=EN-US style='mso-fareast-font-family:
+宋体'>es_rest()<a name="es_rest"></a></span></h2></div>
+	<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt'>Description: </span></b></p>
 
-<p class=MsoNormal><span lang=EN-US style='mso-font-kerning:0pt'><span
-style='mso-spacerun:yes'>&nbsp; </span></span><span lang=EN-US>Execute
-the delete command and return a boolean value.</span><span lang=EN-US
-style='mso-font-kerning:0pt'></span></p>
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US>Handle data using Elasticsearch REST interface.</span></p>
 
-<p class=MsoNormal style='line-height:200%;mso-pagination:widow-orphan'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-line-height:200%;mso-font-kerning:0pt'>Syntax: </span></b></p>
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt'>Syntax:</span></b></p>
 
-<p class=MsoNormal style='mso-pagination:widow-orphan'><span lang=EN-US
-style='mso-font-kerning:0pt'><span style='mso-spacerun:yes'>&nbsp; </span></span><span
-lang=EN-US style='mso-fareast-font-family:黑体'><span
-style='mso-spacerun:yes'>&nbsp;</span>es_delete</span><span lang=EN-US
-style='mso-bidi-font-size:10.5pt;mso-font-kerning:0pt'>(</span><i><span
-lang=EN-US style='mso-bidi-font-size:10.5pt'>fd, endpoint, entity</span></i><i><span
-style='mso-bidi-font-size:10.5pt;font-family:宋体;mso-ascii-font-family:"Times New Roman";
-mso-hansi-font-family:"Times New Roman"'>，</span></i><i><span lang=EN-US
-style='mso-bidi-font-size:10.5pt'>header</span></i><span lang=EN-US
-style='mso-bidi-font-size:10.5pt;mso-font-kerning:0pt'>)</span></p>
+<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.01'><span
+class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>es_rest(</span></span><span
+class=code><i><span lang=EN-US style='font-family:"Times New Roman","serif";
+font-weight:normal'>url, method, content; httpHeader1, httpHeader2, …</span></i></span><span
+class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>)</span></span><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:12.0pt;
+mso-bidi-font-size:10.0pt'></span></b></p>
 
-<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-mso-bidi-font-size:10.0pt;line-height:200%'>Note: </span></b></p>
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt'>Note: </span></b></p>
 
-<p class=MsoNormal style='mso-pagination:widow-orphan'><span lang=EN-US
-style='font-size:14.0pt;mso-font-kerning:0pt'><span
-style='mso-spacerun:yes'>&nbsp; </span></span><span lang=EN-US>The external
-library function executes the delete command and returns true if the deletion
-action is successful or false if the deletion fails.</span></p>
+<p class=MsoNormal align=left style='text-align:left;text-indent:21.2pt;
+mso-char-indent-count:2.02;mso-pagination:widow-orphan'><span lang=EN-US>The
+external library handles data using Elasticsearch REST interface.</span></p>
 
-<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-mso-bidi-font-size:10.0pt;line-height:200%'>Parameters:</span></b></p>
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt'>Parameters:</span></b></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:6.2pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ style='margin-left:21.3pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=98 valign=top style='width:73.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>fd</span></i></p>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;height:15.25pt'>
+  <td width=130 valign=top style='width:77.95pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:15.25pt'>
+  <p class=MsoNormal><span class=var1><span lang=EN-US>url</span></span></p>
   </td>
-  <td width=437 valign=top style='width:327.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-size:10.5pt;
-  mso-font-kerning:0pt'>A REST Client object</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:1'>
-  <td width=98 valign=top style='width:73.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>endpoint</span></i></p>
-  </td>
-  <td width=437 valign=top style='width:327.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-size:10.5pt;
-  mso-font-kerning:0pt'>Rest API address</span></p>
+  <td width=484 valign=top style='width:290.55pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:15.25pt'>
+  <p class=MsoNormal align=left style='text-align:left;mso-pagination:widow-orphan'><span
+  lang=EN-US>A URL file that supports both HTTP and HTTPS; different operations
+  have their own extensions</span><span class=code><span lang=EN-US
+  style='font-size:14.0pt;font-family:"Times New Roman","serif";mso-font-kerning:
+  0pt;font-weight:normal'></span></span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:2'>
-  <td width=98 valign=top style='width:73.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>entity</span></i></p>
+ <tr style='mso-yfti-irow:1;height:15.25pt'>
+  <td width=130 valign=top style='width:77.95pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:15.25pt'>
+  <p class=MsoNormal><span class=var1><span lang=EN-US>method</span></span></p>
   </td>
-  <td width=437 valign=top style='width:327.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-size:10.5pt;
-  mso-font-kerning:0pt'>A parameter transmitted through http body, which is a
-  JSON string or a block of data in JSON format</span></p>
+  <td width=484 valign=top style='width:290.55pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:15.25pt'>
+  <p class=MsoNormal align=left style='text-align:left;mso-pagination:widow-orphan'><span
+  lang=EN-US>An HTTP method, whose value can be GET/PUT/POST/DELETE</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
-  <td width=98 valign=top style='width:73.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>header</span></i><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-font-kerning:0pt'></span></p>
+ <tr style='mso-yfti-irow:2;height:15.25pt'>
+  <td width=130 valign=top style='width:77.95pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:15.25pt'>
+  <p class=MsoNormal><span class=var1><span lang=EN-US>content</span></span></p>
   </td>
-  <td width=437 valign=top style='width:327.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-size:10.5pt;
-  mso-font-kerning:0pt'>A variable parameter that passes http header; it is a
-  key type JSON string </span><span lang=EN-US style='mso-bidi-language:AR'></span></p>
+  <td width=484 valign=top style='width:290.55pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:15.25pt'>
+  <p class=MsoNormal align=left style='text-align:left;mso-pagination:widow-orphan'><span
+  lang=EN-US>The to-be-submitted content an HTTP request contains; the
+  parameter can be absent when an operation does not submit anything</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes;height:15.25pt'>
+  <td width=130 valign=top style='width:77.95pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:15.25pt'>
+  <p class=MsoNormal><span class=var1><span lang=EN-US>httpHeader</span></span></p>
+  </td>
+  <td width=484 valign=top style='width:290.55pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:15.25pt'>
+  <p class=MsoNormal align=left style='text-align:left;mso-pagination:widow-orphan'><span
+  lang=EN-US>An HTTP header, including information such as token for authenticating
+  a user agent and specification of content format</span></p>
   </td>
  </tr>
 </table>
 
-<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-mso-bidi-font-size:10.0pt;line-height:200%'>Return value</span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-mso-pagination:widow-orphan'><span lang=EN-US>Boolean value</span></p>
-
-<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-mso-bidi-font-size:10.0pt;line-height:200%'>Example:</span></b></p>
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt'>Example:</span></b></p>
 
 <table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
- style='margin-left:-.4pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ style='margin-left:17.25pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
  mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+  <td width=26 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
   mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  <p class=MsoNormal align=center style='text-align:center'><span lang=EN-US>&nbsp;</span></p>
   </td>
-  <td width=341 valign=top style='width:255.8pt;border:solid #A6A6A6 1.0pt;
+  <td width=488 valign=top style='width:292.7pt;border:solid #A6A6A6 1.0pt;
   border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><b
   style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
   黑体'>A</span></b></p>
   </td>
-  <td width=198 valign=top style='width:148.2pt;border:none;mso-border-left-alt:
+  <td width=183 valign=top style='width:109.65pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span lang=EN-US>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=26 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'>1</span></b></p>
+  </td>
+  <td width=488 valign=top style='width:292.7pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>&gt;apikey=&quot;Authorization:ApiKey
+  a2x6aEF……KZ29rT2hoQQ==&quot;</span></b></p>
+  </td>
+  <td width=183 valign=top style='width:109.65pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Set API Key</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=26 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'>2</span></b></p>
+  </td>
+  <td width=488 valign=top style='width:292.7pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>'{</span></b></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>&nbsp;</span></b></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>&quot;counter&quot; : 1,</span></b></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>&nbsp;</span></b></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>&quot;tags&quot; : [&quot;red&quot;]</span></b></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>&nbsp;</span></b></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>,&quot;beginTime&quot;:&quot;2022-01-03&quot;</span></b></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>&nbsp;</span></b></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>,&quot;endTime&quot;:&quot;2022-02-15&quot;</span></b></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>&nbsp;</span></b></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>}</span></b></p>
+  </td>
+  <td width=183 valign=top style='width:109.65pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:1'>
-  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>1</span></b></p>
-  </td>
-  <td width=341 valign=top style='width:255.8pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>=es_open(&quot;localhost:9200&quot;,&quot;user&quot;:&quot;un1234&quot;)</span></b></p>
-  </td>
-  <td width=198 valign=top style='width:148.2pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Connect to ES server</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:2'>
-  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>2</span></b></p>
-  </td>
-  <td width=341 valign=top style='width:255.8pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>=es_delete(A1,&quot;/accounts/person&quot;,&quot;user:jacker&quot;)</span></b></p>
-  </td>
-  <td width=198 valign=top style='width:148.2pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Delete the record where <b
-  style='mso-bidi-font-weight:normal'>user</b> is <i style='mso-bidi-font-style:
-  normal'>jacker</i> under the level where index is <i style='mso-bidi-font-style:
-  normal'>accounts</i> and type is <i style='mso-bidi-font-style:normal'>person</i></span></p>
-  </td>
- </tr>
  <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
-  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+  <td width=26 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>3</span></b></p>
+  <p class=MsoNormal align=center style='text-align:center'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'>3</span></b></p>
   </td>
-  <td width=341 valign=top style='width:255.8pt;border-top:none;border-left:
+  <td width=488 valign=top style='width:292.7pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>=es_delete(A1,&quot;/student&quot;)</span></b></p>
+  style='mso-fareast-font-family:黑体'>=es_rest(&quot;https://localhost:9200/index1/_doc/1&quot;,
+  &quot;PUT&quot;,A2;&quot;Content-Type: application/x-ndjson&quot;,apikey)</span></b></p>
   </td>
-  <td width=198 valign=top style='width:148.2pt;border:none;mso-border-left-alt:
+  <td width=183 valign=top style='width:109.65pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Delete the index file where the index is <i
-  style='mso-bidi-font-style:normal'>student</i></span></p>
+  <p class=MsoNormal><span lang=EN-US>Execute write operation and list
+  information in the HTTP response</span></p>
   </td>
  </tr>
 </table>
-
-<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="231.html">Next</a></div>

@@ -72,7 +72,7 @@ tree.setIconPath("images/");
  tree.nodes["68_71"] = "text:2.7.3 Cellset variables;url:topics/69.html";
  tree.nodes["68_72"] = "text:2.7.4 Cellset constants;url:topics/70.html";
  tree.nodes["68_73"] = "text:2.7.5 Prioritizing parameters, variables and constants;url:topics/71.html";
- tree.nodes["34_74"] = "text:2.8 Linear Algebra Functions;url:topics/72.html";
+ tree.nodes["34_74"] = "text:2.8. Linear Algebra Functions;url:topics/72.html";
  tree.nodes["74_75"] = "text:2.8.1 Vectors and matrices;url:topics/73.html";
  tree.nodes["74_76"] = "text:2.8.2 Basic matrix operations;url:topics/74.html";
  tree.nodes["74_77"] = "text:2.8.3 Mathematical operations;url:topics/75.html";

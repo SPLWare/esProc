@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>Faccrintm()</title>
+<title>Fdb()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,35 +13,30 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h2><a name="_Faccrintm()"></a><a name=Faccrintm></a><span lang=EN-US>Faccrintm()</span></h2></div>
+	<div id="centent-title"><h2><a name="_Fdb()"></a><a name=Fdb></a><span lang=EN-US>Fdb()</span></h2></div>
 	<p class=MsoNormal style='line-height:200%'><b style='mso-bidi-font-weight:
 normal'><span lang=EN-US style='font-size:14.0pt;line-height:200%'>Description:</span></b></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>The function equals the Excel ACCRINTM function.</span></p>
+lang=EN-US>The external library function equals the Excel DB function.</span></p>
 
 <p class=MsoNormal style='line-height:200%'><b style='mso-bidi-font-weight:
 normal'><span lang=EN-US style='font-size:14.0pt;line-height:200%'>Syntax:</span></b></p>
 
 <p class=MsoNormal style='text-indent:21.1pt;mso-char-indent-count:2.0'><span
-class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>Faccrintm(</span></span><i
-style='mso-bidi-font-style:normal'><span lang=EN-US>maturity</span></i><span
-lang=EN-US>,<i style='mso-bidi-font-style:normal'>issue</i>;<i
-style='mso-bidi-font-style:normal'>rate</i>,<i style='mso-bidi-font-style:normal'>par</i></span><span
-class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>)</span></span><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
-黑体'></span></b></p>
+class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>Fdb(</span></span><i
+style='mso-bidi-font-style:normal'><span lang=EN-US>cost,salvage,life,period,month</span></i><span
+class=code><i style='mso-bidi-font-style:normal'><span lang=EN-US
+style='font-family:"Times New Roman","serif"'>)</span></i></span><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:12.0pt;
+mso-bidi-font-size:10.0pt'></span></b></p>
 
 <p class=MsoNormal style='line-height:200%'><b style='mso-bidi-font-weight:
 normal'><span lang=EN-US style='font-size:14.0pt;line-height:200%'>Note:</span></b></p>
 
 <p class=MsoNormal style='text-indent:21.75pt'><span lang=EN-US>The function <span
-style='mso-bidi-font-weight:bold'>returns the accrued interest for a security
-that pays interest at maturity</span>, with the day count basis method</span><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
-黑体'> <span class=code><span style='font-family:"Times New Roman",serif'>US
-(NASD) 30/360</span></span></span></b><span lang=EN-US style='mso-fareast-font-family:
-黑体'>.</span><span lang=EN-US style='mso-bidi-font-weight:bold'></span></p>
+style='mso-bidi-font-weight:bold'>calculates the depreciation of an asset for a
+specified period, using the fixed-declining balance method.</span></span></p>
 
 <p class=MsoNormal style='line-height:200%'><b style='mso-bidi-font-weight:
 normal'><span lang=EN-US style='font-size:14.0pt;line-height:200%'>Parameters:</span></b></p>
@@ -50,112 +45,56 @@ normal'><span lang=EN-US style='font-size:14.0pt;line-height:200%'>Parameters:</
  style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=62 valign=top style='width:46.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US>maturity</span></i><span
-  class=var><span lang=EN-US></span></span></p>
+  <td width=99 valign=top style='width:59.3pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US>cost</span></i><span
+  class=var1><span lang=EN-US></span></span></p>
   </td>
-  <td width=484 valign=top style='width:362.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <td width=577 valign=top style='width:346.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-weight:bold'>The
-  security's maturity date</span></p>
+  initial cost of the asset</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=62 valign=top style='width:46.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US>issue</span></i><span
-  class=var><span lang=EN-US></span></span></p>
+  <td width=99 valign=top style='width:59.3pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US>salvage</span></i><span
+  class=var1><span lang=EN-US></span></span></p>
   </td>
-  <td width=484 valign=top style='width:362.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <td width=577 valign=top style='width:346.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-weight:bold'>The
-  security'’s issue date</span></p>
+  value of the asset at the end of the depreciation (asset residual value)</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:2'>
-  <td width=62 valign=top style='width:46.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US
-  style='mso-bidi-font-weight:bold'>rate</span></i><span class=var><span
-  lang=EN-US></span></span></p>
+  <td width=99 valign=top style='width:59.3pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US>life</span></i><span
+  class=var1><span lang=EN-US></span></span></p>
   </td>
-  <td width=484 valign=top style='width:362.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <td width=577 valign=top style='width:346.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-weight:bold'>The
-  security's annual coupon rate</span></p>
+  number of periods over which the asset is to be depreciated (expected useful
+  life of the asset)</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
-  <td width=62 valign=top style='width:46.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US>par</span></i><span
-  class=var><span lang=EN-US></span></span></p>
+ <tr style='mso-yfti-irow:3'>
+  <td width=99 valign=top style='width:59.3pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US>period</span></i><span
+  class=var1><span lang=EN-US></span></span></p>
   </td>
-  <td width=484 valign=top style='width:362.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <td width=577 valign=top style='width:346.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-weight:bold'>The period
+  number for which you want to calculate the depreciation (it must has the same
+  unit with <i style='mso-bidi-font-style:normal'>life</i>)</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes'>
+  <td width=99 valign=top style='width:59.3pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US>month</span></i><span
+  class=var1><span lang=EN-US></span></span></p>
+  </td>
+  <td width=577 valign=top style='width:346.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-weight:bold'>The
-  security's par value. If omitted, it takes the default value of zero for 100 <i
-  style='mso-bidi-font-style:normal'>yuan</i></span></p>
-  </td>
- </tr>
-</table>
-
-<p class=af8 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Options</span><span style='mso-bidi-font-size:14.0pt;
-line-height:200%;font-family:宋体;mso-ascii-font-family:"Times New Roman";
-mso-hansi-font-family:"Times New Roman"'>：</span><span lang=EN-US
-style='mso-bidi-font-size:14.0pt;line-height:200%'></span></p>
-
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=51 valign=top style='width:38.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>@1</span></span><span
-  class=var><span lang=EN-US></span></span></p>
-  </td>
-  <td width=484 valign=top style='width:362.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Specify the day count basis method</span><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
-  黑体'> Actual/Actual</span></b><span lang=EN-US style='mso-fareast-font-family:
-  黑体'>.<b style='mso-bidi-font-weight:normal'> </b></span><span lang=EN-US>It
-  corresponds to the Excel <i style='mso-bidi-font-style:normal'>basis</i>
-  parameter.</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:1'>
-  <td width=51 valign=top style='width:38.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>@0</span></span><span
-  class=var><span lang=EN-US></span></span></p>
-  </td>
-  <td width=484 valign=top style='width:362.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Specify the day count basis method</span><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
-  黑体'> Actual/360</span></b><span lang=EN-US style='mso-fareast-font-family:
-  黑体'>.<b style='mso-bidi-font-weight:normal'> </b></span><span lang=EN-US>It
-  corresponds to the Excel <i style='mso-bidi-font-style:normal'>basis</i>
-  parameter.</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:2'>
-  <td width=51 valign=top style='width:38.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>@5</span></span><span
-  class=var><span lang=EN-US></span></span></p>
-  </td>
-  <td width=484 valign=top style='width:362.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Specify the day count basis method</span><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
-  黑体'> Actual/365</span></b><span lang=EN-US style='mso-fareast-font-family:
-  黑体'>.<b style='mso-bidi-font-weight:normal'> </b></span><span lang=EN-US>It
-  corresponds to the Excel <i style='mso-bidi-font-style:normal'>basis</i>
-  parameter.</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
-  <td width=51 valign=top style='width:38.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>@e</span></span><span
-  class=var><span lang=EN-US></span></span></p>
-  </td>
-  <td width=484 valign=top style='width:362.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Specify the day count basis method</span><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
-  黑体'> European 30/360</span></b><span lang=EN-US style='mso-fareast-font-family:
-  黑体'>.<b style='mso-bidi-font-weight:normal'> </b></span><span lang=EN-US>It
-  corresponds to the Excel <i style='mso-bidi-font-style:normal'>basis</i>
-  parameter.</span></p>
+  number of the months used in the calculation of the first year of
+  depreciation. If omitted, it takes the value of 12 by default.</span></p>
   </td>
  </tr>
 </table>
@@ -167,14 +106,15 @@ normal'><span lang=EN-US style='font-size:14.0pt;line-height:200%'>Example:</spa
  style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'>
-  <td width=426 valign=top style='width:319.25pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=af2 style='margin-left:10.55pt;text-align:justify;text-justify:inter-ideograph;
-  tab-stops:48.75pt'><b><span lang=EN-US style='font-family:"Times New Roman",serif'>Faccrintm@1
-  (date(&quot;2001-6-15&quot;),date(&quot;2001-4-1&quot;):0.1,1000)</span></b><span
-  class=var><span lang=EN-US></span></span></p>
+  <td width=229 valign=top style='width:137.25pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=afc style='margin-left:10.55pt;text-align:justify;text-justify:inter-ideograph;
+  tab-stops:48.75pt'><b><span lang=EN-US style='font-family:"Times New Roman","serif"'>Fdb(500000,100000,3,1,6)</span></b><span
+  class=var1><span lang=EN-US></span></span></p>
   </td>
-  <td width=130 valign=top style='width:89.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>20.54794520547945</span></span></p>
+  <td width=453 valign=top style='width:271.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>1037<span class=code><span
+  style='font-family:"Times New Roman","serif"'>50.0</span></span></span></b></p>
   </td>
  </tr>
 </table>

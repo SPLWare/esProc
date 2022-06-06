@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>Column</title>
+<title>Line</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -14,34 +14,32 @@
 <div id="content-bg">
 	<div id="centent">
 	<div id="centent-title"><h3 style='margin-left:1.0cm;text-align:justify;text-justify:inter-ideograph;
-text-indent:-1.0cm'><span lang=EN-US>Column </span></h3></div>
+text-indent:-1.0cm'><span lang=EN-US>Line </span></h3></div>
 	<p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
 exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US>shadow </span></b></p>
+lang=EN-US>endToHead </span></b></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>Whether the
-chart element will take on the shadow effect or not.</span></p>
+line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>Whether it is
+an end-to-end closed polyline or not. To be one, check the closedArea property.</span></p>
 
 <p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
 exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US>convexEdge </span></b></p>
+lang=EN-US>closedArea</span></b></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>Whether a
-protruding border will be plotted or not. It is valid only for the 2D/3D
-columns.</span></p>
+line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>Whether it is
+a closed area or not. When its value is true, a closed area will be formed by
+the polyline and the x-axis. But by checking endToHead property, the closed
+area will be formed by linking the start and end points of the polyline. </span></p>
 
 <p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
 exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US>data3</span></b></p>
+lang=EN-US>areaColor</span></b></p>
 
-<p class=MsoNormal style='margin-left:21.0pt;mso-para-margin-left:2.0gd;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The intial
-height of a column/histogram chart. The default value is 0. When setting the
-property, use a sequence whose length is equivalent with the longest sequence
-used by other peroperty. For instance, if there are 4 columns in a column
-chart, the value of data3 should be a sequence whose length is 4.</span></p>
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
+line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The fill
+color of the closed area. The color can be pure or gradient. </span></p>
 
 <p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
 exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
@@ -50,17 +48,25 @@ lang=EN-US>stackType</span></b></p>
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
 line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>Types of
 stacking include no stack, stacked by percent and stacked by value. Data series
-of the same category will be plotted to be stacked in sequence. </span></p>
+of the same category will be plotted by stacking in sequence. </span></p>
 
 <p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
 exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US>textOverlapping </span></b></p>
+lang=EN-US>radiateLine</span></b></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>Whether the
-label text overlapping is allowed or not. If it is checked, the text can be
-displayed with overlaps. Otherwise, the overlapping text will be overridden and
-hidden.</span></p>
+line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>Radiate lines
+or not. If set as true, radiate lines will be plotted by connecting the
+original point to each of other points.</span></p>
+
+<p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
+exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
+lang=EN-US>stairLine</span></b></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
+line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>Stair lines
+or not. If set as true, start from the original point to connect to the next
+point with stair-like lines. Thus the final chart will be a stair line. </span></p>
 
 <p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
 exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
@@ -68,18 +74,36 @@ lang=EN-US>transparent </span></b></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
 line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The degree of
-transparency for column chart/histogram. The value range for it is [0,1], in
-which 0 represents the 100% transparency (i.e. totally transparent), and 1 represents
-full opaqueness. Values higher than 1 give the same total opaque effect as 1,
-and values less than 0 represent the total transparency.</span></p>
+transparency for polyline. The value range for it is [0,1], in which the 0
+represents the 100% transparency (i.e. totally transparent), and the 1
+represents full opaqueness. The values higher than 1 give the same total opaque
+effect as 1, and the values less than 0 represent the total transparency as
+well.</span></p>
+
+<p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
+exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
+lang=EN-US>textOverlapping </span></b></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
+line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>Whether the
+text overlapping is allowed or not. If it is checked, the text can be displayed
+with overlaps. Otherwise, the overlapping text will be overridden and hidden.</span></p>
+
+<p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
+exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
+lang=EN-US>shadow </span></b></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
+line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The shadow
+effect for line chart element</span></p>
 
 <p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
 exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
 lang=EN-US>visible </span></b></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>Indicates if
-the column chart/histogram is visible</span></p>
+line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>Whether the
+line chart element is visible or not.</span></p>
 
 <p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
 exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
@@ -87,7 +111,7 @@ lang=EN-US>htmlLink</span></b></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
 line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>Hyperlinks to
-columns in a column chart/histogram.</span></p>
+polylines.</span></p>
 
 <p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
 exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
@@ -95,7 +119,7 @@ lang=EN-US>tipTitle</span></b></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
 line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>Hyperlink
-tips to columns.</span></p>
+tips to polylines.</span></p>
 
 <p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
 exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
@@ -107,71 +131,69 @@ destination. You can use_blank, _self, _parent and _top to open a hyperlink.</sp
 
 <p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
 exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US>columnWidth</span></b></p>
+lang=EN-US>markerStyle</span></b></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The width of
-column. The decimal values represent percentages, and values greater than 1
-represent pixels. If measured by pixels, then the column width will remain
-unchanged when reaching the maximum pixel, and there is no interval between
-columns at this point. The column width is co-determined by the axis length,
-number of categories, and number of series.</span></p>
+line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The shape of
+markers on a polyline.</span></p>
 
 <p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
 exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US>columnShape </span></b></p>
+lang=EN-US>lineStyle </span></b></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>Column type,
-which can be the square column, 3D square column, and round column.</span></p>
+line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>Style of
+outline of the closed area formed with a polyline.</span></p>
 
 <p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
 exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US>borderStyle </span></b></p>
+lang=EN-US>lineWeight</span></b></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>Column
-outline style.</span></p>
+line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>Thickness of
+the outline.</span></p>
 
 <p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
 exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US>borderWeight </span></b></p>
+lang=EN-US>lineColor </span></b></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>Column
-outline weight.</span></p>
+line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>Color of the
+outline.</span></p>
 
 <p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
 exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US>borderColor </span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>Column
-outline color.</span></p>
-
-<p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
-exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US>fillColor </span></b></p>
+lang=EN-US>markerColor </span></b></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
 line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>Fill color of
-a column.</span></p>
+the markers on a polyline.</span></p>
 
 <p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
 exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US>horizontalAlign </span></b></p>
+lang=EN-US>markerWeight</span></b></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The alignment
-of text in horizontal direction.</span></p>
+line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>Sizes of the
+markers which are measured by pixels.</span></p>
 
 <p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
 exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US>verticalAlign </span></b></p>
+lang=EN-US>radius1</span></b></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The alignment
-of text in vertical direction.</span></p>
+line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>Marker radius
+relative to axis1 and measured by percent of the axis. It determines the shape
+of markers along with radius2.</span></p>
+
+<p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
+exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
+lang=EN-US>radius2</span></b></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
+line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>Marker radius
+relative to axis2 and measured by percent of the axis. It determines the shape
+of markers along with radius1.</span></p>
 
 <p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
 exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
@@ -179,23 +201,22 @@ lang=EN-US>text </span></b></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
 line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>Label text of
-column.</span></p>
+markers on a polyline.</span></p>
 
 <p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
 exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
 lang=EN-US>textFont </span></b></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The label
-text font.</span></p>
+line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>Label font.</span></p>
 
 <p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
 exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
 lang=EN-US>textStyle </span></b></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>Label text
-styles, including bold, italic, underline, and vertical text.</span></p>
+line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The label
+text font style. Please refer to textStyle of column chart/histogram.</span></p>
 
 <p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
 exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
@@ -203,23 +224,23 @@ lang=EN-US>textSize </span></b></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
 line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>Label text
-font size.</span></p>
+size</span></p>
 
 <p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
 exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
 lang=EN-US>textColor </span></b></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The color of
-text.</span></p>
+line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>Label text
+color</span></p>
 
 <p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
 exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
 lang=EN-US>axis1 </span></b></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The name of axis
-1, which corresponds to numeric axis, enum axis, or date axis.</span></p>
+line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The name of
+axis 1, which corresponds to numeric axis, enum axis, or date axis.</span></p>
 
 <p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
 exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
@@ -238,18 +259,22 @@ lang=EN-US>axis2</span></b></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
 line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The name of
-axis 2, which corresponds to numeric axis, enum axis, or date axis.</span></p>
+axis 2, which correspond to numeric axis, enum axis, or date axis.</span></p>
 
 <p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
 exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
 lang=EN-US>data2/y </span></b></p>
 
-<p class=MsoNormal style='margin-left:21.25pt'><span lang=EN-US>A sequence
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
+line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The sequence
 composed of the logical coordinate values on axis 2. When plotting, the logical
 coordinate values will be automatically converted to the physical coordinate
-values.<b> </b><span style='mso-bidi-font-weight:bold'>When both axis1 and axis
-are absent, its value is the ordinate Y of the canvas pixels; in this case the
-canvas’ origin is located in the top left corner. <b></b></span></span></p>
+values. When both axis1 and axis are absent, its value is the ordinate Y of the
+canvas pixels; in this case the canvas’ origin is located in the top left
+corner.</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US>&nbsp;</span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
 line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>&nbsp;</span></p>
@@ -260,7 +285,7 @@ line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>&nbsp;</span><
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="903.html">Chart Element Parameters</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="905.html">Chart Element Parameters</a></span></li>
 </div>
 	</div>
 	<div id="footer">	

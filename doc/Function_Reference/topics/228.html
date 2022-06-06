@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>eval()</title>
+<title>db.error()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,312 +13,255 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h2><a name="_eval()_1"></a><a name=eval></a><span lang=EN-US>eval()</span></h2></div>
-	<p class=af8 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
+	<div id="centent-title"><h3 style='text-align:justify;text-justify:inter-ideograph'><a name="db_error"></a><span
+class=code><span lang=EN-US style='font-size:15.0pt;line-height:172%;
+font-family:"Times New Roman","serif"'>db.error()</span></span><span
+class=code><span lang=EN-US style='font-size:15.0pt;line-height:172%;
+font-family:"Times New Roman","serif";font-weight:normal'></span></span></h3></div>
+	<p class=af7 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
 14.0pt;line-height:200%'>Description:</span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Dynamically
-parse and compute the expression. </span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Obtain the last
+error information from a database connection.</span></p>
 
-<p class=af8 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Syntax:</span></p>
+<p class=af7 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
+14.0pt;line-height:200%'>Syntax: </span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span class=code><span
-lang=EN-US style='font-family:"Times New Roman",serif'>eval(</span></span><span
-class=var><span lang=EN-US>StringExp</span></span><span lang=EN-US> ,{</span><span
-class=var><span lang=EN-US>argExp</span></span><span lang=EN-US>}</span><span
-class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>)</span></span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span class=var1><span
+lang=EN-US>db</span></span><span lang=EN-US>.</span><span class=code><span
+lang=EN-US style='font-family:"Times New Roman","serif"'>error</span></span><span
+lang=EN-US>()</span></p>
 
-<p class=af8 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Note:</span></p>
+<p class=af7 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
+14.0pt;line-height:200%'>Note: </span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:
-exactly'><span lang=EN-US>The function parses the expression string </span><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-size:
-10.5pt;mso-fareast-font-family:Wingdings'>StringExp</span></i><span lang=EN-US>,
-evaluate it, and return its result. In the expression string, the value of a
-keyword</span><span class=var><span lang=EN-US> </span></span><span class=code><span
-lang=EN-US style='font-family:"Times New Roman",serif'>? </span></span><span
-lang=EN-US>corresponds to the result of evaluating the expression </span><span
-class=var><span lang=EN-US>argExp</span></span><span lang=EN-US>. If there are
-more than one <b style='mso-bidi-font-weight:normal'>?</b>, then there may be
-more than one </span><span class=var><span lang=EN-US>argExp</span></span><span
-lang=EN-US>. Generally there is a one-to-one correspondence between </span><span
-class=var><span lang=EN-US>argExp</span></span><span lang=EN-US> and </span><span
-class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>?</span></span><span
-lang=EN-US>. </span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>The function returns
+the error information corresponding to the previous command related to the
+database. </span><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
+font-weight:normal'>0</span></span><span lang=EN-US> indicates error free;
+otherwise, the error code is returned. The error message can only be called one
+time. </span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:
-exactly'><span lang=EN-US>If the number of </span><span class=code><span
-lang=EN-US style='font-family:"Times New Roman",serif'>?</span></span><span
-lang=EN-US> is more than that of </span><span class=var><span lang=EN-US>argExp</span></span><span
-lang=EN-US>, then the extra <b style='mso-bidi-font-weight:normal'>?</b> will
-get assigned starting from the first </span><span class=var><span lang=EN-US>argExp</span></span><span
-lang=EN-US> again.</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:
-exactly'><span lang=EN-US>You can use a number to specify the corresponding
-parameter for a </span><span class=code><span lang=EN-US style='font-family:
-"Times New Roman",serif'>?</span></span><span lang=EN-US>, as in </span><span
-class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>eval(
-&quot;?2/?1&quot;, 3, 6 )</span></span><span lang=EN-US>, where the first </span><span
-class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>?</span></span><span
-lang=EN-US> corresponds to the second parameter, and the second </span><span
-class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>?</span></span><span
-lang=EN-US> corresponds to the first parameter. Thus the result is </span><span
-class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>2</span></span><span
-lang=EN-US>.</span></p>
-
-<p class=af8 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Parameters:</span></p>
-
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=89 valign=top style='width:66.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var><span lang=EN-US>StringExp</span></span></p>
-  </td>
-  <td width=457 valign=top style='width:342.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>An expression string to be calculated</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
-  <td width=89 valign=top style='width:66.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var><span lang=EN-US>argExp</span></span></p>
-  </td>
-  <td width=457 valign=top style='width:342.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Parameter expression</span></p>
-  </td>
- </tr>
-</table>
-
-<p class=af8 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Function keyword:</span></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+line-height:200%'>Parameters:</span></b></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
  style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'>
-  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>?</span></span><span
-  class=var><span lang=EN-US></span></span></p>
+  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><i
+  style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt'>db</span></i></b><span class=var1><span lang=EN-US></span></span></p>
   </td>
-  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Used in </span><span class=var><span
-  lang=EN-US>StringExp</span></span><span class=var><span lang=EN-US
-  style='font-style:normal;mso-bidi-font-style:italic'> to represent the value
-  of </span><span lang=EN-US>argExp</span></span></p>
+  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-size:10.5pt'>Database
+  connection</span></p>
   </td>
  </tr>
 </table>
 
-<p class=af8 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Return value:</span></p>
+<p class=af7 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
+14.0pt;line-height:200%'>Options: </span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Result of the
-specified expression whose data type is determined by the expression itself.</span></p>
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'>
+  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>@m</span></span><span
+  class=var1><span lang=EN-US></span></span></p>
+  </td>
+  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Use this option to return information in
+  string.</span></p>
+  </td>
+ </tr>
+</table>
 
-<p class=af8 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
+<p class=af7 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
 14.0pt;line-height:200%'>Example:</span></p>
 
 <table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
- style='margin-left:18.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ style='margin-left:.25pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
  mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=23 valign=top style='width:17.25pt;border:solid #A6A6A6 1.0pt;
+  <td width=24 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
   mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>&nbsp;</span></span></p>
   </td>
-  <td width=123 valign=top style='width:92.6pt;border:solid #A6A6A6 1.0pt;
+  <td width=354 valign=top style='width:212.6pt;border:solid #A6A6A6 1.0pt;
   border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>A</span></span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>A</span></span></p>
   </td>
-  <td width=369 valign=top style='width:276.4pt;border:none;mso-border-left-alt:
+  <td width=319 valign=top style='width:191.4pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=23 valign=top style='width:17.25pt;border:solid #A6A6A6 1.0pt;
+  <td width=24 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>1</span></span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>1</span></span></p>
   </td>
-  <td width=123 style='width:92.6pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  <td width=354 valign=top style='width:212.6pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=&quot;1+3&quot;</span></span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=file(&quot;D://files//student.txt&quot;)</span></span></p>
   </td>
-  <td width=369 style='width:276.4pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  <td width=319 valign=top style='width:191.4pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Data in the file </span><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>student.txt </span></span><span
+  lang=EN-US>is not correct</span><span lang=EN-US style='mso-ansi-language:
+  #0400;mso-fareast-language:#0400'> </span><span lang=zh-CN style='mso-ansi-language:
+  #0400;mso-fareast-language:#0400'><img border=0 width=252 height=79
+  src="Function_Reference.files/image397.jpg" v:shapes="_x0000_i1275"></span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:2'>
-  <td width=23 valign=top style='width:17.25pt;border:solid #A6A6A6 1.0pt;
+  <td width=24 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>2</span></span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>2</span></span></p>
   </td>
-  <td width=123 style='width:92.6pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  <td width=354 valign=top style='width:212.6pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=eval(A1)</span></span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=A1.import@t()</span></span></p>
   </td>
-  <td width=369 style='width:276.4pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>4</span></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:3'>
-  <td width=23 valign=top style='width:17.25pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>3</span></span></p>
-  </td>
-  <td width=123 style='width:92.6pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=4</span></span></p>
-  </td>
-  <td width=369 style='width:276.4pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
+  <td width=319 valign=top style='width:191.4pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:4'>
-  <td width=23 valign=top style='width:17.25pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:3'>
+  <td width=24 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>4</span></span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>3</span></span></p>
   </td>
-  <td width=123 style='width:92.6pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  <td width=354 valign=top style='width:212.6pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=eval(&quot;?+5&quot;,A3)</span></span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=connect@e(&quot;demo&quot;)</span></span></p>
   </td>
-  <td width=369 style='width:276.4pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>?</span></span><span
-  lang=EN-US> is a key word, its value is </span><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>A3</span></span><span
-  lang=EN-US>, and the function returns the result of </span><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>9</span></span></p>
+  <td width=319 valign=top style='width:191.4pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Create a connection and auto-control the
+  commit and rollback operations</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4'>
+  <td width=24 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>4</span></span></p>
+  </td>
+  <td width=354 valign=top style='width:212.6pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>&gt;A3.execute@k(A2,&quot;update
+  STUDENTS2 set NAME=?,GENDER=?,AGE=? where ID=?&quot;,NAME,GENDER,AGE,ID)</span></span></p>
+  </td>
+  <td width=319 valign=top style='width:191.4pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>The transaction is not committed</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:5'>
-  <td width=23 valign=top style='width:17.25pt;border:solid #A6A6A6 1.0pt;
+  <td width=24 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>5</span></span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>5</span></span></p>
   </td>
-  <td width=123 style='width:92.6pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  <td width=354 valign=top style='width:212.6pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=eval(&quot;(?+1)/?&quot;,3,4)</span></span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=A3.error@m()</span></span></p>
   </td>
-  <td width=369 style='width:276.4pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>The first </span><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>?</span></span><span
-  lang=EN-US> is </span><span class=code><span lang=EN-US style='font-family:
-  "Times New Roman",serif'>3</span></span><span lang=EN-US>, the second </span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>?</span></span><span
-  lang=EN-US> is </span><span class=code><span lang=EN-US style='font-family:
-  "Times New Roman",serif'>4</span></span><span lang=EN-US>, and the returned
-  result is </span><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>1.0</span></span><span
-  lang=EN-US>.</span></p>
+  <td width=319 valign=top style='width:191.4pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Return the error message corresponding to
+  sql command execution </span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:6'>
-  <td width=23 valign=top style='width:17.25pt;border:solid #A6A6A6 1.0pt;
+  <td width=24 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>6</span></span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>6</span></span></p>
   </td>
-  <td width=123 style='width:92.6pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  <td width=354 valign=top style='width:212.6pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=eval(&quot;(?+?)*?&quot;,1,3)</span></span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>&gt;file(&quot;D:\\log.txt&quot;).write@a(A5)</span></span></p>
   </td>
-  <td width=369 style='width:276.4pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>The first </span><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>?</span></span><span
-  lang=EN-US> is </span><span class=code><span lang=EN-US style='font-family:
-  "Times New Roman",serif'>1</span></span><span lang=EN-US>, the second </span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>?</span></span><span
-  lang=EN-US> is </span><span class=code><span lang=EN-US style='font-family:
-  "Times New Roman",serif'>3</span></span><span lang=EN-US>, the third </span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>?</span></span><span
-  lang=EN-US> is </span><span class=code><span lang=EN-US style='font-family:
-  "Times New Roman",serif'>1 </span></span><span lang=EN-US>again, the returned
-  result is </span><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>4</span></span><span
-  lang=EN-US>.</span></p>
+  <td width=319 valign=top style='width:191.4pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Append error message to the log</span></p>
+  <p class=MsoNormal><span lang=EN-US style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><span style='mso-spacerun:yes'>&nbsp;</span></span><span
+  lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=306 height=35
+  src="Function_Reference.files/image399.jpg" v:shapes="图片_x0020_55"></span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:7'>
-  <td width=23 valign=top style='width:17.25pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:7;mso-yfti-lastrow:yes'>
+  <td width=24 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>7</span></span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>7</span></span></p>
   </td>
-  <td width=123 style='width:92.6pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  <td width=354 valign=top style='width:212.6pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=eval(&quot;?+?&quot;,3)</span></span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>&gt;A3.close()</span></span></p>
   </td>
-  <td width=369 style='width:276.4pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>The result is </span><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>6</span></span><span
-  lang=EN-US> because the number of </span><span class=var><span lang=EN-US>argExp</span></span><span
-  lang=EN-US> is less than </span><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'>?</span></span><span lang=EN-US>,
-  so </span><span class=var><span lang=EN-US>argExp</span></span><span
-  lang=EN-US> will be used repeatedly.</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:8;mso-yfti-lastrow:yes'>
-  <td width=23 valign=top style='width:17.25pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>8</span></span></p>
-  </td>
-  <td width=123 style='width:92.6pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=eval(&quot;?2/?1&quot;,3,6)</span></span></p>
-  </td>
-  <td width=369 style='width:276.4pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>The first </span><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>?</span></span><span
-  lang=EN-US> corresponds to the second parameter, the second </span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>?</span></span><span
-  lang=EN-US> corresponds to the first parameter, so the result is </span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>2.0</span></span><span
-  lang=EN-US>.</span></p>
+  <td width=319 valign=top style='width:191.4pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Close the connection</span></p>
   </td>
  </tr>
 </table>
 
-<p class=MsoNormal><a name="_Hlt490569174"></a><a name="_Hlt490569763"></a><a
-name="_Hlt490569221"></a><a name="_Hlt490569247"></a><a name="_Hlt490569609"></a><a
-name="_Hlt490569694"></a><u><span lang=EN-US style='color:blue'><span
- style='text-decoration:none'>&nbsp;</span></span></u></p>
+<p class=af7 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
+14.0pt;line-height:200%'>Related functions: </span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><i style='mso-bidi-font-style:
+normal'><span lang=EN-US><a  href="131.html"><span style='mso-bidi-font-size:
+10.5pt;font-style:normal'>db</span><span style='mso-bidi-font-size:12.0pt;
+font-style:normal'>.cl<span style='mso-bookmark:_Hlt415047773'>o</span>s<span
+style='mso-bookmark:_Hlt414995559'>e</span>()</span></a><a
+name="_Hlt414995559"></a><a name="_Hlt415047773"></a></span></i></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><i style='mso-bidi-font-style:
+normal'><span lang=EN-US style='mso-bidi-font-size:12.0pt'><a  href="148.html"><span
+style='font-style:normal'>conn<span style='mso-bookmark:_Hlt414995264'>e</span>ct()</span></a><a
+name="_Hlt414995264"></a></span></i></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><i style='mso-bidi-font-style:
+normal'><span lang=EN-US><a  href="138.html"><span style='mso-bidi-font-size:
+10.5pt;font-style:normal'>db</span><span style='mso-bidi-font-size:12.0pt;
+font-style:normal'>.co<span style='mso-bookmark:_Hlt415047833'>m</span><span
+style='mso-bookmark:_Hlt414995841'>m</span><span style='mso-bookmark:_Hlt414995385'>i</span>t()</span></a><a
+name="_Hlt414995385"></a><a name="_Hlt414995841"></a><a name="_Hlt415047833"></a></span></i></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><i style='mso-bidi-font-style:
+normal'><span lang=EN-US><a  href="696.html"><span style='mso-bidi-font-size:
+10.5pt;font-style:normal'>db</span><span style='mso-bidi-font-size:12.0pt;
+font-style:normal'>.rollba<span style='mso-bookmark:_Hlt414995881'>c</span>k()</span></a><a
+name="_Hlt414995881"></a></span></i></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="229.html">Next</a></div>
@@ -326,7 +269,7 @@ name="_Hlt490569694"></a><u><span lang=EN-US style='color:blue'><span
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="45.html">Functions</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="227.html">error()</a></span></li>
 </div>
 	</div>
 	<div id="footer">	

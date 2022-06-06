@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>top()</title>
+<title>A .to()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,8 +13,247 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h2><span lang=EN-US>top()</span></h2></div>
-	<p class=MsoNormal><span lang=EN-US>Here’s how to use top() function.</span></p>
+	<div id="centent-title"><h3 style='text-align:justify;text-justify:inter-ideograph'><a name="A_to"></a><i
+style='mso-bidi-font-style:normal'><span lang=EN-US>A</span></i><span
+lang=EN-US>.to() </span></h3></div>
+	<p class=af7 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
+14.0pt;line-height:200%'>Description:</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Get members of a
+sequence starting from a specified position to create a new sequence.</span></p>
+
+<p class=af7 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
+14.0pt;line-height:200%'>Syntax:</span></p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=99 valign=top style='width:59.3pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=var1><span lang=EN-US>A</span></span><span
+  lang=EN-US>.</span><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>to(</span></span><span
+  class=var1><span lang=EN-US>a</span></span><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman","serif"'>)</span></span><span
+  class=var1><span lang=EN-US></span></span></p>
+  </td>
+  <td width=583 valign=top style='width:349.8pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>From sequence <i style='mso-bidi-font-style:
+  normal'>A</i>, generate a sequence composed of the first <i style='mso-bidi-font-style:
+  normal'>a</i> members; when a&lt;0, get members from the <i style='mso-bidi-font-style:
+  normal'>(A.len()+1+a)<sup>th</sup></i> one to the <i style='mso-bidi-font-style:
+  normal'>(A.len())<sup>th</sup></i> one </span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
+  <td width=99 valign=top style='width:59.3pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=var1><span lang=EN-US>A</span></span><span
+  lang=EN-US>.</span><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>to(</span></span><span
+  class=var1><span lang=EN-US>a,b</span></span><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>)</span></span><span
+  class=var1><span lang=EN-US></span></span></p>
+  </td>
+  <td width=583 valign=top style='width:349.8pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>From the sequence <i style='mso-bidi-font-style:
+  normal'>A</i>, generate a sequence composed of the members from the </span><span
+  class=var1><span lang=EN-US>a</span></span><span class=T-Upper><i
+  style='mso-bidi-font-style:normal'><span lang=EN-US>th</span></i></span><span
+  lang=EN-US> to the </span><span class=var1><span lang=EN-US>b</span></span><span
+  class=T-Upper><i style='mso-bidi-font-style:normal'><span lang=EN-US>th</span></i></span><span
+  lang=EN-US>. If omitting <i style='mso-bidi-font-style:normal'>a</i>, then
+  start from the first member by default; if omitting <i style='mso-bidi-font-style:
+  normal'>b</i>, get all members of <i style='mso-bidi-font-style:normal'>A</i>,
+  that is </span><span class=var1><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US>A</span></b></span><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman","serif"'>.len()</span></span><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
+  font-weight:normal'>, by default</span></span><span lang=EN-US>, and in this
+  case the comma must not be omitted; if <i style='mso-bidi-font-style:normal'>a</i>&gt;<i
+  style='mso-bidi-font-style:normal'>b</i>, find the members backwards; members
+  of the newly-generated sequence are ordered in an opposite direction relative
+  to their original order</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=af7 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
+14.0pt;line-height:200%'>Note:</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:
+exactly'><span lang=EN-US>The function generates a sequence composed of the
+members from the </span><span class=var1><span lang=EN-US>a</span></span><span
+class=T-Upper><i style='mso-bidi-font-style:normal'><span lang=EN-US>th</span></i></span><span
+lang=EN-US> to the </span><span class=var1><span lang=EN-US>b</span></span><span
+class=T-Upper><i style='mso-bidi-font-style:normal'><span lang=EN-US>th</span></i></span><span
+lang=EN-US> according to sequence <i style='mso-bidi-font-style:normal'>A</i>.
+If omitting <i style='mso-bidi-font-style:normal'>a</i>, start from the first
+member by default; If omitting <i style='mso-bidi-font-style:normal'>b</i>, get
+members to the last one, that is </span><span class=var1><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US>A</span></b></span><span class=code><span lang=EN-US
+style='font-family:"Times New Roman","serif"'>.len() </span></span><span
+class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
+font-weight:normal'>by default</span></span><span lang=EN-US>.</span></p>
+
+<p class=af7 style='line-height:200%'><span lang=EN-US>Options:</span></p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'>
+  <td width=99 valign=top style='width:59.3pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>@z(i,n)</span></span><span
+  class=var1><span lang=EN-US></span></span></p>
+  </td>
+  <td width=569 valign=top style='width:341.6pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-style:italic'>Split
+  a sequence into a number of segments (the number is <i>n</i>), and get and
+  return the <i>i<sup>th</sup></i> segment.</span><span lang=zh-CN
+  style='mso-ansi-language:#0400;mso-fareast-language:#0400'> If the number of
+  members in the sequence can’t be evenly divided, the additional members will
+  be returned along with the last segment</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=af7 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
+14.0pt;line-height:200%'>Parameters:</span></p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=63 valign=top style='width:38.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=var1><span lang=EN-US>A</span></span></p>
+  </td>
+  <td width=605 valign=top style='width:362.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=var1><span lang=EN-US style='font-style:normal;
+  mso-bidi-font-style:italic'>A sequence.</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=63 valign=top style='width:38.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=var1><span lang=EN-US>a</span></span></p>
+  </td>
+  <td width=605 valign=top style='width:362.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>The integer specifying the starting
+  position.</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes'>
+  <td width=63 valign=top style='width:38.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=var1><span lang=EN-US>b</span></span></p>
+  </td>
+  <td width=605 valign=top style='width:362.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>The integer specifying the ending
+  position.</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=af7 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
+14.0pt;line-height:200%'>Return value:</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>A sequence</span></p>
+
+<p class=af7 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
+14.0pt;line-height:200%'>Example:</span></p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=217 valign=top style='width:130.15pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=afc style='margin-left:10.55pt;text-align:justify;text-justify:inter-ideograph;
+  tab-stops:48.75pt'><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>[1,5,2,6,8].to(2,3)</span></span><span
+  class=var1><span lang=EN-US></span></span></p>
+  </td>
+  <td width=465 valign=top style='width:278.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Return sequence</span><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'> [5,2]</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=217 valign=top style='width:130.15pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=afc style='margin-left:10.55pt;text-align:justify;text-justify:inter-ideograph;
+  tab-stops:48.75pt'><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>[1,5,2,6,8].to(3,2)</span></span></p>
+  </td>
+  <td width=465 valign=top style='width:278.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=CharChar7><span lang=EN-US style='font-family:
+  "Times New Roman","serif"'>Return sequence </span></span><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>[2,5]</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=217 valign=top style='width:130.15pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=afc style='margin-left:10.55pt;text-align:justify;text-justify:inter-ideograph;
+  tab-stops:48.75pt'><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>[1,5,2,6,8].to(2)</span></span></p>
+  </td>
+  <td width=465 valign=top style='width:278.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Return sequence</span><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'> [</span></span><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
+  mso-fareast-font-family:宋体'>1,5]</span></span><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'></span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3'>
+  <td width=217 valign=top style='width:130.15pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=afc style='margin-left:10.55pt;text-align:justify;text-justify:inter-ideograph;
+  tab-stops:48.75pt'><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>[1,5,2,6,8].to(-2)</span></span></p>
+  </td>
+  <td width=465 valign=top style='width:278.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=CharChar7><span lang=EN-US style='mso-bidi-font-size:
+  10.0pt;font-family:"Times New Roman","serif"'>Return sequence </span></span><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
+  mso-fareast-font-family:宋体'>[6,8]</span></span><span class=CharChar7><span
+  lang=EN-US style='mso-bidi-font-size:10.0pt;font-family:"Times New Roman","serif"'></span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4'>
+  <td width=217 valign=top style='width:130.15pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=afc style='margin-left:10.55pt;text-align:justify;text-justify:inter-ideograph;
+  tab-stops:48.75pt'><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>[1,5,2,6,8,7].to@z(2,3)</span></span></p>
+  </td>
+  <td width=465 valign=top style='width:278.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=CharChar7><span lang=EN-US style='mso-bidi-font-size:
+  10.0pt;font-family:"Times New Roman","serif"'>Return sequence </span></span><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
+  mso-fareast-font-family:宋体;font-weight:normal'>[2,6]</span></span><span
+  class=CharChar7><span lang=EN-US style='mso-bidi-font-size:10.0pt;font-family:
+  "Times New Roman","serif"'></span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:5'>
+  <td width=217 valign=top style='width:130.15pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=afc style='margin-left:10.55pt;text-align:justify;text-justify:inter-ideograph;
+  tab-stops:48.75pt'><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>to(8)</span></span><b><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>.to@z(1,3)</span></b><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'></span></span></p>
+  </td>
+  <td width=465 valign=top style='width:278.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=CharChar7><span lang=EN-US style='mso-bidi-font-size:
+  10.0pt;font-family:"Times New Roman","serif"'>Return sequence [1,2]</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:6;mso-yfti-lastrow:yes'>
+  <td width=217 valign=top style='width:130.15pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=afc style='margin-left:10.55pt;text-align:justify;text-justify:inter-ideograph;
+  tab-stops:48.75pt'><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>to(8).to@z(3,3)</span></span></p>
+  </td>
+  <td width=465 valign=top style='width:278.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=CharChar7><span lang=EN-US style='mso-bidi-font-size:
+  10.0pt;font-family:"Times New Roman","serif"'>Return sequence [5,6,7,8]</span></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=af7 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
+14.0pt;line-height:200%'>Related functions:</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US><a  href="796.html"><span style='mso-fareast-font-family:
+黑体;font-weight:normal'>to<span style='mso-bookmark:_Hlt414977881'><span
+style='mso-bookmark:_Hlt406692371'>(</span></span>)</span></a><a
+name="_Hlt406692371"></a><a name="_Hlt414977881"></a></span></b></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="796.html">Next</a></div>
@@ -22,8 +261,7 @@
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="45.html">Functions</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="796.html">A.top()</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="794.html">to()</a></span></li>
 </div>
 	</div>
 	<div id="footer">	
