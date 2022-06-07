@@ -74,17 +74,6 @@ public abstract class JTableJobSpace extends JPanel {
 	 * 重置任务空间
 	 */
 	public synchronized void setJobSpaces(HashMap<String, Param[]> paramMap) {
-		paramMap = new HashMap<String, Param[]>();
-		for (int i = 0; i < 100; i++) {
-			Param[] params = new Param[100];
-			for (int j = 0; j < 100; j++) {
-				params[j] = new Param();
-				params[j].setKind(Param.VAR);
-				params[j].setName("param" + i + "_" + j);
-				params[j].setValue(i * 100 + j);
-			}
-			paramMap.put("space" + i, params);
-		}
 		this.paramMap = paramMap;
 		tableVar.acceptText();
 		tableVar.clearSelection();
