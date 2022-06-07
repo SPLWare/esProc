@@ -1,6 +1,8 @@
 package com.scudata.ide.spl.base;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.GridBagLayout;
 import java.awt.Point;
 import java.awt.datatransfer.Transferable;
 import java.awt.dnd.DnDConstants;
@@ -10,9 +12,16 @@ import java.awt.dnd.DragSource;
 import java.awt.event.MouseEvent;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Set;
 
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JSpinner;
 import javax.swing.JTextField;
+import javax.swing.SpinnerNumberModel;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.table.TableColumn;
 
 import com.scudata.common.MessageManager;
@@ -24,17 +33,166 @@ import com.scudata.ide.common.resources.IdeCommonMessage;
 import com.scudata.ide.common.swing.AllPurposeEditor;
 import com.scudata.ide.common.swing.AllPurposeRenderer;
 import com.scudata.ide.common.swing.JTableEx;
+import com.scudata.ide.spl.resources.IdeSplMessage;
+import com.scudata.util.Variant;
 
 /**
  * 任务空间表控件
  */
-public abstract class JTableJobSpace extends JScrollPane {
+public abstract class JTableJobSpace extends JPanel {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Common资源管理器
 	 */
 	private MessageManager mm = IdeCommonMessage.get();
+
+	/**
+	 * 是否阻止变化
+	 */
+	private boolean preventChange = false;
+
+	/**
+	 * 构造函数
+	 */
+	public JTableJobSpace() {
+		super(new BorderLayout());
+		this.setMinimumSize(new Dimension(0, 0));
+		init();
+	}
+
+	/**
+	 * 选择了参数
+	 * 
+	 * @param val
+	 * @param varName
+	 */
+	public abstract void select(Object val, String varName);
+
+	private HashMap<String, Param[]> paramMap;
+
+	/**
+	 * 重置任务空间
+	 */
+	public synchronized void setJobSpaces(HashMap<String, Param[]> paramMap) {
+		this.paramMap = paramMap;
+		tableVar.acceptText();
+		tableVar.clearSelection();
+		tableVar.removeAllRows();
+		if (paramMap != null) {
+			preventChange = true;
+			int dispRows = getDispRows();
+			Set<String> keySet = paramMap.keySet();
+			if (keySet != null) {
+				int count = keySet.size();
+				if (count > DEFAULT_ROW_COUNT) {
+					if (!jPSouth.isVisible())
+						jPSouth.setVisible(true);
+				} else {
+					if (jPSouth.isVisible())
+						jPSouth.setVisible(false);
+				}
+				Iterator<String> it = paramMap.keySet().iterator();
+				int row = 0;
+				while (it.hasNext()) {
+					String jsId = it.next();
+					Param[] paras = paramMap.get(jsId);
+					addJobSpaceRow(jsId, paras);
+					row++;
+					if (row >= dispRows)
+						break;
+				}
+			}
+			preventChange = false;
+		} else {
+			if (jPSouth.isVisible())
+				jPSouth.setVisible(false);
+		}
+	}
+
+	/**
+	 * 增加任务空间到表格行
+	 * 
+	 * @param id
+	 * @param params
+	 */
+	private void addJobSpaceRow(String id, Param[] params) {
+		for (int j = 0; j < params.length; j++) {
+			int row = tableVar.addRow();
+			tableVar.data.setValueAt(id, row, COL_SPACE);
+			tableVar.data.setValueAt(params[j].getName(), row, COL_NAME);
+			tableVar.data.setValueAt(params[j].getValue(), row, COL_VALUE);
+		}
+	}
+
+	/**
+	 * 取显示行
+	 * @return
+	 */
+	private int getDispRows() {
+		int dispRows = ((Number) jSDispRows.getValue()).intValue();
+		return dispRows;
+	}
+
+	/**
+	 * 初始化
+	 */
+	private void init() {
+		JScrollPane jSPTable = new JScrollPane(tableVar);
+		this.add(jSPTable, BorderLayout.CENTER);
+		this.add(jPSouth, BorderLayout.SOUTH);
+		jPSouth.setVisible(false);
+
+		jPSouth.add(jLDispRows1, GM.getGBC(0, 2, false, false, 2));
+		jPSouth.add(jSDispRows, GM.getGBC(0, 3, false, false, 0));
+		jPSouth.add(jLDispRows2, GM.getGBC(0, 4, false, false, 2));
+		jPSouth.add(new JPanel(), GM.getGBC(0, 5, true));
+
+		jSDispRows.addChangeListener(new ChangeListener() {
+
+			public void stateChanged(ChangeEvent e) {
+				setJobSpaces(paramMap);
+			}
+
+		});
+
+		tableVar.setIndexCol(COL_INDEX);
+		tableVar.setRowHeight(20);
+
+		TableColumn tc = tableVar.getColumn(COL_VALUE);
+		tc.setCellEditor(new AllPurposeEditor(new JTextField(), tableVar));
+		tc.setCellRenderer(new AllPurposeRenderer());
+
+		DragGestureListener dgl = new DragGestureListener() {
+			public void dragGestureRecognized(DragGestureEvent dge) {
+				try {
+					int row = tableVar.getSelectedRow();
+					if (!StringUtils.isValidString(tableVar.data.getValueAt(
+							row, COL_NAME))) {
+						return;
+					}
+					String name = (String) tableVar.data.getValueAt(row,
+							COL_NAME);
+					Object data = null;
+					if (dge.getTriggerEvent().isControlDown()) {
+						data = name;
+					} else {
+						data = "=" + name;
+					}
+					Transferable tf = new TransferableObject(data);
+					if (tf != null) {
+						dge.startDrag(GM.getDndCursor(), tf);
+					}
+				} catch (Exception x) {
+					GM.showException(x);
+				}
+			}
+		};
+		DragSource ds = DragSource.getDefaultDragSource();
+		ds.createDefaultDragGestureRecognizer(tableVar,
+				DnDConstants.ACTION_COPY, dgl);
+		tableVar.setColumnVisible(TITLE_VAR, false);
+	}
 
 	/** 序号列 */
 	private final byte COL_INDEX = 0;
@@ -77,10 +235,23 @@ public abstract class JTableJobSpace extends JScrollPane {
 				return;
 			}
 			Param p = (Param) data.getValueAt(row, COL_VAR);
+
 			if (col == COL_NAME) {
 				p.setName(value == null ? null : (String) value);
-			} else if (col == COL_VALUE) {
-				p.setValue(value);
+			} else {
+				if (value == null) {
+					p.setValue(null);
+				} else if (StringUtils.isValidString(value)) {
+					String str = value.toString();
+					Object val = Variant.parse(str);
+					p.setValue(val);
+					preventChange = true;
+					data.setValueAt(val, row, col);
+					preventChange = false;
+				} else {
+					p.setValue(value);
+				}
+
 			}
 		}
 
@@ -110,101 +281,18 @@ public abstract class JTableJobSpace extends JScrollPane {
 		}
 	};
 
-	/**
-	 * 是否阻止变化
-	 */
-	private boolean preventChange = false;
+	private JLabel jLDispRows1 = new JLabel(IdeSplMessage.get().getMessage(
+			"panelvalue.disprows1"));
+	private JLabel jLDispRows2 = new JLabel(IdeSplMessage.get().getMessage(
+			"tablevar.dispvar"));
+
+	private static final int DEFAULT_ROW_COUNT = 100;
 
 	/**
-	 * 构造函数
+	 * 显示的最大行数面板
 	 */
-	public JTableJobSpace() {
-		this.setMinimumSize(new Dimension(0, 0));
-		init();
-	}
+	private JSpinner jSDispRows = new JSpinner(new SpinnerNumberModel(
+			DEFAULT_ROW_COUNT, 1, Integer.MAX_VALUE, 1));
 
-	/**
-	 * 选择了参数
-	 * 
-	 * @param val
-	 * @param varName
-	 */
-	public abstract void select(Object val, String varName);
-
-	/**
-	 * 重置任务空间
-	 */
-	public synchronized void setJobSpaces(HashMap<String, Param[]> hm) {
-		tableVar.acceptText();
-		tableVar.removeAllRows();
-		if (hm != null) {
-			preventChange = true;
-			Iterator<String> it = hm.keySet().iterator();
-			while (it.hasNext()) {
-				String jsId = it.next();
-				Param[] paras = hm.get(jsId);
-				addJobSpaceRow(jsId, paras);
-			}
-			preventChange = false;
-		}
-	}
-
-	/**
-	 * 增加任务空间到表格行
-	 * 
-	 * @param id
-	 * @param params
-	 */
-	private void addJobSpaceRow(String id, Param[] params) {
-		for (int j = 0; j < params.length; j++) {
-			int row = tableVar.addRow();
-			tableVar.data.setValueAt(id, row, COL_SPACE);
-			tableVar.data.setValueAt(params[j].getName(), row, COL_NAME);
-			tableVar.data.setValueAt(params[j].getValue(), row, COL_VALUE);
-		}
-	}
-
-	/**
-	 * 初始化
-	 */
-	private void init() {
-		this.getViewport().add(tableVar);
-
-		tableVar.setIndexCol(COL_INDEX);
-		tableVar.setRowHeight(20);
-
-		TableColumn tc = tableVar.getColumn(COL_VALUE);
-		tc.setCellEditor(new AllPurposeEditor(new JTextField(), tableVar));
-		tc.setCellRenderer(new AllPurposeRenderer());
-
-		DragGestureListener dgl = new DragGestureListener() {
-			public void dragGestureRecognized(DragGestureEvent dge) {
-				try {
-					int row = tableVar.getSelectedRow();
-					if (!StringUtils.isValidString(tableVar.data.getValueAt(
-							row, COL_NAME))) {
-						return;
-					}
-					String name = (String) tableVar.data.getValueAt(row,
-							COL_NAME);
-					Object data = null;
-					if (dge.getTriggerEvent().isControlDown()) {
-						data = name;
-					} else {
-						data = "=" + name;
-					}
-					Transferable tf = new TransferableObject(data);
-					if (tf != null) {
-						dge.startDrag(GM.getDndCursor(), tf);
-					}
-				} catch (Exception x) {
-					GM.showException(x);
-				}
-			}
-		};
-		DragSource ds = DragSource.getDefaultDragSource();
-		ds.createDefaultDragGestureRecognizer(tableVar,
-				DnDConstants.ACTION_COPY, dgl);
-		tableVar.setColumnVisible(TITLE_VAR, false);
-	}
+	private JPanel jPSouth = new JPanel(new GridBagLayout());
 }
