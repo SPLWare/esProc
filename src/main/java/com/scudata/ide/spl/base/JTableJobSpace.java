@@ -12,7 +12,6 @@ import java.awt.dnd.DragSource;
 import java.awt.event.MouseEvent;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Set;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -75,6 +74,17 @@ public abstract class JTableJobSpace extends JPanel {
 	 * 重置任务空间
 	 */
 	public synchronized void setJobSpaces(HashMap<String, Param[]> paramMap) {
+		paramMap = new HashMap<String, Param[]>();
+		for (int i = 0; i < 100; i++) {
+			Param[] params = new Param[100];
+			for (int j = 0; j < 100; j++) {
+				params[j] = new Param();
+				params[j].setKind(Param.VAR);
+				params[j].setName("param" + i + "_" + j);
+				params[j].setValue(i * 100 + j);
+			}
+			paramMap.put("space" + i, params);
+		}
 		this.paramMap = paramMap;
 		tableVar.acceptText();
 		tableVar.clearSelection();
@@ -82,24 +92,22 @@ public abstract class JTableJobSpace extends JPanel {
 		if (paramMap != null) {
 			preventChange = true;
 			int dispRows = getDispRows();
-			Set<String> keySet = paramMap.keySet();
-			if (keySet != null) {
-				int count = keySet.size();
-				if (count > DEFAULT_ROW_COUNT) {
-					if (!jPSouth.isVisible())
-						jPSouth.setVisible(true);
-				} else {
-					if (jPSouth.isVisible())
-						jPSouth.setVisible(false);
+			boolean southVisible = false;
+			Iterator<String> it = paramMap.keySet().iterator();
+			while (it.hasNext()) {
+				String jsId = it.next();
+				Param[] paras = paramMap.get(jsId);
+				if (!addJobSpaceRow(jsId, paras, dispRows)) {
+					southVisible = true;
+					break;
 				}
-				Iterator<String> it = paramMap.keySet().iterator();
-				while (it.hasNext()) {
-					String jsId = it.next();
-					Param[] paras = paramMap.get(jsId);
-					if (!addJobSpaceRow(jsId, paras, dispRows)) {
-						break;
-					}
-				}
+			}
+			if (southVisible) {
+				if (!jPSouth.isVisible())
+					jPSouth.setVisible(true);
+			} else {
+				if (jPSouth.isVisible())
+					jPSouth.setVisible(false);
 			}
 			preventChange = false;
 		} else {
@@ -122,7 +130,7 @@ public abstract class JTableJobSpace extends JPanel {
 			tableVar.data.setValueAt(id, row, COL_SPACE);
 			tableVar.data.setValueAt(params[j].getName(), row, COL_NAME);
 			tableVar.data.setValueAt(params[j].getValue(), row, COL_VALUE);
-			if (dispRows - 1 >= row) {
+			if (row + 1 >= dispRows) {
 				return false;
 			}
 		}
@@ -134,6 +142,8 @@ public abstract class JTableJobSpace extends JPanel {
 	 * @return
 	 */
 	private int getDispRows() {
+		if (!jPSouth.isVisible())
+			return DEFAULT_ROW_COUNT;
 		int dispRows = ((Number) jSDispRows.getValue()).intValue();
 		return dispRows;
 	}

@@ -250,6 +250,8 @@ public abstract class TableVar extends JPanel {
 	 * @return
 	 */
 	private int getDispRows() {
+		if (!jPSouth.isVisible())
+			return DEFAULT_ROW_COUNT;
 		int dispRows = ((Number) jSDispRows.getValue()).intValue();
 		return dispRows;
 	}
