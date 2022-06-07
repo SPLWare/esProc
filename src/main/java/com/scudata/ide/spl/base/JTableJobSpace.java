@@ -93,14 +93,12 @@ public abstract class JTableJobSpace extends JPanel {
 						jPSouth.setVisible(false);
 				}
 				Iterator<String> it = paramMap.keySet().iterator();
-				int row = 0;
 				while (it.hasNext()) {
 					String jsId = it.next();
 					Param[] paras = paramMap.get(jsId);
-					addJobSpaceRow(jsId, paras);
-					row++;
-					if (row >= dispRows)
+					if (!addJobSpaceRow(jsId, paras, dispRows)) {
 						break;
+					}
 				}
 			}
 			preventChange = false;
@@ -115,14 +113,20 @@ public abstract class JTableJobSpace extends JPanel {
 	 * 
 	 * @param id
 	 * @param params
+	 * @param dispRows 显示行数
+	 * @return 是否继续增加
 	 */
-	private void addJobSpaceRow(String id, Param[] params) {
+	private boolean addJobSpaceRow(String id, Param[] params, int dispRows) {
 		for (int j = 0; j < params.length; j++) {
 			int row = tableVar.addRow();
 			tableVar.data.setValueAt(id, row, COL_SPACE);
 			tableVar.data.setValueAt(params[j].getName(), row, COL_NAME);
 			tableVar.data.setValueAt(params[j].getValue(), row, COL_VALUE);
+			if (dispRows - 1 >= row) {
+				return false;
+			}
 		}
+		return true;
 	}
 
 	/**
