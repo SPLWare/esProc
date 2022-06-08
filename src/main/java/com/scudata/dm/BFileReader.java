@@ -471,7 +471,7 @@ public class BFileReader {
 	 * @throws IOException
 	 */
 	public long skip(long n) throws IOException {
-		if (totalRecordCount > 0 && segCount <= 1 && firstRecordPos == position()) {
+		if (totalRecordCount > 0 && segCount <= 1 && firstRecordPos == position() && endPos == -1) {
 			if (totalRecordCount <= n) {
 				seek(file.size());
 				return totalRecordCount;
@@ -1499,7 +1499,7 @@ public class BFileReader {
 				for (int i = startBlock + 1; i < lastBlock; ++i) {
 					seek(blocks[i]);
 					readRecord(selFields, vals);
-					if (compareFields(vals, startVal) > 0) {
+					if (compareFields(vals, endVal) > 0) {
 						endBlock = i;
 						break;
 					}
@@ -1629,7 +1629,7 @@ public class BFileReader {
 					seek(blocks[i]);
 					readRecord(vals);
 					rec.values = vals;
-					if (Variant.compare(rec.calc(exp, ctx), startVal) > 0) {
+					if (Variant.compare(rec.calc(exp, ctx), endVal) > 0) {
 						endBlock = i;
 						break;
 					}
