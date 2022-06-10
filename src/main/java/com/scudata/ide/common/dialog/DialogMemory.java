@@ -12,6 +12,7 @@ import java.util.HashMap;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFormattedTextField;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
@@ -75,7 +76,14 @@ public class DialogMemory extends JDialog {
 	 * 构造函数
 	 */
 	public DialogMemory() {
-		super(GV.appFrame, "内存清理 - 单位：[字节]", true);
+		this(GV.appFrame);
+	}
+
+	/**
+	 * 构造函数
+	 */
+	public DialogMemory(JFrame parent) {
+		super(parent, "内存清理 - 单位：[字节]", true);
 		try {
 			initUI();
 			pack();

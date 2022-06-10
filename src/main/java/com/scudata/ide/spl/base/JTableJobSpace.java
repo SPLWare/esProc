@@ -119,7 +119,7 @@ public abstract class JTableJobSpace extends JPanel {
 			tableVar.data.setValueAt(id, row, COL_SPACE);
 			tableVar.data.setValueAt(params[j].getName(), row, COL_NAME);
 			tableVar.data.setValueAt(params[j].getValue(), row, COL_VALUE);
-			if (row + 1 >= dispRows) {
+			if (row + 1 >= dispRows && j != params.length - 1) {
 				return false;
 			}
 		}
