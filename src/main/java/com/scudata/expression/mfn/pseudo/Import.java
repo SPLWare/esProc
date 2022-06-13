@@ -19,7 +19,7 @@ public class Import extends PseudoFunction {
 //			return pseudo.getCache();
 //		}
 		
-		ICursor cursor = CreateCursor.createCursor("import", pseudo, param, ctx);
+		ICursor cursor = CreateCursor.createCursor("import", pseudo, param, option, ctx);
 		Sequence seq = cursor.fetch();
 		//pseudo.setCache(seq);
 		

@@ -154,6 +154,10 @@ public class ClusterPseudo implements IClusterObject, IPseudo {
 	}
 	
 	public ICursor cursor(Expression[] exps, String[] names) {
+		return cursor(exps, names, false);
+	}
+	
+	public ICursor cursor(Expression[] exps, String[] names, boolean isColumn) {
 		Cluster cluster = getCluster();
 		int count = cluster.getUnitCount();
 		int[] cursorProxyIds = new int[count];
@@ -179,6 +183,7 @@ public class ClusterPseudo implements IClusterObject, IPseudo {
 				
 				command.setAttribute("expStrs",  expStrs);
 				command.setAttribute("names", names);
+				command.setAttribute("isColumn", isColumn);
 				command.setAttribute("unit", new Integer(i));
 				
 				Response response = client.send(command);
@@ -198,6 +203,7 @@ public class ClusterPseudo implements IClusterObject, IPseudo {
 		Integer pseudoProxyId = (Integer) attributes.get("pseudoProxyId");
 		String []expStrs = (String[]) attributes.get("expStrs");
 		String []names = (String[]) attributes.get("names");
+		Boolean isColumn = (Boolean) attributes.get("isColumn");
 		Integer unit = (Integer) attributes.get("unit");
 		
 		try {
@@ -216,7 +222,7 @@ public class ClusterPseudo implements IClusterObject, IPseudo {
 				}
 			}
 			
-			ICursor cursor = pseudo.cursor(exps, names);
+			ICursor cursor = pseudo.cursor(exps, names, isColumn);
 			IProxy proxy = new CursorProxy(cursor, unit);
 			rm.addProxy(proxy);
 			return new Response(new Integer(proxy.getProxyId()));

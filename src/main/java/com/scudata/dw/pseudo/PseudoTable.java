@@ -24,6 +24,7 @@ import com.scudata.dm.op.Select;
 import com.scudata.dm.op.Switch;
 import com.scudata.dw.ColumnTableMetaData;
 import com.scudata.dw.Cursor;
+import com.scudata.dw.IColumnCursorUtil;
 import com.scudata.dw.IFilter;
 import com.scudata.dw.ITableMetaData;
 import com.scudata.dw.RowCursor;
@@ -40,7 +41,6 @@ import com.scudata.expression.operator.DotOperator;
 import com.scudata.expression.operator.Equals;
 import com.scudata.expression.operator.NotEquals;
 import com.scudata.expression.operator.Or;
-import com.scudata.util.CursorUtil;
 
 public class PseudoTable extends Pseudo {
 	//创建游标需要的参数
@@ -318,15 +318,71 @@ public class PseudoTable extends Pseudo {
 	 * 得到虚表的每个实体表的游标构成的数组
 	 * @return
 	 */
-	public ICursor[] getCursors() {
+	public ICursor[] getCursors(boolean isColumn) {
 		List<ITableMetaData> tables = getPd().getTables();
 		int size = tables.size();
 		ICursor cursors[] = new ICursor[size];
 		
 		for (int i = 0; i < size; i++) {
-			cursors[i] = getCursor(tables.get(i), null, true);
+			cursors[i] = getCursor(tables.get(i), null, true, isColumn);
 		}
 		return cursors;
+	}
+	
+	private ICursor getColumnCursor(ITableMetaData table, ICursor mcs, boolean addOpt) {
+		ICursor cursor = null;
+		IColumnCursorUtil util = IColumnCursorUtil.util;
+		
+		if (fkNames != null) {
+			if (mcs != null ) {
+				if (mcs instanceof MultipathCursors) {
+					cursor = util.cursor(table, null, this.names, filter, fkNames, codes, null, (MultipathCursors)mcs, null, ctx);
+				} else {
+					if (exps == null) {
+						cursor = util.cursor(table, null, this.names, filter, fkNames, codes, null, ctx);
+					} else {
+						cursor = util.cursor(table, this.exps, this.names, filter, fkNames, codes, null, ctx);
+					}
+				}
+			} else if (pathCount > 1) {
+				if (exps == null) {
+					cursor = util.cursor(table, null, this.names, filter, fkNames, codes, null, pathCount, ctx);
+				} else {
+					cursor = util.cursor(table, this.exps, this.names, filter, fkNames, codes, null, pathCount, ctx);
+				}
+			} else {
+				if (exps == null) {
+					cursor = util.cursor(table, null, this.names, filter, fkNames, codes, null, ctx);
+				} else {
+					cursor = util.cursor(table, this.exps, this.names, filter, fkNames, codes, null, ctx);
+				}
+			}
+		} else {
+			if (mcs != null ) {
+				if (mcs instanceof MultipathCursors) {
+					cursor = util.cursor(table, null, this.names, filter, null, null, null, (MultipathCursors)mcs, null, ctx);
+				} else {
+					if (exps == null) {
+						cursor = util.cursor(table, this.names, filter, ctx);
+					} else {
+						cursor = util.cursor(table, this.exps, this.names, filter, null, null, null, ctx);
+					}
+				}
+			} else if (pathCount > 1) {
+				if (exps == null) {
+					cursor = util.cursor(table, null, this.names, filter, null, null, null, pathCount, ctx);
+				} else {
+					cursor = util.cursor(table, this.exps, this.names, filter, null, null, null, pathCount, ctx);
+				}
+			} else {
+				if (exps == null) {
+					cursor = util.cursor(table, this.names, filter, ctx);
+				} else {
+					cursor = util.cursor(table, this.exps, this.names, filter, null, null, null, ctx);
+				}
+			}
+		}
+		return cursor;
 	}
 	
 	/**
@@ -334,14 +390,31 @@ public class PseudoTable extends Pseudo {
 	 * @param table
 	 * @param mcs
 	 * @param addOpt 是否把附加计算添加
+	 * @param isColumn 是否返回列式游标
 	 * @return
 	 */
-	private ICursor getCursor(ITableMetaData table, ICursor mcs, boolean addOpt) {
+	private ICursor getCursor(ITableMetaData table, ICursor mcs, boolean addOpt, boolean isColumn) {
 		ICursor cursor = null;
-		if (fkNames != null) {
-			if (mcs != null ) {
-				if (mcs instanceof MultipathCursors) {
-					cursor = table.cursor(null, this.names, filter, fkNames, codes, null, (MultipathCursors)mcs, null, ctx);
+		if (isColumn) {
+			cursor = getColumnCursor(table, mcs, addOpt);
+		} else {
+			if (fkNames != null) {
+				if (mcs != null ) {
+					if (mcs instanceof MultipathCursors) {
+						cursor = table.cursor(null, this.names, filter, fkNames, codes, null, (MultipathCursors)mcs, null, ctx);
+					} else {
+						if (exps == null) {
+							cursor = table.cursor(null, this.names, filter, fkNames, codes, null, ctx);
+						} else {
+							cursor = table.cursor(this.exps, this.names, filter, fkNames, codes, null, ctx);
+						}
+					}
+				} else if (pathCount > 1) {
+					if (exps == null) {
+						cursor = table.cursor(null, this.names, filter, fkNames, codes, null, pathCount, ctx);
+					} else {
+						cursor = table.cursor(this.exps, this.names, filter, fkNames, codes, null, pathCount, ctx);
+					}
 				} else {
 					if (exps == null) {
 						cursor = table.cursor(null, this.names, filter, fkNames, codes, null, ctx);
@@ -349,23 +422,23 @@ public class PseudoTable extends Pseudo {
 						cursor = table.cursor(this.exps, this.names, filter, fkNames, codes, null, ctx);
 					}
 				}
-			} else if (pathCount > 1) {
-				if (exps == null) {
-					cursor = table.cursor(null, this.names, filter, fkNames, codes, null, pathCount, ctx);
-				} else {
-					cursor = table.cursor(this.exps, this.names, filter, fkNames, codes, null, pathCount, ctx);
-				}
 			} else {
-				if (exps == null) {
-					cursor = table.cursor(null, this.names, filter, fkNames, codes, null, ctx);
-				} else {
-					cursor = table.cursor(this.exps, this.names, filter, fkNames, codes, null, ctx);
-				}
-			}
-		} else {
-			if (mcs != null ) {
-				if (mcs instanceof MultipathCursors) {
-					cursor = table.cursor(null, this.names, filter, null, null, null, (MultipathCursors)mcs, null, ctx);
+				if (mcs != null ) {
+					if (mcs instanceof MultipathCursors) {
+						cursor = table.cursor(null, this.names, filter, null, null, null, (MultipathCursors)mcs, null, ctx);
+					} else {
+						if (exps == null) {
+							cursor = table.cursor(this.names, filter, ctx);
+						} else {
+							cursor = table.cursor(this.exps, this.names, filter, null, null, null, ctx);
+						}
+					}
+				} else if (pathCount > 1) {
+					if (exps == null) {
+						cursor = table.cursor(null, this.names, filter, null, null, null, pathCount, ctx);
+					} else {
+						cursor = table.cursor(this.exps, this.names, filter, null, null, null, pathCount, ctx);
+					}
 				} else {
 					if (exps == null) {
 						cursor = table.cursor(this.names, filter, ctx);
@@ -373,20 +446,9 @@ public class PseudoTable extends Pseudo {
 						cursor = table.cursor(this.exps, this.names, filter, null, null, null, ctx);
 					}
 				}
-			} else if (pathCount > 1) {
-				if (exps == null) {
-					cursor = table.cursor(null, this.names, filter, null, null, null, pathCount, ctx);
-				} else {
-					cursor = table.cursor(this.exps, this.names, filter, null, null, null, pathCount, ctx);
-				}
-			} else {
-				if (exps == null) {
-					cursor = table.cursor(this.names, filter, ctx);
-				} else {
-					cursor = table.cursor(this.exps, this.names, filter, null, null, null, ctx);
-				}
 			}
 		}
+		
 		
 		if (getPd() != null && getPd().getColumns() != null) {
 			for (PseudoColumn column : getPd().getColumns()) {
@@ -395,7 +457,7 @@ public class PseudoTable extends Pseudo {
 					if (column.getDim() instanceof Sequence) {
 						dim = (Sequence) column.getDim();
 					} else {
-						dim = ((IPseudo) column.getDim()).cursor(null, null).fetch();
+						dim = ((IPseudo) column.getDim()).cursor(null, null, false).fetch();
 					}
 					
 					String fkey[] = column.getFkey();
@@ -556,7 +618,7 @@ public class PseudoTable extends Pseudo {
 	}
 	
 	//返回虚表的游标
-	public ICursor cursor(Expression []exps, String []names) {
+	public ICursor cursor(Expression []exps, String []names, boolean isColumn) {
 		setFetchInfo(exps, names);//把取出字段添加进去，里面可能会对extraOpList赋值
 		
 		//每个实体文件生成一个游标
@@ -571,20 +633,20 @@ public class PseudoTable extends Pseudo {
 		 * 3 有多个游标且并行时，先对第一个游标分段，然后其它游标按第一个同步分段，最后把每个游标的每个段进行归并
 		 */
 		if (size == 1) {//只有一个游标直接返回
-			return getCursor(tables.get(0), null, true);
+			return getCursor(tables.get(0), null, true, isColumn);
 		} else {
 			tables = filterTables(tables);
 			size = tables.size();
 			
 			if (pathCount > 1) {//指定了并行数，此时忽略mcsTable
-				cursors[0] = getCursor(tables.get(0), null, false);
+				cursors[0] = getCursor(tables.get(0), null, false, isColumn);
 				for (int i = 1; i < size; i++) {
-					cursors[i] = getCursor(tables.get(i), cursors[0], false);
+					cursors[i] = getCursor(tables.get(i), cursors[0], false, isColumn);
 				}
 			} else {//没有指定并行数
 				if (mcsTable == null) {//没有指定分段参考虚表mcsTable
 					for (int i = 0; i < size; i++) {
-						cursors[i] = getCursor(tables.get(i), null, false);
+						cursors[i] = getCursor(tables.get(i), null, false, isColumn);
 					}
 					return addOptionToCursor(mergeCursor(cursors, pd.getUser(), ctx));
 				} else {//指定了分段参考虚表mcsTable
@@ -593,7 +655,7 @@ public class PseudoTable extends Pseudo {
 						mcs = mcsTable.cursor();
 					}
 					for (int i = 0; i < size; i++) {
-						cursors[i] = getCursor(tables.get(i), mcs, false);
+						cursors[i] = getCursor(tables.get(i), mcs, false, isColumn);
 					}
 					mcs.close();
 				}
@@ -979,22 +1041,22 @@ public class PseudoTable extends Pseudo {
 	}
 	
 	// 主子表按主表主键做有序连接
-	public static ICursor join(PseudoTable masterTable, PseudoTable subTable) {
-		String[] keys = masterTable.getPrimaryKey();
-		if (keys != null) {
-			int size = keys.length;
-			Expression[] exps = new Expression[size];
-			for (int i = 0; i < size; i++) {
-				exps[i] = new Expression(keys[i]);
-			}
-			Expression [][]joinExps = new Expression [][] {exps, exps};//使用主表的主键做join
-			
-			ICursor cursors[] = new ICursor[]{masterTable.cursor(null, null), subTable.cursor(null, null)};
-			ICursor cursor = CursorUtil.joinx(cursors, null, joinExps, null, masterTable.getContext());
-			return cursor;
-		}
-		return null;
-	}
+//	public static ICursor join(PseudoTable masterTable, PseudoTable subTable) {
+//		String[] keys = masterTable.getPrimaryKey();
+//		if (keys != null) {
+//			int size = keys.length;
+//			Expression[] exps = new Expression[size];
+//			for (int i = 0; i < size; i++) {
+//				exps[i] = new Expression(keys[i]);
+//			}
+//			Expression [][]joinExps = new Expression [][] {exps, exps};//使用主表的主键做join
+//			
+//			ICursor cursors[] = new ICursor[]{masterTable.cursor(null, null), subTable.cursor(null, null)};
+//			ICursor cursor = CursorUtil.joinx(cursors, null, joinExps, null, masterTable.getContext());
+//			return cursor;
+//		}
+//		return null;
+//	}
 	
 	/**
 	 * 获得虚表对应的组表的字段

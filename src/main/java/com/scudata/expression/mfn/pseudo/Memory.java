@@ -4,6 +4,7 @@ import com.scudata.dm.Context;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
 import com.scudata.dm.cursor.ICursor;
+import com.scudata.dw.IColumnCursorUtil;
 import com.scudata.dw.MemoryTable;
 import com.scudata.expression.PseudoFunction;
 
@@ -15,7 +16,17 @@ import com.scudata.expression.PseudoFunction;
  */
 public class Memory extends PseudoFunction {
 	public Object calculate(Context ctx) {
-		ICursor cursor = CreateCursor.createCursor("memory", pseudo, param, ctx);
+		//列式内表
+		if (option != null && option.indexOf('h') != -1 && IColumnCursorUtil.util != null) {
+			String opt = option;
+			opt = opt.replace("h", "");
+			opt += 'm';
+			
+			ICursor cursor = CreateCursor.createCursor("memory", pseudo, param, opt, ctx);
+			return IColumnCursorUtil.util.createMemoryTable(cursor, null, option);
+		}
+		
+		ICursor cursor = CreateCursor.createCursor("memory", pseudo, param, null, ctx);
 		Sequence seq = cursor.fetch();
 		
 		Table table;

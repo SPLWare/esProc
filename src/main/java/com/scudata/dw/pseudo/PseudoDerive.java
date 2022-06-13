@@ -136,7 +136,7 @@ public class PseudoDerive extends Pseudo implements Operable, IPseudo {
 		//根据ptable得到cs（可能对应多个）
 		ICursor cursors[] = new ICursor[tsize];
 		if (ptable instanceof PseudoTable) {
-			cursors = ((PseudoTable)ptable).getCursors();
+			cursors = ((PseudoTable)ptable).getCursors(false);
 		} else if (ptable instanceof ICursor) {
 			cursors[0] = (ICursor)ptable;
 		} else {

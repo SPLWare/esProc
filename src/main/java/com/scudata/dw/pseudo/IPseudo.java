@@ -10,6 +10,7 @@ public interface IPseudo extends Operable {
 	public void addColNames(String []nameArray);
 	public void addColName(String name);
 	public ICursor cursor(Expression []exps, String []names);
+	public ICursor cursor(Expression []exps, String []names, boolean isColumn);
 	public void addPKeyNames();
 	public boolean isColumn(String col);
 	public Context getContext();

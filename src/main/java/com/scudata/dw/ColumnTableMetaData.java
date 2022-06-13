@@ -1846,7 +1846,7 @@ public class ColumnTableMetaData extends TableMetaData {
 	}
 	
 	
-	private static Sequence fetchToValue(IDWCursor cursor, String []names, Object []vals) {
+	public static Sequence fetchToValue(IDWCursor cursor, String []names, Object []vals) {
 		Sequence seq = cursor.get(ICursor.FETCHCOUNT);
 		if (seq == null || seq.length() == 0) return null;
 		

@@ -21,10 +21,9 @@ public class Memory extends TableMetaDataFunction {
 		//列式内表
 		if (option != null && option.indexOf('h') != -1 && IColumnCursorUtil.util != null) {
 			String opt = option;
-			if (opt.indexOf('z') != -1) {
-				opt = opt.replace("h", "");
-				opt += 'm';
-			}
+			opt = opt.replace("h", "");
+			opt += 'm';
+			
 			ICursor cursor = CreateCursor.createCursor(tmd, param, opt, ctx);
 			return IColumnCursorUtil.util.createMemoryTable(cursor, null, option);
 		}

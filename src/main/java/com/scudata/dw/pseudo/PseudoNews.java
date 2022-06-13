@@ -139,7 +139,7 @@ public class PseudoNews extends Pseudo implements Operable, IPseudo {
 		if (ptable instanceof PseudoBFile) {
 			cursors = ((PseudoBFile)ptable).getCursors();
 		} else if (ptable instanceof PseudoTable) {
-			cursors = ((PseudoTable)ptable).getCursors();
+			cursors = ((PseudoTable)ptable).getCursors(false);
 		} else if (ptable instanceof ICursor) {
 			cursors[0] = (ICursor)ptable;
 		} else {

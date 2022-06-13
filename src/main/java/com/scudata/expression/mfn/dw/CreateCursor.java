@@ -227,8 +227,7 @@ public class CreateCursor extends TableMetaDataFunction {
 
 		if (hasH) {
 			if (mcs != null) {
-				//TODO
-				return table.cursor(exps, names, filter, fkNames, codes, opts, mcs, opt, ctx);
+				return IColumnCursorUtil.util.cursor(table, exps, names, filter, fkNames, codes, opts, mcs, opt, ctx);
 			} else if (isMultiThread && segCount > 1) {
 				return IColumnCursorUtil.util.cursor(table, exps, names, filter, fkNames, codes, opts, segCount, ctx);
 			} else {

@@ -332,6 +332,10 @@ public class Pseudo implements IPseudo{
 	public ICursor cursor(Expression[] exps, String[] names) {
 		throw new RQException("never run to here");
 	}
+	
+	public ICursor cursor(Expression[] exps, String[] names, boolean isColumn) {
+		throw new RQException("never run to here");
+	}
 
 	public Object clone(Context ctx) throws CloneNotSupportedException {
 		throw new RQException("never run to here");

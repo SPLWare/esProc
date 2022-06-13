@@ -4,6 +4,7 @@ import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
 import com.scudata.dm.cursor.ICursor;
+import com.scudata.dw.IColumnCursorUtil;
 import com.scudata.dw.pseudo.IPseudo;
 import com.scudata.expression.Expression;
 import com.scudata.expression.IParam;
@@ -21,15 +22,21 @@ import com.scudata.resources.EngineMessage;
  */
 public class CreateCursor extends PseudoFunction {
 	public Object calculate(Context ctx) {
-		return createCursor("cursor", pseudo, param, ctx);
+		return createCursor("cursor", pseudo, param, option, ctx);
 	}
 	
-	public static ICursor createCursor(String fnName, IPseudo table, IParam param, Context ctx) {
+	public static ICursor createCursor(String fnName, IPseudo table, IParam param, String opt, Context ctx) {
+		boolean hasH = false;
 		if (table == null) {
 			return null;
 		}
+		
+		if (opt != null && opt.indexOf('h') != -1 && IColumnCursorUtil.util != null) {
+			hasH = true;
+		}
+		
 		if (param == null) {
-			return table.cursor(null, null);
+			return table.cursor(null, null, hasH);
 		}
 		
 		IParam fieldParam = null;
@@ -84,6 +91,6 @@ public class CreateCursor extends PseudoFunction {
 			}
 		}
 		
-		return table.cursor(exps, names);
+		return table.cursor(exps, names, hasH);
 	}
 }

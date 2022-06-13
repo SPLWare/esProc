@@ -6,6 +6,7 @@ import com.scudata.dm.IndexTable;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
 import com.scudata.dm.cursor.ICursor;
+import com.scudata.dm.cursor.MultipathCursors;
 import com.scudata.dm.op.IGroupsResult;
 import com.scudata.expression.Expression;
 
@@ -26,7 +27,10 @@ abstract public class IColumnCursorUtil {
 		} catch (IllegalAccessException e) {
 		}
 	}
+	
 	public abstract ICursor cursor(ITableMetaData table);
+
+	public abstract ICursor cursor(ITableMetaData table, String []fields, Expression filter, Context ctx);
 	
 	public abstract ICursor cursor(ITableMetaData table, Expression []exps, String []fields, Expression filter, 
 			String []fkNames, Sequence []codes, String []opts, Context ctx);
@@ -36,6 +40,9 @@ abstract public class IColumnCursorUtil {
 	
 	public abstract ICursor cursor(ITableMetaData table, Expression []exps, String []fields, Expression filter, String []fkNames, 
 			Sequence []codes, String []opts, int segSeq, int segCount, Context ctx);
+	
+	public abstract ICursor cursor(ITableMetaData table, Expression []exps, String []fields, Expression filter, String []fkNames, 
+			Sequence []codes,  String []opts, MultipathCursors mcs, String opt, Context ctx);
 	
 	public abstract IGroupsResult getGroupsResultInstance(Expression[] exps, String[] names, Expression[] calcExps, 
 			String[] calcNames, String opt, Context ctx);

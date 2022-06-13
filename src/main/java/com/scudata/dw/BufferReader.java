@@ -2,6 +2,7 @@ package com.scudata.dw;
 
 import java.io.*;
 import java.math.*;
+import java.sql.Date;
 
 import com.scudata.common.DateCache;
 import com.scudata.common.ObjectCache;
@@ -912,39 +913,40 @@ public class BufferReader {
 		}
 	}
 	
-//	public long readBaseDate() throws IOException {
-//		if (repeatCount > 0) {
-//			repeatCount--;
-//			return (Long) repeatValue;
-//		}
-//		
-//		int b = read2();
-//		
-//		switch (b) {
-//		case BufferWriter.DATE16:
-//			return BufferWriter.BASEDATE + readUInt16() * 86400000L;
-//		case BufferWriter.DATE32:
-//			return BufferWriter.BASEDATE - readULong32() * 1000L;
-//		case BufferWriter.DATETIME32:
-//			throw new RuntimeException();
-//		case BufferWriter.DATETIME33:
-//			throw new RuntimeException();
-//		case BufferWriter.DATETIME64:
-//			throw new RuntimeException();
-//		case BufferWriter.TIME16:
-//			throw new RuntimeException();
-//		case BufferWriter.TIME17:
-//			throw new RuntimeException();
-//		case BufferWriter.TIME32:
-//			throw new RuntimeException();
-//		case BufferWriter.DATE24:
-//			return BufferWriter.BASEDATE + readUInt24() * 86400000L;
-//		case BufferWriter.DATE64:
-//			return readLong64();
-//		default: 
-//			return readRepeat(b);
-//		}
-//	}
+	public long readBaseDate() throws IOException {
+		if (repeatCount > 0) {
+			repeatCount--;
+			return (Long) repeatValue;
+		}
+		
+		int b = read2();
+		
+		switch (b) {
+		case BufferWriter.DATE16:
+			return BufferWriter.BASEDATE + readUInt16() * 86400000L;
+		case BufferWriter.DATE32:
+			return BufferWriter.BASEDATE - readULong32() * 1000L;
+		case BufferWriter.DATETIME32:
+			throw new RuntimeException();
+		case BufferWriter.DATETIME33:
+			throw new RuntimeException();
+		case BufferWriter.DATETIME64:
+			throw new RuntimeException();
+		case BufferWriter.TIME16:
+			throw new RuntimeException();
+		case BufferWriter.TIME17:
+			throw new RuntimeException();
+		case BufferWriter.TIME32:
+			throw new RuntimeException();
+		case BufferWriter.DATE24:
+			return BufferWriter.BASEDATE + readUInt24() * 86400000L;
+		case BufferWriter.DATE64:
+			return readLong64();
+		default: 
+			java.sql.Date date = (Date) readRepeat(b);
+			return date.getTime();
+		}
+	}
 	
 	public void skipBaseInt() throws IOException {
 		if (repeatCount > 0) {
