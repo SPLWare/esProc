@@ -617,6 +617,10 @@ public class PseudoTable extends Pseudo {
 	
 	}
 	
+	public ICursor cursor(Expression []exps, String []names) {
+		return cursor(exps, names, false);
+	}
+	
 	//返回虚表的游标
 	public ICursor cursor(Expression []exps, String []names, boolean isColumn) {
 		setFetchInfo(exps, names);//把取出字段添加进去，里面可能会对extraOpList赋值

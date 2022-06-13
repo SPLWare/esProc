@@ -352,7 +352,7 @@ public class Pseudo implements IPseudo{
 	// 判断是否配置了指定名称的外键
 	public boolean hasForeignKey(String fkName) {
 		PseudoColumn column = pd.findColumnByName(fkName);
-		if (column.getDim() != null)
+		if (column != null && column.getDim() != null)
 			return true;
 		else
 			return false;
