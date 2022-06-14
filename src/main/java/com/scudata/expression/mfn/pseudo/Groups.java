@@ -277,7 +277,7 @@ public class Groups extends PseudoFunction {
 		}
 		
 		boolean hasH = false;
-		if (option != null && option.indexOf('h') != -1) {
+		if (option != null && option.indexOf('c') != -1) {
 			hasH = true;
 		}
 		

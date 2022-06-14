@@ -31,7 +31,7 @@ public class CreateCursor extends PseudoFunction {
 			return null;
 		}
 		
-		if (opt != null && opt.indexOf('h') != -1 && IColumnCursorUtil.util != null) {
+		if (opt != null && opt.indexOf('c') != -1 && IColumnCursorUtil.util != null) {
 			hasH = true;
 		}
 		
