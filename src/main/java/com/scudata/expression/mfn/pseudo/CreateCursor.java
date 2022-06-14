@@ -26,17 +26,17 @@ public class CreateCursor extends PseudoFunction {
 	}
 	
 	public static ICursor createCursor(String fnName, IPseudo table, IParam param, String opt, Context ctx) {
-		boolean hasH = false;
+		boolean hasV = false;
 		if (table == null) {
 			return null;
 		}
 		
-		if (opt != null && opt.indexOf('c') != -1 && IColumnCursorUtil.util != null) {
-			hasH = true;
+		if (opt != null && opt.indexOf('v') != -1 && IColumnCursorUtil.util != null) {
+			hasV = true;
 		}
 		
 		if (param == null) {
-			return table.cursor(null, null, hasH);
+			return table.cursor(null, null, hasV);
 		}
 		
 		IParam fieldParam = null;
@@ -91,6 +91,6 @@ public class CreateCursor extends PseudoFunction {
 			}
 		}
 		
-		return table.cursor(exps, names, hasH);
+		return table.cursor(exps, names, hasV);
 	}
 }

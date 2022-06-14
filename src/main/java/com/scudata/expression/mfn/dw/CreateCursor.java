@@ -78,10 +78,10 @@ public class CreateCursor extends TableMetaDataFunction {
 	public static ICursor createCursor(ITableMetaData table, IParam param, String opt, Context ctx) {
 		// 是否产生多路游标
 		boolean isMultiThread = opt != null && opt.indexOf('m') != -1;
-		boolean hasH = opt != null && opt.indexOf('c') != -1 && IColumnCursorUtil.util != null;//列式游标
+		boolean hasV = opt != null && opt.indexOf('v') != -1 && IColumnCursorUtil.util != null;//列式游标
 		
 		if (param == null && !isMultiThread) {
-			if (hasH) return IColumnCursorUtil.util.cursor(table);
+			if (hasV) return IColumnCursorUtil.util.cursor(table);
 			return table.cursor();
 		}
 		
@@ -225,7 +225,7 @@ public class CreateCursor extends TableMetaDataFunction {
 			names = pi.getExpressionStrs2();
 		}
 
-		if (hasH) {
+		if (hasV) {
 			if (mcs != null) {
 				return IColumnCursorUtil.util.cursor(table, exps, names, filter, fkNames, codes, opts, mcs, opt, ctx);
 			} else if (isMultiThread && segCount > 1) {

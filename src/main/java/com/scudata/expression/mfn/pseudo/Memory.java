@@ -17,9 +17,9 @@ import com.scudata.expression.PseudoFunction;
 public class Memory extends PseudoFunction {
 	public Object calculate(Context ctx) {
 		//列式内表
-		if (option != null && option.indexOf('c') != -1 && IColumnCursorUtil.util != null) {
+		if (option != null && option.indexOf('v') != -1 && IColumnCursorUtil.util != null) {
 			String opt = option;
-			opt = opt.replace("c", "");
+			opt = opt.replace("v", "");
 			opt += 'm';
 			
 			ICursor cursor = CreateCursor.createCursor("memory", pseudo, param, opt, ctx);

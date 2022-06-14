@@ -276,12 +276,12 @@ public class Groups extends PseudoFunction {
 			}
 		}
 		
-		boolean hasH = false;
-		if (option != null && option.indexOf('c') != -1) {
-			hasH = true;
+		boolean hasV = false;
+		if (option != null && option.indexOf('v') != -1) {
+			hasV = true;
 		}
 		
-		ICursor cursor = pseudo.cursor(expArray, fields, hasH);
+		ICursor cursor = pseudo.cursor(expArray, fields, hasV);
 		Sequence result = null;
 		if (cursor instanceof ClusterCursor) {
 			ClusterCursor clusterCursor = (ClusterCursor)cursor;
