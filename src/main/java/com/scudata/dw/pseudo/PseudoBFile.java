@@ -172,8 +172,12 @@ public class PseudoBFile extends PseudoTable {
 		return;
 	}
 	
-	//返回虚表的游标
 	public ICursor cursor(Expression []exps, String []names) {
+		return cursor(exps, names, false);
+	}
+	
+	//返回虚表的游标
+	public ICursor cursor(Expression []exps, String []names, boolean isColumn) {
 		ICursor cursor = null;
 		setFetchInfo(exps, names);//把取出字段添加进去，里面可能会对extraOpList赋值
 		if (pathCount > 1) {//指定了并行数
