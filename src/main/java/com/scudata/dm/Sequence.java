@@ -560,6 +560,15 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @return Sequence ½á¹ûÐòÁÐ
 	 */
 	public Sequence get(int start, int end) {
+		int max = mems.size() + 1;
+		if (start >= max) {
+			return new Sequence();
+		}
+		
+		if (end > max) {
+			end = max;
+		}
+		
 		Sequence seq = new Sequence(end - start);
 		seq.mems.addSection(mems, start, end);
 		return seq;
