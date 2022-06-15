@@ -35,6 +35,10 @@ public class PseudoMemory extends Pseudo {
 	}
 	
 	public ICursor cursor(Expression []exps, String []names) {
+		return cursor(exps, names, false);
+	}
+	
+	public ICursor cursor(Expression []exps, String []names, boolean isColumn) {
 		ICursor cs;
 		if (pathCount > 1) {
 			cs = CursorUtil.cursor(pd.getMemoryTable(), pathCount, ctx);
