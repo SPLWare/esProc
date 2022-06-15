@@ -1478,12 +1478,13 @@ public class JTableValue extends JTableEx {
 			// 根据标题长度设置列宽
 			int[] pkIndex = ds.getPKIndex();
 			final int IMAGE_WIDTH = 35;
-			for (int i = hasIndexCol ? 1 : 0; i < cc; i++) {
+			final int startCol = hasIndexCol ? 1 : 0;
+			for (int i = startCol; i < cc; i++) {
 				tc = getColumn(i);
 				int titleWidth = getFontMetrics(getFont()).stringWidth(
 						getColumnName(i));
 				int colWidth = tc.getWidth();
-				if (isPK(pkIndex, i - 1)) {
+				if (isPK(pkIndex, i - startCol)) {
 					tc.setHeaderRenderer(new PKRenderer());
 					titleWidth += IMAGE_WIDTH;
 				}
