@@ -208,7 +208,11 @@ public class DialogDataSourcePara extends JDialog {
 		initUI();
 		init();
 		resetLangText();
-		pack();
+		if (GM.isChineseLanguage()) {
+			setSize(600, 420);
+		} else {
+			setSize(650, 420);
+		}
 		GM.setDialogDefaultButton(this, jBOK, jBCancel);
 	}
 
@@ -352,7 +356,12 @@ public class DialogDataSourcePara extends JDialog {
 		jPanel4.add(jBAdd, null);
 		jPanel4.add(jBDel, null);
 
-		tableExtend.getColumn(COL_ISNEED).setMaxWidth(70);
+		if (GM.isChineseLanguage()) {
+			tableExtend.getColumn(COL_ISNEED).setMaxWidth(70);
+		}
+		// else {
+		// tableExtend.getColumn(COL_ISNEED).setMaxWidth(140);
+		// }
 		tableExtend.getColumn(COL_NAME).setPreferredWidth(70);
 
 		this.setResizable(true);

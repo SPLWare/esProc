@@ -9,6 +9,7 @@ import java.awt.event.WindowEvent;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -83,7 +84,14 @@ public class DialogDataSource extends JDialog implements IDataSourceEditor {
 	 * Constructor
 	 */
 	public DialogDataSource(DataSourceListModel dslm) {
-		super(GV.appFrame, "Data source", true);
+		this(GV.appFrame, dslm);
+	}
+
+	/**
+	 * Constructor
+	 */
+	public DialogDataSource(JFrame parent, DataSourceListModel dslm) {
+		super(parent, "Data source", true);
 		init(dslm);
 	}
 

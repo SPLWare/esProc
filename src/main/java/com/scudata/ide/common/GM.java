@@ -602,7 +602,7 @@ public class GM {
 	 */
 	public static File[] dialogSelectFiles(String fileExts,
 			String currentDirectory, String title, File[] oldFiles,
-			Component owner) { // edit by ryz 2017.08.02 增加参数owner
+			Component owner) {
 		return (File[]) dialogSelectFiles(fileExts, currentDirectory, title,
 				oldFiles, true, null, owner);
 	}
@@ -1331,7 +1331,7 @@ public class GM {
 			is.close();
 			return new ImageIcon(bt);
 		} catch (Exception e) {
-			Logger.info(e.getMessage());
+			// Logger.info(e.getMessage());
 			if (showException) {
 				showException(e);
 			}
@@ -1458,7 +1458,7 @@ public class GM {
 					.get().getMessage("gm.errorprompt"), false);
 			dit.setText(msg);
 			dit.setMessageMode();
-			if (logo != null) { // 2018.05.17 ryz增加logo
+			if (logo != null) {
 				dit.setIconImage(logo.getImage());
 			}
 			dit.setVisible(true);
