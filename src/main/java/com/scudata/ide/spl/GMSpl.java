@@ -2,7 +2,9 @@ package com.scudata.ide.spl;
 
 import java.awt.Font;
 import java.io.File;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Vector;
 
 import javax.swing.JOptionPane;
@@ -14,7 +16,9 @@ import com.scudata.app.common.Segment;
 import com.scudata.cellset.datamodel.CellSet;
 import com.scudata.cellset.datamodel.NormalCell;
 import com.scudata.cellset.datamodel.PgmCellSet;
+import com.scudata.cellset.datamodel.PgmNormalCell;
 import com.scudata.common.ArgumentTokenizer;
+import com.scudata.common.CellLocation;
 import com.scudata.common.Logger;
 import com.scudata.common.Matrix;
 import com.scudata.common.StringUtils;
@@ -693,5 +697,63 @@ public class GMSpl extends GM {
 		} catch (Exception e) {
 			GM.showException(e);
 		}
+	}
+
+	/**
+	 * 取网格表达式
+	 * @param cellSet
+	 * @return
+	 */
+	public static String[][] getCellSetExps(PgmCellSet cellSet) {
+		int rc = cellSet.getRowCount();
+		int cc = cellSet.getColCount();
+		String[][] cellExps = new String[rc][cc];
+		for (int r = 1; r <= rc; r++) {
+			for (int c = 1; c <= cc; c++) {
+				PgmNormalCell cell = cellSet.getPgmNormalCell(r, c);
+				if (cell != null) {
+					cellExps[r - 1][c - 1] = cell.getExpString();
+				}
+			}
+		}
+		return cellExps;
+	}
+
+	/**
+	 * 取变化的单元格表达式
+	 * @return 返回null表示无变化
+	 */
+	public static Map<String, String> getExpChangedMap(PgmCellSet cellSet,
+			String[][] cellExps) {
+		Map<String, String> map = new HashMap<String, String>();
+		int rc = cellSet.getRowCount();
+		int cc = cellSet.getColCount();
+		for (int r = 1; r <= rc; r++) {
+			for (int c = 1; c <= cc; c++) {
+				PgmNormalCell cell = cellSet.getPgmNormalCell(r, c);
+				String oldExp = null;
+				if (cellExps.length >= r && cellExps[r - 1].length >= c) {
+					oldExp = cellExps[r - 1][c - 1];
+				}
+				String newExp = null;
+				if (cell != null) {
+					newExp = cell.getExpString();
+				}
+				boolean expChanged = false;
+				if (newExp == null) {
+					if (oldExp != null) {
+						expChanged = true;
+					}
+				} else if (!newExp.equals(oldExp)) {
+					expChanged = true;
+				}
+				if (expChanged) {
+					map.put(CellLocation.getCellId(r, c), newExp);
+				}
+			}
+		}
+		if (map.isEmpty())
+			return null;
+		return map;
 	}
 }

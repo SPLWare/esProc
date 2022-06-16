@@ -61,13 +61,14 @@ public class PopupSpl {
 			pm.addSeparator();
 			pm.add(mSpl.cloneMenuItem(GCSpl.iEDIT_CHART));
 			pm.add(mSpl.cloneMenuItem(GCSpl.iFUNC_ASSIST));
-			
+
 			pm.add(mSpl.cloneMenuItem(GCSpl.iDRAW_CHART));
 			JMenuItem calcArea = mSpl.cloneMenuItem(GCSpl.iCALC_AREA);
 			calcArea.setVisible(true);
 			pm.add(calcArea);
 			break;
 		case GCSpl.SELECT_STATE_COL:
+			pm.add(mSpl.cloneMenuItem(GCSpl.iINSERT_COL));
 			pm.add(mSpl.cloneMenuItem(GCSpl.iADD_COL));
 			pm.add(mSpl.cloneMenuItem(GCSpl.iDELETE_COL));
 			pm.addSeparator();

@@ -190,6 +190,7 @@ public class AtomicSpl implements IAtomicCmd {
 		Object oldValue = null;
 		Vector<Object> cells;
 		CellSetParser csp = new CellSetParser(control.cellSet);
+		String[][] cellExps = GMSpl.getCellSetExps(control.cellSet);
 		try {
 			switch (type) {
 			case INSERT_ROW:
@@ -511,7 +512,7 @@ public class AtomicSpl implements IAtomicCmd {
 				oldMatrix = getMatrixCells(control.cellSet, realRect);
 				NormalCell ncClone;
 
-				Map<String, String> expMap = new HashMap<String, String>();
+				// Map<String, String> expMap = new HashMap<String, String>();
 				int rn = -1;
 				for (int row = area.getBeginRow(); row <= area.getEndRow(); row++) {
 					if (!csp.isRowVisible(row)) {
@@ -549,16 +550,16 @@ public class AtomicSpl implements IAtomicCmd {
 						targetCell.setTip(nc.getTip());
 						exp = GM.getOptionTrimChar0String(exp);
 						targetCell.setExpString(exp);
-						String cellId = CellLocation.getCellId(
-								targetCell.getRow(), targetCell.getCol());
-						expMap.put(cellId, exp);
+						// String cellId = CellLocation.getCellId(
+						// targetCell.getRow(), targetCell.getCol());
+						// expMap.put(cellId, exp);
 					}
 				}
-				if (!expMap.isEmpty()) {
-					if (GV.appSheet != null && GV.appSheet instanceof SheetSpl) {
-						((SheetSpl) GV.appSheet).expChanged(expMap);
-					}
-				}
+				// if (!expMap.isEmpty()) {
+				// if (GV.appSheet != null && GV.appSheet instanceof SheetSpl) {
+				// ((SheetSpl) GV.appSheet).expChanged(expMap);
+				// }
+				// }
 
 				// ¸´ÖÆÊ×¸ñ
 				CellSelection oldCs = new CellSelection(oldMatrix, realRect,
@@ -653,7 +654,7 @@ public class AtomicSpl implements IAtomicCmd {
 					rScale = rc / rect.getRowCount();
 					cScale = cc / rect.getColCount();
 				}
-				Map<String, String> expMap = new HashMap<String, String>();
+				// Map<String, String> expMap = new HashMap<String, String>();
 				for (int i = 0; i < rScale; i++) {
 					for (int r = 0; r < rect.getRowCount(); r++) {
 						int tarRow = rect.getBeginRow() + i
@@ -670,18 +671,18 @@ public class AtomicSpl implements IAtomicCmd {
 										cp.getRow(), cp.getCol());
 								data = GM.getOptionTrimChar0String(data);
 								nc.setExpString(data);
-								String cellId = CellLocation.getCellId(
-										nc.getRow(), nc.getCol());
-								expMap.put(cellId, data);
+								// String cellId = CellLocation.getCellId(
+								// nc.getRow(), nc.getCol());
+								// expMap.put(cellId, data);
 							}
 						}
 					}
 				}
-				if (!expMap.isEmpty()) {
-					if (GV.appSheet != null && GV.appSheet instanceof SheetSpl) {
-						((SheetSpl) GV.appSheet).expChanged(expMap);
-					}
-				}
+				// if (!expMap.isEmpty()) {
+				// if (GV.appSheet != null && GV.appSheet instanceof SheetSpl) {
+				// ((SheetSpl) GV.appSheet).expChanged(expMap);
+				// }
+				// }
 
 				reverseCmd.setType(AtomicSpl.SET_RECTCELLS);
 			}
@@ -1255,6 +1256,13 @@ public class AtomicSpl implements IAtomicCmd {
 				break;
 			}
 		} finally {
+			Map<String, String> expMap = GMSpl.getExpChangedMap(
+					control.cellSet, cellExps);
+			if (expMap != null) {
+				if (GV.appSheet != null && GV.appSheet instanceof SheetSpl) {
+					((SheetSpl) GV.appSheet).expChanged(expMap);
+				}
+			}
 			ControlUtils.extractSplEditor(control).setSelectedAreas(
 					selectedAreas);
 		}

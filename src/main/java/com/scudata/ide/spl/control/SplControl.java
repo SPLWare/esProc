@@ -1291,8 +1291,18 @@ public abstract class SplControl extends ControlBase {
 		if (col > cellSet.getColCount() || col < 0) {
 			col = cellSet.getColCount();
 		}
-		cellSet.insertCol(col, count);
+		insertCol(cellSet, col, count);
 		resetControlWidth();
+	}
+
+	/**
+	 * 插入列
+	 * @param cellSet
+	 * @param col
+	 * @param count
+	 */
+	protected void insertCol(PgmCellSet cellSet, int col, int count) {
+		cellSet.insertCol(col, count);
 	}
 
 	/**
@@ -1301,8 +1311,17 @@ public abstract class SplControl extends ControlBase {
 	 * @param count 追加的列数
 	 */
 	public void addColumn(int count) {
-		cellSet.addCol(count);
+		addCol(cellSet, count);
 		resetControlWidth();
+	}
+
+	/**
+	 * 追加列
+	 * @param cellSet
+	 * @param count
+	 */
+	protected void addCol(PgmCellSet cellSet, int count) {
+		cellSet.addCol(count);
 	}
 
 	/**
@@ -1340,7 +1359,7 @@ public abstract class SplControl extends ControlBase {
 	public List<NormalCell> removeColumn(int col, int count) {
 		List<NormalCell> adjustCells = null;
 		if (col <= cellSet.getColCount() && col > 0) {
-			adjustCells = cellSet.removeCol(col, count);
+			adjustCells = removeCol(cellSet, col, count);
 			if (getActiveCell() != null) {
 				int activeCellStartCol = getActiveCell().getCol();
 				if (col <= activeCellStartCol) {
@@ -1356,6 +1375,17 @@ public abstract class SplControl extends ControlBase {
 	}
 
 	/**
+	 * 删除列
+	 * @param cellSet
+	 * @param col
+	 * @param count
+	 * @return
+	 */
+	protected List<NormalCell> removeCol(PgmCellSet cellSet, int col, int count) {
+		return cellSet.removeCol(col, count);
+	}
+
+	/**
 	 * 插入行
 	 * 
 	 * @param row   行位置
@@ -1365,8 +1395,18 @@ public abstract class SplControl extends ControlBase {
 		if (row > cellSet.getRowCount() || row < 0) {
 			row = cellSet.getRowCount();
 		}
-		cellSet.insertRow(row, count);
+		insertRow(cellSet, row, count);
 		resetControlHeight();
+	}
+
+	/**
+	 * 插入行
+	 * @param cellSet
+	 * @param row
+	 * @param count
+	 */
+	protected void insertRow(PgmCellSet cellSet, int row, int count) {
+		cellSet.insertRow(row, count);
 	}
 
 	/**
@@ -1406,8 +1446,17 @@ public abstract class SplControl extends ControlBase {
 	 * @param count 追加的行数
 	 */
 	public void addRow(int count) {
-		cellSet.addRow(count);
+		addRow(cellSet, count);
 		resetControlHeight();
+	}
+
+	/**
+	 * 追加行
+	 * @param cellSet
+	 * @param count
+	 */
+	protected void addRow(PgmCellSet cellSet, int count) {
+		cellSet.addRow(count);
 	}
 
 	/**
@@ -1419,7 +1468,7 @@ public abstract class SplControl extends ControlBase {
 	public List<NormalCell> removeRow(int row, int count) {
 		List<NormalCell> adjustCells = null;
 		if (row <= cellSet.getRowCount() && row > 0) {
-			adjustCells = cellSet.removeRow(row, count);
+			adjustCells = removeRow(cellSet, row, count);
 			if (getActiveCell() != null) {
 				int activeCellStartRow = getActiveCell().getRow();
 				if (row <= activeCellStartRow) {
@@ -1432,6 +1481,17 @@ public abstract class SplControl extends ControlBase {
 			}
 		}
 		return adjustCells;
+	}
+
+	/**
+	 * 删除行
+	 * @param cellSet
+	 * @param row
+	 * @param count
+	 * @return
+	 */
+	protected List<NormalCell> removeRow(PgmCellSet cellSet, int row, int count) {
+		return cellSet.removeRow(row, count);
 	}
 
 	/**
