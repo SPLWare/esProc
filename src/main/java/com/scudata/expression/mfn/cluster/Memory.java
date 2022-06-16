@@ -53,6 +53,6 @@ public class Memory extends ClusterTableMetaDataFunction {
 			}
 		}
 		
-		return table.memory(fields, filter, ctx);
+		return table.memory(fields, filter, option, ctx);
 	}
 }

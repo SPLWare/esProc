@@ -21,6 +21,7 @@ import com.scudata.dm.cursor.ICursor;
 import com.scudata.dm.cursor.MemoryCursor;
 import com.scudata.dm.cursor.MultipathCursors;
 import com.scudata.dw.Cuboid;
+import com.scudata.dw.IColumnCursorUtil;
 import com.scudata.dw.ITableIndex;
 import com.scudata.dw.ITableMetaData;
 import com.scudata.dw.JoinCursor;
@@ -411,7 +412,7 @@ public class ClusterTableMetaData implements IClusterObject, IResource {
 	 * @param ctx 计算上下文
 	 * @return 集群内表
 	 */
-	public ClusterMemoryTable memory(String []fields, Expression filter, Context ctx) {
+	public ClusterMemoryTable memory(String []fields, Expression filter, String option, Context ctx) {
 		ClusterFile clusterFile = getClusterFile();
 		int count = clusterFile.getUnitCount();
 		RemoteMemoryTable[] tables = new RemoteMemoryTable[count];
@@ -425,6 +426,7 @@ public class ClusterTableMetaData implements IClusterObject, IResource {
 			command.setAttribute("tmdProxyId", new Integer(tmdProxyIds[i]));
 			
 			command.setAttribute("fields", fields);
+			command.setAttribute("option", option);
 			command.setAttribute("filter", filter == null ? null : filter.toString());
 			command.setAttribute("unit", new Integer(i));
 			
@@ -455,6 +457,7 @@ public class ClusterTableMetaData implements IClusterObject, IResource {
 		Integer tmdProxyId = (Integer) attributes.get("tmdProxyId");
 		String []fields = (String[]) attributes.get("fields");
 		String filter = (String) attributes.get("filter");
+		String option = (String) attributes.get("option");
 		Integer unit = (Integer) attributes.get("unit");
 
 		try {
@@ -467,29 +470,39 @@ public class ClusterTableMetaData implements IClusterObject, IResource {
 			Expression exp = filter == null ? null : new Expression(ctx, filter);
 
 			ICursor cursor = tmd.cursor(fields, exp, ctx);
-			Sequence seq = cursor.fetch();
-			Table table;
-			if (seq instanceof Table) {
-				table = (Table)seq;
-			} else {
-				table = seq.derive("o");
-			}
-
-			MemoryTable memoryTable = new MemoryTable(table);
-			if (tmd instanceof TableMetaData) {
-				String distribute = tmd.getDistribute();
-				Integer partition = ((TableMetaData)tmd).getGroupTable().getPartition();
-				if (partition != null) {
-					memoryTable.setDistribute(distribute);
-					memoryTable.setPart(partition);
-				}
-			}
-
-			IProxy proxy = new TableProxy(memoryTable, unit);
-			rm.addProxy(proxy);
+			IProxy proxy;
 			
-			RemoteMemoryTable rmt = ClusterMemoryTable.newRemoteMemoryTable(proxy.getProxyId(), memoryTable);
-			return new Response(rmt);
+			//列式内表
+			if (option != null && option.indexOf('v') != -1 && IColumnCursorUtil.util != null) {
+				//TODO
+				return null;
+//				ITableMetaData table = (ITableMetaData) IColumnCursorUtil.util.createMemoryTable(cursor, fields, option);
+//				proxy = new TableMetaDataProxy(table);
+			} else {
+				Sequence seq = cursor.fetch();
+				Table table;
+				if (seq instanceof Table) {
+					table = (Table)seq;
+				} else {
+					table = seq.derive("o");
+				}
+
+				MemoryTable memoryTable = new MemoryTable(table);
+				if (tmd instanceof TableMetaData) {
+					String distribute = tmd.getDistribute();
+					Integer partition = ((TableMetaData)tmd).getGroupTable().getPartition();
+					if (partition != null) {
+						memoryTable.setDistribute(distribute);
+						memoryTable.setPart(partition);
+					}
+				}
+
+				proxy = new TableProxy(memoryTable, unit);
+				rm.addProxy(proxy);
+				RemoteMemoryTable rmt = ClusterMemoryTable.newRemoteMemoryTable(proxy.getProxyId(), memoryTable);
+				return new Response(rmt);
+			}
+			
 		} catch (Exception e) {
 			Response response = new Response();
 			response.setException(e);

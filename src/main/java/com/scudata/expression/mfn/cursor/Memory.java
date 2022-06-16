@@ -57,7 +57,7 @@ public class Memory extends CursorFunction {
 		}
 		
 		//列式内表
-		if (option != null && option.indexOf('h') != -1 && IColumnCursorUtil.util != null) {
+		if (option != null && option.indexOf('v') != -1 && IColumnCursorUtil.util != null) {
 			return IColumnCursorUtil.util.createMemoryTable(cursor, keys, option);
 		}
 		
