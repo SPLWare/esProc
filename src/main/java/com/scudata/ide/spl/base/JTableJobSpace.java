@@ -66,7 +66,14 @@ public abstract class JTableJobSpace extends JPanel {
 	 * @param val
 	 * @param varName
 	 */
-	public abstract void select(Object val, String varName);
+	public abstract void select(Object val, String varName, String spaceName);
+
+	public void selectParam(int row) {
+		if (row < 0)
+			return;
+		select(tableVar.data.getValueAt(row, COL_VALUE), getVarName(row),
+				getSpaceName(row));
+	}
 
 	private HashMap<String, Param[]> paramMap;
 
@@ -124,6 +131,26 @@ public abstract class JTableJobSpace extends JPanel {
 			}
 		}
 		return true;
+	}
+
+	/**
+	 * 取任务空间名
+	 * @param row
+	 * @return
+	 */
+	private String getSpaceName(int row) {
+		return tableVar.data.getValueAt(row, COL_SPACE) == null ? ""
+				: (String) tableVar.data.getValueAt(row, COL_SPACE);
+	}
+
+	/**
+	 * 取变量名
+	 * @param row
+	 * @return
+	 */
+	private String getVarName(int row) {
+		return tableVar.data.getValueAt(row, COL_NAME) == null ? ""
+				: (String) tableVar.data.getValueAt(row, COL_NAME);
 	}
 
 	/**
@@ -223,9 +250,7 @@ public abstract class JTableJobSpace extends JPanel {
 				return;
 			}
 			if (newRow != -1) {
-				select(data.getValueAt(newRow, COL_VALUE),
-						data.getValueAt(newRow, COL_NAME) == null ? ""
-								: (String) data.getValueAt(newRow, COL_NAME));
+				selectParam(newRow);
 			}
 		}
 
@@ -268,18 +293,14 @@ public abstract class JTableJobSpace extends JPanel {
 			}
 			int row = rowAtPoint(p);
 			if (row != -1) {
-				select(data.getValueAt(row, COL_VALUE),
-						data.getValueAt(row, COL_NAME) == null ? ""
-								: (String) data.getValueAt(row, COL_NAME));
+				selectParam(row);
 			}
 		}
 
 		public void doubleClicked(int xpos, int ypos, int row, int col,
 				MouseEvent e) {
 			if (row != -1) {
-				select(data.getValueAt(row, COL_VALUE),
-						data.getValueAt(row, COL_NAME) == null ? ""
-								: (String) data.getValueAt(row, COL_NAME));
+				selectParam(row);
 			}
 		}
 	};

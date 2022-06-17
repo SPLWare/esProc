@@ -302,10 +302,9 @@ public class SPL extends AppFrame {
 			tabParam = new JTabbedParam() {
 				private static final long serialVersionUID = 1L;
 
-				public void selectVar(Object val, String varName) {
-					GVSpl.panelValue.tableValue.setValue1(val, varName);
-					GVSpl.panelValue.valueBar.refresh();
-					this.repaint();
+				public void selectVar(Object val, String varName,
+						String spaceName) {
+					selectParam(varName, val, spaceName);
 				}
 			};
 			GVSpl.tabParam = tabParam;
@@ -413,6 +412,17 @@ public class SPL extends AppFrame {
 	 */
 	protected AppMenu newMenuSpl() {
 		return GVSpl.getSplMenu();
+	}
+
+	/**
+	 * 查看参数值
+	 * @param varName
+	 * @param val
+	 */
+	protected void selectParam(String varName, Object val, String spaceName) {
+		GVSpl.panelValue.tableValue.setValue1(val, varName);
+		GVSpl.panelValue.valueBar.refresh();
+		this.repaint();
 	}
 
 	/**

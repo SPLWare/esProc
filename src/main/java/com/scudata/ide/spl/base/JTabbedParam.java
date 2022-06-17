@@ -66,7 +66,7 @@ public abstract class JTabbedParam extends JTabbedPane {
 		private static final long serialVersionUID = 1L;
 
 		public void select(Object val, String varName) {
-			selectVar(val, varName);
+			selectVar(val, varName, null);
 		}
 	};
 
@@ -76,8 +76,8 @@ public abstract class JTabbedParam extends JTabbedPane {
 	private JTableJobSpace tableSpaceVar = new JTableJobSpace() {
 		private static final long serialVersionUID = 1L;
 
-		public void select(Object val, String varName) {
-			selectVar(val, varName);
+		public void select(Object val, String varName, String spaceName) {
+			selectVar(val, varName, spaceName);
 		}
 	};
 
@@ -88,7 +88,7 @@ public abstract class JTabbedParam extends JTabbedPane {
 		private static final long serialVersionUID = 1L;
 
 		public void select(Object val, String varName) {
-			selectVar(val, varName);
+			selectVar(val, varName, null);
 		}
 	};
 
@@ -210,7 +210,7 @@ public abstract class JTabbedParam extends JTabbedPane {
 	 * @param val
 	 * @param varName
 	 */
-	public abstract void selectVar(Object val, String varName);
+	public abstract void selectVar(Object val, String varName, String spaceName);
 
 	/**
 	 * 重置参数列表
