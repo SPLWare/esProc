@@ -626,20 +626,19 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 			if (nc != null) {
 				IByteMap values = splEditor.getProperty();
 				GV.toolBarProperty.refresh(selectState, values);
-				Object value = null;
-				try {
-					value = getCellValue(nc.getRow(), nc.getCol());
-				} catch (Exception ex) {
-					Logger.error(ex);
-				}
+				// Object value = null;
+				// try {
+				// value = getCellValue(nc.getRow(), nc.getCol());
+				// } catch (Exception ex) {
+				// Logger.error(ex);
+				// }
 				GVSpl.panelValue.tableValue.setCellId(nc.getCellId());
 				String oldId = GVSpl.panelValue.tableValue.getCellId();
 				if (nc.getCellId().equals(oldId)) { // refresh
-					GVSpl.panelValue.tableValue
-							.setValue1(value, nc.getCellId());
+					setValue(nc, false);
 				} else {
 					lockOtherCell = true;
-					GVSpl.panelValue.tableValue.setValue(value);
+					setValue(nc, true);
 				}
 				GVSpl.panelValue.setDebugTime(debugTimeMap.get(nc.getCellId()));
 			}
@@ -650,24 +649,9 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 					try {
 						INormalCell lockCell = splControl.cellSet
 								.getCell(cellId);
-						Object oldVal = GVSpl.panelValue.tableValue
-								.getOriginalValue();
-						Object newVal = null;
-						try {
-							newVal = getCellValue(lockCell.getRow(),
-									lockCell.getCol());
-						} catch (Exception ex) {
-							Logger.error(ex);
-						}
-						boolean isValChanged = false;
-						if (oldVal == null) {
-							isValChanged = newVal != null;
-						} else {
-							isValChanged = !oldVal.equals(newVal);
-						}
+						boolean isValChanged = isValueChanged(cellId);
 						if (isValChanged)
-							GVSpl.panelValue.tableValue.setValue1(newVal,
-									cellId);
+							setValue(lockCell, false);
 					} catch (Exception e) {
 					}
 				}
@@ -795,19 +779,6 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 	}
 
 	/**
-	 * 获取单元格值
-	 * @param row
-	 * @param col
-	 * @return
-	 */
-	protected Object getCellValue(int row, int col) {
-		INormalCell nc = splControl.cellSet.getCell(row, col);
-		if (nc == null)
-			return null;
-		return nc.getValue();
-	}
-
-	/**
 	 * 获取序列序表片段值
 	 * @param row 单元格行
 	 * @param col 单元格列
@@ -877,9 +848,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 				NormalCell nc = (NormalCell) splControl.cellSet.getCell(row,
 						col);
 				if (nc != null) {
-					Object value = getCellValue(row, col);
-					GVSpl.panelValue.tableValue
-							.setValue1(value, nc.getCellId());
+					setValue(nc, false);
 				}
 			} catch (Exception x) {
 				showException(x);
@@ -1143,6 +1112,43 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 			PanelConsole pc = ((SPL) GVSpl.appFrame).getPanelConsole();
 			if (pc != null)
 				pc.autoClean();
+		}
+	}
+
+	/**
+	 * 值是否发生变化了
+	 * @param cellId
+	 * @return
+	 */
+	protected boolean isValueChanged(String cellId) {
+		INormalCell lockCell = splControl.cellSet.getCell(cellId);
+		Object oldVal = GVSpl.panelValue.tableValue.getOriginalValue();
+		Object newVal = null;
+		try {
+			newVal = lockCell.getValue();
+		} catch (Exception ex) {
+			Logger.error(ex);
+		}
+		boolean isValChanged = false;
+		if (oldVal == null) {
+			isValChanged = newVal != null;
+		} else {
+			isValChanged = !oldVal.equals(newVal);
+		}
+		return isValChanged;
+	}
+
+	/**
+	 * 设置单元格值
+	 * @param value
+	 * @param caseLock 是否考虑锁定状态
+	 */
+	protected void setValue(INormalCell nc, boolean caseLock) {
+		Object value = nc.getValue();
+		if (caseLock) {
+			GVSpl.panelValue.tableValue.setValue(value);
+		} else {
+			GVSpl.panelValue.tableValue.setValue1(value, nc.getCellId());
 		}
 	}
 
@@ -1820,9 +1826,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 												.getPgmNormalCell(r, c);
 										if (cell.isCalculableCell()
 												|| cell.isCalculableBlock()) {
-											returnVal = getCellValue(
-													cell.getRow(),
-													cell.getCol());
+											returnVal = cell.getValue();
 										}
 									}
 								}

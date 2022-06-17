@@ -77,6 +77,7 @@ import com.scudata.ide.common.swing.AllPurposeEditor;
 import com.scudata.ide.common.swing.AllPurposeRenderer;
 import com.scudata.ide.common.swing.JTableEx;
 import com.scudata.ide.common.swing.JTextFieldReadOnly;
+import com.scudata.ide.spl.GMSpl;
 import com.scudata.ide.spl.dialog.DialogDisplayChart;
 import com.scudata.ide.spl.dialog.DialogTextEditor;
 import com.scudata.ide.spl.resources.IdeSplMessage;
@@ -1621,10 +1622,6 @@ public class JTableValue extends JTableEx {
 	 * DBInfo对象对应的序表
 	 */
 	private Table dbTable = null;
-	/** 属性名 */
-	private final String TITLE_NAME = mm.getMessage("jtablevalue.name");
-	/** 属性值 */
-	private final String TITLE_PROP = mm.getMessage("jtablevalue.property");
 
 	/**
 	 * 初始化DBInfo对象
@@ -1634,35 +1631,18 @@ public class JTableValue extends JTableEx {
 	 * @return
 	 */
 	private int initDB(DBObject db) {
-		dbTable = new Table(new String[] { TITLE_NAME, TITLE_PROP });
-		addColumn(TITLE_NAME); // 名称
-		addColumn(TITLE_PROP); // 属性
+		dbTable = GMSpl.getDBTable(db);
+		addColumn(GMSpl.TITLE_NAME); // 名称
+		addColumn(GMSpl.TITLE_PROP); // 属性
 		for (int i = 0; i < this.getColumnCount(); i++) {
 			setColumnEditable(i, false);
 		}
 		if (db == null || db.getDbSession() == null) {
 			return 0;
 		}
-		initDBTable(db);
+		// initDBTable(db);
 		return dbTable.length();
 	}
-
-	/** 数据源名称 */
-	private final String DB_NAME = mm.getMessage("jtablevalue.dbname");
-	/** 用户名 */
-	private final String USER = mm.getMessage("jtablevalue.user");
-	/** 密码 */
-	private final String PASSWORD = mm.getMessage("jtablevalue.password");
-	/** 数据库类型 */
-	private final String DB_TYPE = mm.getMessage("jtablevalue.dbtype");
-	/** 驱动程序 */
-	private final String DRIVER = mm.getMessage("jtablevalue.driver");
-	/** 数据源URL */
-	private final String URL = mm.getMessage("jtablevalue.url");
-	/** 对象名带模式 */
-	private final String USE_SCHEMA = mm.getMessage("jtablevalue.useschema");
-	/** 对象名带限定符 */
-	private final String ADD_TILDE = mm.getMessage("jtablevalue.addtilde");
 
 	/**
 	 * 设置DBInfo对象到表格
@@ -1670,29 +1650,29 @@ public class JTableValue extends JTableEx {
 	 * @param db
 	 *            DBInfo对象
 	 */
-	private void initDBTable(DBObject db) {
-		DBInfo info = db.getDbSession().getInfo();
-		if (info == null) {
-			return;
-		}
-		dbTable.newLast(new Object[] { DB_NAME, info.getName() });
-		if (info instanceof DBConfig) {
-			int type = info.getDBType();
-			dbTable.newLast(new Object[] { DB_TYPE,
-					DBTypeEx.getDBTypeName(type) });
-
-			DBConfig dc = (DBConfig) info;
-			dbTable.newLast(new Object[] { DRIVER, dc.getDriver() });
-			dbTable.newLast(new Object[] { URL, dc.getUrl() });
-			dbTable.newLast(new Object[] { USER, dc.getUser() });
-			String pwd = dc.getPassword();
-			dbTable.newLast(new Object[] { PASSWORD, pwd });
-			dbTable.newLast(new Object[] { USE_SCHEMA,
-					Boolean.toString(dc.isUseSchema()) });
-			dbTable.newLast(new Object[] { ADD_TILDE,
-					Boolean.toString(dc.isAddTilde()) });
-		}
-	}
+	// private void initDBTable(DBObject db) {
+	// DBInfo info = db.getDbSession().getInfo();
+	// if (info == null) {
+	// return;
+	// }
+	// dbTable.newLast(new Object[] { DB_NAME, info.getName() });
+	// if (info instanceof DBConfig) {
+	// int type = info.getDBType();
+	// dbTable.newLast(new Object[] { DB_TYPE,
+	// DBTypeEx.getDBTypeName(type) });
+	//
+	// DBConfig dc = (DBConfig) info;
+	// dbTable.newLast(new Object[] { DRIVER, dc.getDriver() });
+	// dbTable.newLast(new Object[] { URL, dc.getUrl() });
+	// dbTable.newLast(new Object[] { USER, dc.getUser() });
+	// String pwd = dc.getPassword();
+	// dbTable.newLast(new Object[] { PASSWORD, pwd });
+	// dbTable.newLast(new Object[] { USE_SCHEMA,
+	// Boolean.toString(dc.isUseSchema()) });
+	// dbTable.newLast(new Object[] { ADD_TILDE,
+	// Boolean.toString(dc.isAddTilde()) });
+	// }
+	// }
 
 	/**
 	 * 初始化FileObject对象
