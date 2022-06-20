@@ -186,6 +186,122 @@ public class ClusterFile implements IClusterObject {
 	}
 	
 	/**
+	 * 从给出的节点机列表中选出含有指定分表文件的节点机，创建集群文件
+	 * @param cluster 节点机信息
+	 * @param fileName 文件名
+	 * @param parts 分区数列或二层数列
+	 * @param opt 选项
+	 */
+	public ClusterFile(Cluster cluster, String fileName, Sequence partSeq, String opt) {
+		this.fileName = fileName;
+		this.opt = opt;
+		isDistributedFile = true;
+		int pcount = partSeq.length();
+		
+		// 分表可以是二层数列，此时每个节点机将会产生一个复组表，每个成员的成员必须在分布在同一个分机上
+		int [][]partArrays = new int[pcount][];
+		int []firstParts = new int[pcount]; // 取二层数列的首分表号组成数组，
+		
+		for (int i = 1; i <= pcount; ++i) {
+			Object obj = partSeq.getMem(i);
+			if (obj instanceof Number) {
+				int p = ((Number)obj).intValue();
+				partArrays[i - 1] = new int[] {p};
+			} else if (obj instanceof Sequence) {
+				Sequence seq = (Sequence)obj;
+				if (seq.length() == 0) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException("file" + mm.getMessage("function.invalidParam"));
+				}
+				
+				partArrays[i - 1] = seq.toIntArray();
+			} else {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException("file" + mm.getMessage("function.invalidParam"));
+			}
+			
+			firstParts[i] = partArrays[i][0];
+		}
+		
+		String []hosts = cluster.getHosts();
+		int []ports = cluster.getPorts();
+		int hcount = hosts.length;
+		pfs = new PartitionFile[pcount];
+
+		// 集群可写入文件，z和hs一一对应
+		if (opt != null && opt.indexOf('w') != -1) {
+			if (hcount != pcount) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException("file" + mm.getMessage("function.paramCountNotMatch"));
+			}
+			
+			for (int i = 0; i < hcount; ++i) {
+				if (partArrays[i].length != 1) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException("file" + mm.getMessage("function.invalidParam"));
+				}
+				
+				pfs[i] = new PartitionFile(this, hosts[i], ports[i], partArrays[i]);
+			}
+			
+			this.cluster = cluster;
+			return;
+		}
+		
+		// 列出每个分区都有哪些节点机有
+		List<IntArrayList> hostList = new ArrayList<IntArrayList>();
+		for (int i = 0; i < hcount; ++i) {
+			try {
+				int []partList = ClusterUtil.listFileParts(hosts[i], ports[i], fileName, firstParts);
+				for (int p : partList) {
+					for (int size = hostList.size(); size <= p; ++size) {
+						hostList.add(new IntArrayList());
+					}
+					
+					hostList.get(p).addInt(i);
+				}
+			} catch (Exception e) {
+				// 有异常发生时不再使用此节点机，继续循环
+			}
+		}
+		
+		// 每个分区选择一个节点机，平均分配
+		int []weights = new int[hcount];
+		String []useHosts = new String[pcount];
+		int []usePorts = new int[pcount];
+		
+		for (int i = 0; i < pcount; ++i) {
+			int p = firstParts[i];
+			if (hostList.size() <= p) {
+				MessageManager mm = ParallelMessage.get();
+				throw new RQException(mm.getMessage("PartitionUtil.lackfile2", fileName, p));
+			}
+			
+			IntArrayList list = hostList.get(p);
+			int size = list.size();
+			if (size == 0) {
+				MessageManager mm = ParallelMessage.get();
+				throw new RQException(mm.getMessage("PartitionUtil.lackfile2", fileName, p));
+			}
+			
+			int h = list.getInt(0);
+			for (int j = 1; j < list.size(); ++j) {
+				int cur = list.getInt(j);
+				if (weights[cur] < weights[h]) {
+					h = cur;
+				}
+			}
+			
+			weights[h]++;
+			pfs[i] = new PartitionFile(this, hosts[h], ports[h], partArrays[i]);
+			useHosts[i] = hosts[h];
+			usePorts[i] = ports[h];
+		}
+		
+		this.cluster = new Cluster(useHosts, usePorts, cluster.getContext());
+	}
+	
+	/**
 	 * 构建集群分布写文件
 	 * @param cluster 节点机信息
 	 * @param fileName 文件名

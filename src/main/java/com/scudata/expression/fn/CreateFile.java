@@ -89,9 +89,11 @@ public class CreateFile extends Function {
 		}
 
 		String pathName = null;
-		int []partitions = null;
+		//int []partitions = null;
+		Sequence partSeq = null;
 		int part = -1;
 		String cs = null;
+		
 		if (fnParam.isLeaf()) {
 			Object pathObj = fnParam.getLeafExpression().calculate(ctx);
 			if (pathObj instanceof String) {
@@ -128,7 +130,8 @@ public class CreateFile extends Function {
 				} else if (csObj instanceof Number) {
 					part = ((Number)csObj).intValue();
 				} else if (csObj instanceof Sequence) {
-					partitions = ((Sequence)csObj).toIntArray();
+					//partitions = ((Sequence)csObj).toIntArray();
+					partSeq = (Sequence)csObj;
 				} else if (csObj != null) {
 					MessageManager mm = EngineMessage.get();
 					throw new RQException("file" + mm.getMessage("function.invalidParam"));
@@ -138,14 +141,18 @@ public class CreateFile extends Function {
 
 		FileObject fo;
 		if (clusterFile != null) {
+			int []partitions;
 			if (part > 0) {
 				partitions = new int[]{part};
+			} else {
+				partitions = partSeq.toIntArray();
 			}
+			
 			return new ClusterFile(clusterFile, pathName, partitions, option);
 		} else if (mc != null) {
-			if (partitions != null) {
+			if (partSeq != null) {
 				Cluster cluster = new Cluster(mc.getHosts(), mc.getPorts(), ctx);
-				return new ClusterFile(cluster, pathName, partitions, option);
+				return new ClusterFile(cluster, pathName, partSeq, option);
 			} else if (option != null && option.indexOf('w') != -1) {
 				Cluster cluster = new Cluster(mc.getHosts(), mc.getPorts(), ctx);
 				if (part > 0) {
@@ -161,7 +168,8 @@ public class CreateFile extends Function {
 			}
 		} else {
 			if (option == null || option.indexOf('t') == -1) {
-				if (partitions != null) {
+				if (partSeq != null) {
+					int []partitions = partSeq.toIntArray();
 					if (partitions.length > 1) {
 						return new FileGroup(pathName, partitions);
 					} else {

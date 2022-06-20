@@ -7,12 +7,14 @@ import java.util.HashMap;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
+import com.scudata.dm.FileGroup;
 import com.scudata.dm.FileObject;
 import com.scudata.dm.JobSpace;
 import com.scudata.dm.JobSpaceManager;
 import com.scudata.dm.cursor.BFileCursor;
 import com.scudata.dw.ColumnGroupTable;
 import com.scudata.dw.GroupTable;
+import com.scudata.dw.ITableMetaData;
 import com.scudata.dw.RowGroupTable;
 import com.scudata.dw.TableMetaData;
 import com.scudata.resources.EngineMessage;
@@ -26,8 +28,10 @@ class PartitionFile {
 	private ClusterFile clusterFile; // 所属的集群文件
 	private String host; // IP
 	private int port; // 端口
-	private int partition; // 分区，-1表示直接用文件名取
 	
+	//private int partition; // 分区，-1表示直接用文件名取
+	private int []parts; // 分表号数组，多个则为复组表，空则直接用文件名取
+		
 	/**
 	 * 构建节点机分区文件
 	 * @param clusterFile 所属的集群文件
@@ -39,7 +43,18 @@ class PartitionFile {
 		this.clusterFile = clusterFile;
 		this.host = host;
 		this.port = port;
-		this.partition = partition;
+		
+		//this.partition = partition;
+		if (partition != -1) {
+			parts = new int[] {partition};
+		}
+	}
+	
+	public PartitionFile(ClusterFile clusterFile, String host, int port, int []parts) {
+		this.clusterFile = clusterFile;
+		this.host = host;
+		this.port = port;
+		this.parts = parts;
 	}
 	
 	/**
@@ -48,7 +63,8 @@ class PartitionFile {
 	 * @return
 	 */
 	public PartitionFile dup(ClusterFile clusterFile) {
-		return new PartitionFile(clusterFile, host, port, partition);
+		//return new PartitionFile(clusterFile, host, port, partition);
+		return new PartitionFile(clusterFile, host, port, parts);
 	}
 	
 	/**
@@ -70,7 +86,8 @@ class PartitionFile {
 		try {
 			UnitCommand command = new UnitCommand(UnitCommand.CREATE_GT);
 			command.setAttribute("fileName", fileName);
-			command.setAttribute("partition", new Integer(partition));
+			//command.setAttribute("partition", new Integer(partition));
+			command.setAttribute("parts", parts);
 			command.setAttribute("jobSpaceId", clusterFile.getJobSpaceId());
 			
 			command.setAttribute("colNames", colNames);
@@ -92,7 +109,8 @@ class PartitionFile {
 	 */
 	public static Response executeCreateGroupTable(HashMap<String, Object> attributes) {
 		String fileName = (String)attributes.get("fileName");
-		Integer partition = (Integer)attributes.get("partition");
+		//Integer partition = (Integer)attributes.get("partition");
+		int []parts = (int[])attributes.get("parts");
 		String jobSpaceID = (String)attributes.get("jobSpaceId");
 		String []colNames = (String [])attributes.get("colNames");
 		String distribute = (String)attributes.get("distribute");
@@ -102,8 +120,8 @@ class PartitionFile {
 			JobSpace js = JobSpaceManager.getSpace(jobSpaceID);
 			Context ctx = ClusterUtil.createContext(js);
 			FileObject fo = new FileObject(fileName);
-			if (partition.intValue() > 0) {
-				fo.setPartition(partition);
+			if (parts != null && parts.length == 1) {
+				fo.setPartition(parts[0]);
 			}
 			
 			File file = fo.getLocalFile().file();
@@ -127,8 +145,8 @@ class PartitionFile {
 				gt = new ColumnGroupTable(file, colNames, distribute, opt, ctx);
 			}
 			
-			if (partition.intValue() > 0) {
-				gt.setPartition(partition);
+			if (parts != null && parts.length == 1) {
+				gt.setPartition(parts[0]);
 			}
 			
 			TableMetaData table = gt.getBaseTable();
@@ -152,7 +170,8 @@ class PartitionFile {
 		try {
 			UnitCommand command = new UnitCommand(UnitCommand.OPEN_GT);
 			command.setAttribute("fileName", clusterFile.getFileName());
-			command.setAttribute("partition", new Integer(partition));
+			//command.setAttribute("partition", new Integer(partition));
+			command.setAttribute("parts", parts);
 			command.setAttribute("jobSpaceId", clusterFile.getJobSpaceId());
 			Response response = client.send(command);
 			Integer id = (Integer)response.checkResult();
@@ -169,23 +188,31 @@ class PartitionFile {
 	 */
 	public static Response executeOpenGroupTable(HashMap<String, Object> attributes) {
 		String fileName = (String)attributes.get("fileName");
-		Integer partition = (Integer)attributes.get("partition");
+		//Integer partition = (Integer)attributes.get("partition");
+		int []parts = (int[])attributes.get("parts");
 		String jobSpaceID = (String)attributes.get("jobSpaceId");
 		
 		try {
 			JobSpace js = JobSpaceManager.getSpace(jobSpaceID);
 			Context ctx = ClusterUtil.createContext(js);
-
-			FileObject fo = new FileObject(fileName);
-			if (partition.intValue() > 0) {
-				fo.setPartition(partition);
-			}
-
-			File file = fo.getLocalFile().file();
-			TableMetaData table = GroupTable.openBaseTable(file, ctx);
+			ITableMetaData table;
 			
-			if (partition.intValue() > 0) {
-				table.getGroupTable().setPartition(partition);
+			if (parts == null || parts.length <= 1) {
+				FileObject fo = new FileObject(fileName);
+				if (parts != null && parts.length == 1) {
+					fo.setPartition(parts[0]);
+				}
+	
+				File file = fo.getLocalFile().file();
+				TableMetaData tmd = GroupTable.openBaseTable(file, ctx);
+				table = tmd;
+				
+				if (parts != null && parts.length == 1) {
+					tmd.getGroupTable().setPartition(parts[0]);
+				}
+			} else {
+				FileGroup fileGroup = new FileGroup(fileName, parts);
+				table = fileGroup.open(null, ctx);
 			}
 			
 			IProxy proxy = new TableMetaDataProxy(table);
@@ -214,7 +241,7 @@ class PartitionFile {
 		try {
 			UnitCommand command = new UnitCommand(UnitCommand.CREATE_BINARY_CURSOR);
 			command.setAttribute("fileName", fileName);
-			command.setAttribute("partition", new Integer(partition));
+			//command.setAttribute("partition", new Integer(partition));
 			command.setAttribute("segSeq", new Integer(segSeq));
 			command.setAttribute("segCount", new Integer(segCount));
 			command.setAttribute("unit", new Integer(unit));
@@ -237,7 +264,7 @@ class PartitionFile {
 	 */
 	public static Response executeCreateBinaryCursor(HashMap<String, Object> attributes) {
 		String fileName = (String)attributes.get("fileName");
-		Integer partition = (Integer)attributes.get("partition");
+		//Integer partition = (Integer)attributes.get("partition");
 		Integer segSeq = (Integer)attributes.get("segSeq");
 		Integer segCount = (Integer)attributes.get("segCount");
 		Integer unit = (Integer)attributes.get("unit");
@@ -246,9 +273,9 @@ class PartitionFile {
 		String opt = (String)attributes.get("opt");
 		
 		FileObject fo = new FileObject(fileName);
-		if (partition.intValue() > 0) {
-			fo.setPartition(partition);
-		}
+		//if (partition.intValue() > 0) {
+		//	fo.setPartition(partition);
+		//}
 		
 		try {
 			JobSpace js = JobSpaceManager.getSpace(jobSpaceID);
@@ -283,7 +310,8 @@ class PartitionFile {
 		try {
 			UnitCommand command = new UnitCommand(UnitCommand.GT_RESET);
 			command.setAttribute("fileName", clusterFile.getFileName());
-			command.setAttribute("partition", new Integer(partition));
+			//command.setAttribute("partition", new Integer(partition));
+			command.setAttribute("parts", parts);
 			command.setAttribute("file", file);
 			command.setAttribute("option", option);
 			command.setAttribute("jobSpaceId", clusterFile.getJobSpaceId());
@@ -304,32 +332,43 @@ class PartitionFile {
 	 */
 	public static Response executeResetGroupTable(HashMap<String, Object> attributes) {
 		String fileName = (String)attributes.get("fileName");
-		Integer partition = (Integer)attributes.get("partition");
+		//Integer partition = (Integer)attributes.get("partition");
+		int []parts = (int[])attributes.get("parts");
 		String file = (String)attributes.get("file");//new file name
 		String option = (String)attributes.get("option");
 		String jobSpaceID = (String)attributes.get("jobSpaceId");
 		String distribute = (String)attributes.get("distribute");
 		
-		FileObject fo = new FileObject(fileName);
-		if (partition.intValue() > 0) {
-			fo.setPartition(partition);
-		}
-		
 		try {
 			JobSpace js = JobSpaceManager.getSpace(jobSpaceID);
 			Context ctx = ClusterUtil.createContext(js);
-			GroupTable table = GroupTable.open(fo.getLocalFile().file(), ctx);
 			boolean result;
 			
-			if (file == null) {
-				result = table.reset(null, option, ctx, distribute);
-			} else {
-				fo = new FileObject(file);
-				if (partition.intValue() >= 0) {
-					fo.setPartition(partition);
+			if (parts == null || parts.length <= 1) {
+				FileObject fo = new FileObject(fileName);
+				if (parts != null && parts.length == 1) {
+					fo.setPartition(parts[0]);
 				}
 				
-				result = table.reset(fo.getLocalFile().file(), option, ctx, distribute);
+				GroupTable table = GroupTable.open(fo.getLocalFile().file(), ctx);
+				if (file == null) {
+					result = table.reset(null, option, ctx, distribute);
+				} else {
+					FileObject newFile = new FileObject(file);
+					if (parts != null && parts.length == 1) {
+						newFile.setPartition(parts[0]);
+					}
+					
+					result = table.reset(newFile.getLocalFile().file(), option, ctx, distribute);
+				}
+			} else {
+				FileGroup fileGroup = new FileGroup(fileName, parts);
+				if (file == null) {
+					result = fileGroup.resetGroupTable(option, ctx);
+				} else {
+					FileGroup newFileGroup = new FileGroup(file, parts);
+					result = fileGroup.resetGroupTable(newFileGroup, option, distribute, ctx);
+				}
 			}
 			
 			return new Response(Boolean.valueOf(result));
@@ -361,6 +400,11 @@ class PartitionFile {
 	 * @return int
 	 */
 	public int getPartition() {
-		return partition;
+		//return partition;
+		if (parts != null && parts.length > 0) {
+			return parts[0];
+		} else {
+			return -1;
+		}
 	}
 }
