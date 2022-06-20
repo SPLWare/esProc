@@ -22,6 +22,7 @@ import com.scudata.dw.pseudo.PseudoTable;
 import com.scudata.expression.Expression;
 import com.scudata.expression.Function;
 import com.scudata.expression.FunctionLib;
+import com.scudata.thread.ThreadPool;
 
 public class ClusterPseudo implements IClusterObject, IPseudo {
 	public static final int TYPE_TABLE = 0;
@@ -29,27 +30,62 @@ public class ClusterPseudo implements IClusterObject, IPseudo {
 	public static final int TYPE_NEWS = 2;
 	public static final int TYPE_DERIVE = 3;
 	
-	private Cluster cluster; // 节点机信息
+	private ClusterFile clusterFile; // 节点机信息
 	private int []pseudoProxyIds; // 对应的节点机虚表代理标识
 	private Sequence cache;//对import的结果的cache
+	private boolean hasZone;
+	private ClusterTableMetaData table;
 	
-	public ClusterPseudo(Cluster cluster, int[] pseudoProxyIds) {
-		this.cluster = cluster;
+	public ClusterPseudo(ClusterFile clusterFile, boolean hasZone, int[] pseudoProxyIds) {
+		this.clusterFile = clusterFile;
 		this.pseudoProxyIds = pseudoProxyIds;
+		this.hasZone = hasZone;
 	}
 
+	private static Sequence toSequence(int[] arr) {
+		if (arr == null) return null;
+		Sequence seq = new Sequence();
+		for (int v : arr) {
+			seq.add(v);
+		}
+		return seq;
+	}
+	
 	public static ClusterPseudo createClusterPseudo(Record rec, Machines hs, int n, Context ctx) {
+		Sequence zone = (Sequence) PseudoDefination.getFieldValue(rec, PseudoDefination.PD_ZONE);
+		String file = (String) PseudoDefination.getFieldValue(rec, PseudoDefination.PD_FILE);
+		ClusterFile clusterFile;
+		boolean hasZone;
+		
 		Cluster cluster = new Cluster(hs.getHosts(), hs.getPorts(), ctx);
-		int count = cluster.getUnitCount();
+		if (zone != null) {
+			hasZone = true;
+			clusterFile = new ClusterFile(cluster, file, zone, null);
+		} else {
+			hasZone = false;
+			clusterFile = new ClusterFile(cluster, file, null);
+		}
+		
+		ClusterTableMetaData table = clusterFile.openGroupTable(ctx);
+		
+		int count = clusterFile.getUnitCount();
 		int[] newPseudoProxyIds = new int[count];
+		Record record = new Record(rec.dataStruct(), rec.getFieldValues());
+		PartitionFile[] pfs = clusterFile.getPartitionFiles();
 		
 		for (int i = 0; i < count; ++i) {
-			UnitClient client = new UnitClient(cluster.getHost(i), cluster.getPort(i));
+			UnitClient client = new UnitClient(clusterFile.getHost(i), clusterFile.getPort(i));
 
 			try {
 				UnitCommand command = new UnitCommand(UnitCommand.PSEUDO_CREATE);
 				command.setAttribute("jobSpaceId", cluster.getJobSpaceId());
-				command.setAttribute("rec", rec);
+				Sequence z = toSequence(pfs[i].getParts());
+				if (z == null) {
+					PseudoDefination.setFieldValue(record, PseudoDefination.PD_ZONE, null);
+				} else {
+					PseudoDefination.setFieldValue(record, PseudoDefination.PD_ZONE, z);
+				}
+				command.setAttribute("rec", record);
 				command.setAttribute("n", new Integer(n));
 				
 				Response response = client.send(command);
@@ -59,7 +95,8 @@ public class ClusterPseudo implements IClusterObject, IPseudo {
 				client.close();
 			}
 		}
-		ClusterPseudo result = new ClusterPseudo(cluster, newPseudoProxyIds);
+		ClusterPseudo result = new ClusterPseudo(clusterFile, hasZone, newPseudoProxyIds);
+		result.table = table;
 		return result;
 	}
 	
@@ -104,7 +141,7 @@ public class ClusterPseudo implements IClusterObject, IPseudo {
 	}
 	
 	public Cluster getCluster() {
-		return cluster;
+		return clusterFile.getCluster();
 	}
 
 	public void addColNames(String[] nameArray) {
@@ -195,6 +232,8 @@ public class ClusterPseudo implements IClusterObject, IPseudo {
 		}
 
 		ClusterCursor result = new ClusterCursor(this, cursorProxyIds, true);
+		result.setDistribute(table.getDistribute());
+		result.setSortedColNames(getAllSortedColNames());
 		return result;
 	}
 
@@ -246,15 +285,15 @@ public class ClusterPseudo implements IClusterObject, IPseudo {
 	}
 
 	public Object clone(Context ctx) throws CloneNotSupportedException {
-		int count = cluster.getUnitCount();
+		int count = clusterFile.getUnitCount();
 		int[] newPseudoProxyIds = new int[count];
 		
 		for (int i = 0; i < count; ++i) {
-			UnitClient client = new UnitClient(cluster.getHost(i), cluster.getPort(i));
+			UnitClient client = new UnitClient(clusterFile.getHost(i), clusterFile.getPort(i));
 
 			try {
 				UnitCommand command = new UnitCommand(UnitCommand.PSEUDO_CLONE);
-				command.setAttribute("jobSpaceId", cluster.getJobSpaceId());
+				command.setAttribute("jobSpaceId", clusterFile.getJobSpaceId());
 				command.setAttribute("pseudoProxyId", new Integer(pseudoProxyIds[i]));
 				
 				Response response = client.send(command);
@@ -265,7 +304,7 @@ public class ClusterPseudo implements IClusterObject, IPseudo {
 			}
 		}
 
-		ClusterPseudo result = new ClusterPseudo(cluster, newPseudoProxyIds);
+		ClusterPseudo result = new ClusterPseudo(clusterFile, hasZone, newPseudoProxyIds);
 		return result;
 	}
 	
@@ -335,7 +374,7 @@ public class ClusterPseudo implements IClusterObject, IPseudo {
 			}
 		}
 		
-		ClusterPseudo result = new ClusterPseudo(cluster, newPseudoProxyIds);
+		ClusterPseudo result = new ClusterPseudo(clusterFile, hasZone, newPseudoProxyIds);
 		return result;
 	}
 	
@@ -370,5 +409,60 @@ public class ClusterPseudo implements IClusterObject, IPseudo {
 	
 	public Sequence getCache() {
 		return cache;
+	}
+	
+	/**
+	 * 返回所有的维字段名
+	 * @return 字段名数组
+	 */
+	public String[] getAllSortedColNames() {
+		return table.getAllSortedColNames();
+	}
+	
+	/**
+	 * 读出组表字段成集群内表
+	 * @param fields 要读出的字段名数组
+	 * @param filter 过滤条件
+	 * @param ctx 计算上下文
+	 * @return 集群内表
+	 */
+	public ClusterMemoryTable memory(String []fields, Expression filter, String option, Context ctx) {
+		boolean hasV = (option != null && option.indexOf('v') != -1);
+		if (hasV) {
+			
+		}
+		
+		Cluster cluster = getCluster();
+		int count = cluster.getUnitCount();
+		RemoteMemoryTable[] tables = new RemoteMemoryTable[count];
+		
+		UnitJob []jobs = new UnitJob[count];
+		ThreadPool pool = TaskManager.getPool();
+		for (int i = 0; i < count; ++i) {
+			UnitClient client = new UnitClient(cluster.getHost(i), cluster.getPort(i));
+			UnitCommand command = new UnitCommand(UnitCommand.MEMORY_GT);
+			command.setAttribute("jobSpaceId", cluster.getJobSpaceId());
+			command.setAttribute("tmdProxyId", new Integer(pseudoProxyIds[i]));
+			
+			command.setAttribute("fields", fields);
+			command.setAttribute("option", option);
+			command.setAttribute("filter", filter == null ? null : filter.toString());
+			command.setAttribute("unit", new Integer(i));
+			
+			ClusterUtil.setParams(command, filter, ctx);
+			jobs[i] = new UnitJob(client, command);
+			pool.submit(jobs[i]);
+		}
+
+		for (int i = 0; i < count; ++i) {
+			// 等待任务执行完毕
+			jobs[i].join();
+			tables[i] = (RemoteMemoryTable)jobs[i].getResult();
+		}
+
+		ClusterMemoryTable result = new ClusterMemoryTable(getCluster(), tables, hasZone);
+		result.setDistribute(table.getDistribute());
+		result.setSortedColNames(getAllSortedColNames());
+		return result;
 	}
 }

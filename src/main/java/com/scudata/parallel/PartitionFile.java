@@ -407,4 +407,8 @@ class PartitionFile {
 			return -1;
 		}
 	}
+	
+	public int[] getParts() {
+		return parts;
+	}
 }

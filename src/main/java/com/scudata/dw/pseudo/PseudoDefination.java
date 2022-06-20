@@ -150,6 +150,13 @@ public class PseudoDefination {
 		this.memoryTable = memoryTable;
 	}
 
+	public static void setFieldValue(Record pd, String name, Object value) {
+		int index = pd.getFieldIndex(name);
+		if (index != -1) {
+			pd.setNormalFieldValue(index, value);
+		}
+	}
+	
 	public static Object getFieldValue(Record pd, String name) {
 		int index = pd.getFieldIndex(name);
 		if (index != -1) {

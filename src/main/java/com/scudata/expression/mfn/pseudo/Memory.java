@@ -7,6 +7,7 @@ import com.scudata.dm.cursor.ICursor;
 import com.scudata.dw.IColumnCursorUtil;
 import com.scudata.dw.MemoryTable;
 import com.scudata.expression.PseudoFunction;
+import com.scudata.parallel.ClusterCursor;
 
 /**
  * 把虚表读成内表
@@ -27,6 +28,9 @@ public class Memory extends PseudoFunction {
 		}
 		
 		ICursor cursor = CreateCursor.createCursor("memory", pseudo, param, null, ctx);
+		if (cursor instanceof ClusterCursor) {
+			return ((ClusterCursor)cursor).memory(null, ctx);
+		}
 		Sequence seq = cursor.fetch();
 		
 		Table table;
