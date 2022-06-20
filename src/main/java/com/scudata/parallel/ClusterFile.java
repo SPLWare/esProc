@@ -220,7 +220,7 @@ public class ClusterFile implements IClusterObject {
 				throw new RQException("file" + mm.getMessage("function.invalidParam"));
 			}
 			
-			firstParts[i] = partArrays[i][0];
+			firstParts[i - 1] = partArrays[i - 1][0];
 		}
 		
 		String []hosts = cluster.getHosts();
