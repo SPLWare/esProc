@@ -1,16 +1,20 @@
 package com.scudata.dw.pseudo;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import com.scudata.common.RQException;
 import com.scudata.common.Types;
+import com.scudata.dm.BFileReader;
 import com.scudata.dm.Context;
 import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.cursor.BFileCursor;
 import com.scudata.dm.cursor.ICursor;
 import com.scudata.dm.cursor.MultipathCursors;
+import com.scudata.dm.op.Join;
 import com.scudata.dm.op.New;
 import com.scudata.dm.op.Operation;
+import com.scudata.dm.op.Switch;
 import com.scudata.expression.Expression;
 import com.scudata.expression.Node;
 import com.scudata.expression.UnknownSymbol;
@@ -180,6 +184,7 @@ public class PseudoBFile extends PseudoTable {
 	public ICursor cursor(Expression []exps, String []names, boolean isColumn) {
 		ICursor cursor = null;
 		setFetchInfo(exps, names);//把取出字段添加进去，里面可能会对extraOpList赋值
+		
 		if (pathCount > 1) {//指定了并行数
 			int count = pathCount;
 			ICursor cursors[] = new ICursor[count];
@@ -199,6 +204,77 @@ public class PseudoBFile extends PseudoTable {
 			}
 		}
 
+		if (getPd() != null && getPd().getColumns() != null) {
+			for (PseudoColumn column : getPd().getColumns()) {
+				if (column.getDim() != null) {//如果存在外键，则添加一个switch的延迟计算
+					Sequence dim;
+					if (column.getDim() instanceof Sequence) {
+						dim = (Sequence) column.getDim();
+					} else {
+						dim = ((IPseudo) column.getDim()).cursor(null, null, false).fetch();
+					}
+					
+					String fkey[] = column.getFkey();
+					/**
+					 * 如果fkey等于null，且name不等于null，且存在time，则组织为一个新的fkey={name，time}
+					 */
+					if (fkey == null && column.getName() != null && column.getTime() != null) {
+						fkey = new String[] {column.getName(), column.getTime()};
+					}
+					
+					if (fkey == null) {
+						/**
+						 * 此时name就是外键字段
+						 */
+						String[] fkNames = new String[] {column.getName()};
+						Sequence[] codes = new Sequence[] {dim};
+						Switch s = new Switch(fkNames, codes, null, null);
+						cursor.addOperation(s, ctx);
+//					} else if (fkey.length == 1) {
+//						Sequence[] codes = new Sequence[] {dim};
+//						Switch s = new Switch(fkey, codes, null, null);
+//						cursor.addOperation(s, ctx);
+					} else {
+						int size = fkey.length;
+						
+						/**
+						 * 如果定义了时间字段,就把时间字段拼接到fkey末尾
+						 */
+						if (column.getTime() != null) {
+							size++;
+							fkey = new String[size];
+							System.arraycopy(column.getFkey(), 0, fkey, 0, size - 1);
+							fkey[size - 1] = column.getTime();
+						}
+						
+						Expression[][] exps_ = new Expression[1][];
+						exps_[0] = new Expression[size];
+						for (int i = 0; i < size; i++) {
+							exps_[0][i] = new Expression(fkey[i]);
+						}
+						Expression[][] newExps = new Expression[1][];
+						newExps[0] = new Expression[] {new Expression("~")};
+						String[][] newNames = new String[1][];
+						newNames[0] = new String[] {column.getName()};
+						
+						Expression[][] dimKeyExps = new Expression[1][];
+						String[] dimKey = column.getDimKey();
+						if (dimKey == null) {
+							dimKeyExps[0] = null;
+						} else {
+							Expression[] dimKeyExp = new Expression[size];
+							for (int i = 0; i < size; i++) {
+								dimKeyExp[i] = new Expression(dimKey[i]);
+							}
+							dimKeyExps[0] = dimKeyExp;
+						}
+						
+						Join join = new Join(null, null, exps_, new Sequence[] {dim}, dimKeyExps, newExps, newNames, null);
+						cursor.addOperation(join, ctx);
+					}
+				}
+			}
+		}
 		if (opList != null) {
 			for (Operation op : opList) {
 				cursor.addOperation(op, ctx);
@@ -212,7 +288,7 @@ public class PseudoBFile extends PseudoTable {
 		
 		return cursor;
 	}
-	
+
 	public Object clone(Context ctx) throws CloneNotSupportedException {
 		PseudoBFile obj = new PseudoBFile();
 		obj.hasPseudoColumns = hasPseudoColumns;
