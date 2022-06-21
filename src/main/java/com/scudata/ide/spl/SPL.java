@@ -217,7 +217,7 @@ public class SPL extends AppFrame {
 				}
 
 				public String getSheetIconName() {
-					return "file_dfx.png";
+					return "file_spl.png";
 				}
 
 				public ImageIcon getLogoImage() {
