@@ -62,7 +62,7 @@ abstract public class IColumnCursorUtil {
 	 * @param ctx Context 计算上下文
 	 * @return ICursor 结果集游标
 	 */
-	public abstract ICursor joinx(ICursor []cursors, String []names, Expression [][]exps, String opt, Context ctx);
+	//public abstract ICursor joinx(ICursor []cursors, String []names, Expression [][]exps, String opt, Context ctx);
 	
 	/**
 	 * 转换为行存序表
