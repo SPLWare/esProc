@@ -209,8 +209,11 @@ public class BFileReader {
 		
 		if (type == BFileWriter.TYPE_NORMAL) {
 			if (segCount > 1) {
-				MessageManager mm = EngineMessage.get();
-				throw new RQException(mm.getMessage("engine.needZFile"));
+				//MessageManager mm = EngineMessage.get();
+				//throw new RQException(mm.getMessage("engine.needZFile"));
+				if (segSeq > 1) {
+					endPos = 0;
+				}
 			}
 			
 			totalRecordCount = importer.readLong64();
