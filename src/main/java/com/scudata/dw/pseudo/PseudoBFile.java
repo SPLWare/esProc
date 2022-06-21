@@ -237,11 +237,11 @@ public class PseudoBFile extends PseudoTable {
 		throw new RQException("Never run to here.");
 	}
 	
-	public Pseudo addForeignKeys(String fkName, String []fieldNames, Pseudo code) {
+	public Pseudo addForeignKeys(String fkName, String []fieldNames, Pseudo code, String[] codeKeys) {
 		PseudoBFile table = null;
 		try {
 			table = (PseudoBFile) clone(ctx);
-			table.getPd().addPseudoColumn(new PseudoColumn(fkName, fieldNames, code));
+			table.getPd().addPseudoColumn(new PseudoColumn(fkName, fieldNames, code, codeKeys));
 			if (fieldNames == null) {
 				table.addColName(fkName);
 			} else {
