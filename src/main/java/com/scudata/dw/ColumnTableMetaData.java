@@ -2103,7 +2103,7 @@ public class ColumnTableMetaData extends TableMetaData {
 
 	// 有补文件时的数据更新
 	private Sequence update(TableMetaData stmd, Sequence data, String opt) throws IOException {
-		boolean isUpdate = true, isInsert = true;
+		boolean isUpdate = true, isInsert = true, isSave = true;
 		Sequence result = null;
 		if (opt != null) {
 			if (opt.indexOf('i') != -1) isUpdate = false;
@@ -2117,6 +2117,7 @@ public class ColumnTableMetaData extends TableMetaData {
 			}
 			
 			if (opt.indexOf('n') != -1) result = new Sequence();
+			if (opt.indexOf('m') != -1) isSave = false;
 		}
 		
 		DataStruct ds = data.dataStruct();
@@ -2384,7 +2385,9 @@ public class ColumnTableMetaData extends TableMetaData {
 			
 		}
 		
-		saveModifyRecords();
+		if (isSave) {
+			saveModifyRecords();
+		}
 		
 		if (isPrimaryTable && needUpdateSubTable) {
 			//主表有insert，就必须更新所有子表补区
@@ -2405,7 +2408,10 @@ public class ColumnTableMetaData extends TableMetaData {
 			}
 		}
 		
-		groupTable.save();
+		if (isSave) {
+			groupTable.save();
+		}
+		
 		return result;
 	}
 	
@@ -2432,6 +2438,10 @@ public class ColumnTableMetaData extends TableMetaData {
 		boolean isInsert = true,isUpdate = true;
 		Sequence result = null;
 		if (opt != null) {
+			if (opt.indexOf('m') != -1) {
+				return update_m(data, opt);
+			}
+			
 			if (opt.indexOf('i') != -1) isUpdate = false;
 			if (opt.indexOf('u') != -1) {
 				if (!isUpdate) {
@@ -2827,6 +2837,408 @@ public class ColumnTableMetaData extends TableMetaData {
 		return result;
 	}
 
+	// 融合到内存中的补区，不写入外存
+	private Sequence update_m(Sequence data, String opt) throws IOException {
+		boolean isInsert = true,isUpdate = true;
+		Sequence result = null;
+		if (opt != null) {
+			if (opt.indexOf('i') != -1) isUpdate = false;
+			if (opt.indexOf('u') != -1) {
+				if (!isUpdate) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException(opt + mm.getMessage("engine.optConflict"));
+				}
+				
+				isInsert = false;
+			}
+			
+			if (opt.indexOf('n') != -1) result = new Sequence();
+		}
+		
+		long totalRecordCount = this.totalRecordCount;
+		DataStruct ds = data.dataStruct();
+		if (ds == null) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException(mm.getMessage("engine.needPurePmt"));
+		}
+		
+		if (!ds.isCompatible(this.ds)) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException(mm.getMessage("engine.dsNotMatch"));
+		}
+		
+		// 对更新数据进行排序
+		data.sortFields(getAllSortedColNames());
+		appendCache();
+		
+		ColumnMetaData[] columns = getAllSortedColumns();
+		int keyCount = columns.length;
+		int []keyIndex = new int[keyCount];
+		for (int k = 0; k < keyCount; ++k) {
+			keyIndex[k] = ds.getFieldIndex(columns[k].getColName());
+			if (keyIndex[k] < 0) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException(columns[k].getColName() + mm.getMessage("ds.fieldNotExist"));
+			}
+		}
+		
+		boolean isPrimaryTable = parent == null;
+		int len = data.length();
+		long []seqs = new long[len + 1];
+		int []block = new int[len + 1];//是否在一个段的底部insert(子表)
+		long []recNum = null;
+		int []temp = new int[1];
+		
+		if (isPrimaryTable) {
+			RecordSeqSearcher searcher = new RecordSeqSearcher(this);
+			
+			if (keyCount == 1) {
+				int k = keyIndex[0];
+				for (int i = 1; i <= len; ++i) {
+					Record r = (Record)data.getMem(i);
+					seqs[i] = searcher.findNext(r.getFieldValue(k));
+				}
+			} else {
+				Object []keyValues = new Object[keyCount];
+				for (int i = 1; i <= len; ++i) {
+					Record r = (Record)data.getMem(i);
+					for (int k = 0; k < keyCount; ++k) {
+						keyValues[k] = r.getFieldValue(keyIndex[k]);
+					}
+					
+					seqs[i] = searcher.findNext(keyValues);
+				}
+			}
+		} else {
+			recNum  = new long[len + 1];//子表对应到主表的伪号，0表示在主表补区
+			ColumnTableMetaData baseTable = (ColumnTableMetaData) this.groupTable.baseTable;
+			RecordSeqSearcher baseSearcher = new RecordSeqSearcher(baseTable);
+			RecordSeqSearcher2 searcher = new RecordSeqSearcher2(this);
+			if (keyCount == 1) {
+				int k = keyIndex[0];
+				for (int i = 1; i <= len; ++i) {
+					Record r = (Record)data.getMem(i);
+					seqs[i] = searcher.findNext(r.getFieldValue(k), temp);
+					block[i] = temp[0];
+					if (seqs[i] < 0) {
+						//如果是插入，要判断一下是否在主表的列区
+						long seq = baseSearcher.findNext(r.getFieldValue(k));
+						if (seq > 0) {
+							recNum[i] = seq;
+						} else {
+							if (baseSearcher.isEnd()) {
+								//子表插入的数据必须在主表
+								MessageManager mm = EngineMessage.get();
+								throw new RQException(r.toString(null) + mm.getMessage("grouptable.invalidData"));	
+							}
+							recNum[i] = 0;//如果在主表补区，下面会处理
+						}
+					} else {
+						recNum[i] = searcher.getRecNum();
+					}
+				}
+			} else {
+				Object []keyValues = new Object[keyCount];
+				int baseKeyCount = sortedColStartIndex;
+				Object []baseKeyValues = new Object[baseKeyCount];
+				
+				for (int i = 1; i <= len; ++i) {
+					Record r = (Record)data.getMem(i);
+					for (int k = 0; k < keyCount; ++k) {
+						keyValues[k] = r.getFieldValue(keyIndex[k]);
+						if (k < baseKeyCount) {
+							baseKeyValues[k] = keyValues[k]; 
+						}
+					}
+					
+					seqs[i] = searcher.findNext(keyValues, temp);
+					block[i] = temp[0];
+					if (seqs[i] < 0 || block[i] > 0) {
+						//如果是插入，要判断一下是否在主表的列区
+						long seq = baseSearcher.findNext(baseKeyValues);
+						if (seq > 0) {
+							recNum[i] = seq;
+						} else {
+							if (baseSearcher.isEnd()) {
+								//子表插入的数据必须在主表
+								MessageManager mm = EngineMessage.get();
+								throw new RQException(r.toString(null) + mm.getMessage("grouptable.invalidData"));	
+							}
+							recNum[i] = 0;//如果在主表补区，下面会处理
+						}
+					} else {
+						recNum[i] = searcher.getRecNum();
+					}
+				}
+			}
+		}
+		
+		ArrayList<ModifyRecord> modifyRecords = getModifyRecords();
+		boolean needUpdateSubTable = false;
+		
+		if (modifyRecords == null) {
+			modifyRecords = new ArrayList<ModifyRecord>(len);
+			this.modifyRecords = modifyRecords;
+			for (int i = 1; i <= len; ++i) {
+				Record sr = (Record)data.getMem(i);
+				if (seqs[i] > 0) {
+					if (isUpdate) {
+						ModifyRecord r = new ModifyRecord(seqs[i], ModifyRecord.STATE_UPDATE, sr);
+						modifyRecords.add(r);
+						if (result != null) {
+							result.add(sr);
+						}
+					}
+				} else if (isInsert) {
+					long seq = -seqs[i];
+					if (seq <= totalRecordCount || block[i] > 0) {
+						ModifyRecord r = new ModifyRecord(seq, ModifyRecord.STATE_INSERT, sr);
+						r.setBlock(block[i]);
+						//如果是子表insert 要处理parentRecordSeq，因为子表insert的可能指向主表列区
+						//这里先设置为指向列区伪号，最后会根据主表补区修改
+						if (!isPrimaryTable) {
+							r.setParentRecordSeq(recNum[i]);
+						}
+						modifyRecords.add(r);
+					} else {
+						ModifyRecord r = new ModifyRecord(seq, ModifyRecord.STATE_INSERT, sr);
+						r.setBlock(block[i]);
+						//如果是子表insert 要处理parentRecordSeq，因为子表insert的可能指向主表列区
+						//这里先设置为指向列区伪号，最后会根据主表补区修改
+						if (!isPrimaryTable) {
+							r.setParentRecordSeq(recNum[i]);
+						}
+						
+						modifyRecords.add(r);
+					}
+					
+					if (result != null) {
+						result.add(sr);
+					}
+				}
+			}
+		} else {
+			int srcLen = modifyRecords.size();
+			ArrayList<ModifyRecord> tmp = new ArrayList<ModifyRecord>(len + srcLen);
+			int s = 0;
+			int t = 1;
+			
+			while (s < srcLen && t <= len) {
+				ModifyRecord mr = modifyRecords.get(s);
+				long seq1 = mr.getRecordSeq();
+				long seq2 = seqs[t];
+				if (seq2 > 0) {
+					if (seq1 < seq2) {
+						s++;
+						tmp.add(mr);
+					} else if (seq1 == seq2) {
+						if (mr.getState() == ModifyRecord.STATE_INSERT) {
+							s++;
+							tmp.add(mr);
+						} else {
+							if ((mr.getState() == ModifyRecord.STATE_UPDATE && isUpdate) || 
+									(mr.getState() == ModifyRecord.STATE_DELETE && isInsert)) {
+								// 状态都用update
+								Record sr = (Record)data.getMem(t);
+								mr.setRecord(sr, ModifyRecord.STATE_UPDATE);
+								if (result != null) {
+									result.add(sr);
+								}
+							}
+
+							s++;
+							t++;
+							tmp.add(mr);
+						}
+					} else {
+						if (isUpdate) {
+							Record sr = (Record)data.getMem(t);
+							mr = new ModifyRecord(seq2, ModifyRecord.STATE_UPDATE, sr);
+							tmp.add(mr);
+							
+							if (result != null) {
+								result.add(sr);
+							}
+						}
+						
+						t++;
+					}
+				} else {
+					seq2 = -seq2;
+					if (seq1 < seq2) {
+						s++;
+						tmp.add(mr);
+					} else if (seq1 == seq2) {
+						if (mr.getState() == ModifyRecord.STATE_INSERT) {
+							int cmp = mr.getRecord().compare((Record)data.getMem(t), keyIndex);
+							if (cmp < 0) {
+								s++;
+								tmp.add(mr);
+							} else if (cmp == 0) {
+								if (isUpdate) {
+									Record sr = (Record)data.getMem(t);
+									mr.setRecord(sr);
+									if (result != null) {
+										result.add(sr);
+									}
+								}
+								
+								tmp.add(mr);
+								s++;
+								t++;
+							} else {
+								if (isInsert) {
+									Record sr = (Record)data.getMem(t);
+									mr = new ModifyRecord(seq2, ModifyRecord.STATE_INSERT, sr);
+									mr.setBlock(block[t]);
+									//如果是子表insert 要处理parentRecordSeq，因为子表insert的可能指向主表列区
+									//这里先设置为指向列区伪号，最后会根据主表补区修改
+									if (!isPrimaryTable) {
+										mr.setParentRecordSeq(recNum[t]);
+									}
+									modifyRecords.add(mr);
+									tmp.add(mr);
+									if (result != null) {
+										result.add(sr);
+									}
+								}
+								
+								t++;
+							}
+						} else {
+							if (isInsert) {
+								Record sr = (Record)data.getMem(t);
+								mr = new ModifyRecord(seq2, ModifyRecord.STATE_INSERT, sr);
+								mr.setBlock(block[t]);
+								//如果是子表insert 要处理parentRecordSeq，因为子表insert的可能指向主表列区
+								//这里先设置为指向列区伪号，最后会根据主表补区修改
+								if (!isPrimaryTable) {
+									mr.setParentRecordSeq(recNum[t]);
+								}
+								modifyRecords.add(mr);
+								tmp.add(mr);
+								if (result != null) {
+									result.add(sr);
+								}
+							}
+							
+							t++;
+						}
+					} else {
+						if (isInsert) {
+							Record sr = (Record)data.getMem(t);
+							mr = new ModifyRecord(seq2, ModifyRecord.STATE_INSERT, sr);
+							mr.setBlock(block[t]);
+							//如果是子表insert 要处理parentRecordSeq，因为子表insert的可能指向主表列区
+							//这里先设置为指向列区伪号，最后会根据主表补区修改
+							if (!isPrimaryTable) {
+								mr.setParentRecordSeq(recNum[t]);
+							}
+							modifyRecords.add(mr);
+							tmp.add(mr);
+							if (result != null) {
+								result.add(sr);
+							}
+						}
+						
+						t++;
+					}
+				}
+			}
+			
+			for (; s < srcLen; ++s) {
+				tmp.add(modifyRecords.get(s));
+			}
+			
+			for (; t <= len; ++t) {
+				Record sr = (Record)data.getMem(t);
+				if (seqs[t] > 0) {
+					if (isUpdate) {
+						ModifyRecord r = new ModifyRecord(seqs[t], ModifyRecord.STATE_UPDATE, sr);
+						tmp.add(r);
+						if (result != null) {
+							result.add(sr);
+						}
+					}
+				} else if (isInsert) {
+					long seq = -seqs[t];
+					if (seq <= totalRecordCount) {
+						ModifyRecord r = new ModifyRecord(seq, ModifyRecord.STATE_INSERT, sr);
+						r.setBlock(block[t]);
+						//如果是子表insert 要处理parentRecordSeq，因为子表insert的可能指向主表列区
+						//这里先设置为指向列区伪号，最后会根据主表补区修改
+						if (!isPrimaryTable) {
+							r.setParentRecordSeq(recNum[t]);
+						}
+						modifyRecords.add(r);
+						tmp.add(r);
+					} else {
+						ModifyRecord r = new ModifyRecord(seq, ModifyRecord.STATE_INSERT, sr);
+						r.setBlock(block[t]);
+						//如果是子表insert 要处理parentRecordSeq，因为子表insert的可能指向主表列区
+						//这里先设置为指向列区伪号，最后会根据主表补区修改
+						if (!isPrimaryTable) {
+							r.setParentRecordSeq(recNum[t]);
+						}
+						
+						modifyRecords.add(r);
+						tmp.add(r);
+					}
+					
+					if (result != null) {
+						result.add(sr);
+					}
+				}
+			}
+			
+			this.modifyRecords = tmp;
+			if (srcLen != tmp.size()) {
+				needUpdateSubTable = true;
+			}
+		}
+		
+		if (!isPrimaryTable) {
+			//子表补区最后要根据主表补区修改
+			update(parent.getModifyRecords());
+			
+			for (ModifyRecord r : modifyRecords) {
+				if (r.getState() == ModifyRecord.STATE_INSERT) {
+					if (r.getParentRecordSeq() == 0) {
+						this.modifyRecords = null;
+						this.modifyRecords = getModifyRecords();
+						//子表插入的数据必须在主表
+						MessageManager mm = EngineMessage.get();
+						throw new RQException(r.getRecord().toString(null) + mm.getMessage("grouptable.invalidData"));
+					}
+				}
+			}
+			
+		}
+		
+		//saveModifyRecords();
+		
+		if (isPrimaryTable && needUpdateSubTable) {
+			//主表有insert，就必须更新所有子表补区
+			ArrayList<TableMetaData> tableList = getTableList();
+			for (int i = 0, size = tableList.size(); i < size; ++i) {
+				ColumnTableMetaData t = ((ColumnTableMetaData)tableList.get(i));
+				boolean needSave = t.update(modifyRecords);
+				if (needSave) {
+					t.saveModifyRecords();
+				}
+			}
+		}
+		
+		//if (append.length() > 0) {
+		//	ICursor cursor = new MemoryCursor(append);
+		//	append(cursor);
+		//} else {
+		//	groupTable.save();
+		//}
+				
+		return result;
+	}
+	
 	/**
 	 * 重写一些列的数据
 	 * 注意：输入的数据要保证原序。这里不处理分段，所有的分段都按照原来的。

@@ -1994,6 +1994,22 @@ public class Cursor extends IDWCursor {
 						}
 					}
 					
+					if (curBlock == endBlock) {
+						for (; mindex < mcount; ++mindex) {
+							// 可能存在内存追加的记录在补区
+							mr = modifyRecords.get(mindex);
+							mseq = mr.getRecordSeq();
+							Record sr = mr.getRecord();
+							GroupTableRecord r = new GroupTableRecord(ds);
+							for (int f = 0; f < findexLen; ++f) {
+								r.setNormalFieldValue(f, sr.getNormalFieldValue(findex[f]));
+							}
+							
+							r.setRecordSeq(-mseq);
+							mems.add(r);
+						}
+					}
+					
 					int diff = n - cache.length();
 					if (diff < 0) {
 						this.cache = cache.split(n + 1);
@@ -2136,6 +2152,22 @@ public class Cursor extends IDWCursor {
 						} else if (matchCount > 0) {
 							for (f = filterCount; f < colCount; ++f) {
 								bufReaders[f].skipObject();
+							}
+						}
+					}
+					
+					if (curBlock == endBlock) {
+						for (; mindex < mcount; ++mindex) {
+							// 可能存在内存追加的记录在补区
+							mr = modifyRecords.get(mindex);
+							Record sr = mr.getRecord();
+							if (Variant.isTrue(sr.calc(filter, ctx))) {
+								Record r = new Record(ds);
+								for (f = 0; f < findexLen; ++f) {
+									r.setNormalFieldValue(f, sr.getNormalFieldValue(findex[f]));
+								}
+								
+								mems.add(r);
 							}
 						}
 					}
@@ -2317,6 +2349,29 @@ public class Cursor extends IDWCursor {
 									}
 								}
 							}
+						}
+					}
+					
+					if (curBlock == endBlock) {
+						for (; mindex < mcount; ++mindex) {
+							// 可能存在内存追加的记录在补区
+							mr = modifyRecords.get(mindex);
+							Record sr = mr.getRecord();
+							GroupTableRecord r = new GroupTableRecord(ds);
+							for (int f = 0; f < colCount; ++f) {
+								if (exps[f] != null) {
+									r.setNormalFieldValue(f, sr.calc(exps[f], ctx));
+								} else if (isField[f]) {
+									r.setNormalFieldValue(f, sr.getNormalFieldValue(findex[f]));
+								} else {
+									if (gathers[f] != null) {
+										r.setNormalFieldValue(f, gathers[f].getNextBySeq(-(mindex + 1)));
+									}
+								}
+							}
+							
+							r.setRecordSeq(-mseq);
+							mems.add(r);
 						}
 					}
 					
@@ -2512,6 +2567,30 @@ public class Cursor extends IDWCursor {
 								if (isField[f]) {
 									bufReaders[f].skipObject();
 								}
+							}
+						}
+					}
+					
+					if (curBlock == endBlock) {
+						for (; mindex < mcount; ++mindex) {
+							// 可能存在内存追加的记录在补区
+							mr = modifyRecords.get(mindex);
+							Record sr = mr.getRecord();
+							if (Variant.isTrue(sr.calc(filter, ctx))) {
+								Record r = new Record(ds);
+								for (f = 0; f < retColCount; ++f) {
+									if (findex[f] >= 0) {
+										r.setNormalFieldValue(f, sr.getNormalFieldValue(findex[f]));
+									} else if (exps[f] != null) {
+										r.setNormalFieldValue(f, sr.calc(exps[f], ctx));
+									} else {
+										if (gathers[f] != null) {
+											r.setNormalFieldValue(f, gathers[f].getNextBySeq(-(mindex + 1)));
+										}
+									}
+								}
+								
+								mems.add(r);
 							}
 						}
 					}
