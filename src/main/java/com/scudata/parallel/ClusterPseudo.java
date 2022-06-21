@@ -10,9 +10,13 @@ import com.scudata.dm.Machines;
 import com.scudata.dm.Record;
 import com.scudata.dm.ResourceManager;
 import com.scudata.dm.Sequence;
+import com.scudata.dm.Table;
 import com.scudata.dm.cursor.ICursor;
 import com.scudata.dm.op.Operable;
 import com.scudata.dm.op.Operation;
+import com.scudata.dw.IColumnCursorUtil;
+import com.scudata.dw.ITableMetaData;
+import com.scudata.dw.MemoryTable;
 import com.scudata.dw.pseudo.IPseudo;
 import com.scudata.dw.pseudo.PseudoDefination;
 import com.scudata.dw.pseudo.PseudoDerive;
@@ -22,6 +26,7 @@ import com.scudata.dw.pseudo.PseudoTable;
 import com.scudata.expression.Expression;
 import com.scudata.expression.Function;
 import com.scudata.expression.FunctionLib;
+import com.scudata.expression.mfn.pseudo.Memory;
 import com.scudata.thread.ThreadPool;
 
 public class ClusterPseudo implements IClusterObject, IPseudo {
@@ -35,6 +40,7 @@ public class ClusterPseudo implements IClusterObject, IPseudo {
 	private Sequence cache;//对import的结果的cache
 	private boolean hasZone;
 	private ClusterTableMetaData table;
+	private Context ctx;
 	
 	public ClusterPseudo(ClusterFile clusterFile, boolean hasZone, int[] pseudoProxyIds) {
 		this.clusterFile = clusterFile;
@@ -210,6 +216,12 @@ public class ClusterPseudo implements IClusterObject, IPseudo {
 			}
 		}
 		
+		//没有zone时，认为是复写内表，此时用内表返回游标
+		if (!hasZone) {
+			ClusterMemoryTable table = (ClusterMemoryTable) memory(null, null);
+			return table.cursor(exps, names, null, 0, null, getContext());
+		}
+		
 		for (int i = 0; i < count; ++i) {
 			UnitClient client = new UnitClient(cluster.getHost(i), cluster.getPort(i));
 
@@ -281,7 +293,7 @@ public class ClusterPseudo implements IClusterObject, IPseudo {
 	}
 
 	public Context getContext() {
-		throw new RQException("never run to here");
+		return ctx;
 	}
 
 	public Object clone(Context ctx) throws CloneNotSupportedException {
@@ -305,6 +317,7 @@ public class ClusterPseudo implements IClusterObject, IPseudo {
 		}
 
 		ClusterPseudo result = new ClusterPseudo(clusterFile, hasZone, newPseudoProxyIds);
+		result.table = table;
 		return result;
 	}
 	
@@ -375,6 +388,7 @@ public class ClusterPseudo implements IClusterObject, IPseudo {
 		}
 		
 		ClusterPseudo result = new ClusterPseudo(clusterFile, hasZone, newPseudoProxyIds);
+		result.table = table;
 		return result;
 	}
 	
@@ -426,30 +440,21 @@ public class ClusterPseudo implements IClusterObject, IPseudo {
 	 * @param ctx 计算上下文
 	 * @return 集群内表
 	 */
-	public ClusterMemoryTable memory(String []fields, Expression filter, String option, Context ctx) {
-		boolean hasV = (option != null && option.indexOf('v') != -1);
-		if (hasV) {
-			
-		}
-		
+	public Object memory(String option, Context ctx) {
+		boolean hasV = option != null && option.indexOf('v') != -1 && IColumnCursorUtil.util != null;
 		Cluster cluster = getCluster();
 		int count = cluster.getUnitCount();
-		RemoteMemoryTable[] tables = new RemoteMemoryTable[count];
 		
 		UnitJob []jobs = new UnitJob[count];
 		ThreadPool pool = TaskManager.getPool();
 		for (int i = 0; i < count; ++i) {
 			UnitClient client = new UnitClient(cluster.getHost(i), cluster.getPort(i));
-			UnitCommand command = new UnitCommand(UnitCommand.MEMORY_GT);
+			UnitCommand command = new UnitCommand(UnitCommand.PSEUDO_MEMORY);
 			command.setAttribute("jobSpaceId", cluster.getJobSpaceId());
-			command.setAttribute("tmdProxyId", new Integer(pseudoProxyIds[i]));
-			
-			command.setAttribute("fields", fields);
+			command.setAttribute("pseudoProxyId", new Integer(pseudoProxyIds[i]));
 			command.setAttribute("option", option);
-			command.setAttribute("filter", filter == null ? null : filter.toString());
 			command.setAttribute("unit", new Integer(i));
 			
-			ClusterUtil.setParams(command, filter, ctx);
 			jobs[i] = new UnitJob(client, command);
 			pool.submit(jobs[i]);
 		}
@@ -457,12 +462,75 @@ public class ClusterPseudo implements IClusterObject, IPseudo {
 		for (int i = 0; i < count; ++i) {
 			// 等待任务执行完毕
 			jobs[i].join();
-			tables[i] = (RemoteMemoryTable)jobs[i].getResult();
 		}
+		
+		if (jobs[0].getResult() instanceof Integer) {
+			int []proxyIds = new int[count];
+			for (int i = 0; i < count; ++i) {
+				proxyIds[i] = (Integer)jobs[i].getResult();
+			}
+			return new ClusterTableMetaData(clusterFile, proxyIds, ctx);
+		} else {
+			RemoteMemoryTable[] tables = new RemoteMemoryTable[count];
+			for (int i = 0; i < count; ++i) {
+				tables[i] = (RemoteMemoryTable)jobs[i].getResult();
+			}
+			ClusterMemoryTable result = new ClusterMemoryTable(getCluster(), tables, hasZone);
+			result.setDistribute(table.getDistribute());
+			result.setSortedColNames(getAllSortedColNames());
+			return result;
+		}
+	}
+	
+	/**
+	 * 节点机上执行读取数据成内表
+	 * @param attributes 属性
+	 * @return Response 给主机的回应
+	 */
+	public static Response executeMemory(HashMap<String, Object> attributes) {
+		String jobSpaceID = (String) attributes.get("jobSpaceId");
+		Integer pseudoProxyId = (Integer) attributes.get("pseudoProxyId");
+		String option = (String) attributes.get("option");
+		Integer unit = (Integer) attributes.get("unit");
 
-		ClusterMemoryTable result = new ClusterMemoryTable(getCluster(), tables, hasZone);
-		result.setDistribute(table.getDistribute());
-		result.setSortedColNames(getAllSortedColNames());
-		return result;
+		try {
+			JobSpace js = JobSpaceManager.getSpace(jobSpaceID);
+			ResourceManager rm = js.getResourceManager();
+
+			PseudoProxy pseudoProxy = (PseudoProxy) rm.getProxy(pseudoProxyId.intValue());
+			IPseudo pseudo = pseudoProxy.getPseudo();
+			Context ctx = ClusterUtil.createContext(js, attributes);
+			IProxy proxy;
+			
+			Object table = Memory.createMemory(option, pseudo, ctx);
+			//列式内表
+			if (option != null && option.indexOf('v') != -1 && IColumnCursorUtil.util != null) {
+				proxy = new TableMetaDataProxy((ITableMetaData) table);
+				js.getResourceManager().addProxy(proxy);
+				return new Response(new Integer(proxy.getProxyId()));
+			} else {
+				MemoryTable memoryTable = (MemoryTable) table;
+				
+				if (pseudo instanceof PseudoTable) {
+					PseudoTable ptable = (PseudoTable) pseudo;
+					String distribute = ptable.getPd().getDistribute();
+					Integer partition = ptable.getPd().getPartition();
+					if (partition != null) {
+						memoryTable.setDistribute(distribute);
+						memoryTable.setPart(partition);
+					}
+				}
+
+				proxy = new TableProxy(memoryTable, unit);
+				rm.addProxy(proxy);
+				RemoteMemoryTable rmt = ClusterMemoryTable.newRemoteMemoryTable(proxy.getProxyId(), memoryTable);
+				return new Response(rmt);
+			}
+			
+		} catch (Exception e) {
+			Response response = new Response();
+			response.setException(e);
+			return response;
+		}
 	}
 }

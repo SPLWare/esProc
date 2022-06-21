@@ -54,6 +54,17 @@ abstract public class IColumnCursorUtil {
 			String opt, Context ctx, int groupCount);
 	
 	/**
+	 * 游标对关联字段有序，做有序归并连接
+	 * @param cursors 游标数组
+	 * @param names 结果集字段名数组
+	 * @param exps 关联字段表达式数组
+	 * @param opt 选项
+	 * @param ctx Context 计算上下文
+	 * @return ICursor 结果集游标
+	 */
+	public abstract ICursor joinx(ICursor []cursors, String []names, Expression [][]exps, String opt, Context ctx);
+	
+	/**
 	 * 转换为行存序表
 	 * @param src
 	 * @return

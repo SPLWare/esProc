@@ -76,6 +76,8 @@ public class UnitCommand implements Serializable {
 	public static final int PSEUDO_JOINX = 106;
 	public static final int PSEUDO_SET_MCS = 107;
 	public static final int PSEUDO_SET_PATHCOUNT = 108;
+	public static final int PSEUDO_MEMORY = 109;
+	
 	//创建远程临时文件
 	public static final int CREATE_TMPFILE = 200;
 
@@ -224,6 +226,8 @@ public class UnitCommand implements Serializable {
 				return ClusterPseudo.executeClone(attributes);
 			case PSEUDO_CREATE:
 				return ClusterPseudo.executeCreateClusterPseudo(attributes);
+			case PSEUDO_MEMORY:
+				return ClusterPseudo.executeMemory(attributes);
 			default:
 				throw new RuntimeException();
 		}

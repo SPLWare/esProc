@@ -6,8 +6,10 @@ import com.scudata.dm.Table;
 import com.scudata.dm.cursor.ICursor;
 import com.scudata.dw.IColumnCursorUtil;
 import com.scudata.dw.MemoryTable;
+import com.scudata.dw.pseudo.IPseudo;
 import com.scudata.expression.PseudoFunction;
 import com.scudata.parallel.ClusterCursor;
+import com.scudata.parallel.ClusterPseudo;
 
 /**
  * 把虚表读成内表
@@ -17,17 +19,24 @@ import com.scudata.parallel.ClusterCursor;
  */
 public class Memory extends PseudoFunction {
 	public Object calculate(Context ctx) {
+		if (pseudo instanceof ClusterPseudo) {
+			return ((ClusterPseudo)pseudo).memory(option, ctx);
+		}
+		return createMemory(option, pseudo, ctx);
+	}
+	
+	public static Object createMemory(String option, IPseudo pseudo, Context ctx) {
 		//列式内表
 		if (option != null && option.indexOf('v') != -1 && IColumnCursorUtil.util != null) {
 			String opt = option;
 			opt = opt.replace("v", "");
 			opt += 'm';
 			
-			ICursor cursor = CreateCursor.createCursor("memory", pseudo, param, opt, ctx);
+			ICursor cursor = CreateCursor.createCursor("memory", pseudo, null, opt, ctx);
 			return IColumnCursorUtil.util.createMemoryTable(cursor, null, option);
 		}
 		
-		ICursor cursor = CreateCursor.createCursor("memory", pseudo, param, null, ctx);
+		ICursor cursor = CreateCursor.createCursor("memory", pseudo, null, null, ctx);
 		if (cursor instanceof ClusterCursor) {
 			return ((ClusterCursor)cursor).memory(null, ctx);
 		}

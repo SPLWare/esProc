@@ -301,6 +301,26 @@ public class PseudoDefination {
 		columns.add(column);
 	}
 	
+	public String getDistribute() {
+		if (isBFile) {
+			return null;
+		} else if (var == null) {
+			return tables.get(0).getDistribute();
+		} else {
+			return null;
+		}
+	}
+	
+	public Integer getPartition() {
+		if (isBFile) {
+			return null;
+		} else if (var == null && tables.get(0) instanceof TableMetaData) {
+			return ((TableMetaData) tables.get(0)).getGroupTable().getPartition();
+		} else {
+			return null;
+		}
+	}
+	
 	/**
 	 * 判断fields是否是虚表的有序字段
 	 * @param fields
