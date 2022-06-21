@@ -502,7 +502,20 @@ public class PseudoTable extends Pseudo {
 						newExps[0] = new Expression[] {new Expression("~")};
 						String[][] newNames = new String[1][];
 						newNames[0] = new String[] {column.getName()};
-						Join join = new Join(null, null, exps, new Sequence[] {dim}, new Expression[1][], newExps, newNames, null);
+						
+						Expression[][] dimKeyExps = new Expression[1][];
+						String[] dimKey = column.getDimKey();
+						if (dimKey == null) {
+							dimKeyExps[0] = null;
+						} else {
+							Expression[] dimKeyExp = new Expression[size];
+							for (int i = 0; i < size; i++) {
+								dimKeyExp[i] = new Expression(dimKey[i]);
+							}
+							dimKeyExps[0] = dimKeyExp;
+						}
+						
+						Join join = new Join(null, null, exps, new Sequence[] {dim}, dimKeyExps, newExps, newNames, null);
 						cursor.addOperation(join, ctx);
 					}
 				}
@@ -1026,11 +1039,11 @@ public class PseudoTable extends Pseudo {
 	 * @param code	Íâ±í
 	 * @return
 	 */
-	public Pseudo addForeignKeys(String fkName, String []fieldNames, Pseudo code) {
+	public Pseudo addForeignKeys(String fkName, String []fieldNames, Pseudo code, String[] codeKeys) {
 		PseudoTable table = null;
 		try {
 			table = (PseudoTable) clone(ctx);
-			table.getPd().addPseudoColumn(new PseudoColumn(fkName, fieldNames, code));
+			table.getPd().addPseudoColumn(new PseudoColumn(fkName, fieldNames, code, codeKeys));
 			if (fieldNames == null) {
 				table.addColName(fkName);
 			} else {

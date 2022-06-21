@@ -23,6 +23,7 @@ public class PseudoColumn {
 	private Object dim;//指向的维表
 	private String fkey[];//外键字段
 	private String time;//时间字段
+	private String[] dimKey;//维表key字段
 	
 	public PseudoColumn() {
 		
@@ -92,10 +93,11 @@ public class PseudoColumn {
 		this.fkey = fkey;
 	}
 	
-	public PseudoColumn(String name, String fkey[], Object dim) {
+	public PseudoColumn(String name, String fkey[], Object dim, String[] dimKey) {
 		this.name = name;
 		this.fkey = fkey;
 		this.dim = dim;
+		this.setDimKey(dimKey);
 	}
 	
 	public String getTime() {
@@ -135,4 +137,12 @@ public class PseudoColumn {
         }
         return false;
     }
+
+	public String[] getDimKey() {
+		return dimKey;
+	}
+
+	public void setDimKey(String[] dimKey) {
+		this.dimKey = dimKey;
+	}
 }
