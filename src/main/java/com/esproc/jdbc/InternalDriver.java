@@ -38,7 +38,8 @@ public class InternalDriver implements java.sql.Driver, Serializable {
 		try {
 			DriverManager.registerDriver(new com.esproc.jdbc.InternalDriver());
 		} catch (SQLException e) {
-			throw new RuntimeException(JDBCMessage.get().getMessage("error.cantregist"), e);
+			throw new RuntimeException(JDBCMessage.get().getMessage(
+					"error.cantregist"), e);
 		}
 	}
 
@@ -67,10 +68,14 @@ public class InternalDriver implements java.sql.Driver, Serializable {
 	 * @return Connection
 	 * @throws SQLException
 	 */
-	public Connection connect(String url, Properties info, RaqsoftConfig rc) throws SQLException {
+	public Connection connect(String url, Properties info, RaqsoftConfig rc)
+			throws SQLException {
 		JDBCUtil.log("InternalDriver-3");
-		if (!acceptsURL(url))
-			return null;
+		if (!acceptsURL(url)) {
+			// The URL format is incorrect. Expected: {0}.
+			throw new SQLException(JDBCMessage.get().getMessage(
+					"jdbcdriver.incorrecturl", DEMO_URL));
+		}
 		String username = info.getProperty("user");
 		/* The password is currently not used. */
 		// String password = info.getProperty("password");
@@ -130,8 +135,21 @@ public class InternalDriver implements java.sql.Driver, Serializable {
 	 */
 	public boolean acceptsURL(String url) throws SQLException {
 		JDBCUtil.log("InternalDriver-4");
-		return url.indexOf("jdbc:esproc:local:") >= 0;
+		if (url == null) {
+			return false;
+		}
+		return url.toLowerCase().startsWith(ACCEPT_URL);
 	}
+
+	/**
+	 * 可接受的URL
+	 */
+	private static final String ACCEPT_URL = "jdbc:esproc:local:";
+
+	/**
+	 * 示例
+	 */
+	private static final String DEMO_URL = "jdbc:esproc:local://";
 
 	/**
 	 * Gets information about the possible properties for this driver.
@@ -143,7 +161,8 @@ public class InternalDriver implements java.sql.Driver, Serializable {
 	 *         properties. This array may be an empty array if no properties are
 	 *         required.
 	 */
-	public DriverPropertyInfo[] getPropertyInfo(String url, Properties info) throws SQLException {
+	public DriverPropertyInfo[] getPropertyInfo(String url, Properties info)
+			throws SQLException {
 		JDBCUtil.log("InternalDriver-5");
 		return new DriverPropertyInfo[0];
 	}
@@ -190,9 +209,11 @@ public class InternalDriver implements java.sql.Driver, Serializable {
 	 * 
 	 * @return the parent Logger for this driver
 	 */
-	public java.util.logging.Logger getParentLogger() throws SQLFeatureNotSupportedException {
+	public java.util.logging.Logger getParentLogger()
+			throws SQLFeatureNotSupportedException {
 		JDBCUtil.log("InternalDriver-9");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "getParentLogger()"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"getParentLogger()"));
 		return null;
 	}
 }
