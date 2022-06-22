@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.scudata.common.ICloneable;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.BFileReader;
@@ -21,7 +22,7 @@ import com.scudata.expression.Expression;
 import com.scudata.resources.EngineMessage;
 
 //用于定义虚表的属性
-public class PseudoDefination {
+public class PseudoDefination implements Cloneable, ICloneable {
 	public static final String PD_FILE = "file";
 	public static final String PD_ZONE = "zone";
 	public static final String PD_DATE = "date";
@@ -83,6 +84,24 @@ public class PseudoDefination {
 		if (var != null) {
 			memoryTable = (Sequence) new Expression(var).calculate(ctx);
 		}
+	}
+	
+	public PseudoDefination(PseudoDefination pd) {
+		this.file = pd.file;
+		this.zone = pd.zone;
+		this.date = pd.date;
+		this.user = pd.user;
+		this.var = pd.var;
+		this.tables = pd.tables;
+		this.maxValues = pd.maxValues;
+		this.minValues = pd.minValues;
+		this.memoryTable = pd.memoryTable;
+		this.fileObject = pd.fileObject;
+		this.isBFile = pd.isBFile;
+		this.sortedFields = pd.sortedFields;
+		
+		this.columns = new ArrayList<PseudoColumn>();
+		this.columns.addAll( pd.columns);
 	}
 	
 	public Object getFile() {
@@ -388,5 +407,9 @@ public class PseudoDefination {
 
 	public List<Object> getMinValues() {
 		return minValues;
+	}
+
+	public Object deepClone() {
+		return new PseudoDefination(this);
 	}
 }

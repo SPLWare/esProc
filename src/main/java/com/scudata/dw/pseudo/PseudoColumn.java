@@ -97,7 +97,7 @@ public class PseudoColumn {
 		this.pseudo = name;
 		this.fkey = fkey;
 		this.dim = dim;
-		this.setDimKey(dimKey);
+		this.dimKey = dimKey;
 	}
 	
 	public String getTime() {
@@ -123,6 +123,17 @@ public class PseudoColumn {
 			Sequence seq = (Sequence) obj;
 			fkey = new String[seq.length()];
 			seq.toArray(fkey);
+		}
+		
+		/**
+		 * 维的pseudo是join计算的结果名称
+		 */
+		if (dim != null && pseudo == null) {
+			if (name != null) {
+				pseudo = name;
+			} else {
+				pseudo = fkey[0];
+			}
 		}
 	}
 

@@ -69,7 +69,7 @@ public class PseudoBFile extends PseudoTable {
 	 * @param exps 取出表达式
 	 * @param fields 取出别名
 	 */
-	protected void setFetchInfo(Expression []exps, String []fields) {
+	protected void setFetchInfo_(Expression []exps, String []fields) {
 		this.exps = null;
 		this.names = null;
 		boolean needNew = extraNameList.size() > 0;
@@ -319,13 +319,13 @@ public class PseudoBFile extends PseudoTable {
 		try {
 			table = (PseudoBFile) clone(ctx);
 			table.getPd().addPseudoColumn(new PseudoColumn(fkName, fieldNames, code, codeKeys));
-			if (fieldNames == null) {
-				table.addColName(fkName);
-			} else {
-				for (String key : fieldNames) {
-					table.addColName(key);
-				}
-			}
+//			if (fieldNames == null) {
+//				table.addColName(fkName);
+//			} else {
+//				for (String key : fieldNames) {
+//					table.addColName(key);
+//				}
+//			}
 		} catch (CloneNotSupportedException e) {
 			e.printStackTrace();
 		}

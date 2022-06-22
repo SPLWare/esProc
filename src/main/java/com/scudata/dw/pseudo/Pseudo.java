@@ -266,7 +266,7 @@ public class Pseudo implements IPseudo{
 	
 	public void cloneField(Pseudo obj) {
 		//obj.table = table;
-		obj.pd = getPd();
+		obj.pd = new PseudoDefination(getPd());
 		obj.ctx = ctx;
 		obj.names = names == null ? null : names.clone();
 		obj.exps = exps == null ? null : exps.clone();
@@ -374,8 +374,7 @@ public class Pseudo implements IPseudo{
 			if (column.getDim() != null) {
 				if (column.getFkey() == null && column.getName().equals(fieldName)) {
 					return column;
-				} 
-				else if (column.getFkey() != null 
+				} else if (column.getFkey() != null 
 						&& column.getFkey().length == 1
 						&& column.getFkey()[0].equals(fieldName)) {
 					return column;

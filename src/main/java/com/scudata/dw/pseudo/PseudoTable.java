@@ -217,7 +217,21 @@ public class PseudoTable extends Pseudo {
 					 */
 					PseudoColumn col = pd.findColumnByPseudoName(expName);
 					if (col != null) {
-						if (col.getExp() != null) {
+						if (col.getDim() != null) {
+							if (col.getFkey() == null) {
+								String colName = col.getName();
+								if (!tempNameList.contains(colName)) {
+									tempExpList.add(new Expression(colName));
+									tempNameList.add(colName);
+								}
+							} else {
+								String colName = col.getFkey()[0];
+								if (!tempNameList.contains(colName)) {
+									tempExpList.add(new Expression(colName));
+									tempNameList.add(colName);
+								}
+							}
+						} else if (col.getExp() != null) {
 							//有表达式的伪列
 							newExps[i] = new Expression(col.getExp());
 							name = col.getName();
@@ -449,9 +463,9 @@ public class PseudoTable extends Pseudo {
 			}
 		}
 		
-		
-		if (getPd() != null && getPd().getColumns() != null) {
-			for (PseudoColumn column : getPd().getColumns()) {
+		List<PseudoColumn> list = getFieldSwitchColumns(this.names);
+		if (getPd() != null && list != null) {
+			for (PseudoColumn column : list) {
 				if (column.getDim() != null) {//如果存在外键，则添加一个switch的延迟计算
 					Sequence dim;
 					if (column.getDim() instanceof Sequence) {
@@ -501,7 +515,7 @@ public class PseudoTable extends Pseudo {
 						Expression[][] newExps = new Expression[1][];
 						newExps[0] = new Expression[] {new Expression("~")};
 						String[][] newNames = new String[1][];
-						newNames[0] = new String[] {column.getName()};
+						newNames[0] = new String[] {column.getPseudo()};
 						
 						Expression[][] dimKeyExps = new Expression[1][];
 						String[] dimKey = column.getDimKey();
@@ -760,6 +774,8 @@ public class PseudoTable extends Pseudo {
 			return null;//枚举的不在这里处理
 		} else if (col.getExp() != null) {
 			return new Expression(col.getExp()).getHome();
+		} else if (col.getFkey() != null) {
+			return new UnknownSymbol(col.getFkey()[0]);//有Fkey时 Fkey[0]是真字段
 		} else {
 			return new UnknownSymbol(col.getName());//处理普通伪字段
 		}
