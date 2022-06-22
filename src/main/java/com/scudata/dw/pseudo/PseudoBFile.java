@@ -1,10 +1,10 @@
 package com.scudata.dw.pseudo;
 
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+
 import com.scudata.common.RQException;
 import com.scudata.common.Types;
-import com.scudata.dm.BFileReader;
 import com.scudata.dm.Context;
 import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
@@ -204,8 +204,9 @@ public class PseudoBFile extends PseudoTable {
 			}
 		}
 
-		if (getPd() != null && getPd().getColumns() != null) {
-			for (PseudoColumn column : getPd().getColumns()) {
+		List<PseudoColumn> list = getFieldSwitchColumns(this.names);
+		if (getPd() != null && list != null) {
+			for (PseudoColumn column : list) {
 				if (column.getDim() != null) {//如果存在外键，则添加一个switch的延迟计算
 					Sequence dim;
 					if (column.getDim() instanceof Sequence) {
@@ -255,7 +256,7 @@ public class PseudoBFile extends PseudoTable {
 						Expression[][] newExps = new Expression[1][];
 						newExps[0] = new Expression[] {new Expression("~")};
 						String[][] newNames = new String[1][];
-						newNames[0] = new String[] {column.getName()};
+						newNames[0] = new String[] {column.getPseudo()};
 						
 						Expression[][] dimKeyExps = new Expression[1][];
 						String[] dimKey = column.getDimKey();

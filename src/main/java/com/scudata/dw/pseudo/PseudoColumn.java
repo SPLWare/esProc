@@ -94,7 +94,7 @@ public class PseudoColumn {
 	}
 	
 	public PseudoColumn(String name, String fkey[], Object dim, String[] dimKey) {
-		this.name = name;
+		this.pseudo = name;
 		this.fkey = fkey;
 		this.dim = dim;
 		this.setDimKey(dimKey);

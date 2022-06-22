@@ -363,6 +363,55 @@ public class Pseudo implements IPseudo{
 		return getPd().getAllSortedColNames();
 	}
 	
+	// 取字段指向的Column
+	public PseudoColumn getFieldSwitchColumn(String fieldName) {
+		List<PseudoColumn> columns = pd.getColumns();
+		if (columns == null) {
+			return null;
+		}
+		
+		for (PseudoColumn column : columns) {
+			if (column.getDim() != null) {
+				if (column.getFkey() == null && column.getName().equals(fieldName)) {
+					return column;
+				} 
+				else if (column.getFkey() != null 
+						&& column.getFkey().length == 1
+						&& column.getFkey()[0].equals(fieldName)) {
+					return column;
+				}
+			}
+		}
+		return null;
+	}
+	
+	public List<PseudoColumn> getFieldSwitchColumns(String[] fieldNames) {
+		List<PseudoColumn> list = new ArrayList<PseudoColumn>();
+		if (fieldNames == null) {
+			List<PseudoColumn> columns = pd.getColumns();
+			if (columns == null) {
+				return null;
+			}
+			for (PseudoColumn column : columns) {
+				if (column.getDim() != null) {
+					list.add(column);
+				}
+			}
+		} else {
+			for (String fieldName : fieldNames) {
+				PseudoColumn column = getFieldSwitchColumn(fieldName);
+				if (column != null) {
+					list.add(column);
+				}
+			}
+		}
+		
+		if (list.size() == 0)
+			return null;
+		else 
+			return list;
+	}
+	
 	// 取字段做switch指向的虚表，如果没做则返回空
 	public Pseudo getFieldSwitchTable(String fieldName) {
 		List<PseudoColumn> columns = pd.getColumns();
@@ -375,11 +424,11 @@ public class Pseudo implements IPseudo{
 				if (column.getFkey() == null && column.getName().equals(fieldName)) {
 					return (PseudoTable) column.getDim();
 				} 
-//				else if (column.getFkey() != null 
-//						&& column.getFkey().length == 1
-//						&& column.getFkey()[0].equals(fieldName)) {
-//					return (PseudoTable) column.getDim();
-//				}
+				else if (column.getFkey() != null 
+						&& column.getFkey().length > 0
+						&& column.getFkey()[0].equals(fieldName)) {
+					return (PseudoTable) column.getDim();
+				}
 			}
 		}
 		return null;
