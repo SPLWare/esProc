@@ -424,11 +424,11 @@ public class Pseudo implements IPseudo{
 				if (column.getFkey() == null && column.getName().equals(fieldName)) {
 					return (PseudoTable) column.getDim();
 				} 
-				else if (column.getFkey() != null 
-						&& column.getFkey().length > 0
-						&& column.getFkey()[0].equals(fieldName)) {
-					return (PseudoTable) column.getDim();
-				}
+//				else if (column.getFkey() != null 
+//						&& column.getFkey().length > 0
+//						&& column.getFkey()[0].equals(fieldName)) {
+//					return (PseudoTable) column.getDim();
+//				}
 			}
 		}
 		return null;
