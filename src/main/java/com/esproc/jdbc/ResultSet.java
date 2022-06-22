@@ -79,7 +79,7 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	/**
 	 * The number of rows of data fetched each time
 	 */
-	private int fetchSize = Server.DEFAULT_FETCH_SIZE;
+	private int fetchSize = JDBCConsts.DEFAULT_FETCH_SIZE;
 
 	/**
 	 * Cached data

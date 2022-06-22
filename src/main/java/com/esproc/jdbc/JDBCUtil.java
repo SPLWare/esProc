@@ -41,80 +41,6 @@ import com.scudata.expression.fn.Eval;
 public class JDBCUtil {
 
 	/**
-	 * Get call expression
-	 * 
-	 * @param splName
-	 * @param params
-	 * @return String
-	 * @throws SQLException
-	 */
-	public static String getCallExp(String splName, String params)
-			throws SQLException {
-		if (params == null)
-			params = "";
-		else
-			params = params.trim();
-		String sql = "jdbccall(\"" + splName + "\""
-				+ (params.length() > 0 ? ("," + params) : "") + ")";
-		return sql;
-	}
-
-	/**
-	 * Get call expression
-	 * 
-	 * @param splName
-	 * @param params
-	 * @param isOnlyServer
-	 * @return String
-	 * @throws SQLException
-	 */
-	public static String getCallExp(String splName, String params,
-			boolean isOnlyServer) throws SQLException {
-		if (params == null)
-			params = "";
-		else
-			params = params.trim();
-		String hosts = JDBCUtil.getNodesString(splName, isOnlyServer);
-
-		String sql;
-		if (hosts != null) {
-			if (params.length() > 0) {
-				if (params.indexOf(",") > -1) {
-					String[] ps = params.split(",");
-					if (ps != null && ps.length > 0) {
-						StringBuffer callxParams = new StringBuffer();
-						for (int i = 0; i < ps.length; i++) {
-							if (i > 0)
-								callxParams.append(",");
-							callxParams.append("[");
-							callxParams.append(ps[i]);
-							callxParams.append("]");
-						}
-						params = callxParams.toString();
-					}
-				} else {
-					params = "[" + params + "]";
-				}
-			} else
-				params = ""; // [null]
-			if (!splName.startsWith("\"") || !splName.endsWith("\"")) {
-				splName = Escape.addEscAndQuote(splName, true);
-			}
-			sql = "callx@j(" + splName
-					+ (params.length() > 0 ? ("," + params) : "") + hosts
-					+ ")(1)";
-		} else {
-			if (isOnlyServer) {
-				throw new SQLException(JDBCMessage.get().getMessage(
-						"jdbcutil.noserverconfig"));
-			}
-			sql = "call(\"" + splName + "\""
-					+ (params.length() > 0 ? ("," + params) : "") + ")";
-		}
-		return sql;
-	}
-
-	/**
 	 * Get the type of SQL statement
 	 * 
 	 * @param sql
@@ -147,20 +73,6 @@ public class JDBCUtil {
 			return JDBCConsts.TYPE_SIMPLE_SQL;
 		}
 		return JDBCConsts.TYPE_NONE;
-	}
-
-	/**
-	 *  «∑Òcalls spl”Ôæ‰
-	 * 
-	 * @param sql
-	 * @return boolean
-	 */
-	public static boolean isCallsStatement(String sql) {
-		if (!StringUtils.isValidString(sql)) {
-			return false;
-		}
-		byte sqlType = JDBCUtil.getJdbcSqlType(sql);
-		return sqlType == JDBCConsts.TYPE_CALLS;
 	}
 
 	/**
@@ -300,6 +212,94 @@ public class JDBCUtil {
 			sql = sql.trim();
 		}
 		return sql;
+	}
+
+	/**
+	 * Get call expression
+	 * 
+	 * @param splName
+	 * @param params
+	 * @return String
+	 * @throws SQLException
+	 */
+	public static String getCallExp(String splName, String params)
+			throws SQLException {
+		if (params == null)
+			params = "";
+		else
+			params = params.trim();
+		String sql = "jdbccall(\"" + splName + "\""
+				+ (params.length() > 0 ? ("," + params) : "") + ")";
+		return sql;
+	}
+
+	/**
+	 * Get call expression
+	 * 
+	 * @param splName
+	 * @param params
+	 * @param isOnlyServer
+	 * @return String
+	 * @throws SQLException
+	 */
+	public static String getCallExp(String splName, String params,
+			boolean isOnlyServer) throws SQLException {
+		if (params == null)
+			params = "";
+		else
+			params = params.trim();
+		String hosts = JDBCUtil.getNodesString(splName, isOnlyServer);
+
+		String sql;
+		if (hosts != null) {
+			if (params.length() > 0) {
+				if (params.indexOf(",") > -1) {
+					String[] ps = params.split(",");
+					if (ps != null && ps.length > 0) {
+						StringBuffer callxParams = new StringBuffer();
+						for (int i = 0; i < ps.length; i++) {
+							if (i > 0)
+								callxParams.append(",");
+							callxParams.append("[");
+							callxParams.append(ps[i]);
+							callxParams.append("]");
+						}
+						params = callxParams.toString();
+					}
+				} else {
+					params = "[" + params + "]";
+				}
+			} else
+				params = ""; // [null]
+			if (!splName.startsWith("\"") || !splName.endsWith("\"")) {
+				splName = Escape.addEscAndQuote(splName, true);
+			}
+			sql = "callx@j(" + splName
+					+ (params.length() > 0 ? ("," + params) : "") + hosts
+					+ ")(1)";
+		} else {
+			if (isOnlyServer) {
+				throw new SQLException(JDBCMessage.get().getMessage(
+						"jdbcutil.noserverconfig"));
+			}
+			sql = "call(\"" + splName + "\""
+					+ (params.length() > 0 ? ("," + params) : "") + ")";
+		}
+		return sql;
+	}
+
+	/**
+	 *  «∑Òcalls spl”Ôæ‰
+	 * 
+	 * @param sql
+	 * @return boolean
+	 */
+	public static boolean isCallsStatement(String sql) {
+		if (!StringUtils.isValidString(sql)) {
+			return false;
+		}
+		byte sqlType = JDBCUtil.getJdbcSqlType(sql);
+		return sqlType == JDBCConsts.TYPE_CALLS;
 	}
 
 	/**
@@ -1000,9 +1000,15 @@ public class JDBCUtil {
 	}
 
 	/**
-	 * Default data type
+	 * Get an empty result set.
+	 * 
+	 * @return ResultSet
+	 * @throws SQLException
 	 */
-	private static final int DEFAULT_TYPE = java.sql.Types.NULL;
+	public static ResultSet getEmptyResultSet() throws SQLException {
+		return new com.esproc.jdbc.ResultSet(
+				(byte) com.esproc.jdbc.ResultSet.GET_EMPTY_RESULT);
+	}
 
 	/**
 	 * Initialize column data type
@@ -1013,7 +1019,7 @@ public class JDBCUtil {
 		if (types == null || types.length == 0)
 			return;
 		for (int i = 0; i < types.length; i++) {
-			types[i] = DEFAULT_TYPE;
+			types[i] = JDBCConsts.DEFAULT_TYPE;
 		}
 	}
 
@@ -1300,14 +1306,4 @@ public class JDBCUtil {
 			Logger.debug(info);
 	}
 
-	/**
-	 * Get an empty result set.
-	 * 
-	 * @return ResultSet
-	 * @throws SQLException
-	 */
-	public static ResultSet getEmptyResultSet() throws SQLException {
-		return new com.esproc.jdbc.ResultSet(
-				(byte) com.esproc.jdbc.ResultSet.GET_EMPTY_RESULT);
-	}
 }

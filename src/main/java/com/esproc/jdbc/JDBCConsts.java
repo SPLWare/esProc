@@ -54,11 +54,11 @@ public class JDBCConsts {
 	public static final String TABLE_NAME = "TABLE_NAME";
 	public static final String COLUMN_NAME = "COLUMN_NAME";
 	public static final String DATA_TYPE = "DATA_TYPE";
-	
+
 	public static final String PROCEDURE_NAME = "PROCEDURE_NAME";
 	public static final String PROCEDURE_FILE = "PROCEDURE_FILE";
 	public static final String PARAM_LIST = "PARAM_LIST";
-	
+
 	public static final String PKTABLE_CAT = "PKTABLE_CAT";
 	public static final String PKTABLE_SCHEM = "PKTABLE_SCHEM";
 	public static final String PKTABLE_NAME = "PKTABLE_NAME";
@@ -71,10 +71,22 @@ public class JDBCConsts {
 
 	public static final String FK_NAME = "FK_NAME";
 	public static final String PK_NAME = "PK_NAME";
-	
+
 	public static final String KEY_SEQ = "KEY_SEQ";
 
 	/** JDBC支持的数据文件类型 **/
-	public static final String DATA_FILE_EXTS = AppConsts.FILE_BTX + "," + AppConsts.FILE_TXT + "," + AppConsts.FILE_CSV
-			+ "," + AppConsts.FILE_XLS + "," + AppConsts.FILE_XLSX;
+	public static final String DATA_FILE_EXTS = AppConsts.FILE_BTX + ","
+			+ AppConsts.FILE_TXT + "," + AppConsts.FILE_CSV + ","
+			+ AppConsts.FILE_XLS + "," + AppConsts.FILE_XLSX;
+
+	/**
+	 * 缺省一次获取的行数
+	 */
+	public static final int DEFAULT_FETCH_SIZE = 1000;
+
+	/**
+	 * Default data type
+	 */
+	public static final int DEFAULT_TYPE = java.sql.Types.NULL;
+
 }

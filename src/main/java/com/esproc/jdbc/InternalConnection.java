@@ -67,7 +67,7 @@ public class InternalConnection implements Connection, Serializable {
 	/**
 	 * The list of the statements
 	 */
-	private StatementList stats = new StatementList();
+	private List<InternalStatement> stats = new ArrayList<InternalStatement>();
 
 	/**
 	 * Last visit time
@@ -246,7 +246,7 @@ public class InternalConnection implements Connection, Serializable {
 		if (closed)
 			throw new SQLException(JDBCMessage.get().getMessage(
 					"error.conclosed"));
-		for (int i = 0; i < this.stats.count(); i++) {
+		for (int i = 0; i < this.stats.size(); i++) {
 			InternalStatement ist = stats.get(i);
 			if (ist.getID() == id)
 				return ist;
@@ -297,7 +297,7 @@ public class InternalConnection implements Connection, Serializable {
 	 * @return StatementList
 	 * @throws SQLException
 	 */
-	public StatementList getStatements() throws SQLException {
+	public List<InternalStatement> getStatements() throws SQLException {
 		JDBCUtil.log("InternalConnection-46");
 		if (closed)
 			throw new SQLException(JDBCMessage.get().getMessage(
@@ -741,7 +741,7 @@ public class InternalConnection implements Connection, Serializable {
 	 */
 	public void close() throws SQLException {
 		JDBCUtil.log("InternalConnection-14");
-		for (int i = 0; i < this.stats.count(); i++) {
+		for (int i = 0; i < this.stats.size(); i++) {
 			stats.get(i).close();
 		}
 		/* Close automatically opened connections */
@@ -779,7 +779,7 @@ public class InternalConnection implements Connection, Serializable {
 		if (jobSpace != null) {
 			JobSpaceManager.closeSpace(jobSpace.getID());
 		}
-		Server.getInstance().getConnections().removeByID(id);
+		Server.getInstance().removeConnection(id);
 		closed = true;
 	}
 

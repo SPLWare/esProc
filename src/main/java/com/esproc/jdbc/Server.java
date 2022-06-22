@@ -31,8 +31,6 @@ import com.scudata.dm.ParamList;
  * JDBC service
  */
 public class Server {
-	public static final int DEFAULT_FETCH_SIZE = 1000;
-
 	/**
 	 * JNDI automatic connection list
 	 */
@@ -65,7 +63,7 @@ public class Server {
 	/**
 	 * The connection list
 	 */
-	private ConnectionList cons = new ConnectionList();
+	private List<InternalConnection> cons = new ArrayList<InternalConnection>();
 	/**
 	 * The current ID
 	 */
@@ -562,7 +560,7 @@ public class Server {
 	 * 
 	 * @return the connection list
 	 */
-	public ConnectionList getConnections() {
+	public List<InternalConnection> getConnections() {
 		return cons;
 	}
 
@@ -574,13 +572,24 @@ public class Server {
 	 * @throws SQLException
 	 */
 	public InternalConnection getConnection(int id) throws SQLException {
-		for (int i = 0; i < cons.count(); i++) {
+		for (int i = 0; i < cons.size(); i++) {
 			InternalConnection con = cons.get(i);
 			if (con.getID() == id) {
 				return con;
 			}
 		}
 		return null;
+	}
+
+	/**
+	 * 删除指定ID的连接
+	 * @param id
+	 * @throws SQLException
+	 */
+	public void removeConnection(int id) throws SQLException {
+		InternalConnection con = getConnection(id);
+		if (con != null)
+			cons.remove(con);
 	}
 
 	/**

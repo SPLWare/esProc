@@ -85,7 +85,7 @@ public class InternalStatement implements java.sql.Statement {
 	/**
 	 * The default fetch size
 	 */
-	private int fetchSize = Server.DEFAULT_FETCH_SIZE;
+	private int fetchSize = JDBCConsts.DEFAULT_FETCH_SIZE;
 
 	/**
 	 * Constructor
