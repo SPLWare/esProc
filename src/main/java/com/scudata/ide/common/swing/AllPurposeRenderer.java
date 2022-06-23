@@ -94,11 +94,11 @@ public class AllPurposeRenderer implements TableCellRenderer {
 			} else { // 未自定义配置颜色，则用系统默认颜色
 				textField.setBackground(table.getSelectionBackground());
 			}
-			textField.setOpaque(true);
 		} else {
 			textField.setBackground(table.getBackground());
 			textField.setForeground(table.getForeground());
 		}
+		textField.setOpaque(true);
 		textField.setValue(value);
 		if (isRefVal(value)) {
 			textField.setForeground(Color.CYAN.darker());
