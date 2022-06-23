@@ -158,7 +158,7 @@ public class HashIndexTable extends IndexTable {
 
 		if (code instanceof Table) {
 			Table table = (Table)code;
-			int f = table.dataStruct().getFieldIndex(exp.toString());
+			int f = exp.getFieldIndex(table.dataStruct());
 			if (f != -1) {
 				create(table, f);
 				return;
