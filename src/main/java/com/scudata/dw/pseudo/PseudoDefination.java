@@ -215,6 +215,9 @@ public class PseudoDefination implements Cloneable, ICloneable {
 			return null;
 		} else {
 			for (PseudoColumn col : columns) {
+				if (col.getName() != null && col.getExp() != null && pname.equals(col.getName())) {
+					return col;
+				}
 				if (col.getPseudo() != null && pname.equals(col.getPseudo())) {
 					return col;
 				}
@@ -277,10 +280,11 @@ public class PseudoDefination implements Cloneable, ICloneable {
 		
 		if (date != null) {
 			String dateName = date;
-			PseudoColumn dateCol = findColumnByPseudoName(date);
-			if (dateCol != null && dateCol.getExp() != null) {
-				dateName = dateCol.getName();
-			}
+			//不允许这里是伪字段
+//			PseudoColumn dateCol = findColumnByPseudoName(date);
+//			if (dateCol != null && dateCol.getExp() != null) {
+//				dateName = dateCol.getName();
+//			}
 			maxValues = new ArrayList<Object>();
 			minValues = new ArrayList<Object>();
 			for (ITableMetaData t : tables) {
