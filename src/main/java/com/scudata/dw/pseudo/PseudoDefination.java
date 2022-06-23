@@ -100,8 +100,10 @@ public class PseudoDefination implements Cloneable, ICloneable {
 		this.isBFile = pd.isBFile;
 		this.sortedFields = pd.sortedFields;
 		
-		this.columns = new ArrayList<PseudoColumn>();
-		this.columns.addAll( pd.columns);
+		if (pd.columns != null) {
+			this.columns = new ArrayList<PseudoColumn>();
+			this.columns.addAll(pd.columns);
+		}
 	}
 	
 	public Object getFile() {
