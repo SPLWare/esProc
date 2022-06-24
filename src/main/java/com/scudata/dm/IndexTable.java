@@ -123,9 +123,14 @@ abstract public class IndexTable {
 
 	public static IndexTable instance(Sequence code, int []fields, int capacity, String opt) {
 		if (fields.length == 1) {
-			HashIndexTable it = new HashIndexTable(capacity, opt);
-			it.create(code, fields[0]);
-			return it;
+			DataStruct ds = code.dataStruct();
+			if ((ds != null && ds.isSeqKey()) || (opt != null && opt.indexOf('n') != -1)) {
+				return new SeqIndexTable(code, fields[0]);
+			} else {
+				HashIndexTable it = new HashIndexTable(capacity, opt);
+				it.create(code, fields[0]);
+				return it;
+			}
 		} else {
 			if (code.length() > 0) {
 				Record r = (Record)code.getMem(1);

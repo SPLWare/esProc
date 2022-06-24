@@ -19,13 +19,17 @@ import com.scudata.resources.EngineMessage;
  *
  */
 public class DataStruct implements Externalizable, IRecord {
+	public static final byte Col_AutoIncrement = 0x01; // 列自动增长属性
+	
 	private static final long serialVersionUID = 0x02010001;
 	private static final String DefNamePrefix = "_"; // 默认字段名前缀
-	public static final byte Col_AutoIncrement = 0x01; // 列自动增长属性
+	
+	private static final int SIGN_TIMEKEY = 0x01;
+	private static final int SIGN_SEQKEY = 0x02;
 
 	private String[] fieldNames; // 字段名称
 	private String[] primary; // 结构主键
-	private int timeKeyCount = 0; // 时间键数量
+	private int sign = 0; // 标志，取值为上面定义的常量
 	transient private int[] pkIndex; // 主键索引
 
 	// 序列化时使用
@@ -76,7 +80,7 @@ public class DataStruct implements Externalizable, IRecord {
 		ByteArrayOutputRecord out = new ByteArrayOutputRecord();
 		out.writeStrings(fieldNames);
 		out.writeStrings(primary);
-		out.writeInt(timeKeyCount);
+		out.writeInt(sign);
 		return out.toByteArray();
 	}
 
@@ -90,7 +94,7 @@ public class DataStruct implements Externalizable, IRecord {
 		setPrimary(in.readStrings());
 		
 		if (in.available() > 0) {
-			timeKeyCount = in.readInt();
+			sign = in.readInt();
 		}
 	}
 
@@ -98,7 +102,7 @@ public class DataStruct implements Externalizable, IRecord {
 		out.writeByte(3); // 版本号
 		out.writeObject(fieldNames);
 		out.writeObject(primary);
-		out.writeInt(timeKeyCount); // 版本3添加
+		out.writeInt(sign); // 版本3添加
 	}
 
 	public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
@@ -107,7 +111,7 @@ public class DataStruct implements Externalizable, IRecord {
 		setPrimary((String[])in.readObject());
 		
 		if (v > 2) { // 版本3添加
-			timeKeyCount = in.readInt();
+			sign = in.readInt();
 		}
 	}
 
@@ -119,7 +123,7 @@ public class DataStruct implements Externalizable, IRecord {
 		System.arraycopy(fieldNames, 0, names, 0, names.length);
 		DataStruct ds = new DataStruct(names);
 		ds.setPrimary(primary);
-		ds.timeKeyCount = timeKeyCount;
+		ds.sign = sign;
 		return ds;
 	}
 
@@ -281,10 +285,14 @@ public class DataStruct implements Externalizable, IRecord {
 	 * @param opt String t：最后一个为
 	 */
 	public void setPrimary(String []names, String opt) {
+		sign = 0;
 		if (names == null || names.length == 0) {
 			this.primary = null;
 			pkIndex = null;
-			timeKeyCount = 0;
+			
+			if (opt != null && opt.indexOf('n') != -1) {
+				sign |= SIGN_SEQKEY;
+			}
 		} else {
 			int count = names.length;
 			int []tmpIndex = new int[count];
@@ -299,8 +307,14 @@ public class DataStruct implements Externalizable, IRecord {
 			this.primary = new String[count];
 			System.arraycopy(names, 0, this.primary, 0, count);
 			pkIndex = tmpIndex;
-			if (opt != null && opt.indexOf('t') != -1) {
-				timeKeyCount = 1;
+			if (opt != null) {
+				if (opt.indexOf('t') != -1) {
+					sign |= SIGN_TIMEKEY;
+				}
+				
+				if (opt.indexOf('n') != -1) {
+					sign |= SIGN_SEQKEY;
+				}
 			}
 		}
 	}
@@ -314,11 +328,19 @@ public class DataStruct implements Externalizable, IRecord {
 	}
 
 	/**
+	 * 返回主键是否是序号键
+	 * @return
+	 */
+	public boolean isSeqKey() {
+		return (sign & SIGN_SEQKEY) == SIGN_SEQKEY;
+	}
+	
+	/**
 	 * 取时间键数量，没有时间键则返回0
 	 * @return
 	 */
 	public int getTimeKeyCount() {
-		return timeKeyCount;
+		return (sign & SIGN_TIMEKEY) == SIGN_TIMEKEY ? 1 : 0;
 	}
 
 	/**
@@ -334,7 +356,7 @@ public class DataStruct implements Externalizable, IRecord {
 	 * @return int[]
 	 */
 	public int[] getBaseKeyIndex() {
-		if (timeKeyCount == 0) {
+		if (getTimeKeyCount() == 0) {
 			return pkIndex;
 		} else {
 			int count = pkIndex.length - 1;

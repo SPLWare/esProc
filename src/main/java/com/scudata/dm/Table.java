@@ -1716,11 +1716,15 @@ public class Table extends Sequence {
 	public void createIndexTable(String opt) {
 		int []fields = ds.getPKIndex();
 		if (fields == null) {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException(mm.getMessage("ds.lessKey"));
-		}
-		
-		if (ds.getTimeKeyCount() == 1) {
+			ds.setPrimary(null, opt);
+			if (ds.isSeqKey()) {
+				// 创排号索引
+				indexTable = new SeqIndexTable(this);
+			} else {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException(mm.getMessage("ds.lessKey"));
+			}
+		} else if (ds.getTimeKeyCount() == 1) {
 			indexTable = new TimeIndexTable(this, fields, length());
 		} else if (opt != null && opt.indexOf('b') != -1) {
 			SortIndexTable sit = new SortIndexTable();
@@ -1742,11 +1746,15 @@ public class Table extends Sequence {
 	public void createIndexTable(int capacity, String opt) {
 		int []fields = ds.getPKIndex();
 		if (fields == null) {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException(mm.getMessage("ds.lessKey"));
-		}
-		
-		if (ds.getTimeKeyCount() == 1) {
+			ds.setPrimary(null, opt);
+			if (ds.isSeqKey()) {
+				// 创排号索引
+				indexTable = new SeqIndexTable(this);
+			} else {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException(mm.getMessage("ds.lessKey"));
+			}
+		} else if (ds.getTimeKeyCount() == 1) {
 			indexTable = new TimeIndexTable(this, fields, capacity);
 		} else {
 			indexTable = IndexTable.instance(this, fields, capacity, opt);
