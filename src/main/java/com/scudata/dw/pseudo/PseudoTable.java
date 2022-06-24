@@ -35,6 +35,7 @@ import com.scudata.expression.IParam;
 import com.scudata.expression.Node;
 import com.scudata.expression.ParamParser;
 import com.scudata.expression.UnknownSymbol;
+import com.scudata.expression.VarParam;
 import com.scudata.expression.mfn.sequence.Contain;
 import com.scudata.expression.operator.And;
 import com.scudata.expression.operator.DotOperator;
@@ -209,7 +210,7 @@ public class PseudoTable extends Pseudo {
 			String name = fields[i];
 			Node node = exp.getHome();
 			
-			if (node instanceof UnknownSymbol) {
+			if (node instanceof UnknownSymbol || node instanceof VarParam) {
 				String expName = exp.getIdentifierName();
 				if (!allNameList.contains(expName)) {
 					/**
@@ -218,19 +219,18 @@ public class PseudoTable extends Pseudo {
 					PseudoColumn col = pd.findColumnByPseudoName(expName);
 					if (col != null) {
 						if (col.getDim() != null) {
+							String colName;
 							if (col.getFkey() == null) {
-								String colName = col.getName();
-								if (!tempNameList.contains(colName)) {
-									tempExpList.add(new Expression(colName));
-									tempNameList.add(colName);
-								}
+								colName = col.getName();
 							} else {
-								String colName = col.getFkey()[0];
-								if (!tempNameList.contains(colName)) {
-									tempExpList.add(new Expression(colName));
-									tempNameList.add(colName);
-								}
+								colName = col.getFkey()[0];
 							}
+
+							if (!tempNameList.contains(colName)) {
+								tempExpList.add(new Expression(colName));
+								tempNameList.add(colName);
+							}
+							
 						} else if (col.getExp() != null) {
 							//有表达式的伪列
 							newExps[i] = new Expression(col.getExp());

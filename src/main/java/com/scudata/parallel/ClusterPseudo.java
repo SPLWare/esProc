@@ -502,7 +502,7 @@ public class ClusterPseudo implements IClusterObject, IPseudo {
 			Context ctx = ClusterUtil.createContext(js, attributes);
 			IProxy proxy;
 			
-			Object table = Memory.createMemory(option, pseudo, ctx);
+			Object table = Memory.createMemory(option, pseudo, null, ctx);
 			//列式内表
 			if (option != null && option.indexOf('v') != -1 && IColumnCursorUtil.util != null) {
 				proxy = new TableMetaDataProxy((ITableMetaData) table);
