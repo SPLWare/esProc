@@ -235,7 +235,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 	 * 构造SPL编辑器
 	 */
 	protected SplEditor newSplEditor() {
-		return new SplEditor(splCtx);
+		return new SplEditor(this, splCtx);
 	}
 
 	/**
@@ -1150,6 +1150,15 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 		} else {
 			GVSpl.panelValue.tableValue.setValue1(value, nc.getCellId());
 		}
+	}
+
+	/**
+	 * 取单元格值
+	 * @param nc
+	 * @return
+	 */
+	protected Object getValue(INormalCell nc) {
+		return nc.getValue();
 	}
 
 	/**

@@ -124,7 +124,8 @@ public abstract class JTableView extends JTableEx {
 		mItem.setEnabled(selectCell);
 		pm.add(mItem);
 
-		if (selectedCol > -1 && (m_type == TYPE_TABLE || m_type == TYPE_PMT || m_type == TYPE_SERIESPMT)) {
+		if (selectedCol > -1
+				&& (m_type == TYPE_TABLE || m_type == TYPE_PMT || m_type == TYPE_SERIESPMT)) {
 			mItem = new JMenuItem(mm.getMessage("jtablevalue.editformat")); // 列格式编辑
 			mItem.setIcon(GM.getMenuImageIcon("blank"));
 			mItem.setName(String.valueOf(iFORMAT));
@@ -275,7 +276,9 @@ public abstract class JTableView extends JTableEx {
 					rowData = seq.get(i);
 
 					if (rowData instanceof Record) {
-						insertRow(-1, getRecordData((Record) seq.get(i), i - 1), false);
+						insertRow(-1,
+								getRecordData((Record) seq.get(i), i - 1),
+								false);
 					} else {
 						insertRow(-1, new Object[] { seq.get(i) }, false);
 					}
@@ -619,14 +622,17 @@ public abstract class JTableView extends JTableEx {
 		dbTable.newLast(new Object[] { DB_NAME, info.getName() });
 		if (info instanceof DBConfig) {
 			int type = info.getDBType();
-			dbTable.newLast(new Object[] { DB_TYPE, DBTypeEx.getDBTypeName(type) });
+			dbTable.newLast(new Object[] { DB_TYPE,
+					DBTypeEx.getDBTypeName(type) });
 
 			DBConfig dc = (DBConfig) info;
 			dbTable.newLast(new Object[] { DRIVER, dc.getDriver() });
 			dbTable.newLast(new Object[] { URL, dc.getUrl() });
 			dbTable.newLast(new Object[] { USER, dc.getUser() });
-			dbTable.newLast(new Object[] { USE_SCHEMA, Boolean.toString(dc.isUseSchema()) });
-			dbTable.newLast(new Object[] { ADD_TILDE, Boolean.toString(dc.isAddTilde()) });
+			dbTable.newLast(new Object[] { USE_SCHEMA,
+					Boolean.toString(dc.isUseSchema()) });
+			dbTable.newLast(new Object[] { ADD_TILDE,
+					Boolean.toString(dc.isAddTilde()) });
 		}
 	}
 
@@ -696,7 +702,8 @@ public abstract class JTableView extends JTableEx {
 			Object temp = s.get(row + 1);
 			if (temp instanceof Record) {
 				Record r = (Record) temp;
-				if (r.dataStruct() != null && s.dataStruct() != null && !r.dataStruct().equals(s.dataStruct())) { // 异构排列
+				if (r.dataStruct() != null && s.dataStruct() != null
+						&& !r.dataStruct().equals(s.dataStruct())) { // 异构排列
 					newValue = temp;
 				}
 			}
@@ -776,7 +783,8 @@ public abstract class JTableView extends JTableEx {
 		}
 		int cc = getColumnCount();
 		Matrix matrix = new Matrix(rows.length, cc);
-		CellRect cr = new CellRect(0, (short) 0, rows.length - 1, (short) (cc - 1));
+		CellRect cr = new CellRect(0, (short) 0, rows.length - 1,
+				(short) (cc - 1));
 		for (int r = 0; r < rows.length; r++) {
 			for (int c = 0; c < getColumnCount(); c++) {
 				Object value = data.getValueAt(rows[r], c);

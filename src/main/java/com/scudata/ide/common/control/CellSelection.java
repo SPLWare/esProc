@@ -202,5 +202,4 @@ public class CellSelection {
 	public Area getSelectArea() {
 		return rect.area;
 	}
-
 }

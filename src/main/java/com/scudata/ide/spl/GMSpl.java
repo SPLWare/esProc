@@ -2,7 +2,9 @@ package com.scudata.ide.spl;
 
 import java.awt.Font;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Vector;
@@ -17,6 +19,7 @@ import com.scudata.cellset.datamodel.CellSet;
 import com.scudata.cellset.datamodel.NormalCell;
 import com.scudata.cellset.datamodel.PgmCellSet;
 import com.scudata.cellset.datamodel.PgmNormalCell;
+import com.scudata.common.Area;
 import com.scudata.common.ArgumentTokenizer;
 import com.scudata.common.CellLocation;
 import com.scudata.common.DBConfig;
@@ -447,30 +450,6 @@ public class GMSpl extends GM {
 	}
 
 	/**
-	 * 取不重复的spl名称
-	 * 
-	 * @param filePath
-	 *            文件路径
-	 * @param postfix
-	 *            后缀
-	 * @return
-	 */
-	private static String getNotDuplicateName(String filePath, String postfix) {
-		String preName = filePath;
-		if (postfix != null && filePath.endsWith("." + postfix)) {
-			preName = filePath.substring(0, preName.length() - postfix.length()
-					- 1);
-		}
-		String newName = preName;
-		int index = 1;
-		while (((SPL) GV.appFrame).getSheet(newName) != null) {
-			newName = preName + index;
-			index++;
-		}
-		return newName;
-	}
-
-	/**
 	 * Set Locale according to options
 	 * 
 	 */
@@ -819,5 +798,94 @@ public class GMSpl extends GM {
 					Boolean.toString(dc.isAddTilde()) });
 		}
 		return dbTable;
+	}
+
+	/**
+	 * 移动区域，用于在网格内剪切粘贴
+	 * @param cellSet
+	 * @param fromRect
+	 * @param toRect
+	 */
+	public static List<NormalCell> moveArea(PgmCellSet cellSet, Area fromArea,
+			Area toArea) {
+		CellRect fromRect = new CellRect(fromArea);
+		CellRect toRect = new CellRect(toArea);
+		Matrix fromData = GMSpl.getMatrixCells(cellSet, fromRect);
+		List<NormalCell> errorCells = new ArrayList<NormalCell>();
+		NormalCell nc;
+		int dr = toRect.getBeginRow() - fromRect.getBeginRow();
+		int dc = (int) (toRect.getBeginCol() - fromRect.getBeginCol());
+
+		// 先还原源格子，两区域重叠时，必需先还原
+		for (int r = 0; r < fromRect.getRowCount(); r++) {
+			for (int c = 0; c < fromRect.getColCount(); c++) {
+				nc = cellSet.newCell(r + 1, c + 1);
+				cellSet.setCell(fromRect.getBeginRow() + r,
+						(int) (fromRect.getBeginCol() + c), nc);
+			}
+		}
+
+		// 设置目标格子
+		for (int r = 0; r < toRect.getRowCount(); r++) {
+			for (int c = 0; c < toRect.getColCount(); c++) {
+				nc = (NormalCell) fromData.get(r, c);
+				if (nc == null) {
+					cellSet.setCell(toRect.getBeginRow() + r,
+							(int) (toRect.getBeginCol() + c), null);
+				} else {
+					cellSet.setCell(toRect.getBeginRow() + r,
+							(int) (toRect.getBeginCol() + c),
+							(NormalCell) nc.deepClone());
+				}
+			}
+		}
+
+		// 目标格子设置完毕，重新整理一遍相对表达式
+		if (dr >= 0) {
+			if (dc >= 0) {
+				for (int r = toRect.getRowCount() - 1; r >= 0; r--) {
+					for (int c = (int) (toRect.getColCount() - 1); c >= 0; c--) {
+						List<NormalCell> tmp = AtomicSpl.exeAdjust(cellSet,
+								fromRect, toRect, r, c, fromData == null ? null
+										: (NormalCell) fromData.get(r, c));
+						if (tmp != null)
+							errorCells.addAll(tmp);
+					}
+				}
+			} else {
+				for (int r = toRect.getRowCount() - 1; r >= 0; r--) {
+					for (int c = 0; c < toRect.getColCount(); c++) {
+						List<NormalCell> tmp = AtomicSpl.exeAdjust(cellSet,
+								fromRect, toRect, r, c, fromData == null ? null
+										: (NormalCell) fromData.get(r, c));
+						if (tmp != null)
+							errorCells.addAll(tmp);
+					}
+				}
+			}
+		} else {
+			if (dc >= 0) {
+				for (int r = 0; r < toRect.getRowCount(); r++) {
+					for (int c = (int) (toRect.getColCount() - 1); c >= 0; c--) {
+						List<NormalCell> tmp = AtomicSpl.exeAdjust(cellSet,
+								fromRect, toRect, r, c, fromData == null ? null
+										: (NormalCell) fromData.get(r, c));
+						if (tmp != null)
+							errorCells.addAll(tmp);
+					}
+				}
+			} else {
+				for (int r = 0; r < toRect.getRowCount(); r++) {
+					for (int c = 0; c < toRect.getColCount(); c++) {
+						List<NormalCell> tmp = AtomicSpl.exeAdjust(cellSet,
+								fromRect, toRect, r, c, fromData == null ? null
+										: (NormalCell) fromData.get(r, c));
+						if (tmp != null)
+							errorCells.addAll(tmp);
+					}
+				}
+			}
+		}
+		return errorCells;
 	}
 }

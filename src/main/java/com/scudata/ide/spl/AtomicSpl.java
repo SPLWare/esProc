@@ -542,8 +542,14 @@ public class AtomicSpl implements IAtomicCmd {
 						}
 						String exp;
 						if (cs.isCopyValue()) {
-							exp = com.scudata.util.Variant.toExportString(nc
-									.getValue());
+							SheetSpl sheet = control.getSheet();
+							Object val;
+							if (sheet != null)
+								val = sheet.getValue(nc);
+							else {
+								val = nc.getValue();
+							}
+							exp = com.scudata.util.Variant.toExportString(val);
 						} else {
 							exp = ncClone.getExpString();
 						}
@@ -1055,6 +1061,7 @@ public class AtomicSpl implements IAtomicCmd {
 						for (int r = rect.getRowCount() - 1; r >= 0; r--) {
 							for (int c = (int) (rect.getColCount() - 1); c >= 0; c--) {
 								List tmp = exeAdjust(
+										control.cellSet,
 										cs.rect,
 										rect,
 										r,
@@ -1070,6 +1077,7 @@ public class AtomicSpl implements IAtomicCmd {
 						for (int r = rect.getRowCount() - 1; r >= 0; r--) {
 							for (int c = 0; c < rect.getColCount(); c++) {
 								List tmp = exeAdjust(
+										control.cellSet,
 										cs.rect,
 										rect,
 										r,
@@ -1087,6 +1095,7 @@ public class AtomicSpl implements IAtomicCmd {
 						for (int r = 0; r < rect.getRowCount(); r++) {
 							for (int c = (int) (rect.getColCount() - 1); c >= 0; c--) {
 								List tmp = exeAdjust(
+										control.cellSet,
 										cs.rect,
 										rect,
 										r,
@@ -1102,6 +1111,7 @@ public class AtomicSpl implements IAtomicCmd {
 						for (int r = 0; r < rect.getRowCount(); r++) {
 							for (int c = 0; c < rect.getColCount(); c++) {
 								List tmp = exeAdjust(
+										control.cellSet,
 										cs.rect,
 										rect,
 										r,
@@ -1145,6 +1155,7 @@ public class AtomicSpl implements IAtomicCmd {
 						for (int r = rect.getRowCount() - 1; r >= 0; r--) {
 							for (int c = (int) (rect.getColCount() - 1); c >= 0; c--) {
 								List tmp = exeAdjust(
+										control.cellSet,
 										cs.rect,
 										rect,
 										r,
@@ -1160,6 +1171,7 @@ public class AtomicSpl implements IAtomicCmd {
 						for (int r = rect.getRowCount() - 1; r >= 0; r--) {
 							for (int c = 0; c < rect.getColCount(); c++) {
 								List tmp = exeAdjust(
+										control.cellSet,
 										cs.rect,
 										rect,
 										r,
@@ -1177,6 +1189,7 @@ public class AtomicSpl implements IAtomicCmd {
 						for (int r = 0; r < rect.getRowCount(); r++) {
 							for (int c = (int) (rect.getColCount() - 1); c >= 0; c--) {
 								List tmp = exeAdjust(
+										control.cellSet,
 										cs.rect,
 										rect,
 										r,
@@ -1192,6 +1205,7 @@ public class AtomicSpl implements IAtomicCmd {
 						for (int r = 0; r < rect.getRowCount(); r++) {
 							for (int c = 0; c < rect.getColCount(); c++) {
 								List tmp = exeAdjust(
+										control.cellSet,
 										cs.rect,
 										rect,
 										r,
@@ -1386,26 +1400,26 @@ public class AtomicSpl implements IAtomicCmd {
 	/**
 	 * 调整格子
 	 * 
-	 * @param csr  源区域
-	 * @param rect 目标区域
+	 * @param fromRect  源区域
+	 * @param toRect 目标区域
 	 * @param r    行号
 	 * @param c    列号
 	 * @param cell 单元格
 	 * @return
 	 */
-	private List exeAdjust(CellRect csr, CellRect rect, int r, int c,
-			NormalCell cell) {
+	public static List<NormalCell> exeAdjust(PgmCellSet cellSet,
+			CellRect fromRect, CellRect toRect, int r, int c, NormalCell cell) {
 		if (cell == null)
 			return null;
 		String exp = cell.getExpString();
 		if (exp != null && exp.startsWith(CellRefUtil.ERRORREF)) {
 			return null;
 		}
-		CellLocation src = new CellLocation(csr.getBeginRow() + r,
-				(int) (csr.getBeginCol() + c));
-		CellLocation target = new CellLocation(rect.getBeginRow() + r,
-				(int) (rect.getBeginCol() + c));
-		return control.cellSet.adjustReference(src, target);
+		CellLocation src = new CellLocation(fromRect.getBeginRow() + r,
+				(int) (fromRect.getBeginCol() + c));
+		CellLocation target = new CellLocation(toRect.getBeginRow() + r,
+				(int) (toRect.getBeginCol() + c));
+		return cellSet.adjustReference(src, target);
 	}
 
 	/**

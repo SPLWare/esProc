@@ -134,15 +134,6 @@ public class SplEditor {
 	/**
 	 * 构造函数
 	 * 
-	 * @param context 上下文
-	 */
-	public SplEditor(Context context) {
-		this(null, context);
-	}
-
-	/**
-	 * 构造函数
-	 * 
 	 * @param sheet   页面对象
 	 * @param context 上下文
 	 */
@@ -201,7 +192,9 @@ public class SplEditor {
 	 * @return EditControl
 	 */
 	protected EditControl newEditControl(int rows, int cols) {
-		return new EditControl(rows, cols);
+		EditControl control = new EditControl(rows, cols);
+		control.setSheet(sheet);
+		return control;
 	}
 
 	/**
@@ -2338,8 +2331,17 @@ public class SplEditor {
 		// 粘贴完后还能粘
 		if (!isCut) {
 			control.resetCellSelection(cs);
+		} else {
+			doCut();
 		}
 		return true;
+	}
+
+	/**
+	 * 执行剪切
+	 */
+	protected void doCut() {
+
 	}
 
 	/**

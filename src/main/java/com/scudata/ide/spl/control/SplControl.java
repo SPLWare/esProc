@@ -34,6 +34,7 @@ import com.scudata.ide.common.control.ControlBase;
 import com.scudata.ide.common.control.ControlUtilsBase;
 import com.scudata.ide.spl.AtomicSpl;
 import com.scudata.ide.spl.GMSpl;
+import com.scudata.ide.spl.SheetSpl;
 
 /**
  * 网格编辑控件
@@ -111,6 +112,11 @@ public abstract class SplControl extends ControlBase {
 	ColHeaderPanel headerPanel = null;
 
 	/**
+	 * 页面对象
+	 */
+	protected SheetSpl sheet;
+
+	/**
 	 * 构造函数
 	 */
 	public SplControl() {
@@ -129,6 +135,22 @@ public abstract class SplControl extends ControlBase {
 		getHorizontalScrollBar().setUnitIncrement(10);
 		getVerticalScrollBar().setUnitIncrement(10);
 		cellSet = new PgmCellSet(rows, cols);
+	}
+
+	/**
+	 * 设置Sheet对象
+	 * @param sheet
+	 */
+	public void setSheet(SheetSpl sheet) {
+		this.sheet = sheet;
+	}
+
+	/**
+	 * 取Sheet对象
+	 * @return
+	 */
+	public SheetSpl getSheet() {
+		return sheet;
 	}
 
 	/**
