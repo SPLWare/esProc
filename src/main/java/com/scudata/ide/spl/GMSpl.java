@@ -297,13 +297,24 @@ public class GMSpl extends GM {
 		if (srcRect.getColCount() == 0) {
 			return null;
 		}
+		SheetSpl sheet = (SheetSpl) GV.appSheet;
+		if (sheet != null) {
+			try {
+				sheet.moveRect(srcRect, tarRect);
+			} catch (Exception ex) {
+				GM.showException(ex);
+				return null;
+			}
+		}
+
 		Vector<IAtomicCmd> cmds = new Vector<IAtomicCmd>();
 		CellSet ics = editor.getComponent().getCellSet();
 
 		int cols = tarRect.getEndCol() - ics.getColCount();
 		if (cols > 0) {
-			return null;
+			cmds.add(editor.getAppendCols(cols));
 		}
+
 		int rows = tarRect.getEndRow() - ics.getRowCount();
 		if (rows > 0) {
 			cmds.add(editor.getAppendRows(rows));

@@ -770,6 +770,16 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 	}
 
 	/**
+	 * 移动区域
+	 * @param fromRect
+	 * @param toRect
+	 * @return
+	 */
+	public List<NormalCell> moveRect(CellRect fromRect, CellRect toRect) {
+		return null;
+	}
+
+	/**
 	 * 执行单元格
 	 * @param row
 	 * @param col

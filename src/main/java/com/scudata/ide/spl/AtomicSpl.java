@@ -190,6 +190,7 @@ public class AtomicSpl implements IAtomicCmd {
 		Object oldValue = null;
 		Vector<Object> cells;
 		CellSetParser csp = new CellSetParser(control.cellSet);
+		boolean isUpdateExp = true;
 		String[][] cellExps = GMSpl.getCellSetExps(control.cellSet);
 		try {
 			switch (type) {
@@ -1014,6 +1015,7 @@ public class AtomicSpl implements IAtomicCmd {
 				break;
 			}
 			case MOVE_RECT: {
+				isUpdateExp = false;
 				CellSelection cs = (CellSelection) value;
 				Matrix fromData = GMSpl.getMatrixCells((CellSet) cs.srcCellSet,
 						cs.rect);
@@ -1270,11 +1272,13 @@ public class AtomicSpl implements IAtomicCmd {
 				break;
 			}
 		} finally {
-			Map<String, String> expMap = GMSpl.getExpChangedMap(
-					control.cellSet, cellExps);
-			if (expMap != null) {
-				if (GV.appSheet != null && GV.appSheet instanceof SheetSpl) {
-					((SheetSpl) GV.appSheet).expChanged(expMap);
+			if (isUpdateExp) {
+				Map<String, String> expMap = GMSpl.getExpChangedMap(
+						control.cellSet, cellExps);
+				if (expMap != null) {
+					if (GV.appSheet != null && GV.appSheet instanceof SheetSpl) {
+						((SheetSpl) GV.appSheet).expChanged(expMap);
+					}
 				}
 			}
 			ControlUtils.extractSplEditor(control).setSelectedAreas(

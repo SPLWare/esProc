@@ -2332,7 +2332,7 @@ public class SplEditor {
 		if (!isCut) {
 			control.resetCellSelection(cs);
 		} else {
-			doCut();
+			moveRect();
 		}
 		return true;
 	}
@@ -2340,8 +2340,7 @@ public class SplEditor {
 	/**
 	 * ÷¥––ºÙ«–
 	 */
-	protected void doCut() {
-
+	protected void moveRect() {
 	}
 
 	/**
