@@ -440,7 +440,7 @@ public class Pseudo implements IPseudo{
 	 * @param code	Õ‚±Ì
 	 * @return
 	 */
-	public Pseudo addForeignKeys(String fkName, String []fieldNames, Pseudo code, String[] codeKeys) {
+	public Pseudo addForeignKeys(String fkName, String []fieldNames, Object code, String[] codeKeys) {
 		throw new RQException("Never run to here.");
 	}
 	

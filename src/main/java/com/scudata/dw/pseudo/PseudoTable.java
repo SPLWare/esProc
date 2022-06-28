@@ -1061,7 +1061,7 @@ public class PseudoTable extends Pseudo {
 	 * @param code	Õ‚±Ì
 	 * @return
 	 */
-	public Pseudo addForeignKeys(String fkName, String []fieldNames, Pseudo code, String[] codeKeys) {
+	public Pseudo addForeignKeys(String fkName, String []fieldNames, Object code, String[] codeKeys) {
 		PseudoTable table = null;
 		try {
 			table = (PseudoTable) clone(ctx);

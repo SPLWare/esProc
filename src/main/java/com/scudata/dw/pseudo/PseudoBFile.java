@@ -314,7 +314,7 @@ public class PseudoBFile extends PseudoTable {
 		throw new RQException("Never run to here.");
 	}
 	
-	public Pseudo addForeignKeys(String fkName, String []fieldNames, Pseudo code, String[] codeKeys) {
+	public Pseudo addForeignKeys(String fkName, String []fieldNames, Object code, String[] codeKeys) {
 		PseudoBFile table = null;
 		try {
 			table = (PseudoBFile) clone(ctx);
