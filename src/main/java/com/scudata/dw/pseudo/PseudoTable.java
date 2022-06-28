@@ -239,9 +239,9 @@ public class PseudoTable extends Pseudo {
 							ArrayList<String> list = new ArrayList<String>();
 							newExps[i].getUsedFields(ctx, list);
 							for(String field : list) {
-								if (!extraNameList.contains(field) && 
-										!tempNameList.contains(field)) {
-									extraNameList.add(field);
+								if (!tempNameList.contains(field)) {
+									tempExpList.add(new Expression(field));
+									tempNameList.add(field);
 								}
 							}
 							
