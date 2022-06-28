@@ -4,6 +4,7 @@ import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
 import com.scudata.dm.Sequence;
+import com.scudata.expression.Function;
 import com.scudata.expression.Move;
 import com.scudata.expression.Node;
 import com.scudata.expression.Operator;
@@ -80,8 +81,15 @@ public class DotOperator extends Operator {
 			}
 		}
 		
+		String fnName;
+		if (this.right instanceof Function) {
+			fnName = ((Function)this.right).getFunctionName();
+		} else {
+			fnName = "";
+		}
+		
 		MessageManager mm = EngineMessage.get();
-		throw new RQException(mm.getMessage("dot.leftTypeError", Variant.getDataType(leftValue)));
+		throw new RQException(mm.getMessage("dot.leftTypeError", Variant.getDataType(leftValue), fnName));
 	}
 
 	public Object assign(Object value, Context ctx) {
