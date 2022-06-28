@@ -781,7 +781,7 @@ public class PseudoTable extends Pseudo {
 		} else if (col.getExp() != null) {
 			return new Expression(col.getExp()).getHome();
 		} else if (col.getFkey() != null) {
-			return new UnknownSymbol(col.getFkey()[0]);//有Fkey时 Fkey[0]是真字段
+			return null;//new UnknownSymbol(col.getFkey()[0]);//有Fkey时 Fkey[0]是真字段
 		} else {
 			return new UnknownSymbol(col.getName());//处理普通伪字段
 		}
