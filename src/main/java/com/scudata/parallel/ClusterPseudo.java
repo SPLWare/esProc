@@ -10,7 +10,6 @@ import com.scudata.dm.Machines;
 import com.scudata.dm.Record;
 import com.scudata.dm.ResourceManager;
 import com.scudata.dm.Sequence;
-import com.scudata.dm.Table;
 import com.scudata.dm.cursor.ICursor;
 import com.scudata.dm.op.Operable;
 import com.scudata.dm.op.Operation;
@@ -502,7 +501,7 @@ public class ClusterPseudo implements IClusterObject, IPseudo {
 			Context ctx = ClusterUtil.createContext(js, attributes);
 			IProxy proxy;
 			
-			Object table = Memory.createMemory(option, pseudo, null, ctx);
+			Object table = Memory.createMemory(pseudo, null, option, ctx);
 			//列式内表
 			if (option != null && option.indexOf('v') != -1 && IColumnCursorUtil.util != null) {
 				proxy = new TableMetaDataProxy((ITableMetaData) table);
@@ -532,5 +531,9 @@ public class ClusterPseudo implements IClusterObject, IPseudo {
 			response.setException(e);
 			return response;
 		}
+	}
+
+	public Sequence Import(Expression[] exps, String[] names) {
+		return cursor(exps, names).fetch();
 	}
 }

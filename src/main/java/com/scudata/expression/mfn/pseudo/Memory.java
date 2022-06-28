@@ -4,6 +4,7 @@ import com.scudata.dm.Context;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
 import com.scudata.dm.cursor.ICursor;
+import com.scudata.dm.op.Select;
 import com.scudata.dw.IColumnCursorUtil;
 import com.scudata.dw.MemoryTable;
 import com.scudata.dw.pseudo.IPseudo;
@@ -21,10 +22,10 @@ import com.scudata.parallel.ClusterPseudo;
  */
 public class Memory extends PseudoFunction {
 	public Object calculate(Context ctx) {
-		return createMemory(option, pseudo, param, ctx);
+		return createMemory(pseudo, param, option, ctx);
 	}
 	
-	public static Object createMemory(String option, IPseudo pseudo, IParam param, Context ctx) {
+	public static Object createMemory(IPseudo pseudo, IParam param, String option, Context ctx) {
 		if (pseudo instanceof ClusterPseudo) {
 			return ((ClusterPseudo)pseudo).memory(option, ctx);
 		}
@@ -46,6 +47,35 @@ public class Memory extends PseudoFunction {
 		if (cursor instanceof ClusterCursor) {
 			return ((ClusterCursor)cursor).memory(null, ctx);
 		}
+		Sequence seq = cursor.fetch();
+		
+		Table table;
+		if (seq instanceof Table) {
+			table = (Table)seq;
+		} else if (seq == null) {
+			return null;
+		} else {
+			table = seq.derive("o");
+		}
+		
+		MemoryTable result = new MemoryTable(table);		
+		return result;
+	}
+	
+	public static Object createMemory(IPseudo pseudo, Expression []exps, String []names, Expression filter, 
+			String option, Context ctx) {
+		pseudo = (IPseudo) pseudo.addOperation(new Select(filter, null), ctx);
+		if (pseudo instanceof ClusterPseudo) {
+			return ((ClusterPseudo)pseudo).memory(option, ctx);
+		}
+		
+		//列式内表
+		if (option != null && option.indexOf('v') != -1 && IColumnCursorUtil.util != null) {
+			ICursor cursor = pseudo.cursor(exps, names);
+			return IColumnCursorUtil.util.createMemoryTable(cursor, null, option);
+		}
+		
+		ICursor cursor = pseudo.cursor(exps, names);
 		Sequence seq = cursor.fetch();
 		
 		Table table;

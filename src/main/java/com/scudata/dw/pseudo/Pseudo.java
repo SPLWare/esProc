@@ -451,4 +451,8 @@ public class Pseudo implements IPseudo{
 	public Pseudo setMcsTable(Pseudo mcsTable) {
 		throw new RQException("Never run to here.");
 	}
+
+	public Sequence Import(Expression[] exps, String[] names) {
+		return cursor(exps, names).fetch();
+	}
 }
