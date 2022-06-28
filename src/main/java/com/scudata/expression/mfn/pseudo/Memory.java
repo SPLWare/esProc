@@ -64,7 +64,9 @@ public class Memory extends PseudoFunction {
 	
 	public static Object createMemory(IPseudo pseudo, Expression []exps, String []names, Expression filter, 
 			String option, Context ctx) {
-		pseudo = (IPseudo) pseudo.addOperation(new Select(filter, null), ctx);
+		if (filter != null) {
+			pseudo = (IPseudo) pseudo.addOperation(new Select(filter, null), ctx);
+		}
 		if (pseudo instanceof ClusterPseudo) {
 			return ((ClusterPseudo)pseudo).memory(option, ctx);
 		}
