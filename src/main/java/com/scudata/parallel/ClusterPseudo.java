@@ -13,8 +13,6 @@ import com.scudata.dm.Sequence;
 import com.scudata.dm.cursor.ICursor;
 import com.scudata.dm.op.Operable;
 import com.scudata.dm.op.Operation;
-import com.scudata.dw.IColumnCursorUtil;
-import com.scudata.dw.ITableMetaData;
 import com.scudata.dw.MemoryTable;
 import com.scudata.dw.pseudo.IPseudo;
 import com.scudata.dw.pseudo.PseudoDefination;
@@ -440,7 +438,6 @@ public class ClusterPseudo implements IClusterObject, IPseudo {
 	 * @return 集群内表
 	 */
 	public Object memory(String option, Context ctx) {
-		boolean hasV = option != null && option.indexOf('v') != -1 && IColumnCursorUtil.util != null;
 		Cluster cluster = getCluster();
 		int count = cluster.getUnitCount();
 		
