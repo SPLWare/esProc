@@ -17,6 +17,7 @@ import com.scudata.dm.op.DiffJoin;
 import com.scudata.dm.op.New;
 import com.scudata.dm.op.Select;
 import com.scudata.dm.op.Switch;
+import com.scudata.dw.IColumnCursorUtil;
 import com.scudata.dw.MemoryTable;
 import com.scudata.expression.Expression;
 import com.scudata.expression.IParam;
@@ -36,6 +37,9 @@ import com.scudata.util.CursorUtil;
 public class CreateCursor extends SequenceFunction {
 	public Object calculate(Context ctx) {
 		if (srcSequence instanceof MemoryTable) {
+			if (srcSequence.isColumnTable() && IColumnCursorUtil.util != null) {
+				return IColumnCursorUtil.util.createCursor(srcSequence, param, option, ctx);
+			}
 			return createCursor((MemoryTable)srcSequence, param, option, ctx);
 		} else {
 			if (option == null || option.indexOf('m') == -1) {

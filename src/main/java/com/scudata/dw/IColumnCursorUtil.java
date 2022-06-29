@@ -9,6 +9,7 @@ import com.scudata.dm.cursor.ICursor;
 import com.scudata.dm.cursor.MultipathCursors;
 import com.scudata.dm.op.IGroupsResult;
 import com.scudata.expression.Expression;
+import com.scudata.expression.IParam;
 
 /**
  * 列式游标接口
@@ -43,6 +44,8 @@ abstract public class IColumnCursorUtil {
 	
 	public abstract ICursor cursor(ITableMetaData table, Expression []exps, String []fields, Expression filter, String []fkNames, 
 			Sequence []codes,  String []opts, MultipathCursors mcs, String opt, Context ctx);
+	
+	public abstract ICursor createCursor(Object table, IParam param, String opt, Context ctx);
 	
 	public abstract IGroupsResult getGroupsResultInstance(Expression[] exps, String[] names, Expression[] calcExps, 
 			String[] calcNames, String opt, Context ctx);

@@ -502,30 +502,22 @@ public class ClusterPseudo implements IClusterObject, IPseudo {
 			IProxy proxy;
 			
 			Object table = Memory.createMemory(pseudo, null, option, ctx);
-			//列式内表
-			if (option != null && option.indexOf('v') != -1 && IColumnCursorUtil.util != null) {
-				proxy = new TableMetaDataProxy((ITableMetaData) table);
-				js.getResourceManager().addProxy(proxy);
-				return new Response(new Integer(proxy.getProxyId()));
-			} else {
-				MemoryTable memoryTable = (MemoryTable) table;
-				
-				if (pseudo instanceof PseudoTable) {
-					PseudoTable ptable = (PseudoTable) pseudo;
-					String distribute = ptable.getPd().getDistribute();
-					Integer partition = ptable.getPd().getPartition();
-					if (partition != null) {
-						memoryTable.setDistribute(distribute);
-						memoryTable.setPart(partition);
-					}
-				}
-
-				proxy = new TableProxy(memoryTable, unit);
-				rm.addProxy(proxy);
-				RemoteMemoryTable rmt = ClusterMemoryTable.newRemoteMemoryTable(proxy.getProxyId(), memoryTable);
-				return new Response(rmt);
-			}
+			MemoryTable memoryTable = (MemoryTable) table;
 			
+			if (pseudo instanceof PseudoTable) {
+				PseudoTable ptable = (PseudoTable) pseudo;
+				String distribute = ptable.getPd().getDistribute();
+				Integer partition = ptable.getPd().getPartition();
+				if (partition != null) {
+					memoryTable.setDistribute(distribute);
+					memoryTable.setPart(partition);
+				}
+			}
+
+			proxy = new TableProxy(memoryTable, unit);
+			rm.addProxy(proxy);
+			RemoteMemoryTable rmt = ClusterMemoryTable.newRemoteMemoryTable(proxy.getProxyId(), memoryTable);
+			return new Response(rmt);
 		} catch (Exception e) {
 			Response response = new Response();
 			response.setException(e);
