@@ -64,7 +64,7 @@ public class ConfigOptions {
 	/** 自动保存时间间隔（分钟） */
 	public static Integer iAutoSaveMinutes = new Integer(10);
 	/** 新建文件备份到目录 */
-	public static String sBackupDirectory = GM.getAbsolutePath(GC.PATH_BACKUP);
+	public static String sBackupDirectory = GC.PATH_BACKUP;
 	/** 自动打开的文件数量 */
 	public static String sAutoOpenFileNames = null;
 
