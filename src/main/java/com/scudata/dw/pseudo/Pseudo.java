@@ -363,6 +363,23 @@ public class Pseudo implements IPseudo{
 		return getPd().getAllSortedColNames();
 	}
 	
+	//根据字段名找维列
+	public PseudoColumn getFieldSwitchColumnByName(String fieldName) {
+		List<PseudoColumn> columns = pd.getColumns();
+		if (columns == null) {
+			return null;
+		}
+		
+		for (PseudoColumn column : columns) {
+			if (column.getDim() != null) {
+				if (column.getName() != null && column.getName().equals(fieldName)) {
+					return column;
+				}
+			}
+		}
+		return null;
+	}
+	
 	// 取字段指向的Column
 	public PseudoColumn getFieldSwitchColumn(String fieldName) {
 		List<PseudoColumn> columns = pd.getColumns();
