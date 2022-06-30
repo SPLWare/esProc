@@ -621,10 +621,10 @@ public class PseudoTable extends Pseudo {
 					dateFilter = (IFilter)obj;
 				}
 			} else if (obj instanceof ArrayList) {
-				ArrayList<Object> list = (ArrayList<Object>)obj;;
+				ArrayList<Object> list = (ArrayList<Object>)obj;
 				for (Object f : list) {
 					if (f instanceof IFilter) {
-						if (((IFilter)f).getColumnName().equals(dateFilter)) {
+						if (((IFilter)f).getColumnName().equals(dateName)) {
 							dateFilter = (IFilter)f;
 							break;
 						}
