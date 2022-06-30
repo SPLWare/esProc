@@ -521,7 +521,7 @@ public class PseudoTable extends Pseudo {
 						Expression[][] newExps = new Expression[1][];
 						newExps[0] = new Expression[] {new Expression("~")};
 						String[][] newNames = new String[1][];
-						newNames[0] = new String[] {column.getPseudo()};
+						newNames[0] = new String[] {column.getName()};
 						
 						Expression[][] dimKeyExps = new Expression[1][];
 						String[] dimKey = column.getDimKey();
@@ -1066,13 +1066,13 @@ public class PseudoTable extends Pseudo {
 		try {
 			table = clone ? (PseudoTable) clone(ctx) : this;
 			table.getPd().addPseudoColumn(new PseudoColumn(fkName, fieldNames, code, codeKeys));
-			if (fieldNames == null) {
-				table.addColName(fkName);
-			} else {
-				for (String key : fieldNames) {
-					table.addColName(key);
-				}
-			}
+//			if (fieldNames == null) {
+//				table.addColName(fkName);
+//			} else {
+//				for (String key : fieldNames) {
+//					table.addColName(key);
+//				}
+//			}
 		} catch (CloneNotSupportedException e) {
 			e.printStackTrace();
 		}
