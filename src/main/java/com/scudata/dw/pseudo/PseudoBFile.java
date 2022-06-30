@@ -314,10 +314,10 @@ public class PseudoBFile extends PseudoTable {
 		throw new RQException("Never run to here.");
 	}
 	
-	public Pseudo addForeignKeys(String fkName, String []fieldNames, Object code, String[] codeKeys) {
+	public Pseudo addForeignKeys(String fkName, String []fieldNames, Object code, String[] codeKeys, boolean clone) {
 		PseudoBFile table = null;
 		try {
-			table = (PseudoBFile) clone(ctx);
+			table = clone ? (PseudoBFile) clone(ctx) : this;
 			table.getPd().addPseudoColumn(new PseudoColumn(fkName, fieldNames, code, codeKeys));
 //			if (fieldNames == null) {
 //				table.addColName(fkName);

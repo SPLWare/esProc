@@ -438,9 +438,10 @@ public class Pseudo implements IPseudo{
 	 * @param fkName	外键名
 	 * @param fieldNames 外键字段
 	 * @param code	外表
+	 * @param clone 返回一个新虚表
 	 * @return
 	 */
-	public Pseudo addForeignKeys(String fkName, String []fieldNames, Object code, String[] codeKeys) {
+	public Pseudo addForeignKeys(String fkName, String []fieldNames, Object code, String[] codeKeys, boolean clone) {
 		throw new RQException("Never run to here.");
 	}
 	
