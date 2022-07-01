@@ -69,112 +69,112 @@ public class PseudoBFile extends PseudoTable {
 	 * @param exps 取出表达式
 	 * @param fields 取出别名
 	 */
-	protected void setFetchInfo_(Expression []exps, String []fields) {
-		this.exps = null;
-		this.names = null;
-		boolean needNew = extraNameList.size() > 0;
-		Expression newExps[] = null;
-		
-		extraOpList.clear();
-		
-		if (exps == null) {
-			if (fields == null) {
-				return;
-			} else {
-				int len = fields.length;
-				exps = new Expression[len];
-				for (int i = 0; i < len; i++) {
-					exps[i] = new Expression(fields[i]);
-				}
-			}
-		}
-		
-		newExps = exps.clone();//备份一下
-		
-		/**
-		 * 有取出表达式也有取出字段,则检查extraNameList里是否包含exps里的字段
-		 * 如果包含就去掉
-		 */
-		ArrayList<String> tempList = new ArrayList<String>();
-		for (String name : extraNameList) {
-			if (!tempList.contains(name)) {
-				tempList.add(name);
-			}
-		}
-		for (Expression exp : exps) {
-			String expName = exp.getIdentifierName();
-			if (tempList.contains(expName)) {
-				tempList.remove(expName);
-			}
-		}
-		
-		ArrayList<String> tempNameList = new ArrayList<String>();
-		int size = exps.length;
-		for (int i = 0; i < size; i++) {
-			Expression exp = exps[i];
-			String name = fields[i];
-			Node node = exp.getHome();
-			
-			if (node instanceof UnknownSymbol) {
-				String expName = exp.getIdentifierName();
-				if (!allNameList.contains(expName)) {
-					/**
-					 * 如果是伪字段则做转换
-					 */
-					PseudoColumn col = pd.findColumnByPseudoName(expName);
-					if (col != null) {
-						if (col.get_enum() != null) {
-							/**
-							 * 枚举字段做转换
-							 */
-							String var = "pseudo_enum_value_" + i;
-							ctx.setParamValue(var, col.get_enum());
-							name = col.getName();
-							newExps[i] = new Expression(var + "(" + name + ")");
-							exp = new Expression(name);
-							needNew = true;
-							tempNameList.add(name);
-						} else if (col.getBits() != null) {
-							/**
-							 * 二值字段做转换
-							 */
-							name = col.getName();
-							String pname = ((UnknownSymbol) node).getName();
-							Sequence seq;
-							seq = col.getBits();
-							int idx = seq.firstIndexOf(pname) - 1;
-							int bit = 1 << idx;
-							String str = "and(" + col.getName() + "," + bit + ")!=0";//改为真字段的位运算
-							newExps[i] = new Expression(str);
-							exp = new Expression(name);
-							needNew = true;
-							tempNameList.add(name);
-						}
-					}
-				} else {
-					tempNameList.add(name);
-				}
-			}
-		}
-		
-		for (String name : tempList) {
-			if (!tempNameList.contains(name)) {
-				tempNameList.add(name);
-			}
-		}
-		
-		size = tempNameList.size();
-		
-		this.names = new String[size];
-		tempNameList.toArray(this.names);
-	
-		
-		if (needNew) {
-			New _new = new New(newExps, fields, null);
-			extraOpList.add(_new);
-		}
-		return;
-	}
+//	protected void setFetchInfo_(Expression []exps, String []fields) {
+//		this.exps = null;
+//		this.names = null;
+//		boolean needNew = extraNameList.size() > 0;
+//		Expression newExps[] = null;
+//		
+//		extraOpList.clear();
+//		
+//		if (exps == null) {
+//			if (fields == null) {
+//				return;
+//			} else {
+//				int len = fields.length;
+//				exps = new Expression[len];
+//				for (int i = 0; i < len; i++) {
+//					exps[i] = new Expression(fields[i]);
+//				}
+//			}
+//		}
+//		
+//		newExps = exps.clone();//备份一下
+//		
+//		/**
+//		 * 有取出表达式也有取出字段,则检查extraNameList里是否包含exps里的字段
+//		 * 如果包含就去掉
+//		 */
+//		ArrayList<String> tempList = new ArrayList<String>();
+//		for (String name : extraNameList) {
+//			if (!tempList.contains(name)) {
+//				tempList.add(name);
+//			}
+//		}
+//		for (Expression exp : exps) {
+//			String expName = exp.getIdentifierName();
+//			if (tempList.contains(expName)) {
+//				tempList.remove(expName);
+//			}
+//		}
+//		
+//		ArrayList<String> tempNameList = new ArrayList<String>();
+//		int size = exps.length;
+//		for (int i = 0; i < size; i++) {
+//			Expression exp = exps[i];
+//			String name = fields[i];
+//			Node node = exp.getHome();
+//			
+//			if (node instanceof UnknownSymbol) {
+//				String expName = exp.getIdentifierName();
+//				if (!allNameList.contains(expName)) {
+//					/**
+//					 * 如果是伪字段则做转换
+//					 */
+//					PseudoColumn col = pd.findColumnByPseudoName(expName);
+//					if (col != null) {
+//						if (col.get_enum() != null) {
+//							/**
+//							 * 枚举字段做转换
+//							 */
+//							String var = "pseudo_enum_value_" + i;
+//							ctx.setParamValue(var, col.get_enum());
+//							name = col.getName();
+//							newExps[i] = new Expression(var + "(" + name + ")");
+//							exp = new Expression(name);
+//							needNew = true;
+//							tempNameList.add(name);
+//						} else if (col.getBits() != null) {
+//							/**
+//							 * 二值字段做转换
+//							 */
+//							name = col.getName();
+//							String pname = ((UnknownSymbol) node).getName();
+//							Sequence seq;
+//							seq = col.getBits();
+//							int idx = seq.firstIndexOf(pname) - 1;
+//							int bit = 1 << idx;
+//							String str = "and(" + col.getName() + "," + bit + ")!=0";//改为真字段的位运算
+//							newExps[i] = new Expression(str);
+//							exp = new Expression(name);
+//							needNew = true;
+//							tempNameList.add(name);
+//						}
+//					}
+//				} else {
+//					tempNameList.add(name);
+//				}
+//			}
+//		}
+//		
+//		for (String name : tempList) {
+//			if (!tempNameList.contains(name)) {
+//				tempNameList.add(name);
+//			}
+//		}
+//		
+//		size = tempNameList.size();
+//		
+//		this.names = new String[size];
+//		tempNameList.toArray(this.names);
+//	
+//		
+//		if (needNew) {
+//			New _new = new New(newExps, fields, null);
+//			extraOpList.add(_new);
+//		}
+//		return;
+//	}
 	
 	public ICursor cursor(Expression []exps, String []names) {
 		return cursor(exps, names, false);

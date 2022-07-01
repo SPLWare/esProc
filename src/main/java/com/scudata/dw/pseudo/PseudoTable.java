@@ -259,8 +259,10 @@ public class PseudoTable extends Pseudo {
 							newExps[i] = new Expression(var + "(" + name + ")");
 							exp = new Expression(name);
 							needNew = true;
-							tempExpList.add(exp);
-							tempNameList.add(name);
+							if (!tempNameList.contains(name)) {
+								tempExpList.add(exp);
+								tempNameList.add(name);
+							}
 						} else if (col.getBits() != null) {
 							/**
 							 * 二值字段做转换
@@ -280,8 +282,10 @@ public class PseudoTable extends Pseudo {
 						}
 					}
 				} else {
-					tempExpList.add(exp);
-					tempNameList.add(name);
+					if (!tempNameList.contains(name)) {
+						tempExpList.add(exp);
+						tempNameList.add(name);
+					}
 				}
 				
 //			} else if (node instanceof DotOperator) {
