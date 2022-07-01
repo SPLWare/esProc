@@ -218,6 +218,9 @@ public class PseudoDefination implements Cloneable, ICloneable {
 				if (col.getName() != null && col.getExp() != null && pname.equals(col.getName())) {
 					return col;
 				}
+				if (col.getName() != null && col.getDim() != null && col.getFkey() != null && pname.equals(col.getName())) {
+					return col;
+				}
 				if (col.getPseudo() != null && pname.equals(col.getPseudo())) {
 					return col;
 				}

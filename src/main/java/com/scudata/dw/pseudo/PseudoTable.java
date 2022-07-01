@@ -50,7 +50,7 @@ public class PseudoTable extends Pseudo {
 	protected int pathCount;
 	
 	protected ArrayList<Operation> extraOpList = new ArrayList<Operation>();//其它情况产生的延迟计算（不是主动调用select添加）
-
+	protected ArrayList<PseudoColumn> joinColumnList = new ArrayList<PseudoColumn>();//外键计算列
 	protected PseudoTable mcsTable;
 	
 	protected boolean hasPseudoColumns = false;//是否需要根据伪字段转换（枚举、二值）表达式
@@ -160,6 +160,7 @@ public class PseudoTable extends Pseudo {
 		Expression newExps[] = null;
 		
 		extraOpList.clear();
+		joinColumnList.clear();
 		
 		//set FK codes info
 		if (fkNameList != null) {
@@ -219,18 +220,21 @@ public class PseudoTable extends Pseudo {
 					PseudoColumn col = pd.findColumnByPseudoName(expName);
 					if (col != null) {
 						if (col.getDim() != null) {
-							String colName;
 							if (col.getFkey() == null) {
-								colName = col.getName();
+								String colName = col.getName();
+								if (!tempNameList.contains(colName)) {
+									tempExpList.add(new Expression(colName));
+									tempNameList.add(colName);
+								}
 							} else {
-								colName = col.getFkey()[0];
+								for (String colName : col.getFkey()) {
+									if (!tempNameList.contains(colName)) {
+										tempExpList.add(new Expression(colName));
+										tempNameList.add(colName);
+									}
+								}
 							}
-
-							if (!tempNameList.contains(colName)) {
-								tempExpList.add(new Expression(colName));
-								tempNameList.add(colName);
-							}
-							
+							joinColumnList.add(col);
 						} else if (col.getExp() != null) {
 							//有表达式的伪列
 							newExps[i] = new Expression(col.getExp());
@@ -304,7 +308,6 @@ public class PseudoTable extends Pseudo {
 		this.names = new String[size];
 		tempNameList.toArray(this.names);
 	
-		
 		if (needNew) {
 			New _new = new New(newExps, fields, null);
 			extraOpList.add(_new);
@@ -406,6 +409,94 @@ public class PseudoTable extends Pseudo {
 	}
 	
 	/**
+	 * 添加可能用到的外键连接
+	 */
+	protected void addJoin(ICursor cursor) {
+		List<PseudoColumn> list = getFieldSwitchColumns(this.names);
+		if (list != null) {
+			for (PseudoColumn col : joinColumnList) {
+				list.add(col);
+			}
+		} else {
+			list = joinColumnList;
+		}
+		if (getPd() != null && list != null) {
+			for (PseudoColumn column : list) {
+				if (column.getDim() != null) {//如果存在外键，则添加一个switch的延迟计算
+					Sequence dim;
+					if (column.getDim() instanceof Sequence) {
+						dim = (Sequence) column.getDim();
+					} else {
+						dim = ((IPseudo) column.getDim()).cursor(null, null, false).fetch();
+					}
+					boolean hasTimeKey = column.getTime() != null && dim.dataStruct().getTimeKeyCount() == 1;
+					
+					String fkey[] = column.getFkey();
+					if (fkey == null) {
+						/**
+						 * 此时name就是外键字段
+						 */
+						String[] fkNames = new String[] {column.getName()};
+						String[] timeFkNames =hasTimeKey ? new String[] {column.getTime()} : null;
+						Sequence[] codes = new Sequence[] {dim};
+						Switch s = new Switch(
+								null,
+								fkNames, 
+								timeFkNames,
+								codes,
+								null,
+								null,
+								null);
+						cursor.addOperation(s, ctx);
+					} else {
+						int size = fkey.length;
+						
+						/**
+						 * 如果定义了时间字段,就把时间字段拼接到fkey末尾
+						 */
+						if (hasTimeKey) {
+							size++;
+							fkey = new String[size];
+							System.arraycopy(column.getFkey(), 0, fkey, 0, size - 1);
+							fkey[size - 1] = column.getTime();
+						}
+						
+						Expression[][] exps = new Expression[1][];
+						exps[0] = new Expression[size];
+						for (int i = 0; i < size; i++) {
+							exps[0][i] = new Expression(fkey[i]);
+						}
+						Expression[][] newExps = new Expression[1][];
+						newExps[0] = new Expression[] {new Expression("~")};
+						
+						String newName = column.getName();
+						if (newName == null && column.getFkey() != null) {
+							newName = column.getFkey()[0];
+						}
+						String[][] newNames = new String[1][];
+						newNames[0] = new String[] {newName};
+						
+						Expression[][] dimKeyExps = new Expression[1][];
+						String[] dimKey = column.getDimKey();
+						if (dimKey == null) {
+							dimKeyExps[0] = null;
+						} else {
+							Expression[] dimKeyExp = new Expression[size];
+							for (int i = 0; i < size; i++) {
+								dimKeyExp[i] = new Expression(dimKey[i]);
+							}
+							dimKeyExps[0] = dimKeyExp;
+						}
+						
+						Join join = new Join(null, null, exps, new Sequence[] {dim}, dimKeyExps, newExps, newNames, null);
+						cursor.addOperation(join, ctx);
+					}
+				}
+			}
+		}
+	}
+	
+	/**
 	 * 得到table的游标
 	 * @param table
 	 * @param mcs
@@ -469,78 +560,7 @@ public class PseudoTable extends Pseudo {
 			}
 		}
 		
-		List<PseudoColumn> list = getFieldSwitchColumns(this.names);
-		if (getPd() != null && list != null) {
-			for (PseudoColumn column : list) {
-				if (column.getDim() != null) {//如果存在外键，则添加一个switch的延迟计算
-					Sequence dim;
-					if (column.getDim() instanceof Sequence) {
-						dim = (Sequence) column.getDim();
-					} else {
-						dim = ((IPseudo) column.getDim()).cursor(null, null, false).fetch();
-					}
-					
-					String fkey[] = column.getFkey();
-					/**
-					 * 如果fkey等于null，且name不等于null，且存在time，则组织为一个新的fkey={name，time}
-					 */
-					if (fkey == null && column.getName() != null && column.getTime() != null) {
-						fkey = new String[] {column.getName(), column.getTime()};
-					}
-					
-					if (fkey == null) {
-						/**
-						 * 此时name就是外键字段
-						 */
-						String[] fkNames = new String[] {column.getName()};
-						Sequence[] codes = new Sequence[] {dim};
-						Switch s = new Switch(fkNames, codes, null, null);
-						cursor.addOperation(s, ctx);
-//					} else if (fkey.length == 1) {
-//						Sequence[] codes = new Sequence[] {dim};
-//						Switch s = new Switch(fkey, codes, null, null);
-//						cursor.addOperation(s, ctx);
-					} else {
-						int size = fkey.length;
-						
-						/**
-						 * 如果定义了时间字段,就把时间字段拼接到fkey末尾
-						 */
-						if (column.getTime() != null) {
-							size++;
-							fkey = new String[size];
-							System.arraycopy(column.getFkey(), 0, fkey, 0, size - 1);
-							fkey[size - 1] = column.getTime();
-						}
-						
-						Expression[][] exps = new Expression[1][];
-						exps[0] = new Expression[size];
-						for (int i = 0; i < size; i++) {
-							exps[0][i] = new Expression(fkey[i]);
-						}
-						Expression[][] newExps = new Expression[1][];
-						newExps[0] = new Expression[] {new Expression("~")};
-						String[][] newNames = new String[1][];
-						newNames[0] = new String[] {column.getName()};
-						
-						Expression[][] dimKeyExps = new Expression[1][];
-						String[] dimKey = column.getDimKey();
-						if (dimKey == null) {
-							dimKeyExps[0] = null;
-						} else {
-							Expression[] dimKeyExp = new Expression[size];
-							for (int i = 0; i < size; i++) {
-								dimKeyExp[i] = new Expression(dimKey[i]);
-							}
-							dimKeyExps[0] = dimKeyExp;
-						}
-						
-						Join join = new Join(null, null, exps, new Sequence[] {dim}, dimKeyExps, newExps, newNames, null);
-						cursor.addOperation(join, ctx);
-					}
-				}
-			}
-		}
+		addJoin(cursor);
 	
 		if (addOpt) {
 			if (opList != null) {

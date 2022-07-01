@@ -204,78 +204,8 @@ public class PseudoBFile extends PseudoTable {
 			}
 		}
 
-		List<PseudoColumn> list = getFieldSwitchColumns(this.names);
-		if (getPd() != null && list != null) {
-			for (PseudoColumn column : list) {
-				if (column.getDim() != null) {//如果存在外键，则添加一个switch的延迟计算
-					Sequence dim;
-					if (column.getDim() instanceof Sequence) {
-						dim = (Sequence) column.getDim();
-					} else {
-						dim = ((IPseudo) column.getDim()).cursor(null, null, false).fetch();
-					}
-					
-					String fkey[] = column.getFkey();
-					/**
-					 * 如果fkey等于null，且name不等于null，且存在time，则组织为一个新的fkey={name，time}
-					 */
-					if (fkey == null && column.getName() != null && column.getTime() != null) {
-						fkey = new String[] {column.getName(), column.getTime()};
-					}
-					
-					if (fkey == null) {
-						/**
-						 * 此时name就是外键字段
-						 */
-						String[] fkNames = new String[] {column.getName()};
-						Sequence[] codes = new Sequence[] {dim};
-						Switch s = new Switch(fkNames, codes, null, null);
-						cursor.addOperation(s, ctx);
-//					} else if (fkey.length == 1) {
-//						Sequence[] codes = new Sequence[] {dim};
-//						Switch s = new Switch(fkey, codes, null, null);
-//						cursor.addOperation(s, ctx);
-					} else {
-						int size = fkey.length;
-						
-						/**
-						 * 如果定义了时间字段,就把时间字段拼接到fkey末尾
-						 */
-						if (column.getTime() != null) {
-							size++;
-							fkey = new String[size];
-							System.arraycopy(column.getFkey(), 0, fkey, 0, size - 1);
-							fkey[size - 1] = column.getTime();
-						}
-						
-						Expression[][] exps_ = new Expression[1][];
-						exps_[0] = new Expression[size];
-						for (int i = 0; i < size; i++) {
-							exps_[0][i] = new Expression(fkey[i]);
-						}
-						Expression[][] newExps = new Expression[1][];
-						newExps[0] = new Expression[] {new Expression("~")};
-						String[][] newNames = new String[1][];
-						newNames[0] = new String[] {column.getPseudo()};
-						
-						Expression[][] dimKeyExps = new Expression[1][];
-						String[] dimKey = column.getDimKey();
-						if (dimKey == null) {
-							dimKeyExps[0] = null;
-						} else {
-							Expression[] dimKeyExp = new Expression[size];
-							for (int i = 0; i < size; i++) {
-								dimKeyExp[i] = new Expression(dimKey[i]);
-							}
-							dimKeyExps[0] = dimKeyExp;
-						}
-						
-						Join join = new Join(null, null, exps_, new Sequence[] {dim}, dimKeyExps, newExps, newNames, null);
-						cursor.addOperation(join, ctx);
-					}
-				}
-			}
-		}
+		this.addJoin(cursor);
+		
 		if (opList != null) {
 			for (Operation op : opList) {
 				cursor.addOperation(op, ctx);
@@ -319,13 +249,6 @@ public class PseudoBFile extends PseudoTable {
 		try {
 			table = clone ? (PseudoBFile) clone(ctx) : this;
 			table.getPd().addPseudoColumn(new PseudoColumn(fkName, fieldNames, code, codeKeys));
-//			if (fieldNames == null) {
-//				table.addColName(fkName);
-//			} else {
-//				for (String key : fieldNames) {
-//					table.addColName(key);
-//				}
-//			}
 		} catch (CloneNotSupportedException e) {
 			e.printStackTrace();
 		}
