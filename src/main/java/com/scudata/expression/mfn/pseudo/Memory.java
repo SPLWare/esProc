@@ -33,6 +33,18 @@ public class Memory extends PseudoFunction {
 	}
 	
 	private static Object memory(String option, IPseudo pseudo, IParam param, Context ctx) {
+		Expression filter = null;
+		if (param != null && param.getType() == IParam.Semicolon) {
+			IParam expParam = param.getSub(1);
+			if (expParam != null && expParam.isLeaf()) {
+				filter = expParam.getLeafExpression();
+			}
+			param = param.getSub(0);
+		}
+		if (filter != null) {
+			pseudo = (IPseudo) pseudo.addOperation(new Select(filter, null), ctx);
+		}
+		
 		//列式内表
 		if (option != null && option.indexOf('v') != -1 && IColumnCursorUtil.util != null) {
 			String opt = option;
@@ -43,7 +55,7 @@ public class Memory extends PseudoFunction {
 			return IColumnCursorUtil.util.createMemoryTable(cursor, null, option);
 		}
 		
-		ICursor cursor = CreateCursor.createCursor("memory", pseudo, null, null, ctx);
+		ICursor cursor = CreateCursor.createCursor("memory", pseudo, param, null, ctx);
 		if (cursor instanceof ClusterCursor) {
 			return ((ClusterCursor)cursor).memory(null, ctx);
 		}

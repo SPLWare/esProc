@@ -917,7 +917,12 @@ public class PseudoTable extends Pseudo {
 			/**
 			 * 处理伪字段，二值字段，枚举字段
 			 */
-			Expression exp = op.getFunction().getParam().getLeafExpression();
+			Expression exp;
+			if (op instanceof Select) {
+				exp = ((Select) op).getFilterExpression();
+			} else {
+				exp = op.getFunction().getParam().getLeafExpression();
+			}
 			Node node = exp.getHome();
 			if (node instanceof UnknownSymbol) {
 				/**

@@ -20,10 +20,10 @@ import com.scudata.util.Variant;
  *
  */
 public class FieldRef extends Node {
-	private String name;
-	private Object s2r; // 序列或记录
-	private int col; // 字段索引
-	private DataStruct prevDs;
+	protected String name;
+	protected Object s2r; // 序列或记录
+	protected int col; // 字段索引
+	protected DataStruct prevDs;
 
 	public FieldRef(String fieldName) {
 		name = fieldName;
@@ -61,9 +61,9 @@ public class FieldRef extends Node {
 
 			if (obj instanceof Record) {
 				Record cur = (Record)obj;
-				if (prevDs != cur.dataStruct()) {
+				if (getPrevDs() != cur.dataStruct()) {
 					prevDs = cur.dataStruct();
-					col = prevDs.getFieldIndex(name);
+					col = getPrevDs().getFieldIndex(name);
 					if (col < 0) {
 						MessageManager mm = EngineMessage.get();
 						throw new RQException(name + mm.getMessage("ds.fieldNotExist"));
@@ -88,9 +88,9 @@ public class FieldRef extends Node {
 			}
 		} else if (s2r instanceof Record) {
 			Record cur = (Record)s2r;
-			if (prevDs != cur.dataStruct()) {
+			if (getPrevDs() != cur.dataStruct()) {
 				prevDs = cur.dataStruct();
-				col = prevDs.getFieldIndex(name);
+				col = getPrevDs().getFieldIndex(name);
 				if (col < 0) {
 					MessageManager mm = EngineMessage.get();
 					throw new RQException(name + mm.getMessage("ds.fieldNotExist"));
@@ -117,9 +117,9 @@ public class FieldRef extends Node {
 			}
 
 			Record cur = (Record)obj;
-			if (prevDs != cur.dataStruct()) {
+			if (getPrevDs() != cur.dataStruct()) {
 				prevDs = cur.dataStruct();
-				col = prevDs.getFieldIndex(name);
+				col = getPrevDs().getFieldIndex(name);
 				if (col < 0) {
 					MessageManager mm = EngineMessage.get();
 					throw new RQException(name + mm.getMessage("ds.fieldNotExist"));
@@ -129,9 +129,9 @@ public class FieldRef extends Node {
 			cur.setNormalFieldValue(col, value);
 		} else if (s2r instanceof Record) {
 			Record cur = (Record)s2r;
-			if (prevDs != cur.dataStruct()) {
+			if (getPrevDs() != cur.dataStruct()) {
 				prevDs = cur.dataStruct();
-				col = prevDs.getFieldIndex(name);
+				col = getPrevDs().getFieldIndex(name);
 				if (col < 0) {
 					MessageManager mm = EngineMessage.get();
 					throw new RQException(name + mm.getMessage("ds.fieldNotExist"));
@@ -160,9 +160,9 @@ public class FieldRef extends Node {
 			}
 
 			Record cur = (Record)obj;
-			if (prevDs != cur.dataStruct()) {
+			if (getPrevDs() != cur.dataStruct()) {
 				prevDs = cur.dataStruct();
-				col = prevDs.getFieldIndex(name);
+				col = getPrevDs().getFieldIndex(name);
 				if (col < 0) {
 					MessageManager mm = EngineMessage.get();
 					throw new RQException(name + mm.getMessage("ds.fieldNotExist"));
@@ -174,9 +174,9 @@ public class FieldRef extends Node {
 			return result;
 		} else if (s2r instanceof Record) {
 			Record cur = (Record)s2r;
-			if (prevDs != cur.dataStruct()) {
+			if (getPrevDs() != cur.dataStruct()) {
 				prevDs = cur.dataStruct();
-				col = prevDs.getFieldIndex(name);
+				col = getPrevDs().getFieldIndex(name);
 				if (col < 0) {
 					MessageManager mm = EngineMessage.get();
 					throw new RQException(name + mm.getMessage("ds.fieldNotExist"));
@@ -212,9 +212,9 @@ public class FieldRef extends Node {
 		if (mem == null) return null;
 		if (mem instanceof Record) {
 			Record r = (Record)mem;
-			if (prevDs != r.dataStruct()) {
+			if (getPrevDs() != r.dataStruct()) {
 				prevDs = r.dataStruct();
-				col = prevDs.getFieldIndex(name);
+				col = getPrevDs().getFieldIndex(name);
 				if (col < 0) {
 					MessageManager mm = EngineMessage.get();
 					throw new RQException(name + mm.getMessage("ds.fieldNotExist"));
@@ -252,9 +252,9 @@ public class FieldRef extends Node {
 		}
 		
 		Record r = (Record)mem;
-		if (prevDs != r.dataStruct()) {
+		if (getPrevDs() != r.dataStruct()) {
 			prevDs = r.dataStruct();
-			col = prevDs.getFieldIndex(name);
+			col = getPrevDs().getFieldIndex(name);
 			if (col < 0) {
 				MessageManager mm = EngineMessage.get();
 				throw new RQException(name + mm.getMessage("ds.fieldNotExist"));
@@ -281,5 +281,17 @@ public class FieldRef extends Node {
 		int []range = node.calculateIndexRange(current, ctx);
 		if (range == null) return new Sequence(0);
 		return Move.getFieldValues(current, name, range[0], range[1]);
+	}
+
+	public DataStruct getPrevDs() {
+		return prevDs;
+	}
+	
+	public int getCol() {
+		return col;
+	}
+	
+	public Object getS2R() {
+		return s2r;
 	}
 }
