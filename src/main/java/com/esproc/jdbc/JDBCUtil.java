@@ -943,7 +943,11 @@ public class JDBCUtil {
 						if (seqi != null && seqi instanceof Record) {
 							Record r = (Record) seq.get(i);
 							for (int j = 0; j < fields.length; j++) {
-								Object o = r.getFieldValue(fields[j]);
+								Object o = null;
+								try { // Òì¹¹Êý¾Ý
+									o = r.getFieldValue(fields[j]);
+								} catch (Exception ex) {
+								}
 								row.add(o);
 								if (o == null)
 									continue;
