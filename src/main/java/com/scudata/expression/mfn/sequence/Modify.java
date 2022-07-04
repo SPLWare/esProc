@@ -196,7 +196,7 @@ public class Modify extends SequenceFunction {
 		}
 		
 		sub = param.getSub(1);
-		if (sub == null) {
+		if (sub == null || !sub.isLeaf()) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("modify" + mm.getMessage("function.invalidParam"));
 		}
