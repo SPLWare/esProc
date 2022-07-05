@@ -738,11 +738,11 @@ public class JTableEx extends JTable implements MouseListener,
 				Component c = super.getTableCellEditorComponent(table, value,
 						isSelected, row, column);
 				if (isSelected) {
-					setForeground(table.getSelectionForeground());
-					setBackground(table.getSelectionBackground());
+					c.setForeground(table.getSelectionForeground());
+					c.setBackground(table.getSelectionBackground());
 				} else {
-					setForeground(table.getForeground());
-					setBackground(table.getBackground());
+					c.setForeground(table.getForeground());
+					c.setBackground(table.getBackground());
 				}
 				return c;
 			}
