@@ -56,14 +56,21 @@ public class ImShell extends ImFunction {
 				return ImCursor.parse(docs);
 			}
 		}catch(Exception e){
-			String info = e.getMessage();
-			if (info.indexOf("{")>-1 && info.indexOf("}")>0){
-				info = info.substring(info.indexOf("{"));
-				char[] chars = info.toCharArray();
-				obj = JSONUtil.parseJSON(chars, 0, chars.length - 1);
-			}else{			
-				Logger.error(info);
+			if (option!=null && option.contains("e")){
+				obj = "{\"error\":\""+e.getMessage()+"\"}";
+				Logger.error(obj,e);
+//				String info = e.getMessage();
+//				if (info.indexOf("{")>-1 && info.indexOf("}")>0){
+//					info = info.substring(info.indexOf("{"));
+//					char[] chars = info.toCharArray();
+//					obj = JSONUtil.parseJSON(chars, 0, chars.length - 1);
+//				}else{			
+//					Logger.error(info);
+//				}
+			} else {
+				throw e;
 			}
+
 		}
 		
 		return obj;
