@@ -316,7 +316,7 @@ public class PseudoDefination implements Cloneable, ICloneable {
 		if (isBFile) {
 			return ds.getPrimary();
 		} else if (var == null) {
-			return tables.get(0).getAllSortedColNames();
+			return tables.get(0).getAllKeyColNames();
 		} else {
 			return memoryTable.dataStruct().getPrimary();
 		}
