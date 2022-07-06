@@ -18,6 +18,7 @@ import com.scudata.dm.op.Switch;
 import com.scudata.expression.Expression;
 import com.scudata.expression.operator.And;
 import com.scudata.resources.EngineMessage;
+import com.scudata.util.Variant;
 
 public class Pseudo implements IPseudo{
 	protected PseudoDefination pd;//实表的定义
@@ -472,5 +473,42 @@ public class Pseudo implements IPseudo{
 
 	public Sequence Import(Expression[] exps, String[] names) {
 		return cursor(exps, names).fetch();
+	}
+
+	/**
+	 * 判断是否存在这个外键
+	 * @param fkName
+	 * @param fieldNames
+	 * @param code
+	 * @param codeKeys
+	 * @return
+	 */
+	public PseudoColumn isForeignKey(String fkName, String []fieldNames, Object code, String[] codeKeys) {
+		List<PseudoColumn> columns = pd.getColumns();
+		if (columns == null) {
+			return null;
+		}
+		
+		for (PseudoColumn column : columns) {
+			if (column.getDim() != null) {
+				if (column.getName() != null && column.getName().equals(fkName)) {
+					return column;
+				}
+				if (column.getFkey() != null 
+						&& column.getFkey().length == 1
+						&& column.getFkey()[0].equals(fkName)) {
+					return column;
+				}
+				if ((column.getFkey() != null) 
+					&& Variant.compareArrays(fieldNames, column.getFkey()) == 0) {
+					return column;
+				}
+				if ((column.getDimKey() != null) 
+						&& Variant.compareArrays(codeKeys, column.getDimKey()) == 0) {
+						return column;
+				}
+			}
+		}
+		return null;
 	}
 }
