@@ -1714,27 +1714,7 @@ public class Table extends Sequence {
 	 * b：序表按主键有序，用二分法找（此选项适合主键为字符串，维表记录少的情况，字符串算哈希比较慢）
 	 */
 	public void createIndexTable(String opt) {
-		int []fields = ds.getPKIndex();
-		if (fields == null) {
-			ds.setPrimary(null, opt);
-			if (ds.isSeqKey()) {
-				// 创排号索引
-				indexTable = new SeqIndexTable(this);
-			} else {
-				MessageManager mm = EngineMessage.get();
-				throw new RQException(mm.getMessage("ds.lessKey"));
-			}
-		} else if (ds.getTimeKeyCount() == 1) {
-			indexTable = new TimeIndexTable(this, fields, length());
-		} else if (opt != null && opt.indexOf('b') != -1) {
-			SortIndexTable sit = new SortIndexTable();
-			sit.create(this, fields);
-			indexTable = sit;
-		} else if (fields.length == 1 && opt != null && opt.indexOf('s') != -1) {
-			indexTable = IndexTable.instance_s(this, fields[0]);
-		} else {
-			indexTable = IndexTable.instance(this, fields, length(), opt);
-		}
+		createIndexTable(length(), opt);
 	}
 
 	/**
@@ -1756,6 +1736,13 @@ public class Table extends Sequence {
 			}
 		} else if (ds.getTimeKeyCount() == 1) {
 			indexTable = new TimeIndexTable(this, fields, capacity);
+		} else if (ds.isSeqKey()) {
+			// 创建序号索引
+			indexTable = new SeqIndexTable(this);
+		} else if (fields.length == 1 && opt != null && opt.indexOf('s') != -1) {
+			indexTable = IndexTable.instance_s(this, fields[0]);
+		} else if (opt != null && opt.indexOf('b') != -1) {
+			indexTable = new SortIndexTable(this, fields);
 		} else {
 			indexTable = IndexTable.instance(this, fields, capacity, opt);
 		}

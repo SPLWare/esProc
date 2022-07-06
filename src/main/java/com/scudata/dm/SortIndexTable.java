@@ -4,11 +4,16 @@ import com.scudata.expression.Expression;
 import com.scudata.util.Variant;
 
 public class SortIndexTable extends IndexTable {
-
 	private Sequence code;
-	private int findex[];
-	private Object keys[];
+	private int []findex;
+	private Object []keys;
 
+	public SortIndexTable(Sequence code, int []fields) {
+		this.code = code;
+		this.findex = fields;
+		this.keys = new Object[1];
+	}
+	
 	public Object find(Object key) {
 		keys[0] = key;
 		int idx = pfindByFields(keys, findex);
@@ -19,7 +24,7 @@ public class SortIndexTable extends IndexTable {
 		}
 	}
 
-	public Object find(Object[] keys) {
+	public Object find(Object []keys) {
 		int idx = pfindByFields(keys, findex);
 		if (idx < 0) {
 			return null;
