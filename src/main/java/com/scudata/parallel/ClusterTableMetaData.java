@@ -471,13 +471,11 @@ public class ClusterTableMetaData implements IClusterObject, IResource {
 
 			ICursor cursor = tmd.cursor(fields, exp, ctx);
 			IProxy proxy;
+			MemoryTable memoryTable;
 			
 			//列式内表
 			if (option != null && option.indexOf('v') != -1 && IColumnCursorUtil.util != null) {
-				//TODO
-				return null;
-//				ITableMetaData table = (ITableMetaData) IColumnCursorUtil.util.createMemoryTable(cursor, fields, option);
-//				proxy = new TableMetaDataProxy(table);
+				memoryTable = (MemoryTable) IColumnCursorUtil.util.createMemoryTable(cursor, fields, option);
 			} else {
 				Sequence seq = cursor.fetch();
 				Table table;
@@ -486,23 +484,22 @@ public class ClusterTableMetaData implements IClusterObject, IResource {
 				} else {
 					table = seq.derive("o");
 				}
-
-				MemoryTable memoryTable = new MemoryTable(table);
-				if (tmd instanceof TableMetaData) {
-					String distribute = tmd.getDistribute();
-					Integer partition = ((TableMetaData)tmd).getGroupTable().getPartition();
-					if (partition != null) {
-						memoryTable.setDistribute(distribute);
-						memoryTable.setPart(partition);
-					}
-				}
-
-				proxy = new TableProxy(memoryTable, unit);
-				rm.addProxy(proxy);
-				RemoteMemoryTable rmt = ClusterMemoryTable.newRemoteMemoryTable(proxy.getProxyId(), memoryTable);
-				return new Response(rmt);
+				memoryTable = new MemoryTable(table);
 			}
-			
+
+			if (tmd instanceof TableMetaData) {
+				String distribute = tmd.getDistribute();
+				Integer partition = ((TableMetaData)tmd).getGroupTable().getPartition();
+				if (partition != null) {
+					memoryTable.setDistribute(distribute);
+					memoryTable.setPart(partition);
+				}
+			}
+
+			proxy = new TableProxy(memoryTable, unit);
+			rm.addProxy(proxy);
+			RemoteMemoryTable rmt = ClusterMemoryTable.newRemoteMemoryTable(proxy.getProxyId(), memoryTable);
+			return new Response(rmt);
 		} catch (Exception e) {
 			Response response = new Response();
 			response.setException(e);
