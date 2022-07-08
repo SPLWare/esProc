@@ -77,7 +77,8 @@ public abstract class PanelEnv extends JPanel {
 			try {
 				Integer.parseInt(sFetchCount);
 			} catch (Exception ex) {
-				throw new RQException(mm.getMessage("dialogoptions.invalidfetchcount"));
+				throw new RQException(
+						mm.getMessage("dialogoptions.invalidfetchcount"));
 			}
 		if (!checkFileBuffer()) {
 			return false;
@@ -91,13 +92,16 @@ public abstract class PanelEnv extends JPanel {
 	public void save() {
 		ConfigOptions.sLogFileName = jTFLogFileName.getText();
 		ConfigOptions.sPaths = jTFPath.getText();
-		ConfigOptions.sMainPath = jTFMainPath.getSelectedItem() == null ? null : (String) jTFMainPath.getSelectedItem();
+		ConfigOptions.sMainPath = jTFMainPath.getSelectedItem() == null ? null
+				: (String) jTFMainPath.getSelectedItem();
 		ConfigOptions.sTempPath = jTFTempPath.getText();
 		ConfigOptions.sExtLibsPath = jTFExtLibsPath.getText();
 		ConfigOptions.sInitSpl = jTFInitSpl.getText();
 
-		ConfigOptions.sDateFormat = jCBDate.getSelectedItem() == null ? null : (String) jCBDate.getSelectedItem();
-		ConfigOptions.sTimeFormat = jCBTime.getSelectedItem() == null ? null : (String) jCBTime.getSelectedItem();
+		ConfigOptions.sDateFormat = jCBDate.getSelectedItem() == null ? null
+				: (String) jCBDate.getSelectedItem();
+		ConfigOptions.sTimeFormat = jCBTime.getSelectedItem() == null ? null
+				: (String) jCBTime.getSelectedItem();
 		ConfigOptions.sDateTimeFormat = jCBDateTime.getSelectedItem() == null ? null
 				: (String) jCBDateTime.getSelectedItem();
 		ConfigOptions.sDefCharsetName = jCBCharset.getSelectedItem() == null ? null
@@ -116,7 +120,8 @@ public abstract class PanelEnv extends JPanel {
 		String sFetchCount = jTextFetchCount.getText();
 		if (StringUtils.isValidString(sFetchCount)) {
 			try {
-				ConfigOptions.iFetchCount = new Integer(Integer.parseInt(sFetchCount));
+				ConfigOptions.iFetchCount = new Integer(
+						Integer.parseInt(sFetchCount));
 			} catch (Exception ex) {
 			}
 		} else {
@@ -146,7 +151,8 @@ public abstract class PanelEnv extends JPanel {
 		config.setParallelNum(com.scudata.ide.common.ConfigOptions.iParallelNum == null ? null
 				: com.scudata.ide.common.ConfigOptions.iParallelNum.toString());
 		config.setCursorParallelNum(com.scudata.ide.common.ConfigOptions.iCursorParallelNum == null ? null
-				: com.scudata.ide.common.ConfigOptions.iCursorParallelNum.toString());
+				: com.scudata.ide.common.ConfigOptions.iCursorParallelNum
+						.toString());
 		config.setDateFormat(com.scudata.ide.common.ConfigOptions.sDateFormat);
 		config.setTimeFormat(com.scudata.ide.common.ConfigOptions.sTimeFormat);
 		config.setDateTimeFormat(com.scudata.ide.common.ConfigOptions.sDateTimeFormat);
@@ -169,7 +175,8 @@ public abstract class PanelEnv extends JPanel {
 		jTFLogFileName.setText(ConfigOptions.sLogFileName);
 		jTFPath.setText(ConfigOptions.sPaths);
 		try {
-			List<String> mainPaths = ConfigFile.getConfigFile().getRecentMainPaths(ConfigFile.APP_DM);
+			List<String> mainPaths = ConfigFile.getConfigFile()
+					.getRecentMainPaths(ConfigFile.APP_DM);
 			String[] paths = null;
 			if (mainPaths != null && !mainPaths.isEmpty()) {
 				paths = new String[mainPaths.size()];
@@ -181,7 +188,8 @@ public abstract class PanelEnv extends JPanel {
 		} catch (Throwable t) {
 			t.printStackTrace();
 		}
-		jTFMainPath.setSelectedItem(ConfigOptions.sMainPath == null ? "" : ConfigOptions.sMainPath);
+		jTFMainPath.setSelectedItem(ConfigOptions.sMainPath == null ? ""
+				: ConfigOptions.sMainPath);
 		jTFTempPath.setText(ConfigOptions.sTempPath);
 		jTFExtLibsPath.setText(ConfigOptions.sExtLibsPath);
 		jTFInitSpl.setText(ConfigOptions.sInitSpl);
@@ -267,7 +275,8 @@ public abstract class PanelEnv extends JPanel {
 	 * 选择外部库目录
 	 */
 	private void selectExtLibsPath() {
-		DialogExtLibs dialog = new DialogExtLibs(GV.config, parent, jTFExtLibsPath.getText(), extLibs);
+		DialogExtLibs dialog = new DialogExtLibs(GV.config, parent,
+				jTFExtLibsPath.getText(), extLibs);
 		dialog.setVisible(true);
 		if (dialog.getOption() == JOptionPane.OK_OPTION) {
 			jTFExtLibsPath.setText(dialog.getExtLibsPath());
@@ -284,17 +293,20 @@ public abstract class PanelEnv extends JPanel {
 		int buffer = ConfigUtil.parseBufferSize(textFileBuffer.getText());
 		if (buffer == -1) {
 			selectEnvTab();
-			JOptionPane.showMessageDialog(parent, mm.getMessage("dialogoptions.emptyfilebuffer"));
+			JOptionPane.showMessageDialog(parent,
+					mm.getMessage("dialogoptions.emptyfilebuffer"));
 			textFileBuffer.setText(Env.getFileBufSize() + "");
 			return false;
 		} else if (buffer == -2) {
 			selectEnvTab();
-			JOptionPane.showMessageDialog(parent, mm.getMessage("dialogoptions.invalidfilebuffer"));
+			JOptionPane.showMessageDialog(parent,
+					mm.getMessage("dialogoptions.invalidfilebuffer"));
 			textFileBuffer.setText(Env.getFileBufSize() + "");
 			return false;
 		} else if (buffer < GC.MIN_BUFF_SIZE) {
 			selectEnvTab();
-			JOptionPane.showMessageDialog(parent, mm.getMessage("dialogoptions.minfilebuffer"));
+			JOptionPane.showMessageDialog(parent,
+					mm.getMessage("dialogoptions.minfilebuffer"));
 			textFileBuffer.setText(GC.MIN_BUFF_SIZE + "");
 			return false;
 		}
@@ -315,21 +327,24 @@ public abstract class PanelEnv extends JPanel {
 		int blockSize = ConfigUtil.parseBufferSize(sBlockSize);
 		if (blockSize == -1) {
 			selectEnvTab();
-			JOptionPane.showMessageDialog(parent, IdeSplMessage.get().getMessage("dialogoptions.emptyblocksize"));
+			JOptionPane.showMessageDialog(parent, IdeSplMessage.get()
+					.getMessage("dialogoptions.emptyblocksize"));
 			// 请输入简表区块大小。
 			// Please input the block size.
 			textBlockSize.setText(Env.getBlockSize() + "");
 			return false;
 		} else if (blockSize == -2) {
 			selectEnvTab();
-			JOptionPane.showMessageDialog(parent, IdeSplMessage.get().getMessage("dialogoptions.invalidblocksize"));
+			JOptionPane.showMessageDialog(parent, IdeSplMessage.get()
+					.getMessage("dialogoptions.invalidblocksize"));
 			// 简表区块大小应为正整数，且是4096字节的整数倍。
 			// The block size should be an integer multiple of 4096b.
 			textBlockSize.setText(Env.getBlockSize() + "");
 			return false;
 		} else if (blockSize < GC.MIN_BUFF_SIZE) {
 			selectEnvTab();
-			JOptionPane.showMessageDialog(parent, IdeSplMessage.get().getMessage("dialogoptions.minblocksize"));
+			JOptionPane.showMessageDialog(parent, IdeSplMessage.get()
+					.getMessage("dialogoptions.minblocksize"));
 			textBlockSize.setText(GC.MIN_BUFF_SIZE + "");
 			// 简表区块大小不能低于4096字节。
 			// The file buffer size cannot less than 4096 bytes.
@@ -340,8 +355,10 @@ public abstract class PanelEnv extends JPanel {
 				size = 1;
 			blockSize = (size + 1) * 4096;
 			selectEnvTab();
-			JOptionPane.showMessageDialog(parent, IdeSplMessage.get().getMessage("dialogoptions.invalidblocksize"));
-			textBlockSize.setText(ConfigUtil.getUnitBlockSize(blockSize, sBlockSize));
+			JOptionPane.showMessageDialog(parent, IdeSplMessage.get()
+					.getMessage("dialogoptions.invalidblocksize"));
+			textBlockSize.setText(ConfigUtil.getUnitBlockSize(blockSize,
+					sBlockSize));
 			return false;
 		}
 		return true;
@@ -364,8 +381,6 @@ public abstract class PanelEnv extends JPanel {
 	}
 
 	private void init(byte type) {
-		final boolean isUnit = type == TYPE_UNIT;
-
 		jBLogFile.setText(mm.getMessage("dialogoptions.select")); // 选择
 		jBPath.setText(mm.getMessage("dialogoptions.select")); // 选择
 		jBMainPath.setText(mm.getMessage("dialogoptions.select")); // 选择
@@ -373,7 +388,8 @@ public abstract class PanelEnv extends JPanel {
 		jBExtLibsPath.setText(mm.getMessage("dialogoptions.select")); // 选择
 		jBInitSpl.setText(mm.getMessage("dialogoptions.select")); // 选择
 		jBCustomFunctionFile.setText(mm.getMessage("dialogoptions.select")); // 选择
-		textNullStrings.setToolTipText(mm.getMessage("dialogoptions.nullstringstip"));
+		textNullStrings.setToolTipText(mm
+				.getMessage("dialogoptions.nullstringstip"));
 
 		// 集算器文件所在的目录名称
 		jTFPath.setToolTipText(mm.getMessage("dialogoptions.pathtip"));
@@ -388,7 +404,7 @@ public abstract class PanelEnv extends JPanel {
 
 		// 文件
 		JPanel panelFile = new JPanel(new GridBagLayout());
-		if (!isUnit) {
+		if (type == TYPE_ESPROC) {
 			panelFile.add(jLabelLog, GM.getGBC(0, 1));
 			panelFile.add(jTFLogFileName, GM.getGBC(0, 2, true));
 			panelFile.add(jBLogFile, GM.getGBC(0, 3));
@@ -429,7 +445,7 @@ public abstract class PanelEnv extends JPanel {
 		panelOpt.add(jCBDateTime, GM.getGBC(2, 2, true));
 		panelOpt.add(jLabelCharset, GM.getGBC(2, 3));
 		panelOpt.add(jCBCharset, GM.getGBC(2, 4, true));
-		if (!isUnit) {
+		if (type == TYPE_ESPROC) {
 			panelOpt.add(jLabelLocalHost, GM.getGBC(3, 1));
 			panelOpt.add(jTextLocalHost, GM.getGBC(3, 2, true));
 			panelOpt.add(jLabelLocalPort, GM.getGBC(3, 3));
@@ -451,7 +467,8 @@ public abstract class PanelEnv extends JPanel {
 
 		textNullStrings.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				if (e.getButton() == MouseEvent.BUTTON1 && e.getClickCount() == 2) {
+				if (e.getButton() == MouseEvent.BUTTON1
+						&& e.getClickCount() == 2) {
 					DialogMissingFormat df = new DialogMissingFormat(parent);
 					df.setMissingFormat(textNullStrings.getText());
 					df.setVisible(true);
@@ -491,17 +508,20 @@ public abstract class PanelEnv extends JPanel {
 		jBInitSpl.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				File f = GM.dialogSelectFile("\"" + AppConsts.SPL_FILE_EXTS + "\"", parent);
+				File f = GM.dialogSelectFile("\"" + AppConsts.SPL_FILE_EXTS
+						+ "\"", parent);
 				if (f != null) {
 					jTFInitSpl.setText(f.getAbsolutePath());
 				}
 			}
 		});
 		jTFExtLibsPath.setEditable(false);
-		jTFExtLibsPath.setToolTipText(IdeSplMessage.get().getMessage("dialogoptions.dceditpath"));
+		jTFExtLibsPath.setToolTipText(IdeSplMessage.get().getMessage(
+				"dialogoptions.dceditpath"));
 		jTFExtLibsPath.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				if (e.getButton() == MouseEvent.BUTTON1 && e.getClickCount() == 2) {
+				if (e.getButton() == MouseEvent.BUTTON1
+						&& e.getClickCount() == 2) {
 					selectExtLibsPath();
 				}
 			}
@@ -515,7 +535,8 @@ public abstract class PanelEnv extends JPanel {
 					Integer.parseInt(sLocalPort);
 				} catch (Exception ex) {
 					selectEnvTab();
-					JOptionPane.showMessageDialog(parent, mm.getMessage("dialogoptions.localport"));
+					JOptionPane.showMessageDialog(parent,
+							mm.getMessage("dialogoptions.localport"));
 					return false;
 				}
 				return true;
@@ -530,12 +551,14 @@ public abstract class PanelEnv extends JPanel {
 					int fetchCount = Integer.parseInt(sFetchCount);
 					if (fetchCount <= 0) {
 						selectEnvTab();
-						JOptionPane.showMessageDialog(parent, mm.getMessage("dialogoptions.invalidfetchcount"));
+						JOptionPane.showMessageDialog(parent, mm
+								.getMessage("dialogoptions.invalidfetchcount"));
 						return false;
 					}
 				} catch (Exception ex) {
 					selectEnvTab();
-					JOptionPane.showMessageDialog(parent, mm.getMessage("dialogoptions.invalidfetchcount"));
+					JOptionPane.showMessageDialog(parent,
+							mm.getMessage("dialogoptions.invalidfetchcount"));
 					return false;
 				}
 				return true;
@@ -564,7 +587,8 @@ public abstract class PanelEnv extends JPanel {
 		jBPath.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				String oldDir = jTFMainPath.getSelectedItem() == null ? null : (String) jTFMainPath.getSelectedItem();
+				String oldDir = jTFMainPath.getSelectedItem() == null ? null
+						: (String) jTFMainPath.getSelectedItem();
 				if (StringUtils.isValidString(oldDir)) {
 					File f = new File(oldDir);
 					if (f != null && f.exists())
@@ -588,7 +612,8 @@ public abstract class PanelEnv extends JPanel {
 		jBMainPath.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				String oldDir = jTFMainPath.getSelectedItem() == null ? null : (String) jTFMainPath.getSelectedItem();
+				String oldDir = jTFMainPath.getSelectedItem() == null ? null
+						: (String) jTFMainPath.getSelectedItem();
 				if (StringUtils.isValidString(oldDir)) {
 					File f = new File(oldDir);
 					if (f != null && f.exists())
@@ -629,31 +654,47 @@ public abstract class PanelEnv extends JPanel {
 	private MessageManager mm = IdeCommonMessage.get();
 
 	// 日志文件名称标签
-	private JLabel jLabelLog = new JLabel(mm.getMessage("dialogoptions.logfile")); // 日志文件名称
+	private JLabel jLabelLog = new JLabel(
+			mm.getMessage("dialogoptions.logfile")); // 日志文件名称
 
 	// 寻址路径标签
-	private JLabel jLabelSplPath = new JLabel(mm.getMessage("dialogoptions.dfxpath")); // 寻址路径
+	private JLabel jLabelSplPath = new JLabel(
+			mm.getMessage("dialogoptions.dfxpath")); // 寻址路径
 	// 日期格式标签
 	private JLabel labelDate = new JLabel(mm.getMessage("dialogoptions.date")); // 日期格式
 	// 时间格式标签
 	private JLabel labelTime = new JLabel(mm.getMessage("dialogoptions.time")); // 时间格式
 	// 日期时间格式标签
-	private JLabel labelDateTime = new JLabel(mm.getMessage("dialogoptions.datetime")); // 日期时间格式
+	private JLabel labelDateTime = new JLabel(
+			mm.getMessage("dialogoptions.datetime")); // 日期时间格式
 	// 字符集标签
-	private JLabel jLabelCharset = new JLabel(mm.getMessage("dialogoptions.defcharset"));// 缺省字符集
-	private JLabel jLabelLocalHost = new JLabel(mm.getMessage("dialogoptions.labellh"));
-	private JLabel jLabelLocalPort = new JLabel(mm.getMessage("dialogoptions.labellp"));
-	private JLabel jLabelFetchCount = new JLabel(mm.getMessage("dialogoptions.labelfc"));
-	private JLabel labelFileBuffer = new JLabel(mm.getMessage("dialogoptions.filebuffer"));
-	private JLabel labelNullStrings = new JLabel(mm.getMessage("dialogoptions.nullstrings"));
-	private JLabel labelMainPath = new JLabel(mm.getMessage("dialogoptions.mainpath"));
-	private JLabel labelPathNote = new JLabel(mm.getMessage("dialogoptions.pathnote"));
+	private JLabel jLabelCharset = new JLabel(
+			mm.getMessage("dialogoptions.defcharset"));// 缺省字符集
+	private JLabel jLabelLocalHost = new JLabel(
+			mm.getMessage("dialogoptions.labellh"));
+	private JLabel jLabelLocalPort = new JLabel(
+			mm.getMessage("dialogoptions.labellp"));
+	private JLabel jLabelFetchCount = new JLabel(
+			mm.getMessage("dialogoptions.labelfc"));
+	private JLabel labelFileBuffer = new JLabel(
+			mm.getMessage("dialogoptions.filebuffer"));
+	private JLabel labelNullStrings = new JLabel(
+			mm.getMessage("dialogoptions.nullstrings"));
+	private JLabel labelMainPath = new JLabel(
+			mm.getMessage("dialogoptions.mainpath"));
+	private JLabel labelPathNote = new JLabel(
+			mm.getMessage("dialogoptions.pathnote"));
 
-	private JLabel labelBlockSize = new JLabel(IdeSplMessage.get().getMessage("dialogoptions.stbs"));
-	private JLabel labelTempPath = new JLabel(mm.getMessage("dialogoptions.temppath"));
-	private JLabel jLInitSpl = new JLabel(mm.getMessage("dialogoptions.initdfx"));
-	private JLabel jLExtLibsPath = new JLabel(mm.getMessage("dialogoptions.extlibspath"));
-	private JLabel jLCustomFunctionFile = new JLabel(mm.getMessage("dialogoptions.customfunction"));
+	private JLabel labelBlockSize = new JLabel(IdeSplMessage.get().getMessage(
+			"dialogoptions.stbs"));
+	private JLabel labelTempPath = new JLabel(
+			mm.getMessage("dialogoptions.temppath"));
+	private JLabel jLInitSpl = new JLabel(
+			mm.getMessage("dialogoptions.initdfx"));
+	private JLabel jLExtLibsPath = new JLabel(
+			mm.getMessage("dialogoptions.extlibspath"));
+	private JLabel jLCustomFunctionFile = new JLabel(
+			mm.getMessage("dialogoptions.customfunction"));
 
 	/**
 	 * 日期下拉框
