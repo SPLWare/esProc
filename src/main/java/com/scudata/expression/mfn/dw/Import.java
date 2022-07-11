@@ -2,10 +2,7 @@ package com.scudata.expression.mfn.dw;
 
 import com.scudata.dm.Context;
 import com.scudata.dm.cursor.ICursor;
-import com.scudata.expression.Expression;
-import com.scudata.expression.IParam;
 import com.scudata.expression.TableMetaDataFunction;
-import com.scudata.expression.mfn.sequence.Top;
 
 /**
  * 读入组表数据
