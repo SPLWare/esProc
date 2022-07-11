@@ -14,6 +14,7 @@ import com.scudata.dm.MergeIndexTable;
 import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
+import com.scudata.dw.IColumnCursorUtil;
 import com.scudata.dw.compress.Column;
 import com.scudata.dw.compress.ColumnList;
 import com.scudata.expression.CurrentElement;
@@ -324,6 +325,13 @@ public class Join extends Operation {
 	 */
 	public Sequence process(Sequence seq, Context ctx) {
 		init(seq, ctx);
+		if (!isOrg && seq.isColumnTable() && IColumnCursorUtil.util != null) {
+			return IColumnCursorUtil.util.join(
+					seq, exps, newExps, indexTables, 
+					isOrg, isIsect, refIndexs, tgtIndexs, 
+					codes, newDs, ctx);
+		}
+		
 		if (isIsect) {
 			return join_i(seq, ctx);
 		} else {

@@ -3,8 +3,11 @@ package com.scudata.expression.mfn.op;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
+import com.scudata.dm.cursor.ICursor;
 import com.scudata.dm.op.Group;
 import com.scudata.dm.op.Groups;
+import com.scudata.dm.op.Operation;
+import com.scudata.dw.IColumnCursorUtil;
 import com.scudata.expression.Expression;
 import com.scudata.expression.IParam;
 import com.scudata.expression.OperableFunction;
@@ -144,7 +147,15 @@ public class AttachGroup extends OperableFunction {
 				throw new RQException("group" + mm.getMessage("function.invalidParam"));
 			}
 
-			Groups groups = new Groups(this, exps, names, newExps, newNames, option, ctx);
+			Operation groups;
+			if (operable instanceof ICursor 
+					&& ((ICursor)operable).isColumnCursor()
+					&& IColumnCursorUtil.util != null) {
+				groups = IColumnCursorUtil.util.getGroupsOperationInstance(this, exps, names, newExps, newNames, option, ctx);
+			} else {
+				groups = new Groups(this, exps, names, newExps, newNames, option, ctx);
+			}
+			
 			if (cs != null) {
 				groups.setCurrentCell(cs.getCurrent());
 			}

@@ -302,6 +302,12 @@ public class PseudoDefination implements Cloneable, ICloneable {
 		}
 	}
 
+	public String getUgrp() {
+		String[] names = getAllColNames();
+		if (names == null) return null;
+		return names[0];
+	}
+	
 	public String[] getAllColNames() {
 		if (isBFile) {
 			return ds.getFieldNames();

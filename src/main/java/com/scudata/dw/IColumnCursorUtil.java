@@ -8,7 +8,9 @@ import com.scudata.dm.Table;
 import com.scudata.dm.cursor.ICursor;
 import com.scudata.dm.cursor.MultipathCursors;
 import com.scudata.dm.op.IGroupsResult;
+import com.scudata.dm.op.Operation;
 import com.scudata.expression.Expression;
+import com.scudata.expression.Function;
 import com.scudata.expression.IParam;
 
 /**
@@ -50,11 +52,18 @@ abstract public class IColumnCursorUtil {
 	public abstract IGroupsResult getGroupsResultInstance(Expression[] exps, String[] names, Expression[] calcExps, 
 			String[] calcNames, String opt, Context ctx);
 	
+	public abstract Operation getGroupsOperationInstance(Function function, Expression[] exps, String[] names, 
+			Expression[] newExps, String[] newNames, String opt, Context ctx);
+	
 	public abstract Table groups(ICursor cursor, Expression[] exps, String[] names, Expression[] calcExps, String[] calcNames, 
 			String opt, Context ctx);
 	
 	public abstract Table groups(ICursor cursor, Expression[] exps, String[] names, Expression[] calcExps, String[] calcNames, 
 			String opt, Context ctx, int groupCount);
+	
+	public abstract Sequence join(Sequence data, Expression[][] exps, Expression[][] newExps, 
+			IndexTable[] indexTables, boolean isOrg, boolean isIsect, int[][] refIndexArray, 
+			int[][] tgtIndexArray, Sequence[] codes, DataStruct newDs, Context ctx);
 	
 	/**
 	 * 游标对关联字段有序，做有序归并连接

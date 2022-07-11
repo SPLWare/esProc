@@ -521,4 +521,19 @@ public class MultipathCursors extends ICursor implements IMultipath {
 		total.push(result, ctx);
 		return total.result();
 	}
+	
+	/**
+	 * 是否是列式游标
+	 * @return
+	 */
+	public boolean isColumnCursor() {
+		int len = cursors.length;
+		for (int i = 0; i < len; ++i) {
+			ICursor cursor = cursors[i];
+			if (!cursor.isColumnCursor())
+				return false;
+		}
+		
+		return true;
+	}
 }

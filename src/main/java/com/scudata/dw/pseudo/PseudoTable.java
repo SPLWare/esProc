@@ -10,6 +10,7 @@ import com.scudata.dm.Context;
 import com.scudata.dm.DataStruct;
 import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
+import com.scudata.dm.cursor.ConjxCursor;
 import com.scudata.dm.cursor.ICursor;
 import com.scudata.dm.cursor.MemoryCursor;
 import com.scudata.dm.cursor.MergeCursor;
@@ -299,6 +300,17 @@ public class PseudoTable extends Pseudo {
 //				}
 			}
 		}
+
+//		String user = pd.getUser();
+//		if (user != null && !tempNameList.contains(user)) {
+//			needNew = true;
+//			tempList.add(user);
+//			
+//			String ugrp = pd.getUgrp();
+//			if (ugrp != null && !ugrp.equals(user)) {
+//				
+//			}
+//		}
 		
 		for (String name : tempList) {
 			tempExpList.add(new Expression(name));
@@ -588,25 +600,30 @@ public class PseudoTable extends Pseudo {
 	 * @param cursors
 	 * @return
 	 */
-	static ICursor mergeCursor(ICursor cursors[],String user, Context ctx) {
+	static ICursor mergeCursor(ICursor cursors[], String ugrp, Context ctx) {
 		DataStruct ds = cursors[0].getDataStruct();
-		
-		/**
-		 * 如果存在user（账户属性）则group(首字段).conj(~.group@s(user)),
-		 * 如果不存在user，则使用首字段归并。
-		 */
-		ICursor cursor = new MergeCursor(cursors, new int[] {0}, null, ctx);
-		if (user != null) {
-			int idx = ds.getFieldIndex(user);
-			if (idx >= 0) {
-				String ugrp = ds.getFieldName(0);
-				Expression[] exps = new Expression[1];
-				exps[0] = new Expression(ugrp);
-				cursor.addOperation(new Group(exps, null), ctx);
-				cursor.addOperation(new Conj(new Expression("~.group@s("+user+")")), ctx);
-			}
+		int index = ds.getFieldIndex(ugrp); 
+		if (index == -1) {
+			return new ConjxCursor(cursors);
 		}
-		return cursor;
+		return new MergeCursor(cursors, new int[] {index}, null, ctx);
+	}
+	
+	static ICursor mergeCursor(ICursor cursors[], Context ctx) {
+		return new ConjxCursor(cursors);
+	}
+	
+	/**
+	 * 如果存在user（账户属性）则group(首字段).conj(~.group(user)),
+	 * 如果不存在user，则使用首字段归并。
+	 */
+	static void groupByUser(ICursor cursor, String user, String ugrp, Context ctx) {
+		if (user != null && ugrp != null && user.equals(ugrp)) {
+			Expression[] exps = new Expression[1];
+			exps[0] = new Expression(ugrp);
+			cursor.addOperation(new Group(exps, null), ctx);
+			cursor.addOperation(new Conj(new Expression("~.group("+user+")")), ctx);
+		}
 	}
 	
 	private ICursor addOptionToCursor(ICursor cursor) {
@@ -709,7 +726,7 @@ public class PseudoTable extends Pseudo {
 					for (int i = 0; i < size; i++) {
 						cursors[i] = getCursor(tables.get(i), null, false, isColumn);
 					}
-					return addOptionToCursor(mergeCursor(cursors, pd.getUser(), ctx));
+					return addOptionToCursor(mergeCursor(cursors, pd.getUgrp(), ctx));
 				} else {//指定了分段参考虚表mcsTable
 					ICursor mcs = null;
 					if (mcsTable != null) {
@@ -730,7 +747,7 @@ public class PseudoTable extends Pseudo {
 				for (int i = 0; i < size; i++) {
 					cursorArray[i] = ((MultipathCursors)cursors[i]).getCursors()[m];
 				}
-				mcursors[m] = mergeCursor(cursorArray, pd.getUser(), ctx);
+				mcursors[m] = mergeCursor(cursorArray, pd.getUgrp(), ctx);
 			}
 			return addOptionToCursor(new MultipathCursors(mcursors, ctx));
 		}

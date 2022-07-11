@@ -169,7 +169,7 @@ public class PseudoNews extends Pseudo implements Operable, IPseudo {
 			for (int i = 0; i < tsize; i++) {
 				cursors[i] = getCursor(tables.get(i), cursors[i], fkNames, codes);
 			}
-			return PseudoTable.mergeCursor(cursors, null, ctx);
+			return PseudoTable.mergeCursor(cursors, ctx);
 		}
 	}
 	
