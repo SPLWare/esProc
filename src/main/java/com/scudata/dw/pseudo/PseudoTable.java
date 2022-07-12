@@ -301,16 +301,13 @@ public class PseudoTable extends Pseudo {
 			}
 		}
 
-//		String user = pd.getUser();
-//		if (user != null && !tempNameList.contains(user)) {
-//			needNew = true;
-//			tempList.add(user);
-//			
-//			String ugrp = pd.getUgrp();
-//			if (ugrp != null && !ugrp.equals(user)) {
-//				
-//			}
-//		}
+		//如果存在date则必须取出首字段ugrp
+		String date = pd.getDate();
+		String ugrp = pd.getUgrp();
+		if (date != null && !tempNameList.contains(ugrp)) {
+			needNew = true;
+			tempList.add(ugrp);
+		}
 		
 		for (String name : tempList) {
 			tempExpList.add(new Expression(name));
@@ -596,17 +593,54 @@ public class PseudoTable extends Pseudo {
 	}
 	
 	/**
+	 * 按user排序 （返回单个游标时使用）
+	 * @param cursors
+	 * @param pd
+	 * @param ctx
+	 * @return
+	 */
+	static ICursor sortCursor(ICursor cursor, PseudoDefination pd, Context ctx) {
+		if (pd.getDate() == null) {
+			return cursor;
+		}
+		
+		String ugrp = pd.getUgrp();
+		String user = pd.getUser();
+		DataStruct ds = cursor.getDataStruct();
+		if (user == null || user.equals(ugrp) || ds.getFieldIndex(user) == -1) {
+			return cursor;
+		}
+		
+		return new GroupSortCursor(cursor, ugrp, user, ctx);
+	}
+	
+	/**
 	 * 归并或者连接游标
 	 * @param cursors
 	 * @return
 	 */
-	static ICursor mergeCursor(ICursor cursors[], String ugrp, Context ctx) {
+	static ICursor mergeCursor(ICursor cursors[], PseudoDefination pd, Context ctx) {
+		if (pd.getDate() == null) {
+			return new ConjxCursor(cursors);
+		}
+		
+		String ugrp = pd.getUgrp();
 		DataStruct ds = cursors[0].getDataStruct();
 		int index = ds.getFieldIndex(ugrp); 
 		if (index == -1) {
 			return new ConjxCursor(cursors);
 		}
-		return new MergeCursor(cursors, new int[] {index}, null, ctx);
+		
+		ICursor cs = new MergeCursor(cursors, new int[] {index}, null, ctx);
+		
+		//如果user不存在或等于ugrp
+		String user = pd.getUser();
+		if (user == null || user.equals(ugrp) || ds.getFieldIndex(user) == -1) {
+			return cs;
+		}
+		
+		//user不是首字段，在归并后同值首字段内的数据按user排序
+		return new GroupSortCursor(cs, ugrp, user, ctx);
 	}
 	
 	static ICursor mergeCursor(ICursor cursors[], Context ctx) {
@@ -711,7 +745,9 @@ public class PseudoTable extends Pseudo {
 		 * 3 有多个游标且并行时，先对第一个游标分段，然后其它游标按第一个同步分段，最后把每个游标的每个段进行归并
 		 */
 		if (size == 1) {//只有一个游标直接返回
-			return getCursor(tables.get(0), null, true, isColumn);
+			ICursor cs = getCursor(tables.get(0), null, false, isColumn);
+			cs = sortCursor(cs, pd, ctx);
+			return addOptionToCursor(cs);
 		} else {
 			tables = filterTables(tables);
 			size = tables.size();
@@ -726,7 +762,7 @@ public class PseudoTable extends Pseudo {
 					for (int i = 0; i < size; i++) {
 						cursors[i] = getCursor(tables.get(i), null, false, isColumn);
 					}
-					return addOptionToCursor(mergeCursor(cursors, pd.getUgrp(), ctx));
+					return addOptionToCursor(mergeCursor(cursors, pd, ctx));
 				} else {//指定了分段参考虚表mcsTable
 					ICursor mcs = null;
 					if (mcsTable != null) {
@@ -747,7 +783,7 @@ public class PseudoTable extends Pseudo {
 				for (int i = 0; i < size; i++) {
 					cursorArray[i] = ((MultipathCursors)cursors[i]).getCursors()[m];
 				}
-				mcursors[m] = mergeCursor(cursorArray, pd.getUgrp(), ctx);
+				mcursors[m] = mergeCursor(cursorArray, pd, ctx);
 			}
 			return addOptionToCursor(new MultipathCursors(mcursors, ctx));
 		}
