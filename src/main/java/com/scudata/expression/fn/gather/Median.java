@@ -139,7 +139,7 @@ public class Median extends Gather  {
 
 	public Object calculate(Context ctx) {
 		MessageManager mm = EngineMessage.get();
-		throw new RQException(mm.getMessage("Expression.unknownFunction") + "icount");
+		throw new RQException(mm.getMessage("Expression.unknownFunction") + "median");
 	}
 
 	/**

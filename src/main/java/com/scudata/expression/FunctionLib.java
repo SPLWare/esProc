@@ -250,8 +250,10 @@ public final class FunctionLib {
 		addFunction("new", "com.scudata.expression.fn.New");
 		addFunction("sum", "com.scudata.expression.fn.gather.Sum");
 		addFunction("avg", "com.scudata.expression.fn.gather.Average");
-		addFunction("min", "com.scudata.expression.fn.gather.Min");
 		addFunction("max", "com.scudata.expression.fn.gather.Max");
+		addFunction("min", "com.scudata.expression.fn.gather.Min");
+		addFunction("maxp", "com.scudata.expression.fn.gather.Maxp");
+		addFunction("minp", "com.scudata.expression.fn.gather.Minp");
 		addFunction("cand", "com.scudata.expression.fn.Cand");
 		addFunction("cor", "com.scudata.expression.fn.Cor");
 		addFunction("top", "com.scudata.expression.fn.gather.Top");
