@@ -1433,7 +1433,10 @@ public class ColumnTableMetaData extends TableMetaData {
 	 */
 	public void append(ICursor cursor, String opt) throws IOException {
 		if (isSorted && opt != null) {
-			if (opt.indexOf('a') != -1) {
+			if (opt.indexOf('y') != -1) {
+				Sequence data = cursor.fetch();
+				append_y(data);
+			} else if (opt.indexOf('a') != -1) {
 				ColumnTableMetaData ctmd = (ColumnTableMetaData)getSupplementTable(true);
 				ctmd.mergeAppend(cursor, opt);
 			} else if (opt.indexOf('m') != -1) {
@@ -1445,6 +1448,11 @@ public class ColumnTableMetaData extends TableMetaData {
 				}
 			}
 		} else if (opt != null) {
+			if (opt.indexOf('y') != -1) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException(mm.getMessage("ds.lessKey"));
+			}
+			
 			append(cursor);
 			if (opt.indexOf('i') != -1) {
 				appendCache();
@@ -2421,7 +2429,7 @@ public class ColumnTableMetaData extends TableMetaData {
 	public Sequence update(Sequence data, String opt) throws IOException {
 		if (!hasPrimaryKey) {
 			MessageManager mm = EngineMessage.get();
-			if (hasPrimaryKey) {
+			if (isSorted) {
 				throw new RQException(mm.getMessage("dw.lessKey"));
 			} else {
 				throw new RQException(mm.getMessage("ds.lessKey"));
@@ -2438,8 +2446,8 @@ public class ColumnTableMetaData extends TableMetaData {
 		boolean isInsert = true,isUpdate = true;
 		Sequence result = null;
 		if (opt != null) {
-			if (opt.indexOf('m') != -1) {
-				return update_m(data, opt);
+			if (opt.indexOf('y') != -1) {
+				return update_y(data, opt);
 			}
 			
 			if (opt.indexOf('i') != -1) isUpdate = false;
@@ -2836,9 +2844,48 @@ public class ColumnTableMetaData extends TableMetaData {
 		
 		return result;
 	}
+	
+	// 融合到内存中的补区，不写入外存
+	private void append_y(Sequence data) throws IOException {
+		if (data == null || data.length() == 0) {
+			return;
+		}
+		
+		DataStruct ds = data.dataStruct();
+		if (ds == null) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException(mm.getMessage("engine.needPurePmt"));
+		}
+		
+		if (!ds.isCompatible(this.ds)) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException(mm.getMessage("engine.dsNotMatch"));
+		}
+		
+		int len = data.length();
+		ArrayList<ModifyRecord> modifyRecords = getModifyRecords();		
+		if (modifyRecords == null) {
+			modifyRecords = new ArrayList<ModifyRecord>(len);
+			this.modifyRecords = modifyRecords;
+		}
+		
+		long seq = -totalRecordCount - 1;
+		for (int i = 1; i <= len; ++i) {
+			Record sr = (Record)data.getMem(i);
+			ModifyRecord r = new ModifyRecord(seq, ModifyRecord.STATE_INSERT, sr);
+			//r.setBlock(block[i]);
+			//如果是子表insert 要处理parentRecordSeq，因为子表insert的可能指向主表列区
+			//这里先设置为指向列区伪号，最后会根据主表补区修改
+			//if (!isPrimaryTable) {
+			//	r.setParentRecordSeq(recNum[i]);
+			//}
+			
+			modifyRecords.add(r);
+		}
+	}
 
 	// 融合到内存中的补区，不写入外存
-	private Sequence update_m(Sequence data, String opt) throws IOException {
+	private Sequence update_y(Sequence data, String opt) throws IOException {
 		boolean isInsert = true,isUpdate = true;
 		Sequence result = null;
 		if (opt != null) {
@@ -3384,7 +3431,17 @@ public class ColumnTableMetaData extends TableMetaData {
 		}
 		
 		appendCache();
-		boolean nopt = opt != null && opt.indexOf('n') != -1;
+		boolean nopt = false, isSave = true;
+		if (opt != null) {
+			if (opt.indexOf('n') != -1) {
+				nopt = true;
+			}
+			
+			if (opt.indexOf('y') != -1) {
+				isSave = false;
+			}
+		}
+		
 		long totalRecordCount = this.totalRecordCount;
 		if (totalRecordCount == 0 || data == null || data.length() == 0) {
 			return nopt ? result1 : null;
@@ -3411,6 +3468,7 @@ public class ColumnTableMetaData extends TableMetaData {
 		if (deleteByBaseKey) {
 			keyCount = sortedColStartIndex;
 		}
+		
 		int []keyIndex = new int[keyCount];
 		for (int k = 0; k < keyCount; ++k) {
 			keyIndex[k] = ds.getFieldIndex(columns[k].getColName());
@@ -3426,6 +3484,7 @@ public class ColumnTableMetaData extends TableMetaData {
 		} else {
 			data.sortFields(getAllSortedColNames());
 		}
+		
 		int len = data.length();
 		long []seqs = new long[len + 1];
 		int temp[] = new int[1];
@@ -3459,7 +3518,6 @@ public class ColumnTableMetaData extends TableMetaData {
 			}
 		} else {
 			RecordSeqSearcher2 searcher = new RecordSeqSearcher2(this);
-			
 			Object []keyValues = new Object[keyCount];
 			int baseKeyCount = sortedColStartIndex;
 			Object []baseKeyValues = new Object[baseKeyCount];
@@ -3495,6 +3553,7 @@ public class ColumnTableMetaData extends TableMetaData {
 			if (0 == len) {
 				return result;
 			}
+			
 			seqs = seqList.toArray();
 			data = seqListData;
 		}
@@ -3642,12 +3701,12 @@ public class ColumnTableMetaData extends TableMetaData {
 				}
 			}
 			
-			if (!deleteByBaseKey) {
+			if (!deleteByBaseKey && isSave) {
 				saveModifyRecords();
 			}
 		}
 		
-		if (!deleteByBaseKey) {
+		if (!deleteByBaseKey  && isSave) {
 			groupTable.save();
 		}
 		
