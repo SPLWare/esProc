@@ -109,6 +109,12 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	public static final byte GET_CATALOGS = 6;
 	/** Get the table type names */
 	public static final byte GET_TABLE_TYPES = 7;
+	/** Get imported keys */
+	public static final byte GET_IMPORTED_KEYS = 8;
+	/** Get exported keys */
+	public static final byte GET_EXPORTED_KEYS = 9;
+	/** Get primary keys */
+	public static final byte GET_PRIMARY_KEYS = 10;
 
 	/**
 	 * Empty constructor. For serialization.
@@ -260,6 +266,80 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 						list.add(null);
 						list.add(null);
 						list.add(null);
+						list.add(null);
+						dataArray.add(list);
+					}
+				}
+			}
+		} else if (type == GET_IMPORTED_KEYS) {
+			if (infos != null) {
+				Table t = (Table) infos.get(0);
+				if (t != null) {
+					for (int i = 1, len = t.length(); i <= len; i++) {
+						Record record = t.getRecord(i);
+						ArrayList<Object> list = new ArrayList<Object>(
+								rsmd.getColumnCount());
+						list.add(record.getFieldValue(JDBCConsts.PKTABLE_CAT));
+						list.add(record.getFieldValue(JDBCConsts.PKTABLE_SCHEM));
+						list.add(record.getFieldValue(JDBCConsts.PKTABLE_NAME));
+						list.add(record.getFieldValue(JDBCConsts.PKCOLUMN_NAME));
+						list.add(record.getFieldValue(JDBCConsts.FKTABLE_CAT));
+
+						list.add(record.getFieldValue(JDBCConsts.FKTABLE_SCHEM));
+						list.add(record.getFieldValue(JDBCConsts.FKTABLE_NAME));
+						list.add(record.getFieldValue(JDBCConsts.FKCOLUMN_NAME));
+						list.add(null);
+						list.add(null);
+
+						list.add(null);
+						list.add(record.getFieldValue(JDBCConsts.FK_NAME));
+						list.add(null);
+						list.add(null);
+						dataArray.add(list);
+					}
+				}
+			}
+		} else if (type == GET_EXPORTED_KEYS) {
+			if (infos != null) {
+				Table t = (Table) infos.get(0);
+				if (t != null) {
+					for (int i = 1, len = t.length(); i <= len; i++) {
+						Record record = t.getRecord(i);
+						ArrayList<Object> list = new ArrayList<Object>(
+								rsmd.getColumnCount());
+						list.add(record.getFieldValue(JDBCConsts.PKTABLE_CAT));
+						list.add(record.getFieldValue(JDBCConsts.PKTABLE_SCHEM));
+						list.add(record.getFieldValue(JDBCConsts.PKTABLE_NAME));
+						list.add(record.getFieldValue(JDBCConsts.PKCOLUMN_NAME));
+						list.add(record.getFieldValue(JDBCConsts.FKTABLE_CAT));
+
+						list.add(record.getFieldValue(JDBCConsts.FKTABLE_SCHEM));
+						list.add(record.getFieldValue(JDBCConsts.FKTABLE_NAME));
+						list.add(record.getFieldValue(JDBCConsts.FKCOLUMN_NAME));
+						list.add(null);
+						list.add(null);
+
+						list.add(null);
+						list.add(record.getFieldValue(JDBCConsts.FK_NAME));
+						list.add(null);
+						list.add(null);
+						dataArray.add(list);
+					}
+				}
+			}
+		} else if (type == GET_PRIMARY_KEYS) {
+			if (infos != null) {
+				Table t = (Table) infos.get(0);
+				if (t != null) {
+					for (int i = 1, len = t.length(); i <= len; i++) {
+						Record record = t.getRecord(i);
+						ArrayList<Object> list = new ArrayList<Object>(
+								rsmd.getColumnCount());
+						list.add(record.getFieldValue(JDBCConsts.TABLE_CAT));
+						list.add(record.getFieldValue(JDBCConsts.TABLE_SCHEM));
+						list.add(record.getFieldValue(JDBCConsts.TABLE_NAME));
+						list.add(record.getFieldValue(JDBCConsts.COLUMN_NAME));
+						list.add(record.getFieldValue(JDBCConsts.KEY_SEQ));
 						list.add(null);
 						dataArray.add(list);
 					}
