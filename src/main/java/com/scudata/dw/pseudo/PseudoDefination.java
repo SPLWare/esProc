@@ -15,6 +15,7 @@ import com.scudata.dm.Env;
 import com.scudata.dm.FileObject;
 import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
+import com.scudata.dm.cursor.MemoryCursor;
 import com.scudata.dw.GroupTable;
 import com.scudata.dw.ITableMetaData;
 import com.scudata.dw.TableMetaData;
@@ -29,6 +30,7 @@ public class PseudoDefination implements Cloneable, ICloneable {
 	public static final String PD_USER = "user";
 	public static final String PD_COLUMN = "column";
 	public static final String PD_VAR = "var";
+	public static final String PD_UPDATE = "update";
 	
 	private Object file;//文件名或多个文件名的序列
 	private Sequence zone;//组表分区号列表
@@ -44,6 +46,7 @@ public class PseudoDefination implements Cloneable, ICloneable {
 	private DataStruct ds;//集文件结构
 	private boolean isBFile = false;
 	private String[] sortedFields;//排序字段
+	private Expression updateExp;
 	
 	public PseudoDefination() {
 		
@@ -55,6 +58,7 @@ public class PseudoDefination implements Cloneable, ICloneable {
 		date = (String) getFieldValue(pd, PD_DATE);
 		user = (String) getFieldValue(pd, PD_USER);
 		var = (String) getFieldValue(pd, PD_VAR);
+		updateExp = (Expression) getFieldValue(pd, PD_UPDATE);
 		Sequence seq = (Sequence) getFieldValue(pd, PD_COLUMN);
 		if (seq != null) {
 			columns = new ArrayList<PseudoColumn>();
@@ -83,6 +87,10 @@ public class PseudoDefination implements Cloneable, ICloneable {
 		
 		if (var != null) {
 			memoryTable = (Sequence) new Expression(var).calculate(ctx);
+		}
+		
+		if (tables != null && tables.size() > 0) {
+			doUpdate(ctx);
 		}
 	}
 	
@@ -274,11 +282,6 @@ public class PseudoDefination implements Cloneable, ICloneable {
 		} else {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException(mm.getMessage("function.invalidParam"));
-//			Sequence seq = (Sequence) file;
-//			int size = seq.length();
-//			for (int i = 1; i <= size; i++) {
-//				parseFileToTable((String) seq.get(i), partitions, ctx);
-//			}
 		}
 		
 		if (date != null) {
@@ -426,5 +429,53 @@ public class PseudoDefination implements Cloneable, ICloneable {
 
 	public Object deepClone() {
 		return new PseudoDefination(this);
+	}
+	
+	private void doUpdate(Context ctx) {
+		Sequence append = null;
+		Sequence update = null;
+		Sequence delete = null;
+		Expression exp = updateExp;
+		if (exp == null) return;
+		
+		Object obj = exp.calculate(ctx);
+		if (obj instanceof Sequence) {
+			Sequence seq = (Sequence) obj;
+			if (seq.length() == 3) {
+				obj = seq.get(1);
+				if (obj != null && obj instanceof Sequence) {
+					append = (Sequence) obj;
+				}
+				obj = seq.get(2);
+				if (obj != null && obj instanceof Sequence) {
+					update = (Sequence) obj;
+				}
+				obj = seq.get(3);
+				if (obj != null && obj instanceof Sequence) {
+					delete = (Sequence) obj;
+				}
+				
+				try {
+					if (append != null) {
+						tables.get(tables.size() - 1).append(new MemoryCursor(append), "y");
+					}
+					if (update != null) {
+						for (ITableMetaData table : tables) {
+							table.update(update, "y");
+						}
+					}
+					if (delete != null) {
+						for (ITableMetaData table : tables) {
+							table.delete(delete, "y");
+						}
+					}
+				} catch (IOException e) {
+					throw new RQException(e);
+				}
+				return;
+			}
+		}
+		MessageManager mm = EngineMessage.get();
+		throw new RQException(mm.getMessage("function.invalidParam"));
 	}
 }

@@ -23,7 +23,7 @@ import com.scudata.util.Variant;
 public class Table extends Sequence {
 	private static final long serialVersionUID = 0x02010004;
 	protected DataStruct ds; // 数据结构
-	private transient IndexTable indexTable; // 按主键建立的索引表，用于连接操作或find查找
+	protected transient IndexTable indexTable; // 按主键建立的索引表，用于连接操作或find查找
 
 	/**
 	 * 序列化时使用

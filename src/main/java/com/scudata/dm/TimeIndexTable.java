@@ -13,7 +13,7 @@ import com.scudata.util.Variant;
  * @author WangXiaoJun
  *
  */
-class TimeIndexTable extends IndexTable {
+public class TimeIndexTable extends IndexTable {
 	private Sequence code; // 源表，哈希表存放的是元素的位置，需要根据位置到源表取元素
 	private HashUtil hashUtil; // 用于计算哈希值
 	

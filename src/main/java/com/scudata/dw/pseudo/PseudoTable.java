@@ -600,9 +600,9 @@ public class PseudoTable extends Pseudo {
 	 * @return
 	 */
 	static ICursor sortCursor(ICursor cursor, PseudoDefination pd, Context ctx) {
-		if (pd.getDate() == null) {
-			return cursor;
-		}
+//		if (pd.getDate() == null) {
+//			return cursor;
+//		}
 		
 		String ugrp = pd.getUgrp();
 		String user = pd.getUser();
