@@ -5367,9 +5367,14 @@ public class SimpleSelect
 					{
 						//System.out.println("6----"+bak[a]);
 						bak[a] = "'" + fds[a] + "'";
+						// 20220715 xingjl add
+						fxs[a] = new Expression(String.format("#%d", a+1));
+						
 						for(int b = 0; b < fns.length; b++)
 						{
-							fxs[a] = new Expression(String.format("#%d", b+1));
+							// 20220715 xingjl remove
+							//fxs[a] = new Expression(String.format("#%d", b+1));
+							
 							if(fds[a].equalsIgnoreCase(fns[b]))
 							{
 								if(whereExp != null && this.tableNode.getType() == TableNode.TYPE_GTB)
