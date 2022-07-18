@@ -1236,12 +1236,10 @@ public class JTableEx extends JTable implements MouseListener,
 				return false;
 			}
 			if (caseRepeat && keys.contains(key)) {
-				JOptionPane
-						.showMessageDialog(parent,
-								mm.getMessage("jtableex.repeat") + colDesc
-										+ ": " + key,
-								mm.getMessage("public.note"),
-								JOptionPane.WARNING_MESSAGE);
+				JOptionPane.showMessageDialog(parent,
+						mm.getMessage("jtableex.repeat", colDesc, key),
+						mm.getMessage("public.note"),
+						JOptionPane.WARNING_MESSAGE);
 				return false;
 			}
 			if (!StringUtils.isValidString(key)) {

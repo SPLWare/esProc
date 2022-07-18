@@ -12,7 +12,8 @@ import java.util.ArrayList;
  * Implementation of java.sql.ResultSetMetaData
  *
  */
-public class ResultSetMetaData implements java.sql.ResultSetMetaData, Externalizable {
+public class ResultSetMetaData implements java.sql.ResultSetMetaData,
+		Externalizable {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -386,6 +387,141 @@ public class ResultSetMetaData implements java.sql.ResultSetMetaData, Externaliz
 
 			columnTypeNames = initArrayList(colCount);
 			columnTypeNames.add("String");
+		} else if (type == ResultSet.GET_IMPORTED_KEYS) {
+			colCount = 14;
+			columnNames = new ArrayList<Object>(colCount);
+			columnNames.add("PKTABLE_CAT");
+			columnNames.add("PKTABLE_SCHEM");
+			columnNames.add("PKTABLE_NAME");
+			columnNames.add("PKCOLUMN_NAME");
+			columnNames.add("FKTABLE_CAT");
+
+			columnNames.add("FKTABLE_SCHEM");
+			columnNames.add("FKTABLE_NAME");
+			columnNames.add("FKCOLUMN_NAME");
+			columnNames.add("KEY_SEQ");
+			columnNames.add("UPDATE_RULE");
+
+			columnNames.add("DELETE_RULE");
+			columnNames.add("FK_NAME");
+			columnNames.add("PK_NAME");
+			columnNames.add("DEFERRABILITY");
+
+			columnTypes = new int[colCount];
+			columnTypes[0] = java.sql.Types.VARCHAR;
+			columnTypes[1] = java.sql.Types.VARCHAR;
+			columnTypes[2] = java.sql.Types.VARCHAR;
+			columnTypes[3] = java.sql.Types.VARCHAR;
+			columnTypes[4] = java.sql.Types.VARCHAR;
+
+			columnTypes[5] = java.sql.Types.VARCHAR;
+			columnTypes[6] = java.sql.Types.VARCHAR;
+			columnTypes[7] = java.sql.Types.VARCHAR;
+			columnTypes[8] = java.sql.Types.INTEGER;
+			columnTypes[9] = java.sql.Types.INTEGER;
+
+			columnTypes[10] = java.sql.Types.INTEGER;
+			columnTypes[11] = java.sql.Types.VARCHAR;
+			columnTypes[12] = java.sql.Types.VARCHAR;
+			columnTypes[13] = java.sql.Types.INTEGER;
+
+			columnTypeNames = initArrayList(colCount);
+			columnTypeNames.add("String");
+			columnTypeNames.add("String");
+			columnTypeNames.add("String");
+			columnTypeNames.add("String");
+			columnTypeNames.add("String");
+
+			columnTypeNames.add("String");
+			columnTypeNames.add("String");
+			columnTypeNames.add("String");
+			columnTypeNames.add("short");
+			columnTypeNames.add("short");
+
+			columnTypeNames.add("short");
+			columnTypeNames.add("String");
+			columnTypeNames.add("String");
+			columnTypeNames.add("short");
+		} else if (type == ResultSet.GET_EXPORTED_KEYS) {
+			colCount = 14;
+			columnNames = new ArrayList<Object>(colCount);
+			columnNames.add("PKTABLE_CAT");
+			columnNames.add("PKTABLE_SCHEM");
+			columnNames.add("PKTABLE_NAME");
+			columnNames.add("PKCOLUMN_NAME");
+			columnNames.add("FKTABLE_CAT");
+
+			columnNames.add("FKTABLE_SCHEM");
+			columnNames.add("FKTABLE_NAME");
+			columnNames.add("FKCOLUMN_NAME");
+			columnNames.add("KEY_SEQ");
+			columnNames.add("UPDATE_RULE");
+
+			columnNames.add("DELETE_RULE");
+			columnNames.add("FK_NAME");
+			columnNames.add("PK_NAME");
+			columnNames.add("DEFERRABILITY");
+
+			columnTypes = new int[colCount];
+			columnTypes[0] = java.sql.Types.VARCHAR;
+			columnTypes[1] = java.sql.Types.VARCHAR;
+			columnTypes[2] = java.sql.Types.VARCHAR;
+			columnTypes[3] = java.sql.Types.VARCHAR;
+			columnTypes[4] = java.sql.Types.VARCHAR;
+
+			columnTypes[5] = java.sql.Types.VARCHAR;
+			columnTypes[6] = java.sql.Types.VARCHAR;
+			columnTypes[7] = java.sql.Types.VARCHAR;
+			columnTypes[8] = java.sql.Types.INTEGER;
+			columnTypes[9] = java.sql.Types.INTEGER;
+
+			columnTypes[10] = java.sql.Types.INTEGER;
+			columnTypes[11] = java.sql.Types.VARCHAR;
+			columnTypes[12] = java.sql.Types.VARCHAR;
+			columnTypes[13] = java.sql.Types.INTEGER;
+
+			columnTypeNames = initArrayList(colCount);
+			columnTypeNames.add("String");
+			columnTypeNames.add("String");
+			columnTypeNames.add("String");
+			columnTypeNames.add("String");
+			columnTypeNames.add("String");
+
+			columnTypeNames.add("String");
+			columnTypeNames.add("String");
+			columnTypeNames.add("String");
+			columnTypeNames.add("short");
+			columnTypeNames.add("short");
+
+			columnTypeNames.add("short");
+			columnTypeNames.add("String");
+			columnTypeNames.add("String");
+			columnTypeNames.add("short");
+		} else if (type == ResultSet.GET_PRIMARY_KEYS) {
+			colCount = 6;
+			columnNames = new ArrayList<Object>(colCount);
+			columnNames.add("TABLE_CAT");
+			columnNames.add("TABLE_SCHEM");
+			columnNames.add("TABLE_NAME");
+			columnNames.add("COLUMN_NAME");
+			columnNames.add("KEY_SEQ");
+			columnNames.add("PK_NAME");
+
+			columnTypes = new int[colCount];
+			columnTypes[0] = java.sql.Types.VARCHAR;
+			columnTypes[1] = java.sql.Types.VARCHAR;
+			columnTypes[2] = java.sql.Types.VARCHAR;
+			columnTypes[3] = java.sql.Types.VARCHAR;
+			columnTypes[4] = java.sql.Types.INTEGER;
+			columnTypes[5] = java.sql.Types.VARCHAR;
+
+			columnTypeNames = initArrayList(colCount);
+			columnTypeNames.add("String");
+			columnTypeNames.add("String");
+			columnTypeNames.add("String");
+			columnTypeNames.add("String");
+			columnTypeNames.add("short");
+			columnTypeNames.add("String");
 		}
 
 		columnLabels = new ArrayList<Object>(colCount);
@@ -655,8 +791,10 @@ public class ResultSetMetaData implements java.sql.ResultSetMetaData, Externaliz
 		JDBCUtil.log("ResultSetMetaData-19");
 		if (columnTypes == null || columnTypes.length <= column - 1)
 			return Types.VARCHAR;
-		JDBCUtil.log("ResultSetMetaData-19-type[" + columnTypes[column - 1] + "]");
-		return columnTypes[column - 1] == 0 ? Types.VARCHAR : columnTypes[column - 1];
+		JDBCUtil.log("ResultSetMetaData-19-type[" + columnTypes[column - 1]
+				+ "]");
+		return columnTypes[column - 1] == 0 ? Types.VARCHAR
+				: columnTypes[column - 1];
 	}
 
 	/**
@@ -779,7 +917,8 @@ public class ResultSetMetaData implements java.sql.ResultSetMetaData, Externaliz
 	/**
 	 * Realize the serialization function of Externalizable interface
 	 */
-	public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+	public void readExternal(ObjectInput in) throws IOException,
+			ClassNotFoundException {
 		JDBCUtil.log("ResultSetMetaData-25");
 		in.readByte();
 
