@@ -2436,6 +2436,10 @@ public class ColumnTableMetaData extends TableMetaData {
 			}
 		}
 		
+		if (data != null) {
+			data = new Table((Table)data);
+		}
+		
 		GroupTable groupTable = getGroupTable();
 		groupTable.checkWritable();
 		TableMetaData tmd = getSupplementTable(false);
@@ -3417,6 +3421,10 @@ public class ColumnTableMetaData extends TableMetaData {
 			} else {
 				throw new RQException(mm.getMessage("ds.lessKey"));
 			}
+		}
+		
+		if (data != null) {
+			data = new Table((Table)data);
 		}
 		
 		GroupTable groupTable = getGroupTable();
