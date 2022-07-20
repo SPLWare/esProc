@@ -123,8 +123,10 @@ public class PseudoTable extends Pseudo {
 								addColName(key);
 							}
 						}
-						if (column.getTime() != null) {
-							addColName(column.getTime());
+						
+						Sequence dim = (Sequence) column.getDim();
+						if (column.getTkey() != null && dim.dataStruct().getTimeKeyCount() > 0) {
+							addColName(column.getTkey());
 						}
 					}
 				}
@@ -442,7 +444,7 @@ public class PseudoTable extends Pseudo {
 					} else {
 						dim = ((IPseudo) column.getDim()).cursor(null, null, false).fetch();
 					}
-					boolean hasTimeKey = column.getTime() != null && dim.dataStruct().getTimeKeyCount() == 1;
+					boolean hasTimeKey = column.getTkey() != null && dim.dataStruct().getTimeKeyCount() == 1;
 					
 					String fkey[] = column.getFkey();
 					if (fkey == null) {
@@ -450,7 +452,7 @@ public class PseudoTable extends Pseudo {
 						 * 此时name就是外键字段
 						 */
 						String[] fkNames = new String[] {column.getName()};
-						String[] timeFkNames =hasTimeKey ? new String[] {column.getTime()} : null;
+						String[] timeFkNames =hasTimeKey ? new String[] {column.getTkey()} : null;
 						Sequence[] codes = new Sequence[] {dim};
 						Switch s = new Switch(
 								null,
@@ -471,7 +473,7 @@ public class PseudoTable extends Pseudo {
 							size++;
 							fkey = new String[size];
 							System.arraycopy(column.getFkey(), 0, fkey, 0, size - 1);
-							fkey[size - 1] = column.getTime();
+							fkey[size - 1] = column.getTkey();
 						}
 						
 						Expression[][] exps = new Expression[1][];

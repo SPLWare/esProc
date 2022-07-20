@@ -22,7 +22,7 @@ public class PseudoColumn {
 	private Sequence bits;//二值维度伪字段名
 	private Object dim;//指向的维表
 	private String fkey[];//外键字段
-	private String time;//时间字段
+	private String tkey;//时间字段
 	private String[] dimKey;//维表key字段
 	
 	public PseudoColumn() {
@@ -100,12 +100,8 @@ public class PseudoColumn {
 		this.dimKey = dimKey;
 	}
 	
-	public String getTime() {
-		return time;
-	}
-
-	public void setTime(String time) {
-		this.time = time;
+	public String getTkey() {
+		return tkey;
 	}
 	
 	public PseudoColumn(Record rec) {
@@ -116,7 +112,7 @@ public class PseudoColumn {
 		_enum = (Sequence) PseudoDefination.getFieldValue(rec, PD_ENUM);
 		bits = (Sequence) PseudoDefination.getFieldValue(rec, PD_BITS);
 		dim = PseudoDefination.getFieldValue(rec, PD_DIM);
-		time = (String) PseudoDefination.getFieldValue(rec, PD_TIME);
+		tkey = (String) PseudoDefination.getFieldValue(rec, PD_TIME);
 		
 		Object obj = PseudoDefination.getFieldValue(rec, PD_FKEY);
 		if (obj != null) {
