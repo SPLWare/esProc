@@ -107,6 +107,8 @@ public class PseudoDefination implements Cloneable, ICloneable {
 		this.fileObject = pd.fileObject;
 		this.isBFile = pd.isBFile;
 		this.sortedFields = pd.sortedFields;
+		this.ds = pd.ds;
+		this.updateExp = pd.updateExp;
 		
 		if (pd.columns != null) {
 			this.columns = new ArrayList<PseudoColumn>();
