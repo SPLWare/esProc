@@ -104,6 +104,14 @@ public class PseudoColumn {
 		return tkey;
 	}
 	
+	public String getTime() {
+		return tkey;
+	}
+	
+	public void setTime(String time) {
+		tkey = time;
+	}
+	
 	public PseudoColumn(Record rec) {
 		name = (String) PseudoDefination.getFieldValue(rec, PD_NAME);
 		exp = (String) PseudoDefination.getFieldValue(rec, PD_EXP);
