@@ -1,8 +1,6 @@
 package com.scudata.dw.pseudo;
 
 import java.util.ArrayList;
-import java.util.List;
-
 import com.scudata.common.RQException;
 import com.scudata.common.Types;
 import com.scudata.dm.Context;
@@ -11,13 +9,8 @@ import com.scudata.dm.Sequence;
 import com.scudata.dm.cursor.BFileCursor;
 import com.scudata.dm.cursor.ICursor;
 import com.scudata.dm.cursor.MultipathCursors;
-import com.scudata.dm.op.Join;
-import com.scudata.dm.op.New;
 import com.scudata.dm.op.Operation;
-import com.scudata.dm.op.Switch;
 import com.scudata.expression.Expression;
-import com.scudata.expression.Node;
-import com.scudata.expression.UnknownSymbol;
 
 /**
  * 集文件虚表类
