@@ -67,7 +67,7 @@ public class GroupsJob extends Job {
 
 	public void run() {
 		IGroupsResult groups = null;
-		if (cursor.isColumnCursor()) {
+		if (cursor != null && cursor.isColumnCursor()) {
 			groups = IColumnCursorUtil.util.getGroupsResultInstance(exps, names, calcExps, calcNames, opt, ctx);
 		} else {
 			groups = IGroupsResult.instance(exps, names, calcExps, calcNames, opt, ctx);
