@@ -67,7 +67,11 @@ public class FileName extends Function {
 			if (name == null || name.length() == 0) {
 				return Env.getMainPath();
 			} else {
-				File file = new File(Env.getMainPath(), name);
+				File file = new File(name);
+				if (!file.isAbsolute()) {
+					file = new File(Env.getMainPath(), name);
+				}
+				
 				return file.getAbsolutePath();
 			}
 		}
