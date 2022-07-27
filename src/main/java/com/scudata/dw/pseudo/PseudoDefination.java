@@ -298,8 +298,10 @@ public class PseudoDefination implements Cloneable, ICloneable {
 			for (ITableMetaData t : tables) {
 				try {
 					Object[] values = ((TableMetaData)t).getMaxMinValue(dateName);
-					maxValues.add(values[0]);
-					minValues.add(values[1]);
+					if (values != null) {
+						maxValues.add(values[0]);
+						minValues.add(values[1]);
+					}
 				} catch (IOException e) {
 					throw new RQException(e.getMessage());
 				}

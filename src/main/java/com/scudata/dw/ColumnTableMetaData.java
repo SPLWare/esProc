@@ -4312,6 +4312,9 @@ public class ColumnTableMetaData extends TableMetaData {
 	 * @throws IOException
 	 */
 	public Object[] getMaxMinValue(String key) throws IOException {
+		if (this.totalRecordCount == 0) {
+			return null;
+		}
 		ColumnMetaData column = getColumn(key);
 		if (column == null) {
 			return null;

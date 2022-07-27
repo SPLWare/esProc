@@ -3041,6 +3041,9 @@ public class RowTableMetaData extends TableMetaData {
 	 * @throws IOException
 	 */
 	public Object[] getMaxMinValue(String key) throws IOException {
+		if (this.totalRecordCount == 0) {
+			return null;
+		}
 		boolean isDim[] = this.isDim;
 		String colNames[] = this.colNames;
 		int len = colNames.length;
