@@ -1435,7 +1435,12 @@ public class ColumnTableMetaData extends TableMetaData {
 		if (isSorted && opt != null) {
 			if (opt.indexOf('y') != -1) {
 				Sequence data = cursor.fetch();
-				append_y(data);
+				ColumnTableMetaData ctmd = (ColumnTableMetaData)getSupplementTable(false);
+				if (ctmd == null) {
+					append_y(data);
+				} else {
+					ctmd.append_y(data);
+				}
 			} else if (opt.indexOf('a') != -1) {
 				ColumnTableMetaData ctmd = (ColumnTableMetaData)getSupplementTable(true);
 				ctmd.mergeAppend(cursor, opt);
@@ -2867,24 +2872,60 @@ public class ColumnTableMetaData extends TableMetaData {
 		}
 		
 		int len = data.length();
-		ArrayList<ModifyRecord> modifyRecords = getModifyRecords();		
+		ArrayList<ModifyRecord> modifyRecords = getModifyRecords();
 		if (modifyRecords == null) {
 			modifyRecords = new ArrayList<ModifyRecord>(len);
 			this.modifyRecords = modifyRecords;
 		}
+				
+		Record r1 = (Record)data.get(1);
+		String []pks = getAllSortedColNames();
+		int keyCount = pks.length;
+		int []keyIndex = new int[keyCount];
+		for (int i = 0; i < keyCount; ++i) {
+			keyIndex[i] = ds.getFieldIndex(pks[i]);
+		}
 		
-		long seq = -totalRecordCount - 1;
-		for (int i = 1; i <= len; ++i) {
-			Record sr = (Record)data.getMem(i);
-			ModifyRecord r = new ModifyRecord(seq, ModifyRecord.STATE_INSERT, sr);
-			//r.setBlock(block[i]);
-			//如果是子表insert 要处理parentRecordSeq，因为子表insert的可能指向主表列区
-			//这里先设置为指向列区伪号，最后会根据主表补区修改
-			//if (!isPrimaryTable) {
-			//	r.setParentRecordSeq(recNum[i]);
-			//}
+		if (maxValues != null && r1.compare(keyIndex, maxValues) < 0) {
+			// 需要归并
+			long []seqs = new long[len + 1];
+			RecordSeqSearcher searcher = new RecordSeqSearcher(this);
 			
-			modifyRecords.add(r);
+			if (keyCount == 1) {
+				int k = keyIndex[0];
+				for (int i = 1; i <= len; ++i) {
+					Record r = (Record)data.getMem(i);
+					seqs[i] = searcher.findNext(r.getFieldValue(k));
+				}
+			} else {
+				Object []keyValues = new Object[keyCount];
+				for (int i = 1; i <= len; ++i) {
+					Record r = (Record)data.getMem(i);
+					for (int k = 0; k < keyCount; ++k) {
+						keyValues[k] = r.getFieldValue(keyIndex[k]);
+					}
+					
+					seqs[i] = searcher.findNext(keyValues);
+				}
+			}
+			
+			for (int i = 1; i <= len; ++i) {
+				Record sr = (Record)data.getMem(i);
+				if (seqs[i] > 0) {
+					ModifyRecord r = new ModifyRecord(seqs[i], ModifyRecord.STATE_INSERT, sr);
+					modifyRecords.add(r);
+				} else {
+					ModifyRecord r = new ModifyRecord(-seqs[i], ModifyRecord.STATE_INSERT, sr);
+					modifyRecords.add(r);
+				}
+			}
+		} else {
+			long seq = totalRecordCount + 1;
+			for (int i = 1; i <= len; ++i) {
+				Record sr = (Record)data.getMem(i);
+				ModifyRecord r = new ModifyRecord(seq, ModifyRecord.STATE_INSERT, sr);
+				modifyRecords.add(r);
+			}
 		}
 	}
 
