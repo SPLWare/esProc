@@ -1081,6 +1081,12 @@ public class PseudoTable extends Pseudo {
 			convertPseudoColumn(cursor, columns, fields);
 		}
 		
+		//立即提交
+		if (option == null)
+			option = "i";
+		else 
+			option += "i";
+		
 		try {
 			table.append(cursor, option);
 		} catch (IOException e) {
@@ -1105,6 +1111,12 @@ public class PseudoTable extends Pseudo {
 			data = cursor.fetch();
 		}
 		
+		//立即提交
+		if (opt == null)
+			opt = "i";
+		else 
+			opt += "i";
+		
 		try {
 			return table.update(data, opt);
 		} catch (IOException e) {
@@ -1118,6 +1130,12 @@ public class PseudoTable extends Pseudo {
 		if (size == 0) {
 			return null;
 		}
+		
+		//立即提交
+		if (opt == null)
+			opt = "i";
+		else 
+			opt += "i";
 		
 		Sequence result = null;
 		for (ITableMetaData table : tables) {
