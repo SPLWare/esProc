@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>es_rest()</title>
+<title>db.error()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,197 +13,255 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h2><a name="es_close"></a><span lang=EN-US style='mso-fareast-font-family:
-宋体'>es_rest()<a name="es_rest"></a></span></h2></div>
-	<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Description: </span></b></p>
+	<div id="centent-title"><h3 style='text-align:justify;text-justify:inter-ideograph'><a name="db_error"></a><span
+class=code><span lang=EN-US style='font-size:15.0pt;line-height:172%;
+font-family:"Times New Roman","serif"'>db.error()</span></span><span
+class=code><span lang=EN-US style='font-size:15.0pt;line-height:172%;
+font-family:"Times New Roman","serif";font-weight:normal'></span></span></h3></div>
+	<p class=af7 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
+14.0pt;line-height:200%'>Description:</span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>Handle data using Elasticsearch REST interface.</span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Obtain the last
+error information from a database connection.</span></p>
 
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Syntax:</span></b></p>
+<p class=af7 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
+14.0pt;line-height:200%'>Syntax: </span></p>
 
-<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.01'><span
-class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>es_rest(</span></span><span
-class=code><i><span lang=EN-US style='font-family:"Times New Roman","serif";
-font-weight:normal'>url, method, content; httpHeader1, httpHeader2, …</span></i></span><span
-class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>)</span></span><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:12.0pt;
-mso-bidi-font-size:10.0pt'></span></b></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span class=var1><span
+lang=EN-US>db</span></span><span lang=EN-US>.</span><span class=code><span
+lang=EN-US style='font-family:"Times New Roman","serif"'>error</span></span><span
+lang=EN-US>()</span></p>
 
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Note: </span></b></p>
+<p class=af7 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
+14.0pt;line-height:200%'>Note: </span></p>
 
-<p class=MsoNormal align=left style='text-align:left;text-indent:21.2pt;
-mso-char-indent-count:2.02;mso-pagination:widow-orphan'><span lang=EN-US>The
-external library handles data using Elasticsearch REST interface.</span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>The function returns
+the error information corresponding to the previous command related to the
+database. </span><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
+font-weight:normal'>0</span></span><span lang=EN-US> indicates error free;
+otherwise, the error code is returned. The error message can only be called one
+time. </span></p>
 
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Parameters:</span></b></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+line-height:200%'>Parameters:</span></b></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:21.3pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;height:15.25pt'>
-  <td width=130 valign=top style='width:77.95pt;padding:0cm 5.4pt 0cm 5.4pt;
-  height:15.25pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US>url</span></span></p>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'>
+  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><i
+  style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt'>db</span></i></b><span class=var1><span lang=EN-US></span></span></p>
   </td>
-  <td width=484 valign=top style='width:290.55pt;padding:0cm 5.4pt 0cm 5.4pt;
-  height:15.25pt'>
-  <p class=MsoNormal align=left style='text-align:left;mso-pagination:widow-orphan'><span
-  lang=EN-US>A URL file that supports both HTTP and HTTPS; different operations
-  have their own extensions</span><span class=code><span lang=EN-US
-  style='font-size:14.0pt;font-family:"Times New Roman","serif";mso-font-kerning:
-  0pt;font-weight:normal'></span></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:1;height:15.25pt'>
-  <td width=130 valign=top style='width:77.95pt;padding:0cm 5.4pt 0cm 5.4pt;
-  height:15.25pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US>method</span></span></p>
-  </td>
-  <td width=484 valign=top style='width:290.55pt;padding:0cm 5.4pt 0cm 5.4pt;
-  height:15.25pt'>
-  <p class=MsoNormal align=left style='text-align:left;mso-pagination:widow-orphan'><span
-  lang=EN-US>An HTTP method, whose value can be GET/PUT/POST/DELETE</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:2;height:15.25pt'>
-  <td width=130 valign=top style='width:77.95pt;padding:0cm 5.4pt 0cm 5.4pt;
-  height:15.25pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US>content</span></span></p>
-  </td>
-  <td width=484 valign=top style='width:290.55pt;padding:0cm 5.4pt 0cm 5.4pt;
-  height:15.25pt'>
-  <p class=MsoNormal align=left style='text-align:left;mso-pagination:widow-orphan'><span
-  lang=EN-US>The to-be-submitted content an HTTP request contains; the
-  parameter can be absent when an operation does not submit anything</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes;height:15.25pt'>
-  <td width=130 valign=top style='width:77.95pt;padding:0cm 5.4pt 0cm 5.4pt;
-  height:15.25pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US>httpHeader</span></span></p>
-  </td>
-  <td width=484 valign=top style='width:290.55pt;padding:0cm 5.4pt 0cm 5.4pt;
-  height:15.25pt'>
-  <p class=MsoNormal align=left style='text-align:left;mso-pagination:widow-orphan'><span
-  lang=EN-US>An HTTP header, including information such as token for authenticating
-  a user agent and specification of content format</span></p>
+  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-size:10.5pt'>Database
+  connection</span></p>
   </td>
  </tr>
 </table>
 
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Example:</span></b></p>
+<p class=af7 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
+14.0pt;line-height:200%'>Options: </span></p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'>
+  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>@m</span></span><span
+  class=var1><span lang=EN-US></span></span></p>
+  </td>
+  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Use this option to return information in
+  string.</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=af7 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
+14.0pt;line-height:200%'>Example:</span></p>
 
 <table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
- style='margin-left:17.25pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ style='margin-left:.25pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
  mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=26 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
+  <td width=24 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
   mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span lang=EN-US>&nbsp;</span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>&nbsp;</span></span></p>
   </td>
-  <td width=488 valign=top style='width:292.7pt;border:solid #A6A6A6 1.0pt;
+  <td width=354 valign=top style='width:212.6pt;border:solid #A6A6A6 1.0pt;
   border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
-  黑体'>A</span></b></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>A</span></span></p>
   </td>
-  <td width=183 valign=top style='width:109.65pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span lang=EN-US>&nbsp;</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:1'>
-  <td width=26 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
-  黑体'>1</span></b></p>
-  </td>
-  <td width=488 valign=top style='width:292.7pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>&gt;apikey=&quot;Authorization:ApiKey
-  a2x6aEF……KZ29rT2hoQQ==&quot;</span></b></p>
-  </td>
-  <td width=183 valign=top style='width:109.65pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Set API Key</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:2'>
-  <td width=26 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
-  黑体'>2</span></b></p>
-  </td>
-  <td width=488 valign=top style='width:292.7pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>'{</span></b></p>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>&nbsp;</span></b></p>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>&quot;counter&quot; : 1,</span></b></p>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>&nbsp;</span></b></p>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>&quot;tags&quot; : [&quot;red&quot;]</span></b></p>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>&nbsp;</span></b></p>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>,&quot;beginTime&quot;:&quot;2022-01-03&quot;</span></b></p>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>&nbsp;</span></b></p>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>,&quot;endTime&quot;:&quot;2022-02-15&quot;</span></b></p>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>&nbsp;</span></b></p>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>}</span></b></p>
-  </td>
-  <td width=183 valign=top style='width:109.65pt;border:none;mso-border-left-alt:
+  <td width=319 valign=top style='width:191.4pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
-  <td width=26 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:1'>
+  <td width=24 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
-  黑体'>3</span></b></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>1</span></span></p>
   </td>
-  <td width=488 valign=top style='width:292.7pt;border-top:none;border-left:
+  <td width=354 valign=top style='width:212.6pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>=es_rest(&quot;https://localhost:9200/index1/_doc/1&quot;,
-  &quot;PUT&quot;,A2;&quot;Content-Type: application/x-ndjson&quot;,apikey)</span></b></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=file(&quot;D://files//student.txt&quot;)</span></span></p>
   </td>
-  <td width=183 valign=top style='width:109.65pt;border:none;mso-border-left-alt:
+  <td width=319 valign=top style='width:191.4pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Execute write operation and list
-  information in the HTTP response</span></p>
+  <p class=MsoNormal><span lang=EN-US>Data in the file </span><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>student.txt </span></span><span
+  lang=EN-US>is not correct</span><span lang=EN-US style='mso-ansi-language:
+  #0400;mso-fareast-language:#0400'> </span><span lang=zh-CN style='mso-ansi-language:
+  #0400;mso-fareast-language:#0400'><img border=0 width=252 height=79
+  src="Function_Reference.files/image404.jpg" v:shapes="_x0000_i1277"></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=24 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>2</span></span></p>
+  </td>
+  <td width=354 valign=top style='width:212.6pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=A1.import@t()</span></span></p>
+  </td>
+  <td width=319 valign=top style='width:191.4pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3'>
+  <td width=24 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>3</span></span></p>
+  </td>
+  <td width=354 valign=top style='width:212.6pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=connect@e(&quot;demo&quot;)</span></span></p>
+  </td>
+  <td width=319 valign=top style='width:191.4pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Create a connection and auto-control the
+  commit and rollback operations</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4'>
+  <td width=24 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>4</span></span></p>
+  </td>
+  <td width=354 valign=top style='width:212.6pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>&gt;A3.execute@k(A2,&quot;update
+  STUDENTS2 set NAME=?,GENDER=?,AGE=? where ID=?&quot;,NAME,GENDER,AGE,ID)</span></span></p>
+  </td>
+  <td width=319 valign=top style='width:191.4pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>The transaction is not committed</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:5'>
+  <td width=24 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>5</span></span></p>
+  </td>
+  <td width=354 valign=top style='width:212.6pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=A3.error@m()</span></span></p>
+  </td>
+  <td width=319 valign=top style='width:191.4pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Return the error message corresponding to
+  sql command execution </span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:6'>
+  <td width=24 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>6</span></span></p>
+  </td>
+  <td width=354 valign=top style='width:212.6pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>&gt;file(&quot;D:\\log.txt&quot;).write@a(A5)</span></span></p>
+  </td>
+  <td width=319 valign=top style='width:191.4pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Append error message to the log</span></p>
+  <p class=MsoNormal><span lang=EN-US style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><span style='mso-spacerun:yes'>&nbsp;</span></span><span
+  lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=306 height=35
+  src="Function_Reference.files/image406.jpg" v:shapes="图片_x0020_55"></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:7;mso-yfti-lastrow:yes'>
+  <td width=24 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>7</span></span></p>
+  </td>
+  <td width=354 valign=top style='width:212.6pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>&gt;A3.close()</span></span></p>
+  </td>
+  <td width=319 valign=top style='width:191.4pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Close the connection</span></p>
   </td>
  </tr>
 </table>
+
+<p class=af7 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
+14.0pt;line-height:200%'>Related functions: </span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><i style='mso-bidi-font-style:
+normal'><span lang=EN-US><a  href="131.html"><span style='mso-bidi-font-size:
+10.5pt;font-style:normal'>db</span><span style='mso-bidi-font-size:12.0pt;
+font-style:normal'>.cl<span style='mso-bookmark:_Hlt415047773'>o</span>s<span
+style='mso-bookmark:_Hlt414995559'>e</span>()</span></a><a
+name="_Hlt414995559"></a><a name="_Hlt415047773"></a></span></i></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><i style='mso-bidi-font-style:
+normal'><span lang=EN-US style='mso-bidi-font-size:12.0pt'><a  href="148.html"><span
+style='font-style:normal'>conn<span style='mso-bookmark:_Hlt414995264'>e</span>ct()</span></a><a
+name="_Hlt414995264"></a></span></i></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><i style='mso-bidi-font-style:
+normal'><span lang=EN-US><a  href="138.html"><span style='mso-bidi-font-size:
+10.5pt;font-style:normal'>db</span><span style='mso-bidi-font-size:12.0pt;
+font-style:normal'>.co<span style='mso-bookmark:_Hlt415047833'>m</span><span
+style='mso-bookmark:_Hlt414995841'>m</span><span style='mso-bookmark:_Hlt414995385'>i</span>t()</span></a><a
+name="_Hlt414995385"></a><a name="_Hlt414995841"></a><a name="_Hlt415047833"></a></span></i></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><i style='mso-bidi-font-style:
+normal'><span lang=EN-US><a  href="705.html"><span style='mso-bidi-font-size:
+10.5pt;font-style:normal'>db</span><span style='mso-bidi-font-size:12.0pt;
+font-style:normal'>.rollba<span style='mso-bookmark:_Hlt414995881'>c</span>k()</span></a><a
+name="_Hlt414995881"></a></span></i></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="231.html">Next</a></div>
@@ -211,7 +269,7 @@ style='font-size:14.0pt'>Example:</span></b></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="45.html">Functions</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="229.html">error()</a></span></li>
 </div>
 	</div>
 	<div id="footer">	

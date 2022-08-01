@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>T.icursor()</title>
+<title>hive_query()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,316 +13,172 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h3 style='text-align:justify;text-justify:inter-ideograph'><a name="fi_icount"></a><a
-name="f_icursor"></a><a name="f_icursor_s"></a><a name="_Hlt494228522"></a><a
-name="_Hlt494268076"></a><a name="T_icursor_C_W2"></a><span lang=EN-US>T.icursor()<a
-name="T_icursor2"></a></span></h3></div>
-	<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Description:</span></b></p>
+	<div id="centent-title"><h2><a name="hive_query"></a><span lang=EN-US>hive_query()</span></h2></div>
+	<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%'>Description:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US style='mso-bidi-language:AR'>Use index to </span><span lang=EN-US>filter
-a cluster table according to the filtering condition.</span></p>
+<p class=MsoNormal style='text-indent:15.75pt;mso-char-indent-count:1.5'><span
+lang=EN-US>Query a Hive database.</span></p>
 
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Syntax:</span></b></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%'>Syntax: </span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><i><span
-lang=EN-US>T.</span></i><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US style='mso-bidi-font-size:10.5pt;mso-bidi-font-style:italic'>icursor</span></b><span
-lang=EN-US>(C,…;w,I)</span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US style='mso-fareast-font-family:黑体'>hive_query</span></b><span
+lang=EN-US>(</span><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>con,sql</span></i><span
+lang=EN-US>)</span></p>
 
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Note:</span></b></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%'>Note:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>The function filters cluster table <i style='mso-bidi-font-style:
-normal'>T</i> according to filtering condition <i style='mso-bidi-font-style:
-normal'>w</i> using index<i style='mso-bidi-font-style:normal'> I</i>;
-automatically get the index if parameter <i style='mso-bidi-font-style:normal'>I</i>
-is absent.</span></p>
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
+tab-stops:18.0pt'><span lang=EN-US>This external library function executes a
+certain SQL query on a Hive database, and returns the query result as a table
+sequence. </span><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt;mso-bidi-font-size:12.0pt'></span></b></p>
 
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Parameters:</span></b></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%'>Parameters:</span></b></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:19.85pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i><span lang=EN-US>T</span></i></p>
+  <td width=122 valign=top style='width:73.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>con</span></i></p>
   </td>
-  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>A cluster table</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:1'>
-  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i><span lang=EN-US>C</span></i></p>
-  </td>
-  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>To-be-retrieved columns in the cluster
-  table; get all columns when the parameter is absent</span></p>
+  <td width=546 valign=top style='width:327.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Database connection string.</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:2'>
-  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i><span lang=EN-US>w</span></i></p>
+ <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
+  <td width=122 valign=top style='width:73.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>sql</span></i></p>
   </td>
-  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Filtering condition, in which the
-  filtering field for <i style='mso-bidi-font-style:normal'>T</i> must be the
-  same as the indexing field; support &gt;, &gt;=, &lt;, &lt;=, == and contain
-  in its syntax</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
-  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i><span lang=EN-US>I</span></i></p>
-  </td>
-  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Index name; can be omitted</span></p>
+  <td width=546 valign=top style='width:327.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>A SQL query statement, like <b
+  style='mso-bidi-font-weight:normal'>select * from tabl</b>e.</span></p>
   </td>
  </tr>
 </table>
 
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Options:</span></b></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%'>Return value:</span></b></p>
 
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='border-collapse:collapse;mso-table-layout-alt:fixed;mso-padding-alt:
- 0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'>
-  <td width=104 valign=top style='width:62.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='font-size:14.0pt'><span style='mso-spacerun:yes'>&nbsp; </span></span></b><span
-  lang=EN-US><span style='mso-spacerun:yes'>&nbsp;</span><b style='mso-bidi-font-weight:
-  normal'>@s</b></span></p>
-  </td>
-  <td width=607 valign=top style='width:364.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Make the result set ordered by the index
-  and support a big result set</span><b style='mso-bidi-font-weight:normal'><span
-  lang=EN-US style='font-size:14.0pt'></span></b></p>
-  </td>
- </tr>
-</table>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Table sequence</span></p>
 
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Return value:</span></b></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%'>Example:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>A cluster cursor</span></p>
-
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Example:</span></b></p>
-
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:19.85pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- mso-padding-alt:0cm 0cm 0cm 0cm'>
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='margin-left:18.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
+ mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=38 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
+  <td width=25 valign=top style='width:14.95pt;border:solid #A6A6A6 1.0pt;
   mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><b><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:黑体'>&nbsp;</span></b></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>&nbsp;</span></b></p>
   </td>
-  <td width=342 valign=top style='width:205.1pt;border:solid #A6A6A6 1.0pt;
-  border-left:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-bottom-alt:
-  solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;background:#BFBFBF;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><b><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:黑体'>A</span></b></p>
+  <td width=524 valign=top style='width:314.6pt;border:solid #A6A6A6 1.0pt;
+  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'>A</span></b></p>
   </td>
-  <td width=352 valign=top style='width:211.35pt;padding:0cm 0cm 0cm 0cm'>
+  <td width=177 valign=top style='width:106.2pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=38 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
+  <td width=25 valign=top style='width:14.95pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><b><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:黑体'>1</span></b></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>1</span></b></p>
   </td>
-  <td width=342 valign=top style='width:205.1pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  <td width=524 style='width:314.6pt;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=hive_client(&quot;hdfs://192.168.0.8:9000&quot;,&quot;thrift://192.168.0.8:9083&quot;,&quot;hive&quot;,&quot;asus&quot;)</span></span><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'></span></b></p>
+  </td>
+  <td width=177 style='width:106.2pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
   padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b><span lang=EN-US style='mso-bidi-font-size:10.5pt;
-  mso-fareast-font-family:黑体'>=file(&quot;emp1.ctx&quot;,&quot;192.168.0.101:8281&quot;)</span></b></p>
-  </td>
-  <td width=352 valign=top style='width:211.35pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Open a cluster file</span></p>
+  <p class=MsoNormal><span lang=EN-US>Connect to the <i style='mso-bidi-font-style:
+  normal'>hive</i> database</span><span lang=EN-US style='font-size:12.0pt;
+  mso-bidi-font-size:10.0pt'></span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:2'>
-  <td width=38 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
+  <td width=25 valign=top style='width:14.95pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><b><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:黑体'>2</span></b></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>2</span></b></p>
   </td>
-  <td width=342 valign=top style='width:205.1pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  <td width=524 style='width:314.6pt;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>=hive_query(A1, &quot;select<span
+  style='mso-spacerun:yes'>&nbsp; </span>*<span style='mso-spacerun:yes'>&nbsp;
+  </span>from<span style='mso-spacerun:yes'>&nbsp; </span>table&quot;)</span></b></p>
+  </td>
+  <td width=177 style='width:106.2pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
   padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b><span lang=EN-US style='mso-bidi-font-size:10.5pt;
-  mso-fareast-font-family:黑体'>=A1.<span class=170><span style='font-family:
-  "Times New Roman","serif"'>open</span></span> ()</span></b></p>
-  </td>
-  <td width=352 valign=top style='width:211.35pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Open a cluster table</span></p>
+  <p class=MsoNormal><span lang=EN-US>Query data in table </span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:3'>
-  <td width=38 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
+  <td width=25 valign=top style='width:14.95pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><b><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:黑体'>3</span></b></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>3</span></b></p>
   </td>
-  <td width=342 valign=top style='width:205.1pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  <td width=524 style='width:314.6pt;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>=hive_close()</span></b></p>
+  </td>
+  <td width=177 style='width:106.2pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
   padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b><span lang=EN-US style='mso-bidi-font-size:10.5pt;
-  mso-fareast-font-family:黑体'>=A2.attach(table1)</span></b></p>
-  </td>
-  <td width=352 valign=top style='width:211.35pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Retrieve cluster table <i
-  style='mso-bidi-font-style:normal'>table1</i></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:4'>
-  <td width=38 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><b><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:黑体'>4</span></b></p>
-  </td>
-  <td width=342 valign=top style='width:205.1pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b><span lang=EN-US style='mso-bidi-font-size:10.5pt;
-  mso-fareast-font-family:黑体'>=A3.index(test_index2,GENDER==&quot;F&quot;;DEPT;)</span></b></p>
-  </td>
-  <td width=352 valign=top style='width:211.35pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Create index file <i style='mso-bidi-font-style:
-  normal'>test_index2</i></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:5'>
-  <td width=38 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><b><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:黑体'>5</span></b></p>
-  </td>
-  <td width=342 valign=top style='width:205.1pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b><span lang=EN-US style='mso-bidi-font-size:10.5pt;
-  mso-fareast-font-family:黑体'>=A3.icursor(;DEPT==&quot;HR&quot;,test_index2)</span></b></p>
-  </td>
-  <td width=352 valign=top style='width:211.35pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Use index <i style='mso-bidi-font-style:
-  normal'>test_index2</i> to get all columns in A3’s cluster table where DEPT
-  is HR and return the result as a cluster cursor</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:6'>
-  <td width=38 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><b><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:黑体'>6</span></b></p>
-  </td>
-  <td width=342 valign=top style='width:205.1pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b><span lang=EN-US style='mso-bidi-font-size:10.5pt;
-  mso-fareast-font-family:黑体'>=A5.fetch()</span></b></p>
-  </td>
-  <td width=352 valign=top style='width:211.35pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'><img border=0 width=193 height=81
-  src="Function_Reference.files/image849.png" v:shapes="_x0000_i1534"></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:7'>
-  <td width=38 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><b><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:黑体'>7</span></b></p>
-  </td>
-  <td width=342 valign=top style='width:205.1pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b><span lang=EN-US style='mso-bidi-font-size:10.5pt;
-  mso-fareast-font-family:黑体'>=A2.index(test_index1,EID&lt;16;NAME;)</span></b></p>
-  </td>
-  <td width=352 valign=top style='width:211.35pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=left style='text-align:left;mso-pagination:widow-orphan'><span
-  lang=EN-US>Create index file <i style='mso-bidi-font-style:normal'>test_index1</i></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:8'>
-  <td width=38 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><b><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:黑体'>8</span></b></p>
-  </td>
-  <td width=342 valign=top style='width:205.1pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b><span lang=EN-US style='mso-bidi-font-size:10.5pt;
-  mso-fareast-font-family:黑体'>=A2.icursor(EID,SURNAME;NAME==&quot;Smith&quot;,test_index1)</span></b></p>
-  </td>
-  <td width=352 valign=top style='width:211.35pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=left style='text-align:left;mso-pagination:widow-orphan'><span
-  lang=EN-US>Use index <i style='mso-bidi-font-style:normal'>test_index1</i> to
-  get EID column and SURNAME column in A2’s cluster table where NAME is SMITH
-  and return the result as a cluster cursor</span><span lang=EN-US
-  style='font-size:12.0pt;mso-font-kerning:0pt'></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:9;mso-yfti-lastrow:yes'>
-  <td width=38 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><b><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:黑体'>9</span></b></p>
-  </td>
-  <td width=342 valign=top style='width:205.1pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b><span lang=EN-US style='mso-bidi-font-size:10.5pt;
-  mso-fareast-font-family:黑体'>=A8.fetch()</span></b></p>
-  </td>
-  <td width=352 valign=top style='width:211.35pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=left style='text-align:left;mso-pagination:widow-orphan'><span
-  lang=EN-US style='font-size:12.0pt;mso-font-kerning:0pt'><img border=0 width=146 height=77
-  src="Function_Reference.files/image850.png" v:shapes="图片_x0020_366"></span></p>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
   </td>
  </tr>
 </table>
 
-<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%'>Related functions:</span></b></p>
+
+<p class=MsoNormal style='text-indent:10.5pt;mso-char-indent-count:1.0'><span
+lang=EN-US><a  href="373.html">hive_clo<span style='mso-bookmark:_Hlt474160569'><span
+style='mso-bookmark:_Hlt474160527'>s</span></span>e<span style='mso-bookmark:
+_Hlt474160512'>(</span>)</a><a name="_Hlt474160512"></a><a
+name="_Hlt474160527"></a><a name="_Hlt474160569"></a></span></p>
+
+<p class=MsoNormal style='text-indent:10.5pt;mso-char-indent-count:1.0'><span
+lang=EN-US><a  href="374.html">hive_cur<span style='mso-bookmark:_Hlt474160574'>s</span><span
+style='mso-bookmark:_Hlt474160542'>o</span><span style='mso-bookmark:_Hlt474160427'>r</span>()</a><a
+name="_Hlt474160427"></a><a name="_Hlt474160542"></a><a name="_Hlt474160574"></a></span></p>
+
+<p class=MsoNormal style='text-indent:10.5pt;mso-char-indent-count:1.0'><span
+lang=EN-US><a  href="372.html">hive_open()</a></span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="377.html">Next</a></div>
@@ -330,7 +186,7 @@ style='font-size:14.0pt'>Example:</span></b></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="374.html">icursor()</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="45.html">Functions</a></span></li>
 </div>
 	</div>
 	<div id="footer">	

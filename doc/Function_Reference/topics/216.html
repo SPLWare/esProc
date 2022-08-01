@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>dyna_query()</title>
+<title>dyna_open()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -14,163 +14,143 @@
 <div id="content-bg">
 	<div id="centent">
 	<div id="centent-title"><h2 style='mso-pagination:widow-orphan'><span lang=EN-US style='mso-fareast-font-family:
-宋体'>dyna_query()<a name="dyna_query"></a></span></h2></div>
+宋体'>dyna_open()<a name="dyna_open"></a></span></h2></div>
 	<p class=MsoNormal><b><span lang=EN-US style='font-size:14.0pt'>Description:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Query data
-stored in DynamoDB.</span></p>
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US>Connect to Amazon DynamoDB.</span></p>
 
-<p class=MsoNormal><b><span lang=EN-US style='font-size:14.0pt'>Syntax:</span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><b><span lang=EN-US
-style='mso-fareast-font-family:黑体'>dyna_query(</span></b><span lang=EN-US>dyna_open,
-sql</span><b><span lang=EN-US style='mso-fareast-font-family:黑体'>)</span></b></p>
-
-<p class=MsoNormal><b><span lang=EN-US style='font-size:14.0pt'>Note:</span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>The external
-library function queries data in DynamoDB using a SQL statement and return
-result as a table sequence.</span></p>
-
-<p class=MsoNormal><b><span lang=EN-US style='font-size:14.0pt'>Parameters:</span></b></p>
+<p class=MsoNormal><b><span lang=EN-US style='font-size:14.0pt'>Syntax: </span></b></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:-1.75pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ style='margin-left:21.3pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=99 valign=top style='width:59.3pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>dyna_open</span></p>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'>
+  <td width=474 valign=top style='width:284.3pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><b><span lang=EN-US style='mso-fareast-font-family:黑体'>dyna_open(</span></b><i><span
+  lang=EN-US>dyna_url,region,AccessKey,SecretKey</span></i><b><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>)</span></b></p>
   </td>
-  <td width=1121 valign=top style='width:672.5pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>The DynamoDB connection object </span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
-  <td width=99 valign=top style='width:59.3pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i><span lang=EN-US>sql</span></i></p>
-  </td>
-  <td width=1121 valign=top style='width:672.5pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>A SQL statement</span></p>
+  <td width=156 valign=top style='width:93.55pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
   </td>
  </tr>
 </table>
 
-<p class=MsoNormal><b><span lang=EN-US style='font-size:14.0pt'>Return value:</span></b></p>
+<p class=MsoNormal><b><span lang=EN-US style='font-size:14.0pt'>Note:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>A table sequence</span></p>
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt'>The external library function
+connects to </span><span lang=EN-US>DynamoDB and returns result as a cursor.</span><b><span
+lang=EN-US style='font-size:14.0pt'></span></b></p>
 
-<p class=MsoNormal><b><span lang=EN-US style='font-size:14.0pt'>Example:</span></b></p>
+<p class=MsoNormal><b><span lang=EN-US style='font-size:14.0pt'>Parameters: </span></b></p>
 
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:21.3pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=106 valign=top style='width:63.75pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US>dyna_url</span></i></p>
+  </td>
+  <td width=537 valign=top style='width:322.3pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>URL for accessing DynamoDB; the format is</span><span
+  lang=EN-US style='mso-bidi-font-family:等线'> http(s)://host[:port][/[database]]</span><span
+  lang=EN-US> </span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=106 valign=top style='width:63.75pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US>region</span></i></p>
+  </td>
+  <td width=537 valign=top style='width:322.3pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>The AWS service region for use</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=106 valign=top style='width:63.75pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US>AccessKey</span></i></p>
+  </td>
+  <td width=537 valign=top style='width:322.3pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Access Key for accessing DynamoDB; can be
+  omitted</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
+  <td width=106 valign=top style='width:63.75pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US>SecretKey</span></i></p>
+  </td>
+  <td width=537 valign=top style='width:322.3pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Secret Key for accessing DynamoDB; can be
+  omitted</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal><b><span lang=EN-US style='font-size:14.0pt'>Return value: </span></b></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>A cursor</span></p>
+
+<p class=MsoNormal><b><span lang=EN-US style='font-size:14.0pt'>Example: </span></b></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=845
  style='margin-left:22.65pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
  mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=30 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
+  <td width=27 valign=top style='width:16.25pt;border:solid #A6A6A6 1.0pt;
   mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span lang=EN-US>&nbsp;</span></p>
   </td>
-  <td width=571 valign=top style='width:342.55pt;border:solid #A6A6A6 1.0pt;
+  <td width=396 valign=top style='width:237.8pt;border:solid #A6A6A6 1.0pt;
   border-left:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-bottom-alt:
   solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;background:#BFBFBF;
   padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><b><span
   lang=EN-US style='mso-fareast-font-family:黑体'>A</span></b></p>
   </td>
-  <td width=540 valign=top style='width:323.8pt;border:none;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  <td width=421 valign=top style='width:252.8pt;border:none;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=EN-US>&nbsp;</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:1'>
-  <td width=30 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:1;height:7.9pt'>
+  <td width=27 valign=top style='width:16.25pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:7.9pt'>
   <p class=MsoNormal><b><span lang=EN-US style='mso-fareast-font-family:黑体'>1</span></b></p>
   </td>
-  <td width=571 valign=top style='width:342.55pt;border-top:none;border-left:
+  <td width=396 valign=top style='width:237.8pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
   mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
+  padding:0cm 0cm 0cm 0cm;height:7.9pt'>
+  <p class=MsoNormal><b><span lang=EN-US style='mso-fareast-font-family:黑体'>=dyna_open(&quot;http://localhost:8000&quot;,
+  &quot;us-east-2&quot;,&quot;AKIAQTM4UQLTMFHKDNFG&quot;,&quot;YkoSW0STTXUUxokW2cb3rVfs1tFB1rtIkebW6eB/&quot;)</span></b></p>
+  </td>
+  <td width=421 valign=top style='width:252.8pt;border:none;padding:0cm 0cm 0cm 0cm;
+  height:7.9pt'>
+  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=EN-US>Access
+  cloud database</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes;height:7.9pt'>
+  <td width=27 valign=top style='width:16.25pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:7.9pt'>
+  <p class=MsoNormal><b><span lang=EN-US style='mso-fareast-font-family:黑体'>2</span></b></p>
+  </td>
+  <td width=396 valign=top style='width:237.8pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm;height:7.9pt'>
   <p class=MsoNormal><b><span lang=EN-US style='mso-fareast-font-family:黑体'>=dyna_open(&quot;http://localhost:8000&quot;,
   &quot;us-east-2&quot;)</span></b></p>
   </td>
-  <td width=540 valign=top style='width:323.8pt;border:none;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:2'>
-  <td width=30 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b><span lang=EN-US style='mso-fareast-font-family:黑体'>2</span></b></p>
-  </td>
-  <td width=571 valign=top style='width:342.55pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b><span lang=EN-US style='mso-fareast-font-family:黑体'>=dyna_query(A1,
-  &quot;select * from Music&quot;)</span></b></p>
-  </td>
-  <td width=540 valign=top style='width:323.8pt;border:none;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:3'>
-  <td width=30 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b><span lang=EN-US style='mso-fareast-font-family:黑体'>3</span></b></p>
-  </td>
-  <td width=571 valign=top style='width:342.55pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b><span lang=EN-US style='mso-fareast-font-family:黑体'>=dyna_query(A1,
-  &quot;select * from Music&nbsp;where Artist between ? and ?&quot;,
-  &quot;Hello&quot;, &quot;No One You Know&quot; )</span></b></p>
-  </td>
-  <td width=540 valign=top style='width:323.8pt;border:none;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b><span lang=EN-US>&nbsp;</span></b></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:4'>
-  <td width=30 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b><span lang=EN-US style='mso-fareast-font-family:黑体'>4</span></b></p>
-  </td>
-  <td width=571 valign=top style='width:342.55pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b><span lang=EN-US style='mso-fareast-font-family:黑体'>=dyna_query(A1,
-  &quot;SELECT * FROM Music&nbsp;where Artist=? and SongTitle=?&quot;,
-  &quot;Acme Band&quot;, &quot;Happy Day&quot;)</span></b></p>
-  </td>
-  <td width=540 valign=top style='width:323.8pt;border:none;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>&nbsp;</span></p>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:5;mso-yfti-lastrow:yes'>
-  <td width=30 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b><span lang=EN-US style='mso-fareast-font-family:黑体'>5</span></b></p>
-  </td>
-  <td width=571 valign=top style='width:342.55pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
-  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b><span lang=EN-US style='mso-fareast-font-family:黑体'>&gt;dyna_close(A1)</span></b></p>
-  </td>
-  <td width=540 valign=top style='width:323.8pt;border:none;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  <td width=421 valign=top style='width:252.8pt;border:none;padding:0cm 0cm 0cm 0cm;
+  height:7.9pt'>
+  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=EN-US>Access a
+  local database</span></p>
   </td>
  </tr>
 </table>

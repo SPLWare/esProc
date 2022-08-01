@@ -24,8 +24,8 @@ style='mso-bidi-font-style:normal'><a  href="241.html">The Server Cluster</a></i
 After clustered servers are started and a cluster system is created, cluster
 computation can be performed through <b style='mso-bidi-font-weight:normal'>callx</b>
 function. In esProc, every server will carry out the cluster computing tasks by
-computing the specified <i style='mso-bidi-font-style:normal'>dfx</i> file and
-returning the result.</span></p>
+computing the specified <span style='mso-bidi-font-style:italic'>script </span>file
+and returning the result.</span></p>
 
 <p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
@@ -404,18 +404,18 @@ src="Tutorial.files/image1922.jpg" v:shapes="_x0000_i2071"></span></p>
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
 21.0pt'><span lang=EN-US>This example shows that, by splitting apart a data-intensive
 computational task and having each process handle one of the parts, cluster computing
-can make full use of the computers¡¯ computing ability to increase efficiency
-and effectively avoid the memory overflow usually happened during big data
+can make full use of the computers¡¯ computing ability to increase efficiency and
+effectively avoid the memory overflow usually happened during big data
 processing by using multiple computers to run nodes.</span></p>
 
 <p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
 21.0pt'><span lang=EN-US>As tasks are executed separately on each node, they
 are independent of each other. And the data source and the data file needed in
-the computation on a node should be already configured and stored on it. So the
-<i style='mso-bidi-font-style:normal'>dfx</i> file must be placed on each node
-beforehand. You can also use <b style='mso-bidi-font-weight:normal'>callx@a </b>to
-allocate tasks randomly. </span></p>
+the computation on a node should be already configured and stored on it. So,
+the <span style='mso-bidi-font-style:italic'>script</span> file must be placed
+on each node beforehand. You can also use <b style='mso-bidi-font-weight:normal'>callx@a
+</b>to allocate tasks randomly. </span></p>
 
 <p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
@@ -691,9 +691,9 @@ lang=EN-US>Then perform cluster computation in the main program:</span></p>
 <p class=T-Par style='margin-bottom:0cm;margin-bottom:.0001pt;mso-add-space:
 auto;text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
 lang=EN-US>A3 performs cluster computation using <b style='mso-bidi-font-weight:
-normal'><i style='mso-bidi-font-style:normal'>callx(dfx,¡­;h:rdfx) </i></b>function.
+normal'><i style='mso-bidi-font-style:normal'>callx(spl,¡­;h:rspl) </i></b>function.
 The function has a <i style='mso-bidi-font-style:normal'>reduce</i> script file
-<i>rdfx</i>. Below is the <i>reduce</i> script:</span></p>
+<i>rspl</i>. Below is the <i>reduce</i> script:</span></p>
 
 <table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
  style='margin-left:20.35pt;border-collapse:collapse;mso-table-layout-alt:fixed;

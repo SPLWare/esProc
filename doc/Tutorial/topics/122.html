@@ -145,20 +145,20 @@ style='mso-bidi-font-style:normal'> test.dfx</i> file: </span></p>
 <p class=T-Par style='margin-bottom:0cm;margin-bottom:.0001pt;mso-add-space:
 auto;text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><i
 style='mso-bidi-font-style:normal'><span lang=EN-US>arg1</span></i><span
-lang=EN-US> is a cellset parameter, which should get assigned when <i
-style='mso-bidi-font-style:normal'>dfx</i> file is called. The result is a
-table sequence returned via a <i style='mso-bidi-font-style:normal'>return</i>
-statement. Note that some files called by JDBC may need to connect to another
-data source, like </span><span class=T-CodeChar><span lang=EN-US
-style='font-family:"Times New Roman","serif";font-weight:normal'>&quot;demo&quot;
-in this example, which also requires being configured through parameter
-settings. But the data source configuration in esProc JDBC needs to be handled
-in the configuration file </span></span><i style='mso-bidi-font-style:normal'><span
-lang=EN-US>raqsoftC</span></i><span class=T-CodeChar><i style='mso-bidi-font-style:
-normal'><span lang=EN-US style='font-family:"Times New Roman","serif";
-font-weight:normal'>onfig.xml</span></i></span><span class=T-CodeChar><span
-lang=EN-US style='font-family:"Times New Roman","serif";font-weight:normal'>.</span></span><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US></span></b></p>
+lang=EN-US> is a cellset parameter, which should get assigned when <span
+style='mso-bidi-font-style:italic'>the script</span> file is called. The result
+is a table sequence returned via a <i style='mso-bidi-font-style:normal'>return</i>
+statement. Note that some files called by JDBC may need to connect to another data
+source, like </span><span class=T-CodeChar><span lang=EN-US style='font-family:
+"Times New Roman","serif";font-weight:normal'>&quot;demo&quot; in this example,
+which also requires being configured through parameter settings. But the data
+source configuration in esProc JDBC needs to be handled in the configuration
+file </span></span><i style='mso-bidi-font-style:normal'><span lang=EN-US>raqsoftC</span></i><span
+class=T-CodeChar><i style='mso-bidi-font-style:normal'><span lang=EN-US
+style='font-family:"Times New Roman","serif";font-weight:normal'>onfig.xml</span></i></span><span
+class=T-CodeChar><span lang=EN-US style='font-family:"Times New Roman","serif";
+font-weight:normal'>.</span></span><b style='mso-bidi-font-weight:normal'><span
+lang=EN-US></span></b></p>
 
 <p class=T-Steps style='margin-top:0cm;margin-right:0cm;margin-bottom:0cm;
 margin-left:39.0pt;margin-bottom:.0001pt;mso-add-space:auto;text-align:justify;
@@ -203,8 +203,8 @@ normal'>encryptLevel=&quot;0&quot;&gt;</i></span></p>
 <p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
 3.0cm;mso-char-indent-count:9.45'><i style='mso-bidi-font-style:normal'><span
-lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;!-- datasource
-name, which must be the same as that in the dfx file--&gt;</span></i></p>
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;!-- datasource name,
+which must be the same as that in the script file--&gt;</span></i></p>
 
 <p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
@@ -374,7 +374,7 @@ lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;JNDIList&gt;</span
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
 3.0cm;mso-char-indent-count:9.45'><i style='mso-bidi-font-style:normal'><span
 lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;!-- data source
-name, which must be the same as that specified in the dfx file --&gt;</span></i></p>
+name, which must be the same as that specified in the script file --&gt;</span></i></p>
 
 <p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
@@ -384,8 +384,8 @@ lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt; JNDI name=&quot;d
 <p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
 3.0cm;mso-char-indent-count:9.45'><i style='mso-bidi-font-style:normal'><span
-lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;property
-name=&quot;url&quot; value=&quot;jdbc:hsqldb:hsql://127.0.0.1/demo&quot;/&gt;</span></i></p>
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>&lt;property name=&quot;url&quot;
+value=&quot;jdbc:hsqldb:hsql://127.0.0.1/demo&quot;/&gt;</span></i></p>
 
 <p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
@@ -489,22 +489,21 @@ lang=EN-US>esProc JDBC itself cannot be used as a data source and configured. </
 
 <p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>This section only introduces the methods of data
-source configuration in esProc JDBC. For the use and configuration of esProc
-JDBC, please refer to <i style='mso-bidi-font-style:normal'><a
- href="172.html">Deploying JDBC</a></i>. </span></p>
+21.0pt'><span lang=EN-US>This section only introduces the methods of data source
+configuration in esProc JDBC. For the use and configuration of esProc JDBC,
+please refer to <i style='mso-bidi-font-style:normal'><a  href="172.html">Deploying
+JDBC</a></i>. </span></p>
 
 <p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
 21.0pt'><span lang=EN-US>Once the data source has been configured, the
-above-mentioned <i style='mso-bidi-font-style:normal'>dfx</i> file can be
-called by a Java program:</span></p>
+above-mentioned <span style='mso-bidi-font-style:italic'>script</span> file can
+be called by a Java program:</span></p>
 
 <p class=TConfigCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
 21.25pt;mso-char-indent-count:2.36'><i style='mso-bidi-font-style:normal'><span
-lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>public void
-testDataServer(){</span></i></p>
+lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>public void testDataServer(){</span></i></p>
 
 <p class=TConfigCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:

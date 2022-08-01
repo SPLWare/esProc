@@ -43,8 +43,8 @@ key will be matched, and returns a cluster multicursor; the way of distributing
 normal'>mcs</i> among nodes must be the same and the fields for segmenting <i
 style='mso-bidi-font-style:normal'>T</i> and <i style='mso-bidi-font-style:
 normal'>mcs</i> should be consistent. If multiple cluster entity tables are
-involved, use a cluster multicursor as a reference to make sure the
-segmentation is synchronous.</span></p>
+involved, use a cluster multicursor as a reference to make sure the segmentation
+is synchronous.</span></p>
 
 <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
 style='font-size:14.0pt'>Parameters:</span></b><b style='mso-bidi-font-weight:
@@ -79,21 +79,21 @@ normal'><span lang=EN-US style='font-size:12.0pt;mso-bidi-font-size:10.0pt'></sp
   are separated by comma(s) and their relationships are AND.</span></p>
   <p class=MsoNormal><span lang=EN-US>You can use the following three types of
   syntax in a filtering condition:</span></p>
-  <p class=MsoNormal><span lang=EN-US>1.<i style='mso-bidi-font-style:normal'>
-  K:Ti<span style='mso-spacerun:yes'>&nbsp; </span>K</i> is a field in the
-  entity table; <i style='mso-bidi-font-style:normal'>Ti</i> is a table
-  sequence whose primary key is <i style='mso-bidi-font-style:normal'>K</i><span
-  style='mso-bidi-font-style:italic'>. The expression filters away </span>records
-  where <i style='mso-bidi-font-style:normal'>K=Ti.find(K)</i> is false. When <i
+  <p class=MsoNormal><span lang=EN-US>1.<i style='mso-bidi-font-style:normal'> K:Ti<span
+  style='mso-spacerun:yes'>&nbsp; </span>K</i> is a field in the entity table; <i
+  style='mso-bidi-font-style:normal'>Ti</i> is a table sequence whose primary
+  key is <i style='mso-bidi-font-style:normal'>K</i><span style='mso-bidi-font-style:
+  italic'>. The expression filters away </span>records where <i
+  style='mso-bidi-font-style:normal'>K=Ti.find(K)</i> is false. When <i
   style='mso-bidi-font-style:normal'>K</i> is not a selected field to be
   output, just do the filtering as usuall.</span></p>
   <p class=MsoNormal><span lang=EN-US>2.<i>K:Ti:null</i><span
   style='mso-spacerun:yes'>&nbsp; </span>Filter away all records that can be
   found.</span></p>
   <p class=MsoNormal><span lang=EN-US>3.<i>K:Ti:#</i><span
-  style='mso-spacerun:yes'>&nbsp; </span><i>K=Ti(K)</i>; locate corresponding
-  records using sequence numbers and delete those out-of-range ones and those
-  where <i>Ti(K) </i>is false or null.</span></p>
+  style='mso-spacerun:yes'>&nbsp; </span><i>K=Ti(K)</i>; locate corresponding records
+  using sequence numbers and delete those out-of-range ones and those where <i>Ti(K)
+  </i>is false or null.</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>

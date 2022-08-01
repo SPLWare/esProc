@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>pos()</title>
+<title>pls()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,178 +13,341 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h3 style='text-align:justify;text-justify:inter-ideograph'><a name=pos></a><span
-lang=EN-US>pos()</span></h3></div>
-	<p class=af7 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Description:</span></p>
+	<div id="centent-title"><h2><a name=pjoin></a><a name="CS_pjoin"></a><a name="r_pkey"></a><a
+name=plsFit></a><span lang=EN-US style='mso-fareast-font-family:宋体;color:black'>pls()<a
+name=pls></a></span></h2></div>
+	<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt;color:black'>Description:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Get the position
-of a substring in its parent string.</span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='color:black'>External library function; fit together matrices using PLS
+technique.</span></p>
 
-<p class=af7 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Syntax: </span></p>
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt;color:black'>Syntax:</span></b></p>
 
 <p class=MsoNormal style='text-indent:21.0pt'><span class=code><span
-lang=EN-US style='font-family:"Times New Roman","serif"'>pos</span></span><span
+lang=EN-US style='font-family:"Times New Roman","serif";color:black'>pls(</span></span><span
+class=var1><span lang=EN-US style='color:black'>A,Y,n</span></span><span
 class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-font-weight:normal'>(</span></span><span class=var1><span lang=EN-US>s</span></span><span
-class=a><span lang=EN-US>1</span></span><span lang=EN-US>, </span><span
-class=var1><span lang=EN-US>s</span></span><span class=a><span lang=EN-US>2</span></span><span
-lang=EN-US>{, </span><span class=var1><span lang=EN-US>begin</span></span><span
-lang=EN-US>}</span><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-font-weight:normal'>)</span></span></p>
+color:black'>)<span style='mso-spacerun:yes'>&nbsp; </span></span></span><span
+lang=EN-US style='color:black'>Fit matrix <i style='mso-bidi-font-style:normal'>A
+</i>and matrix/vector <i style='mso-bidi-font-style:normal'>Y </i><span
+style='mso-bidi-font-style:italic'>using the PLS technique</span>; matrix <i>A</i>
+contains more than one row and both <i>A</i> and <i>Y</i> should have same
+number of rows; <i style='mso-bidi-font-style:normal'>n </i>is the number of
+principal components. The type of result is determined by </span><span
+class=var1><span lang=EN-US style='color:black'>Y</span></span><span
+lang=EN-US style='color:black'>, that is to say, the function returns a matrix
+when</span><span class=var1><span lang=EN-US style='color:black'> Y</span></span><span
+lang=EN-US style='color:black'> is a matix and a vector when </span><span
+class=var1><span lang=EN-US style='color:black'>Y</span></span><span
+lang=EN-US style='color:black'> is a vector. The return result can be used as
+parameter</span><span class=var1><span lang=EN-US style='color:black'> F</span></span><span
+lang=EN-US style='color:black'> in </span><span class=code><span lang=EN-US
+style='font-family:"Times New Roman","serif";color:black'>pls(</span></span><span
+class=var1><span lang=EN-US style='color:black'>A</span></span><i><span
+lang=EN-US>’</span></i><span class=var1><span lang=EN-US style='color:black'>,F</span></span><span
+class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
+color:black'>) </span></span><span class=code><span lang=EN-US
+style='font-family:"Times New Roman","serif";color:black;font-weight:normal;
+mso-bidi-font-weight:bold'>to perform a fitting</span><span lang=EN-US
+style='color:black'></span></span></p>
 
-<p class=af7 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Note: </span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span class=code><span
+lang=EN-US style='font-family:"Times New Roman","serif";color:black'>pls(</span></span><span
+class=var1><span lang=EN-US style='color:black'>A’,F</span></span><span
+class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
+color:black'>)<span style='mso-spacerun:yes'>&nbsp; </span></span></span><span
+lang=EN-US style='color:black'>Get fitting object of matrices having same
+number of columns, that is, perform prediction on </span><span class=var1><span
+lang=EN-US style='color:black'>A</span></span><span class=var1><span
+lang=EN-US style='color:black;font-style:normal;mso-bidi-font-style:italic'>’ </span></span><span
+lang=EN-US style='color:black'>using coefficient information in a fitting
+result</span><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
+color:black'></span></span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>The function
-finds the position of substring<i style='mso-bidi-font-style:normal'> s</i></span><span
-class=a3><span lang=EN-US>2</span></span><span lang=EN-US> in the parent string</span><span
-class=var1><span lang=EN-US> s</span></span><span class=a><span lang=EN-US>1</span></span><span
-lang=EN-US>, which starts from the position</span><span class=var1><span
-lang=EN-US> begin</span></span><span lang=EN-US>, and returns null if the
-substring cannot be found.</span></p>
-
-<p class=af7 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Parameters: </span></p>
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt;color:black'>Parameters:</span></b></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ style='margin-left:21.3pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=75 valign=top style='width:45.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US>s</span></span><span
-  class=a><span lang=EN-US>1</span></span><span class=var1><span lang=EN-US></span></span></p>
+  <td width=52 valign=top style='width:31.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=var1><span lang=EN-US style='color:black'>A</span></span></p>
   </td>
-  <td width=598 valign=top style='width:359.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>The parent string where you want to
-  search for the substring.</span></p>
+  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='color:black'>A matrix</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=75 valign=top style='width:45.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US>s</span></span><span
-  class=a><span lang=EN-US>2</span></span><span class=var1><span lang=EN-US></span></span></p>
-  </td>
-  <td width=598 valign=top style='width:359.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Substring of interest.</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes'>
-  <td width=75 valign=top style='width:45.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US>begin</span></i><span
-  class=var1><span lang=EN-US></span></span></p>
-  </td>
-  <td width=598 valign=top style='width:359.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>The position from which the search starts;
-  the default search is from the beginning.</span></p>
-  </td>
- </tr>
-</table>
-
-<p class=af7 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Options:</span></p>
-
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>@z</span></span><span
-  class=var1><span lang=EN-US></span></span></p>
+  <td width=52 valign=top style='width:31.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=var1><span lang=EN-US style='color:black'>Y</span></span></p>
   </td>
   <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Perform the search leftward starting from
-  <i style='mso-bidi-font-style:normal'>begin</i>, while the search will be
-  done rightward by default.</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:1'>
-  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>@c</span></b><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'></span></span></p>
-  </td>
-  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Case-insensitive</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes'>
-  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>@h</span></b><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'></span></span></p>
-  </td>
-  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Search for the subsring at the beginning
-  of the parent string by ignoring parameter <i>begin</i></span></p>
-  </td>
- </tr>
-</table>
-
-<p class=MsoNormal style='line-height:200%'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US style='font-size:14.0pt;line-height:200%'>Return
-value: </span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Integer type </span></p>
-
-<p class=af7 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Example:</span></p>
-
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=276 valign=top style='width:165.6pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=afc style='margin-left:10.55pt;text-align:justify;text-justify:inter-ideograph;
-  tab-stops:48.75pt'><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>pos(&quot;abcdef&quot;,&quot;def&quot;)</span></span><span
-  class=var1><span lang=EN-US></span></span></p>
-  </td>
-  <td width=406 valign=top style='width:243.5pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>4</span></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:1'>
-  <td width=276 valign=top style='width:165.6pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=afc style='margin-left:10.55pt;text-align:justify;text-justify:inter-ideograph;
-  tab-stops:48.75pt'><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>pos(&quot;abcdefdef&quot;,&quot;def&quot;,5)</span></span></p>
-  </td>
-  <td width=406 valign=top style='width:243.5pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>7</span></span></p>
+  <p class=MsoNormal><span lang=EN-US style='color:black'>A matrix/vector</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:2'>
-  <td width=276 valign=top style='width:165.6pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=afc style='margin-left:10.55pt;text-align:justify;text-justify:inter-ideograph;
-  tab-stops:48.75pt'><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>pos(&quot;abcdef&quot;,&quot;defa&quot;)</span></span></p>
+  <td width=52 valign=top style='width:31.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=var1><span lang=EN-US style='color:black'>n</span></span></p>
   </td>
-  <td width=406 valign=top style='width:243.5pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>(null)</span></span></p>
+  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='color:black'>Number of principal
+  components; the range of its values is </span><span class=var1><span
+  lang=EN-US style='font-style:normal'>1&lt;=n&lt;=min(row count -1,column
+  count). When the parameter is absent or out of range, its value will be
+  automatically configured as the maximum in the above range</span></span><span
+  lang=EN-US style='color:black'></span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:3'>
-  <td width=276 valign=top style='width:165.6pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=afc style='margin-left:10.55pt;text-align:justify;text-justify:inter-ideograph;
-  tab-stops:48.75pt'><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>pos@z(&quot;abcdeffdef&quot;,&quot;def&quot;,7)</span></span></p>
-  <p class=afc style='margin-left:10.55pt;text-align:justify;text-justify:inter-ideograph;
-  tab-stops:48.75pt'><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-  mso-fareast-font-family:宋体'>pos(&quot;abcdeffdef&quot;,&quot;def&quot;,7)</span></span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'></span></span></p>
+  <td width=52 valign=top style='width:31.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=var1><span lang=EN-US style='color:black'>A’</span></span></p>
   </td>
-  <td width=406 valign=top style='width:243.5pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>4</span></span></p>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>8</span></span></p>
+  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='color:black'>A matrix/vector</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes'>
-  <td width=276 valign=top style='width:165.6pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=afc style='margin-left:10.55pt;text-align:justify;text-justify:inter-ideograph;
-  tab-stops:48.75pt'><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-  mso-fareast-font-family:宋体'>pos@c(&quot;abcdef&quot;,&quot;Def&quot;)</span></span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'></span></span></p>
+  <td width=52 valign=top style='width:31.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=var1><span lang=EN-US style='color:black'>F</span></span></p>
   </td>
-  <td width=406 valign=top style='width:243.5pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>4</span></span><span
-  lang=EN-US>; @c option makes case-insensitive</span><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman","serif"'></span></span></p>
+  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
+  color:black;font-weight:normal'>A </span></span><span lang=EN-US
+  style='color:black'>matrix/</span><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman","serif";color:black;font-weight:normal'>vector,
+  the result returned by</span></span><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman","serif";color:black;mso-bidi-font-weight:
+  bold'> </span></span><span class=code><span lang=EN-US style='font-family:
+  "Times New Roman","serif";color:black'>pls(</span></span><span class=var1><span
+  lang=EN-US style='color:black'>A,Y,n</span></span><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman","serif";color:black'>)</span></span><span
+  lang=EN-US style='color:black'></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt;color:black'>Return value:</span></b></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='color:black'>A vector/single value/matrix</span></p>
+
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt;color:black'>Example:</span></b></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='margin-left:17.9pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
+ mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=38 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
+  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US style='color:black'>&nbsp;</span></p>
+  </td>
+  <td width=340 valign=top style='width:204.25pt;border:solid #A6A6A6 1.0pt;
+  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman","serif";color:black'>A</span></span></p>
+  </td>
+  <td width=331 valign=top style='width:7.0cm;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=EN-US
+  style='color:black'>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=38 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
+  color:black'>1</span></span></p>
+  </td>
+  <td width=340 valign=top style='width:204.25pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=var1><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US style='color:black;font-style:normal'>[[4,6,2,4],[2,3,1,2],[1,1,1,-1]]</span></b></span></p>
+  </td>
+  <td width=331 valign=top style='width:7.0cm;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=EN-US
+  style='color:black'>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=38 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
+  color:black'>2</span></span></p>
+  </td>
+  <td width=340 valign=top style='width:204.25pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b><span lang=EN-US>[1,0,-4]</span></b><span class=var1><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='color:black;
+  font-style:normal'></span></b></span></p>
+  </td>
+  <td width=331 valign=top style='width:7.0cm;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=EN-US
+  style='color:black'>Here parameter <i>Y</i> is a vector</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;height:17.25pt'>
+  <td width=38 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:17.25pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
+  color:black'>3</span></span></p>
+  </td>
+  <td width=340 valign=top style='width:204.25pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:17.25pt'>
+  <p class=MsoNormal><span class=var1><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US style='color:black;font-style:normal'>=pls(A1,A2,2)</span></b></span></p>
+  </td>
+  <td width=331 valign=top style='width:7.0cm;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:17.25pt'>
+  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=zh-CN
+  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=229 height=139
+  src="Function_Reference.files/image1511.jpg" v:shapes="_x0000_i1960"><span
+  style='color:black'></span></span></p>
+  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=zh-CN
+  style='color:black;mso-ansi-language:#0400;mso-fareast-language:#0400'>Fit
+  matrix A1 and vector A2 using the PLS technique and return a vector; the
+  number of principle components is 2</span></p>
+  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=zh-CN
+  style='color:black;mso-ansi-language:#0400;mso-fareast-language:#0400'>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4;height:17.25pt'>
+  <td width=38 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:17.25pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
+  color:black'>4</span></span></p>
+  </td>
+  <td width=340 valign=top style='width:204.25pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:17.25pt'>
+  <p class=MsoNormal><b><span lang=EN-US>[[3,5,-2,8],[2,4,3,3]]</span></b><span
+  class=var1><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='color:black;font-style:normal'></span></b></span></p>
+  </td>
+  <td width=331 valign=top style='width:7.0cm;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:17.25pt'>
+  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=EN-US
+  style='color:black'>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:5;height:17.25pt'>
+  <td width=38 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:17.25pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
+  color:black'>5</span></span></p>
+  </td>
+  <td width=340 valign=top style='width:204.25pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:17.25pt'>
+  <p class=MsoNormal><b><span lang=EN-US>=pls(A4,A3)</span></b><span
+  class=var1><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='color:black;font-style:normal'></span></b></span></p>
+  </td>
+  <td width=331 valign=top style='width:7.0cm;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:17.25pt'>
+  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=zh-CN
+  style='color:black;mso-ansi-language:#0400;mso-fareast-language:#0400'>&nbsp;</span></p>
+  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=zh-CN
+  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=331 height=63
+  src="Function_Reference.files/image1513.jpg" v:shapes="_x0000_i1961"><span
+  style='color:black'></span></span></p>
+  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=zh-CN
+  style='color:black;mso-ansi-language:#0400;mso-fareast-language:#0400'>Perform
+  prediction on A4 using fitting result returned by A3</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:6;height:17.25pt'>
+  <td width=38 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:17.25pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
+  color:black'>6</span></span></p>
+  </td>
+  <td width=340 valign=top style='width:204.25pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:17.25pt'>
+  <p class=MsoNormal><b><span lang=EN-US>[[1,-2,1],[0,2,-8],[-4,5,9]]</span></b><span
+  class=var1><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='color:black;font-style:normal'></span></b></span></p>
+  </td>
+  <td width=331 valign=top style='width:7.0cm;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:17.25pt'>
+  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=EN-US
+  style='color:black'>Here parameter <i>Y</i> is a matrix</span><span
+  lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:7;height:17.25pt'>
+  <td width=38 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:17.25pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
+  color:black'>7</span></span></p>
+  </td>
+  <td width=340 valign=top style='width:204.25pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:17.25pt'>
+  <p class=MsoNormal><b><span lang=EN-US>=pls(A1,A6,2)</span></b><span
+  class=var1><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='color:black;font-style:normal'></span></b></span></p>
+  </td>
+  <td width=331 valign=top style='width:7.0cm;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:17.25pt'>
+  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=zh-CN
+  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=331 height=126
+  src="Function_Reference.files/image1515.jpg" v:shapes="图片_x0020_106"></span></p>
+  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=zh-CN
+  style='mso-ansi-language:#0400;mso-fareast-language:#0400'>Fit together
+  matrix A1 and matrix A6 using PLS technique, with the principle component is
+  2, and return the fitting coefficient matrix</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:8;mso-yfti-lastrow:yes;height:17.25pt'>
+  <td width=38 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:17.25pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
+  color:black'>8</span></span></p>
+  </td>
+  <td width=340 valign=top style='width:204.25pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:17.25pt'>
+  <p class=MsoNormal><b><span lang=EN-US>=pls(A4,A7)</span></b></p>
+  </td>
+  <td width=331 valign=top style='width:7.0cm;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:17.25pt'>
+  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=zh-CN
+  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=331 height=126
+  src="Function_Reference.files/image1516.jpg" v:shapes="_x0000_i1963"></span></p>
+  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=zh-CN
+  style='color:black;mso-ansi-language:#0400;mso-fareast-language:#0400'>Perform
+  prediction on A4 using fitting result returned by A7 and return prediction
+  result</span></p>
   </td>
  </tr>
 </table>
@@ -195,7 +358,7 @@ value: </span></b></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="613.html">pos()</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="45.html">Functions</a></span></li>
 </div>
 	</div>
 	<div id="footer">	

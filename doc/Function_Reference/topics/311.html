@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>ftp_mput()</title>
+<title>Freceived()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,267 +13,177 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h2><span lang=EN-US>ftp_mput()<a name="ftp_mput"></a></span></h2></div>
-	<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Description:</span></b></p>
+	<div id="centent-title"><h2><a name="_Freceived()"></a><a name=Freceived></a><span lang=EN-US>Freceived()</span></h2></div>
+	<p class=MsoNormal style='line-height:200%'><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US style='font-size:14.0pt;line-height:200%'>Description:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Upload multiple
-files onto a FTP server.</span></p>
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US>The function equals the Excel RECEIVED function.</span></p>
 
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Syntax:</span></b></p>
+<p class=MsoNormal style='line-height:200%'><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US style='font-size:14.0pt;line-height:200%'>Syntax:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US>ftp_put(</span></b><i><span lang=EN-US
-style='mso-bidi-font-size:10.5pt'>client,serverFolder,localFolder,multiLocalFiles</span></i><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US>)</span></b></p>
+<p class=MsoNormal style='text-indent:21.1pt;mso-char-indent-count:2.0'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+黑体'>Freceived(</span></b><i style='mso-bidi-font-style:normal'><span
+lang=EN-US>settlement,maturity;inverstment,discount</span></i><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+黑体'>)</span></b></p>
 
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Note:</span></b></p>
+<p class=MsoNormal style='line-height:200%'><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US style='font-size:14.0pt;line-height:200%'>Note:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>This is an
-external library function. When parameter serverFolder is a relative path, it
-is relative to the current working directory; when it is preceded by a slash
-sign (/), it is an absolute path. When the parameter is absent, the comma must be
-retained. If the parameter is an empty string or is absent, the folder path is
-relative to the current working directory.</span></p>
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US>The external library function returns the amount received at
+maturity for a security.</span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>When parameter
-localFolder is a relative path, it is relative to the path configured in esProc
-Options -&gt; Main directory.When the parameter is absent, the comma must be
-retained. If the parameter is an empty string or is absent, the folder path is
-relative to the path configured in esProc Options -&gt; Main directory.</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>For a wildcard
-character, the question mark (?) signifies a single character, an asterisk (*)
-signifies any character, and double asterisk (**) signifies any character plus
-a directory.</span></p>
-
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Options:</span></b></p>
+<p class=MsoNormal style='line-height:200%'><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US style='font-size:14.0pt;line-height:200%'>Parameters:</span></b></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:19.85pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>@f</span></b><i><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt'></span></i></p>
+  <td width=134 valign=top style='width:80.55pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US>settlement</span></i><span
+  class=var1><span lang=EN-US></span></span></p>
   </td>
-  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Overwrite a namesake file</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
-  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>@t</span></b></p>
-  </td>
-  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Skip a namesake file</span></p>
-  </td>
- </tr>
-</table>
-
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Parameters:</span></b></p>
-
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:19.85pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=130 valign=top style='width:77.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>client</span></i></p>
-  </td>
-  <td width=552 valign=top style='width:331.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>An FTP client object</span></p>
+  <td width=548 valign=top style='width:328.55pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-weight:bold'>The
+  security's settlement date</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=130 valign=top style='width:77.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>serverFolder</span></i></p>
+  <td width=134 valign=top style='width:80.55pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US>maturity</span></i><span
+  class=var1><span lang=EN-US></span></span></p>
   </td>
-  <td width=552 valign=top style='width:331.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>A server folder</span></p>
+  <td width=548 valign=top style='width:328.55pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-weight:bold'>The
+  security's maturity date</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:2'>
-  <td width=130 valign=top style='width:77.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>localFolder</span></i></p>
+  <td width=134 valign=top style='width:80.55pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US>investment</span></i><span
+  class=var1><span lang=EN-US></span></span></p>
   </td>
-  <td width=552 valign=top style='width:331.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>A local folder</span></p>
+  <td width=548 valign=top style='width:328.55pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-weight:bold'>The
+  initial amount invested into the security</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
-  <td width=130 valign=top style='width:77.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>multiLocalFiles</span></i></p>
+  <td width=134 valign=top style='width:80.55pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US>discount</span></i><span
+  class=var1><span lang=EN-US></span></span></p>
   </td>
-  <td width=552 valign=top style='width:331.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Wildcard-specified server files; can be
-  duplicated</span></p>
+  <td width=548 valign=top style='width:328.55pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-weight:bold'>The
+  security's discount rate</span></p>
   </td>
  </tr>
 </table>
 
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Example:</span></b></p>
+<p class=af7 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
+14.0pt;line-height:200%'>Options</span><span style='mso-bidi-font-size:14.0pt;
+line-height:200%;font-family:宋体;mso-ascii-font-family:"Times New Roman";
+mso-hansi-font-family:"Times New Roman"'>：</span><span lang=EN-US
+style='mso-bidi-font-size:14.0pt;line-height:200%'></span></p>
 
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
- style='margin-left:19.85pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
- mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=30 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
-  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>&nbsp;</span></b></p>
+  <td width=63 valign=top style='width:38.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>@1</span></span><span
+  class=var1><span lang=EN-US></span></span></p>
   </td>
-  <td width=379 valign=top style='width:227.45pt;border:solid #A6A6A6 1.0pt;
-  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>A</span></b></p>
-  </td>
-  <td width=271 valign=top style='width:162.35pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  <td width=605 valign=top style='width:362.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Specify the day count basis method</span><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'> <span class=code><span style='font-family:"Times New Roman","serif"'>Actual/Actual</span></span></span></b><span
+  lang=EN-US style='mso-fareast-font-family:黑体'>.<b style='mso-bidi-font-weight:
+  normal'> </b></span><span lang=EN-US>It corresponds to the Excel <i
+  style='mso-bidi-font-style:normal'>basis</i> parameter.</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=30 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>1</span></b></p>
+  <td width=63 valign=top style='width:38.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>@0</span></span><span
+  class=var1><b style='mso-bidi-font-weight:normal'><span lang=EN-US></span></b></span></p>
   </td>
-  <td width=379 valign=top style='width:227.45pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=ftp_open(&quot;192.168.75.1&quot;:21,&quot;Administrator&quot;,&quot;admin&quot;)</span></b></p>
-  </td>
-  <td width=271 valign=top style='width:162.35pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  <td width=605 valign=top style='width:362.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Specify the day count basis method</span><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'> <span class=code><span style='font-family:"Times New Roman","serif"'>Actual/360</span></span></span></b><span
+  lang=EN-US style='mso-fareast-font-family:黑体'>.<b style='mso-bidi-font-weight:
+  normal'> </b></span><span lang=EN-US>It corresponds to the Excel <i
+  style='mso-bidi-font-style:normal'>basis</i> parameter.</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:2'>
-  <td width=30 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>2</span></b></p>
+  <td width=63 valign=top style='width:38.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>@5</span></span><span
+  class=var1><span lang=EN-US></span></span></p>
   </td>
-  <td width=379 valign=top style='width:227.45pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=ftp_cd(A1,&quot;/
-  WorkingDirectory</span></b><span lang=EN-US style='font-size:8.0pt'> </span><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>&quot;)</span></b></p>
-  </td>
-  <td width=271 valign=top style='width:162.35pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  <td width=605 valign=top style='width:362.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Specify the day count basis method</span><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'> <span class=code><span style='font-family:"Times New Roman","serif"'>Actual/365</span></span></span></b><span
+  lang=EN-US style='mso-fareast-font-family:黑体'>.<b style='mso-bidi-font-weight:
+  normal'> </b></span><span lang=EN-US>It corresponds to the Excel <i
+  style='mso-bidi-font-style:normal'>basis</i> parameter.</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:3'>
-  <td width=30 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>3</span></b></p>
+ <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
+  <td width=63 valign=top style='width:38.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>@e</span></span><span
+  class=var1><span lang=EN-US></span></span></p>
   </td>
-  <td width=379 valign=top style='width:227.45pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=ftp_mput@f(A1,&quot;folder1&quot;,&quot;G:/upload&quot;,&quot;*.doc&quot;)</span></b></p>
-  </td>
-  <td width=271 valign=top style='width:162.35pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Upload files suffixed by <i
-  style='mso-bidi-font-style:normal'>doc</i> under <i style='mso-bidi-font-style:
-  normal'>G:/upload </i>directory to <i style='mso-bidi-font-style:normal'>folder1</i>
-  directory while overwriting namesake files</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:4'>
-  <td width=30 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>4</span></b></p>
-  </td>
-  <td width=379 valign=top style='width:227.45pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=ftp_mput@f(A1,&quot;folder1&quot;,&quot;G:/upload&quot;,&quot;*.xls&quot;,&quot;*.xlsx&quot;)</span></b></p>
-  </td>
-  <td width=271 valign=top style='width:162.35pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Upload files suffixed by <i
-  style='mso-bidi-font-style:normal'>xls </i>and<i style='mso-bidi-font-style:
-  normal'> xlsx</i> under <i style='mso-bidi-font-style:normal'>G:/upload </i>directory
-  to <i style='mso-bidi-font-style:normal'>folder1</i> directory</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:5'>
-  <td width=30 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>5</span></b></p>
-  </td>
-  <td width=379 valign=top style='width:227.45pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=ftp_mput@f(A1,&quot;folder1&quot;,&quot;G:/upload
-  &quot;,&quot;**&quot;)</span></b></p>
-  </td>
-  <td width=271 valign=top style='width:162.35pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Upload all files under <i
-  style='mso-bidi-font-style:normal'>G:/upload </i>directory to <i
-  style='mso-bidi-font-style:normal'>folder1</i> directory</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:6'>
-  <td width=30 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>6</span></b></p>
-  </td>
-  <td width=379 valign=top style='width:227.45pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=ftp_mput@t(A1,&quot;folder2&quot;,&quot;G:/upload,&quot;*.docx&quot;)</span></b></p>
-  </td>
-  <td width=271 valign=top style='width:162.35pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Upload files suffixed by <i
-  style='mso-bidi-font-style:normal'>docx</i> under <i style='mso-bidi-font-style:
-  normal'>G:/upload </i>directory to <i style='mso-bidi-font-style:normal'>folder2</i>
-  directory while skipping namesake files</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:7;mso-yfti-lastrow:yes'>
-  <td width=30 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>7</span></b></p>
-  </td>
-  <td width=379 valign=top style='width:227.45pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>&gt;ftp_close(A1)</span></b></p>
-  </td>
-  <td width=271 valign=top style='width:162.35pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  <td width=605 valign=top style='width:362.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Specify the day count basis method</span><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'> <span class=code><span style='font-family:"Times New Roman","serif"'>European
+  30/360</span></span></span></b><span lang=EN-US style='mso-fareast-font-family:
+  黑体'>.<b style='mso-bidi-font-weight:normal'> </b></span><span lang=EN-US>It
+  corresponds to the Excel <i style='mso-bidi-font-style:normal'>basis</i>
+  parameter.</span></p>
   </td>
  </tr>
 </table>
 
-<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
-lang=EN-US>&nbsp;</span></p>
+<p class=MsoNormal style='line-height:200%'><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US style='font-size:14.0pt;line-height:200%'>Example:</span></b></p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='border-collapse:collapse;mso-table-layout-alt:fixed;mso-padding-alt:
+ 0cm 5.4pt 0cm 5.4pt'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=517 valign=top style='width:310.2pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=afc style='margin-left:10.55pt;text-align:justify;text-justify:inter-ideograph;
+  tab-stops:48.75pt'><b><span lang=EN-US style='font-family:"Times New Roman","serif"'>Freceived@0(date(&quot;2001-2-15&quot;),date(&quot;2001-5-15&quot;),1000000,0.0575)</span></b><span
+  class=var1><span lang=EN-US></span></span></p>
+  </td>
+  <td width=165 valign=top style='width:98.9pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>1014420.2658626447</span></b></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
+  <td width=517 valign=top style='width:310.2pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=afc style='margin-left:10.55pt;text-align:justify;text-justify:inter-ideograph;
+  tab-stops:48.75pt'><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='font-family:"Times New Roman","serif"'>Freceived@5(date(&quot;2001-2-15&quot;),date(&quot;2001-5-15&quot;),1000000,0.0575)<span
+  class=code><span style='font-family:"Times New Roman","serif"'></span></span></span></b></p>
+  </td>
+  <td width=165 valign=top style='width:98.9pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>1014219.9190013407<span class=code><span
+  style='font-family:"Times New Roman","serif"'></span></span></span></b></p>
+  </td>
+ </tr>
+</table>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="312.html">Next</a></div>

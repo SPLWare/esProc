@@ -24,8 +24,8 @@ mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
 that the <i style='mso-bidi-font-style:normal'>fork</i> statement can be used
 to execute a piece of code using multiple theads. The <b style='mso-bidi-font-weight:
 normal'>callx()</b> function used in the above section is responsible for
-executing a<i style='mso-bidi-font-style:normal'> dfx</i> file at each of the
-servers in cluster.</span></p>
+executing a<i style='mso-bidi-font-style:normal'> </i><span style='mso-bidi-font-style:
+italic'>script</span> file at each of the servers in cluster.</span></p>
 
 <p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
@@ -337,10 +337,10 @@ For example:</span></p>
 <p class=T-Par style='margin-bottom:0cm;margin-bottom:.0001pt;mso-add-space:
 auto;text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
 lang=EN-US>This is functionally equivalent to writing a subroutine requiring
-repeated execution in a code block, saving the effort of maintaining multiple <i
-style='mso-bidi-font-style:normal'>dfx</i> files. During a cluster computation,
-add task number sequence <i style='mso-bidi-font-style:normal'>s</i> at the end
-of the<i style='mso-bidi-font-style:normal'> fork</i> statement to distribute
+repeated execution in a code block, saving the effort of maintaining multiple <span
+style='mso-bidi-font-style:italic'>script</span> files. During a cluster
+computation, add task number sequence <i style='mso-bidi-font-style:normal'>s</i>
+at the end of the<i style='mso-bidi-font-style:normal'> fork</i> statement to distribute
 tasks to certain nodes, like <b style='mso-bidi-font-weight:normal'>fork</b>
 A2;A1:[[4,5],[1,2,3]]. A3 collects results of all tasks and return the
 following:</span></p>
@@ -714,16 +714,15 @@ actions in the fork statement:</span></p>
 <p class=T-Par style='margin-bottom:0cm;margin-bottom:.0001pt;mso-add-space:
 auto;text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
 lang=EN-US>The<i style='mso-bidi-font-style:normal'> reduce </i>code block uses
-<i style='mso-bidi-font-style:normal'>reduce</i> functions. It creates the
-result table sequence when performing the first <i style='mso-bidi-font-style:
-normal'>reduce</i> and populate the first task result in A3 that stores the
-current cumulative value and the current second task result returned by A8 to
-the newly-created table sequence. The subsequent <i style='mso-bidi-font-style:
-normal'>reduce</i> actions will add their returned records to the table
-sequence accordingly. A3¡¯s value changes from <i>fork</i> code block to <i>reduce</i>
-code block. The cell receives the parameter value in the former and stores the
-cumulative value in the latter. Here¡¯s the result of the cluster computation in
-A3 after execution:</span></p>
+<i style='mso-bidi-font-style:normal'>reduce</i> functions. It creates the result
+table sequence when performing the first <i style='mso-bidi-font-style:normal'>reduce</i>
+and populate the first task result in A3 that stores the current cumulative
+value and the current second task result returned by A8 to the newly-created
+table sequence. The subsequent <i style='mso-bidi-font-style:normal'>reduce</i>
+actions will add their returned records to the table sequence accordingly. A3¡¯s
+value changes from <i>fork</i> code block to <i>reduce</i> code block. The cell
+receives the parameter value in the former and stores the cumulative value in
+the latter. Here¡¯s the result of the cluster computation in A3 after execution:</span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
 lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=570 height=176
@@ -1104,8 +1103,8 @@ order and then reallocated to node ¢ñ when the former terminates the computation
 abnormally. Make a note that both <i>reduce</i> statement and <i>reduce</i>
 script performs a cumulative operation only <b>on a single node</b> when doing
 a <i>reduce</i> action. The execution order is related to the task execution
-efficiency and assignment order. So, in the result returned by A9, we can see
-that the order of records is consistent with that of nodes and task assignment:</span></p>
+efficiency and assignment order. So, in the result returned by A9, we can see that
+the order of records is consistent with that of nodes and task assignment:</span></p>
 
 <p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
 text-indent:21.0pt'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:

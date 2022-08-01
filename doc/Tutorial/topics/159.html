@@ -19,16 +19,15 @@ mso-list:none;tab-stops:-179.95pt 64.2pt'><span lang=EN-US style='font-size:
 	<p class=T-Par style='margin-bottom:0cm;margin-bottom:.0001pt;mso-add-space:
 auto;text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
 lang=EN-US>Besides the subroutine call, esProc also supports the cross-cellset
-call, which uses <b style='mso-bidi-font-weight:normal'>call</b> function to
-run a program from another cellset or to make use of the result of another
-cellset. This means a whole cellset will be treated as a subroutine to be
-executed. The <i style='mso-bidi-font-style:normal'>return</i> statement is
-used to return the result. End the cross-cellset call to release the memory
-after the result is returned. </span><span class=T-CodeChar><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-family:"Times New Roman","serif";
-font-weight:normal'>D:\files\createID.dfx</span></i></span><span lang=EN-US> is
-a cellset</span><span class=T-CodeChar><span lang=EN-US style='font-family:
-"Times New Roman","serif"'>:</span></span></p>
+call, which uses <b style='mso-bidi-font-weight:normal'>call</b> function to run
+a program from another cellset or to make use of the result of another cellset.
+This means a whole cellset will be treated as a subroutine to be executed. The <i
+style='mso-bidi-font-style:normal'>return</i> statement is used to return the
+result. End the cross-cellset call to release the memory after the result is
+returned. </span><span class=T-CodeChar><i style='mso-bidi-font-style:normal'><span
+lang=EN-US style='font-family:"Times New Roman","serif";font-weight:normal'>D:\files\createID.dfx</span></i></span><span
+lang=EN-US> is a cellset</span><span class=T-CodeChar><span lang=EN-US
+style='font-family:"Times New Roman","serif"'>:</span></span></p>
 
 <table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
  style='margin-left:21.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
@@ -245,14 +244,14 @@ another cellset is similar to that of calling a subroutine: </span></p>
 
 <p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>Likewise the parameter is put after the program being
-called. Difference is that the <i style='mso-bidi-font-style:normal'>dfx</i>
+21.0pt'><span lang=EN-US>Likewise, the parameter is put after the program being
+called. Difference is that the <span style='mso-bidi-font-style:italic'>script</span>
 file being called is specified directly through its name during the
 cross-cellset call in A2. Note that <b style='mso-bidi-font-weight:normal'>\</b>
-is an escape character when used in a string expression; so in A1¡¯s code
+is an escape character when used in a string expression; so, in A1¡¯s code
 another <b style='mso-bidi-font-weight:normal'>\</b> is put before it to
-represent the character literally. A1 and A2 respectively call the <i
-style='mso-bidi-font-style:normal'>dfx</i> file and create an ID with 3~5
+represent the character literally. A1 and A2 respectively call the <span
+style='mso-bidi-font-style:italic'>script</span> file and create an ID with 3~5
 characters, as shown below:</span></p>
 
 <p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
@@ -266,9 +265,9 @@ src="Tutorial.files/image1357.jpg" v:shapes="_x0000_i1773"></span></p>
 
 <p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>To phrase a statement as A2¡¯s, make sure that the <i
-style='mso-bidi-font-style:normal'>dfx</i> file is in esProc¡¯s main path or
-search path. Click </span><span class=T-CodeChar><span lang=EN-US
+21.0pt'><span lang=EN-US>To phrase a statement as A2¡¯s, make sure that the <span
+style='mso-bidi-font-style:italic'>script</span> file is in esProc¡¯s main path
+or search path. Click </span><span class=T-CodeChar><span lang=EN-US
 style='font-family:"Times New Roman","serif"'>Tool&gt;Options </span></span><span
 class=T-CodeChar><span lang=EN-US style='font-family:"Times New Roman","serif";
 font-weight:normal'>on the menu bar to</span></span><span class=T-CodeChar><span
@@ -283,8 +282,8 @@ src="Tutorial.files/image1359.jpg" v:shapes="_x0000_i1774"></span></p>
 <p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
 21.0pt'><span lang=EN-US>In the above configuration, whichever directory in the
-main path or search path the <i style='mso-bidi-font-style:normal'>dfx</i> file
-is placed, it can be called by the <b style='mso-bidi-font-weight:normal'>call</b>
+main path or search path the <span style='mso-bidi-font-style:italic'>script</span>
+file is placed, it can be called by the <b style='mso-bidi-font-weight:normal'>call</b>
 function by name, without the necessity of writing the whole path. </span></p>
 
 <p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
@@ -651,18 +650,18 @@ class=T-CodeChar><span lang=EN-US style='font-family:"Times New Roman","serif";
 font-weight:normal'> to create a sequence of product names and a sequence of
 client names. A3 runs a loop to call the cellset <i style='mso-bidi-font-style:
 normal'>findNames.dfx</i> in B3 which inputs A2 and B2 as the parameters. Note:
-For the parameters used in call function, their values will be given to <i
-style='mso-bidi-font-style:normal'>dfx</i>¡¯s parameters respectively; this is
-irrelevant to the parameter names in <i style='mso-bidi-font-style:normal'>dfx</i>¡¯s
-parameter list. That is to say, values are assigned to <i style='mso-bidi-font-style:
-normal'>dfx</i>¡¯s parameters in order: A2¡¯s value is assigned to PNames, and
-B2¡¯s value is assigned to CNames. Unlike a subroutine¡¯s <i style='mso-bidi-font-style:
-normal'>return</i> statement that returns a sequence of results, the <i
-style='mso-bidi-font-style:normal'>return</i> statement of the cellset being
-called separates the multiple results with commas and they will be returned
-automatically as a sequence. The returned result of the last cross-cellset call
-can be viewed in B3:</span></span><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US></span></b></p>
+For the parameters used in call function, their values will be given to <span
+style='mso-bidi-font-style:italic'>the script file</span>¡¯s parameters
+respectively; this is irrelevant to the parameter names in <span
+style='mso-bidi-font-style:italic'>script file</span> parameter list. That is
+to say, values are assigned to <i style='mso-bidi-font-style:normal'>dfx</i>¡¯s
+parameters in order: A2¡¯s value is assigned to PNames, and B2¡¯s value is
+assigned to CNames. Unlike a subroutine¡¯s <i style='mso-bidi-font-style:normal'>return</i>
+statement that returns a sequence of results, the <i style='mso-bidi-font-style:
+normal'>return</i> statement of the cellset being called separates the multiple
+results with commas and they will be returned automatically as a sequence. The
+returned result of the last cross-cellset call can be viewed in B3:</span></span><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US></span></b></p>
 
 <p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
@@ -825,8 +824,8 @@ src="Tutorial.files/image1367.jpg" v:shapes="_x0000_i1778"></span></p>
 
 <p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>The cellset program is called by the following main
-cellset: </span></p>
+21.0pt'><span lang=EN-US>The cellset program is called by the following main cellset:
+</span></p>
 
 <table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
  style='margin-left:21.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;

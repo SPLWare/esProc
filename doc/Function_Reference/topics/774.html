@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>string( expression {, format } :loc )</title>
+<title>substr ()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,381 +13,176 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h3 style='text-align:justify;text-justify:inter-ideograph'><a name="A_string_d"></a><a
-name="r_string"></a><a name="string_expression_format"></a><span lang=EN-US>string(<i
-style='mso-bidi-font-style:normal'>expression</i>{, <i style='mso-bidi-font-style:
-normal'>format</i>}<i style='mso-bidi-font-style:normal'>:loc</i>)</span></h3></div>
-	<p class=af7 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Description:</span></p>
+	<div id="centent-title"><h2><span style='mso-bookmark:"_substr\(\)"'><a name=substr><span lang=EN-US>substr</span></a><span
+lang=EN-US>()</span></span><span
+style='mso-bookmark:"_substr\(\)"'></span><span
+style='mso-bookmark:"_substr\(\)"'></span></h2></div>
+	<span style='mso-bookmark:"_substr\(\)"'></span>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Convert the data
-type of an object to the string type.</span></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%;mso-fareast-font-family:等线'>Description:</span></b></p>
 
-<p class=af7 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Syntax:</span></p>
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;mso-bidi-language:AR'>Find a
+substring and return the string after the substring.</span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span class=code><span
-lang=EN-US style='font-family:"Times New Roman","serif"'>string(</span></span><span
-class=var1><span lang=EN-US>expression</span></span><span lang=EN-US>{, </span><span
-class=var1><span lang=EN-US>format</span></span><span lang=EN-US>}<i
-style='mso-bidi-font-style:normal'>:loc</i></span><span class=code><span
-lang=EN-US style='font-family:"Times New Roman","serif"'>)</span></span></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%;mso-fareast-font-family:等线'>Syntax: </span></b></p>
 
-<p class=af7 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Note:</span></p>
+<p class=MsoNormal style='text-indent:21.1pt;mso-char-indent-count:2.0'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
+11.0pt;mso-fareast-font-family:黑体'>substr</span></b><span lang=EN-US
+style='mso-bidi-language:AR'>(<i style='mso-bidi-font-style:normal'>s<sub>1</sub>,s<sub>2</sub></i>)</span><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
+11.0pt;mso-fareast-font-family:黑体'></span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>The function converts
-the data type of an object to the string type and formats the string. Parameter
-<i style='mso-bidi-font-style:normal'>loc</i> defines a language, which applies
-to only the datetime data; use the system language if <i style='mso-bidi-font-style:
-normal'>loc</i> is absent. </span></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%;mso-fareast-font-family:等线'>Note:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>The format
-string </span><span class=var1><span lang=EN-US>format</span></span><span
-lang=EN-US> must match the data type of the result of </span><span class=var1><span
-lang=EN-US>expression</span></span><span lang=EN-US>, or the result of </span><span
-class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>string(</span></span><span
-class=var1><span lang=EN-US>expression</span></span><span lang=EN-US>{, </span><span
-class=var1><span lang=EN-US>format</span></span><span lang=EN-US>}<i
-style='mso-bidi-font-style:normal'>:loc</i></span><span class=code><span
-lang=EN-US style='font-family:"Times New Roman","serif"'>)</span></span><span
-lang=EN-US> will be incorrect.</span></p>
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;mso-bidi-language:AR'>The function
+finds string <i style='mso-bidi-font-style:normal'>s2</i> in string <i
+style='mso-bidi-font-style:normal'>s1</i> starting from the leftmost character
+and returns the string after <i style='mso-bidi-font-style:normal'>s2</i>;
+return null if there is nothing after <i style='mso-bidi-font-style:normal'>s2</i>.</span></p>
 
-<p class=af7 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Parameters:</span></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%;mso-fareast-font-family:等线'>Parameters:
+</span></b></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ style='margin-left:6.2pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=111 valign=top style='width:66.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US>expression</span></span></p>
+  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US
+  style='mso-bidi-language:AR'>s<sub>1</sub></span></i><b><span lang=EN-US
+  style='mso-bidi-font-size:10.5pt'></span></b></p>
   </td>
-  <td width=571 valign=top style='width:342.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>The constant object or the expression to
-  be converted to a string.</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:1'>
-  <td width=111 valign=top style='width:66.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US>format</span></span></p>
-  </td>
-  <td width=571 valign=top style='width:342.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>A format string used to format the result
-  of </span><span class=var1><span lang=EN-US>expression</span></span></p>
+  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-size:10.5pt;
+  mso-bidi-language:AR'>A string</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes'>
-  <td width=111 valign=top style='width:66.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US>loc</span></span></p>
+ <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
+  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US
+  style='mso-bidi-language:AR'>s<sub>2</sub></span></i><b><span lang=EN-US
+  style='mso-bidi-font-size:10.5pt'></span></b></p>
   </td>
-  <td width=571 valign=top style='width:342.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Language name, which is case insensitive.
-  The most commonly used languages are Chinese (zh) and English (en); see
-  A.sort() to know other languages supported in esProc </span></p>
+  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-size:10.5pt;
+  mso-bidi-language:AR'>A string</span></p>
   </td>
  </tr>
 </table>
 
-<p class=af7 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Options:</span></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%;mso-fareast-font-family:等线'>Options:</span></b></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ style='margin-left:6.2pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
   <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>@q</span></span><span
-  class=var1><span lang=EN-US></span></span></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>@l</span></b><i><span lang=EN-US
+  style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:等线'></span></i></p>
   </td>
   <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Enclosed the string <i style='mso-bidi-font-style:
-  normal'>expression</i> in double quotes and ignore parameter <i
-  style='mso-bidi-font-style:normal'>format</i> </span></p>
+  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-size:10.5pt;
+  mso-bidi-language:AR'>Return the string before <i style='mso-bidi-font-style:
+  normal'>s2</i>; return null if there is nothing before <i style='mso-bidi-font-style:
+  normal'>s2</i></span><span lang=EN-US style='mso-fareast-font-family:等线'></span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1'>
   <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>@e</span></span><span
-  class=var1><span lang=EN-US></span></span></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>@q</span></b></p>
   </td>
   <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US style='font-style:normal;
-  mso-bidi-font-style:italic'>Escape the undisplayable character. </span></span><span
-  lang=EN-US>Represent the tab, carriage return, line break in the string <i
-  style='mso-bidi-font-style:normal'>expression</i> with the escape characters.
-  Add an escape character before the single quotes, double quotes or an escape
-  character if there is any in the string. Ignore parameter <i
-  style='mso-bidi-font-style:normal'>format</i></span><span lang=EN-US
-  style='mso-bidi-font-size:10.5pt;mso-bidi-font-style:italic'></span></p>
+  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-size:10.5pt;
+  mso-bidi-language:AR'>Skip the quoted string</span><span lang=EN-US
+  style='mso-fareast-font-family:等线'></span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes'>
   <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>@u</span></span></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>@c</span></b></p>
   </td>
   <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>With the use of <b style='mso-bidi-font-weight:
-  normal'>@e</b> option, if there is a character of large charaset in the
-  string <i style='mso-bidi-font-style:normal'>expression</i>, convert the
-  character to a Unicode character</span></p>
+  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-size:10.5pt;
+  mso-bidi-language:AR'>Case-insensitive</span></p>
   </td>
  </tr>
 </table>
 
-<p class=af7 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Return value:</span></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%;mso-fareast-font-family:等线'>Return
+value: </span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>String</span></p>
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;mso-bidi-language:AR'>A string</span></p>
 
-<p class=af7 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Example:</span></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%;mso-fareast-font-family:等线'>Example:
+</span></b></p>
 
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
- style='margin-left:.25pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
- mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:6.2pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=24 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
-  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>&nbsp;</span></span></p>
+  <td width=247 valign=top style='width:148.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-bidi-font-size:11.0pt;mso-fareast-font-family:黑体'>=substr(&quot;abcdef&quot;,&quot;cd&quot;)</span></b></p>
   </td>
-  <td width=272 valign=top style='width:163.0pt;border:solid #A6A6A6 1.0pt;
-  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman","serif"'>A</span></span></p>
-  </td>
-  <td width=437 valign=top style='width:262.25pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  <td width=435 valign=top style='width:261.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-size:10.5pt;
+  mso-bidi-language:AR'>ef</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=24 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>1</span></span></p>
+  <td width=247 valign=top style='width:148.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-bidi-font-size:11.0pt;mso-fareast-font-family:黑体'>=substr@l(&quot;abcdef&quot;,&quot;cd&quot;)</span></b></p>
   </td>
-  <td width=272 valign=top style='width:163.0pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=string(123)</span></span></p>
-  </td>
-  <td width=437 valign=top style='width:262.25pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>123</span></span></p>
+  <td width=435 valign=top style='width:261.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-size:10.5pt;
+  mso-bidi-language:AR'>ab</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:2'>
-  <td width=24 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>2</span></span></p>
+  <td width=247 valign=top style='width:148.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-bidi-font-size:11.0pt;mso-fareast-font-family:黑体'>=substr@q(&quot;ab\'cdef\'&quot;,&quot;cd&quot;)</span></b></p>
   </td>
-  <td width=272 valign=top style='width:163.0pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=string(date(&quot;2009-02-23&quot;),&quot;
-  MMM dd, yyyy&quot;)</span></span></p>
-  </td>
-  <td width=437 valign=top style='width:262.25pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>Feb
-  23, 2009</span></span></p>
+  <td width=435 valign=top style='width:261.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-size:10.5pt;
+  mso-bidi-language:AR'>No return value</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:3'>
-  <td width=24 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>3</span></span></p>
+ <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
+  <td width=247 valign=top style='width:148.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  11.0pt;font-family:"Times New Roman","serif"'>=substr@c(&quot;abCdef&quot;,&quot;cd&quot;)</span></span><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
+  11.0pt;mso-fareast-font-family:黑体'></span></b></p>
   </td>
-  <td width=272 valign=top style='width:163.0pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=string(3456.78,&quot;$#,##0.00&quot;)</span></span></p>
-  </td>
-  <td width=437 valign=top style='width:262.25pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>$3,456.78</span></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:4'>
-  <td width=24 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>4</span></span></p>
-  </td>
-  <td width=272 valign=top style='width:163.0pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=string(5/6,&quot;0.00%&quot;)</span></span></p>
-  </td>
-  <td width=437 valign=top style='width:262.25pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>83.33%</span></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:5'>
-  <td width=24 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>5</span></span></p>
-  </td>
-  <td width=272 valign=top style='width:163.0pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>a</span></b><span
-  lang=EN-US><span style='mso-tab-count:1'>&nbsp; </span><b
-  style='mso-bidi-font-weight:normal'>b</b></span><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman","serif"'></span></span></p>
-  </td>
-  <td width=437 valign=top style='width:262.25pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Separate <b style='mso-bidi-font-weight:
-  normal'>a</b> and <b style='mso-bidi-font-weight:normal'>b</b> with tab</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:6'>
-  <td width=24 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>6</span></span></p>
-  </td>
-  <td width=272 valign=top style='width:163.0pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=string@q(A5)</span></span></p>
-  </td>
-  <td width=437 valign=top style='width:262.25pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>&quot;a<span
-  style='mso-tab-count:1'>&nbsp; </span>b&quot; </span></span><span
-  lang=EN-US>Double quoted the given character string <b style='mso-bidi-font-weight:
-  normal'>a <span style='mso-tab-count:1'> </span>b</b>,<b style='mso-bidi-font-weight:
-  normal'> </b>and display the escape character</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:7'>
-  <td width=24 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>7</span></span></p>
-  </td>
-  <td width=272 valign=top style='width:163.0pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=string@e(A6)</span></span></p>
-  </td>
-  <td width=437 valign=top style='width:262.25pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>\&quot;a\tb\&quot;
-  </span></b><span lang=EN-US>Do not display the character <i style='mso-bidi-font-style:
-  normal'>tab</i> after the string is escaped; and add escape character to the
-  double quotes</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:8'>
-  <td width=24 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>8</span></span></p>
-  </td>
-  <td width=272 valign=top style='width:163.0pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'><span
-  style='mso-spacerun:yes'>&nbsp;</span></span></span><span class=code><span
-  style='font-family:黑体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:
-  "Times New Roman"'>中国</span></span><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman","serif"'></span></span></p>
-  </td>
-  <td width=437 valign=top style='width:262.25pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>&nbsp;</span></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:9'>
-  <td width=24 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>9</span></span></p>
-  </td>
-  <td width=272 valign=top style='width:163.0pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=string@u(A8)</span></span></p>
-  </td>
-  <td width=437 valign=top style='width:262.25pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>\u4E2D\u56FD</span></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:10;mso-yfti-lastrow:yes'>
-  <td width=24 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>10</span></span></p>
-  </td>
-  <td width=272 valign=top style='width:163.0pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=string(date(&quot;2009-02-23&quot;),&quot;
-  MMM dd, yyyy&quot;:&quot;en&quot;)</span></span></p>
-  </td>
-  <td width=437 valign=top style='width:262.25pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>Feb
-  23, 2009</span></span></p>
+  <td width=435 valign=top style='width:261.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='mso-bidi-language:AR'>ef</span><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-bidi-language:AR'></span></p>
   </td>
  </tr>
 </table>
-
-<p class=af7 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Related functions:</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US><a  href="278.html"><span style='mso-fareast-font-family:
-黑体;font-weight:normal'>flo<span style='mso-bookmark:_Hlt414973881'>a</span>t()</span></a><a
-name="_Hlt414973881"></a></span></b><span class=code><span
-lang=EN-US style='font-family:"Times New Roman","serif"'></span></span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><a name="_Hlt414973942"></a><a
- href="430.html"><span style='mso-bookmark:_Hlt414973942'><span lang=EN-US
-style='mso-fareast-font-family:黑体'>i<span style='mso-bookmark:_Hlt76138124'>n</span><span
-style='mso-bookmark:_Hlt415058307'>t</span>()</span></span><span
-style='mso-bookmark:_Hlt414973942'></span></a><a
-name="_Hlt415058307"></a><a name="_Hlt76138124"></a><span
-style='mso-bookmark:_Hlt414973942'></span><span class=code><span lang=EN-US
-style='font-family:"Times New Roman","serif"'></span></span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US><a  href="494.html"><span style='mso-fareast-font-family:
-黑体;font-weight:normal'>long<span style='mso-bookmark:_Hlt414973998'>(</span>)</span></a><a
-name="_Hlt414973998"></a></span></b><span class=code><span
-lang=EN-US style='font-family:"Times New Roman","serif"'></span></span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US><a  href="576.html"><span style='mso-fareast-font-family:
-黑体;font-weight:normal'>numb<span style='mso-bookmark:_Hlt414974056'>e</span>r()</span></a><a
-name="_Hlt414974056"></a></span></b><span class=code><span
-lang=EN-US style='font-family:"Times New Roman","serif"'></span></span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US><a  href="188.html"><span style='mso-fareast-font-family:
-黑体;font-weight:normal'>decimal()</span></a></span></b><span class=code><span
-lang=EN-US style='font-family:"Times New Roman","serif"'></span></span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="775.html">Next</a></div>
@@ -395,7 +190,7 @@ lang=EN-US style='font-family:"Times New Roman","serif"'></span></span></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="773.html">string()</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="45.html">Functions</a></span></li>
 </div>
 	</div>
 	<div id="footer">	
