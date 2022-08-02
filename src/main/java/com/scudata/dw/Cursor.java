@@ -1300,7 +1300,6 @@ public class Cursor extends IDWCursor {
 		try {
 			if (filters == null) {
 				while (curBlock < endBlock) {
-					
 					curBlock++;
 					int recordCount = rowCountReader.readInt32();
 
@@ -1601,7 +1600,6 @@ public class Cursor extends IDWCursor {
 		try {
 			if (filters == null) {
 				while (curBlock < endBlock) {
-					
 					curBlock++;
 					int recordCount = rowCountReader.readInt32();
 
@@ -1924,7 +1922,7 @@ public class Cursor extends IDWCursor {
 		
 		ModifyRecord mr = modifyRecords.get(mindex);
 		long mseq = mr.getRecordSeq();
-		
+				
 		try {
 			if (filters == null) {
 				while (curBlock < endBlock) {
@@ -2016,6 +2014,28 @@ public class Cursor extends IDWCursor {
 						break;
 					} else if (diff == 0) {
 						break;
+					}
+				}
+				
+				if (table.getDataBlockCount() == 0 && startBlock == 0 && endBlock == 0) {
+					// 表中还没有添加数据时有可能在补区有数据
+					for (; mindex < mcount; ++mindex) {
+						// 可能存在内存追加的记录在补区
+						mr = modifyRecords.get(mindex);
+						mseq = mr.getRecordSeq();
+						Record sr = mr.getRecord();
+						GroupTableRecord r = new GroupTableRecord(ds);
+						for (int f = 0; f < findexLen; ++f) {
+							r.setNormalFieldValue(f, sr.getNormalFieldValue(findex[f]));
+						}
+						
+						r.setRecordSeq(-mseq);
+						mems.add(r);
+					}
+					
+					int diff = n - cache.length();
+					if (diff < 0) {
+						this.cache = cache.split(n + 1);
 					}
 				}
 			} else {
@@ -2178,6 +2198,28 @@ public class Cursor extends IDWCursor {
 						break;
 					} else if (diff == 0) {
 						break;
+					}
+				}
+				
+				if (table.getDataBlockCount() == 0 && startBlock == 0 && endBlock == 0) {
+					// 表中还没有添加数据时有可能在补区有数据
+					for (; mindex < mcount; ++mindex) {
+						// 可能存在内存追加的记录在补区
+						mr = modifyRecords.get(mindex);
+						Record sr = mr.getRecord();
+						if (Variant.isTrue(sr.calc(filter, ctx))) {
+							Record r = new Record(ds);
+							for (int f = 0; f < findexLen; ++f) {
+								r.setNormalFieldValue(f, sr.getNormalFieldValue(findex[f]));
+							}
+							
+							mems.add(r);
+						}
+					}
+					
+					int diff = n - cache.length();
+					if (diff < 0) {
+						this.cache = cache.split(n + 1);
 					}
 				}
 			}
@@ -2381,6 +2423,30 @@ public class Cursor extends IDWCursor {
 						break;
 					} else if (diff == 0) {
 						break;
+					}
+				}
+				
+				if (table.getDataBlockCount() == 0 && startBlock == 0 && endBlock == 0) {
+					// 表中还没有添加数据时有可能在补区有数据
+					for (; mindex < mcount; ++mindex) {
+						// 可能存在内存追加的记录在补区
+						mr = modifyRecords.get(mindex);
+						Record sr = mr.getRecord();
+						GroupTableRecord r = new GroupTableRecord(ds);
+						for (int f = 0; f < colCount; ++f) {
+							if (exps[f] != null) {
+								r.setNormalFieldValue(f, sr.calc(exps[f], ctx));
+							} else if (isField[f]) {
+								r.setNormalFieldValue(f, sr.getNormalFieldValue(findex[f]));
+							} else {
+								if (gathers[f] != null) {
+									r.setNormalFieldValue(f, gathers[f].getNextBySeq(-(mindex + 1)));
+								}
+							}
+						}
+						
+						r.setRecordSeq(-mseq);
+						mems.add(r);
 					}
 				}
 			} else {
@@ -2601,6 +2667,31 @@ public class Cursor extends IDWCursor {
 						break;
 					} else if (diff == 0) {
 						break;
+					}
+				}
+				
+				if (table.getDataBlockCount() == 0 && startBlock == 0 && endBlock == 0) {
+					// 表中还没有添加数据时有可能在补区有数据
+					for (; mindex < mcount; ++mindex) {
+						// 可能存在内存追加的记录在补区
+						mr = modifyRecords.get(mindex);
+						Record sr = mr.getRecord();
+						if (Variant.isTrue(sr.calc(filter, ctx))) {
+							Record r = new Record(ds);
+							for (int f = 0; f < retColCount; ++f) {
+								if (findex[f] >= 0) {
+									r.setNormalFieldValue(f, sr.getNormalFieldValue(findex[f]));
+								} else if (exps[f] != null) {
+									r.setNormalFieldValue(f, sr.calc(exps[f], ctx));
+								} else {
+									if (gathers[f] != null) {
+										r.setNormalFieldValue(f, gathers[f].getNextBySeq(-(mindex + 1)));
+									}
+								}
+							}
+							
+							mems.add(r);
+						}
 					}
 				}
 			}
