@@ -1067,27 +1067,38 @@ public class PseudoTable extends Pseudo {
 	}
 	
 	public void append(ICursor cursor, String option) {
-		//把数据追加到file，如果有多个file则取最后一个
+		//把数据追加到file
 		List<ITableMetaData> tables = getPd().getTables();
+		ITableMetaData table = null;
+		boolean flag = true;//立即写入标志
 		int size = tables.size();
 		if (size == 0) {
 			return;
+		} else if (option != null && option.indexOf("y") != -1) {
+			table = tables.get(0);//有@y时更新到第一个表
+			flag = false;
+		} else if (size == 1) {
+			table = tables.get(0);
+		} else {
+			/**
+			 * 文件组追加时要处理分布：单路游标自动加@x，多路不用处理
+			 */
+			if (!(cursor instanceof MultipathCursors)) {
+				option = (option == null) ? "x" : option + "x";
+			}
+			table = getPd().getTableMetaDataGroup();
 		}
-		ITableMetaData table = tables.get(size - 1);
-
+		
 		List<PseudoColumn> columns = pd.getColumns();
 		if (columns != null) {
 			String fields[] = table.getAllColNames();
 			convertPseudoColumn(cursor, columns, fields);
 		}
 		
-		//立即提交
-		if (option == null)
-			option = "i";
-		else 
-			option += "i";
-		
 		try {
+			if (flag) {
+				option = (option == null) ? "i" : option + "i";
+			}
 			table.append(cursor, option);
 		} catch (IOException e) {
 			throw new RQException(e.getMessage(), e);
@@ -1111,12 +1122,6 @@ public class PseudoTable extends Pseudo {
 			data = cursor.fetch();
 		}
 		
-		//立即提交
-		if (opt == null)
-			opt = "i";
-		else 
-			opt += "i";
-		
 		try {
 			return table.update(data, opt);
 		} catch (IOException e) {
@@ -1130,12 +1135,6 @@ public class PseudoTable extends Pseudo {
 		if (size == 0) {
 			return null;
 		}
-		
-		//立即提交
-		if (opt == null)
-			opt = "i";
-		else 
-			opt += "i";
 		
 		Sequence result = null;
 		for (ITableMetaData table : tables) {

@@ -19,6 +19,7 @@ import com.scudata.dm.cursor.MemoryCursor;
 import com.scudata.dw.GroupTable;
 import com.scudata.dw.ITableMetaData;
 import com.scudata.dw.TableMetaData;
+import com.scudata.dw.TableMetaDataGroup;
 import com.scudata.expression.Expression;
 import com.scudata.resources.EngineMessage;
 
@@ -38,10 +39,13 @@ public class PseudoDefination implements Cloneable, ICloneable {
 	private String user;//帐户字段
 	private String var;//序表/内表/集群内表变量名
 	private List<PseudoColumn> columns;//部分特殊字段定义
+	
 	private List<ITableMetaData> tables;//存所有文件的table对象
+	private TableMetaDataGroup tableGroup;//组文件表对象
 	private List<Object> maxValues;//存每个table的最大值
 	private List<Object> minValues;//存每个table的最小值
 	private Sequence memoryTable;//内存虚表的序表对象
+	
 	private FileObject fileObject;//集文件对象
 	private DataStruct ds;//集文件结构
 	private boolean isBFile = false;
@@ -109,6 +113,7 @@ public class PseudoDefination implements Cloneable, ICloneable {
 		this.sortedFields = pd.sortedFields;
 		this.ds = pd.ds;
 		this.updateExp = pd.updateExp;
+		this.tableGroup = pd.tableGroup;
 		
 		if (pd.columns != null) {
 			this.columns = new ArrayList<PseudoColumn>();
@@ -261,6 +266,14 @@ public class PseudoDefination implements Cloneable, ICloneable {
 				table.getGroupTable().setPartition(partitions[i]);
 				tables.add(table);
 			}
+			
+			if (pcount > 1) {
+				ITableMetaData []tbls = new ITableMetaData[pcount];
+				for (int i = 0; i < pcount; ++i) {
+					tbls[i] = tables.get(i);
+				}
+				tableGroup = new TableMetaDataGroup(fn, tbls, partitions, null, ctx);
+			}
 		}
 	}
 	
@@ -309,6 +322,14 @@ public class PseudoDefination implements Cloneable, ICloneable {
 		}
 	}
 
+	/**
+	 * 返回组文件表对象。不存在就返回null
+	 * @return
+	 */
+	public TableMetaDataGroup getTableMetaDataGroup() {
+		return tableGroup;
+	}
+	
 	public String getUgrp() {
 		String[] names = getAllColNames();
 		if (names == null) return null;
