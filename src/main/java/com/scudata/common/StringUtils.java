@@ -6,8 +6,6 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Vector;
 
-import com.scudata.ide.common.GV;
-import com.scudata.ide.spl.SPL;
 
 /**
  * ×Ö·û´®¹¤¾ßÀà
