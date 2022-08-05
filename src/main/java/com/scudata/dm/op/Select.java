@@ -155,4 +155,12 @@ public class Select extends Operation {
 			return null;
 		}
 	}
+	
+	public Sequence finish(Context ctx) {
+		if (pipe != null) {
+			pipe.finish(ctx);
+		}
+		
+		return null;
+	}
 }
