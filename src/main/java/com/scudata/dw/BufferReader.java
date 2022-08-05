@@ -592,6 +592,9 @@ public class BufferReader {
 		case BufferWriter.TABLE:
 			skipTable();
 			break;
+		case BufferWriter.RECORD:
+			skipRecord();
+			break;
 		default: // BLOB
 			int n = readInt();
 			if (n > 0) skipFully(n);
@@ -791,6 +794,16 @@ public class BufferReader {
 		return table;
 	}
 
+	protected void skipRecord() throws IOException {
+		int id = readInt();
+		DataStruct ds = structManager.getDataStruct(id);
+		int fcount = ds.getFieldCount();
+		
+		for (int f = 0; f < fcount; ++f) {
+			skipObject();
+		}
+	}
+	
 	protected void skipTable() throws IOException {
 		int fcount = readInt();
 		for (int i = 0; i < fcount; ++i) {
