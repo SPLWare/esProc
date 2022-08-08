@@ -1654,7 +1654,7 @@ public class DatabaseUtil {
 	 * @return Sequence
 	 */
 	public static Sequence queryGroup(String sql, Object[][] params, byte[] types, DBSession dbs, Context ctx,
-			String opt) {
+			String opt) throws RQException {
 		if (params == null || params.length < 1) {
 			return query(sql, null, types, dbs, null);
 		}
@@ -1865,7 +1865,9 @@ public class DatabaseUtil {
 			}
 		}
 		if (fieldAll == null || fieldAll.trim().length() < 1) {
-			throw new RQException("Field names is Invalid!");
+			// throw new RQException("Field names is Invalid!");
+			MessageManager mm = DataSetMessage.get();
+			throw new RQException(mm.getMessage("error.invalidField"));
 		}
 
 		size = keyNames.length;
@@ -1904,7 +1906,9 @@ public class DatabaseUtil {
 			}
 		}
 		if (conditions == null || conditions.trim().length() < 1) {
-			throw new RQException("Conditions is Invalid!");
+			MessageManager mm = DataSetMessage.get();
+			throw new RQException(mm.getMessage("error.invalidCondition"));
+			//throw new RQException("Conditions is Invalid!");
 		}
 		sql += fieldAll + " from " + addTilde(tableName, dbs) + " where " + conditions;
 		return retrieve(sql, params.toArray(), null, dbs, null, -1);
@@ -1937,7 +1941,9 @@ public class DatabaseUtil {
 			}
 		}
 		if (fieldAll == null || fieldAll.trim().length() < 1) {
-			throw new RQException("Field names is Invalid!");
+			//throw new RQException("Field names is Invalid!");
+			MessageManager mm = DataSetMessage.get();
+			throw new RQException(mm.getMessage("error.invalidField"));
 		}
 
 		size = keyNames.length;
@@ -1962,7 +1968,9 @@ public class DatabaseUtil {
 			}
 		}
 		if (condition == null || condition.trim().length() < 1) {
-			throw new RQException("Condition is Invalid!");
+			//throw new RQException("Condition is Invalid!");
+			MessageManager mm = DataSetMessage.get();
+			throw new RQException(mm.getMessage("error.invalidCondition"));
 		}
 		sql += fieldAll + " from " + addTilde(tableName, dbs) + " where " + condition;
 		Table tbl = retrieveOne(sql, params.toArray(), null, dbs, ctx, opt);
@@ -2025,13 +2033,19 @@ public class DatabaseUtil {
 	public static Object update(String tableName, Object[] keyValues, String[] fields, Object[] values, String opt,
 			DBSession dbs) {
 		if (tableName == null || tableName.trim().length() < 1) {
-			throw new RQException("Table Name is Invalid!");
+			//throw new RQException("Table Name is Invalid!");
+			MessageManager mm = DataSetMessage.get();
+			throw new RQException(mm.getMessage("error.invalidTable"));
 		}
 		if (fields == null || fields.length < 1) {
-			throw new RQException("Field Names is Invalid!");
+			//throw new RQException("Field Names is Invalid!");
+			MessageManager mm = DataSetMessage.get();
+			throw new RQException(mm.getMessage("error.invalidField"));
 		}
 		if (values == null || values.length < 1) {
-			throw new RQException("Field Values is Invalid!");
+			//throw new RQException("Field Values is Invalid!");
+			MessageManager mm = DataSetMessage.get();
+			throw new RQException(mm.getMessage("error.invalidFieldValue"));
 		}
 
 		Connection con = null;
@@ -2063,17 +2077,14 @@ public class DatabaseUtil {
 		}
 
 		if (keyNames == null || keyNames.length < 1) {
-			throw new RQException("Key Names is Invalid!");
+			//throw new RQException("Key Names is Invalid!");
+			MessageManager mm = DataSetMessage.get();
+			throw new RQException(mm.getMessage("error.invalidKey"));
 		}
 		if (keyValues == null || keyValues.length < 1) {
-			throw new RQException("Key Values is Invalid!");
-		}
-
-		if (keyNames == null || keyNames.length < 1) {
-			throw new RQException("Key Names is Invalid!");
-		}
-		if (keyValues == null || keyValues.length < 1) {
-			throw new RQException("Key Values is Invalid!");
+			//throw new RQException("Key Values is Invalid!");
+			MessageManager mm = DataSetMessage.get();
+			throw new RQException(mm.getMessage("error.invalidKeyValue"));
 		}
 
 		byte type = 0;
@@ -2107,7 +2118,9 @@ public class DatabaseUtil {
 			}
 		}
 		if (condition == null || condition.trim().length() < 1) {
-			throw new RQException("Condition is Invalid!");
+			//throw new RQException("Condition is Invalid!");
+			MessageManager mm = DataSetMessage.get();
+			throw new RQException(mm.getMessage("error.invalidCondition"));
 		}
 
 		String sql = "";
@@ -2146,7 +2159,9 @@ public class DatabaseUtil {
 			}
 			allParams.addAll(params);
 			if (sets == null || sets.trim().length() < 1) {
-				throw new RQException("Field Names of Values is Invalid!");
+				//throw new RQException("Field Names of Values is Invalid!");
+				MessageManager mm = DataSetMessage.get();
+				throw new RQException(mm.getMessage("error.invalidFieldValue"));
 			}
 
 			sql = "update " + addTilde(tableName, dbs) + " set " + sets + " where " + condition;
@@ -2207,12 +2222,16 @@ public class DatabaseUtil {
 				}
 			}
 			if (sets == null || sets.trim().length() < 1) {
-				throw new RQException("Field Values of Values is Invalid!");
+				//throw new RQException("Field Values of Values is Invalid!");
+				MessageManager mm = DataSetMessage.get();
+				throw new RQException(mm.getMessage("error.invalidFieldValue"));
 			} else {
 				sets += " )";
 			}
 			if (fieldAll == null || fieldAll.trim().length() < 1) {
-				throw new RQException("Field Names of Values is Invalid!");
+				//throw new RQException("Field Names of Values is Invalid!");
+				MessageManager mm = DataSetMessage.get();
+				throw new RQException(mm.getMessage("error.invalidFieldValue"));
 			} else {
 				fieldAll += " )";
 			}
@@ -2533,7 +2552,9 @@ public class DatabaseUtil {
 			}
 		}
 		if (condition == null || condition.trim().length() < 1) {
-			throw new RQException("Condition is Invalid!");
+			//throw new RQException("Condition is Invalid!");
+			MessageManager mm = DataSetMessage.get();
+			throw new RQException(mm.getMessage("error.invalidCondition"));
 		}
 		sql += " from " + addTilde(tableName, dbs) + " where " + condition;
 		return retrieve2(sql, params.toArray(), null, dbs, opt);
@@ -2570,7 +2591,9 @@ public class DatabaseUtil {
 			}
 		}
 		if (fieldAll == null || fieldAll.trim().length() < 1) {
-			throw new RQException("SQL strings are Invalid!");
+			//throw new RQException("SQL strings are Invalid!");
+			MessageManager mm = DataSetMessage.get();
+			throw new RQException(mm.getMessage("error.invalidFieldValue"));
 		}
 
 		Connection con = null;
@@ -2619,7 +2642,9 @@ public class DatabaseUtil {
 			}
 		}
 		if (condition == null || condition.trim().length() < 1) {
-			throw new RQException("Condition is Invalid!");
+			//throw new RQException("Condition is Invalid!");
+			MessageManager mm = DataSetMessage.get();
+			throw new RQException(mm.getMessage("error.invalidCondition"));
 		}
 		sql += fieldAll + " from " + addTilde(tableName, dbs) + " where " + condition;
 		return retrieve2(sql, params.toArray(), null, dbs, opt);
@@ -2929,7 +2954,9 @@ public class DatabaseUtil {
 	public static Object update(String tableName, String str, Object[] params, byte[] types, Object[] keyValues,
 			DBSession dbs) {
 		if (tableName == null || tableName.trim().length() < 1) {
-			throw new RQException("Table Name is Invalid!");
+			//throw new RQException("Table Name is Invalid!");
+			MessageManager mm = DataSetMessage.get();
+			throw new RQException(mm.getMessage("error.invalidTable"));
 		}
 		Connection con = null;
 		String[] keyNames = null;
@@ -2960,10 +2987,14 @@ public class DatabaseUtil {
 		}
 
 		if (keyNames == null || keyNames.length < 1) {
-			throw new RQException("Key Names is Invalid!");
+			//throw new RQException("Key Names is Invalid!");
+			MessageManager mm = DataSetMessage.get();
+			throw new RQException(mm.getMessage("error.invalidKey"));
 		}
 		if (keyValues == null || keyValues.length < 1) {
-			throw new RQException("Key Values is Invalid!");
+			//throw new RQException("Key Values is Invalid!");
+			MessageManager mm = DataSetMessage.get();
+			throw new RQException(mm.getMessage("error.invalidKeyValue"));
 		}
 
 		int size = keyNames.length;
@@ -2988,7 +3019,9 @@ public class DatabaseUtil {
 			}
 		}
 		if (condition == null || condition.trim().length() < 1) {
-			throw new RQException("Condition is Invalid!");
+			//throw new RQException("Condition is Invalid!");
+			MessageManager mm = DataSetMessage.get();
+			throw new RQException(mm.getMessage("error.invalidCondition"));
 		}
 
 		String sql = "select count(*) from " + addTilde(tableName, dbs) + " where " + condition;
@@ -2997,7 +3030,9 @@ public class DatabaseUtil {
 		ArrayList<Object> allParams = new ArrayList<Object>();
 		if (n > 0) {
 			if (str == null || str.trim().length() < 1) {
-				throw new RQException("Update SQL String is Invalid!");
+				//throw new RQException("Update SQL String is Invalid!");
+				MessageManager mm = DataSetMessage.get();
+				throw new RQException(mm.getMessage("error.invalidUpdateSQL"));
 			}
 
 			sql = "update " + addTilde(tableName, dbs) + " set " + str + " where " + condition;
@@ -3006,13 +3041,19 @@ public class DatabaseUtil {
 		} else {
 			String fieldAll = "";
 			if (str == null || str.trim().length() < 1) {
-				throw new RQException("Update SQL String is Invalid!");
+				//throw new RQException("Update SQL String is Invalid!");
+				MessageManager mm = DataSetMessage.get();
+				throw new RQException(mm.getMessage("error.invalidUpdateSQL"));
 			}
+			/*
 			if (fieldAll == null || fieldAll.trim().length() < 1) {
-				throw new RQException("Field Names of Values is Invalid!");
+				//throw new RQException("Field Names of Values is Invalid!");
+				MessageManager mm = DataSetMessage.get();
+				throw new RQException(mm.getMessage("error.invalidField"));
 			} else {
 				fieldAll += " )";
 			}
+			*/
 			sql = "insert into " + addTilde(tableName, dbs) + " " + fieldAll + " values (" + str + " )";
 			addParams(allParams, params);
 		}
@@ -3045,13 +3086,19 @@ public class DatabaseUtil {
 	 */
 	public static Object update(String tableName, String[] strs, String[] keyNames, Object[] keyValues, DBSession dbs) {
 		if (tableName == null || tableName.trim().length() < 1) {
-			throw new RQException("Table Name is Invalid!");
+			//throw new RQException("Table Name is Invalid!");
+			MessageManager mm = DataSetMessage.get();
+			throw new RQException(mm.getMessage("error.invalidTable"));
 		}
 		if (keyNames == null || keyNames.length < 1) {
-			throw new RQException("Key Names is Invalid!");
+			//throw new RQException("Key Names is Invalid!");
+			MessageManager mm = DataSetMessage.get();
+			throw new RQException(mm.getMessage("error.invalidKey"));
 		}
 		if (keyValues == null || keyValues.length < 1) {
-			throw new RQException("Key Values is Invalid!");
+			//throw new RQException("Key Values is Invalid!");
+			MessageManager mm = DataSetMessage.get();
+			throw new RQException(mm.getMessage("error.invalidKeyValue"));
 		}
 		int size = strs.length;
 		String str = null;
@@ -3085,7 +3132,9 @@ public class DatabaseUtil {
 			}
 		}
 		if (condition == null || condition.trim().length() < 1) {
-			throw new RQException("Condition is Invalid!");
+			//throw new RQException("Condition is Invalid!");
+			MessageManager mm = DataSetMessage.get();
+			throw new RQException(mm.getMessage("error.invalidCondition"));
 		}
 
 		String sql = "select count(*) from " + addTilde(tableName, dbs) + " where " + condition;
@@ -3093,20 +3142,25 @@ public class DatabaseUtil {
 		int n = ((Number) ((Record) se.get(1)).getFieldValue(0)).intValue();
 		if (n > 0) {
 			if (str == null || str.trim().length() < 1) {
-				throw new RQException("Update SQL String is Invalid!");
+				//throw new RQException("Update SQL String is Invalid!");
+				MessageManager mm = DataSetMessage.get();
+				throw new RQException(mm.getMessage("error.invalidUpdateSQL"));
 			}
 			sql = "update " + addTilde(tableName, dbs) + " set " + str + " where " + condition;
 		} else {
 			String fieldAll = "";
 			if (str == null || str.trim().length() < 1) {
-				throw new RQException("Update SQL String is Invalid!");
+				//throw new RQException("Update SQL String is Invalid!");
+				MessageManager mm = DataSetMessage.get();
+				throw new RQException(mm.getMessage("error.invalidUpdateSQL"));
 			}
+			/*
 			if (fieldAll == null || fieldAll.trim().length() < 1) {
 				throw new RQException("Field Names of Values is Invalid!");
 			} else {
 				fieldAll += " )";
-
 			}
+			*/
 			sql = "insert into " + addTilde(tableName, dbs) + " " + fieldAll + " values (" + str + " )";
 		}
 		if (dbs != null) {
@@ -4050,14 +4104,16 @@ public class DatabaseUtil {
 						}
 					}
 					if (fieldAll == null || fieldAll.trim().length() < 1) {
-						throw new RQException("Field Names is Invalid!");
+						//throw new RQException("Field Names is Invalid!");
+						throw new RQException(mm.getMessage("error.invalidField"));
 					}
 					fieldAll += ")";
 				}
 				try {
 					if (initial) {
 						if (opt != null && opt.indexOf("a") > -1) {
-							Logger.debug("Clear all the records from table +"+table);
+							//Logger.debug("Clear all the records from table +"+table);
+							Logger.debug(mm.getMessage("info.clearTable", table));
 							String sql = "delete from " + addTilde(table, dbs);
 							st = con.createStatement();
 							st.execute(sql);
@@ -4093,7 +4149,8 @@ public class DatabaseUtil {
 							}
 						}
 						if (sets == null || sets.trim().length() < 1) {
-							throw new RQException("Field Names of Values is Invalid!");
+							//throw new RQException("Field Names of Values is Invalid!");
+							throw new RQException(mm.getMessage("error.invalidField"));
 						}
 						update_sql = "update " + addTilde(table, dbs) + " set " + sets + " where " + condition;
 						sets = null;
@@ -4113,12 +4170,14 @@ public class DatabaseUtil {
 							}
 						}
 						if (sets == null || sets.trim().length() < 1) {
-							throw new RQException("Field Values of Values is Invalid!");
+							//throw new RQException("Field Values of Values is Invalid!");
+							throw new RQException(mm.getMessage("error.invalidFieldValue"));
 						} else {
 							sets += " )";
 						}
 						if (fieldAll == null || fieldAll.trim().length() < 1) {
-							throw new RQException("Field Names of Values is Invalid!");
+							//throw new RQException("Field Names of Values is Invalid!");
+							throw new RQException(mm.getMessage("error.invalidField"));
 						} else {
 							fieldAll += " )";
 						}
@@ -4161,7 +4220,8 @@ public class DatabaseUtil {
 						if (opt.indexOf('i') > -1) {
 							if (initial) {
 								try {
-									Logger.debug("Insert-only, preparing insert records: "+insert_sql);
+									//Logger.debug("Insert-only, preparing insert records: "+insert_sql);
+									Logger.debug(mm.getMessage("info.insertOnly", insert_sql));
 									pst = con.prepareStatement(insert_sql);
 								} catch (SQLException e) {
 									if (dbs.getErrorMode()) {
@@ -4178,7 +4238,8 @@ public class DatabaseUtil {
 						} else if (opt.indexOf('u') > -1) {
 							if (initial) {
 								try {
-									Logger.debug("Update-only, preparing update records: "+update_sql);
+									//Logger.debug("Update-only, preparing update records: "+update_sql);
+									Logger.debug(mm.getMessage("info.updateOnly", update_sql));
 									pst = con.prepareStatement(update_sql);
 								} catch (SQLException e) {
 									if (dbs.getErrorMode()) {
@@ -4215,18 +4276,21 @@ public class DatabaseUtil {
 							}
 						}
 						if (updateRecords.length() > 0) {
-							Logger.debug("Auto update, preparing update records: "+update_sql);
+							//Logger.debug("Auto update, preparing update records: "+update_sql);
+							Logger.debug(mm.getMessage("info.autoUpdate", update_sql));
 							executeBatchSql(fetchSeq, update_sql, updateParams, updateTypes, ctx, dbs);
 						}
 						if (insertRecords.length() > 0) {
-							Logger.debug("Auto insert, preparing insert records: "+insert_sql);
+							//Logger.debug("Auto insert, preparing insert records: "+insert_sql);
+							Logger.debug(mm.getMessage("info.autoInsert", insert_sql));
 							executeBatchSql(fetchSeq, insert_sql, insertParams, insertTypes, ctx, dbs);
 						}
 					}
 
 					/* 改造如下逐行执行为批量执行 xq 2015.4.21 end */
 				} catch (RQException e) {
-					com.scudata.common.Logger.debug("update error:", e);
+					//com.scudata.common.Logger.debug("update error:", e);
+					Logger.debug(mm.getMessage("error.update", e.getMessage()));
 					if (dbs.getErrorMode()) {
 						dbs.setError(new SQLException(e.getMessage(), "Error: 5001 Update error: ", 5001));
 					}
@@ -4472,7 +4536,9 @@ public class DatabaseUtil {
 				keysize = keyCols.size();
 			}
 			if (keysize < 1) {
-				throw new RQException("update function can't find Key Columns.");
+				//throw new RQException("update function can't find Key Columns.");
+				MessageManager mm = DataSetMessage.get();
+				throw new RQException(mm.getMessage("error.invalidKey"));
 			}
 
 			Expression[] keyExps = null;
@@ -4498,7 +4564,9 @@ public class DatabaseUtil {
 				}
 			}
 			if (fieldAll == null || fieldAll.trim().length() < 1) {
-				throw new RQException("Field Names is Invalid!");
+				//throw new RQException("Field Names is Invalid!");
+				MessageManager mm = DataSetMessage.get();
+				throw new RQException(mm.getMessage("error.invalidField"));
 			}
 			fieldAll += ")";
 
@@ -4539,7 +4607,9 @@ public class DatabaseUtil {
 			try {
 				boolean clearAll = false;
 				if (opt != null && opt.indexOf("a") > -1) {
-					Logger.debug("Clear all the records from "+table);
+					//Logger.debug("Clear all the records from "+table);
+					MessageManager mm = DataSetMessage.get();
+					Logger.debug(mm.getMessage("info.clearTable", table));
 					String sql = "delete from " + addTilde(table, dbs);
 					st = con.createStatement();
 					st.execute(sql);
@@ -4691,7 +4761,9 @@ public class DatabaseUtil {
 				}
 				if (usets == null || usets.trim().length() < 1) {
 					if (fields == null || fields.length == 0) {
-						throw new RQException("Field Names of Values is Invalid!");
+						//throw new RQException("Field Names of Values is Invalid!");
+						MessageManager mm = DataSetMessage.get();
+						throw new RQException(mm.getMessage("error.invalidField"));
 					}
 					else {
 						// edited by bd, 2022.4.14, 如果用户只更新了主键值（其实是错误的，但是就给他更新一个主键就是了）
@@ -4709,10 +4781,14 @@ public class DatabaseUtil {
 							}
 						}
 						if (usets == null || usets.trim().length() < 1) {
-							throw new RQException("Field Names of Values is Invalid!");
+							//throw new RQException("Field Names of Values is Invalid!");
+							MessageManager mm = DataSetMessage.get();
+							throw new RQException(mm.getMessage("error.invalidFieldValue"));
 						}
 						else {
-							Logger.warn("No field value will be updated!");
+							//Logger.warn("No field value will be updated!");
+							MessageManager mm = DataSetMessage.get();
+							Logger.warn(mm.getMessage("info.noUpdateField"));
 						}
 					}
 				}
@@ -4739,12 +4815,16 @@ public class DatabaseUtil {
 					}
 				}
 				if (sets == null || sets.trim().length() < 1) {
-					throw new RQException("Field Values of Values is Invalid!");
+					//throw new RQException("Field Values of Values is Invalid!");
+					MessageManager mm = DataSetMessage.get();
+					throw new RQException(mm.getMessage("error.invalidFieldValue"));
 				} else {
 					sets += " )";
 				}
 				if (fieldAll == null || fieldAll.trim().length() < 1) {
-					throw new RQException("Field Names of Values is Invalid!");
+					//throw new RQException("Field Names of Values is Invalid!");
+					MessageManager mm = DataSetMessage.get();
+					throw new RQException(mm.getMessage("error.invalidField"));
 				} else {
 					fieldAll += " )";
 				}
@@ -4768,7 +4848,9 @@ public class DatabaseUtil {
 				boolean isAutoDetect = true;
 				if (opt != null) {// 没有选项时，使用自动判断记录的插入或更新
 					if (opt.indexOf('d') > -1 && !clearAll) {
-						Logger.debug("Delete-only, preparing delete records: "+delete_sql);
+						//Logger.debug("Delete-only, preparing delete records: "+delete_sql);
+						MessageManager mm = DataSetMessage.get();
+						Logger.debug(mm.getMessage("info.deleteOnly"));
 						Expression[] keysFields = new Expression[primaryFields.size()];
 						primaryFields.toArray(keysFields);
 						// edited by bd, 2022.4.15, 删除时，主键如果为null，那判断时无法使用F=?，需要使用F is null，为此，需要把remainSeq中，主键为null的记录拆出来单独执行
@@ -4777,7 +4859,9 @@ public class DatabaseUtil {
 						isAutoDetect = false;
 					} else if (opt.indexOf('i') > -1) {
 						if (compSeq != null && compSeq.length() > 0) {
-							Logger.debug("Insert only, preparing insert new-records: "+insert_sql);
+							//Logger.debug("Insert only, preparing insert new-records: "+insert_sql);
+							MessageManager mm = DataSetMessage.get();
+							Logger.debug(mm.getMessage("info.insertOnly"));
 							Expression[] keysParam = new Expression[primaryParams.size()];
 							primaryParams.toArray(keysParam);
 							Expression[] keysFields = new Expression[primaryFields.size()];
@@ -4789,14 +4873,18 @@ public class DatabaseUtil {
 									insertTypes, ctx, dbs, con, dbCharset, tranSQL, dbType, dbName, batchSize);
 							srcSeq.setMems(oldMems);
 						} else {
-							Logger.debug("Insert-Only, preparing insert records: "+insert_sql);
+							//Logger.debug("Insert-Only, preparing insert records: "+insert_sql);
+							MessageManager mm = DataSetMessage.get();
+							Logger.debug(mm.getMessage("info.insertOnly"));
 							executeBatchSql(srcSeq, insert_sql, insertParams, insertTypes, ctx, dbs, con, dbCharset,
 									tranSQL, dbType, dbName, batchSize);
 						}
 						isAutoDetect = false;
 					} else if (opt.indexOf('u') > -1) {
 						if (compSeq != null && compSeq.length() > 0) {
-							Logger.debug("Update-only, update changed-records: "+update_sql);
+							//Logger.debug("Update-only, update changed-records: "+update_sql);
+							MessageManager mm = DataSetMessage.get();
+							Logger.debug(mm.getMessage("info.updateOnly"));
 							Expression[] keysParam = new Expression[primaryParams.size()];
 							primaryParams.toArray(keysParam);
 							Expression[] keysFields = new Expression[primaryFields.size()];
@@ -4820,14 +4908,18 @@ public class DatabaseUtil {
 						if (!clearAll) {
 							Expression[] keysFields = new Expression[primaryFields.size()];
 							primaryFields.toArray(keysFields);
-							Logger.debug("Auto delete, preparing delete lost-records: "+delete_sql);
+							//Logger.debug("Auto delete, preparing delete lost-records: "+delete_sql);
+							MessageManager mm = DataSetMessage.get();
+							Logger.debug(mm.getMessage("info.autoDelete"));
 							//edited by bd, 2022.4.15, @u选项时，根据最后keysize个位置的空值设置更新语句
 							executeDifferBatch(srcSeq, compSeq, delete_sql, primaryFields, primaryParams, primaryTypes, ctx, dbs, con,
 									dbCharset, tranSQL, dbType, dbName, batchSize, de_sqls, nullKeys, keysize);
 						}
 						Expression[] keysParam = new Expression[primaryParams.size()];
 						primaryParams.toArray(keysParam);
-						Logger.debug("Auto insert, preparing insert new-records: "+insert_sql);
+						//Logger.debug("Auto insert, preparing insert new-records: "+insert_sql);
+						MessageManager mm = DataSetMessage.get();
+						Logger.debug(mm.getMessage("info.autoInsert"));
 						Expression[] keysFields = new Expression[primaryFields.size()];
 						primaryFields.toArray(keysFields);
 						Sequence insertSeq = diffSequence(srcSeq, compSeq, keysParam, keysFields, ctx);
@@ -4837,6 +4929,7 @@ public class DatabaseUtil {
 								insertTypes, ctx, dbs, con, dbCharset, tranSQL, dbType, dbName, batchSize);
 						srcSeq.setMems(oldMems);
 						Logger.debug("Auto update, preparing update changed-records: "+update_sql);
+						Logger.debug(mm.getMessage("info.autoUpdate"));
 						Sequence remainSeq = mergeDiffSequence(srcSeq, insertSeq, null, ctx);
 						// edited by bd, 2022.4.14, 更新时，主键如果为null，那判断时无法使用F=?，需要使用F is null，为此，需要把remainSeq中，主键为null的记录拆出来单独执行
 						srcSeq.setMems(remainSeq.getMems());
@@ -4863,14 +4956,18 @@ public class DatabaseUtil {
 							}
 						}
 						if (updateRecords.length() > 0) {
-							Logger.debug("Auto update, preparing update records: "+update_sql);
+							//Logger.debug("Auto update, preparing update records: "+update_sql);
+							MessageManager mm = DataSetMessage.get();
+							Logger.debug(mm.getMessage("info.autoUpdate"));
 							//executeBatchSql(updateRecords, update_sql, updateParams, updateTypes, ctx, dbs, con,
 							//		dbCharset, tranSQL, dbType, dbName, batchSize);
 							executeDifferBatch(null, updateRecords, update_sql, updateParams, updateFields, updateTypes, ctx, dbs, con,
 									dbCharset, tranSQL, dbType, dbName, batchSize, up_sqls, nullKeys, keysize);
 						}
 						if (insertRecords.length() > 0) {
-							Logger.debug("Auto insert, preparing insert records: "+update_sql);
+							//Logger.debug("Auto insert, preparing insert records: "+update_sql);
+							MessageManager mm = DataSetMessage.get();
+							Logger.debug(mm.getMessage("info.autoInsert"));
 							executeBatchSql(insertRecords, insert_sql, insertParams, insertTypes, ctx, dbs, con,
 									dbCharset, tranSQL, dbType, dbName, batchSize);
 						}
@@ -4879,7 +4976,9 @@ public class DatabaseUtil {
 
 				/* 改造如下逐行执行为批量执行 xq 2015.4.21 end */
 			} catch (RQException e) {
-				com.scudata.common.Logger.debug("update error:", e);
+				//com.scudata.common.Logger.debug("update error:", e);
+				MessageManager mm = DataSetMessage.get();
+				Logger.debug(mm.getMessage("error.update", e.getMessage()));
 				if (dbs.getErrorMode()) {
 					dbs.setError(new SQLException(e.getMessage(), "Error: 5001 Update error: ", 5001));
 				}
@@ -5145,7 +5244,9 @@ public class DatabaseUtil {
 				}
 			}
 			if (fieldAll == null || fieldAll.trim().length() < 1) {
-				throw new RQException("Field Names is Invalid!");
+				//throw new RQException("Field Names is Invalid!");
+				MessageManager mm = DataSetMessage.get();
+				throw new RQException(mm.getMessage("error.invalidField"));
 			}
 			fieldAll += ")";
 			if (dsConfig != null) {
@@ -5189,7 +5290,9 @@ public class DatabaseUtil {
 			}
 			try {
 				if (oClear) {
-					Logger.debug("Clear all the records from table +"+table);
+					//Logger.debug("Clear all the records from table +"+table);
+					MessageManager mm = DataSetMessage.get();
+					Logger.debug(mm.getMessage("info.clearTable", table));
 					String sql = "delete from " + addTilde(table, dbs);
 					st = con.createStatement();
 					st.execute(sql);
@@ -5260,7 +5363,9 @@ public class DatabaseUtil {
 					}
 				}
 				if (sets == null || sets.trim().length() < 1) {
-					throw new RQException("Field Names of Values is Invalid!");
+					//throw new RQException("Field Names of Values is Invalid!");
+					MessageManager mm = DataSetMessage.get();
+					throw new RQException(mm.getMessage("error.invalidField", table));
 				}
 				update_sql = "update " + addTilde(table, dbs) + " set " + sets + " where " + condition;
 				sets = null;
@@ -5280,12 +5385,16 @@ public class DatabaseUtil {
 					}
 				}
 				if (sets == null || sets.trim().length() < 1) {
-					throw new RQException("Field Values of Values is Invalid!");
+					//throw new RQException("Field Values of Values is Invalid!");
+					MessageManager mm = DataSetMessage.get();
+					throw new RQException(mm.getMessage("error.invalidFieldValue", table));
 				} else {
 					sets += " )";
 				}
 				if (fieldAll == null || fieldAll.trim().length() < 1) {
-					throw new RQException("Field Names of Values is Invalid!");
+					//throw new RQException("Field Names of Values is Invalid!");
+					MessageManager mm = DataSetMessage.get();
+					throw new RQException(mm.getMessage("error.invalidField", table));
 				} else {
 					fieldAll += " )";
 				}
@@ -5301,11 +5410,15 @@ public class DatabaseUtil {
 				boolean isAutoDetect = true;
 				if (opt != null) {// 没有选项时，使用自动判断记录的插入或更新
 					if (oClear || oInsert) {// 强制对每条记录执行insert，合法性由程序员保证，通常会配上a，先执行删除
-						Logger.debug("Insert-only, preparing insert records: "+insert_sql);
+						//Logger.debug("Insert-only, preparing insert records: "+insert_sql);
+						MessageManager mm = DataSetMessage.get();
+						Logger.debug(mm.getMessage("info.insertOnly", table));
 						executeBatchSql(srcSeries, insert_sql, insertParams, insertTypes, ctx, dbs);
 						isAutoDetect = false;
 					} else if (opt.indexOf('u') > -1) {// 强制对每条记录执行update，合法性由程序员保证
-						Logger.debug("Update-only, preparing update records: "+update_sql);
+						//Logger.debug("Update-only, preparing update records: "+update_sql);
+						MessageManager mm = DataSetMessage.get();
+						Logger.debug(mm.getMessage("info.updateOnly", table));
 						executeBatchSql(srcSeries, update_sql, updateParams, updateTypes, ctx, dbs);
 						isAutoDetect = false;
 					}
@@ -5329,18 +5442,24 @@ public class DatabaseUtil {
 						}
 					}
 					if (updateRecords.length() > 0) {
-						Logger.debug("Auto update, preparing update records: "+update_sql);
+						//Logger.debug("Auto update, preparing update records: "+update_sql);
+						MessageManager mm = DataSetMessage.get();
+						Logger.debug(mm.getMessage("info.updateOnly", table));
 						executeBatchSql(updateRecords, update_sql, updateParams, updateTypes, ctx, dbs);
 					}
 					if (insertRecords.length() > 0) {
-						Logger.debug("Auto insert, preparing insert records: "+insert_sql);
+						//Logger.debug("Auto insert, preparing insert records: "+insert_sql);
+						MessageManager mm = DataSetMessage.get();
+						Logger.debug(mm.getMessage("info.insertOnly", table));
 						executeBatchSql(insertRecords, insert_sql, insertParams, insertTypes, ctx, dbs);
 					}
 				}
 
 				// 改造如下逐行执行为批量执行 xq 2015.4.21 end 
 			} catch (RQException e) {
-				com.scudata.common.Logger.debug("update error:", e);
+				//com.scudata.common.Logger.debug("update error:", e);
+				MessageManager mm = DataSetMessage.get();
+				Logger.debug(mm.getMessage("error.update", e.getMessage()));
 				if (dbs.getErrorMode()) {
 					dbs.setError(new SQLException(e.getMessage(), "Error: 5001 Update error: ", 5001));
 				}
