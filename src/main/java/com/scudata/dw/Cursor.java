@@ -1992,7 +1992,7 @@ public class Cursor extends IDWCursor {
 						}
 					}
 					
-					if (curBlock == endBlock) {
+					if (curBlock == endBlock && endBlock == table.getDataBlockCount()) {
 						for (; mindex < mcount; ++mindex) {
 							// 可能存在内存追加的记录在补区
 							mr = modifyRecords.get(mindex);
@@ -2176,7 +2176,7 @@ public class Cursor extends IDWCursor {
 						}
 					}
 					
-					if (curBlock == endBlock) {
+					if (curBlock == endBlock && endBlock == table.getDataBlockCount()) {
 						for (; mindex < mcount; ++mindex) {
 							// 可能存在内存追加的记录在补区
 							mr = modifyRecords.get(mindex);
@@ -2394,7 +2394,7 @@ public class Cursor extends IDWCursor {
 						}
 					}
 					
-					if (curBlock == endBlock) {
+					if (curBlock == endBlock && endBlock == table.getDataBlockCount()) {
 						for (; mindex < mcount; ++mindex) {
 							// 可能存在内存追加的记录在补区
 							mr = modifyRecords.get(mindex);
@@ -2637,7 +2637,7 @@ public class Cursor extends IDWCursor {
 						}
 					}
 					
-					if (curBlock == endBlock) {
+					if (curBlock == endBlock && endBlock == table.getDataBlockCount()) {
 						for (; mindex < mcount; ++mindex) {
 							// 可能存在内存追加的记录在补区
 							mr = modifyRecords.get(mindex);
@@ -2953,6 +2953,10 @@ public class Cursor extends IDWCursor {
 
 	public void setCurBlock(int curBlock) {
 		this.curBlock = curBlock;
+	}
+	
+	public int getStartBlock() {
+		return startBlock;
 	}
 
 	public int getEndBlock() {

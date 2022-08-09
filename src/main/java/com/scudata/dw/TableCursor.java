@@ -103,6 +103,18 @@ public class TableCursor extends IDWCursor {
 	public void setFilters(IFilter[] filters) {
 		this.filters = filters;
 	}
+
+	public int getStartBlock() {
+		return startBlock;
+	}
+
+	public int getEndBlock() {
+		return endBlock;
+	}
+
+	public void setEndBlock(int endBlock) {
+		this.endBlock = endBlock;
+	}
 	
 	/**
 	 * 设置分段startBlock包含，endBlock不包含

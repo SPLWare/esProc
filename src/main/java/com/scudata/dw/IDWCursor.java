@@ -9,4 +9,9 @@ public abstract class IDWCursor extends ICursor {
 	abstract public TableMetaData getTableMetaData();
 	abstract protected Sequence get(int n);
 	abstract public void setCache(Sequence cache);
+	
+	abstract public int getStartBlock();
+	abstract public int getEndBlock();
+	abstract public void setEndBlock(int endBlock);
+	
 }

@@ -560,6 +560,18 @@ public class JoinTableCursor extends IDWCursor{
 		return table;
 	}
 	
+	public int getStartBlock() {
+		return startBlock;
+	}
+
+	public int getEndBlock() {
+		return endBlock;
+	}
+
+	public void setEndBlock(int endBlock) {
+		this.endBlock = endBlock;
+	}
+	
 	/**
 	 * 设置分段信息
 	 */

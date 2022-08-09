@@ -1858,56 +1858,68 @@ public class ColumnTableMetaData extends TableMetaData {
 		return cursor;
 	}
 	
-	
 	public static Sequence fetchToValue(IDWCursor cursor, String []names, Object []vals) {
-		Sequence seq = cursor.get(ICursor.FETCHCOUNT);
-		if (seq == null || seq.length() == 0) return null;
+		// 只取第一块的记录，如果第一块没有满足条件的就返回
+		int startBlock = cursor.getStartBlock();
+		int endBlock = cursor.getEndBlock();
 		
-		int fcount = names.length;
-		int []findex = new int[fcount];
-		DataStruct ds = ((Record)seq.getMem(1)).dataStruct();
-		for (int f = 0; f < fcount; ++f) {
-			findex[f] = ds.getFieldIndex(names[f]);
-			if (findex[f] == -1) {
-				MessageManager mm = EngineMessage.get();
-				throw new RQException(names[f] + mm.getMessage("ds.fieldNotExist"));
+		try {
+			cursor.setEndBlock(startBlock + 1);
+			Sequence seq = cursor.get(ICursor.FETCHCOUNT);
+			if (seq == null || seq.length() == 0) {
+				return null;
 			}
-		}
-		
-		Sequence result = null;
-		Object []curVals = new Object[fcount];
-		
-		while (true) {
-			int len = seq.length();
-			for (int i = 1; i <= len; ++i) {
-				Record r = (Record)seq.getMem(i);
-				for (int f = 0; f < fcount; ++f) {
-					curVals[f] = r.getNormalFieldValue(findex[f]);
+			
+			int fcount = names.length;
+			int []findex = new int[fcount];
+			DataStruct ds = ((Record)seq.getMem(1)).dataStruct();
+			for (int f = 0; f < fcount; ++f) {
+				findex[f] = ds.getFieldIndex(names[f]);
+				if (findex[f] == -1) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException(names[f] + mm.getMessage("ds.fieldNotExist"));
+				}
+			}
+			
+			Sequence result = null;
+			Object []curVals = new Object[fcount];
+			
+			while (true) {
+				int len = seq.length();
+				for (int i = 1; i <= len; ++i) {
+					Record r = (Record)seq.getMem(i);
+					for (int f = 0; f < fcount; ++f) {
+						curVals[f] = r.getNormalFieldValue(findex[f]);
+					}
+					
+					if (Variant.compareArrays(curVals, vals) >= 0) {
+						if (i == 1) {
+							cursor.setCache(seq);
+							return result;
+						} else if (result == null) {
+							cursor.setCache(seq.split(i));
+							result = seq;
+						} else {
+							cursor.setCache(seq.split(i));
+							result.addAll(seq);
+						}
+						return result;
+					}
 				}
 				
-				if (Variant.compareArrays(curVals, vals) >= 0) {
-					if (i == 1) {
-						cursor.setCache(seq);
-						return result;
-					} else if (result == null) {
-						cursor.setCache(seq.split(i));
-						result = seq;
-					} else {
-						cursor.setCache(seq.split(i));
-						result.addAll(seq);
-					}
+				if (result == null) {
+					result = seq;
+				} else {
+					result.addAll(seq);
+				}
+				
+				seq = cursor.get(ICursor.FETCHCOUNT);
+				if (seq == null || seq.length() == 0) {
 					return result;
 				}
 			}
-			
-			if (result == null) {
-				result = seq;
-			} else {
-				result.addAll(seq);
-			}
-			
-			seq = cursor.get(ICursor.FETCHCOUNT);
-			if (seq == null || seq.length() == 0) return result;
+		} finally {
+			cursor.setEndBlock(endBlock);
 		}
 	}
 	
