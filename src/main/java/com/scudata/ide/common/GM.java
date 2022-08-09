@@ -3796,6 +3796,7 @@ public class GM {
 	 * @return
 	 */
 	public static String getPartOfSql(String sql, String part) {
+		sql = removeSqlNote(sql);
 		Object fromObj = com.scudata.dm.sql.SQLUtil.parse(sql, part);
 		if (fromObj == null) // null转为空串，方便IDE拼SQL
 			return "";
@@ -3823,6 +3824,17 @@ public class GM {
 	 * @return
 	 */
 	public static String modifySql(String sql, String replace, String part) {
+		sql = removeSqlNote(sql);
 		return com.scudata.dm.sql.SQLUtil.replace(sql, replace, part);
+	}
+
+	/**
+	 * 使用正则表达式去除SQL注释
+	 */
+	public static String removeSqlNote(String sql) {
+		if (sql == null)
+			return null;
+		sql = sql.replaceAll("(/\\*.*?\\*/)|(--.*)", "");
+		return sql;
 	}
 }
