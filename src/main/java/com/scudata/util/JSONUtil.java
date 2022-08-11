@@ -67,7 +67,7 @@ public final class JSONUtil {
 	 * @param end 值的结束位置，包含
 	 * @return Sequence
 	 */
-	private static Sequence parseSequence(char []chars, int start, int end) {
+	private static Sequence parseSequence(char []chars, int start, int end, String opt) {
 		// 跳过前面的空白
 		for (; start <= end && Character.isWhitespace(chars[start]); ++start) {
 		}
@@ -76,11 +76,11 @@ public final class JSONUtil {
 		while (start <= end) {
 			int index = indexOf(chars, start, end, ',');
 			if (index < 0) {
-				Object value = parseJSON(chars, start, end);
+				Object value = parseJSON(chars, start, end, opt);
 				sequence.add(value);
 				break;
 			} else {
-				Object value = parseJSON(chars, start, index - 1);
+				Object value = parseJSON(chars, start, index - 1, opt);
 				sequence.add(value);
 				
 				// 跳过逗号后的空白
@@ -94,10 +94,12 @@ public final class JSONUtil {
 			}
 		}
 		
-		DataStruct ds = sequence.dataStruct();
-		if (ds == null) {
+		if (!sequence.isPmt()) {
 			return sequence;
-		} else {
+		}
+		
+		DataStruct ds = sequence.dataStruct();
+		if (ds != null) {
 			// 如果是纯排列则转为序表
 			int len = sequence.length();
 			Table table = new Table(ds, len);
@@ -109,6 +111,43 @@ public final class JSONUtil {
 			}
 			
 			return table;
+		} else if (opt != null && opt.indexOf('t') != -1) {
+			// 不纯的结构进行对齐
+			ArrayList<String> nameList = new ArrayList<String>();
+			int len = sequence.length();
+			for (int i = 1; i <= len; ++i) {
+				Record r = (Record)sequence.getMem(i);
+				if (r != null) {
+					String []names = r.getFieldNames();
+					for (String name : names) {
+						if (!nameList.contains(name)) {
+							nameList.add(name);
+						}
+					}
+				}
+			}
+			
+			String []names = new String[nameList.size()];
+			nameList.toArray(names);
+			ds = new DataStruct(names);
+			Table table = new Table(ds, len);
+			
+			for (int i = 1; i <= len; ++i) {
+				Record nr = table.newLast();
+				Record r = (Record)sequence.getMem(i);
+				if (r != null) {
+					int f = 0;
+					names = r.getFieldNames();
+					for (String name : names) {
+						int nf = ds.getFieldIndex(name);
+						nr.setNormalFieldValue(nf, r.getNormalFieldValue(f++));
+					}
+				}
+			}
+			
+			return table;
+		} else {
+			return sequence;
 		}
 	}
 	
@@ -119,7 +158,7 @@ public final class JSONUtil {
 	 * @param end 值的结束位置，包含
 	 * @return Record
 	 */
-	private static Record parseRecord(char []chars, int start, int end) {
+	private static Record parseRecord(char []chars, int start, int end, String opt) {
 		if (start > end) {
 			return null;
 		}
@@ -143,11 +182,11 @@ public final class JSONUtil {
 			index = indexOf(chars, start, end, ',');
 			
 			if (index < 0) {
-				Object value = parseJSON(chars, start, end);
+				Object value = parseJSON(chars, start, end, opt);
 				valueList.add(value);
 				break;
 			} else {
-				Object value = parseJSON(chars, start, index - 1);
+				Object value = parseJSON(chars, start, index - 1, opt);
 				valueList.add(value);
 				start = index + 1;
 			}
@@ -167,9 +206,10 @@ public final class JSONUtil {
 	 * @param chars [{F:v,…},…]
 	 * @param start
 	 * @param end
+	 * @param opt t：排列结构不纯时将对齐成序表
 	 * @return
 	 */
-	public static Object parseJSON(char []chars, int start, int end) {
+	public static Object parseJSON(char []chars, int start, int end, String opt) {
 		for (; start <= end && Character.isWhitespace(chars[end]); --end){
 		}
 		
@@ -177,13 +217,13 @@ public final class JSONUtil {
 			char c = chars[start];
 			if (c == '[') {
 				if (chars[end] == ']') {
-					return parseSequence(chars, start + 1, end - 1);
+					return parseSequence(chars, start + 1, end - 1, opt);
 				} else {
 					return null;
 				}
 			} else if (c == '{') {
 				if (chars[end] == '}') {
-					return parseRecord(chars, start + 1, end - 1);
+					return parseRecord(chars, start + 1, end - 1, opt);
 				} else {
 					return null;
 				}
@@ -194,6 +234,17 @@ public final class JSONUtil {
 		}
 		
 		return null;
+	}
+	
+	/**
+	 * 解析json格式字符串，如果中括号或花括号不匹配则返回null
+	 * @param chars [{F:v,…},…]
+	 * @param start
+	 * @param end
+	 * @return
+	 */
+	public static Object parseJSON(char []chars, int start, int end) {
+		return parseJSON(chars, start, end, null);
 	}
 	
 	public static void toJSON(Object obj, StringBuffer sb) {

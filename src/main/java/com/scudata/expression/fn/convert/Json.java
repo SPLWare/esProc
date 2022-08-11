@@ -28,7 +28,7 @@ public class Json extends Function {
 		} else if (val instanceof String) {
 			if (option == null || option.indexOf('v') == -1) {
 				char[] chars = ((String)val).toCharArray();
-				return JSONUtil.parseJSON(chars, 0, chars.length - 1);
+				return JSONUtil.parseJSON(chars, 0, chars.length - 1, option);
 			} else {
 				Expression exp = new Expression(cs, ctx, (String)val);
 				return exp.calculate(ctx);
