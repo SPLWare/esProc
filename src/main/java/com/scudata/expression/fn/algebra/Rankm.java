@@ -31,7 +31,7 @@ public class Rankm extends Function{
 			return A.rank();
 		} else {
 			MessageManager mm = EngineMessage.get();
-			throw new RQException("rankmg" + mm.getMessage("function.invalidParam"));
+			throw new RQException("rankm" + mm.getMessage("function.invalidParam"));
 		}
 	}
 }

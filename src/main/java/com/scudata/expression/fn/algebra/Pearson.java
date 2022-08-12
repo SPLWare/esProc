@@ -17,6 +17,8 @@ public class Pearson extends Function {
 	public Object calculate(Context ctx) {
 		//先判断有没有分号后的参数
 		int setn = 0;
+		//edited by bd, 2022.8.12
+		IParam par = param;
 		if (param != null && param.getType() == IParam.Semicolon) {
 			if (param.getSubSize() != 2) {
 				MessageManager mm = EngineMessage.get();
@@ -33,28 +35,28 @@ public class Pearson extends Function {
 
 				setn = ((Number) obj).intValue();
 			}
-			param = param.getSub(0);
+			par = param.getSub(0);
 		}
 		
 		Object o1 = null, o2 = null;
-		if (param == null) {
+		if (par == null) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("pearson" + mm.getMessage("function.missingParam"));
-		} else if (param.isLeaf()) {
-			o1 = param.getLeafExpression().calculate(ctx);
+		} else if (par.isLeaf()) {
+			o1 = par.getLeafExpression().calculate(ctx);
 			if (o1 instanceof Sequence) {
 			} else {
 				MessageManager mm = EngineMessage.get();
 				throw new RQException("pearson" + mm.getMessage("function.paramTypeError"));
 			}
 		} else {
-			if (param.getSubSize() != 2) {
+			if (par.getSubSize() != 2) {
 				MessageManager mm = EngineMessage.get();
 				throw new RQException("pearson" + mm.getMessage("function.invalidParam"));
 			}
 
-			IParam sub1 = param.getSub(0);
-			IParam sub2 = param.getSub(1);
+			IParam sub1 = par.getSub(0);
+			IParam sub2 = par.getSub(1);
 			if (sub1 == null) {
 				MessageManager mm = EngineMessage.get();
 				throw new RQException("pearson" + mm.getMessage("function.invalidParam"));
