@@ -100,6 +100,10 @@ public class PseudoJoinx extends Pseudo {
 		return cursor;
 	}
 
+	public ICursor cursor(Expression []exps, String []names, boolean isColumn) {
+		return cursor(exps, names);
+	}
+	
 	public boolean isColumn(String col) {
 		throw new RQException("never run to here");
 	}

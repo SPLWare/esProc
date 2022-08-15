@@ -173,6 +173,10 @@ public class PseudoNews extends Pseudo implements Operable, IPseudo {
 		}
 	}
 	
+	public ICursor cursor(Expression []exps, String []names, boolean isColumn) {
+		return cursor(exps, names);
+	}
+	
 	public Object clone(Context ctx) throws CloneNotSupportedException {
 		PseudoNews obj = new PseudoNews();
 		cloneField(obj);

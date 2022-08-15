@@ -170,6 +170,10 @@ public class PseudoDerive extends Pseudo implements Operable, IPseudo {
 		}
 	}
 	
+	public ICursor cursor(Expression []exps, String []names, boolean isColumn) {
+		return cursor(exps, names);
+	}
+	
 	public Object clone(Context ctx) throws CloneNotSupportedException {
 		PseudoDerive obj = new PseudoDerive();
 		cloneField(obj);
