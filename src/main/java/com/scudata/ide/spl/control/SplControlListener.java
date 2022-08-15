@@ -169,7 +169,7 @@ public class SplControlListener implements EditorListener {
 		CellSet ics = control.cellSet;
 		float w = control.getContentPanel().getEditableWidth(newText, row, col);
 		float h = ics.getRowCell(row).getHeight();
-		float textH = ControlUtils.getStringHeight(newText, w, GC.font) + 10;
+		float textH = ControlUtils.getStringHeight(newText, w, GC.font) + 7;
 		if (h < textH) {
 			AtomicCell rac = new AtomicCell(control, ics.getRowCell(row));
 			rac.setProperty(AtomicCell.ROW_HEIGHT);
