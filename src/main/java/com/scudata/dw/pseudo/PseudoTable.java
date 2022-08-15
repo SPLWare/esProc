@@ -975,6 +975,8 @@ public class PseudoTable extends Pseudo {
 			Expression exp;
 			if (op instanceof Select) {
 				exp = ((Select) op).getFilterExpression();
+			} else if (op instanceof New) {
+				return super.addOperation(op, ctx);
 			} else {
 				exp = op.getFunction().getParam().getLeafExpression();
 			}
