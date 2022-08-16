@@ -939,8 +939,12 @@ public class PseudoTable extends Pseudo {
 				}
 				
 				//判断是否是对伪字段进行contain运算
-				UnknownSymbol un = (UnknownSymbol) param.getLeafExpression().getHome();
-				PseudoColumn col = getPd().findColumnByPseudoName(un.getName());
+				PseudoColumn col = null;
+				Node containNode = param.getLeafExpression().getHome();
+				if (containNode instanceof UnknownSymbol) {
+					UnknownSymbol un = (UnknownSymbol) param.getLeafExpression().getHome();
+					col = getPd().findColumnByPseudoName(un.getName());
+				}
 				if (col != null && col.get_enum() != null) {
 					Object val = node.getLeft().calculate(ctx);
 					if (val instanceof Sequence) {
