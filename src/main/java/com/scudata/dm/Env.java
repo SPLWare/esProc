@@ -30,8 +30,8 @@ public class Env {
 	private static String[] paths; // dfx搜索目录
 	private static String defCharsetName = System.getProperty("file.encoding"); // "GBK"
 																				// UTF-8
-	private static String localHost;
-	private static int localPort;
+	//private static String localHost;
+	//private static int localPort;
 	private static int parallel = (Runtime.getRuntime().availableProcessors()+1)/2;
 	private static int csParallel = (Runtime.getRuntime().availableProcessors()+1)/2;
 
@@ -383,48 +383,6 @@ public class Env {
 	 */
 	public static Comparator<String> getCollator() {
 		return unicodeCollator;
-	}
-
-	/**
-	 * 设置本机IP
-	 * 
-	 * @param host String
-	 */
-	public static void setLocalHost(String host) {
-		if (host == null) {
-			localHost = null;
-		} else {
-			localHost = host.trim();
-			if (localHost.length() == 0)
-				localHost = null;
-		}
-	}
-
-	/**
-	 * 取本机端口
-	 * 
-	 * @return String
-	 */
-	public static String getLocalHost() {
-		return localHost;
-	}
-
-	/**
-	 * 设置本机端口
-	 * 
-	 * @param port int
-	 */
-	public static void setLocalPort(int port) {
-		localPort = port;
-	}
-
-	/**
-	 * 取本机端口
-	 * 
-	 * @return int
-	 */
-	public static int getLocalPort() {
-		return localPort;
 	}
 
 	/**

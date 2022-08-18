@@ -178,8 +178,8 @@ public class FileObject implements Externalizable {
 			this.fileName = name.substring(index2 + 1);
 		} else {
 			this.fileName = name;
-			this.ip = Env.getLocalHost();
-			this.port = Env.getLocalPort();
+			//this.ip = Env.getLocalHost();
+			//this.port = Env.getLocalPort();
 		}
 	}
 
@@ -1165,7 +1165,8 @@ public class FileObject implements Externalizable {
 			return file;
 		}
 
-		if (ip == null || (ip.equals(Env.getLocalHost()) && port == Env.getLocalPort())) {
+		//if (ip == null || (ip.equals(Env.getLocalHost()) && port == Env.getLocalPort())) {
+		if (ip == null) {
 			if (partition == null) {
 				file = new LocalFile(fileName, opt, ctx);
 			} else {
@@ -1191,7 +1192,7 @@ public class FileObject implements Externalizable {
 	 * @return true：是远程文件，false：不是远程文件
 	 */
 	public boolean isRemoteFile() {
-		return ip != null && !(ip.equals(Env.getLocalHost()) && port == Env.getLocalPort());
+		return ip != null;// && !(ip.equals(Env.getLocalHost()) && port == Env.getLocalPort());
 	}
 	
 	/**
