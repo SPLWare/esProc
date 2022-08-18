@@ -71,9 +71,6 @@ public class PartitionUtil {
 			throw new RQException("hosts is null");
 		FileObject fo = new FileObject(file);
 		fo.setPartition(z);
-		if (fo.isExists()) {//优先本地
-			return fo;
-		}
 
 		if(mcs.size()==1){
 			String host = mcs.getHost(0);
@@ -81,6 +78,8 @@ public class PartitionUtil {
 			fo = new FileObject(file, host, port);
 			fo.setPartition(z);
 			fo.setRemoteFileWritable();//仅指定唯一分机时，设置远程文件可写
+			return fo;
+		}else if (fo.isExists()) {//多个hs时，优先本地
 			return fo;
 		}
 		

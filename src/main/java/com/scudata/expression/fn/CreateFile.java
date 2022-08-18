@@ -163,7 +163,7 @@ public class CreateFile extends Function {
 			} else {
 				fo = PartitionUtil.locate(mc, pathName, part);
 				fo.setCharset(cs);
-				fo.setOption(option);
+//				fo.setOption(option);//远程文件不支持选项 2022年8月18日
 				fo.setContext(ctx);//xq add， 记录当前的上下文，里面要使用spaceID
 			}
 		} else {

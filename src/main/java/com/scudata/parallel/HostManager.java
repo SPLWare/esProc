@@ -49,7 +49,7 @@ public class HostManager {
 	 */
 	public void setHost(String ip) {
 		host = ip;
-		Env.setLocalHost(ip);
+//		Env.setLocalHost(ip);
 	}
 
 	/**
@@ -66,7 +66,7 @@ public class HostManager {
 	 */
 	public void setPort(int p) {
 		port = p;
-		Env.setLocalPort(p);
+//		Env.setLocalPort(p);
 	}
 
 	/**
