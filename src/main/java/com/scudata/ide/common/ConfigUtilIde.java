@@ -34,7 +34,8 @@ public class ConfigUtilIde {
 	/**
 	 * Configuration file name of the Unit
 	 */
-	public static final String UNIT_CONFIG_FILE = GC.PATH_CONFIG + "/" + UnitContext.UNIT_XML;
+	public static final String UNIT_CONFIG_FILE = GC.PATH_CONFIG + "/"
+			+ UnitContext.UNIT_XML;
 
 	/**
 	 * Set the data source name to Task
@@ -79,7 +80,8 @@ public class ConfigUtilIde {
 		String filePath = GM.getAbsolutePath(CONFIG_FILE);
 		File f = new File(filePath);
 		if (f.exists() && !f.canWrite()) {
-			String msg = IdeCommonMessage.get().getMessage("public.readonly", f.getName());
+			String msg = IdeCommonMessage.get().getMessage("public.readonly",
+					f.getName());
 			throw new RQException(msg);
 		}
 		if (GV.config == null)
@@ -118,7 +120,8 @@ public class ConfigUtilIde {
 		String filePath = GM.getAbsolutePath(UNIT_CONFIG_FILE);
 		File f = new File(filePath);
 		if (f.exists() && !f.canWrite()) {
-			String msg = IdeCommonMessage.get().getMessage("public.readonly", f.getName());
+			String msg = IdeCommonMessage.get().getMessage("public.readonly",
+					f.getName());
 			// Logger.debug(msg);
 			// return false;
 			throw new RQException(msg);
@@ -134,7 +137,8 @@ public class ConfigUtilIde {
 	 * @param config
 	 * @throws Exception
 	 */
-	public static void writeUnitConfig(String filePath, UnitConfig config) throws Exception {
+	public static void writeUnitConfig(String filePath, UnitConfig config)
+			throws Exception {
 		FileOutputStream fos = null;
 		BufferedOutputStream bos = null;
 		try {
@@ -158,7 +162,8 @@ public class ConfigUtilIde {
 	 * @return
 	 * @throws IOException
 	 */
-	public static RaqsoftConfig loadConfig(boolean setLogLevel) throws IOException {
+	public static RaqsoftConfig loadConfig(boolean setLogLevel)
+			throws IOException {
 		return loadConfig(System.getProperty("start.home"), setLogLevel);
 	}
 
@@ -170,7 +175,8 @@ public class ConfigUtilIde {
 	 * @return
 	 * @throws IOException
 	 */
-	public static RaqsoftConfig loadConfig(String home, boolean setLogLevel) throws IOException {
+	public static RaqsoftConfig loadConfig(String home, boolean setLogLevel)
+			throws IOException {
 		String filePath = ConfigUtil.getPath(home, CONFIG_FILE);
 		FileInputStream fis = null;
 		BufferedInputStream bis = null;
@@ -208,8 +214,9 @@ public class ConfigUtilIde {
 			RaqsoftConfig config = ConfigUtil.load(is);
 			if (config != null)
 				try {
-					ConfigUtil.setConfig(Env.getApplication(), System.getProperty("start.home"), config, setLogLevel,
-							false, false, false);
+					ConfigUtil.setConfig(Env.getApplication(),
+							System.getProperty("start.home"), config,
+							setLogLevel, false, false, false);
 				} catch (Exception e) {
 					GM.showException(e);
 				}
@@ -235,7 +242,8 @@ public class ConfigUtilIde {
 			ConfigOptions.iParallelNum = new Integer(1);
 
 		try {
-			ConfigOptions.iCursorParallelNum = new Integer(config.getCursorParallelNum());
+			ConfigOptions.iCursorParallelNum = new Integer(
+					config.getCursorParallelNum());
 		} catch (Exception ex) {
 		}
 		if (ConfigOptions.iCursorParallelNum.intValue() < 1)
@@ -268,16 +276,16 @@ public class ConfigUtilIde {
 		ConfigOptions.sDateTimeFormat = config.getDateTimeFormat();
 
 		ConfigOptions.sDefCharsetName = config.getCharSet();
-		ConfigOptions.sLocalHost = config.getLocalHost();
-		String sPort = config.getLocalPort();
-		ConfigOptions.iLocalPort = null;
-		if (StringUtils.isValidString(sPort)) {
-			try {
-				int port = Integer.parseInt(sPort);
-				ConfigOptions.iLocalPort = new Integer(port);
-			} catch (Exception e) {
-			}
-		}
+		// ConfigOptions.sLocalHost = config.getLocalHost();
+		// String sPort = config.getLocalPort();
+		// ConfigOptions.iLocalPort = null;
+		// if (StringUtils.isValidString(sPort)) {
+		// try {
+		// int port = Integer.parseInt(sPort);
+		// ConfigOptions.iLocalPort = new Integer(port);
+		// } catch (Exception e) {
+		// }
+		// }
 		ConfigOptions.sNullStrings = config.getNullStrings();
 		String sFetchCount = config.getFetchCount();
 		if (StringUtils.isValidString(sFetchCount)) {

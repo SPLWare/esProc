@@ -60,22 +60,18 @@ public abstract class PanelEnv extends JPanel {
 		super(new GridBagLayout());
 		this.parent = parent;
 		init(type);
-		jLabelLocalHost.setVisible(false);
-		jTextLocalHost.setVisible(false);
-		jLabelLocalPort.setVisible(false);
-		jTextLocalPort.setVisible(false);
 	}
 
 	public abstract void selectEnvTab();
 
 	public boolean checkValid() {
-		String sLocalPort = jTextLocalPort.getText();
-		if (StringUtils.isValidString(sLocalPort))
-			try {
-				Integer.parseInt(sLocalPort);
-			} catch (Exception ex) {
-				throw new RQException(mm.getMessage("dialogoptions.localport"));
-			}
+		// String sLocalPort = jTextLocalPort.getText();
+		// if (StringUtils.isValidString(sLocalPort))
+		// try {
+		// Integer.parseInt(sLocalPort);
+		// } catch (Exception ex) {
+		// throw new RQException(mm.getMessage("dialogoptions.localport"));
+		// }
 		String sFetchCount = jTextFetchCount.getText();
 		if (StringUtils.isValidString(sFetchCount))
 			try {
@@ -110,16 +106,16 @@ public abstract class PanelEnv extends JPanel {
 				: (String) jCBDateTime.getSelectedItem();
 		ConfigOptions.sDefCharsetName = jCBCharset.getSelectedItem() == null ? null
 				: (String) jCBCharset.getSelectedItem();
-		ConfigOptions.sLocalHost = jTextLocalHost.getText();
-		String sPort = jTextLocalPort.getText();
-		if (StringUtils.isValidString(sPort)) {
-			try {
-				ConfigOptions.iLocalPort = new Integer(Integer.parseInt(sPort));
-			} catch (Exception ex) {
-			}
-		} else {
-			ConfigOptions.iLocalPort = new Integer(0);
-		}
+		// ConfigOptions.sLocalHost = jTextLocalHost.getText();
+		// String sPort = jTextLocalPort.getText();
+		// if (StringUtils.isValidString(sPort)) {
+		// try {
+		// ConfigOptions.iLocalPort = new Integer(Integer.parseInt(sPort));
+		// } catch (Exception ex) {
+		// }
+		// } else {
+		// ConfigOptions.iLocalPort = new Integer(0);
+		// }
 
 		String sFetchCount = jTextFetchCount.getText();
 		if (StringUtils.isValidString(sFetchCount)) {
@@ -161,9 +157,10 @@ public abstract class PanelEnv extends JPanel {
 		config.setTimeFormat(com.scudata.ide.common.ConfigOptions.sTimeFormat);
 		config.setDateTimeFormat(com.scudata.ide.common.ConfigOptions.sDateTimeFormat);
 		config.setCharSet(com.scudata.ide.common.ConfigOptions.sDefCharsetName);
-		config.setLocalHost(com.scudata.ide.common.ConfigOptions.sLocalHost);
-		config.setLocalPort(com.scudata.ide.common.ConfigOptions.iLocalPort == null ? null
-				: com.scudata.ide.common.ConfigOptions.iLocalPort.toString());
+		// config.setLocalHost(com.scudata.ide.common.ConfigOptions.sLocalHost);
+		// config.setLocalPort(com.scudata.ide.common.ConfigOptions.iLocalPort
+		// == null ? null
+		// : com.scudata.ide.common.ConfigOptions.iLocalPort.toString());
 		config.setFetchCount(com.scudata.ide.common.ConfigOptions.iFetchCount == null ? (ICursor.FETCHCOUNT + "")
 				: com.scudata.ide.common.ConfigOptions.iFetchCount.toString());
 		config.setBufSize(com.scudata.ide.common.ConfigOptions.sFileBuffer);
@@ -202,10 +199,9 @@ public abstract class PanelEnv extends JPanel {
 		jCBTime.setSelectedItem(ConfigOptions.sTimeFormat);
 		jCBDateTime.setSelectedItem(ConfigOptions.sDateTimeFormat);
 		jCBCharset.setSelectedItem(ConfigOptions.sDefCharsetName);
-		jTextLocalHost.setText(ConfigOptions.sLocalHost);
-
-		if (ConfigOptions.iLocalPort != null)
-			jTextLocalPort.setText(ConfigOptions.iLocalPort.toString());
+		// jTextLocalHost.setText(ConfigOptions.sLocalHost);
+		// if (ConfigOptions.iLocalPort != null)
+		// jTextLocalPort.setText(ConfigOptions.iLocalPort.toString());
 		if (ConfigOptions.iFetchCount != null)
 			jTextFetchCount.setText(ConfigOptions.iFetchCount.intValue() + "");
 
@@ -227,8 +223,8 @@ public abstract class PanelEnv extends JPanel {
 		labelTime.setEnabled(enabled);
 		labelDateTime.setEnabled(enabled);
 		jLabelCharset.setEnabled(enabled);
-		jLabelLocalHost.setEnabled(enabled);
-		jLabelLocalPort.setEnabled(enabled);
+		// jLabelLocalHost.setEnabled(enabled);
+		// jLabelLocalPort.setEnabled(enabled);
 		jLabelFetchCount.setEnabled(enabled);
 		labelFileBuffer.setEnabled(enabled);
 		labelNullStrings.setEnabled(enabled);
@@ -243,8 +239,8 @@ public abstract class PanelEnv extends JPanel {
 		jCBTime.setEnabled(enabled);
 		jCBDateTime.setEnabled(enabled);
 		jCBCharset.setEnabled(enabled);
-		jTextLocalHost.setEnabled(enabled);
-		jTextLocalPort.setEnabled(enabled);
+		// jTextLocalHost.setEnabled(enabled);
+		// jTextLocalPort.setEnabled(enabled);
 		textFileBuffer.setEnabled(enabled);
 		textNullStrings.setEnabled(enabled);
 		jTFLogFileName.setEnabled(enabled);
@@ -449,12 +445,12 @@ public abstract class PanelEnv extends JPanel {
 		panelOpt.add(jCBDateTime, GM.getGBC(2, 2, true));
 		panelOpt.add(jLabelCharset, GM.getGBC(2, 3));
 		panelOpt.add(jCBCharset, GM.getGBC(2, 4, true));
-		if (type == TYPE_ESPROC) {
-			panelOpt.add(jLabelLocalHost, GM.getGBC(3, 1));
-			panelOpt.add(jTextLocalHost, GM.getGBC(3, 2, true));
-			panelOpt.add(jLabelLocalPort, GM.getGBC(3, 3));
-			panelOpt.add(jTextLocalPort, GM.getGBC(3, 4, true));
-		}
+		// if (type == TYPE_ESPROC) {
+		// panelOpt.add(jLabelLocalHost, GM.getGBC(3, 1));
+		// panelOpt.add(jTextLocalHost, GM.getGBC(3, 2, true));
+		// panelOpt.add(jLabelLocalPort, GM.getGBC(3, 3));
+		// panelOpt.add(jTextLocalPort, GM.getGBC(3, 4, true));
+		// }
 		panelOpt.add(labelFileBuffer, GM.getGBC(5, 1));
 		panelOpt.add(textFileBuffer, GM.getGBC(5, 2, true));
 		panelOpt.add(labelNullStrings, GM.getGBC(5, 3));
@@ -674,10 +670,10 @@ public abstract class PanelEnv extends JPanel {
 	// 字符集标签
 	private JLabel jLabelCharset = new JLabel(
 			mm.getMessage("dialogoptions.defcharset"));// 缺省字符集
-	private JLabel jLabelLocalHost = new JLabel(
-			mm.getMessage("dialogoptions.labellh"));
-	private JLabel jLabelLocalPort = new JLabel(
-			mm.getMessage("dialogoptions.labellp"));
+	// private JLabel jLabelLocalHost = new JLabel(
+	// mm.getMessage("dialogoptions.labellh"));
+	// private JLabel jLabelLocalPort = new JLabel(
+	// mm.getMessage("dialogoptions.labellp"));
 	private JLabel jLabelFetchCount = new JLabel(
 			mm.getMessage("dialogoptions.labelfc"));
 	private JLabel labelFileBuffer = new JLabel(
@@ -720,11 +716,11 @@ public abstract class PanelEnv extends JPanel {
 	/**
 	 * 本机主机名编辑框
 	 */
-	private JTextField jTextLocalHost = new JTextField();
+	// private JTextField jTextLocalHost = new JTextField();
 	/**
 	 * 本机端口编辑框
 	 */
-	private JTextField jTextLocalPort = new JTextField();
+	// private JTextField jTextLocalPort = new JTextField();
 	/**
 	 * 文件缓存区大小编辑框
 	 */

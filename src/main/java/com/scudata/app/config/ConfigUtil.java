@@ -365,17 +365,17 @@ public class ConfigUtil {
 				}
 			}
 			setEnvBlockSize(config.getBlockSize());
-			Env.setLocalHost(config.getLocalHost());
-			String sPort = config.getLocalPort();
-			if (StringUtils.isValidString(sPort)) {
-				try {
-					int port = Integer.parseInt(sPort);
-					Env.setLocalPort(port);
-				} catch (Exception ex) {
-					Logger.error("Invalid " + ConfigConsts.LOCAL_PORT + ":"
-							+ sPort + ".");
-				}
-			}
+			// Env.setLocalHost(config.getLocalHost());
+			// String sPort = config.getLocalPort();
+			// if (StringUtils.isValidString(sPort)) {
+			// try {
+			// int port = Integer.parseInt(sPort);
+			// Env.setLocalPort(port);
+			// } catch (Exception ex) {
+			// Logger.error("Invalid " + ConfigConsts.LOCAL_PORT + ":"
+			// + sPort + ".");
+			// }
+			// }
 
 			String sParallelNum = config.getParallelNum();
 			if (StringUtils.isValidString(sParallelNum)) {

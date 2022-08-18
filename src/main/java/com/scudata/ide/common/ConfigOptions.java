@@ -110,9 +110,9 @@ public class ConfigOptions {
 	/** Default character set name¼þ */
 	public static String sDefCharsetName = Env.getDefaultCharsetName();
 	/** Local host */
-	public static String sLocalHost = "";
+	// public static String sLocalHost = "";
 	/** Local port */
-	public static Integer iLocalPort = null;
+	// public static Integer iLocalPort = null;
 	/** File buffer size (bytes) */
 	public static String sFileBuffer = Env.FILE_BUFSIZE + "";
 	/** Group table block size (bytes) */
@@ -619,9 +619,9 @@ public class ConfigOptions {
 		if (StringUtils.isValidString(sDefCharsetName))
 			Env.setDefaultChartsetName(sDefCharsetName);
 		ICursor.FETCHCOUNT = iFetchCount.intValue();
-		Env.setLocalHost(sLocalHost);
-		if (iLocalPort != null)
-			Env.setLocalPort(iLocalPort.intValue());
+		// Env.setLocalHost(sLocalHost);
+		// if (iLocalPort != null)
+		// Env.setLocalPort(iLocalPort.intValue());
 		if (GM.isBlockSizeEnabled()) {
 			Env.setFileBufSize(ConfigUtil.parseBufferSize(sFileBuffer));
 			if (StringUtils.isValidString(sBlockSize))

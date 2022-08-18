@@ -411,10 +411,10 @@ public class ConfigHandler extends DefaultHandler {
 			} else if (qName.equalsIgnoreCase(ConfigConsts.BLOCK_SIZE)
 					|| qName.equalsIgnoreCase("simpleTableBlockSize")) {
 				config.setBlockSize(value);
-			} else if (qName.equalsIgnoreCase(ConfigConsts.LOCAL_HOST)) {
-				config.setLocalHost(value);
-			} else if (qName.equalsIgnoreCase(ConfigConsts.LOCAL_PORT)) {
-				config.setLocalPort(value);
+				// } else if (qName.equalsIgnoreCase(ConfigConsts.LOCAL_HOST)) {
+				// config.setLocalHost(value);
+				// } else if (qName.equalsIgnoreCase(ConfigConsts.LOCAL_PORT)) {
+				// config.setLocalPort(value);
 			} else if (qName.equalsIgnoreCase("logLevel")) {
 				if (version < 2 && config.getLogLevel() == null)
 					config.setLogLevel(value);

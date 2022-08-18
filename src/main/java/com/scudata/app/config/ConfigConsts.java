@@ -109,9 +109,9 @@ public class ConfigConsts {
 	/** Group table block size */
 	public static String BLOCK_SIZE = "blockSize";
 	/** local host */
-	public static String LOCAL_HOST = "localHost";
+	// public static String LOCAL_HOST = "localHost";
 	/** local port */
-	public static String LOCAL_PORT = "localPort";
+	// public static String LOCAL_PORT = "localPort";
 	/** Parallel number */
 	public static String PARALLEL_NUM = "parallelNum";
 	/** Cursor Parallel number */
