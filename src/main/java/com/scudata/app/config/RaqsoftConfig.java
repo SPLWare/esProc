@@ -39,9 +39,9 @@ public class RaqsoftConfig implements Cloneable, Externalizable {
 	/** Default file buffer size */
 	private String bufSize = null;
 	/** Local host */
-	private String localHost = null;
+	// private String localHost = null;
 	/** Local port */
-	private String localPort = null;
+	// private String localPort = null;
 	/** List of automatically connected data source names */
 	private List<String> autoConnectList = null;
 	/** Log level */
@@ -282,36 +282,36 @@ public class RaqsoftConfig implements Cloneable, Externalizable {
 	 * 
 	 * @return
 	 */
-	public String getLocalHost() {
-		return localHost;
-	}
+	// public String getLocalHost() {
+	// return localHost;
+	// }
 
 	/**
 	 * Set Local host
 	 * 
 	 * @param localHost
 	 */
-	public void setLocalHost(String localHost) {
-		this.localHost = localHost;
-	}
+	// public void setLocalHost(String localHost) {
+	// this.localHost = localHost;
+	// }
 
 	/**
 	 * Get Local port
 	 * 
 	 * @return
 	 */
-	public String getLocalPort() {
-		return localPort;
-	}
+	// public String getLocalPort() {
+	// return localPort;
+	// }
 
 	/**
 	 * Set Local port
 	 * 
 	 * @param localPort
 	 */
-	public void setLocalPort(String localPort) {
-		this.localPort = localPort;
-	}
+	// public void setLocalPort(String localPort) {
+	// this.localPort = localPort;
+	// }
 
 	/**
 	 * Get List of automatically connected data source names
@@ -695,8 +695,8 @@ public class RaqsoftConfig implements Cloneable, Externalizable {
 		config.setTimeFormat(dateTimeFormat);
 		config.setDateTimeFormat(dateTimeFormat);
 		config.setBufSize(bufSize);
-		config.setLocalHost(localHost);
-		config.setLocalPort(localPort);
+		// config.setLocalHost(localHost);
+		// config.setLocalPort(localPort);
 		if (autoConnectList != null) {
 			List<String> cloneAutoConnectList = new ArrayList<String>();
 			cloneAutoConnectList.addAll(autoConnectList);
@@ -756,7 +756,7 @@ public class RaqsoftConfig implements Cloneable, Externalizable {
 	 */
 	public void writeExternal(ObjectOutput out) throws IOException {
 		/* Version type */
-		out.writeByte(2);
+		out.writeByte(3);
 		out.writeObject(dbList);
 		out.writeObject(mainPath);
 		out.writeObject(splPathList);
@@ -766,8 +766,8 @@ public class RaqsoftConfig implements Cloneable, Externalizable {
 		out.writeObject(timeFormat);
 		out.writeObject(dateTimeFormat);
 		out.writeObject(bufSize);
-		out.writeObject(localHost);
-		out.writeObject(localPort);
+		// out.writeObject(localHost);
+		// out.writeObject(localPort);
 		out.writeObject(autoConnectList);
 		out.writeObject(logLevel);
 		out.writeObject(parallelNum);
@@ -806,8 +806,10 @@ public class RaqsoftConfig implements Cloneable, Externalizable {
 		timeFormat = (String) in.readObject();
 		dateTimeFormat = (String) in.readObject();
 		bufSize = (String) in.readObject();
-		localHost = (String) in.readObject();
-		localPort = (String) in.readObject();
+		if (version < 3) {
+			in.readObject(); // localHost = (String)
+			in.readObject(); // localPort = (String)
+		}
 		autoConnectList = (List<String>) in.readObject();
 		logLevel = (String) in.readObject();
 		parallelNum = (String) in.readObject();
