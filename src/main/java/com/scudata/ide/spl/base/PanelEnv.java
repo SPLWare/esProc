@@ -60,6 +60,10 @@ public abstract class PanelEnv extends JPanel {
 		super(new GridBagLayout());
 		this.parent = parent;
 		init(type);
+		jLabelLocalHost.setVisible(false);
+		jTextLocalHost.setVisible(false);
+		jLabelLocalPort.setVisible(false);
+		jTextLocalPort.setVisible(false);
 	}
 
 	public abstract void selectEnvTab();
@@ -526,22 +530,22 @@ public abstract class PanelEnv extends JPanel {
 				}
 			}
 		});
-		jTextLocalPort.setInputVerifier(new InputVerifier() {
-			public boolean verify(JComponent input) {
-				String sLocalPort = jTextLocalPort.getText();
-				if (!StringUtils.isValidString(sLocalPort))
-					return true;
-				try {
-					Integer.parseInt(sLocalPort);
-				} catch (Exception ex) {
-					selectEnvTab();
-					JOptionPane.showMessageDialog(parent,
-							mm.getMessage("dialogoptions.localport"));
-					return false;
-				}
-				return true;
-			}
-		});
+		// jTextLocalPort.setInputVerifier(new InputVerifier() {
+		// public boolean verify(JComponent input) {
+		// String sLocalPort = jTextLocalPort.getText();
+		// if (!StringUtils.isValidString(sLocalPort))
+		// return true;
+		// try {
+		// Integer.parseInt(sLocalPort);
+		// } catch (Exception ex) {
+		// selectEnvTab();
+		// JOptionPane.showMessageDialog(parent,
+		// mm.getMessage("dialogoptions.localport"));
+		// return false;
+		// }
+		// return true;
+		// }
+		// });
 		jTextFetchCount.setInputVerifier(new InputVerifier() {
 			public boolean verify(JComponent input) {
 				String sFetchCount = jTextFetchCount.getText();
