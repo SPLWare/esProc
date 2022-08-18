@@ -308,8 +308,8 @@ public class ConfigWriter {
 		writeAttribute(ConfigConsts.MAIN_PATH, config.getMainPath());
 		writeAttribute(ConfigConsts.TEMP_PATH, config.getTempPath());
 		writeAttribute(ConfigConsts.BUF_SIZE, config.getBufSize());
-		writeAttribute(ConfigConsts.LOCAL_HOST, config.getLocalHost());
-		writeAttribute(ConfigConsts.LOCAL_PORT, config.getLocalPort());
+		// writeAttribute(ConfigConsts.LOCAL_HOST, config.getLocalHost());
+		// writeAttribute(ConfigConsts.LOCAL_PORT, config.getLocalPort());
 		writeAttribute(ConfigConsts.PARALLEL_NUM, config.getParallelNum());
 		writeAttribute(ConfigConsts.CURSOR_PARALLEL_NUM,
 				config.getCursorParallelNum());
