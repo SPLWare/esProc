@@ -60,6 +60,10 @@ public abstract class PanelEnv extends JPanel {
 		super(new GridBagLayout());
 		this.parent = parent;
 		init(type);
+		jLabelLocalHost.setVisible(false);
+		jTextLocalHost.setVisible(false);
+		jLabelLocalPort.setVisible(false);
+		jTextLocalPort.setVisible(false);
 	}
 
 	public abstract void selectEnvTab();
