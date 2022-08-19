@@ -1614,7 +1614,7 @@ public class PgmCellSet extends CellSet {
 		setNext(endRow + 1, 1, true);
 	}
 
-	private void runResultCmd(Command command) {
+	private void runReturnCmd(Command command) {
 		hasReturn = true;
 		Context ctx = getContext();
 		Expression[] exps = command.getExpressions(this, ctx);
@@ -1633,9 +1633,10 @@ public class PgmCellSet extends CellSet {
 		int r = curLct.getRow();
 		int c = curLct.getCol();
 		getCell(r, c).setValue(resultValue);
-		setNext(r, c + 1, false);
-
 		resultLct = new CellLocation(r, c);
+		
+		//setNext(r, c + 1, false);
+		runFinished();
 	}
 
 	private void runSqlCmd(NormalCell cell, SqlCommand command) {
@@ -1996,7 +1997,7 @@ public class PgmCellSet extends CellSet {
 					// MessageManager mm = EngineMessage.get();
 					// throw new
 					// RQException(mm.getMessage("engine.unknownRet"));
-					runResultCmd(command);
+					runReturnCmd(command);
 					break;
 				case Command.SQL:
 					runSqlCmd(cell, (SqlCommand) command);
@@ -2194,7 +2195,7 @@ public class PgmCellSet extends CellSet {
 					break;
 				case Command.RETURN:
 				case Command.RESULT:
-					runResultCmd(cmd);
+					runReturnCmd(cmd);
 					break;
 				case Command.IF:
 					endRow = getIfBlockEndRow(row, col);
