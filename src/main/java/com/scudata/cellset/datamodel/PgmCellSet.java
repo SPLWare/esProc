@@ -1635,8 +1635,9 @@ public class PgmCellSet extends CellSet {
 		getCell(r, c).setValue(resultValue);
 		resultLct = new CellLocation(r, c);
 		
-		//setNext(r, c + 1, false);
-		runFinished();
+		// 程序网游标需要多个return，所以不结束程序执行，调用的地方自己判断是否结束
+		setNext(r, c + 1, false);
+		//runFinished();
 	}
 
 	private void runSqlCmd(NormalCell cell, SqlCommand command) {
@@ -2090,19 +2091,20 @@ public class PgmCellSet extends CellSet {
 	 * 从当前格继续执行，直到运算结束
 	 */
 	public void run() {
-		// try {
-		// enterTask();
-		CellLocation lct;
-		do {
+		while (true) {
 			if (isInterrupted) {
 				isInterrupted = false;
 				break;
 			}
-			lct = runNext2();
-		} while (lct != null);
-		// } finally {
-		// leaveTask();
-		// }
+			
+			if (runNext2() == null) {
+				break;
+			} else if (hasReturn()) {
+				// 碰到return则停止执行
+				runFinished();
+				break;
+			}
+		}
 	}
 
 	/**
@@ -2534,6 +2536,7 @@ public class PgmCellSet extends CellSet {
 		resultLct = null;
 		interrupt = false;
 		isInterrupted = false;
+		hasReturn = false;
 		fnMap = null;
 	}
 
