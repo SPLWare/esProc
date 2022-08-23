@@ -246,6 +246,21 @@ public class UnitServer implements IServer {
 		return instance;
 	}
 	
+	public static UnitServer getInstance(String host, int port, String cfgPath ) throws Exception {
+		if (instance == null) {
+			instance = new UnitServer( host, port);
+		}
+		InputStream is = new FileInputStream( cfgPath );
+		SplServerConfig ssc = SplServerConfig.getCfg(is);
+		is.close();
+		instance.unitContext = new UnitContext(ssc);
+		instance.rc = instance.unitContext.getRaqsoftConfig();
+		instance.hostManager.setHost(host);
+		instance.hostManager.setPort(port);
+		return instance;
+	}
+	
+	
 	/**
 	 * 服务器是否正在初始化环境
 	 * @return 初始化时返回true，否则返回false

@@ -1,7 +1,6 @@
 package com.scudata.parallel;
 
 import com.scudata.common.MessageManager;
-import com.scudata.dm.Env;
 import com.scudata.resources.ParallelMessage;
 
 /**

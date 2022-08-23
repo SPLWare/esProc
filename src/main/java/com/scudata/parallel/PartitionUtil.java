@@ -80,6 +80,7 @@ public class PartitionUtil {
 			fo.setRemoteFileWritable();//仅指定唯一分机时，设置远程文件可写
 			return fo;
 		}else if (fo.isExists()) {//多个hs时，优先本地
+			
 			return fo;
 		}
 		

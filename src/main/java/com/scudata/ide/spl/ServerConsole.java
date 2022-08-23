@@ -12,14 +12,23 @@ import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Properties;
 
 import javax.swing.UIManager;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 import com.scudata.app.common.Section;
 import com.scudata.app.config.ConfigUtil;
 import com.scudata.app.config.RaqsoftConfig;
+import com.scudata.common.StringUtils;
 import com.scudata.parallel.UnitClient;
 import com.scudata.parallel.UnitContext;
+import com.scudata.parallel.XmlUtil;
 import com.scudata.server.IServer;
 import com.scudata.server.http.SplxServerInIDE;
 import com.scudata.server.http.HttpContext;
@@ -170,7 +179,6 @@ public class ServerConsole {
 		}
 	}
 
-
 	/**
 	 * 服务器控制台入口函数
 	 * @param args 执行参数
@@ -183,6 +191,7 @@ public class ServerConsole {
 				+ "也可以不带任何选项，表示启动服务控制台程序[图形窗口控制台]。\r\n"
 				+ "如下所有选项除了 -a , -x 不能同时出现，其他选项都可以组合。\r\n\r\n"
 				+ "-p[ip:port]	启动分机 ，当省略ip:port时，自动顺序寻找一个没被占用的分机配置。\r\n"
+				+ "-c port cfg	使用配置cfg启动或停止分机 ，当省略cfg时，则停止分机。\r\n"
 				+ "-o	启动 ODBC 服务。\r\n"
 				+ "-h	启动 HTTP 服务。\r\n"
 				+ "-x[ip:port]	停止指定分机。当省略ip:port时，停止本地启动的所有服务。\r\n"
@@ -212,10 +221,10 @@ public class ServerConsole {
 		}
 		
 		boolean printHelp = false;
-		boolean isP = false, isO = false, isH = false, isX = false;
+		boolean isP = false, isO = false, isH = false, isX = false, isC = false;
 		// -shost:port 内部命令
 		boolean isS = false;
-		String host = null;
+		String host = null,cfgPath=null;
 		int port = 0;
 
 		if (args.length > 0) {
@@ -289,6 +298,24 @@ public class ServerConsole {
 					port = Integer.parseInt(arg.substring(index + 1).trim());
 					break;
 				}
+				if (arg.startsWith("-c")) {
+					host = "127.0.0.1";//目前缺省
+					if(i+1<args.length){
+						String buf = args[i+1].toLowerCase();
+						port = Integer.parseInt(buf);
+						i++;
+					}
+					if(i+1<args.length){
+						cfgPath = args[i+1].toLowerCase();
+						i++;
+					}
+					if(cfgPath==null) {
+						isX = true;
+					}else {
+						isC = true;
+					}
+					break;
+				}
 				//不是上面任何一种选项时
 				printHelp = true;
 			}
@@ -316,6 +343,15 @@ public class ServerConsole {
 			System.exit(0);
 		}
 
+		if (isC) {
+			try {
+				UnitServer server = UnitServer.getInstance(host, port, cfgPath);
+				server.run();
+			} catch (Exception x) {
+				x.printStackTrace();
+			}
+			System.exit(0);
+		}
 		/***************************** 关闭所有服务 ******************************/
 		if (isX) {
 			// UnitServer

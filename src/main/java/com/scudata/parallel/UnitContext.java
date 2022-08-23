@@ -7,16 +7,18 @@ import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 import com.scudata.app.common.AppUtil;
+import com.scudata.app.config.ConfigUtil;
 import com.scudata.app.config.RaqsoftConfig;
-import com.scudata.common.ArgumentTokenizer;
 import com.scudata.common.Logger;
 import com.scudata.common.StringUtils;
 import com.scudata.common.Logger.FileHandler;
+import com.scudata.common.SplServerConfig;
 import com.scudata.dm.Env;
-import com.scudata.dm.Sequence;
 import com.scudata.ide.common.GM;
+import com.scudata.ide.spl.ServerConsole;
 import com.scudata.resources.ParallelMessage;
 
 /**
@@ -280,6 +282,45 @@ public class UnitContext {
 			interval = t;// 设置不正确时，使用缺省检查间隔
 
 		proxyTimeOut = uc.getProxyTimeOut();
+	}
+
+
+	
+	public UnitContext( SplServerConfig ssc ) throws Exception {
+		if(StringUtils.isValidString(ssc.logPath)) {
+			logFile = ssc.logPath;
+			File f = new File(logFile);
+			File fp = f.getParentFile();
+			if (!fp.exists()) {
+				fp.mkdirs();
+			}
+			logFile = f.getAbsolutePath();
+			FileHandler lfh = Logger.newFileHandler(logFile);
+			Logger.addFileHandler(lfh);
+		}
+
+		// Server 配置
+		if(StringUtils.isValidString(ssc.tempTimeOut)) {
+			tempTimeOut = Integer.parseInt(ssc.tempTimeOut);
+			if (tempTimeOut > 0) {
+				Logger.debug(ParallelMessage.get().getMessage("UnitContext.temptimeout", tempTimeOut));
+			}
+		}
+		if(StringUtils.isValidString(ssc.proxyTimeOut)) {
+			proxyTimeOut = Integer.parseInt(ssc.proxyTimeOut);
+		}
+
+		if(StringUtils.isValidString(ssc.interval)) {
+			interval = Integer.parseInt(ssc.interval);
+		}
+		
+		if(StringUtils.isValidString(ssc.splConfig)) {
+			InputStream is = new FileInputStream( ssc.splConfig );
+			raqsoftConfig = ConfigUtil.load(is,true);
+			is.close();
+		}else {
+			raqsoftConfig = ServerConsole.loadRaqsoftConfig();
+		}
 	}
 
 	/**
