@@ -746,7 +746,7 @@ public class PseudoTable extends Pseudo {
 		 * 2 有多个游标且不并行时，进行归并
 		 * 3 有多个游标且并行时，先对第一个游标分段，然后其它游标按第一个同步分段，最后把每个游标的每个段进行归并
 		 */
-		if (size == 1) {//只有一个游标直接返回
+		if (pathCount == 1 && size == 1) {//只有一个游标直接返回
 			ICursor cs = getCursor(tables.get(0), null, false, isColumn);
 			cs = sortCursor(cs, pd, ctx);
 			return addOptionToCursor(cs);
@@ -766,10 +766,7 @@ public class PseudoTable extends Pseudo {
 					}
 					return addOptionToCursor(mergeCursor(cursors, pd, ctx));
 				} else {//指定了分段参考虚表mcsTable
-					ICursor mcs = null;
-					if (mcsTable != null) {
-						mcs = mcsTable.cursor();
-					}
+					ICursor mcs = mcsTable.cursor();
 					for (int i = 0; i < size; i++) {
 						cursors[i] = getCursor(tables.get(i), mcs, false, isColumn);
 					}
@@ -781,11 +778,15 @@ public class PseudoTable extends Pseudo {
 			int mcount = ((MultipathCursors)cursors[0]).getPathCount();//分段数
 			ICursor mcursors[] = new ICursor[mcount];//结果游标
 			for (int m = 0; m < mcount; m++) {
-				ICursor cursorArray[] = new ICursor[size];
-				for (int i = 0; i < size; i++) {
-					cursorArray[i] = ((MultipathCursors)cursors[i]).getCursors()[m];
+				if (size == 1) {
+					mcursors[m] = sortCursor(cursors[0], pd, ctx);
+				} else {
+					ICursor cursorArray[] = new ICursor[size];
+					for (int i = 0; i < size; i++) {
+						cursorArray[i] = ((MultipathCursors)cursors[i]).getCursors()[m];
+					}
+					mcursors[m] = mergeCursor(cursorArray, pd, ctx);
 				}
-				mcursors[m] = mergeCursor(cursorArray, pd, ctx);
 			}
 			return addOptionToCursor(new MultipathCursors(mcursors, ctx));
 		}
