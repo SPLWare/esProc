@@ -53,6 +53,26 @@ public class ColumnFilter extends IFilter {
 		}
 	}
 	
+	/**
+	 * 所有的对象都匹配
+	 */
+	public boolean matchAll(Object minValue, Object maxValue) {
+		switch (operator) {
+		case EQUAL:
+			return Variant.compare(minValue, rightValue, true) == 0 && Variant.compare(maxValue, rightValue, true) == 0;
+		case GREATER:
+			return Variant.compare(minValue, rightValue, true) > 0;
+		case GREATER_EQUAL:
+			return Variant.compare(minValue, rightValue, true) >= 0;
+		case LESS:
+			return Variant.compare(maxValue, rightValue, true) < 0;
+		case LESS_EQUAL:
+			return Variant.compare(maxValue, rightValue, true) <= 0;
+		default: //NOT_EQUAL:
+			return !Variant.isEquals(minValue, rightValue) && !Variant.isEquals(maxValue, rightValue);
+		}
+	}
+	
 	public Object getRightValue() {
 		return rightValue;
 	}
