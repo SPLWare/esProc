@@ -30,6 +30,7 @@ import com.scudata.dw.IFilter;
 import com.scudata.dw.ITableMetaData;
 import com.scudata.dw.RowCursor;
 import com.scudata.dw.RowTableMetaData;
+import com.scudata.dw.TableMetaData;
 import com.scudata.expression.Constant;
 import com.scudata.expression.Expression;
 import com.scudata.expression.IParam;
@@ -715,8 +716,12 @@ public class PseudoTable extends Pseudo {
 				List<Object> max = pd.getMaxValues();
 				List<Object> min = pd.getMinValues();			
 				for (int i = 0; i < count; i++) {
+					TableMetaData t = (TableMetaData) tables.get(i);
+					if (t.getTotalRecordCount() == 0) {
+						continue;
+					}
 					if (dateFilter.match(min.get(i), max.get(i))) {
-						list.add(tables.get(i));
+						list.add(t);
 					}
 				}
 				return list;
@@ -753,6 +758,9 @@ public class PseudoTable extends Pseudo {
 		} else {
 			tables = filterTables(tables);
 			size = tables.size();
+			if (size == 0) {
+				return null;
+			}
 			
 			if (pathCount > 1) {//指定了并行数，此时忽略mcsTable
 				cursors[0] = getCursor(tables.get(0), null, false, isColumn);
