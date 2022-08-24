@@ -728,8 +728,16 @@ public class PseudoTable extends Pseudo {
 			}
 		}
 
-		return tables;
-	
+		int count = tables.size();
+		List<ITableMetaData> list = new ArrayList<ITableMetaData>(count);
+		for (int i = 0; i < count; i++) {
+			TableMetaData t = (TableMetaData) tables.get(i);
+			if (t.getTotalRecordCount() == 0) {
+				continue;
+			}
+			list.add(t);
+		}
+		return list;
 	}
 	
 	public ICursor cursor(Expression []exps, String []names) {
@@ -759,7 +767,7 @@ public class PseudoTable extends Pseudo {
 			tables = filterTables(tables);
 			size = tables.size();
 			if (size == 0) {
-				return null;
+				return new MemoryCursor(null);
 			}
 			
 			if (pathCount > 1) {//指定了并行数，此时忽略mcsTable
@@ -787,7 +795,7 @@ public class PseudoTable extends Pseudo {
 			ICursor mcursors[] = new ICursor[mcount];//结果游标
 			for (int m = 0; m < mcount; m++) {
 				if (size == 1) {
-					mcursors[m] = sortCursor(cursors[0], pd, ctx);
+					mcursors[m] = sortCursor(((MultipathCursors)cursors[0]).getCursors()[m], pd, ctx);
 				} else {
 					ICursor cursorArray[] = new ICursor[size];
 					for (int i = 0; i < size; i++) {
