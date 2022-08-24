@@ -16,6 +16,7 @@ import com.scudata.expression.Function;
 import com.scudata.expression.IParam;
 import com.scudata.expression.Node;
 import com.scudata.resources.EngineMessage;
+import com.scudata.server.unit.ShutdownUnitServer;
 
 /**
  * splserver(port,cfg)
@@ -23,6 +24,9 @@ import com.scudata.resources.EngineMessage;
  * cfg为启动配置文件名，省略表示中止port上的进程
  */
 public class SplServer extends Function {
+	String host = "127.0.0.1";
+	int port = 0;
+
 	public Node optimize(Context ctx) {
 		if (param != null) param.optimize(ctx);
 		return this;
@@ -40,8 +44,6 @@ public class SplServer extends Function {
 		}
 
 		String cfg = null;
-		String host = "127.0.0.1";
-		int port = 0;
 		if (fnParam.getType() == IParam.Comma) {
 			if (fnParam.getSubSize() != 2) {
 				MessageManager mm = EngineMessage.get();
@@ -75,42 +77,45 @@ public class SplServer extends Function {
 			throw new RQException("SplServer" + mm.getMessage("function.invalidParam"));
 		}
 		
+		if(cfg==null) {
+			return closeServer();
+		}
 		try {
 			InputStream is = new FileInputStream(cfg);
 			SplServerConfig ssc = SplServerConfig.getCfg(is);
 			String args = getStartCmd(ssc, host, port);
-			Logger.debug("SplServer Cmd:"+args);
+			Logger.debug(args);
 			
 			Runtime.getRuntime().exec(args+ cfg);
 			Thread hook = new Thread() {
 				public void run() {
-					try {
-						Runtime.getRuntime().exec(args);
-					}catch(Exception x) {
-						x.printStackTrace();
-					}
+					closeServer();
 				}
 			};
 			Runtime.getRuntime().addShutdownHook( hook );
 		}catch(Exception x) {
 			throw new RQException(x);
 		}
-		return "OK";
+		return true;
+	}
+
+	private boolean closeServer() {
+		return ShutdownUnitServer.close(host,port);
 	}
 
 	private static String path(String str) {
-		str = Sentence.replace(str, "/", File.pathSeparator, 0);
-		str = Sentence.replace(str, "\\", File.pathSeparator, 0);
+		str = Sentence.replace(str, "/", File.separator, 0);
+		str = Sentence.replace(str, "\\", File.separator, 0);
 		return str;
 	}
 	
 	public static String getStartCmd(SplServerConfig ssc,String host, int port) {
-		String SPL_HOME = ssc.splHome;
+		String SPL_HOME = path(ssc.splHome);
 		String JAVA_HOME = SPL_HOME+path("/common");
 		String EXEC_JAVA = JAVA_HOME+path("/jre/bin/java");
 		String RAQ_LIB = SPL_HOME+path("/esProc/lib/*;")+SPL_HOME+path("/common/jdbc/*");
 		StringBuffer cmd = new StringBuffer();
-		cmd.append("start \"UnitServer\" ");
+//		cmd.append("start \"UnitServer\" ");
 		cmd.append(EXEC_JAVA+" ");
 		if(StringUtils.isValidString(ssc.JVMArgs)) {
 			cmd.append(ssc.JVMArgs+" ");	

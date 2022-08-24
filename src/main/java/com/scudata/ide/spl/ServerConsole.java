@@ -12,23 +12,14 @@ import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.Properties;
 
 import javax.swing.UIManager;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
 import com.scudata.app.common.Section;
 import com.scudata.app.config.ConfigUtil;
 import com.scudata.app.config.RaqsoftConfig;
-import com.scudata.common.StringUtils;
 import com.scudata.parallel.UnitClient;
 import com.scudata.parallel.UnitContext;
-import com.scudata.parallel.XmlUtil;
 import com.scudata.server.IServer;
 import com.scudata.server.http.SplxServerInIDE;
 import com.scudata.server.http.HttpContext;

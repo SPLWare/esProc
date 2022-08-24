@@ -1,8 +1,6 @@
 package com.scudata.common;
 
 import java.io.InputStream;
-import java.util.Properties;
-
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 

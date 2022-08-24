@@ -289,6 +289,7 @@ public final class FunctionLib {
 		addFunction("jdbccall", "com.scudata.expression.fn.JDBCCall");
 		
 		addFunction("pseudo", "com.scudata.expression.fn.CreatePseudo");
+		addFunction("splserver", "com.scudata.expression.fn.SplServer");
 		
 		// ²¢ÐÐ
 		addFunction("callx", "com.scudata.expression.fn.parallel.Callx");
