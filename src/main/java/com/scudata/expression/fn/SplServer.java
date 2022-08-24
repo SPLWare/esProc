@@ -81,18 +81,18 @@ public class SplServer extends Function {
 			return closeServer();
 		}
 		try {
-			InputStream is = new FileInputStream(cfg);
-			SplServerConfig ssc = SplServerConfig.getCfg(is);
-			String args = getStartCmd(ssc, host, port);
-			Logger.debug(args);
-			
-			Runtime.getRuntime().exec(args+ cfg);
 			Thread hook = new Thread() {
 				public void run() {
 					closeServer();
 				}
 			};
 			Runtime.getRuntime().addShutdownHook( hook );
+
+			InputStream is = new FileInputStream(cfg);
+			SplServerConfig ssc = SplServerConfig.getCfg(is);
+			String args = getStartCmd(ssc, host, port);
+			Logger.debug(args);
+			Process p = Runtime.getRuntime().exec(args+ cfg);
 		}catch(Exception x) {
 			throw new RQException(x);
 		}
@@ -115,7 +115,7 @@ public class SplServer extends Function {
 		String EXEC_JAVA = JAVA_HOME+path("/jre/bin/java");
 		String RAQ_LIB = SPL_HOME+path("/esProc/lib/*;")+SPL_HOME+path("/common/jdbc/*");
 		StringBuffer cmd = new StringBuffer();
-//		cmd.append("start \"UnitServer\" ");
+		cmd.append("cmd /c start \"UnitServer\" ");
 		cmd.append(EXEC_JAVA+" ");
 		if(StringUtils.isValidString(ssc.JVMArgs)) {
 			cmd.append(ssc.JVMArgs+" ");	

@@ -340,6 +340,7 @@ public class ServerConsole {
 				server.run();
 			} catch (Exception x) {
 				x.printStackTrace();
+				System.exit(-1);
 			}
 			System.exit(0);
 		}
