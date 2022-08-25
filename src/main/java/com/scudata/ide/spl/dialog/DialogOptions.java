@@ -65,7 +65,7 @@ public class DialogOptions extends JDialog {
 	/**
 	 * 公共资源管理器
 	 */
-	private MessageManager mm = IdeCommonMessage.get();
+	public MessageManager mm = IdeCommonMessage.get();
 	/**
 	 * 退出选项
 	 */
@@ -102,6 +102,9 @@ public class DialogOptions extends JDialog {
 
 	private JLabel jLAutoSaveInterval = new JLabel(
 			mm.getMessage("dialogoptions.autosaveinterval")); // 每隔
+
+	protected GridLayout ideOptLayout = new GridLayout(5, 2);
+	protected JPanel jPIdeOpt = new JPanel();
 
 	/**
 	 * 自动保存的时间间隔
@@ -546,6 +549,9 @@ public class DialogOptions extends JDialog {
 
 	}
 
+	protected void saveCustom() {
+	}
+
 	/**
 	 * 保存选项
 	 * 
@@ -631,6 +637,7 @@ public class DialogOptions extends JDialog {
 		ConfigOptions.iHAlign = (Byte) jCBHAlign.x_getSelectedItem();
 		ConfigOptions.iVAlign = (Byte) jCBVAlign.x_getSelectedItem();
 		ConfigOptions.iLocale = (Byte) jCBLocale.x_getSelectedItem();
+		saveCustom();
 
 		panelEnv.save();
 
@@ -737,7 +744,6 @@ public class DialogOptions extends JDialog {
 				.x_setSelectedCodeItem(compatibleHalign(ConfigOptions.iHAlign));
 		jCBVAlign
 				.x_setSelectedCodeItem(compatibleValign(ConfigOptions.iVAlign));
-
 		panelEnv.load();
 
 		if (ConfigOptions.iLocale != null) {
@@ -863,9 +869,8 @@ public class DialogOptions extends JDialog {
 		jCBLevel.x_setSelectedCodeItem(Logger.DEBUG);
 		// Normal
 		panelNormal.setLayout(new VFlowLayout(VFlowLayout.TOP));
-		JPanel jPIdeOpt = new JPanel();
 		panelNormal.add(jPIdeOpt);
-		jPIdeOpt.setLayout(new GridLayout(5, 2));
+		jPIdeOpt.setLayout(ideOptLayout);
 		jPIdeOpt.add(jCBIdeConsole, null);
 		// jPanel2.add(jCBAutoOpen, null);
 		// jPanel2.add(jCBAutoSave, null);
