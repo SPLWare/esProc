@@ -81,17 +81,17 @@ public class SplServer extends Function {
 			return closeServer();
 		}
 		try {
-			Thread hook = new Thread() {
-				public void run() {
-					closeServer();
-				}
-			};
-			Runtime.getRuntime().addShutdownHook( hook );
-
 			InputStream is = new FileInputStream(cfg);
 			SplServerConfig ssc = SplServerConfig.getCfg(is);
 			String args = getStartCmd(ssc, host, port);
 			Logger.debug(args);
+			Thread hook = new Thread() {
+				public void run() {
+					System.out.println("hook");
+					closeServer();
+				}
+			};
+			Runtime.getRuntime().addShutdownHook( hook );
 			Process p = Runtime.getRuntime().exec(args+ cfg);
 		}catch(Exception x) {
 			throw new RQException(x);
@@ -100,6 +100,7 @@ public class SplServer extends Function {
 	}
 
 	private boolean closeServer() {
+		Logger.debug("Close Server:"+host+":"+port);
 		return ShutdownUnitServer.close(host,port);
 	}
 
@@ -108,6 +109,11 @@ public class SplServer extends Function {
 		str = Sentence.replace(str, "\\", File.separator, 0);
 		return str;
 	}
+
+	public static boolean isWindows() {
+		String osName = System.getProperty("os.name");
+		return osName.startsWith("Windows");
+	}
 	
 	public static String getStartCmd(SplServerConfig ssc,String host, int port) {
 		String SPL_HOME = path(ssc.splHome);
@@ -115,12 +121,15 @@ public class SplServer extends Function {
 		String EXEC_JAVA = JAVA_HOME+path("/jre/bin/java");
 		String RAQ_LIB = SPL_HOME+path("/esProc/lib/*;")+SPL_HOME+path("/common/jdbc/*");
 		StringBuffer cmd = new StringBuffer();
-		cmd.append("cmd /c start \"UnitServer\" ");
+		if( isWindows() ) {
+			cmd.append("cmd /c start \"UnitServer\" ");
+		}
 		cmd.append(EXEC_JAVA+" ");
 		if(StringUtils.isValidString(ssc.JVMArgs)) {
 			cmd.append(ssc.JVMArgs+" ");	
 		}
 		cmd.append("-cp ");
+		cmd.append(SPL_HOME+path("/esProc/classes;"));
 		cmd.append(RAQ_LIB+" ");
 		cmd.append("-Dstart.home=");
 		cmd.append(SPL_HOME+path("/esProc "));
