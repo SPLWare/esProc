@@ -2929,16 +2929,6 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 		case GCSpl.iSAVE_FTP:
 			saveFTP();
 			break;
-		case GC.iOPTIONS:
-			boolean showDB = ConfigOptions.bShowDBStruct;
-			new DialogOptions().setVisible(true);
-			((SPL) GV.appFrame).refreshOptions();
-			if (showDB != ConfigOptions.bShowDBStruct) {
-				if (GVSpl.tabParam != null) {
-					GVSpl.tabParam.resetEnv();
-				}
-			}
-			break;
 		case GCSpl.iRESET:
 			reset();
 			break;
