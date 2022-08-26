@@ -84,6 +84,11 @@ public class DialogExtLibs extends JDialog implements ActionListener {
 	private Vector<String> dirNames = new Vector<String>();
 
 	/**
+	 * 父组件
+	 */
+	private Frame parent;
+
+	/**
 	 * 构造函数
 	 * 
 	 * @param config
@@ -99,6 +104,7 @@ public class DialogExtLibs extends JDialog implements ActionListener {
 			List<String> extLibs) {
 		super(frame, IdeSplMessage.get().getMessage("dialogselectnames.title"),
 				true);
+		this.parent = frame;
 		initDialog(config, extLibsPath, extLibs);
 	}
 
@@ -175,6 +181,15 @@ public class DialogExtLibs extends JDialog implements ActionListener {
 			extLibs.add(name);
 		}
 		return extLibs;
+	}
+
+	/**
+	 * 上传模式
+	 */
+	private boolean isUploadMode = false;
+
+	public void setUploadMode() {
+		isUploadMode = true;
 	}
 
 	/**
@@ -378,6 +393,20 @@ public class DialogExtLibs extends JDialog implements ActionListener {
 			return;
 		}
 		if (c.equals(jBOK)) {
+			if (isUploadMode) {
+				String path = getExtLibsPath();
+				if (!StringUtils.isValidString(path)) {
+					JOptionPane.showMessageDialog(parent,
+							mm.getMessage("dialogextlibs.emptypath")); // 请选择外部库目录。
+					return;
+				}
+				List<String> libs = getExtLibs();
+				if (libs == null || libs.isEmpty()) {
+					JOptionPane.showMessageDialog(parent,
+							mm.getMessage("dialogextlibs.emptylib")); // 请选择外部库。
+					return;
+				}
+			}
 			m_option = JOptionPane.OK_OPTION;
 			close();
 		} else if (c.equals(jBCancel)) {
