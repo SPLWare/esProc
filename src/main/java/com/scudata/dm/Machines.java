@@ -4,14 +4,18 @@ import java.io.Externalizable;
 import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
+import java.util.ArrayList;
 
+import com.scudata.common.MessageManager;
+import com.scudata.common.RQException;
 import com.scudata.common.StringUtils;
 import com.scudata.parallel.UnitClient;
+import com.scudata.resources.EngineMessage;
 /**
  * "ip:port"
  * ":port"，就是127.0.0.1
  * ":"，就是自己进程
- * ""，就是自己进程
+ * ""，忽略
  *
  */
 public class Machines implements Externalizable{
@@ -22,29 +26,26 @@ public class Machines implements Externalizable{
 	}
 	
 	private String parseHost(String str) {
-		if(!StringUtils.isValidString(str) || str.length()==1) {//空串或者光冒号或者非法定义时都当本进程
-			return null;
-		}
 		String host=null,defaultHost="127.0.0.1";
 		int index = str.lastIndexOf(':');
-		if (index == -1 || index==0) {//没有冒号或者冒号开头时，表示使用缺省本地分机的端口
-			host = defaultHost;
+		if (index == -1) {//没有冒号
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("HS" + mm.getMessage("function.invalidParam")+": "+str);
+		}else if( index==0 ) {//冒号开头为本机
+			if(str.length()>1) {
+				host = defaultHost;
+			}//否则为光冒号表示本机，用null当host
 		}else {
 			host = str.substring(0, index);
 		}
 		return host;
 	}
 	private int parsePort(String str) {
-		if(!StringUtils.isValidString(str) || str.length()==1) {
+		int index = str.lastIndexOf(':');
+		if(str.length()==1) {//光冒号时，返回0端口
 			return 0;
 		}
-		int index = str.lastIndexOf(':');
-		int port = 0;
-		if (index == -1) {//没有冒号时，表示使用缺省本地分机的端口
-			port = Integer.parseInt(str);
-		}else {
-			port = Integer.parseInt(str.substring(index + 1));
-		}
+		int port = Integer.parseInt(str.substring(index + 1));
 		return port;
 	}
 	
@@ -54,6 +55,10 @@ public class Machines implements Externalizable{
 			//throw new RQException(errorMsg + mm.getMessage("function.invalidParam"));
 		} else if (o instanceof String) {
 			String str = (String)o; // ip:port
+			if(!StringUtils.isValidString(str)) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException("HS" + mm.getMessage("function.invalidParam"));
+			}
 			hosts = new String[]{ parseHost(str) };
 			ports = new int[]{ parsePort(str) };
 		} else if (o instanceof Sequence) {
@@ -63,24 +68,35 @@ public class Machines implements Externalizable{
 				return false;
 			}
 
-			hosts = new String[count];
-			ports = new int[count];
+			ArrayList<String> listH = new ArrayList<String>();
+			ArrayList<Integer>listP = new ArrayList<Integer>();
 			for (int i = 0; i < count; ++i) {
 				Object obj = seq.get(i + 1);
-				if (obj instanceof String || obj==null) {
+				if (obj==null) {
+					continue;
+				}else if(obj instanceof String) {
 					String str = (String)obj; // ip:port
-					hosts[i] = parseHost(str);
-					ports[i] = parsePort(str);
+					if(!StringUtils.isValidString(str)) {
+						continue;
+					}
+					listH.add( parseHost(str) );
+					listP.add( parsePort(str) );
 				}else if(obj instanceof UnitClient){
 					UnitClient uc = (UnitClient)obj;
-					hosts[i] = uc.getHost();
-					ports[i] = uc.getPort();
+					listH.add( uc.getHost() );
+					listP.add( uc.getPort() );
 				}else{
 					//不认识的对象
 					return false;
 				}
-
 			}
+			hosts = new String[listH.size()];
+			ports = new int[listH.size()];
+			for(int i=0;i<hosts.length;i++) {
+				hosts[i] = listH.get(i);
+				ports[i] = listP.get(i);
+			}
+			
 		} else {
 			return false;
 		}
