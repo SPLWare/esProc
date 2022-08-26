@@ -6,6 +6,7 @@ import java.util.*;
 import com.scudata.common.*;
 import com.scudata.expression.Expression;
 import com.scudata.parallel.*;
+import com.scudata.server.unit.UnitServer;
 import com.scudata.thread.ThreadPool;
 
 /**
@@ -138,9 +139,6 @@ public class ParallelCaller extends ParallelProcess {
 			case TYPE_ONE:
 				result = executeOne();
 				break;
-//			case TYPE_MUCH:
-//				result = executeMuch();
-//				break;
 			default:
 				result = execute( calcType );
 			}
@@ -191,8 +189,6 @@ public class ParallelCaller extends ParallelProcess {
 			int poolSize = ucList.size();
 			pool = ThreadPool.newSpecifiedInstance(poolSize);
 			for (int i = 0; i < size; i++) {
-//				if (isCanceled)
-//					continue;
 				ProcessCaller pcaller = (ProcessCaller) callers.get(i);
 				UnitClient uc = getClient();
 				pcaller.setUnitClient(uc);
@@ -307,12 +303,9 @@ public class ParallelCaller extends ParallelProcess {
 			int poolSize = Math.min(size, ucList.size());
 			pool = ThreadPool.newSpecifiedInstance(poolSize);
 			for (int i = 0; i < size; i++) {
-//				if (isCanceled)//作业被取消后，作业仍然需要扔到线程池去走取消流程，否则这些线程就没人管，造成永远没法执行完，joinCallers就一直在等待它们线程结束
-//					continue;
 				ProcessCaller pcaller = (ProcessCaller) callers.get(i);
 				UnitClient uc = getClient();
 				if (reduce != null) {
-//					int ucIndex = indexOfUC(uc);
 					pcaller.setReduce(reduce, accumulateLocation,currentLocation);//,ucIndex);
 				}
 				pcaller.setUnitClient(uc);
@@ -327,7 +320,13 @@ public class ParallelCaller extends ParallelProcess {
 					if(!uc.isAlive()){
 						continue;
 					}
-					Object reduceResult = uc.getReduceResult(spaceId);
+					Object reduceResult;
+					if( uc.isEqualToLocal() ) {
+						reduceResult = reduceResults.get(spaceId);
+					}else {
+						reduceResult = uc.getReduceResult(spaceId);	
+					}
+					
 					int ucIndex = indexOfUC(uc);
 					result.set(ucIndex,reduceResult);
 				}
@@ -363,121 +362,6 @@ public class ParallelCaller extends ParallelProcess {
 		}
 		return 0;
 	}
-
-	/**
-	 * 大量作业算法，不能容错，采用参数x，无s
-	 * @return 计算结果
-	 */
-//	public Object executeMuch() {
-//		Logger.debug(mm.getMessage("ParallelCaller.much"));
-//
-//		ThreadPool pool = null;
-//		ArrayList<Caller> leftCallers = null;
-//		try {
-//			float threshold = 0.8f;
-//			int size = callers.size();
-//			int leftSize = size - (int)(size * threshold);
-//			int dispatchedSize = size - leftSize;
-//			ucList = new LinkedList<UnitClient>();
-//			// 如果阈值分配后的作业大于2个，则采用剩余作业抢任务算法
-//			if (leftSize > 2) {
-//				ArrayList<Caller> tmpCallers = new ArrayList<Caller>();
-//				leftCallers = new ArrayList<Caller>();
-//				int threashNum = size - leftSize;
-//				for (int i = 0; i < size; i++) {
-//					if (i < threashNum) {
-//						tmpCallers.add(callers.get(i));
-//					} else {
-//						leftCallers.add(callers.get(i));
-//					}
-//				}
-//				callers = tmpCallers;
-//			}
-//
-//			// 为了防止根据算力分配时，所有作业全部堆在第一台机器时，结果列表没法全部空出，做此动作以保证结果的个数绝对等于分机个数
-//			if (reduce != null) {
-//				int maxIndex = nodes.length;
-//				result.set(maxIndex, null);
-//			}
-//
-//			List<ProcessCaller> pCallers = new ArrayList<ProcessCaller>();
-//
-//			HashMap<UnitClient, Sequence> ucTaskMap = dispatchTask();
-//			Iterator<UnitClient> ucs = ucTaskMap.keySet().iterator();
-//			while (ucs.hasNext()) {
-//				UnitClient uc = ucs.next();
-//				Sequence argPos = ucTaskMap.get(uc);
-//				if (nodes.length > 1) {
-//					Logger.debug(mm.getMessage("ParallelCaller.dispatchedS",uc, argPos.toExportString()));
-//				}
-//				int ucIndex = indexOfUC(uc);
-//				List<List> args = reserveResult(argPos, ucIndex);
-//				ProcessCaller pcaller = new ProcessCaller(args);
-//				if (reduce != null) {
-//					pcaller.setReduce(reduce, ucIndex);
-//				} else {
-//					pcaller.setPositions(argPos);
-//				}
-//				appendClient(uc, false);
-//				pCallers.add(pcaller);
-//			}
-//
-//			callers.clear();
-//			for (ProcessCaller pc : pCallers) {
-//				callers.add(pc);
-//				pc.join();
-//			}
-//
-//			size = callers.size();
-//			pool = ThreadPool.newSpecifiedInstance(size);
-//			int loopSize = size;
-//			if (leftCallers != null) {
-//				leftSize = leftCallers.size();
-//				Logger.debug(mm.getMessage("ParallelCaller.leftJob", leftSize));
-//
-//				loopSize += leftSize;
-//				for (int i = 1; i <= leftSize; i++) {
-//					Sequence argPos = new Sequence();
-//					argPos.add(i);
-//					List<List> args = reserveResult(leftCallers, argPos, 1);
-//					ProcessCaller pcaller = new ProcessCaller(args);
-//					if (reduce != null) {
-//						pcaller.setMainReduce(reduce);
-//					} else {
-//						Sequence argPos2 = new Sequence();
-//						argPos2.add(i + dispatchedSize);
-//						pcaller.setPositions(argPos2);
-//					}
-//
-//					callers.add(pcaller);// 需要抢任务的单个作业追加到callers
-//				}
-//			}
-//
-//			for (int i = 0; i < loopSize; i++) {
-//				Caller caller = callers.get(i);
-//				caller.setUnitClient(getClient());
-//				pool.submit(caller);
-//			}
-//			
-//			joinCallers();
-//			return result;
-//		} catch (Throwable x) {
-//			if (x instanceof OutOfMemoryError) {
-//				Logger.severe(x);
-//			}
-//			interruptAll(null, x);
-//			if (x instanceof RQException) {
-//				throw (RQException) x;
-//			}
-//			throw new RuntimeException(x.getMessage(), x);
-//		} finally {
-//			if (pool != null) {
-//				pool.shutdown();
-//			}
-//		}
-//
-//	}
-
 
 	void closeConnects() {
 		super.closeConnects();
@@ -544,7 +428,6 @@ public class ParallelCaller extends ParallelProcess {
 		private CellLocation accumulateLocation = null;
 		private CellLocation currentLocation = null;
 		
-//		private int argPosition = 1;
 		private Sequence argPositions = null;
 		private boolean isDispatchable = false;
 
@@ -561,6 +444,11 @@ public class ParallelCaller extends ParallelProcess {
 		
 		public void setUnitClient(UnitClient uc) throws Exception {
 			this.uc = uc;
+			if (canRunOnLocal()) {
+				// 如果可以本地执行时，不需要从分机获取任务号，也不建立跟分机的常连接
+				taskId = UnitServer.nextId();
+				return;
+			}
 
 			Request req = new Request(Request.DFX_TASK);
 			req.setAttr(Request.TASK_DfxName, dfx);
@@ -588,60 +476,15 @@ public class ParallelCaller extends ParallelProcess {
 			this.reduce = reduce;
 			this.accumulateLocation = accumulateLocation;
 			this.currentLocation = currentLocation;
-//			this.argPosition = argPos;
 		}
-
-		/**
-		 * 主机的大量作业时，会先分出一堆作业到分机，此时这一堆作业会在分机reduce
-		 * 而剩余的抢作业，会在主机端调用MainReduce，将分机的一堆作业返回的结果再次reduce
-		 * @param reduce
-		 */
-//		public void setMainReduce(String reduce) {
-//			pcCtx = new Context();
-//			pcExp = new Expression(pcCtx, reduce);
-//			this.reduce = REDUCE_MAIN;
-//		}
 
 		public void setPositions(Sequence argPos) {
 			this.argPositions = argPos;
 		}
 
-//		void reduceMain(int index, Object rVal) {
-//			synchronized (reduceResults) {
-//				Object preVal = result.get(index);
-//				if (preVal == null) {
-//					preVal = rVal;
-//				} else {
-//					preVal = reduce(preVal, rVal, pcExp, pcCtx);
-//				}
-//				result.set(index, preVal);
-//			}
-//		}
-
 		void setResponseValue(Object rVal) {
 			int index = 0;
 			if (reduce != null) {
-//				if (reduce.equals(REDUCE_MAIN)) {
-//					index = indexOfUC(uc);
-//					Object tmp = rVal;
-//					if (rVal instanceof Sequence) {
-//						Sequence sval = (Sequence) rVal;
-//						tmp = sval.get(1);// 此处去掉分机值的外层序列
-//					}
-//					reduceMain(index, tmp);
-//				} else if (reduce == REDUCE_NULL) {
-//					// 等量或少量作业时，使用REDUCE_NULL告诉分机不用做reduce，但是分机回来的值肯定是包含一个元素的序列
-//					index = argPosition;
-//					Object tmp = rVal;
-//					if (rVal instanceof Sequence) {
-//						Sequence sval = (Sequence) rVal;
-//						tmp = sval.get(1);// 此处去掉分机值的外层序列
-//					}
-//					setResult(index, tmp);
-//				} else {
-//					index = argPosition;
-//					setResult(index, rVal);
-//				}
 			} else {
 				Sequence pos = argPositions;
 				Sequence val = null;
@@ -691,13 +534,16 @@ public class ParallelCaller extends ParallelProcess {
 					if (isCanceled) {
 						Logger.debug(mm.getMessage("ParallelProcess.canceled",
 								this));
-						// + " is canceled.");
 						break;
 					}
 					try {
 						long l1 = System.currentTimeMillis();
 						Logger.debug(mm.getMessage("Task.taskBegin", this));
-						runOnNode();
+						if (canRunOnLocal()) {
+							runOnLocal( true );
+						}else{
+							runOnNode();
+						}
 						long l2 = System.currentTimeMillis();
 						DecimalFormat df = new DecimalFormat("###,###");
 						long lastTime = l2 - l1;

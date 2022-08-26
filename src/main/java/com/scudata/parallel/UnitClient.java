@@ -135,7 +135,7 @@ public class UnitClient implements Serializable {
 	 * @return 是本地机返回true，否则返回false
 	 */
 	public boolean isEqualToLocal() {
-		// 记不清啥情况会创建host为null的UC
+		// callx支持 :, ""写法代表使用本地线程
 		if (host == null)
 			return true;
 
@@ -194,7 +194,7 @@ public class UnitClient implements Serializable {
 	 * @return 连接好后返回true，否则返回false
 	 */
 	public boolean isConnected() {
-		return !isClosed();
+		return !isClosed() || isEqualToLocal();//本机线程也算联机状态
 	}
 
 	/**
@@ -261,6 +261,9 @@ public class UnitClient implements Serializable {
 	 * @return 最大作业数
 	 */
 	public int getUnitMaxNum() {
+		if(isEqualToLocal()) {
+			return HostManager.maxTaskNum;
+		}
 		Request req = new Request(Request.SERVER_GETUNITS_MAXNUM);
 		try {
 			Response res = send(req);
@@ -404,28 +407,6 @@ public class UnitClient implements Serializable {
 		return (int[]) res.getResult();
 	}
 
-	// public static Sequence exeFetchDim(String spaceId, String dimVarName,、
-	// String machineDesc, String[] newExps, Sequence keySequence,
-	// String[] newNames) throws Exception {
-	// JobSpace space = JobSpaceManager.getSpace(spaceId);
-	// Param param = space.getParam(dimVarName);
-	// if (param == null) {
-	// MessageManager mm = EngineMessage.get();
-	// throw new RQException(mm.getMessage("unitclient.exefetchdim",
-	// machineDesc, spaceId, dimVarName));
-	// }
-	// Sequence dimTable = (Sequence) param.getValue();
-	// Context ctx = new Context();
-	// Expression[] exps = new Expression[newExps.length];
-	// for (int i = 0; i < exps.length; i++) {
-	// Expression exp = new Expression(newExps[i]);
-	// exps[i] = exp;
-	// }
-	// Sequence seq = JobUtil.fetch(dimTable, keySequence, exps, newNames,
-	// null, ctx);
-	// return seq;
-	// }
-
 	public static Sequence getMemoryTable(String spaceId, String tableName,
 			String nodeDesc) throws Exception {
 		JobSpace space = JobSpaceManager.getSpace(spaceId);
@@ -447,26 +428,6 @@ public class UnitClient implements Serializable {
 		return dimTable;
 	}
 
-	// public static Sequence exeFetchClusterTable(String spaceId,
-	// String tableName, String machineDesc, String[] newExps,
-	// Sequence keySequence, int[] seqs, String[] newNames, String filter)
-	// throws Exception {
-	// Sequence dimTable = getMemoryTable(spaceId, tableName, machineDesc);
-	// Context ctx = new Context();
-	// Expression[] exps = new Expression[newExps.length];
-	// for (int i = 0; i < exps.length; i++) {
-	// Expression exp = new Expression(newExps[i]);
-	// exps[i] = exp;
-	// }
-	// Sequence seq;
-	// if (keySequence != null) {
-	// seq = JobUtil.fetch(dimTable, keySequence, exps, newNames, filter,
-	// ctx);
-	// } else {
-	// seq = JobUtil.fetch(dimTable, seqs, exps, newNames, filter, ctx);
-	// }
-	// return seq;
-	// }
 
 	/**
 	 * 获取指定分机上正在运行的任务数目
@@ -486,61 +447,6 @@ public class UnitClient implements Serializable {
 			throw new RQException(x);
 		}
 	}
-
-	// public Sequence fetchADimTable(String spaceId, String dimVarName,
-	// Sequence keySequence, String[] newExps, String[] newNames)
-	// throws Exception {
-	// // 如果UC分机的host和IP跟IDE设置的环境变量中的本地地址相同，则也是本地线程执行 2013.12.19
-	// if (host.equals(Env.getLocalHost()) && port == Env.getLocalPort()) {
-	// return exeFetchDim(spaceId, dimVarName, " local process", newExps,
-	// keySequence, newNames);
-	// }
-	//
-	// Request req = new Request(Request.SERVER_FETCHDIMS);
-	// req.setAttr(Request.FETCHDIMS_SpaceId, spaceId);
-	// req.setAttr(Request.FETCHDIMS_DimVarName, dimVarName);
-	// req.setAttr(Request.FETCHDIMS_KeySequence, keySequence);
-	// req.setAttr(Request.FETCHDIMS_NewExps, newExps);
-	// req.setAttr(Request.FETCHDIMS_NewNames, newNames);
-	//
-	// // try {
-	// Response res = sendByNewSocket(req);
-	// if (res.getException() != null) {
-	// throw res.getException();
-	// }
-	// return (Sequence) res.getResult();
-	// // }
-	// // catch (Exception x) {}
-	// }
-
-	// public Sequence fetchAClusterTable(String spaceId, String tableName,
-	// Sequence keySequence, int[] seqs, String[] newExps,
-	// String[] newNames, String filter) throws Exception {
-	// // 如果UC分机的host和IP跟IDE设置的环境变量中的本地地址相同，则也是本地线程执行 2013.12.19
-	// if (host.equals(Env.getLocalHost()) && port == Env.getLocalPort()) {
-	// return exeFetchClusterTable(spaceId, tableName, " local process",
-	// newExps, keySequence, seqs, newNames, filter);
-	// }
-	//
-	// Request req = new Request(Request.SERVER_FETCHCLUSTERTABLE);
-	// req.setAttr(Request.FETCHCLUSTERTABLE_SpaceId, spaceId);
-	// req.setAttr(Request.FETCHCLUSTERTABLE_TableName, tableName);
-	// req.setAttr(Request.FETCHCLUSTERTABLE_KeySequence, keySequence);
-	// req.setAttr(Request.FETCHCLUSTERTABLE_Seqs, seqs);
-	// req.setAttr(Request.FETCHCLUSTERTABLE_NewExps, newExps);
-	// req.setAttr(Request.FETCHCLUSTERTABLE_NewNames, newNames);
-	// req.setAttr(Request.FETCHCLUSTERTABLE_Filter, filter);
-	//
-	// // try {
-	// Response res = sendByNewSocket(req);
-	// if (res.getException() != null) {
-	// throw res.getException();
-	// }
-	// return (Sequence) res.getResult();
-	// // }
-	// // catch (Exception x) {}
-	// }
-
 	public Response sendByNewSocket(Request req) throws Exception {
 		SocketData tmp = null;
 		try {
@@ -569,10 +475,6 @@ public class UnitClient implements Serializable {
 
 	public Response send(UnitCommand command) {
 		try {
-			// Logger.debug("before unitcmd:"+command);
-			// if(command.getCmd()==31){
-			// new Exception().printStackTrace();
-			// }
 			Request req = new Request(Request.UNITCOMMAND_EXE);
 			req.setAttr(Request.EXE_Object, command);
 			Response res = sendByNewSocket(req);
@@ -582,10 +484,6 @@ public class UnitClient implements Serializable {
 			throw new RuntimeException(x);
 		}
 	}
-
-	// public Socket getSocket() {
-	// return socketData.getSocket();
-	// }
 
 	public boolean isClosed() {
 		return (socketData == null || socketData.isClosed());
@@ -633,6 +531,9 @@ public class UnitClient implements Serializable {
 	private transient String tmpString = null;
 
 	public String toString() {
+		if(host==null) {
+			return "Local";
+		}
 		if (tmpString == null) {
 			tmpString = host + ":" + port;
 		}
@@ -646,6 +547,9 @@ public class UnitClient implements Serializable {
 			return false;
 		}
 		UnitClient otherUc = (UnitClient) other;
+		if(otherUc.getHost()==null) {//都是本机时
+			return (host==null);
+		}
 		return otherUc.getHost().equalsIgnoreCase(host)
 				&& otherUc.getPort() == port;
 	}

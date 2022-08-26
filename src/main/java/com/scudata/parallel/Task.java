@@ -106,13 +106,6 @@ public class Task extends Job implements IResource, ITask {
 		this.currentLocation = currentLocation;
 	}
 
-	/**
-	 * 设置分进程的端口
-	 * @param sub 端口号
-	 */
-//	public void setSubPort(int sub) {
-//		this.subPort = sub;
-//	}
 
 	/**
 	 * 设置主进程的任务号
@@ -378,7 +371,6 @@ public class Task extends Job implements IResource, ITask {
 				}
 				pp.setJobSpaceId(spaceId);
 				pp.setReduce(reduce,accumulateLocation,currentLocation);
-//				pp.setSubPort(subPort);
 				pp.setProcessTaskId(taskId);
 				result = pp.execute();
 			} else {
@@ -617,6 +609,14 @@ public class Task extends Job implements IResource, ITask {
 	 */
 	public boolean isProcessCaller() {
 		return isProcessCaller;
+	}
+	public void setProcessCaller( boolean b) {
+		isProcessCaller = b;
+	}
+	public void setReduce(Object reduce,CellLocation accuLoc, CellLocation currentLoc) {
+		this.reduce = reduce;
+		this.accumulateLocation = accuLoc;
+		this.currentLocation = currentLoc;
 	}
 	/**
 	 * 获取计算完成的响应

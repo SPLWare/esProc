@@ -23,10 +23,6 @@ import com.scudata.util.CellSetUtil;
  *
  */
 public class ParallelProcess implements IResource{
-//	当参数个数小于等于h的个数时，忽略reduce动作，此时传递给该类的reduce为下述值。
-//	合并或者设置返回值时，需要根据REDUCE的类型做不同操作
-//	public static String REDUCE_NULL = "NULL";
-//	public static String REDUCE_MAIN = "MAIN";//只在主控端做reduce，分机等同于REDUCE_NULL
 	public static String ONE_OPTION = "1选项计算已完成。";
 	
 	Object dfx;// dfx可以是1：dfx文件名字；2：一段代码；3：一个PgmCellSet对象
@@ -36,14 +32,9 @@ public class ParallelProcess implements IResource{
 	CellLocation accumulateLocation=null;//如果参数位置为null时， 则使用第1个参数当累计值
 	CellLocation currentLocation=null;// 如果参数位置为null时， 则使用第2个参数当当前值
 
-//	transient Expression reduceExp = null;
-//	transient Context reduceCtx = null;
 	
 	ArrayList<Caller> callers = new ArrayList<Caller>();
 	Sequence result = new Sequence();
-//	int subPort = 0;
-	
-//	Object lock = new Object();
 
 	private volatile boolean interrupt = false;
 	private Throwable interruptException;
@@ -79,15 +70,6 @@ public class ParallelProcess implements IResource{
 		}
 		TERMINATE = mm.getMessage("ParallelProcess.terminate");
 	}
-	
-	/**
-	 * 设置子端口号
-	 * @param port 端口号
-	 */
-//	public void setSubPort(int port){
-//		this.subPort = port;
-//	}
-	
 	/**
 	 * 设置当前进程的任务号
 	 * @param pTaskId 任务号
@@ -195,11 +177,6 @@ public class ParallelProcess implements IResource{
 			PgmCellSet pcs = dfxManager.removeDfx(fo, new Context());
 			this.reduce = pcs;
 		}
-//		this.reduce = reduce;
-//		if(needReduce() && isExpReduce() ){
-//			reduceCtx = new Context();
-//			reduceExp = new Expression(reduceCtx, (String)reduce);
-//		}
 	}
 	
 	/**
@@ -374,27 +351,6 @@ public class ParallelProcess implements IResource{
 		int size = callers.size();
 		
 		int min = Env.getParallelNum();
-/**		在主控端本地执行
-		if( subPort==0 ){
-			if(hostManager.getHost()!=null){
-				LinkedList<UnitClient>  tmpList = (LinkedList<UnitClient>)hostManager.listUnits(size);
-				ucList = new LinkedList<UnitClient>();
-				while(tmpList.size()>0){
-					appendClient(tmpList.removeFirst());
-				}
-				min = Math.min(size, hostManager.getPreferredTaskNum());
-	//			进程数目少于适合作业数时，要补足进程的多线程并发
-				if(ucList.size()<min){
-					int cha = min - ucList.size();
-					for(int i=0;i<cha; i++){
-						appendClient(ucList.get(i));
-					}
-				}
-			}
-		}else{
-			min = Math.min(size, min);
-		}
-**/		
 		ThreadPool pool = ThreadPool.newSpecifiedInstance( min );
 		try {
 			for (int i = 0; i < size; i++) {
@@ -422,7 +378,7 @@ public class ParallelProcess implements IResource{
 	}
 	
 	boolean needReduce(){
-		return !(reduce==null);// || reduce.equals(REDUCE_NULL) || reduce.equals(REDUCE_MAIN));
+		return !(reduce==null);
 	}
 	
 	/**
@@ -450,9 +406,6 @@ public class ParallelProcess implements IResource{
 		if( needReduce() ){
 //			reduce的单步计算结果不在作业中返回，而是记在reduceResults中，单步作业直接返回true告诉主机reduce的结果计算完成
 			return true;
-//			Object val = reduceResults.get(spaceId);
-//			reduceResults.remove(spaceId);
-//			return val;
 		}else{
 			return result;
 		}
@@ -603,9 +556,6 @@ public class ParallelProcess implements IResource{
 			if(hostManager.getHost()==null){//如果不是在分机中执行时，都是本地线程
 				return null;
 			}
-//			if(subPort>0){
-//				return new UnitClient(hostManager.getHost(),subPort);
-//			}
 		}
 		
 		synchronized(ucList) {
@@ -738,11 +688,7 @@ public class ParallelProcess implements IResource{
 					if(accumulateResult==null){
 						accumulateResult = val;
 					}else{
-//						if( isExpReduce() ){
-//							accumulateResult = reduce( accumulateResult, val, reduceExp, reduceCtx);
-//						}else{
-							accumulateResult = reducePgmCellSet( accumulateResult, val);
-//						}
+						accumulateResult = reducePgmCellSet( accumulateResult, val);
 					}
 					reduceResults.put(spaceId, accumulateResult);
 				}
@@ -764,9 +710,19 @@ public class ParallelProcess implements IResource{
 			return dfxObj;
 		}
 		
-		private void runOnLocal() throws Throwable{//RedispatchableException {
+		
+		void runOnLocal() throws Throwable{
+			runOnLocal(false);
+		}
+		
+		void runOnLocal(boolean isProcessCaller) throws Throwable{
 			try {
 				Task task = new Task(getDfxObject(), argList, taskId, spaceId);
+				task.setProcessCaller(isProcessCaller);
+				if( isProcessCaller ) {
+					task.setReduce(reduce, accumulateLocation, currentLocation);
+				}
+
 				TaskManager.addTask(task);
 				
 				Response res = task.execute();
@@ -795,7 +751,7 @@ public class ParallelProcess implements IResource{
 			}
 		}
 
-		private boolean canRunOnLocal() {
+		boolean canRunOnLocal() {
 			if (uc == null) {
 				return true;
 			}
