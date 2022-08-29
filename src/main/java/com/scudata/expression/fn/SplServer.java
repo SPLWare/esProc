@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 
+import com.scudata.app.config.ConfigUtil;
 import com.scudata.common.Logger;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
@@ -83,8 +84,12 @@ public class SplServer extends Function {
 		try {
 			InputStream is = new FileInputStream(cfg);
 			SplServerConfig ssc = SplServerConfig.getCfg(is);
-			String args = getStartCmd(ssc, host, port);
+			String args = getStartCmd(ssc, host, port,cfg);
 			Logger.debug(args);
+
+//			String[] args = getStartCmd(ssc, host, port,cfg);
+//			Logger.debug(args[0]+" "+args[1]+" "+args[2]+" "+args[3]);
+			
 			Thread hook = new Thread() {
 				public void run() {
 					System.out.println("hook");
@@ -92,7 +97,7 @@ public class SplServer extends Function {
 				}
 			};
 			Runtime.getRuntime().addShutdownHook( hook );
-			Process p = Runtime.getRuntime().exec(args+ cfg);
+			Process p = Runtime.getRuntime().exec(args);
 		}catch(Exception x) {
 			throw new RQException(x);
 		}
@@ -115,7 +120,34 @@ public class SplServer extends Function {
 		return osName.startsWith("Windows");
 	}
 	
-	public static String getStartCmd(SplServerConfig ssc,String host, int port) {
+	public static String getAbsolutePath(String home, String path) {
+		return ConfigUtil.getPath(home, path);
+	}
+	
+	public static String getStartCmd(SplServerConfig ssc,String host, int port,String cfg) {
+//		String startName;
+//		if (isWindows()) {
+//				startName = "bin/ServerConsole.bat";//黑窗口控制台
+//		} else {
+//				startName = "bin/ServerConsole.sh";//黑窗口控制台
+//		}
+//		String serverPath = getAbsolutePath(ssc.splHome+path("/esProc"),startName);
+//		File f = new File(serverPath);
+//		if (!f.exists()) {
+//			throw new RuntimeException(com.scudata.resources.ParallelMessage.get().getMessage("HostManager.lackstarter",serverPath));
+//		}
+//		String cmd = serverPath;
+//
+//		String[] args;
+//			args = new String[4];
+//			args[0] = cmd;
+//			args[1] = "-C";
+//			args[2] = port+"";
+//			args[3] = cfg;
+//		return args;
+		
+		
+		
 		String SPL_HOME = path(ssc.splHome);
 		String JAVA_HOME = SPL_HOME+path("/common");
 		String EXEC_JAVA = JAVA_HOME+path("/jre/bin/java");
@@ -134,8 +166,7 @@ public class SplServer extends Function {
 		cmd.append("-Dstart.home=");
 		cmd.append(SPL_HOME+path("/esProc "));
 		cmd.append("com.scudata.ide.spl.ServerConsole -C ");
-		cmd.append(port+" ");
-		
+		cmd.append(port+" "+cfg);
 		return cmd.toString();
 	}
 	

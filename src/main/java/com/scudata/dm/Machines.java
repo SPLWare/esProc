@@ -31,10 +31,10 @@ public class Machines implements Externalizable{
 		if (index == -1) {//没有冒号
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("HS" + mm.getMessage("function.invalidParam")+": "+str);
-		}else if( index==0 ) {//冒号开头为本机
+		}else if( index==0 ) {//冒号开头为本地分机
 			if(str.length()>1) {
 				host = defaultHost;
-			}//否则为光冒号表示本机，用null当host
+			}//否则为光冒号表示本进程，用null当host
 		}else {
 			host = str.substring(0, index);
 		}
