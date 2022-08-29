@@ -83,7 +83,6 @@ import com.scudata.ide.spl.control.SplEditor;
 import com.scudata.ide.spl.dialog.DialogExecCmd;
 import com.scudata.ide.spl.dialog.DialogFTP;
 import com.scudata.ide.spl.dialog.DialogOptionPaste;
-import com.scudata.ide.spl.dialog.DialogOptions;
 import com.scudata.ide.spl.dialog.DialogSearch;
 import com.scudata.ide.spl.resources.IdeSplMessage;
 import com.scudata.resources.EngineMessage;
@@ -1782,16 +1781,21 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 							return; // 直接结束计算线程
 						} else {
 							if (pnc != null) {
-								if (stepInfo != null && stepInfo.endRow > -1) {
+								if (stepInfo != null) {
 									// 单步调试进入时，遇到返回格
-									if (isReturnCell(pnc)) {
-										hasReturn = true;
-										returnVal = calcReturnValue(curCellSet,
-												pnc, splCtx);
-									}
+									if (stepInfo.endRow > -1) // func才走到这里
+										if (isReturnCell(pnc)) {
+											hasReturn = true;
+											returnVal = calcReturnValue(
+													curCellSet, pnc, splCtx);
+										}
 								}
 							}
 							exeLocation = runNext(curCellSet);
+						}
+						if (hasReturn(curCellSet)) {
+							exeLocation = null;
+							break;
 						}
 						if (isDebugMode && pnc != null) {
 							long end = System.currentTimeMillis();
@@ -1974,6 +1978,19 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 			pause();
 			closeResource();
 		}
+	}
+
+	/**
+	 * 是否返回
+	 * @param cellSet
+	 * @return
+	 */
+	protected boolean hasReturn(PgmCellSet cellSet) {
+		boolean hasReturn = cellSet.hasReturn();
+		if (hasReturn) {
+			cellSet.runFinished();
+		}
+		return hasReturn;
 	}
 
 	/**

@@ -31,7 +31,6 @@ import sun.net.util.IPAddressUtil;
 import com.esproc.jdbc.JDBCConsts;
 import com.scudata.cellset.datamodel.Command;
 import com.scudata.cellset.datamodel.PgmCellSet;
-import com.scudata.cellset.datamodel.PgmNormalCell;
 import com.scudata.common.Escape;
 import com.scudata.common.Logger;
 import com.scudata.common.MessageManager;
@@ -303,27 +302,29 @@ public class AppUtil {
 		try {
 			stack.pushArg(args);
 
-			pcs.setContext(ctx);
+			Context csCtx = pcs.getContext();
+			csCtx.setEnv(ctx);
 			pcs.calculateResult();
+			return pcs;
 
-			if (pcs.hasNextResult()) {
-				return pcs.nextResult();
-			} else {
-				int colCount = pcs.getColCount();
-				for (int r = pcs.getRowCount(); r > 0; --r) {
-					for (int c = colCount; c > 0; --c) {
-						PgmNormalCell cell = pcs.getPgmNormalCell(r, c);
-						if (cell.isCalculableCell() || cell.isCalculableBlock()) {
-							return cell.getValue();
-						}
-					}
-				}
-			}
+			// if (pcs.hasNextResult()) {
+			// return pcs.nextResult();
+			// } else {
+			// int colCount = pcs.getColCount();
+			// for (int r = pcs.getRowCount(); r > 0; --r) {
+			// for (int c = colCount; c > 0; --c) {
+			// PgmNormalCell cell = pcs.getPgmNormalCell(r, c);
+			// if (cell.isCalculableCell() || cell.isCalculableBlock()) {
+			// return cell.getValue();
+			// }
+			// }
+			// }
+			// }
 		} finally {
 			stack.popArg();
 		}
 
-		return null;
+		// return null;
 	}
 
 	/**
