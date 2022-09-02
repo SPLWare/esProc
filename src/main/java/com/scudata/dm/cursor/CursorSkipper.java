@@ -9,7 +9,7 @@ import com.scudata.thread.ThreadPool;
  *
  */
 class CursorSkipper extends Job {
-	private ThreadPool threadPool; // 线程池
+	//private ThreadPool threadPool; // 线程池
 	private ICursor cursor; // 要取数的游标
 	private long skipCount; // 每次跳过的记录数
 	private long actualSkipCount; // 实际跳过的记录数
@@ -21,7 +21,7 @@ class CursorSkipper extends Job {
 	 * @param count 每次跳过的记录数
 	 */
 	public CursorSkipper(ThreadPool threadPool, ICursor cursor, long count) {
-		this.threadPool = threadPool;
+		//this.threadPool = threadPool;
 		this.cursor = cursor;
 		this.skipCount = count;
 		threadPool.submit(this);
@@ -34,9 +34,11 @@ class CursorSkipper extends Job {
 	public long getActualSkipCount() {
 		join();
 		long count = actualSkipCount;
-		if (count < skipCount) {
-			threadPool.submit(this);
-		}
+		actualSkipCount = 0;
+		
+		//if (count >= skipCount) {
+		//	threadPool.submit(this);
+		//}
 		
 		return count;
 	}

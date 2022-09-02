@@ -1229,6 +1229,43 @@ public class PseudoTable extends Pseudo {
 		return getPd().getAllColNames();
 	}
 	
+	private static byte getProperDataType(Object value) {
+		if (value instanceof String) {
+			return Types.DT_STRING;
+		}
+		if (value instanceof java.lang.Double || value instanceof java.lang.Float) {
+			return Types.DT_DOUBLE;
+		}
+		if (value instanceof java.lang.Integer) {
+				return Types.DT_INT;
+			}
+		
+		if (value instanceof java.lang.Integer || value instanceof java.lang.Long ||
+			value instanceof java.math.BigInteger) {
+			return Types.DT_LONG;
+		}
+
+		if (value instanceof java.sql.Time) {
+			return Types.DT_TIME;
+		}
+
+		if (value instanceof java.sql.Timestamp) {
+			return Types.DT_DATETIME;
+		}
+
+		if (value instanceof java.sql.Date) {
+			return Types.DT_DATE;
+		}
+
+		if (value instanceof java.math.BigDecimal) {
+			return Types.DT_DECIMAL;
+		}
+		if (value instanceof java.lang.Boolean) {
+			return Types.DT_BOOLEAN;
+		}
+		return Types.DT_STRING;
+	}
+	
 	/**
 	 * 获得虚表对应的组表的每列的数据类型
 	 * 注意：返回的类型是以第一条记录为准
@@ -1250,7 +1287,7 @@ public class PseudoTable extends Pseudo {
 		byte[] types = new byte[len];
 		
 		for (int i = 0; i < len; i++) {
-			types[i] = Types.getProperDataType(objs[i]);
+			types[i] = getProperDataType(objs[i]);
 		}
 		return types;
 	}
