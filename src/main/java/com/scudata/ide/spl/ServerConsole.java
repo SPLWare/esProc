@@ -18,6 +18,8 @@ import javax.swing.UIManager;
 import com.scudata.app.common.Section;
 import com.scudata.app.config.ConfigUtil;
 import com.scudata.app.config.RaqsoftConfig;
+import com.scudata.common.Escape;
+import com.scudata.common.Logger;
 import com.scudata.parallel.UnitClient;
 import com.scudata.parallel.UnitContext;
 import com.scudata.server.IServer;
@@ -297,7 +299,8 @@ public class ServerConsole {
 						i++;
 					}
 					if(i+1<args.length){
-						cfgPath = args[i+1].toLowerCase();
+						cfgPath = Escape.removeEscAndQuote( args[i+1].toLowerCase() );
+						Logger.debug("Cfg:"+cfgPath);
 						i++;
 					}
 					if(cfgPath==null) {

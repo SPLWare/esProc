@@ -151,7 +151,7 @@ public class SplServer extends Function {
 		String SPL_HOME = path(ssc.splHome);
 		String JAVA_HOME = SPL_HOME+path("/common");
 		String EXEC_JAVA = JAVA_HOME+path("/jre/bin/java");
-		String RAQ_LIB = SPL_HOME+path("/esProc/lib/*;")+SPL_HOME+path("/common/jdbc/*");
+		String RAQ_LIB = "\""+SPL_HOME+path("/esProc/lib/*")+"\";\""+SPL_HOME+path("/common/jdbc/*")+"\"";
 		StringBuffer cmd = new StringBuffer();
 		if( isWindows() ) {
 			cmd.append("cmd /c start \"UnitServer\" ");
@@ -161,12 +161,12 @@ public class SplServer extends Function {
 			cmd.append(ssc.JVMArgs+" ");	
 		}
 		cmd.append("-cp ");
-		cmd.append(SPL_HOME+path("/esProc/classes;"));
+		cmd.append("\""+SPL_HOME+path("/esProc/classes")+"\";");
 		cmd.append(RAQ_LIB+" ");
-		cmd.append("-Dstart.home=");
-		cmd.append(SPL_HOME+path("/esProc "));
+		cmd.append("-Dstart.home=\"");
+		cmd.append(SPL_HOME+path("/esProc")+"\" ");
 		cmd.append("com.scudata.ide.spl.ServerConsole -C ");
-		cmd.append(port+" "+cfg);
+		cmd.append(port+" \""+cfg+"\"");
 		return cmd.toString();
 	}
 	
