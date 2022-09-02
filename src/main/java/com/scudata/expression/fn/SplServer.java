@@ -156,7 +156,7 @@ public class SplServer extends Function {
 		if( isWindows() ) {
 			cmd.append("cmd /c start \"UnitServer\" ");
 		}
-		cmd.append(EXEC_JAVA+" ");
+		cmd.append("\""+EXEC_JAVA+"\" ");
 		if(StringUtils.isValidString(ssc.JVMArgs)) {
 			cmd.append(ssc.JVMArgs+" ");	
 		}
