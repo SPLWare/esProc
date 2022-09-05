@@ -3,6 +3,7 @@ package com.scudata.expression.fn.gather;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
+import com.scudata.dm.Sequence;
 import com.scudata.expression.Expression;
 import com.scudata.expression.Gather;
 import com.scudata.resources.EngineMessage;
@@ -16,6 +17,7 @@ import com.scudata.util.Variant;
  */
 public class Minp extends Gather {
 	private Expression exp;
+	private boolean isOne;
 
 	public Object calculate(Context ctx) {
 		MessageManager mm = EngineMessage.get();
@@ -29,20 +31,41 @@ public class Minp extends Gather {
 		}
 
 		exp = param.getLeafExpression();
+		isOne = option == null || option.indexOf('a') == -1;
 	}
 	
 	public Object gather(Context ctx) {
 		Object val = exp.calculate(ctx);
 		Object r = ctx.getComputeStack().getTopObject().getCurrent();
-		return new Object[] {val, r};
+		
+		if (isOne) {
+			return new Object[] {val, r};
+		} else {
+			Sequence seq = new Sequence();
+			seq.add(r);
+			return new Object[] {val, seq};
+		}
 	}
 
 	public Object gather(Object oldValue, Context ctx) {
 		Object []array = (Object[])oldValue;
 		Object val = exp.calculate(ctx);
-		if (Variant.compare(val, array[0], true) < 0) {
-			array[1] = val;
-			array[1] = ctx.getComputeStack().getTopObject().getCurrent();
+		int cmp = Variant.compare(val, array[0], true);
+		
+		if (cmp < 0) {
+			array[0] = val;
+			Object r = ctx.getComputeStack().getTopObject().getCurrent();
+			
+			if (isOne) {
+				array[1] = r;
+			} else {
+				Sequence seq = new Sequence();
+				seq.add(r);
+				return new Object[] {val, seq};
+			}
+		} else if (cmp == 0 && !isOne) {
+			Object r = ctx.getComputeStack().getTopObject().getCurrent();
+			((Sequence)array[1]).add(r);
 		}
 		
 		return oldValue;
@@ -50,10 +73,15 @@ public class Minp extends Gather {
 
 	public Expression getRegatherExpression(int q) {
 		//minp(x):f
-		//top@1(1,f.(x),f)
+		//top@1(1,~.x,f)
 		String f = "#" + q;
-		String str = "top@1(1," + f + ".(" + exp.toString() + ")," + f + ")";
-		return new Expression(str);
+		if (isOne) {
+			String str = "top@1(1," + "~." + exp.toString() + "," + f + ")";
+			return new Expression(str);
+		} else {
+			String str = "top@2(1," + "~." + exp.toString() + "," + f + ")";
+			return new Expression(str);
+		}
 	}
 
 	public boolean needFinish() {
