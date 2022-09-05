@@ -1229,7 +1229,7 @@ public class PseudoTable extends Pseudo {
 		return getPd().getAllColNames();
 	}
 	
-	private static byte getProperDataType(Object value) {
+	protected static byte getProperDataType(Object value) {
 		if (value instanceof String) {
 			return Types.DT_STRING;
 		}

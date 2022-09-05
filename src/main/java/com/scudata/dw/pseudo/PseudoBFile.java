@@ -268,7 +268,7 @@ public class PseudoBFile extends PseudoTable {
 		byte[] types = new byte[len];
 		
 		for (int i = 0; i < len; i++) {
-			types[i] = Types.getProperDataType(objs[i]);
+			types[i] = PseudoTable.getProperDataType(objs[i]);
 		}
 		return types;
 	}

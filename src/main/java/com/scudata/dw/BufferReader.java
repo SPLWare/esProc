@@ -805,12 +805,12 @@ public class BufferReader {
 	}
 	
 	protected void skipTable() throws IOException {
-		int fcount = readInt();
-		for (int i = 0; i < fcount; ++i) {
-			readString(); // Ìø¹ý×Ö¶ÎÃû
-		}
-
+		int id = readInt();
 		int len = readInt();
+		
+		DataStruct ds = structManager.getDataStruct(id);
+		int fcount = ds.getFieldCount();
+		
 		for (int i = 1; i <= len; ++i) {
 			for (int f = 0; f < fcount; ++f) {
 				skipObject();
