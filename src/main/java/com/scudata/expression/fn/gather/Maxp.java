@@ -59,9 +59,9 @@ public class Maxp extends Gather {
 			if (isOne) {
 				array[1] = r;
 			} else {
-				Sequence seq = new Sequence();
+				Sequence seq = (Sequence)array[1];
+				seq.clear();
 				seq.add(r);
-				return new Object[] {val, seq};
 			}
 		} else if (cmp == 0 && !isOne) {
 			Object r = ctx.getComputeStack().getTopObject().getCurrent();
