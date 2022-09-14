@@ -76,10 +76,10 @@ public class Maxp extends Gather {
 		//top@1(-1,~.x,f)
 		String f = "#" + q;
 		if (isOne) {
-			String str = "top@1(-1," + "~." + exp.toString() + "," + f + ")";
+			String str = "top@1(-1," + "~.(" + exp.toString() + ")," + f + ")";
 			return new Expression(str);
 		} else {
-			String str = "top@2(-1," + "~." + exp.toString() + "," + f + ")";
+			String str = "top@2(-1," + "~.(" + exp.toString() + ")," + f + ")";
 			return new Expression(str);
 		}
 	}
