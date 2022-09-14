@@ -505,7 +505,7 @@ public class FileTree extends JTree {
 	 * Ë¢ÐÂÊ÷½Úµã
 	 * @param node
 	 */
-	protected void refreshNode(FileTreeNode node) {
+	public void refreshNode(FileTreeNode node) {
 		if (node == null)
 			return;
 		node.setLoaded(false);

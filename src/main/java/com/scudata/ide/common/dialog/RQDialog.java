@@ -168,7 +168,12 @@ public class RQDialog extends JDialog {
 		this.addWindowListener(new WindowAdapter() {
 
 			public void windowClosed(WindowEvent e) {
-				closeDialog(JOptionPane.CLOSED_OPTION);
+				// closeDialog(JOptionPane.CLOSED_OPTION);
+				try {
+					removeWindowListener(RQDialog.this.getWindowListeners()[0]);
+				} catch (Throwable t) {
+				}
+				RQDialog.this.dispose();
 			}
 
 			public void windowOpened(WindowEvent e) {
