@@ -3,7 +3,9 @@ package com.esproc.jdbc;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.SQLWarning;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -160,13 +162,12 @@ public class InternalStatement implements java.sql.Statement {
 				}
 			};
 			execThread.start();
-			synchronized (execFinished) {
-				while (!execFinished.booleanValue())
-					try {
-						Thread.sleep(5);
-					} catch (ThreadDeath td) {
-					} catch (InterruptedException e) {
-					}
+			while (!execFinished.booleanValue()) {
+				try {
+					Thread.sleep(5);
+				} catch (ThreadDeath td) {
+				} catch (InterruptedException e) {
+				}
 			}
 			if (ex != null) {
 				throw ex;
@@ -178,6 +179,11 @@ public class InternalStatement implements java.sql.Statement {
 			return result;
 		}
 		return !isCanceled;
+	}
+
+	private static String getCurrentTimeString() {
+		SimpleDateFormat format = new SimpleDateFormat("hh:mm:ss");
+		return format.format(Calendar.getInstance().getTime());
 	}
 
 	/**
@@ -209,6 +215,9 @@ public class InternalStatement implements java.sql.Statement {
 				return null;
 			}
 			Context ctx = con.getCtx();
+			if (ctx != null) {
+				ctx = ctx.newComputeContext();
+			}
 			RaqsoftConfig config = Server.getInstance().getConfig();
 			if (config != null
 					&& StringUtils.isValidString(config.getGateway())) {
