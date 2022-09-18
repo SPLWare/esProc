@@ -23,6 +23,15 @@ import com.scudata.util.Variant;
 public class SerialBytes implements Externalizable, Comparable<SerialBytes> {
 	private static final long serialVersionUID = 0x02613003;
 	private static final long LONGSIGN = 0xFFFFFFFFFFFFFFFFL;
+	private static final String []ZEROSTRS;
+	static {
+		ZEROSTRS = new String[16];
+		String str = "";
+		for (int i = 0; i < 16; ++i) {
+			ZEROSTRS[i] = str;
+			str += '0';
+		}
+	}
 	
 	private long value1;
 	private long value2;
@@ -169,10 +178,29 @@ public class SerialBytes implements Externalizable, Comparable<SerialBytes> {
 	 * @return String
      */
 	public String toString() {
-		if (len > 8) {
+		/*if (len > 8) {
 			return Long.toHexString(value1) + Long.toHexString(value2);
 		} else {
 			return Long.toHexString(value1);
+		}*/
+		
+		String str1 = Long.toHexString(value1);
+		int strLen = str1.length();
+		
+		if (strLen < 16) {
+			str1 = ZEROSTRS[16 - strLen] + str1;
+		}
+		
+		if (len > 8) {
+			String str2 = Long.toHexString(value2);
+			strLen = str2.length();
+			if (strLen < 16) {
+				return str1 + ZEROSTRS[16 - strLen] + str2;
+			} else {
+				return str1 + str2;
+			}
+		} else {
+			return str1;
 		}
 	}
 	

@@ -1,5 +1,6 @@
 package com.scudata.util;
 
+import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.text.DateFormat;
@@ -1424,8 +1425,11 @@ public class Variant {
 		} else if (o == null) {
 			return null;
 		} else if (o instanceof byte[]) {
-			String str = new String((byte[])o);
-			return format(str, format);
+			try {
+				return new String((byte[])o, format);
+			} catch (UnsupportedEncodingException e) {
+				throw new RQException(e.getMessage(), e);
+			}
 		} else {
 			return o.toString();
 		}
