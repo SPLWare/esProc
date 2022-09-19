@@ -222,17 +222,17 @@ public class ServerConsole {
 
 		if (args.length > 0) {
 			for (int i = 0; i < args.length; i++) {
-				arg = args[i].toLowerCase();
+				arg = args[i];
 				if (arg.equalsIgnoreCase("com.scudata.ide.spl.ServerConsole")) { // 用bat打开的文件，类名本身会是参数
 					continue;
 				}
-				if (arg.equals("-a")) {
+				if (arg.equalsIgnoreCase("-a")) {
 					isP = true;
 					isO = true;
 					isH = true;
 					break;
 				}
-				if (arg.startsWith("-p")) {
+				if (arg.toLowerCase().startsWith("-p")) {
 					int index = arg.indexOf(':');
 					String address=null;
 					if(index>0){
@@ -254,15 +254,15 @@ public class ServerConsole {
 					isP = true;
 					continue;
 				}
-				if (arg.equals("-o")) {
+				if (arg.equalsIgnoreCase("-o")) {
 					isO = true;
 					continue;
 				}
-				if (arg.equals("-h")) {
+				if (arg.equalsIgnoreCase("-h")) {
 					isH = true;
 					continue;
 				}
-				if (arg.startsWith("-x")) {
+				if (arg.toLowerCase().startsWith("-x")) {
 					int index = arg.indexOf(':');
 					String address=null;
 					if(index>0){
@@ -284,14 +284,14 @@ public class ServerConsole {
 					isX = true;
 					break;
 				}
-				if (arg.startsWith("-s")) {
+				if (arg.toLowerCase().startsWith("-s")) {
 					isS = true;
 					int index = arg.indexOf(':');
 					host = arg.substring(2, index).trim();
 					port = Integer.parseInt(arg.substring(index + 1).trim());
 					break;
 				}
-				if (arg.startsWith("-c")) {
+				if (arg.toLowerCase().startsWith("-c")) {
 					host = "127.0.0.1";//目前缺省
 					if(i+1<args.length){
 						String buf = args[i+1].toLowerCase();
@@ -300,7 +300,7 @@ public class ServerConsole {
 					}
 					if(i+1<args.length){
 						cfgPath = Escape.removeEscAndQuote( args[i+1].toLowerCase() );
-						Logger.debug("Cfg:"+cfgPath);
+						Logger.debug("Config file:"+cfgPath);
 						i++;
 					}
 					if(cfgPath==null) {
