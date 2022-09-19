@@ -252,8 +252,6 @@ public class ConfigOptions {
 	public static String sCopyPresentSep = "\t";
 	/** The max of undo and redo */
 	public static Integer iUndoCount = new Integer(20);
-	/** 云服务是否可用 */
-	public static Boolean bCloudEnabled = Boolean.FALSE;
 
 	/**
 	 * Static loading options
@@ -322,7 +320,6 @@ public class ConfigOptions {
 		options.put("sSlimerjsDirectory", sSlimerjsDirectory);
 		options.put("sFileTreeExpand", sFileTreeExpand);
 		options.put("iUndoCount", iUndoCount);
-		options.put("bCloudEnabled", bCloudEnabled);
 	}
 
 	/**
@@ -529,8 +526,6 @@ public class ConfigOptions {
 				bFileTreeDemo = ii;
 			} else if (option.equalsIgnoreCase("bAutoSave")) {
 				bAutoSave = ii;
-			} else if (option.equalsIgnoreCase("bCloudEnabled")) {
-				bCloudEnabled = ii;
 			}
 		} else if (StringUtils.isValidString(val)) {
 			if (option.equalsIgnoreCase("sLogFileName")) {
