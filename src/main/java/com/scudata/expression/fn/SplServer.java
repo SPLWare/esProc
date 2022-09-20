@@ -124,6 +124,12 @@ public class SplServer extends Function {
 		return ConfigUtil.getPath(home, path);
 	}
 	
+	private static String ifAddQuote(String path, boolean addQuote) {
+		if( addQuote ) {
+			return "\""+path+"\"";//路径中不可能出现要转义的字符，所以直接在两头加上引号
+		}
+		return path;
+	}
 	public static String getStartCmd(SplServerConfig ssc,String host, int port,String cfg) {
 //		String startName;
 //		if (isWindows()) {
@@ -152,24 +158,27 @@ public class SplServer extends Function {
 		}
 		
 		String SPL_HOME = path(ssc.splHome);
+		boolean addQuote = SPL_HOME.indexOf(' ')>0;//查看路径中是否有空格，如果有空格则给命令串的路径加上引号
 		String JAVA_HOME = SPL_HOME+path("/common");
 		String EXEC_JAVA = JAVA_HOME+path("/jre/bin/java");
-		String RAQ_LIB = "\""+SPL_HOME+path("/esProc/lib/*")+"\""+seperator+"\""+SPL_HOME+path("/common/jdbc/*")+"\"";
+		String RAQ_LIB = ifAddQuote(SPL_HOME+path("/esProc/lib/*"),addQuote)+seperator+ifAddQuote(SPL_HOME+path("/common/jdbc/*"),addQuote);
 		StringBuffer cmd = new StringBuffer();
 		if( isWindows() ) {
 			cmd.append("cmd /c start \"UnitServer\" ");
 		}
-		cmd.append("\""+EXEC_JAVA+"\" ");
+		cmd.append(ifAddQuote(EXEC_JAVA,addQuote));
+		cmd.append(" ");
 		if(StringUtils.isValidString(ssc.JVMArgs)) {
 			cmd.append(ssc.JVMArgs+" ");	
 		}
 		cmd.append("-cp ");
-		cmd.append("\""+SPL_HOME+path("/esProc/classes")+"\""+seperator);
+		cmd.append(ifAddQuote(SPL_HOME+path("/esProc/classes"),addQuote)+seperator);
 		cmd.append(RAQ_LIB+" ");
-		cmd.append("-Dstart.home=\"");
-		cmd.append(SPL_HOME+path("/esProc")+"\" ");
-		cmd.append("com.scudata.ide.spl.ServerConsole -C ");
-		cmd.append(port+" \""+cfg+"\"");
+		cmd.append("-Dstart.home=");
+		cmd.append(ifAddQuote(SPL_HOME+path("/esProc"),addQuote));
+		cmd.append(" com.scudata.ide.spl.ServerConsole -C ");
+		addQuote = cfg.indexOf(' ')>0;
+		cmd.append(port+" "+ifAddQuote(cfg,addQuote));
 		return cmd.toString();
 	}
 	

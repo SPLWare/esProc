@@ -239,7 +239,7 @@ public class ServerConsole {
 						address = arg.substring(2).trim();
 					}
 					else if(index<0 && i+1<args.length){
-						address = args[i+1].toLowerCase();
+						address = args[i+1];
 						index = address.indexOf(':');
 						if(index>0){
 							i++;
@@ -269,7 +269,7 @@ public class ServerConsole {
 						address = arg.substring(2).trim();
 					}
 					else if(index<0 && i+1<args.length){
-						address = args[i+1].toLowerCase();
+						address = args[i+1];
 						index = address.indexOf(':');
 						if(index>0){
 							i++;
@@ -294,12 +294,12 @@ public class ServerConsole {
 				if (arg.toLowerCase().startsWith("-c")) {
 					host = "127.0.0.1";//Ŀǰȱʡ
 					if(i+1<args.length){
-						String buf = args[i+1].toLowerCase();
+						String buf = args[i+1];
 						port = Integer.parseInt(buf);
 						i++;
 					}
 					if(i+1<args.length){
-						cfgPath = Escape.removeEscAndQuote( args[i+1].toLowerCase() );
+						cfgPath = Escape.removeEscAndQuote( args[i+1] );
 						Logger.debug("Config file:"+cfgPath);
 						i++;
 					}
