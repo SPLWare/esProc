@@ -13,6 +13,7 @@ import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+//import java.text.Collator;
 
 import com.ibm.icu.text.Collator;
 import com.scudata.cellset.ICellSet;
@@ -920,10 +921,10 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			return new Sequence(0);
 		}
 		
-		boolean isDesc = false, isNullMax = false;
+		boolean isDesc = false, isNullLast = false;
 		if (opt != null) {
-			if (opt.indexOf('z') != -1)isDesc = true;
-			if (opt.indexOf('0') != -1)isNullMax = true;
+			if (opt.indexOf('z') != -1) isDesc = true;
+			if (opt.indexOf('0') != -1) isNullLast = true;
 		}
 
 		int len = size + 1;
@@ -933,14 +934,10 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		}
 
 		Comparator<Object> comparator;
-		if (isNullMax) {
-			comparator = new BaseComparator_0();
+		if (isNullLast || isDesc) {
+			comparator = new CommonComparator(null, !isDesc, isNullLast);
 		} else {
 			comparator = new BaseComparator();
-		}
-
-		if (isDesc) {
-			comparator = new DescComparator(comparator);
 		}
 		
 		// 进行排序
@@ -975,56 +972,59 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 */
 	public Sequence psort(Expression []exps, String opt, Context ctx) {
 		ListBase1 mems = this.mems;
-		int size = mems.size();
-		if (size == 0) {
+		int len = mems.size;
+		if (len == 0) {
 			return new Sequence(0);
 		}
 		
-		boolean isDesc = false, isNullMax = false;
+		boolean isDesc = false, isNullLast = false;
 		if (opt != null) {
-			if (opt.indexOf('z') != -1)isDesc = true;
-			if (opt.indexOf('0') != -1)isNullMax = true;
+			if (opt.indexOf('z') != -1) isDesc = true;
+			if (opt.indexOf('0') != -1) isNullLast = true;
 		}
 
-		int len = size + 1;
+		Object [][]values = new Object[len + 1][];
 		int fcount = exps.length;
-		PSortItem[] infos = new PSortItem[len];
+		
 		ComputeStack stack = ctx.getComputeStack();
 		Current current = new Current();
 		stack.push(current);
-
+		
 		try {
-			for (int i = 1; i < len; ++i) {
+			int arrayLen = fcount + 1;
+			for (int i = 1; i <= len; ++i) {
 				current.setCurrent(i);
-				Object []vals = new Object[fcount];
-				for (int f = 0; f < fcount; ++f) {
-					vals[f] = exps[f].calculate(ctx);
-				}
+				Object []curVals = new Object[arrayLen];
+				values[i] = curVals;
+				curVals[fcount] = i;
 				
-				infos[i] = new PSortItem(i, vals);
+				for (int f = 0; f < fcount; ++f) {
+					curVals[f] = exps[f].calculate(ctx);
+				}
 			}
 		} finally {
 			stack.pop();
 		}
-
+		
 		Comparator<Object> comparator;
-		if (isNullMax) {
-			comparator = new ArrayComparator_0(fcount);
+		if (isDesc || isNullLast) {
+			CommonComparator cmp = new CommonComparator(null, !isDesc, isNullLast);
+			CommonComparator []cmps = new CommonComparator[fcount];
+			for (int i = 0; i < fcount; ++i) {
+				cmps[i] = cmp;
+			}
+			
+			comparator = new ArrayComparator2(cmps, fcount);
 		} else {
 			comparator = new ArrayComparator(fcount);
 		}
+
+		MultithreadUtil.sort(values, 1, values.length, comparator);
 		
-		if (isDesc) {
-			comparator = new DescComparator(comparator);
-		}
-
-		// 进行排序
-		MultithreadUtil.sort(infos, 1, len, new PSortComparator(comparator));
-		Sequence result = new Sequence(size);
-		ListBase1 resultMems = result.mems;
-
-		for (int i = 1; i < len; ++i) {
-			resultMems.add(infos[i].index);
+		Sequence result = new Sequence(len);
+		mems = result.mems;
+		for (int i = 1; i <= len; ++i) {
+			mems.add(i, values[i][fcount]);
 		}
 		
 		return result;
@@ -1048,60 +1048,46 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			throw new RQException("psort" + mm.getMessage("function.paramValNull"));
 		}
 
-		int cols = exps.length;
-		if (orders.length != cols) {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException("psort" + mm.getMessage("function.paramCountNotMatch"));
-		}
+		ListBase1 mems = this.mems;
+		int len = mems.size;
+		Object [][]values = new Object[len + 1][];
+		int fcount = exps.length;
 
-		int zeroCount = 0;
-		for (int i = 0; i < cols; ++i) {
-			if (orders[i] == 0) {
-				zeroCount++;
+		ComputeStack stack = ctx.getComputeStack();
+		Current current = new Current();
+		stack.push(current);
+
+		try {
+			int arrayLen = fcount + 1;
+			for (int i = 1; i <= len; ++i) {
+				current.setCurrent(i);
+				Object []curVals = new Object[arrayLen];
+				values[i] = curVals;
+				curVals[fcount] = i;
+				
+				for (int f = 0; f < fcount; ++f) {
+					curVals[f] = exps[f].calculate(ctx);
+				}
 			}
+		} finally {
+			stack.pop();
 		}
 
-		if (zeroCount == cols) {
-			return new Sequence(1, length());
+		boolean isNullLast = opt != null && opt.indexOf('0') != -1;
+		CommonComparator []cmps = new CommonComparator[fcount];
+		for (int i = 0; i < fcount; ++i) {
+			cmps[i] = new CommonComparator(null, orders[i] >= 0, isNullLast);
 		}
-
-		int cmpCount = cols - zeroCount;
-		Sequence[] values = new Sequence[cmpCount];
-		Comparator<Object>[] comparators = new Comparator[cmpCount];
-		Comparator<Object> baseCmp = new BaseComparator();
-		if (opt == null || opt.indexOf('0') == -1) {
-			baseCmp = new BaseComparator();
-		} else {
-			baseCmp = new BaseComparator_0();
-		}
-
-		Comparator<Object> ascCmp = new PSortComparator(baseCmp);
-		Comparator<Object> descCmp = new PSortComparator(new DescComparator(baseCmp));
 		
-		// 计算所有的表达式
-		for (int i = 0, col = 0; i < cols; ++i) {
-			if (orders[i] != 0) {
-				values[col] = calc(exps[i], opt, ctx);
-				comparators[col] = orders[i] > 0 ? ascCmp : descCmp;
-				col++;
-			}
+		Comparator<Object> comparator = new ArrayComparator2(cmps, fcount);
+		MultithreadUtil.sort(values, 1, values.length, comparator);
+		
+		Sequence result = new Sequence(len);
+		mems = result.mems;
+		for (int i = 1; i <= len; ++i) {
+			mems.add(i, values[i][fcount]);
 		}
-
-		ListBase1 result0 = values[0].mems;
-		int size = result0.size();
-		PSortItem[] infos = new PSortItem[size + 1];
-		for (int i = 1; i <= size; ++i) {
-			infos[i] = new PSortItem(i, result0.get(i));
-		}
-
-		sort(infos, values, comparators, 0, 1, size + 1);
-		Sequence result = new Sequence(size);
-		ListBase1 resultMems = result.mems;
-
-		for (int i = 1; i <= size; ++i) {
-			resultMems.add(infos[i].index);
-		}
-
+		
 		return result;
 	}
 
@@ -1119,19 +1105,19 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			}
 		}
 		
-		boolean bDesc = false, bOrg = false, isNullMax = false;
+		boolean isDesc = false, isOrg = false, isNullLast = false;
 		if (opt != null) {
 			if (opt.indexOf('u') != -1) {
 				return sort_u();
 			}
 			
-			if (opt.indexOf('z') != -1)bDesc = true;
-			if (opt.indexOf('o') != -1)bOrg = true;
-			if (opt.indexOf('0') != -1)isNullMax = true;
+			if (opt.indexOf('z') != -1) isDesc = true;
+			if (opt.indexOf('o') != -1) isOrg = true;
+			if (opt.indexOf('0') != -1) isNullLast = true;
 			
 			if (opt.indexOf('n') != -1) {
 				Sequence seq = group_n("s");
-				if (bOrg) {
+				if (isOrg) {
 					mems = seq.mems;
 					return this;
 				} else {
@@ -1141,17 +1127,13 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		}
 
 		Comparator<Object> comparator;
-		if (isNullMax) {
-			comparator = new BaseComparator_0();
+		if (isDesc || isNullLast) {
+			comparator = new CommonComparator(null, !isDesc, isNullLast);
 		} else {
 			comparator = new BaseComparator();
 		}
-
-		if (bDesc) {
-			comparator = new DescComparator(comparator);
-		}
 		
-		if (bOrg) {
+		if (isOrg) {
 			mems.sort(comparator);
 			return this;
 		} else {
@@ -1173,15 +1155,6 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		} else {
 			Locale locale = parseLocale(loc);
 			return new LocaleComparator(Collator.getInstance(locale), throwExcept);
-		}
-	}
-	
-	private static Comparator<Object> getComparator_0(String loc) {
-		if (loc == null || loc.length() == 0) {
-			return new BaseComparator_0();
-		} else {
-			Locale locale = parseLocale(loc);
-			return new LocaleComparator_0(Collator.getInstance(locale));
 		}
 	}
 
@@ -1217,19 +1190,19 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			}
 		}
 		
-		boolean bDesc = false, bOrg = false, isNullMax = false;
+		boolean isDesc = false, isOrg = false, isNullLast = false;
 		if (opt != null) {
 			if (opt.indexOf('u') != -1) {
 				return sort_u();
 			}
 
-			if (opt.indexOf('z') != -1)bDesc = true;
-			if (opt.indexOf('o') != -1)bOrg = true;
-			if (opt.indexOf('0') != -1)isNullMax = true;
+			if (opt.indexOf('z') != -1) isDesc = true;
+			if (opt.indexOf('o') != -1) isOrg = true;
+			if (opt.indexOf('0') != -1) isNullLast = true;
 			
 			if (opt.indexOf('n') != -1) {
 				Sequence seq = group_n("s");
-				if (bOrg) {
+				if (isOrg) {
 					mems = seq.mems;
 					return this;
 				} else {
@@ -1239,17 +1212,19 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		}
 
 		Comparator<Object> comparator;
-		if (isNullMax) {
-			comparator = getComparator_0(loc);
+		Collator collator = null;
+		if (loc != null && loc.length() != 0) {
+			Locale locale = parseLocale(loc);
+			collator = Collator.getInstance(locale);
+		}
+		
+		if (collator != null || isDesc || isNullLast) {
+			comparator = new CommonComparator(collator, !isDesc, isNullLast);
 		} else {
-			comparator = getComparator(loc, true);
+			comparator = new BaseComparator();
 		}
 		
-		if (bDesc) {
-			comparator = new DescComparator(comparator);
-		}
-		
-		if (bOrg) {
+		if (isOrg) {
 			mems.sort(comparator);
 			return this;
 		} else {
@@ -6969,19 +6944,19 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			}
 		}
 		
-		boolean bDesc = false, bOrg = false, isNullMax = false;
+		boolean isDesc = false, isOrg = false, isNullLast = false;
 		if (opt != null) {
 			if (opt.indexOf('u') != -1) {
 				return sort_u(exp, ctx);
 			}
 
-			if (opt.indexOf('z') != -1)bDesc = true;
-			if (opt.indexOf('o') != -1)bOrg = true;
-			if (opt.indexOf('0') != -1)isNullMax = true;
+			if (opt.indexOf('z') != -1) isDesc = true;
+			if (opt.indexOf('o') != -1) isOrg = true;
+			if (opt.indexOf('0') != -1) isNullLast = true;
 			
 			if (opt.indexOf('n') != -1) {
 				Sequence seq = group_n(exp, "s", ctx);
-				if (bOrg) {
+				if (isOrg) {
 					mems = seq.mems;
 					return this;
 				} else {
@@ -6991,37 +6966,41 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		}
 
 		ListBase1 mems = this.mems;
-		int sLength = mems.size();
+		int len = mems.size();
 
 		Sequence values = calc(exp, opt, ctx);
 		ListBase1 valMems = values.mems;
-		PSortItem []infos = new PSortItem[sLength + 1];
+		PSortItem []infos = new PSortItem[len + 1];
 
-		for (int i = 1; i <= sLength; ++i) {
+		for (int i = 1; i <= len; ++i) {
 			infos[i] = new PSortItem(i, valMems.get(i));
 		}
 
 		Comparator<Object> comparator;
-		if (isNullMax) {
-			comparator = getComparator_0(loc);
-		} else {
-			comparator = getComparator(loc, true);
+		Collator collator = null;
+		if (loc != null && loc.length() != 0) {
+			Locale locale = parseLocale(loc);
+			collator = Collator.getInstance(locale);
 		}
-
-		if (bDesc) {
-			comparator = new DescComparator(comparator);
+		
+		if (isDesc || isNullLast) {
+			comparator = new CommonComparator(collator, !isDesc, isNullLast);
+		} else if (collator != null) {
+			comparator = new LocaleComparator(collator, true);
+		} else {
+			comparator = new BaseComparator();
 		}
 		
 		comparator = new PSortComparator(comparator);
 		MultithreadUtil.sort(infos, 1, infos.length, comparator);
-		Sequence result = new Sequence(sLength);
+		Sequence result = new Sequence(len);
 		ListBase1 resultMems = result.mems;
 
-		for (int i = 1; i <= sLength; ++i) {
+		for (int i = 1; i <= len; ++i) {
 			resultMems.add(mems.get(infos[i].index));
 		}
 
-		if (bOrg) {
+		if (isOrg) {
 			this.mems = resultMems;
 			return this;
 		} else {
@@ -7046,113 +7025,77 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			}
 		}
 		
-		boolean bDesc = false, bOrg = false, isNullMax = false;
+		boolean isDesc = false, isOrg = false, isNullLast = false;
 		if (opt != null) {
 			if (opt.indexOf('u') != -1) {
 				return sort_u(exps, ctx);
 			}
 
-			if (opt.indexOf('z') != -1)bDesc = true;
-			if (opt.indexOf('o') != -1)bOrg = true;
-			if (opt.indexOf('0') != -1)isNullMax = true;
+			if (opt.indexOf('z') != -1) isDesc = true;
+			if (opt.indexOf('o') != -1) isOrg = true;
+			if (opt.indexOf('0') != -1) isNullLast = true;
 		}
 
 		ListBase1 mems = this.mems;
-		int sLength = mems.size();
-
+		int len = mems.size;
+		Object [][]values = new Object[len + 1][];
 		int fcount = exps.length;
-		PSortItem[] infos = new PSortItem[sLength + 1];
+		
 		ComputeStack stack = ctx.getComputeStack();
 		Current current = new Current();
 		stack.push(current);
-
+		
 		try {
-			for (int i = 1; i <= sLength; ++i) {
+			int arrayLen = fcount + 1;
+			for (int i = 1; i <= len; ++i) {
 				current.setCurrent(i);
-				Object []vals = new Object[fcount];
-				for (int f = 0; f < fcount; ++f) {
-					vals[f] = exps[f].calculate(ctx);
-				}
+				Object []curVals = new Object[arrayLen];
+				values[i] = curVals;
+				curVals[fcount] = mems.get(i);
 				
-				infos[i] = new PSortItem(i, vals);
+				for (int f = 0; f < fcount; ++f) {
+					curVals[f] = exps[f].calculate(ctx);
+				}
 			}
 		} finally {
 			stack.pop();
 		}
-
+		
 		Comparator<Object> comparator;
-		if (loc == null || loc.length() == 0) {
-			if (isNullMax) {
-				comparator = new ArrayComparator_0(fcount);
-			} else {
-				comparator = new ArrayComparator(fcount);
-			}
-		} else {
+		Collator collator = null;
+		if (loc != null && loc.length() != 0) {
 			Locale locale = parseLocale(loc);
-			if (isNullMax) {
-				comparator = new LocaleArrayComparator_0(Collator.getInstance(locale), fcount);
-			} else {
-				comparator = new LocaleArrayComparator(Collator.getInstance(locale), fcount);
-			}
+			collator = Collator.getInstance(locale);
 		}
 		
-		if (bDesc) {
-			comparator = new DescComparator(comparator);
-		}
-		
-		comparator = new PSortComparator(comparator);
-		MultithreadUtil.sort(infos, 1, infos.length, comparator);
-		Sequence result = new Sequence(sLength);
-		ListBase1 resultMems = result.mems;
-
-		for (int i = 1; i <= sLength; ++i) {
-			resultMems.add(mems.get(infos[i].index));
-		}
-
-		if (bOrg) {
-			this.mems = resultMems;
-			return this;
-		} else {
-			return result;
-		}
-	}
-
-	private static void sort(PSortItem[] infos, Sequence[] values,
-							 Comparator<Object>[] comparators, int curCol, int start,
-							 int end) {
-		Comparator<Object> comparator = comparators[curCol];
-		MultithreadUtil.sort(infos, start, end, comparator);
-
-		int nextCol = curCol + 1;
-		if (nextCol == values.length) {
-			return;
-		}
-
-		ListBase1 nextMems = values[nextCol].mems;
-
-		// 按照下一列排序
-		int prev = start;
-		PSortItem prevValue = infos[start];
-		for (int i = start + 1; i < end; ++i) {
-			if (comparator.compare(prevValue, infos[i]) != 0) {
-				if (i - prev > 1) {
-					for (int n = prev; n < i; ++n) {
-						infos[n].value = nextMems.get(infos[n].index);
-					}
-					sort(infos, values, comparators, nextCol, prev, i);
-				}
-
-				prev = i;
-				prevValue = infos[i];
-			}
-		}
-
-		if (end - prev > 1) {
-			for (int n = prev; n < end; ++n) {
-				infos[n].value = nextMems.get(infos[n].index);
+		if (collator != null || isDesc || isNullLast) {
+			CommonComparator cmp = new CommonComparator(collator, !isDesc, isNullLast);
+			CommonComparator []cmps = new CommonComparator[fcount];
+			for (int i = 0; i < fcount; ++i) {
+				cmps[i] = cmp;
 			}
 			
-			sort(infos, values, comparators, nextCol, prev, end);
+			comparator = new ArrayComparator2(cmps, fcount);
+		} else {
+			comparator = new ArrayComparator(fcount);
+		}
+
+		MultithreadUtil.sort(values, 1, values.length, comparator);
+		
+		if (isOrg) {
+			for (int i = 1; i <= len; ++i) {
+				mems.set(i, values[i][fcount]);
+			}
+			
+			return this;
+		} else {
+			Sequence result = new Sequence(len);
+			mems = result.mems;
+			for (int i = 1; i <= len; ++i) {
+				mems.add(i, values[i][fcount]);
+			}
+			
+			return result;
 		}
 	}
 
@@ -7174,73 +7117,68 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			}
 		}
 
-		int cols = exps.length;
-		boolean bOrg = false, isNullMax = false;
+		boolean isOrg = false, isNullLast = false;
 		if (opt != null) {
 			if (opt.indexOf('u') != -1) {
 				return sort_u(exps, ctx);
 			}
 			
-			if (opt.indexOf('o') != -1)bOrg = true;
-			if (opt.indexOf('0') != -1)isNullMax = true;
+			if (opt.indexOf('o') != -1) isOrg = true;
+			if (opt.indexOf('0') != -1) isNullLast = true;
 		}
 		
-		int zeroCount = 0;
-		for (int i = 0; i < cols; ++i) {
-			if (orders[i] == 0) {
-				zeroCount++;
-			}
-		}
-
-		if (zeroCount == cols) {
-			return this;
-		}
-
-		int cmpCount = cols - zeroCount;
-		Sequence []values = new Sequence[cmpCount];
-		Comparator<Object> comparator;
-		if (isNullMax) {
-			comparator = getComparator_0(loc);
-		} else {
-			comparator = getComparator(loc, true);
-		}
-		
-		Comparator<Object>[] comparators = new Comparator[cmpCount];
-		Comparator<Object> ascCmp = comparator;
-		Comparator<Object> descCmp = new DescComparator(comparator);
-		
-		ascCmp = new PSortComparator(ascCmp);
-		descCmp = new PSortComparator(descCmp);
-
-		// 计算所有的表达式
-		for (int i = 0, col = 0; i < cols; ++i) {
-			if (orders[i] != 0) {
-				values[col] = calc(exps[i], opt, ctx);
-				comparators[col] = orders[i] > 0 ? ascCmp : descCmp;
-				col++;
-			}
-		}
-
-		ListBase1 result0 = values[0].mems;
-		int size = result0.size();
-		PSortItem []infos = new PSortItem[size + 1];
-		for (int i = 1; i <= size; ++i) {
-			infos[i] = new PSortItem(i, result0.get(i));
-		}
-
-		sort(infos, values, comparators, 0, 1, size + 1);
-
-		Sequence result = new Sequence(size);
-		ListBase1 resultMems = result.mems;
 		ListBase1 mems = this.mems;
-		for (int i = 1; i <= size; ++i) {
-			resultMems.add(mems.get(infos[i].index));
+		int len = mems.size;
+		Object [][]values = new Object[len + 1][];
+		int fcount = exps.length;
+
+		ComputeStack stack = ctx.getComputeStack();
+		Current current = new Current();
+		stack.push(current);
+
+		try {
+			int arrayLen = fcount + 1;
+			for (int i = 1; i <= len; ++i) {
+				current.setCurrent(i);
+				Object []curVals = new Object[arrayLen];
+				values[i] = curVals;
+				curVals[fcount] = mems.get(i);
+				
+				for (int f = 0; f < fcount; ++f) {
+					curVals[f] = exps[f].calculate(ctx);
+				}
+			}
+		} finally {
+			stack.pop();
 		}
 
-		if (bOrg) {
-			this.mems = resultMems;
+		Collator collator = null;
+		if (loc != null && loc.length() != 0) {
+			Locale locale = parseLocale(loc);
+			collator = Collator.getInstance(locale);
+		}
+		
+		CommonComparator []cmps = new CommonComparator[fcount];
+		for (int i = 0; i < fcount; ++i) {
+			cmps[i] = new CommonComparator(collator, orders[i] >= 0, isNullLast);
+		}
+		
+		Comparator<Object> comparator = new ArrayComparator2(cmps, fcount);
+		MultithreadUtil.sort(values, 1, values.length, comparator);
+		
+		if (isOrg) {
+			for (int i = 1; i <= len; ++i) {
+				mems.set(i, values[i][fcount]);
+			}
+			
 			return this;
 		} else {
+			Sequence result = new Sequence(len);
+			mems = result.mems;
+			for (int i = 1; i <= len; ++i) {
+				mems.add(i, values[i][fcount]);
+			}
+			
 			return result;
 		}
 	}

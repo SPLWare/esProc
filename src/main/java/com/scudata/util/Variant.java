@@ -1274,7 +1274,7 @@ public class Variant {
 	}
 
 	// 将数转成BigDecimal
-	private static BigDecimal toBigDecimal(Number o) {
+	public static BigDecimal toBigDecimal(Number o) {
 		if (o instanceof BigDecimal) {
 			return (BigDecimal)o;
 		} else if (o instanceof BigInteger) {
@@ -2222,7 +2222,7 @@ public class Variant {
 		return true;
 	}
 
-	private static int compareArrays(byte[] b1, byte[] b2) {
+	public static int compareArrays(byte[] b1, byte[] b2) {
 		int len1 = b1.length;
 		int len2 = b2.length;
 		if (len1 == len2) {

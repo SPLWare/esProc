@@ -2,12 +2,14 @@ package com.scudata.dm.comparator;
 
 import java.util.Comparator;
 
+import com.scudata.common.ICloneable;
+
 /**
  * ½µÐòÅÅÐò±È½ÏÆ÷
  * @author WangXiaoJun
  *
  */
-public class DescComparator implements Comparator<Object> {
+public class DescComparator implements Comparator<Object>, ICloneable {
 	private Comparator<Object> comparator;
 
 	public DescComparator(Comparator<Object> comparator) {
@@ -16,6 +18,14 @@ public class DescComparator implements Comparator<Object> {
 
 	public DescComparator() {
 		this.comparator = new BaseComparator();
+	}
+	
+	public Object deepClone() {
+		if (comparator instanceof ICloneable) {
+			return new DescComparator((Comparator<Object>)((ICloneable)comparator).deepClone());
+		} else {
+			return new DescComparator(comparator);
+		}
 	}
 
 	public int compare(Object o1, Object o2) {
