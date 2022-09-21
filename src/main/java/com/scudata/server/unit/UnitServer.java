@@ -251,10 +251,6 @@ public class UnitServer implements IServer {
 			instance = new UnitServer( host, port);
 		}
 		InputStream is = new FileInputStream( cfgPath );
-		if(is==null) {
-			LocalFile lf = new LocalFile(cfgPath, "s");
-			is = lf.getInputStream();
-		}
 		SplServerConfig ssc = SplServerConfig.getCfg(is);
 		is.close();
 		instance.unitContext = new UnitContext(ssc);
