@@ -5408,7 +5408,12 @@ public class SimpleJoin
 						|| this.intoFileName.toLowerCase().endsWith(".csv")) {
 						String opt = this.intoFileName.toLowerCase().endsWith(".btx")?"b":(this.intoFileName.toLowerCase().endsWith(".txt")?"t":"tc");
 						Sequence efo = fo.importSeries(opt);
-						if (efo.getFirstRecordDataStruct().isCompatible(this.icur.getDataStruct())) aopt+="a";
+						
+						//xingjl 20220922
+						DataStruct ds = this.icur.fetch(1).getFirstRecordDataStruct();
+						this.icur.reset();
+						
+						if (efo.getFirstRecordDataStruct().isCompatible(ds)) aopt+="a";
 						else {
 							MessageManager mm = ParseMessage.get();
 							throw  new RQException(mm.getMessage("syntax.error") + ":query, SELECT INTO file has existed£¬ not compatible£¡");
