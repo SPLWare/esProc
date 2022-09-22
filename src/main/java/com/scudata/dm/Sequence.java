@@ -1024,7 +1024,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		Sequence result = new Sequence(len);
 		mems = result.mems;
 		for (int i = 1; i <= len; ++i) {
-			mems.add(i, values[i][fcount]);
+			mems.add(values[i][fcount]);
 		}
 		
 		return result;
@@ -1085,7 +1085,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		Sequence result = new Sequence(len);
 		mems = result.mems;
 		for (int i = 1; i <= len; ++i) {
-			mems.add(i, values[i][fcount]);
+			mems.add(values[i][fcount]);
 		}
 		
 		return result;
@@ -7092,7 +7092,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			Sequence result = new Sequence(len);
 			mems = result.mems;
 			for (int i = 1; i <= len; ++i) {
-				mems.add(i, values[i][fcount]);
+				mems.add(values[i][fcount]);
 			}
 			
 			return result;
@@ -7176,7 +7176,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			Sequence result = new Sequence(len);
 			mems = result.mems;
 			for (int i = 1; i <= len; ++i) {
-				mems.add(i, values[i][fcount]);
+				mems.add(values[i][fcount]);
 			}
 			
 			return result;
