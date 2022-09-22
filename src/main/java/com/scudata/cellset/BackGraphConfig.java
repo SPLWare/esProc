@@ -10,15 +10,25 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.Rectangle;
-import java.awt.RenderingHints;
+import java.awt.Shape;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.Externalizable;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
 
-import javax.swing.ImageIcon;
+import javax.imageio.ImageIO;
 
 import com.scudata.chart.Utils;
-import com.scudata.common.*;
+import com.scudata.common.ByteArrayInputRecord;
+import com.scudata.common.ByteArrayOutputRecord;
+import com.scudata.common.ICloneable;
+import com.scudata.common.IRecord;
+import com.scudata.common.Logger;
+import com.scudata.common.StringUtils;
+
 /**
  * 背景图配置
  * 
@@ -164,9 +174,13 @@ public class BackGraphConfig implements Externalizable, ICloneable, Cloneable,
 	 * @return
 	 */
 	public Image getBackImage(int w, int h) {
-		return getBackImage(w,h,1.0f);
+		return getBackImage(w, h, 1.0f);
 	}
-	
+
+	private int imageWidth = -1, imageHeight = -1;
+	private int lastW = -1, lastH = -1; // 这是设计尺寸，没有scale的
+	private Image lastImage = null;
+
 	/**
 	 * 该方法用于直接将背景图往g输出，从而文本绘制清晰
 	 * @param g 导出PDF或者打印的图形设备
@@ -174,41 +188,111 @@ public class BackGraphConfig implements Externalizable, ICloneable, Cloneable,
 	 * @param h 高度
 	 * @param scale 绘制比例
 	 */
-	public void drawImage(Graphics g, int w, int h, float scale){
+	public void drawImage(Graphics g, int w, int h, float scale) {
+		drawImage(g, w, h, scale, 0, 0, w, h);
+	}
+
+	/**
+	 * 增加了绘制区域x1,y1,x2,y2
+	 * @param g
+	 * @param w
+	 * @param h
+	 * @param scale
+	 * @param x1
+	 * @param y1
+	 * @param x2
+	 * @param y2
+	 */
+	public void drawImage(Graphics g, int w, int h, float scale, int x1,
+			int y1, int x2, int y2) {
 		switch (imgSource) {
 		case SOURCE_PICTURE:
-			Image image = new ImageIcon(imageBytes).getImage();
-			int iw = image.getWidth(null);
-			int ih = image.getHeight(null);
-			if(iw*ih<=0){
-				return;
+			// 将ImageIcon改为BufferedImage，并缓存调整好尺寸的Image
+			// 图片尺寸发生变化时，重新获取图片
+			boolean graphChanged = lastImage == null || w != lastW
+					|| h != lastH;
+			int iw,
+			ih;// 图片尺寸
+			Image image;
+			if (graphChanged) {
+				BufferedImage bimage = null;
+				try {
+					ByteArrayInputStream bis = new ByteArrayInputStream(
+							imageBytes);
+					bimage = ImageIO.read(bis);
+				} catch (IOException e) {
+					Logger.error(e);
+					return;
+				}
+				iw = bimage.getWidth(null);
+				ih = bimage.getHeight(null);
+				if (iw * ih <= 0) {
+					return;
+				}
+				iw = (int) (iw * scale);
+				ih = (int) (ih * scale);
+				if (scale != 1.0f) {
+					image = bimage.getScaledInstance(iw, ih,
+							java.awt.Image.SCALE_SMOOTH);
+				} else {
+					image = bimage;
+				}
+				lastW = w;
+				lastH = h;
+				lastImage = image;
+				imageWidth = iw;
+				imageHeight = ih;
+			} else {
+				image = lastImage;
+				iw = imageWidth;
+				ih = imageHeight;
 			}
-			float nw = iw*scale;
-			float nh = ih*scale;
-			if(scale!=1.0f){
-				image = image.getScaledInstance((int)nw, (int)nh, java.awt.Image.SCALE_SMOOTH);
-				image = new ImageIcon(image).getImage();				
-			}
-
+			// 用setClip替代cutImage来减少绘制时间 wunan 2022-09-22
+			Shape oldClip = g.getClip();
 			switch (mode) {
 			case MODE_NONE:
-				ImageUtils.drawFixImage(g, image, 0, 0, w, h);
+				try {
+					g.setClip(x1, y1, x2 - x1, y2 - y1); // 图片不能超出绘制范围
+					g.drawImage(image, 0, 0, iw, ih, null);
+				} finally {
+					g.setClip(oldClip);
+				}
+				// image = ImageUtils.drawAndReturnFixImage(g, image, 0, 0, w,
+				// h);
 				break;
 			case MODE_FILL:
-				g.drawImage(image, 0, 0, w, h, null);
+				try {
+					g.setClip(x1, y1, x2 - x1, y2 - y1); // 图片不能超出绘制范围
+					g.drawImage(image, 0, 0, w, h, null);
+				} finally {
+					g.setClip(oldClip);
+				}
 				break;
 			case MODE_TILE:
-				iw = image.getWidth(null);
-				ih = image.getHeight(null);
-				int x = 0,
-				y = 0;
-				while (x < w) {
-					y = 0;
-					while (y < h) {
-						ImageUtils.drawFixImage(g, image, x, y, w, h);
-						y += ih;
+				try {
+					int x = 0, y = 0;
+					while (x < x2) {
+						if (x + iw <= x1) { // 没有到绘制范围
+							x += iw;
+							continue;
+						}
+						y = 0;
+						while (y < y2) {
+							if (y + ih <= y1) { // 没有到绘制范围
+								y += ih;
+								continue;
+							}
+							int clipx = Math.max(x, x1);
+							int clipy = Math.max(y, y1);
+							g.setClip(clipx, clipy, Math.min(iw, x2 - clipx),
+									Math.min(ih, y2 - clipy));
+							g.drawImage(image, x, y, iw, ih, null);
+							y += ih;
+						}
+						x += iw;
 					}
-					x += iw;
+				} finally {
+					g.setClip(oldClip);
 				}
 				break;
 			}
@@ -216,18 +300,19 @@ public class BackGraphConfig implements Externalizable, ICloneable, Cloneable,
 		case SOURCE_TEXT:
 			if (!StringUtils.isValidString(waterMark))
 				return;
-//			疑难杂症：不知道的原因，设置了setComposite方法会导致
-//			1：打印内容缺失
-//			2：itext没有实现，导出PDF时，没有不透明状态
-//			解决办法：将透明度设为100，也即不透明，此时不调用setComposite，同时设置字体颜色为浅色
-			
-			Composite old = setTransparent((Graphics2D) g, textTransparency / 100f);
+			// 疑难杂症：不知道的原因，设置了setComposite方法会导致
+			// 1：打印内容缺失
+			// 2：itext没有实现，导出PDF时，没有不透明状态
+			// 解决办法：将透明度设为100，也即不透明，此时不调用setComposite，同时设置字体颜色为浅色
+
+			Composite old = setTransparent((Graphics2D) g,
+					textTransparency / 100f);
 			Color c1 = new Color(textColor);
 			int textAngle = 0;
 			if (mode == TEXT_TILT) {
 				textAngle = -45;
 			}
-			int fSize = StringUtils.getScaledFontSize(fontSize,scale);
+			int fSize = StringUtils.getScaledFontSize(fontSize, scale);
 			Rectangle textRect = getTextRect(fontName, fSize, waterMark);
 			iw = textRect.width;
 			ih = textRect.height;
@@ -253,12 +338,12 @@ public class BackGraphConfig implements Externalizable, ICloneable, Cloneable,
 				x += iw + textGap;
 				col++;
 			}
-			if(old!=null){
-				((Graphics2D)g).setComposite(old);
+			if (old != null) {
+				((Graphics2D) g).setComposite(old);
 			}
 		}
 	}
-	
+
 	/**
 	 * 将当前背景图计算为图片对象
 	 * @param w 宽度
@@ -282,7 +367,7 @@ public class BackGraphConfig implements Externalizable, ICloneable, Cloneable,
 		g = bimage.createGraphics();
 		g.setColor(Color.WHITE);
 		g.fillRect(0, 0, w, h);
-		drawImage(g,w,h,scale);
+		drawImage(g, w, h, scale);
 		return bimage;
 	}
 
@@ -600,7 +685,7 @@ public class BackGraphConfig implements Externalizable, ICloneable, Cloneable,
 		if (fontName == null || fontName.trim().length() < 1) {
 			fontName = "dialog";
 		}
-		
+
 		Font f = new Font(fontName, fontStyle, fontSize);
 		return f;
 	}
@@ -699,15 +784,15 @@ public class BackGraphConfig implements Externalizable, ICloneable, Cloneable,
 		return new Point(xloc, yloc);
 	}
 
-//	protected static void setGraphAntiAliasingOff(Graphics2D g) {
-//		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-//				RenderingHints.VALUE_ANTIALIAS_OFF);
-//	}
-//
-//	protected static void setGraphAntiAliasingOn(Graphics2D g) {
-//		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-//				RenderingHints.VALUE_ANTIALIAS_ON);
-//	}
+	// protected static void setGraphAntiAliasingOff(Graphics2D g) {
+	// g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+	// RenderingHints.VALUE_ANTIALIAS_OFF);
+	// }
+	//
+	// protected static void setGraphAntiAliasingOn(Graphics2D g) {
+	// g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+	// RenderingHints.VALUE_ANTIALIAS_ON);
+	// }
 
 	/**
 	 * 在指定位置处输出文本
