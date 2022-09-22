@@ -1,6 +1,8 @@
 package com.scudata.ide.spl;
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -20,6 +22,8 @@ import com.scudata.app.config.ConfigUtil;
 import com.scudata.app.config.RaqsoftConfig;
 import com.scudata.common.Escape;
 import com.scudata.common.Logger;
+import com.scudata.common.SplServerConfig;
+import com.scudata.common.StringUtils;
 import com.scudata.parallel.UnitClient;
 import com.scudata.parallel.UnitContext;
 import com.scudata.server.IServer;
@@ -67,9 +71,11 @@ public class ServerConsole {
 		return false;
 	}
 	
-	private static void initLang(){
+	private static void initLang(boolean init){
 		try{
-			loadRaqsoftConfig();
+			if( init ) {
+				loadRaqsoftConfig();
+			}
 		}catch(Exception x){}
 	}
 
@@ -177,7 +183,7 @@ public class ServerConsole {
 	 * @param args 执行参数
 	 */
 	public static void main(String[] args) {
-		initLang();
+		boolean init = true;
 		
 		String usage = "该类根据选项来启动或停止各种服务，格式为 ServerConsole.sh -[options] -[options]...\r\n"
 				+ "当指定了某种选项用于启动相应服务时，都是启动非图形环境下的该类服务。\r\n"
@@ -307,6 +313,16 @@ public class ServerConsole {
 						isX = true;
 					}else {
 						isC = true;
+						InputStream is;
+						try {
+							is = new FileInputStream( cfgPath );
+							SplServerConfig ssc = SplServerConfig.getCfg(is);
+							init = !StringUtils.isValidString( ssc.splConfig );//如果指定了config，则阻止节点机的config加载
+							is.close();
+						} catch (Exception e) {
+							
+						}
+
 					}
 					break;
 				}
@@ -324,6 +340,8 @@ public class ServerConsole {
 			}
 			exit(0);
 		}
+		
+		initLang( init );
 
 		if (isS) {
 			try {
