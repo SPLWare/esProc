@@ -302,29 +302,12 @@ public class AppUtil {
 		try {
 			stack.pushArg(args);
 
-			Context csCtx = pcs.getContext();
-			csCtx.setEnv(ctx);
+			pcs.setContext(ctx);
 			pcs.calculateResult();
 			return pcs;
-
-			// if (pcs.hasNextResult()) {
-			// return pcs.nextResult();
-			// } else {
-			// int colCount = pcs.getColCount();
-			// for (int r = pcs.getRowCount(); r > 0; --r) {
-			// for (int c = colCount; c > 0; --c) {
-			// PgmNormalCell cell = pcs.getPgmNormalCell(r, c);
-			// if (cell.isCalculableCell() || cell.isCalculableBlock()) {
-			// return cell.getValue();
-			// }
-			// }
-			// }
-			// }
 		} finally {
 			stack.popArg();
 		}
-
-		// return null;
 	}
 
 	/**

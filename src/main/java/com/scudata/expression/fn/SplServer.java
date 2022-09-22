@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 
 import com.scudata.app.config.ConfigUtil;
+import com.scudata.common.Escape;
 import com.scudata.common.Logger;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
@@ -12,6 +13,7 @@ import com.scudata.common.Sentence;
 import com.scudata.common.SplServerConfig;
 import com.scudata.common.StringUtils;
 import com.scudata.dm.Context;
+import com.scudata.dm.LocalFile;
 import com.scudata.expression.Expression;
 import com.scudata.expression.Function;
 import com.scudata.expression.IParam;
@@ -82,7 +84,13 @@ public class SplServer extends Function {
 			return closeServer();
 		}
 		try {
-			InputStream is = new FileInputStream(cfg);
+			LocalFile lf = new LocalFile(cfg, "s");
+			InputStream is = lf.getInputStream();
+			File f = new File(cfg);
+			if(!f.isAbsolute()) {
+				cfg = lf.getFile().getAbsolutePath();
+			}
+			cfg = path(cfg);
 			SplServerConfig ssc = SplServerConfig.getCfg(is);
 			String args = getStartCmd(ssc, host, port,cfg);
 			Logger.debug(args);
@@ -110,8 +118,7 @@ public class SplServer extends Function {
 	}
 
 	private static String path(String str) {
-		str = Sentence.replace(str, "/", File.separator, 0);
-		str = Sentence.replace(str, "\\", File.separator, 0);
+		str = Sentence.replace(str, "\\", "/", 0);
 		return str;
 	}
 
@@ -126,7 +133,7 @@ public class SplServer extends Function {
 	
 	private static String ifAddQuote(String path, boolean addQuote) {
 		if( addQuote ) {
-			return "\""+path+"\"";//路径中不可能出现要转义的字符，所以直接在两头加上引号
+			return Escape.addEscAndQuote(path);
 		}
 		return path;
 	}
