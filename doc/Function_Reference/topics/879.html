@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>Intersection of sequences</title>
+<title>workdays()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,193 +13,120 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h2><a name="Intersection_sequence"></a><a name="Intersection_of_sequences"><span
-style='mso-bookmark:Intersection_sequence'><span lang=EN-US>Intersection of sequences</span></span></a></h2></div>
-	<p class=af7 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Description:</span></p>
+	<div id="centent-title"><h2><a name=workdays></a><span lang=EN-US>workdays()</span></h2></div>
+	<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%'>Description:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Generate a new
-sequence composed of common members of two sequences.</span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Return a
+sequence of workdays between two dates inclusive.</span></p>
 
-<p class=af7 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Syntax:</span></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%'>Syntax:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span class=var1><span
-lang=EN-US>A</span></span><span class=code><span lang=EN-US style='font-family:
-"Times New Roman","serif"'>^</span></span><span class=var1><span lang=EN-US>B</span></span><span
-class=a3><span lang=EN-US></span></span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US style='mso-fareast-font-family:黑体'>workdays(</span></b><i><span
+lang=EN-US style='mso-bidi-font-size:10.5pt'>b</span></i><span lang=EN-US>,</span><i><span
+lang=EN-US style='mso-bidi-font-size:10.5pt'>e,h</span></i><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US style='mso-fareast-font-family:黑体'>)</span></b></p>
 
-<p class=af7 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Note:</span></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%'>Note:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>The operation generates
-a new sequence composed of members of both</span><span class=var1><span
-lang=EN-US> A</span></span><span lang=EN-US> and </span><span class=var1><span
-lang=EN-US>B</span></span><span lang=EN-US>.</span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>The function gets
+a sequence of workdays between date <i style='mso-bidi-font-style:normal'>b</i>
+and date <i style='mso-bidi-font-style:normal'>e</i> inclusive. Members of <i
+style='mso-bidi-font-style:normal'>h</i> are either weekend or holidays. If
+there is an on-duty shift in a weekend day, take it as the weekday. </span></p>
 
-<p class=af7 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Parameters:</span></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%'>Parameters:</span></b></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
  style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US>A</span></span></p>
+  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>b</span></i></p>
   </td>
-  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>A sequence with a length of <i
-  style='mso-bidi-font-style:normal'>n</i></span></p>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-size:10.5pt'>Date</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
-  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US>B</span></span></p>
+ <tr style='mso-yfti-irow:1'>
+  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>e</span></i></p>
   </td>
-  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>A</span><span class=var1><span
-  lang=EN-US> </span></span><span lang=EN-US>sequence with a length of <i
-  style='mso-bidi-font-style:normal'>m</i></span></p>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-size:10.5pt'>Date</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes'>
+  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US
+  style='mso-bidi-font-size:10.5pt'>h<span style='mso-bidi-font-style:italic'></span></span></i></p>
+  </td>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-size:10.5pt'>A
+  sequence composed of values of date data type</span></p>
   </td>
  </tr>
 </table>
 
-<p class=af7 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Return value:</span></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%'>Return value:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>A new sequence
-composed of two sequences’ common members </span><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US style='mso-bidi-font-size:10.5pt'><span
-style='mso-spacerun:yes'>&nbsp;</span></span></b></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>A sequence</span></p>
 
-<p class=af7 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Example:</span></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%'>Example:</span></b></p>
 
 <table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
- style='margin-left:18.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ style='margin-left:.25pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
  mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;height:16.9pt'>
-  <td width=27 valign=top style='width:16.05pt;border:solid #A6A6A6 1.0pt;
-  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm;
-  height:16.9pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>&nbsp;</span></span></p>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></p>
   </td>
-  <td width=283 valign=top style='width:169.65pt;border:solid #A6A6A6 1.0pt;
+  <td width=246 valign=top style='width:184.25pt;border:solid #A6A6A6 1.0pt;
   border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:16.9pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>A</span></span></p>
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>A</span></span></p>
   </td>
-  <td width=353 valign=top style='width:211.85pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.9pt'>
+  <td width=284 valign=top style='width:212.65pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:1;height:16.9pt'>
-  <td width=27 valign=top style='width:16.05pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
+  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:16.9pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>1</span></span></p>
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>1</span></span></p>
   </td>
-  <td width=283 valign=top style='width:169.65pt;border-top:none;border-left:
+  <td width=246 valign=top style='width:184.25pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.9pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=[1,2,3,4]^[2,3]</span></span></p>
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=workdays(date(&quot;2015-04-02&quot;),date(&quot;2015-04-08&quot;),[date(&quot;2015-04-04&quot;),date(&quot;2015-04-05&quot;),date(&quot;2015-04-06&quot;)])</span></span></p>
   </td>
-  <td width=353 style='width:211.85pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm;height:16.9pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>[2,3]</span></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:2;height:16.9pt'>
-  <td width=27 valign=top style='width:16.05pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:16.9pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>2</span></span></p>
-  </td>
-  <td width=283 valign=top style='width:169.65pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.9pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=[1,2,3,3]^[1,3]</span></span></p>
-  </td>
-  <td width=353 style='width:211.85pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm;height:16.9pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>[1,3]</span></span><span
-  lang=EN-US>, there is only a </span><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman","serif"'>3</span></span><span
-  lang=EN-US> in the common members </span><span lang=EN-US style='font-size:
-  12.0pt;mso-bidi-font-size:10.0pt'></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes;height:17.45pt'>
-  <td width=27 valign=top style='width:16.05pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:17.45pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>3</span></span></p>
-  </td>
-  <td width=283 valign=top style='width:169.65pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:17.45pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=[1,2,3,3]^[1,3,3]</span></span></p>
-  </td>
-  <td width=353 style='width:211.85pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm;height:17.45pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>[1,3,3]</span></span><span
-  lang=EN-US>, there are two </span><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman","serif"'>3s</span></span><span
-  lang=EN-US> in the common members</span><span lang=EN-US style='font-size:
-  12.0pt;mso-bidi-font-size:10.0pt'></span></p>
+  <td width=284 valign=top style='width:212.65pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=76 height=120
+  src="Function_Reference.files/image1920.png" v:shapes="_x0000_i2285"></span></p>
   </td>
  </tr>
 </table>
 
-<p class=af7 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Related functions:</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US><a
- href="883.html">Concatenation<span style='mso-bookmark:_Hlt424240768'>
-</span><span style='mso-bookmark:_Hlt424240750'>o</span>f seque<span
-style='mso-bookmark:_Hlt424228056'>n</span>ces</a><a
-name="_Hlt424228056"></a><a name="_Hlt424240750"></a><a name="_Hlt424240768"></a><span
-class=MsoHyperlink></span></span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US><a
- href="818.html">Union o<span style='mso-bookmark:_Hlt424239180'>f</span>
-Sequ<span style='mso-bookmark:_Hlt432586799'><span style='mso-bookmark:_Hlt424238769'>e</span></span>n<span
-style='mso-bookmark:_Hlt421021742'></span>ce<span style='mso-bookmark:_Hlt432585976'>s</span>
-</a><a name="_Hlt432585976"></a><a
-name="_Hlt421021742"></a><a name="_Hlt424238769"></a><a name="_Hlt432586799"></a><a
-name="_Hlt424239180"></a></span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US><a
- href="894.html">Multiplication of <span style='mso-bookmark:_Hlt346094508'><span
-style='mso-bookmark:_Hlt342567050'>s</span></span><span style='mso-bookmark:
-_Hlt424238828'>e</span><span style='mso-bookmark:_Hlt415046442'>q</span><span
-style='mso-bookmark:_Hlt342567105'><span style='mso-bookmark:_Hlt342567075'>u</span></span>e<span
-style='mso-bookmark:_Hlt424227967'>n</span>ce</a><a
-name="_Hlt424227967"></a><a name="_Hlt342567075"></a><a name="_Hlt342567105"></a><a
-name="_Hlt415046442"></a><a name="_Hlt424238828"></a><a name="_Hlt342567050"></a><a
-name="_Hlt346094508"></a></span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US><a
-href="#Alignment_Arithmetic_Operation">Alignm<span style='mso-bookmark:_Hlt312768885'>e</span>nt
-<span style='mso-bookmark:_Hlt342557478'>A</span><span style='mso-bookmark:
-_Hlt346093584'>r</span>ithmeti<span style='mso-bookmark:_Hlt415047525'>c</span>
-Operations</a><a name="_Hlt415047525"></a><a
-name="_Hlt346093584"></a><a name="_Hlt342557478"></a><a name="_Hlt312768885"></a><span
-class=MsoHyperlink></span></span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US><a  href="134.html">c<span
-style='mso-bookmark:_Hlt312768893'>m</span><span style='mso-bookmark:_Hlt424240784'><span
-style='mso-bookmark:_Hlt415047798'><span style='mso-bookmark:_Hlt342568201'><span
-style='mso-bookmark:_Hlt342567116'>p</span></span></span></span><span
-style='mso-bookmark:_Hlt346094517'>(</span>)</a><a
-name="_Hlt346094517"></a><a name="_Hlt342567116"></a><a name="_Hlt342568201"></a><a
-name="_Hlt415047798"></a><a name="_Hlt424240784"></a><a name="_Hlt312768893"></a><span
-class=MsoHyperlink><b style='mso-bidi-font-weight:normal'></b></span></span></p>
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="880.html">Next</a></div>
@@ -212,12 +139,9 @@ class=MsoHyperlink><b style='mso-bidi-font-weight:normal'></b></span></span></p>
 	</div>
 	<div id="footer">	
 		
-		<div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">Scudata Inc. 
-      </a></div> 
-        <!--
-		<div class="copyright"> Copyright&reg; 2017 <a href="http://www.yimming.com" target="_Blank"> Beijing Yimming Ltd. Co. 
+		
+    <div class="copyright"> Copyright&reg; 2021 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
       </a></div>
-	  -->
 	</div>
 </div>
 

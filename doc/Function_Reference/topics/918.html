@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>EnumAxis</title>
+<title>zip()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,487 +13,661 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h3 style='margin-left:1.0cm;text-align:justify;text-justify:inter-ideograph;
-text-indent:-1.0cm'><span lang=EN-US>EnumAxis </span></h3></div>
-	<p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
-exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US>name </span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>Enum axis
-name.</span></p>
-
-<p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
-exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US>visible</span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>Show or hide
-axis.</span></p>
-
-<p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
-exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US>location</span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The position
-where an enum axis will be plotted. You can set the axis as vertical axis,
-horizontal axis, polar axis, or radial axis.</span></p>
-
-<p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
-exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US>is3D </span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>Whether the
-axis is 3-dimensional or not. If the 3D property is adopted for at least one
-coordinate axis in the coordinate system on canvas, then the other coordinate
-axes in the current coordinate system will take on the 3D effect accordingly in
-chart plotting.</span></p>
-
-<p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
-exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US>threeDThickRatio </span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The thickness
-ratio of 3D axes in a 3D chart. This parameter determines the <b
-style='mso-bidi-font-weight:normal'><span style='mso-bidi-font-style:italic'>3D
-Thickness</span></b>, which refers to the length of edges pointing towards the
-observer. The default maximum 3D thickness is 60 pixels.</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>To compute
-the overall 3D thickness based on the 3D thickness ratio of the enum axis, use <b
-style='mso-bidi-font-weight:normal'>3D Thickness Ratio * Enum Axis Series Width</b>.
-The axes will be auto-plotted with 60 pixels if the 3D thickness is greater
-than 60.<b style='mso-bidi-font-weight:normal'></b></span></p>
-
-<p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
-exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US>categories </span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The
-categories. If not specified, then select from the crossover sequence of the
-series and categories. For example, from the crossover sequence =[&quot;Tom,
-Maths&quot;,&quot;Tom, English&quot;,&quot;Tom, French&quot;,&quot;Mary, Maths&quot;,&quot;Mary,English&quot;,&quot;Mary,French&quot;],
-the [&quot;Tom&quot;,&quot;Mary&quot;] is auto-retrieved as the category
-values.</span></p>
-
-<p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
-exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US>series </span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The series.
-If not specified, then select from the crossover sequence of the series and
-categories. For example, from the crossover sequence =[&quot;Tom, Maths&quot;,&quot;Tom,
-English&quot;,&quot;Tom, French&quot;,&quot;Mary,
-Maths&quot;,&quot;Mary,English&quot;,&quot;Mary,French&quot;], the
-[&quot;Maths&quot;,&quot;English&quot;,&quot;French&quot;] is auto-retrieved as
-the series values.</span></p>
-
-<p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
-exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US>gapRatio </span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The ratio of
-width of graph of each series on the category axis to the category gap,
-starting gap, or ending gap. By default, this value is 1.5, indicating the gap
-width is 1.5 times of the basic width of graph of a series.</span></p>
-
-<p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
-exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US>xStart </span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The position
-of starting coordinate point on X-axis on the canvas when the enum axis is a
-horizontal axis.</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>If the specified
-value is not greater than 1 and not less than 0, it indicates the percentage
-the chart will take up the width/length of the canvas. If the specified value
-is greater than 1 or less than 0, then it represents the pixel values. The
-chart will expand across the border if the pixels are greater than the
-width/length of canvas.</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The origin
-point is in the top left corner if the specified value is not less than 0;
-Otherwise, it will be located in the bottom right corner if the specified value
-is less than 0.</span></p>
-
-<p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
-exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US>xEnd </span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The position
-of ending coordinate point on X-axis on the canvas when the enum axis is a
-horizontal axis. Please refer to the xStart property description for the
-property value setting.<span style='mso-spacerun:yes'>&nbsp; </span></span></p>
-
-<p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
-exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US>xPosition</span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The position
-of Y-axis coordinates on the canvas when the enum axis is the horizontal axis.
-Please refer to the description on the xStart property for the property value
-settings.</span></p>
-
-<p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
-exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US>yStart </span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The position
-of starting coordinate point on Y-axis on the canvas when the enum axis is a
-vertical axis. The numeric values increase from top to bottom. Please refer to
-the description on the xStart property for the property value setting.</span></p>
-
-<p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
-exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US>yEnd </span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The position
-of ending coordinate point on Y-axis on the canvas when the enum axis is a
-vertical axis. Please refer to the description on the xStart property for the
-property value setting.</span></p>
-
-<p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
-exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US>yPosition</span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The position
-of X-axis coordinates on the canvas when the enum axis is a vertical axis.
-Please refer to the description on the <b style='mso-bidi-font-weight:normal'>xStart
-</b>property for the property value setting.</span></p>
-
-<p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
-exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US>polarX </span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The position
-of starting coordinate point on X-axis on the canvas when the enum axis is a
-polar axis. Please refer to the description on the xStart<b style='mso-bidi-font-weight:
-normal'> </b>property for the property value setting.</span></p>
-
-<p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
-exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US>polarY </span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The position
-of starting coordinate point on Y-axis on the canvas when the enum axis is a
-polar axis. Please refer to the description on the xStart<b style='mso-bidi-font-weight:
-normal'> </b>property for the property value setting.</span><span lang=EN-US
-style='font-size:12.0pt;mso-bidi-font-size:10.0pt'></span></p>
-
-<p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
-exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US>polarLength </span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The polar
-axis length.</span></p>
-
-<p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
-exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US>startAngle</span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The start
-angle when the enum axis is a radial axis. In plotting the pie chart, the
-sectors can be customized with the startAngle and endAngle properties.</span></p>
-
-<p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
-exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US>endAngle </span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The end angle
-of a radial axis.</span><span lang=EN-US style='font-size:12.0pt;mso-bidi-font-size:
-10.0pt'></span></p>
-
-<p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
-exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US>axisColor </span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The axis line
-color of an enum axis.</span></p>
-
-<p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
-exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US>axisLineStyle </span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The style of
-axis line. Options include the dotted line, solid line, and none.</span></p>
-
-<p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
-exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US>axisLineWeight </span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The line
-weight of the enum axis.</span></p>
-
-<p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
-exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US>axisArrow </span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The arrow
-style of the enum axis.</span></p>
-
-<p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
-exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US>title </span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The title
-name of the enum axis.</span></p>
-
-<p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
-exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US>titleFont </span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The title
-font of the enum axis.</span></p>
-
-<p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
-exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US>titleStyle </span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The title
-style of the enum axis. Please refer to the description on unitStyle of numeric
-axis.</span></p>
-
-<p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
-exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US>titleSize </span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The title
-font size of the enum axis.</span></p>
-
-<p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
-exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US>titleIndent </span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The blank
-space left by indenting the title of enum axis.</span></p>
-
-<p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
-exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US>titleColor </span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The title
-color of the enum axis.</span></p>
-
-<p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
-exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US>titleAngle </span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The rotation
-angle of the title of the enum axis.</span></p>
-
-<p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
-exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US>allowLabels </span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>Indicates if
-the labels will be displayed.</span></p>
-
-<p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
-exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US>labelFont </span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The font of
-label values.</span></p>
-
-<p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
-exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US>labelStyle </span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The label
-value style. Please refer to the unitStyle of NumericAxis.</span></p>
-
-<p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
-exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US>labelSize </span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The font size
-of label values.</span></p>
-
-<p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
-exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US>labelIndent </span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The blank
-space between the label values and the axis.</span></p>
-
-<p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
-exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US>labelColor </span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The font
-color of label values.</span></p>
-
-<p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
-exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US>labelStep </span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The display
-style of labels. The labelStep=0 indicates that all labels will be displayed,
-and labelStep=2 indicates a label value will be displayed every other 2 labels.</span></p>
-
-<p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
-exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US>labelAngle </span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The rotation
-angle of label value</span></p>
-
-<p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
-exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US>labelOverlapping</span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The
-overlapping of labels. If checked,labels are allowed to be overlapped;
-Otherwise, the overlapping labels are not allowed, and they, if any, will be
-overridden and hidden.</span></p>
-
-<p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
-exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US>scalePosition </span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>Positions of
-tick mark, which can be displayed on the right or top, on the left or bottom,
-or across axis, or no tick marks appear. Once they are positioned, their values
-will change accordingly.</span></p>
-
-<p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
-exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US>scaleStyle</span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The style of
-tick marks, including the dotted line and the solid line, and so on.</span></p>
-
-<p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
-exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US>scaleWeight </span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The weight of
-tick marks.</span></p>
-
-<p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
-exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US>scaleLength </span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The length of
-tick marks.</span></p>
-
-<p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
-exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US>displayStep </span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The display
-style of tick marks. If displayStep=0, then every tick mark will be displayed,
-and displayStep=2 indicates it becomes visible every other two.</span></p>
-
-<p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
-exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US>allowRegions </span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>Whether the
-background region will be displayed or not.</span></p>
-
-<p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
-exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US>regionLineStyle </span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The style of
-lines in the background region.</span></p>
-
-<p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
-exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US>regionLineColor </span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>Color of
-lines in the background region</span></p>
-
-<p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
-exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US>regionLineWeight </span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The weight of
-lines in the background region</span></p>
-
-<p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
-exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US>regionColors </span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>Color of the
-background region</span></p>
-
-<p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
-exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US>regionTransparent </span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>Degree of
-transparency of the background region. The value range for it is [0,1], in
-which the 0 represents the 100% transparency (i.e. totally transparent), and
-the 1 represents opaqueness. The values higher than 1 give the same totally
-opaque effect as 1, and the values less than 0 represent the total transparency
-as well.</span></p>
-
-<p class=MsoNormal style='margin-left:21.25pt;line-height:16.0pt;mso-line-height-rule:
-exactly;mso-outline-level:4'><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US>isPolygonalRegion </span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>Whether it is
-a polygon background or not. This property is only valid in the polar coordinate
-system, and is fit for radar chart and other no-fill charts. There is no such
-polygonal effect with pie chart and other charts with fill colors. On the radar
-chart, the shape of background region will change along with the number of
-categories.</span></p>
+	<div id="centent-title"><h2><span lang=EN-US>zip()<a name=zip></a></span></h2></div>
+	<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt'>Description:</span></b><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US style='font-size:12.0pt;mso-bidi-font-size:10.0pt'> </span></b><span
+lang=EN-US style='mso-font-kerning:0pt'><br>
+<span style='mso-tab-count:1'>&nbsp; </span></span><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;mso-font-kerning:0pt'>Perform file
+compression operations.</span></p>
+
+<p class=MsoNormal style='mso-pagination:widow-orphan'><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US style='font-size:14.0pt'>Syntax:</span></b><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-font-kerning:0pt'><br>
+<span style='mso-tab-count:1'>&nbsp; </span></span><span
+lang=EN-US>zip(</span></b><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>zipfile:encoding,passowrd;
+path, files</span></i><b style='mso-bidi-font-weight:normal'><span lang=EN-US>)</span></b><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;mso-font-kerning:0pt'></span></p>
+
+<p class=MsoNormal style='margin-left:14.05pt;text-indent:-14.05pt;mso-char-indent-count:
+-1.0;tab-stops:18.0pt'><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt'>Note:</span></b><b style='mso-bidi-font-weight:normal'><span
+lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:10.0pt'> </span></b><span
+lang=EN-US style='font-size:12.0pt;mso-font-kerning:0pt'></span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-bidi-font-size:10.5pt;mso-font-kerning:0pt'>The </span><span
+lang=EN-US>external library </span><span lang=EN-US style='mso-bidi-font-size:
+10.5pt;mso-font-kerning:0pt'>function performs various file compression
+operations.</span><span lang=EN-US style='font-size:12.0pt'></span></p>
+
+<p class=MsoNormal style='margin-left:14.05pt;text-indent:-14.05pt;mso-char-indent-count:
+-1.0;tab-stops:18.0pt'><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt'>Options:</span></b></p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:19.85pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=66 valign=top style='width:49.35pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>@u</span></b></p>
+  </td>
+  <td width=480 valign=top style='width:359.75pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='color:black'>Decompression</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=66 valign=top style='width:49.35pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>@a</span></b></p>
+  </td>
+  <td width=480 valign=top style='width:359.75pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='color:black'>Append a new directory
+  to an existing compressed file</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=66 valign=top style='width:49.35pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>@d</span></b></p>
+  </td>
+  <td width=480 valign=top style='width:359.75pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='color:black'>Delete a file in a
+  compressed file</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3'>
+  <td width=66 valign=top style='width:49.35pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>@n</span></b></p>
+  </td>
+  <td width=480 valign=top style='width:359.75pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='color:black'>Won’t perform
+  recursive compression over subdirectories, only compress files of the current
+  level</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4'>
+  <td width=66 valign=top style='width:49.35pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>@f</span></b></p>
+  </td>
+  <td width=480 valign=top style='width:359.75pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='color:black'>List files in a
+  compressed file</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:5;mso-yfti-lastrow:yes'>
+  <td width=66 valign=top style='width:49.35pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>@p</span></b></p>
+  </td>
+  <td width=480 valign=top style='width:359.75pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='color:black'>List directories in a
+  compressed file</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt'>Parameters:</span></b><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US style='font-size:14.0pt;mso-font-kerning:0pt'><br
+style='mso-special-character:line-break'>
+<br style='mso-special-character:line-break'>
+</span></b><span lang=EN-US style='font-size:12.0pt'></span></p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:19.85pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=78 valign=top style='width:58.25pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>zipfile</span></i></p>
+  </td>
+  <td width=560 valign=top style='width:420.15pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='color:black'>A compressed file or
+  a file object</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=78 valign=top style='width:58.25pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>encoding</span></i></p>
+  </td>
+  <td width=560 valign=top style='width:420.15pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='color:black'>Charset; default is
+  utf-8</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=78 valign=top style='width:58.25pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>password
+  </span></i></p>
+  </td>
+  <td width=560 valign=top style='width:420.15pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='color:black'>A password; can be
+  absent</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3'>
+  <td width=78 valign=top style='width:58.25pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>path</span></i></p>
+  </td>
+  <td width=560 valign=top style='width:420.15pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='color:black'>The root directory
+  holding a to-be-compressed file; it is the directory holding <i
+  style='mso-bidi-font-style:normal'>zipfile</i> when the parameter is null or
+  absent. </span></p>
+  <p class=MsoNormal><span lang=EN-US style='color:black'>With compression, the
+  comma (“,”) after this parameter should be retained when it is absent and
+  parameter <i>files</i> is present;</span><span lang=EN-US style='mso-bidi-font-size:
+  11.0pt;color:black'></span></p>
+  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-size:11.0pt;
+  color:black'>With decompression, this parameter specifies the path along
+  which the decompressed file is output. If it is absent, output the
+  decompressed to the path where the zip file is located. If parameter <i>path</i>
+  is a relative path, append it to the path containing the zip file; if it is
+  an absolute path, output the compressed file to the specified directory;</span></p>
+  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-size:11.0pt;
+  color:black'>When deleting the zip file, this parameter represents the folder
+  beginning form the root path where the zip file is saved. </span><span
+  lang=EN-US style='color:black'></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes'>
+  <td width=78 valign=top style='width:58.25pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>files<span
+  style='mso-tab-count:1'> </span></span></i></p>
+  </td>
+  <td width=560 valign=top style='width:420.15pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='color:black'>A file or a sequence
+  of files. Wildcard characters * and ? are allowed in a file name; the former
+  represents any string and the latter represents a single character. With
+  wildcard characters and if the name of the directory where the
+  to-be-compressed file(s) are located isn’t the same with that of the
+  directory holding the future compressed file(s), then the function will also
+  compressed the directory, which contains the absolute path. In that case, the
+  directory list generated via @p option is empty</span><span lang=EN-US
+  style='font-size:12.0pt;color:red'></span></p>
+  <p class=MsoNormal><span lang=EN-US style='color:black'>&nbsp;</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+margin-left:21.1pt;text-indent:-21.1pt;mso-char-indent-count:-1.5;mso-pagination:
+widow-orphan'><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt'>Return value:</span></b><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US style='font-size:12.0pt;mso-bidi-font-size:10.0pt'> </span></b><span
+lang=EN-US style='mso-font-kerning:0pt'><br>
+</span><span lang=EN-US>Return a Boolean value for compression, appending or
+deletion, or a file list for other operations</span><span lang=EN-US
+style='mso-bidi-font-size:10.5pt;mso-font-kerning:0pt'></span></p>
+
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt'>Example:</span></b></p>
+
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>&nbsp;</span></b></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='margin-left:-2.85pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
+ mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=31 valign=top style='width:23.45pt;border:solid #A6A6A6 1.0pt;
+  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></p>
+  </td>
+  <td width=314 valign=top style='width:235.6pt;border:solid #A6A6A6 1.0pt;
+  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>A</span></span></p>
+  </td>
+  <td width=318 valign=top style='width:238.15pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=31 valign=top style='width:23.45pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>1</span></span></p>
+  </td>
+  <td width=314 valign=top style='width:235.6pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=zip(&quot;D:/z1.zip&quot;:&quot;GBK&quot;,&quot;123&quot;;&quot;D:/testData/f1&quot;,&quot;D:/testData/f1/*.xls&quot;)</span></span></p>
+  </td>
+  <td width=318 valign=top style='width:238.15pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=31 valign=top style='width:23.45pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>2</span></span></p>
+  </td>
+  <td width=314 valign=top style='width:235.6pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=zip(&quot;D:/z1.zip&quot;:&quot;GBK&quot;;,&quot;D:/testData/f1&quot;)</span></span></p>
+  </td>
+  <td width=318 valign=top style='width:238.15pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3'>
+  <td width=31 valign=top style='width:23.45pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>3</span></span></p>
+  </td>
+  <td width=314 valign=top style='width:235.6pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=zip(file(&quot;D:/z1.zip&quot;);,&quot;D:/testData/f1&quot;)</span></span></p>
+  </td>
+  <td width=318 valign=top style='width:238.15pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Compress all files under <i
+  style='mso-bidi-font-style:normal'>D:/testData/f1/</i> directory into <i
+  style='mso-bidi-font-style:normal'>z1.zip </i><span style='mso-bidi-font-style:
+  italic'>as parameter </span><i style='mso-bidi-font-style:normal'>zipfile</i><span
+  style='mso-bidi-font-style:italic'> is a file object</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4'>
+  <td width=31 valign=top style='width:23.45pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>4</span></span></p>
+  </td>
+  <td width=314 valign=top style='width:235.6pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=zip(&quot;D:/z4.zip&quot;;&quot;D:/testData/f1&quot;,&quot;/*&quot;)</span></span></p>
+  </td>
+  <td width=318 valign=top style='width:238.15pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Compress all files under <i
+  style='mso-bidi-font-style:normal'>D:/testData/f1/</i> directory into <i
+  style='mso-bidi-font-style:normal'>z4.zip</i></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:5'>
+  <td width=31 valign=top style='width:23.45pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>5</span></span></p>
+  </td>
+  <td width=314 valign=top style='width:235.6pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=zip(&quot;D:/z5.zip&quot;;&quot;D:/testData/f1&quot;)</span></span></p>
+  </td>
+  <td width=318 valign=top style='width:238.15pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Compress all files under <i
+  style='mso-bidi-font-style:normal'>D:/testData/f1/</i> directory into <i
+  style='mso-bidi-font-style:normal'>z5.zip</i></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:6'>
+  <td width=31 valign=top style='width:23.45pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>6</span></span></p>
+  </td>
+  <td width=314 valign=top style='width:235.6pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=zip(&quot;D:/z6.zip&quot;;,&quot;D:/testData/f1/?ity.txt&quot;)</span></span></p>
+  </td>
+  <td width=318 valign=top style='width:238.15pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Compress files under <i style='mso-bidi-font-style:
+  normal'>D:/testData/f1/</i> directory whose names matching <i
+  style='mso-bidi-font-style:normal'>?ity.txt</i> with wildcard character ?
+  into <i style='mso-bidi-font-style:normal'>z6.zip</i></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:7'>
+  <td width=31 valign=top style='width:23.45pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>7</span></span></p>
+  </td>
+  <td width=314 valign=top style='width:235.6pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=[&quot;f2/*.txt&quot;,&quot;f2/*.csv&quot;,&quot;f2/*.xls&quot;]</span></span></p>
+  </td>
+  <td width=318 valign=top style='width:238.15pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:8'>
+  <td width=31 valign=top style='width:23.45pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>8</span></span></p>
+  </td>
+  <td width=314 valign=top style='width:235.6pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=zip(&quot;D:/z8.zip&quot;;&quot;D:/testData&quot;,A7)</span></span></p>
+  </td>
+  <td width=318 valign=top style='width:238.15pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Parameter <i style='mso-bidi-font-style:
+  normal'>files</i> is a sequence, so compress text, csv and xls files under <i
+  style='mso-bidi-font-style:normal'>D:/testData/f2/</i> directory into <i
+  style='mso-bidi-font-style:normal'>z8.zip</i></span><span lang=EN-US
+  style='mso-fareast-font-family:黑体'></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:9'>
+  <td width=31 valign=top style='width:23.45pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>9</span></span></p>
+  </td>
+  <td width=314 valign=top style='width:235.6pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=[file(&quot;*.xlsx&quot;),file(&quot;*.txt&quot;),file(&quot;*.json&quot;)]</span></span></p>
+  </td>
+  <td width=318 valign=top style='width:238.15pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:10'>
+  <td width=31 valign=top style='width:23.45pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>10</span></span></p>
+  </td>
+  <td width=314 valign=top style='width:235.6pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=zip(&quot;D:/z9.zip&quot;;&quot;D:/testData&quot;,A9)</span></span></p>
+  </td>
+  <td width=318 valign=top style='width:238.15pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Parameter <i style='mso-bidi-font-style:
+  normal'>files</i> is a sequence of file objects, so compress xlsx, txt, and
+  json files under <i style='mso-bidi-font-style:normal'>D:/testData </i>directory
+  into <i style='mso-bidi-font-style:normal'>z9.zip</i></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:11'>
+  <td width=31 valign=top style='width:23.45pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>11</span></span></p>
+  </td>
+  <td width=314 valign=top style='width:235.6pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=zip(&quot;D:/ZipTest/z11.zip&quot;;&quot;testData/f1&quot;)</span></span></p>
+  </td>
+  <td width=318 valign=top style='width:238.15pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Parameter <i style='mso-bidi-font-style:
+  normal'>path</i> is a relative path, which is relative to the path parameter <i
+  style='mso-bidi-font-style:normal'>zipfile</i> specifies; this compresses
+  files under <i style='mso-bidi-font-style:normal'>D:/ZipTest/testData/f1/</i>into
+  <i style='mso-bidi-font-style:normal'>z11.zip</i></span><span lang=EN-US
+  style='mso-fareast-font-family:黑体'></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:12'>
+  <td width=31 valign=top style='width:23.45pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>12</span></span></p>
+  </td>
+  <td width=314 valign=top style='width:235.6pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=zip@u(&quot;D:/z1.zip&quot;,&quot;123&quot;;&quot;D:/zfu/z1&quot;)</span></span></p>
+  </td>
+  <td width=318 valign=top style='width:238.15pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Decompress <i style='mso-bidi-font-style:
+  normal'>z1.zip</i> into <i style='mso-bidi-font-style:normal'>D:/zfu/z1</i>
+  directory with password 123</span><span lang=EN-US style='mso-fareast-font-family:
+  黑体'></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:13'>
+  <td width=31 valign=top style='width:23.45pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>13</span></span></p>
+  </td>
+  <td width=314 valign=top style='width:235.6pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=zip@u(&quot;D:/z1.zip&quot;,&quot;123&quot;)</span></span></p>
+  </td>
+  <td width=318 valign=top style='width:238.15pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Decompress <i style='mso-bidi-font-style:
+  normal'>z1.zip</i> into <i style='mso-bidi-font-style:normal'>D:/</i>
+  directory with password 123</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:14'>
+  <td width=31 valign=top style='width:23.45pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>14</span></span></p>
+  </td>
+  <td width=314 valign=top style='width:235.6pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=zip@a(&quot;D:/z2.zip&quot;;,&quot;D:/testData/f_a/&quot;)</span></span></p>
+  </td>
+  <td width=318 valign=top style='width:238.15pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Append files under <i style='mso-bidi-font-style:
+  normal'>D:/testData/f_a/</i> directory to <i style='mso-bidi-font-style:normal'>z2.zip</i></span><span
+  lang=EN-US style='mso-fareast-font-family:黑体'></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:15'>
+  <td width=31 valign=top style='width:23.45pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>15</span></span></p>
+  </td>
+  <td width=314 valign=top style='width:235.6pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=zip@a(&quot;D:/z2.zip&quot;;,&quot;D:/testData/f_a&quot;,&quot;*.txt&quot;)</span></span></p>
+  </td>
+  <td width=318 valign=top style='width:238.15pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Append all txt files, including those in
+  the subdirectories under <i>f_a</i> directory under <i style='mso-bidi-font-style:
+  normal'>D:/testData/f_a/</i> directory to <i style='mso-bidi-font-style:normal'>z2.zip</i></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:16'>
+  <td width=31 valign=top style='width:23.45pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>16</span></span></p>
+  </td>
+  <td width=314 valign=top style='width:235.6pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=zip@an(&quot;D:/z2.zip&quot;;,&quot;D:/testData/f_a&quot;,&quot;*.txt&quot;)</span></span></p>
+  </td>
+  <td width=318 valign=top style='width:238.15pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Append all txt files, not including those
+  in the subdirectories under <i>f_a</i> directory under <i style='mso-bidi-font-style:
+  normal'>D:/testData/f_a/</i> directory to <i style='mso-bidi-font-style:normal'>z2.zip</i></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:17'>
+  <td width=31 valign=top style='width:23.45pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>17</span></span></p>
+  </td>
+  <td width=314 valign=top style='width:235.6pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=zip@d(&quot;D:/z2.zip&quot;;&quot;/&quot;,&quot;C*.txt&quot;)</span></span></p>
+  </td>
+  <td width=318 valign=top style='width:238.15pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Delete files whose names match <i
+  style='mso-bidi-font-style:normal'>C*.txt</i> from <i style='mso-bidi-font-style:
+  normal'>z2.zip</i></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:18'>
+  <td width=31 valign=top style='width:23.45pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>18</span></span></p>
+  </td>
+  <td width=314 valign=top style='width:235.6pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=zip@d(&quot;D:/z2.zip&quot;;&quot;/&quot;,[&quot;*.txt&quot;,&quot;*.xls&quot;,&quot;*.csv&quot;])</span></span></p>
+  </td>
+  <td width=318 valign=top style='width:238.15pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Delete all txt, xls and csv file from <i
+  style='mso-bidi-font-style:normal'>z2.zip</i></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:19'>
+  <td width=31 valign=top style='width:23.45pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>19</span></span></p>
+  </td>
+  <td width=314 valign=top style='width:235.6pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=zip@n(&quot;D:/z13.zip&quot;;,&quot;D:/testData/&quot;)</span></span></p>
+  </td>
+  <td width=318 valign=top style='width:238.15pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Compress files under <i style='mso-bidi-font-style:
+  normal'>D:/testData/</i> into <i style='mso-bidi-font-style:normal'>z13.zip</i>;
+  with @n option, the function doesn’t perform a recursion on subdirectories,
+  which means files under subdirectories won’t be compressed</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:20'>
+  <td width=31 valign=top style='width:23.45pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>20</span></span></p>
+  </td>
+  <td width=314 valign=top style='width:235.6pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=zip@f(&quot;D:/z1.zip&quot;)</span></span></p>
+  </td>
+  <td width=318 valign=top style='width:238.15pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>List files under a compressed file
+  without a password</span></p>
+  <p class=MsoNormal><span lang=EN-US><img border=0 width=129 height=104
+  src="Function_Reference.files/image2026.png" v:shapes="图片_x0020_1328"></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:21'>
+  <td width=31 valign=top style='width:23.45pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>21</span></span></p>
+  </td>
+  <td width=314 valign=top style='width:235.6pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=zip@f(&quot;D:/z2.zip&quot;;&quot;zdata&quot;,[&quot;*.txt&quot;,&quot;*.xls&quot;])</span></span></p>
+  </td>
+  <td width=318 valign=top style='width:238.15pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>List all txt and xls files under <i>zdata</i>
+  directory in the compressed file and display them beginning from the root
+  directory</span></p>
+  <p class=MsoNormal><span lang=EN-US><img border=0 width=102 height=104
+  src="Function_Reference.files/image2028.jpg" v:shapes="图片_x0020_1329"></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:22'>
+  <td width=31 valign=top style='width:23.45pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>22</span></span></p>
+  </td>
+  <td width=314 valign=top style='width:235.6pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=zip@p(&quot;D:/z2.zip&quot;)</span></span></p>
+  </td>
+  <td width=318 valign=top style='width:238.15pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>List directories in a compressed file</span></p>
+  <p class=MsoNormal><span lang=EN-US><img border=0 width=119 height=64
+  src="Function_Reference.files/image2029.png" v:shapes="图片_x0020_1330"></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:23;mso-yfti-lastrow:yes'>
+  <td width=31 valign=top style='width:23.45pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>23</span></span></p>
+  </td>
+  <td width=314 valign=top style='width:235.6pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=zip@p(&quot;D:/z14.zip&quot;)</span></span></p>
+  </td>
+  <td width=318 valign=top style='width:238.15pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>List multilevel directories</span></p>
+  <p class=MsoNormal><span lang=EN-US><img border=0 width=155 height=164
+  src="Function_Reference.files/image2030.png" v:shapes="图片_x0020_1331"></span></p>
+  </td>
+ </tr>
+</table>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="919.html">Next</a></div>
@@ -501,17 +675,14 @@ categories.</span></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="914.html">Chart Element Parameters</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="45.html">Functions</a></span></li>
 </div>
 	</div>
 	<div id="footer">	
 		
-		<div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">Scudata Inc. 
-      </a></div> 
-        <!--
-		<div class="copyright"> Copyright&reg; 2017 <a href="http://www.yimming.com" target="_Blank"> Beijing Yimming Ltd. Co. 
+		
+    <div class="copyright"> Copyright&reg; 2021 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
       </a></div>
-	  -->
 	</div>
 </div>
 

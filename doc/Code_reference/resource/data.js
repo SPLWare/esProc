@@ -114,7 +114,7 @@ tree.setIconPath("images/");
  tree.nodes["112_113"] = "text:1.8.1 Retrieve data from database as table sequence via SQL;url:topics/111.html";
  tree.nodes["112_114"] = "text:1.8.2 Return single value result of SQL computation;url:topics/112.html";
  tree.nodes["112_115"] = "text:1.8.3 Use database stored procedure to return one or multiple table sequences;url:topics/113.html";
- tree.nodes["112_116"] = "text:1.8.4 Run SQL statement over database to modify data;url:topics/114.html";
+ tree.nodes["112_116"] = "text:1.8.4 Run SQL statement in database to modify data;url:topics/114.html";
  tree.nodes["112_117"] = "text:1.8.5 Use program code to connect to and disconnect from database;url:topics/115.html";
  tree.nodes["112_118"] = "text:1.8.6 Manage transaction commit automatically by program code;url:topics/116.html";
  tree.nodes["112_119"] = "text:1.8.7 Get database error messages;url:topics/117.html";

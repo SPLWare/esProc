@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>T.derive()</title>
+<title>days()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,379 +13,123 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h3 style='text-align:justify;text-justify:inter-ideograph'><a name="_dfx_…_1"></a><a
-name=dfx></a><span lang=EN-US>T.derive()<a name="T_derive"></a></span></h3></div>
-	<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Description:</span></b></p>
+	<div id="centent-title"><h2><a name="_days()"></a><a name=days></a><span lang=EN-US>days()</span></h2></div>
+	<p class=af7 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
+14.0pt;line-height:200%'>Description:</span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Add a composite
-table’s fields to a table sequence or a cursor according to the latter’s key
-values.</span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Get the number
+of days of the year, quarter or month to which the specified date belongs.</span></p>
 
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Syntax:</span></b><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:12.0pt'> </span></b></p>
+<p class=af7 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
+14.0pt;line-height:200%'>Syntax: </span></p>
 
-<p class=MsoNormal style='margin-left:.1pt;text-indent:21.2pt;mso-char-indent-count:
-2.02'><i><span lang=EN-US>T.</span></i><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US style='mso-bidi-font-style:italic'>derive</span></b><span
-lang=EN-US style='mso-bidi-font-style:italic'>(</span><i><span lang=EN-US
-style='mso-bidi-font-size:10.5pt'>A/cs,x:C,…;wi,...</span></i><span lang=EN-US
-style='mso-bidi-font-style:italic'>)</span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span class=code><span
+lang=EN-US style='font-family:"Times New Roman",serif'>days(</span></span><span
+class=var1><span lang=EN-US>dateExp</span></span><span class=code><span
+lang=EN-US style='font-family:"Times New Roman",serif'>) </span></span></p>
 
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Note:</span></b><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US style='font-size:12.0pt;mso-bidi-font-size:10.0pt'> </span></b></p>
+<p class=af7 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
+14.0pt;line-height:200%'>Note: </span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>The function
-adds one or more fields of composite table <i>T</i> to table sequence <i>A</i>
-or cursor/multicursor <i>cs</i> according to the latter’s key, which should be
-in the same order as the existing fields of <i>T</i>. . It returns a table
-sequence when adding fields to a table sequence; and returns a cursor, which
-will be sorted by <i>T</i>’s dimension or key. when adding fields to an
-ordinary cursor or a multicursor. </span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>The function gets
+the number of days of the year, quarter or month to which the specified date</span><span
+class=var1><span lang=EN-US> dateExp</span></span><span lang=EN-US> belongs.</span></p>
 
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Parameters:</span></b></p>
+<p class=af7 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
+14.0pt;line-height:200%'>Parameters: </span></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:19.85pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US>T</span></i><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-bidi-font-style:italic'></span></p>
-  </td>
-  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>A composite table</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:1'>
-  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>A/cs</span></i></p>
-  </td>
-  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>A table sequence/cursor/multicursor</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:2'>
-  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US>x</span></i><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-bidi-font-style:italic'></span></p>
-  </td>
-  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Field value</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:3'>
-  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US>C</span></i></p>
-  </td>
-  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Column alias;can be absent</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes'>
-  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US>wi</span></i></p>
-  </td>
-  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Filtering condition; separate multiple
-  conditions, which should be met at the same time, by comma(s).</span></p>
-  </td>
- </tr>
-</table>
-
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Options:</span></b></p>
-
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:-7.15pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'>
-  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal style='text-indent:5.25pt;mso-char-indent-count:.5'><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>@z</span></span></p>
+  <td width=70 valign=top style='width:52.2pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=var1><span lang=EN-US>dateExp</span></span></p>
   </td>
-  <td width=1038 valign=top style='width:622.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal style='text-indent:26.25pt;mso-char-indent-count:2.5'><span
-  lang=EN-US>Match existing fields in <i style='mso-bidi-font-style:normal'>A/cs</i>
-  with <i>T</i>’s dimension or key<i style='mso-bidi-font-style:normal'></i></span></p>
+  <td width=476 valign=top style='width:356.9pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>A date or a date string of standard
+  format</span></p>
   </td>
  </tr>
 </table>
 
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>&nbsp;</span></b></p>
+<p class=af7 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
+14.0pt;line-height:200%'>Options:</span></p>
 
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Return value:</span></b></p>
-
-<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
-lang=EN-US style='mso-bidi-font-size:10.5pt'>A table sequence/cursor</span></p>
-
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Example:</span></b></p>
-
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
- style='margin-left:19.85pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
- mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=38 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
-  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>&nbsp;</span></b></p>
+  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>@q</span></span><span
+  class=var1><span lang=EN-US></span></span></p>
   </td>
-  <td width=366 valign=top style='width:219.7pt;border:solid #A6A6A6 1.0pt;
-  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>A</span></b></p>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Get the number of days of the quarter to
+  which the specified date belongs</span></p>
   </td>
-  <td width=343 valign=top style='width:205.55pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+ </tr>
+ <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
+  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>@y</span></span><span
+  class=var1><span lang=EN-US></span></span></p>
+  </td>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Get the number of days of the year to
+  which the specified date belongs</span></p>
+  <p class=MsoNormal><span lang=EN-US>By default get the number of days of the
+  month to which the specified date belongs</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=af7 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
+14.0pt;line-height:200%'>Return value: </span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Integer</span></p>
+
+<p class=af7 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
+14.0pt;line-height:200%'>Example:</span></p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=334 valign=top style='width:250.65pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=afc style='margin-left:10.55pt;text-align:justify;text-justify:inter-ideograph;
+  tab-stops:48.75pt'><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>days(datetime(&quot;19800227&quot;,&quot;yyyyMMdd&quot;))</span></span><span
+  class=var1><span lang=EN-US></span></span></p>
+  </td>
+  <td width=211 valign=top style='width:158.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>29</span></span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=38 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>1</span></b></p>
+  <td width=334 valign=top style='width:250.65pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=afc style='margin-left:10.55pt;text-align:justify;text-justify:inter-ideograph;
+  tab-stops:48.75pt'><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>days(datetime(&quot;2006-01-15
+  10:20:30&quot;))</span></span></p>
   </td>
-  <td width=366 valign=top style='width:219.7pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=file(&quot;D:\\emp10.ctx&quot;)</span></b></p>
-  </td>
-  <td width=343 valign=top style='width:205.55pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  <td width=211 valign=top style='width:158.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>31</span></span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:2'>
-  <td width=38 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>2</span></b></p>
+  <td width=334 valign=top style='width:250.65pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=afc style='margin-left:10.55pt;text-align:justify;text-justify:inter-ideograph;
+  tab-stops:48.75pt'><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>days@y(datetime(&quot;19800227&quot;,&quot;yyyyMMdd&quot;))</span></span></p>
   </td>
-  <td width=366 valign=top style='width:219.7pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=A1.open()</span></b></p>
-  </td>
-  <td width=343 valign=top style='width:205.55pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'>Open a composite table </span></p>
-  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'><img border=0 width=194 height=204
-  src="Function_Reference.files/image372.png" v:shapes="_x0000_i1255"></span></p>
+  <td width=211 valign=top style='width:158.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>366</span></span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:3'>
-  <td width=38 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>3</span></b></p>
+ <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
+  <td width=334 valign=top style='width:250.65pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=afc style='margin-left:10.55pt;text-align:justify;text-justify:inter-ideograph;
+  tab-stops:48.75pt'><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>days@q(datetime(&quot;2006-01-15
+  10:20:30&quot;))</span></span></p>
   </td>
-  <td width=366 valign=top style='width:219.7pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=demo.query(&quot;select<span
-  style='mso-spacerun:yes'>&nbsp; </span>EID from EMPLOYEE&quot;)</span></b><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>.keys(EID)</span></span><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US></span></b></p>
-  </td>
-  <td width=343 valign=top style='width:205.55pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:4'>
-  <td width=38 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>4</span></b></p>
-  </td>
-  <td width=366 valign=top style='width:219.7pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=A2.derive</span></b></p>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>(A3,NAME,GENDER)</span></b></p>
-  </td>
-  <td width=343 valign=top style='width:205.55pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'>Add fields of the composite table to A3’s table
-  sequence by the latter’s key values </span></p>
-  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'><img border=0 width=181 height=206
-  src="Function_Reference.files/image373.png" v:shapes="_x0000_i1256"></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:5'>
-  <td width=38 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>5</span></b></p>
-  </td>
-  <td width=366 valign=top style='width:219.7pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=demo.query(&quot;select<span
-  style='mso-spacerun:yes'>&nbsp; </span>EID from EMPLOYEE&quot;).cursor()</span></b></p>
-  </td>
-  <td width=343 valign=top style='width:205.55pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>&nbsp;</span></b></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:6'>
-  <td width=38 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>6</span></b></p>
-  </td>
-  <td width=366 valign=top style='width:219.7pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=A2.derive(A5,NAME:NAME,GENDER:GENDER).fetch()</span></b></p>
-  </td>
-  <td width=343 valign=top style='width:205.55pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'>Add fields of the composite table to A5’s cursor
-  by the latter’s key values</span></p>
-  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'><img border=0 width=187 height=209
-  src="Function_Reference.files/image374.png" v:shapes="_x0000_i1257"></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:7'>
-  <td width=38 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>7</span></b></p>
-  </td>
-  <td width=366 valign=top style='width:219.7pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-  mso-fareast-font-family:宋体'>=file(&quot;D:/employees.ctx&quot;).open()</span></span><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US></span></b></p>
-  </td>
-  <td width=343 valign=top style='width:205.55pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Open a composite table</span><span
-  lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:8'>
-  <td width=38 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>8</span></b></p>
-  </td>
-  <td width=366 valign=top style='width:219.7pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-  mso-fareast-font-family:宋体'>=demo.query(&quot;select EID,DEPT from
-  employee&quot;).keys(EID)</span></span><b style='mso-bidi-font-weight:normal'><span
-  lang=EN-US></span></b></p>
-  </td>
-  <td width=343 valign=top style='width:205.55pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Return a table sequence with EID as the
-  key</span><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
-  #0400'></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:9'>
-  <td width=38 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>9</span></b></p>
-  </td>
-  <td width=366 valign=top style='width:219.7pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-  mso-fareast-font-family:宋体'>=A7.derive(A8,NAME:name,GENDER;GENDER==&quot;M&quot;)</span></span><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US></span></b></p>
-  </td>
-  <td width=343 valign=top style='width:205.55pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-  mso-fareast-font-family:宋体;font-weight:normal'>Add certain fields of A7’s
-  composite table to A8’s table sequecne according to key values; filtering condition
-  over A7 is GENDER==&quot;M&quot;</span></span><span lang=zh-CN
-  style='mso-ansi-language:#0400;mso-fareast-language:#0400'></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:10'>
-  <td width=38 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>10</span></span><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US></span></b></p>
-  </td>
-  <td width=366 valign=top style='width:219.7pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
-  11.0pt;font-family:"Times New Roman","serif"'>=demo.query(&quot;SELECT
-  EMPLOYEEID,EVALUATION,BONUS FROM PERFORMANCE<a name="_Hlt85556238"></a>&quot;)</span></span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-  mso-fareast-font-family:宋体'></span></span></p>
-  </td>
-  <td width=343 valign=top style='width:205.55pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'>Return a table sequence</span></p>
-  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'><img border=0 width=319 height=183
-  src="Function_Reference.files/image376.jpg" v:shapes="_x0000_i1258"></span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-  mso-fareast-font-family:宋体;font-weight:normal'></span></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:11;mso-yfti-lastrow:yes'>
-  <td width=38 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>11</span></span><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US></span></b></p>
-  </td>
-  <td width=366 valign=top style='width:219.7pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
-  11.0pt;font-family:"Times New Roman","serif"'>=A2.derive@z(A10,EID,NAME)</span></span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-  mso-fareast-font-family:宋体'></span></span></p>
-  </td>
-  <td width=343 valign=top style='width:205.55pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Use @z option to match A10’s existing
-  fields with the key of A2’s composite table</span></p>
-  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'><img border=0 width=508 height=168
-  src="Function_Reference.files/image378.jpg" v:shapes="图片_x0020_210"></span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-  mso-fareast-font-family:宋体;font-weight:normal'></span></span></p>
+  <td width=211 valign=top style='width:158.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>90</span></span></p>
   </td>
  </tr>
 </table>
@@ -396,17 +140,14 @@ style='font-size:14.0pt'>Example:</span></b></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="195.html">derive()</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="45.html">Functions</a></span></li>
 </div>
 	</div>
 	<div id="footer">	
 		
-		<div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">Scudata Inc. 
-      </a></div> 
-        <!--
-		<div class="copyright"> Copyright&reg; 2017 <a href="http://www.yimming.com" target="_Blank"> Beijing Yimming Ltd. Co. 
+		
+    <div class="copyright"> Copyright&reg; 2021 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
       </a></div>
-	  -->
 	</div>
 </div>
 

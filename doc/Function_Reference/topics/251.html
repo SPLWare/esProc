@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>Faccrint()</title>
+<title>es_post()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,219 +13,348 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h2><a name="_Faccrint()"></a><a name=Faccrint></a><span lang=EN-US>Faccrint()</span></h2></div>
+	<div id="centent-title"><h2><span lang=EN-US>es_post()</span></h2></div>
 	<p class=MsoNormal style='line-height:200%'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US style='font-size:14.0pt;line-height:200%'>Description:</span></b></p>
+normal'><span lang=EN-US style='font-size:14.0pt;line-height:200%;mso-font-kerning:
+0pt'>Description:</span></b><span lang=EN-US style='mso-font-kerning:0pt'></span></p>
 
-<p class=MsoNormal style='text-indent:21.75pt'><span lang=EN-US>The function equals
-the Excel ACCRINT function.</span></p>
+<p class=MsoNormal><span lang=EN-US style='mso-font-kerning:0pt'><span
+style='mso-spacerun:yes'>&nbsp; </span></span><span lang=EN-US>Execute
+the post command and return a table sequence or a cursor.</span><span
+lang=EN-US style='mso-font-kerning:0pt'></span></p>
 
-<p class=MsoNormal style='line-height:200%'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US style='font-size:14.0pt;line-height:200%'>Syntax:</span></b></p>
+<p class=MsoNormal style='line-height:200%;mso-pagination:widow-orphan'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+line-height:200%;mso-font-kerning:0pt'>Syntax:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US style='mso-fareast-font-family:黑体'>Faccrint(</span></b><i
-style='mso-bidi-font-style:normal'><span lang=EN-US>first_interest</span></i><span
-lang=EN-US>,<i style='mso-bidi-font-style:normal'>settlement</i>,<i
-style='mso-bidi-font-style:normal'>issue</i>,<i style='mso-bidi-font-style:
-normal'>rate</i>,<i style='mso-bidi-font-style:normal'>par</i></span><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
-黑体'>)</span></b></p>
+<p class=MsoNormal style='mso-pagination:widow-orphan'><span lang=EN-US
+style='mso-font-kerning:0pt'><span style='mso-spacerun:yes'>&nbsp; </span></span><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;mso-font-kerning:0pt'><span
+style='mso-spacerun:yes'>&nbsp;</span></span><span lang=EN-US style='mso-fareast-font-family:
+黑体'>es_post</span><span lang=EN-US style='mso-bidi-font-size:10.5pt;mso-font-kerning:
+0pt'>(</span><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>fd,
+endpoint, entity</span></i><i><span style='mso-bidi-font-size:10.5pt;
+font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:
+"Times New Roman"'>，</span></i><i><span lang=EN-US style='mso-bidi-font-size:
+10.5pt'>header</span></i><span lang=EN-US style='mso-bidi-font-size:10.5pt;
+mso-font-kerning:0pt'>)</span></p>
 
-<p class=MsoNormal style='line-height:200%'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US style='font-size:14.0pt;line-height:200%'>Note:</span></b></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:10.0pt;line-height:200%'>Note:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.75pt'><span lang=EN-US>The external
-library function <span style='mso-bidi-font-weight:bold'>returns the accrued
-interest for a security that pays periodic interest.</span> Specify the day
-count basis method</span><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US style='mso-fareast-font-family:黑体'> <span class=code><span
-style='font-family:"Times New Roman","serif"'>US (NASD) 30/360</span></span></span></b><span
-lang=EN-US style='mso-fareast-font-family:黑体'>.</span><span lang=EN-US
-style='mso-bidi-font-weight:bold'></span></p>
+<p class=MsoNormal style='text-indent:15.75pt;mso-char-indent-count:1.5;
+mso-pagination:widow-orphan'><span lang=EN-US>The external library function
+queries data through the post command and by default returns 10 records at
+most. If the JSON data in the result set contains multiple <i style='mso-bidi-font-style:
+normal'>_index</i>, they will be fully displayed. Parameter <i
+style='mso-bidi-font-style:normal'>entity</i> can be omitted.</span></p>
 
-<p class=MsoNormal style='line-height:200%'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US style='font-size:14.0pt;line-height:200%'>Parameters:</span></b></p>
+<p class=MsoNormal style='line-height:200%;mso-pagination:widow-orphan'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:10.0pt;line-height:200%'>Options:</span></b></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ style='margin-left:6.2pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=146 valign=top style='width:87.65pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US>first_interest</span></i><span
-  class=var1><span lang=EN-US></span></span></p>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;height:15.25pt'>
+  <td width=60 valign=top style='width:45.1pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:15.25pt'>
+  <p class=MsoNormal><span lang=EN-US style='mso-fareast-font-family:黑体'>@c</span><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US></span></b></p>
   </td>
-  <td width=536 valign=top style='width:321.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-weight:bold'>The
-  security's first interest date</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:1'>
-  <td width=146 valign=top style='width:87.65pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US>settlement</span></i><span
-  class=var1><span lang=EN-US></span></span></p>
-  </td>
-  <td width=536 valign=top style='width:321.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-weight:bold'>The
-  security's settlement date, i.e. the date after the issue date by which a
-  buyer must pay for the security</span></p>
+  <td width=476 valign=top style='width:356.7pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:15.25pt'>
+  <p class=MsoNormal style='text-indent:26.25pt;mso-char-indent-count:2.5;
+  mso-pagination:widow-orphan'><span lang=EN-US style='mso-bidi-font-size:10.5pt;
+  mso-font-kerning:0pt'>Query a cursor </span><span lang=EN-US
+  style='font-size:14.0pt;mso-fareast-font-family:黑体;mso-font-kerning:0pt'></span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:2'>
-  <td width=146 valign=top style='width:87.65pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US>issue</span></i><span
-  class=var1><span lang=EN-US></span></span></p>
+ <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes;height:15.25pt'>
+  <td width=60 valign=top style='width:45.1pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:15.25pt'>
+  <p class=MsoNormal><span lang=EN-US style='mso-fareast-font-family:黑体'>@f</span><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US></span></b></p>
   </td>
-  <td width=536 valign=top style='width:321.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-weight:bold'>The
-  issue date of the security</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:3'>
-  <td width=146 valign=top style='width:87.65pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US
-  style='mso-bidi-font-weight:bold'>rate</span></i><span class=var1><span
-  lang=EN-US></span></span></p>
-  </td>
-  <td width=536 valign=top style='width:321.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-weight:bold'>The
-  security's annual coupon rate</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes'>
-  <td width=146 valign=top style='width:87.65pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US>par</span></i><span
-  class=var1><span lang=EN-US></span></span></p>
-  </td>
-  <td width=536 valign=top style='width:321.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-weight:bold'>The
-  security's par value. If omitted, it takes the default value of zero for </span><span
-  style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:
-  "Times New Roman"'>￥</span><span lang=EN-US style='mso-bidi-font-weight:bold'>100</span></p>
+  <td width=476 valign=top style='width:356.7pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:15.25pt'>
+  <p class=MsoNormal style='text-indent:26.25pt;mso-char-indent-count:2.5;
+  mso-pagination:widow-orphan'><span lang=EN-US>Parameter <i style='mso-bidi-font-style:
+  normal'>entity</i> can be a file</span><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;mso-font-kerning:0pt'></span></p>
   </td>
  </tr>
 </table>
 
-<p class=af7 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Options</span><span style='mso-bidi-font-size:14.0pt;
-line-height:200%;font-family:宋体;mso-ascii-font-family:"Times New Roman";
-mso-hansi-font-family:"Times New Roman"'>：</span><span lang=EN-US
-style='mso-bidi-font-size:14.0pt;line-height:200%'></span></p>
+<p class=MsoNormal style='line-height:200%;mso-pagination:widow-orphan'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:10.0pt;line-height:200%'>Parameters:</span></b></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ style='margin-left:6.2pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=63 valign=top style='width:38.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>@2</span></span><span
-  class=var1><span lang=EN-US></span></span></p>
+  <td width=98 valign=top style='width:73.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><a name="_Hlk511231197"><i><span lang=EN-US
+  style='mso-bidi-font-size:10.5pt'>fd</span></i></a></p>
   </td>
-  <td width=605 valign=top style='width:362.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>Semi-annually</span></b><span lang=EN-US>.
-  It corresponds to the Excel <i style='mso-bidi-font-style:normal'>frequency</i>
-  parameter.</span></p>
+  <span style='mso-bookmark:_Hlk511231197'></span>
+  <td width=437 valign=top style='width:327.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlk511231197'><span lang=EN-US
+  style='mso-bidi-font-size:10.5pt;mso-font-kerning:0pt'>A REST Client object</span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlk511231197'></span>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=98 valign=top style='width:73.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlk511231197'><i><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt'>endpoint</span></i></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlk511231197'></span>
+  <td width=437 valign=top style='width:327.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlk511231197'><span lang=EN-US
+  style='mso-bidi-font-size:10.5pt;mso-font-kerning:0pt'>Rest API address</span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlk511231197'></span>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=98 valign=top style='width:73.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlk511231197'><i><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt'>entity</span></i></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlk511231197'></span>
+  <td width=437 valign=top style='width:327.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlk511231197'><span lang=EN-US
+  style='mso-bidi-font-size:10.5pt;mso-font-kerning:0pt'>A parameter
+  transmitted through http body, which is a JSON string or the name of JSON
+  file</span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlk511231197'></span>
+ </tr>
+ <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
+  <td width=98 valign=top style='width:73.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlk511231197'><i><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt'>header</span></i></span><span
+  style='mso-bookmark:_Hlk511231197'><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;mso-font-kerning:0pt'></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlk511231197'></span>
+  <td width=437 valign=top style='width:327.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span style='mso-bookmark:_Hlk511231197'><span lang=EN-US
+  style='mso-bidi-font-size:10.5pt;mso-font-kerning:0pt'>A variable parameter
+  that passes http header; it is a key type JSON string</span></span><span
+  style='mso-bookmark:_Hlk511231197'><span lang=EN-US style='mso-bidi-language:
+  AR'></span></span></p>
+  </td>
+  <span style='mso-bookmark:_Hlk511231197'></span>
+ </tr>
+</table>
+
+<span style='mso-bookmark:_Hlk511231197'></span>
+
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:10.0pt;line-height:200%'>Return value:</span></b></p>
+
+<p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+margin-left:10.5pt;mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+mso-para-margin-left:1.0gd;mso-pagination:widow-orphan'><span lang=EN-US>A
+table sequence/cursor</span><span lang=EN-US style='mso-bidi-font-size:10.5pt;
+mso-font-kerning:0pt'></span></p>
+
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:10.0pt;line-height:200%'>Example:</span></b><b
+style='mso-bidi-font-weight:normal'><span lang=FR style='font-size:14.0pt;
+mso-bidi-font-size:10.0pt;line-height:200%;mso-ansi-language:FR'></span></b></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='margin-left:-.4pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
+ mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  </td>
+  <td width=303 valign=top style='width:227.45pt;border:solid #A6A6A6 1.0pt;
+  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'>A</span></b></p>
+  </td>
+  <td width=235 valign=top style='width:176.55pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=63 valign=top style='width:38.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>@4</span></span><span
-  class=var1><span lang=EN-US></span></span></p>
-  </td>
-  <td width=605 valign=top style='width:362.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>Quaterly</span></b><span lang=EN-US>. It
-  corresponds to the Excel <i style='mso-bidi-font-style:normal'>frequency</i>
-  parameter.</span></p>
+  style='mso-fareast-font-family:黑体'>1</span></b></p>
+  </td>
+  <td width=303 valign=top style='width:227.45pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>=es_open(&quot;localhost:9200
+  &quot;,&quot;user&quot;:&quot;un1234&quot;)</span></b></p>
+  </td>
+  <td width=235 valign=top style='width:176.55pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Connect to the ES server</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:2'>
-  <td width=63 valign=top style='width:38.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>@1</span></span><span
-  class=var1><span lang=EN-US></span></span></p>
+  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>2</span></b></p>
   </td>
-  <td width=605 valign=top style='width:362.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Specify the day count basis method</span><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
-  黑体'> Actual/Actual</span></b><span lang=EN-US style='mso-fareast-font-family:
-  黑体'>.<b style='mso-bidi-font-weight:normal'> </b></span><span lang=EN-US>It
-  corresponds to the Excel <i style='mso-bidi-font-style:normal'>basis</i>
-  parameter.</span></p>
+  <td width=303 valign=top style='width:227.45pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>=es_post(A1,&quot;/accounts/_search?q=user:kimchy&quot;)</span></b></p>
+  </td>
+  <td width=235 valign=top style='width:176.55pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Query in the <i style='mso-bidi-font-style:
+  normal'>bank</i> index the record where user is <i style='mso-bidi-font-style:
+  normal'>kimchy</i></span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:3'>
-  <td width=63 valign=top style='width:38.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>@0</span></span><span
-  class=var1><span lang=EN-US></span></span></p>
+  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>3</span></b></p>
   </td>
-  <td width=605 valign=top style='width:362.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Specify the day count basis method</span><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
-  黑体'> Actual/360</span></b><span lang=EN-US style='mso-fareast-font-family:
-  黑体'>.<b style='mso-bidi-font-weight:normal'> </b></span><span lang=EN-US>It
-  corresponds to the Excel <i style='mso-bidi-font-style:normal'>basis</i>
-  parameter.</span></p>
+  <td width=303 valign=top style='width:227.45pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>=es_post(A1,&quot;/_all/_search?q=_id:5&quot;)</span></b></p>
+  </td>
+  <td width=235 valign=top style='width:176.55pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Query the record where _id is <i
+  style='mso-bidi-font-style:normal'>5</i> across different databases</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:4'>
-  <td width=63 valign=top style='width:38.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>@5</span></span><span
-  class=var1><span lang=EN-US></span></span></p>
+  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>4</span></b></p>
   </td>
-  <td width=605 valign=top style='width:362.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Specify the day count basis method</span><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
-  黑体'> Actual/365</span></b><span lang=EN-US style='mso-fareast-font-family:
-  黑体'>.<b style='mso-bidi-font-weight:normal'> </b></span><span lang=EN-US>It
-  corresponds to the Excel <i style='mso-bidi-font-style:normal'>basis</i>
-  parameter.</span></p>
+  <td width=303 valign=top style='width:227.45pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>=es_post@c(A1,&quot;/accounts/person/_search&quot;)</span></b></p>
+  </td>
+  <td width=235 valign=top style='width:176.55pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Query records where index is <i
+  style='mso-bidi-font-style:normal'>accounts</i> and type is <i
+  style='mso-bidi-font-style:normal'>person </i>via the cursor</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:5;mso-yfti-lastrow:yes'>
-  <td width=63 valign=top style='width:38.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>@e</span></span><span
-  class=var1><span lang=EN-US></span></span></p>
+ <tr style='mso-yfti-irow:5'>
+  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>5</span></b></p>
   </td>
-  <td width=605 valign=top style='width:362.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Specify the day count basis method</span><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
-  黑体'> European 30/360</span></b><span lang=EN-US style='mso-fareast-font-family:
-  黑体'>.<b style='mso-bidi-font-weight:normal'> </b></span><span lang=EN-US>It
-  corresponds to the Excel <i style='mso-bidi-font-style:normal'>basis</i>
-  parameter.</span></p>
+  <td width=303 valign=top style='width:227.45pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>=A4.fetch()</span></b></p>
+  </td>
+  <td width=235 valign=top style='width:176.55pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Return records fetched from the cursor</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:6;mso-yfti-lastrow:yes'>
+  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>6</span></b></p>
+  </td>
+  <td width=303 valign=top style='width:227.45pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>=es_post@f(A1,&quot;/bank/person/_search&quot;,&quot;D:/entity_post_accounts.txt&quot;)</span></b></p>
+  </td>
+  <td width=235 valign=top style='width:176.55pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Parameter <i style='mso-bidi-font-style:
+  normal'>entity</i> is a file, from which the function queries records where <i
+  style='mso-bidi-font-style:normal'>_gender=“F”</i> under /bank/person and
+  sort them</span></p>
   </td>
  </tr>
 </table>
+
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='mso-fareast-font-family:黑体'>&nbsp;</span></b></p>
 
 <p class=MsoNormal style='line-height:200%'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US style='font-size:14.0pt;line-height:200%'>Example:</span></b></p>
+normal'><span lang=EN-US style='mso-fareast-font-family:黑体'>Note: Here’s the
+file <i style='mso-bidi-font-style:normal'>entity_post_accounts.txt</i>:<br>
+</span></b><span lang=EN-US style='mso-font-kerning:0pt'>{</span></p>
 
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='border-collapse:collapse;mso-table-layout-alt:fixed;mso-padding-alt:
- 0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=564 valign=top style='width:338.55pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=afc style='margin-left:10.55pt;text-align:justify;text-justify:inter-ideograph;
-  tab-stops:48.75pt'><b><span lang=EN-US style='font-family:"Times New Roman","serif"'>Faccrint@2(date(&quot;2000-10-1&quot;),date(&quot;2000-6-1&quot;),date(&quot;2000-1-8&quot;),0.1,2000)</span></b><span
-  class=var1><span lang=EN-US></span></span></p>
-  </td>
-  <td width=177 valign=top style='width:106.3pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>79.44444444444444</span></b></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
-  <td width=564 valign=top style='width:338.55pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=afc style='margin-left:10.55pt;text-align:justify;text-justify:inter-ideograph;
-  tab-stops:48.75pt'><b><span lang=EN-US style='font-family:"Times New Roman","serif"'>Faccrint@1(date(&quot;2000-10-1&quot;),date(&quot;2000-6-1&quot;),date(&quot;2000-1-8&quot;),0.1,2000)</span></b><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'></span></span></p>
-  </td>
-  <td width=177 valign=top style='width:106.3pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><b><span lang=EN-US style='mso-fareast-font-family:黑体'>108.2089552238806</span></b><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'></span></span></p>
-  </td>
- </tr>
-</table>
+<p class=MsoNormal><span lang=EN-US style='mso-font-kerning:0pt'><span
+style='mso-spacerun:yes'>&nbsp; </span>&quot;query&quot; : {</span></p>
+
+<p class=MsoNormal><span lang=EN-US style='mso-font-kerning:0pt'><span
+style='mso-spacerun:yes'>&nbsp;
+</span>&quot;match&quot; : { &quot;gender&quot; : &quot;F&quot; }</span></p>
+
+<p class=MsoNormal><span lang=EN-US style='mso-font-kerning:0pt'><span
+style='mso-spacerun:yes'>&nbsp; </span>},</span></p>
+
+<p class=MsoNormal><span lang=EN-US style='mso-font-kerning:0pt'><span
+style='mso-spacerun:yes'>&nbsp; </span>&quot;track_scores&quot;: true,</span></p>
+
+<p class=MsoNormal><span lang=EN-US style='mso-font-kerning:0pt'><span
+style='mso-spacerun:yes'>&nbsp; </span>&quot;sort&quot; : [</span></p>
+
+<p class=MsoNormal><span lang=EN-US style='mso-font-kerning:0pt'><span
+style='mso-spacerun:yes'>&nbsp; </span>{
+&quot;account_number&quot; : {&quot;order&quot; : &quot;desc&quot;} },</span></p>
+
+<p class=MsoNormal><span lang=EN-US style='mso-font-kerning:0pt'><span
+style='mso-spacerun:yes'>&nbsp; </span>{
+&quot;firstname&quot; : &quot;desc&quot; },</span></p>
+
+<p class=MsoNormal><span lang=EN-US style='mso-font-kerning:0pt'><span
+style='mso-spacerun:yes'>&nbsp; </span>{
+&quot;lastname&quot; : &quot;desc&quot; }</span></p>
+
+<p class=MsoNormal><span lang=EN-US style='mso-font-kerning:0pt'><span
+style='mso-spacerun:yes'>&nbsp; </span>]</span></p>
+
+<p class=MsoNormal><span lang=EN-US style='mso-font-kerning:0pt'>}</span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="252.html">Next</a></div>
@@ -238,12 +367,9 @@ normal'><span lang=EN-US style='font-size:14.0pt;line-height:200%'>Example:</spa
 	</div>
 	<div id="footer">	
 		
-		<div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">Scudata Inc. 
-      </a></div> 
-        <!--
-		<div class="copyright"> Copyright&reg; 2017 <a href="http://www.yimming.com" target="_Blank"> Beijing Yimming Ltd. Co. 
+		
+    <div class="copyright"> Copyright&reg; 2021 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
       </a></div>
-	  -->
 	</div>
 </div>
 

@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>A .pselect()</title>
+<title>E .penum()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,612 +13,231 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h3 style='text-align:justify;text-justify:inter-ideograph'><a name="A_pselect"></a><i
-style='mso-bidi-font-style:normal'><span lang=EN-US>A</span></i><span
-lang=EN-US>.pselect()</span></h3></div>
+	<div id="centent-title"><h3 style='text-align:justify;text-justify:inter-ideograph'><a name="E_penum"></a><i
+style='mso-bidi-font-style:normal'><span lang=EN-US>E</span></i><span
+lang=EN-US>.penum()</span></h3></div>
 	<p class=af7 style='line-height:200%'><span lang=EN-US>Description:</span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Get the
-positions of the specified members from a sequence.</span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Judge to which
+enum group an object belongs.</span></p>
 
-<p class=af7 style='line-height:200%'><span lang=EN-US>Syntax:</span></p>
+<p class=af7 style='line-height:200%'><span lang=EN-US style='mso-fareast-font-family:
+"Times New Roman"'>Syntax:</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span class=var1><span
+lang=EN-US>E</span></span><span lang=EN-US>.</span><span class=code><span
+lang=EN-US style='font-family:"Times New Roman",serif'>penum</span></span><span
+lang=EN-US>(</span><span class=var1><span lang=EN-US>y</span></span><span
+lang=EN-US>)</span></p>
+
+<p class=af7 style='line-height:200%'><span lang=EN-US style='mso-fareast-font-family:
+"Times New Roman"'>Note:</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>The functions judges
+to which group of sequence/record sequence </span><span class=var1><span
+lang=EN-US>E</span></span><span lang=EN-US> member </span><span class=var1><span
+lang=EN-US>y</span></span><span lang=EN-US> belongs, and returns the sequence
+number(s) of the group(s), i.e. sequence number(s) of the record(s) of</span><span
+class=var1><span lang=EN-US> E</span></span><span lang=EN-US> that satisfy the
+grouping condition.</span></p>
+
+<p class=af7 style='line-height:200%'><span lang=EN-US style='mso-fareast-font-family:
+"Times New Roman"'>Parameters:</span></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
  style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=300 valign=top style='width:179.8pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US>A</span></span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>.pselect(</span></span><span
-  class=var1><span lang=EN-US> x</span></span><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman","serif"'>)</span></span><span
-  class=var1><span lang=EN-US></span></span></p>
+  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=var1><span lang=EN-US>E</span></span></p>
   </td>
-  <td width=382 valign=top style='width:229.3pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>A sequence/record sequence</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
-  <td width=300 valign=top style='width:179.8pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US>A</span></span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>.pselect(</span></span><span
-  class=var1><span lang=EN-US>x</span></span><span class=a><span lang=EN-US>1</span></span><i
-  style='mso-bidi-font-style:normal'><span lang=EN-US>:</span></i><span
-  class=var1><span lang=EN-US>y</span></span><span class=a><span lang=EN-US>1</span></span><i
-  style='mso-bidi-font-style:normal'><span lang=EN-US>,</span></i><span
-  class=var1><span lang=EN-US>x</span></span><span class=a><span lang=EN-US>2</span></span><i
-  style='mso-bidi-font-style:normal'><span lang=EN-US>:</span></i><span
-  class=var1><span lang=EN-US>y</span></span><span class=a><span lang=EN-US>2</span></span><i
-  style='mso-bidi-font-style:normal'><span lang=EN-US>,......</span></i><span
-  class=var1><span lang=EN-US>x</span></span><span class=a3><span lang=EN-US>i</span></span><i
-  style='mso-bidi-font-style:normal'><span lang=EN-US>:</span></i><span
-  class=var1><span lang=EN-US>y</span></span><span class=a3><span lang=EN-US>i</span></span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>)</span></span><span
-  class=var1><span lang=EN-US></span></span></p>
+  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=var1><span lang=EN-US>y</span></span></p>
   </td>
-  <td width=382 valign=top style='width:229.3pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>The simplified syntax for the composite
-  query using &quot;</span><span class=code><span lang=EN-US style='font-family:
-  "Times New Roman","serif"'>&amp;&amp;</span></span><span lang=EN-US>&quot; .
-  It is equal to </span><span class=var1><span lang=EN-US>A</span></span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>.pselect(</span></span><i
-  style='mso-bidi-font-style:normal'><span lang=EN-US>x</span></i><span
-  class=a><span lang=EN-US>1</span></span><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman","serif"'>==</span></span><i
-  style='mso-bidi-font-style:normal'><span lang=EN-US>y</span></i><span
-  class=a><span lang=EN-US>1</span></span><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman","serif"'> &amp;&amp; </span></span><i
-  style='mso-bidi-font-style:normal'><span lang=EN-US>x</span></i><span
-  class=a><span lang=EN-US>2</span></span><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman","serif"'>==</span></span><i
-  style='mso-bidi-font-style:normal'><span lang=EN-US>y</span></i><span
-  class=a><span lang=EN-US>2</span></span><span lang=EN-US> </span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>&amp;&amp;......</span></span><i
-  style='mso-bidi-font-style:normal'><span lang=EN-US> x</span></i><span
-  class=a3><span lang=EN-US>i</span></span><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman","serif"'>==</span></span><i
-  style='mso-bidi-font-style:normal'><span lang=EN-US>y</span></i><span
-  class=a3><span lang=EN-US>i</span></span><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman","serif"'>)</span></span><span
-  lang=EN-US>.</span></p>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=var1><span lang=EN-US style='font-style:normal'>A
+  member;</span></span><span lang=EN-US> allowed to be omitted</span></p>
   </td>
  </tr>
 </table>
 
-<p class=af7 style='line-height:200%'><span lang=EN-US>Note:</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>The function
-gets the position of a member in sequence <i>A</i> and returns the sequence
-number of a member that fulfils condition </span><span class=var1><span
-lang=EN-US>x</span></span><span class=var1><span lang=EN-US style='font-style:
-normal;mso-bidi-font-style:italic'>, or returns an empty sequence/null if it
-cannot find the eligible member. T</span></span><span lang=EN-US>he return
-value is also subject to the option working with the function.<span
-style='color:black;mso-bidi-font-style:italic'> </span></span></p>
-
-<p class=af7 style='line-height:200%'><span lang=EN-US>Options:</span></p>
+<p class=af7 style='line-height:200%'><span lang=EN-US style='mso-fareast-font-family:
+"Times New Roman"'>Option</span><span lang=EN-US>s</span><span lang=EN-US
+style='mso-fareast-font-family:"Times New Roman"'>: </span></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
  style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>@a</span></span><span
+  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>@r</span></span><span
   class=var1><span lang=EN-US></span></span></p>
   </td>
-  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Return a sequence composed of sequence
-  numbers of all the members that fulfill the condition <i style='mso-bidi-font-style:
-  normal'>x</i>. When it is not supplied, return the sequence number of the
-  first eligible member.</span></p>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Return the sequence numbers of all the
+  groups satisfying the grouping condition, and the default is to return the
+  sequence number of the first group</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:1'>
-  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>@z</span></span><span
+ <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
+  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>@n</span></span><span
   class=var1><span lang=EN-US></span></span></p>
   </td>
-  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Perform the search backwards from the last
-  member; by default perform the search from the first member.</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:2'>
-  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>@b</span></span><span
-  class=var1><span lang=EN-US></span></span></p>
-  </td>
-  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US style='font-style:normal;
-  mso-bidi-font-style:italic'>Perform the binary search</span><span lang=EN-US>
-  </span></span><span class=var1><span lang=EN-US style='font-style:normal;
-  mso-bidi-font-style:italic'>when</span><span lang=EN-US> A</span></span><span
-  class=var1><span lang=EN-US style='font-style:normal;mso-bidi-font-style:
-  italic'> is an ordered sequence by default. </span></span><span lang=EN-US
-  style='mso-bidi-font-weight:bold'>Note that in this case </span><i
-  style='mso-bidi-font-style:normal'><span lang=EN-US>x<sub>i</sub></span></i><span
-  lang=EN-US> must be in ascending or descending order. If </span><span
-  class=var1><span lang=EN-US>A </span></span><span class=var1><span
-  lang=EN-US style='font-style:normal;mso-bidi-font-style:italic'>is not an
-  ordered sequence, </span></span><span lang=EN-US>this option could return
-  incorrect result.</span><span class=var1><span lang=EN-US style='font-style:
-  normal;mso-bidi-font-style:italic'> When it</span></span><span lang=EN-US
-  style='mso-bidi-font-weight:bold'> is used with </span><span class=var1><span
-  lang=EN-US>A</span></span><span class=code><span lang=EN-US style='font-family:
-  "Times New Roman","serif";font-weight:normal'>.pselect(</span></span><span
-  class=var1><span lang=EN-US>x</span></span><span class=a><span lang=EN-US>1</span></span><i
-  style='mso-bidi-font-style:normal'><span lang=EN-US>:</span></i><span
-  class=var1><span lang=EN-US>y</span></span><span class=a><span lang=EN-US>1</span></span><i
-  style='mso-bidi-font-style:normal'><span lang=EN-US>,</span></i><span
-  class=var1><span lang=EN-US>x</span></span><span class=a><span lang=EN-US>2</span></span><i
-  style='mso-bidi-font-style:normal'><span lang=EN-US>:</span></i><span
-  class=var1><span lang=EN-US>y</span></span><span class=a><span lang=EN-US>2</span></span><i
-  style='mso-bidi-font-style:normal'><span lang=EN-US>,......</span></i><span
-  class=var1><span lang=EN-US>x</span></span><span class=a3><span lang=EN-US>i</span></span><i
-  style='mso-bidi-font-style:normal'><span lang=EN-US>:</span></i><span
-  class=var1><span lang=EN-US>y</span></span><span class=a3><span lang=EN-US>i</span></span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-  font-weight:normal'>)</span></span><span lang=EN-US> to find out members that
-  make </span><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-  font-weight:normal'>cmp(</span></span><span class=var1><span lang=EN-US>x,y</span></span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-  font-weight:normal'>) </span></span><span lang=EN-US style='mso-bidi-font-weight:
-  bold'>return </span><span class=code><span lang=EN-US style='font-family:
-  "Times New Roman","serif";font-weight:normal'>0</span></span><span
-  lang=EN-US style='mso-bidi-font-weight:bold'>, simply write </span><span
-  class=var1><span lang=EN-US>A</span></span><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman","serif";font-weight:normal'>.pselect@b(</span></span><span
-  class=var1><span lang=EN-US>x</span></span><span class=a><span lang=EN-US>1</span></span><i
-  style='mso-bidi-font-style:normal'><span lang=EN-US>:</span></i><span
-  class=var1><span lang=EN-US>y</span></span><span class=a><span lang=EN-US>1</span></span><i
-  style='mso-bidi-font-style:normal'><span lang=EN-US>,</span></i><span
-  class=var1><span lang=EN-US>x</span></span><span class=a><span lang=EN-US>2</span></span><i
-  style='mso-bidi-font-style:normal'><span lang=EN-US>:</span></i><span
-  class=var1><span lang=EN-US>y</span></span><span class=a><span lang=EN-US>2</span></span><i
-  style='mso-bidi-font-style:normal'><span lang=EN-US>,......</span></i><span
-  class=var1><span lang=EN-US>x</span></span><span class=a3><span lang=EN-US>i</span></span><i
-  style='mso-bidi-font-style:normal'><span lang=EN-US>:</span></i><span
-  class=var1><span lang=EN-US>y</span></span><span class=a3><span lang=EN-US>i</span></span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-  font-weight:normal'>)</span></span><span lang=EN-US> without including cmp().</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:3'>
-  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>@</span></span><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-style:
-  italic'>s</span></b><span class=var1><span lang=EN-US></span></span></p>
-  </td>
-  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>It requires that members in <i>A</i> are
-  ordered for expression <i>x</i>. With the binary search, if no members in <i>A</i>
-  can make the expression <i>x</i> return 0, then return the opposite number of
-  the position where <i style='mso-bidi-font-style:normal'>x</i> can be
-  inserted.</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes'>
-  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>@n</span></span><span
-  class=var1><span lang=EN-US></span></span></p>
-  </td>
-  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>If no sequence member is found, return
-  the result of the length of <i style='mso-bidi-font-style:normal'>A </i>plus
-  1. This option and <b style='mso-bidi-font-weight:normal'>@a</b> are mutually
-  exclusive</span></p>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>If no eligible sequence member of <i
+  style='mso-bidi-font-style:normal'>E</i> is found, return the length of <i
+  style='mso-bidi-font-style:normal'>E</i> plus 1. </span></p>
   </td>
  </tr>
 </table>
 
-<p class=af7 style='line-height:200%'><span lang=EN-US>Parameters:</span></p>
+<p class=af7 style='line-height:200%'><span lang=EN-US style='mso-fareast-font-family:
+"Times New Roman"'>Function </span><span lang=EN-US>k</span><span lang=EN-US
+style='mso-fareast-font-family:"Times New Roman"'>eyword:</span></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
  style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=63 valign=top style='width:38.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US>A</span></span></p>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'>
+  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>?</span><span class=var1><span
+  lang=EN-US></span></span></p>
   </td>
-  <td width=605 valign=top style='width:362.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US style='font-style:normal;
-  mso-bidi-font-style:italic'>A sequence</span></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:1'>
-  <td width=63 valign=top style='width:38.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US>x</span></span></p>
-  </td>
-  <td width=605 valign=top style='width:362.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>A boolean expression, whose value can be
-  null. When using </span><span class=code><span lang=EN-US style='font-family:
-  "Times New Roman","serif"'>@b</span></span><span lang=EN-US> option, </span><span
-  class=var1><span lang=EN-US>x</span></span><span lang=EN-US> should be </span><span
-  class=var1><span lang=EN-US style='font-style:normal;mso-bidi-font-style:
-  italic'>an </span></span><span lang=EN-US>expression whose return value is an
-  integer</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes'>
-  <td width=63 valign=top style='width:38.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US>x</span></span><span
-  class=a3><span lang=EN-US>i</span></span><i style='mso-bidi-font-style:normal'><span
-  lang=EN-US>:</span></i><span class=var1><span lang=EN-US>y</span></span><span
-  class=a3><span lang=EN-US>i</span></span><span class=var1><span lang=EN-US></span></span></p>
-  </td>
-  <td width=605 valign=top style='width:362.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US>x</span></span><span
-  class=a3><span lang=EN-US>i</span></span><span class=var1><span lang=EN-US> </span></span><span
-  class=var1><span lang=EN-US style='font-style:normal;mso-bidi-font-style:
-  italic'>is an expression, and</span><span lang=EN-US> y</span></span><span
-  class=a3><span lang=EN-US>i</span></span><span class=var1><span lang=EN-US
-  style='font-style:normal;mso-bidi-font-style:italic'> is a comparing value</span></span></p>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Represents the value of </span><span
+  class=var1><span lang=EN-US>y</span></span></p>
   </td>
  </tr>
 </table>
 
-<p class=af7 style='line-height:200%'><span lang=EN-US>Return value:</span></p>
+<p class=af7 style='line-height:200%'><span lang=EN-US style='mso-fareast-font-family:
+"Times New Roman"'>Return value:</span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>The sequence
-numbers of the member that fulfils condition </span><span class=var1><span
-lang=EN-US>x </span></span><span class=var1><span lang=EN-US style='font-style:
-normal;mso-bidi-font-style:italic'>or that makes the result of expression </span><span
-lang=EN-US>x</span></span><span class=var1><span lang=EN-US style='font-style:
-normal;mso-bidi-font-style:italic'> equals </span><span lang=EN-US>y</span></span><span
-class=var1><span lang=EN-US style='font-style:normal;mso-bidi-font-style:italic'>
-in the given sequence</span></span><span lang=EN-US>. </span><span class=code><span
-lang=EN-US style='font-family:"Times New Roman","serif"'>@a</span></span><span
-lang=EN-US> option works to return a sequence composed of all the sequence
-numbers of the member that fulfils condition </span><span class=var1><span
-lang=EN-US>x</span></span><span lang=EN-US>, and return a sequence composed of
-the sequence numbers of all the members when </span><span class=var1><span
-lang=EN-US>x </span></span><span class=var1><span lang=EN-US style='font-style:
-normal;mso-bidi-font-style:italic'>is null.</span><span lang=EN-US></span></span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>A sequence
+number or an integer sequence composed of sequence numbers</span></p>
 
-<p class=af7 style='line-height:200%'><span lang=EN-US>Example:</span></p>
+<p class=af7 style='line-height:200%'><span lang=EN-US style='mso-fareast-font-family:
+"Times New Roman"'>Example:</span></p>
+
+<p class=aff6 style='margin-top:0cm;margin-right:0cm;margin-bottom:0cm;
+margin-left:36.75pt;margin-bottom:.0001pt;mso-add-space:auto;text-align:justify;
+text-justify:inter-ideograph;text-indent:-21.0pt;mso-list:l15 level1 lfo12'><span
+lang=EN-US style='font-family:Wingdings;mso-fareast-font-family:Wingdings;
+mso-bidi-font-family:Wingdings'><span style='mso-list:Ignore'>&Oslash;<span
+style='font:7.0pt "Times New Roman"'>&nbsp; </span></span></span><span
+class=var1><span lang=EN-US>E</span></span><span lang=EN-US> is the sequence</span></p>
 
 <table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
  style='margin-left:18.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
  mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=19 valign=top style='width:11.15pt;border:solid #A6A6A6 1.0pt;
+  <td width=20 valign=top style='width:15.0pt;border:solid #A6A6A6 1.0pt;
   mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
   </td>
-  <td width=519 valign=top style='width:311.3pt;border:solid #A6A6A6 1.0pt;
+  <td width=235 valign=top style='width:175.9pt;border:solid #A6A6A6 1.0pt;
   border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman","serif"'>A</span></span></p>
+  lang=EN-US style='font-family:"Times New Roman",serif'>A</span></span></p>
   </td>
-  <td width=189 valign=top style='width:113.3pt;border:none;mso-border-left-alt:
+  <td width=276 valign=top style='width:206.65pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=19 valign=top style='width:11.15pt;border:solid #A6A6A6 1.0pt;
+  <td width=20 valign=top style='width:15.0pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>1</span></span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>1</span></span></p>
   </td>
-  <td width=519 valign=top style='width:311.3pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  <td width=235 style='width:175.9pt;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>[2,5,4,3,2,9,4,9,3]</span></span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=[&quot;?&lt;=70&amp;&amp;?&lt;=60&quot;,&quot;?&gt;=70
+  &amp;&amp; ?&lt;=90&quot;,&quot;?&gt;=90&quot;]</span></span></p>
   </td>
-  <td width=189 valign=top style='width:113.3pt;border:none;mso-border-left-alt:
+  <td width=276 valign=top style='width:206.65pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  <p class=MsoNormal><span lang=EN-US>Use </span><span class=var1><span
+  lang=EN-US>y</span></span><span lang=EN-US> to replace the </span><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>?</span></span><span
+  lang=EN-US> in the grouping conditions when computing</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:2'>
-  <td width=19 valign=top style='width:11.15pt;border:solid #A6A6A6 1.0pt;
+  <td width=20 valign=top style='width:15.0pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>2</span></span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>2</span></span></p>
   </td>
-  <td width=519 valign=top style='width:311.3pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  <td width=235 style='width:175.9pt;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=A1.pselect(~&gt;4)</span></span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=A1.penum(90)</span></span></p>
   </td>
-  <td width=189 valign=top style='width:113.3pt;border:none;mso-border-left-alt:
+  <td width=276 valign=top style='width:206.65pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-  font-weight:normal;mso-bidi-font-weight:bold'>2</span></span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>2</span></span><span
+  lang=EN-US>; the sequence number of the first group satisfying the condition
+  will be returned</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:3'>
-  <td width=19 valign=top style='width:11.15pt;border:solid #A6A6A6 1.0pt;
+  <td width=20 valign=top style='width:15.0pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>3</span></span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>3</span></span></p>
   </td>
-  <td width=519 valign=top style='width:311.3pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  <td width=235 style='width:175.9pt;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=A1.pselect@a(~&gt;4)</span></span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=A1.penum@r(90)</span></span></p>
   </td>
-  <td width=189 valign=top style='width:113.3pt;border:none;mso-border-left-alt:
+  <td width=276 valign=top style='width:206.65pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-  font-weight:normal;mso-bidi-font-weight:bold'>[2,6,8]</span></span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>[2,3]</span></span><span
+  lang=EN-US>; return the sequence numbers of all the groups</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:4'>
-  <td width=19 valign=top style='width:11.15pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes'>
+  <td width=20 valign=top style='width:15.0pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>4</span></span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>4</span></span></p>
   </td>
-  <td width=519 valign=top style='width:311.3pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  <td width=235 style='width:175.9pt;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=A1.pselect@z(~&gt;4)</span></span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=A1.penum@n(43)</span></span></p>
   </td>
-  <td width=189 valign=top style='width:113.3pt;border:none;mso-border-left-alt:
+  <td width=276 valign=top style='width:206.65pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-  font-weight:normal;mso-bidi-font-weight:bold'>8</span></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:5'>
-  <td width=19 valign=top style='width:11.15pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>5</span></span></p>
-  </td>
-  <td width=519 valign=top style='width:311.3pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=A1.pselect@az(~&gt;4)</span></span></p>
-  </td>
-  <td width=189 valign=top style='width:113.3pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-  font-weight:normal;mso-bidi-font-weight:bold'>[8,6,2]</span></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:6'>
-  <td width=19 valign=top style='width:11.15pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>6</span></span></p>
-  </td>
-  <td width=519 valign=top style='width:311.3pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=[1,3,5,7,9].pselect@b(~-5)</span></span></p>
-  </td>
-  <td width=189 rowspan=2 valign=top style='width:113.3pt;border:none;
-  mso-border-left-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-  font-weight:normal;mso-bidi-font-weight:bold'>3</span></span><span
-  lang=EN-US style='mso-bidi-font-weight:bold'>. The syntax of </span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-  font-weight:normal;mso-bidi-font-weight:bold'>A6</span></span><span
-  lang=EN-US style='mso-bidi-font-weight:bold'> and </span><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman","serif";font-weight:normal;
-  mso-bidi-font-weight:bold'>A7</span></span><span lang=EN-US style='mso-bidi-font-weight:
-  bold'> are equal, and their return values are the same. When using a colon,
-  the syntax of using </span><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman","serif";font-weight:normal;mso-bidi-font-weight:
-  bold'>@b</span></span><span lang=EN-US style='mso-bidi-font-weight:bold'>
-  doesn’t need to be changed </span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:7'>
-  <td width=19 valign=top style='width:11.15pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>7</span></span></p>
-  </td>
-  <td width=519 valign=top style='width:311.3pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=[1,3,5,7,9].pselect@b(~:5)</span></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:8'>
-  <td width=19 valign=top style='width:11.15pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>8</span></span></p>
-  </td>
-  <td width=519 valign=top style='width:311.3pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=[1,3,5,7,9].pselect@s(~:4)</span></span></p>
-  </td>
-  <td width=189 valign=top style='width:113.3pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-weight:bold'>-3.</span><span
-  lang=EN-US> Cannot find 4 and return the opposite number of the position
-  where 4 can be inserted</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:9'>
-  <td width=19 valign=top style='width:11.15pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>9</span></span></p>
-  </td>
-  <td width=519 valign=top style='width:311.3pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=[1,3,5,7,9].pselect@n(~:4)</span></span></p>
-  </td>
-  <td width=189 valign=top style='width:113.3pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-weight:bold'>6</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:10'>
-  <td width=19 valign=top style='width:11.15pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>10</span></span></p>
-  </td>
-  <td width=519 valign=top style='width:311.3pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=demo.query(&quot;select
-  * from EMPLOYEE&quot;)</span></span></p>
-  </td>
-  <td width=189 valign=top style='width:113.3pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-weight:bold'>&nbsp;</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:11'>
-  <td width=19 valign=top style='width:11.15pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>11</span></span></p>
-  </td>
-  <td width=519 valign=top style='width:311.3pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=A10.pselect(GENDER:&quot;M&quot;,DEPT:&quot;Sales&quot;)</span></span></p>
-  </td>
-  <td width=189 valign=top style='width:113.3pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-  font-weight:normal;mso-bidi-font-weight:bold'>6</span></span><b><span
-  lang=EN-US></span></b></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:12'>
-  <td width=19 valign=top style='width:11.15pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>12</span></span></p>
-  </td>
-  <td width=519 valign=top style='width:311.3pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=demo.query(&quot;select
-  * from EMPLOYEE where GENDER='M' order by EID asc&quot;)</span></span></p>
-  </td>
-  <td width=189 valign=top style='width:113.3pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-  font-weight:normal;mso-bidi-font-weight:bold'>EID</span></span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'> </span></span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-  font-weight:normal'>and</span></span><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman","serif"'> </span></span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-  font-weight:normal;mso-bidi-font-weight:bold'>GENDER</span></span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-  font-weight:normal'> are in the same order</span></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:13'>
-  <td width=19 valign=top style='width:11.15pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>13</span></span></p>
-  </td>
-  <td width=519 valign=top style='width:311.3pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=A12.pselect@b(EID:10,GENDER:&quot;M&quot;)</span></span></p>
-  </td>
-  <td width=189 valign=top style='width:113.3pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>2</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:14'>
-  <td width=19 valign=top style='width:11.15pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>14</span></span></p>
-  </td>
-  <td width=519 valign=top style='width:311.3pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=A12.pselect@s(EID:3,GENDER:&quot;M&quot;)</span></span></p>
-  </td>
-  <td width=189 valign=top style='width:113.3pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>-</span></b><span
-  lang=EN-US style='mso-bidi-font-weight:bold'>1</span><span lang=EN-US>.
-  Cannot find the record satisfying</span><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman","serif"'> </span></span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-  font-weight:normal;mso-bidi-font-weight:bold'>EID=3</span></span><span
-  lang=EN-US> and </span><span class=code><span lang=EN-US style='font-family:
-  "Times New Roman","serif";font-weight:normal;mso-bidi-font-weight:bold'>GENDER</span></span><span
-  lang=EN-US>=M and return the opposite number of the position where the record
-  can be inserted</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:15;mso-yfti-lastrow:yes'>
-  <td width=19 valign=top style='width:11.15pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>15</span></span></p>
-  </td>
-  <td width=519 valign=top style='width:311.3pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=A12.pselect@n(EID:3,GENDER:&quot;M&quot;)</span></span></p>
-  </td>
-  <td width=189 valign=top style='width:113.3pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-weight:bold'>239</span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>4</span></span></p>
   </td>
  </tr>
 </table>
 
-<p class=af7 style='line-height:200%'><span lang=EN-US>Note:</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>If </span><span class=var1><span lang=EN-US>A </span></span><span
-class=var1><span lang=EN-US style='font-style:normal;mso-bidi-font-style:italic'>is
-not an ordered sequence, and </span></span><span class=ooy><span lang=EN-US
-style='font-family:"Times New Roman","serif"'>x</span></span><span class=ooyo><span
-lang=EN-US style='font-family:"Times New Roman","serif"'>i</span></span><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US> </span></b><span
-lang=EN-US>is not in ascending or descending order,</span><span class=var1><span
-lang=EN-US style='font-style:normal;mso-bidi-font-style:italic'> the use of</span></span><span
-lang=EN-US> options</span><span class=var1><span lang=EN-US> </span></span><span
-class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>@b</span></span><span
-lang=EN-US> and </span><span class=code><span lang=EN-US style='font-family:
-"Times New Roman","serif"'>@s</span></span><span lang=EN-US> may bring about
-incorrect results.</span></p>
-
-<p class=af7 style='line-height:200%'><a name="_A.psort(x)"></a><span
-lang=EN-US>Related functions:</span></p>
+<p class=af7 style='line-height:200%'><span lang=EN-US style='mso-fareast-font-family:
+"Times New Roman"'>Related functions:</span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US><a  href="730.html"><span style='mso-bidi-font-size:
-10.5pt;font-style:normal'>A</span><span style='mso-bidi-font-size:12.0pt;
-font-style:normal'>.sel<span style='mso-bookmark:_Hlt346097439'>e</span><span
-style='mso-bookmark:_Hlt342569920'>c</span><span style='mso-bookmark:_Hlt414983201'><span
-style='mso-bookmark:_Hlt346093118'>t</span></span><span style='mso-bookmark:
-_Hlt414983570'>(</span>)</span></a><a
-name="_Hlt414983570"></a><a name="_Hlt346093118"></a><a name="_Hlt414983201"></a><a
-name="_Hlt342569920"></a><a name="_Hlt346097439"></a></span></i></p>
+normal'><span lang=EN-US><a  href="penumey.html#P_enum"><span style='mso-bidi-font-size:
+10.5pt;font-style:normal'>P</span><span style='mso-bidi-font-size:12.0pt;
+font-style:normal'>.enum<span style='mso-bookmark:_Hlt414993312'>(</span>)</span></a><a
+name="_Hlt414993312"></a></span></i></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="639.html">Next</a></div>
@@ -626,17 +245,14 @@ name="_Hlt342569920"></a><a name="_Hlt346097439"></a></span></i></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="637.html">pselect()</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="637.html">penum()</a></span></li>
 </div>
 	</div>
 	<div id="footer">	
 		
-		<div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">Scudata Inc. 
-      </a></div> 
-        <!--
-		<div class="copyright"> Copyright&reg; 2017 <a href="http://www.yimming.com" target="_Blank"> Beijing Yimming Ltd. Co. 
+		
+    <div class="copyright"> Copyright&reg; 2021 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
       </a></div>
-	  -->
 	</div>
 </div>
 

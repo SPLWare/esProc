@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>hive_execute ()</title>
+<title>hbase_filterlist()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,239 +13,370 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h2><a name="_hive_execute"></a><a name="hive_execute"></a><span
-style='mso-bookmark:_hive_execute'></span><a href="#_hive_execute"><span
-style='mso-bookmark:_hive_execute'><span lang=EN-US style='color:windowtext;
-text-decoration:none;text-underline:none'>hive_execute</span></span></a><span
-style='mso-bookmark:_hive_execute'><span lang=EN-US>()</span></span><span
-style='mso-bookmark:_hive_execute'></span><span
-style='mso-bookmark:_hive_execute'></span></h2></div>
-	<span style='mso-bookmark:_hive_execute'></span>
+	<div id="centent-title"><h2><a name="_hbase_filterlist()"></a><a name="hbase_filterlist"></a><span
+style='mso-bookmark:"_hbase_filterlist\(\)"'><span lang=EN-US>hbase_filterlist()</span></span><span
+style='mso-bookmark:"_hbase_filterlist\(\)"'></span><span
+style='mso-bookmark:"_hbase_filterlist\(\)"'></span></h2></div>
+	<span style='mso-bookmark:"_hbase_filterlist\(\)"'></span>
 
 <p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
 mso-bidi-font-size:12.0pt;line-height:200%'>Description:</span></b></p>
 
-<p class=MsoNormal style='text-indent:15.75pt;mso-char-indent-count:1.5'><span
-lang=EN-US>Execute Hive’s SQL-like queries. </span></p>
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US>Filter data with multiple filters.</span></p>
 
 <p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
 mso-bidi-font-size:12.0pt;line-height:200%'>Syntax:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US style='mso-fareast-font-family:黑体'>hive_execute(con,sql)</span></b><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-mso-bidi-font-size:12.0pt'></span></b></p>
+<p class=MsoNormal style='text-indent:21.1pt;mso-char-indent-count:2.0'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US>hbase_filterlist</span></b><span
+lang=EN-US>(filterHandle1,filterHandle2,...filterHandleN)<span
+style='mso-spacerun:yes'>&nbsp; </span></span></p>
 
 <p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-mso-bidi-font-size:12.0pt;line-height:200%'>Note:</span></b></p>
+mso-bidi-font-size:12.0pt;line-height:200%'>Note: </span></b></p>
 
-<p class=MsoNormal style='text-indent:15.75pt;mso-char-indent-count:1.5;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>This external
-library function supports executing Hive’s SQL-like statements, including <i
-style='mso-bidi-font-style:normal'>create table</i>, <i style='mso-bidi-font-style:
-normal'>drop table</i>, <i style='mso-bidi-font-style:normal'>load data</i>, <i
-style='mso-bidi-font-style:normal'>insert into</i>, <i style='mso-bidi-font-style:
-normal'>insert owerwrite</i>, and <i style='mso-bidi-font-style:normal'>create
-view</i>. The statement <i style='mso-bidi-font-style:normal'>Load data local
-inpath</i> supports only operations on local files, rather than those on a Hive
-server; the statement <i style='mso-bidi-font-style:normal'>Load data inpath</i>
-supports operations on HDFS files, over which the user needs to have the
-corresponding privilege. </span></p>
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US>This external library function can accommodate another
+hbase_filterlist() function within it. By default, the filtering conditions in
+all filters must be met at the same time.</span></p>
 
-<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-mso-bidi-font-size:12.0pt;line-height:200%'>Parameters:</span></b></p>
+<p class=MsoNormal style='line-height:200%'><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:12.0pt;
+line-height:200%'>Options:</span></b></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
  style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=122 valign=top style='width:73.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>con</span></i></p>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'>
+  <td width=134 valign=top style='width:100.8pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>@o</span></b></p>
   </td>
-  <td width=546 valign=top style='width:327.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Database connection string</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
-  <td width=122 valign=top style='width:73.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>sql</span></i></p>
-  </td>
-  <td width=546 valign=top style='width:327.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>A SQL query statement</span></p>
+  <td width=390 valign=top style='width:292.5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Every filter is independent in filtering
+  data.</span></p>
   </td>
  </tr>
 </table>
 
-<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-mso-bidi-font-size:12.0pt;line-height:200%'>Return value: </span></b></p>
+<p class=MsoNormal style='line-height:200%'><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:12.0pt;
+line-height:200%'>Parameters:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>A boolean value</span></p>
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'>
+  <td width=134 valign=top style='width:100.8pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US>filterHandle</span></i></p>
+  </td>
+  <td width=389 valign=top style='width:291.6pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Filter handle</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal style='line-height:200%'><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:12.0pt;
+line-height:200%'>Return value:</span></b></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US>Filter handle</span></p>
 
 <p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
 mso-bidi-font-size:12.0pt;line-height:200%'>Example:</span></b></p>
 
 <table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
- style='margin-left:18.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ style='margin-left:7.35pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
  mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=25 valign=top style='width:14.95pt;border:solid #A6A6A6 1.0pt;
-  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
-  黑体'>&nbsp;</span></b></p>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;height:7.2pt'>
+  <td width=16 valign=top style='width:12.25pt;border:solid #A6A6A6 1.0pt;
+  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm;
+  height:7.2pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span lang=EN-US>&nbsp;</span></p>
   </td>
-  <td width=550 valign=top style='width:330.2pt;border:solid #A6A6A6 1.0pt;
+  <td width=320 valign=top style='width:240.05pt;border:solid #A6A6A6 1.0pt;
   border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:7.2pt'>
   <p class=MsoNormal align=center style='text-align:center'><b
   style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
   黑体'>A</span></b></p>
   </td>
-  <td width=151 valign=top style='width:90.6pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span lang=EN-US>&nbsp;</span></p>
+  <td width=209 valign=top style='width:157.1pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:7.2pt'>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:1'>
-  <td width=25 valign=top style='width:14.95pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:1;height:7.2pt'>
+  <td width=16 valign=top style='width:12.25pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:7.2pt'>
   <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
   style='mso-fareast-font-family:黑体'>1</span></b></p>
   </td>
-  <td width=550 style='width:330.2pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  <td width=320 valign=top style='width:240.05pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:7.2pt'>
   <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>=hive_client(&quot;hdfs://192.168.0.8:9000/&quot;,&quot;thrift://192.168.0.8:9083&quot;,&quot;hive&quot;,&quot;asus&quot;)</span></b></p>
+  style='mso-fareast-font-family:黑体'>=hbase_open(&quot;</span><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif;mso-fareast-font-family:
+  宋体'>hdfs://192.168.0.8:9000</span></span></b><b style='mso-bidi-font-weight:
+  normal'><span lang=EN-US style='mso-fareast-font-family:黑体'>&quot;)</span></b></p>
   </td>
-  <td width=151 style='width:90.6pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Connect to the <i style='mso-bidi-font-style:
-  normal'>hive</i> database</span><span lang=EN-US style='font-size:12.0pt;
-  mso-bidi-font-size:10.0pt'></span></p>
+  <td width=209 valign=top style='width:157.1pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:7.2pt'>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:2'>
-  <td width=25 valign=top style='width:14.95pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:2;height:22.5pt'>
+  <td width=16 valign=top style='width:12.25pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:22.5pt'>
   <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
   style='mso-fareast-font-family:黑体'>2</span></b></p>
   </td>
-  <td width=550 style='width:330.2pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  <td width=320 valign=top style='width:240.05pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:22.5pt'>
   <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>=hive_execute(A1, &quot;create table stu2(
-  id string, name string,age string)&quot;)</span></b></p>
+  style='mso-fareast-font-family:黑体'>=hbase_filter(&quot;ColumnPaginationFilter&quot;,2,
+  0)</span></b></p>
   </td>
-  <td width=151 style='width:90.6pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Create a table</span></p>
+  <td width=209 valign=top style='width:157.1pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:22.5pt'>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:3'>
-  <td width=25 valign=top style='width:14.95pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:3;height:7.2pt'>
+  <td width=16 valign=top style='width:12.25pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:7.2pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>&nbsp;</span></b></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>&nbsp;</span></b></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>&nbsp;</span></b></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>&nbsp;</span></b></p>
   <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
   style='mso-fareast-font-family:黑体'>3</span></b></p>
   </td>
-  <td width=550 style='width:330.2pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  <td width=320 valign=top style='width:240.05pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:7.2pt'>
   <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>=hive_execute(A1, &quot;drop table
-  stu&quot;)</span></b></p>
+  style='mso-fareast-font-family:黑体'>&nbsp;</span></b></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>&nbsp;</span></b></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>&nbsp;</span></b></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>&nbsp;</span></b></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>=hbase_scan(A1,&quot;emp&quot;;filter:A2)</span></b></p>
   </td>
-  <td width=151 style='width:90.6pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Drop a table</span></p>
+  <td width=209 valign=top style='width:157.1pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:7.2pt'>
+  <p class=MsoNormal><span lang=EN-US><img border=0 width=209 height=173
+  src="Function_Reference.files/image783.jpg" v:shapes="图片_x0020_463"></span><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'></span></b></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:4'>
-  <td width=25 valign=top style='width:14.95pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:4;height:7.2pt'>
+  <td width=16 valign=top style='width:12.25pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:7.2pt'>
   <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
   style='mso-fareast-font-family:黑体'>4</span></b></p>
   </td>
-  <td width=550 style='width:330.2pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  <td width=320 valign=top style='width:240.05pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:7.2pt'>
   <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>=hive_execute(A1, &quot;alter table stu2
-  add columns (ncol string)&quot;)</span></b></p>
+  style='mso-fareast-font-family:黑体'>=hbase_filter(&quot;ColumnPrefixFilter&quot;,&quot;na&quot;)</span></b></p>
   </td>
-  <td width=151 style='width:90.6pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Add a column to the table</span></p>
+  <td width=209 valign=top style='width:157.1pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:7.2pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>&nbsp;</span></b></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:5'>
-  <td width=25 valign=top style='width:14.95pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:5;height:7.2pt'>
+  <td width=16 valign=top style='width:12.25pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:7.2pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>&nbsp;</span></b></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>&nbsp;</span></b></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>&nbsp;</span></b></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>&nbsp;</span></b></p>
   <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
   style='mso-fareast-font-family:黑体'>5</span></b></p>
   </td>
-  <td width=550 style='width:330.2pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  <td width=320 valign=top style='width:240.05pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:7.2pt'>
   <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>=hive_execute(A1, &quot;insert into stu2
-  values ('2','dfff','21','lll')&quot;)</span></b></p>
+  style='mso-fareast-font-family:黑体'>&nbsp;</span></b></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>&nbsp;</span></b></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>&nbsp;</span></b></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>&nbsp;</span></b></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>=hbase_scan(A1,&quot;emp&quot;;filter:A4)</span></b></p>
   </td>
-  <td width=151 style='width:90.6pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Insert data into the table</span></p>
+  <td width=209 valign=top style='width:157.1pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:7.2pt'>
+  <p class=MsoNormal><span lang=EN-US><img border=0 width=209 height=180
+  src="Function_Reference.files/image785.jpg" v:shapes="图片_x0020_464"></span><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'></span></b></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:6;mso-yfti-lastrow:yes'>
-  <td width=25 valign=top style='width:14.95pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:6;height:7.2pt'>
+  <td width=16 valign=top style='width:12.25pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:7.2pt'>
   <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
   style='mso-fareast-font-family:黑体'>6</span></b></p>
   </td>
-  <td width=550 style='width:330.2pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  <td width=320 valign=top style='width:240.05pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:7.2pt'>
   <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>=hive_execute(A1,&quot;load data local
-  inpath 'D:\\haha.txt' overwrite into table ha&quot;)</span></b></p>
+  style='mso-fareast-font-family:黑体'>=hbase_filterlist(A2,A4)</span></b></p>
   </td>
-  <td width=151 style='width:90.6pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Upload a local <i style='mso-bidi-font-style:
-  normal'>txt</i> file to overwrite a Hive table </span></p>
+  <td width=209 valign=top style='width:157.1pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:7.2pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>&nbsp;</span></b></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:7;height:7.2pt'>
+  <td width=16 valign=top style='width:12.25pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:7.2pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>7</span></b></p>
+  </td>
+  <td width=320 valign=top style='width:240.05pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:7.2pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>=hbase_filterlist@o(A2,A4)</span></b></p>
+  </td>
+  <td width=209 valign=top style='width:157.1pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:7.2pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>&nbsp;</span></b></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:8;height:7.2pt'>
+  <td width=16 valign=top style='width:12.25pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:7.2pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>&nbsp;</span></b></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>&nbsp;</span></b></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>&nbsp;</span></b></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>&nbsp;</span></b></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>8</span></b></p>
+  </td>
+  <td width=320 valign=top style='width:240.05pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:7.2pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>&nbsp;</span></b></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>&nbsp;</span></b></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>&nbsp;</span></b></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>&nbsp;</span></b></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>=hbase_scan(A1,&quot;emp&quot;;filter:A6)</span></b></p>
+  </td>
+  <td width=209 valign=top style='width:157.1pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:7.2pt'>
+  <p class=MsoNormal><span lang=EN-US><img border=0 width=209 height=180
+  src="Function_Reference.files/image787.jpg" v:shapes="图片_x0020_465"></span><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'></span></b></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:9;mso-yfti-lastrow:yes;height:7.2pt'>
+  <td width=16 valign=top style='width:12.25pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:7.2pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>&nbsp;</span></b></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>&nbsp;</span></b></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>&nbsp;</span></b></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>9</span></b></p>
+  </td>
+  <td width=320 valign=top style='width:240.05pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:7.2pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>&nbsp;</span></b></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>&nbsp;</span></b></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>&nbsp;</span></b></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>=hbase_scan(A1,&quot;emp&quot;;filter:A7)</span></b></p>
+  </td>
+  <td width=209 valign=top style='width:157.1pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:7.2pt'>
+  <p class=MsoNormal><span lang=EN-US><img border=0 width=209 height=144
+  src="Function_Reference.files/image789.jpg" v:shapes="图片_x0020_466"></span><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'></span></b></p>
   </td>
  </tr>
 </table>
 
 <p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-mso-bidi-font-size:12.0pt;line-height:200%'>Related functions:</span></b></p>
+mso-bidi-font-size:12.0pt;line-height:200%'>Related functions: </span></b></p>
 
-<p class=MsoNormal style='text-indent:10.5pt;mso-char-indent-count:1.0;
-line-height:200%;tab-stops:18.0pt'><span lang=EN-US><a  href="372.html"><span
-style='color:purple'>hive_open()</span></a></span><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:12.0pt;
-line-height:200%'></span></b></p>
+<p class=MsoNormal><span lang=EN-US><span style='mso-spacerun:yes'>&nbsp;
+</span><a  href="hbasefilter.html#hbase_filter"><span style='color:purple'>hbase_fi<span
+style='mso-bookmark:_Hlt478109523'>l</span>ter()</span></a><a
+name="_Hlt478109523"></a></span></p>
+
+<p class=MsoNormal><span lang=EN-US><span style='mso-spacerun:yes'>&nbsp;
+</span><a  href="hbasescan.html#hbase_scan">hbase_<span style='mso-bookmark:_Hlt478109527'>s</span>can()</a><a
+name="_Hlt478109527"></a></span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="376.html">Next</a></div>
@@ -258,12 +389,9 @@ line-height:200%'></span></b></p>
 	</div>
 	<div id="footer">	
 		
-		<div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">Scudata Inc. 
-      </a></div> 
-        <!--
-		<div class="copyright"> Copyright&reg; 2017 <a href="http://www.yimming.com" target="_Blank"> Beijing Yimming Ltd. Co. 
+		
+    <div class="copyright"> Copyright&reg; 2021 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
       </a></div>
-	  -->
 	</div>
 </div>
 

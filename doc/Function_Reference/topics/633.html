@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>f .property()</title>
+<title>T.paste()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,204 +13,254 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h3 style='text-align:justify;text-justify:inter-ideograph'><a name="f_property"></a><i
-style='mso-bidi-font-style:normal'><span lang=EN-US>f</span></i><span
-lang=EN-US>.property()</span></h3></div>
-	<p class=af7 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Description:</span></p>
+	<div id="centent-title"><h3 style='text-align:justify;text-justify:inter-ideograph'><a name="T_paste"></a><span
+lang=EN-US>T.paste()</span></h3></div>
+	<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%'>Description:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Retrieve
-property value from the property file.</span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Loop through the
+records of a sequence to modify the specified field of a table sequence in
+order. <span style='mso-bidi-font-style:italic'></span></span></p>
 
-<p class=af7 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Syntax:</span></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%'>Syntax:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span class=code><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='font-family:"Times New Roman","serif";
-font-weight:normal'>f</span></i></span><span class=code><span lang=EN-US
-style='font-family:"Times New Roman","serif"'>.property(</span></span><span
-class=code><i style='mso-bidi-font-style:normal'><span lang=EN-US
-style='font-family:"Times New Roman","serif";font-weight:normal'>p</span></i></span><span
-class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>)</span></span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><i><span lang=EN-US
+style='mso-bidi-font-size:10.5pt'>T</span></i><span lang=EN-US
+style='mso-bidi-font-style:italic'>.</span><b style='mso-bidi-font-weight:normal'><span
+lang=EN-US style='mso-fareast-font-family:黑体'>paste</span></b><span lang=EN-US>(<i>A<sub>i</sub></i><span
+style='mso-bidi-font-style:italic'>:<i>F<sub>i</sub></i>,…;<i>k</i></span><i
+style='mso-bidi-font-style:normal'>)</i></span></p>
 
-<p class=af7 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Note:</span></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%'>Note:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>The function retrieves
-property <i style='mso-bidi-font-style:normal'>p</i> from property file <i
-style='mso-bidi-font-style:normal'>f </i>and return.<span style='color:red'> </span></span></p>
+<p class=MsoNormal style='text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:
+exactly'><span lang=EN-US>The function loops through the records of sequence </span><i
+style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-size:
+10.5pt;mso-fareast-font-family:黑体'>A<sub>i </sub></span></i><span lang=EN-US>to
+modify the values of <i>F<sub>i </sub></i>field of table sequence <i
+style='mso-bidi-font-style:normal'>T</i> from the <i style='mso-bidi-font-style:
+normal'>k<sup>th</sup></i> record. </span></p>
 
-<p class=af7 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Parameters:</span></p>
+<p class=MsoNormal style='text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:
+exactly'><span lang=EN-US>The number of records to be modified is decided by
+the smaller one between </span><i><span lang=EN-US style='mso-bidi-font-size:
+10.5pt'>A</span></i><i style='mso-bidi-font-style:normal'><sub><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:黑体'>i</span></sub></i><span
+lang=EN-US>’s length and <i>T</i>’s length. The modification will stop once the
+limit is reached. </span></p>
+
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%'>Parameters:</span></b></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
  style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US
-  style='mso-bidi-font-weight:bold'>f</span></i><span class=var1><span
-  lang=EN-US></span></span></p>
+  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>T</span></i></p>
   </td>
-  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>File object</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
-  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US>p</span></i><span
-  class=var1><span lang=EN-US></span></span></p>
-  </td>
-  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Property name; the function returns a
-  table sequence composed of all properties if it is omitted</span></p>
-  </td>
- </tr>
-</table>
-
-<p class=af7 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Options:</span></p>
-
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:14.45pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'>
-  <td width=63 valign=top style='width:38.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US>@v</span></span></p>
-  </td>
-  <td width=605 valign=top style='width:362.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Read a property value and parse it as
-  what it is; by default return the value as a string.</span></p>
-  </td>
- </tr>
-</table>
-
-<p class=af7 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Return value:</span></p>
-
-<p class=MsoNormal><span lang=EN-US><span
-style='mso-spacerun:yes'>&nbsp; </span>A value/a table sequence</span></p>
-
-<p class=af7 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Example:</span></p>
-
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>A
-normal scenario</span></b><span lang=EN-US>:</span></p>
-
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
- style='margin-left:18.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
- mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=36 valign=top style='width:21.5pt;border:solid #A6A6A6 1.0pt;
-  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span lang=EN-US>&nbsp;</span></p>
-  </td>
-  <td width=284 valign=top style='width:170.2pt;border:solid #A6A6A6 1.0pt;
-  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman","serif"'>A</span></span></p>
-  </td>
-  <td width=343 valign=top style='width:205.85pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span lang=EN-US>&nbsp;</span></p>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>A table sequence</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=36 valign=top style='width:21.5pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>1</span></span></p>
+  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>A</span></i><i
+  style='mso-bidi-font-style:normal'><sub><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;mso-fareast-font-family:黑体'>i</span></sub></i><i><span lang=EN-US
+  style='mso-bidi-font-size:10.5pt'></span></i></p>
   </td>
-  <td width=284 style='width:170.2pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=file(&quot;E://test.property&quot;).property(&quot;color&quot;)</span></span></p>
-  </td>
-  <td width=343 style='width:205.85pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Property file<img border=0 width=144 height=71
-  src="Function_Reference.files/image1525.jpg" v:shapes="_x0000_i1969">,
-  export”<b style='mso-bidi-font-weight:normal'>red</b>”</span></p>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>A table sequence/record
+  sequence/sequence, whose records/members will be values of <i
+  style='mso-bidi-font-style:normal'>F<sub>i </sub></i>field</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes'>
-  <td width=36 valign=top style='width:21.5pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>2</span></span></p>
+ <tr style='mso-yfti-irow:2'>
+  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>F<sub>i</sub></span></i></p>
   </td>
-  <td width=284 style='width:170.2pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=file(&quot;E://test.property&quot;).property()</span></span></p>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>The field to be modified; when it isn’t
+  supplied, modify the<i style='mso-bidi-font-style:normal'> i<sup>th</sup></i>
+  field of <i style='mso-bidi-font-style:normal'>T</i></span></p>
   </td>
-  <td width=343 style='width:205.85pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'><img border=0 width=239 height=81
-  src="Function_Reference.files/image1527.jpg" v:shapes="_x0000_i1970"></span></p>
+ </tr>
+ <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
+  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>k</span></i></p>
+  </td>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>The position the modification starts. The
+  default is 0, in which case records or members will be appended at the end. </span></p>
   </td>
  </tr>
 </table>
 
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>&nbsp;</span></b></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%'>Options:</span></b></p>
 
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='mso-bidi-font-size:10.5pt'>Scenario of reading color scheme for a grah: </span></b></p>
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'>
+  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>@i</span></b><i><span lang=EN-US
+  style='mso-bidi-font-size:10.5pt'></span></i></p>
+  </td>
+  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Insert values to <i>F<sub>i </sub></i>field
+  of table sequence <i style='mso-bidi-font-style:normal'>T</i> starting from
+  the <i style='mso-bidi-font-style:normal'>k<sup>th</sup></i> record</span></p>
+  </td>
+ </tr>
+</table>
 
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><span style='mso-tab-count:
-1'>&nbsp; </span></span></b><span lang=EN-US
-style='mso-bidi-font-size:10.5pt'>The color scheme file is <i style='mso-bidi-font-style:
-normal'>[</i></span><i style='mso-bidi-font-style:normal'><span lang=EN-US>installation
-directory]\esProc\classes\</span></i><i style='mso-bidi-font-style:normal'><span
-lang=EN-US style='mso-bidi-font-size:10.5pt'>config\chartcolor.properties</span></i><span
-lang=EN-US style='mso-bidi-font-size:10.5pt'>. A color scheme format is color
-scheme name=[color1,color2,….]:</span></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%'>Return value:</span></b></p>
 
-<p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
-#0400'><img border=0 width=692 height=215
-src="Function_Reference.files/image1529.jpg" v:shapes="_x0000_i1971"></span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>A table sequence</span></p>
 
-<p class=MsoNormal style='margin-left:21.0pt;text-indent:21.0pt'><span
-lang=EN-US>Set colourful8 as the color scheme for the column graph:</span></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%'>Example:</span></b></p>
 
-<p class=MsoNormal style='margin-left:21.0pt;text-indent:21.0pt'><span
-lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'>&nbsp;</span></p>
-
-<p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
-#0400'><img border=0 width=660 height=251
-src="Function_Reference.files/image1531.jpg" v:shapes="_x0000_i1972"></span></p>
-
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='mso-bidi-font-size:10.5pt'>Note</span></b><span lang=EN-US
-style='mso-bidi-font-size:10.5pt'>: To use the color schemes in plotting a graph,
-make sure that the class path can be loaded onto the config directory. esProc
-default design is that the config directory is already put into <i
-style='mso-bidi-font-style:normal'>[installation directory]\esProc\classes</i>.
-To view the effects of color schemes on server side, users need to create a
-config folder in the service’s </span><i style='mso-bidi-font-style:normal'><span
-lang=EN-US>[applicaton root directory]\WEB-INF\classes </span></i><span
-lang=EN-US>unless there’s already a config folder there and copy the color
-scheme file <i style='mso-bidi-font-style:normal'>chartcolor.properties </i>under
-it.</span><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:12.0pt;mso-bidi-font-size:10.0pt'> </span></b></p>
-
-<p class=af7 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Related functions: </span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
-style='mso-bidi-font-size:10.5pt'><a  href="669.html">f.read()</a></span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US><a
- href="834.html">f.wr<span style='mso-bookmark:_Hlt426638826'><span
-style='mso-bookmark:_Hlt414994749'>i</span></span>te()</a><a
-name="_Hlt414994749"></a><a name="_Hlt426638826"></a></span></p>
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='margin-left:.25pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
+ mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  </td>
+  <td width=208 valign=top style='width:155.9pt;border:solid #A6A6A6 1.0pt;
+  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>A</span></b></p>
+  </td>
+  <td width=321 valign=top style='width:241.0pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>1</span></b></p>
+  </td>
+  <td width=208 valign=top style='width:155.9pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>=demo.query(&quot;select * from
+  DEPARTMENT&quot;).keys(DEPT)</span></b></p>
+  </td>
+  <td width=321 valign=top style='width:241.0pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>2</span></b></p>
+  </td>
+  <td width=208 valign=top style='width:155.9pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>=A1.modify(1,&quot;Sales&quot;,5)</span></b></p>
+  </td>
+  <td width=321 valign=top style='width:241.0pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3'>
+  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>3</span></b></p>
+  </td>
+  <td width=208 valign=top style='width:155.9pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>=demo.query(&quot;select * from
+  DEPARTMENT&quot;)</span></b></p>
+  </td>
+  <td width=321 valign=top style='width:241.0pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4'>
+  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>4</span></b></p>
+  </td>
+  <td width=208 valign=top style='width:155.9pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>=A3.paste(A1:DEPT,[20,10,20]:MANAGER;3)</span></b></p>
+  </td>
+  <td width=321 valign=top style='width:241.0pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=118 height=139
+  src="Function_Reference.files/image1467.jpg" v:shapes="_x0000_i1996"></span></p>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'>Modify values of records according to different
+  fields </span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:5;mso-yfti-lastrow:yes'>
+  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>5</span></b></p>
+  </td>
+  <td width=208 valign=top style='width:155.9pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>=A3.paste@i(A1:DEPT,[20,10,20]:MANAGER;3)</span></b></p>
+  </td>
+  <td width=321 valign=top style='width:241.0pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=124 height=177
+  src="Function_Reference.files/image1469.jpg" v:shapes="_x0000_i1997"></span></p>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'>Insert values according to different fields. </span></p>
+  </td>
+ </tr>
+</table>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="634.html">Next</a></div>
@@ -218,17 +268,14 @@ name="_Hlt414994749"></a><a name="_Hlt426638826"></a></span></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="632.html">property()</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="632.html">paste()</a></span></li>
 </div>
 	</div>
 	<div id="footer">	
 		
-		<div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">Scudata Inc. 
-      </a></div> 
-        <!--
-		<div class="copyright"> Copyright&reg; 2017 <a href="http://www.yimming.com" target="_Blank"> Beijing Yimming Ltd. Co. 
+		
+    <div class="copyright"> Copyright&reg; 2021 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
       </a></div>
-	  -->
 	</div>
 </div>
 
