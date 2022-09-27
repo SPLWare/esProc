@@ -3477,7 +3477,7 @@ public class ColumnTableMetaData extends TableMetaData {
 		}
 		
 		if (data != null) {
-			data = new Table((Table)data);
+			data = new Table(data);
 		}
 		
 		GroupTable groupTable = getGroupTable();

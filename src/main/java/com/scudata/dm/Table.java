@@ -81,6 +81,21 @@ public class Table extends Sequence {
 	}
 	
 	/**
+	 * 深度复制一个序表
+	 * @param src
+	 */
+	public Table(Sequence src) {
+		super(src.length());
+		DataStruct ds = src.dataStruct();
+		this.ds = ds;
+		int len = src.length();
+		for (int i = 1; i<= len; i++) {
+			Record rec = (Record) src.get(i);
+			newLast(rec.getFieldValues());
+		}
+	}
+	
+	/**
 	 *  添加同结构的记录到序表尾端
 	 * @param val 记录
 	 */
