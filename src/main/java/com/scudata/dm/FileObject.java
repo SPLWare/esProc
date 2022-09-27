@@ -21,6 +21,8 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Properties;
 
+import com.scudata.app.common.AppConsts;
+import com.scudata.app.common.AppUtil;
 import com.scudata.cellset.datamodel.PgmCellSet;
 import com.scudata.common.Escape;
 import com.scudata.common.MessageManager;
@@ -1390,8 +1392,11 @@ public class FileObject implements Externalizable {
 		InputStream is = getInputStream();
 		try {
 			is = new BufferedInputStream(is);
-			PgmCellSet pcs = CellSetUtil.readPgmCellSet(is);
-			return pcs;
+			if (fileName.toLowerCase().endsWith("." + AppConsts.FILE_SPL)) {
+				return AppUtil.readSPL(is);
+			} else {
+				return CellSetUtil.readPgmCellSet(is);
+			}
 		} catch (Exception e) {
 			if (e instanceof RQException) {
 				throw (RQException)e;

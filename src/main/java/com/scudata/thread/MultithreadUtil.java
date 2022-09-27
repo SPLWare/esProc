@@ -21,7 +21,7 @@ import com.scudata.resources.EngineMessage;
  */
 public final class MultithreadUtil {
 	public static int SINGLE_PROSS_COUNT = 20480; // 元素数少于此值时将采用单线程处理
-	private static final int INSERTIONSORT_THRESHOLD = 7; // 快速排序元素数阈值
+	private static final int INSERTIONSORT_THRESHOLD = 9; // 快速排序元素数阈值
 	
 
 	/**
@@ -132,11 +132,17 @@ public final class MultithreadUtil {
 		int length = high - low;
 		if (length < INSERTIONSORT_THRESHOLD) {
 			// Insertion sort on smallest arrays
-			for (int i = low + 1; i < high; ++i) {
-				for (int j = i; j > low && c.compare(dest[j - 1], dest[j]) > 0; --j) {
-					swap(dest, j, j - 1);
+			Object tmp;
+			for (int i = low + 1, j = i; i < high; j = ++i) {
+				tmp = dest[i];
+				for (; j > low && c.compare(dest[j - 1], tmp) > 0; --j) {
+					dest[j] = dest[j - 1];
+					//swap(dest, j, j - 1);
 				}
+				
+				dest[j] = tmp;
 			}
+
 			return;
 		}
 
@@ -171,12 +177,6 @@ public final class MultithreadUtil {
 		Object result = Array.newInstance(vals.getClass().getComponentType(), n);
 		System.arraycopy(vals, from, result, 0, n);
 		return (Object [])result;
-	}
-
-	private static void swap(Object []x, int a, int b) {
-		Object t = x[a];
-		x[a] = x[b];
-		x[b] = t;
 	}
 
 	private static void rangeCheck(int arrayLen, int fromIndex, int toIndex) {
