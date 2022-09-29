@@ -163,17 +163,17 @@ public class Derive extends TableMetaDataFunction {
 		ParamInfo2 pi = ParamInfo2.parse(newParam, "derive", false, false);
 		Expression []exps = pi.getExpressions1();
 		String []names = pi.getExpressionStrs2();
-		
+		String[] opts = null;
 		if (JoinCursor.isColTable(table)) {
-			return derive((ColumnTableMetaData)table, cursor, obj, filter, exps,	names, fkNames, codes, option, ctx);
+			return derive((ColumnTableMetaData)table, cursor, obj, filter, exps, names, fkNames, codes, opts, option, ctx);
 		} else {
-			return derive(table, cursor, obj, filter, exps,	names, fkNames, codes, ctx);
+			return derive(table, cursor, obj, filter, exps,	names, fkNames, codes, opts, ctx);
 		}
 	
 	}
 	
 	public static Object derive(ColumnTableMetaData table, ICursor cursor, Object obj, Expression filter, Expression []exps,
-			String[] names, String []fkNames, Sequence []codes, String option, Context ctx) {
+			String[] names, String []fkNames, Sequence []codes, String[] opts, String option, Context ctx) {
 		if (cursor instanceof MultipathCursors) {
 			MultipathCursors mcursor = (MultipathCursors) cursor;
 			ICursor cursors[] = mcursor.getCursors();
@@ -183,12 +183,12 @@ public class Derive extends TableMetaDataFunction {
 				if (filter != null) {
 					w = filter.newExpression(ctx); // 分段并行读取时需要复制表达式，同一个表达式不支持并行运算
 				}
-				ICursor cs = new JoinCursor(table, exps, names, cursors[i], 0x10, option, w, fkNames, codes, ctx);
+				ICursor cs = new JoinCursor(table, exps, names, cursors[i], 0x10, option, w, fkNames, codes, opts, ctx);
 				cursors[i] = cs;
 			}
 			return new MultipathCursors(cursors, ctx);
 		}
-		ICursor cs = new JoinCursor(table, exps, names, cursor, 0, option, filter, fkNames, codes, ctx);
+		ICursor cs = new JoinCursor(table, exps, names, cursor, 0, option, filter, fkNames, codes, opts, ctx);
 		if (obj instanceof Sequence) {
 			return cs.fetch();
 		} else {
@@ -197,11 +197,11 @@ public class Derive extends TableMetaDataFunction {
 	}
 	
 	public static Object derive(ITableMetaData table, ICursor cursor, Object obj, Expression filter, Expression []exps,
-			String[] names, String []fkNames, Sequence []codes, Context ctx) {
+			String[] names, String []fkNames, Sequence []codes, String[] opts, Context ctx) {
 		if (cursor instanceof MultipathCursors) {
-			return JoinCursor2.makeMultiJoinCursor(table, exps, names, (MultipathCursors)cursor, filter, fkNames, codes, 2, ctx);
+			return JoinCursor2.makeMultiJoinCursor(table, exps, names, (MultipathCursors)cursor, filter, fkNames, codes, opts, 2, ctx);
 		}
-		ICursor cs = new JoinCursor2(table, exps, names, cursor, filter, fkNames, codes, 0, ctx);
+		ICursor cs = new JoinCursor2(table, exps, names, cursor, filter, fkNames, codes, opts, 0, ctx);
 		if (obj instanceof Sequence) {
 			return cs.fetch();
 		} else {

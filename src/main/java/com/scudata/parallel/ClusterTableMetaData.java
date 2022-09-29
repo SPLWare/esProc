@@ -1489,7 +1489,7 @@ public class ClusterTableMetaData implements IClusterObject, IResource {
 	 * @return
 	 */
 	public ClusterCursor news(Expression []exps, String []fields, Object cursor2, 
-			int type, String option,  Expression filter, String []fkNames, Sequence []codes) {
+			int type, String option,  Expression filter, String []fkNames, Sequence []codes, String[] opts) {
 		Cluster cluster = getCluster();
 		int unitCount = cluster.getUnitCount();
 		
@@ -1535,6 +1535,7 @@ public class ClusterTableMetaData implements IClusterObject, IResource {
 				command.setAttribute("filterStr", filterStr);
 				command.setAttribute("fkNames", fkNames);
 				command.setAttribute("codes", codes);
+				command.setAttribute("opts", opts);
 				command.setAttribute("unit", new Integer(i));
 				command.setAttribute("isSeq", isSeq);
 				command.setAttribute("cs2ProxyId", new Integer(cs2ProxyIds[i]));
@@ -1565,6 +1566,7 @@ public class ClusterTableMetaData implements IClusterObject, IResource {
 		String filterStr = (String) attributes.get("filterStr");
 		String []fkNames = (String[])attributes.get("fkNames");
 		Sequence []codes = (Sequence[]) attributes.get("codes");
+		String []opts = (String[])attributes.get("opts");
 		Integer unit = (Integer) attributes.get("unit");
 		Boolean isSeq = (Boolean) attributes.get("isSeq");
 		Integer cs2ProxyId = (Integer) attributes.get("cs2ProxyId");
@@ -1602,13 +1604,13 @@ public class ClusterTableMetaData implements IClusterObject, IResource {
 						w = filter.newExpression(ctx); // 分段并行读取时需要复制表达式，同一个表达式不支持并行运算
 					}
 					ICursor cs = new JoinCursor(tmd.getTableMetaData(), exps, fields, cursors[i], 
-							type | 0x10, option, w, fkNames, codes, ctx);
+							type | 0x10, option, w, fkNames, codes, opts, ctx);
 					cursors[i] = cs;
 				}
 				cursor = new MultipathCursors(cursors, ctx);
 			} else {
 				cursor = new JoinCursor(tmd.getTableMetaData(), exps, fields, cursor, type, 
-						option, filter, fkNames, codes, ctx);
+						option, filter, fkNames, codes, opts, ctx);
 			}
 			
 			IProxy proxy = new CursorProxy(cursor, unit);

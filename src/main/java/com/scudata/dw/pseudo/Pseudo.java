@@ -32,7 +32,8 @@ public class Pseudo implements IPseudo{
 	protected Expression filter;
 	protected ArrayList<String> fkNameList;
 	protected ArrayList<Sequence> codeList;
-
+	protected ArrayList<String> optList;
+	
 	protected ArrayList<String> extraNameList;//因为过滤或伪字段而需要额外取出的字段名
 	protected ArrayList<String> allNameList;//实表的所有字段
 	
@@ -292,7 +293,13 @@ public class Pseudo implements IPseudo{
 				obj.codeList.add(seq);
 			}
 		}
-
+		if (optList != null) {
+			obj.optList = new ArrayList<String>();
+			for (String str : optList) {
+				obj.optList.add(str);
+			}
+		}
+		
 		if (extraNameList != null) {
 			obj.extraNameList = new ArrayList<String>();
 			for (String str : extraNameList) {

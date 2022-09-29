@@ -47,6 +47,7 @@ public class JoinCursor extends ICursor {
 	//filtersœ‡πÿ
 	private String []fkNames;
 	private Sequence []codes;
+	private String []opts;
 	private IFilter []filters;
 	private FindFilter []findFilters;
 	private Expression unknownFilter;
@@ -106,14 +107,15 @@ public class JoinCursor extends ICursor {
 	 * @param ctx
 	 */
 	public JoinCursor(ITableMetaData table, Expression []exps, String []fields, ICursor cursor2, 
-			int type, String option, Expression filter, String []fkNames, Sequence []codes, Context ctx) {
+			int type, String option, Expression filter, String []fkNames, Sequence []codes, String[] opts, Context ctx) {
 		this.table = table;
 		this.cursor2 = cursor2;
 		this.exps = exps;
 		this.fields = fields;
 		this.fkNames = fkNames;
 		this.codes = codes;
-
+		this.opts = opts;
+		
 		if (option != null && option.indexOf("r") != -1) {
 			this.hasR = true;
 		}
@@ -159,7 +161,15 @@ public class JoinCursor extends ICursor {
 			}
 			
 			int pri = table.getColumnFilterPriority(column);
-			FindFilter find = new FindFilter(column, pri, codes[f]);
+			FindFilter find;
+			if (opts[f] != null && opts[f].indexOf("#") != -1) {
+				find = new MemberFilter(column, pri, codes[f]);
+			} else if (opts[f] != null && opts[f].indexOf("null") != -1) {
+				find = new NotFindFilter(column, pri, codes[f]);
+			} else {
+				find = new FindFilter(column, pri, codes[f]);
+			}
+			
 			for (int i = 0; i < fltCount; ++i) {
 				IFilter filter = filterList.get(i);
 				if (filter.isSameColumn(find)) {

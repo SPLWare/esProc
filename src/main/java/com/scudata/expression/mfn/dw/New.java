@@ -43,6 +43,7 @@ public class New extends TableMetaDataFunction {
 		Expression filter = null;
 		String []fkNames = null;
 		Sequence []codes = null;
+		String []opts = null;
 		
 		if (type == IParam.Semicolon) {
 			if (param.getSubSize() > 2) {
@@ -57,66 +58,18 @@ public class New extends TableMetaDataFunction {
 			if (expParam == null) {
 			} else if (expParam.isLeaf()) {
 				filter = expParam.getLeafExpression();
-			} else if (expParam.getType() == IParam.Colon) {
-				if (expParam.getSubSize() != 2) {
-					MessageManager mm = EngineMessage.get();
-					throw new RQException("new" + mm.getMessage("function.invalidParam"));						
-				}
-				
-				IParam sub0 = expParam.getSub(0);
-				IParam sub1 = expParam.getSub(1);
-				if (sub0 == null || sub1 == null) {
-					MessageManager mm = EngineMessage.get();
-					throw new RQException("new" + mm.getMessage("function.invalidParam"));
-				}
-				
-				String fkName = sub0.getLeafExpression().getIdentifierName();
-				fkNames = new String[]{fkName};
-				Object val = sub1.getLeafExpression().calculate(ctx);
-				if (val instanceof Sequence) {
-					codes = new Sequence[]{(Sequence)val};
-				} else if (val == null) {
-					return null;
-				} else {
-					MessageManager mm = EngineMessage.get();
-					throw new RQException("new" + mm.getMessage("function.paramTypeError"));
-				}
 			} else {
 				ArrayList<Expression> expList = new ArrayList<Expression>();
 				ArrayList<String> fieldList = new ArrayList<String>();
 				ArrayList<Sequence> codeList = new ArrayList<Sequence>();
+				ArrayList<String> optList = new ArrayList<String>();
 				
-				for (int p = 0, psize = expParam.getSubSize(); p < psize; ++p) {
-					IParam sub = expParam.getSub(p);
-					if (sub == null) {
-						MessageManager mm = EngineMessage.get();
-						throw new RQException("new" + mm.getMessage("function.invalidParam"));						
-					} else if (sub.isLeaf()) {
-						expList.add(sub.getLeafExpression());
-					} else {
-						if (sub.getSubSize() != 2) {
-							MessageManager mm = EngineMessage.get();
-							throw new RQException("new" + mm.getMessage("function.invalidParam"));						
-						}
-						
-						IParam sub0 = sub.getSub(0);
-						IParam sub1 = sub.getSub(1);
-						if (sub0 == null || sub1 == null) {
-							MessageManager mm = EngineMessage.get();
-							throw new RQException("new" + mm.getMessage("function.invalidParam"));
-						}
-						
-						String fkName = sub0.getLeafExpression().getIdentifierName();
-						Object val = sub1.getLeafExpression().calculate(ctx);
-						if (val instanceof Sequence) {
-							fieldList.add(fkName);
-							codeList.add((Sequence)val);
-						} else if (val == null) {
-							return null;
-						} else {
-							MessageManager mm = EngineMessage.get();
-							throw new RQException("new" + mm.getMessage("function.paramTypeError"));
-						}
+				if (expParam.getType() == IParam.Colon) {
+					News.parseFilterParam(expParam, expList, fieldList, codeList, optList, "new", ctx);
+				} else {
+					for (int p = 0, psize = expParam.getSubSize(); p < psize; ++p) {
+						IParam sub = expParam.getSub(p);
+						News.parseFilterParam(sub, expList, fieldList, codeList, optList, "new", ctx);
 					}
 				}
 				
@@ -124,8 +77,10 @@ public class New extends TableMetaDataFunction {
 				if (fieldCount > 0) {
 					fkNames = new String[fieldCount];
 					codes = new Sequence[fieldCount];
+					opts = new String[fieldCount];
 					fieldList.toArray(fkNames);
 					codeList.toArray(codes);
+					optList.toArray(opts);
 				}
 				
 				int expCount = expList.size();
@@ -171,15 +126,15 @@ public class New extends TableMetaDataFunction {
 		String []names = pi.getExpressionStrs2();
 		
 		if (JoinCursor.isColTable(table)) {
-			return _new((ColumnTableMetaData)table, cursor, obj, filter, exps,	names, fkNames, codes, option, ctx);
+			return _new((ColumnTableMetaData)table, cursor, obj, filter, exps,	names, fkNames, codes, opts, option, ctx);
 		} else {
-			return _new(table, cursor, obj, filter, exps,	names, fkNames, codes, ctx);
+			return _new(table, cursor, obj, filter, exps,	names, fkNames, codes, opts, ctx);
 		}
 	
 	}
 	
 	public static  Object _new(ColumnTableMetaData table, ICursor cursor, Object obj, Expression filter, Expression []exps,
-			String[] names, String []fkNames, Sequence []codes, String option, Context ctx) {
+			String[] names, String []fkNames, Sequence []codes, String[] opts, String option, Context ctx) {
 		int type = 0x01;
 		if (cursor instanceof MultipathCursors) {
 			type += 0x10;
@@ -191,12 +146,12 @@ public class New extends TableMetaDataFunction {
 				if (filter != null) {
 					w = filter.newExpression(ctx); // 分段并行读取时需要复制表达式，同一个表达式不支持并行运算
 				}
-				ICursor cs = new JoinCursor(table, exps, names, cursors[i], type, option, w, fkNames, codes, ctx);
+				ICursor cs = new JoinCursor(table, exps, names, cursors[i], type, option, w, fkNames, codes, opts, ctx);
 				cursors[i] = cs;
 			}
 			return new MultipathCursors(cursors, ctx);
 		}
-		ICursor cs = new JoinCursor(table, exps, names, cursor, type, option, filter, fkNames, codes, ctx);
+		ICursor cs = new JoinCursor(table, exps, names, cursor, type, option, filter, fkNames, codes, opts, ctx);
 		if (obj instanceof Sequence) {
 			return cs.fetch();
 		} else {
@@ -205,11 +160,11 @@ public class New extends TableMetaDataFunction {
 	}
 	
 	public static Object _new(ITableMetaData table, ICursor cursor, Object obj, Expression filter, Expression []exps,
-			String[] names, String []fkNames, Sequence []codes, Context ctx) {
+			String[] names, String []fkNames, Sequence []codes, String[] opts, Context ctx) {
 		if (cursor instanceof MultipathCursors) {
-			return JoinCursor2.makeMultiJoinCursor(table, exps, names, (MultipathCursors)cursor, filter, fkNames, codes, 2, ctx);
+			return JoinCursor2.makeMultiJoinCursor(table, exps, names, (MultipathCursors)cursor, filter, fkNames, codes, opts, 1, ctx);
 		}
-		ICursor cs = new JoinCursor2(table, exps, names, cursor, filter, fkNames, codes, 1, ctx);
+		ICursor cs = new JoinCursor2(table, exps, names, cursor, filter, fkNames, codes, opts, 1, ctx);
 		if (obj instanceof Sequence) {
 			return cs.fetch();
 		} else {

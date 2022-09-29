@@ -29,6 +29,7 @@ public class Derive extends ClusterTableMetaDataFunction {
 		Expression filter = null;
 		String []fkNames = null;
 		Sequence []codes = null;
+		String []opts = null;
 		
 		char type = param.getType();
 		if (type == IParam.Semicolon) {
@@ -153,6 +154,6 @@ public class Derive extends ClusterTableMetaDataFunction {
 		ParamInfo2 pi = ParamInfo2.parse(newParam, "derive", false, false);
 		Expression []exps = pi.getExpressions1();
 		String []names = pi.getExpressionStrs2();
-		return table.news(exps, names, obj, 0, option, filter, fkNames, codes);
+		return table.news(exps, names, obj, 0, option, filter, fkNames, codes, opts);
 	}
 }

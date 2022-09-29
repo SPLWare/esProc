@@ -56,6 +56,7 @@ public class AttachNew extends OperableFunction {
 		Expression filter = null;
 		String []fkNames = null;
 		Sequence []codes = null;
+		String[] opts = null;
 		
 		if (type == IParam.Semicolon) {
 			if (param.getSubSize() > 2) {
@@ -70,66 +71,18 @@ public class AttachNew extends OperableFunction {
 			if (expParam == null) {
 			} else if (expParam.isLeaf()) {
 				filter = expParam.getLeafExpression();
-			} else if (expParam.getType() == IParam.Colon) {
-				if (expParam.getSubSize() != 2) {
-					MessageManager mm = EngineMessage.get();
-					throw new RQException("new" + mm.getMessage("function.invalidParam"));						
-				}
-				
-				IParam sub0 = expParam.getSub(0);
-				IParam sub1 = expParam.getSub(1);
-				if (sub0 == null || sub1 == null) {
-					MessageManager mm = EngineMessage.get();
-					throw new RQException("new" + mm.getMessage("function.invalidParam"));
-				}
-				
-				String fkName = sub0.getLeafExpression().getIdentifierName();
-				fkNames = new String[]{fkName};
-				Object val = sub1.getLeafExpression().calculate(ctx);
-				if (val instanceof Sequence) {
-					codes = new Sequence[]{(Sequence)val};
-				} else if (val == null) {
-					return null;
-				} else {
-					MessageManager mm = EngineMessage.get();
-					throw new RQException("new" + mm.getMessage("function.paramTypeError"));
-				}
 			} else {
 				ArrayList<Expression> expList = new ArrayList<Expression>();
 				ArrayList<String> fieldList = new ArrayList<String>();
 				ArrayList<Sequence> codeList = new ArrayList<Sequence>();
+				ArrayList<String> optList = new ArrayList<String>();
 				
-				for (int p = 0, psize = expParam.getSubSize(); p < psize; ++p) {
-					IParam sub = expParam.getSub(p);
-					if (sub == null) {
-						MessageManager mm = EngineMessage.get();
-						throw new RQException("new" + mm.getMessage("function.invalidParam"));						
-					} else if (sub.isLeaf()) {
-						expList.add(sub.getLeafExpression());
-					} else {
-						if (sub.getSubSize() != 2) {
-							MessageManager mm = EngineMessage.get();
-							throw new RQException("new" + mm.getMessage("function.invalidParam"));						
-						}
-						
-						IParam sub0 = sub.getSub(0);
-						IParam sub1 = sub.getSub(1);
-						if (sub0 == null || sub1 == null) {
-							MessageManager mm = EngineMessage.get();
-							throw new RQException("new" + mm.getMessage("function.invalidParam"));
-						}
-						
-						String fkName = sub0.getLeafExpression().getIdentifierName();
-						Object val = sub1.getLeafExpression().calculate(ctx);
-						if (val instanceof Sequence) {
-							fieldList.add(fkName);
-							codeList.add((Sequence)val);
-						} else if (val == null) {
-							return null;
-						} else {
-							MessageManager mm = EngineMessage.get();
-							throw new RQException("new" + mm.getMessage("function.paramTypeError"));
-						}
+				if (expParam.getType() == IParam.Colon) {
+					com.scudata.expression.mfn.dw.News.parseFilterParam(expParam, expList, fieldList, codeList, optList, "news", ctx);
+				} else {
+					for (int p = 0, psize = expParam.getSubSize(); p < psize; ++p) {
+						IParam sub = expParam.getSub(p);
+						com.scudata.expression.mfn.dw.News.parseFilterParam(sub, expList, fieldList, codeList, optList, "news", ctx);
 					}
 				}
 				
@@ -137,8 +90,10 @@ public class AttachNew extends OperableFunction {
 				if (fieldCount > 0) {
 					fkNames = new String[fieldCount];
 					codes = new Sequence[fieldCount];
+					opts = new String[fieldCount];
 					fieldList.toArray(fkNames);
 					codeList.toArray(codes);
+					optList.toArray(opts);
 				}
 				
 				int expCount = expList.size();
@@ -184,7 +139,7 @@ public class AttachNew extends OperableFunction {
 		String []names = pi.getExpressionStrs2();
 		
 		return new PseudoNew(((PseudoTable) pseudo).getPd(), obj, exps, names, 
-				filter, fkNames, codes, option);
+				filter, fkNames, codes, opts, option);
 	}
 	
 	public static boolean isPseudoOper(Object srcObj, IParam param, Context ctx) {

@@ -32,7 +32,7 @@ public class PseudoDerive extends Pseudo implements Operable, IPseudo {
 	}
 	
 	public PseudoDerive(PseudoDefination pd, Object ptable, Expression[] exps, String[] names, Expression filter,
-			String[] fkNames, Sequence[] codes, String option) {
+			String[] fkNames, Sequence[] codes, String[] opts, String option) {
 		this.pd = pd;
 		this.ptable = ptable;
 		this.exps = exps;
@@ -46,6 +46,11 @@ public class PseudoDerive extends Pseudo implements Operable, IPseudo {
 		if (codes != null) {
 			for (Sequence code : codes) {
 				codeList.add(code);
+			}
+		}
+		if (opts != null) {
+			for (String opt : opts) {
+				optList.add(opt);
 			}
 		}
 		this.option = option;
@@ -91,14 +96,14 @@ public class PseudoDerive extends Pseudo implements Operable, IPseudo {
 	 * @param codes
 	 * @return
 	 */
-	private ICursor getCursor(ITableMetaData table, ICursor cursor, String []fkNames, Sequence []codes) {
+	private ICursor getCursor(ITableMetaData table, ICursor cursor, String []fkNames, Sequence []codes, String[] opts) {
 		ICursor result;
 		if (table instanceof ClusterTableMetaData) {
-			result = ((ClusterTableMetaData)table).news(exps, names, cursor, 0, option, filter, fkNames, codes);
+			result = ((ClusterTableMetaData)table).news(exps, names, cursor, 0, option, filter, fkNames, codes, opts);
 		} else if (JoinCursor.isColTable(table)) {
-			result = (ICursor) Derive.derive((ColumnTableMetaData)table, cursor, cursor, filter, exps,	names, fkNames, codes, option, ctx);
+			result = (ICursor) Derive.derive((ColumnTableMetaData)table, cursor, cursor, filter, exps,	names, fkNames, codes, opts, option, ctx);
 		} else {
-			result = (ICursor) Derive.derive((ITableMetaData)table, cursor, cursor, filter, exps,	names, fkNames, codes, ctx);
+			result = (ICursor) Derive.derive((ITableMetaData)table, cursor, cursor, filter, exps,	names, fkNames, codes, opts, ctx);
 		}
 		ArrayList<Operation> opList = this.opList;
 		if (opList != null) {
@@ -151,6 +156,8 @@ public class PseudoDerive extends Pseudo implements Operable, IPseudo {
 		//组织F:K参数
 		String []fkNames = null;
 		Sequence []codes = null;
+		String []opts = null;
+		
 		if (fkNameList != null) {
 			int size = fkNameList.size();
 			fkNames = new String[size];
@@ -158,13 +165,16 @@ public class PseudoDerive extends Pseudo implements Operable, IPseudo {
 			
 			codes = new Sequence[size];
 			codeList.toArray(codes);
+			
+			opts = new String[size];
+			optList.toArray(opts);
 		}
 		
 		if (tsize == 1) {
-			return getCursor(tables.get(0), cursors[0], fkNames, codes);
+			return getCursor(tables.get(0), cursors[0], fkNames, codes, opts);
 		} else {
 			for (int i = 0; i < tsize; i++) {
-				cursors[i] = getCursor(tables.get(i), cursors[i], fkNames, codes);
+				cursors[i] = getCursor(tables.get(i), cursors[i], fkNames, codes, opts);
 			}
 			return PseudoTable.mergeCursor(cursors, ctx);
 		}
@@ -178,6 +188,7 @@ public class PseudoDerive extends Pseudo implements Operable, IPseudo {
 		PseudoDerive obj = new PseudoDerive();
 		cloneField(obj);
 		obj.ptable = ptable;
+		obj.option = option;
 		obj.ctx = ctx;
 		return obj;
 	}

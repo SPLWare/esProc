@@ -69,7 +69,7 @@ public class JoinCursor2 extends ICursor {
 	 * @param ctx
 	 */
 	public JoinCursor2(Object table, Expression []exps, String []fields, ICursor cursor2, Expression filter,
-			String []fkNames, Sequence []codes, int opt, Context ctx) {
+			String []fkNames, Sequence []codes, String[] opts, int opt, Context ctx) {
 		this.isNew = opt == 1;
 		this.isNews = opt == 2;
 		this.ctx = ctx;
@@ -184,9 +184,24 @@ public class JoinCursor2 extends ICursor {
 		init();
 		
 		if (fkNames != null) {
-			Switch op = new Switch(fkNames, codes, null, "i");
-			addOperation(op, ctx);
+			int fkCount = fkNames.length;
+			for (int j = 0; j < fkCount; j++) {
+				String[] fkn = new String[] {fkNames[j]};
+				Sequence[] code = new Sequence[] {codes[j]};
+				String _opt = null;
+				Expression _exps[] = null;
+				if (opts[j] != null && opts[j].indexOf("#") != -1) {
+					_exps = new Expression[] {new Expression("#")};
+				} else if (opts[j] != null && opts[j].indexOf("null") != -1) {
+					_opt = "d";
+				} else {
+					_opt = "i";
+				}
+				Switch op = new Switch(fkn, code, _exps, _opt);
+				addOperation(op, ctx);
+			}
 		}
+		
 	}
 	
 	public JoinCursor2(ICursor cursor1, ICursor cursor2, Context ctx) {
@@ -204,7 +219,7 @@ public class JoinCursor2 extends ICursor {
 	}
 	
 	public static MultipathCursors makeMultiJoinCursor(Object table, Expression []exps, String []fields, 
-			MultipathCursors cursor2, Expression filter, String []fkNames, Sequence []codes, int opt, Context ctx) {
+			MultipathCursors cursor2, Expression filter, String []fkNames, Sequence []codes, String[] opts, int opt, Context ctx) {
 		boolean isNew = opt == 1;
 		boolean isNews = opt == 2;
 		boolean hasExps = false;
@@ -342,8 +357,23 @@ public class JoinCursor2 extends ICursor {
 			cs.nodes = nodes;
 			cs.init();
 			if (fkNames != null) {
-				Switch op = new Switch(fkNames, codes, null, "i");
-				cs.addOperation(op, ctx);
+				int fkCount = fkNames.length;
+				for (int j = 0; j < fkCount; j++) {
+					String[] fkn = new String[] {fkNames[j]};
+					Sequence[] code = new Sequence[] {codes[j]};
+					String _opt = null;
+					Expression _exps[] = null;
+					if (opts[j] != null && opts[j].indexOf("#") != -1) {
+						_exps = new Expression[] {new Expression("#")};
+					} else if (opts[j] != null && opts[j].indexOf("null") != -1) {
+						_opt = "d";
+					} else {
+						_opt = "i";
+					}
+					Switch op = new Switch(fkn, code, _exps, _opt);
+					cs.addOperation(op, ctx);
+				}
+				
 			}
 			cursors[i] = cs;
 		}
