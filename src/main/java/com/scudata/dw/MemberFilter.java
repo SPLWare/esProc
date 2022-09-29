@@ -18,7 +18,14 @@ public class MemberFilter extends FindFilter {
 	
 	public boolean match(Object value) {
 		try {
-			return Variant.isTrue(sequence.get(((Number)value).intValue()));
+			int n = ((Number)value).intValue();
+			if (n < 1 || n > sequence.length()) {
+				findResult = null;
+				return false;
+			} else {
+				findResult = sequence.getMem(n);
+				return Variant.isTrue(findResult);
+			}
 		} catch (Exception e) {
 			return false;
 		}
@@ -34,8 +41,17 @@ public class MemberFilter extends FindFilter {
 			return false;
 		}
 		
-		if (max > min && max - min <= MAX_CHECK_NUMBER) {
-			Sequence sequence = this.sequence;
+		Sequence sequence = this.sequence;
+		int len = sequence.length();
+		if (min > len) {
+			return false;
+		}
+		
+		if (max > len) {
+			max = len;
+		}
+		
+		if (max - min <= MAX_CHECK_NUMBER) {
 			for (int i = min; i <= max; i++) {
 				if (Variant.isTrue(sequence.get(i))) {
 					return true;
@@ -48,6 +64,7 @@ public class MemberFilter extends FindFilter {
 	}
 	
 	public Object getFindResult() {
-		return Boolean.TRUE;//能找到时，A(K)一定是true
+		//return Boolean.TRUE;//能找到时，A(K)一定是true
+		return findResult;
 	}
 }

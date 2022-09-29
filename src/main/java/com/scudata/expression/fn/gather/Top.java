@@ -20,7 +20,6 @@ import com.scudata.expression.CurrentElement;
 import com.scudata.expression.Expression;
 import com.scudata.expression.Gather;
 import com.scudata.expression.IParam;
-import com.scudata.expression.ValueList;
 import com.scudata.resources.EngineMessage;
 import com.scudata.util.MinHeap;
 
