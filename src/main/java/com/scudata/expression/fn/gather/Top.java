@@ -83,9 +83,23 @@ public class Top extends Gather {
 			if (sub1.isLeaf()) {
 				exp = sub1.getLeafExpression();
 			} else {
-				ValueList valueList = new ValueList();
-				valueList.setParam(sub1);
-				exp = new Expression(valueList);
+				//ValueList valueList = new ValueList();
+				//valueList.setParam(sub1);
+				//exp = new Expression(valueList);
+				
+				String []strs = sub1.toStringArray("top", false);
+				StringBuffer sb = new StringBuffer(64);
+				sb.append('[');
+				for (int i = 0; i < strs.length; ++i) {
+					if (i > 0) {
+						sb.append(',');
+					}
+					
+					sb.append(strs[i]);
+				}
+				
+				sb.append(']');
+				exp = new Expression(cs, ctx, sb.toString());
 			}
 			
 			getExp = new Expression(ctx, "~");
