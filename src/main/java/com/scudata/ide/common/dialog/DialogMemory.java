@@ -6,8 +6,6 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -67,10 +65,6 @@ public class DialogMemory extends JDialog {
 	 * 内存监控面板
 	 */
 	private MemoryMonitor jPanel1 = new MemoryMonitor();
-	/**
-	 * 缓存折行的映射表
-	 */
-	private HashMap<String, ArrayList<String>> wrapStringBuffer;
 
 	/**
 	 * 构造函数
@@ -109,16 +103,6 @@ public class DialogMemory extends JDialog {
 		} catch (Exception ex) {
 			GM.showException(ex);
 		}
-	}
-
-	/**
-	 * 设置缓存折行的映射
-	 * 
-	 * @param wrapStringBuffer
-	 */
-	public void setWrapStringBuffer(
-			HashMap<String, ArrayList<String>> wrapStringBuffer) {
-		this.wrapStringBuffer = wrapStringBuffer;
 	}
 
 	/**
@@ -205,11 +189,12 @@ public class DialogMemory extends JDialog {
 	 * @param e
 	 */
 	void jBClean_actionPerformed(ActionEvent e) {
-		if (wrapStringBuffer != null) {
-			wrapStringBuffer.clear();
-		}
 		System.gc();
+		cleanMemory();
 		refreshMemory();
+	}
+
+	protected void cleanMemory() {
 	}
 
 	/**

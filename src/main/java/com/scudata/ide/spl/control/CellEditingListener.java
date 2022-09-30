@@ -105,6 +105,8 @@ public class CellEditingListener implements KeyListener {
 		matchKeyWord(jtext);
 	}
 
+	private boolean isFuncMatchEnabled = false;
+
 	/**
 	 * 匹配关键字
 	 * 
@@ -387,8 +389,17 @@ public class CellEditingListener implements KeyListener {
 			if (jtext == null)
 				return false;
 			CellLocation cl = control.getActiveCell();
+			PgmNormalCell activeCell = control.cellSet.getPgmNormalCell(
+					cl.getRow(), cl.getCol());
+			switch (activeCell.getType()) {
+			case PgmNormalCell.TYPE_BLANK_CELL:
+			case PgmNormalCell.TYPE_CONST_CELL:
+			case PgmNormalCell.TYPE_NOTE_CELL:
+			case PgmNormalCell.TYPE_NOTE_BLOCK:
+				return false;
+			}
 			String text = jtext.getText();
-			if (!StringUtils.isValidString(text) || text.startsWith("/")) {
+			if (!StringUtils.isValidString(text)) {
 				return false;
 			}
 			final int p = jtext.getCaretPosition();
@@ -396,8 +407,7 @@ public class CellEditingListener implements KeyListener {
 				return false;
 			String preStr = text.substring(0, p);
 			while (preStr != null
-					&& (preStr.startsWith("=") || preStr.startsWith(">") || preStr
-							.startsWith("/"))) {
+					&& (preStr.startsWith("=") || preStr.startsWith(">"))) {
 				preStr = preStr.substring(1);
 			}
 			if (!StringUtils.isValidString(preStr)) {
@@ -504,8 +514,8 @@ public class CellEditingListener implements KeyListener {
 						val = param.getValue();
 				}
 			}
-
-			return showMatchWindow(jtext, p, isPeriod, val);
+			String[] fieldNames = getFieldNames(val);
+			return showMatchWindow(jtext, p, isPeriod, fieldNames);
 		} catch (Throwable t) {
 		}
 		return false;
@@ -554,6 +564,30 @@ public class CellEditingListener implements KeyListener {
 	}
 
 	/**
+	 * 返回主对象的字段名
+	 * @param val
+	 * @return
+	 */
+	private String[] getFieldNames(Object val) {
+		if (val == null)
+			return null;
+		DataStruct ds = null;
+		if (val instanceof Sequence) {
+			ds = ((Sequence) val).dataStruct();
+		} else if (val instanceof Record) {
+			ds = ((Record) val).dataStruct();
+		}
+		if (ds != null) {
+			String[] fieldNames = ds.getFieldNames();
+			if (fieldNames == null || fieldNames.length == 0) {
+				return null;
+			}
+			return fieldNames;
+		}
+		return null;
+	}
+
+	/**
 	 * 显示匹配窗口
 	 * 
 	 * @param jtext
@@ -564,20 +598,10 @@ public class CellEditingListener implements KeyListener {
 	 * @throws BadLocationException
 	 */
 	private boolean showMatchWindow(final JTextComponent jtext, final int p,
-			boolean isPeriod, Object val) throws BadLocationException {
-		if (val == null)
+			boolean isPeriod, String[] fieldNames) throws BadLocationException {
+		if (fieldNames == null)
 			return false;
-		DataStruct ds = null;
-		if (val instanceof Sequence) {
-			ds = ((Sequence) val).dataStruct();
-		} else if (val instanceof Record) {
-			ds = ((Record) val).dataStruct();
-		}
-		if (ds != null) {
-			String[] fieldNames = ds.getFieldNames();
-			if (fieldNames == null || fieldNames.length == 0) {
-				return false;
-			}
+		if (fieldNames != null) {
 			GVSpl.matchWindow = new JWindowNames(fieldNames, p, isPeriod) {
 				private static final long serialVersionUID = 1L;
 

@@ -182,9 +182,15 @@ public class GMSpl extends GM {
 			return;
 		case GC.iMEMORYTIDY:
 			if (GV.dialogMemory == null) {
-				GV.dialogMemory = new DialogMemory();
-				GV.dialogMemory
-						.setWrapStringBuffer(ControlUtilsBase.wrapStringBuffer);
+				GV.dialogMemory = new DialogMemory() {
+					private static final long serialVersionUID = 1L;
+
+					protected void cleanMemory() {
+						if (ControlUtilsBase.wrapStringBuffer != null) {
+							ControlUtilsBase.wrapStringBuffer.clear();
+						}
+					}
+				};
 			}
 			GV.dialogMemory.setVisible(true);
 			return;
