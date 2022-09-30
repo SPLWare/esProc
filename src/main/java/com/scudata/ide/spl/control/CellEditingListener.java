@@ -105,8 +105,6 @@ public class CellEditingListener implements KeyListener {
 		matchKeyWord(jtext);
 	}
 
-	private boolean isFuncMatchEnabled = false;
-
 	/**
 	 * Æ¥Åä¹Ø¼ü×Ö
 	 * 
@@ -599,8 +597,6 @@ public class CellEditingListener implements KeyListener {
 	 */
 	private boolean showMatchWindow(final JTextComponent jtext, final int p,
 			boolean isPeriod, String[] fieldNames) throws BadLocationException {
-		if (fieldNames == null)
-			return false;
 		if (fieldNames != null) {
 			GVSpl.matchWindow = new JWindowNames(fieldNames, p, isPeriod) {
 				private static final long serialVersionUID = 1L;
