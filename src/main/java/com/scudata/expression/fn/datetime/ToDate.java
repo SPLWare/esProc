@@ -75,18 +75,24 @@ public class ToDate extends Function {
 				} else if (result1 instanceof Number && result2 instanceof Number) {
 					// date(ym,d)	ym是6位数是解释为年月
 					int ym = ((Number)result1).intValue();
-					if (ym < 9999) {
-						MessageManager mm = EngineMessage.get();
-						throw new RQException("date" + mm.getMessage("function.invalidParam"));
-					}
-					
 					int day = ((Number)result2).intValue();
-					int year = ym / 100;
-					int month = ym % 100;
-					Calendar calendar = Calendar.getInstance();
-					calendar.set(year, month - 1, day, 0, 0, 0);
-					calendar.set(Calendar.MILLISECOND, 0);
-					return new java.sql.Date(calendar.getTimeInMillis());
+					
+					if (ym < 9999) {
+						int y = ym + day / 1200;
+						int m = day / 100 % 12;
+						int d = day % 100;
+						Calendar calendar = Calendar.getInstance();
+						calendar.set(y, m, d, 0, 0, 0);
+						calendar.set(Calendar.MILLISECOND, 0);
+						return new java.sql.Date(calendar.getTimeInMillis());
+					} else {
+						int year = ym / 100;
+						int month = ym % 100;
+						Calendar calendar = Calendar.getInstance();
+						calendar.set(year, month - 1, day, 0, 0, 0);
+						calendar.set(Calendar.MILLISECOND, 0);
+						return new java.sql.Date(calendar.getTimeInMillis());
+					}
 				} else {
 					MessageManager mm = EngineMessage.get();
 					throw new RQException("date" + mm.getMessage("function.paramTypeError"));

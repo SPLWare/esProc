@@ -7,8 +7,8 @@ import java.text.*;
  * 线程安全类，但每次格式化和分析前需设置当前的格式串，否则上次的设置会影响下次的格式化和分析
  */
 public class DateFactory {
-	private static ThreadLocal local = new ThreadLocal() {
-		protected synchronized Object initialValue() {
+	private static ThreadLocal<DateFactory> local = new ThreadLocal<DateFactory>() {
+		protected synchronized DateFactory initialValue() {
 			return new DateFactory();
 		}
 	};
@@ -17,15 +17,12 @@ public class DateFactory {
 		return (DateFactory) local.get();
 	}
 
-	private Calendar calendar;
+	private Calendar calendar = Calendar.getInstance();
 
 	private DateFactory() {
 	}
 
-	private Calendar getCalendar() {
-		if (calendar == null) {
-			calendar = Calendar.getInstance();
-		}
+	public Calendar getCalendar() {
 		calendar.clear();
 		return calendar;
 	}
