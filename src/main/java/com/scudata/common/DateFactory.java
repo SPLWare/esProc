@@ -353,6 +353,7 @@ public class DateFactory {
 	}
 	
 	/**
+	 * 把日期变成基于1970年的天数
 	 * days@o(date) date(1970+d\384,d\32%12+1,d%32)
 	 * @param date
 	 * @return int
@@ -361,27 +362,28 @@ public class DateFactory {
 		Calendar calendar = get().calendar;
 		calendar.setTime(date);
 		int y = calendar.get(Calendar.YEAR) - 1970;
-		if (y < 0) {
-			int ym = y * 12 - calendar.get(Calendar.MONTH);
-			return ym * 32 - calendar.get(Calendar.DAY_OF_MONTH);
-		} else {
-			int ym = y * 12 + calendar.get(Calendar.MONTH);
-			return ym * 32 + calendar.get(Calendar.DAY_OF_MONTH);
-		}
+		int ym = y * 12 + calendar.get(Calendar.MONTH);
+		return ym * 32 + calendar.get(Calendar.DAY_OF_MONTH);
 	}
 	
+	/**
+	 * 把基于1970年的天数变成日期
+	 * @param days
+	 * @return Date
+	 */
 	public static Date toDate(int days) {
-		int ym = days / 32;
 		if (days < 0) {
-			int y = ym / 12 + 1970;
-			int m = -ym % 12;
-			int d = -days % 32;
+			int ym = days / 32 - 1;
+			int y = ym / 12 + 1969;
+			int m = ym % 12 + 12;
+			int d = days % 32 + 32;
 			
 			Calendar calendar = get().calendar;
 			calendar.set(y, m, d, 0, 0, 0);
 			calendar.set(Calendar.MILLISECOND, 0);
 			return new java.sql.Date(calendar.getTimeInMillis());
 		} else {
+			int ym = days / 32;
 			int y = ym / 12 + 1970;
 			int m = ym % 12;
 			int d = days % 32;
@@ -390,6 +392,65 @@ public class DateFactory {
 			calendar.set(y, m, d, 0, 0, 0);
 			calendar.set(Calendar.MILLISECOND, 0);
 			return new java.sql.Date(calendar.getTimeInMillis());
+		}
+	}
+	
+	/**
+	 * 把基于1970年的天数变成年
+	 * @param days
+	 * @return int
+	 */
+	public static int toYear(int days) {
+		if (days < 0) {
+			int ym = days / 32 - 1;
+			return ym / 12 + 1969;
+		} else {
+			return days / 384 + 1970;
+		}
+	}
+	
+	/**
+	 * 把基于1970年的天数变成月
+	 * @param days
+	 * @return int
+	 */
+	public static int toMonth(int days) {
+		if (days < 0) {
+			int ym = days / 32 - 1;
+			return ym % 12 + 13;
+		} else {
+			return days / 32 % 12 + 1;
+		}
+	}
+	
+	/**
+	 * 把基于1970年的天数变成年月
+	 * @param days
+	 * @return int
+	 */
+	public static int toYearMonth(int days) {
+		if (days < 0) {
+			int ym = days / 32 - 1;
+			int y = ym / 12 + 1969;
+			int m = ym % 12 + 13;
+			return y * 100 + m;
+		} else {
+			int ym = days / 32;
+			int y = ym / 12 + 1970;
+			return y * 100 + ym % 12 + 1;
+		}
+	}
+	
+	/**
+	 * 把基于1970年的天数变成日
+	 * @param days
+	 * @return int
+	 */
+	public static int toDay(int days) {
+		if (days < 0) {
+			return days % 32 + 32;
+		} else {
+			return days % 32;
 		}
 	}
 }

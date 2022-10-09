@@ -24,12 +24,12 @@ public class Year extends Function {
 		}
 		
 		Object result = param.getLeafExpression().calculate(ctx);
-		if (result == null) {
-			return null;
-		} else if (result instanceof Number) {
+		if (result instanceof Number) {
 			int days = ((Number)result).intValue();
-			int y = days / 384 + 1970;
-			return ObjectCache.getInteger(y);
+			days = DateFactory.toYear(days);
+			return ObjectCache.getInteger(days);
+		} else if (result == null) {
+			return null;
 		}
 		
 		if (result instanceof String) {

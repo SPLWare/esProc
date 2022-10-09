@@ -26,16 +26,13 @@ public class Day extends Function {
 			if (val instanceof Number) {
 				int days = ((Number)val).intValue();
 				if (option == null || option.indexOf('w') == -1) {
-					if (days < 0) {
-						return ObjectCache.getInteger(-days % 32);
-					} else {
-						return ObjectCache.getInteger(days % 32);
-					}
+					days = DateFactory.toDay(days);
 				} else {
 					Date date = DateFactory.toDate(days);
-					int week = DateFactory.get().week(date);
-					return ObjectCache.getInteger(week);
+					days = DateFactory.get().week(date);
 				}
+				
+				return ObjectCache.getInteger(days);
 			} else if (val == null) {
 				return null;
 			}
