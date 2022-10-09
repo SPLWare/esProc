@@ -27,13 +27,25 @@ public class Month extends Function {
 		if (result == null) {
 			return null;
 		} else if (result instanceof Number) {
-			int days = ((Number)result).intValue();
-			if (days < 0) {
-				int m = -days / 32 % 12 + 1;
-				return ObjectCache.getInteger(m);
+			if (option == null || option.indexOf('y') == -1) {
+				int days = ((Number)result).intValue();
+				if (days < 0) {
+					int m = -days / 32 % 12 + 1;
+					return ObjectCache.getInteger(m);
+				} else {
+					int m = days / 32 % 12 + 1;
+					return ObjectCache.getInteger(m);
+				}
 			} else {
-				int m = days / 32 % 12 + 1;
-				return ObjectCache.getInteger(m);
+				int days = ((Number)result).intValue();
+				int y = days / 384 + 1970;
+				if (days < 0) {
+					int m = -days / 32 % 12 + 1;
+					return y * 100 + m;
+				} else {
+					int m = days / 32 % 12 + 1;
+					return y * 100 + m;
+				}
 			}
 		}
 		

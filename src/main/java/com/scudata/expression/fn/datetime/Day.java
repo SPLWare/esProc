@@ -29,10 +29,15 @@ public class Day extends Function {
 				return null;
 			} else if (result instanceof Number) {
 				int days = ((Number)result).intValue();
-				if (days < 0) {
-					return ObjectCache.getInteger(-days % 32);
+				if (option == null || option.indexOf('w') == -1) {
+					if (days < 0) {
+						return ObjectCache.getInteger(-days % 32);
+					} else {
+						return ObjectCache.getInteger(days % 32);
+					}
 				} else {
-					return ObjectCache.getInteger(days % 32);
+					Date date = DateFactory.toDate(days);
+					return DateFactory.get().week(date);
 				}
 			}
 
