@@ -55,7 +55,8 @@ public class Month extends Function {
 		
 		if (result instanceof Date) {
 			if (option == null || option.indexOf('y') == -1) {
-				return DateFactory.get().month((Date)result);
+				int m = DateFactory.get().month((Date)result);
+				return ObjectCache.getInteger(m);
 			} else {
 				DateFactory factory = DateFactory.get();
 				Date date = (Date)result;
