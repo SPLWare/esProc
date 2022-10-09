@@ -27,7 +27,6 @@ public class DateFactory {
 		return calendar;
 	}
 
-
 	public Date toDate(Date date) {
 		Calendar gc = getCalendar();
 		gc.setTime(date);
@@ -218,21 +217,18 @@ public class DateFactory {
 	}
 
 	public int year(Date date) {
-		Calendar gc = getCalendar();
-		gc.setTime(date);
-		return gc.get(Calendar.YEAR);
+		calendar.setTime(date);
+		return calendar.get(Calendar.YEAR);
 	}
 
 	public int month(Date date) {
-		Calendar gc = getCalendar();
-		gc.setTime(date);
-		return gc.get(Calendar.MONTH) + 1;
+		calendar.setTime(date);
+		return calendar.get(Calendar.MONTH) + 1;
 	}
 
 	public int day(Date date) {
-		Calendar gc = getCalendar();
-		gc.setTime(date);
-		return gc.get(Calendar.DAY_OF_MONTH);
+		calendar.setTime(date);
+		return calendar.get(Calendar.DAY_OF_MONTH);
 	}
 
 	public int hour(Date date) {
@@ -260,21 +256,18 @@ public class DateFactory {
 	}
 
 	public int week(Date date) {
-		Calendar gc = getCalendar();
-		gc.setTime(date);
-		return gc.get(Calendar.DAY_OF_WEEK);
+		calendar.setTime(date);
+		return calendar.get(Calendar.DAY_OF_WEEK);
 	}
 
 	public int daysInMonth(Date date) {
-		Calendar gc = getCalendar();
-		gc.setTime(date);
-		return gc.getActualMaximum(Calendar.DAY_OF_MONTH);
+		calendar.setTime(date);
+		return calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
 	}
 
 	public int daysInYear(Date date) {
-		Calendar gc = getCalendar();
-		gc.setTime(date);
-		return gc.getActualMaximum(Calendar.DAY_OF_YEAR);
+		calendar.setTime(date);
+		return calendar.getActualMaximum(Calendar.DAY_OF_YEAR);
 	}
 
 	public int daysInYear(int year) {
@@ -357,5 +350,46 @@ public class DateFactory {
 			return null;
 		}
 		return new java.sql.Timestamp(DateFormatFactory.get().getDateTimeFormat().parse(data).getTime());
+	}
+	
+	/**
+	 * days@o(date) date(1970+d\384,d\32%12+1,d%32)
+	 * @param date
+	 * @return int
+	 */
+	public static int toDays(Date date) {
+		Calendar calendar = get().calendar;
+		calendar.setTime(date);
+		int y = calendar.get(Calendar.YEAR) - 1970;
+		if (y < 0) {
+			int ym = y * 12 - calendar.get(Calendar.MONTH);
+			return ym * 32 - calendar.get(Calendar.DAY_OF_MONTH);
+		} else {
+			int ym = y * 12 + calendar.get(Calendar.MONTH);
+			return ym * 32 + calendar.get(Calendar.DAY_OF_MONTH);
+		}
+	}
+	
+	public static Date toDate(int days) {
+		int ym = days / 32;
+		if (days < 0) {
+			int y = ym / 12 + 1970;
+			int m = -ym % 12;
+			int d = -days % 32;
+			
+			Calendar calendar = get().calendar;
+			calendar.set(y, m, d, 0, 0, 0);
+			calendar.set(Calendar.MILLISECOND, 0);
+			return new java.sql.Date(calendar.getTimeInMillis());
+		} else {
+			int y = ym / 12 + 1970;
+			int m = ym % 12;
+			int d = days % 32;
+			
+			Calendar calendar = get().calendar;
+			calendar.set(y, m, d, 0, 0, 0);
+			calendar.set(Calendar.MILLISECOND, 0);
+			return new java.sql.Date(calendar.getTimeInMillis());
+		}
 	}
 }

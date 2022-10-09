@@ -5,6 +5,7 @@ import java.util.Date;
 
 import com.scudata.common.DateFactory;
 import com.scudata.common.MessageManager;
+import com.scudata.common.ObjectCache;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
 import com.scudata.expression.Function;
@@ -26,7 +27,16 @@ public class Day extends Function {
 			Object result = param.getLeafExpression().calculate(ctx);
 			if (result == null) {
 				return null;
-			} else if (result instanceof String) {
+			} else if (result instanceof Number) {
+				int days = ((Number)result).intValue();
+				if (days < 0) {
+					return ObjectCache.getInteger(-days % 32);
+				} else {
+					return ObjectCache.getInteger(days % 32);
+				}
+			}
+
+			if (result instanceof String) {
 				result = Variant.parseDate((String)result);
 			}
 

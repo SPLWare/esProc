@@ -4,6 +4,7 @@ import java.util.Date;
 
 import com.scudata.common.DateFactory;
 import com.scudata.common.MessageManager;
+import com.scudata.common.ObjectCache;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
 import com.scudata.expression.Function;
@@ -25,6 +26,10 @@ public class Year extends Function {
 		Object result = param.getLeafExpression().calculate(ctx);
 		if (result == null) {
 			return null;
+		} else if (result instanceof Number) {
+			int days = ((Number)result).intValue();
+			int y = days / 384 + 1970;
+			return ObjectCache.getInteger(y);
 		}
 		
 		if (result instanceof String) {
@@ -32,7 +37,8 @@ public class Year extends Function {
 		}
 		
 		if (result instanceof Date) {
-			return DateFactory.get().year((Date)result);
+			int y = DateFactory.get().year((Date)result);
+			return ObjectCache.getInteger(y);
 		} else {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("year" + mm.getMessage("function.paramTypeError"));

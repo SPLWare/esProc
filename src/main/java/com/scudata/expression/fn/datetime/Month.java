@@ -4,6 +4,7 @@ import java.util.Date;
 
 import com.scudata.common.DateFactory;
 import com.scudata.common.MessageManager;
+import com.scudata.common.ObjectCache;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
 import com.scudata.expression.Function;
@@ -25,6 +26,15 @@ public class Month extends Function {
 		Object result = param.getLeafExpression().calculate(ctx);
 		if (result == null) {
 			return null;
+		} else if (result instanceof Number) {
+			int days = ((Number)result).intValue();
+			if (days < 0) {
+				int m = -days / 32 % 12 + 1;
+				return ObjectCache.getInteger(m);
+			} else {
+				int m = days / 32 % 12 + 1;
+				return ObjectCache.getInteger(m);
+			}
 		}
 		
 		if (result instanceof String) {

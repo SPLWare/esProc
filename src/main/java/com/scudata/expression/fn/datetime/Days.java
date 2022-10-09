@@ -5,6 +5,7 @@ import java.util.Date;
 
 import com.scudata.common.DateFactory;
 import com.scudata.common.MessageManager;
+import com.scudata.common.ObjectCache;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
 import com.scudata.expression.Function;
@@ -23,32 +24,30 @@ public class Days extends Function {
 			throw new RQException("days" + mm.getMessage("function.invalidParam"));
 		}
 
-		Object result = param.getLeafExpression().calculate(ctx);
-		if (result == null) {
+		Object value = param.getLeafExpression().calculate(ctx);
+		if (value == null) {
 			return null;
-		}
-		
-		if (result instanceof String) {
-			result = Variant.parseDate((String)result);
+		} else if (value instanceof String) {
+			value = Variant.parseDate((String)value);
 		}
 
 		if (option != null) {
 			if (option.indexOf('y') != -1) {
-				if (result instanceof Date) {
-					return new Integer(DateFactory.get().daysInYear((Date)result));
-				} else if (result instanceof Number) {
-					return new Integer(DateFactory.get().daysInYear(((Number)result).intValue()));
+				if (value instanceof Date) {
+					return ObjectCache.getInteger(DateFactory.get().daysInYear((Date)value));
+				} else if (value instanceof Number) {
+					return ObjectCache.getInteger(DateFactory.get().daysInYear(((Number)value).intValue()));
 				} else {
 					MessageManager mm = EngineMessage.get();
 					throw new RQException("days" + mm.getMessage("function.paramTypeError"));
 				}
 			} else if (option.indexOf('q') != -1) {
-				if (!(result instanceof Date)) {
+				if (!(value instanceof Date)) {
 					MessageManager mm = EngineMessage.get();
 					throw new RQException("days" + mm.getMessage("function.paramTypeError"));
 				}
 
-				Date date = (Date)result;
+				Date date = (Date)value;
 				Calendar calendar = Calendar.getInstance();
 				calendar.setTime(date);
 				calendar.set(Calendar.DATE, 1);
@@ -69,12 +68,19 @@ public class Days extends Function {
 					count += calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
 				}
 
-				return new Integer(count);
+				return ObjectCache.getInteger(count);
+			} else if (option.indexOf('o') != -1) {
+				if (!(value instanceof Date)) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException("days" + mm.getMessage("function.paramTypeError"));
+				}
+				
+				return ObjectCache.getInteger(DateFactory.toDays((Date)value));
 			}
 		}
 
-		if (result instanceof Date) {
-			return DateFactory.get().daysInMonth((Date)result);
+		if (value instanceof Date) {
+			return DateFactory.get().daysInMonth((Date)value);
 		} else {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("days" + mm.getMessage("function.paramTypeError"));
