@@ -8,6 +8,7 @@ import com.scudata.dm.FileGroup;
 import com.scudata.dm.FileObject;
 import com.scudata.dm.LocalFile;
 import com.scudata.dm.Machines;
+import com.scudata.dm.MemoryFile;
 import com.scudata.dm.Sequence;
 import com.scudata.expression.Expression;
 import com.scudata.expression.Function;
@@ -181,6 +182,13 @@ public class CreateFile extends Function {
 					fo = new FileObject(pathName, cs, option, ctx);
 					if (part > 0) {
 						fo.setPartition(part);
+					}
+					
+					if (option == null || option.indexOf('i') == -1) {
+						return fo;
+					} else {
+						MemoryFile file = new MemoryFile(fo);
+						return new FileObject(file, pathName, cs, option);
 					}
 				}
 			} else {
