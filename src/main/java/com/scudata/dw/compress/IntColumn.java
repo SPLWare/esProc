@@ -83,14 +83,24 @@ public class IntColumn extends Column {
 //		}
 	}
 	
+	private int hash(int h, int capacity) {
+		h = (h + (h >> 16)) % capacity;
+		if (h > 0) {
+			return h;
+		} else {
+			return -h;
+		}
+	}
+	
 	public int[] makeHashCode(HashUtil hashUtil) {
-		int[] hashCol = new int[hashUtil.getCapacity()];
+		int capacity = hashUtil.getCapacity();
+		int[] hashCol = new int[capacity];
 		int row = 1;
 		for (int i = 0, len = blockList.size(); i < len; ++i) {
 			int[] array = blockList.get(i);
 			int arrayLen = array.length;
 			for (int j = 0; j < arrayLen; j++) {
-				int hash = hashUtil.hashCode(array[j]);
+				int hash = hash(array[j], capacity);
 				hashCol[hash] = row;
 				row++;
 			}
