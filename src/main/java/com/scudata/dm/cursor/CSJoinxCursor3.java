@@ -2,12 +2,14 @@ package com.scudata.dm.cursor;
 
 import java.util.ArrayList;
 
+import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.*;
 import com.scudata.dm.op.Operation;
 import com.scudata.dw.ColumnTableMetaData;
 import com.scudata.dw.Cursor;
 import com.scudata.expression.Expression;
+import com.scudata.resources.EngineMessage;
 import com.scudata.util.CursorUtil;
 
 /**
@@ -252,15 +254,44 @@ public class CSJoinxCursor3 extends ICursor {
 				expNames[i], fname, ctx, n, option);
 	}
 	
+	/**
+	 * 把维表对象转换成游标
+	 * @param obj
+	 * @return
+	 */
+	private static MultipathCursors toMultipathCursors(Object obj, MultipathCursors mcs,  String fields[], Context ctx) {
+		if (obj instanceof ColumnTableMetaData) {
+			return (MultipathCursors) ((ColumnTableMetaData) obj).cursor(null, fields, null, null, null, null, mcs, "k", ctx);
+		} else {
+			return null;
+		}
+	}
+	
 	public static ICursor MultipathMergeJoinx(MultipathCursors cursor, Expression[][] fields, Object[] fileTable, Expression[][] keys,
 			Expression[][] exps, String[][] expNames, String fname, Context ctx, int n, String option) {
-
 		ICursor[] cursors = cursor.getParallelCursors();
 		int pathCount = cursor.getPathCount();
 		ICursor results[] = new ICursor[pathCount];
-		for (int i = 0; i < pathCount; ++i) {
-			results[i] = MergeJoinx(cursors[i], fields, fileTable, keys, exps, expNames, fname, ctx, n, option);
+		
+		String[] names = makeFields(keys[0], exps[0], ctx);
+		ICursor[] fileTableCursors = toMultipathCursors(fileTable[0], cursor, names, ctx).getParallelCursors();
+		
+		if (fileTableCursors == null) {
+			for (int i = 0; i < pathCount; ++i) {
+				results[i] = MergeJoinx(cursors[i], fields, fileTable,
+						keys, exps, expNames, fname, ctx, n, option);
+			}
+		} else {
+			if (fileTable.length != 1) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException("joinx" + mm.getMessage("function.invalidParam"));
+			}
+			for (int i = 0; i < pathCount; ++i) {
+				results[i] = MergeJoinx(cursors[i], fields, new Object[] {fileTableCursors[i]},
+						keys, exps, expNames, fname, ctx, n, option);
+			}
 		}
+		
 		return new MultipathCursors(results, ctx);
 		
 	}
