@@ -133,6 +133,30 @@ public class Joinx extends CursorFunction {
 			throw new RQException("joinx" + mm.getMessage("function.invalidParam"));
 		}
 
+		for (int i = 0, len = dataExps.length; i < len; i++) {
+			if (dataExps[i] == null) {
+				Object code = codes[i];
+				String[] keys = null;
+				if (code instanceof ColumnTableMetaData) {
+					keys = ((ColumnTableMetaData)code).getAllKeyColNames();
+				} else if (code instanceof FileObject) {
+				} else if (code instanceof Cursor) {
+					keys = ((Cursor)code).getDataStruct().getPrimary();
+				}
+
+				if (keys == null) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException("joinx" + mm.getMessage("function.invalidParam"));
+				}
+				int count = keys.length;
+				Expression[] keyExps = new Expression[count];
+				for (int c = 0; c < count; c++) {
+					keyExps[c] = new Expression(keys[c]);
+				}
+				dataExps[i] = keyExps;
+			}
+		}
+		
 		if (option != null && option.indexOf('q') != -1) {
 			return new CSJoinxCursor2(cursor, exps, codes, dataExps, newExps, newNames, fname, ctx, capacity, option);
 		} else if (option != null && option.indexOf('m') != -1) {

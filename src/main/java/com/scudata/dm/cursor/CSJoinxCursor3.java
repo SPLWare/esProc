@@ -206,6 +206,11 @@ public class CSJoinxCursor3 extends ICursor {
 			return null;
 		}
 		
+		if (cursor instanceof MultipathCursors) {
+			return MultipathMergeJoinx((MultipathCursors)cursor, fields, fileTable, keys,
+					exps, expNames, fname, ctx, n, option);
+		}
+
 		ICursor temp = null;
 		FileObject tempFile = null;
 		int fileCount =  fileTable.length;
@@ -245,5 +250,18 @@ public class CSJoinxCursor3 extends ICursor {
 		int i = fileCount - 1;
 		return new CSJoinxCursor3(cursor, fields[i], fileTable[i], keys[i], exps[i], 
 				expNames[i], fname, ctx, n, option);
+	}
+	
+	public static ICursor MultipathMergeJoinx(MultipathCursors cursor, Expression[][] fields, Object[] fileTable, Expression[][] keys,
+			Expression[][] exps, String[][] expNames, String fname, Context ctx, int n, String option) {
+
+		ICursor[] cursors = cursor.getParallelCursors();
+		int pathCount = cursor.getPathCount();
+		ICursor results[] = new ICursor[pathCount];
+		for (int i = 0; i < pathCount; ++i) {
+			results[i] = MergeJoinx(cursors[i], fields, fileTable, keys, exps, expNames, fname, ctx, n, option);
+		}
+		return new MultipathCursors(results, ctx);
+		
 	}
 }
