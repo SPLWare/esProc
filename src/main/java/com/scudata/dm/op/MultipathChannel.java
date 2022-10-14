@@ -229,7 +229,7 @@ public class MultipathChannel extends Channel {
 		result = new FetchResult();
 
 		for (Channel channel : channels) {
-			Push push = new Push(this);
+			Push push = new Push(this, false);
 			ctx = channel.getContext();
 			channel.addOperation(push, ctx);
 		}
@@ -295,7 +295,7 @@ public class MultipathChannel extends Channel {
 		result = new GroupxResult(exps, names, calcExps, calcNames, opt, ctx, capacity);
 
 		for (Channel channel : channels) {
-			Push push = new Push(this);
+			Push push = new Push(this, false);
 			ctx = channel.getContext();
 			channel.addOperation(push, ctx);
 		}
@@ -315,7 +315,7 @@ public class MultipathChannel extends Channel {
 		result = new SortxResult(exps, ctx, capacity, opt);
 
 		for (Channel channel : channels) {
-			Push push = new Push(this);
+			Push push = new Push(this, false);
 			ctx = channel.getContext();
 			channel.addOperation(push, ctx);
 		}
@@ -342,7 +342,7 @@ public class MultipathChannel extends Channel {
 		result = new CsJoinxResult(fields, fileTable, keys, exps, expNames, fname, ctx, option, capacity);
 
 		for (Channel channel : channels) {
-			Push push = new Push(this);
+			Push push = new Push(this, false);
 			ctx = channel.getContext();
 			channel.addOperation(push, ctx);
 		}
@@ -363,7 +363,7 @@ public class MultipathChannel extends Channel {
 		result = new IterateResult(exp, initVal, c, ctx);
 		
 		for (Channel channel : channels) {
-			Push push = new Push(this);
+			Push push = new Push(this, false);
 			ctx = channel.getContext();
 			channel.addOperation(push, ctx);
 		}
@@ -382,7 +382,7 @@ public class MultipathChannel extends Channel {
 		result = new IDResult(exps, count, ctx);
 		
 		for (Channel channel : channels) {
-			Push push = new Push(this);
+			Push push = new Push(this, false);
 			ctx = channel.getContext();
 			channel.addOperation(push, ctx);
 		}

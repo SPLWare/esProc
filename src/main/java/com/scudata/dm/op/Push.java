@@ -2,7 +2,6 @@ package com.scudata.dm.op;
 
 import com.scudata.dm.Context;
 import com.scudata.dm.Sequence;
-import com.scudata.dm.op.Channel;
 import com.scudata.expression.Function;
 
 /**
@@ -13,9 +12,15 @@ import com.scudata.expression.Function;
  */
 public class Push extends Operation {
 	private Channel channel;
+	private boolean doFinish = true; // 用于防止多路管道finish的循环调用
 
 	public Push(Channel channel) {
-		this(null, channel);
+		this.channel = channel;
+	}
+	
+	public Push(Channel channel, boolean doFinish) {
+		this.channel = channel;
+		this.doFinish = doFinish;
 	}
 	
 	public Push(Function function, Channel channel) {
@@ -29,7 +34,10 @@ public class Push extends Operation {
 	 * @return 附加的操作缓存的数据
 	 */
 	public Sequence finish(Context ctx) {
-		channel.finish(ctx);
+		if (doFinish) {
+			channel.finish(ctx);
+		}
+		
 		return null;
 	}
 	

@@ -1,6 +1,7 @@
 package com.scudata.expression.mfn.sequence;
 
 import com.scudata.common.MessageManager;
+import com.scudata.common.ObjectCache;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
 import com.scudata.dm.Sequence;
@@ -50,9 +51,9 @@ public class PFind extends SequenceFunction {
 
 		int index = srcSequence.pfindByKey(key, isSorted);
 		if (index < 0 && !isInsertPos) {
-			return new Integer(0);
+			return ObjectCache.getInteger(0);
 		} else {
-			return new Integer(index);
+			return ObjectCache.getInteger(index);
 		}
 	}
 }
