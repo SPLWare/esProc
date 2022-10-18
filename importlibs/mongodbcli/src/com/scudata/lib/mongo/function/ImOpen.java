@@ -8,8 +8,8 @@ import com.scudata.expression.Function;
 import com.scudata.expression.Node;
 import com.scudata.resources.EngineMessage;
 
-public class ImOpen extends Function {
-	
+// format: mongodb://[username:password@]host[:port]/database[?options&rows&ssl=true],[[connectTimeout,socketTimeout,serverSelectionTimeout],keyStorey:keyPwd]
+public class ImOpen extends ImFunction {
 	public byte calcExpValueType(Context ctx) {
 		return Expression.TYPE_DB;
 	}
@@ -18,19 +18,15 @@ public class ImOpen extends Function {
 		return this;
 	}
 
-	public Object calculate(Context ctx) {
-		if (param == null || !param.isLeaf()) {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException("mongodb" + mm.getMessage("function.invalidParam"));
+	protected Object doQuery(Object[] objs) {
+		if (objs.length<1){
+			throw  new RQException("ImOpen invalidParam");
 		}
-
-		Object obj = param.getLeafExpression().calculate(ctx);
-		if (!(obj instanceof String)) {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException("connect" + mm.getMessage("function.paramTypeError"));
+		if (!(objs[0] instanceof String)){
+			throw new RQException("connect function.paramTypeError");
 		}
-
-		return new ImMongo((String)obj, ctx);
+		
+		return new ImMongo(objs, m_ctx);
 	}
 }
 
