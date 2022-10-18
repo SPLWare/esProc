@@ -3,12 +3,9 @@ package com.scudata.lib.kafka.function;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
 import com.scudata.common.Logger;
-import com.scudata.common.RQException;
 import com.scudata.dm.Context;
 import com.scudata.dm.Sequence;
-
 import com.scudata.dm.cursor.ICursor;
 
 public class ImCursor extends ICursor {

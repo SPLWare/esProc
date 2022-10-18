@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 import java.util.Properties;
 import java.util.Set;
@@ -19,74 +18,59 @@ import org.apache.kafka.clients.admin.CreateTopicsResult;
 import org.apache.kafka.clients.admin.KafkaAdminClient;
 import org.apache.kafka.clients.admin.ListTopicsResult;
 import org.apache.kafka.clients.admin.NewTopic;
-import org.apache.kafka.clients.consumer.ConsumerRebalanceListener;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
+import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.common.TopicPartition;
 
 public class ImConnection implements IResource {
+	private String m_topic;
 	public static String m_prjName = "Kafka"; 
 	public boolean m_bClose = false;
-	public String[] m_cols = new String[]{"offset", "key", "value"};
-	private int m_nPartitions = 0;
-	private boolean m_bCluster = false;
+	public String[] m_cols = new String[]{"partition", "offset", "key", "value", "timestamp"};
 	private Properties m_properties;
-	private List<KafkaConsumer<Object, Object>> m_listConsumers;
+	//private List<KafkaConsumer<Object, Object>> m_listConsumers;
+	public KafkaProducer<Object, Object> m_producer = null;
 	public KafkaConsumer<Object, Object> m_consumer = null;
-	private List<String> m_topics; 	
 	private ClassLoader  m_classLoader=null;
 	
-	public ImConnection(Context ctx, String fileName,List<String> topics,int nPartitionSize) {
+	public ImConnection(Context ctx, String fileName,String topics,int nPartitionSize) {
 		ctx.addResource(this);
 		doProperty(fileName);		
 		init(ctx, topics,nPartitionSize);
 	}
 	
-	public ImConnection(Context ctx, Properties property, List<String> topics,int nPartitionSize) {
+	public ImConnection(Context ctx, Properties property, String topics,int nPartitionSize) {
 		ctx.addResource(this);
 		m_properties = property;
 		init(ctx, topics,nPartitionSize);		
 	}
+	
 	
 	public Properties getProperties(){
 		return m_properties;
 	}
 	
 	public String getTopic(){
-		return m_topics.get(0);
+		return m_topic;
 	}
 	
-	public boolean isCluster(){
-		return m_bCluster;
-	}
-	
-	public int getPartitionSize(){
-		return m_nPartitions;
-	}
-	
-	private void init(Context ctx, List<String> topics, int nPartitionSize){
+	private void init(Context ctx, String topic, int nPartitionSize){
 		try{
-			m_nPartitions = nPartitionSize;
-			m_bCluster = (m_nPartitions>0);
-			m_topics = new ArrayList<String>(topics);
-			m_listConsumers = new ArrayList<KafkaConsumer<Object, Object>>() ;
+			m_topic = topic;
 			m_classLoader = Thread.currentThread().getContextClassLoader();
 			ClassLoader loader = ImConnection.class.getClassLoader();
 			Thread.currentThread().setContextClassLoader(loader);
 			
-			//群集时创建主题
-			if (m_bCluster){
-				AdminClient client = KafkaAdminClient.create(m_properties);//创建操作客户端
-				for(int i=0; i<topics.size(); i++){
-					String topicName = topics.get(i);
-					ListTopicsResult dr = client.listTopics();
-					if (!isExistedTopic(dr, topicName)){
-						 NewTopic topic = new NewTopic(topics.get(i), nPartitionSize, (short) 1); 
-						 CreateTopicsResult cr = client.createTopics(Arrays.asList(topic));
-						 cr.all().get();
-					}
-				}		
-				client.close();//关闭
+			//创建主题
+			AdminClient client = KafkaAdminClient.create(m_properties);//创建操作客户端
+			ListTopicsResult dr = client.listTopics();
+			if (!isExistedTopic(dr, topic)){
+				 NewTopic tmp = new NewTopic(m_topic, nPartitionSize, (short) 1); 
+				 CreateTopicsResult cr = client.createTopics(Arrays.asList(tmp));
+				 cr.all().get();
 			}
+			client.close();//关闭
+
 		}catch(Exception e){
 			Logger.error(e.getMessage());
 		}
@@ -108,11 +92,18 @@ public class ImConnection implements IResource {
 	}
 	public void close() {
 		try {
-			for(int i=0; i<m_listConsumers.size(); i++){
-				 KafkaConsumer<Object, Object> c = m_listConsumers.get(i);
-				 c.close();
-				 c = null;
+			if(m_producer!=null){
+				m_producer.flush();;
+				m_producer.close();
+				m_producer = null;
 			}
+			
+			if(m_consumer!=null){
+				m_consumer.unsubscribe();;
+				m_consumer.close();
+				m_consumer = null;
+			}
+			
 			m_bClose = true;
 			
 			if (m_classLoader!=null){
@@ -152,26 +143,20 @@ public class ImConnection implements IResource {
 		m_properties.setProperty("bootstrap.servers", brokers);
 	}
 	
-	public void setPropertyGroudId( String groupId){
-	     m_properties.put("group.id", groupId);
+	public String getPropertyValue(String key){
+		return m_properties.getProperty(key);
 	}
 	
 	public KafkaConsumer<Object, Object> initConsumer(){
 		final KafkaConsumer<Object, Object> consumer = new KafkaConsumer<Object, Object>(m_properties);
-       
-		consumer.subscribe(m_topics, new ConsumerRebalanceListener() {
-	        public void onPartitionsRevoked(Collection<TopicPartition> collection) {
-	        	
-	        }
-	        public void onPartitionsAssigned(Collection<TopicPartition> collection) {
-	            //将偏移设置到最开始
-	            consumer.seekToBeginning(collection);
-	        }
-	    });
-		
-		m_listConsumers.add(consumer);
-		m_consumer = consumer;
+		consumer.subscribe(Arrays.asList(m_topic));
+		if(m_consumer!=null){
+			m_consumer.unsubscribe();;
+			m_consumer.close();
+			m_consumer = null;
+		}
 
+		m_consumer = consumer;
 		return m_consumer;
 	}
 	
@@ -179,25 +164,24 @@ public class ImConnection implements IResource {
 		final KafkaConsumer<Object, Object> consumer = new KafkaConsumer<Object, Object>(m_properties);
 
 		// 指定分区消费
-		List<TopicPartition> ls = new ArrayList<TopicPartition>();
-		String topic = getTopic();
+		List<TopicPartition> ls = new ArrayList<TopicPartition>();		
 		if (partitions.size()>0){
 			for(Integer part : partitions){
-				TopicPartition partition = new TopicPartition(topic, part);
+				TopicPartition partition = new TopicPartition(m_topic, part);
 				ls.add(partition);
 			}
 			// 绑定topics
 	        consumer.assign(ls);
 		}else{
-			consumer.subscribe(Arrays.asList(topic));
+			consumer.subscribe(Arrays.asList(m_topic));
 		}
-		
-		m_listConsumers.add(consumer);
+		if(m_consumer!=null){
+			m_consumer.unsubscribe();;
+			m_consumer.close();
+			m_consumer = null;
+		}
 		m_consumer = consumer;
-
 		return m_consumer;
 	}
-
-
 
 }

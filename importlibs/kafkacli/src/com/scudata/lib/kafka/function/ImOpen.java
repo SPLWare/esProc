@@ -1,20 +1,15 @@
 package com.scudata.lib.kafka.function;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Properties;
-
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
 import com.scudata.dm.FileObject;
 import com.scudata.expression.Function;
-import com.scudata.expression.IParam;
 import com.scudata.expression.Node;
 import com.scudata.resources.EngineMessage;
 
-// kafka_open(endpoint, accessKeyId, accessKeySecret, instanceName)
+// kafka_open(properties; topic,...;partitionSize)
 public class ImOpen extends Function {
 	
 	public Node optimize(Context ctx) {
@@ -30,70 +25,46 @@ public class ImOpen extends Function {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("client" + mm.getMessage("function.missingParam"));
 		}
-		Object o,val = null;
-		boolean bTopic = false;
+		Object o = null;
 		int nSize = param.getSubSize();
 		String fileName = null;
-		List<String> topic = new ArrayList<String>();
-		Properties property = new Properties(); 
-		int nPartition = 0;
-	
-		if (param.getType()==IParam.Semicolon){			
-			for(int i=0; i<nSize; i++){
-				IParam subs = param.getSub(i);		
-				if (subs.isLeaf()){ //for fileName
-					o = subs.getLeafExpression().calculate(ctx);
-					if (o instanceof FileObject){
-						fileName = o.toString();
-					}else if(i==2){
-						nPartition = Integer.parseInt(o.toString());
-					}else{
-						if (bTopic){
-							topic.add(o.toString());
-						}else{
-							File f = new File(o.toString());
-							if (f.exists()){
-								fileName = o.toString();
-							}
-						}
-					}
-				}else{
-					for(int j=0; j<subs.getSubSize(); j++){
-						IParam sub = subs.getSub(j);	
-						if (i==2){
-							o = sub.getLeafExpression().calculate(ctx);
-							nPartition = Integer.parseInt(o.toString());
-						}else if(i==0){
-							o = sub.getSub(0).getLeafExpression().calculate(ctx);
-							val = sub.getSub(1).getLeafExpression().calculate(ctx);
-							property.put(o, val);
-						}else{
-							if (sub.isLeaf()){
-								if (bTopic){
-									o = sub.getLeafExpression().calculate(ctx);						
-									topic.add(o.toString());
-								}
-							}
-						}
-					}
-				}
-				bTopic = true;
+				
+		if (nSize <2){
+			throw new RQException("ParamSize is not right");
+		}		
+		o = param.getSub(0).getLeafExpression().calculate(ctx);		
+		
+		// 1.param: property
+		if (o instanceof FileObject){
+			fileName = o.toString();
+		}else if(o instanceof String){
+			File f = new File(o.toString());
+			if (f.exists()){
+				fileName = o.toString();
 			}
-		}else{			
-			throw new RQException("client function.missingParam");
+		}else{
+			throw new RQException("Propterty ParamType is not right");
 		}
-		//有cluster选项时，若分区数没有写或为0时，则设置默认值为0；
-		if (option!=null && option.contains("c")){
-			if (nPartition==0){
-				nPartition = 1;
+		// 2.param: topic
+		String topic = null;
+		o = param.getSub(1).getLeafExpression().calculate(ctx);	
+		if(o instanceof String){
+			topic = o.toString();
+		}else{
+			throw new RQException("Toptic ParamType is not right");
+		}
+		
+		// 3.param: nPartition
+		int nPartition = 1;
+		if (nSize>=3 ){
+			o = param.getSub(2).getLeafExpression().calculate(ctx);
+			if(o instanceof Integer){
+				nPartition = (Integer)o;
 			}
-		}else if(nPartition>0){ //无cluster选项时，则nPartition参数无效.
-			nPartition = 0;
 		}
-		if(fileName!=null){
+			
+		if(fileName!=null && topic!=null){
 			return new ImConnection(ctx, fileName, topic, nPartition);
-		}else if(property.size()>0){
-			return new ImConnection(ctx, property, topic, nPartition);
 		}else{
 			throw new RQException("client function.missingParam");
 		}

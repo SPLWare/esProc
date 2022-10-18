@@ -2,71 +2,93 @@ package com.scudata.lib.kafka.function;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.kafka.clients.producer.Callback;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.clients.producer.RecordMetadata;
 import com.scudata.common.Logger;
-import com.scudata.common.RQException;
 import com.scudata.dm.FileObject;
+import com.scudata.dm.Param;
 import com.scudata.dm.Sequence;
 
 /*
- * ImSend(fd, topic, value)
- * ImSend(fd, topic, key, value)
+ * ImSend(fd, topic, [key,] value)
  * ImSend(fd, topic, part, key, value)
+ * ImSend(fd, topic, [part,...], key, value)
  */
 public class ImSend extends ImFunction {
-	private KafkaProducer<Object, Object> m_producer = null;
 
 	public Object doQuery(Object[] objs) {
 		try {
 			if (m_conn.m_bClose){
 				return null;
 			}
-			boolean bCluster = m_conn.isCluster();
+			//分区参数
 			
-			//Cluster :part, [key,] value;
-			//Nocluster: [key,] value;
-			if (bCluster){
-				if (objs.length!=3){
-					throw new RQException(ImConnection.m_prjName +" Cluster function.missingParam");
-				}
-				if (!(objs[0] instanceof Integer)){
-					throw new RQException(ImConnection.m_prjName +" Cluster partition");
-				}
-			}else if (objs.length<1){
-				throw new RQException(ImConnection.m_prjName +" function.missingParam");
+			Param param = null;
+			boolean bSameConn = false;
+			param = m_ctx.getParam("kafka_conn");
+			if (param!=null){
+				ImConnection conn = (ImConnection)param.getValue(); 
+				bSameConn = (conn==m_conn);
 			}
-			
-			m_producer = new KafkaProducer<Object, Object>(m_conn.getProperties());
-			
-			if (objs[0] instanceof FileObject){
-				doProducerRecordFile((FileObject)objs[0]);
-			}else{
-				ProducerRecord<Object, Object> record = null; 
-				if (bCluster){
-					record = doProducerRecordCluster(objs);
-				}else{
-					record = doProducerRecord(objs);
+			if (!bSameConn){
+				if (m_conn.m_producer!=null){
+					m_conn.m_producer.close();
 				}
-				// 发送消息
-				m_producer.send(record, new Callback() {
+				KafkaProducer<Object, Object> producer = new KafkaProducer<Object, Object>(m_conn.getProperties());
+				m_conn.m_producer = producer;
+				m_ctx.setParamValue("kafka_conn", m_conn);
+			}
+			ProducerRecord<Object, Object> record = null; 
+			List<Integer> ll = new ArrayList<Integer>();
+			if (objs[0] instanceof Integer){
+				ll.add((Integer)objs[0]);
+			}else if (objs[0] instanceof Sequence){
+				Sequence seq = (Sequence)objs[0];
+				for(int i=1; i<=seq.length();i++){
+					ll.add((Integer)seq.get(i));
+				}
+			}else if(objs[0] instanceof String){ //NoPartition: [key,] value;
+				record = doProducerRecord(objs);
+				m_conn.m_producer.send(record, new Callback() {
 					@Override
 					public void onCompletion(RecordMetadata recordMetadata, Exception e) {
 						if (null != e) {
-							Logger.info("send error" + e.getMessage());
+							Logger.info("send error:" + e.getMessage());
 						} else {
-							System.out.println(String.format("offset:%s,partition:%s", recordMetadata.offset(),
+							System.out.println(String.format("offset:%s,partition:%s", 
+									recordMetadata.offset(),
 									recordMetadata.partition()));
 						}
 					}
 				});
+				Thread.sleep(10);
+			}else if (objs[0] instanceof FileObject){
+				doProducerRecordFile((FileObject)objs[0]);
 			}
-			m_producer.close();
+			
+			//Partition :part, [key,] value;
+			for (Integer partSN: ll){
+				record = doProducerRecordPartition(partSN, objs);
+				m_conn.m_producer.send(record, new Callback() {
+					@Override
+					public void onCompletion(RecordMetadata recordMetadata, Exception e) {
+						if (null != e) {
+							Logger.info("send2 error " + e.getMessage());
+						} else {
+							System.out.println(String.format("offset:%s,partition:%s", 
+									recordMetadata.offset(),
+									recordMetadata.partition()));
+						}
+					}
+				});
+				Thread.sleep(10);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -84,15 +106,14 @@ public class ImSend extends ImFunction {
 			BufferedReader reader = new BufferedReader(freader);
 			String tempString = null;
 			while ((tempString = reader.readLine()) != null) {
-				m_producer.send(new ProducerRecord<Object, Object>(m_conn.getTopic(), tempString));
+				m_conn.m_producer.send(new ProducerRecord<Object, Object>(m_conn.getTopic(), tempString));
 				Thread.sleep(10);
 			}
 			reader.close();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		
+		}		
 	}
 	
 	// for Normal;
@@ -106,7 +127,7 @@ public class ImSend extends ImFunction {
 			}else{
 				oVal = objs[0];
 			}
-			
+
 			if (val!=null && val.endsWith("ByteArraySerializer")){
 				if (oVal instanceof String){
 					if (objs.length==2){
@@ -133,20 +154,19 @@ public class ImSend extends ImFunction {
 				}else{
 					record = new ProducerRecord<Object, Object>(m_conn.getTopic(), oVal);
 				}
-			}		
+			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger.error(e.getStackTrace());
 		}
 		
 		return record;
 	}
 	
-	// for Cluster;
-	private ProducerRecord<Object, Object> doProducerRecordCluster(Object[] objs){
+	// for Part;
+	private ProducerRecord<Object, Object> doProducerRecordPartition(int nPart, Object[] objs){
 		ProducerRecord<Object, Object> record = null;
 		try {			
 			String val = (String) m_conn.getProperties().get("value.serializer");
-			int nPart = Integer.parseInt(objs[0].toString());
 			Object oVal = objs[2];
 			if (val!=null && val.trim().endsWith("ByteArraySerializer")){
 				if (oVal instanceof String){
@@ -162,8 +182,7 @@ public class ImSend extends ImFunction {
 				}
 			}else{
 				record = new ProducerRecord<Object, Object>(m_conn.getTopic(),nPart, objs[1], oVal);
-			}
-		
+			}		
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -1,8 +1,10 @@
 package com.scudata.lib.kafka.function;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -26,6 +28,7 @@ public class ImFunction extends Function {
 	protected ImConnection m_conn = null;
 	protected String m_model;
 	protected Context m_ctx;
+	private static SimpleDateFormat m_sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 	public Node optimize(Context ctx) {
 		if (param != null) {
@@ -119,40 +122,48 @@ public class ImFunction extends Function {
 		Object okey, oval;
 		List<Object[]> ls = new ArrayList<Object[]>();
 		try {
-			for (int i = 0; i < 3; i++) {
-				ConsumerRecords<Object, Object> records = conn.m_consumer.poll(Duration.ofMillis(timeout));
+			ConsumerRecords<Object, Object> records = null;
+			for (int i = 0; i < 5; i++) {
+				records = conn.m_consumer.poll(Duration.ofMillis(timeout));				
 				if (records.isEmpty()) {
+					System.out.println("No Data ...");
+					Thread.sleep(300);
 					continue;
+				}else{
+					break;
 				}
-
-				for (ConsumerRecord<Object, Object> record : records) {
-					Object[] lines = new Object[3];
-					lines[0] = record.offset();
-					okey = record.key();
-					oval = record.value();
-					lines[1] = okey;
-					if (oval instanceof byte[]) {
-						byte[] bt = (byte[]) oval;
-						if (bt.length > 12 && bt[0] == '#' && bt[1] == '#') { // Sequence
-							Sequence seq = new Sequence();
-							byte[] byteNew = new byte[bt.length - 2];
-							System.arraycopy(bt, 2, byteNew, 0, bt.length - 2);
-							bt = null;
-							seq.fillRecord(byteNew);
-							lines[2] = seq;
-						} else {
-							lines[2] = new String(bt);
-						}
-					} else {
-						lines[2] = oval;
-					}
-					ls.add(lines);
-				}
-				break;
 			}
+			
+			for (ConsumerRecord<Object, Object> record : records) {
+				Object[] lines = new Object[5];
+				lines[0] = record.partition();
+				lines[1] = record.offset();
+				okey = record.key();
+				oval = record.value();
+				lines[2] = okey;
+				if (oval instanceof byte[]) {
+					byte[] bt = (byte[]) oval;
+					if (bt.length > 12 && bt[0] == '#' && bt[1] == '#') { // Sequence
+						Sequence seq = new Sequence();
+						byte[] byteNew = new byte[bt.length - 2];
+						System.arraycopy(bt, 2, byteNew, 0, bt.length - 2);
+						bt = null;
+						seq.fillRecord(byteNew);
+						lines[3] = seq;
+					} else {
+						lines[3] = new String(bt);
+					}
+				} else {
+					lines[3] = oval;
+				}
+				lines[4] = m_sdf.format(new Date(record.timestamp() ));
+				ls.add(lines);
+			}
+			//conn.m_consumer.commitSync();
 		} catch (Exception e) {
 			Logger.error(e.getMessage());
 		}
+		
 		return ls;
 	}
 
@@ -161,12 +172,27 @@ public class ImFunction extends Function {
 		List<Object[]> ls = new ArrayList<Object[]>();
 		try {
 			if(partitionSize<1) partitionSize = 1;
+			int nTotal = partitionSize;
+
+			boolean bHad = false; //对后来分区获取不再等待
+			ConsumerRecords<Object, Object> consumerRecords = null;
 			for (int i = 0; i < partitionSize; i++) {
-				ConsumerRecords<Object, Object> consumerRecords = conn.m_consumer.poll(Duration.ofMillis(timeout));
-				if (consumerRecords.isEmpty()) {
-					//System.out.println("No Data ...");
-					continue;
+				for(int j=0; j<6; j++){
+					consumerRecords = conn.m_consumer.poll(Duration.ofMillis(timeout));
+					if (consumerRecords.isEmpty()) {
+						System.out.println("No Data2 ...");						
+						if (bHad){
+							break;
+						}else{
+							Thread.sleep(200);
+							continue;
+						}
+					}else{
+						bHad = true;
+						break;						
+					}
 				}
+				
 				 //获取每个分区
 	            Set<TopicPartition> partitions = consumerRecords.partitions();
 	            //遍历每个分区
@@ -175,7 +201,7 @@ public class ImFunction extends Function {
 	                List<ConsumerRecord<Object, Object>> records = consumerRecords.records(partition);
 	                //获取每个数据
 	                for (ConsumerRecord<Object, Object> record : records) {
-						Object[] lines = new Object[4];
+						Object[] lines = new Object[5];
 						lines[0] = record.partition();
 						lines[1] = record.offset();						
 						okey = record.key();
@@ -196,8 +222,15 @@ public class ImFunction extends Function {
 						} else {
 							lines[3] = oval;
 						}
+						
+						lines[4] = m_sdf.format(new Date(record.timestamp() ));
 						ls.add(lines);
 					}
+	            }
+	            //达到总分区数时则退出
+	            nTotal -= partitions.size();
+	            if (nTotal<=0){
+	            	break;
 	            }
 	            //手动提交0ffset
 	            //conn.m_consumer.commitSync();

@@ -1,5 +1,6 @@
 package com.scudata.lib.kafka.function;
 
+import com.scudata.common.Logger;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
@@ -23,10 +24,14 @@ public class ImCommit extends Function {
 		Object client = param.getLeafExpression().calculate(ctx);
 		if ((client instanceof ImConnection)) {
 			ImConnection cli = (ImConnection)client;
-			if (option!=null && option.indexOf("a")>-1){
-				cli.m_consumer.commitAsync();
+			if (cli.m_consumer==null){
+				Logger.warn("consumer object is null");
 			}else{
-				cli.m_consumer.commitSync();
+				if (option!=null && option.indexOf("a")>-1){
+					cli.m_consumer.commitAsync();
+				}else{
+					cli.m_consumer.commitSync();
+				}
 			}
 		}else{
 			MessageManager mm = EngineMessage.get();
