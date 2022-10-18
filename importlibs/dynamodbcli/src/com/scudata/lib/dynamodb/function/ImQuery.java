@@ -1,14 +1,11 @@
 package com.scudata.lib.dynamodb.function;
 
-import java.util.ArrayList;
-import java.util.LinkedHashSet;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
+import java.util.LinkedHashSet;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
-import com.amazonaws.services.dynamodbv2.model.ExecuteStatementRequest;
 import com.amazonaws.services.dynamodbv2.model.ExecuteStatementResult;
 import com.scudata.common.Logger;
 import com.scudata.common.RQException;
@@ -20,44 +17,91 @@ import com.scudata.dm.sql.SQLUtil;
 public class ImQuery extends ImFunction {
 	private int m_nCheckSize = 100; //获取字段时所需要的最大记录数
 	
-	public Object doQuery(Object[] objs){
+	public Object doExec(Object[] objs){		
 		try {
-			if (objs.length<2){
-				throw new RQException("dyna_query missingParam");
-			}
-
-			ImOpen imOpen = null;
-			String strSql = null;
-			if (objs[0] instanceof ImOpen){
-				imOpen = (ImOpen)objs[0];
-			}
-			
-			if (objs[1] instanceof String){
-				strSql = objs[1].toString();
-			}
-			
-			if (imOpen==null || strSql==null){
-				throw new RQException("dyna_query paramTypeError");
-			}
-			Object o = SQLUtil.parse(strSql, null);
-			
-			List<AttributeValue> parameters = new ArrayList<AttributeValue>();
-			for (int n=2; n<objs.length; n++){
-				AttributeValue a = new AttributeValue();
-				if (objs[n] instanceof String){
-					a.setS(objs[n].toString());
-				}else if(objs[n] instanceof Integer){
-					a.setN(objs[n].toString());
+			ExecuteStatementResult result = null;
+			if (objs[0] instanceof Sequence){
+				Table table = null;
+				
+				Sequence seq = (Sequence)objs[0];				
+				Sequence ssql = (Sequence)SQLUtil.parse(objs[1].toString(), null);
+				
+				// Sql参数个数
+				int nCnt = getSqlParamSize(ssql);
+				Object[] os = new Object[nCnt+1];
+				os[0] = objs[1];
+				
+				for(int i=1; i<=seq.length(); i+=nCnt){
+					for(int j=0; j<nCnt; j++){
+						os[1+j] = seq.get(i+j);
+					}
+					result = (ExecuteStatementResult)super.doExec(os);
+					if (result!=null && result.getItems().size()>0){						
+						Table tbl = resultToTable(result, ssql.get(1).toString());
+						if (table==null){
+							table = tbl;
+						}else{
+							table.addAll(tbl);
+						}
+					}
 				}
-			    parameters.add(a);
+				//BatchExecuteStatementResult result2 = batchExecuteStatementRequest(m_db.m_client, objs[1].toString(), seq, nCnt);
+				return table;
+			}else{
+				result = (ExecuteStatementResult)super.doExec(objs);
+				if (result!=null){
+					Object o = SQLUtil.parse(objs[0].toString(), null);
+					return resultToTable(result, ((Sequence)o).get(1).toString());
+				}	
 			}
-			
-			ExecuteStatementResult result = executeStatementRequest(imOpen.m_client, strSql, parameters);			 
-			return resultToTable(result, ((Sequence)o).get(1).toString());
 		}catch(Exception e) {
 			Logger.error(e.getStackTrace());
 		}
 		return null;
+	}
+	
+//	 public static BatchExecuteStatementResult batchExecuteStatementRequest(
+//			 AmazonDynamoDB client, String sql, Sequence seq, int paramSize ) {
+//    	try{
+//			BatchExecuteStatementRequest requests = new BatchExecuteStatementRequest();
+//			List<BatchStatementRequest> statements = new ArrayList<BatchStatementRequest>();
+//			
+//			for(int i=1; i<=seq.length(); i+=paramSize){
+//				List<AttributeValue> parameters = new ArrayList<AttributeValue>();
+//				for(int j=0; j<paramSize; j++){
+//					Object o = seq.get(i+j);
+//					AttributeValue a = new AttributeValue();
+//					if (o instanceof String){
+//						a.setS(o.toString());
+//					}else if(o instanceof Integer){
+//						a.setN(o.toString());
+//					}
+//				    parameters.add(a);
+//				}
+//				statements.add(new BatchStatementRequest()
+//						.withStatement(sql)
+//						.withParameters(parameters));
+//				break;
+//			}
+//	        requests.withStatements(statements);       
+//	        return client.batchExecuteStatement(requests);
+//    	}catch(Exception e){
+//    		Logger.error(e.getMessage());
+//    	}
+//    	return null;
+//    }
+	
+	private int getSqlParamSize(Sequence ssql){
+		int nCnt = 1;
+		if (ssql.length()>3){
+			String sWhere = ssql.get(3).toString();
+			String sMark = sWhere.replace("?", "");
+			nCnt = sWhere.length() - sMark.length();
+		}
+		if (nCnt<1){
+			throw new RQException("Sql Param Error");
+		}
+		return nCnt;
 	}
 	
 	private Table resultToTable(ExecuteStatementResult result, String strCols){
@@ -128,8 +172,8 @@ public class ImQuery extends ImFunction {
 				ret = a.getS();
 			}else if(a.getBOOL()!=null){
 	    		ret = a.getBOOL();
-			}else if(a.getBOOL()!=null){
-	    		ret = a.getBOOL();
+			}else if(a.getNULL()!=null){
+	    		ret = a.getNULL();
 			}else if(a.getN()!=null){				
 	    		ret = parseNumber(a.getN());
 			}else if(a.getL()!=null){
@@ -171,15 +215,6 @@ public class ImQuery extends ImFunction {
 		
 		return ret;
 	}
-	
-	private static ExecuteStatementResult executeStatementRequest(AmazonDynamoDB client, String statement, List<AttributeValue> parameters ) {
-        ExecuteStatementRequest request = new ExecuteStatementRequest();
-        request.setStatement(statement);
-        if (parameters!=null){
-        	request.setParameters(parameters);
-        }
-        return client.executeStatement(request);
-    }
 	
 	private Object parseNumber(String val){
 		Object ret = null;

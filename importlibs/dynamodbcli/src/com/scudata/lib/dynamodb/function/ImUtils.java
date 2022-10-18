@@ -3,7 +3,11 @@ package com.scudata.lib.dynamodb.function;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collection;
+import java.util.List;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.FileInputStream;
@@ -11,6 +15,12 @@ import java.io.FileOutputStream;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
+import com.amazonaws.services.dynamodbv2.model.AttributeValue;
+import com.amazonaws.services.dynamodbv2.model.BatchExecuteStatementRequest;
+import com.amazonaws.services.dynamodbv2.model.BatchExecuteStatementResult;
+import com.amazonaws.services.dynamodbv2.model.ExecuteStatementRequest;
+import com.amazonaws.services.dynamodbv2.model.ExecuteStatementResult;
 
 public class ImUtils {
 	public static void writeString(String file, String content) {
@@ -83,22 +93,38 @@ public class ImUtils {
 	}
 
 	// return 0:not json,1:jsonObj, 2:jsonArray
-		public static int getJsonTypeByStr(String jsonStr) {
-			int nRet = 0;
-			try{
-				Object object = JSON.parse(jsonStr);
-				if (object instanceof JSONObject) {
-					nRet = 1;
-				} else if (object instanceof JSONArray) {
-					nRet = 2;
-				} else {
-				    //System.out.println("Neither jsonobject nor jsonarray is jsonStr");
-				}
-			}catch(Exception e){
-				
+	public static int getJsonTypeByStr(String jsonStr) {
+		int nRet = 0;
+		try{
+			Object object = JSON.parse(jsonStr);
+			if (object instanceof JSONObject) {
+				nRet = 1;
+			} else if (object instanceof JSONArray) {
+				nRet = 2;
+			} else {
+			    //System.out.println("Neither jsonobject nor jsonarray is jsonStr");
 			}
-
-			return nRet;
+		}catch(Exception e){
+			
 		}
+
+		return nRet;
+	}
 	
+	public static ExecuteStatementResult executeStatementRequest(AmazonDynamoDB client, String statement, List<AttributeValue> parameters ) {
+        ExecuteStatementRequest request = new ExecuteStatementRequest();
+        request.setStatement(statement);
+        if (parameters!=null){
+        	request.setParameters(parameters);
+        }
+        return client.executeStatement(request);
+    }
+	
+	public static BatchExecuteStatementResult batchExecuteStatementRequest(AmazonDynamoDB client, String[] statements ) {
+		BatchExecuteStatementRequest requests = new BatchExecuteStatementRequest();
+		List<String> ls = Arrays.asList(statements);  
+        requests.setStatements((Collection)ls);
+       
+        return client.batchExecuteStatement(requests);
+    }
 }

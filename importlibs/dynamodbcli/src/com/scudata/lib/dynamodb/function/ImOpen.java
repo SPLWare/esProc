@@ -39,7 +39,7 @@ public class ImOpen extends ImFunction {
 		return m_dynamoDB.getTable(tblName);
 	}
 	
-	public Object doQuery(Object[] objs){
+	public Object doExec(Object[] objs){
 		try {
 			if (objs.length<2){
 				throw new RQException("dyna_open missingParam");
