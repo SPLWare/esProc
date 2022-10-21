@@ -78,7 +78,7 @@ public abstract class JWindowNames extends JWindow {
 	/**
 	 * ¹¹Ôìº¯Êý
 	 */
-	public JWindowNames(String[] fieldNames, List<FuncInfo> funcs,
+	public JWindowNames(String[] fieldNames, final List<FuncInfo> funcs,
 			boolean isToolBar) {
 		super(GV.appFrame);
 		this.funcs = funcs;
