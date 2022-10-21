@@ -3,6 +3,7 @@ package com.scudata.ide.common.function;
 import java.io.File;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.scudata.app.common.AppConsts;
 import com.scudata.app.common.Section;
@@ -81,7 +82,8 @@ public class FuncManager {
 		} catch (Throwable x) {
 			fileName = getRelativeFile();
 			readonly = true;
-			InputStream is = FuncManager.class.getResourceAsStream(getRelativeFile());
+			InputStream is = FuncManager.class
+					.getResourceAsStream(getRelativeFile());
 			if (is != null) {
 				try {
 					load(is);
@@ -102,7 +104,8 @@ public class FuncManager {
 		if (relativeFile == null) {
 			String pre = filePrefix;
 			String suf = GM.getLanguageSuffix();
-			relativeFile = GC.PATH_CONFIG + "/" + pre + "Functions" + suf + "." + AppConsts.FILE_XML;
+			relativeFile = GC.PATH_CONFIG + "/" + pre + "Functions" + suf + "."
+					+ AppConsts.FILE_XML;
 		}
 		return relativeFile;
 	}
@@ -156,7 +159,7 @@ public class FuncManager {
 	 * @param xml XML文件对象
 	 * @throws Throwable
 	 */
-	public void load(XMLFile xml) throws Throwable {
+	private void load(XMLFile xml) throws Throwable {
 		funcList.clear();
 		Section funcIDs = xml.listElement(ROOT + "/" + NORMAL);
 		for (int i = 0; i < funcIDs.size(); i++) {
@@ -197,9 +200,12 @@ public class FuncManager {
 			for (int i = 0; i < options.size(); i++) {
 				String opKey = options.get(i);
 				FuncOption fo = new FuncOption();
-				fo.setOptionChar(xml.getAttribute(rootPath + "/" + opKey + "/optionchar"));
-				fo.setDescription(xml.getAttribute(rootPath + "/" + opKey + "/description"));
-				String select = xml.getAttribute(rootPath + "/" + opKey + "/defaultselect");
+				fo.setOptionChar(xml.getAttribute(rootPath + "/" + opKey
+						+ "/optionchar"));
+				fo.setDescription(xml.getAttribute(rootPath + "/" + opKey
+						+ "/description"));
+				String select = xml.getAttribute(rootPath + "/" + opKey
+						+ "/defaultselect");
 				if (StringUtils.isValidString(select)) {
 					fo.setDefaultSelect(Boolean.valueOf(select).booleanValue());
 				}
@@ -218,7 +224,8 @@ public class FuncManager {
 	 * @param rootPath 节点路径
 	 * @param options  函数选项列表
 	 */
-	void storeOptions(XMLFile xml, String rootPath, ArrayList<FuncOption> options) {
+	void storeOptions(XMLFile xml, String rootPath,
+			ArrayList<FuncOption> options) {
 		try {
 			if (options.size() < 1) {
 				return;
@@ -229,8 +236,10 @@ public class FuncManager {
 				xml.newElement(rootPath, opKey);
 				String path = rootPath + "/" + opKey + "/";
 				xml.setAttribute(path + "optionchar", fo.getOptionChar());
-				xml.setAttribute(path + "description", removeTab(fo.getDescription()));
-				xml.setAttribute(path + "defaultselect", fo.isDefaultSelect() + "");
+				xml.setAttribute(path + "description",
+						removeTab(fo.getDescription()));
+				xml.setAttribute(path + "defaultselect", fo.isDefaultSelect()
+						+ "");
 			}
 		} catch (Exception ex) {
 		}
@@ -308,7 +317,8 @@ public class FuncManager {
 				xml.setAttribute(path + "/presign", fp.getPreSign() + "");
 				xml.setAttribute(path + "/subparam", fp.isSubParam() + "");
 				xml.setAttribute(path + "/repeatable", fp.isRepeatable() + "");
-				xml.setAttribute(path + "/identifieronly", fp.isIdentifierOnly() + "");
+				xml.setAttribute(path + "/identifieronly",
+						fp.isIdentifierOnly() + "");
 				xml.setAttribute(path + "/valuestring", fp.getParamValue());
 
 				xml.newElement(path, "options");
@@ -322,13 +332,21 @@ public class FuncManager {
 	}
 
 	/**
+	 * 返回函数列表
+	 * @return
+	 */
+	public List<FuncInfo> getFuncList() {
+		return funcList;
+	}
+
+	/**
 	 * 按序号取函数
 	 * 
 	 * @param index 序号
 	 * @return
 	 */
 	public FuncInfo getFunc(int index) {
-		return (FuncInfo) funcList.get(index);
+		return funcList.get(index);
 	}
 
 	/**
@@ -413,8 +431,10 @@ public class FuncManager {
 				xml.setAttribute(path + "/name", fi.getName());
 				xml.setAttribute(path + "/desc", removeTab(fi.getDesc()));
 				xml.setAttribute(path + "/postfix", removeTab(fi.getPostfix()));
-				xml.setAttribute(path + "/majortype", String.valueOf(fi.getMajorType()));
-				xml.setAttribute(path + "/returntype", String.valueOf(fi.getReturnType()));
+				xml.setAttribute(path + "/majortype",
+						String.valueOf(fi.getMajorType()));
+				xml.setAttribute(path + "/returntype",
+						String.valueOf(fi.getReturnType()));
 
 				xml.newElement(path, "options");
 				storeOptions(xml, path + "/options", fi.getOptions());

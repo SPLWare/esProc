@@ -62,6 +62,8 @@ public class RaqsoftConfig implements Cloneable, Externalizable {
 	private String extLibsPath = null;
 	/** File path of custom functions **/
 	private String customFunctionFile = null;
+	/** Esproc serial number */
+	private String esprocSerialNo = null;
 
 	/** Server **/
 	/** Default data source **/
@@ -660,6 +662,22 @@ public class RaqsoftConfig implements Cloneable, Externalizable {
 	}
 
 	/**
+	 * Get the esproc serial number
+	 * @return the esprocSerialNo
+	 */
+	public String getEsprocSerialNo() {
+		return esprocSerialNo;
+	}
+
+	/**
+	 * Set the esproc serial number
+	 * @param esprocSerialNo the esprocSerialNo to set
+	 */
+	public void setEsprocSerialNo(String esprocSerialNo) {
+		this.esprocSerialNo = esprocSerialNo;
+	}
+
+	/**
 	 * Deep clone
 	 * 
 	 * @return
@@ -715,6 +733,7 @@ public class RaqsoftConfig implements Cloneable, Externalizable {
 		}
 		config.setExtLibsPath(extLibsPath);
 		config.setCustomFunctionFile(customFunctionFile);
+		config.setEsprocSerialNo(esprocSerialNo);
 
 		config.setDefDataSource(defDataSource);
 		if (jndiList != null) {
@@ -756,7 +775,7 @@ public class RaqsoftConfig implements Cloneable, Externalizable {
 	 */
 	public void writeExternal(ObjectOutput out) throws IOException {
 		/* Version type */
-		out.writeByte(3);
+		out.writeByte(4);
 		out.writeObject(dbList);
 		out.writeObject(mainPath);
 		out.writeObject(splPathList);
@@ -788,6 +807,7 @@ public class RaqsoftConfig implements Cloneable, Externalizable {
 		out.writeBoolean(jdbcNode);
 		out.writeObject(customFunctionFile);
 		out.writeObject(springDBList);
+		out.writeObject(esprocSerialNo);
 	}
 
 	/**
@@ -833,6 +853,9 @@ public class RaqsoftConfig implements Cloneable, Externalizable {
 		}
 		if (version > 2) {
 			springDBList = (List<SpringDBConfig>) in.readObject();
+		}
+		if (version > 3) {
+			esprocSerialNo = (String) in.readObject();
 		}
 	}
 

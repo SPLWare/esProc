@@ -99,6 +99,8 @@ public class ConfigOptions {
 	public static String sInitSpl = null;
 	/** The path of the custom functions file */
 	public static String sCustomFunctionFile = null;
+	/** The serial number */
+	public static String sSerialNo = null;
 	/** The installation directory of slimerjs */
 	public static String sSlimerjsDirectory = null;
 	/** Date format */

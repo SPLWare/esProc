@@ -298,6 +298,7 @@ public class ConfigUtilIde {
 		ConfigOptions.sExtLibsPath = config.getExtLibsPath();
 		ConfigOptions.sInitSpl = config.getInitSpl();
 		ConfigOptions.sCustomFunctionFile = config.getCustomFunctionFile();
+		ConfigOptions.sSerialNo = config.getEsprocSerialNo();
 
 		if (StringUtils.isValidString(config.getBufSize()))
 			ConfigOptions.sFileBuffer = config.getBufSize();

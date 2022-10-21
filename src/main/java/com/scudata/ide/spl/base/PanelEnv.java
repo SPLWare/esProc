@@ -170,6 +170,7 @@ public abstract class PanelEnv extends JPanel {
 		config.setInitSpl(ConfigOptions.sInitSpl);
 		config.setImportLibs(extLibs);
 		config.setCustomFunctionFile(ConfigOptions.sCustomFunctionFile);
+		config.setEsprocSerialNo(ConfigOptions.sSerialNo);
 	}
 
 	public void load() {

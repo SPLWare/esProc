@@ -3837,4 +3837,51 @@ public class GM {
 		sql = sql.replaceAll("(/\\*.*?\\*/)|(--.*)", "");
 		return sql;
 	}
+
+	/**
+	 * 取当前选择的词起始位置
+	 * @param str
+	 * @param p
+	 * @return
+	 */
+	public static int[] getCurrentWordPosition(String str, int p) {
+		if (p > 0) {
+			if (isSymbol(str.charAt(p))) { // 光标位置是符号
+				if (isSymbol(str.charAt(p - 1))) { // 光标前一位也是符号
+					return null;
+				} else { // 移动到光标前一位，使p位是字符
+					p = p - 1;
+				}
+			}
+		} else if (p == 0) { // 光标在第一个位置
+			if (isSymbol(str.charAt(p))) { // 第一位不是字符
+				return null;
+			}
+		} else {
+			return null;
+		}
+		int start = p;
+		int end = p;
+		for (int i = p - 1; i >= 0; i--) { // 从字符位置向前找
+			char c = str.charAt(i);
+			if (isSymbol(c)) {
+				start = i + 1;
+				break;
+			}
+		}
+		for (int i = p + 1; i < str.length(); i++) { // 从字符位置向后找
+			char c = str.charAt(i);
+			if (isSymbol(c)) {
+				end = i;
+				break;
+			}
+		}
+		if (start >= end)
+			return null;
+		return new int[] { start, end };
+	}
+	
+	private static boolean isSymbol(char c) {
+		return KeyWord.isSymbol(c) || c == KeyWord.OPTION;
+	}
 }

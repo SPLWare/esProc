@@ -444,6 +444,8 @@ public class ConfigHandler extends DefaultHandler {
 			} else if (qName
 					.equalsIgnoreCase(ConfigConsts.CUSTOM_FUNCTION_FILE)) {
 				config.setCustomFunctionFile(value);
+			} else if (qName.equalsIgnoreCase(ConfigConsts.SERIAL_NO)) {
+				config.setEsprocSerialNo(value);
 			}
 		} else if (activeNode == RUNTIME_LOGGER) {
 			if (qName.equalsIgnoreCase(ConfigConsts.LEVEL)) {

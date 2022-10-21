@@ -128,6 +128,8 @@ public class ConfigConsts {
 	public static String EXTLIBS = "extLibsPath";
 	/** Custom function file path */
 	public static String CUSTOM_FUNCTION_FILE = "customFunctionFile";
+	/** Serial number */
+	public static String SERIAL_NO = "serialNo";
 
 	/**
 	 * Logger Configuration

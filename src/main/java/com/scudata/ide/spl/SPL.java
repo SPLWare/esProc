@@ -261,7 +261,7 @@ public class SPL extends AppFrame {
 			AppToolBar toolBase = null;
 			ToolBarPropertyBase toolBarProperty = null;
 			toolBase = GVSpl.getBaseTool();
-			toolBarProperty = GVSpl.getSplProperty();
+			toolBarProperty = newToolBarProperty();
 			//
 			GV.appTool = toolBase;
 			GV.toolBarProperty = toolBarProperty;
@@ -412,6 +412,14 @@ public class SPL extends AppFrame {
 	 */
 	protected AppMenu newMenuSpl() {
 		return GVSpl.getSplMenu();
+	}
+
+	/**
+	 * 创建SPL工具条
+	 * @return
+	 */
+	protected ToolBarPropertyBase newToolBarProperty() {
+		return GVSpl.getSplProperty();
 	}
 
 	/**

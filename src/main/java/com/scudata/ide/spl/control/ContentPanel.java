@@ -116,10 +116,10 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	public int drawStartRow, drawStartCol, drawEndRow, drawEndCol;
 
 	/** 多行编辑框 */
-	private JTextPaneEx multiEditor;
+	protected JTextPaneEx multiEditor;
 
 	/** 当前编辑控件 */
-	private JComponent editor;
+	protected JComponent editor;
 
 	/** 用方向键改变当前单元格时，记录的当前光标行号 */
 	public int rememberedRow = 0;
@@ -289,8 +289,7 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 		} else {
 			enableInputMethods(true);
 			addInputMethodListener(this);
-			CellEditingListener listener = new CellEditingListener(control,
-					this);
+			CellEditingListener listener = newCellEditingListener(control);
 			multiEditor.addKeyListener(listener);
 			EditorRightClicked erc = new EditorRightClicked(control);
 			multiEditor.addMouseListener(erc);
@@ -319,6 +318,16 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	 */
 	protected CellSetParser newCellSetParser(CellSet cellSet) {
 		return new CellSetParser(cellSet);
+	}
+	
+	/**
+	 * 创建网格编辑监听器
+	 * @return
+	 */
+	protected CellEditingListener newCellEditingListener(SplControl control){
+		CellEditingListener listener = new CellEditingListener(control,
+				this);
+		return listener;
 	}
 
 	/**

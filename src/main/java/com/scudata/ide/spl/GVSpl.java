@@ -96,13 +96,4 @@ public class GVSpl extends GV {
 		return appTool;
 	}
 
-	/**
-	 * 取基础属性工具栏（无文件打开时）
-	 * 
-	 * @return
-	 */
-	public static ToolBarPropertyBase getBaseProperty() {
-		toolBarProperty = new ToolBarProperty();
-		return toolBarProperty;
-	}
 }
