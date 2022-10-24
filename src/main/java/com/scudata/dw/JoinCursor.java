@@ -72,6 +72,7 @@ public class JoinCursor extends ICursor {
 	private Record r;//当前记录
 	
 	private ICursor cursor2;//A/cs
+	private String[] csNames;//A/cs:K的K，用于指定A/cs参与连接的字段
 	private Sequence cache2;
 
 	private int cur1 = -1;
@@ -87,7 +88,6 @@ public class JoinCursor extends ICursor {
 	
 	private boolean hasExps;//有表达式
 	private boolean hasR;//有属性r
-	private boolean hasZ;//有属性z
 	private DataStruct ds1;//从T中取出一组数据汇总时用
 	
 	private boolean needSkipSeg;//取数前需要跳段
@@ -99,6 +99,7 @@ public class JoinCursor extends ICursor {
 	 * @param exps 取出表达式
 	 * @param fields 取出字段名称
 	 * @param cursor2 参数cs
+	 * @param csNames 参数K，指定A/cs参与连接的字段
 	 * @param type	计算类型，0:derive; 1:new; 2:news; 0x1X 表示跳段;
 	 * @param option 选项	
 	 * @param filter 对table的过滤条件
@@ -106,10 +107,11 @@ public class JoinCursor extends ICursor {
 	 * @param codes
 	 * @param ctx
 	 */
-	public JoinCursor(ITableMetaData table, Expression []exps, String []fields, ICursor cursor2, 
+	public JoinCursor(ITableMetaData table, Expression []exps, String []fields, ICursor cursor2, String[] csNames,
 			int type, String option, Expression filter, String []fkNames, Sequence []codes, String[] opts, Context ctx) {
 		this.table = table;
 		this.cursor2 = cursor2;
+		this.csNames = csNames;
 		this.exps = exps;
 		this.fields = fields;
 		this.fkNames = fkNames;
@@ -118,9 +120,6 @@ public class JoinCursor extends ICursor {
 		
 		if (option != null && option.indexOf("r") != -1) {
 			this.hasR = true;
-		}
-		if (option != null && option.indexOf("z") != -1) {
-			this.hasZ = true;
 		}
 		needSkipSeg = (type & 0x10) == 0x10;
 		type &= 0x0f;
@@ -262,22 +261,40 @@ public class JoinCursor extends ICursor {
 		}
 		ds2 = ((Record) seq.get(1)).dataStruct();
 		
-		if (hasZ) {
-			//有选项z时就是T的主键
+		if (isNew) {
+			//new时就是T的主键
 			if (joinNames == null) {
 				MessageManager mm = EngineMessage.get();
 				throw new RQException(mm.getMessage("ds.lessKey"));
 			}
 			keyCount = joinNames.length;
 			keyIndex2 = new int[keyCount];
-			for (int i = 0; i < keyCount; i++) {
-				keyIndex2[i] = i;
+			if (csNames == null) {
+				for (int i = 0; i < keyCount; i++) {
+					keyIndex2[i] = i;
+				}
+			} else {
+				if (csNames.length > keyCount) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException(mm.getMessage("ds.lessKey"));
+				}
+				for (int i = 0; i < keyCount; i++) {
+					keyIndex2[i] = ds2.getFieldIndex(csNames[i]);
+				}
 			}
 		} else {
-			//没有选项z时取cs的主键
+			//news时取cs的主键
 			
 			//1.得到cs主键的下标
-			keyIndex2 = ds2.getPKIndex();
+			if (csNames == null) {
+				keyIndex2 = ds2.getPKIndex();
+			} else {
+				int csNamesLen = csNames.length;
+				keyIndex2 = new int[csNamesLen];
+				for (int i = 0; i < csNamesLen; i++) {
+					keyIndex2[i] = ds2.getFieldIndex(csNames[i]);
+				}
+			}
 			if (keyIndex2 == null) {
 				MessageManager mm = EngineMessage.get();
 				throw new RQException(mm.getMessage("ds.lessKey"));

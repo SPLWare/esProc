@@ -2,7 +2,6 @@ package com.scudata.dw.pseudo;
 
 import java.util.ArrayList;
 import com.scudata.common.RQException;
-import com.scudata.common.Types;
 import com.scudata.dm.Context;
 import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;

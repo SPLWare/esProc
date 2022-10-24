@@ -1481,6 +1481,7 @@ public class ClusterTableMetaData implements IClusterObject, IResource {
 	 * @param exps	选出字段或表达式
 	 * @param fields	选出字段新名称
 	 * @param cursor2	
+	 * @param csNames cursor2的连接字段 (为null时用主键)
 	 * @param type
 	 * @param option
 	 * @param filter
@@ -1488,7 +1489,7 @@ public class ClusterTableMetaData implements IClusterObject, IResource {
 	 * @param codes
 	 * @return
 	 */
-	public ClusterCursor news(Expression []exps, String []fields, Object cursor2, 
+	public ClusterCursor news(Expression []exps, String []fields, Object cursor2, String[] csNames,
 			int type, String option,  Expression filter, String []fkNames, Sequence []codes, String[] opts) {
 		Cluster cluster = getCluster();
 		int unitCount = cluster.getUnitCount();
@@ -1539,6 +1540,7 @@ public class ClusterTableMetaData implements IClusterObject, IResource {
 				command.setAttribute("unit", new Integer(i));
 				command.setAttribute("isSeq", isSeq);
 				command.setAttribute("cs2ProxyId", new Integer(cs2ProxyIds[i]));
+				command.setAttribute("csNames", csNames);
 				
 				Response response = client.send(command);
 				Integer id = (Integer)response.checkResult();
@@ -1570,6 +1572,7 @@ public class ClusterTableMetaData implements IClusterObject, IResource {
 		Integer unit = (Integer) attributes.get("unit");
 		Boolean isSeq = (Boolean) attributes.get("isSeq");
 		Integer cs2ProxyId = (Integer) attributes.get("cs2ProxyId");
+		String []csNames = (String[])attributes.get("csNames");
 		
 		try {
 			JobSpace js = JobSpaceManager.getSpace(jobSpaceID);
@@ -1603,13 +1606,13 @@ public class ClusterTableMetaData implements IClusterObject, IResource {
 					if (filter != null) {
 						w = filter.newExpression(ctx); // 分段并行读取时需要复制表达式，同一个表达式不支持并行运算
 					}
-					ICursor cs = new JoinCursor(tmd.getTableMetaData(), exps, fields, cursors[i], 
+					ICursor cs = new JoinCursor(tmd.getTableMetaData(), exps, fields, cursors[i], csNames, 
 							type | 0x10, option, w, fkNames, codes, opts, ctx);
 					cursors[i] = cs;
 				}
 				cursor = new MultipathCursors(cursors, ctx);
 			} else {
-				cursor = new JoinCursor(tmd.getTableMetaData(), exps, fields, cursor, type, 
+				cursor = new JoinCursor(tmd.getTableMetaData(), exps, fields, cursor, csNames, type, 
 						option, filter, fkNames, codes, opts, ctx);
 			}
 			

@@ -152,13 +152,17 @@ public class AttachNews extends OperableFunction {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("news" + mm.getMessage("function.invalidParam"));
 		}
-		Object obj = param.getSub(0).getLeafExpression().calculate(ctx);		
+		
+		Object[] objs = AttachNew.parse1stParam(param, ctx);
+		Object obj = objs[0];
+		String[] csNames = (String[]) objs[1];
+		
 		IParam newParam = param.create(1, param.getSubSize());
 		ParamInfo2 pi = ParamInfo2.parse(newParam, "news", false, false);
 		Expression []exps = pi.getExpressions1();
 		String []names = pi.getExpressionStrs2();
 		
-		return new PseudoNews(((PseudoTable) pseudo).getPd(), obj, exps, names, 
+		return new PseudoNews(((PseudoTable) pseudo).getPd(), obj, csNames, exps, names, 
 				filter, fkNames, codes, opts, option);
 	}
 }

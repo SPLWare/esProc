@@ -6,6 +6,7 @@ import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
 import com.scudata.dm.Sequence;
+import com.scudata.dm.cursor.ICursor;
 import com.scudata.dm.op.Derive;
 import com.scudata.dw.pseudo.IPseudo;
 import com.scudata.dw.pseudo.PseudoDerive;
@@ -15,6 +16,7 @@ import com.scudata.expression.IParam;
 import com.scudata.expression.Node;
 import com.scudata.expression.OperableFunction;
 import com.scudata.expression.ParamInfo2;
+import com.scudata.expression.mfn.dw.New;
 import com.scudata.expression.operator.And;
 import com.scudata.resources.EngineMessage;
 
@@ -170,13 +172,17 @@ public class AttachDerive extends OperableFunction {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("derive" + mm.getMessage("function.invalidParam"));
 		}
-		Object obj = param.getSub(0).getLeafExpression().calculate(ctx);		
+		
+		Object[] objs = AttachNew.parse1stParam(param, ctx);
+		Object obj = objs[0];
+		String[] csNames = (String[]) objs[1];
+		
 		IParam newParam = param.create(1, param.getSubSize());
 		ParamInfo2 pi = ParamInfo2.parse(newParam, "derive", false, false);
 		Expression []exps = pi.getExpressions1();
 		String []names = pi.getExpressionStrs2();
 		
-		return new PseudoDerive(((PseudoTable) pseudo).getPd(), obj, exps, names, 
+		return new PseudoDerive(((PseudoTable) pseudo).getPd(), obj, csNames, exps, names, 
 				filter, fkNames, codes, opts, option);
 	}
 }
