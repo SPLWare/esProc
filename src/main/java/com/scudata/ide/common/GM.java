@@ -3845,6 +3845,8 @@ public class GM {
 	 * @return
 	 */
 	public static int[] getCurrentWordPosition(String str, int p) {
+		if (!StringUtils.isValidString(str))
+			return null;
 		if (p > 0) {
 			if (isSymbol(str.charAt(p))) { // 光标位置是符号
 				if (isSymbol(str.charAt(p - 1))) { // 光标前一位也是符号
@@ -3880,7 +3882,7 @@ public class GM {
 			return null;
 		return new int[] { start, end };
 	}
-	
+
 	private static boolean isSymbol(char c) {
 		return KeyWord.isSymbol(c) || c == KeyWord.OPTION;
 	}
