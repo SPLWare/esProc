@@ -3847,20 +3847,22 @@ public class GM {
 	public static int[] getCurrentWordPosition(String str, int p) {
 		if (!StringUtils.isValidString(str))
 			return null;
-		if (p > 0) {
-			if (isSymbol(str.charAt(p))) { // 光标位置是符号
-				if (isSymbol(str.charAt(p - 1))) { // 光标前一位也是符号
-					return null;
-				} else { // 移动到光标前一位，使p位是字符
-					p = p - 1;
-				}
-			}
+		if (p < 0) {
+			return null;
 		} else if (p == 0) { // 光标在第一个位置
 			if (isSymbol(str.charAt(p))) { // 第一位不是字符
 				return null;
 			}
 		} else {
-			return null;
+			if (p < str.length()) {
+				if (isSymbol(str.charAt(p))) { // 光标位置是符号
+					if (isSymbol(str.charAt(p - 1))) { // 光标前一位也是符号
+						return null;
+					} else { // 移动到光标前一位，使p位是字符
+						p = p - 1;
+					}
+				}
+			}
 		}
 		int start = p;
 		int end = p;
