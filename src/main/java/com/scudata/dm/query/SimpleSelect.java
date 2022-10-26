@@ -1,6 +1,7 @@
 package com.scudata.dm.query;
 
 import java.io.BufferedInputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
@@ -17,7 +18,6 @@ import java.util.Set;
 import java.util.regex.Pattern;
 
 import com.scudata.cellset.ICellSet;
-import com.scudata.common.DBTypes;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.common.UUID;
@@ -31,16 +31,20 @@ import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
 import com.scudata.dm.cursor.BFileCursor;
+import com.scudata.dm.cursor.ConjxCursor;
 import com.scudata.dm.cursor.FileCursor;
 import com.scudata.dm.cursor.ICursor;
 import com.scudata.dm.cursor.MemoryCursor;
 import com.scudata.dm.cursor.MultipathCursors;
 import com.scudata.dm.cursor.SubCursor;
 import com.scudata.dm.cursor.SyncCursor;
+import com.scudata.dm.op.Derive;
 import com.scudata.dm.op.Join;
 import com.scudata.dm.op.New;
+import com.scudata.dm.op.Operation;
 import com.scudata.dm.op.Select;
 import com.scudata.dm.query.utils.ExpressionTranslator;
+import com.scudata.dm.query.utils.FileUtil;
 import com.scudata.dm.sql.FunInfoManager;
 import com.scudata.dw.GroupTable;
 import com.scudata.dw.TableMetaData;
@@ -117,13 +121,36 @@ public class SimpleSelect
 		private String name;
 		private String alias;
 		private FileObject file;
+		private ArrayList<FileObject> files = new ArrayList<FileObject>();
+		public ArrayList<FileObject> getFiles() {
+			return files;
+		}
+
+		public void setFiles(ArrayList<FileObject> files) {
+			this.files = files;
+			if (this.files == null || this.files.size()==0 && this.file != null) {
+				files = new ArrayList<FileObject>();
+				files.add(file);
+			}
+		}
+
 		private TableMetaData meta;
+		private ArrayList<TableMetaData> metas;
 		private int type;
 		private ICursor cursor;
 		private DataStruct struct;
 		private String[] fields;
 		private Expression where;
+		private boolean fileAttrQuery=false;
 		
+		public boolean isFileAttrQuery() {
+			return fileAttrQuery;
+		}
+
+		public void setFileAttrQuery(boolean fileAttrQuery) {
+			this.fileAttrQuery = fileAttrQuery;
+		}
+
 		public TableNode(String tableName, String aliasName, FileObject fileObject, int type)
 		{
 			if(tableName != null)
@@ -239,19 +266,46 @@ public class SimpleSelect
 			}
 		}
 		
+		private String[] getDataField() {
+			if (this.fields == null || this.fields.length == 0) return this.fields;
+			String n = "";
+			for (int i=0; i<this.fields.length; i++) {
+				if (SimpleSelect.fnames.indexOf(fields[i])!=-1) continue;
+				n += "," + fields[i];
+			}
+			if (n.length()>0) return n.substring(1).split(",");
+			else return new String[0];
+		}
+		private String[] getFileField() {
+			if (this.fields == null || this.fields.length == 0) return this.fields;
+			String n = "";
+			for (int i=0; i<this.fields.length; i++) {
+				if (SimpleSelect.fnames.indexOf(fields[i])==-1) continue;
+				n += "," + fields[i];
+			}
+			if (n.length()>0) return n.substring(1).split(",");
+			else return new String[0];
+		}
+		
 		public ICursor getCursor()
 		{
 			ICursor icursor = null;
 			if(this.file != null || this.meta != null)
 			{
+				if (this.fileAttrQuery) {
+					//return new FileCursor(new FileObject("d:/test/fileAttr.txt"), 1, 1, this.fields, null, null, "t", ctx);
+				}
+				
 				if(this.type == TableNode.TYPE_GTB)	// 组表文件
 				{
-					if(this.meta == null && this.file != null)
-					{
+					ICursor []cursors2 = new ICursor[this.files.size()];
+					metas = new ArrayList<TableMetaData>(); 
+					for (int z=0; z<this.files.size(); z++) {
+						
 						GroupTable group = null;
 						try 
 						{
-							group = GroupTable.open(this.file.getLocalFile().getFile(), ctx);
+							group = GroupTable.open(this.files.get(z).getLocalFile().getFile(), ctx);
 							group.checkPassword(password);
 						} 
 						catch (Exception e) 
@@ -260,162 +314,284 @@ public class SimpleSelect
 							throw new RQException(mm.getMessage("syntax.error") + ":TableNode.getCursor, 打开组表文件失败", e);
 						}
 						
-						this.meta = group.getBaseTable();
-						if(this.meta == null)
+						TableMetaData meta = group.getBaseTable();
+						if(meta == null)
 						{
 							MessageManager mm = ParseMessage.get();
 							throw new RQException(mm.getMessage("syntax.error") + ":TableNode.getCursor, 组表中没有创建基表");
 						}
-					}
-
-					String indexName = null;
-					if(this.where != null)
-					{
-						String[] indexFields = TableMetaData.getExpFields(this.where, this.meta.getColNames());
-						if(indexFields != null)
+						metas.add(meta);
+	
+						String indexName = null;
+						if(this.where != null)
 						{
-							indexName = this.meta.chooseIndex(indexFields);
-						}
-					}
-					
-					if(indexName != null)
-					{
-						icursor = this.meta.icursor(this.fields, this.where, indexName, null, ctx);
-						if(parallelNumber > 1)
-						{
-							ICursor []cursors = new ICursor[parallelNumber];
-							for (int i = 0; i < parallelNumber; ++i) 
+							String[] indexFields = TableMetaData.getExpFields(this.where, meta.getColNames());
+							if(indexFields != null)
 							{
-								cursors[i] = new SyncCursor(icursor);
+								indexName = this.meta.chooseIndex(indexFields);
 							}
-							icursor = new MultipathCursors(cursors, ctx);
 						}
-					}
-					else
-					{
-						if(parallelNumber == 1)
+						
+						if(indexName != null)
 						{
-							icursor = this.meta.cursor(this.fields, this.where, ctx);
-						}
-						else if(parallelNumber > 1)
-						{
-							ICursor []cursors = new ICursor[parallelNumber];
-							for (int i = 0; i < parallelNumber; ++i) 
+							cursors2[z] = meta.icursor(this.fields, this.where, indexName, null, ctx);
+							if(parallelNumber > 1)
 							{
-								cursors[i] = this.meta.cursor(null, fields, where, null, null, null, i+1, parallelNumber, ctx);
+								ICursor []cursors = new ICursor[parallelNumber];
+								for (int i = 0; i < parallelNumber; ++i) 
+								{
+									cursors[i] = new SyncCursor(icursor);
+								}
+								cursors2[z] = new MultipathCursors(cursors, ctx);
 							}
-							icursor = new MultipathCursors(cursors, ctx);
+						}
+						else
+						{
+							if(parallelNumber == 1)
+							{
+								cursors2[z] = meta.cursor(this.fields, this.where, ctx);
+							}
+							else if(parallelNumber > 1)
+							{
+								ICursor []cursors = new ICursor[parallelNumber];
+								for (int i = 0; i < parallelNumber; ++i) 
+								{
+									cursors[i] = meta.cursor(null, fields, where, null, null, null, i+1, parallelNumber, ctx);
+								}
+								cursors2[z] = new MultipathCursors(cursors, ctx);
+							}
 						}
 					}
+					if (this.files.size() == 1) icursor = cursors2[0];
+					else icursor = new ConjxCursor(cursors2);
 				}
 				else if(this.type == TableNode.TYPE_BIN) // 集文件
 				{
-					//非分段二进制文件不能并行读取
-					if(parallelNumber == 1 || SimpleSQL.checkParallel(this.file) == BFileWriter.TYPE_NORMAL)
-					{
-						icursor = new BFileCursor(this.file, this.fields, 1, 1, null, ctx);
-					}
-					else
-					{
-						ICursor []cursors = new ICursor[parallelNumber];
-						for (int i = 0; i < parallelNumber; ++i) 
+					ICursor []cursors2 = new ICursor[this.files.size()];
+					for (int z=0; z<this.files.size(); z++) {
+						//非分段二进制文件不能并行读取
+						if(parallelNumber == 1 || SimpleSQL.checkParallel(this.file) == BFileWriter.TYPE_NORMAL)
 						{
-							cursors[i] = new BFileCursor(this.file, this.fields, i+1, parallelNumber, null, ctx);
-						}		
-						icursor = new MultipathCursors(cursors, ctx);
+							FileObject foi = this.files.get(z);
+							BFileCursor bf = new BFileCursor(foi, this.fields, 1, 1, null, ctx);
+							cursors2[z] = bf;
+
+							String[] ff = SimpleSelect.fnames.toArray( new String[SimpleSelect.fnames.size()]);
+							Expression[] exps = new Expression[ff.length];
+							for (int m=0; m<ff.length; m++) {
+								if ("_file".equals(ff[m])) exps[m] = new Expression("\""+foi.getFileName()+"\"");
+								else if ("_ext".equals(ff[m])) exps[m] = new Expression("\""+foi.getFileName().substring(foi.getFileName().lastIndexOf("."))+"\"");
+								else if ("_date".equals(ff[m])) exps[m] = new Expression("\""+foi.getFile().lastModified()+"\"");
+								else if ("_size".equals(ff[m])) exps[m] = new Expression("\""+foi.getFile().size()+"\"");
+							}
+							Operation op = new Derive(exps, ff, null);
+							cursors2[z].addOperation(op, ctx);
+
+							if (this.fields != null) {
+								Expression[] exps2 = new Expression[fields.length];
+								for (int m=0; m<fields.length; m++) {
+									exps2[m] = new Expression(fields[m]);
+								}
+
+								cursors2[z].addOperation(new New(null, exps2, this.fields, null), ctx);
+							}
+						}
+						else
+						{
+							ICursor []cursors = new ICursor[parallelNumber];
+							for (int i = 0; i < parallelNumber; ++i) 
+							{
+								cursors[i] = new BFileCursor(this.file, this.fields, i+1, parallelNumber, null, ctx);
+							}		
+							cursors2[z] = new MultipathCursors(cursors, ctx);
+						}
+
+
 					}
+					if (this.files.size() == 1) icursor = cursors2[0];
+					else icursor = new ConjxCursor(cursors2);
 				}
 				else if(this.type == TableNode.TYPE_CSV)// CSV文件
 				{
-					icursor = new FileCursor(this.file, 1, 1, this.fields, null, null, "tc", ctx);
+					ICursor []cursors = new ICursor[this.files.size()];
+					for (int i=0; i<this.files.size(); i++) {
+						FileObject foi = this.files.get(i);
+						cursors[i] = new FileCursor(foi, 1, 1, null, null, null, "tc", ctx);
+						
+						String[] ff = SimpleSelect.fnames.toArray( new String[SimpleSelect.fnames.size()]);
+						Expression[] exps = new Expression[ff.length];
+						for (int m=0; m<ff.length; m++) {
+							if ("_file".equals(ff[m])) exps[m] = new Expression("\""+foi.getFileName()+"\"");
+							else if ("_ext".equals(ff[m])) exps[m] = new Expression("\""+foi.getFileName().substring(foi.getFileName().lastIndexOf("."))+"\"");
+							else if ("_date".equals(ff[m])) exps[m] = new Expression("\""+foi.getFile().lastModified()+"\"");
+							else if ("_size".equals(ff[m])) exps[m] = new Expression("\""+foi.getFile().size()+"\"");
+						}
+						Operation op = new Derive(exps, ff, null);
+						cursors[i].addOperation(op, ctx);
+
+						if (this.fields != null) {
+							Expression[] exps2 = new Expression[fields.length];
+							for (int m=0; m<fields.length; m++) {
+								exps2[m] = new Expression(fields[m]);
+							}
+
+							cursors[i].addOperation(new New(null, exps2, this.fields, null), ctx);
+						}
+					}
+					if (this.files.size() == 1) icursor = cursors[0];
+					else icursor = new ConjxCursor(cursors);
 				}
 				else if(this.type == TableNode.TYPE_TXT)// TXT文件
 				{
-					icursor = new FileCursor(this.file, 1, 1, this.fields, null, null, "t", ctx);
+					ICursor []cursors = new ICursor[this.files.size()];
+					for (int i=0; i<this.files.size(); i++) {
+						FileObject foi = this.files.get(i);
+						cursors[i] = new FileCursor(foi, 1, 1, null, null, null, "t", ctx);
+						
+						String[] ff = SimpleSelect.fnames.toArray( new String[SimpleSelect.fnames.size()]);
+						Expression[] exps = new Expression[ff.length];
+						for (int m=0; m<ff.length; m++) {
+							if ("_file".equals(ff[m])) exps[m] = new Expression("\""+foi.getFileName()+"\"");
+							else if ("_ext".equals(ff[m])) exps[m] = new Expression("\""+foi.getFileName().substring(foi.getFileName().lastIndexOf("."))+"\"");
+							else if ("_date".equals(ff[m])) exps[m] = new Expression("\""+foi.getFile().lastModified()+"\"");
+							else if ("_size".equals(ff[m])) exps[m] = new Expression("\""+foi.getFile().size()+"\"");
+						}
+						Operation op = new Derive(exps, ff, null);
+						cursors[i].addOperation(op, ctx);
+
+						if (this.fields != null) {
+							Expression[] exps2 = new Expression[fields.length];
+							for (int m=0; m<fields.length; m++) {
+								exps2[m] = new Expression(fields[m]);
+							}
+
+							cursors[i].addOperation(new New(null, exps2, this.fields, null), ctx);
+						}
+					}
+					if (this.files.size() == 1) icursor = cursors[0];
+					else icursor = new ConjxCursor(cursors);
 				}
 				else if(this.type == TableNode.TYPE_XLS || this.type == TableNode.TYPE_XLSX)// XLS文件
 				{
-					boolean isXlsx = ((this.type == TableNode.TYPE_XLSX) ? true : false);
-					InputStream in = this.file.getInputStream();
-					BufferedInputStream bis = new BufferedInputStream(in, Env.FILE_BUFSIZE);
-					ExcelTool importer = new ExcelTool(bis, isXlsx, password);
-					try 
-					{
-						Table tab = FileObject.import_x(importer, "t");
-						icursor = new MemoryCursor(tab);
-						if(this.fields != null)
-						{
-							Expression[] colExps = new Expression[this.fields.length];
-							for(int i=0, len=this.fields.length; i<len; i++)
-							{
-								int index = -1;
-								for(int j=0, sz=this.struct.getFieldCount(); j<sz; j++)
-								{
-									if(this.struct.getFieldName(j).equalsIgnoreCase(this.fields[i]))
-									{
-										index = j;
-										break;
-									}
-								}
-								if(index == -1)
-								{
-									MessageManager mm = ParseMessage.get();
-									throw new RQException(mm.getMessage("syntax.error") + ":TableNode.getCursor, 要查询的字段名不在临时表中");
-								}
-								colExps[i] = new Expression(String.format("#%d", index+1));
-							}
-							icursor.addOperation(new New(null, colExps, this.fields, null), ctx);
-						}
-					}
-					catch(IOException e)
-					{
-						MessageManager mm = ParseMessage.get();
-						throw new RQException(mm.getMessage("syntax.error") + ":TableNode.getCursor, 读取XLS格式的表文件失败", e);
-					}
-					finally 
-					{
+					ICursor []cursors = new ICursor[this.files.size()];
+					for (int z=0; z<this.files.size(); z++) {
+						boolean isXlsx = ((this.type == TableNode.TYPE_XLSX) ? true : false);
+						InputStream in = this.files.get(z).getInputStream();
+						BufferedInputStream bis = new BufferedInputStream(in, Env.FILE_BUFSIZE);
+						ExcelTool importer = new ExcelTool(bis, isXlsx, password);
+						FileObject foi = this.files.get(z);
 						try 
 						{
-							if (in != null)
-							{
-								in.close();
-							}
-							if (bis != null)
-							{
-								bis.close();
-							}
-						} 
-						catch (IOException e) 
+							Table t2 = FileObject.import_x(importer, "t");
+							t2 = t2.derive(new String[]{"_file","_ext","_date","_size"}, new Expression[]{new Expression("\""+foi.getFileName()+"\"")
+									,new Expression("\""+foi.getFileName().substring(foi.getFileName().lastIndexOf("."))+"\"")
+									,new Expression("\""+foi.getFile().lastModified()+"\"")
+									,new Expression("\""+foi.getFile().size()+"\"")}, null, ctx);						
+							if (this.fields != null && this.fields.length>0) {
+								Expression[] exps2 = new Expression[this.fields.length];
+								for (int p=0; p<this.fields.length; p++) exps2[p] = new Expression(this.fields[p]);
+								t2 = t2.newTable(this.fields, exps2, ctx);
+							}	
+							cursors[z] = new MemoryCursor(t2);
+//							if(this.fields != null)
+//							{
+//								Expression[] colExps = new Expression[this.fields.length];
+//								for(int i=0, len=this.fields.length; i<len; i++)
+//								{
+//									int index = -1;
+//									for(int j=0, sz=this.struct.getFieldCount(); j<sz; j++)
+//									{
+//										if(this.struct.getFieldName(j).equalsIgnoreCase(this.fields[i]))
+//										{
+//											index = j;
+//											break;
+//										}
+//									}
+//									if(index == -1)
+//									{
+//										MessageManager mm = ParseMessage.get();
+//										throw new RQException(mm.getMessage("syntax.error") + ":TableNode.getCursor, 要查询的字段名不在临时表中");
+//									}
+//									colExps[i] = new Expression(String.format("#%d", index+1));
+//								}
+//								cursors[z].addOperation(new New(null, colExps, this.fields, null), ctx);
+//							}
+						}
+						catch(IOException e)
 						{
 							MessageManager mm = ParseMessage.get();
-							throw new RQException(mm.getMessage("syntax.error") + ":TableNode.getCursor, 关闭XLS文件失败", e);
+							throw new RQException(mm.getMessage("syntax.error") + ":TableNode.getCursor, 读取XLS格式的表文件失败", e);
+						}
+						finally 
+						{
+							try 
+							{
+								if (in != null)
+								{
+									in.close();
+								}
+								if (bis != null)
+								{
+									bis.close();
+								}
+							} 
+							catch (IOException e) 
+							{
+								MessageManager mm = ParseMessage.get();
+								throw new RQException(mm.getMessage("syntax.error") + ":TableNode.getCursor, 关闭XLS文件失败", e);
+							}
 						}
 					}
+					if (this.files.size() == 1) icursor = cursors[0];
+					else icursor = new ConjxCursor(cursors);
+
 				}
 				else if(this.type == TableNode.TYPE_JSON)
 				{
 					try 
 					{
-						char[] jsonArray = ((String)this.file.read(0, -1, null)).toCharArray();
-						Object result = JSONUtil.parseJSON(jsonArray, 0, jsonArray.length - 1);
-						if(result instanceof Sequence)
-						{
-							icursor = new MemoryCursor((Sequence)result);
+						ICursor []cursors = new ICursor[this.files.size()];
+						for (int i=0; i<this.files.size(); i++) {
+							char[] jsonArray = ((String)this.files.get(i).read(0, -1, null)).toCharArray();
+							Object result = JSONUtil.parseJSON(jsonArray, 0, jsonArray.length - 1);
+							Sequence seq = null;
+							if(result instanceof Sequence)
+							{
+								seq = (Sequence)result;
+							}
+							else if(result instanceof Record)
+							{
+								seq = new Sequence();
+								seq.add(result);
+							}
+							else
+							{
+								DataStruct datastruct = new DataStruct(new String[]{"_1"});
+								Record record = new Record(datastruct, new Object[]{result});
+								seq = new Sequence();
+								seq.add(record);
+							}
+							FileObject foi = this.files.get(i);
+							if (!(seq instanceof Table)) {
+								MessageManager mm = ParseMessage.get();
+								throw new RQException(mm.getMessage("syntax.error") + ":TableNode.getCursor, 读取文件数据失败");
+							}
+							Table t2 = (Table)seq;
+							t2 = t2.derive(new String[]{"_file","_ext","_date","_size"}, new Expression[]{new Expression("\""+foi.getFileName()+"\"")
+									,new Expression("\""+foi.getFileName().substring(foi.getFileName().lastIndexOf("."))+"\"")
+									,new Expression("\""+foi.getFile().lastModified()+"\"")
+									,new Expression("\""+foi.getFile().size()+"\"")}, null, ctx);						
+							if (this.fields != null && this.fields.length>0) {
+								Expression[] exps2 = new Expression[this.fields.length];
+								for (int z=0; z<this.fields.length; z++) exps2[z] = new Expression(this.fields[z]);
+								t2 = t2.newTable(this.fields, exps2, ctx);
+							}	
+							cursors[i] = new MemoryCursor(t2);
+
 						}
-						else if(result instanceof Record)
-						{
-							Sequence sequence = new Sequence();
-							sequence.add(result);
-							icursor = new MemoryCursor(sequence);
-						}
-						else
-						{
-							DataStruct datastruct = new DataStruct(new String[]{"_1"});
-							Record record = new Record(datastruct, new Object[]{result});
-							Sequence sequence = new Sequence();
-							sequence.add(record);
-							icursor = new MemoryCursor(sequence);
-						}
+						if (this.files.size() == 1) icursor = cursors[0];
+						else icursor = new ConjxCursor(cursors);
+						
 					} 
 					catch(Exception e) 
 					{
@@ -527,6 +703,7 @@ public class SimpleSelect
 						if(icursor != null)
 						{
 							Sequence seq = icursor.peek(1);
+							System.out.println(seq);
 							if(seq != null)
 							{
 								this.struct = seq.dataStruct();
@@ -548,6 +725,8 @@ public class SimpleSelect
 				this.fields = fields;//还原setAccessColumn
 				this.where = where; //还原提前过滤
 			}
+			
+			System.out.println("this.struct="+Arrays.toString(this.struct.getFieldNames()));
 			
 			return this.struct;
 		}
@@ -3448,7 +3627,12 @@ public class SimpleSelect
 				}
 				
 				boolean fileExists = false;
-				FileObject fileObject = new FileObject(tableName, null, "s", this.ctx);
+				//System.out.println("tableName " + tableName);
+				File[] fs = FileUtil.getFiles(tableName);
+				//System.out.println("fs.length " + fs.length);
+				FileObject fileObject = new FileObject(fs[0].getAbsolutePath(), null, "s", this.ctx);
+				ArrayList<FileObject> objs = new ArrayList<FileObject>();
+				for (int i=0; i<fs.length; i++) objs.add(new FileObject(fs[i].getAbsolutePath(), null, "s", this.ctx));
 				if(!fileObject.isExists())
 				{
 					String password = null;
@@ -3673,6 +3857,8 @@ public class SimpleSelect
 					MessageManager mm = ParseMessage.get();
 					throw new RQException(mm.getMessage("syntax.error") + ":scanFrom, 异常的表名(注意表名不能为关键字或以数字开头):"+tokens[start].getOriginString());
 				}
+				
+				if (this.tableNode != null) this.tableNode.setFiles(objs);
 			}
 			
 			if (wherePos > 0) 
@@ -3741,6 +3927,7 @@ public class SimpleSelect
 				for(int i=0, len = fieldNames.length; i<len; i++)
 				{
 					String name = fieldNames[i];
+					if (SimpleSelect.fnames.indexOf(name)>=0) continue;
 					ArrayList<Node> expList = new ArrayList<Node>();
 					expList.add(new FieldNode(name));
 					ExpressionNode expNode = new ExpressionNode(expList);
@@ -5256,6 +5443,7 @@ public class SimpleSelect
 		}
 	}
 	
+	public static List<String> fnames = Arrays.asList(new String[]{"_file","_ext","_date","_size"});
 	private void execute()
 	{
 		if(this.tableNode != null)
@@ -5343,9 +5531,24 @@ public class SimpleSelect
 			{
 				whereExp = null;
 			}
+
+			
+			String qfnames = "";
+			for(int a = 0; a < fds.length; a++)
+			{
+				if (SimpleSelect.fnames.indexOf(fds[a])>=0) {
+					qfnames += "," + fds[a];
+				}
+			}
+			if (qfnames.length()>0) {
+				//this.tableNode.setFileAttrQuery(true);
+				//fds = qfnames.substring(1).split(",");
+			}
+
 			
 			Map<String, String> stdMap = new LinkedHashMap<String, String>();
 			DataStruct gds = this.tableNode.dataStruct();
+			
 			if(gds != null && gds.getFieldCount() > 0)
 			{
 				if(fds.length == 0)
