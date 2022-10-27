@@ -71,15 +71,26 @@ public class CSJoinxCursor3 extends ICursor {
 		mergeCursor = CursorUtil.joinx(cursors, names, joinKeys, option, ctx);
 		
 		//组织数据结构
-		Sequence temp = mergeCursor.peek(1);
-		Record r = (Record) temp.getMem(1);
-		Record r1 = (Record) r.getNormalFieldValue(0);
-		len1 = r1.getFieldCount();
-		len2 = exps == null ? 0 : exps.length;
-		names = new String[len1 + len2];
-		System.arraycopy(r1.getFieldNames(), 0, names, 0, len1);
-		System.arraycopy(expNames, 0, names, len1, len2);
-		ds = new DataStruct(names);
+		if (option !=null && (option.indexOf('i') != -1 || option.indexOf('d') != -1)) {
+			Sequence temp = mergeCursor.peek(1);
+			if (temp != null) {
+				Record r = (Record) temp.getMem(1);
+				ds = r.dataStruct();
+				len1 = 0;
+			}
+		} else {
+			Sequence temp = mergeCursor.peek(1);
+			if (temp != null) {
+				Record r = (Record) temp.getMem(1);
+				Record r1 = (Record) r.getNormalFieldValue(0);
+				len1 = r1.getFieldCount();
+				len2 = exps == null ? 0 : exps.length;
+				names = new String[len1 + len2];
+				System.arraycopy(r1.getFieldNames(), 0, names, 0, len1);
+				System.arraycopy(expNames, 0, names, len1, len2);
+				ds = new DataStruct(names);
+			}
+		}
 	}
 
 	/**
@@ -136,6 +147,10 @@ public class CSJoinxCursor3 extends ICursor {
 		if (temp == null || temp.length() == 0) {
 			close();
 			return null;
+		}
+		
+		if (len1 == 0) {
+			return temp;
 		}
 		
 		Context ctx = this.ctx;
