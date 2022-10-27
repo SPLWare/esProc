@@ -21,8 +21,6 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.commons.io.FileUtils;
-
 import com.scudata.cellset.ICellSet;
 import com.scudata.common.IOUtils;
 import com.scudata.common.MessageManager;
