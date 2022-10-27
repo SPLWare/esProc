@@ -5,7 +5,6 @@ import com.scudata.common.RQException;
 import com.scudata.dm.Context;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.cursor.ICursor;
-import com.scudata.dm.cursor.MemoryCursor;
 import com.scudata.expression.Expression;
 import com.scudata.expression.IParam;
 import com.scudata.expression.SequenceFunction;
@@ -126,6 +125,6 @@ public class Joinx extends SequenceFunction {
 		}
 
 		Sequence result = CursorUtil.joinx(srcSequence, exps, codes, dataExps, newExps, newNames, fname, ctx, option);
-		return new MemoryCursor(result);
+		return result;
 	}
 }
