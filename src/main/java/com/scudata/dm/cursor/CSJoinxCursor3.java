@@ -166,7 +166,9 @@ public class CSJoinxCursor3 extends ICursor {
 			
 			Record record = result.newLast(r1.getFieldValues());
 			for (int f = 0; f < len2; f++) {
-				record.setNormalFieldValue(f + len1, r2.calc(exps[f], ctx));
+				if (r2 != null) {
+					record.setNormalFieldValue(f + len1, r2.calc(exps[f], ctx));
+				}
 			}
 		}
 		
