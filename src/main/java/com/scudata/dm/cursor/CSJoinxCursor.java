@@ -402,31 +402,26 @@ public class CSJoinxCursor extends ICursor {
 	}
 
 	protected long skipOver(long n) {
-		if (sortCursor != null) {
-			return sortCursor.skip(n);
-		}
 		if (isEnd || n < 1) return 0;
-
-		if (fileCursor == null) {
-			if (!loadFile()) {
-				return 0;
-			}
-		}
-
-		long count = 0;
-		while(count < n) {
-			long c = fileCursor.skip(n - count);
-			if (c == 0) {
-				if (!loadFile()) {
-					return count;
-				}
+		long total = 0;
+		while (n > 0) {
+			Sequence seq;
+			if (n > FETCHCOUNT) {
+				seq = get(FETCHCOUNT);
 			} else {
-				count += c;
+				seq = get((int)n);
 			}
 			
+			if (seq == null || seq.length() == 0) {
+				close();
+				break;
+			}
+			
+			total += seq.length();
+			n -= seq.length();
 		}
 		
-		return count;
+		return total;
 	}
 
 	public synchronized void close() {

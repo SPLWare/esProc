@@ -178,12 +178,25 @@ public class CSJoinxCursor3 extends ICursor {
 
 	protected long skipOver(long n) {
 		if (isEnd || n < 1) return 0;
-		Sequence seq = get((int) n);
-		if (seq != null) {
-			return seq.length();
-		} else {
-			return 0;
+		long total = 0;
+		while (n > 0) {
+			Sequence seq;
+			if (n > FETCHCOUNT) {
+				seq = get(FETCHCOUNT);
+			} else {
+				seq = get((int)n);
+			}
+			
+			if (seq == null || seq.length() == 0) {
+				close();
+				break;
+			}
+			
+			total += seq.length();
+			n -= seq.length();
 		}
+		
+		return total;
 	}
 
 	public synchronized void close() {
