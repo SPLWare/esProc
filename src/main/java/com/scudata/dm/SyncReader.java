@@ -38,6 +38,7 @@ public class SyncReader {
 		if (srcObj instanceof ColumnTableMetaData) {
 			size = countList.size() / 2;
 		}
+		
 		datas = new Sequence[size];
 		fetched = new int[size];
 		threads = new Thread[size];
@@ -186,9 +187,6 @@ public class SyncReader {
 	
 	public void setParallCount(int parallCount) {
 		this.parallCount = parallCount;
-		if (SYNC_THREAD_NUM < parallCount) {
-			SYNC_THREAD_NUM = parallCount;
-		}
 		
 		if (parallCount == 1) return;
 		for (int i = 0; i < SYNC_THREAD_NUM; ++i) {
