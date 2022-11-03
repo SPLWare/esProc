@@ -501,7 +501,9 @@ public class MultipathCursors extends ICursor implements IMultipath {
 				for (int i = 0; i < cursorCount; ++i) {
 					jobs[i].join();
 					Sequence seq = (Sequence)jobs[i].getResult();
-					result.newLast(seq.toArray());
+					if (seq != null) {
+						result.newLast(seq.toArray());
+					}
 				}
 			}
 		} finally {
