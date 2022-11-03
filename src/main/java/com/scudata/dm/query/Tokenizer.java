@@ -16,6 +16,8 @@ public final class Tokenizer {
 
 	public static final char LPAREN = '(';
 	public static final char RPAREN = ')';
+	public static final char LBRACE = '{';
+	public static final char RBRACE = '}';
 	public static final char COMMA = ',';
 	public static final char DOT = '.';
 	public static final char PARAMMARK = '?';
@@ -103,6 +105,8 @@ public final class Tokenizer {
 				return i;
 			} else if (tokens[i].getType() == LPAREN) { // Ìø¹ý()
 				i = scanParen(tokens, i, next);
+			} else if (tokens[i].getType() == LBRACE) { // Ìø¹ý{}
+				i = scanBrace(tokens, i, next);
 			}
 		}
 
