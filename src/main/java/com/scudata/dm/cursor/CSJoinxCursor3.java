@@ -308,8 +308,12 @@ public class CSJoinxCursor3 extends ICursor {
 		
 		if (fileTableCursors == null) {
 			for (int i = 0; i < pathCount; ++i) {
-				results[i] = MergeJoinx(cursors[i], fields, fileTable,
-						keys, exps, expNames, fname, ctx, n, option);
+				Expression[][] fields_ = copy(fields, ctx);
+				Expression[][] keys_ = copy(keys, ctx);
+				Expression[][] exps_ = copy(exps, ctx);
+				
+				results[i] = MergeJoinx(cursors[i], fields_, fileTable,
+						keys_, exps_, expNames, fname, ctx, n, option);
 			}
 		} else {
 			if (fileTable.length != 1) {
@@ -317,12 +321,28 @@ public class CSJoinxCursor3 extends ICursor {
 				throw new RQException("joinx" + mm.getMessage("function.invalidParam"));
 			}
 			for (int i = 0; i < pathCount; ++i) {
-				results[i] = MergeJoinx(cursors[i], fields, new Object[] {fileTableCursors[i]},
-						keys, exps, expNames, fname, ctx, n, option);
+				Expression[][] fields_ = copy(fields, ctx);
+				Expression[][] keys_ = copy(keys, ctx);
+				Expression[][] exps_ = copy(exps, ctx);
+				
+				results[i] = MergeJoinx(cursors[i], fields_, new Object[] {fileTableCursors[i]},
+						keys_, exps_, expNames, fname, ctx, n, option);
 			}
 		}
 		
 		return new MultipathCursors(results, ctx);
-		
+	}
+	
+	private static Expression[][] copy(Expression[][] src, Context ctx) {
+		int len = src.length;
+		Expression[][] dst = new Expression[len][];
+		for (int i = 0; i < len; i++) {
+			int len2 = src[i].length;
+			dst[i] = new Expression[len2];
+			for (int j = 0; j < len2; j++) {
+				dst[i][j] = src[i][j].newExpression(ctx);
+			}
+		}
+		return dst;
 	}
 }
