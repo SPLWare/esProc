@@ -1904,7 +1904,7 @@ abstract public class TableMetaData implements ITableMetaData {
 		String []dimFields;
 		if (hasK) {
 			//有k时返回mcs的第一个维字段
-			dimFields = dwCursor.getTableMetaData().getAllSortedColNames();
+			dimFields = dwCursor.getSortFields();//.getTableMetaData().getAllSortedColNames();
 			if (dimFields == null) {
 				MessageManager mm = EngineMessage.get();
 				throw new RQException("cursor" + mm.getMessage("dw.needMCursor"));
