@@ -160,7 +160,6 @@ public class Joinx extends CursorFunction {
 		if (option != null && option.indexOf('q') != -1) {
 			return new CSJoinxCursor2(cursor, exps, codes, dataExps, newExps, newNames, fname, ctx, capacity, option);
 		} else if (option != null && option.indexOf('m') != -1) {
-			option += '1';
 			return CSJoinxCursor3.MergeJoinx(cursor, exps, codes, dataExps, newExps, newNames, fname, ctx, capacity, option);
 		} else {
 			return getJoinxCursor(cursor, codes, exps, dataExps, newExps, newNames, fname, ctx, option, capacity);
