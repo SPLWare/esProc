@@ -292,6 +292,8 @@ public class CSJoinxCursor3 extends ICursor {
 	private static MultipathCursors toMultipathCursors(Object obj, MultipathCursors mcs,  String fields[], Context ctx) {
 		if (obj instanceof ColumnTableMetaData) {
 			return (MultipathCursors) ((ColumnTableMetaData) obj).cursor(null, fields, null, null, null, null, mcs, "k", ctx);
+		} else if (obj instanceof MultipathCursors) {
+			return (MultipathCursors) obj;
 		} else {
 			return null;
 		}
