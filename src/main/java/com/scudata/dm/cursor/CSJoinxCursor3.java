@@ -10,7 +10,6 @@ import com.scudata.dw.ColumnTableMetaData;
 import com.scudata.dw.Cursor;
 import com.scudata.expression.Expression;
 import com.scudata.resources.EngineMessage;
-import com.scudata.util.CursorUtil;
 
 /**
  * 游标joinx类，归并joinx
@@ -68,7 +67,7 @@ public class CSJoinxCursor3 extends ICursor {
 		ICursor cursors[] = {cursor, toCursor(fileTable)};
 		String names[] = {null, null};
 		Expression joinKeys[][] = {fields, keys};
-		mergeCursor = CursorUtil.joinx(cursors, names, joinKeys, option, ctx);
+		mergeCursor = joinx(cursors, names, joinKeys, option, ctx);
 		
 		//组织数据结构
 		if (option !=null && (option.indexOf('i') != -1 || option.indexOf('d') != -1)) {
@@ -93,6 +92,36 @@ public class CSJoinxCursor3 extends ICursor {
 		}
 	}
 
+	/**
+	 * 游标对关联字段有序，做有序归并连接
+	 * @param cursors 游标数组
+	 * @param names 结果集字段名数组
+	 * @param exps 关联字段表达式数组
+	 * @param opt 选项
+	 * @param ctx Context 计算上下文
+	 * @return ICursor 结果集游标
+	 */
+	private static ICursor joinx(ICursor []cursors, String []names, Expression [][]exps, String opt, Context ctx) {
+		boolean isPJoin = false, isIsect = false, isDiff = false;
+		if (opt != null) {
+			if (opt.indexOf('p') != -1) {
+				isPJoin = true;
+			} else if (opt.indexOf('i') != -1) {
+				isIsect = true;
+			} else if (opt.indexOf('d') != -1) {
+				isDiff = true;
+			}
+		}
+		
+		if (isPJoin) {
+			return new PJoinCursor(cursors, names);
+		} else if (isIsect || isDiff) {
+			return new MergeFilterCursor(cursors, exps, opt, ctx);
+		} else {
+			return new JoinxCursor2(cursors[0], exps[0][0], cursors[1], exps[1][0], names, opt, ctx);
+		}
+	}
+	
 	/**
 	 * 从join字段和新表达式中提取需要的字段
 	 * @param dataExps
@@ -238,6 +267,12 @@ public class CSJoinxCursor3 extends ICursor {
 			return null;
 		}
 		
+		if (option.indexOf('i') == -1) {
+			option += '1';
+		} else {
+			option = option.replaceAll("i", "");
+		}
+		
 		if (cursor instanceof MultipathCursors) {
 			return MultipathMergeJoinx((MultipathCursors)cursor, fields, fileTable, keys,
 					exps, expNames, fname, ctx, n, option);
@@ -292,8 +327,11 @@ public class CSJoinxCursor3 extends ICursor {
 	private static MultipathCursors toMultipathCursors(Object obj, MultipathCursors mcs,  String fields[], Context ctx) {
 		if (obj instanceof ColumnTableMetaData) {
 			return (MultipathCursors) ((ColumnTableMetaData) obj).cursor(null, fields, null, null, null, null, mcs, "k", ctx);
+		} else if (obj instanceof MultipathCursors) {
+			return (MultipathCursors) obj;
 		} else {
-			return null;
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("joinx" + mm.getMessage("dw.needMCursor"));
 		}
 	}
 	
@@ -308,8 +346,12 @@ public class CSJoinxCursor3 extends ICursor {
 		
 		if (fileTableCursors == null) {
 			for (int i = 0; i < pathCount; ++i) {
-				results[i] = MergeJoinx(cursors[i], fields, fileTable,
-						keys, exps, expNames, fname, ctx, n, option);
+				Expression[][] fields_ = Operation.dupExpressions(fields, ctx);
+				Expression[][] keys_ = Operation.dupExpressions(keys, ctx);
+				Expression[][] exps_ = Operation.dupExpressions(exps, ctx);
+				
+				results[i] = MergeJoinx(cursors[i], fields_, fileTable,
+						keys_, exps_, expNames, fname, ctx, n, option);
 			}
 		} else {
 			if (fileTable.length != 1) {
@@ -317,12 +359,15 @@ public class CSJoinxCursor3 extends ICursor {
 				throw new RQException("joinx" + mm.getMessage("function.invalidParam"));
 			}
 			for (int i = 0; i < pathCount; ++i) {
-				results[i] = MergeJoinx(cursors[i], fields, new Object[] {fileTableCursors[i]},
-						keys, exps, expNames, fname, ctx, n, option);
+				Expression[][] fields_ = Operation.dupExpressions(fields, ctx);
+				Expression[][] keys_ = Operation.dupExpressions(keys, ctx);
+				Expression[][] exps_ = Operation.dupExpressions(exps, ctx);
+				
+				results[i] = MergeJoinx(cursors[i], fields_, new Object[] {fileTableCursors[i]},
+						keys_, exps_, expNames, fname, ctx, n, option);
 			}
 		}
 		
 		return new MultipathCursors(results, ctx);
-		
 	}
 }
