@@ -3629,6 +3629,13 @@ public class SimpleSelect
 				boolean fileExists = false;
 				//System.out.println("tableName " + tableName);
 				File[] fs = FileUtil.getFiles(tableName);
+				if (fs == null) {
+					fs = FileUtil.getFiles(Env.getMainPath()+"/"+tableName);					
+				}
+				if (fs == null) {
+					MessageManager mm = ParseMessage.get();
+					throw new RQException("not found data file["+tableName+"]");
+				}
 				//System.out.println("fs.length " + fs.length);
 				FileObject fileObject = new FileObject(fs[0].getAbsolutePath(), null, "s", this.ctx);
 				ArrayList<FileObject> objs = new ArrayList<FileObject>();
