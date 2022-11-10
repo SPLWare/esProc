@@ -76,6 +76,7 @@ public class DialogDisplayChart extends JDialog {
 	private static final long serialVersionUID = 1L;
 	public static String SUM = "sum";
 	public static String COUNT = "count";
+	public static String AVG = "avg";
 	public static String MAX = "max";
 	public static String MIN = "min";
 
@@ -539,11 +540,13 @@ public class DialogDisplayChart extends JDialog {
 		Vector<String> disp = new Vector<String>();
 		code.add(SUM);
 		code.add(COUNT);
+		code.add(AVG);
 		code.add(MAX);
 		code.add(MIN);
 		
 		disp.add(mm.getMessage(SUM));
 		disp.add(mm.getMessage(COUNT));
+		disp.add(mm.getMessage(AVG));
 		disp.add(mm.getMessage(MAX));
 		disp.add(mm.getMessage(MIN));
 		
