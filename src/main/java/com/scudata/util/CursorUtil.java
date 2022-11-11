@@ -315,7 +315,7 @@ public final class CursorUtil {
 		int keyCount = exps.length;
 		int count = isAll ? keyCount + 1 : keyCount;
 		final int INIT_GROUPSIZE = HashUtil.getInitGroupSize();
-		HashUtil hashUtil = new HashUtil();
+		HashUtil hashUtil = new HashUtil(src.length() / 2);
 		ListBase1 []groups = new ListBase1[hashUtil.getCapacity()];
 		Sequence result = new Sequence(hashUtil.getCapacity());
 		ListBase1 keyList = null;
@@ -436,7 +436,7 @@ public final class CursorUtil {
 		}
 
 		final int INIT_GROUPSIZE = HashUtil.getInitGroupSize();
-		HashUtil hashUtil = new HashUtil();
+		HashUtil hashUtil = new HashUtil(src.length() / 2);
 		ListBase1 []groups = new ListBase1[hashUtil.getCapacity()];
 		Sequence result = new Sequence(hashUtil.getCapacity());
 
