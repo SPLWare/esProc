@@ -34,7 +34,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
-import java.lang.reflect.Method;
 import java.net.URI;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
@@ -3639,42 +3638,11 @@ public class GM {
 	 * @throws Exception
 	 */
 	public static void browse(String url) throws Exception {
-		String osName = System.getProperty("os.name", "").toLowerCase();
-		if (osName.startsWith("mac os")) {
-			Class fileMgr = Class.forName("com.apple.eio.FileManager");
-			Method openURL = fileMgr.getDeclaredMethod("openURL",
-					new Class[] { String.class });
-			openURL.invoke(null, new Object[] { url });
-		} else if (osName.startsWith("windows")) {
-			Runtime.getRuntime().exec(
-					"rundll32 url.dll,FileProtocolHandler " + url);
-		} else {
-			/* Assume Unix or Linux */
-			try {
+		if (Desktop.isDesktopSupported()) {
+			Desktop dt = Desktop.getDesktop();
+			if (dt.isSupported(Desktop.Action.BROWSE)) {
 				URI uri = new URI(url);
-				Desktop desktop = null;
-				if (Desktop.isDesktopSupported()) {
-					desktop = Desktop.getDesktop();
-				}
-				if (desktop != null) {
-					desktop.browse(uri);
-					return;
-				}
-			} catch (Throwable t) {
-			}
-			String[] browsers = { "google-chrome", "firefox", "opera",
-					"konqueror", "epiphany", "mozilla", "netscape" };
-			String browser = null;
-			for (int count = 0; count < browsers.length && browser == null; count++)
-				if (Runtime.getRuntime()
-						.exec(new String[] { "which", browsers[count] })
-						.waitFor() == 0)
-					browser = browsers[count];
-			if (browser == null)
-				throw new NoSuchMethodException("Could not find web browser");
-			else {
-				Logger.info("cmd: " + browser + ", " + url);
-				Runtime.getRuntime().exec(new String[] { browser, url });
+				dt.browse(uri);
 			}
 		}
 	}
@@ -3687,16 +3655,6 @@ public class GM {
 	public static String getLineSeparator() {
 		return isWindowsOS() ? "\n" : System.getProperties().getProperty(
 				"line.separator");
-	}
-
-	/**
-	 * Open a file using the command line
-	 * 
-	 * @param filePath The file path
-	 * @throws IOException
-	 */
-	public static void openFile(String filePath) throws IOException {
-		Runtime.getRuntime().exec("cmd.exe /c start \"\" \"" + filePath + "\"");
 	}
 
 	/**
