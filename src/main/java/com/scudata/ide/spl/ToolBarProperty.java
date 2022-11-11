@@ -3,6 +3,8 @@ package com.scudata.ide.spl;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import javax.swing.text.JTextComponent;
+
 import com.scudata.cellset.datamodel.NormalCell;
 import com.scudata.cellset.datamodel.PgmNormalCell;
 import com.scudata.common.Area;
@@ -81,7 +83,6 @@ public class ToolBarProperty extends ToolBarPropertyBase {
 		}
 		SplControl control = GVSpl.splEditor.getComponent();
 		ContentPanel cp = control.getContentPanel();
-		CellEditingListener editListener = newCellEditingListener(control, cp);
 		KeyListener[] kls = textEditor.getKeyListeners();
 		if (kls != null) {
 			int len = kls.length;
@@ -91,17 +92,17 @@ public class ToolBarProperty extends ToolBarPropertyBase {
 				}
 			}
 		}
-		textEditor.addKeyListener(editListener);
+		addCellEditingListener(textEditor, control, cp);
 	}
 
 	/**
-	 * ´´½¨Íø¸ñ±à¼­¼àÌýÆ÷
+	 * ÉèÖÃÍø¸ñ±à¼­¼àÌýÆ÷
 	 * @return
 	 */
-	protected CellEditingListener newCellEditingListener(SplControl control,
-			ContentPanel cp) {
+	protected void addCellEditingListener(JTextComponent jtext,
+			SplControl control, ContentPanel cp) {
 		CellEditingListener listener = new CellEditingListener(control, cp);
-		return listener;
+		jtext.addKeyListener(listener);
 	}
 
 	/**

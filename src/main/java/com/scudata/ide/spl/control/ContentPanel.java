@@ -289,8 +289,7 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 		} else {
 			enableInputMethods(true);
 			addInputMethodListener(this);
-			CellEditingListener listener = newCellEditingListener(control);
-			multiEditor.addKeyListener(listener);
+			addCellEditingListener(control, multiEditor);
 			EditorRightClicked erc = new EditorRightClicked(control);
 			multiEditor.addMouseListener(erc);
 			MouseAdapter ma = new MouseAdapter() {
@@ -319,15 +318,15 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	protected CellSetParser newCellSetParser(CellSet cellSet) {
 		return new CellSetParser(cellSet);
 	}
-	
+
 	/**
-	 * ´´½¨Íø¸ñ±à¼­¼àÌıÆ÷
+	 * ÉèÖÃÍø¸ñ±à¼­¼àÌıÆ÷
 	 * @return
 	 */
-	protected CellEditingListener newCellEditingListener(SplControl control){
-		CellEditingListener listener = new CellEditingListener(control,
-				this);
-		return listener;
+	protected void addCellEditingListener(SplControl control,
+			JTextComponent jtext) {
+		CellEditingListener listener = new CellEditingListener(control, this);
+		jtext.addKeyListener(listener);
 	}
 
 	/**

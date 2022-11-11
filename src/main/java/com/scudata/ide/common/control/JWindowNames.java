@@ -71,18 +71,11 @@ public abstract class JWindowNames extends JWindow {
 	private int fieldSize = 0;
 
 	/**
-	 * 是否工具栏
-	 */
-	private boolean isToolBar;
-
-	/**
 	 * 构造函数
 	 */
-	public JWindowNames(String[] fieldNames, final List<FuncInfo> funcs,
-			boolean isToolBar) {
+	public JWindowNames(String[] fieldNames, final List<FuncInfo> funcs) {
 		super(GV.appFrame);
 		this.funcs = funcs;
-		this.isToolBar = isToolBar;
 		jSPWin = new JScrollPane(listWindow);
 		getContentPane().add(jSPWin, BorderLayout.CENTER);
 		setFocusable(true);
@@ -205,10 +198,6 @@ public abstract class JWindowNames extends JWindow {
 				listWindow.requestFocusInWindow();
 			}
 		});
-	}
-
-	public boolean isToolBar() {
-		return isToolBar;
 	}
 
 	private String[] sortNames(String[] names) {

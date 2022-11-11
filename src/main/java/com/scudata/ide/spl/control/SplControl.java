@@ -1094,7 +1094,7 @@ public abstract class SplControl extends ControlBase {
 	 * 
 	 * @return Íø¸ñ¶ÔÏó
 	 */
-	public CellSet getCellSet() {
+	public PgmCellSet getCellSet() {
 		return cellSet;
 	}
 
