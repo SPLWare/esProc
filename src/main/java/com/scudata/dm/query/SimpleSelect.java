@@ -3632,9 +3632,9 @@ public class SimpleSelect
 				if (fs == null) {
 					fs = FileUtil.getFiles(Env.getMainPath()+"/"+tableName);					
 				}
-				if (fs == null) {
+				if (fs == null || fs.length == 0) {
 					MessageManager mm = ParseMessage.get();
-					throw new RQException("not found data file["+tableName+"]");
+					throw new RQException("not found data file["+tableName+"]¡¢["+Env.getMainPath()+"/"+tableName+"]");
 				}
 				//System.out.println("fs.length " + fs.length);
 				FileObject fileObject = new FileObject(fs[0].getAbsolutePath(), null, "s", this.ctx);
