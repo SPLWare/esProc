@@ -34,7 +34,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
-import java.lang.reflect.Method;
 import java.net.URI;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
@@ -3656,16 +3655,6 @@ public class GM {
 	public static String getLineSeparator() {
 		return isWindowsOS() ? "\n" : System.getProperties().getProperty(
 				"line.separator");
-	}
-
-	/**
-	 * Open a file using the command line
-	 * 
-	 * @param filePath The file path
-	 * @throws IOException
-	 */
-	public static void openFile(String filePath) throws IOException {
-		Runtime.getRuntime().exec("cmd.exe /c start \"\" \"" + filePath + "\"");
 	}
 
 	/**
