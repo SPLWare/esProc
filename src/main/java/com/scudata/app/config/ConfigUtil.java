@@ -48,6 +48,13 @@ import com.scudata.resources.AppMessage;
  */
 public class ConfigUtil {
 
+	static {
+		try {
+			FunctionLib.loadCustomFunctions("splfunctions.properties");
+		} catch (Exception ex) {
+		}
+	}
+
 	/**
 	 * Read the configuration file from the input stream.No configuration is loaded.
 	 * 
