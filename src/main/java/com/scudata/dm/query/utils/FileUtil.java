@@ -45,6 +45,7 @@ public class FileUtil {
 	     //System.out.println(s);
 	     Pattern p = Pattern.compile(s);
 	     ArrayList list = filePattern(file, p, true);
+	     if (list == null) return null;
 	     File[] rtn = new File[list.size()];
 	     list.toArray(rtn);
 	     return rtn;
