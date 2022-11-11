@@ -28,7 +28,6 @@ import javax.swing.border.Border;
 import com.scudata.common.MessageManager;
 import com.scudata.common.Sentence;
 import com.scudata.common.StringUtils;
-import com.scudata.ide.common.GC;
 import com.scudata.ide.common.GM;
 import com.scudata.ide.common.GV;
 import com.scudata.ide.common.dialog.DialogInputText;
@@ -303,13 +302,10 @@ public class DialogAbout extends JDialog {
 				if (b != MouseEvent.BUTTON1) {
 					return;
 				}
-				if (GM.getOperationSytem() == GC.OS_WINDOWS) {
-					try {
-						Runtime.getRuntime().exec(
-								"cmd /C start " + jLbHttp2.getText());
-					} catch (Exception x) {
-						GM.showException(x);
-					}
+				try {
+					GM.browse(jLbHttp2.getText());
+				} catch (Exception x) {
+					GM.showException(x);
 				}
 			}
 		});
@@ -412,12 +408,10 @@ public class DialogAbout extends JDialog {
 		if (b != MouseEvent.BUTTON1) {
 			return;
 		}
-		if (GM.getOperationSytem() == GC.OS_WINDOWS) {
-			try {
-				Runtime.getRuntime().exec("cmd /C start " + jLbHttp.getText());
-			} catch (Exception x) {
-				GM.showException(x);
-			}
+		try {
+			GM.browse(jLbHttp.getText());
+		} catch (Exception x) {
+			GM.showException(x);
 		}
 	}
 
