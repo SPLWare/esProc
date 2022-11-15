@@ -1,5 +1,6 @@
 package com.scudata.ide.spl.dialog;
 
+import java.awt.Frame;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.io.File;
@@ -83,7 +84,8 @@ public class DialogSplash extends JDialog {
 			}
 		}
 		if (ii == null) {
-			String imgPath = "/com/scudata/ide/common/resources/esproc" + GM.getLanguageSuffix() + ".png";
+			String imgPath = "/com/scudata/ide/common/resources/esproc"
+					+ GM.getLanguageSuffix() + ".png";
 			ii = GM.getImageIcon(imgPath);
 		}
 		return ii;
