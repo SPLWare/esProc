@@ -2135,26 +2135,30 @@ public class SimpleSelect
 	class LikeNode extends Node
 	{
 		private ExpressionNode node;
-		private String pattern;
+		//private String pattern;
 		private boolean not;
 		private boolean isFromHaving;
 		private boolean isFromWhere;
+		private Token token;
+		private SimpleSelect select;
 		
-		public LikeNode(ExpressionNode expNode, String pattern, boolean hasNot)
+		public LikeNode(ExpressionNode expNode, Token token, boolean hasNot, SimpleSelect select)
 		{
 			this.node = expNode;
-			this.pattern = pattern;
+			//this.pattern = pattern;
+			this.token = token;
 			this.not = hasNot;
+			this.select = select;
 		}
 		
 		public String getPattern()
 		{
-			if(this.pattern == null)
+			if(this.token == null)
 			{
 				MessageManager mm = ParseMessage.get();
 				throw new RQException(mm.getMessage("syntax.error") + ":LikeNode.getPattern, 无效的Like节点");
 			}
-			return this.pattern;
+			return this.token.getString();
 		}
 		
 		public boolean getNot()
@@ -2175,14 +2179,33 @@ public class SimpleSelect
 		
 		public String toExpression() 
 		{
-			if(this.node == null || this.pattern == null)
+			if(this.node == null || this.token == null)
 			{
 				MessageManager mm = ParseMessage.get();
 				throw new RQException(mm.getMessage("syntax.error") + ":LikeNode.toExpression, 无效的Like节点");
 			}
 			
-			String pattern = this.pattern;
+			String pattern = "\""+this.token.toString()+"\"";
 			
+			if (token.getType() == Tokenizer.PARAMMARK) {
+				ParamNode paramNode = new ParamNode();
+				String strIndex = token.getString().substring(1);
+					
+				if(strIndex.length() != 0)
+				{
+					int paramIndex = Integer.parseInt(strIndex);
+					paramNode.setIndex(paramIndex);
+				}
+				else
+				{
+					MessageManager mm = ParseMessage.get();
+					throw new RQException(mm.getMessage("syntax.error") + ":scanExp, 参数占位符解析错误");
+				}
+				
+				pattern = paramNode.toExpression();
+
+			}
+
 			pattern = pattern.replace("\\", "\\\\");
 			pattern = pattern.replace("*", "\\\\*");
 			pattern = pattern.replace("?", "\\\\?");
@@ -2197,7 +2220,7 @@ public class SimpleSelect
 			
 			pattern = pattern.replace("[[]", "[");
 			
-			return "like@c(" + this.node.toExpression() +",\"" + pattern + "\")";
+			return "like@c(" + this.node.toExpression() +"," + pattern + ")";
 		}
 
 		public boolean hasGather()  //不会被select不考虑
@@ -4770,19 +4793,20 @@ public class SimpleSelect
 				}
 				else 
 				{
-					if(tokens[pos].getType() != Tokenizer.STRING)
+					if(tokens[pos].getType() == Tokenizer.PARAMMARK)
 					{
-						if(!tokens[pos].getString().startsWith("\"") || !tokens[pos].getString().endsWith("\"") 
-							|| tokens[pos].getString().substring(1, tokens[pos].getString().length()-1).indexOf("\"") != -1)
-						{
-							MessageManager mm = ParseMessage.get();
-							throw new RQException(mm.getMessage("syntax.error") + ":scanExp, Like子句的套式类型错误");
-						}
+//						if(!tokens[pos].getString().startsWith("\"") || !tokens[pos].getString().endsWith("\"") 
+//							|| tokens[pos].getString().substring(1, tokens[pos].getString().length()-1).indexOf("\"") != -1)
+//						{
+//							MessageManager mm = ParseMessage.get();
+//							throw new RQException(mm.getMessage("syntax.error") + ":scanExp, Like子句的套式类型错误");
+//						}
+					} else if (tokens[pos].getType() == Tokenizer.STRING) {
 					}
 				}
-				
+				System.out.println("pattern : " + tokens[pos]);
 				String pattern = tokens[pos].getString().substring(1, tokens[pos].getString().length() - 1);//脱""或''以便于操作,最后再加上
-				
+				System.out.println("pattern : " + pattern);
 				ArrayList<Node> tempList = new ArrayList<Node>();
 				for(int x = expList.size() - 1; x >= 0; x--)
 				{
@@ -4800,13 +4824,14 @@ public class SimpleSelect
 				}
 				ExpressionNode expNode = new ExpressionNode(tempList);
 				
-				expList.add(new LikeNode(expNode, pattern, hasNot));
+				expList.add(new LikeNode(expNode, tokens[pos], hasNot,this));
 				if(hasNot)
 				{
 					hasNot = false;
 				}
 				
 				i = pos;
+				
 			}
 			else if (token.isKeyWord("CASE")) 
 			{
