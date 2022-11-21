@@ -321,15 +321,15 @@ public class BackGraphConfig implements Externalizable, ICloneable, Cloneable,
 			Rectangle textRect = getTextRect(fontName, fSize, waterMark);
 			iw = textRect.width;
 			ih = textRect.height;
-			int x = 0,
-			y = 0;
+			int x = dx,
+			y = dy;
 			Font font = getFont(fontName, 0, fSize);
 			Color c = c1;
 
 			int row = 0,
 			col = 0;
 			while (x < w) {
-				y = 0;
+				y = dy;
 				row = 0;
 				while (y < h) {
 					row++;

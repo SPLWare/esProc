@@ -9,8 +9,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
@@ -189,15 +187,6 @@ public abstract class JWindowNames extends JWindow {
 		jSPWin.addKeyListener(kl);
 		this.addKeyListener(kl);
 		listWindow.setSelectedIndex(0);
-		// this.addWindowListener(new WindowAdapter() {
-		//
-		// public void windowClosed(WindowEvent e) {
-		// }
-		//
-		// public void windowOpened(WindowEvent e) {
-		// listWindow.requestFocusInWindow();
-		// }
-		// });
 	}
 
 	private String[] sortNames(String[] names) {

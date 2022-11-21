@@ -239,6 +239,8 @@ public class JTextPaneEx extends JTextPane {
 				if (!find) {
 					GVSpl.matchWindow.dispose();
 					GVSpl.matchWindow = null;
+				} else {
+					requestFocus();
 				}
 			} catch (Throwable t) {
 				// t.printStackTrace();
