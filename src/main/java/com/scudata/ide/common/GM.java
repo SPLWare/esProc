@@ -41,6 +41,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -3843,7 +3846,31 @@ public class GM {
 		return new int[] { start, end };
 	}
 
+	/**
+	 * 是否符号
+	 * @param c
+	 * @return
+	 */
 	private static boolean isSymbol(char c) {
 		return KeyWord.isSymbol(c) || c == KeyWord.OPTION;
+	}
+
+	/**
+	 * 按文件名排序
+	 * @param files
+	 * @return
+	 */
+	public static File[] sortFiles(File[] files) {
+		if (files == null || files.length == 0)
+			return files;
+		List<File> list = Arrays.asList(files);
+		Collections.sort(list, new Comparator<File>() {
+
+			public int compare(File o1, File o2) {
+				return Env.getCollator().compare(o1.getName(), o2.getName());
+			}
+		});
+
+		return list.toArray(new File[list.size()]);
 	}
 }
