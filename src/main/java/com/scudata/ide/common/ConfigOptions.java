@@ -245,7 +245,7 @@ public class ConfigOptions {
 	/**
 	 * 函数提示功能
 	 */
-	public static Boolean bFuncNotice = Boolean.TRUE;
+	public static Boolean bFuncNotice = GM.isWindowsOS();
 
 	/** HTML */
 	public static final int COPY_HTML = 0;
