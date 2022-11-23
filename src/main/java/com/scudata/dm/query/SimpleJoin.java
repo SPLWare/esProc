@@ -5587,8 +5587,8 @@ public class SimpleJoin
 			for (int i=1; i<intoFiles.size(); i++) {
 				try {
 
-					System.out.println(preFileName + intoFiles.get(i));
-					copyFile(new File(intoFiles.get(0)), new File(preFileName + intoFiles.get(i)));
+					//System.out.println(preFileName + intoFiles.get(i));
+					copyFile(new File(preFileName + intoFiles.get(0)), new File(preFileName + intoFiles.get(i)));
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
