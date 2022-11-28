@@ -205,6 +205,11 @@ public class BackGraphConfig implements Externalizable, ICloneable, Cloneable,
 	 */
 	public void drawImage(Graphics g, int w, int h, float scale, int x1,
 			int y1, int x2, int y2) {
+		drawImage(g, w, h, scale, x1, y1, x2, y2, 0, 0);
+	}
+
+	public void drawImage(Graphics g, int w, int h, float scale, int x1,
+			int y1, int x2, int y2, int dx, int dy) {
 		switch (imgSource) {
 		case SOURCE_PICTURE:
 			// 将ImageIcon改为BufferedImage，并缓存调整好尺寸的Image
@@ -253,7 +258,7 @@ public class BackGraphConfig implements Externalizable, ICloneable, Cloneable,
 			case MODE_NONE:
 				try {
 					g.setClip(x1, y1, x2 - x1, y2 - y1); // 图片不能超出绘制范围
-					g.drawImage(image, 0, 0, iw, ih, null);
+					g.drawImage(image, dx, dy, iw, ih, null);
 				} finally {
 					g.setClip(oldClip);
 				}
@@ -263,20 +268,20 @@ public class BackGraphConfig implements Externalizable, ICloneable, Cloneable,
 			case MODE_FILL:
 				try {
 					g.setClip(x1, y1, x2 - x1, y2 - y1); // 图片不能超出绘制范围
-					g.drawImage(image, 0, 0, w, h, null);
+					g.drawImage(image, dx, dy, w, h, null);
 				} finally {
 					g.setClip(oldClip);
 				}
 				break;
 			case MODE_TILE:
 				try {
-					int x = 0, y = 0;
+					int x = dx, y = dy;
 					while (x < x2) {
 						if (x + iw <= x1) { // 没有到绘制范围
 							x += iw;
 							continue;
 						}
-						y = 0;
+						y = dy;
 						while (y < y2) {
 							if (y + ih <= y1) { // 没有到绘制范围
 								y += ih;
@@ -316,15 +321,15 @@ public class BackGraphConfig implements Externalizable, ICloneable, Cloneable,
 			Rectangle textRect = getTextRect(fontName, fSize, waterMark);
 			iw = textRect.width;
 			ih = textRect.height;
-			int x = 0,
-			y = 0;
+			int x = dx,
+			y = dy;
 			Font font = getFont(fontName, 0, fSize);
 			Color c = c1;
 
 			int row = 0,
 			col = 0;
 			while (x < w) {
-				y = 0;
+				y = dy;
 				row = 0;
 				while (y < h) {
 					row++;

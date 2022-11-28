@@ -7,7 +7,6 @@ import com.scudata.common.RQException;
 import com.scudata.dm.Context;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.cursor.ICursor;
-import com.scudata.dm.cursor.MemoryCursor;
 import com.scudata.dm.cursor.MultipathCursors;
 import com.scudata.dw.ColumnTableMetaData;
 import com.scudata.dw.ITableMetaData;
@@ -149,15 +148,10 @@ public class Derive extends TableMetaDataFunction {
 			throw new RQException("derive" + mm.getMessage("function.invalidParam"));
 		}
 		
-		Object obj = param.getSub(0).getLeafExpression().calculate(ctx);
-		if (obj instanceof Sequence) {
-			cursor = new MemoryCursor((Sequence) obj);
-		} else if (obj instanceof ICursor) {
-			cursor = (ICursor) obj;
-		} else {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException("derive" + mm.getMessage("function.invalidParam"));
-		}
+		Object[] objs = New.parse1stParam(param, ctx);
+		Object obj = objs[0];
+		cursor = (ICursor) objs[1];
+		String[] csNames = (String[]) objs[2];
 	
 		IParam newParam = param.create(1, param.getSubSize());
 		ParamInfo2 pi = ParamInfo2.parse(newParam, "derive", false, false);
@@ -165,14 +159,14 @@ public class Derive extends TableMetaDataFunction {
 		String []names = pi.getExpressionStrs2();
 		String[] opts = null;
 		if (JoinCursor.isColTable(table)) {
-			return derive((ColumnTableMetaData)table, cursor, obj, filter, exps, names, fkNames, codes, opts, option, ctx);
+			return derive((ColumnTableMetaData)table, cursor, obj, csNames, filter, exps, names, fkNames, codes, opts, option, ctx);
 		} else {
 			return derive(table, cursor, obj, filter, exps,	names, fkNames, codes, opts, ctx);
 		}
 	
 	}
 	
-	public static Object derive(ColumnTableMetaData table, ICursor cursor, Object obj, Expression filter, Expression []exps,
+	public static Object derive(ColumnTableMetaData table, ICursor cursor, Object obj, String[] csNames, Expression filter, Expression []exps,
 			String[] names, String []fkNames, Sequence []codes, String[] opts, String option, Context ctx) {
 		if (cursor instanceof MultipathCursors) {
 			MultipathCursors mcursor = (MultipathCursors) cursor;
@@ -183,12 +177,12 @@ public class Derive extends TableMetaDataFunction {
 				if (filter != null) {
 					w = filter.newExpression(ctx); // 分段并行读取时需要复制表达式，同一个表达式不支持并行运算
 				}
-				ICursor cs = new JoinCursor(table, exps, names, cursors[i], 0x10, option, w, fkNames, codes, opts, ctx);
+				ICursor cs = new JoinCursor(table, exps, names, cursors[i], csNames, 0x10, option, w, fkNames, codes, opts, ctx);
 				cursors[i] = cs;
 			}
 			return new MultipathCursors(cursors, ctx);
 		}
-		ICursor cs = new JoinCursor(table, exps, names, cursor, 0, option, filter, fkNames, codes, opts, ctx);
+		ICursor cs = new JoinCursor(table, exps, names, cursor, csNames, 0, option, filter, fkNames, codes, opts, ctx);
 		if (obj instanceof Sequence) {
 			return cs.fetch();
 		} else {

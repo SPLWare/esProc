@@ -83,7 +83,8 @@ public class DialogSplash extends JDialog {
 			}
 		}
 		if (ii == null) {
-			String imgPath = "/com/scudata/ide/common/resources/esproc" + GM.getLanguageSuffix() + ".png";
+			String imgPath = "/com/scudata/ide/common/resources/esproc"
+					+ GM.getLanguageSuffix() + ".png";
 			ii = GM.getImageIcon(imgPath);
 		}
 		return ii;

@@ -19,6 +19,7 @@ import com.scudata.parallel.ClusterTableMetaData;
 public class PseudoDerive extends Pseudo implements Operable, IPseudo {
 	private Object ptable;//参数cs/A，也可能是一个虚表
 	private String option;
+	private String[] csNames;
 	
 	public PseudoDerive() {
 	}
@@ -31,10 +32,11 @@ public class PseudoDerive extends Pseudo implements Operable, IPseudo {
 		addPKeyNames();
 	}
 	
-	public PseudoDerive(PseudoDefination pd, Object ptable, Expression[] exps, String[] names, Expression filter,
+	public PseudoDerive(PseudoDefination pd, Object ptable, String[] csNames, Expression[] exps, String[] names, Expression filter,
 			String[] fkNames, Sequence[] codes, String[] opts, String option) {
 		this.pd = pd;
 		this.ptable = ptable;
+		this.csNames = csNames;
 		this.exps = exps;
 		this.names = names;
 		this.filter = filter;
@@ -99,9 +101,9 @@ public class PseudoDerive extends Pseudo implements Operable, IPseudo {
 	private ICursor getCursor(ITableMetaData table, ICursor cursor, String []fkNames, Sequence []codes, String[] opts) {
 		ICursor result;
 		if (table instanceof ClusterTableMetaData) {
-			result = ((ClusterTableMetaData)table).news(exps, names, cursor, 0, option, filter, fkNames, codes, opts);
+			result = ((ClusterTableMetaData)table).news(exps, names, cursor, csNames, 0, option, filter, fkNames, codes, opts);
 		} else if (JoinCursor.isColTable(table)) {
-			result = (ICursor) Derive.derive((ColumnTableMetaData)table, cursor, cursor, filter, exps,	names, fkNames, codes, opts, option, ctx);
+			result = (ICursor) Derive.derive((ColumnTableMetaData)table, cursor, cursor, csNames, filter, exps,	names, fkNames, codes, opts, option, ctx);
 		} else {
 			result = (ICursor) Derive.derive((ITableMetaData)table, cursor, cursor, filter, exps,	names, fkNames, codes, opts, ctx);
 		}

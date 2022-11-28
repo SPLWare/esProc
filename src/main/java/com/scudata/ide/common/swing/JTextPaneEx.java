@@ -126,7 +126,8 @@ public class JTextPaneEx extends JTextPane {
 					if (key == KeyEvent.VK_DOWN && e.isShiftDown()) {
 						return;
 					}
-					if ((key == KeyEvent.VK_DOWN || key == KeyEvent.VK_UP) && e.isAltDown()) {
+					if ((key == KeyEvent.VK_DOWN || key == KeyEvent.VK_UP)
+							&& e.isAltDown()) {
 						return;
 					}
 					caretChanged(getCaretPosition());
@@ -224,28 +225,22 @@ public class JTextPaneEx extends JTextPane {
 					GVSpl.matchWindow = null;
 					return;
 				}
-				int start = GVSpl.matchWindow.getDot();
 				int p = getCaretPosition();
-				if (p < start - 1) {
+				int[] pos = GM.getCurrentWordPosition(text, p);
+				if (pos == null) {
 					GVSpl.matchWindow.dispose();
 					GVSpl.matchWindow = null;
 					return;
 				}
-				if (start == p) {
-					return;
-				}
-				int len = text.length();
-				int end = len;
-				for (int i = start; i < len; i++) {
-					char c = text.charAt(i);
-					if (KeyWord.isSymbol(c)) {
-						end = i;
-						break;
-					}
-				}
-				if (p > end) {
+				int start = pos[0];
+				int end = pos[1];
+				String name = text.substring(start, end);
+				boolean find = GVSpl.matchWindow.searchName(name);
+				if (!find) {
 					GVSpl.matchWindow.dispose();
 					GVSpl.matchWindow = null;
+				} else {
+					requestFocus();
 				}
 			} catch (Throwable t) {
 				// t.printStackTrace();
@@ -408,7 +403,8 @@ public class JTextPaneEx extends JTextPane {
 	 */
 	private boolean isValidString(int index, int len) {
 		String text = getText();
-		int i = Sentence.indexOf(text, index, text.substring(index, index + len), SEARCH_FLAG);
+		int i = Sentence.indexOf(text, index,
+				text.substring(index, index + len), SEARCH_FLAG);
 		return index == i;
 	}
 
@@ -441,24 +437,28 @@ public class JTextPaneEx extends JTextPane {
 			}
 			if (cellSet != null && text != null) {
 				if (isUpdate) {
-					if (StringUtils.isValidString(text) && !text.startsWith("/")) {
+					if (StringUtils.isValidString(text)
+							&& !text.startsWith("/")) {
 						Command cmd = null;
 						try {
 							cmd = Command.parse(text);
 						} catch (Exception ex) {
 						}
 						if (cmd != null) {
-							IParam param = cmd.getParam(control.cellSet, new Context());
+							IParam param = cmd.getParam(control.cellSet,
+									new Context());
 							if (param != null)
 								param.getUsedCells(refCells);
 						} else {
-							Expression exp = new Expression(cellSet, new Context(), text);
+							Expression exp = new Expression(cellSet,
+									new Context(), text);
 							exp.getUsedCells(refCells);
 						}
 					}
 				} else {
 					CellLocation cl = control.getActiveCell();
-					PgmNormalCell activeCell = control.cellSet.getPgmNormalCell(cl.getRow(), cl.getCol());
+					PgmNormalCell activeCell = control.cellSet
+							.getPgmNormalCell(cl.getRow(), cl.getCol());
 					if (activeCell != null) {
 						activeCell.getUsedCells(refCells);
 					}
@@ -470,15 +470,18 @@ public class JTextPaneEx extends JTextPane {
 							int colorIndex = i % REF_COLORS.length;
 							if (as[colorIndex] == null) {
 								as[colorIndex] = new SimpleAttributeSet();
-								StyleConstants.setForeground(as[colorIndex], REF_COLORS[colorIndex]);
+								StyleConstants.setForeground(as[colorIndex],
+										REF_COLORS[colorIndex]);
 							}
 							final String cellId = cell.getCellId();
 							int start = 0;
 							while (true) {
-								final int index = Sentence.indexOf(text, start, cellId, SEARCH_FLAG);
+								final int index = Sentence.indexOf(text, start,
+										cellId, SEARCH_FLAG);
 								if (index < 0)
 									break;
-								refCAs.add(new CA(index, cellId.length(), as[colorIndex], false));
+								refCAs.add(new CA(index, cellId.length(),
+										as[colorIndex], false));
 								start = index + cellId.length();
 							}
 						}
@@ -498,7 +501,8 @@ public class JTextPaneEx extends JTextPane {
 						for (INormalCell cell1 : refCells) {
 							boolean hasCell = false;
 							for (INormalCell cell2 : lastRefCells) {
-								if (cell1.getRow() == cell2.getRow() && cell1.getCol() == cell2.getCol()) {
+								if (cell1.getRow() == cell2.getRow()
+										&& cell1.getCol() == cell2.getCol()) {
 									hasCell = true;
 								}
 							}
@@ -543,7 +547,8 @@ public class JTextPaneEx extends JTextPane {
 			preventChanged = true;
 			GVSpl.toolBarProperty.preventAction = true;
 			for (CA ca : cas) {
-				doc.setCharacterAttributes(ca.offset, ca.length, ca.s, ca.replace);
+				doc.setCharacterAttributes(ca.offset, ca.length, ca.s,
+						ca.replace);
 			}
 			SwingUtilities.invokeLater(new Thread() {
 				public void run() {
@@ -640,8 +645,9 @@ public class JTextPaneEx extends JTextPane {
 	private static final Color REF_COLOR5 = Color.MAGENTA;
 	private static final Color REF_COLOR6 = Color.ORANGE;
 	private static final Color REF_COLOR7 = Color.CYAN;
-	private static final Color[] REF_COLORS = new Color[] { REF_COLOR1, REF_COLOR2, REF_COLOR3, REF_COLOR4, REF_COLOR5,
-			REF_COLOR6, REF_COLOR7 };
+	private static final Color[] REF_COLORS = new Color[] { REF_COLOR1,
+			REF_COLOR2, REF_COLOR3, REF_COLOR4, REF_COLOR5, REF_COLOR6,
+			REF_COLOR7 };
 
 	private static final Color COLOR_BRACKET = Color.RED;
 	private static final Color COLOR_KEY = Color.BLUE;

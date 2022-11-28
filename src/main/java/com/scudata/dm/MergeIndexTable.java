@@ -61,6 +61,7 @@ public class MergeIndexTable extends IndexTable {
 			}
 		}
 		
+		currentSeq = len + 1;
 		return null;
 	}
 
@@ -84,6 +85,7 @@ public class MergeIndexTable extends IndexTable {
 			}
 		}
 		
+		currentSeq = len + 1;
 		return null;
 	}
 }

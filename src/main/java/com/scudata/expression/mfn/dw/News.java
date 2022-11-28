@@ -7,7 +7,6 @@ import com.scudata.common.RQException;
 import com.scudata.dm.Context;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.cursor.ICursor;
-import com.scudata.dm.cursor.MemoryCursor;
 import com.scudata.dm.cursor.MultipathCursors;
 import com.scudata.dw.ColumnTableMetaData;
 import com.scudata.dw.ITableMetaData;
@@ -112,15 +111,10 @@ public class News extends TableMetaDataFunction {
 			throw new RQException("news" + mm.getMessage("function.invalidParam"));
 		}
 		
-		Object obj = param.getSub(0).getLeafExpression().calculate(ctx);
-		if (obj instanceof Sequence) {
-			cursor = new MemoryCursor((Sequence) obj);
-		} else if (obj instanceof ICursor) {
-			cursor = (ICursor) obj;
-		} else {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException("news" + mm.getMessage("function.invalidParam"));
-		}
+		Object[] objs = New.parse1stParam(param, ctx);
+		Object obj = objs[0];
+		cursor = (ICursor) objs[1];
+		String[] csNames = (String[]) objs[2];
 		
 		IParam newParam = param.create(1, param.getSubSize());
 		ParamInfo2 pi = ParamInfo2.parse(newParam, "news", false, false);
@@ -128,9 +122,9 @@ public class News extends TableMetaDataFunction {
 		String []names = pi.getExpressionStrs2();
 		
 		if (JoinCursor.isColTable(table)) {
-			return news((ColumnTableMetaData)table, cursor, obj, filter, exps,	names, fkNames, codes, opts, option, ctx);
+			return news((ColumnTableMetaData)table, cursor, obj, csNames, filter, exps,	names, fkNames, codes, opts, option, ctx);
 		} else {
-			return news(table, cursor, obj, filter, exps,	names, fkNames, codes, opts, ctx);
+			return news(table, cursor, obj, filter, exps, names, fkNames, codes, opts, ctx);
 		}
 	
 	}
@@ -181,7 +175,7 @@ public class News extends TableMetaDataFunction {
 		}
 	}
 	
-	public static Object news(ColumnTableMetaData table, ICursor cursor, Object obj, Expression filter, Expression []exps,
+	public static Object news(ColumnTableMetaData table, ICursor cursor, Object obj, String[] csNames, Expression filter, Expression []exps,
 			String[] names, String []fkNames, Sequence []codes, String[] opts, String option, Context ctx) {
 		int type = 2;
 		if (cursor instanceof MultipathCursors) {
@@ -195,13 +189,13 @@ public class News extends TableMetaDataFunction {
 				if (filter != null) {
 					w = filter.newExpression(ctx); // 分段并行读取时需要复制表达式，同一个表达式不支持并行运算
 				}
-				ICursor cs = new JoinCursor(table, exps, names, cursors[i], type, option, w, fkNames, codes, opts, ctx);
+				ICursor cs = new JoinCursor(table, exps, names, cursors[i], csNames, type, option, w, fkNames, codes, opts, ctx);
 				cursors[i] = cs;
 			}
 			return new MultipathCursors(cursors, ctx);
 		}
 		
-		ICursor cs = new JoinCursor(table, exps, names, cursor, type, option, filter, fkNames, codes, opts, ctx);
+		ICursor cs = new JoinCursor(table, exps, names, cursor, csNames, type, option, filter, fkNames, codes, opts, ctx);
 		if (obj instanceof Sequence) {
 			return cs.fetch();
 		} else {

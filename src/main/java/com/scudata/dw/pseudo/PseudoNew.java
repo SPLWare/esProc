@@ -19,6 +19,7 @@ import com.scudata.parallel.ClusterTableMetaData;
 public class PseudoNew extends Pseudo implements Operable, IPseudo {
 	private Object ptable;//参数cs/A，也可能是一个虚表
 	String option;
+	private String[] csNames;
 	
 	/**
 	 * 根据定义pd构造一个PseudoNew对象
@@ -37,10 +38,11 @@ public class PseudoNew extends Pseudo implements Operable, IPseudo {
 	public PseudoNew() {
 	}
 
-	public PseudoNew(PseudoDefination pd, Object ptable, Expression[] exps, String[] names, Expression filter,
+	public PseudoNew(PseudoDefination pd, Object ptable, String[] csNames, Expression[] exps, String[] names, Expression filter,
 			String[] fkNames, Sequence[] codes, String[] opts, String option) {
 		this.pd = pd;
 		this.ptable = ptable;
+		this.csNames = csNames;
 		this.exps = exps;
 		this.names = names;
 		this.filter = filter;
@@ -105,9 +107,9 @@ public class PseudoNew extends Pseudo implements Operable, IPseudo {
 	private ICursor getCursor(ITableMetaData table, ICursor cursor, String []fkNames, Sequence []codes, String []opts) {
 		ICursor result;
 		if (table instanceof ClusterTableMetaData) {
-			result = ((ClusterTableMetaData)table).news(exps, names, cursor, 1, option, filter, fkNames, codes, opts);
+			result = ((ClusterTableMetaData)table).news(exps, names, cursor, csNames, 1, option, filter, fkNames, codes, opts);
 		} else if (JoinCursor.isColTable(table)) {
-			result = (ICursor) New._new((ColumnTableMetaData)table, cursor, cursor, filter, exps,	names, fkNames, codes, opts, option, ctx);
+			result = (ICursor) New._new((ColumnTableMetaData)table, cursor, cursor, csNames, filter, exps,	names, fkNames, codes, opts, option, ctx);
 		} else {
 			result = (ICursor) New._new((ITableMetaData)table, cursor, cursor, filter, exps,	names, fkNames, codes, opts, ctx);
 		}

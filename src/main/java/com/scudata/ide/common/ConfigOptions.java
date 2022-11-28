@@ -99,6 +99,8 @@ public class ConfigOptions {
 	public static String sInitSpl = null;
 	/** The path of the custom functions file */
 	public static String sCustomFunctionFile = null;
+	/** The serial number */
+	public static String sSerialNo = null;
 	/** The installation directory of slimerjs */
 	public static String sSlimerjsDirectory = null;
 	/** Date format */
@@ -239,6 +241,11 @@ public class ConfigOptions {
 	 * Whether the multi-text editor automatically wraps
 	 */
 	public static Boolean bTextEditorLineWrap = Boolean.FALSE;
+	
+	/**
+	 * 函数提示功能
+	 */
+	public static Boolean bFuncNotice = GM.isWindowsOS();
 
 	/** HTML */
 	public static final int COPY_HTML = 0;
@@ -320,6 +327,9 @@ public class ConfigOptions {
 		options.put("sSlimerjsDirectory", sSlimerjsDirectory);
 		options.put("sFileTreeExpand", sFileTreeExpand);
 		options.put("iUndoCount", iUndoCount);
+		
+		options.put("bFuncNotice", bFuncNotice);
+		
 	}
 
 	/**
@@ -526,6 +536,8 @@ public class ConfigOptions {
 				bFileTreeDemo = ii;
 			} else if (option.equalsIgnoreCase("bAutoSave")) {
 				bAutoSave = ii;
+			} else if (option.equalsIgnoreCase("bFuncNotice")) {
+				bFuncNotice = ii;
 			}
 		} else if (StringUtils.isValidString(val)) {
 			if (option.equalsIgnoreCase("sLogFileName")) {

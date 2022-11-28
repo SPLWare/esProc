@@ -261,7 +261,7 @@ public class SPL extends AppFrame {
 			AppToolBar toolBase = null;
 			ToolBarPropertyBase toolBarProperty = null;
 			toolBase = GVSpl.getBaseTool();
-			toolBarProperty = GVSpl.getSplProperty();
+			toolBarProperty = newToolBarProperty();
 			//
 			GV.appTool = toolBase;
 			GV.toolBarProperty = toolBarProperty;
@@ -412,6 +412,14 @@ public class SPL extends AppFrame {
 	 */
 	protected AppMenu newMenuSpl() {
 		return GVSpl.getSplMenu();
+	}
+
+	/**
+	 * 创建SPL工具条
+	 * @return
+	 */
+	protected ToolBarPropertyBase newToolBarProperty() {
+		return GVSpl.getSplProperty();
 	}
 
 	/**
@@ -1423,18 +1431,19 @@ public class SPL extends AppFrame {
 		GMSpl.setOptionLocale();
 
 		ConfigFile sysConfig = ConfigFile.getSystemConfigFile();
+		String splashFile = null;
 		if (sysConfig != null) {
 			// 将显示splash图片和连接官网放在同一个界面中
-			String splashFile = sysConfig.getAttrValue("splashFile");
-			if (StringUtils.isValidString(splashFile)) {
-				splashFile = GM.getAbsolutePath(splashFile);
-			} else {
-				splashFile = GC.IMAGES_PATH + "esproc" + GM.getLanguageSuffix()
-						+ ".png";
-			}
-			splashWindow = new DialogSplash(splashFile);
-			splashWindow.setVisible(true);
+			splashFile = sysConfig.getAttrValue("splashFile");
 		}
+		if (StringUtils.isValidString(splashFile)) {
+			splashFile = GM.getAbsolutePath(splashFile);
+		} else {
+			splashFile = GC.IMAGES_PATH + "esproc" + GM.getLanguageSuffix()
+					+ ".png";
+		}
+		splashWindow = new DialogSplash(splashFile);
+		splashWindow.setVisible(true);
 
 		if (GV.config != null) {
 			try {

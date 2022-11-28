@@ -34,7 +34,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
-import java.lang.reflect.Method;
 import java.net.URI;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
@@ -42,6 +41,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -3639,42 +3641,11 @@ public class GM {
 	 * @throws Exception
 	 */
 	public static void browse(String url) throws Exception {
-		String osName = System.getProperty("os.name", "").toLowerCase();
-		if (osName.startsWith("mac os")) {
-			Class fileMgr = Class.forName("com.apple.eio.FileManager");
-			Method openURL = fileMgr.getDeclaredMethod("openURL",
-					new Class[] { String.class });
-			openURL.invoke(null, new Object[] { url });
-		} else if (osName.startsWith("windows")) {
-			Runtime.getRuntime().exec(
-					"rundll32 url.dll,FileProtocolHandler " + url);
-		} else {
-			/* Assume Unix or Linux */
-			try {
+		if (Desktop.isDesktopSupported()) {
+			Desktop dt = Desktop.getDesktop();
+			if (dt.isSupported(Desktop.Action.BROWSE)) {
 				URI uri = new URI(url);
-				Desktop desktop = null;
-				if (Desktop.isDesktopSupported()) {
-					desktop = Desktop.getDesktop();
-				}
-				if (desktop != null) {
-					desktop.browse(uri);
-					return;
-				}
-			} catch (Throwable t) {
-			}
-			String[] browsers = { "google-chrome", "firefox", "opera",
-					"konqueror", "epiphany", "mozilla", "netscape" };
-			String browser = null;
-			for (int count = 0; count < browsers.length && browser == null; count++)
-				if (Runtime.getRuntime()
-						.exec(new String[] { "which", browsers[count] })
-						.waitFor() == 0)
-					browser = browsers[count];
-			if (browser == null)
-				throw new NoSuchMethodException("Could not find web browser");
-			else {
-				Logger.info("cmd: " + browser + ", " + url);
-				Runtime.getRuntime().exec(new String[] { browser, url });
+				dt.browse(uri);
 			}
 		}
 	}
@@ -3687,16 +3658,6 @@ public class GM {
 	public static String getLineSeparator() {
 		return isWindowsOS() ? "\n" : System.getProperties().getProperty(
 				"line.separator");
-	}
-
-	/**
-	 * Open a file using the command line
-	 * 
-	 * @param filePath The file path
-	 * @throws IOException
-	 */
-	public static void openFile(String filePath) throws IOException {
-		Runtime.getRuntime().exec("cmd.exe /c start \"\" \"" + filePath + "\"");
 	}
 
 	/**
@@ -3836,5 +3797,80 @@ public class GM {
 			return null;
 		sql = sql.replaceAll("(/\\*.*?\\*/)|(--.*)", "");
 		return sql;
+	}
+
+	/**
+	 * 取当前选择的词起始位置
+	 * @param str
+	 * @param p
+	 * @return
+	 */
+	public static int[] getCurrentWordPosition(String str, int p) {
+		if (!StringUtils.isValidString(str))
+			return null;
+		if (p < 0) {
+			return null;
+		} else if (p == 0) { // 光标在第一个位置
+			if (isSymbol(str.charAt(p))) { // 第一位不是字符
+				return null;
+			}
+		} else {
+			if (p < str.length()) {
+				if (isSymbol(str.charAt(p))) { // 光标位置是符号
+					if (isSymbol(str.charAt(p - 1))) { // 光标前一位也是符号
+						return null;
+					} else { // 移动到光标前一位，使p位是字符
+						p = p - 1;
+					}
+				}
+			}
+		}
+		int start = p;
+		int end = p;
+		for (int i = p - 1; i >= 0; i--) { // 从字符位置向前找
+			char c = str.charAt(i);
+			if (isSymbol(c)) {
+				start = i + 1;
+				break;
+			}
+		}
+		for (int i = p + 1; i < str.length(); i++) { // 从字符位置向后找
+			char c = str.charAt(i);
+			if (isSymbol(c)) {
+				end = i;
+				break;
+			}
+		}
+		if (start >= end)
+			return null;
+		return new int[] { start, end };
+	}
+
+	/**
+	 * 是否符号
+	 * @param c
+	 * @return
+	 */
+	private static boolean isSymbol(char c) {
+		return KeyWord.isSymbol(c) || c == KeyWord.OPTION;
+	}
+
+	/**
+	 * 按文件名排序
+	 * @param files
+	 * @return
+	 */
+	public static File[] sortFiles(File[] files) {
+		if (files == null || files.length == 0)
+			return files;
+		List<File> list = Arrays.asList(files);
+		Collections.sort(list, new Comparator<File>() {
+
+			public int compare(File o1, File o2) {
+				return Env.getCollator().compare(o1.getName(), o2.getName());
+			}
+		});
+
+		return list.toArray(new File[list.size()]);
 	}
 }

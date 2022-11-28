@@ -1,7 +1,11 @@
 package com.scudata.dm.query;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -40,6 +44,7 @@ import com.scudata.dm.op.Join;
 import com.scudata.dm.op.New;
 import com.scudata.dm.op.Select;
 import com.scudata.dm.query.utils.ExpressionTranslator;
+import com.scudata.dm.query.utils.FileUtil;
 import com.scudata.dw.ColumnGroupTable;
 import com.scudata.dw.TableMetaData;
 import com.scudata.excel.ExcelTool;
@@ -5327,6 +5332,27 @@ public class SimpleJoin
 		
 		if(!this.intoFileName.isEmpty())
 		{
+			ArrayList<String> intoFiles = new ArrayList<String>();
+			this.intoFileName = this.intoFileName.trim();
+			if (intoFileName.indexOf("${")>=0){
+				int lastdot = intoFileName.lastIndexOf(".");
+				if (lastdot == -1) {
+					MessageManager mm = ParseMessage.get();
+					throw new RQException(mm.getMessage("syntax.error") + ":query, 不认识into文件类型");
+				}
+				String ext = intoFileName.substring(lastdot);
+				intoFileName = Expression.replaceMacros(intoFileName.substring(0,lastdot), null, ctx);
+				String[] fs = intoFileName.split(",");
+				for (int i=0; i<fs.length; i++) {
+					intoFiles.add((fs[i]+ext).trim());
+				}
+			} else intoFiles.add(intoFileName);
+			intoFileName = intoFiles.get(0);
+			String shortFileName = intoFileName;
+			
+			
+			
+			System.out.println("intoFileName = "+this.intoFileName);
 			if(this.withTableMap.containsKey(this.intoFileName.toLowerCase()))
 			{
 				String filePath = this.withTableMap.get(this.intoFileName.toLowerCase()).getTableFile();
@@ -5336,7 +5362,6 @@ public class SimpleJoin
 				}
 			}
 			
-			this.intoFileName = this.intoFileName.trim();
 			
 			if(this.intoFileName.startsWith("\"") && this.intoFileName.endsWith("\"")
 			&& this.intoFileName.substring(1, this.intoFileName.length()-1).indexOf("\"") == -1)
@@ -5397,6 +5422,10 @@ public class SimpleJoin
 				}
 			}
 			
+			String preFileName = "";
+			System.out.println(shortFileName + "--" + intoFileName);
+			if (!intoFileName.equals(shortFileName)) preFileName = this.intoFileName.substring(0,this.intoFileName.indexOf(shortFileName));
+						
 			FileObject fo = new FileObject(this.intoFileName, null, null, ctx);
 			
 			String aopt = "";
@@ -5554,11 +5583,41 @@ public class SimpleJoin
 				MessageManager mm = ParseMessage.get();
 				throw new RQException(mm.getMessage("syntax.error") + ":query, 未知的文件类型");
 			}
+			
+			for (int i=1; i<intoFiles.size(); i++) {
+				try {
+
+					//System.out.println(preFileName + intoFiles.get(i));
+					copyFile(new File(preFileName + intoFiles.get(0)), new File(preFileName + intoFiles.get(i)));
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 		}
 		
 		return this.icur;
 	}
-	
+
+
+	public static void copyFile(File source, File dest)
+	        throws IOException {
+	    InputStream input = null;
+	    OutputStream output = null;
+	    try {
+	           input = new FileInputStream(source);
+	           output = new FileOutputStream(dest);
+	           byte[] buf = new byte[1024];
+	           int bytesRead;
+	           while ((bytesRead = input.read(buf)) != -1) {
+	               output.write(buf, 0, bytesRead);
+	           }
+	    } finally {
+	        input.close();
+	        output.close();
+	    }
+	}	
+
 	public ICursor query(String dql)
 	{
 		Token[] tokens = Tokenizer.parse(dql);

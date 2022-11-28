@@ -658,12 +658,19 @@ public class FuncWindow extends JWindow {
 	 * @param paramCaret
 	 * @return
 	 */
-	private String getFuncString(FuncInfo fi, String efo,
+	public static String getFuncString(FuncInfo fi, String efo,
 			FuncParam activeParam, int paramCaret) {
+		return getFuncString(fi, efo, activeParam, paramCaret, true);
+	}
+
+	public static String getFuncString(FuncInfo fi, String efo,
+			FuncParam activeParam, int paramCaret, boolean hasPostfix) {
 		ArrayList<FuncParam> params = fi.getParams();
 		StringBuffer sb = new StringBuffer();
-		if (StringUtils.isValidString(fi.getPostfix())) {
-			sb.append(fi.getPostfix());
+		if (hasPostfix) {
+			if (StringUtils.isValidString(fi.getPostfix())) {
+				sb.append(fi.getPostfix());
+			}
 		}
 		sb.append(fi.getName());
 		ArrayList<FuncOption> options = fi.getOptions();
@@ -779,7 +786,7 @@ public class FuncWindow extends JWindow {
 	 * @param fp
 	 * @return
 	 */
-	private String getFuncParamName(FuncParam fp) {
+	private static String getFuncParamName(FuncParam fp) {
 		String name = fp.getDesc();
 		int index = name.indexOf("(");
 		if (index > 0) {

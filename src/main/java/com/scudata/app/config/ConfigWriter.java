@@ -320,6 +320,7 @@ public class ConfigWriter {
 		writeImportLibList(config.getImportLibs());
 		writeAttribute(ConfigConsts.CUSTOM_FUNCTION_FILE,
 				config.getCustomFunctionFile());
+		writeAttribute(ConfigConsts.SERIAL_NO, config.getEsprocSerialNo());
 		level = 2;
 		endElement(ConfigConsts.ESPROC);
 	}

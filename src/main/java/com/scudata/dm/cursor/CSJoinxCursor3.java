@@ -10,7 +10,6 @@ import com.scudata.dw.ColumnTableMetaData;
 import com.scudata.dw.Cursor;
 import com.scudata.expression.Expression;
 import com.scudata.resources.EngineMessage;
-import com.scudata.util.CursorUtil;
 
 /**
  * 游标joinx类，归并joinx
@@ -68,20 +67,61 @@ public class CSJoinxCursor3 extends ICursor {
 		ICursor cursors[] = {cursor, toCursor(fileTable)};
 		String names[] = {null, null};
 		Expression joinKeys[][] = {fields, keys};
-		mergeCursor = CursorUtil.joinx(cursors, names, joinKeys, option, ctx);
+		mergeCursor = joinx(cursors, names, joinKeys, option, ctx);
 		
 		//组织数据结构
-		Sequence temp = mergeCursor.peek(1);
-		Record r = (Record) temp.getMem(1);
-		Record r1 = (Record) r.getNormalFieldValue(0);
-		len1 = r1.getFieldCount();
-		len2 = exps == null ? 0 : exps.length;
-		names = new String[len1 + len2];
-		System.arraycopy(r1.getFieldNames(), 0, names, 0, len1);
-		System.arraycopy(expNames, 0, names, len1, len2);
-		ds = new DataStruct(names);
+		if (option !=null && (option.indexOf('i') != -1 || option.indexOf('d') != -1)) {
+			Sequence temp = mergeCursor.peek(1);
+			if (temp != null) {
+				Record r = (Record) temp.getMem(1);
+				ds = r.dataStruct();
+				len1 = 0;
+			}
+		} else {
+			Sequence temp = mergeCursor.peek(1);
+			if (temp != null) {
+				Record r = (Record) temp.getMem(1);
+				Record r1 = (Record) r.getNormalFieldValue(0);
+				len1 = r1.getFieldCount();
+				len2 = exps == null ? 0 : exps.length;
+				names = new String[len1 + len2];
+				System.arraycopy(r1.getFieldNames(), 0, names, 0, len1);
+				System.arraycopy(expNames, 0, names, len1, len2);
+				ds = new DataStruct(names);
+			}
+		}
 	}
 
+	/**
+	 * 游标对关联字段有序，做有序归并连接
+	 * @param cursors 游标数组
+	 * @param names 结果集字段名数组
+	 * @param exps 关联字段表达式数组
+	 * @param opt 选项
+	 * @param ctx Context 计算上下文
+	 * @return ICursor 结果集游标
+	 */
+	private static ICursor joinx(ICursor []cursors, String []names, Expression [][]exps, String opt, Context ctx) {
+		boolean isPJoin = false, isIsect = false, isDiff = false;
+		if (opt != null) {
+			if (opt.indexOf('p') != -1) {
+				isPJoin = true;
+			} else if (opt.indexOf('i') != -1) {
+				isIsect = true;
+			} else if (opt.indexOf('d') != -1) {
+				isDiff = true;
+			}
+		}
+		
+		if (isPJoin) {
+			return new PJoinCursor(cursors, names);
+		} else if (isIsect || isDiff) {
+			return new MergeFilterCursor(cursors, exps, opt, ctx);
+		} else {
+			return new JoinxCursor2(cursors[0], exps[0][0], cursors[1], exps[1][0], names, opt, ctx);
+		}
+	}
+	
 	/**
 	 * 从join字段和新表达式中提取需要的字段
 	 * @param dataExps
@@ -138,6 +178,10 @@ public class CSJoinxCursor3 extends ICursor {
 			return null;
 		}
 		
+		if (len1 == 0) {
+			return temp;
+		}
+		
 		Context ctx = this.ctx;
 		Expression []exps = this.exps;
 		int len1 = this.len1;
@@ -151,7 +195,9 @@ public class CSJoinxCursor3 extends ICursor {
 			
 			Record record = result.newLast(r1.getFieldValues());
 			for (int f = 0; f < len2; f++) {
-				record.setNormalFieldValue(f + len1, r2.calc(exps[f], ctx));
+				if (r2 != null) {
+					record.setNormalFieldValue(f + len1, r2.calc(exps[f], ctx));
+				}
 			}
 		}
 		
@@ -163,12 +209,25 @@ public class CSJoinxCursor3 extends ICursor {
 
 	protected long skipOver(long n) {
 		if (isEnd || n < 1) return 0;
-		Sequence seq = get((int) n);
-		if (seq != null) {
-			return seq.length();
-		} else {
-			return 0;
+		long total = 0;
+		while (n > 0) {
+			Sequence seq;
+			if (n > FETCHCOUNT) {
+				seq = get(FETCHCOUNT);
+			} else {
+				seq = get((int)n);
+			}
+			
+			if (seq == null || seq.length() == 0) {
+				close();
+				break;
+			}
+			
+			total += seq.length();
+			n -= seq.length();
 		}
+		
+		return total;
 	}
 
 	public synchronized void close() {
@@ -206,6 +265,12 @@ public class CSJoinxCursor3 extends ICursor {
 			Expression[][] exps, String[][] expNames, String fname, Context ctx, int n, String option) {
 		if (fileTable == null) {
 			return null;
+		}
+		
+		if (option.indexOf('i') == -1) {
+			option += '1';
+		} else {
+			option = option.replaceAll("i", "");
 		}
 		
 		if (cursor instanceof MultipathCursors) {
@@ -262,8 +327,11 @@ public class CSJoinxCursor3 extends ICursor {
 	private static MultipathCursors toMultipathCursors(Object obj, MultipathCursors mcs,  String fields[], Context ctx) {
 		if (obj instanceof ColumnTableMetaData) {
 			return (MultipathCursors) ((ColumnTableMetaData) obj).cursor(null, fields, null, null, null, null, mcs, "k", ctx);
+		} else if (obj instanceof MultipathCursors) {
+			return (MultipathCursors) obj;
 		} else {
-			return null;
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("joinx" + mm.getMessage("dw.needMCursor"));
 		}
 	}
 	
@@ -278,8 +346,12 @@ public class CSJoinxCursor3 extends ICursor {
 		
 		if (fileTableCursors == null) {
 			for (int i = 0; i < pathCount; ++i) {
-				results[i] = MergeJoinx(cursors[i], fields, fileTable,
-						keys, exps, expNames, fname, ctx, n, option);
+				Expression[][] fields_ = Operation.dupExpressions(fields, ctx);
+				Expression[][] keys_ = Operation.dupExpressions(keys, ctx);
+				Expression[][] exps_ = Operation.dupExpressions(exps, ctx);
+				
+				results[i] = MergeJoinx(cursors[i], fields_, fileTable,
+						keys_, exps_, expNames, fname, ctx, n, option);
 			}
 		} else {
 			if (fileTable.length != 1) {
@@ -287,12 +359,15 @@ public class CSJoinxCursor3 extends ICursor {
 				throw new RQException("joinx" + mm.getMessage("function.invalidParam"));
 			}
 			for (int i = 0; i < pathCount; ++i) {
-				results[i] = MergeJoinx(cursors[i], fields, new Object[] {fileTableCursors[i]},
-						keys, exps, expNames, fname, ctx, n, option);
+				Expression[][] fields_ = Operation.dupExpressions(fields, ctx);
+				Expression[][] keys_ = Operation.dupExpressions(keys, ctx);
+				Expression[][] exps_ = Operation.dupExpressions(exps, ctx);
+				
+				results[i] = MergeJoinx(cursors[i], fields_, new Object[] {fileTableCursors[i]},
+						keys_, exps_, expNames, fname, ctx, n, option);
 			}
 		}
 		
 		return new MultipathCursors(results, ctx);
-		
 	}
 }

@@ -3,6 +3,8 @@ package com.scudata.ide.spl;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import javax.swing.text.JTextComponent;
+
 import com.scudata.cellset.datamodel.NormalCell;
 import com.scudata.cellset.datamodel.PgmNormalCell;
 import com.scudata.common.Area;
@@ -81,7 +83,6 @@ public class ToolBarProperty extends ToolBarPropertyBase {
 		}
 		SplControl control = GVSpl.splEditor.getComponent();
 		ContentPanel cp = control.getContentPanel();
-		CellEditingListener editListener = new CellEditingListener(control, cp);
 		KeyListener[] kls = textEditor.getKeyListeners();
 		if (kls != null) {
 			int len = kls.length;
@@ -91,7 +92,17 @@ public class ToolBarProperty extends ToolBarPropertyBase {
 				}
 			}
 		}
-		textEditor.addKeyListener(editListener);
+		addCellEditingListener(textEditor, control, cp);
+	}
+
+	/**
+	 * ÉèÖÃÍø¸ñ±à¼­¼àÌýÆ÷
+	 * @return
+	 */
+	protected void addCellEditingListener(JTextComponent jtext,
+			SplControl control, ContentPanel cp) {
+		CellEditingListener listener = new CellEditingListener(control, cp);
+		jtext.addKeyListener(listener);
 	}
 
 	/**
@@ -115,9 +126,12 @@ public class ToolBarProperty extends ToolBarPropertyBase {
 		if (GVSpl.splEditor != null) {
 			CellRect rect = GVSpl.splEditor.getSelectedRect();
 			if (rect != null) {
-				String rectText = GMSpl.getCellID(rect.getBeginRow(), rect.getBeginCol());
+				String rectText = GMSpl.getCellID(rect.getBeginRow(),
+						rect.getBeginCol());
 				if (rect.getRowCount() > 1 || rect.getColCount() > 1) {
-					rectText += "-" + GMSpl.getCellID(rect.getEndRow(), rect.getEndCol());
+					rectText += "-"
+							+ GMSpl.getCellID(rect.getEndRow(),
+									rect.getEndCol());
 				}
 				cellName.setText(rectText);
 			}
@@ -230,9 +244,11 @@ public class ToolBarProperty extends ToolBarPropertyBase {
 		control.repaint();
 		cp.requestFocus();
 		if (control.cellSet.isAutoCalc()) {
-			PgmNormalCell nc = (PgmNormalCell) control.cellSet.getCell(row, col);
+			PgmNormalCell nc = (PgmNormalCell) control.cellSet
+					.getCell(row, col);
 			if (nc != null)
-				GVSpl.panelValue.tableValue.setValue1(nc.getValue(), nc.getCellId());
+				GVSpl.panelValue.tableValue.setValue1(nc.getValue(),
+						nc.getCellId());
 		}
 		editor.selectedRects.clear();
 		editor.selectedRects.add(new CellRect(a));
@@ -258,7 +274,8 @@ public class ToolBarProperty extends ToolBarPropertyBase {
 	 */
 	protected CellLocation getMaxCellLocation() {
 		SplControl control = GVSpl.splEditor.getComponent();
-		return new CellLocation(control.cellSet.getRowCount(), control.cellSet.getColCount());
+		return new CellLocation(control.cellSet.getRowCount(),
+				control.cellSet.getColCount());
 	}
 
 	/**
@@ -281,7 +298,8 @@ public class ToolBarProperty extends ToolBarPropertyBase {
 	 */
 	public void editCancel() {
 		SplControl control = GVSpl.splEditor.getComponent();
-		NormalCell nc = (NormalCell) control.getCellSet().getCell(control.getActiveCell().getRow(),
+		NormalCell nc = (NormalCell) control.getCellSet().getCell(
+				control.getActiveCell().getRow(),
 				control.getActiveCell().getCol());
 		String value = nc.getExpString();
 		value = value == null ? GCSpl.NULL : value;

@@ -109,16 +109,11 @@ public class New extends TableMetaDataFunction {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("new" + mm.getMessage("function.invalidParam"));
 		}
-		Object obj = param.getSub(0).getLeafExpression().calculate(ctx);
-		if (obj instanceof Sequence) {
-			cursor = new MemoryCursor((Sequence) obj);
-		} else if (obj instanceof ICursor) {
-			cursor = (ICursor) obj;
-		} else {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException("new" + mm.getMessage("function.invalidParam"));
-		}
-	
+		
+		Object[] objs = parse1stParam(param, ctx);
+		Object obj = objs[0];
+		cursor = (ICursor) objs[1];
+		String[] csNames = (String[]) objs[2];
 		
 		IParam newParam = param.create(1, param.getSubSize());
 		ParamInfo2 pi = ParamInfo2.parse(newParam, "new", false, false);
@@ -126,15 +121,59 @@ public class New extends TableMetaDataFunction {
 		String []names = pi.getExpressionStrs2();
 		
 		if (JoinCursor.isColTable(table)) {
-			return _new((ColumnTableMetaData)table, cursor, obj, filter, exps,	names, fkNames, codes, opts, option, ctx);
+			return _new((ColumnTableMetaData)table, cursor, obj, csNames, filter, exps,	names, fkNames, codes, opts, option, ctx);
 		} else {
-			return _new(table, cursor, obj, filter, exps,	names, fkNames, codes, opts, ctx);
+			return _new(table, cursor, obj, filter, exps, names, fkNames, codes, opts, ctx);
 		}
 	
 	}
 	
-	public static  Object _new(ColumnTableMetaData table, ICursor cursor, Object obj, Expression filter, Expression []exps,
-			String[] names, String []fkNames, Sequence []codes, String[] opts, String option, Context ctx) {
+	/**
+	 * 提取new、news的第一个参数 (A/cs:K)
+	 * @param param
+	 * @param ctx
+	 * @return Object[] {转换后的cursor, A/cs对象, K数组}
+	 */
+	public static Object[] parse1stParam(IParam param, Context ctx) {
+		Object[] objs = new Object[3];
+		ICursor cursor;
+		Object obj = null;
+		String[] csNames = null;
+		IParam csParam = param.getSub(0);
+		if (csParam.isLeaf()) {
+			obj = csParam.getLeafExpression().calculate(ctx);
+			if (obj instanceof Sequence) {
+				cursor = new MemoryCursor((Sequence) obj);
+			} else if (obj instanceof ICursor) {
+				cursor = (ICursor) obj;
+			} else {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException("new" + mm.getMessage("function.invalidParam"));
+			}
+		} else {
+			obj = csParam.getSub(0).getLeafExpression().calculate(ctx);
+			if (obj instanceof Sequence) {
+				cursor = new MemoryCursor((Sequence) obj);
+			} else if (obj instanceof ICursor) {
+				cursor = (ICursor) obj;
+			} else {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException("new" + mm.getMessage("function.invalidParam"));
+			}
+			IParam newParam = csParam.create(1, csParam.getSubSize());
+			ParamInfo2 pi = ParamInfo2.parse(newParam, "new", false, false);
+			csNames = pi.getExpressionStrs1();
+		}
+		
+		objs[0] = obj;
+		objs[1] = cursor;
+		objs[2] = csNames;
+		return objs;
+	}
+	
+	public static  Object _new(ColumnTableMetaData table, ICursor cursor, Object obj, 
+			String[] csNames, Expression filter, Expression []exps, String[] names, 
+			String []fkNames, Sequence []codes, String[] opts, String option, Context ctx) {
 		int type = 0x01;
 		if (cursor instanceof MultipathCursors) {
 			type += 0x10;
@@ -146,12 +185,12 @@ public class New extends TableMetaDataFunction {
 				if (filter != null) {
 					w = filter.newExpression(ctx); // 分段并行读取时需要复制表达式，同一个表达式不支持并行运算
 				}
-				ICursor cs = new JoinCursor(table, exps, names, cursors[i], type, option, w, fkNames, codes, opts, ctx);
+				ICursor cs = new JoinCursor(table, exps, names, cursors[i], csNames, type, option, w, fkNames, codes, opts, ctx);
 				cursors[i] = cs;
 			}
 			return new MultipathCursors(cursors, ctx);
 		}
-		ICursor cs = new JoinCursor(table, exps, names, cursor, type, option, filter, fkNames, codes, opts, ctx);
+		ICursor cs = new JoinCursor(table, exps, names, cursor, csNames, type, option, filter, fkNames, codes, opts, ctx);
 		if (obj instanceof Sequence) {
 			return cs.fetch();
 		} else {

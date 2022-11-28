@@ -45,10 +45,10 @@ public class DoubleColumn extends Column {
 		row--;
 		double []block = blockList.get(row / Column.BLOCK_RECORD_COUNT);
 		double value = block[row % Column.BLOCK_RECORD_COUNT];
-		if (value != NULL) {
-			return new Double(value);
-		} else {
+		if (Double.isNaN(value)) {
 			return null;
+		} else {
+			return new Double(value);
 		}
 	}
 	

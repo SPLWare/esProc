@@ -1963,12 +1963,13 @@ public class ColumnTableMetaData extends TableMetaData {
 		ICursor []srcCursors = mcs.getParallelCursors();
 		int segCount = srcCursors.length;
 		Object [][]minValues = new Object [segCount][];
-		int dataSegCount = segCount; // 有数据的多路游标路数
 		
-		for (int i = 0; i < segCount; ++i) {
+		for (int i = 1; i < segCount; ++i) {
 			Sequence seq = srcCursors[i].peek(1);
 			if (seq == null) {
-				dataSegCount = i;
+				// 当前分段经过过滤后可能没有满足条件的记录
+				continue;
+				/*dataSegCount = i;
 				for (++i; i < segCount; ++i) {
 					if (srcCursors[i].peek(1) != null) {
 						MessageManager mm = EngineMessage.get();
@@ -1976,7 +1977,7 @@ public class ColumnTableMetaData extends TableMetaData {
 					}
 				}
 				
-				break;
+				break;*/
 			}
 
 			Record r = (Record)seq.get(1);
@@ -1987,123 +1988,94 @@ public class ColumnTableMetaData extends TableMetaData {
 			}
 		}
 		
-		ObjectReader []readers = new ObjectReader[fcount];
-		for (int f = 0; f < fcount; ++f) {
-			readers[f] = sortedCols[f].getSegmentReader();
-		}
-		
 		int blockCount = getDataBlockCount();
-		int s = 1;
-		Object []blockMinVals = new Object[fcount];
 		ICursor []cursors = new ICursor[segCount];
-		boolean []isEquals = new boolean[segCount];
+		int startBlock = 0;
+		int currentBlock = 0; // 当前读的最小值的块
 		
-		for (int i = dataSegCount; i < segCount; ++i) {
-			Cursor cs = new Cursor(this, exps, fields, filter, fkNames, codes, opts, ctx);
-			cs.setSegment(0, -1);
-			cursors[i] = cs;
+		// 需要掐头的游标的对应的前面的游标的序号
+		int []appendSegs = new int[segCount];
+		for (int s = 0; s < segCount; ++s) {
+			appendSegs[s] = -1;
 		}
 		
 		try {
-			// 不是同步分段的，需要掐头去尾
-			int startBlock = 0;
-			for (int b = 0; b < blockCount && s < dataSegCount; ++b) {
-				for (int f = 0; f < fcount; ++f) {
-					readers[f].readLong40();
-					readers[f].skipObject();
-					readers[f].skipObject();
-					blockMinVals[f] = readers[f].readObject(); //startValue
-				}
-				
-				if (filter != null) {
-					// 分段并行读取时需要复制表达式，同一个表达式不支持并行运算
-					filter = filter.newExpression(ctx);
-				}
-				
-				int cmp = Variant.compareArrays(blockMinVals, minValues[s]);
-				if (cmp > 0) {
-					ICursor cs = cursor(exps, fields, filter, fkNames, codes, opts, ctx);
-					cursors[s - 1] = cs;
-					if (b > 0) {
-						((IDWCursor) cs).setSegment(startBlock, b - 1);
-						startBlock = b - 1;
-					} else {
-						((IDWCursor) cs).setSegment(startBlock, 0);
-						startBlock = 0;
-					}
-					
-					isEquals[s] = false;
-					s++;
-				} else if (cmp == 0) {
-					ICursor cs = cursor(exps, fields, filter, fkNames, codes, opts, ctx);
-					cursors[s - 1] = cs;
-					((IDWCursor) cs).setSegment(startBlock, b);
-					startBlock = b;
-					
-					isEquals[s] = true;
-					s++;
-				}
+			ObjectReader []readers = new ObjectReader[fcount];
+			Object []blockMinVals = new Object[fcount];
+			for (int f = 0; f < fcount; ++f) {
+				readers[f] = sortedCols[f].getSegmentReader();
+				readers[f].readLong40();
+				readers[f].skipObject();
+				readers[f].skipObject();
+				blockMinVals[f] = readers[f].readObject(); //startValue
 			}
 			
-			if (0 == dataSegCount) {
-				//do nothing
-			} else if (s == dataSegCount) {
-				if (filter != null) {
-					// 分段并行读取时需要复制表达式，同一个表达式不支持并行运算
-					filter = filter.newExpression(ctx);
-				}
-				ICursor cs = cursor(exps, fields, filter, fkNames, codes, opts, ctx);
-				cursors[s - 1] = cs;
-				((IDWCursor) cs).setSegment(startBlock, blockCount);
-				
-				for (int i = 1; i < s; ++i) {
-					if (!isEquals[i]) {
-						Sequence seq = fetchToValue((IDWCursor)cursors[i], dimFields, minValues[i]);
-						((IDWCursor) cursors[i - 1]).setAppendData(seq);
-					}
-				}
-			} else {
-				// 最后一段的起始值小于等于参照的多路游标的中间段的起始值
+			Next:
+			for (int s = 0; s < segCount; ++s) {
 				if (filter != null) {
 					// 分段并行读取时需要复制表达式，同一个表达式不支持并行运算
 					filter = filter.newExpression(ctx);
 				}
 				
-				ICursor cs = cursor(exps, fields, filter, fkNames, codes, opts, ctx);
-				cursors[s - 1] = cs;
-				((IDWCursor) cs).setSegment(startBlock, blockCount - 1);
-				
-				for (int i = 1; i < s; ++i) {
-					if (!isEquals[i]) {
-						Sequence seq = fetchToValue((IDWCursor)cursors[i], dimFields, minValues[i]);
-						((IDWCursor) cursors[i - 1]).setAppendData(seq);
+				int nextSeg = s + 1;
+				Object []nextMinValue = null;
+				while (nextSeg < segCount) {
+					nextMinValue = minValues[nextSeg];
+					if (nextMinValue != null) {
+						break;
+					} else {
+						nextSeg++;
 					}
 				}
 				
-				// 定义最后一段游标，其它空段从最后一段取出相应的值
-				if (filter != null) {
-					// 分段并行读取时需要复制表达式，同一个表达式不支持并行运算
-					filter = filter.newExpression(ctx);
+				if (nextMinValue == null) {
+					cursors[s] = cursor(exps, fields, filter, fkNames, codes, opts, ctx);
+					((IDWCursor)cursors[s]).setSegment(startBlock, blockCount);
+					startBlock = blockCount;
+					continue;
 				}
 				
-				cursors[dataSegCount - 1] = new Cursor(this, exps, fields, filter, fkNames, codes, opts, ctx);
-				((IDWCursor) cursors[dataSegCount - 1]).setSegment(blockCount - 1, blockCount);
-				
-				Sequence seq = fetchToValue((IDWCursor)cursors[dataSegCount - 1], dimFields, minValues[s]);
-				((IDWCursor) cursors[s - 1]).setAppendData(seq);
-				
-				for (; s < dataSegCount - 1; ++s) {
-					if (filter != null) {
-						// 分段并行读取时需要复制表达式，同一个表达式不支持并行运算
-						filter = filter.newExpression(ctx);
+				while (currentBlock < blockCount) {
+					int cmp = Variant.compareArrays(blockMinVals, nextMinValue);
+					if (cmp > 0) {
+						cursors[s] = cursor(exps, fields, filter, fkNames, codes, opts, ctx);
+						
+						if (currentBlock > 0) {
+							((IDWCursor)cursors[s]).setSegment(startBlock, currentBlock - 1);
+							startBlock = currentBlock - 1;
+							appendSegs[nextSeg] = s;
+						} else {
+							((IDWCursor)cursors[s]).setSegment(0, 0);
+						}
+						
+						continue Next;
+					} else if (cmp == 0) {
+						cursors[s] = cursor(exps, fields, filter, fkNames, codes, opts, ctx);
+						((IDWCursor)cursors[s]).setSegment(startBlock, currentBlock);
+						startBlock = currentBlock;
+						continue Next;
+					} else {
+						currentBlock++;
+						if (currentBlock < blockCount) {
+							for (int f = 0; f < fcount; ++f) {
+								readers[f].readLong40();
+								readers[f].skipObject();
+								readers[f].skipObject();
+								blockMinVals[f] = readers[f].readObject(); //startValue
+							}
+						}
 					}
-					
-					cursors[s] = new Cursor(this, exps, fields, filter, fkNames, codes, opts, ctx);
-					((IDWCursor) cursors[s]).setSegment(blockCount - 1, blockCount - 1);
-					//cursors[s] = new MemoryCursor(null);
-					
-					seq = fetchToValue((IDWCursor)cursors[dataSegCount - 1], dimFields, minValues[s + 1]);
-					((IDWCursor) cursors[s]).setAppendData(seq);
+				}
+				
+				cursors[s] = cursor(exps, fields, filter, fkNames, codes, opts, ctx);
+				((IDWCursor)cursors[s]).setSegment(startBlock, blockCount);
+				startBlock = blockCount;
+			}
+			
+			for (int i = 1; i < segCount; ++i) {
+				if (appendSegs[i] != -1) {
+					Sequence seq = fetchToValue((IDWCursor)cursors[i], dimFields, minValues[i]);
+					((IDWCursor)cursors[appendSegs[i]]).setAppendData(seq);
 				}
 			}
 		} catch (IOException e) {

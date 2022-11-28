@@ -132,13 +132,17 @@ public class AttachNew extends OperableFunction {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("new" + mm.getMessage("function.invalidParam"));
 		}
-		Object obj = param.getSub(0).getLeafExpression().calculate(ctx);		
+		
+		Object[] objs = parse1stParam(param, ctx);
+		Object obj = objs[0];
+		String[] csNames = (String[]) objs[1];
+		
 		IParam newParam = param.create(1, param.getSubSize());
 		ParamInfo2 pi = ParamInfo2.parse(newParam, "new", false, false);
 		Expression []exps = pi.getExpressions1();
 		String []names = pi.getExpressionStrs2();
 		
-		return new PseudoNew(((PseudoTable) pseudo).getPd(), obj, exps, names, 
+		return new PseudoNew(((PseudoTable) pseudo).getPd(), obj, csNames, exps, names, 
 				filter, fkNames, codes, opts, option);
 	}
 	
@@ -165,5 +169,30 @@ public class AttachNew extends OperableFunction {
 			}
 		}
 		return false;
+	}
+	
+	/**
+	 * 提取new、news的第一个参数 (A/cs:K)
+	 * @param param
+	 * @param ctx
+	 * @return Object[] {A/cs对象, K数组}
+	 */
+	public static Object[] parse1stParam(IParam param, Context ctx) {
+		Object[] objs = new Object[3];
+		Object obj = null;
+		String[] csNames = null;
+		IParam csParam = param.getSub(0);
+		if (csParam.isLeaf()) {
+			obj = csParam.getLeafExpression().calculate(ctx);
+		} else {
+			obj = csParam.getSub(0).getLeafExpression().calculate(ctx);
+			IParam newParam = csParam.create(1, csParam.getSubSize());
+			ParamInfo2 pi = ParamInfo2.parse(newParam, "new", false, false);
+			csNames = pi.getExpressionStrs1();
+		}
+		
+		objs[0] = obj;
+		objs[1] = csNames;
+		return objs;
 	}
 }

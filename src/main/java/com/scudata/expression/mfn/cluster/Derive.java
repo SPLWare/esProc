@@ -11,6 +11,7 @@ import com.scudata.expression.Expression;
 import com.scudata.expression.IParam;
 import com.scudata.expression.Node;
 import com.scudata.expression.ParamInfo2;
+import com.scudata.expression.mfn.op.AttachNew;
 import com.scudata.expression.operator.And;
 import com.scudata.parallel.ClusterCursor;
 import com.scudata.parallel.ClusterMemoryTable;
@@ -143,7 +144,10 @@ public class Derive extends ClusterTableMetaDataFunction {
 			throw new RQException("derive" + mm.getMessage("function.invalidParam"));
 		}
 		
-		Object obj = param.getSub(0).getLeafExpression().calculate(ctx);
+		Object[] objs = AttachNew.parse1stParam(param, ctx);
+		Object obj = objs[0];
+		String[] csNames = (String[]) objs[1];
+		
 		if (!(obj instanceof ClusterMemoryTable) && 
 			!(obj instanceof ClusterCursor)) {
 			MessageManager mm = EngineMessage.get();
@@ -154,6 +158,6 @@ public class Derive extends ClusterTableMetaDataFunction {
 		ParamInfo2 pi = ParamInfo2.parse(newParam, "derive", false, false);
 		Expression []exps = pi.getExpressions1();
 		String []names = pi.getExpressionStrs2();
-		return table.news(exps, names, obj, 0, option, filter, fkNames, codes, opts);
+		return table.news(exps, names, obj, csNames, 0, option, filter, fkNames, codes, opts);
 	}
 }
