@@ -122,7 +122,14 @@ public abstract class DrawBase implements IGraph {
 			x = vlYTitle1.p.x;
 			y = getVTitleY(gp.gRect1, egp.getYTitleAlign());
 			text = vlYTitle1.text;
-			direction = GraphFontView.TEXT_ON_RIGHT;
+			byte vAlign = egp.getYTitleAlign();
+			if(vAlign==IStyle.VALIGN_TOP) {
+				direction = GraphFontView.TEXT_ON_BOTTOM;
+			}else if(vAlign==IStyle.VALIGN_BOTTOM) {
+				direction = GraphFontView.TEXT_ON_TOP;
+			}else {
+				direction = GraphFontView.TEXT_ON_CENTER;
+			}
 			gp.GFV_YTITLE.outText(x, y, text, direction);
 			vlYTitle1 = null;
 		}
