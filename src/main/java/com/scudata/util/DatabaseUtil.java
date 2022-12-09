@@ -4948,7 +4948,11 @@ public class DatabaseUtil {
 						int rsize = recordCount == null ? 0 : recordCount.length();
 						for (int i = 1; i <= rsize; i++) {
 							Record r = (Record) recordCount.get(i);
-							int c = ((Number) r.getFieldValue(0)).intValue();
+							// edited by bd, 2022.12.9, 当查询对应数据为空时，防止错误
+							int c = 0;
+							if (r != null)
+								c = ((Number) r.getFieldValue(0)).intValue();
+							//int c = ((Number) r.getFieldValue(0)).intValue();
 							if (c > 0) {
 								updateRecords.add(srcSeq.get(i));
 							} else {
@@ -5893,9 +5897,16 @@ public class DatabaseUtil {
 				ArrayList<ArrayList<Object>> nullParam = nullParams.get(i);
 				valueGroup = toGroup(nullParam, keyStart);
 				if (valueGroup != null) {
-					sql = nullSqls[i];
+					//sql = nullSqls[i];
 					// 查询时，由于空值不定，因此不设置参数类型了
-					tbli = DatabaseUtil.queryGroup(sql, valueGroup, null, dbs, opt, ctx);
+					//tbli = DatabaseUtil.queryGroup(sql, valueGroup, null, dbs, opt, ctx);
+					tbli = DatabaseUtil.queryGroup(nullSqls[i], valueGroup, null, dbs, opt, ctx);
+				}
+				// edited by bd, 2022.12.9, 自动判断空值时，is null对应的sql有不需要参数的可能性
+				else if (nullSqls[i].indexOf("?")<0) {
+					valueGroup = new Object[1][];
+					valueGroup[0] = null;
+					tbli = DatabaseUtil.queryGroup(nullSqls[i], valueGroup, null, dbs, opt, ctx);
 				}
 				nTbls.add(tbli);
 			}
@@ -5909,7 +5920,10 @@ public class DatabaseUtil {
 					o = tbl.get(locs[ri]);
 				}
 				else {
-					o = nTbls.get(ri-1).get(locs[ri]);
+					//o = nTbls.get(ri-1).get(locs[ri]);
+					// edited by bd, 2022.12.9, 自动判断空值时，防止nTbls中有可能未记录数据
+					Table ot = nTbls.get(ri-1);
+					o = ot == null ? null : ot.get(locs[ri]);
 				}
 				result.add(o);
 			}
