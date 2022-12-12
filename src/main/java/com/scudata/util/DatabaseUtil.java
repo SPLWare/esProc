@@ -3400,7 +3400,7 @@ public class DatabaseUtil {
 					((CallableStatement) pst).execute(); 
 				}
 				else {
-					((CallableStatement) pst).executeQuery(); 
+					rs = ((CallableStatement) pst).executeQuery(); 
 				}
 				try {
 					for (int i = 0, count = outParams.length; i < count; i++) {
@@ -3417,6 +3417,9 @@ public class DatabaseUtil {
 				}
 				else if ((dbType == DBTypes.POSTGRES || dbType == DBTypes.DBONE) && dsPos > 0) {
 					rs = (ResultSet) ((CallableStatement) pst).getObject(dsPos);
+				}
+				// edited by bd, 2022.12.11, 如果有输出参数，pst已经执行过了
+				else if (hasOutParam) {
 				}
 				else {
 					rs = pst.executeQuery();
