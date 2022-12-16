@@ -1184,13 +1184,19 @@ public class Cursor extends IDWCursor {
 	
 	protected Sequence get(int n) {
 		// 修改了同步分段，同步分段时如果分段点是在块中某条记录，则使用appendData存放最后一块需要添加的记录
+		isFirstSkip = false;
 		Sequence seq;
 		if (gathers == null) {
 			seq = getData(n);
 		} else {
 			seq = getData2(n);
 		}
-		isFirstSkip = false;
+		
+		if (seq != null && seq.length() > n) {
+			Sequence result = seq.split(1, n);
+			cache = seq;
+			return result;
+		}
 		
 		if (appendData == null) {
 			return seq;
