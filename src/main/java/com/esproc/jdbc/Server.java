@@ -138,6 +138,8 @@ public class Server {
 			String splPath = key;
 			try {
 				PgmCellSet cs = AppUtil.readCellSet(splPath);
+				if (cs == null)
+					continue;
 				ParamList pl = cs.getParamList();
 				if (pl == null) {
 					continue;

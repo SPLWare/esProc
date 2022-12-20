@@ -81,6 +81,13 @@ public class JdbcManager {
 				table = JDBCUtil.getProcedureColumns(tableName, columnName);
 				res.setResult(table);
 				break;
+			case Request.JDBC_GETSPLPARAMS:
+				connId = (Integer) req.getAttr(Request.GETSPLPARAMS_connID);
+				tableName = (String) req.getAttr(Request.GETSPLPARAMS_splPath);
+				connProxy = getConnectionProxy(connId);
+				table = JDBCUtil.getSplParams(tableName);
+				res.setResult(table);
+				break;
 			case Request.JDBC_PREPARE:
 				connId = (Integer) req.getAttr(Request.PREPARE_connID);
 				String dfx = (String) req.getAttr(Request.PREPARE_CMD);

@@ -19,6 +19,7 @@ import java.util.regex.Pattern;
 
 import com.scudata.app.common.AppUtil;
 import com.scudata.cellset.datamodel.Command;
+import com.scudata.cellset.datamodel.PgmCellSet;
 import com.scudata.common.ArgumentTokenizer;
 import com.scudata.common.Escape;
 import com.scudata.common.Logger;
@@ -646,6 +647,31 @@ public class JDBCUtil {
 		String params = nameParam[1];
 		sql = JDBCUtil.getCallExp(spl, params);
 		return sql;
+	}
+
+	/**
+	 * 取SPL文件的参数，根据参数名设置call(s)的参数时调用
+	 * 
+	 * @param procedureNamePattern
+	 * @return Table
+	 * @throws SQLException
+	 */
+	public static Table getSplParams(String splPath) throws SQLException {
+		Table t = new Table(new String[] { JDBCConsts.PROCEDURE_NAME,
+				JDBCConsts.PARAM_LIST });
+		try {
+			PgmCellSet cs = AppUtil.readCellSet(splPath);
+			if (cs != null) {
+				ParamList pl = cs.getParamList();
+				if (pl != null) {
+					String splName = new File(splPath).getName();
+					t.newLast(new Object[] { splName, pl });
+				}
+			}
+		} catch (Exception e) {
+			throw new SQLException(e.getMessage(), e);
+		}
+		return t;
 	}
 
 	/**

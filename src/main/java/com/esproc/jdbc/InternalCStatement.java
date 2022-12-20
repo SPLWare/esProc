@@ -84,9 +84,9 @@ public class InternalCStatement extends InternalPStatement implements
 				if (connt.isOnlyServer()) { // 去服务器找
 					UnitClient uc = connt.getUnitClient();
 					int connId = connt.getUnitConnectionId();
-					t = uc.JDBCGetProcedureColumns(connId, splName, null, false);
+					t = uc.JDBCGetSplParams(connId, splName, false);
 				} else {
-					t = JDBCUtil.getProcedureColumns(splName, null);
+					t = JDBCUtil.getSplParams(splName);
 					if (t == null || t.length() == 0) { // 本地没找到，去服务器找
 						List<String> hosts = Server.getInstance()
 								.getHostNames();
@@ -99,8 +99,7 @@ public class InternalCStatement extends InternalPStatement implements
 							}
 							if (uc != null) {
 								int connId = connt.getUnitConnectionId();
-								t = uc.JDBCGetProcedureColumns(connId, splName,
-										null, false);
+								t = uc.JDBCGetSplParams(connId, splName, false);
 							}
 						}
 					}

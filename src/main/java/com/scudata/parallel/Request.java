@@ -228,6 +228,10 @@ public class Request implements Serializable {
 	public static final String GETPROCCOLUMNS_connID = "getProcedureColumns connId";// connId
 	public static final String GETPROCCOLUMNS_procedureNamePattern = "procedureNamePattern";
 	public static final String GETPROCCOLUMNS_columnNamePattern = "procedureColumnNamePattern";
+	
+	public static final int JDBC_GETSPLPARAMS = 9 + TYPE_JDBC; // 读取SPLX文件的参数信息
+	public static final String GETSPLPARAMS_connID = "getProcedureColumns connId";// connId
+	public static final String GETSPLPARAMS_splPath = "splPath";
 
 	public static final int JDBC_CLOSESTATEMENT = 11 + TYPE_JDBC; // 关闭Statement
 	public static final int JDBC_CLOSECONNECTION = 12 + TYPE_JDBC; // 关闭Connection

@@ -194,7 +194,7 @@ public class UnitClient implements Serializable {
 	 * @return 连接好后返回true，否则返回false
 	 */
 	public boolean isConnected() {
-		return !isClosed() || isEqualToLocal();//本机线程也算联机状态
+		return !isClosed() || isEqualToLocal();// 本机线程也算联机状态
 	}
 
 	/**
@@ -261,7 +261,7 @@ public class UnitClient implements Serializable {
 	 * @return 最大作业数
 	 */
 	public int getUnitMaxNum() {
-		if(isEqualToLocal()) {
+		if (isEqualToLocal()) {
 			return HostManager.maxTaskNum;
 		}
 		Request req = new Request(Request.SERVER_GETUNITS_MAXNUM);
@@ -428,7 +428,6 @@ public class UnitClient implements Serializable {
 		return dimTable;
 	}
 
-
 	/**
 	 * 获取指定分机上正在运行的任务数目
 	 * 
@@ -447,6 +446,7 @@ public class UnitClient implements Serializable {
 			throw new RQException(x);
 		}
 	}
+
 	public Response sendByNewSocket(Request req) throws Exception {
 		SocketData tmp = null;
 		try {
@@ -531,7 +531,7 @@ public class UnitClient implements Serializable {
 	private transient String tmpString = null;
 
 	public String toString() {
-		if(host==null) {
+		if (host == null) {
 			return "Local";
 		}
 		if (tmpString == null) {
@@ -547,8 +547,8 @@ public class UnitClient implements Serializable {
 			return false;
 		}
 		UnitClient otherUc = (UnitClient) other;
-		if(otherUc.getHost()==null) {//都是本机时
-			return (host==null);
+		if (otherUc.getHost() == null) {// 都是本机时
+			return (host == null);
 		}
 		return otherUc.getHost().equalsIgnoreCase(host)
 				&& otherUc.getPort() == port;
@@ -617,6 +617,20 @@ public class UnitClient implements Serializable {
 		req.setAttr(Request.GETPROCCOLUMNS_procedureNamePattern,
 				procedureNamePattern);
 		req.setAttr(Request.GETPROCCOLUMNS_columnNamePattern, columnNamePattern);
+		req.setAttr(Request.JDBC_ISPLUS, isPlus);
+
+		Response res = sendByNewSocket(req);
+		if (res.getException() != null) {
+			throw res.getException();
+		}
+		return (Table) res.getResult();
+	}
+
+	public Table JDBCGetSplParams(int connId, String procedureNamePattern,
+			boolean isPlus) throws Exception {
+		Request req = new Request(Request.JDBC_GETSPLPARAMS);
+		req.setAttr(Request.GETSPLPARAMS_connID, connId);
+		req.setAttr(Request.GETSPLPARAMS_splPath, procedureNamePattern);
 		req.setAttr(Request.JDBC_ISPLUS, isPlus);
 
 		Response res = sendByNewSocket(req);
