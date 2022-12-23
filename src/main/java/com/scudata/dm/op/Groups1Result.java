@@ -589,7 +589,7 @@ public class Groups1Result extends IGroupsResult {
 					}
 				} else {
 					for (int f = 1; f <= valCount; ++f) {
-						Object val = gathers[f - 11].gather(r.getNormalFieldValue(f), ctx);
+						Object val = gathers[f - 1].gather(r.getNormalFieldValue(f), ctx);
 						r.setNormalFieldValue(f, val);
 					}
 				}
