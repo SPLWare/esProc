@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>T .insert()</title>
+<title>influx2_rest()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,746 +13,150 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h3 style='text-align:justify;text-justify:inter-ideograph'><a name="T_insert"></a><i
-style='mso-bidi-font-style:normal'><span lang=EN-US>T</span></i><span
-lang=EN-US>.insert()</span></h3></div>
-	<p class=af7 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Description:</span></p>
+	<div id="centent-title"><h2><span lang=EN-US style='mso-fareast-font-family:宋体'>influx2_rest()<a
+name="influx2_rest"></a></span></h2></div>
+	<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt'>Description:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Insert one or
-more records into a table sequence.</span></p>
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US>Handle data using InfluxDB2 interface.</span></p>
 
-<p class=af7 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Syntax:</span></p>
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt'>Syntax:</span></b><span lang=EN-US> </span></p>
+
+<p class=MsoNormal align=left style='margin-left:21.0pt;text-align:left'><span
+class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>influx2_rest(</span></span><span
+class=code><i><span lang=EN-US style='font-family:"Times New Roman",serif;
+font-weight:normal'>url, method, content; httpHeader1, httpHeader2, …</span></i></span><span
+class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>)</span></span></p>
+
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt'>Note: </span></b></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US>The external library function uses InfluxDB2 REST interface to
+handle data. Detailed directions are explained in <a
+href="https://docs.influxdata.com/influxdb/v1.8/tools/api/">InfluxDB API</a>.
+It is valid only with InfluxDB 2.x.</span></p>
+
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt'>Parameters:</span></b></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ style='margin-left:7.35pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=155 valign=top style='width:116.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US>T</span></span><span
-  lang=EN-US>.</span><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>insert</span></span><span
-  lang=EN-US>(</span><span class=var1><span lang=EN-US>k</span></span><span
-  lang=EN-US>)</span><span class=var1><span lang=EN-US></span></span></p>
+  <td width=154 valign=top style='width:76.8pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=var1><span lang=EN-US>url</span></span></p>
   </td>
-  <td width=380 valign=top style='width:284.9pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Insert an empty record before the
-  position <i>k</i><span style='mso-bidi-font-style:italic'> in the<i> T. </i>If<i>
-  k </i>is </span></span><span class=code><span lang=EN-US style='font-family:
-  "Times New Roman",serif'>0</span></span><i><span lang=EN-US>, </span></i><span
-  lang=EN-US style='mso-bidi-font-style:italic'>then append it in the end and
-  return<i> </i>the new<i> T</i></span></p>
+  <td width=655 valign=top style='width:327.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>The connection URL</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=155 valign=top style='width:116.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=NO-BOK style='mso-ansi-language:
-  NO-BOK'>T</span></span><span lang=NO-BOK style='mso-ansi-language:NO-BOK'>.</span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>insert</span></span><span
-  lang=NO-BOK style='mso-ansi-language:NO-BOK'>(</span><span class=var1><span
-  lang=NO-BOK style='mso-ansi-language:NO-BOK'>k</span></span><i
-  style='mso-bidi-font-style:normal'><span lang=NO-BOK style='mso-ansi-language:
-  NO-BOK'>,</span></i><span class=var1><span lang=NO-BOK style='mso-ansi-language:
-  NO-BOK'>x</span></span><span class=a3><span lang=EN-US>i</span></span><i
-  style='mso-bidi-font-style:normal'><span lang=NO-BOK style='mso-ansi-language:
-  NO-BOK'>:</span></i><span class=var1><span lang=NO-BOK style='mso-ansi-language:
-  NO-BOK'>F</span></span><span class=a3><span lang=EN-US>i</span></span><i
-  style='mso-bidi-font-style:normal'><span lang=NO-BOK style='mso-ansi-language:
-  NO-BOK'>,…</span></i><span lang=NO-BOK style='mso-ansi-language:NO-BOK'>)</span><span
-  class=var1><span lang=EN-US></span></span></p>
+  <td width=154 valign=top style='width:76.8pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=var1><span lang=EN-US>method</span></span></p>
   </td>
-  <td width=380 valign=top style='width:284.9pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=NO-BOK style='mso-ansi-language:NO-BOK'>I</span><span
-  lang=EN-US>nsert a record <span style='mso-bidi-font-style:italic'>into<i> T</i></span>
-  before the position <i>k</i><span style='mso-bidi-font-style:italic'> </span>where
-  the value of </span><span class=var1><span lang=NO-BOK style='mso-ansi-language:
-  NO-BOK'>F</span></span><span class=a3><span lang=EN-US>i</span></span><span
-  lang=EN-US> is</span><span class=var1><span lang=NO-BOK style='mso-ansi-language:
-  NO-BOK'> x</span></span><span class=a3><span lang=EN-US>i </span></span><span
-  lang=EN-US style='mso-bidi-font-style:italic'>and return<i> </i>the new<i> T</i></span><span
-  lang=EN-US>.</span><i><span lang=EN-US style='mso-ansi-language:NO-BOK'> </span></i><span
-  lang=EN-US>When parameter<i> k </i><span style='mso-bidi-font-style:italic'>is
-  omitted, we assume the table sequence </span></span><i><span lang=EN-US
-  style='mso-bidi-language:AR'>T</span><span lang=EN-US> </span></i><span
-  lang=EN-US style='mso-bidi-font-style:italic'>is already ordered by the key
-  and insert records</span><span lang=EN-US>; if <span style='mso-bidi-font-style:
-  italic'>the key value has</span> already existed, the function won’t perform
-  the insertion.</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes'>
-  <td width=155 valign=top style='width:116.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US>T</span></span><span
-  lang=EN-US>.</span><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>insert</span></span><span
-  lang=EN-US>(</span><span class=var1><span lang=EN-US>k</span></span><i
-  style='mso-bidi-font-style:normal'><span lang=EN-US>:</span></i><span
-  class=var1><span lang=EN-US>A</span></span><i style='mso-bidi-font-style:
-  normal'><span lang=EN-US>,</span></i><span class=var1><span lang=EN-US>x</span></span><span
-  class=a3><span lang=EN-US>i</span></span><i style='mso-bidi-font-style:normal'><span
-  lang=EN-US>:</span></i><span class=var1><span lang=EN-US>F</span></span><span
-  class=a3><span lang=EN-US>i</span></span><i style='mso-bidi-font-style:normal'><span
-  lang=EN-US>,…</span></i><span lang=EN-US>)</span><span class=var1><span
-  lang=EN-US></span></span></p>
-  </td>
-  <td width=380 valign=top style='width:284.9pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Insert multiple records <span
-  style='mso-bidi-font-style:italic'>into<i> T</i></span> before the position <i>k</i><span
-  style='mso-bidi-font-style:italic'> </span>where the value of </span><span
-  class=var1><span lang=NO-BOK style='mso-ansi-language:NO-BOK'>F</span></span><span
-  class=a3><span lang=EN-US>i</span></span><span lang=EN-US> is</span><span
-  class=var1><span lang=NO-BOK style='mso-ansi-language:NO-BOK'> x</span></span><span
-  class=a3><span lang=EN-US>i</span></span><span lang=EN-US style='mso-bidi-font-style:
-  italic'> and return<i> </i>the new<i> T</i></span><span class=a3><span
-  lang=EN-US> </span></span><i><span lang=EN-US>.</span></i><span lang=EN-US
-  style='mso-bidi-font-style:italic'> The number of the records to be inserted
-  is determined by the length of sequence </span><span class=var1><span
-  lang=EN-US>A.</span></span></p>
-  </td>
- </tr>
-</table>
-
-<p class=af7 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Note:</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>The function inserts
-one or more records into the table sequence </span><span class=var1><span
-lang=EN-US>T</span></span><span lang=EN-US>, and automatically updates the
-index, if any, and checks distinctness.</span></p>
-
-<p class=af7 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Parameters:</span></p>
-
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US>k</span></span></p>
-  </td>
-  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>The position before which the member, or
-  the record, is inserted</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:1'>
-  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US>x</span></span><span
-  class=a3><span lang=EN-US>i</span></span><span class=var1><span lang=EN-US></span></span></p>
-  </td>
-  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>The </span><span class=var1><span
-  lang=EN-US>F</span></span><span class=a3><span lang=EN-US>i</span></span><span
-  lang=EN-US> field value before which the new record is to be inserted</span></p>
+  <td width=655 valign=top style='width:327.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>An HTTP method, whose value can be
+  GET/PUT/POST/DELETE/PATCH</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:2'>
-  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US>F</span></span><span
-  class=a3><span lang=EN-US>i</span></span><span class=var1><span lang=EN-US></span></span></p>
+  <td width=154 valign=top style='width:76.8pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=var1><span lang=EN-US>content</span></span></p>
   </td>
-  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>The name of field where </span><span
-  class=var1><span lang=EN-US>x</span></span><span class=a3><span lang=EN-US>i</span></span><span
-  lang=EN-US> resides; without </span><span class=var1><span lang=EN-US>F</span></span><span
-  class=a3><span lang=EN-US>i</span></span><span lang=EN-US>, it will be the
-  corresponding </span><span class=var1><span lang=EN-US>i</span></span><sup><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt'>th</span></sup><span lang=EN-US>
-  field.</span></p>
+  <td width=655 valign=top style='width:327.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>The to-be-submitted content an HTTP
+  request contains; the parameter can be absent when an operation does not
+  submit anything</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:3'>
-  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US>T</span></span></p>
+ <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
+  <td width=154 valign=top style='width:76.8pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=var1><span lang=EN-US>httpHeader</span></span></p>
   </td>
-  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>A table sequence</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes'>
-  <td width=41 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US>A</span></span></p>
-  </td>
-  <td width=493 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>A sequence or an integer; if </span><span
-  class=var1><span lang=EN-US>A </span></span><span class=var1><span
-  lang=EN-US style='font-style:normal;mso-bidi-font-style:italic'>is an
-  integer, then it is equal to</span></span><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'> to(</span></span><span
-  class=var1><span lang=EN-US>A</span></span><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'>)</span></span></p>
+  <td width=655 valign=top style='width:327.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>An HTTP header, including information
+  such as token for authenticating a user agent and specification of content
+  format</span></p>
   </td>
  </tr>
 </table>
 
-<p class=af7 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Options:</span></p>
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt'>Return value:</span></b></p>
 
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=69 valign=top style='width:52.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>@n</span></span><span
-  class=var1><span lang=EN-US></span></span></p>
-  </td>
-  <td width=465 valign=top style='width:349.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Return the inserted record or a record
-  sequence of the inserted records</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:1'>
-  <td width=69 valign=top style='width:52.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>@r(k:A)</span></span></p>
-  </td>
-  <td width=465 valign=top style='width:349.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Insert sequence <i style='mso-bidi-font-style:
-  normal'>A</i> into table squence <i style='mso-bidi-font-style:normal'>T</i>
-  from the <i style='mso-bidi-font-style:normal'>k<sup>th</sup></i> record
-  according to the order of the fields<span style='mso-bidi-font-style:italic'></span></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes'>
-  <td width=69 valign=top style='width:52.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>@f(k:A)</span></span></p>
-  </td>
-  <td width=465 valign=top style='width:349.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Insert sequence <i style='mso-bidi-font-style:
-  normal'>A</i> into table squence <i style='mso-bidi-font-style:normal'>T</i>
-  from the <i style='mso-bidi-font-style:normal'>k<sup>th</sup></i> record;
-  only the common fields are inserted. <span style='mso-bidi-font-style:italic'></span></span></p>
-  </td>
- </tr>
-</table>
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US>Query result set</span></p>
 
-<p class=af7 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Return value:</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>The table
-sequence</span><span class=var1><span lang=EN-US> T</span></span><span
-lang=EN-US> into which you have inserted new records</span></p>
-
-<p class=af7 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Example:</span></p>
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt'>Example: </span></b></p>
 
 <table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
- style='margin-left:.25pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ style='margin-left:11.2pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
  mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;height:15.7pt'>
-  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
-  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm;
-  height:15.7pt'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=24 valign=top style='width:12.15pt;border:solid #A6A6A6 1.0pt;
+  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></p>
   </td>
-  <td width=273 valign=top style='width:205.1pt;border:solid #A6A6A6 1.0pt;
+  <td width=838 valign=top style='width:419.1pt;border:solid #A6A6A6 1.0pt;
   border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:15.7pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>A</span></span></p>
-  </td>
-  <td width=359 valign=top style='width:269.3pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:15.7pt'>
-  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=EN-US>&nbsp;</span></p>
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>A</span></span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:1;height:31.45pt'>
-  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:1;height:18.45pt'>
+  <td width=24 valign=top style='width:12.15pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:31.45pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>1</span></span></p>
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:18.45pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>1</span></span></p>
   </td>
-  <td width=273 valign=top style='width:205.1pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  <td width=838 style='width:419.1pt;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:31.45pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=create(id,name,age)</span></span></p>
-  </td>
-  <td width=359 valign=top style='width:269.3pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:31.45pt'>
-  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=EN-US><img border=0 width=145 height=29
-  src="Function_Reference.files/image966.jpg" v:shapes="图片_x0020_216"></span><span style='mso-ignore:vglayout;position:
-  relative;z-index:251653632'><span style='position:absolute;left:-220px;
-  top:-557280px;width:183px;height:4px'>
-  <table cellpadding=0 cellspacing=0>
-   <tr>
-    <td width=183 height=4 style='vertical-align:top'><span
-    style='position:absolute;mso-ignore:vglayout;z-index:251653632'>
-    <table cellpadding=0 cellspacing=0 width="100%">
-     <tr>
-      <td>
-      <div v:shape="矩形_x0020_327" style='padding:0pt 0pt 0pt 0pt' class=shape>
-      <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
-      </div>
-      </td>
-     </tr>
-    </table>
-    </span>&nbsp;</td>
-   </tr>
-  </table>
-  </span></span><span lang=EN-US><img border=0 width=179 height=40
-  src="Function_Reference.files/image967.png" v:shapes="图片_x0020_217"></span></p>
-  <p class=MsoNormal><span lang=EN-US>Construct an empty table sequence</span></p>
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:18.45pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  11.0pt;font-family:"Times New Roman",serif'>&gt;token=ZHL...fxWg==</span></span><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:2;height:30.05pt'>
-  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:2;height:18.45pt'>
+  <td width=24 valign=top style='width:12.15pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:30.05pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>2</span></span></p>
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:18.45pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>2</span></span></p>
   </td>
-  <td width=273 valign=top style='width:205.1pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  <td width=838 style='width:419.1pt;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:30.05pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=A1.insert(0,1,&quot;Jack&quot;,29)</span></span></p>
-  </td>
-  <td width=359 valign=top style='width:269.3pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:30.05pt'>
-  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=EN-US><img border=0 width=151 height=43
-  src="Function_Reference.files/image968.png" v:shapes="图片_x0020_218"></span><span style='mso-ignore:vglayout;position:
-  relative;z-index:251652608'><span style='position:absolute;left:-237px;
-  top:-557372px;width:182px;height:4px'>
-  <table cellpadding=0 cellspacing=0>
-   <tr>
-    <td width=182 height=4 style='vertical-align:top'><span
-    style='position:absolute;mso-ignore:vglayout;z-index:251652608'>
-    <table cellpadding=0 cellspacing=0 width="100%">
-     <tr>
-      <td>
-      <div v:shape="矩形_x0020_326" style='padding:0pt 0pt 0pt 0pt' class=shape>
-      <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
-      </div>
-      </td>
-     </tr>
-    </table>
-    </span>&nbsp;</td>
-   </tr>
-  </table>
-  </span></span><span lang=EN-US><img border=0 width=178 height=42
-  src="Function_Reference.files/image969.png" v:shapes="图片_x0020_219"></span></p>
-  <p class=MsoNormal><span lang=EN-US>Append a record whose field values are </span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>1,Jack,
-  </span></span><span lang=EN-US>and</span><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'> 29</span></span><span
-  lang=EN-US> </span></p>
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:18.45pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  11.0pt;font-family:"Times New Roman",serif'>=influx2_rest(&quot;http://localhost:8086/api/v2/buckets&quot;,
+  &quot;GET&quot;; &quot;Authorization: TOKEN&quot;+token)</span></span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:3;height:43.9pt'>
-  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
+  <td width=24 valign=top style='width:12.15pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:43.9pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>3</span></span></p>
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>3</span></span></p>
   </td>
-  <td width=273 valign=top style='width:205.1pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  <td width=838 style='width:419.1pt;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:43.9pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=A1.insert(1,2,&quot;Lucy&quot;,30)</span></span></p>
-  </td>
-  <td width=359 valign=top style='width:269.3pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:43.9pt'>
-  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=EN-US><img border=0 width=150 height=61
-  src="Function_Reference.files/image970.png" v:shapes="图片_x0020_220"></span><span style='mso-ignore:vglayout;position:
-  relative;z-index:251651584'><span style='position:absolute;left:-237px;
-  top:-557469px;width:183px;height:4px'>
-  <table cellpadding=0 cellspacing=0>
-   <tr>
-    <td width=183 height=4 style='vertical-align:top'><span
-    style='position:absolute;mso-ignore:vglayout;z-index:251651584'>
-    <table cellpadding=0 cellspacing=0 width="100%">
-     <tr>
-      <td>
-      <div v:shape="矩形_x0020_325" style='padding:0pt 0pt 0pt 0pt' class=shape>
-      <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
-      </div>
-      </td>
-     </tr>
-    </table>
-    </span>&nbsp;</td>
-   </tr>
-  </table>
-  </span></span><span lang=EN-US><img border=0 width=179 height=63
-  src="Function_Reference.files/image971.png" v:shapes="图片_x0020_221"></span></p>
-  <p class=MsoNormal><span lang=EN-US>Add a record before the first record
-  whose values are </span><span class=code><span lang=EN-US style='font-family:
-  "Times New Roman",serif'>2, Lucy, and 30</span></span><span lang=EN-US>.</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:4;height:61.3pt'>
-  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:61.3pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>4</span></span></p>
-  </td>
-  <td width=273 valign=top style='width:205.1pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:61.3pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=A1.insert(0)</span></span></p>
-  </td>
-  <td width=359 valign=top style='width:269.3pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:61.3pt'>
-  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=EN-US><img border=0 width=149 height=79
-  src="Function_Reference.files/image972.png" v:shapes="图片_x0020_222"></span><span style='mso-ignore:vglayout;position:
-  relative;z-index:251650560'><span style='position:absolute;left:-237px;
-  top:-557626px;width:180px;height:4px'>
-  <table cellpadding=0 cellspacing=0>
-   <tr>
-    <td width=180 height=4 style='vertical-align:top'><span
-    style='position:absolute;mso-ignore:vglayout;z-index:251650560'>
-    <table cellpadding=0 cellspacing=0 width="100%">
-     <tr>
-      <td>
-      <div v:shape="矩形_x0020_324" style='padding:0pt 0pt 0pt 0pt' class=shape>
-      <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
-      </div>
-      </td>
-     </tr>
-    </table>
-    </span>&nbsp;</td>
-   </tr>
-  </table>
-  </span></span><span lang=EN-US><img border=0 width=176 height=69
-  src="Function_Reference.files/image973.png" v:shapes="图片_x0020_223"></span></p>
-  <p class=MsoNormal><span lang=EN-US>Append an empty record in the end.</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:5;height:110.05pt'>
-  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:110.05pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>5</span></span></p>
-  </td>
-  <td width=273 valign=top style='width:205.1pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:110.05pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=A1.insert(0:3)</span></span></p>
-  </td>
-  <td width=359 valign=top style='width:269.3pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:110.05pt'>
-  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=EN-US><img border=0 width=148 height=140
-  src="Function_Reference.files/image974.png" v:shapes="图片_x0020_224"></span><span style='mso-ignore:vglayout;position:
-  relative;z-index:251649536'><span style='position:absolute;left:-235px;
-  top:-557777px;width:137px;height:4px'>
-  <table cellpadding=0 cellspacing=0>
-   <tr>
-    <td width=137 height=4 style='vertical-align:top'><span
-    style='position:absolute;mso-ignore:vglayout;z-index:251649536'>
-    <table cellpadding=0 cellspacing=0 width="100%">
-     <tr>
-      <td>
-      <div v:shape="矩形_x0020_323" style='padding:0pt 0pt 0pt 0pt' class=shape>
-      <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
-      </div>
-      </td>
-     </tr>
-    </table>
-    </span>&nbsp;</td>
-   </tr>
-  </table>
-  </span></span><span lang=EN-US><img border=0 width=134 height=86
-  src="Function_Reference.files/image975.png" v:shapes="图片_x0020_225"></span></p>
-  <p class=MsoNormal><span lang=EN-US>Append three empty records in the end.</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:6;height:110.05pt'>
-  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:110.05pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>6</span></span></p>
-  </td>
-  <td width=273 valign=top style='width:205.1pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:110.05pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=A1.insert@n(1:1,10,&quot;Lily&quot;,30)</span></span></p>
-  </td>
-  <td width=359 valign=top style='width:269.3pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:110.05pt'>
-  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=zh-CN
-  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=147 height=44
-  src="Function_Reference.files/image976.png" v:shapes="图片_x0020_226"></span><span
-  lang=zh-CN><span style='mso-spacerun:yes'>&nbsp;</span></span></p>
-  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=EN-US>Return
-  the inserted record</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:7;height:15.7pt'>
-  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:15.7pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>7</span></span></p>
-  </td>
-  <td width=273 valign=top style='width:205.1pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:15.7pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=create(ID,Name,Age)</span></span></p>
-  </td>
-  <td width=359 valign=top style='width:269.3pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:15.7pt'>
-  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=EN-US>&nbsp;</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:8;height:112.4pt'>
-  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:112.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>8</span></span></p>
-  </td>
-  <td width=273 valign=top style='width:205.1pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:112.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=A7.insert(0:A1,id:ID,name:Name,age:Age)</span></span></p>
-  </td>
-  <td width=359 valign=top style='width:269.3pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:112.4pt'>
-  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=zh-CN
-  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=196 height=163
-  src="Function_Reference.files/image977.png" v:shapes="图片_x0020_227"></span><span style='mso-ignore:vglayout;position:
-  relative;z-index:251654656'><span style='position:absolute;left:-259px;
-  top:-558273px;width:136px;height:4px'>
-  <table cellpadding=0 cellspacing=0>
-   <tr>
-    <td width=136 height=4 style='vertical-align:top'><span
-    style='position:absolute;mso-ignore:vglayout;z-index:251654656'>
-    <table cellpadding=0 cellspacing=0 width="100%">
-     <tr>
-      <td>
-      <div v:shape="矩形_x0020_365" style='padding:0pt 0pt 0pt 0pt' class=shape>
-      <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
-      </div>
-      </td>
-     </tr>
-    </table>
-    </span>&nbsp;</td>
-   </tr>
-  </table>
-  </span></span><span lang=EN-US><img border=0 width=133 height=78
-  src="Function_Reference.files/image978.png" v:shapes="图片_x0020_228"><span
-  style='mso-spacerun:yes'>&nbsp;</span></span></p>
-  <p class=MsoNormal><span lang=EN-US>Add the records of </span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>A1</span></span><span
-  lang=EN-US> into </span><span class=code><span lang=EN-US style='font-family:
-  "Times New Roman",serif'>A7</span></span><span lang=EN-US> one by one. </span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:9;height:18.2pt'>
-  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:18.2pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>9</span></span></p>
-  </td>
-  <td width=273 valign=top style='width:205.1pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:18.2pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=A1.delete(A1.select(id&lt;2))</span></span></p>
-  </td>
-  <td width=359 valign=top style='width:269.3pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:18.2pt'>
-  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=zh-CN
-  style='mso-ansi-language:#0400;mso-fareast-language:#0400'>&nbsp;</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:10;height:13.55pt'>
-  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:13.55pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>10</span></span></p>
-  </td>
-  <td width=273 valign=top style='width:205.1pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:13.55pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=A7.insert@r(5:A9)</span></span></p>
-  </td>
-  <td width=359 valign=top style='width:269.3pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:13.55pt'>
-  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=zh-CN
-  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=115 height=167
-  src="Function_Reference.files/image980.jpg" v:shapes="_x0000_i1658"></span></p>
-  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=EN-US>Insert A9
-  into A7 from the fifth record</span><span lang=zh-CN style='mso-ansi-language:
-  #0400;mso-fareast-language:#0400'></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:11;height:13.55pt'>
-  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:13.55pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>11</span></span></p>
-  </td>
-  <td width=273 valign=top style='width:205.1pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:13.55pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=create(ID,Name,AGE)</span></span></p>
-  </td>
-  <td width=359 valign=top style='width:269.3pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:13.55pt'>
-  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=zh-CN
-  style='mso-ansi-language:#0400;mso-fareast-language:#0400'>&nbsp;</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:12;height:13.55pt'>
-  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:13.55pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>12</span></span></p>
-  </td>
-  <td width=273 valign=top style='width:205.1pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:13.55pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=A11.insert@f(3:A7)</span></span></p>
-  </td>
-  <td width=359 valign=top style='width:269.3pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:13.55pt'>
-  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=zh-CN
-  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=89 height=197
-  src="Function_Reference.files/image982.jpg" v:shapes="_x0000_i1659"></span></p>
-  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=EN-US>Insert
-  only the ID and Name fields of A7 to A11 from the third record </span><span
-  lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:13;height:13.55pt'>
-  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:13.55pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>13</span></span></p>
-  </td>
-  <td width=273 valign=top style='width:205.1pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:13.55pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=A1.keys(id)</span></span></p>
-  </td>
-  <td width=359 valign=top style='width:269.3pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:13.55pt'>
-  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=zh-CN
-  style='mso-ansi-language:#0400;mso-fareast-language:#0400'>Set <i
-  style='mso-bidi-font-style:normal'>id</i> as A1’s primary key, then A1’s data
-  is as follows:</span></p>
-  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=zh-CN
-  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=160 height=63
-  src="Function_Reference.files/image983.png" v:shapes="图片_x0020_630"></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:14;height:13.55pt'>
-  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:13.55pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>14</span></span></p>
-  </td>
-  <td width=273 valign=top style='width:205.1pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:13.55pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=A1.insert(,5,&quot;Mary&quot;,28)</span></span></p>
-  </td>
-  <td width=359 valign=top style='width:269.3pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:13.55pt'>
-  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=zh-CN
-  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=131 height=83
-  src="Function_Reference.files/image984.png" v:shapes="_x0000_i1661"></span></p>
-  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=zh-CN
-  style='mso-ansi-language:#0400;mso-fareast-language:#0400'>Parameter <i
-  style='mso-bidi-font-style:normal'>k</i> is omitted; assume A1 is already
-  ordered by <i style='mso-bidi-font-style:normal'>id</i> and insert the
-  records </span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:15;height:13.55pt'>
-  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:13.55pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>15</span></span></p>
-  </td>
-  <td width=273 valign=top style='width:205.1pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:13.55pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=A1.insert(,2,&quot;CC&quot;,32)</span></span></p>
-  </td>
-  <td width=359 valign=top style='width:269.3pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:13.55pt'>
-  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=zh-CN
-  style='mso-ansi-language:#0400;mso-fareast-language:#0400'>Same result as
-  A14; since the record where the key value is 2 already exists, the function
-  cancels the insertion</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:16;height:13.55pt'>
-  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:13.55pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>16</span></span></p>
-  </td>
-  <td width=273 valign=top style='width:205.1pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:13.55pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=file(&quot;D:\\test.txt&quot;).import@t()</span></span></p>
-  </td>
-  <td width=359 valign=top style='width:269.3pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:13.55pt'>
-  <p class=MsoNormal style='mso-line-height-alt:0pt'><i style='mso-bidi-font-style:
-  normal'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
-  #0400'>test.txt </span></i><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'>defines only the column headers</span></p>
-  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=zh-CN
-  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=134 height=58
-  src="Function_Reference.files/image986.jpg" v:shapes="图片_x0020_994"></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:17;mso-yfti-lastrow:yes;height:13.55pt'>
-  <td width=19 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:13.55pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>17</span></span></p>
-  </td>
-  <td width=273 valign=top style='width:205.1pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:13.55pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=A16.insert(0,1,&quot;2008-8-4&quot;)</span></span></p>
-  </td>
-  <td width=359 valign=top style='width:269.3pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:13.55pt'>
-  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=zh-CN
-  style='mso-ansi-language:#0400;mso-fareast-language:#0400'>Insert a record</span></p>
-  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=zh-CN
-  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=144 height=37
-  src="Function_Reference.files/image988.jpg" v:shapes="图片_x0020_996"></span></p>
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=influx2_close(A1)</span></span></p>
   </td>
  </tr>
 </table>
-
-<p class=af7 style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Related functions:</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US><a  href="tmodify.html#T_modify"><span style='mso-bidi-font-size:
-10.5pt;font-style:normal'>T</span><span style='mso-bidi-font-size:12.0pt;
-font-style:normal'>.mo<span style='mso-bookmark:_Hlt414977598'>d</span><span
-style='mso-bookmark:_Hlt415058288'>i</span>fy()</span></a><a
-name="_Hlt415058288"></a><a name="_Hlt414977598"></a></span></i></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US><a  href="tdelete.html#T_delete"><span style='mso-bidi-font-size:
-10.5pt;font-style:normal'>T</span><span style='mso-bidi-font-size:12.0pt;
-font-style:normal'>.dele<span style='mso-bookmark:_Hlt414979349'>t</span>e()</span></a><a
-name="_Hlt414979349"></a></span></i></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US><a  href="ainsert.html#A_insert"><span style='mso-bidi-font-size:
-10.5pt;font-style:normal'>A</span><span style='mso-bidi-font-size:12.0pt;
-font-style:normal'>.inse<span style='mso-bookmark:_Hlt415058284'>r</span><span
-style='mso-bookmark:_Hlt414977819'>t</span>()</span></a><a
-name="_Hlt414977819"></a><a name="_Hlt415058284"></a></span></i></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="458.html">Next</a></div>
@@ -760,13 +164,13 @@ name="_Hlt414977819"></a><a name="_Hlt415058284"></a></span></i></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="455.html">insert()</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="45.html">Functions</a></span></li>
 </div>
 	</div>
 	<div id="footer">	
 		
 		
-    <div class="copyright"> Copyright&reg; 2021 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+    <div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
       </a></div>
 	</div>
 </div>

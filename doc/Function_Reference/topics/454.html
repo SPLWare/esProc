@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>influx2_rest()</title>
+<title>influx2_delete()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,73 +13,66 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h2><span lang=EN-US style='mso-fareast-font-family:宋体'>influx2_rest()<a
-name="influx2_rest"></a></span></h2></div>
+	<div id="centent-title"><h2><span lang=EN-US style='mso-fareast-font-family:宋体'>influx2_delete()<a
+name="influx2_delete"></a></span></h2></div>
 	<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
 style='font-size:14.0pt'>Description:</span></b></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>Handle data using InfluxDB2 interface.</span></p>
+lang=EN-US>Delete data in InfluxDB2.</span></p>
 
 <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
 style='font-size:14.0pt'>Syntax:</span></b><span lang=EN-US> </span></p>
 
 <p class=MsoNormal align=left style='margin-left:21.0pt;text-align:left'><span
-class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>influx2_rest(</span></span><span
+class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>influx2_delete(</span></span><span
 class=code><i><span lang=EN-US style='font-family:"Times New Roman",serif;
-font-weight:normal'>url, method, content; httpHeader1, httpHeader2, …</span></i></span><span
+font-weight:normal'>hd,beginTime,endTime,deleteStatement,bucket,organization</span></i></span><span
 class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>)</span></span></p>
 
 <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
 style='font-size:14.0pt'>Note: </span></b></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>The external library function uses InfluxDB2 REST interface to
-handle data. Detailed directions are explained in <a
-href="https://docs.influxdata.com/influxdb/v1.8/tools/api/">InfluxDB API</a>.
-It is valid only with InfluxDB 2.x.</span></p>
+lang=EN-US>The external library function deletes data from InfluxDB2. It is
+valid only with InfluxDB 2.x.</span></p>
 
 <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Parameters:</span></b></p>
+style='font-size:14.0pt'>Parameters: </span></b></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
  style='margin-left:7.35pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=102 valign=top style='width:76.8pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US>url</span></span></p>
+  <td width=198 valign=top style='width:99.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=var1><span lang=EN-US>hd</span></span></p>
   </td>
-  <td width=437 valign=top style='width:327.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>The connection URL</span></p>
+  <td width=588 valign=top style='width:293.9pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>The connection object</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=102 valign=top style='width:76.8pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US>method</span></span></p>
+  <td width=198 valign=top style='width:99.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=var1><span lang=EN-US>beginTime</span></span></p>
   </td>
-  <td width=437 valign=top style='width:327.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>An HTTP method, whose value can be
-  GET/PUT/POST/DELETE/PATCH</span></p>
+  <td width=588 valign=top style='width:293.9pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>The starting time</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:2'>
-  <td width=102 valign=top style='width:76.8pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US>content</span></span></p>
+  <td width=198 valign=top style='width:99.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=var1><span lang=EN-US>endTime</span></span></p>
   </td>
-  <td width=437 valign=top style='width:327.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>The to-be-submitted content an HTTP
-  request contains; the parameter can be absent when an operation does not
-  submit anything</span></p>
+  <td width=588 valign=top style='width:293.9pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>The ending time</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
-  <td width=102 valign=top style='width:76.8pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US>httpHeader</span></span></p>
+  <td width=198 valign=top style='width:99.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=var1><span lang=EN-US>deleteStatement</span></span></p>
   </td>
-  <td width=437 valign=top style='width:327.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>An HTTP header, including information
-  such as token for authenticating a user agent and specification of content
-  format</span></p>
+  <td width=588 valign=top style='width:293.9pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>The delete statement</span></p>
   </td>
  </tr>
 </table>
@@ -88,22 +81,23 @@ style='font-size:14.0pt'>Parameters:</span></b></p>
 style='font-size:14.0pt'>Return value:</span></b></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>Query result set</span></p>
+lang=EN-US>The string successfully deleted or that should have been deleted</span></p>
 
 <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Example: </span></b></p>
+style='font-size:14.0pt'>Example:</span></b><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US style='font-size:12.0pt;mso-bidi-font-size:10.0pt'></span></b></p>
 
 <table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
  style='margin-left:11.2pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
  mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=16 valign=top style='width:12.15pt;border:solid #A6A6A6 1.0pt;
+  <td width=24 valign=top style='width:12.15pt;border:solid #A6A6A6 1.0pt;
   mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span class=code><span
   lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></p>
   </td>
-  <td width=559 valign=top style='width:419.1pt;border:solid #A6A6A6 1.0pt;
+  <td width=838 valign=top style='width:419.1pt;border:solid #A6A6A6 1.0pt;
   border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span class=code><span
@@ -111,52 +105,56 @@ style='font-size:14.0pt'>Example: </span></b></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1;height:18.45pt'>
-  <td width=16 valign=top style='width:12.15pt;border:solid #A6A6A6 1.0pt;
+  <td width=24 valign=top style='width:12.15pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:18.45pt'>
   <p class=MsoNormal align=center style='text-align:center'><span class=code><span
   lang=EN-US style='font-family:"Times New Roman",serif'>1</span></span></p>
   </td>
-  <td width=559 style='width:419.1pt;border-top:none;border-left:none;
+  <td width=838 style='width:419.1pt;border-top:none;border-left:none;
   border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:18.45pt'>
   <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
-  11.0pt;font-family:"Times New Roman",serif'>&gt;token=ZHL...fxWg==</span></span><span
+  11.0pt;font-family:"Times New Roman",serif'>=influx2_open(&quot;http://localhost:8086?org=esprocOrg&amp;bucket=test1&amp;token=ZHL...fxWg==&quot;)</span></span><span
   class=code><span lang=EN-US style='font-family:"Times New Roman",serif'></span></span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:2;height:18.45pt'>
-  <td width=16 valign=top style='width:12.15pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:2'>
+  <td width=24 valign=top style='width:12.15pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:18.45pt'>
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span class=code><span
   lang=EN-US style='font-family:"Times New Roman",serif'>2</span></span></p>
   </td>
-  <td width=559 style='width:419.1pt;border-top:none;border-left:none;
+  <td width=838 style='width:419.1pt;border-top:none;border-left:none;
   border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:18.45pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
-  11.0pt;font-family:"Times New Roman",serif'>=influx2_rest(&quot;http://localhost:8086/api/v2/buckets&quot;,
-  &quot;GET&quot;; &quot;Authorization: TOKEN&quot;+token)</span></span></p>
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal style='margin-right:-117.4pt;mso-para-margin-right:-11.18gd'><span
+  class=code><span lang=EN-US style='mso-bidi-font-size:11.0pt;font-family:
+  "Times New Roman",serif'>=influx2_delete(A1,&quot;2022-03-30
+  01:01:01&quot;,&quot;2022-03-31
+  01:01:01&quot;,&quot;&quot;,&quot;test1&quot;,&quot;esprocOrg&quot;)</span></span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
-  <td width=16 valign=top style='width:12.15pt;border:solid #A6A6A6 1.0pt;
+  <td width=24 valign=top style='width:12.15pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span class=code><span
   lang=EN-US style='font-family:"Times New Roman",serif'>3</span></span></p>
   </td>
-  <td width=559 style='width:419.1pt;border-top:none;border-left:none;
+  <td width=838 style='width:419.1pt;border-top:none;border-left:none;
   border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=influx2_close(A1)</span></span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=insert_close(A1)</span></span></p>
   </td>
  </tr>
 </table>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="455.html">Next</a></div>
@@ -170,7 +168,7 @@ style='font-size:14.0pt'>Example: </span></b></p>
 	<div id="footer">	
 		
 		
-    <div class="copyright"> Copyright&reg; 2021 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+    <div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
       </a></div>
 	</div>
 </div>
