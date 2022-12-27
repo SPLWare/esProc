@@ -26,16 +26,11 @@ import com.scudata.parallel.UnitClient;
 /**
  * Implementation of java.sql.Statement
  */
-public class InternalStatement implements java.sql.Statement {
+public abstract class InternalStatement implements java.sql.Statement {
 	/**
 	 * The SQL string
 	 */
 	protected String sql = null;
-
-	/**
-	 * The connection object
-	 */
-	protected InternalConnection connt = null;
 
 	/**
 	 * The ResultSet
@@ -98,10 +93,11 @@ public class InternalStatement implements java.sql.Statement {
 	public InternalStatement(InternalConnection con, int id) {
 		JDBCUtil.log("InternalStatement-1");
 		lastVisitTime = System.currentTimeMillis();
-		connt = con;
 		con.updateLastVisitTime(lastVisitTime);
 		this.ID = id;
 	}
+
+	public abstract InternalConnection getConnection();
 
 	/**
 	 * Execute JDBC statement
@@ -149,6 +145,7 @@ public class InternalStatement implements java.sql.Statement {
 			execThread = new Thread() {
 				public void run() {
 					try {
+						InternalConnection connt = getConnection();
 						result = executeJDBC(sql, parameters, connt, isUpdate);
 					} catch (InterruptedException ie) {
 						isCanceled = true;
@@ -364,7 +361,8 @@ public class InternalStatement implements java.sql.Statement {
 	 */
 	public java.sql.ResultSet executeQuery(String sql) throws SQLException {
 		JDBCUtil.log("InternalStatement-2");
-		if (connt.isClosed())
+		InternalConnection connt = getConnection();
+		if (connt == null || connt.isClosed())
 			throw new SQLException(JDBCMessage.get().getMessage(
 					"error.conclosed"));
 		this.sql = sql;
@@ -390,7 +388,8 @@ public class InternalStatement implements java.sql.Statement {
 	 */
 	public int executeUpdate(String sql) throws SQLException {
 		JDBCUtil.log("InternalStatement-3");
-		if (connt.isClosed())
+		InternalConnection connt = getConnection();
+		if (connt == null || connt.isClosed())
 			throw new SQLException(JDBCMessage.get().getMessage(
 					"error.conclosed"));
 		this.sql = sql;
@@ -520,6 +519,11 @@ public class InternalStatement implements java.sql.Statement {
 	public void cancel() throws SQLException {
 		JDBCUtil.log("InternalStatement-12");
 		if (execThread != null) {
+			InternalConnection connt = getConnection();
+			if (connt == null || connt.isClosed()) {
+				throw new SQLException(JDBCMessage.get().getMessage(
+						"error.conclosed"));
+			}
 			UnitClient uc = connt.getUnitClient();
 			if (uc != null) {
 				try {
@@ -528,13 +532,15 @@ public class InternalStatement implements java.sql.Statement {
 					throw new SQLException(e.getMessage(), e);
 				}
 			}
-			try {
-				execThread.stop();
-			} catch (Throwable t1) {
-			}
-			try {
-				execThread.destroy();
-			} catch (Throwable t1) {
+			if (execThread != null) {
+				try {
+					execThread.stop();
+				} catch (Throwable t1) {
+				}
+				try {
+					execThread.destroy();
+				} catch (Throwable t1) {
+				}
 			}
 			execThread = null;
 		}
@@ -590,9 +596,11 @@ public class InternalStatement implements java.sql.Statement {
 	 */
 	public boolean execute(String sql) throws SQLException {
 		JDBCUtil.log("InternalStatement-17");
-		if (connt.isClosed())
+		InternalConnection connt = getConnection();
+		if (connt == null || connt.isClosed()) {
 			throw new SQLException(JDBCMessage.get().getMessage(
 					"error.conclosed"));
+		}
 		lastVisitTime = System.currentTimeMillis();
 		connt.updateLastVisitTime(lastVisitTime);
 		this.sql = sql;
@@ -613,9 +621,11 @@ public class InternalStatement implements java.sql.Statement {
 	 */
 	public java.sql.ResultSet getResultSet() throws SQLException {
 		JDBCUtil.log("InternalStatement-18");
-		if (connt.isClosed())
+		InternalConnection connt = getConnection();
+		if (connt == null || connt.isClosed()) {
 			throw new SQLException(JDBCMessage.get().getMessage(
 					"error.conclosed"));
+		}
 		if (set != null)
 			set.close();
 		lastVisitTime = System.currentTimeMillis();
@@ -660,7 +670,8 @@ public class InternalStatement implements java.sql.Statement {
 	 */
 	public boolean getMoreResults() throws SQLException {
 		JDBCUtil.log("InternalStatement-20");
-		if (connt.isClosed()) {
+		InternalConnection connt = getConnection();
+		if (connt == null || connt.isClosed()) {
 			throw new SQLException(JDBCMessage.get().getMessage(
 					"error.conclosed"));
 		}
@@ -805,16 +816,6 @@ public class InternalStatement implements java.sql.Statement {
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"executeBatch()"));
 		return null;
-	}
-
-	/**
-	 * Retrieves the Connection object that produced this Statement object.
-	 * 
-	 * @return the connection that produced this statement
-	 */
-	public java.sql.Connection getConnection() throws SQLException {
-		JDBCUtil.log("InternalStatement-30");
-		return connt;
 	}
 
 	/**

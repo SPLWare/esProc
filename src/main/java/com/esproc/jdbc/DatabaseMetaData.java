@@ -14,12 +14,7 @@ import com.scudata.common.StringUtils;
  * java.sql.DatabaseMetaData
  *
  */
-public class DatabaseMetaData implements java.sql.DatabaseMetaData {
-
-	/**
-	 * The connection
-	 */
-	private InternalConnection connt = null;
+public abstract class DatabaseMetaData implements java.sql.DatabaseMetaData {
 
 	private final String PRODUCT_NAME = "esProc";
 	/**
@@ -53,7 +48,6 @@ public class DatabaseMetaData implements java.sql.DatabaseMetaData {
 	/**
 	 * The constructor
 	 * 
-	 * @param con                The connection
 	 * @param url                The URL of the JDBC
 	 * @param userName           The user name
 	 * @param driverName         The driver of the JDBC
@@ -61,16 +55,17 @@ public class DatabaseMetaData implements java.sql.DatabaseMetaData {
 	 * @param driverMinorVersion The minor version of the driver
 	 * @throws SQLException
 	 */
-	public DatabaseMetaData(InternalConnection con, String url, String userName, String driverName,
+	public DatabaseMetaData(String url, String userName, String driverName,
 			int driverMajorVersion, int driverMinorVersion) throws SQLException {
 		JDBCUtil.log("DatabaseMetaData-2");
-		this.connt = con;
 		this.url = url;
 		this.userName = userName;
 		this.driverName = driverName;
 		this.driverMajorVersion = driverMajorVersion;
 		this.driverMinorVersion = driverMinorVersion;
 	}
+
+	public abstract InternalConnection getConnection();
 
 	/**
 	 * Retrieves whether the current user can call all the procedures returned by
@@ -121,7 +116,8 @@ public class DatabaseMetaData implements java.sql.DatabaseMetaData {
 	 */
 	public boolean isReadOnly() throws SQLException {
 		JDBCUtil.log("DatabaseMetaData-7");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "isReadOnly()"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"isReadOnly()"));
 		return false;
 	}
 
@@ -240,6 +236,9 @@ public class DatabaseMetaData implements java.sql.DatabaseMetaData {
 	 */
 	public boolean usesLocalFiles() throws SQLException {
 		JDBCUtil.log("DatabaseMetaData-18");
+		InternalConnection connt = getConnection();
+		if (connt == null)
+			return false;
 		return !connt.isOnlyServer();
 	}
 
@@ -502,7 +501,8 @@ public class DatabaseMetaData implements java.sql.DatabaseMetaData {
 	 *                 java.sql.Types
 	 * @return true if so; false otherwise
 	 */
-	public boolean supportsConvert(int fromType, int toType) throws SQLException {
+	public boolean supportsConvert(int fromType, int toType)
+			throws SQLException {
 		JDBCUtil.log("DatabaseMetaData-41");
 		return false;
 	}
@@ -1318,7 +1318,8 @@ public class DatabaseMetaData implements java.sql.DatabaseMetaData {
 	 * 
 	 * @return true if so; false otherwise
 	 */
-	public boolean supportsTransactionIsolationLevel(int level) throws SQLException {
+	public boolean supportsTransactionIsolationLevel(int level)
+			throws SQLException {
 		JDBCUtil.log("DatabaseMetaData-116");
 		return false;
 	}
@@ -1329,7 +1330,8 @@ public class DatabaseMetaData implements java.sql.DatabaseMetaData {
 	 * 
 	 * @return true if so; false otherwise
 	 */
-	public boolean supportsDataDefinitionAndDataManipulationTransactions() throws SQLException {
+	public boolean supportsDataDefinitionAndDataManipulationTransactions()
+			throws SQLException {
 		JDBCUtil.log("DatabaseMetaData-117");
 		return false;
 	}
@@ -1340,7 +1342,8 @@ public class DatabaseMetaData implements java.sql.DatabaseMetaData {
 	 * 
 	 * @return true if so; false otherwise
 	 */
-	public boolean supportsDataManipulationTransactionsOnly() throws SQLException {
+	public boolean supportsDataManipulationTransactionsOnly()
+			throws SQLException {
 		JDBCUtil.log("DatabaseMetaData-118");
 		return false;
 	}
@@ -1385,13 +1388,15 @@ public class DatabaseMetaData implements java.sql.DatabaseMetaData {
 	 * 
 	 * @return each row is a procedure description
 	 */
-	public ResultSet getProcedures(String catalog, String schemaPattern, String procedureNamePattern)
-			throws SQLException {
+	public ResultSet getProcedures(String catalog, String schemaPattern,
+			String procedureNamePattern) throws SQLException {
 		JDBCUtil.log("DatabaseMetaData-121-" + procedureNamePattern);
+		InternalConnection connt = getConnection();
 		if (connt == null || connt.isClosed()) {
 			throw new SQLException("The connection is closed.");
 		}
-		procedureNamePattern = getRealPattern(schemaPattern, procedureNamePattern);
+		procedureNamePattern = getRealPattern(schemaPattern,
+				procedureNamePattern);
 		return connt.getProcedures(procedureNamePattern);
 	}
 
@@ -1414,14 +1419,19 @@ public class DatabaseMetaData implements java.sql.DatabaseMetaData {
 	 *                             as it is stored in the database
 	 * @return each row describes a stored procedure parameter or column
 	 */
-	public ResultSet getProcedureColumns(String catalog, String schemaPattern, String procedureNamePattern,
-			String columnNamePattern) throws SQLException {
-		JDBCUtil.log("DatabaseMetaData-122-" + procedureNamePattern + "-" + columnNamePattern);
+	public ResultSet getProcedureColumns(String catalog, String schemaPattern,
+			String procedureNamePattern, String columnNamePattern)
+			throws SQLException {
+		JDBCUtil.log("DatabaseMetaData-122-" + procedureNamePattern + "-"
+				+ columnNamePattern);
+		InternalConnection connt = getConnection();
 		if (connt == null || connt.isClosed()) {
 			throw new SQLException("The connection is closed.");
 		}
-		procedureNamePattern = getRealPattern(schemaPattern, procedureNamePattern);
-		return connt.getProcedureColumns(procedureNamePattern, columnNamePattern);
+		procedureNamePattern = getRealPattern(schemaPattern,
+				procedureNamePattern);
+		return connt.getProcedureColumns(procedureNamePattern,
+				columnNamePattern);
 	}
 
 	/**
@@ -1445,9 +1455,10 @@ public class DatabaseMetaData implements java.sql.DatabaseMetaData {
 	 *                         null returns all types
 	 * @return each row is a table description
 	 */
-	public ResultSet getTables(String catalog, String schemaPattern, String tableNamePattern, String[] types)
-			throws SQLException {
+	public ResultSet getTables(String catalog, String schemaPattern,
+			String tableNamePattern, String[] types) throws SQLException {
 		JDBCUtil.log("DatabaseMetaData-123-" + tableNamePattern);
+		InternalConnection connt = getConnection();
 		if (connt == null || connt.isClosed()) {
 			throw new SQLException("The connection is closed.");
 		}
@@ -1463,7 +1474,8 @@ public class DatabaseMetaData implements java.sql.DatabaseMetaData {
 	 */
 	public ResultSet getSchemas() throws SQLException {
 		JDBCUtil.log("DatabaseMetaData-124");
-		return new com.esproc.jdbc.ResultSet(com.esproc.jdbc.ResultSet.GET_SCHEMAS);
+		return new com.esproc.jdbc.ResultSet(
+				com.esproc.jdbc.ResultSet.GET_SCHEMAS);
 	}
 
 	/**
@@ -1475,7 +1487,8 @@ public class DatabaseMetaData implements java.sql.DatabaseMetaData {
 	 */
 	public ResultSet getCatalogs() throws SQLException {
 		JDBCUtil.log("DatabaseMetaData-125");
-		return new com.esproc.jdbc.ResultSet(com.esproc.jdbc.ResultSet.GET_CATALOGS);
+		return new com.esproc.jdbc.ResultSet(
+				com.esproc.jdbc.ResultSet.GET_CATALOGS);
 	}
 
 	/**
@@ -1487,7 +1500,8 @@ public class DatabaseMetaData implements java.sql.DatabaseMetaData {
 	 */
 	public ResultSet getTableTypes() throws SQLException {
 		JDBCUtil.log("DatabaseMetaData-126");
-		return new com.esproc.jdbc.ResultSet(com.esproc.jdbc.ResultSet.GET_TABLE_TYPES);
+		return new com.esproc.jdbc.ResultSet(
+				com.esproc.jdbc.ResultSet.GET_TABLE_TYPES);
 	}
 
 	/**
@@ -1498,8 +1512,10 @@ public class DatabaseMetaData implements java.sql.DatabaseMetaData {
 	 * @return
 	 */
 	private String getRealPattern(String schemaPattern, String tableNamePattern) {
-		if (StringUtils.isValidString(schemaPattern) && StringUtils.isValidString(tableNamePattern)) {
-			String str = JDBCConsts.DATA_FILE_EXTS + "," + AppConsts.SPL_FILE_EXTS;
+		if (StringUtils.isValidString(schemaPattern)
+				&& StringUtils.isValidString(tableNamePattern)) {
+			String str = JDBCConsts.DATA_FILE_EXTS + ","
+					+ AppConsts.SPL_FILE_EXTS;
 			String[] exts = str.split(",");
 			for (String ext : exts) {
 				if (ext.equals(tableNamePattern.toLowerCase())) {
@@ -1528,9 +1544,12 @@ public class DatabaseMetaData implements java.sql.DatabaseMetaData {
 	 *                          it is stored in the database
 	 * @return each row is a column description
 	 */
-	public ResultSet getColumns(String catalog, String schemaPattern, String tableNamePattern, String columnNamePattern)
+	public ResultSet getColumns(String catalog, String schemaPattern,
+			String tableNamePattern, String columnNamePattern)
 			throws SQLException {
-		JDBCUtil.log("DatabaseMetaData-127-" + tableNamePattern + "-" + columnNamePattern);
+		JDBCUtil.log("DatabaseMetaData-127-" + tableNamePattern + "-"
+				+ columnNamePattern);
+		InternalConnection connt = getConnection();
 		if (connt == null || connt.isClosed()) {
 			throw new SQLException("The connection is closed.");
 		}
@@ -1555,8 +1574,9 @@ public class DatabaseMetaData implements java.sql.DatabaseMetaData {
 	 *                          it is stored in the database
 	 * @return each row is a column privilege description
 	 */
-	public ResultSet getColumnPrivileges(String catalog, String schemaPattern, String tableNamePattern,
-			String columnNamePattern) throws SQLException {
+	public ResultSet getColumnPrivileges(String catalog, String schemaPattern,
+			String tableNamePattern, String columnNamePattern)
+			throws SQLException {
 		JDBCUtil.log("DatabaseMetaData-128");
 		return JDBCUtil.getEmptyResultSet();
 	}
@@ -1579,8 +1599,8 @@ public class DatabaseMetaData implements java.sql.DatabaseMetaData {
 	 *                         is stored in the database
 	 * @return each row is a table privilege description
 	 */
-	public ResultSet getTablePrivileges(String catalog, String schemaPattern, String tableNamePattern)
-			throws SQLException {
+	public ResultSet getTablePrivileges(String catalog, String schemaPattern,
+			String tableNamePattern) throws SQLException {
 		JDBCUtil.log("DatabaseMetaData-129");
 		return JDBCUtil.getEmptyResultSet();
 	}
@@ -1603,8 +1623,8 @@ public class DatabaseMetaData implements java.sql.DatabaseMetaData {
 	 * @param nullable include columns that are nullable.
 	 * @return each row is a column description
 	 */
-	public ResultSet getBestRowIdentifier(String catalog, String schema, String table, int scope, boolean nullable)
-			throws SQLException {
+	public ResultSet getBestRowIdentifier(String catalog, String schema,
+			String table, int scope, boolean nullable) throws SQLException {
 		JDBCUtil.log("DatabaseMetaData-130");
 		return JDBCUtil.getEmptyResultSet();
 	}
@@ -1624,7 +1644,8 @@ public class DatabaseMetaData implements java.sql.DatabaseMetaData {
 	 *                stored in the database
 	 * @return a ResultSet object in which each row is a column description
 	 */
-	public ResultSet getVersionColumns(String catalog, String schema, String table) throws SQLException {
+	public ResultSet getVersionColumns(String catalog, String schema,
+			String table) throws SQLException {
 		JDBCUtil.log("DatabaseMetaData-131");
 		return JDBCUtil.getEmptyResultSet();
 	}
@@ -1644,7 +1665,8 @@ public class DatabaseMetaData implements java.sql.DatabaseMetaData {
 	 *                stored in the database
 	 * @return each row is a primary key column description
 	 */
-	public ResultSet getPrimaryKeys(String catalog, String schema, String table) throws SQLException {
+	public ResultSet getPrimaryKeys(String catalog, String schema, String table)
+			throws SQLException {
 		JDBCUtil.log("DatabaseMetaData-132");
 		return JDBCUtil.getEmptyResultSet();
 	}
@@ -1665,7 +1687,8 @@ public class DatabaseMetaData implements java.sql.DatabaseMetaData {
 	 *                stored in the database
 	 * @return each row is a primary key column description
 	 */
-	public ResultSet getImportedKeys(String catalog, String schema, String table) throws SQLException {
+	public ResultSet getImportedKeys(String catalog, String schema, String table)
+			throws SQLException {
 		JDBCUtil.log("DatabaseMetaData-133");
 		return JDBCUtil.getEmptyResultSet();
 	}
@@ -1687,7 +1710,8 @@ public class DatabaseMetaData implements java.sql.DatabaseMetaData {
 	 * @return a ResultSet object in which each row is a foreign key column
 	 *         description
 	 */
-	public ResultSet getExportedKeys(String catalog, String schema, String table) throws SQLException {
+	public ResultSet getExportedKeys(String catalog, String schema, String table)
+			throws SQLException {
 		JDBCUtil.log("DatabaseMetaData-134");
 		return JDBCUtil.getEmptyResultSet();
 	}
@@ -1722,8 +1746,9 @@ public class DatabaseMetaData implements java.sql.DatabaseMetaData {
 	 *                       the table name as it is stored in the database
 	 * @return each row is a foreign key column description
 	 */
-	public ResultSet getCrossReference(String primaryCatalog, String primarySchema, String primaryTable,
-			String foreignCatalog, String foreignSchema, String foreignTable) throws SQLException {
+	public ResultSet getCrossReference(String primaryCatalog,
+			String primarySchema, String primaryTable, String foreignCatalog,
+			String foreignSchema, String foreignTable) throws SQLException {
 		JDBCUtil.log("DatabaseMetaData-135");
 		return JDBCUtil.getEmptyResultSet();
 	}
@@ -1761,8 +1786,8 @@ public class DatabaseMetaData implements java.sql.DatabaseMetaData {
 	 *                    accurate
 	 * @return each row is an index column description
 	 */
-	public ResultSet getIndexInfo(String catalog, String schema, String table, boolean unique, boolean approximate)
-			throws SQLException {
+	public ResultSet getIndexInfo(String catalog, String schema, String table,
+			boolean unique, boolean approximate) throws SQLException {
 		JDBCUtil.log("DatabaseMetaData-137");
 		return JDBCUtil.getEmptyResultSet();
 	}
@@ -1786,9 +1811,11 @@ public class DatabaseMetaData implements java.sql.DatabaseMetaData {
 	 * @param concurrency type defined in java.sql.ResultSet
 	 * @return true if so; false otherwise
 	 */
-	public boolean supportsResultSetConcurrency(int type, int concurrency) throws SQLException {
+	public boolean supportsResultSetConcurrency(int type, int concurrency)
+			throws SQLException {
 		JDBCUtil.log("DatabaseMetaData-139");
-		return type == ResultSet.TYPE_FORWARD_ONLY && ResultSet.CONCUR_READ_ONLY == concurrency;
+		return type == ResultSet.TYPE_FORWARD_ONLY
+				&& ResultSet.CONCUR_READ_ONLY == concurrency;
 	}
 
 	/**
@@ -1950,20 +1977,10 @@ public class DatabaseMetaData implements java.sql.DatabaseMetaData {
 	 *                         DISTINCT) to include; null returns all types
 	 * @return ResultSet object in which each row describes a UDT
 	 */
-	public ResultSet getUDTs(String catalog, String schemaPattern, String tableNamePattern, int[] types)
-			throws SQLException {
+	public ResultSet getUDTs(String catalog, String schemaPattern,
+			String tableNamePattern, int[] types) throws SQLException {
 		JDBCUtil.log("DatabaseMetaData-150");
 		return JDBCUtil.getEmptyResultSet();
-	}
-
-	/**
-	 * Retrieves the connection that produced this metadata object.
-	 * 
-	 * @return the connection that produced this metadata object
-	 */
-	public Connection getConnection() throws SQLException {
-		JDBCUtil.log("DatabaseMetaData-151");
-		return this.connt;
 	}
 
 	/**
@@ -2027,7 +2044,8 @@ public class DatabaseMetaData implements java.sql.DatabaseMetaData {
 	 * @return a ResultSet object in which a row gives information about the
 	 *         designated UDT
 	 */
-	public ResultSet getSuperTypes(String catalog, String schemaPattern, String typeNamePattern) throws SQLException {
+	public ResultSet getSuperTypes(String catalog, String schemaPattern,
+			String typeNamePattern) throws SQLException {
 		JDBCUtil.log("DatabaseMetaData-156");
 		return JDBCUtil.getEmptyResultSet();
 	}
@@ -2044,7 +2062,8 @@ public class DatabaseMetaData implements java.sql.DatabaseMetaData {
 	 * @param tableNamePattern a table name pattern; may be a fully-qualified name
 	 * @return a ResultSet object in which each row is a type description
 	 */
-	public ResultSet getSuperTables(String catalog, String schemaPattern, String tableNamePattern) throws SQLException {
+	public ResultSet getSuperTables(String catalog, String schemaPattern,
+			String tableNamePattern) throws SQLException {
 		JDBCUtil.log("DatabaseMetaData-157");
 		return JDBCUtil.getEmptyResultSet();
 	}
@@ -2063,8 +2082,9 @@ public class DatabaseMetaData implements java.sql.DatabaseMetaData {
 	 *                             attribute name as it is declared in the database
 	 * @return a ResultSet object in which each row is an attribute description
 	 */
-	public ResultSet getAttributes(String catalog, String schemaPattern, String typeNamePattern,
-			String attributeNamePattern) throws SQLException {
+	public ResultSet getAttributes(String catalog, String schemaPattern,
+			String typeNamePattern, String attributeNamePattern)
+			throws SQLException {
 		JDBCUtil.log("DatabaseMetaData-158");
 		return JDBCUtil.getEmptyResultSet();
 	}
@@ -2077,7 +2097,8 @@ public class DatabaseMetaData implements java.sql.DatabaseMetaData {
 	 *                    ResultSet.CLOSE_CURSORS_AT_COMMIT
 	 * @return true if so; false otherwise
 	 */
-	public boolean supportsResultSetHoldability(int holdability) throws SQLException {
+	public boolean supportsResultSetHoldability(int holdability)
+			throws SQLException {
 		JDBCUtil.log("DatabaseMetaData-159");
 		return false;
 	}
@@ -2210,8 +2231,8 @@ public class DatabaseMetaData implements java.sql.DatabaseMetaData {
 	 *                            name as it is stored in the database
 	 * @return each row is a function description
 	 */
-	public ResultSet getFunctions(String catalog, String schemaPattern, String functionNamePattern)
-			throws SQLException {
+	public ResultSet getFunctions(String catalog, String schemaPattern,
+			String functionNamePattern) throws SQLException {
 		JDBCUtil.log("DatabaseMetaData-183");
 		return JDBCUtil.getEmptyResultSet();
 	}
@@ -2234,8 +2255,9 @@ public class DatabaseMetaData implements java.sql.DatabaseMetaData {
 	 *                            or column name as it is stored in the database
 	 * @return each row describes a user function parameter, column or return type
 	 */
-	public ResultSet getFunctionColumns(String catalog, String schemaPattern, String functionNamePattern,
-			String columnNamePattern) throws SQLException {
+	public ResultSet getFunctionColumns(String catalog, String schemaPattern,
+			String functionNamePattern, String columnNamePattern)
+			throws SQLException {
 		JDBCUtil.log("DatabaseMetaData-182");
 		return JDBCUtil.getEmptyResultSet();
 	}
@@ -2248,7 +2270,8 @@ public class DatabaseMetaData implements java.sql.DatabaseMetaData {
 	 */
 	public RowIdLifetime getRowIdLifetime() throws SQLException {
 		JDBCUtil.log("DatabaseMetaData-184");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "getRowIdLifetime()"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"getRowIdLifetime()"));
 		return null;
 	}
 
@@ -2265,7 +2288,8 @@ public class DatabaseMetaData implements java.sql.DatabaseMetaData {
 	 *                      not be used to narrow down the search.
 	 * @return a ResultSet object in which each row is a schema description
 	 */
-	public ResultSet getSchemas(String catalog, String schemaPattern) throws SQLException {
+	public ResultSet getSchemas(String catalog, String schemaPattern)
+			throws SQLException {
 		JDBCUtil.log("DatabaseMetaData-185");
 		return JDBCUtil.getEmptyResultSet();
 	}
@@ -2298,7 +2322,8 @@ public class DatabaseMetaData implements java.sql.DatabaseMetaData {
 	 */
 	public boolean isWrapperFor(Class<?> iface) throws SQLException {
 		JDBCUtil.log("DatabaseMetaData-187");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "isWrapperFor(Class<?> iface)"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"isWrapperFor(Class<?> iface)"));
 		return false;
 	}
 
@@ -2320,7 +2345,8 @@ public class DatabaseMetaData implements java.sql.DatabaseMetaData {
 	 */
 	public <T> T unwrap(Class<T> iface) throws SQLException {
 		JDBCUtil.log("DatabaseMetaData-188");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl", "unwrap(Class<T> iface)"));
+		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+				"unwrap(Class<T> iface)"));
 		return null;
 	}
 
@@ -2347,8 +2373,9 @@ public class DatabaseMetaData implements java.sql.DatabaseMetaData {
 	 *                          or column name as it is stored in the database
 	 * @return each row is a column description
 	 */
-	public ResultSet getPseudoColumns(String catalog, String schemaPattern, String tableNamePattern,
-			String columnNamePattern) throws SQLException {
+	public ResultSet getPseudoColumns(String catalog, String schemaPattern,
+			String tableNamePattern, String columnNamePattern)
+			throws SQLException {
 		JDBCUtil.log("DatabaseMetaData-189");
 		return JDBCUtil.getEmptyResultSet();
 	}

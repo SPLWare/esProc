@@ -32,7 +32,7 @@ import com.scudata.parallel.UnitClient;
 /**
  * Implementation of java.sql.CallableStatement
  */
-public class InternalCStatement extends InternalPStatement implements
+public abstract class InternalCStatement extends InternalPStatement implements
 		CallableStatement, Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -80,6 +80,10 @@ public class InternalCStatement extends InternalPStatement implements
 					throw new SQLException(JDBCMessage.get().getMessage(
 							"error.emptysplname"));
 				}
+				InternalConnection connt = getConnection();
+				if (connt == null || connt.isClosed())
+					throw new SQLException(JDBCMessage.get().getMessage(
+							"error.conclosed"));
 				Table t;
 				if (connt.isOnlyServer()) { // ШЅЗўЮёЦїев
 					UnitClient uc = connt.getUnitClient();

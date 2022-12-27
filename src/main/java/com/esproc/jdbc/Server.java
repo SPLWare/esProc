@@ -61,10 +61,6 @@ public class Server {
 	 */
 	private int maxConn = Integer.MAX_VALUE;
 	/**
-	 * The connection list
-	 */
-	private List<InternalConnection> cons = new ArrayList<InternalConnection>();
-	/**
 	 * The current ID
 	 */
 	private int currentID = 0;
@@ -553,45 +549,7 @@ public class Server {
 			throws SQLException {
 		InternalConnection con = new InternalConnection(driver, Server
 				.getInstance().nextID(), config);
-		cons.add(con);
 		return con;
-	}
-
-	/**
-	 * Get the connection list
-	 * 
-	 * @return the connection list
-	 */
-	public List<InternalConnection> getConnections() {
-		return cons;
-	}
-
-	/**
-	 * Get the connection by ID
-	 * 
-	 * @param id The connection ID
-	 * @return the connection
-	 * @throws SQLException
-	 */
-	public InternalConnection getConnection(int id) throws SQLException {
-		for (int i = 0; i < cons.size(); i++) {
-			InternalConnection con = cons.get(i);
-			if (con.getID() == id) {
-				return con;
-			}
-		}
-		return null;
-	}
-
-	/**
-	 * 删除指定ID的连接
-	 * @param id
-	 * @throws SQLException
-	 */
-	public void removeConnection(int id) throws SQLException {
-		InternalConnection con = getConnection(id);
-		if (con != null)
-			cons.remove(con);
 	}
 
 	/**
