@@ -618,7 +618,13 @@ public class InternalConnection implements Connection, Serializable {
 			throw new SQLException(JDBCMessage.get().getMessage(
 					"error.conclosed"));
 		lastVisitTime = System.currentTimeMillis();
-		InternalStatement st = new InternalStatement(this, nextId());
+		InternalStatement st = new InternalStatement(this, nextId()) {
+
+			public InternalConnection getConnection() {
+				return InternalConnection.this;
+			}
+
+		};
 		if (Server.getInstance().isAlive())
 			stats.add(st);
 		return st;
@@ -639,7 +645,13 @@ public class InternalConnection implements Connection, Serializable {
 			throw new SQLException(JDBCMessage.get().getMessage(
 					"error.conclosed"));
 		this.lastVisitTime = System.currentTimeMillis();
-		InternalPStatement st = new InternalPStatement(this, this.nextId(), sql);
+		InternalPStatement st = new InternalPStatement(this, this.nextId(), sql) {
+
+			public InternalConnection getConnection() {
+				return InternalConnection.this;
+			}
+
+		};
 		if (Server.getInstance().isAlive())
 			stats.add(st);
 		return st;
@@ -662,7 +674,14 @@ public class InternalConnection implements Connection, Serializable {
 			throw new SQLException(JDBCMessage.get().getMessage(
 					"error.conclosed"));
 		this.lastVisitTime = System.currentTimeMillis();
-		InternalCStatement st = new InternalCStatement(this, this.nextId(), sql);
+		InternalCStatement st = new InternalCStatement(this, this.nextId(), sql) {
+			private static final long serialVersionUID = 1L;
+
+			public InternalConnection getConnection() {
+				return InternalConnection.this;
+			}
+
+		};
 		if (Server.getInstance().isAlive())
 			stats.add(st);
 		return st;
@@ -779,7 +798,6 @@ public class InternalConnection implements Connection, Serializable {
 		if (jobSpace != null) {
 			JobSpaceManager.closeSpace(jobSpace.getID());
 		}
-		Server.getInstance().removeConnection(id);
 		closed = true;
 	}
 
@@ -810,9 +828,15 @@ public class InternalConnection implements Connection, Serializable {
 			throw new SQLException(JDBCMessage.get().getMessage(
 					"error.conclosed"));
 		if (metaData == null) {
-			metaData = new DatabaseMetaData(this, url, username, driver
-					.getClass().getName(), driver.getMajorVersion(),
-					driver.getMinorVersion());
+			metaData = new DatabaseMetaData(url, username, driver.getClass()
+					.getName(), driver.getMajorVersion(),
+					driver.getMinorVersion()) {
+
+				public InternalConnection getConnection() {
+					return InternalConnection.this;
+				}
+
+			};
 		}
 		return metaData;
 	}

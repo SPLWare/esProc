@@ -438,7 +438,8 @@ public class MergeCursor2 extends ICursor {
 			Object v2 = r2.getNormalFieldValue(field);
 			
 			if (isNullMin) {
-				for (; count < n; ++count) {
+				while (count < n) {
+					++count;
 					if (Variant.compare(v1, v2, true) > 0) {
 						if (cur2 == len2) {
 							data2 = cs2.fetch(FETCHCOUNT_M);
@@ -474,7 +475,8 @@ public class MergeCursor2 extends ICursor {
 					}
 				}
 			} else {
-				for (; count < n; ++count) {
+				while (count < n) {
+					count++;
 					if (Variant.compare_0(v1, v2) > 0) {
 						if (cur2 == len2) {
 							data2 = cs2.fetch(FETCHCOUNT_M);
@@ -514,7 +516,8 @@ public class MergeCursor2 extends ICursor {
 		
 		if (cur1 != 0) {
 			int len1 = data1.length();
-			for (; count < n; ++count) {
+			while (count < n) {
+				count++;
 				if (cur1 < len1) {
 					cur1++;
 				} else {
@@ -530,7 +533,8 @@ public class MergeCursor2 extends ICursor {
 			}
 		} else if (cur2 != 0) {
 			int len2 = data2.length();
-			for (; count < n; ++count) {
+			while (count < n) {
+				count++;
 				if (cur2 < len2) {
 					cur2++;
 				} else {
@@ -578,7 +582,8 @@ public class MergeCursor2 extends ICursor {
 			}
 			
 			if (isNullMin) {
-				for (; count < n; ++count) {
+				while (count < n) {
+					++count;
 					if (Variant.compareArrays(v1, v2) > 0) {
 						if (cur2 == len2) {
 							data2 = cs2.fetch(FETCHCOUNT_M);
@@ -624,7 +629,8 @@ public class MergeCursor2 extends ICursor {
 					}
 				}
 			} else {
-				for (; count < n; ++count) {
+				while (count < n) {
+					++count;
 					if (Variant.compareArrays_0(v1, v2) > 0) {
 						if (cur2 == len2) {
 							data2 = cs2.fetch(FETCHCOUNT_M);
@@ -675,7 +681,8 @@ public class MergeCursor2 extends ICursor {
 		
 		if (cur1 != 0) {
 			int len1 = data1.length();
-			for (; count < n; ++count) {
+			while (count < n) {
+				++count;
 				if (cur1 < len1) {
 					cur1++;
 				} else {
@@ -691,7 +698,8 @@ public class MergeCursor2 extends ICursor {
 			}
 		} else if (cur2 != 0) {
 			int len2 = data2.length();
-			for (; count < n; ++count) {
+			while (count < n) {
+				++count;
 				if (cur2 < len2) {
 					cur2++;
 				} else {

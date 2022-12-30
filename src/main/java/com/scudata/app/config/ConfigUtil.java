@@ -51,7 +51,7 @@ public class ConfigUtil {
 	static {
 		try {
 			FunctionLib.loadCustomFunctions("splfunctions.properties");
-		} catch (Exception ex) {
+		} catch (Throwable ex) {
 		}
 	}
 

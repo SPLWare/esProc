@@ -30,7 +30,7 @@ import com.scudata.dm.Sequence;
 /**
  * Implementation of java.sql.PreparedStatement
  */
-public class InternalPStatement extends InternalStatement implements
+public abstract class InternalPStatement extends InternalStatement implements
 		java.sql.PreparedStatement {
 	/**
 	 * Parameter list
@@ -91,7 +91,8 @@ public class InternalPStatement extends InternalStatement implements
 	 */
 	public java.sql.ResultSet executeQuery(String sql) throws SQLException {
 		JDBCUtil.log("InternalPStatement-3");
-		if (connt.isClosed())
+		InternalConnection connt = getConnection();
+		if (connt == null || connt.isClosed())
 			throw new SQLException(JDBCMessage.get().getMessage(
 					"error.conclosed"));
 		if (sql.startsWith(">"))
@@ -117,7 +118,8 @@ public class InternalPStatement extends InternalStatement implements
 	 */
 	public boolean execute(String sql) throws SQLException {
 		JDBCUtil.log("InternalPStatement-4");
-		if (connt.isClosed())
+		InternalConnection connt = getConnection();
+		if (connt == null || connt.isClosed())
 			throw new SQLException(JDBCMessage.get().getMessage(
 					"error.conclosed"));
 		this.sql = sql;
@@ -138,7 +140,8 @@ public class InternalPStatement extends InternalStatement implements
 	 */
 	public boolean execute() throws SQLException {
 		JDBCUtil.log("InternalPStatement-5");
-		if (connt.isClosed())
+		InternalConnection connt = getConnection();
+		if (connt == null || connt.isClosed())
 			throw new SQLException(JDBCMessage.get().getMessage(
 					"error.conclosed"));
 		lastVisitTime = System.currentTimeMillis();
@@ -166,7 +169,8 @@ public class InternalPStatement extends InternalStatement implements
 	 */
 	public java.sql.ResultSet executeQuery() throws SQLException {
 		JDBCUtil.log("InternalPStatement-6");
-		if (connt.isClosed())
+		InternalConnection connt = getConnection();
+		if (connt == null || connt.isClosed())
 			throw new SQLException(JDBCMessage.get().getMessage(
 					"error.conclosed"));
 		if (sql.startsWith(">"))
@@ -211,7 +215,8 @@ public class InternalPStatement extends InternalStatement implements
 	 */
 	public int executeUpdate() throws SQLException {
 		JDBCUtil.log("InternalPStatement-7");
-		if (connt.isClosed())
+		InternalConnection connt = getConnection();
+		if (connt == null || connt.isClosed())
 			throw new SQLException(JDBCMessage.get().getMessage(
 					"error.conclosed"));
 		lastVisitTime = System.currentTimeMillis();
@@ -1391,4 +1396,5 @@ public class InternalPStatement extends InternalStatement implements
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"setSQLXML(int parameterIndex, SQLXML xmlObject)"));
 	}
+
 }

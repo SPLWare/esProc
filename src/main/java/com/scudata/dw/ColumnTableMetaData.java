@@ -2426,7 +2426,7 @@ public class ColumnTableMetaData extends TableMetaData {
 		}
 		
 		if (data != null) {
-			data = new Table((Table)data);
+			data = new Sequence(data);
 		}
 		
 		GroupTable groupTable = getGroupTable();
@@ -3449,7 +3449,7 @@ public class ColumnTableMetaData extends TableMetaData {
 		}
 		
 		if (data != null) {
-			data = new Table(data);
+			data = new Sequence(data);
 		}
 		
 		GroupTable groupTable = getGroupTable();

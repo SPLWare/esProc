@@ -21,13 +21,14 @@ import com.scudata.ide.spl.etl.ParamInfoList;
 public class AJoin extends ObjectElement {
 	public ArrayList<String> foreignKeys;
 	public String joinTable;
-	public ArrayList<String> joinKeys;//连接的序表设置好主键，A.keys(keys)时，改项可以省略
-	
-	public ArrayList<FieldDefine> attachFields;//连接后附加在当前A后的表达式以及输出字段名，不使用FieldDefine的第三列
-	
+	public ArrayList<String> joinKeys;// 连接的序表设置好主键，A.keys(keys)时，改项可以省略
+
+	public ArrayList<FieldDefine> attachFields;// 连接后附加在当前A后的表达式以及输出字段名，不使用FieldDefine的第三列
+
 	public boolean i;
-//	public boolean o;//先不实现o选项
-	
+
+	// public boolean o;//先不实现o选项
+
 	/**
 	 * 获取用于界面编辑的参数信息列表
 	 */
@@ -35,17 +36,18 @@ public class AJoin extends ObjectElement {
 		ParamInfoList paramInfos = new ParamInfoList();
 		ParamInfo.setCurrent(AJoin.class, this);
 
-		paramInfos.add(new ParamInfo("foreignKeys",EtlConsts.INPUT_STRINGLIST));
-		paramInfos.add(new ParamInfo("joinTable",EtlConsts.INPUT_CELLA,true));
-		paramInfos.add(new ParamInfo("joinKeys",EtlConsts.INPUT_STRINGLIST));
-		paramInfos.add(new ParamInfo("attachFields",EtlConsts.INPUT_FIELDDEFINE_EXP_FIELD));
-		
+		paramInfos
+				.add(new ParamInfo("foreignKeys", EtlConsts.INPUT_STRINGLIST));
+		paramInfos.add(new ParamInfo("joinTable", EtlConsts.INPUT_CELLA, true));
+		paramInfos.add(new ParamInfo("joinKeys", EtlConsts.INPUT_STRINGLIST));
+		paramInfos.add(new ParamInfo("attachFields",
+				EtlConsts.INPUT_FIELDDEFINE_EXP_FIELD));
+
 		String group = "options";
 		paramInfos.add(group, new ParamInfo("i", Consts.INPUT_CHECKBOX));
 
 		return paramInfos;
 	}
-
 
 	/**
 	 * 获取父类型
@@ -68,14 +70,14 @@ public class AJoin extends ObjectElement {
 	/**
 	 * 获取用于生成SPL表达式的选项串
 	 */
-	public String optionString(){
+	public String optionString() {
 		StringBuffer options = new StringBuffer();
-		if(i){
+		if (i) {
 			options.append("i");
 		}
 		return options.toString();
 	}
-	
+
 	/**
 	 * 获取用于生成SPL表达式的函数名
 	 */
@@ -89,21 +91,20 @@ public class AJoin extends ObjectElement {
 	 */
 	public String getFuncBody() {
 		StringBuffer sb = new StringBuffer();
-		sb.append( getStringListExp(foreignKeys,":") );
+		sb.append(getStringListExp(foreignKeys, ":"));
 		sb.append(",");
 		sb.append(getExpressionExp(joinTable));
-		
-		String buf = getStringListExp(joinKeys,":");
-		if(StringUtils.isValidString(buf)){
+
+		String buf = getStringListExp(joinKeys, ":");
+		if (StringUtils.isValidString(buf)) {
 			sb.append(":");
 			sb.append(buf);
 		}
 
-		
 		buf = getFieldDefineExp(attachFields);
-		if(!buf.isEmpty()){
+		if (!buf.isEmpty()) {
 			sb.append(",");
-			sb.append( buf );
+			sb.append(buf);
 		}
 		return sb.toString();
 	}
@@ -113,15 +114,18 @@ public class AJoin extends ObjectElement {
 	 * @param funcBody 函数体
 	 */
 	public boolean setFuncBody(String funcBody) {
-		StringTokenizer st = new StringTokenizer(funcBody,",");
+		StringTokenizer st = new StringTokenizer(funcBody, ",");
 		String tmp = st.nextToken();
-		foreignKeys = getStringList(tmp,":");
+		foreignKeys = getStringList(tmp, ":");
 		tmp = st.nextToken();
 		int index = tmp.indexOf(":");
-		joinTable = getExpression(tmp.substring(0,index));
-		joinKeys = getStringList(tmp.substring(index+1),":");
+		if (index < 0) {
+			return false;
+		}
+		joinTable = getExpression(tmp.substring(0, index));
+		joinKeys = getStringList(tmp.substring(index + 1), ":");
 
-		if(st.hasMoreTokens()){
+		if (st.hasMoreTokens()) {
 			tmp = st.nextToken();
 			attachFields = getFieldDefine(tmp);
 		}

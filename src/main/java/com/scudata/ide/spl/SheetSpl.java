@@ -2366,7 +2366,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 
 			}
 		};
-		t.setPriority(1);
+		t.setPriority(Thread.MAX_PRIORITY);
 		t.start();
 	}
 

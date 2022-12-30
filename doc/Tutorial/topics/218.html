@@ -38,34 +38,33 @@ the other cursors generated during the computation can¡¯t fetch data any more.</
 
 <p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>At some occasions, you need to compute several
-different values at once during one data retrieval process. Then you can use
-channel, which is similar to cursor. esProc offers <b style='mso-bidi-font-weight:
-normal'>channel()</b> function to create a channel and uses <b
-style='mso-bidi-font-weight:normal'>cs.push(ch)</b> function to add the channel
-to cursor cs; or use <b style='mso-bidi-font-weight:normal'>ch2.push(ch</b>)
-function to add it to another channel ch2. A newly-created channel only stores
-the computational actions to-be-performed until the fetch operation is actually
-performed over the cursor when the actions are performed and results recorded.
-The channel supports multiple operations through corresponding functions that
-are similar to what the cursor supports, including <b style='mso-bidi-font-weight:
-normal'>ch.select()</b>, <b style='mso-bidi-font-weight:normal'>ch.new()</b>, <b
-style='mso-bidi-font-weight:normal'>ch.derive()</b>, <b style='mso-bidi-font-weight:
-normal'>ch.()</b>, <b style='mso-bidi-font-weight:normal'>ch.news()</b>, <b
-style='mso-bidi-font-weight:normal'>ch.run()</b>, <b style='mso-bidi-font-weight:
-normal'>ch.switch()</b>, <b style='mso-bidi-font-weight:normal'>ch.join()</b>, <b
-style='mso-bidi-font-weight:normal'>ch.conj()</b>, and <b style='mso-bidi-font-weight:
-normal'>ch.group()</b>. A channel function can define many types of result set.
-<b style='mso-bidi-font-weight:normal'>ch.fetch()</b> function defines
-returning all data from the channel; <b style='mso-bidi-font-weight:normal'>ch.id()</b>
-function defines returning a result set where duplicate members are removed; <b
-style='mso-bidi-font-weight:normal'>ch.sortx()</b> function defines returning a
-sorted result set; and <b style='mso-bidi-font-weight:normal'>ch.groupx()</b>
-and <b style='mso-bidi-font-weight:normal'>ch.groups()</b> functions define
-returning a grouped result set. Also, we can use <span class=T-Var><b
-style='mso-bidi-font-weight:normal'>ch</b></span></span><span class=T-CodeChar><span
-lang=EN-US style='font-family:"Times New Roman","serif"'>.joinx() </span></span><span
-class=T-CodeChar><span lang=EN-US style='font-family:"Times New Roman","serif";
+21.0pt'><span lang=EN-US>At some occasions, you need to compute several different
+values at once during one data retrieval process. Then you can use channel,
+which is similar to cursor. esProc offers <b style='mso-bidi-font-weight:normal'>channel()</b>
+function to create a channel and uses <b style='mso-bidi-font-weight:normal'>cs.push(ch)</b>
+function to add the channel to cursor cs; or use <b style='mso-bidi-font-weight:
+normal'>ch2.push(ch</b>) function to add it to another channel ch2. A
+newly-created channel only stores the computational actions to-be-performed
+until the fetch operation is actually performed over the cursor when the
+actions are performed and results recorded. The channel supports multiple
+operations through corresponding functions that are similar to what the cursor
+supports, including <b style='mso-bidi-font-weight:normal'>ch.select()</b>, <b
+style='mso-bidi-font-weight:normal'>ch.new()</b>, <b style='mso-bidi-font-weight:
+normal'>ch.derive()</b>, <b style='mso-bidi-font-weight:normal'>ch.()</b>, <b
+style='mso-bidi-font-weight:normal'>ch.news()</b>, <b style='mso-bidi-font-weight:
+normal'>ch.run()</b>, <b style='mso-bidi-font-weight:normal'>ch.switch()</b>, <b
+style='mso-bidi-font-weight:normal'>ch.join()</b>, <b style='mso-bidi-font-weight:
+normal'>ch.conj()</b>, and <b style='mso-bidi-font-weight:normal'>ch.group()</b>.
+A channel function can define many types of result set. <b style='mso-bidi-font-weight:
+normal'>ch.fetch()</b> function defines returning all data from the channel; <b
+style='mso-bidi-font-weight:normal'>ch.id()</b> function defines returning a
+result set where duplicate members are removed; <b style='mso-bidi-font-weight:
+normal'>ch.sortx()</b> function defines returning a sorted result set; and <b
+style='mso-bidi-font-weight:normal'>ch.groupx()</b> and <b style='mso-bidi-font-weight:
+normal'>ch.groups()</b> functions define returning a grouped result set. Also,
+we can use <span class=T-Var><b style='mso-bidi-font-weight:normal'>ch</b></span></span><span
+class=T-CodeChar><span lang=EN-US style='font-family:"Times New Roman",serif'>.joinx()
+</span></span><span class=T-CodeChar><span lang=EN-US style='font-family:"Times New Roman",serif;
 font-weight:normal'>function to join data in a channel to a segmentable bin
 file. So we know that there are two kinds of channel functions. One is for
 attaching an operation to a channel, and the other is for getting the final
@@ -83,14 +82,14 @@ For example:</span></p>
  mso-border-insidev:.5pt solid #B2B2B2'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
   height:14.15pt'>
-  <td width=52 valign=top style='width:31.2pt;border:solid black 1.0pt;
+  <td width=62 valign=top style='width:31.2pt;border:solid black 1.0pt;
   mso-border-alt:solid black .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
   <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
   text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
   style='font-size:9.0pt'>&nbsp;</span></p>
   </td>
-  <td width=189 valign=top style='width:4.0cm;border-top:solid black 1.0pt;
+  <td width=227 valign=top style='width:4.0cm;border-top:solid black 1.0pt;
   border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
   mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
   mso-border-bottom-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
@@ -99,7 +98,7 @@ For example:</span></p>
   mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
   lang=EN-US style='font-size:9.0pt'>A</span></p>
   </td>
-  <td width=151 style='width:90.7pt;border-top:solid black 1.0pt;border-left:
+  <td width=181 style='width:90.7pt;border-top:solid black 1.0pt;border-left:
   none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
   mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
   mso-border-bottom-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
@@ -108,7 +107,7 @@ For example:</span></p>
   mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
   lang=EN-US style='font-size:9.0pt'>B</span></p>
   </td>
-  <td width=151 valign=top style='width:90.7pt;border-top:solid black 1.0pt;
+  <td width=181 valign=top style='width:90.7pt;border-top:solid black 1.0pt;
   border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
   mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
   mso-border-bottom-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
@@ -117,7 +116,7 @@ For example:</span></p>
   mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
   lang=EN-US style='font-size:9.0pt'>C</span></p>
   </td>
-  <td width=95 valign=top style='width:2.0cm;border-top:solid black 1.0pt;
+  <td width=113 valign=top style='width:2.0cm;border-top:solid black 1.0pt;
   border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
   mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
   mso-border-bottom-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
@@ -128,7 +127,7 @@ For example:</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
-  <td width=52 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  <td width=62 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
   border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
   mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
   mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
@@ -137,7 +136,7 @@ For example:</span></p>
   text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
   style='font-size:9.0pt'>1</span></p>
   </td>
-  <td width=189 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
+  <td width=227 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid windowtext .5pt;
   mso-border-left-alt:solid windowtext .5pt;mso-border-top-alt:windowtext;
   mso-border-left-alt:windowtext;mso-border-bottom-alt:#B2B2B2;mso-border-right-alt:
@@ -145,7 +144,7 @@ For example:</span></p>
   padding:0cm 0cm 0cm 0cm;height:14.15pt'>
   <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=file(&quot;Order_Wines.txt&quot;)</span></p>
   </td>
-  <td width=151 style='width:90.7pt;border-top:none;border-left:none;
+  <td width=181 style='width:90.7pt;border-top:none;border-left:none;
   border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
   mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid #B2B2B2 .5pt;
   mso-border-alt:solid #B2B2B2 .5pt;mso-border-top-alt:solid windowtext .5pt;
@@ -153,7 +152,7 @@ For example:</span></p>
   <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0'><span
   lang=EN-US style='font-size:9.0pt'>&nbsp;</span></p>
   </td>
-  <td width=151 style='width:90.7pt;border-top:none;border-left:none;
+  <td width=181 style='width:90.7pt;border-top:none;border-left:none;
   border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
   mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid #B2B2B2 .5pt;
   mso-border-alt:solid #B2B2B2 .5pt;mso-border-top-alt:solid windowtext .5pt;
@@ -161,7 +160,7 @@ For example:</span></p>
   <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0'><span
   lang=EN-US style='font-size:9.0pt'>&nbsp;</span></p>
   </td>
-  <td width=95 style='width:2.0cm;border-top:none;border-left:none;border-bottom:
+  <td width=113 style='width:2.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid windowtext .5pt;
   mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
   mso-border-top-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
@@ -170,7 +169,7 @@ For example:</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
-  <td width=52 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  <td width=62 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
   border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
   mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
   mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
@@ -179,28 +178,28 @@ For example:</span></p>
   text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
   style='font-size:9.0pt'>2</span></p>
   </td>
-  <td width=189 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
+  <td width=227 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
   mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid #B2B2B2 .5pt;
   mso-border-left-alt:solid windowtext .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
   <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=A1.cursor@t()</span></p>
   </td>
-  <td width=151 style='width:90.7pt;border-top:none;border-left:none;
+  <td width=181 style='width:90.7pt;border-top:none;border-left:none;
   border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
   mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid #B2B2B2 .5pt;
   mso-border-alt:solid #B2B2B2 .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
   <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0'><span
   lang=EN-US style='font-size:9.0pt'>&nbsp;</span></p>
   </td>
-  <td width=151 style='width:90.7pt;border-top:none;border-left:none;
+  <td width=181 style='width:90.7pt;border-top:none;border-left:none;
   border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
   mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid #B2B2B2 .5pt;
   mso-border-alt:solid #B2B2B2 .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
   <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0'><span
   lang=EN-US style='font-size:9.0pt'>&nbsp;</span></p>
   </td>
-  <td width=95 style='width:2.0cm;border-top:none;border-left:none;border-bottom:
+  <td width=113 style='width:2.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
   mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
   padding:0cm 0cm 0cm 0cm;height:14.15pt'>
@@ -209,7 +208,7 @@ For example:</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:3;page-break-inside:avoid;height:14.15pt'>
-  <td width=52 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  <td width=62 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
   border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
   mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
   mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
@@ -218,26 +217,26 @@ For example:</span></p>
   text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
   style='font-size:9.0pt'>3</span></p>
   </td>
-  <td width=189 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
+  <td width=227 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
   mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid #B2B2B2 .5pt;
   mso-border-left-alt:solid windowtext .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
   <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=channel()</span></p>
   </td>
-  <td width=151 style='width:90.7pt;border-top:none;border-left:none;
+  <td width=181 style='width:90.7pt;border-top:none;border-left:none;
   border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
   mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid #B2B2B2 .5pt;
   mso-border-alt:solid #B2B2B2 .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
   <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>&gt;A3.select(SalesID==1)</span></p>
   </td>
-  <td width=151 style='width:90.7pt;border-top:none;border-left:none;
+  <td width=181 style='width:90.7pt;border-top:none;border-left:none;
   border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
   mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid #B2B2B2 .5pt;
   mso-border-alt:solid #B2B2B2 .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
   <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>&gt;A3.fetch()</span></p>
   </td>
-  <td width=95 style='width:2.0cm;border-top:none;border-left:none;border-bottom:
+  <td width=113 style='width:2.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
   mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
   padding:0cm 0cm 0cm 0cm;height:14.15pt'>
@@ -245,7 +244,7 @@ For example:</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:4;page-break-inside:avoid;height:14.15pt'>
-  <td width=52 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  <td width=62 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
   border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
   mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
   mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
@@ -254,28 +253,28 @@ For example:</span></p>
   text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
   style='font-size:9.0pt'>4</span></p>
   </td>
-  <td width=189 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
+  <td width=227 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
   mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid #B2B2B2 .5pt;
   mso-border-left-alt:solid windowtext .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
   <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=A2.select(month(Date)==8)</span></p>
   </td>
-  <td width=151 style='width:90.7pt;border-top:none;border-left:none;
+  <td width=181 style='width:90.7pt;border-top:none;border-left:none;
   border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
   mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid #B2B2B2 .5pt;
   mso-border-alt:solid #B2B2B2 .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
   <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0'><span
   lang=EN-US style='font-size:9.0pt'>&nbsp;</span></p>
   </td>
-  <td width=151 style='width:90.7pt;border-top:none;border-left:none;
+  <td width=181 style='width:90.7pt;border-top:none;border-left:none;
   border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
   mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid #B2B2B2 .5pt;
   mso-border-alt:solid #B2B2B2 .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
   <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0'><span
   lang=EN-US style='font-size:9.0pt'>&nbsp;</span></p>
   </td>
-  <td width=95 style='width:2.0cm;border-top:none;border-left:none;border-bottom:
+  <td width=113 style='width:2.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
   mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
   padding:0cm 0cm 0cm 0cm;height:14.15pt'>
@@ -284,7 +283,7 @@ For example:</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:5;page-break-inside:avoid;height:14.15pt'>
-  <td width=52 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  <td width=62 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
   border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
   mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
   mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
@@ -293,26 +292,26 @@ For example:</span></p>
   text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
   style='font-size:9.0pt'>5</span></p>
   </td>
-  <td width=189 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
+  <td width=227 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
   mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid #B2B2B2 .5pt;
   mso-border-left-alt:solid windowtext .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
   <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=channel()</span></p>
   </td>
-  <td width=151 style='width:90.7pt;border-top:none;border-left:none;
+  <td width=181 style='width:90.7pt;border-top:none;border-left:none;
   border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
   mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid #B2B2B2 .5pt;
   mso-border-alt:solid #B2B2B2 .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
   <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>&gt;A4.push(A5)</span></p>
   </td>
-  <td width=151 style='width:90.7pt;border-top:none;border-left:none;
+  <td width=181 style='width:90.7pt;border-top:none;border-left:none;
   border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
   mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid #B2B2B2 .5pt;
   mso-border-alt:solid #B2B2B2 .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
   <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>&gt;A5.select(SalesID==1)</span></p>
   </td>
-  <td width=95 style='width:2.0cm;border-top:none;border-left:none;border-bottom:
+  <td width=113 style='width:2.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
   mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
   padding:0cm 0cm 0cm 0cm;height:14.15pt'>
@@ -321,7 +320,7 @@ For example:</span></p>
  </tr>
  <tr style='mso-yfti-irow:6;mso-yfti-lastrow:yes;page-break-inside:avoid;
   height:14.15pt'>
-  <td width=52 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  <td width=62 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
   border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
   mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
   mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
@@ -330,28 +329,28 @@ For example:</span></p>
   text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
   style='font-size:9.0pt'>6</span></p>
   </td>
-  <td width=189 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
+  <td width=227 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
   mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid #B2B2B2 .5pt;
   mso-border-left-alt:solid windowtext .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
   <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=A4.fetch()</span></p>
   </td>
-  <td width=151 style='width:90.7pt;border-top:none;border-left:none;
+  <td width=181 style='width:90.7pt;border-top:none;border-left:none;
   border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
   mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid #B2B2B2 .5pt;
   mso-border-alt:solid #B2B2B2 .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
   <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=A3.result()</span></p>
   </td>
-  <td width=151 style='width:90.7pt;border-top:none;border-left:none;
+  <td width=181 style='width:90.7pt;border-top:none;border-left:none;
   border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
   mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid #B2B2B2 .5pt;
   mso-border-alt:solid #B2B2B2 .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
   <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=A5.result()</span></p>
   </td>
-  <td width=95 style='width:2.0cm;border-top:none;border-left:none;border-bottom:
+  <td width=113 style='width:2.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
   mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
   padding:0cm 0cm 0cm 0cm;height:14.15pt'>
@@ -363,37 +362,37 @@ For example:</span></p>
 
 <p class=T-Par style='margin-bottom:0cm;margin-bottom:.0001pt;mso-add-space:
 auto;text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
-lang=EN-US>As A6 performs the fetch operation to fetch data out from the cursor,
-the operations in the channel are completed. By defining the type of result set
-through channel, you can get multiple values at once during one traversal of
-cursor data. Here are results of A6, B6 and C6:</span></p>
+lang=EN-US>As A6 performs the fetch operation to fetch data out from the
+cursor, the operations in the channel are completed. By defining the type of
+result set through channel, you can get multiple values at once during one
+traversal of cursor data. Here are results of A6, B6 and C6:</span></p>
 
 <p class=MsoNormalCxSpFirst style='text-indent:21.0pt;mso-char-indent-count:
-2.0'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=625 height=288
-src="Tutorial.files/image1740.jpg" v:shapes="_x0000_i1968"></span></p>
+2.0'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=750 height=345
+src="Tutorial.files/image1766.jpg" v:shapes="_x0000_i1968"></span></p>
 
 <p class=MsoNormalCxSpMiddle style='text-indent:21.0pt;mso-char-indent-count:
-2.0'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=625 height=288
-src="Tutorial.files/image1742.jpg" v:shapes="_x0000_i1969"></span></p>
+2.0'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=750 height=345
+src="Tutorial.files/image1768.jpg" v:shapes="_x0000_i1969"></span></p>
 
 <p class=MsoNormalCxSpLast style='text-indent:21.0pt;mso-char-indent-count:
-2.0'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=601 height=226
-src="Tutorial.files/image1744.jpg" v:shapes="_x0000_i1970"></span></p>
+2.0'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=721 height=272
+src="Tutorial.files/image1770.jpg" v:shapes="_x0000_i1970"></span></p>
 
 <p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
 21.0pt'><span lang=EN-US>A3 and A5 create new channels. Both will select
-records whose SalesID is 1, yet results of B6 and C6 are different. That¡¯s because
-A3¡¯s channel is added to A2¡¯s cursor from which all sales records are fetched;
-while A5¡¯s channel is added to A4¡¯s cursor that is bundled with an operation
-and from which only sales records in August are fetched.</span></p>
+records whose SalesID is 1, yet results of B6 and C6 are different. That¡¯s
+because A3¡¯s channel is added to A2¡¯s cursor from which all sales records are
+fetched; while A5¡¯s channel is added to A4¡¯s cursor that is bundled with an
+operation and from which only sales records in August are fetched.</span></p>
 
 <p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
 21.0pt'><span lang=EN-US>According to the code in line 3 and line 5, after the
 push function is executed, a channel can still perform operatons effectively.
-But once you already define the type of result set to be returned using functions
-like<b style='mso-bidi-font-weight:normal'> ch.fetch()</b> and <b
+But once you already define the type of result set to be returned using
+functions like<b style='mso-bidi-font-weight:normal'> ch.fetch()</b> and <b
 style='mso-bidi-font-weight:normal'>ch.id()</b>, the channel can¡¯t be used to
 perform any operations.</span></p>
 
@@ -417,14 +416,14 @@ aggregation in a channel. For example:</span></p>
  mso-border-insidev:.5pt solid #B2B2B2'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
   height:14.15pt'>
-  <td width=52 valign=top style='width:31.2pt;border:solid black 1.0pt;
+  <td width=62 valign=top style='width:31.2pt;border:solid black 1.0pt;
   mso-border-alt:solid black .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
   <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
   text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
   style='font-size:9.0pt'>&nbsp;</span></p>
   </td>
-  <td width=156 valign=top style='width:93.55pt;border-top:solid black 1.0pt;
+  <td width=187 valign=top style='width:93.55pt;border-top:solid black 1.0pt;
   border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
   mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
   mso-border-bottom-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
@@ -433,7 +432,7 @@ aggregation in a channel. For example:</span></p>
   mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
   lang=EN-US style='font-size:9.0pt'>A</span></p>
   </td>
-  <td width=151 style='width:90.7pt;border-top:solid black 1.0pt;border-left:
+  <td width=181 style='width:90.7pt;border-top:solid black 1.0pt;border-left:
   none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
   mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
   mso-border-bottom-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
@@ -442,7 +441,7 @@ aggregation in a channel. For example:</span></p>
   mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
   lang=EN-US style='font-size:9.0pt'>B</span></p>
   </td>
-  <td width=95 valign=top style='width:2.0cm;border-top:solid black 1.0pt;
+  <td width=113 valign=top style='width:2.0cm;border-top:solid black 1.0pt;
   border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
   mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
   mso-border-bottom-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
@@ -451,7 +450,7 @@ aggregation in a channel. For example:</span></p>
   mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
   lang=EN-US style='font-size:9.0pt'>C</span></p>
   </td>
-  <td width=189 valign=top style='width:4.0cm;border-top:solid black 1.0pt;
+  <td width=227 valign=top style='width:4.0cm;border-top:solid black 1.0pt;
   border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
   mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
   mso-border-bottom-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
@@ -462,7 +461,7 @@ aggregation in a channel. For example:</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
-  <td width=52 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  <td width=62 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
   border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
   mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
   mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
@@ -471,7 +470,7 @@ aggregation in a channel. For example:</span></p>
   text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
   style='font-size:9.0pt'>1</span></p>
   </td>
-  <td width=156 style='width:93.55pt;border-top:none;border-left:none;
+  <td width=187 style='width:93.55pt;border-top:none;border-left:none;
   border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
   mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
   mso-border-top-alt:windowtext;mso-border-left-alt:windowtext;mso-border-bottom-alt:
@@ -479,7 +478,7 @@ aggregation in a channel. For example:</span></p>
   .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
   <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=file(&quot;Order_Wines.txt&quot;)</span></p>
   </td>
-  <td width=151 style='width:90.7pt;border-top:none;border-left:none;
+  <td width=181 style='width:90.7pt;border-top:none;border-left:none;
   border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
   mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid #B2B2B2 .5pt;
   mso-border-alt:solid #B2B2B2 .5pt;mso-border-top-alt:solid windowtext .5pt;
@@ -487,14 +486,14 @@ aggregation in a channel. For example:</span></p>
   <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0'><span
   lang=EN-US style='font-size:9.0pt'>&nbsp;</span></p>
   </td>
-  <td width=95 style='width:2.0cm;border-top:none;border-left:none;border-bottom:
+  <td width=113 style='width:2.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid windowtext .5pt;
   mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
   mso-border-top-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
   <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0'><span
   lang=EN-US style='font-size:9.0pt'>&nbsp;</span></p>
   </td>
-  <td width=189 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
+  <td width=227 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid windowtext .5pt;
   mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
   mso-border-top-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
@@ -503,7 +502,7 @@ aggregation in a channel. For example:</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
-  <td width=52 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  <td width=62 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
   border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
   mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
   mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
@@ -512,28 +511,28 @@ aggregation in a channel. For example:</span></p>
   text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
   style='font-size:9.0pt'>2</span></p>
   </td>
-  <td width=156 style='width:93.55pt;border-top:none;border-left:none;
+  <td width=187 style='width:93.55pt;border-top:none;border-left:none;
   border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
   mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
   mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
   background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
   <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=A1.cursor@t()</span></p>
   </td>
-  <td width=151 style='width:90.7pt;border-top:none;border-left:none;
+  <td width=181 style='width:90.7pt;border-top:none;border-left:none;
   border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
   mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid #B2B2B2 .5pt;
   mso-border-alt:solid #B2B2B2 .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
   <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0'><span
   lang=EN-US style='font-size:9.0pt'>&nbsp;</span></p>
   </td>
-  <td width=95 style='width:2.0cm;border-top:none;border-left:none;border-bottom:
+  <td width=113 style='width:2.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
   mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
   padding:0cm 0cm 0cm 0cm;height:14.15pt'>
   <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0'><span
   lang=EN-US style='font-size:9.0pt'>&nbsp;</span></p>
   </td>
-  <td width=189 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
+  <td width=227 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
   mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
   padding:0cm 0cm 0cm 0cm;height:14.15pt'>
@@ -542,7 +541,7 @@ aggregation in a channel. For example:</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:3;page-break-inside:avoid;height:14.15pt'>
-  <td width=52 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  <td width=62 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
   border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
   mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
   mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
@@ -551,26 +550,26 @@ aggregation in a channel. For example:</span></p>
   text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
   style='font-size:9.0pt'>3</span></p>
   </td>
-  <td width=156 style='width:93.55pt;border-top:none;border-left:none;
+  <td width=187 style='width:93.55pt;border-top:none;border-left:none;
   border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
   mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
   mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
   background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
   <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=channel()</span></p>
   </td>
-  <td width=151 style='width:90.7pt;border-top:none;border-left:none;
+  <td width=181 style='width:90.7pt;border-top:none;border-left:none;
   border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
   mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid #B2B2B2 .5pt;
   mso-border-alt:solid #B2B2B2 .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
   <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>&gt;A3.select(SalesID==1)</span></p>
   </td>
-  <td width=95 style='width:2.0cm;border-top:none;border-left:none;border-bottom:
+  <td width=113 style='width:2.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
   mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
   padding:0cm 0cm 0cm 0cm;height:14.15pt'>
   <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>&gt;A2.push(A3)</span></p>
   </td>
-  <td width=189 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
+  <td width=227 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
   mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
   padding:0cm 0cm 0cm 0cm;height:14.15pt'>
@@ -579,7 +578,7 @@ aggregation in a channel. For example:</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:4;page-break-inside:avoid;height:14.15pt'>
-  <td width=52 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  <td width=62 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
   border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
   mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
   mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
@@ -588,26 +587,26 @@ aggregation in a channel. For example:</span></p>
   text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
   style='font-size:9.0pt'>4</span></p>
   </td>
-  <td width=156 style='width:93.55pt;border-top:none;border-left:none;
+  <td width=187 style='width:93.55pt;border-top:none;border-left:none;
   border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
   mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
   mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
   background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
   <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=channel()</span></p>
   </td>
-  <td width=151 style='width:90.7pt;border-top:none;border-left:none;
+  <td width=181 style='width:90.7pt;border-top:none;border-left:none;
   border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
   mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid #B2B2B2 .5pt;
   mso-border-alt:solid #B2B2B2 .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
   <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>&gt;A4.sortx(Amount)</span></p>
   </td>
-  <td width=95 style='width:2.0cm;border-top:none;border-left:none;border-bottom:
+  <td width=113 style='width:2.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
   mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
   padding:0cm 0cm 0cm 0cm;height:14.15pt'>
   <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>&gt;A3.push(A4)</span></p>
   </td>
-  <td width=189 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
+  <td width=227 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
   mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
   padding:0cm 0cm 0cm 0cm;height:14.15pt'>
@@ -617,7 +616,7 @@ aggregation in a channel. For example:</span></p>
  </tr>
  <tr style='mso-yfti-irow:5;mso-yfti-lastrow:yes;page-break-inside:avoid;
   height:14.15pt'>
-  <td width=52 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  <td width=62 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
   border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
   mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
   mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
@@ -626,27 +625,27 @@ aggregation in a channel. For example:</span></p>
   text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
   style='font-size:9.0pt'>5</span></p>
   </td>
-  <td width=156 style='width:93.55pt;border-top:none;border-left:none;
+  <td width=187 style='width:93.55pt;border-top:none;border-left:none;
   border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
   mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
   mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
   background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
   <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=A2.skip ()</span></p>
   </td>
-  <td width=151 style='width:90.7pt;border-top:none;border-left:none;
+  <td width=181 style='width:90.7pt;border-top:none;border-left:none;
   border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
   mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid #B2B2B2 .5pt;
   mso-border-alt:solid #B2B2B2 .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
   <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=A3.result()</span></p>
   </td>
-  <td width=95 style='width:2.0cm;border-top:none;border-left:none;border-bottom:
+  <td width=113 style='width:2.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
   mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
   background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
   <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=A4.result()</span></p>
   </td>
-  <td width=189 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
+  <td width=227 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
   mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
   background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
@@ -669,12 +668,12 @@ will still flow through the channel to get the aggregagte result. Here are
 results of B5 and D5:</span></p>
 
 <p class=MsoNormalCxSpFirst style='text-indent:21.0pt;mso-char-indent-count:
-2.0'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=625 height=288
-src="Tutorial.files/image1746.jpg" v:shapes="_x0000_i1971"></span></p>
+2.0'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=750 height=345
+src="Tutorial.files/image1772.jpg" v:shapes="_x0000_i1971"></span></p>
 
 <p class=MsoNormalCxSpLast style='text-indent:21.0pt;mso-char-indent-count:
-2.0'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=625 height=288
-src="Tutorial.files/image1748.jpg" v:shapes="_x0000_i1972"></span></p>
+2.0'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=750 height=345
+src="Tutorial.files/image1774.jpg" v:shapes="_x0000_i1972"></span></p>
 
 <p class=T-Par style='margin-bottom:0cm;margin-bottom:.0001pt;mso-add-space:
 auto;text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
@@ -693,14 +692,14 @@ previous computation in the channel. For example:</span></p>
  mso-border-insidev:.5pt solid #B2B2B2'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
   height:14.15pt'>
-  <td width=52 valign=top style='width:31.2pt;border:solid black 1.0pt;
+  <td width=62 valign=top style='width:31.2pt;border:solid black 1.0pt;
   mso-border-alt:solid black .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
   <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
   text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
   style='font-size:9.0pt'>&nbsp;</span></p>
   </td>
-  <td width=156 valign=top style='width:93.55pt;border-top:solid black 1.0pt;
+  <td width=187 valign=top style='width:93.55pt;border-top:solid black 1.0pt;
   border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
   mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
   mso-border-bottom-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
@@ -709,7 +708,7 @@ previous computation in the channel. For example:</span></p>
   mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
   lang=EN-US style='font-size:9.0pt'>A</span></p>
   </td>
-  <td width=189 style='width:4.0cm;border-top:solid black 1.0pt;border-left:
+  <td width=227 style='width:4.0cm;border-top:solid black 1.0pt;border-left:
   none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
   mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
   mso-border-bottom-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
@@ -718,7 +717,7 @@ previous computation in the channel. For example:</span></p>
   mso-pagination:widow-orphan;page-break-after:avoid;vertical-align:middle'><span
   lang=EN-US style='font-size:9.0pt'>B</span></p>
   </td>
-  <td width=142 valign=top style='width:3.0cm;border-top:solid black 1.0pt;
+  <td width=170 valign=top style='width:3.0cm;border-top:solid black 1.0pt;
   border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
   mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
   mso-border-bottom-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
@@ -729,7 +728,7 @@ previous computation in the channel. For example:</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
-  <td width=52 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  <td width=62 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
   border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
   mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
   mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
@@ -738,7 +737,7 @@ previous computation in the channel. For example:</span></p>
   text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
   style='font-size:9.0pt'>1</span></p>
   </td>
-  <td width=156 style='width:93.55pt;border-top:none;border-left:none;
+  <td width=187 style='width:93.55pt;border-top:none;border-left:none;
   border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
   mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
   mso-border-top-alt:windowtext;mso-border-left-alt:windowtext;mso-border-bottom-alt:
@@ -746,14 +745,14 @@ previous computation in the channel. For example:</span></p>
   .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
   <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=file(&quot;Order_Wines.txt&quot;)</span></p>
   </td>
-  <td width=189 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
+  <td width=227 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid windowtext .5pt;
   mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
   mso-border-top-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
   <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0'><span
   lang=EN-US style='font-size:9.0pt'>&nbsp;</span></p>
   </td>
-  <td width=142 style='width:3.0cm;border-top:none;border-left:none;border-bottom:
+  <td width=170 style='width:3.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid windowtext .5pt;
   mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
   mso-border-top-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
@@ -762,7 +761,7 @@ previous computation in the channel. For example:</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
-  <td width=52 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  <td width=62 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
   border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
   mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
   mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
@@ -771,21 +770,21 @@ previous computation in the channel. For example:</span></p>
   text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
   style='font-size:9.0pt'>2</span></p>
   </td>
-  <td width=156 style='width:93.55pt;border-top:none;border-left:none;
+  <td width=187 style='width:93.55pt;border-top:none;border-left:none;
   border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
   mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
   mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
   background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
   <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=A1.cursor@t()</span></p>
   </td>
-  <td width=189 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
+  <td width=227 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
   mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
   padding:0cm 0cm 0cm 0cm;height:14.15pt'>
   <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0'><span
   lang=EN-US style='font-size:9.0pt'>&nbsp;</span></p>
   </td>
-  <td width=142 style='width:3.0cm;border-top:none;border-left:none;border-bottom:
+  <td width=170 style='width:3.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
   mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
   padding:0cm 0cm 0cm 0cm;height:14.15pt'>
@@ -794,7 +793,7 @@ previous computation in the channel. For example:</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:3;page-break-inside:avoid;height:14.15pt'>
-  <td width=52 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  <td width=62 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
   border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
   mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
   mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
@@ -803,20 +802,20 @@ previous computation in the channel. For example:</span></p>
   text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
   style='font-size:9.0pt'>3</span></p>
   </td>
-  <td width=156 style='width:93.55pt;border-top:none;border-left:none;
+  <td width=187 style='width:93.55pt;border-top:none;border-left:none;
   border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
   mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
   mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
   background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
   <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=channel()</span></p>
   </td>
-  <td width=189 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
+  <td width=227 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
   mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
   padding:0cm 0cm 0cm 0cm;height:14.15pt'>
   <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>&gt;A3.select(SalesID==1)</span></p>
   </td>
-  <td width=142 style='width:3.0cm;border-top:none;border-left:none;border-bottom:
+  <td width=170 style='width:3.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
   mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
   padding:0cm 0cm 0cm 0cm;height:14.15pt'>
@@ -824,7 +823,7 @@ previous computation in the channel. For example:</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:4;page-break-inside:avoid;height:14.15pt'>
-  <td width=52 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  <td width=62 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
   border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
   mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
   mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
@@ -833,7 +832,7 @@ previous computation in the channel. For example:</span></p>
   text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
   style='font-size:9.0pt'>4</span></p>
   </td>
-  <td width=156 style='width:93.55pt;border-top:none;border-left:none;
+  <td width=187 style='width:93.55pt;border-top:none;border-left:none;
   border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
   mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
   mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
@@ -841,13 +840,13 @@ previous computation in the channel. For example:</span></p>
   <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0'><span
   lang=EN-US style='font-size:9.0pt'>&nbsp;</span></p>
   </td>
-  <td width=189 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
+  <td width=227 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
   mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
   padding:0cm 0cm 0cm 0cm;height:14.15pt'>
   <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>&gt;A3.attach(~.(~.array()))</span></p>
   </td>
-  <td width=142 style='width:3.0cm;border-top:none;border-left:none;border-bottom:
+  <td width=170 style='width:3.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
   mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
   padding:0cm 0cm 0cm 0cm;height:14.15pt'>
@@ -856,7 +855,7 @@ previous computation in the channel. For example:</span></p>
  </tr>
  <tr style='mso-yfti-irow:5;mso-yfti-lastrow:yes;page-break-inside:avoid;
   height:14.15pt'>
-  <td width=52 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  <td width=62 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
   border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
   mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
   mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
@@ -865,20 +864,20 @@ previous computation in the channel. For example:</span></p>
   text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
   style='font-size:9.0pt'>5</span></p>
   </td>
-  <td width=156 style='width:93.55pt;border-top:none;border-left:none;
+  <td width=187 style='width:93.55pt;border-top:none;border-left:none;
   border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
   mso-border-top-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
   mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
   background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
   <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=A2.skip ()</span></p>
   </td>
-  <td width=189 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
+  <td width=227 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
   mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
   background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
   <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=A3.result()</span></p>
   </td>
-  <td width=142 style='width:3.0cm;border-top:none;border-left:none;border-bottom:
+  <td width=170 style='width:3.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
   mso-border-left-alt:solid #B2B2B2 .5pt;mso-border-alt:solid #B2B2B2 .5pt;
   padding:0cm 0cm 0cm 0cm;height:14.15pt'>
@@ -898,8 +897,8 @@ follows:</span></p>
 <p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
 21.0pt'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
-#0400'><img border=0 width=625 height=362
-src="Tutorial.files/image1750.jpg" v:shapes="_x0000_i1973"></span></p>
+#0400'><img border=0 width=750 height=435
+src="Tutorial.files/image1776.jpg" v:shapes="_x0000_i1973"></span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="219.html">Next</a></div>
@@ -912,12 +911,9 @@ src="Tutorial.files/image1750.jpg" v:shapes="_x0000_i1973"></span></p>
 	</div>
 	<div id="footer">	
 		
-		<div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">Scudata Inc. 
-      </a></div> 
-        <!--
-		<div class="copyright"> Copyright&reg; 2017 <a href="http://www.yimming.com" target="_Blank"> Beijing Yimming Ltd. Co. 
+		
+    <div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
       </a></div>
-	  -->
 	</div>
 </div>
 

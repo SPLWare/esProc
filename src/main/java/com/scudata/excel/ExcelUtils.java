@@ -345,7 +345,7 @@ public class ExcelUtils {
 		// Otherwise, check it's only made up, in any case, of:
 		// y m d h s - / , . :
 		// optionally followed by AM/PM
-		if (fs.matches("^[yYmMdDhHsS\\-/,. :]+[ampAMP/]*$")) {
+		if (fs.matches("^[yYmMdDhHsS0\\-/,. :]+[ampAMP/]*$")) {
 			return true;
 		}
 
