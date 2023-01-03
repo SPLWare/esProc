@@ -1,8 +1,9 @@
 package com.scudata.dm.op;
 
 import com.scudata.common.RQException;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Context;
-import com.scudata.dm.Record;
+import com.scudata.dm.FileObject;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
 import com.scudata.dm.cursor.ICursor;
@@ -55,7 +56,7 @@ public class MultipathChannel extends Channel {
 			}
 		} else {
 			for (int i = 0; i < count; ++i) {
-				channels[i] = new Channel(cursors[i].getContext(), cursors[i].isColumnCursor());
+				channels[i] = new Channel(cursors[i].getContext());
 			}
 		}
 	}
@@ -116,9 +117,10 @@ public class MultipathChannel extends Channel {
 	 * @param ctx 计算上下文
 	 */
 	public void finish(Context ctx) {
-		for (Channel channel : channels) {
-			channel.finish(ctx);
-		}
+		// 每路的管道已经调用过finish
+		//for (Channel channel : channels) {
+		//	channel.finish(ctx);
+		//}
 	}
 	
 	/**
@@ -184,7 +186,7 @@ public class MultipathChannel extends Channel {
 				value = new Table(fnames, channelCount);
 				for (Channel channel : channels) {
 					TotalResult total = (TotalResult)channel.getResult();
-					Record r = value.newLast();
+					BaseRecord r = value.newLast();
 					r.setNormalFieldValue(0, total.getTempResult());
 				}
 			} else {
@@ -229,11 +231,29 @@ public class MultipathChannel extends Channel {
 		result = new FetchResult();
 
 		for (Channel channel : channels) {
-			Push push = new Push(this, false);
+			Push push = new Push(this);
 			ctx = channel.getContext();
 			channel.addOperation(push, ctx);
 		}
 		
+		return this;
+	}
+	
+	/**
+	 * 保留管道当前数据到集文件
+	 * @param file 集文件
+	 * @return this
+	 */
+	public Channel fetch(FileObject file) {
+		checkResultChannel();
+		result = new FetchResult(file);
+
+		for (Channel channel : channels) {
+			Push push = new Push(this);
+			ctx = channel.getContext();
+			channel.addOperation(push, ctx);
+		}
+
 		return this;
 	}
 	
@@ -295,7 +315,7 @@ public class MultipathChannel extends Channel {
 		result = new GroupxResult(exps, names, calcExps, calcNames, opt, ctx, capacity);
 
 		for (Channel channel : channels) {
-			Push push = new Push(this, false);
+			Push push = new Push(this);
 			ctx = channel.getContext();
 			channel.addOperation(push, ctx);
 		}
@@ -315,7 +335,7 @@ public class MultipathChannel extends Channel {
 		result = new SortxResult(exps, ctx, capacity, opt);
 
 		for (Channel channel : channels) {
-			Push push = new Push(this, false);
+			Push push = new Push(this);
 			ctx = channel.getContext();
 			channel.addOperation(push, ctx);
 		}
@@ -342,7 +362,7 @@ public class MultipathChannel extends Channel {
 		result = new CsJoinxResult(fields, fileTable, keys, exps, expNames, fname, ctx, option, capacity);
 
 		for (Channel channel : channels) {
-			Push push = new Push(this, false);
+			Push push = new Push(this);
 			ctx = channel.getContext();
 			channel.addOperation(push, ctx);
 		}
@@ -363,7 +383,7 @@ public class MultipathChannel extends Channel {
 		result = new IterateResult(exp, initVal, c, ctx);
 		
 		for (Channel channel : channels) {
-			Push push = new Push(this, false);
+			Push push = new Push(this);
 			ctx = channel.getContext();
 			channel.addOperation(push, ctx);
 		}
@@ -375,14 +395,15 @@ public class MultipathChannel extends Channel {
 	 * 对管道当前数据进行去重运算并作为结果集
 	 * @param exps 去重表达式
 	 * @param count
+	 * @param opt 选项
 	 * @return
 	 */
-	public Channel id(Expression []exps, int count) {
+	public Channel id(Expression []exps, int count, String opt) {
 		checkResultChannel();
-		result = new IDResult(exps, count, ctx);
+		result = new IDResult(exps, count, opt, ctx);
 		
 		for (Channel channel : channels) {
-			Push push = new Push(this, false);
+			Push push = new Push(this);
 			ctx = channel.getContext();
 			channel.addOperation(push, ctx);
 		}

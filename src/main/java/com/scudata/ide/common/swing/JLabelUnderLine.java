@@ -23,7 +23,7 @@ public class JLabelUnderLine extends JLabel {
 	/**
 	 * 显示值
 	 */
-	private Object value;
+	String codeText = null;
 
 	/**
 	 * 构造函数
@@ -41,7 +41,12 @@ public class JLabelUnderLine extends JLabel {
 	 *            显示值
 	 */
 	public void setValue(Object value) {
-		this.value = value;
+		if (value != null && !"".equals(value) && value instanceof String) {
+			// 只有非空字符串才有codeText
+			codeText = value.toString();
+		} else {
+			codeText = null;
+		}
 	}
 
 	/**
@@ -68,7 +73,7 @@ public class JLabelUnderLine extends JLabel {
 	public void paint(Graphics g) {
 		super.paint(g);
 
-		if (null == value || !(value instanceof String) || "".equals(value))
+		if (null == codeText)
 			return;
 
 		FontMetrics fm = getFontMetrics(getFont());
@@ -98,7 +103,6 @@ public class JLabelUnderLine extends JLabel {
 		}
 		final int GAP = getFontMetrics(getFont()).stringWidth(" ");
 		String dispText = getText();
-		String codeText = value.toString();
 		if (dispText.length() == codeText.length()) {
 			dispText = " " + dispText;
 		}

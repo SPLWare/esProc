@@ -285,6 +285,7 @@ public class FileTree extends JTree {
 				return;
 			pNode.removeAllChildren();
 			File[] files = dir.listFiles();
+			files = GM.sortFiles(files);
 			if (files == null || files.length == 0)
 				return;
 			for (File f : files) {
@@ -300,6 +301,7 @@ public class FileTree extends JTree {
 					node.setDir(isDir);
 					pNode.add(node);
 					File[] subFiles = f.listFiles();
+					subFiles = GM.sortFiles(subFiles);
 					if (subFiles != null && subFiles.length > 0) {
 						for (File subFile : subFiles) {
 							String subName = subFile.getName();

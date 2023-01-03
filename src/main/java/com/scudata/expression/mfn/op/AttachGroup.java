@@ -3,11 +3,6 @@ package com.scudata.expression.mfn.op;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
-import com.scudata.dm.cursor.ICursor;
-import com.scudata.dm.op.Group;
-import com.scudata.dm.op.Groups;
-import com.scudata.dm.op.Operation;
-import com.scudata.dw.IColumnCursorUtil;
 import com.scudata.expression.Expression;
 import com.scudata.expression.IParam;
 import com.scudata.expression.OperableFunction;
@@ -44,12 +39,7 @@ public class AttachGroup extends OperableFunction {
 				
 				Expression []exps = sub0.toArray("group", false);
 				Expression []sortExps = sub1.toArray("group", false);
-				Group group = new Group(this, exps, sortExps, option);
-				if (cs != null) {
-					group.setCurrentCell(cs.getCurrent());
-				}
-				
-				return operable.addOperation(group, ctx);
+				return operable.group(this, exps, sortExps, option, ctx);
 			} else if (size == 3) {
 				IParam sub0 = param.getSub(0);
 				IParam sub1 = param.getSub(1);
@@ -74,13 +64,8 @@ public class AttachGroup extends OperableFunction {
 					newExps = pi2.getExpressions1();
 					newNames = pi2.getExpressionStrs2();
 				}
-
-				Groups groups = new Groups(this, exps, names, sortExps, sortNames, newExps, newNames, option, ctx);
-				if (cs != null) {
-					groups.setCurrentCell(cs.getCurrent());
-				}
 				
-				return operable.addOperation(groups, ctx);
+				return operable.group(this, exps, names, sortExps, sortNames, newExps, newNames, option, ctx);
 			} else {
 				MessageManager mm = EngineMessage.get();
 				throw new RQException("group" + mm.getMessage("function.invalidParam"));
@@ -88,12 +73,7 @@ public class AttachGroup extends OperableFunction {
 		} else if (param.isLeaf()) {
 			Expression exp = param.getLeafExpression();
 			Expression []exps = new Expression[] {exp};
-			Group group = new Group(this, exps, option);
-			if (cs != null) {
-				group.setCurrentCell(cs.getCurrent());
-			}
-			
-			return operable.addOperation(group, ctx);
+			return operable.group(this, exps, option, ctx);
 		} else if (param.getType() == IParam.Comma) {
 			if (option != null && option.indexOf('i') != -1) {
 				MessageManager mm = EngineMessage.get();
@@ -111,12 +91,7 @@ public class AttachGroup extends OperableFunction {
 				exps[i] = sub.getLeafExpression();
 			}
 			
-			Group group = new Group(this, exps, option);
-			if (cs != null) {
-				group.setCurrentCell(cs.getCurrent());
-			}
-			
-			return operable.addOperation(group, ctx);
+			return operable.group(this, exps, option, ctx);
 		} else if (param.getType() == IParam.Semicolon) {
 			if (param.getSubSize() != 2) {
 				MessageManager mm = EngineMessage.get();
@@ -147,20 +122,7 @@ public class AttachGroup extends OperableFunction {
 				throw new RQException("group" + mm.getMessage("function.invalidParam"));
 			}
 
-			Operation groups;
-			if (operable instanceof ICursor 
-					&& ((ICursor)operable).isColumnCursor()
-					&& IColumnCursorUtil.util != null) {
-				groups = IColumnCursorUtil.util.getGroupsOperationInstance(this, exps, names, newExps, newNames, option, ctx);
-			} else {
-				groups = new Groups(this, exps, names, newExps, newNames, option, ctx);
-			}
-			
-			if (cs != null) {
-				groups.setCurrentCell(cs.getCurrent());
-			}
-			
-			return operable.addOperation(groups, ctx);
+			return operable.group(this, exps, names, newExps, newNames, option, ctx);
 		} else {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("group" + mm.getMessage("function.invalidParam"));

@@ -105,7 +105,7 @@ public class CSJoinxCursor extends ICursor {
 	 * 并行计算时需要改变上下文
 	 * 继承类如果用到了表达式还需要用新上下文重新解析表达式
 	 */
-	protected void resetContext(Context ctx) {
+	public void resetContext(Context ctx) {
 		if (this.ctx != ctx) {
 			newExps = Operation.dupExpressions(newExps, ctx);
 			super.resetContext(ctx);
@@ -134,7 +134,7 @@ public class CSJoinxCursor extends ICursor {
 			boolean needSeq = hasU ? false : i == 0;
 			if (needSeq && (!hasSeq)) {
 				hasSeq = true;
-				Derive newOp = new Derive( new Expression[]{new Expression("0")}, new String[]{CSJoinxCursor.SEQ_FIELDNAME}, null);
+				Derive newOp = new Derive( new Expression[]{new Expression("0L")}, new String[]{CSJoinxCursor.SEQ_FIELDNAME}, null);
 				cs.addOperation(newOp, ctx);
 				Sequence seq = cs.peek(1);
 				if (seq == null || seq.length() == 0) {
@@ -402,26 +402,31 @@ public class CSJoinxCursor extends ICursor {
 	}
 
 	protected long skipOver(long n) {
+		if (sortCursor != null) {
+			return sortCursor.skip(n);
+		}
 		if (isEnd || n < 1) return 0;
-		long total = 0;
-		while (n > 0) {
-			Sequence seq;
-			if (n > FETCHCOUNT) {
-				seq = get(FETCHCOUNT);
+
+		if (fileCursor == null) {
+			if (!loadFile()) {
+				return 0;
+			}
+		}
+
+		long count = 0;
+		while(count < n) {
+			long c = fileCursor.skip(n - count);
+			if (c == 0) {
+				if (!loadFile()) {
+					return count;
+				}
 			} else {
-				seq = get((int)n);
+				count += c;
 			}
 			
-			if (seq == null || seq.length() == 0) {
-				close();
-				break;
-			}
-			
-			total += seq.length();
-			n -= seq.length();
 		}
 		
-		return total;
+		return count;
 	}
 
 	public synchronized void close() {
@@ -518,7 +523,7 @@ public class CSJoinxCursor extends ICursor {
 				//遍历取出来的记录，送到每个临时outSeq里
 				int len = table.length();
 				for (int i = 1; i <= len; ++i) {
-					Record record = (Record) table.getMem(i);
+					BaseRecord record = (BaseRecord) table.getMem(i);
 					for (int f = 0; f < fcount; ++f) {
 						curVals[f] = record.getNormalFieldValue(findex[f]);
 					}

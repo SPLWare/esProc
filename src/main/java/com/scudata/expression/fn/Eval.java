@@ -29,12 +29,17 @@ public class Eval extends Function {
 		return Expression.TYPE_UNKNOWN;
 	}
 
-	public Object calculate(Context ctx) {
+	/**
+	 * 检查表达式的有效性，无效则抛出异常
+	 */
+	public void checkValidity() {
 		if (param == null) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("eval" + mm.getMessage("function.missingParam"));
 		}
-		
+	}
+
+	public Object calculate(Context ctx) {
 		Object expStr;
 		Sequence arg = null;
 		if (param.isLeaf()) {
@@ -74,7 +79,7 @@ public class Eval extends Function {
 	/**
 	 * 计算表达式
 	 * @param expStr String 表达式字符串
-	 * @param arg Sequence 参数构成的序列，没有参数可空
+	 * @param arg ISequence 参数构成的序列，没有参数可空
 	 * @param cs ICellSet 表达式用到的网，可空
 	 * @param ctx Context 计算上下文，不可空
 	 * @return Object 返回表达式计算结果

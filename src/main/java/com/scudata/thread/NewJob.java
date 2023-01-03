@@ -1,13 +1,13 @@
 package com.scudata.thread;
 
+import com.scudata.array.IArray;
 import com.scudata.dm.ComputeStack;
 import com.scudata.dm.Context;
+import com.scudata.dm.Current;
 import com.scudata.dm.DataStruct;
-import com.scudata.dm.ListBase1;
 import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
-import com.scudata.dm.Sequence.Current;
 import com.scudata.expression.Expression;
 
 /**
@@ -47,12 +47,12 @@ class NewJob extends Job {
 		this.result = table;
 		
 		int colCount = ds.getFieldCount();
-		ListBase1 mems = table.getMems();
+		IArray mems = table.getMems();
 
 		ComputeStack stack = ctx.getComputeStack();
-		Current newCurrent = table.new Current();
+		Current newCurrent = new Current(table);
 		stack.push(newCurrent);
-		Current current = src.new Current();
+		Current current = new Current(src);
 		stack.push(current);
 
 		try {

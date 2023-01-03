@@ -12,12 +12,20 @@ import com.scudata.resources.EngineMessage;
  *
  */
 public class IfString extends Function {
-	public Object calculate(Context ctx) {
-		if (param == null || !param.isLeaf()) {
+	/**
+	 * 检查表达式的有效性，无效则抛出异常
+	 */
+	public void checkValidity() {
+		if (param == null) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("ifstring" + mm.getMessage("function.missingParam"));
+		} else if (!param.isLeaf()) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("ifstring" + mm.getMessage("function.invalidParam"));
 		}
+	}
 
+	public Object calculate(Context ctx) {
 		Object obj = param.getLeafExpression().calculate(ctx);
 		return (obj instanceof String) ? Boolean.TRUE : Boolean.FALSE;
 	}

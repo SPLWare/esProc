@@ -84,6 +84,11 @@ public class ConfigOptions {
 	public static Boolean bStepLastLocation = Boolean.FALSE;
 	/** DEMO is displayed in the file tree */
 	public static Boolean bFileTreeDemo = Boolean.TRUE;
+	/** 默认检查更新 */
+	// public static Boolean bCheckUpdate = Boolean.TRUE;
+	/** 提示即将过期 */
+	public static Boolean bNoticeExpiration = Boolean.TRUE;
+
 	/** Log file name */
 	public static String sLogFileName = null;
 	// GM.getAbsolutePath(GC.PATH_TMP + File.separator + "esproc.log")
@@ -99,8 +104,6 @@ public class ConfigOptions {
 	public static String sInitSpl = null;
 	/** The path of the custom functions file */
 	public static String sCustomFunctionFile = null;
-	/** The serial number */
-	public static String sSerialNo = null;
 	/** The installation directory of slimerjs */
 	public static String sSlimerjsDirectory = null;
 	/** Date format */
@@ -241,11 +244,10 @@ public class ConfigOptions {
 	 * Whether the multi-text editor automatically wraps
 	 */
 	public static Boolean bTextEditorLineWrap = Boolean.FALSE;
-	
 	/**
 	 * 函数提示功能
 	 */
-	public static Boolean bFuncNotice = GM.isWindowsOS();
+	public static Boolean bFuncNotice = Boolean.TRUE;
 
 	/** HTML */
 	public static final int COPY_HTML = 0;
@@ -327,9 +329,10 @@ public class ConfigOptions {
 		options.put("sSlimerjsDirectory", sSlimerjsDirectory);
 		options.put("sFileTreeExpand", sFileTreeExpand);
 		options.put("iUndoCount", iUndoCount);
-		
+
 		options.put("bFuncNotice", bFuncNotice);
-		
+		// options.put("bCheckUpdate", bCheckUpdate);
+		options.put("bNoticeExpiration", bNoticeExpiration);
 	}
 
 	/**
@@ -538,6 +541,10 @@ public class ConfigOptions {
 				bAutoSave = ii;
 			} else if (option.equalsIgnoreCase("bFuncNotice")) {
 				bFuncNotice = ii;
+				// } else if (option.equalsIgnoreCase("bCheckUpdate")) {
+				// bCheckUpdate = ii;
+			} else if (option.equalsIgnoreCase("bNoticeExpiration")) {
+				bNoticeExpiration = ii;
 			}
 		} else if (StringUtils.isValidString(val)) {
 			if (option.equalsIgnoreCase("sLogFileName")) {

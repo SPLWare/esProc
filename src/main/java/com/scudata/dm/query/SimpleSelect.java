@@ -22,6 +22,7 @@ import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.common.UUID;
 import com.scudata.dm.BFileWriter;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Context;
 import com.scudata.dm.DataStruct;
 import com.scudata.dm.Env;
@@ -43,11 +44,12 @@ import com.scudata.dm.op.Join;
 import com.scudata.dm.op.New;
 import com.scudata.dm.op.Operation;
 import com.scudata.dm.op.Select;
+import com.scudata.dm.query.SimpleSelect.ParamNode;
 import com.scudata.dm.query.utils.ExpressionTranslator;
 import com.scudata.dm.query.utils.FileUtil;
 import com.scudata.dm.sql.FunInfoManager;
-import com.scudata.dw.GroupTable;
-import com.scudata.dw.TableMetaData;
+import com.scudata.dw.ComTable;
+import com.scudata.dw.PhyTable;
 import com.scudata.excel.ExcelTool;
 import com.scudata.expression.Expression;
 import com.scudata.resources.ParseMessage;
@@ -91,7 +93,7 @@ public class SimpleSelect
 	private Map<String, String> subQueryOfWhereMap;
 	private String password;
 	private boolean isMemory;
-	private TableMetaData tmd;
+	private PhyTable tmd;
 	private String topFilter;
 	
 	abstract class Node 
@@ -134,8 +136,8 @@ public class SimpleSelect
 			}
 		}
 
-		private TableMetaData meta;
-		private ArrayList<TableMetaData> metas;
+		private PhyTable meta;
+		private ArrayList<PhyTable> metas;
 		private int type;
 		private ICursor cursor;
 		private DataStruct struct;
@@ -211,7 +213,7 @@ public class SimpleSelect
 			this.fields = null;
 		}
 		
-		public TableNode(String tableName, String aliasName, TableMetaData meta)
+		public TableNode(String tableName, String aliasName, PhyTable meta)
 		{
 			if(tableName != null)
 			{
@@ -299,13 +301,13 @@ public class SimpleSelect
 				if(this.type == TableNode.TYPE_GTB)	// 组表文件
 				{
 					ICursor []cursors2 = new ICursor[this.files.size()];
-					metas = new ArrayList<TableMetaData>(); 
+					metas = new ArrayList<PhyTable>(); 
 					for (int z=0; z<this.files.size(); z++) {
 						
-						GroupTable group = null;
+						ComTable group = null;
 						try 
 						{
-							group = GroupTable.open(this.files.get(z).getLocalFile().getFile(), ctx);
+							group = ComTable.open(this.files.get(z).getLocalFile().getFile(), ctx);
 							group.checkPassword(password);
 						} 
 						catch (Exception e) 
@@ -314,7 +316,7 @@ public class SimpleSelect
 							throw new RQException(mm.getMessage("syntax.error") + ":TableNode.getCursor, 打开组表文件失败", e);
 						}
 						
-						TableMetaData meta = group.getBaseTable();
+						PhyTable meta = group.getBaseTable();
 						if(meta == null)
 						{
 							MessageManager mm = ParseMessage.get();
@@ -325,7 +327,7 @@ public class SimpleSelect
 						String indexName = null;
 						if(this.where != null)
 						{
-							String[] indexFields = TableMetaData.getExpFields(this.where, meta.getColNames());
+							String[] indexFields = PhyTable.getExpFields(this.where, meta.getColNames());
 							if(indexFields != null)
 							{
 								indexName = this.meta.chooseIndex(indexFields);
@@ -559,7 +561,7 @@ public class SimpleSelect
 							{
 								seq = (Sequence)result;
 							}
-							else if(result instanceof Record)
+							else if(result instanceof BaseRecord)
 							{
 								seq = new Sequence();
 								seq.add(result);
@@ -567,7 +569,7 @@ public class SimpleSelect
 							else
 							{
 								DataStruct datastruct = new DataStruct(new String[]{"_1"});
-								Record record = new Record(datastruct, new Object[]{result});
+								BaseRecord record = new Record(datastruct, new Object[]{result});
 								seq = new Sequence();
 								seq.add(record);
 							}
@@ -676,10 +678,10 @@ public class SimpleSelect
 						}
 						else if(this.file != null)
 						{
-							GroupTable group = null;
+							ComTable group = null;
 							try 
 							{
-								group = GroupTable.open(this.file.getLocalFile().getFile(), ctx);
+								group = ComTable.open(this.file.getLocalFile().getFile(), ctx);
 							} 
 							catch (Exception e) 
 							{
@@ -687,7 +689,7 @@ public class SimpleSelect
 								throw new RQException(mm.getMessage("syntax.error") + ":TableNode.dataStruct, 打开组表文件失败", e);
 							}
 							
-							TableMetaData table = group.getBaseTable();
+							PhyTable table = group.getBaseTable();
 							if(table == null)
 							{
 								MessageManager mm = ParseMessage.get();
@@ -769,7 +771,7 @@ public class SimpleSelect
 			else
 			{
 				String value = null;
-				Object param = ((Record)sequence.get(1)).getFieldValue(0);
+				Object param = ((BaseRecord)sequence.get(1)).getFieldValue(0);
 				if(param == null)
 				{
 					value = "null";
@@ -1817,7 +1819,7 @@ public class SimpleSelect
 				}
 				else
 				{
-					if(!(tab.get(1) instanceof Record) || tab.dataStruct() == null || tab.dataStruct().getFieldCount() != 1)
+					if(!(tab.get(1) instanceof BaseRecord) || tab.dataStruct() == null || tab.dataStruct().getFieldCount() != 1)
 					{
 						MessageManager mm = ParseMessage.get();
 						throw new RQException(mm.getMessage("syntax.error") + ":toExpression, IN中子查询结果异常");
@@ -1828,7 +1830,7 @@ public class SimpleSelect
 					Sequence seq = new Sequence();
 					for(int i = 1; i <= size; i++)
 					{
-						seq.add(((Record)tab.get(i)).getFieldValue(0));
+						seq.add(((BaseRecord)tab.get(i)).getFieldValue(0));
 					}
 					if(size  <= 2)
 					{
@@ -2135,19 +2137,20 @@ public class SimpleSelect
 	class LikeNode extends Node
 	{
 		private ExpressionNode node;
-		//private String pattern;
+//		private String pattern;
 		private boolean not;
 		private boolean isFromHaving;
 		private boolean isFromWhere;
 		private Token token;
 		private SimpleSelect select;
+
 		
 		public LikeNode(ExpressionNode expNode, Token token, boolean hasNot, SimpleSelect select)
 		{
 			this.node = expNode;
 			//this.pattern = pattern;
-			this.token = token;
 			this.not = hasNot;
+			this.token = token;
 			this.select = select;
 		}
 		
@@ -2205,7 +2208,7 @@ public class SimpleSelect
 				pattern = paramNode.toExpression();
 
 			}
-
+			
 			pattern = pattern.replace("\\", "\\\\");
 			pattern = pattern.replace("*", "\\\\*");
 			pattern = pattern.replace("?", "\\\\?");
@@ -2860,12 +2863,12 @@ public class SimpleSelect
 					for(int m = 1; m <= tab.getMems().size(); m++)
 					{
 						Object obj = tab.getMems().get(m);
-						if(!(obj instanceof Record))
+						if(!(obj instanceof BaseRecord))
 						{
 							MessageManager mm = ParseMessage.get();
 							throw new RQException(mm.getMessage("syntax.error") + ":SubQueryCursor.get, 查询结果序列必须由记录组成");
 						}
-						Record rec = (Record) obj;
+						BaseRecord rec = (BaseRecord) obj;
 						
 						int index = 0;
 						List<Token> subQueryList = new ArrayList<Token>();
@@ -2897,30 +2900,30 @@ public class SimpleSelect
 							}
 							else if(this.type == SubQueryCursor.Select_Type || this.type == SubQueryCursor.Where_Type)
 							{
-								if(sq.length() != 1 || !(sq.get(1) instanceof Record) || sq.dataStruct() == null || sq.dataStruct().getFieldCount() != 1)
+								if(sq.length() != 1 || !(sq.get(1) instanceof BaseRecord) || sq.dataStruct() == null || sq.dataStruct().getFieldCount() != 1)
 								{
 									MessageManager mm = ParseMessage.get();
 									throw new RQException(mm.getMessage("syntax.error") + ":SubQueryCursor.get, SELECT/WHERE子句中子查询结果异常");
 								}
-								val = ((Record)sq.get(1)).getFieldValue(0);
+								val = ((BaseRecord)sq.get(1)).getFieldValue(0);
 							}
 							else if(this.type == SubQueryCursor.In_Type)
 							{
 								Sequence v = new Sequence();
 								for(int p = 1, q = sq.length(); p <= q; p++)
 								{
-									if(sq.length() == 0 ||!(sq.get(1) instanceof Record) || sq.dataStruct() == null || sq.dataStruct().getFieldCount() != 1)
+									if(sq.length() == 0 ||!(sq.get(1) instanceof BaseRecord) || sq.dataStruct() == null || sq.dataStruct().getFieldCount() != 1)
 									{
 										MessageManager mm = ParseMessage.get();
 										throw new RQException(mm.getMessage("syntax.error") + ":SubQueryCursor.get, IN子句中子查询结果异常");
 									}
-									v.add(((Record)sq.get(p)).getFieldValue(0));
+									v.add(((BaseRecord)sq.get(p)).getFieldValue(0));
 								}
 								val = v;
 							}
 						}
 						
-						Record newRec = new Record(struct);
+						BaseRecord newRec = new Record(struct);
 						newRec.set(rec);
 						newRec.set(init + i, val);
 						res.add(newRec);
@@ -3114,9 +3117,9 @@ public class SimpleSelect
 		{
 			this.ds = (DataStruct)param;
 		}
-		else if(param instanceof TableMetaData)
+		else if(param instanceof PhyTable)
 		{
-			this.tmd = (TableMetaData)param;
+			this.tmd = (PhyTable)param;
 		}
 		else
 		{
@@ -3516,9 +3519,9 @@ public class SimpleSelect
 					DataStruct struct = ((Table)obj).dataStruct();
 					this.tableNode = new TableNode(tableName, aliasName, cursor, struct);
 				}
-				else if(obj instanceof TableMetaData)
+				else if(obj instanceof PhyTable)
 				{
-					this.tableNode = new TableNode(tableName, aliasName, (TableMetaData)obj);
+					this.tableNode = new TableNode(tableName, aliasName, (PhyTable)obj);
 				}
 				else
 				{
@@ -3653,7 +3656,13 @@ public class SimpleSelect
 				//System.out.println("tableName " + tableName);
 				File[] fs = FileUtil.getFiles(tableName);
 				if (fs == null) {
-					fs = FileUtil.getFiles(Env.getMainPath()+"/"+tableName);					
+					fs = FileUtil.getFiles(Env.getMainPath()+"/"+tableName);
+					if (fs == null && Env.getPaths() != null) {
+						for (int i=0; i<Env.getPaths().length; i++) {
+							fs = FileUtil.getFiles(Env.getPaths()[i]+"/"+tableName);
+							if (fs != null) break;
+						}
+					}
 				}
 				if (fs == null || fs.length == 0) {
 					MessageManager mm = ParseMessage.get();
@@ -3801,9 +3810,9 @@ public class SimpleSelect
 						DataStruct struct = ((Table)obj).dataStruct();
 						this.tableNode = new TableNode(tableName, aliasName, cursor, struct);
 					}
-					else if(obj instanceof TableMetaData)
+					else if(obj instanceof PhyTable)
 					{
-						this.tableNode = new TableNode(tableName, aliasName, (TableMetaData)obj);
+						this.tableNode = new TableNode(tableName, aliasName, (PhyTable)obj);
 					}
 					else
 					{
@@ -3872,9 +3881,9 @@ public class SimpleSelect
 						DataStruct struct = ((Table)obj).dataStruct();
 						this.tableNode = new TableNode(tableName, aliasName, cursor, struct);
 					}
-					else if(obj instanceof TableMetaData)
+					else if(obj instanceof PhyTable)
 					{
-						this.tableNode = new TableNode(tableName, aliasName, (TableMetaData)obj);
+						this.tableNode = new TableNode(tableName, aliasName, (PhyTable)obj);
 					}
 					else
 					{
@@ -4100,9 +4109,9 @@ public class SimpleSelect
 						throw new RQException(mm.getMessage("syntax.error") + ":scanColumn, 在SELECT子句中返回常数值的子查询只能为单行单列");
 					}
 					Object val = seq.get(1);
-					if(val instanceof Record)
+					if(val instanceof BaseRecord)
 					{
-						val = ((Record)val).getFieldValue(0);
+						val = ((BaseRecord)val).getFieldValue(0);
 					}
 					Token[] valTokens = Tokenizer.parse(getSQLValue(val));
 					ExpressionNode expNode = scanExp(valTokens, 0, valTokens.length);
@@ -4793,20 +4802,19 @@ public class SimpleSelect
 				}
 				else 
 				{
-					if(tokens[pos].getType() == Tokenizer.PARAMMARK)
-					{
+//					if(tokens[pos].getType() != Tokenizer.STRING)
+//					{
 //						if(!tokens[pos].getString().startsWith("\"") || !tokens[pos].getString().endsWith("\"") 
 //							|| tokens[pos].getString().substring(1, tokens[pos].getString().length()-1).indexOf("\"") != -1)
 //						{
 //							MessageManager mm = ParseMessage.get();
 //							throw new RQException(mm.getMessage("syntax.error") + ":scanExp, Like子句的套式类型错误");
 //						}
-					} else if (tokens[pos].getType() == Tokenizer.STRING) {
-					}
+//					}
 				}
-				System.out.println("pattern : " + tokens[pos]);
-				String pattern = tokens[pos].getString().substring(1, tokens[pos].getString().length() - 1);//脱""或''以便于操作,最后再加上
-				System.out.println("pattern : " + pattern);
+				
+//				String pattern = tokens[pos].getString().substring(1, tokens[pos].getString().length() - 1);//脱""或''以便于操作,最后再加上
+				
 				ArrayList<Node> tempList = new ArrayList<Node>();
 				for(int x = expList.size() - 1; x >= 0; x--)
 				{
@@ -4831,7 +4839,6 @@ public class SimpleSelect
 				}
 				
 				i = pos;
-				
 			}
 			else if (token.isKeyWord("CASE")) 
 			{
@@ -5765,8 +5772,8 @@ public class SimpleSelect
 				if(this.icur != null)
 				{	
 					Table tab = this.icur.groups(null, null, topExps, topNames, null, ctx);
-					if(tab == null || tab.length() != 1 || !(tab.get(1) instanceof Record)
-					|| ((Record)tab.get(1)).getFieldCount() != 1 || !(((Record)tab.get(1)).getFieldValue(0) instanceof Sequence))
+					if(tab == null || tab.length() != 1 || !(tab.get(1) instanceof BaseRecord)
+					|| ((BaseRecord)tab.get(1)).getFieldCount() != 1 || !(((BaseRecord)tab.get(1)).getFieldValue(0) instanceof Sequence))
 					{
 						MessageManager mm = ParseMessage.get();
 						throw new RQException(mm.getMessage("syntax.error") + ":execute, top优化结果异常");
@@ -5774,17 +5781,17 @@ public class SimpleSelect
 					
 					Table res = null;
 					
-					Sequence seq = (Sequence)((Record)tab.get(1)).getFieldValue(0);
+					Sequence seq = (Sequence)((BaseRecord)tab.get(1)).getFieldValue(0);
 					for(int i = 1; i <= seq.length(); i++)
 					{
 						Object obj = seq.get(i);
-						if(!(obj instanceof Record))
+						if(!(obj instanceof BaseRecord))
 						{
 							MessageManager mm = ParseMessage.get();
 							throw new RQException(mm.getMessage("syntax.error") + ":execute, top优化结果异常");
 						}
 						
-						Record rec = (Record)obj;
+						BaseRecord rec = (BaseRecord)obj;
 						if(res == null)
 						{
 							res = new Table(rec.dataStruct());
@@ -5921,7 +5928,7 @@ public class SimpleSelect
 					{
 						long count = ((this.icur == null) ? 0 : this.icur.skip());
 						DataStruct ds = new DataStruct(gathNames);
-						Record rd = new Record(ds);
+						BaseRecord rd = new Record(ds);
 						rd.set(0, count);
 						Table tab = new Table(ds);
 						tab.add(rd);
@@ -5937,7 +5944,7 @@ public class SimpleSelect
 						else
 						{
 							DataStruct ds = new DataStruct(gathNames);
-							Record rd = new Record(ds);
+							BaseRecord rd = new Record(ds);
 							for(int i = 0; i < funs.length; i++)
 							{
 								if(funs[i].toString().startsWith("count(") && funs[i].toString().endsWith(")"))

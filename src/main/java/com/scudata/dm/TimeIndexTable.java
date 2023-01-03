@@ -1,8 +1,9 @@
 package com.scudata.dm;
 
+import com.scudata.array.BoolArray;
+import com.scudata.array.IArray;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
-import com.scudata.dm.Sequence.Current;
 import com.scudata.expression.Expression;
 import com.scudata.resources.EngineMessage;
 import com.scudata.util.HashUtil;
@@ -43,7 +44,7 @@ public class TimeIndexTable extends IndexTable {
 		int count = totalKeyCount + 1;
 
 		for (int i = 1, len = code.length(); i <= len; ++i) {
-			Record r = (Record)code.getMem(i);
+			BaseRecord r = (BaseRecord)code.getMem(i);
 			Object []keys = new Object[count];
 			for (int c = 0; c < totalKeyCount; ++c) {
 				keys[c] = r.getNormalFieldValue(fields[c]);
@@ -177,10 +178,10 @@ public class TimeIndexTable extends IndexTable {
 		int capacity = entries.length;
 		ListBase1 []resultEntries = new ListBase1[capacity];
 		Table result = new Table(code.dataStruct(), len);
-		ListBase1 mems = result.getMems();
+		IArray mems = result.getMems();
 		
 		ComputeStack stack = ctx.getComputeStack();
-		Current current = code.new Current();
+		Current current = new Current(code);
 		stack.push(current);
 		
 		try {
@@ -216,5 +217,151 @@ public class TimeIndexTable extends IndexTable {
 		TimeIndexTable indexTable = new TimeIndexTable(result, hashUtil, resultEntries, totalKeyCount);
 		result.setIndexTable(indexTable);
 		return result;
+	}
+	
+	public int findPos(Object key) {
+		// 查找时没提供时间字段，取最新的
+		int hash = hashUtil.hashCode(key);
+		ListBase1 table = entries[hash];
+		if (table == null) {
+			return 0;
+		}
+		
+		int index = HashUtil.bsearch_a(table, key);
+		if (index > 0) {
+			for (int i = index + 1, size = table.size; i <= size; ++i) {
+				Object []r = (Object[])table.get(i);
+				if (Variant.isEquals(r[0], key)) {
+					index = i;
+				} else {
+					break;
+				}
+			}
+			
+			Object []r = (Object[])table.get(index);
+			return (Integer)r[totalKeyCount];
+		} else {
+			return 0;
+		}
+	}
+
+	public int findPos(Object []keys) {
+		int count = keys.length;
+		if (count == totalKeyCount) {
+			int hash = hashUtil.hashCode(keys, count - 1);
+			ListBase1 table = entries[hash];
+			if (table == null) {
+				return 0;
+			}
+
+			int index = HashUtil.bsearch_a(table, keys, count);
+			if (index > 0) {
+				Object []r = (Object[])table.get(index);
+				return (Integer)r[count];
+			} else {
+				index = -index - 1;
+				if (index > 0) {
+					// 如果时间键没有相等的，而取前面最近的
+					Object []r = (Object[])table.get(index);
+					if (Variant.compareArrays(r, keys, count - 1) == 0) {
+						return (Integer)r[count];
+					}
+				}
+				
+				return 0; // key not found
+			}
+		} else {
+			// 查找时没提供时间字段，取最新的
+			int hash = hashUtil.hashCode(keys, count);
+			ListBase1 table = entries[hash];
+			if (table == null) {
+				return 0;
+			}
+			
+			int index = HashUtil.bsearch_a(table, keys, count);
+			if (index > 0) {
+				for (int i = index + 1, size = table.size; i <= size; ++i) {
+					Object []r = (Object[])table.get(i);
+					if (Variant.compareArrays(r, keys, count) == 0) {
+						index = i;
+					} else {
+						break;
+					}
+				}
+				
+				Object []r = (Object[])table.get(index);
+				return (Integer)r[totalKeyCount];
+			} else {
+				return 0;
+			}
+		}
+	}
+	
+	public int[] findAllPos(IArray key) {
+		if (key == null) {
+			return null;
+		}
+		int len = key.size();
+		int[] pos = new int[len + 1];
+		for (int i = 1; i <= len; i++) {
+			Object obj = key.get(i);
+			pos[i] = findPos(obj);
+		}
+		return pos;
+	}
+
+	public int[] findAllPos(IArray[] keys) {
+		if (keys == null) {
+			return null;
+		}
+		
+		int keyCount = keys.length;
+		int len = keys[0].size();
+		int[] pos = new int[len + 1];
+		Object[] objs = new Object[keyCount];
+		for (int i = 1; i <= len; i++) {
+			for (int c = 0; c < keyCount; c++) {
+				objs[c] = keys[c].get(i);
+			}
+			pos[i] = findPos(objs);
+		}
+		return pos;
+	}
+
+	public int[] findAllPos(IArray key, BoolArray signArray) {
+		if (key == null) {
+			return null;
+		}
+		int len = key.size();
+		int[] pos = new int[len + 1];
+		for (int i = 1; i <= len; i++) {
+			if (signArray.isFalse(i)) {
+				continue;
+			}
+			Object obj = key.get(i);
+			pos[i] = findPos(obj);
+		}
+		return pos;
+	}
+
+	public int[] findAllPos(IArray[] keys, BoolArray signArray) {
+		if (keys == null) {
+			return null;
+		}
+		
+		int keyCount = keys.length;
+		int len = keys[0].size();
+		int[] pos = new int[len + 1];
+		Object[] objs = new Object[keyCount];
+		for (int i = 1; i <= len; i++) {
+			if (signArray.isFalse(i)) {
+				continue;
+			}
+			for (int c = 0; c < keyCount; c++) {
+				objs[c] = keys[c].get(i);
+			}
+			pos[i] = findPos(objs);
+		}
+		return pos;
 	}
 }

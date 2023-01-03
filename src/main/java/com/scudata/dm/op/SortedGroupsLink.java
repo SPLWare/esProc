@@ -1,8 +1,8 @@
 package com.scudata.dm.op;
 
+import com.scudata.array.IArray;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.DataStruct;
-import com.scudata.dm.ListBase1;
-import com.scudata.dm.Record;
 import com.scudata.dm.Table;
 import com.scudata.util.Variant;
 
@@ -18,21 +18,21 @@ class SortedGroupsLink {
 	 *
 	 */
 	static class Node {
-		private Record r; // 记录
+		private BaseRecord r; // 记录
 		private Node next; // 下一个节点
 		
 		public Node() {
 		}
 		
-		public Node(Record r) {
+		public Node(BaseRecord r) {
 			this.r = r;
 		}
 		
-		public void setReocrd(Record r) {
+		public void setReocrd(BaseRecord r) {
 			this.r = r;
 		}
 		
-		public Record getRecord() {
+		public BaseRecord getRecord() {
 			return r;
 		}
 		
@@ -57,7 +57,7 @@ class SortedGroupsLink {
 	 */
 	public Table toTable(DataStruct ds) {
 		Table table = new Table(ds, len);
-		ListBase1 mems = table.getMems();
+		IArray mems = table.getMems();
 		for (Node node = first; node != null; node = node.next) {
 			mems.add(node.r);
 		}

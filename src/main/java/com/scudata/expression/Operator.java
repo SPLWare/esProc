@@ -62,4 +62,16 @@ public abstract class Operator extends Node {
 			return this;
 		}
 	}
+	
+	/**
+	 * 判断是否可以计算全部的值，有赋值运算时只能一行行计算
+	 * @return
+	 */
+	public boolean canCalculateAll() {
+		if (left != null && !left.canCalculateAll()) {
+			return false;
+		}
+		
+		return right.canCalculateAll();
+	}
 }

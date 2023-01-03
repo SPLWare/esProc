@@ -21,6 +21,7 @@ import com.scudata.common.FileUtils;
 import com.scudata.common.Logger;
 import com.scudata.common.MessageManager;
 import com.scudata.common.StringUtils;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Context;
 import com.scudata.dm.Env;
 import com.scudata.dm.FileObject;
@@ -31,7 +32,7 @@ import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
 import com.scudata.expression.mfn.sequence.Export;
-import com.scudata.ide.spl.Esproc;
+import com.scudata.ide.spl.Esprocx;
 import com.scudata.parallel.Task;
 import com.scudata.resources.ParallelMessage;
 import com.scudata.server.IServer;
@@ -148,8 +149,8 @@ public class SplxHttpHandler implements HttpHandler {
 			result = Export.export(t, null, null, null, "t", new Context());
 		} else if (obj instanceof Sequence) {// 排列，序列
 			result = ((Sequence) obj).toExportString();
-		} else if (obj instanceof Record) {// 记录
-			result = ((Record) obj).toString("tq");
+		} else if (obj instanceof BaseRecord) {// 记录
+			result = ((BaseRecord) obj).toString("tq");
 		} else {
 			result = obj.toString();
 		}
@@ -283,7 +284,7 @@ public class SplxHttpHandler implements HttpHandler {
 							ParamList list = pcs1.getParamList();
 							ArgumentTokenizer at = new ArgumentTokenizer(params, ',');
 							boolean hasPost = false;
-							ctx1 = Esproc.prepareEnv();
+							ctx1 = Esprocx.prepareEnv();
 							if( list != null ) {
 								for( int i = 0; i < list.count(); i++ ) {
 									Param p = (Param) list.get(i);

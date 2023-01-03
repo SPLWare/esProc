@@ -6,7 +6,7 @@ import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
 import com.scudata.dm.Sequence;
-import com.scudata.expression.ClusterTableMetaDataFunction;
+import com.scudata.expression.ClusterPhyTableFunction;
 import com.scudata.expression.Expression;
 import com.scudata.expression.IParam;
 import com.scudata.expression.Node;
@@ -23,7 +23,7 @@ import com.scudata.resources.EngineMessage;
  * @author RunQian
  *
  */
-public class Derive extends ClusterTableMetaDataFunction {
+public class Derive extends ClusterPhyTableFunction {
 	public Object calculate(Context ctx) {
 		IParam param = this.param;
 		param = this.param;

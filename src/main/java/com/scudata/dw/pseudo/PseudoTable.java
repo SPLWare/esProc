@@ -6,9 +6,9 @@ import java.util.List;
 
 import com.scudata.common.RQException;
 import com.scudata.common.Types;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Context;
 import com.scudata.dm.DataStruct;
-import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.cursor.ConjxCursor;
 import com.scudata.dm.cursor.ICursor;
@@ -23,14 +23,13 @@ import com.scudata.dm.op.Operable;
 import com.scudata.dm.op.Operation;
 import com.scudata.dm.op.Select;
 import com.scudata.dm.op.Switch;
-import com.scudata.dw.ColumnTableMetaData;
+import com.scudata.dw.ColPhyTable;
 import com.scudata.dw.Cursor;
-import com.scudata.dw.IColumnCursorUtil;
 import com.scudata.dw.IFilter;
-import com.scudata.dw.ITableMetaData;
+import com.scudata.dw.IPhyTable;
 import com.scudata.dw.RowCursor;
-import com.scudata.dw.RowTableMetaData;
-import com.scudata.dw.TableMetaData;
+import com.scudata.dw.RowPhyTable;
+import com.scudata.dw.PhyTable;
 import com.scudata.expression.Constant;
 import com.scudata.expression.Expression;
 import com.scudata.expression.IParam;
@@ -67,7 +66,7 @@ public class PseudoTable extends Pseudo {
 	 * @param n 并行数
 	 * @param ctx
 	 */
-	public PseudoTable(Record rec, int n, Context ctx) {
+	public PseudoTable(BaseRecord rec, int n, Context ctx) {
 		pd = new PseudoDefination(rec, ctx);
 		pathCount = n;
 		this.ctx = ctx;
@@ -83,12 +82,12 @@ public class PseudoTable extends Pseudo {
 		init();
 	}
 	
-	public PseudoTable(Record rec, PseudoTable mcs, Context ctx) {
+	public PseudoTable(BaseRecord rec, PseudoTable mcs, Context ctx) {
 		this(rec, 0, ctx);
 		mcsTable = mcs;
 	}
 	
-	public static PseudoTable create(Record rec, int n, Context ctx) {
+	public static PseudoTable create(BaseRecord rec, int n, Context ctx) {
 		PseudoDefination pd = new PseudoDefination(rec, ctx);
 		if (pd.isBFile()) {
 			return new PseudoBFile(pd, n, ctx);
@@ -358,7 +357,7 @@ public class PseudoTable extends Pseudo {
 	 * @return
 	 */
 	public ICursor[] getCursors(boolean isColumn) {
-		List<ITableMetaData> tables = getPd().getTables();
+		List<IPhyTable> tables = getPd().getTables();
 		int size = tables.size();
 		ICursor cursors[] = new ICursor[size];
 		
@@ -366,62 +365,6 @@ public class PseudoTable extends Pseudo {
 			cursors[i] = getCursor(tables.get(i), null, true, isColumn);
 		}
 		return cursors;
-	}
-	
-	private ICursor getColumnCursor(ITableMetaData table, ICursor mcs, boolean addOpt) {
-		ICursor cursor = null;
-		IColumnCursorUtil util = IColumnCursorUtil.util;
-		
-		if (fkNames != null) {
-			if (mcs != null ) {
-				if (mcs instanceof MultipathCursors) {
-					cursor = util.cursor(table, null, this.names, filter, fkNames, codes, null, (MultipathCursors)mcs, null, ctx);
-				} else {
-					if (exps == null) {
-						cursor = util.cursor(table, null, this.names, filter, fkNames, codes, null, ctx);
-					} else {
-						cursor = util.cursor(table, this.exps, this.names, filter, fkNames, codes, null, ctx);
-					}
-				}
-			} else if (pathCount > 1) {
-				if (exps == null) {
-					cursor = util.cursor(table, null, this.names, filter, fkNames, codes, null, pathCount, ctx);
-				} else {
-					cursor = util.cursor(table, this.exps, this.names, filter, fkNames, codes, null, pathCount, ctx);
-				}
-			} else {
-				if (exps == null) {
-					cursor = util.cursor(table, null, this.names, filter, fkNames, codes, null, ctx);
-				} else {
-					cursor = util.cursor(table, this.exps, this.names, filter, fkNames, codes, null, ctx);
-				}
-			}
-		} else {
-			if (mcs != null ) {
-				if (mcs instanceof MultipathCursors) {
-					cursor = util.cursor(table, null, this.names, filter, null, null, null, (MultipathCursors)mcs, null, ctx);
-				} else {
-					if (exps == null) {
-						cursor = util.cursor(table, this.names, filter, ctx);
-					} else {
-						cursor = util.cursor(table, this.exps, this.names, filter, null, null, null, ctx);
-					}
-				}
-			} else if (pathCount > 1) {
-				if (exps == null) {
-					cursor = util.cursor(table, null, this.names, filter, null, null, null, pathCount, ctx);
-				} else {
-					cursor = util.cursor(table, this.exps, this.names, filter, null, null, null, pathCount, ctx);
-				}
-			} else {
-				if (exps == null) {
-					cursor = util.cursor(table, this.names, filter, ctx);
-				} else {
-					cursor = util.cursor(table, this.exps, this.names, filter, null, null, null, ctx);
-				}
-			}
-		}
-		return cursor;
 	}
 	
 	/**
@@ -520,28 +463,13 @@ public class PseudoTable extends Pseudo {
 	 * @param isColumn 是否返回列式游标
 	 * @return
 	 */
-	private ICursor getCursor(ITableMetaData table, ICursor mcs, boolean addOpt, boolean isColumn) {
+	private ICursor getCursor(IPhyTable table, ICursor mcs, boolean addOpt, boolean isColumn) {
 		ICursor cursor = null;
-		if (isColumn) {
-			cursor = getColumnCursor(table, mcs, addOpt);
-		} else {
-			if (fkNames != null) {
-				if (mcs != null ) {
-					if (mcs instanceof MultipathCursors) {
-						cursor = table.cursor(null, this.names, filter, fkNames, codes, null, (MultipathCursors)mcs, null, ctx);
-					} else {
-						if (exps == null) {
-							cursor = table.cursor(null, this.names, filter, fkNames, codes, null, ctx);
-						} else {
-							cursor = table.cursor(this.exps, this.names, filter, fkNames, codes, null, ctx);
-						}
-					}
-				} else if (pathCount > 1) {
-					if (exps == null) {
-						cursor = table.cursor(null, this.names, filter, fkNames, codes, null, pathCount, ctx);
-					} else {
-						cursor = table.cursor(this.exps, this.names, filter, fkNames, codes, null, pathCount, ctx);
-					}
+
+		if (fkNames != null) {
+			if (mcs != null ) {
+				if (mcs instanceof MultipathCursors) {
+					cursor = table.cursor(null, this.names, filter, fkNames, codes, null, (MultipathCursors)mcs, null, ctx);
 				} else {
 					if (exps == null) {
 						cursor = table.cursor(null, this.names, filter, fkNames, codes, null, ctx);
@@ -549,23 +477,23 @@ public class PseudoTable extends Pseudo {
 						cursor = table.cursor(this.exps, this.names, filter, fkNames, codes, null, ctx);
 					}
 				}
+			} else if (pathCount > 1) {
+				if (exps == null) {
+					cursor = table.cursor(null, this.names, filter, fkNames, codes, null, pathCount, ctx);
+				} else {
+					cursor = table.cursor(this.exps, this.names, filter, fkNames, codes, null, pathCount, ctx);
+				}
 			} else {
-				if (mcs != null ) {
-					if (mcs instanceof MultipathCursors) {
-						cursor = table.cursor(null, this.names, filter, null, null, null, (MultipathCursors)mcs, null, ctx);
-					} else {
-						if (exps == null) {
-							cursor = table.cursor(this.names, filter, ctx);
-						} else {
-							cursor = table.cursor(this.exps, this.names, filter, null, null, null, ctx);
-						}
-					}
-				} else if (pathCount > 1) {
-					if (exps == null) {
-						cursor = table.cursor(null, this.names, filter, null, null, null, pathCount, ctx);
-					} else {
-						cursor = table.cursor(this.exps, this.names, filter, null, null, null, pathCount, ctx);
-					}
+				if (exps == null) {
+					cursor = table.cursor(null, this.names, filter, fkNames, codes, null, ctx);
+				} else {
+					cursor = table.cursor(this.exps, this.names, filter, fkNames, codes, null, ctx);
+				}
+			}
+		} else {
+			if (mcs != null ) {
+				if (mcs instanceof MultipathCursors) {
+					cursor = table.cursor(null, this.names, filter, null, null, null, (MultipathCursors)mcs, null, ctx);
 				} else {
 					if (exps == null) {
 						cursor = table.cursor(this.names, filter, ctx);
@@ -573,8 +501,21 @@ public class PseudoTable extends Pseudo {
 						cursor = table.cursor(this.exps, this.names, filter, null, null, null, ctx);
 					}
 				}
+			} else if (pathCount > 1) {
+				if (exps == null) {
+					cursor = table.cursor(null, this.names, filter, null, null, null, pathCount, ctx);
+				} else {
+					cursor = table.cursor(this.exps, this.names, filter, null, null, null, pathCount, ctx);
+				}
+			} else {
+				if (exps == null) {
+					cursor = table.cursor(this.names, filter, ctx);
+				} else {
+					cursor = table.cursor(this.exps, this.names, filter, null, null, null, ctx);
+				}
 			}
 		}
+	
 		
 		addJoin(cursor);
 	
@@ -677,21 +618,21 @@ public class PseudoTable extends Pseudo {
 		return cursor;
 	}
 	
-	private List<ITableMetaData> filterTables(List<ITableMetaData> tables) {
+	private List<IPhyTable> filterTables(List<IPhyTable> tables) {
 		if (filter != null && pd.getDate() != null) {
 			String dateName = pd.getDate();
 			PseudoColumn dateCol = pd.findColumnByPseudoName(dateName);
 			if (dateCol != null && dateCol.getExp() != null) {
 				dateName = dateCol.getName();
 			}
-			ITableMetaData table = tables.get(0);
+			IPhyTable table = tables.get(0);
 			
 			//判断是否有关于date的过滤
 			Object obj;
-			if (table instanceof ColumnTableMetaData)
-				obj = Cursor.parseFilter((ColumnTableMetaData) table, filter, ctx);
+			if (table instanceof ColPhyTable)
+				obj = Cursor.parseFilter((ColPhyTable) table, filter, ctx);
 			else 
-				obj = RowCursor.parseFilter((RowTableMetaData) table, filter.getHome(), ctx);
+				obj = RowCursor.parseFilter((RowPhyTable) table, filter.getHome(), ctx);
 			
 			IFilter dateFilter = null;
 			if (obj instanceof IFilter) {
@@ -699,6 +640,7 @@ public class PseudoTable extends Pseudo {
 					dateFilter = (IFilter)obj;
 				}
 			} else if (obj instanceof ArrayList) {
+				@SuppressWarnings("unchecked")
 				ArrayList<Object> list = (ArrayList<Object>)obj;
 				for (Object f : list) {
 					if (f instanceof IFilter) {
@@ -712,11 +654,11 @@ public class PseudoTable extends Pseudo {
 			
 			if (dateFilter != null) {
 				int count = tables.size();
-				List<ITableMetaData> list = new ArrayList<ITableMetaData>(count);
+				List<IPhyTable> list = new ArrayList<IPhyTable>(count);
 				List<Object> max = pd.getMaxValues();
 				List<Object> min = pd.getMinValues();			
 				for (int i = 0; i < count; i++) {
-					TableMetaData t = (TableMetaData) tables.get(i);
+					PhyTable t = (PhyTable) tables.get(i);
 					if (t.getTotalRecordCount() == 0) {
 						continue;
 					}
@@ -729,9 +671,9 @@ public class PseudoTable extends Pseudo {
 		}
 
 		int count = tables.size();
-		List<ITableMetaData> list = new ArrayList<ITableMetaData>(count);
+		List<IPhyTable> list = new ArrayList<IPhyTable>(count);
 		for (int i = 0; i < count; i++) {
-			TableMetaData t = (TableMetaData) tables.get(i);
+			PhyTable t = (PhyTable) tables.get(i);
 			if (t.getTotalRecordCount() == 0) {
 				continue;
 			}
@@ -749,7 +691,7 @@ public class PseudoTable extends Pseudo {
 		setFetchInfo(exps, names);//把取出字段添加进去，里面可能会对extraOpList赋值
 		
 		//每个实体文件生成一个游标
-		List<ITableMetaData> tables = getPd().getTables();
+		List<IPhyTable> tables = getPd().getTables();
 		int size = tables.size();
 		ICursor cursors[] = new ICursor[size];
 		
@@ -810,7 +752,7 @@ public class PseudoTable extends Pseudo {
 	
 	//用于获取多路游标
 	private ICursor cursor() {
-		List<ITableMetaData> tables = getPd().getTables();
+		List<IPhyTable> tables = getPd().getTables();
 		return tables.get(0).cursor(null, null, null, null, null, null, pathCount, ctx);
 	}
 
@@ -1091,8 +1033,8 @@ public class PseudoTable extends Pseudo {
 	
 	public void append(ICursor cursor, String option) {
 		//把数据追加到file
-		List<ITableMetaData> tables = getPd().getTables();
-		ITableMetaData table = null;
+		List<IPhyTable> tables = getPd().getTables();
+		IPhyTable table = null;
 		boolean flag = true;//立即写入标志
 		int size = tables.size();
 		if (size == 0) {
@@ -1130,12 +1072,12 @@ public class PseudoTable extends Pseudo {
 	
 	public Sequence update(Sequence data, String opt) {
 		//更新到最后一个file
-		List<ITableMetaData> tables = getPd().getTables();
+		List<IPhyTable> tables = getPd().getTables();
 		int size = tables.size();
 		if (size == 0) {
 			return null;
 		}
-		ITableMetaData table = tables.get(size - 1);
+		IPhyTable table = tables.get(size - 1);
 
 		List<PseudoColumn> columns = pd.getColumns();
 		if (columns != null) {
@@ -1153,14 +1095,14 @@ public class PseudoTable extends Pseudo {
 	}
 	
 	public Sequence delete(Sequence data, String opt) {
-		List<ITableMetaData> tables = getPd().getTables();
+		List<IPhyTable> tables = getPd().getTables();
 		int size = tables.size();
 		if (size == 0) {
 			return null;
 		}
 		
 		Sequence result = null;
-		for (ITableMetaData table : tables) {
+		for (IPhyTable table : tables) {
 			List<PseudoColumn> columns = pd.getColumns();
 			if (columns != null) {
 				String fields[] = table.getAllColNames();
@@ -1272,7 +1214,7 @@ public class PseudoTable extends Pseudo {
 	 * @return
 	 */
 	public byte[] getFieldTypes() {
-		List<ITableMetaData> tables = getPd().getTables();
+		List<IPhyTable> tables = getPd().getTables();
 		ICursor cursor = tables.get(0).cursor(null, null, null, null, null, null, 1, ctx);
 		Sequence data = cursor.fetch(1);
 		cursor.close();
@@ -1281,7 +1223,7 @@ public class PseudoTable extends Pseudo {
 			return null;
 		}
 		
-		Record record = (Record) data.getMem(1);
+		BaseRecord record = (BaseRecord) data.getMem(1);
 		Object[] objs = record.getFieldValues();
 		int len = objs.length;
 		byte[] types = new byte[len];

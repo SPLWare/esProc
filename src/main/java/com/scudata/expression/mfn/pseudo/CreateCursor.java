@@ -4,7 +4,6 @@ import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
 import com.scudata.dm.cursor.ICursor;
-import com.scudata.dw.IColumnCursorUtil;
 import com.scudata.dw.pseudo.IPseudo;
 import com.scudata.expression.Expression;
 import com.scudata.expression.IParam;
@@ -29,10 +28,6 @@ public class CreateCursor extends PseudoFunction {
 		boolean hasV = false;
 		if (table == null) {
 			return null;
-		}
-		
-		if (opt != null && opt.indexOf('v') != -1 && IColumnCursorUtil.util != null) {
-			hasV = true;
 		}
 		
 		if (param == null) {

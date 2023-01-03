@@ -2,13 +2,16 @@ package com.scudata.dm.op;
 
 import java.util.ArrayList;
 
+import com.scudata.array.IArray;
+import com.scudata.array.ObjectArray;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.ComputeStack;
 import com.scudata.dm.Context;
+import com.scudata.dm.Current;
 import com.scudata.dm.DataStruct;
 import com.scudata.dm.IndexTable;
-import com.scudata.dm.ListBase1;
 import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
@@ -177,12 +180,12 @@ public class JoinRemote extends Operation {
 					indexTable = codes[i].getIndexTable();
 					if (indexTable == null) {
 						Object obj = codes[i].getMem(1);
-						if (!(obj instanceof Record)) {
+						if (!(obj instanceof BaseRecord)) {
 							MessageManager mm = EngineMessage.get();
 							throw new RQException("join: " + mm.getMessage("engine.needPmt"));
 						}
 
-						DataStruct ds = ((Record)obj).dataStruct();
+						DataStruct ds = ((BaseRecord)obj).dataStruct();
 						String[] pks = ds.getPrimary();
 						if (pks == null) {
 							MessageManager mm = EngineMessage.get();
@@ -203,7 +206,7 @@ public class JoinRemote extends Operation {
 							}
 						}
 
-						indexTable = IndexTable.instance(codes[i], curExps, ctx);
+						indexTable = codes[i].newIndexTable(curExps, ctx);
 					}
 				} else {
 					int fcount = exps[i].length;
@@ -216,7 +219,7 @@ public class JoinRemote extends Operation {
 					if (fcount != 1 || !(curExps[0].getHome() instanceof CurrentSeq)) {
 						indexTable = codes[i].getIndexTable(curExps, ctx);
 						if (indexTable == null) {
-							indexTable = IndexTable.instance(codes[i], curExps, ctx);
+							indexTable = codes[i].newIndexTable(curExps, ctx);
 						}
 					} else {
 						indexTable = null;
@@ -260,7 +263,7 @@ public class JoinRemote extends Operation {
 			Sequence result = new Sequence(size);
 
 			ComputeStack stack = ctx.getComputeStack();
-			Sequence.Current current = src.new Current();
+			Current current = new Current(src);
 			stack.push(current);
 
 			try {
@@ -289,7 +292,7 @@ public class JoinRemote extends Operation {
 		if (isOrg) {
 			findex = 1;
 			for (int i = 1; i <= len; ++i) {
-				Record old = (Record)data.getMem(i);
+				BaseRecord old = (BaseRecord)data.getMem(i);
 				result.newLast().setNormalFieldValue(0, old);
 			}
 
@@ -306,11 +309,11 @@ public class JoinRemote extends Operation {
 					continue;
 				}
 				
-				ListBase1 newMems = newSeq.getMems();
+				IArray newMems = newSeq.getMems();
 				for (int i = 1; i <= len; ++i) {
-					Record nr = (Record)newMems.get(i);
+					BaseRecord nr = (BaseRecord)newMems.get(i);
 					if (nr != null) {
-						Record r = (Record)result.getMem(i);
+						BaseRecord r = (BaseRecord)result.getMem(i);
 						r.setStart(findex, nr);
 					}
 				}
@@ -320,7 +323,7 @@ public class JoinRemote extends Operation {
 		} else {
 			findex = oldDs.getFieldCount();
 			for (int i = 1; i <= len; ++i) {
-				Record old = (Record)data.getMem(i);
+				BaseRecord old = (BaseRecord)data.getMem(i);
 				result.newLast(old.getFieldValues());
 			}
 
@@ -337,11 +340,11 @@ public class JoinRemote extends Operation {
 					continue;
 				}
 				
-				ListBase1 newMems = newSeq.getMems();
+				IArray newMems = newSeq.getMems();
 				for (int i = 1; i <= len; ++i) {
-					Record nr = (Record)newMems.get(i);
+					BaseRecord nr = (BaseRecord)newMems.get(i);
 					if (nr != null) {
-						Record r = (Record)result.getMem(i);
+						BaseRecord r = (BaseRecord)result.getMem(i);
 						r.setStart(findex, nr);
 					}
 				}
@@ -363,7 +366,7 @@ public class JoinRemote extends Operation {
 		Sequence result = new Sequence(len);
 		
 		ComputeStack stack = ctx.getComputeStack();
-		Sequence.Current current = src.new Current();
+		Current current = new Current(src);
 		stack.push(current);
 		try {
 			for (int i = 1; i <= len; ++i) {
@@ -372,7 +375,7 @@ public class JoinRemote extends Operation {
 					pkValues[f] = exps[f].calculate(ctx);
 				}
 	
-				Record r = (Record)it.find(pkValues);
+				BaseRecord r = (BaseRecord)it.find(pkValues);
 				if (r != null) {
 					stack.push(r);
 					Record nr = new Record(ds);
@@ -403,14 +406,14 @@ public class JoinRemote extends Operation {
 		Sequence result = new Sequence(len);
 		
 		ComputeStack stack = ctx.getComputeStack();
-		Sequence.Current current = src.new Current();
+		Current current = new Current(src);
 		stack.push(current);
-		Sequence.Current codeCurrent = code.new Current();
+		Current codeCurrent = new Current(code);
 		stack.push(codeCurrent);
 		
 		try {
 			Expression exp = exps[0];
-			ListBase1 codeMems = code.getMems();
+			IArray codeMems = code.getMems();
 			int codeLen = codeMems.size();
 			for (int i = 1; i <= len; ++i) {
 				current.setCurrent(i);
@@ -452,16 +455,16 @@ public class JoinRemote extends Operation {
 			newSeq = fetch(data, exps[0], codes[0], newExps[0], newNames[0], ctx);
 		}
 		
-		ListBase1 newMems = newSeq.getMems();
+		IArray newMems = newSeq.getMems();
 		int findex = oldDs.getFieldCount();
 		int len = data.length();
 		Table result = new Table(newDs, len);
 		
 		for (int i = 1; i <= len; ++i) {
-			Record nr = (Record)newMems.get(i);
+			BaseRecord nr = (BaseRecord)newMems.get(i);
 			if (nr != null) {
-				Record old = (Record)data.getMem(i);
-				Record r = result.newLast(old.getFieldValues());
+				BaseRecord old = (BaseRecord)data.getMem(i);
+				BaseRecord r = result.newLast(old.getFieldValues());
 				r.setStart(findex, nr);
 			}
 		}
@@ -471,7 +474,7 @@ public class JoinRemote extends Operation {
 			len = result.length();
 			if (len == 0) break;
 
-			ListBase1 tmpMems = new ListBase1(len);
+			ObjectArray tmpMems = new ObjectArray(len);
 			if (cts[fk] != null) {
 				Sequence keyValues = calc(result, exps[fk], ctx);
 				newSeq = cts[fk].getRows(keyValues, newExpStrs[fk], newNames[fk], ctx);
@@ -483,9 +486,9 @@ public class JoinRemote extends Operation {
 
 			newMems = newSeq.getMems();
 			for (int i = 1; i <= len; ++i) {
-				Record nr = (Record)newMems.get(i);
+				BaseRecord nr = (BaseRecord)newMems.get(i);
 				if (nr != null) {
-					Record r = (Record)result.getMem(i);
+					BaseRecord r = (BaseRecord)result.getMem(i);
 					r.setStart(findex, nr);
 					tmpMems.add(r);
 				}

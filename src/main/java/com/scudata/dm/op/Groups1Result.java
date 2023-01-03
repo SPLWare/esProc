@@ -1,14 +1,16 @@
 package com.scudata.dm.op;
 
+import com.scudata.array.IArray;
 import com.scudata.common.MessageManager;
 import com.scudata.common.ObjectCache;
 import com.scudata.common.RQException;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.ComputeStack;
 import com.scudata.dm.Context;
+import com.scudata.dm.Current;
 import com.scudata.dm.DataStruct;
 import com.scudata.dm.Env;
 import com.scudata.dm.ListBase1;
-import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
 import com.scudata.dm.cursor.ICursor;
@@ -40,7 +42,7 @@ public class Groups1Result extends IGroupsResult {
 	private int valCount; // 汇总字段数
 	
 	private Table result; // 分组汇总结果
-	private Record prevRecord; // 上一条结果集记录
+	private BaseRecord prevRecord; // 上一条结果集记录
 	private SortedGroupsLink link; // 用于h选项 
 	
 	private boolean oOpt;
@@ -130,6 +132,14 @@ public class Groups1Result extends IGroupsResult {
 	}
 	
 	/**
+	 * 取二次汇总后用于计算最终结果的表达式，avg可能被分成sum、count两列进行计算
+	 * @return
+	 */
+	public Expression[] getResultExpressions() {
+		return null;
+	}
+	
+	/**
 	 * 取分组表达式
 	 * @return 表达式数组
 	 */
@@ -178,6 +188,33 @@ public class Groups1Result extends IGroupsResult {
 	}
 	
 	/**
+	 * 取二次汇总表达式，用于多线程分组
+	 * @return
+	 */
+	public Expression[] getRegatherExpressions() {
+		if (valCount > 0) {
+			Expression []valExps = new Expression[valCount];
+			for (int i = 0, q = 2; i < valCount; ++i, ++q) {
+				Node gather = calcExps[i].getHome();
+				gather.prepare(ctx);
+				valExps[i] = gather.getRegatherExpression(q);
+			}
+			
+			return valExps;
+		} else {
+			return null;
+		}
+	}
+	
+	/**
+	 * 取二次汇总数据结构
+	 * @return DataStruct
+	 */
+	public DataStruct getRegatherDataStruct() {
+		return ds;
+	}
+	
+	/**
 	 * 并行运算时，取出每个线程的中间计算结果，还需要进行二次汇总
 	 * @return Table
 	 */
@@ -188,6 +225,10 @@ public class Groups1Result extends IGroupsResult {
 		}  else if (nOpt) {
 			result.deleteNullFieldRecord(0);
 		} else if (hOpt) {
+			if (opt == null || opt.indexOf('u') == -1) {
+				result = link.toTable(ds);
+			}
+			
 			link = null;
 		}
 		
@@ -224,15 +265,19 @@ public class Groups1Result extends IGroupsResult {
 				result.deleteNullFieldRecord(0);
 			} else {
 				int len = result.length();
-				ListBase1 mems = result.getMems();
+				IArray mems = result.getMems();
 				for (int i = 1; i <= len; ++i) {
-					Record r = (Record)mems.get(i);
+					BaseRecord r = (BaseRecord)mems.get(i);
 					if (r.getNormalFieldValue(0) == null) {
 						r.setNormalFieldValue(0, ObjectCache.getInteger(i));;
 					}
 				}				
 			}
 		} else if (hOpt) {
+			if (opt == null || opt.indexOf('u') == -1) {
+				result = link.toTable(ds);
+			}
+			
 			link = null;
 		}
 
@@ -255,6 +300,13 @@ public class Groups1Result extends IGroupsResult {
 		}
 		
 		return table;
+	}
+	
+	/**
+	 * 数据推送结束时调用
+	 * @param ctx 计算上下文
+	 */
+	public void finish(Context ctx) {
 	}
 	
 	 /**
@@ -353,7 +405,7 @@ public class Groups1Result extends IGroupsResult {
 		Table result = this.result;
 		Object key;
 		ComputeStack stack = ctx.getComputeStack();
-		Sequence.Current current = table.new Current();
+		Current current = new Current(table);
 		stack.push(current);
 
 		try {
@@ -361,7 +413,7 @@ public class Groups1Result extends IGroupsResult {
 				current.setCurrent(i);
 				key = gexp.calculate(ctx);
 
-				Record r;
+				BaseRecord r;
 				int hash = hashUtil.hashCode(key);
 				if (groups[hash] == null) {
 					groups[hash] = new ListBase1(INIT_GROUPSIZE);
@@ -383,7 +435,7 @@ public class Groups1Result extends IGroupsResult {
 							r.setNormalFieldValue(v + 1, val);
 						}
 					} else {
-						r = (Record)groups[hash].get(index);
+						r = (BaseRecord)groups[hash].get(index);
 						for (int f = 1; f <= valCount; ++f) {
 							Object val = gathers[f - 1].gather(r.getNormalFieldValue(f), ctx);
 							r.setNormalFieldValue(f, val);
@@ -398,11 +450,11 @@ public class Groups1Result extends IGroupsResult {
 
 	private void addGroups_1(Sequence table, Context ctx) {
 		ComputeStack stack = ctx.getComputeStack();
-		Sequence.Current current = table.new Current();
+		Current current = new Current(table);
 		stack.push(current);
 		int i = 1;
 		
-		Record r = prevRecord;
+		BaseRecord r = prevRecord;
 		int valCount = this.valCount;
 		Node []gathers = this.gathers;
 
@@ -432,14 +484,14 @@ public class Groups1Result extends IGroupsResult {
 	
 	private void addGroups_o(Sequence table, Context ctx) {
 		Table result = this.result;
-		Record r = prevRecord;
+		BaseRecord r = prevRecord;
 		Expression gexp = this.gexp;
 		int valCount = this.valCount;
 		Node []gathers = this.gathers;
 		
 		Object key;
 		ComputeStack stack = ctx.getComputeStack();
-		Sequence.Current current = table.new Current();
+		Current current = new Current(table);
 		stack.push(current);
 
 		try {
@@ -471,13 +523,13 @@ public class Groups1Result extends IGroupsResult {
 	
 	private void addGroups_i(Sequence table, Context ctx) {
 		Table result = this.result;
-		Record r = prevRecord;
+		BaseRecord r = prevRecord;
 		Expression gexp = this.gexp;
 		int valCount = this.valCount;
 		Node []gathers = this.gathers;
 
 		ComputeStack stack = ctx.getComputeStack();
-		Sequence.Current current = table.new Current();
+		Current current = new Current(table);
 		stack.push(current);
 
 		try {
@@ -522,7 +574,7 @@ public class Groups1Result extends IGroupsResult {
 		Node []gathers = this.gathers;
 
 		ComputeStack stack = ctx.getComputeStack();
-		Sequence.Current current = table.new Current();
+		Current current = new Current(table);
 		stack.push(current);
 
 		try {
@@ -540,7 +592,7 @@ public class Groups1Result extends IGroupsResult {
 					continue;
 				}
 
-				Record r = result.getRecord(index);
+				BaseRecord r = result.getRecord(index);
 				if (r.getNormalFieldValue(0) == null) {
 					r.setNormalFieldValue(0, obj);
 					for (int v = 0; v < valCount; ++v) {
@@ -568,7 +620,7 @@ public class Groups1Result extends IGroupsResult {
 		
 		Object key;
 		ComputeStack stack = ctx.getComputeStack();
-		Sequence.Current current = table.new Current();
+		Current current = new Current(table);
 		stack.push(current);
 
 		try {
@@ -577,7 +629,7 @@ public class Groups1Result extends IGroupsResult {
 				key = gexp.calculate(ctx);
 
 				SortedGroupsLink.Node node = link.put(key);
-				Record r = node.getRecord();
+				BaseRecord r = node.getRecord();
 				if (r == null) {
 					r = result.newLast();
 					r.setNormalFieldValue(0, key);

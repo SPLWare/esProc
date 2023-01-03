@@ -7,7 +7,6 @@ import com.scudata.dm.Sequence;
 import com.scudata.expression.Function;
 import com.scudata.expression.IParam;
 import com.scudata.resources.EngineMessage;
-import com.scudata.util.Variant;
 
 /**
  * 计算斯皮尔曼系数spearman(A,B)，B省略时用to(A.len())
@@ -15,12 +14,19 @@ import com.scudata.util.Variant;
  *
  */
 public class Spearman extends Function {
-	public Object calculate(Context ctx) {
-		Object o1 = null, o2 = null;
+	/**
+	 * 检查表达式的有效性，无效则抛出异常
+	 */
+	public void checkValidity() {
 		if (param == null) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("spearman" + mm.getMessage("function.missingParam"));
-		} else if (param.isLeaf()) {
+		}
+	}
+
+	public Object calculate(Context ctx) {
+		Object o1 = null, o2 = null;
+		if (param.isLeaf()) {
 			o1 = param.getLeafExpression().calculate(ctx);
 			if (o1 instanceof Sequence) {
 			} else {
@@ -58,7 +64,7 @@ public class Spearman extends Function {
 		double n = (double) x.length();
 		Sequence p = x.ranks("s");
 		Sequence q = y.ranks("s");
-		Sequence d = Variant.memSubtract(p, q);
+		Sequence d = p.memberSubtract(q);
 		double sumup = 0;
 		for (int i = 1; i <= n; i++)  {
 			double dcur = ((Number) d.get(i)).doubleValue();

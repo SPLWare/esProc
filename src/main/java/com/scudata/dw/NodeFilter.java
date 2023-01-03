@@ -2,6 +2,7 @@ package com.scudata.dw;
 
 import com.scudata.dm.Context;
 import com.scudata.dm.Param;
+import com.scudata.expression.Expression;
 import com.scudata.expression.Node;
 import com.scudata.util.Variant;
 
@@ -14,6 +15,7 @@ public class NodeFilter extends IFilter {
 		super(column, priority);
 		
 		this.node = node;
+		this.exp = new Expression(node);
 		this.ctx = ctx;
 		
 		param = ctx.getParam(column.getColName());

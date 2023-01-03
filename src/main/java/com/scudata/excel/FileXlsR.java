@@ -24,9 +24,9 @@ import com.scudata.app.config.ConfigUtil;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.common.StringUtils;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Env;
 import com.scudata.dm.FileObject;
-import com.scudata.dm.Record;
 import com.scudata.resources.AppMessage;
 
 /**
@@ -149,7 +149,7 @@ public class FileXlsR extends XlsFileObject {
 				continue;
 			}
 			nameSet.add(sheetName);
-			final Record record = newLast(new Object[] { sheetName,
+			final BaseRecord record = newLast(new Object[] { sheetName,
 					new Integer(0), new Integer(0) });
 			Thread t = new Thread(Thread.currentThread().getThreadGroup(),
 					new Runnable() {
@@ -173,12 +173,12 @@ public class FileXlsR extends XlsFileObject {
 	 * 
 	 * @param sheetInputStream InputStream
 	 * @param sheetName        Sheet name
-	 * @param record           Record
+	 * @param record           BaseRecord
 	 * @param countSet         Used to count the number of sheets loaded in
 	 *                         multi-threaded loading
 	 */
 	private void initSheetInfo(final InputStream sheetInputStream,
-			String sheetName, Record record, Vector<String> countSet) {
+			String sheetName, BaseRecord record, Vector<String> countSet) {
 		SheetInfo si = new SheetInfo(sheetName);
 		try {
 			final InputSource sheetSource = new InputSource(sheetInputStream);
@@ -245,7 +245,7 @@ public class FileXlsR extends XlsFileObject {
 	 * @return
 	 */
 	private SheetInfo getSheetInfo(int index) {
-		Record r = getRecord(index);
+		BaseRecord r = getRecord(index);
 		SheetInfo si = new SheetInfo((String) r.getFieldValue(COL_NAME));
 		si.setRowCount((Integer) r.getFieldValue(COL_ROW_COUNT));
 		si.setColCount((Integer) r.getFieldValue(COL_COL_COUNT));

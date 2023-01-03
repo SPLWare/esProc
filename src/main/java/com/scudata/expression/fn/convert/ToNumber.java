@@ -19,12 +19,17 @@ import com.scudata.util.Variant;
  *
  */
 public class ToNumber extends Function {
-	public Object calculate(Context ctx) {
+	/**
+	 * 检查表达式的有效性，无效则抛出异常
+	 */
+	public void checkValidity() {
 		if (param == null) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("number" + mm.getMessage("function.missingParam"));
 		}
-		
+	}
+
+	public Object calculate(Context ctx) {
 		if (param.isLeaf()) {
 			Object result = param.getLeafExpression().calculate(ctx);
 			if (result instanceof String) {

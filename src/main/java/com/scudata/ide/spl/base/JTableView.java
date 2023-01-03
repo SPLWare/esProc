@@ -21,10 +21,10 @@ import com.scudata.common.DBInfo;
 import com.scudata.common.Matrix;
 import com.scudata.common.MessageManager;
 import com.scudata.common.StringUtils;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.DBObject;
 import com.scudata.dm.DataStruct;
 import com.scudata.dm.FileObject;
-import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
 import com.scudata.ide.common.AppendDataThread;
@@ -275,9 +275,9 @@ public abstract class JTableView extends JTableEx {
 						return;
 					rowData = seq.get(i);
 
-					if (rowData instanceof Record) {
+					if (rowData instanceof BaseRecord) {
 						insertRow(-1,
-								getRecordData((Record) seq.get(i), i - 1),
+								getRecordData((BaseRecord) seq.get(i), i - 1),
 								false);
 					} else {
 						insertRow(-1, new Object[] { seq.get(i) }, false);
@@ -306,7 +306,7 @@ public abstract class JTableView extends JTableEx {
 	 * @param r      行号
 	 * @return
 	 */
-	private Object[] getRecordData(Record record, int r) {
+	private Object[] getRecordData(BaseRecord record, int r) {
 		if (record == null || r < 0)
 			return null;
 		int colCount = this.getColumnCount();
@@ -398,7 +398,7 @@ public abstract class JTableView extends JTableEx {
 				initPmt((Sequence) value);
 				break;
 			case TYPE_RECORD:
-				initRecord((Record) value);
+				initRecord((BaseRecord) value);
 				break;
 			case TYPE_SERIES:
 				initSeries((Sequence) value);
@@ -455,7 +455,7 @@ public abstract class JTableView extends JTableEx {
 				return TYPE_SERIESPMT;
 			}
 			return TYPE_SERIES;
-		} else if (value instanceof Record) {
+		} else if (value instanceof BaseRecord) {
 			return TYPE_RECORD;
 		} else if (value instanceof DBObject) {
 			return TYPE_DB;
@@ -499,7 +499,7 @@ public abstract class JTableView extends JTableEx {
 	 * @return
 	 */
 	private int initSeriesPmt(Sequence pmt) {
-		DataStruct ds = ((Record) pmt.ifn()).dataStruct();
+		DataStruct ds = ((BaseRecord) pmt.ifn()).dataStruct();
 		setTableColumns(ds);
 		setEditStyle(ds);
 		return pmt.length();
@@ -526,7 +526,7 @@ public abstract class JTableView extends JTableEx {
 	 * @param record 记录
 	 * @return
 	 */
-	private int initRecord(Record record) {
+	private int initRecord(BaseRecord record) {
 		DataStruct ds = record.dataStruct();
 		setTableColumns(ds);
 		try {
@@ -700,8 +700,8 @@ public abstract class JTableView extends JTableEx {
 		case TYPE_SERIESPMT:
 			Sequence s = (Sequence) value;
 			Object temp = s.get(row + 1);
-			if (temp instanceof Record) {
-				Record r = (Record) temp;
+			if (temp instanceof BaseRecord) {
+				BaseRecord r = (BaseRecord) temp;
 				if (r.dataStruct() != null && s.dataStruct() != null
 						&& !r.dataStruct().equals(s.dataStruct())) { // 异构排列
 					newValue = temp;

@@ -2,7 +2,8 @@ package com.scudata.expression.mfn.dw;
 
 import com.scudata.dm.Context;
 import com.scudata.dm.cursor.ICursor;
-import com.scudata.expression.TableMetaDataFunction;
+import com.scudata.dw.IPhyTable;
+import com.scudata.expression.PhyTableFunction;
 
 /**
  * 读入组表数据
@@ -10,9 +11,19 @@ import com.scudata.expression.TableMetaDataFunction;
  * @author RunQian
  *
  */
-public class Import extends TableMetaDataFunction {
+public class Import extends PhyTableFunction {
 	public Object calculate(Context ctx) {
 		ICursor cursor = CreateCursor.createCursor(table, param, option, ctx);
 		return cursor.fetch();
+	}
+	
+	public boolean isLeftTypeMatch(Object obj) {
+		if (obj instanceof IPhyTable) {
+			if (option != null && option.indexOf('v') != -1)
+				return false;
+			return true;
+		}
+		
+		return false;
 	}
 }

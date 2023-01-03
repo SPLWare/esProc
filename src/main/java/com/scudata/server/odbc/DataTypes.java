@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.math.BigDecimal;
 
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
@@ -520,8 +521,8 @@ public class DataTypes {
 			for(int r=1; r<=table.length(); r++){
 				Object rowObj = table.get(r);
 				Object[] rowData;
-				if(rowObj instanceof Record){
-					Record rec = (Record)rowObj;
+				if(rowObj instanceof BaseRecord){
+					BaseRecord rec = (BaseRecord)rowObj;
 					rowData = rec.getFieldValues();
 				}else{
 					rowData = new Object[]{rowObj};

@@ -18,10 +18,10 @@ import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.common.SQLTool;
 import com.scudata.common.Sentence;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Context;
 import com.scudata.dm.DBObject;
 import com.scudata.dm.DataStruct;
-import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
 import com.scudata.resources.DataSetMessage;
@@ -575,7 +575,7 @@ public class DBCursor extends ICursor {
 
 	private void get(Table table, int colCount) throws SQLException,
 			UnsupportedEncodingException {
-		Record record = table.newLast();
+		BaseRecord record = table.newLast();
 		for (int n = 1; n <= colCount; ++n) {
 			int type = 0;
 			if (dbType == DBTypes.ORACLE) {

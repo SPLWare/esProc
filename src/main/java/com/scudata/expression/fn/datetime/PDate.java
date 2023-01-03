@@ -16,18 +16,24 @@ import com.scudata.util.Variant;
  *
  */
 public class PDate extends Function {
-	public Object calculate(Context ctx) {
-		if (param == null || !param.isLeaf()) {
+	/**
+	 * 检查表达式的有效性，无效则抛出异常
+	 */
+	public void checkValidity() {
+		if (param == null) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("pdate" + mm.getMessage("function.missingParam"));
+		} else if (!param.isLeaf()) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("pdate" + mm.getMessage("function.invalidParam"));
 		}
+	}
 
+	public Object calculate(Context ctx) {
 		Object result = param.getLeafExpression().calculate(ctx);
 		if (result == null) {
 			return null;
-		}
-
-		if (result instanceof String) {
+		} else if (result instanceof String) {
 			result = Variant.parseDate((String)result);
 		}
 

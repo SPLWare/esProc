@@ -135,14 +135,15 @@ public class DataStruct implements Externalizable, IRecord {
 	public DataStruct create(String []newFields) {
 		DataStruct ds = new DataStruct(newFields);
 		String []primary = this.primary;
+		
 		if (primary != null) {
 			int keyCount = primary.length;
 			int delCount = 0;
-			boolean []sign = new boolean[keyCount];
+			boolean []signs = new boolean[keyCount];
 			for (int i = 0; i < keyCount; ++i) {
 				if (ds.getFieldIndex(primary[i]) == -1) {
 					delCount++;
-					sign[i] = true;
+					signs[i] = true;
 				}
 			}
 
@@ -151,7 +152,7 @@ public class DataStruct implements Externalizable, IRecord {
 				if (delCount < keyCount) {
 					String []newPrimary = new String[keyCount - delCount];
 					for (int i = 0, seq = 0; i < keyCount; ++i) {
-						if (!sign[i]) {
+						if (!signs[i]) {
 							newPrimary[seq] = primary[i];
 							seq++;
 						}
@@ -161,6 +162,7 @@ public class DataStruct implements Externalizable, IRecord {
 				}
 			} else {
 				ds.setPrimary(primary);
+				ds.sign = sign;
 			}
 		}
 
@@ -351,6 +353,18 @@ public class DataStruct implements Externalizable, IRecord {
 		return pkIndex;
 	}
 
+	/**
+	 * 取主键数，如果没有设置主键则返回0
+	 * @return
+	 */
+	public int getPKCount() {
+		if (primary != null) {
+			return primary.length;
+		} else {
+			return 0;
+		}
+	}
+	
 	/**
 	 * 取基本建的索引，不包含更新键
 	 * @return int[]

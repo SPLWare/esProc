@@ -18,17 +18,23 @@ import com.scudata.resources.EngineMessage;
  *
  */
 public class To extends Function {
-
 	public Node optimize(Context ctx) {
-		if (param != null) param.optimize(ctx);
+		param.optimize(ctx);
 		return this;
 	}
 
-	public Object calculate(Context ctx) {
+	/**
+	 * 检查表达式的有效性，无效则抛出异常
+	 */
+	public void checkValidity() {
 		if (param == null) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("to" + mm.getMessage("function.missingParam"));
-		} else if (param.isLeaf()) {
+		}
+	}
+
+	public Object calculate(Context ctx) {
+		if (param.isLeaf()) {
 			Object o = param.getLeafExpression().calculate(ctx);
 			if (o instanceof Number) {
 				int end = ((Number)o).intValue();

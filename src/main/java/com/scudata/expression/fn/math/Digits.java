@@ -42,13 +42,21 @@ public class Digits extends Function {
 		return nums[c];
 	}
     
-	public Object calculate(Context ctx) {
-		IParam param = this.param;
-		if (param == null || param.isLeaf()) {
+	/**
+	 * 检查表达式的有效性，无效则抛出异常
+	 */
+	public void checkValidity() {
+		if (param == null) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("digits" + mm.getMessage("function.missingParam"));
+		} else if (param.isLeaf()) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("digits" + mm.getMessage("function.invalidParam"));
 		}
+	}
 
+	public Object calculate(Context ctx) {
+		IParam param = this.param;
 		int radix1 = 10;
 		int radix2 = 10;
 		if (param.getType() == IParam.Comma) {

@@ -14,35 +14,46 @@ import com.scudata.util.Variant;
  *
  */
 public class Loga extends Function {
+	/**
+	 * 检查表达式的有效性，无效则抛出异常
+	 */
+	public void checkValidity() {
+		if (param == null) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("lg" + mm.getMessage("function.missingParam"));
+		}
+	}
+
 	public Object calculate(Context ctx) {
 		Object result1=null;
 		Object result2=null;
-		MessageManager mm = EngineMessage.get();
-		if (param==null) {
-			throw new RQException("lg" +
-								  mm.getMessage("function.missingParam"));
-		}else if(param.isLeaf()){
+		if(param.isLeaf()){
 			result1 = param.getLeafExpression().calculate(ctx);
-			if (result1 == null) {
+			if (!(result1 instanceof Number)) {
+				MessageManager mm = EngineMessage.get();
 				throw new RQException("lg" + mm.getMessage("function.invalidParam"));
 			}
 		}else{
 			IParam sub1 = param.getSub(0);
 			IParam sub2 = param.getSub(1);
 			if (sub1 == null) {
+				MessageManager mm = EngineMessage.get();
 				throw new RQException("lg" + mm.getMessage("function.invalidParam"));
 			}
 			result1 = sub1.getLeafExpression().calculate(ctx);
-			if (result1==null || !(result1 instanceof Number)) {
+			if (!(result1 instanceof Number)) {
+				MessageManager mm = EngineMessage.get();
 				throw new RQException("The first param of lg" + mm.getMessage("function.paramTypeError"));
 			}
 			if(sub2!=null){
 				result2 = sub2.getLeafExpression().calculate(ctx);
 				if (result2 != null && !(result2 instanceof Number)) {
+					MessageManager mm = EngineMessage.get();
 					throw new RQException("The second param of lg" + mm.getMessage("function.paramTypeError"));
 				}
 			}
 		}
+		
 		double n=Variant.doubleValue(result1);
 		double b=10;
 		if (result2 != null) {

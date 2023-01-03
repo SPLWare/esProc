@@ -8,14 +8,17 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.TreeMap;
 
+import com.scudata.array.IArray;
 import com.scudata.common.IntArrayList;
 import com.scudata.common.Logger;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.BFileReader;
 import com.scudata.dm.BFileWriter;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.ComputeStack;
 import com.scudata.dm.Context;
+import com.scudata.dm.Current;
 import com.scudata.dm.DataStruct;
 import com.scudata.dm.Env;
 import com.scudata.dm.FileObject;
@@ -32,9 +35,9 @@ import com.scudata.dm.op.FilterJoin;
 import com.scudata.dm.op.IGroupsResult;
 import com.scudata.dm.op.Join;
 import com.scudata.dm.op.Operation;
-import com.scudata.dw.ColumnTableMetaData;
+import com.scudata.dw.ColPhyTable;
 import com.scudata.dw.IDWCursor;
-import com.scudata.dw.TableMetaData;
+import com.scudata.dw.PhyTable;
 import com.scudata.expression.CurrentSeq;
 import com.scudata.expression.Expression;
 import com.scudata.expression.Node;
@@ -73,7 +76,7 @@ public final class CursorUtil {
 	 * @param calcNames 汇总字段名数组
 	 * @param opt 选项
 	 * @param ctx 计算上下文
-	 * @return
+	 * @returns
 	 */
 	public static Table groups_m(Sequence src, Expression[] exps, String[] names,
 			Expression[] calcExps, String[] calcNames, String opt, Context ctx) {
@@ -90,18 +93,6 @@ public final class CursorUtil {
 		
 		int singleCount = len / threadCount;
 		int keyCount = exps == null ? 0 : exps.length;
-		int valCount = calcExps == null ? 0 : calcExps.length;
-		String option = opt == null ? "u" : opt + "u";
-		
-		if (valCount > 0) {			
-			// 生成结果表中统计列列名
-			if (calcNames == null) calcNames = new String[valCount];
-			for (int i = 0; i < valCount; ++i) {
-				if (calcNames[i] == null || calcNames[i].length() == 0) {
-					calcNames[i] = calcExps[i].getFieldName();
-				}
-			}
-		}
 		
 		// 生成分组任务并提交给线程池
 		ThreadPool pool = ThreadPool.instance();
@@ -117,36 +108,27 @@ public final class CursorUtil {
 			}
 
 			Context tmpCtx = ctx.newComputeContext();
-			Expression []tmpExps = null;
-			Expression []tmpCalcExps = null;
-			if (keyCount > 0) {
-				tmpExps = new Expression[keyCount];
-				for (int k = 0; k < keyCount; ++k) {
-					tmpExps [k] = exps[k].newExpression(tmpCtx);
-				}
-			}
-			
-			if (valCount > 0) {
-				tmpCalcExps = new Expression[valCount];
-				for (int v = 0; v < valCount; ++v) {
-					tmpCalcExps [v] = calcExps[v].newExpression(tmpCtx);
-				}
-			}
+			Expression []tmpExps = Operation.dupExpressions(exps, tmpCtx);
+			Expression []tmpCalcExps = Operation.dupExpressions(calcExps, tmpCtx);
 			
 			Sequence seq = src.get(start, end);
-			jobs[i] = new GroupsJob(seq, tmpExps, names, tmpCalcExps, calcNames, option, tmpCtx);
+			jobs[i] = new GroupsJob(seq, tmpExps, names, tmpCalcExps, calcNames, opt, tmpCtx);
 			pool.submit(jobs[i]);
 			start = end;
 		}
 		
 		// 等待分组任务执行完毕，并把结果添加到一个序表
 		Table result = null;
+		IGroupsResult groupsResult = null;
+		
 		for (int i = 0; i < threadCount; ++i) {
 			jobs[i].join();
+			groupsResult = jobs[i].getGroupsResult();
+			
 			if (result == null) {
-				result = jobs[i].getResult();
+				result =  groupsResult.getTempResult();
 			} else {
-				result.addAll(jobs[i].getResult());
+				result.addAll(groupsResult.getTempResult());
 			}
 		}
 		
@@ -163,19 +145,37 @@ public final class CursorUtil {
 			}
 		}
 
-		// 生成二次分组汇总表达式
-		Expression []valExps = null;
-		if (valCount > 0) {
-			valExps = new Expression[valCount];
-			for (int i = 0, q = keyCount + 1; i < valCount; ++i, ++q) {
-				Node gather = calcExps[i].getHome();
-				gather.prepare(ctx);
-				valExps[i] = gather.getRegatherExpression(q);
+		// 生成二次分组汇总表达式，avg可能被分成sum、count两列进行计算
+		Expression []valExps = groupsResult.getRegatherExpressions();
+		DataStruct tempDs = groupsResult.getRegatherDataStruct();
+		int tempFieldCount = tempDs.getFieldCount();
+		
+		if (keyCount > 0) {
+			if (names == null) {
+				names = new String[keyCount];
+			}
+			
+			for (int i = 0; i < keyCount; ++i) {
+				names[i] = tempDs.getFieldName(i);
 			}
 		}
 
+		if (tempFieldCount > keyCount) {
+			int gatherCount = tempFieldCount - keyCount;
+			calcNames = new String[gatherCount];
+			for (int i = 0; i < gatherCount; ++i) {
+				calcNames[i] = tempDs.getFieldName(keyCount + i);
+			}
+		}
+		
 		// 进行二次分组
-		return result.groups(keyExps, names, valExps, calcNames, opt, ctx);
+		result = result.groups(keyExps, names, valExps, calcNames, opt, ctx);
+		Expression []newExps = groupsResult.getResultExpressions();
+		if (newExps != null) {
+			return result.newTable(groupsResult.getResultDataStruct(), newExps, null, ctx);
+		} else {
+			return result;
+		}
 	}
 		
 	/**
@@ -233,7 +233,7 @@ public final class CursorUtil {
 			Sequence src = cursor.fetch(ICursor.FETCHCOUNT);
 			if (src == null || src.length() == 0) break;
 
-			Sequence.Current current = src.new Current();
+			Current current = new Current(src);
 			stack.push(current);
 
 			try {
@@ -243,7 +243,7 @@ public final class CursorUtil {
 						keys[k] = exps[k].calculate(ctx);
 					}
 
-					Record r;
+					BaseRecord r;
 					int hash = hashUtil.hashCode(keys);
 					if (groups[hash] == null) {
 						groups[hash] = new ListBase1(INIT_GROUPSIZE);
@@ -263,7 +263,7 @@ public final class CursorUtil {
 								r.setNormalFieldValue(f, val);
 							}
 						} else {
-							r = (Record)groups[hash].get(index);
+							r = (BaseRecord)groups[hash].get(index);
 							for (int v = 0, f = keyCount; v < valCount; ++v, ++f) {
 								Object val = gathers[v].gather(r.getNormalFieldValue(f), ctx);
 								r.setNormalFieldValue(f, val);
@@ -302,8 +302,11 @@ public final class CursorUtil {
 	 * @return 分组结果
 	 */
 	public static Sequence hashGroup(Sequence src, Expression[] exps, String opt, Context ctx) {
-		if (src == null || src.length() == 0) return new Sequence(0);
-
+		if (src == null || src.length() == 0) {
+			return new Sequence(0);
+		}
+		
+		int srcLen = src.length();
 		boolean isAll = true, isSort = true, isPos = false, isConj = false;
 		if (opt != null) {
 			if (opt.indexOf('1') != -1) isAll = false;
@@ -313,47 +316,60 @@ public final class CursorUtil {
 		}
 
 		int keyCount = exps.length;
-		int count = isAll ? keyCount + 1 : keyCount;
 		final int INIT_GROUPSIZE = HashUtil.getInitGroupSize();
-		HashUtil hashUtil = new HashUtil(src.length() / 2);
+		HashUtil hashUtil = new HashUtil(srcLen / 2);
 		ListBase1 []groups = new ListBase1[hashUtil.getCapacity()];
 		Sequence result = new Sequence(hashUtil.getCapacity());
+		
+		boolean isSingleField = keyCount == 1 && !isAll;
 		ListBase1 keyList = null;
 		if (isSort) {
 			keyList = new ListBase1(hashUtil.getCapacity());
 		}
 
 		ComputeStack stack = ctx.getComputeStack();
-		Sequence.Current current = src.new Current();
+		Current current = new Current(src);
 		stack.push(current);
 
 		try {
-			for (int i = 1, len = src.length(); i <= len; ++i) {
-				current.setCurrent(i);
-				Object []keys = new Object[count];
-				for (int k = 0; k < keyCount; ++k) {
-					keys[k] = exps[k].calculate(ctx);
-				}
+			if (isSingleField) {
+				Expression exp = exps[0];
+				for (int i = 1; i <= srcLen; ++i) {
+					current.setCurrent(i);
+					Object key = exp.calculate(ctx);
+					int hash = hashUtil.hashCode(key);
 
-				int hash = hashUtil.hashCode(keys, keyCount);
-				if (groups[hash] == null) {
-					if (isAll) {
-						Sequence group = new Sequence(INIT_GROUPSIZE);
-						group.add(isPos ? new Integer(i):current.getCurrent());
-						keys[keyCount] = group;
-						result.add(group);
-					} else {
+					if (groups[hash] == null) {
 						result.add(isPos ? new Integer(i):current.getCurrent());
+						groups[hash] = new ListBase1(INIT_GROUPSIZE);
+						groups[hash].add(key);
+						
+						if (isSort) {
+							keyList.add(key);
+						}
+					} else {
+						int index = groups[hash].binarySearch(key);
+						if (index < 1) {
+							result.add(isPos ? new Integer(i):current.getCurrent());
+							groups[hash].add(-index, key);
+							
+							if (isSort) {
+								keyList.add(key);
+							}
+						}
+					}
+				}
+			} else {
+				int count = isAll ? keyCount + 1 : keyCount;
+				for (int i = 1; i <= srcLen; ++i) {
+					current.setCurrent(i);
+					Object []keys = new Object[count];
+					for (int k = 0; k < keyCount; ++k) {
+						keys[k] = exps[k].calculate(ctx);
 					}
 
-					groups[hash] = new ListBase1(INIT_GROUPSIZE);
-					groups[hash].add(keys);
-					if (isSort) {
-						keyList.add(keys);
-					}
-				} else {
-					int index = HashUtil.bsearch_a(groups[hash], keys, keyCount);
-					if (index < 1) {
+					int hash = hashUtil.hashCode(keys, keyCount);
+					if (groups[hash] == null) {
 						if (isAll) {
 							Sequence group = new Sequence(INIT_GROUPSIZE);
 							group.add(isPos ? new Integer(i):current.getCurrent());
@@ -363,14 +379,32 @@ public final class CursorUtil {
 							result.add(isPos ? new Integer(i):current.getCurrent());
 						}
 
-						groups[hash].add(-index, keys);
+						groups[hash] = new ListBase1(INIT_GROUPSIZE);
+						groups[hash].add(keys);
 						if (isSort) {
 							keyList.add(keys);
 						}
 					} else {
-						if (isAll) {
-							Object []tmps = (Object[])groups[hash].get(index);
-							((Sequence)tmps[keyCount]).add(isPos ? new Integer(i):current.getCurrent());
+						int index = HashUtil.bsearch_a(groups[hash], keys, keyCount);
+						if (index < 1) {
+							if (isAll) {
+								Sequence group = new Sequence(INIT_GROUPSIZE);
+								group.add(isPos ? new Integer(i):current.getCurrent());
+								keys[keyCount] = group;
+								result.add(group);
+							} else {
+								result.add(isPos ? new Integer(i):current.getCurrent());
+							}
+
+							groups[hash].add(-index, keys);
+							if (isSort) {
+								keyList.add(keys);
+							}
+						} else {
+							if (isAll) {
+								Object []tmps = (Object[])groups[hash].get(index);
+								((Sequence)tmps[keyCount]).add(isPos ? new Integer(i):current.getCurrent());
+							}
 						}
 					}
 				}
@@ -386,9 +420,14 @@ public final class CursorUtil {
 				infos[i] = new PSortItem(i, keyList.get(i));
 			}
 
-			Comparator<Object> comparator = new ArrayComparator(keyCount);
+			Comparator<Object> comparator;
+			if (isSingleField) {
+				comparator = new BaseComparator();
+			} else {
+				comparator = new ArrayComparator(keyCount);
+			}
+			
 			comparator = new PSortComparator(comparator);
-
 			MultithreadUtil.sort(infos, 1, infos.length, comparator);
 
 			Sequence retSeries = new Sequence(len);
@@ -615,7 +654,7 @@ public final class CursorUtil {
 						Object []curValues = (Object[])group.get(cur);
 
 						if (start == -1) {
-							Record r = out.newLast();
+							BaseRecord r = out.newLast();
 							r.setNormalFieldValue(i, curValues[fcount]);
 							start = out.length();
 
@@ -633,7 +672,7 @@ public final class CursorUtil {
 						} else {
 							int end = out.length();
 							for (int p = start; p <= end; ++p) {
-								Record pr = (Record)out.getMem(p);
+								BaseRecord pr = (BaseRecord)out.getMem(p);
 								pr.setNormalFieldValue(i, curValues[fcount]);
 							}
 
@@ -641,8 +680,8 @@ public final class CursorUtil {
 								Object []tmp = (Object[])group.get(cur);
 								if (Variant.compareArrays(curValues, tmp, fcount) == 0) {
 									for (int p = start; p <= end; ++p) {
-										Record pr = (Record)out.getMem(p);
-										Record r = out.newLast(pr.getFieldValues());
+										BaseRecord pr = (BaseRecord)out.getMem(p);
+										BaseRecord r = out.newLast(pr.getFieldValues());
 										r.setNormalFieldValue(i, tmp[fcount]);
 									}
 								} else {
@@ -682,7 +721,7 @@ public final class CursorUtil {
 			groups[s] = group;
 			Expression []srcExps = exps[s];
 
-			Sequence.Current current = src.new Current();
+			Current current = new Current(src);
 			stack.push(current);
 
 			try {
@@ -736,7 +775,7 @@ public final class CursorUtil {
 			Sequence src = srcs[s];
 			Expression []srcExps = exps[s];
 
-			Sequence.Current current = src.new Current();
+			Current current = new Current(src);
 			stack.push(current);
 
 			try {
@@ -872,7 +911,7 @@ public final class CursorUtil {
 			int count = keyCount + 1;
 			ListBase1 [][]hashGroups = new ListBase1[hashUtil.getCapacity()][];
 			Sequence value = prevResult.fieldValues(0);
-			Sequence.Current current = value.new Current();
+			Current current = new Current(value);
 			stack.push(current);
 			
 			try {
@@ -909,7 +948,7 @@ public final class CursorUtil {
 			}
 			
 			value = srcs[next];
-			current = value.new Current();
+			current = new Current(value);
 			stack.push(current);
 			
 			try {
@@ -960,9 +999,9 @@ public final class CursorUtil {
 			int len = out.length();
 			prevResult = new Table(curNames, len);
 			for (int i = 1; i <= len; ++i) {
-				Record r = (Record)out.getMem(i);
-				Record nr = prevResult.newLast();
-				nr.set((Record)r.getNormalFieldValue(0));
+				BaseRecord r = (BaseRecord)out.getMem(i);
+				BaseRecord nr = prevResult.newLast();
+				nr.set((BaseRecord)r.getNormalFieldValue(0));
 				nr.setNormalFieldValue(next, r.getNormalFieldValue(1));
 			}
 		}
@@ -1019,7 +1058,7 @@ public final class CursorUtil {
 			
 			// 根据当前循环的表计算表达式的值并生成哈希集合
 			Sequence curSeq = srcs[s];
-			Sequence.Current current = curSeq.new Current();
+			Current current = new Current(curSeq);
 			stack.push(current);
 			int len = curSeq.length();
 			HashArraySet set = new HashArraySet(len);
@@ -1042,7 +1081,7 @@ public final class CursorUtil {
 			// 循环第一个序列到前面的哈希集合找匹配
 			len = seq.length();
 			Object []keys = new Object[keyCount];
-			current = seq.new Current();
+			current = new Current(seq);
 			stack.push(current);
 			
 			try {
@@ -1195,7 +1234,7 @@ public final class CursorUtil {
 		boolean hasC = option != null && option.indexOf('c') != -1;
 		boolean hasNewExps = false;
 		ComputeStack stack = ctx.getComputeStack();
-		Sequence.Current current = seq.new Current();
+		Current current = new Current(seq);
 		
 		//遍历处理每个f/T
 		int len = seq.length();
@@ -1210,13 +1249,13 @@ public final class CursorUtil {
 			if (fileTable[i] != null) {
 				int pkCount = curExps.length;
 				Object fileOrTable = fileTable[i];
-				ColumnTableMetaData table = null;
+				ColPhyTable table = null;
 				BFileReader reader = null;
 				Sequence pkSeq = new Sequence();
 				String [] refFields = null;
 				
-				if (fileOrTable instanceof ColumnTableMetaData) {
-					table = (ColumnTableMetaData) fileOrTable;
+				if (fileOrTable instanceof ColPhyTable) {
+					table = (ColPhyTable) fileOrTable;
 					int fcount = keys[i].length;
 					ArrayList<String> fieldList = new ArrayList<String>(fcount);
 					for (int j = 0; j < fcount; j++) {
@@ -1326,19 +1365,19 @@ public final class CursorUtil {
 		}
 		
 		int col = -1; // 字段在上一条记录的索引
-		Record prevRecord = null; // 上一条记录
+		BaseRecord prevRecord = null; // 上一条记录
 
 		if (exp == null || !(exp.getHome() instanceof CurrentSeq)) { // #
 			IndexTable indexTable = code.getIndexTable(exp, ctx);
 			if (indexTable == null) {
-				indexTable = IndexTable.instance(code, exp, ctx);
+				indexTable = code.newIndexTable(exp, ctx);
 			}
 			
 			if (isDiff) {
 				for (int i = 1, len = data.length(); i <= len; ++i) {
 					Object obj = data.getMem(i);
-					if (obj instanceof Record) {
-						Record cur = (Record)obj;
+					if (obj instanceof BaseRecord) {
+						BaseRecord cur = (BaseRecord)obj;
 						if (prevRecord == null || !prevRecord.isSameDataStruct(cur)) {
 							col = cur.getFieldIndex(fkName);
 							if (col < 0) {
@@ -1384,8 +1423,8 @@ public final class CursorUtil {
 				
 				for (int i = 1, len = data.length(); i <= len; ++i) {
 					Object obj = data.getMem(i);
-					if (obj instanceof Record) {
-						Record cur = (Record)obj;
+					if (obj instanceof BaseRecord) {
+						BaseRecord cur = (BaseRecord)obj;
 						if (prevRecord == null || !prevRecord.isSameDataStruct(cur)) {
 							col = cur.getFieldIndex(fkName);
 							if (col < 0) {
@@ -1413,8 +1452,8 @@ public final class CursorUtil {
 			} else {
 				for (int i = 1, len = data.length(); i <= len; ++i) {
 					Object obj = data.getMem(i);
-					if (obj instanceof Record) {
-						Record cur = (Record)obj;
+					if (obj instanceof BaseRecord) {
+						BaseRecord cur = (BaseRecord)obj;
 						if (prevRecord == null || !prevRecord.isSameDataStruct(cur)) {
 							col = cur.getFieldIndex(fkName);
 							if (col < 0) {
@@ -1439,8 +1478,8 @@ public final class CursorUtil {
 			int codeLen = code.length();
 			for (int i = 1, len = data.length(); i <= len; ++i) {
 				Object obj = data.getMem(i);
-				if (obj instanceof Record) {
-					Record cur = (Record)obj;
+				if (obj instanceof BaseRecord) {
+					BaseRecord cur = (BaseRecord)obj;
 					if (prevRecord == null || !prevRecord.isSameDataStruct(cur)) {
 						col = cur.getFieldIndex(fkName);
 						if (col < 0) {
@@ -1688,8 +1727,7 @@ public final class CursorUtil {
 	 * @return 差集序列
 	 */
 	public static Sequence diff(Sequence seq1, Sequence seq2) {
-		ListBase1 mems2 = seq2.getMems();
-		int len2 = mems2.size();
+		int len2 = seq2.length();
 		
 		// 把序列2建成哈希表
 		final int INIT_GROUPSIZE = HashUtil.getInitGroupSize();
@@ -1697,7 +1735,7 @@ public final class CursorUtil {
 		ListBase1 []groups = new ListBase1[hashUtil.getCapacity()];
 
 		for (int i = 1; i <= len2; ++i) {
-			Object val = mems2.get(i);
+			Object val = seq2.getMem(i);
 			int hash = hashUtil.hashCode(val);
 			if (groups[hash] == null) {
 				groups[hash] = new ListBase1(INIT_GROUPSIZE);
@@ -1712,13 +1750,12 @@ public final class CursorUtil {
 			}
 		}
 		
-		ListBase1 mems1 = seq1.getMems();
-		int len1 = mems1.size();
+		int len1 = seq1.length();
 		Sequence result = new Sequence(len1);
 		
 		// 遍历序列1的元素，然后根据哈希值到序列2的哈希表中查找是否有相同的元素
 		for (int i = 1; i <= len1; ++i) {
-			Object val = mems1.get(i);
+			Object val = seq1.getMem(i);
 			int hash = hashUtil.hashCode(val);
 			if (groups[hash] == null) {
 				result.add(val);
@@ -1749,8 +1786,7 @@ public final class CursorUtil {
 		}
 		
 		int keyCount = exps.length;
-		ListBase1 mems2 = seq2.getMems();
-		int len2 = mems2.size();
+		int len2 = seq2.length();
 		
 		// 把序列2按指定表达式的计算结果建成哈希表
 		final int INIT_GROUPSIZE = HashUtil.getInitGroupSize();
@@ -1758,7 +1794,7 @@ public final class CursorUtil {
 		ListBase1 []groups = new ListBase1[hashUtil.getCapacity()];
 
 		ComputeStack stack = ctx.getComputeStack();
-		Sequence.Current current = seq2.new Current();
+		Current current = new Current(seq2);
 		stack.push(current);
 
 		try {
@@ -1786,11 +1822,10 @@ public final class CursorUtil {
 			stack.pop();
 		}
 		
-		ListBase1 mems1 = seq1.getMems();
-		int len1 = mems1.size();
+		int len1 = seq1.length();
 		Sequence result = new Sequence(len1);
 		
-		current = seq1.new Current();
+		current = new Current(seq1);
 		stack.push(current);
 
 		try {
@@ -1804,11 +1839,11 @@ public final class CursorUtil {
 
 				int hash = hashUtil.hashCode(keys, keyCount);
 				if (groups[hash] == null) {
-					result.add(mems1.get(i));
+					result.add(seq1.getMem(i));
 				} else {
 					int index = HashUtil.bsearch_a(groups[hash], keys, keyCount);
 					if (index < 1) {
-						result.add(mems1.get(i));
+						result.add(seq1.getMem(i));
 					} else {
 						groups[hash].remove(index);
 					}
@@ -1828,7 +1863,7 @@ public final class CursorUtil {
 	 * @return 并集序列
 	 */
 	public static Sequence union(Sequence seq1, Sequence seq2) {
-		ListBase1 mems1 = seq1.getMems();
+		IArray mems1 = seq1.getMems();
 		int len1 = mems1.size();
 		
 		// 把序列2建成哈希表
@@ -1852,7 +1887,7 @@ public final class CursorUtil {
 			}
 		}
 		
-		ListBase1 mems2 = seq2.getMems();
+		IArray mems2 = seq2.getMems();
 		int len2 = mems2.size();
 		Sequence result = new Sequence(len1 + len2);
 		result.addAll(seq1);
@@ -1890,7 +1925,7 @@ public final class CursorUtil {
 		}
 		
 		int keyCount = exps.length;
-		ListBase1 mems1 = seq1.getMems();
+		IArray mems1 = seq1.getMems();
 		int len1 = mems1.size();
 		
 		// 把序列2按指定表达式的计算结果建成哈希表
@@ -1899,7 +1934,7 @@ public final class CursorUtil {
 		ListBase1 []groups = new ListBase1[hashUtil.getCapacity()];
 
 		ComputeStack stack = ctx.getComputeStack();
-		Sequence.Current current = seq1.new Current();
+		Current current = new Current(seq1);
 		stack.push(current);
 
 		try {
@@ -1927,12 +1962,12 @@ public final class CursorUtil {
 			stack.pop();
 		}
 		
-		ListBase1 mems2 = seq2.getMems();
+		IArray mems2 = seq2.getMems();
 		int len2 = mems2.size();
 		Sequence result = new Sequence(len1 + len2);
 		result.addAll(seq1);
 		
-		current = seq2.new Current();
+		current = new Current(seq2);
 		stack.push(current);
 
 		try {
@@ -1970,7 +2005,7 @@ public final class CursorUtil {
 	 * @return 交集序列
 	 */
 	public static Sequence isect(Sequence seq1, Sequence seq2) {
-		ListBase1 mems2 = seq2.getMems();
+		IArray mems2 = seq2.getMems();
 		int len2 = mems2.size();
 		
 		// 把序列2建成哈希表
@@ -1994,7 +2029,7 @@ public final class CursorUtil {
 			}
 		}
 		
-		ListBase1 mems1 = seq1.getMems();
+		IArray mems1 = seq1.getMems();
 		int len1 = mems1.size();
 		Sequence result = new Sequence(len1);
 		
@@ -2028,7 +2063,7 @@ public final class CursorUtil {
 		}
 		
 		int keyCount = exps.length;
-		ListBase1 mems2 = seq2.getMems();
+		IArray mems2 = seq2.getMems();
 		int len2 = mems2.size();
 		
 		// 把序列2按指定表达式的计算结果建成哈希表
@@ -2037,7 +2072,7 @@ public final class CursorUtil {
 		ListBase1 []groups = new ListBase1[hashUtil.getCapacity()];
 
 		ComputeStack stack = ctx.getComputeStack();
-		Sequence.Current current = seq2.new Current();
+		Current current = new Current(seq2);
 		stack.push(current);
 
 		try {
@@ -2065,11 +2100,11 @@ public final class CursorUtil {
 			stack.pop();
 		}
 		
-		ListBase1 mems1 = seq1.getMems();
+		IArray mems1 = seq1.getMems();
 		int len1 = mems1.size();
 		Sequence result = new Sequence(len1);
 		
-		current = seq1.new Current();
+		current = new Current(seq1);
 		stack.push(current);
 
 		try {
@@ -2200,7 +2235,7 @@ public final class CursorUtil {
 					Sequence group = (Sequence)groups.getMem(i);
 					IGroupsResult gresult = IGroupsResult.instance(exps, names, calcExps, calcNames, null, ctx);
 					gresult.push(group, ctx);
-					group = gresult.getTempResult();
+					Table result = gresult.getTempResult();
 					
 					// 找到当前大分组对应的临时文件并把首次汇总结果追加到临时文件中
 					Object gval = group.calc(1, gexp, ctx);
@@ -2213,7 +2248,7 @@ public final class CursorUtil {
 						map.put(gval, writer);
 					}
 					
-					writer.write(group);
+					writer.write(result);
 				}
 			}
 		} catch (IOException e) {
@@ -2329,16 +2364,16 @@ public final class CursorUtil {
 	 * @return 组序列
 	 */
 	public static Sequence group_n(Sequence seq, int capacity) {
-		ListBase1 mems = seq.getMems();
+		IArray mems = seq.getMems();
 		int size = mems.size();
 		Sequence result = new Sequence(size / 4); // 分组后序列
-		ListBase1 resultMems = result.getMems();
+		IArray resultMems = result.getMems();
 		int len = 0;
-		Record r;
+		BaseRecord r;
 		Object value;
 		
 		for (int i = 1; i <= size; ++i) {
-			r = (Record)mems.get(i);
+			r = (BaseRecord)mems.get(i);
 			value = r.getNormalFieldValue(0);
 			if (!(value instanceof Number)) {
 				MessageManager mm = EngineMessage.get();
@@ -2535,7 +2570,7 @@ public final class CursorUtil {
 	 * @param cs 游标
 	 * @return TableMetaData
 	 */
-	public static TableMetaData getTableMetaData(ICursor cs) {
+	public static PhyTable getTableMetaData(ICursor cs) {
 		if (cs instanceof IDWCursor) {
 			return ((IDWCursor)cs).getTableMetaData();
 		} else if (cs instanceof MultipathCursors) {
@@ -2619,36 +2654,134 @@ public final class CursorUtil {
 	 * 把排列转成游标
 	 * @param data 排列
 	 * @param pathCount 游标的路数
+	 * @param opt p：假定对第一字段有序，分段时不会将第一字段相同记录分到两段
 	 * @param ctx
 	 * @return ICursor
 	 */
-	public static ICursor cursor(Sequence data, int pathCount, Context ctx) {
+	public static ICursor cursor(Sequence data, int pathCount, String opt, Context ctx) {
 		int len = data.length();
+		boolean psign = opt != null && opt.indexOf('p') != -1;
+		
 		if (pathCount > 1 && pathCount < len) {
-			int blockSize = len / pathCount;
-			ICursor []cursors = new ICursor[pathCount];
 			if (ctx == null) {
 				ctx = new Context();
 			}
 			
+			int blockSize = len / pathCount;
+			ICursor []cursors = new ICursor[pathCount];
+			int start = 1;
+			
 			for (int i = 1; i <= pathCount; ++i) {
-				int start;
 				int end;
-				
 				if (i == pathCount) {
-					start = blockSize * (i - 1) + 1;
 					end = len + 1;
 				} else {
-					start = blockSize * (i - 1) + 1;
 					end = blockSize * i + 1;
 				}
 				
-				cursors[i - 1] = new MemoryCursor(data, start, end);
+				if (start >= end) {
+					cursors[i - 1] = data.cursor(start, start);
+					continue;
+				}
+				
+				if (psign) {
+					// 分段时不会将第一字段相同记录分到两段
+					Record record = (Record)data.get(end - 1);
+					Object value = record.getNormalFieldValue(0);
+					int next = end;
+					end = len + 1;
+					
+					for (; next <= len; ++next) {
+						record = (Record)data.get(next);
+						if (!Variant.isEquals(record.getNormalFieldValue(0), value)) {
+							end = next;
+							break;
+						}
+					}
+				}
+				
+				cursors[i - 1] = data.cursor(start, end);
+				start = end;
 			}
 			
 			return new MultipathCursors(cursors, ctx);
 		} else {
-			return new MemoryCursor(data);
+			return data.cursor();
 		}
+	}
+	
+	/**
+	 * 把排列转成多路游标，取出指定的路
+	 * @param data 排列
+	 * @param path 要取的路
+	 * @param pathCount 游标的路数
+	 * @param opt p：假定对第一字段有序，分段时不会将第一字段相同记录分到两段
+	 * @param ctx
+	 * @return ICursor
+	 */
+	public static ICursor cursor(Sequence data, int path, int pathCount, String opt, Context ctx) {
+		int len = data.length();
+		if (opt == null || opt.indexOf('p') == -1) {
+			int blockSize = len / pathCount;
+			int start;
+			int end;
+			
+			if (path == pathCount) {
+				start = blockSize * (path - 1) + 1;
+				end = len + 1;
+			} else {
+				start = blockSize * (path - 1) + 1;
+				end = blockSize * path + 1;
+			}
+			
+			return data.cursor(start, end);
+		}
+		
+		ICursor cs = null;
+		if (pathCount > 1 && pathCount < len) {
+			if (ctx == null) {
+				ctx = new Context();
+			}
+			
+			int blockSize = len / pathCount;
+			int start = 1;
+			
+			for (int i = 1; i <= path; ++i) {
+				int end;
+				if (i == pathCount) {
+					end = len + 1;
+				} else {
+					end = blockSize * i + 1;
+				}
+				
+				if (start >= end) {
+					cs = data.cursor(start, start);
+					break;
+				}
+				
+				// 分段时不会将第一字段相同记录分到两段
+				Record record = (Record)data.get(end - 1);
+				Object value = record.getNormalFieldValue(0);
+				int next = end;
+				end = len + 1;
+				
+				for (; next <= len; ++next) {
+					record = (Record)data.get(next);
+					if (!Variant.isEquals(record.getNormalFieldValue(0), value)) {
+						end = next;
+						break;
+					}
+				}
+				
+				cs = data.cursor(start, end);
+				start = end;
+			}
+		} else if (path == 1) {
+			cs = data.cursor();
+		} else {
+			cs = data.cursor(len + 1, len + 1);
+		}
+		
+		return cs;
 	}
 }

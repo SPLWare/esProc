@@ -348,6 +348,10 @@ public class ListBase1 implements Externalizable, IRecord {
 		System.arraycopy(elementData, 1, a, 0, size);
 		return a;
 	}
+	
+	Object[] getDatas() {
+		return elementData;
+	}
 
 	/**
 	 * Returns the element at the specified position in this list.
@@ -412,15 +416,18 @@ public class ListBase1 implements Externalizable, IRecord {
 			int cur = seqs[i];
 			i++;
 
-			int next = (i < len ? seqs[i] : size() + 1);
-			int moveCount = next - cur - 1;
+			int moveCount;
+			if (i < len) {
+				moveCount = seqs[i] - cur - 1;
+			} else {
+				moveCount = size - cur;
+			}
 
 			if (moveCount > 0) {
 				System.arraycopy(elementData, cur + 1, elementData, cur - delCount, moveCount);
-				delCount++;
-			} else if (moveCount == 0) {
-				delCount++;
 			}
+			
+			delCount++;
 		}
 
 		for (int i = 0; i < delCount; ++i) {

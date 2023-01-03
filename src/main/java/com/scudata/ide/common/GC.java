@@ -315,14 +315,11 @@ public class GC {
 	public static final String TIPSOFDAY = "help.tipsofday";
 	/** Clean up memory */
 	public static final String MEMORYTIDY = "help.memorytidy";
-	/** Check for updates */
-	public static final String CHECK_UPDATE = "help.update";
 
 	/** About dialog */
 	public static final short iABOUT = 305;
 	/** Clean up memory */
 	public static final short iMEMORYTIDY = 310;
-	
 
 	/** Edit menus 400-500 */
 	/** Tips */
@@ -446,11 +443,11 @@ public class GC {
 	 * In order to distinguish it from general menus, esProc's menu items need
 	 * to add this constant.
 	 */
-	public static final short MENU_SPL = 4000;
+	public static final short MENU_SPL = 1000;
 	/**
 	 * EsProc¡¯s pop-up menu adds this constant
 	 */
-	public static final short POPMENU_SPL = 5000;
+	public static final short POPMENU_SPL = 3000;
 
 	/**
 	 * Indentation of the tips

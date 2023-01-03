@@ -9,15 +9,16 @@ import com.scudata.dm.Sequence;
 import com.scudata.dm.cursor.ICursor;
 import com.scudata.dm.cursor.MemoryCursor;
 import com.scudata.dm.cursor.MultipathCursors;
-import com.scudata.dw.ColumnTableMetaData;
-import com.scudata.dw.ITableMetaData;
+import com.scudata.dm.op.Operation;
+import com.scudata.dw.ColPhyTable;
+import com.scudata.dw.IPhyTable;
 import com.scudata.dw.JoinCursor;
 import com.scudata.dw.JoinCursor2;
 import com.scudata.expression.Expression;
 import com.scudata.expression.IParam;
 import com.scudata.expression.Node;
 import com.scudata.expression.ParamInfo2;
-import com.scudata.expression.TableMetaDataFunction;
+import com.scudata.expression.PhyTableFunction;
 import com.scudata.expression.operator.And;
 import com.scudata.resources.EngineMessage;
 
@@ -27,7 +28,7 @@ import com.scudata.resources.EngineMessage;
  * @author RunQian
  *
  */
-public class New extends TableMetaDataFunction {
+public class New extends PhyTableFunction {
 	public Object calculate(Context ctx) {
 		if (param == null) {
 			MessageManager mm = EngineMessage.get();
@@ -121,13 +122,12 @@ public class New extends TableMetaDataFunction {
 		String []names = pi.getExpressionStrs2();
 		
 		if (JoinCursor.isColTable(table)) {
-			return _new((ColumnTableMetaData)table, cursor, obj, csNames, filter, exps,	names, fkNames, codes, opts, option, ctx);
+			return _new((ColPhyTable)table, cursor, obj, csNames, filter, exps,	names, fkNames, codes, opts, option, ctx);
 		} else {
 			return _new(table, cursor, obj, filter, exps, names, fkNames, codes, opts, ctx);
 		}
-	
 	}
-	
+
 	/**
 	 * 提取new、news的第一个参数 (A/cs:K)
 	 * @param param
@@ -171,7 +171,7 @@ public class New extends TableMetaDataFunction {
 		return objs;
 	}
 	
-	public static  Object _new(ColumnTableMetaData table, ICursor cursor, Object obj, 
+	public static  Object _new(ColPhyTable table, ICursor cursor, Object obj, 
 			String[] csNames, Expression filter, Expression []exps, String[] names, 
 			String []fkNames, Sequence []codes, String[] opts, String option, Context ctx) {
 		int type = 0x01;
@@ -185,12 +185,13 @@ public class New extends TableMetaDataFunction {
 				if (filter != null) {
 					w = filter.newExpression(ctx); // 分段并行读取时需要复制表达式，同一个表达式不支持并行运算
 				}
-				ICursor cs = new JoinCursor(table, exps, names, cursors[i], csNames, type, option, w, fkNames, codes, opts, ctx);
+				Expression[] exps_ = Operation.dupExpressions(exps, ctx);
+				ICursor cs = cursors[i].attachNews(table, csNames, w, exps_, names, fkNames, codes, opts, option, type, ctx);
 				cursors[i] = cs;
 			}
 			return new MultipathCursors(cursors, ctx);
 		}
-		ICursor cs = new JoinCursor(table, exps, names, cursor, csNames, type, option, filter, fkNames, codes, opts, ctx);
+		ICursor cs = cursor.attachNews(table, csNames, filter, exps, names, fkNames, codes, opts, option, type, ctx);
 		if (obj instanceof Sequence) {
 			return cs.fetch();
 		} else {
@@ -198,7 +199,7 @@ public class New extends TableMetaDataFunction {
 		}
 	}
 	
-	public static Object _new(ITableMetaData table, ICursor cursor, Object obj, Expression filter, Expression []exps,
+	public static Object _new(IPhyTable table, ICursor cursor, Object obj, Expression filter, Expression []exps,
 			String[] names, String []fkNames, Sequence []codes, String[] opts, Context ctx) {
 		if (cursor instanceof MultipathCursors) {
 			return JoinCursor2.makeMultiJoinCursor(table, exps, names, (MultipathCursors)cursor, filter, fkNames, codes, opts, 1, ctx);

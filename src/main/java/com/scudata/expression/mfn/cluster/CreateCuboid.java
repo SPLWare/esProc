@@ -11,14 +11,14 @@ import com.scudata.dm.Sequence;
 import com.scudata.dm.cursor.ICursor;
 import com.scudata.dm.cursor.MemoryCursor;
 import com.scudata.dw.Cuboid;
-import com.scudata.expression.ClusterTableMetaDataFunction;
+import com.scudata.expression.ClusterPhyTableFunction;
 import com.scudata.expression.Expression;
 import com.scudata.expression.IParam;
 import com.scudata.expression.ParamInfo2;
 import com.scudata.parallel.ClusterCursor;
 import com.scudata.resources.EngineMessage;
 
-public class CreateCuboid  extends ClusterTableMetaDataFunction {
+public class CreateCuboid  extends ClusterPhyTableFunction {
 
 	public Object calculate(Context ctx) {
 		String C;

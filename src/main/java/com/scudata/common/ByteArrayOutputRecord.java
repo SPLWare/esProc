@@ -26,6 +26,10 @@ public class ByteArrayOutputRecord {
 	public void writeByte(byte v) throws IOException {
 		out.write(v);
 	}
+	
+	public void writeByte(int v) throws IOException {
+		out.write(v);
+	}
 
 	public void writeBytes(byte[] v) throws IOException {
 		if (v == null) {

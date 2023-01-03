@@ -49,8 +49,18 @@ public class SystemExec extends Function {
 	}
 
 	public Node optimize(Context ctx) {
-		if (param != null) param.optimize(ctx);
+		param.optimize(ctx);
 		return this;
+	}
+
+	/**
+	 * 检查表达式的有效性，无效则抛出异常
+	 */
+	public void checkValidity() {
+		if (param == null) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("system" + mm.getMessage("function.missingParam"));
+		}
 	}
 
 	public Object calculate(Context ctx) {
@@ -58,11 +68,6 @@ public class SystemExec extends Function {
 		if (js != null && js.getAppHome() != null) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException(mm.getMessage("license.fpNotSupport") + "system");
-		}
-
-		if (param == null) {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException("system" + mm.getMessage("function.missingParam"));
 		}
 
 		String cmd = null;

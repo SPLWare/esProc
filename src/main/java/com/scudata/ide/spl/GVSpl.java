@@ -4,7 +4,6 @@ import com.scudata.ide.common.AppMenu;
 import com.scudata.ide.common.AppToolBar;
 import com.scudata.ide.common.GV;
 import com.scudata.ide.common.ToolBarPropertyBase;
-import com.scudata.ide.common.control.JWindowNames;
 import com.scudata.ide.spl.base.JTabbedParam;
 import com.scudata.ide.spl.base.PanelSplWatch;
 import com.scudata.ide.spl.base.PanelValue;
@@ -40,11 +39,6 @@ public class GVSpl extends GV {
 	 * 搜索对话框
 	 */
 	public static DialogSearch searchDialog = null;
-
-	/**
-	 * 匹配的窗口名称
-	 */
-	public static JWindowNames matchWindow = null;
 
 	/**
 	 * 取集算器菜单

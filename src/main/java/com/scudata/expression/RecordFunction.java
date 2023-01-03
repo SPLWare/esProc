@@ -1,6 +1,6 @@
 package com.scudata.expression;
 
-import com.scudata.dm.Record;
+import com.scudata.dm.BaseRecord;
 
 /**
  * 记录成员函数基类
@@ -9,13 +9,13 @@ import com.scudata.dm.Record;
  *
  */
 public abstract class RecordFunction extends MemberFunction {
-	protected Record srcRecord; // 源记录
+	protected BaseRecord srcRecord; // 源记录
 	
 	public boolean isLeftTypeMatch(Object obj) {
-		return obj instanceof Record;
+		return obj instanceof BaseRecord;
 	}
 	
 	public void setDotLeftObject(Object obj) {
-		srcRecord = (Record)obj;
+		srcRecord = (BaseRecord)obj;
 	}
 }

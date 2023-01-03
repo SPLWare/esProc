@@ -6,6 +6,7 @@ import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
+import com.scudata.array.IArray;
 import com.scudata.common.RQException;
 
 /**
@@ -700,7 +701,7 @@ public class ObjectWriter extends OutputStream implements ObjectOutput {
 		}
 	}
 	
-	private void writeRecord(Record r) throws IOException {
+	private void writeRecord(BaseRecord r) throws IOException {
 		write(RECORD);
 		String []names = r.getFieldNames();
 		int fcount = names.length;
@@ -716,7 +717,7 @@ public class ObjectWriter extends OutputStream implements ObjectOutput {
 	}
 
 	private void writeSequence(Sequence seq) throws IOException {
-		ListBase1 mems = seq.getMems();
+		IArray mems = seq.getMems();
 		int len = mems.size();
 
 		DataStruct ds = seq.dataStruct();
@@ -737,7 +738,7 @@ public class ObjectWriter extends OutputStream implements ObjectOutput {
 
 			writeInt(len);
 			for (int i = 1; i <= len; ++i) {
-				Record r = (Record)mems.get(i);
+				BaseRecord r = (BaseRecord)mems.get(i);
 				Object []vals = r.getFieldValues();
 				for (int f = 0; f < fcount; ++f) {
 					writeObject(vals[f]);
@@ -784,8 +785,8 @@ public class ObjectWriter extends OutputStream implements ObjectOutput {
 			writeInt(((Number)obj).intValue());
 		} else if (obj instanceof Sequence) {
 			writeSequence((Sequence)obj);
-		} else if (obj instanceof Record) {
-			writeRecord((Record)obj);
+		} else if (obj instanceof BaseRecord) {
+			writeRecord((BaseRecord)obj);
 		} else if (obj instanceof byte[]) {
 			write(BLOB);
 			writeBytes((byte[])obj);

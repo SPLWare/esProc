@@ -1,8 +1,9 @@
 package com.scudata.util;
 
+import com.scudata.array.IArray;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Env;
 import com.scudata.dm.ListBase1;
-import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 
 /**
@@ -106,7 +107,7 @@ public final class HashUtil {
 			}
 		}
 
-		return hash(hash);
+		return hashCode(hash);
 	}
 
 	/**
@@ -116,7 +117,7 @@ public final class HashUtil {
 	 */
 	public int hashCode(Object val) {
 		if (val != null) {
-			return hash(val.hashCode());
+			return hashCode(val.hashCode());
 		} else {
 			return 0;
 		}
@@ -151,7 +152,21 @@ public final class HashUtil {
         return (int)(value ^ (value >>> 32));
     }
 
-	private int hash(int h) {
+	public int hashCode(int h) {
+		h = (h + (h >> 16)) % capacity;
+		if (h > 0) {
+			return h;
+		} else {
+			return -h;
+		}
+	}
+	
+	public int hashCode(int []hs, int count) {
+		int h = hs[0];
+		for (int i = 1; i < count; ++i) {
+			h = 31 * h + hs[i];
+		}
+
 		h = (h + (h >> 16)) % capacity;
 		if (h > 0) {
 			return h;
@@ -160,6 +175,44 @@ public final class HashUtil {
 		}
 	}
 
+	/**
+	 * 取IArray数组指定成员的哈希值
+	 * @param keys IArray数组
+	 * @param pos 索引，从1开始计数
+	 * @param count key个数
+	 * @return
+	 */
+	public int hashCode(IArray key, int pos) {
+		int h = key.hashCode(pos);
+		h = (h + (h >> 16)) % capacity;
+		if (h > 0) {
+			return h;
+		} else {
+			return -h;
+		}
+	}
+	
+	/**
+	 * 取IArray数组指定成员的哈希值
+	 * @param keys IArray数组
+	 * @param pos 索引，从1开始计数
+	 * @param count key个数
+	 * @return
+	 */
+	public int hashCode(IArray[] keys, int pos, int count) {
+		int h = keys[0].hashCode(pos);
+		for (int i = 1; i < count; ++i) {
+			h = 31 * h + keys[i].hashCode(pos);
+		}
+
+		h = (h + (h >> 16)) % capacity;
+		if (h > 0) {
+			return h;
+		} else {
+			return -h;
+		}
+	}
+	
 	/**
 	 * 按多字段主键值查找记录
 	 * @param table 成员为记录
@@ -173,7 +226,7 @@ public final class HashUtil {
 
 		while (low <= high) {
 			int mid = (low + high) >> 1;
-			Record r = (Record)table.get(mid);
+			BaseRecord r = (BaseRecord)table.get(mid);
 
 			for (int c = 0; c < colCount; ++c) {
 				cmp = Variant.compare(r.getNormalFieldValue(c), keys[c], true);
@@ -203,7 +256,7 @@ public final class HashUtil {
 
 		while (low <= high) {
 			int mid = (low + high) >> 1;
-			Record r = (Record)table.get(mid);
+			BaseRecord r = (BaseRecord)table.get(mid);
 			cmp = Variant.compare(r.getNormalFieldValue(0), key, true);
 
 			if (cmp < 0)

@@ -2,14 +2,20 @@ package com.scudata.expression;
 
 import java.util.List;
 
+import com.scudata.array.BoolArray;
+import com.scudata.array.IArray;
+import com.scudata.array.ObjectArray;
 import com.scudata.cellset.INormalCell;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.ComputeStack;
 import com.scudata.dm.Context;
+import com.scudata.dm.Current;
+import com.scudata.dm.Env;
 import com.scudata.dm.ParamList;
 import com.scudata.dm.Sequence;
 import com.scudata.resources.EngineMessage;
+import com.scudata.util.Variant;
 
 /**
  * 表达式节点基类
@@ -149,7 +155,7 @@ public abstract class Node {
 		MessageManager mm = EngineMessage.get();
 		throw new RQException(mm.getMessage("Expression.logicError"));
 	}
-
+	
 	/**
 	 * 计算节点的值
 	 * @param ctx 计算上下文
@@ -272,7 +278,7 @@ public abstract class Node {
 		}
 
 		ComputeStack stack = ctx.getComputeStack();
-		Sequence.Current current = stack.getSequenceCurrent((Sequence)obj);
+		Current current = stack.getSequenceCurrent((Sequence)obj);
 		if (current == null) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("[]" + mm.getMessage("engine.seriesNotInStack"));
@@ -297,7 +303,7 @@ public abstract class Node {
 		}
 
 		ComputeStack stack = ctx.getComputeStack();
-		Sequence.Current current = stack.getSequenceCurrent((Sequence)obj);
+		Current current = stack.getSequenceCurrent((Sequence)obj);
 		if (current == null) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("[]" + mm.getMessage("engine.seriesNotInStack"));
@@ -322,7 +328,7 @@ public abstract class Node {
 		}
 
 		ComputeStack stack = ctx.getComputeStack();
-		Sequence.Current current = stack.getSequenceCurrent((Sequence)obj);
+		Current current = stack.getSequenceCurrent((Sequence)obj);
 		if (current == null) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("[]" + mm.getMessage("engine.seriesNotInStack"));
@@ -382,6 +388,40 @@ public abstract class Node {
 	}
 	
 	/**
+	 * 计算所有记录的值，汇总到结果数组上
+	 * @param result 结果数组
+	 * @param resultSeqs 每条记录对应的结果数组的序号
+	 * @param ctx 计算上下文
+	 * @return IArray 结果数组
+	 */
+	public IArray gather(IArray result, int []resultSeqs, Context ctx) {
+		IArray array = calculateAll(ctx);
+		if (result == null) {
+			result = array.newInstance(Env.INITGROUPSIZE);
+		}
+		
+		for (int i = 1, len = array.size(); i <= len; ++i) {
+			// 新产生的组取第一条记录的值，已经产生的组则不再计算
+			if (result.size() < resultSeqs[i]) {
+				result.add(array, i);
+			}
+		}
+		
+		return result;
+	}
+
+	/**
+	 * 多程程分组的二次汇总运算
+	 * @param result 一个线程的分组结果
+	 * @param result2 另一个线程的分组结果
+	 * @param seqs 另一个线程的分组跟第一个线程分组的对应关系
+	 * @param ctx 计算上下文
+	 * @return
+	 */
+	public void gather2(IArray result, IArray result2, int []seqs, Context ctx) {
+	}
+	
+	/**
 	 * 取二次汇总对应的表达式
 	 * 多线程分组时，每个线程算出一个分组结果，最后需要在第一次分组结果上再做二次分组
 	 * @param q 汇总字段序号
@@ -410,6 +450,15 @@ public abstract class Node {
 	}
 	
 	/**
+	 * 对第一次分组得到的汇总列进行首次处理，处理后的值还要参加二次分组运算
+	 * @param array 计算列的值
+	 * @return IArray
+	 */
+	public IArray finish1(IArray array) {
+		return array;
+	}
+	
+	/**
 	 * 是否需要对最终汇总值进行处理
 	 * @return true：需要，false：不需要
 	 */
@@ -424,5 +473,129 @@ public abstract class Node {
 	 */
 	public Object finish(Object val) {
 		return val;
+	}
+	
+	/**
+	 * 对分组结束得到的汇总列进行最终处理
+	 * @param array 计算列的值
+	 * @return IArray
+	 */
+	public IArray finish(IArray array) {
+		return array;
+	}
+
+	/**
+	 * 检查表达式的有效性，无效则抛出异常
+	 */
+	public void checkValidity() {
+		// 派生类继承此方法检查语法是否有效
+	}
+	
+	/**
+	 * 判断是否可以计算全部的值，有赋值运算时只能一行行计算
+	 * @return
+	 */
+	public boolean canCalculateAll() {
+		return true;
+	}
+
+	/**
+	 * 计算出所有行的结果
+	 * @param ctx 计算上行文
+	 * @return IArray
+	 */
+	public IArray calculateAll(Context ctx) {
+		Current current = ctx.getComputeStack().getTopCurrent();
+		int len = current.length();
+		ObjectArray array = new ObjectArray(len);
+		array.setTemporary(true);
+		
+		for (int i = 1; i <= len; ++i) {
+			current.setCurrent(i);
+			Object value = calculate(ctx);
+			array.push(value);
+		}
+		
+		return array;
+	}
+	
+	/**
+	 * 计算signArray中取值为sign的行
+	 * @param ctx
+	 * @param signArray 行标识数组
+	 * @param sign 标识
+	 * @return IArray
+	 */
+	public IArray calculateAll(Context ctx, IArray signArray, boolean sign) {
+		Current current = ctx.getComputeStack().getTopCurrent();
+		int len = current.length();
+		ObjectArray array = new ObjectArray(len);
+		array.setTemporary(true);
+		
+		for (int i = 1; i <= len; ++i) {
+			if (signArray.isTrue(i) == sign) {
+				current.setCurrent(i);
+				Object value = calculate(ctx);
+				array.push(value);
+			} else {
+				array.push(null);
+			}
+		}
+		
+		return array;
+	}
+	
+	/**
+	 * 计算逻辑与运算符&&的右侧表达式
+	 * @param ctx 计算上行文
+	 * @param leftResult &&左侧表达式的计算结果
+	 * @return BoolArray
+	 */
+	public BoolArray calculateAnd(Context ctx, IArray leftResult) {
+		BoolArray result = leftResult.isTrue();
+		int size = result.size();
+		Current current = ctx.getComputeStack().getTopCurrent();
+		
+		for (int i = 1; i <= size; ++i) {
+			if (result.isTrue(i)) {
+				current.setCurrent(i);
+				Object value = calculate(ctx);
+				if (Variant.isFalse(value)) {
+					result.set(i, false);
+				}
+			}
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * 返回节点是否单调递增的
+	 * @return true：是单调递增的，false：不是
+	 */
+	public boolean isMonotone() {
+		return false;
+	}
+	
+	/**
+	 * 计算表达式的取值范围
+	 * @param ctx 计算上行文
+	 * @return
+	 */
+	public IArray calculateRange(Context ctx) {
+		if (isMonotone()) {
+			return calculateAll(ctx);
+		} else {
+			return null;
+		}
+	}
+	
+	/**
+	 * 判断给定的值域范围是否满足当前条件表达式
+	 * @param ctx 计算上行文
+	 * @return 取值参照Relation. -1：值域范围内没有满足条件的值，0：值域范围内有满足条件的值，1：值域范围的值都满足条件
+	 */
+	public int isValueRangeMatch(Context ctx) {
+		return Relation.PARTICALMATCH;
 	}
 }

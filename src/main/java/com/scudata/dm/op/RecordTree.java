@@ -3,7 +3,7 @@ package com.scudata.dm.op;
 import java.util.ArrayDeque;
 import java.util.Deque;
 
-import com.scudata.dm.Record;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Sequence;
 import com.scudata.util.Variant;
 
@@ -23,14 +23,14 @@ public class RecordTree {
 	 *
 	 */
 	public static class Node {
-		Record r;
+		BaseRecord r;
 		boolean color;
 		
 		Node parent;
 		Node left;
 		Node right;
 		
-		public Node(Record r, boolean color) {
+		public Node(BaseRecord r, boolean color) {
 			this.r = r;
 			this.color = color;
 		}
@@ -50,7 +50,7 @@ public class RecordTree {
 	public RecordTree() {
 	}
 	
-	public RecordTree(Record r) {
+	public RecordTree(BaseRecord r) {
 		root = new Node(r, BLACK);
 	}
 	

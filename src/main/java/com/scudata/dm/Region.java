@@ -5,9 +5,9 @@ package com.scudata.dm;
  * @author WangXiaoJun
  *
  */
-class Region {
-	int start; // 起始位置（包括）
-	int end; // 结束位置（包括）
+public class Region {
+	public int start; // 起始位置（包括）
+	public int end; // 结束位置（包括）
 	
 	public Region(int start, int end) {
 		this.start = start;

@@ -2,7 +2,10 @@ package com.scudata.thread;
 
 import java.lang.reflect.Array;
 import java.util.Comparator;
+import java.util.Date;
 
+import com.scudata.array.DateArray;
+import com.scudata.array.StringArray;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
@@ -10,9 +13,9 @@ import com.scudata.dm.DataStruct;
 import com.scudata.dm.Env;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
-import com.scudata.dm.comparator.BaseComparator;
 import com.scudata.expression.Expression;
 import com.scudata.resources.EngineMessage;
+import com.scudata.util.Variant;
 
 /**
  * 多线程计算工具类
@@ -59,7 +62,9 @@ public final class MultithreadUtil {
 	 * @param toIndex 结束位置，不包含
 	 */
 	public static void sort(Object []vals, int fromIndex, int toIndex) {
-		sort(vals, fromIndex, toIndex, new BaseComparator());
+		rangeCheck(vals.length, fromIndex, toIndex);
+		Object []aux = cloneSubarray(vals, fromIndex, toIndex);
+		mergeSort(aux, vals, fromIndex, toIndex, -fromIndex, Env.getParallelNum());
 	}
 
 	/**
@@ -142,7 +147,7 @@ public final class MultithreadUtil {
 				
 				dest[j] = tmp;
 			}
-
+			
 			return;
 		}
 
@@ -165,6 +170,93 @@ public final class MultithreadUtil {
 		// Merge sorted halves (now in src) into dest
 		for(int i = destLow, p = low, q = mid; i < destHigh; i++) {
 			if (q >= high || p < mid && c.compare(src[p], src[q]) <= 0) {
+				dest[i] = src[p++];
+			} else {
+				dest[i] = src[q++];
+			}
+		}
+	}
+	static void mergeSort(Object []src, Object[] dest, int low, int high, int off, int threadCount) {
+		// 如果元素数小于设定值或者线程数小于2则单线程排序
+		int length = high - low;
+		if (length <= SINGLE_PROSS_COUNT || threadCount < 2) {
+			mergeSort(src, dest, low, high, off);
+			return;
+		}
+		
+		// 数据分成两部分，当前线程对前半部分排序，然后启动一个线程对后半部分排序
+		// 每一部分可能还会继续多线程排序
+		int destLow  = low;
+		int destHigh = high;
+		low  += off;
+		high += off;
+		int mid = (low + high) >> 1;
+		
+		SortJob job1 = new SortJob(dest, src, low, mid, -off, threadCount / 2);
+		SortJob job2 = new SortJob(dest, src, mid, high, -off, threadCount / 2);
+		
+		// 产生一个线程对后半部分进行排序
+		new JobThread(job2).start();
+		
+		// 当前线程对前半部分进行排序
+		job1.run();
+		
+		// 等待任务执行完毕
+		job2.join();
+		
+		if (Variant.compare(src[mid - 1], src[mid], true) <= 0) {
+			System.arraycopy(src, low, dest, destLow, length);
+			return;
+		}
+
+		// Merge sorted halves (now in src) into dest
+		for(int i = destLow, p = low, q = mid; i < destHigh; i++) {
+			if (q >= high || p < mid && Variant.compare(src[p], src[q], true) <= 0) {
+				dest[i] = src[p++];
+			} else {
+				dest[i] = src[q++];
+			}
+		}
+	}
+
+	// 单线程归并排序
+	private static void mergeSort(Object []src, Object []dest, int low, int high, int off) {
+		int length = high - low;
+		if (length < INSERTIONSORT_THRESHOLD) {
+			// Insertion sort on smallest arrays
+			Object tmp;
+			for (int i = low + 1, j = i; i < high; j = ++i) {
+				tmp = dest[i];
+				for (; j > low && Variant.compare(dest[j - 1], tmp, true) > 0; --j) {
+					dest[j] = dest[j - 1];
+					//swap(dest, j, j - 1);
+				}
+				
+				dest[j] = tmp;
+			}
+			
+			return;
+		}
+
+		// Recursively sort halves of dest into src
+		int destLow  = low;
+		int destHigh = high;
+		low  += off;
+		high += off;
+		int mid = (low + high) >> 1;
+		mergeSort(dest, src, low, mid, -off);
+		mergeSort(dest, src, mid, high, -off);
+
+		// If list is already sorted, just copy from src to dest.  This is an
+		// optimization that results in faster sorts for nearly ordered lists.
+		if (Variant.compare(src[mid-1], src[mid], true) <= 0) {
+		   System.arraycopy(src, low, dest, destLow, length);
+		   return;
+		}
+
+		// Merge sorted halves (now in src) into dest
+		for(int i = destLow, p = low, q = mid; i < destHigh; i++) {
+			if (q >= high || p < mid && Variant.compare(src[p], src[q], true) <= 0) {
 				dest[i] = src[p++];
 			} else {
 				dest[i] = src[q++];
@@ -550,5 +642,515 @@ public final class MultithreadUtil {
 		}
 
 		return result;
+	}
+
+	/**
+	 * 对整数数组进行多线程排序
+	 * @param vals 整数数组
+	 * @param fromIndex 起始位置，包含
+	 * @param toIndex 结束位置，不包含
+	 */
+	public static void sort(int []vals, int fromIndex, int toIndex) {
+		rangeCheck(vals.length, fromIndex, toIndex);
+		int n = toIndex - fromIndex;
+		int []aux = new int[n];
+		System.arraycopy(vals, fromIndex, aux, 0, n);
+		mergeSort(aux, vals, fromIndex, toIndex, -fromIndex, Env.getParallelNum());
+	}
+
+	static void mergeSort(int []src, int[] dest, int low, int high, int off, int threadCount) {
+		// 如果元素数小于设定值或者线程数小于2则单线程排序
+		int length = high - low;
+		if (length <= SINGLE_PROSS_COUNT || threadCount < 2) {
+			mergeSort(src, dest, low, high, off);
+			return;
+		}
+		
+		// 数据分成两部分，当前线程对前半部分排序，然后启动一个线程对后半部分排序
+		// 每一部分可能还会继续多线程排序
+		int destLow  = low;
+		int destHigh = high;
+		low  += off;
+		high += off;
+		int mid = (low + high) >> 1;
+		
+		IntSortJob job1 = new IntSortJob(dest, src, low, mid, -off, threadCount / 2);
+		IntSortJob job2 = new IntSortJob(dest, src, mid, high, -off, threadCount / 2);
+		
+		// 产生一个线程对后半部分进行排序
+		new JobThread(job2).start();
+		
+		// 当前线程对前半部分进行排序
+		job1.run();
+		
+		// 等待任务执行完毕
+		job2.join();
+		
+		if (src[mid - 1] <= src[mid]) {
+			System.arraycopy(src, low, dest, destLow, length);
+			return;
+		}
+
+		// Merge sorted halves (now in src) into dest
+		for(int i = destLow, p = low, q = mid; i < destHigh; i++) {
+			if (q >= high || p < mid && src[p] <= src[q]) {
+				dest[i] = src[p++];
+			} else {
+				dest[i] = src[q++];
+			}
+		}
+	}
+
+	// 单线程归并排序
+	private static void mergeSort(int []src, int []dest, int low, int high, int off) {
+		int length = high - low;
+		if (length < INSERTIONSORT_THRESHOLD) {
+			// Insertion sort on smallest arrays
+			int tmp;
+			for (int i = low + 1, j = i; i < high; j = ++i) {
+				tmp = dest[i];
+				for (; j > low && dest[j - 1] > tmp; --j) {
+					dest[j] = dest[j - 1];
+					//swap(dest, j, j - 1);
+				}
+				
+				dest[j] = tmp;
+			}
+			
+			return;
+		}
+
+		// Recursively sort halves of dest into src
+		int destLow  = low;
+		int destHigh = high;
+		low  += off;
+		high += off;
+		int mid = (low + high) >> 1;
+		mergeSort(dest, src, low, mid, -off);
+		mergeSort(dest, src, mid, high, -off);
+
+		// If list is already sorted, just copy from src to dest.  This is an
+		// optimization that results in faster sorts for nearly ordered lists.
+		if (src[mid-1] <= src[mid]) {
+		   System.arraycopy(src, low, dest, destLow, length);
+		   return;
+		}
+
+		// Merge sorted halves (now in src) into dest
+		for(int i = destLow, p = low, q = mid; i < destHigh; i++) {
+			if (q >= high || p < mid && src[p] <= src[q]) {
+				dest[i] = src[p++];
+			} else {
+				dest[i] = src[q++];
+			}
+		}
+	}
+
+	/**
+	 * 对长整数数组进行多线程排序
+	 * @param vals 长整数数组
+	 * @param fromIndex 起始位置，包含
+	 * @param toIndex 结束位置，不包含
+	 */
+	public static void sort(long []vals, int fromIndex, int toIndex) {
+		rangeCheck(vals.length, fromIndex, toIndex);
+		int n = toIndex - fromIndex;
+		long []aux = new long[n];
+		System.arraycopy(vals, fromIndex, aux, 0, n);
+		mergeSort(aux, vals, fromIndex, toIndex, -fromIndex, Env.getParallelNum());
+	}
+
+	static void mergeSort(long []src, long[] dest, int low, int high, int off, int threadCount) {
+		// 如果元素数小于设定值或者线程数小于2则单线程排序
+		int length = high - low;
+		if (length <= SINGLE_PROSS_COUNT || threadCount < 2) {
+			mergeSort(src, dest, low, high, off);
+			return;
+		}
+		
+		// 数据分成两部分，当前线程对前半部分排序，然后启动一个线程对后半部分排序
+		// 每一部分可能还会继续多线程排序
+		int destLow  = low;
+		int destHigh = high;
+		low  += off;
+		high += off;
+		int mid = (low + high) >> 1;
+		
+		LongSortJob job1 = new LongSortJob(dest, src, low, mid, -off, threadCount / 2);
+		LongSortJob job2 = new LongSortJob(dest, src, mid, high, -off, threadCount / 2);
+		
+		// 产生一个线程对后半部分进行排序
+		new JobThread(job2).start();
+		
+		// 当前线程对前半部分进行排序
+		job1.run();
+		
+		// 等待任务执行完毕
+		job2.join();
+		
+		if (src[mid - 1] <= src[mid]) {
+			System.arraycopy(src, low, dest, destLow, length);
+			return;
+		}
+
+		// Merge sorted halves (now in src) into dest
+		for(int i = destLow, p = low, q = mid; i < destHigh; i++) {
+			if (q >= high || p < mid && src[p] <= src[q]) {
+				dest[i] = src[p++];
+			} else {
+				dest[i] = src[q++];
+			}
+		}
+	}
+
+	// 单线程归并排序
+	private static void mergeSort(long []src, long []dest, int low, int high, int off) {
+		int length = high - low;
+		if (length < INSERTIONSORT_THRESHOLD) {
+			// Insertion sort on smallest arrays
+			long tmp;
+			for (int i = low + 1, j = i; i < high; j = ++i) {
+				tmp = dest[i];
+				for (; j > low && dest[j - 1] > tmp; --j) {
+					dest[j] = dest[j - 1];
+					//swap(dest, j, j - 1);
+				}
+				
+				dest[j] = tmp;
+			}
+			
+			return;
+		}
+
+		// Recursively sort halves of dest into src
+		int destLow  = low;
+		int destHigh = high;
+		low  += off;
+		high += off;
+		int mid = (low + high) >> 1;
+		mergeSort(dest, src, low, mid, -off);
+		mergeSort(dest, src, mid, high, -off);
+
+		// If list is already sorted, just copy from src to dest.  This is an
+		// optimization that results in faster sorts for nearly ordered lists.
+		if (src[mid-1] <= src[mid]) {
+		   System.arraycopy(src, low, dest, destLow, length);
+		   return;
+		}
+
+		// Merge sorted halves (now in src) into dest
+		for(int i = destLow, p = low, q = mid; i < destHigh; i++) {
+			if (q >= high || p < mid && src[p] <= src[q]) {
+				dest[i] = src[p++];
+			} else {
+				dest[i] = src[q++];
+			}
+		}
+	}
+
+	/**
+	 * 对双精度浮点数数组进行多线程排序
+	 * @param vals 双精度浮点数数组
+	 * @param fromIndex 起始位置，包含
+	 * @param toIndex 结束位置，不包含
+	 */
+	public static void sort(double []vals, int fromIndex, int toIndex) {
+		rangeCheck(vals.length, fromIndex, toIndex);
+		int n = toIndex - fromIndex;
+		double []aux = new double[n];
+		System.arraycopy(vals, fromIndex, aux, 0, n);
+		mergeSort(aux, vals, fromIndex, toIndex, -fromIndex, Env.getParallelNum());
+	}
+
+	static void mergeSort(double []src, double[] dest, int low, int high, int off, int threadCount) {
+		// 如果元素数小于设定值或者线程数小于2则单线程排序
+		int length = high - low;
+		if (length <= SINGLE_PROSS_COUNT || threadCount < 2) {
+			mergeSort(src, dest, low, high, off);
+			return;
+		}
+		
+		// 数据分成两部分，当前线程对前半部分排序，然后启动一个线程对后半部分排序
+		// 每一部分可能还会继续多线程排序
+		int destLow  = low;
+		int destHigh = high;
+		low  += off;
+		high += off;
+		int mid = (low + high) >> 1;
+		
+		DoubleSortJob job1 = new DoubleSortJob(dest, src, low, mid, -off, threadCount / 2);
+		DoubleSortJob job2 = new DoubleSortJob(dest, src, mid, high, -off, threadCount / 2);
+		
+		// 产生一个线程对后半部分进行排序
+		new JobThread(job2).start();
+		
+		// 当前线程对前半部分进行排序
+		job1.run();
+		
+		// 等待任务执行完毕
+		job2.join();
+		
+		if (Double.compare(src[mid - 1], src[mid]) <= 0) {
+			System.arraycopy(src, low, dest, destLow, length);
+			return;
+		}
+
+		// Merge sorted halves (now in src) into dest
+		for(int i = destLow, p = low, q = mid; i < destHigh; i++) {
+			if (q >= high || p < mid && Double.compare(src[p], src[q]) <= 0) {
+				dest[i] = src[p++];
+			} else {
+				dest[i] = src[q++];
+			}
+		}
+	}
+
+	// 单线程归并排序
+	private static void mergeSort(double []src, double []dest, int low, int high, int off) {
+		int length = high - low;
+		if (length < INSERTIONSORT_THRESHOLD) {
+			// Insertion sort on smallest arrays
+			double tmp;
+			for (int i = low + 1, j = i; i < high; j = ++i) {
+				tmp = dest[i];
+				for (; j > low && Double.compare(dest[j - 1], tmp) > 0; --j) {
+					dest[j] = dest[j - 1];
+					//swap(dest, j, j - 1);
+				}
+				
+				dest[j] = tmp;
+			}
+			
+			return;
+		}
+
+		// Recursively sort halves of dest into src
+		int destLow  = low;
+		int destHigh = high;
+		low  += off;
+		high += off;
+		int mid = (low + high) >> 1;
+		mergeSort(dest, src, low, mid, -off);
+		mergeSort(dest, src, mid, high, -off);
+
+		// If list is already sorted, just copy from src to dest.  This is an
+		// optimization that results in faster sorts for nearly ordered lists.
+		if (Double.compare(src[mid-1], src[mid]) <= 0) {
+		   System.arraycopy(src, low, dest, destLow, length);
+		   return;
+		}
+
+		// Merge sorted halves (now in src) into dest
+		for(int i = destLow, p = low, q = mid; i < destHigh; i++) {
+			if (q >= high || p < mid && Double.compare(src[p], src[q]) <= 0) {
+				dest[i] = src[p++];
+			} else {
+				dest[i] = src[q++];
+			}
+		}
+	}
+
+	/**
+	 * 对字符串数组进行多线程排序
+	 * @param vals 字符串数组
+	 * @param fromIndex 起始位置，包含
+	 * @param toIndex 结束位置，不包含
+	 */
+	public static void sort(String []vals, int fromIndex, int toIndex) {
+		rangeCheck(vals.length, fromIndex, toIndex);
+		int n = toIndex - fromIndex;
+		String []aux = new String[n];
+		System.arraycopy(vals, fromIndex, aux, 0, n);
+		mergeSort(aux, vals, fromIndex, toIndex, -fromIndex, Env.getParallelNum());
+	}
+
+	static void mergeSort(String []src, String[] dest, int low, int high, int off, int threadCount) {
+		// 如果元素数小于设定值或者线程数小于2则单线程排序
+		int length = high - low;
+		if (length <= SINGLE_PROSS_COUNT || threadCount < 2) {
+			mergeSort(src, dest, low, high, off);
+			return;
+		}
+		
+		// 数据分成两部分，当前线程对前半部分排序，然后启动一个线程对后半部分排序
+		// 每一部分可能还会继续多线程排序
+		int destLow  = low;
+		int destHigh = high;
+		low  += off;
+		high += off;
+		int mid = (low + high) >> 1;
+		
+		StringSortJob job1 = new StringSortJob(dest, src, low, mid, -off, threadCount / 2);
+		StringSortJob job2 = new StringSortJob(dest, src, mid, high, -off, threadCount / 2);
+		
+		// 产生一个线程对后半部分进行排序
+		new JobThread(job2).start();
+		
+		// 当前线程对前半部分进行排序
+		job1.run();
+		
+		// 等待任务执行完毕
+		job2.join();
+		
+		if (StringArray.compare(src[mid - 1], src[mid]) <= 0) {
+			System.arraycopy(src, low, dest, destLow, length);
+			return;
+		}
+
+		// Merge sorted halves (now in src) into dest
+		for(int i = destLow, p = low, q = mid; i < destHigh; i++) {
+			if (q >= high || p < mid && StringArray.compare(src[p], src[q]) <= 0) {
+				dest[i] = src[p++];
+			} else {
+				dest[i] = src[q++];
+			}
+		}
+	}
+
+	// 单线程归并排序
+	private static void mergeSort(String []src, String []dest, int low, int high, int off) {
+		int length = high - low;
+		if (length < INSERTIONSORT_THRESHOLD) {
+			// Insertion sort on smallest arrays
+			String tmp;
+			for (int i = low + 1, j = i; i < high; j = ++i) {
+				tmp = dest[i];
+				for (; j > low && StringArray.compare(dest[j - 1], tmp) > 0; --j) {
+					dest[j] = dest[j - 1];
+					//swap(dest, j, j - 1);
+				}
+				
+				dest[j] = tmp;
+			}
+			
+			return;
+		}
+
+		// Recursively sort halves of dest into src
+		int destLow  = low;
+		int destHigh = high;
+		low  += off;
+		high += off;
+		int mid = (low + high) >> 1;
+		mergeSort(dest, src, low, mid, -off);
+		mergeSort(dest, src, mid, high, -off);
+
+		// If list is already sorted, just copy from src to dest.  This is an
+		// optimization that results in faster sorts for nearly ordered lists.
+		if (StringArray.compare(src[mid-1], src[mid]) <= 0) {
+		   System.arraycopy(src, low, dest, destLow, length);
+		   return;
+		}
+
+		// Merge sorted halves (now in src) into dest
+		for(int i = destLow, p = low, q = mid; i < destHigh; i++) {
+			if (q >= high || p < mid && StringArray.compare(src[p], src[q]) <= 0) {
+				dest[i] = src[p++];
+			} else {
+				dest[i] = src[q++];
+			}
+		}
+	}
+
+	/**
+	 * 对日期数组进行多线程排序
+	 * @param vals 日期数组
+	 * @param fromIndex 起始位置，包含
+	 * @param toIndex 结束位置，不包含
+	 */
+	public static void sort(Date []vals, int fromIndex, int toIndex) {
+		rangeCheck(vals.length, fromIndex, toIndex);
+		int n = toIndex - fromIndex;
+		Date []aux = new Date[n];
+		System.arraycopy(vals, fromIndex, aux, 0, n);
+		mergeSort(aux, vals, fromIndex, toIndex, -fromIndex, Env.getParallelNum());
+	}
+
+	static void mergeSort(Date []src, Date[] dest, int low, int high, int off, int threadCount) {
+		// 如果元素数小于设定值或者线程数小于2则单线程排序
+		int length = high - low;
+		if (length <= SINGLE_PROSS_COUNT || threadCount < 2) {
+			mergeSort(src, dest, low, high, off);
+			return;
+		}
+		
+		// 数据分成两部分，当前线程对前半部分排序，然后启动一个线程对后半部分排序
+		// 每一部分可能还会继续多线程排序
+		int destLow  = low;
+		int destHigh = high;
+		low  += off;
+		high += off;
+		int mid = (low + high) >> 1;
+		
+		DateSortJob job1 = new DateSortJob(dest, src, low, mid, -off, threadCount / 2);
+		DateSortJob job2 = new DateSortJob(dest, src, mid, high, -off, threadCount / 2);
+		
+		// 产生一个线程对后半部分进行排序
+		new JobThread(job2).start();
+		
+		// 当前线程对前半部分进行排序
+		job1.run();
+		
+		// 等待任务执行完毕
+		job2.join();
+		
+		if (DateArray.compare(src[mid - 1], src[mid]) <= 0) {
+			System.arraycopy(src, low, dest, destLow, length);
+			return;
+		}
+
+		// Merge sorted halves (now in src) into dest
+		for(int i = destLow, p = low, q = mid; i < destHigh; i++) {
+			if (q >= high || p < mid && DateArray.compare(src[p], src[q]) <= 0) {
+				dest[i] = src[p++];
+			} else {
+				dest[i] = src[q++];
+			}
+		}
+	}
+
+	// 单线程归并排序
+	private static void mergeSort(Date []src, Date []dest, int low, int high, int off) {
+		int length = high - low;
+		if (length < INSERTIONSORT_THRESHOLD) {
+			// Insertion sort on smallest arrays
+			Date tmp;
+			for (int i = low + 1, j = i; i < high; j = ++i) {
+				tmp = dest[i];
+				for (; j > low && DateArray.compare(dest[j - 1], tmp) > 0; --j) {
+					dest[j] = dest[j - 1];
+					//swap(dest, j, j - 1);
+				}
+				
+				dest[j] = tmp;
+			}
+			
+			return;
+		}
+
+		// Recursively sort halves of dest into src
+		int destLow  = low;
+		int destHigh = high;
+		low  += off;
+		high += off;
+		int mid = (low + high) >> 1;
+		mergeSort(dest, src, low, mid, -off);
+		mergeSort(dest, src, mid, high, -off);
+
+		// If list is already sorted, just copy from src to dest.  This is an
+		// optimization that results in faster sorts for nearly ordered lists.
+		if (DateArray.compare(src[mid-1], src[mid]) <= 0) {
+		   System.arraycopy(src, low, dest, destLow, length);
+		   return;
+		}
+
+		// Merge sorted halves (now in src) into dest
+		for(int i = destLow, p = low, q = mid; i < destHigh; i++) {
+			if (q >= high || p < mid && DateArray.compare(src[p], src[q]) <= 0) {
+				dest[i] = src[p++];
+			} else {
+				dest[i] = src[q++];
+			}
+		}
 	}
 }

@@ -2,15 +2,9 @@ package com.scudata.dm.op;
 
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
-import com.scudata.dm.ComputeStack;
 import com.scudata.dm.Context;
 import com.scudata.dm.DataStruct;
-import com.scudata.dm.ListBase1;
-import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
-import com.scudata.dm.Table;
-import com.scudata.dw.IColumnCursorUtil;
-import com.scudata.dm.Sequence.Current;
 import com.scudata.expression.Expression;
 import com.scudata.expression.Function;
 import com.scudata.resources.EngineMessage;
@@ -27,7 +21,7 @@ public class Derive extends Operation  {
 	
 	private int oldColCount; // 源字段数
 	private DataStruct newDs; // 结果集数据结构
-	private boolean containNull; // 是否保留null
+	//private boolean containNull; // 是否保留null
 	
 	private int level = 0;
 	
@@ -40,7 +34,7 @@ public class Derive extends Operation  {
 		this.exps = exps;
 		this.names = names;
 		this.opt = opt;
-		this.containNull = opt == null || opt.indexOf('i') == -1;
+		//this.containNull = opt == null || opt.indexOf('i') == -1;
 		this.level = level;
 	}
 	
@@ -104,71 +98,9 @@ public class Derive extends Operation  {
 			return seq.derive(opt);
 		} else if (level > 1) {
 			return seq.derive(names, exps, opt, ctx, level);
+		} else {
+			DataStruct newDs = getNewDataStruct(seq);
+			return seq.derive(newDs, exps, opt, ctx);
 		}
-		
-		DataStruct newDs = getNewDataStruct(seq);
-		int oldColCount = this.oldColCount;
-		Expression[] exps = this.exps;
-		int colCount = exps.length;
-		
-		if (seq.isColumnTable() && IColumnCursorUtil.util != null) {
-			return IColumnCursorUtil.util.derive(seq, exps, newDs, containNull, ctx);
-		}
-		
-		ListBase1 mems = seq.getMems();
-		int len = mems.size();
-		Table table = new Table(newDs, len);
-
-		ComputeStack stack = ctx.getComputeStack();
-		Current newCurrent = table.new Current();
-		stack.push(newCurrent);
-		Current current = seq.new Current();
-		stack.push(current);
-
-		try {
-			if (containNull) {
-				for (int i = 1; i <= len; ++i) {
-					Record or = (Record)mems.get(i);
-					Record r = table.newLast(or.getFieldValues());
-					
-					newCurrent.setCurrent(i);
-					current.setCurrent(i);
-
-					// 计算新字段
-					for (int c = 0; c < colCount; ++c) {
-						r.setNormalFieldValue(c + oldColCount, exps[c].calculate(ctx));
-					}
-				}
-			} else {
-				ListBase1 tMems = table.getMems();
-				
-				Next:
-				for (int i = 1, q = 1; i <= len; ++i) {
-					Record or = (Record)mems.get(i);
-					Record r = table.newLast(or.getFieldValues());
-					
-					newCurrent.setCurrent(q);
-					current.setCurrent(i);
-
-					// 计算新字段
-					for (int c = 0; c < colCount; ++c) {
-						Object obj = exps[c].calculate(ctx);
-						if (obj != null) {
-							r.setNormalFieldValue(c + oldColCount, obj);
-						} else {
-							tMems.remove(q); // 计算exps可能依赖于新产生的记录
-							continue Next;
-						}
-					}
-					
-					++q;
-				}
-			}
-		} finally {
-			stack.pop();
-			stack.pop();
-		}
-		
-		return table;
 	}
 }

@@ -27,7 +27,7 @@ import com.scudata.resources.EngineMessage;
 public class IndexCursor extends ICursor {
 	private int BUFFER_SIZE = 4096;
 	
-	private TableMetaData table;
+	private PhyTable table;
 	private String []fields;//取出字段
 	private String []ifields;//索引字段
 	private String opt;
@@ -64,7 +64,7 @@ public class IndexCursor extends ICursor {
 	private int blockSize;
 	
 	private boolean isPrimaryTable;//是否基表
-	private TableMetaData baseTable;
+	private PhyTable baseTable;
 	private boolean []isBaseIndex; //取出字段在主表还是子表
 	
 	//以下是附表时使用
@@ -91,7 +91,7 @@ public class IndexCursor extends ICursor {
 	 * @param recNum 结果的记录号
 	 * @param opt
 	 */
-	public IndexCursor(TableMetaData table, String []fields, String []ifields, long []recNum, String opt) {
+	public IndexCursor(PhyTable table, String []fields, String []ifields, long []recNum, String opt) {
 		this(table, fields, ifields, recNum, opt, null);
 	}
 	
@@ -105,7 +105,7 @@ public class IndexCursor extends ICursor {
 	 * @param opt
 	 * @param ctx
 	 */
-	public IndexCursor(TableMetaData table, String []fields, String []ifields, long []pos, String opt, Context ctx) {
+	public IndexCursor(PhyTable table, String []fields, String []ifields, long []pos, String opt, Context ctx) {
 		this.table = table;
 		this.fields = fields;
 		this.ifields = ifields;
@@ -113,7 +113,7 @@ public class IndexCursor extends ICursor {
 		this.ctx = ctx;
 		this.opt = opt;
 		
-		isRow = table instanceof RowTableMetaData;
+		isRow = table instanceof RowPhyTable;
 		isPrimaryTable = table.parent == null;
 		
 		if (isRow) {
@@ -131,7 +131,7 @@ public class IndexCursor extends ICursor {
 	 * @param ifields 索引字段
 	 * @param values 结果的值
 	 */
-	public IndexCursor(TableMetaData table, String []fields, String []ifields, Object []values) {
+	public IndexCursor(PhyTable table, String []fields, String []ifields, Object []values) {
 		this.table = table;
 		this.fields = fields;
 		this.ifields = ifields;
@@ -180,7 +180,7 @@ public class IndexCursor extends ICursor {
 			isSorted = true;
 		}
 		
-		RowTableMetaData table = (RowTableMetaData) this.table;
+		RowPhyTable table = (RowPhyTable) this.table;
 		dataBlockCount = table.getDataBlockCount();
 		blockSize = table.getGroupTable().blockSize;
 		
@@ -252,7 +252,7 @@ public class IndexCursor extends ICursor {
 			posCount = pos.length;
 			isSorted = true;
 		}
-		ColumnTableMetaData table = (ColumnTableMetaData) this.table;
+		ColPhyTable table = (ColPhyTable) this.table;
 		dataBlockCount = table.getDataBlockCount();
 
 		if (fields == null) {
@@ -269,7 +269,7 @@ public class IndexCursor extends ICursor {
 					String field = fields[i];
 					ColumnMetaData col = table.getColumn(field);
 					if (col == null) {
-						col = ((ColumnTableMetaData) baseTable).getColumn(field);
+						col = ((ColPhyTable) baseTable).getColumn(field);
 					}
 					if (col != null) {
 						columns[i] = col;
@@ -308,7 +308,7 @@ public class IndexCursor extends ICursor {
 		if (!isPrimaryTable) {
 			baseTable = table.parent;
 			for (int i = 0; i < colCount; ++i) {
-				boolean b = null != ((ColumnTableMetaData) baseTable).getColumn(fields[i]);
+				boolean b = null != ((ColPhyTable) baseTable).getColumn(fields[i]);
 				isBaseIndex[i] = b;
 				if (b) {
 					needBaseTable = true;
@@ -503,7 +503,7 @@ public class IndexCursor extends ICursor {
 			if (rest == 0) {
 				for(int i = 0; i < colCount; i++) {
 					pos[i] = segmentReaders[i].readLong40();
-					if (columns[i].isDim()) {
+					if (columns[i].hasMaxMinValues()) {
 						segmentReaders[i].skipObject();
 						segmentReaders[i].skipObject();
 						segmentReaders[i].skipObject();
@@ -527,11 +527,11 @@ public class IndexCursor extends ICursor {
 					bufReaders = new BufferReader[colCount];
 					for (int f = 0; f < colCount; ++f) {
 						colReaders[f].seek(pos[f]);
-						bufReaders[f] = colReaders[f].readBlockData(pos[f]);
+						bufReaders[f] = colReaders[f].readBlockData(pos[f], rest);
 					}
 					if (needBaseTable) {
 						guideColReader.seek(guipos);
-						guideColBufReader = guideColReader.readBlockData(guipos);
+						guideColBufReader = guideColReader.readBlockData(guipos, baseRest);
 						baseCurIndex++;
 						for (int f = 0; f < colCount; ++f) {
 							if (isBaseIndex[f]) {
@@ -1107,7 +1107,7 @@ public class IndexCursor extends ICursor {
 	 * @author runqian
 	 *
 	 */
-	static class PositionsComparator implements Comparator {
+	static class PositionsComparator implements Comparator<Object> {
 		public PositionsComparator() {
 		}
 		public int compare(Object o1, Object o2) {

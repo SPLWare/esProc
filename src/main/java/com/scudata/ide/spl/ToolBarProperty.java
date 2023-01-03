@@ -78,11 +78,23 @@ public class ToolBarProperty extends ToolBarPropertyBase {
 	 * ≥ı ºªØ
 	 */
 	public void init() {
+		super.init();
 		if (GVSpl.splEditor == null) {
 			return;
 		}
 		SplControl control = GVSpl.splEditor.getComponent();
 		ContentPanel cp = control.getContentPanel();
+		addCellEditingListener(textEditor, control, cp);
+	}
+
+	/**
+	 * Set whether the toolbar is enabled
+	 */
+	public void setEnabled(boolean enabled) {
+		super.setEnabled(enabled);
+	}
+
+	public void removeCellEditingListeners() {
 		KeyListener[] kls = textEditor.getKeyListeners();
 		if (kls != null) {
 			int len = kls.length;
@@ -92,7 +104,7 @@ public class ToolBarProperty extends ToolBarPropertyBase {
 				}
 			}
 		}
-		addCellEditingListener(textEditor, control, cp);
+
 	}
 
 	/**
@@ -101,6 +113,7 @@ public class ToolBarProperty extends ToolBarPropertyBase {
 	 */
 	protected void addCellEditingListener(JTextComponent jtext,
 			SplControl control, ContentPanel cp) {
+		removeCellEditingListeners();
 		CellEditingListener listener = new CellEditingListener(control, cp);
 		jtext.addKeyListener(listener);
 	}

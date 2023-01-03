@@ -14,17 +14,20 @@ import com.scudata.resources.EngineMessage;
  *
  */
 public class Pad extends SequenceFunction {
-	public Object calculate(Context ctx) {
-		if (param == null || param.isLeaf()) {
+	/**
+	 * 检查表达式的有效性，无效则抛出异常
+	 */
+	public void checkValidity() {
+		if (param == null) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("pad" + mm.getMessage("function.missingParam"));
-		}
-		
-		if (param.getSubSize() != 2) {
+		} else if (param.getSubSize() != 2) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("pad" + mm.getMessage("function.invalidParam"));
 		}
+	}
 
+	public Object calculate(Context ctx) {
 		IParam sub0 = param.getSub(0);
 		IParam sub1 = param.getSub(1);
 		if (sub0 == null || sub1 == null) {

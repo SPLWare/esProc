@@ -9,22 +9,30 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.util.Variant;
 
 public class Round extends Function {
+	/**
+	 * 检查表达式的有效性，无效则抛出异常
+	 */
+	public void checkValidity() {
+		if (param == null) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("round" + mm.getMessage("function.missingParam"));
+		}
+	}
 
 	public Object calculate(Context ctx) {
-		MessageManager mm = EngineMessage.get();
-		if (param == null) {
-			throw new RQException("round" + mm.getMessage("function.missingParam"));
-		} else if (param.isLeaf()) {
+		if (param.isLeaf()) {
 			Object o = param.getLeafExpression().calculate(ctx);
 			return Variant.round(o);
 		} else {
 			if (param.getSubSize() != 2) {
+				MessageManager mm = EngineMessage.get();
 				throw new RQException("round" + mm.getMessage("function.invalidParam"));
 			}
 
 			IParam p1 = param.getSub(0);
 			IParam p2 = param.getSub(1);
 			if (p1 == null || p2 == null) {
+				MessageManager mm = EngineMessage.get();
 				throw new RQException("round" + mm.getMessage("function.invalidParam"));
 			}
 
@@ -35,6 +43,7 @@ public class Round extends Function {
 			} else if (o2 == null) {
 				return Variant.round(o1);
 			} else {
+				MessageManager mm = EngineMessage.get();
 				throw new RQException("round" + mm.getMessage("function.paramTypeError"));
 			}
 		}

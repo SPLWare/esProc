@@ -10,5 +10,5 @@ import com.scudata.dm.Sequence;
 public interface ISegmentCursor {
 	void setAppendData(Sequence seq);
 	void setSegment(int startBlock, int endBlock);
-	public TableMetaData getTableMetaData();
+	public PhyTable getTableMetaData();
 }

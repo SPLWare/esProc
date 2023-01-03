@@ -405,7 +405,7 @@ public class FileObject implements Externalizable {
 			String[] items = new String[fcount];
 			table = new Table(items);
 
-			Record r = table.newLast();
+			BaseRecord r = table.newLast();
 			for (int f = 0; f < fcount; ++f) {
 				r.setNormalFieldValue(f, line[f]);
 			}
@@ -417,7 +417,7 @@ public class FileObject implements Externalizable {
 
 			int curLen = line.length;
 			if (curLen > fcount) curLen = fcount;
-			Record r = table.newLast();
+			BaseRecord r = table.newLast();
 			for (int f = 0; f < curLen; ++f) {
 				r.setNormalFieldValue(f, line[f]);
 			}
@@ -504,11 +504,11 @@ public class FileObject implements Externalizable {
 	
 				Object []lineObjs = new Object[fcount];
 				for (int i = 1, len = series.length(); i <= len; ++i) {
-					Record r = (Record)series.getMem(i);
+					BaseRecord r = (BaseRecord)series.getMem(i);
 					Object []vals = r.getFieldValues();
 					for (int f = 0; f < fcount; ++f) {
-						if (vals[f] instanceof Record) {
-							lineObjs[f] = ((Record)vals[f]).value();
+						if (vals[f] instanceof BaseRecord) {
+							lineObjs[f] = ((BaseRecord)vals[f]).value();
 						} else {
 							lineObjs[f] = vals[f];
 						}
@@ -519,7 +519,7 @@ public class FileObject implements Externalizable {
 			}
 		} else {
 			ComputeStack stack = ctx.getComputeStack();
-			Sequence.Current current = series.new Current();
+			Current current = new Current(series);
 			stack.push(current);
 
 			try {
@@ -535,8 +535,8 @@ public class FileObject implements Externalizable {
 					current.setCurrent(i);
 					for (int f = 0; f < fcount; ++f) {
 						lineObjs[f] = exps[f].calculate(ctx);
-						if (lineObjs[f] instanceof Record) {
-							lineObjs[f] = ((Record)lineObjs[f]).value();
+						if (lineObjs[f] instanceof BaseRecord) {
+							lineObjs[f] = ((BaseRecord)lineObjs[f]).value();
 						}
 					}
 
@@ -586,11 +586,11 @@ public class FileObject implements Externalizable {
 					}
 				} else {
 					for (int i = 1, len = table.length(); i <= len; ++i) {
-						Record r = (Record)table.getMem(i);
+						BaseRecord r = (BaseRecord)table.getMem(i);
 						Object []vals = r.getFieldValues();
 						for (int f = 0; f < fcount; ++f) {
-							if (vals[f] instanceof Record) {
-								lineObjs[f] = ((Record)vals[f]).value();
+							if (vals[f] instanceof BaseRecord) {
+								lineObjs[f] = ((BaseRecord)vals[f]).value();
 							} else {
 								lineObjs[f] = vals[f];
 							}
@@ -616,7 +616,7 @@ public class FileObject implements Externalizable {
 
 			ComputeStack stack = ctx.getComputeStack();
 			while (true) {
-				Sequence.Current current = table.new Current();
+				Current current = new Current(table);
 				stack.push(current);
 
 				try {
@@ -624,8 +624,8 @@ public class FileObject implements Externalizable {
 						current.setCurrent(i);
 						for (int f = 0; f < fcount; ++f) {
 							lineObjs[f] = exps[f].calculate(ctx);
-							if (lineObjs[f] instanceof Record) {
-								lineObjs[f] = ((Record)lineObjs[f]).value();
+							if (lineObjs[f] instanceof BaseRecord) {
+								lineObjs[f] = ((BaseRecord)lineObjs[f]).value();
 							}
 						}
 
@@ -1186,6 +1186,10 @@ public class FileObject implements Externalizable {
 			file = rf;
 		}
 		
+		if (opt != null && opt.indexOf('i') != -1) {
+			file = new MemoryFile(file);
+		}
+		
 		return file;
 	}
 
@@ -1323,7 +1327,7 @@ public class FileObject implements Externalizable {
 		if (isValue || isQuote) {
 			while (itr.hasNext()) {
 				Map.Entry<Object, Object> entry = itr.next();
-				Record r = table.newLast();
+				BaseRecord r = table.newLast();
 				r.setNormalFieldValue(0, entry.getKey());
 				Object v = entry.getValue();
 				if (v instanceof String) {
@@ -1339,7 +1343,7 @@ public class FileObject implements Externalizable {
 		} else {
 			while (itr.hasNext()) {
 				Map.Entry<Object, Object> entry = itr.next();
-				Record r = table.newLast();
+				BaseRecord r = table.newLast();
 				r.setNormalFieldValue(0, entry.getKey());
 				r.setNormalFieldValue(1, entry.getValue());
 			}

@@ -3,19 +3,23 @@ package com.scudata.expression.mfn.file;
 import java.io.File;
 import java.util.ArrayList;
 
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Context;
 import com.scudata.dm.DataStruct;
 import com.scudata.dm.FileObject;
 import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 import com.scudata.dw.Cuboid;
-import com.scudata.dw.GroupTable;
+import com.scudata.dw.DataBlockType;
+import com.scudata.dw.ColPhyTable;
+import com.scudata.dw.ColumnMetaData;
+import com.scudata.dw.ComTable;
 import com.scudata.dw.ITableIndex;
-import com.scudata.dw.RowTableMetaData;
-import com.scudata.dw.TableMetaData;
+import com.scudata.dw.RowPhyTable;
+import com.scudata.dw.PhyTable;
 import com.scudata.expression.FileFunction;
 import com.scudata.parallel.ClusterFile;
-import com.scudata.parallel.ClusterTableMetaData;
+import com.scudata.parallel.ClusterPhyTable;
 
 /**
  * 获得组表文件的结构
@@ -24,8 +28,10 @@ import com.scudata.parallel.ClusterTableMetaData;
  *
  */
 public class Structure extends FileFunction {
-	private static final String FIELD_NAMES[] = { "field", "keys", "row", "zip", "seg", "zonex", "index", "cuboid", "attach" };
-	private static final String ATTACH_FIELD_NAMES[] = { "name", "field", "keys", "row", "zip", "seg", "zonex", "index", "cuboid", "attach" };
+	private static final String FIELD_NAMES[] = { "field", "key", "row", "zip", "seg", "zonex", "index", "cuboid", "attach" };
+	private static final String ATTACH_FIELD_NAMES[] = { "name", "field", "key", "row", "zip", "seg", "zonex", "index", "cuboid", "attach" };
+	private static final String COL_FIELD_FIELD_NAMES[] = {"name", "dim", "type", "type-len", "dict"};
+	private static final String ROW_FIELD_FIELD_NAMES[] = {"name", "dim"};
 	private static final String CUBOID_FIELD_NAMES[] = { "name", "keys", "aggr" };
 	private static final String CUBOID_AGGR_FIELD_NAMES[] = { "name", "exp" };
 	
@@ -38,7 +44,7 @@ public class Structure extends FileFunction {
 			Integer partition = file.getPartition();
 			int p = partition == null ? -1 : partition.intValue();
 			ClusterFile cf = new ClusterFile(host, port, fileName, p, ctx);
-			ClusterTableMetaData table = cf.openGroupTable(ctx);
+			ClusterPhyTable table = cf.openGroupTable(ctx);
 			Sequence seq = new Sequence();
 			seq.add(getTableStruct(table, option));
 			table.close();
@@ -46,7 +52,7 @@ public class Structure extends FileFunction {
 		} else {
 			// 本地文件
 			File f = file.getLocalFile().file();
-			TableMetaData table = GroupTable.openBaseTable(f, ctx);
+			PhyTable table = ComTable.openBaseTable(f, ctx);
 			
 			Integer partition = file.getPartition();
 			if (partition != null && partition.intValue() > 0) {
@@ -59,7 +65,7 @@ public class Structure extends FileFunction {
 		}
 	}
 	
-	protected static Record getTableStruct(ClusterTableMetaData table, String option) {
+	protected static BaseRecord getTableStruct(ClusterPhyTable table, String option) {
 		return table.getStructure();
 	}
 	
@@ -67,7 +73,7 @@ public class Structure extends FileFunction {
 	 * 获得table的结构，保存到out里
 	 * @param table
 	 */
-	public static Record getTableStruct(TableMetaData table, String option) {
+	public static Record getTableStruct(PhyTable table, String option) {
 		int idx = 0;
 		boolean hasI = false;
 		boolean hasC = false;
@@ -87,9 +93,9 @@ public class Structure extends FileFunction {
 		}
 		
 		String[] colNames = table.getAllColNames();
-		rec.setNormalFieldValue(idx++, new Sequence(colNames));
-		rec.setNormalFieldValue(idx++, new Sequence(table.getAllKeyColNames()));
-		rec.setNormalFieldValue(idx++, table instanceof RowTableMetaData);
+		rec.setNormalFieldValue(idx++, getTableColumnStruct(table));
+		rec.setNormalFieldValue(idx++, table.hasPrimaryKey());
+		rec.setNormalFieldValue(idx++, table instanceof RowPhyTable);
 		rec.setNormalFieldValue(idx++, table.getGroupTable().isCompress());
 		
 		String seg = table.getSegmentCol();
@@ -105,10 +111,10 @@ public class Structure extends FileFunction {
 		}
 		idx++;
 		
-		ArrayList<TableMetaData> tables = table.getTableList();
+		ArrayList<PhyTable> tables = table.getTableList();
 		if (tables != null && tables.size() > 0) {
 			Sequence seq = new Sequence();
-			for (TableMetaData tbl : tables) {
+			for (PhyTable tbl : tables) {
 				seq.add(getTableStruct(tbl, option));
 			}
 			rec.setNormalFieldValue(idx, seq);
@@ -118,11 +124,49 @@ public class Structure extends FileFunction {
 	}
 	
 	/**
+	 * 获得table的列的结构
+	 * @param table
+	 * @return
+	 */
+	protected static Sequence getTableColumnStruct(PhyTable table) {
+		Sequence seq = new Sequence();
+		if (table instanceof ColPhyTable) {
+			ColumnMetaData[] columns = ((ColPhyTable) table).getColumns();
+			for (ColumnMetaData column: columns ) {
+				Record rec = new Record(new DataStruct(COL_FIELD_FIELD_NAMES));
+				rec.setNormalFieldValue(0, column.getColName());
+				rec.setNormalFieldValue(1, column.isDim());
+				rec.setNormalFieldValue(2, DataBlockType.getTypeName(column.getDataType()));
+				rec.setNormalFieldValue(3, DataBlockType.getTypeLen(column.getDataType()));
+				Sequence dict = column.getDict();
+				if (dict != null && dict.length() == 0) {
+					dict = null;
+				}
+				rec.setNormalFieldValue(4, dict);
+				seq.add(rec);
+			}
+		} else {
+			RowPhyTable rowTable = ((RowPhyTable) table);
+			String[] columns = rowTable.getColNames();
+			boolean[] isDim = rowTable.getDimIndex();
+			for (int c = 0, len = columns.length; c < len; c++) {
+				String column = columns[c];
+				Record rec = new Record(new DataStruct(ROW_FIELD_FIELD_NAMES));
+				rec.setNormalFieldValue(0, column);
+				rec.setNormalFieldValue(1, isDim[c]);
+				seq.add(rec);
+			}
+		}
+		
+		return seq;
+	}
+	
+	/**
 	 * 获得table的索引的结构
 	 * @param table
-	 * @returnhy
+	 * @return
 	 */
-	protected static Sequence getTableIndexStruct(TableMetaData table) {
+	protected static Sequence getTableIndexStruct(PhyTable table) {
 		String inames[] = table.getIndexNames();
 		if (inames == null) {
 			return null;
@@ -144,7 +188,7 @@ public class Structure extends FileFunction {
 	 * @param table
 	 * @return
 	 */
-	protected static Sequence getTableCuboidStruct(TableMetaData table) {
+	protected static Sequence getTableCuboidStruct(PhyTable table) {
 		String cuboids[] = table.getCuboids();
 		if (cuboids == null) {
 			return null;

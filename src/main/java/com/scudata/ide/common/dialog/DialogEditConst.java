@@ -15,7 +15,6 @@ import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.TableColumn;
 
@@ -576,10 +575,10 @@ public class DialogEditConst extends DialogMaxmizable {
 		tc.setCellEditor(new AllPurposeEditor(new JTextField(), tableConst));
 		tc.setCellRenderer(new AllPurposeRenderer());
 
-		tableConst.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		// tableConst.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		tableConst.getTableHeader().setReorderingAllowed(false);
 		tableConst.setColumnWidth(COL_NAME, 120);
-		tableConst.setColumnWidth(COL_KIND, 86);
+		tableConst.setColumnWidth(COL_KIND, 100);
 		tableConst.setColumnWidth(COL_VALUE, 120);
 
 	}

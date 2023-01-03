@@ -12,7 +12,7 @@ import com.scudata.util.Variant;
  *
  */
 class RecordSeqSearcher {
-	private ColumnTableMetaData table;//本表
+	private ColPhyTable table;//本表
 	
 	private long prevRecordCount = 0;//当前已经取出的记录数
 	private int curBlock = -1;//当前块号
@@ -31,7 +31,7 @@ class RecordSeqSearcher {
 	private Object [][]blockKeyValues;//本块的所有维值
 	private boolean isEnd = false;
 
-	public RecordSeqSearcher(ColumnTableMetaData table) {
+	public RecordSeqSearcher(ColPhyTable table) {
 		this.table = table;
 		init();
 	}
@@ -98,7 +98,7 @@ class RecordSeqSearcher {
 			int keyCount = colReaders.length;		
 			int count = curRecordCount + 1;
 			for (int k = 0; k < keyCount; ++k) {
-				BufferReader reader = colReaders[k].readBlockData(positions[k]);
+				BufferReader reader = colReaders[k].readBlockData(positions[k],curRecordCount);
 				Object []vals = new Object[count];
 				blockKeyValues[k] = vals;
 				

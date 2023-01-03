@@ -11,6 +11,6 @@ import com.scudata.expression.SequenceFunction;
  */
 public class Countif extends SequenceFunction {
 	public Object calculate(Context ctx) {
-		return Sumif.posSelect("countif", srcSequence, param, option, ctx).count(option);
+		return Sumif.posSelect("countif", srcSequence, param, option, ctx).count();
 	}
 }

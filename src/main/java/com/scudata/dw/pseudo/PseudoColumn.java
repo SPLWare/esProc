@@ -1,6 +1,6 @@
 package com.scudata.dw.pseudo;
 
-import com.scudata.dm.Record;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Sequence;
 
 public class PseudoColumn {
@@ -112,7 +112,7 @@ public class PseudoColumn {
 		tkey = time;
 	}
 	
-	public PseudoColumn(Record rec) {
+	public PseudoColumn(BaseRecord rec) {
 		name = (String) PseudoDefination.getFieldValue(rec, PD_NAME);
 		exp = (String) PseudoDefination.getFieldValue(rec, PD_EXP);
 		type = (String) PseudoDefination.getFieldValue(rec, PD_TYPE);

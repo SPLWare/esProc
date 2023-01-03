@@ -2,6 +2,7 @@ package com.scudata.dm.cursor;
 
 import com.scudata.dm.ComputeStack;
 import com.scudata.dm.Context;
+import com.scudata.dm.Current;
 import com.scudata.dm.DataStruct;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
@@ -30,7 +31,7 @@ public class JoinxCursor extends ICursor {
 	private Object [][]nextValues; // 后续缓存第一条记录对应的关联字段的值
 	
 	private Context []ctxs; // 每个表计算exps用自己的上下文，每个表取出数据后先压栈
-	private Sequence.Current []currents; // 序列的当前计算对象，用于压栈
+	private Current []currents; // 序列的当前计算对象，用于压栈
 
 	/**
 	 * 创建有序归并关联游标
@@ -63,7 +64,7 @@ public class JoinxCursor extends ICursor {
 	
 	// 并行计算时需要改变上下文
 	// 继承类如果用到了表达式还需要用新上下文重新解析表达式
-	protected void resetContext(Context ctx) {
+	public void resetContext(Context ctx) {
 		if (this.ctx != ctx) {
 			for (ICursor cursor : cursors) {
 				cursor.resetContext(ctx);
@@ -187,7 +188,7 @@ public class JoinxCursor extends ICursor {
 						ComputeStack stack = ctxs[i].getComputeStack();
 						stack.pop();
 	
-						currents[i] = tables[i].new Current(1);
+						currents[i] = new Current(tables[i], 1);
 						stack.push(currents[i]);
 
 						calc(exps[i], ctxs[i], curValues);
@@ -248,7 +249,7 @@ public class JoinxCursor extends ICursor {
 						ComputeStack stack = ctxs[i].getComputeStack();
 						stack.pop();
 						
-						currents[i] = nextTables[i].new Current(1);
+						currents[i] = new Current(nextTables[i], 1);
 						stack.push(currents[i]);
 						
 						calc(exps[i], ctxs[i], nextValues[i]);
@@ -279,7 +280,7 @@ public class JoinxCursor extends ICursor {
 					Sequence table = nextTables[i];
 					nextTables[i] = null;
 
-					table.getMems().add(1, tables[i].getMem(seqs[i]));
+					table.getMems().insert(1, tables[i].getMem(seqs[i]));
 					tables[i] = table;
 					seqs[i] = 1;
 				}
@@ -347,7 +348,7 @@ public class JoinxCursor extends ICursor {
 		nextTables = new Sequence[tcount];
 		nextValues = new Object[tcount][];
 		ctxs = new Context[tcount];
-		currents = new Sequence.Current[tcount];
+		currents = new Current[tcount];
 
 		for (int i = 0; i < tcount; ++i) {
 			ctxs[i] = ctx.newComputeContext();
@@ -357,7 +358,7 @@ public class JoinxCursor extends ICursor {
 				Object []curValues = new Object[valCount];
 				seqs[i] = 1;
 
-				currents[i] = table.new Current(1);
+				currents[i] = new Current(table, 1);
 				ctxs[i].getComputeStack().push(currents[i]);
 				calc(exps[i], ctxs[i], curValues);
 				

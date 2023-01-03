@@ -73,6 +73,6 @@ public class Id extends ChannelFunction {
 			}
 		}
 		
-		return channel.id(exps, n);
+		return channel.id(exps, n, option);
 	}
 }

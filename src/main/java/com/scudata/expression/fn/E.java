@@ -6,9 +6,9 @@ import com.scudata.common.Escape;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.common.StringUtils;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Context;
 import com.scudata.dm.DataStruct;
-import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
 import com.scudata.excel.ExcelUtils;
@@ -168,9 +168,10 @@ public class E extends Function {
 				seq.add(new Sequence(ds.getFieldNames()));
 			}
 		}
-		Record r;
+		
+		BaseRecord r;
 		for (int i = 1, len = pmt.length(); i <= len; i++) {
-			r = (Record) pmt.get(i);
+			r = (BaseRecord) pmt.get(i);
 			seq.add(new Sequence(r.getFieldValues()));
 		}
 		return seq;

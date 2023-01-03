@@ -2,11 +2,12 @@ package com.scudata.dw;
 
 import java.util.ArrayList;
 
+import com.scudata.array.IArray;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Context;
 import com.scudata.dm.DataStruct;
-import com.scudata.dm.ListBase1;
 import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
@@ -27,7 +28,7 @@ import com.scudata.expression.mfn.sequence.Max;
 import com.scudata.expression.mfn.sequence.Min;
 import com.scudata.expression.mfn.sequence.New;
 import com.scudata.expression.mfn.sequence.Sum;
-import com.scudata.parallel.ClusterTableMetaData;
+import com.scudata.parallel.ClusterPhyTable;
 import com.scudata.resources.EngineMessage;
 import com.scudata.util.Variant;
 
@@ -75,10 +76,10 @@ public class JoinCursor2 extends ICursor {
 		this.ctx = ctx;
 		
 		String []keyNames;
-		if (table instanceof ITableMetaData) {
-			keyNames = ((ITableMetaData) table).getAllSortedColNames();
+		if (table instanceof IPhyTable) {
+			keyNames = ((IPhyTable) table).getAllSortedColNames();
 		} else {
-			keyNames = ((ClusterTableMetaData) table).getAllSortedColNames();
+			keyNames = ((ClusterPhyTable) table).getAllSortedColNames();
 		}
 		
 		this.cursor2 = cursor2;
@@ -159,8 +160,8 @@ public class JoinCursor2 extends ICursor {
 			}
 		}
 		
-		if (table instanceof ITableMetaData) {
-			this.cursor1 = ((ITableMetaData) table).cursor(allExps, null, filter, null, null, null, ctx);
+		if (table instanceof IPhyTable) {
+			this.cursor1 = ((IPhyTable) table).cursor(allExps, null, filter, null, null, null, ctx);
 		}
 		
 		if (isNew || isNews) {
@@ -201,7 +202,6 @@ public class JoinCursor2 extends ICursor {
 				addOperation(op, ctx);
 			}
 		}
-		
 	}
 	
 	public JoinCursor2(ICursor cursor1, ICursor cursor2, Context ctx) {
@@ -228,10 +228,10 @@ public class JoinCursor2 extends ICursor {
 		int []fieldIndex1 = null;
 		
 		String []keyNames;
-		if (table instanceof ITableMetaData) {
-			keyNames = ((ITableMetaData) table).getAllSortedColNames();
+		if (table instanceof IPhyTable) {
+			keyNames = ((IPhyTable) table).getAllSortedColNames();
 		} else {
-			keyNames = ((ClusterTableMetaData) table).getAllSortedColNames();
+			keyNames = ((ClusterPhyTable) table).getAllSortedColNames();
 		}
 		
 		DataStruct ds2 = (cursor2.getCursors()[0]).getDataStruct();
@@ -314,12 +314,12 @@ public class JoinCursor2 extends ICursor {
 		}
 		
 		ICursor cursor1 = null;
-		if (table instanceof ITableMetaData) {
+		if (table instanceof IPhyTable) {
 			Expression w = null;
 			if (filter != null) {
 				w = filter.newExpression(ctx); // 分段并行读取时需要复制表达式，同一个表达式不支持并行运算
 			}
-			cursor1 = ((ITableMetaData) table).cursor(null, allExpNames, w, null, null, null, cursor2, null, ctx);
+			cursor1 = ((IPhyTable) table).cursor(null, allExpNames, w, null, null, null, cursor2, null, ctx);
 		}
 
 		if (isNew || isNews) {
@@ -402,8 +402,8 @@ public class JoinCursor2 extends ICursor {
 		int cur2 = this.cur2;
 		Sequence cache1 = this.cache1;
 		Sequence cache2 = this.cache2;
-		ListBase1 mems1 = cache1.getMems();
-		ListBase1 mems2 = cache2.getMems();
+		IArray mems1 = cache1.getMems();
+		IArray mems2 = cache2.getMems();
 		int len1 = cache1.length();
 		int len2 = cache2.length();
 		int []fieldIndex1 = this.fieldIndex1;
@@ -436,7 +436,7 @@ public class JoinCursor2 extends ICursor {
 				if (!isNews) {
 					cur2++;
 				}
-				Record record = newTable.newLast();
+				BaseRecord record = newTable.newLast();
 				if (isNew || isNews) {
 					for (int i = 0; i < len; i++) {
 						record.setNormalFieldValue(i, keys1[fieldIndex1[i]]);
@@ -590,7 +590,7 @@ public class JoinCursor2 extends ICursor {
 			int cmp = Variant.compareArrays(keys2, keys1);
 			if (cmp == 0) {
 				cur2++;
-				Record record = newTable.newLast();
+				BaseRecord record = newTable.newLast();
 				if (isNew) {
 					for (int i = 0; i < len; i++) {
 						//record.setNormalFieldValue(i, keys1[i + keyCount]);

@@ -20,16 +20,21 @@ import com.scudata.resources.EngineMessage;
  */
 public class WorkDay extends Function {
 	public Node optimize(Context ctx) {
-		if (param != null) param.optimize(ctx);
+		param.optimize(ctx);
 		return this;
 	}
 	
-	public Object calculate(Context ctx) {
+	/**
+	 * 检查表达式的有效性，无效则抛出异常
+	 */
+	public void checkValidity() {
 		if (param == null) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("workday" + mm.getMessage("function.missingParam"));
 		}
+	}
 
+	public Object calculate(Context ctx) {
 		int size = param.getSubSize();
 		if (size != 2 && size != 3) {
 			MessageManager mm = EngineMessage.get();

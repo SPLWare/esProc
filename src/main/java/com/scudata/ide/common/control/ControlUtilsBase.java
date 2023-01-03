@@ -187,7 +187,7 @@ public class ControlUtilsBase {
 	public static boolean scrollToVisible(JViewport viewport,
 			Rectangle fieldArea) {
 		Rectangle viewArea = viewport.getViewRect();
-		if (viewArea.contains(fieldArea)) {
+		if (containsArea(viewArea, fieldArea)) {
 			return false;
 		}
 		Point pos = new Point();
@@ -208,6 +208,33 @@ public class ControlUtilsBase {
 			pos.y = viewport.getView().getHeight() - viewArea.height;
 		}
 		viewport.setViewPosition(pos);
+		return true;
+	}
+
+	/**
+	 * 判断显示区域中是否包含单元格区域
+	 * @param viewArea
+	 * @param cellArea
+	 * @return
+	 */
+	private static boolean containsArea(Rectangle viewArea, Rectangle cellArea) {
+		// return viewArea.contains(cellArea);
+		// 之前全部包含才算包含，这样不对，有可能格子比显示区域都大
+		// 现在改成单元格区域只要有部分在显示区域内就行
+		if (viewArea == null || cellArea == null)
+			return false;
+		if (!isAreaCoincide(viewArea.x, viewArea.x + viewArea.width,
+				cellArea.x, cellArea.x + cellArea.width))
+			return false;
+		if (!isAreaCoincide(viewArea.y, viewArea.y + viewArea.height,
+				cellArea.y, cellArea.y + cellArea.height))
+			return false;
+		return true;
+	}
+
+	private static boolean isAreaCoincide(int a1, int a2, int b1, int b2) {
+		if (a1 > b1 || a2 < b1)
+			return false;
 		return true;
 	}
 

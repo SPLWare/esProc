@@ -9,6 +9,7 @@ import com.scudata.common.ICloneable;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.BFileReader;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Context;
 import com.scudata.dm.DataStruct;
 import com.scudata.dm.Env;
@@ -16,10 +17,10 @@ import com.scudata.dm.FileObject;
 import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.cursor.MemoryCursor;
-import com.scudata.dw.GroupTable;
-import com.scudata.dw.ITableMetaData;
-import com.scudata.dw.TableMetaData;
-import com.scudata.dw.TableMetaDataGroup;
+import com.scudata.dw.ComTable;
+import com.scudata.dw.IPhyTable;
+import com.scudata.dw.PhyTable;
+import com.scudata.dw.PhyTableGroup;
 import com.scudata.expression.Expression;
 import com.scudata.resources.EngineMessage;
 
@@ -40,8 +41,8 @@ public class PseudoDefination implements Cloneable, ICloneable {
 	private String var;//序表/内表/集群内表变量名
 	private List<PseudoColumn> columns;//部分特殊字段定义
 	
-	private List<ITableMetaData> tables;//存所有文件的table对象
-	private TableMetaDataGroup tableGroup;//组文件表对象
+	private List<IPhyTable> tables;//存所有文件的table对象
+	private PhyTableGroup tableGroup;//组文件表对象
 	private List<Object> maxValues;//存每个table的最大值
 	private List<Object> minValues;//存每个table的最小值
 	private Sequence memoryTable;//内存虚表的序表对象
@@ -56,7 +57,7 @@ public class PseudoDefination implements Cloneable, ICloneable {
 		
 	}
 	
-	public PseudoDefination(Record pd, Context ctx) {
+	public PseudoDefination(BaseRecord pd, Context ctx) {
 		file = getFieldValue(pd, PD_FILE);
 		zone = (Sequence) getFieldValue(pd, PD_ZONE);
 		date = (String) getFieldValue(pd, PD_DATE);
@@ -170,11 +171,11 @@ public class PseudoDefination implements Cloneable, ICloneable {
 	}
 
 
-	public List<ITableMetaData> getTables() {
+	public List<IPhyTable> getTables() {
 		return tables;
 	}
 
-	public void setTables(List<ITableMetaData> tables) {
+	public void setTables(List<IPhyTable> tables) {
 		this.tables = tables;
 	}
 
@@ -186,14 +187,14 @@ public class PseudoDefination implements Cloneable, ICloneable {
 		this.memoryTable = memoryTable;
 	}
 
-	public static void setFieldValue(Record pd, String name, Object value) {
+	public static void setFieldValue(BaseRecord pd, String name, Object value) {
 		int index = pd.getFieldIndex(name);
 		if (index != -1) {
 			pd.setNormalFieldValue(index, value);
 		}
 	}
 	
-	public static Object getFieldValue(Record pd, String name) {
+	public static Object getFieldValue(BaseRecord pd, String name) {
 		int index = pd.getFieldIndex(name);
 		if (index != -1) {
 			return pd.getFieldValue(index);
@@ -257,22 +258,22 @@ public class PseudoDefination implements Cloneable, ICloneable {
 		if (partitions == null) {
 			FileObject fo = new FileObject(fn, null, null, ctx);
 			File f = fo.getLocalFile().file();
-			tables.add(GroupTable.openBaseTable(f, ctx));
+			tables.add(ComTable.openBaseTable(f, ctx));
 		} else {
 			int pcount = partitions.length;
 			for (int i = 0; i < pcount; ++i) {
 				File file = Env.getPartitionFile(partitions[i], fn);
-				TableMetaData table = GroupTable.openBaseTable(file, ctx);
+				PhyTable table = ComTable.openBaseTable(file, ctx);
 				table.getGroupTable().setPartition(partitions[i]);
 				tables.add(table);
 			}
 			
 			if (pcount > 1) {
-				ITableMetaData []tbls = new ITableMetaData[pcount];
+				IPhyTable []tbls = new IPhyTable[pcount];
 				for (int i = 0; i < pcount; ++i) {
 					tbls[i] = tables.get(i);
 				}
-				tableGroup = new TableMetaDataGroup(fn, tbls, partitions, null, ctx);
+				tableGroup = new PhyTableGroup(fn, tbls, partitions, null, ctx);
 			}
 		}
 	}
@@ -290,7 +291,7 @@ public class PseudoDefination implements Cloneable, ICloneable {
 			partitions = zone.toIntArray();
 		}
 		
-		tables = new ArrayList<ITableMetaData>();
+		tables = new ArrayList<IPhyTable>();
 		
 		if (file instanceof String) {
 			parseFileToTable((String) file, partitions, ctx);
@@ -308,9 +309,9 @@ public class PseudoDefination implements Cloneable, ICloneable {
 //			}
 			maxValues = new ArrayList<Object>();
 			minValues = new ArrayList<Object>();
-			for (ITableMetaData t : tables) {
+			for (IPhyTable t : tables) {
 				try {
-					Object[] values = ((TableMetaData)t).getMaxMinValue(dateName);
+					Object[] values = ((PhyTable)t).getMaxMinValue(dateName);
 					if (values != null) {
 						maxValues.add(values[0]);
 						minValues.add(values[1]);
@@ -326,7 +327,7 @@ public class PseudoDefination implements Cloneable, ICloneable {
 	 * 返回组文件表对象。不存在就返回null
 	 * @return
 	 */
-	public TableMetaDataGroup getTableMetaDataGroup() {
+	public PhyTableGroup getTableMetaDataGroup() {
 		return tableGroup;
 	}
 	
@@ -376,8 +377,8 @@ public class PseudoDefination implements Cloneable, ICloneable {
 	public Integer getPartition() {
 		if (isBFile) {
 			return null;
-		} else if (var == null && tables.get(0) instanceof TableMetaData) {
-			return ((TableMetaData) tables.get(0)).getGroupTable().getPartition();
+		} else if (var == null && tables.get(0) instanceof PhyTable) {
+			return ((PhyTable) tables.get(0)).getGroupTable().getPartition();
 		} else {
 			return null;
 		}
@@ -485,12 +486,12 @@ public class PseudoDefination implements Cloneable, ICloneable {
 						tables.get(tables.size() - 1).append(new MemoryCursor(append), "y");
 					}
 					if (update != null) {
-						for (ITableMetaData table : tables) {
+						for (IPhyTable table : tables) {
 							table.update(update, "y");
 						}
 					}
 					if (delete != null) {
-						for (ITableMetaData table : tables) {
+						for (IPhyTable table : tables) {
 							table.delete(delete, "y");
 						}
 					}

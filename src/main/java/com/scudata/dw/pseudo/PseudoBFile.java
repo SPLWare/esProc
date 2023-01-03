@@ -2,8 +2,8 @@ package com.scudata.dw.pseudo;
 
 import java.util.ArrayList;
 import com.scudata.common.RQException;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Context;
-import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.cursor.BFileCursor;
 import com.scudata.dm.cursor.ICursor;
@@ -27,7 +27,7 @@ public class PseudoBFile extends PseudoTable {
 	 * @param n ²¢ÐÐÊý
 	 * @param ctx
 	 */
-	public PseudoBFile(Record rec, int n, Context ctx) {
+	public PseudoBFile(BaseRecord rec, int n, Context ctx) {
 		pd = new PseudoDefination(rec, ctx);
 		pathCount = n;
 		this.ctx = ctx;
@@ -35,7 +35,7 @@ public class PseudoBFile extends PseudoTable {
 		init();
 	}
 
-	public PseudoBFile(Record rec, PseudoTable mcs, Context ctx) {
+	public PseudoBFile(BaseRecord rec, PseudoTable mcs, Context ctx) {
 		this(rec, 0, ctx);
 		mcsTable = mcs;
 	}
@@ -261,7 +261,7 @@ public class PseudoBFile extends PseudoTable {
 			return null;
 		}
 		
-		Record record = (Record) data.getMem(1);
+		BaseRecord record = (BaseRecord) data.getMem(1);
 		Object[] objs = record.getFieldValues();
 		int len = objs.length;
 		byte[] types = new byte[len];

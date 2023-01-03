@@ -4,9 +4,9 @@ import java.io.*;
 import java.math.*;
 import java.util.Arrays;
 
+import com.scudata.array.IArray;
 import com.scudata.common.RQException;
 import com.scudata.dm.DataStruct;
-import com.scudata.dm.ListBase1;
 import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.SerialBytes;
@@ -688,7 +688,7 @@ public class RowBufferWriter {
 	}
 	
 	private void writeSequence(Sequence seq) throws IOException {
-		ListBase1 mems = seq.getMems();
+		IArray mems = seq.getMems();
 		int len = mems.size();
 
 		DataStruct ds = seq.dataStruct();

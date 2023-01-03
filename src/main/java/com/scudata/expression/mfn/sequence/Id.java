@@ -78,7 +78,7 @@ public class Id extends SequenceFunction {
 			}
 		}
 		
-		IDResult id = new IDResult(exps, n, ctx);
+		IDResult id = new IDResult(exps, n, option, ctx);
 		id.push(srcSequence, ctx);
 		return id.getResultSequence();
 	}

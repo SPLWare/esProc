@@ -41,7 +41,6 @@ import com.scudata.ide.common.control.FuncWindow;
 import com.scudata.ide.common.resources.IdeCommonMessage;
 import com.scudata.ide.common.swing.JTextPaneEx;
 import com.scudata.ide.common.swing.ToolbarGradient;
-import com.scudata.ide.spl.GVSpl;
 
 /**
  * The base class of the IDE toolbar property
@@ -91,14 +90,7 @@ public abstract class ToolBarPropertyBase extends ToolbarGradient {
 	/**
 	 * Expression edit box
 	 */
-	protected JTextPaneEx textEditor = new JTextPaneEx() {
-		private static final long serialVersionUID = 1L;
-
-		public void requestFocus() {
-			editorSelected();
-			super.requestFocus();
-		}
-	};
+	protected JTextPaneEx textEditor = null;
 
 	/**
 	 * Common MessageManager
@@ -111,14 +103,9 @@ public abstract class ToolBarPropertyBase extends ToolbarGradient {
 	protected Font textEditorFont = GC.font;
 
 	/**
-	 * Function window
-	 */
-	protected FuncWindow funcWindow = GV.getFuncWindow();
-
-	/**
 	 * JScrollPane of the expression edit box
 	 */
-	protected JScrollPane spEditor = new JScrollPane(textEditor);
+	protected JScrollPane spEditor;
 
 	/**
 	 * Expand and collapse button
@@ -131,11 +118,11 @@ public abstract class ToolBarPropertyBase extends ToolbarGradient {
 	public ToolBarPropertyBase() {
 		super(IdeCommonMessage.get().getMessage("public.toolbar"));
 		this.setFloatable(false);
-		funcWindow.setVisible(true);
+		newTextEditor();
+		spEditor = new JScrollPane(textEditor);
 		GridBagConstraints gbc;
 		this.setLayout(new GridBagLayout());
 		setToolTipText(mm.getMessage("public.toolbar"));
-
 		cellName.setPreferredSize(CELLPOS_SIZE);
 		cellName.setMaximumSize(CELLPOS_SIZE);
 		cellName.setMinimumSize(CELLPOS_SIZE);
@@ -190,7 +177,6 @@ public abstract class ToolBarPropertyBase extends ToolbarGradient {
 		gbc = GM.getGBC(2, 1);
 		resetGBC(gbc);
 		add(getEmptyPanel(), gbc);
-
 		btEdit = new SpeedButton(GM.getImageIcon(GC.IMAGES_PATH + IMAGE_EQUAL),
 				mm.getMessage("toolbarproperty.switch"), true);
 
@@ -207,8 +193,7 @@ public abstract class ToolBarPropertyBase extends ToolbarGradient {
 		gbc.gridheight = 2;
 		resetGBC(gbc);
 		add(spEditor, gbc);
-		setEnabled(false);
-
+		setEnabled(false, false);
 		initProperties();
 		textEditor.setEditable(true);
 		textEditor.setFont(GC.font);
@@ -219,6 +204,7 @@ public abstract class ToolBarPropertyBase extends ToolbarGradient {
 		textEditor.addKeyListener(funcListener);
 		textEditor.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
+				FuncWindow funcWindow = GV.getFuncWindow();
 				funcWindow.caretPositionChanged(textEditor, getContext());
 			}
 		});
@@ -230,11 +216,11 @@ public abstract class ToolBarPropertyBase extends ToolbarGradient {
 			}
 
 			public void focusLost(FocusEvent e) {
+				FuncWindow funcWindow = GV.getFuncWindow();
 				funcWindow.setFuncEnabled(false);
 				funcWindow.hideWindow();
 			}
 		});
-
 		jBExt.setMaximumSize(BT_SIZE);
 		jBExt.setMinimumSize(BT_SIZE);
 		jBExt.setPreferredSize(BT_SIZE);
@@ -259,6 +245,24 @@ public abstract class ToolBarPropertyBase extends ToolbarGradient {
 				KeyStroke.getKeyStroke(KeyEvent.VK_U, InputEvent.CTRL_DOWN_MASK
 						+ InputEvent.SHIFT_DOWN_MASK),
 				JComponent.WHEN_IN_FOCUSED_WINDOW);
+	}
+
+	public void init() {
+		GV.getFuncWindow();
+	}
+
+	/**
+	 * 创建编辑控件
+	 */
+	protected void newTextEditor() {
+		textEditor = new JTextPaneEx() {
+			private static final long serialVersionUID = 1L;
+
+			public void requestFocus() {
+				editorSelected();
+				super.requestFocus();
+			}
+		};
 	}
 
 	/**
@@ -341,13 +345,7 @@ public abstract class ToolBarPropertyBase extends ToolbarGradient {
 					GM.addText(textEditor, "\n");
 					textEdited(e);
 				} else {
-					if (GVSpl.matchWindow != null) {
-						GVSpl.matchWindow.selectName();
-						return;
-					}
-					submitEditor(textEditor.getText(),
-							e.isControlDown() ? FORWARD_NONE
-									: (e.isShiftDown() ? UPWARD : DOWNWARD));
+					enterPressed(e);
 				}
 				e.consume();
 			} else if (e.getKeyCode() == KeyEvent.VK_TAB) {
@@ -361,6 +359,7 @@ public abstract class ToolBarPropertyBase extends ToolbarGradient {
 		}
 
 		public void keyReleased(KeyEvent e) {
+			FuncWindow funcWindow = GV.getFuncWindow();
 			if (e.isAltDown()) {
 				if (e.getKeyCode() == KeyEvent.VK_DOWN) {
 					if (funcWindow.isDisplay()) {
@@ -385,6 +384,14 @@ public abstract class ToolBarPropertyBase extends ToolbarGradient {
 			}
 		}
 	};
+
+	/**
+	 * 回车事件
+	 */
+	protected void enterPressed(KeyEvent e) {
+		submitEditor(textEditor.getText(), e.isControlDown() ? FORWARD_NONE
+				: (e.isShiftDown() ? UPWARD : DOWNWARD));
+	}
 
 	/**
 	 * The expression has been modified.
@@ -536,6 +543,7 @@ public abstract class ToolBarPropertyBase extends ToolbarGradient {
 		int h;
 		h = srcRect.height;
 		textEditor.setBorder(null);
+		FuncWindow funcWindow = GV.getFuncWindow();
 		if (funcWindow.isFuncEnabled()) {
 			funcWindow.setPosition(x, y + h + 10, w);
 			funcWindow.caretPositionChanged(textEditor, getContext(),
@@ -585,6 +593,10 @@ public abstract class ToolBarPropertyBase extends ToolbarGradient {
 	 * Set whether the toolbar is enabled
 	 */
 	public void setEnabled(boolean enabled) {
+		setEnabled(enabled, true);
+	}
+
+	private void setEnabled(boolean enabled, boolean caseFuncWindow) {
 		super.setEnabled(enabled);
 		cellName.setEnabled(enabled);
 		spEditor.setEnabled(enabled);
@@ -599,8 +611,11 @@ public abstract class ToolBarPropertyBase extends ToolbarGradient {
 				preventAction = true;
 				cellName.setText(null);
 				textEditor.setText("");
-				funcWindow.setFuncEnabled(false);
-				funcWindow.hideWindow();
+				if (caseFuncWindow) {
+					FuncWindow funcWindow = GV.getFuncWindow();
+					funcWindow.setFuncEnabled(false);
+					funcWindow.hideWindow();
+				}
 			} catch (Exception ex) {
 			} finally {
 				preventAction = false;

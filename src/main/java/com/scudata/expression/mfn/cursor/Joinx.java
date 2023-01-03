@@ -7,13 +7,13 @@ import com.scudata.common.RQException;
 import com.scudata.dm.Context;
 import com.scudata.dm.FileObject;
 import com.scudata.dm.SyncReader;
+import com.scudata.dm.cursor.BFileCursor;
 import com.scudata.dm.cursor.CSJoinxCursor;
 import com.scudata.dm.cursor.CSJoinxCursor2;
-import com.scudata.dm.cursor.CSJoinxCursor3;
 import com.scudata.dm.cursor.ICursor;
 import com.scudata.dm.cursor.MultipathCursors;
 import com.scudata.dm.op.Operation;
-import com.scudata.dw.ColumnTableMetaData;
+import com.scudata.dw.ColPhyTable;
 import com.scudata.dw.Cursor;
 import com.scudata.expression.CursorFunction;
 import com.scudata.expression.Expression;
@@ -133,39 +133,50 @@ public class Joinx extends CursorFunction {
 			throw new RQException("joinx" + mm.getMessage("function.invalidParam"));
 		}
 
-		for (int i = 0, len = dataExps.length; i < len; i++) {
-			if (dataExps[i] == null) {
-				Object code = codes[i];
-				String[] keys = null;
-				if (code instanceof ColumnTableMetaData) {
-					keys = ((ColumnTableMetaData)code).getAllKeyColNames();
-				} else if (code instanceof FileObject) {
-				} else if (code instanceof Cursor) {
-					keys = ((Cursor)code).getDataStruct().getPrimary();
-				}
-
-				if (keys == null) {
-					MessageManager mm = EngineMessage.get();
-					throw new RQException("joinx" + mm.getMessage("function.invalidParam"));
-				}
-				int count = keys.length;
-				Expression[] keyExps = new Expression[count];
-				for (int c = 0; c < count; c++) {
-					keyExps[c] = new Expression(keys[c]);
-				}
-				dataExps[i] = keyExps;
-			}
-		}
-		
 		if (option != null && option.indexOf('q') != -1) {
 			return new CSJoinxCursor2(cursor, exps, codes, dataExps, newExps, newNames, fname, ctx, capacity, option);
 		} else if (option != null && option.indexOf('m') != -1) {
-			return CSJoinxCursor3.MergeJoinx(cursor, exps, codes, dataExps, newExps, newNames, fname, ctx, capacity, option);
+			ICursor[] cursors = toCursors(codes, dataExps, newExps, ctx);
+			return cursor.mergeJoinx(this, exps, cursors, dataExps, newExps, newNames, option, ctx);
 		} else {
 			return getJoinxCursor(cursor, codes, exps, dataExps, newExps, newNames, fname, ctx, option, capacity);
 		}
 	}
 
+	private static ICursor[] toCursors(Object[] codes, Expression[][] dataExps, Expression[][] newExps ,Context ctx) {
+		int count = codes.length;
+		ICursor[] cursors = new ICursor[count];
+		for (int i = 0; i < count; i++) {
+			cursors[i] = toCursor(codes[i], dataExps[i], newExps[i], ctx);
+		}
+		return cursors;
+	}
+	
+	/**
+	 * 把维表对象转换成游标
+	 * @param obj
+	 * @return
+	 */
+	private static ICursor toCursor(Object obj, Expression []dataExps, Expression []newExps ,Context ctx) {
+		if (obj instanceof ColPhyTable) {
+			String fields[] = makeFields(dataExps, newExps, ctx);
+			return (Cursor) ((ColPhyTable) obj).cursor(null, fields, null, null, null, null, ctx);
+		} else if (obj instanceof FileObject) {
+			return new BFileCursor((FileObject) obj, null, null, null);
+		} else if (obj instanceof ICursor) {
+			return (ICursor) obj;
+		} else {
+			return null;
+		}
+	}
+
+	/**
+	 * 从join字段和新表达式中提取需要的字段
+	 * @param dataExps
+	 * @param newExps
+	 * @param ctx
+	 * @return
+	 */	
 	private static String[] makeFields(Expression []dataExps, Expression []newExps ,Context ctx) {
 		int len = dataExps.length;
 		ArrayList<String> keys = new ArrayList<String>(len);
@@ -187,15 +198,15 @@ public class Joinx extends CursorFunction {
 		for (int i = 0; i < count; i++) {
 			String[] fields = makeFields(dataExps[i], newExps[i], ctx);//得到维表字段
 			
-			if (codes[i] instanceof ColumnTableMetaData) {
-				readers[i] = new SyncReader((ColumnTableMetaData)codes[i], fields, capacity);
+			if (codes[i] instanceof ColPhyTable) {
+				readers[i] = new SyncReader((ColPhyTable)codes[i], fields, capacity);
 			} else if (codes[i] instanceof FileObject) {
 				readers[i] = new SyncReader((FileObject)codes[i], dataExps[i], capacity);
 			} else if (codes[i] instanceof Cursor) {
 				readers[i] = new SyncReader((Cursor)codes[i], dataExps[i], capacity);
 			} else {
 				MessageManager mm = EngineMessage.get();
-				throw new RQException("joinx" + mm.getMessage("function.invalidParam"));
+				throw new RQException("joinx" + mm.getMessage("dw.needMCursor"));
 			}
 		}
 		

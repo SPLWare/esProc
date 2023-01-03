@@ -5,7 +5,7 @@ import org.apache.commons.math3.linear.RealMatrix;
 //import org.ejml.simple.SimpleMatrix;
 
 import com.scudata.common.Logger;
-import com.scudata.dm.Record;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
 
@@ -140,7 +140,7 @@ public class Matrix {
 	 * @param seq
 	 * @return
 	 */
-	protected static double[] getRow(Record rec, int n) {
+	protected static double[] getRow(BaseRecord rec, int n) {
 		double[] row = new double[n];
 		Object[] vs = rec.getFieldValues();
 		for (int i = 0; i <n; i++) {
@@ -468,7 +468,7 @@ public class Matrix {
 		}
 		Table t = new Table(cns);
 		for (int r = 0; r < this.rows; r++) {
-			Record rec = t.newLast();
+			BaseRecord rec = t.newLast();
 			for (int c = 0; c < this.cols; c++) {
 				rec.set(c, this.A[r][c]);
 			}

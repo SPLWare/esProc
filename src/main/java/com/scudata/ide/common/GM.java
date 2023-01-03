@@ -95,11 +95,11 @@ import com.scudata.common.Matrix;
 import com.scudata.common.MessageManager;
 import com.scudata.common.Sentence;
 import com.scudata.common.StringUtils;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Context;
 import com.scudata.dm.DBObject;
 import com.scudata.dm.Env;
 import com.scudata.dm.KeyWord;
-import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 import com.scudata.ide.common.dialog.DialogInputText;
 import com.scudata.ide.common.dialog.DialogMaxmizable;
@@ -273,8 +273,8 @@ public class GM {
 			}
 			sb.append("]");
 			dispText = sb.toString();
-		} else if (val instanceof Record) {
-			Record r = (Record) val;
+		} else if (val instanceof BaseRecord) {
+			BaseRecord r = (BaseRecord) val;
 			/* r.getPKValue may return null, call r.value() instead */
 			return renderText(r.value());
 		} else {
@@ -290,7 +290,7 @@ public class GM {
 	 * @param context
 	 * @return
 	 */
-	public static String getRecordDispName(Record r, Context context) {
+	public static String getRecordDispName(BaseRecord r, Context context) {
 		int mkIndex[] = r.dataStruct().getPKIndex();
 		if (mkIndex == null || mkIndex.length == 0) {
 			int fieldCount = r.dataStruct().getFieldCount();
@@ -299,8 +299,8 @@ public class GM {
 			Object temp = r.getFieldValue(0);
 			if (temp == null) {
 				return null;
-			} else if (temp instanceof Record) {
-				return getRecordDispName((Record) temp, context);
+			} else if (temp instanceof BaseRecord) {
+				return getRecordDispName((BaseRecord) temp, context);
 			} else {
 				return renderValueText(temp);
 			}
@@ -314,8 +314,8 @@ public class GM {
 			if (StringUtils.isValidString(dispName)) {
 				dispName += ",";
 			}
-			if (temp instanceof Record) {
-				dispName += getRecordDispName((Record) temp, context);
+			if (temp instanceof BaseRecord) {
+				dispName += getRecordDispName((BaseRecord) temp, context);
 			} else {
 				dispName += renderValueText(temp);
 			}
@@ -3648,6 +3648,45 @@ public class GM {
 				dt.browse(uri);
 			}
 		}
+		// String osName = System.getProperty("os.name", "").toLowerCase();
+		// if (osName.startsWith("mac os")) {
+		// Class fileMgr = Class.forName("com.apple.eio.FileManager");
+		// Method openURL = fileMgr.getDeclaredMethod("openURL",
+		// new Class[] { String.class });
+		// openURL.invoke(null, new Object[] { url });
+		// } else if (osName.startsWith("windows")) {
+		// Runtime.getRuntime().exec(
+		// "rundll32 url.dll,FileProtocolHandler " + url);
+		// } else {
+		// /* Assume Unix or Linux */
+		// try {
+		// URI uri = new URI(url);
+		// Desktop desktop = null;
+		// if (Desktop.isDesktopSupported()) {
+		// desktop = Desktop.getDesktop();
+		// }
+		// if (desktop != null) {
+		// desktop.browse(uri);
+		// return;
+		// }
+		// } catch (Throwable t) {
+		// }
+		// String[] browsers = { "google-chrome", "firefox", "opera",
+		// "konqueror", "epiphany", "mozilla", "netscape" };
+		// String browser = null;
+		// for (int count = 0; count < browsers.length && browser == null;
+		// count++)
+		// if (Runtime.getRuntime()
+		// .exec(new String[] { "which", browsers[count] })
+		// .waitFor() == 0)
+		// browser = browsers[count];
+		// if (browser == null)
+		// throw new NoSuchMethodException("Could not find web browser");
+		// else {
+		// Logger.info("cmd: " + browser + ", " + url);
+		// Runtime.getRuntime().exec(new String[] { browser, url });
+		// }
+		// }
 	}
 
 	/**

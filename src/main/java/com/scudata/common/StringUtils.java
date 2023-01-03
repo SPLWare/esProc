@@ -917,6 +917,108 @@ public class StringUtils {
 		}
 	}
 
+	private static boolean like(String src, int pos1, String fmt, int pos2) {
+		int len1 = src.length();
+		int len2 = fmt.length();
+		boolean any = false; // 是否有星号
+		
+		while (pos2 < len2) {
+			char ch = fmt.charAt(pos2);
+			if (ch == '%') {
+				pos2++;
+				any = true;
+			} else if (ch == '_') {
+				// 源串需要有任意一个字符与?匹配
+				if (++pos1 > len1) {
+					return false;
+				}
+
+				pos2++;
+			} else if (any) {
+				// \% 表示此位置需要字符'%'，而不是通配符%
+				if (ch == '\\' && pos2 + 1 < len2) {
+					char c = fmt.charAt(pos2 + 1);
+					if (c == '%' || c == '_') {
+						ch = c;
+						pos2++;
+					}
+				}
+
+				while (pos1 < len1) {
+					// 找到首个匹配的字符
+					if (src.charAt(pos1++) == ch) {
+						// 判断剩下的串是否匹配，如果不匹配跳过源串一个字符与格式串重新匹配
+						if (like(src, pos1, fmt, pos2 + 1)) {
+							return true;
+						}
+					}
+				}
+
+				return false;
+			} else {
+				// \% 表示此位置需要字符'%'，而不是通配符%
+				if (ch == '\\' && pos2 + 1 < len2) {
+					char c = fmt.charAt(pos2 + 1);
+					if (c == '%' || c == '_') {
+						ch = c;
+						pos2++;
+					}
+				}
+
+				// 源串当前字符需要与格式串当前字符匹配
+				if (pos1 == len1 || src.charAt(pos1++) != ch) {
+					return false;
+				}
+
+				for (++pos2; pos2 < len2;) {
+					ch = fmt.charAt(pos2);
+					if (ch == '%') {
+						any = true;
+						pos2++;
+						break;
+					} else if (ch == '_') {
+						if (++pos1 > len1) {
+							return false;
+						}
+
+						pos2++;
+					} else {
+						// \% 表示此位置需要字符'%'，而不是通配符%
+						if (ch == '\\' && pos2 + 1 < len2) {
+							char c = fmt.charAt(pos2 + 1);
+							if (c == '%' || c == '_') {
+								ch = c;
+								pos2++;
+							}
+						}
+
+						if (pos1 == len1 || src.charAt(pos1++) != ch) {
+							return false;
+						}
+
+						pos2++;
+					}
+				}
+			}
+		}
+
+		return any || pos1 == len1;
+	}
+	
+	/**
+	 * 采用SQL通配符做相似匹配
+	 * @param src 要匹配的串
+	 * @param fmt 通配符，SQL标准。%:替代0个或多个字符，_：仅替代一个字符
+	 * @return true：匹配，false：不匹配
+	 */
+	public static boolean like(String src, String fmt) {
+		if (src == null ) {
+			return false;
+		} else {
+			return like(src, 0, fmt, 0);
+		}
+	}
+	
 	private final static String[] provinces = { null, null, null, null, null,
 			null, null, null, null, null, null, "北京", "天津", "河北", "山西", "内蒙古",
 			null, null, null, null, null, "辽宁", "吉林", "黑龙江", null, null, null,
@@ -1349,5 +1451,158 @@ public class StringUtils {
 			index++;
 		}
 		return pre + "_" + index;
+	}
+
+	public final static boolean matches(byte[] value, int pos1, int len1, byte[] fmt) {
+		if (value == null || fmt == null) {
+			return false;
+		}
+		return matches(value, pos1, len1, fmt, 0);
+	}
+	
+	//fast模式，不处理？和\
+	public final static boolean matches_fast(byte[] value, int pos1, int len1, byte[] fmt) {
+		if (value == null || fmt == null) {
+			return false;
+		}
+		return matches_fast(value, pos1, len1, fmt, 0);
+	}
+	
+	private final static boolean matches_fast(byte[] src, int pos1, int len1, byte[] fmt, int pos2) {
+		int len2 = fmt.length;
+		boolean any = false; // 是否有星号
+
+		while (pos2 < len2) {
+			byte ch = fmt[pos2];
+			if (ch == '*') {
+				pos2++;
+				any = true;
+			} else if (any) {
+				// \* 表示此位置需要字符'*'，而不是通配符*
+
+				while (pos1 < len1) {
+					// 找到首个匹配的字符
+					if (src[pos1++] == ch) {
+						// 判断剩下的串是否匹配，如果不匹配跳过源串一个字符与格式串重新匹配
+						if (matches_fast(src, pos1, len1, fmt, pos2 + 1)) {
+							return true;
+						}
+					}
+				}
+
+				return false;
+			} else {
+
+				// 源串当前字符需要与格式串当前字符匹配
+				if (pos1 == len1 || src[pos1++] != ch) {
+					return false;
+				}
+
+				for (++pos2; pos2 < len2;) {
+					ch = fmt[pos2];
+					if (ch == '*') {
+						any = true;
+						pos2++;
+						break;
+					} else {
+
+						if (pos1 == len1 || src[pos1++] != ch) {
+							return false;
+						}
+
+						pos2++;
+					}
+				}
+			}
+		}
+
+		return any || pos1 == len1;
+	}
+	
+	private final static boolean matches(byte[] src, int pos1, int len1, byte[] fmt, int pos2) {
+		int len2 = fmt.length;
+		boolean any = false; // 是否有星号
+
+		while (pos2 < len2) {
+			byte ch = fmt[pos2];
+			if (ch == '*') {
+				pos2++;
+				any = true;
+			} else if (ch == '?') {
+				// 源串需要有任意一个字符与?匹配
+				if (++pos1 > len1) {
+					return false;
+				}
+
+				pos2++;
+			} else if (any) {
+				// \* 表示此位置需要字符'*'，而不是通配符*
+				if (ch == '\\' && pos2 + 1 < len2) {
+					byte c = fmt[pos2 + 1];
+					if (c == '*' || c == '?') {
+						ch = c;
+						pos2++;
+					}
+				}
+
+				while (pos1 < len1) {
+					// 找到首个匹配的字符
+					if (src[pos1++] == ch) {
+						// 判断剩下的串是否匹配，如果不匹配跳过源串一个字符与格式串重新匹配
+						if (matches(src, pos1, len1, fmt, pos2 + 1)) {
+							return true;
+						}
+					}
+				}
+
+				return false;
+			} else {
+				// \* 表示此位置需要字符'*'，而不是通配符*
+				if (ch == '\\' && pos2 + 1 < len2) {
+					byte c = fmt[pos2 + 1];
+					if (c == '*' || c == '?') {
+						ch = c;
+						pos2++;
+					}
+				}
+
+				// 源串当前字符需要与格式串当前字符匹配
+				if (pos1 == len1 || src[pos1++] != ch) {
+					return false;
+				}
+
+				for (++pos2; pos2 < len2;) {
+					ch = fmt[pos2];
+					if (ch == '*') {
+						any = true;
+						pos2++;
+						break;
+					} else if (ch == '?') {
+						if (++pos1 > len1) {
+							return false;
+						}
+
+						pos2++;
+					} else {
+						// \* 表示此位置需要字符'*'，而不是通配符*
+						if (ch == '\\' && pos2 + 1 < len2) {
+							byte c = fmt[pos2 + 1];
+							if (c == '*' || c == '?') {
+								ch = c;
+								pos2++;
+							}
+						}
+
+						if (pos1 == len1 || src[pos1++] != ch) {
+							return false;
+						}
+
+						pos2++;
+					}
+				}
+			}
+		}
+
+		return any || pos1 == len1;
 	}
 }

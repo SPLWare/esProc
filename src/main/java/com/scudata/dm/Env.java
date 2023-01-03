@@ -38,6 +38,7 @@ public class Env {
 	public static int FILE_BUFSIZE = 1024 * 64; // 读文件时的默认缓冲区大小
 	public static int DEFAULT_HASHCAPACITY = 204047; // 游标分组等运算的默认哈希表容量，优先选用质数
 	public static int MAX_HASHCAPACITY = 10445899; // 游标分组等运算的最大哈希表容量
+	public static final int INITGROUPSIZE = 8191; // 分组结果的初始大小
 
 
 	public static int BLOCK_SIZE = 1024 * 1024; // 文件区块大小，最小4096。2^n，n>=16

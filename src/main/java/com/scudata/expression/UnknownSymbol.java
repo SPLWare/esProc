@@ -2,19 +2,25 @@ package com.scudata.expression;
 
 import java.util.List;
 
+import com.scudata.array.BoolArray;
+import com.scudata.array.ConstArray;
+import com.scudata.array.IArray;
+import com.scudata.array.ObjectArray;
 import com.scudata.common.DBSession;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.ComputeStack;
 import com.scudata.dm.Context;
+import com.scudata.dm.Current;
 import com.scudata.dm.DBObject;
 import com.scudata.dm.DataStruct;
 import com.scudata.dm.IComputeItem;
 import com.scudata.dm.LinkEntry;
 import com.scudata.dm.Param;
 import com.scudata.dm.ParamList;
-import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
+import com.scudata.dm.Table;
 import com.scudata.resources.EngineMessage;
 import com.scudata.util.EnvUtil;
 import com.scudata.util.Variant;
@@ -29,10 +35,12 @@ public class UnknownSymbol extends Node {
 	private String name;
 	
 	private IComputeItem computeItem; // 上次计算时对应的计算对象
-	private int col; // 上次计算对应的字段索引，用于性能优化
+	private int col = -1; // 上次计算对应的字段索引，用于性能优化
 	private DataStruct prevDs; // 上次计算对应的数据结构，用于性能优化
 	
 	private Param param; // 上次计算对应的变量
+	private DBObject db;  // 上次计算对应的数据库连接
+	private boolean isField = false; // 是否对应的是字段
 	
 	public UnknownSymbol(String name) {
 		this.name = name;
@@ -68,8 +76,8 @@ public class UnknownSymbol extends Node {
 		ComputeStack stack = ctx.getComputeStack();
 		if (computeItem != null && computeItem.isInStack(stack)) {
 			Object obj = computeItem.getCurrent();
-			if (obj instanceof Record) {
-				Record cur = (Record)obj;
+			if (obj instanceof BaseRecord) {
+				BaseRecord cur = (BaseRecord)obj;
 				if (prevDs != cur.dataStruct()) {
 					prevDs = cur.dataStruct();
 					col = prevDs.getFieldIndex(name);
@@ -87,8 +95,8 @@ public class UnknownSymbol extends Node {
 				}
 				
 				obj = ((Sequence)obj).get(1);
-				if (obj instanceof Record) {
-					Record cur = (Record)obj;
+				if (obj instanceof BaseRecord) {
+					BaseRecord cur = (BaseRecord)obj;
 					if (prevDs != cur.dataStruct()) {
 						prevDs = cur.dataStruct();
 						col = prevDs.getFieldIndex(name);
@@ -111,20 +119,28 @@ public class UnknownSymbol extends Node {
 				MessageManager mm = EngineMessage.get();
 				throw new RQException(mm.getMessage("Expression.unknownExpression") + name);
 			}
-		} else if (param != null) {
-			return param.getValue();
 		} else {
 			// 如果曾经被当做字段则不再找变量
-			if (computeItem == null) {
+			if (!isField) {
+				if (param != null) {
+					return param.getValue();
+				} else if (db != null) {
+					return db;
+				}
+				
 				param = EnvUtil.getParam(name, ctx);
 				if (param != null) { // 变量
 					return param.getValue();
 				}
-
-				if (ctx != null) { // 数据库连接
-					DBSession dbs = ctx.getDBSession(name);
-					if (dbs != null) return new DBObject(dbs);
+				
+				// 数据库连接
+				DBSession dbs = ctx.getDBSession(name);
+				if (dbs != null) {
+					db = new DBObject(dbs);
+					return db;
 				}
+				
+				isField = true;
 			}
 
 			// 字段
@@ -133,8 +149,8 @@ public class UnknownSymbol extends Node {
 			for (LinkEntry<IComputeItem> entry = stack.getStackHeadEntry(); entry != null; entry = entry.getNext()) {
 				IComputeItem item = entry.getElement();
 				Object cur = item.getCurrent();
-				if (cur instanceof Record) {
-					Record r = (Record) cur;
+				if (cur instanceof BaseRecord) {
+					BaseRecord r = (BaseRecord) cur;
 					col = r.getFieldIndex(name);
 
 					if (col >= 0) {
@@ -150,8 +166,8 @@ public class UnknownSymbol extends Node {
 					}
 					
 					cur = ((Sequence)cur).get(1);
-					if (cur instanceof Record) {
-						Record r = (Record) cur;
+					if (cur instanceof BaseRecord) {
+						BaseRecord r = (BaseRecord) cur;
 						col = r.getFieldIndex(name);
 
 						if (col >= 0) {
@@ -182,8 +198,8 @@ public class UnknownSymbol extends Node {
 		ComputeStack stack = ctx.getComputeStack();
 		if (computeItem != null && computeItem.isInStack(stack)) {
 			Object obj = computeItem.getCurrent();
-			if (obj instanceof Record) {
-				Record cur = (Record)obj;
+			if (obj instanceof BaseRecord) {
+				BaseRecord cur = (BaseRecord)obj;
 				if (prevDs != cur.dataStruct()) {
 					prevDs = cur.dataStruct();
 					col = prevDs.getFieldIndex(name);
@@ -201,8 +217,8 @@ public class UnknownSymbol extends Node {
 				}
 				
 				obj = ((Sequence)obj).get(1);
-				if (obj instanceof Record) {
-					Record cur = (Record)obj;
+				if (obj instanceof BaseRecord) {
+					BaseRecord cur = (BaseRecord)obj;
 					if (prevDs != cur.dataStruct()) {
 						prevDs = cur.dataStruct();
 						col = prevDs.getFieldIndex(name);
@@ -241,14 +257,28 @@ public class UnknownSymbol extends Node {
 				Object cur = item.getCurrent();
 				
 				// 赋值的情况不允许序列首元素为null？
-				if (cur instanceof Record) {
-					Record r = (Record) cur;
+				if (cur instanceof BaseRecord) {
+					BaseRecord r = (BaseRecord) cur;
 					col = r.getFieldIndex(name);
 
 					if (col >= 0) {
 						computeItem = item;
 						prevDs = r.dataStruct();
 						r.setNormalFieldValue(col, value);
+						return value;
+					}
+				} else if (cur instanceof Table) {
+					Table table = (Table)cur;
+					DataStruct ds = table.dataStruct();
+					col = ds.getFieldIndex(name);
+					if (col >= 0) {
+						computeItem = item;
+						prevDs = ds;
+						
+						if (table.length() > 0) {
+							table.getRecord(1).setNormalFieldValue(col, value);
+						}
+						
 						return value;
 					}
 				} else if (cur instanceof Sequence) {
@@ -259,8 +289,8 @@ public class UnknownSymbol extends Node {
 					}
 
 					cur = ((Sequence)cur).get(1);
-					if (cur instanceof Record) {
-						Record r = (Record) cur;
+					if (cur instanceof BaseRecord) {
+						BaseRecord r = (BaseRecord) cur;
 						col = r.getFieldIndex(name);
 
 						if (col >= 0) {
@@ -274,8 +304,8 @@ public class UnknownSymbol extends Node {
 			}
 
 			// 没有找到字段则产生变量放入上下文中
-			Param newParam = new Param(name, Param.VAR, value);
-			ctx.addParam(newParam);
+			param = new Param(name, Param.VAR, value);
+			ctx.addParam(param);
 			return value;
 		}
 	}
@@ -286,8 +316,8 @@ public class UnknownSymbol extends Node {
 		ComputeStack stack = ctx.getComputeStack();
 		if (computeItem != null && computeItem.isInStack(stack)) {
 			Object obj = computeItem.getCurrent();
-			if (obj instanceof Record) {
-				Record cur = (Record)obj;
+			if (obj instanceof BaseRecord) {
+				BaseRecord cur = (BaseRecord)obj;
 				if (prevDs != cur.dataStruct()) {
 					prevDs = cur.dataStruct();
 					col = prevDs.getFieldIndex(name);
@@ -307,8 +337,8 @@ public class UnknownSymbol extends Node {
 				}
 				
 				obj = ((Sequence)obj).get(1);
-				if (obj instanceof Record) {
-					Record cur = (Record)obj;
+				if (obj instanceof BaseRecord) {
+					BaseRecord cur = (BaseRecord)obj;
 					if (prevDs != cur.dataStruct()) {
 						prevDs = cur.dataStruct();
 						col = prevDs.getFieldIndex(name);
@@ -351,8 +381,8 @@ public class UnknownSymbol extends Node {
 				Object cur = item.getCurrent();
 				
 				// 赋值的情况不允许序列首元素为null？
-				if (cur instanceof Record) {
-					Record r = (Record) cur;
+				if (cur instanceof BaseRecord) {
+					BaseRecord r = (BaseRecord) cur;
 					col = r.getFieldIndex(name);
 
 					if (col >= 0) {
@@ -371,8 +401,8 @@ public class UnknownSymbol extends Node {
 					}
 
 					cur = ((Sequence)cur).get(1);
-					if (cur instanceof Record) {
-						Record r = (Record) cur;
+					if (cur instanceof BaseRecord) {
+						BaseRecord r = (BaseRecord) cur;
 						col = r.getFieldIndex(name);
 
 						if (col >= 0) {
@@ -396,7 +426,7 @@ public class UnknownSymbol extends Node {
 		// 如果上次计算表达式时对应的序列还在堆栈中则使用上次的
 		ComputeStack stack = ctx.getComputeStack();
 		if (computeItem != null && computeItem.isInStack(stack)) {
-			Sequence.Current current = (Sequence.Current)computeItem;
+			Current current = (Current)computeItem;
 			int pos = node.calculateIndex(current, ctx);
 			if (pos < 1) {
 				return null;
@@ -412,8 +442,8 @@ public class UnknownSymbol extends Node {
 				}
 			}
 
-			if (obj instanceof Record) {
-				Record r = (Record)obj;
+			if (obj instanceof BaseRecord) {
+				BaseRecord r = (BaseRecord)obj;
 				if (prevDs != r.dataStruct()) {
 					prevDs = r.dataStruct();
 					col = prevDs.getFieldIndex(name);
@@ -439,7 +469,7 @@ public class UnknownSymbol extends Node {
 				throw new RQException("[]" + mm.getMessage("dot.seriesLeft"));
 			}
 
-			Sequence.Current current = stack.getSequenceCurrent((Sequence)value);
+			Current current = stack.getSequenceCurrent((Sequence)value);
 			if (current == null) {
 				MessageManager mm = EngineMessage.get();
 				throw new RQException("[]" + mm.getMessage("engine.seriesNotInStack"));
@@ -453,8 +483,8 @@ public class UnknownSymbol extends Node {
 		// 第一次运算或运算环境已改变
 		for (LinkEntry<IComputeItem> entry = stack.getStackHeadEntry(); entry != null; entry = entry.getNext()) {
 			IComputeItem item = entry.getElement();
-			if (item instanceof Sequence.Current) { // series.(...)
-				Sequence.Current current = (Sequence.Current) item;
+			if (item instanceof Current) { // series.(...)
+				Current current = (Current) item;
 				Object curObj = current.getCurrent();
 
 				// 如果当前元素是序列则取其第一个元素
@@ -466,8 +496,8 @@ public class UnknownSymbol extends Node {
 					}
 				}
 
-				if (curObj instanceof Record) {
-					Record cur = (Record) curObj;
+				if (curObj instanceof BaseRecord) {
+					BaseRecord cur = (BaseRecord) curObj;
 					col = cur.getFieldIndex(name);
 
 					if (col >= 0) {
@@ -479,12 +509,12 @@ public class UnknownSymbol extends Node {
 
 						Object obj = current.get(pos);
 						if (obj == null) return null;
-						if (!(obj instanceof Record)) {
+						if (!(obj instanceof BaseRecord)) {
 							MessageManager mm = EngineMessage.get();
 							throw new RQException(mm.getMessage("Expression.unknownExpression") + name);
 						}
 
-						Record r = (Record)obj;
+						BaseRecord r = (BaseRecord)obj;
 						if (prevDs != r.dataStruct()) {
 							prevDs = r.dataStruct();
 							col = prevDs.getFieldIndex(name);
@@ -511,12 +541,12 @@ public class UnknownSymbol extends Node {
 					}
 
 					if (obj == null) return null;
-					if (!(obj instanceof Record)) {
+					if (!(obj instanceof BaseRecord)) {
 						MessageManager mm = EngineMessage.get();
 						throw new RQException(mm.getMessage("Expression.unknownExpression") + name);
 					}
 
-					Record r = ((Record)obj);
+					BaseRecord r = ((BaseRecord)obj);
 					prevDs = r.dataStruct();
 					col = prevDs.getFieldIndex(name);
 					if (col < 0) {
@@ -537,7 +567,7 @@ public class UnknownSymbol extends Node {
 		 // 如果上次计算表达式时对应的序列还在堆栈中则使用上次的
 		ComputeStack stack = ctx.getComputeStack();
 		if (computeItem != null && computeItem.isInStack(stack)) {
-			Sequence.Current current = (Sequence.Current)computeItem;
+			Current current = (Current)computeItem;
 			int pos = node.calculateIndex(current, ctx);
 			if (pos < 1) return value;
 
@@ -551,8 +581,8 @@ public class UnknownSymbol extends Node {
 				}
 			}
 
-			if (obj instanceof Record) {
-				Record r = (Record)obj;
+			if (obj instanceof BaseRecord) {
+				BaseRecord r = (BaseRecord)obj;
 				if (prevDs != r.dataStruct()) {
 					prevDs = r.dataStruct();
 					col = prevDs.getFieldIndex(name);
@@ -579,7 +609,7 @@ public class UnknownSymbol extends Node {
 				 throw new RQException("[]" + mm.getMessage("dot.seriesLeft"));
 			 }
 
-			 Sequence.Current current = stack.getSequenceCurrent((Sequence)obj);
+			 Current current = stack.getSequenceCurrent((Sequence)obj);
 			 if (current == null) {
 				 MessageManager mm = EngineMessage.get();
 				 throw new RQException("[]" + mm.getMessage("engine.seriesNotInStack"));
@@ -594,8 +624,8 @@ public class UnknownSymbol extends Node {
 		 // 第一次运算或运算环境已改变
 		for (LinkEntry<IComputeItem> entry = stack.getStackHeadEntry(); entry != null; entry = entry.getNext()) {
 			IComputeItem item = entry.getElement();
-			if (item instanceof Sequence.Current) { // series.(...)
-				Sequence.Current current = (Sequence.Current) item;
+			if (item instanceof Current) { // series.(...)
+				Current current = (Current) item;
 				Object curObj = current.getCurrent();
 
 				// 如果当前元素是序列则取其第一个元素
@@ -607,8 +637,8 @@ public class UnknownSymbol extends Node {
 					}
 				}
 
-				if (curObj instanceof Record) {
-					Record cur = (Record) curObj;
+				if (curObj instanceof BaseRecord) {
+					BaseRecord cur = (BaseRecord) curObj;
 					col = cur.getFieldIndex(name);
 
 					if (col >= 0) {
@@ -620,12 +650,12 @@ public class UnknownSymbol extends Node {
 
 						Object obj = current.get(pos);
 						if (obj == null) return value;
-						if (!(obj instanceof Record)) {
+						if (!(obj instanceof BaseRecord)) {
 							MessageManager mm = EngineMessage.get();
 							throw new RQException(mm.getMessage("Expression.unknownExpression") + name);
 						}
 
-						Record r = (Record)obj;
+						BaseRecord r = (BaseRecord)obj;
 						if (prevDs != r.dataStruct()) {
 							prevDs = r.dataStruct();
 							col = prevDs.getFieldIndex(name);
@@ -653,12 +683,12 @@ public class UnknownSymbol extends Node {
 					}
 
 					if (obj == null) return value;
-					if (!(obj instanceof Record)) {
+					if (!(obj instanceof BaseRecord)) {
 						MessageManager mm = EngineMessage.get();
 						throw new RQException(mm.getMessage("Expression.unknownExpression") + name);
 					}
 
-					Record r = (Record)obj;
+					BaseRecord r = (BaseRecord)obj;
 					prevDs = r.dataStruct();
 					col = prevDs.getFieldIndex(name);
 					if (col < 0) {
@@ -680,7 +710,7 @@ public class UnknownSymbol extends Node {
 		// 如果上次计算表达式时对应的序列还在堆栈中则使用上次的
 		ComputeStack stack = ctx.getComputeStack();
 		if (computeItem != null && computeItem.isInStack(stack)) {
-			Sequence.Current current = (Sequence.Current)computeItem;
+			Current current = (Current)computeItem;
 			int []range = node.calculateIndexRange(current, ctx);
 			if (range == null) return new Sequence(0);
 			return Move.getFieldValues(current, name, range[0], range[1]);
@@ -693,7 +723,7 @@ public class UnknownSymbol extends Node {
 				throw new RQException("[]" + mm.getMessage("dot.seriesLeft"));
 			}
 
-			Sequence.Current current = stack.getSequenceCurrent((Sequence)value);
+			Current current = stack.getSequenceCurrent((Sequence)value);
 			if (current == null) {
 				MessageManager mm = EngineMessage.get();
 				throw new RQException("[]" + mm.getMessage("engine.seriesNotInStack"));
@@ -704,20 +734,20 @@ public class UnknownSymbol extends Node {
 
 			int startSeq = range[0];
 			int endSeq = range[1];
-			Sequence retSeries = new Sequence(endSeq - startSeq + 1);
+			Sequence result = new Sequence(endSeq - startSeq + 1);
 			for (; startSeq <= endSeq; ++startSeq) {
-				retSeries.add(current.get(startSeq));
+				result.add(current.get(startSeq));
 			}
 
-			return retSeries;
+			return result;
 		}
 
 		// 字段
 		// 第一次运算或运算环境已改变
 		for (LinkEntry<IComputeItem> entry = stack.getStackHeadEntry(); entry != null; entry = entry.getNext()) {
 			IComputeItem item = entry.getElement();
-			if (item instanceof Sequence.Current) { // series.(...)
-				Sequence.Current current = (Sequence.Current) item;
+			if (item instanceof Current) { // series.(...)
+				Current current = (Current) item;
 				Object curObj = current.getCurrent();
 
 				if (curObj instanceof Sequence) {
@@ -728,8 +758,8 @@ public class UnknownSymbol extends Node {
 					}
 				}
 
-				if (curObj instanceof Record) {
-					Record cur = (Record) curObj;
+				if (curObj instanceof BaseRecord) {
+					BaseRecord cur = (BaseRecord) curObj;
 					col = cur.getFieldIndex(name);
 
 					if (col >= 0) {
@@ -756,5 +786,275 @@ public class UnknownSymbol extends Node {
 	public int getCol() {
 		return col;
 	}
+	
+	/**
+	 * 计算signArray中取值为sign的行
+	 * @param ctx
+	 * @param signArray 行标识数组
+	 * @param sign 标识
+	 * @return IArray
+	 */
+	public IArray calculateAll(Context ctx, IArray signArray, boolean sign) {
+		return calculateAll(ctx);
+	}
+	
+	/**
+	 * 计算逻辑与运算符&&的右侧表达式
+	 * @param ctx 计算上行文
+	 * @param leftResult &&左侧表达式的计算结果
+	 * @return BoolArray
+	 */
+	public BoolArray calculateAnd(Context ctx, IArray leftResult) {
+		BoolArray result = leftResult.isTrue();
+		IArray array = calculateAll(ctx);
+		
+		for (int i = 1, size = result.size(); i <= size; ++i) {
+			if (result.isTrue(i) && array.isFalse(i)) {
+				result.set(i, false);
+			}
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * 计算出所有行的结果
+	 * @param ctx 计算上行文
+	 * @return IArray
+	 */
+	public IArray calculateAll(Context ctx) {
+		if (!isField) {
+			if (param != null) { // 变量
+				Sequence sequence = ctx.getComputeStack().getTopSequence();
+				return new ConstArray(param.getValue(), sequence.length());
+			} else if (db != null) { // 数据库连接
+				Sequence sequence = ctx.getComputeStack().getTopSequence();
+				return new ConstArray(db, sequence.length());
+			}
+			
+			param = EnvUtil.getParam(name, ctx);
+			if (param != null) { // 变量
+				Sequence sequence = ctx.getComputeStack().getTopSequence();
+				return new ConstArray(param.getValue(), sequence.length());
+			}
+			
+			// 数据库连接
+			DBSession dbs = ctx.getDBSession(name);
+			if (dbs != null) {
+				Sequence sequence = ctx.getComputeStack().getTopSequence();
+				db = new DBObject(dbs);
+				return new ConstArray(db, sequence.length());
+			}
+			
+			isField = true;
+		}
+		
+		// 调用calculateAll时栈顶对象肯定是序列
+		ComputeStack stack = ctx.getComputeStack();
+		Sequence sequence = stack.getTopSequence();
+		
+		if (sequence.containField(name)) {
+			return sequence.getFieldValueArray(name);
+		}
 
+		int len = sequence.length();
+		if (len == 0) {
+			ObjectArray array = new ObjectArray(0);
+			array.setTemporary(true);
+			return array;
+		}
+		
+		int i = 1;
+		IArray result = null;
+		DataStruct ds = null;
+		int col = -1;
+		
+		// 找出第一个非空的成员，判断是否含有当前字段
+		// 成员可能是记录或排列
+		for (; i <= len; ++i) {
+			Object mem = sequence.getMem(i);
+			if (mem instanceof Sequence) {
+				// 如果当前元素是序列则取其第一个元素
+				Sequence tmp = (Sequence)mem;
+				if (tmp.length() > 0) {
+					mem = tmp.getMem(1);
+				} else {
+					mem = null;
+				}
+			}
+
+			if (mem instanceof BaseRecord) {
+				BaseRecord r = (BaseRecord)mem;
+				ds = r.dataStruct();
+				col = ds.getFieldIndex(name);
+				
+				if (col != -1) {
+					result = new ObjectArray(len);
+					result.setTemporary(true);
+					
+					for (int j = 1; j < i; ++j) {
+						result.push(null);
+					}
+					
+					result.push(r.getNormalFieldValue(col));
+				}
+				
+				break;
+			} else if (mem != null) {
+				// A.(B.(...))引用上层排列的字段
+				break;
+			}
+		}
+		
+		if (result != null) {
+			// 第一个非空的成员含有当前字段
+			for (++i; i <= len; ++i) {
+				Object mem = sequence.getMem(i);
+				if (mem instanceof Sequence) {
+					// 如果当前元素是序列则取其第一个元素
+					Sequence tmp = (Sequence)mem;
+					if (tmp.length() > 0) {
+						mem = tmp.getMem(1);
+					} else {
+						mem = null;
+					}
+				}
+
+				if (mem instanceof BaseRecord) {
+					BaseRecord r = (BaseRecord)mem;
+					if (r.dataStruct() != ds) {
+						ds = r.dataStruct();
+						col = ds.getFieldIndex(name);
+						if (col == -1) {
+							MessageManager mm = EngineMessage.get();
+							throw new RQException(name + mm.getMessage("ds.fieldNotExist"));
+						}
+					}
+					
+					result.push(r.getNormalFieldValue(col));
+				} else if (mem != null) {
+					result.push(null);
+				} else {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException(name + mm.getMessage("ds.fieldNotExist"));
+				}
+			}
+			
+			return result;
+		} else {
+			// A.(B.(...))引用上层排列的字段
+			Object value = getOuterFieldValue(ctx);
+			result = new ConstArray(value, len);
+			result.setTemporary(true);
+			return result;
+		}
+	}
+	
+	// 取外层排列的字段值
+	private Object getOuterFieldValue(Context ctx) {
+		// 如果上次计算表达式时对应的纪录或序列还在堆栈中则使用上次的
+		ComputeStack stack = ctx.getComputeStack();
+		if (computeItem != null && computeItem.isInStack(stack)) {
+			Object obj = computeItem.getCurrent();
+			if (obj instanceof BaseRecord) {
+				BaseRecord cur = (BaseRecord)obj;
+				if (prevDs != cur.dataStruct()) {
+					prevDs = cur.dataStruct();
+					col = prevDs.getFieldIndex(name);
+					if (col < 0) {
+						MessageManager mm = EngineMessage.get();
+						throw new RQException(name + mm.getMessage("ds.fieldNotExist"));
+					}
+				}
+
+				return cur.getNormalFieldValue(col);
+			} else if (obj instanceof Sequence) {
+				// 如果当前元素是序列则取其第一个元素
+				if (((Sequence)obj).length() == 0) {
+					return null;
+				}
+				
+				obj = ((Sequence)obj).get(1);
+				if (obj instanceof BaseRecord) {
+					BaseRecord cur = (BaseRecord)obj;
+					if (prevDs != cur.dataStruct()) {
+						prevDs = cur.dataStruct();
+						col = prevDs.getFieldIndex(name);
+						if (col < 0) {
+							MessageManager mm = EngineMessage.get();
+							throw new RQException(name + mm.getMessage("ds.fieldNotExist"));
+						}
+					}
+
+					return cur.getNormalFieldValue(col);
+				} else if (obj == null) {
+					return null;
+				} else {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException(mm.getMessage("Expression.unknownExpression") + name);
+				}
+			} else if (obj == null) {
+				return null;
+			} else {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException(mm.getMessage("Expression.unknownExpression") + name);
+			}
+		} else {
+			// 字段
+			// 第一次运算或运算环境已改变
+			boolean hasNull = false; // 是否有序列第一个成员为空
+			LinkEntry<IComputeItem> entry = stack.getStackHeadEntry();
+			for (entry = entry.getNext(); entry != null; entry = entry.getNext()) {
+				IComputeItem item = entry.getElement();
+				Object cur = item.getCurrent();
+				if (cur instanceof BaseRecord) {
+					BaseRecord r = (BaseRecord) cur;
+					col = r.getFieldIndex(name);
+
+					if (col >= 0) {
+						computeItem = item;
+						prevDs = r.dataStruct();
+						return r.getNormalFieldValue(col);
+					}
+				} else if (cur instanceof Sequence) {
+					// 如果当前元素是序列则取其第一个元素
+					if (((Sequence)cur).length() == 0) {
+						computeItem = item;
+						return null;
+					}
+					
+					cur = ((Sequence)cur).get(1);
+					if (cur instanceof BaseRecord) {
+						BaseRecord r = (BaseRecord) cur;
+						col = r.getFieldIndex(name);
+
+						if (col >= 0) {
+							computeItem = item;
+							prevDs = r.dataStruct();
+							return r.getNormalFieldValue(col);
+						}
+					} else if (cur == null) {
+						hasNull = true;
+					}
+				} else if (cur == null) {
+					hasNull = true;
+				}
+			}
+
+			if (hasNull) {
+				return null;
+			}
+			
+			MessageManager mm = EngineMessage.get();
+			throw new RQException(mm.getMessage("Expression.unknownExpression") + name);
+		}
+	}
+
+	/**
+	 * 返回节点是否单调递增的
+	 * @return true：是单调递增的，false：不是
+	 */
+	public boolean isMonotone() {
+		return true;
+	}
 }

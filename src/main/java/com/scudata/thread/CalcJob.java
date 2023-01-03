@@ -1,10 +1,10 @@
 package com.scudata.thread;
 
+import com.scudata.array.IArray;
 import com.scudata.dm.ComputeStack;
 import com.scudata.dm.Context;
-import com.scudata.dm.ListBase1;
+import com.scudata.dm.Current;
 import com.scudata.dm.Sequence;
-import com.scudata.dm.Sequence.Current;
 import com.scudata.expression.Expression;
 
 /**
@@ -35,9 +35,9 @@ class CalcJob extends Job {
 		Expression exp = this.exp;
 		Context ctx = this.ctx;
 		
-		ListBase1 resultMems = result.getMems();
+		IArray resultMems = result.getMems();
 		ComputeStack stack = ctx.getComputeStack();
-		Current current = src.new Current();
+		Current current = new Current(src);
 		stack.push(current);
 
 		try {

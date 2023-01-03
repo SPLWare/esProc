@@ -2,8 +2,8 @@ package com.scudata.expression.fn.convert;
 
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Context;
-import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 import com.scudata.expression.Function;
 import com.scudata.expression.IParam;
@@ -16,12 +16,17 @@ import com.scudata.util.XMLUtil;
  *
  */
 public class Xml extends Function {
-	public Object calculate(Context ctx) {
+	/**
+	 * 检查表达式的有效性，无效则抛出异常
+	 */
+	public void checkValidity() {
 		if (param == null) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("xml" + mm.getMessage("function.missingParam"));
 		}
+	}
 
+	public Object calculate(Context ctx) {
 		Object val;
 		String s = null;
 		if (param.isLeaf()) {
@@ -55,8 +60,8 @@ public class Xml extends Function {
 			//}
 		} else if (val instanceof Sequence) {
 			return XMLUtil.toXml((Sequence)val, null, s);
-		} else if (val instanceof Record) {
-			return XMLUtil.toXml((Record)val, null, s);
+		} else if (val instanceof BaseRecord) {
+			return XMLUtil.toXml((BaseRecord)val, null, s);
 		} else if (val == null) {
 			return null;
 		} else {

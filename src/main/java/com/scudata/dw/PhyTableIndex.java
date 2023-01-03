@@ -4,6 +4,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import com.scudata.array.IArray;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.ComputeStack;
@@ -11,7 +12,6 @@ import com.scudata.dm.Context;
 import com.scudata.dm.DataStruct;
 import com.scudata.dm.Env;
 import com.scudata.dm.FileObject;
-import com.scudata.dm.ListBase1;
 import com.scudata.dm.LongArray;
 import com.scudata.dm.ObjectReader;
 import com.scudata.dm.ObjectWriter;
@@ -34,7 +34,7 @@ import com.scudata.util.Variant;
  * @author runqian
  *
  */
-public class TableMetaDataIndex implements ITableIndex {
+public class PhyTableIndex implements ITableIndex {
 	private static final int NULL = -1;
 	private static final int EQ = 0; // 等于
 	private static final int GE = 1; // 大于等于
@@ -60,7 +60,7 @@ public class TableMetaDataIndex implements ITableIndex {
 	protected String []ifields; // 索引字段名字
 	
 	protected String name;
-	protected TableMetaData srcTable;
+	protected PhyTable srcTable;
 	protected FileObject indexFile;
 	
 	// 查找时使用
@@ -109,7 +109,7 @@ public class TableMetaDataIndex implements ITableIndex {
 	 */
 	protected class CTableCursor extends ICursor {
 		public static final String POS_FIELDNAME = "rq_file_pos_";
-		private ColumnTableMetaData table;
+		private ColPhyTable table;
 		private String []fields;
 		private Expression filter;
 		
@@ -126,8 +126,8 @@ public class TableMetaDataIndex implements ITableIndex {
 		
 		private long curNum = 0;//全局记录号
 		
-		public CTableCursor(TableMetaData table, String []fields, Context ctx, Expression filter) {
-			this.table = (ColumnTableMetaData) table;
+		public CTableCursor(PhyTable table, String []fields, Context ctx, Expression filter) {
+			this.table = (ColPhyTable) table;
 			this.fields = fields;
 			this.ctx = ctx;
 			this.filter = filter;
@@ -193,7 +193,7 @@ public class TableMetaDataIndex implements ITableIndex {
 			BufferReader []bufReaders = new BufferReader[colCount];
 			DataStruct ds = this.ds;
 			
-			ListBase1 mems = cache.getMems();
+			IArray mems = cache.getMems();
 			this.cache = null;
 			
 			ComputeStack stack = null;
@@ -218,7 +218,7 @@ public class TableMetaDataIndex implements ITableIndex {
 					if (filter != null) {
 						int recordCount = rowCountReader.readInt32();
 						for (int f = 0; f < colCount; ++f) {
-							bufReaders[f] = colReaders[f].readBlockData();
+							bufReaders[f] = colReaders[f].readBlockData(recordCount);
 						}
 						
 						int i;
@@ -278,7 +278,7 @@ public class TableMetaDataIndex implements ITableIndex {
 					
 					int recordCount = rowCountReader.readInt32();
 					for (int f = 0; f < colCount; ++f) {
-						bufReaders[f] = colReaders[f].readBlockData();
+						bufReaders[f] = colReaders[f].readBlockData(recordCount);
 					}
 					
 					int diff = n - cache.length();
@@ -364,7 +364,7 @@ public class TableMetaDataIndex implements ITableIndex {
 				//seek to first block
 				for(int i = 0; i < colCount; i++) {
 					pos = segmentReaders[i].readLong40();
-					if (columns[i].isDim()) {
+					if (columns[i].hasMaxMinValues()) {
 						segmentReaders[i].skipObject();
 						segmentReaders[i].skipObject();
 						segmentReaders[i].skipObject();
@@ -382,7 +382,7 @@ public class TableMetaDataIndex implements ITableIndex {
 					} else {
 						for(int i = 0; i < colCount; i++) {
 							pos = segmentReaders[i].readLong40();
-							if (columns[i].isDim()) {
+							if (columns[i].hasMaxMinValues()) {
 								segmentReaders[i].skipObject();
 								segmentReaders[i].skipObject();
 								segmentReaders[i].skipObject();
@@ -439,7 +439,7 @@ public class TableMetaDataIndex implements ITableIndex {
 		public static final String POS_FIELDNAME = "rq_file_pos_";
 		public static final String SEQ_FIELDNAME = "rq_file_seq_";
 		private long blockSize;
-		private RowTableMetaData table;
+		private RowPhyTable table;
 		private String []fields;
 		private Expression filter;
 		
@@ -462,8 +462,8 @@ public class TableMetaDataIndex implements ITableIndex {
 		private int []fieldsIndex;
 		private boolean []needRead;
 		
-		public RTableCursor(TableMetaData table, String []fields, Context ctx, Expression filter) {
-			this.table = (RowTableMetaData) table;
+		public RTableCursor(PhyTable table, String []fields, Context ctx, Expression filter) {
+			this.table = (RowPhyTable) table;
 			this.fields = fields;
 			this.ctx = ctx;
 			this.filter = filter;
@@ -491,9 +491,9 @@ public class TableMetaDataIndex implements ITableIndex {
 			}
 			
 			rowReader = table.getRowReader(true);
-			rowDataReader = new ObjectReader(rowReader, table.groupTable.getBlockSize() - GroupTable.POS_SIZE);
+			rowDataReader = new ObjectReader(rowReader, table.groupTable.getBlockSize() - ComTable.POS_SIZE);
 			segmentReader = table.getSegmentObjectReader();
-			blockSize = table.groupTable.getBlockSize() - GroupTable.POS_SIZE;
+			blockSize = table.groupTable.getBlockSize() - ComTable.POS_SIZE;
 			
 			isPrimaryTable = table.parent == null;
 			int len = this.fields.length;
@@ -585,7 +585,7 @@ public class TableMetaDataIndex implements ITableIndex {
 			int keyCount = table.getAllSortedColNamesLength();
 			DataStruct ds = this.ds;
 			
-			ListBase1 mems = cache.getMems();
+			IArray mems = cache.getMems();
 			this.cache = null;
 			
 			ComputeStack stack = null;
@@ -905,14 +905,14 @@ public class TableMetaDataIndex implements ITableIndex {
 		}
 	}
 	
-	public TableMetaDataIndex(TableMetaData table, String indexName) {
+	public PhyTableIndex(PhyTable table, String indexName) {
 		table.getGroupTable().checkWritable();
 		this.srcTable = table;
 		this.name = indexName;
 
 		String dir = table.getGroupTable().getFile().getAbsolutePath() + "_";
 		indexFile = new FileObject(dir + table.getTableName() + "_" + indexName);
-		if (srcTable instanceof ColumnTableMetaData) {
+		if (srcTable instanceof ColPhyTable) {
 			positionCount = 0;
 		} else {
 			if (srcTable.parent == null) {
@@ -923,10 +923,10 @@ public class TableMetaDataIndex implements ITableIndex {
 		}
 	}
 	
-	public TableMetaDataIndex(TableMetaData table, FileObject indexFile) {
+	public PhyTableIndex(PhyTable table, FileObject indexFile) {
 		this.srcTable = table;
 		this.indexFile = indexFile;
-		if (srcTable instanceof ColumnTableMetaData) {
+		if (srcTable instanceof ColPhyTable) {
 			positionCount = 0;
 		} else {
 			if (srcTable.parent == null) {
@@ -1055,7 +1055,7 @@ public class TableMetaDataIndex implements ITableIndex {
 				}
 				
 				ArrayList <ICursor> cursorList;
-				if (srcTable instanceof RowTableMetaData) {
+				if (srcTable instanceof RowPhyTable) {
 					cursorList = sortRow(fields, ctx, filter);
 				} else {
 					cursorList = sortCol(fields, ctx, filter);
@@ -1103,7 +1103,7 @@ public class TableMetaDataIndex implements ITableIndex {
 			index1RecordCount = 0;
 			
 			ArrayList <ICursor> cursorList;
-			if (srcTable instanceof RowTableMetaData) {
+			if (srcTable instanceof RowPhyTable) {
 				cursorList = sortRow(fields, ctx, filter);
 			} else {
 				cursorList = sortCol(fields, ctx, filter);
@@ -1149,7 +1149,7 @@ public class TableMetaDataIndex implements ITableIndex {
 	 * @param fcount
 	 * @return
 	 */
-	protected int getGroupNum(ListBase1 mems, int from, int fcount) {
+	protected int getGroupNum(IArray mems, int from, int fcount) {
 		int len = mems.size();
 		int count = 1;		
 		Record r;
@@ -1229,7 +1229,7 @@ public class TableMetaDataIndex implements ITableIndex {
 				
 				while (table != null) {
 					//每次写20块
-					ListBase1 mems = table.getMems();
+					IArray mems = table.getMems();
 					int rest = mems.size();
 					recCount += rest;
 					if (rest == 0) break;
@@ -1269,7 +1269,7 @@ public class TableMetaDataIndex implements ITableIndex {
 				}
 				
 				int p = 1;
-				ListBase1 mems = table.getMems();
+				IArray mems = table.getMems();
 				int length = table.length();
 				while (table != null && length != 0) {
 					writer.writeInt(BLOCK_START);
@@ -2507,7 +2507,7 @@ public class TableMetaDataIndex implements ITableIndex {
 			LongArray srcPos = null;
 			LongArray srcPos2 = null;
 			
-			ArrayList<ModifyRecord> mrl = TableMetaData.getModifyRecord(srcTable, exp, ctx);
+			ArrayList<ModifyRecord> mrl = PhyTable.getModifyRecord(srcTable, exp, ctx);
 			
 			try {
 				if (start[0] >= 0) {
@@ -3220,7 +3220,7 @@ public class TableMetaDataIndex implements ITableIndex {
 	}
 	
 	private int readPos_s(ObjectReader reader, Sequence vals, int srcIndex, Object []blockMaxVals, long []blockPos, LongArray outPos) throws IOException {
-		ListBase1 mems = vals.getMems();
+		IArray mems = vals.getMems();
 		Object srcVal = mems.get(srcIndex);
 		int block = binarySearch(blockMaxVals, srcVal);
 		if (block < 0) return srcIndex;
@@ -3354,7 +3354,7 @@ public class TableMetaDataIndex implements ITableIndex {
 	}
 	
 	private int readPos_m(ObjectReader reader, Sequence vals, int srcIndex, Object [][]blockMaxVals, long []blockPos, LongArray outPos) throws IOException {
-		ListBase1 mems = vals.getMems();
+		IArray mems = vals.getMems();
 		Object srcVal = mems.get(srcIndex);
 		boolean isSequence = false;
 		int srcKeyCount = 1;
@@ -4963,7 +4963,7 @@ public class TableMetaDataIndex implements ITableIndex {
 		int icount = ifields.length;
 		int posCount = this.positionCount;
 		boolean needRecNum = true;
-		if (srcTable instanceof RowTableMetaData) {
+		if (srcTable instanceof RowPhyTable) {
 			needRecNum = srcTable.getModifyRecords() != null;
 		}
 		
@@ -5121,14 +5121,14 @@ public class TableMetaDataIndex implements ITableIndex {
 //				}
 //			}
 			
-			boolean isRow = srcTable.parent == null && srcTable instanceof RowTableMetaData;
+			boolean isRow = srcTable.parent == null && srcTable instanceof RowPhyTable;
 			RowBufferWriter writer = new RowBufferWriter(null);
 			int maxLen = 0;
 			ICursor cs = srcTable.cursor();
 			Sequence table = cs.fetch(ICursor.FETCHCOUNT);
 			while (table != null && table.length() != 0) {
 				if (isRow) {
-					ListBase1 mems = table.getMems();
+					IArray mems = table.getMems();
 					int size = mems.size();
 					for (int j = 1; j <= size; j++) {
 						Record r = (Record)mems.get(j);
@@ -5237,7 +5237,7 @@ public class TableMetaDataIndex implements ITableIndex {
 	//有主键的基表用这个
 	private int readPos_p_cache(Sequence vals, int srcIndex, 
 			Object []blockMaxVals, byte [][]blockBuffers, LongArray outPos) throws IOException {
-		ListBase1 mems = vals.getMems();
+		IArray mems = vals.getMems();
 		Object srcVal = mems.get(srcIndex);
 		int block = binarySearch(blockMaxVals, srcVal);
 		if (block < 0) return srcIndex;
@@ -5349,7 +5349,7 @@ public class TableMetaDataIndex implements ITableIndex {
 		if (positionCount == 1 && isPrimaryKey) {
 			return readPos_p_cache(vals, srcIndex, blockMaxVals, blockBuffers, outPos);
 		}
-		ListBase1 mems = vals.getMems();
+		IArray mems = vals.getMems();
 		Object srcVal = mems.get(srcIndex);
 		int block = binarySearch(blockMaxVals, srcVal);
 		if (block < 0) return srcIndex;
@@ -5479,7 +5479,7 @@ public class TableMetaDataIndex implements ITableIndex {
 
 	private int readPos_m_cache(Sequence vals, int srcIndex, 
 			Object [][]blockMaxVals, byte [][]blockBuffers, LongArray outPos) throws IOException {
-		ListBase1 mems = vals.getMems();
+		IArray mems = vals.getMems();
 		Object srcVal = mems.get(srcIndex);
 		boolean isSequence = false;
 		int srcKeyCount = 1;
@@ -5678,7 +5678,7 @@ public class TableMetaDataIndex implements ITableIndex {
 		return positionCount;
 	}
 
-	public void dup(TableMetaData table) {
+	public void dup(PhyTable table) {
 		String dir = table.getGroupTable().getFile().getAbsolutePath() + "_";
 		FileObject indexFile = new FileObject(dir + table.getTableName() + "_" + name);
 		RandomOutputStream os = indexFile.getRandomOutputStream(true);

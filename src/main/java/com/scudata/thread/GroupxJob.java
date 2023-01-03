@@ -7,9 +7,9 @@ import com.scudata.common.Logger;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.BFileWriter;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Context;
 import com.scudata.dm.FileObject;
-import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.cursor.ICursor;
 import com.scudata.dm.op.IGroupsResult;
@@ -165,7 +165,7 @@ public class GroupxJob extends Job {
 						continue;
 					}
 
-					Record r = (Record)group.getMem(1);
+					BaseRecord r = (BaseRecord)group.getMem(1);
 					int index = ((Number)r.getNormalFieldValue(0)).intValue() / capacity + 1;
 					Integer gval = new Integer(index);
 					

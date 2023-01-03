@@ -27,21 +27,23 @@ public class CreateCursor extends CursorFunction {
 	}
 	
 	private static ICursor createCursor(MultipathCursors mcs, IParam param, Context ctx) {
+		int newPathCount = 1;
 		if (param == null) {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException("cursor" + mm.getMessage("function.missingParam"));
-		} else if (!param.isLeaf()) {
+			//MessageManager mm = EngineMessage.get();
+			//throw new RQException("cursor" + mm.getMessage("function.missingParam"));
+		} else if (param.isLeaf()) {
+			Object obj = param.getLeafExpression().calculate(ctx);
+			if (!(obj instanceof Number)) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException("cursor" + mm.getMessage("function.paramTypeError"));
+			}
+	
+			newPathCount = ((Number)obj).intValue();
+		} else {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("cursor" + mm.getMessage("function.invalidParam"));
 		}
 		
-		Object obj = param.getLeafExpression().calculate(ctx);
-		if (!(obj instanceof Number)) {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException("cursor" + mm.getMessage("function.paramTypeError"));
-		}
-
-		int newPathCount = ((Number)obj).intValue();
 		int oldPathCount = mcs.getPathCount();
 		if (newPathCount >= oldPathCount) {
 			return mcs;

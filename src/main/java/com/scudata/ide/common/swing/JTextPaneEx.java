@@ -182,7 +182,7 @@ public class JTextPaneEx extends JTextPane {
 			return;
 		if (!matchEnabled)
 			return;
-		matchField();
+		caretChanged();
 		List<CA> total = new ArrayList<CA>();
 		String text = getText();
 		if (text != null && text.length() > 0) {
@@ -214,38 +214,9 @@ public class JTextPaneEx extends JTextPane {
 	}
 
 	/**
-	 * 匹配字段名
+	 * 光标移动
 	 */
-	private void matchField() {
-		if (GVSpl.matchWindow != null) {
-			try {
-				String text = getText();
-				if (!StringUtils.isValidString(text)) {
-					GVSpl.matchWindow.dispose();
-					GVSpl.matchWindow = null;
-					return;
-				}
-				int p = getCaretPosition();
-				int[] pos = GM.getCurrentWordPosition(text, p);
-				if (pos == null) {
-					GVSpl.matchWindow.dispose();
-					GVSpl.matchWindow = null;
-					return;
-				}
-				int start = pos[0];
-				int end = pos[1];
-				String name = text.substring(start, end);
-				boolean find = GVSpl.matchWindow.searchName(name);
-				if (!find) {
-					GVSpl.matchWindow.dispose();
-					GVSpl.matchWindow = null;
-				} else {
-					requestFocus();
-				}
-			} catch (Throwable t) {
-				// t.printStackTrace();
-			}
-		}
+	protected void caretChanged() {
 	}
 
 	/**

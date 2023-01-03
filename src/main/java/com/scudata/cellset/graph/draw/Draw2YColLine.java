@@ -23,9 +23,7 @@ public class Draw2YColLine extends DrawBase {
 //		锚点有重合时，谁在前面，浏览器先找到谁。由于点小，将点的锚点放在柱子前面。 xq 2017年11月13日
 		StringBuffer colLink = new StringBuffer();
 		int serNum = DrawCol.drawing(db,colLink);
-		if(serNum<0) {//绘制出错时
-			return;
-		}
+		if(serNum<0) return;
 
 //		双轴柱线图时，不能原点重合
 		db.gp.isOverlapOrigin = false;

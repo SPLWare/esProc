@@ -16,14 +16,19 @@ import com.scudata.util.Variant;
  *
  */
 public class Product extends Function {
+	/**
+	 * 检查表达式的有效性，无效则抛出异常
+	 */
+	public void checkValidity() {
+		if (param == null) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("product" + mm.getMessage("function.missingParam"));
+		}
+	}
 
 	public Object calculate(Context ctx) {
 		double result1=1;
-		if (param==null) {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException("product" +
-								  mm.getMessage("function.missingParam"));
-		}else if(param.isLeaf()){
+		if(param.isLeaf()){
 			Object result = param.getLeafExpression().calculate(ctx);
 			if (result != null && result instanceof Number) {
 				result1*=Variant.doubleValue(result);

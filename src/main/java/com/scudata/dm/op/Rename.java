@@ -1,8 +1,8 @@
 package com.scudata.dm.op;
 
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Context;
 import com.scudata.dm.DataStruct;
-import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 import com.scudata.expression.Function;
 
@@ -46,8 +46,8 @@ public class Rename extends Operation {
 	public Sequence process(Sequence seq, Context ctx) {
 		if (seq != null && seq.length() > 0) {
 			Object obj = seq.getMem(1);
-			if (obj instanceof Record) {
-				DataStruct ds = ((Record)obj).dataStruct();
+			if (obj instanceof BaseRecord) {
+				DataStruct ds = ((BaseRecord)obj).dataStruct();
 				if (prevDs != ds) {
 					ds.rename(srcFields, newFields);
 					prevDs = ds;

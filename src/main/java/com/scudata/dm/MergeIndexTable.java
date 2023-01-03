@@ -1,5 +1,7 @@
 package com.scudata.dm;
 
+import com.scudata.array.BoolArray;
+import com.scudata.array.IArray;
 import com.scudata.expression.Expression;
 import com.scudata.util.Variant;
 
@@ -26,7 +28,7 @@ public class MergeIndexTable extends IndexTable {
 			values = sequence;
 
 			ComputeStack stack = ctx.getComputeStack();
-			Sequence.Current current = sequence.new Current();
+			Current current = new Current(code);
 			stack.push(current);
 
 			try {
@@ -87,5 +89,117 @@ public class MergeIndexTable extends IndexTable {
 		
 		currentSeq = len + 1;
 		return null;
+	}
+	
+	public int findPos(Object key) {
+		Sequence values = this.values;
+		int len = values.length();
+		for (int i = currentSeq; i <= len; ++i) {
+			int cmp = Variant.compare(values.getMem(i), key);
+			if (cmp == 0) {
+				// 找到相等的，设置currentSeq为当前序号，下次查找从这开始往后查找
+				currentSeq = i;
+				return i;
+			} else if (cmp > 0) {
+				// 没有找到相等的，设置currentSeq为当前序号，下次查找从这开始往后查找
+				currentSeq = i;
+				return 0;
+			}
+		}
+		
+		currentSeq = len + 1;
+		return 0;
+	}
+
+	public int findPos(Object []keys) {
+		if (keys.length == 1) {
+			return findPos(keys[0]);
+		}
+		
+		Sequence values = this.values;
+		int len = values.length();
+		for (int i = currentSeq; i <= len; ++i) {
+			int cmp = Variant.compareArrays((Object [])values.getMem(i), keys);
+			if (cmp == 0) {
+				// 找到相等的，设置currentSeq为当前序号，下次查找从这开始往后查找
+				currentSeq = i;
+				return i;
+			} else if (cmp > 0) {
+				// 没有找到相等的，设置currentSeq为当前序号，下次查找从这开始往后查找
+				currentSeq = i;
+				return 0;
+			}
+		}
+		
+		currentSeq = len + 1;
+		return 0;
+	}
+	
+	public int[] findAllPos(IArray key) {
+		if (key == null) {
+			return null;
+		}
+		int len = key.size();
+		int[] pos = new int[len + 1];
+		for (int i = 1; i <= len; i++) {
+			Object obj = key.get(i);
+			pos[i] = findPos(obj);
+		}
+		return pos;
+	}
+
+	public int[] findAllPos(IArray[] keys) {
+		if (keys == null) {
+			return null;
+		}
+		
+		int keyCount = keys.length;
+		int len = keys[0].size();
+		int[] pos = new int[len + 1];
+		Object[] objs = new Object[keyCount];
+		for (int i = 1; i <= len; i++) {
+			for (int c = 0; c < keyCount; c++) {
+				objs[c] = keys[c].get(i);
+			}
+			pos[i] = findPos(objs);
+		}
+		return pos;
+	}
+
+	public int[] findAllPos(IArray key, BoolArray signArray) {
+		if (key == null) {
+			return null;
+		}
+		int len = key.size();
+		int[] pos = new int[len + 1];
+		for (int i = 1; i <= len; i++) {
+			if (signArray.isFalse(i)) {
+				continue;
+			}
+			Object obj = key.get(i);
+			pos[i] = findPos(obj);
+		}
+		return pos;
+	}
+
+	public int[] findAllPos(IArray[] keys, BoolArray signArray) {
+		if (keys == null) {
+			return null;
+		}
+		
+		int keyCount = keys.length;
+		int len = keys[0].size();
+		int[] pos = new int[len + 1];
+		Object[] objs = new Object[keyCount];
+		for (int i = 1; i <= len; i++) {
+			if (signArray.isFalse(i)) {
+				continue;
+			}
+			for (int c = 0; c < keyCount; c++) {
+				objs[c] = keys[c].get(i);
+			}
+			pos[i] = findPos(objs);
+		}
+		return pos;
 	}
 }

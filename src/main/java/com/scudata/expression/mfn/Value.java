@@ -1,7 +1,7 @@
 package com.scudata.expression.mfn;
 
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Context;
-import com.scudata.dm.Record;
 import com.scudata.expression.MemberFunction;
 
 /**
@@ -22,8 +22,8 @@ public class Value extends MemberFunction {
 	}
 
 	public Object calculate(Context ctx) {
-		if (src instanceof Record) {
-			return ((Record)src).value();
+		if (src instanceof BaseRecord) {
+			return ((BaseRecord)src).value();
 		} else {
 			return src;
 		}

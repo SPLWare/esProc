@@ -12,15 +12,9 @@ import com.scudata.expression.Function;
  */
 public class Push extends Operation {
 	private Channel channel;
-	private boolean doFinish = true; // 用于防止多路管道finish的循环调用
 
 	public Push(Channel channel) {
-		this.channel = channel;
-	}
-	
-	public Push(Channel channel, boolean doFinish) {
-		this.channel = channel;
-		this.doFinish = doFinish;
+		this(null, channel);
 	}
 	
 	public Push(Function function, Channel channel) {
@@ -34,10 +28,7 @@ public class Push extends Operation {
 	 * @return 附加的操作缓存的数据
 	 */
 	public Sequence finish(Context ctx) {
-		if (doFinish) {
-			channel.finish(ctx);
-		}
-		
+		channel.finish(ctx);
 		return null;
 	}
 	

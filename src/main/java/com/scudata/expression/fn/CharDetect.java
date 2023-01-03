@@ -1,17 +1,18 @@
 package com.scudata.expression.fn;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.mozilla.universalchardet.UniversalDetector;
 import com.scudata.common.*;
+import com.scudata.dm.Env;
 import com.scudata.dm.FileObject;
-import com.scudata.dm.IFile;
 import com.scudata.dm.Sequence;
+import org.mozilla.universalchardet.UniversalDetector;
 
 /***************************************
  * 
@@ -54,27 +55,14 @@ public class CharDetect extends CharFunction {
 				String sTmp = objs[0].toString();				
 				String reg = "^(https?)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]";
 				if (isMatch(sTmp, reg)){ // for url
-					String encoding = detectEncoding(new URL(sTmp));
-					return encoding;
+					return detectEncoding(new URL(sTmp));
 				}else{ // for file
-					File file = new File(sTmp);
-					if (file.exists()){		
-						String encoding = UniversalDetector.detectCharset(file);
-						return encoding;
-					}else{
-						Logger.info("File: "+objs[0].toString()+" not existed.");
-					}	
+					return detectCharsetFile(sTmp);
 				}
 			}else if(objs[0] instanceof FileObject){
 				FileObject fo = (FileObject)objs[0];
-				//String charset = fo.getCharset();
-				IFile iff = fo.getFile();
-				if (iff.exists()){		
-					String encoding = UniversalDetector.detectCharset(iff.getInputStream());
-					return encoding;
-				}else{
-					Logger.info("File: "+objs[0].toString()+" not existed.");
-				}	
+				
+				return detectCharsetFile(fo.getFileName());
 			}
 		} catch (Exception e) {
 			Logger.error(e.getMessage());
@@ -83,6 +71,42 @@ public class CharDetect extends CharFunction {
 		return null;
 	}
 	
+	private Object detectCharsetFile(String sfile) throws IOException
+	{
+		File file = new File(sfile);
+		if (file.exists()){						
+			return UniversalDetector.detectCharset(file);
+		}
+		String fullFile = null;
+		
+		// 1. 用户设置的main
+		String path = Env.getMainPath();
+		if (path!=null){
+			fullFile = path+File.separatorChar+sfile;
+			file = new File(fullFile);
+			if (file.exists()){	
+				return UniversalDetector.detectCharset(file);
+			}
+		}
+		
+		// 2. 系统自带的main
+		path = System.getProperty("start.home");
+		fullFile = path+File.separatorChar+"main"+File.separatorChar+sfile;
+		file = new File(fullFile);
+		if (file.exists()){	
+			return UniversalDetector.detectCharset(file);
+		}
+		// 3. 系统自带的demo
+		fullFile = path+File.separatorChar+"demo"+File.separatorChar+sfile;
+		file = new File(fullFile);
+		if (file.exists()){	
+			return UniversalDetector.detectCharset(file);
+		}else{
+			Logger.info("File: "+ sfile +" not existed.");
+		}
+		
+		return null;
+	}
 	
     private static String udetect(byte[] content) {
         UniversalDetector detector = new UniversalDetector(null);

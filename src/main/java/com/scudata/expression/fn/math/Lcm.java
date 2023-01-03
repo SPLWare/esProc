@@ -17,37 +17,43 @@ import com.scudata.util.Variant;
  *
  */
 public class Lcm extends Function {
-
-	public Object calculate(Context ctx) {
+	/**
+	 * 检查表达式的有效性，无效则抛出异常
+	 */
+	public void checkValidity() {
 		if (param == null) {
 			MessageManager mm = EngineMessage.get();
-			throw new RQException("lcm" +
-								  mm.getMessage("function.missingParam"));
-		}else{
-			int size = param.getSubSize();
-			ArrayList<Number> num=new ArrayList<Number>();
-			for(int j=0;j<size;j++){
-				IParam subj = param.getSub(j);
-				if (subj != null) {
-					Object result = subj.getLeafExpression().calculate(ctx);
-					if (result != null && result instanceof Number) {
-						num.add((Number)result);
-					}else if(result != null && result instanceof Sequence){
-						int n=((Sequence)result).length();
-						for(int i=1;i<=n;i++){
-							Object tmp=((Sequence)result).get(i);
-							if (tmp!=null && tmp instanceof Number) {
-								num.add((Number)tmp);
-							}
+			throw new RQException("lcm" + mm.getMessage("function.missingParam"));
+		} else if (param.isLeaf()) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("lcm" + mm.getMessage("function.invalidParam"));
+		}
+	}
+
+	public Object calculate(Context ctx) {
+		int size = param.getSubSize();
+		ArrayList<Number> num=new ArrayList<Number>();
+		for(int j=0;j<size;j++){
+			IParam subj = param.getSub(j);
+			if (subj != null) {
+				Object result = subj.getLeafExpression().calculate(ctx);
+				if (result != null && result instanceof Number) {
+					num.add((Number)result);
+				}else if(result != null && result instanceof Sequence){
+					int n=((Sequence)result).length();
+					for(int i=1;i<=n;i++){
+						Object tmp=((Sequence)result).get(i);
+						if (tmp!=null && tmp instanceof Number) {
+							num.add((Number)tmp);
 						}
 					}
 				}
 			}
-			int k=num.size();
-			Number[] nums=new Number[k];
-			num.toArray(nums);
-			return new Long(lcm(nums));
 		}
+		int k=num.size();
+		Number[] nums=new Number[k];
+		num.toArray(nums);
+		return new Long(lcm(nums));
 	}
 	
 	/**最小公倍数算法描述：

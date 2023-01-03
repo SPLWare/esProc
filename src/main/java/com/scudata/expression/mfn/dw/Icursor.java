@@ -9,7 +9,7 @@ import com.scudata.dw.IndexCursor;
 import com.scudata.expression.Expression;
 import com.scudata.expression.IParam;
 import com.scudata.expression.Node;
-import com.scudata.expression.TableMetaDataFunction;
+import com.scudata.expression.PhyTableFunction;
 import com.scudata.expression.fn.Between;
 import com.scudata.resources.EngineMessage;
 
@@ -19,7 +19,7 @@ import com.scudata.resources.EngineMessage;
  * @author RunQian
  *
  */
-public class Icursor extends TableMetaDataFunction {
+public class Icursor extends PhyTableFunction {
 	public Object calculate(Context ctx) {		IParam param = this.param;
 		if (param == null) {
 			MessageManager mm = EngineMessage.get();

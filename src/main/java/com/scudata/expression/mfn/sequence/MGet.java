@@ -1,9 +1,9 @@
 package com.scudata.expression.mfn.sequence;
 
+import com.scudata.array.IArray;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
-import com.scudata.dm.ListBase1;
 import com.scudata.dm.Sequence;
 import com.scudata.expression.IParam;
 import com.scudata.expression.SequenceFunction;
@@ -39,13 +39,18 @@ public class MGet extends SequenceFunction {
 		}
 	}
 	
-	public Object calculate(Context ctx) {
+	/**
+	 * 检查表达式的有效性，无效则抛出异常
+	 */
+	public void checkValidity() {
 		if (param == null) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("m" + mm.getMessage("function.missingParam"));
 		}
-		
-		ListBase1 mems = srcSequence.getMems();
+	}
+
+	public Object calculate(Context ctx) {
+		IArray mems = srcSequence.getMems();
 		int srcLen = mems.size();
 		if (srcLen == 0) {
 			return null;

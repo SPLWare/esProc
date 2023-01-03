@@ -120,15 +120,6 @@ public abstract class PanelSplWatch extends JPanel {
 			return true;
 		}
 	};
-	/**
-	 * 网格对象
-	 */
-	private PgmCellSet cs;
-
-	/**
-	 * 上下文
-	 */
-	// private Context ctx;
 
 	/**
 	 * 构造函数
@@ -203,7 +194,6 @@ public abstract class PanelSplWatch extends JPanel {
 	public void setCellSet(PgmCellSet cs) {
 		try {
 			preventChange = true;
-			this.cs = cs;
 			tableWatch.acceptText();
 			tableWatch.removeAllRows();
 			tableWatch.clearSelection();
@@ -219,8 +209,8 @@ public abstract class PanelSplWatch extends JPanel {
 						}
 					}
 				}
+				resetRows(false);
 			}
-			resetRows(false);
 			setWatchEnabled(cs != null);
 		} finally {
 			preventChange = false;
@@ -270,8 +260,6 @@ public abstract class PanelSplWatch extends JPanel {
 	 * 重新计算
 	 */
 	private synchronized void recalcTable() {
-		if (cs == null) // || ctx == null
-			return;
 		SwingUtilities.invokeLater(new Thread() {
 			public void run() {
 				try {

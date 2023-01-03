@@ -15,7 +15,7 @@ import com.scudata.common.RQException;
 public class MemoryFile implements IFile {
 	private final int blockSize = 1024 * 1024 * 64; // 块大小
 	
-	private FileObject fo;
+	private IFile file;
 	private byte [][]blocks; // 记录字节构成的块数组
 	private int blockCount; // 块数
 	private long total; // 总字节数
@@ -136,7 +136,16 @@ public class MemoryFile implements IFile {
 	 * @param fo 文件对象
 	 */
 	public MemoryFile(FileObject fo) {
-		long size = fo.size();
+		this(fo.getFile());
+	}
+	
+	/**
+	 * 用文件构建内存文件
+	 * @param file 文件
+	 */
+	public MemoryFile(IFile file) {
+		this.file = file;
+		long size = file.size();
 		if (size == 0) {
 			blocks = new byte[0][];
 			return;
@@ -146,7 +155,7 @@ public class MemoryFile implements IFile {
 		blockCount = (int)(size / blockSize);
 		int rest = (int)(size % blockSize);
 		
-		InputStream is = fo.getInputStream();
+		InputStream is = file.getInputStream();
 		try {
 			if (rest > 0) {
 				blocks = new byte[blockCount + 1][];
@@ -203,8 +212,8 @@ public class MemoryFile implements IFile {
 	}
 	
 	public long lastModified() {
-		if (fo != null) {
-			return fo.getFile().lastModified();
+		if (file != null) {
+			return file.lastModified();
 		} else {
 			return 0;
 		}

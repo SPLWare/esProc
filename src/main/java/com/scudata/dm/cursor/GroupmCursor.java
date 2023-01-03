@@ -1,9 +1,10 @@
 package com.scudata.dm.cursor;
 
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.ComputeStack;
 import com.scudata.dm.Context;
+import com.scudata.dm.Current;
 import com.scudata.dm.DataStruct;
-import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
 import com.scudata.dm.op.Operation;
@@ -80,7 +81,7 @@ public class GroupmCursor extends ICursor {
 	
 	// 并行计算时需要改变上下文
 	// 继承类如果用到了表达式还需要用新上下文重新解析表达式
-	protected void resetContext(Context ctx) {
+	public void resetContext(Context ctx) {
 		if (this.ctx != ctx) {
 			cursor.resetContext(ctx);
 			exps = Operation.dupExpressions(exps, ctx);
@@ -136,7 +137,7 @@ public class GroupmCursor extends ICursor {
 
 		int index = currentIndex;
 		ComputeStack stack = ctx.getComputeStack();
-		Sequence.Current current = data.new Current();
+		Current current = new Current(data);
 		stack.push(current);
 		current.setCurrent(index++);
 
@@ -145,7 +146,7 @@ public class GroupmCursor extends ICursor {
 				keys[k] = exps[k].calculate(ctx);
 			}
 
-			Record cur = newTable.newLast(keys);
+			BaseRecord cur = newTable.newLast(keys);
 			for (int v = 0, f = keyCount; v < valCount; ++v, ++f) {
 				Object val = gathers[v].gather(ctx);
 				cur.setNormalFieldValue(f, val);
@@ -187,7 +188,7 @@ public class GroupmCursor extends ICursor {
 
 				index = 1;
 				stack.pop();
-				current = data.new Current();
+				current = new Current(data);
 				stack.push(current);
 			}
 		} finally {
@@ -218,7 +219,7 @@ public class GroupmCursor extends ICursor {
 		long count = 1;
 		int index = currentIndex;
 		ComputeStack stack = ctx.getComputeStack();
-		Sequence.Current current = data.new Current();
+		Current current = new Current(data);
 		stack.push(current);
 		current.setCurrent(index++);
 
@@ -254,7 +255,7 @@ public class GroupmCursor extends ICursor {
 
 				index = 1;
 				stack.pop();
-				current = data.new Current();
+				current = new Current(data);
 				stack.push(current);
 			}
 		} finally {

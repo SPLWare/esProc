@@ -4,10 +4,6 @@ import java.awt.Point;
 import java.awt.event.AdjustmentEvent;
 import java.awt.event.AdjustmentListener;
 import java.awt.event.MouseEvent;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -27,7 +23,6 @@ import com.scudata.cellset.datamodel.PgmCellSet;
 import com.scudata.common.Area;
 import com.scudata.common.CellLocation;
 import com.scudata.common.StringUtils;
-import com.scudata.dm.Context;
 import com.scudata.ide.common.IAtomicCmd;
 import com.scudata.ide.common.control.CellRect;
 import com.scudata.ide.common.control.ControlBase;
@@ -151,15 +146,6 @@ public abstract class SplControl extends ControlBase {
 	 */
 	public SheetSpl getSheet() {
 		return sheet;
-	}
-
-	/**
-	 * 设置上下文
-	 * 
-	 * @param context
-	 */
-	public void setContext(Context context) {
-		cellSet.setContext(context);
 	}
 
 	/**
@@ -1106,50 +1092,6 @@ public abstract class SplControl extends ControlBase {
 	}
 
 	/**
-	 * 从一个输入流中加载网格
-	 * 
-	 * @param in 输入流
-	 * @throws Exception
-	 */
-	public void loadCellSet(InputStream in) throws Exception {
-		PgmCellSet cs = null;
-		setCellSet(cs);
-	}
-
-	/**
-	 * 从一个文件中加载网格
-	 * 
-	 * @param fileName 文件名
-	 * @throws Exception 输入输出或文件数据错误
-	 */
-	public void loadCellSet(String fileName) throws Exception {
-		FileInputStream in = new FileInputStream(fileName);
-		loadCellSet(in);
-		in.close();
-	}
-
-	/**
-	 * 将网格保存到一个输出流中
-	 * 
-	 * @param out 输出流
-	 * @throws Exception
-	 */
-	public void saveCellSet(OutputStream out) throws Exception {
-	}
-
-	/**
-	 * 将网格保存到一个文件中
-	 * 
-	 * @param fileName 文件名
-	 * @throws Exception
-	 */
-	public void saveCellSet(String fileName) throws Exception {
-		OutputStream out = new FileOutputStream(fileName);
-		saveCellSet(out);
-		out.close();
-	}
-
-	/**
 	 * 添加网格编辑事件监听器
 	 * 
 	 * @param listener 监听器实例
@@ -1696,6 +1638,23 @@ public abstract class SplControl extends ControlBase {
 			return null;
 		}
 		return (JTextComponent) contentView.getEditor();
+	}
+
+	/**
+	 * 设置搜索匹配到的格子
+	 * 
+	 * @param row                   行号
+	 * @param col                   列号
+	 * @param searchInSelectedCells 是否在选择区域内搜索的
+	 */
+	public void setSearchedCell(int row, int col, boolean searchInSelectedCells) {
+		setActiveCell(new CellLocation(row, col));
+		ControlUtils.scrollToVisible(this.getViewport(), this, row, col);
+		if (!searchInSelectedCells) {
+			setSelectedArea(new Area(row, col, row, col));
+			this.fireRegionSelect(true);
+		}
+		this.repaint();
 	}
 
 	/**

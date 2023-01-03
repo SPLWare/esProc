@@ -1,8 +1,8 @@
 package com.scudata.dw.pseudo;
 
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Context;
 import com.scudata.dm.DataStruct;
-import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.cursor.ICursor;
 import com.scudata.dm.cursor.MemoryCursor;
@@ -22,7 +22,7 @@ public class PseudoMemory extends Pseudo {
 	public PseudoMemory() {
 	}
 	
-	public PseudoMemory(Record rec, int n, Context ctx) {
+	public PseudoMemory(BaseRecord rec, int n, Context ctx) {
 		pd = new PseudoDefination(rec, ctx);
 		pathCount = n;
 		this.ctx = ctx;
@@ -41,7 +41,7 @@ public class PseudoMemory extends Pseudo {
 	public ICursor cursor(Expression []exps, String []names, boolean isColumn) {
 		ICursor cs;
 		if (pathCount > 1) {
-			cs = CursorUtil.cursor(pd.getMemoryTable(), pathCount, ctx);
+			cs = CursorUtil.cursor(pd.getMemoryTable(), pathCount, null, ctx);
 		} else {
 			cs = new MemoryCursor(pd.getMemoryTable());
 		}

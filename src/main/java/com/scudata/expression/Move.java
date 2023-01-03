@@ -5,9 +5,10 @@ import java.util.List;
 import com.scudata.cellset.INormalCell;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Context;
+import com.scudata.dm.Current;
 import com.scudata.dm.ParamList;
-import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 import com.scudata.resources.EngineMessage;
 
@@ -29,10 +30,6 @@ public class Move extends Function {
 	}
 
 	public Node getLeft() {
-		if (left == null) {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException("[]" + mm.getMessage("operator.missingleftOperation"));
-		}
 		return left;
 	}
 
@@ -57,16 +54,42 @@ public class Move extends Function {
 	}
 
 	public Node optimize(Context ctx) {
-		if (param != null) param.optimize(ctx);
+		param.optimize(ctx);
 		left = getLeft().optimize(ctx);
 		return this;
 	}
-
-	public Object calculate(Context ctx) {
+	
+	/**
+	 * 检查表达式的有效性，无效则抛出异常
+	 */
+	public void checkValidity() {
 		if (param == null) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("[]" + mm.getMessage("function.missingParam"));
-		} else if (param.isLeaf()) {
+		}
+		
+		if (left == null) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("\"[]\"" + mm.getMessage("operator.missingRightOperation"));
+		}
+		
+		left.checkValidity();
+	}
+	
+	/**
+	 * 判断是否可以计算全部的值，有赋值运算时只能一行行计算
+	 * @return
+	 */
+	public boolean canCalculateAll() {
+		if (!left.canCalculateAll()) {
+			return false;
+		}
+		
+		return param.canCalculateAll();
+	}
+
+	public Object calculate(Context ctx) {
+		if (param.isLeaf()) {
 			return getLeft().move(this, ctx);
 		} else {
 			return getLeft().moves(this, ctx);
@@ -88,7 +111,7 @@ public class Move extends Function {
 	 * @param ctx 计算上下文
 	 * @return 偏移后的索引
 	 */
-	public int calculateIndex(Sequence.Current current, Context ctx) {
+	public int calculateIndex(Current current, Context ctx) {
 		return calculateIndex(current, param, ctx);
 	}
 	
@@ -99,7 +122,7 @@ public class Move extends Function {
 	 * @param ctx 计算上下文
 	 * @return 偏移后的索引
 	 */
-	public static int calculateIndex(Sequence.Current current, IParam param, Context ctx) {
+	public static int calculateIndex(Current current, IParam param, Context ctx) {
 		Object posObj = param.getLeafExpression().calculate(ctx);
 		if (!(posObj instanceof Number)) {
 			MessageManager mm = EngineMessage.get();
@@ -120,7 +143,7 @@ public class Move extends Function {
 	 * @param ctx 计算上下文
 	 * @return [起始位置, 结束位置]，起始位置（包含）和结束位置（包含）组成的数组
 	 */
-	public int[] calculateIndexRange(Sequence.Current current, Context ctx) {
+	public int[] calculateIndexRange(Current current, Context ctx) {
 		return calculateIndexRange(current, param, ctx);
 	}
 	
@@ -131,7 +154,7 @@ public class Move extends Function {
 	 * @param ctx 计算上下文
 	 * @return [起始位置, 结束位置]，起始位置（包含）和结束位置（包含）组成的数组
 	 */
-	public static int[] calculateIndexRange(Sequence.Current current, IParam param, Context ctx) {
+	public static int[] calculateIndexRange(Current current, IParam param, Context ctx) {
 		Number start = null, end = null;
 		if (param.getSubSize() != 2) {
 			MessageManager mm = EngineMessage.get();
@@ -163,7 +186,7 @@ public class Move extends Function {
 		return moves(current, start, end);
 	}
 	
-	private static int[] moves(Sequence.Current current, Number start, Number end) {
+	private static int[] moves(Current current, Number start, Number end) {
 		int curIndex = current.getCurrentIndex();
 		if (curIndex < 1) {
 			MessageManager mm = EngineMessage.get();
@@ -201,20 +224,20 @@ public class Move extends Function {
 	 * @param end 结束序号，包含
 	 * @return 结果集序列
 	 */
-	public static Sequence getFieldValues(Sequence.Current current, String fieldName, int start, int end) {
+	public static Sequence getFieldValues(Current current, String fieldName, int start, int end) {
 		Sequence result = new Sequence(end - start + 1);
 		int col = -1; // 字段在上一条记录的索引
-		Record prevRecord = null; // 上一条记录
+		BaseRecord prevRecord = null; // 上一条记录
 
 		while (start <= end) {
 			Object obj = current.get(start++);
 			if (obj != null) {
-				if (!(obj instanceof Record)) {
+				if (!(obj instanceof BaseRecord)) {
 					MessageManager mm = EngineMessage.get();
 					throw new RQException(mm.getMessage("engine.needPmt"));
 				}
 
-				prevRecord = (Record)obj;
+				prevRecord = (BaseRecord)obj;
 				col = prevRecord.getFieldIndex(fieldName);
 				if (col < 0) {
 					MessageManager mm = EngineMessage.get();
@@ -231,13 +254,13 @@ public class Move extends Function {
 		for (; start <= end; ++start) {
 			Object obj = current.get(start);
 			if (obj != null) {
-				if (!(obj instanceof Record)) {
+				if (!(obj instanceof BaseRecord)) {
 					MessageManager mm = EngineMessage.get();
 					throw new RQException(mm.getMessage("engine.needPmt"));
 				}
 
 				// 先跟上一条记录的结构做比较，如果同结构则直接用字段号取
-				Record cur = (Record)obj;
+				BaseRecord cur = (BaseRecord)obj;
 				if (!prevRecord.isSameDataStruct(cur)) {
 					col = cur.getFieldIndex(fieldName);
 					if (col < 0) {
@@ -265,17 +288,17 @@ public class Move extends Function {
 	 * @param end 结束序号，包含
 	 * @return 结果集序列
 	 */
-	public static Sequence getFieldValues(Sequence.Current current, int field, int start, int end) {
+	public static Sequence getFieldValues(Current current, int field, int start, int end) {
 		Sequence result = new Sequence(end - start + 1);
 		for (; start <= end; ++start) {
 			Object obj = current.get(start);
 			if (obj != null) {
-				if (!(obj instanceof Record)) {
+				if (!(obj instanceof BaseRecord)) {
 					MessageManager mm = EngineMessage.get();
 					throw new RQException(mm.getMessage("engine.needPmt"));
 				}
 
-				Record cur = (Record)obj;
+				BaseRecord cur = (BaseRecord)obj;
 				result.add(cur.getFieldValue(field));
 			} else {
 				result.add(null);

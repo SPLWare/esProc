@@ -4,10 +4,10 @@ import java.util.ArrayList;
 
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Context;
 import com.scudata.dm.DataStruct;
 import com.scudata.dm.Env;
-import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.cursor.ICursor;
 import com.scudata.dm.cursor.IMultipath;
@@ -17,7 +17,6 @@ import com.scudata.dm.op.DiffJoin;
 import com.scudata.dm.op.New;
 import com.scudata.dm.op.Select;
 import com.scudata.dm.op.Switch;
-import com.scudata.dw.IColumnCursorUtil;
 import com.scudata.dw.MemoryTable;
 import com.scudata.expression.Expression;
 import com.scudata.expression.IParam;
@@ -37,15 +36,12 @@ import com.scudata.util.CursorUtil;
 public class CreateCursor extends SequenceFunction {
 	public Object calculate(Context ctx) {
 		if (srcSequence instanceof MemoryTable) {
-			if (srcSequence.isColumnTable() && IColumnCursorUtil.util != null) {
-				return IColumnCursorUtil.util.createCursor(srcSequence, param, option, ctx);
-			}
 			return createCursor((MemoryTable)srcSequence, param, option, ctx);
 		} else {
 			if (option == null || option.indexOf('m') == -1) {
-				return createCursor(srcSequence, param, ctx);
+				return createCursor(srcSequence, param, option, ctx);
 			} else {
-				return createMultipathCursor(srcSequence, param, ctx);
+				return createMultipathCursor(srcSequence, param, option, ctx);
 			}
 		}
 	}
@@ -99,7 +95,7 @@ public class CreateCursor extends SequenceFunction {
 	private static ICursor createCursor(MemoryTable table, IParam param, String opt, Context ctx) {
 		boolean isMultiThread = opt != null && opt.indexOf('m') != -1;
 		if (param == null && !isMultiThread) {
-			return new MemoryCursor(table);
+			return table.cursor();
 		}
 		
 		IParam fieldParam = null; // 选出字段参数
@@ -260,7 +256,7 @@ public class CreateCursor extends SequenceFunction {
 
 		ICursor cs;
 		if (mcs != null) {
-			cs = createSyncCursor(table, mcs, null, null, ctx);
+			cs = createSyncCursor(table, mcs, null, null, opt, ctx);
 		} else {
 			cs = table.cursor(segSeq, segCount, ctx);
 		}
@@ -334,11 +330,14 @@ public class CreateCursor extends SequenceFunction {
 		return cs;
 	}
 	
-	private static ICursor createSyncCursor(Sequence seq, IMultipath mcs, String []keys1, String []keys2, Context ctx) {
+	private static ICursor createSyncCursor(Sequence seq, IMultipath mcs, String []keys1, String []keys2, String opt, Context ctx) {
 		int len = seq.length();
 		ICursor []cursors = mcs.getParallelCursors();
 		int pathCount = cursors.length;
-		if (keys1 == null) {
+		
+		if (opt != null && opt.indexOf('p') != -1) {
+			keys1 = keys2 = new String[] {"#1"};
+		} else if (keys1 == null) {
 			DataStruct ds = seq.dataStruct();
 			if (ds == null) {
 				MessageManager mm = EngineMessage.get();
@@ -391,7 +390,7 @@ public class CreateCursor extends SequenceFunction {
 				throw new RQException("Less data.");
 			}
 
-			Record r = (Record)data.get(1);
+			BaseRecord r = (BaseRecord)data.get(1);
 			Object []vals = new Object[fcount];
 			minValues[i] = vals;
 			for (int f = 0; f < fcount; ++f) {
@@ -412,15 +411,15 @@ public class CreateCursor extends SequenceFunction {
 				index = -index;
 			}
 			
-			resultCursors[i - 1] = new MemoryCursor(seq, start, index);
+			resultCursors[i - 1] = seq.cursor(start, index);
 			start = index;
 		}
 		
-		resultCursors[pathCount - 1] = new MemoryCursor(seq, start, len + 1);
+		resultCursors[pathCount - 1] = seq.cursor(start, len + 1);
 		return new MultipathCursors(resultCursors, ctx);
 	}
 	
-	private static ICursor createMultipathCursor(Sequence seq, IParam param, Context ctx) {
+	private static ICursor createMultipathCursor(Sequence seq, IParam param, String opt, Context ctx) {
 		int pathCount;
 		if (param == null) {
 			pathCount = Env.getCursorParallelNum();
@@ -429,7 +428,7 @@ public class CreateCursor extends SequenceFunction {
 			if (obj instanceof Number) {
 				pathCount = ((Number)obj).intValue();
 			} else if (obj instanceof IMultipath) {
-				return createSyncCursor(seq, (IMultipath)obj, null, null, ctx);
+				return createSyncCursor(seq, (IMultipath)obj, null, null, opt, ctx);
 			} else if (obj instanceof ICursor) {
 				pathCount = 0;
 			} else {
@@ -466,7 +465,7 @@ public class CreateCursor extends SequenceFunction {
 					keys2[i - 1] = sub1.getLeafExpression().getIdentifierName();
 				}
 				
-				return createSyncCursor(seq, (IMultipath)obj, keys1, keys2, ctx);
+				return createSyncCursor(seq, (IMultipath)obj, keys1, keys2, opt, ctx);
 			} else if (obj instanceof ICursor) {
 				return new MemoryCursor(seq);
 			} else {
@@ -478,13 +477,13 @@ public class CreateCursor extends SequenceFunction {
 			throw new RQException("cursor" + mm.getMessage("function.invalidParam"));
 		}
 		
-		return CursorUtil.cursor(seq, pathCount, ctx);
+		return CursorUtil.cursor(seq, pathCount, opt, ctx);
 	}
 	
 	// 由内存序列创建游标
-	private static ICursor createCursor(Sequence seq, IParam param, Context ctx) {
+	private static ICursor createCursor(Sequence seq, IParam param, String opt, Context ctx) {
 		if (param == null) {
-			return new MemoryCursor(seq);
+			return seq.cursor();
 		} else if (param.getSubSize() != 2) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("cursor" + mm.getMessage("function.invalidParam"));
@@ -516,19 +515,6 @@ public class CreateCursor extends SequenceFunction {
 			throw new RQException("cursor" + mm.getMessage("function.invalidParam"));
 		}
 		
-		int len = seq.length();
-		int blockSize = len / segCount;
-		int start;
-		int end;
-		
-		if (segSeq == segCount) {
-			start = blockSize * (segSeq - 1) + 1;
-			end = len + 1;
-		} else {
-			start = blockSize * (segSeq - 1) + 1;
-			end = blockSize * segSeq + 1;
-		}
-		
-		return new MemoryCursor(seq, start, end);
+		return CursorUtil.cursor(seq, segSeq, segCount, opt, ctx);
 	}
 }

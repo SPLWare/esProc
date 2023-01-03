@@ -5,7 +5,6 @@ import com.scudata.common.RQException;
 import com.scudata.dm.Context;
 import com.scudata.expression.Function;
 import com.scudata.resources.EngineMessage;
-import com.scudata.util.Variant;
 
 /**
  * 返回某一数字的反双曲余弦值acosh(z)=ln(z+sqrt(z*z-1))
@@ -13,17 +12,25 @@ import com.scudata.util.Variant;
  *
  */
 public class Arccosh extends Function {
-	public Object calculate(Context ctx) {
-		if (param == null || !param.isLeaf()) {
+	/**
+	 * 检查表达式的有效性，无效则抛出异常
+	 */
+	public void checkValidity() {
+		if (param == null) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("acosh" + mm.getMessage("function.missingParam"));
+		} else if (!param.isLeaf()) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("acosh" + mm.getMessage("function.invalidParam"));
 		}
-		
-		Object result = param.getLeafExpression().calculate(ctx);
-		if (result instanceof Number) {
-			double z = Variant.doubleValue(result);
+	}
+
+	public Object calculate(Context ctx) {
+		Object obj = param.getLeafExpression().calculate(ctx);
+		if (obj instanceof Number) {
+			double z = ((Number)obj).doubleValue();
 			return new Double(Math.log(z+Math.sqrt(z*z-1)));
-		} else if (result == null) {
+		} else if (obj == null) {
 			return null;
 		} else {
 			MessageManager mm = EngineMessage.get();

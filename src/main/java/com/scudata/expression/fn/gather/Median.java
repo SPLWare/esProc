@@ -157,7 +157,7 @@ public class Median extends Gather  {
 			return val;
 		}
 	
-		Sequence seq = ((Sequence) val).sort(null);
+		Sequence seq = ((Sequence)val).sort(null);
 		return seq.median(1, seq.length(), parK, parN);	
 	}
 	

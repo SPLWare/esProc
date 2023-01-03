@@ -2,11 +2,12 @@ package com.scudata.expression.mfn.sequence;
 
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.ComputeStack;
 import com.scudata.dm.Context;
+import com.scudata.dm.Current;
 import com.scudata.dm.DataStruct;
 import com.scudata.dm.FileObject;
-import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 import com.scudata.expression.Expression;
 import com.scudata.expression.IParam;
@@ -153,7 +154,7 @@ public class Export extends SequenceFunction {
 				}
 			} else {
 				for (int i = 1, len = sequence.length(); i <= len; ++i) {
-					Record r = (Record)sequence.getMem(i);
+					BaseRecord r = (BaseRecord)sequence.getMem(i);
 					Object []vals = r.getFieldValues();
 
 					if (isQuote) {
@@ -165,7 +166,7 @@ public class Export extends SequenceFunction {
 			}
 		} else {
 			ComputeStack stack = ctx.getComputeStack();
-			Sequence.Current current = sequence.new Current();
+			Current current = new Current(sequence);
 			stack.push(current);
 
 			try {

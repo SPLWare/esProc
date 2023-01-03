@@ -51,8 +51,8 @@ import com.scudata.common.AnimatedGifEncoder;
 import com.scudata.common.Escape;
 import com.scudata.common.MessageManager;
 import com.scudata.common.StringUtils;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Context;
-import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
 import com.scudata.expression.ChartParam;
@@ -286,7 +286,7 @@ public class DialogDisplayChart extends JDialog {
 		
 		Sequence categoryData = new Sequence();
 		Sequence valueData = new Sequence();
-		Record rec = tmpData.getRecord(1);
+		BaseRecord rec = tmpData.getRecord(1);
 		categoryIndex = rec.getFieldIndex(categoryCol);
 		seriesIndex = rec.getFieldIndex(seriesCol);
 		valueIndex = rec.getFieldIndex(valueCol);
@@ -526,7 +526,7 @@ public class DialogDisplayChart extends JDialog {
 	private Object getFirstValid(String field){
 		int c = data.length();
 		for(int r=1;r<=c;r++){
-			Record rec = data.getRecord(r);
+			BaseRecord rec = data.getRecord(r);
 			Object tmp = rec.getFieldValue(field);
 			if(tmp!=null){
 				return tmp;

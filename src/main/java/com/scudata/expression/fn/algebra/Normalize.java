@@ -13,25 +13,30 @@ import com.scudata.resources.EngineMessage;
  *
  */
 public class Normalize extends Function {
-	public Object calculate(Context ctx) {
+	/**
+	 * 检查表达式的有效性，无效则抛出异常
+	 */
+	public void checkValidity() {
 		if (param == null) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("norm" + mm.getMessage("function.missingParam"));
-		} else if (param.isLeaf()) {
-			Object result1 = param.getLeafExpression().calculate(ctx);
-			if (!(result1 instanceof Sequence)) {
-				MessageManager mm = EngineMessage.get();
-				throw new RQException("norm" + mm.getMessage("function.paramTypeError"));
-			}
-			boolean norm = option == null || option.indexOf('0')<0;
-			//edited by bd, 2021.12.21, 修改算法，添加@s选项支持标准归一，此时均值0，标准差为1
-			boolean std = option != null && option.indexOf('s')>-1;
-			Matrix A = normalize((Sequence) result1, norm, std);
-			return A.toSequence(option, true);
-		} else {
+		} else if (!param.isLeaf()) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("norm" + mm.getMessage("function.invalidParam"));
 		}
+	}
+
+	public Object calculate(Context ctx) {
+		Object result1 = param.getLeafExpression().calculate(ctx);
+		if (!(result1 instanceof Sequence)) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("norm" + mm.getMessage("function.paramTypeError"));
+		}
+		boolean norm = option == null || option.indexOf('0')<0;
+		//edited by bd, 2021.12.21, 修改算法，添加@s选项支持标准归一，此时均值0，标准差为1
+		boolean std = option != null && option.indexOf('s')>-1;
+		Matrix A = normalize((Sequence) result1, norm, std);
+		return A.toSequence(option, true);
 	}
 	
 	protected Matrix normalize(Sequence result, boolean norm, boolean std) {

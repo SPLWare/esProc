@@ -5,7 +5,7 @@ import com.scudata.common.RQException;
 import com.scudata.dm.Context;
 import com.scudata.dm.Env;
 import com.scudata.dw.Cuboid;
-import com.scudata.expression.ClusterTableMetaDataFunction;
+import com.scudata.expression.ClusterPhyTableFunction;
 import com.scudata.expression.Expression;
 import com.scudata.expression.IParam;
 import com.scudata.expression.ParamInfo2;
@@ -17,7 +17,7 @@ import com.scudata.resources.EngineMessage;
  * @author RunQian
  *
  */
-public class Cgroups extends ClusterTableMetaDataFunction {
+public class Cgroups extends ClusterPhyTableFunction {
 	public Object calculate(Context ctx) {
 		if (param == null) {
 			MessageManager mm = EngineMessage.get();

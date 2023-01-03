@@ -6,13 +6,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
+import com.scudata.array.IArray;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
 import com.scudata.dm.DataStruct;
 import com.scudata.dm.Env;
 import com.scudata.dm.FileObject;
-import com.scudata.dm.ListBase1;
 import com.scudata.dm.LongArray;
 import com.scudata.dm.ObjectReader;
 import com.scudata.dm.ObjectWriter;
@@ -36,14 +36,14 @@ import com.scudata.util.EnvUtil;
  * @author runqian
  *
  */
-public class TableFulltextIndex extends TableMetaDataIndex {
+public class TableFulltextIndex extends PhyTableIndex {
 	private static final int LIMIT = 1000000;//高频词限制数，超过这个值就抛弃
 	
-	public TableFulltextIndex(TableMetaData table, FileObject indexFile) {
+	public TableFulltextIndex(PhyTable table, FileObject indexFile) {
 		super(table, indexFile);
 	}
 	
-	public TableFulltextIndex(TableMetaData table, String indexName) {
+	public TableFulltextIndex(PhyTable table, String indexName) {
 		super(table, indexName);
 	}
 	
@@ -128,7 +128,7 @@ public class TableFulltextIndex extends TableMetaDataIndex {
 	
 	protected ArrayList <ICursor> sort(String []fields, Context ctx, Expression filter) {
 		ICursor srcCursor;
-		boolean isColTable = srcTable instanceof ColumnTableMetaData;
+		boolean isColTable = srcTable instanceof ColPhyTable;
 		if (isColTable) {
 			srcCursor = new CTableCursor(srcTable, fields, ctx, filter);
 		} else {
@@ -185,7 +185,7 @@ public class TableFulltextIndex extends TableMetaDataIndex {
 			}
 
 			if (index1EndPos > 0) {
-				if (srcTable instanceof ColumnTableMetaData) {
+				if (srcTable instanceof ColPhyTable) {
 					((CTableCursor)srcCursor).seek(index1EndPos);
 				} else {
 					((RTableCursor)srcCursor).seek(index1EndPos);
@@ -204,7 +204,7 @@ public class TableFulltextIndex extends TableMetaDataIndex {
 
 				ds = table.dataStruct();
 				subTable = new Table(ds);
-				ListBase1 mems = table.getMems();
+				IArray mems = table.getMems();
 				int length = table.length();
 				for (int i = 1; i <= length; i++) {
 					Record r = (Record) mems.get(i);
@@ -366,7 +366,7 @@ public class TableFulltextIndex extends TableMetaDataIndex {
 			}
 			
 			int p = 1;
-			ListBase1 mems = table.getMems();
+			IArray mems = table.getMems();
 			int length = table.length();
 			while (table != null && length != 0) {
 				writer.writeInt(BLOCK_START);
@@ -627,7 +627,7 @@ public class TableFulltextIndex extends TableMetaDataIndex {
 			}
 			LongArray tempPos = select(exp, opt, ctx);
 			
-			ArrayList<ModifyRecord> mrl = TableMetaData.getModifyRecord(srcTable, exp, ctx);
+			ArrayList<ModifyRecord> mrl = PhyTable.getModifyRecord(srcTable, exp, ctx);
 			if (tempPos != null && tempPos.size() > 0) {
 				ICursor cs = new IndexCursor(srcTable, fields, ifields, tempPos.toArray(), opt, ctx);
 				if (cs instanceof IndexCursor) {
@@ -657,10 +657,10 @@ public class TableFulltextIndex extends TableMetaDataIndex {
 		String fmtExp = (String) sub2.getLeafExpression().calculate(ctx);
 		fmtExp = fmtExp.substring(1, fmtExp.length() - 1);
 		
-		boolean isRow = srcTable instanceof RowTableMetaData;
+		boolean isRow = srcTable instanceof RowPhyTable;
 		long recCountOfSegment[] = null;
 		if (!isRow) {
-			recCountOfSegment = ((ColumnTableMetaData)srcTable).getSegmentInfo();
+			recCountOfSegment = ((ColPhyTable)srcTable).getSegmentInfo();
 		}
 		
 		//对每个关键字符进行过滤，求交集
@@ -709,7 +709,7 @@ public class TableFulltextIndex extends TableMetaDataIndex {
 			
 			//排序，归并求交集
 			if (isRow) {
-				tempPos = TableMetaData.longArrayUnite(tempPos, srcPos.toArray(), getPositionCount(), sort);
+				tempPos = PhyTable.longArrayUnite(tempPos, srcPos.toArray(), getPositionCount(), sort);
 				if (tempPos.size() <= ITableIndex.MIN_ICURSOR_REC_COUNT) {
 					break;
 				}
@@ -718,8 +718,8 @@ public class TableFulltextIndex extends TableMetaDataIndex {
 				if (sort) {
 					Arrays.sort(arr);
 				}
-				tempPos = TableMetaData.longArrayUnite(tempPos, arr);
-				if (TableMetaData.getBlockCount(tempPos, recCountOfSegment) <= ITableIndex.MIN_ICURSOR_BLOCK_COUNT) {
+				tempPos = PhyTable.longArrayUnite(tempPos, arr);
+				if (PhyTable.getBlockCount(tempPos, recCountOfSegment) <= ITableIndex.MIN_ICURSOR_BLOCK_COUNT) {
 					break;
 				}
 			}
@@ -730,7 +730,7 @@ public class TableFulltextIndex extends TableMetaDataIndex {
 		return tempPos;
 	}
 	
-	public void dup(TableMetaData table) {
+	public void dup(PhyTable table) {
 		String dir = table.getGroupTable().getFile().getAbsolutePath() + "_";
 		FileObject indexFile = new FileObject(dir + table.getTableName() + "_" + name);
 		RandomOutputStream os = indexFile.getRandomOutputStream(true);

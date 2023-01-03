@@ -17,20 +17,24 @@ import com.scudata.resources.EngineMessage;
  */
 public class JDBCCall extends Function {
 	public Node optimize(Context ctx) {
-		if (param != null)
-			param.optimize(ctx);
+		param.optimize(ctx);
 		return this;
 	}
-
-	public Object calculate(Context ctx) {
-		IParam param = this.param;
+	
+	/**
+	 * 检查表达式的有效性，无效则抛出异常
+	 */
+	public void checkValidity() {
 		if (param == null) {
 			MessageManager mm = EngineMessage.get();
-			throw new RQException("jdbccall"
-					+ mm.getMessage("function.missingParam"));
+			throw new RQException("jdbccall" + mm.getMessage("function.missingParam"));
 		}
-
+	}
+	
+	public Object calculate(Context ctx) {
 		PgmCellSet pcs;
+		IParam param = this.param;
+		
 		if (param.isLeaf()) {
 			Object strObj = param.getLeafExpression().calculate(ctx);
 			if (!(strObj instanceof String)) {

@@ -17,10 +17,10 @@ import com.scudata.app.common.Section;
 import com.scudata.cellset.datamodel.PgmNormalCell;
 import com.scudata.common.MessageManager;
 import com.scudata.common.StringUtils;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Context;
 import com.scudata.dm.DataStruct;
 import com.scudata.dm.Param;
-import com.scudata.dm.Record;
 import com.scudata.dm.Table;
 import com.scudata.ide.common.GM;
 import com.scudata.ide.common.GV;
@@ -296,7 +296,7 @@ public class PanelEditTable extends JPanel {
 					return;
 				}
 				if (!preventChange) {
-					Record record = (Record) table.get(row + 1);
+					BaseRecord record = table.getRecord(row + 1);
 					int nc = record.getFieldCount();
 					column--;
 					if (column < nc) {
@@ -685,7 +685,7 @@ public class PanelEditTable extends JPanel {
 			return;
 		}
 		for (int i = 1; i <= rowCount; i++) {
-			Record record = (Record) table.get(i);
+			BaseRecord record = table.getRecord(i);
 			int r = tableData.addRow();
 			for (int j = 0; j < colNames.length; j++) {
 				Object val = null;
@@ -695,8 +695,8 @@ public class PanelEditTable extends JPanel {
 				} catch (Exception e) {
 					continue;
 				}
-				if (val instanceof Record) {
-					Record tmp = (Record) val;
+				if (val instanceof BaseRecord) {
+					BaseRecord tmp = (BaseRecord) val;
 					val = GM.getRecordDispName(tmp, new Context());
 				}
 				tableData.data.setValueAt(val, r, j + 1);

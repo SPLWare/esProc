@@ -177,6 +177,21 @@ public final class ParamParser {
 
 			return opt;
 		}
+		
+		/**
+		 * 判断是否可以计算全部的值，有赋值运算时只能一行行计算
+		 * @return
+		 */
+		public boolean canCalculateAll() {
+			for (int i = 0, size = getSubSize(); i < size; ++i) {
+				IParam sub = getSub(i);
+				if (sub != null && !sub.canCalculateAll()) {
+					return false;
+				}
+			}
+			
+			return true;
+		}
 	}
 
 	// 叶子节点
@@ -259,10 +274,38 @@ public final class ParamParser {
 		public boolean optimize(Context ctx) {
 			exp.optimize(ctx);
 			Node home = exp.getHome();
-			return home == null || home instanceof Constant;
+			return home instanceof Constant;
+		}
+		
+		/**
+		 * 判断是否可以计算全部的值，有赋值运算时只能一行行计算
+		 * @return
+		 */
+		public boolean canCalculateAll() {
+			return exp.canCalculateAll();
 		}
 	}
 
+	/**
+	 * 产生一个叶子节点参数
+	 * @param paramStr
+	 * @param cs
+	 * @param ctx
+	 * @return
+	 */
+	public static IParam newLeafParam(String paramStr, ICellSet cs, Context ctx) {
+		if (paramStr == null) {
+			return null;
+		}
+		
+		paramStr = paramStr.trim();
+		if (paramStr.length() == 0) {
+			return null;
+		}
+		
+		return new LeafParam(new Expression(cs, ctx, paramStr, Expression.DoOptimize, false));
+	}
+	
 	/**
 	 * 解析层次参数，返回根节点，不做宏替换
 	 * @param cs 网格对象

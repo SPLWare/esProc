@@ -1,8 +1,9 @@
 package com.scudata.dm.op;
 
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.ComputeStack;
 import com.scudata.dm.Context;
-import com.scudata.dm.Record;
+import com.scudata.dm.Current;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
 import com.scudata.dm.cursor.ICursor;
@@ -28,6 +29,13 @@ public class TotalResult implements IResult {
 	
 	public Expression[] getCalcExps() {
 		return calcExps;
+	}
+	
+	/**
+	 * 数据推送结束时调用
+	 * @param ctx 计算上下文
+	 */
+	public void finish(Context ctx) {
 	}
 		
 	 /**
@@ -110,7 +118,7 @@ public class TotalResult implements IResult {
 	
 	private void addGroups_1(Sequence table, Context ctx) {
 		ComputeStack stack = ctx.getComputeStack();
-		Sequence.Current current = table.new Current();
+		Current current = new Current(table);
 		stack.push(current);
 		int i = 1;
 		
@@ -150,7 +158,7 @@ public class TotalResult implements IResult {
 		
 		for (int i = 0, count = results.length; i < count; ++i) {
 			if (valCount == 1) {
-				Record r = table.newLast();
+				BaseRecord r = table.newLast();
 				r.setNormalFieldValue(0, results[i]);
 			} else if (results[i] != null) {
 				Sequence seq = (Sequence)results[i];
@@ -170,7 +178,7 @@ public class TotalResult implements IResult {
 		}
 
 		table = table.groups(null, null, calcExps2, null, null, ctx);
-		Record r = table.getRecord(1);
+		BaseRecord r = table.getRecord(1);
 		if (valCount == 1) {
 			return r.getNormalFieldValue(0);
 		} else {

@@ -5,12 +5,12 @@ import com.scudata.common.RQException;
 import com.scudata.dm.Context;
 import com.scudata.dm.Env;
 import com.scudata.dw.Cuboid;
-import com.scudata.dw.TableMetaData;
-import com.scudata.dw.TableMetaDataGroup;
+import com.scudata.dw.PhyTable;
+import com.scudata.dw.PhyTableGroup;
 import com.scudata.expression.Expression;
 import com.scudata.expression.IParam;
 import com.scudata.expression.ParamInfo2;
-import com.scudata.expression.TableMetaDataFunction;
+import com.scudata.expression.PhyTableFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
@@ -19,7 +19,7 @@ import com.scudata.resources.EngineMessage;
  * @author RunQian
  *
  */
-public class Cgroups extends TableMetaDataFunction {
+public class Cgroups extends PhyTableFunction {
 	public Object calculate(Context ctx) {
 		if (param == null) {
 			MessageManager mm = EngineMessage.get();
@@ -77,12 +77,12 @@ public class Cgroups extends TableMetaDataFunction {
 			newNames = pi1.getExpressionStrs2();
 		}
 
-		if (table instanceof TableMetaDataGroup) {
-			return ((TableMetaDataGroup)table).cgroups(expNames, names, newExpNames, newNames, 
+		if (table instanceof PhyTableGroup) {
+			return ((PhyTableGroup)table).cgroups(expNames, names, newExpNames, newNames, 
 					w, hasM, n, option, ctx);
 		} else {
 			return Cuboid.cgroups(expNames, names, newExpNames, newNames, 
-				(TableMetaData) table, w, hasM, n, option, ctx);
+				(PhyTable) table, w, hasM, n, option, ctx);
 		}
 	}
 }

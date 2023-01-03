@@ -441,7 +441,7 @@ public class ParallelProcess implements IResource{
 		Sequence tmp = new Sequence(1);
 		tmp.add(curValue);
 		ComputeStack stack = ctx.getComputeStack();
-		stack.push(tmp.new Current(1));
+		stack.push(new Current(tmp, 1));
 		
 		try {
 			Object val = exp.calculate(ctx);

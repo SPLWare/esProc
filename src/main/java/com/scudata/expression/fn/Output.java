@@ -19,18 +19,22 @@ import com.scudata.util.Variant;
  *
  */
 public class Output extends Function {
-
 	public Node optimize(Context ctx) {
-		if (param != null) param.optimize(ctx);
+		param.optimize(ctx);
 		return this;
 	}
 
-	public Object calculate(Context ctx) {
+	/**
+	 * 检查表达式的有效性，无效则抛出异常
+	 */
+	public void checkValidity() {
 		if (param == null) {
 			MessageManager mm = EngineMessage.get();
-			throw new RQException("output" + mm.getMessage("function.invalidParam"));
+			throw new RQException("output" + mm.getMessage("function.missingParam"));
 		}
+	}
 
+	public Object calculate(Context ctx) {
 		boolean isInfo = false, isError = false, isTime = false, isLF = true;
 		if (option != null) {
 			if (option.indexOf('t') != -1) isTime = true;

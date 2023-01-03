@@ -2,17 +2,18 @@ package com.scudata.dm.op;
 
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.ComputeStack;
 import com.scudata.dm.Context;
+import com.scudata.dm.Current;
 import com.scudata.dm.DataStruct;
 import com.scudata.dm.IndexTable;
-import com.scudata.dm.MergeIndexTable;
-import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 import com.scudata.expression.CurrentSeq;
 import com.scudata.expression.Expression;
 import com.scudata.expression.Function;
 import com.scudata.resources.EngineMessage;
+import com.scudata.util.Variant;
 
 /**
  * 附加在游标或管道上的差连接过滤操作
@@ -90,8 +91,8 @@ public class DiffJoin extends Operation {
 			if (isMerge) {
 				if (curExps == null) {
 					Object obj = code.getMem(1);
-					if (obj instanceof Record) {
-						DataStruct ds = ((Record)obj).dataStruct();
+					if (obj instanceof BaseRecord) {
+						DataStruct ds = ((BaseRecord)obj).dataStruct();
 						String[] pks = ds.getPrimary();
 						if (pks == null) {
 							MessageManager mm = EngineMessage.get();
@@ -110,9 +111,9 @@ public class DiffJoin extends Operation {
 							curExps[k] = new Expression(ctx, pks[k]);
 						}
 						
-						indexTable = new MergeIndexTable(code, curExps, ctx);
+						indexTable = code.newMergeIndexTable(curExps, ctx);
 					} else {
-						indexTable = new MergeIndexTable(code, null, ctx);
+						indexTable = code.newMergeIndexTable(null, ctx);
 					}
 				} else {
 					if (exps[i].length != curExps.length) {
@@ -120,14 +121,14 @@ public class DiffJoin extends Operation {
 						throw new RQException("join" + mm.getMessage("function.invalidParam"));
 					}
 					
-					indexTable = new MergeIndexTable(code, curExps, ctx);
+					indexTable = code.newMergeIndexTable(curExps, ctx);
 				}
 			} else if (curExps == null) {
 				indexTable = code.getIndexTable();
 				if (indexTable == null) {
 					Object obj = code.getMem(1);
-					if (obj instanceof Record) {
-						DataStruct ds = ((Record)obj).dataStruct();
+					if (obj instanceof BaseRecord) {
+						DataStruct ds = ((BaseRecord)obj).dataStruct();
 						String[] pks = ds.getPrimary();
 						if (pks == null) {
 							MessageManager mm = EngineMessage.get();
@@ -149,7 +150,7 @@ public class DiffJoin extends Operation {
 						}
 					}
 
-					indexTable = IndexTable.instance(code, curExps, ctx);
+					indexTable = code.newIndexTable(curExps, ctx);
 				}
 			} else {
 				int fcount = exps[i].length;
@@ -162,7 +163,7 @@ public class DiffJoin extends Operation {
 				if (fcount != 1 || !(curExps[0].getHome() instanceof CurrentSeq)) {
 					indexTable = code.getIndexTable(curExps, ctx);
 					if (indexTable == null) {
-						indexTable = IndexTable.instance(code, curExps, ctx);
+						indexTable = code.newIndexTable(curExps, ctx);
 					}
 				} else {
 					indexTable = null;
@@ -197,7 +198,7 @@ public class DiffJoin extends Operation {
 		Sequence []codes = this.codes;
 		ComputeStack stack = ctx.getComputeStack();
 		
-		Sequence.Current current = data.new Current();
+		Current current = new Current(data);
 		stack.push(current);
 
 		try {
@@ -218,7 +219,7 @@ public class DiffJoin extends Operation {
 						Object val = exps[fk][0].calculate(ctx);
 						if (val instanceof Number) {
 							int seq = ((Number)val).intValue();
-							if (seq >= 1 && seq <= codes[fk].length()) {
+							if (seq >= 1 && seq <= codes[fk].length() && Variant.isTrue(codes[fk].getMem(seq))) {
 								continue Next;
 							}
 						}

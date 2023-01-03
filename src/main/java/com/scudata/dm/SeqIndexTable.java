@@ -1,5 +1,7 @@
 package com.scudata.dm;
 
+import com.scudata.array.BoolArray;
+import com.scudata.array.IArray;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.resources.EngineMessage;
@@ -11,9 +13,11 @@ import com.scudata.resources.EngineMessage;
  */
 public class SeqIndexTable extends IndexTable {
 	private Sequence code; // Î¬±í
+	private int len;
 	
 	public SeqIndexTable(Sequence code) {
 		this.code = code;
+		this.len = code.length();
 	}
 	
 	/**
@@ -26,7 +30,7 @@ public class SeqIndexTable extends IndexTable {
 		Sequence result = new Sequence(len);
 		
 		for (int i = 1; i <= len; ++i) {
-			Record r = (Record)code.getMem(i);
+			BaseRecord r = (BaseRecord)code.getMem(i);
 			Object v = r.getNormalFieldValue(field);
 			if (!(v instanceof Number)) {
 				MessageManager mm = EngineMessage.get();
@@ -43,12 +47,13 @@ public class SeqIndexTable extends IndexTable {
 		}
 		
 		this.code = result;
+		this.len = result.length();
 	}
 
 	public Object find(Object key) {
 		if (key instanceof Number) {
 			int seq = ((Number)key).intValue();
-			if (seq > 0 && seq <= code.length()) {
+			if (seq > 0 && seq <= len) {
 				return code.getMem(seq);
 			}
 		}
@@ -57,10 +62,89 @@ public class SeqIndexTable extends IndexTable {
 	}
 
 	public Object find(Object []keys) {
-		if (keys.length == 1) {
-			return find(keys[0]);
+		return find(keys[0]);
+	}
+	
+	public int findPos(Object key) {
+		if (key instanceof Number) {
+			int seq = ((Number)key).intValue();
+			if (seq > 0 && seq <= len && code.isTrue(seq)) {
+				return seq;
+			}
 		}
 		
-		return null;
+		return 0;
+	}
+
+	public int findPos(Object []keys) {
+		return findPos(keys[0]);
+	}
+	
+	public int[] findAllPos(IArray key) {
+		int len = key.size();
+		int codeLen = this.len;
+		int[] pos = new int[len + 1];
+		Sequence code = this.code;
+		
+		if (code instanceof Table) {
+			for (int i = 1; i <= len; i++) {
+				if (!key.isNull(i)) {
+					int seq = key.getInt(i);
+					if (seq > 0 && seq <= codeLen) {
+						pos[i] = seq;
+					}
+				}
+			}
+		} else {
+			IArray mems = code.getMems();
+			for (int i = 1; i <= len; i++) {
+				if (!key.isNull(i)) {
+					int seq = key.getInt(i);
+					if (seq > 0 && seq <= codeLen && mems.isTrue(seq)) {
+						pos[i] = seq;
+					}
+				}
+			}
+		}
+		
+		return pos;
+	}
+
+	public int[] findAllPos(IArray[] keys) {
+		return findAllPos(keys[0]);
+	}
+
+	public int[] findAllPos(IArray key, BoolArray signArray) {
+		int len = key.size();
+		int codeLen = this.len;
+		int[] pos = new int[len + 1];
+		Sequence code = this.code;
+		
+		if (code instanceof Table) {
+			for (int i = 1; i <= len; i++) {
+				if (signArray.isTrue(i) && !key.isNull(i)) {
+					int seq = key.getInt(i);
+					if (seq > 0 && seq <= codeLen) {
+						pos[i] = seq;
+					}
+				}
+			}
+		} else {
+			IArray mems = code.getMems();
+			for (int i = 1; i <= len; i++) {
+				if (signArray.isTrue(i) && !key.isNull(i)) {
+					int seq = key.getInt(i);
+					if (seq > 0 && seq <= codeLen && mems.isTrue(seq)) {
+						pos[i] = seq;
+					}
+				}
+			}
+		}
+		
+		return pos;
+	}
+
+	public int[] findAllPos(IArray[] keys, BoolArray signArray) {
+		return findAllPos(keys[0], signArray);
 	}
 }

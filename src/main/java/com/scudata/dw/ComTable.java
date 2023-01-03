@@ -28,13 +28,13 @@ import com.scudata.util.FileSyncManager;
  * @author runqian
  *
  */
-abstract public class GroupTable implements IBlockStorage {
+abstract public class ComTable implements IBlockStorage {
 	// 补文件后缀由_SF改为.ext
 	public static final String SF_SUFFIX = ".ext"; //补文件后缀
 	
 	protected File file;
 	protected RandomAccessFile raf;
-	protected TableMetaData baseTable;
+	protected PhyTable baseTable;
 	
 	protected int blockSize; // 块大小
 	protected transient int enlargeSize; // 扩大文件时的增幅
@@ -56,9 +56,10 @@ abstract public class GroupTable implements IBlockStorage {
 	protected StructManager structManager; // 复列的数据结构
 	protected transient Context ctx;
 	
-	private transient GroupTable sfGroupTable;
+	private transient ComTable sfGroupTable;
 	private transient Integer partition; // 组文件所属分区
-
+	private transient int cursorCount;//打开的游标的个数
+	
 	/**
 	 * 获得组表的补文件
 	 * @param file 组表文件
@@ -75,16 +76,16 @@ abstract public class GroupTable implements IBlockStorage {
 	 * @param sf
 	 * @return
 	 */
-	public GroupTable dupStruct(File sf) {
+	public ComTable dupStruct(File sf) {
 		checkWritable();
-		GroupTable newGroupTable = null;
+		ComTable newGroupTable = null;
 		
 		try {
 			//生成新组表文件
-			if (this instanceof ColumnGroupTable) {
-				newGroupTable = new ColumnGroupTable(sf, (ColumnGroupTable)this);
+			if (this instanceof ColComTable) {
+				newGroupTable = new ColComTable(sf, (ColComTable)this);
 			} else {
-				newGroupTable = new RowGroupTable(sf, (RowGroupTable)this);
+				newGroupTable = new RowComTable(sf, (RowComTable)this);
 			}
 		} catch (Exception e) {
 			if (newGroupTable != null) newGroupTable.close();
@@ -100,7 +101,7 @@ abstract public class GroupTable implements IBlockStorage {
 	 * @param isCreate 是否新建
 	 * @return
 	 */
-	public GroupTable getSupplement(boolean isCreate) {
+	public ComTable getSupplement(boolean isCreate) {
 		if (sfGroupTable == null) {
 			File sf = getSupplementFile(file);
 			if (sf.exists()) {
@@ -126,7 +127,7 @@ abstract public class GroupTable implements IBlockStorage {
 	 * @return
 	 * @throws IOException
 	 */
-	public static GroupTable open(File file, Context ctx) throws IOException {
+	public static ComTable open(File file, Context ctx) throws IOException {
 		if (!file.exists()) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException(mm.getMessage("file.fileNotExist", file.getAbsolutePath()));
@@ -136,9 +137,9 @@ abstract public class GroupTable implements IBlockStorage {
 		try {
 			raf.seek(6);
 			if (raf.read() == 'r') {
-				return new RowGroupTable(file, ctx);
+				return new RowComTable(file, ctx);
 			} else {
-				return new ColumnGroupTable(file, ctx);
+				return new ColComTable(file, ctx);
 			}
 		} finally {
 			raf.close();
@@ -151,7 +152,7 @@ abstract public class GroupTable implements IBlockStorage {
 	 * @return
 	 * @throws IOException
 	 */
-	public static GroupTable createGroupTable(File file) throws IOException {
+	public static ComTable createGroupTable(File file) throws IOException {
 		if (!file.exists()) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException(mm.getMessage("file.fileNotExist", file.getAbsolutePath()));
@@ -161,9 +162,9 @@ abstract public class GroupTable implements IBlockStorage {
 		try {
 			raf.seek(6);
 			if (raf.read() == 'r') {
-				return new RowGroupTable(file);
+				return new RowComTable(file);
 			} else {
-				return new ColumnGroupTable(file);
+				return new ColComTable(file);
 			}
 		} finally {
 			raf.close();
@@ -176,9 +177,9 @@ abstract public class GroupTable implements IBlockStorage {
 	 * @param ctx
 	 * @return
 	 */
-	public static TableMetaData openBaseTable(File file, Context ctx) {
+	public static PhyTable openBaseTable(File file, Context ctx) {
 		try {
-			GroupTable groupTable = open(file, ctx);
+			ComTable groupTable = open(file, ctx);
 			return groupTable.getBaseTable();
 		} catch (IOException e) {
 			throw new RQException(e.getMessage(), e);
@@ -189,7 +190,7 @@ abstract public class GroupTable implements IBlockStorage {
 	 * 取基表
 	 * @return
 	 */
-	public TableMetaData getBaseTable() {
+	public PhyTable getBaseTable() {
 		return baseTable;
 	}
 
@@ -212,18 +213,18 @@ abstract public class GroupTable implements IBlockStorage {
 	public void delete() {
 		// 用于f.create@y()
 		checkWritable();
-		GroupTable sgt = getSupplement(false);
+		ComTable sgt = getSupplement(false);
 		if (sgt != null) {
 			sgt.delete();
 		}
 		
-		TableMetaData table = getBaseTable();
+		PhyTable table = getBaseTable();
 		
 		try {
 			table.deleteIndex(null);
 			table.deleteCuboid(null);
-			ArrayList<TableMetaData> tables = table.getTableList();
-			for (TableMetaData td : tables) {
+			ArrayList<PhyTable> tables = table.getTableList();
+			for (PhyTable td : tables) {
 				td.deleteIndex(null);
 				td.deleteCuboid(null);
 			}
@@ -238,8 +239,8 @@ abstract public class GroupTable implements IBlockStorage {
 	public void close() {
 		try {
 			baseTable.appendCache();
-			ArrayList <TableMetaData> tables = baseTable.getTableList();
-			for (TableMetaData table : tables) {
+			ArrayList <PhyTable> tables = baseTable.getTableList();
+			for (PhyTable table : tables) {
 				table.appendCache();
 			}
 			
@@ -327,7 +328,7 @@ abstract public class GroupTable implements IBlockStorage {
 	 * @param table
 	 * @throws IOException
 	 */
-	protected void beginTransaction(TableMetaData table) throws IOException {
+	protected void beginTransaction(PhyTable table) throws IOException {
 		byte []bytes = new byte[blockSize];
 		raf.seek(0);
 		raf.readFully(bytes);
@@ -412,7 +413,7 @@ abstract public class GroupTable implements IBlockStorage {
 			distribute = this.distribute;
 		}
 		
-		boolean isCol = this instanceof ColumnGroupTable;
+		boolean isCol = this instanceof ColComTable;
 		boolean hasQ = false;
 		boolean hasN = false;
 		boolean compress = false; // 压缩
@@ -457,7 +458,7 @@ abstract public class GroupTable implements IBlockStorage {
 			}
 		}
 		
-		GroupTable sgt = getSupplement(false);
+		ComTable sgt = getSupplement(false);
 		if (hasQ) {
 			if (sgt != null) {
 				sgt.reset(file, opt, ctx, distribute);
@@ -470,9 +471,9 @@ abstract public class GroupTable implements IBlockStorage {
 		int len = srcColNames.length;
 		String []colNames = new String[len];
 		
-		if (baseTable instanceof ColumnTableMetaData) {
+		if (baseTable instanceof ColPhyTable) {
 			for (int i = 0; i < len; i++) {
-				ColumnMetaData col = ((ColumnTableMetaData)baseTable).getColumn(srcColNames[i]);
+				ColumnMetaData col = ((ColPhyTable)baseTable).getColumn(srcColNames[i]);
 				if (col.isDim()) {
 					colNames[i] = "#" + srcColNames[i];
 				} else {
@@ -480,7 +481,7 @@ abstract public class GroupTable implements IBlockStorage {
 				}
 			}
 		} else {
-			boolean[] isDim = ((RowTableMetaData)baseTable).getDimIndex();
+			boolean[] isDim = ((RowPhyTable)baseTable).getDimIndex();
 			for (int i = 0; i < len; i++) {
 				if (isDim[i]) {
 					colNames[i] = "#" + srcColNames[i];
@@ -507,11 +508,11 @@ abstract public class GroupTable implements IBlockStorage {
 			newOpt = "p";
 		}
 		
-		GroupTable newGroupTable = null;
+		ComTable newGroupTable = null;
 		try {
 			//生成新组表文件
 			if (isCol) {
-				newGroupTable = new ColumnGroupTable(newFile, colNames, distribute, newOpt, ctx);
+				newGroupTable = new ColComTable(newFile, colNames, distribute, newOpt, ctx);
 				if (compress) {
 					newGroupTable.setCompress(true);
 				} else if (uncompress) {
@@ -520,7 +521,7 @@ abstract public class GroupTable implements IBlockStorage {
 					newGroupTable.setCompress(isCompress());
 				}
 			} else {
-				newGroupTable = new RowGroupTable(newFile, colNames, distribute, newOpt, ctx);
+				newGroupTable = new RowComTable(newFile, colNames, distribute, newOpt, ctx);
 			}
 			
 			//处理分段
@@ -528,18 +529,18 @@ abstract public class GroupTable implements IBlockStorage {
 			if (needSeg) {
 				newGroupTable.baseTable.setSegmentCol(baseTable.segmentCol, baseTable.segmentSerialLen);
 			}
-			TableMetaData newBaseTable = newGroupTable.baseTable;
+			PhyTable newBaseTable = newGroupTable.baseTable;
 			
 			//建立基表的子表
-			ArrayList<TableMetaData> tableList = baseTable.tableList;
-			for (TableMetaData t : tableList) {
+			ArrayList<PhyTable> tableList = baseTable.tableList;
+			for (PhyTable t : tableList) {
 				srcColNames = t.getColNames();
 				len = srcColNames.length;
 				colNames = new String[len];
 				
-				if (t instanceof ColumnTableMetaData) {
+				if (t instanceof ColPhyTable) {
 					for (int i = 0; i < len; i++) {
-						ColumnMetaData col = ((ColumnTableMetaData)t).getColumn(srcColNames[i]);
+						ColumnMetaData col = ((ColPhyTable)t).getColumn(srcColNames[i]);
 						if (col.isDim()) {
 							colNames[i] = "#" + srcColNames[i];
 						} else {
@@ -548,7 +549,7 @@ abstract public class GroupTable implements IBlockStorage {
 					}
 				} else {
 					for (int i = 0; i < len; i++) {
-						boolean[] isDim = ((RowTableMetaData)t).getDimIndex();
+						boolean[] isDim = ((RowPhyTable)t).getDimIndex();
 						if (isDim[i]) {
 							colNames[i] = "#" + srcColNames[i];
 						} else {
@@ -569,10 +570,10 @@ abstract public class GroupTable implements IBlockStorage {
 			ICursor cs = null;
 			if (hasQ) {
 				//获得自己的纯游标（不含补文件的）
-				if (baseTable instanceof ColumnTableMetaData) {
-					cs = new Cursor((ColumnTableMetaData)baseTable);
+				if (baseTable instanceof ColPhyTable) {
+					cs = new Cursor((ColPhyTable)baseTable);
 				} else {
-					cs = new RowCursor((RowTableMetaData)baseTable);
+					cs = new RowCursor((RowPhyTable)baseTable);
 				}
 				
 			} else {
@@ -584,7 +585,7 @@ abstract public class GroupTable implements IBlockStorage {
 				//从基表附表中根据补区找最靠前的块号
 				startBlock = baseTable.getFirstBlockFromModifyRecord();
 				tableList = baseTable.tableList;
-				for (TableMetaData t : tableList) {
+				for (PhyTable t : tableList) {
 					int blk = t.getFirstBlockFromModifyRecord();
 					if (startBlock == -1 ) {
 						startBlock = blk;
@@ -605,14 +606,14 @@ abstract public class GroupTable implements IBlockStorage {
 			newBaseTable.appendCache();
 			
 			//写数据到基表的子表
-			for (TableMetaData t : tableList) {
-				TableMetaData newTable = newBaseTable.getAnnexTable(t.tableName);
+			for (PhyTable t : tableList) {
+				PhyTable newTable = newBaseTable.getAnnexTable(t.tableName);
 				if (hasQ) {
 					//获得自己的纯游标（不含补文件的）
-					if (t instanceof ColumnTableMetaData) {
-						cs = new Cursor((ColumnTableMetaData)t, t.allColNames);
+					if (t instanceof ColPhyTable) {
+						cs = new Cursor((ColPhyTable)t, t.allColNames);
 					} else {
-						cs = new RowCursor((RowTableMetaData)t, t.allColNames);
+						cs = new RowCursor((RowPhyTable)t, t.allColNames);
 					}
 				} else {
 					cs = t.cursor(t.allColNames);
@@ -633,7 +634,7 @@ abstract public class GroupTable implements IBlockStorage {
 				//reset原组表，截止到块号
 				long pos, freePos;
 				freePos = baseTable.resetByBlock(startBlock);
-				for (TableMetaData t : tableList) {
+				for (PhyTable t : tableList) {
 					pos = t.resetByBlock(startBlock);
 					if (freePos < pos) {
 						freePos = pos;
@@ -647,9 +648,9 @@ abstract public class GroupTable implements IBlockStorage {
 				//写入块号之后的数据
 				cs = newBaseTable.cursor();
 				baseTable.append(cs);
-				ArrayList<TableMetaData> newTableList = newBaseTable.tableList;
+				ArrayList<PhyTable> newTableList = newBaseTable.tableList;
 				for (int i = 0; i < tableList.size(); i++) {
-					TableMetaData t = newTableList.get(i);
+					PhyTable t = newTableList.get(i);
 					cs = t.cursor(t.allColNames);
 					tableList.get(i).append(cs);
 				}
@@ -661,7 +662,7 @@ abstract public class GroupTable implements IBlockStorage {
 				//重建索引文件
 				baseTable.resetIndex(ctx);
 				newTableList = baseTable.tableList;
-				for (TableMetaData table : newTableList) {
+				for (PhyTable table : newTableList) {
 					table.resetIndex(ctx);
 				}
 				
@@ -684,11 +685,11 @@ abstract public class GroupTable implements IBlockStorage {
 				}
 			}
 			//子表索引
-			ArrayList<TableMetaData> newTableList = newBaseTable.tableList;
+			ArrayList<PhyTable> newTableList = newBaseTable.tableList;
 			len = tableList.size();
 			for (int i = 0; i < len; i++) {
-				TableMetaData oldTable = tableList.get(i);
-				TableMetaData newTable = newTableList.get(i);
+				PhyTable oldTable = tableList.get(i);
+				PhyTable newTable = newTableList.get(i);
 				indexNames = oldTable.indexNames;
 				if (indexNames == null) continue;
 				String [][]indexFields = oldTable.indexFields;
@@ -707,8 +708,8 @@ abstract public class GroupTable implements IBlockStorage {
 			}
 			//子表cuboid
 			for (int i = 0; i < len; i++) {
-				TableMetaData oldTable = tableList.get(i);
-				TableMetaData newTable = newTableList.get(i);
+				PhyTable oldTable = tableList.get(i);
+				PhyTable newTable = newTableList.get(i);
 				cuboids = oldTable.cuboids;
 				if (cuboids == null) continue;
 				for (String addCuboid : cuboids) {
@@ -740,8 +741,8 @@ abstract public class GroupTable implements IBlockStorage {
 		//重建索引文件和cuboid
 		newGroupTable.baseTable.resetIndex(ctx);
 		newGroupTable.baseTable.resetCuboid(ctx);
-		ArrayList<TableMetaData> newTableList = newGroupTable.baseTable.tableList;
-		for (TableMetaData table : newTableList) {
+		ArrayList<PhyTable> newTableList = newGroupTable.baseTable.tableList;
+		for (PhyTable table : newTableList) {
 			table.resetIndex(ctx);
 			table.resetCuboid(ctx);
 		}
@@ -762,7 +763,7 @@ abstract public class GroupTable implements IBlockStorage {
 		if (distribute == null) {
 			distribute = this.distribute;
 		}
-		boolean isCol = this instanceof ColumnGroupTable;
+		boolean isCol = this instanceof ColComTable;
 		boolean uncompress = false; // 不压缩
 		if (opt != null) {
 			if (opt.indexOf('r') != -1) {
@@ -784,9 +785,9 @@ abstract public class GroupTable implements IBlockStorage {
 		int len = srcColNames.length;
 		String []colNames = new String[len];
 		
-		if (baseTable instanceof ColumnTableMetaData) {
+		if (baseTable instanceof ColPhyTable) {
 			for (int i = 0; i < len; i++) {
-				ColumnMetaData col = ((ColumnTableMetaData)baseTable).getColumn(srcColNames[i]);
+				ColumnMetaData col = ((ColPhyTable)baseTable).getColumn(srcColNames[i]);
 				if (col.isDim()) {
 					colNames[i] = "#" + srcColNames[i];
 				} else {
@@ -794,7 +795,7 @@ abstract public class GroupTable implements IBlockStorage {
 				}
 			}
 		} else {
-			boolean[] isDim = ((RowTableMetaData)baseTable).getDimIndex();
+			boolean[] isDim = ((RowPhyTable)baseTable).getDimIndex();
 			for (int i = 0; i < len; i++) {
 				if (isDim[i]) {
 					colNames[i] = "#" + srcColNames[i];
@@ -822,31 +823,31 @@ abstract public class GroupTable implements IBlockStorage {
 		}
 		try {
 			//写基表
-			TableMetaDataGroup newTableGroup = fileGroup.create(colNames, distribute, newOpt, ctx);
+			PhyTableGroup newTableGroup = fileGroup.create(colNames, distribute, newOpt, ctx);
 			ICursor cs = baseTable.cursor();
 			newTableGroup.append(cs, "xi");
 			
 			//写子表
-			ArrayList<TableMetaData> tableList = baseTable.tableList;
-			for (TableMetaData t : tableList) {
+			ArrayList<PhyTable> tableList = baseTable.tableList;
+			for (PhyTable t : tableList) {
 				len = t.colNames.length;
 				colNames = Arrays.copyOf(t.colNames, len);
-				if (t instanceof ColumnTableMetaData) {
+				if (t instanceof ColPhyTable) {
 					for (int i = 0; i < len; i++) {
-						ColumnMetaData col = ((ColumnTableMetaData)t).getColumn(colNames[i]);
+						ColumnMetaData col = ((ColPhyTable)t).getColumn(colNames[i]);
 						if (col.isDim()) {
 							colNames[i] = "#" + colNames[i];
 						}
 					}
 				} else {
-					boolean[] isDim = ((RowTableMetaData)t).getDimIndex();
+					boolean[] isDim = ((RowPhyTable)t).getDimIndex();
 					for (int i = 0; i < len; i++) {
 						if (isDim[i]) {
 							colNames[i] = "#" + colNames[i];
 						}
 					}
 				}
-				ITableMetaData newTable = newTableGroup.createAnnexTable(colNames, t.getSerialBytesLen(), t.tableName);
+				IPhyTable newTable = newTableGroup.createAnnexTable(colNames, t.getSerialBytesLen(), t.tableName);
 				
 				//附表的游标，取出字段里要包含基表所有字段，这是因为需要计算分布
 				String[] allColNames = Arrays.copyOf(srcColNames, srcColNames.length + t.colNames.length);
@@ -968,7 +969,7 @@ abstract public class GroupTable implements IBlockStorage {
 		positions[c++] = baseTable.modifyBlockLink1.firstBlockPos;
 		positions[c++] = baseTable.modifyBlockLink2.firstBlockPos;
 		
-		for (TableMetaData table : baseTable.tableList) {
+		for (PhyTable table : baseTable.tableList) {
 			positions[c++] = table.modifyBlockLink1.firstBlockPos;
 			positions[c++] = table.modifyBlockLink2.firstBlockPos;
 		}
@@ -1148,5 +1149,22 @@ abstract public class GroupTable implements IBlockStorage {
 	
 	public RandomAccessFile getRaf() {
 		return raf;
+	}
+	
+	public void openCursorEvent() {
+		Object syncObj = getSyncObject();
+		synchronized(syncObj) {
+			cursorCount ++;
+		}
+	}
+	
+	public void closeCursorEvent() {
+		Object syncObj = getSyncObject();
+		synchronized(syncObj) {
+			cursorCount --;
+			if (cursorCount <= 0) {
+				close();
+			}
+		}
 	}
 }

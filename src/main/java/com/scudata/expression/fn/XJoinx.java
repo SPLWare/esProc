@@ -23,16 +23,24 @@ import com.scudata.resources.EngineMessage;
  */
 public class XJoinx extends Function {
 	public Node optimize(Context ctx) {
-		if (param != null) param.optimize(ctx);
+		param.optimize(ctx);
 		return this;
 	}
 	
-	public Object calculate(Context ctx) {
-		if (param == null || param.getType() != IParam.Semicolon) {
+	/**
+	 * 检查表达式的有效性，无效则抛出异常
+	 */
+	public void checkValidity() {
+		if (param == null) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("xjoinx" + mm.getMessage("function.missingParam"));
+		} else if (param.getType() != IParam.Semicolon) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("xjoinx" + mm.getMessage("function.invalidParam"));
 		}
+	}
 
+	public Object calculate(Context ctx) {
 		int count = param.getSubSize();
 		ICursor []cursors = new ICursor[count];
 		String []names = new String[count];

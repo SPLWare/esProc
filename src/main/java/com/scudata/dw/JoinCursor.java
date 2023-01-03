@@ -4,12 +4,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import com.scudata.array.IArray;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.ComputeStack;
 import com.scudata.dm.Context;
 import com.scudata.dm.DataStruct;
-import com.scudata.dm.ListBase1;
 import com.scudata.dm.ObjectReader;
 import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
@@ -30,7 +31,7 @@ import com.scudata.expression.mfn.sequence.Min;
 import com.scudata.expression.mfn.sequence.New;
 import com.scudata.expression.mfn.sequence.Sum;
 import com.scudata.expression.operator.And;
-import com.scudata.parallel.ClusterTableMetaData;
+import com.scudata.parallel.ClusterPhyTable;
 import com.scudata.resources.EngineMessage;
 import com.scudata.util.Variant;
 
@@ -40,7 +41,7 @@ import com.scudata.util.Variant;
  *
  */
 public class JoinCursor extends ICursor {
-	private ITableMetaData table;
+	private IPhyTable table;
 	private Expression []exps;//取出表达式
 	private String []fields;//取出字段名
 	
@@ -69,7 +70,7 @@ public class JoinCursor extends ICursor {
 	private BufferReader []bufReaders;
 	private int len1;//当前块的条数
 	private Object []keys1;//当前key值
-	private Record r;//当前记录
+	private BaseRecord r;//当前记录
 	
 	private ICursor cursor2;//A/cs
 	private String[] csNames;//A/cs:K的K，用于指定A/cs参与连接的字段
@@ -107,7 +108,7 @@ public class JoinCursor extends ICursor {
 	 * @param codes
 	 * @param ctx
 	 */
-	public JoinCursor(ITableMetaData table, Expression []exps, String []fields, ICursor cursor2, String[] csNames,
+	public JoinCursor(IPhyTable table, Expression []exps, String []fields, ICursor cursor2, String[] csNames, 
 			int type, String option, Expression filter, String []fkNames, Sequence []codes, String[] opts, Context ctx) {
 		this.table = table;
 		this.cursor2 = cursor2;
@@ -128,17 +129,17 @@ public class JoinCursor extends ICursor {
 		this.ctx = ctx;
 		
 		if (filter != null) {
-			parseFilter((ColumnTableMetaData) table, filter, ctx);
+			parseFilter((ColPhyTable) table, filter, ctx);
 		}
 		
 		if (fkNames != null) {
-			parseSwitch((ColumnTableMetaData) table, ctx);
+			parseSwitch((ColPhyTable) table, ctx);
 		}
 		
 		init();
 	}
 	
-	private void parseSwitch(ColumnTableMetaData table, Context ctx) {
+	private void parseSwitch(ColPhyTable table, Context ctx) {
 		int fcount = fkNames.length;
 		ArrayList<IFilter> filterList = new ArrayList<IFilter>();
 		ArrayList<FindFilter> findFilterList = new ArrayList<FindFilter>();
@@ -162,11 +163,11 @@ public class JoinCursor extends ICursor {
 			int pri = table.getColumnFilterPriority(column);
 			FindFilter find;
 			if (opts[f] != null && opts[f].indexOf("#") != -1) {
-				find = new MemberFilter(column, pri, codes[f]);
+				find = new MemberFilter(column, pri, codes[f], null);
 			} else if (opts[f] != null && opts[f].indexOf("null") != -1) {
-				find = new NotFindFilter(column, pri, codes[f]);
+				find = new NotFindFilter(column, pri, codes[f], null);
 			} else {
-				find = new FindFilter(column, pri, codes[f]);
+				find = new FindFilter(column, pri, codes[f], null);
 			}
 			
 			for (int i = 0; i < fltCount; ++i) {
@@ -191,7 +192,7 @@ public class JoinCursor extends ICursor {
 	
 	}
 	
-	private void parseFilter(ColumnTableMetaData table, Expression exp, Context ctx) {
+	private void parseFilter(ColPhyTable table, Expression exp, Context ctx) {
 		Object obj = Cursor.parseFilter(table, exp, ctx);
 		unknownFilter = null;
 		
@@ -244,10 +245,10 @@ public class JoinCursor extends ICursor {
 	
 	private void init() {
 		String []keyNames;//T的主键
-		if (table instanceof ITableMetaData) {
-			keyNames = ((ITableMetaData) table).getAllSortedColNames();
+		if (table instanceof IPhyTable) {
+			keyNames = ((IPhyTable) table).getAllSortedColNames();
 		} else {
-			keyNames = ((ClusterTableMetaData) table).getAllSortedColNames();
+			keyNames = ((ClusterPhyTable) table).getAllSortedColNames();
 		}
 		
 		String []joinNames = keyNames;//join字段，默认取T的主键
@@ -259,7 +260,7 @@ public class JoinCursor extends ICursor {
 			isClosed = true;
 			return;
 		}
-		ds2 = ((Record) seq.get(1)).dataStruct();
+		ds2 = ((BaseRecord) seq.get(1)).dataStruct();
 		
 		if (isNew) {
 			//new时就是T的主键
@@ -304,10 +305,10 @@ public class JoinCursor extends ICursor {
 			//2.取T前面的字段
 			joinNames = new String[keyCount];//此时不是T的主键
 			String[] allNames;
-			if (table instanceof ITableMetaData) {
-				allNames = ((ITableMetaData) table).getAllColNames();
+			if (table instanceof IPhyTable) {
+				allNames = ((IPhyTable) table).getAllColNames();
 			} else {
-				allNames = ((ClusterTableMetaData) table).getAllColNames();
+				allNames = ((ClusterPhyTable) table).getAllColNames();
 			}
 			for (int i = 0; i < keyCount; i++) {
 				joinNames[i] = allNames[i];
@@ -334,7 +335,7 @@ public class JoinCursor extends ICursor {
 			if (tempList.size() > 0) {
 				for (String name : tempList) {
 					if (!filtersList.contains(name)
-							&& ((ColumnTableMetaData) table).getColumn(name) != null) {
+							&& ((ColPhyTable) table).getColumn(name) != null) {
 						filtersList.add(name);
 					}
 				}
@@ -430,8 +431,8 @@ public class JoinCursor extends ICursor {
 		}
 		
 		//得到所有的Column
-		if (table instanceof ColumnTableMetaData) {
-			columns = ((ColumnTableMetaData) table).getColumns(allExpNames);
+		if (table instanceof ColPhyTable) {
+			columns = ((ColPhyTable) table).getColumns(allExpNames);
 			int colCount = columns.length;
 			
 			bufReaders = new BufferReader[colCount];
@@ -444,8 +445,8 @@ public class JoinCursor extends ICursor {
 				}
 			}
 			
-			rowCountReader = ((ColumnTableMetaData) table).getSegmentReader();
-			endBlock = ((TableMetaData) table).getDataBlockCount();
+			rowCountReader = ((ColPhyTable) table).getSegmentReader();
+			endBlock = ((PhyTable) table).getDataBlockCount();
 		}
 		
 		//得到返回的ds
@@ -531,11 +532,12 @@ public class JoinCursor extends ICursor {
 		try {
 			if (filters == null) {
 				curBlock++;
+				int recordCount = rowCountReader.readInt32();
 				int colCount = colReaders.length;
 				for (int f = 0; f < colCount; ++f) {
-					bufReaders[f] = colReaders[f].readBlockData();
+					bufReaders[f] = colReaders[f].readBlockData(recordCount);
 				}
-				return rowCountReader.readInt32();
+				return recordCount;
 			} else {
 				while (curBlock < endBlock) {
 					curBlock++;
@@ -548,7 +550,7 @@ public class JoinCursor extends ICursor {
 					NEXT:
 					for (; f < keyOffset; ++f) {
 						positions[f] = segmentReaders[f].readLong40();
-						if (columns[f].isDim()) {
+						if (columns[f].hasMaxMinValues()) {
 							Object minValue = segmentReaders[f].readObject();
 							Object maxValue = segmentReaders[f].readObject();
 							segmentReaders[f].skipObject();
@@ -568,7 +570,7 @@ public class JoinCursor extends ICursor {
 					
 					for (; f < colCount; ++f) {
 						positions[f] = segmentReaders[f].readLong40();
-						if (columns[f].isDim()) {
+						if (columns[f].hasMaxMinValues()) {
 							segmentReaders[f].skipObject();
 							segmentReaders[f].skipObject();
 							segmentReaders[f].skipObject();
@@ -577,7 +579,7 @@ public class JoinCursor extends ICursor {
 					
 					if (sign) {
 						for (f = 0; f < colCount; ++f) {
-							bufReaders[f] = colReaders[f].readBlockData(positions[f]);
+							bufReaders[f] = colReaders[f].readBlockData(positions[f], recordCount);
 						}
 						return recordCount;
 					}	
@@ -614,7 +616,7 @@ public class JoinCursor extends ICursor {
 			for (int b = 0; b < blockCount; ++b) {
 				for (int f = 0; f < colCount; ++f) {
 					pos[f] = readers[f].readLong40();
-					if (columns[f].isDim()) {
+					if (columns[f].hasMaxMinValues()) {
 						readers[f].skipObject();
 						readers[f].skipObject();
 						blockMinVals[f] = readers[f].readObject(); //startValue
@@ -640,7 +642,7 @@ public class JoinCursor extends ICursor {
 						rowCountReader.readInt32();
 						for (int f = 0; f < colCount; ++f) {
 							segmentReaders[f].readLong40();
-							if (columns[f].isDim()) {
+							if (columns[f].hasMaxMinValues()) {
 								segmentReaders[f].skipObject();
 								segmentReaders[f].skipObject();
 								segmentReaders[f].skipObject();
@@ -701,7 +703,7 @@ public class JoinCursor extends ICursor {
 		if (cache2 == null || cache2.length() == 0) {
 			cache2 = cursor2.fetch(ICursor.FETCHCOUNT);
 			cur2 = 1;
-			Record record2 = (Record) cache2.get(1);
+			BaseRecord record2 = (BaseRecord) cache2.get(1);
 			for (int i = 0; i < keyCount; i++) {
 				keys2[i] = record2.getFieldValue(keyIndex2[i]);
 			}
@@ -724,7 +726,7 @@ public class JoinCursor extends ICursor {
 		
 		int cur2 = this.cur2;
 		Sequence cache2 = this.cache2;
-		ListBase1 mems2 = cache2.getMems();
+		IArray mems2 = cache2.getMems();
 		int len2 = cache2.length();
 		int []fieldIndex1 = this.fieldIndex1;
 		int []fieldIndex2 = this.fieldIndex2;
@@ -748,7 +750,7 @@ public class JoinCursor extends ICursor {
 					keys1[f] = bufReaders[f].readObject();
 				}
 			}
-			Record record2 = (Record) mems2.get(cur2);
+			BaseRecord record2 = (BaseRecord) mems2.get(cur2);
 			for (int i = 0; i < keyCount; i++) {
 				keys2[i] = record2.getFieldValue(keyIndex2[i]);
 			}
@@ -760,7 +762,7 @@ public class JoinCursor extends ICursor {
 						keys1[f] = bufReaders[f].readObject();
 					}
 					
-					Record record = newTable.newLast();
+					BaseRecord record = newTable.newLast();
 					if (isNew || isNews) {
 						for (int i = 0; i < len; i++) {
 							int idx = fieldIndex1[i];
@@ -796,7 +798,7 @@ public class JoinCursor extends ICursor {
 							mems2 = cache2.getMems();
 							len2 = cache2.length();
 						}
-						record2 = (Record) mems2.get(cur2);
+						record2 = (BaseRecord) mems2.get(cur2);
 						for (int i = 0; i < keyCount; i++) {
 							keys2[i] = record2.getFieldValue(keyIndex2[i]);
 						}
@@ -822,7 +824,7 @@ public class JoinCursor extends ICursor {
 								mems2 = cache2.getMems();
 								len2 = cache2.length();
 							}
-							record2 = (Record) mems2.get(cur2);
+							record2 = (BaseRecord) mems2.get(cur2);
 							for (int i = 0; i < keyCount; i++) {
 								keys2[i] = record2.getFieldValue(keyIndex2[i]);
 							}
@@ -876,7 +878,7 @@ public class JoinCursor extends ICursor {
 						mems2 = cache2.getMems();
 						len2 = cache2.length();
 					}
-					record2 = (Record) mems2.get(cur2);
+					record2 = (BaseRecord) mems2.get(cur2);
 					for (int i = 0; i < keyCount; i++) {
 						keys2[i] = record2.getFieldValue(keyIndex2[i]);
 					}
@@ -925,7 +927,7 @@ public class JoinCursor extends ICursor {
 		if (cache2 == null || cache2.length() == 0) {
 			cache2 = cursor2.fetch(ICursor.FETCHCOUNT);
 			cur2 = 1;
-			Record record2 = (Record) cache2.get(1);
+			BaseRecord record2 = (BaseRecord) cache2.get(1);
 			for (int i = 0; i < keyCount; i++) {
 				keys2[i] = record2.getFieldValue(keyIndex2[i]);
 			}
@@ -948,7 +950,7 @@ public class JoinCursor extends ICursor {
 		
 		int cur2 = this.cur2;
 		Sequence cache2 = this.cache2;
-		ListBase1 mems2 = cache2.getMems();
+		IArray mems2 = cache2.getMems();
 		int len2 = cache2.length();
 		int []fieldIndex1 = this.fieldIndex1;
 		int []fieldIndex2 = this.fieldIndex2;
@@ -966,7 +968,7 @@ public class JoinCursor extends ICursor {
 		int valueOffset = keyOffset + keyColCount;
 		int keyColIndex[] = this.keyColIndex;
 		FindFilter []findFilters = this.findFilters;
-		Record r = this.r;
+		BaseRecord r = this.r;
 		Object objs[] = r == null ? null : r.getFieldValues();
 		
 		if (r != null && unknownFilter != null) {
@@ -1046,7 +1048,7 @@ public class JoinCursor extends ICursor {
 				}
 			}
 			
-			Record record2 = (Record) mems2.get(cur2);
+			BaseRecord record2 = (BaseRecord) mems2.get(cur2);
 			for (int i = 0; i < keyCount; i++) {
 				keys2[i] = record2.getFieldValue(keyIndex2[i]);
 			}
@@ -1059,7 +1061,7 @@ public class JoinCursor extends ICursor {
 					for (int f = valueOffset; f < colCount; f++) {
 						objs[f] = bufReaders[f].readObject();
 					}
-					Record record = newTable.newLast();
+					BaseRecord record = newTable.newLast();
 					for (int i = 0; i < len; i++) {
 						int idx = fieldIndex1[i];
 						if (idx < 0)
@@ -1082,7 +1084,7 @@ public class JoinCursor extends ICursor {
 							mems2 = cache2.getMems();
 							len2 = cache2.length();
 						}
-						record2 = (Record) mems2.get(cur2);
+						record2 = (BaseRecord) mems2.get(cur2);
 						for (int i = 0; i < keyCount; i++) {
 							keys2[i] = record2.getFieldValue(keyIndex2[i]);
 						}
@@ -1108,7 +1110,7 @@ public class JoinCursor extends ICursor {
 								mems2 = cache2.getMems();
 								len2 = cache2.length();
 							}
-							record2 = (Record) mems2.get(cur2);
+							record2 = (BaseRecord) mems2.get(cur2);
 							for (int i = 0; i < keyCount; i++) {
 								keys2[i] = record2.getFieldValue(keyIndex2[i]);
 							}
@@ -1236,7 +1238,7 @@ public class JoinCursor extends ICursor {
 						mems2 = cache2.getMems();
 						len2 = cache2.length();
 					}
-					record2 = (Record) mems2.get(cur2);
+					record2 = (BaseRecord) mems2.get(cur2);
 					for (int i = 0; i < keyCount; i++) {
 						keys2[i] = record2.getFieldValue(keyIndex2[i]);
 					}
@@ -1289,7 +1291,7 @@ public class JoinCursor extends ICursor {
 		if (cache2 == null || cache2.length() == 0) {
 			cache2 = cursor2.fetch(ICursor.FETCHCOUNT);
 			cur2 = 1;
-			Record record2 = (Record) cache2.get(1);
+			BaseRecord record2 = (BaseRecord) cache2.get(1);
 			for (int i = 0; i < keyCount; i++) {
 				keys2[i] = record2.getFieldValue(keyIndex2[i]);
 			}
@@ -1312,7 +1314,7 @@ public class JoinCursor extends ICursor {
 		
 		int cur2 = this.cur2;
 		Sequence cache2 = this.cache2;
-		ListBase1 mems2 = cache2.getMems();
+		IArray mems2 = cache2.getMems();
 		int len2 = cache2.length();
 		int []keyIndex2 = this.keyIndex2;
 		ICursor cursor2 = this.cursor2;
@@ -1323,7 +1325,7 @@ public class JoinCursor extends ICursor {
 		int valueOffset = keyOffset + keyColCount;
 		int keyColIndex[] = this.keyColIndex;
 		FindFilter []findFilters = this.findFilters;
-		Record r = this.r;
+		BaseRecord r = this.r;
 		Object objs[] = r == null ? null : r.getFieldValues();
 		Context ctx = this.ctx;
 		Expression unknownFilter = this.unknownFilter;
@@ -1406,7 +1408,7 @@ public class JoinCursor extends ICursor {
 					}
 				}
 			}
-			Record record2 = (Record) mems2.get(cur2);
+			BaseRecord record2 = (BaseRecord) mems2.get(cur2);
 			for (int i = 0; i < keyCount; i++) {
 				keys2[i] = record2.getFieldValue(keyIndex2[i]);
 			}
@@ -1430,7 +1432,7 @@ public class JoinCursor extends ICursor {
 						mems2 = cache2.getMems();
 						len2 = cache2.length();
 					}
-					record2 = (Record) mems2.get(cur2);
+					record2 = (BaseRecord) mems2.get(cur2);
 					for (int i = 0; i < keyCount; i++) {
 						keys2[i] = record2.getFieldValue(keyIndex2[i]);
 					}
@@ -1441,7 +1443,7 @@ public class JoinCursor extends ICursor {
 							objs[f] = bufReaders[f].readObject();
 						}
 						//如果不相等，表示这一组取完了，计算临时汇总数据
-						Record record = newTable.newLast();
+						BaseRecord record = newTable.newLast();
 						calcExpsForNew(record, tempTable, r, len);
 						
 						//取出下一条符合条件的
@@ -1565,7 +1567,7 @@ public class JoinCursor extends ICursor {
 						mems2 = cache2.getMems();
 						len2 = cache2.length();
 					}
-					record2 = (Record) mems2.get(cur2);
+					record2 = (BaseRecord) mems2.get(cur2);
 					for (int i = 0; i < keyCount; i++) {
 						keys2[i] = record2.getFieldValue(keyIndex2[i]);
 					}
@@ -1582,7 +1584,7 @@ public class JoinCursor extends ICursor {
 					objs[f] = bufReaders[f].readObject();
 				}
 				//如果不相等，表示这一组取完了，计算临时汇总数据
-				Record record = newTable.newLast();
+				BaseRecord record = newTable.newLast();
 				calcExpsForNew(record, tempTable, r, len);
 			}
 		} catch (IOException e) {
@@ -1632,7 +1634,7 @@ public class JoinCursor extends ICursor {
 		if (cache2 == null || cache2.length() == 0) {
 			cache2 = cursor2.fetch(ICursor.FETCHCOUNT);
 			cur2 = 1;
-			Record record2 = (Record) cache2.get(1);
+			BaseRecord record2 = (BaseRecord) cache2.get(1);
 			for (int i = 0; i < keyCount; i++) {
 				keys2[i] = record2.getFieldValue(keyIndex2[i]);
 			}
@@ -1655,7 +1657,7 @@ public class JoinCursor extends ICursor {
 		
 		int cur2 = this.cur2;
 		Sequence cache2 = this.cache2;
-		ListBase1 mems2 = cache2.getMems();
+		IArray mems2 = cache2.getMems();
 		int len2 = cache2.length();
 		int []fieldIndex1 = this.fieldIndex1;
 		int []fieldIndex2 = this.fieldIndex2;
@@ -1679,7 +1681,7 @@ public class JoinCursor extends ICursor {
 					keys1[f] = bufReaders[f].readObject();
 				}
 			}
-			Record record2 = (Record) mems2.get(cur2);
+			BaseRecord record2 = (BaseRecord) mems2.get(cur2);
 			for (int i = 0; i < keyCount; i++) {
 				keys2[i] = record2.getFieldValue(keyIndex2[i]);
 			}
@@ -1691,7 +1693,7 @@ public class JoinCursor extends ICursor {
 						keys1[f] = bufReaders[f].readObject();
 					}
 					
-					Record record = newTable.newLast();
+					BaseRecord record = newTable.newLast();
 					if (hasExps) {
 						tempTable.newLast(keys1);//添加到临时汇总
 					} else {
@@ -1759,7 +1761,7 @@ public class JoinCursor extends ICursor {
 							mems2 = cache2.getMems();
 							len2 = cache2.length();
 						}
-						record2 = (Record) mems2.get(cur2);
+						record2 = (BaseRecord) mems2.get(cur2);
 						for (int i = 0; i < keyCount; i++) {
 							keys2[i] = record2.getFieldValue(keyIndex2[i]);
 						}
@@ -1796,7 +1798,7 @@ public class JoinCursor extends ICursor {
 						mems2 = cache2.getMems();
 						len2 = cache2.length();
 					}
-					record2 = (Record) mems2.get(cur2);
+					record2 = (BaseRecord) mems2.get(cur2);
 					for (int i = 0; i < keyCount; i++) {
 						keys2[i] = record2.getFieldValue(keyIndex2[i]);
 					}
@@ -1845,7 +1847,7 @@ public class JoinCursor extends ICursor {
 		if (cache2 == null || cache2.length() == 0) {
 			cache2 = cursor2.fetch(ICursor.FETCHCOUNT);
 			cur2 = 1;
-			Record record2 = (Record) cache2.get(1);
+			BaseRecord record2 = (BaseRecord) cache2.get(1);
 			for (int i = 0; i < keyCount; i++) {
 				keys2[i] = record2.getFieldValue(keyIndex2[i]);
 			}
@@ -1868,7 +1870,7 @@ public class JoinCursor extends ICursor {
 		
 		int cur2 = this.cur2;
 		Sequence cache2 = this.cache2;
-		ListBase1 mems2 = cache2.getMems();
+		IArray mems2 = cache2.getMems();
 		int len2 = cache2.length();
 		int []fieldIndex1 = this.fieldIndex1;
 		int []fieldIndex2 = this.fieldIndex2;
@@ -1887,7 +1889,7 @@ public class JoinCursor extends ICursor {
 		int valueOffset = keyOffset + keyColCount;
 		int keyColIndex[] = this.keyColIndex;
 		FindFilter []findFilters = this.findFilters;
-		Record r = this.r;
+		BaseRecord r = this.r;
 		Object objs[] = r == null ? null : r.getFieldValues();
 		
 		if (r != null && unknownFilter != null) {
@@ -1968,7 +1970,7 @@ public class JoinCursor extends ICursor {
 				}
 			}
 			
-			Record record2 = (Record) mems2.get(cur2);
+			BaseRecord record2 = (BaseRecord) mems2.get(cur2);
 			for (int i = 0; i < keyCount; i++) {
 				keys2[i] = record2.getFieldValue(keyIndex2[i]);
 			}
@@ -1981,7 +1983,7 @@ public class JoinCursor extends ICursor {
 					for (int f = valueOffset; f < colCount; f++) {
 						objs[f] = bufReaders[f].readObject();
 					}
-					Record record = newTable.newLast();
+					BaseRecord record = newTable.newLast();
 					if (hasExps) {
 						tempTable.newLast(objs);//添加到临时汇总
 					} else {
@@ -2123,7 +2125,7 @@ public class JoinCursor extends ICursor {
 							mems2 = cache2.getMems();
 							len2 = cache2.length();
 						}
-						record2 = (Record) mems2.get(cur2);
+						record2 = (BaseRecord) mems2.get(cur2);
 						for (int i = 0; i < keyCount; i++) {
 							keys2[i] = record2.getFieldValue(keyIndex2[i]);
 						}
@@ -2197,7 +2199,7 @@ public class JoinCursor extends ICursor {
 						mems2 = cache2.getMems();
 						len2 = cache2.length();
 					}
-					record2 = (Record) mems2.get(cur2);
+					record2 = (BaseRecord) mems2.get(cur2);
 					for (int i = 0; i < keyCount; i++) {
 						keys2[i] = record2.getFieldValue(keyIndex2[i]);
 					}
@@ -2237,7 +2239,7 @@ public class JoinCursor extends ICursor {
 	 * @param r
 	 * @param len
 	 */
-	private void calcExpsForNew(Record record, Table tempTable, Record r, int len) {
+	private void calcExpsForNew(BaseRecord record, Table tempTable, BaseRecord r, int len) {
 		Node nodes[] = this.nodes;
 		int fieldIndex2[] = this.fieldIndex2;
 		for (int i = 0; i < len; i++) {
@@ -2257,7 +2259,7 @@ public class JoinCursor extends ICursor {
 		tempTable.clear();
 	}
 
-	private void calcExpsForNews(Record record, Table tempTable, Record r, int len) {
+	private void calcExpsForNews(BaseRecord record, Table tempTable, BaseRecord r, int len) {
 		Node nodes[] = this.nodes;
 		for (int i = 0; i < len; i++) {
 			Node node = nodes[i];
@@ -2369,8 +2371,8 @@ public class JoinCursor extends ICursor {
 	 */
 	public static boolean isColTable(Object table) {
 		if (table == null) return false;
-		if (table instanceof ColumnTableMetaData) {
-			if (((ColumnTableMetaData)table).getModifyRecords() == null)
+		if (table instanceof ColPhyTable) {
+			if (((ColPhyTable)table).getModifyRecords() == null)
 			return true;
 		}
 		return false;

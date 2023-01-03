@@ -29,10 +29,10 @@ import java.util.Calendar;
 import java.util.Map;
 
 import com.scudata.common.Logger;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.DataStruct;
 import com.scudata.dm.Param;
 import com.scudata.dm.ParamList;
-import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
 import com.scudata.dm.cursor.ICursor;
@@ -148,7 +148,7 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 				Table t = (Table) infos.get(0);
 				if (t != null)
 					for (int i = 1, len = t.length(); i <= len; i++) {
-						Record record = t.getRecord(i);
+						BaseRecord record = t.getRecord(i);
 						ArrayList<Object> list = new ArrayList<Object>(
 								rsmd.getColumnCount());
 						list.add(null);
@@ -170,7 +170,7 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 				Table t = (Table) infos.get(0);
 				if (t != null) {
 					for (int r = 1, len = t.length(); r <= len; r++) {
-						Record record = t.getRecord(r);
+						BaseRecord record = t.getRecord(r);
 						Object splName = record
 								.getFieldValue(JDBCConsts.PROCEDURE_NAME);
 						ParamList pl = (ParamList) record
@@ -236,7 +236,7 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 				Table t = (Table) infos.get(0);
 				if (t != null) {
 					for (int i = 1, len = t.length(); i <= len; i++) {
-						Record record = t.getRecord(i);
+						BaseRecord record = t.getRecord(i);
 						byte colType = ((Number) record
 								.getFieldValue(JDBCConsts.DATA_TYPE))
 								.byteValue();
@@ -276,7 +276,7 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 				Table t = (Table) infos.get(0);
 				if (t != null) {
 					for (int i = 1, len = t.length(); i <= len; i++) {
-						Record record = t.getRecord(i);
+						BaseRecord record = t.getRecord(i);
 						ArrayList<Object> list = new ArrayList<Object>(
 								rsmd.getColumnCount());
 						list.add(record.getFieldValue(JDBCConsts.PKTABLE_CAT));
@@ -304,7 +304,7 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 				Table t = (Table) infos.get(0);
 				if (t != null) {
 					for (int i = 1, len = t.length(); i <= len; i++) {
-						Record record = t.getRecord(i);
+						BaseRecord record = t.getRecord(i);
 						ArrayList<Object> list = new ArrayList<Object>(
 								rsmd.getColumnCount());
 						list.add(record.getFieldValue(JDBCConsts.PKTABLE_CAT));
@@ -332,7 +332,7 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 				Table t = (Table) infos.get(0);
 				if (t != null) {
 					for (int i = 1, len = t.length(); i <= len; i++) {
-						Record record = t.getRecord(i);
+						BaseRecord record = t.getRecord(i);
 						ArrayList<Object> list = new ArrayList<Object>(
 								rsmd.getColumnCount());
 						list.add(record.getFieldValue(JDBCConsts.TABLE_CAT));
@@ -383,8 +383,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 			String[] fields = cache.dataStruct().getFieldNames();
 			int[] types = new int[fields.length];
 			Object seqi = cache.get(1);
-			if (seqi != null && seqi instanceof Record) {
-				Record r = (Record) cache.get(1);
+			if (seqi != null && seqi instanceof BaseRecord) {
+				BaseRecord r = (BaseRecord) cache.get(1);
 				for (int j = 0; j < fields.length; j++) {
 					Object o = r.getFieldValue(fields[j]);
 					if (o == null) {
@@ -489,8 +489,8 @@ public class ResultSet implements java.sql.ResultSet, Externalizable {
 	 * @return
 	 */
 	private ArrayList<Object> translateRow(Object o) {
-		if (o instanceof Record) {
-			Record r = (Record) o;
+		if (o instanceof BaseRecord) {
+			BaseRecord r = (BaseRecord) o;
 			ArrayList<Object> al = new ArrayList<Object>();
 			for (int i = 0; i < r.getFieldCount(); i++) {
 				al.add(r.getFieldValue(i));

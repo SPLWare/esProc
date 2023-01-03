@@ -31,12 +31,13 @@ import com.scudata.common.CellLocation;
 import com.scudata.common.Matrix;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.ComputeStack;
 import com.scudata.dm.Context;
+import com.scudata.dm.Current;
 import com.scudata.dm.DataStruct;
 import com.scudata.dm.Env;
 import com.scudata.dm.FileObject;
-import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
 import com.scudata.dm.cursor.ICursor;
@@ -392,7 +393,7 @@ public class SheetXls extends SheetObject {
 				if (curLen > fcount)
 					curLen = fcount;
 
-				Record r = table.newLast();
+				BaseRecord r = table.newLast();
 				for (int f = 0; f < curLen; ++f) {
 					r.setNormalFieldValue(f, line[f]);
 				}
@@ -433,7 +434,7 @@ public class SheetXls extends SheetObject {
 				if (curLen > fcount)
 					curLen = fcount;
 
-				Record r = table.newLast();
+				BaseRecord r = table.newLast();
 				for (int f = 0; f < curLen; ++f) {
 					if (index[f] != -1)
 						r.setNormalFieldValue(index[f], line[f]);
@@ -496,11 +497,11 @@ public class SheetXls extends SheetObject {
 				}
 				Object[] lineObjs = new Object[fcount];
 				for (int i = 1, len = series.length(); i <= len; ++i) {
-					Record r = (Record) series.getMem(i);
+					BaseRecord r = (BaseRecord) series.getMem(i);
 					Object[] vals = r.getFieldValues();
 					for (int f = 0; f < fcount; ++f) {
-						if (vals[f] instanceof Record) {
-							lineObjs[f] = ((Record) vals[f]).value();
+						if (vals[f] instanceof BaseRecord) {
+							lineObjs[f] = ((BaseRecord) vals[f]).value();
 						} else {
 							lineObjs[f] = vals[f];
 						}
@@ -513,7 +514,7 @@ public class SheetXls extends SheetObject {
 			colCount = fcount;
 		} else {
 			ComputeStack stack = ctx.getComputeStack();
-			Sequence.Current current = series.new Current();
+			Current current = new Current(series);
 			stack.push(current);
 
 			try {
@@ -531,8 +532,8 @@ public class SheetXls extends SheetObject {
 					current.setCurrent(i);
 					for (int f = 0; f < fcount; ++f) {
 						lineObjs[f] = exps[f].calculate(ctx);
-						if (lineObjs[f] instanceof Record) {
-							lineObjs[f] = ((Record) lineObjs[f]).value();
+						if (lineObjs[f] instanceof BaseRecord) {
+							lineObjs[f] = ((BaseRecord) lineObjs[f]).value();
 						}
 					}
 
@@ -607,11 +608,11 @@ public class SheetXls extends SheetObject {
 					}
 				} else {
 					for (int i = 1, len = table.length(); i <= len; ++i) {
-						Record r = (Record) table.getMem(i);
+						BaseRecord r = (BaseRecord) table.getMem(i);
 						Object[] vals = r.getFieldValues();
 						for (int f = 0; f < fcount; ++f) {
-							if (vals[f] instanceof Record) {
-								lineObjs[f] = ((Record) vals[f]).value();
+							if (vals[f] instanceof BaseRecord) {
+								lineObjs[f] = ((BaseRecord) vals[f]).value();
 							} else {
 								lineObjs[f] = vals[f];
 							}
@@ -640,7 +641,7 @@ public class SheetXls extends SheetObject {
 
 			ComputeStack stack = ctx.getComputeStack();
 			while (true) {
-				Sequence.Current current = table.new Current();
+				Current current = new Current(table);
 				stack.push(current);
 
 				try {
@@ -648,8 +649,8 @@ public class SheetXls extends SheetObject {
 						current.setCurrent(i);
 						for (int f = 0; f < fcount; ++f) {
 							lineObjs[f] = exps[f].calculate(ctx);
-							if (lineObjs[f] instanceof Record) {
-								lineObjs[f] = ((Record) lineObjs[f]).value();
+							if (lineObjs[f] instanceof BaseRecord) {
+								lineObjs[f] = ((BaseRecord) lineObjs[f]).value();
 							}
 						}
 
@@ -930,8 +931,8 @@ public class SheetXls extends SheetObject {
 					for (int c = 0; c < colCount; c++) {
 						line[c] = rowSeq.get(c + 1);
 					}
-				} else if (rowData instanceof Record) {
-					Record record = (Record) rowData;
+				} else if (rowData instanceof BaseRecord) {
+					BaseRecord record = (BaseRecord) rowData;
 					line = record.getFieldValues();
 					if (line == null || line.length == 0)
 						continue;

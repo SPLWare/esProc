@@ -69,7 +69,7 @@ public interface ITableIndex {
 	 * 把索引信息写出到一个新表table
 	 * @param table
 	 */
-	public void dup(TableMetaData table);
+	public void dup(PhyTable table);
 	
 	/**
 	 * 获得索引的结构信息

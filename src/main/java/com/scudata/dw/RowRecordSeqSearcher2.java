@@ -12,8 +12,8 @@ import com.scudata.util.Variant;
  *
  */
 class RowRecordSeqSearcher2 {
-	private RowTableMetaData table;
-	private RowTableMetaData baseTable;
+	private RowPhyTable table;
+	private RowPhyTable baseTable;
 	private long prevRecordCount = 0;//当前已经取出的记录数
 	private int curBlock = -1;
 	private int totalBlockCount;
@@ -38,9 +38,9 @@ class RowRecordSeqSearcher2 {
 	private int []baseKeyIndex;
 	private int []keyIndex;
 	
-	public RowRecordSeqSearcher2(RowTableMetaData table) {
+	public RowRecordSeqSearcher2(RowPhyTable table) {
 		this.table = table;
-		baseTable = (RowTableMetaData) table.groupTable.baseTable;
+		baseTable = (RowPhyTable) table.groupTable.baseTable;
 		init();
 	}
 	

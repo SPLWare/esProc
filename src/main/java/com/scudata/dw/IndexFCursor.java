@@ -5,10 +5,10 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import com.scudata.array.IArray;
 import com.scudata.common.RQException;
 import com.scudata.dm.DataStruct;
 import com.scudata.dm.FileObject;
-import com.scudata.dm.ListBase1;
 import com.scudata.dm.ObjectReader;
 import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
@@ -72,7 +72,7 @@ public class IndexFCursor extends ICursor {
 		ArrayList<Object> keyList = new ArrayList<Object>(64);
 		DataStruct ds = dataStruct;
 		Record r = new Record(ds);
-		ListBase1 mems = data.getMems();
+		IArray mems = data.getMems();
 		
 		try {
 			int count;

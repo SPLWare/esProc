@@ -16,10 +16,10 @@ import com.scudata.resources.EngineMessage;
 public class Count extends SequenceFunction {
 	public Object calculate(Context ctx) {
 		if (param == null) {
-			return new Integer(srcSequence.count(option));
+			return srcSequence.count();
 		} else if (param.isLeaf()) {
 			Expression exp = param.getLeafExpression();
-			return new Integer(srcSequence.count(exp, option, ctx));
+			return srcSequence.count(exp, ctx);
 		} else {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("count" + mm.getMessage("function.invalidParam"));

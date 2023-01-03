@@ -1,7 +1,6 @@
 package com.scudata.expression;
 
 import com.scudata.dm.SerialBytes;
-import com.scudata.expression.MemberFunction;
 
 /**
  * 排号成员函数基类

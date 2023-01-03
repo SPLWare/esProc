@@ -29,16 +29,21 @@ public class Rank extends Function {
 	private Object []prevGroupVals;
 	
 	public Node optimize(Context ctx) {
-		if (param != null) param.optimize(ctx);
+		param.optimize(ctx);
 		return this;
 	}
 	
-	private void prepare(IParam param, Context ctx) {
+	/**
+	 * 检查表达式的有效性，无效则抛出异常
+	 */
+	public void checkValidity() {
 		if (param == null) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("rank" + mm.getMessage("function.missingParam"));
 		}
-		
+	}
+	
+	private void prepare(IParam param, Context ctx) {
 		if (param.isLeaf()) {
 			exp = param.getLeafExpression();
 		} else {

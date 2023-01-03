@@ -3,8 +3,8 @@ package com.scudata.expression.mfn.file;
 import java.io.File;
 
 import com.scudata.dm.Context;
-import com.scudata.dw.GroupTable;
-import com.scudata.dw.TableMetaData;
+import com.scudata.dw.ComTable;
+import com.scudata.dw.PhyTable;
 import com.scudata.expression.FileFunction;
 import com.scudata.parallel.ClusterFile;
 
@@ -28,7 +28,7 @@ public class Open extends FileFunction {
 		} else {
 			// 本地文件
 			File f = file.getLocalFile().file();
-			TableMetaData table = GroupTable.openBaseTable(f, ctx);
+			PhyTable table = ComTable.openBaseTable(f, ctx);
 			
 			Integer partition = file.getPartition();
 			if (partition != null && partition.intValue() > 0) {

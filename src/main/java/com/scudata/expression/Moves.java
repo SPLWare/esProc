@@ -7,7 +7,6 @@ import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
 import com.scudata.dm.ParamList;
-import com.scudata.dm.SerialBytes;
 import com.scudata.resources.EngineMessage;
 
 /**
@@ -32,30 +31,28 @@ public class Moves extends Function {
 	}
 
 	protected boolean containParam(String name) {
-		if (left != null && left.containParam(name)) return true;
+		if (left.containParam(name)) return true;
 		return super.containParam(name);
 	}
 
 	protected void getUsedParams(Context ctx, ParamList resultList) {
-		if (left != null) left.getUsedParams(ctx, resultList);
+		left.getUsedParams(ctx, resultList);
 		super.getUsedParams(ctx, resultList);
 	}
 	
 	public void getUsedFields(Context ctx, List<String> resultList) {
-		if (left != null) left.getUsedFields(ctx, resultList);
+		left.getUsedFields(ctx, resultList);
 		super.getUsedFields(ctx, resultList);
 	}
 
 	protected void getUsedCells(List<INormalCell> resultList) {
-		if (left != null) left.getUsedCells(resultList);
+		left.getUsedCells(resultList);
 		super.getUsedCells(resultList);
 	}
 	
 	public Node optimize(Context ctx) {
-		if (param != null) param.optimize(ctx);
-		if (left != null) {
-			left = left.optimize(ctx);
-		}
+		param.optimize(ctx);
+		left = left.optimize(ctx);
 		
 		return this;
 	}
@@ -63,5 +60,34 @@ public class Moves extends Function {
 	public Object calculate(Context ctx) {
 		MessageManager mm = EngineMessage.get();
 		throw new RQException("{}" + mm.getMessage("function.invalidParam"));
+	}
+	
+	/**
+	 * 检查表达式的有效性，无效则抛出异常
+	 */
+	public void checkValidity() {
+		if (param == null) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("{}" + mm.getMessage("function.missingParam"));
+		}
+		
+		if (left == null) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("\"{}\"" + mm.getMessage("operator.missingRightOperation"));
+		}
+		
+		left.checkValidity();
+	}
+	
+	/**
+	 * 判断是否可以计算全部的值，有赋值运算时只能一行行计算
+	 * @return
+	 */
+	public boolean canCalculateAll() {
+		if (!left.canCalculateAll()) {
+			return false;
+		}
+		
+		return param.canCalculateAll();
 	}
 }

@@ -72,15 +72,16 @@ public class Func extends Function {
 
 	public void setParameter(ICellSet cs, Context ctx, String strParam) {
 		super.setParameter(cs, ctx, strParam);
+		if (param == null) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("func" + mm.getMessage("function.missingParam"));
+		}
 		
 		if (option != null && option.indexOf('m') != -1) {
 			PgmCellSet pcs = (PgmCellSet)cs;
 			Expression fnExp = null;
 			
-			if (param == null) {
-				MessageManager mm = EngineMessage.get();
-				throw new RQException("func" + mm.getMessage("function.missingParam"));
-			} else if (param.isLeaf()) {
+			if (param.isLeaf()) {
 				fnExp = param.getLeafExpression();
 			} else {
 				IParam sub0 = param.getSub(0);
@@ -201,11 +202,6 @@ public class Func extends Function {
 	
 	// ide用来取调用信息进行单步跟踪
 	public CallInfo getCallInfo(Context ctx) {
-		if (param == null) {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException("func" + mm.getMessage("function.missingParam"));
-		}
-
 		CallInfo callInfo;
 		if (param.isLeaf()) {
 			callInfo = getCallInfo(param.getLeafExpression(), ctx);

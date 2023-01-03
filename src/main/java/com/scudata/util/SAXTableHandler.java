@@ -4,9 +4,9 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
+import com.scudata.array.IArray;
 import com.scudata.common.RQException;
 import com.scudata.dm.DataStruct;
-import com.scudata.dm.ListBase1;
 import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 
@@ -63,7 +63,7 @@ class SAXTableHandler extends DefaultHandler {
 	}
 
 	private Sequence fieldValues(Sequence seq, String fieldName) {
-		ListBase1 mems = seq.getMems();
+		IArray mems = seq.getMems();
 		int size = mems.size();
 		Sequence result = new Sequence(size);
 

@@ -6,12 +6,15 @@ import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.scudata.array.IArray;
+import com.scudata.array.ObjectArray;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.ComputeStack;
 import com.scudata.dm.Context;
-import com.scudata.dm.ListBase1;
-import com.scudata.dm.Record;
+import com.scudata.dm.Current;
+import com.scudata.dm.Env;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.comparator.ArrayComparator;
 import com.scudata.dm.comparator.BaseComparator;
@@ -144,7 +147,10 @@ public class Top extends Gather {
 			exp = null;
 		}
 		
-		if (count < 0) {
+		if (count == 0) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("top" + mm.getMessage("function.invalidParam"));
+		} else if (count < 0) {
 			count = -count;
 			isPositive = false;
 		}
@@ -166,32 +172,161 @@ public class Top extends Gather {
 		}
 	}
 	
+	public Expression getRegatherExpression(int q) {
+		String str;
+		if (isOne) {
+			if (isPositive) {
+				str = "top@1(";
+			} else {
+				str = "top@1(-";
+			}
+		} else {
+			if (isPositive) {
+				str = "top@2(";
+			} else {
+				str = "top@2(-";
+			}
+		}
+		
+		if (exp == null) { // top(n,0) -> top(n,0,#q)
+			str += count + ",0,#" + q + ')';
+		} else if (getExp == null) { // top(n,x) -> top(n, ~, #q)
+			str += count + ",~,#" + q + ')';
+		} else { // top(n,x, y) -> top(n, x, #q)
+			str += count + "," + exp.toString() + ",#" + q + ')';
+		}
+		
+		return new Expression(str);
+	}
+
+	public int getCount() {
+		return count;
+	}
+
+	public Expression getExp() {
+		return exp;
+	}
+
+	public Expression getGetExp() {
+		return getExp;
+	}
+
+	public boolean isCurrent() {
+		return isCurrent;
+	}
+
+	public boolean isOne() {
+		return isOne;
+	}
+
+	public boolean isSame() {
+		return isSame;
+	}
+
+	public Comparator<Object> getComparator() {
+		return comparator;
+	}
+
+	public int getExpIndex() {
+		return expIndex;
+	}
+	
+	public Object calculate(Context ctx) {
+		MessageManager mm = EngineMessage.get();
+		throw new RQException(mm.getMessage("Expression.unknownFunction") + "top");
+	}
+	
 	public boolean isPositive() {
 		return isPositive;
 	}
 
 	public boolean needFinish() {
-		return true;
+		return !isSame || getExp != null;
 	}
 	
 	public boolean needFinish1() {
-		return true;
+		return !isSame || getExp != null;
 	}
 
 	public Object finish1(Object val) {
 		return finish(val);
 	}
 	
+	public IArray finish1(IArray array) {
+		return finish(array);
+	}
+	
+	public IArray finish(IArray array) {
+		int size = array.size();
+		if (isSame) {
+			for (int i = 1; i <= size; ++i) {
+				Sequence seq = (Sequence)array.get(i);
+				if (seq != null) {
+					IArray mems = seq.getMems();
+					for (int m = 1, len = mems.size(); m <= len; ++m) {
+						Object []tmp = (Object[])seq.getMem(m);
+						mems.set(m, tmp[1]);
+					}
+				}
+			}
+		} else if (exp != null) {
+			boolean ifOne = count == 1 && isOne;
+			for (int i = 1; i <= size; ++i) {
+				MinHeap heap = (MinHeap)array.get(i);
+				int len = heap.size();
+				if (len == 0) {
+					array.set(i, null);
+				} else if (ifOne) {
+					Object obj = heap.getTop();
+					if (getExp == null) {
+						array.set(i, obj);
+					} else {
+						Object []tmp = (Object[])obj;
+						array.set(i, tmp[1]);
+					}
+				} else {
+					Object []objs = heap.toArray();
+					Arrays.sort(objs, comparator);
+					
+					if (getExp == null) {
+						array.set(i, new Sequence(objs));
+					} else {
+						Sequence seq = new Sequence(len);
+						for (int m = 0; m < len; ++m) {
+							Object []tmp = (Object[])objs[m];
+							seq.add(tmp[1]);
+						}
+						
+						array.set(i, seq);
+					}
+				}
+			}
+		} else {
+			boolean ifOne = count == 1 && isOne;
+			for (int i = 1; i <= size; ++i) {
+				List<Object> list = (List<Object>)array.get(i);
+				if (list.size() == 0) {
+					array.set(i, null);
+				} else if (ifOne) {
+					array.set(i, list.get(0));
+				} else {
+					array.set(i, new Sequence(list.toArray()));
+				}
+			}
+		}
+		
+		return array;
+	}
+	
 	public Object finish(Object val) {
 		if (val == null) return null;
 		
 		if (isSame) {
-			if (getExp != null && val instanceof Sequence) {
+			if (val instanceof Sequence) {
 				Sequence seq = (Sequence)val;
-				ListBase1 mems = seq.getMems();
-				for (int i = 1, size = mems.size(); i <= size; ++i) {
-					Object []tmp = (Object[])mems.get(i);
-					mems.set(i, tmp[1]);
+				for (int i = 1, size = seq.length(); i <= size; ++i) {
+					Object []tmp = (Object[])seq.getMem(i);
+					seq.set(i, tmp[1]);
 				}
 				
 				return seq;
@@ -263,7 +398,7 @@ public class Top extends Gather {
 		try {
 			if (obj instanceof Sequence) {
 				Sequence tmpSeq = (Sequence)obj;
-				Sequence.Current current = tmpSeq.new Current();
+				Current current = new Current(tmpSeq);
 				stack.push(current);
 				
 				for (int i = 1, len = tmpSeq.length(); i <= len; ++i) {
@@ -288,8 +423,8 @@ public class Top extends Gather {
 						}
 					}
 				}
-			} else if (obj instanceof Record) {
-				stack.push((Record)obj);
+			} else if (obj instanceof BaseRecord) {
+				stack.push((BaseRecord)obj);
 				Object val = exp.calculate(ctx);
 				
 				if (val != null) {
@@ -329,7 +464,7 @@ public class Top extends Gather {
 			ComputeStack stack = ctx.getComputeStack();
 			try {
 				Sequence seq = (Sequence)obj;
-				Sequence.Current current = seq.new Current();
+				Current current = new Current(seq);
 				stack.push(current);
 				
 				for (int i = 1, len = seq.length(); i <= len; ++i) {
@@ -346,7 +481,7 @@ public class Top extends Gather {
 			} finally {
 				stack.pop();
 			}
-		} else if (obj instanceof Record) {
+		} else if (obj instanceof BaseRecord) {
 			if (isCurrent) {
 				Object val = exp.calculate(ctx);
 				
@@ -359,7 +494,7 @@ public class Top extends Gather {
 			} else {
 				ComputeStack stack = ctx.getComputeStack();
 				try {
-					stack.push((Record)obj);
+					stack.push((BaseRecord)obj);
 					Object val = exp.calculate(ctx);
 					
 					if (val != null) {
@@ -379,7 +514,7 @@ public class Top extends Gather {
 	}
 	
 	private static void addToHeap(MinHeap heap, Object obj, int expIndex) {
-		Object val = ((Record)obj).getFieldValue(expIndex);
+		Object val = ((BaseRecord)obj).getFieldValue(expIndex);
 		if (val != null) {
 			Object []vals = new Object[2];
 			vals[0] = val;
@@ -394,9 +529,9 @@ public class Top extends Gather {
 		
 		if (obj instanceof Sequence) {
 			Sequence seq = (Sequence)obj;
-			ListBase1 mems = seq.getMems();
+			IArray mems = seq.getMems();
 			int len = mems.size();
-			for (int i = 1; i <= len && size <= count; ++i) {
+			for (int i = 1; i <= len && size < count; ++i) {
 				Object m = mems.get(i);
 				if (m != null) {
 					list.add(m);
@@ -414,7 +549,7 @@ public class Top extends Gather {
 		int size = list.size();
 		if (obj instanceof Sequence) {
 			Sequence seq = (Sequence)obj;
-			ListBase1 mems = seq.getMems();
+			IArray mems = seq.getMems();
 			int len = mems.size();
 			for (int i = 1; i <= len; ++i) {
 				Object m = mems.get(i);
@@ -458,8 +593,8 @@ public class Top extends Gather {
 				addToHeap(heap, obj);
 			} else {
 				Object obj = getExp.calculate(ctx);
-				if (obj instanceof Record) {
-					expIndex = ((Record)obj).getFieldIndex(exp.getIdentifierName());
+				if (obj instanceof BaseRecord) {
+					expIndex = ((BaseRecord)obj).getFieldIndex(exp.getIdentifierName());
 				}
 				
 				addToHeap(heap, obj, exp, ctx);
@@ -470,7 +605,7 @@ public class Top extends Gather {
 			Object obj;
 			if (getExp == null) {
 				Object top = ctx.getComputeStack().getTopObject();
-				obj = ((Sequence.Current)top).getCurrent();
+				obj = ((Current)top).getCurrent();
 			} else {
 				obj = getExp.calculate(ctx);
 			}
@@ -488,8 +623,6 @@ public class Top extends Gather {
 	}
 
 	public Object gather(Object oldValue, Context ctx) {
-		if (count == 0) return null;
-		
 		if (isSame) {
 			Sequence seq;
 			if (oldValue != null) {
@@ -522,7 +655,7 @@ public class Top extends Gather {
 			Object obj;
 			if (getExp == null) {
 				Object top = ctx.getComputeStack().getTopObject();
-				obj = ((Sequence.Current)top).getCurrent();
+				obj = ((Current)top).getCurrent();
 			} else {
 				obj = getExp.calculate(ctx);
 			}
@@ -536,68 +669,541 @@ public class Top extends Gather {
 		
 		return oldValue;
 	}
-
-	public Expression getRegatherExpression(int q) {
-		String str;
-		if (isOne) {
-			if (isPositive) {
-				str = "top@1(";
-			} else {
-				str = "top@1(-";
-			}
-		} else {
-			if (isPositive) {
-				str = "top(";
-			} else {
-				str = "top(-";
+	
+	// 取所有最小值
+	private IArray minAll(IArray result, int []resultSeqs, Context ctx) {
+		Expression exp = this.exp;
+		if (result == null) {
+			result = new ObjectArray(Env.INITGROUPSIZE);
+		}
+		
+		IArray array = exp.calculateAll(ctx);
+		for (int i = 1, len = array.size(); i <= len; ++i) {
+			if (result.size() < resultSeqs[i]) {
+				if (array.isNull(i)) {
+					result.add(null);
+				} else {
+					IArray resultArray = array.newInstance(8);
+					resultArray.push(array, i);
+					Sequence seq = new Sequence(resultArray);
+					result.add(seq);
+				}
+			} else if (!array.isNull(i)) {
+				Sequence seq = (Sequence)result.get(resultSeqs[i]);
+				if (seq == null) {
+					IArray resultArray = array.newInstance(8);
+					resultArray.push(array, i);
+					seq = new Sequence(resultArray);
+					result.set(resultSeqs[i], seq);
+				} else {
+					IArray mems = seq.getMems();
+					int cmp = mems.compareTo(1, array, i);
+					if (cmp == 0) {
+						mems.add(array, i);
+					} else if(cmp > 0) {
+						mems.clear();
+						mems.push(array, i);
+					}
+				}
 			}
 		}
 		
-		if (exp == null) { // top(n,0) -> top(n,0,#q)
-			str += count + ",0,#" + q + ')';
-		} else if (getExp == null) { // top(n,x) -> top(n, ~, #q)
-			str += count + ",~,#" + q + ')';
-		} else { // top(n,x, y) -> top(n, x, #q)
-			str += count + "," + exp.toString() + ",#" + q + ')';
+		return result;
+	}
+		
+	// 取所有使指定表达式最大或最小的记录
+	private IArray topAll(IArray result, int []resultSeqs, Context ctx) {
+		if (result == null) {
+			result = new ObjectArray(Env.INITGROUPSIZE);
 		}
 		
-		return new Expression(str);
-	}
-
-	public int getCount() {
-		return count;
-	}
-
-	public Expression getExp() {
-		return exp;
-	}
-
-	public Expression getGetExp() {
-		return getExp;
-	}
-
-	public boolean isCurrent() {
-		return isCurrent;
-	}
-
-	public boolean isOne() {
-		return isOne;
-	}
-
-	public boolean isSame() {
-		return isSame;
-	}
-
-	public Comparator<Object> getComparator() {
-		return comparator;
-	}
-
-	public int getExpIndex() {
-		return expIndex;
+		Expression exp = this.exp;
+		Comparator<Object> comparator = this.comparator;
+		IArray array = getExp.calculateAll(ctx);
+		
+		for (int i = 1, len = array.size(); i <= len; ++i) {
+			if (result.size() < resultSeqs[i]) {
+				Sequence seq = new Sequence();
+				addToSequence(seq, array.get(i), exp, ctx, comparator);
+				result.add(seq);
+			} else {
+				Sequence seq = (Sequence)result.get(resultSeqs[i]);
+				addToSequence(seq, array.get(i), exp, ctx, comparator);
+			}
+		}
+		
+		return result;
 	}
 	
-	public Object calculate(Context ctx) {
-		MessageManager mm = EngineMessage.get();
-		throw new RQException(mm.getMessage("Expression.unknownFunction") + "top");
+	// 取最大值
+	/*private IArray max(IArray result, int []resultSeqs, Context ctx) {
+		Expression exp = this.exp;
+		if (getExp == null) {
+			IArray array = exp.calculateAll(ctx);
+			if (result == null) {
+				result = array.newInstance(Env.INITGROUPSIZE);
+			}
+			
+			for (int i = 1, len = array.size(); i <= len; ++i) {
+				if (result.size() < resultSeqs[i]) {
+					result.add(array, i);
+				} else if (!array.isNull(i)) {
+					if (result.isNull(resultSeqs[i])) {
+						result.set(resultSeqs[i], array, i);
+					} else {
+						if(result.compareTo(resultSeqs[i], array, i) < 0) {
+							result.set(resultSeqs[i], array, i);
+						}
+					}
+				}
+			}
+		} else {
+			if (result == null) {
+				result = new ObjectArray(Env.INITGROUPSIZE);
+			}
+			
+			IArray array = getExp.calculateAll(ctx);
+			IArray valueArray;
+			if (isCurrent) {
+				valueArray = exp.calculateAll(ctx);
+			} else {
+				Sequence seq = new Sequence(array);
+				seq = seq.calc(exp, ctx);
+				valueArray = seq.getMems();
+			}
+
+			for (int i = 1, len = array.size(); i <= len; ++i) {
+				if (result.size() < resultSeqs[i]) {
+					if (valueArray.isNull(i)) {
+						result.add(null);
+					} else {
+						result.add(array, i);
+					}
+				} else if (!valueArray.isNull(i)) {
+					Object r = result.get(resultSeqs[i]);
+					if (r == null) {
+						result.set(resultSeqs[i], array, i);
+					} else if (r instanceof BaseRecord) {
+						Object value = ((BaseRecord)r).calc(exp, ctx);
+						int cmp = valueArray.compareTo(i, value);
+						if(cmp > 0) {
+							result.set(resultSeqs[i], array, i);
+						}
+					} else if (r instanceof Sequence) {
+						Object value = ((Sequence)r).calc(1, exp, ctx);
+						int cmp = valueArray.compareTo(i, value);
+						if(cmp > 0) {
+							result.set(resultSeqs[i], array, i);
+						}
+					} else {
+						MessageManager mm = EngineMessage.get();
+						throw new RQException("top" + mm.getMessage("function.paramTypeError"));
+					}
+				}
+			}
+		}
+		
+		return result;
+	}
+	
+	// 取最小值
+	private IArray min(IArray result, int []resultSeqs, Context ctx) {
+		Expression exp = this.exp;
+		if (getExp == null) {
+			IArray array = exp.calculateAll(ctx);
+			if (result == null) {
+				result = array.newInstance(Env.INITGROUPSIZE);
+			}
+			
+			for (int i = 1, len = array.size(); i <= len; ++i) {
+				if (result.size() < resultSeqs[i]) {
+					result.add(array, i);
+				} else if (!array.isNull(i)) {
+					if (result.isNull(resultSeqs[i])) {
+						result.set(resultSeqs[i], array, i);
+					} else {
+						if(result.compareTo(resultSeqs[i], array, i) > 0) {
+							result.set(resultSeqs[i], array, i);
+						}
+					}
+				}
+			}
+		} else {
+			if (result == null) {
+				result = new ObjectArray(Env.INITGROUPSIZE);
+			}
+			
+			IArray array = getExp.calculateAll(ctx);
+			IArray valueArray;
+			if (isCurrent) {
+				valueArray = exp.calculateAll(ctx);
+			} else {
+				Sequence seq = new Sequence(array);
+				seq = seq.calc(exp, ctx);
+				valueArray = seq.getMems();
+			}
+
+			for (int i = 1, len = array.size(); i <= len; ++i) {
+				if (result.size() < resultSeqs[i]) {
+					if (valueArray.isNull(i)) {
+						result.add(null);
+					} else {
+						result.add(array, i);
+					}
+				} else if (!valueArray.isNull(i)) {
+					Object r = result.get(resultSeqs[i]);
+					if (r == null) {
+						result.set(resultSeqs[i], array, i);
+					} else if (r instanceof BaseRecord) {
+						Object value = ((BaseRecord)r).calc(exp, ctx);
+						int cmp = valueArray.compareTo(i, value);
+						if(cmp < 0) {
+							result.set(resultSeqs[i], array, i);
+						}
+					} else if (r instanceof Sequence) {
+						Object value = ((Sequence)r).calc(1, exp, ctx);
+						int cmp = valueArray.compareTo(i, value);
+						if(cmp < 0) {
+							result.set(resultSeqs[i], array, i);
+						}
+					} else {
+						MessageManager mm = EngineMessage.get();
+						throw new RQException("top" + mm.getMessage("function.paramTypeError"));
+					}
+				}
+			}
+		}
+		
+		return result;
+	}*/
+	
+	// 取所有最大的
+	private IArray maxAll(IArray result, int []resultSeqs, Context ctx) {
+		Expression exp = this.exp;
+		if (result == null) {
+			result = new ObjectArray(Env.INITGROUPSIZE);
+		}
+		
+		IArray array = exp.calculateAll(ctx);
+		for (int i = 1, len = array.size(); i <= len; ++i) {
+			if (result.size() < resultSeqs[i]) {
+				if (array.isNull(i)) {
+					result.add(null);
+				} else {
+					IArray resultArray = array.newInstance(8);
+					resultArray.push(array, i);
+					Sequence seq = new Sequence(resultArray);
+					result.add(seq);
+				}
+			} else if (!array.isNull(i)) {
+				Sequence seq = (Sequence)result.get(resultSeqs[i]);
+				if (seq == null) {
+					IArray resultArray = array.newInstance(8);
+					resultArray.push(array, i);
+					seq = new Sequence(resultArray);
+					result.set(resultSeqs[i], seq);
+				} else {
+					IArray mems = seq.getMems();
+					int cmp = mems.compareTo(1, array, i);
+					if (cmp == 0) {
+						mems.add(array, i);
+					} else if(cmp < 0) {
+						mems.clear();
+						mems.push(array, i);
+					}
+				}
+			}
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * 计算所有记录的值，汇总到结果数组上
+	 * @param result 结果数组
+	 * @param resultSeqs 每条记录对应的结果数组的序号
+	 * @param ctx 计算上下文
+	 * @return IArray 结果数组
+	 */
+	public IArray gather(IArray result, int []resultSeqs, Context ctx) {
+		if (isSame) {
+			if (getExp != null) {
+				return topAll(result, resultSeqs, ctx);
+			} else if (isPositive) {
+				return minAll(result, resultSeqs, ctx);
+			} else {
+				return maxAll(result, resultSeqs, ctx);
+			}
+		}
+
+		int count = this.count;
+		Expression exp = this.exp;
+		Comparator<Object> comparator = this.comparator;
+		
+		if (getExp == null) {
+			if (result == null) {
+				result = new ObjectArray(Env.INITGROUPSIZE);
+			}
+			
+			if (exp != null) {
+				IArray array = exp.calculateAll(ctx);
+				for (int i = 1, len = array.size(); i <= len; ++i) {
+					if (result.size() < resultSeqs[i]) {
+						MinHeap heap = new MinHeap(count, comparator);
+						addToHeap(heap, array.get(i));
+						result.add(heap);
+					} else {
+						MinHeap heap = (MinHeap)result.get(resultSeqs[i]);
+						addToHeap(heap, array.get(i));
+					}
+				}
+			} else {
+				Sequence topSequence = ctx.getComputeStack().getTopSequence();
+				IArray array = topSequence.getMems();
+				
+				if (isPositive) {
+					for (int i = 1, len = array.size(); i <= len; ++i) {
+						if (result.size() < resultSeqs[i]) {
+							ArrayList<Object> list = new ArrayList<Object>(count);
+							addToArrayList(list, array.get(i), count);
+							result.add(list);
+						} else {
+							ArrayList<Object> list = (ArrayList<Object>)result.get(resultSeqs[i]);
+							addToArrayList(list, array.get(i), count);
+						}
+					}
+				} else {
+					for (int i = 1, len = array.size(); i <= len; ++i) {
+						if (result.size() < resultSeqs[i]) {
+							LinkedList<Object> list = new LinkedList<Object>();
+							addToLinkedList(list, array.get(i), count);
+							result.add(list);
+						} else {
+							LinkedList<Object> list = (LinkedList<Object>)result.get(resultSeqs[i]);
+							addToLinkedList(list, array.get(i), count);
+						}
+					}
+				}
+			}
+		} else {
+			IArray array = getExp.calculateAll(ctx);
+			if (result == null) {
+				result = new ObjectArray(Env.INITGROUPSIZE);
+				if (exp != null) {
+					Object obj = array.get(1);
+					if (obj instanceof BaseRecord) {
+						expIndex = ((BaseRecord)obj).getFieldIndex(exp.getIdentifierName());
+					}
+				}
+			}
+			
+			if (expIndex > -1) {
+				int expIndex = this.expIndex;
+				for (int i = 1, len = array.size(); i <= len; ++i) {
+					if (result.size() < resultSeqs[i]) {
+						MinHeap heap = new MinHeap(count, comparator);
+						addToHeap(heap, array.get(i), expIndex);
+						result.add(heap);
+					} else {
+						MinHeap heap = (MinHeap)result.get(resultSeqs[i]);
+						addToHeap(heap, array.get(i), expIndex);
+					}
+				}
+			} else if (exp != null) {
+				Current current = ctx.getComputeStack().getTopCurrent();
+				for (int i = 1, len = array.size(); i <= len; ++i) {
+					current.setCurrent(i);
+					if (result.size() < resultSeqs[i]) {
+						MinHeap heap = new MinHeap(count, comparator);
+						addToHeap(heap, array.get(i), exp, ctx);
+						result.add(heap);
+					} else {
+						MinHeap heap = (MinHeap)result.get(resultSeqs[i]);
+						addToHeap(heap, array.get(i), exp, ctx);
+					}
+				}
+			} else {
+				if (isPositive) {
+					for (int i = 1, len = array.size(); i <= len; ++i) {
+						if (result.size() < resultSeqs[i]) {
+							ArrayList<Object> list = new ArrayList<Object>(count);
+							addToArrayList(list, array.get(i), count);
+							result.add(list);
+						} else {
+							ArrayList<Object> list = (ArrayList<Object>)result.get(resultSeqs[i]);
+							addToArrayList(list, array.get(i), count);
+						}
+					}
+				} else {
+					for (int i = 1, len = array.size(); i <= len; ++i) {
+						if (result.size() < resultSeqs[i]) {
+							LinkedList<Object> list = new LinkedList<Object>();
+							addToLinkedList(list, array.get(i), count);
+							result.add(list);
+						} else {
+							LinkedList<Object> list = (LinkedList<Object>)result.get(resultSeqs[i]);
+							addToLinkedList(list, array.get(i), count);
+						}
+					}
+				}
+			}
+		}
+
+		return result;
+	}
+	
+	private void minAll(IArray result, IArray result2, int []seqs) {
+		for (int i = 1, len = result2.size(); i <= len; ++i) {
+			if (seqs[i] != 0) {
+				Sequence sequence1 = (Sequence)result.get(seqs[i]);
+				Sequence sequence2 = (Sequence)result2.get(i);
+				if (sequence1 == null) {
+					result.set(seqs[i], sequence2);
+				} else if (sequence2 != null) {
+					int cmp = sequence1.getMems().compareTo(1, sequence2.getMems(), 1);
+					if (cmp > 0) {
+						result.set(seqs[i], sequence2);
+					} else if (cmp == 0) {
+						sequence1.addAll(sequence2);
+					}
+				}
+			}
+		}
+	}
+	
+	private void maxAll(IArray result, IArray result2, int []seqs) {
+		for (int i = 1, len = result2.size(); i <= len; ++i) {
+			if (seqs[i] != 0) {
+				Sequence sequence1 = (Sequence)result.get(seqs[i]);
+				Sequence sequence2 = (Sequence)result2.get(i);
+				if (sequence1 == null) {
+					result.set(seqs[i], sequence2);
+				} else if (sequence2 != null) {
+					int cmp = sequence1.getMems().compareTo(1, sequence2.getMems(), 1);
+					if (cmp < 0) {
+						result.set(seqs[i], sequence2);
+					} else if (cmp == 0) {
+						sequence1.addAll(sequence2);
+					}
+				}
+			}
+		}
+	}
+	
+	// 取所有使指定表达式最大或最小的记录
+	private void topAll(IArray result, IArray result2, int []seqs, Context ctx) {
+		Expression exp = this.exp;
+		Comparator<Object> comparator = this.comparator;
+		
+		for (int i = 1, len = result2.size(); i <= len; ++i) {
+			if (seqs[i] != 0) {
+				Sequence sequence1 = (Sequence)result.get(seqs[i]);
+				Sequence sequence2 = (Sequence)result2.get(i);
+				if (sequence1 == null) {
+					result.set(seqs[i], sequence2);
+				} else if (sequence2 != null) {
+					int cmp = comparator.compare(sequence1.calc(1, exp, ctx), sequence2.calc(1, exp, ctx));
+					if (cmp > 0) {
+						result.set(seqs[i], sequence2);
+					} else if (cmp == 0) {
+						sequence1.addAll(sequence2);
+					}
+				}
+			}
+		}
+	}
+	
+	private static void addToArrayList(ArrayList<Object> list1, ArrayList<Object> list2, int count) {
+		int size1 = list1.size();
+		if (size1 == count) {
+			return;
+		}
+		
+		int diff = count - size1;
+		int size2 = list2.size();
+		if (size2 < diff) {
+			diff = size2;
+		}
+		
+		for (int i = 0; i < diff; ++i) {
+			list1.add(list2.get(i));
+		}
+	}
+	
+	private static void addToLinkedList(LinkedList<Object> list1, LinkedList<Object> list2, int count) {
+		int size2 = list2.size();
+		if (size2 == count) {
+			return;
+		}
+		
+		int diff = count - size2;
+		int size1 = list1.size();
+		if (size1 < diff) {
+			diff = size1;
+		}
+		
+		for (int i = 0; i < diff; ++i) {
+			list2.addFirst(list1.removeLast());
+		}
+	}
+	
+	/**
+	 * 多程程分组的二次汇总运算
+	 * @param result 一个线程的分组结果
+	 * @param result2 另一个线程的分组结果
+	 * @param seqs 另一个线程的分组跟第一个线程分组的对应关系
+	 * @param ctx 计算上下文
+	 * @return
+	 */
+	public void gather2(IArray result, IArray result2, int []seqs, Context ctx) {
+		if (isSame) {
+			if (getExp != null) {
+				topAll(result, result2, seqs, ctx);
+			} else if (isPositive) {
+				minAll(result, result2, seqs);
+			} else {
+				maxAll(result, result2, seqs);
+			}
+		} else if (exp != null) {
+			for (int i = 1, len = result2.size(); i <= len; ++i) {
+				if (seqs[i] != 0) {
+					MinHeap heap1 = (MinHeap)result.get(seqs[i]);
+					MinHeap heap2 = (MinHeap)result2.get(i);
+					if (heap1 == null) {
+						result.set(seqs[i], heap2);
+					} else if (heap2 != null) {
+						heap1.insertAll(heap2);
+					}
+				}
+			}
+		} else {
+			int count = this.count;
+			if (isPositive) {
+				for (int i = 1, len = result2.size(); i <= len; ++i) {
+					if (seqs[i] != 0) {
+						ArrayList<Object> list1 = (ArrayList<Object>)result.get(seqs[i]);
+						ArrayList<Object> list2 = (ArrayList<Object>)result2.get(i);
+						if (list1 == null) {
+							result.set(seqs[i], list2);
+						} else if (list2 != null) {
+							addToArrayList(list1, list2, count);
+						}
+					}
+				}
+			} else {
+				for (int i = 1, len = result2.size(); i <= len; ++i) {
+					if (seqs[i] != 0) {
+						LinkedList<Object> list1 = (LinkedList<Object>)result.get(seqs[i]);
+						LinkedList<Object> list2 = (LinkedList<Object>)result2.get(i);
+						if (list1 == null) {
+							result.set(seqs[i], list2);
+						} else if (list2 != null) {
+							addToLinkedList(list1, list2, count);
+							result.set(seqs[i], list2);
+						}
+					}
+				}
+			}
+		}
 	}
 }

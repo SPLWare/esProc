@@ -4,11 +4,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import com.scudata.array.IArray;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
 import com.scudata.dm.DataStruct;
-import com.scudata.dm.ListBase1;
 import com.scudata.dm.ObjectReader;
 import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
@@ -38,7 +38,7 @@ import com.scudata.resources.EngineMessage;
  *
  */
 public class TableCursor extends IDWCursor {
-	private ColumnTableMetaData table;
+	private ColPhyTable table;
 	private String []fields;
 	private DataStruct ds;
 	
@@ -67,11 +67,11 @@ public class TableCursor extends IDWCursor {
 	
 	private boolean isClosed = false;
 
-	public TableCursor(ColumnTableMetaData table, String []fields, IFilter[] filters, Context ctx) {
+	public TableCursor(ColPhyTable table, String []fields, IFilter[] filters, Context ctx) {
 		this(table, fields, filters, null, ctx);
 	}
 	
-	public TableCursor(ColumnTableMetaData table, String []fields, IFilter[] filters, FindFilter[] findFilters, Context ctx) {
+	public TableCursor(ColPhyTable table, String []fields, IFilter[] filters, FindFilter[] findFilters, Context ctx) {
 		this.table = table;
 		this.fields = fields;
 		this.filters = filters;
@@ -80,7 +80,7 @@ public class TableCursor extends IDWCursor {
 		init();
 	}
 	
-	public TableCursor(ColumnTableMetaData table, String []fields, Expression filter, Context ctx) {
+	public TableCursor(ColPhyTable table, String []fields, Expression filter, Context ctx) {
 		this.table = table;
 		this.fields = fields;
 		this.ctx = ctx;
@@ -92,7 +92,7 @@ public class TableCursor extends IDWCursor {
 		init();
 	}
 	
-	public ColumnTableMetaData getColumnTableMetaData() {
+	public ColPhyTable getColumnTableMetaData() {
 		return table;
 	}
 	
@@ -148,7 +148,7 @@ public class TableCursor extends IDWCursor {
 					prevRecordSeq += rowCountReader.readInt32();
 					for (int f = 0; f < colCount; ++f) {
 						segmentReaders[f].readLong40();
-						if (columns[f].isDim()) {
+						if (columns[f].hasMaxMinValues()) {
 							segmentReaders[f].skipObject();
 							segmentReaders[f].skipObject();
 							segmentReaders[f].skipObject();
@@ -174,7 +174,7 @@ public class TableCursor extends IDWCursor {
 					prevRecordSeq += rowCountReader.readInt32();
 					for (int f = 0; f < colCount; ++f) {
 						segmentReaders[f].readLong40();
-						if (columns[f].isDim()) {
+						if (columns[f].hasMaxMinValues()) {
 							segmentReaders[f].skipObject();
 							segmentReaders[f].skipObject();
 							segmentReaders[f].skipObject();
@@ -206,7 +206,7 @@ public class TableCursor extends IDWCursor {
 		}
 	}
 	
-	private static ColumnMetaData getColumn(ColumnTableMetaData table, Node node) {
+	private static ColumnMetaData getColumn(ColPhyTable table, Node node) {
 		if (node instanceof UnknownSymbol) {
 			String keyName = ((UnknownSymbol)node).getName();
 			return table.getColumn(keyName);
@@ -330,7 +330,7 @@ public class TableCursor extends IDWCursor {
 		}
 	}
 
-	private void parseFilter(ColumnTableMetaData table, Expression exp, Context ctx) {
+	private void parseFilter(ColPhyTable table, Expression exp, Context ctx) {
 		Object obj = parseFilter(table, exp.getHome(), ctx);
 		Expression unknownFilter = null;
 		
@@ -377,7 +377,7 @@ public class TableCursor extends IDWCursor {
 		}
 	}
 	
-	protected static Object parseFilter(ColumnTableMetaData table, Node node, Context ctx) {
+	protected static Object parseFilter(ColPhyTable table, Node node, Context ctx) {
 		if (node instanceof And) {
 			Object left = parseFilter(table, node.getLeft(), ctx);
 			Object right = parseFilter(table, node.getRight(), ctx);
@@ -434,6 +434,12 @@ public class TableCursor extends IDWCursor {
 	}
 	
 	private void init() {
+		try {
+			table.appendCache();
+		} catch (IOException e) {
+			throw new RQException(e);
+		}
+		
 		endBlock = table.getDataBlockCount();
 		ColumnMetaData []columns;
 
@@ -526,7 +532,7 @@ public class TableCursor extends IDWCursor {
 		FindFilter []findFilters = this.findFilters;
 		long prevRecordSeq = this.prevRecordSeq;
 		
-		ListBase1 mems = cache.getMems();
+		IArray mems = cache.getMems();
 		this.cache = null;
 		
 		boolean isPrimaryTable = table.parent == null; // 是否主表
@@ -541,20 +547,20 @@ public class TableCursor extends IDWCursor {
 		try {
 			if (filters == null) {
 				while (curBlock < endBlock) {
-					if (!isPrimaryTable) {
-						guideColBufReader = guideColReader.readBlockData();
-					}
-					
 					curBlock++;
 					int recordCount = rowCountReader.readInt32();
 
+					if (!isPrimaryTable) {
+						guideColBufReader = guideColReader.readBlockData(recordCount);
+					}
+					
 					for (int f = 0; f < colCount; ++f) {
-						bufReaders[f] = colReaders[f].readBlockData();
+						bufReaders[f] = colReaders[f].readBlockData(recordCount);
 					}
 					
 					if (isPrimaryTable) {
 						for (int i = 0; i < recordCount; ++i) {
-							GroupTableRecord r = new GroupTableRecord(ds);
+							ComTableRecord r = new ComTableRecord(ds);
 							for (int f = 0; f < colCount; ++f) {
 								r.setNormalFieldValue(f, bufReaders[f].readObject());
 							}
@@ -563,7 +569,7 @@ public class TableCursor extends IDWCursor {
 						}
 					} else {
 						for (int i = 0; i < recordCount; ++i) {
-							GroupTableRecord r = new GroupTableRecord(ds);
+							ComTableRecord r = new ComTableRecord(ds);
 							for (int f = 0; f < colCount; ++f) {
 								r.setNormalFieldValue(f, bufReaders[f].readObject());
 							}
@@ -590,7 +596,7 @@ public class TableCursor extends IDWCursor {
 					int f = 0;
 					for (; f < filterCount; ++f) {
 						positions[f] = segmentReaders[f].readLong40();
-						if (columns[f].isDim()) {
+						if (columns[f].hasMaxMinValues()) {
 							Object minValue = segmentReaders[f].readObject();
 							Object maxValue = segmentReaders[f].readObject();
 							segmentReaders[f].skipObject();
@@ -604,7 +610,7 @@ public class TableCursor extends IDWCursor {
 					
 					for (; f < colCount; ++f) {
 						positions[f] = segmentReaders[f].readLong40();
-						if (columns[f].isDim()) {
+						if (columns[f].hasMaxMinValues()) {
 							segmentReaders[f].skipObject();
 							segmentReaders[f].skipObject();
 							segmentReaders[f].skipObject();
@@ -621,7 +627,7 @@ public class TableCursor extends IDWCursor {
 					}
 					
 					if (!isPrimaryTable) {
-						guideColBufReader = guideColReader.readBlockData(guidePos);
+						guideColBufReader = guideColReader.readBlockData(guidePos, recordCount);
 					}
 					
 					boolean []matchs = new boolean[recordCount];
@@ -634,7 +640,7 @@ public class TableCursor extends IDWCursor {
 						Object []curValues = new Object[recordCount];
 						filterValues[f] = curValues;
 						IFilter filter = filters[f];
-						BufferReader reader = colReaders[f].readBlockData(positions[f]);
+						BufferReader reader = colReaders[f].readBlockData(positions[f], recordCount);
 						for (int i = 0; i < recordCount; ++i) {
 							if (matchs[i]) {
 								curValues[i] = reader.readObject();
@@ -657,13 +663,13 @@ public class TableCursor extends IDWCursor {
 					}
 					
 					for (; f < colCount; ++f) {
-						bufReaders[f] = colReaders[f].readBlockData(positions[f]);
+						bufReaders[f] = colReaders[f].readBlockData(positions[f], recordCount);
 					}
 					
 					for (int i = 0; i < recordCount && matchCount > 0; ++i) {
 						if (matchs[i]) {
 							matchCount--;
-							GroupTableRecord r = new GroupTableRecord(ds);
+							ComTableRecord r = new ComTableRecord(ds);
 							for (f = 0; f < filterCount; ++f) {
 								if (seqs[f] != -1) {
 									if (findFilters == null || findFilters[f] == null) {
@@ -736,7 +742,7 @@ public class TableCursor extends IDWCursor {
 				if (!mr.isDelete()) {
 					Record sr = mr.getRecord();
 
-					GroupTableRecord r = new GroupTableRecord(ds);
+					ComTableRecord r = new ComTableRecord(ds);
 					for (int f = 0; f < colCount; ++f) {
 						r.setNormalFieldValue(f, sr.getNormalFieldValue(findex[f]));
 					}
@@ -769,7 +775,7 @@ public class TableCursor extends IDWCursor {
 		DataStruct ds = this.ds;
 		IFilter []filters = this.filters;
 		
-		ListBase1 mems = cache.getMems();
+		IArray mems = cache.getMems();
 		this.cache = null;
 		long prevRecordSeq = this.prevRecordSeq;
 		ArrayList<ModifyRecord> modifyRecords = this.modifyRecords;
@@ -792,14 +798,15 @@ public class TableCursor extends IDWCursor {
 		try {
 			if (filters == null) {
 				while (curBlock < endBlock) {
-					if (!isPrimaryTable) {
-						guideColBufReader = guideColReader.readBlockData();
-					}
-					
 					curBlock++;
 					int recordCount = rowCountReader.readInt32();
+					
+					if (!isPrimaryTable) {
+						guideColBufReader = guideColReader.readBlockData(recordCount);
+					}
+					
 					for (int f = 0; f < colCount; ++f) {
-						bufReaders[f] = colReaders[f].readBlockData();
+						bufReaders[f] = colReaders[f].readBlockData(recordCount);
 					}
 					
 					for (int i = 0; i < recordCount; ++i) {
@@ -808,7 +815,7 @@ public class TableCursor extends IDWCursor {
 							seqNum = (Long)guideColBufReader.readObject();
 						}
 						if (prevRecordSeq != mseq) {
-							GroupTableRecord r = new GroupTableRecord(ds);
+							ComTableRecord r = new ComTableRecord(ds);
 							for (int f = 0; f < colCount; ++f) {
 								r.setNormalFieldValue(f, bufReaders[f].readObject());
 							}
@@ -834,7 +841,7 @@ public class TableCursor extends IDWCursor {
 									}
 									
 									Record sr = mr.getRecord();
-									GroupTableRecord r = new GroupTableRecord(ds);
+									ComTableRecord r = new ComTableRecord(ds);
 									for (int f = 0; f < colCount; ++f) {
 										r.setNormalFieldValue(f, sr.getNormalFieldValue(findex[f]));
 									}
@@ -870,7 +877,7 @@ public class TableCursor extends IDWCursor {
 							}
 							
 							if (isInsert) {
-								GroupTableRecord r = new GroupTableRecord(ds);
+								ComTableRecord r = new ComTableRecord(ds);
 								for (int f = 0; f < colCount; ++f) {
 									r.setNormalFieldValue(f, bufReaders[f].readObject());
 								}
@@ -892,7 +899,7 @@ public class TableCursor extends IDWCursor {
 					//TODO 处理插入到底部的记录
 					while (mr.getBlock() == curBlock) {
 						Record sr = mr.getRecord();
-						GroupTableRecord r = new GroupTableRecord(ds);
+						ComTableRecord r = new ComTableRecord(ds);
 						for (int f = 0; f < colCount; ++f) {
 							r.setNormalFieldValue(f, sr.getNormalFieldValue(findex[f]));
 						}
@@ -934,17 +941,17 @@ public class TableCursor extends IDWCursor {
 				Object [][]filterValues = new Object[filterCount][];
 				
 				while (curBlock < endBlock) {
-					if (!isPrimaryTable) {
-						guideColBufReader = guideColReader.readBlockData();
-					}
-					
 					curBlock++;
 					int recordCount = rowCountReader.readInt32();
+					if (!isPrimaryTable) {
+						guideColBufReader = guideColReader.readBlockData(recordCount);
+					}
+					
 					boolean sign = true;
 					int f = 0;
 					for (; f < filterCount; ++f) {
 						positions[f] = segmentReaders[f].readLong40();
-						if (columns[f].isDim()) {
+						if (columns[f].hasMaxMinValues()) {
 							Object minValue = segmentReaders[f].readObject();
 							Object maxValue = segmentReaders[f].readObject();
 							segmentReaders[f].skipObject();
@@ -958,7 +965,7 @@ public class TableCursor extends IDWCursor {
 					
 					for (; f < colCount; ++f) {
 						positions[f] = segmentReaders[f].readLong40();
-						if (columns[f].isDim()) {
+						if (columns[f].hasMaxMinValues()) {
 							segmentReaders[f].skipObject();
 							segmentReaders[f].skipObject();
 							segmentReaders[f].skipObject();
@@ -976,7 +983,7 @@ public class TableCursor extends IDWCursor {
 					}
 					
 					if (!isPrimaryTable) {
-						guideColBufReader = guideColReader.readBlockData(guidePos);
+						guideColBufReader = guideColReader.readBlockData(guidePos, recordCount);
 					}
 					
 					boolean []matchs = new boolean[recordCount];
@@ -989,7 +996,7 @@ public class TableCursor extends IDWCursor {
 						Object []curValues = new Object[recordCount];
 						filterValues[f] = curValues;
 						IFilter filter = filters[f];
-						BufferReader reader = colReaders[f].readBlockData(positions[f]);
+						BufferReader reader = colReaders[f].readBlockData(positions[f], recordCount);
 						for (int i = 0; i < recordCount; ++i) {
 							if (matchs[i]) {
 								curValues[i] = reader.readObject();
@@ -1013,7 +1020,7 @@ public class TableCursor extends IDWCursor {
 					}
 					
 					for (; f < colCount; ++f) {
-						bufReaders[f] = colReaders[f].readBlockData(positions[f]);
+						bufReaders[f] = colReaders[f].readBlockData(positions[f], recordCount);
 					}
 					
 					for (int i = 0; i < recordCount; ++i) {
@@ -1042,7 +1049,7 @@ public class TableCursor extends IDWCursor {
 									
 									Record sr = mr.getRecord();
 									
-									GroupTableRecord r = new GroupTableRecord(ds);
+									ComTableRecord r = new ComTableRecord(ds);
 									for (f = 0; f < colCount; ++f) {
 										r.setNormalFieldValue(f, sr.getNormalFieldValue(findex[f]));
 									}
@@ -1081,7 +1088,7 @@ public class TableCursor extends IDWCursor {
 						
 						if (isInsert && matchs[i]) {
 							matchCount--;
-							GroupTableRecord r = new GroupTableRecord(ds);
+							ComTableRecord r = new ComTableRecord(ds);
 							for (f = 0; f < filterCount; ++f) {
 								if (seqs[f] != -1) {
 									r.setNormalFieldValue(seqs[f], filterValues[f][i]);
@@ -1161,18 +1168,18 @@ public class TableCursor extends IDWCursor {
 		try {
 			if (filters == null) {
 				while (curBlock < endBlock) {
-					if (!isPrimaryTable) {
-						guideColReader.readBlockData();
-					}
-					
 					curBlock++;
 					int recordCount = rowCountReader.readInt32();
+					if (!isPrimaryTable) {
+						guideColReader.readBlockData(recordCount);
+					}
+					
 					if (isPrimaryTable) {
 						prevRecordSeq += recordCount;
 					}
 					
 					for (int f = 0; f < colCount; ++f) {
-						colReaders[f].readBlockData();
+						colReaders[f].readBlockData(recordCount);
 					}
 					break;
 				}
@@ -1181,15 +1188,15 @@ public class TableCursor extends IDWCursor {
 				ObjectReader guideSegmentReader = this.guideSegmentReader;
 				
 				while (curBlock < endBlock) {
-					if (!isPrimaryTable) {
-						guideColReader.readBlockData();
-					}
-
 					curBlock++;
 					int recordCount = rowCountReader.readInt32();
+					if (!isPrimaryTable) {
+						guideColReader.readBlockData(recordCount);
+					}
+
 					for (int f = 0; f < colCount; ++f) {
 						segmentReaders[f].readLong40();
-						if (columns[f].isDim()) {
+						if (columns[f].hasMaxMinValues()) {
 							segmentReaders[f].skipObject();
 							segmentReaders[f].skipObject();
 							segmentReaders[f].skipObject();
@@ -1250,7 +1257,7 @@ public class TableCursor extends IDWCursor {
 	public void setAppendData(Sequence seq) {
 	}
 
-	public TableMetaData getTableMetaData() {
+	public PhyTable getTableMetaData() {
 		return null;
 	}
 
@@ -1259,6 +1266,10 @@ public class TableCursor extends IDWCursor {
 	}
 	
 	public void setCache(Sequence cache) {
+		throw new RQException();
+	}
+
+	protected Sequence getStartBlockData(int n) {
 		throw new RQException();
 	}
 }

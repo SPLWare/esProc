@@ -3,9 +3,9 @@ package com.scudata.dm.op;
 import com.scudata.common.RQException;
 import com.scudata.dm.ComputeStack;
 import com.scudata.dm.Context;
+import com.scudata.dm.Current;
 import com.scudata.dm.Param;
 import com.scudata.dm.Sequence;
-import com.scudata.dm.Sequence.Current;
 import com.scudata.expression.Expression;
 
 /**
@@ -42,7 +42,7 @@ public class IterateResult implements IResult {
 		Param param = ctx.getIterateParam();
 		Object oldVal = param.getValue();
 		
-		Current current = table.new Current();
+		Current current = new Current(table);
 		stack.push(current);
 		
 		try {
@@ -73,6 +73,13 @@ public class IterateResult implements IResult {
 			param.setValue(oldVal);
 			stack.pop();
 		}
+	}
+	
+	/**
+	 * 数据推送结束时调用
+	 * @param ctx 计算上下文
+	 */
+	public void finish(Context ctx) {
 	}
 	
 	/**

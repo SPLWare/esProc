@@ -18,12 +18,19 @@ import com.scudata.resources.EngineMessage;
  *
  */
 public class Mode extends Function {
-	public Object calculate(Context ctx) {
-		IParam param = this.param;
+	/**
+	 * 检查表达式的有效性，无效则抛出异常
+	 */
+	public void checkValidity() {
 		if (param == null) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("mode" + mm.getMessage("function.missingParam"));
-		} else if (param.isLeaf()) {
+		}
+	}
+
+	public Object calculate(Context ctx) {
+		IParam param = this.param;
+		if (param.isLeaf()) {
 			return param.getLeafExpression().calculate(ctx);
 		} else {
 			int size = param.getSubSize();

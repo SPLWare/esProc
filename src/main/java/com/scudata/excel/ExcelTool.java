@@ -10,13 +10,14 @@ import com.scudata.common.Matrix;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.common.StringUtils;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.ComputeStack;
 import com.scudata.dm.Context;
+import com.scudata.dm.Current;
 import com.scudata.dm.DataStruct;
 import com.scudata.dm.FileObject;
 import com.scudata.dm.ILineInput;
 import com.scudata.dm.ILineOutput;
-import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
 import com.scudata.dm.cursor.ICursor;
@@ -451,7 +452,7 @@ public class ExcelTool implements ILineInput, ILineOutput {
 			String[] items = new String[fcount];
 			table = new Table(items);
 
-			Record r = table.newLast();
+			BaseRecord r = table.newLast();
 			for (int f = 0; f < fcount; ++f) {
 				r.setNormalFieldValue(f, line[f]);
 			}
@@ -465,7 +466,7 @@ public class ExcelTool implements ILineInput, ILineOutput {
 			int curLen = line.length;
 			if (curLen > fcount)
 				curLen = fcount;
-			Record r = table.newLast();
+			BaseRecord r = table.newLast();
 			for (int f = 0; f < curLen; ++f) {
 				r.setNormalFieldValue(f, line[f]);
 			}
@@ -593,7 +594,7 @@ public class ExcelTool implements ILineInput, ILineOutput {
 				if (curLen > fcount)
 					curLen = fcount;
 
-				Record r = table.newLast();
+				BaseRecord r = table.newLast();
 				for (int f = 0; f < curLen; ++f) {
 					r.setNormalFieldValue(f, line[f]);
 				}
@@ -634,7 +635,7 @@ public class ExcelTool implements ILineInput, ILineOutput {
 				if (curLen > fcount)
 					curLen = fcount;
 
-				Record r = table.newLast();
+				BaseRecord r = table.newLast();
 				for (int f = 0; f < curLen; ++f) {
 					if (index[f] != -1)
 						r.setNormalFieldValue(index[f], line[f]);
@@ -816,11 +817,11 @@ public class ExcelTool implements ILineInput, ILineOutput {
 
 				Object[] lineObjs = new Object[fcount];
 				for (int i = 1, len = series.length(); i <= len; ++i) {
-					Record r = (Record) series.getMem(i);
+					BaseRecord r = (BaseRecord) series.getMem(i);
 					Object[] vals = r.getFieldValues();
 					for (int f = 0; f < fcount; ++f) {
-						if (vals[f] instanceof Record) {
-							lineObjs[f] = ((Record) vals[f]).value();
+						if (vals[f] instanceof BaseRecord) {
+							lineObjs[f] = ((BaseRecord) vals[f]).value();
 						} else {
 							lineObjs[f] = vals[f];
 						}
@@ -831,7 +832,7 @@ public class ExcelTool implements ILineInput, ILineOutput {
 			}
 		} else {
 			ComputeStack stack = ctx.getComputeStack();
-			Sequence.Current current = series.new Current();
+			Current current = new Current(series);
 			stack.push(current);
 
 			try {
@@ -848,8 +849,8 @@ public class ExcelTool implements ILineInput, ILineOutput {
 					current.setCurrent(i);
 					for (int f = 0; f < fcount; ++f) {
 						lineObjs[f] = exps[f].calculate(ctx);
-						if (lineObjs[f] instanceof Record) {
-							lineObjs[f] = ((Record) lineObjs[f]).value();
+						if (lineObjs[f] instanceof BaseRecord) {
+							lineObjs[f] = ((BaseRecord) lineObjs[f]).value();
 						}
 					}
 
@@ -910,11 +911,11 @@ public class ExcelTool implements ILineInput, ILineOutput {
 					}
 				} else {
 					for (int i = 1, len = table.length(); i <= len; ++i) {
-						Record r = (Record) table.getMem(i);
+						BaseRecord r = (BaseRecord) table.getMem(i);
 						Object[] vals = r.getFieldValues();
 						for (int f = 0; f < fcount; ++f) {
-							if (vals[f] instanceof Record) {
-								lineObjs[f] = ((Record) vals[f]).value();
+							if (vals[f] instanceof BaseRecord) {
+								lineObjs[f] = ((BaseRecord) vals[f]).value();
 							} else {
 								lineObjs[f] = vals[f];
 							}
@@ -940,7 +941,7 @@ public class ExcelTool implements ILineInput, ILineOutput {
 
 			ComputeStack stack = ctx.getComputeStack();
 			while (true) {
-				Sequence.Current current = table.new Current();
+				Current current = new Current(table);
 				stack.push(current);
 
 				try {
@@ -948,8 +949,8 @@ public class ExcelTool implements ILineInput, ILineOutput {
 						current.setCurrent(i);
 						for (int f = 0; f < fcount; ++f) {
 							lineObjs[f] = exps[f].calculate(ctx);
-							if (lineObjs[f] instanceof Record) {
-								lineObjs[f] = ((Record) lineObjs[f]).value();
+							if (lineObjs[f] instanceof BaseRecord) {
+								lineObjs[f] = ((BaseRecord) lineObjs[f]).value();
 							}
 						}
 
@@ -1024,8 +1025,8 @@ public class ExcelTool implements ILineInput, ILineOutput {
 				for (int j = 1; j <= subLen; j++) {
 					line[j - 1] = subSeq.get(j);
 				}
-			} else if (rowData instanceof Record) {
-				Record record = (Record) rowData;
+			} else if (rowData instanceof BaseRecord) {
+				BaseRecord record = (BaseRecord) rowData;
 				line = record.getFieldValues();
 			} else if (rowData instanceof Object[]) {
 				line = (Object[]) rowData;

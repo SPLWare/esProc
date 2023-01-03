@@ -3,6 +3,7 @@ package com.scudata.expression.fn.math;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
+import com.scudata.expression.Expression;
 import com.scudata.expression.Function;
 import com.scudata.expression.IParam;
 import com.scudata.resources.EngineMessage;
@@ -16,25 +17,35 @@ import com.scudata.util.Variant;
  *
  */
 public class Remainder extends Function {
+	private Expression exp1;
+	private Expression exp2;
 
-	public Object calculate(Context ctx) {
+	/**
+	 * 检查表达式的有效性，无效则抛出异常
+	 */
+	public void checkValidity() {
 		if (param == null) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("remainder" + mm.getMessage("function.missingParam"));
-		} else if (param.isLeaf() || param.getSubSize() != 2) {
+		} else if (param.getSubSize() != 2) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("remainder" + mm.getMessage("function.invalidParam"));
+		}
+		
+		IParam sub1 = param.getSub(0);
+		IParam sub2 = param.getSub(1);
+		if (sub1 == null || sub2 == null) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("remainder" + mm.getMessage("function.invalidParam"));
 		}
 
-		IParam p1 = param.getSub(0);
-		IParam p2 = param.getSub(1);
-		if (p1 == null || p2 == null) {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException("remainder" + mm.getMessage("function.invalidParam"));
-		}
+		exp1 = sub1.getLeafExpression();
+		exp2 = sub2.getLeafExpression();
+	}
 
-		Object o1 = p1.getLeafExpression().calculate(ctx);
-		Object o2 = p2.getLeafExpression().calculate(ctx);
+	public Object calculate(Context ctx) {
+		Object o1 = exp1.calculate(ctx);
+		Object o2 = exp2.calculate(ctx);
 		return Variant.remainder(o1, o2);
 	}
 }

@@ -1390,9 +1390,11 @@ public class SPL extends AppFrame {
 	 */
 	public static void main(final String args[]) {
 		mainInit();
+		showSplash();
 		SwingUtilities.invokeLater(new Thread() {
 			public void run() {
 				initLNF();
+				loadExtLibs();
 				try {
 					// 当前产品启动时，调用当前行检查，并放在try里面，异常后退出
 					String openFile = prepareEnv(args);
@@ -1429,7 +1431,17 @@ public class SPL extends AppFrame {
 			GM.outputMessage(e);
 		}
 		GMSpl.setOptionLocale();
+	}
 
+	public static void showSplash() {
+		String splashFile = getSplashFile();
+		splashWindow = new DialogSplash(splashFile);
+		splashWindow.setVisible(true);
+		splashWindow.revalidate();
+		splashWindow.repaint();
+	}
+
+	public static String getSplashFile() {
 		ConfigFile sysConfig = ConfigFile.getSystemConfigFile();
 		String splashFile = null;
 		if (sysConfig != null) {
@@ -1442,9 +1454,10 @@ public class SPL extends AppFrame {
 			splashFile = GC.IMAGES_PATH + "esproc" + GM.getLanguageSuffix()
 					+ ".png";
 		}
-		splashWindow = new DialogSplash(splashFile);
-		splashWindow.setVisible(true);
+		return splashFile;
+	}
 
+	public static void loadExtLibs() {
 		if (GV.config != null) {
 			try {
 				ConfigUtil.loadExtLibs(System.getProperty("start.home"),
@@ -1455,6 +1468,7 @@ public class SPL extends AppFrame {
 		}
 
 		try {
+			ConfigFile sysConfig = ConfigFile.getSystemConfigFile();
 			if (sysConfig != null) {
 				// 从系统配置中读取背景颜色和透明度
 				ConfigOptions.fileColor = sysConfig.getAttrValue("fileColor");

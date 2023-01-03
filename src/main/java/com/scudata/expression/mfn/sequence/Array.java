@@ -2,8 +2,8 @@ package com.scudata.expression.mfn.sequence;
 
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Context;
-import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 import com.scudata.expression.SequenceFunction;
 import com.scudata.resources.EngineMessage;
@@ -15,12 +15,17 @@ import com.scudata.resources.EngineMessage;
  *
  */
 public class Array extends SequenceFunction {
-	public Object calculate(Context ctx) {
-		if (param != null) {
+	/**
+	 * 检查表达式的有效性，无效则抛出异常
+	 */
+	public void checkValidity() {
+		if (param == null) {
 			MessageManager mm = EngineMessage.get();
-			throw new RQException("array" + mm.getMessage("function.invalidParam"));
+			throw new RQException("array" + mm.getMessage("function.missingParam"));
 		}
-		
+	}
+
+	public Object calculate(Context ctx) {
 		Sequence seq = srcSequence;
 		int len = seq.length();
 		Sequence result = new Sequence(len + 1);
@@ -29,8 +34,8 @@ public class Array extends SequenceFunction {
 		}
 		
 		Object obj = seq.getMem(1);
-		if (obj instanceof Record) {
-			Record r = (Record)obj;
+		if (obj instanceof BaseRecord) {
+			BaseRecord r = (BaseRecord)obj;
 			result.add(new Sequence(r.getFieldNames()));
 			result.add(new Sequence(r.getFieldValues()));
 		} else {
@@ -40,8 +45,8 @@ public class Array extends SequenceFunction {
 		
 		for (int i = 2; i <= len; ++i) {
 			obj = seq.getMem(i);
-			if (obj instanceof Record) {
-				Record r = (Record)obj;
+			if (obj instanceof BaseRecord) {
+				BaseRecord r = (BaseRecord)obj;
 				result.add(new Sequence(r.getFieldValues()));
 			} else if (obj == null) {
 				result.add(new Sequence(1));

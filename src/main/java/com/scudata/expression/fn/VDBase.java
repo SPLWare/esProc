@@ -17,12 +17,17 @@ import com.scudata.vdb.Library;
 import com.scudata.vdb.VDB;
 
 public class VDBase extends Function {
-	public Object calculate(Context ctx) {
+	/**
+	 * 检查表达式的有效性，无效则抛出异常
+	 */
+	public void checkValidity() {
 		if (param == null) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("vdbase" + mm.getMessage("function.missingParam"));
 		}
-		
+	}
+
+	public Object calculate(Context ctx) {
 		if (option != null && option.indexOf('r') != -1) {
 			if (param.getSubSize() != 2) {
 				MessageManager mm = EngineMessage.get();

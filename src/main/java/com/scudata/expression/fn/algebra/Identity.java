@@ -14,32 +14,37 @@ import com.scudata.resources.EngineMessage;
  */
 public class Identity extends Function {
 	public Node optimize(Context ctx) {
-		if (param != null) param.optimize(ctx);
+		param.optimize(ctx);
 		return this;
 	}
-
-	public Object calculate(Context ctx) {
+	
+	/**
+	 * 检查表达式的有效性，无效则抛出异常
+	 */
+	public void checkValidity() {
 		if (param == null) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("I" + mm.getMessage("function.missingParam"));
-		} else if (param.isLeaf()) {
-			Object o = param.getLeafExpression().calculate(ctx);
-			if (o instanceof Number) {
-				int size = ((Number)o).intValue();
-				if (size > 0) {
-					Matrix I = Matrix.identity(size);
-					return I.toSequence(option, false);
-				}
-				else {
-					return new Sequence(0);
-				}
-			} else {
-				MessageManager mm = EngineMessage.get();
-				throw new RQException("I" + mm.getMessage("function.paramTypeError"));
+		} else if (!param.isLeaf()) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("I" + mm.getMessage("function.invalidParam"));
+		}
+	}
+
+	public Object calculate(Context ctx) {
+		Object o = param.getLeafExpression().calculate(ctx);
+		if (o instanceof Number) {
+			int size = ((Number)o).intValue();
+			if (size > 0) {
+				Matrix I = Matrix.identity(size);
+				return I.toSequence(option, false);
+			}
+			else {
+				return new Sequence(0);
 			}
 		} else {
 			MessageManager mm = EngineMessage.get();
-			throw new RQException("I" + mm.getMessage("function.invalidParam"));
+			throw new RQException("I" + mm.getMessage("function.paramTypeError"));
 		}
 	}
 }

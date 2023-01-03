@@ -5,7 +5,7 @@ import com.scudata.common.RQException;
 import com.scudata.dm.Context;
 import com.scudata.dm.FileObject;
 import com.scudata.dm.cursor.ICursor;
-import com.scudata.dw.ITableMetaData;
+import com.scudata.dw.IPhyTable;
 import com.scudata.expression.Expression;
 import com.scudata.resources.EngineMessage;
 
@@ -14,20 +14,20 @@ import com.scudata.resources.EngineMessage;
  * @author RunQian
  *
  */
-public class TableMetaDataProxy extends IProxy {
-	private ITableMetaData tableMetaData;
+public class PhyTableProxy extends IProxy {
+	private IPhyTable tableMetaData;
 	private FileObject tempFile;//appendÁÙÊ±ÎÄ¼þ
 	
-	public TableMetaDataProxy(ITableMetaData tableMetaData) {
+	public PhyTableProxy(IPhyTable tableMetaData) {
 		this.tableMetaData = tableMetaData;
 	}
 	
-	public ITableMetaData getTableMetaData() {
+	public IPhyTable getTableMetaData() {
 		return tableMetaData;
 	}
 	
-	public ITableMetaData attach(String tableName) {
-		ITableMetaData table = tableMetaData.getAnnexTable(tableName);
+	public IPhyTable attach(String tableName) {
+		IPhyTable table = tableMetaData.getAnnexTable(tableName);
 		if (table == null) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException(tableName + mm.getMessage("dw.tableNotExist"));

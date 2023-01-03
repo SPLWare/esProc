@@ -17,6 +17,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.scudata.app.common.AppConsts;
 import com.scudata.app.common.AppUtil;
 import com.scudata.cellset.datamodel.Command;
 import com.scudata.cellset.datamodel.PgmCellSet;
@@ -24,12 +25,14 @@ import com.scudata.common.ArgumentTokenizer;
 import com.scudata.common.Escape;
 import com.scudata.common.Logger;
 import com.scudata.common.StringUtils;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Context;
 import com.scudata.dm.DataStruct;
+import com.scudata.dm.Env;
 import com.scudata.dm.KeyWord;
 import com.scudata.dm.LocalFile;
+import com.scudata.dm.Param;
 import com.scudata.dm.ParamList;
-import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
 import com.scudata.dm.cursor.ICursor;
@@ -586,7 +589,7 @@ public class JDBCUtil {
 				t = new Table();
 			}
 			for (int j = 1; j < oss.length; j++) {
-				Record r = t.newLast();
+				BaseRecord r = t.newLast();
 				for (int k = 0; k < oss[j].length; k++) {
 					r.set(k, oss[j][k]);
 				}
@@ -683,7 +686,7 @@ public class JDBCUtil {
 	 */
 	public static Table getProcedures(String procedureNamePattern)
 			throws SQLException {
-		Map<String, String> map = Server.getSplList(procedureNamePattern);
+		Map<String, String> map = getSplList(procedureNamePattern);
 		Iterator<String> iter = map.keySet().iterator();
 		Table t = new Table(new String[] { JDBCConsts.PROCEDURE_NAME,
 				JDBCConsts.PROCEDURE_FILE });
@@ -696,7 +699,7 @@ public class JDBCUtil {
 	}
 
 	/**
-	 * 取SPL文件和参数
+	 * 取SPL文件和参数，用于元数据
 	 * 
 	 * @param procedureNamePattern
 	 * @return Table
@@ -704,8 +707,8 @@ public class JDBCUtil {
 	 */
 	public static Table getProcedureColumns(String procedureNamePattern,
 			String columnNamePattern) throws SQLException {
-		Map<String, ParamList> map = Server.getSplParams(procedureNamePattern,
-				columnNamePattern);
+		Map<String, ParamList> map = getProcedureColumnMap(
+				procedureNamePattern, columnNamePattern);
 		Iterator<String> iter = map.keySet().iterator();
 		Table t = new Table(new String[] { JDBCConsts.PROCEDURE_NAME,
 				JDBCConsts.PARAM_LIST });
@@ -718,6 +721,57 @@ public class JDBCUtil {
 	}
 
 	/**
+	 * 取SPL文件名和参数映射
+	 * @param procedureNamePattern
+	 * @param columnNamePattern
+	 * @return
+	 * @throws SQLException
+	 */
+	public static Map<String, ParamList> getProcedureColumnMap(
+			String procedureNamePattern, String columnNamePattern)
+			throws SQLException {
+		Map<String, String> map = getSplList(procedureNamePattern);
+		Map<String, ParamList> paramMap = new HashMap<String, ParamList>();
+		Iterator<String> iter = map.keySet().iterator();
+		while (iter.hasNext()) {
+			String key = iter.next().toString();
+			String splPath = key;
+			try {
+				PgmCellSet cs = AppUtil.readCellSet(splPath);
+				if (cs == null)
+					continue;
+				ParamList pl = cs.getParamList();
+				if (pl == null) {
+					continue;
+				}
+				Pattern columnPattern = JDBCUtil.getPattern(columnNamePattern,
+						null);
+				if (columnPattern != null) {
+					ParamList filterParams = new ParamList();
+					Param param;
+					for (int i = 0; i < pl.count(); i++) {
+						param = pl.get(i);
+						if (param != null
+								&& StringUtils.isValidString(param.getName())) {
+							Matcher m = columnPattern.matcher(param.getName());
+							if (m.matches()) {
+								filterParams.add(param);
+							}
+						}
+					}
+					pl = filterParams;
+					cs.setParamList(pl);
+				}
+				String splName = new File(splPath).getName();
+				paramMap.put(splName, pl);
+			} catch (Exception e) {
+				throw new SQLException(e.getMessage(), e);
+			}
+		}
+		return paramMap;
+	}
+
+	/**
 	 * Get the table names in the specified pattern
 	 * 
 	 * @param tableNamePattern
@@ -725,7 +779,7 @@ public class JDBCUtil {
 	 * @throws SQLException
 	 */
 	public static Table getTables(String tableNamePattern) throws SQLException {
-		Map<String, String> map = Server.getTables(tableNamePattern);
+		Map<String, String> map = getTableMap(tableNamePattern);
 		Iterator<String> iter = map.keySet().iterator();
 		Table t = new Table(new String[] { JDBCConsts.TABLE_NAME });
 		while (iter.hasNext()) {
@@ -775,7 +829,7 @@ public class JDBCUtil {
 	 */
 	public static Table getColumns(String tableNamePattern,
 			String columnNamePattern, Context ctx) throws SQLException {
-		Map<String, String> map = Server.getTables(tableNamePattern);
+		Map<String, String> map = getTableMap(tableNamePattern);
 		Iterator<String> iter = map.keySet().iterator();
 		Table t = new Table(new String[] { JDBCConsts.TABLE_NAME,
 				JDBCConsts.COLUMN_NAME, JDBCConsts.DATA_TYPE });
@@ -838,6 +892,183 @@ public class JDBCUtil {
 			}
 		}
 		return t;
+	}
+
+	/**
+	 * Retrieve files that match the filter.
+	 * 
+	 * @param filter SQL rules used. "%" means one or more characters, and "_" means
+	 *               one character.
+	 * @return files map
+	 */
+	public static Map<String, String> getSplList(String filter) {
+		List<String> fileExts = new ArrayList<String>();
+		String[] exts = AppConsts.SPL_FILE_EXTS.split(",");
+		for (String ext : exts)
+			fileExts.add("." + ext);
+		return getFiles(filter, fileExts, false);
+	}
+
+	/**
+	 * Get files
+	 * 
+	 * @param filter   File name filter
+	 * @param fileExts File extensions
+	 * @param matchAll 是否需要匹配全路径。FALSE时可以仅匹配文件名。
+	 * @return files map
+	 */
+	public static Map<String, String> getFiles(String filter,
+			List<String> fileExts, boolean matchAll) {
+		Map<String, String> map = new HashMap<String, String>();
+		Pattern pattern = JDBCUtil.getPattern(filter, fileExts);
+		String mainPath = Env.getMainPath();
+		if (StringUtils.isValidString(mainPath)) {
+			File mainDir = new File(mainPath);
+			getDirFiles(mainDir.getAbsolutePath().length(), mainDir, map,
+					pattern, fileExts, matchAll);
+		}
+		return map;
+	}
+
+	/**
+	 * Get the files in the specified path
+	 * 
+	 * @param rootLen  The length of the parent file path
+	 * @param pfile    The parent directory
+	 * @param map      Storage file name and title mapping
+	 * @param pattern  The Pattern object
+	 * @param fileExts File extensions
+	 * @param matchAll 是否需要匹配全路径。FALSE时可以仅匹配文件名。
+	 */
+	private static void getDirFiles(int rootLen, File pfile,
+			Map<String, String> map, Pattern pattern, List<String> fileExts,
+			boolean matchAll) {
+		if (pfile == null)
+			return;
+		if (pfile.isDirectory()) {
+			File[] subFiles = pfile.listFiles();
+			if (subFiles == null)
+				return;
+			for (File sf : subFiles) {
+				getDirFiles(rootLen, sf, map, pattern, fileExts, matchAll);
+			}
+		} else {
+			String fileName = pfile.getName();
+			if (pfile.isFile()) {
+				for (String fileExt : fileExts) {
+					if (fileName.toLowerCase().endsWith(fileExt)) {
+						if (pattern != null) {
+							boolean find;
+							if (matchAll) { // 匹配全路径
+								fileName = getSubPath(rootLen, pfile);
+								find = matchPattern(pattern, pfile, fileName,
+										fileExt);
+							} else {
+								// 匹配文件名
+								find = matchPattern(pattern, pfile, fileName,
+										fileExt);
+								// 匹配全路径
+								if (!find) {
+									fileName = getSubPath(rootLen, pfile);
+									find = matchPattern(pattern, pfile,
+											fileName, fileExt);
+								}
+							}
+							if (!find) {
+								break;
+							}
+						}
+						if (matchAll) {
+							fileName = getSubPath(rootLen, pfile);
+						} else {
+							fileName = pfile.getName();
+							fileName = fileName.substring(0, fileName.length()
+									- fileExt.length());
+						}
+						map.put(pfile.getPath(), fileName);
+						break;
+					}
+				}
+			}
+		}
+	}
+
+	/**
+	 * 正则匹配
+	 * @param pattern Pattern
+	 * @param file 文件
+	 * @param fileName 文件名
+	 * @param fileExt 文件后缀
+	 * @return 是否匹配
+	 */
+	private static boolean matchPattern(Pattern pattern, File file,
+			String fileName, String fileExt) {
+		Matcher m;
+		boolean find = false;
+		// 直接匹配正则表达式
+		m = pattern.matcher(fileName);
+		find = m.matches();
+		if (!find) {
+			// pattern可能没加后缀，fileName去掉后缀后正则匹配
+			fileName = fileName.substring(0,
+					fileName.length() - fileExt.length());
+			m = pattern.matcher(fileName);
+			find = m.matches();
+		}
+		if (!find) { // 用文件路径匹配
+			String sPattern = pattern.toString();
+			if (!sPattern.toLowerCase().endsWith(fileExt)) {
+				sPattern += fileExt;
+			}
+			find = sameFileName(sPattern, file.getAbsolutePath());
+		}
+		return find;
+	}
+
+	/**
+	 * Compare whether the two file paths are consistent
+	 * 
+	 * @param file1 Relative path
+	 * @param file2 Absolute path
+	 * @return whether the two file paths are consistent
+	 */
+	private static boolean sameFileName(String file1, String file2) {
+		if (file1 == null || file2 == null)
+			return false;
+		file1 = new File(Env.getMainPath(), file1).getAbsolutePath();
+		file2 = new File(file2).getAbsolutePath();
+		return file1.equals(file2);
+	}
+
+	/**
+	 * Get the child path relative to the parent path
+	 * 
+	 * @param rootLen
+	 * @param f
+	 * @return the child path relative to the parent path
+	 */
+	private static final String getSubPath(int rootLen, File f) {
+		String path = f.getPath();
+		path = path.substring(rootLen);
+		while (path.startsWith("\\") || path.startsWith("/")) {
+			path = path.substring(1);
+		}
+		return path;
+	}
+
+	/**
+	 * Get table names
+	 * 
+	 * @param filter Table name filter
+	 * @return table names map
+	 */
+	public static Map<String, String> getTableMap(String filter) {
+		List<String> fileExts = new ArrayList<String>();
+		String[] exts = JDBCConsts.DATA_FILE_EXTS.split(",");
+		for (String ext : exts) {
+			fileExts.add("." + ext);
+		}
+		return getFiles(filter, fileExts, true);
 	}
 
 	/**
@@ -908,9 +1139,8 @@ public class JDBCUtil {
 			datas = new ArrayList<ArrayList<Object>>(t.length());
 			for (int i = 1; i <= t.length(); i++) {
 				ArrayList<Object> row = new ArrayList<Object>(fields.length);
-				Object seqi = t.get(i);
-				if (seqi != null && seqi instanceof Record) {
-					Record r = (Record) t.get(i);
+				BaseRecord r = t.getRecord(i);
+				if (r != null) {
 					for (int j = 0; j < fields.length; j++) {
 						Object o = r.getFieldValue(fields[j]);
 						row.add(o);
@@ -937,7 +1167,7 @@ public class JDBCUtil {
 				datas = new ArrayList<ArrayList<Object>>(seq.length());
 			} else {
 				Object first = seq.get(1);
-				if (first == null || !(first instanceof Record)) {
+				if (first == null || !(first instanceof BaseRecord)) {
 					fields = new String[] { colName };
 					types = new int[fields.length];
 					initColumnTypes(types);
@@ -957,7 +1187,7 @@ public class JDBCUtil {
 						}
 					}
 				} else {
-					fields = ((Record) first).dataStruct().getFieldNames();
+					fields = ((BaseRecord) first).dataStruct().getFieldNames();
 					types = new int[fields.length];
 					initColumnTypes(types);
 					dealTypes = new int[fields.length];
@@ -966,8 +1196,8 @@ public class JDBCUtil {
 						ArrayList<Object> row = new ArrayList<Object>(
 								fields.length);
 						Object seqi = seq.get(i);
-						if (seqi != null && seqi instanceof Record) {
-							Record r = (Record) seq.get(i);
+						if (seqi != null && seqi instanceof BaseRecord) {
+							BaseRecord r = (BaseRecord) seq.get(i);
 							for (int j = 0; j < fields.length; j++) {
 								Object o = null;
 								try { // 异构数据
@@ -991,8 +1221,8 @@ public class JDBCUtil {
 					}
 				}
 			}
-		} else if (obj instanceof Record) {
-			Record r = (Record) obj;
+		} else if (obj instanceof BaseRecord) {
+			BaseRecord r = (BaseRecord) obj;
 			fields = r.dataStruct().getFieldNames();
 			types = new int[fields.length];
 			initColumnTypes(types);

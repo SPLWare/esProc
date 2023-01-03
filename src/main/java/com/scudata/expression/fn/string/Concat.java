@@ -14,6 +14,16 @@ import com.scudata.resources.EngineMessage;
  *
  */
 public class Concat extends Function {
+	/**
+	 * 检查表达式的有效性，无效则抛出异常
+	 */
+	public void checkValidity() {
+		if (param == null) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("concat" + mm.getMessage("function.missingParam"));
+		}
+	}
+
 	private static void concat(Object obj, StringBuffer out) {
 		if (obj instanceof Sequence) {
 			Sequence seq = (Sequence)obj;
@@ -26,12 +36,6 @@ public class Concat extends Function {
 	}
 	
 	public Object calculate(Context ctx) {
-		IParam param = this.param;
-		if (param == null) {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException("concat" + mm.getMessage("function.missingParam"));
-		}
-
 		StringBuffer sb = new StringBuffer();
 		if (param.isLeaf()) {
 			Object obj = param.getLeafExpression().calculate(ctx);

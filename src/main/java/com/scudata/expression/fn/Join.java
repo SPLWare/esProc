@@ -2,11 +2,11 @@ package com.scudata.expression.fn;
 
 import java.util.ArrayList;
 
+import com.scudata.array.IArray;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Context;
-import com.scudata.dm.ListBase1;
-import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
 import com.scudata.expression.Expression;
@@ -26,16 +26,24 @@ import com.scudata.util.CursorUtil;
  */
 public class Join extends Function {
 	public Node optimize(Context ctx) {
-		if (param != null) param.optimize(ctx);
+		param.optimize(ctx);
 		return this;
 	}
-
-	public Object calculate(Context ctx) {
-		if (param == null || param.getType() != IParam.Semicolon) {
+	
+	/**
+	 * 检查表达式的有效性，无效则抛出异常
+	 */
+	public void checkValidity() {
+		if (param == null) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("join" + mm.getMessage("function.missingParam"));
+		} else if (param.getType() != IParam.Semicolon) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("join" + mm.getMessage("function.invalidParam"));
 		}
+	}
 
+	public Object calculate(Context ctx) {
 		boolean isPJoin = false, isIsect = false, isDiff = false;
 		if (option != null) {
 			if (option.indexOf('p') != -1) {
@@ -106,7 +114,9 @@ public class Join extends Function {
 			}
 			
 			if (seqParam.isLeaf()) { // Ai
-				Object obj = seqParam.getLeafExpression().calculate(ctx);
+				Expression exp = seqParam.getLeafExpression();
+				names[i] = exp.getIdentifierName();
+				Object obj = exp.calculate(ctx);
 				if (obj instanceof Sequence) {
 					srcSeries[i] = (Sequence)obj;
 				} else if (obj == null) {
@@ -127,7 +137,8 @@ public class Join extends Function {
 					throw new RQException("join" + mm.getMessage("function.invalidParam"));
 				}
 
-				Object obj = sub0.getLeafExpression().calculate(ctx);
+				Expression exp = sub0.getLeafExpression();
+				Object obj = exp.calculate(ctx);
 				if (obj instanceof Sequence) {
 					srcSeries[i] = (Sequence)obj;
 				} else if (obj == null) {
@@ -140,6 +151,8 @@ public class Join extends Function {
 				IParam sub1 = seqParam.getSub(1);
 				if (sub1 != null) {
 					names[i] = sub1.getLeafExpression().getIdentifierName();
+				} else {
+					names[i] = exp.getIdentifierName();
 				}
 			}
 		}
@@ -176,7 +189,7 @@ public class Join extends Function {
 			return table;
 		}
 		
-		ListBase1 mems = table.getMems();
+		IArray mems = table.getMems();
 		int size = mems.size();
 		if (size == 0) {
 			return table;
@@ -215,11 +228,11 @@ public class Join extends Function {
 		Table out = new Table(newNames);
 		for (int i = 1; i <= size; ++i) {
 			findex = 0;
-			Record record = out.newLast();
-			Record oldRecord = (Record) mems.get(i);
+			BaseRecord record = out.newLast();
+			BaseRecord oldRecord = (BaseRecord) mems.get(i);
 			for (int j = 0; j < count; j++) {
 				if (isAllRecord[j]) {
-					Record subRecord = (Record) oldRecord.getFieldValue(j);
+					BaseRecord subRecord = (BaseRecord) oldRecord.getFieldValue(j);
 					for (int f = 0; f < fcount[j]; f++) {
 						record.set(findex + f, subRecord.getFieldValue(f));
 					}
@@ -234,23 +247,23 @@ public class Join extends Function {
 		return out;
 	}
 	
-	private boolean isAllRecord(ListBase1 mems, int i, int j, ArrayList<String> list, String names[]) {
+	private boolean isAllRecord(IArray mems, int i, int j, ArrayList<String> list, String names[]) {
 		boolean b = true;
 		int size = mems.size();
 		int c;
 		for (c = 1; c <= size; c++) {
-			Record record = (Record) mems.get(c);
+			BaseRecord record = (BaseRecord) mems.get(c);
 			if (null == record) {
 				continue;
 			}
-			record = (Record) record.getFieldValue(i);
+			record = (BaseRecord) record.getFieldValue(i);
 			if (null == record) {
 				continue;
 			}
 			Object obj = record.getFieldValue(j);
 			if (obj == null) {
 				continue;
-			} else if (obj instanceof Record) {
+			} else if (obj instanceof BaseRecord) {
 				String name = record.getFieldNames()[j];
 				if (list.contains(name)) {
 					list.add(names[i] + "_" + name);

@@ -25,7 +25,8 @@ public class ControlUtils extends ControlUtilsBase {
 	 */
 	public static SplEditor extractSplEditor(SplControl control) {
 		if (control.m_editorListener.get(0) instanceof SplControlListener) {
-			return ((SplControlListener) control.m_editorListener.get(0)).getEditor();
+			return ((SplControlListener) control.m_editorListener.get(0))
+					.getEditor();
 		}
 		return null;
 	}
@@ -39,19 +40,21 @@ public class ControlUtils extends ControlUtilsBase {
 	 * @param col      单元格所在列号
 	 * @return 单元格位于显示窗口中时，返回false，否则将之滚动到显示窗口后，返回true
 	 */
-	public static boolean scrollToVisible(JViewport viewport, SplControl control, int row, int col) {
+	public static boolean scrollToVisible(JViewport viewport,
+			SplControl control, int row, int col) {
 		Rectangle fieldArea = new Rectangle();
-		fieldArea.x = control.cellX[col];
+		// 每次重算宽高，因为control.cellX等值可能没有更新
+		// fieldArea.x = control.cellX[col];
 		CellSetParser parser = new CellSetParser(control.cellSet);
-		if (fieldArea.x == 0)
-			fieldArea.x = parser.getColsWidth(control, 1, col - 1, false) + 1;
-		if (row >= control.cellY.length) {
-			fieldArea.y = control.cellY[row - 1];
-		} else {
-			fieldArea.y = control.cellY[row];
-		}
-		if (fieldArea.y == 0)
-			fieldArea.y = parser.getRowsHeight(control, 1, row - 1, false) + 1;
+		// if (fieldArea.x == 0)
+		fieldArea.x = parser.getColsWidth(control, 1, col - 1, false) + 1;
+		// if (row >= control.cellY.length) {
+		// fieldArea.y = control.cellY[row - 1];
+		// } else {
+		// fieldArea.y = control.cellY[row];
+		// }
+		// if (fieldArea.y == 0)
+		fieldArea.y = parser.getRowsHeight(control, 1, row - 1, false) + 1;
 		if (row == 0) {
 			fieldArea.width = control.cellW[col];
 			fieldArea.height = 20;
@@ -60,7 +63,8 @@ public class ControlUtils extends ControlUtilsBase {
 			fieldArea.height = control.cellH[row];
 		} else {
 			fieldArea.width = (int) control.cellSet.getColCell(col).getWidth();
-			fieldArea.height = (int) control.cellSet.getRowCell(row).getHeight();
+			fieldArea.height = (int) control.cellSet.getRowCell(row)
+					.getHeight();
 		}
 
 		return scrollToVisible(viewport, fieldArea);
@@ -74,10 +78,13 @@ public class ControlUtils extends ControlUtilsBase {
 	 * @param panel 内容面板对象
 	 * @return 单元格位置
 	 */
-	public static CellLocation lookupCellPosition(int x, int y, ContentPanel panel) {
+	public static CellLocation lookupCellPosition(int x, int y,
+			ContentPanel panel) {
 		for (int i = 1; i < panel.cellX.length; i++) {
 			for (int j = 1; j < panel.cellX[i].length; j++) {
-				if (y > panel.cellY[i][j] && y <= panel.cellY[i][j] + panel.cellH[i][j] && x > panel.cellX[i][j]
+				if (y > panel.cellY[i][j]
+						&& y <= panel.cellY[i][j] + panel.cellH[i][j]
+						&& x > panel.cellX[i][j]
 						&& x <= panel.cellX[i][j] + panel.cellW[i][j]) {
 					return new CellLocation(i, (int) j);
 				}
@@ -101,10 +108,11 @@ public class ControlUtils extends ControlUtilsBase {
 	 * @param font      字体
 	 * @param c         前景色
 	 */
-	public static void drawText(Graphics g, String text, int x, int y, int w, int h, boolean underLine, byte halign,
-			byte valign, Font font, Color c) {
-		ControlUtils.drawText(g, text, x, y, w, h, underLine, halign, valign, font, c,
-				ConfigOptions.iIndent.intValue());
+	public static void drawText(Graphics g, String text, int x, int y, int w,
+			int h, boolean underLine, byte halign, byte valign, Font font,
+			Color c) {
+		ControlUtils.drawText(g, text, x, y, w, h, underLine, halign, valign,
+				font, c, ConfigOptions.iIndent.intValue());
 	}
 
 }

@@ -9,10 +9,13 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
 
+import com.scudata.array.IArray;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.ComputeStack;
 import com.scudata.dm.Context;
+import com.scudata.dm.Current;
 import com.scudata.dm.DataStruct;
 import com.scudata.dm.Env;
 import com.scudata.dm.IResource;
@@ -24,7 +27,6 @@ import com.scudata.dm.Record;
 import com.scudata.dm.ResourceManager;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
-import com.scudata.dm.Sequence.Current;
 import com.scudata.dm.cursor.ICursor;
 import com.scudata.dm.cursor.MemoryCursor;
 import com.scudata.dm.cursor.MultipathCursors;
@@ -45,7 +47,7 @@ import com.scudata.util.Variant;
  * @author RunQian
  *
  */
-public class ClusterMemoryTable implements IClusterObject, Operable, IResource, Externalizable {
+public class ClusterMemoryTable extends Operable implements IClusterObject, IResource, Externalizable {
 	private static final long serialVersionUID = 0x07015403;
 	
 	private Cluster cluster;
@@ -226,8 +228,8 @@ public class ClusterMemoryTable implements IClusterObject, Operable, IResource, 
 	 * @param key 待查找的名字字段的值
 	 * @return
 	 */
-	public Record getRow(Object key) {
-		Record r = null;
+	public BaseRecord getRow(Object key) {
+		BaseRecord r = null;
 		Cluster cluster = this.cluster;
 		int count = cluster.getUnitCount();
 		if (!isDistributed) {
@@ -242,7 +244,7 @@ public class ClusterMemoryTable implements IClusterObject, Operable, IResource, 
 				command.setAttribute("proxyId", getProxyId(i));
 				command.setAttribute("key", key);
 				Response response = client.send(command);
-				r = (Record)response.checkResult();
+				r = (BaseRecord)response.checkResult();
 				if (r != null) break;//只要找到了就返回
 			} finally {
 				client.close();
@@ -367,14 +369,14 @@ public class ClusterMemoryTable implements IClusterObject, Operable, IResource, 
 		Object keyValue = null;
 		if (keyCount == 1) {
 			if(recordCount > 0) {
-				Record r = table.getRecord(1);
+				BaseRecord r = table.getRecord(1);
 				keyValue = r.getNormalFieldValue(seqs[0]);
 			}
 		} else if (keyCount > 1) {
 			Object []vals = new Object[keyCount];
 			keyValue = vals;
 			if(recordCount > 0) {
-				Record r = table.getRecord(1);
+				BaseRecord r = table.getRecord(1);
 				for (int i = 0; i < keyCount; ++i) {
 					vals[i] = r.getNormalFieldValue(seqs[i]);
 				}
@@ -713,13 +715,13 @@ public class ClusterMemoryTable implements IClusterObject, Operable, IResource, 
 		if (pkCount == 1) {
 			for (int i = 1; i <= len; ++i) {
 				Object pk = keySeq.getMem(i);
-				Record r = (Record) indexTable.find(pk);
+				BaseRecord r = (BaseRecord) indexTable.find(pk);
 				result.add(r);
 			}
 		} else {
 			for (int i = 1; i <= len; ++i) {
 				Object[] pks = (Object[])keySeq.getMem(i);
-				Record r = (Record) indexTable.find(pks);
+				BaseRecord r = (BaseRecord) indexTable.find(pks);
 				result.add(r);
 			}
 		}
@@ -728,11 +730,11 @@ public class ClusterMemoryTable implements IClusterObject, Operable, IResource, 
 			return result;
 		}
 		
-		ListBase1 mems = result.getMems();
+		IArray mems = result.getMems();
 		int colCount = newExps.length;
 		DataStruct ds = new DataStruct(newNames);
 		ComputeStack stack = ctx.getComputeStack();
-		Current current = result.new Current();
+		Current current = new Current(result);
 		stack.push(current);
 		
 		try {
@@ -768,7 +770,7 @@ public class ClusterMemoryTable implements IClusterObject, Operable, IResource, 
 	public Sequence getRows(Sequence keySeq, String[] newExps, String[] newNames, Context ctx) {
 		prepareFind(ctx);
 		
-		ListBase1 mems = keySeq.getMems();
+		IArray mems = keySeq.getMems();
 		int srcLen = mems.size();
 		HashUtil hashUtil = new HashUtil(srcLen);
 		final int INIT_GROUPSIZE = HashUtil.getInitGroupSize();
@@ -837,7 +839,7 @@ public class ClusterMemoryTable implements IClusterObject, Operable, IResource, 
 		Sequence []keySeqs = new Sequence[gcount];
 		for (int g = 0; g < gcount; ++g) {
 			Sequence seq = seqs[g];
-			ListBase1 curMems = seq.getMems();
+			IArray curMems = seq.getMems();
 			int len = curMems.size();
 			Sequence tmp = new Sequence(len);
 			keySeqs[g] = tmp;
@@ -855,12 +857,12 @@ public class ClusterMemoryTable implements IClusterObject, Operable, IResource, 
 		//DataStruct ds = new DataStruct(newNames);
 		for (int g = 0; g < gcount; ++g) {
 			Sequence seq = seqs[g];
-			ListBase1 curMems = seq.getMems();
+			IArray curMems = seq.getMems();
 			int len = curMems.size();
 			Sequence curTable = tables[g];
 			for (int i = 1; i <= len; ++i) {
 				Object []objs = (Object[])curMems.get(i);
-				Record r = (Record)curTable.get(i);
+				BaseRecord r = (BaseRecord)curTable.get(i);
 				objs[keyCount] = r;
 
 				//if (r != null) r.setDataStruct(ds);
@@ -905,7 +907,7 @@ public class ClusterMemoryTable implements IClusterObject, Operable, IResource, 
 			return seqs;
 		}
 		
-		ListBase1 mems = result.getMems();
+		IArray mems = result.getMems();
 		int len = mems.size();
 		
 		Sequence []seqs = new Sequence[groupCount];
@@ -1002,14 +1004,14 @@ public class ClusterMemoryTable implements IClusterObject, Operable, IResource, 
 		Object keyValue = null;
 		if (keyCount == 1) {
 			if(recordCount > 0) {
-				Record r = table.getRecord(1);
+				BaseRecord r = table.getRecord(1);
 				keyValue = r.getNormalFieldValue(seqs[0]);
 			}
 		} else if (keyCount > 1) {
 			Object []vals = new Object[keyCount];
 			keyValue = vals;
 			if(recordCount > 0) {
-				Record r = table.getRecord(1);
+				BaseRecord r = table.getRecord(1);
 				for (int i = 0; i < keyCount; ++i) {
 					vals[i] = r.getNormalFieldValue(seqs[i]);
 				}

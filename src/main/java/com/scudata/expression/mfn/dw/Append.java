@@ -6,7 +6,8 @@ import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
 import com.scudata.dm.cursor.ICursor;
-import com.scudata.expression.TableMetaDataFunction;
+import com.scudata.dw.ColPhyTable;
+import com.scudata.expression.PhyTableFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
@@ -15,7 +16,7 @@ import com.scudata.resources.EngineMessage;
  * @author RunQian
  *
  */
-public class Append extends TableMetaDataFunction {
+public class Append extends PhyTableFunction {
 	public Object calculate(Context ctx) {
 		if (param == null) {
 			MessageManager mm = EngineMessage.get();
@@ -23,6 +24,14 @@ public class Append extends TableMetaDataFunction {
 		} else if (!param.isLeaf()) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("append" + mm.getMessage("function.invalidParam"));
+		}
+		
+		if (table instanceof ColPhyTable) {
+			ColPhyTable colTable = (ColPhyTable) table;
+			if (!colTable.getGroupTable().isPureFormat()) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException(mm.getMessage("dw.oldVersion2"));
+			}
 		}
 		
 		Object obj = param.getLeafExpression().calculate(ctx);

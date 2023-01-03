@@ -2,6 +2,7 @@ package com.scudata.dm.cursor;
 
 import com.scudata.dm.ComputeStack;
 import com.scudata.dm.Context;
+import com.scudata.dm.Current;
 import com.scudata.dm.DataStruct;
 import com.scudata.dm.ListBase1;
 import com.scudata.dm.Sequence;
@@ -71,7 +72,7 @@ public class JoinxCursor_u extends ICursor {
 			Sequence src = (Sequence)objs[s];
 			Expression []srcExps = exps[s];
 
-			Sequence.Current current = src.new Current();
+			Current current = new Current(src);
 			stack.push(current);
 
 			try {
@@ -114,7 +115,7 @@ public class JoinxCursor_u extends ICursor {
 	
 	// 并行计算时需要改变上下文
 	// 继承类如果用到了表达式还需要用新上下文重新解析表达式
-	protected void resetContext(Context ctx) {
+	public void resetContext(Context ctx) {
 		if (this.ctx != ctx) {
 			cursor.resetContext(ctx);
 			exps = Operation.dupExpressions(exps, ctx);
@@ -149,7 +150,7 @@ public class JoinxCursor_u extends ICursor {
 				break;
 			}
 			
-			Sequence.Current current = src.new Current();
+			Current current = new Current(src);
 			stack.push(current);
 
 			try {
@@ -250,7 +251,7 @@ public class JoinxCursor_u extends ICursor {
 				break;
 			}
 			
-			Sequence.Current current = src.new Current();
+			Current current = new Current(src);
 			stack.push(current);
 
 			try {

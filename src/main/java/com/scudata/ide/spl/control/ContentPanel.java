@@ -50,7 +50,6 @@ import com.scudata.ide.common.GV;
 import com.scudata.ide.common.control.BorderStyle;
 import com.scudata.ide.common.control.CellBorder;
 import com.scudata.ide.common.control.CellRect;
-import com.scudata.ide.common.control.JWindowNames;
 import com.scudata.ide.common.swing.JComboBoxEx;
 import com.scudata.ide.common.swing.JTextPaneEx;
 import com.scudata.ide.spl.GVSpl;
@@ -98,7 +97,7 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	JScrollPane jsp;
 
 	/** 网格控件 */
-	private SplControl control;
+	protected SplControl control;
 
 	/** 单元格的X坐标数组 */
 	int[][] cellX;
@@ -138,7 +137,7 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	/**
 	 * 是否阻止变化
 	 */
-	private boolean preventChange = false;
+	protected boolean preventChange = false;
 
 	/**
 	 * 边框样式
@@ -220,6 +219,44 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 		setDoubleBuffered(true);
 		initCellLocations();
 		setLayout(null);
+		newEditor();
+
+		spEditor = new JScrollPane(multiEditor);
+		spEditor.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		spEditor.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
+
+		add(spEditor);
+		if (!isEditing) {
+			addMouseListener(new ShowEditorListener(this));
+		} else {
+			enableInputMethods(true);
+			addInputMethodListener(this);
+			addEditorFocusListener(multiEditor);
+			addCellEditingListener(control, multiEditor);
+			EditorRightClicked erc = new EditorRightClicked(control);
+			multiEditor.addMouseListener(erc);
+			MouseAdapter ma = new MouseAdapter() {
+				public void mouseClicked(MouseEvent e) {
+					if (e.getClickCount() == 2) {
+						MouseListener[] ml = getMouseListeners();
+						if (ml != null) {
+							for (int i = 0; i < ml.length; i++) {
+								ml[i].mouseClicked(e);
+							}
+						}
+					}
+				}
+			};
+			multiEditor.addMouseListener(ma);
+		}
+		spEditor.setVisible(false);
+		multiEditor.setVisible(false);
+	}
+
+	/**
+	 * 创建编辑控件
+	 */
+	protected void newEditor() {
 		multiEditor = new JTextPaneEx() {
 			private static final long serialVersionUID = 1L;
 
@@ -249,65 +286,6 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 			}
 
 		};
-		multiEditor.addFocusListener(new FocusAdapter() {
-			public void focusGained(FocusEvent e) {
-				GVSpl.isCellEditing = true;
-
-			}
-
-			public void focusLost(FocusEvent e) {
-				if (GVSpl.matchWindow != null) {
-					try {
-						Component src = e.getOppositeComponent();
-						if (src == null) {
-							GVSpl.matchWindow.dispose();
-							GVSpl.matchWindow = null;
-							return;
-						}
-						while (!(src instanceof JWindowNames)) {
-							src = src.getParent();
-							if (src == null)
-								break;
-						}
-						if (!(src instanceof JWindowNames)) {
-							GVSpl.matchWindow.dispose();
-							GVSpl.matchWindow = null;
-						}
-					} catch (Throwable t) {
-					}
-				}
-			}
-		});
-
-		spEditor = new JScrollPane(multiEditor);
-		spEditor.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-		spEditor.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
-
-		add(spEditor);
-		if (!isEditing) {
-			addMouseListener(new ShowEditorListener(this));
-		} else {
-			enableInputMethods(true);
-			addInputMethodListener(this);
-			addCellEditingListener(control, multiEditor);
-			EditorRightClicked erc = new EditorRightClicked(control);
-			multiEditor.addMouseListener(erc);
-			MouseAdapter ma = new MouseAdapter() {
-				public void mouseClicked(MouseEvent e) {
-					if (e.getClickCount() == 2) {
-						MouseListener[] ml = getMouseListeners();
-						if (ml != null) {
-							for (int i = 0; i < ml.length; i++) {
-								ml[i].mouseClicked(e);
-							}
-						}
-					}
-				}
-			};
-			multiEditor.addMouseListener(ma);
-		}
-		spEditor.setVisible(false);
-		multiEditor.setVisible(false);
 	}
 
 	/**
@@ -327,6 +305,18 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 			JTextComponent jtext) {
 		CellEditingListener listener = new CellEditingListener(control, this);
 		jtext.addKeyListener(listener);
+	}
+
+	/**
+	 * 增加编辑控件焦点事件
+	 * @param jtext
+	 */
+	protected void addEditorFocusListener(JTextComponent jtext) {
+		jtext.addFocusListener(new FocusAdapter() {
+			public void focusGained(FocusEvent e) {
+				GVSpl.isCellEditing = true;
+			}
+		});
 	}
 
 	/**
@@ -754,7 +744,7 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	/**
 	 * 重置编辑框的边界
 	 */
-	private void resetEditorBounds() {
+	protected void resetEditorBounds() {
 		if (editor == null || control == null
 				|| control.getActiveCell() == null) {
 			return;
@@ -1339,9 +1329,7 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 		String text = null;
 		switch (mode) {
 		case MODE_SHOW:
-			if (GVSpl.matchWindow != null) {
-				GVSpl.matchWindow.dispose();
-			}
+			stopMatch();
 			editPos = new CellLocation(row, col);
 			if (!editor.isVisible()) {
 				editor.setVisible(true);
@@ -1365,9 +1353,7 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 		case MODE_PAINT:
 			break;
 		case MODE_HIDE:
-			if (GVSpl.matchWindow != null) {
-				GVSpl.matchWindow.dispose();
-			}
+			stopMatch();
 			if (editor.isVisible()) {
 				editor.setVisible(false);
 				spEditor.setVisible(false);
@@ -1395,6 +1381,9 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 		editor.setFont(parser.getFont(row, col));
 		spEditor.setBounds(spEditor.getBounds());
 		spEditor.setBorder(BorderFactory.createLineBorder(Color.darkGray, 1));
+	}
+
+	protected void stopMatch() {
 	}
 
 	/**
@@ -1516,7 +1505,7 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 	 * @param y1 Y坐标
 	 * @return
 	 */
-	private Point getTipPos(int x1, int y1) {
+	protected Point getTipPos(int x1, int y1) {
 		CellLocation cl = ControlUtils.lookupCellPosition(x1, y1, this);
 		if (cl == null) {
 			return null;
@@ -1571,15 +1560,16 @@ public class ContentPanel extends JPanel implements InputMethodListener,
 					composedText += String.valueOf(c);
 					c = text.next();
 				}
-				if (editor == null || !editor.isVisible()) {
-					initEditor(MODE_SHOW);
-				}
 				if (editor != null && editor instanceof JTextComponent) {
-					((JTextComponent) editor).setText(composedText);
-					editor.requestFocus();
+					if (StringUtils.isValidString(composedText)) {
+						if (editor == null || !editor.isVisible()) {
+							initEditor(MODE_SHOW);
+						}
+						((JTextComponent) editor).setText(composedText);
+						editor.requestFocus();
+					}
 				}
 			}
-			event.consume();
 		} catch (Throwable t) {
 		}
 	}

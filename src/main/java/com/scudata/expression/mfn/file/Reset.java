@@ -8,7 +8,7 @@ import com.scudata.common.RQException;
 import com.scudata.dm.Context;
 import com.scudata.dm.FileGroup;
 import com.scudata.dm.FileObject;
-import com.scudata.dw.GroupTable;
+import com.scudata.dw.ComTable;
 import com.scudata.expression.FileFunction;
 import com.scudata.expression.IParam;
 import com.scudata.resources.EngineMessage;
@@ -26,9 +26,9 @@ public class Reset extends FileFunction {
 			FileObject fo = (FileObject) this.file;
 			File file = fo.getLocalFile().file();
 			
-			GroupTable gt;
+			ComTable gt;
 			try {
-				gt = GroupTable.open(file, ctx);
+				gt = ComTable.open(file, ctx);
 			} catch (IOException e) {
 				throw new RQException(e.getMessage(), e);
 			}
@@ -48,7 +48,7 @@ public class Reset extends FileFunction {
 			File file = fo.getLocalFile().file();
 			
 			try {
-				GroupTable gt = GroupTable.open(file, ctx);
+				ComTable gt = ComTable.open(file, ctx);
 				return gt.reset(f, option, ctx, null);
 			} catch (IOException e) {
 				throw new RQException(e.getMessage(), e);
@@ -90,7 +90,7 @@ public class Reset extends FileFunction {
 			File file = fo.getLocalFile().file();
 
 			try {
-				GroupTable gt = GroupTable.open(file, ctx);
+				ComTable gt = ComTable.open(file, ctx);
 				if (f != null) {
 					return gt.reset(f, option, ctx, distribute);
 				} else {

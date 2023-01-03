@@ -4,6 +4,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import com.scudata.array.IArray;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.ComputeStack;
@@ -11,7 +12,6 @@ import com.scudata.dm.Context;
 import com.scudata.dm.DataStruct;
 import com.scudata.dm.Env;
 import com.scudata.dm.FileObject;
-import com.scudata.dm.ListBase1;
 import com.scudata.dm.LongArray;
 import com.scudata.dm.ObjectReader;
 import com.scudata.dm.ObjectWriter;
@@ -46,7 +46,7 @@ public class TableHashIndex  implements ITableIndex {
 	private String []ifields; // 索引字段名字
 	
 	private String name;
-	private TableMetaData srcTable;
+	private PhyTable srcTable;
 	private FileObject indexFile;
 	private long hashPos;//hash表的地址
 	private int capacity;//哈希size
@@ -105,7 +105,7 @@ public class TableHashIndex  implements ITableIndex {
 	private class CHashCursor extends ICursor {
 		public static final String HASH_FIELDNAME = "rq_file_hash_";
 		public static final String POS_FIELDNAME = "rq_file_pos_";
-		private ColumnTableMetaData table;
+		private ColPhyTable table;
 		private String []fields;
 		private Expression filter;
 		
@@ -123,8 +123,8 @@ public class TableHashIndex  implements ITableIndex {
 		private long curNum = 0;//全局记录号
 		private int capacity;//哈希size
 
-		public CHashCursor(TableMetaData table, String []fields, Context ctx, Expression filter, int capacity) {
-			this.table = (ColumnTableMetaData) table;
+		public CHashCursor(PhyTable table, String []fields, Context ctx, Expression filter, int capacity) {
+			this.table = (ColPhyTable) table;
 			this.fields = fields;
 			this.ctx = ctx;
 			this.filter = filter;
@@ -192,7 +192,7 @@ public class TableHashIndex  implements ITableIndex {
 			BufferReader []bufReaders = new BufferReader[colCount];
 			DataStruct ds = this.ds;
 			
-			ListBase1 mems = cache.getMems();
+			IArray mems = cache.getMems();
 			this.cache = null;
 			
 			ComputeStack stack = null;
@@ -218,7 +218,7 @@ public class TableHashIndex  implements ITableIndex {
 					if (filter != null) {
 						int recordCount = rowCountReader.readInt32();
 						for (int f = 0; f < colCount; ++f) {
-							bufReaders[f] = colReaders[f].readBlockData();
+							bufReaders[f] = colReaders[f].readBlockData(recordCount);
 						}
 						
 						int i;
@@ -282,7 +282,7 @@ public class TableHashIndex  implements ITableIndex {
 					
 					int recordCount = rowCountReader.readInt32();
 					for (int f = 0; f < colCount; ++f) {
-						bufReaders[f] = colReaders[f].readBlockData();
+						bufReaders[f] = colReaders[f].readBlockData(recordCount);
 					}
 					
 					int diff = n - cache.length();
@@ -374,7 +374,7 @@ public class TableHashIndex  implements ITableIndex {
 				//seek to first block
 				for(int i = 0; i < colCount; i++) {
 					pos = segmentReaders[i].readLong40();
-					if (columns[i].isDim()) {
+					if (columns[i].hasMaxMinValues()) {
 						segmentReaders[i].skipObject();
 						segmentReaders[i].skipObject();
 						segmentReaders[i].skipObject();
@@ -392,7 +392,7 @@ public class TableHashIndex  implements ITableIndex {
 					} else {
 						for(int i = 0; i < colCount; i++) {
 							pos = segmentReaders[i].readLong40();
-							if (columns[i].isDim()) {
+							if (columns[i].hasMaxMinValues()) {
 								segmentReaders[i].skipObject();
 								segmentReaders[i].skipObject();
 								segmentReaders[i].skipObject();
@@ -450,7 +450,7 @@ public class TableHashIndex  implements ITableIndex {
 		public static final String POS_FIELDNAME = "rq_file_pos_";
 		public static final String SEQ_FIELDNAME = "rq_file_seq_";
 		private long blockSize;
-		private RowTableMetaData table;
+		private RowPhyTable table;
 		private String []fields;
 		private Expression filter;
 		
@@ -475,8 +475,8 @@ public class TableHashIndex  implements ITableIndex {
 		private int []fieldsIndex;
 		private boolean []needRead;
 		
-		public RHashCursor(TableMetaData table, String []fields, Context ctx, Expression filter, int capacity) {
-			this.table = (RowTableMetaData) table;
+		public RHashCursor(PhyTable table, String []fields, Context ctx, Expression filter, int capacity) {
+			this.table = (RowPhyTable) table;
 			this.fields = fields;
 			this.ctx = ctx;
 			this.filter = filter;
@@ -506,9 +506,9 @@ public class TableHashIndex  implements ITableIndex {
 			}
 			
 			rowReader = table.getRowReader(true);
-			rowDataReader = new ObjectReader(rowReader, table.groupTable.getBlockSize() - GroupTable.POS_SIZE);
+			rowDataReader = new ObjectReader(rowReader, table.groupTable.getBlockSize() - ComTable.POS_SIZE);
 			segmentReader = table.getSegmentObjectReader();
-			blockSize = table.groupTable.getBlockSize() - GroupTable.POS_SIZE;
+			blockSize = table.groupTable.getBlockSize() - ComTable.POS_SIZE;
 			
 			isPrimaryTable = table.parent == null;
 			int len = this.fields.length;
@@ -602,7 +602,7 @@ public class TableHashIndex  implements ITableIndex {
 			int keyCount = table.getAllSortedColNamesLength();
 			DataStruct ds = this.ds;
 			
-			ListBase1 mems = cache.getMems();
+			IArray mems = cache.getMems();
 			this.cache = null;
 			
 			ComputeStack stack = null;
@@ -951,10 +951,10 @@ public class TableHashIndex  implements ITableIndex {
 	 * @param indexName 索引名称
 	 * @param h 哈希密度
 	 */
-	public TableHashIndex(TableMetaData table, String indexName, int h) {
+	public TableHashIndex(PhyTable table, String indexName, int h) {
 		this(table, indexName);
 		this.h = h;
-		if (srcTable instanceof ColumnTableMetaData) {
+		if (srcTable instanceof ColPhyTable) {
 			positionCount = 0;
 		} else {
 			if (srcTable.parent == null) {
@@ -965,13 +965,13 @@ public class TableHashIndex  implements ITableIndex {
 		}
 	}
 
-	public TableHashIndex(TableMetaData table, String indexName) {
+	public TableHashIndex(PhyTable table, String indexName) {
 		table.getGroupTable().checkWritable();
 		this.srcTable = table;
 		this.name = indexName;
 		String dir = table.getGroupTable().getFile().getAbsolutePath() + "_";
 		indexFile = new FileObject(dir + table.getTableName() + "_" + indexName);
-		if (srcTable instanceof ColumnTableMetaData) {
+		if (srcTable instanceof ColPhyTable) {
 			positionCount = 0;
 		} else {
 			if (srcTable.parent == null) {
@@ -982,10 +982,10 @@ public class TableHashIndex  implements ITableIndex {
 		}
 	}
 	
-	public TableHashIndex(TableMetaData table, FileObject indexFile) {
+	public TableHashIndex(PhyTable table, FileObject indexFile) {
 		this.srcTable = table;
 		this.indexFile = indexFile;
-		if (srcTable instanceof ColumnTableMetaData) {
+		if (srcTable instanceof ColPhyTable) {
 			positionCount = 0;
 		} else {
 			if (srcTable.parent == null) {
@@ -1096,10 +1096,10 @@ public class TableHashIndex  implements ITableIndex {
 		while (isPrimaryKey) {
 			if (srcTable.getAllColNames().length != 2) break;
 			if (srcTable.parent != null) break;
-			if (srcTable instanceof ColumnTableMetaData) break;
+			if (srcTable instanceof ColPhyTable) break;
 			long len = srcTable.getTotalRecordCount();
 			if (len > MAX_DIRECT_POS_SIZE) break;
-			ObjectReader segmentReader = ((RowTableMetaData) srcTable).getSegmentObjectReader();
+			ObjectReader segmentReader = ((RowPhyTable) srcTable).getSegmentObjectReader();
 			int blockCount = srcTable.getDataBlockCount();
 			Object max = null, min = null, obj;
 			try {
@@ -1156,7 +1156,7 @@ public class TableHashIndex  implements ITableIndex {
 				}
 
 				ArrayList <ICursor> cursorList;
-				if (srcTable instanceof RowTableMetaData) {
+				if (srcTable instanceof RowPhyTable) {
 					cursorList = sortRow(fields, ctx, filter);
 				} else {
 					cursorList = sortCol(fields, ctx, filter);
@@ -1211,7 +1211,7 @@ public class TableHashIndex  implements ITableIndex {
 			
 			ArrayList <ICursor> cursorList;
 			setCapacity(h);
-			if (srcTable instanceof RowTableMetaData) {
+			if (srcTable instanceof RowPhyTable) {
 				cursorList = sortRow(fields, ctx, filter);
 			} else {
 				cursorList = sortCol(fields, ctx, filter);
@@ -1287,7 +1287,7 @@ public class TableHashIndex  implements ITableIndex {
 			Long hashPos = this.hashPos;
 			Long tempPos;
 			while (table != null) {
-				ListBase1 mems = table.getMems();
+				IArray mems = table.getMems();
 				int len = mems.size();
 				for (int i = 1; i <= len; ++i) {
 					r = (Record)mems.get(i);
@@ -1344,7 +1344,7 @@ public class TableHashIndex  implements ITableIndex {
 			Long tempPos;
 			Long endPos = indexFile.size();
 			while (table != null) {
-				ListBase1 mems = table.getMems();
+				IArray mems = table.getMems();
 				r = (Record)mems.get(1);
 				int hash = (Integer) r.getNormalFieldValue(icount + 1);
 				tempPos = hashPos + hash * POSITION_SIZE;
@@ -1981,7 +1981,7 @@ public class TableHashIndex  implements ITableIndex {
 			ICursor cs = srcTable.cursor();
 			Sequence table = cs.fetch(ICursor.FETCHCOUNT);
 			while (table != null && table.length() != 0) {
-				ListBase1 mems = table.getMems();
+				IArray mems = table.getMems();
 				int size = mems.size();
 				for (int j = 1; j <= size; j++) {
 					Record r = (Record)mems.get(j);
@@ -2031,7 +2031,7 @@ public class TableHashIndex  implements ITableIndex {
 		return positionCount;
 	}
 
-	public void dup(TableMetaData table) {
+	public void dup(PhyTable table) {
 		String dir = table.getGroupTable().getFile().getAbsolutePath() + "_";
 		FileObject indexFile = new FileObject(dir + table.getTableName() + "_" + name);
 		RandomOutputStream os = indexFile.getRandomOutputStream(true);

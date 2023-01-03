@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.Image;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
@@ -23,7 +24,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.border.Border;
 
 import com.scudata.common.MessageManager;
 import com.scudata.common.Sentence;
@@ -46,83 +46,94 @@ public class DialogAbout extends JDialog {
 	/**
 	 * Common资源管理器
 	 */
-	private MessageManager mm = IdeCommonMessage.get();
+	protected MessageManager mm = IdeCommonMessage.get();
 
 	/**
 	 * Logo控件
 	 */
-	private JLabel jLabelLogo;
+	protected JLabel jLabelLogo;
 	/**
 	 * 关闭按钮
 	 */
-	private JButton jBClose = new JButton();
+	protected JButton jBClose = new JButton();
 	/**
 	 * 上部面板
 	 */
-	private JPanel panelTop = new JPanel();
+	protected JPanel panelTop = new JPanel();
 	/**
 	 * 发布时间
 	 */
-	private JLabel jLReleaseDate = new JLabel();
+	protected JLabel jLReleaseDate1 = new JLabel();
+	/**
+	 * 发布时间
+	 */
+	protected JLabel jLReleaseDate2 = new JLabel();
 	/**
 	 * 公司名
 	 */
-	private JLabel jLCompanyName = new JLabel();
+	protected JLabel jLCompanyName = new JLabel();
 	/**
 	 * 网址
 	 */
-	private JLabel jLWebsite = new JLabel();
+	protected JLabel jLWebsite = new JLabel();
 	/**
 	 * 电话
 	 */
-	private JLabel jLTel = new JLabel();
+	protected JLabel jLTel = new JLabel();
 
 	/**
 	 * 网址
 	 */
-	private JLabel jLbHttp = new JLabel();
+	protected JLabel jLbHttp = new JLabel();
 	/**
 	 * 网址2
 	 */
-	private JLabel jLbHttp2 = new JLabel();
+	protected JLabel jLbHttp2 = new JLabel();
 
 	/**
 	 * 电话文本框
 	 */
-	private JTextField jTFTele = new JTextField() {
-		private static final long serialVersionUID = 1L;
-
-		public Border getBorder() {
-			return null;
-		}
-	};
+	protected JLabel jLTel2 = new JLabel();
 	/**
 	 * 公司名称
 	 */
-	private JLabel jLbName = new JLabel();
+	protected JLabel jLbName = new JLabel();
 
 	/**
 	 * 公司名称2
 	 */
-	private JLabel jLbName2 = new JLabel();
+	protected JLabel jLbName2 = new JLabel();
 	/**
 	 * 产品名
 	 */
-	private JLabel jLProductName = new JLabel();
+	protected JLabel jLProductName1 = new JLabel();
+	/**
+	 * 产品名
+	 */
+	protected JLabel jLProductName2 = new JLabel();
 	/**
 	 * JDK按钮
 	 */
-	private JButton jBJDK = new JButton();
+	protected JButton jBJDK = new JButton();
 
 	/**
 	 * 产品名称
 	 */
-	private String productName = null;
+	protected String productName = null;
 
 	/**
 	 * 主面板
 	 */
-	private JFrame parent = null;
+	protected JFrame parent = null;
+
+	/**
+	 * 按钮面板
+	 */
+	protected JPanel jPButton = new JPanel();
+
+	public static final int DIALOG_HEIGHT = 360;
+	public static final int DIALOG_WIDTH = GM.isChineseLanguage() ? 440 : 450;;
+	public static final int ROW_HEIGHT = 25;
 
 	/**
 	 * 构造函数
@@ -136,12 +147,16 @@ public class DialogAbout extends JDialog {
 		super(frame, "", true);
 		this.parent = frame;
 		this.productName = productName;
-		this.setTitle(mm.getMessage("dialogabout.title") + productName);
+	}
+
+	public void init() {
 		try {
+			this.setTitle(mm.getMessage("dialogabout.title") + productName);
 			jbInit();
-			pack();
 			resetLangText();
+			setSize(DIALOG_WIDTH, DIALOG_HEIGHT);
 			GM.setDialogDefaultButton(this, jBClose, jBClose);
+			this.setResizable(false);
 		} catch (Exception ex) {
 			GM.showException(ex);
 		}
@@ -162,6 +177,14 @@ public class DialogAbout extends JDialog {
 	 */
 	protected String getReleaseDate() {
 		return GV.appFrame.getReleaseDate();
+	}
+
+	/**
+	 * 窗口关闭
+	 */
+	protected void closeDialog() {
+		GM.setWindowDimension(this);
+		dispose();
 	}
 
 	/**
@@ -208,11 +231,13 @@ public class DialogAbout extends JDialog {
 	/**
 	 * 加载信息
 	 */
-	private void loadMessage() {
-		jLProductName.setText(mm.getMessage("dialogabout.productname")
-				+ "      " + productName);
-		jLReleaseDate.setText(mm.getMessage("dialogabout.label1",
+	protected void loadMessage() {
+		jLProductName1.setText(mm.getMessage("dialogabout.productname"));
+		jLReleaseDate1.setText(mm.getMessage("dialogabout.label1",
 				getReleaseDate()));
+
+		jLProductName2.setText(productName);
+		jLReleaseDate2.setText(getReleaseDate());
 
 		String tmp = mm.getMessage("dialogabout.providername");// 公司名称
 		String vendorName = mm.getMessage("dialogabout.defvendor");
@@ -222,29 +247,68 @@ public class DialogAbout extends JDialog {
 		setText(tmp, vendorURL, jLWebsite, jLbHttp);
 		tmp = mm.getMessage("dialogabout.providertel");// 公司电话
 		String vendorTel = "010-51295366";
-		setText(tmp, vendorTel, jLTel, jTFTele);
+		setText(tmp, vendorTel, jLTel, jLTel2);
 
 		jLbName2.setText(mm.getMessage("dialogabout.defvendor1"));
 		jLbHttp2.setText(mm.getMessage("dialogabout.defvendorurl1"));
 	}
 
+	protected int getTopLabel1Width() {
+		return GM.isChineseLanguage() ? 80 : 115;
+	}
+
+	protected int getBottomLabel1Width() {
+		return GM.isChineseLanguage() ? 80 : 115;
+	}
+
+	public static final int GAP = 10;
+	public static final int IMAGE_SIZE = 128;
+	protected int x1, y1;
+
 	/**
 	 * 摆放Logo
 	 */
-	private void placeLogo() {
-		panelTop.add(jLabelLogo, new FreeConstraints(10, 0, 128, 128));
-		panelTop.add(jLProductName, new FreeConstraints(163, 15, -1, -1));
-		panelTop.add(jLReleaseDate, new FreeConstraints(163, 45, -1, -1));
+	protected void placeLogo() {
+		final int LABEL1_WIDTH = getTopLabel1Width();
+		panelTop.add(jLabelLogo, new FreeConstraints(GAP, 2, IMAGE_SIZE,
+				IMAGE_SIZE));
+		x1 = IMAGE_SIZE + GAP * 3;
+		y1 = GAP;
+		panelTop.add(jLProductName1, new FreeConstraints(x1, y1, -1, -1));
+		panelTop.add(jLProductName2, new FreeConstraints(x1 + LABEL1_WIDTH, y1,
+				-1, -1));
+		y1 += ROW_HEIGHT;
+		panelTop.add(jLReleaseDate1, new FreeConstraints(x1, y1, -1, -1));
+		panelTop.add(jLReleaseDate2, new FreeConstraints(x1 + LABEL1_WIDTH, y1,
+				-1, -1));
+	}
+
+	protected int placeCenter() {
+		return 148;
 	}
 
 	/**
 	 * 摆放长Logo
 	 */
-	private void placeLongLogo() {
-		panelTop.add(jLabelLogo, new FreeConstraints(10, 2, 380, 50));
-		panelTop.add(jLProductName, new FreeConstraints(10, 60, -1, -1));
-		panelTop.add(jLReleaseDate, new FreeConstraints(10, 90, 209, -1));
+	protected void placeLongLogo() {
+		final int LABEL1_WIDTH = getTopLabel1Width();
+		panelTop.add(jLabelLogo, new FreeConstraints(GAP, 2, DIALOG_WIDTH - GAP
+				* 2, 50));
+		x1 = GAP;
+		y1 = 60;
+		panelTop.add(jLProductName1, new FreeConstraints(x1, y1, -1, -1));
+		panelTop.add(jLProductName2, new FreeConstraints(x1 + LABEL1_WIDTH, y1,
+				-1, -1));
+		y1 += ROW_HEIGHT;
+		panelTop.add(jLReleaseDate1, new FreeConstraints(x1, y1, -1, -1));
+		panelTop.add(jLReleaseDate2, new FreeConstraints(x1 + LABEL1_WIDTH, y1,
+				-1, -1));
 	}
+
+	protected void placeBottom(int x1, int x2, int bottomY) {
+	}
+
+	protected final Font URL_FONT = new Font("Comic Sans MS", 2, 13);
 
 	/**
 	 * 初始化控件
@@ -288,12 +352,12 @@ public class DialogAbout extends JDialog {
 		jLWebsite.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		jLWebsite.setForeground(SystemColor.textHighlight);
 		jLbHttp.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		jLbHttp.setFont(new java.awt.Font("Comic Sans MS", 2, 13));
+		jLbHttp.setFont(URL_FONT);
 		jLbHttp.setForeground(Color.blue);
 		jLbHttp.setBorder(null);
 
 		jLbHttp2.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		jLbHttp2.setFont(new java.awt.Font("Comic Sans MS", 2, 13));
+		jLbHttp2.setFont(URL_FONT);
 		jLbHttp2.setForeground(Color.blue);
 		jLbHttp2.setBorder(null);
 		jLbHttp2.addMouseListener(new MouseAdapter() {
@@ -310,14 +374,9 @@ public class DialogAbout extends JDialog {
 			}
 		});
 
-		jTFTele.setDisabledTextColor(Color.black);
-		jTFTele.setEditable(false);
-		Color telBg = new Color(jLbHttp.getBackground().getRGB());
-		jTFTele.setBackground(telBg);
-
 		jLbHttp.addMouseListener(new DialogAbout_jLbHttp_mouseAdapter(this));
-		jTFTele.setHorizontalAlignment(SwingConstants.LEFT);
-		jTFTele.addMouseListener(new DialogAbout_jTFTele_mouseAdapter(this));
+		jLTel2.setHorizontalAlignment(SwingConstants.LEFT);
+		jLTel2.addMouseListener(new DialogAbout_jTFTele_mouseAdapter(this));
 		this.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 		this.setResizable(false);
 		this.getContentPane().setLayout(new BorderLayout());
@@ -329,13 +388,12 @@ public class DialogAbout extends JDialog {
 		jLCompanyName.setForeground(SystemColor.textHighlight);
 		jLTel.setForeground(SystemColor.textHighlight);
 		getContentPane().add(panelTop, BorderLayout.CENTER);
-		final int DIFF = 26;
 		boolean isCN = GM.isChineseLanguage();
 		panelTop.add(jLabelLogo, new FreeConstraints(0, 0, 145, 123));
-		panelTop.add(jLProductName, new FreeConstraints(163, 15, -1, -1));
-		int bottomY = 148;
+		// panelTop.add(jLProductName, new FreeConstraints(163, 15, -1, -1));
+		int bottomY = placeCenter();
 		final int BOTTOM_X1 = 14;
-		final int BOTTOM_X2 = 95;
+		final int BOTTOM_X2 = BOTTOM_X1 + getBottomLabel1Width();
 		final int BOTTOM_L1 = 69;
 		final int BOTTOM_L2 = 288;
 		panelTop.add(jLCompanyName, new FreeConstraints(BOTTOM_X1, bottomY,
@@ -343,29 +401,29 @@ public class DialogAbout extends JDialog {
 		panelTop.add(jLbName, new FreeConstraints(BOTTOM_X2, bottomY,
 				BOTTOM_L2, -1));
 		if (isCN) {
-			bottomY += DIFF;
+			bottomY += ROW_HEIGHT;
 			panelTop.add(jLbName2, new FreeConstraints(BOTTOM_X2, bottomY,
 					BOTTOM_L2, -1));
 		}
-		bottomY += DIFF;
+		bottomY += ROW_HEIGHT;
 		panelTop.add(jLWebsite, new FreeConstraints(BOTTOM_X1, bottomY,
 				BOTTOM_L1, -1));
 		panelTop.add(jLbHttp, new FreeConstraints(BOTTOM_X2, bottomY,
 				BOTTOM_L2, -1));
 		if (isCN) {
-			bottomY += DIFF;
+			bottomY += ROW_HEIGHT;
 			panelTop.add(jLbHttp2, new FreeConstraints(BOTTOM_X2, bottomY,
 					BOTTOM_L2, -1));
 		}
-		bottomY += DIFF;
+		bottomY += ROW_HEIGHT;
 		panelTop.add(jLTel, new FreeConstraints(BOTTOM_X1, bottomY, -1, -1));
-		panelTop.add(jTFTele, new FreeConstraints(BOTTOM_X2, bottomY,
-				BOTTOM_L2, -1));
-		JPanel jPanel2 = new JPanel();
-		jPanel2.setLayout(new FlowLayout(FlowLayout.RIGHT));
-		jPanel2.add(jBJDK);
-		jPanel2.add(jBClose);
-		this.getContentPane().add(jPanel2, BorderLayout.SOUTH);
+		panelTop.add(jLTel2, new FreeConstraints(BOTTOM_X2, bottomY, BOTTOM_L2,
+				-1));
+		placeBottom(BOTTOM_X1, BOTTOM_X2, bottomY + ROW_HEIGHT);
+		jPButton.setLayout(new FlowLayout(FlowLayout.RIGHT));
+		jPButton.add(jBJDK);
+		jPButton.add(jBClose);
+		this.getContentPane().add(jPButton, BorderLayout.SOUTH);
 
 		if (isLongLogo) {
 			placeLongLogo();
@@ -394,8 +452,7 @@ public class DialogAbout extends JDialog {
 	 * @param e
 	 */
 	void jBClose_actionPerformed(ActionEvent e) {
-		GM.setWindowDimension(this);
-		dispose();
+		closeDialog();
 	}
 
 	/**
@@ -425,9 +482,7 @@ public class DialogAbout extends JDialog {
 		if (b != MouseEvent.BUTTON3) {
 			return;
 		}
-		String sele = jTFTele.getSelectedText();
-		GM.clipBoard(sele);
-		jTFTele.setSelectionEnd(0);
+		GM.clipBoard(jLTel2.getText());
 	}
 
 	/**
@@ -450,8 +505,7 @@ public class DialogAbout extends JDialog {
 	 * @param e
 	 */
 	void this_windowClosing(WindowEvent e) {
-		GM.setWindowDimension(this);
-		dispose();
+		closeDialog();
 	}
 
 }

@@ -395,7 +395,7 @@ public class DialogOptions extends JDialog {
 	/**
 	 * 环境面板
 	 */
-	private PanelEnv panelEnv;
+	protected PanelEnv panelEnv;
 
 	/**
 	 * 构造函数
@@ -1127,6 +1127,10 @@ public class DialogOptions extends JDialog {
 				}
 			}
 
+			protected boolean isExtLibsEnabled() {
+				return isExtEnabled();
+			}
+
 			public void selectEnvTab() {
 				if (!isUnit)
 					tabMain.setSelectedIndex(TAB_ENV);
@@ -1154,6 +1158,10 @@ public class DialogOptions extends JDialog {
 		this.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 		this.setModal(true);
 
+	}
+
+	protected boolean isExtEnabled() {
+		return true;
 	}
 
 	/**

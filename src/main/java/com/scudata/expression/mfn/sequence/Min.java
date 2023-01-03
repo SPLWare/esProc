@@ -17,10 +17,10 @@ import com.scudata.resources.EngineMessage;
 public class Min extends SequenceFunction {
 	public Object calculate(Context ctx) {
 		if (param == null) {
-			return srcSequence.min();
+			return srcSequence.min(option);
 		} else if (param.isLeaf()) {
 			Expression exp = param.getLeafExpression();
-			return srcSequence.calc(exp, ctx).min();
+			return srcSequence.calc(exp, ctx).min(option);
 		} else {
 			if (param.getSubSize() != 2) {
 				MessageManager mm = EngineMessage.get();

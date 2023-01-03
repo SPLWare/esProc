@@ -3,6 +3,8 @@ package com.scudata.expression.fn.math;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
+import com.scudata.array.ConstArray;
+import com.scudata.array.IArray;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
@@ -18,6 +20,16 @@ import com.scudata.util.Variant;
  *
  */
 public class And extends Function {
+	/**
+	 * 检查表达式的有效性，无效则抛出异常
+	 */
+	public void checkValidity() {
+		if (param == null) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("and" + mm.getMessage("function.missingParam"));
+		}
+	}
+
 	// 计算序列成员按位与
 	private static Object and(Sequence seq) {
 		int size = seq.length();
@@ -93,11 +105,58 @@ public class And extends Function {
 		}
 	}
 	
-	public Object calculate(Context ctx) {
-		if (param == null) {
+	public static Object and(Object v1, Object v2) {
+		long longValue = 0;
+		BigInteger bi = null; // 如果含有BigInteger则返回BigInteger
+		
+		// 如果有成员类型是BigDecimal或BigInteger则使用BigInteger运算
+		if (v1 instanceof BigDecimal) {
+			bi = ((BigDecimal)v1).toBigInteger();
+		} else if (v1 instanceof BigInteger) {
+			bi = (BigInteger)v1;
+		} else if (v1 instanceof Number) {
+			longValue = ((Number)v1).longValue();
+		} else if (v1 == null) {
+			return null;
+		} else {
 			MessageManager mm = EngineMessage.get();
-			throw new RQException("and" + mm.getMessage("function.missingParam"));
-		} else if (param.isLeaf()) {
+			throw new RQException("and" + mm.getMessage("function.paramTypeError"));
+		}
+		
+		if (bi != null) {
+			if (v2 instanceof Number) {
+				BigInteger tmp = Variant.toBigInteger((Number)v2);
+				bi = bi.and(tmp);
+			} else if (v2 == null) {
+				return null;
+			} else {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException("and" + mm.getMessage("function.paramTypeError"));
+			}
+		} else if (v2 instanceof BigDecimal) {
+			bi = ((BigDecimal)v2).toBigInteger();
+			bi = bi.and(BigInteger.valueOf(longValue));
+		} else if (v2 instanceof BigInteger) {
+			bi = (BigInteger)v2;
+			bi = bi.and(BigInteger.valueOf(longValue));
+		} else if (v2 instanceof Number) {
+			longValue &= ((Number)v2).longValue();
+		} else if (v2 == null) {
+			return null;
+		} else {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("and" + mm.getMessage("function.paramTypeError"));
+		}
+		
+		if (bi == null) {
+			return longValue;
+		} else {
+			return bi;
+		}
+	}
+	
+	public Object calculate(Context ctx) {
+		if (param.isLeaf()) {
 			Object obj = param.getLeafExpression().calculate(ctx);
 			if (obj instanceof Sequence) {
 				return and((Sequence)obj);
@@ -182,6 +241,87 @@ public class And extends Function {
 			} else {
 				return new BigDecimal(bi);
 			}
+		}
+	}
+
+	/**
+	 * 计算出所有行的结果
+	 * @param ctx 计算上行文
+	 * @return IArray
+	 */
+	public IArray calculateAll(Context ctx) {
+		if (param.getSubSize() == 2) {
+			IParam sub0 = param.getSub(0);
+			IParam sub1 = param.getSub(1);
+			if (sub0 == null || sub0 == null) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException("and" + mm.getMessage("function.invalidParam"));
+			}
+			
+			IArray array0 = sub0.getLeafExpression().calculateAll(ctx);
+			IArray array1 = sub1.getLeafExpression().calculateAll(ctx);
+			return array0.bitwiseAnd(array1);
+		} else {
+			return super.calculateAll(ctx);
+		}
+	}
+	
+	/**
+	 * 计算signArray中取值为sign的行
+	 * @param ctx
+	 * @param signArray 行标识数组
+	 * @param sign 标识
+	 * @return IArray
+	 */
+	public IArray calculateAll(Context ctx, IArray signArray, boolean sign) {
+		return calculateAll(ctx);
+	}
+	
+	/**
+	 * 计算表达式的取值范围
+	 * @param ctx 计算上行文
+	 * @return
+	 */
+	public IArray calculateRange(Context ctx) {
+		if (param.getSubSize() == 2) {
+			IParam sub0 = param.getSub(0);
+			IParam sub1 = param.getSub(1);
+			if (sub0 == null || sub0 == null) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException("and" + mm.getMessage("function.invalidParam"));
+			}
+			
+			// 最大值和最小值相等时则返回范围值，否则返回空
+			Object value0;
+			IArray array0 = sub0.getLeafExpression().calculateRange(ctx);
+			if (array0 == null) {
+				return null;
+			} else if (array0 instanceof ConstArray) {
+				value0 = array0.get(1);
+			} else {
+				value0 = array0.get(1);
+				if (!Variant.isEquals(array0.get(2), value0)) {
+					return null;
+				}
+			}
+			
+			Object value1;
+			IArray array1 = sub1.getLeafExpression().calculateRange(ctx);
+			if (array1 == null) {
+				return null;
+			} else if (array1 instanceof ConstArray) {
+				value1 = array1.get(1);
+			} else {
+				value1 = array1.get(1);
+				if (!Variant.isEquals(array1.get(2), value1)) {
+					return null;
+				}
+			}
+			
+			Object value = and(value0, value1);
+			return new ConstArray(value, 2);
+		} else {
+			return null;
 		}
 	}
 }

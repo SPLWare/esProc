@@ -5,7 +5,6 @@ import com.scudata.common.RQException;
 import com.scudata.dm.Context;
 import com.scudata.expression.Function;
 import com.scudata.resources.EngineMessage;
-import com.scudata.util.Variant;
 
 /**
  * 返回某一数字的反双曲正切值atanh(z)=(1/2)*ln((1+z)/(1-z))
@@ -13,23 +12,29 @@ import com.scudata.util.Variant;
  *
  */
 public class Arctanh extends Function {
-
-	public Object calculate(Context ctx) {
-		if (param == null || !param.isLeaf()) {
+	/**
+	 * 检查表达式的有效性，无效则抛出异常
+	 */
+	public void checkValidity() {
+		if (param == null) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("atanh" + mm.getMessage("function.missingParam"));
+		} else if (!param.isLeaf()) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("atanh" + mm.getMessage("function.invalidParam"));
 		}
-		Object result1 = param.getLeafExpression().calculate(ctx);
-		if (result1 == null) {
-			return result1;
-		}
-		if (! (result1 instanceof Number)) {
+	}
+
+	public Object calculate(Context ctx) {
+		Object obj = param.getLeafExpression().calculate(ctx);
+		if (obj instanceof Number) {
+			double z = ((Number)obj).doubleValue();
+			return new Double((1.0/2.0)*Math.log((1+z)/(1-z)));
+		} else if (obj == null) {
+			return null;
+		} else {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("atanh" + mm.getMessage("function.paramTypeError"));
 		}
-		double z=Variant.doubleValue(result1);
-		
-		return new Double((1.0/2.0)*Math.log((1+z)/(1-z)));
 	}
-
 }

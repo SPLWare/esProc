@@ -129,15 +129,15 @@ public class UnitCommand implements Serializable {
 			case GET_GT_DISTRIBUTE:
 				return ClusterFile.executeGetDistribute(attributes);
 			case CLOSE_GT:
-				return ClusterTableMetaData.executeCloseGroupTable(attributes);
+				return ClusterPhyTable.executeCloseGroupTable(attributes);
 			case GET_TABLEMETADATA:
-				return ClusterTableMetaData.executeGetTableMetaData(attributes);
+				return ClusterPhyTable.executeGetTableMetaData(attributes);
 			case CREATE_GT_CURSOR:
-				return ClusterTableMetaData.executeCreateCursor(attributes);
+				return ClusterPhyTable.executeCreateCursor(attributes);
 			case CREATE_SYNC_GT_CURSOR:
-				return ClusterTableMetaData.executeCreateSyncCursor(attributes);
+				return ClusterPhyTable.executeCreateSyncCursor(attributes);
 			case CREATE_GT_ICURSOR:
-				return ClusterTableMetaData.executeICursor(attributes);
+				return ClusterPhyTable.executeICursor(attributes);
 			case CREATE_MT_CURSOR:
 				return ClusterMemoryTable.executeCreateCursor(attributes);
 			case GROUPS:
@@ -157,7 +157,7 @@ public class UnitCommand implements Serializable {
 			case CREATE_MT_INDEX:
 				return ClusterMemoryTable.executeCreateIndex(attributes);
 			case MEMORY_GT:
-				return ClusterTableMetaData.executeMemory(attributes);
+				return ClusterPhyTable.executeMemory(attributes);
 			case MEMORY_CLUSTERCURSOR:
 				return ClusterCursor.executeMemory(attributes);
 			case MEMORY_TABLE:
@@ -191,31 +191,31 @@ public class UnitCommand implements Serializable {
 			case CHANNEL_RESULT:
 				return ClusterChannel.executeResult(attributes);
 			case GT_APPEND_BY_CSID:
-				return ClusterTableMetaData.executeAppendByCSID(attributes);
+				return ClusterPhyTable.executeAppendByCSID(attributes);
 			case GT_FIRST_KEY_VALUE:
-				return ClusterTableMetaData.executeGetFirstKeyValue(attributes);
+				return ClusterPhyTable.executeGetFirstKeyValue(attributes);
 			case GT_APPEND_BY_DATA:
-				return ClusterTableMetaData.executeAppendByData(attributes);
+				return ClusterPhyTable.executeAppendByData(attributes);
 			case GT_UPDATE:
-				return ClusterTableMetaData.executeUpdate(attributes);
+				return ClusterPhyTable.executeUpdate(attributes);
 			case GT_DELETE:
-				return ClusterTableMetaData.executeDelete(attributes);
+				return ClusterPhyTable.executeDelete(attributes);
 			case GT_RESET:
 				return PartitionFile.executeResetGroupTable(attributes);
 			case GT_INDEX:
-				return ClusterTableMetaData.executeCreateIndex(attributes);
+				return ClusterPhyTable.executeCreateIndex(attributes);
 			case GT_DELETE_INDEX:
-				return ClusterTableMetaData.executeDeleteIndex(attributes);
+				return ClusterPhyTable.executeDeleteIndex(attributes);
 			case GT_GET_PKEY:
-				return ClusterTableMetaData.executeGetPkey(attributes);
+				return ClusterPhyTable.executeGetPkey(attributes);
 			case GT_CGROUPS:
-				return ClusterTableMetaData.executeCgroups(attributes);
+				return ClusterPhyTable.executeCgroups(attributes);
 			case GT_NEWS:
-				return ClusterTableMetaData.executeNews(attributes);
+				return ClusterPhyTable.executeNews(attributes);
 			case GT_GET_COL_NAMES:
-				return ClusterTableMetaData.executeGetAllColNames(attributes);
+				return ClusterPhyTable.executeGetAllColNames(attributes);
 			case GT_GET_STRUCT:
-				return ClusterTableMetaData.executeGetStructure(attributes);
+				return ClusterPhyTable.executeGetStructure(attributes);
 			case PSEUDO_CURSOR:
 				return ClusterPseudo.executeCreateCursor(attributes);
 			case PSEUDO_ADD_OPERATION:

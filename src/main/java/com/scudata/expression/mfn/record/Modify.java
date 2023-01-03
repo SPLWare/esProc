@@ -2,8 +2,8 @@ package com.scudata.expression.mfn.record;
 
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Context;
-import com.scudata.dm.Record;
 import com.scudata.expression.ParamInfo2;
 import com.scudata.expression.RecordFunction;
 import com.scudata.resources.EngineMessage;
@@ -21,7 +21,7 @@ public class Modify extends RecordFunction {
 			throw new RQException("modify" + mm.getMessage("function.missingParam"));
 		}
 		
-		Record r = this.srcRecord;
+		BaseRecord r = this.srcRecord;
 		if (option != null && option.indexOf('r') != -1) {
 			if (!param.isLeaf()) {
 				MessageManager mm = EngineMessage.get();
@@ -29,12 +29,12 @@ public class Modify extends RecordFunction {
 			}
 			
 			Object obj = param.getLeafExpression().calculate(ctx);
-			if (!(obj instanceof Record)) {
+			if (!(obj instanceof BaseRecord)) {
 				MessageManager mm = EngineMessage.get();
 				throw new RQException("modify" + mm.getMessage("function.paramTypeError"));
 			}
 			
-			r.paste((Record)obj, false);
+			r.paste((BaseRecord)obj, false);
 		} else if (option != null && option.indexOf('f') != -1) {
 			if (!param.isLeaf()) {
 				MessageManager mm = EngineMessage.get();
@@ -42,12 +42,12 @@ public class Modify extends RecordFunction {
 			}
 			
 			Object obj = param.getLeafExpression().calculate(ctx);
-			if (!(obj instanceof Record)) {
+			if (!(obj instanceof BaseRecord)) {
 				MessageManager mm = EngineMessage.get();
 				throw new RQException("modify" + mm.getMessage("function.paramTypeError"));
 			}
 			
-			r.paste((Record)obj, true);
+			r.paste((BaseRecord)obj, true);
 		} else {
 			ParamInfo2 pi = ParamInfo2.parse(param, "modify", true, false);
 			Object []vals = pi.getValues1(ctx);

@@ -6,9 +6,9 @@ import java.util.Map;
 
 import com.scudata.common.CellLocation;
 import com.scudata.common.RQException;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Context;
 import com.scudata.dm.FileObject;
-import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
 import com.scudata.dm.cursor.ICursor;
@@ -135,7 +135,7 @@ public abstract class XlsFileObject extends Table {
 	public synchronized void resetSheetInfo(SheetInfo si) {
 		if (si != null)
 			for (int i = 1, len = length(); i <= len; i++) {
-				Record r = getRecord(i);
+				BaseRecord r = getRecord(i);
 				if (si.getSheetName().equals(r.getFieldValue(COL_NAME))) {
 					r.set(COL_ROW_COUNT, si.getRowCount());
 					r.set(COL_COL_COUNT, si.getColCount());
@@ -332,7 +332,7 @@ public abstract class XlsFileObject extends Table {
 		String oldSheetName = sx.sheetInfo.getSheetName();
 		sx.rename(newSheetName);
 		for (int i = 1, len = length(); i <= len; i++) {
-			Record r = getRecord(i);
+			BaseRecord r = getRecord(i);
 			if (oldSheetName.equals(r.getFieldValue(COL_NAME))) {
 				r.set(COL_NAME, newSheetName);
 				break;

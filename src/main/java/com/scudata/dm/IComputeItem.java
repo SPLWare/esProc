@@ -37,4 +37,11 @@ public interface IComputeItem {
 	 * @return true：在堆栈中，false：不在堆栈中
 	 */
 	boolean isInStack(ComputeStack stack);
+	
+	/**
+	 * 取当前记录的字段值
+	 * @param field
+	 * @return
+	 */
+	Object getFieldValue(int field);
 }

@@ -4,20 +4,22 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import com.scudata.array.IArray;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
 import com.scudata.dm.DataStruct;
-import com.scudata.dm.ListBase1;
 import com.scudata.dm.ObjectReader;
 import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
 import com.scudata.dm.cursor.ICursor;
 import com.scudata.dm.op.New;
+import com.scudata.dm.op.Operation;
 import com.scudata.dm.op.Select;
 import com.scudata.dm.op.Switch;
 import com.scudata.expression.CurrentElement;
+import com.scudata.expression.CurrentSeq;
 import com.scudata.expression.ElementRef;
 import com.scudata.expression.Expression;
 import com.scudata.expression.FieldRef;
@@ -50,7 +52,7 @@ import com.scudata.util.Variant;
  *
  */
 public class Cursor extends IDWCursor {
-	private ColumnTableMetaData table;//原表
+	private ColPhyTable table;//原表
 	private String []fields;//取出字段
 	protected DataStruct ds;//数据结构
 	private String []sortedFields;//有序字段
@@ -83,12 +85,13 @@ public class Cursor extends IDWCursor {
 	
 	// 同步分段时需要补上下一段第一块里属于本段的部分
 	private Sequence appendData;
-	private int appendIndex = 1;
+	private int appendIndex = 0;
 	
 	private boolean isClosed = false;
 	private boolean isFirstSkip = true;
 	private boolean isSegment = false;
 	private Expression []exps;//表达式字段
+	private Expression []expsBakup;
 	private String []names;//取出名
 	private TableGather []gathers;//从其它附表取
 	private boolean isField[];//true,是字段；false，是表达式
@@ -97,15 +100,15 @@ public class Cursor extends IDWCursor {
 	public Cursor() {
 	}
 	
-	public Cursor(ColumnTableMetaData table) {
+	public Cursor(ColPhyTable table) {
 		this(table, null);
 	}
 	
-	public Cursor(ColumnTableMetaData table, String []fields) {
+	public Cursor(ColPhyTable table, String []fields) {
 		this(table, fields, null, null);
 	}
 	
-	public Cursor(ColumnTableMetaData table, String []fields, Expression filter, Context ctx) {
+	public Cursor(ColPhyTable table, String []fields, Expression filter, Context ctx) {
 		this.table = table;
 		this.fields = fields;
 		this.filter = filter;
@@ -114,7 +117,7 @@ public class Cursor extends IDWCursor {
 		init();
 	}
 	
-	public Cursor(ColumnTableMetaData table, String []fields, Expression filter, String []fkNames, 
+	public Cursor(ColPhyTable table, String []fields, Expression filter, String []fkNames, 
 			Sequence []codes, String []opts, Context ctx) {
 		this.table = table;
 		this.fields = fields;
@@ -127,7 +130,7 @@ public class Cursor extends IDWCursor {
 		init();
 	}
 	
-	public Cursor(ColumnTableMetaData table, Expression []exps, String []names, Expression filter, Context ctx) {
+	public Cursor(ColPhyTable table, Expression []exps, String []names, Expression filter, Context ctx) {
 		this.table = table;
 		this.filter = filter;
 		this.names = names;
@@ -142,7 +145,7 @@ public class Cursor extends IDWCursor {
 		init();
 	}
 	
-	public Cursor(ColumnTableMetaData table, Expression []exps, String []names, Expression filter, 
+	public Cursor(ColPhyTable table, Expression []exps, String []names, Expression filter, 
 			String []fkNames, Sequence []codes, String []opts, Context ctx) {
 		this.table = table;
 		this.filter = filter;
@@ -161,7 +164,7 @@ public class Cursor extends IDWCursor {
 		init();
 	}
 	
-	public TableMetaData getTableMetaData() {
+	public PhyTable getTableMetaData() {
 		return table;
 	}
 
@@ -198,7 +201,7 @@ public class Cursor extends IDWCursor {
 					for (int f = 0; f < colCount; ++f) {
 						if (segmentReaders[f] != null) {
 							segmentReaders[f].readLong40();
-							if (columns[f].isDim()) {
+							if (columns[f].hasMaxMinValues()) {
 								segmentReaders[f].skipObject();
 								segmentReaders[f].skipObject();
 								segmentReaders[f].skipObject();
@@ -220,7 +223,7 @@ public class Cursor extends IDWCursor {
 					for (int f = 0; f < colCount; ++f) {
 						if (segmentReaders[f] != null) {
 							segmentReaders[f].readLong40();
-							if (columns[f].isDim()) {
+							if (columns[f].hasMaxMinValues()) {
 								segmentReaders[f].skipObject();
 								segmentReaders[f].skipObject();
 								segmentReaders[f].skipObject();
@@ -262,7 +265,10 @@ public class Cursor extends IDWCursor {
 	 *  同步分段时需要补上下一段第一块里属于本段的部分
 	 */
 	public void setAppendData(Sequence seq) {
-		this.appendData = seq;
+		this.appendData = (Sequence) seq;
+		if (seq != null && seq.length() > 0) {
+			appendIndex = 1;
+		}
 	}
 	
 	public Sequence getAppendData() {
@@ -275,7 +281,7 @@ public class Cursor extends IDWCursor {
 	 * @param node
 	 * @return
 	 */
-	private static ColumnMetaData getColumn(ColumnTableMetaData table, Node node) {
+	private static ColumnMetaData getColumn(ColPhyTable table, Node node) {
 		if (node instanceof UnknownSymbol) {
 			/**
 			 * 直接就是字段
@@ -454,7 +460,7 @@ public class Cursor extends IDWCursor {
 		}
 	}
 
-	private void parseSwitch(ColumnTableMetaData table, Context ctx) {
+	private void parseSwitch(ColPhyTable table, Context ctx) {
 		if (hasModify()) {
 			int fkCount = fkNames.length;
 			for (int i = 0; i < fkCount; i ++) {
@@ -496,11 +502,11 @@ public class Cursor extends IDWCursor {
 				int pri = table.getColumnFilterPriority(column);
 				FindFilter find;
 				if (opts[f] != null && opts[f].indexOf("#") != -1) {
-					find = new MemberFilter(column, pri, codes[f]);
+					find = new MemberFilter(column, pri, codes[f], null);
 				} else if (opts[f] != null && opts[f].indexOf("null") != -1) {
-					find = new NotFindFilter(column, pri, codes[f]);
+					find = new NotFindFilter(column, pri, codes[f], null);
 				} else {
-					find = new FindFilter(column, pri, codes[f]);
+					find = new FindFilter(column, pri, codes[f], null);
 				}
 				for (int i = 0; i < fltCount; ++i) {
 					IFilter filter = filterList.get(i);
@@ -626,7 +632,7 @@ public class Cursor extends IDWCursor {
 		}
 	}
 	
-	private static Object parseTop(ColumnTableMetaData table, Top top, Context ctx) {
+	private static Object parseTop(ColPhyTable table, Top top, Context ctx) {
 		top.prepare(ctx);
 		String col = top.getExp().getIdentifierName();
 		ColumnMetaData column = table.getColumn(col);
@@ -638,7 +644,7 @@ public class Cursor extends IDWCursor {
 		return new TopFilter(column, pri, top);
 	}
 	
-	private static Object parseBetween(ColumnTableMetaData table, Between bt, Context ctx) {
+	private static Object parseBetween(ColPhyTable table, Between bt, Context ctx) {
 		IParam sub0 = bt.getParam().getSub(0);
 		IParam sub1 = bt.getParam().getSub(1);
 		if (sub0 == null || sub1 == null) {
@@ -674,7 +680,7 @@ public class Cursor extends IDWCursor {
 		return bt;
 	}
 	
-	private static Object parseSeriesMember(ColumnTableMetaData table, ElementRef sm, Context ctx) {
+	private static Object parseSeriesMember(ColPhyTable table, ElementRef sm, Context ctx) {
 		ColumnMetaData column = table.getColumn(sm.getParamString());
 		if (column == null) {
 			return sm;
@@ -684,7 +690,7 @@ public class Cursor extends IDWCursor {
 			Object val = sm.getLeft().calculate(ctx);
 			if (val instanceof Sequence) {
 				int pri = table.getColumnFilterPriority(column);
-				return new MemberFilter(column, pri, (Sequence)val);
+				return new MemberFilter(column, pri, (Sequence)val, null);
 			} else {
 				return sm;
 			}
@@ -696,22 +702,22 @@ public class Cursor extends IDWCursor {
 	private static IFilter createFindFilter(ColumnMetaData column, int pri, Sequence data, boolean isNot) {
 		if (data.length() > ContainFilter.BINARYSEARCH_COUNT) {
 			if (isNot) {
-				return new NotFindFilter(column, pri, data);
+				return new NotFindFilter(column, pri, data, null);
 			} else {
-				return new FindFilter(column, pri, data);
+				return new FindFilter(column, pri, data, null);
 			}
 		} else {
 			// 元素数量较少时采用遍历发查找，因为字符串哈希较慢
 			data = data.getPKeyValues();
 			if (isNot) {
-				return new NotContainFilter(column, pri, data, null);
+				return new NotContainFilter(column, pri, data, null, null);
 			} else {
-				return new ContainFilter(column, pri, data, null);
+				return new ContainFilter(column, pri, data, null, null);
 			}
 		}
 	}
 	
-	private static Object parseContain(ColumnTableMetaData table, Node node, Context ctx, Context filterCtx) {
+	private static Object parseContain(ColPhyTable table, Node node, Context ctx, Context filterCtx) {
 		if (node instanceof DotOperator) {
 			if (node.getRight() instanceof Contain) {
 				Contain contain = (Contain)node.getRight();
@@ -778,7 +784,7 @@ public class Cursor extends IDWCursor {
 					Object val = dotNode.getLeft().calculate(ctx);
 					if (val instanceof Sequence) {
 						int pri = table.getColumnFilterPriority(column);
-						return new NotContainFilter(column, pri, (Sequence)val, contain.getOption());
+						return new NotContainFilter(column, pri, (Sequence)val, contain.getOption(), node);
 					} else {
 						return node;
 					}
@@ -816,7 +822,7 @@ public class Cursor extends IDWCursor {
 	
 	
 	// 如果node是单字段表达式则转成NodeFilter
-	private static Object parseFieldExp(ColumnTableMetaData table, Node node, Context ctx, Context filterCtx) {
+	private static Object parseFieldExp(ColPhyTable table, Node node, Context ctx, Context filterCtx) {
 		ArrayList<String> fieldList = new ArrayList<String>();
 		node.getUsedFields(ctx, fieldList);
 		ColumnMetaData column = null;
@@ -837,7 +843,7 @@ public class Cursor extends IDWCursor {
 		}
 	}
 	
-	public static Object parseFilter(ColumnTableMetaData table, Expression filter, Context ctx) {
+	public static Object parseFilter(ColPhyTable table, Expression filter, Context ctx) {
 		// 为IFilter新建上下文，有的IFilter需要为上下文增加变量用来引用字段值
 		// 多线程时也需要用自己的上下文
 		Context filterCtx = new Context(ctx);
@@ -850,7 +856,7 @@ public class Cursor extends IDWCursor {
 		return parseFilter(table, node, ctx, filterCtx);
 	}
 	
-	private static Object parseFilter(ColumnTableMetaData table, Node node, Context ctx, Context filterCtx) {
+	private static Object parseFilter(ColPhyTable table, Node node, Context ctx, Context filterCtx) {
 		if (node instanceof And) {
 			Object left = parseFilter(table, node.getLeft(), ctx, filterCtx);
 			Object right = parseFilter(table, node.getRight(), ctx, filterCtx);
@@ -1017,6 +1023,25 @@ public class Cursor extends IDWCursor {
 		}
 
 		modifyRecords = table.getModifyRecords();
+		if (filter != null && modifyRecords != null) {
+			ArrayList<ModifyRecord> list = new ArrayList<ModifyRecord>();
+			for (ModifyRecord mr : modifyRecords) {
+				if (mr.isDelete()) {
+					list.add(mr);
+					continue;
+				}
+				Record sr = mr.getRecord();
+				if (Variant.isTrue(sr.calc(filter, ctx))) {
+					list.add(mr);
+				}
+			}
+			if (list.size() == 0) {
+				modifyRecords = null;
+			} else {
+				modifyRecords = list;
+			}
+		}
+		
 		if (modifyRecords != null) {
 			mcount = modifyRecords.size();
 			DataStruct srcDs = table.getDataStruct();
@@ -1050,6 +1075,15 @@ public class Cursor extends IDWCursor {
 								gathers[i] = new TableGather(table, exps[i], ctx);
 								exps[i] = null;
 							}
+						}
+					} else if (exps[i].getHome() instanceof CurrentSeq) {
+						gathers[i] = new TableSeqGather();
+						exps[i] = null;
+						if (names == null) {
+							names = new String[size];
+							names[i] = "#";
+						} else if (names[i] == null) {
+							names[i] = "#";
 						}
 					}
 				}
@@ -1099,7 +1133,6 @@ public class Cursor extends IDWCursor {
 			}
 			
 			boolean signKey = true;
-			boolean signSorted = true;
 			for (String key : keys) {
 				int idx = temp.getFieldIndex(key);
 				if (idx == -1) {
@@ -1112,7 +1145,6 @@ public class Cursor extends IDWCursor {
 			for (String col : sortedCols) {
 				int idx = temp.getFieldIndex(col);
 				if (idx == -1) {
-					signSorted = false;
 					break;
 				} else {
 					sortedFieldList.add(ds.getFieldName(idx));
@@ -1126,10 +1158,10 @@ public class Cursor extends IDWCursor {
 				pkeyList.toArray(pkeys);
 				ds.setPrimary(pkeys);
 			}
-			
-			if (signSorted) {
+
+			int size = sortedFieldList.size();
+			if (size > 0) {
 				//有序字段
-				int size = sortedFieldList.size();
 				sortedFields = new String[size];
 				sortedFieldList.toArray(sortedFields);
 			}
@@ -1198,20 +1230,16 @@ public class Cursor extends IDWCursor {
 			return result;
 		}
 		
-		if (appendData == null) {
+		if (appendIndex < 1) {
 			return seq;
 		} else {
 			if (seq == null) {
-				if (appendIndex < 1) {
-					return seq;
-				}
-				
 				DataStruct ds = this.ds;
 				Sequence appendData = this.appendData;
 				int len = appendData.length();
-				if (n > len - appendIndex + 1) {
+				if (n >= len - appendIndex + 1) {
 					Table table = new Table(ds, len - appendIndex + 1);
-					ListBase1 mems = table.getMems();
+					IArray mems = table.getMems();
 					for (int i = appendIndex; i <= len; ++i) {
 						Record r = (Record)appendData.getMem(i);
 						r.setDataStruct(ds);
@@ -1222,7 +1250,7 @@ public class Cursor extends IDWCursor {
 					return table;
 				} else {
 					Table table = new Table(ds, n);
-					ListBase1 mems = table.getMems();
+					IArray mems = table.getMems();
 					int appendIndex = this.appendIndex;
 					for (int i = 0; i < n; ++i, ++appendIndex) {
 						Record r = (Record)appendData.getMem(appendIndex);
@@ -1241,8 +1269,8 @@ public class Cursor extends IDWCursor {
 				Sequence appendData = this.appendData;
 				int len = appendData.length();
 				int rest = len - appendIndex + 1;
-				if (diff > rest) {
-					ListBase1 mems = seq.getMems();
+				if (diff >= rest) {
+					IArray mems = seq.getMems();
 					for (int i = appendIndex; i <= len; ++i) {
 						Record r = (Record)appendData.getMem(i);
 						r.setDataStruct(ds);
@@ -1252,7 +1280,7 @@ public class Cursor extends IDWCursor {
 					appendIndex = 0;
 					return seq;
 				} else {
-					ListBase1 mems = seq.getMems();
+					IArray mems = seq.getMems();
 					int appendIndex = this.appendIndex;
 					for (int i = 0; i < diff; ++i, ++appendIndex) {
 						Record r = (Record)appendData.getMem(appendIndex);
@@ -1280,7 +1308,7 @@ public class Cursor extends IDWCursor {
 		if (cache != null) {
 			int len = cache.length();
 			if (len > n) {
-				this.cache = cache.split(n + 1);
+				this.cache = (Sequence) cache.split(n + 1);
 				return cache;
 			} else if (len == n) {
 				this.cache = null;
@@ -1300,7 +1328,7 @@ public class Cursor extends IDWCursor {
 		IFilter []filters = this.filters;
 		long prevRecordSeq = this.prevRecordSeq;
 		
-		ListBase1 mems = cache.getMems();
+		IArray mems = cache.getMems();
 		this.cache = null;
 
 		try {
@@ -1310,14 +1338,14 @@ public class Cursor extends IDWCursor {
 					int recordCount = rowCountReader.readInt32();
 
 					for (int f = 0; f < colCount; ++f) {
-						bufReaders[f] = colReaders[f].readBlockData();
+						bufReaders[f] = colReaders[f].readBlockData(recordCount);
 					}
 					
 					int diff = n - cache.length();
 					if (recordCount > diff) {
 						int i = 0;
 						for (; i < diff; ++i) {
-							GroupTableRecord r = new GroupTableRecord(ds);
+							ComTableRecord r = new ComTableRecord(ds);
 							for (int f = 0; f < colCount; ++f) {
 								r.setNormalFieldValue(f, bufReaders[f].readObject());
 							}
@@ -1330,7 +1358,7 @@ public class Cursor extends IDWCursor {
 						mems = tmp.getMems();
 						
 						for (; i < recordCount; ++i) {
-							GroupTableRecord r = new GroupTableRecord(ds);
+							ComTableRecord r = new ComTableRecord(ds);
 							for (int f = 0; f < colCount; ++f) {
 								r.setNormalFieldValue(f, bufReaders[f].readObject());
 							}
@@ -1341,7 +1369,7 @@ public class Cursor extends IDWCursor {
 						break;
 					} else {
 						for (int i = 0; i < recordCount; ++i) {
-							GroupTableRecord r = new GroupTableRecord(ds);
+							ComTableRecord r = new ComTableRecord(ds);
 							for (int f = 0; f < colCount; ++f) {
 								r.setNormalFieldValue(f, bufReaders[f].readObject());
 							}
@@ -1372,7 +1400,7 @@ public class Cursor extends IDWCursor {
 					
 					for (int f = 1; f < colCount; ++f) {
 						positions[f] = segmentReaders[f].readLong40();
-						if (columns[f].isDim()) {
+						if (columns[f].hasMaxMinValues()) {
 							segmentReaders[f].skipObject();
 							segmentReaders[f].skipObject();
 							segmentReaders[f].skipObject();
@@ -1380,7 +1408,7 @@ public class Cursor extends IDWCursor {
 					}
 					
 					positions[0] = segmentReaders[0].readLong40();
-					if (columns[0].isDim()) {
+					if (columns[0].hasMaxMinValues()) {
 						Object minValue = segmentReaders[0].readObject();
 						Object maxValue = segmentReaders[0].readObject();
 						segmentReaders[0].skipObject();
@@ -1390,7 +1418,7 @@ public class Cursor extends IDWCursor {
 					}
 					
 					int nextRow = 0; // 普通列下一个要读的行，如果还没到当前要读的行则跳到
-					BufferReader filterReader = colReaders[0].readBlockData(positions[0]);
+					BufferReader filterReader = colReaders[0].readBlockData(positions[0], recordCount);
 					for (int f = 1; f < colCount; ++f) {
 						bufReaders[f] = null;
 					}
@@ -1414,7 +1442,7 @@ public class Cursor extends IDWCursor {
 						
 						for (int f = 1; f < colCount; ++f) {
 							if (bufReaders[f] == null) {
-								bufReaders[f] = colReaders[f].readBlockData(positions[f]);
+								bufReaders[f] = colReaders[f].readBlockData(positions[f], recordCount);
 							}
 							
 							for (int j = nextRow; j < i; ++j) {
@@ -1433,7 +1461,7 @@ public class Cursor extends IDWCursor {
 					
 					int diff = n - cache.length();
 					if (diff < 0) {
-						this.cache = cache.split(n + 1);
+						this.cache = (Sequence) cache.split(n + 1);
 						break;
 					} else if (diff == 0) {
 						break;
@@ -1454,7 +1482,7 @@ public class Cursor extends IDWCursor {
 					int f = 0;
 					for (; f < filterCount; ++f) {
 						positions[f] = segmentReaders[f].readLong40();
-						if (columns[f].isDim()) {
+						if (columns[f].hasMaxMinValues()) {
 							Object minValue = segmentReaders[f].readObject();
 							Object maxValue = segmentReaders[f].readObject();
 							segmentReaders[f].skipObject();
@@ -1468,7 +1496,7 @@ public class Cursor extends IDWCursor {
 					
 					for (; f < colCount; ++f) {
 						positions[f] = segmentReaders[f].readLong40();
-						if (columns[f].isDim()) {
+						if (columns[f].hasMaxMinValues()) {
 							segmentReaders[f].skipObject();
 							segmentReaders[f].skipObject();
 							segmentReaders[f].skipObject();
@@ -1493,7 +1521,7 @@ public class Cursor extends IDWCursor {
 							if (bufReaders[f] == null) 
 							
 							{
-								bufReaders[f] = colReaders[f].readBlockData(positions[f]);
+								bufReaders[f] = colReaders[f].readBlockData(positions[f], recordCount);
 							}
 							
 							for (int j = nextRows[f]; j < i; ++j) {
@@ -1521,7 +1549,7 @@ public class Cursor extends IDWCursor {
 						
 						for (; f < colCount; ++f) {
 							if (bufReaders[f] == null) {
-								bufReaders[f] = colReaders[f].readBlockData(positions[f]);
+								bufReaders[f] = colReaders[f].readBlockData(positions[f], recordCount);
 							}
 							
 							for (int j = nextRows[f]; j < i; ++j) {
@@ -1539,7 +1567,7 @@ public class Cursor extends IDWCursor {
 					
 					int diff = n - cache.length();
 					if (diff < 0) {
-						this.cache = cache.split(n + 1);
+						this.cache = (Sequence) cache.split(n + 1);
 						break;
 					} else if (diff == 0) {
 						break;
@@ -1573,7 +1601,7 @@ public class Cursor extends IDWCursor {
 		if (cache != null) {
 			int len = cache.length();
 			if (len > n) {
-				this.cache = cache.split(n + 1);
+				this.cache = (Sequence) cache.split(n + 1);
 				return cache;
 			} else if (len == n) {
 				this.cache = null;
@@ -1593,7 +1621,7 @@ public class Cursor extends IDWCursor {
 		IFilter []filters = this.filters;
 		long prevRecordSeq = this.prevRecordSeq;
 		
-		ListBase1 mems = cache.getMems();
+		IArray mems = cache.getMems();
 		this.cache = null;
 
 		TableGather []gathers = this.gathers;
@@ -1611,7 +1639,7 @@ public class Cursor extends IDWCursor {
 
 					for (int f = 0; f < colCount; ++f) {
 						if (isField[f]) {
-							bufReaders[f] = colReaders[f].readBlockData();
+							bufReaders[f] = colReaders[f].readBlockData(recordCount);
 						}
 					}
 					
@@ -1630,7 +1658,7 @@ public class Cursor extends IDWCursor {
 									temp.setNormalFieldValue(f, bufReaders[f].readObject());
 								}
 							}
-							GroupTableRecord r = new GroupTableRecord(ds);
+							ComTableRecord r = new ComTableRecord(ds);
 							for (int f = 0; f < retColCount; ++f) {
 								if (exps[f] != null) {
 									r.setNormalFieldValue(f, temp.calc(exps[f], ctx));
@@ -1655,7 +1683,7 @@ public class Cursor extends IDWCursor {
 									temp.setNormalFieldValue(f, bufReaders[f].readObject());
 								}
 							}
-							GroupTableRecord r = new GroupTableRecord(ds);
+							ComTableRecord r = new ComTableRecord(ds);
 							for (int f = 0; f < retColCount; ++f) {
 								if (exps[f] != null) {
 									r.setNormalFieldValue(f, temp.calc(exps[f], ctx));
@@ -1678,7 +1706,7 @@ public class Cursor extends IDWCursor {
 									temp.setNormalFieldValue(f, bufReaders[f].readObject());
 								}
 							}
-							GroupTableRecord r = new GroupTableRecord(ds);
+							ComTableRecord r = new ComTableRecord(ds);
 							for (int f = 0; f < retColCount; ++f) {
 								if (exps[f] != null) {
 									r.setNormalFieldValue(f, temp.calc(exps[f], ctx));
@@ -1714,7 +1742,7 @@ public class Cursor extends IDWCursor {
 					int f = 0;
 					for (; f < filterCount; ++f) {
 						positions[f] = segmentReaders[f].readLong40();
-						if (columns[f].isDim()) {
+						if (columns[f].hasMaxMinValues()) {
 							Object minValue = segmentReaders[f].readObject();
 							Object maxValue = segmentReaders[f].readObject();
 							segmentReaders[f].skipObject();
@@ -1729,7 +1757,7 @@ public class Cursor extends IDWCursor {
 					for (; f < colCount; ++f) {
 						if (!isField[f]) continue;
 						positions[f] = segmentReaders[f].readLong40();
-						if (columns[f].isDim()) {
+						if (columns[f].hasMaxMinValues()) {
 							segmentReaders[f].skipObject();
 							segmentReaders[f].skipObject();
 							segmentReaders[f].skipObject();
@@ -1761,7 +1789,7 @@ public class Cursor extends IDWCursor {
 						Object []curValues = new Object[recordCount];
 						filterValues[f] = curValues;
 						IFilter filter = filters[f];
-						BufferReader reader = colReaders[f].readBlockData(positions[f]);
+						BufferReader reader = colReaders[f].readBlockData(positions[f], recordCount);
 						for (int i = 0; i < recordCount; ++i) {
 							if (matchs[i]) {
 								curValues[i] = reader.readObject();
@@ -1797,7 +1825,7 @@ public class Cursor extends IDWCursor {
 					
 					for (; f < colCount; ++f) {
 						if (isField[f])
-							bufReaders[f] = colReaders[f].readBlockData(positions[f]);
+							bufReaders[f] = colReaders[f].readBlockData(positions[f], recordCount);
 					}
 					
 					for (int i = 0; i < recordCount && matchCount > 0; ++i) {
@@ -1844,7 +1872,7 @@ public class Cursor extends IDWCursor {
 					
 					int diff = n - cache.length();
 					if (diff < 0) {
-						this.cache = cache.split(n + 1);
+						this.cache = (Sequence) cache.split(n + 1);
 						break;
 					} else if (diff == 0) {
 						break;
@@ -1898,7 +1926,7 @@ public class Cursor extends IDWCursor {
 		if (cache != null) {
 			int len = cache.length();
 			if (len > n) {
-				this.cache = cache.split(n + 1);
+				this.cache = (Sequence) cache.split(n + 1);
 				return cache;
 			} else if (len == n) {
 				this.cache = null;
@@ -1917,7 +1945,7 @@ public class Cursor extends IDWCursor {
 		DataStruct ds = this.ds;
 		IFilter []filters = this.filters;
 		
-		ListBase1 mems = cache.getMems();
+		IArray mems = cache.getMems();
 		this.cache = null;
 		long prevRecordSeq = this.prevRecordSeq;
 		ArrayList<ModifyRecord> modifyRecords = this.modifyRecords;
@@ -1935,13 +1963,13 @@ public class Cursor extends IDWCursor {
 					curBlock++;
 					int recordCount = rowCountReader.readInt32();
 					for (int f = 0; f < colCount; ++f) {
-						bufReaders[f] = colReaders[f].readBlockData();
+						bufReaders[f] = colReaders[f].readBlockData(recordCount);
 					}
 					
 					for (int i = 0; i < recordCount; ++i) {
 						prevRecordSeq++;
 						if (prevRecordSeq != mseq) {
-							GroupTableRecord r = new GroupTableRecord(ds);
+							ComTableRecord r = new ComTableRecord(ds);
 							for (int f = 0; f < colCount; ++f) {
 								r.setNormalFieldValue(f, bufReaders[f].readObject());
 							}
@@ -1960,7 +1988,7 @@ public class Cursor extends IDWCursor {
 									}
 									
 									Record sr = mr.getRecord();
-									GroupTableRecord r = new GroupTableRecord(ds);
+									ComTableRecord r = new ComTableRecord(ds);
 									for (int f = 0; f < findexLen; ++f) {
 										r.setNormalFieldValue(f, sr.getNormalFieldValue(findex[f]));
 									}
@@ -1983,7 +2011,7 @@ public class Cursor extends IDWCursor {
 							}
 							
 							if (isInsert) {
-								GroupTableRecord r = new GroupTableRecord(ds);
+								ComTableRecord r = new ComTableRecord(ds);
 								for (int f = 0; f < colCount; ++f) {
 									r.setNormalFieldValue(f, bufReaders[f].readObject());
 								}
@@ -2004,7 +2032,7 @@ public class Cursor extends IDWCursor {
 							mr = modifyRecords.get(mindex);
 							mseq = mr.getRecordSeq();
 							Record sr = mr.getRecord();
-							GroupTableRecord r = new GroupTableRecord(ds);
+							ComTableRecord r = new ComTableRecord(ds);
 							for (int f = 0; f < findexLen; ++f) {
 								r.setNormalFieldValue(f, sr.getNormalFieldValue(findex[f]));
 							}
@@ -2016,7 +2044,7 @@ public class Cursor extends IDWCursor {
 					
 					int diff = n - cache.length();
 					if (diff < 0) {
-						this.cache = cache.split(n + 1);
+						this.cache = (Sequence) cache.split(n + 1);
 						break;
 					} else if (diff == 0) {
 						break;
@@ -2030,7 +2058,7 @@ public class Cursor extends IDWCursor {
 						mr = modifyRecords.get(mindex);
 						mseq = mr.getRecordSeq();
 						Record sr = mr.getRecord();
-						GroupTableRecord r = new GroupTableRecord(ds);
+						ComTableRecord r = new ComTableRecord(ds);
 						for (int f = 0; f < findexLen; ++f) {
 							r.setNormalFieldValue(f, sr.getNormalFieldValue(findex[f]));
 						}
@@ -2041,7 +2069,7 @@ public class Cursor extends IDWCursor {
 					
 					int diff = n - cache.length();
 					if (diff < 0) {
-						this.cache = cache.split(n + 1);
+						this.cache = (Sequence) cache.split(n + 1);
 					}
 				}
 			} else {
@@ -2059,7 +2087,7 @@ public class Cursor extends IDWCursor {
 					int f = 0;
 					for (; f < filterCount; ++f) {
 						positions[f] = segmentReaders[f].readLong40();
-						if (columns[f].isDim()) {
+						if (columns[f].hasMaxMinValues()) {
 							Object minValue = segmentReaders[f].readObject();
 							Object maxValue = segmentReaders[f].readObject();
 							segmentReaders[f].skipObject();
@@ -2073,7 +2101,7 @@ public class Cursor extends IDWCursor {
 					
 					for (; f < colCount; ++f) {
 						positions[f] = segmentReaders[f].readLong40();
-						if (columns[f].isDim()) {
+						if (columns[f].hasMaxMinValues()) {
 							segmentReaders[f].skipObject();
 							segmentReaders[f].skipObject();
 							segmentReaders[f].skipObject();
@@ -2096,7 +2124,7 @@ public class Cursor extends IDWCursor {
 						Object []curValues = new Object[recordCount];
 						filterValues[f] = curValues;
 						IFilter filter = filters[f];
-						BufferReader reader = colReaders[f].readBlockData(positions[f]);
+						BufferReader reader = colReaders[f].readBlockData(positions[f], recordCount);
 						for (int i = 0; i < recordCount; ++i) {
 							if (matchs[i]) {
 								curValues[i] = reader.readObject();
@@ -2120,7 +2148,7 @@ public class Cursor extends IDWCursor {
 					}
 					
 					for (; f < colCount; ++f) {
-						bufReaders[f] = colReaders[f].readBlockData(positions[f]);
+						bufReaders[f] = colReaders[f].readBlockData(positions[f], recordCount);
 					}
 					
 					for (int i = 0; i < recordCount; ++i) {
@@ -2200,7 +2228,7 @@ public class Cursor extends IDWCursor {
 					
 					int diff = n - cache.length();
 					if (diff < 0) {
-						this.cache = cache.split(n + 1);
+						this.cache = (Sequence) cache.split(n + 1);
 						break;
 					} else if (diff == 0) {
 						break;
@@ -2225,7 +2253,7 @@ public class Cursor extends IDWCursor {
 					
 					int diff = n - cache.length();
 					if (diff < 0) {
-						this.cache = cache.split(n + 1);
+						this.cache = (Sequence) cache.split(n + 1);
 					}
 				}
 			}
@@ -2249,7 +2277,7 @@ public class Cursor extends IDWCursor {
 		if (cache != null) {
 			int len = cache.length();
 			if (len > n) {
-				this.cache = cache.split(n + 1);
+				this.cache = (Sequence) cache.split(n + 1);
 				return cache;
 			} else if (len == n) {
 				this.cache = null;
@@ -2268,7 +2296,7 @@ public class Cursor extends IDWCursor {
 		DataStruct ds = this.ds;
 		IFilter []filters = this.filters;
 		
-		ListBase1 mems = cache.getMems();
+		IArray mems = cache.getMems();
 		this.cache = null;
 		long prevRecordSeq = this.prevRecordSeq;
 		ArrayList<ModifyRecord> modifyRecords = this.modifyRecords;
@@ -2293,7 +2321,7 @@ public class Cursor extends IDWCursor {
 					int recordCount = rowCountReader.readInt32();
 					for (int f = 0; f < colCount; ++f) {
 						if (isField[f]) {
-							bufReaders[f] = colReaders[f].readBlockData();
+							bufReaders[f] = colReaders[f].readBlockData(recordCount);
 						}
 					}
 					
@@ -2306,7 +2334,7 @@ public class Cursor extends IDWCursor {
 					for (int i = 0; i < recordCount; ++i) {
 						prevRecordSeq++;
 						if (prevRecordSeq != mseq) {
-							GroupTableRecord r = new GroupTableRecord(ds);
+							ComTableRecord r = new ComTableRecord(ds);
 							for (int f = 0; f < colCount; ++f) {
 								if (isField[f]) {
 									temp.setNormalFieldValue(f, bufReaders[f].readObject());
@@ -2337,7 +2365,7 @@ public class Cursor extends IDWCursor {
 									}
 									
 									Record sr = mr.getRecord();
-									GroupTableRecord r = new GroupTableRecord(ds);
+									ComTableRecord r = new ComTableRecord(ds);
 									for (int f = 0; f < colCount; ++f) {
 										if (exps[f] != null) {
 											r.setNormalFieldValue(f, sr.calc(exps[f], ctx));
@@ -2372,7 +2400,7 @@ public class Cursor extends IDWCursor {
 							}
 							
 							if (isInsert) {
-								GroupTableRecord r = new GroupTableRecord(ds);
+								ComTableRecord r = new ComTableRecord(ds);
 								for (int f = 0; f < colCount; ++f) {
 									if (isField[f]) {
 										temp.setNormalFieldValue(f, bufReaders[f].readObject());
@@ -2405,7 +2433,7 @@ public class Cursor extends IDWCursor {
 							// 可能存在内存追加的记录在补区
 							mr = modifyRecords.get(mindex);
 							Record sr = mr.getRecord();
-							GroupTableRecord r = new GroupTableRecord(ds);
+							ComTableRecord r = new ComTableRecord(ds);
 							for (int f = 0; f < colCount; ++f) {
 								if (exps[f] != null) {
 									r.setNormalFieldValue(f, sr.calc(exps[f], ctx));
@@ -2425,7 +2453,7 @@ public class Cursor extends IDWCursor {
 					
 					int diff = n - cache.length();
 					if (diff < 0) {
-						this.cache = cache.split(n + 1);
+						this.cache = (Sequence) cache.split(n + 1);
 						break;
 					} else if (diff == 0) {
 						break;
@@ -2438,7 +2466,7 @@ public class Cursor extends IDWCursor {
 						// 可能存在内存追加的记录在补区
 						mr = modifyRecords.get(mindex);
 						Record sr = mr.getRecord();
-						GroupTableRecord r = new GroupTableRecord(ds);
+						ComTableRecord r = new ComTableRecord(ds);
 						for (int f = 0; f < colCount; ++f) {
 							if (exps[f] != null) {
 								r.setNormalFieldValue(f, sr.calc(exps[f], ctx));
@@ -2470,7 +2498,7 @@ public class Cursor extends IDWCursor {
 					int f = 0;
 					for (; f < filterCount; ++f) {
 						positions[f] = segmentReaders[f].readLong40();
-						if (columns[f].isDim()) {
+						if (columns[f].hasMaxMinValues()) {
 							Object minValue = segmentReaders[f].readObject();
 							Object maxValue = segmentReaders[f].readObject();
 							segmentReaders[f].skipObject();
@@ -2485,7 +2513,7 @@ public class Cursor extends IDWCursor {
 					for (; f < colCount; ++f) {
 						if (!isField[f]) continue;
 						positions[f] = segmentReaders[f].readLong40();
-						if (columns[f].isDim()) {
+						if (columns[f].hasMaxMinValues()) {
 							segmentReaders[f].skipObject();
 							segmentReaders[f].skipObject();
 							segmentReaders[f].skipObject();
@@ -2513,7 +2541,7 @@ public class Cursor extends IDWCursor {
 						Object []curValues = new Object[recordCount];
 						filterValues[f] = curValues;
 						IFilter filter = filters[f];
-						BufferReader reader = colReaders[f].readBlockData(positions[f]);
+						BufferReader reader = colReaders[f].readBlockData(positions[f], recordCount);
 						for (int i = 0; i < recordCount; ++i) {
 							if (matchs[i]) {
 								curValues[i] = reader.readObject();
@@ -2548,7 +2576,7 @@ public class Cursor extends IDWCursor {
 
 					for (; f < colCount; ++f) {
 						if (isField[f])
-							bufReaders[f] = colReaders[f].readBlockData(positions[f]);
+							bufReaders[f] = colReaders[f].readBlockData(positions[f], recordCount);
 					}
 					
 					for (int i = 0; i < recordCount; ++i) {
@@ -2669,7 +2697,7 @@ public class Cursor extends IDWCursor {
 					
 					int diff = n - cache.length();
 					if (diff < 0) {
-						this.cache = cache.split(n + 1);
+						this.cache = (Sequence) cache.split(n + 1);
 						break;
 					} else if (diff == 0) {
 						break;
@@ -2723,7 +2751,8 @@ public class Cursor extends IDWCursor {
 			return table.getActualRecordCount();
 		}
 		
-		isFirstSkip = false;
+		boolean isFirstSkip = this.isFirstSkip;
+		this.isFirstSkip = false;
 		long count = 0;
 		
 		// 对单表跳过所有进行优化，不生成记录对象
@@ -2753,7 +2782,7 @@ public class Cursor extends IDWCursor {
 						int recordCount = rowCountReader.readInt32();
 						
 						long position = segmentReader.readLong40();
-						if (column.isDim()) {
+						if (column.hasMaxMinValues()) {
 							Object minValue = segmentReader.readObject();
 							Object maxValue = segmentReader.readObject();
 							segmentReader.skipObject();
@@ -2762,7 +2791,7 @@ public class Cursor extends IDWCursor {
 							}
 						}
 						
-						BufferReader filterReader = colReaders[0].readBlockData(position);
+						BufferReader filterReader = colReaders[0].readBlockData(position, recordCount);
 						for (int i = 0; i < recordCount; ++i) {
 							// 按记录数循环，如果列的BufferReader没有产生则产生并跳到当前要读的行
 							Object val = filterReader.readObject();
@@ -2786,7 +2815,7 @@ public class Cursor extends IDWCursor {
 						int f = 0;
 						for (; f < filterCount; ++f) {
 							positions[f] = segmentReaders[f].readLong40();
-							if (columns[f].isDim()) {
+							if (columns[f].hasMaxMinValues()) {
 								Object minValue = segmentReaders[f].readObject();
 								Object maxValue = segmentReaders[f].readObject();
 								segmentReaders[f].skipObject();
@@ -2812,7 +2841,7 @@ public class Cursor extends IDWCursor {
 							// 按记录数循环，如果列的BufferReader没有产生则产生并跳到当前要读的行
 							for (f = 0; f < filterCount; ++f) {
 								if (bufReaders[f] == null) {
-									bufReaders[f] = colReaders[f].readBlockData(positions[f]);
+									bufReaders[f] = colReaders[f].readBlockData(positions[f], recordCount);
 								}
 								
 								for (int j = nextRows[f]; j < i; ++j) {
@@ -2835,6 +2864,92 @@ public class Cursor extends IDWCursor {
 			
 			this.curBlock = curBlock;
 			return count;
+		} else if (filters == null && !hasModify() && isFirstSkip  && !isSegment && gathers == null) {
+			//对没有过滤的情况优化
+			
+			//处理cache
+			Sequence cache = this.cache;
+			if (cache != null) {
+				int len = cache.length();
+				if (n <= len) {
+					get((int) n);
+					return n;
+				} else {
+					get(len);
+					count += len;
+				}
+			}
+			
+			//跳段
+			int curBlock = this.curBlock;
+			int endBlock = this.endBlock;
+			BlockLinkReader rowCountReader = this.rowCountReader;
+			BlockLinkReader []colReaders = this.colReaders;
+			int colCount = colReaders.length;
+			BufferReader []bufReaders = new BufferReader[colCount];
+			ColumnMetaData []columns = this.columns;
+			ObjectReader []segmentReaders = new ObjectReader[colCount];
+			for (int i = 0; i < colCount; ++i) {
+				segmentReaders[i] = columns[i].getSegmentReader();
+			}
+			
+			long[] positions = new long[colCount];
+			try {
+				while (curBlock < endBlock) {
+					curBlock++;
+					int recordCount = rowCountReader.readInt32();
+					for (int i = 0; i < colCount; i++) {
+						positions[i] = segmentReaders[i].readLong40();
+						if (columns[i].hasMaxMinValues()) {
+							segmentReaders[i].skipObject();
+							segmentReaders[i].skipObject();
+							segmentReaders[i].skipObject();
+						}
+					}
+					
+					if (count + recordCount == n) {
+						this.curBlock = curBlock;
+						return n;
+					} else if (count + recordCount > n) {
+						//cache = new Table(ds, recordCount);
+						//IArray mems = cache.getMems();
+						
+						long diff = n - count;
+						for (int f = 0; f < colCount; ++f) {
+							bufReaders[f] = colReaders[f].readBlockData(positions[f], recordCount);
+						}
+
+						int i = 0;
+						for (; i < diff; ++i) {
+							for (int f = 0; f < colCount; ++f) {
+								bufReaders[f].skipObject();
+							}
+							++prevRecordSeq;
+						}
+						
+						Table tmp = new Table(ds, ICursor.FETCHCOUNT);
+						this.cache = tmp;
+						IArray mems = tmp.getMems();
+						
+						for (; i < recordCount; ++i) {
+							ComTableRecord r = new ComTableRecord(ds);
+							for (int f = 0; f < colCount; ++f) {
+								r.setNormalFieldValue(f, bufReaders[f].readObject());
+							}
+							r.setRecordSeq(++prevRecordSeq);
+							mems.add(r);
+						}
+						this.curBlock = curBlock;
+						return n;
+					}
+					count += recordCount;
+				}
+				this.curBlock = curBlock;
+				return count;
+			} catch (IOException e) {
+				throw new RQException(e.getMessage(), e);
+			}
+			
 		} else {
 			Sequence data;
 			long rest = n;
@@ -2888,8 +3003,11 @@ public class Cursor extends IDWCursor {
 		int endBlock = this.endBlock;
 		prevRecordSeq = 0;
 		mindex = 0;
-		appendIndex = 1;
 		isFirstSkip = true;
+		exps = Operation.dupExpressions(expsBakup, ctx);
+		if (appendData != null && appendData.length() > 0) {
+			appendIndex = 1;
+		}
 		
 		init();
 		if (isSegment) {
@@ -2913,9 +3031,9 @@ public class Cursor extends IDWCursor {
 	public void setCache(Sequence cache) {
 		if (this.cache != null) {
 			cache.addAll(this.cache);
-			this.cache = cache;
+			this.cache = (Sequence) cache;
 		} else {
-			this.cache = cache;	
+			this.cache = (Sequence) cache;	
 		}
 	}
 	
@@ -2948,8 +3066,8 @@ public class Cursor extends IDWCursor {
 		}
 		
 		if (exps != null) {
-			this.exps = exps.clone();
-			System.arraycopy(exps, 0, this.exps, 0, exps.length);
+			this.exps = Operation.dupExpressions(exps, ctx);
+			expsBakup = Operation.dupExpressions(exps, ctx);
 		}
 	}
 
@@ -3068,5 +3186,26 @@ public class Cursor extends IDWCursor {
 	 */
 	public boolean canDynamic() {
 		return false;
+	}
+	
+	protected Sequence getStartBlockData(int n) {
+		// 只取第一块的记录，如果第一块没有满足条件的就返回
+		int startBlock = this.startBlock;
+		int endBlock = this.endBlock;
+		try {
+			setEndBlock(startBlock + 1);
+			
+			Sequence seq;
+			if (gathers == null) {
+				seq = getData(n);
+			} else {
+				seq = getData2(n);
+			}
+			isFirstSkip = false;
+			
+			return seq;
+		} finally {
+			setEndBlock(endBlock);
+		}
 	}
 }

@@ -48,16 +48,16 @@ import com.scudata.util.Variant;
  * @author runqian
  *
  */
-abstract public class TableMetaData implements ITableMetaData {
+abstract public class PhyTable implements IPhyTable {
 	protected static String KEY_PREFIX = "#"; // 主键字段前缀
 	
 	protected static int MIN_BLOCK_RECORD_COUNT = 8192; // 每块的最小记录数，如果同值的不足则合并多组
 	protected static int MAX_BLOCK_RECORD_COUNT = 8192 * 20; // 每块的最大记录数，如果同值的超了则拆成多块
 	
 	protected byte []reserve = new byte[32]; // 保留位，字节1存放版本号
-	protected GroupTable groupTable;
-	protected TableMetaData parent;
-	protected ArrayList<TableMetaData> tableList; // 附表列表
+	protected ComTable groupTable;
+	protected PhyTable parent;
+	protected ArrayList<PhyTable> tableList; // 附表列表
 	protected String segmentCol; // 分段列
 	protected int segmentSerialLen;
 	
@@ -107,7 +107,7 @@ abstract public class TableMetaData implements ITableMetaData {
 		getGroupTable().close();
 	}
 	
-	public TableMetaData createAnnexTable(String []colNames, int []serialBytesLen,
+	public PhyTable createAnnexTable(String []colNames, int []serialBytesLen,
 			String tableName) throws IOException {
 		if (!hasPrimaryKey) {
 			MessageManager mm = EngineMessage.get();
@@ -120,15 +120,15 @@ abstract public class TableMetaData implements ITableMetaData {
 		appendCache();
 		
 		groupTable.checkWritable();
-		TableMetaData table = null;
-		if (this instanceof ColumnTableMetaData) {
-			table = new ColumnTableMetaData(groupTable, colNames, serialBytesLen, tableName, (ColumnTableMetaData)this);
+		PhyTable table = null;
+		if (this instanceof ColPhyTable) {
+			table = new ColPhyTable(groupTable, colNames, serialBytesLen, tableName, (ColPhyTable)this);
 		} else {
-			table = new RowTableMetaData(groupTable, colNames, serialBytesLen, tableName, (RowTableMetaData)this);
+			table = new RowPhyTable(groupTable, colNames, serialBytesLen, tableName, (RowPhyTable)this);
 		}
 		
 		tableList.add(table);
-		TableMetaData tmd = getSupplementTable(false);
+		PhyTable tmd = getSupplementTable(false);
 		if (tmd != null) {
 			tmd.createAnnexTable(colNames, serialBytesLen, tableName);
 		}
@@ -137,8 +137,8 @@ abstract public class TableMetaData implements ITableMetaData {
 		return table;
 	}
 	
-	public TableMetaData getAnnexTable(String tableName) {
-		for (TableMetaData table : tableList) {
+	public PhyTable getAnnexTable(String tableName) {
+		for (PhyTable table : tableList) {
 			if (table.isTable(tableName)) {
 				return table;
 			}
@@ -151,11 +151,11 @@ abstract public class TableMetaData implements ITableMetaData {
 		return groupTable.getStructManager();
 	}
 	
-	public TableMetaData getParent() {
+	public PhyTable getParent() {
 		return parent;
 	}
 	
-	public ArrayList<TableMetaData> getTableList(){
+	public ArrayList<PhyTable> getTableList(){
 		return tableList;
 	}
 
@@ -199,7 +199,7 @@ abstract public class TableMetaData implements ITableMetaData {
 		return ds;
 	}
 	
-	public GroupTable getGroupTable() {
+	public ComTable getGroupTable() {
 		return groupTable;
 	}
 	
@@ -275,7 +275,7 @@ abstract public class TableMetaData implements ITableMetaData {
 	 */
 	public boolean deleteIndex(String indexName) throws IOException {
 		getGroupTable().checkWritable();
-		TableMetaData tmd = getSupplementTable(false);
+		PhyTable tmd = getSupplementTable(false);
 		if (tmd != null) {
 			tmd.deleteIndex(indexName);
 		}
@@ -341,7 +341,7 @@ abstract public class TableMetaData implements ITableMetaData {
 	 * @throws IOException
 	 */
 	public void addIndex(String indexName, String[] indexFields, String[] indexValueFields) throws IOException {
-		TableMetaData tmd = getSupplementTable(false);
+		PhyTable tmd = getSupplementTable(false);
 		if (tmd != null) {
 			tmd.addIndex(indexName, indexFields, indexValueFields);
 		}
@@ -398,7 +398,7 @@ abstract public class TableMetaData implements ITableMetaData {
 				index.setFields(ifields, vfields);
 				index.create(indexFields[i], "a", ctx, null);
 			} else if (type[0] == 'x') {
-				TableMetaDataIndex index = new TableMetaDataIndex(this, indexNames[i]);
+				PhyTableIndex index = new PhyTableIndex(this, indexNames[i]);
 				index.setFields(ifields, vfields);
 				index.create(indexFields[i], "a", ctx, null);
 			} else {
@@ -410,7 +410,7 @@ abstract public class TableMetaData implements ITableMetaData {
 	}
 
 	public void createIndex(String I, String []fields, Object obj, String opt, Expression w, Context ctx) {
-		TableMetaData tmd = getSupplementTable(false);
+		PhyTable tmd = getSupplementTable(false);
 		if (tmd != null) {
 			tmd.createIndex(I, fields, obj, opt, w, ctx);
 		}
@@ -452,7 +452,7 @@ abstract public class TableMetaData implements ITableMetaData {
 			}
 			
 			//排序
-			TableMetaDataIndex index = new TableMetaDataIndex(this, I);
+			PhyTableIndex index = new PhyTableIndex(this, I);
 			index.create(fields, opt, ctx, w);
 		} else if (obj instanceof String[]) {
 			//KV
@@ -493,7 +493,7 @@ abstract public class TableMetaData implements ITableMetaData {
 				TableHashIndex index = new TableHashIndex(this, indexNames[i]);
 				index.create(indexFields[i], "ar", ctx, null);
 			} else if (type[0] == 'x') {
-				TableMetaDataIndex index = new TableMetaDataIndex(this, indexNames[i]);
+				PhyTableIndex index = new PhyTableIndex(this, indexNames[i]);
 				index.create(indexFields[i], "ar", ctx, null);
 			} else if (type[0] == 'v') {
 				TableKeyValueIndex index = new TableKeyValueIndex(this, indexNames[i]);
@@ -853,7 +853,7 @@ abstract public class TableMetaData implements ITableMetaData {
 	 * @param ctx
 	 * @return
 	 */
-	public static ArrayList<ModifyRecord> getModifyRecord(TableMetaData table, Expression exp, Context ctx) {
+	public static ArrayList<ModifyRecord> getModifyRecord(PhyTable table, Expression exp, Context ctx) {
 		ArrayList<ModifyRecord> modifyRecords = table.getModifyRecords();
 		if (modifyRecords == null) return null;
 		int size = modifyRecords.size();
@@ -1030,7 +1030,7 @@ abstract public class TableMetaData implements ITableMetaData {
 		int j = 0;
 		int size = a.size();
 		LongArray c = new LongArray(size);
-		if (this instanceof RowTableMetaData) {
+		if (this instanceof RowPhyTable) {
 			for (int i = 0; i < size; i+=2) {
 				long seq = a.get(i);
 				long pos = a.get(i + 1);
@@ -1192,11 +1192,11 @@ abstract public class TableMetaData implements ITableMetaData {
 	 * 索引查询函数icursor的入口
 	 */
 	public ICursor icursor(String []fields, Expression filter, String iname, String opt, Context ctx) {
-		GroupTable groupTable = getGroupTable();
+		ComTable groupTable = getGroupTable();
 		groupTable.checkReadable();
 		
 		ICursor cs = icursor_(fields, filter, iname, opt, ctx);
-		TableMetaData tmd = getSupplementTable(false);
+		PhyTable tmd = getSupplementTable(false);
 		
 		if (tmd == null) {
 			return cs;
@@ -1302,10 +1302,10 @@ abstract public class TableMetaData implements ITableMetaData {
 					}
 				}
 				i = 0;
-				boolean isRow = this instanceof RowTableMetaData;
+				boolean isRow = this instanceof RowPhyTable;
 				long recCountOfSegment[] = null;
 				if (!isRow) {
-					recCountOfSegment = ((ColumnTableMetaData)this).getSegmentInfo();
+					recCountOfSegment = ((ColPhyTable)this).getSegmentInfo();
 				}
 				while (i < size) {
 					ITableIndex index = (ITableIndex)indexArray[i++];
@@ -1449,7 +1449,7 @@ abstract public class TableMetaData implements ITableMetaData {
 				try {
 					byte[] type = (byte[]) indexFile.read(6, 6, "b");
 					if (type[0] == 'x') {
-						ti = new TableMetaDataIndex(this, indexFile);
+						ti = new PhyTableIndex(this, indexFile);
 					} else if (type[0] == 'h') {
 						ti = new TableHashIndex(this, indexFile);
 					} else if (type[0] == 'w') {
@@ -1489,7 +1489,7 @@ abstract public class TableMetaData implements ITableMetaData {
 	 * @return
 	 */
 	public boolean isSubTable(String tableName) {
-		for (TableMetaData table : tableList) {
+		for (PhyTable table : tableList) {
 			if (tableName.equals(table.getTableName())) {
 				return true;
 			}
@@ -1581,8 +1581,8 @@ abstract public class TableMetaData implements ITableMetaData {
 		int size = colNames.length;
 		int len = srcFields.length;
 		ColumnMetaData []columns = null;
-		if (this instanceof ColumnTableMetaData) {
-			columns = ((ColumnTableMetaData)this).getColumns();
+		if (this instanceof ColPhyTable) {
+			columns = ((ColPhyTable)this).getColumns();
 		}
 		
 		for (int i = 0; i < len; i++) {
@@ -1629,7 +1629,7 @@ abstract public class TableMetaData implements ITableMetaData {
 		groupTable.save();
 		init();
 		
-		TableMetaData tmd = getSupplementTable(false);
+		PhyTable tmd = getSupplementTable(false);
 		if (tmd != null) {
 			tmd.rename(srcFields, newFields, ctx);
 		}
@@ -1734,7 +1734,7 @@ abstract public class TableMetaData implements ITableMetaData {
 				table.close();
 			} catch (Exception e) {
 				if (table != null) table.close();
-				for (TableMetaData tbl : tableList) {
+				for (PhyTable tbl : tableList) {
 					tbl.close();
 				}
 				throw new RQException(e.getMessage(), e);
@@ -1775,7 +1775,7 @@ abstract public class TableMetaData implements ITableMetaData {
 				newFile.renameTo(file);
 			} catch (Exception e) {
 				if (table != null) table.close();
-				for (TableMetaData tbl : tableList) {
+				for (PhyTable tbl : tableList) {
 					tbl.close();
 				}
 				if (newTable != null) 
@@ -1862,13 +1862,13 @@ abstract public class TableMetaData implements ITableMetaData {
 		return new MultipathCursors(result, ctx);
 	}
 	
-	public TableMetaData getSupplementTable(boolean isCreate) {
-		GroupTable sgt = groupTable.getSupplement(isCreate);
+	public PhyTable getSupplementTable(boolean isCreate) {
+		ComTable sgt = groupTable.getSupplement(isCreate);
 		if (sgt == null) {
 			return null;
 		}
 		
-		TableMetaData tmd = sgt.getBaseTable();
+		PhyTable tmd = sgt.getBaseTable();
 		if (parent == null) {
 			return tmd;
 		} else {
@@ -1882,7 +1882,7 @@ abstract public class TableMetaData implements ITableMetaData {
 	 * @param hashK true取key字段，false取有序1字段
 	 * @return
 	 */
-	static String[] getSegmentFields(MultipathCursors mcs, boolean hasK) {
+	public static String[] getSegmentFields(MultipathCursors mcs, boolean hasK) {
 		ICursor []cursors = mcs.getParallelCursors();
 		for (ICursor cs : cursors) {
 			if (!(cs instanceof IDWCursor) && !(cs instanceof MergeCursor2)) {
@@ -1904,7 +1904,7 @@ abstract public class TableMetaData implements ITableMetaData {
 		String []dimFields;
 		if (hasK) {
 			//有k时返回mcs的第一个维字段
-			dimFields = dwCursor.getSortFields();//.getTableMetaData().getAllSortedColNames();
+			dimFields = dwCursor.getSortFields();//dwCursor.getTableMetaData().getAllSortedColNames();
 			if (dimFields == null) {
 				MessageManager mm = EngineMessage.get();
 				throw new RQException("cursor" + mm.getMessage("dw.needMCursor"));
@@ -1956,7 +1956,7 @@ abstract public class TableMetaData implements ITableMetaData {
 	 * 复制src表的索引的结构
 	 * @param src
 	 */
-	public void dupIndexAdnCuboid(TableMetaData src) {
+	public void dupIndexAdnCuboid(PhyTable src) {
 		String []indexNames = src.indexNames;
 		if (indexNames != null) {
 			this.indexNames = indexNames;
@@ -1994,7 +1994,7 @@ abstract public class TableMetaData implements ITableMetaData {
 				} catch (Exception e) {
 					if (table != null) table.close();
 					if (srcCuboid != null) srcCuboid.close();
-					for (TableMetaData tbl : tableList) {
+					for (PhyTable tbl : tableList) {
 						tbl.close();
 					}
 					throw new RQException(e.getMessage(), e);

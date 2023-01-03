@@ -12,7 +12,7 @@ import com.scudata.dm.JobSpace;
 import com.scudata.dm.JobSpaceManager;
 import com.scudata.dm.ResourceManager;
 import com.scudata.dm.Sequence;
-import com.scudata.dw.ITableMetaData;
+import com.scudata.dw.IPhyTable;
 import com.scudata.expression.Expression;
 import com.scudata.resources.EngineMessage;
 import com.scudata.resources.ParallelMessage;
@@ -456,7 +456,7 @@ public class ClusterFile implements IClusterObject {
 	 * @param ctx 计算上下文
 	 * @return 集群组表
 	 */
-	public ClusterTableMetaData createGroupTable(String []colNames, Expression distribute, String opt, Context ctx) {
+	public ClusterPhyTable createGroupTable(String []colNames, Expression distribute, String opt, Context ctx) {
 		int count = pfs.length;
 		int []proxyIds = new int[count];
 		String dis = distribute == null ? null : distribute.toString();
@@ -465,7 +465,7 @@ public class ClusterFile implements IClusterObject {
 			proxyIds[i] = pfs[i].createGroupTable(colNames, dis, opt);
 		}
 		
-		ClusterTableMetaData table = new ClusterTableMetaData(this, proxyIds, ctx);
+		ClusterPhyTable table = new ClusterPhyTable(this, proxyIds, ctx);
 		table.setDistribute(distribute);
 		return table;
 	}
@@ -475,7 +475,7 @@ public class ClusterFile implements IClusterObject {
 	 * @param ctx 计算上下文
 	 * @return 集群组表
 	 */
-	public ClusterTableMetaData openGroupTable(Context ctx) {
+	public ClusterPhyTable openGroupTable(Context ctx) {
 		int count = pfs.length;
 		int []proxyIds = new int[count];
 		for (int i = 0; i < count; ++i) {
@@ -499,7 +499,7 @@ public class ClusterFile implements IClusterObject {
 			client.close();
 		}
 		
-		ClusterTableMetaData table = new ClusterTableMetaData(this, proxyIds, ctx);
+		ClusterPhyTable table = new ClusterPhyTable(this, proxyIds, ctx);
 		table.setDistribute(distribute);
 		return table;
 	}
@@ -516,8 +516,8 @@ public class ClusterFile implements IClusterObject {
 		try {
 			JobSpace js = JobSpaceManager.getSpace(jobSpaceID);
 			ResourceManager rm = js.getResourceManager();
-			TableMetaDataProxy tmd = (TableMetaDataProxy) rm.getProxy(tmdProxyId.intValue());
-			ITableMetaData table = tmd.getTableMetaData();
+			PhyTableProxy tmd = (PhyTableProxy) rm.getProxy(tmdProxyId.intValue());
+			IPhyTable table = tmd.getTableMetaData();
 			String distribute = table.getDistribute();
 			return new Response(distribute);
 		} catch (Exception e) {

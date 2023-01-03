@@ -2,6 +2,7 @@ package com.scudata.dm.op;
 
 import com.scudata.dm.ComputeStack;
 import com.scudata.dm.Context;
+import com.scudata.dm.Current;
 import com.scudata.dm.Sequence;
 import com.scudata.expression.Expression;
 import com.scudata.expression.Function;
@@ -14,13 +15,13 @@ import com.scudata.util.Variant;
  *
  */
 public class Select extends Operation {
-	private Expression fltExp; // 过滤表达式
-	private String opt; // 选项
-	private IPipe pipe; // 管道，如果不为空，则把不满足条件的数据推送到管道中
+	protected Expression fltExp; // 过滤表达式
+	protected String opt; // 选项
+	protected IPipe pipe; // 管道，如果不为空，则把不满足条件的数据推送到管道中
 
-	private boolean isContinuous; // 满足条件的记录是否是连续的一个区间
-	private boolean isFound; // 是否已经找到，@c时找到后再碰到不匹配的结束查找
-	private boolean isOrg; // 是否改变原序列
+	protected boolean isContinuous; // 满足条件的记录是否是连续的一个区间
+	protected boolean isFound; // 是否已经找到，@c时找到后再碰到不匹配的结束查找
+	protected boolean isOrg; // 是否改变原序列
 	
 	public Select(Expression fltExp, String opt) {
 		this(null, fltExp, opt, null);
@@ -81,7 +82,7 @@ public class Select extends Operation {
 		Sequence result = new Sequence();
 		
 		ComputeStack stack = ctx.getComputeStack();
-		Sequence.Current current = seq.new Current();
+		Current current = new Current(seq);
 		stack.push(current);
 
 		try {

@@ -1,11 +1,11 @@
 package com.scudata.util;
 
 import com.scudata.common.ISessionFactory;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Context;
 import com.scudata.dm.Env;
 import com.scudata.dm.JobSpace;
 import com.scudata.dm.Param;
-import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 
 /**
@@ -54,8 +54,8 @@ public class EnvUtil {
 		
 		int fcount = 1;
 		Object obj = table.get(1);
-		if (obj instanceof Record) {
-			fcount = ((Record)obj).getFieldCount();
+		if (obj instanceof BaseRecord) {
+			fcount = ((BaseRecord)obj).getFieldCount();
 		}
 		
 		int recordCount = (int)G / (fcount * FIELDSIZE); // 1g内存大约能够容纳的记录数

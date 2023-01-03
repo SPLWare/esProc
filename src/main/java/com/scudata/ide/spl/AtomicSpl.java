@@ -924,9 +924,6 @@ public class AtomicSpl implements IAtomicCmd {
 									CellLocation clSrc = new CellLocation(r, c);
 									CellLocation clTar = new CellLocation(r,
 											tCol);
-									System.out
-											.println("exchangeReference() from:"
-													+ c + "; to:" + tCol);
 									this.control.cellSet.exchangeReference(
 											clSrc, clTar);
 								}
@@ -988,9 +985,6 @@ public class AtomicSpl implements IAtomicCmd {
 									CellLocation clSrc = new CellLocation(r, c);
 									CellLocation clTar = new CellLocation(r,
 											tCol);
-									System.out
-											.println("exchangeReference() from:"
-													+ c + "; to:" + tCol);
 									this.control.cellSet.exchangeReference(
 											clSrc, clTar);
 								}

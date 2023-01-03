@@ -5,8 +5,6 @@ import java.awt.dnd.DropTarget;
 import javax.swing.JPanel;
 
 import com.scudata.cellset.datamodel.CellSet;
-import com.scudata.common.Area;
-import com.scudata.common.CellLocation;
 
 /**
  * 网格控件
@@ -105,23 +103,6 @@ public class EditControl extends SplControl {
 	 */
 	public void acceptText() {
 		this.contentView.submitEditor();
-	}
-
-	/**
-	 * 设置搜索匹配到的格子
-	 * 
-	 * @param row                   行号
-	 * @param col                   列号
-	 * @param searchInSelectedCells 是否在选择区域内搜索的
-	 */
-	public void setSearchedCell(int row, int col, boolean searchInSelectedCells) {
-		setActiveCell(new CellLocation(row, col));
-		ControlUtils.scrollToVisible(this.getViewport(), this, row, col);
-		if (!searchInSelectedCells) {
-			setSelectedArea(new Area(row, col, row, col));
-			this.fireRegionSelect(true);
-		}
-		this.repaint();
 	}
 
 }

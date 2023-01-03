@@ -15,12 +15,20 @@ import com.scudata.resources.EngineMessage;
  *
  */
 public class Not extends Function {
-	public Object calculate(Context ctx) {
+	/**
+	 * 检查表达式的有效性，无效则抛出异常
+	 */
+	public void checkValidity() {
 		if (param == null) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("not" + mm.getMessage("function.missingParam"));
+		} else if (!param.isLeaf()) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("not" + mm.getMessage("function.invalidParam"));
 		}
-		
+	}
+	
+	public Object calculate(Context ctx) {
 		Object obj = param.getLeafExpression().calculate(ctx);
 		if (obj instanceof BigDecimal) {
 			BigInteger bi = ((BigDecimal)obj).toBigInteger().not();

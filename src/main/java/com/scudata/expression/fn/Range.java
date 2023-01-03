@@ -22,8 +22,10 @@ import com.scudata.util.Variant;
  *
  */
 public class Range extends Function {
-
-	public Object calculate(Context ctx) {
+	/**
+	 * 检查表达式的有效性，无效则抛出异常
+	 */
+	public void checkValidity() {
 		if (param == null) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("range" + mm.getMessage("function.missingParam"));
@@ -31,7 +33,9 @@ public class Range extends Function {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("range" + mm.getMessage("function.invalidParam"));
 		}
+	}
 
+	public Object calculate(Context ctx) {
 		IParam startParam = param.getSub(0);
 		IParam endParam = param.getSub(1);
 		IParam segParam = param.getSub(2);

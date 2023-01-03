@@ -2,8 +2,8 @@ package com.scudata.expression.mfn.record;
 
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Context;
-import com.scudata.dm.Record;
 import com.scudata.expression.IParam;
 import com.scudata.expression.RecordFunction;
 import com.scudata.resources.EngineMessage;
@@ -22,7 +22,7 @@ public class Prior extends RecordFunction {
 		}
 		
 		String field;
-		Record parent = null;
+		BaseRecord parent = null;
 		int maxLevel = 1000;
 		
 		if (param.isLeaf()) {
@@ -44,8 +44,8 @@ public class Prior extends RecordFunction {
 			sub = param.getSub(1);
 			if (sub != null) {
 				Object obj = sub.getLeafExpression().calculate(ctx);
-				if (obj instanceof Record) {
-					parent = (Record)obj;
+				if (obj instanceof BaseRecord) {
+					parent = (BaseRecord)obj;
 				} else if (obj != null) {
 					MessageManager mm = EngineMessage.get();
 					throw new RQException("prior" + mm.getMessage("function.paramTypeError"));

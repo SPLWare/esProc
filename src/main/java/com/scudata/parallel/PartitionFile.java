@@ -12,11 +12,11 @@ import com.scudata.dm.FileObject;
 import com.scudata.dm.JobSpace;
 import com.scudata.dm.JobSpaceManager;
 import com.scudata.dm.cursor.BFileCursor;
-import com.scudata.dw.ColumnGroupTable;
-import com.scudata.dw.GroupTable;
-import com.scudata.dw.ITableMetaData;
-import com.scudata.dw.RowGroupTable;
-import com.scudata.dw.TableMetaData;
+import com.scudata.dw.ColComTable;
+import com.scudata.dw.ComTable;
+import com.scudata.dw.IPhyTable;
+import com.scudata.dw.RowComTable;
+import com.scudata.dw.PhyTable;
 import com.scudata.resources.EngineMessage;
 
 /**
@@ -130,7 +130,7 @@ class PartitionFile {
 				throw new RQException(mm.getMessage("file.fileAlreadyExist", fo.getFileName()));
 			} else if (opt != null && opt.indexOf('y') != -1 && file.exists()) {
 				try {
-					GroupTable table = GroupTable.open(file, ctx);
+					ComTable table = ComTable.open(file, ctx);
 					table.delete();
 				} catch (IOException e) {
 					throw new RQException(e.getMessage(), e);
@@ -138,19 +138,19 @@ class PartitionFile {
 			}
 			
 			
-			GroupTable gt;
+			ComTable gt;
 			if (opt != null && opt.indexOf('r') != -1) {
-				gt = new RowGroupTable(file, colNames, distribute, opt, ctx);
+				gt = new RowComTable(file, colNames, distribute, opt, ctx);
 			} else {
-				gt = new ColumnGroupTable(file, colNames, distribute, opt, ctx);
+				gt = new ColComTable(file, colNames, distribute, opt, ctx);
 			}
 			
 			if (parts != null && parts.length == 1) {
 				gt.setPartition(parts[0]);
 			}
 			
-			TableMetaData table = gt.getBaseTable();
-			IProxy proxy = new TableMetaDataProxy(table);
+			PhyTable table = gt.getBaseTable();
+			IProxy proxy = new PhyTableProxy(table);
 			js.getResourceManager().addProxy(proxy);
 			return new Response(new Integer(proxy.getProxyId()));
 		} catch (Exception e) {
@@ -195,7 +195,7 @@ class PartitionFile {
 		try {
 			JobSpace js = JobSpaceManager.getSpace(jobSpaceID);
 			Context ctx = ClusterUtil.createContext(js);
-			ITableMetaData table;
+			IPhyTable table;
 			
 			if (parts == null || parts.length <= 1) {
 				FileObject fo = new FileObject(fileName);
@@ -204,7 +204,7 @@ class PartitionFile {
 				}
 	
 				File file = fo.getLocalFile().file();
-				TableMetaData tmd = GroupTable.openBaseTable(file, ctx);
+				PhyTable tmd = ComTable.openBaseTable(file, ctx);
 				table = tmd;
 				
 				if (parts != null && parts.length == 1) {
@@ -215,7 +215,7 @@ class PartitionFile {
 				table = fileGroup.open(null, ctx);
 			}
 			
-			IProxy proxy = new TableMetaDataProxy(table);
+			IProxy proxy = new PhyTableProxy(table);
 			js.getResourceManager().addProxy(proxy);
 			return new Response(new Integer(proxy.getProxyId()));
 		} catch (Exception e) {
@@ -350,7 +350,7 @@ class PartitionFile {
 					fo.setPartition(parts[0]);
 				}
 				
-				GroupTable table = GroupTable.open(fo.getLocalFile().file(), ctx);
+				ComTable table = ComTable.open(fo.getLocalFile().file(), ctx);
 				if (file == null) {
 					result = table.reset(null, option, ctx, distribute);
 				} else {

@@ -19,6 +19,12 @@ public interface IResult {
 	public void push(Sequence seq, Context ctx);
 	
 	/**
+	 * 数据推送结束时调用
+	 * @param ctx 计算上下文
+	 */
+	public void finish(Context ctx);
+	
+	/**
 	 * 数据推送结束，取最终的计算结果
 	 * @return
 	 */

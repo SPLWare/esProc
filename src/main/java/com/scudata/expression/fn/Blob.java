@@ -16,30 +16,35 @@ import com.scudata.resources.EngineMessage;
  *
  */
 public class Blob extends Function {
+	/**
+	 * 检查表达式的有效性，无效则抛出异常
+	 */
+	public void checkValidity() {
+		if (param == null) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("blob" + mm.getMessage("function.missingParam"));
+		} else if (!param.isLeaf()) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("blob" + mm.getMessage("function.invalidParam"));
+		}
+	}
+	
 	public Node optimize(Context ctx) {
-		if (param != null) param.optimize(ctx);
+		param.optimize(ctx);
 		return this;
 	}
 
 	public Object calculate(Context ctx) {
-		if (param == null) {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException("blob" + mm.getMessage("function.missingParam"));
-		} else if (param.isLeaf()) {
-			Object obj = param.getLeafExpression().calculate(ctx);
-			if (obj instanceof Sequence) {
-				return toBlob((Sequence)obj);
-			} else if (obj instanceof byte[]) {
-				return toSequence((byte[])obj);
-			} else if (obj == null) {
-				return null;
-			} else {
-				MessageManager mm = EngineMessage.get();
-				throw new RQException("blob" + mm.getMessage("function.paramTypeError"));
-			}
+		Object obj = param.getLeafExpression().calculate(ctx);
+		if (obj instanceof Sequence) {
+			return toBlob((Sequence)obj);
+		} else if (obj instanceof byte[]) {
+			return toSequence((byte[])obj);
+		} else if (obj == null) {
+			return null;
 		} else {
 			MessageManager mm = EngineMessage.get();
-			throw new RQException("blob" + mm.getMessage("function.invalidParam"));
+			throw new RQException("blob" + mm.getMessage("function.paramTypeError"));
 		}
 	}
 	

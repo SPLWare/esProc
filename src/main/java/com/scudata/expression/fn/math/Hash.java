@@ -14,13 +14,18 @@ import com.scudata.util.HashUtil;
  * hash(xi,…;n)
  */
 public class Hash extends Function {
-	public Object calculate(Context ctx) {
-		IParam param = this.param;
+	/**
+	 * 检查表达式的有效性，无效则抛出异常
+	 */
+	public void checkValidity() {
 		if (param == null) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("hash" + mm.getMessage("function.missingParam"));
 		}
+	}
 
+	public Object calculate(Context ctx) {
+		IParam param = this.param;
 		HashUtil hashUtil;
 		if (param.getType() == IParam.Semicolon) {
 			if (param.getSubSize() != 2) {

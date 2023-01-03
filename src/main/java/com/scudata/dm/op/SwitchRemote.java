@@ -1,11 +1,13 @@
 package com.scudata.dm.op;
 
+import com.scudata.array.IArray;
+import com.scudata.array.ObjectArray;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Context;
 import com.scudata.dm.DataStruct;
 import com.scudata.dm.IndexTable;
-import com.scudata.dm.ListBase1;
 import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 import com.scudata.expression.CurrentSeq;
@@ -103,7 +105,7 @@ public class SwitchRemote extends Operation {
 				if (exp == null || !(exp.getHome() instanceof CurrentSeq)) { // #
 					indexTables[i] = codes[i].getIndexTable(exp, ctx);
 					if (indexTables[i] == null) {
-						indexTables[i] = IndexTable.instance(codes[i], exp, ctx);
+						indexTables[i] = codes[i].newIndexTable(exp, ctx);
 					}
 				}
 				
@@ -195,7 +197,7 @@ public class SwitchRemote extends Operation {
 			}
 
 			if (isIsect) {
-				ListBase1 resultMems = new ListBase1(len);
+				ObjectArray resultMems = new ObjectArray(len);
 				for (int i = 1; i <= len; ++i) {
 					Record r = (Record)result.getMem(i);
 					Object val = newSeq.getMem(i);
@@ -207,7 +209,7 @@ public class SwitchRemote extends Operation {
 				
 				result.setMems(resultMems);
 			} else if (isDiff) {
-				ListBase1 resultMems = new ListBase1(len);
+				ObjectArray resultMems = new ObjectArray(len);
 				for (int i = 1; i <= len; ++i) {
 					Record r = (Record)result.getMem(i);
 					Object val = newSeq.getMem(i);
@@ -248,7 +250,7 @@ public class SwitchRemote extends Operation {
 			DataStruct ds = dataStructs[f];
 			int keySeq = keySeqs[f];
 			for (int i = 1; i <= len; ++i) {
-				Record r = (Record)src.getMem(i);
+				BaseRecord r = (BaseRecord)src.getMem(i);
 				Object val = r.getNormalFieldValue(f);
 				val = it.find(val);
 				if (val != null) {
@@ -261,7 +263,7 @@ public class SwitchRemote extends Operation {
 			}
 		} else {
 			for (int i = 1; i <= len; ++i) {
-				Record r = (Record)src.getMem(i);
+				BaseRecord r = (BaseRecord)src.getMem(i);
 				Object val = r.getNormalFieldValue(f);
 				val = it.find(val);
 				result.add(val);
@@ -275,11 +277,11 @@ public class SwitchRemote extends Operation {
 	private Sequence fetch(Sequence src, int f, Sequence code, Context ctx) {
 		int len = src.length();
 		Sequence result = new Sequence(len);
-		ListBase1 codeMems = code.getMems();
+		IArray codeMems = code.getMems();
 		int codeLen = codeMems.size();
 		
 		for (int i = 1; i <= len; ++i) {
-			Record r = (Record)src.getMem(i);
+			BaseRecord r = (BaseRecord)src.getMem(i);
 			Object val = r.getNormalFieldValue(f);
 			if (val instanceof Number) {
 				int seq = ((Number)val).intValue();

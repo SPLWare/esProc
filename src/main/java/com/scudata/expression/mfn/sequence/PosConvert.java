@@ -14,14 +14,24 @@ import com.scudata.resources.EngineMessage;
  *
  */
 public class PosConvert extends SequenceFunction {
-	public Object calculate(Context ctx) {
-		if (param == null || !param.isLeaf()) {
+	/**
+	 * 检查表达式的有效性，无效则抛出异常
+	 */
+	public void checkValidity() {
+		if (param == null) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("p" + mm.getMessage("function.missingParam"));
+		} else if (!param.isLeaf()) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("p" + mm.getMessage("function.invalidParam"));
 		}
-
+	}
+	
+	public Object calculate(Context ctx) {
 		Object pval = param.getLeafExpression().calculate(ctx);
-		if (pval == null) return null;
+		if (pval == null) {
+			return null;
+		}
 
 		boolean isRepeat = false, reserveZero = true;
 		if (option != null) {

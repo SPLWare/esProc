@@ -69,6 +69,17 @@ public class MinHeap {
 			return true;
 		}
 	}
+	
+	/**
+	 * 把另一个堆的数据加到当前堆
+	 * @param other
+	 */
+	public void insertAll(MinHeap other) {
+		Object []heap = other.heap;
+		for (int i = 1, currentSize = this.currentSize; i <= currentSize; ++i) {
+			insert(heap[i]);
+		}
+	}
 
 	/**
 	 * 删除根节点

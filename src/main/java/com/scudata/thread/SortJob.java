@@ -2,8 +2,6 @@ package com.scudata.thread;
 
 import java.util.Comparator;
 
-import com.scudata.common.ICloneable;
-
 
 /**
  * 用于执行排序的任务
@@ -26,17 +24,25 @@ class SortJob extends Job {
 		this.dest = dest;
 		this.fromIndex = fromIndex;
 		this.toIndex = toIndex;
+		this.c = c;
 		this.off = off;
 		this.threadCount = threadCount;
-		
-		if (c instanceof ICloneable) {
-			this.c = (Comparator<Object>)((ICloneable)c).deepClone();
-		} else {
-			this.c = c;
-		}
+	}
+	
+	public SortJob(Object []src, Object[] dest, int fromIndex, int toIndex, int off, int threadCount) {
+		this.src = src;
+		this.dest = dest;
+		this.fromIndex = fromIndex;
+		this.toIndex = toIndex;
+		this.off = off;
+		this.threadCount = threadCount;
 	}
 	
 	public void run() {
-		MultithreadUtil.mergeSort(src, dest, fromIndex, toIndex, off, c, threadCount);
+		if (c == null) {
+			MultithreadUtil.mergeSort(src, dest, fromIndex, toIndex, off, threadCount);
+		} else {
+			MultithreadUtil.mergeSort(src, dest, fromIndex, toIndex, off, c, threadCount);
+		}
 	}
 }

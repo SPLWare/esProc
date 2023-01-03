@@ -4,11 +4,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import com.scudata.array.IArray;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
 import com.scudata.dm.DataStruct;
-import com.scudata.dm.ListBase1;
 import com.scudata.dm.ObjectReader;
 import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
@@ -46,7 +46,7 @@ import com.scudata.resources.EngineMessage;
  *
  */
 public class RowCursor extends IDWCursor {
-	private RowTableMetaData table;//原表
+	private RowPhyTable table;//原表
 	private String []fields;//取出字段
 	private DataStruct ds;//数据结构
 	private String []sortedFields;//有序字段
@@ -77,7 +77,7 @@ public class RowCursor extends IDWCursor {
 	private DataStruct tempDs;
 	
 	//附表使用
-	private RowTableMetaData baseTable;
+	private RowPhyTable baseTable;
 	private BlockLinkReader baseRowReader;
 	private ObjectReader baseSegmentReader;
 	private ArrayList<ModifyRecord> baseModifyRecords;
@@ -86,15 +86,15 @@ public class RowCursor extends IDWCursor {
 	
 	private IFilter []filters;
 	
-	public RowCursor(RowTableMetaData table) {
+	public RowCursor(RowPhyTable table) {
 		this(table, null);
 	}
 	
-	public RowCursor(RowTableMetaData table, String []fields) {
+	public RowCursor(RowPhyTable table, String []fields) {
 		this(table, fields, null, null);
 	}
 	
-	public RowCursor(RowTableMetaData table, String []fields, Expression filter, Context ctx) {
+	public RowCursor(RowPhyTable table, String []fields, Expression filter, Context ctx) {
 		this.table = table;
 		this.fields = fields;
 		this.filter = filter;
@@ -109,7 +109,7 @@ public class RowCursor extends IDWCursor {
 		init();
 	}
 	
-	public RowCursor(RowTableMetaData table, String []fields, Expression filter, Expression []exps, String []names, Context ctx) {
+	public RowCursor(RowPhyTable table, String []fields, Expression filter, Expression []exps, String []names, Context ctx) {
 		this.table = table;
 		this.fields = fields;
 		this.filter = filter;
@@ -249,7 +249,7 @@ public class RowCursor extends IDWCursor {
 	 * @param node
 	 * @return
 	 */
-	private static String getColumn(RowTableMetaData table, Node node) {
+	private static String getColumn(RowPhyTable table, Node node) {
 		if (node instanceof UnknownSymbol) {
 			String keyName = ((UnknownSymbol)node).getName();
 			if (table.isDim(keyName)) {
@@ -455,7 +455,7 @@ public class RowCursor extends IDWCursor {
 	 * @param exp
 	 * @param ctx
 	 */
-	private void parseFilter(RowTableMetaData table, Expression exp, Context ctx) {
+	private void parseFilter(RowPhyTable table, Expression exp, Context ctx) {
 		Object obj = parseFilter(table, exp.getHome(), ctx);
 		
 		if (obj instanceof IFilter) {
@@ -504,7 +504,7 @@ public class RowCursor extends IDWCursor {
 	 * @param ctx
 	 * @return
 	 */
-	private static Object parseContain(RowTableMetaData table, Node node, Context ctx) {
+	private static Object parseContain(RowPhyTable table, Node node, Context ctx) {
 		if (node instanceof DotOperator) {
 			if (node.getRight() instanceof Contain) {
 				Contain contain = (Contain)node.getRight();
@@ -614,7 +614,7 @@ public class RowCursor extends IDWCursor {
 	 * @param ctx
 	 * @return
 	 */
-	public static Object parseFilter(RowTableMetaData table, Node node, Context ctx) {
+	public static Object parseFilter(RowPhyTable table, Node node, Context ctx) {
 		if (node instanceof And) {
 			Object left = parseFilter(table, node.getLeft(), ctx);
 			Object right = parseFilter(table, node.getRight(), ctx);
@@ -783,7 +783,7 @@ public class RowCursor extends IDWCursor {
 		
 		isPrimaryTable = table.parent == null;
 		if (!isPrimaryTable) {
-			baseTable = (RowTableMetaData) table.parent;
+			baseTable = (RowPhyTable) table.parent;
 			baseRowReader = baseTable.getRowReader(true);
 			baseSegmentReader = baseTable.getSegmentObjectReader();
 			baseModifyRecords = baseTable.getModifyRecords();
@@ -990,7 +990,7 @@ public class RowCursor extends IDWCursor {
 		boolean []isMyCol = this.isMyCol;
 		
 		DataStruct ds = this.ds;		
-		ListBase1 mems = cache.getMems();
+		IArray mems = cache.getMems();
 		this.cache = null;
 		
 		TableGather []gathers = null;
@@ -1090,7 +1090,7 @@ public class RowCursor extends IDWCursor {
 						}
 						
 						//用取出字段组成记录
-						GroupTableRecord r = new GroupTableRecord(ds);
+						ComTableRecord r = new ComTableRecord(ds);
 						if (exps != null) {
 							temp.setStart(0, values);
 							if (!isPrimaryTable) {
@@ -1174,7 +1174,7 @@ public class RowCursor extends IDWCursor {
 						}
 						
 						//用取出字段组成记录
-						GroupTableRecord r = new GroupTableRecord(ds);
+						ComTableRecord r = new ComTableRecord(ds);
 						if (exps != null) {
 							temp.setStart(0, values);
 							if (!isPrimaryTable) {
@@ -1256,7 +1256,7 @@ public class RowCursor extends IDWCursor {
 						}
 						
 						//用取出字段组成记录
-						GroupTableRecord r = new GroupTableRecord(ds);
+						ComTableRecord r = new ComTableRecord(ds);
 						if (exps != null) {
 							temp.setStart(0, values);
 							if (!isPrimaryTable) {
@@ -1353,7 +1353,7 @@ public class RowCursor extends IDWCursor {
 		
 		RowBufferReader bufReader;
 		DataStruct ds = this.ds;
-		ListBase1 mems = cache.getMems();
+		IArray mems = cache.getMems();
 		this.cache = null;
 		long prevRecordSeq = this.prevRecordSeq;
 		ArrayList<ModifyRecord> modifyRecords = this.modifyRecords;
@@ -1441,7 +1441,7 @@ public class RowCursor extends IDWCursor {
 						}
 						
 						//用取出字段组成记录
-						GroupTableRecord r = new GroupTableRecord(ds);
+						ComTableRecord r = new ComTableRecord(ds);
 						if (!isPrimaryTable) {
 							for (int f = 0; f < colCount; ++f) {
 								if (isMyCol[f]) {
@@ -1479,7 +1479,7 @@ public class RowCursor extends IDWCursor {
 								}
 								
 								Record sr = mr.getRecord();
-								GroupTableRecord r = new GroupTableRecord(ds);
+								ComTableRecord r = new ComTableRecord(ds);
 								if (isPrimaryTable) {
 									for (int f = 0; f < colCount; ++f) {
 										r.setNormalFieldValue(f, sr.getNormalFieldValue(findex[f]));
@@ -1578,7 +1578,7 @@ public class RowCursor extends IDWCursor {
 							}
 							
 							//用取出字段组成记录
-							GroupTableRecord r = new GroupTableRecord(ds);
+							ComTableRecord r = new ComTableRecord(ds);
 							if (!isPrimaryTable) {
 								for (int f = 0; f < colCount; ++f) {
 									if (isMyCol[f]) {
@@ -1667,7 +1667,7 @@ public class RowCursor extends IDWCursor {
 		
 		RowBufferReader bufReader;
 		DataStruct ds = this.ds;
-		ListBase1 mems = cache.getMems();
+		IArray mems = cache.getMems();
 		this.cache = null;
 		long prevRecordSeq = this.prevRecordSeq;
 		ArrayList<ModifyRecord> modifyRecords = this.modifyRecords;
@@ -1766,7 +1766,7 @@ public class RowCursor extends IDWCursor {
 						}
 						
 						//用取出字段组成记录
-						GroupTableRecord r = new GroupTableRecord(ds);
+						ComTableRecord r = new ComTableRecord(ds);
 						temp.setStart(0, values);
 						if (!isPrimaryTable) {
 							for (int f = 0; f < colCount; ++f) {
@@ -1808,7 +1808,7 @@ public class RowCursor extends IDWCursor {
 								}
 								
 								Record sr = mr.getRecord();
-								GroupTableRecord r = new GroupTableRecord(ds);
+								ComTableRecord r = new ComTableRecord(ds);
 								if (isPrimaryTable) {
 									for (int f = 0; f < colCount; ++f) {
 										if (exps[f] != null) {
@@ -1920,7 +1920,7 @@ public class RowCursor extends IDWCursor {
 							}
 							
 							//用取出字段组成记录
-							GroupTableRecord r = new GroupTableRecord(ds);
+							ComTableRecord r = new ComTableRecord(ds);
 							temp.setStart(0, values);
 							if (!isPrimaryTable) {
 								for (int f = 0; f < colCount; ++f) {
@@ -2077,7 +2077,7 @@ public class RowCursor extends IDWCursor {
 	public void setAppendData(Sequence seq) {
 	}
 
-	public TableMetaData getTableMetaData() {
+	public PhyTable getTableMetaData() {
 		return table;
 	}
 	
@@ -2099,6 +2099,18 @@ public class RowCursor extends IDWCursor {
 			this.cache = cache;
 		} else {
 			this.cache = cache;	
+		}
+	}
+	
+	protected Sequence getStartBlockData(int n) {
+		// 只取第一块的记录，如果第一块没有满足条件的就返回
+		int startBlock = this.startBlock;
+		int endBlock = this.endBlock;
+		try {
+			setEndBlock(startBlock + 1);
+			return get(n);
+		} finally {
+			setEndBlock(endBlock);
 		}
 	}
 }

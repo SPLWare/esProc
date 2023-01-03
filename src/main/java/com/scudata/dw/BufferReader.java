@@ -4,6 +4,8 @@ import java.io.*;
 import java.math.*;
 import java.sql.Date;
 
+import com.scudata.array.IArray;
+import com.scudata.array.ObjectArray;
 import com.scudata.common.DateCache;
 import com.scudata.common.ObjectCache;
 import com.scudata.dm.DataStruct;
@@ -19,15 +21,15 @@ import com.scudata.dm.Table;
  */
 public class BufferReader {
 	protected StructManager structManager;
-	protected byte[] buffer; // 每次读入的字节缓存
-	protected int index; // 下一字节在buffer中的索引
-	protected int count; // 读入buffer的实际字节数目
+	public byte[] buffer; // 每次读入的字节缓存
+	public int index; // 下一字节在buffer中的索引
+	public int count; // 读入buffer的实际字节数目
 
 	private byte[] readBuffer = new byte[32];
 	protected char[] charBuffer = new char[128];
 	
-	protected Object repeatValue;//连续相同的值
-	protected int repeatCount = 0;//连续相同的值的个数
+	public Object repeatValue;//连续相同的值
+	public int repeatCount = 0;//连续相同的值的个数
 
 	protected static final String []HEXSTRINGS = new String[] {"0", "1", "2", "3", "4", "5", "6",
 		"7", "8", "9", "A", "B", "C", "D", "E", "F"};
@@ -261,7 +263,9 @@ public class BufferReader {
 		}
 		
 		int t1 = b & 0xF0;
-		if (t1 == BufferWriter.STRING4 || t1 == BufferWriter.STRING5) {
+		if (t1 == BufferWriter.STRING4_ASSIC || t1 == BufferWriter.STRING5_ASSIC) {
+			return readStringAssic(b & 0x1F);
+		} else if (t1 == BufferWriter.STRING4 || t1 == BufferWriter.STRING5) {
 			return readString(b & 0x1F);
 		} else if (t1 == BufferWriter.DIGIT4) {
 			return readDigits(b & 0x0F);
@@ -373,6 +377,17 @@ public class BufferReader {
 		if (seq == 1) 
 			return ObjectCache.getString(charBuffer);
 		return new String(charBuffer, 0, seq);
+	}
+	
+	protected String readStringAssic(int size) throws IOException {
+		String str;
+		if (size == 0) return "";
+		if (size == 1) 
+			str = ObjectCache.getString(buffer[index]);
+		else
+			str = new String(buffer, index, size);
+		index += size;
+		return str;
 	}
 
 	public long readLong() throws IOException {
@@ -676,6 +691,9 @@ public class BufferReader {
 		case BufferWriter.STRING4:
 		case BufferWriter.STRING5:
 			return readString(b & 0x1F);
+		case BufferWriter.STRING4_ASSIC:
+		case BufferWriter.STRING5_ASSIC:
+			return readStringAssic(b & 0x1F);
 		case BufferWriter.DIGIT4:
 			return readDigits(b & 0x0F);
 		case BufferWriter.HEX4:
@@ -696,7 +714,7 @@ public class BufferReader {
 		}
 	}
 	
-	protected Object readRepeat(int b) throws IOException {
+	public Object readRepeat(int b) throws IOException {
 		// 返回一个值，重复数减去1
 		int count;
 		if ((b & 0x08) == 0) {
@@ -737,6 +755,8 @@ public class BufferReader {
 			break;
 		case BufferWriter.STRING4:
 		case BufferWriter.STRING5:
+		case BufferWriter.STRING4_ASSIC:
+		case BufferWriter.STRING5_ASSIC:
 			skipFully(b & 0x1F);
 			break;
 		case BufferWriter.DIGIT4:
@@ -987,6 +1007,8 @@ public class BufferReader {
 			break;
 		case BufferWriter.STRING4:
 		case BufferWriter.STRING5:
+		case BufferWriter.STRING4_ASSIC:
+		case BufferWriter.STRING5_ASSIC:
 			skipFully(b & 0x1F);
 			break;
 		case BufferWriter.DIGIT4:
@@ -1037,6 +1059,8 @@ public class BufferReader {
 			break;
 		case BufferWriter.STRING4:
 		case BufferWriter.STRING5:
+		case BufferWriter.STRING4_ASSIC:
+		case BufferWriter.STRING5_ASSIC:
 			skipFully(b & 0x1F);
 			break;
 		case BufferWriter.DIGIT4:
@@ -1087,6 +1111,8 @@ public class BufferReader {
 			break;
 		case BufferWriter.STRING4:
 		case BufferWriter.STRING5:
+		case BufferWriter.STRING4_ASSIC:
+		case BufferWriter.STRING5_ASSIC:
 			skipFully(b & 0x1F);
 			break;
 		case BufferWriter.DIGIT4:
@@ -1137,6 +1163,8 @@ public class BufferReader {
 			break;
 		case BufferWriter.STRING4:
 		case BufferWriter.STRING5:
+		case BufferWriter.STRING4_ASSIC:
+		case BufferWriter.STRING5_ASSIC:
 			skipFully(b & 0x1F);
 			break;
 		case BufferWriter.DIGIT4:
@@ -1159,5 +1187,38 @@ public class BufferReader {
 		default:
 			throw new RuntimeException();
 		}
+	}
+	
+	
+	public boolean isNull() {
+		if (repeatCount > 0) {
+			return repeatValue == null;
+		}
+		return (buffer[index] == BufferWriter.NULL);
+	}
+	
+	/**
+	 * 读取一个对象到array的指定位置
+	 * @param array
+	 * @param index
+	 * @return
+	 * @throws IOException
+	 */
+	public void readObject(IArray array, int index) throws IOException {
+		if (repeatCount > 0) {
+			repeatCount--;
+			array.set(index, repeatValue);
+			return;
+		}
+		array.set(index, innerReadObject());
+	}
+	
+	/**
+	 * 根据块类型获得一个数组
+	 * @param count
+	 * @return
+	 */
+	public IArray getEmptyArray(int count) {
+		return new ObjectArray(count);
 	}
 }

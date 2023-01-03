@@ -23,11 +23,18 @@ import com.scudata.resources.EngineMessage;
  */
 public class MoveFile extends Function {
 	public Node optimize(Context ctx) {
-		if (param != null) {
-			param.optimize(ctx);
-		}
-		
+		param.optimize(ctx);
 		return this;
+	}
+	
+	/**
+	 * 检查表达式的有效性，无效则抛出异常
+	 */
+	public void checkValidity() {
+		if (param == null) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("movefile" + mm.getMessage("function.missingParam"));
+		}
 	}
 
 	// 本机文件移动movefile(fn:z,path)
@@ -254,10 +261,7 @@ public class MoveFile extends Function {
 	}
 	
 	public Object calculate(Context ctx) {
-		if (param == null) {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException("movefile" + mm.getMessage("function.missingParam"));
-		} else if (param.getType() == IParam.Semicolon) {
+		if (param.getType() == IParam.Semicolon) {
 			// movefile(fn:z,h;p,hs)
 			return clusterFileMove(param, option, ctx);
 		} else {

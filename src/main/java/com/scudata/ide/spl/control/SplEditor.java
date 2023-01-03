@@ -33,7 +33,6 @@ import com.scudata.common.Matrix;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.common.StringUtils;
-import com.scudata.dm.Context;
 import com.scudata.ide.common.ConfigOptions;
 import com.scudata.ide.common.GC;
 import com.scudata.ide.common.GM;
@@ -137,7 +136,7 @@ public class SplEditor {
 	 * @param sheet   页面对象
 	 * @param context 上下文
 	 */
-	public SplEditor(SheetSpl sheet, Context context) {
+	public SplEditor(SheetSpl sheet) {
 		this.sheet = sheet;
 		control = newEditControl(ConfigOptions.iRowCount.intValue(),
 				ConfigOptions.iColCount.intValue());
@@ -145,7 +144,6 @@ public class SplEditor {
 		control.draw();
 		SplControlListener qcl = new SplControlListener(this);
 		control.addEditorListener(qcl);
-		setContext(context);
 		undoManager = new UndoManager(this);
 	};
 
@@ -214,15 +212,6 @@ public class SplEditor {
 	 */
 	public boolean isDataChanged() {
 		return isDataChanged;
-	}
-
-	/**
-	 * 设置上下文
-	 * 
-	 * @param context
-	 */
-	public void setContext(Context context) {
-		control.setContext(context);
 	}
 
 	/**
@@ -1290,7 +1279,8 @@ public class SplEditor {
 		if (activeCell == null) {
 			return;
 		}
-
+		// 提交当前编辑
+		control.getContentPanel().submitEditor();
 		CellSet ics = control.getCellSet();
 		CellSetParser parser = new CellSetParser(ics);
 		CellRect rect = getSelectedRect();

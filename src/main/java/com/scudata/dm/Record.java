@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
+import com.scudata.array.IArray;
 import com.scudata.common.ByteArrayInputRecord;
 import com.scudata.common.ByteArrayOutputRecord;
 import com.scudata.common.IRecord;
@@ -20,7 +21,7 @@ import com.scudata.util.Variant;
  * @author WangXiaoJun
  *
  */
-public class Record implements IComputeItem, Externalizable, IRecord, Comparable<Record> {
+public class Record extends BaseRecord implements Externalizable, IRecord {
 	private static final long serialVersionUID = 0x02010002;
 
 	protected DataStruct ds;
@@ -108,6 +109,7 @@ public class Record implements IComputeItem, Externalizable, IRecord, Comparable
 			out.writeObject(values[i], true);
 		}
 
+		out.writeRecord(ds);
 		return out.toByteArray();
 	}
 
@@ -123,6 +125,11 @@ public class Record implements IComputeItem, Externalizable, IRecord, Comparable
 		this.values = values;
 		for (int i = 0; i < count; ++i) {
 			values[i] = in.readObject(true);
+		}
+		
+		if (in.available() > 0) {
+			ds = new DataStruct();
+			in.readRecord(ds);
 		}
 	}
 
@@ -237,6 +244,15 @@ public class Record implements IComputeItem, Externalizable, IRecord, Comparable
 	public Object getNormalFieldValue(int index) {
 		return values[index];
 	}
+	
+	/**
+	 * 取字段值，不做边界检查
+	 * @param index 字段序号，从0开始计数
+	 * @param out 用于存放结果，容量足够不在做容量判断
+	 */
+	public void getNormalFieldValue(int index, IArray out) {
+		out.push(values[index]);
+	}
 
 	/**
 	 * 设置字段值，不做边界检查
@@ -314,98 +330,32 @@ public class Record implements IComputeItem, Externalizable, IRecord, Comparable
 			throw new RQException(name + mm.getMessage("ds.fieldNotExist"));
 		}
 	}
-
-	/**
-	 * 记录比较用hash值，相同再用r.v()
-	 * @param r 记录
-	 */
-	public int compareTo(Record r) {
-		if (r == this) {
-			return 0;
-		}
-		
-		int h1 = hashCode();
-		int h2 = r.hashCode();
-		
-		if (h1 < h2) {
-			return -1;
-		} else if (h1 > h2) {
-			return 1;
-		} else {
-			Object []vals1 = this.values;
-			Object []vals2 = r.values;
-			int []pkIndex1 = getPKIndex();
-			int []pkIndex2 = r.getPKIndex();
-			
-			if (pkIndex1 != null && pkIndex2 != null && pkIndex1.length == pkIndex2.length) {
-				for (int i = 0; i < pkIndex1.length; ++i) {
-					int result = Variant.compare(vals1[pkIndex1[i]], vals2[pkIndex2[i]], true);
-					if (result != 0) {
-						return result;
-					}
-				}
-				
-				return 0;
-			} else {
-				int len1 = vals1.length;
-				int len2 = vals2.length;
-				int minLen = len1 > len2 ? len2 : len1;
-				
-				for (int i = 0; i < minLen; ++i) {
-					int result = Variant.compare(vals1[i], vals2[i], true);
-					if (result != 0) {
-						return result;
-					}
-				}
-				
-				return len1 == len2 ? 0 : (len1 > len2 ? 1 : -1);
-			}
-		}
-	}
 	
 	/**
-	 * 按字段值比较两条记录的大小，记录的数据结构必须相同？
-	 * @param r Record
+	 * 按字段值比较两条记录的大小
+	 * @param r BaseRecord
 	 * @return int
 	 */
-	public int compare(Record r) {
-		if (r == this) return 0;
-		if (r == null) return 1;
+	public int compare(BaseRecord r) {
+		if (r == this) {
+			return 0;
+		} else if (r == null) {
+			return 1;
+		}
 
 		Object []vals1 = this.values;
-		Object []vals2 = r.values;
 		int len1 = vals1.length;
-		int len2 = vals2.length;
+		int len2 = r.getFieldCount();
 		int minLen = len1 > len2 ? len2 : len1;
 		
 		for (int i = 0; i < minLen; ++i) {
-			int result = Variant.compare(vals1[i], vals2[i], true);
+			int result = Variant.compare(vals1[i], r.getNormalFieldValue(i), true);
 			if (result != 0) {
 				return result;
 			}
 		}
 		
 		return len1 == len2 ? 0 : (len1 > len2 ? 1 : -1);
-	}
-
-	/**
-	 * 按指定字段比较大小，记录的数据结构必须相同？
-	 * @param r Record
-	 * @param fields int[] 字段索引
-	 * @return int
-	 */
-	public int compare(Record r, int []fields) {
-		if (r == null) return 1;
-		if (r == this) return 0;
-
-		for (int i = 0, len = fields.length; i < len; ++i) {
-			int result = Variant.compare(getFieldValue(fields[i]),
-										 r.getFieldValue(fields[i]), true);
-			if (result != 0) {
-				return result;
-			}
-		}
-		return 0;
 	}
 
 	/**
@@ -426,31 +376,33 @@ public class Record implements IComputeItem, Externalizable, IRecord, Comparable
 
 	/**
 	 * 按字段值比较两条记录是否相等，记录的数据结构必须相同？
-	 * @param r Record
+	 * @param r BaseRecord
 	 * @return boolean
 	 */
-	public boolean isEquals(Record r) {
+	public boolean isEquals(BaseRecord r) {
 		if (r == null)return false;
 		if (r == this)return true;
 
 		int count = values.length;
-		if (r.values.length != count) return false;
+		Object[] vals = r.getFieldValues();
+		if (vals.length != count) return false;
 
 		for (int i = 0; i < count; ++i) {
-			if (!Variant.isEquals(values[i], r.values[i]))return false;
+			if (!Variant.isEquals(values[i], vals[i]))return false;
 		}
 		return true;
 	}
 
 	/**
 	 * 判断两记录的指定字段是否相等
-	 * @param r Record 要比较的字段
+	 * @param r BaseRecord 要比较的字段
 	 * @param index int[] 字段索引
 	 * @return boolean
 	 */
-	public boolean isEquals(Record r, int []index) {
+	public boolean isEquals(BaseRecord r, int []index) {
+		Object[] vals = r.getFieldValues();
 		for (int i = 0; i < index.length; ++i) {
-			if (!Variant.isEquals(values[index[i]], r.values[index[i]])) return false;
+			if (!Variant.isEquals(values[index[i]], vals[index[i]])) return false;
 		}
 		return true;
 	}
@@ -470,25 +422,25 @@ public class Record implements IComputeItem, Externalizable, IRecord, Comparable
 			if (opt.indexOf('f') != -1) bTitle = true;
 		}
 
-		int len = getFieldCount();
-		StringBuffer sb = new StringBuffer(20 * len);
+		int fcount = getFieldCount();
+		StringBuffer sb = new StringBuffer(20 * fcount);
 		if (bTitle) {
 			DataStruct ds = dataStruct();
-			for (int i = 0; i < len; ++i) {
-				if (i > 0) sb.append(sep);
+			for (int f = 0; f < fcount; ++f) {
+				if (f > 0) sb.append(sep);
 				if (addQuotation) {
 					sb.append('"');
-					sb.append(ds.getFieldName(i));
+					sb.append(ds.getFieldName(f));
 					sb.append('"');
 				} else {
-					sb.append(ds.getFieldName(i));
+					sb.append(ds.getFieldName(f));
 				}
 			}
 		} else {
 			boolean bFirst = true;
 			Object []values = this.values;
-			for (int i = 0; i < len; ++i) {
-				Object obj = values[i];
+			for (int f = 0; f < fcount; ++f) {
+				Object obj = values[f];
 				if (Variant.canConvertToString(obj)) {
 					if (bFirst) {
 						bFirst = false;
@@ -506,49 +458,8 @@ public class Record implements IComputeItem, Externalizable, IRecord, Comparable
 				}
 			}
 		}
+		
 		return sb.toString();
-	}
-
-	/**
-	 * 将记录的字段转成字串
-	 * @param exps Expression[] 字段表达式
-	 * @param opt String t：用'\t'分隔字段，缺省用逗号，q：串成员接入时加上引号，缺省不会处理
-	 * @param ctx Context
-	 * @return String
-	 */
-	public String toString(Expression []exps, String opt, Context ctx) {
-		if (exps == null || exps.length == 0) {
-			return toString(opt);
-		}
-
-		char sep = ',';
-		boolean addQuotation = false;
-		if (opt != null) {
-			if (opt.indexOf('t') != -1) sep = '\t';
-			if (opt.indexOf('q') != -1) addQuotation = true;
-		}
-
-		ComputeStack stack = ctx.getComputeStack();
-		stack.push(this);
-		try {
-			int len = exps.length;
-			StringBuffer sb = new StringBuffer(20 * len);
-			for (int i = 0; i < len; ++i) {
-				if (i > 0) sb.append(sep);
-				Object obj = exps[i].calculate(ctx);
-				if (addQuotation && obj instanceof String) {
-					sb.append('"');
-					sb.append((String)obj);
-					sb.append('"');
-				} else {
-					sb.append(Variant.toString(obj));
-				}
-			}
-
-			return sb.toString();
-		} finally {
-			stack.pop();
-		}
 	}
 
 	/**
@@ -556,26 +467,8 @@ public class Record implements IComputeItem, Externalizable, IRecord, Comparable
 	 * @param cur
 	 * @return
 	 */
-	public boolean isSameDataStruct(Record cur) {
-		return ds == cur.ds;
-	}
-
-	/**
-	 * 针对记录计算表达式
-	 * @param exp Expression 计算表达式
-	 * @param ctx Context 计算上下文环境
-	 * @return Object
-	 */
-	public Object calc(Expression exp, Context ctx) {
-		if (exp == null)  return null;
-
-		ComputeStack stack = ctx.getComputeStack();
-		stack.push(this);
-		try {
-			return exp.calculate(ctx);
-		} finally {
-			stack.pop();
-		}
+	public boolean isSameDataStruct(BaseRecord cur) {
+		return ds == cur.dataStruct();
 	}
 	
 	/**
@@ -675,19 +568,21 @@ public class Record implements IComputeItem, Externalizable, IRecord, Comparable
 
 	/**
 	 * 把记录r的各字段的值依次设给此记录，记录字段需相同
-	 * @param r Record
+	 * @param r BaseRecord
 	 */
-	public void set(Record r) {
-		System.arraycopy(r.values, 0, values, 0, r.values.length);
+	public void set(BaseRecord r) {
+		Object[] vals = r.getFieldValues();
+		System.arraycopy(vals, 0, values, 0, vals.length);
 	}
 
 	/**
 	 * 从字段index开始把记录r的各字段的值设给此记录
 	 * @param index int
-	 * @param r Record
+	 * @param r BaseRecord
 	 */
-	public void setStart(int index, Record r) {
-		System.arraycopy(r.values, 0, values, index, r.values.length);
+	public void setStart(int index, BaseRecord r) {
+		Object[] vals = r.getFieldValues();
+		System.arraycopy(vals, 0, values, index, vals.length);
 	}
 
 	/**
@@ -721,8 +616,8 @@ public class Record implements IComputeItem, Externalizable, IRecord, Comparable
 			Object []values = this.values;
 			Sequence seq = new Sequence(values.length);
 			for (Object obj : values) {
-				if (obj instanceof Record) {
-					obj = ((Record)obj).key();
+				if (obj instanceof BaseRecord) {
+					obj = ((BaseRecord)obj).key();
 				}
 
 				if (obj instanceof Sequence) {
@@ -737,8 +632,8 @@ public class Record implements IComputeItem, Externalizable, IRecord, Comparable
 			int keyCount = pkIndex.length - ds.getTimeKeyCount();
 			if (keyCount == 1) {
 				Object obj = getNormalFieldValue(pkIndex[0]);
-				if (obj instanceof Record) {
-					return ((Record)obj).key();
+				if (obj instanceof BaseRecord) {
+					return ((BaseRecord)obj).key();
 				} else {
 					return obj;
 				}
@@ -746,9 +641,9 @@ public class Record implements IComputeItem, Externalizable, IRecord, Comparable
 				Sequence keySeries = new Sequence(keyCount);
 				for (int i = 0; i < keyCount; ++i) {
 					Object obj = getNormalFieldValue(pkIndex[i]);
-					if (obj instanceof Record) {
-						//obj = ((Record)obj).value();
-						obj = ((Record)obj).key();
+					if (obj instanceof BaseRecord) {
+						//obj = ((BaseRecord)obj).value();
+						obj = ((BaseRecord)obj).key();
 					}
 
 					if (obj instanceof Sequence) {
@@ -775,8 +670,8 @@ public class Record implements IComputeItem, Externalizable, IRecord, Comparable
 			int keyCount = pkIndex.length - ds.getTimeKeyCount();
 			if (keyCount == 1) {
 				Object obj = getNormalFieldValue(pkIndex[0]);
-				if (obj instanceof Record) {
-					return ((Record)obj).key();
+				if (obj instanceof BaseRecord) {
+					return ((BaseRecord)obj).key();
 				} else {
 					return obj;
 				}
@@ -784,8 +679,8 @@ public class Record implements IComputeItem, Externalizable, IRecord, Comparable
 				Sequence keySeries = new Sequence(keyCount);
 				for (int i = 0; i < keyCount; ++i) {
 					Object obj = getNormalFieldValue(pkIndex[i]);
-					if (obj instanceof Record) {
-						obj = ((Record)obj).key();
+					if (obj instanceof BaseRecord) {
+						obj = ((BaseRecord)obj).key();
 					}
 
 					if (obj instanceof Sequence) {
@@ -814,8 +709,8 @@ public class Record implements IComputeItem, Externalizable, IRecord, Comparable
 			int keyCount = pkIndex.length - ds.getTimeKeyCount();
 			if (keyCount == 1) {
 				Object obj = getNormalFieldValue(pkIndex[0]);
-				if (obj instanceof Record) {
-					return ((Record)obj).getPKValue();
+				if (obj instanceof BaseRecord) {
+					return ((BaseRecord)obj).getPKValue();
 				} else {
 					return obj;
 				}
@@ -823,8 +718,8 @@ public class Record implements IComputeItem, Externalizable, IRecord, Comparable
 				Sequence keySeries = new Sequence(keyCount);
 				for (int i = 0; i < keyCount; ++i) {
 					Object obj = getNormalFieldValue(pkIndex[i]);
-					if (obj instanceof Record) {
-						obj = ((Record)obj).getPKValue();
+					if (obj instanceof BaseRecord) {
+						obj = ((BaseRecord)obj).getPKValue();
 					}
 
 					if (obj instanceof Sequence) {
@@ -841,25 +736,26 @@ public class Record implements IComputeItem, Externalizable, IRecord, Comparable
 
 	/**
 	 * 把记录r的字段值赋给此记录
-	 * @param sr Record
+	 * @param sr BaseRecord
 	 * @param isName boolean 是否按字段名进行复制
 	 */
-	public void paste(Record sr, boolean isName) {
+	public void paste(BaseRecord sr, boolean isName) {
 		if (sr == null) return;
-
+		Object[] vals = sr.getFieldValues();
+		
 		if (isName) {
 			DataStruct ds = dataStruct();
 			String []srcNames = sr.dataStruct().getFieldNames();
 			for (int i = 0, count = srcNames.length; i < count; ++i) {
 				int index = ds.getFieldIndex(srcNames[i]);
 				if (index >= 0) {
-					values[index] = sr.values[i];
+					values[index] = vals[i];
 				}
 			}
 		} else {
-			int minCount = values.length > sr.values.length ? sr.values.length :
+			int minCount = values.length > vals.length ? vals.length :
 				values.length;
-			System.arraycopy(sr.values, 0, values, 0, minCount);
+			System.arraycopy(vals, 0, values, 0, minCount);
 		}
 	}
 
@@ -901,7 +797,7 @@ public class Record implements IComputeItem, Externalizable, IRecord, Comparable
 		Object []values = this.values;
 		for (int i  = 0, len = values.length; i < len; ++i) {
 			Object val = values[i];
-			if (val instanceof Record || val instanceof Table) {
+			if (val instanceof BaseRecord || val instanceof Table) {
 				return true;
 			} else if (val instanceof Sequence) {
 				if (((Sequence)val).hasRecord()) return true;
@@ -918,7 +814,7 @@ public class Record implements IComputeItem, Externalizable, IRecord, Comparable
 	 * @param maxLevel 遍历最大的层次
 	 * @return 引用记录构成的序列
 	 */
-	public Sequence prior(String field, Record p, int maxLevel) {
+	public Sequence prior(String field, BaseRecord p, int maxLevel) {
 		int f = ds.getFieldIndex(field);
 		if (f == -1) {
 			MessageManager mm = EngineMessage.get();
@@ -935,13 +831,13 @@ public class Record implements IComputeItem, Externalizable, IRecord, Comparable
 	 * @param maxLevel 遍历最大的层次
 	 * @return 引用记录构成的序列
 	 */
-	public Sequence prior(int f, Record p, int maxLevel) {
+	public Sequence prior(int f, BaseRecord p, int maxLevel) {
 		if (this == p) {
 			return new Sequence(0);
 		}
 		
 		Sequence seq = new Sequence();
-		Record r = this;
+		BaseRecord r = this;
 		if (maxLevel > 0) {
 			for (int i = 0; i < maxLevel; ++i) {
 				Object obj = r.getNormalFieldValue(f);
@@ -950,9 +846,9 @@ public class Record implements IComputeItem, Externalizable, IRecord, Comparable
 					return seq;
 				} else if (obj == null) {
 					return null;
-				} else if (obj instanceof Record) {
+				} else if (obj instanceof BaseRecord) {
 					seq.add(r);
-					r = (Record)obj;
+					r = (BaseRecord)obj;
 				} else {
 					return null;
 				}
@@ -967,9 +863,9 @@ public class Record implements IComputeItem, Externalizable, IRecord, Comparable
 					return seq;
 				} else if (obj == null) {
 					return null;
-				} else if (obj instanceof Record) {
+				} else if (obj instanceof BaseRecord) {
 					seq.add(r);
-					r = (Record)obj;
+					r = (BaseRecord)obj;
 				} else {
 					return null;
 				}
@@ -983,5 +879,13 @@ public class Record implements IComputeItem, Externalizable, IRecord, Comparable
 	 */
 	public boolean hasTimeKey() {
 		return ds.getTimeKeyCount() > 0;
+	}
+	
+	/**
+	 * 把当前记录转成Record型的记录，如果本事是Record型则直接返回
+	 * @return Record
+	 */
+	public Record toRecord() {
+		return this;
 	}
 }

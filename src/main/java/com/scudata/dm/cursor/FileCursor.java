@@ -5,12 +5,12 @@ import java.io.InputStream;
 
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Context;
 import com.scudata.dm.DataStruct;
 import com.scudata.dm.FileObject;
 import com.scudata.dm.KeyWord;
 import com.scudata.dm.LineImporter;
-import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
 import com.scudata.resources.EngineMessage;
@@ -445,7 +445,7 @@ public class FileCursor extends ICursor {
 			return seq;
 		} else {
 			Table table = new Table(ds, initSize);
-			Record r = table.newLast();
+			BaseRecord r = table.newLast();
 			int curLen = line.length;
 			if (curLen > fcount) curLen = fcount;
 			for (int f = 0; f < curLen; ++f) {
@@ -508,7 +508,7 @@ public class FileCursor extends ICursor {
 			}
 		} else {
 			int curLen;
-			Record r;
+			BaseRecord r;
 			Table table = new Table(selDs, initSize);
 			
 			for (int i = 0; i < n; ++i) {

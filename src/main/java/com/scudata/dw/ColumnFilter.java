@@ -1,5 +1,7 @@
 package com.scudata.dw;
 
+import com.scudata.expression.Expression;
+import com.scudata.expression.Node;
 import com.scudata.util.Variant;
 
 public class ColumnFilter extends IFilter {
@@ -19,6 +21,13 @@ public class ColumnFilter extends IFilter {
 		this.rightValue = rightValue;
 	}
 	
+	public ColumnFilter(ColumnMetaData column, int priority, int operator, Object rightValue, Node node) {
+		super(column, priority);
+		this.operator = operator;
+		this.rightValue = rightValue;
+		this.exp = new Expression(node);
+	}
+
 	public boolean match(Object value) {
 		switch (operator) {
 		case EQUAL:
@@ -88,5 +97,4 @@ public class ColumnFilter extends IFilter {
 	public void setOperator(int operator) {
 		this.operator = operator;
 	}
-
 }

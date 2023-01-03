@@ -16,11 +16,18 @@ import com.scudata.resources.EngineMessage;
  *
  */
 public class Enum extends SequenceFunction {
-	public Object calculate(Context ctx) {
+	/**
+	 * 检查表达式的有效性，无效则抛出异常
+	 */
+	public void checkValidity() {
 		if (param == null) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("enum" + mm.getMessage("function.missingParam"));
-		} else if (param.isLeaf()) {
+		}
+	}
+
+	public Object calculate(Context ctx) {
+		if (param.isLeaf()) {
 			Object obj = param.getLeafExpression().calculate(ctx);
 			if (!(obj instanceof Sequence)) {
 				MessageManager mm = EngineMessage.get();

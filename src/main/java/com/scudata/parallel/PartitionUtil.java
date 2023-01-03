@@ -12,7 +12,7 @@ import com.scudata.dm.FileObject;
 import com.scudata.dm.Machines;
 import com.scudata.dm.RemoteFile;
 import com.scudata.dw.BufferReader;
-import com.scudata.dw.GroupTable;
+import com.scudata.dw.ComTable;
 import com.scudata.resources.EngineMessage;
 import com.scudata.resources.ParallelMessage;
 
@@ -431,12 +431,12 @@ public class PartitionUtil {
 		if (!file.exists()) {
 			return;
 		}
-		if (file.getName().indexOf(GroupTable.SF_SUFFIX) != -1) {
+		if (file.getName().indexOf(ComTable.SF_SUFFIX) != -1) {
 			return;
 		}
 		
-		GroupTable table = GroupTable.open(file, null);
-		File extFile = GroupTable.getSupplementFile(file);
+		ComTable table = ComTable.open(file, null);
+		File extFile = ComTable.getSupplementFile(file);
 		
 		req = new Request(Request.PARTITION_UPLOAD_CTX);
 		req.setAttr(Request.UPLOAD_DstPath, dstPathName);

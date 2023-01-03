@@ -13,14 +13,21 @@ import com.scudata.resources.EngineMessage;
  *
  */
 public class Rand extends Function {
+	public Node optimize(Context ctx) {
+		if (param != null) {
+			param.optimize(ctx);
+		}
+		
+		return this;
+	}
 
 	public Object calculate(Context ctx) {
-		MessageManager mm = EngineMessage.get();
 		if (param == null) {//返回[0,1]区间的随机小数
 			return new Double(ctx.getRandom().nextDouble());
 		} else if (param.isLeaf()) {
 			Object obj = param.getLeafExpression().calculate(ctx);
 			if (!(obj instanceof Number)) {
+				MessageManager mm = EngineMessage.get();
 				throw new RQException("rand" + mm.getMessage("function.paramTypeError"));
 			}
 
@@ -33,11 +40,8 @@ public class Rand extends Function {
 				return null;
 			}
 		} else {
+			MessageManager mm = EngineMessage.get();
 			throw new RQException("rand" + mm.getMessage("function.invalidParam"));
 		}
-	}
-
-	public Node optimize(Context ctx) {
-		return this;
 	}
 }

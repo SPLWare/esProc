@@ -14,12 +14,21 @@ import com.scudata.resources.EngineMessage;
  *
  */
 public class Pearson extends Function {
+	/**
+	 * 检查表达式的有效性，无效则抛出异常
+	 */
+	public void checkValidity() {
+		if (param == null) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("pearson" + mm.getMessage("function.missingParam"));
+		}
+	}
+	
 	public Object calculate(Context ctx) {
 		//先判断有没有分号后的参数
 		int setn = 0;
-		//edited by bd, 2022.8.12
-		IParam par = param;
-		if (param != null && param.getType() == IParam.Semicolon) {
+		IParam param = this.param;
+		if (param.getType() == IParam.Semicolon) {
 			if (param.getSubSize() != 2) {
 				MessageManager mm = EngineMessage.get();
 				throw new RQException("pearson" + mm.getMessage("function.invalidParam"));
@@ -35,28 +44,30 @@ public class Pearson extends Function {
 
 				setn = ((Number) obj).intValue();
 			}
-			par = param.getSub(0);
+			
+			param = param.getSub(0);
+			if (param == null) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException("pearson" + mm.getMessage("function.missingParam"));
+			}
 		}
 		
 		Object o1 = null, o2 = null;
-		if (par == null) {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException("pearson" + mm.getMessage("function.missingParam"));
-		} else if (par.isLeaf()) {
-			o1 = par.getLeafExpression().calculate(ctx);
+		if (param.isLeaf()) {
+			o1 = param.getLeafExpression().calculate(ctx);
 			if (o1 instanceof Sequence) {
 			} else {
 				MessageManager mm = EngineMessage.get();
 				throw new RQException("pearson" + mm.getMessage("function.paramTypeError"));
 			}
 		} else {
-			if (par.getSubSize() != 2) {
+			if (param.getSubSize() != 2) {
 				MessageManager mm = EngineMessage.get();
 				throw new RQException("pearson" + mm.getMessage("function.invalidParam"));
 			}
 
-			IParam sub1 = par.getSub(0);
-			IParam sub2 = par.getSub(1);
+			IParam sub1 = param.getSub(0);
+			IParam sub2 = param.getSub(1);
 			if (sub1 == null) {
 				MessageManager mm = EngineMessage.get();
 				throw new RQException("pearson" + mm.getMessage("function.invalidParam"));

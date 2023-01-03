@@ -26,8 +26,21 @@ import com.scudata.util.CursorUtil;
  */
 public class Joinx extends Function {
 	public Node optimize(Context ctx) {
-		if (param != null) param.optimize(ctx);
+		param.optimize(ctx);
 		return this;
+	}
+	
+	/**
+	 * 检查表达式的有效性，无效则抛出异常
+	 */
+	public void checkValidity() {
+		if (param == null) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("joinx" + mm.getMessage("function.missingParam"));
+		} else if (param.getType() != IParam.Semicolon) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("joinx" + mm.getMessage("function.invalidParam"));
+		}
 	}
 
 	private Object joinx_u(Context ctx) {
@@ -123,11 +136,6 @@ public class Joinx extends Function {
 	}
 	
 	public Object calculate(Context ctx) {
-		if (param == null || param.getType() != IParam.Semicolon) {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException("joinx" + mm.getMessage("function.invalidParam"));
-		}
-		
 		if (option != null && option.indexOf('u') != -1) {
 			return joinx_u(ctx);
 		}
@@ -181,7 +189,10 @@ public class Joinx extends Function {
 			}
 			
 			if (cursorParam.isLeaf()) {
-				Object obj = cursorParam.getLeafExpression().calculate(ctx);
+				Expression exp = cursorParam.getLeafExpression();
+				names[i] = exp.getIdentifierName();
+				Object obj = exp.calculate(ctx);
+				
 				if (obj instanceof ICursor) {
 					cursors[i] = (ICursor)obj;
 				} else if (obj instanceof Sequence) {
@@ -206,7 +217,8 @@ public class Joinx extends Function {
 					throw new RQException("joinx" + mm.getMessage("function.invalidParam"));
 				}
 
-				Object obj = sub0.getLeafExpression().calculate(ctx);
+				Expression exp = sub0.getLeafExpression();
+				Object obj = exp.calculate(ctx);
 				if (obj instanceof ICursor) {
 					cursors[i] = (ICursor)obj;
 				} else if (obj instanceof Sequence) {
@@ -223,6 +235,8 @@ public class Joinx extends Function {
 				IParam sub1 = cursorParam.getSub(1);
 				if (sub1 != null) {
 					names[i] = sub1.getLeafExpression().getIdentifierName();
+				} else {
+					names[i] = exp.getIdentifierName();
 				}
 			}
 		}
@@ -237,7 +251,8 @@ public class Joinx extends Function {
 //			} else {
 				return new PseudoJoinx(pseudos, exps, names, option);
 //			}
+		} else {
+			return CursorUtil.joinx(cursors, names, exps, option, ctx);
 		}
-		return CursorUtil.joinx(cursors, names, exps, option, ctx);
 	}
 }

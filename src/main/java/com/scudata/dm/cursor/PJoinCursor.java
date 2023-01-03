@@ -2,9 +2,9 @@ package com.scudata.dm.cursor;
 
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Context;
 import com.scudata.dm.DataStruct;
-import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
 import com.scudata.resources.EngineMessage;
@@ -45,7 +45,7 @@ public class PJoinCursor extends ICursor {
 	
 	// 并行计算时需要改变上下文
 	// 继承类如果用到了表达式还需要用新上下文重新解析表达式
-	protected void resetContext(Context ctx) {
+	public void resetContext(Context ctx) {
 		if (this.ctx != ctx) {
 			for (ICursor cursor : cursors) {
 				cursor.resetContext(ctx);
@@ -73,7 +73,7 @@ public class PJoinCursor extends ICursor {
 
 		Table table = new Table(ds, minLen);
 		for (int i = 1; i <= minLen; ++i) {
-			Record r = table.newLast();
+			BaseRecord r = table.newLast();
 			for (int f = 0; f < fcount; ++f) {
 				r.setNormalFieldValue(f, tables[f].getMem(i));
 			}
@@ -134,7 +134,7 @@ public class PJoinCursor extends ICursor {
 		for (int i = 1; i <= minLen; ++i) {
 			int findex = 0;
 			for (int t = 0; t < tcount; ++t) {
-				Record r = (Record)tables[t].getMem(i);
+				BaseRecord r = (BaseRecord)tables[t].getMem(i);
 				Object []curVals = r.getFieldValues();
 				System.arraycopy(curVals, 0, values, findex, fcounts[t]);
 				findex += fcounts[t];

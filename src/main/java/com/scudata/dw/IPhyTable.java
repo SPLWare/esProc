@@ -15,7 +15,7 @@ import com.scudata.expression.Expression;
  * @author runqian
  *
  */
-public interface ITableMetaData extends IResource {
+public interface IPhyTable extends IResource {
 	
 	void close();	
 	
@@ -27,14 +27,14 @@ public interface ITableMetaData extends IResource {
 	 * @return
 	 * @throws IOException
 	 */
-	ITableMetaData createAnnexTable(String []colNames, int []serialBytesLen, String tableName) throws IOException;
+	IPhyTable createAnnexTable(String []colNames, int []serialBytesLen, String tableName) throws IOException;
 	
 	/**
 	 * 打开附表
 	 * @param tableName
 	 * @return
 	 */
-	ITableMetaData getAnnexTable(String tableName);
+	IPhyTable getAnnexTable(String tableName);
 
 	/**
 	 * 追加游标的数据
