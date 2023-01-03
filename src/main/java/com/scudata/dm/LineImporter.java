@@ -1538,6 +1538,7 @@ public final class LineImporter implements ILineInput {
 			return null;
 		}
 
+		byte []types = this.colTypes;
 		byte c = bytes[start];
 		if ((isQuote && c == '"') || (isSingleQuote && c == '\'')) {
 			// 在结尾是否有引号
@@ -1545,8 +1546,10 @@ public final class LineImporter implements ILineInput {
 				start++;
 				end--;
 				if (start < end) {
-					String str = new String(bytes, start, end - start, charset);
-					return Escape.remove(str, escapeChar);
+					if (types[col] == Types.DT_DEFAULT || types[col] == Types.DT_STRING) {
+						String str = new String(bytes, start, end - start, charset);
+						return Escape.remove(str, escapeChar);
+					}
 				} else if (start == end) {
 					return "";
 				} else {
@@ -1555,9 +1558,7 @@ public final class LineImporter implements ILineInput {
 			} else {
 				return new String(bytes, start, end - start, charset);
 			}
-		}
-		
-		if (parseMode == PARSEMODE_MULTI_STRING) {
+		} else if (parseMode == PARSEMODE_MULTI_STRING) {
 			// 直接返回串
 			String str = new String(bytes, start, end - start, charset);
 			if (isNull(str)) {
@@ -1567,7 +1568,6 @@ public final class LineImporter implements ILineInput {
 			}
 		}
 
-		byte []types = this.colTypes;
 		switch (types[col]) {
 		case Types.DT_STRING:
 			String str = new String(bytes, start, end - start, charset);
@@ -1712,9 +1712,46 @@ public final class LineImporter implements ILineInput {
 			}
 		}
 		
-		if (start >= end) return true;
+		if (start >= end) {
+			return true;
+		}
 
 		byte []types = this.colTypes;
+		byte c = bytes[start];
+		if ((isQuote && c == '"') || (isSingleQuote && c == '\'')) {
+			// 在结尾是否有引号
+			if (bytes[end - 1] == c) {
+				start++;
+				end--;
+				if (start < end) {
+					if (types[col] == Types.DT_DEFAULT || types[col] == Types.DT_STRING) {
+						String str = new String(bytes, start, end - start, charset);
+						outValue[col] = Escape.remove(str, escapeChar);
+						return true;
+					}
+				} else if (start == end) {
+					outValue[col] = "";
+					return true;
+				} else {
+					outValue[col] = String.valueOf(c);
+					return true;
+				}
+			} else {
+				outValue[col] = new String(bytes, start, end - start, charset);
+				return true;
+			}
+		} else if (parseMode == PARSEMODE_MULTI_STRING) {
+			// 直接返回串
+			String str = new String(bytes, start, end - start, charset);
+			if (isNull(str)) {
+				outValue[col] = null;
+				return true;
+			} else {
+				outValue[col] = str;
+				return true;
+			}
+		}
+
 		switch (types[col]) {
 		case Types.DT_STRING:
 			String str = new String(bytes, start, end - start, charset);
