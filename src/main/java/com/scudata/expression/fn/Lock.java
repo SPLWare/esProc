@@ -18,18 +18,22 @@ import com.scudata.resources.EngineMessage;
  */
 public class Lock extends Function {
 	public Node optimize(Context ctx) {
-		if (param != null) {
-			param.optimize(ctx);
-		}
-		
+		param.optimize(ctx);
 		return this;
 	}
-
-	public Object calculate(Context ctx) {
+	
+	/**
+	 * 检查表达式的有效性，无效则抛出异常
+	 */
+	public void checkValidity() {
 		if (param == null) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("lock" + mm.getMessage("function.missingParam"));
-		} else if (param.isLeaf()) {
+		}
+	}
+
+	public Object calculate(Context ctx) {
+		if (param.isLeaf()) {
 			Object key = param.getLeafExpression().calculate(ctx);
 			if (option == null || option.indexOf('u') == -1) {
 				return LockManager.lock(key, -1, ctx);

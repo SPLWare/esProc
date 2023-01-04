@@ -55,6 +55,7 @@ public abstract class PanelEnv extends JPanel {
 	public static final byte TYPE_DQL = 2;
 
 	private JDialog parent;
+	public JPanel panelFile;
 
 	public PanelEnv(JDialog parent, byte type) {
 		super(new GridBagLayout());
@@ -63,6 +64,10 @@ public abstract class PanelEnv extends JPanel {
 	}
 
 	public abstract void selectEnvTab();
+
+	protected boolean isExtLibsEnabled() {
+		return true;
+	}
 
 	public boolean checkValid() {
 		// String sLocalPort = jTextLocalPort.getText();
@@ -170,7 +175,6 @@ public abstract class PanelEnv extends JPanel {
 		config.setInitSpl(ConfigOptions.sInitSpl);
 		config.setImportLibs(extLibs);
 		config.setCustomFunctionFile(ConfigOptions.sCustomFunctionFile);
-		config.setEsprocSerialNo(ConfigOptions.sSerialNo);
 	}
 
 	public void load() {
@@ -404,15 +408,15 @@ public abstract class PanelEnv extends JPanel {
 		jLCustomFunctionFile.setForeground(Color.BLUE);
 
 		// нд╪Ч
-		JPanel panelFile = new JPanel(new GridBagLayout());
+		panelFile = new JPanel(new GridBagLayout());
 		if (type == TYPE_ESPROC) {
-			panelFile.add(jLabelLog, GM.getGBC(0, 1));
-			panelFile.add(jTFLogFileName, GM.getGBC(0, 2, true));
-			panelFile.add(jBLogFile, GM.getGBC(0, 3));
+			panelFile.add(jLabelLog, GM.getGBC(1, 1));
+			panelFile.add(jTFLogFileName, GM.getGBC(1, 2, true));
+			panelFile.add(jBLogFile, GM.getGBC(1, 3));
 		}
-		panelFile.add(jLabelSplPath, GM.getGBC(1, 1));
-		panelFile.add(jTFPath, GM.getGBC(1, 2, true));
-		panelFile.add(jBPath, GM.getGBC(1, 3));
+		panelFile.add(jLabelSplPath, GM.getGBC(2, 1));
+		panelFile.add(jTFPath, GM.getGBC(2, 2, true));
+		panelFile.add(jBPath, GM.getGBC(2, 3));
 
 		panelFile.add(labelMainPath, GM.getGBC(3, 1));
 		panelFile.add(jTFMainPath, GM.getGBC(3, 2, true));
@@ -427,10 +431,13 @@ public abstract class PanelEnv extends JPanel {
 		panelFile.add(jLInitSpl, GM.getGBC(6, 1));
 		panelFile.add(jTFInitSpl, GM.getGBC(6, 2, true));
 		panelFile.add(jBInitSpl, GM.getGBC(6, 3));
-		jLExtLibsPath.setForeground(Color.BLUE);
-		panelFile.add(jLExtLibsPath, GM.getGBC(7, 1));
-		panelFile.add(jTFExtLibsPath, GM.getGBC(7, 2, true));
-		panelFile.add(jBExtLibsPath, GM.getGBC(7, 3));
+
+		if (isExtLibsEnabled()) {
+			jLExtLibsPath.setForeground(Color.BLUE);
+			panelFile.add(jLExtLibsPath, GM.getGBC(7, 1));
+			panelFile.add(jTFExtLibsPath, GM.getGBC(7, 2, true));
+			panelFile.add(jBExtLibsPath, GM.getGBC(7, 3));
+		}
 
 		panelFile.add(jLCustomFunctionFile, GM.getGBC(8, 1));
 		panelFile.add(jTextCustomFunctionFile, GM.getGBC(8, 2, true));

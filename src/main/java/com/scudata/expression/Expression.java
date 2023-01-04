@@ -3,6 +3,8 @@ package com.scudata.expression;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.scudata.array.IArray;
+import com.scudata.array.ObjectArray;
 import com.scudata.cellset.ICellSet;
 import com.scudata.cellset.INormalCell;
 import com.scudata.cellset.datamodel.PgmCellSet;
@@ -13,6 +15,7 @@ import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.common.Sentence;
 import com.scudata.dm.Context;
+import com.scudata.dm.Current;
 import com.scudata.dm.DBObject;
 import com.scudata.dm.DataStruct;
 import com.scudata.dm.KeyWord;
@@ -30,10 +33,14 @@ import com.scudata.util.Variant;
  *
  */
 public class Expression {
-	public static final Expression NULL = new Expression((String)null);
+	public static final Expression NULL = new Expression(new Constant(null));
 
-	public static final byte TYPE_DB = 1; // 返回数据库连接
-	public static final byte TYPE_FILE = 2; // 返回文件对象
+	public static final byte TYPE_DB = 1; // 数据库连接
+	public static final byte TYPE_FILE = 2; // 文件对象
+	public static final byte TYPE_SEQUENCE = 3; // 序列
+	public static final byte TYPE_TABLE = 4; // 序表
+	public static final byte TYPE_CURSOR = 5; // 游标
+	
 	public static final byte TYPE_OTHER = 101; // 非以上返回值类型
 	public static final byte TYPE_UNKNOWN = 102; // 无法确定返回值类型
 
@@ -43,8 +50,10 @@ public class Expression {
 	private int location;
 	private Node home;
 	private ICellSet cs;
-	
 
+	// 是否可以计算全部的值，有赋值运算时只能一行行计算
+	private boolean canCalculateAll;
+	
 	/**
 	 * 构建表达式
 	 * @param str 待解析的表达式
@@ -94,18 +103,27 @@ public class Expression {
 	public Expression(ICellSet cs, Context ctx, String str, boolean opt, boolean doMacro) {
 		this.cs = cs;
 		expStr = doMacro ? replaceMacros(str, cs, ctx) : str;
-		try {
-			if (expStr != null) {
+		
+		if (expStr != null) {
+			try {
 				create(cs, ctx);
-				if (opt && home != null) {
-					home = home.optimize(ctx);
-				}
+			} catch (RQException re) {
+				MessageManager mm = EngineMessage.get();
+				re.setMessage(mm.getMessage("Expression.inExp", expStr) + re.getMessage());
+				throw re;
 			}
-		} catch (RQException re) {
-			MessageManager mm = EngineMessage.get();
-			re.setMessage(mm.getMessage("Expression.inExp", expStr) + re.getMessage());
-			throw re;
 		}
+		
+		if (home == null) {
+			home = new Constant(null);
+		} else {
+			home.checkValidity();
+			if (opt) {
+				home = home.optimize(ctx);
+			}
+		}
+		
+		canCalculateAll = home.canCalculateAll();
 	}
 
 	/**
@@ -114,6 +132,7 @@ public class Expression {
 	 */
 	public Expression(Node node) {
 		home = node;
+		canCalculateAll = node.canCalculateAll();
 	}
 	
 	/**
@@ -138,11 +157,7 @@ public class Expression {
 	 * @return 运算结果
 	 */
 	public Object calculate(Context ctx) {
-		if (home != null) {
-			return home.calculate(ctx);
-		} else {
-			return null;
-		}
+		return home.calculate(ctx);
 	}
 
 	/**
@@ -151,11 +166,7 @@ public class Expression {
 	 * @return INormalCell
 	 */
 	public INormalCell calculateCell(Context ctx) {
-		if (home != null) {
-			return home.calculateCell(ctx);
-		} else {
-			return null;
-		}
+		return home.calculateCell(ctx);
 	}
 
 	/**
@@ -164,12 +175,7 @@ public class Expression {
 	 * @param ctx Context
 	 */
 	public void assign(Object value, Context ctx) {
-		if (home != null) {
-			home.assign(value, ctx);
-		} else {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException(mm.getMessage("assign.needVar"));
-		}
+		home.assign(value, ctx);
 	}
 
 	/**
@@ -272,9 +278,7 @@ public class Expression {
 	 * @param ctx 运算报表时的上下文环境变量
 	 */
 	public void optimize(Context ctx) {
-		if (home != null) {
-			home = home.optimize(ctx);
-		}
+		home = home.optimize(ctx);
 	}
 
 	/**
@@ -283,9 +287,11 @@ public class Expression {
 	 * @return boolean
 	 */
 	public boolean containParam(String name) {
-		if (name == null || name.length() == 0) return false;
-		if (home != null) return home.containParam(name);
-		return false;
+		if (name == null || name.length() == 0) {
+			return false;
+		}
+
+		return home.containParam(name);
 	}
 
 	/**
@@ -293,7 +299,7 @@ public class Expression {
 	 * @param resultList ParamList 生成新的参数对象
 	 */
 	public void getUsedParams(Context ctx, ParamList resultList) {
-		if (home != null) home.getUsedParams(ctx, resultList);
+		home.getUsedParams(ctx, resultList);
 	}
 	
 	/**
@@ -302,7 +308,7 @@ public class Expression {
 	 * @param resultList
 	 */
 	public void getUsedFields(Context ctx, List<String> resultList) {
-		if (home != null) home.getUsedFields(ctx, resultList);
+		home.getUsedFields(ctx, resultList);
 	}
 	
 	/**
@@ -347,7 +353,7 @@ public class Expression {
 	 * @param List<INormalCell> resultList
 	 */
 	public void getUsedCells(List<INormalCell> resultList) {
-		if (home != null) home.getUsedCells(resultList);
+		home.getUsedCells(resultList);
 	}
 
 	/**
@@ -1587,5 +1593,87 @@ public class Expression {
 		} 
 		
 		return gathers;
+	}
+	
+	/**
+	 * 计算出所有行的结果
+	 * @param ctx 计算上行文
+	 * @return IArray
+	 */
+	public IArray calculateAll(Context ctx) {
+		if (canCalculateAll) {
+			return home.calculateAll(ctx);
+		} else {
+			Current current = ctx.getComputeStack().getTopCurrent();
+			int len = current.length();
+			ObjectArray array = new ObjectArray(len);
+			array.setTemporary(true);
+			
+			for (int i = 1; i <= len; ++i) {
+				current.setCurrent(i);
+				Object value = home.calculate(ctx);
+				array.push(value);
+			}
+			
+			return array;
+		}
+	}
+	/**
+	 * 判断是否可以计算全部的值，有赋值运算时只能一行行计算
+	 * @return
+	 */
+	public boolean canCalculateAll() {
+		return canCalculateAll;
+	}
+	
+	/**
+	 * 计算表达式的取值范围
+	 * @param ctx 计算上行文
+	 * @return
+	 */
+	public IArray calculateRange(Context ctx) {
+		return home.calculateRange(ctx);
+	}
+	
+	/**
+	 * 判断给定的值域范围是否满足当前条件表达式
+	 * @param ctx 计算上行文
+	 * @return 取值参照Relation. -1：值域范围内没有满足条件的值，0：值域范围内有满足条件的值，1：值域范围的值都满足条件
+	 */
+	public int isValueRangeMatch(Context ctx) {
+		return home.isValueRangeMatch(ctx);
+	}
+	
+	/**
+	 * 计算逻辑与运算符&&的右侧表达式
+	 * @param ctx 计算上行文
+	 * @param leftResult &&左侧表达式的计算结果
+	 * @return
+	 */
+	public IArray calculateAnd(Context ctx, IArray leftResult) {
+		if (leftResult == null) {
+			return home.calculateAll(ctx);
+		} else {
+			return home.calculateAnd(ctx, leftResult);
+		}
+	}
+	
+	/**
+	 * 计算signArray中取值为sign的行
+	 * @param ctx
+	 * @param signArray 行标识数组
+	 * @param sign 标识
+	 * @return IArray
+	 */
+	public IArray calculateAll(Context ctx, IArray signArray, boolean sign) {
+		return home.calculateAll(ctx, signArray, sign);
+	}
+
+	/**
+	 * 返回节点是否单调递增的
+	 * @return true：是单调递增的，false：不是
+	 */
+	public boolean isMonotone() {
+		return home.isMonotone();
 	}
 }

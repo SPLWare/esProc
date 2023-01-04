@@ -1,9 +1,8 @@
 package com.scudata.util;
 
-import com.scudata.dm.Record;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.cursor.ICursor;
-import com.scudata.util.Variant;
 
 /**
  * 归并字段数量为一个的游标节点
@@ -26,7 +25,7 @@ public class LoserTreeNode_CS1 implements ILoserTreeNode {
 		if (data != null && data.length() > 0) {
 			this.cs = cs;
 			seq = 1;
-			Record r = (Record)data.getMem(1);
+			BaseRecord r = (BaseRecord)data.getMem(1);
 			value = r.getNormalFieldValue(field);
 		} else {
 			this.cs = null;
@@ -38,13 +37,13 @@ public class LoserTreeNode_CS1 implements ILoserTreeNode {
 	public Object popCurrent() {
 		Object obj = data.getMem(seq);
 		if (seq < data.length()) {
-			Record r = (Record)data.getMem(++seq);
+			BaseRecord r = (BaseRecord)data.getMem(++seq);
 			value = r.getNormalFieldValue(field);
 		} else {
 			data = cs.fuzzyFetch(ICursor.FETCHCOUNT_M);
 			if (data != null && data.length() > 0) {
 				seq = 1;
-				Record r = (Record)data.getMem(1);
+				BaseRecord r = (BaseRecord)data.getMem(1);
 				value = r.getNormalFieldValue(field);
 			} else {
 				seq = -1;

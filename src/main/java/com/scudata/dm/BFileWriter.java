@@ -462,7 +462,7 @@ public class BFileWriter {
 		int len = data.length();
 		
 		if (exps == null) {
-			boolean isTable = data.getMem(1) instanceof Record;
+			boolean isTable = data.getMem(1) instanceof BaseRecord;
 			for (int i = 1; i <= len; ++i) {
 				if (lastRecordCount == blockRecordCount) {
 					blocks[lastBlock++] = writer.position();
@@ -478,7 +478,7 @@ public class BFileWriter {
 				
 				lastRecordCount++;
 				if (isTable) {
-					Record r = (Record)data.getMem(i);
+					BaseRecord r = (BaseRecord)data.getMem(i);
 					Object []vals = r.getFieldValues();
 					for (int f = 0; f < fcount; ++f) {
 						writer.writeObject(vals[f]);
@@ -489,7 +489,7 @@ public class BFileWriter {
 			}
 		} else {
 			ComputeStack stack = ctx.getComputeStack();
-			Sequence.Current current = data.new Current();
+			Current current = new Current(data);
 			stack.push(current);
 			
 			try {
@@ -531,10 +531,10 @@ public class BFileWriter {
 		int len = data.length();
 		
 		if (exps == null) {
-			boolean isTable = data.getMem(1) instanceof Record;
+			boolean isTable = data.getMem(1) instanceof BaseRecord;
 			for (int i = 1; i <= len; ++i) {
 				if (isTable) {
-					Record r = (Record)data.getMem(i);
+					BaseRecord r = (BaseRecord)data.getMem(i);
 					Object []vals = r.getFieldValues();
 					for (int f = 0; f < fcount; ++f) {
 						writer.writeObject(vals[f]);
@@ -545,7 +545,7 @@ public class BFileWriter {
 			}
 		} else {
 			ComputeStack stack = ctx.getComputeStack();
-			Sequence.Current current = data.new Current();
+			Current current = new Current(data);
 			stack.push(current);
 			
 			try {
@@ -586,10 +586,10 @@ public class BFileWriter {
 		int len = data.length();
 		
 		if (exps == null) {
-			boolean isTable = data.getMem(1) instanceof Record;
+			boolean isTable = data.getMem(1) instanceof BaseRecord;
 			if (isTable) {
 				for (int i = 1; i <= len; ++i) {
-					Record r = (Record)data.getMem(i);
+					BaseRecord r = (BaseRecord)data.getMem(i);
 					Object []vals = r.getFieldValues();
 					for (int f = 0; f < fcount; ++f) {
 						writer.writeObject(vals[f]);
@@ -602,7 +602,7 @@ public class BFileWriter {
 			}
 		} else {
 			ComputeStack stack = ctx.getComputeStack();
-			Sequence.Current current = data.new Current();
+			Current current = new Current(data);
 			stack.push(current);
 			
 			try {
@@ -709,7 +709,7 @@ public class BFileWriter {
 		if (ds != null) {
 			int fcount = ds.getFieldCount();
 			for (int i = 1; i <= len; ++i) {
-				Record r = (Record)data.getMem(i);
+				BaseRecord r = (BaseRecord)data.getMem(i);
 				Object []vals = r.getFieldValues();
 				for (int f = 0; f < fcount; ++f) {
 					writer.writeObject(vals[f]);
@@ -758,7 +758,7 @@ public class BFileWriter {
 		int len = data.length();
 		
 		for (int i = 1; i <= len; ++i) {
-			Record r = (Record)data.getMem(i);
+			BaseRecord r = (BaseRecord)data.getMem(i);
 			Object []vals = r.getFieldValues();
 			for (int f = 0; f < fcount; ++f) {
 				writer.writeObject(vals[f]);

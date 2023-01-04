@@ -20,9 +20,9 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.common.StringUtils;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Env;
 import com.scudata.dm.FileObject;
-import com.scudata.dm.Record;
 import com.scudata.resources.AppMessage;
 import com.scudata.resources.EngineMessage;
 
@@ -381,7 +381,7 @@ public class FileXls extends XlsFileObject {
 				sx = new SheetXls(this, sheet, dataFormat, isXls, evaluator);
 				int len = length();
 				for (int i = 1; i <= len; i++) {
-					Record r = getRecord(i);
+					BaseRecord r = getRecord(i);
 					if (sx.sheetInfo.getSheetName().equals(
 							r.getFieldValue(COL_NAME))) {
 						sx.sheetInfo.setRowCount(((Integer) r

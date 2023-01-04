@@ -54,7 +54,7 @@ public class CSJoinxCursor2 extends ICursor {
 
 	// 并行计算时需要改变上下文
 	// 继承类如果用到了表达式还需要用新上下文重新解析表达式
-	protected void resetContext(Context ctx) {
+	public void resetContext(Context ctx) {
 		if (this.ctx != ctx) {
 			exps = Operation.dupExpressions(exps, ctx);
 			super.resetContext(ctx);

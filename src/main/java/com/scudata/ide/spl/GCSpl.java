@@ -57,6 +57,8 @@ public class GCSpl extends GC {
 	public static final String UNDO = "edit.undo";
 	/** 重做(Y) */
 	public static final String REDO = "edit.redo";
+	/** 复制菜单 */
+	public static final String COPY_MENU = "edit.copymenu";
 	/** 复制ctrl-C */
 	public static final String COPY = "edit.copy";
 	/** 值复制ctrl-alt-C */
@@ -69,6 +71,8 @@ public class GCSpl extends GC {
 	public static final String COPY_HTML_DIALOG = "edit.copyhtmldialog";
 	/** 剪切ctrl-X */
 	public static final String CUT = "edit.cut";
+	/** 粘贴菜单 */
+	public static final String PASTE_MENU = "edit.pastemenu";
 	/** 粘贴ctrl-V */
 	public static final String PASTE = "edit.paste";
 	/** 变迁粘贴ctrl-alt-V */

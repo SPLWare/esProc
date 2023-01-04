@@ -4,6 +4,7 @@ import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.ComputeStack;
 import com.scudata.dm.Context;
+import com.scudata.dm.Current;
 import com.scudata.dm.FileObject;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.cursor.ICursor;
@@ -101,7 +102,7 @@ public class Groupn extends Operation {
 	
 	private static void group_n(Sequence table, Expression exp, Context ctx, Sequence []groups) {
 		ComputeStack stack = ctx.getComputeStack();
-		Sequence.Current current = table.new Current();
+		Current current = new Current(table);
 		stack.push(current);
 		int gcount = groups.length;
 		

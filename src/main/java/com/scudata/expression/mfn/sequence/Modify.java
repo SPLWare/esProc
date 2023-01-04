@@ -17,12 +17,17 @@ import com.scudata.resources.EngineMessage;
  *
  */
 public class Modify extends SequenceFunction {
-	public Object calculate(Context ctx) {
+	/**
+	 * 检查表达式的有效性，无效则抛出异常
+	 */
+	public void checkValidity() {
 		if (param == null) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("modify" + mm.getMessage("function.missingParam"));
 		}
-		
+	}
+
+	public Object calculate(Context ctx) {
 		if (srcSequence instanceof Table) {
 			Table table = (Table)srcSequence;
 			Object result;
@@ -133,7 +138,12 @@ public class Modify extends SequenceFunction {
 		}
 
 		if (srcSeries == null) {
-			return table.modify(pos, exps, names, ctx);
+			if (option == null || option.indexOf('n') == -1) {
+				table.modify(pos, exps, names, ctx);
+				return table;
+			} else {
+				return table.modify(pos, exps, names, ctx);
+			}
 		} else {
 			return table.modify(pos, srcSeries, exps, optExps, names, option, ctx);
 		}

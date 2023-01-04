@@ -1,5 +1,6 @@
 package com.scudata.vdb;
 
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.ComputeStack;
 import com.scudata.dm.Context;
 import com.scudata.dm.DataStruct;
@@ -150,8 +151,8 @@ class Filter {
 
 		Table table = new Table(feilds, len);
 		for (int i = 1; i <= len; ++i) {
-			Record nr = table.newLast();
-			Record r = (Record)seq.getMem(i);
+			BaseRecord nr = table.newLast();
+			BaseRecord r = (BaseRecord)seq.getMem(i);
 			for (int f = 0; f < newCount; ++f) {
 				if (index[f] != -1) {
 					nr.setNormalFieldValue(f, r.getFieldValue(index[f]));
@@ -206,8 +207,8 @@ class Filter {
 		Object []dirValues = this.dirValues;
 		
 		for (int i = 1; i <= len; ++i) {
-			Record r = (Record)seq.getMem(i);
-			Record nr = table.newLast();
+			BaseRecord r = (BaseRecord)seq.getMem(i);
+			BaseRecord nr = table.newLast();
 			nr.setStart(0, dirValues, dirCount);
 			nr.setStart(dirCount, r);
 		}
@@ -242,7 +243,7 @@ class Filter {
 	private static void update(Sequence seq, Object []fvals, int []findex) {
 		int mcount = findex.length;
 		for (int i = 1, len = seq.length(); i <= len; ++i) {
-			Record r = (Record)seq.getMem(i);
+			BaseRecord r = (BaseRecord)seq.getMem(i);
 			for (int f = 0; f < mcount; ++f) {
 				r.setNormalFieldValue(findex[f], fvals[f]);
 			}
@@ -301,7 +302,7 @@ class Filter {
 		
 		try {
 			for (int i = 1, len = seq.length(); i <= len; ++i) {
-				Record r = (Record)seq.getMem(i);
+				BaseRecord r = (BaseRecord)seq.getMem(i);
 				nr.setStart(0, dirValues, dirCount);
 				nr.setStart(dirCount, r);
 				

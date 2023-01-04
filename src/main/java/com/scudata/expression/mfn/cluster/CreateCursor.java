@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
-import com.scudata.expression.ClusterTableMetaDataFunction;
+import com.scudata.expression.ClusterPhyTableFunction;
 import com.scudata.expression.Expression;
 import com.scudata.expression.IParam;
 import com.scudata.expression.Node;
@@ -20,7 +20,7 @@ import com.scudata.resources.EngineMessage;
  * @author RunQian
  *
  */
-public class CreateCursor extends ClusterTableMetaDataFunction {
+public class CreateCursor extends ClusterPhyTableFunction {
 	public Object calculate(Context ctx) {
 		if (param == null) {
 			return table.cursor(null, null, null, null, null, null, 0, option, ctx);

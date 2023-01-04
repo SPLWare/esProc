@@ -1,8 +1,12 @@
 package com.scudata.expression.fn.gather;
 
+import com.scudata.array.IArray;
+import com.scudata.array.ObjectArray;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
+import com.scudata.dm.Current;
+import com.scudata.dm.Env;
 import com.scudata.dm.Param;
 import com.scudata.expression.Expression;
 import com.scudata.expression.Gather;
@@ -79,7 +83,7 @@ public class Iterate extends Gather {
 		valParam.setValue(oldValue);
 		return exp.calculate(ctx);
 	}
-
+	
 	public Expression getRegatherExpression(int q) {
 		MessageManager mm = EngineMessage.get();
 		throw new RQException(mm.getMessage("engine.invalidLoopsGroups"));
@@ -208,5 +212,42 @@ public class Iterate extends Gather {
 		}
 		
 		return prevVal;
+	}
+	
+	/**
+	 * 计算所有记录的值，汇总到结果数组上
+	 * @param result 结果数组
+	 * @param resultSeqs 每条记录对应的结果数组的序号
+	 * @param ctx 计算上下文
+	 * @return IArray 结果数组
+	 */
+	public IArray gather(IArray result, int []resultSeqs, Context ctx) {
+		if (result == null) {
+			result = new ObjectArray(Env.INITGROUPSIZE);
+		}
+		
+		Expression exp = this.exp;
+		Expression initExp = this.initExp;
+		Param valParam = this.valParam;
+		Current current = ctx.getComputeStack().getTopCurrent();
+		int len = current.length();
+		
+		for (int i = 1; i <= len; ++i) {
+			current.setCurrent(i);
+			if (result.size() < resultSeqs[i]) {
+				if (initExp == null) {
+					valParam.setValue(null);
+				} else {
+					valParam.setValue(initExp.calculate(ctx));
+				}
+
+				result.add(exp.calculate(ctx));
+			} else {
+				valParam.setValue(result.get(resultSeqs[i]));
+				result.set(resultSeqs[i], exp.calculate(ctx));
+			}
+		}
+		
+		return result;
 	}
 }

@@ -12,22 +12,21 @@ import com.scudata.app.config.RaqsoftConfig;
 import com.scudata.cellset.datamodel.PgmCellSet;
 import com.scudata.common.CellLocation;
 import com.scudata.common.Logger;
+import com.scudata.common.Logger.FileHandler;
 import com.scudata.common.Sentence;
 import com.scudata.common.StringUtils;
 import com.scudata.common.UUID;
-import com.scudata.common.Logger.FileHandler;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Context;
 import com.scudata.dm.Env;
 import com.scudata.dm.FileObject;
 import com.scudata.dm.JobSpace;
 import com.scudata.dm.JobSpaceManager;
-import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.cursor.ICursor;
 import com.scudata.ide.common.ConfigFile;
 import com.scudata.ide.common.ConfigOptions;
 import com.scudata.ide.common.DataSource;
-import com.scudata.ide.common.GC;
 import com.scudata.ide.common.XMLFile;
 import com.scudata.resources.ParallelMessage;
 import com.scudata.util.CellSetUtil;
@@ -40,10 +39,10 @@ import com.scudata.util.Variant;
  * @author Joancy
  *
  */
-public class Esproc {
+public class Esprocx {
 	static RaqsoftConfig config;
-	
-	public static void loadDataSource(Context ctx) throws Exception{
+
+	public static void loadDataSource(Context ctx) throws Exception {
 		// 加载系统数据源
 		XMLFile configFile = ConfigFile.getSystemConfigFile().xmlFile();
 		Section ss = new Section(); // 异常导致无法加demo数据源，挪到下面
@@ -55,14 +54,13 @@ public class Esproc {
 			name = configFile.getAttribute(ConfigFile.PATH_DATASOURCE + "/"
 					+ sId + "/name");
 
-			sconfig = configFile.getAttribute(ConfigFile.PATH_DATASOURCE
-					+ "/" + sId + "/config");
+			sconfig = configFile.getAttribute(ConfigFile.PATH_DATASOURCE + "/"
+					+ sId + "/config");
 			DataSource ds = new DataSource(sconfig);
 			ds.setName(name);
-			ctx.setDBSessionFactory(name, ds.getDBInfo()
-					.createSessionFactory());
+			ctx.setDBSessionFactory(name, ds.getDBInfo().createSessionFactory());
 		}
-		
+
 	}
 
 	/**
@@ -81,7 +79,7 @@ public class Esproc {
 			Logger.debug(x);
 			ctx = new Context();
 		}
-		String uuid = Esproc.getUUID();
+		String uuid = Esprocx.getUUID();
 		JobSpace js = JobSpaceManager.getSpace(uuid);
 		ctx.setJobSpace(js);
 
@@ -133,7 +131,7 @@ public class Esproc {
 	public static void initEnv() throws Exception {
 		String startHome = System.getProperty("start.home");
 		if (!StringUtils.isValidString(startHome)) {
-			System.setProperty("raqsoft.home", System.getProperty("user.home")); 
+			System.setProperty("raqsoft.home", System.getProperty("user.home"));
 		} else {
 			System.setProperty("raqsoft.home", startHome + ""); // 原来用user.dir,
 		}
@@ -168,21 +166,22 @@ public class Esproc {
 	 */
 	public static synchronized void addFinish() {
 		finishedWorkers++;
-		Logger.debug(ParallelMessage.get().getMessage("Esproc.taskFinish", finishedWorkers));
+		Logger.debug(ParallelMessage.get().getMessage("Esproc.taskFinish",
+				finishedWorkers));
 	}
-	
+
 	/**
 	 * 检查主目录设置，如果主目录为空，则设置为当前目录
 	 */
-	private static void checkMainPath(){
+	private static void checkMainPath() {
 		String mainPath = Env.getMainPath();
-		if(!StringUtils.isValidString(mainPath)){
+		if (!StringUtils.isValidString(mainPath)) {
 			mainPath = new File("").getAbsolutePath();
 			Env.setMainPath(mainPath);
-			Logger.debug("Esprocx is using main path: "+mainPath);
+			Logger.debug("Esprocx is using main path: " + mainPath);
 		}
 	}
-	
+
 	/**
 	 * 使用跟IDE相同的配置以及注册码在Dos窗口执行一个dfx 
 	 * 用多线程n同时并发执行当前的dfx。 
@@ -192,27 +191,25 @@ public class Esproc {
 	public static void main(String[] args) throws Exception {
 		boolean debug = false;
 		String etlUsage = "Esprocx [etlFile] [argN] ...\r\n"
-		+ " [etlFile]   相对于寻址路径或者主路径的etl文件名，也可以是绝对路径。\r\n"
-		+ " [argN]      etlFile有参数时，参数按照 参数顺序 指定。\r\n";
-		
-		String fileExts = AppConsts.SPL_FILE_EXTS + "," + "etl"; 
+				+ " [etlFile]   相对于寻址路径或者主路径的etl文件名，也可以是绝对路径。\r\n"
+				+ " [argN]      etlFile有参数时，参数按照 参数顺序 指定。\r\n";
+
+		String fileExts = AppConsts.SPL_FILE_EXTS + "," + "etl";
 
 		String usage = "用于执行一个" + fileExts
 				+ "文件、一个简易的表达式、简单SQL或一个文本描述的dfx脚本。\r\n\r\n"
 				+ "Esprocx [-r] [-c]\r\n" + " [-r]   打印返回结果到控制台。\r\n"
 				+ " [-c]   从控制台读入一个列用Tab键分开的多行式网格脚本来执行(Ctrl+C结束录入)。\r\n\r\n"
-				+ "Esprocx [-r] [dfxFile] [arg0] [arg1]...\r\n" 
+				+ "Esprocx [-r] [dfxFile] [arg0] [arg1]...\r\n"
 				+ " [dfxFile]   相对于寻址路径或者主路径的dfx文件名，也可以是绝对路径。\r\n"
-				+ " [argN]      如果是dfxFile且有参数，按顺序依次对应。\r\n\r\n"
-				+ etlUsage
-				+ "Esprocx [-r] [exp]\r\n"
-				+ " [exp]   一句dfx脚本命令。\r\n\r\n" + "示例:\r\n"
-				+ "  Esprocx -r -c\r\n" + "    执行一个待录入的文本式网格并打印返回结果。\r\n"
+				+ " [argN]      如果是dfxFile且有参数，按顺序依次对应。\r\n\r\n" + etlUsage
+				+ "Esprocx [-r] [exp]\r\n" + " [exp]   一句dfx脚本命令。\r\n\r\n"
+				+ "示例:\r\n" + "  Esprocx -r -c\r\n"
+				+ "    执行一个待录入的文本式网格并打印返回结果。\r\n"
 				+ "  Esprocx -r demo.splx arg1 arg2\r\n"
 				+ "    用参数arg1、arg2执行寻址路径上的demo.splx，打印返回结果。\r\n"
 				+ "  Esprocx SELECT count(*) FROM t.json\r\n"
-				+ "    执行一句简单SQL。\r\n"
-				+ "  Esprocx demo.etl 1\r\n"
+				+ "    执行一句简单SQL。\r\n" + "  Esprocx demo.etl 1\r\n"
 				+ "    对应参数month为1月，执行寻址路径上的demo.etl。\r\n";
 
 		String etlUsageEn = "Esprocx [etlFile] [argN]...\r\n"
@@ -357,26 +354,27 @@ public class Esproc {
 			}
 
 			long workBegin = System.currentTimeMillis();
-			boolean isFile = false, isDfx = false,  isEtl = false,isSplx = false;
+			boolean isFile = false, isDfx = false, isEtl = false, isSplx = false;
 			if (dfxFile != null) {
 				String lower = dfxFile.toLowerCase();
 				isDfx = lower.endsWith("." + AppConsts.FILE_DFX);
 				isSplx = lower.endsWith("." + AppConsts.FILE_SPLX);
 				isEtl = lower.endsWith(".etl");
-				isFile = (isDfx|| isEtl || isSplx);  
+				isFile = (isDfx || isEtl || isSplx);
 			}
 			if (isFile) {
 				if (isDfx || isEtl || isSplx) {
-					PgmCellSet pcs=null;
+					PgmCellSet pcs = null;
 					if (isDfx || isSplx) {
 						pcs = fo.readPgmCellSet();
-					}else{
-						System.err.println("Unsupported file:"+fo.getFileName());
+					} else {
+						System.err.println("Unsupported file:"
+								+ fo.getFileName());
 						Thread.sleep(3000);
 						System.exit(0);
-//						String etlFile = fo.getFileName();
-//						EtlSteps es = EtlSteps.readEtlSteps(etlFile);
-//						pcs = es.toDFX();
+						// String etlFile = fo.getFileName();
+						// EtlSteps es = EtlSteps.readEtlSteps(etlFile);
+						// pcs = es.toDFX();
 					}
 
 					String argstr = fileArgs.toString();
@@ -396,11 +394,11 @@ public class Esproc {
 						}
 					}
 				} else {
-					Logger.severe(ParallelMessage.get().getMessage("Esproc.unsupportedfile",
-							dfxFile));// "不支持的文件："+dfxFile);
+					Logger.severe(ParallelMessage.get().getMessage(
+							"Esproc.unsupportedfile", dfxFile));// "不支持的文件："+dfxFile);
 				}
 			} else {// 表达式
-				Context context = Esproc.prepareEnv();
+				Context context = Esprocx.prepareEnv();
 				try {
 					String cmd;
 					if (dfxFile == null) {
@@ -408,7 +406,8 @@ public class Esproc {
 					} else {
 						cmd = dfxFile + " " + fileArgs;
 					}
-					Logger.debug(ParallelMessage.get().getMessage("Esproc.executecmd", cmd));
+					Logger.debug(ParallelMessage.get().getMessage(
+							"Esproc.executecmd", cmd));
 					Object result = AppUtil.executeCmd(cmd, context);
 					if (printResult) {
 						printResult(result);
@@ -422,8 +421,8 @@ public class Esproc {
 			DecimalFormat df = new DecimalFormat("###,###");
 			long lastTime = finishTime - workBegin;
 			if (threadCount > 1 || isEtl) {
-				Logger.debug(ParallelMessage.get().getMessage("Esproc.taketimes",
-						df.format(lastTime)));
+				Logger.debug(ParallelMessage.get().getMessage(
+						"Esproc.taketimes", df.format(lastTime)));
 			}
 		} catch (Throwable x) {
 			Logger.error(x.getMessage(), x);
@@ -443,8 +442,8 @@ public class Esproc {
 	static void print(Sequence atoms) {
 		for (int i = 1; i <= atoms.length(); i++) {
 			Object element = atoms.get(i);
-			if (element instanceof Record) {
-				System.out.println(((Record) element).toString("t"));
+			if (element instanceof BaseRecord) {
+				System.out.println(((BaseRecord) element).toString("t"));
 			} else {
 				System.out.println(Variant.toString(element));
 			}
@@ -487,7 +486,7 @@ class Worker extends Thread {
 	}
 
 	public void run() {
-		Context context = Esproc.prepareEnv();
+		Context context = Esprocx.prepareEnv();
 		pcs.setContext(context);
 		try {
 			CellSetUtil.putArgStringValue(pcs, argArr);
@@ -503,7 +502,7 @@ class Worker extends Thread {
 						System.err.println(msg);
 					}
 					Object result = pcs.nextResult();
-					Esproc.printResult(result);
+					Esprocx.printResult(result);
 				}
 			} else {
 				pcs.run();
@@ -514,7 +513,7 @@ class Worker extends Thread {
 			long lastTime = finishTime - taskBegin;
 			Logger.debug(ParallelMessage.get().getMessage("Task.taskEnd", "",
 					df.format(lastTime)));
-			Esproc.addFinish();
+			Esprocx.addFinish();
 		} catch (Exception x) {
 			Logger.severe(x);
 			x.printStackTrace();

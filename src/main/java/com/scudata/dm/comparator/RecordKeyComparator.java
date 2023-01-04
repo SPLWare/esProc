@@ -2,7 +2,7 @@ package com.scudata.dm.comparator;
 
 import java.util.Comparator;
 
-import com.scudata.dm.Record;
+import com.scudata.dm.BaseRecord;
 import com.scudata.util.Variant;
 
 /**
@@ -16,6 +16,6 @@ public class RecordKeyComparator implements Comparator<Object> {
 			return (o2 == null) ? 0 : -1;
 		}
 
-		return Variant.compare(((Record)o1).value(), ((Record)o2).value());
+		return Variant.compare(((BaseRecord)o1).value(), ((BaseRecord)o2).value());
 	}
 }

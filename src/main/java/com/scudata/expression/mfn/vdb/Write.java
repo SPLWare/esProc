@@ -2,8 +2,8 @@ package com.scudata.expression.mfn.vdb;
 
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Context;
-import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 import com.scudata.expression.Expression;
 import com.scudata.expression.IParam;
@@ -93,7 +93,7 @@ public class Write extends VSFunction {
 		Sequence seq;
 		if (obj instanceof Sequence) {
 			seq = (Sequence)obj;
-		} else if (obj instanceof Record) {
+		} else if (obj instanceof BaseRecord) {
 			seq = new Sequence(1);
 			seq.add(obj);
 		} else if (obj == null) {

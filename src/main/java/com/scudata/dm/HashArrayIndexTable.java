@@ -1,8 +1,9 @@
 package com.scudata.dm;
 
+import com.scudata.array.BoolArray;
+import com.scudata.array.IArray;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
-import com.scudata.dm.Sequence.Current;
 import com.scudata.expression.Expression;
 import com.scudata.resources.EngineMessage;
 import com.scudata.thread.Job;
@@ -62,10 +63,10 @@ class HashArrayIndexTable extends IndexTable {
 
 			Object []keys;
 			int keyCount = fields.length;
-			Record r;
+			BaseRecord r;
 
 			for (int i = start, end = this.end; i < end; ++i) {
-				r = (Record)code.getMem(i);
+				r = (BaseRecord)code.getMem(i);
 				keys = new Object[keyCount];
 				for (int c = 0; c < keyCount; ++c) {
 					keys[c] = r.getNormalFieldValue(fields[c]);;
@@ -141,7 +142,7 @@ class HashArrayIndexTable extends IndexTable {
 		int keyCount = exps.length;
 
 		ComputeStack stack = ctx.getComputeStack();
-		Sequence.Current current = code.new Current();
+		Current current = new Current(code);
 		stack.push(current);
 
 		try {
@@ -294,11 +295,11 @@ class HashArrayIndexTable extends IndexTable {
 		int capacity = entries.length;
 		Entry []resultEntries = new Entry[capacity];
 		Table result = new Table(code.dataStruct(), len);
-		ListBase1 mems = result.getMems();
+		IArray mems = result.getMems();
 		int newLen = 0;
 		
 		ComputeStack stack = ctx.getComputeStack();
-		Current current = code.new Current();
+		Current current = new Current(code);
 		stack.push(current);
 		
 		try {
@@ -338,5 +339,90 @@ class HashArrayIndexTable extends IndexTable {
 		HashArrayIndexTable indexTable = new HashArrayIndexTable(result, hashUtil, resultEntries);
 		result.setIndexTable(indexTable);
 		return result;
+	}
+	
+	public int findPos(Object key) {
+		throw new RuntimeException();
+	}
+	
+	/**
+	 * 由键查找元素位置
+	 * @param keys 键值数组
+	 */
+	public int findPos(Object []keys) {
+		int count = keys.length;
+		int hash = hashUtil.hashCode(keys, count);
+		for (Entry entry = entries[hash]; entry != null; entry = entry.next) {
+			if (Variant.compareArrays(entry.keys, keys) == 0) {
+				return entry.seq;
+			}
+		}
+
+		return 0; // key not found
+	}
+	
+	public int[] findAllPos(IArray key) {
+		throw new RuntimeException();
+	}
+
+	public int[] findAllPos(IArray[] keys) {
+		Entry []entries = this.entries;
+		HashUtil hashUtil = this.hashUtil;
+		int keyCount = keys.length;
+		int len = keys[0].size();
+		int []pos = new int[len + 1];
+		
+		for (int i = 1; i <= len; ++i) {
+			int hash = hashUtil.hashCode(keys, i, keyCount);
+			
+			Next:
+			for (Entry entry = entries[hash]; entry != null; entry = entry.next) {
+				Object []keyValues = entry.keys;
+				for (int k = 0; k < keyCount; ++k) {
+					if (!keys[k].isEquals(i, keyValues[k])) {
+						continue Next;
+					}
+				}
+				
+				pos[i] =  entry.seq;
+				break;
+			}
+		}
+		
+		return pos;
+	}
+
+	public int[] findAllPos(IArray key, BoolArray signArray) {
+		throw new RuntimeException();
+	}
+
+	public int[] findAllPos(IArray[] keys, BoolArray signArray) {
+		Entry []entries = this.entries;
+		HashUtil hashUtil = this.hashUtil;
+		int keyCount = keys.length;
+		int len = keys[0].size();
+		int []pos = new int[len + 1];
+		
+		for (int i = 1; i <= len; ++i) {
+			if (signArray.isFalse(i)) {
+				continue;
+			}
+			int hash = hashUtil.hashCode(keys, i, keyCount);
+			
+			Next:
+			for (Entry entry = entries[hash]; entry != null; entry = entry.next) {
+				Object []keyValues = entry.keys;
+				for (int k = 0; k < keyCount; ++k) {
+					if (!keys[k].isEquals(i, keyValues[k])) {
+						continue Next;
+					}
+				}
+				
+				pos[i] =  entry.seq;
+				break;
+			}
+		}
+		
+		return pos;
 	}
 }

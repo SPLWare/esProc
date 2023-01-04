@@ -14,13 +14,20 @@ import com.scudata.resources.EngineMessage;
  *
  */
 public class Hex extends Function {
-
-	public Object calculate(Context ctx) {
+	/**
+	 * 检查表达式的有效性，无效则抛出异常
+	 */
+	public void checkValidity() {
 		if (param == null) {
 			MessageManager mm = EngineMessage.get();
-			throw new RQException("hex" +
-								  mm.getMessage("function.missingParam"));
+			throw new RQException("hex" + mm.getMessage("function.missingParam"));
+		} else if (!param.isLeaf()) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("hex" + mm.getMessage("function.invalidParam"));
 		}
+	}
+
+	public Object calculate(Context ctx) {
 		String result1="";
 		Object result = param.getLeafExpression().calculate(ctx);
 		if (result != null && result instanceof Number) {

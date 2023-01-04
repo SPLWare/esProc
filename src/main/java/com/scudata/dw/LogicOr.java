@@ -1,5 +1,8 @@
 package com.scudata.dw;
 
+import com.scudata.expression.Expression;
+import com.scudata.expression.operator.Or;
+
 /**
  * 或计算过滤器类
  * @author runqian
@@ -28,5 +31,12 @@ public class LogicOr extends IFilter {
 	
 	public boolean match(Object minValue, Object maxValue) {
 		return left.match(minValue, maxValue) || right.match(minValue, maxValue);
+	}
+	
+	public void initExp() {
+		Or and = new Or();
+		and.setLeft(left.exp.getHome());
+		and.setRight(right.exp.getHome());
+		exp = new Expression(and);
 	}
 }

@@ -2,10 +2,8 @@ package com.scudata.thread;
 
 import com.scudata.dm.Context;
 import com.scudata.dm.Sequence;
-import com.scudata.dm.Table;
 import com.scudata.dm.cursor.ICursor;
 import com.scudata.dm.op.IGroupsResult;
-import com.scudata.dw.IColumnCursorUtil;
 import com.scudata.expression.Expression;
 
 /**
@@ -24,7 +22,7 @@ public class GroupsJob extends Job {
 	private String opt; // 选项
 	private Context ctx; // 计算上下文
 	
-	private Table table; // 首次分组的分组结果
+	private IGroupsResult groupsResult; // 分组对象
 	private int groupCount = -1; // @n方式分组时用户设置的结果集数量
 	
 	public GroupsJob(ICursor cursor, Expression[] exps, String[] names,
@@ -50,11 +48,11 @@ public class GroupsJob extends Job {
 	}
 	
 	/**
-	 * 取首次分组的分组结果
-	 * @return Table
+	 * 取分组对象
+	 * @return IGroupsResult
 	 */
-	public Table getResult() {
-		return table;
+	public IGroupsResult getGroupsResult() {
+		return groupsResult;
 	}
 	
 	/**
@@ -66,23 +64,20 @@ public class GroupsJob extends Job {
 	}
 
 	public void run() {
-		IGroupsResult groups = null;
-		if (cursor != null && cursor.isColumnCursor()) {
-			groups = IColumnCursorUtil.util.getGroupsResultInstance(exps, names, calcExps, calcNames, opt, ctx);
+		if (cursor != null) {
+			groupsResult = cursor.getGroupsResult(exps, names, calcExps, calcNames, opt, ctx);
 		} else {
-			groups = IGroupsResult.instance(exps, names, calcExps, calcNames, opt, ctx);
+			groupsResult = seq.getGroupsResult(exps, names, calcExps, calcNames, opt, ctx);
 		}
 		
 		if (groupCount > 1) {
-			groups.setGroupCount(groupCount);
+			groupsResult.setGroupCount(groupCount);
 		}
 		
 		if (seq == null) {
-			groups.push(cursor);
+			groupsResult.push(cursor);
 		} else {
-			groups.push(seq, ctx);
+			groupsResult.push(seq, ctx);
 		}
-		
-		table = groups.getTempResult();
 	}
 }

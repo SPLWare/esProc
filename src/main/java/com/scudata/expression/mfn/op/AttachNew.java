@@ -7,7 +7,6 @@ import com.scudata.common.RQException;
 import com.scudata.dm.Context;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.cursor.ICursor;
-import com.scudata.dm.op.New;
 import com.scudata.dw.pseudo.IPseudo;
 import com.scudata.dw.pseudo.PseudoNew;
 import com.scudata.dw.pseudo.PseudoTable;
@@ -35,12 +34,13 @@ public class AttachNew extends OperableFunction {
 		Expression []exps = pi.getExpressions1();
 		String []names = pi.getExpressionStrs2();
 
-		New op = new New(this, exps, names, option);
-		if (cs != null) {
-			op.setCurrentCell(cs.getCurrent());
-		}
+		//New op = new New(this, exps, names, option);
+		//if (cs != null) {
+		//	op.setCurrentCell(cs.getCurrent());
+		//}
 		
-		return operable.addOperation(op, ctx);
+		//return operable.addOperation(op, ctx);
+		return operable.newTable(this, exps, names, option, ctx);
 	}
 	
 	private Object pseudoCalculate(Context ctx) {

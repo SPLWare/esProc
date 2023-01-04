@@ -6,8 +6,8 @@ import com.scudata.common.Matrix;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.common.StringUtils;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Context;
-import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 import com.scudata.excel.ExcelUtils;
 import com.scudata.expression.IParam;
@@ -170,7 +170,7 @@ public class XlsCell extends XOFunction {
 				matrix = content;
 			} else if (content instanceof Sequence) { // ÐòÁÐµÄÐòÁÐ
 				matrix = content;
-			} else if (content instanceof Record) {
+			} else if (content instanceof BaseRecord) {
 				Sequence seq = new Sequence();
 				seq.add(content);
 				matrix = seq;

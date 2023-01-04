@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
 
+import com.scudata.array.LongArray;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
@@ -13,11 +14,11 @@ import com.scudata.dm.Env;
 import com.scudata.resources.EngineMessage;
 
 /**
- * 行存组表类
+ * 列存组表类
  * @author runqian
  *
  */
-public class RowGroupTable extends GroupTable {
+public class ColComTable extends ComTable {
 
 	/**
 	 * 打开已经存在的组表
@@ -25,7 +26,7 @@ public class RowGroupTable extends GroupTable {
 	 * @param ctx
 	 * @throws IOException
 	 */
-	public RowGroupTable(File file, Context ctx) throws IOException {
+	public ColComTable(File file, Context ctx) throws IOException {
 		this.file = file;
 		this.raf = new RandomAccessFile(file, "rw");
 		this.ctx = ctx;
@@ -39,48 +40,57 @@ public class RowGroupTable extends GroupTable {
 	 * @param file
 	 * @throws IOException
 	 */
-	public RowGroupTable(File file) throws IOException {
+	public ColComTable(File file) throws IOException {
 		this.file = file;
 		this.raf = new RandomAccessFile(file, "rw");
 		readHeader();
 	}
-	
+			
 	/**
 	 * 创建组表
 	 * @param file 表文件
 	 * @param colNames 列名称
-	 * @param distribute 分布
-	 * @param opt p：按第一字段分段
+	 * @param distribute 分布表达式
+	 * @param opt u：不压缩数据，p：按第一字段分段
 	 * @param ctx 上下文
 	 * @throws IOException
 	 */
-	public RowGroupTable(File file, String []colNames, String distribute, String opt, Context ctx) throws IOException {
+	public ColComTable(File file, String []colNames, String distribute, String opt, Context ctx) 
+			throws IOException {
 		file.delete();
 		File parent = file.getParentFile();
 		if (parent != null) {
 			// 创建目录，否则如果目录不存在RandomAccessFile会抛异常
 			parent.mkdirs();
 		}
-
+		
 		this.file = file;
 		this.raf = new RandomAccessFile(file, "rw");
 		this.ctx = ctx;
-		ctx.addResource(this);
+		if (ctx != null) {
+			ctx.addResource(this);
+		}
+		
+		// 是否压缩
+		if (opt != null && opt.indexOf('u') != -1) {
+			setCompress(false);
+		}
 		
 		setBlockSize(Env.getBlockSize());
 		enlargeSize = blockSize * 16;
 		headerBlockLink = new BlockLink(this);
 		headerBlockLink.setFirstBlockPos(applyNewBlock());
-		
-		baseTable = new RowTableMetaData(this, colNames);
+
+		baseTable = new ColPhyTable(this, colNames);
 		structManager = new StructManager();
 		
 		// 按第一字段分段
 		if (opt != null && opt.indexOf('p') != -1) {
 			baseTable.segmentCol = baseTable.getColName(0);
 		}
-
+		
 		this.distribute = distribute;
+		this.reserve[0] = 4;
 		save();
 	}
 	
@@ -90,7 +100,7 @@ public class RowGroupTable extends GroupTable {
 	 * @param src 原组表
 	 * @throws IOException
 	 */
-	public RowGroupTable(File file, RowGroupTable src) throws IOException {
+	public ColComTable(File file, ColComTable src) throws IOException {
 		this.file = file;
 		this.raf = new RandomAccessFile(file, "rw");
 		this.ctx = src.ctx;
@@ -104,13 +114,13 @@ public class RowGroupTable extends GroupTable {
 		
 		headerBlockLink = new BlockLink(this);
 		headerBlockLink.setFirstBlockPos(applyNewBlock());
-		
 		writePswHash = src.writePswHash;
 		readPswHash = src.readPswHash;
 		distribute = src.distribute;
 		structManager = src.structManager;
-		try{
-			baseTable = new RowTableMetaData(this, null, (RowTableMetaData)src.baseTable);
+		
+		try {
+			baseTable = new ColPhyTable(this, null, (ColPhyTable) src.baseTable);
 		} catch (Exception e) {
 			if (raf != null) {
 				raf.close();
@@ -119,14 +129,12 @@ public class RowGroupTable extends GroupTable {
 		save();
 	}
 	
-	public RowGroupTable() {
-	}
-
 	/**
 	 * 重新打开组表，文件被其它对象修改
 	 * @throws IOException
 	 */
 	protected void reopen() throws IOException {
+		// 读写文件头时做同步以支持同时读写
 		raf = new RandomAccessFile(file, "rw");
 		Object syncObj = getSyncObject();
 		synchronized(syncObj) {
@@ -134,7 +142,11 @@ public class RowGroupTable extends GroupTable {
 			raf.seek(0);
 			byte []bytes = new byte[32];
 			raf.read(bytes);
-			if (bytes[0] != 'r' || bytes[1] != 'q' || bytes[2] != 'd' || bytes[3] != 'w' || bytes[4] != 'g' || bytes[5] != 't' || bytes[6] != 'r') {
+			if (bytes[0] != 'r' || bytes[1] != 'q' || bytes[2] != 'd' || bytes[3] != 'w' || bytes[4] != 'g' || bytes[5] != 't') {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException(mm.getMessage("license.fileFormatError"));
+			}
+			if (bytes[6] != 'c' && bytes[6] != 'C') {
 				MessageManager mm = EngineMessage.get();
 				throw new RQException(mm.getMessage("license.fileFormatError"));
 			}
@@ -154,7 +166,7 @@ public class RowGroupTable extends GroupTable {
 			reader.read(); // w
 			reader.read(); // g
 			reader.read(); // t
-			reader.read(); // r
+			reader.read(); // c
 			
 			blockSize = reader.readInt32();
 			headerBlockLink.readExternal(reader);
@@ -172,7 +184,7 @@ public class RowGroupTable extends GroupTable {
 					distribute = reader.readString();
 				}
 			}
-	
+			
 			int dsCount = reader.readInt();
 			if (dsCount > 0) {
 				ArrayList<DataStruct> dsList = new ArrayList<DataStruct>(dsCount);
@@ -187,7 +199,7 @@ public class RowGroupTable extends GroupTable {
 				structManager = new StructManager();
 			}
 			
-			baseTable = new RowTableMetaData(this);
+			//baseTable = new ColumnTableMetaData(this, null);
 			baseTable.readExternal(reader);
 		}
 	}
@@ -197,13 +209,18 @@ public class RowGroupTable extends GroupTable {
 	 * 修改读写时需要同步修改reopen函数
 	 */
 	protected void readHeader() throws IOException {
+		// 读写文件头时做同步以支持同时读写
 		Object syncObj = getSyncObject();
 		synchronized(syncObj) {
-			restoreTransaction();
+			//restoreTransaction();
 			raf.seek(0);
 			byte []bytes = new byte[32];
 			raf.read(bytes);
-			if (bytes[0] != 'r' || bytes[1] != 'q' || bytes[2] != 'd' || bytes[3] != 'w' || bytes[4] != 'g' || bytes[5] != 't' || bytes[6] != 'r') {
+			if (bytes[0] != 'r' || bytes[1] != 'q' || bytes[2] != 'd' || bytes[3] != 'w' || bytes[4] != 'g' || bytes[5] != 't') {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException(mm.getMessage("license.fileFormatError"));
+			}
+			if (bytes[6] != 'c' && bytes[6] != 'C') {
 				MessageManager mm = EngineMessage.get();
 				throw new RQException(mm.getMessage("license.fileFormatError"));
 			}
@@ -223,7 +240,7 @@ public class RowGroupTable extends GroupTable {
 			reader.read(); // w
 			reader.read(); // g
 			reader.read(); // t
-			reader.read(); // r
+			reader.read(); // c
 			
 			blockSize = reader.readInt32();
 			headerBlockLink.readExternal(reader);
@@ -241,7 +258,7 @@ public class RowGroupTable extends GroupTable {
 					distribute = reader.readString();
 				}
 			}
-	
+			
 			int dsCount = reader.readInt();
 			if (dsCount > 0) {
 				ArrayList<DataStruct> dsList = new ArrayList<DataStruct>(dsCount);
@@ -256,7 +273,7 @@ public class RowGroupTable extends GroupTable {
 				structManager = new StructManager();
 			}
 			
-			baseTable = new RowTableMetaData(this);
+			baseTable = new ColPhyTable(this);
 			baseTable.readExternal(reader);
 		}
 	}
@@ -265,6 +282,13 @@ public class RowGroupTable extends GroupTable {
 	 * 写文件头
 	 */
 	protected void writeHeader() throws IOException {
+		//不能写低版本的文件
+		if (reserve[0] < 4) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException(mm.getMessage("dw.oldVersion2"));
+		}
+		
+		// 读写文件头时做同步以支持同时读写
 		Object syncObj = getSyncObject();
 		synchronized(syncObj) {
 			beginTransaction(null);
@@ -275,12 +299,12 @@ public class RowGroupTable extends GroupTable {
 			writer.write('w');
 			writer.write('g');
 			writer.write('t');
-			writer.write('r');
+			writer.write('C');
 			
 			writer.writeInt32(blockSize);
 			headerBlockLink.writeExternal(writer);
 			
-			reserve[0] = 3; // 1增加密码，2增加分布函数，3增加预分组
+			reserve[0] = 4; // 1增加密码，2增加分布函数，3增加预分组，4列式存储（数据类型，字典等）
 			writer.write(reserve); // 保留位
 			
 			writer.writeLong40(freePos);
@@ -291,7 +315,7 @@ public class RowGroupTable extends GroupTable {
 			writer.writeString(readPswHash);
 			
 			writer.writeString(distribute); // 版本2增加
-	
+			
 			ArrayList<DataStruct> dsList = structManager.getStructList();
 			if (dsList != null) {
 				writer.writeInt(dsList.size());
@@ -317,7 +341,7 @@ public class RowGroupTable extends GroupTable {
 			writer.write('w');
 			writer.write('g');
 			writer.write('t');
-			writer.write('r');
+			writer.write('C');
 			
 			writer.writeInt32(blockSize);
 			headerBlockLink.writeExternal(writer);
@@ -332,30 +356,40 @@ public class RowGroupTable extends GroupTable {
 	 * 获得区块链信息,不包含组表header和补区
 	 */
 	public long[] getBlockLinkInfo() {
-		int count = 1 + baseTable.tableList.size();
+		LongArray info = new LongArray(1024);
+		ColPhyTable baseTable = (ColPhyTable) this.baseTable;
+		//segment block link
+		BlockLink segmentBlockLink = baseTable.segmentBlockLink;
+		info.add(segmentBlockLink.firstBlockPos);
+		info.add(segmentBlockLink.lastBlockPos);
+		info.add(segmentBlockLink.freeIndex);
+		info.add(segmentBlockLink.blockCount);
 		
-		long []blockInfo = new long[count * 8];
-		int c = 0;
-		
-		blockInfo[c++] = baseTable.segmentBlockLink.firstBlockPos;
-		blockInfo[c++] = baseTable.segmentBlockLink.lastBlockPos;
-		blockInfo[c++] = baseTable.segmentBlockLink.freeIndex;
-		blockInfo[c++] = baseTable.segmentBlockLink.blockCount;
-		blockInfo[c++] = ((RowTableMetaData)baseTable).dataBlockLink.firstBlockPos;
-		blockInfo[c++] = ((RowTableMetaData)baseTable).dataBlockLink.lastBlockPos;
-		blockInfo[c++] = ((RowTableMetaData)baseTable).dataBlockLink.freeIndex;
-		blockInfo[c++] = ((RowTableMetaData)baseTable).dataBlockLink.blockCount;
-		
-		for (TableMetaData table : baseTable.tableList) {
-			blockInfo[c++] = ((RowTableMetaData)table).segmentBlockLink.firstBlockPos;
-			blockInfo[c++] = ((RowTableMetaData)table).segmentBlockLink.lastBlockPos;
-			blockInfo[c++] = ((RowTableMetaData)table).segmentBlockLink.freeIndex;
-			blockInfo[c++] = ((RowTableMetaData)table).segmentBlockLink.blockCount;
-			blockInfo[c++] = ((RowTableMetaData)table).dataBlockLink.firstBlockPos;
-			blockInfo[c++] = ((RowTableMetaData)table).dataBlockLink.lastBlockPos;
-			blockInfo[c++] = ((RowTableMetaData)table).dataBlockLink.freeIndex;
-			blockInfo[c++] = ((RowTableMetaData)table).dataBlockLink.blockCount;
+		//columns block link
+		ColumnMetaData []columns = baseTable.getColumns();
+		for (ColumnMetaData col : columns) {
+			col.getBlockLinkInfo(info);
 		}
-		return blockInfo;
+		
+		for (PhyTable table : baseTable.tableList) {
+			//segment block link
+			segmentBlockLink = table.segmentBlockLink;
+			info.add(segmentBlockLink.firstBlockPos);
+			info.add(segmentBlockLink.lastBlockPos);
+			info.add(segmentBlockLink.freeIndex);
+			info.add(segmentBlockLink.blockCount);
+			//导列 block link
+			((ColPhyTable) table).getGuideColumn().getBlockLinkInfo(info);
+			//columns block link
+			columns = ((ColPhyTable) table).getColumns();
+			for (ColumnMetaData col : columns) {
+				col.getBlockLinkInfo(info);
+			}
+		}
+		return info.getDatas();
+	}
+	
+	public boolean isPureFormat() {
+		return reserve[0] > 3;
 	}
 }

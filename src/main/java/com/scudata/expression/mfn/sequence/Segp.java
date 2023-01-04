@@ -15,11 +15,18 @@ import com.scudata.resources.EngineMessage;
  *
  */
 public class Segp extends SequenceFunction {
-	public Object calculate(Context ctx) {
+	/**
+	 * 检查表达式的有效性，无效则抛出异常
+	 */
+	public void checkValidity() {
 		if (param == null) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("pseg" + mm.getMessage("function.missingParam"));
-		} else if (param.isLeaf()) {
+		}
+	}
+
+	public Object calculate(Context ctx) {
+		if (param.isLeaf()) {
 			Object value = param.getLeafExpression().calculate(ctx);
 			int i = srcSequence.pseg(value, option);
 			if (i > 0) {

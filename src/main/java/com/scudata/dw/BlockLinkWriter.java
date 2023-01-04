@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 public class BlockLinkWriter extends OutputStream {
+	private static final double CompressThreshold = 0.75;//—πÀı„–÷µ
 	private BlockLink blockLink;
 	private IBlockStorage storage;
 	
@@ -91,9 +92,15 @@ public class BlockLinkWriter extends OutputStream {
 			int count = lz4.getCount();
 			long pos = blockLink.lastBlockPos + caret;
 			
-			writeInt32(srcCount);
-			writeInt32(count);
-			write(buffer, 0, count);
+			if (((double)count / srcCount) < CompressThreshold) {
+				writeInt32(srcCount);
+				writeInt32(count);
+				write(buffer, 0, count);
+			} else {
+				writeInt32(srcCount);
+				writeInt32(0);
+				write(bytes, 0, srcCount);
+			}
 			return pos;
 		} else {
 			long pos = blockLink.lastBlockPos + caret;

@@ -2,8 +2,8 @@ package com.scudata.thread;
 
 import com.scudata.dm.ComputeStack;
 import com.scudata.dm.Context;
+import com.scudata.dm.Current;
 import com.scudata.dm.Sequence;
-import com.scudata.dm.Sequence.Current;
 import com.scudata.expression.Expression;
 
 /**
@@ -33,7 +33,7 @@ class RunJob extends Job {
 		Context ctx = this.ctx;
 		
 		ComputeStack stack = ctx.getComputeStack();
-		Current current = src.new Current();
+		Current current = new Current(src);
 		stack.push(current);
 
 		try {

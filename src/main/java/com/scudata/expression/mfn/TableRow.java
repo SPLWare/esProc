@@ -17,6 +17,16 @@ import com.scudata.resources.EngineMessage;
 public class TableRow extends MemberFunction {
 	protected Object src;
 	
+	/**
+	 * 检查表达式的有效性，无效则抛出异常
+	 */
+	public void checkValidity() {
+		if (param == null) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("row" + mm.getMessage("function.missingParam"));
+		}
+	}
+
 	public boolean isLeftTypeMatch(Object obj) {
 		return true;
 	}
@@ -26,11 +36,6 @@ public class TableRow extends MemberFunction {
 	}
 
 	public Object calculate(Context ctx) {
-		if (param == null) {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException("row" + mm.getMessage("function.missingParam"));
-		}
-
 		Object obj = param.getLeafExpression().calculate(ctx);
 		if (obj instanceof Table) {
 			return ((Table)obj).findByKey(src, false);

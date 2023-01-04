@@ -178,7 +178,9 @@ public class GMSpl extends GM {
 			GM.resetAllSheetStyle();
 			return;
 		case GC.iABOUT:
-			new DialogAbout().setVisible(true);
+			DialogAbout da = new DialogAbout();
+			da.init();
+			da.setVisible(true);
 			return;
 		case GC.iMEMORYTIDY:
 			if (GV.dialogMemory == null) {

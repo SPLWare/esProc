@@ -5,10 +5,10 @@ import java.util.List;
 
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Context;
 import com.scudata.dm.DataStruct;
 import com.scudata.dm.IndexTable;
-import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.cursor.ICursor;
 import com.scudata.dm.op.Operable;
@@ -20,7 +20,7 @@ import com.scudata.expression.operator.And;
 import com.scudata.resources.EngineMessage;
 import com.scudata.util.Variant;
 
-public class Pseudo implements IPseudo{
+public class Pseudo extends IPseudo {
 	protected PseudoDefination pd;//实表的定义
 	protected Sequence cache = null;//对import的结果的cache
 	
@@ -113,8 +113,8 @@ public class Pseudo implements IPseudo{
 					}
 					Object obj = codes[0].ifn();
 					
-					if (obj instanceof Record) {
-						DataStruct ds = ((Record)obj).dataStruct();
+					if (obj instanceof BaseRecord) {
+						DataStruct ds = ((BaseRecord)obj).dataStruct();
 						if (-1 == ds.getFieldIndex(keyName)) {
 							//code里不存在该字段
 							MessageManager mm = EngineMessage.get();

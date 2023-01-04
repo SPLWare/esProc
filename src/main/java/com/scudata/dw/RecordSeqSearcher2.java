@@ -12,8 +12,8 @@ import com.scudata.util.Variant;
  *
  */
 class RecordSeqSearcher2 {
-	private ColumnTableMetaData table;
-	private ColumnTableMetaData baseTable;
+	private ColPhyTable table;
+	private ColPhyTable baseTable;
 	
 	private long prevRecordCount = 0;//当前已经取出的记录数
 	private long basePrevRecordCount = 0;//基表当前已经取出的记录数
@@ -42,9 +42,9 @@ class RecordSeqSearcher2 {
 	private long guidePosition;
 	private long []guideVals;
 	
-	public RecordSeqSearcher2(ColumnTableMetaData table) {
+	public RecordSeqSearcher2(ColPhyTable table) {
 		this.table = table;
-		baseTable = (ColumnTableMetaData) table.groupTable.baseTable;
+		baseTable = (ColPhyTable) table.groupTable.baseTable;
 		init();
 	}
 	
@@ -113,7 +113,7 @@ class RecordSeqSearcher2 {
 			
 			long []guideVals = new long[count];
 			this.guideVals = guideVals;
-			BufferReader greader = guideColReader.readBlockData(guidePosition);
+			BufferReader greader = guideColReader.readBlockData(guidePosition,curRecordCount);
 			for (int i = 1; i < count; ++i) {
 				guideVals[i] = (Long) greader.readObject();
 			}
@@ -121,7 +121,7 @@ class RecordSeqSearcher2 {
 			for (int k = 0; k < baseKeyCount; ++k) {
 				int baseCount = 1;//指向主表的记录
 				long basePrevRecordCount = this.basePrevRecordCount;
-				BufferReader reader = colReaders[k].readBlockData(positions[k]);
+				BufferReader reader = colReaders[k].readBlockData(positions[k], baseCurRecordCount);
 				Object []vals = new Object[count];
 				blockKeyValues[k] = vals;
 				Object obj = reader.readObject();
@@ -136,7 +136,7 @@ class RecordSeqSearcher2 {
 			}
 			
 			for (int k = baseKeyCount; k < keyCount; ++k) {
-				BufferReader reader = colReaders[k].readBlockData(positions[k]);
+				BufferReader reader = colReaders[k].readBlockData(positions[k], curRecordCount);
 				Object []vals = new Object[count];
 				blockKeyValues[k] = vals;
 				

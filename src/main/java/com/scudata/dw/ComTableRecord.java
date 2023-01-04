@@ -11,15 +11,15 @@ import com.scudata.dm.Record;
  * @author runqian
  *
  */
-class GroupTableRecord extends Record {
+class ComTableRecord extends Record {
 	private long recordSeq; // 记录序号
 	
 	/**
 	 * 序列化时使用
 	 */
-	public GroupTableRecord() {}
+	public ComTableRecord() {}
 
-	public GroupTableRecord(DataStruct ds) {
+	public ComTableRecord(DataStruct ds) {
 		super(ds);
 	}
 	

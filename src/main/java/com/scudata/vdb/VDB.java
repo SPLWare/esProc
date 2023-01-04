@@ -5,14 +5,14 @@ import java.util.ArrayList;
 
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.ComputeStack;
 import com.scudata.dm.Context;
+import com.scudata.dm.Current;
 import com.scudata.dm.DataStruct;
 import com.scudata.dm.IResource;
-import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
-import com.scudata.dm.Sequence.Current;
 import com.scudata.expression.Expression;
 import com.scudata.resources.EngineMessage;
 import com.scudata.util.Variant;
@@ -732,7 +732,7 @@ public class VDB implements IVS, IResource {
 		}
 		
 		ComputeStack stack = ctx.getComputeStack();
-		Current current = seq.new Current();
+		Current current = new Current(seq);
 		stack.push(current);
 		
 		String []srcFields = ds.getFieldNames();
@@ -748,7 +748,7 @@ public class VDB implements IVS, IResource {
 			Table table = new Table(totalFields);
 			
 			for (int i = 1; i <= len; ++i) {
-				Record sr = (Record)seq.getMem(i);
+				BaseRecord sr = (BaseRecord)seq.getMem(i);
 				current.setCurrent(i);
 				Object path = pathExp.calculate(ctx);
 				Object val = root.load(this, path, null);
@@ -762,15 +762,15 @@ public class VDB implements IVS, IResource {
 					if (curLen > 0) {
 						data = data.fieldsValues(fields);
 						for (int j = 1; j <= curLen; ++j) {
-							Record r = (Record)data.getMem(j);
-							Record nr = table.newLast(sr.getFieldValues());
+							BaseRecord r = (BaseRecord)data.getMem(j);
+							BaseRecord nr = table.newLast(sr.getFieldValues());
 							nr.setStart(srcCount, r);
 						}
 					}
-				} else if (val instanceof Record) {
-					Record r = (Record)val;
+				} else if (val instanceof BaseRecord) {
+					BaseRecord r = (BaseRecord)val;
 					if (filter == null || Variant.isTrue(r.calc(filter, ctx))) {
-						Record nr = table.newLast(sr.getFieldValues());
+						BaseRecord nr = table.newLast(sr.getFieldValues());
 						for (int f = 0, j = srcCount; f < count; ++f, ++j) {
 							nr.setNormalFieldValue(j, r.getFieldValue(fields[f]));
 						}
@@ -801,7 +801,7 @@ public class VDB implements IVS, IResource {
 		}
 		
 		ComputeStack stack = ctx.getComputeStack();
-		Current current = seq.new Current();
+		Current current = new Current(seq);
 		stack.push(current);
 		
 		String []srcFields = ds.getFieldNames();
@@ -813,7 +813,7 @@ public class VDB implements IVS, IResource {
 			DataStruct deriveDs = null;
 			
 			for (int i = 1; i <= len; ++i) {
-				Record sr = (Record)seq.getMem(i);
+				BaseRecord sr = (BaseRecord)seq.getMem(i);
 				current.setCurrent(i);
 				Object path = pathExp.calculate(ctx);
 				Object val = root.load(this, path, null);
@@ -846,13 +846,13 @@ public class VDB implements IVS, IResource {
 						}
 						
 						for (int j = 1; j <= curLen; ++j) {
-							Record r = (Record)data.getMem(j);
-							Record nr = table.newLast(sr.getFieldValues());
+							BaseRecord r = (BaseRecord)data.getMem(j);
+							BaseRecord nr = table.newLast(sr.getFieldValues());
 							nr.setStart(srcCount, r);
 						}
 					}
-				} else if (val instanceof Record) {
-					Record r = (Record)val;
+				} else if (val instanceof BaseRecord) {
+					BaseRecord r = (BaseRecord)val;
 					if (filter == null || Variant.isTrue(r.calc(filter, ctx))) {
 						if (deriveDs == null) {
 							deriveDs = r.dataStruct();
@@ -868,7 +868,7 @@ public class VDB implements IVS, IResource {
 							throw new RQException(mm.getMessage("engine.dsNotMatch"));
 						}
 						
-						Record nr = table.newLast(sr.getFieldValues());
+						BaseRecord nr = table.newLast(sr.getFieldValues());
 						nr.setStart(srcCount, r);
 					}
 				}
@@ -915,7 +915,7 @@ public class VDB implements IVS, IResource {
 		
 		int result = S_SUCCESS;
 		ComputeStack stack = ctx.getComputeStack();
-		Current current = seq.new Current();
+		Current current = new Current(seq);
 		stack.push(current);
 
 		try {
@@ -955,8 +955,8 @@ public class VDB implements IVS, IResource {
 							isModified = true;
 						}
 					}
-				} else if (value instanceof Record) {
-					Record r = (Record)value;
+				} else if (value instanceof BaseRecord) {
+					BaseRecord r = (BaseRecord)value;
 					if (fieldExps == null) {
 						// É¾³ýÂú×ãÌõ¼þµÄ
 						if (Variant.isTrue(r.calc(filter, ctx))) {

@@ -1,7 +1,9 @@
 package com.scudata.dw;
 
+import com.scudata.array.IArray;
 import com.scudata.dm.Sequence;
-import com.scudata.thread.MultithreadUtil;
+import com.scudata.expression.Expression;
+import com.scudata.expression.Node;
 import com.scudata.util.Variant;
 
 /**
@@ -12,8 +14,7 @@ import com.scudata.util.Variant;
  */
 public class ContainFilter extends IFilter {
 	public static final int BINARYSEARCH_COUNT = 3; // 元素个数大于此值采用二分法查找
-	private Object []values;
-
+	private IArray values;
 	/**
 	 * 构造器
 	 * @param column 列对象
@@ -23,10 +24,19 @@ public class ContainFilter extends IFilter {
 	 */
 	public ContainFilter(ColumnMetaData column, int priority, Sequence sequence, String opt) {
 		super(column, priority);
-		values = sequence.toArray();
+		values = sequence.getMems();
 		if (opt == null || opt.indexOf('b') == -1) {
-			MultithreadUtil.sort(values);
+			values.sort();
 		}
+	}
+	
+	public ContainFilter(ColumnMetaData column, int priority, Sequence sequence, String opt, Node node) {
+		super(column, priority);
+		values = sequence.getMems();
+		if (opt == null || opt.indexOf('b') == -1) {
+			values.sort();
+		}
+		if (node != null) exp = new Expression(node);
 	}
 	
 	/**
@@ -39,52 +49,26 @@ public class ContainFilter extends IFilter {
 	public ContainFilter(String columnName, int priority, Sequence sequence, String opt) {
 		this.columnName = columnName;
 		this.priority = priority;
-		values = sequence.toArray();
+		values = sequence.getMems();
 		if (opt == null || opt.indexOf('b') == -1) {
-			MultithreadUtil.sort(values);
+			values.sort();
 		}
 	}
 	
 	public boolean match(Object value) {
-		Object []values = this.values;
-		int len = values.length;
-		if (len > BINARYSEARCH_COUNT) {
-			// 二分法查找
-			int low = 0;
-			int high = len - 1;
-
-			while (low <= high) {
-				int mid = (low + high) >>> 1;
-				int cmp = Variant.compare(values[mid], value, true);
-				
-				if (cmp < 0)
-					low = mid + 1;
-				else if (cmp > 0)
-					high = mid - 1;
-				else
-					return true; // key found
-			}
-		} else {
-			for (Object v : values) {
-				if (Variant.isEquals(value, v)) {
-					return true;
-				}
-			}
-		}
-		
-		return false;
+		return values.binarySearch(value) > 0;
 	}
 	
 	public boolean match(Object minValue, Object maxValue) {
-		Object []values = this.values;
-		int len = values.length;
+		IArray values = this.values;
+		int len = values.size();
 		
 		// 二分法查找最小值在数组中的位置
-		int low1 = 0;
-		int high1 = len - 1;
+		int low1 = 1;
+		int high1 = len;
 		while (low1 <= high1) {
 			int mid = (low1 + high1) >>> 1;
-			int cmp = Variant.compare(values[mid], minValue, true);
+			int cmp = Variant.compare(values.get(mid), minValue, true);
 			
 			if (cmp < 0)
 				low1 = mid + 1;
@@ -104,7 +88,7 @@ public class ContainFilter extends IFilter {
 		int high2 = len - 1;
 		while (low2 <= high2) {
 			int mid = (low2 + high2) >>> 1;
-			int cmp = Variant.compare(values[mid], maxValue, true);
+			int cmp = Variant.compare(values.get(mid), maxValue, true);
 			
 			if (cmp < 0)
 				low2 = mid + 1;

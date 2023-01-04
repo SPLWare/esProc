@@ -18,13 +18,13 @@ import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.AttributesImpl;
 
+import com.scudata.array.IArray;
 import com.scudata.common.Escape;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.DataStruct;
 import com.scudata.dm.Env;
-import com.scudata.dm.ListBase1;
-import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 import com.scudata.resources.EngineMessage;
 
@@ -51,7 +51,7 @@ final public class XMLUtil {
 		} else if (obj instanceof String) {
 			return Escape.addEscAndQuote((String)obj);
 		} else if (obj instanceof Sequence) {
-			ListBase1 mems = ((Sequence)obj).getMems();
+			IArray mems = ((Sequence)obj).getMems();
 			StringBuffer sb = new StringBuffer(1024);
 			sb.append('[');
 			
@@ -185,7 +185,7 @@ final public class XMLUtil {
 	 * @param levels 层标识，多层用/分隔
 	 * @return
 	 */
-	public static String toXml(Record r, String charset, String levels) {
+	public static String toXml(BaseRecord r, String charset, String levels) {
 		if (charset == null || charset.length() == 0) {
 			charset = Env.getDefaultCharsetName();
 		}
@@ -235,16 +235,16 @@ final public class XMLUtil {
 		}*/
 	}
 	
-	private static void toXml(TransformerHandler handler, Record r, int level) throws SAXException {
+	private static void toXml(TransformerHandler handler, BaseRecord r, int level) throws SAXException {
 		Object []vals = r.getFieldValues();
 		String []names = r.getFieldNames();
 		for (int f = 0, fcount = vals.length; f < fcount; ++f) {
 			appendTab(handler, level);
 
 			Object val = vals[f];
-			if (val instanceof Record) {
+			if (val instanceof BaseRecord) {
 				handler.startElement("", "", names[f], attr);
-				toXml(handler, (Record)val, level + 1);
+				toXml(handler, (BaseRecord)val, level + 1);
 				handler.endElement("", "", names[f]);
 			} else if (val instanceof Sequence && ((Sequence)val).isPurePmt()) {
 				toXml(handler, (Sequence)val, level + 1, names[f]);
@@ -260,10 +260,10 @@ final public class XMLUtil {
 	private static void toXml(TransformerHandler handler, Sequence table, int level, String idTable) throws SAXException {
 		if (level > 0) appendTab(handler, level);
 		
-		ListBase1 mems = table.getMems();
+		IArray mems = table.getMems();
 		for (int i = 1, len = mems.size(); i <= len; ++i) {
 			handler.startElement("", "", idTable, attr);
-			Record r = (Record)mems.get(i);
+			BaseRecord r = (BaseRecord)mems.get(i);
 			toXml(handler, r, level + 1);
 			handler.endElement("", "", idTable);
 		}
@@ -292,84 +292,4 @@ final public class XMLUtil {
 		list.toArray(strs);
 		return strs;
 	}
-	
-	/**
-	 * 把XML格式串读成多层记录或序表
-	 * <>内的标识作为字段名，重复的同名标识生成为序表
-	 * 将形如<K F=v F=v …>D</K>的XML串解析为以K,F,…为字段的记录，
-	 * K取值为D，D是多层XML内容时解析为排列，<K …./K>时D解析为null，<K…></K>时D解析为空串
-	 * @param src XML串
-	 * @return
-	 */
-	/*public static Object parseXmlString(String src) {
-		try {
-			SAXBuilder saxReader = new SAXBuilder();
-			StringReader reader = new StringReader(src);
-			InputSource is = new InputSource(reader);
-			Document doc = saxReader.build(is);
-			
-			List<Element> list = doc.getContent();
-			if (list == null || list.size() == 0) {
-				return null;
-			}
-			
-			int size = list.size();
-			Sequence seq = new Sequence(size);
-			for (Element e : list) {
-				Object val = parseElement(e);
-				seq.add(val);
-			}
-		
-			return seq;
-		} catch (Exception e) {
-			throw new RQException(e.getMessage(), e);
-		}
-	}*/
-	
-	/*private static Object parseElement(Element e) {
-		List<Object> contents = e.getContent();
-		List<Attribute> attrs = e.getAttributes();
-		List<Element> childs = e.getChildren();
-		
-		int contentCount = contents == null ? 0 : contents.size();
-		int attrCount = attrs == null ? 0 : attrs.size();
-		int childCount = childs == null ? 0 : childs.size();
-		
-		String text = e.getTextTrim();
-		String []names = new String[1 + attrCount];
-		Object []vals = new Object[1 + attrCount];
-		names[0] = e.getName();
-		
-		if (attrCount > 0) {
-			for (int i = 1; i <= attrCount; ++i) {
-				Attribute attr = attrs.get(i - 1);
-				names[i] = attr.getName();
-				vals[i] = Variant.parse(attr.getValue(), true);
-			}
-		}
-
-		if (childCount > 0) {
-			Sequence seq;
-			if (contentCount > 0 && text.length() > 0) {
-				seq = new Sequence(childCount + 1);
-				Object val = Variant.parse(text, true);
-				seq.add(val);
-			} else {
-				seq = new Sequence(childCount);
-			}
-
-			for (int i = 0; i < childCount; ++i) {
-				Element sub = childs.get(i);
-				Object val = parseElement(sub);
-				seq.add(val);
-			}
-			
-			vals[0] = seq;
-		} else if (contentCount > 0) {
-			vals[0] = Variant.parse(text, true);
-		}
-		
-		DataStruct ds = new DataStruct(names);
-		return new Record(ds, vals);
-	}*/
 }

@@ -6,7 +6,7 @@ import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
 import com.scudata.dm.Sequence;
-import com.scudata.expression.ClusterTableMetaDataFunction;
+import com.scudata.expression.ClusterPhyTableFunction;
 import com.scudata.expression.Expression;
 import com.scudata.expression.IParam;
 import com.scudata.expression.Node;
@@ -23,7 +23,7 @@ import com.scudata.resources.EngineMessage;
  * @author RunQian
  *
  */
-public class News extends ClusterTableMetaDataFunction {
+public class News extends ClusterPhyTableFunction {
 	public Object calculate(Context ctx) {
 		if (param == null) {
 			MessageManager mm = EngineMessage.get();

@@ -2,11 +2,12 @@ package com.scudata.util;
 
 import java.util.Date;
 
+import com.scudata.array.IArray;
 import com.scudata.common.Escape;
 import com.scudata.common.Sentence;
 import com.scudata.common.StringUtils;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.DataStruct;
-import com.scudata.dm.ListBase1;
 import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
@@ -103,7 +104,7 @@ public final class JSONUtil {
 			// 如果是纯排列则转为序表
 			int len = sequence.length();
 			Table table = new Table(ds, len);
-			ListBase1 memes = table.getMems();
+			IArray memes = table.getMems();
 			for (int i = 1; i <= len; ++i) {
 				Record r = (Record)sequence.getMem(i);
 				r.setDataStruct(ds);
@@ -116,7 +117,7 @@ public final class JSONUtil {
 			ArrayList<String> nameList = new ArrayList<String>();
 			int len = sequence.length();
 			for (int i = 1; i <= len; ++i) {
-				Record r = (Record)sequence.getMem(i);
+				BaseRecord r = (BaseRecord)sequence.getMem(i);
 				if (r != null) {
 					String []names = r.getFieldNames();
 					for (String name : names) {
@@ -133,8 +134,8 @@ public final class JSONUtil {
 			Table table = new Table(ds, len);
 			
 			for (int i = 1; i <= len; ++i) {
-				Record nr = table.newLast();
-				Record r = (Record)sequence.getMem(i);
+				BaseRecord nr = table.newLast();
+				BaseRecord r = (BaseRecord)sequence.getMem(i);
 				if (r != null) {
 					int f = 0;
 					names = r.getFieldNames();
@@ -156,9 +157,9 @@ public final class JSONUtil {
 	 * @param chars
 	 * @param start 值的起始位置，包含
 	 * @param end 值的结束位置，包含
-	 * @return Record
+	 * @return BaseRecord
 	 */
-	private static Record parseRecord(char []chars, int start, int end, String opt) {
+	private static BaseRecord parseRecord(char []chars, int start, int end, String opt) {
 		if (start > end) {
 			return null;
 		}
@@ -250,8 +251,8 @@ public final class JSONUtil {
 	public static void toJSON(Object obj, StringBuffer sb) {
 		if (obj == null) {
 			sb.append("null");
-		} else if (obj instanceof Record) {
-			Record r = (Record)obj;
+		} else if (obj instanceof BaseRecord) {
+			BaseRecord r = (BaseRecord)obj;
 			String []names = r.getFieldNames();
 			Object []vals = r.getFieldValues();
 			sb.append('{');
@@ -266,7 +267,7 @@ public final class JSONUtil {
 
 			sb.append('}');
 		} else if (obj instanceof Sequence) {
-			ListBase1 mems = ((Sequence)obj).getMems();
+			IArray mems = ((Sequence)obj).getMems();
 			sb.append('[');
 			for (int i = 1, len = mems.size(); i <= len; ++i) {
 				if (i > 1) sb.append(',');
@@ -286,7 +287,7 @@ public final class JSONUtil {
 	
 	public static String toJSON(Sequence seq) {
 		StringBuffer sb = new StringBuffer(1024);
-		ListBase1 mems = ((Sequence)seq).getMems();
+		IArray mems = ((Sequence)seq).getMems();
 		sb.append('[');
 		
 		for (int i = 1, len = mems.size(); i <= len; ++i) {
@@ -298,7 +299,7 @@ public final class JSONUtil {
 		return sb.toString();
 	}
 	
-	public static String toJSON(Record r) {
+	public static String toJSON(BaseRecord r) {
 		StringBuffer sb = new StringBuffer(1024);
 		String []names = r.getFieldNames();
 		Object []vals = r.getFieldValues();

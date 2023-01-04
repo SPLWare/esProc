@@ -4,17 +4,16 @@ import java.util.ArrayList;
 
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.CompressIndexTable;
 import com.scudata.dm.ComputeStack;
 import com.scudata.dm.Context;
+import com.scudata.dm.Current;
 import com.scudata.dm.DataStruct;
 import com.scudata.dm.IndexTable;
-import com.scudata.dm.ListBase1;
-import com.scudata.dm.MergeIndexTable;
 import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
-import com.scudata.dw.IColumnCursorUtil;
 import com.scudata.dw.compress.Column;
 import com.scudata.dw.compress.ColumnList;
 import com.scudata.expression.CurrentElement;
@@ -146,7 +145,17 @@ public class Join extends Operation {
 		String []oldKey = null;
 		if (isOrg) {
 			seq.add(fname);
-			for (int i = 0; i < newNames.length; ++i) {
+			int dcount = newNames.length;
+			tgtIndexs = new int[dcount][];
+			
+			for (int i = 0; i < dcount; ++i) {
+				int curLen = newNames[i].length;
+				int []tmp = new int[curLen];
+				tgtIndexs[i] = tmp;
+				for (int f = 0, index = seq.length(); f < curLen; ++f) {
+					tmp[f] = index++;
+				}
+				
 				seq.addAll(newNames[i]);
 			}
 		} else {
@@ -198,15 +207,17 @@ public class Join extends Operation {
 			}
 			
 			int valCount = newExps[i].length;
-			refIndexs[i] = new int[valCount];
 			DataStruct ds = codes[i].dataStruct();
-			for (int f = 0; f < valCount; f++) {
-				int idx = ds.getFieldIndex(newExps[i][f].getIdentifierName());
-				if (idx < 0) {
-					refIndexs[i] = null;
-					break;
-				} else {
-					refIndexs[i][f] = idx;
+			if (ds != null) {
+				refIndexs[i] = new int[valCount];
+				for (int f = 0; f < valCount; f++) {
+					int idx = ds.getFieldIndex(newExps[i][f].getIdentifierName());
+					if (idx < 0) {
+						refIndexs[i] = null;
+						break;
+					} else {
+						refIndexs[i][f] = idx;
+					}
 				}
 			}
 			
@@ -235,8 +246,8 @@ public class Join extends Operation {
 			if (isMerge) {
 				if (curExps == null) {
 					Object obj = code.getMem(1);
-					if (obj instanceof Record) {
-						String[] pks = ((Record)obj).dataStruct().getPrimary();
+					if (obj instanceof BaseRecord) {
+						String[] pks = ((BaseRecord)obj).dataStruct().getPrimary();
 						if (pks == null) {
 							MessageManager mm = EngineMessage.get();
 							throw new RQException(mm.getMessage("ds.lessKey"));
@@ -254,9 +265,9 @@ public class Join extends Operation {
 							curExps[k] = new Expression(ctx, pks[k]);
 						}
 						
-						indexTable = new MergeIndexTable(code, curExps, ctx);
+						indexTable = code.newMergeIndexTable(curExps, ctx);
 					} else {
-						indexTable = new MergeIndexTable(code, null, ctx);
+						indexTable = code.newMergeIndexTable(null, ctx);
 					}
 				} else {
 					if (exps[i].length != curExps.length) {
@@ -264,14 +275,14 @@ public class Join extends Operation {
 						throw new RQException("join" + mm.getMessage("function.invalidParam"));
 					}
 					
-					indexTable = new MergeIndexTable(code, curExps, ctx);
+					indexTable = code.newMergeIndexTable(curExps, ctx);
 				}
 			} else if (curExps == null) {
 				indexTable = code.getIndexTable();
 				if (indexTable == null) {
 					Object obj = code.getMem(1);
-					if (obj instanceof Record) {
-						DataStruct ds = ((Record)obj).dataStruct();
+					if (obj instanceof BaseRecord) {
+						DataStruct ds = ((BaseRecord)obj).dataStruct();
 						String[] pks = ds.getPrimary();
 						if (pks == null) {
 							MessageManager mm = EngineMessage.get();
@@ -293,7 +304,7 @@ public class Join extends Operation {
 						}
 					}
 
-					indexTable = IndexTable.instance(code, curExps, ctx);
+					indexTable = code.newIndexTable(curExps, ctx);
 				}
 			} else {
 				int fcount = exps[i].length;
@@ -306,7 +317,7 @@ public class Join extends Operation {
 				if (fcount != 1 || !(curExps[0].getHome() instanceof CurrentSeq)) {
 					indexTable = code.getIndexTable(curExps, ctx);
 					if (indexTable == null) {
-						indexTable = IndexTable.instance(code, curExps, ctx);
+						indexTable = code.newIndexTable(curExps, ctx);
 					}
 				} else {
 					indexTable = null;
@@ -325,12 +336,6 @@ public class Join extends Operation {
 	 */
 	public Sequence process(Sequence seq, Context ctx) {
 		init(seq, ctx);
-		if (!isOrg && seq.isColumnTable() && IColumnCursorUtil.util != null) {
-			return IColumnCursorUtil.util.join(
-					seq, exps, newExps, indexTables, 
-					isOrg, isIsect, refIndexs, tgtIndexs, 
-					codes, newDs, ctx);
-		}
 		
 		if (isIsect) {
 			return join_i(seq, ctx);
@@ -348,17 +353,18 @@ public class Join extends Operation {
 		
 		if (isOrg) {
 			for (int i = 1; i <= len; ++i) {
-				Record old = (Record)data.getMem(i);
+				BaseRecord old = (BaseRecord)data.getMem(i);
 				result.newLast().setNormalFieldValue(0, old);
 			}
 			
-			Sequence.Current current1 = data.new Current();
-			Sequence.Current current2 = result.new Current();
+			Current current1 = new Current(data);
+			Current current2 = new Current(result);
 			stack.push(current2);
 			stack.push(current1);
 
 			try {
 				for (int fk = 0, fkCount = exps.length; fk < fkCount; ++fk) {
+					Sequence code = codes[fk];
 					IndexTable indexTable = indexTables[fk];
 					Expression []curExps = exps[fk];
 					Expression []curNewExps = newExps[fk];
@@ -366,7 +372,7 @@ public class Join extends Operation {
 					int []refIndexs = this.refIndexs[fk];
 					int []tgtIndexs = this.tgtIndexs[fk];
 					
-					if (codes[fk] == null) {
+					if (code == null) {
 					} else if (indexTable != null) {
 						int pkCount = curExps.length;
 						Object []pkValues = new Object[pkCount];
@@ -378,12 +384,13 @@ public class Join extends Operation {
 								pkValues[f] = curExps[f].calculate(ctx);
 							}
 		
-							Record obj = (Record)indexTable.find(pkValues);
-							Record r = (Record)result.getMem(i);
-							if (obj != null) {
+							int pos = indexTable.findPos(pkValues);
+							BaseRecord r = (BaseRecord)result.getMem(i);
+							if (pos > 0) {
 								if (refIndexs == null) {
 									try {
-										stack.push(obj);
+										Current dimCurrent = new Current(code, pos);
+										stack.push(dimCurrent);
 										for (int f = 0; f < newCount; ++f) {
 											r.setNormalFieldValue(tgtIndexs[f], curNewExps[f].calculate(ctx));
 										}
@@ -391,7 +398,7 @@ public class Join extends Operation {
 										stack.pop();
 									}
 								} else {
-									Record rec= (Record) obj;
+									BaseRecord rec = (BaseRecord)code.getMem(pos);
 									for (int f = 0; f < newCount; ++f) {
 										r.setNormalFieldValue(tgtIndexs[f], rec.getFieldValue(refIndexs[f]));
 									}
@@ -404,21 +411,20 @@ public class Join extends Operation {
 						}
 					} else {
 						Expression exp = curExps[0];
-						ListBase1 codeMems = codes[fk].getMems();
-						int codeLen = codeMems.size();
+						int codeLen = code.length();
 						for (int i = 1; i <= len; ++i) {
 							current1.setCurrent(i);
 							current2.setCurrent(i);
 							Object val = exp.calculate(ctx);
-							Record r = (Record)result.getMem(i);
+							BaseRecord r = (BaseRecord)result.getMem(i);
 							
 							if (val instanceof Number) {
 								int seq = ((Number)val).intValue();
 								if (seq > 0 && seq <= codeLen) {
-									Record obj = (Record)codeMems.get(seq);
 									if (refIndexs == null) {
 										try {
-											stack.push(obj);
+											Current dimCurrent = new Current(code, seq);
+											stack.push(dimCurrent);
 											for (int f = 0; f < newCount; ++f) {
 												r.setNormalFieldValue(tgtIndexs[f], curNewExps[f].calculate(ctx));
 											}
@@ -426,7 +432,7 @@ public class Join extends Operation {
 											stack.pop();
 										}
 									} else {
-										Record rec= (Record) obj;
+										BaseRecord rec= (BaseRecord)code.getMem(seq);
 										for (int f = 0; f < newCount; ++f) {
 											r.setNormalFieldValue(tgtIndexs[f], rec.getFieldValue(refIndexs[f]));
 										}
@@ -450,15 +456,16 @@ public class Join extends Operation {
 			}
 		} else {
 			for (int i = 1; i <= len; ++i) {
-				Record old = (Record)data.getMem(i);
+				BaseRecord old = (BaseRecord)data.getMem(i);
 				result.newLast(old.getFieldValues());
 			}
 			
-			Sequence.Current current = result.new Current();
+			Current current = new Current(result);
 			stack.push(current);
 
 			try {
 				for (int fk = 0, fkCount = exps.length; fk < fkCount; ++fk) {
+					Sequence code = codes[fk];
 					IndexTable indexTable = indexTables[fk];
 					Expression []curExps = exps[fk];
 					Expression []curNewExps = newExps[fk];
@@ -466,7 +473,7 @@ public class Join extends Operation {
 					int []refIndexs = this.refIndexs[fk];
 					int []tgtIndexs = this.tgtIndexs[fk];
 					
-					if (codes[fk] == null) {
+					if (code == null) {
 					} else if (indexTable != null) {
 						int pkCount = curExps.length;
 		
@@ -476,12 +483,14 @@ public class Join extends Operation {
 								current.setCurrent(i);
 								pkValue = curExps[0].calculate(ctx);
 			
-								Record obj = (Record)indexTable.find(pkValue);
-								Record r = (Record)result.getMem(i);
-								if (obj != null) {
+								//BaseRecord obj = (BaseRecord)indexTable.find(pkValue);
+								int pos = indexTable.findPos(pkValue);
+								BaseRecord r = (BaseRecord)result.getMem(i);
+								if (pos > 0) {
 									if (refIndexs == null) {
 										try {
-											stack.push(obj);
+											Current dimCurrent = new Current(code, pos);
+											stack.push(dimCurrent);
 											for (int f = 0; f < newCount; ++f) {
 												r.setNormalFieldValue(tgtIndexs[f], curNewExps[f].calculate(ctx));
 											}
@@ -489,7 +498,7 @@ public class Join extends Operation {
 											stack.pop();
 										}
 									} else {
-										Record rec= (Record) obj;
+										BaseRecord rec= (BaseRecord)code.getMem(pos);
 										for (int f = 0; f < newCount; ++f) {
 											r.setNormalFieldValue(tgtIndexs[f], rec.getFieldValue(refIndexs[f]));
 										}
@@ -508,12 +517,14 @@ public class Join extends Operation {
 									pkValues[f] = curExps[f].calculate(ctx);
 								}
 			
-								Record obj = (Record)indexTable.find(pkValues);
-								Record r = (Record)result.getMem(i);
-								if (obj != null) {
+								//BaseRecord obj = (BaseRecord)indexTable.find(pkValues);
+								int pos = indexTable.findPos(pkValues);
+								BaseRecord r = (BaseRecord)result.getMem(i);
+								if (pos > 0) {
 									if (refIndexs == null) {
 										try {
-											stack.push(obj);
+											Current dimCurrent = new Current(code, pos);
+											stack.push(dimCurrent);
 											for (int f = 0; f < newCount; ++f) {
 												r.setNormalFieldValue(tgtIndexs[f], curNewExps[f].calculate(ctx));
 											}
@@ -521,7 +532,7 @@ public class Join extends Operation {
 											stack.pop();
 										}
 									} else {
-										Record rec= (Record) obj;
+										BaseRecord rec = (BaseRecord)code.getMem(pos);
 										for (int f = 0; f < newCount; ++f) {
 											r.setNormalFieldValue(tgtIndexs[f], rec.getFieldValue(refIndexs[f]));
 										}
@@ -535,20 +546,19 @@ public class Join extends Operation {
 						}
 					} else {
 						Expression exp = curExps[0];
-						ListBase1 codeMems = codes[fk].getMems();
-						int codeLen = codeMems.size();
+						int codeLen = code.length();
 						for (int i = 1; i <= len; ++i) {
 							current.setCurrent(i);
 							Object val = exp.calculate(ctx);
-							Record r = (Record)result.getMem(i);
+							BaseRecord r = (BaseRecord)result.getMem(i);
 							
 							if (val instanceof Number) {
 								int seq = ((Number)val).intValue();
 								if (seq > 0 && seq <= codeLen) {
-									Record obj = (Record)codeMems.get(seq);
 									if (refIndexs == null) {
 										try {
-											stack.push(obj);
+											Current dimCurrent = new Current(code, seq);
+											stack.push(dimCurrent);
 											for (int f = 0; f < newCount; ++f) {
 												r.setNormalFieldValue(tgtIndexs[f], curNewExps[f].calculate(ctx));
 											}
@@ -556,7 +566,7 @@ public class Join extends Operation {
 											stack.pop();
 										}
 									} else {
-										Record rec= (Record) obj;
+										BaseRecord rec = (BaseRecord)code.getMem(seq);
 										for (int f = 0; f < newCount; ++f) {
 											r.setNormalFieldValue(tgtIndexs[f], rec.getFieldValue(refIndexs[f]));
 										}
@@ -613,18 +623,18 @@ public class Join extends Operation {
 		if (isOrg) {
 			Record record = new Record(newDs);
 			stack.push(record);
-			Sequence.Current current = data.new Current();
+			Current current = new Current(data);
 			stack.push(current);
 
 			try {
 				Next:
 				for (int i = 1; i <= len; ++i) {
 					current.setCurrent(i);
-					Record old = (Record)data.getMem(i);
+					BaseRecord old = (BaseRecord)data.getMem(i);
 					record.setNormalFieldValue(0, old);
 				
 					for (int fk = 0; fk < fkCount; ++fk) {
-						Record dr;
+						int pos;
 						if (indexTables[fk] != null) {
 							Expression []curExps = exps[fk];
 							Object []curPkValues = pkValues[fk];
@@ -632,15 +642,15 @@ public class Join extends Operation {
 								curPkValues[f] = curExps[f].calculate(ctx);
 							}
 
-							dr = (Record)indexTables[fk].find(curPkValues);
-							if (dr == null) continue Next;
+							pos = indexTables[fk].findPos(curPkValues);
+							if (pos < 1) {
+								continue Next;
+							}
 						} else {
 							Object val = exps[fk][0].calculate(ctx);
 							if (val instanceof Number) {
-								int seq = ((Number)val).intValue();
-								if (seq > 0 && seq <= codes[fk].length()) {
-									dr = (Record)codes[fk].getMem(seq);
-								} else {
+								pos = ((Number)val).intValue();
+								if (pos < 1 || pos > codes[fk].length() || codes[fk].getMem(pos) == null) {
 									continue Next;
 								}
 							} else {
@@ -655,7 +665,8 @@ public class Join extends Operation {
 						
 						if (refIndexs == null) {
 							try {
-								stack.push(dr);
+								Current dimCurrent = new Current(codes[fk], pos);
+								stack.push(dimCurrent);
 								for (int f = 0; f < newCount; ++f) {
 									record.setNormalFieldValue(tgtIndexs[f], curNewExps[f].calculate(ctx));
 								}
@@ -663,7 +674,7 @@ public class Join extends Operation {
 								stack.pop();
 							}
 						} else {
-							Record rec= (Record) dr;
+							BaseRecord rec = (BaseRecord)codes[fk].getMem(pos);
 							for (int f = 0; f < newCount; ++f) {
 								record.setNormalFieldValue(tgtIndexs[f], rec.getFieldValue(refIndexs[f]));
 							}
@@ -683,11 +694,11 @@ public class Join extends Operation {
 			try {
 				Next:
 				for (int i = 1; i <= len; ++i) {
-					Record old = (Record)data.getMem(i);
+					BaseRecord old = (BaseRecord)data.getMem(i);
 					record.set(old);
 				
 					for (int fk = 0; fk < fkCount; ++fk) {
-						Record dr;
+						int pos;
 						if (indexTables[fk] != null) {
 							Expression []curExps = exps[fk];
 							Object []curPkValues = pkValues[fk];
@@ -695,15 +706,15 @@ public class Join extends Operation {
 								curPkValues[f] = curExps[f].calculate(ctx);
 							}
 
-							dr = (Record)indexTables[fk].find(curPkValues);
-							if (dr == null) continue Next;
+							pos = indexTables[fk].findPos(curPkValues);
+							if (pos < 1) {
+								continue Next;
+							}
 						} else {
 							Object val = exps[fk][0].calculate(ctx);
 							if (val instanceof Number) {
-								int seq = ((Number)val).intValue();
-								if (seq > 0 && seq <= codes[fk].length()) {
-									dr = (Record)codes[fk].getMem(seq);
-								} else {
+								pos = ((Number)val).intValue();
+								if (pos < 1 || pos > codes[fk].length() || codes[fk].getMem(pos) == null) {
 									continue Next;
 								}
 							} else {
@@ -718,7 +729,8 @@ public class Join extends Operation {
 						
 						if (refIndexs == null) {
 							try {
-								stack.push(dr);
+								Current dimCurrent = new Current(codes[fk], pos);
+								stack.push(dimCurrent);
 								for (int f = 0; f < newCount; ++f) {
 								record.setNormalFieldValue(tgtIndexs[f], curNewExps[f].calculate(ctx));
 								}
@@ -726,7 +738,7 @@ public class Join extends Operation {
 								stack.pop();
 							}
 						} else {
-							Record rec= (Record) dr;
+							BaseRecord rec = (BaseRecord)codes[fk].getMem(pos);
 							for (int f = 0; f < newCount; ++f) {
 								record.setNormalFieldValue(tgtIndexs[f], rec.getFieldValue(refIndexs[f]));
 							}
@@ -758,9 +770,8 @@ public class Join extends Operation {
 		Table result = new Table(newDs, len);
 
 		Object []pkValues = new Object[expsCount];
-
-		IndexTable indexTables = this.indexTables[0];
-		Sequence codes = this.codes[0];
+		Sequence code = codes[0];
+		IndexTable indexTable = indexTables[0];
 		boolean isOrg = this.isOrg;
 		ComputeStack stack = ctx.getComputeStack();
 		int []refIndexs = this.refIndexs[0];
@@ -770,19 +781,19 @@ public class Join extends Operation {
 		if (isOrg) {
 			Record record = new Record(newDs);
 			stack.push(record);
-			Sequence.Current current = data.new Current();
+			Current current = new Current(data);
 			stack.push(current);
 
 			try {
 				Next:
 				for (int i = 1; i <= len; ++i) {
 					current.setCurrent(i);
-					Record old = (Record)data.getMem(i);
+					BaseRecord old = (BaseRecord)data.getMem(i);
 					record.setNormalFieldValue(0, old);
 					int findex = 1;
+					int pos;
 
-					Record dr;
-					if (indexTables != null) {
+					if (indexTable != null) {
 						if (srcIndexs == null) {
 							for (int f = 0; f < expsCount; ++f) {
 								pkValues[f] = exps[f].calculate(ctx);
@@ -793,15 +804,15 @@ public class Join extends Operation {
 							}
 						}
 						
-						dr = (Record)indexTables.find(pkValues);
-						if (dr == null) continue Next;
+						pos = indexTable.findPos(pkValues);
+						if (pos < 1) {
+							continue Next;
+						}
 					} else {
 						Object val = exps[0].calculate(ctx);
 						if (val instanceof Number) {
-							int seq = ((Number)val).intValue();
-							if (seq > 0 && seq <= codes.length()) {
-								dr = (Record)codes.getMem(seq);
-							} else {
+							pos = ((Number)val).intValue();
+							if (pos < 1 || pos > code.length() || code.getMem(pos) == null) {
 								continue Next;
 							}
 						} else {
@@ -811,7 +822,8 @@ public class Join extends Operation {
 					
 					if (refIndexs == null) {
 						try {
-							stack.push(dr);
+							Current dimCurrent = new Current(code, pos);
+							stack.push(dimCurrent);
 							for (int f = 0; f < newCount; ++f, ++findex) {
 								record.setNormalFieldValue(findex, newExps[f].calculate(ctx));
 							}
@@ -819,7 +831,7 @@ public class Join extends Operation {
 							stack.pop();
 						}
 					} else {
-						Record rec= (Record) dr;
+						BaseRecord rec = (BaseRecord)code.getMem(pos);
 						for (int f = 0; f < newCount; ++f, ++findex) {
 							record.setNormalFieldValue(findex, rec.getFieldValue(refIndexs[f]));
 						}
@@ -838,11 +850,11 @@ public class Join extends Operation {
 			try {
 				Next:
 				for (int i = 1; i <= len; ++i) {
-					Record old = (Record)data.getMem(i);
+					BaseRecord old = (BaseRecord)data.getMem(i);
 					record.set(old);
+					int pos;
 
-					Record dr;
-					if (indexTables != null) {
+					if (indexTable != null) {
 						if (srcIndexs == null) {
 							for (int f = 0; f < expsCount; ++f) {
 								pkValues[f] = exps[f].calculate(ctx);
@@ -853,15 +865,13 @@ public class Join extends Operation {
 							}
 						}
 						
-						dr = (Record)indexTables.find(pkValues);
-						if (dr == null) continue Next;
+						pos = indexTable.findPos(pkValues);
+						if (pos < 1) continue Next;
 					} else {
 						Object val = exps[0].calculate(ctx);
 						if (val instanceof Number) {
-							int seq = ((Number)val).intValue();
-							if (seq > 0 && seq <= codes.length()) {
-								dr = (Record)codes.getMem(seq);
-							} else {
+							pos = ((Number)val).intValue();
+							if (pos < 1 || pos > code.length() || code.getMem(pos) == null) {
 								continue Next;
 							}
 						} else {
@@ -871,7 +881,8 @@ public class Join extends Operation {
 					
 					if (refIndexs == null) {
 						try {
-							stack.push(dr);
+							Current dimCurrent = new Current(code, pos);
+							stack.push(dimCurrent);
 							for (int f = 0; f < newCount; ++f) {
 								record.setNormalFieldValue(tgtIndexs[f], newExps[f].calculate(ctx));
 							}
@@ -879,7 +890,7 @@ public class Join extends Operation {
 							stack.pop();
 						}
 					} else {
-						Record rec= (Record) dr;
+						BaseRecord rec = (BaseRecord)code.getMem(pos);
 						for (int f = 0; f < newCount; ++f) {
 							record.setNormalFieldValue(tgtIndexs[f], rec.getFieldValue(refIndexs[f]));
 						}
@@ -913,9 +924,9 @@ public class Join extends Operation {
 		Table result = new Table(newDs, len);
 
 		Object []pkValues = new Object[expsCount];
+		Sequence code = codes[0];
+		CompressIndexTable indexTable = (CompressIndexTable)indexTables[0];
 
-		CompressIndexTable indexTables = (CompressIndexTable) this.indexTables[0];
-		Sequence codes = this.codes[0];
 		boolean isOrg = this.isOrg;
 		ComputeStack stack = ctx.getComputeStack();
 		int []refIndexs = this.refIndexs[0];
@@ -932,30 +943,32 @@ public class Join extends Operation {
 		}
 		
 		boolean findexIsOrder = true;
-		for (int f = 0; f < newCount; ++f) {
-			if (f != refIndexs[f]) {
-				findexIsOrder = false;
-				break;
-			}
+		if (refIndexs != null) {
+			for (int f = 0; f < newCount; ++f) {
+				if (f != refIndexs[f]) {
+					findexIsOrder = false;
+					break;
+				}
+			}	
 		}
 		
 		if (isOrg) {
 			Record record = new Record(newDs);
 			stack.push(record);
-			Sequence.Current current = data.new Current();
+			Current current = new Current(data);
 			stack.push(current);
 
 			try {
 				Next:
 				for (int i = 1; i <= len; ++i) {
 					current.setCurrent(i);
-					Record old = (Record)data.getMem(i);
+					BaseRecord old = (BaseRecord)data.getMem(i);
 					record.setNormalFieldValue(0, old);
 					int findex = 1;
 				
 
 					int dr;
-					if (indexTables != null) {
+					if (indexTable != null) {
 						if (srcIndexs == null) {
 							for (int f = 0; f < expsCount; ++f) {
 								pkValues[f] = exps[f].calculate(ctx);
@@ -970,13 +983,13 @@ public class Join extends Operation {
 							}
 						}
 						
-						dr = indexTables.pfindByFields(pkValues);
+						dr = indexTable.pfindByFields(pkValues);
 						if (dr == 0) continue Next;
 					} else {
 						Object val = exps[0].calculate(ctx);
 						if (val instanceof Number) {
 							int seq = ((Number)val).intValue();
-							if (seq > 0 && seq <= codes.length()) {
+							if (seq > 0 && seq <= code.length() || code.getMem(seq) == null) {
 								dr = seq;
 							} else {
 								continue Next;
@@ -988,7 +1001,8 @@ public class Join extends Operation {
 					
 					if (refIndexs == null) {
 						try {
-							stack.push((Record)mems.get(dr));
+							Current dimCurrent = new Current(code, dr);
+							stack.push(dimCurrent);
 							for (int f = 0; f < newCount; ++f, ++findex) {
 								record.setNormalFieldValue(findex, newExps[f].calculate(ctx));
 							}
@@ -1019,11 +1033,11 @@ public class Join extends Operation {
 			try {
 				Next:
 				for (int i = 1; i <= len; ++i) {
-					Record old = (Record)data.getMem(i);
+					BaseRecord old = (BaseRecord)data.getMem(i);
 					record.set(old);
 
 					int dr;
-					if (indexTables != null) {
+					if (indexTable != null) {
 						if (srcIndexs == null) {
 							for (int f = 0; f < expsCount; ++f) {
 								pkValues[f] = exps[f].calculate(ctx);
@@ -1038,13 +1052,13 @@ public class Join extends Operation {
 							}
 						}
 						
-						dr = indexTables.pfindByFields(pkValues);
+						dr = indexTable.pfindByFields(pkValues);
 						if (dr == 0) continue Next;
 					} else {
 						Object val = exps[0].calculate(ctx);
 						if (val instanceof Number) {
 							int seq = ((Number)val).intValue();
-							if (seq > 0 && seq <= codes.length()) {
+							if (seq > 0 && seq <= code.length() || code.getMem(seq) == null) {
 								dr = seq;
 							} else {
 								continue Next;
@@ -1056,7 +1070,8 @@ public class Join extends Operation {
 					
 					if (refIndexs == null) {
 						try {
-							stack.push((Record)mems.get(dr));
+							Current dimCurrent = new Current(code, dr);
+							stack.push(dimCurrent);
 							for (int f = 0; f < newCount; ++f) {
 								record.setNormalFieldValue(tgtIndexs[f], newExps[f].calculate(ctx));
 							}

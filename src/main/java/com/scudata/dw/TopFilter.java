@@ -38,10 +38,6 @@ public class TopFilter extends IFilter {
 	}
 
 	public boolean match(Object minValue, Object maxValue) {
-		if (heap.size() == 0) {
-			return true;
-		}
-		
 		Object obj = heap.getTop();
 		
 		boolean min, max;

@@ -2,8 +2,8 @@ package com.scudata.expression.fn.convert;
 
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Context;
-import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 import com.scudata.expression.Expression;
 import com.scudata.expression.Function;
@@ -16,16 +16,22 @@ import com.scudata.util.JSONUtil;
  *
  */
 public class Json extends Function {
-	public Object calculate(Context ctx) {
-		if (param == null || !param.isLeaf()) {
+	/**
+	 * 检查表达式的有效性，无效则抛出异常
+	 */
+	public void checkValidity() {
+		if (param == null) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("json" + mm.getMessage("function.missingParam"));
+		} else if (!param.isLeaf()) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("json" + mm.getMessage("function.invalidParam"));
 		}
+	}
 
+	public Object calculate(Context ctx) {
 		Object val = param.getLeafExpression().calculate(ctx);
-		if (val == null) {
-			return null;
-		} else if (val instanceof String) {
+		if (val instanceof String) {
 			if (option == null || option.indexOf('v') == -1) {
 				char[] chars = ((String)val).toCharArray();
 				return JSONUtil.parseJSON(chars, 0, chars.length - 1, option);
@@ -35,10 +41,10 @@ public class Json extends Function {
 			}
 		} else if (val instanceof Sequence) {
 			return JSONUtil.toJSON((Sequence)val);
-		} else if (val instanceof Record) {
-			StringBuffer sb = new StringBuffer(1024);
-			JSONUtil.toJSON(val, sb);
-			return sb.toString();
+		} else if (val instanceof BaseRecord) {
+			return JSONUtil.toJSON((BaseRecord)val);
+		} else if (val == null) {
+			return null;
 		} else {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("json" + mm.getMessage("function.paramTypeError"));

@@ -19,7 +19,7 @@ class RecordValSearcher {
 	private String []fields;
 	private Sequence pkeyData;//取数缓存区
 	private long recNUM;//当前伪号
-	private GroupTableRecord curRecord;//当前记录
+	private ComTableRecord curRecord;//当前记录
 	private Record curModifyRecord;//当前记录（补区）
 	private int cur;//块内序号
 	private int len;//当前块个数
@@ -34,7 +34,7 @@ class RecordValSearcher {
 	public void setData(Sequence pkeyData) {
 		this.pkeyData = pkeyData;
 		if (pkeyData.hasRecord()) {
-			curRecord = (GroupTableRecord) pkeyData.getMem(1);
+			curRecord = (ComTableRecord) pkeyData.getMem(1);
 			len = pkeyData.length();
 			cur = 1;
 			recNUM = curRecord.getRecordSeq();
@@ -42,11 +42,11 @@ class RecordValSearcher {
 		this.fields = curRecord.getFieldNames();
 	}
 
-	public RecordValSearcher(ColumnTableMetaData table, String []fields) {
+	public RecordValSearcher(ColPhyTable table, String []fields) {
 		cs = (Cursor) table.cursor(fields);
 		pkeyData = cs.fetch(ICursor.FETCHCOUNT);
 		if (pkeyData.hasRecord()) {
-			curRecord = (GroupTableRecord) pkeyData.getMem(1);
+			curRecord = (ComTableRecord) pkeyData.getMem(1);
 			len = pkeyData.length();
 			cur = 1;
 			recNUM = curRecord.getRecordSeq();
@@ -73,7 +73,7 @@ class RecordValSearcher {
 		if (cur > len) {
 			return;
 		}
-		GroupTableRecord rec = (GroupTableRecord) pkeyData.getMem(cur);
+		ComTableRecord rec = (ComTableRecord) pkeyData.getMem(cur);
 		curRecord = rec;
 		this.recNUM = rec.getRecordSeq();
 	}
@@ -90,7 +90,7 @@ class RecordValSearcher {
 	 * @return true成功，false没找到
 	 */
 	public boolean getKeyVals(long recNum, Record r) {
-		GroupTableRecord rec;
+		ComTableRecord rec;
 		if (recNum < this.recNUM) {
 			return false;
 		} else if (recNum == this.recNUM) {
@@ -101,7 +101,7 @@ class RecordValSearcher {
 				if (cur > len) {
 					return false;
 				}
-				rec = (GroupTableRecord) pkeyData.getMem(cur);
+				rec = (ComTableRecord) pkeyData.getMem(cur);
 				if (recNum < rec.getRecordSeq()) {
 					curRecord = rec;
 					this.recNUM = rec.getRecordSeq();
@@ -134,7 +134,7 @@ class RecordValSearcher {
 	 * @param r 输出
 	 */
 	public void getKeyValues(long recNum, Record r) {
-		GroupTableRecord rec;		
+		ComTableRecord rec;		
 		if (recNum == this.recNUM) {
 			rec = curRecord;
 		} else {
@@ -145,7 +145,7 @@ class RecordValSearcher {
 					MessageManager mm = EngineMessage.get();
 					throw new RQException(r.toString(null) + mm.getMessage("grouptable.invalidData"));
 				}
-				rec = (GroupTableRecord) pkeyData.getMem(cur);
+				rec = (ComTableRecord) pkeyData.getMem(cur);
 				if (recNum == rec.getRecordSeq()) {
 					curRecord = rec;
 					this.recNUM = recNum;
@@ -209,7 +209,7 @@ class RecordValSearcher {
 	 * @param r 输出
 	 */
 	public void getRecordValue(Record r) {
-		GroupTableRecord rec = curRecord;
+		ComTableRecord rec = curRecord;
 
 		int []index = this.index;
 		int colCount = indexSize;

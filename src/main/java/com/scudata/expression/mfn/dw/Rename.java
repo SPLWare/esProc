@@ -5,7 +5,7 @@ import java.io.IOException;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
 import com.scudata.expression.ParamInfo2;
-import com.scudata.expression.TableMetaDataFunction;
+import com.scudata.expression.PhyTableFunction;
 
 /**
  * 修改组表的字段名
@@ -13,7 +13,7 @@ import com.scudata.expression.TableMetaDataFunction;
  * @author RunQian
  *
  */
-public class Rename extends TableMetaDataFunction {
+public class Rename extends PhyTableFunction {
 	public Object calculate(Context ctx) {
 		ParamInfo2 pi = ParamInfo2.parse(param, "rename", true, false);
 		String []srcFields = pi.getExpressionStrs1();

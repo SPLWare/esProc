@@ -73,6 +73,6 @@ public class Id extends CursorFunction {
 			}
 		}
 		
-		return cursor.id(exps, n, ctx);
+		return cursor.id(exps, n, option, ctx);
 	}
 }

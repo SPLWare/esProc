@@ -7,16 +7,24 @@ import com.scudata.expression.Function;
 import com.scudata.resources.EngineMessage;
 
 public class Arccos extends Function {
-	public Object calculate(Context ctx) {
-		if (param == null || !param.isLeaf()) {
+	/**
+	 * 检查表达式的有效性，无效则抛出异常
+	 */
+	public void checkValidity() {
+		if (param == null) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("acos" + mm.getMessage("function.missingParam"));
+		} else if (!param.isLeaf()) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("acos" + mm.getMessage("function.invalidParam"));
 		}
+	}
 
-		Object result = param.getLeafExpression().calculate(ctx);
-		if (result instanceof Number) {
-			return new Double(Math.acos(((Number)result).doubleValue()));
-		} else if (result == null) {
+	public Object calculate(Context ctx) {
+		Object obj = param.getLeafExpression().calculate(ctx);
+		if (obj instanceof Number) {
+			return new Double(Math.acos(((Number)obj).doubleValue()));
+		} else if (obj == null) {
 			return null;
 		} else {
 			MessageManager mm = EngineMessage.get();

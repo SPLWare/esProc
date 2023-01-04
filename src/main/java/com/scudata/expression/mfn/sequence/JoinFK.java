@@ -4,11 +4,7 @@ import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
 import com.scudata.dm.Sequence;
-import com.scudata.dm.op.DiffJoin;
-import com.scudata.dm.op.FilterJoin;
-import com.scudata.dm.op.Join;
-import com.scudata.dm.op.JoinRemote;
-import com.scudata.dm.op.Operation;
+import com.scudata.dm.cursor.ICursor;
 import com.scudata.expression.Expression;
 import com.scudata.expression.IParam;
 import com.scudata.expression.SequenceFunction;
@@ -22,12 +18,17 @@ import com.scudata.resources.EngineMessage;
  *
  */
 public class JoinFK extends SequenceFunction {
-	public Object calculate(Context ctx) {
+	/**
+	 * 检查表达式的有效性，无效则抛出异常
+	 */
+	public void checkValidity() {
 		if (param == null) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("join" + mm.getMessage("function.missingParam"));
 		}
+	}
 
+	public Object calculate(Context ctx) {
 		Expression [][]exps;
 		Object []codes;
 		Expression [][]dataExps;
@@ -128,17 +129,17 @@ public class JoinFK extends SequenceFunction {
 			}
 		}
 		
-		Operation op;
+		ICursor cs = srcSequence.cursor();
 		if (isIsect) {
-			op = new FilterJoin(this, exps, seqs, dataExps, option);
+			cs.filterJoin(this, exps, seqs, dataExps, option, ctx);
 		} else if (isDiff) {
-			op = new DiffJoin(this, exps, seqs, dataExps, option);
+			cs.diffJoin(this, exps, seqs, dataExps, option, ctx);
 		} else if (hasClusterTable) {
-			op = new JoinRemote(this, fname, exps, codes, dataExps, newExps, newNames, option);
+			cs.joinRemote(this, fname, exps, codes, dataExps, newExps, newNames, option, ctx);
 		} else {
-			op = new Join(this, fname, exps, seqs, dataExps, newExps, newNames, option);
+			cs.join(this, fname, exps, seqs, dataExps, newExps, newNames, option, ctx);
 		}
 		
-		return op.process(srcSequence, ctx);
+		return cs.fetch();
 	}
 }

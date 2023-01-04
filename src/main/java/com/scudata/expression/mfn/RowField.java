@@ -2,9 +2,9 @@ package com.scudata.expression.mfn;
 
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Context;
 import com.scudata.dm.DataStruct;
-import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 import com.scudata.expression.IParam;
 import com.scudata.expression.MemberFunction;
@@ -23,6 +23,16 @@ public class RowField extends MemberFunction {
 	private DataStruct ds;
 	private int col;
 	
+	/**
+	 * 检查表达式的有效性，无效则抛出异常
+	 */
+	public void checkValidity() {
+		if (param == null) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("r" + mm.getMessage("function.missingParam"));
+		}
+	}
+
 	public boolean isLeftTypeMatch(Object obj) {
 		return obj instanceof Number;
 	}
@@ -32,10 +42,7 @@ public class RowField extends MemberFunction {
 	}
 	
 	public Object calculate(Context ctx) {
-		if (param == null) {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException("r" + mm.getMessage("function.missingParam"));
-		} else if (param.isLeaf()) {
+		if (param.isLeaf()) {
 			Object obj = param.getLeafExpression().calculate(ctx);
 			if (obj instanceof Sequence) {
 				return ((Sequence)obj).getMem(r);
@@ -61,8 +68,8 @@ public class RowField extends MemberFunction {
 			Object obj = sub0.getLeafExpression().calculate(ctx);
 			if (obj instanceof Sequence) {
 				obj = ((Sequence)obj).getMem(r);
-				if (obj instanceof Record) {
-					Record r = (Record)obj;
+				if (obj instanceof BaseRecord) {
+					BaseRecord r = (BaseRecord)obj;
 					if (field == null) {
 						field = sub1.getLeafExpression().getIdentifierName();
 						ds = r.dataStruct();

@@ -8,6 +8,7 @@ import com.scudata.cellset.datamodel.PgmCellSet;
 import com.scudata.common.CellLocation;
 import com.scudata.common.Logger;
 import com.scudata.common.MessageManager;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.CanceledException;
 import com.scudata.dm.Context;
 import com.scudata.dm.DfxManager;
@@ -23,7 +24,7 @@ import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
 import com.scudata.dm.cursor.ICursor;
 import com.scudata.dm.cursor.MemoryCursor;
-import com.scudata.ide.spl.Esproc;
+import com.scudata.ide.spl.Esprocx;
 import com.scudata.resources.ParallelMessage;
 import com.scudata.server.odbc.OdbcServer;
 import com.scudata.server.unit.UnitServer;
@@ -195,8 +196,8 @@ public class Task extends Job implements IResource, ITask {
 		}
 		String[] fields;
 		Object[] values;
-		if (result instanceof Record) {
-			Record rec = (Record) result;
+		if (result instanceof BaseRecord) {
+			BaseRecord rec = (BaseRecord) result;
 			fields = rec.getFieldNames();
 			values = rec.getFieldValues();
 		} else {
@@ -289,7 +290,7 @@ public class Task extends Job implements IResource, ITask {
 			}
 		}
 		DatabaseUtil.connectAutoDBs(context, connectedDsNames);
-		Esproc.loadDataSource(context);
+		Esprocx.loadDataSource(context);
 		return context;
 	}
 

@@ -429,7 +429,7 @@ public class BFileReader {
 				table = new Table(ds, initSize);
 				for (int i = 0; i < n; ++i) {
 					if (importer.hasNext() && (endPos == -1 || importer.position() < endPos)) {
-						Record cur = table.newLast();
+						BaseRecord cur = table.newLast();
 						for (int f = 0; f < fcount; ++f) {
 							cur.setNormalFieldValue(f, importer.readObject());
 						}
@@ -443,7 +443,7 @@ public class BFileReader {
 
 				for (int i = 0; i < n; ++i) {
 					if (importer.hasNext() && (endPos == -1 || importer.position() < endPos)) {
-						Record cur = table.newLast();
+						BaseRecord cur = table.newLast();
 						for (int f = 0; f < fcount; ++f) {
 							if (readIndex[f] != -1) {
 								cur.setNormalFieldValue(readIndex[f], importer.readObject());

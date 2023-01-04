@@ -1,5 +1,6 @@
 package com.scudata.dm.op;
 
+import com.scudata.cellset.ICellSet;
 import com.scudata.cellset.INormalCell;
 import com.scudata.dm.Context;
 import com.scudata.dm.Sequence;
@@ -27,6 +28,10 @@ public abstract class Operation {
 	 */
 	public Operation(Function function) {
 		this.function = function;
+		ICellSet cs = function == null ? null : function.getCellSet();
+		if (cs != null) {
+			currentCell = cs.getCurrent();
+		}
 	}
 	
 	/**

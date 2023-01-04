@@ -18,13 +18,19 @@ import com.scudata.util.Variant;
  *
  */
 public class Gcd extends Function {
-
-	public Object calculate(Context ctx) {
-		ArrayList<Number> num=new ArrayList<Number>();
+	/**
+	 * 检查表达式的有效性，无效则抛出异常
+	 */
+	public void checkValidity() {
 		if (param == null) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("gcd" + mm.getMessage("function.missingParam"));
-		} else if(param.isLeaf()) {
+		}
+	}
+
+	public Object calculate(Context ctx) {
+		ArrayList<Number> num=new ArrayList<Number>();
+		if(param.isLeaf()) {
 			Object result = param.getLeafExpression().calculate(ctx);
 			if (result != null && result instanceof Number) {
 				num.add((Number)result);

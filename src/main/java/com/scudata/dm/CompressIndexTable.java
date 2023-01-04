@@ -1,5 +1,7 @@
 package com.scudata.dm;
 
+import com.scudata.array.BoolArray;
+import com.scudata.array.IArray;
 import com.scudata.dw.compress.Column;
 import com.scudata.dw.compress.ColumnList;
 import com.scudata.dw.compress.IntColumn;
@@ -11,7 +13,7 @@ public class CompressIndexTable extends IndexTable {
 	private Column []columns;
 	private int findex[];
 	private int fcount;
-	private Object keys[];
+	//private Object keys[];
 	private int size;
 	private boolean isInteger;
 	private boolean isOrder;//findex里的顺序就是原序
@@ -23,8 +25,8 @@ public class CompressIndexTable extends IndexTable {
 		this.mems = mems;
 		this.columns = mems.getColumns();
 		this.findex = findex;
-		keys = new Object[1];
-		size = mems.size;
+		//keys = new Object[1];
+		size = mems.size();
 
 		//判断是否findex里的顺序是否就是自然顺序
 		isOrder = true;
@@ -288,6 +290,83 @@ public class CompressIndexTable extends IndexTable {
 
 		return 0;//-low;
 	}
+
+	public int[] findAllPos(IArray key) {
+		if (key == null) {
+			return null;
+		}
+		int len = key.size();
+		int[] pos = new int[len + 1];
+		for (int i = 1; i <= len; i++) {
+			Object obj = key.get(i);
+			pos[i] = pfindByField(obj);
+		}
+		return pos;
+	}
+
+	public int[] findAllPos(IArray[] keys) {
+		if (keys == null) {
+			return null;
+		}
+		
+		int keyCount = keys.length;
+		int len = keys[0].size();
+		int[] pos = new int[len + 1];
+		Object[] objs = new Object[keyCount];
+		for (int i = 1; i <= len; i++) {
+			for (int c = 0; c < keyCount; c++) {
+				objs[c] = keys[c].get(i);
+			}
+			pos[i] = pfindByFields(objs);
+		}
+		return pos;
+	}
+
+	public int findPos(Object key) {
+		return pfindByField(key);
+	}
+
+	public int findPos(Object[] keys) {
+		return pfindByFields(keys);
+	}
+
+	public int[] findAllPos(IArray key, BoolArray signArray) {
+		if (key == null) {
+			return null;
+		}
+		int len = key.size();
+		int[] pos = new int[len + 1];
+		for (int i = 1; i <= len; i++) {
+			if (signArray.isFalse(i)) {
+				continue;
+			}
+			Object obj = key.get(i);
+			pos[i] = pfindByField(obj);
+		}
+		return pos;
+	}
+
+	public int[] findAllPos(IArray[] keys, BoolArray signArray) {
+		if (keys == null) {
+			return null;
+		}
+		
+		int keyCount = keys.length;
+		int len = keys[0].size();
+		int[] pos = new int[len + 1];
+		Object[] objs = new Object[keyCount];
+		for (int i = 1; i <= len; i++) {
+			if (signArray.isFalse(i)) {
+				continue;
+			}
+			for (int c = 0; c < keyCount; c++) {
+				objs[c] = keys[c].get(i);
+			}
+			pos[i] = pfindByFields(objs);
+		}
+		return pos;
+	}
+	
 
 //	public void create() {
 //		int []findex = this.findex;

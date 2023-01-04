@@ -36,11 +36,11 @@ import com.scudata.common.Matrix;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.common.StringUtils;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.DataStruct;
 import com.scudata.dm.Env;
 import com.scudata.dm.FileObject;
 import com.scudata.dm.KeyWord;
-import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
 import com.scudata.resources.AppMessage;
@@ -506,7 +506,7 @@ public class ExcelUtils {
 				if (curLen > fcount)
 					curLen = fcount;
 
-				Record r = table.newLast();
+				BaseRecord r = table.newLast();
 				for (int f = 0; f < curLen; ++f) {
 					r.setNormalFieldValue(f, line[f]);
 				}
@@ -547,7 +547,7 @@ public class ExcelUtils {
 				if (curLen > fcount)
 					curLen = fcount;
 
-				Record r = table.newLast();
+				BaseRecord r = table.newLast();
 				for (int f = 0; f < curLen; ++f) {
 					if (index[f] != -1)
 						r.setNormalFieldValue(index[f], line[f]);
@@ -1012,8 +1012,9 @@ public class ExcelUtils {
 				continue;
 			if (data instanceof Sequence) {
 				colCount = Math.max(colCount, ((Sequence) data).length());
-			} else if (data instanceof Record) {
-				colCount = Math.max(colCount, ((Record) data).getFieldCount());
+			} else if (data instanceof BaseRecord) {
+				colCount = Math.max(colCount,
+						((BaseRecord) data).getFieldCount());
 			} else {
 				colCount = Math.max(colCount, 1);
 			}
@@ -1033,8 +1034,8 @@ public class ExcelUtils {
 						} else {
 							colSeq.add(null);
 						}
-					} else if (data instanceof Record) {
-						Record dataRec = (Record) data;
+					} else if (data instanceof BaseRecord) {
+						BaseRecord dataRec = (BaseRecord) data;
 						if (dataRec.getFieldCount() > c) {
 							colSeq.add(dataRec.getFieldValue(c + 1));
 						} else {

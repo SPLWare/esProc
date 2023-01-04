@@ -3,7 +3,7 @@ package com.scudata.expression.mfn.cluster;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
-import com.scudata.expression.ClusterTableMetaDataFunction;
+import com.scudata.expression.ClusterPhyTableFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
@@ -12,7 +12,7 @@ import com.scudata.resources.EngineMessage;
  * @author RunQian
  *
  */
-public class Attach extends ClusterTableMetaDataFunction {
+public class Attach extends ClusterPhyTableFunction {
 	public Object calculate(Context ctx) {
 		if (param == null) {
 			MessageManager mm = EngineMessage.get();

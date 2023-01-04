@@ -80,7 +80,10 @@ public class Http_Upload extends Function {
 		}
 	}
 	
-	public Object calculate(Context ctx) {
+	/**
+	 * 检查表达式的有效性，无效则抛出异常
+	 */
+	public void checkValidity() {
 		if (param == null) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("httpupload" + mm.getMessage("function.missingParam"));
@@ -88,7 +91,9 @@ public class Http_Upload extends Function {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("httpupload" + mm.getMessage("function.invalidParam"));
 		}
-		
+	}
+	
+	public Object calculate(Context ctx) {
 		IParam leftParam = param.getSub(0);
 		HttpUpload uploader;
 		if (leftParam == null) {

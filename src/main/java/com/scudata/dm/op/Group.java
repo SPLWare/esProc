@@ -2,6 +2,7 @@ package com.scudata.dm.op;
 
 import com.scudata.dm.ComputeStack;
 import com.scudata.dm.Context;
+import com.scudata.dm.Current;
 import com.scudata.dm.Sequence;
 import com.scudata.expression.Expression;
 import com.scudata.expression.Function;
@@ -123,7 +124,7 @@ public class Group extends Operation {
 		}
 		
 		ComputeStack stack = ctx.getComputeStack();
-		Sequence.Current current = seq.new Current();
+		Current current = new Current(seq);
 		stack.push(current);
 
 		try {
@@ -159,7 +160,7 @@ public class Group extends Operation {
 		}
 		
 		ComputeStack stack = ctx.getComputeStack();
-		Sequence.Current current = seq.new Current();
+		Current current = new Current(seq);
 		stack.push(current);
 
 		try {
@@ -207,7 +208,7 @@ public class Group extends Operation {
 		Sequence result = new Sequence();
 		
 		ComputeStack stack = ctx.getComputeStack();
-		Sequence.Current current = seq.new Current();
+		Current current = new Current(seq);
 		stack.push(current);
 
 		try {
@@ -253,7 +254,7 @@ public class Group extends Operation {
 		Sequence result = new Sequence();
 		
 		ComputeStack stack = ctx.getComputeStack();
-		Sequence.Current current = seq.new Current();
+		Current current = new Current(seq);
 		stack.push(current);
 
 		try {

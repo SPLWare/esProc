@@ -12,7 +12,7 @@ import com.scudata.util.Variant;
  *
  */
 class RowRecordSeqSearcher {
-	private RowTableMetaData table;
+	private RowPhyTable table;
 	private long prevRecordCount = 0;//当前已经取出的记录数
 	private int curBlock = -1;//当前块号
 	private int totalBlockCount;//总块数
@@ -29,7 +29,7 @@ class RowRecordSeqSearcher {
 	private Object [][]blockKeyValues;
 	private boolean isEnd = false;
 	
-	public RowRecordSeqSearcher(RowTableMetaData table) {
+	public RowRecordSeqSearcher(RowPhyTable table) {
 		this.table = table;
 		init();
 	}

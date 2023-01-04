@@ -1,6 +1,9 @@
 package com.scudata.dm.cursor;
 
+import java.util.ArrayList;
+
 import com.scudata.dm.Sequence;
+import com.scudata.dm.op.Operation;
 
 /**
  * 用内存序列构建游标
@@ -137,5 +140,48 @@ public class MemoryCursor extends ICursor {
 	
 	public Sequence fuzzyFetch(int n) {
 		return fetch();
+	}
+
+	/**
+	 * 返回剩余的记录并关闭游标
+	 * @return Sequence
+	 */
+	public Sequence fetch() {
+		int rest = endSeq - next + 1;
+		if (rest < 1) {
+			Sequence result = cache;
+			close();
+			return result;
+		}
+		
+		Sequence result;
+		if (next == 1 && endSeq == data.length()) {
+			result = data;
+		} else {
+			result = new Sequence(rest);
+			for (int i = next, end = endSeq; i <= end; ++i) {
+				result.add(data.getMem(i));
+			}
+		}
+				
+		ArrayList<Operation> opList = this.opList;
+		if (opList != null) {
+			result = doOperation(result, opList, ctx);
+			Sequence tmp = finish(opList, ctx);
+			if (tmp != null) {
+				if (result == null) {
+					result = tmp;
+				} else {
+					result = append(result, tmp);
+				}
+			}
+		}
+		
+		if (cache != null) {
+			result = append(cache, result);
+		}
+		
+		close();
+		return result;
 	}
 }

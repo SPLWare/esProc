@@ -1,9 +1,10 @@
 package com.scudata.expression;
 
+import com.scudata.cellset.ICellSet;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Context;
-import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.op.Calculate;
 import com.scudata.dm.op.Operable;
@@ -17,6 +18,21 @@ import com.scudata.resources.EngineMessage;
  */
 public class Calc extends MemberFunction {
 	private Object srcObj;
+	
+	/**
+	 * 设置函数参数
+	 * @param cs 网格对象
+	 * @param ctx 计算上下文
+	 * @param param 函数参数字符串
+	 */
+	public void setParameter(ICellSet cs, Context ctx, String param) {
+		strParam = param;
+		this.cs = cs;
+		
+		// A.(x,…)把参数当成一个整体创建成逗号表达式
+		this.param = ParamParser.newLeafParam(param, cs, ctx);
+		//this.param = ParamParser.parse(param, cs, ctx);
+	}
 	
 	public boolean isLeftTypeMatch(Object obj) {
 		return true;
@@ -42,8 +58,8 @@ public class Calc extends MemberFunction {
 			Expression exp = param.getLeafExpression();
 			if (srcObj instanceof Sequence) {
 				return ((Sequence)srcObj).calc(exp, option, ctx);
-			} else if (srcObj instanceof Record) {
-				return ((Record)srcObj).calc(exp, ctx);
+			} else if (srcObj instanceof BaseRecord) {
+				return ((BaseRecord)srcObj).calc(exp, ctx);
 			} else if (srcObj instanceof Operable) {
 				Calculate calculate = new Calculate(this, exp);
 				((Operable)srcObj).addOperation(calculate, ctx);

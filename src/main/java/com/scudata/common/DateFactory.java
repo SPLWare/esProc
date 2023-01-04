@@ -1,7 +1,9 @@
 package com.scudata.common;
 
-import java.util.*;
-import java.text.*;
+import java.text.ParseException;
+import java.text.ParsePosition;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * 线程安全类，但每次格式化和分析前需设置当前的格式串，否则上次的设置会影响下次的格式化和分析
@@ -27,6 +29,10 @@ public class DateFactory {
 		return calendar;
 	}
 
+	public Calendar calendar() {
+		return calendar;
+	}
+	
 	public Date toDate(Date date) {
 		Calendar gc = getCalendar();
 		gc.setTime(date);

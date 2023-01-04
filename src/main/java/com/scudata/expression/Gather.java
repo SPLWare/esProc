@@ -58,35 +58,35 @@ abstract public class Gather extends Function {
 	 * 第一步分组结束时是否需要调用finish1对汇总值进行首次处理，top需要调用
 	 * @return true：需要，false：不需要
 	 */
-	public boolean needFinish1() {
-		return false;
-	}
+	//public boolean needFinish1() {
+	//	return false;
+	//}
 	
 	/**
 	 * 对第一次分组得到的汇总值进行首次处理，处理后的值还要参加二次分组运算
 	 * @param val 汇总值
 	 * @return 处理后的汇总值
 	 */
-	public Object finish1(Object val) {
-		return val;
-	}
+	//public Object finish1(Object val) {
+	//	return val;
+	//}
 	
 	/**
 	 * 是否需要对最终汇总值进行处理
 	 * @return true：需要，false：不需要
 	 */
-	public boolean needFinish() {
-		return false;
-	}
+	//public boolean needFinish() {
+	//	return false;
+	//}
 	
 	/**
 	 * 对分组结束得到的汇总值进行最终处理，像平均值需要做sum/count处理
 	 * @param val 汇总值
 	 * @return 处理后的汇总值
 	 */
-	public Object finish(Object val) {
-		return val;
-	}
+	//public Object finish(Object val) {
+	//	return val;
+	//}
 	
 	/**
 	 * 针对给定序列算出汇总值

@@ -1,5 +1,11 @@
 package com.scudata.dw;
 
+import java.util.List;
+
+import com.scudata.array.IArray;
+import com.scudata.dm.Context;
+import com.scudata.expression.Expression;
+
 /**
  * 字段过滤表达式
  * @author runqian
@@ -19,6 +25,10 @@ public abstract class IFilter implements Comparable<IFilter> {
 	protected ColumnMetaData column;
 	protected int priority; // 优先级，用于排序，先过滤优先级高的字段，数字越小优先级越高
 	protected String columnName;//用于行存
+	
+	public int colCount = 1; //filter涉及的列的个数
+	protected Expression exp;//filter对应的表达式
+	protected List<ColumnMetaData> columns;//有的filter对应多个列
 	
 	public IFilter() {
 		
@@ -103,5 +113,36 @@ public abstract class IFilter implements Comparable<IFilter> {
 	 */
 	public boolean isMultiFieldOr() {
 		return false;
+	}
+	
+	public int getColCount() {
+		return colCount;
+	}
+
+	public void setColCount(int colCount) {
+		this.colCount = colCount;
+	}
+	
+	public IArray calculateAll(Context ctx) {
+		return exp.calculateAll(ctx);
+	}
+	
+	public IArray calculateAnd(Context ctx, IArray leftResult) {
+		return exp.calculateAnd(ctx, leftResult);
+	}
+	
+	public int isValueRangeMatch(Context ctx) {
+		return exp.isValueRangeMatch(ctx);
+	}
+	
+	public List<ColumnMetaData> getColumns() {
+		return columns;
+	}
+
+	public void setColumns(List<ColumnMetaData> columns) {
+		this.columns = columns;
+	}
+	
+	public void initExp() {
 	}
 }

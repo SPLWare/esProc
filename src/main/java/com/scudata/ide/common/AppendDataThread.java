@@ -1,7 +1,7 @@
 package com.scudata.ide.common;
 
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.DataStruct;
-import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 import com.scudata.ide.common.swing.JTableEx;
 
@@ -49,8 +49,8 @@ public class AppendDataThread extends Thread {
 			}
 			Object record = pmt.get(i);
 			try {
-				if (isPmt && record instanceof Record) {
-					addRecordRow(table, (Record) record);
+				if (isPmt && record instanceof BaseRecord) {
+					addRecordRow(table, (BaseRecord) record);
 				} else {
 					addObjectRow(record);
 				}
@@ -74,7 +74,7 @@ public class AppendDataThread extends Thread {
 	 * @param record
 	 * @throws Exception
 	 */
-	public static void addRecordRow(JTableEx table, Record record)
+	public static void addRecordRow(JTableEx table, BaseRecord record)
 			throws Exception {
 		if (record == null) {
 			return;

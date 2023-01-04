@@ -6,19 +6,19 @@ import com.scudata.dm.cursor.ICursor;
 import com.scudata.dm.op.Operable;
 import com.scudata.expression.Expression;
 
-public interface IPseudo extends Operable {
-	public void addColNames(String []nameArray);
-	public void addColName(String name);
-	public Sequence Import(Expression []exps, String []names);
-	public ICursor cursor(Expression []exps, String []names);
-	public ICursor cursor(Expression []exps, String []names, boolean isColumn);
-	public void addPKeyNames();
-	public boolean isColumn(String col);
-	public Context getContext();
-	public Object clone(Context ctx) throws CloneNotSupportedException;
-	public void append(ICursor cursor, String option);
-	public Sequence update(Sequence data, String opt);
-	public Sequence delete(Sequence data, String opt);
-	public void setCache(Sequence cache);
-	public Sequence getCache();
+public abstract class IPseudo extends Operable {
+	public abstract void addColNames(String []nameArray);
+	public abstract void addColName(String name);
+	public abstract Sequence Import(Expression []exps, String []names);
+	public abstract ICursor cursor(Expression []exps, String []names);
+	public abstract ICursor cursor(Expression []exps, String []names, boolean isColumn);
+	public abstract void addPKeyNames();
+	public abstract boolean isColumn(String col);
+	public abstract Context getContext();
+	public abstract Object clone(Context ctx) throws CloneNotSupportedException;
+	public abstract void append(ICursor cursor, String option);
+	public abstract Sequence update(Sequence data, String opt);
+	public abstract Sequence delete(Sequence data, String opt);
+	public abstract void setCache(Sequence cache);
+	public abstract Sequence getCache();
 }

@@ -8,15 +8,15 @@ import com.scudata.dm.Context;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.cursor.ICursor;
 import com.scudata.dm.cursor.MultipathCursors;
-import com.scudata.dw.ColumnTableMetaData;
-import com.scudata.dw.ITableMetaData;
+import com.scudata.dw.ColPhyTable;
+import com.scudata.dw.IPhyTable;
 import com.scudata.dw.JoinCursor;
 import com.scudata.dw.JoinCursor2;
 import com.scudata.expression.Expression;
 import com.scudata.expression.IParam;
 import com.scudata.expression.Node;
 import com.scudata.expression.ParamInfo2;
-import com.scudata.expression.TableMetaDataFunction;
+import com.scudata.expression.PhyTableFunction;
 import com.scudata.expression.operator.And;
 import com.scudata.resources.EngineMessage;
 
@@ -26,7 +26,7 @@ import com.scudata.resources.EngineMessage;
  * @author RunQian
  *
  */
-public class Derive extends TableMetaDataFunction {
+public class Derive extends PhyTableFunction {
 	public Object calculate(Context ctx) {
 		IParam param = this.param;
 
@@ -159,14 +159,14 @@ public class Derive extends TableMetaDataFunction {
 		String []names = pi.getExpressionStrs2();
 		String[] opts = null;
 		if (JoinCursor.isColTable(table)) {
-			return derive((ColumnTableMetaData)table, cursor, obj, csNames, filter, exps, names, fkNames, codes, opts, option, ctx);
+			return derive((ColPhyTable)table, cursor, obj, csNames, filter, exps,	names, fkNames, codes, opts, option, ctx);
 		} else {
 			return derive(table, cursor, obj, filter, exps,	names, fkNames, codes, opts, ctx);
 		}
 	
 	}
 	
-	public static Object derive(ColumnTableMetaData table, ICursor cursor, Object obj, String[] csNames, Expression filter, Expression []exps,
+	public static Object derive(ColPhyTable table, ICursor cursor, Object obj, String[] csNames, Expression filter, Expression []exps,
 			String[] names, String []fkNames, Sequence []codes, String[] opts, String option, Context ctx) {
 		if (cursor instanceof MultipathCursors) {
 			MultipathCursors mcursor = (MultipathCursors) cursor;
@@ -190,7 +190,7 @@ public class Derive extends TableMetaDataFunction {
 		}
 	}
 	
-	public static Object derive(ITableMetaData table, ICursor cursor, Object obj, Expression filter, Expression []exps,
+	public static Object derive(IPhyTable table, ICursor cursor, Object obj, Expression filter, Expression []exps,
 			String[] names, String []fkNames, Sequence []codes, String[] opts, Context ctx) {
 		if (cursor instanceof MultipathCursors) {
 			return JoinCursor2.makeMultiJoinCursor(table, exps, names, (MultipathCursors)cursor, filter, fkNames, codes, opts, 2, ctx);

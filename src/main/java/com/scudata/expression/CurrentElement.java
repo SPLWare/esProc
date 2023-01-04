@@ -1,9 +1,14 @@
 package com.scudata.expression;
 
+import com.scudata.array.BoolArray;
+import com.scudata.array.ConstArray;
+import com.scudata.array.IArray;
+import com.scudata.array.ObjectArray;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.ComputeStack;
 import com.scudata.dm.Context;
+import com.scudata.dm.Current;
 import com.scudata.dm.IComputeItem;
 import com.scudata.dm.Sequence;
 import com.scudata.resources.EngineMessage;
@@ -17,6 +22,23 @@ import com.scudata.util.Variant;
  */
 public class CurrentElement extends Node {
 	private Sequence sequence;
+	private Node left; // 点操作符的左侧节点	
+
+	/**
+	 * 取节点的左侧节点，没有返回空
+	 * @return Node
+	 */
+	public Node getLeft() {
+		return left;
+	}
+
+	/**
+	 * 设置节点的左侧节点
+	 * @param node 节点
+	 */
+	public void setLeft(Node node) {
+		left = node;
+	}
 
 	public void setDotLeftObject(Object obj) {
 		if (!(obj instanceof Sequence)) {
@@ -36,19 +58,107 @@ public class CurrentElement extends Node {
 		}
 	}
 	
+	/**
+	 * 计算signArray中取值为sign的行
+	 * @param ctx
+	 * @param signArray 行标识数组
+	 * @param sign 标识
+	 * @return IArray
+	 */
+	public IArray calculateAll(Context ctx, IArray signArray, boolean sign) {
+		return calculateAll(ctx);
+	}
+	
+	/**
+	 * 计算逻辑与运算符&&的右侧表达式
+	 * @param ctx 计算上行文
+	 * @param leftResult &&左侧表达式的计算结果
+	 * @return BoolArray
+	 */
+	public BoolArray calculateAnd(Context ctx, IArray leftResult) {
+		BoolArray result = leftResult.isTrue();
+		IArray array = calculateAll(ctx);
+		
+		for (int i = 1, size = result.size(); i <= size; ++i) {
+			if (result.isTrue(i) && array.isFalse(i)) {
+				result.set(i, false);
+			}
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * 计算出所有行的结果
+	 * @param ctx 计算上行文
+	 * @return IArray
+	 */
+	public IArray calculateAll(Context ctx) {
+		if (left == null) {
+			ComputeStack stack = ctx.getComputeStack();
+			IComputeItem item = stack.getTopObject();
+			Sequence sequence = item.getCurrentSequence();
+			
+			if (sequence != null) {
+				return sequence.getMems();
+			} else {
+				sequence = stack.getTopSequence();
+				Object value = item.getCurrent();
+				return new ConstArray(value, sequence.length());
+			}
+		}
+
+		ComputeStack stack = ctx.getComputeStack();
+		Sequence topSequence = stack.getTopSequence();
+		IArray leftArray = left.calculateAll(ctx);
+		
+		if (leftArray instanceof ConstArray) {
+			Object leftValue = ((ConstArray)leftArray).getData();
+			if (!(leftValue instanceof Sequence)) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException("\".\"" + mm.getMessage("dot.seriesLeft"));
+			}
+			
+			Sequence sequence = (Sequence)leftValue;			
+			if (topSequence == sequence) {
+				return sequence.getMems();
+			} else {
+				// A.(B.(A.~))
+				Object value = stack.getCurrentValue(sequence);
+				return new ConstArray(value, topSequence.length());
+			}
+		} else {
+			int len = topSequence.length();
+			ObjectArray result = new ObjectArray(len);
+			result.setTemporary(true);
+			for (int i = 1; i <= len; ++i) {
+				Object leftValue = leftArray.get(i);
+				if (!(leftValue instanceof Sequence)) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException("\".\"" + mm.getMessage("dot.seriesLeft"));
+				}
+				
+				Object cur = stack.getCurrentValue((Sequence)leftValue);
+				result.push(cur);
+			}
+			
+			return result;
+		}
+	}
+	
 	public Object assign(Object value, Context ctx) {
 		ComputeStack stack = ctx.getComputeStack();
 		if (sequence == null) { // ~
 			IComputeItem temp = stack.getTopObject();
-			if (temp instanceof Sequence.Current) {
-				((Sequence.Current)temp).assign(value);
+			if (temp instanceof Current) {
+				((Current)temp).assign(value);
 				return value;
 			} else {
 				MessageManager mm = EngineMessage.get();
 				throw new RQException(mm.getMessage("Expression.unknownExpression") + "~");
 			}
 		} else { // A.~
-			Sequence.Current current = stack.getSequenceCurrent(sequence);
+			Current current = stack.getSequenceCurrent(sequence);
 			if (current == null) {
 				MessageManager mm = EngineMessage.get();
 				throw new RQException("~" + mm.getMessage("engine.seriesNotInStack"));
@@ -63,16 +173,16 @@ public class CurrentElement extends Node {
 		ComputeStack stack = ctx.getComputeStack();
 		if (sequence == null) { // ~
 			IComputeItem temp = stack.getTopObject();
-			if (temp instanceof Sequence.Current) {
-				Object result = Variant.add(((Sequence.Current)temp).getCurrent(), value);
-				((Sequence.Current)temp).assign(result);
+			if (temp instanceof Current) {
+				Object result = Variant.add(((Current)temp).getCurrent(), value);
+				((Current)temp).assign(result);
 				return result;
 			} else {
 				MessageManager mm = EngineMessage.get();
 				throw new RQException(mm.getMessage("Expression.unknownExpression") + "~");
 			}
 		} else { // A.~
-			Sequence.Current current = stack.getSequenceCurrent(sequence);
+			Current current = stack.getSequenceCurrent(sequence);
 			if (current == null) {
 				MessageManager mm = EngineMessage.get();
 				throw new RQException("~" + mm.getMessage("engine.seriesNotInStack"));
@@ -88,8 +198,8 @@ public class CurrentElement extends Node {
 		ComputeStack stack = ctx.getComputeStack();
 		if (sequence == null) { // ~
 			IComputeItem temp = stack.getTopObject();
-			if (temp instanceof Sequence.Current) {
-				Sequence.Current current = (Sequence.Current)temp;
+			if (temp instanceof Current) {
+				Current current = (Current)temp;
 				int pos = node.calculateIndex(current, ctx);
 				return pos > 0 ? current.get(pos) : null;
 			} else {
@@ -97,7 +207,7 @@ public class CurrentElement extends Node {
 				throw new RQException(mm.getMessage("Expression.unknownExpression") + "~");
 			}
 		} else { // A.~
-			Sequence.Current current = stack.getSequenceCurrent(sequence);
+			Current current = stack.getSequenceCurrent(sequence);
 			if (current == null) {
 				MessageManager mm = EngineMessage.get();
 				throw new RQException("\"[]\"" + mm.getMessage("engine.seriesNotInStack"));
@@ -112,8 +222,8 @@ public class CurrentElement extends Node {
 		ComputeStack stack = ctx.getComputeStack();
 		if (sequence == null) { // ~
 			IComputeItem temp = stack.getTopObject();
-			if (temp instanceof Sequence.Current) {
-				Sequence.Current current = (Sequence.Current)temp;
+			if (temp instanceof Current) {
+				Current current = (Current)temp;
 				int pos = node.calculateIndex(current, ctx);
 				if (pos > 0) current.assign(pos, value);
 				return value;
@@ -122,7 +232,7 @@ public class CurrentElement extends Node {
 				throw new RQException(mm.getMessage("Expression.unknownExpression") + "~");
 			}
 		} else { // A.~
-			Sequence.Current current = stack.getSequenceCurrent(sequence);
+			Current current = stack.getSequenceCurrent(sequence);
 			if (current == null) {
 				MessageManager mm = EngineMessage.get();
 				throw new RQException("\"[]\"" + mm.getMessage("engine.seriesNotInStack"));
@@ -138,25 +248,27 @@ public class CurrentElement extends Node {
 		ComputeStack stack = ctx.getComputeStack();
 		if (sequence == null) { // ~
 			IComputeItem temp = stack.getTopObject();
-			if (temp instanceof Sequence.Current) {
-				Sequence.Current current = (Sequence.Current)temp;
+			if (temp instanceof Current) {
+				Current current = (Current)temp;
 				int []range = node.calculateIndexRange(current, ctx);
-				if (range == null) return new Sequence(0);
+				if (range == null) {
+					return new Sequence(0);
+				}
 
 				int startSeq = range[0];
 				int endSeq = range[1];
-				Sequence retSeries = new Sequence(endSeq - startSeq + 1);
+				Sequence result = new Sequence(endSeq - startSeq + 1);
 				for (; startSeq <= endSeq; ++startSeq) {
-					retSeries.add(current.get(startSeq));
+					result.add(current.get(startSeq));
 				}
 
-				return retSeries;
+				return result;
 			} else {
 				MessageManager mm = EngineMessage.get();
 				throw new RQException(mm.getMessage("Expression.unknownExpression") + "~");
 			}
 		} else { // A.~
-			Sequence.Current current = stack.getSequenceCurrent(sequence);
+			Current current = stack.getSequenceCurrent(sequence);
 			if (current == null) {
 				MessageManager mm = EngineMessage.get();
 				throw new RQException("\"{}\"" + mm.getMessage("engine.seriesNotInStack"));
@@ -167,12 +279,20 @@ public class CurrentElement extends Node {
 
 			int startSeq = range[0];
 			int endSeq = range[1];
-			Sequence retSeries = new Sequence(endSeq - startSeq + 1);
+			Sequence result = new Sequence(endSeq - startSeq + 1);
 			for (; startSeq <= endSeq; ++startSeq) {
-				retSeries.add(current.get(startSeq));
+				result.add(current.get(startSeq));
 			}
 
-			return retSeries;
+			return result;
 		}
+	}
+	
+	/**
+	 * 返回节点是否单调递增的
+	 * @return true：是单调递增的，false：不是
+	 */
+	public boolean isMonotone() {
+		return true;
 	}
 }

@@ -1,6 +1,8 @@
 package com.scudata.expression.mfn.sequence;
 
 import com.scudata.dm.Context;
+import com.scudata.dm.Sequence;
+import com.scudata.dm.Table;
 import com.scudata.expression.Expression;
 import com.scudata.expression.ParamInfo2;
 import com.scudata.expression.SequenceFunction;
@@ -13,15 +15,31 @@ import com.scudata.expression.SequenceFunction;
  */
 public class Select extends SequenceFunction {
 	public Object calculate(Context ctx) {
+		Object result;
 		if (param == null) {
-			return srcSequence.select(null, option, ctx);
+			result = srcSequence.select(null, option, ctx);
 		} else if (param.isLeaf()) {
-			return srcSequence.select(param.getLeafExpression(), option, ctx);
+			result = srcSequence.select(param.getLeafExpression(), option, ctx);
 		} else {
 			ParamInfo2 pi = ParamInfo2.parse(param, "select", true, true);
 			Expression[] fltExps = pi.getExpressions1();
 			Object[] vals = pi.getValues2(ctx);
-			return srcSequence.select(fltExps, vals, option, ctx);
+			result = srcSequence.select(fltExps, vals, option, ctx);
 		}
+		
+		if (option != null && option.indexOf('i') != -1) {
+			if (result instanceof Table) {
+				Table table = (Table)result;
+				if (table.getIndexTable() == null) {
+					table.createIndexTable(null);
+				}
+			} else if (result instanceof Sequence) {
+				Table table = ((Sequence)result).derive("o");
+				table.createIndexTable(null);
+				result = table;
+			}
+		}
+		
+		return result;
 	}
 }

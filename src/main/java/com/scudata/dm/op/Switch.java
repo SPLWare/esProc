@@ -1,18 +1,20 @@
 package com.scudata.dm.op;
 
+import com.scudata.array.IArray;
+import com.scudata.array.ObjectArray;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Context;
 import com.scudata.dm.DataStruct;
 import com.scudata.dm.IndexTable;
-import com.scudata.dm.ListBase1;
 import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
-import com.scudata.dw.IColumnCursorUtil;
 import com.scudata.expression.CurrentSeq;
 import com.scudata.expression.Expression;
 import com.scudata.expression.Function;
 import com.scudata.resources.EngineMessage;
+import com.scudata.util.Variant;
 
 /**
  * 连接操作，用于排列、游标、管道的连接操作
@@ -147,12 +149,12 @@ public class Switch extends Operation {
 					Expression []curExps = new Expression[]{exp, timeExp};
 					indexTables[i] = code.getIndexTable(curExps, ctx);
 					if (indexTables[i] == null) {
-						indexTables[i] = IndexTable.instance(code, curExps, ctx);
+						indexTables[i] = code.newIndexTable(curExps, ctx);
 					}
 				} else if (exp == null || !(exp.getHome() instanceof CurrentSeq)) { // #
 					indexTables[i] = code.getIndexTable(exp, ctx);
 					if (indexTables[i] == null) {
-						indexTables[i] = IndexTable.instance(code, exp, ctx);
+						indexTables[i] = code.newIndexTable(exp, ctx);
 					}
 				}
 				
@@ -192,9 +194,6 @@ public class Switch extends Operation {
 	 * @return 连接结果
 	 */
 	public Sequence process(Sequence seq, Context ctx) {
-		if (seq.isColumnTable()) {
-			return switch_column(seq, ctx);
-		}
 		if (isIsect) {
 			switch_i(seq, ctx);
 			if (seq.length() == 0) {
@@ -214,7 +213,7 @@ public class Switch extends Operation {
 		
 	private void switch1(Sequence data, Context ctx) {
 		int fkCount = fkNames.length;
-		ListBase1 mems = data.getMems();
+		IArray mems = data.getMems();
 		int len = mems.size();
 		
 		for (int f = 0; f < fkCount; ++f) {
@@ -223,7 +222,7 @@ public class Switch extends Operation {
 			String timeName = getTimeFkNames() == null ? null : getTimeFkNames()[f];
 			int col = -1; // 字段在上一条记录的索引
 			int timeCol = -1;
-			Record prevRecord = null; // 上一条记录
+			BaseRecord prevRecord = null; // 上一条记录
 
 			if (indexTable != null) {
 				if (isLeft) {
@@ -232,8 +231,8 @@ public class Switch extends Operation {
 					if (timeName == null) {
 						for (int i = 1; i <= len; ++i) {
 							Object obj = mems.get(i);
-							if (obj instanceof Record) {
-								Record cur = (Record)obj;
+							if (obj instanceof BaseRecord) {
+								BaseRecord cur = (BaseRecord)obj;
 								if (prevRecord == null || !prevRecord.isSameDataStruct(cur)) {
 									col = cur.getFieldIndex(fkName);
 									if (col < 0) {
@@ -263,8 +262,8 @@ public class Switch extends Operation {
 						Object []values = new Object[2];
 						for (int i = 1; i <= len; ++i) {
 							Object obj = mems.get(i);
-							if (obj instanceof Record) {
-								Record cur = (Record)obj;
+							if (obj instanceof BaseRecord) {
+								BaseRecord cur = (BaseRecord)obj;
 								if (prevRecord == null || !prevRecord.isSameDataStruct(cur)) {
 									col = cur.getFieldIndex(fkName);
 									if (col < 0) {
@@ -302,8 +301,8 @@ public class Switch extends Operation {
 					if (timeName == null) {
 						for (int i = 1; i <= len; ++i) {
 							Object obj = mems.get(i);
-							if (obj instanceof Record) {
-								Record cur = (Record)obj;
+							if (obj instanceof BaseRecord) {
+								BaseRecord cur = (BaseRecord)obj;
 								if (prevRecord == null || !prevRecord.isSameDataStruct(cur)) {
 									col = cur.getFieldIndex(fkName);
 									if (col < 0) {
@@ -327,8 +326,8 @@ public class Switch extends Operation {
 						Object []values = new Object[2];
 						for (int i = 1; i <= len; ++i) {
 							Object obj = mems.get(i);
-							if (obj instanceof Record) {
-								Record cur = (Record)obj;
+							if (obj instanceof BaseRecord) {
+								BaseRecord cur = (BaseRecord)obj;
 								if (prevRecord == null || !prevRecord.isSameDataStruct(cur)) {
 									col = cur.getFieldIndex(fkName);
 									if (col < 0) {
@@ -360,8 +359,8 @@ public class Switch extends Operation {
 				// 指引字段变成值
 				for (int i = 1; i <= len; ++i) {
 					Object obj = mems.get(i);
-					if (obj instanceof Record) {
-						Record cur = (Record)obj;
+					if (obj instanceof BaseRecord) {
+						BaseRecord cur = (BaseRecord)obj;
 						if (prevRecord == null || !prevRecord.isSameDataStruct(cur)) {
 							col = cur.getFieldIndex(fkName);
 							if (col < 0) {
@@ -373,8 +372,8 @@ public class Switch extends Operation {
 						}
 						
 						Object val = cur.getNormalFieldValue(col);
-						if (val instanceof Record) {
-							cur.setNormalFieldValue(col, ((Record)val).getPKValue());
+						if (val instanceof BaseRecord) {
+							cur.setNormalFieldValue(col, ((BaseRecord)val).getPKValue());
 						}
 					} else if (obj != null) {
 						MessageManager mm = EngineMessage.get();
@@ -386,8 +385,8 @@ public class Switch extends Operation {
 				int codeLen = code.length();
 				for (int i = 1; i <= len; ++i) {
 					Object obj = mems.get(i);
-					if (obj instanceof Record) {
-						Record cur = (Record)obj;
+					if (obj instanceof BaseRecord) {
+						BaseRecord cur = (BaseRecord)obj;
 						if (prevRecord == null || !prevRecord.isSameDataStruct(cur)) {
 							col = cur.getFieldIndex(fkName);
 							if (col < 0) {
@@ -418,7 +417,7 @@ public class Switch extends Operation {
 
 	private void switch_i(Sequence data, Context ctx) {
 		int fkCount = fkNames.length;
-		ListBase1 mems = data.getMems();
+		IArray mems = data.getMems();
 		
 		for (int f = 0; f < fkCount; ++f) {
 			IndexTable indexTable = getIndexTable(f, ctx);
@@ -428,15 +427,15 @@ public class Switch extends Operation {
 			String timeName = getTimeFkNames() == null ? null : getTimeFkNames()[f];
 			int col = -1; // 字段在上一条记录的索引
 			int timeCol = -1;
-			Record prevRecord = null; // 上一条记录
+			BaseRecord prevRecord = null; // 上一条记录
 			
 			if (indexTable != null) {
-				ListBase1 resultMems = new ListBase1(len);
+				ObjectArray resultMems = new ObjectArray(len);
 				if (timeName == null) {
 					for (int i = 1; i <= len; ++i) {
 						Object obj = mems.get(i);
-						if (obj instanceof Record) {
-							Record cur = (Record)obj;
+						if (obj instanceof BaseRecord) {
+							BaseRecord cur = (BaseRecord)obj;
 							if (prevRecord == null || !prevRecord.isSameDataStruct(cur)) {
 								col = cur.getFieldIndex(fkName);
 								if (col < 0) {
@@ -463,8 +462,8 @@ public class Switch extends Operation {
 					Object []values = new Object[2];
 					for (int i = 1; i <= len; ++i) {
 						Object obj = mems.get(i);
-						if (obj instanceof Record) {
-							Record cur = (Record)obj;
+						if (obj instanceof BaseRecord) {
+							BaseRecord cur = (BaseRecord)obj;
 							if (prevRecord == null || !prevRecord.isSameDataStruct(cur)) {
 								col = cur.getFieldIndex(fkName);
 								if (col < 0) {
@@ -500,8 +499,8 @@ public class Switch extends Operation {
 				// 指引字段变成值
 				for (int i = 1; i <= len; ++i) {
 					Object obj = mems.get(i);
-					if (obj instanceof Record) {
-						Record cur = (Record)obj;
+					if (obj instanceof BaseRecord) {
+						BaseRecord cur = (BaseRecord)obj;
 						if (prevRecord == null || !prevRecord.isSameDataStruct(cur)) {
 							col = cur.getFieldIndex(fkName);
 							if (col < 0) {
@@ -513,8 +512,8 @@ public class Switch extends Operation {
 						}
 						
 						Object val = cur.getNormalFieldValue(col);
-						if (val instanceof Record) {
-							cur.setNormalFieldValue(col, ((Record)val).getPKValue());
+						if (val instanceof BaseRecord) {
+							cur.setNormalFieldValue(col, ((BaseRecord)val).getPKValue());
 						}
 					} else if (obj != null) {
 						MessageManager mm = EngineMessage.get();
@@ -522,13 +521,13 @@ public class Switch extends Operation {
 					}
 				}
 			} else { // #
-				ListBase1 resultMems = new ListBase1(len);
+				ObjectArray resultMems = new ObjectArray(len);
 				Sequence code = codes[f];
 				int codeLen = code.length();
 				for (int i = 1; i <= len; ++i) {
 					Object obj = mems.get(i);
-					if (obj instanceof Record) {
-						Record cur = (Record)obj;
+					if (obj instanceof BaseRecord) {
+						BaseRecord cur = (BaseRecord)obj;
 						if (prevRecord == null || !prevRecord.isSameDataStruct(cur)) {
 							col = cur.getFieldIndex(fkName);
 							if (col < 0) {
@@ -543,8 +542,11 @@ public class Switch extends Operation {
 						if (val instanceof Number) {
 							int seq = ((Number)val).intValue();
 							if (seq > 0 && seq <= codeLen) {
-								cur.setNormalFieldValue(col, code.getMem(seq));
-								resultMems.add(cur);
+								Object d = code.getMem(seq);
+								if (Variant.isTrue(d)) {
+									cur.setNormalFieldValue(col, d);
+									resultMems.add(cur);
+								}
 							}
 						}
 					} else if (obj != null) {
@@ -564,7 +566,7 @@ public class Switch extends Operation {
 
 	private void switch_d(Sequence data, Context ctx) {
 		int fkCount = fkNames.length;
-		ListBase1 mems = data.getMems();
+		IArray mems = data.getMems();
 
 		for (int f = 0; f < fkCount; ++f) {
 			IndexTable indexTable = getIndexTable(f, ctx);
@@ -574,15 +576,15 @@ public class Switch extends Operation {
 			String timeName = getTimeFkNames() == null ? null : getTimeFkNames()[f];
 			int col = -1; // 字段在上一条记录的索引
 			int timeCol = -1;
-			Record prevRecord = null; // 上一条记录
+			BaseRecord prevRecord = null; // 上一条记录
 
 			if (indexTable != null) {
-				ListBase1 resultMems = new ListBase1(len);
+				ObjectArray resultMems = new ObjectArray(len);
 				if (timeName == null) {
 					for (int i = 1; i <= len; ++i) {
 						Object obj = mems.get(i);
-						if (obj instanceof Record) {
-							Record cur = (Record)obj;
+						if (obj instanceof BaseRecord) {
+							BaseRecord cur = (BaseRecord)obj;
 							if (prevRecord == null || !prevRecord.isSameDataStruct(cur)) {
 								col = cur.getFieldIndex(fkName);
 								if (col < 0) {
@@ -607,8 +609,8 @@ public class Switch extends Operation {
 					Object []values = new Object[2];
 					for (int i = 1; i <= len; ++i) {
 						Object obj = mems.get(i);
-						if (obj instanceof Record) {
-							Record cur = (Record)obj;
+						if (obj instanceof BaseRecord) {
+							BaseRecord cur = (BaseRecord)obj;
 							if (prevRecord == null || !prevRecord.isSameDataStruct(cur)) {
 								col = cur.getFieldIndex(fkName);
 								if (col < 0) {
@@ -643,8 +645,8 @@ public class Switch extends Operation {
 				// 指引字段变成值
 				for (int i = 1; i <= len; ++i) {
 					Object obj = mems.get(i);
-					if (obj instanceof Record) {
-						Record cur = (Record)obj;
+					if (obj instanceof BaseRecord) {
+						BaseRecord cur = (BaseRecord)obj;
 						if (prevRecord == null || !prevRecord.isSameDataStruct(cur)) {
 							col = cur.getFieldIndex(fkName);
 							if (col < 0) {
@@ -656,8 +658,8 @@ public class Switch extends Operation {
 						}
 						
 						Object val = cur.getNormalFieldValue(col);
-						if (val instanceof Record) {
-							cur.setNormalFieldValue(col, ((Record)val).getPKValue());
+						if (val instanceof BaseRecord) {
+							cur.setNormalFieldValue(col, ((BaseRecord)val).getPKValue());
 						}
 					} else if (obj != null) {
 						MessageManager mm = EngineMessage.get();
@@ -665,13 +667,13 @@ public class Switch extends Operation {
 					}
 				}
 			} else { // #
-				ListBase1 resultMems = new ListBase1(len);
+				ObjectArray resultMems = new ObjectArray(len);
 				Sequence code = codes[f];
 				int codeLen = code.length();
 				for (int i = 1; i <= len; ++i) {
 					Object obj = mems.get(i);
-					if (obj instanceof Record) {
-						Record cur = (Record)obj;
+					if (obj instanceof BaseRecord) {
+						BaseRecord cur = (BaseRecord)obj;
 						if (prevRecord == null || !prevRecord.isSameDataStruct(cur)) {
 							col = cur.getFieldIndex(fkName);
 							if (col < 0) {
@@ -685,7 +687,7 @@ public class Switch extends Operation {
 						Object val = cur.getNormalFieldValue(col);
 						if (val instanceof Number) {
 							int seq = ((Number)val).intValue();
-							if (seq < 1 || seq > codeLen) {
+							if (seq < 1 || seq > codeLen || Variant.isFalse(code.getMem(seq))) {
 								resultMems.add(cur);
 							}
 						}
@@ -702,22 +704,5 @@ public class Switch extends Operation {
 		if (mems.size() != data.length()) {
 			data.setMems(mems);
 		}
-	}
-	
-	private Sequence switch_column(Sequence data, Context ctx) {
-		int fkCount = fkNames.length;
-		Sequence result = data;
-		for (int f = 0; f < fkCount; ++f) {
-			IndexTable indexTable = getIndexTable(f, ctx);
-			String timeName = getTimeFkNames() == null ? null : getTimeFkNames()[f];
-			DataStruct ds = dataStructs == null ? null : dataStructs[f];
-			int keySeq = keySeqs == null ? -1 : keySeqs[f];
-			
-			result = IColumnCursorUtil.util.switchColumnTable(result, isIsect, isDiff, fkNames[f], codes[f],
-			timeName, indexTable, ds, keySeq, isLeft, ctx);
-			
-			if (result == null) return result;
-		}
-		return result;
 	}
 }

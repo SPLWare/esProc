@@ -1,6 +1,8 @@
 package com.scudata.dm.op;
 
+import com.scudata.dm.ComputeStack;
 import com.scudata.dm.Context;
+import com.scudata.dm.Current;
 import com.scudata.dm.Sequence;
 import com.scudata.expression.Expression;
 import com.scudata.expression.Function;
@@ -48,6 +50,55 @@ public class Conj extends Operation {
 	 * @return
 	 */
 	public Sequence process(Sequence seq, Context ctx) {
-		return seq.conj(newExp, ctx);
+		Expression exp = this.newExp;
+		int len = seq.length();
+		Sequence result = null;
+
+		if (exp != null) {
+			ComputeStack stack = ctx.getComputeStack();
+			Current current = new Current(seq);
+			stack.push(current);
+
+			try {
+				for (int i = 1; i <= len; ++i) {
+					current.setCurrent(i);
+					Object obj = exp.calculate(ctx);
+					if (obj instanceof Sequence) {
+						if (result == null) {
+							result = (Sequence)obj;
+						} else {
+							result = result.append((Sequence)obj);
+						}
+					} else if (obj != null) {
+						if (result == null) {
+							result = new Sequence();
+						}
+						
+						result.add(obj);
+					}
+				}
+			} finally {
+				stack.pop();
+			}
+		} else {
+			for (int i = 1; i <= len; ++i) {
+				Object obj = seq.getMem(i);
+				if (obj instanceof Sequence) {
+					if (result == null) {
+						result = (Sequence)obj;
+					} else {
+						result = result.append((Sequence)obj);
+					}
+				} else if (obj != null) {
+					if (result == null) {
+						result = new Sequence();
+					}
+					
+					result.add(obj);
+				}
+			}
+		}
+
+		return result;
 	}
 }

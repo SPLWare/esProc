@@ -3,11 +3,11 @@ package com.scudata.expression.mfn.sequence;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.scudata.array.IArray;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Context;
-import com.scudata.dm.ListBase1;
-import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
 import com.scudata.expression.Expression;
@@ -23,12 +23,17 @@ import com.scudata.resources.EngineMessage;
  *
  */
 public class Regex extends SequenceFunction {
-	public Object calculate(Context ctx) {
+	/**
+	 * 检查表达式的有效性，无效则抛出异常
+	 */
+	public void checkValidity() {
 		if (param == null) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("regex" + mm.getMessage("function.missingParam"));
 		}
-		
+	}
+
+	public Object calculate(Context ctx) {
 		int flags = 0;
 		if (option != null) {
 			if (option.indexOf('c') != -1) flags |= Pattern.CASE_INSENSITIVE;
@@ -133,9 +138,9 @@ public class Regex extends SequenceFunction {
 			strs = srcSequence;
 		}
 		
-		ListBase1 strMems = strs.getMems();
+		IArray strMems = strs.getMems();
 		if (names == null) {
-			ListBase1 srcMems = srcSequence.getMems();
+			IArray srcMems = srcSequence.getMems();
 			Sequence result = new Sequence(len);
 			for (int i = 1; i <= len; ++i) {
 				Object obj = strMems.get(i);
@@ -159,7 +164,7 @@ public class Regex extends SequenceFunction {
 				if (obj instanceof String) {
 					m = pattern.matcher((String)obj);
 					if (m.find()) {
-						Record r = table.newLast();
+						BaseRecord r = table.newLast();
 						for (int g = 1; g <= gcount; ++g) {
 							r.setNormalFieldValue(g - 1, m.group(g));
 						}

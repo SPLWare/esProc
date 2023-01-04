@@ -3,13 +3,14 @@ package com.scudata.dw;
 import java.io.IOException;
 
 import com.scudata.common.RQException;
-import com.scudata.dm.LongArray;
+import com.scudata.array.LongArray;
 import com.scudata.dm.ObjectReader;
 import com.scudata.dm.ObjectWriter;
+import com.scudata.dm.Sequence;
 
 // 字段元数据
 public class ColumnMetaData {
-	protected GroupTable groupTable;
+	protected ComTable groupTable;
 	private String colName; // 列名，以#开头表示维，名字中把#去掉
 	private boolean isDim; // 是否维字段的一部分，即排序字段
 	private boolean isKey; // 是否是主键的一部分
@@ -24,17 +25,34 @@ public class ColumnMetaData {
 	private transient BlockLinkWriter segmentWriter;
 	private transient ObjectWriter objectWriter;
 	
+	private Sequence dict;//字典版本4增加
+	private Object dictArray;//字典的数组格式
+	private boolean hasMaxMinValues;//版本4增加
+	private int dataType = DataBlockType.EMPTY;//列数据类型 版本5增加
+	
 	public ColumnMetaData() {	
 	}
 	
-	public ColumnMetaData(ColumnTableMetaData table) {
+	public ColumnMetaData(ColPhyTable table) {
 		groupTable = table.groupTable;
 		dataBlockLink = new BlockLink(groupTable);
 		segmentBlockLink = new BlockLink(groupTable);
+		dict = new Sequence();
 	}
 	
-	public ColumnMetaData(ColumnTableMetaData table, ColumnMetaData src) {
+	public ColumnMetaData(ColPhyTable table, ColumnMetaData src) {
 		this(table);
+		colName = src.colName;
+		isDim = src.isDim;
+		isKey = src.isKey;
+		hasMaxMinValues = src.hasMaxMinValues;
+		serialBytesLen = src.serialBytesLen;
+	}
+	
+	public ColumnMetaData(ColumnMetaData src) {
+		groupTable = src.groupTable;
+		dataBlockLink = src.dataBlockLink;
+		segmentBlockLink = src.segmentBlockLink;
 		colName = src.colName;
 		isDim = src.isDim;
 		isKey = src.isKey;
@@ -48,15 +66,16 @@ public class ColumnMetaData {
 	 * @param isDim 是否维字段的一部分，即排序字段
 	 * @param isKey 是否是主键的一部分
 	 */
-	public ColumnMetaData(ColumnTableMetaData table, String name, boolean isDim, boolean isKey) {
+	public ColumnMetaData(ColPhyTable table, String name, boolean isDim, boolean isKey) {
 		this(table);
 		
 		this.colName = name;
 		this.isDim = isDim;
 		this.isKey = isKey;
+		hasMaxMinValues = true;
 	}
 	
-	public ColumnMetaData(ColumnTableMetaData table, String name, int serialBytesLen) throws IOException {
+	public ColumnMetaData(ColPhyTable table, String name, int serialBytesLen) throws IOException {
 		this(table);
 		if (name.startsWith("#")) {
 			colName = name.substring(1);
@@ -67,6 +86,7 @@ public class ColumnMetaData {
 		}
 		
 		this.serialBytesLen = serialBytesLen;
+		hasMaxMinValues = true;
 	}
 	
 	public boolean isSerialBytes() {
@@ -129,6 +149,22 @@ public class ColumnMetaData {
 		} else {
 			isKey = isDim;
 		}
+		
+		hasMaxMinValues = isDim;
+		if (version > 3) {
+			dict =  (Sequence) reader.readObject();
+			if (dict == null) {
+				dict = new Sequence();
+			}
+			hasMaxMinValues = true;
+		}
+		if (version > 4) {
+			reader.readInt();//reserve
+			dataType = reader.readInt();
+			initDictArray();
+		} else {
+			dataType = DataBlockType.EMPTY;
+		}
 	}
 	
 	public void writeExternal(BufferWriter writer) throws IOException {
@@ -139,12 +175,25 @@ public class ColumnMetaData {
 		segmentBlockLink.writeExternal(writer);
 		
 		writer.writeBoolean(isKey); // 版本1增加
+		
+		// 版本4增加
+		Sequence dict = this.dict;
+		if (dict != null && dict.length() == 0) {
+			dict = null;
+		}
+		writer.flush();
+		writer.writeObject(dict);
+		writer.flush();
+		
+		// 版本5增加
+		writer.writeInt(0);
+		writer.writeInt(dataType);
 	}
 	
 	public void prepareWrite() throws IOException {
 		colWriter = new BlockLinkWriter(dataBlockLink, true);
 		segmentWriter = new BlockLinkWriter(segmentBlockLink, true);
-		objectWriter = new ObjectWriter(segmentWriter, groupTable.getBlockSize() - GroupTable.POS_SIZE);
+		objectWriter = new ObjectWriter(segmentWriter, groupTable.getBlockSize() - ComTable.POS_SIZE);
 	}
 	
 	public void finishWrite() throws IOException {
@@ -177,7 +226,7 @@ public class ColumnMetaData {
 		
 		segmentReader.readLong40();
 		objectWriter.writeLong40(pos);
-		if (isDim()) {
+		if (hasMaxMinValues()) {
 			objectWriter.writeObject(segmentReader.readObject());
 			objectWriter.writeObject(segmentReader.readObject());
 			objectWriter.writeObject(segmentReader.readObject());
@@ -196,6 +245,7 @@ public class ColumnMetaData {
 			}
 		}
 		
+		reader.setDict(dict);
 		return reader;
 	}
 	
@@ -203,7 +253,7 @@ public class ColumnMetaData {
 		BlockLinkReader segmentReader = new BlockLinkReader(segmentBlockLink);
 		try {
 			segmentReader.loadFirstBlock();
-			return new ObjectReader(segmentReader, groupTable.getBlockSize() - GroupTable.POS_SIZE);
+			return new ObjectReader(segmentReader, groupTable.getBlockSize() - ComTable.POS_SIZE);
 		} catch (IOException e) {
 			segmentReader.close();
 			throw new RQException(e.getMessage(), e);
@@ -239,5 +289,110 @@ public class ColumnMetaData {
 	
 	public BlockLink getDataBlockLink() {
 		return dataBlockLink;
+	}
+
+	public Sequence getDict() {
+		return dict;
+	}
+
+	public void setDict(Sequence dict) {
+		this.dict = dict;
+	}
+
+	public boolean hasMaxMinValues() {
+		return hasMaxMinValues;
+	}
+	
+	public int getDataType() {
+		return dataType;
+	}
+
+	public void setDataType(int dataType) {
+		this.dataType = dataType;
+	}
+
+	public String getDataLen() {
+		return DataBlockType.getTypeLen(dataType);
+	}
+	
+	/**
+	 * 根据新的类型做调整
+	 * @param dataType
+	 */
+	public void adjustDataType(int newType) {
+		int curType = dataType;
+		if (curType == newType) {
+			return;
+		}
+		
+		switch (curType) {
+		case DataBlockType.EMPTY:
+			dataType = newType;
+			break;
+		case DataBlockType.OBJECT:
+			break;
+		case DataBlockType.RECORD:
+		case DataBlockType.DATE:
+		case DataBlockType.DECIMAL:
+		case DataBlockType.STRING:
+			dataType = DataBlockType.OBJECT;//降级为对象类型
+			break;
+		case DataBlockType.SEQUENCE:
+			if (newType != DataBlockType.TABLE)
+				dataType = DataBlockType.OBJECT;
+			break;
+		case DataBlockType.TABLE:
+			if (newType == DataBlockType.SEQUENCE)
+				dataType = DataBlockType.SEQUENCE;//降级为SEQUENCE
+			else
+				dataType = DataBlockType.OBJECT;
+			break;
+		case DataBlockType.INT:
+		case DataBlockType.INT8:
+		case DataBlockType.INT16:
+		case DataBlockType.INT32:
+			if ((newType & 0xF0) == DataBlockType.INT) {
+				dataType = DataBlockType.INT;
+			} else {
+				dataType = DataBlockType.OBJECT;
+			}
+			break;
+		case DataBlockType.LONG:
+		case DataBlockType.LONG8:
+		case DataBlockType.LONG16:
+		case DataBlockType.LONG32:
+		case DataBlockType.LONG64:
+			if ((newType & 0xF0) == DataBlockType.LONG) {
+				dataType = DataBlockType.LONG;
+			} else {
+				dataType = DataBlockType.OBJECT;
+			}
+			break;
+		case DataBlockType.DOUBLE:
+			if (newType == DataBlockType.DOUBLE64) {
+				dataType = DataBlockType.DOUBLE;
+			} else {
+				dataType = DataBlockType.OBJECT;
+			}
+			break;
+		case DataBlockType.DOUBLE64:
+			if (newType == DataBlockType.DOUBLE) {
+				dataType = DataBlockType.DOUBLE;
+			} else {
+				dataType = DataBlockType.OBJECT;
+			}
+			break;
+		default:
+			dataType = DataBlockType.OBJECT;
+		}
+	}
+
+	public Object getDictArray() {
+		return dictArray;
+	}
+	
+	public void initDictArray() {
+		if (dict == null || dict.length() == 0) return;
+		dictArray = DataBlockType.dictToArray(dict, this.dataType);
 	}
 }

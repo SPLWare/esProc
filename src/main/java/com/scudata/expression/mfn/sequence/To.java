@@ -3,7 +3,6 @@ package com.scudata.expression.mfn.sequence;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
-import com.scudata.dm.ListBase1;
 import com.scudata.dm.Sequence;
 import com.scudata.expression.IParam;
 import com.scudata.expression.SequenceFunction;
@@ -19,6 +18,54 @@ public class To extends SequenceFunction {
 	public Object calculate(Context ctx) {
 		if (param == null) {
 			return new Sequence(srcSequence);
+		} else if (param.getType() == IParam.Colon) {
+			if (param.getSubSize() != 2) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException("to" + mm.getMessage("function.invalidParam"));
+			}
+			
+			IParam sub1 = param.getSub(1);
+			if (sub1 == null) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException("to" + mm.getMessage("function.invalidParam"));
+			}
+			
+			Object val = sub1.getLeafExpression().calculate(ctx);
+			if (!(val instanceof Number)) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException("to" + mm.getMessage("function.paramTypeError"));
+			}
+			
+			int end = ((Number)val).intValue();
+			if (end < 2) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException("to" + mm.getMessage("function.invalidParam"));
+			}
+			
+			IParam sub0 = param.getSub(0);
+			if (sub0 == null) {
+				Sequence result = new Sequence(end);
+				for (int i = 1; i <= end; ++i) {
+					Sequence seq = getSeg(srcSequence, i, end);
+					result.add(seq);
+				}
+				
+				return result;
+			} else {
+				val = sub0.getLeafExpression().calculate(ctx);
+				if (!(val instanceof Number)) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException("to" + mm.getMessage("function.paramTypeError"));
+				}
+	
+				int start = ((Number)val).intValue();
+				if (start < 1 || start > end) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException("to" + mm.getMessage("function.invalidParam"));
+				}
+				
+				return getSeg(srcSequence, start, end);
+			}
 		}
 		
 		int len = srcSequence.length();
@@ -41,10 +88,11 @@ public class To extends SequenceFunction {
 			int n = ((Number)val).intValue();
 			if (n > 0) {
 				if (n > len) {
-					return new Sequence(0);
+					//return new Sequence(0);
+					end = len;
+				} else {
+					end = n;
 				}
-				
-				end = n;
 			} else if (n < 0) {
 				start = len + n + 1;
 				if (start < 1) {
@@ -99,25 +147,25 @@ public class To extends SequenceFunction {
 				}
 			}
 		}
-
+		
 		if (start <= end) {
 			// 平均分成end段，取出第start
 			if (option != null && option.indexOf('z') != -1) {
 				return getSeg(srcSequence, start, end);
 			}
 			
-			ListBase1 mems = srcSequence.getMems();
+			Sequence srcSequence = this.srcSequence;
 			Sequence result = new Sequence(end - start + 1);
 			for (; start <= end; ++start) {
-				result.add(mems.get(start));
+				result.add(srcSequence.getMem(start));
 			}
 
 			return result;
 		} else {
-			ListBase1 mems = srcSequence.getMems();
+			Sequence srcSequence = this.srcSequence;
 			Sequence result = new Sequence(start - end + 1);
 			for (; start >= end; --start) {
-				result.add(mems.get(start));
+				result.add(srcSequence.getMem(start));
 			}
 
 			return result;

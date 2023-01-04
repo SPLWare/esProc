@@ -1,20 +1,24 @@
 package com.scudata.dm.cursor;
 
+import com.scudata.common.MessageManager;
+import com.scudata.common.RQException;
 import com.scudata.dm.Context;
 import com.scudata.dm.Env;
-import com.scudata.dm.Record;
+import com.scudata.dm.GroupsSyncReader;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
+import com.scudata.dm.op.IGroupsResult;
+import com.scudata.dm.op.IPipe;
 import com.scudata.dm.op.Operable;
 import com.scudata.dm.op.Operation;
-import com.scudata.dm.op.TotalResult;
-import com.scudata.dw.IColumnCursorUtil;
 import com.scudata.expression.Expression;
-import com.scudata.expression.Node;
+import com.scudata.expression.Function;
+import com.scudata.resources.EngineMessage;
 import com.scudata.thread.GroupsJob;
+import com.scudata.thread.GroupsJob2;
 import com.scudata.thread.ThreadPool;
-import com.scudata.thread.TotalJob;
 import com.scudata.util.CursorUtil;
+import com.scudata.util.HashUtil;
 
 /**
  * 多路游标，用于多线程计算
@@ -51,6 +55,16 @@ public class MultipathCursors extends ICursor implements IMultipath {
 		
 		this.cursors = cursors;
 	}
+	
+	/**
+	 * 构建多路游标
+	 * @param cursors 游标数组
+	 * @param ctx 计算上下文
+	 */
+	public MultipathCursors(ICursor []cursors) {
+		this.cursors = cursors;
+		setDataStruct(cursors[0].getDataStruct());
+	}
 
 	/**
 	 * 返回所有路游标组成的数组
@@ -58,6 +72,15 @@ public class MultipathCursors extends ICursor implements IMultipath {
 	 */
 	public ICursor[] getCursors() {
 		return cursors;
+	}
+	
+	/**
+	 * 取指定路的游标
+	 * @param p
+	 * @return
+	 */
+	public ICursor getPathCursor(int p) {
+		return cursors[p];
 	}
 	
 	/**
@@ -134,9 +157,6 @@ public class MultipathCursors extends ICursor implements IMultipath {
 		for (int i = 0; i < tcount; ++i) {
 			if (readers[i] != null) {
 				Sequence cur = readers[i].getTable();
-				if (cur != null && IColumnCursorUtil.util != null && cur.isColumnTable()) {
-					cur = IColumnCursorUtil.util.convert(cur);
-				}
 				if (cur != null) {
 					if (table == null) {
 						table = cur;
@@ -327,36 +347,21 @@ public class MultipathCursors extends ICursor implements IMultipath {
 
 	private static Table groups(ICursor []cursors, Expression[] exps, String[] names, 
 			Expression[] calcExps, String[] calcNames, String opt, Context ctx, int groupCount) {
-		int cursorCount = cursors.length;		
-		int keyCount = exps == null ? 0 : exps.length;
-		int valCount = calcExps == null ? 0 : calcExps.length;
-		String option = opt == null ? "u" : opt + "u";
-		
-		if (valCount > 0) {			
-			// 生成结果集汇总字段字段名
-			if (calcNames == null) {
-				calcNames = new String[valCount];
-			}
-			
-			for (int i = 0; i < valCount; ++i) {
-				if (calcNames[i] == null || calcNames[i].length() == 0) {
-					calcNames[i] = calcExps[i].getFieldName();
-				}
-			}
-		}
-		
 		// 生成分组任务并提交给线程池
+		int cursorCount = cursors.length;		
 		ThreadPool pool = ThreadPool.newInstance(cursorCount);
-		Table result = null;
+		GroupsJob []jobs = new GroupsJob[cursorCount];
+		
+		IGroupsResult groupsResult = null;;
+		IGroupsResult []groupsResults = new IGroupsResult[cursorCount - 1];
 
 		try {
-			GroupsJob []jobs = new GroupsJob[cursorCount];
 			for (int i = 0; i < cursorCount; ++i) {
 				Context tmpCtx = ctx.newComputeContext();
 				Expression []tmpExps = Operation.dupExpressions(exps, tmpCtx);
 				Expression []tmpCalcExps = Operation.dupExpressions(calcExps, tmpCtx);
 				
-				jobs[i] = new GroupsJob(cursors[i], tmpExps, names, tmpCalcExps, calcNames, option, tmpCtx);
+				jobs[i] = new GroupsJob(cursors[i], tmpExps, names, tmpCalcExps, calcNames, opt, tmpCtx);
 				if (groupCount > 1) {
 					jobs[i].setGroupCount(groupCount);
 				}
@@ -367,42 +372,79 @@ public class MultipathCursors extends ICursor implements IMultipath {
 			// 等待分组任务执行完毕，并把结果添加到一个序表
 			for (int i = 0; i < cursorCount; ++i) {
 				jobs[i].join();
-				if (result == null) {
-					result = jobs[i].getResult();
+				
+				if (i == 0) {
+					groupsResult = jobs[i].getGroupsResult();
 				} else {
-					result.addAll(jobs[i].getResult());
+					groupsResults[i - 1] = jobs[i].getGroupsResult();
 				}
 			}
 		} finally {
 			pool.shutdown();
 		}
 		
-		if (result == null || result.length() == 0) {
-			return result;
+		return groupsResult.combineGroupsResult(groupsResults, ctx);
+	}
+	
+	private static Table groups2(ICursor []cursors, Expression[] exps, String[] names, 
+			Expression[] calcExps, String[] calcNames, String opt, Context ctx, int groupCount) {
+		int capacity = groupCount > 0 ? groupCount :Env.getDefaultHashCapacity();
+		HashUtil hashUtil = new HashUtil(capacity);
+		GroupsSyncReader cursorReader = new GroupsSyncReader(cursors, exps, hashUtil, ctx);
+		capacity = hashUtil.getCapacity();
+		
+		// 生成分组任务并提交给线程池
+		int cursorCount = cursors.length / 2;
+		ThreadPool pool = ThreadPool.newInstance(cursorCount);
+		GroupsJob2 []jobs = new GroupsJob2[cursorCount];
+		
+		Table groupsResult = null;
+
+		try {
+			for (int i = 0; i < cursorCount; ++i) {
+				Context tmpCtx = ctx.newComputeContext();
+				Expression []tmpExps = Operation.dupExpressions(exps, tmpCtx);
+				Expression []tmpCalcExps = Operation.dupExpressions(calcExps, tmpCtx);
+				
+				GroupsJob2 job = new GroupsJob2(cursorReader, tmpExps, names, tmpCalcExps, calcNames, opt, tmpCtx, capacity);
+				job.setHashStart(i);
+				job.setHashEnd(cursorCount);
+				jobs[i] = job;
+				
+				pool.submit(jobs[i]);
+			}
+			
+			// 等待分组任务执行完毕，并把结果添加到一个序表
+			for (int i = 0; i < cursorCount; ++i) {
+				jobs[i].join();
+				
+				if (i == 0) {
+					groupsResult = jobs[i].getGroupsResult().getResultTable();
+				} else {
+					Table t = jobs[i].getGroupsResult().getResultTable();
+					groupsResult.addAll(t);
+				}
+			}
+		} finally {
+			pool.shutdown();
 		}
 		
-		// 生成二次分组分组表达式
-		Expression []keyExps = null;
-		if (keyCount > 0) {
-			keyExps = new Expression[keyCount];
-			for (int i = 0, q = 1; i < keyCount; ++i, ++q) {
-				keyExps[i] = new Expression(ctx, "#" + q);
-			}
-		}
-
-		// 生成二次分组汇总表达式
-		Expression []valExps = null;
-		if (valCount > 0) {
-			valExps = new Expression[valCount];
-			for (int i = 0, q = keyCount + 1; i < valCount; ++i, ++q) {
-				Node gather = calcExps[i].getHome();
-				gather.prepare(ctx);
-				valExps[i] = gather.getRegatherExpression(q);
-			}
-		}
-
-		// 进行二次分组
-		return result.groups(keyExps, names, valExps, calcNames, opt, ctx);
+		return groupsResult;
+	}
+	
+	/**
+	 * 取分组计算对象
+	 * @param exps 分组字段表达式数组
+	 * @param names 分组字段名数组
+	 * @param calcExps 汇总字段表达式数组
+	 * @param calcNames 汇总字段名数组
+	 * @param opt 选项
+	 * @param ctx 计算上下文
+	 * @return IGroupsResult
+	 */
+	public IGroupsResult getGroupsResult(Expression[] exps, String[] names, Expression[] calcExps, 
+			String[] calcNames, String opt, Context ctx) {
+		return cursors[0].getGroupsResult(exps, names, calcExps, calcNames, opt, ctx);
 	}
 	
 	/**
@@ -415,13 +457,9 @@ public class MultipathCursors extends ICursor implements IMultipath {
 	 * @param ctx 计算上下文
 	 * @return 分组结果
 	 */
-	public Table groups(Expression[] exps, String[] names, Expression[] calcExps, String[] calcNames, 
-			String opt, Context ctx) {
-		if (cursors.length == 1 || Env.getParallelNum() == 1) {
-			if (cursors[0].isColumnCursor()) {
-				return groups(cursors, exps, names, calcExps, calcNames, opt, ctx, -1);
-			}
-			return super.groups(exps, names, calcExps, calcNames, opt, ctx);
+	public Table groups(Expression[] exps, String[] names, Expression[] calcExps, String[] calcNames, String opt, Context ctx) {
+		if (cursors.length == 1) {
+			return cursors[0].groups(exps, names, calcExps, calcNames, opt, ctx);
 		} else {
 			return groups(cursors, exps, names, calcExps, calcNames, opt, ctx, -1);
 		}
@@ -440,11 +478,10 @@ public class MultipathCursors extends ICursor implements IMultipath {
 	 */
 	public Table groups(Expression[] exps, String[] names, Expression[] calcExps, String[] calcNames, 
 			String opt, Context ctx, int groupCount) {
-		if (cursors.length == 1 || Env.getParallelNum() == 1) {
-			if (cursors[0].isColumnCursor()) {
-				return groups(cursors, exps, names, calcExps, calcNames, opt, ctx, groupCount);
-			}
-			return super.groups(exps, names, calcExps, calcNames, opt, ctx, groupCount);
+		if (cursors.length == 1) {
+			return cursors[0].groups(exps, names, calcExps, calcNames, opt, ctx, groupCount);
+		} else if (opt != null && opt.indexOf('z') != -1) {
+			return groups2(cursors, exps, names, calcExps, calcNames, opt, ctx, groupCount);
 		} else if (groupCount < 1 || exps == null || exps.length == 0) {
 			return groups(cursors, exps, names, calcExps, calcNames, opt, ctx, -1);
 		} else if (opt != null && opt.indexOf('n') != -1) {
@@ -453,89 +490,336 @@ public class MultipathCursors extends ICursor implements IMultipath {
 			return CursorUtil.fuzzyGroups(this, exps, names, calcExps, calcNames, opt, ctx, groupCount);
 		}
 	}
-
+	
 	/**
-	 * 对游标进行汇总
-	 * @param calcExps 汇总表达式数组
+	 * 与游标做有序归并连接
+	 * @param function 对应的函数
+	 * @param exps 当前表关联字段表达式数组
+	 * @param cursors 维表游标数组
+	 * @param codeExps 维表关联字段表达式数组
+	 * @param newExps
+	 * @param newNames
+	 * @param opt 选项
 	 * @param ctx 计算上下文
-	 * @return 如果只有一个汇总表达式返回汇总结果，否则返回汇总结果构成的序列
+	 * @return Operable
 	 */
-	public Object total(Expression[] calcExps, Context ctx) {
-		if (cursors.length == 1 || Env.getParallelNum() == 1) {
-			return super.total(calcExps, ctx);
-		}
-
-		int cursorCount = cursors.length;		
-		int valCount = calcExps.length;
+	public Operable mergeJoinx(Function function, Expression[][] exps, 
+			ICursor []codeCursors, Expression[][] codeExps, 
+			Expression[][] newExps, String[][] newNames, String opt, Context ctx) {
+		int pathCount = cursors.length;
+		int tableCount = codeCursors.length;
 		
-		// 生成汇总任务并提交给线程池
-		Table result;
-		ThreadPool pool = ThreadPool.newInstance(cursorCount);
-
-		try {
-			TotalJob []jobs = new TotalJob[cursorCount];
-			for (int i = 0; i < cursorCount; ++i) {
-				Context tmpCtx = ctx.newComputeContext();
-				Expression []tmpCalcExps = Operation.dupExpressions(calcExps, tmpCtx);
+		for (int p = 0; p < pathCount; ++p) {
+			ICursor []curCodeCursors = new ICursor[tableCount];
+			for (int t = 0; t < tableCount; ++t) {
+				// 主子表需要同步分段，同一路的做连接
+				if (codeCursors[t] == null) {
+					continue;
+				} else if (!(codeCursors[t] instanceof MultipathCursors)) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException( mm.getMessage("dw.mcsNotMatch"));
+				}
 				
-				jobs[i] = new TotalJob(cursors[i], tmpCalcExps, tmpCtx);
-				pool.submit(jobs[i]);
+				MultipathCursors mcs = (MultipathCursors)codeCursors[t];
+				if (mcs.getPathCount() != pathCount) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException( mm.getMessage("dw.mcsNotMatch"));
+				}
+				
+				curCodeCursors[t] = mcs.getPathCursor(p);
 			}
 			
-			// 等待汇总任务执行完毕，并把结果添加到一个序表
-			if (valCount == 1) {
-				String []fnames = new String[]{"_1"};
-				result = new Table(fnames, cursorCount);
-				for (int i = 0; i < cursorCount; ++i) {
-					jobs[i].join();
-					Record r = result.newLast();
-					r.setNormalFieldValue(0, jobs[i].getResult());
-				}
-			} else {
-				String []fnames = new String[valCount];
-				for (int i = 1; i < valCount; ++i) {
-					fnames[i - 1] = "_" + i;
-				}
-				
-				result = new Table(fnames, cursorCount);
-				for (int i = 0; i < cursorCount; ++i) {
-					jobs[i].join();
-					Sequence seq = (Sequence)jobs[i].getResult();
-					if (seq != null) {
-						result.newLast(seq.toArray());
-					}
-				}
-			}
-		} finally {
-			pool.shutdown();
+			// 复制表达式
+			ctx = cursors[p].getContext();
+			Expression [][]curExps = Operation.dupExpressions(exps, ctx);
+			Expression [][]curCodeExps = Operation.dupExpressions(codeExps, ctx);
+			Expression [][]curNewExps = Operation.dupExpressions(newExps, ctx);
+			cursors[p] = (ICursor) cursors[p].mergeJoinx(function, curExps, curCodeCursors, curCodeExps, curNewExps, newNames, opt, ctx);
 		}
 		
-		// 生成二次汇总表达式
-		Expression []valExps = new Expression[valCount];
-		for (int i = 0; i < valCount; ++i) {
-			Node gather = calcExps[i].getHome();
-			gather.prepare(ctx);
-			valExps[i] = gather.getRegatherExpression(i + 1);
-		}
-		
-		// 进行二次汇总
-		TotalResult total = new TotalResult(valExps, ctx);
-		total.push(result, ctx);
-		return total.result();
+		return this;
 	}
 	
 	/**
-	 * 是否是列式游标
-	 * @return
+	 * 做连接
+	 * @param function 对应的函数
+	 * @param fname
+	 * @param exps 当前表关联字段表达式数组
+	 * @param codes 维表数组
+	 * @param dataExps 维表关联字段表达式数组
+	 * @param newExps
+	 * @param newNames
+	 * @param opt 选项
+	 * @param ctx 计算上下文
+	 * @return Operable
 	 */
-	public boolean isColumnCursor() {
-		int len = cursors.length;
-		for (int i = 0; i < len; ++i) {
-			ICursor cursor = cursors[i];
-			if (!cursor.isColumnCursor())
-				return false;
+	public Operable join(Function function, String fname, Expression[][] exps, Sequence[] codes,
+			  Expression[][] dataExps, Expression[][] newExps, String[][] newNames, String opt, Context ctx) {
+		for (ICursor subCursor : cursors) {
+			// 复制表达式
+			ctx = subCursor.getContext();
+			Expression [][]curExps = Operation.dupExpressions(exps, ctx);
+			Expression [][]curDataExps = Operation.dupExpressions(dataExps, ctx);
+			Expression [][]curNewExps = Operation.dupExpressions(newExps, ctx);
+			subCursor.join(function, fname, curExps, codes, curDataExps, curNewExps, newNames, opt, ctx);
 		}
 		
-		return true;
+		return this;
 	}
+	
+	/**
+	 * 与远程表做连接
+	 * @param function 对应的函数
+	 * @param fname
+	 * @param exps 当前表关联字段表达式数组
+	 * @param codes 维表数组
+	 * @param dataExps 维表关联字段表达式数组
+	 * @param newExps
+	 * @param newNames
+	 * @param opt 选项
+	 * @param ctx 计算上下文
+	 * @return Operable
+	 */
+	public Operable joinRemote(Function function, String fname, Expression[][] exps, 
+			Object[] codes, Expression[][] dataExps, 
+			Expression[][] newExps, String[][] newNames, String opt, Context ctx) {
+		for (ICursor subCursor : cursors) {
+			// 复制表达式
+			ctx = subCursor.getContext();
+			Expression [][]curExps = Operation.dupExpressions(exps, ctx);
+			Expression [][]curDataExps = Operation.dupExpressions(dataExps, ctx);
+			Expression [][]curNewExps = Operation.dupExpressions(newExps, ctx);
+			subCursor.joinRemote(function, fname, curExps, codes, curDataExps, curNewExps, newNames, opt, ctx);
+		}
+		
+		return this;
+	}
+	
+	/**
+	 * 进行连接过滤，保留能关联上的
+	 * @param function 对应的函数
+	 * @param exps 当前表关联字段表达式数组
+	 * @param codes 维表数组
+	 * @param dataExps 维表关联字段表达式数组
+	 * @param opt 选项
+	 * @param ctx 计算上下文
+	 * @return Operable
+	 */
+	public Operable filterJoin(Function function, Expression[][] exps, Sequence[] codes, Expression[][] dataExps, String opt, Context ctx) {
+		for (ICursor subCursor : cursors) {
+			// 复制表达式
+			ctx = subCursor.getContext();
+			Expression [][]curExps = Operation.dupExpressions(exps, ctx);
+			Expression [][]curDataExps = Operation.dupExpressions(dataExps, ctx);
+			subCursor.filterJoin(function, curExps, codes, curDataExps, opt, ctx);
+		}
+		
+		return this;
+	}
+	
+	/**
+	 * 进行连接过滤，保留能关联不上的
+	 * @param function 对应的函数
+	 * @param exps 当前表关联字段表达式数组
+	 * @param codes 维表数组
+	 * @param dataExps 维表关联字段表达式数组
+	 * @param opt 选项
+	 * @param ctx 计算上下文
+	 * @return Operable
+	 */
+	public Operable diffJoin(Function function, Expression[][] exps, Sequence[] codes, Expression[][] dataExps, String opt, Context ctx) {
+		for (ICursor subCursor : cursors) {
+			// 复制表达式
+			ctx = subCursor.getContext();
+			Expression [][]curExps = Operation.dupExpressions(exps, ctx);
+			Expression [][]curDataExps = Operation.dupExpressions(dataExps, ctx);
+			subCursor.diffJoin(function, curExps, codes, curDataExps, opt, ctx);
+		}
+		
+		return this;
+	}
+	
+	/**
+	 * 过滤
+	 * @param function 对应的函数
+	 * @param fltExp 过滤条件
+	 * @param opt 选项
+	 * @param ctx 计算上下文
+	 * @return Operable
+	 */
+	public Operable select(Function function, Expression fltExp, String opt, Context ctx) {
+		for (ICursor subCursor : cursors) {
+			ctx = subCursor.getContext();
+			Expression curFilter = Operation.dupExpression(fltExp, ctx);
+			subCursor.select(function, curFilter, opt, ctx);
+		}
+		
+		return this;
+	}
+	/**
+	 * 过滤
+	 * @param function 对应的函数
+	 * @param fltExp 过滤条件
+	 * @param opt 选项
+	 * @param pipe 用于处理不满足条件的成员
+	 * @param ctx 计算上下文
+	 * @return Operable
+	 */
+	public Operable select(Function function, Expression fltExp, String opt, IPipe pipe, Context ctx) {
+		for (ICursor subCursor : cursors) {
+			ctx = subCursor.getContext();
+			Expression curFilter = Operation.dupExpression(fltExp, ctx);
+			subCursor.select(function, curFilter, opt, pipe, ctx);
+		}
+		
+		return this;
+	}
+	
+	/**
+	 * 添加计算列
+	 * @param function 对应的函数
+	 * @param exps 计算表达式数组
+	 * @param names 字段名数组
+	 * @param opt 选项
+	 * @param level
+	 * @param ctx 计算上下文
+	 * @return Operable
+	 */
+	public Operable derive(Function function, Expression []exps, String []names, String opt, int level, Context ctx) {
+		for (ICursor subCursor : cursors) {
+			ctx = subCursor.getContext();
+			Expression []curExps = Operation.dupExpressions(exps, ctx);
+			subCursor.derive(function, curExps, names, opt, level, ctx);
+		}
+		
+		return this;
+	}
+	
+	/**
+	 * 产生新序表
+	 * @param function 对应的函数
+	 * @param newExps 计算表达式数组
+	 * @param names 字段名数组
+	 * @param opt 选项
+	 * @param ctx 计算上下文
+	 * @return Operable
+	 */
+	public Operable newTable(Function function, Expression []newExps, String []names, String opt, Context ctx) {
+		for (ICursor subCursor : cursors) {
+			ctx = subCursor.getContext();
+			Expression []curExps = Operation.dupExpressions(newExps, ctx);
+			subCursor.newTable(function, curExps, names, opt, ctx);
+		}
+		
+		return this;
+	}
+	
+	/**
+	 * 附加有序分组运算
+	 * @param function 对应的函数
+	 * @param exps 分组表达式数组
+	 * @param opt 选项
+	 * @param ctx 计算上下文
+	 * @return Operable
+	 */
+	public Operable group(Function function, Expression []exps, String opt, Context ctx) {
+		for (ICursor subCursor : cursors) {
+			ctx = subCursor.getContext();
+			Expression []curExps = Operation.dupExpressions(exps, ctx);
+			subCursor.group(function, curExps, opt, ctx);
+		}
+		
+		return this;
+	}
+	/**
+	 * 附加有序分组运算
+	 * @param function 对应的函数
+	 * @param exps 前半部分有序的分组字段表达式
+	 * @param sortExps 后半部分无序的分组字段表达式
+	 * @param opt 选项
+	 * @param ctx 计算上下文
+	 * @return Operable
+	 */
+	public Operable group(Function function, Expression []exps, Expression []sortExps, String opt, Context ctx) {
+		for (ICursor subCursor : cursors) {
+			ctx = subCursor.getContext();
+			Expression []curExps = Operation.dupExpressions(exps, ctx);
+			Expression []curSortExps = Operation.dupExpressions(sortExps, ctx);
+			subCursor.group(function, curExps, curSortExps, opt, ctx);
+		}
+		
+		return this;
+	}
+	
+	/**
+	 * 附加有序分组运算
+	 * @param function 对应的函数
+	 * @param exps 分组字段表达式数组
+	 * @param names 分组字段名数组
+	 * @param newExps 汇总表达式
+	 * @param newNames 汇总字段名数组
+	 * @param opt 选项
+	 * @param ctx 计算上下文
+	 * @return Operable
+	 */
+	public Operable group(Function function, Expression[] exps, String []names, 
+			Expression[] newExps, String []newNames, String opt, Context ctx) {
+		for (ICursor subCursor : cursors) {
+			ctx = subCursor.getContext();
+			Expression []curExps = Operation.dupExpressions(exps, ctx);
+			Expression []curNewExps = Operation.dupExpressions(newExps, ctx);
+			subCursor.group(function, curExps, names, curNewExps, newNames, opt, ctx);
+		}
+		
+		return this;
+	}
+
+	/**
+	 * 附加有序分组运算
+	 * @param function 对应的函数
+	 * @param exps 前半部分有序的分组字段表达式
+	 * @param names 字段名数组
+	 * @param sortExps 后半部分无序的分组字段表达式
+	 * @param sortNames 字段名数组
+	 * @param newExps 汇总表达式
+	 * @param newNames 汇总字段名数组
+	 * @param opt 选项
+	 * @param ctx 计算上下文
+	 * @return Operable
+	 */
+	public Operable group(Function function, Expression[] exps, String []names, 
+			Expression[] sortExps, String []sortNames, 
+			Expression[] newExps, String []newNames, String opt, Context ctx) {
+		for (ICursor subCursor : cursors) {
+			ctx = subCursor.getContext();
+			Expression []curExps = Operation.dupExpressions(exps, ctx);
+			Expression []curSortExps = Operation.dupExpressions(sortExps, ctx);
+			Expression []curNewExps = Operation.dupExpressions(newExps, ctx);
+			subCursor.group(function, curExps, names, curSortExps, sortNames, curNewExps, newNames, opt, ctx);
+		}
+		
+		return this;
+	}
+	
+	/**
+	 * 连接计算
+	 * @param function 所属的函数对象
+	 * @param fkNames 外键字段名数组
+	 * @param timeFkNames 时间外键名数组
+	 * @param codes 维表数组
+	 * @param exps 维表主键数组
+	 * @param timeExps 维表的时间更新键数组
+	 * @param opt 选项
+	 */
+	public Operable switchFk(Function function, String[] fkNames, String[] timeFkNames, Sequence[] codes, Expression[] exps, Expression[] timeExps, String opt, Context ctx) {
+		for (ICursor subCursor : cursors) {
+			ctx = subCursor.getContext();
+			Expression []curexps = Operation.dupExpressions(exps, ctx);
+			Expression []curTimeExps = Operation.dupExpressions(timeExps, ctx);
+			subCursor.switchFk(function, fkNames, timeFkNames, codes, curexps, curTimeExps, opt, ctx);
+		}
+		
+		return this;
+	}
+
 }

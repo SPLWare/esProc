@@ -1,14 +1,23 @@
 package com.scudata.dw.compress;
 
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
 import java.math.*;
+import java.util.Comparator;
 
+import com.scudata.array.BoolArray;
+import com.scudata.array.IArray;
+import com.scudata.array.IntArray;
+import com.scudata.array.NumberArray;
+import com.scudata.array.ObjectArray;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Context;
 import com.scudata.dm.DataStruct;
 import com.scudata.dm.HashIndexTable;
 import com.scudata.dm.IndexTable;
-import com.scudata.dm.ListBase1;
 import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.cursor.ICursor;
@@ -23,10 +32,11 @@ import com.scudata.resources.EngineMessage;
  * @author runqian
  *
  */
-public class ColumnList extends ListBase1 {
+public class ColumnList implements IArray {
 	private Column []columns;
 	private DataStruct ds;
-
+	private int size;
+	
 	public ColumnList() {
 	}
 	
@@ -46,7 +56,7 @@ public class ColumnList extends ListBase1 {
 			return;
 		}
 		
-		Record rec = (Record) data.get(1);
+		BaseRecord rec = (BaseRecord) data.get(1);
 		int count = rec.getFieldCount();
 		ds = rec.dataStruct();
 		Column []columns = new Column[count];
@@ -57,7 +67,7 @@ public class ColumnList extends ListBase1 {
 		while (data != null && data.length() > 0) {
 			size  = data.length();
 			for (int i = 1; i <= size; i++) {
-				rec = (Record) data.get(i);
+				rec = (BaseRecord) data.get(i);
 				Object []objs = rec.getFieldValues();
 				for (int c = 0; c < count; c++) {
 					if (columns[c] == null) {
@@ -79,7 +89,7 @@ public class ColumnList extends ListBase1 {
 								columns[c] = new DateTimeColumn();
 							} else if (obj instanceof java.sql.Time) {
 								columns[c] = new TimeColumn();
-							}else if (obj instanceof Record) {
+							}else if (obj instanceof BaseRecord) {
 								columns[c] = new RefColumn();
 							}
 							for (int j = 0; j < total + i - 1; j++) {
@@ -116,7 +126,7 @@ public class ColumnList extends ListBase1 {
 			return;
 		}
 		
-		Record rec = (Record) data.get(1);
+		BaseRecord rec = (BaseRecord) data.get(1);
 		int count = rec.getFieldCount();
 		ds = rec.dataStruct();
 		Column []columns = new Column[count];
@@ -129,7 +139,7 @@ public class ColumnList extends ListBase1 {
 		while (data != null && data.length() > 0) {
 			size  = data.length();
 			for (int i = 1; i <= size; i++) {
-				rec = (Record) data.get(i);
+				rec = (BaseRecord) data.get(i);
 				Object []objs = rec.getFieldValues();
 				for (int c = 0; c < count; c++) {
 					if (columns[c] == null) {
@@ -151,7 +161,7 @@ public class ColumnList extends ListBase1 {
 								columns[c] = new DateTimeColumn();
 							} else if (obj instanceof java.sql.Time) {
 								columns[c] = new TimeColumn();
-							}else if (obj instanceof Record) {
+							}else if (obj instanceof BaseRecord) {
 								columns[c] = new RefColumn();
 							}
 							for (int j = 0; j < total + i - 1; j++) {
@@ -207,11 +217,10 @@ public class ColumnList extends ListBase1 {
 		return result;
 	}
 
-	public Object[] toArray(Object a[]) {
+	public void toArray(Object a[]) {
 		for (int i = 1; i <= size; i++) {
 			a[i - 1] = get(i);
 		}
-		return a;
 	}
 	
 	public void switchFk(String[] fkNames, Sequence[] codes, Expression[] exps, String opt, Context ctx) {
@@ -252,7 +261,7 @@ public class ColumnList extends ListBase1 {
 			if (exp == null || !(exp.getHome() instanceof CurrentSeq)) { // #
 				indexTables[i] = code.getIndexTable(exp, ctx);
 				if (indexTables[i] == null) {
-					indexTables[i] = IndexTable.instance(code, exp, ctx);
+					indexTables[i] = code.newIndexTable(exp, ctx);
 				}
 			}
 		}
@@ -290,7 +299,7 @@ public class ColumnList extends ListBase1 {
 				if (indexTable != null) {
 					for (int i = 1; i <= len; ++i) {
 						Object key = oldColumn.getData(i);
-						int seq = ((HashIndexTable)indexTable).findSeq(key);
+						int seq = ((HashIndexTable)indexTable).findPos(key);
 						column.addData(seq);
 					}
 				} else { // #
@@ -398,7 +407,7 @@ public class ColumnList extends ListBase1 {
 				if (indexTable != null) {
 					for (int i = 1; i <= len; ++i) {
 						Object key = oldColumn.getData(i);
-						int seq = ((HashIndexTable)indexTable).findSeq(key);
+						int seq = ((HashIndexTable)indexTable).findPos(key);
 						if (isDiff) {
 							// 找不到时保留源值
 							if (seq > 0) {
@@ -474,5 +483,513 @@ public class ColumnList extends ListBase1 {
 
 	public Column[] getColumns() {
 		return columns;
+	}
+
+	
+	public void writeExternal(ObjectOutput out) throws IOException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
+	public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
+	public byte[] serialize() throws IOException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
+	public void fillRecord(byte[] bytes) throws IOException, ClassNotFoundException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
+	public String getDataType() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
+	public void add(Object o) {
+		// TODO Auto-generated method stub
+	}
+
+	
+	public void addAll(Object[] array) {
+		// TODO Auto-generated method stub
+	}
+
+	
+	public void addAll(IArray array) {
+		// TODO Auto-generated method stub
+	}
+
+	
+	public void addAll(IArray array, int count) {
+		// TODO Auto-generated method stub
+	}
+
+	
+	public void insert(int index, Object o) {
+		// TODO Auto-generated method stub
+	}
+
+	
+	public void insertAll(int pos, IArray array) {
+		// TODO Auto-generated method stub
+	}
+
+	
+	public void insertAll(int pos, Object[] array) {
+		// TODO Auto-generated method stub
+	}
+
+	
+	public void push(Object o) {
+		// TODO Auto-generated method stub
+	}
+
+	/**
+	 * 追加一个空成员（不检查容量，认为有足够空间存放元素）
+	 */
+	public void pushNull() {
+	}
+	
+	public void push(IArray array, int index) {
+		// TODO Auto-generated method stub
+	}
+	
+	public void add(IArray array, int index) {
+		// TODO Auto-generated method stub
+	}
+
+	public void set(int curIndex, IArray array, int index) {
+		// TODO Auto-generated method stub
+	}
+	
+	public IArray get(int[] indexArray) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public IArray get(int start, int end) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	public IArray get(NumberArray indexArray) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	public int getInt(int index) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+	public long getLong(int index) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+	public void ensureCapacity(int minCapacity) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public boolean isNull(int index) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	
+	public BoolArray isTrue() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	public BoolArray isFalse() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	public boolean isTrue(int index) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	
+	public boolean isFalse(int index) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	
+	public boolean isTemporary() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	
+	public void setTemporary(boolean ifTemporary) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public void remove(int index) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public void remove(int[] seqs) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public void removeRange(int fromIndex, int toIndex) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public int size() {
+		return size;
+	}
+	
+	public int count() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+	public Object ifn() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	public void set(int index, Object obj) {
+		// TODO Auto-generated method stub
+	}
+	
+	public void clear() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public int binarySearch(Object elem) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+	public int binarySearch(Object elem, int start, int end) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+	public boolean contains(Object elem) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	
+	public void contains(boolean isSorted, IArray array, BoolArray result) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public boolean objectContains(Object elem) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	
+	public int firstIndexOf(Object elem, int start) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+	public int lastIndexOf(Object elem, int start) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+	public IntArray indexOfAll(Object elem, int start, boolean isSorted, boolean isFromHead) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	public IArray dup() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	public IArray newInstance(int count) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	public IArray abs() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	public IArray negate() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	public IArray not() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	public boolean isNumberArray() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	
+	public IArray memberAdd(IArray array) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	public IArray memberAdd(Object value) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	public IArray memberSubtract(IArray array) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	public IArray memberMultiply(IArray array) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	public IArray memberMultiply(Object value) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	public IArray memberDivide(IArray array) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	public IArray memberMod(IArray array) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	public IArray memberIntDivide(IArray array) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	public BoolArray calcRelation(IArray array, int relation) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	public BoolArray calcRelation(Object value, int relation) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	public void calcRelations(IArray array, int relation, BoolArray result, boolean isAnd) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public void calcRelations(Object value, int relation, BoolArray result, boolean isAnd) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public IArray bitwiseAnd(IArray array) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	public int memberCompare(int index1, int index2) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+	/**
+	 * 判断数组的两个成员是否相等
+	 * @param index1 成员1
+	 * @param index2 成员2
+	 * @return
+	 */
+	public boolean isMemberEquals(int index1, int index2) {
+		throw new RuntimeException();
+	}
+	
+	public int compareTo(IArray array) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+	public int hashCode(int index) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+	public Object sum() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	public Object average() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	public Object max() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	public Object min() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	public void reserve(int start, int end) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public IArray split(int pos) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	public IArray split(int from, int to) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	public void trimToSize() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public IArray select(IArray signArray) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	public boolean isEquals(int curIndex, IArray array, int index) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	
+	public int compareTo(int curIndex, IArray array, int index) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+	public IArray memberAdd(int curIndex, IArray array, int index) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	public void sort() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public void sort(Comparator<Object> comparator) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public boolean hasRecord() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	
+	public boolean isPmt(boolean isPure) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	
+	public IArray rvs() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	public void removeLast() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public boolean isEquals(int curIndex, Object value) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	
+	public int compareTo(int curIndex, Object value) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+	public IntArray ptop(int count, boolean isAll, boolean isLast, boolean ignoreNull) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	public void setSize(int size) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public IArray get(int[] indexArray, int start, int end, boolean doCheck) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public ObjectArray toObjectArray() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public IArray toPureArray() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public IArray reserve() {
+		// TODO Auto-generated method stub
+		return this;
+	}
+	
+	/**
+	 * 保留数组数据用于生成序列或序表
+	 * @param refOrigin 引用源列，不复制数据
+	 * @return
+	 */
+
+	public IArray reserve(boolean refOrigin) {
+		// TODO Auto-generated method stub
+		return this;
+	}
+
+	public boolean containTrue() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public IArray combine(IArray signArray, IArray other) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public IArray combine(IArray signArray, Object value) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

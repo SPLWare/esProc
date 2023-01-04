@@ -1,8 +1,8 @@
 package com.scudata.dm.cursor;
 
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Context;
 import com.scudata.dm.DataStruct;
-import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
 import com.scudata.dm.op.Operation;
@@ -72,7 +72,7 @@ public class JoinxCursor2 extends ICursor {
 	
 	// 并行计算时需要改变上下文
 	// 继承类如果用到了表达式还需要用新上下文重新解析表达式
-	protected void resetContext(Context ctx) {
+	public void resetContext(Context ctx) {
 		if (this.ctx != ctx) {
 			cursor1.resetContext(ctx);
 			cursor2.resetContext(ctx);
@@ -102,8 +102,8 @@ public class JoinxCursor2 extends ICursor {
 		}
 
 		if (cur1 != 0 && cur2 != 0) {
-			Record r1 = (Record)data1.getMem(cur1);
-			Record r2 = (Record)data2.getMem(cur2);
+			BaseRecord r1 = (BaseRecord)data1.getMem(cur1);
+			BaseRecord r2 = (BaseRecord)data2.getMem(cur2);
 			Object value1 = r1.getNormalFieldValue(col1);
 			Object value2 = r2.getNormalFieldValue(col2);
 
@@ -111,7 +111,7 @@ public class JoinxCursor2 extends ICursor {
 				int cmp = Variant.compare(value1,value2, true);
 				if (cmp == 0) {
 					--n;
-					Record r = newTable.newLast();
+					BaseRecord r = newTable.newLast();
 					r.setNormalFieldValue(0, r1);
 					r.setNormalFieldValue(1, r2);
 					Sequence addData = null;
@@ -119,7 +119,7 @@ public class JoinxCursor2 extends ICursor {
 					// 如果有重复的则跳过，如果都没有重复的都跳过
 					boolean hasEquals = false;
 					if (cur1 < len1) {
-						Record next = (Record)data1.getMem(cur1 + 1);
+						BaseRecord next = (BaseRecord)data1.getMem(cur1 + 1);
 						if (Variant.isEquals(value1, next.getNormalFieldValue(col1))) {
 							cur1++;
 							r1 = next;
@@ -128,7 +128,7 @@ public class JoinxCursor2 extends ICursor {
 					} else {
 						Sequence data = cursor1.fuzzyFetch(FETCHCOUNT);
 						if (data != null && data.length() > 0) {
-							Record next = (Record)data.getMem(1);
+							BaseRecord next = (BaseRecord)data.getMem(1);
 							if (Variant.isEquals(value1, next.getNormalFieldValue(col1))) {
 								data1 = data;
 								len1 = data.length();
@@ -142,53 +142,58 @@ public class JoinxCursor2 extends ICursor {
 					}
 					
 					if (cur2 < len2) {
-						Record next = (Record)data2.getMem(cur2 + 1);
-						if (Variant.isEquals(value2, next.getNormalFieldValue(col2))) {
-							cur2++;
-							r2 = next;
-							if (addData != null) {
-								addData.insert(1, r1);
-								data1 = addData;
-								len1 = data1.length();
-								cur1 = 1;
-							}
-						} else if (!hasEquals) {
+						//data2是维表，不该有重复的。（这和过去光头joinx规则不一样）
+//						BaseRecord next = (BaseRecord)data2.getMem(cur2 + 1);
+//						if (Variant.isEquals(value2, next.getNormalFieldValue(col2))) {
+//							cur2++;
+//							r2 = next;
+//							if (addData != null) {
+//								addData.insert(1, r1);
+//								data1 = addData;
+//								len1 = data1.length();
+//								cur1 = 1;
+//							}
+//						} else 
+						
+						
+						if (!hasEquals) {
 							cur2++;
 							if (addData != null) {
 								data1 = addData;
 								len1 = addData.length();
 								cur1 = 1;
-								r1 = (Record)data1.getMem(1);
+								r1 = (BaseRecord)data1.getMem(1);
 								value1 = r1.getNormalFieldValue(col1);
 							} else if (cur1 < len1) {
 								cur1++;
-								r1 = (Record)data1.getMem(cur1);
+								r1 = (BaseRecord)data1.getMem(cur1);
 								value1 = r1.getNormalFieldValue(col1);
 							} else {
 								cur1 = 0; // 游标1没有数据了
 								break;
 							}
 							
-							r2 = next;
+							r2 = (BaseRecord)data2.getMem(cur2);//r2 = next;
 							value2 = r2.getNormalFieldValue(col2);
 						}
 					} else {
 						Sequence data = cursor2.fuzzyFetch(FETCHCOUNT);
 						if (data != null && data.length() > 0) {
-							Record next = (Record)data.getMem(1);
-							if (Variant.isEquals(value2, next.getNormalFieldValue(col2))) {
-								data2 = data;
-								len2 = data.length();
-								cur2 = 1;
-								r2 = next;
-								
-								if (addData != null) {
-									addData.insert(1, r1);
-									data1 = addData;
-									len1 = data1.length();
-									cur1 = 1;
-								}
-							} else if (!hasEquals) {
+//							BaseRecord next = (BaseRecord)data.getMem(1);
+//							if (Variant.isEquals(value2, next.getNormalFieldValue(col2))) {
+//								data2 = data;
+//								len2 = data.length();
+//								cur2 = 1;
+//								r2 = next;
+//								
+//								if (addData != null) {
+//									addData.insert(1, r1);
+//									data1 = addData;
+//									len1 = data1.length();
+//									cur1 = 1;
+//								}
+//							} else 
+							if (!hasEquals) {
 								data2 = data;
 								len2 = data2.length();
 								cur2 = 1;
@@ -197,18 +202,18 @@ public class JoinxCursor2 extends ICursor {
 									data1 = addData;
 									len1 = addData.length();
 									cur1 = 1;
-									r1 = (Record)data1.getMem(1);
+									r1 = (BaseRecord)data1.getMem(1);
 									value1 = r1.getNormalFieldValue(col1);
 								} else if (cur1 < len1) {
 									cur1++;
-									r1 = (Record)data1.getMem(cur1);
+									r1 = (BaseRecord)data1.getMem(cur1);
 									value1 = r1.getNormalFieldValue(col1);
 								} else {
 									cur1 = 0; // 游标1没有数据了
 									break;
 								}
 								
-								r2 = next;
+								r2 = (BaseRecord)data2.getMem(cur2);//r2 = next;
 								value2 = r2.getNormalFieldValue(col2);
 							} else {
 								data.insert(1, r2);
@@ -233,7 +238,7 @@ public class JoinxCursor2 extends ICursor {
 				} else if (cmp > 0) {
 					if (type == 2){
 						--n;
-						Record r = newTable.newLast();
+						BaseRecord r = newTable.newLast();
 						r.setNormalFieldValue(1, r2);
 					}
 					
@@ -249,12 +254,12 @@ public class JoinxCursor2 extends ICursor {
 						}
 					}
 					
-					r2 = (Record)data2.getMem(cur2);
+					r2 = (BaseRecord)data2.getMem(cur2);
 					value2 = r2.getNormalFieldValue(col2);
 				} else {
 					if (type > 0){
 						--n;
-						Record r = newTable.newLast();
+						BaseRecord r = newTable.newLast();
 						r.setNormalFieldValue(0, r1);
 					}
 					
@@ -270,7 +275,7 @@ public class JoinxCursor2 extends ICursor {
 						}
 					}
 					
-					r1 = (Record)data1.getMem(cur1);
+					r1 = (BaseRecord)data1.getMem(cur1);
 					value1 = r1.getNormalFieldValue(col1);
 				}
 			}
@@ -281,7 +286,7 @@ public class JoinxCursor2 extends ICursor {
 				if (type != 0) {
 					for (; n != 0;) {
 						--n;
-						Record r = newTable.newLast();
+						BaseRecord r = newTable.newLast();
 						r.setNormalFieldValue(0, data1.getMem(cur1));
 						
 						cur1++;
@@ -301,7 +306,7 @@ public class JoinxCursor2 extends ICursor {
 				if (type == 2) {
 					for (; n != 0;) {
 						--n;
-						Record r = newTable.newLast();
+						BaseRecord r = newTable.newLast();
 						r.setNormalFieldValue(1, data2.getMem(cur2));
 
 						cur2++;
@@ -355,8 +360,8 @@ public class JoinxCursor2 extends ICursor {
 		long count = 0;
 
 		if (cur1 != 0 && cur2 != 0) {
-			Record r1 = (Record)data1.getMem(cur1);
-			Record r2 = (Record)data2.getMem(cur2);
+			BaseRecord r1 = (BaseRecord)data1.getMem(cur1);
+			BaseRecord r2 = (BaseRecord)data2.getMem(cur2);
 			Object value1 = r1.getNormalFieldValue(col1);
 			Object value2 = r2.getNormalFieldValue(col2);
 
@@ -369,7 +374,7 @@ public class JoinxCursor2 extends ICursor {
 					// 如果有重复的则跳过，如果都没有重复的都跳过
 					boolean hasEquals = false;
 					if (cur1 < len1) {
-						Record next = (Record)data1.getMem(cur1 + 1);
+						BaseRecord next = (BaseRecord)data1.getMem(cur1 + 1);
 						if (Variant.isEquals(value1, next.getNormalFieldValue(col1))) {
 							cur1++;
 							r1 = next;
@@ -378,7 +383,7 @@ public class JoinxCursor2 extends ICursor {
 					} else {
 						Sequence data = cursor1.fuzzyFetch(FETCHCOUNT);
 						if (data != null && data.length() > 0) {
-							Record next = (Record)data.getMem(1);
+							BaseRecord next = (BaseRecord)data.getMem(1);
 							if (Variant.isEquals(value1, next.getNormalFieldValue(col1))) {
 								data1 = data;
 								len1 = data.length();
@@ -392,53 +397,55 @@ public class JoinxCursor2 extends ICursor {
 					}
 					
 					if (cur2 < len2) {
-						Record next = (Record)data2.getMem(cur2 + 1);
-						if (Variant.isEquals(value2, next.getNormalFieldValue(col2))) {
-							cur2++;
-							r2 = next;
-							if (addData != null) {
-								addData.insert(1, r1);
-								data1 = addData;
-								len1 = data1.length();
-								cur1 = 1;
-							}
-						} else if (!hasEquals) {
+//						BaseRecord next = (BaseRecord)data2.getMem(cur2 + 1);
+//						if (Variant.isEquals(value2, next.getNormalFieldValue(col2))) {
+//							cur2++;
+//							r2 = next;
+//							if (addData != null) {
+//								addData.insert(1, r1);
+//								data1 = addData;
+//								len1 = data1.length();
+//								cur1 = 1;
+//							}
+//						} else 
+						if (!hasEquals) {
 							cur2++;
 							if (addData != null) {
 								data1 = addData;
 								len1 = addData.length();
 								cur1 = 1;
-								r1 = (Record)data1.getMem(1);
+								r1 = (BaseRecord)data1.getMem(1);
 								value1 = r1.getNormalFieldValue(col1);
 							} else if (cur1 < len1) {
 								cur1++;
-								r1 = (Record)data1.getMem(cur1);
+								r1 = (BaseRecord)data1.getMem(cur1);
 								value1 = r1.getNormalFieldValue(col1);
 							} else {
 								cur1 = 0; // 游标1没有数据了
 								break;
 							}
 							
-							r2 = next;
+							r2 = (BaseRecord)data2.getMem(cur2);//r2 = next;
 							value2 = r2.getNormalFieldValue(col2);
 						}
 					} else {
 						Sequence data = cursor2.fuzzyFetch(FETCHCOUNT);
 						if (data != null && data.length() > 0) {
-							Record next = (Record)data.getMem(1);
-							if (Variant.isEquals(value2, next.getNormalFieldValue(col2))) {
-								data2 = data;
-								len2 = data.length();
-								cur2 = 1;
-								r2 = next;
-								
-								if (addData != null) {
-									addData.insert(1, r1);
-									data1 = addData;
-									len1 = data1.length();
-									cur1 = 1;
-								}
-							} else if (!hasEquals) {
+//							BaseRecord next = (BaseRecord)data.getMem(1);
+//							if (Variant.isEquals(value2, next.getNormalFieldValue(col2))) {
+//								data2 = data;
+//								len2 = data.length();
+//								cur2 = 1;
+//								r2 = next;
+//								
+//								if (addData != null) {
+//									addData.insert(1, r1);
+//									data1 = addData;
+//									len1 = data1.length();
+//									cur1 = 1;
+//								}
+//							} else 
+							if (!hasEquals) {
 								data2 = data;
 								len2 = data2.length();
 								cur2 = 1;
@@ -447,18 +454,18 @@ public class JoinxCursor2 extends ICursor {
 									data1 = addData;
 									len1 = addData.length();
 									cur1 = 1;
-									r1 = (Record)data1.getMem(1);
+									r1 = (BaseRecord)data1.getMem(1);
 									value1 = r1.getNormalFieldValue(col1);
 								} else if (cur1 < len1) {
 									cur1++;
-									r1 = (Record)data1.getMem(cur1);
+									r1 = (BaseRecord)data1.getMem(cur1);
 									value1 = r1.getNormalFieldValue(col1);
 								} else {
 									cur1 = 0; // 游标1没有数据了
 									break;
 								}
 								
-								r2 = next;
+								r2 = (BaseRecord)data2.getMem(cur2);//r2 = next;
 								value2 = r2.getNormalFieldValue(col2);
 							} else {
 								data.insert(1, r2);
@@ -497,7 +504,7 @@ public class JoinxCursor2 extends ICursor {
 						}
 					}
 					
-					r2 = (Record)data2.getMem(cur2);
+					r2 = (BaseRecord)data2.getMem(cur2);
 					value2 = r2.getNormalFieldValue(col2);
 				} else {
 					if (type > 0){
@@ -516,7 +523,7 @@ public class JoinxCursor2 extends ICursor {
 						}
 					}
 					
-					r1 = (Record)data1.getMem(cur1);
+					r1 = (BaseRecord)data1.getMem(cur1);
 					value1 = r1.getNormalFieldValue(col1);
 				}
 			}
@@ -607,8 +614,8 @@ public class JoinxCursor2 extends ICursor {
 				// 游标附加了操作可能改变了数据结构
 				Object r1 = data1.getMem(1);
 				Object r2 = data2.getMem(1);
-				if (r1 instanceof Record && ds1.isCompatible(((Record)r1).dataStruct()) &&
-					r2 instanceof Record && ds2.isCompatible(((Record)r2).dataStruct())) {
+				if (r1 instanceof BaseRecord && ds1.isCompatible(((BaseRecord)r1).dataStruct()) &&
+					r2 instanceof BaseRecord && ds2.isCompatible(((BaseRecord)r2).dataStruct())) {
 					col1 = exp1.getFieldIndex(ds1);
 					if (col1 != -1) {
 						col2 = exp2.getFieldIndex(ds2);
@@ -670,7 +677,7 @@ public class JoinxCursor2 extends ICursor {
 				int cmp = Variant.compare(value1.getMem(cur1), value2.getMem(cur2), true);
 				if (cmp == 0) {
 					--n;
-					Record r = newTable.newLast();
+					BaseRecord r = newTable.newLast();
 					r.setNormalFieldValue(0, data1.getMem(cur1));
 					r.setNormalFieldValue(1, data2.getMem(cur2));
 					
@@ -790,7 +797,7 @@ public class JoinxCursor2 extends ICursor {
 				} else if (cmp > 0) {
 					if (type == 2){
 						--n;
-						Record r = newTable.newLast();
+						BaseRecord r = newTable.newLast();
 						r.setNormalFieldValue(0, null);
 						r.setNormalFieldValue(1, data2.getMem(cur2));
 					}
@@ -810,7 +817,7 @@ public class JoinxCursor2 extends ICursor {
 				} else {
 					if (type > 0){
 						--n;
-						Record r = newTable.newLast();
+						BaseRecord r = newTable.newLast();
 						r.setNormalFieldValue(0, data1.getMem(cur1));
 						r.setNormalFieldValue(1, null);
 					}
@@ -836,7 +843,7 @@ public class JoinxCursor2 extends ICursor {
 				if (type != 0) {
 					for (; n != 0;) {
 						--n;
-						Record r = newTable.newLast();
+						BaseRecord r = newTable.newLast();
 						r.setNormalFieldValue(0, data1.getMem(cur1));
 						r.setNormalFieldValue(1, null);
 						
@@ -858,7 +865,7 @@ public class JoinxCursor2 extends ICursor {
 				if (type == 2) {
 					for (; n != 0;) {
 						--n;
-						Record r = newTable.newLast();
+						BaseRecord r = newTable.newLast();
 						r.setNormalFieldValue(0, null);
 						r.setNormalFieldValue(1, data2.getMem(cur2));
 

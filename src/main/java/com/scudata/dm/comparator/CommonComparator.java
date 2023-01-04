@@ -9,7 +9,7 @@ import com.ibm.icu.text.Collator;
 import com.scudata.common.ICloneable;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
-import com.scudata.dm.Record;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.SerialBytes;
 import com.scudata.resources.EngineMessage;
@@ -123,7 +123,7 @@ public class CommonComparator implements Comparator<Object>, ICloneable {
 				return (t1 < t2 ? 1 : (t1 > t2 ? -1 : 0));
 			}
 		} else if (o1 instanceof Sequence && o2 instanceof Sequence) {
-			return ((Sequence)o1).cmp((Sequence)o2, this);
+			return ((Sequence)o1).compareTo((Sequence)o2, this);
 		} else if (o1 instanceof Boolean && o2 instanceof Boolean) {
 			if (isAsc) {
 				if (((Boolean)o1).booleanValue()) {
@@ -138,12 +138,12 @@ public class CommonComparator implements Comparator<Object>, ICloneable {
 					return ((Boolean)o2).booleanValue() ? 1 : 0;
 				}
 			}
-		} else if (o1 instanceof Record && o2 instanceof Record) {
+		} else if (o1 instanceof BaseRecord && o2 instanceof BaseRecord) {
 			// 为了保证group、id、join等能正常工作，但大小没意义
 			if (isAsc) {
-				return ((Record)o1).compareTo((Record)o2);
+				return ((BaseRecord)o1).compareTo((BaseRecord)o2);
 			} else {
-				return ((Record)o2).compareTo((Record)o1);
+				return ((BaseRecord)o2).compareTo((BaseRecord)o1);
 			}
 		} else if (o1 instanceof SerialBytes && o2 instanceof SerialBytes) {
 			if (isAsc) {

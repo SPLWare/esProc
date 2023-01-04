@@ -6,8 +6,6 @@ import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
 import com.scudata.dm.Sequence;
-import com.scudata.dm.cursor.ICursor;
-import com.scudata.dm.op.Derive;
 import com.scudata.dw.pseudo.IPseudo;
 import com.scudata.dw.pseudo.PseudoDerive;
 import com.scudata.dw.pseudo.PseudoTable;
@@ -16,7 +14,6 @@ import com.scudata.expression.IParam;
 import com.scudata.expression.Node;
 import com.scudata.expression.OperableFunction;
 import com.scudata.expression.ParamInfo2;
-import com.scudata.expression.mfn.dw.New;
 import com.scudata.expression.operator.And;
 import com.scudata.resources.EngineMessage;
 
@@ -62,10 +59,10 @@ public class AttachDerive extends OperableFunction {
 			level = 2;
 		}
 
-		if (param == null && level < 2) {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException("derive" + mm.getMessage("function.missingParam"));
-		}
+		//if (param == null && level < 2) {
+		//	MessageManager mm = EngineMessage.get();
+		//	throw new RQException("derive" + mm.getMessage("function.missingParam"));
+		//}
 		
 		Expression []exps = null;
 		String []names = null;
@@ -75,12 +72,13 @@ public class AttachDerive extends OperableFunction {
 			names = pi.getExpressionStrs2();
 		}
 				
-		Derive derive = new Derive(this, exps, names, option, level);
-		if (cs != null) {
-			derive.setCurrentCell(cs.getCurrent());
-		}
+		//Derive derive = new Derive(this, exps, names, option, level);
+		//if (cs != null) {
+		//	derive.setCurrentCell(cs.getCurrent());
+		//}
 		
-		return operable.addOperation(derive, ctx);
+		//return operable.addOperation(derive, ctx);
+		return operable.derive(this, exps, names, option, level, ctx);
 	}
 	
 	private Object pseudoCalculate(Context ctx) {

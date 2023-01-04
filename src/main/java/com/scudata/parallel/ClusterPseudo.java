@@ -26,7 +26,7 @@ import com.scudata.expression.FunctionLib;
 import com.scudata.expression.mfn.pseudo.Memory;
 import com.scudata.thread.ThreadPool;
 
-public class ClusterPseudo implements IClusterObject, IPseudo {
+public class ClusterPseudo extends IPseudo implements IClusterObject {
 	public static final int TYPE_TABLE = 0;
 	public static final int TYPE_NEW = 1;
 	public static final int TYPE_NEWS = 2;
@@ -36,7 +36,7 @@ public class ClusterPseudo implements IClusterObject, IPseudo {
 	private int []pseudoProxyIds; // 对应的节点机虚表代理标识
 	private Sequence cache;//对import的结果的cache
 	private boolean hasZone;
-	private ClusterTableMetaData table;
+	private ClusterPhyTable table;
 	private Context ctx;
 	
 	public ClusterPseudo(ClusterFile clusterFile, boolean hasZone, int[] pseudoProxyIds) {
@@ -69,7 +69,7 @@ public class ClusterPseudo implements IClusterObject, IPseudo {
 			clusterFile = new ClusterFile(cluster, file, null);
 		}
 		
-		ClusterTableMetaData table = clusterFile.openGroupTable(ctx);
+		ClusterPhyTable table = clusterFile.openGroupTable(ctx);
 		
 		int count = clusterFile.getUnitCount();
 		int[] newPseudoProxyIds = new int[count];
@@ -465,7 +465,7 @@ public class ClusterPseudo implements IClusterObject, IPseudo {
 			for (int i = 0; i < count; ++i) {
 				proxyIds[i] = (Integer)jobs[i].getResult();
 			}
-			return new ClusterTableMetaData(clusterFile, proxyIds, ctx);
+			return new ClusterPhyTable(clusterFile, proxyIds, ctx);
 		} else {
 			RemoteMemoryTable[] tables = new RemoteMemoryTable[count];
 			for (int i = 0; i < count; ++i) {

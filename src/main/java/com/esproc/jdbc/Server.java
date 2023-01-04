@@ -1,31 +1,20 @@
 package com.esproc.jdbc;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Properties;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-import com.scudata.app.common.AppConsts;
-import com.scudata.app.common.AppUtil;
 import com.scudata.app.config.ConfigUtil;
 import com.scudata.app.config.RaqsoftConfig;
-import com.scudata.cellset.datamodel.PgmCellSet;
 import com.scudata.common.IOUtils;
 import com.scudata.common.Logger;
 import com.scudata.common.StringUtils;
 import com.scudata.dm.Env;
 import com.scudata.dm.LocalFile;
-import com.scudata.dm.Param;
-import com.scudata.dm.ParamList;
 
 /**
  * JDBC service
@@ -45,25 +34,9 @@ public class Server {
 	private RaqsoftConfig config = null;
 
 	/**
-	 * The server object is alive
-	 */
-	private boolean isAlive;
-	/**
 	 * The default name of the configuration file
 	 */
 	private static final String CONFIG_FILE = "raqsoftConfig.xml";
-	/**
-	 * Connection and Statement timeout (in seconds).
-	 */
-	private int timeOut = 30 * 60;
-	/**
-	 * Maximum number of connections
-	 */
-	private int maxConn = Integer.MAX_VALUE;
-	/**
-	 * The current ID
-	 */
-	private int currentID = 0;
 
 	/**
 	 * The Server instance
@@ -90,243 +63,6 @@ public class Server {
 			}
 		}
 		return instance;
-	}
-
-	/**
-	 * The server instance is alive
-	 * 
-	 * @return Whether the server instance is alive
-	 */
-	public boolean isAlive() {
-		return isAlive;
-	}
-
-	/**
-	 * Retrieve files that match the filter.
-	 * 
-	 * @param filter SQL rules used. "%" means one or more characters, and "_" means
-	 *               one character.
-	 * @return files map
-	 */
-	public static Map<String, String> getSplList(String filter) {
-		List<String> fileExts = new ArrayList<String>();
-		String[] exts = AppConsts.SPL_FILE_EXTS.split(",");
-		for (String ext : exts)
-			fileExts.add("." + ext);
-		return getFiles(filter, fileExts, false);
-	}
-
-	/**
-	 * 取SPL文件名和参数映射
-	 * @param procedureNamePattern
-	 * @param columnNamePattern
-	 * @return
-	 * @throws SQLException
-	 */
-	public static Map<String, ParamList> getSplParams(
-			String procedureNamePattern, String columnNamePattern)
-			throws SQLException {
-		Map<String, String> map = Server.getSplList(procedureNamePattern);
-		Map<String, ParamList> paramMap = new HashMap<String, ParamList>();
-		Iterator<String> iter = map.keySet().iterator();
-		while (iter.hasNext()) {
-			String key = iter.next().toString();
-			String splPath = key;
-			try {
-				PgmCellSet cs = AppUtil.readCellSet(splPath);
-				if (cs == null)
-					continue;
-				ParamList pl = cs.getParamList();
-				if (pl == null) {
-					continue;
-				}
-				Pattern columnPattern = JDBCUtil.getPattern(columnNamePattern,
-						null);
-				if (columnPattern != null) {
-					ParamList filterParams = new ParamList();
-					Param param;
-					for (int i = 0; i < pl.count(); i++) {
-						param = pl.get(i);
-						if (param != null
-								&& StringUtils.isValidString(param.getName())) {
-							Matcher m = columnPattern.matcher(param.getName());
-							if (m.matches()) {
-								filterParams.add(param);
-							}
-						}
-					}
-					pl = filterParams;
-					cs.setParamList(pl);
-				}
-				String splName = new File(splPath).getName();
-				paramMap.put(splName, pl);
-			} catch (Exception e) {
-				throw new SQLException(e.getMessage(), e);
-			}
-		}
-		return paramMap;
-	}
-
-	/**
-	 * Get files
-	 * 
-	 * @param filter   File name filter
-	 * @param fileExts File extensions
-	 * @param matchAll 是否需要匹配全路径。FALSE时可以仅匹配文件名。
-	 * @return files map
-	 */
-	public static Map<String, String> getFiles(String filter,
-			List<String> fileExts, boolean matchAll) {
-		Map<String, String> map = new HashMap<String, String>();
-		Pattern pattern = JDBCUtil.getPattern(filter, fileExts);
-		String mainPath = Env.getMainPath();
-		if (StringUtils.isValidString(mainPath)) {
-			File mainDir = new File(mainPath);
-			getDirFiles(mainDir.getAbsolutePath().length(), mainDir, map,
-					pattern, fileExts, matchAll);
-		}
-		return map;
-	}
-
-	/**
-	 * Get the files in the specified path
-	 * 
-	 * @param rootLen  The length of the parent file path
-	 * @param pfile    The parent directory
-	 * @param map      Storage file name and title mapping
-	 * @param pattern  The Pattern object
-	 * @param fileExts File extensions
-	 * @param matchAll 是否需要匹配全路径。FALSE时可以仅匹配文件名。
-	 */
-	private static void getDirFiles(int rootLen, File pfile,
-			Map<String, String> map, Pattern pattern, List<String> fileExts,
-			boolean matchAll) {
-		if (pfile == null)
-			return;
-		if (pfile.isDirectory()) {
-			File[] subFiles = pfile.listFiles();
-			if (subFiles == null)
-				return;
-			for (File sf : subFiles) {
-				getDirFiles(rootLen, sf, map, pattern, fileExts, matchAll);
-			}
-		} else {
-			String fileName = pfile.getName();
-			if (pfile.isFile()) {
-				for (String fileExt : fileExts) {
-					if (fileName.toLowerCase().endsWith(fileExt)) {
-						if (pattern != null) {
-							boolean find;
-							if (matchAll) { // 匹配全路径
-								fileName = getSubPath(rootLen, pfile);
-								find = matchPattern(pattern, pfile, fileName,
-										fileExt);
-							} else {
-								// 匹配文件名
-								find = matchPattern(pattern, pfile, fileName,
-										fileExt);
-								// 匹配全路径
-								if (!find) {
-									fileName = getSubPath(rootLen, pfile);
-									find = matchPattern(pattern, pfile,
-											fileName, fileExt);
-								}
-							}
-							if (!find) {
-								break;
-							}
-						}
-						if (matchAll) {
-							fileName = getSubPath(rootLen, pfile);
-						} else {
-							fileName = pfile.getName();
-							fileName = fileName.substring(0, fileName.length()
-									- fileExt.length());
-						}
-						map.put(pfile.getPath(), fileName);
-						break;
-					}
-				}
-			}
-		}
-	}
-
-	/**
-	 * 正则匹配
-	 * @param pattern Pattern
-	 * @param file 文件
-	 * @param fileName 文件名
-	 * @param fileExt 文件后缀
-	 * @return 是否匹配
-	 */
-	private static boolean matchPattern(Pattern pattern, File file,
-			String fileName, String fileExt) {
-		Matcher m;
-		boolean find = false;
-		// 直接匹配正则表达式
-		m = pattern.matcher(fileName);
-		find = m.matches();
-		if (!find) {
-			// pattern可能没加后缀，fileName去掉后缀后正则匹配
-			fileName = fileName.substring(0,
-					fileName.length() - fileExt.length());
-			m = pattern.matcher(fileName);
-			find = m.matches();
-		}
-		if (!find) { // 用文件路径匹配
-			String sPattern = pattern.toString();
-			if (!sPattern.toLowerCase().endsWith(fileExt)) {
-				sPattern += fileExt;
-			}
-			find = sameFileName(sPattern, file.getAbsolutePath());
-		}
-		return find;
-	}
-
-	/**
-	 * Compare whether the two file paths are consistent
-	 * 
-	 * @param file1 Relative path
-	 * @param file2 Absolute path
-	 * @return whether the two file paths are consistent
-	 */
-	private static boolean sameFileName(String file1, String file2) {
-		if (file1 == null || file2 == null)
-			return false;
-		file1 = new File(Env.getMainPath(), file1).getAbsolutePath();
-		file2 = new File(file2).getAbsolutePath();
-		return file1.equals(file2);
-	}
-
-	/**
-	 * Get the child path relative to the parent path
-	 * 
-	 * @param rootLen
-	 * @param f
-	 * @return the child path relative to the parent path
-	 */
-	private static final String getSubPath(int rootLen, File f) {
-		String path = f.getPath();
-		path = path.substring(rootLen);
-		while (path.startsWith("\\") || path.startsWith("/")) {
-			path = path.substring(1);
-		}
-		return path;
-	}
-
-	/**
-	 * Get table names
-	 * 
-	 * @param filter Table name filter
-	 * @return table names map
-	 */
-	public static Map<String, String> getTables(String filter) {
-		List<String> fileExts = new ArrayList<String>();
-		String[] exts = JDBCConsts.DATA_FILE_EXTS.split(",");
-		for (String ext : exts) {
-			fileExts.add("." + ext);
-		}
-		return getFiles(filter, fileExts, true);
 	}
 
 	/**
@@ -511,33 +247,6 @@ public class Server {
 	}
 
 	/**
-	 * Set connection and Statement timeout (in seconds).
-	 * 
-	 * @param t seconds
-	 */
-	public void setTimeout(int t) {
-		timeOut = t;
-	}
-
-	/**
-	 * Get connection and Statement timeout (in seconds).
-	 * 
-	 * @return seconds
-	 */
-	public int getTimeout() {
-		return timeOut;
-	}
-
-	/**
-	 * Get the maximum number of connections
-	 * 
-	 * @return the maximum number of connections
-	 */
-	public int getMaxConnection() {
-		return maxConn;
-	}
-
-	/**
 	 * Create connection
 	 * 
 	 * @param driver
@@ -547,21 +256,8 @@ public class Server {
 	 */
 	public InternalConnection connect(InternalDriver driver)
 			throws SQLException {
-		InternalConnection con = new InternalConnection(driver, Server
-				.getInstance().nextID(), config);
+		InternalConnection con = new InternalConnection(driver, config);
 		return con;
-	}
-
-	/**
-	 * From 1 to the largest integer, then back to 1 to recycle.
-	 * 
-	 * @return ID
-	 */
-	private synchronized int nextID() {
-		if (currentID == Integer.MAX_VALUE)
-			currentID = 1;
-		currentID++;
-		return currentID;
 	}
 
 }

@@ -973,4 +973,17 @@ public class AppUtil {
 		}
 		return baos.toString();
 	}
+	
+	public static void destroyThread(Thread runThread) {
+		if (runThread != null) {
+			try {
+				runThread.stop();
+			} catch (Throwable t1) {
+			}
+			try {
+				runThread.destroy();
+			} catch (Throwable t1) {
+			}
+		}
+	}
 }

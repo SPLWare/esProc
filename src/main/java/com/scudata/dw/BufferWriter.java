@@ -4,10 +4,10 @@ import java.io.*;
 import java.math.*;
 import java.util.Arrays;
 
+import com.scudata.array.IArray;
 import com.scudata.common.*;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.DataStruct;
-import com.scudata.dm.ListBase1;
-import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.SerialBytes;
 import com.scudata.util.Variant;
@@ -34,12 +34,12 @@ public class BufferWriter {
 
 	public static final int MARK2 = 0x20;
 	static final int DECIMAL = 0x20;
-	static final int STRING = 0x21;
+	public static final int STRING = 0x21;
 	static final int SEQUENCE = 0x22;
 	static final int TABLE = 0x23;
 	static final int BLOB = 0x24;
 	static final int RECORD = 0x25;
-
+	
 	public static final int MARK3 = 0x30;
 	public static final int DATE16 = 0x30; // 2000年之后的日期
 	public static final int DATE32 = 0x31; // 2000年之前的日期
@@ -64,8 +64,15 @@ public class BufferWriter {
 	public static final int DIGIT4 = 0xB0;
 	public static final int STRING4 = 0xC0;
 	public static final int STRING5 = 0xD0;
+	public static final int STRING4_ASSIC = 0xE0;//
+	public static final int STRING5_ASSIC = 0xF0;
 
-	private static final double MINFLOAT = 0.000001;
+	public static final int FLOAT_SCALE0 = 0x00;
+	public static final int FLOAT_SCALE1 = 0x40;
+	public static final int FLOAT_SCALE2 = 0x80;
+	public static final int FLOAT_SCALE3 = 0xC0;
+	
+	public static final double MINFLOAT = 0.000001;
 	private static final int MAX_DIGIT_LEN = 30;
 
 	public static final long BASEDATE; // 1992年之前有的日期不能被86400000整除
@@ -289,6 +296,7 @@ public class BufferWriter {
 		}
 
 		byte[] bytearr = new byte[utflen];
+		boolean isAssicString = true;//char:01-7F
 		for (int i = 0; i < strlen; i++) {
 			c = charr[i];
 			if ((c >= 0x0001) && (c <= 0x007F)) {
@@ -297,19 +305,32 @@ public class BufferWriter {
 				bytearr[count++] = (byte)(0xE0 | ((c >> 12) & 0x0F));
 				bytearr[count++] = (byte)(0x80 | ((c >> 6) & 0x3F));
 				bytearr[count++] = (byte)(0x80 | ((c >> 0) & 0x3F));
+				isAssicString = false;
 			} else {
 				bytearr[count++] = (byte)(0xC0 | ((c >> 6) & 0x1F));
 				bytearr[count++] = (byte)(0x80 | ((c >> 0) & 0x3F));
+				isAssicString = false;
 			}
 		}
 
-		if (utflen <= 0x1F) {
-			write(STRING4 | utflen);
-			write(bytearr);
+		if (isAssicString) {
+			if (utflen <= 0x1F) {
+				write(STRING4_ASSIC | utflen);
+				write(bytearr);
+			} else {
+				write(STRING);
+				writeInt(utflen);
+				write(bytearr);
+			}
 		} else {
-			write(STRING);
-			writeInt(utflen);
-			write(bytearr);
+			if (utflen <= 0x1F) {
+				write(STRING4 | utflen);
+				write(bytearr);
+			} else {
+				write(STRING);
+				writeInt(utflen);
+				write(bytearr);
+			}
 		}
 	}
 
@@ -598,7 +619,7 @@ public class BufferWriter {
 		}
 	}
 	
-	private void writeRecord(Record r) throws IOException {
+	private void writeRecord(BaseRecord r) throws IOException {
 		DataStruct ds = r.dataStruct();
 		int fcount = ds.getFieldCount();
 		int id = structManager.getDataStructID(ds);
@@ -612,7 +633,7 @@ public class BufferWriter {
 	}
 	
 	private void writeSequence(Sequence seq) throws IOException {
-		ListBase1 mems = seq.getMems();
+		IArray mems = seq.getMems();
 		int len = mems.size();
 
 		DataStruct ds = seq.dataStruct();
@@ -630,7 +651,7 @@ public class BufferWriter {
 			writeInt(id);
 			writeInt(len);
 			for (int i = 1; i <= len; ++i) {
-				Record r = (Record)mems.get(i);
+				BaseRecord r = (BaseRecord)mems.get(i);
 				Object []vals = r.getFieldValues();
 				for (int f = 0; f < fcount; ++f) {
 					innerWriteObject(vals[f]);
@@ -688,8 +709,8 @@ public class BufferWriter {
 			writeInt(((Number)obj).intValue());
 		} else if (obj instanceof Sequence) {
 			writeSequence((Sequence)obj);
-		} else if (obj instanceof Record) {
-			writeRecord((Record)obj);
+		} else if (obj instanceof BaseRecord) {
+			writeRecord((BaseRecord)obj);
 		} else if (obj instanceof byte[]) {
 			write(BLOB);
 			writeBytes((byte[])obj);
@@ -746,5 +767,38 @@ public class BufferWriter {
 		if (repeatCount > 0) {
 			writeRepeat();
 		}
+	}
+	
+	//小端方式写入Short
+	public void writeLittleEndianShort(int v) throws IOException {
+		write((v >>> 0) & 0xFF);
+		write((v >>> 8) & 0xFF);
+	}
+	
+	//小端方式写入int
+	public void writeLittleEndianInt(int n) throws IOException {
+		write(n & 0xFF);
+		write((n >>>  8) & 0xFF);
+		write((n >>> 16) & 0xFF);
+		write(n >>> 24);
+	}
+	
+	//小端方式写入Long
+	public void writeLittleEndianLong(long v) throws IOException {
+		if (buf.length - count < 8) {
+			enlargeBuffer();
+		}
+		
+		byte []writeBuffer = this.buf;
+		int seq = count;
+		writeBuffer[seq++] = (byte)(v >>> 0);
+		writeBuffer[seq++] = (byte)(v >>> 8);
+		writeBuffer[seq++] = (byte)(v >>> 16);
+		writeBuffer[seq++] = (byte)(v >>> 24);
+		writeBuffer[seq++] = (byte)(v >>> 32);
+		writeBuffer[seq++] = (byte)(v >>> 40);
+		writeBuffer[seq++] = (byte)(v >>> 48);
+		writeBuffer[seq++] = (byte)(v >>> 56);
+		count = seq;
 	}
 }

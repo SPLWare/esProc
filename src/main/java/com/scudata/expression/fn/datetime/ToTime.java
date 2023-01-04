@@ -21,13 +21,19 @@ import com.scudata.resources.EngineMessage;
  *
  */
 public class ToTime extends Function {
-	public Object calculate(Context ctx) {
+	/**
+	 * 检查表达式的有效性，无效则抛出异常
+	 */
+	public void checkValidity() {
 		if (param == null) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("time" + mm.getMessage("function.missingParam"));
-		} else if (param.isLeaf()) {
+		}
+	}
+
+	public Object calculate(Context ctx) {
+		if (param.isLeaf()) {
 			Object result1 = param.getLeafExpression().calculate(ctx);
-			if (result1 == null) return null;
 
 			if (result1 instanceof String) {
 				try {
@@ -62,6 +68,8 @@ public class ToTime extends Function {
 					}
 				}
 				return new java.sql.Time(calendar.getTimeInMillis());
+			} else if (result1 == null) {
+				return null;
 			} else {
 				MessageManager mm = EngineMessage.get();
 				throw new RQException("time" + mm.getMessage("function.paramTypeError"));

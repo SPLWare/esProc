@@ -2,27 +2,28 @@ package com.scudata.dm.cursor;
 
 import java.util.ArrayList;
 
+import com.scudata.array.IArray;
 import com.scudata.cellset.INormalCell;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.ComputeStack;
 import com.scudata.dm.Context;
 import com.scudata.dm.DataStruct;
 import com.scudata.dm.IResource;
-import com.scudata.dm.ListBase1;
 import com.scudata.dm.Param;
-import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
-import com.scudata.dm.Sequence.Current;
+import com.scudata.dm.Current;
 import com.scudata.dm.op.GroupxResult;
 import com.scudata.dm.op.IDResult;
 import com.scudata.dm.op.IGroupsResult;
 import com.scudata.dm.op.Operable;
 import com.scudata.dm.op.Operation;
-import com.scudata.dm.op.TotalResult;
-import com.scudata.dw.IColumnCursorUtil;
+import com.scudata.dw.ColPhyTable;
+import com.scudata.dw.JoinCursor;
 import com.scudata.expression.Expression;
+import com.scudata.expression.Function;
 import com.scudata.resources.EngineMessage;
 import com.scudata.util.CursorUtil;
 import com.scudata.util.Variant;
@@ -32,7 +33,7 @@ import com.scudata.util.Variant;
  * @author WangXiaoJun
  *
  */
-abstract public class ICursor implements IResource, Operable {
+abstract public class ICursor extends Operable implements IResource {
 	public static final int MAXSIZE = Integer.MAX_VALUE - 1; // 如果fetch参数等于此值表示取所有
 	public static final long MAXSKIPSIZE = Long.MAX_VALUE; // 如果skip的参数等于此值表示跳过所有
 	
@@ -46,6 +47,7 @@ abstract public class ICursor implements IResource, Operable {
 	
 	protected DataStruct dataStruct; // 结果集数据结构
 	private boolean isDecrease = false; // 附加的运算是否会使数据变少，比如select
+	private boolean isFinished = false; // 是否调用了finish
 	
 	/**
 	 * 取游标的默认取数大小
@@ -70,7 +72,7 @@ abstract public class ICursor implements IResource, Operable {
 	 * 子类重载此方法时需要调用一下父类的方法
 	 * @param ctx
 	 */
-	protected void resetContext(Context ctx) {
+	public void resetContext(Context ctx) {
 		if (this.ctx != ctx) {
 			this.ctx = ctx;
 			opList = duplicateOperations(ctx);
@@ -141,36 +143,14 @@ abstract public class ICursor implements IResource, Operable {
 	 * @return Sequence
 	 */
 	public static Sequence append(Sequence dest, Sequence src) {
-		if (src == null || src.length() == 0) return dest;
-		
-		if (dest instanceof Table) {
-			DataStruct ds1 = dest.dataStruct();
-			DataStruct ds2 = src.dataStruct();
-			if (ds1 == ds2) {
-				dest.getMems().addAll(src.getMems());
-			} else if (ds1.isCompatible(ds2)) {
-				if (ds1 != ds2) {
-					for (int i = 1, len = src.length(); i <= len; ++i) {
-						Record r = (Record)src.getMem(i);
-						r.setDataStruct(ds1);
-					}
-				}
-				
-				dest.getMems().addAll(src.getMems());
-			} else {
-				Sequence seq = new Sequence(dest.length() + src.length());
-				seq.getMems().addAll(dest.getMems());
-				seq.getMems().addAll(src.getMems());
-				return seq;
-			}
+		if (src != null) {
+			return dest.append(src);
 		} else {
-			dest.getMems().addAll(src.getMems());
+			return dest;
 		}
-		
-		return dest;
 	}
 	
-	private static Sequence doOperation(Sequence result, ArrayList<Operation> opList, Context ctx) {
+	protected Sequence doOperation(Sequence result, ArrayList<Operation> opList, Context ctx) {
 		for (Operation op : opList) {
 			if (result == null || result.length() == 0) {
 				return null;
@@ -200,7 +180,8 @@ abstract public class ICursor implements IResource, Operable {
 		return result;
 	}
 	
-	private static Sequence finish(ArrayList<Operation> opList, Context ctx) {
+	protected Sequence finish(ArrayList<Operation> opList, Context ctx) {
+		isFinished = true;
 		Sequence result = null;
 		for (Operation op : opList) {
 			if (result == null || result.length() == 0) {
@@ -291,9 +272,8 @@ abstract public class ICursor implements IResource, Operable {
 			ArrayList<Operation> opList = this.opList;
 			
 			do {
-				Sequence cur = get(n);
+				Sequence cur = fuzzyGet(n);
 				if (cur != null) {
-					int len = cur.length();
 					if (opList != null) {
 						cur = doOperation(cur, opList, ctx);
 						if (result == null) {
@@ -301,28 +281,11 @@ abstract public class ICursor implements IResource, Operable {
 						} else if (cur != null) {
 							result = append(result, cur);
 						}
-						
-						if (len < n) {
-							Sequence tmp = finish(opList, ctx);
-							if (tmp != null) {
-								if (result == null) {
-									result = tmp;
-								} else {
-									result = append(result, tmp);
-								}
-							}
-							
-							close();
-						}
 					} else {
 						if (result == null) {
 							result = cur;
 						} else {
 							result = append(result, cur);
-						}
-						
-						if (len < n) {
-							close();
 						}
 					}
 				} else {
@@ -470,7 +433,7 @@ abstract public class ICursor implements IResource, Operable {
 		Object []keys = new Object[keyCount];
 
 		ComputeStack stack = ctx.getComputeStack();
-		Sequence.Current current = data.new Current();
+		Current current = new Current(data);
 		stack.push(current);
 		current.setCurrent(1);
 		int index = 2;
@@ -510,7 +473,7 @@ abstract public class ICursor implements IResource, Operable {
 
 				index = 1;
 				stack.pop();
-				current = data.new Current();
+				current = new Current(data);
 				stack.push(current);
 			}
 		} finally {
@@ -546,7 +509,7 @@ abstract public class ICursor implements IResource, Operable {
 		Object []keys = new Object[keyCount];
 
 		ComputeStack stack = ctx.getComputeStack();
-		Sequence.Current current = data.new Current();
+		Current current = new Current(data);
 		stack.push(current);
 		current.setCurrent(1);
 		int index = 2;
@@ -578,7 +541,7 @@ abstract public class ICursor implements IResource, Operable {
 
 				index = 1;
 				stack.pop();
-				current = data.new Current();
+				current = new Current(data);
 				stack.push(current);
 			}
 		} finally {
@@ -611,7 +574,7 @@ abstract public class ICursor implements IResource, Operable {
 
 		Sequence newTable = null;
 		ComputeStack stack = ctx.getComputeStack();
-		Sequence.Current current = data.new Current();
+		Current current = new Current(data);
 		stack.push(current);
 		current.setCurrent(1);
 		int index = 2;
@@ -639,7 +602,7 @@ abstract public class ICursor implements IResource, Operable {
 
 					index = 1;
 					stack.pop();
-					current = data.new Current();
+					current = new Current(data);
 					stack.push(current);
 				}
 			} else {
@@ -663,7 +626,7 @@ abstract public class ICursor implements IResource, Operable {
 
 					index = 1;
 					stack.pop();
-					current = data.new Current();
+					current = new Current(data);
 					stack.push(current);
 				}
 			}
@@ -694,8 +657,8 @@ abstract public class ICursor implements IResource, Operable {
 			return null;
 		}
 
-		ListBase1 mems = data.getMems();
-		Record r = (Record)mems.get(1);
+		IArray mems = data.getMems();
+		BaseRecord r = (BaseRecord)mems.get(1);
 		Sequence newTable = null;
 		Object key = r.getNormalFieldValue(field);
 		int index = 2;
@@ -703,7 +666,7 @@ abstract public class ICursor implements IResource, Operable {
 		End:
 		while (true) {
 			for (int len = data.length(); index <= len; ++index) {
-				r = (Record)mems.get(index);;
+				r = (BaseRecord)mems.get(index);;
 				if (!Variant.isEquals(key, r.getNormalFieldValue(field))) {
 					break End;
 				}
@@ -751,8 +714,8 @@ abstract public class ICursor implements IResource, Operable {
 		}
 
 		Sequence newTable = null;
-		ListBase1 mems = data.getMems();
-		Record r = (Record)mems.get(1);
+		IArray mems = data.getMems();
+		BaseRecord r = (BaseRecord)mems.get(1);
 		int index = 2;
 		
 		Object []keys = new Object[keyCount];
@@ -763,7 +726,7 @@ abstract public class ICursor implements IResource, Operable {
 		End:
 		while (true) {
 			for (int len = data.length(); index <= len; ++index) {
-				r = (Record)mems.get(index);
+				r = (BaseRecord)mems.get(index);
 				for (int i = 0; i < keyCount; ++i) {
 					if (!Variant.isEquals(keys[i], r.getNormalFieldValue(fields[i]))) {
 						break End;
@@ -810,8 +773,8 @@ abstract public class ICursor implements IResource, Operable {
 
 		int keyCount = fields.length;
 		Sequence newTable = null;
-		ListBase1 mems = data.getMems();
-		Record r = (Record)mems.get(1);
+		IArray mems = data.getMems();
+		BaseRecord r = (BaseRecord)mems.get(1);
 		int index = 2;
 		int count = 0;
 		
@@ -823,7 +786,7 @@ abstract public class ICursor implements IResource, Operable {
 		End:
 		while (true) {
 			for (int len = data.length(); index <= len; ++index) {
-				r = (Record)mems.get(index);
+				r = (BaseRecord)mems.get(index);
 				for (int i = 0; i < keyCount; ++i) {
 					if (!Variant.isEquals(keys[i], r.getNormalFieldValue(fields[i]))) {
 						break End;
@@ -876,7 +839,7 @@ abstract public class ICursor implements IResource, Operable {
 		Object []keys = new Object[keyCount];
 
 		ComputeStack stack = ctx.getComputeStack();
-		Sequence.Current current = data.new Current();
+		Current current = new Current(data);
 		stack.push(current);
 		current.setCurrent(1);
 
@@ -904,7 +867,7 @@ abstract public class ICursor implements IResource, Operable {
 
 				index = 1;
 				stack.pop();
-				current = data.new Current();
+				current = new Current(data);
 				stack.push(current);
 			}
 		} finally {
@@ -987,7 +950,10 @@ abstract public class ICursor implements IResource, Operable {
 	public void close() {
 		cache = null;
 		
-		if (opList != null) {
+		if (isFinished) {
+			// 可以再reset
+			isFinished = false;
+		} else if (opList != null) {
 			finish(opList, ctx);
 		}
 	}
@@ -998,6 +964,15 @@ abstract public class ICursor implements IResource, Operable {
 	 * @return Sequence
 	 */
 	protected abstract Sequence get(int n);
+
+	/**
+	 * 模糊取记录，返回的记录数可以不与给定的数量相同
+	 * @param n 要取的记录数
+	 * @return Sequence
+	 */
+	protected Sequence fuzzyGet(int n) {
+		return get(n);
+	}
 
 	/**
 	 * 跳过指定记录数，子类需要实现此方法
@@ -1036,6 +1011,21 @@ abstract public class ICursor implements IResource, Operable {
 	}
 	
 	/**
+	 * 取分组计算对象
+	 * @param exps 分组字段表达式数组
+	 * @param names 分组字段名数组
+	 * @param calcExps 汇总字段表达式数组
+	 * @param calcNames 汇总字段名数组
+	 * @param opt 选项
+	 * @param ctx 计算上下文
+	 * @return IGroupsResult
+	 */
+	public IGroupsResult getGroupsResult(Expression[] exps, String[] names, Expression[] calcExps, 
+			String[] calcNames, String opt, Context ctx) {
+		return IGroupsResult.instance(exps, names, calcExps, calcNames, opt, ctx);
+	}
+	
+	/**
 	 * 对游标进行分组汇总
 	 * @param exps 分组字段表达式数组
 	 * @param names 分组字段名数组
@@ -1047,10 +1037,6 @@ abstract public class ICursor implements IResource, Operable {
 	 */
 	public Table groups(Expression[] exps, String[] names, Expression[] calcExps, String[] calcNames, 
 			String opt, Context ctx) {
-		if (isColumnCursor()) {
-			return IColumnCursorUtil.util.groups(this, exps, names, calcExps, calcNames, opt, ctx);
-		}
-		
 		IGroupsResult groups = IGroupsResult.instance(exps, names, calcExps, calcNames, opt, ctx);
 		groups.push(this);
 		return groups.getResultTable();
@@ -1069,10 +1055,6 @@ abstract public class ICursor implements IResource, Operable {
 	 */
 	public Table groups(Expression[] exps, String[] names, Expression[] calcExps, String[] calcNames, 
 			String opt, Context ctx, int groupCount) {
-		if (isColumnCursor()) {
-			return IColumnCursorUtil.util.groups(this, exps, names, calcExps, calcNames, opt, ctx, groupCount);
-		}
-		
 		if (groupCount < 1 || exps == null || exps.length == 0) {
 			return groups(exps, names, calcExps, calcNames, opt, ctx);
 		} else if (opt != null && opt.indexOf('n') != -1) {
@@ -1117,11 +1099,12 @@ abstract public class ICursor implements IResource, Operable {
 	 * 对每个表达式进行哈希去重，保留count个不同值
 	 * @param exps 表达式数组
 	 * @param count 数量
+	 * @param opt 选项
 	 * @param ctx 计算上下文
 	 * @return Sequence 返回序列的序列，如果count为1返回序列
 	 */
-	public Sequence id(Expression []exps, int count, Context ctx) {
-		IDResult id = new IDResult(exps, count, ctx);
+	public Sequence id(Expression []exps, int count, String opt, Context ctx) {
+		IDResult id = new IDResult(exps, count, opt, ctx);
 		id.push(this);
 		return id.getResultSequence();
 	}
@@ -1146,7 +1129,7 @@ abstract public class ICursor implements IResource, Operable {
 				Sequence src = fuzzyFetch(FETCHCOUNT);
 				if (src == null || src.length() == 0) break;
 				
-				Current current = src.new Current();
+				Current current = new Current(src);
 				stack.push(current);
 				try {
 					if (c == null) {
@@ -1213,16 +1196,65 @@ abstract public class ICursor implements IResource, Operable {
 	 * @return 如果只有一个汇总表达式返回汇总结果，否则返回汇总结果构成的序列
 	 */
 	public Object total(Expression[] calcExps, Context ctx) {
-		TotalResult total = new TotalResult(calcExps, ctx);
-		total.push(this);
-		return total.result();
+		//TotalResult total = new TotalResult(calcExps, ctx);
+		//total.push(this);
+		//return total.result();
+		Table table = groups(null, null, calcExps, null, null, ctx);
+		
+		if (table == null || table.length() == 0) {
+			return null;
+		} else {
+			BaseRecord r = table.getRecord(1);
+			int count = calcExps.length;
+			if (count == 1) {
+				return r.getNormalFieldValue(0);
+			} else {
+				Sequence seq = new Sequence(count);
+				for (int i = 0; i < count; ++i) {
+					seq.add(r.getNormalFieldValue(i));
+				}
+				
+				return seq;
+			}
+		}
 	}
 	
 	/**
-	 * 是否是列式游标
-	 * @return
+	 * 与游标做有序归并连接
+	 * @param function 对应的函数
+	 * @param exps 当前表关联字段表达式数组
+	 * @param cursors 维表游标数组
+	 * @param codeExps 维表关联字段表达式数组
+	 * @param newExps
+	 * @param newNames
+	 * @param opt 选项
+	 * @param ctx 计算上下文
+	 * @return Operable
 	 */
-	public boolean isColumnCursor() {
-		return false;
+	public Operable mergeJoinx(Function function, Expression[][] exps, 
+			ICursor []cursors, Expression[][] codeExps, 
+			Expression[][] newExps, String[][] newNames, String opt, Context ctx) {
+		//TODO 稍后要修改为Operable
+		return CSJoinxCursor3.MergeJoinx(this, exps, cursors, codeExps, newExps, newNames, null, ctx, FETCHCOUNT, opt);
 	}
+	
+	/**
+	 * 得到进行news计算的游标 T.news(this)
+	 * @param table 基表
+	 * @param exps 取出表达式
+	 * @param fields 取出字段名称
+	 * @param csNames 参数K，指定A/cs参与连接的字段
+	 * @param type	计算类型，0:derive; 1:new; 2:news; 0x1X 表示跳段;
+	 * @param option 选项	
+	 * @param filter 对table的过滤条件
+	 * @param fkNames 对table的Switch过滤条件
+	 * @param codes
+	 * @param ctx
+	 */
+	public ICursor attachNews(ColPhyTable table, String[] csNames, 
+			Expression filter, Expression []exps, String[] names, String []fkNames, 
+			Sequence []codes, String[] opts, String option, int type, Context ctx) {
+		return new JoinCursor(table, exps, names, this, csNames, type, option, filter, fkNames, codes, opts, ctx); 
+	}
+	
 }

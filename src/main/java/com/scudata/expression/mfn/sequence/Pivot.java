@@ -16,7 +16,10 @@ import com.scudata.resources.EngineMessage;
  *
  */
 public class Pivot extends SequenceFunction {
-	public Object calculate(Context ctx) {
+	/**
+	 * 检查表达式的有效性，无效则抛出异常
+	 */
+	public void checkValidity() {
 		if (param == null) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("pivot" + mm.getMessage("function.missingParam"));
@@ -24,7 +27,9 @@ public class Pivot extends SequenceFunction {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("pivot" + mm.getMessage("function.invalidParam"));
 		}
+	}
 
+	public Object calculate(Context ctx) {
 		int size = param.getSubSize();
 		if (size > 3) {
 			MessageManager mm = EngineMessage.get();
@@ -72,16 +77,12 @@ public class Pivot extends SequenceFunction {
 			nameObjects = pi.getValues2(ctx);
 		}
 		
-		if (option == null) {
-			return srcSequence.pivot(gexps, gnames, fexp, vexp, nexps, nameObjects, ctx);
-		} else if (option.indexOf('s') != -1) {
-			return srcSequence.pivot_s(gexps, gnames, fexp, vexp, nexps, nameObjects, ctx);
-		} else if (option.indexOf('r') != -1) {
+		if (option == null || option.indexOf('r') == -1) {
+			return srcSequence.pivot(gexps, gnames, fexp, vexp, nexps, nameObjects, option, ctx);
+		} else {
 			String fname = fexp.getIdentifierName();
 			String vname = vexp.getIdentifierName();
 			return srcSequence.unpivot(gexps, gnames, fname, vname, nexps, nameObjects, ctx);
-		} else {
-			return srcSequence.pivot(gexps, gnames, fexp, vexp, nexps, nameObjects, ctx);
 		}
 	}
 }

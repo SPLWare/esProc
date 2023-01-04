@@ -8,10 +8,10 @@ import com.scudata.dm.Context;
 import com.scudata.dm.Env;
 import com.scudata.dm.FileGroup;
 import com.scudata.dm.FileObject;
-import com.scudata.dw.GroupTable;
-import com.scudata.dw.TableMetaData;
+import com.scudata.dw.ComTable;
+import com.scudata.dw.PhyTable;
 import com.scudata.expression.IParam;
-import com.scudata.expression.TableMetaDataFunction;
+import com.scudata.expression.PhyTableFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
@@ -20,7 +20,7 @@ import com.scudata.resources.EngineMessage;
  * @author RunQian
  *
  */
-public class Create extends TableMetaDataFunction{
+public class Create extends PhyTableFunction{
 
 	public Object calculate(Context ctx) {
 		Object fo = null;			
@@ -59,9 +59,9 @@ public class Create extends TableMetaDataFunction{
 		
 		if (fo instanceof FileObject) {
 			File file = ((FileObject) fo).getLocalFile().file();
-			((TableMetaData)table).getGroupTable().reset(file, "n", ctx, distribute);
+			((PhyTable)table).getGroupTable().reset(file, "n", ctx, distribute);
 
-			TableMetaData table = GroupTable.openBaseTable(file, ctx);
+			PhyTable table = ComTable.openBaseTable(file, ctx);
 			Integer partition = ((FileObject) fo).getPartition();
 			if (partition != null && partition.intValue() > 0) {
 				table.getGroupTable().setPartition(partition);
@@ -79,7 +79,7 @@ public class Create extends TableMetaDataFunction{
 			String fileName = fg.getFileName();
 			for (int i = 0; i < pcount; ++i) {
 				File newFile = Env.getPartitionFile(partitions[i], fileName);
-				((TableMetaData)table).getGroupTable().reset(newFile, "n", ctx, distribute);
+				((PhyTable)table).getGroupTable().reset(newFile, "n", ctx, distribute);
 			}
 			return fg.open(null, ctx);
 		} else {

@@ -7,8 +7,10 @@ import com.scudata.common.Logger;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.BFileWriter;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.ComputeStack;
 import com.scudata.dm.Context;
+import com.scudata.dm.Current;
 import com.scudata.dm.DataStruct;
 import com.scudata.dm.Env;
 import com.scudata.dm.FileObject;
@@ -141,7 +143,7 @@ public class GroupxResult implements IResult {
 		int capacity = groups.length;
 
 		ComputeStack stack = ctx.getComputeStack();
-		Sequence.Current current = table.new Current();
+		Current current = new Current(table);
 		stack.push(current);
 
 		try {
@@ -151,7 +153,7 @@ public class GroupxResult implements IResult {
 					keys[k] = exps[k].calculate(ctx);
 				}
 
-				Record r;
+				BaseRecord r;
 				int hash = hashUtil.hashCode(keys);
 				if (groups[hash] == null) {
 					if (outTable.length() == capacity) {
@@ -211,7 +213,7 @@ public class GroupxResult implements IResult {
 							r.setNormalFieldValue(f, val);
 						}
 					} else {
-						r = (Record)groups[hash].get(index);
+						r = (BaseRecord)groups[hash].get(index);
 						for (int v = 0, f = keyCount; v < valCount; ++v, ++f) {
 							Object val = gathers[v].gather(r.getNormalFieldValue(f), ctx);
 							r.setNormalFieldValue(f, val);
@@ -288,7 +290,7 @@ public class GroupxResult implements IResult {
 		int capacity = recordsArray.length;
 
 		ComputeStack stack = ctx.getComputeStack();
-		Sequence.Current current = table.new Current();
+		Current current = new Current(table);
 		stack.push(current);
 
 		try {
@@ -298,7 +300,7 @@ public class GroupxResult implements IResult {
 					keys[k] = exps[k].calculate(ctx);
 				}
 
-				Record r;
+				BaseRecord r;
 				int hash = hashUtil.hashCode(keys);
 				if (recordsArray[hash] == null) {
 					if (totalRecordCount == capacity) {
@@ -523,6 +525,13 @@ public class GroupxResult implements IResult {
 		} else {
 			return hashGroupResult();
 		}
+	}
+	
+	/**
+	 * 数据推送结束时调用
+	 * @param ctx 计算上下文
+	 */
+	public void finish(Context ctx) {
 	}
 	
 	/**

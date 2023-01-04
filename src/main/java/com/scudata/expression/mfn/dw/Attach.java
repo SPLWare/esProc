@@ -5,9 +5,9 @@ import java.io.IOException;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
-import com.scudata.dw.ITableMetaData;
+import com.scudata.dw.IPhyTable;
 import com.scudata.expression.IParam;
-import com.scudata.expression.TableMetaDataFunction;
+import com.scudata.expression.PhyTableFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
@@ -16,14 +16,14 @@ import com.scudata.resources.EngineMessage;
  * @author RunQian
  *
  */
-public class Attach extends TableMetaDataFunction {
+public class Attach extends PhyTableFunction {
 	public Object calculate(Context ctx) {
 		if (param == null) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("attach" + mm.getMessage("function.missingParam"));
 		} else if (param.isLeaf()) {
 			String tableName = param.getLeafExpression().getIdentifierName();
-			ITableMetaData table = this.table;
+			IPhyTable table = this.table;
 			table = table.getAnnexTable(tableName);
 			if (table == null) {
 				MessageManager mm = EngineMessage.get();

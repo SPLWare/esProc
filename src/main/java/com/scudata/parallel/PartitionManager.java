@@ -13,7 +13,7 @@ import com.scudata.common.RQException;
 import com.scudata.dm.Env;
 import com.scudata.dm.Machines;
 import com.scudata.dw.BufferReader;
-import com.scudata.dw.GroupTable;
+import com.scudata.dw.ComTable;
 import com.scudata.ide.common.GM;
 import com.scudata.resources.EngineMessage;
 
@@ -386,7 +386,7 @@ public class PartitionManager {
 			}
 			
 			if (hasExtFile) {
-				uploadFile = getTargetFile(absolutePath + GroupTable.SF_SUFFIX, false);
+				uploadFile = getTargetFile(absolutePath + ComTable.SF_SUFFIX, false);
 				raf = new RandomAccessFile(uploadFile, "rw");
 				raf.setLength(fileSize);
 				raf.seek(0);
@@ -406,7 +406,7 @@ public class PartitionManager {
 				}
 				Logger.debug("Receive file:"+uploadFile.getAbsolutePath()+" OK.");
 			} else {
-				uploadFile = getTargetFile(absolutePath + GroupTable.SF_SUFFIX, false);
+				uploadFile = getTargetFile(absolutePath + ComTable.SF_SUFFIX, false);
 				if (uploadFile.exists()) {
 					deleteFile(uploadFile);
 				}
@@ -414,7 +414,7 @@ public class PartitionManager {
 			Logger.debug("Receive file:"+f.getAbsolutePath()+" OK.");
 			return;
 		}
-		GroupTable table = GroupTable.open(uploadFile, null);
+		ComTable table = ComTable.open(uploadFile, null);
 		
 		long []positions = table.cmpBlockLinkInfo(blockLinkInfo);
 		sd.write(positions);
@@ -464,7 +464,7 @@ public class PartitionManager {
 		}
 		
 		if (hasExtFile) {
-			uploadFile = getTargetFile(absolutePath + GroupTable.SF_SUFFIX, false);
+			uploadFile = getTargetFile(absolutePath + ComTable.SF_SUFFIX, false);
 			raf = new RandomAccessFile(uploadFile, "rw");
 			raf.setLength(fileSize);
 			raf.seek(0);
@@ -484,7 +484,7 @@ public class PartitionManager {
 			}
 			Logger.debug("Receive file:"+uploadFile.getAbsolutePath()+" OK.");
 		} else {
-			uploadFile = getTargetFile(absolutePath + GroupTable.SF_SUFFIX, false);
+			uploadFile = getTargetFile(absolutePath + ComTable.SF_SUFFIX, false);
 			if (uploadFile.exists()) {
 				deleteFile(uploadFile);
 			}

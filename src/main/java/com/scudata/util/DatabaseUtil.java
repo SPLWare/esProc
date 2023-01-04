@@ -8,6 +8,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import com.scudata.array.IArray;
 import com.scudata.common.DBConfig;
 import com.scudata.common.DBInfo;
 import com.scudata.common.DBSession;
@@ -1018,7 +1019,7 @@ public class DatabaseUtil {
 		}
 		boolean nolimit = recordLimit < 0;
 		while (rs.next()) {
-			Record record = table.newLast();
+			BaseRecord record = table.newLast();
 			for (int n = 1; n <= colCount; ++n) {
 				int type = 0;
 				if (dbType == DBTypes.ORACLE) {
@@ -1098,7 +1099,7 @@ public class DatabaseUtil {
 		}
 		Sequence series = new Sequence();
 		while (rs.next()) {
-			Record record = table.newLast();
+			BaseRecord record = table.newLast();
 			series.add(record);
 			for (int n = 1; n <= colCount; ++n) {
 				int type = 0;
@@ -1165,7 +1166,7 @@ public class DatabaseUtil {
 
 		Table table = new Table(colNames);
 		if (rs.next()) {
-			Record record = table.newLast();
+			BaseRecord record = table.newLast();
 			for (int n = 1; n <= colCount; ++n) {
 				int type = 0;
 				if (dbType == DBTypes.ORACLE) {
@@ -1845,7 +1846,7 @@ public class DatabaseUtil {
 	 * @param keyNames	String[] 主键名
 	 * @param keyValues	Object[][] 多记录的主键值构成的数组
 	 * @param dbs	DBSession
-	 * @return Record
+	 * @return BaseRecord
 	 */
 	public static Table query(String tableName, String[] fields, String[] keyNames, Object[][] keyValues, DBSession dbs,
 			Context ctx) {
@@ -1921,7 +1922,7 @@ public class DatabaseUtil {
 	 * @param keyNames	String[] 主键名
 	 * @param keyValues	Object[]主键值
 	 * @param dbs	DBSession
-	 * @return Record
+	 * @return BaseRecord
 	 */
 	public static Sequence query(String tableName, String[] fields, String[] keyNames, Object[] keyValues,
 			DBSession dbs, Context ctx, String opt) {
@@ -1987,7 +1988,7 @@ public class DatabaseUtil {
 	 * @param keyNames	String[] 主键名
 	 * @param keyValues	Object[]主键值
 	 * @param dbs	DBSession
-	 * @return Record
+	 * @return BaseRecord
 	 */
 	public static Sequence query(String tableName, String[] keyNames, Object[] keyValues, DBSession dbs, Context ctx,
 			String opt) {
@@ -2128,7 +2129,7 @@ public class DatabaseUtil {
 		if (type == 0) {
 			sql = "select count(*) from " + addTilde(tableName, dbs) + " where " + condition;
 			Sequence se = retrieve(sql, params.toArray(), null, dbs, null, -1);
-			n = ((Number) ((Record) se.get(1)).getFieldValue(0)).intValue();
+			n = ((Number) ((BaseRecord) se.get(1)).getFieldValue(0)).intValue();
 			if (n > 0) {
 				type = 1;
 			} else {
@@ -3026,7 +3027,7 @@ public class DatabaseUtil {
 
 		String sql = "select count(*) from " + addTilde(tableName, dbs) + " where " + condition;
 		Sequence se = retrieve(sql, conParams.toArray(), null, dbs, null, -1);
-		int n = ((Number) ((Record) se.get(1)).getFieldValue(0)).intValue();
+		int n = ((Number) ((BaseRecord) se.get(1)).getFieldValue(0)).intValue();
 		ArrayList<Object> allParams = new ArrayList<Object>();
 		if (n > 0) {
 			if (str == null || str.trim().length() < 1) {
@@ -3139,7 +3140,7 @@ public class DatabaseUtil {
 
 		String sql = "select count(*) from " + addTilde(tableName, dbs) + " where " + condition;
 		Sequence se = retrieve(sql, null, null, dbs, null, -1);
-		int n = ((Number) ((Record) se.get(1)).getFieldValue(0)).intValue();
+		int n = ((Number) ((BaseRecord) se.get(1)).getFieldValue(0)).intValue();
 		if (n > 0) {
 			if (str == null || str.trim().length() < 1) {
 				//throw new RQException("Update SQL String is Invalid!");
@@ -3975,8 +3976,8 @@ public class DatabaseUtil {
 				if (initial) {
 					if (keysize < 1) {
 						Object o1 = fetchSeq.get(1);
-						if (o1 instanceof Record) {
-							DataStruct ds1 = ((Record) o1).dataStruct();
+						if (o1 instanceof BaseRecord) {
+							DataStruct ds1 = ((BaseRecord) o1).dataStruct();
 							String[] keys = ds1.getPrimary();
 							int kc = keys == null ? 0 : keys.length;
 							for (int i = 0; i < kc; i++) {
@@ -4270,7 +4271,7 @@ public class DatabaseUtil {
 						Sequence insertRecords = new Sequence();
 						int rsize = recordCount == null ? 0 : recordCount.length();
 						for (int i = 1; i <= rsize; i++) {
-							Record r = (Record) recordCount.get(i);
+							BaseRecord r = (BaseRecord) recordCount.get(i);
 							int c = ((Number) r.getFieldValue(0)).intValue();
 							if (c > 0) {
 								updateRecords.add(fetchSeq.get(i));
@@ -4512,8 +4513,8 @@ public class DatabaseUtil {
 				}
 				if (ds1 == null&& srcSeq != null && srcSeq.length() > 0 ) {
 					Object o1 = srcSeq.get(1);
-					if (o1 instanceof Record) {
-						ds1 = ((Record) o1).dataStruct();
+					if (o1 instanceof BaseRecord) {
+						ds1 = ((BaseRecord) o1).dataStruct();
 					}
 				}
 				if (ds1 != null) {
@@ -4664,7 +4665,7 @@ public class DatabaseUtil {
 				int len = srcSeq.length();
 
 				ComputeStack stack = ctx.getComputeStack();
-				Sequence.Current current = srcSeq.new Current();
+				Current current = new Current(srcSeq);
 				stack.push(current);
 
 				try {
@@ -4870,7 +4871,7 @@ public class DatabaseUtil {
 							Expression[] keysFields = new Expression[primaryFields.size()];
 							primaryFields.toArray(keysFields);
 							Sequence insertSeq = diffSequence(srcSeq, compSeq, keysParam, keysFields, ctx);
-							ListBase1 oldMems = srcSeq.getMems();
+							IArray oldMems = srcSeq.getMems();
 							srcSeq.setMems(insertSeq.getMems());
 							executeBatchSql(srcSeq, insert_sql, insertParams,
 									insertTypes, ctx, dbs, con, dbCharset, tranSQL, dbType, dbName, batchSize);
@@ -4893,7 +4894,7 @@ public class DatabaseUtil {
 							Expression[] keysFields = new Expression[primaryFields.size()];
 							primaryFields.toArray(keysFields);
 							Sequence remainSeq = isectSequence(srcSeq, compSeq, keysParam, keysFields, ctx);
-							ListBase1 oldMems = srcSeq.getMems();
+							IArray oldMems = srcSeq.getMems();
 							srcSeq.setMems(remainSeq.getMems());
 							//edited by bd, 2022.4.15, @u选项时，根据最后keysize个位置的空值设置更新语句
 							executeDifferBatch(compSeq, srcSeq, update_sql, updateParams, updateFields, updateTypes, ctx, dbs, con,
@@ -4926,7 +4927,7 @@ public class DatabaseUtil {
 						Expression[] keysFields = new Expression[primaryFields.size()];
 						primaryFields.toArray(keysFields);
 						Sequence insertSeq = diffSequence(srcSeq, compSeq, keysParam, keysFields, ctx);
-						ListBase1 oldMems = srcSeq.getMems();
+						IArray oldMems = srcSeq.getMems();
 						srcSeq.setMems(insertSeq.getMems());
 						executeBatchSql(srcSeq, insert_sql, insertParams,
 								insertTypes, ctx, dbs, con, dbCharset, tranSQL, dbType, dbName, batchSize);
@@ -4950,7 +4951,7 @@ public class DatabaseUtil {
 						Sequence insertRecords = new Sequence();
 						int rsize = recordCount == null ? 0 : recordCount.length();
 						for (int i = 1; i <= rsize; i++) {
-							Record r = (Record) recordCount.get(i);
+							BaseRecord r = (BaseRecord) recordCount.get(i);
 							// edited by bd, 2022.12.9, 当查询对应数据为空时，防止错误
 							int c = 0;
 							if (r != null)
@@ -5197,8 +5198,8 @@ public class DatabaseUtil {
 				}
 				if (ds1 == null ) {
 					Object o1 = srcSeries.get(1);
-					if (o1 instanceof Record) {
-						ds1 = ((Record) o1).dataStruct();
+					if (o1 instanceof BaseRecord) {
+						ds1 = ((BaseRecord) o1).dataStruct();
 					}
 				}
 				if (ds1 != null) {
@@ -5291,8 +5292,8 @@ public class DatabaseUtil {
 			}
 			if (tds == null && srcSeries.length()>0) {
 				Object o1 = srcSeries.get(1);
-				if (o1 instanceof Record) {
-					tds = ((Record) o1).dataStruct();
+				if (o1 instanceof BaseRecord) {
+					tds = ((BaseRecord) o1).dataStruct();
 				}
 			}
 			try {
@@ -5440,7 +5441,7 @@ public class DatabaseUtil {
 					Sequence insertRecords = new Sequence();
 					int rsize = recordCount == null ? 0 : recordCount.length();
 					for (int i = 1; i <= rsize; i++) {
-						Record r = (Record) recordCount.get(i);
+						BaseRecord r = (BaseRecord) recordCount.get(i);
 						int c = ((Number) r.getFieldValue(0)).intValue();
 						if (c > 0) {
 							updateRecords.add(srcSeries.get(i));
@@ -5517,7 +5518,7 @@ public class DatabaseUtil {
 		int keyStart = pCount - keysize;
 		int len = compSeq.length();
 		ComputeStack stack = ctx.getComputeStack();
-		Sequence.Current current = compSeq.new Current();
+		Current current = new Current(compSeq);
 		stack.push(current);
 		Sequence usingParams = new Sequence();
 		int nulls = nullSqls == null ? 0 : nullSqls.length;
@@ -5561,7 +5562,7 @@ public class DatabaseUtil {
 		if (srcSeq != null && srcSeq.length() > 0) {
 			len = srcSeq.length();
 			stack = ctx.getComputeStack();
-			current = srcSeq.new Current();
+			current = new Current(srcSeq);
 			stack.push(current);
 			try {
 				for (int i = 1; i <= len; ++i) {
@@ -5635,7 +5636,7 @@ public class DatabaseUtil {
 			return mergeDiffSequence(seq1, seq2, exps1, ctx);
 		}
 		int keyCount = exps1.length;
-		ListBase1 mems2 = seq2.getMems();
+		IArray mems2 = seq2.getMems();
 		int len2 = mems2.size();
 		
 		final int INIT_GROUPSIZE = HashUtil.getInitGroupSize();
@@ -5643,7 +5644,7 @@ public class DatabaseUtil {
 		ListBase1 []groups = new ListBase1[hashUtil.getCapacity()];
 
 		ComputeStack stack = ctx.getComputeStack();
-		Sequence.Current current = seq2.new Current();
+		Current current = new Current(seq2);
 		stack.push(current);
 
 		try {
@@ -5671,11 +5672,11 @@ public class DatabaseUtil {
 			stack.pop();
 		}
 		
-		ListBase1 mems1 = seq1.getMems();
+		IArray mems1 = seq1.getMems();
 		int len1 = mems1.size();
 		Sequence result = new Sequence(len1);
 		
-		current = seq1.new Current();
+		current = new Current(seq1);
 		stack.push(current);
 
 		try {
@@ -5722,7 +5723,7 @@ public class DatabaseUtil {
 			return mergeIntersection(seq1, seq2, exps1, ctx);
 		}
 		int keyCount = exps1.length;
-		ListBase1 mems2 = seq2.getMems();
+		IArray mems2 = seq2.getMems();
 		int len2 = mems2.size();
 		
 		final int INIT_GROUPSIZE = HashUtil.getInitGroupSize();
@@ -5730,7 +5731,7 @@ public class DatabaseUtil {
 		ListBase1 []groups = new ListBase1[hashUtil.getCapacity()];
 
 		ComputeStack stack = ctx.getComputeStack();
-		Sequence.Current current = seq2.new Current();
+		Current current = new Current(seq2);
 		stack.push(current);
 
 		try {
@@ -5758,11 +5759,11 @@ public class DatabaseUtil {
 			stack.pop();
 		}
 		
-		ListBase1 mems1 = seq1.getMems();
+		IArray mems1 = seq1.getMems();
 		int len1 = mems1.size();
 		Sequence result = new Sequence(len1);
 		
-		current = seq1.new Current();
+		current = new Current(seq1);
 		stack.push(current);
 
 		try {
@@ -5828,7 +5829,7 @@ public class DatabaseUtil {
 		ArrayList<ArrayList<Object>> vgs = new ArrayList<ArrayList<Object>>(len);
 
 		ComputeStack stack = ctx.getComputeStack();
-		Sequence.Current current = srcSeries.new Current();
+		Current current = new Current(srcSeries);
 		stack.push(current);
 		
 		int nulls = nullSqls == null ? 0 : nullSqls.length;
@@ -5997,7 +5998,7 @@ public class DatabaseUtil {
 		Object[][] valueGroup = new Object[len][paramCount];
 
 		ComputeStack stack = ctx.getComputeStack();
-		Sequence.Current current = srcSeries.new Current();
+		Current current = new Current(srcSeries);
 		stack.push(current);
 
 		try {
@@ -6043,7 +6044,7 @@ public class DatabaseUtil {
 		Object[][] valueGroup = new Object[len][paramCount];
 
 		ComputeStack stack = ctx.getComputeStack();
-		Sequence.Current current = srcSeries.new Current();
+		Current current = new Current(srcSeries);
 		stack.push(current);
 
 		try {
@@ -6170,7 +6171,7 @@ public class DatabaseUtil {
 		Object[][] valueGroup = new Object[len][paramCount];
 
 		ComputeStack stack = ctx.getComputeStack();
-		Sequence.Current current = srcSeries.new Current();
+		Current current = new Current(srcSeries);
 		stack.push(current);
 
 		try {

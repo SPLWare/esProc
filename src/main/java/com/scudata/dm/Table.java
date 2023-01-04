@@ -5,6 +5,7 @@ import java.io.ObjectInput;
 import java.io.ObjectOutput;
 import java.util.Arrays;
 
+import com.scudata.array.IArray;
 import com.scudata.common.ByteArrayInputRecord;
 import com.scudata.common.ByteArrayOutputRecord;
 import com.scudata.common.IntArrayList;
@@ -22,6 +23,7 @@ import com.scudata.util.Variant;
  */
 public class Table extends Sequence {
 	private static final long serialVersionUID = 0x02010004;
+	
 	protected DataStruct ds; // 数据结构
 	protected transient IndexTable indexTable; // 按主键建立的索引表，用于连接操作或find查找
 
@@ -29,6 +31,14 @@ public class Table extends Sequence {
 	 * 序列化时使用
 	 */
 	public Table() {}
+
+	/**
+	 * 创建一个空序列
+	 * @param createArray 是否产生IArray
+	 */
+	protected Table(boolean createArray) {
+		super(createArray);
+	}
 
 	/**
 	 * 创建一空序表
@@ -75,24 +85,24 @@ public class Table extends Sequence {
 		this.ds = ds;
 		int len = src.length();
 		for (int i = 1; i<= len; i++) {
-			Record rec = src.getRecord(i);
+			BaseRecord rec = src.getRecord(i);
 			newLast(rec.getFieldValues());
 		}
 	}
 	
 	/**
-	 * 深度复制一个序表
-	 * @param src
+	 * 返回序列的哈希值
 	 */
-	public Table(Sequence src) {
-		super(src.length());
-		DataStruct ds = src.dataStruct();
-		this.ds = ds;
-		int len = src.length();
-		for (int i = 1; i<= len; i++) {
-			Record rec = (Record) src.get(i);
-			newLast(rec.getFieldValues());
-		}
+	public int hashCode() {
+		return mems.hashCode();
+	}
+	
+	/**
+	 * 返回序列是否含有记录
+	 * @return boolean
+	 */
+	public boolean hasRecord() {
+		return true;
 	}
 	
 	/**
@@ -100,7 +110,7 @@ public class Table extends Sequence {
 	 * @param val 记录
 	 */
 	public void add(Object val) {
-		if (val instanceof Record && ((Record)val).dataStruct() == ds) {
+		if (val instanceof BaseRecord && ((BaseRecord)val).dataStruct() == ds) {
 			mems.add(val);
 		} else {
 			throw new RQException("'add' function is unimplemented in Table!");
@@ -114,7 +124,7 @@ public class Table extends Sequence {
 	 * @param val Object 需要添加的记录
 	 */
 	public void insert(int pos, Object val) {
-		if (val instanceof Record && ((Record)val).dataStruct() == ds) {
+		if (val instanceof BaseRecord && ((BaseRecord)val).dataStruct() == ds) {
 			super.insert(pos, val);
 		} else {
 			throw new RQException("'insert' function is unimplemented in Table!");
@@ -127,7 +137,7 @@ public class Table extends Sequence {
 	 * @param obj Object 同结构的新记录
 	 */
 	public void set(int pos, Object val) {
-		if (val instanceof Record && ((Record)val).dataStruct() == ds) {
+		if (val instanceof BaseRecord && ((BaseRecord)val).dataStruct() == ds) {
 			super.set(pos, val);
 		} else {
 			throw new RQException("'set' function is unimplemented in Table!");
@@ -144,26 +154,26 @@ public class Table extends Sequence {
 	/**
 	 * 返回指定位置的记录，越界自动补
 	 * @param pos int 记录索引
-	 * @return Record
+	 * @return BaseRecord
 	 */
-	public Record getRecord(int pos) {
+	public BaseRecord getRecord(int pos) {
 		if (pos < 1) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException(pos + mm.getMessage("engine.indexOutofBound"));
 		}
 
-		if (pos > mems.size()) {
+		if (pos > length()) {
 			insert(pos);
 		}
 		
-		return (Record)mems.get(pos);
+		return (BaseRecord)mems.get(pos);
 	}
 
 	/**
 	 * 创建一条新记录追加到序表尾部，并返回该记录
-	 * @return Record
+	 * @return BaseRecord
 	 */
-	public Record newLast() {
+	public BaseRecord newLast() {
 		Record r = new Record(ds);
 		mems.add(r);
 		return r;
@@ -172,9 +182,9 @@ public class Table extends Sequence {
 	/**
 	 * 创建一条指定初值的新记录追加到序表尾部
 	 * @param initVals Object[] 初值
-	 * @return Record
+	 * @return BaseRecord
 	 */
-	public Record newLast(Object []initVals) {
+	public BaseRecord newLast(Object []initVals) {
 		Record r = new Record(ds, initVals);
 		mems.add(r);
 		return r;
@@ -205,7 +215,7 @@ public class Table extends Sequence {
 		ByteArrayOutputRecord out = new ByteArrayOutputRecord();
 		out.writeRecord(ds);
 
-		ListBase1 mems = this.mems;
+		IArray mems = getMems();
 		int len = mems.size();
 		out.writeInt(len);
 		for (int i = 1; i <= len; ++i) {
@@ -226,7 +236,7 @@ public class Table extends Sequence {
 
 		int len = in.readInt();
 		insert(0, len, null); // 插入空记录
-		ListBase1 mems = this.mems;
+		IArray mems = getMems();
 		for (int i = 1; i <= len; ++i) {
 			Record r = (Record)mems.get(i);
 			in.readRecord(r);
@@ -260,15 +270,23 @@ public class Table extends Sequence {
 	public boolean isPurePmt() {
 		return true;
 	}
-
+	
+	/**
+	 * 判断指定位置的元素是否是True
+	 * @param index 索引，从1开始计数
+	 * @return
+	 */
+	public boolean isTrue(int index) {
+		return true;
+	}
+	
 	/**
 	 * 选出指定的多列构成新序表
 	 * @param fieldNames 列名数组
 	 */
 	public Table fieldsValues(String[] fieldNames) {
-		ListBase1 mems = this.mems;
+		IArray mems = getMems();
 		int len = mems.size();
-		DataStruct ds = this.ds;
 		int newCount = fieldNames.length;
 		int []index = new int[newCount];
 		String []newNames = new String[newCount];
@@ -286,7 +304,7 @@ public class Table extends Sequence {
 
 		Table table = new Table(newNames, len);
 		for (int i = 1; i <= len; ++i) {
-			Record nr = table.newLast();
+			BaseRecord nr = table.newLast();
 			Record r = (Record)mems.get(i);
 			for (int f = 0; f < newCount; ++f) {
 				nr.setNormalFieldValue(f, r.getFieldValue(index[f]));
@@ -313,7 +331,7 @@ public class Table extends Sequence {
 		}
 		
 		DataStruct newDs = oldDs.create(fields);
-		ListBase1 mems = this.mems;
+		IArray mems = getMems();
 		Object []newValues = new Object[newCount];
 		
 		for (int i = 1, len = mems.size(); i <= len; ++i) {
@@ -371,7 +389,7 @@ public class Table extends Sequence {
 		if (isSame) return; // 跟源结构相同
 		DataStruct newDs = oldDs.create(fields);
 
-		ListBase1 mems = this.mems;
+		IArray mems = getMems();
 		Object []newValues = new Object[newCount];
 		for (int i = 1, len = mems.size(); i <= len; ++i) {
 			Record r = (Record)mems.get(i);
@@ -406,7 +424,33 @@ public class Table extends Sequence {
 	public boolean isEquals(Sequence table) {
 		return table == this;
 	}
-
+	
+	/**
+	 * 取序列非空元素个数
+	 * @return int
+	 */
+	public int count() {
+		return getMems().size();
+	}
+	
+	/**
+	 * 返回序列的非重复元素数，不包含null
+	 * @param opt o：序列有序
+	 * @return
+	 */
+	public int icount(String opt) {
+		return getMems().size();
+	}
+	
+	/**
+	 * 返回去掉重复的元素后的序列
+	 * @param opt String o：只和相邻的对比，u：结果集不排序，h：先排序再用@o计算
+	 * @return Sequence
+	 */
+	public Sequence id(String opt) {
+		return this;
+	}
+	
 	/**
 	 * 此方法继承自序列，序表不支持比大小
 	 */
@@ -417,7 +461,7 @@ public class Table extends Sequence {
 	/**
 	 * 序表不支持比大小
 	 */
-	public int compareTo(Table table) {
+	public int compareTo(Sequence table) {
 		return table == this ? 0 : -1;
 	}
 
@@ -425,12 +469,12 @@ public class Table extends Sequence {
 	 * 在指定位置插入一条空记录
 	 * @param pos int 位置，从1开始计数，0表示追加，越界自动补，小于0则从后数
 	 */
-	public Record insert(int pos) {
+	public BaseRecord insert(int pos) {
 		if (pos == 0) { // 追加
 			return newLast();
 		}
 		
-		ListBase1 mems = this.mems;
+		IArray mems = getMems();
 		int oldCount = mems.size();
 		if (pos < 0) {
 			pos += oldCount + 1;
@@ -440,7 +484,7 @@ public class Table extends Sequence {
 			}
 			
 			Record r = new Record(ds);
-			mems.add(pos, r);
+			mems.insert(pos, r);
 			return r;
 		} else if (pos > oldCount) { // 越界自动补
 			int count = pos - oldCount;
@@ -453,7 +497,7 @@ public class Table extends Sequence {
 			return rs[count - 1];
 		} else {
 			Record r = new Record(ds);
-			mems.add(pos, r);
+			mems.insert(pos, r);
 			return r;
 		}
 	}
@@ -464,7 +508,7 @@ public class Table extends Sequence {
 	 * @param values 记录字段值组成的数组
 	 * @return 插入的记录
 	 */
-	public Record insert(int pos, Object []values) {
+	public BaseRecord insert(int pos, Object []values) {
 		if (pos == 0) { // 追加
 			return newLast(values);
 		} else if (pos < 0) {
@@ -476,7 +520,7 @@ public class Table extends Sequence {
 		}
 		
 		Record r = new Record(ds, values);
-		mems.add(pos, r);
+		mems.insert(pos, r);
 		return r;
 	}
 
@@ -488,7 +532,7 @@ public class Table extends Sequence {
 	 * @return Sequence
 	 */
 	public Sequence insert(int pos, int count, String opt) {
-		ListBase1 mems = this.mems;
+		IArray mems = getMems();
 		int oldCount = mems.size();
 		if (pos < 0) {
 			pos += oldCount + 1;
@@ -524,7 +568,7 @@ public class Table extends Sequence {
 		}
 
 		if (pos <= oldCount) {
-			mems.addAll(pos, rs);
+			mems.insertAll(pos, rs);
 		} else {
 			mems.addAll(rs);
 		}
@@ -569,9 +613,9 @@ public class Table extends Sequence {
 	 * @param exps Expression[] 值表达式，可引用此Table
 	 * @param fields String[]字段名, 省略则依次赋值
 	 * @param ctx Context
-	 * @return Record
+	 * @return BaseRecord
 	 */
-	public Record insert(int pos, Expression[] exps, String[] fields, Context ctx) {
+	public BaseRecord insert(int pos, Expression[] exps, String[] fields, Context ctx) {
 		if (exps == null) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("insert" + mm.getMessage("function.invalidParam"));
@@ -599,7 +643,7 @@ public class Table extends Sequence {
 	 * @param ctx 计算上下文
 	 * @return 新插入的记录
 	 */
-	public Record sortedInsert(Expression[] exps, String[] fields, Context ctx) {
+	public BaseRecord sortedInsert(Expression[] exps, String[] fields, Context ctx) {
 		Record r = new Record(ds);
 		ComputeStack stack = ctx.getComputeStack();
 		stack.push(r);
@@ -639,7 +683,7 @@ public class Table extends Sequence {
 		// 根据主键查找记录位置
 		int index = pfindByKey(r.getPKValue(), true);
 		if (index < 0) {
-			mems.add(-index, r);
+			mems.insert(-index, r);
 			return r;
 		} else {
 			return null;
@@ -701,7 +745,7 @@ public class Table extends Sequence {
 		DataStruct ds = this.ds;
 		Record r = new Record(ds);
 		ComputeStack stack = ctx.getComputeStack();
-		Sequence.Current srcCurrent = src.new Current();
+		Current srcCurrent = new Current(src);
 		stack.push(r);
 		stack.push(srcCurrent);
 
@@ -718,7 +762,7 @@ public class Table extends Sequence {
 				if (p < 0) {
 					Record tmp = new Record(ds);
 					tmp.set(r);
-					mems.add(-p, tmp);
+					mems.insert(-p, tmp);
 					if (returnNew) result.add(tmp);
 				}
 			}
@@ -745,7 +789,7 @@ public class Table extends Sequence {
 			}
 		}
 		
-		ListBase1 srcMems = src.mems;
+		IArray srcMems = src.getMems();
 		int count = srcMems.size();
 
 		if (!src.isPmt()) {
@@ -799,19 +843,19 @@ public class Table extends Sequence {
 				
 				int p = pfindByKey(r.getPKValue(), true);
 				if (p < 0) {
-					mems.add(-p, r);
+					mems.insert(-p, r);
 					if (returnNew) result.add(r);
 				}
 			}
 		} else {
 			for (int i = 1; i <= count; ++i) {
-				Record sr = (Record)srcMems.get(i);
+				BaseRecord sr = (BaseRecord)srcMems.get(i);
 				Record r = new Record(ds);
 				r.paste(sr, false);
 				
 				int p = pfindByKey(r.getPKValue(), true);
 				if (p < 0) {
-					mems.add(-p, r);
+					mems.insert(-p, r);
 					if (returnNew) result.add(r);
 				}
 			}
@@ -838,7 +882,7 @@ public class Table extends Sequence {
 			throw new RQException("insert" + mm.getMessage("function.invalidParam"));
 		}
 		
-		ListBase1 mems = this.mems;
+		IArray mems = getMems();
 		if (pos == 0) {
 			pos = mems.size() + 1;
 		} else if (pos < 0) {
@@ -910,14 +954,14 @@ public class Table extends Sequence {
 		}
 
 		ComputeStack stack = ctx.getComputeStack();
-		Current current = new Current();
+		Current current = new Current(this);
 		stack.push(current);
-		Sequence.Current srcCurrent = src.new Current();
+		Current srcCurrent = new Current(src);
 		stack.push(srcCurrent);
 
 		try {
 			for (int i = 1; i <= mlen; ++i, ++pos) {
-				Record r = (Record)mems.get(pos);
+				BaseRecord r = (BaseRecord)mems.get(pos);
 				if (returnNew) result.add(r);
 				
 				current.setCurrent(pos);
@@ -956,7 +1000,7 @@ public class Table extends Sequence {
 	public void insert(int pos, Table table) {
 		if (table == null || table.length() == 0) return;
 		
-		ListBase1 mems = this.mems;
+		IArray mems = getMems();
 		int oldCount = mems.size();
 		if (pos == 0) {
 			pos = oldCount + 1; // 0表示追加
@@ -974,7 +1018,7 @@ public class Table extends Sequence {
 		}
 
 		// 更改记录所属的序表和序号
-		ListBase1 addMems = table.mems;
+		IArray addMems = table.getMems();
 		int addCount = addMems.size();
 		DataStruct ds = this.ds;
 		for (int i = 1; i <= addCount; ++i) {
@@ -986,8 +1030,37 @@ public class Table extends Sequence {
 			insert(oldCount + 1, pos - oldCount - 1, null); // 越界自动补
 		}
 
-		mems.addAll(pos, addMems);
+		mems.insertAll(pos, addMems);
 		addMems.clear();
+	}
+	
+	/**
+	 * 合并两个序列的数据，如果序列兼容则返回原序列否则返回新序列
+	 * @param seq
+	 * @return Sequence
+	 */
+	public Sequence append(Sequence seq) {
+		DataStruct ds = this.ds;
+		DataStruct ds2 = seq.dataStruct();
+		if (ds2 == ds) {
+			getMems().addAll(seq.getMems());
+			return this;
+		} else if (ds2 != null && ds2.isCompatible(ds2)) {
+			IArray mems = getMems();
+			IArray addMems = seq.getMems();
+			for (int i = 1, addCount = addMems.size(); i <= addCount; ++i) {
+				Record r = (Record)addMems.get(i);
+				r.setDataStruct(ds);
+			}
+
+			mems.addAll(addMems);
+			return this;
+		} else {
+			Sequence result = new Sequence(length() + seq.length());
+			result.addAll(this);
+			result.addAll(seq);
+			return result;
+		}
 	}
 
 	/**
@@ -1002,8 +1075,8 @@ public class Table extends Sequence {
 			throw new RQException(mm.getMessage("engine.dsNotMatch"));
 		}
 
-		ListBase1 addMems = table.mems;
-		ListBase1 mems = this.mems;
+		IArray addMems = table.getMems();
+		IArray mems = getMems();
 		int oldCount = mems.size();
 
 		// 去掉源序表中主键值在table中存在的记录
@@ -1011,7 +1084,7 @@ public class Table extends Sequence {
 			IntArrayList posArray = new IntArrayList();
 
 			for (int i = 1; i <= oldCount; ++i) {
-				int pos = table.pfindByKey(((Record)mems.get(i)).getPKValue(), false);
+				int pos = table.pfindByKey(((BaseRecord)mems.get(i)).getPKValue(), false);
 				if (pos > 0) {
 					posArray.addInt(i);
 				}
@@ -1065,14 +1138,14 @@ public class Table extends Sequence {
 			}
 		}
 
-		ListBase1 mems = this.mems;
+		IArray mems = getMems();
 		mems.ensureCapacity(mems.size() + total);
 		DataStruct ds = this.ds;
 
 		for (int i = 0, len = tables.length; i < len; ++i) {
 			Table table = tables[i];
 			if (table != null) {
-				ListBase1 addMems = table.mems;
+				IArray addMems = table.getMems();
 
 				// 更改记录所属的序表和序号
 				for (int m = 1, addCount = addMems.size(); m <= addCount; ++m) {
@@ -1093,18 +1166,17 @@ public class Table extends Sequence {
 	 * @return Sequence
 	 */
 	public Sequence split(int from, int to) {
-		if (from < 1 || to < from || to > mems.size()) {
+		if (from < 1 || to < from || to > length()) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException(from + ":" + to + mm.getMessage("engine.indexOutofBound"));
 		}
 
 		Table table = new Table(ds, to - from + 1);
-		ListBase1 retMems = table.mems;
-		ListBase1 mems = this.mems;
+		IArray resultMems = table.getMems();
+		IArray mems = getMems();
 
 		for (int i = from; i <= to; ++i) {
-			Record r = (Record)mems.get(i);
-			retMems.add(r);
+			resultMems.push(mems.get(i));
 		}
 
 		mems.removeRange(from, to);
@@ -1124,16 +1196,16 @@ public class Table extends Sequence {
 		}
 		
 		if (pos == 0) {
-			pos = mems.size() + 1;
+			pos = length() + 1;
 		} else if (pos < 0) {
-			pos += mems.size() + 1;
+			pos += length() + 1;
 			if (pos < 1) {
 				MessageManager mm = EngineMessage.get();
-				throw new RQException(pos - mems.size() - 1 + mm.getMessage("engine.indexOutofBound"));
+				throw new RQException(pos - length() - 1 + mm.getMessage("engine.indexOutofBound"));
 			}
 		}
 
-		Record r = getRecord(pos);
+		BaseRecord r = getRecord(pos);
 		if (fields == null) {
 			r.setStart(0, values);
 		} else {
@@ -1167,28 +1239,28 @@ public class Table extends Sequence {
 	 * @param ctx Context
 	 * @return 返回被修改的记录
 	 */
-	public Record modify(int pos, Expression[] exps, String[] fields, Context ctx) {
+	public BaseRecord modify(int pos, Expression[] exps, String[] fields, Context ctx) {
 		if (exps == null) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("modify" + mm.getMessage("function.invalidParam"));
 		}
 		
 		if (pos == 0) {
-			pos = mems.size() + 1;
+			pos = length() + 1;
 		} else if (pos < 0) {
-			pos += mems.size() + 1;
+			pos += length() + 1;
 			if (pos < 1) {
 				MessageManager mm = EngineMessage.get();
-				throw new RQException(pos - mems.size() - 1 + mm.getMessage("engine.indexOutofBound"));
+				throw new RQException(pos - length() - 1 + mm.getMessage("engine.indexOutofBound"));
 			}
 		}
 
-		Record r = getRecord(pos);
+		BaseRecord r = getRecord(pos);
 		int count = exps.length;
 
 		// 把table压栈，允许表达式引用当前记录的字段
 		ComputeStack stack = ctx.getComputeStack();
-		Current current = new Current();
+		Current current = new Current(this);
 		stack.push(current);
 
 		try {
@@ -1243,12 +1315,12 @@ public class Table extends Sequence {
 		}
 		
 		if (pos == 0) {
-			pos = mems.size() + 1;
+			pos = length() + 1;
 		} else if (pos < 0) {
-			pos += mems.size() + 1;
+			pos += length() + 1;
 			if (pos < 1) {
 				MessageManager mm = EngineMessage.get();
-				throw new RQException(pos - mems.size() - 1 + mm.getMessage("engine.indexOutofBound"));
+				throw new RQException(pos - length() - 1 + mm.getMessage("engine.indexOutofBound"));
 			}
 		}
 
@@ -1316,15 +1388,15 @@ public class Table extends Sequence {
 		}
 
 		ComputeStack stack = ctx.getComputeStack();
-		Current current = new Current();
+		Current current = new Current(this);
 		stack.push(current);
-		Sequence.Current srcCurrent = src.new Current();
+		Current srcCurrent = new Current(src);
 		stack.push(srcCurrent);
 
 		try {
-			ListBase1 mems = this.mems;
+			IArray mems = getMems();
 			for (int i = 1; i <= mlen; ++i, ++pos) {
-				Record r = (Record)mems.get(pos);
+				BaseRecord r = (BaseRecord)mems.get(pos);
 				if (returnNew) result.add(r);
 
 				current.setCurrent(pos);
@@ -1370,7 +1442,7 @@ public class Table extends Sequence {
 		}
 
 		int fieldCount = ds.getFieldCount();
-		ListBase1 srcMems = src.mems;
+		IArray srcMems = src.getMems();
 		int srcSize = srcMems.size();
 		int recordCount = srcSize / fieldCount;
 		int mod = srcSize % fieldCount;
@@ -1391,7 +1463,7 @@ public class Table extends Sequence {
 		
 		if (recordCount == 0) return result;
 
-		ListBase1 mems = this.mems;
+		IArray mems = getMems();
 		if (pos == 0) pos = mems.size() + 1;
 
 		if (isInsert) {
@@ -1405,7 +1477,7 @@ public class Table extends Sequence {
 			int seq = 1;
 			int last = pos + recordCount;
 			for (int i = pos; i < last; ++i) {
-				Record r = (Record)mems.get(i);
+				BaseRecord r = (BaseRecord)mems.get(i);
 				if (returnNew) result.add(r);
 				
 				for (int f = 0; f < fieldCount; ++f) {
@@ -1416,7 +1488,7 @@ public class Table extends Sequence {
 			int seq = 1;
 			int last = pos + recordCount - 1;
 			for (int i = pos; i < last; ++i) {
-				Record r = (Record)mems.get(i);
+				BaseRecord r = (BaseRecord)mems.get(i);
 				if (returnNew) result.add(r);
 
 				for (int f = 0; f < fieldCount; ++f) {
@@ -1424,7 +1496,7 @@ public class Table extends Sequence {
 				}
 			}
 			
-			Record r = (Record)mems.get(last);
+			BaseRecord r = (BaseRecord)mems.get(last);
 			if (returnNew) result.add(r);
 			
 			for (int f = 0; seq <= srcSize; ++f) {
@@ -1441,7 +1513,7 @@ public class Table extends Sequence {
 			throw new RQException(pos + mm.getMessage("engine.indexOutofBound"));
 		}
 
-		ListBase1 mems = this.mems;
+		IArray mems = getMems();
 		int maxLen = 0;
 		
 		for (Sequence seq : vals) {
@@ -1469,7 +1541,7 @@ public class Table extends Sequence {
 				continue;
 			}
 			
-			ListBase1 valMems = vals[f].mems;
+			IArray valMems = vals[f].getMems();
 			int curLen = valMems.size();
 			if (curLen > len) curLen = len;
 			
@@ -1488,16 +1560,18 @@ public class Table extends Sequence {
 			}
 			
 			for (int i = 1, j = pos; i <= curLen; ++i, ++j) {
-				Record r = (Record)mems.get(j);
+				BaseRecord r = (BaseRecord)mems.get(j);
 				r.setNormalFieldValue(prevField, valMems.get(i));
 			}
 		}
 	}
 
 	protected int pos(Object obj) {
-		ListBase1 mems = this.mems;
+		IArray mems = getMems();
 		for (int i = 1, size = mems.size(); i <= size; ++i) {
-			if (mems.get(i) == obj) return i;
+			if (mems.get(i) == obj) {
+				return i;
+			}
 		}
 
 		return 0;
@@ -1523,19 +1597,19 @@ public class Table extends Sequence {
 		} catch (RQException e) {
 		}
 
-		ListBase1 mems = this.mems;
+		IArray mems = getMems();
 		int oldCount = mems.size();
 		int delCount = 0;
 
 		if (index == null) {
-			ListBase1 delMems = series.mems;
+			IArray delMems = series.getMems();
 			int count = delMems.size();
 			index = new int[count];
 
 			// 查找要删除的记录在序表中的位置
 			for (int i = 1; i <= count; ++i) {
 				Object obj = delMems.get(i);
-				if (obj instanceof Record) {
+				if (obj instanceof BaseRecord) {
 					int seq = pos(obj);
 					if (seq > 0) {
 						index[delCount] = seq;
@@ -1594,8 +1668,8 @@ public class Table extends Sequence {
 		}
 	}
 	
-	public Object delete(int index) {
-		int oldLen = mems.size();
+	public void delete(int index) {
+		int oldLen = length();
 		if (index > oldLen || index == 0) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException(index + mm.getMessage("engine.indexOutofBound"));
@@ -1607,9 +1681,8 @@ public class Table extends Sequence {
 			}
 		}
 		
-		Object obj = mems.remove(index);
+		mems.remove(index);
 		rebuildIndexTable();
-		return obj;
 	}
 
 	/**
@@ -1620,7 +1693,7 @@ public class Table extends Sequence {
 	 * @param opt f：按字段名相等进行复制，n：返回修改的记录组成的排列
 	 */
 	public Sequence modify(int pos, Sequence src, boolean isInsert, String opt) {
-		ListBase1 mems = this.mems;
+		IArray mems = getMems();
 		if (pos == 0) {
 			pos = mems.size() + 1;
 		} else if (pos < 0 ) {
@@ -1645,7 +1718,7 @@ public class Table extends Sequence {
 			}
 		}
 		
-		ListBase1 srcMems = src.mems;
+		IArray srcMems = src.getMems();
 		int count = srcMems.size();
 
 		if (!src.isPmt()) {
@@ -1671,16 +1744,16 @@ public class Table extends Sequence {
 
 		if (isName) { // 只复制相同名字的字段
 			DataStruct ds = this.ds;
-			Record prev = null;
+			BaseRecord prev = null;
 			int sameCount = 0;
 			int []srcIndex = null;
 			int []index = null;
 
 			for (int i = 1; i <= count; ++i, ++pos) {
-				Record sr = (Record)srcMems.get(i);
+				BaseRecord sr = (BaseRecord)srcMems.get(i);
 				if (sr == null) continue;
 
-				Record r = (Record) mems.get(pos);
+				BaseRecord r = (BaseRecord) mems.get(pos);
 				if (prev != null && prev.isSameDataStruct(sr)) {
 					for (int c = 0; c < sameCount; ++c) {
 						r.setNormalFieldValue(index[c], sr.getFieldValue(srcIndex[c]));
@@ -1708,8 +1781,8 @@ public class Table extends Sequence {
 			}
 		} else {
 			for (int i = 1; i <= count; ++i, ++pos) {
-				Record sr = (Record)srcMems.get(i);
-				Record r = (Record) mems.get(pos);
+				BaseRecord sr = (BaseRecord)srcMems.get(i);
+				BaseRecord r = (BaseRecord) mems.get(pos);
 				r.paste(sr, false);
 			}
 		}
@@ -1770,11 +1843,13 @@ public class Table extends Sequence {
 			// 创建序号索引
 			indexTable = new SeqIndexTable(this);
 		} else if (fields.length == 1 && opt != null && opt.indexOf('s') != -1) {
-			indexTable = IndexTable.instance_s(this, fields[0]);
+			SerialBytesIndexTable sbi = new SerialBytesIndexTable();
+			sbi.create(this, fields[0]);
+			indexTable = sbi;
 		} else if (opt != null && opt.indexOf('b') != -1) {
 			indexTable = new SortIndexTable(this, fields);
 		} else {
-			indexTable = IndexTable.instance(this, fields, capacity, opt);
+			indexTable = newIndexTable(fields, capacity, opt);
 		}
 	}
 	
@@ -1887,7 +1962,7 @@ public class Table extends Sequence {
 	 * @return boolean true：有引用对象，false：没有引用对象
 	 */
 	public boolean checkReference() {
-		ListBase1 mems = this.mems;
+		IArray mems = getMems();
 		for (int i = 1, len = mems.size(); i <= len; ++i) {
 			Record r = (Record)mems.get(i);
 			if (r.checkReference()) return true;
@@ -1900,7 +1975,7 @@ public class Table extends Sequence {
 	 * 将序表格式化成串
 	 */
 	public String toString() {
-		ListBase1 mems = this.mems;
+		IArray mems = getMems();
 		int len = mems.size();
 		if (len > 10) len = 10;
 
@@ -1920,7 +1995,7 @@ public class Table extends Sequence {
 		}
 
 		for (int i = 1; i <= len; ++i) {
-			Record r = (Record)mems.get(i);
+			BaseRecord r = (BaseRecord)mems.get(i);
 			for (f = 0; ;) {
 				String str = Variant.toString(r.getFieldValue(f));
 				sb.append(str);
@@ -1935,5 +2010,30 @@ public class Table extends Sequence {
 		}
 
 		return sb.toString();
+	}
+
+	/**
+	 * 返回排列是否包含指定字段
+	 * @param fieldName 字段名
+	 * @return true：包含，false：不包含
+	 */
+	public boolean containField(String fieldName) {
+		return ds.getFieldIndex(fieldName) != -1;
+	}
+	
+	/**
+	 * 取序表的字段数
+	 * @return 字段数
+	 */
+	public int getFieldCount() {
+		return ds.getFieldCount();
+	}
+	
+	/**
+	 * 取首条记录的数据结构，如果第一个元素不是记录则返回null
+	 * @return 记录的数据结构
+	 */
+	public DataStruct getFirstRecordDataStruct() {
+		return ds;
 	}
 }

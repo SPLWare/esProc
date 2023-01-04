@@ -4,9 +4,9 @@ import java.util.ArrayList;
 
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
+import com.scudata.dm.FileObject;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.cursor.ICursor;
-import com.scudata.dw.IColumnCursorUtil;
 import com.scudata.expression.Expression;
 
 /**
@@ -14,11 +14,10 @@ import com.scudata.expression.Expression;
  * @author WangXiaoJun
  *
  */
-public class Channel implements Operable, IPipe {
+public class Channel extends Operable implements IPipe {
 	protected Context ctx; // 用多线程游标取数时需要更改上下文并重新解析表达式
 	private ArrayList<Operation> opList; // 附加操作列表
 	protected IResult result; // 管道最终的结果集函数
-	protected boolean isColumnCursor;//列式处理
 	
 	// 分组表达式里如果有sum(...)+sum(...)这样的汇总项会变成groups(...).new(...)，用于存放后面的new
 	protected New resultNew;
@@ -32,16 +31,6 @@ public class Channel implements Operable, IPipe {
 	}
 	
 	/**
-	 * 构建管道
-	 * @param ctx 计算上下文
-	 * @param isColumnCursor 列式处理
-	 */
-	public Channel(Context ctx, boolean isColumnCursor) {
-		this.ctx = ctx;
-		this.isColumnCursor = isColumnCursor;
-	}
-	
-	/**
 	 * 用游标构建管道，游标的数据将会推给此管道
 	 * @param ctx 计算上下文
 	 * @param cs 游标
@@ -50,7 +39,6 @@ public class Channel implements Operable, IPipe {
 		this.ctx = ctx;
 		Push push = new Push(this);
 		cs.addOperation(push, ctx);
-		isColumnCursor = cs.isColumnCursor();
 	}
 	
 	/**
@@ -116,28 +104,31 @@ public class Channel implements Operable, IPipe {
 	 */
 	public void finish(Context ctx) {
 		if (opList == null) {
-			return;
-		}
-		
-		Sequence seq = null;
-		for (Operation op : opList) {
-			if (seq == null) {
-				seq = op.finish(ctx);
-			} else {
-				seq = op.process(seq, ctx);
-				Sequence tmp = op.finish(ctx);
-				if (tmp != null) {
-					if (seq != null) {
-						seq = ICursor.append(seq, tmp);
-					} else {
-						seq = tmp;
+			if (result != null) {
+				result.finish(ctx);
+			}
+		} else {
+			Sequence seq = null;
+			for (Operation op : opList) {
+				if (seq == null) {
+					seq = op.finish(ctx);
+				} else {
+					seq = op.process(seq, ctx);
+					Sequence tmp = op.finish(ctx);
+					if (tmp != null) {
+						if (seq != null) {
+							seq = ICursor.append(seq, tmp);
+						} else {
+							seq = tmp;
+						}
 					}
 				}
 			}
-		}
-		
-		if (result != null && seq != null) {
-			result.push(seq, ctx);
+			
+			if (result != null && seq != null) {
+				result.push(seq, ctx);
+				result.finish(ctx);
+			}
 		}
 	}
 	
@@ -165,7 +156,7 @@ public class Channel implements Operable, IPipe {
 	
 	/**
 	 * 保留管道当前数据做为结果集
-	 * @return
+	 * @return this
 	 */
 	public Channel fetch() {
 		checkResultChannel();
@@ -173,6 +164,17 @@ public class Channel implements Operable, IPipe {
 		return this;
 	}
 	
+	/**
+	 * 保留管道当前数据到集文件
+	 * @param file 集文件
+	 * @return this
+	 */
+	public Channel fetch(FileObject file) {
+		checkResultChannel();
+		result = new FetchResult(file);
+		return this;
+	}
+
 	/**
 	 * 对管道当前数据进行分组运算并做为结果集
 	 * @param exps 分组表达式数组
@@ -185,11 +187,7 @@ public class Channel implements Operable, IPipe {
 	public Channel groups(Expression[] exps, String[] names,
 			   Expression[] calcExps, String[] calcNames, String opt) {
 		checkResultChannel();
-		if (isColumnCursor && IColumnCursorUtil.util != null) {
-			result = IColumnCursorUtil.util.getGroupsResultInstance(exps, names, calcExps, calcNames, opt, ctx);
-		} else {
-			result = IGroupsResult.instance(exps, names, calcExps, calcNames, opt, ctx);
-		}
+		result = IGroupsResult.instance(exps, names, calcExps, calcNames, opt, ctx);
 		return this;
 	}
 	
@@ -271,12 +269,13 @@ public class Channel implements Operable, IPipe {
 	/**
 	 * 对管道当前数据进行去重运算并作为结果集
 	 * @param exps 去重表达式
-	 * @param count
+	 * @param count 保留的结果数
+	 * @param opt 选项
 	 * @return
 	 */
-	public Channel id(Expression []exps, int count) {
+	public Channel id(Expression []exps, int count, String opt) {
 		checkResultChannel();
-		result = new IDResult(exps, count, ctx);
+		result = new IDResult(exps, count, opt, ctx);
 		return this;
 	}
 	

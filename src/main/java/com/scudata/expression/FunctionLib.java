@@ -305,7 +305,7 @@ public final class FunctionLib {
 		addMemberFunction("eq", "com.scudata.expression.mfn.sequence.Eq");
 		addMemberFunction("count", "com.scudata.expression.mfn.sequence.Count");
 		addMemberFunction("len", "com.scudata.expression.mfn.sequence.Len");
-		addMemberFunction("len", "com.scudata.expression.mfn.serial.Len");
+		//addMemberFunction("len", "com.scudata.expression.mfn.serial.Len");
 		addMemberFunction("sbs", "com.scudata.expression.mfn.serial.Sbs");
 		addMemberFunction("ifn", "com.scudata.expression.mfn.sequence.Ifn");
 		addMemberFunction("nvl", "com.scudata.expression.mfn.sequence.Nvl");
@@ -368,6 +368,7 @@ public final class FunctionLib {
 		addMemberFunction("fname", "com.scudata.expression.mfn.record.FieldName");
 		addMemberFunction("fname", "com.scudata.expression.mfn.sequence.FieldName");
 		addMemberFunction("to", "com.scudata.expression.mfn.sequence.To");
+		addMemberFunction("range", "com.scudata.expression.mfn.sequence.Range");
 		addMemberFunction("pivot", "com.scudata.expression.mfn.sequence.Pivot");
 		
 		addMemberFunction("r", "com.scudata.expression.mfn.RowField");

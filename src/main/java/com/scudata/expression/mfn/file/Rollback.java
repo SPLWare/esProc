@@ -10,8 +10,8 @@ import com.scudata.common.RQException;
 import com.scudata.dm.Context;
 import com.scudata.dm.FileObject;
 import com.scudata.dw.BufferReader;
-import com.scudata.dw.GroupTable;
-import com.scudata.dw.TableMetaData;
+import com.scudata.dw.ComTable;
+import com.scudata.dw.PhyTable;
 import com.scudata.expression.FileFunction;
 import com.scudata.resources.EngineMessage;
 
@@ -38,7 +38,7 @@ public class Rollback extends FileFunction {
 	}
 	
 	public static boolean groupTableRollBack(File file, String psw, Context ctx) {
-		File sf = GroupTable.getSupplementFile(file);
+		File sf = ComTable.getSupplementFile(file);
 		if (sf.exists()) {
 			groupTableRollBack(sf, psw, ctx);
 		}
@@ -141,15 +141,15 @@ public class Rollback extends FileFunction {
 		logFile = new FileObject(dir);
 		if (logFile.isExists()) {
 			RandomAccessFile raf = null;
-			GroupTable gtable = null;
+			ComTable gtable = null;
 			try {
 				raf = new RandomAccessFile(logFile.getLocalFile().file(), "rw");
 				String tableName = raf.readUTF();
 				
-				gtable = GroupTable.createGroupTable(file);
+				gtable = ComTable.createGroupTable(file);
 				gtable.checkPassword(psw);
-				TableMetaData btable = gtable.getBaseTable();
-				TableMetaData table = btable;
+				PhyTable btable = gtable.getBaseTable();
+				PhyTable table = btable;
 				if (!tableName.equals(btable.getTableName())) {
 					table = btable.getAnnexTable(tableName);
 				}

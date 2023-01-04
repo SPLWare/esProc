@@ -1,8 +1,9 @@
 package com.scudata.dm;
 
+import com.scudata.array.BoolArray;
+import com.scudata.array.IArray;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
-import com.scudata.dm.Sequence.Current;
 import com.scudata.expression.Expression;
 import com.scudata.resources.EngineMessage;
 import com.scudata.thread.Job;
@@ -60,10 +61,10 @@ public class HashIndexTable extends IndexTable {
 			Entry []groups = new Entry[hashUtil.getCapacity()];
 			this.entries = groups;
 			Object key;
-			Record r;
+			BaseRecord r;
 
 			for (int i = start, end = this.end; i < end; ++i) {
-				r = (Record)code.getMem(i);
+				r = (BaseRecord)code.getMem(i);
 				key = r.getNormalFieldValue(field);
 
 				int hash = hashUtil.hashCode(key);
@@ -126,8 +127,8 @@ public class HashIndexTable extends IndexTable {
 		
 		for (int i = 1, len = code.length(); i <= len; ++i) {
 			r = code.getMem(i);
-			if (r instanceof Record) {
-				key = ((Record)r).getPKValue();
+			if (r instanceof BaseRecord) {
+				key = ((BaseRecord)r).getPKValue();
 			} else {
 				key = r;
 			}
@@ -172,7 +173,7 @@ public class HashIndexTable extends IndexTable {
 		Object key;
 
 		ComputeStack stack = ctx.getComputeStack();
-		Sequence.Current current = code.new Current();
+		Current current = new Current(code);
 		stack.push(current);
 
 		try {
@@ -300,10 +301,10 @@ public class HashIndexTable extends IndexTable {
 	}
 	
 	/**
-	 * 由键查找元素序号，找不到返回-1
+	 * 由键查找元素序号，找不到返回0
 	 * @param key 键值
 	 */
-	public int findSeq(Object key) {
+	public int findPos(Object key) {
 		int hash = hashUtil.hashCode(key);
 		for (Entry entry = entries[hash]; entry != null; entry = entry.next) {
 			if (Variant.compare(entry.key, key, true) == 0) {
@@ -311,7 +312,22 @@ public class HashIndexTable extends IndexTable {
 			}
 		}
 		
-		return -1; // key not found
+		return 0; // key not found
+	}
+	
+	/**
+	 * 由键查找元素序号，找不到返回0
+	 * @param key 键值
+	 */
+	public int findPos(Object[] keys) {
+		int hash = hashUtil.hashCode(keys[0]);
+		for (Entry entry = entries[hash]; entry != null; entry = entry.next) {
+			if (Variant.compare(entry.key, keys[0], true) == 0) {
+				return entry.seq;
+			}
+		}
+
+		return 0; // key not found
 	}
 	
 	/**
@@ -328,11 +344,11 @@ public class HashIndexTable extends IndexTable {
 		int capacity = entries.length;
 		Entry []resultEntries = new Entry[capacity];
 		Table result = new Table(code.dataStruct(), len);
-		ListBase1 mems = result.getMems();
+		IArray mems = result.getMems();
 		int newLen = 0;
 		
 		ComputeStack stack = ctx.getComputeStack();
-		Current current = code.new Current();
+		Current current = new Current(code);
 		stack.push(current);
 		
 		try {
@@ -372,5 +388,54 @@ public class HashIndexTable extends IndexTable {
 		HashIndexTable indexTable = new HashIndexTable(result, hashUtil, resultEntries);
 		result.setIndexTable(indexTable);
 		return result;
+	}
+	
+	public int[] findAllPos(IArray keys) {
+		Entry []entries = this.entries;
+		HashUtil hashUtil = this.hashUtil;
+		int len = keys.size();
+		int[] pos = new int[len + 1];
+		
+		for (int i = 1; i <= len; i++) {
+			int hash = hashUtil.hashCode(keys.hashCode(i));
+			for (Entry entry = entries[hash]; entry != null; entry = entry.next) {
+				if (keys.isEquals(i, entry.key)) {
+					pos[i] =  entry.seq;
+					break;
+				}
+			}
+		}
+		
+		return pos;
+	}
+
+	public int[] findAllPos(IArray[] keys) {
+		return findAllPos(keys[0]);
+	}
+
+	public int[] findAllPos(IArray keys, BoolArray signArray) {
+		Entry []entries = this.entries;
+		HashUtil hashUtil = this.hashUtil;
+		int len = keys.size();
+		int[] pos = new int[len + 1];
+		
+		for (int i = 1; i <= len; i++) {
+			if (signArray.isFalse(i)) {
+				continue;
+			}
+			int hash = hashUtil.hashCode(keys.hashCode(i));
+			for (Entry entry = entries[hash]; entry != null; entry = entry.next) {
+				if (keys.isEquals(i, entry.key)) {
+					pos[i] =  entry.seq;
+					break;
+				}
+			}
+		}
+		
+		return pos;
+	}
+
+	public int[] findAllPos(IArray[] keys, BoolArray signArray) {
+		return findAllPos(keys[0], signArray);
 	}
 }

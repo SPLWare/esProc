@@ -4,13 +4,14 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import com.scudata.array.IArray;
+import com.scudata.array.LongArray;
 import com.scudata.common.IntArrayList;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Context;
 import com.scudata.dm.DataStruct;
-import com.scudata.dm.ListBase1;
-import com.scudata.dm.LongArray;
 import com.scudata.dm.ObjectReader;
 import com.scudata.dm.Param;
 import com.scudata.dm.Record;
@@ -35,6 +36,7 @@ import com.scudata.expression.operator.NotGreater;
 import com.scudata.expression.operator.NotSmaller;
 import com.scudata.expression.operator.Smaller;
 import com.scudata.resources.EngineMessage;
+import com.scudata.thread.ThreadPool;
 import com.scudata.util.Variant;
 
 /**
@@ -42,7 +44,7 @@ import com.scudata.util.Variant;
  * @author runqian
  *
  */
-public class ColumnTableMetaData extends TableMetaData {
+public class ColPhyTable extends PhyTable {
 	private transient ColumnMetaData []columns;
 	private transient ColumnMetaData []allColumns; //含主表
 	private transient ColumnMetaData []sortedColumns; // 排序字段
@@ -52,14 +54,14 @@ public class ColumnTableMetaData extends TableMetaData {
 	
 	private transient ColumnMetaData guideColumn;//导列
 	protected int sortedColStartIndex;//主表的排序字段个数
-
+	
 	private static final String GUIDE_COLNAME = "_guidecol";
 
 	/**
 	 * 用于序列化
 	 * @param groupTable
 	 */
-	public ColumnTableMetaData(GroupTable groupTable) {
+	public ColPhyTable(ComTable groupTable) {
 		this.groupTable = groupTable;
 		this.segmentBlockLink = new BlockLink(groupTable);
 		this.modifyBlockLink1 = new BlockLink(groupTable);
@@ -71,7 +73,7 @@ public class ColumnTableMetaData extends TableMetaData {
 	 * @param groupTable
 	 * @param parent
 	 */
-	public ColumnTableMetaData(GroupTable groupTable, ColumnTableMetaData parent) {
+	public ColPhyTable(ComTable groupTable, ColPhyTable parent) {
 		this.groupTable = groupTable;
 		this.parent = parent;
 		this.segmentBlockLink = new BlockLink(groupTable);
@@ -86,7 +88,7 @@ public class ColumnTableMetaData extends TableMetaData {
 	 * @param serialBytesLen
 	 * @throws IOException
 	 */
-	public ColumnTableMetaData(GroupTable groupTable, String []colNames) throws IOException {
+	public ColPhyTable(ComTable groupTable, String []colNames) throws IOException {
 		this.groupTable = groupTable;
 		this.tableName = "";
 		this.segmentBlockLink = new BlockLink(groupTable);
@@ -123,7 +125,8 @@ public class ColumnTableMetaData extends TableMetaData {
 			isSorted = false;
 		}
 		
-		tableList = new ArrayList<TableMetaData>();
+		tableList = new ArrayList<PhyTable>();
+		this.reserve[0] = 4;
 	}
 
 	/**
@@ -133,7 +136,7 @@ public class ColumnTableMetaData extends TableMetaData {
 	 * @param serialBytesLen
 	 * @throws IOException
 	 */
-	public ColumnTableMetaData(GroupTable groupTable, String []colNames, int []serialBytesLen) throws IOException {
+	public ColPhyTable(ComTable groupTable, String []colNames, int []serialBytesLen) throws IOException {
 		this.groupTable = groupTable;
 		this.tableName = "";
 		this.colNames = colNames;
@@ -153,7 +156,7 @@ public class ColumnTableMetaData extends TableMetaData {
 			hasPrimaryKey = false;
 			isSorted = false;
 		}
-		tableList = new ArrayList<TableMetaData>();
+		tableList = new ArrayList<PhyTable>();
 	}
 
 	/**
@@ -165,8 +168,8 @@ public class ColumnTableMetaData extends TableMetaData {
 	 * @param parent 主表对象
 	 * @throws IOException
 	 */
-	public ColumnTableMetaData(GroupTable groupTable, String []colNames, int []serialBytesLen,
-			String tableName, ColumnTableMetaData parent) throws IOException {
+	public ColPhyTable(ComTable groupTable, String []colNames, int []serialBytesLen,
+			String tableName, ColPhyTable parent) throws IOException {
 		this.groupTable = groupTable;
 		this.parent = parent;
 		this.tableName = tableName;
@@ -200,7 +203,7 @@ public class ColumnTableMetaData extends TableMetaData {
 				throw new RQException(mm.getMessage("ds.dsNotMatch"));
 			}
 			
-			TableMetaData primaryTable = parent;
+			PhyTable primaryTable = parent;
 			String []primarySortedColNames = primaryTable.getSortedColNames();
 			String []primaryColNames = primaryTable.getColNames();
 			ArrayList<String> collist = new ArrayList<String>();
@@ -224,7 +227,7 @@ public class ColumnTableMetaData extends TableMetaData {
 			guideColumn = new ColumnMetaData(this, tableName + GUIDE_COLNAME, false, false);
 		}
 		
-		tableList = new ArrayList<TableMetaData>();
+		tableList = new ArrayList<PhyTable>();
 	}
 	
 	/**
@@ -234,7 +237,7 @@ public class ColumnTableMetaData extends TableMetaData {
 	 * @param src 提供结构的源基表
 	 * @throws IOException
 	 */
-	public ColumnTableMetaData(GroupTable groupTable, ColumnTableMetaData parent, ColumnTableMetaData src) throws IOException {
+	public ColPhyTable(ComTable groupTable, ColPhyTable parent, ColPhyTable src) throws IOException {
 		this.groupTable = groupTable;
 		this.parent = parent;
 		
@@ -267,9 +270,9 @@ public class ColumnTableMetaData extends TableMetaData {
 
 		dupIndexAdnCuboid(src);
 		
-		tableList = new ArrayList<TableMetaData>();
-		for (TableMetaData srcSub : src.tableList) {
-			tableList.add(new ColumnTableMetaData(groupTable, this, (ColumnTableMetaData)srcSub));
+		tableList = new ArrayList<PhyTable>();
+		for (PhyTable srcSub : src.tableList) {
+			tableList.add(new ColPhyTable(groupTable, this, (ColPhyTable)srcSub));
 		}
 	}
 
@@ -329,7 +332,7 @@ public class ColumnTableMetaData extends TableMetaData {
 			sortedColStartIndex = primarySortedColNames.length;
 			
 			allSortedColumns = new ColumnMetaData[sortedColStartIndex + dimCount];
-			ColumnMetaData []baseSortedCols = ((ColumnTableMetaData) parent).getSortedColumns();
+			ColumnMetaData []baseSortedCols = ((ColPhyTable) parent).getSortedColumns();
 			int i = 0;
 			if (baseSortedCols != null) {
 				for (ColumnMetaData col : baseSortedCols) {
@@ -341,7 +344,7 @@ public class ColumnTableMetaData extends TableMetaData {
 					allSortedColumns[i++] = col;
 				}
 			}
-			ColumnMetaData []parentColumns = ((ColumnTableMetaData) parent).getSortedColumns();
+			ColumnMetaData []parentColumns = ((ColPhyTable) parent).getSortedColumns();
 			allColumns = new ColumnMetaData[parentColumns.length + columns.length];
 			allColNames = new String[parentColumns.length + columns.length];
 			i = 0;
@@ -367,7 +370,7 @@ public class ColumnTableMetaData extends TableMetaData {
 	 * 返回所有列。（含主表key列）
 	 * @return
 	 */
-	ColumnMetaData[] getAllColumns() {
+	public ColumnMetaData[] getAllColumns() {
 		if (parent == null) return columns;
 		return allColumns;
 	}
@@ -378,10 +381,10 @@ public class ColumnTableMetaData extends TableMetaData {
 	 */
 	ColumnMetaData[] getTotalColumns() {
 		if (parent == null) return columns;
-		int baseColCount = ((ColumnTableMetaData)parent).columns.length;
+		int baseColCount = ((ColPhyTable)parent).columns.length;
 		int len = baseColCount + columns.length;
 		ColumnMetaData[] cols = new ColumnMetaData[len];
-		System.arraycopy(((ColumnTableMetaData)parent).columns, 0, cols, 0, baseColCount);
+		System.arraycopy(((ColPhyTable)parent).columns, 0, cols, 0, baseColCount);
 		System.arraycopy(columns, 0, cols, baseColCount, columns.length);		
 		return cols;
 	}
@@ -624,7 +627,7 @@ public class ColumnTableMetaData extends TableMetaData {
 	 * 返回附表的导列
 	 * @return
 	 */
-	ColumnMetaData getGuideColumn() {
+	public ColumnMetaData getGuideColumn() {
 		return guideColumn;
 	}
 	
@@ -745,9 +748,9 @@ public class ColumnTableMetaData extends TableMetaData {
 		init();
 		
 		count = reader.readInt();
-		tableList = new ArrayList<TableMetaData>(count);
+		tableList = new ArrayList<PhyTable>(count);
 		for (int i = 0; i < count; ++i) {
-			TableMetaData table = new ColumnTableMetaData(groupTable, this);
+			PhyTable table = new ColPhyTable(groupTable, this);
 			table.readExternal(reader);
 			tableList.add(table);
 		}
@@ -757,7 +760,7 @@ public class ColumnTableMetaData extends TableMetaData {
 	 * 写出表头数据
 	 */
 	public void writeExternal(BufferWriter writer) throws IOException {
-		reserve[0] = 1;
+		reserve[0] = 5;
 		writer.write(reserve);
 		writer.writeUTF(tableName);
 		writer.writeStrings(colNames);
@@ -809,7 +812,7 @@ public class ColumnTableMetaData extends TableMetaData {
 		writer.flush();
 		writer.writeInt(segmentSerialLen);
 		
-		ArrayList<TableMetaData> tableList = this.tableList;
+		ArrayList<PhyTable> tableList = this.tableList;
 		count = tableList.size();
 		writer.writeInt(count);
 		for (int i = 0; i < count; ++i) {
@@ -825,7 +828,85 @@ public class ColumnTableMetaData extends TableMetaData {
 	 * @throws IOException
 	 */
 	private void appendAttachedDataBlock(Sequence data, boolean []isMyCol, LongArray recList) throws IOException {
-		Record r;
+		ColumnMetaData []columns = this.allColumns;
+		int count = columns.length;
+
+		Object []minValues = new Object[count];;//一块的最小维值
+		Object []maxValues = new Object[count];;//一块的最大维值
+		Object []startValues = new Object[count];
+		int[] dataTypeInfo = new int[count];
+				
+		BufferWriter bufferWriter = guideColumn.getColDataBufferWriter();
+		BufferWriter bufferWriters[] = new BufferWriter[count];
+		
+		DataBlockWriterJob[] jobs = new DataBlockWriterJob[count];
+		ThreadPool pool = ThreadPool.newInstance(count);
+		
+		int end = data.length();
+		try {
+			//写导列
+			bufferWriter.write(DataBlockType.LONG);
+			for (int i = 1; i <= end; ++i) {
+				bufferWriter.writeLong(recList.getLong(i));
+			}
+			bufferWriter.writeBoolean(false);
+			
+			//写数据列任务
+			for (int i = 0; i < count; i++) {
+				if (!isMyCol[i])
+					continue;
+				bufferWriters[i] = columns[i].getColDataBufferWriter();
+				Sequence dict = columns[i].getDict();
+				jobs[i] = new DataBlockWriterJob(bufferWriters[i], data, dict, i, 1, end, 
+						maxValues, minValues, startValues, dataTypeInfo);
+				pool.submit(jobs[i]);
+			}
+			
+			for (int i = 0; i < count; ++i) {
+				if (!isMyCol[i]) continue;
+				jobs[i].join();
+			}
+		} finally {
+			pool.shutdown();
+		}
+		
+		//统计列数据类型
+		for (int j = 0; j < count; j++) {
+			if (!isMyCol[j]) continue;
+			columns[j].adjustDataType(dataTypeInfo[j]);
+			columns[j].initDictArray();
+		}
+
+		if (recList.size() == 0) {
+			//如果是空块，则各列写一个null
+			bufferWriter.writeObject(null);
+			for (int j = 0; j < count; j++) {
+				if (!isMyCol[j]) continue;
+				bufferWriters[j].writeObject(null);
+			}
+		}
+		
+		guideColumn.appendColBlock(bufferWriter.finish());
+
+		//提交每个列块buffer
+		for (int j = 0; j < count; j++) {
+			if (!isMyCol[j]) continue;
+			columns[j].appendColBlock(bufferWriters[j].finish(), minValues[j], maxValues[j], startValues[j]);
+		}
+		
+		//更新分段信息buffer
+		appendSegmentBlock(end);
+	}
+	
+	/**
+	 * 追加附表的一块数据(旧格式)
+	 * @param data
+	 * @param start 开始的列
+	 * @param recList 导列数据
+	 * @throws IOException
+	 */
+	public void appendAttachedDataBlockV3(Sequence data, boolean []isMyCol, LongArray recList) throws IOException {
+		BaseRecord r;
 		ColumnMetaData []columns = this.allColumns;
 		int count = columns.length;
 		int []serialBytesLen = new int[count];
@@ -852,7 +933,7 @@ public class ColumnTableMetaData extends TableMetaData {
 			//写导列
 			bufferWriter.writeObject(recList.get(i - 1));
 			
-			r = (Record) data.get(i);
+			r = (BaseRecord) data.get(i);
 			Object[] vals = r.getFieldValues();
 			//把一条写到各列的buffer
 			for (int j = 0; j < count; j++) {
@@ -930,14 +1011,64 @@ public class ColumnTableMetaData extends TableMetaData {
 	}
 	
 	/**
-	 * 把data序列的指定范围的数据写出
+	 * 把data序列的指定范围的数据写出(新格式)
 	 * @param data 数据序列
 	 * @param start 开始位置
 	 * @param end 结束位置
 	 * @throws IOException
 	 */
 	private void appendDataBlock(Sequence data, int start, int end) throws IOException {
-		Record r;
+		ColumnMetaData []columns = this.columns;
+		int count = columns.length;
+		Object []minValues = new Object[count];//一块的最小维值
+		Object []maxValues = new Object[count];//一块的最大维值
+		Object []startValues = new Object[count];
+		int[] dataTypeInfo = new int[count];
+
+		BufferWriter bufferWriters[] = new BufferWriter[count];
+		DataBlockWriterJob[] jobs = new DataBlockWriterJob[count];
+		ThreadPool pool = ThreadPool.newInstance(count);
+		
+		try {
+			for (int i = 0; i < count; i++) {
+				bufferWriters[i] = columns[i].getColDataBufferWriter();
+				Sequence dict = columns[i].getDict();
+				jobs[i] = new DataBlockWriterJob(bufferWriters[i], data, dict, i, start, end, 
+						maxValues, minValues, startValues, dataTypeInfo);
+				pool.submit(jobs[i]);
+			}
+			
+			for (int i = 0; i < count; ++i) {
+				jobs[i].join();
+			}
+		} finally {
+			pool.shutdown();
+		}
+		
+		//统计列数据类型
+		for (int j = 0; j < count; j++) {
+			columns[j].adjustDataType(dataTypeInfo[j]);
+			columns[j].initDictArray();
+		}
+		
+		//提交每个列块buffer
+		for (int j = 0; j < count; j++) {
+			columns[j].appendColBlock(bufferWriters[j].finish(), minValues[j], maxValues[j], startValues[j]);
+		}
+		
+		//更新分段信息buffer
+		appendSegmentBlock(end - start + 1);
+	}
+	
+	/**
+	 * 把data序列的指定范围的数据写出(旧格式)
+	 * @param data 数据序列
+	 * @param start 开始位置
+	 * @param end 结束位置
+	 * @throws IOException
+	 */
+	public void appendDataBlockV3(Sequence data, int start, int end) throws IOException {
+		BaseRecord r;
 		ColumnMetaData []columns = this.columns;
 		int count = columns.length;
 		int []serialBytesLen = new int[count];
@@ -957,9 +1088,9 @@ public class ColumnTableMetaData extends TableMetaData {
 			bufferWriters[i] = columns[i].getColDataBufferWriter();
 		}
 		
-		ListBase1 mems = data.getMems();
+		IArray mems = data.getMems();
 		for (int i = start; i <= end; ++i) {
-			r = (Record) mems.get(i);
+			r = (BaseRecord) mems.get(i);
 			mems.set(i, null);
 			
 			Object[] vals = r.getFieldValues();
@@ -1037,7 +1168,7 @@ public class ColumnTableMetaData extends TableMetaData {
 	 * @throws IOException
 	 */
 	private void appendAttached(ICursor cursor) throws IOException {
-		TableMetaData primaryTable = parent;
+		PhyTable primaryTable = parent;
 		int pBlockCount = primaryTable.getDataBlockCount();//主表的已有总块数
 		int curBlockCount = dataBlockCount;//要追加的开始块号
 		int pkeyEndIndex = sortedColStartIndex;
@@ -1068,7 +1199,7 @@ public class ColumnTableMetaData extends TableMetaData {
 		Sequence pkeyData = cs.fetch(ICursor.MAXSIZE);
 		int pkeyIndex = 1;
 		int pkeyDataLen = pkeyData.length();
-		GroupTableRecord curPkey = (GroupTableRecord) pkeyData.get(1);
+		ComTableRecord curPkey = (ComTableRecord) pkeyData.get(1);
 		Object []curPkeyVals = curPkey.getFieldValues();
 		
 		int sortedColCount = allSortedColumns.length;
@@ -1078,14 +1209,14 @@ public class ColumnTableMetaData extends TableMetaData {
 		LongArray guideCol = new LongArray(MIN_BLOCK_RECORD_COUNT);
 		Sequence seq = new Sequence(MIN_BLOCK_RECORD_COUNT);
 		Sequence data = cursor.fetch(ICursor.FETCHCOUNT);
-		Record r;
+		BaseRecord r;
 		Object []vals = new Object[sortedColCount];
 		int []findex = getSortedColIndex();
 		
 		while (data != null && data.length() > 0) {
 			int len = data.length();
 			for (int i = 1; i <= len; ++i) {
-				r = (Record) data.get(i);
+				r = (BaseRecord) data.get(i);
 				for (int f = 0; f < sortedColCount; ++f) {
 					vals[f] = r.getNormalFieldValue(findex[f]);
 				}
@@ -1117,7 +1248,7 @@ public class ColumnTableMetaData extends TableMetaData {
 							pkeyIndex = 1;
 							pkeyDataLen = pkeyData.length();
 						}
-						curPkey = (GroupTableRecord) pkeyData.get(pkeyIndex);
+						curPkey = (ComTableRecord) pkeyData.get(pkeyIndex);
 						curPkeyVals = curPkey.getFieldValues();
 					} else if (cmp > 0) {
 						//没找到对应的主表记录，抛异常
@@ -1191,14 +1322,14 @@ public class ColumnTableMetaData extends TableMetaData {
 		
 		Sequence seq = new Sequence(MIN_BLOCK_RECORD_COUNT);
 		Sequence data = cursor.fetch(ICursor.FETCHCOUNT);
-		Record r;
+		BaseRecord r;
 		Object []vals = new Object[sortedColCount];
 		int []findex = getSortedColIndex();
 		
 		while (data != null && data.length() > 0) {
 			int len = data.length();
 			for (int i = 1; i <= len; ++i) {
-				r = (Record) data.get(i);
+				r = (BaseRecord) data.get(i);
 				for (int f = 0; f < sortedColCount; ++f) {
 					vals[f] = r.getNormalFieldValue(findex[f]);
 				}
@@ -1264,14 +1395,14 @@ public class ColumnTableMetaData extends TableMetaData {
 		
 		Sequence seq = new Sequence(MIN_BLOCK_RECORD_COUNT);
 		Sequence data = cursor.fetch(ICursor.FETCHCOUNT);
-		Record r;
+		BaseRecord r;
 		Object []vals = new Object[sortedColCount];
 		int []findex = getSortedColIndex();
 
 		while (data != null && data.length() > 0) {
 			int len = data.length();
 			for (int i = 1; i <= len; ++i) {
-				r = (Record) data.get(i);
+				r = (BaseRecord) data.get(i);
 				for (int f = 0; f < sortedColCount; ++f) {
 					vals[f] = r.getNormalFieldValue(findex[f]);
 				}
@@ -1280,7 +1411,7 @@ public class ColumnTableMetaData extends TableMetaData {
 				if (recCount >= MAX_BLOCK_RECORD_COUNT) {
 					//这时提交一半
 					appendDataBlock(seq, 1, MAX_BLOCK_RECORD_COUNT/2);
-					seq = seq.get(MAX_BLOCK_RECORD_COUNT/2 + 1, seq.length() + 1);
+					seq = (Sequence) seq.get(MAX_BLOCK_RECORD_COUNT/2 + 1, seq.length() + 1);
 					recCount = seq.length(); 
 				} else if (recCount >= MIN_BLOCK_RECORD_COUNT){
 					boolean doAppend = true;
@@ -1378,16 +1509,16 @@ public class ColumnTableMetaData extends TableMetaData {
 		}
 		
 		// 归并读的数据先保存到临时文件
-		ColumnGroupTable groupTable = (ColumnGroupTable)getGroupTable();
+		ColComTable groupTable = (ColComTable)getGroupTable();
 		File srcFile = groupTable.getFile();
 		File tmpFile = File.createTempFile("tmpdata", "", srcFile.getParentFile());
-		ColumnGroupTable tmpGroupTable = null;
+		ColComTable tmpGroupTable = null;
 		
 		try {
 			Context ctx = new Context();
-			tmpGroupTable = new ColumnGroupTable(tmpFile, groupTable);
+			tmpGroupTable = new ColComTable(tmpFile, groupTable);
 			
-			TableMetaData baseTable = tmpGroupTable.getBaseTable();
+			PhyTable baseTable = tmpGroupTable.getBaseTable();
 			
 			int dcount = sortedColumns.length;
 			Expression []mergeExps = new Expression[dcount];
@@ -1435,14 +1566,14 @@ public class ColumnTableMetaData extends TableMetaData {
 		if (isSorted && opt != null) {
 			if (opt.indexOf('y') != -1) {
 				Sequence data = cursor.fetch();
-				ColumnTableMetaData ctmd = (ColumnTableMetaData)getSupplementTable(false);
+				ColPhyTable ctmd = (ColPhyTable)getSupplementTable(false);
 				if (ctmd == null) {
 					append_y(data);
 				} else {
 					ctmd.append_y(data);
 				}
 			} else if (opt.indexOf('a') != -1) {
-				ColumnTableMetaData ctmd = (ColumnTableMetaData)getSupplementTable(true);
+				ColPhyTable ctmd = (ColPhyTable)getSupplementTable(true);
 				ctmd.mergeAppend(cursor, opt);
 			} else if (opt.indexOf('m') != -1) {
 				mergeAppend(cursor, opt);
@@ -1582,7 +1713,7 @@ public class ColumnTableMetaData extends TableMetaData {
 	 * 返回这个基表的游标
 	 */
 	public ICursor cursor() {
-		GroupTable groupTable = getGroupTable();
+		ComTable groupTable = getGroupTable();
 		groupTable.checkReadable();
 		
 		ICursor cs;
@@ -1592,7 +1723,7 @@ public class ColumnTableMetaData extends TableMetaData {
 			cs = new Cursor(this);
 		}
 		
-		TableMetaData tmd = getSupplementTable(false);
+		PhyTable tmd = getSupplementTable(false);
 		if (tmd == null) {
 			return cs;
 		} else {
@@ -1612,7 +1743,7 @@ public class ColumnTableMetaData extends TableMetaData {
 	 */
 	public ICursor cursor(Expression []exps, String []fields, Expression filter, 
 			String []fkNames, Sequence []codes, String []opts, Context ctx) {
-		GroupTable groupTable = getGroupTable();
+		ComTable groupTable = getGroupTable();
 		groupTable.checkReadable();
 		
 		ICursor cs = JoinTableCursor.createAnnexCursor(this, exps, fields, filter, fkNames, codes, ctx);
@@ -1620,7 +1751,7 @@ public class ColumnTableMetaData extends TableMetaData {
 			cs = new Cursor(this, exps, fields, filter, fkNames, codes, opts, ctx);
 		}
 		
-		TableMetaData tmd = getSupplementTable(false);
+		PhyTable tmd = getSupplementTable(false);
 		if (tmd == null) {
 			return cs;
 		} else {
@@ -1672,7 +1803,7 @@ public class ColumnTableMetaData extends TableMetaData {
 			return cursor(exps, fields, filter, fkNames, codes, opts, ctx);
 		}
 		
-		TableMetaData tmd = getSupplementTable(false);
+		PhyTable tmd = getSupplementTable(false);
 		int blockCount = getDataBlockCount();
 		if (blockCount == 0) {
 			if (tmd == null) {
@@ -1860,66 +1991,58 @@ public class ColumnTableMetaData extends TableMetaData {
 	
 	public static Sequence fetchToValue(IDWCursor cursor, String []names, Object []vals) {
 		// 只取第一块的记录，如果第一块没有满足条件的就返回
-		int startBlock = cursor.getStartBlock();
-		int endBlock = cursor.getEndBlock();
+		Sequence seq = cursor.getStartBlockData(ICursor.FETCHCOUNT);
+		if (seq == null || seq.length() == 0) {
+			return null;
+		}
 		
-		try {
-			cursor.setEndBlock(startBlock + 1);
-			Sequence seq = cursor.get(ICursor.FETCHCOUNT);
-			if (seq == null || seq.length() == 0) {
-				return null;
+		int fcount = names.length;
+		int []findex = new int[fcount];
+		DataStruct ds = ((BaseRecord)seq.getMem(1)).dataStruct();
+		for (int f = 0; f < fcount; ++f) {
+			findex[f] = ds.getFieldIndex(names[f]);
+			if (findex[f] == -1) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException(names[f] + mm.getMessage("ds.fieldNotExist"));
 			}
-			
-			int fcount = names.length;
-			int []findex = new int[fcount];
-			DataStruct ds = ((Record)seq.getMem(1)).dataStruct();
-			for (int f = 0; f < fcount; ++f) {
-				findex[f] = ds.getFieldIndex(names[f]);
-				if (findex[f] == -1) {
-					MessageManager mm = EngineMessage.get();
-					throw new RQException(names[f] + mm.getMessage("ds.fieldNotExist"));
+		}
+		
+		Sequence result = null;
+		Object []curVals = new Object[fcount];
+		
+		while (true) {
+			int len = seq.length();
+			for (int i = 1; i <= len; ++i) {
+				BaseRecord r = (BaseRecord)seq.getMem(i);
+				for (int f = 0; f < fcount; ++f) {
+					curVals[f] = r.getNormalFieldValue(findex[f]);
 				}
-			}
-			
-			Sequence result = null;
-			Object []curVals = new Object[fcount];
-			
-			while (true) {
-				int len = seq.length();
-				for (int i = 1; i <= len; ++i) {
-					Record r = (Record)seq.getMem(i);
-					for (int f = 0; f < fcount; ++f) {
-						curVals[f] = r.getNormalFieldValue(findex[f]);
-					}
-					
-					if (Variant.compareArrays(curVals, vals) >= 0) {
-						if (i == 1) {
-							cursor.setCache(seq);
-							return result;
-						} else if (result == null) {
-							cursor.setCache(seq.split(i));
-							result = seq;
-						} else {
-							cursor.setCache(seq.split(i));
-							result.addAll(seq);
-						}
+				
+				if (Variant.compareArrays(curVals, vals) >= 0) {
+					if (i == 1) {
+						cursor.setCache(seq);
 						return result;
+					} else if (result == null) {
+						cursor.setCache(seq.split(i));
+						result = seq;
+					} else {
+						cursor.setCache(seq.split(i));
+						result.addAll(seq);
 					}
-				}
-				
-				if (result == null) {
-					result = seq;
-				} else {
-					result.addAll(seq);
-				}
-				
-				seq = cursor.get(ICursor.FETCHCOUNT);
-				if (seq == null || seq.length() == 0) {
 					return result;
 				}
 			}
-		} finally {
-			cursor.setEndBlock(endBlock);
+			
+			if (result == null) {
+				result = seq;
+			} else {
+				result.addAll(seq);
+			}
+			
+			seq = cursor.getStartBlockData(ICursor.FETCHCOUNT);
+			if (seq == null || seq.length() == 0) {
+				return result;
+			}
 		}
 	}
 	
@@ -1980,7 +2103,7 @@ public class ColumnTableMetaData extends TableMetaData {
 				break;*/
 			}
 
-			Record r = (Record)seq.get(1);
+			BaseRecord r = (BaseRecord)seq.get(1);
 			Object []vals = new Object[fcount];
 			minValues[i] = vals;
 			for (int f = 0; f < fcount; ++f) {
@@ -2072,7 +2195,7 @@ public class ColumnTableMetaData extends TableMetaData {
 				startBlock = blockCount;
 			}
 			
-			for (int i = 1; i < segCount; ++i) {
+			for (int i = segCount - 1; i > 0; --i) {
 				if (appendSegs[i] != -1) {
 					Sequence seq = fetchToValue((IDWCursor)cursors[i], dimFields, minValues[i]);
 					((IDWCursor)cursors[appendSegs[i]]).setAppendData(seq);
@@ -2083,7 +2206,7 @@ public class ColumnTableMetaData extends TableMetaData {
 		}
 
 		MultipathCursors result = new MultipathCursors(cursors, ctx);
-		TableMetaData tmd = getSupplementTable(false);
+		PhyTable tmd = getSupplementTable(false);
 		if (tmd == null) {
 			return result;
 		}
@@ -2099,7 +2222,7 @@ public class ColumnTableMetaData extends TableMetaData {
 	}
 
 	// 有补文件时的数据更新
-	private Sequence update(TableMetaData stmd, Sequence data, String opt) throws IOException {
+	private Sequence update(PhyTable stmd, Sequence data, String opt) throws IOException {
 		boolean isUpdate = true, isInsert = true, isSave = true;
 		Sequence result = null;
 		if (opt != null) {
@@ -2155,13 +2278,13 @@ public class ColumnTableMetaData extends TableMetaData {
 			if (keyCount == 1) {
 				int k = keyIndex[0];
 				for (int i = 1; i <= len; ++i) {
-					Record r = (Record)data.getMem(i);
+					BaseRecord r = (BaseRecord)data.getMem(i);
 					seqs[i] = searcher.findNext(r.getFieldValue(k));
 				}
 			} else {
 				Object []keyValues = new Object[keyCount];
 				for (int i = 1; i <= len; ++i) {
-					Record r = (Record)data.getMem(i);
+					BaseRecord r = (BaseRecord)data.getMem(i);
 					for (int k = 0; k < keyCount; ++k) {
 						keyValues[k] = r.getFieldValue(keyIndex[k]);
 					}
@@ -2171,13 +2294,13 @@ public class ColumnTableMetaData extends TableMetaData {
 			}
 		} else {
 			recNum  = new long[len + 1];//子表对应到主表的伪号，0表示在主表补区
-			ColumnTableMetaData baseTable = (ColumnTableMetaData) this.groupTable.baseTable;
+			ColPhyTable baseTable = (ColPhyTable) this.groupTable.baseTable;
 			RecordSeqSearcher baseSearcher = new RecordSeqSearcher(baseTable);
 			RecordSeqSearcher2 searcher = new RecordSeqSearcher2(this);
 			if (keyCount == 1) {
 				int k = keyIndex[0];
 				for (int i = 1; i <= len; ++i) {
-					Record r = (Record)data.getMem(i);
+					BaseRecord r = (BaseRecord)data.getMem(i);
 					seqs[i] = searcher.findNext(r.getFieldValue(k), temp);
 					block[i] = temp[0];
 					if (seqs[i] < 0) {
@@ -2203,7 +2326,7 @@ public class ColumnTableMetaData extends TableMetaData {
 				Object []baseKeyValues = new Object[baseKeyCount];
 				
 				for (int i = 1; i <= len; ++i) {
-					Record r = (Record)data.getMem(i);
+					BaseRecord r = (BaseRecord)data.getMem(i);
 					for (int k = 0; k < keyCount; ++k) {
 						keyValues[k] = r.getFieldValue(keyIndex[k]);
 						if (k < baseKeyCount) {
@@ -2242,10 +2365,10 @@ public class ColumnTableMetaData extends TableMetaData {
 			modifyRecords = new ArrayList<ModifyRecord>(len);
 			this.modifyRecords = modifyRecords;
 			for (int i = 1; i <= len; ++i) {
-				Record sr = (Record)data.getMem(i);
+				BaseRecord sr = (BaseRecord)data.getMem(i);
 				if (seqs[i] > 0) {
 					if (isUpdate) {
-						ModifyRecord r = new ModifyRecord(seqs[i], ModifyRecord.STATE_UPDATE, sr);
+						ModifyRecord r = new ModifyRecord(seqs[i], ModifyRecord.STATE_UPDATE, sr.toRecord());
 						modifyRecords.add(r);
 						if (result != null) {
 							result.add(sr);
@@ -2277,8 +2400,8 @@ public class ColumnTableMetaData extends TableMetaData {
 							if ((mr.getState() == ModifyRecord.STATE_UPDATE && isUpdate) || 
 									(mr.getState() == ModifyRecord.STATE_DELETE && isInsert)) {
 								// 状态都用update
-								Record sr = (Record)data.getMem(t);
-								mr.setRecord(sr, ModifyRecord.STATE_UPDATE);
+								BaseRecord sr = (BaseRecord)data.getMem(t);
+								mr.setRecord(sr.toRecord(), ModifyRecord.STATE_UPDATE);
 								if (result != null) {
 									result.add(sr);
 								}
@@ -2290,8 +2413,8 @@ public class ColumnTableMetaData extends TableMetaData {
 						}
 					} else {
 						if (isUpdate) {
-							Record sr = (Record)data.getMem(t);
-							mr = new ModifyRecord(seq2, ModifyRecord.STATE_UPDATE, sr);
+							BaseRecord sr = (BaseRecord)data.getMem(t);
+							mr = new ModifyRecord(seq2, ModifyRecord.STATE_UPDATE, sr.toRecord());
 							tmp.add(mr);
 							
 							if (result != null) {
@@ -2308,14 +2431,14 @@ public class ColumnTableMetaData extends TableMetaData {
 						tmp.add(mr);
 					} else if (seq1 == seq2) {
 						if (mr.getState() == ModifyRecord.STATE_INSERT) {
-							int cmp = mr.getRecord().compare((Record)data.getMem(t), keyIndex);
+							int cmp = mr.getRecord().compare((BaseRecord)data.getMem(t), keyIndex);
 							if (cmp < 0) {
 								s++;
 								tmp.add(mr);
 							} else if (cmp == 0) {
 								if (isUpdate) {
-									Record sr = (Record)data.getMem(t);
-									mr.setRecord(sr);
+									BaseRecord sr = (BaseRecord)data.getMem(t);
+									mr.setRecord(sr.toRecord());
 									if (result != null) {
 										result.add(sr);
 									}
@@ -2344,10 +2467,10 @@ public class ColumnTableMetaData extends TableMetaData {
 			}
 			
 			for (; t <= len; ++t) {
-				Record sr = (Record)data.getMem(t);
+				BaseRecord sr = (BaseRecord)data.getMem(t);
 				if (seqs[t] > 0) {
 					if (isUpdate) {
-						ModifyRecord r = new ModifyRecord(seqs[t], ModifyRecord.STATE_UPDATE, sr);
+						ModifyRecord r = new ModifyRecord(seqs[t], ModifyRecord.STATE_UPDATE, sr.toRecord());
 						tmp.add(r);
 						if (result != null) {
 							result.add(sr);
@@ -2388,9 +2511,9 @@ public class ColumnTableMetaData extends TableMetaData {
 		
 		if (isPrimaryTable && needUpdateSubTable) {
 			//主表有insert，就必须更新所有子表补区
-			ArrayList<TableMetaData> tableList = getTableList();
+			ArrayList<PhyTable> tableList = getTableList();
 			for (int i = 0, size = tableList.size(); i < size; ++i) {
-				ColumnTableMetaData t = ((ColumnTableMetaData)tableList.get(i));
+				ColPhyTable t = ((ColPhyTable)tableList.get(i));
 				boolean needSave = t.update(modifyRecords);
 				if (needSave) {
 					t.saveModifyRecords();
@@ -2429,9 +2552,9 @@ public class ColumnTableMetaData extends TableMetaData {
 			data = new Sequence(data);
 		}
 		
-		GroupTable groupTable = getGroupTable();
+		ComTable groupTable = getGroupTable();
 		groupTable.checkWritable();
-		TableMetaData tmd = getSupplementTable(false);
+		PhyTable tmd = getSupplementTable(false);
 		if (tmd != null) {
 			return update(tmd, data, opt);
 		}
@@ -2509,13 +2632,13 @@ public class ColumnTableMetaData extends TableMetaData {
 			if (keyCount == 1) {
 				int k = keyIndex[0];
 				for (int i = 1; i <= len; ++i) {
-					Record r = (Record)data.getMem(i);
+					BaseRecord r = (BaseRecord)data.getMem(i);
 					seqs[i] = searcher.findNext(r.getFieldValue(k));
 				}
 			} else {
 				Object []keyValues = new Object[keyCount];
 				for (int i = 1; i <= len; ++i) {
-					Record r = (Record)data.getMem(i);
+					BaseRecord r = (BaseRecord)data.getMem(i);
 					for (int k = 0; k < keyCount; ++k) {
 						keyValues[k] = r.getFieldValue(keyIndex[k]);
 					}
@@ -2525,13 +2648,13 @@ public class ColumnTableMetaData extends TableMetaData {
 			}
 		} else {
 			recNum  = new long[len + 1];//子表对应到主表的伪号，0表示在主表补区
-			ColumnTableMetaData baseTable = (ColumnTableMetaData) this.groupTable.baseTable;
+			ColPhyTable baseTable = (ColPhyTable) this.groupTable.baseTable;
 			RecordSeqSearcher baseSearcher = new RecordSeqSearcher(baseTable);
 			RecordSeqSearcher2 searcher = new RecordSeqSearcher2(this);
 			if (keyCount == 1) {
 				int k = keyIndex[0];
 				for (int i = 1; i <= len; ++i) {
-					Record r = (Record)data.getMem(i);
+					BaseRecord r = (BaseRecord)data.getMem(i);
 					seqs[i] = searcher.findNext(r.getFieldValue(k), temp);
 					block[i] = temp[0];
 					if (seqs[i] < 0) {
@@ -2557,7 +2680,7 @@ public class ColumnTableMetaData extends TableMetaData {
 				Object []baseKeyValues = new Object[baseKeyCount];
 				
 				for (int i = 1; i <= len; ++i) {
-					Record r = (Record)data.getMem(i);
+					BaseRecord r = (BaseRecord)data.getMem(i);
 					for (int k = 0; k < keyCount; ++k) {
 						keyValues[k] = r.getFieldValue(keyIndex[k]);
 						if (k < baseKeyCount) {
@@ -2596,10 +2719,10 @@ public class ColumnTableMetaData extends TableMetaData {
 			modifyRecords = new ArrayList<ModifyRecord>(len);
 			this.modifyRecords = modifyRecords;
 			for (int i = 1; i <= len; ++i) {
-				Record sr = (Record)data.getMem(i);
+				BaseRecord sr = (BaseRecord)data.getMem(i);
 				if (seqs[i] > 0) {
 					if (isUpdate) {
-						ModifyRecord r = new ModifyRecord(seqs[i], ModifyRecord.STATE_UPDATE, sr);
+						ModifyRecord r = new ModifyRecord(seqs[i], ModifyRecord.STATE_UPDATE, sr.toRecord());
 						modifyRecords.add(r);
 						if (result != null) {
 							result.add(sr);
@@ -2608,7 +2731,7 @@ public class ColumnTableMetaData extends TableMetaData {
 				} else if (isInsert) {
 					long seq = -seqs[i];
 					if (seq <= totalRecordCount || block[i] > 0) {
-						ModifyRecord r = new ModifyRecord(seq, ModifyRecord.STATE_INSERT, sr);
+						ModifyRecord r = new ModifyRecord(seq, ModifyRecord.STATE_INSERT, sr.toRecord());
 						r.setBlock(block[i]);
 						//如果是子表insert 要处理parentRecordSeq，因为子表insert的可能指向主表列区
 						//这里先设置为指向列区伪号，最后会根据主表补区修改
@@ -2647,8 +2770,8 @@ public class ColumnTableMetaData extends TableMetaData {
 							if ((mr.getState() == ModifyRecord.STATE_UPDATE && isUpdate) || 
 									(mr.getState() == ModifyRecord.STATE_DELETE && isInsert)) {
 								// 状态都用update
-								Record sr = (Record)data.getMem(t);
-								mr.setRecord(sr, ModifyRecord.STATE_UPDATE);
+								BaseRecord sr = (BaseRecord)data.getMem(t);
+								mr.setRecord(sr.toRecord(), ModifyRecord.STATE_UPDATE);
 								if (result != null) {
 									result.add(sr);
 								}
@@ -2660,8 +2783,8 @@ public class ColumnTableMetaData extends TableMetaData {
 						}
 					} else {
 						if (isUpdate) {
-							Record sr = (Record)data.getMem(t);
-							mr = new ModifyRecord(seq2, ModifyRecord.STATE_UPDATE, sr);
+							BaseRecord sr = (BaseRecord)data.getMem(t);
+							mr = new ModifyRecord(seq2, ModifyRecord.STATE_UPDATE, sr.toRecord());
 							tmp.add(mr);
 							
 							if (result != null) {
@@ -2678,14 +2801,14 @@ public class ColumnTableMetaData extends TableMetaData {
 						tmp.add(mr);
 					} else if (seq1 == seq2) {
 						if (mr.getState() == ModifyRecord.STATE_INSERT) {
-							int cmp = mr.getRecord().compare((Record)data.getMem(t), keyIndex);
+							int cmp = mr.getRecord().compare((BaseRecord)data.getMem(t), keyIndex);
 							if (cmp < 0) {
 								s++;
 								tmp.add(mr);
 							} else if (cmp == 0) {
 								if (isUpdate) {
-									Record sr = (Record)data.getMem(t);
-									mr.setRecord(sr);
+									BaseRecord sr = (BaseRecord)data.getMem(t);
+									mr.setRecord(sr.toRecord());
 									if (result != null) {
 										result.add(sr);
 									}
@@ -2696,8 +2819,8 @@ public class ColumnTableMetaData extends TableMetaData {
 								t++;
 							} else {
 								if (isInsert) {
-									Record sr = (Record)data.getMem(t);
-									mr = new ModifyRecord(seq2, ModifyRecord.STATE_INSERT, sr);
+									BaseRecord sr = (BaseRecord)data.getMem(t);
+									mr = new ModifyRecord(seq2, ModifyRecord.STATE_INSERT, sr.toRecord());
 									mr.setBlock(block[t]);
 									//如果是子表insert 要处理parentRecordSeq，因为子表insert的可能指向主表列区
 									//这里先设置为指向列区伪号，最后会根据主表补区修改
@@ -2715,8 +2838,8 @@ public class ColumnTableMetaData extends TableMetaData {
 							}
 						} else {
 							if (isInsert) {
-								Record sr = (Record)data.getMem(t);
-								mr = new ModifyRecord(seq2, ModifyRecord.STATE_INSERT, sr);
+								BaseRecord sr = (BaseRecord)data.getMem(t);
+								mr = new ModifyRecord(seq2, ModifyRecord.STATE_INSERT, sr.toRecord());
 								mr.setBlock(block[t]);
 								//如果是子表insert 要处理parentRecordSeq，因为子表insert的可能指向主表列区
 								//这里先设置为指向列区伪号，最后会根据主表补区修改
@@ -2734,8 +2857,8 @@ public class ColumnTableMetaData extends TableMetaData {
 						}
 					} else {
 						if (isInsert) {
-							Record sr = (Record)data.getMem(t);
-							mr = new ModifyRecord(seq2, ModifyRecord.STATE_INSERT, sr);
+							BaseRecord sr = (BaseRecord)data.getMem(t);
+							mr = new ModifyRecord(seq2, ModifyRecord.STATE_INSERT, sr.toRecord());
 							mr.setBlock(block[t]);
 							//如果是子表insert 要处理parentRecordSeq，因为子表insert的可能指向主表列区
 							//这里先设置为指向列区伪号，最后会根据主表补区修改
@@ -2759,10 +2882,10 @@ public class ColumnTableMetaData extends TableMetaData {
 			}
 			
 			for (; t <= len; ++t) {
-				Record sr = (Record)data.getMem(t);
+				BaseRecord sr = (BaseRecord)data.getMem(t);
 				if (seqs[t] > 0) {
 					if (isUpdate) {
-						ModifyRecord r = new ModifyRecord(seqs[t], ModifyRecord.STATE_UPDATE, sr);
+						ModifyRecord r = new ModifyRecord(seqs[t], ModifyRecord.STATE_UPDATE, sr.toRecord());
 						tmp.add(r);
 						if (result != null) {
 							result.add(sr);
@@ -2771,7 +2894,7 @@ public class ColumnTableMetaData extends TableMetaData {
 				} else if (isInsert) {
 					long seq = -seqs[t];
 					if (seq <= totalRecordCount) {
-						ModifyRecord r = new ModifyRecord(seq, ModifyRecord.STATE_INSERT, sr);
+						ModifyRecord r = new ModifyRecord(seq, ModifyRecord.STATE_INSERT, sr.toRecord());
 						r.setBlock(block[t]);
 						//如果是子表insert 要处理parentRecordSeq，因为子表insert的可能指向主表列区
 						//这里先设置为指向列区伪号，最后会根据主表补区修改
@@ -2818,9 +2941,9 @@ public class ColumnTableMetaData extends TableMetaData {
 		
 		if (isPrimaryTable && needUpdateSubTable) {
 			//主表有insert，就必须更新所有子表补区
-			ArrayList<TableMetaData> tableList = getTableList();
+			ArrayList<PhyTable> tableList = getTableList();
 			for (int i = 0, size = tableList.size(); i < size; ++i) {
-				ColumnTableMetaData t = ((ColumnTableMetaData)tableList.get(i));
+				ColPhyTable t = ((ColPhyTable)tableList.get(i));
 				boolean needSave = t.update(modifyRecords);
 				if (needSave) {
 					t.saveModifyRecords();
@@ -2862,7 +2985,7 @@ public class ColumnTableMetaData extends TableMetaData {
 			this.modifyRecords = modifyRecords;
 		}
 				
-		Record r1 = (Record)data.get(1);
+		BaseRecord r1 = (BaseRecord)data.get(1);
 		String []pks = getAllSortedColNames();
 		int keyCount = pks.length;
 		int []keyIndex = new int[keyCount];
@@ -2878,13 +3001,13 @@ public class ColumnTableMetaData extends TableMetaData {
 			if (keyCount == 1) {
 				int k = keyIndex[0];
 				for (int i = 1; i <= len; ++i) {
-					Record r = (Record)data.getMem(i);
+					BaseRecord r = (BaseRecord)data.getMem(i);
 					seqs[i] = searcher.findNext(r.getFieldValue(k));
 				}
 			} else {
 				Object []keyValues = new Object[keyCount];
 				for (int i = 1; i <= len; ++i) {
-					Record r = (Record)data.getMem(i);
+					BaseRecord r = (BaseRecord)data.getMem(i);
 					for (int k = 0; k < keyCount; ++k) {
 						keyValues[k] = r.getFieldValue(keyIndex[k]);
 					}
@@ -2894,20 +3017,20 @@ public class ColumnTableMetaData extends TableMetaData {
 			}
 			
 			for (int i = 1; i <= len; ++i) {
-				Record sr = (Record)data.getMem(i);
+				BaseRecord sr = (BaseRecord)data.getMem(i);
 				if (seqs[i] > 0) {
-					ModifyRecord r = new ModifyRecord(seqs[i], ModifyRecord.STATE_INSERT, sr);
+					ModifyRecord r = new ModifyRecord(seqs[i], ModifyRecord.STATE_INSERT, sr.toRecord());
 					modifyRecords.add(r);
 				} else {
-					ModifyRecord r = new ModifyRecord(-seqs[i], ModifyRecord.STATE_INSERT, sr);
+					ModifyRecord r = new ModifyRecord(-seqs[i], ModifyRecord.STATE_INSERT, sr.toRecord());
 					modifyRecords.add(r);
 				}
 			}
 		} else {
 			long seq = totalRecordCount + 1;
 			for (int i = 1; i <= len; ++i) {
-				Record sr = (Record)data.getMem(i);
-				ModifyRecord r = new ModifyRecord(seq, ModifyRecord.STATE_INSERT, sr);
+				BaseRecord sr = (BaseRecord)data.getMem(i);
+				ModifyRecord r = new ModifyRecord(seq, ModifyRecord.STATE_INSERT, sr.toRecord());
 				modifyRecords.add(r);
 			}
 		}
@@ -2971,13 +3094,13 @@ public class ColumnTableMetaData extends TableMetaData {
 			if (keyCount == 1) {
 				int k = keyIndex[0];
 				for (int i = 1; i <= len; ++i) {
-					Record r = (Record)data.getMem(i);
+					BaseRecord r = (BaseRecord)data.getMem(i);
 					seqs[i] = searcher.findNext(r.getFieldValue(k));
 				}
 			} else {
 				Object []keyValues = new Object[keyCount];
 				for (int i = 1; i <= len; ++i) {
-					Record r = (Record)data.getMem(i);
+					BaseRecord r = (BaseRecord)data.getMem(i);
 					for (int k = 0; k < keyCount; ++k) {
 						keyValues[k] = r.getFieldValue(keyIndex[k]);
 					}
@@ -2987,13 +3110,13 @@ public class ColumnTableMetaData extends TableMetaData {
 			}
 		} else {
 			recNum  = new long[len + 1];//子表对应到主表的伪号，0表示在主表补区
-			ColumnTableMetaData baseTable = (ColumnTableMetaData) this.groupTable.baseTable;
+			ColPhyTable baseTable = (ColPhyTable) this.groupTable.baseTable;
 			RecordSeqSearcher baseSearcher = new RecordSeqSearcher(baseTable);
 			RecordSeqSearcher2 searcher = new RecordSeqSearcher2(this);
 			if (keyCount == 1) {
 				int k = keyIndex[0];
 				for (int i = 1; i <= len; ++i) {
-					Record r = (Record)data.getMem(i);
+					BaseRecord r = (BaseRecord)data.getMem(i);
 					seqs[i] = searcher.findNext(r.getFieldValue(k), temp);
 					block[i] = temp[0];
 					if (seqs[i] < 0) {
@@ -3019,7 +3142,7 @@ public class ColumnTableMetaData extends TableMetaData {
 				Object []baseKeyValues = new Object[baseKeyCount];
 				
 				for (int i = 1; i <= len; ++i) {
-					Record r = (Record)data.getMem(i);
+					BaseRecord r = (BaseRecord)data.getMem(i);
 					for (int k = 0; k < keyCount; ++k) {
 						keyValues[k] = r.getFieldValue(keyIndex[k]);
 						if (k < baseKeyCount) {
@@ -3056,10 +3179,10 @@ public class ColumnTableMetaData extends TableMetaData {
 			modifyRecords = new ArrayList<ModifyRecord>(len);
 			this.modifyRecords = modifyRecords;
 			for (int i = 1; i <= len; ++i) {
-				Record sr = (Record)data.getMem(i);
+				BaseRecord sr = (BaseRecord)data.getMem(i);
 				if (seqs[i] > 0) {
 					if (isUpdate) {
-						ModifyRecord r = new ModifyRecord(seqs[i], ModifyRecord.STATE_UPDATE, sr);
+						ModifyRecord r = new ModifyRecord(seqs[i], ModifyRecord.STATE_UPDATE, sr.toRecord());
 						modifyRecords.add(r);
 						if (result != null) {
 							result.add(sr);
@@ -3068,7 +3191,7 @@ public class ColumnTableMetaData extends TableMetaData {
 				} else if (isInsert) {
 					long seq = -seqs[i];
 					if (seq <= totalRecordCount || block[i] > 0) {
-						ModifyRecord r = new ModifyRecord(seq, ModifyRecord.STATE_INSERT, sr);
+						ModifyRecord r = new ModifyRecord(seq, ModifyRecord.STATE_INSERT, sr.toRecord());
 						r.setBlock(block[i]);
 						//如果是子表insert 要处理parentRecordSeq，因为子表insert的可能指向主表列区
 						//这里先设置为指向列区伪号，最后会根据主表补区修改
@@ -3077,7 +3200,7 @@ public class ColumnTableMetaData extends TableMetaData {
 						}
 						modifyRecords.add(r);
 					} else {
-						ModifyRecord r = new ModifyRecord(seq, ModifyRecord.STATE_INSERT, sr);
+						ModifyRecord r = new ModifyRecord(seq, ModifyRecord.STATE_INSERT, sr.toRecord());
 						r.setBlock(block[i]);
 						//如果是子表insert 要处理parentRecordSeq，因为子表insert的可能指向主表列区
 						//这里先设置为指向列区伪号，最后会根据主表补区修改
@@ -3115,8 +3238,8 @@ public class ColumnTableMetaData extends TableMetaData {
 							if ((mr.getState() == ModifyRecord.STATE_UPDATE && isUpdate) || 
 									(mr.getState() == ModifyRecord.STATE_DELETE && isInsert)) {
 								// 状态都用update
-								Record sr = (Record)data.getMem(t);
-								mr.setRecord(sr, ModifyRecord.STATE_UPDATE);
+								BaseRecord sr = (BaseRecord)data.getMem(t);
+								mr.setRecord(sr.toRecord(), ModifyRecord.STATE_UPDATE);
 								if (result != null) {
 									result.add(sr);
 								}
@@ -3128,8 +3251,8 @@ public class ColumnTableMetaData extends TableMetaData {
 						}
 					} else {
 						if (isUpdate) {
-							Record sr = (Record)data.getMem(t);
-							mr = new ModifyRecord(seq2, ModifyRecord.STATE_UPDATE, sr);
+							BaseRecord sr = (BaseRecord)data.getMem(t);
+							mr = new ModifyRecord(seq2, ModifyRecord.STATE_UPDATE, sr.toRecord());
 							tmp.add(mr);
 							
 							if (result != null) {
@@ -3146,14 +3269,14 @@ public class ColumnTableMetaData extends TableMetaData {
 						tmp.add(mr);
 					} else if (seq1 == seq2) {
 						if (mr.getState() == ModifyRecord.STATE_INSERT) {
-							int cmp = mr.getRecord().compare((Record)data.getMem(t), keyIndex);
+							int cmp = mr.getRecord().compare((BaseRecord)data.getMem(t), keyIndex);
 							if (cmp < 0) {
 								s++;
 								tmp.add(mr);
 							} else if (cmp == 0) {
 								if (isUpdate) {
-									Record sr = (Record)data.getMem(t);
-									mr.setRecord(sr);
+									BaseRecord sr = (BaseRecord)data.getMem(t);
+									mr.setRecord(sr.toRecord());
 									if (result != null) {
 										result.add(sr);
 									}
@@ -3164,8 +3287,8 @@ public class ColumnTableMetaData extends TableMetaData {
 								t++;
 							} else {
 								if (isInsert) {
-									Record sr = (Record)data.getMem(t);
-									mr = new ModifyRecord(seq2, ModifyRecord.STATE_INSERT, sr);
+									BaseRecord sr = (BaseRecord)data.getMem(t);
+									mr = new ModifyRecord(seq2, ModifyRecord.STATE_INSERT, sr.toRecord());
 									mr.setBlock(block[t]);
 									//如果是子表insert 要处理parentRecordSeq，因为子表insert的可能指向主表列区
 									//这里先设置为指向列区伪号，最后会根据主表补区修改
@@ -3183,8 +3306,8 @@ public class ColumnTableMetaData extends TableMetaData {
 							}
 						} else {
 							if (isInsert) {
-								Record sr = (Record)data.getMem(t);
-								mr = new ModifyRecord(seq2, ModifyRecord.STATE_INSERT, sr);
+								BaseRecord sr = (BaseRecord)data.getMem(t);
+								mr = new ModifyRecord(seq2, ModifyRecord.STATE_INSERT, sr.toRecord());
 								mr.setBlock(block[t]);
 								//如果是子表insert 要处理parentRecordSeq，因为子表insert的可能指向主表列区
 								//这里先设置为指向列区伪号，最后会根据主表补区修改
@@ -3202,8 +3325,8 @@ public class ColumnTableMetaData extends TableMetaData {
 						}
 					} else {
 						if (isInsert) {
-							Record sr = (Record)data.getMem(t);
-							mr = new ModifyRecord(seq2, ModifyRecord.STATE_INSERT, sr);
+							BaseRecord sr = (BaseRecord)data.getMem(t);
+							mr = new ModifyRecord(seq2, ModifyRecord.STATE_INSERT, sr.toRecord());
 							mr.setBlock(block[t]);
 							//如果是子表insert 要处理parentRecordSeq，因为子表insert的可能指向主表列区
 							//这里先设置为指向列区伪号，最后会根据主表补区修改
@@ -3227,10 +3350,10 @@ public class ColumnTableMetaData extends TableMetaData {
 			}
 			
 			for (; t <= len; ++t) {
-				Record sr = (Record)data.getMem(t);
+				BaseRecord sr = (BaseRecord)data.getMem(t);
 				if (seqs[t] > 0) {
 					if (isUpdate) {
-						ModifyRecord r = new ModifyRecord(seqs[t], ModifyRecord.STATE_UPDATE, sr);
+						ModifyRecord r = new ModifyRecord(seqs[t], ModifyRecord.STATE_UPDATE, sr.toRecord());
 						tmp.add(r);
 						if (result != null) {
 							result.add(sr);
@@ -3239,7 +3362,7 @@ public class ColumnTableMetaData extends TableMetaData {
 				} else if (isInsert) {
 					long seq = -seqs[t];
 					if (seq <= totalRecordCount) {
-						ModifyRecord r = new ModifyRecord(seq, ModifyRecord.STATE_INSERT, sr);
+						ModifyRecord r = new ModifyRecord(seq, ModifyRecord.STATE_INSERT, sr.toRecord());
 						r.setBlock(block[t]);
 						//如果是子表insert 要处理parentRecordSeq，因为子表insert的可能指向主表列区
 						//这里先设置为指向列区伪号，最后会根据主表补区修改
@@ -3249,7 +3372,7 @@ public class ColumnTableMetaData extends TableMetaData {
 						modifyRecords.add(r);
 						tmp.add(r);
 					} else {
-						ModifyRecord r = new ModifyRecord(seq, ModifyRecord.STATE_INSERT, sr);
+						ModifyRecord r = new ModifyRecord(seq, ModifyRecord.STATE_INSERT, sr.toRecord());
 						r.setBlock(block[t]);
 						//如果是子表insert 要处理parentRecordSeq，因为子表insert的可能指向主表列区
 						//这里先设置为指向列区伪号，最后会根据主表补区修改
@@ -3295,9 +3418,9 @@ public class ColumnTableMetaData extends TableMetaData {
 		
 		if (isPrimaryTable && needUpdateSubTable) {
 			//主表有insert，就必须更新所有子表补区
-			ArrayList<TableMetaData> tableList = getTableList();
+			ArrayList<PhyTable> tableList = getTableList();
 			for (int i = 0, size = tableList.size(); i < size; ++i) {
-				ColumnTableMetaData t = ((ColumnTableMetaData)tableList.get(i));
+				ColPhyTable t = ((ColPhyTable)tableList.get(i));
 				boolean needSave = t.update(modifyRecords);
 				if (needSave) {
 					t.saveModifyRecords();
@@ -3327,7 +3450,7 @@ public class ColumnTableMetaData extends TableMetaData {
 		 * 根据cursor数据的结构，获得要更新的列
 		 */
 		Sequence temp = cursor.peek(1);
-		String[] fields = ((Record)temp.getMem(1)).getFieldNames();
+		String[] fields = ((BaseRecord)temp.getMem(1)).getFieldNames();
 		ColumnMetaData[] columns = getColumns(fields);
 		
 		/**
@@ -3385,10 +3508,10 @@ public class ColumnTableMetaData extends TableMetaData {
 			 * 计算每列的最值
 			 */
 			Sequence data = cursor.fetch((int) count);
-			ListBase1 mems = data.getMems();
+			IArray mems = data.getMems();
 			int len = mems.size();
 			for (int i = 1; i <= len; ++i) {
-				Record r = (Record) mems.get(i);
+				BaseRecord r = (BaseRecord) mems.get(i);
 				mems.set(i, null);
 				
 				/**
@@ -3439,7 +3562,12 @@ public class ColumnTableMetaData extends TableMetaData {
 	 * @param opt
 	 */
 	public Sequence delete(Sequence data, String opt) throws IOException {
-		if (!hasPrimaryKey) {
+		boolean deleteByBaseKey = false;//只用于内部删除子表的列区，此时不会有@n
+		if (opt != null && opt.indexOf('s') != -1) {
+			deleteByBaseKey = true;
+		}
+		
+		if (!hasPrimaryKey && !deleteByBaseKey) {
 			MessageManager mm = EngineMessage.get();
 			if (hasPrimaryKey) {
 				throw new RQException(mm.getMessage("dw.lessKey"));
@@ -3449,18 +3577,18 @@ public class ColumnTableMetaData extends TableMetaData {
 		}
 		
 		if (data != null) {
-			data = new Sequence(data);
+			data = new Sequence((Sequence)data);
 		}
 		
-		GroupTable groupTable = getGroupTable();
+		ComTable groupTable = getGroupTable();
 		groupTable.checkWritable();
 		
 		Sequence result1 = null;
-		TableMetaData tmd = getSupplementTable(false);
+		PhyTable tmd = getSupplementTable(false);
 		if (tmd != null) {
 			// 有补文件时先删除补文件中的数据，补文件中不存在的再在源文件中删除
 			result1 = tmd.delete(data, "n");
-			data = data.diff(result1, false);
+			data = (Sequence) data.diff(result1, false);
 		}
 		
 		appendCache();
@@ -3483,11 +3611,6 @@ public class ColumnTableMetaData extends TableMetaData {
 		Sequence result = null;
 		if (nopt) {
 			result = new Sequence();
-		}
-		
-		boolean deleteByBaseKey = false;//只用于内部删除子表的列区，此时不会有@n
-		if (opt != null && opt.indexOf('s') != -1) {
-			deleteByBaseKey = true;
 		}
 		
 		DataStruct ds = data.dataStruct();
@@ -3535,13 +3658,13 @@ public class ColumnTableMetaData extends TableMetaData {
 			if (keyCount == 1) {
 				int k = keyIndex[0];
 				for (int i = 1; i <= len; ++i) {
-					Record r = (Record)data.getMem(i);
+					BaseRecord r = (BaseRecord)data.getMem(i);
 					seqs[i] = searcher.findNext(r.getFieldValue(k));
 				}
 			} else {
 				Object []keyValues = new Object[keyCount];
 				for (int i = 1; i <= len; ++i) {
-					Record r = (Record)data.getMem(i);
+					BaseRecord r = (BaseRecord)data.getMem(i);
 					for (int k = 0; k < keyCount; ++k) {
 						keyValues[k] = r.getFieldValue(keyIndex[k]);
 					}
@@ -3556,7 +3679,7 @@ public class ColumnTableMetaData extends TableMetaData {
 			Object []baseKeyValues = new Object[baseKeyCount];
 			
 			for (int i = 1; i <= len;) {
-				Record r = (Record)data.getMem(i);
+				BaseRecord r = (BaseRecord)data.getMem(i);
 				for (int k = 0; k < keyCount; ++k) {
 					keyValues[k] = r.getFieldValue(keyIndex[k]);
 					if (k < baseKeyCount) {
@@ -3587,7 +3710,7 @@ public class ColumnTableMetaData extends TableMetaData {
 				return result;
 			}
 			
-			seqs = seqList.toArray();
+			seqs = seqList.getDatas();
 			data = seqListData;
 		}
 		
@@ -3627,7 +3750,7 @@ public class ColumnTableMetaData extends TableMetaData {
 						s++;
 					} else if (seq1 == seq2) {
 						if (mr.getState() == ModifyRecord.STATE_INSERT) {
-							int cmp = mr.getRecord().compare((Record)data.getMem(t), keyIndex);
+							int cmp = mr.getRecord().compare((BaseRecord)data.getMem(t), keyIndex);
 							if (cmp < 0) {
 								tmp.add(mr);
 							} else if (cmp == 0) {
@@ -3672,7 +3795,7 @@ public class ColumnTableMetaData extends TableMetaData {
 						tmp.add(mr);
 					} else if (seq1 == seq2) {
 						if (mr.getState() == ModifyRecord.STATE_INSERT) {
-							int cmp = mr.getRecord().compare((Record)data.getMem(t), keyIndex);
+							int cmp = mr.getRecord().compare((BaseRecord)data.getMem(t), keyIndex);
 							if (cmp < 0) {
 								s++;
 								tmp.add(mr);
@@ -3718,17 +3841,17 @@ public class ColumnTableMetaData extends TableMetaData {
 		if (modified) {
 			if (isPrimaryTable) {
 				//主表有delete，就必须同步delete子表
-				ArrayList<TableMetaData> tableList = getTableList();
+				ArrayList<PhyTable> tableList = getTableList();
 				int size = tableList.size();
 				for (int i = 0; i < size; ++i) {
-					ColumnTableMetaData t = ((ColumnTableMetaData)tableList.get(i));
+					ColPhyTable t = ((ColPhyTable)tableList.get(i));
 					t.delete(data, "s");//删除子表列区
 					t.delete(data);//删除子表补区
 				}
 				
 				//主表有删除，补区的位置会变化，还要同步子表补区
 				for (int i = 0; i < size; ++i) {
-					ColumnTableMetaData t = ((ColumnTableMetaData)tableList.get(i));
+					ColPhyTable t = ((ColPhyTable)tableList.get(i));
 					t.update(this.modifyRecords);
 					t.saveModifyRecords();
 				}
@@ -3771,7 +3894,7 @@ public class ColumnTableMetaData extends TableMetaData {
 		int parentRecordSeq = 0;
 		for (ModifyRecord mr : baseModifyRecords) {
 			parentRecordSeq++;
-			Record mrec = mr.getRecord();
+			BaseRecord mrec = mr.getRecord();
 			
 			if (mr.getState() != ModifyRecord.STATE_DELETE) {
 				for (ModifyRecord r : modifyRecords) {
@@ -3779,7 +3902,7 @@ public class ColumnTableMetaData extends TableMetaData {
 						continue;
 					}
 					
-					Record rec = r.getRecord();
+					BaseRecord rec = r.getRecord();
 					int cmp = rec.compare(mrec, index);
 					if (cmp == 0) {
 						if (mr.getState() == ModifyRecord.STATE_INSERT) {
@@ -3815,14 +3938,14 @@ public class ColumnTableMetaData extends TableMetaData {
 		len = data.length();
 		boolean delete = false;
 		for (int i = 1; i <= len; i++) {
-			Record mrec = (Record) data.get(i);
+			BaseRecord mrec = (BaseRecord) data.get(i);
 			srcModifyRecords.clear();
 			srcModifyRecords.addAll(tmp);
 			tmp.clear();
 			for (ModifyRecord r : srcModifyRecords) {
 				int state = r.getState();
 				if (state == ModifyRecord.STATE_UPDATE) {
-					Record rec = r.getRecord();
+					BaseRecord rec = r.getRecord();
 					int cmp = rec.compare(mrec, index);
 					if (cmp == 0) {
 						r.setDelete();
@@ -3831,7 +3954,7 @@ public class ColumnTableMetaData extends TableMetaData {
 					}
 					tmp.add(r);
 				} else if (state == ModifyRecord.STATE_INSERT) {
-					Record rec = r.getRecord();
+					BaseRecord rec = r.getRecord();
 					int cmp = rec.compare(mrec, index);
 					if (cmp == 0) {
 						delete = true;
@@ -3873,8 +3996,8 @@ public class ColumnTableMetaData extends TableMetaData {
 				seq = (Sequence)values.getMem(i);
 				dimValues[i - 1] = seq.toArray();
 			}
-		} else if (obj instanceof Record) {
-			Record r = (Record)obj;
+		} else if (obj instanceof BaseRecord) {
+			BaseRecord r = (BaseRecord)obj;
 			int []keyIndex = r.dataStruct().getPKIndex();
 			if (keyIndex == null) {
 				MessageManager mm = EngineMessage.get();
@@ -3889,7 +4012,7 @@ public class ColumnTableMetaData extends TableMetaData {
 			
 			dimValues = new Object[valueLen][];
 			for (int i = 1; i <= valueLen; ++i) {
-				r = (Record)values.getMem(i);
+				r = (BaseRecord)values.getMem(i);
 				Object []cur = new Object[dimCount];
 				for (int f = 0; f < dimCount; ++f) {
 					cur[f] = r.getNormalFieldValue(keyIndex[f]);
@@ -3934,9 +4057,9 @@ public class ColumnTableMetaData extends TableMetaData {
 			String key0 = keys[0];
 			Object obj = values.get(1);
 			if (obj instanceof Sequence) {
-				ListBase1 mem = values.getMems();
+				IArray mem = values.getMems();
 				Sequence newSeq = new Sequence(mem.size());
-				ListBase1 newMem = newSeq.getMems();
+				IArray newMem = newSeq.getMems();
 				for (int i = 1; i < mem.size(); i++) {
 					Sequence seq = (Sequence) mem.get(i);
 					Object obj1 = seq.get(1);
@@ -4021,7 +4144,7 @@ public class ColumnTableMetaData extends TableMetaData {
 		
 		for (int f = dimCount; f < colCount; ++f) {
 			prevPos[f] = segmentReaders[f].readLong40();
-			if (columns[f].isDim()) {
+			if (columns[f].hasMaxMinValues()) {
 				segmentReaders[f].skipObject();
 				segmentReaders[f].skipObject();
 				segmentReaders[f].skipObject();
@@ -4040,7 +4163,7 @@ public class ColumnTableMetaData extends TableMetaData {
 			
 			for (int f = dimCount; f < colCount; ++f) {
 				curPos[f] = segmentReaders[f].readLong40();
-				if (columns[f].isDim()) {
+				if (columns[f].hasMaxMinValues()) {
 					segmentReaders[f].skipObject();
 					segmentReaders[f].skipObject();
 					segmentReaders[f].skipObject();
@@ -4052,7 +4175,7 @@ public class ColumnTableMetaData extends TableMetaData {
 			if (cmp > 0) {
 				BufferReader []readers = new BufferReader[colCount];
 				for (int f = 0; f < dimCount; ++f) {
-					readers[f] = colReaders[f].readBlockData(prevPos[f]);
+					readers[f] = colReaders[f].readBlockData(prevPos[f], prevCount);
 				}
 				
 				for (int i = 0; i < prevCount; ++i) {
@@ -4062,7 +4185,7 @@ public class ColumnTableMetaData extends TableMetaData {
 					
 					cmp = Variant.compareArrays(tmpDimValues, curDimValues);
 					if (cmp == 0) {
-						Record r = table.newLast();
+						BaseRecord r = table.newLast();
 						for (int f = 0; f < dimCount; ++f) {
 							if (findex[f] != -1) {
 								r.setNormalFieldValue(findex[f], curDimValues[f]);
@@ -4084,7 +4207,7 @@ public class ColumnTableMetaData extends TableMetaData {
 							curDimValues = dimValues[valueIndex];
 							cmp = Variant.compareArrays(tmpDimValues, curDimValues);
 							if (cmp == 0) {
-								Record r = table.newLast();
+								BaseRecord r = table.newLast();
 								for (int f = 0; f < dimCount; ++f) {
 									if (findex[f] != -1) {
 										r.setNormalFieldValue(findex[f], curDimValues[f]);
@@ -4107,12 +4230,12 @@ public class ColumnTableMetaData extends TableMetaData {
 				int count = indexList.size();
 				if (count > 0) {
 					for (int f = dimCount; f < colCount; ++f) {
-						readers[f] = colReaders[f].readBlockData(prevPos[f]);
+						readers[f] = colReaders[f].readBlockData(prevPos[f], prevCount);
 					}
 					
 					int prev = 0;
 					for (int i = 0, m = table.length() - count + 1; i < count; ++i, ++m) {
-						Record r = (Record)table.getMem(m);
+						BaseRecord r = (BaseRecord)table.getMem(m);
 						int index = indexList.getInt(i);
 						for (int f = dimCount; f < colCount; ++f) {
 							for (int j = prev; j < index; ++j) {
@@ -4142,7 +4265,7 @@ public class ColumnTableMetaData extends TableMetaData {
 		if (valueIndex < valueLen) {
 			BufferReader []readers = new BufferReader[colCount];
 			for (int f = 0; f < dimCount; ++f) {
-				readers[f] = colReaders[f].readBlockData(prevPos[f]);
+				readers[f] = colReaders[f].readBlockData(prevPos[f], prevCount);
 			}
 			
 			Object []curDimValues = dimValues[valueIndex];
@@ -4153,7 +4276,7 @@ public class ColumnTableMetaData extends TableMetaData {
 				
 				int cmp = Variant.compareArrays(tmpDimValues, curDimValues);
 				if (cmp == 0) {
-					Record r = table.newLast();
+					BaseRecord r = table.newLast();
 					for (int f = 0; f < dimCount; ++f) {
 						if (findex[f] != -1) {
 							r.setNormalFieldValue(findex[f], curDimValues[f]);
@@ -4172,7 +4295,7 @@ public class ColumnTableMetaData extends TableMetaData {
 						curDimValues = dimValues[valueIndex];
 						cmp = Variant.compareArrays(tmpDimValues, curDimValues);
 						if (cmp == 0) {
-							Record r = table.newLast();
+							BaseRecord r = table.newLast();
 							for (int f = 0; f < dimCount; ++f) {
 								if (findex[f] != -1) {
 									r.setNormalFieldValue(findex[f], curDimValues[f]);
@@ -4195,12 +4318,12 @@ public class ColumnTableMetaData extends TableMetaData {
 			int count = indexList.size();
 			if (count > 0) {
 				for (int f = dimCount; f < colCount; ++f) {
-					readers[f] = colReaders[f].readBlockData(prevPos[f]);
+					readers[f] = colReaders[f].readBlockData(prevPos[f], prevCount);
 				}
 				
 				int prev = 0;
 				for (int i = 0, m = table.length() - count + 1; i < count; ++i, ++m) {
-					Record r = (Record)table.getMem(m);
+					BaseRecord r = (BaseRecord)table.getMem(m);
 					int index = indexList.getInt(i);
 					for (int f = dimCount; f < colCount; ++f) {
 						for (int j = prev; j < index; ++j) {
@@ -4344,12 +4467,12 @@ public class ColumnTableMetaData extends TableMetaData {
 		if (column == null) {
 			return null;
 		}
-		if (!column.isDim()) {
+		if (!column.hasMaxMinValues()) {
 			Expression max = new Expression("max(" + key +")");
 			Expression min = new Expression("min(" + key +")");
 			Expression[] exps = new Expression[] {max, min};
 			Sequence seq = cursor(new String[] {key}).groups(null, null, exps, null, null, new Context());
-			return ((Record)seq.get(1)).getFieldValues();
+			return ((BaseRecord)seq.get(1)).getFieldValues();
 		}
 		
 		ObjectReader segmentReader = column.getSegmentReader();
@@ -4404,7 +4527,7 @@ public class ColumnTableMetaData extends TableMetaData {
 	 * @param table 另一个组表
 	 * @throws IOException
 	 */
-	public void append(ColumnTableMetaData table) throws IOException {
+	public void append(ColPhyTable table) throws IOException {
 		getGroupTable().checkWritable();
 		table.getGroupTable().checkReadable();
 		
@@ -4543,7 +4666,7 @@ public class ColumnTableMetaData extends TableMetaData {
 				BlockLinkReader segmentReader = new BlockLinkReader(col.getSegmentBlockLink());
 				try {
 					segmentReader.loadFirstBlock();
-					reader = new ObjectReader(segmentReader, blockSize - GroupTable.POS_SIZE);
+					reader = new ObjectReader(segmentReader, blockSize - ComTable.POS_SIZE);
 				} catch (IOException e) {
 					segmentReader.close();
 					throw new RQException(e.getMessage(), e);
@@ -4552,7 +4675,7 @@ public class ColumnTableMetaData extends TableMetaData {
 				//读取列块的分段信息
 				for (int i = 0; i < block; ++i) {
 					reader.readLong40();
-					if (col.isDim()) {
+					if (col.hasMaxMinValues()) {
 						reader.readObject();
 						reader.readObject();
 						reader.readObject();
@@ -4581,7 +4704,7 @@ public class ColumnTableMetaData extends TableMetaData {
 				ObjectReader reader;
 				try {
 					segmentReader.loadFirstBlock();
-					reader = new ObjectReader(segmentReader, blockSize - GroupTable.POS_SIZE);
+					reader = new ObjectReader(segmentReader, blockSize - ComTable.POS_SIZE);
 				} catch (IOException e) {
 					segmentReader.close();
 					throw new RQException(e.getMessage(), e);
@@ -4658,7 +4781,7 @@ public class ColumnTableMetaData extends TableMetaData {
 		long seq = 0;
 		int blockCount = dataBlockCount;
 		ColumnFilter filter = new ColumnFilter(col, 0, operator, value);
-		LongArray intervals = new LongArray();
+		LongArray intervals = new LongArray(blockCount);
 		BlockLinkReader rowCountReader = getSegmentReader();
 		ObjectReader segmentReader = col.getSegmentReader();
 		try {
@@ -4681,7 +4804,7 @@ public class ColumnTableMetaData extends TableMetaData {
 		if (intervals.size() == 0) {
 			return null;
 		}
-		return intervals.toArray();
+		return intervals.getDatas();
 	}
 	
 	/**
@@ -4816,7 +4939,7 @@ public class ColumnTableMetaData extends TableMetaData {
 			}
 		}
 		
-		TableMetaData table = ((IDWCursor) srcs[0]).getTableMetaData();
+		PhyTable table = ((IDWCursor) srcs[0]).getTableMetaData();
 		String []names = table.getAllSortedColNames();
 		if (names == null) {
 			MessageManager mm = EngineMessage.get();
@@ -4837,7 +4960,7 @@ public class ColumnTableMetaData extends TableMetaData {
 		int fcount = names.length;
 		if (seg != 0) {
 			//如果不是第一个节点机
-			Record rec = new Record(cursor.getDataStruct());
+			BaseRecord rec = new Record(cursor.getDataStruct());
 			Sequence tempSeq = new Sequence();
 			tempSeq.add(rec);
 			csList.add(new MemoryCursor(tempSeq));
@@ -4854,7 +4977,7 @@ public class ColumnTableMetaData extends TableMetaData {
 		if (seg + 1 <= endValues.length) {
 			//如果不是最后一个节点机
 			Object []objs = endValues[seg];
-			Record rec = new Record(cursor.getDataStruct());
+			BaseRecord rec = new Record(cursor.getDataStruct());
 			for (int f = 0; f < fcount; f++) {
 				rec.set(names[f], objs[f]);
 			}
@@ -4900,7 +5023,7 @@ public class ColumnTableMetaData extends TableMetaData {
 				break;
 			}
 
-			Record r = (Record)seq.get(1);
+			BaseRecord r = (BaseRecord)seq.get(1);
 			Object []vals = new Object[fcount];
 			minValues[i] = vals;
 			for (int f = 0; f < fcount; ++f) {
@@ -5060,7 +5183,7 @@ public class ColumnTableMetaData extends TableMetaData {
 		//检查列是否已经存在
 		ColumnMetaData existCol = getColumn(colName);
 		if (null != existCol) {
-			if (existCol.isDim() || existCol.isKey()) {
+			if (existCol.isDim() || existCol.isKey() || this.getModifyRecords() != null) {
 				MessageManager mm = EngineMessage.get();
 				throw new RQException("alter" + mm.getMessage("dw.columnNotEditable"));
 			}
@@ -5084,16 +5207,25 @@ public class ColumnTableMetaData extends TableMetaData {
 				
 				//取数，计算
 				int recordCount = rowCountReader.readInt32();
-				Sequence data = cursor.fetch(recordCount).calc(exp, ctx);
+				Sequence data = (Sequence) cursor.fetch(recordCount);
+				data = data.newTable(new String[] {""}, new Expression[]{exp}, ctx);
 				
 				//把计算得到数据，写入新列
+				Object []minValues = new Object[1];//一块的最小维值
+				Object []maxValues = new Object[1];//一块的最大维值
+				Object []startValues = new Object[1];
+				int[] dataTypeInfo = new int[1];
+				
 				BufferWriter bufferWriter = col.getColDataBufferWriter();
+				Sequence dict = col.getDict();
 				int len = data.length();
-				ListBase1 mems = data.getMems();
-				for (int i = 1; i <= len; ++i) {
-					bufferWriter.writeObject(mems.get(i));
-				}
-				col.appendColBlock(bufferWriter.finish());
+				DataBlockWriterJob.writeDataBlock(bufferWriter, data, dict, 0, 1, len, maxValues, minValues, startValues, dataTypeInfo);
+				
+				//统计列数据类型
+				col.adjustDataType(dataTypeInfo[0]);
+				
+				//提交列块buffer
+				col.appendColBlock(bufferWriter.finish(), minValues[0], maxValues[0], startValues[0]);
 			}
 			
 			col.finishWrite();

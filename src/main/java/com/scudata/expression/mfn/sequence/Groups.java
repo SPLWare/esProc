@@ -13,7 +13,6 @@ import com.scudata.expression.IParam;
 import com.scudata.expression.ParamInfo2;
 import com.scudata.expression.SequenceFunction;
 import com.scudata.resources.EngineMessage;
-import com.scudata.util.CursorUtil;
 
 /**
  * 采用累计方式对排列进行分组聚合
@@ -22,13 +21,17 @@ import com.scudata.util.CursorUtil;
  *
  */
 public class Groups extends SequenceFunction {
-	public Object calculate(Context ctx) {
-		// 参数不可以为空
+	/**
+	 * 检查表达式的有效性，无效则抛出异常
+	 */
+	public void checkValidity() {
 		if (param == null) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("groups" + mm.getMessage("function.missingParam"));
 		}
+	}
 
+	public Object calculate(Context ctx) {
 		ArrayList<Object> gathers = new ArrayList<Object>(); // 统计聚合函数
 		ArrayList<Integer> poss = new ArrayList<Integer>(); // 分组表达式，对应聚合函数列表的第几个聚合函数
 		
@@ -181,13 +184,7 @@ public class Groups extends SequenceFunction {
 			}
 		}
 		
-		Sequence result = null;
-		if (option == null || option.indexOf('m') == -1) {	// 单线程计算
-			result = srcSequence.groups(exps, names, tempExps, tempNames, option, ctx);
-		} else {	// 多线程计算
-			result = CursorUtil.groups_m(srcSequence, exps, names, tempExps, tempNames, option, ctx);
-		}
-		
+		Sequence result = srcSequence.groups(exps, names, tempExps, tempNames, option, ctx);		
 		if (senNames != null && result != null) {
 			result = result.newTable(senNames, senExps, ctx);
 			if (!bopt && elen > 0 && result instanceof Table) {

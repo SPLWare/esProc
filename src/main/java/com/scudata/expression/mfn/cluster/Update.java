@@ -4,7 +4,7 @@ import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
 import com.scudata.dm.Sequence;
-import com.scudata.expression.ClusterTableMetaDataFunction;
+import com.scudata.expression.ClusterPhyTableFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
@@ -13,7 +13,7 @@ import com.scudata.resources.EngineMessage;
  * @author RunQian
  *
  */
-public class Update extends ClusterTableMetaDataFunction {
+public class Update extends ClusterPhyTableFunction {
 	public Object calculate(Context ctx) {
 		String opt = option;
 		if (param == null) {

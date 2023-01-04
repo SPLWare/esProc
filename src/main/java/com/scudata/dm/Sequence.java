@@ -16,6 +16,11 @@ import java.util.Set;
 //import java.text.Collator;
 
 import com.ibm.icu.text.Collator;
+import com.scudata.array.BoolArray;
+import com.scudata.array.IArray;
+import com.scudata.array.IntArray;
+import com.scudata.array.NumberArray;
+import com.scudata.array.ObjectArray;
 import com.scudata.cellset.ICellSet;
 import com.scudata.common.ByteArrayInputRecord;
 import com.scudata.common.ByteArrayOutputRecord;
@@ -23,15 +28,22 @@ import com.scudata.common.Escape;
 import com.scudata.common.IRecord;
 import com.scudata.common.IntArrayList;
 import com.scudata.common.MessageManager;
+import com.scudata.common.ObjectCache;
 import com.scudata.common.RQException;
 import com.scudata.common.Sentence;
 import com.scudata.dm.comparator.*;
+import com.scudata.dm.cursor.ICursor;
+import com.scudata.dm.cursor.MemoryCursor;
 import com.scudata.dm.op.IGroupsResult;
+import com.scudata.dm.op.Operation;
+import com.scudata.dm.op.Switch;
+import com.scudata.dm.op.SwitchRemote;
 import com.scudata.dw.IFilter;
 import com.scudata.expression.CurrentElement;
 import com.scudata.expression.Expression;
 import com.scudata.expression.FieldId;
 import com.scudata.expression.FieldRef;
+import com.scudata.expression.Function;
 import com.scudata.expression.Gather;
 import com.scudata.expression.Node;
 import com.scudata.expression.UnknownSymbol;
@@ -45,6 +57,7 @@ import com.scudata.expression.operator.NotGreater;
 import com.scudata.expression.operator.NotSmaller;
 import com.scudata.expression.operator.Or;
 import com.scudata.expression.operator.Smaller;
+import com.scudata.parallel.ClusterMemoryTable;
 import com.scudata.resources.EngineMessage;
 import com.scudata.thread.MultithreadUtil;
 import com.scudata.util.CursorUtil;
@@ -59,7 +72,7 @@ import com.scudata.util.Variant;
  */
 public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	private static final long serialVersionUID = 0x02010003;
-	protected ListBase1 mems; // 序列成员
+	protected IArray mems; // 序列成员
 
 	private static final char SEPARATOR = ','; // toString时序列元素分隔符
 	private static final char STARTSYMBOL = '[';
@@ -67,123 +80,28 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	private static final int SORT_HASH_LEN = 700; // 当长度小于次数值是id、group用排序来做，否则用hash
 
 	/**
-	 * 用于计算序列函数时进行压栈
-	 * @author WangXiaoJun
-	 *
+	 * 创建一个空序列
 	 */
-	public class Current implements IComputeItem {
-		private int curIndex; // 当前序列正在进行计算的元素的索引，从1开始计数
-		private boolean isInStack = true; // 是否还在计算堆栈中
-
-		public Current() {
-		}
-		
-		public Current(int index) {
-			curIndex = index;
-		}
-
-		/**
-		 * 返回当前正在计算的元素
-		 * @return Object
-		 */
-		public Object getCurrent() {
-			return mems.get(curIndex);
-		}
-
-		/**
-		 * 返回当前正在计算的元素索引，从1开始计数
-		 * @return int
-		 */
-		public int getCurrentIndex() {
-			return curIndex;
-		}
-		
-		/**
-		 * 取源序列
-		 */
-		public Sequence getCurrentSequence() {
-			return Sequence.this;
-		}
-		
-		/**
-		 * 判断序列是否还在堆栈中
-		 */
-		public boolean isInStack(ComputeStack stack) {
-			return isInStack;
-		}
-		
-		/**
-		 * 计算完成，序列出栈
-		 */
-		public void popStack() {
-			isInStack = false;
-		}
-		
-		/**
-		 * 判断当前序列是否和给定序列是同一个序列
-		 * @param seq
-		 * @return
-		 */
-		public boolean equalSequence(Sequence seq) {
-			return Sequence.this == seq;
-		}
-
-		/**
-		 * 取序列的长度
-		 * @return
-		 */
-		public int length() {
-			return mems.size();
-		}
-
-		/**
-		 * 用序号取序列的成员
-		 * @param i 序号，从1开始计数
-		 * @return
-		 */
-		public Object get(int i) {
-			return mems.get(i);
-		}
-
-		/**
-		 * 设置当前正在计算的元素索引
-		 * @param index int 从1开始计数
-		 */
-		public void setCurrent(int index) {
-			this.curIndex = index;
-		}
-
-		/**
-		 * 修改序列的当前元素为指定值
-		 * @param val
-		 */
-		public void assign(Object val) {
-			mems.set(curIndex, val);
-		}
-
-		/**
-		 * 修改序列指定位置的元素
-		 * @param index 序号，从1开始计数
-		 * @param val
-		 */
-		public void assign(int index, Object val) {
-			mems.set(index, val);
-		}
+	public Sequence() {
+		mems = new ObjectArray(8);
 	}
 
 	/**
 	 * 创建一个空序列
+	 * @param createArray 是否产生IArray
 	 */
-	public Sequence() {
-		mems = new ListBase1();
+	protected Sequence(boolean createArray) {
+		if (createArray) {
+			mems = new ObjectArray(8);
+		}
 	}
-
+	
 	/**
 	 * 创建一个指定容量的序列
 	 * @param initialCapacity int 容量
 	 */
 	public Sequence(int initialCapacity) {
-		mems = new ListBase1(initialCapacity);
+		mems = new ObjectArray(initialCapacity);
 	}
 
 	/**
@@ -192,9 +110,9 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 */
 	public Sequence(Object[] v) {
 		if (v == null) {
-			mems = new ListBase1();
+			mems = new ObjectArray(10);
 		} else {
-			mems = new ListBase1(v);
+			mems = new ObjectArray(v);
 		}
 	}
 
@@ -204,9 +122,17 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 */
 	public Sequence(Sequence seq) {
 		if (seq == null) {
-			mems = new ListBase1();
+			mems = new ObjectArray(0);
 		} else {
-			mems = new ListBase1(seq.mems);
+			mems = seq.getMems().dup();
+		}
+	}
+	
+	public Sequence(IArray array) {
+		if (array == null) {
+			mems = new ObjectArray(0);
+		} else {
+			mems = array;
 		}
 	}
 
@@ -217,16 +143,16 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 */
 	public Sequence(int start, int end) {
 		if (start < end) {
-			ListBase1 mems = new ListBase1(end - start + 1);
+			ObjectArray mems = new ObjectArray(end - start + 1);
 			this.mems = mems;
 			for (; start <= end; ++start) {
-				mems.add(new Integer(start));
+				mems.add(ObjectCache.getInteger(start));
 			}
 		} else {
-			ListBase1 mems = new ListBase1(start - end + 1);
+			ObjectArray mems = new ObjectArray(start - end + 1);
 			this.mems = mems;
 			for (; start >= end; --start) {
-				mems.add(new Integer(start));
+				mems.add(ObjectCache.getInteger(start));
 			}
 		}
 	}
@@ -244,7 +170,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				throw new RQException("to" + mm.getMessage("function.invalidParam"));
 			}
 
-			ListBase1 mems = new ListBase1((int)len);
+			ObjectArray mems = new ObjectArray((int)len);
 			this.mems = mems;
 			for (; start <= end; ++start) {
 				mems.add(new Long(start));
@@ -256,7 +182,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				throw new RQException("to" + mm.getMessage("function.invalidParam"));
 			}
 
-			ListBase1 mems = new ListBase1((int)len);
+			ObjectArray mems = new ObjectArray((int)len);
 			this.mems = mems;
 			for (; start >= end; --start) {
 				mems.add(new Long(start));
@@ -268,11 +194,15 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * 取序列的成员列表，用于遍历性能优化
 	 * @return
 	 */
-	public ListBase1 getMems() {
+	public IArray getMems() {
 		return mems;
 	}
 
-	public void setMems(ListBase1 mems) {
+	/**
+	 * 设置序列的成员数组
+	 * @param mems 成员数组
+	 */
+	public void setMems(IArray mems) {
 		this.mems = mems;
 		rebuildIndexTable();
 	}
@@ -281,19 +211,15 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * 返回序列的哈希值
 	 */
 	public int hashCode() {
-		ListBase1 mems = this.mems;
+		IArray mems = getMems();
 		int size = mems.size();
-		if (size == 0) return 0;
+		if (size == 0) {
+			return 0;
+		}
 
-		Object obj = mems.get(1);
-		int hash = obj != null ? obj.hashCode() : 0;
+		int hash = mems.hashCode(1);
 		for (int i = 2; i <= size; ++i) {
-			obj = mems.get(i);
-			if (obj != null) {
-				hash = 31 * hash + obj.hashCode();
-			} else {
-				hash = 31 * hash;
-			}
+			hash = 31 * hash + mems.hashCode(i);
 		}
 
 		return hash;
@@ -304,7 +230,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @param minCapacity 最小容量
 	 */
 	public void ensureCapacity(int minCapacity) {
-		mems.ensureCapacity(minCapacity);
+		getMems().ensureCapacity(minCapacity);
 	}
 
 	/**
@@ -313,8 +239,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @return int
 	 */
 	public int firstIndexOf(Object obj) {
-		int index = mems.firstIndexOf(obj);
-		return index > 0 ? index : 0;
+		return getMems().firstIndexOf(obj, 1);
 	}
 
 	/**
@@ -323,8 +248,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @return int
 	 */
 	public int lastIndexof(Object obj) {
-		int index = mems.lastIndexOf(obj);
-		return index > 0 ? index : 0;
+		return getMems().lastIndexOf(obj, length());
 	}
 
 	/**
@@ -334,7 +258,14 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 */
 	public byte[] serialize() throws IOException {
 		ByteArrayOutputRecord out = new ByteArrayOutputRecord();
-		out.writeRecord(mems);
+		IArray mems = this.mems;
+		if (mems instanceof ObjectArray) {
+			out.writeRecord(mems);
+		} else {
+			out.writeByte(-1);
+			out.writeObject(mems, true);
+		}
+		
 		return out.toByteArray();
 	}
 
@@ -344,41 +275,52 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @throws IOException
 	 * @throws ClassNotFoundException
 	 */
-	public void fillRecord(byte[] buf) throws IOException,
-		ClassNotFoundException {
+	public void fillRecord(byte[] buf) throws IOException, ClassNotFoundException {
 		ByteArrayInputRecord in = new ByteArrayInputRecord(buf);
-		mems = (ListBase1)in.readRecord(new ListBase1());
+		if (buf[0] != -1) {
+			mems = new ObjectArray();
+			in.readRecord(mems);
+		} else {
+			in.readByte();
+			in.readObject(true);
+		}
 	}
 
 	public void writeExternal(ObjectOutput out) throws IOException {
 		out.writeByte(1); // 版本号
-		out.writeObject(mems);
+		out.writeObject(getMems());
 	}
 
 	public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
 		in.readByte(); // 版本号
-		mems = (ListBase1)in.readObject();
+		Object obj = in.readObject();
+		if (obj instanceof IArray) {
+			mems = (IArray)obj;
+		} else {
+			ListBase1 list = (ListBase1)obj;
+			mems = new ObjectArray(list.getDatas(), list.size());
+		}
 	}
 
 	/**
 	 * 删除所有的成员，并且调整容量
 	 */
 	public void reset() {
-		mems.clear();
+		getMems().clear();
 	}
 
 	/**
 	 * 删除所有的成员
 	 */
 	public void clear() {
-		mems.clear();
+		getMems().clear();
 	}
 
 	/**
 	 * 调整序列的容量，使其与元素数相等
 	 */
 	public void trimToSize() {
-		mems.trimToSize();
+		getMems().trimToSize();
 	}
 
 	/**
@@ -387,7 +329,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @return Sequence
 	 */
 	public Sequence transpose(int c) {
-		ListBase1 mems = this.mems;
+		IArray mems = getMems();
 		int len = mems.size();
 
 		int r = len / c;
@@ -396,7 +338,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		}
 
 		Sequence result = new Sequence(len);
-		ListBase1 resultMems = result.mems;
+		IArray resultMems = result.getMems();
 
 		for (int i = 1; i <= c; ++i) {
 			for (int j = 0; j < r; ++j) {
@@ -417,7 +359,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @return int
 	 */
 	public int length() {
-		return mems.size();
+		return getMems().size();
 	}
 
 	/**
@@ -425,18 +367,8 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @param opt String
 	 * @return int
 	 */
-	public int count(String opt) {
-		ListBase1 mems = this.mems;
-		int size = mems.size();
-		int count = size;
-
-		for (int i = 1; i <= size; ++i) {
-			if (Variant.isFalse(mems.get(i))) {
-				count--;
-			}
-		}
-
-		return count;
+	public int count() {
+		return getMems().count();
 	}
 
 	/**
@@ -460,10 +392,10 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			}
 		}
 
-		ListBase1 mems = this.mems;
+		IArray mems = getMems();
 		int srcLen = mems.size();
 		Sequence result = new Sequence((srcLen / interval + 1) * count);
-		ListBase1 resultMems = result.mems;
+		IArray resultMems = result.getMems();
 
 		for (int base = 0; ; base += interval) {
 			boolean addOne = false;
@@ -484,20 +416,19 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	/**
 	 * 取序列使表达式为真的元素个数
 	 * @param exp 表达式
-	 * @param opt
 	 * @param ctx 计算上下文
 	 * @return
 	 */
-	public int count(Expression exp, String opt, Context ctx) {
+	public int count(Expression exp, Context ctx) {
 		if (exp == null) {
-			return count(opt);
+			return count();
 		}
 
 		int size = length();
 		int count = size;
 
 		ComputeStack stack = ctx.getComputeStack();
-		Current current = new Current();
+		Current current = new Current(this);
 		stack.push(current);
 
 		try {
@@ -520,7 +451,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @return 元素值组成的数组
 	 */
 	public Object[] toArray() {
-		return mems.toArray();
+		return getMems().toArray();
 	}
 
 	/**
@@ -529,7 +460,8 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @return Object[]
 	 */
 	public Object[] toArray(Object a[]) {
-		return mems.toArray(a);
+		getMems().toArray(a);
+		return a;
 	}
 
 	/**
@@ -542,6 +474,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException(seq + mm.getMessage("engine.indexOutofBound"));
 		}
+		
 		return mems.get(seq);
 	}
 	
@@ -561,18 +494,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @return Sequence 结果序列
 	 */
 	public Sequence get(int start, int end) {
-		int max = mems.size() + 1;
-		if (start >= max) {
-			return new Sequence();
-		}
-		
-		if (end > max) {
-			end = max;
-		}
-		
-		Sequence seq = new Sequence(end - start);
-		seq.mems.addSection(mems, start, end);
-		return seq;
+		return new Sequence(getMems().get(start, end));
 	}
 	
 	/**
@@ -581,34 +503,13 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @return Sequence
 	 */
 	public Sequence get(Sequence seq) {
-		if (seq == null) {
+		if (seq == null || seq.length() == 0) {
 			return new Sequence(0);
 		}
 
-		ListBase1 mems = this.mems;
-		ListBase1 posMems = seq.mems;
-
-		int size = mems.size();
-		int posSize = posMems.size();
-		Sequence result = new Sequence(posSize);
-
-		for (int i = 1; i <= posSize; ++i) {
-			Object obj = posMems.get(i);
-			if (!(obj instanceof Number)) {
-				MessageManager mm = EngineMessage.get();
-				throw new RQException(mm.getMessage("engine.needIntSeries"));
-			}
-
-			int index = ((Number)obj).intValue();
-			if (index < 1 || index > size) {
-				MessageManager mm = EngineMessage.get();
-				throw new RQException(index + mm.getMessage("engine.indexOutofBound"));
-			}
-
-			result.add(mems.get(index));
-		}
-
-		return result;
+		int []posArray = seq.toIntArray();
+		IArray result = getMems().get(posArray);
+		return new Sequence(result);
 	}
 
 	/**
@@ -619,15 +520,24 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 */
 	public boolean contains(Object obj, boolean isSorted) {
 		if (isSorted) {
-			return mems.binarySearch(obj) > 0;
+			return getMems().binarySearch(obj) > 0;
 		} else {
-			return mems.contains(obj);
+			return getMems().contains(obj);
 		}
 	}
+	/**
+	 * 判断数组的元素是否在当前数组中
+	 * @param isSorted 当前数组是否有序
+	 * @param array 数组
+	 * @param result 用于存放结果，只找取值为true的
+	 */
+	public void contains(boolean isSorted, IArray array, BoolArray result) {
+		getMems().contains(isSorted, array, result);
+	}
 
-	// 返回是否是数列区间
+	// 返回是否是数列区间s
 	private boolean isIntInterval() {
-		ListBase1 mems = this.mems;
+		IArray mems = getMems();
 		int size = mems.size();
 		if (size == 0) {
 			return false;
@@ -686,7 +596,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 
 	// 返回序列是否是n置换
 	private boolean isPermutation(int n) {
-		ListBase1 mems = this.mems;
+		IArray mems = getMems();
 		int len = mems.size();
 		if (len != n) return false;
 
@@ -714,15 +624,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @return boolean
 	 */
 	public boolean hasRecord() {
-		ListBase1 mems = this.mems;
-		for (int i = 1, size = mems.size(); i <= size; ++i) {
-			Object obj = mems.get(i);
-			if (obj instanceof Record) {
-				return true;
-			}
-		}
-
-		return false;
+		return getMems().hasRecord();
 	}
 
 	/**
@@ -730,22 +632,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @return boolean true：是排列，false：非排列
 	 */
 	public boolean isPmt() {
-		ListBase1 mems = this.mems;
-		int size = mems.size();
-		boolean hasRecord = false;
-
-		for (int i = 1; i <= size; ++i) {
-			Object obj = mems.get(i);
-			if (obj != null) {
-				if (obj instanceof Record) {
-					hasRecord = true;
-				} else {
-					return false;
-				}
-			}
-		}
-
-		return hasRecord;
+		return getMems().isPmt(false);
 	}
 
 	/**
@@ -753,27 +640,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @return boolean true：是纯排列（结构相同）
 	 */
 	public boolean isPurePmt() {
-		ListBase1 mems = this.mems;
-		int size = mems.size();
-		if (size == 0) {
-			return false;
-		}
-
-		Object obj = mems.get(1);
-		if (!(obj instanceof Record)) {
-			return false;
-		}
-		
-		DataStruct ds = ((Record)obj).dataStruct();
-		for (int i = 2; i <= size; ++i) {
-			obj = mems.get(i);
-			if (!(obj instanceof Record) ||
-				!ds.isCompatible(((Record)obj).dataStruct())) {
-				return false;
-			}
-		}
-
-		return true;
+		return getMems().isPmt(true);
 	}
 
 	/**
@@ -787,7 +654,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			throw new RQException("inv" + mm.getMessage("function.invalidParam"));
 		}
 
-		ListBase1 mems = this.mems;
+		IArray mems = getMems();
 		Integer[] seqs = new Integer[n];
 		for (int i = 1, len = mems.size(); i <= len; ++i) {
 			Object obj = mems.get(i);
@@ -799,12 +666,12 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			int pos = ((Number)obj).intValue();
 			if (pos > 0 && pos <= n) {
 				if (seqs[pos - 1] == null) {
-					seqs[pos - 1] = new Integer(i);
+					seqs[pos - 1] = ObjectCache.getInteger(i);
 				}
 			}
 		}
 
-		Integer int0 = new Integer(0);
+		Integer int0 = ObjectCache.getInteger(0);
 		for (int i = 0; i < n; ++i) {
 			if (seqs[i] == null)seqs[i] = int0;
 		}
@@ -819,8 +686,8 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @return Sequence
 	 */
 	public Sequence inv(Sequence seq, String opt) {
-		ListBase1 mems = this.mems;
-		ListBase1 posMems = seq.mems;
+		IArray mems = getMems();
+		IArray posMems = seq.getMems();
 		int n = mems.size();
 		int len = posMems.size();
 
@@ -865,8 +732,8 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			return false;
 		}
 
-		ListBase1 mems = this.mems;
-		ListBase1 mems2 = seq.mems;
+		IArray mems = getMems();
+		IArray mems2 = seq.getMems();
 		int size = mems.size();
 		int size2 = mems2.size();
 		if (size != size2) {
@@ -897,16 +764,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @return Sequence
 	 */
 	public Sequence rvs() {
-		ListBase1 mems = this.mems;
-		int size = mems.size();
-		Sequence result = new Sequence(size);
-		ListBase1 resultMems = result.mems;
-
-		for (int i = size; i > 0; --i) {
-			resultMems.add(mems.get(i));
-		}
-
-		return result;
+		return new Sequence(getMems().rvs());
 	}
 
 	/**
@@ -915,7 +773,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @return Sequence
 	 */
 	public Sequence psort(String opt) {
-		ListBase1 mems = this.mems;
+		IArray mems = getMems();
 		int size = mems.size();
 		if (size == 0) {
 			return new Sequence(0);
@@ -943,7 +801,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		// 进行排序
 		MultithreadUtil.sort(infos, 1, len, new PSortComparator(comparator));
 		Sequence result = new Sequence(size);
-		ListBase1 resultMems = result.mems;
+		IArray resultMems = result.getMems();
 
 		for (int i = 1; i < len; ++i) {
 			resultMems.add(infos[i].index);
@@ -971,8 +829,8 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @return Sequence
 	 */
 	public Sequence psort(Expression []exps, String opt, Context ctx) {
-		ListBase1 mems = this.mems;
-		int len = mems.size;
+		IArray mems = getMems();
+		int len = mems.size();
 		if (len == 0) {
 			return new Sequence(0);
 		}
@@ -987,7 +845,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		int fcount = exps.length;
 		
 		ComputeStack stack = ctx.getComputeStack();
-		Current current = new Current();
+		Current current = new Current(this);
 		stack.push(current);
 		
 		try {
@@ -1022,7 +880,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		MultithreadUtil.sort(values, 1, values.length, comparator);
 		
 		Sequence result = new Sequence(len);
-		mems = result.mems;
+		mems = result.getMems();
 		for (int i = 1; i <= len; ++i) {
 			mems.add(values[i][fcount]);
 		}
@@ -1048,13 +906,13 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			throw new RQException("psort" + mm.getMessage("function.paramValNull"));
 		}
 
-		ListBase1 mems = this.mems;
-		int len = mems.size;
+		IArray mems = getMems();
+		int len = mems.size();
 		Object [][]values = new Object[len + 1][];
 		int fcount = exps.length;
 
 		ComputeStack stack = ctx.getComputeStack();
-		Current current = new Current();
+		Current current = new Current(this);
 		stack.push(current);
 
 		try {
@@ -1083,7 +941,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		MultithreadUtil.sort(values, 1, values.length, comparator);
 		
 		Sequence result = new Sequence(len);
-		mems = result.mems;
+		mems = result.getMems();
 		for (int i = 1; i <= len; ++i) {
 			mems.add(values[i][fcount]);
 		}
@@ -1118,7 +976,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			if (opt.indexOf('n') != -1) {
 				Sequence seq = group_n("s");
 				if (isOrg) {
-					mems = seq.mems;
+					mems = seq.getMems();
 					return this;
 				} else {
 					return seq;
@@ -1140,21 +998,6 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			Sequence result = new Sequence(this);
 			result.mems.sort(comparator);
 			return result;
-		}
-	}
-
-	/**
-	 * 取比较器
-	 * @param loc 区域，用于字符串的比较，如果为空则用采用String默认的比较方法
-	 * @param throwExcept 类型无法比较时是否抛出异常
-	 * @return
-	 */
-	public static Comparator<Object> getComparator(String loc, boolean throwExcept) {
-		if (loc == null || loc.length() == 0) {
-			return new BaseComparator(throwExcept);
-		} else {
-			Locale locale = parseLocale(loc);
-			return new LocaleComparator(Collator.getInstance(locale), throwExcept);
 		}
 	}
 
@@ -1203,7 +1046,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			if (opt.indexOf('n') != -1) {
 				Sequence seq = group_n("s");
 				if (isOrg) {
-					mems = seq.mems;
+					mems = seq.getMems();
 					return this;
 				} else {
 					return seq;
@@ -1235,12 +1078,12 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	private Sequence sort_u() {
-		ListBase1 mems = this.mems;
+		IArray mems = getMems();
 		int len = mems.size();
 		if (len == 0) return new Sequence(0);
 		
 		Sequence result = new Sequence(len);
-		ListBase1 rm = result.mems;
+		IArray rm = result.getMems();
 		boolean []signs = new boolean[len + 1];
 		
 		for (int i = 1; i <= len; ++i) {
@@ -1261,13 +1104,13 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	private Sequence sort_u(Expression exp, Context ctx) {
-		ListBase1 mems = this.mems;
+		IArray mems = getMems();
 		int len = mems.size();
 		
 		Sequence values = calc(exp, ctx);
-		ListBase1 valMems = values.mems;
+		IArray valMems = values.getMems();
 		Sequence result = new Sequence(len);
-		ListBase1 rm = result.mems;
+		IArray rm = result.getMems();
 		boolean []signs = new boolean[len + 1];
 		
 		for (int i = 1; i <= len; ++i) {
@@ -1298,16 +1141,16 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		
 		Sequence result = this;
 		int fcount = exps.length;
-		ListBase1 []valMems = new ListBase1[fcount];
+		IArray []valMems = new IArray[fcount];
 		for (int f = 0; f < fcount; ++f) {
 			Sequence tmp = new Sequence(len);
-			ListBase1 tmpMems = tmp.mems;
-			ListBase1 mems = result.mems;
+			IArray tmpMems = tmp.getMems();
+			IArray mems = result.getMems();
 			boolean []signs = new boolean[len + 1];
 			
 			// 元素位置在变动，需要重新计算表达式值
 			for (int c = 0; c <= f; ++c) {
-				valMems[c] = result.calc(exps[c], ctx).mems;
+				valMems[c] = result.calc(exps[c], ctx).getMems();
 			}
 			
 			for (int i = 1; i <= len; ++i) {
@@ -1355,36 +1198,32 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			throw new RQException("lookup" + mm.getMessage("function.invalidParam"));
 		}
 
-		boolean bAll = false, isSorted = false;
-		if (opt != null) {
-			if (opt.indexOf('a') != -1)bAll = true;
-			if (opt.indexOf('b') != -1)isSorted = true;
+		boolean bAll = opt != null && opt.indexOf('a') != -1;
+		int srcLen = sequences[0].length();
+		if (srcLen == 0) {
+			return bAll ? new Sequence(0) : null;
 		}
 
-		int srcLen = sequences[0].length();
-		if (srcLen == 0)return bAll ? new Sequence(0) : null;
-
-		Comparator<Object> baseCmp = new BaseComparator();
-		Sequence seq = (Sequence)sequences[0].firstIndexOf(vals[0], baseCmp, true,
-			isSorted, false, 1, srcLen);
+		Sequence seq = (Sequence)sequences[0].pos(vals[0], "a");
 		if (seq.length() == 0) {
 			return bAll ? new Sequence(0) : null;
 		}
 
 		for (int i = 1; i < gcount; ++i) {
 			srcLen = sequences[i].length();
-			if (srcLen < 1)return bAll ? new Sequence(0) : null;
-			Sequence tmp = (Sequence)sequences[i].firstIndexOf(vals[i], baseCmp, true,
-				isSorted, false, 1, srcLen);
-
+			if (srcLen < 1) {
+				return bAll ? new Sequence(0) : null;
+			}
+			
+			Sequence tmp = (Sequence)sequences[i].pos(vals[i], "a");
 			seq = seq.isect(tmp, true);
 			if (seq.length() == 0) {
 				return bAll ? new Sequence(0) : null;
 			}
 		}
 
-		ListBase1 posMems = seq.mems;
-		ListBase1 mems = this.mems;
+		IArray posMems = seq.getMems();
+		IArray mems = getMems();
 		int len = mems.size();
 		if (bAll) {
 			int posCount = posMems.size();
@@ -1422,13 +1261,13 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			throw new RQException("conj" + mm.getMessage("function.paramValNull"));
 		}
 
-		ListBase1 mems = this.getMems();
-		ListBase1 mems2 = seq.getMems();
+		IArray mems = this.getMems();
+		IArray mems2 = seq.getMems();
 		int len = mems.size();
 		int len2 = mems2.size();
 
 		Sequence result = new Sequence(len + len2);
-		ListBase1 resultMems = result.mems;
+		IArray resultMems = result.getMems();
 
 		if (bMerge) {
 			// 归并两个序列
@@ -1478,12 +1317,12 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			return CursorUtil.diff(this, seq);
 		}
 
-		ListBase1 mems = this.mems;
-		ListBase1 mems2 = seq.mems;
+		IArray mems = getMems();
+		IArray mems2 = seq.getMems();
 		int len = mems.size();
 		int len2 = mems2.size();
 		Sequence result = new Sequence(len);
-		ListBase1 resultMems = result.mems;
+		IArray resultMems = result.getMems();
 
 		// 归并法插入
 		int s = 1, t = 1;
@@ -1525,12 +1364,12 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			return CursorUtil.isect(this, seq);
 		}
 
-		ListBase1 mems = this.mems;
-		ListBase1 mems2 = seq.mems;
+		IArray mems = getMems();
+		IArray mems2 = seq.getMems();
 		int len = mems.size();
 		int len2 = mems2.size();
 		Sequence result = new Sequence(len > len2 ? len2 : len);
-		ListBase1 resultMems = result.mems;
+		IArray resultMems = result.getMems();
 
 		// 归并法插入
 		int s = 1, t = 1;
@@ -1566,12 +1405,12 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			return CursorUtil.union(this, seq);
 		}
 		
-		ListBase1 mems = this.mems;
-		ListBase1 mems2 = seq.mems;
+		IArray mems = getMems();
+		IArray mems2 = seq.getMems();
 		int len = mems.size();
 		int len2 = mems2.size();
 		Sequence result = new Sequence(len + len2);
-		ListBase1 resultMems = result.mems;
+		IArray resultMems = result.getMems();
 
 		// 归并法插入
 		int s = 1, t = 1;
@@ -1608,7 +1447,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 
 	private static Sequence mergeConj(Sequence []sequences) {
 		int count = sequences.length;
-		ListBase1 []lists = new ListBase1[count];
+		IArray []lists = new IArray[count];
 		int []lens = new int[count];
 		int total = 0;
 		Comparator<Object> c = null;
@@ -1618,12 +1457,12 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				sequences[i] = new Sequence(0);
 			}
 
-			lists[i] = sequences[i].mems;
+			lists[i] = sequences[i].getMems();
 			lens[i] = lists[i].size();
 			total += lens[i];
 
 			if (c == null && lens[i] > 0) {
-				if (sequences[i].ifn() instanceof Record) {
+				if (sequences[i].ifn() instanceof BaseRecord) {
 					c = new RecordKeyComparator();
 				} else {
 					c = new BaseComparator();
@@ -1636,12 +1475,12 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		}
 
 		if (count == 2) {
-			ListBase1 list1 = lists[0];
-			ListBase1 list2 = lists[1];
+			IArray list1 = lists[0];
+			IArray list2 = lists[1];
 			int len1 = lens[0];
 			int len2 = lens[1];
 			Sequence result = new Sequence(total);
-			ListBase1 resultList = result.mems;
+			IArray resultList = result.getMems();
 
 			if (len1 == 0) {
 				resultList.addAll(list2);
@@ -1676,10 +1515,12 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				}
 
 				// 将剩余的元素添加到序列中
-				if (s1 <= len1) {
-					resultList.addSection(list1, s1);
-				} else {
-					resultList.addSection(list2, s2);
+				for (; s1 <= len1; ++s1) {
+					resultList.add(list1.get(s1));
+				}
+				
+				for (; s2 <= len2; ++s2) {
+					resultList.add(list2.get(s2));
 				}
 			}
 
@@ -1719,7 +1560,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			}
 
 			Sequence result = new Sequence(total);
-			ListBase1 resultSeqList = result.mems;
+			IArray resultSeqList = result.getMems();
 
 			Next:
 			for(int i = 1; i <= total; ++i) {
@@ -1759,9 +1600,9 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		}
 
 		int count = sequences.length;
-		ListBase1 []lists = new ListBase1[count];
+		IArray []lists = new IArray[count];
 		Sequence []values = new Sequence[count];
-		ListBase1 []valueLists = new ListBase1[count];
+		IArray []valueLists = new IArray[count];
 		int []lens = new int[count];
 		int total = 0;
 
@@ -1770,9 +1611,9 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				sequences[i] = new Sequence(0);
 			}
 
-			lists[i] = sequences[i].mems;
+			lists[i] = sequences[i].getMems();
 			values[i] = sequences[i].calc(exp, ctx);
-			valueLists[i] = values[i].mems;
+			valueLists[i] = values[i].getMems();
 
 			lens[i] = lists[i].size();
 			total += lens[i];
@@ -1783,15 +1624,15 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		}
 
 		if (count == 2) {
-			ListBase1 list1 = lists[0];
-			ListBase1 list2 = lists[1];
-			ListBase1 valueList1 = valueLists[0];
-			ListBase1 valueList2 = valueLists[1];
+			IArray list1 = lists[0];
+			IArray list2 = lists[1];
+			IArray valueList1 = valueLists[0];
+			IArray valueList2 = valueLists[1];
 
 			int len1 = lens[0];
 			int len2 = lens[1];
 			Sequence result = new Sequence(total);
-			ListBase1 resultList = result.mems;
+			IArray resultList = result.getMems();
 
 			if (len1 == 0) {
 				resultList.addAll(list2);
@@ -1826,10 +1667,12 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				}
 
 				// 将剩余的元素添加到序列中
-				if (s1 <= len1) {
-					resultList.addSection(list1, s1);
-				} else {
-					resultList.addSection(list2, s2);
+				for (; s1 <= len1; ++s1) {
+					resultList.add(list1.get(s1));
+				}
+				
+				for (; s2 <= len2; ++s2) {
+					resultList.add(list2.get(s2));
 				}
 			}
 
@@ -1869,7 +1712,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			}
 
 			Sequence result = new Sequence(total);
-			ListBase1 resultList = result.mems;
+			IArray resultList = result.getMems();
 
 			Next:
 			for(int i = 1; i <= total; ++i) {
@@ -1911,7 +1754,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		}
 
 		int count = sequences.length;
-		ListBase1 []lists = new ListBase1[count];
+		IArray []lists = new IArray[count];
 		int []lens = new int[count];
 		int total = 0;
 
@@ -1920,7 +1763,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				sequences[i] = new Sequence(0);
 			}
 
-			lists[i] = sequences[i].mems;
+			lists[i] = sequences[i].getMems();
 			lens[i] = lists[i].size();
 			total += lens[i];
 		}
@@ -1930,13 +1773,13 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		}
 
 		if (count == 2) {
-			ListBase1 list1 = lists[0];
-			ListBase1 list2 = lists[1];
+			IArray list1 = lists[0];
+			IArray list2 = lists[1];
 
 			int len1 = lens[0];
 			int len2 = lens[1];
 			Sequence result = new Sequence(total);
-			ListBase1 resultList = result.mems;
+			IArray resultList = result.getMems();
 
 			if (len1 == 0) {
 				resultList.addAll(list2);
@@ -1997,10 +1840,12 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			}
 
 			// 将剩余的元素添加到序列中
-			if (s1 <= len1) {
-				resultList.addSection(list1, s1);
-			} else {
-				resultList.addSection(list2, s2);
+			for (; s1 <= len1; ++s1) {
+				resultList.add(list1.get(s1));
+			}
+			
+			for (; s2 <= len2; ++s2) {
+				resultList.add(list2.get(s2));
 			}
 			
 			return result;
@@ -2041,7 +1886,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			}
 
 			Sequence result = new Sequence(total);
-			ListBase1 resultList = result.mems;
+			IArray resultList = result.getMems();
 
 			Next:
 			for(int i = 1; i <= total; ++i) {
@@ -2076,19 +1921,19 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	// 根据值序列来合并源序列，值序列有序
-	private static Sequence union(Sequence[] sources, Sequence[] values) {
+	private static Sequence mergeUnion(Sequence[] sources, Sequence[] values) {
 		int count = values.length;
 		int leaveCount = count;
 		int[] len = new int[count];
 		int[] index = new int[count];
 		int totalLen = 0;
 
-		ListBase1[] srcMems = new ListBase1[count];
-		ListBase1[] valMems = new ListBase1[count];
+		IArray[] srcMems = new IArray[count];
+		IArray[] valMems = new IArray[count];
 
 		for (int i = 0; i < count; ++i) {
-			valMems[i] = values[i].mems;
-			srcMems[i] = sources[i].mems;
+			valMems[i] = values[i].getMems();
+			srcMems[i] = sources[i].getMems();
 
 			index[i] = 1;
 			len[i] = valMems[i].size();
@@ -2101,7 +1946,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		Object minValue = null; ;
 		int[] minIndex = new int[count];
 		Sequence result = new Sequence(totalLen);
-		ListBase1 resultMems = result.mems;
+		IArray resultMems = result.getMems();
 
 		while (leaveCount > 1) {
 			for (int i = 0; i < count; ++i) {
@@ -2151,18 +1996,18 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	// 根据值序列来合并源序列，值序列有序
-	private static Sequence isect(Sequence[] sources, Sequence[] values) {
+	private static Sequence mergeIsect(Sequence[] sources, Sequence[] values) {
 		int count = values.length;
 		int[] len = new int[count];
 		int[] index = new int[count];
 
-		ListBase1[] srcMems = new ListBase1[count];
-		ListBase1[] valMems = new ListBase1[count];
+		IArray[] srcMems = new IArray[count];
+		IArray[] valMems = new IArray[count];
 
 		int minLen = Integer.MAX_VALUE;
 		for (int i = 0; i < count; ++i) {
-			valMems[i] = values[i].mems;
-			srcMems[i] = sources[i].mems;
+			valMems[i] = values[i].getMems();
+			srcMems[i] = sources[i].getMems();
 
 			index[i] = 1;
 			len[i] = valMems[i].size();
@@ -2176,7 +2021,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		}
 
 		Sequence result = new Sequence(minLen);
-		ListBase1 resultMems = result.mems;
+		IArray resultMems = result.getMems();
 
 		Next:
 		for (int col1 = 1; col1 <= len[0]; ++col1) {
@@ -2205,23 +2050,23 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	// 根据值序列来合并源序列，值序列有序
-	private static Sequence diff(Sequence[] sources, Sequence[] values) {
+	private static Sequence mergeDiff(Sequence[] sources, Sequence[] values) {
 		int count = values.length;
 		int[] len = new int[count];
 		int[] index = new int[count];
 
-		ListBase1[] srcMems = new ListBase1[count];
-		ListBase1[] valMems = new ListBase1[count];
+		IArray[] srcMems = new IArray[count];
+		IArray[] valMems = new IArray[count];
 
 		for (int i = 0; i < count; ++i) {
-			valMems[i] = values[i].mems;
-			srcMems[i] = sources[i].mems;
+			valMems[i] = values[i].getMems();
+			srcMems[i] = sources[i].getMems();
 			index[i] = 1;
 			len[i] = valMems[i].size();
 		}
 
 		Sequence result = new Sequence(len[0]);
-		ListBase1 resultMems = result.mems;
+		IArray resultMems = result.getMems();
 
 		for (int r = 1; r <= len[0]; ++r) {
 			Object val1 = valMems[0].get(r);
@@ -2275,7 +2120,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			}
 		}
 
-		int count = count(null);
+		int count = count();
 		int len = length();
 		Sequence []sequences = new Sequence[count];
 		for (int i = 1, seq = 0; i <= len; ++i) {
@@ -2303,7 +2148,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 					values[i] = sequences[i].calc(exps, ctx);
 				}
 
-				return union(sequences, values);
+				return mergeUnion(sequences, values);
 			}
 		} else if (bIsect) {
 			if (count != len) return null;
@@ -2321,7 +2166,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 					values[i] = sequences[i].calc(exps, ctx);
 				}
 
-				return isect(sequences, values);
+				return mergeIsect(sequences, values);
 			}
 		} else if (bDiff) {
 			// A(1)\(A(2)&...)
@@ -2341,11 +2186,19 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 					values[i] = sequences[i].calc(exps, ctx);
 				}
 
-				return diff(sequences, values);
+				return mergeDiff(sequences, values);
 			}
 		} else {
 			return mergeConj(sequences, exps, ctx);
 		}
+	}
+	
+	public boolean equals(Object obj) {
+		if (!(obj instanceof Sequence)) {
+			return false;
+		}
+		
+		return isEquals((Sequence)obj);
 	}
 
 	/**
@@ -2360,95 +2213,77 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			return false;
 		}
 
-		ListBase1 mems = this.mems;
-		ListBase1 mems2 = seq.mems;
+		IArray mems = getMems();
+		IArray mems2 = seq.getMems();
 		int len = mems.size();
 		if (len != mems2.size()) {
 			return false;
 		}
 
 		for (int i = 1; i <= len; ++i) {
-			if (!Variant.isEquals(mems.get(i), mems2.get(i))) {
+			if (!mems.isEquals(i, mems2, i)) {
 				return false;
 			}
 		}
 
 		return true;
 	}
-
+	
 	/**
 	 * 比较两序列的大小
 	 * @param seq Sequence
 	 * @return 1：当前序列大，0：两个序列相等，-1：当前序列小
 	 */
-	public int cmp(Sequence seq) {
+	public int compareTo(Sequence other) {
+		if (other == this) {
+			return 0;
+		} else if (other == null) {
+			return 1;
+		} else {
+			return getMems().compareTo(other.getMems());
+		}
+	}
+	
+	/**
+	 * 比较两序列的大小
+	 * @param seq 另一个序列
+	 * @param len 比较的成员数量
+	 * @return 1：当前序列大，0：两个序列相等，-1：当前序列小
+	 */
+	public int compareTo(Sequence seq, int len) {
 		if (seq == this) {
 			return 0;
 		} else if (seq == null) {
 			return 1;
 		}
 
-
-		ListBase1 mems = this.mems;
-		ListBase1 mems2 = seq.mems;
-		int len = mems.size();
-		int len2 = mems2.size();
-		int min = len > len2 ? len2 : len;
-
-		for (int i = 1; i <= min; ++i) {
-			int result = Variant.compare(mems.get(i), mems2.get(i), true);
+		IArray mems = getMems();
+		IArray mems2 = seq.getMems();
+		for (int i = 1; i <= len; ++i) {
+			int result = mems.compareTo(i, mems2, i);
 			if (result != 0) {
 				return result;
 			} // 相等比较下一个
 		}
 
-		return len == len2 ? 0 : (len > len2 ? 1 : -1);
+		return 0;
 	}
 	
-	/**
-	 * 比较两序列的大小，null当最大值处理
-	 * @param seq Sequence
-	 * @return 1：当前序列大，0：两个序列相等，-1：当前序列小
-	 */
-	public int cmp_0(Sequence seq) {
-		if (seq == this) {
-			return 0;
-		} else if (seq == null) {
-			return -1;
-		}
-
-
-		ListBase1 mems = this.mems;
-		ListBase1 mems2 = seq.mems;
-		int len = mems.size();
-		int len2 = mems2.size();
-		int min = len > len2 ? len2 : len;
-
-		for (int i = 1; i <= min; ++i) {
-			int result = Variant.compare_0(mems.get(i), mems2.get(i));
-			if (result != 0) {
-				return result;
-			} // 相等比较下一个
-		}
-
-		return len == len2 ? 0 : (len > len2 ? 1 : -1);
-	}
-
 	/**
 	 * 用指定比较器比较两个序列的大小
 	 * @param seq 与当前序列进行比较的序列
 	 * @param comparator 比较器
 	 * @return 1：当前序列大，0：两个序列相等，-1：当前序列小
 	 */
-	public int cmp(Sequence seq, Comparator<Object> comparator) {
+	public int compareTo(Sequence seq, Comparator<Object> comparator) {
 		if (seq == this) {
 			return 0;
 		} else if (seq == null) {
 			return 1;
 		}
 
-		ListBase1 mems = this.mems;
-		ListBase1 mems2 = seq.mems;
+		IArray mems = getMems();
+		IArray mems2 = seq.getMems();
 		int len = mems.size();
 		int len2 = mems2.size();
 		int min = len > len2 ? len2 : len;
@@ -2464,12 +2299,11 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	/**
-	 * 用指定比较器比较两个序列的大小，null当最大值处理
-	 * @param seq 与当前序列进行比较的序列
-	 * @param comparator 比较器
+	 * 比较两序列的大小，null当最大值处理
+	 * @param seq
 	 * @return 1：当前序列大，0：两个序列相等，-1：当前序列小
 	 */
-	public int cmp_0(Sequence seq, Comparator<Object> comparator) {
+	public int nullMaxCompare(Sequence seq) {
 		if (seq == this) {
 			return 0;
 		} else if (seq == null) {
@@ -2477,14 +2311,42 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		}
 
 
-		ListBase1 mems = this.mems;
-		ListBase1 mems2 = seq.mems;
+		IArray mems = getMems();
 		int len = mems.size();
-		int len2 = mems2.size();
+		int len2 = seq.length();
 		int min = len > len2 ? len2 : len;
 
 		for (int i = 1; i <= min; ++i) {
-			int result = Variant.compare_0(mems.get(i), mems2.get(i), comparator);
+			int result = Variant.compare_0(mems.get(i), seq.getMem(i));
+			if (result != 0) {
+				return result;
+			} // 相等比较下一个
+		}
+
+		return len == len2 ? 0 : (len > len2 ? 1 : -1);
+	}
+	
+	/**
+	 * 用指定比较器比较两个序列的大小，null当最大值处理
+	 * @param seq 与当前序列进行比较的序列
+	 * @param comparator 比较器
+	 * @return 1：当前序列大，0：两个序列相等，-1：当前序列小
+	 */
+	public int nullMaxCompare(Sequence seq, Comparator<Object> comparator) {
+		if (seq == this) {
+			return 0;
+		} else if (seq == null) {
+			return -1;
+		}
+
+
+		IArray mems = getMems();
+		int len = mems.size();
+		int len2 = seq.length();
+		int min = len > len2 ? len2 : len;
+
+		for (int i = 1; i <= min; ++i) {
+			int result = Variant.compare_0(mems.get(i), seq.getMem(i), comparator);
 			if (result != 0) {
 				return result;
 			} // 相等比较下一个
@@ -2497,14 +2359,14 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * 把当前序列与成员值为0的同等长度序列进行比较
 	 * @return 1：大于，0：等于，-1：小于
 	 */
-	public int cmp0() {
-		ListBase1 mems = this.mems;
+	public int compare0() {
+		IArray mems = getMems();
 		int size = mems.size();
 		if (size == 0) {
 			return -1;
 		}
 
-		Integer zero = new Integer(0);
+		Integer zero = ObjectCache.getInteger(0);
 		for (int i = 1; i <= size; ++i) {
 			int result = Variant.compare(mems.get(i), zero, true);
 			if (result != 0) {
@@ -2520,7 +2382,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @return true：成员都是真，false：存在成员取值为假
 	 */
 	public boolean cand() {
-		ListBase1 mems = this.mems;
+		IArray mems = getMems();
 		for (int i = 1, len = mems.size(); i <= len; ++i) {
 			if (Variant.isFalse(mems.get(i))) {
 				return false;
@@ -2537,9 +2399,9 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @return true：表达式计算结果都是真，false：存在表达式计算结果为假
 	 */
 	public boolean cand(Expression exp, Context ctx) {
-		ListBase1 mems = this.mems;
+		IArray mems = getMems();
 		ComputeStack stack = ctx.getComputeStack();
-		Current current = new Current();
+		Current current = new Current(this);
 		stack.push(current);
 
 		try {
@@ -2557,7 +2419,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	public boolean cor() {
-		ListBase1 mems = this.mems;
+		IArray mems = getMems();
 		for (int i = 1, len = mems.size(); i <= len; ++i) {
 			if (Variant.isTrue(mems.get(i))) {
 				return true;
@@ -2568,9 +2430,9 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	public boolean cor(Expression exp, Context ctx) {
-		ListBase1 mems = this.mems;
+		IArray mems = getMems();
 		ComputeStack stack = ctx.getComputeStack();
-		Current current = new Current();
+		Current current = new Current(this);
 		stack.push(current);
 
 		try {
@@ -2592,7 +2454,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @return Object
 	 */
 	public Object ifn() {
-		ListBase1 mems = this.mems;
+		IArray mems = getMems();
 		int size = mems.size();
 		for (int i = 1; i <= size; ++i) {
 			Object obj = mems.get(i);
@@ -2608,7 +2470,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @return Object
 	 */
 	public Object nvl() {
-		ListBase1 mems = this.mems;
+		IArray mems = getMems();
 		int size = mems.size();
 		for (int i = 1; i <= size; ++i) {
 			Object obj = mems.get(i);
@@ -2632,11 +2494,11 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		}
 
 		ComputeStack stack = ctx.getComputeStack();
-		Current current = new Current();
+		Current current = new Current(this);
 		stack.push(current);
 
 		try {
-			int size = mems.size();
+			int size = length();
 			for (int i = 1; i <= size; ++i) {
 				current.setCurrent(i);
 				Object obj = exp.calculate(ctx);
@@ -2663,11 +2525,11 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		}
 
 		ComputeStack stack = ctx.getComputeStack();
-		Current current = new Current();
+		Current current = new Current(this);
 		stack.push(current);
 
 		try {
-			int size = mems.size();
+			int size = length();
 			for (int i = 1; i <= size; ++i) {
 				current.setCurrent(i);
 				Object obj = exp.calculate(ctx);
@@ -2688,7 +2550,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @return
 	 */
 	public int icount(String opt) {
-		ListBase1 mems = this.mems;
+		IArray mems = getMems();
 		int size = mems.size();
 		if (opt == null || opt.indexOf('o') == -1) {
 			HashSet<Object> set = new HashSet<Object>(size);
@@ -2731,14 +2593,14 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		} else if (opt.indexOf('h') != -1) {
 			return sort(null).id("o");
 		} else if (opt.indexOf('o') != -1) {
-			ListBase1 mems = this.mems;
+			IArray mems = getMems();
 			int size = mems.size();
 			Sequence result = new Sequence(size);
 			if (size == 0) {
 				return result;
 			}
 			
-			ListBase1 resultMems = result.mems;
+			IArray resultMems = result.getMems();
 			Object prev = mems.get(1);
 			resultMems.add(prev);
 
@@ -2767,7 +2629,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @return
 	 */
 	public Object mode() {
-		ListBase1 mems = this.mems;
+		IArray mems = getMems();
 		int len = mems.size();
 		HashMap<Object, Integer> map = new HashMap<Object, Integer>(len);
 		
@@ -2803,31 +2665,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @return Object
 	 */
 	public Object sum() {
-		ListBase1 mems = this.mems;
-		int size = mems.size();
-		if (size < 1) {
-			return null;
-		}
-
-		Number result = null;
-		int i = 1;
-
-		for (; i <= size; ++i) {
-			Object obj = mems.get(i);
-			if (obj instanceof Number) {
-				result = (Number)obj;
-				break;
-			}
-		}
-
-		for (++i; i <= size; ++i) {
-			Object obj = mems.get(i);
-			if (obj instanceof Number) {
-				result = Variant.addNum(result, (Number)obj);
-			}
-		}
-
-		return result;
+		return getMems().sum();
 	}
 
 	/**
@@ -2835,7 +2673,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @return Object
 	 */
 	public Object sum2() {
-		ListBase1 mems = this.mems;
+		IArray mems = getMems();
 		int size = mems.size();
 		if (size < 1) {
 			return null;
@@ -2853,7 +2691,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @return Object
 	 */
 	public Object variance() {
-		ListBase1 mems = this.mems;
+		IArray mems = getMems();
 		int size = mems.size();
 		if (size < 1) {
 			return null;
@@ -2874,7 +2712,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 
 		if (count == 0)return null;
 
-		Object countObj = new Integer(count);
+		Object countObj = ObjectCache.getInteger(count);
 		Object avg = Variant.divide(sum, countObj);
 
 		// count*avg*avg + sum2 - 2*avg*sum
@@ -2883,7 +2721,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		result = Variant.add(result, sum2);
 
 		Object avgSum2 = Variant.multiply(avg, sum);
-		avgSum2 = Variant.multiply(avgSum2, new Integer(2));
+		avgSum2 = Variant.multiply(avgSum2, ObjectCache.getInteger(2));
 
 		result = Variant.subtract(result, avgSum2);
 		return Variant.divide(result, countObj);
@@ -2894,34 +2732,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @return Object
 	 */
 	public Object average() {
-		ListBase1 mems = this.mems;
-		int size = mems.size();
-		if (size < 1) {
-			return null;
-		}
-
-		Number result = null;
-		int count = 0;
-		int i = 1;
-
-		for (; i <= size; ++i) {
-			Object obj = mems.get(i);
-			if (obj instanceof Number) {
-				count++;
-				result = (Number)obj;
-				break;
-			}
-		}
-
-		for (++i; i <= size; ++i) {
-			Object obj = mems.get(i);
-			if (obj instanceof Number) {
-				count++;
-				result = Variant.addNum(result, (Number)obj);
-			}
-		}
-
-		return Variant.avg(result, count);
+		return getMems().average();
 	}
 
 	/**
@@ -2929,22 +2740,29 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @return Object
 	 */
 	public Object min() {
-		ListBase1 mems = this.mems;
+		return getMems().min();
+	}
+	
+	/**
+	 * 返回最小值，忽略空值
+	 * @param opt 0：包含null
+	 * @return Object
+	 */
+	public Object min(String opt) {
+		if (opt == null || opt.indexOf('0') == -1) {
+			return min();
+		}
+		
+		IArray mems = getMems();
 		int size = mems.size();
 		if (size < 1) {
 			return null;
 		}
 
-		Object minVal = null;
-		int i = 1;
-		for (; i <= size; ++i) {
-			minVal = mems.get(i);
-			if (minVal != null)break;
-		}
-
-		for (i = i + 1; i <= size; ++i) {
+		Object minVal = mems.get(1);
+		for (int i = 2; i <= size; ++i) {
 			Object temp = mems.get(i);
-			if (temp != null && Variant.compare(temp, minVal, true) < 0) {
+			if (Variant.compare(temp, minVal, true) < 0) {
 				minVal = temp;
 			}
 		}
@@ -2957,21 +2775,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @return Object
 	 */
 	public Object max() {
-		ListBase1 mems = this.mems;
-		int size = mems.size();
-		if (size < 1) {
-			return null;
-		}
-
-		Object maxVal = mems.get(1);
-		for (int i = 2; i <= size; ++i) {
-			Object obj = mems.get(i);
-			if (Variant.compare(maxVal, obj, true) < 0) {
-				maxVal = obj;
-			}
-		}
-
-		return maxVal;
+		return getMems().max();
 	}
 
 	/**
@@ -2980,7 +2784,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @return
 	 */
 	public Sequence min(int count) {
-		ListBase1 mems = this.mems;
+		IArray mems = getMems();
 		int size = mems.size();
 		if (size < 1) return null;
 
@@ -3003,7 +2807,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @return
 	 */
 	public Sequence max(int count) {
-		ListBase1 mems = this.mems;
+		IArray mems = getMems();
 		int size = mems.size();
 		if (size < 1) return null;
 
@@ -3017,77 +2821,6 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		return sequence.sort("zo");
 	}
 	
-	// 0位置不用，选出所有最大或最小的元素
-	private IntArrayList top1Index(boolean isMin, Expression exp, Context ctx) {
-		if (exp == null) {
-			ListBase1 mems = this.mems;
-			int end = mems.size();
-			IntArrayList list = new IntArrayList();
-			list.addInt(0);
-			
-			int i = 1;
-			Object prevValue = null;
-			for (; i <= end; ++i) {
-				prevValue = mems.get(i);
-				if (prevValue != null) { // 忽略空值
-					list.addInt(i);
-					break;
-				}
-			}
-
-			if (isMin) {
-				for (++i; i <= end; ++i) {
-					Object temp = mems.get(i);
-					if (temp != null) {
-						int result = Variant.compare(temp, prevValue, true);
-						if (result < 0) {
-							prevValue = temp;
-							list.setSize(1);
-							list.addInt(i);
-						} else if (result == 0) {
-							list.addInt(i);
-						} // 大于不做任何处理
-					}
-				}
-			} else {
-				for (++i; i <= end; ++i) {
-					Object temp = mems.get(i);
-					if (temp != null) {
-						int result = Variant.compare(temp, prevValue, true);
-						if (result > 0) {
-							prevValue = temp;
-							list.setSize(1);							
-							list.addInt(i);
-						} else if (result == 0) {
-							list.addInt(i);
-						} // 大于不做任何处理
-					}
-				}
-			}
-			
-			return list;
-		} else if (exp.isConstExpression()) {
-			int len = length();
-			if (isMin) {
-				IntArrayList list = new IntArrayList(2);
-				list.addInt(0);
-				list.addInt(1);
-				return list;
-			} else {
-				IntArrayList list = new IntArrayList(2);
-				list.addInt(0);
-				if (len != 0) {
-					list.add(len);
-				}
-				
-				return list;
-			}
-		} else {
-			Sequence values = calc(exp, ctx);
-			return values.top1Index(isMin, null, ctx);
-		}
-	}
-	
 	// 返回使表达式数组的返回值最小（或最大）的全部元素的位置
 	private IntArrayList top1Index(Expression []exps, boolean isMin, Context ctx) {
 		int end = length();
@@ -3096,7 +2829,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		list.addInt(0);
 		
 		ComputeStack stack = ctx.getComputeStack();
-		Current current = new Current();
+		Current current = new Current(this);
 		stack.push(current);
 
 		try {
@@ -3165,45 +2898,38 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		return list;
 	}
 
-	// 0位置不用
-	private IntArrayList topIndex(int count, Expression exp, Context ctx) {
+	private IntArray topIndex(int count, Expression exp, String opt, Context ctx) {
+		boolean isAll = true, ignoreNull = true;
+		if (opt != null) {
+			if (opt.indexOf('1') != -1) isAll = false;
+			if (opt.indexOf('0') != -1) ignoreNull = false;
+		}
+		
 		if (exp == null) {
-			if (count > 0) {
-				return pmin(count, new BaseComparator());
-			} else {
-				return pmin(-count, new DescComparator());
-			}
+			return getMems().ptop(count, isAll, false, ignoreNull);
 		} else if (exp.isConstExpression()) {
 			int len = length();
-			if (count > 0) {
-				if (count > len) count = len;
-				
-				IntArrayList list = new IntArrayList(count + 1);
-				list.addInt(0);
-				for (int i = 1; i <= count; ++i) {
-					list.addInt(i);
+			if (len == 0) {
+				return new IntArray(1);
+			} else if (isAll && (count == 1 || count == -1)) {
+				return new IntArray(1, len);
+			} else if (count > 0) {
+				if (count > len) {
+					count = len;
 				}
 				
-				return list;
+				return new IntArray(1, count);
 			} else {
 				int i = len + count + 1;
-				if (i < 1) i = 1;
-				
-				IntArrayList list = new IntArrayList(-count + 1);
-				list.addInt(0);
-				for (; i <= len; ++i) {
-					list.addInt(i);
+				if (i < 1) {
+					i = 1;
 				}
 				
-				return list;
+				return new IntArray(i, len);
 			}
 		} else {
 			Sequence values = calc(exp, ctx);
-			if (count > 0) {
-				return values.pmin(count, new BaseComparator());
-			} else {
-				return values.pmin(-count, new DescComparator());
-			}
+			return values.getMems().ptop(count, isAll, false, ignoreNull);
 		}
 	}
 
@@ -3220,26 +2946,15 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			return null;
 		}
 		
-		IntArrayList indexList;
-		if ((count == 1 || count == -1) && (opt == null || opt.indexOf('1') == -1)) {
-			indexList = top1Index(count == 1, exp, ctx);
+		IntArray indexArray = topIndex(count, exp, opt, ctx);
+		int size = indexArray.size();
+		if (size == 0) {
+			return null;
+		} else if (size == 1 && opt != null && opt.indexOf('1') != -1) {
+			return indexArray.get(1);
 		} else {
-			indexList = topIndex(count, exp, ctx);
+			return new Sequence(indexArray);
 		}
-
-		int size = indexList.size() - 1;
-		if (size == 0) return null;
-
-		if (size == 1 && opt != null && opt.indexOf('1') != -1) {
-			return indexList.get(1);
-		}
-		
-		Sequence result = new Sequence(size);
-		for (int i = 1; i <= size; ++i) {
-			result.add(indexList.get(i));
-		}
-
-		return result;
 	}
 	
 	/**
@@ -3286,7 +3001,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		
 		MinHeap minHeap = new MinHeap(count, comparator);
 		ComputeStack stack = ctx.getComputeStack();
-		Current current = new Current();
+		Current current = new Current(this);
 		stack.push(current);
 
 		try {
@@ -3348,37 +3063,27 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		
 		Sequence seq = calc(exp, ctx);
 		int len = seq.length();
-		ListBase1 mems = seq.mems;
+		IArray mems = seq.getMems();
 		
 		if (opt != null && opt.indexOf('2') != -1) {
 			for (int i = 1; i <= len; ++i) {
 				if (mems.get(i) instanceof Sequence) {
 					seq = seq.conj(null);
-					mems = seq.mems;
+					mems = seq.getMems();
 					break;
 				}
 			}
 		}
 
-		IntArrayList indexList;
-		if ((count == 1 || count == -1) && (opt == null || opt.indexOf('1') == -1)) {
-			indexList = seq.top1Index(count == 1, null, ctx);
-		} else {
-			indexList = seq.topIndex(count, null, ctx);
-		}
-		
-		int size = indexList.size() - 1;
+		IntArray indexArray = seq.topIndex(count, null, opt, ctx);
+		int size = indexArray.size();
 		if (size == 0) {
 			return null;
 		} else if (size == 1 && opt != null && opt.indexOf('1') != -1) {
-			return mems.get(indexList.getInt(1));
+			return mems.get(indexArray.getInt(1));
 		} else {
-			Sequence result = new Sequence(size);
-			for (int i = 1; i <= size; ++i) {
-				result.add(mems.get(indexList.getInt(i)));
-			}
-	
-			return result;
+			IArray resultArray = mems.get(indexArray);
+			return new Sequence(resultArray);
 		}
 	}
 	
@@ -3396,43 +3101,33 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		
 		Sequence seq = calc(getExp, ctx);
 		int len = seq.length();
-		ListBase1 mems = seq.mems;
+		IArray mems = seq.getMems();
 		
 		if (opt != null && opt.indexOf('2') != -1) {
 			for (int i = 1; i <= len; ++i) {
 				if (mems.get(i) instanceof Sequence) {
 					seq = seq.conj(null);
-					mems = seq.mems;
+					mems = seq.getMems();
 					break;
 				}
 			}
 		}
 		
-		IntArrayList indexList;
-		if ((count == 1 || count == -1) && (opt == null || opt.indexOf('1') == -1)) {
-			indexList = seq.top1Index(count == 1, exp, ctx);
-		} else {
-			indexList = seq.topIndex(count, exp, ctx);
-		}
-		
-		int size = indexList.size() - 1;
+		IntArray indexArray = seq.topIndex(count, exp, opt, ctx);
+		int size = indexArray.size();
 		if (size == 0) {
 			return null;
 		} else if (size == 1 && opt != null && opt.indexOf('1') != -1) {
-			return mems.get(indexList.getInt(1));
+			return mems.get(indexArray.getInt(1));
 		} else {
-			Sequence result = new Sequence(size);
-			for (int i = 1; i <= size; ++i) {
-				result.add(mems.get(indexList.getInt(i)));
-			}
-	
-			return result;
+			IArray resultArray = mems.get(indexArray);
+			return new Sequence(resultArray);
 		}
 	}
 
 	// 0位置不用
 	private IntArrayList pmin(int count, Comparator<Object> comparator) {
-		ListBase1 mems = this.mems;
+		IArray mems = getMems();
 		int size = mems.size();
 		IntArrayList indexList = new IntArrayList(count + 1);
 		indexList.addInt(0);
@@ -3488,7 +3183,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @return
 	 */
 	public Sequence minp(Expression exp, int count, Context ctx) {
-		ListBase1 mems = this.mems;
+		IArray mems = getMems();
 		if (mems.size() < 1) return null;
 
 		Sequence valSequence = calc(exp, ctx);
@@ -3512,7 +3207,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @return
 	 */
 	public Sequence maxp(Expression exp, int count, Context ctx) {
-		ListBase1 mems = this.mems;
+		IArray mems = getMems();
 		if (mems.size() < 1) return null;
 
 		Sequence valSequence = calc(exp, ctx);
@@ -3542,7 +3237,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			if (opt.indexOf('s') != -1)isStatistics = true;
 		}
 
-		ListBase1 mems = this.mems;
+		IArray mems = getMems();
 		int length = mems.size();
 		int count = 1;
 
@@ -3620,7 +3315,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			}
 		}
 
-		return new Integer(count);
+		return ObjectCache.getInteger(count);
 	}
 
 	/**
@@ -3629,7 +3324,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @return Sequence
 	 */
 	public Sequence ranks(String opt) {
-		ListBase1 mems = this.mems;
+		IArray mems = getMems();
 		int size = mems.size();
 		if (size == 0)return new Sequence(0);
 
@@ -3656,7 +3351,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 
 		Number[] places = new Number[size];
 		if (isDistinct) {
-			places[infos[1].index - 1] = new Integer(1);
+			places[infos[1].index - 1] = ObjectCache.getInteger(1);
 			int count = 1;
 			Object prev = mems.get(infos[1].index);
 			for (int i = 2; i < len; ++i) {
@@ -3666,7 +3361,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 					prev = cur;
 				}
 
-				places[infos[i].index - 1] = new Integer(count);
+				places[infos[i].index - 1] = ObjectCache.getInteger(count);
 			}
 		} else {
 			if (isStatistics) {
@@ -3698,13 +3393,13 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 					i += sameCount;
 				}
 			} else {
-				places[infos[1].index - 1] = new Integer(1);
+				places[infos[1].index - 1] = ObjectCache.getInteger(1);
 				for (int i = 2; i < len; ++i) {
 					if (Variant.isEquals(mems.get(infos[i - 1].index),
 										 mems.get(infos[i].index))) {
 						places[infos[i].index - 1] = places[infos[i - 1].index - 1];
 					} else {
-						places[infos[i].index - 1] = new Integer(i);
+						places[infos[i].index - 1] = ObjectCache.getInteger(i);
 					}
 				}
 			}
@@ -3720,7 +3415,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				addAll_r(seq.getMem(i));
 			}
 		} else if (obj != null) {
-			mems.add(obj);
+			getMems().add(obj);
 		}
 	}
 	
@@ -3790,7 +3485,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @return Sequence
 	 */
 	public Sequence conj(String opt) {
-		ListBase1 mems = this.mems;
+		IArray mems = getMems();
 		int size = mems.size();
 		if (size < 1) {
 			return new Sequence(0);
@@ -3852,7 +3547,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		}
 
 		Sequence result = new Sequence(total);
-		ListBase1 resultMems = result.mems;
+		IArray resultMems = result.getMems();
 		for (int i = 1; i <= size; ++i) {
 			Object obj = mems.get(i);
 			if (obj instanceof Sequence) {
@@ -3867,8 +3562,8 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	
 	// 递归合并字段值
 	public Sequence fieldValues_r(String field) {
-		ListBase1 mems = this.mems;
-		int size = mems.size;
+		IArray mems = getMems();
+		int size = mems.size();
 		Sequence result = new Sequence(size);
 		DataStruct prevDs = null;
 		int col = -1;
@@ -3876,8 +3571,8 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		Next:
 		for (int i = 1; i <= size; ++i) {
 			Object cur = mems.get(i);
-			while (cur instanceof Record) {
-				Record r = (Record)cur;
+			while (cur instanceof BaseRecord) {
+				BaseRecord r = (BaseRecord)cur;
 				DataStruct ds = r.dataStruct();
 				if (prevDs != ds) {
 					prevDs = ds;
@@ -3905,20 +3600,20 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	
 	// 递归合并字段值
 	public Sequence fieldValues_r(int col) {
-		ListBase1 mems = this.mems;
-		int size = mems.size;
+		IArray mems = getMems();
+		int size = mems.size();
 		Sequence result = new Sequence(size);		
 		for (int i = 1; i <= size; ++i) {
 			Object cur = mems.get(i);
-			if (cur instanceof Record) {
-				Record r = (Record)cur;
+			if (cur instanceof BaseRecord) {
+				BaseRecord r = (BaseRecord)cur;
 				cur = r.getNormalFieldValue(col);
 			}
 			
 			if (cur instanceof Sequence) {
 				Sequence seq = ((Sequence)cur).fieldValues_r(col);
 				result.add(seq);
-			} else if (cur instanceof Record) {
+			} else if (cur instanceof BaseRecord) {
 				Sequence seq = new Sequence(1);
 				seq.add(cur);
 				seq = seq.fieldValues_r(col);
@@ -3940,11 +3635,11 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	public Sequence conj(Expression exp, Context ctx) {
 		int len = length();
 		Sequence result = new Sequence(len);
-		ListBase1 resultMems = result.mems;
+		IArray resultMems = result.getMems();
 
 		if (exp != null) {
 			ComputeStack stack = ctx.getComputeStack();
-			Current current = new Current();
+			Current current = new Current(this);
 			stack.push(current);
 
 			try {
@@ -3952,7 +3647,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 					current.setCurrent(i);
 					Object obj = exp.calculate(ctx);
 					if (obj instanceof Sequence) {
-						resultMems.addAll(((Sequence)obj).mems);
+						resultMems.addAll(((Sequence)obj).getMems());
 					} else if (obj != null) {
 						resultMems.add(obj);
 					}
@@ -3961,11 +3656,11 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				stack.pop();
 			}
 		} else {
-			ListBase1 mems = this.mems;
+			IArray mems = getMems();
 			for (int i = 1; i <= len; ++i) {
 				Object obj = mems.get(i);
 				if (obj instanceof Sequence) {
-					resultMems.addAll(((Sequence)obj).mems);
+					resultMems.addAll(((Sequence)obj).getMems());
 				} else if (obj != null) {
 					resultMems.add(obj);
 				}
@@ -3981,7 +3676,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @return Sequence
 	 */
 	public Sequence diff(String opt) {
-		ListBase1 mems = this.mems;
+		IArray mems = getMems();
 		int size = mems.size();
 		if (size < 1) {
 			return new Sequence(0);
@@ -4014,7 +3709,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	public Sequence diff(Expression []exps, Context ctx) {
-		ListBase1 mems = this.mems;
+		IArray mems = getMems();
 		int size = mems.size();
 		if (size < 1) {
 			return new Sequence(0);
@@ -4051,7 +3746,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @return Sequence
 	 */
 	public Sequence isect(String opt) {
-		ListBase1 mems = this.mems;
+		IArray mems = getMems();
 		int size = mems.size();
 		if (size < 1) {
 			return new Sequence(0);
@@ -4092,7 +3787,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @return 交集
 	 */
 	public Sequence isect(Expression []exps, Context ctx) {
-		ListBase1 mems = this.mems;
+		IArray mems = getMems();
 		int size = mems.size();
 		if (size < 1) {
 			return new Sequence(0);
@@ -4131,7 +3826,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @return Sequence
 	 */
 	public Sequence union(String opt) {
-		ListBase1 mems = this.mems;
+		IArray mems = getMems();
 		int size = mems.size();
 		if (size < 1) {
 			return new Sequence(0);
@@ -4164,7 +3859,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	public Sequence union(Expression []exps, Context ctx) {
-		ListBase1 mems = this.mems;
+		IArray mems = getMems();
 		int size = mems.size();
 		if (size < 1) {
 			return new Sequence(0);
@@ -4200,7 +3895,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @return Sequence
 	 */
 	public Sequence xor() {
-		ListBase1 mems = this.mems;
+		IArray mems = getMems();
 		int size = mems.size();
 		if (size < 1) {
 			return new Sequence(0);
@@ -4257,12 +3952,12 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			return this;
 		}
 
-		int size = mems.size();
+		int size = length();
 		Sequence result = new Sequence(size);
-		ListBase1 resultMems = result.mems;
+		IArray resultMems = result.getMems();
 
 		ComputeStack stack = ctx.getComputeStack();
-		Current current = new Current();
+		Current current = new Current(this);
 		stack.push(current);
 
 		try {
@@ -4285,12 +3980,12 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			return calc(exps[0], ctx);
 		}
 
-		int size = mems.size();
+		int size = length();
 		Sequence result = new Sequence(size);
-		ListBase1 resultMems = result.mems;
+		IArray resultMems = result.getMems();
 
 		ComputeStack stack = ctx.getComputeStack();
-		Current current = new Current();
+		Current current = new Current(this);
 		stack.push(current);
 
 		try {
@@ -4322,7 +4017,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			throw new RQException("calc" + mm.getMessage("function.invalidParam"));
 		}
 
-		int size = mems.size();
+		int size = length();
 		if (index < 0) index += size + 1;
 		if (index < 1 || index > size) {
 			MessageManager mm = EngineMessage.get();
@@ -4330,7 +4025,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		}
 
 		ComputeStack stack = ctx.getComputeStack();
-		Current current = new Current();
+		Current current = new Current(this);
 		stack.push(current);
 
 		try {
@@ -4350,7 +4045,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 */
 	public void calc(int index, Expression []exps, Context ctx, Object []outValues) {
 		ComputeStack stack = ctx.getComputeStack();
-		Current current = new Current();
+		Current current = new Current(this);
 		current.setCurrent(index);
 		stack.push(current);
 
@@ -4376,7 +4071,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			throw new RQException("calc" + mm.getMessage("function.invalidParam"));
 		}
 
-		int size = mems.size();
+		int size = length();
 		int[] posArray = seq.toIntArray();
 		int len = posArray.length;
 		for (int i = 0; i < len; ++i) {
@@ -4388,7 +4083,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 
 		Sequence result = new Sequence(len);
 		ComputeStack stack = ctx.getComputeStack();
-		Current current = new Current();
+		Current current = new Current(this);
 		stack.push(current);
 
 		try {
@@ -4419,7 +4114,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		int len = length();
 		
 		ComputeStack stack = ctx.getComputeStack();
-		Current current = new Current();
+		Current current = new Current(this);
 		stack.push(current);
 		
 		try {
@@ -4447,7 +4142,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				return initVal;
 			} else {
 				Sequence result = new Sequence(len);
-				ListBase1 resultMems = result.mems;
+				IArray resultMems = result.getMems();
 				if (c == null) {
 					for (int i = 1; i <= len; ++i) {
 						current.setCurrent(i);
@@ -4498,7 +4193,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 
 		int size = length();
 		ComputeStack stack = ctx.getComputeStack();
-		Current current = new Current();
+		Current current = new Current(this);
 		stack.push(current);
 
 		try {
@@ -4536,7 +4231,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		}
 
 		ComputeStack stack = ctx.getComputeStack();
-		Current current = new Current();
+		Current current = new Current(this);
 		stack.push(current);
 
 		try {
@@ -4555,140 +4250,13 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		}
 	}
 
-	// 从前查找元素，返回元素序号组成的序列, bAll是否返回所有满足条件者, isSorted序列是否已序
-	private Object firstIndexOf(Object obj, Comparator<Object> comparator,
-								boolean bAll, boolean isSorted, boolean isInsertPos, int start, int end) {
-		ListBase1 mems = this.mems;
-		if (isSorted) {
-			int index = mems.binarySearch(obj, start, end, comparator);
-			if (index < 1) {
-				if (bAll) {
-					return new Sequence(0);
-				} else if (isInsertPos) {
-					return index;
-				} else {
-					return null;
-				}
-			}
-
-			// 找到第一个
-			int first = index;
-			while (first > start &&
-				   comparator.compare(mems.get(first - 1), obj) == 0) {
-				first--;
-			}
-
-			if (bAll) {
-				// 找到最后一个
-				int last = index;
-				while (last < end &&
-					   comparator.compare(mems.get(last + 1), obj) == 0) {
-					last++;
-				}
-
-				Sequence result = new Sequence(last - first + 1);
-				ListBase1 resultMems = result.mems;
-				for (int i = first; i <= last; ++i) {
-					resultMems.add(i);
-				}
-				
-				return result;
-			} else {
-				return first;
-			}
-		} else {
-			if (bAll) {
-				Sequence result = new Sequence();
-				ListBase1 resultMems = result.mems;
-				for (int i = start; i <= end; ++i) {
-					if (comparator.compare(mems.get(i), obj) == 0) {
-						resultMems.add(i);
-					}
-				}
-				return result;
-			} else {
-				for (int i = start; i <= end; ++i) {
-					if (comparator.compare(mems.get(i), obj) == 0) {
-						return i;
-					}
-				}
-				
-				return null;
-			}
-		}
-	}
-
-	// 从后面开始查找元素，返回元素序号组成的序列, bAll是否返回所有满足条件者, isSorted序列是否已序
-	private Object lastIndexOf(Object obj, Comparator<Object> comparator,
-							   boolean bAll, boolean isSorted, boolean isInsertPos, int start, int end) {
-		ListBase1 mems = this.mems;
-		if (isSorted) {
-			int index = mems.binarySearch(obj, start, end, comparator);
-			if (index < 1) {
-				if (bAll) {
-					return new Sequence(0);
-				} else if (isInsertPos) {
-					return index;
-				} else {
-					return null;
-				}
-			}
-
-			// 找到最后一个
-			int last = index;
-			while (last < end &&
-				   comparator.compare(mems.get(last + 1), obj) == 0) {
-				last++;
-			}
-
-			if (bAll) {
-				// 找到最前一个
-				int first = index;
-				while (first > start &&
-					   comparator.compare(mems.get(first - 1), obj) == 0) {
-					first--;
-				}
-
-				Sequence result = new Sequence(last - first + 1);
-				ListBase1 retMems = result.mems;
-				for (int i = last; i >= first; --i) {
-					retMems.add(i);
-				}
-				
-				return result;
-			} else {
-				return last;
-			}
-		} else {
-			if (bAll) {
-				Sequence result = new Sequence();
-				ListBase1 resultMems = result.mems;
-				for (int i = end; i >= start; --i) {
-					if (comparator.compare(mems.get(i), obj) == 0) {
-						resultMems.add(i);
-					}
-				}
-				
-				return result;
-			} else {
-				for (int i = end; i >= start; --i) {
-					if (comparator.compare(mems.get(i), obj) == 0) {
-						return i;
-					}
-				}
-				
-				return null;
-			}
-		}
-	}
-
 	private Object subPos(Sequence sub, String opt) {
 		if (sub.length() == 0) {
 			return null;
 		}
 
-		ListBase1 mems = this.mems;
-		ListBase1 subMems = sub.mems;
+		IArray mems = getMems();
+		IArray subMems = sub.getMems();
 
 		int len = mems.size();
 		int subLen = subMems.size();
@@ -4706,14 +4274,12 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		// 元素依次出现在源序列中
 		if (isIncre) {
 			Sequence result = new Sequence(subLen);
-			ListBase1 resultMems = result.mems;
+			IArray resultMems = result.getMems();
 
 			if (isSorted) { // 源序列有序
-				Comparator<Object> comparator = new BaseComparator();
-
 				int pos = 1;
 				for (int t = 1; t <= subLen; ++t) {
-					pos = mems.binarySearch(subMems.get(t), pos, len, comparator);
+					pos = mems.binarySearch(subMems.get(t), pos, len);
 					if (pos > 0) {
 						resultMems.add(pos);
 						pos++;
@@ -4724,7 +4290,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			} else {
 				int pos = 1;
 				for (int t = 1; t <= subLen; ++t) {
-					pos = mems.indexOf(subMems.get(t), pos, len);
+					pos = mems.firstIndexOf(subMems.get(t), pos);
 					if (pos > 0) {
 						resultMems.add(pos);
 						pos++;
@@ -4777,7 +4343,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			return null;
 		} else {
 			Sequence result = new Sequence(subLen);
-			ListBase1 resultMems = result.mems;
+			IArray resultMems = result.getMems();
 
 			if (isSorted) { // 源序列有序
 				for (int t = 1; t <= subLen; ++t) {
@@ -4790,7 +4356,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				}
 			} else {
 				for (int t = 1; t <= subLen; ++t) {
-					int pos = mems.firstIndexOf(subMems.get(t));
+					int pos = mems.firstIndexOf(subMems.get(t), 1);
 					if (pos > 0) {
 						resultMems.add(pos);
 					} else {
@@ -4814,11 +4380,12 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			return subPos((Sequence)obj, opt);
 		}
 
-		boolean isAll = false, isFirst = true, isNull = true, isSorted = false, isInsertPos = false;
+		boolean isAll = false, isFirst = true, isZero = false, isNull = true, isSorted = false, isInsertPos = false;
 		if (opt != null) {
 			if (opt.indexOf('a') != -1)isAll = true;
 			if (opt.indexOf('z') != -1)isFirst = false;
 			if (opt.indexOf('n') != -1)isNull = false;
+			if (opt.indexOf('0') != -1)isZero = true;
 			if (opt.indexOf('b') != -1)isSorted = true;
 			if (opt.indexOf('s') != -1) {
 				isSorted = true;
@@ -4826,123 +4393,82 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			}
 		}
 
-		int end = length();
-		if (end < 1) {
-			if (isAll) {
-				return new Sequence(0);
+		if (isAll) {
+			IntArray result;
+			if (isFirst) {
+				result = getMems().indexOfAll(obj, 1, isSorted, isFirst);
+			} else {
+				result = getMems().indexOfAll(obj, length(), isSorted, isFirst);
+			}
+			
+			return new Sequence(result);
+		} else {
+			int pos;
+			if (isSorted) {
+				pos = getMems().binarySearch(obj);
+			} else if (isFirst) {
+				pos = getMems().firstIndexOf(obj, 1);
+			} else {
+				pos = getMems().lastIndexOf(obj, length());
+			}
+			
+			if (pos > 0 || isInsertPos) {
+				return ObjectCache.getInteger(pos);
+			} else if (isZero) {
+				return ObjectCache.getInteger(0);
 			} else if (isNull) {
 				return null;
-			} else if (isInsertPos) {
-				return new Integer(-1);
 			} else {
-				return new Integer(1);
+				return ObjectCache.getInteger(length() + 1);
 			}
-		}
-
-		Comparator<Object> comparator;
-		if (isSorted) {
-			comparator = new BaseComparator();
-		} else {
-			comparator = new BaseComparator(false);
-		}
-
-		Object result;
-		if (isFirst) {
-			result = firstIndexOf(obj, comparator, isAll, isSorted, isInsertPos, 1, end);
-		} else {
-			result = lastIndexOf(obj, comparator, isAll, isSorted, isInsertPos, 1, end);
-		}
-
-		if (isNull) {
-			return result;
-		} else if (result != null) {
-			return result;
-		} else {
-			return new Integer(end + 1);
 		}
 	}
 
 	/**
 	 * 返回obj在序列中的位置
 	 * @param obj Object  某一元素或连续的元素组成的序列
-	 * @param pos int 起始查找位置
-	 * @param opt String  查找标志，a：所有满足条件者，z：从后面往前找，b同序归并法查找
+	 * @param startPos int 起始查找位置
+	 * @param opt String  查找标志，a：所有满足条件者，z：从后面往前找
 	 * @return 数列：带有a选项，整数：不带a选项
 	 */
-	public Object pos(Object obj, int pos, String opt) {
+	public Object pos(Object obj, int startPos, String opt) {
 		int end = length();
-		if (pos < 1 || pos > end) {
+		if (startPos < 1 || startPos > end) {
 			MessageManager mm = EngineMessage.get();
-			throw new RQException(pos + mm.getMessage("engine.indexOutofBound"));
+			throw new RQException(startPos + mm.getMessage("engine.indexOutofBound"));
 		}
 
-		boolean isAll = false, isFirst = true, isNull = true, isSorted = false;
+		boolean isAll = false, isFirst = true, isZero = false, isNull = true, isSorted = false;
 		if (opt != null) {
 			if (opt.indexOf('a') != -1)isAll = true;
 			if (opt.indexOf('z') != -1)isFirst = false;
 			if (opt.indexOf('n') != -1)isNull = false;
+			if (opt.indexOf('0') != -1)isZero = true;
 			if (opt.indexOf('b') != -1)isSorted = true;
 		}
 
-		Comparator<Object> comparator;
-		if (isSorted) {
-			comparator = new BaseComparator();
+		if (isAll) {
+			IntArray result = getMems().indexOfAll(obj, startPos, false, isFirst);
+			return new Sequence(result);
 		} else {
-			comparator = new BaseComparator(false);
-		}
-
-		Object result;
-		if (isFirst) {
-			result = firstIndexOf(obj, comparator, isAll, isSorted, false, pos, end);
-		} else {
-			result = lastIndexOf(obj, comparator, isAll, isSorted, false, 1, pos);
-		}
-
-		if (isNull) {
-			return result;
-		} else if (result != null) {
-			return result;
-		} else {
-			return new Integer(end + 1);
-		}
-	}
-
-	/**
-	 * 序列按表达式有序，用二分法查找使表达式计算结果等于指定值的元素
-	 * @param exp 计算表达式
-	 * @param val 值
-	 * @param ctx 计算上下文
-	 * @return 位置，找不到返回负的插入位置
-	 */
-	public int pfind(Expression exp, Object val, Context ctx) {
-		int high = length();
-		if (high == 0) {
-			return -1;
-		}
-		
-		int low = 1;
-		ComputeStack stack = ctx.getComputeStack();
-		Current current = new Current();
-		stack.push(current);
-
-		try {
-			while (low <= high) {
-				int mid = (low + high) >> 1;
-				current.setCurrent(mid);
-				Object obj = exp.calculate(ctx);
-				int cmp = Variant.compare(obj, val, true);
-
-				if (cmp < 0)
-					low = mid + 1;
-				else if (cmp > 0)
-					high = mid - 1;
-				else
-					return mid; // key found
+			int pos;
+			if (isSorted) {
+				pos = getMems().binarySearch(obj, startPos, end);
+			} else if (isFirst) {
+				pos = getMems().firstIndexOf(obj, startPos);
+			} else {
+				pos = getMems().lastIndexOf(obj, startPos);
 			}
-
-			return -low; // key not found
-		} finally {
-			stack.pop();
+			
+			if (pos > 0) {
+				return ObjectCache.getInteger(pos);
+			} else if (isZero) {
+				return ObjectCache.getInteger(0);
+			} else if (isNull) {
+				return null;
+			} else {
+				return ObjectCache.getInteger(length() + 1);
+			}
 		}
 	}
 	
@@ -4953,7 +4479,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @return
 	 */
 	public int pseg(Object obj, String opt) {
-		int index = mems.binarySearch(obj);
+		int index = getMems().binarySearch(obj);
 		if (index < 1) {
 			return -index - 1;
 		}
@@ -5012,13 +4538,13 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			sequence = this;
 		} else {
 			sequence = new Sequence(len);
-			ListBase1 valMems = sequence.mems;
+			IArray valMems = sequence.getMems();
 			for (int i = 1; i < start; ++i) {
 				valMems.add(null);
 			}
 
 			ComputeStack stack = ctx.getComputeStack();
-			Current current = new Current();
+			Current current = new Current(this);
 			stack.push(current);
 
 			try {
@@ -5081,13 +4607,13 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			sequence = this;
 		} else {
 			sequence = new Sequence(len);
-			ListBase1 valMems = sequence.mems;
+			IArray valMems = sequence.getMems();
 			for (int i = 1; i < start; ++i) {
 				valMems.add(null);
 			}
 
 			ComputeStack stack = ctx.getComputeStack();
-			Current current = new Current();
+			Current current = new Current(this);
 			stack.push(current);
 			try {
 				for (int i = start; i <= end; ++i) {
@@ -5105,61 +4631,118 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	private Object pmin(String opt, int start, int end) {
-		boolean bAll = false;
-		boolean bLast = false;
+		boolean bAll = false, bLast = false, ignoreNull = true;
 		if (opt != null) {
 			if (opt.indexOf('a') != -1)bAll = true;
 			if (opt.indexOf('z') != -1)bLast = true;
+			if (opt.indexOf('0') != -1)ignoreNull = false;
 		}
 
-		IntArrayList indexList = new IntArrayList();
-		ListBase1 mems = this.mems;
-
+		IArray mems = getMems();
 		Object minValue = null;
-		int i = start;
-		for (; i <= end; ++i) {
-			minValue = mems.get(i);
-			if (minValue != null) { // 忽略空值
-				indexList.addInt(i);
-				break;
-			}
-		}
-
-		for (i = i + 1; i <= end; ++i) {
-			Object temp = mems.get(i);
-			if (temp != null) {
-				int result = Variant.compare(temp, minValue, true);
-				if (result < 0) {
-					minValue = temp;
-					indexList.clear();
-					indexList.addInt(i);
-				} else if (result == 0) {
-					indexList.addInt(i);
-				} // 大于不做任何处理
-			}
-		}
-
-		int resultSize = indexList.size();
+		
 		if (bAll) {
-			Sequence result = new Sequence(resultSize);
-			ListBase1 resultMems = result.mems;
-			if (bLast) {
-				for (i = resultSize - 1; i >= 0; --i) {
-					resultMems.add(indexList.get(i));
+			IntArrayList indexList = new IntArrayList();
+			if (ignoreNull) {
+				int i = start;
+				for (; i <= end; ++i) {
+					minValue = mems.get(i);
+					if (minValue != null) { // 忽略空值
+						indexList.addInt(i);
+						break;
+					}
+				}
+				
+				for (i = i + 1; i <= end; ++i) {
+					Object temp = mems.get(i);
+					if (temp != null) {
+						int result = Variant.compare(temp, minValue, true);
+						if (result < 0) {
+							minValue = temp;
+							indexList.clear();
+							indexList.addInt(i);
+						} else if (result == 0) {
+							indexList.addInt(i);
+						} // 大于不做任何处理
+					}
 				}
 			} else {
-				for (i = 0; i < resultSize; ++i) {
-					resultMems.add(indexList.get(i));
+				minValue = mems.get(start);
+				indexList.addInt(start);
+				
+				for (int i = start + 1; i <= end; ++i) {
+					Object temp = mems.get(i);
+					int result = Variant.compare(temp, minValue, true);
+					if (result < 0) {
+						minValue = temp;
+						indexList.clear();
+						indexList.addInt(i);
+					} else if (result == 0) {
+						indexList.addInt(i);
+					} // 大于不做任何处理
 				}
 			}
+
+			int resultSize = indexList.size();
+			Sequence result = new Sequence(resultSize);
+			IArray resultMems = result.getMems();
+			
+			if (bLast) {
+				for (int i = resultSize - 1; i >= 0; --i) {
+					resultMems.add(ObjectCache.getInteger(indexList.get(i)));
+				}
+			} else {
+				for (int i = 0; i < resultSize; ++i) {
+					resultMems.add(ObjectCache.getInteger(indexList.get(i)));
+				}
+			}
+			
 			return result;
 		} else {
-			if (resultSize == 0) {
-				return null;
-			} else if (bLast) {
-				return indexList.get(resultSize - 1);
+			int minPos = -1;
+			if (ignoreNull) {
+				int i = start;
+				for (; i <= end; ++i) {
+					minValue = mems.get(i);
+					if (minValue != null) { // 忽略空值
+						minPos = i;
+						break;
+					}
+				}
+				
+				for (i = i + 1; i <= end; ++i) {
+					Object temp = mems.get(i);
+					if (temp != null) {
+						int result = Variant.compare(temp, minValue, true);
+						if (result < 0) {
+							minValue = temp;
+							minPos = i;
+						} else if (result == 0 && bLast) {
+							minPos = i;
+						}
+					}
+				}
+				
+				if (minPos != -1) {
+					return ObjectCache.getInteger(minPos);
+				} else {
+					return null;
+				}
 			} else {
-				return indexList.get(0);
+				minValue = mems.get(start);
+				minPos = start;
+				for (int i = start + 1; i <= end; ++i) {
+					Object temp = mems.get(i);
+					int result = Variant.compare(temp, minValue, true);
+					if (result < 0) {
+						minValue = temp;
+						minPos = i;
+					} else if (result == 0 && bLast) {
+						minPos = i;
+					}
+				}
+				
+				return ObjectCache.getInteger(minPos);
 			}
 		}
 	}
@@ -5172,7 +4755,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			if (opt.indexOf('z') != -1)bLast = true;
 		}
 
-		ListBase1 mems = this.mems;
+		IArray mems = getMems();
 		IntArrayList indexList = new IntArrayList();
 		Object maxValue = mems.get(start);
 		indexList.addInt(start);
@@ -5196,7 +4779,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		int resultSize = indexList.size();
 		if (bAll) {
 			Sequence result = new Sequence(resultSize);
-			ListBase1 resultMems = result.mems;
+			IArray resultMems = result.getMems();
 			if (bLast) {
 				for (int i = resultSize - 1; i >= 0; --i) {
 					resultMems.add(indexList.get(i));
@@ -5226,11 +4809,12 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @return 数列：带有a选项，整数：不带a选项
 	 */
 	public Object pselect(Expression exp, String opt, Context ctx) {
-		boolean isAll = false, isFirst = true, isNull = true, isSorted = false, isInsertPos = false;
+		boolean isAll = false, isFirst = true, isZero = false, isNull = true, isSorted = false, isInsertPos = false;
 		if (opt != null) {
 			if (opt.indexOf('a') != -1)isAll = true;
 			if (opt.indexOf('z') != -1)isFirst = false;
 			if (opt.indexOf('n') != -1)isNull = false;
+			if (opt.indexOf('0') != -1)isZero = true;
 			if (opt.indexOf('b') != -1)isSorted = true;
 			if (opt.indexOf('s') != -1) {
 				isSorted = true;
@@ -5252,6 +4836,8 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				return new Sequence(0);
 			} else if (isInsertPos) {
 				return -1;
+			} else if (isZero) {
+				return ObjectCache.getInteger(0);
 			} else if (isNull) {
 				return null;
 			} else {
@@ -5268,12 +4854,14 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			result = pselectb(exp, isAll, isFirst, 1, size, ctx);
 		}
 
-		if (isNull) {
+		if (result != null) {
 			return result;
-		} else if (result != null) {
-			return result;
+		} else if (isZero) {
+			return ObjectCache.getInteger(0);
+		} else if (isNull) {
+			return null;
 		} else {
-			return new Integer(size + 1);
+			return ObjectCache.getInteger(size + 1);
 		}
 	}
 
@@ -5296,13 +4884,15 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			} else if (opt.indexOf('a') != -1) {
 				return new Sequence(0);
 			} else if (opt.indexOf('n') != -1) {
-				return new Integer(len + 1);
+				return ObjectCache.getInteger(len + 1);
+			} else if (opt.indexOf('0') != -1) {
+				return ObjectCache.getInteger(0);
 			} else {
 				return null;
 			}
 		}
 
-		boolean isAll = false, isFirst = true, isNull = true, isSorted = false, isInsertPos = false;
+		boolean isAll = false, isFirst = true, isZero = false, isNull = true, isSorted = false, isInsertPos = false;
 		if (opt != null) {
 			if (opt.indexOf('a') != -1)isAll = true;
 			if (opt.indexOf('z') != -1)isFirst = false;
@@ -5337,12 +4927,14 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			result = pselectb(exp, isAll, isFirst, start, end, ctx);
 		}
 
-		if (isNull) {
+		if (result != null) {
 			return result;
-		} else if (result != null) {
-			return result;
+		} else if (isZero) {
+			return ObjectCache.getInteger(0);
+		} else if (isNull) {
+			return null;
 		} else {
-			return new Integer(len + 1);
+			return ObjectCache.getInteger(len + 1);
 		}
 	}
 
@@ -5378,8 +4970,10 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				return null;
 			} else if (opt.indexOf('a') != -1) {
 				return new Sequence(0);
+			} else if (opt.indexOf('0') != -1) {
+				return ObjectCache.getInteger(0);
 			} else if (opt.indexOf('n') != -1) {
-				return new Integer(len + 1);
+				return ObjectCache.getInteger(len + 1);
 			} else {
 				return null;
 			}
@@ -5417,8 +5011,10 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				return null;
 			} else if (opt.indexOf('s') != -1) {
 				return -1;
+			} else if (opt.indexOf('0') != -1) {
+				return ObjectCache.getInteger(0);
 			} else if (opt.indexOf('n') != -1) {
-				return 1;
+				return ObjectCache.getInteger(1);
 			} else if (opt.indexOf('a') != -1) {
 				return new Sequence(0);
 			} else {
@@ -5442,12 +5038,16 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				isInsertPos = true;
 			}
 			
-			if (opt.indexOf('n') != -1) NULL = new Integer(length() + 1);
+			if (opt.indexOf('n') != -1) {
+				NULL = ObjectCache.getInteger(length() + 1);
+			} else if (opt.indexOf('0') != -1) {
+				NULL = ObjectCache.getInteger(0);
+			}
 		}
 
 		int colCount = fltExps.length;
 		ComputeStack stack = ctx.getComputeStack();
-		Current current = new Current();
+		Current current = new Current(this);
 		stack.push(current);
 
 		try {
@@ -5525,7 +5125,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 
 				if (bAll) {
 					Sequence result = new Sequence(last - first + 1);
-					ListBase1 resultMems = result.mems;
+					IArray resultMems = result.getMems();
 					if (bLast) {
 						for (; last >= first; --last) {
 							resultMems.add(last);
@@ -5596,7 +5196,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	// 序列按exp有序，二分查找使exp的计算值为val的元素的位置，找不到返回插入位置
 	private int pselectb(Node exp, Object val, boolean bLast, int start, int end, Context ctx) {
 		ComputeStack stack = ctx.getComputeStack();
-		Current current = new Current();
+		Current current = new Current(this);
 		stack.push(current);
 
 		try {
@@ -5669,7 +5269,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			int start, int end, Context ctx) {
 		Sequence result = isAll ? new Sequence() : null;
 		ComputeStack stack = ctx.getComputeStack();
-		Current current = new Current();
+		Current current = new Current(this);
 		stack.push(current);
 
 		try {
@@ -5717,7 +5317,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		int last = 0;
 
 		ComputeStack stack = ctx.getComputeStack();
-		Current current = new Current();
+		Current current = new Current(this);
 		stack.push(current);
 
 		try {
@@ -5837,7 +5437,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 
 		if (isAll) {
 			Sequence result = new Sequence(last - first + 1);
-			ListBase1 resultMems = result.mems;
+			IArray resultMems = result.getMems();
 			if (isFirst) {
 				for (; first <= last; ++first) {
 					resultMems.add(first);
@@ -5866,10 +5466,11 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @return Sequence
 	 */
 	public Object minp(Expression exp, String opt, Context ctx) {
-		boolean bAll = false, bLast = false;
+		boolean bAll = false, bLast = false, ignoreNull = true;
 		if (opt != null) {
-			if (opt.indexOf('a') != -1)bAll = true; // 选择所有的
-			if (opt.indexOf('z') != -1)bLast = true; // 从后开始
+			if (opt.indexOf('a') != -1) bAll = true; // 选择所有的
+			if (opt.indexOf('z') != -1) bLast = true; // 从后开始
+			if (opt.indexOf('0') != -1) ignoreNull = false;
 		}
 
 		int len = length();
@@ -5878,86 +5479,26 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		}
 
 		Sequence values = calc(exp, ctx);
-		ListBase1 valMems = values.mems;
-
-		// 取出最小值的索引
-		Object minValue = null;
-		int i = 1;
-		for (; i <= len; ++i) {
-			minValue = valMems.get(i);
-			if (minValue != null) { // 忽略空值
-				break;
-			}
-		}
-
-		if (i > len) {
+		IntArray indexArray = values.getMems().ptop(1, bAll, bLast, ignoreNull);
+		int resultSize = indexArray.size();
+		
+		if (resultSize == 0) {
 			// 全是null
 			if (bAll) {
 				return new Sequence();
 			} else {
 				return null;
 			}
-		}
-
-		if (bAll) {
-			IntArrayList indexList = new IntArrayList();
-			indexList.addInt(i);
-			for (++i; i <= len; ++i) {
-				Object temp = valMems.get(i);
-				if (temp != null) {
-					int result = Variant.compare(temp, minValue, true);
-					if (result < 0) {
-						minValue = temp;
-						indexList.clear();
-						indexList.addInt(i);
-					} else if (result == 0) {
-						indexList.addInt(i);
-					} // 大于不做任何处理
-				}
+		} else if (bAll) {
+			IArray mems = getMems();
+			Sequence result = new Sequence(resultSize);
+			for (int i = 1; i <= resultSize; ++i) {
+				result.add(mems.get(indexArray.getInt(i)));
 			}
 			
-			int count = indexList.size();
-			ListBase1 mems = this.mems;
-			Sequence result = new Sequence(count);
-			ListBase1 resultMems = result.mems;
-			
-			if (bLast) { // 后序选出index中指定的元素
-				for (i = count - 1; i >= 0; --i) {
-					resultMems.add(mems.get(indexList.getInt(i)));
-				}
-			} else { // 顺序选出index中指定的元素
-				for (i = 0; i < count; ++i) {
-					resultMems.add(mems.get(indexList.getInt(i)));
-				}
-			}
-
 			return result;
 		} else {
-			int q = i;
-			if (bLast) {
-				for (++i; i <= len; ++i) {
-					Object temp = valMems.get(i);
-					if (temp != null) {
-						int result = Variant.compare(temp, minValue, true);
-						if (result < 0) {
-							minValue = temp;
-							q = i;
-						} else if (result == 0) {
-							q = i;
-						} // 大于不做任何处理
-					}
-				}
-			} else {
-				for (++i; i <= len; ++i) {
-					Object temp = valMems.get(i);
-					if (temp != null && Variant.compare(temp, minValue, true) < 0) {
-						minValue = temp;
-						q = i;
-					}
-				}
-			}
-			
-			return mems.get(q);
+			return getMem(indexArray.getInt(1));
 		}
 	}
 
@@ -5981,7 +5522,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		}
 
 		Sequence values = calc(exp, ctx);
-		ListBase1 valMems = values.mems;
+		IArray valMems = values.getMems();
 		
 		// 取出最大值的索引
 		Object maxValue = null;
@@ -6019,9 +5560,9 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			}
 			
 			int count = indexList.size();
-			ListBase1 mems = this.mems;
+			IArray mems = getMems();
 			Sequence result = new Sequence(count);
-			ListBase1 resultMems = result.mems;
+			IArray resultMems = result.getMems();
 			
 			if (bLast) { // 后序选出index中指定的元素
 				for (i = count - 1; i >= 0; --i) {
@@ -6057,15 +5598,15 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				}
 			}
 			
-			return mems.get(q);
+			return getMem(q);
 		}
 	}
 	
 	private Sequence selectNotNull() {
-		ListBase1 mems = this.mems;
+		IArray mems = getMems();
 		int size = mems.size();
 		Sequence result = new Sequence(size);
-		ListBase1 resultMems = result.mems;
+		IArray resultMems = result.getMems();
 
 		for (int i = 1; i <= size; ++i) {
 			Object obj = mems.get(i);
@@ -6078,13 +5619,13 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	private Sequence selectNotNull(Expression exp, Context ctx) {
-		ListBase1 mems = this.mems;
+		IArray mems = getMems();
 		int size = mems.size();
 		Sequence result = new Sequence(size);
-		ListBase1 resultMems = result.mems;
+		IArray resultMems = result.getMems();
 
 		ComputeStack stack = ctx.getComputeStack();
-		Current current = new Current();
+		Current current = new Current(this);
 		stack.push(current);
 
 		try {
@@ -6141,7 +5682,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				}
 			} else {
 				if (isOrg) {
-					this.mems = rvs().mems;
+					this.mems = rvs().getMems();
 					return this;
 				} else {
 					return rvs();
@@ -6153,10 +5694,11 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			return selectb(exp, opt, ctx);
 		}
 
+		IArray mems = getMems();
+		Object val = mems.get(1);
 		DataStruct ds = null;
-		Object val = getMem(1);
-		if (val instanceof Record) {
-			ds = ((Record)val).dataStruct();
+		if (val instanceof BaseRecord) {
+			ds = ((BaseRecord)val).dataStruct();
 		}
 		
 		Regions regions = binarySelect(exp.getHome(), ds, ctx);
@@ -6170,15 +5712,14 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				total += region.end - region.start + 1;
 			}
 			
-			ListBase1 mems = this.mems;
-			Sequence seq = new Sequence(total);
+			IArray resultArray = mems.newInstance(total);
 			for (Region region : list) {
 				for (int i = region.start, end = region.end; i <= end; ++i) {
-					seq.add(mems.get(i));
+					resultArray.add(mems, i);
 				}
 			}
 			
-			return seq;
+			return new Sequence(resultArray);
 		}
 	}
 
@@ -6232,7 +5773,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	// 有序查找
-	private Regions binarySelect(Node node, DataStruct ds, Context ctx) {
+	protected Regions binarySelect(Node node, DataStruct ds, Context ctx) {
 		try {
 			Node fieldNode;
 			Object value;
@@ -6371,12 +5912,12 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			}
 		}
 
-		ListBase1 mems = this.mems;
+		IArray mems = getMems();
 		int len = mems.size();
-		Sequence result = bOne ? null : new Sequence();
+		IArray resultArray = bOne ? null : mems.newInstance(15);
 
 		ComputeStack stack = ctx.getComputeStack();
-		Current current = new Current();
+		Current current = new Current(this);
 		stack.push(current);
 
 		try {
@@ -6387,20 +5928,20 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 					if (Variant.isTrue(obj)) {
 						if (rc) {
 							// 找到第一条满足条件的取到最后
-							result.add(mems.get(i));
+							resultArray.add(mems, i);
 							for (++i; i <= len; ++i) {
-								result.add(mems.get(i));
+								resultArray.add(mems, i);
 							}
 						} else if (bOne) {
 							if (isOrg) {
-								this.mems = new ListBase1(1);
-								this.mems.add(mems.get(i));
+								this.mems = mems.newInstance(1);
+								getMems().add(mems, i);
 								return this;
 							} else {
 								return mems.get(i);
 							}
 						} else {
-							result.add(mems.get(i));
+							resultArray.add(mems, i);
 						}
 					} else if (continuous) {
 						// 只找前面连续满足条件的
@@ -6414,20 +5955,20 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 					if (Variant.isTrue(obj)) {
 						if (rc) {
 							// 从后面找到第一条满足条件的取到第一个
-							result.add(mems.get(i));
+							resultArray.add(mems, i);
 							for (--i; i > 0; --i) {
-								result.add(mems.get(i));
+								resultArray.add(mems, i);
 							}
 						} else if (bOne) {
 							if (isOrg) {
-								this.mems = new ListBase1(1);
-								this.mems.add(mems.get(i));
+								this.mems = mems.newInstance(1);
+								getMems().add(mems, i);
 								return this;
 							} else {
 								return mems.get(i);
 							}
 						} else {
-							result.add(mems.get(i));
+							resultArray.add(mems, i);
 						}
 					} else if (continuous) {
 						// 只找后面连续满足条件的
@@ -6441,25 +5982,25 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 
 		if (bOne) {
 			if (isOrg) {
-				this.mems = new ListBase1(0);
+				this.mems = new ObjectArray(0);
 				return this;
 			} else {
 				return null;
 			}
 		} else {
 			if (isOrg) {
-				this.mems = result.mems;
+				this.mems = resultArray;
 				return this;
 			} else {
-				if (returnTable && result.length() == 0) {
+				if (returnTable && resultArray.size() == 0) {
 					Object obj = ifn();
-					if (obj instanceof Record) {
-						return new Table(((Record)obj).dataStruct());
+					if (obj instanceof BaseRecord) {
+						return new Table(((BaseRecord)obj).dataStruct());
 					} else {
-						return result;
+						return new Sequence(resultArray);
 					}
 				} else {
-					return result;
+					return new Sequence(resultArray);
 				}
 			}
 		}
@@ -6481,7 +6022,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		int last = 0;
 
 		ComputeStack stack = ctx.getComputeStack();
-		Current current = new Current();
+		Current current = new Current(this);
 		stack.push(current);
 
 		try {
@@ -6503,14 +6044,14 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			// 如果最小值大于0或着最大值小于于0则没有满足条件的元素
 			if (valFirst > 0 || valLast < 0) {
 				if (isOrg) {
-					this.mems = new ListBase1(0);
+					this.mems = new ObjectArray(0);
 					return this;
 				} else if (bOne) {
 					return null;
 				} else if (returnTable) {
 					Object obj = ifn();
-					if (obj instanceof Record) {
-						return new Table(((Record)obj).dataStruct());
+					if (obj instanceof BaseRecord) {
+						return new Table(((BaseRecord)obj).dataStruct());
 					} else {
 						return new Sequence(0);
 					}
@@ -6549,14 +6090,14 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 
 				if (pos == -1) {
 					if (isOrg) {
-						this.mems = new ListBase1(0);
+						this.mems = new ObjectArray(0);
 						return this;
 					} else if (bOne) {
 						return null;
 					} else if (returnTable) {
 						Object obj = ifn();
-						if (obj instanceof Record) {
-							return new Table(((Record)obj).dataStruct());
+						if (obj instanceof BaseRecord) {
+							return new Table(((BaseRecord)obj).dataStruct());
 						} else {
 							return new Sequence(0);
 						}
@@ -6610,40 +6151,30 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		if (bOne) {
 			if (isOrg) {
 				Object val = bLast ? getMem(last) : getMem(first);
-				this.mems = new ListBase1(1);
-				this.mems.add(val);
+				this.mems = new ObjectArray(1);
+				getMems().add(val);
 				return this;
 			} else {
 				return bLast ? getMem(last) : getMem(first);
 			}
 		} else {
-			Sequence result = new Sequence(last - first + 1);
-			ListBase1 mems = this.mems;
-			ListBase1 resultMems = result.mems;
+			IArray resultArray = mems.newInstance(last - first + 1);
+			IArray mems = getMems();
 			if (bLast) {
 				for (; last >= first; --last) {
-					resultMems.add(mems.get(last));
+					resultArray.add(mems, last);
 				}
 			} else {
 				for (; first <= last; ++first) {
-					resultMems.add(mems.get(first));
+					resultArray.add(mems, first);
 				}
 			}
 
 			if (isOrg) {
-				this.mems = resultMems;
+				this.mems = resultArray;
 				return this;
 			} else {
-				if (returnTable && result.length() == 0) {
-					Object obj = ifn();
-					if (obj instanceof Record) {
-						return new Table(((Record)obj).dataStruct());
-					} else {
-						return result;
-					}
-				} else {
-					return result;
-				}
+				return new Sequence(resultArray);
 			}
 		}
 	}
@@ -6656,8 +6187,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @param ctx Context
 	 * @return Object
 	 */
-	public Object select(Expression[] fltExps, Object[] vals, String opt,
-						 Context ctx) {
+	public Object select(Expression[] fltExps, Object[] vals, String opt, Context ctx) {
 		if (fltExps == null || fltExps.length == 0) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("select" + mm.getMessage("function.paramValNull"));
@@ -6699,7 +6229,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		}
 
 		ComputeStack stack = ctx.getComputeStack();
-		Current current = new Current();
+		Current current = new Current(this);
 		stack.push(current);
 
 		try {
@@ -6732,14 +6262,14 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 
 				if (pos == -1) {
 					if (isOrg) {
-						this.mems = new ListBase1(0);
+						this.mems = new ObjectArray(0);
 						return this;
 					} else if (bOne) {
 						return null;
 					} else if (returnTable) {
 						Object obj = ifn();
-						if (obj instanceof Record) {
-							return new Table(((Record)obj).dataStruct());
+						if (obj instanceof BaseRecord) {
+							return new Table(((BaseRecord)obj).dataStruct());
 						} else {
 							return new Sequence(0);
 						}
@@ -6788,16 +6318,16 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				if (bOne) {
 					if (isOrg) {
 						Object val = bLast ? getMem(last) : getMem(first);
-						this.mems = new ListBase1(1);
-						this.mems.add(val);
+						this.mems = new ObjectArray(1);
+						getMems().add(val);
 						return this;
 					} else {
 						return bLast ? getMem(last) : getMem(first);
 					}
 				} else {
 					Sequence result = new Sequence(last - first + 1);
-					ListBase1 mems = this.mems;
-					ListBase1 resultMems = result.mems;
+					IArray mems = getMems();
+					IArray resultMems = result.getMems();
 					if (bLast) {
 						for (; last >= first; --last) {
 							resultMems.add(mems.get(last));
@@ -6814,8 +6344,8 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 					} else {
 						if (returnTable && result.length() == 0) {
 							Object obj = ifn();
-							if (obj instanceof Record) {
-								return new Table(((Record)obj).dataStruct());
+							if (obj instanceof BaseRecord) {
+								return new Table(((BaseRecord)obj).dataStruct());
 							} else {
 								return result;
 							}
@@ -6826,6 +6356,8 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				}
 			} else { // 无序
 				Sequence result = bOne ? null : new Sequence();
+				IArray mems = getMems();
+				
 				if (bLast) {
 					Next:
 					for (int i = end; i > 0; --i) {
@@ -6851,8 +6383,8 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 							}
 						} else if (bOne) {
 							if (isOrg) {
-								this.mems = new ListBase1(1);
-								this.mems.add(cur);
+								this.mems = new ObjectArray(1);
+								getMems().add(cur);
 								return this;
 							} else {
 								return cur;
@@ -6885,8 +6417,8 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 							}
 						} else if (bOne) {
 							if (isOrg) {
-								this.mems = new ListBase1(1);
-								this.mems.add(mems.get(i));
+								this.mems = new ObjectArray(1);
+								getMems().add(mems.get(i));
 								return this;
 							} else {
 								return mems.get(i);
@@ -6899,20 +6431,20 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 
 				if (bOne) {
 					if (isOrg) {
-						this.mems = new ListBase1(0);
+						this.mems = new ObjectArray(0);
 						return this;
 					} else {
 						return null;
 					}
 				} else {
 					if (isOrg) {
-						this.mems = result.mems;
+						this.mems = result.getMems();
 						return this;
 					} else {
 						if (returnTable && result.length() == 0) {
 							Object obj = ifn();
-							if (obj instanceof Record) {
-								return new Table(((Record)obj).dataStruct());
+							if (obj instanceof BaseRecord) {
+								return new Table(((BaseRecord)obj).dataStruct());
 							} else {
 								return result;
 							}
@@ -6957,7 +6489,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			if (opt.indexOf('n') != -1) {
 				Sequence seq = group_n(exp, "s", ctx);
 				if (isOrg) {
-					mems = seq.mems;
+					mems = seq.getMems();
 					return this;
 				} else {
 					return seq;
@@ -6965,11 +6497,11 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			}
 		}
 
-		ListBase1 mems = this.mems;
+		IArray mems = getMems();
 		int len = mems.size();
 
 		Sequence values = calc(exp, opt, ctx);
-		ListBase1 valMems = values.mems;
+		IArray valMems = values.getMems();
 		PSortItem []infos = new PSortItem[len + 1];
 
 		for (int i = 1; i <= len; ++i) {
@@ -6994,7 +6526,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		comparator = new PSortComparator(comparator);
 		MultithreadUtil.sort(infos, 1, infos.length, comparator);
 		Sequence result = new Sequence(len);
-		ListBase1 resultMems = result.mems;
+		IArray resultMems = result.getMems();
 
 		for (int i = 1; i <= len; ++i) {
 			resultMems.add(mems.get(infos[i].index));
@@ -7036,13 +6568,13 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			if (opt.indexOf('0') != -1) isNullLast = true;
 		}
 
-		ListBase1 mems = this.mems;
-		int len = mems.size;
+		IArray mems = getMems();
+		int len = mems.size();
 		Object [][]values = new Object[len + 1][];
 		int fcount = exps.length;
 		
 		ComputeStack stack = ctx.getComputeStack();
-		Current current = new Current();
+		Current current = new Current(this);
 		stack.push(current);
 		
 		try {
@@ -7090,7 +6622,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			return this;
 		} else {
 			Sequence result = new Sequence(len);
-			mems = result.mems;
+			mems = result.getMems();
 			for (int i = 1; i <= len; ++i) {
 				mems.add(values[i][fcount]);
 			}
@@ -7127,13 +6659,13 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			if (opt.indexOf('0') != -1) isNullLast = true;
 		}
 		
-		ListBase1 mems = this.mems;
-		int len = mems.size;
+		IArray mems = getMems();
+		int len = mems.size();
 		Object [][]values = new Object[len + 1][];
 		int fcount = exps.length;
 
 		ComputeStack stack = ctx.getComputeStack();
-		Current current = new Current();
+		Current current = new Current(this);
 		stack.push(current);
 
 		try {
@@ -7174,7 +6706,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			return this;
 		} else {
 			Sequence result = new Sequence(len);
-			mems = result.mems;
+			mems = result.getMems();
 			for (int i = 1; i <= len; ++i) {
 				mems.add(values[i][fcount]);
 			}
@@ -7210,29 +6742,6 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		
 		// 排序
 		Sequence seq = sort(null);
-		
-		/*
-		// 定位中位位置
-		int pos = 0;
-		if (0 == seqCount) {	// 分段参数为0， 表示取中位数
-			pos = seq.length();
-			if (1 == pos % 2)
-				pos = pos / 2 + 1;
-			else
-				pos = pos / 2;
-
-		} else {
-			pos = seq.length() / seqCount;
-			pos = pos * (index-1) + 1;
-		}
-		
-		if (0 == pos)
-			pos = 1;
-		
-		// 返回中值
-		return seq.get(pos);
-		*/
-		
 		return seq.median(1, length(), index, seqCount);
 
 	}
@@ -7242,7 +6751,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @param val Object
 	 */
 	public void add(Object val) {
-		mems.add(val);
+		getMems().add(val);
 	}
 
 	/**
@@ -7251,7 +6760,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 */
 	public void addAll(Sequence sequence) {
 		if (sequence != null) {
-			mems.addAll(sequence.mems);
+			getMems().addAll(sequence.getMems());
 		}
 	}
 
@@ -7261,17 +6770,28 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 */
 	public void addAll(Object []objs) {
 		if (objs != null) {
-			mems.addAll(objs);
+			getMems().addAll(objs);
 		}
 	}
-
+	
+	/**
+	 * 合并两个序列的数据，如果序列兼容则返回原序列否则返回新序列
+	 * @param seq
+	 * @return Sequence
+	 */
+	public Sequence append(Sequence seq) {
+		getMems().addAll(seq.getMems());
+		return this;
+	}
+	
 	/**
 	 * 删除某一元素
-	 * @param index int 位置，从1开始计数，小于0则从后数
-	 * @return 返回被删除的元素
+	 * @param index 位置，从1开始计数，小于0则从后数
+	 * @param opt n：返回删除的元素，默认返回当前序列
+	 * @return 如果有n选项则返回删除的元素，否则返回当前序列
 	 */
-	public Object delete(int index) {
-		int oldLen = mems.size();
+	public Object delete(int index, String opt) {
+		int oldLen = length();
 		if (index > oldLen || index == 0) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException(index + mm.getMessage("engine.indexOutofBound"));
@@ -7283,7 +6803,35 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			}
 		}
 		
-		return mems.remove(index);
+		if (opt == null || opt.indexOf('n') == -1) {
+			getMems().remove(index);
+			return this;
+		} else {
+			Object obj = getMems().get(index);
+			getMems().remove(index);
+			return obj;
+		}
+	}
+
+	/**
+	 * 删除某一元素
+	 * @param index int 位置，从1开始计数，小于0则从后数
+	 * @return 返回被删除的元素
+	 */
+	public void delete(int index) {
+		int oldLen = length();
+		if (index > oldLen || index == 0) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException(index + mm.getMessage("engine.indexOutofBound"));
+		} else if (index < 0) {
+			index += oldLen + 1;
+			if (index < 1) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException(index - oldLen - 1 + mm.getMessage("engine.indexOutofBound"));
+			}
+		}
+		
+		getMems().remove(index);
 	}
 
 	/**
@@ -7292,11 +6840,12 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @param to int 结束位置，包含
 	 */
 	public void delete(int from, int to) {
-		if (from < 1 || to < from || to > mems.size()) {
+		if (from < 1 || to < from || to > length()) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException(from + ":" + to + mm.getMessage("engine.indexOutofBound"));
 		}
-		mems.removeRange(from, to);
+		
+		getMems().removeRange(from, to);
 	}
 
 	/**
@@ -7321,7 +6870,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 
 		if (index == null) {
 			Sequence tmp = diff(sequence, false);
-			this.mems = tmp.mems;
+			this.mems = tmp.getMems();
 			if (opt == null || opt.indexOf('n') == -1) {
 				return this;
 			} else {
@@ -7347,10 +6896,10 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			Arrays.sort(index);
 			
 			if (opt == null || opt.indexOf('n') == -1) {
-				mems.remove(index);
+				getMems().remove(index);
 				return this;
 			} else {
-				ListBase1 mems = this.mems;
+				IArray mems = getMems();
 				Sequence result = new Sequence(delCount);
 				for (int i = 0; i < delCount; ++i) {
 					result.add(mems.get(index[i]));
@@ -7363,7 +6912,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	private void deleteNull(boolean emptySeq) {
-		ListBase1 mems = this.mems;
+		IArray mems = getMems();
 		int len = mems.size();
 		int nullCount = 0;
 
@@ -7376,9 +6925,9 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			}
 			
 			if (nullCount == len) {
-				this.mems = new ListBase1(1);
+				this.mems = new ObjectArray(1);
 			} else if (nullCount > 0) {
-				ListBase1 tmp = new ListBase1(len - nullCount);
+				ObjectArray tmp = new ObjectArray(len - nullCount);
 				for (int i = 1; i <= len; ++i) {
 					Sequence seq = (Sequence)mems.get(i);
 					if (seq.length() != 0) {
@@ -7397,9 +6946,9 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			}
 
 			if (nullCount == len) {
-				this.mems = new ListBase1(1);
+				this.mems = new ObjectArray(1);
 			} else if (nullCount > 0) {
-				ListBase1 tmp = new ListBase1(len - nullCount);
+				ObjectArray tmp = new ObjectArray(len - nullCount);
 				for (int i = 1; i <= len; ++i) {
 					Object obj = mems.get(i);
 					if (obj != null) {
@@ -7417,24 +6966,24 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @param f 字段序号
 	 */
 	public void deleteNullFieldRecord(int f) {
-		ListBase1 mems = this.mems;
+		IArray mems = getMems();
 		int len = mems.size();
 		int nullCount = 0;
 
 		for (int i = 1; i <= len; ++i) {
-			Record r = (Record)mems.get(i);
+			BaseRecord r = (BaseRecord)mems.get(i);
 			if (r.getFieldValue(f) == null) {
 				nullCount++;
 			}
 		}
 
 		if (nullCount == len) {
-			this.mems = new ListBase1(1);
+			this.mems = new ObjectArray(1);
 			rebuildIndexTable();
 		} else if (nullCount > 0) {
-			ListBase1 tmp = new ListBase1(len - nullCount);
+			ObjectArray tmp = new ObjectArray(len - nullCount);
 			for (int i = 1; i <= len; ++i) {
-				Record r = (Record)mems.get(i);
+				BaseRecord r = (BaseRecord)mems.get(i);
 				if (r.getFieldValue(f) != null) {
 					tmp.add(r);
 				}
@@ -7450,17 +6999,17 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @param f 字段序号
 	 */
 	public void deleteNullFieldRecord(String fieldName) {
-		ListBase1 mems = this.mems;
+		IArray mems = getMems();
 		int len = mems.size();
 		int nullCount = 0;
 		
 		int col = -1; // 字段在上一条记录的索引
-		Record prevRecord = null; // 上一条记录
+		BaseRecord prevRecord = null; // 上一条记录
 
 		for (int i = 1; i <= len; ++i) {
 			Object obj = mems.get(i);
-			if (obj instanceof Record) {
-				Record cur = (Record)obj;
+			if (obj instanceof BaseRecord) {
+				BaseRecord cur = (BaseRecord)obj;
 				if (prevRecord == null || !prevRecord.isSameDataStruct(cur)) {
 					col = cur.getFieldIndex(fieldName);
 					if (col < 0) {
@@ -7480,14 +7029,14 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		}
 
 		if (nullCount == len) {
-			this.mems = new ListBase1(1);
+			this.mems = new ObjectArray(1);
 			rebuildIndexTable();
 		} else if (nullCount > 0) {
-			ListBase1 tmp = new ListBase1(len - nullCount);
+			ObjectArray tmp = new ObjectArray(len - nullCount);
 			for (int i = 1; i <= len; ++i) {
 				Object obj = mems.get(i);
-				if (obj instanceof Record) {
-					Record cur = (Record)obj;
+				if (obj instanceof BaseRecord) {
+					BaseRecord cur = (BaseRecord)obj;
 					if (prevRecord == null || !prevRecord.isSameDataStruct(cur)) {
 						col = cur.getFieldIndex(fieldName);
 						if (col < 0) {
@@ -7519,7 +7068,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @param end int 结束位置（包含）
 	 */
 	public void reserve(int start, int end) {
-		int size = mems.size();
+		int size = length();
 		if (start == 0) {
 			start = 1;
 		} else if (start < 0) {
@@ -7538,9 +7087,9 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		if (start == 1 && end == size) return;
 
 		if (end < start) {
-			mems.clear();
+			getMems().clear();
 		} else {
-			mems.reserve(start, end);
+			getMems().reserve(start, end);
 		}
 	}
 
@@ -7551,21 +7100,12 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @return Sequence
 	 */
 	public Sequence split(int from, int to) {
-		if (from < 1 || to < from || to > mems.size()) {
+		if (from < 1 || to < from || to > length()) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException(from + ":" + to + mm.getMessage("engine.indexOutofBound"));
 		}
 
-		Sequence seq = new Sequence(to - from + 1);
-		ListBase1 retMems = seq.mems;
-		ListBase1 mems = this.mems;
-
-		for (int i = from; i <= to; ++i) {
-			retMems.add(mems.get(i));
-		}
-
-		mems.removeRange(from, to);
-		return seq;
+		return new Sequence(getMems().split(from, to));
 	}
 
 	/**
@@ -7574,11 +7114,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @return 返回后半部分元素构成的序列
 	 */
 	public Sequence split(int pos) {
-		int len = mems.size();
-		Sequence seq = new Sequence(len - pos + 1);
-		seq.mems.addSection(mems, pos);
-		mems.removeRange(pos, len);
-		return seq;
+		return new Sequence(getMems().split(pos));
 	}
 	
 	/**
@@ -7587,7 +7123,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @param val Object 需要添加的元素或多个元素构成的序列
 	 */
 	public void insert(int pos, Object val) {
-		ListBase1 mems = this.mems;
+		IArray mems = getMems();
 		int oldLen = mems.size();
 		if (pos == 0) {
 			pos = oldLen + 1;
@@ -7603,10 +7139,10 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		}
 
 		if (val instanceof Sequence) {
-			ListBase1 srcMems = ((Sequence)val).mems;
-			mems.addAll(pos, srcMems);
+			IArray srcMems = ((Sequence)val).getMems();
+			mems.insertAll(pos, srcMems);
 		} else {
-			mems.add(pos, val);
+			mems.insert(pos, val);
 		}
 	}
 
@@ -7616,19 +7152,19 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 */
 	public void sortedInsert(Object val) {
 		if (val instanceof Sequence) {
-			ListBase1 mems = this.mems;
-			ListBase1 src = ((Sequence)val).mems;
+			IArray mems = getMems();
+			IArray src = ((Sequence)val).getMems();
 			for (int i = 1, len =src.size(); i <= len; ++i) {
 				val = src.get(i);
 				int index = mems.binarySearch(val);
 				if (index < 0) {
-					mems.add(-index, val);
+					mems.insert(-index, val);
 				}
 			}
 		} else {
 			int index = mems.binarySearch(val);
 			if (index < 0) {
-				mems.add(-index, val);
+				mems.insert(-index, val);
 			}
 		}
 	}
@@ -7640,7 +7176,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @param opt String n 返回被修改的元素构成的序列
 	 */
 	public Object modify(int pos, Object val, String opt) {
-		ListBase1 mems = this.mems;
+		IArray mems = getMems();
 		int oldLen = mems.size();
 
 		if (pos < 0) {
@@ -7654,7 +7190,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		}
 
 		if (val instanceof Sequence) {
-			ListBase1 srcMems = ((Sequence)val).mems;
+			IArray srcMems = ((Sequence)val).getMems();
 			int srcLen = srcMems.size();
 			int endPos = pos + srcLen - 1;
 
@@ -7699,18 +7235,17 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @return 整数数组
 	 */
 	public int[] toIntArray() {
-		ListBase1 mems = this.mems;
+		IArray mems = getMems();
+		if (!mems.isNumberArray()) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException(mm.getMessage("engine.needIntSeries"));
+		}
+		
 		int size = mems.size();
 		int[] values = new int[size];
 
-		for (int i = 1, seq = 0; i <= size; ++i, ++seq) {
-			Object obj = mems.get(i);
-			if (!(obj instanceof Number)) {
-				MessageManager mm = EngineMessage.get();
-				throw new RQException(mm.getMessage("engine.needIntSeries"));
-			}
-
-			values[seq] = ((Number)obj).intValue();
+		for (int i = 1; i <= size; ++i) {
+			values[i - 1] = mems.getInt(i);
 		}
 
 		return values;
@@ -7727,7 +7262,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			throw new RQException(pos + mm.getMessage("engine.indexOutofBound"));
 		}
 
-		int oldSize = mems.size();
+		int oldSize = length();
 		if (pos > oldSize) {
 			mems.addAll(new Object[pos - oldSize]);
 		}
@@ -7755,7 +7290,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		int length1 = iseq1.length();
 		int length2 = iseq2.length();
 
-		ListBase1 mems = this.mems;
+		IArray mems = getMems();
 		int total = mems.size();
 
 		int s1 = ((Number)iseq1.getMem(1)).intValue();
@@ -7801,7 +7336,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		}
 
 		Sequence result = new Sequence(total);
-		ListBase1 resultMems = result.mems;
+		IArray resultMems = result.getMems();
 
 		// 拷贝区间1之前的
 		for (int i = 1; i < s1; ++i) {
@@ -7841,7 +7376,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	public Sequence pad(Object val, int n, String opt) {
 		if (n < 1) return this;
 		
-		int len = mems.size();
+		int len = length();
 		int addCount = 0;
 		
 		if (opt == null || opt.indexOf('m') == -1) {
@@ -7871,7 +7406,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 					}
 					
 					if (addCount > 0) {
-						result.mems.addAll(seq.mems, addCount);
+						result.getMems().addAll(seq.getMems(), addCount);
 					}
 				} else {
 					while (count <= addCount) {
@@ -7880,7 +7415,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 					}
 					
 					if (addCount > 0) {
-						result.mems.addAll(seq.mems, addCount);
+						result.getMems().addAll(seq.getMems(), addCount);
 					}
 					
 					result.addAll(this);
@@ -7916,13 +7451,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 */
 	public void getNewFieldNames(Expression[] exps, String[] names, String funcName) {
 		int colCount = exps.length;
-		DataStruct ds = null;
-		if (length() > 0) {
-			Object obj = mems.get(1);
-			if (obj instanceof Record) {
-				ds = ((Record)obj).dataStruct();
-			}
-		}
+		DataStruct ds = getFirstRecordDataStruct();
 		
 		for (int i = 0; i < colCount; ++i) {
 			if (names[i] == null || names[i].length() == 0) {
@@ -7984,12 +7513,12 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		int len = length();
 		int colCount = ds.getFieldCount();
 		Table table = new Table(ds, len);
-		ListBase1 resultMems = table.mems;
+		IArray resultMems = table.getMems();
 
 		ComputeStack stack = ctx.getComputeStack();
-		Current newCurrent = table.new Current();
+		Current newCurrent = new Current(table);
 		stack.push(newCurrent);
-		Current current = new Current();
+		Current current = new Current(this);
 		stack.push(current);
 
 		try {
@@ -8046,7 +7575,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	public Table newTables(Expression gexp, Expression[] exps, DataStruct ds, String opt, Context ctx) {
 		int len = length();
 		Table result = new Table(ds, len * 2);
-		ListBase1 resultMems = result.getMems();
+		IArray resultMems = result.getMems();
 		int fcount = ds.getFieldCount();
 		int resultSeq = 1;
 		
@@ -8061,8 +7590,8 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			
 			Object obj = ifn();
 			DataStruct oldDs = null;
-			if (obj instanceof Record) {
-				oldDs = ((Record)obj).dataStruct();
+			if (obj instanceof BaseRecord) {
+				oldDs = ((BaseRecord)obj).dataStruct();
 			}
 			
 			HashSet<String> set = new HashSet<String>();
@@ -8086,8 +7615,8 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		
 		// 先把新产生的序表压栈，防止引用不到源序表
 		ComputeStack stack = ctx.getComputeStack();
-		Current resultCurrent = result.new Current();
-		Current current = new Current();
+		Current resultCurrent = new Current(result);
+		Current current = new Current(this);
 		stack.push(resultCurrent);
 		stack.push(current);
 
@@ -8104,9 +7633,9 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 					if (n > 0) {
 						seq = new Sequence(1, n);
 					}
-				} else if (obj instanceof Record) {
+				} else if (obj instanceof BaseRecord) {
 					try {
-						stack.push((Record)obj);
+						stack.push((BaseRecord)obj);
 						resultCurrent.setCurrent(resultSeq);
 						Record r = new Record(ds);
 						resultMems.add(r);
@@ -8134,7 +7663,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				}
 				
 				try {
-					Current curCurrent = seq.new Current();
+					Current curCurrent = new Current(seq);
 					stack.push(curCurrent);
 					int curLen = seq.length();
 					
@@ -8213,7 +7742,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @return 序表
 	 */
 	public Table toTable() {
-		ListBase1 mems = this.mems;
+		IArray mems = getMems();
 		int len = mems.size();
 		
 		if (len == 0) {
@@ -8241,7 +7770,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 					curLen = fcount;
 				}
 				
-				Record r = table.newLast();
+				BaseRecord r = table.newLast();
 				for (int f = 0; f < curLen; ++f) {
 					r.setNormalFieldValue(f, seq.getMem(f + 1));
 				}
@@ -8262,7 +7791,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @return
 	 */
 	public Table derive(String opt) {
-		ListBase1 mems = this.mems;
+		IArray mems = getMems();
 		int len = mems.size();
 		DataStruct ds = dataStruct();
 		if (ds == null) {
@@ -8272,8 +7801,8 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			
 			// 以第一条记录的结构为准
 			Object val = mems.get(1);
-			if (val instanceof Record) {
-				ds = ((Record)val).dataStruct();
+			if (val instanceof BaseRecord) {
+				ds = ((BaseRecord)val).dataStruct();
 			}
 			
 			if (ds == null) {
@@ -8300,16 +7829,88 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		Table table = new Table(ds, len);
 		if (opt == null || opt.indexOf('o') == -1) {
 			for (int i = 1; i <= len; ++i) {
-				Record r = (Record)mems.get(i);
+				BaseRecord r = (BaseRecord)mems.get(i);
 				table.newLast(r.getFieldValues());
 			}
 		} else {
-			ListBase1 dest = table.mems;
+			IArray dest = table.getMems();
 			for (int i = 1; i <= len; ++i) {
-				Record r = (Record)mems.get(i);
+				BaseRecord br = (BaseRecord)mems.get(i);
+				Record r = br.toRecord();
 				r.setDataStruct(ds);
 				dest.add(r);
 			}
+		}
+		
+		return table;
+	}
+	
+	/**
+	 * 把源表中的指引字段展开
+	 * @param newDs 结果集数据结构
+	 * @param exps 追加的字段值表达式
+	 * @param opt  选项
+	 * @param ctx 计算上下文
+	 * @return
+	 */
+	public Table derive(DataStruct newDs, Expression []exps, String opt, Context ctx) {
+		IArray mems = getMems();
+		int len = mems.size();
+		int colCount = exps.length;
+		int oldColCount = newDs.getFieldCount() - colCount;
+
+		// 合并字段
+		Table table = new Table(newDs, len);
+		IArray resultMems = table.getMems();
+
+		ComputeStack stack = ctx.getComputeStack();
+		Current newCurrent = new Current(table);
+		stack.push(newCurrent);
+		Current current = new Current(this);
+		stack.push(current);
+
+		try {
+			if (opt == null || opt.indexOf('i') == -1) {
+				for (int i = 1; i <= len; ++i) {
+					Record r = new Record(newDs);
+					resultMems.add(r);
+					r.set((BaseRecord)mems.get(i));
+					
+					newCurrent.setCurrent(i);
+					current.setCurrent(i);
+
+					// 计算新字段
+					for (int c = 0; c < colCount; ++c) {
+						r.setNormalFieldValue(c + oldColCount, exps[c].calculate(ctx));
+					}
+				}
+			} else {
+				Next:
+				for (int i = 1, q = 1; i <= len; ++i) {
+					Record r = new Record(newDs);
+					resultMems.add(r);
+					r.set((BaseRecord)mems.get(i));
+					
+					newCurrent.setCurrent(q);
+					current.setCurrent(i);
+
+					// 计算新字段
+					for (int c = 0; c < colCount; ++c) {
+						Object obj = exps[c].calculate(ctx);
+						if (obj != null) {
+							r.setNormalFieldValue(c + oldColCount, obj);
+						} else {
+							resultMems.remove(q); // 计算exps可能依赖于新产生的记录
+							continue Next;
+						}
+					}
+					
+					++q;
+				}
+			}
+		} finally {
+			stack.pop();
+			stack.pop();
 		}
 		
 		return table;
@@ -8327,7 +7928,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			return MultithreadUtil.derive(this, names, exps, opt, ctx);
 		}
 		
-		ListBase1 mems = this.mems;
+		IArray mems = getMems();
 		int len = mems.size();
 		DataStruct ds = dataStruct();
 		int colCount = exps.length;
@@ -8339,8 +7940,8 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			
 			// 以第一条记录的结构为准
 			Object val = mems.get(1);
-			if (val instanceof Record) {
-				ds = ((Record)val).dataStruct();
+			if (val instanceof BaseRecord) {
+				ds = ((BaseRecord)val).dataStruct();
 			}
 			
 			if (ds == null) {
@@ -8391,12 +7992,12 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		// 给所有记录增加字段，以便后计算的记录可以引用前面记录的字段
 		DataStruct newDs = ds.create(totalNames);
 		Table table = new Table(newDs, len);
-		ListBase1 resultMems = table.mems;
+		IArray resultMems = table.getMems();
 
 		ComputeStack stack = ctx.getComputeStack();
-		Current newCurrent = table.new Current();
+		Current newCurrent = new Current(table);
 		stack.push(newCurrent);
-		Current current = new Current();
+		Current current = new Current(this);
 		stack.push(current);
 
 		try {
@@ -8404,7 +8005,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				for (int i = 1; i <= len; ++i) {
 					Record r = new Record(newDs);
 					resultMems.add(r);
-					r.set((Record)mems.get(i));
+					r.set((BaseRecord)mems.get(i));
 					
 					newCurrent.setCurrent(i);
 					current.setCurrent(i);
@@ -8419,7 +8020,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				for (int i = 1, q = 1; i <= len; ++i) {
 					Record r = new Record(newDs);
 					resultMems.add(r);
-					r.set((Record)mems.get(i));
+					r.set((BaseRecord)mems.get(i));
 					
 					newCurrent.setCurrent(q);
 					current.setCurrent(i);
@@ -8471,11 +8072,12 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		int fcount = srcFieldNames.length;
 		ArrayList<String> nameList = new ArrayList<String>();
 		ArrayList<Expression> expList = new ArrayList<Expression>();
+		IArray mems = getMems();
 		
 		for (int f = 0; f < fcount; ++f) {
 			Object fval = null;
 			for (int i = 1; i <= len; ++i) {
-				Record r = (Record)mems.get(i);
+				BaseRecord r = (BaseRecord)mems.get(i);
 				fval = r.getNormalFieldValue(f);
 				if (fval != null) {
 					break;
@@ -8483,8 +8085,8 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			}
 			
 			String expStr = "#" + (f + 1);
-			if (fval instanceof Record) {
-				getField((Record)fval, expStr, srcFieldNames[f], 2, level, ctx, nameList, expList);
+			if (fval instanceof BaseRecord) {
+				getField((BaseRecord)fval, expStr, srcFieldNames[f], 2, level, ctx, nameList, expList);
 			} else {
 				nameList.add(srcFieldNames[f]);
 				Expression exp = new Expression(ctx, expStr);
@@ -8509,7 +8111,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	// 递归取得所有的普通字段名和引用表达式
-	private static void getField(Record r, String prevField, String prevFieldName, int curLevel, int totalLevel, 
+	private static void getField(BaseRecord r, String prevField, String prevFieldName, int curLevel, int totalLevel, 
 			Context ctx, ArrayList<String> nameList, ArrayList<Expression> expList) {
 		String []srcFieldNames = r.getFieldNames();
 		int fcount = srcFieldNames.length;
@@ -8530,9 +8132,9 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			for (int f = 0; f < fcount; ++f) {
 				Object fval = r.getNormalFieldValue(f);
 				String expStr = prevField + ".#" + (f + 1);
-				if (fval instanceof Record) {
+				if (fval instanceof BaseRecord) {
 					String name = prevFieldName + '_' + srcFieldNames[f];
-					getField((Record)fval, expStr, name, curLevel, totalLevel, ctx, nameList, expList);
+					getField((BaseRecord)fval, expStr, name, curLevel, totalLevel, ctx, nameList, expList);
 				} else {
 					nameList.add(srcFieldNames[f]);
 					Expression exp = new Expression(ctx, expStr);
@@ -8559,7 +8161,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		arg.add(obj);
 
 		ComputeStack stack = ctx.getComputeStack();
-		Current current = new Current();
+		Current current = new Current(this);
 		stack.push(current);
 
 		try {
@@ -8652,7 +8254,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		}
 
 		// 计算分组条件ua
-		ListBase1 filterMems = filters.mems;
+		IArray filterMems = filters.getMems();
 		int fsize = filterMems.size();
 		Expression[] enumFilter = new Expression[fsize + 2];
 		for (int i = 1; i <= fsize; ++i) {
@@ -8679,11 +8281,11 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 
 		Sequence result = new Sequence(fsize);
 		ComputeStack stack = ctx.getComputeStack();
-		Current current = new Current();
+		Current current = new Current(this);
 		stack.push(current);
 
 		try {
-			ListBase1 selMems = this.mems;
+			IArray selMems = getMems();
 			int selLen = selMems.size();
 			Sequence arg = new Sequence(1);
 			arg.add(null);
@@ -8707,7 +8309,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 								if (!bPos) {
 									groups[s].add(selMems.get(i));
 								} else {
-									groups[s].add(new Integer(i));
+									groups[s].add(ObjectCache.getInteger(i));
 								}
 
 								bAdd = true;
@@ -8721,7 +8323,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 							if (!bPos) {
 								groups[fsize].add(selMems.get(i));
 							} else {
-								groups[fsize].add(new Integer(i));
+								groups[fsize].add(ObjectCache.getInteger(i));
 							}
 						}
 
@@ -8741,7 +8343,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 								if (!bPos) {
 									groups[s].add(selMems.get(i));
 								} else {
-									groups[s].add(new Integer(i));
+									groups[s].add(ObjectCache.getInteger(i));
 								}
 								if (notRepeat) {
 									break;
@@ -8793,9 +8395,9 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		}
 
 		Sequence values = calc(exp, ctx);
-		ListBase1 mems = this.mems;
-		ListBase1 valMems = values.mems;
-		ListBase1 tgtMems = target.mems;
+		IArray mems = getMems();
+		IArray valMems = values.getMems();
+		IArray tgtMems = target.getMems();
 		int valSize = valMems.size();
 		int tgtSize = tgtMems.size();
 
@@ -8810,20 +8412,20 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				Object val = valMems.get(i);
 				int index;
 				if (isSorted) {
-					index = tgtMems.firstIndexOf(val, true);
+					index = tgtMems.binarySearch(val);
 				} else {
-					index = tgtMems.firstIndexOf(val);
+					index = tgtMems.firstIndexOf(val, 1);
 				}
 
 				if (index > 0) {
 					if (isPos) {
-						retVals[index - 1].add(new Integer(i));
+						retVals[index - 1].add(ObjectCache.getInteger(i));
 					} else {
 						retVals[index - 1].add(mems.get(i));
 					}
 				} else if (isNull) {
 					if (isPos) {
-						other.add(new Integer(i));
+						other.add(ObjectCache.getInteger(i));
 					} else {
 						other.add(mems.get(i));
 					}
@@ -8854,14 +8456,14 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				Object val = valMems.get(i);
 				int index;
 				if (isSorted) {
-					index = tgtMems.firstIndexOf(val, true);
+					index = tgtMems.binarySearch(val);
 				} else {
-					index = tgtMems.firstIndexOf(val);
+					index = tgtMems.firstIndexOf(val, 1);
 				}
 
 				if (index > 0 && retVals[index - 1] == null) {
 					if (isPos) {
-						retVals[index - 1] = new Integer(i);
+						retVals[index - 1] = ObjectCache.getInteger(i);
 					} else {
 						retVals[index - 1] = mems.get(i);
 					}
@@ -8894,8 +8496,8 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		}
 
 		Sequence values = calc(exp, ctx);
-		ListBase1 mems = this.mems;
-		ListBase1 valMems = values.mems;
+		IArray mems = getMems();
+		IArray valMems = values.getMems();
 		int valSize = valMems.size();
 
 		if (isAll) {
@@ -9010,14 +8612,14 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			}
 		}
 
-		ListBase1 mems = seq.mems;
+		IArray mems = seq.getMems();
 		int size = mems.size();
 		if (size == 0) {
 			return new Sequence(0);
 		}
 
 		Sequence result = new Sequence(size / 4); // 分组后序列
-		ListBase1 resultMems = result.mems;
+		IArray resultMems = result.getMems();
 		Object prev = mems.get(1);
 
 		if (opt.indexOf('1') == -1) {
@@ -9091,17 +8693,17 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	private Sequence group_i(Expression exp, Context ctx) {
-		ListBase1 mems = this.mems;
+		IArray mems = getMems();
 		int size = mems.size();
 		if (size == 0) {
 			return new Sequence(0);
 		}
 
 		Sequence result = new Sequence(size / 4); // 分组后序列
-		ListBase1 resultMems = result.mems;
+		IArray resultMems = result.getMems();
 
 		ComputeStack stack = ctx.getComputeStack();
-		Current current = new Current();
+		Current current = new Current(this);
 		stack.push(current);
 
 		try {
@@ -9127,8 +8729,8 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		return result;
 	}
 	
-	private Sequence group_o(Expression exp, String opt, Context ctx) {
-		ListBase1 mems = this.mems;
+	Sequence group_o(Expression exp, String opt, Context ctx) {
+		IArray mems = getMems();
 		int size = mems.size();
 		if (size == 0) {
 			return new Sequence(0);
@@ -9137,10 +8739,10 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		Object prevValue;
 		Object curValue;
 		Sequence result = new Sequence(size / 4); // 分组后序列
-		ListBase1 resultMems = result.mems;
+		IArray resultMems = result.getMems();
 
 		ComputeStack stack = ctx.getComputeStack();
-		Current current = new Current();
+		Current current = new Current(this);
 		stack.push(current);
 
 		try {
@@ -9189,7 +8791,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	private Sequence group_o(Expression []exps, String opt, Context ctx) {
 		// 有序分组
 		int keyCount = exps.length;
-		ListBase1 mems = this.mems;
+		IArray mems = getMems();
 		int size = mems.size();
 		if (size == 0) {
 			return new Sequence(0);
@@ -9198,10 +8800,10 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		Object []prevValues = new Object[keyCount];
 		Object []curValues = new Object[keyCount];
 		Sequence result = new Sequence(size / 4); // 分组后序列
-		ListBase1 resultMems = result.mems;
+		IArray resultMems = result.getMems();
 
 		ComputeStack stack = ctx.getComputeStack();
-		Current current = new Current();
+		Current current = new Current(this);
 		stack.push(current);
 
 		try {
@@ -9261,18 +8863,18 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	private Sequence group_n(Expression exp, String opt, Context ctx) {
-		ListBase1 mems = this.mems;
+		IArray mems = getMems();
 		int size = mems.size();
 		if (size == 0) {
 			return new Sequence(0);
 		}
 
 		Sequence result = new Sequence(size / 4); // 分组后序列
-		ListBase1 resultMems = result.mems;
+		IArray resultMems = result.getMems();
 		int len = 0;
 
 		ComputeStack stack = ctx.getComputeStack();
-		Current current = new Current();
+		Current current = new Current(this);
 		stack.push(current);
 
 		try {
@@ -9348,14 +8950,14 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	private Sequence group_n(String opt) {
-		ListBase1 mems = this.mems;
+		IArray mems = getMems();
 		int size = mems.size();
 		if (size == 0) {
 			return new Sequence(0);
 		}
 
 		Sequence result = new Sequence(size / 4); // 分组后序列
-		ListBase1 resultMems = result.mems;
+		IArray resultMems = result.getMems();
 		int len = 0;
 
 		if (opt.indexOf('1') == -1) {
@@ -9470,6 +9072,10 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 */
 	public Table group(Expression[] exps, String[] names, Expression[] calcExps, 
 			String[] calcNames, String opt, Context ctx) {
+		if (opt != null && opt.indexOf('s') != -1) {
+			return groups(exps, names, calcExps, calcNames, opt, ctx);
+		}
+		
 		if (length() == 0) {
 			if (opt == null || opt.indexOf('t') == -1) {
 				return null;
@@ -9537,13 +9143,13 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		
 		Table result = new Table(totalNames, len);
 		ComputeStack stack = ctx.getComputeStack();
-		Current current = keyGroups.new Current();
+		Current current = new Current(keyGroups);
 		stack.push(current);
 
 		// 计算分组字段值
 		try {
 			for (int i = 1; i <= len; ++i) {
-				Record r = result.newLast();
+				BaseRecord r = result.newLast();
 				current.setCurrent(i);
 				for (int c = 0; c < keyCount; ++c) {
 					r.setNormalFieldValue(c, exps[c].calculate(ctx));
@@ -9553,13 +9159,13 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			stack.pop();
 		}
 		
-		current = groups.new Current();
+		current = new Current(groups);
 		stack.push(current);
 
 		// 计算聚合字段值
 		try {
 			for (int i = 1; i <= len; ++i) {
-				Record r = (Record)result.getMem(i);
+				BaseRecord r = (BaseRecord)result.getMem(i);
 				current.setCurrent(i);
 				for (int c = 0; c < valCount; ++c) {
 					r.setNormalFieldValue(c + keyCount, calcExps[c].calculate(ctx));
@@ -9633,13 +9239,13 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		
 		if (!sign) return;
 		
-		Record r = (Record)getMem(1);
-		int keyCount = r.getFieldCount() - valCount;
-		ListBase1 mems = this.mems;
+		BaseRecord r = (BaseRecord)getMem(1);
+		int keyCount = r.dataStruct().getPKCount();
+		IArray mems = getMems();
 		int len = mems.size();
 		
 		for (int i = 1; i <= len; ++i) {
-			r = (Record)mems.get(i);
+			r = (BaseRecord)mems.get(i);
 			for (int v = 0, f = keyCount; v < valCount; ++v, ++f) {
 				if (signs[v]) {
 					Object val = gathers[v].finish(r.getNormalFieldValue(f));
@@ -9668,13 +9274,13 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		
 		if (!sign) return;
 		
-		Record r = (Record)getMem(1);
-		int keyCount = r.getFieldCount() - valCount;
-		ListBase1 mems = this.mems;
+		BaseRecord r = (BaseRecord)getMem(1);
+		int keyCount = r.dataStruct().getPKCount();
+		IArray mems = getMems();
 		int len = mems.size();
 		
 		for (int i = 1; i <= len; ++i) {
-			r = (Record)mems.get(i);
+			r = (BaseRecord)mems.get(i);
 			for (int v = 0, f = keyCount; v < valCount; ++v, ++f) {
 				if (signs[v]) {
 					Object val = gathers[v].finish1(r.getNormalFieldValue(f));
@@ -9685,7 +9291,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	public void shift(int pos, int move) {
-		ListBase1 mems = this.mems;
+		IArray mems = getMems();
 		int size = mems.size();
 		int end = size - move;
 		
@@ -9703,10 +9309,10 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @return 记录的数据结构
 	 */
 	public DataStruct getFirstRecordDataStruct() {
-		if (mems.size() > 0) {
-			Object obj = mems.get(1);
-			if (obj instanceof Record) {
-				return ((Record)obj).dataStruct();
+		if (length() > 0) {
+			Object obj = getMem(1);
+			if (obj instanceof BaseRecord) {
+				return ((BaseRecord)obj).dataStruct();
 			}
 		}
 		
@@ -9724,10 +9330,8 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @param ctx 计算上下文
 	 * @return 序表
 	 */
-	public Table pivot_s(Expression[] gexps, String []gnames, Expression fexp, Expression vexp, 
+	public Table pivotGather(Expression[] gexps, String []gnames, Expression fexp, Expression vexp, 
 			Expression []nexps, Object []nameObjects, Context ctx) {
-		if (length() == 0) return null;
-		
 		int nullIndex = -1; // 省略了Ni则当成其它分组
 		Object []vals;
 		String []names;
@@ -9802,9 +9406,9 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		ComputeStack stack = ctx.getComputeStack();
 		for (int i = 1; i <= len; ++i) {
 			Sequence group = (Sequence)groups.getMem(i);
-			Record r = result.newLast();
+			BaseRecord r = result.newLast();
 			
-			Current current = group.new Current();
+			Current current = new Current(group);
 			stack.push(current);
 
 			try {
@@ -9859,8 +9463,12 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @return 序表
 	 */
 	public Table pivot(Expression[] gexps, String []gnames, Expression fexp, Expression vexp, 
-			Expression []nexps, Object []nameObjects, Context ctx) {
-		if (length() == 0) return null;
+			Expression []nexps, Object []nameObjects, String opt, Context ctx) {
+		if (length() == 0) {
+			return null;
+		} else if (opt != null && opt.indexOf('s') != -1) {
+			return pivotGather(gexps, gnames, fexp, vexp, nexps, nameObjects, ctx);
+		}
 		
 		Object []vals;
 		String []names;
@@ -9919,9 +9527,9 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		ComputeStack stack = ctx.getComputeStack();
 		for (int i = 1; i <= len; ++i) {
 			Sequence group = (Sequence)groups.getMem(i);
-			Record r = result.newLast();
+			BaseRecord r = result.newLast();
 			
-			Current current = group.new Current();
+			Current current = new Current(group);
 			stack.push(current);
 
 			try {
@@ -10024,7 +9632,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		Object []keys = new Object[keyCount];
 		Table result = new Table(totalNames, len * ncount);
 		ComputeStack stack = ctx.getComputeStack();
-		Current current = new Current();
+		Current current = new Current(this);
 		stack.push(current);
 		
 		try {
@@ -10035,7 +9643,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				}
 				
 				for (int n = 0; n < ncount; ++n) {
-					Record r = result.newLast(keys);
+					BaseRecord r = result.newLast(keys);
 					r.setNormalFieldValue(keyCount, names[n]);
 					r.setNormalFieldValue(keyCount + 1, nexps[n].calculate(ctx));
 				}
@@ -10045,6 +9653,21 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		}
 		
 		return result;
+	}
+	
+	/**
+	 * 取分组计算对象
+	 * @param exps 分组字段表达式数组
+	 * @param names 分组字段名数组
+	 * @param calcExps 汇总字段表达式数组
+	 * @param calcNames 汇总字段名数组
+	 * @param opt 选项
+	 * @param ctx 计算上下文
+	 * @return IGroupsResult
+	 */
+	public IGroupsResult getGroupsResult(Expression[] exps, String[] names, Expression[] calcExps, 
+			String[] calcNames, String opt, Context ctx) {
+		return IGroupsResult.instance(exps, names, calcExps, calcNames, opt, ctx);
 	}
 	
 	/**
@@ -10088,6 +9711,9 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				
 				return new Table(ds);
 			}
+		} else if (opt != null && opt.indexOf('m') != -1) {
+			opt = opt.replace("m", "");
+			return CursorUtil.groups_m(this, exps, names, calcExps, calcNames, opt, ctx);
 		}
 		
 		// #%3对于包含#的表达式，先排序再在分组里计算表达式#会算错，不再优化了
@@ -10132,14 +9758,14 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		}
 		
 		Expression fexp = new Expression(ctx, "#1");
-		Sequence group = ((Sequence)table).group_o(fexp, "o", ctx);
+		Sequence group = table.group_o(fexp, "o", ctx);
 		
 		int len = group.length();
 		Table result = new Table(table.dataStruct(), len);
 		for (int i = 1; i <= len; ++i) {
 			Sequence curGroup = (Sequence)group.getMem(i);
-			Record r = result.newLast();
-			Record sr = (Record)curGroup.getMem(1);
+			BaseRecord r = result.newLast();
+			BaseRecord sr = (BaseRecord)curGroup.getMem(1);
 			r.setNormalFieldValue(0, sr.getNormalFieldValue(0));
 			
 			if (fcount == 1) {
@@ -10198,7 +9824,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 
 		// 产生所有的记录
 		Table table = new Table(names, newLen);
-		Record[] rs = new Record[newLen];
+		BaseRecord[] rs = new BaseRecord[newLen];
 		for (int i = 0; i < newLen; ++i) {
 			rs[i] = table.newLast();
 		}
@@ -10206,7 +9832,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		// 分别对每一条记录的每个字段赋值
 		int repeat = 1; // 当前字段重复的数目
 		for (int field = count - 1; field >= 0; --field) {
-			ListBase1 subMems = sequences[field].mems;
+			IArray subMems = sequences[field].getMems();
 			int subCount = subMems.size();
 			int index = 0;
 			
@@ -10286,7 +9912,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		boolean isLeft = opt != null && opt.indexOf('1') != -1;
 		
 		// 创建一条当前记录，后面字段的计算可以引用前面字段的值
-		Record newCur = tmp.newLast();
+		BaseRecord newCur = tmp.newLast();
 		ComputeStack stack = ctx.getComputeStack();
 		stack.push(newCur);
 		try {
@@ -10299,7 +9925,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	private static void xjoin(Sequence[] sequences, Expression[] fltExps,
-							  String[] fltOpts, int col, Record newCur, 
+							  String[] fltOpts, int col, BaseRecord newCur, 
 							  Table retTable, boolean isLeft, Context ctx) {
 		Sequence sequence = sequences[col];
 		Object value = null;
@@ -10314,12 +9940,12 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		}
 
 		if (sequence != null && sequence.length() > 0) {
-			ListBase1 colMems = sequence.mems;
+			IArray colMems = sequence.getMems();
 			int length = colMems.size();
 			if (col == sequences.length - 1) {
 				for (int i = 1; i <= length; ++i) {
 					newCur.setNormalFieldValue(col, colMems.get(i));
-					Record r = retTable.newLast();
+					BaseRecord r = retTable.newLast();
 					r.set(newCur);
 				}
 			} else {
@@ -10332,7 +9958,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		} else if (value != null) {
 			newCur.setNormalFieldValue(col, value);
 			if (col == sequences.length - 1) {
-				Record r = retTable.newLast();
+				BaseRecord r = retTable.newLast();
 				r.set(newCur);
 			} else {
 				xjoin(sequences, fltExps, fltOpts, col + 1, newCur, retTable, isLeft, ctx);
@@ -10341,7 +9967,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			if (isLeft && col > 0) {
 				newCur.setNormalFieldValue(col, null);
 				if (col == sequences.length - 1) {
-					Record r = retTable.newLast();
+					BaseRecord r = retTable.newLast();
 					r.set(newCur);
 				} else {
 					xjoin(sequences, fltExps, fltOpts, col + 1, newCur, retTable, isLeft, ctx);
@@ -10392,10 +10018,10 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			throw new RQException(opt + mm.getMessage("engine.optConflict"));
 		}
 
-		ListBase1[] srcMems = new ListBase1[count];
+		IArray[] srcMems = new IArray[count];
 		int[] srcLen = new int[count];
 		for (int i = 0; i < count; ++i) {
-			srcMems[i] = sequences[i].mems;
+			srcMems[i] = sequences[i].getMems();
 			srcLen[i] = srcMems[i].size();
 		}
 
@@ -10403,7 +10029,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			int totalLen = srcLen[0];
 			Table result = new Table(names, totalLen);
 			for (int i = 1; i <= totalLen; ++i) {
-				Record r = result.newLast();
+				BaseRecord r = result.newLast();
 				r.setNormalFieldValue(0, srcMems[0].get(i));
 				for (int c = 1; c < count; ++c) {
 					if (i <= srcLen[c]) {
@@ -10430,7 +10056,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 
 			Table result = new Table(names, totalLen);
 			for (int i = 1; i <= totalLen; ++i) {
-				Record r = result.newLast();
+				BaseRecord r = result.newLast();
 				for (int c = 0; c < count; ++c) {
 					if (i <= srcLen[c]) {
 						r.setNormalFieldValue(c, srcMems[c].get(i));
@@ -10488,13 +10114,13 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @return Sequence
 	 */
 	public Sequence fieldValues(int field) {
-		ListBase1 mems = this.mems;
+		IArray mems = getMems();
 		int size = mems.size();
 		Sequence result = new Sequence(size);
-		ListBase1 resultMems = result.mems;
+		IArray resultMems = result.getMems();
 
 		for (int i = 1; i <= size; ++i) {
-			Record cur = (Record)mems.get(i);
+			BaseRecord cur = (BaseRecord)mems.get(i);
 			if (cur == null) {
 				resultMems.add(null);
 			} else {
@@ -10511,24 +10137,24 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @return Sequence
 	 */
 	public Sequence fieldValues(String fieldName) {
-		ListBase1 mems = this.mems;
+		IArray mems = getMems();
 		int size = mems.size();
 		Sequence result = new Sequence(size);
-		ListBase1 resultMems = result.mems;
+		IArray resultMems = result.getMems();
 
 		int col = -1; // 字段在上一条记录的索引
-		Record prevRecord = null; // 上一条记录
+		BaseRecord prevRecord = null; // 上一条记录
 
 		int i = 1;
 		while (i <= size) {
 			Object obj = mems.get(i++);
 			if (obj != null) {
-				if (!(obj instanceof Record)) {
+				if (!(obj instanceof BaseRecord)) {
 					MessageManager mm = EngineMessage.get();
 					throw new RQException(mm.getMessage("engine.needPmt"));
 				}
 
-				prevRecord = (Record)obj;
+				prevRecord = (BaseRecord)obj;
 				col = prevRecord.getFieldIndex(fieldName);
 				if (col < 0) {
 					MessageManager mm = EngineMessage.get();
@@ -10545,12 +10171,12 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		for (; i <= size; ++i) {
 			Object obj = mems.get(i);
 			if (obj != null) {
-				if (!(obj instanceof Record)) {
+				if (!(obj instanceof BaseRecord)) {
 					MessageManager mm = EngineMessage.get();
 					throw new RQException(mm.getMessage("engine.needPmt"));
 				}
 
-				Record cur = (Record)obj;
+				BaseRecord cur = (BaseRecord)obj;
 				if (!prevRecord.isSameDataStruct(cur)) {
 					col = cur.getFieldIndex(fieldName);
 					if (col < 0) {
@@ -10573,30 +10199,30 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 
 	// 选出指定的多列构成的排列
 	public Table fieldsValues(String[] fieldNames) {
-		ListBase1 mems = this.mems;
+		IArray mems = getMems();
 		int size = length();
 
 		// 用字段名生成新排列
 		Table retTable = new Table(fieldNames, size);
 
 		int fcount = fieldNames.length;
-		Record prevRecord = null; // 上一条记录
+		BaseRecord prevRecord = null; // 上一条记录
 		int[] cols = new int[fcount]; // 字段在上一条记录的索引
 
 		for (int i = 1; i <= size; ++i) {
-			Record newRecord = retTable.newLast();
+			BaseRecord newRecord = retTable.newLast();
 
 			Object obj = mems.get(i);
 			if (obj == null) {
 				continue;
 			}
 
-			if (!(obj instanceof Record)) {
+			if (!(obj instanceof BaseRecord)) {
 				MessageManager mm = EngineMessage.get();
 				throw new RQException(mm.getMessage("engine.needPmt"));
 			}
 
-			Record cur = (Record)obj;
+			BaseRecord cur = (BaseRecord)obj;
 			if (prevRecord != null && prevRecord.isSameDataStruct(cur)) {
 				for (int f = 0; f < fcount; ++f) {
 					newRecord.setNormalFieldValue(f, cur.getFieldValue(cols[f]));
@@ -10627,27 +10253,27 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @param ctx 计算上下文
 	 */
 	public void modifyFields(Expression []exps, String []fields, Context ctx) {
-		ListBase1 mems = this.mems;
+		IArray mems = getMems();
 		int size = mems.size();
 		int fcount = exps.length;
-		Record prevRecord = null; // 上一条记录
+		BaseRecord prevRecord = null; // 上一条记录
 		int[] cols = new int[fcount]; // 字段在上一条记录的索引
 		
 		// 把排列压栈，允许表达式引用当前记录的字段
 		ComputeStack stack = ctx.getComputeStack();
-		Current current = new Current();
+		Current current = new Current(this);
 		stack.push(current);
 		
 		try {
 			for (int i = 1; i <= size; ++i) {
 				Object obj = mems.get(i);
-				if (!(obj instanceof Record)) {
+				if (!(obj instanceof BaseRecord)) {
 					MessageManager mm = EngineMessage.get();
 					throw new RQException(mm.getMessage("engine.needPmt"));
 				}
 				
 				current.setCurrent(i);
-				Record r = (Record)obj;
+				BaseRecord r = (BaseRecord)obj;
 				if (prevRecord != null && prevRecord.isSameDataStruct(r)) {
 					for (int f = 0; f < fcount; ++f) {
 						r.setNormalFieldValue(cols[f], exps[f].calculate(ctx));
@@ -10672,7 +10298,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 	
 	public String toString() {
-		ListBase1 mems = this.mems;
+		IArray mems = getMems();
 		int length = mems.size();
 		StringBuffer sb = new StringBuffer(50 * length);
 		sb.append(STARTSYMBOL);
@@ -10709,7 +10335,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			if (opt.indexOf('n') != -1) addEnter = true;
 		}
 		
-		ListBase1 mems = this.mems;
+		IArray mems = getMems();
 		int length = mems.size();
 		StringBuffer sb = new StringBuffer(50 * length);
 		
@@ -10778,7 +10404,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @return String
 	 */
 	public String toExportString() {
-		ListBase1 mems = this.mems;
+		IArray mems = getMems();
 		int length = mems.size();
 		StringBuffer sb = new StringBuffer(50 * length);
 		sb.append(STARTSYMBOL);
@@ -11141,7 +10767,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		if (!isPurePmt()) {
 			return null;
 		}
-		return ((Record)ifn()).dataStruct();
+		return ((BaseRecord)ifn()).dataStruct();
 	}
 	
 	/**
@@ -11150,8 +10776,8 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 */
 	public Table create() {
 		Object obj = ifn();
-		if (obj instanceof Record) {
-			Table table = new Table(((Record)obj).dataStruct());
+		if (obj instanceof BaseRecord) {
+			Table table = new Table(((BaseRecord)obj).dataStruct());
 			return table;
 		} else {
 			MessageManager mm = EngineMessage.get();
@@ -11166,7 +10792,19 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @return int 返回索引 或 -insertpos
 	 */
 	public int pfindByKey(Object key, boolean isSorted) {
-		ListBase1 mems = this.mems;
+		if (!isSorted) {
+			IndexTable indexTable = getIndexTable();
+			if (indexTable != null) {
+				if (key instanceof Sequence) {
+					Object []values = ((Sequence)key).toArray();
+					return indexTable.findPos(values);
+				} else {
+					return indexTable.findPos(key);
+				}
+			}
+		}
+		
+		IArray mems = getMems();
 		int len = mems.size();
 		if (len == 0) {
 			return -1;
@@ -11174,8 +10812,8 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		
 		Object startVal = mems.get(1);
 		DataStruct ds = null;
-		if (startVal instanceof Record) {
-			ds = ((Record)startVal).dataStruct();
+		if (startVal instanceof BaseRecord) {
+			ds = ((BaseRecord)startVal).dataStruct();
 		}
 		
 		// 判断是否是带更新键的维表
@@ -11215,7 +10853,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				int low = 1, high = len;
 				while (low <= high) {
 					int mid = (low + high) >> 1;
-					Record r = (Record)mems.get(mid);
+					BaseRecord r = (BaseRecord)mems.get(mid);
 					int value = r.compare(baseKeyIndex, baseKeyValues);
 					if (value < 0) {
 						low = mid + 1;
@@ -11232,7 +10870,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				} else if (timeKeyValue == null) {
 					// 没有指定时间更新字段键时取最新的
 					for (++index; index <= len; ++index) {
-						Record r = (Record)mems.get(index);
+						BaseRecord r = (BaseRecord)mems.get(index);
 						if (r.compare(baseKeyIndex, baseKeyValues) != 0) {
 							break;
 						}
@@ -11241,13 +10879,13 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 					return index - 1;
 				} else {
 					// 指定时间更新字段键时取前面最近的
-					Record r = (Record)mems.get(index);
+					BaseRecord r = (BaseRecord)mems.get(index);
 					int cmp = Variant.compare(r.getNormalFieldValue(timeKeyIndex), timeKeyValue, true);
 					if (cmp == 0) {
 						return index;
 					} else if (cmp > 0) {
 						for (--index; index > 0; --index) {
-							r = (Record)mems.get(index);
+							r = (BaseRecord)mems.get(index);
 							if (r.compare(baseKeyIndex, baseKeyValues) != 0) {
 								return -index - 1;
 							} else if (Variant.compare(r.getNormalFieldValue(timeKeyIndex), timeKeyValue, true) <= 0) {
@@ -11258,7 +10896,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 						return -1;
 					} else {
 						for (++index; index <= len; ++index) {
-							r = (Record)mems.get(index);
+							r = (BaseRecord)mems.get(index);
 							if (r.compare(baseKeyIndex, baseKeyValues) != 0) {
 								break;
 							}
@@ -11280,7 +10918,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				
 				for (int i = 1; i <= len; ++i) {
 					Object obj = mems.get(i);
-					Record r = (Record)obj;
+					BaseRecord r = (BaseRecord)obj;
 					if (r.compare(baseKeyIndex, baseKeyValues) == 0) {
 						Object curTimeValue = r.getNormalFieldValue(timeKeyIndex);
 						if (timeKeyValue == null) {
@@ -11313,8 +10951,8 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 					return 0;
 				}
 				
-				if (startVal instanceof Record) {
-					startVal = ((Record)startVal).getPKValue();
+				if (startVal instanceof BaseRecord) {
+					startVal = ((BaseRecord)startVal).getPKValue();
 				}
 				
 				if (startVal instanceof Sequence) {
@@ -11333,8 +10971,8 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 					int mid = (low + high) >> 1;
 					Object obj = mems.get(mid);
 					Object keyVal;
-					if (obj instanceof Record) {
-						keyVal = ((Record)obj).getPKValue();
+					if (obj instanceof BaseRecord) {
+						keyVal = ((BaseRecord)obj).getPKValue();
 					} else {
 						keyVal = obj;
 					}
@@ -11353,8 +10991,8 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			} else {
 				for (int i = 1; i <= len; ++i) {
 					Object obj = mems.get(i);
-					if (obj instanceof Record) {
-						if (Variant.isEquals(((Record)obj).getPKValue(), key)) {
+					if (obj instanceof BaseRecord) {
+						if (Variant.isEquals(((BaseRecord)obj).getPKValue(), key)) {
 							return i;
 						}
 					} else {
@@ -11376,7 +11014,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @return 位置，找不到返回负的插入位置
 	 */
 	public int pfindByFields(Object []fvals, int []findex) {
-		ListBase1 mems = this.mems;
+		IArray mems = getMems();
 		int len = mems.size();
 		int fcount = findex.length;
 		Object []vals = new Object[fcount];
@@ -11384,7 +11022,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		int low = 1, high = len;
 		while (low <= high) {
 			int mid = (low + high) >> 1;
-			Record r = (Record)mems.get(mid);
+			BaseRecord r = (BaseRecord)mems.get(mid);
 			for (int f = 0; f < fcount; ++f) {
 				vals[f] = r.getNormalFieldValue(findex[f]);
 			}
@@ -11402,34 +11040,6 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		return -low;
 	}
 
-	public boolean equals(Object obj) {
-		if (!(obj instanceof Sequence)) {
-			return false;
-		}
-		
-		ListBase1 mems = this.mems;
-		ListBase1 mems2 = ((Sequence)obj).mems;
-		int len = mems.size();
-		if (len != mems2.size()) return false;
-		
-		for (int i = 1; i <= len; ++i) {
-			if (!Variant.isEquals(mems.get(i), mems2.get(i))) {
-				return false;
-			}
-		}
-		
-		return true;
-	}
-	
-	/**
-	 * 比较两序列的大小
-	 * @param seq Sequence
-	 * @return 1：当前序列大，0：两个序列相等，-1：当前序列小
-	 */
-	public int compareTo(Sequence other) {
-		return cmp(other);
-	}
-
 	/**
 	 * 返回名字字段的值等于key的记录，不存在则返回空
 	 * @param key Object 待查找的名字字段的值
@@ -11439,12 +11049,12 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	public Object findByKey(Object key, boolean isSorted) {
 		if (isSorted) {
 			int index = pfindByKey(key, isSorted);
-			return index > 0 ? mems.get(index) : null;
+			return index > 0 ? getMem(index) : null;
 		} else {
 			IndexTable indexTable = getIndexTable();
 			if (indexTable == null) {
 				int index = pfindByKey(key, isSorted);
-				return index > 0 ? mems.get(index) : null;
+				return index > 0 ? getMem(index) : null;
 			} else {
 				if (key instanceof Sequence) {
 					// key可以是子表的记录，主键数多于B
@@ -11455,9 +11065,9 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 					}
 					
 					int keyCount = 1;					
-					Object startVal = mems.get(1);
-					if (startVal instanceof Record) {
-						int []pkIndex = ((Record)startVal).getPKIndex();
+					Object startVal = getMem(1);
+					if (startVal instanceof BaseRecord) {
+						int []pkIndex = ((BaseRecord)startVal).getPKIndex();
 						if (pkIndex == null) {
 							MessageManager mm = EngineMessage.get();
 							throw new RQException(mm.getMessage("ds.lessKey"));
@@ -11495,17 +11105,17 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @param keyIndex int[] 主键索引
 	 * @param values Object[] 主键值
 	 * @param isSorted boolean 排列是否按主键有序
-	 * @return Record
+	 * @return BaseRecord
 	 */
-	public Record select(int[] keyIndex, Object[] values, boolean isSorted) {
-		ListBase1 mems = this.mems;
+	public BaseRecord select(int[] keyIndex, Object[] values, boolean isSorted) {
+		IArray mems = getMems();
 		int sLength = mems.size();
 
 		if (isSorted) {
 			int low = 1, high = sLength;
 			while (low <= high) {
 				int mid = (low + high) >> 1;
-				Record r = (Record)mems.get(mid);
+				BaseRecord r = (BaseRecord)mems.get(mid);
 
 				int value = r.compare(keyIndex, values);
 				if (value < 0) {
@@ -11520,7 +11130,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			int fcount = keyIndex.length;
 			Next:
 			for (int i = 1; i <= sLength; ++i) {
-				Record r = (Record)mems.get(i);
+				BaseRecord r = (BaseRecord)mems.get(i);
 				for (int f = 0; f < fcount; ++f) {
 					if (!Variant.isEquals(r.getFieldValue(keyIndex[f]), values[f])) {
 						continue Next;
@@ -11539,15 +11149,15 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @return Object
 	 */
 	public Sequence getPKeyValues() {
-		ListBase1 mems = this.mems;
+		IArray mems = getMems();
 		int len = mems.size();
 		Sequence result = new Sequence(len);
-		ListBase1 resultMems = result.mems;
+		IArray resultMems = result.getMems();
 
 		for (int i = 1; i <= len; ++i) {
 			Object obj = mems.get(i);
-			if (obj instanceof Record) {
-				resultMems.add(((Record)obj).getPKValue());
+			if (obj instanceof BaseRecord) {
+				resultMems.add(((BaseRecord)obj).getPKValue());
 			} else {
 				resultMems.add(obj);
 			}
@@ -11557,6 +11167,52 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
+	 * 
+	 * @param function 函数
+	 * @param fkNames	外键字段
+	 * @param timeNames 时间字段
+	 * @param codes 代码表
+	 * @param exps 代码表主键
+	 * @param timeExps 时间主键
+	 * @param opt
+	 * @param ctx
+	 * @return
+	 */
+	public Object switchFk(Function function, String[] fkNames, String[] timeNames, Object[] codes, Expression[] exps, Expression[] timeExps, String opt, Context ctx) {
+		Operation op;
+		int count = codes.length;
+		Sequence []seqs = new Sequence[count];
+		boolean hasClusterTable = false;
+		for (int i = 0; i < count; ++i) {
+			if (codes[i] instanceof Sequence) {
+				seqs[i] = (Sequence)codes[i];
+			} else if (codes[i] instanceof ClusterMemoryTable) {
+				hasClusterTable = true;
+			} else if (codes[i] == null) {
+				//seqs[i] = new Sequence(0);
+			} else {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException("switch" + mm.getMessage("function.paramTypeError"));
+			}
+		}
+		
+		if (hasClusterTable) {
+			op = new SwitchRemote(function, fkNames, codes, exps, opt);
+		} else {
+			op = new Switch(function, fkNames, timeNames, seqs, exps, timeExps, opt);
+		}
+		
+		Sequence result = op.process(this, ctx);
+		if (result == null || result.length() == 0) {
+			clear();
+		} else {
+			this.mems = result.mems;	
+		}
+		return this;
+	}
+	
+	
+	/**
 	 * 对表记录作switch变换
 	 * @param fkName 外键字段
 	 * @param code Sequence 代码表，主键唯一
@@ -11565,8 +11221,8 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @param ctx Context
 	 */
 	public void switchFk(String fkName, Sequence code, Expression exp, String opt, Context ctx) {
-		ListBase1 mems = this.mems;
-		if (mems.size == 0) {
+		IArray mems = getMems();
+		if (mems.size() == 0) {
 			return;
 		}
 		
@@ -11576,12 +11232,12 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		}
 
 		int col = -1; // 字段在上一条记录的索引
-		Record prevRecord = null; // 上一条记录
+		BaseRecord prevRecord = null; // 上一条记录
 
 		for (int i = 1, len = mems.size(); i <= len; ++i) {
 			Object obj = mems.get(i);
-			if (obj instanceof Record) {
-				Record cur = (Record)obj;
+			if (obj instanceof BaseRecord) {
+				BaseRecord cur = (BaseRecord)obj;
 				if (prevRecord == null || !prevRecord.isSameDataStruct(cur)) {
 					col = cur.getFieldIndex(fkName);
 					if (col < 0) {
@@ -11593,8 +11249,8 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				}
 				
 				Object fval = cur.getNormalFieldValue(col);
-				if (fval instanceof Record) {
-					cur.setNormalFieldValue(col, ((Record)fval).getPKValue());
+				if (fval instanceof BaseRecord) {
+					cur.setNormalFieldValue(col, ((BaseRecord)fval).getPKValue());
 				}
 			} else if (obj != null) {
 				MessageManager mm = EngineMessage.get();
@@ -11621,7 +11277,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		}
 
 		Comparator<Object> comparator = new RecordFieldComparator(colIndex);
-		mems.sort(comparator);
+		getMems().sort(comparator);
 	}
 
 	/**
@@ -11651,12 +11307,478 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	public IndexTable getIndexTable(Expression []exps, Context ctx) {
 		return null;
 	}
+
+	/**
+	 * 两个序列的成员按位置相加，返回和序列
+	 * @param sequence 序列
+	 * @return 和序列
+	 */
+	public Sequence memberAdd(Sequence sequence) {
+		if (length() != sequence.length()) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException(mm.getMessage("engine.memCountNotMatch"));
+		}
+
+		IArray result = getMems().memberAdd(sequence.getMems());
+		return new Sequence(result);
+	}
 	
 	/**
-	 * 是否是列存序表
+	 * 两个序列的成员按位置相减，返回差序列
+	 * @param sequence 序列
+	 * @return 差序列
+	 */
+	public Sequence memberSubtract(Sequence sequence) {
+		if (length() != sequence.length()) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException(mm.getMessage("engine.memCountNotMatch"));
+		}
+
+		IArray result = getMems().memberSubtract(sequence.getMems());
+		return new Sequence(result);
+	}
+	
+	/**
+	 * 两个序列的成员按位置相乘，返回积序列
+	 * @param sequence 序列
+	 * @return 积序列
+	 */
+	public Sequence memberMultiply(Sequence sequence) {
+		if (length() != sequence.length()) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException(mm.getMessage("engine.memCountNotMatch"));
+		}
+
+		IArray result = getMems().memberMultiply(sequence.getMems());
+		return new Sequence(result);
+	}
+	
+	/**
+	 * 两个序列的成员按位置相除，返回商序列
+	 * @param sequence 序列
+	 * @return 商序列
+	 */
+	public Sequence memberDivide(Sequence sequence) {
+		if (length() != sequence.length()) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException(mm.getMessage("engine.memCountNotMatch"));
+		}
+
+		IArray result = getMems().memberDivide(sequence.getMems());
+		return new Sequence(result);
+	}
+	
+	/**
+	 * 两个序列的成员按位置整除，返回商序列
+	 * @param sequence 序列
+	 * @return 商序列
+	 */
+	public Sequence memberIntDivide(Sequence sequence) {
+		if (length() != sequence.length()) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException(mm.getMessage("engine.memCountNotMatch"));
+		}
+
+		IArray result = getMems().memberIntDivide(sequence.getMems());
+		return new Sequence(result);
+	}
+	
+	/**
+	 * 两个序列的成员按位置取余，返回余数序列
+	 * @param sequence 序列
+	 * @return 余数序列
+	 */
+	public Sequence memberMod(Sequence sequence) {
+		if (length() != sequence.length()) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException(mm.getMessage("engine.memCountNotMatch"));
+		}
+
+		IArray result = getMems().memberMod(sequence.getMems());
+		return new Sequence(result);
+	}
+	
+	/**
+	 * 用于计算A*k，A|…|A，共k个，k是正整数
+	 * @param k 数量
 	 * @return
 	 */
-	public boolean isColumnTable() {
-		return false;
+	public Sequence multiply(int k) {
+		int size = length();
+		IArray mems = getMems();
+		IArray result = mems.newInstance(size * k);
+		
+		for (int i = 0; i < k; ++i) {
+			result.addAll(mems);
+		}
+		
+		return new Sequence(result);
+	}
+
+	/**
+	 * 判断指定位置的元素是否是True
+	 * @param index 索引，从1开始计数
+	 * @return
+	 */
+	public boolean isTrue(int index) {
+		return getMems().isTrue(index);
+	}
+
+	
+	/**
+	 * 返回排列是否包含指定字段
+	 * @param fieldName 字段名
+	 * @return true：包含，false：不包含
+	 */
+	public boolean containField(String fieldName) {
+		Object obj = ifn();
+		if (obj instanceof BaseRecord) {
+			DataStruct ds = ((BaseRecord)obj).dataStruct();
+			return ds.getFieldIndex(fieldName) != -1;
+		} else {
+			return false;
+		}
+	}
+	
+	/**
+	 * 取指定字段的值数组
+	 * @param fieldName 字段名
+	 * @return IArray
+	 */
+	public IArray getFieldValueArray(String fieldName) {
+		IArray mems = getMems();
+		int size = mems.size();
+		if (size == 0) {
+			return new ObjectArray(0);
+		}
+		
+		int col = -1; // 字段在上一条记录的索引
+		Object obj;
+		BaseRecord r = null;
+		DataStruct prevDs = null;
+		IArray result = null;
+		int i = 1;
+		
+		while (i <= size) {
+			obj = mems.get(i++);
+			if (obj instanceof BaseRecord) {
+				r = (BaseRecord)obj;
+				col = r.getFieldIndex(fieldName);
+				if (col < 0) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException(fieldName + mm.getMessage("ds.fieldNotExist"));
+				}
+				
+				prevDs = r.dataStruct();
+				result = r.createFieldValueArray(col, size);
+				
+				// i已经加过1了，所以从2开始
+				for (int n = 2; n < i; ++n) {
+					result.pushNull();
+				}
+				
+				r.getNormalFieldValue(col, result);
+				break;
+			} else if (obj != null) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException(mm.getMessage("engine.needPmt"));
+			}
+		}
+		
+		if (result == null) {
+			// 成员全部为空
+			Object []datas = new Object[size + 1];
+			result = new ObjectArray(datas, size);
+			return result;
+		}
+		
+		for (; i <= size; ++i) {
+			obj = mems.get(i);
+			if (obj instanceof BaseRecord) {
+				r = (BaseRecord)obj;
+				if (r.dataStruct() != prevDs) {
+					prevDs = r.dataStruct();
+					col = prevDs.getFieldIndex(fieldName);
+					if (col < 0) {
+						MessageManager mm = EngineMessage.get();
+						throw new RQException(fieldName + mm.getMessage("ds.fieldNotExist"));
+					}
+				}
+				
+				r.getNormalFieldValue(col, result);
+			} else if (obj == null) {
+				result.pushNull();
+			} else {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException(mm.getMessage("engine.needPmt"));
+			}
+		}
+
+		return result;
+	}
+	
+	/**
+	 * 取指定字段的值数组
+	 * @param field 字段索引，从0开始计数
+	 * @return IArray
+	 */
+	public IArray getFieldValueArray(int field) {
+		IArray mems = getMems();
+		int size = mems.size();
+		if (size == 0) {
+			return new ObjectArray(0);
+		}
+		
+		BaseRecord r = null;
+		IArray result = null;
+		int i = 1;
+		
+		while (i <= size) {
+			r = (BaseRecord)mems.get(i++);
+			if (r != null) {
+				result = r.createFieldValueArray(field, size);
+				
+				// i已经加过1了，所以从2开始
+				for (int n = 2; n < i; ++n) {
+					result.pushNull();
+				}
+				
+				r.getNormalFieldValue(field, result);
+				break;
+			}
+		}
+		
+		if (result == null) {
+			// 成员全部为空
+			Object []datas = new Object[size + 1];
+			result = new ObjectArray(datas, size);
+			return result;
+		}
+		
+		for (; i <= size; ++i) {
+			r = (BaseRecord)mems.get(i);
+			if (r != null) {
+				r.getNormalFieldValue(field, result);
+			} else {
+				result.pushNull();
+			}
+		}
+
+		return result;
+	}
+
+	/**
+	 * 取指定行列的值
+	 * @param row 行号，从1开始计数
+	 * @param field 列号，从0开始计数
+	 * @return
+	 */
+	public Object getFieldValue(int row, int field) {
+		Object obj = get(row);
+		if (obj instanceof BaseRecord) {
+			return ((BaseRecord)obj).getNormalFieldValue(field);
+		} else if (obj == null) {
+			return null;
+		} else if (obj instanceof Sequence) {
+			// 如果当前元素是序列则取其第一个元素
+			if (((Sequence)obj).length() == 0) {
+				return null;
+			}
+
+			obj = ((Sequence)obj).get(1);
+			if (obj instanceof BaseRecord) {
+				return ((BaseRecord)obj).getNormalFieldValue(field);
+			} else if (obj == null) {
+				return null;
+			}
+		}
+
+		MessageManager mm = EngineMessage.get();
+		throw new RQException("#" + (field + 1) + mm.getMessage("ds.fieldNotExist"));
+	}
+	
+	/**
+	 * 取成员组成的数组
+	 * @param indexArray 成员索引数组
+	 * @return IArray
+	 */
+	public IArray getMemberArray(int []indexArray) {
+		return getMems().get(indexArray);
+	}
+	
+	/**
+	 * 取成员组成的数组
+	 * @param indexArray 成员索引数组
+	 * @return IArray
+	 */
+	public IArray getMemberArray(NumberArray indexArray) {
+		return getMems().get(indexArray);
+	}
+	
+	/**
+	 * 创建一个索引表返回，序列不保存创建的索引表
+	 * @return IndexTable
+	 */
+	public IndexTable newIndexTable() {
+		return newIndexTable(length());
+	}
+	
+	/**
+	 * 创建一个索引表返回，序列不保存创建的索引表
+	 * @param capacity 索引表容量
+	 * @return IndexTable
+	 */
+	public IndexTable newIndexTable(int capacity) {
+		IndexTable it = getIndexTable();
+		if (it != null) {
+			return it;
+		}
+		
+		Object obj = null;
+		if (length() > 0) {
+			obj = getMem(1);
+		}
+		
+		if (obj instanceof BaseRecord) {
+			BaseRecord r = (BaseRecord)obj;
+			if (r.dataStruct().getTimeKeyCount() == 1) {
+				int []pkIndex = r.dataStruct().getPKIndex();
+				return new TimeIndexTable(this, pkIndex, capacity);
+			}
+		}
+		
+		HashIndexTable hashIndexTable = new HashIndexTable(capacity);
+		hashIndexTable.create(this);
+		return hashIndexTable;
+	}
+
+	/**
+	 * 创建一个索引表返回，序列不保存创建的索引表
+	 * @param exp 主键表达式
+	 * @param ctx 计算上下文
+	 * @return IndexTable
+	 */
+	public IndexTable newIndexTable(Expression exp, Context ctx) {
+		return newIndexTable(exp, ctx, length());
+	}
+	
+	/**
+	 * 创建一个索引表返回，序列不保存创建的索引表
+	 * @param exp 主键表达式
+	 * @param ctx 计算上下文
+	 * @param capacity 索引表容量
+	 * @return IndexTable
+	 */
+	public IndexTable newIndexTable(Expression exp, Context ctx, int capacity) {
+		if (exp == null) {
+			return newIndexTable(capacity);
+		} else {
+			HashIndexTable it = new HashIndexTable(capacity);
+			it.create(this, exp, ctx);
+			return it;
+		}
+	}
+	
+	/**
+	 * 用指定字段创建一个索引表返回，序列不保存创建的索引表
+	 * @param fields 字段序号
+	 * @param capacity 索引表容量
+	 * @param opt m：并行创建，n：基本键是序号
+	 * @return IndexTable
+	 */
+	public IndexTable newIndexTable(int []fields, int capacity, String opt) {
+		if (fields.length == 1) {
+			DataStruct ds = dataStruct();
+			if ((ds != null && ds.isSeqKey()) || (opt != null && opt.indexOf('n') != -1)) {
+				return new SeqIndexTable(this, fields[0]);
+			} else {
+				HashIndexTable it = new HashIndexTable(capacity, opt);
+				it.create(this, fields[0]);
+				return it;
+			}
+		} else {
+			if (length() > 0) {
+				BaseRecord r = (BaseRecord)getMem(1);
+				if (r.dataStruct().getTimeKeyCount() == 1) {
+					return new TimeIndexTable(this, fields, capacity);
+				}
+			}
+			
+			HashArrayIndexTable it = new HashArrayIndexTable(capacity, opt);
+			it.create(this, fields);
+			return it;
+		}
+	}
+	
+	/**
+	 * 用多字段创建一个索引表返回，序列不保存创建的索引表
+	 * @param exps 字段表达式数组
+	 * @param ctx 计算上下文
+	 * @return IndexTable
+	 */
+	public IndexTable newIndexTable(Expression []exps, Context ctx) {
+		return newIndexTable(exps, ctx, length());
+	}
+	
+	/**
+	 * 用多字段创建一个索引表返回，序列不保存创建的索引表
+	 * @param exps 字段表达式数组
+	 * @param ctx 计算上下文
+	 * @param capacity 容量
+	 * @return IndexTable
+	 */
+	public IndexTable newIndexTable(Expression []exps, Context ctx, int capacity) {
+		if (exps == null) {
+			return newIndexTable(capacity);
+		} else if (exps.length == 1) {
+			return newIndexTable(exps[0], ctx, capacity);
+		} else {
+			Object obj = null;
+			if (length() > 0) {
+				obj = getMem(1);
+			}
+			
+			if (obj instanceof BaseRecord) {
+				DataStruct ds = ((BaseRecord)obj).dataStruct();
+				if (ds.getTimeKeyCount() == 1) {
+					int []pkIndex = ds.getPKIndex();
+					if (ds.isSameFields(exps, pkIndex)) {
+						return new TimeIndexTable(this, pkIndex, capacity);
+					}
+				}
+			}
+			
+			HashArrayIndexTable it = new HashArrayIndexTable(capacity);
+			it.create(this, exps, ctx);
+			return it;
+		}
+	}
+	
+	/**
+	 * 创建有序归并索引
+	 * @param exps 字段表达式数组
+	 * @param ctx 计算上下文
+	 * @return IndexTable
+	 */
+	public IndexTable newMergeIndexTable(Expression []exps, Context ctx) {
+		return new MergeIndexTable(this, exps, ctx);
+	}
+	
+	/**
+	 * 构建内存游标
+	 * @return
+	 */
+	public ICursor cursor() {
+		return new MemoryCursor(this);
+	}
+	
+	/**
+	 * 按指定区间构建内存游标
+	 * @param start 起始位置，包含
+	 * @param end 结束位置，不包含
+	 * @return
+	 */
+	public ICursor cursor(int start, int end) {
+		return new MemoryCursor(this, start, end);
 	}
 }

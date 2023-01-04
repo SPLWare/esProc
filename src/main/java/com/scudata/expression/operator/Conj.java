@@ -17,18 +17,24 @@ public class Conj extends Operator {
 	public Conj() {
 		priority = PRI_MUL;
 	}
-	
-	public Object calculate(Context ctx) {
+
+	/**
+	 * 检查表达式的有效性，无效则抛出异常
+	 */
+	public void checkValidity() {
 		if (left == null) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("\"|\"" + mm.getMessage("operator.missingLeftOperation"));
-		}
-
-		if (right == null) {
+		} else if (right == null) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("\"|\"" + mm.getMessage("operator.missingRightOperation"));
 		}
-
+		
+		left.checkValidity();
+		right.checkValidity();
+	}
+	
+	public Object calculate(Context ctx) {
 		Object o1 = left.calculate(ctx);
 		Object o2 = right.calculate(ctx);
 		Sequence s1, s2;

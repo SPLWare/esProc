@@ -15,12 +15,19 @@ import com.scudata.util.Variant;
  *
  */
 public class Cand extends Function {
-	public Object calculate(Context ctx) {
-		IParam param = this.param;
+	/**
+	 * 检查表达式的有效性，无效则抛出异常
+	 */
+	public void checkValidity() {
 		if (param == null) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("cand" + mm.getMessage("function.missingParam"));
-		} else if (param.isLeaf()) {
+		}
+	}
+
+	public Object calculate(Context ctx) {
+		IParam param = this.param;
+		if (param.isLeaf()) {
 			Object obj = param.getLeafExpression().calculate(ctx);
 			return Boolean.valueOf(Variant.isTrue(obj));
 		} else {

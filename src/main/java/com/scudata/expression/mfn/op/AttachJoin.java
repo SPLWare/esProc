@@ -4,11 +4,6 @@ import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
 import com.scudata.dm.Sequence;
-import com.scudata.dm.op.DiffJoin;
-import com.scudata.dm.op.FilterJoin;
-import com.scudata.dm.op.Join;
-import com.scudata.dm.op.JoinRemote;
-import com.scudata.dm.op.Operation;
 import com.scudata.expression.Expression;
 import com.scudata.expression.IParam;
 import com.scudata.expression.OperableFunction;
@@ -128,21 +123,14 @@ public class AttachJoin extends OperableFunction {
 			}
 		}
 		
-		Operation op;
 		if (isIsect) {
-			op = new FilterJoin(this, exps, seqs, dataExps, option);
+			return operable.filterJoin(this, exps, seqs, dataExps, option, ctx);
 		} else if (isDiff) {
-			op = new DiffJoin(this, exps, seqs, dataExps, option);
+			return operable.diffJoin(this, exps, seqs, dataExps, option, ctx);
 		} else if (hasClusterTable) {
-			op = new JoinRemote(this, fname, exps, codes, dataExps, newExps, newNames, option);
+			return operable.joinRemote(this, fname, exps, codes, dataExps, newExps, newNames, option, ctx);
 		} else {
-			op = new Join(this, fname, exps, seqs, dataExps, newExps, newNames, option);
+			return operable.join(this, fname, exps, seqs, dataExps, newExps, newNames, option, ctx);
 		}
-		
-		if (cs != null) {
-			op.setCurrentCell(cs.getCurrent());
-		}
-		
-		return operable.addOperation(op, ctx);
 	}
 }

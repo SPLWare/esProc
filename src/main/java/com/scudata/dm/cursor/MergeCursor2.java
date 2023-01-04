@@ -1,7 +1,7 @@
 package com.scudata.dm.cursor;
 
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Context;
-import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 import com.scudata.util.Variant;
 
@@ -59,7 +59,7 @@ public class MergeCursor2 extends ICursor {
 	
 	// 并行计算时需要改变上下文
 	// 继承类如果用到了表达式还需要用新上下文重新解析表达式
-	protected void resetContext(Context ctx) {
+	public void resetContext(Context ctx) {
 		if (this.ctx != ctx) {
 			cs1.resetContext(ctx);
 			cs2.resetContext(ctx);
@@ -101,8 +101,8 @@ public class MergeCursor2 extends ICursor {
 		if (cur1 != 0 && cur2 != 0) {
 			int len1 = data1.length();
 			int len2 = data2.length();
-			Record r1 = (Record)data1.getMem(cur1);
-			Record r2 = (Record)data2.getMem(cur2);
+			BaseRecord r1 = (BaseRecord)data1.getMem(cur1);
+			BaseRecord r2 = (BaseRecord)data2.getMem(cur2);
 			Object v1 = r1.getNormalFieldValue(field);
 			Object v2 = r2.getNormalFieldValue(field);
 			
@@ -115,14 +115,14 @@ public class MergeCursor2 extends ICursor {
 							if (data2 != null && data2.length() > 0) {
 								cur2 = 1;
 								len2 = data2.length();
-								r2 = (Record)data2.getMem(1);
+								r2 = (BaseRecord)data2.getMem(1);
 								v2 = r2.getNormalFieldValue(field);
 							} else {
 								cur2 = 0;
 								break;
 							}
 						} else {
-							r2 = (Record)data2.getMem(++cur2);
+							r2 = (BaseRecord)data2.getMem(++cur2);
 							v2 = r2.getNormalFieldValue(field);
 						}
 					} else {
@@ -132,14 +132,14 @@ public class MergeCursor2 extends ICursor {
 							if (data1 != null && data1.length() > 0) {
 								cur1 = 1;
 								len1 = data1.length();
-								r1 = (Record)data1.getMem(1);
+								r1 = (BaseRecord)data1.getMem(1);
 								v1 = r1.getNormalFieldValue(field);
 							} else {
 								cur1 = 0;
 								break;
 							}
 						} else {
-							r1 = (Record)data1.getMem(++cur1);
+							r1 = (BaseRecord)data1.getMem(++cur1);
 							v1 = r1.getNormalFieldValue(field);
 						}
 					}
@@ -153,14 +153,14 @@ public class MergeCursor2 extends ICursor {
 							if (data2 != null && data2.length() > 0) {
 								cur2 = 1;
 								len2 = data2.length();
-								r2 = (Record)data2.getMem(1);
+								r2 = (BaseRecord)data2.getMem(1);
 								v2 = r2.getNormalFieldValue(field);
 							} else {
 								cur2 = 0;
 								break;
 							}
 						} else {
-							r2 = (Record)data2.getMem(++cur2);
+							r2 = (BaseRecord)data2.getMem(++cur2);
 							v2 = r2.getNormalFieldValue(field);
 						}
 					} else {
@@ -170,14 +170,14 @@ public class MergeCursor2 extends ICursor {
 							if (data1 != null && data1.length() > 0) {
 								cur1 = 1;
 								len1 = data1.length();
-								r1 = (Record)data1.getMem(1);
+								r1 = (BaseRecord)data1.getMem(1);
 								v1 = r1.getNormalFieldValue(field);
 							} else {
 								cur1 = 0;
 								break;
 							}
 						} else {
-							r1 = (Record)data1.getMem(++cur1);
+							r1 = (BaseRecord)data1.getMem(++cur1);
 							v1 = r1.getNormalFieldValue(field);
 						}
 					}
@@ -252,8 +252,8 @@ public class MergeCursor2 extends ICursor {
 		if (cur1 != 0 && cur2 != 0) {
 			int len1 = data1.length();
 			int len2 = data2.length();
-			Record r1 = (Record)data1.getMem(cur1);
-			Record r2 = (Record)data2.getMem(cur2);
+			BaseRecord r1 = (BaseRecord)data1.getMem(cur1);
+			BaseRecord r2 = (BaseRecord)data2.getMem(cur2);
 			
 			for (int f = 0; f < fcount; ++f) {
 				v1[f] = r1.getNormalFieldValue(fields[f]);
@@ -272,7 +272,7 @@ public class MergeCursor2 extends ICursor {
 							if (data2 != null && data2.length() > 0) {
 								cur2 = 1;
 								len2 = data2.length();
-								r2 = (Record)data2.getMem(1);
+								r2 = (BaseRecord)data2.getMem(1);
 
 								for (int f = 0; f < fcount; ++f) {
 									v2[f] = r2.getNormalFieldValue(fields[f]);
@@ -282,7 +282,7 @@ public class MergeCursor2 extends ICursor {
 								break;
 							}
 						} else {
-							r2 = (Record)data2.getMem(++cur2);
+							r2 = (BaseRecord)data2.getMem(++cur2);
 							for (int f = 0; f < fcount; ++f) {
 								v2[f] = r2.getNormalFieldValue(fields[f]);
 							}
@@ -294,7 +294,7 @@ public class MergeCursor2 extends ICursor {
 							if (data1 != null && data1.length() > 0) {
 								cur1 = 1;
 								len1 = data1.length();
-								r1 = (Record)data1.getMem(1);
+								r1 = (BaseRecord)data1.getMem(1);
 
 								for (int f = 0; f < fcount; ++f) {
 									v1[f] = r1.getNormalFieldValue(fields[f]);
@@ -304,7 +304,7 @@ public class MergeCursor2 extends ICursor {
 								break;
 							}
 						} else {
-							r1 = (Record)data1.getMem(++cur1);
+							r1 = (BaseRecord)data1.getMem(++cur1);
 							for (int f = 0; f < fcount; ++f) {
 								v1[f] = r1.getNormalFieldValue(fields[f]);
 							}
@@ -320,7 +320,7 @@ public class MergeCursor2 extends ICursor {
 							if (data2 != null && data2.length() > 0) {
 								cur2 = 1;
 								len2 = data2.length();
-								r2 = (Record)data2.getMem(1);
+								r2 = (BaseRecord)data2.getMem(1);
 
 								for (int f = 0; f < fcount; ++f) {
 									v2[f] = r2.getNormalFieldValue(fields[f]);
@@ -330,7 +330,7 @@ public class MergeCursor2 extends ICursor {
 								break;
 							}
 						} else {
-							r2 = (Record)data2.getMem(++cur2);
+							r2 = (BaseRecord)data2.getMem(++cur2);
 							for (int f = 0; f < fcount; ++f) {
 								v2[f] = r2.getNormalFieldValue(fields[f]);
 							}
@@ -342,7 +342,7 @@ public class MergeCursor2 extends ICursor {
 							if (data1 != null && data1.length() > 0) {
 								cur1 = 1;
 								len1 = data1.length();
-								r1 = (Record)data1.getMem(1);
+								r1 = (BaseRecord)data1.getMem(1);
 
 								for (int f = 0; f < fcount; ++f) {
 									v1[f] = r1.getNormalFieldValue(fields[f]);
@@ -352,7 +352,7 @@ public class MergeCursor2 extends ICursor {
 								break;
 							}
 						} else {
-							r1 = (Record)data1.getMem(++cur1);
+							r1 = (BaseRecord)data1.getMem(++cur1);
 
 							for (int f = 0; f < fcount; ++f) {
 								v1[f] = r1.getNormalFieldValue(fields[f]);
@@ -432,8 +432,8 @@ public class MergeCursor2 extends ICursor {
 		if (cur1 != 0 && cur2 != 0) {
 			int len1 = data1.length();
 			int len2 = data2.length();
-			Record r1 = (Record)data1.getMem(cur1);
-			Record r2 = (Record)data2.getMem(cur2);
+			BaseRecord r1 = (BaseRecord)data1.getMem(cur1);
+			BaseRecord r2 = (BaseRecord)data2.getMem(cur2);
 			Object v1 = r1.getNormalFieldValue(field);
 			Object v2 = r2.getNormalFieldValue(field);
 			
@@ -446,14 +446,14 @@ public class MergeCursor2 extends ICursor {
 							if (data2 != null && data2.length() > 0) {
 								cur2 = 1;
 								len2 = data2.length();
-								r2 = (Record)data2.getMem(1);
+								r2 = (BaseRecord)data2.getMem(1);
 								v2 = r2.getNormalFieldValue(field);
 							} else {
 								cur2 = 0;
 								break;
 							}
 						} else {
-							r2 = (Record)data2.getMem(++cur2);
+							r2 = (BaseRecord)data2.getMem(++cur2);
 							v2 = r2.getNormalFieldValue(field);
 						}
 					} else {
@@ -462,35 +462,35 @@ public class MergeCursor2 extends ICursor {
 							if (data1 != null && data1.length() > 0) {
 								cur1 = 1;
 								len1 = data1.length();
-								r1 = (Record)data1.getMem(1);
+								r1 = (BaseRecord)data1.getMem(1);
 								v1 = r1.getNormalFieldValue(field);
 							} else {
 								cur1 = 0;
 								break;
 							}
 						} else {
-							r1 = (Record)data1.getMem(++cur1);
+							r1 = (BaseRecord)data1.getMem(++cur1);
 							v1 = r1.getNormalFieldValue(field);
 						}
 					}
 				}
 			} else {
 				while (count < n) {
-					count++;
+					++count;
 					if (Variant.compare_0(v1, v2) > 0) {
 						if (cur2 == len2) {
 							data2 = cs2.fetch(FETCHCOUNT_M);
 							if (data2 != null && data2.length() > 0) {
 								cur2 = 1;
 								len2 = data2.length();
-								r2 = (Record)data2.getMem(1);
+								r2 = (BaseRecord)data2.getMem(1);
 								v2 = r2.getNormalFieldValue(field);
 							} else {
 								cur2 = 0;
 								break;
 							}
 						} else {
-							r2 = (Record)data2.getMem(++cur2);
+							r2 = (BaseRecord)data2.getMem(++cur2);
 							v2 = r2.getNormalFieldValue(field);
 						}
 					} else {
@@ -499,14 +499,14 @@ public class MergeCursor2 extends ICursor {
 							if (data1 != null && data1.length() > 0) {
 								cur1 = 1;
 								len1 = data1.length();
-								r1 = (Record)data1.getMem(1);
+								r1 = (BaseRecord)data1.getMem(1);
 								v1 = r1.getNormalFieldValue(field);
 							} else {
 								cur1 = 0;
 								break;
 							}
 						} else {
-							r1 = (Record)data1.getMem(++cur1);
+							r1 = (BaseRecord)data1.getMem(++cur1);
 							v1 = r1.getNormalFieldValue(field);
 						}
 					}
@@ -517,7 +517,7 @@ public class MergeCursor2 extends ICursor {
 		if (cur1 != 0) {
 			int len1 = data1.length();
 			while (count < n) {
-				count++;
+				++count;
 				if (cur1 < len1) {
 					cur1++;
 				} else {
@@ -534,7 +534,7 @@ public class MergeCursor2 extends ICursor {
 		} else if (cur2 != 0) {
 			int len2 = data2.length();
 			while (count < n) {
-				count++;
+				++count;
 				if (cur2 < len2) {
 					cur2++;
 				} else {
@@ -570,8 +570,8 @@ public class MergeCursor2 extends ICursor {
 		if (cur1 != 0 && cur2 != 0) {
 			int len1 = data1.length();
 			int len2 = data2.length();
-			Record r1 = (Record)data1.getMem(cur1);
-			Record r2 = (Record)data2.getMem(cur2);
+			BaseRecord r1 = (BaseRecord)data1.getMem(cur1);
+			BaseRecord r2 = (BaseRecord)data2.getMem(cur2);
 			
 			for (int f = 0; f < fcount; ++f) {
 				v1[f] = r1.getNormalFieldValue(fields[f]);
@@ -590,7 +590,7 @@ public class MergeCursor2 extends ICursor {
 							if (data2 != null && data2.length() > 0) {
 								cur2 = 1;
 								len2 = data2.length();
-								r2 = (Record)data2.getMem(1);
+								r2 = (BaseRecord)data2.getMem(1);
 
 								for (int f = 0; f < fcount; ++f) {
 									v2[f] = r2.getNormalFieldValue(fields[f]);
@@ -600,7 +600,7 @@ public class MergeCursor2 extends ICursor {
 								break;
 							}
 						} else {
-							r2 = (Record)data2.getMem(++cur2);
+							r2 = (BaseRecord)data2.getMem(++cur2);
 							for (int f = 0; f < fcount; ++f) {
 								v2[f] = r2.getNormalFieldValue(fields[f]);
 							}
@@ -611,7 +611,7 @@ public class MergeCursor2 extends ICursor {
 							if (data1 != null && data1.length() > 0) {
 								cur1 = 1;
 								len1 = data1.length();
-								r1 = (Record)data1.getMem(1);
+								r1 = (BaseRecord)data1.getMem(1);
 
 								for (int f = 0; f < fcount; ++f) {
 									v1[f] = r1.getNormalFieldValue(fields[f]);
@@ -621,7 +621,7 @@ public class MergeCursor2 extends ICursor {
 								break;
 							}
 						} else {
-							r1 = (Record)data1.getMem(++cur1);
+							r1 = (BaseRecord)data1.getMem(++cur1);
 							for (int f = 0; f < fcount; ++f) {
 								v1[f] = r1.getNormalFieldValue(fields[f]);
 							}
@@ -637,7 +637,7 @@ public class MergeCursor2 extends ICursor {
 							if (data2 != null && data2.length() > 0) {
 								cur2 = 1;
 								len2 = data2.length();
-								r2 = (Record)data2.getMem(1);
+								r2 = (BaseRecord)data2.getMem(1);
 
 								for (int f = 0; f < fcount; ++f) {
 									v2[f] = r2.getNormalFieldValue(fields[f]);
@@ -647,7 +647,7 @@ public class MergeCursor2 extends ICursor {
 								break;
 							}
 						} else {
-							r2 = (Record)data2.getMem(++cur2);
+							r2 = (BaseRecord)data2.getMem(++cur2);
 							for (int f = 0; f < fcount; ++f) {
 								v2[f] = r2.getNormalFieldValue(fields[f]);
 							}
@@ -658,7 +658,7 @@ public class MergeCursor2 extends ICursor {
 							if (data1 != null && data1.length() > 0) {
 								cur1 = 1;
 								len1 = data1.length();
-								r1 = (Record)data1.getMem(1);
+								r1 = (BaseRecord)data1.getMem(1);
 
 								for (int f = 0; f < fcount; ++f) {
 									v1[f] = r1.getNormalFieldValue(fields[f]);
@@ -668,7 +668,7 @@ public class MergeCursor2 extends ICursor {
 								break;
 							}
 						} else {
-							r1 = (Record)data1.getMem(++cur1);
+							r1 = (BaseRecord)data1.getMem(++cur1);
 
 							for (int f = 0; f < fcount; ++f) {
 								v1[f] = r1.getNormalFieldValue(fields[f]);

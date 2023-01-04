@@ -4,15 +4,11 @@ import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
 import com.scudata.dm.Sequence;
-import com.scudata.dm.op.Operation;
-import com.scudata.dm.op.Switch;
-import com.scudata.dm.op.SwitchRemote;
 import com.scudata.dw.MemoryTable;
 import com.scudata.dw.compress.ColumnList;
 import com.scudata.expression.Expression;
 import com.scudata.expression.IParam;
 import com.scudata.expression.SequenceFunction;
-import com.scudata.parallel.ClusterMemoryTable;
 import com.scudata.resources.EngineMessage;
 
 // 
@@ -87,29 +83,6 @@ public class SwitchFK extends SequenceFunction {
 			parseSwitchParam(param, 0, fkNames, timeFkNames, codes, exps, timeExps, ctx);
 		}
 		
-		int count = codes.length;
-		Sequence []seqs = new Sequence[count];
-		boolean hasClusterTable = false;
-		for (int i = 0; i < count; ++i) {
-			if (codes[i] instanceof Sequence) {
-				seqs[i] = (Sequence)codes[i];
-			} else if (codes[i] instanceof ClusterMemoryTable) {
-				hasClusterTable = true;
-			} else if (codes[i] == null) {
-				//seqs[i] = new Sequence(0);
-			} else {
-				MessageManager mm = EngineMessage.get();
-				throw new RQException("switch" + mm.getMessage("function.paramTypeError"));
-			}
-		}
-		
-		Operation op;
-		if (hasClusterTable) {
-			op = new SwitchRemote(this, fkNames, codes, exps, option);
-		} else {
-			op = new Switch(this, fkNames, timeFkNames, seqs, exps, timeExps, option);
-		}
-		
-		return op.process(srcSequence, ctx);
+		return srcSequence.switchFk(this, fkNames, timeFkNames, codes, exps, timeExps, option, ctx);
 	}
 }

@@ -11,15 +11,15 @@ import java.util.Arrays;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.cursor.ICursor;
-import com.scudata.dw.ColumnGroupTable;
+import com.scudata.dw.ColComTable;
 import com.scudata.dw.ColumnMetaData;
-import com.scudata.dw.ColumnTableMetaData;
-import com.scudata.dw.GroupTable;
-import com.scudata.dw.ITableMetaData;
-import com.scudata.dw.RowGroupTable;
-import com.scudata.dw.RowTableMetaData;
-import com.scudata.dw.TableMetaData;
-import com.scudata.dw.TableMetaDataGroup;
+import com.scudata.dw.ColPhyTable;
+import com.scudata.dw.ComTable;
+import com.scudata.dw.IPhyTable;
+import com.scudata.dw.RowComTable;
+import com.scudata.dw.RowPhyTable;
+import com.scudata.dw.PhyTable;
+import com.scudata.dw.PhyTableGroup;
 import com.scudata.resources.EngineMessage;
 
 /**
@@ -84,17 +84,17 @@ public class FileGroup implements Externalizable {
 	 * @param ctx 计算上下文
 	 * @return
 	 */
-	public TableMetaDataGroup open(String opt, Context ctx) {
+	public PhyTableGroup open(String opt, Context ctx) {
 		int pcount = partitions.length;
-		TableMetaData []tables = new TableMetaData[pcount];
+		PhyTable []tables = new PhyTable[pcount];
 		
 		for (int i = 0; i < pcount; ++i) {
 			File file = Env.getPartitionFile(partitions[i], fileName);
-			tables[i] = GroupTable.openBaseTable(file, ctx);
+			tables[i] = ComTable.openBaseTable(file, ctx);
 			tables[i].getGroupTable().setPartition(partitions[i]);
 		}
 		
-		return new TableMetaDataGroup(fileName, tables, partitions, opt, ctx);
+		return new PhyTableGroup(fileName, tables, partitions, opt, ctx);
 	}
 	
 	/**
@@ -106,9 +106,9 @@ public class FileGroup implements Externalizable {
 	 * @return
 	 * @throws IOException
 	 */
-	public TableMetaDataGroup create(String []colNames, String distribute, String opt, Context ctx) throws IOException {
+	public PhyTableGroup create(String []colNames, String distribute, String opt, Context ctx) throws IOException {
 		int pcount = partitions.length;
-		TableMetaData []tables = new TableMetaData[pcount];
+		PhyTable []tables = new PhyTable[pcount];
 		boolean yopt = opt != null && opt.indexOf('y') != -1;
 		boolean ropt = opt != null && opt.indexOf('r') != -1;
 		
@@ -117,7 +117,7 @@ public class FileGroup implements Externalizable {
 			if (file.exists()) {
 				if (yopt) {
 					try {
-						GroupTable table = GroupTable.open(file, ctx);
+						ComTable table = ComTable.open(file, ctx);
 						table.delete();
 					} catch (IOException e) {
 						throw new RQException(e.getMessage(), e);
@@ -128,18 +128,18 @@ public class FileGroup implements Externalizable {
 				}
 			}
 			
-			GroupTable table;
+			ComTable table;
 			if (ropt) {
-				table = new RowGroupTable(file, colNames, distribute, opt, ctx);
+				table = new RowComTable(file, colNames, distribute, opt, ctx);
 			} else {
-				table = new ColumnGroupTable(file, colNames, distribute, opt, ctx);
+				table = new ColComTable(file, colNames, distribute, opt, ctx);
 			}
 			
 			table.setPartition(partitions[i]);
 			tables[i] = table.getBaseTable();
 		}
 		
-		return new TableMetaDataGroup(fileName, tables, partitions, opt, ctx);
+		return new PhyTableGroup(fileName, tables, partitions, opt, ctx);
 	}
 	
 	/**
@@ -152,7 +152,7 @@ public class FileGroup implements Externalizable {
 		int pcount = partitions.length;
 		for (int i = 0; i < pcount; ++i) {
 			File file = Env.getPartitionFile(partitions[i], fileName);
-			TableMetaData tmd = GroupTable.openBaseTable(file, ctx);
+			PhyTable tmd = ComTable.openBaseTable(file, ctx);
 			boolean result = tmd.getGroupTable().reset(null, opt, ctx, null);
 			if (!result) {
 				return false;
@@ -170,10 +170,10 @@ public class FileGroup implements Externalizable {
 	 * @return true：成功，false：失败
 	 */
 	public boolean resetGroupTable(File newFile, String opt, Context ctx) {
-		TableMetaDataGroup tableGroup = open(null, ctx);
-		TableMetaData baseTable = (TableMetaData) tableGroup.getTables()[0];
+		PhyTableGroup tableGroup = open(null, ctx);
+		PhyTable baseTable = (PhyTable) tableGroup.getTables()[0];
 		
-		boolean isCol = baseTable.getGroupTable() instanceof ColumnGroupTable;
+		boolean isCol = baseTable.getGroupTable() instanceof ColComTable;
 		boolean hasN = false;
 		boolean compress = false; // 压缩
 		boolean uncompress = false; // 不压缩
@@ -208,9 +208,9 @@ public class FileGroup implements Externalizable {
 		int len = srcColNames.length;
 		String []colNames = new String[len];
 		
-		if (baseTable instanceof ColumnTableMetaData) {
+		if (baseTable instanceof ColPhyTable) {
 			for (int i = 0; i < len; i++) {
-				ColumnMetaData col = ((ColumnTableMetaData)baseTable).getColumn(srcColNames[i]);
+				ColumnMetaData col = ((ColPhyTable)baseTable).getColumn(srcColNames[i]);
 				if (col.isDim()) {
 					colNames[i] = "#" + srcColNames[i];
 				} else {
@@ -218,7 +218,7 @@ public class FileGroup implements Externalizable {
 				}
 			}
 		} else {
-			boolean[] isDim = ((RowTableMetaData)baseTable).getDimIndex();
+			boolean[] isDim = ((RowPhyTable)baseTable).getDimIndex();
 			for (int i = 0; i < len; i++) {
 				if (isDim[i]) {
 					colNames[i] = "#" + srcColNames[i];
@@ -235,11 +235,11 @@ public class FileGroup implements Externalizable {
 			newOpt = "p";
 		}
 		
-		GroupTable newGroupTable = null;
+		ComTable newGroupTable = null;
 		try {
 			//生成新组表文件
 			if (isCol) {
-				newGroupTable = new ColumnGroupTable(newFile, colNames, null, newOpt, ctx);
+				newGroupTable = new ColComTable(newFile, colNames, null, newOpt, ctx);
 				if (compress) {
 					newGroupTable.setCompress(true);
 				} else if (uncompress) {
@@ -248,7 +248,7 @@ public class FileGroup implements Externalizable {
 					newGroupTable.setCompress(baseTable.getGroupTable().isCompress());
 				}
 			} else {
-				newGroupTable = new RowGroupTable(newFile, colNames, null, newOpt, ctx);
+				newGroupTable = new RowComTable(newFile, colNames, null, newOpt, ctx);
 			}
 			
 			//处理分段
@@ -263,34 +263,34 @@ public class FileGroup implements Externalizable {
 			}
 			
 			//新基表
-			TableMetaData newBaseTable = newGroupTable.getBaseTable();
+			PhyTable newBaseTable = newGroupTable.getBaseTable();
 			ICursor cs = tableGroup.merge(ctx);
 
 			newBaseTable.append(cs);
 			newBaseTable.appendCache();
 			
 			//基表的子表
-			ArrayList<TableMetaData> tableList = baseTable.getTableList();
-			for (TableMetaData t : tableList) {
+			ArrayList<PhyTable> tableList = baseTable.getTableList();
+			for (PhyTable t : tableList) {
 				colNames = t.getColNames();
 				len = colNames.length;
-				if (t instanceof ColumnTableMetaData) {
+				if (t instanceof ColPhyTable) {
 					for (int i = 0; i < len; i++) {
-						ColumnMetaData col = ((ColumnTableMetaData)t).getColumn(colNames[i]);
+						ColumnMetaData col = ((ColPhyTable)t).getColumn(colNames[i]);
 						if (col.isDim()) {
 							colNames[i] = "#" + colNames[i];
 						}
 					}
 				} else {
 					for (int i = 0; i < len; i++) {
-						boolean[] isDim = ((RowTableMetaData)t).getDimIndex();
+						boolean[] isDim = ((RowPhyTable)t).getDimIndex();
 						if (isDim[i]) {
 							colNames[i] = "#" + colNames[i];
 						}
 					}
 				}
-				TableMetaData newTable = newBaseTable.createAnnexTable(colNames, t.getSerialBytesLen(), t.getTableName());
-				cs = ((TableMetaDataGroup) tableGroup.getAnnexTable(t.getTableName())).merge(ctx);
+				PhyTable newTable = newBaseTable.createAnnexTable(colNames, t.getSerialBytesLen(), t.getTableName());
+				cs = ((PhyTableGroup) tableGroup.getAnnexTable(t.getTableName())).merge(ctx);
 				newTable.append(cs);
 			}
 		
@@ -303,7 +303,7 @@ public class FileGroup implements Externalizable {
 		newGroupTable.close();
 
 		try{
-			newGroupTable = GroupTable.open(newFile, ctx);
+			newGroupTable = ComTable.open(newFile, ctx);
 		} catch (IOException e) {
 			throw new RQException(e.getMessage(), e);
 		}
@@ -311,8 +311,8 @@ public class FileGroup implements Externalizable {
 		//重建索引文件和cuboid
 		newGroupTable.getBaseTable().resetIndex(ctx);
 		newGroupTable.getBaseTable().resetCuboid(ctx);
-		ArrayList<TableMetaData> newTableList = newGroupTable.getBaseTable().getTableList();
-		for (TableMetaData table : newTableList) {
+		ArrayList<PhyTable> newTableList = newGroupTable.getBaseTable().getTableList();
+		for (PhyTable table : newTableList) {
 			table.resetIndex(ctx);
 			table.resetCuboid(ctx);
 		}
@@ -342,7 +342,7 @@ public class FileGroup implements Externalizable {
 				File file = getPartitionFile(i);
 				File newFile = newFileGroup.getPartitionFile(i);
 				
-				TableMetaData tmd = GroupTable.openBaseTable(file, ctx);
+				PhyTable tmd = ComTable.openBaseTable(file, ctx);
 				boolean result = tmd.getGroupTable().reset(newFile, opt, ctx, null);
 				if (!result) {
 					return false;
@@ -350,9 +350,9 @@ public class FileGroup implements Externalizable {
 			}
 		} else {
 			// 更换分布表达式
-			TableMetaDataGroup tableGroup = open(null, ctx);
-			TableMetaData baseTable = (TableMetaData) tableGroup.getTables()[0];
-			boolean isCol = baseTable.getGroupTable() instanceof ColumnGroupTable;
+			PhyTableGroup tableGroup = open(null, ctx);
+			PhyTable baseTable = (PhyTable) tableGroup.getTables()[0];
+			boolean isCol = baseTable.getGroupTable() instanceof ColComTable;
 			boolean uncompress = false; // 不压缩
 			if (opt != null) {
 				if (opt.indexOf('r') != -1) {
@@ -374,9 +374,9 @@ public class FileGroup implements Externalizable {
 			int len = srcColNames.length;
 			String []colNames = new String[len];
 			
-			if (baseTable instanceof ColumnTableMetaData) {
+			if (baseTable instanceof ColPhyTable) {
 				for (int i = 0; i < len; i++) {
-					ColumnMetaData col = ((ColumnTableMetaData)baseTable).getColumn(srcColNames[i]);
+					ColumnMetaData col = ((ColPhyTable)baseTable).getColumn(srcColNames[i]);
 					if (col.isDim()) {
 						colNames[i] = "#" + srcColNames[i];
 					} else {
@@ -384,7 +384,7 @@ public class FileGroup implements Externalizable {
 					}
 				}
 			} else {
-				boolean[] isDim = ((RowTableMetaData)baseTable).getDimIndex();
+				boolean[] isDim = ((RowPhyTable)baseTable).getDimIndex();
 				for (int i = 0; i < len; i++) {
 					if (isDim[i]) {
 						colNames[i] = "#" + srcColNames[i];
@@ -412,31 +412,31 @@ public class FileGroup implements Externalizable {
 			}
 			try {
 				//写基表
-				TableMetaDataGroup newTableGroup = newFileGroup.create(colNames, distribute, newOpt, ctx);
+				PhyTableGroup newTableGroup = newFileGroup.create(colNames, distribute, newOpt, ctx);
 				ICursor cs = tableGroup.merge(ctx);
 				newTableGroup.append(cs, "xi");
 				
 				//写子表
-				ArrayList<TableMetaData> tableList = baseTable.getTableList();
-				for (TableMetaData t : tableList) {
+				ArrayList<PhyTable> tableList = baseTable.getTableList();
+				for (PhyTable t : tableList) {
 					len = t.getColNames().length;
 					colNames = Arrays.copyOf(t.getColNames(), len);
-					if (t instanceof ColumnTableMetaData) {
+					if (t instanceof ColPhyTable) {
 						for (int i = 0; i < len; i++) {
-							ColumnMetaData col = ((ColumnTableMetaData)t).getColumn(colNames[i]);
+							ColumnMetaData col = ((ColPhyTable)t).getColumn(colNames[i]);
 							if (col.isDim()) {
 								colNames[i] = "#" + colNames[i];
 							}
 						}
 					} else {
-						boolean[] isDim = ((RowTableMetaData)t).getDimIndex();
+						boolean[] isDim = ((RowPhyTable)t).getDimIndex();
 						for (int i = 0; i < len; i++) {
 							if (isDim[i]) {
 								colNames[i] = "#" + colNames[i];
 							}
 						}
 					}
-					ITableMetaData newTable = newTableGroup.createAnnexTable(colNames, t.getSerialBytesLen(), t.getTableName());
+					IPhyTable newTable = newTableGroup.createAnnexTable(colNames, t.getSerialBytesLen(), t.getTableName());
 					
 					//附表的游标，取出字段里要包含基表所有字段，这是因为需要计算分布
 					String[] allColNames = Arrays.copyOf(srcColNames, srcColNames.length + t.getColNames().length);

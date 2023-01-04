@@ -1,15 +1,17 @@
 package com.scudata.dm.op;
 
+import com.scudata.array.IArray;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.ComputeStack;
 import com.scudata.dm.Context;
+import com.scudata.dm.Current;
 import com.scudata.dm.DataStruct;
 import com.scudata.dm.ListBase1;
 import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
-import com.scudata.dm.Sequence.Current;
 import com.scudata.expression.Expression;
 import com.scudata.expression.Function;
 import com.scudata.expression.Gather;
@@ -312,11 +314,11 @@ public class Groups extends Operation {
 		int valCount = gathers == null ? 0 : gathers.length;
 		
 		Table result = new Table(newDs);
-		ListBase1 mems = result.getMems();
+		IArray mems = result.getMems();
 		Record r = this.r;
 		
 		ComputeStack stack = ctx.getComputeStack();
-		Sequence.Current current = seq.new Current();
+		Current current = new Current(seq);
 		stack.push(current);
 
 		try {
@@ -375,13 +377,13 @@ public class Groups extends Operation {
 		int keyCount = groupValues.length;
 		
 		ComputeStack stack = ctx.getComputeStack();
-		Current current = seq.new Current();
+		Current current = new Current(seq);
 		current.setCurrent(1);
 		stack.push(current);
 
 		// 计算聚合字段值
 		try {
-			Record r = result.newLast(groupValues);
+			BaseRecord r = result.newLast(groupValues);
 			for (Expression newExp : newExps) {
 				r.setNormalFieldValue(keyCount++, newExp.calculate(ctx));
 			}
@@ -399,7 +401,7 @@ public class Groups extends Operation {
 		Table result = new Table(newDs);
 
 		ComputeStack stack = ctx.getComputeStack();
-		Sequence.Current current = seq.new Current();
+		Current current = new Current(seq);
 		stack.push(current);
 
 		try {
@@ -453,12 +455,12 @@ public class Groups extends Operation {
 		int valCount = gathers == null ? 0 : gathers.length;
 		
 		Table result = new Table(newDs);
-		ListBase1 mems = result.getMems();
+		IArray mems = result.getMems();
 		Record r = this.r;
 		Object []keys = new Object[keyCount];
 
 		ComputeStack stack = ctx.getComputeStack();
-		Sequence.Current current = seq.new Current();
+		Current current = new Current(seq);
 		stack.push(current);
 
 		try {
@@ -520,13 +522,13 @@ public class Groups extends Operation {
 		int oldCount = result.length();
 		int keyCount = groupExps.length;
 		ComputeStack stack = ctx.getComputeStack();
-		Current current = keyGroups.new Current();
+		Current current = new Current(keyGroups);
 		stack.push(current);
 
 		// 计算分组字段值
 		try {
 			for (int i = 1; i <= len; ++i) {
-				Record r = result.newLast();
+				BaseRecord r = result.newLast();
 				current.setCurrent(i);
 				for (int c = 0; c < keyCount; ++c) {
 					r.setNormalFieldValue(c, groupExps[c].calculate(ctx));
@@ -541,13 +543,13 @@ public class Groups extends Operation {
 		}
 		
 		int valCount = newExps.length;
-		current = groups.new Current();
+		current = new Current(groups);
 		stack.push(current);
 
 		// 计算聚合字段值
 		try {
 			for (int i = 1; i <= len; ++i) {
-				Record r = (Record)result.getMem(++oldCount);
+				BaseRecord r = (BaseRecord)result.getMem(++oldCount);
 				current.setCurrent(i);
 				for (int c = 0; c < valCount; ++c) {
 					r.setNormalFieldValue(c + keyCount, newExps[c].calculate(ctx));
@@ -567,7 +569,7 @@ public class Groups extends Operation {
 		Table result = new Table(newDs);
 
 		ComputeStack stack = ctx.getComputeStack();
-		Sequence.Current current = seq.new Current();
+		Current current = new Current(seq);
 		stack.push(current);
 
 		try {
@@ -626,7 +628,7 @@ public class Groups extends Operation {
 		
 		final int INIT_GROUPSIZE = HashUtil.getInitGroupSize(); // 哈希表的大小
 		ComputeStack stack = ctx.getComputeStack();
-		Sequence.Current current = seq.new Current();
+		Current current = new Current(seq);
 		stack.push(current);
 
 		try {
@@ -667,7 +669,7 @@ public class Groups extends Operation {
 				int hash = hashUtil.hashCode(values);
 				if (groups[hash] == null) {
 					groups[hash] = new ListBase1(INIT_GROUPSIZE);
-					Record r = tempResult.newLast(values);
+					BaseRecord r = tempResult.newLast(values);
 					groups[hash].add(r);
 					
 					for (int v = 0, f = keyCount; v < valCount; ++v, ++f) {
@@ -677,14 +679,14 @@ public class Groups extends Operation {
 				} else {
 					int index = HashUtil.bsearch_r(groups[hash], values);
 					if (index < 1) {
-						Record r = tempResult.newLast(values);
+						BaseRecord r = tempResult.newLast(values);
 						groups[hash].add(-index, r);
 						for (int v = 0, f = keyCount; v < valCount; ++v, ++f) {
 							Object val = gathers[v].gather(ctx);
 							r.setNormalFieldValue(f, val);
 						}
 					} else {
-						Record r = (Record)groups[hash].get(index);
+						BaseRecord r = (BaseRecord)groups[hash].get(index);
 						for (int v = 0, f = keyCount; v < valCount; ++v, ++f) {
 							Object val = gathers[v].gather(r.getNormalFieldValue(f), ctx);
 							r.setNormalFieldValue(f, val);

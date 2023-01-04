@@ -14,13 +14,17 @@ import com.scudata.resources.EngineMessage;
  *
  */
 public class Ntile extends Function {
-
-	public Object calculate(Context ctx) {
+	/**
+	 * 检查表达式的有效性，无效则抛出异常
+	 */
+	public void checkValidity() {
 		if (param == null) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("ntile" + mm.getMessage("function.missingParam"));
 		}
+	}
 
+	public Object calculate(Context ctx) {
 		int size = param.getSubSize();
 		if (size == 2) {
 			IParam sub0 = param.getSub(0);

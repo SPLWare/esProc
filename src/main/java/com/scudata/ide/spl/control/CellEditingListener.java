@@ -63,8 +63,7 @@ public class CellEditingListener implements KeyListener {
 	 */
 	public void keyPressed(KeyEvent e) {
 		int key = e.getKeyCode();
-		boolean isMatching = GVSpl.matchWindow != null
-				&& GVSpl.matchWindow.isVisible();
+		boolean isMatching = isMatching();
 		switch (key) {
 		case KeyEvent.VK_ENTER:
 			if (!GV.isCellEditing) {// À´×Ô¹¤¾ßÀ¸ÃüÁî
@@ -93,10 +92,7 @@ public class CellEditingListener implements KeyListener {
 				break;
 			} else {
 				if (isMatching) {
-					if (GVSpl.matchWindow != null) {
-						GVSpl.matchWindow.selectName();
-					}
-					isMatching = false;
+					keyPressed(key);
 					break;
 				}
 				CellSetParser parser = new CellSetParser(control.cellSet);
@@ -206,9 +202,8 @@ public class CellEditingListener implements KeyListener {
 			break;
 		case KeyEvent.VK_UP:
 			if (isMatching) {
-				if (GVSpl.matchWindow != null) {
-					GVSpl.matchWindow.selectBefore();
-				}
+				keyPressed(key);
+				break;
 			}
 			if (e.isAltDown()) {
 				return;
@@ -222,9 +217,8 @@ public class CellEditingListener implements KeyListener {
 			break;
 		case KeyEvent.VK_DOWN:
 			if (isMatching) {
-				if (GVSpl.matchWindow != null) {
-					GVSpl.matchWindow.selectNext();
-				}
+				keyPressed(key);
+				break;
 			}
 			if (e.isAltDown()) {
 				return;
@@ -307,15 +301,15 @@ public class CellEditingListener implements KeyListener {
 		}
 		return null;
 	}
-
-	/**
-	 * Í£Ö¹Æ¥Åä
-	 */
+	
+	protected boolean isMatching() {
+		return false;
+	}
+	
+	protected void keyPressed(int keyCode){
+	}
+	
 	protected void stopMatch() {
-		if (GVSpl.matchWindow != null) {
-			GVSpl.matchWindow.dispose();
-			GVSpl.matchWindow = null;
-		}
 	}
 
 }

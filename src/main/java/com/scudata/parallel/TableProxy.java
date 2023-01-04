@@ -1,7 +1,7 @@
 package com.scudata.parallel;
 
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Context;
-import com.scudata.dm.Record;
 import com.scudata.dm.Table;
 
 /**
@@ -25,8 +25,8 @@ public class TableProxy extends IProxy {
 	public void close() {		
 	}
 	
-	public Record getRow(Object key, Context ctx) {
-		return (Record) table.findByKey(key, true);
+	public BaseRecord getRow(Object key, Context ctx) {
+		return (BaseRecord) table.findByKey(key, true);
 	}
 	
 	public boolean createIndex(Integer capacity, String opt) {

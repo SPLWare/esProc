@@ -27,15 +27,15 @@ import com.scudata.resources.EngineMessage;
  * @author runqian
  *
  */
-public class TableMetaDataGroup implements ITableMetaData {
+public class PhyTableGroup implements IPhyTable {
 	private String fileName;
-	private ITableMetaData []tables;
+	private IPhyTable []tables;
 	private int []partitions;
 	private String opt;
 	private Context ctx;
 	private Expression distribute;
 	
-	public TableMetaDataGroup(String fileName, ITableMetaData []tables, int []partitions, String opt, Context ctx) {
+	public PhyTableGroup(String fileName, IPhyTable []tables, int []partitions, String opt, Context ctx) {
 		this.fileName = fileName;
 		this.tables = tables;
 		this.partitions = partitions;
@@ -44,7 +44,7 @@ public class TableMetaDataGroup implements ITableMetaData {
 		distribute = new Expression(ctx, tables[0].getDistribute());
 	}
 	
-	public TableMetaDataGroup(String fileName, ITableMetaData []tables, int []partitions, String opt, Expression distribute, Context ctx) {
+	public PhyTableGroup(String fileName, IPhyTable []tables, int []partitions, String opt, Expression distribute, Context ctx) {
 		this.fileName = fileName;
 		this.tables = tables;
 		this.partitions = partitions;
@@ -54,29 +54,29 @@ public class TableMetaDataGroup implements ITableMetaData {
 	}
 	
 	public void close() {
-		for (ITableMetaData table : tables) {
+		for (IPhyTable table : tables) {
 			table.close();
 		}
 	}
 	
-	public ITableMetaData createAnnexTable(String []colNames, int []serialBytesLen, String tableName) throws IOException {
+	public IPhyTable createAnnexTable(String []colNames, int []serialBytesLen, String tableName) throws IOException {
 		int count = tables.length;
-		ITableMetaData []annexTables = new ITableMetaData[count];
+		IPhyTable []annexTables = new IPhyTable[count];
 		for (int i = 0; i < count; ++i) {
 			annexTables[i] = tables[i].createAnnexTable(colNames, serialBytesLen, tableName);
 		}
 		
-		return new TableMetaDataGroup(fileName, annexTables, partitions, opt, distribute, ctx);
+		return new PhyTableGroup(fileName, annexTables, partitions, opt, distribute, ctx);
 	}
 	
-	public ITableMetaData getAnnexTable(String tableName) {
+	public IPhyTable getAnnexTable(String tableName) {
 		int count = tables.length;
-		ITableMetaData []annexTables = new ITableMetaData[count];
+		IPhyTable []annexTables = new IPhyTable[count];
 		for (int i = 0; i < count; ++i) {
 			annexTables[i] = tables[i].getAnnexTable(tableName);
 		}
 		
-		return new TableMetaDataGroup(fileName, annexTables, partitions, opt, distribute, ctx);
+		return new PhyTableGroup(fileName, annexTables, partitions, opt, distribute, ctx);
 	}
 	
 	public void append(ICursor cursor) throws IOException {
@@ -227,7 +227,7 @@ public class TableMetaDataGroup implements ITableMetaData {
 		}
 	}
 	
-	private ITableMetaData getPartition(int p) {
+	private IPhyTable getPartition(int p) {
 		int pcount = partitions.length;
 		for (int i = 0; i < pcount; ++i) {
 			if (partitions[i] == p) {
@@ -237,15 +237,15 @@ public class TableMetaDataGroup implements ITableMetaData {
 		
 		// 如果还没有创建此分区的组表则创建
 		File file = Env.getPartitionFile(p, fileName);
-		TableMetaData tmd = (TableMetaData)tables[0];
-		GroupTable gt = tmd.getGroupTable().dupStruct(file);
-		TableMetaData result = gt.getBaseTable();
+		PhyTable tmd = (PhyTable)tables[0];
+		ComTable gt = tmd.getGroupTable().dupStruct(file);
+		PhyTable result = gt.getBaseTable();
 		String tableName = tmd.getTableName();
 		if (tableName != null && tableName.length() != 0) {
 			result = result.getAnnexTable(tableName);
 		}
 		
-		ITableMetaData []tmpTables = new ITableMetaData[pcount + 1];
+		IPhyTable []tmpTables = new IPhyTable[pcount + 1];
 		int []tmpPartitions = new int[pcount + 1];
 		System.arraycopy(tables, 0, tmpTables, 0, pcount);
 		System.arraycopy(partitions, 0, tmpPartitions, 0, pcount);
@@ -379,7 +379,7 @@ public class TableMetaDataGroup implements ITableMetaData {
 	
 	public Table finds(Sequence values) throws IOException {
 		Table result = null;
-		for (ITableMetaData table : tables) {
+		for (IPhyTable table : tables) {
 			Table cur = table.finds(values);
 			if (cur != null) {
 				if (result == null) {
@@ -400,7 +400,7 @@ public class TableMetaDataGroup implements ITableMetaData {
 	
 	public Table finds(Sequence values, String []selFields) throws IOException {
 		Table result = null;
-		for (ITableMetaData table : tables) {
+		for (IPhyTable table : tables) {
 			Table cur = table.finds(values, selFields);
 			if (cur != null) {
 				if (result == null) {
@@ -484,7 +484,7 @@ public class TableMetaDataGroup implements ITableMetaData {
 	
 	public boolean deleteIndex(String indexName) throws IOException {
 		boolean result = true;
-		for (ITableMetaData table : tables) {
+		for (IPhyTable table : tables) {
 			if (!table.deleteIndex(indexName)) {
 				result = false;
 			}
@@ -494,7 +494,7 @@ public class TableMetaDataGroup implements ITableMetaData {
 	}
 	
 	public void createIndex(String I, String []fields, Object obj, String opt, Expression w, Context ctx) {
-		for (ITableMetaData table : tables) {
+		for (IPhyTable table : tables) {
 			table.createIndex(I, fields, obj, opt, w, ctx);
 		}
 	}
@@ -505,13 +505,13 @@ public class TableMetaDataGroup implements ITableMetaData {
 	}
 
 	public void addColumn(String colName, Expression exp, Context ctx) {
-		for (ITableMetaData table : tables) {
+		for (IPhyTable table : tables) {
 			table.addColumn(colName, exp, ctx);
 		}
 	}
 
 	public void deleteColumn(String colName) {
-		for (ITableMetaData table : tables) {
+		for (IPhyTable table : tables) {
 			table.deleteColumn(colName);
 		}
 	}
@@ -544,7 +544,7 @@ public class TableMetaDataGroup implements ITableMetaData {
 	}
 	
 
-	public ITableMetaData[] getTables() {
+	public IPhyTable[] getTables() {
 		return tables;
 	}
 	
@@ -568,10 +568,10 @@ public class TableMetaDataGroup implements ITableMetaData {
 			
 			//把所有表的结果放到一起
 			Sequence result = Cuboid.cgroups(expNames, names, newExpNames, newNames, 
-					(TableMetaData) tables[0], w, hasM, n, option, ctx);
+					(PhyTable) tables[0], w, hasM, n, option, ctx);
 			for (int i = 1; i < count; ++i) {
 				Sequence seq = Cuboid.cgroups(expNames, names, newExpNames, newNames, 
-						(TableMetaData) tables[i], w, hasM, n, option, ctx);
+						(PhyTable) tables[i], w, hasM, n, option, ctx);
 				result.addAll(seq);
 			}
 			

@@ -16,6 +16,12 @@ import com.scudata.resources.EngineMessage;
  *
  */
 public class News extends SequenceFunction {
+	/**
+	 * 检查表达式的有效性，无效则抛出异常
+	 */
+	public void checkValidity() {
+	}
+
 	public Object calculate(Context ctx) {
 		if (param == null) {
 			MessageManager mm = EngineMessage.get();

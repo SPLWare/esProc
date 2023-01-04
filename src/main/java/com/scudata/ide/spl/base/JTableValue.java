@@ -48,23 +48,20 @@ import javax.swing.table.TableColumn;
 
 import com.scudata.cellset.datamodel.NormalCell;
 import com.scudata.cellset.datamodel.PgmNormalCell;
-import com.scudata.common.DBConfig;
-import com.scudata.common.DBInfo;
 import com.scudata.common.IntArrayList;
 import com.scudata.common.Matrix;
 import com.scudata.common.MessageManager;
 import com.scudata.common.StringUtils;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Canvas;
 import com.scudata.dm.DBObject;
 import com.scudata.dm.DataStruct;
 import com.scudata.dm.FileObject;
-import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
 import com.scudata.dm.cursor.ICursor;
 import com.scudata.dm.cursor.IMultipath;
 import com.scudata.ide.common.AppendDataThread;
-import com.scudata.ide.common.DBTypeEx;
 import com.scudata.ide.common.EditListener;
 import com.scudata.ide.common.GC;
 import com.scudata.ide.common.GM;
@@ -211,7 +208,7 @@ public class JTableValue extends JTableEx {
 					if (tf != null) {
 						dge.startDrag(GM.getDndCursor(), tf);
 					}
-				} catch (Exception x) {
+				} catch (Throwable x) {
 				}
 			}
 		};
@@ -261,7 +258,7 @@ public class JTableValue extends JTableEx {
 				try {
 					value = dtde.getTransferable().getTransferData(
 							TransferableObject.objectFlavor);
-				} catch (Exception e) {
+				} catch (Throwable e) {
 					e.printStackTrace();
 				}
 				if (value == null) {
@@ -655,7 +652,7 @@ public class JTableValue extends JTableEx {
 			resetThread.stopThread();
 			try {
 				resetThread.join();
-			} catch (Exception e) {
+			} catch (Throwable e) {
 			}
 		}
 		resetThread = null;
@@ -778,11 +775,11 @@ public class JTableValue extends JTableEx {
 					if (isStoped)
 						return;
 					rowData = seq.get(i);
-					if (rowData instanceof Record
+					if (rowData instanceof BaseRecord
 							&& (dataType == TYPE_PMT || dataType == TYPE_TABLE
 									|| dataType == TYPE_SERIESPMT || dataType == TYPE_DB)) {
-						setRecordRow((Record) seq.get(i), i - startRow, isSeq,
-								i, isDup);
+						setRecordRow((BaseRecord) seq.get(i), i - startRow,
+								isSeq, i, isDup);
 					} else {
 						if (isSeq) {
 							data.setValueAt(new Integer(i), i - startRow,
@@ -819,7 +816,7 @@ public class JTableValue extends JTableEx {
 						}
 					}
 				}
-			} catch (Exception ex) {
+			} catch (Throwable ex) {
 				ex.printStackTrace();
 			} finally {
 				resetSelection();
@@ -855,8 +852,8 @@ public class JTableValue extends JTableEx {
 	 * @param isDup
 	 *            是否有重复列名
 	 */
-	private void setRecordRow(Record record, int r, boolean isSeq, int index,
-			boolean isDup) {
+	private void setRecordRow(BaseRecord record, int r, boolean isSeq,
+			int index, boolean isDup) {
 		if (record == null || r < 0)
 			return;
 		if (m_type == TYPE_TABLE) {
@@ -880,7 +877,7 @@ public class JTableValue extends JTableEx {
 					for (int j = 0; j < colNames.length; j++) {
 						try {
 							val = record.getFieldValue(j);
-						} catch (Exception e) {
+						} catch (Throwable e) {
 							// 取不到的显示空
 							val = null;
 						}
@@ -902,7 +899,7 @@ public class JTableValue extends JTableEx {
 					for (int j = 0; j < colNames.length; j++) {
 						try {
 							val = record.getFieldValue(colNames[j]);
-						} catch (Exception e) {
+						} catch (Throwable e) {
 							// 取不到的显示空
 							val = null;
 						}
@@ -1043,6 +1040,21 @@ public class JTableValue extends JTableEx {
 	}
 
 	/**
+	 * 设置单元格值，比较如果同一个单元格同样格值，就不重复设置了
+	 * 
+	 * @param value
+	 *            单元格值
+	 */
+	public void setValue(Object value, String cellId) {
+		if (cellId != null && cellId.equals(getCellId())) {
+			if (value == getOriginalValue()) {
+				return;
+			}
+		}
+		setValue(value, false);
+	}
+
+	/**
 	 * 立即设置单元格值，不考虑锁定状态
 	 * 
 	 * @param value
@@ -1051,6 +1063,11 @@ public class JTableValue extends JTableEx {
 	 *            单元格名称
 	 */
 	public void setValue1(Object value, String id) {
+		if (id != null && id.equals(getCellId())) {
+			if (value == originalValue) {
+				return;
+			}
+		}
 		this.originalValue = value;
 		setValue(value, false, true);
 		this.cellId = id;
@@ -1179,7 +1196,7 @@ public class JTableValue extends JTableEx {
 						resetThread.stopThread();
 						try {
 							resetThread.join();
-						} catch (Exception e) {
+						} catch (Throwable e) {
 						}
 					}
 					resetThread = null;
@@ -1196,7 +1213,7 @@ public class JTableValue extends JTableEx {
 				rowCount = initPmt((Sequence) aValue);
 				break;
 			case TYPE_RECORD:
-				rowCount = initRecord((Record) aValue);
+				rowCount = initRecord((BaseRecord) aValue);
 				break;
 			case TYPE_SERIES:
 				rowCount = initSeries((Sequence) aValue);
@@ -1260,7 +1277,7 @@ public class JTableValue extends JTableEx {
 			// }
 			setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 			return TYPE_SERIES;
-		} else if (value instanceof Record) {
+		} else if (value instanceof BaseRecord) {
 			setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 			return TYPE_RECORD;
 		} else if (value instanceof DBObject) {
@@ -1326,8 +1343,8 @@ public class JTableValue extends JTableEx {
 		DataStruct ds;
 		for (int i = 1; i <= size; ++i) {
 			Object obj = pmt.get(i);
-			if (obj != null && obj instanceof Record) {
-				ds = ((Record) obj).dataStruct();
+			if (obj != null && obj instanceof BaseRecord) {
+				ds = ((BaseRecord) obj).dataStruct();
 				if (ds != null && ds.getFieldCount() > 0)
 					return ds;
 			}
@@ -1365,12 +1382,12 @@ public class JTableValue extends JTableEx {
 	 *            记录
 	 * @return
 	 */
-	private int initRecord(Record record) {
+	private int initRecord(BaseRecord record) {
 		DataStruct ds = record.dataStruct();
 		setTableColumns(ds, 1, false);
 		try {
 			AppendDataThread.addRecordRow(this, record);
-		} catch (Exception ex) {
+		} catch (Throwable ex) {
 			GM.showException(ex);
 		}
 		setEditStyle(ds, false);
@@ -1514,7 +1531,7 @@ public class JTableValue extends JTableEx {
 					setColWidth(tc, newWidth);
 				}
 			}
-		} catch (Exception ex) {
+		} catch (Throwable ex) {
 		}
 	}
 
@@ -1611,7 +1628,7 @@ public class JTableValue extends JTableEx {
 			public TableColumn getColumn(int col) {
 				try {
 					return super.getColumn(col);
-				} catch (Exception ex) {
+				} catch (Throwable ex) {
 					return new TableColumn();
 				}
 			}
@@ -1775,8 +1792,8 @@ public class JTableValue extends JTableEx {
 				return;
 			Sequence s = (Sequence) value;
 			Object temp = s.get(realRow);
-			if (temp instanceof Record) {
-				Record r = (Record) temp;
+			if (temp instanceof BaseRecord) {
+				BaseRecord r = (BaseRecord) temp;
 				if (r.dataStruct() != null && s.dataStruct() != null
 						&& !r.dataStruct().isCompatible(s.dataStruct())) { // 异构排列
 					newValue = temp;
@@ -2007,7 +2024,7 @@ public class JTableValue extends JTableEx {
 					pnc.setValue(value);
 					try {
 						pnc.setExpString(Variant.toExportString(value));
-					} catch (Exception ex) {
+					} catch (Throwable ex) {
 						ex.printStackTrace();
 					}
 					matrix.set(r, c, pnc);
@@ -2030,8 +2047,8 @@ public class JTableValue extends JTableEx {
 				int row = i;
 				if (copyTitle)
 					row = i + 1;
-				if (rowData instanceof Record) {
-					Record rec = (Record) rowData;
+				if (rowData instanceof BaseRecord) {
+					BaseRecord rec = (BaseRecord) rowData;
 					Object[] values = rec.getFieldValues();
 					for (int c = 0; c < cc; c++) {
 						if (c >= values.length)
@@ -2040,7 +2057,7 @@ public class JTableValue extends JTableEx {
 						pnc.setValue(values[c]);
 						try {
 							pnc.setExpString(Variant.toExportString(values[c]));
-						} catch (Exception ex) {
+						} catch (Throwable ex) {
 							if (StringUtils.isValidString(ex.getMessage()))
 								if (!messages.contains(ex.getMessage()))
 									messages.add(ex.getMessage());
@@ -2053,7 +2070,7 @@ public class JTableValue extends JTableEx {
 					pnc.setValue(rowData);
 					try {
 						pnc.setExpString(Variant.toExportString(rowData));
-					} catch (Exception ex) {
+					} catch (Throwable ex) {
 						if (StringUtils.isValidString(ex.getMessage()))
 							if (!messages.contains(ex.getMessage()))
 								messages.add(ex.getMessage());
@@ -2199,7 +2216,7 @@ public class JTableValue extends JTableEx {
 	public Object getValueAt(int row, int col) {
 		try {
 			return super.getValueAt(row, col);
-		} catch (Exception ex) {
+		} catch (Throwable ex) {
 			return null;
 		}
 	}
@@ -2211,7 +2228,7 @@ public class JTableValue extends JTableEx {
 		try {
 			Dimension size = super.getPreferredSize();
 			return size;
-		} catch (Exception ex) {
+		} catch (Throwable ex) {
 			return new Dimension(1, 1);
 		}
 	}

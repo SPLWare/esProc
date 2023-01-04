@@ -23,12 +23,12 @@ import com.scudata.resources.EngineMessage;
  * @author runqian
  *
  */
-class TableGather {
+public class TableGather {
 	private ICursor cs;//源游标
 	private int calcType;//计算类型
 	private Sequence data;
-	private TableMetaData table;
-	private GroupTableRecord curRecord;//当前记录
+	private PhyTable table;
+	private ComTableRecord curRecord;//当前记录
 	private int cur;//序号
 	private int len;//当前个数
 	private long recSeq;//当前伪号
@@ -38,7 +38,10 @@ class TableGather {
 	
 	private boolean isRow;
 	
-	public TableGather(TableMetaData baseTable,Expression exp, Context ctx) {
+	public TableGather() {
+	}
+	
+	public TableGather(PhyTable baseTable,Expression exp, Context ctx) {
 		Node home = exp.getHome();
 		if (!(home instanceof DotOperator) && !(home instanceof Moves)) {
 			return;//目前只解析T.C / T.f(C) / T{}
@@ -51,7 +54,7 @@ class TableGather {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException(tableName + mm.getMessage("dw.tableNotExist"));
 		}
-		isRow = table instanceof RowTableMetaData;
+		isRow = table instanceof RowPhyTable;
 
 		obj = exp.getHome().getRight();
 		String field = null;
@@ -82,7 +85,7 @@ class TableGather {
 				cs = table.cursor(subFields);
 				((RowCursor)cs).setFetchByBlock(true);
 			} else {
-				cs = new TableCursor((ColumnTableMetaData) table, subFields, filters, ctx);
+				cs = new TableCursor((ColPhyTable) table, subFields, filters, ctx);
 			}
 			temp = new Sequence(10);
 			calcType = 9;
@@ -104,12 +107,12 @@ class TableGather {
 		if (isRow) {
 			cs = table.cursor(new String[]{field});
 		} else {
-			cs = new TableCursor((ColumnTableMetaData) table, new String[]{field}, filters, ctx);
+			cs = new TableCursor((ColPhyTable) table, new String[]{field}, filters, ctx);
 		}
 		temp = new Sequence(10);
 	}
 	
-	void setSegment(int startBlock, int endBlock) {
+	public void setSegment(int startBlock, int endBlock) {
 		((IDWCursor) cs).setSegment(startBlock, endBlock);
 	}
 	
@@ -122,7 +125,7 @@ class TableGather {
 		if (data == null)
 			return;
 		if (data.hasRecord()) {
-			curRecord = (GroupTableRecord) data.getMem(1);
+			curRecord = (ComTableRecord) data.getMem(1);
 			len = data.length();
 			cur = 1;
 			recSeq = curRecord.getRecordSeq();
@@ -142,7 +145,7 @@ class TableGather {
 			if (calcType == 2) return 0;
 			return null;
 		}
-		GroupTableRecord r = (GroupTableRecord) data.getMem(cur);
+		ComTableRecord r = (ComTableRecord) data.getMem(cur);
 		
 		//找到第一个相同的
 		while (seq != recSeq) {
@@ -151,7 +154,7 @@ class TableGather {
 				if (calcType == 2) return 0;
 				return null;
 			}
-			r = (GroupTableRecord) data.getMem(cur);
+			r = (ComTableRecord) data.getMem(cur);
 			recSeq = r.getRecordSeq();
 		}
 		
@@ -168,7 +171,7 @@ class TableGather {
 			if (cur > len) {
 				break;
 			}
-			r = (GroupTableRecord) data.getMem(cur);
+			r = (ComTableRecord) data.getMem(cur);
 			recSeq = r.getRecordSeq();
 		}
 		

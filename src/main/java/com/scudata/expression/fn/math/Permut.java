@@ -15,23 +15,33 @@ import com.scudata.util.Variant;
  *
  */
 public class Permut	extends Function {
+	/**
+	 * 检查表达式的有效性，无效则抛出异常
+	 */
+	public void checkValidity() {
+		if (param == null) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("permut" + mm.getMessage("function.missingParam"));
+		} else if (param.getSubSize() != 2) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("permut" + mm.getMessage("function.invalidParam"));
+		}
+	}
 
 	public Object calculate(Context ctx) {
-		MessageManager mm = EngineMessage.get();
-		if (param == null || param.isLeaf()) {
-			throw new RQException("permut" +
-								  mm.getMessage("function.missingParam"));
-		}
 		IParam sub1 = param.getSub(0);
 		IParam sub2 = param.getSub(1);
 		if (sub1 == null || sub2 == null) {
+			MessageManager mm = EngineMessage.get();
 			throw new RQException("permut" + mm.getMessage("function.invalidParam"));
 		}
+		
 		Object result1 = sub1.getLeafExpression().calculate(ctx);
 		if (result1 == null) {
 			return null;
 		}
 		if (! (result1 instanceof Number)) {
+			MessageManager mm = EngineMessage.get();
 			throw new RQException("The first param of permut" + mm.getMessage("function.paramTypeError"));
 		}
 		Object result2 = sub2.getLeafExpression().calculate(ctx);
@@ -39,6 +49,7 @@ public class Permut	extends Function {
 			return null;
 		}
 		if (! (result2 instanceof Number)) {
+			MessageManager mm = EngineMessage.get();
 			throw new RQException("The second param of permut" + mm.getMessage("function.paramTypeError"));
 		}
 		return new Long(permut(Variant.longValue(result1),Variant.longValue(result2)));

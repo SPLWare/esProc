@@ -7,7 +7,7 @@ import com.scudata.common.RQException;
 import com.scudata.dm.Context;
 import com.scudata.expression.Expression;
 import com.scudata.expression.IParam;
-import com.scudata.expression.TableMetaDataFunction;
+import com.scudata.expression.PhyTableFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
@@ -16,7 +16,7 @@ import com.scudata.resources.EngineMessage;
  * @author RunQian
  *
  */
-public class Index extends TableMetaDataFunction {
+public class Index extends PhyTableFunction {
 	public Object calculate(Context ctx) {
 		String option = this.option;
 		IParam param = this.param;

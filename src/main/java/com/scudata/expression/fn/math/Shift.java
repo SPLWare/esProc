@@ -6,6 +6,7 @@ import java.math.BigInteger;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
+import com.scudata.expression.Expression;
 import com.scudata.expression.Function;
 import com.scudata.expression.IParam;
 import com.scudata.resources.EngineMessage;
@@ -17,7 +18,13 @@ import com.scudata.resources.EngineMessage;
  *
  */
 public class Shift	extends Function {
-	public Object calculate(Context ctx) {
+	private Expression exp1;
+	private Expression exp2;
+
+	/**
+	 * 检查表达式的有效性，无效则抛出异常
+	 */
+	public void checkValidity() {
 		if (param == null) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("shift" + mm.getMessage("function.missingParam"));
@@ -32,8 +39,13 @@ public class Shift	extends Function {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("shift" + mm.getMessage("function.invalidParam"));
 		}
-		
-		Object result1 = sub1.getLeafExpression().calculate(ctx);
+
+		exp1 = sub1.getLeafExpression();
+		exp2 = sub2.getLeafExpression();
+	}
+
+	public Object calculate(Context ctx) {
+		Object result1 = exp1.calculate(ctx);
 		if (result1 == null) {
 			return null;
 		} else if (!(result1 instanceof Number)) {
@@ -41,7 +53,7 @@ public class Shift	extends Function {
 			throw new RQException("The first param of shift" + mm.getMessage("function.paramTypeError"));
 		}
 		
-		Object result2 = sub2.getLeafExpression().calculate(ctx);
+		Object result2 = exp2.calculate(ctx);
 		if (result2 == null) {
 			return null;
 		} else if (!(result2 instanceof Number)) {

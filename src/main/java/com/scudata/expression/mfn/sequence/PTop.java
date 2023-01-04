@@ -15,12 +15,19 @@ import com.scudata.resources.EngineMessage;
  *
  */
 public class PTop extends SequenceFunction {
-	public Object calculate(Context ctx) {
-		int count = 1;
+	/**
+	 * 检查表达式的有效性，无效则抛出异常
+	 */
+	public void checkValidity() {
 		if (param == null) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("ptop" + mm.getMessage("function.missingParam"));
-		} else if (param.isLeaf()) {
+		}
+	}
+
+	public Object calculate(Context ctx) {
+		int count = 1;
+		if (param.isLeaf()) {
 			Object obj = param.getLeafExpression().calculate(ctx);
 			if (obj instanceof Number) {
 				count = ((Number)obj).intValue();

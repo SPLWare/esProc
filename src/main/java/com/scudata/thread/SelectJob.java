@@ -1,10 +1,10 @@
 package com.scudata.thread;
 
+import com.scudata.array.IArray;
 import com.scudata.dm.ComputeStack;
 import com.scudata.dm.Context;
-import com.scudata.dm.ListBase1;
+import com.scudata.dm.Current;
 import com.scudata.dm.Sequence;
-import com.scudata.dm.Sequence.Current;
 import com.scudata.expression.Expression;
 import com.scudata.util.Variant;
 
@@ -59,10 +59,10 @@ class SelectJob extends Job {
 
 		Sequence result = new Sequence();
 		this.result = result;
-		ListBase1 mems = src.getMems();
+		IArray mems = src.getMems();
 		
 		ComputeStack stack = ctx.getComputeStack();
-		Current current = src.new Current();
+		Current current = new Current(src);
 		stack.push(current);
 
 		try {
@@ -88,10 +88,10 @@ class SelectJob extends Job {
 		
 		Sequence result = new Sequence();
 		this.result = result;
-		ListBase1 mems = src.getMems();
+		IArray mems = src.getMems();
 		
 		ComputeStack stack = ctx.getComputeStack();
-		Current current = src.new Current();
+		Current current = new Current(src);
 		stack.push(current);
 
 		try {

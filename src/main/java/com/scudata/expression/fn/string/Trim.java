@@ -1,5 +1,8 @@
 package com.scudata.expression.fn.string;
 
+import com.scudata.array.ConstArray;
+import com.scudata.array.IArray;
+import com.scudata.array.StringArray;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
@@ -12,22 +15,161 @@ import com.scudata.resources.EngineMessage;
  *
  */
 public class Trim extends Function {
-	public Object calculate(Context ctx) {
-		if (param == null || !param.isLeaf()) {
+	/**
+	 * 检查表达式的有效性，无效则抛出异常
+	 */
+	public void checkValidity() {
+		if (param == null) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("trim" + mm.getMessage("function.missingParam"));
+		} else if (!param.isLeaf()) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("trim" + mm.getMessage("function.invalidParam"));
 		}
-
-		Object result1 = param.getLeafExpression().calculate(ctx);
-		if (result1 == null) {
-			return result1;
-		}
-		if (! (result1 instanceof String)) {
+	}
+	
+	public Object calculate(Context ctx) {
+		Object obj = param.getLeafExpression().calculate(ctx);
+		if (obj instanceof String) {
+			return trim((String)obj, option);
+		} else if (obj == null) {
+			return null;
+		} else {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("trim" + mm.getMessage("function.paramTypeError"));
 		}
+	}
+	
+	/**
+	 * 计算出所有行的结果
+	 * @param ctx 计算上行文
+	 * @return IArray
+	 */
+	public IArray calculateAll(Context ctx) {
+		IArray array = param.getLeafExpression().calculateAll(ctx);
+		int size = array.size();
+		
+		if (array instanceof StringArray) {
+			StringArray stringArray = (StringArray)array;
+			StringArray result = new StringArray(size);
+			result.setTemporary(true);
+			
+			for (int i = 1; i <= size; ++i) {
+				String str = stringArray.getString(i);
+				if (str != null) {
+					str = trim(str, option);
+				} 
+				
+				result.push(str);
+			}
+			
+			return result;
+		} else if (array instanceof ConstArray) {
+			Object obj = array.get(1);
+			if (obj instanceof String) {
+				obj = trim((String)obj, option);
+			} else if (obj != null) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException("trim" + mm.getMessage("function.paramTypeError"));
+			}
+			
+			return new ConstArray(obj, size);
+		} else {
+			StringArray result = new StringArray(size);
+			result.setTemporary(true);
+			
+			for (int i = 1; i <= size; ++i) {
+				Object obj = array.get(i);
+				String str = null;
+				if (obj instanceof String) {
+					str = trim((String)obj, option);
+				} else if (obj != null) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException("trim" + mm.getMessage("function.paramTypeError"));
+				}
+				
+				result.push(str);
+			}
+			
+			return result;
+		}
+	}
+	
+	/**
+	 * 计算signArray中取值为sign的行
+	 * @param ctx
+	 * @param signArray 行标识数组
+	 * @param sign 标识
+	 * @return IArray
+	 */
+	public IArray calculateAll(Context ctx, IArray signArray, boolean sign) {
+		boolean[] signDatas;
+		if (sign) {
+			signDatas = signArray.isTrue().getDatas();
+		} else {
+			signDatas = signArray.isFalse().getDatas();
+		}
+		
+		IArray array = param.getLeafExpression().calculateAll(ctx);
+		int size = array.size();
+		
+		if (array instanceof StringArray) {
+			StringArray stringArray = (StringArray)array;
+			StringArray result = new StringArray(size);
+			result.setTemporary(true);
+			
+			for (int i = 1; i <= size; ++i) {
+				if (signDatas[i] == false) {
+					result.pushNull();
+					continue;
+				}
+				
+				String str = stringArray.getString(i);
+				if (str != null) {
+					str = trim(str, option);
+				} 
+				
+				result.push(str);
+			}
+			
+			return result;
+		} else if (array instanceof ConstArray) {
+			Object obj = array.get(1);
+			if (obj instanceof String) {
+				obj = trim((String)obj, option);
+			} else if (obj != null) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException("trim" + mm.getMessage("function.paramTypeError"));
+			}
+			
+			return new ConstArray(obj, size);
+		} else {
+			StringArray result = new StringArray(size);
+			result.setTemporary(true);
+			
+			for (int i = 1; i <= size; ++i) {
+				if (signDatas[i] == false) {
+					result.pushNull();
+					continue;
+				}
+				
+				Object obj = array.get(i);
+				String str = null;
+				if (obj instanceof String) {
+					str = trim((String)obj, option);
+				} else if (obj != null) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException("trim" + mm.getMessage("function.paramTypeError"));
+				}
+				
+				result.push(str);
+			}
+			
+			return result;
+		}
+	}
 
-		String str = (String) result1;
+	private static String trim(String str, String option) {
 		if (option == null) {
 			return str.trim();
 		} else if (option.indexOf('l') != -1) {

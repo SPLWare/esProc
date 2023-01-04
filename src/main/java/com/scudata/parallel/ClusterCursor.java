@@ -4,10 +4,10 @@ import java.util.HashMap;
 
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Context;
 import com.scudata.dm.JobSpace;
 import com.scudata.dm.JobSpaceManager;
-import com.scudata.dm.Record;
 import com.scudata.dm.ResourceManager;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
@@ -18,15 +18,13 @@ import com.scudata.dm.cursor.MergesCursor;
 import com.scudata.dm.cursor.PJoinCursor;
 import com.scudata.dm.op.Operable;
 import com.scudata.dm.op.Operation;
-import com.scudata.dm.op.TotalResult;
 import com.scudata.dw.Cursor;
 import com.scudata.dw.MemoryTable;
-import com.scudata.dw.TableMetaData;
+import com.scudata.dw.PhyTable;
 import com.scudata.expression.Expression;
 import com.scudata.expression.Function;
 import com.scudata.expression.FunctionLib;
 import com.scudata.expression.Gather;
-import com.scudata.expression.Node;
 import com.scudata.resources.EngineMessage;
 import com.scudata.thread.ThreadPool;
 import com.scudata.util.CursorUtil;
@@ -698,7 +696,7 @@ public class ClusterCursor extends ICursor implements IClusterObject, IMultipath
 	 * @param ctx 计算上下文
 	 * @return 如果只有一个汇总表达式返回汇总结果，否则返回汇总结果构成的序列
 	 */
-	public Object total(Expression[] calcExps, Context ctx) {
+	/*public Object total(Expression[] calcExps, Context ctx) {
 		int valCount = calcExps.length;
 		String []expStrs = new String[valCount];
 		for (int i = 0; i < valCount; ++i) {
@@ -730,7 +728,7 @@ public class ClusterCursor extends ICursor implements IClusterObject, IMultipath
 			for (int i = 0; i < count; ++i) {
 				// 等待任务执行完毕
 				jobs[i].join();
-				Record r = result.newLast();
+				BaseRecord r = result.newLast();
 				r.setNormalFieldValue(0, jobs[i].getResult());
 			}
 		} else {
@@ -760,7 +758,7 @@ public class ClusterCursor extends ICursor implements IClusterObject, IMultipath
 		TotalResult total = new TotalResult(valExps, ctx);
 		total.push(result, ctx);
 		return total.result();
-	}
+	}*/
 	
 	/**
 	 * 节点机上执行游标汇总运算
@@ -865,7 +863,7 @@ public class ClusterCursor extends ICursor implements IClusterObject, IMultipath
 				memoryTable.setPrimary(fields);
 			}
 			
-			TableMetaData tmd = CursorUtil.getTableMetaData(cs);
+			PhyTable tmd = CursorUtil.getTableMetaData(cs);
 			if (tmd != null) {
 				String distribute = tmd.getDistribute();
 				Integer partition = tmd.getGroupTable().getPartition();
@@ -1208,7 +1206,7 @@ public class ClusterCursor extends ICursor implements IClusterObject, IMultipath
 			}
 			
 			Cursor cursor = (Cursor)cs;
-			TableMetaData table = cursor.getTableMetaData();
+			PhyTable table = cursor.getTableMetaData();
 			String []names = table.getSortedColNames();
 			if (names == null) {
 				MessageManager mm = EngineMessage.get();
@@ -1228,7 +1226,7 @@ public class ClusterCursor extends ICursor implements IClusterObject, IMultipath
 				throw new RQException(mm.getMessage("dw.needMCursor"));
 			}
 			
-			Record r = (Record)seq.get(1);
+			BaseRecord r = (BaseRecord)seq.get(1);
 			Object []vals = new Object[dimCount];
 			for (int f = 0; f < dimCount; ++f) {
 				vals[f] = r.getFieldValue(names[f]);

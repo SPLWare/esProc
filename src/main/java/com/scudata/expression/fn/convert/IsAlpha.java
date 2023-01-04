@@ -12,16 +12,26 @@ import com.scudata.resources.EngineMessage;
  *
  */
 public class IsAlpha extends Function {
-	public Object calculate(Context ctx) {
-		if (param == null || !param.isLeaf()) {
+	/**
+	 * 检查表达式的有效性，无效则抛出异常
+	 */
+	public void checkValidity() {
+		if (param == null) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("isalpha" + mm.getMessage("function.missingParam"));
+		} else if (!param.isLeaf()) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("isalpha" + mm.getMessage("function.invalidParam"));
 		}
+	}
 
+	public Object calculate(Context ctx) {
 		Object result1 = param.getLeafExpression().calculate(ctx);
 		if (result1 instanceof String) {
 			String str = (String)result1;
-			if (str.length() == 0) return Boolean.FALSE;
+			if (str.length() == 0) {
+				return Boolean.FALSE;
+			}
 
 			for (int i = 0, len = str.length(); i < len; ++i) {
 				char c = str.charAt(i);

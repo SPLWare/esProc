@@ -30,14 +30,14 @@ public class DialogSplash extends JDialog {
 			this.setUndecorated(true);
 			this.getRootPane().setWindowDecorationStyle(JRootPane.NONE);
 			this.getRootPane().setBorder(null);
-			initUI(splashImage);
+			this.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 			this.setResizable(false);
+			initUI(splashImage);
 			GM.centerWindow(this);
 			this.setModal(false);
 		} catch (Exception e) {
-			e.printStackTrace();
+			GM.writeLog(e);
 		}
-
 	}
 
 	/**
@@ -48,15 +48,10 @@ public class DialogSplash extends JDialog {
 	private void initUI(String splashImage) throws Exception {
 		ImageIcon ii = getImageIcon(splashImage);
 		Image image = ii.getImage();
-		ImagePanel panel = new ImagePanel(image);
-		int width = image.getWidth(this);
-		int height = image.getHeight(this);
-		panel.setSize(width, height);
-		this.setSize(width, height);
-		panel.setOpaque(false);
-		panel.setLayout(new FreeLayout());
-
-		this.getContentPane().add(panel);
+		panelImage = new ImagePanel(image);
+		panelImage.setOpaque(false);
+		panelImage.setLayout(new FreeLayout());
+		getContentPane().add(panelImage);
 	}
 
 	/**
@@ -94,7 +89,7 @@ public class DialogSplash extends JDialog {
 	 * ÏÔÊ¾Í¼Æ¬µÄÃæ°å
 	 *
 	 */
-	private class ImagePanel extends JPanel {
+	class ImagePanel extends JPanel {
 		private static final long serialVersionUID = 1L;
 		private Image image = null;
 
@@ -107,4 +102,9 @@ public class DialogSplash extends JDialog {
 			super.paint(g);
 		}
 	}
+
+	protected ImagePanel panelImage;
+
+	public static final int WINDOW_WIDTH = 600;
+	public static final int WINDOW_HEIGHT = 370;
 }

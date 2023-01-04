@@ -117,11 +117,15 @@ public abstract class Function extends Node {
 	}
 	
 	public void getUsedFields(Context ctx, List<String> resultList) {
-		if (param != null) param.getUsedFields(ctx, resultList);
+		if (param != null) {
+			param.getUsedFields(ctx, resultList);
+		}
 	}
 
 	protected void getUsedCells(List<INormalCell> resultList) {
-		if (param != null) param.getUsedCells(resultList);
+		if (param != null) {
+			param.getUsedCells(resultList);
+		}
 	}
 
 	/**
@@ -201,5 +205,21 @@ public abstract class Function extends Node {
 	 */
 	public boolean isFunction(String name) {
 		return name.equals(functionName);
+	}
+	
+	/**
+	 * 判断是否可以计算全部的值，有赋值运算时只能一行行计算
+	 * @return
+	 */
+	public boolean canCalculateAll() {
+		if (param != null) {
+			return param.canCalculateAll();
+		} else {
+			return true;
+		}
+	}
+
+	public ICellSet getCellSet() {
+		return cs;
 	}
 }

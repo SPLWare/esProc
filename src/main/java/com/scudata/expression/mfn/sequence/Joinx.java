@@ -18,12 +18,17 @@ import com.scudata.util.CursorUtil;
  *
  */
 public class Joinx extends SequenceFunction {
-	public Object calculate(Context ctx) {
+	/**
+	 * 检查表达式的有效性，无效则抛出异常
+	 */
+	public void checkValidity() {
 		if (param == null) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("joinx" + mm.getMessage("function.missingParam"));
 		}
+	}
 
+	public Object calculate(Context ctx) {
 		Expression [][]exps;
 		Object []codes;
 		Expression [][]dataExps;

@@ -122,29 +122,70 @@ public class CharEncodingDetect extends Encoding {
 	}
 
 	private int detectEncodingLang(byte[] rawtext, int lang) {
-		scores[GB2312] = gb2312_probability(rawtext);
-		scores[GBK] = gbk_probability(rawtext);
-		scores[GB18030] = gb18030_probability(rawtext);
-		scores[HZ] = hz_probability(rawtext);
-		scores[BIG5] = big5_probability(rawtext);
-		scores[CNS11643] = euc_tw_probability(rawtext);
-		scores[ISO2022CN] = iso_2022_cn_probability(rawtext);
-		scores[UTF8] = utf8_probability(rawtext);
-		scores[UNICODE] = utf16_probability(rawtext);
-		scores[EUC_KR] = euc_kr_probability(rawtext);
-		scores[CP949] = cp949_probability(rawtext);
-		scores[JOHAB] = 0;
-		scores[ISO2022KR] = iso_2022_kr_probability(rawtext);
-		scores[ASCII] = ascii_probability(rawtext);
-		scores[SJIS] = sjis_probability(rawtext);
-		scores[EUC_JP] = euc_jp_probability(rawtext);
-		scores[ISO2022JP] = iso_2022_jp_probability(rawtext);
-		scores[UNICODET] = 0;
-		scores[UNICODE_ESCAPE] = utf16_escape_probability(rawtext);
-		scores[ISO2022CN_GB] = 0;
-		scores[ISO2022CN_CNS] = 0;
-		scores[OTHER] = 0;
-		
+		if (lang == LANG.CHINESE.ordinal()) {
+			scores[GB2312] = gb2312_probability(rawtext);
+			scores[GBK] = gbk_probability(rawtext);
+			scores[GB18030] = gb18030_probability(rawtext);
+			scores[HZ] = hz_probability(rawtext);
+			scores[BIG5] = big5_probability(rawtext);
+			scores[CNS11643] = euc_tw_probability(rawtext);
+			scores[ISO2022CN] = iso_2022_cn_probability(rawtext);
+			scores[UTF8] = utf8_probability(rawtext);
+			scores[UNICODE] = utf16_probability(rawtext);
+			scores[UNICODE_ESCAPE] = utf16_escape_probability(rawtext);
+			scores[ASCII] = ascii_probability(rawtext);
+		} else if (lang == LANG.SIMPLIFIED_CHINESE.ordinal()) {
+			scores[GB2312] = gb2312_probability(rawtext);
+			scores[GB18030] = gb18030_probability(rawtext);
+			scores[ASCII] = ascii_probability(rawtext);
+			scores[UTF8] = utf8_probability(rawtext);
+			scores[UNICODE] = utf16_probability(rawtext);
+			scores[UNICODE_ESCAPE] = utf16_escape_probability(rawtext);
+		} else if (lang == LANG.TRADITIONAL_CHINESE.ordinal()) {
+			scores[BIG5] = big5_probability(rawtext);
+			scores[CNS11643] = euc_tw_probability(rawtext);
+			scores[ASCII] = ascii_probability(rawtext);
+			scores[UTF8] = utf8_probability(rawtext);
+			scores[UNICODE] = utf16_probability(rawtext);
+			scores[UNICODE_ESCAPE] = utf16_escape_probability(rawtext);
+		} else if (lang == LANG.JAPANESE.ordinal()) {
+			scores[SJIS] = sjis_probability(rawtext);
+			scores[EUC_JP] = euc_jp_probability(rawtext);
+			scores[ISO2022JP] = iso_2022_jp_probability(rawtext);
+			scores[ASCII] = ascii_probability(rawtext);
+			scores[UTF8] = utf8_probability(rawtext);
+			scores[UNICODE] = utf16_probability(rawtext);
+		} else if (lang == LANG.KOREAN.ordinal()) {
+			scores[ISO2022KR] = iso_2022_kr_probability(rawtext);
+			scores[EUC_KR] = euc_kr_probability(rawtext);
+			scores[CP949] = cp949_probability(rawtext);
+			scores[ASCII] = ascii_probability(rawtext);
+			scores[UTF8] = utf8_probability(rawtext);
+			scores[UNICODE] = utf16_probability(rawtext);
+		} else { // LANG.ALL
+			scores[GB2312] = gb2312_probability(rawtext);
+			scores[GBK] = gbk_probability(rawtext);
+			scores[GB18030] = gb18030_probability(rawtext);
+			scores[HZ] = hz_probability(rawtext);
+			scores[BIG5] = big5_probability(rawtext);
+			scores[CNS11643] = euc_tw_probability(rawtext);
+			scores[ISO2022CN] = iso_2022_cn_probability(rawtext);
+			scores[UTF8] = utf8_probability(rawtext);
+			scores[UNICODE] = utf16_probability(rawtext);
+			scores[EUC_KR] = euc_kr_probability(rawtext);
+			scores[CP949] = cp949_probability(rawtext);
+			scores[JOHAB] = 0;
+			scores[ISO2022KR] = iso_2022_kr_probability(rawtext);
+			scores[ASCII] = ascii_probability(rawtext);
+			scores[SJIS] = sjis_probability(rawtext);
+			scores[EUC_JP] = euc_jp_probability(rawtext);
+			scores[ISO2022JP] = iso_2022_jp_probability(rawtext);
+			scores[UNICODET] = 0;
+			scores[UNICODE_ESCAPE] = utf16_escape_probability(rawtext);
+			scores[ISO2022CN_GB] = 0;
+			scores[ISO2022CN_CNS] = 0;
+			scores[OTHER] = 0;
+		}
 		// Tabulate Scores
 		int index, maxscore = 0;
 		int encoding_guess = OTHER;

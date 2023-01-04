@@ -1,10 +1,10 @@
 package com.scudata.expression.mfn.sequence;
 
+import com.scudata.array.IArray;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Context;
-import com.scudata.dm.ListBase1;
-import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 import com.scudata.expression.IParam;
 import com.scudata.expression.SequenceFunction;
@@ -17,14 +17,19 @@ import com.scudata.resources.EngineMessage;
  *
  */
 public class Nodes extends SequenceFunction {
-	public Object calculate(Context ctx) {
+	/**
+	 * 检查表达式的有效性，无效则抛出异常
+	 */
+	public void checkValidity() {
 		if (param == null) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("nodes" + mm.getMessage("function.missingParam"));
 		}
-		
+	}
+
+	public Object calculate(Context ctx) {
 		String field;
-		Record parent = null;
+		BaseRecord parent = null;
 		int maxLevel = 1000;
 		
 		if (param.isLeaf()) {
@@ -46,8 +51,8 @@ public class Nodes extends SequenceFunction {
 			sub = param.getSub(1);
 			if (sub != null) {
 				Object obj = sub.getLeafExpression().calculate(ctx);
-				if (obj instanceof Record) {
-					parent = (Record)obj;
+				if (obj instanceof BaseRecord) {
+					parent = (BaseRecord)obj;
 				} else if (obj != null) {
 					MessageManager mm = EngineMessage.get();
 					throw new RQException("nodes" + mm.getMessage("function.paramTypeError"));
@@ -68,7 +73,7 @@ public class Nodes extends SequenceFunction {
 			}
 		}
 
-		ListBase1 mems = srcSequence.getMems();
+		IArray mems = srcSequence.getMems();
 		int len = mems.size();
 		Sequence result = new Sequence(len);
 		
@@ -79,9 +84,9 @@ public class Nodes extends SequenceFunction {
 		}
 		
 		if (isLeaf) {
-			ListBase1 p = srcSequence.fieldValues(field).getMems();
+			IArray p = srcSequence.fieldValues(field).getMems();
 			for (int i = 1; i <= len; ++i) {
-				Record r = (Record)mems.get(i);
+				BaseRecord r = (BaseRecord)mems.get(i);
 				Sequence seq = r.prior(field, parent, maxLevel);
 				if (seq != null && seq.length() > 0) {
 					if (seq.length() == maxLevel || !p.objectContains(seq.get(1))) {
@@ -96,8 +101,8 @@ public class Nodes extends SequenceFunction {
 		} else {
 			for (int i = 1; i <= len; ++i) {
 				Object obj = mems.get(i);
-				if (obj instanceof Record) {
-					Record r = (Record)obj;
+				if (obj instanceof BaseRecord) {
+					BaseRecord r = (BaseRecord)obj;
 					Sequence seq = r.prior(field, parent, maxLevel);
 					if (seq != null && seq.length() > 0) {
 						if (isPath) {

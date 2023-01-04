@@ -281,7 +281,7 @@ public abstract class AppMenu extends JMenuBar {
 			}
 		};
 		JMenu menu = GM.getMenuItem(
-				mManager.getMessage(GC.MENU + GC.RECENT_CONNS), 'J', false);
+				mManager.getMessage(GC.MENU + GC.RECENT_CONNS), 'T', false);
 		try {
 			ConfigFile.getConfigFile().loadRecentConnection(connItem);
 			for (int i = 0; i < GC.RECENT_MENU_COUNT; i++) {
@@ -366,7 +366,7 @@ public abstract class AppMenu extends JMenuBar {
 				GC.NO_MASK));
 		menu.add(newCommonMenuItem(GC.iTILEVERTICAL, GC.TILEVERTICAL, 'V',
 				GC.NO_MASK));
-		menu.add(newCommonMenuItem(GC.iLAYER, GC.LAYER, 'L', GC.NO_MASK));
+		menu.add(newCommonMenuItem(GC.iLAYER, GC.LAYER, 'M', GC.NO_MASK));
 		windowMenu = menu;
 		return menu;
 	}
@@ -398,7 +398,7 @@ public abstract class AppMenu extends JMenuBar {
 
 		menu.add(newCommonMenuItem(GC.iABOUT, GC.ABOUT, 'A', GC.NO_MASK, true));
 
-		menu.add(newCommonMenuItem(GC.iMEMORYTIDY, GC.MEMORYTIDY, 'G',
+		menu.add(newCommonMenuItem(GC.iMEMORYTIDY, GC.MEMORYTIDY, 'M',
 				GC.NO_MASK));
 
 		helpMenu = menu;

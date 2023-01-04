@@ -7,9 +7,9 @@ import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
 import com.scudata.dm.FileObject;
-import com.scudata.dw.ColumnGroupTable;
-import com.scudata.dw.GroupTable;
-import com.scudata.dw.RowGroupTable;
+import com.scudata.dw.ColComTable;
+import com.scudata.dw.ComTable;
+import com.scudata.dw.RowComTable;
 import com.scudata.expression.Expression;
 import com.scudata.expression.FileFunction;
 import com.scudata.expression.IParam;
@@ -93,7 +93,7 @@ public class Create extends FileFunction {
 			throw new RQException(mm.getMessage("file.fileAlreadyExist", fo.getFileName()));
 		} else if (opt != null && opt.indexOf('y') != -1 && file.exists()) {
 			try {
-				GroupTable table = GroupTable.open(file, ctx);
+				ComTable table = ComTable.open(file, ctx);
 				table.delete();
 			} catch (IOException e) {
 				throw new RQException(e.getMessage(), e);
@@ -101,11 +101,11 @@ public class Create extends FileFunction {
 		}
 
 		try {
-			GroupTable table;
+			ComTable table;
 			if (opt != null && opt.indexOf('r') != -1) {
-				table = new RowGroupTable(file, cols, distribute, opt, ctx);
+				table = new RowComTable(file, cols, distribute, opt, ctx);
 			} else {
-				table = new ColumnGroupTable(file, cols, distribute, opt, ctx);
+				table = new ColComTable(file, cols, distribute, opt, ctx);
 			}
 			
 			table.setPartition(partition);

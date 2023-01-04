@@ -26,17 +26,21 @@ import com.scudata.resources.EngineMessage;
  */
 public class T extends Function {
 	/**
-	 * 计算
+	 * 检查表达式的有效性，无效则抛出异常
 	 */
-	public Object calculate(Context ctx) {
-		String opt = option;
+	public void checkValidity() {
 		if (param == null) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("T" + mm.getMessage("function.missingParam"));
 		}
+	}
+
+	public Object calculate(Context ctx) {
+		String opt = option;
 		boolean isOldParam = false;
 		IParam fnParam, fieldParam = null, sParam = null;
 		String fields = null;
+		
 		if (param.getType() == IParam.Semicolon) {
 			int subParamCount = param.getSubSize();
 			if (subParamCount == 3) { // T(fn,A;Fi,…;s)

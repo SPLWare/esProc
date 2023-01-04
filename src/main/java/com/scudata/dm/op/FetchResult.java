@@ -1,6 +1,7 @@
 package com.scudata.dm.op;
 
 import com.scudata.dm.Context;
+import com.scudata.dm.FileObject;
 import com.scudata.dm.Sequence;
 
 /**
@@ -9,9 +10,15 @@ import com.scudata.dm.Sequence;
  *
  */
 public class FetchResult implements IResult {
-	private Sequence result = new Sequence();
+	private Sequence result;
+	private FilePipe filePipe;
 	
 	public FetchResult() {
+		result = new Sequence();
+	}
+	
+	public FetchResult(FileObject fo) {
+		filePipe = new FilePipe(fo);
 	}
 	
 	/**
@@ -21,7 +28,21 @@ public class FetchResult implements IResult {
 	 * @return
 	 */
 	public void push(Sequence table, Context ctx) {
-		result.addAll(table);
+		if (result != null) {
+			result.addAll(table);
+		} else {
+			filePipe.push(table, ctx);
+		}
+	}
+	
+	/**
+	 * 数据推送结束时调用
+	 * @param ctx 计算上下文
+	 */
+	public void finish(Context ctx) {
+		if (filePipe != null) {
+			filePipe.close();
+		}
 	}
 	
 	 /**

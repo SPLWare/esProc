@@ -16,9 +16,9 @@ import org.xml.sax.helpers.XMLReaderFactory;
 
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.DataStruct;
 import com.scudata.dm.ILineInput;
-import com.scudata.dm.Record;
 import com.scudata.dm.Table;
 import com.scudata.dm.UserUtils;
 import com.scudata.resources.AppMessage;
@@ -164,7 +164,7 @@ public class SheetXlsR extends SheetObject implements ILineInput {
 				table = new Table(ds);
 				if (!bTitle) {
 					int curLen = line.length;
-					Record r = table.newLast();
+					BaseRecord r = table.newLast();
 					for (int f = 0; f < curLen; ++f) {
 						r.setNormalFieldValue(f, line[f]);
 					}
@@ -179,7 +179,7 @@ public class SheetXlsR extends SheetObject implements ILineInput {
 					if (curLen > fcount)
 						curLen = fcount;
 
-					Record r = table.newLast();
+					BaseRecord r = table.newLast();
 					for (int f = 0; f < curLen; ++f) {
 						r.setNormalFieldValue(f, line[f]);
 					}
@@ -210,7 +210,7 @@ public class SheetXlsR extends SheetObject implements ILineInput {
 				table = new Table(newDs);
 				if (!bTitle) {
 					int curLen = line.length;
-					Record r = table.newLast();
+					BaseRecord r = table.newLast();
 					for (int f = 0; f < curLen; ++f) {
 						if (index[f] != -1)
 							r.setNormalFieldValue(index[f], line[f]);
@@ -226,7 +226,7 @@ public class SheetXlsR extends SheetObject implements ILineInput {
 					if (curLen > fcount)
 						curLen = fcount;
 
-					Record r = table.newLast();
+					BaseRecord r = table.newLast();
 					for (int f = 0; f < curLen; ++f) {
 						if (index[f] != -1)
 							r.setNormalFieldValue(index[f], line[f]);

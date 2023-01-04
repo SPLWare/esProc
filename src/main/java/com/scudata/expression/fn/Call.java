@@ -22,8 +22,18 @@ import com.scudata.resources.EngineMessage;
  *
  */
 public class Call extends Function {
+	/**
+	 * 检查表达式的有效性，无效则抛出异常
+	 */
+	public void checkValidity() {
+		if (param == null) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("call" + mm.getMessage("function.missingParam"));
+		}
+	}
+
 	public Node optimize(Context ctx) {
-		if (param != null) param.optimize(ctx);
+		param.optimize(ctx);
 		return this;
 	}
 
@@ -42,10 +52,7 @@ public class Call extends Function {
 	// 在本地找dfx，找不到返回null
 	public String getDfxPathName(Context ctx) {
 		IParam param = this.param;
-		if (param == null) {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException("call" + mm.getMessage("function.missingParam"));
-		} else if (!param.isLeaf()) {
+		if (!param.isLeaf()) {
 			param = param.getSub(0);
 			if (param == null) {
 				MessageManager mm = EngineMessage.get();
@@ -75,11 +82,6 @@ public class Call extends Function {
 	// ide用来取被调用网格进行单步跟踪
 	public PgmCellSet getCallPgmCellSet(Context ctx) {
 		IParam param = this.param;
-		if (param == null) {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException("call" + mm.getMessage("function.missingParam"));
-		}
-
 		boolean useCache = option == null || option.indexOf('r') == -1;
 		DfxManager dfxManager = DfxManager.getInstance();
 		PgmCellSet pcs;

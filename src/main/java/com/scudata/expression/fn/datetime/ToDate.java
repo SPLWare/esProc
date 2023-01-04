@@ -20,19 +20,20 @@ import com.scudata.resources.EngineMessage;
  *
  */
 public class ToDate extends Function {
-	public Object calculate(Context ctx) {
+	/**
+	 * 检查表达式的有效性，无效则抛出异常
+	 */
+	public void checkValidity() {
 		if (param == null) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("date" + mm.getMessage("function.missingParam"));
 		}
+	}
 
+	public Object calculate(Context ctx) {
 		int size = param.getSubSize();
 		if (size == 0) {
 			Object result1 = param.getLeafExpression().calculate(ctx);
-			if (result1 == null) {
-				return null;
-			}
-
 			if (result1 instanceof String) {
 				try {
 					return DateFactory.parseDate((String)result1);
@@ -49,8 +50,11 @@ public class ToDate extends Function {
 			} else if (result1 instanceof Date) {
 				if (!(result1 instanceof java.sql.Date)) {
 					return DateFactory.get().toDate((Date)result1);
+				} else {
+					return result1;
 				}
-				return result1;
+			} else if (result1 == null) {
+				return null;
 			} else {
 				MessageManager mm = EngineMessage.get();
 				throw new RQException("date" + mm.getMessage("function.paramTypeError"));

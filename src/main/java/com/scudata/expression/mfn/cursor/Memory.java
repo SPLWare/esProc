@@ -5,9 +5,8 @@ import com.scudata.common.RQException;
 import com.scudata.dm.Context;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
-import com.scudata.dw.IColumnCursorUtil;
 import com.scudata.dw.MemoryTable;
-import com.scudata.dw.TableMetaData;
+import com.scudata.dw.PhyTable;
 import com.scudata.expression.CursorFunction;
 import com.scudata.expression.IParam;
 import com.scudata.parallel.ClusterCursor;
@@ -32,7 +31,7 @@ public class Memory extends CursorFunction {
 		String distribute = null;
 		Integer partition = null;;
 		
-		TableMetaData tmd = CursorUtil.getTableMetaData(cursor);
+		PhyTable tmd = CursorUtil.getTableMetaData(cursor);
 		if (tmd != null) {
 			distribute = tmd.getDistribute();
 			partition = tmd.getGroupTable().getPartition();
@@ -54,11 +53,6 @@ public class Memory extends CursorFunction {
 					keys[i] = sub.getLeafExpression().getIdentifierName();
 				}
 			}
-		}
-		
-		//列式内表
-		if (option != null && option.indexOf('v') != -1 && IColumnCursorUtil.util != null) {
-			return IColumnCursorUtil.util.createMemoryTable(cursor, keys, option);
 		}
 		
 		if (option != null && option.indexOf('z') != -1) {

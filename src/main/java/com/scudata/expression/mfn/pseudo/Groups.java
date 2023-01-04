@@ -10,8 +10,8 @@ import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
 import com.scudata.dm.cursor.ICursor;
 import com.scudata.dw.Cuboid;
-import com.scudata.dw.ITableMetaData;
-import com.scudata.dw.TableMetaData;
+import com.scudata.dw.IPhyTable;
+import com.scudata.dw.PhyTable;
 import com.scudata.dw.pseudo.PseudoTable;
 import com.scudata.expression.Expression;
 import com.scudata.expression.Gather;
@@ -214,12 +214,12 @@ public class Groups extends PseudoFunction {
 		if (option == null) {
 			if (pseudo instanceof PseudoTable) {
 				PseudoTable ptable = (PseudoTable) pseudo;
-				List<ITableMetaData> tables = ptable.getPd().getTables();
+				List<IPhyTable> tables = ptable.getPd().getTables();
 				if (tables != null 
 						&& tables.size() == 1 
-						&& tables.get(0) instanceof TableMetaData
-						&& ((TableMetaData)tables.get(0)).getCuboids() != null) {
-					return Cuboid.cgroups(expStrs, names, calcExpStrs, calcNames, (TableMetaData) tables.get(0),
+						&& tables.get(0) instanceof PhyTable
+						&& ((PhyTable)tables.get(0)).getCuboids() != null) {
+					return Cuboid.cgroups(expStrs, names, calcExpStrs, calcNames, (PhyTable) tables.get(0),
 							null, false, 0, null, ctx);
 				}
 			}

@@ -1,5 +1,7 @@
 package com.scudata.expression.fn;
 
+import com.scudata.array.BoolArray;
+import com.scudata.array.IArray;
 import com.scudata.cellset.ICellSet;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
@@ -8,6 +10,7 @@ import com.scudata.expression.Expression;
 import com.scudata.expression.Function;
 import com.scudata.expression.IParam;
 import com.scudata.expression.ParamParser;
+import com.scudata.expression.Relation;
 import com.scudata.resources.EngineMessage;
 import com.scudata.util.Variant;
 
@@ -28,14 +31,19 @@ public class Case extends Function {
 	public byte calcExpValueType(Context ctx) {
 		return Expression.TYPE_UNKNOWN;
 	}
-
-	public Object calculate(Context ctx) {
-		IParam param = this.param;
+	
+	/**
+	 * 检查表达式的有效性，无效则抛出异常
+	 */
+	public void checkValidity() {
 		if (param == null) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("case" + mm.getMessage("function.missingParam"));
 		}
-		
+	}
+
+	public Object calculate(Context ctx) {
+		IParam param = this.param;
 		IParam defaultParam = null;
 		if (param.getType() == IParam.Semicolon) {
 			if (param.getSubSize() != 2) {
@@ -83,5 +91,113 @@ public class Case extends Function {
 		} else {
 			return null;
 		}
+	}
+	
+	/**
+	 * 计算出所有行的结果
+	 * @param ctx 计算上行文
+	 * @return IArray
+	 */
+	public IArray calculateAll(Context ctx) {
+		IParam param = this.param;
+		IParam defaultParam = null;
+		if (param.getType() == IParam.Semicolon) {
+			if (param.getSubSize() != 2) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException("case" + mm.getMessage("function.invalidParam"));
+			}
+			
+			defaultParam = param.getSub(1);
+			param = param.getSub(0);
+			if (param == null) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException("case" + mm.getMessage("function.invalidParam"));
+			}
+		}
+		
+		if (param.getType() != IParam.Comma) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("case" + mm.getMessage("function.invalidParam"));
+		}
+		
+		IParam sub = param.getSub(0);
+		if (sub == null) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("case" + mm.getMessage("function.invalidParam"));
+		}
+
+		IArray valueArray = sub.getLeafExpression().calculateAll(ctx);
+		BoolArray signArray = null;
+		IArray resultArray = null;
+		
+		for (int i = 1, size = param.getSubSize(); i < size; ++i) {
+			sub = param.getSub(i);
+			if (sub.getSubSize() != 2) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException("case" + mm.getMessage("function.invalidParam"));
+			}
+			
+			IParam sub1 = sub.getSub(0);
+			IParam sub2 = sub.getSub(1);
+			if (sub1 == null || sub2 == null) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException("case" + mm.getMessage("function.invalidParam"));
+			}
+			
+			if (i == 1) {
+				IArray curValueArray = sub1.getLeafExpression().calculateAll(ctx);
+				signArray = valueArray.calcRelation(curValueArray, Relation.EQUAL);
+				resultArray = sub2.getLeafExpression().calculateAll(ctx, signArray, true);
+			} else {
+				IArray curValueArray = sub1.getLeafExpression().calculateAll(ctx, signArray, false);
+				IArray curResultArray = sub2.getLeafExpression().calculateAll(ctx, signArray, false);
+				resultArray = resultArray.combine(signArray, curResultArray);
+				valueArray.calcRelations(curValueArray, Relation.EQUAL, signArray, false);
+			}
+		}
+
+		if (defaultParam != null) {
+			IArray curValueArray = defaultParam.getLeafExpression().calculateAll(ctx, signArray, false);
+			return resultArray.combine(signArray, curValueArray);
+		} else {
+			boolean []signs = signArray.getDatas();
+			for (int i = 1, len = signs.length; i < len; ++i) {
+				if (!signs[i]) {
+					resultArray.set(i, null);
+				}
+			}
+			
+			return resultArray;
+		}
+	}
+	
+	/**
+	 * 计算signArray中取值为sign的行
+	 * @param ctx
+	 * @param signArray 行标识数组
+	 * @param sign 标识
+	 * @return IArray
+	 */
+	public IArray calculateAll(Context ctx, IArray signArray, boolean sign) {
+		return calculateAll(ctx);
+	}
+	
+	/**
+	 * 计算逻辑与运算符&&的右侧表达式
+	 * @param ctx 计算上行文
+	 * @param leftResult &&左侧表达式的计算结果
+	 * @return BoolArray
+	 */
+	public BoolArray calculateAnd(Context ctx, IArray leftResult) {
+		BoolArray result = leftResult.isTrue();
+		IArray array = calculateAll(ctx);
+		
+		for (int i = 1, size = result.size(); i <= size; ++i) {
+			if (result.isTrue(i) && array.isFalse(i)) {
+				result.set(i, false);
+			}
+		}
+		
+		return result;
 	}
 }

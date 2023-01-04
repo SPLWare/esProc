@@ -7,7 +7,6 @@ import com.scudata.dm.FileObject;
 import com.scudata.dm.op.Channel;
 import com.scudata.dm.op.FilePipe;
 import com.scudata.dm.op.IPipe;
-import com.scudata.dm.op.Select;
 import com.scudata.expression.Expression;
 import com.scudata.expression.IParam;
 import com.scudata.expression.OperableFunction;
@@ -25,12 +24,7 @@ public class AttachSelect extends OperableFunction {
 			return operable;
 		} else if (param.isLeaf()) {
 			Expression fltExp = param.getLeafExpression();
-			Select select = new Select(this, fltExp, option);
-			if (cs != null) {
-				select.setCurrentCell(cs.getCurrent());
-			}
-			
-			return operable.addOperation(select, ctx);
+			return operable.select(this, fltExp, option, ctx);
 		} else {
 			if (param.getSubSize() != 2) {
 				MessageManager mm = EngineMessage.get();
@@ -59,12 +53,7 @@ public class AttachSelect extends OperableFunction {
 			}
 			
 			Expression fltExp = sub0.getLeafExpression();
-			Select select = new Select(this, fltExp, option, pipe);
-			if (cs != null) {
-				select.setCurrentCell(cs.getCurrent());
-			}
-			
-			return operable.addOperation(select, ctx);
+			return operable.select(this, fltExp, option, pipe, ctx);
 		}
 	}
 }

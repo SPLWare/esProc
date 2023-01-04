@@ -1,6 +1,8 @@
 package com.scudata.dw;
 
 import com.scudata.dm.Sequence;
+import com.scudata.expression.Expression;
+import com.scudata.expression.Node;
 import com.scudata.thread.MultithreadUtil;
 import com.scudata.util.Variant;
 
@@ -13,12 +15,13 @@ import com.scudata.util.Variant;
 public class NotContainFilter extends IFilter {
 	private Object []values;
 
-	public NotContainFilter(ColumnMetaData column, int priority, Sequence sequence, String opt) {
+	public NotContainFilter(ColumnMetaData column, int priority, Sequence sequence, String opt, Node node) {
 		super(column, priority);
 		values = sequence.toArray();
 		if (opt == null || opt.indexOf('b') == -1) {
 			MultithreadUtil.sort(values);
 		}
+		if (node != null) exp = new Expression(node);
 	}
 
 	public NotContainFilter(String columnName, int priority, Sequence sequence, String opt) {

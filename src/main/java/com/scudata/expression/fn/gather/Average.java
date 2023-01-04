@@ -1,9 +1,13 @@
 package com.scudata.expression.fn.gather;
 
+import com.scudata.array.IArray;
+import com.scudata.array.IntArray;
+import com.scudata.array.LongArray;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.AvgValue;
 import com.scudata.dm.Context;
+import com.scudata.dm.Env;
 import com.scudata.dm.Sequence;
 import com.scudata.expression.Expression;
 import com.scudata.expression.Gather;
@@ -19,7 +23,12 @@ import com.scudata.util.Variant;
  */
 public class Average extends Gather {
 	private Expression exp;
+	private String countFieldName; // 结果集计数字段名称
 	
+	public void setCountFieldName(String countFieldName) {
+		this.countFieldName = countFieldName;
+	}
+
 	public void prepare(Context ctx) {
 		if (param == null || !param.isLeaf()) {
 			MessageManager mm = EngineMessage.get();
@@ -53,19 +62,24 @@ public class Average extends Gather {
 	}
 
 	public Expression getRegatherExpression(int q) {
-		String str = "avg(#" + q + ")";
-		return new Expression(str);
+		if (countFieldName == null) {
+			String str = "avg(#" + q + ")";
+			return new Expression(str);
+		} else {
+			String str = "sum(#" + q + ")";
+			return new Expression(str);
+		}
 	}
 	
 	public boolean needFinish() {
-		return true;
+		return countFieldName == null;
 	}
 
 	public Object finish(Object val) {
-		if (val != null) {
+		if (val instanceof AvgValue) {
 			return ((AvgValue)val).getAvgValue();
 		} else {
-			return null;
+			return val;
 		}
 	}
 
@@ -116,5 +130,44 @@ public class Average extends Gather {
 	public Expression getExp() {
 		return exp;
 	}
+	
+	/**
+	 * 计算所有记录的值，汇总到结果数组上
+	 * @param sumResult 求和结果数组
+	 * @param countResult 计数结果数组
+	 * @param resultSeqs 每条记录对应的结果数组的序号
+	 * @param ctx 计算上下文
+	 * @return IArray 结果数组
+	 */
+	public IArray gather(IArray sumResult, LongArray countResult, int []resultSeqs, Context ctx) {
+		IArray array = exp.calculateAll(ctx);
+		if (sumResult == null) {
+			if (array instanceof IntArray) {
+				sumResult = new LongArray(Env.INITGROUPSIZE);
+			} else {
+				sumResult = array.newInstance(Env.INITGROUPSIZE);
+				if (sumResult instanceof IntArray) {
+					sumResult = new LongArray(Env.INITGROUPSIZE);
+				}
+			}
+		}
+		
+		for (int i = 1, len = array.size(); i <= len; ++i) {
+			if (sumResult.size() < resultSeqs[i]) {
+				sumResult.add(array, i);
+				if (array.isNull(i)) {
+					countResult.addLong(0);
+				} else {
+					countResult.addLong(1);
+				}
+			} else {
+				if (!array.isNull(i)) {
+					sumResult = sumResult.memberAdd(resultSeqs[i], array, i);
+					countResult.plus1(resultSeqs[i]);
+				}
+			}
+		}
+		
+		return sumResult;
+	}
 }
-

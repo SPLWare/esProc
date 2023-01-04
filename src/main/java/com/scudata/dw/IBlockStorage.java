@@ -14,4 +14,5 @@ public interface IBlockStorage extends IResource {
 	long applyNewBlock() throws IOException; // 申请新区快
 	StructManager getStructManager();
 	boolean isCompress(); // 是否压缩存储
+	boolean isPureFormat(); // 是否纯列存储
 }

@@ -7,16 +7,15 @@ import com.scudata.dm.Context;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.cursor.ICursor;
 import com.scudata.dm.cursor.MemoryCursor;
-import com.scudata.dm.op.Operable;
 import com.scudata.dm.op.Operation;
-import com.scudata.dw.ColumnTableMetaData;
-import com.scudata.dw.ITableMetaData;
+import com.scudata.dw.ColPhyTable;
+import com.scudata.dw.IPhyTable;
 import com.scudata.dw.JoinCursor;
 import com.scudata.expression.Expression;
 import com.scudata.expression.mfn.dw.New;
-import com.scudata.parallel.ClusterTableMetaData;
+import com.scudata.parallel.ClusterPhyTable;
 
-public class PseudoNew extends Pseudo implements Operable, IPseudo {
+public class PseudoNew extends Pseudo {
 	private Object ptable;//参数cs/A，也可能是一个虚表
 	String option;
 	private String[] csNames;
@@ -104,14 +103,14 @@ public class PseudoNew extends Pseudo implements Operable, IPseudo {
 	 * @param codes
 	 * @return
 	 */
-	private ICursor getCursor(ITableMetaData table, ICursor cursor, String []fkNames, Sequence []codes, String []opts) {
+	private ICursor getCursor(IPhyTable table, ICursor cursor, String []fkNames, Sequence []codes, String []opts) {
 		ICursor result;
-		if (table instanceof ClusterTableMetaData) {
-			result = ((ClusterTableMetaData)table).news(exps, names, cursor, csNames, 1, option, filter, fkNames, codes, opts);
+		if (table instanceof ClusterPhyTable) {
+			result = ((ClusterPhyTable)table).news(exps, names, cursor, csNames, 1, option, filter, fkNames, codes, opts);
 		} else if (JoinCursor.isColTable(table)) {
-			result = (ICursor) New._new((ColumnTableMetaData)table, cursor, cursor, csNames, filter, exps,	names, fkNames, codes, opts, option, ctx);
+			result = (ICursor) New._new((ColPhyTable)table, cursor, cursor, csNames, filter, exps,	names, fkNames, codes, opts, option, ctx);
 		} else {
-			result = (ICursor) New._new((ITableMetaData)table, cursor, cursor, filter, exps,	names, fkNames, codes, opts, ctx);
+			result = (ICursor) New._new((IPhyTable)table, cursor, cursor, filter, exps,	names, fkNames, codes, opts, ctx);
 		}
 		ArrayList<Operation> opList = this.opList;
 		if (opList != null) {
@@ -143,7 +142,7 @@ public class PseudoNew extends Pseudo implements Operable, IPseudo {
 		}
 		
 		//得到虚表T的实体表
-		List<ITableMetaData> tables = getPd().getTables();
+		List<IPhyTable> tables = getPd().getTables();
 		int tsize = tables.size();
 		
 		//根据ptable得到cs（可能对应多个）

@@ -2,14 +2,15 @@ package com.scudata.dw;
 
 import java.util.Arrays;
 
+import com.scudata.array.IArray;
 import com.scudata.common.IntArrayList;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.CompressIndexTable;
 import com.scudata.dm.Context;
 import com.scudata.dm.DataStruct;
 import com.scudata.dm.IndexTable;
-import com.scudata.dm.ListBase1;
 import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
@@ -107,8 +108,8 @@ public class MemoryTable extends Table {
 	 * 追加
 	 * @param table
 	 */
-	public void append(Sequence table) {
-		ListBase1 addMems = table.getMems();
+	public Sequence append(Sequence table) {
+		IArray addMems = table.getMems();
 
 		// 更改记录所属的排列和序号
 		DataStruct ds = this.ds;
@@ -118,6 +119,7 @@ public class MemoryTable extends Table {
 		}
 
 		mems.addAll(addMems);
+		return this;
 	}
 	
 	/**
@@ -201,7 +203,7 @@ public class MemoryTable extends Table {
 		}
 		
 		// 需要在最后插入的调用append追加
-		ListBase1 mems = this.mems;
+		IArray mems = this.mems;
 		for (int i = 1; i <= len; ++i) {
 			Record r = (Record)data.getMem(i);
 			if (seqs[i] > 0) {
@@ -268,10 +270,10 @@ public class MemoryTable extends Table {
 			}
 		}
 		
-		ListBase1 mems = this.mems;
+		IArray mems = this.mems;
 		int delCount = 0;
 
-		ListBase1 dataMems = data.getMems();
+		IArray dataMems = data.getMems();
 		int count = dataMems.size();
 		int []index = new int[count];
 		Sequence delete = null;
@@ -283,7 +285,7 @@ public class MemoryTable extends Table {
 			// 查找要删除的记录在排列中的位置
 			int ki = keyIndex[0];
 			for (int i = 1; i <= count; ++i) {
-				Record r = (Record)dataMems.get(i);
+				BaseRecord r = (BaseRecord)dataMems.get(i);
 				int seq = pfindByKey(r.getNormalFieldValue(ki), true);
 				if (seq > 0) {
 					index[delCount] = seq;
@@ -298,7 +300,7 @@ public class MemoryTable extends Table {
 			int []srcPKIndex = this.ds.getPKIndex();
 			Object []keyValues = new Object[keyCount];
 			for (int i = 1; i <= count; ++i) {
-				Record r = (Record)dataMems.get(i);
+				BaseRecord r = (BaseRecord)dataMems.get(i);
 				for (int k = 0; k < keyCount; ++k) {
 					keyValues[k] = r.getNormalFieldValue(keyIndex[k]);
 				}
@@ -357,8 +359,8 @@ public class MemoryTable extends Table {
 				}
 				
 				Object startVal = mems.get(1);
-				if (startVal instanceof Record) {
-					startVal = ((Record)startVal).getPKValue();
+				if (startVal instanceof BaseRecord) {
+					startVal = ((BaseRecord)startVal).getPKValue();
 				}
 				
 				Sequence seq = (Sequence)key;
@@ -462,10 +464,10 @@ public class MemoryTable extends Table {
 	 * @return
 	 */
 	private int getSegmentEnd(int i, int []segmentFields) {
-		Record r = (Record)getMem(i);
+		BaseRecord r = (BaseRecord)getMem(i);
 		int len = length();
 		for (++i; i <= len; ++i) {
-			Record record = (Record)getMem(i);
+			BaseRecord record = (BaseRecord)getMem(i);
 			if (!r.isEquals(record, segmentFields)) {
 				return i;
 			}

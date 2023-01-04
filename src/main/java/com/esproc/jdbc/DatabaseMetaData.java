@@ -48,6 +48,7 @@ public abstract class DatabaseMetaData implements java.sql.DatabaseMetaData {
 	/**
 	 * The constructor
 	 * 
+	 * @param con                The connection
 	 * @param url                The URL of the JDBC
 	 * @param userName           The user name
 	 * @param driverName         The driver of the JDBC

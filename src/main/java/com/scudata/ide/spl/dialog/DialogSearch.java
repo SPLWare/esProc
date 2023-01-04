@@ -32,7 +32,8 @@ import com.scudata.ide.common.GV;
 import com.scudata.ide.common.IAtomicCmd;
 import com.scudata.ide.common.swing.VFlowLayout;
 import com.scudata.ide.spl.AtomicCell;
-import com.scudata.ide.spl.control.EditControl;
+import com.scudata.ide.spl.GVSpl;
+import com.scudata.ide.spl.control.SplControl;
 import com.scudata.ide.spl.control.SplEditor;
 import com.scudata.ide.spl.resources.IdeSplMessage;
 
@@ -42,8 +43,8 @@ import com.scudata.ide.spl.resources.IdeSplMessage;
  */
 public class DialogSearch extends JDialog {
 	private static final long serialVersionUID = 1L;
-	private SplEditor splEditor = null;
-	private EditControl splControl = null;
+	// private SplEditor splEditor = null;
+	// private EditControl splControl = null;
 
 	private static Section searchKeys = new Section(),
 			replaceKeys = new Section();
@@ -263,9 +264,9 @@ public class DialogSearch extends JDialog {
 	 * 
 	 * @param editor Íø¸ñ±à¼­Æ÷
 	 */
-	public void setControl(SplEditor editor) {
-		setControl(editor, isReplace);
-	}
+	// public void setControl(SplEditor editor) {
+	// setControl(editor, isReplace);
+	// }
 
 	/**
 	 * ÉèÖÃÍø¸ñ¿Ø¼þ
@@ -273,18 +274,19 @@ public class DialogSearch extends JDialog {
 	 * @param editor  Íø¸ñ±à¼­Æ÷
 	 * @param replace ÊÇ·ñÌæ»»¡£trueÌæ»»£¬falseËÑË÷
 	 */
-	public void setControl(SplEditor editor, boolean replace) {
-		this.splEditor = editor;
+	public void setConfig(boolean replace) {
+		// this.splEditor = editor;
 		this.isReplace = replace;
-		this.splControl = (EditControl) editor.getComponent();
+		// this.splControl = (EditControl) editor.getComponent();
 		resetDropItems();
-		if (!replace) {
-			jCBReplace.setEnabled(false);
-			jBReplace.setEnabled(false);
-			jBReplaceAll.setEnabled(false);
+		if (replace) {
+			setTitle(splMM.getMessage("dialogsearch.title")); // ²éÕÒ
 		} else {
 			setTitle(splMM.getMessage("dialogsearch.replace")); // Ìæ»»
 		}
+		jCBReplace.setEnabled(replace);
+		jBReplace.setEnabled(replace);
+		jBReplaceAll.setEnabled(replace);
 	}
 
 	/**
@@ -404,8 +406,10 @@ public class DialogSearch extends JDialog {
 		stringIndex = -1;
 		boolean lb = replace(false, cmds);
 		if (lb) {
-			splEditor.executeCmd(cmds);
-			search();
+			if (GVSpl.splEditor != null) {
+				GVSpl.splEditor.executeCmd(cmds);
+				search();
+			}
 		}
 		return lb;
 	}
@@ -423,7 +427,8 @@ public class DialogSearch extends JDialog {
 		}
 
 		if (count > 0) {
-			splEditor.executeCmd(cmds);
+			if (GVSpl.splEditor != null)
+				GVSpl.splEditor.executeCmd(cmds);
 		}
 		replaceAllStartRow = 1;
 		replaceAllStartCol = 1;
@@ -439,26 +444,29 @@ public class DialogSearch extends JDialog {
 	 */
 	private boolean replace(boolean replaceAll, Vector<IAtomicCmd> cmds) {
 		if (search(replaceAll)) {
-			NormalCell nc = (NormalCell) splControl.cellSet.getCell(
-					searchedRow, searchedCol);
-			AtomicCell ac = new AtomicCell(splControl, nc);
-			byte propId = AtomicCell.CELL_EXP;
-			ac.setProperty(propId);
-			String exp = nc.getExpString();
-			int flag = searchFlag;
-			if (!replaceAll) {
-				flag += Sentence.ONLY_FIRST;
+			if (GVSpl.splEditor != null) {
+				SplControl splControl = GVSpl.splEditor.getComponent();
+				NormalCell nc = (NormalCell) splControl.cellSet.getCell(
+						searchedRow, searchedCol);
+				AtomicCell ac = new AtomicCell(splControl, nc);
+				byte propId = AtomicCell.CELL_EXP;
+				ac.setProperty(propId);
+				String exp = nc.getExpString();
+				int flag = searchFlag;
+				if (!replaceAll) {
+					flag += Sentence.ONLY_FIRST;
+				}
+				exp = Sentence.replace(exp, stringIndex, searchString,
+						replaceString, flag);
+				ac.setValue(exp);
+				cmds.add(ac);
+				if (!replaceAll) {
+					stringIndex += replaceString.length() - 1;
+				} else {
+					stringIndex = nc.getExpString().length() - 1;
+				}
+				return true;
 			}
-			exp = Sentence.replace(exp, stringIndex, searchString,
-					replaceString, flag);
-			ac.setValue(exp);
-			cmds.add(ac);
-			if (!replaceAll) {
-				stringIndex += replaceString.length() - 1;
-			} else {
-				stringIndex = nc.getExpString().length() - 1;
-			}
-			return true;
 		}
 		return false;
 	}
@@ -470,6 +478,10 @@ public class DialogSearch extends JDialog {
 	 * @return
 	 */
 	private boolean search(boolean replaceAll) {
+		if (GVSpl.splEditor == null)
+			return false;
+		SplEditor splEditor = GVSpl.splEditor;
+		SplControl splControl = splEditor.getComponent();
 		int startRow = 1, endRow = splControl.cellSet.getRowCount();
 		int startCol = 1, endCol = splControl.cellSet.getColCount();
 		searchSelectedCells = false;
@@ -537,6 +549,7 @@ public class DialogSearch extends JDialog {
 	private boolean search(int startRow, int startCol, int endRow, int endCol,
 			boolean replaceAll) {
 		boolean found = false;
+		SplControl splControl = GVSpl.splEditor.getComponent();
 		for (int row = startRow; row <= endRow; row++) {
 			for (int col = startCol; col <= endCol; col++) {
 				NormalCell nc = (NormalCell) splControl.cellSet.getCell(row,
@@ -560,6 +573,7 @@ public class DialogSearch extends JDialog {
 					if (!replaceAll) {
 						splControl.setSearchedCell(row, col,
 								searchSelectedCells);
+						this.requestFocus();
 					}
 					return true;
 				}

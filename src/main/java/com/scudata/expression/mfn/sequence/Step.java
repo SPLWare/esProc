@@ -14,12 +14,17 @@ import com.scudata.resources.EngineMessage;
  *
  */
 public class Step extends SequenceFunction {
-	public Object calculate(Context ctx) {
+	/**
+	 * 检查表达式的有效性，无效则抛出异常
+	 */
+	public void checkValidity() {
 		if (param == null) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("step" + mm.getMessage("function.missingParam"));
 		}
+	}
 
+	public Object calculate(Context ctx) {
 		int interval;
 		int []seqs;
 		if (param.isLeaf()) {

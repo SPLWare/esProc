@@ -7,7 +7,7 @@ import com.scudata.common.RQException;
 import com.scudata.dm.Context;
 import com.scudata.dm.Sequence;
 import com.scudata.expression.IParam;
-import com.scudata.expression.TableMetaDataFunction;
+import com.scudata.expression.PhyTableFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
@@ -16,7 +16,7 @@ import com.scudata.resources.EngineMessage;
  * @author RunQian
  *
  */
-public class Find extends TableMetaDataFunction {
+public class Find extends PhyTableFunction {
 	public Object calculate(Context ctx) {
 		IParam param = this.param;
 		if (param == null) {

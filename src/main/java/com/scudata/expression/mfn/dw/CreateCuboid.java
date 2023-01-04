@@ -12,13 +12,13 @@ import com.scudata.dm.Sequence;
 import com.scudata.dm.cursor.ICursor;
 import com.scudata.dm.cursor.MemoryCursor;
 import com.scudata.dw.Cuboid;
-import com.scudata.dw.ITableMetaData;
-import com.scudata.dw.TableMetaData;
-import com.scudata.dw.TableMetaDataGroup;
+import com.scudata.dw.IPhyTable;
+import com.scudata.dw.PhyTable;
+import com.scudata.dw.PhyTableGroup;
 import com.scudata.expression.Expression;
 import com.scudata.expression.IParam;
 import com.scudata.expression.ParamInfo2;
-import com.scudata.expression.TableMetaDataFunction;
+import com.scudata.expression.PhyTableFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
@@ -27,16 +27,16 @@ import com.scudata.resources.EngineMessage;
  * @author RunQian
  *
  */
-public class CreateCuboid extends TableMetaDataFunction {
+public class CreateCuboid extends PhyTableFunction {
 	public Object calculate(Context ctx) {
-		if (table instanceof TableMetaDataGroup) {
-			ITableMetaData[] tables = ((TableMetaDataGroup)table).getTables();
-			for (ITableMetaData t : tables) {
-				createCuboid((TableMetaData) t, param, ctx);
+		if (table instanceof PhyTableGroup) {
+			IPhyTable[] tables = ((PhyTableGroup)table).getTables();
+			for (IPhyTable t : tables) {
+				createCuboid((PhyTable) t, param, ctx);
 			}
 			return table;
 		} else {
-			TableMetaData srcTable = (TableMetaData)table;
+			PhyTable srcTable = (PhyTable)table;
 			/*TableMetaData tmd = srcTable.getSupplementTable(false);
 			
 			if (tmd != null) {
@@ -47,7 +47,7 @@ public class CreateCuboid extends TableMetaDataFunction {
 	
 	}
 	
-	private static Object createCuboid(TableMetaData srcTable, IParam param,  Context ctx) {
+	private static Object createCuboid(PhyTable srcTable, IParam param,  Context ctx) {
 		String C;
 		if (param == null) {
 			try {

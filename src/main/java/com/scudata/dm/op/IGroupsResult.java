@@ -2,6 +2,7 @@ package com.scudata.dm.op;
 
 import com.scudata.dm.Context;
 import com.scudata.dm.DataStruct;
+import com.scudata.dm.GroupsSyncReader;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
 import com.scudata.dm.cursor.ICursor;
@@ -108,12 +109,6 @@ abstract public class IGroupsResult implements IResult {
 			return new GroupsResult(exps, names, calcExps, calcNames, opt, ctx, capacity);
 		}
 	}
-
-	/**
-	 * 取结果集数据结构
-	 * @return DataStruct
-	 */
-	abstract public DataStruct getResultDataStruct();
 	
 	/**
 	 * 取分组表达式
@@ -150,13 +145,37 @@ abstract public class IGroupsResult implements IResult {
 	 * @return true：是，数据按分组字段有序，false：不是
 	 */
 	abstract public boolean isSortedGroup();
+
+	/**
+	 * 取二次汇总表达式，用于多线程分组
+	 * @return
+	 */
+	abstract public Expression[] getRegatherExpressions();
+	
+	/**
+	 * 取二次汇总数据结构
+	 * @return DataStruct
+	 */
+	abstract public DataStruct getRegatherDataStruct();
+	
+	/**
+	 * 取二次汇总后用于计算最终结果的表达式，avg可能被分成sum、count两列进行计算
+	 * @return
+	 */
+	abstract public Expression[] getResultExpressions();
+
+	/**
+	 * 取结果集数据结构
+	 * @return DataStruct
+	 */
+	abstract public DataStruct getResultDataStruct();
 	
 	/**
 	 * 并行运算时，取出每个线程的中间计算结果，还需要进行二次汇总
 	 * @return Table
 	 */
 	abstract public Table getTempResult();
-
+	
 	/**
 	 * 取分组汇总结果
 	 * @return Table
@@ -185,6 +204,21 @@ abstract public class IGroupsResult implements IResult {
 	abstract public void push(ICursor cursor);
 
 	/**
+	 * 处理推送过来的游标数据，累积到最终的结果上
+	 * @param reader 游标数据
+	 */
+	public void push(GroupsSyncReader reader, int hashStart, int hashEnd) {
+		throw new RuntimeException();
+	}
+	
+	/**
+	 * 设置分组数，@z选项使用
+	 * @param groupCount
+	 */
+	public void setCapacity(int capacity) {
+	}
+	
+	/**
 	 * 设置分组数，@n选项使用
 	 * @param groupCount
 	 */
@@ -196,4 +230,67 @@ abstract public class IGroupsResult implements IResult {
 	 * @return 最终的汇总结果
 	 */
 	abstract public Object combineResult(Object []results);
+	
+	/**
+	 * 多路游标并行分组完成后进行合并，生成最终分组结果
+	 * @param others
+	 * @param ctx 计算上下文
+	 * @return
+	 */
+	public Table combineGroupsResult(IGroupsResult []others, Context ctx) {
+		Table result = getTempResult();
+		for (IGroupsResult other : others) {
+			if (result == null) {
+				result = other.getTempResult();
+			} else {
+				result.addAll(other.getTempResult());
+			}
+		}
+		
+		if (result == null || result.length() == 0) {
+			return result;
+		}
+		
+		// 生成二次分组汇总表达式，avg可能被分成sum、count两列进行计算
+		Expression []valExps = getRegatherExpressions();
+		DataStruct tempDs = getRegatherDataStruct();
+		int tempFieldCount = tempDs.getFieldCount();
+		
+		int keyCount;
+		if (valExps != null) {
+			keyCount = tempFieldCount - valExps.length;
+		} else {
+			keyCount = tempFieldCount;
+		}
+		
+		// 生成二次分组分组表达式
+		Expression []keyExps = null;
+		String []names = null;
+		if (keyCount > 0) {
+			keyExps = new Expression[keyCount];
+			names = new String[keyCount];
+			for (int i = 0, q = 1; i < keyCount; ++i, ++q) {
+				keyExps[i] = new Expression(ctx, "#" + q);
+				names[i] = tempDs.getFieldName(i);
+			}
+		}
+
+		String []calcNames = null;
+		if (tempFieldCount > keyCount) {
+			int gatherCount = tempFieldCount - keyCount;
+			calcNames = new String[gatherCount];
+			for (int i = 0; i < gatherCount; ++i) {
+				calcNames[i] = tempDs.getFieldName(keyCount + i);
+			}
+		}
+		
+		// 进行二次分组
+		result = result.groups(keyExps, names, valExps, calcNames, getOption(), ctx);
+		Expression []newExps = getResultExpressions();
+		if (newExps != null) {
+			return result.newTable(getResultDataStruct(), newExps, null, ctx);
+		} else {
+			return result;
+		}
+	}
 }

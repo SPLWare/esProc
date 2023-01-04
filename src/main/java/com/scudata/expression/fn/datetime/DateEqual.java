@@ -5,6 +5,7 @@ import java.util.Date;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
+import com.scudata.expression.Expression;
 import com.scudata.expression.Function;
 import com.scudata.expression.IParam;
 import com.scudata.resources.EngineMessage;
@@ -16,13 +17,17 @@ import com.scudata.util.Variant;
  *
  */
 public class DateEqual extends Function {
-	public Object calculate(Context ctx) {
+	private Expression exp1;
+	private Expression exp2;
+
+	/**
+	 * 检查表达式的有效性，无效则抛出异常
+	 */
+	public void checkValidity() {
 		if (param == null) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("deq" + mm.getMessage("function.missingParam"));
-		}
-
-		if (param.getSubSize() != 2) {
+		} else if (param.getSubSize() != 2) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("deq" + mm.getMessage("function.invalidParam"));
 		}
@@ -33,11 +38,19 @@ public class DateEqual extends Function {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("deq" + mm.getMessage("function.invalidParam"));
 		}
+		
+		exp1 = sub1.getLeafExpression();
+		exp2 = sub2.getLeafExpression();
+	}
 
-		Object result1 = sub1.getLeafExpression().calculate(ctx);
-		Object result2 = sub2.getLeafExpression().calculate(ctx);
-		if (result1 == null) return result2 == null ? Boolean.TRUE : Boolean.FALSE;
-		if (result2 == null) return Boolean.FALSE;
+	public Object calculate(Context ctx) {
+		Object result1 = exp1.calculate(ctx);
+		Object result2 = exp2.calculate(ctx);
+		if (result1 == null) {
+			return result2 == null ? Boolean.TRUE : Boolean.FALSE;
+		} else if (result2 == null) {
+			return Boolean.FALSE;
+		}
 
 		if (result1 instanceof String) {
 			result1 = Variant.parseDate((String)result1);

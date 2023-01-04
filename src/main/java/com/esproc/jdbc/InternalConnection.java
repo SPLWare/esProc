@@ -45,11 +45,6 @@ public class InternalConnection implements Connection, Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Driver object
-	 */
-	private InternalDriver driver = null;
-
-	/**
 	 * URL String
 	 */
 	private String url = null;
@@ -79,6 +74,9 @@ public class InternalConnection implements Connection, Serializable {
 	 */
 	private DatabaseMetaData metaData;
 
+	private String driverName;
+	private int driverMajorVersion, driverMinorVersion;
+
 	/**
 	 * The user name
 	 */
@@ -87,11 +85,6 @@ public class InternalConnection implements Connection, Serializable {
 	 * The esProc context
 	 */
 	private Context ctx;
-
-	/**
-	 * The ID of the connection
-	 */
-	private int id;
 
 	/**
 	 * The ID of the statement
@@ -137,14 +130,15 @@ public class InternalConnection implements Connection, Serializable {
 	 * @param config
 	 * @throws SQLException
 	 */
-	public InternalConnection(InternalDriver drv, int id, RaqsoftConfig config)
+	public InternalConnection(InternalDriver driver, RaqsoftConfig config)
 			throws SQLException {
 		JDBCUtil.log("InternalConnection-2");
 		lastVisitTime = System.currentTimeMillis();
 		closed = false;
-		driver = drv;
-		this.id = id;
 		raqsoftConfig = config;
+		this.driverName = driver.getClass().getName();
+		this.driverMajorVersion = driver.getMajorVersion();
+		this.driverMinorVersion = driver.getMinorVersion();
 		if (!StringUtils.isValidString(Env.getMainPath())) {
 			Env.setMainPath(System.getProperty("user.dir"));
 		}
@@ -162,16 +156,6 @@ public class InternalConnection implements Connection, Serializable {
 			stMaxId = 1;
 		stMaxId++;
 		return stMaxId;
-	}
-
-	/**
-	 * Get connection ID
-	 * 
-	 * @return int
-	 */
-	public int getID() {
-		JDBCUtil.log("InternalConnection-45");
-		return id;
 	}
 
 	/**
@@ -591,20 +575,6 @@ public class InternalConnection implements Connection, Serializable {
 	}
 
 	/**
-	 * Whether to always execute on the server
-	 * 
-	 * @return InternalDriver
-	 * @throws SQLException
-	 */
-	public InternalDriver getDriver() throws SQLException {
-		JDBCUtil.log("InternalConnection-4");
-		if (closed)
-			throw new SQLException(JDBCMessage.get().getMessage(
-					"error.conclosed"));
-		return driver;
-	}
-
-	/**
 	 * Creates a Statement object for sending SQL statements to the database. SQL
 	 * statements without parameters are normally executed using Statement objects.
 	 * If the same SQL statement is executed many times, it may be more efficient to
@@ -625,8 +595,7 @@ public class InternalConnection implements Connection, Serializable {
 			}
 
 		};
-		if (Server.getInstance().isAlive())
-			stats.add(st);
+		stats.add(st);
 		return st;
 	}
 
@@ -652,8 +621,7 @@ public class InternalConnection implements Connection, Serializable {
 			}
 
 		};
-		if (Server.getInstance().isAlive())
-			stats.add(st);
+		stats.add(st);
 		return st;
 	}
 
@@ -682,8 +650,7 @@ public class InternalConnection implements Connection, Serializable {
 			}
 
 		};
-		if (Server.getInstance().isAlive())
-			stats.add(st);
+		stats.add(st);
 		return st;
 	}
 
@@ -828,9 +795,8 @@ public class InternalConnection implements Connection, Serializable {
 			throw new SQLException(JDBCMessage.get().getMessage(
 					"error.conclosed"));
 		if (metaData == null) {
-			metaData = new DatabaseMetaData(url, username, driver.getClass()
-					.getName(), driver.getMajorVersion(),
-					driver.getMinorVersion()) {
+			metaData = new DatabaseMetaData(url, username, driverName,
+					driverMajorVersion, driverMinorVersion) {
 
 				public InternalConnection getConnection() {
 					return InternalConnection.this;

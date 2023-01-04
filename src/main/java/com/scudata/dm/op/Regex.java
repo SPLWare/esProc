@@ -3,11 +3,11 @@ package com.scudata.dm.op;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.scudata.array.IArray;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
 import com.scudata.dm.DataStruct;
-import com.scudata.dm.ListBase1;
 import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 import com.scudata.expression.Expression;
@@ -71,8 +71,8 @@ public class Regex extends Operation {
 			strs = seq.calc(exp, ctx);
 		}
 		
-		ListBase1 strMems = strs.getMems();
-		ListBase1 srcMems = seq.getMems();
+		IArray strMems = strs.getMems();
+		IArray srcMems = seq.getMems();
 		
 		for (int i = 1; i <= len; ++i) {
 			Object obj = strMems.get(i);

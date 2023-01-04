@@ -9,7 +9,7 @@ import java.util.NoSuchElementException;
  */
 public class ComputeStack {
 	private LinkEntry<IComputeItem> stackHead; // 正在计算中的序列、记录等组成堆栈
-	private LinkEntry<Sequence.Current> argHead; // eval函数用到的参数堆栈
+	private LinkEntry<Current> argHead; // eval函数用到的参数堆栈
 	
 	/**
 	 * 把参数压栈
@@ -17,9 +17,9 @@ public class ComputeStack {
 	 */
 	public void pushArg(Sequence value) {
 		if (value != null) {
-			argHead = new LinkEntry<Sequence.Current>(value.new Current(), argHead);
+			argHead = new LinkEntry<Current>(new Current(value), argHead);
 		} else {
-			argHead = new LinkEntry<Sequence.Current>(null, argHead);
+			argHead = new LinkEntry<Current>(null, argHead);
 		}
 	}
 
@@ -36,9 +36,9 @@ public class ComputeStack {
 
 	/**
 	 * 取参数"arg"的值
-	 * @return Sequence.Current
+	 * @return BaseSequence.Current
 	 */
-	public Sequence.Current getArg() {
+	public Current getArg() {
 		if (argHead != null) {
 			return argHead.getElement();
 		} else {
@@ -70,11 +70,11 @@ public class ComputeStack {
 		}
 	}
 
-	public Sequence.Current getSequenceCurrent(Sequence seq) {
+	public Current getSequenceCurrent(Sequence seq) {
 		for (LinkEntry<IComputeItem> entry = stackHead; entry != null; entry = entry.getNext()) {
 			IComputeItem item = entry.getElement();
 			if (item.getCurrentSequence() == seq) {
-				return (Sequence.Current)item;
+				return (Current)item;
 			}
 		}
 
@@ -117,6 +117,38 @@ public class ComputeStack {
 		}
 	}
 
+	/**
+	 * 取最顶端的序列
+	 * @return Sequence
+	 */
+	public Sequence getTopSequence() {
+		for (LinkEntry<IComputeItem> entry = stackHead; entry != null; entry = entry.getNext()) {
+			Sequence seq = entry.getElement().getCurrentSequence();
+			if (seq != null) {
+				return seq;
+			}
+		}
+		
+		// 不会执行到这里
+		throw new NoSuchElementException();
+	}
+	
+	/**
+	 * 取最顶端的序列计算对象
+	 * @return Sequence
+	 */
+	public Current getTopCurrent() {
+		for (LinkEntry<IComputeItem> entry = stackHead; entry != null; entry = entry.getNext()) {
+			IComputeItem item = entry.getElement();
+			if (item instanceof Current) {
+				return (Current)item;
+			}
+		}
+		
+		// 不会执行到这里
+		throw new NoSuchElementException();
+	}
+	
 	/**
 	 * 判断对象是否在栈中
 	 * @param obj IComputeItem

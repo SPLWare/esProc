@@ -3,9 +3,9 @@ package com.scudata.dm.cursor;
 import java.io.IOException;
 
 import com.scudata.common.RQException;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.DataStruct;
 import com.scudata.dm.ILineInput;
-import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
 import com.scudata.util.Variant;
@@ -86,7 +86,7 @@ public class LineInputCursor extends ICursor {
 			return seq;
 		} else {
 			Table table = new Table(ds, initSize);
-			Record r = table.newLast();
+			BaseRecord r = table.newLast();
 			for (int f = 0; f < curLen; ++f) {
 				r.setNormalFieldValue(f, line[f]);
 			}

@@ -13,7 +13,7 @@ import javax.swing.JTextField;
 import javax.swing.table.TableCellRenderer;
 
 import com.scudata.common.StringUtils;
-import com.scudata.dm.Record;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Sequence;
 import com.scudata.ide.common.ConfigOptions;
 import com.scudata.ide.common.GC;
@@ -84,8 +84,8 @@ public class AllPurposeRenderer implements TableCellRenderer {
 	/**
 	 * 取显示控件
 	 */
-	public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
-			int row, int column) {
+	public Component getTableCellRendererComponent(JTable table, Object value,
+			boolean isSelected, boolean hasFocus, int row, int column) {
 		if (isSelected) {
 			textField.setForeground(table.getSelectionForeground());
 			// 设置设计器右上角的格中背景色
@@ -156,6 +156,6 @@ public class AllPurposeRenderer implements TableCellRenderer {
 		if (val == null) {
 			return false;
 		}
-		return val instanceof Record || val instanceof Sequence;
+		return val instanceof BaseRecord || val instanceof Sequence;
 	}
 }

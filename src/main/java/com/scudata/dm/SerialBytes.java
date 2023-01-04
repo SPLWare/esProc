@@ -35,14 +35,13 @@ public class SerialBytes implements Externalizable, Comparable<SerialBytes> {
 	
 	private long value1;
 	private long value2;
-	private int len;
+	//private int len;
 	
 	// 用于序列化
 	public SerialBytes() {
 	}
 	
 	public SerialBytes(byte []bytes, int len) {
-		this.len = len;
 		int index = 0;
 		for (byte b : bytes) {
 			++index;
@@ -54,10 +53,9 @@ public class SerialBytes implements Externalizable, Comparable<SerialBytes> {
 		}
 	}
 	
-	private SerialBytes(long value1, long value2, int len) {
+	public SerialBytes(long value1, long value2) {
 		this.value1 = value1;
 		this.value2 = value2;
-		this.len = len;
 	}
 	
 	/**
@@ -71,7 +69,6 @@ public class SerialBytes implements Externalizable, Comparable<SerialBytes> {
 			throw new RQException(mm.getMessage("serialbytes.outOfLimit"));
 		}
 		
-		this.len = len;
 		if (len <= 8) {
 			value1 = num.longValue() << (8 - len) * 8;
 		} else {
@@ -153,8 +150,6 @@ public class SerialBytes implements Externalizable, Comparable<SerialBytes> {
 				}
 			}
 		}
-		
-		this.len = len;
 	}
 	
 	/**
@@ -162,7 +157,7 @@ public class SerialBytes implements Externalizable, Comparable<SerialBytes> {
 	 * @return int
 	 */
 	public int length() {
-		return len;
+		return 16;
 	}
 	
 	/**
@@ -178,12 +173,6 @@ public class SerialBytes implements Externalizable, Comparable<SerialBytes> {
 	 * @return String
      */
 	public String toString() {
-		/*if (len > 8) {
-			return Long.toHexString(value1) + Long.toHexString(value2);
-		} else {
-			return Long.toHexString(value1);
-		}*/
-		
 		String str1 = Long.toHexString(value1);
 		int strLen = str1.length();
 		
@@ -191,16 +180,12 @@ public class SerialBytes implements Externalizable, Comparable<SerialBytes> {
 			str1 = ZEROSTRS[16 - strLen] + str1;
 		}
 		
-		if (len > 8) {
-			String str2 = Long.toHexString(value2);
-			strLen = str2.length();
-			if (strLen < 16) {
-				return str1 + ZEROSTRS[16 - strLen] + str2;
-			} else {
-				return str1 + str2;
-			}
+		String str2 = Long.toHexString(value2);
+		strLen = str2.length();
+		if (strLen < 16) {
+			return str1 + ZEROSTRS[16 - strLen] + str2;
 		} else {
-			return str1;
+			return str1 + str2;
 		}
 	}
 	
@@ -209,8 +194,8 @@ public class SerialBytes implements Externalizable, Comparable<SerialBytes> {
 	 * @return 字节数组
 	 */
 	public byte[] toByteArray() {
-		byte []bytes = new byte[len];
-		int i = len;
+		byte []bytes = new byte[16];
+		int i = 16;
 		for (; i > 8; --i) {
 			bytes[i - 1] = (byte)(value2 >>> (16 - i) * 8);
 		}
@@ -228,7 +213,7 @@ public class SerialBytes implements Externalizable, Comparable<SerialBytes> {
 	 * @return long
 	 */
 	public long getByte(int q) {
-		if (q < 1 || q > len) {
+		if (q < 1 || q > 16) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException(q + mm.getMessage("engine.indexOutofBound"));
 		} else if (q <= 8) {
@@ -245,7 +230,7 @@ public class SerialBytes implements Externalizable, Comparable<SerialBytes> {
 	 * @return long
 	 */
 	public long getBytes(int start, int end) {
-		if (start < 1 || end < start || end > len) {
+		if (start < 1 || end < start || end > 16) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException(start + "," + end + mm.getMessage("engine.indexOutofBound"));
 		}
@@ -263,43 +248,50 @@ public class SerialBytes implements Externalizable, Comparable<SerialBytes> {
 	}
 	
 	/**
+	 * 比较两个排号的大小
+	 * @param value1 排号1的值1
+	 * @param value2 排号1的值2
+	 * @param otherValue1 另一个排号的值1
+	 * @param otherValue2 另一个排号的值2
+	 * @return 1：排号1大，0：一样的，-1：排号2大
+	 */
+	public static int compare(long value1, long value2, long otherValue1, long otherValue2) {
+		if (value1 == otherValue1) {
+			if (value2 == otherValue2) {
+				return 0;
+			} else if (value2 < 0) {
+				if (otherValue2 >= 0) {
+					return 1;
+				} else {
+					return value2 > otherValue2 ? 1 : -1;
+				}
+			} else if (otherValue2 < 0) {
+				return -1;
+			} else {
+				return value2 > otherValue2 ? 1 : -1;
+			}
+		} else {
+			if (value1 < 0) {
+				if (otherValue1 >= 0) {
+					return 1;
+				} else {
+					return value1 > otherValue1 ? 1 : -1;
+				}
+			} else if (otherValue1 < 0) {
+				return -1;
+			} else {
+				return value1 > otherValue1 ? 1 : -1;
+			}
+		}
+	}
+	
+	/**
 	 * 比较两个排号的大小，用于排序
 	 * @param o
 	 * @return int
 	 */
 	public int compareTo(SerialBytes o) {
-		if (value1 == o.value1) {
-			if (value2 == o.value2) {
-				// 可能长度不同，低位是0
-				return len == o.len ? 0 : (len > o.len ? 1 : -1);
-			} else if (value2 < 0) {
-				if (o.value2 >= 0) {
-					return 1;
-				} else {
-					return value2 > o.value2 ? 1 : -1;
-				}
-			} else {
-				if (o.value2 < 0) {
-					return -1;
-				} else {
-					return value2 > o.value2 ? 1 : -1;
-				}
-			}
-		} else {
-			if (value1 < 0) {
-				if (o.value1 >= 0) {
-					return 1;
-				} else {
-					return value1 > o.value1 ? 1 : -1;
-				}
-			} else {
-				if (o.value1 < 0) {
-					return -1;
-				} else {
-					return value1 > o.value1 ? 1 : -1;
-				}
-			}
-		}
+		return compare(value1, value2, o.value1, o.value2);
 	}
 	
 	public boolean equals(Object obj) {
@@ -310,48 +302,30 @@ public class SerialBytes implements Externalizable, Comparable<SerialBytes> {
 		}
 	}
 	
+	public long getValue1() {
+		return value1;
+	}
+
+	public long getValue2() {
+		return value2;
+	}
+
 	/**
 	 * 判断两个排号是否相等
 	 * @param other
 	 * @return
 	 */
 	public boolean equals(SerialBytes other) {
-		return len == other.len && value1 == other.value1 && value2 == other.value2;
-	}
-	
-	public SerialBytes add(SerialBytes other) {
-		int len = this.len;
-		int total = len + other.len;
-		if (total > 16) {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException(mm.getMessage("serialbytes.outOfLimit"));
-		}
-		
-		long value1 = this.value1;
-		long value2 = this.value2;
-		byte []bytes = other.toByteArray();
-		
-		for (byte b : bytes) {
-			++len;
-			if (len <= 8) {
-				value1 |= (0xFFL & b) << (8 - len) * 8;
-			} else {
-				value2 |= (0xFFL & b) << (16 - len) * 8;
-			}
-		}
-		
-		return new SerialBytes(value1, value2, total);
+		return value1 == other.value1 && value2 == other.value2;
 	}
 	
 	public void writeExternal(ObjectOutput out) throws IOException {
 		out.writeLong(value1);
 		out.writeLong(value2);
-		out.writeInt(len);
 	}
 	
 	public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
 		value1 = in.readLong();
 		value2 = in.readLong();
-		len = in.readInt();
 	}
 }

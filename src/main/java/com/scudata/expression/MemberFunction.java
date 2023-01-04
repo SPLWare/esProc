@@ -1,11 +1,16 @@
 package com.scudata.expression;
 
+import com.scudata.array.BoolArray;
+import com.scudata.array.IArray;
+import com.scudata.array.ObjectArray;
 import com.scudata.cellset.ICellSet;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
+import com.scudata.dm.Current;
 import com.scudata.dm.Sequence;
 import com.scudata.resources.EngineMessage;
+import com.scudata.util.Variant;
 
 /**
  * 成员函数基类，成员函数的实现类需要继承自此类
@@ -14,6 +19,7 @@ import com.scudata.resources.EngineMessage;
  */
 public abstract class MemberFunction extends Function {
 	private MemberFunction next; // 下一个同名的成员函数类
+	protected Node left; // 点操作符的左侧节点
 	
 	/**
 	 * 用于判断点操作符右面的函数是否和左面对象的类型匹配
@@ -28,6 +34,22 @@ public abstract class MemberFunction extends Function {
 	 */
 	abstract public void setDotLeftObject(Object obj);
 	
+	/**
+	 * 设置节点的左侧节点
+	 * @param node 节点
+	 */
+	public void setLeft(Node node) {
+		left = node;
+	}
+
+	/**
+	 * 取节点的左侧节点，没有返回空
+	 * @return Node
+	 */
+	public Node getLeft() {
+		return left;
+	}
+
 	/**
 	 * 设置函数参数，派生类如果继承了此方法需要调用基类的此方法或者调用next的此方法
 	 * @param cs 网格对象
@@ -432,4 +454,280 @@ public abstract class MemberFunction extends Function {
 			}
 		}
 	}
+	
+	protected IArray calculateAll(IArray leftArray, Context ctx) {
+		Current current = ctx.getComputeStack().getTopCurrent();
+		int len = current.length();
+		ObjectArray array = new ObjectArray(len);
+		array.setTemporary(true);
+		
+		Next:
+		for (int i = 1; i <= len; ++i) {
+			current.setCurrent(i);
+			Object leftValue = leftArray.get(i);
+			
+			if (leftValue == null) {
+				array.push(null);
+			} else {
+				if (leftValue instanceof Number && isSequenceFunction()) {
+					int n = ((Number)leftValue).intValue();
+					if (n > 0) {
+						leftValue = new Sequence(1, n);
+					} else {
+						leftValue = new Sequence(0);
+					}
+				}
+				
+				for (MemberFunction right = this; right != null; right = right.getNextFunction()) {
+					if (right.isLeftTypeMatch(leftValue)) {
+						right.setDotLeftObject(leftValue);
+						Object value = right.calculate(ctx);
+						array.push(value);
+						continue Next;
+					}
+				}
+				
+				String fnName = getFunctionName();
+				MessageManager mm = EngineMessage.get();
+				throw new RQException(mm.getMessage("dot.leftTypeError", Variant.getDataType(leftValue), fnName));
+			}
+		}
+		
+		return array;
+	}
+	
+	protected BoolArray calculateAnd(IArray leftArray, Context ctx, IArray leftResult) {
+		Current current = ctx.getComputeStack().getTopCurrent();
+		int len = current.length();
+		BoolArray result = leftResult.isTrue();
+		
+		Next:
+		for (int i = 1; i <= len; ++i) {
+			if (leftResult.isTrue(i)) {
+				current.setCurrent(i);
+				Object leftValue = leftArray.get(i);
+				if (leftValue == null) {
+					result.set(i, false);
+				} else {
+					if (leftValue instanceof Number && isSequenceFunction()) {
+						int n = ((Number)leftValue).intValue();
+						if (n > 0) {
+							leftValue = new Sequence(1, n);
+						} else {
+							leftValue = new Sequence(0);
+						}
+					}
+					
+					for (MemberFunction right = this; right != null; right = right.getNextFunction()) {
+						if (right.isLeftTypeMatch(leftValue)) {
+							right.setDotLeftObject(leftValue);
+							Object value = right.calculate(ctx);
+							if (Variant.isFalse(value)) {
+								result.set(i, false);
+							}
+
+							continue Next;
+						}
+					}
+					
+					String fnName = getFunctionName();
+					MessageManager mm = EngineMessage.get();
+					throw new RQException(mm.getMessage("dot.leftTypeError", Variant.getDataType(leftValue), fnName));
+				}
+			}
+		}
+		
+		return result;
+	}
+	
+	protected IArray calculateAll(IArray leftArray, Context ctx, IArray signArray, boolean sign) {
+		int size = signArray.size();
+		ObjectArray result = new ObjectArray(size);
+		result.setTemporary(true);
+		Current current = ctx.getComputeStack().getTopCurrent();
+		
+		Next:
+		for (int i = 1; i <= size; ++i) {
+			if (signArray.isTrue(i) == sign) {
+				current.setCurrent(i);
+				Object leftValue = leftArray.get(i);
+				
+				if (leftValue == null) {
+					result.push(null);
+				} else {
+					if (leftValue instanceof Number && isSequenceFunction()) {
+						int n = ((Number)leftValue).intValue();
+						if (n > 0) {
+							leftValue = new Sequence(1, n);
+						} else {
+							leftValue = new Sequence(0);
+						}
+					}
+					
+					for (MemberFunction right = this; right != null; right = right.getNextFunction()) {
+						if (right.isLeftTypeMatch(leftValue)) {
+							right.setDotLeftObject(leftValue);
+							Object value = right.calculate(ctx);
+							result.push(value);
+							continue Next;
+						}
+					}
+					
+					String fnName = getFunctionName();
+					MessageManager mm = EngineMessage.get();
+					throw new RQException(mm.getMessage("dot.leftTypeError", Variant.getDataType(leftValue), fnName));
+				}
+			} else {
+				result.push(null);
+			}
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * 计算出所有行的结果
+	 * @param left 点运算符的左侧节点
+	 * @param ctx 计算上行文
+	 * @return IArray
+	 */
+	public IArray calculateAll(Context ctx) {
+		return calculateAll(left.calculateAll(ctx), ctx);
+	}
+	
+	/**
+	 * 计算signArray中取值为sign的行
+	 * @param ctx
+	 * @param signArray 行标识数组
+	 * @param sign 标识
+	 * @return IArray
+	 */
+	public IArray calculateAll(Context ctx, IArray signArray, boolean sign) {
+		Node left = this.left;
+		int size = signArray.size();
+		ObjectArray result = new ObjectArray(size);
+		result.setTemporary(true);
+		Current current = ctx.getComputeStack().getTopCurrent();
+		
+		Next:
+		for (int i = 1; i <= size; ++i) {
+			if (signArray.isTrue(i) == sign) {
+				current.setCurrent(i);
+				Object leftValue = left.calculate(ctx);
+				
+				if (leftValue == null) {
+					result.push(null);
+				} else {
+					if (leftValue instanceof Number && isSequenceFunction()) {
+						int n = ((Number)leftValue).intValue();
+						if (n > 0) {
+							leftValue = new Sequence(1, n);
+						} else {
+							leftValue = new Sequence(0);
+						}
+					}
+					
+					for (MemberFunction right = this; right != null; right = right.getNextFunction()) {
+						if (right.isLeftTypeMatch(leftValue)) {
+							right.setDotLeftObject(leftValue);
+							Object value = right.calculate(ctx);
+							result.push(value);
+							continue Next;
+						}
+					}
+					
+					String fnName = getFunctionName();
+					MessageManager mm = EngineMessage.get();
+					throw new RQException(mm.getMessage("dot.leftTypeError", Variant.getDataType(leftValue), fnName));
+				}
+			} else {
+				result.push(null);
+			}
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * 计算逻辑与运算符&&的右侧表达式
+	 * @param ctx 计算上行文
+	 * @param leftResult &&左侧表达式的计算结果
+	 * @return BoolArray
+	 */
+	public BoolArray calculateAnd(Context ctx, IArray leftResult) {
+		Node left = this.left;
+		BoolArray result = leftResult.isTrue();
+		int size = result.size();
+		Current current = ctx.getComputeStack().getTopCurrent();
+		
+		Next:
+		for (int i = 1; i <= size; ++i) {
+			if (result.isTrue(i)) {
+				current.setCurrent(i);
+				Object leftValue = left.calculate(ctx);
+				
+				if (leftValue == null) {
+					result.set(i, false);
+				} else {
+					if (leftValue instanceof Number && isSequenceFunction()) {
+						int n = ((Number)leftValue).intValue();
+						if (n > 0) {
+							leftValue = new Sequence(1, n);
+						} else {
+							leftValue = new Sequence(0);
+						}
+					}
+					
+					for (MemberFunction right = this; right != null; right = right.getNextFunction()) {
+						if (right.isLeftTypeMatch(leftValue)) {
+							right.setDotLeftObject(leftValue);
+							Object value = right.calculate(ctx);
+							if (Variant.isFalse(value)) {
+								result.set(i, false);
+							}
+
+							continue Next;
+						}
+					}
+					
+					String fnName = getFunctionName();
+					MessageManager mm = EngineMessage.get();
+					throw new RQException(mm.getMessage("dot.leftTypeError", Variant.getDataType(leftValue), fnName));
+				}
+			}
+		}
+		
+		return result;
+	}
+		
+	/**
+	 * 判断给定的值域范围是否满足当前条件表达式
+	 * @param ctx 计算上行文
+	 * @return 取值参照Relation. -1：值域范围内没有满足条件的值，0：值域范围内有满足条件的值，1：值域范围的值都满足条件
+	 */
+	/*public int isValueRangeMatch(Context ctx) {
+		IArray array = left.calculateRange(ctx);
+		if (!(array instanceof ConstArray)) {
+			return Relation.PARTICALMATCH;
+		}
+		
+		Object leftValue = array.get(1);
+		if (leftValue instanceof Number && isSequenceFunction()) {
+			int n = ((Number)leftValue).intValue();
+			if (n > 0) {
+				leftValue = new Sequence(1, n);
+			} else {
+				leftValue = new Sequence(0);
+			}
+		}
+		
+		for (MemberFunction right = this; right != null; right = right.getNextFunction()) {
+			if (right.isLeftTypeMatch(leftValue)) {
+				right.setDotLeftObject(leftValue);
+				return right.isValueRangeMatch(ctx);
+			}
+		}
+		
+		return Relation.PARTICALMATCH;
+	}*/
 }

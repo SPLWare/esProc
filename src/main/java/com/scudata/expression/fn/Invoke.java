@@ -24,49 +24,54 @@ public class Invoke extends Function {
 	private Expression []paramExps;
 
 	public Node optimize(Context ctx) {
-		if (param != null) param.optimize(ctx);
+		param.optimize(ctx);
 		return this;
 	}
 
-	public Object calculate(Context ctx) {
-		if (method == null) {
-			String str;
-			if (param == null) {
-				MessageManager mm = EngineMessage.get();
-				throw new RQException("invoke" + mm.getMessage("function.invalidParam"));
-			} else if (param.isLeaf()) {
-				str = param.getLeafExpression().getIdentifierName();
-			} else {
-				int size = param.getSubSize();
-				IParam param0 = param.getSub(0);
-				if (param0 == null) {
-					MessageManager mm = EngineMessage.get();
-					throw new RQException("invoke" + mm.getMessage("function.invalidParam"));
-				}
+	/**
+	 * 检查表达式的有效性，无效则抛出异常
+	 */
+	public void checkValidity() {
+		if (param == null) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("invoke" + mm.getMessage("function.invalidParam"));
+		} 
 
-				str = param0.getLeafExpression().getIdentifierName();
-				paramExps = new Expression[size - 1];
-				for (int i = 1; i < size; ++i) {
-					IParam sub = param.getSub(i);
-					if (sub != null) paramExps[i - 1] = sub.getLeafExpression();
-				}
-			}
-
-			int dotIndex = str.lastIndexOf('.');
-			if (dotIndex == -1) {
+		String str;
+		if (param.isLeaf()) {
+			str = param.getLeafExpression().getIdentifierName();
+		} else {
+			int size = param.getSubSize();
+			IParam param0 = param.getSub(0);
+			if (param0 == null) {
 				MessageManager mm = EngineMessage.get();
 				throw new RQException("invoke" + mm.getMessage("function.invalidParam"));
 			}
 
-			String className = str.substring(0, dotIndex);
-			String methodName = str.substring(dotIndex + 1);
-			method = getStaticMethod(className, methodName);
-			if (method == null) {
-				MessageManager mm = EngineMessage.get();
-				throw new RQException(methodName + mm.getMessage("invoke.methodNotExist"));
+			str = param0.getLeafExpression().getIdentifierName();
+			paramExps = new Expression[size - 1];
+			for (int i = 1; i < size; ++i) {
+				IParam sub = param.getSub(i);
+				if (sub != null) paramExps[i - 1] = sub.getLeafExpression();
 			}
 		}
 
+		int dotIndex = str.lastIndexOf('.');
+		if (dotIndex == -1) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("invoke" + mm.getMessage("function.invalidParam"));
+		}
+
+		String className = str.substring(0, dotIndex);
+		String methodName = str.substring(dotIndex + 1);
+		method = getStaticMethod(className, methodName);
+		if (method == null) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException(methodName + mm.getMessage("invoke.methodNotExist"));
+		}
+	}
+
+	public Object calculate(Context ctx) {
 		boolean changeValue = option != null && option.indexOf('x') != -1;
 		Object []params = null;
 		if (paramExps != null) {

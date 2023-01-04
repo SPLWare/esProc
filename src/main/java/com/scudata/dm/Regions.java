@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * @author WangXiaoJun
  *
  */
-class Regions {
+public class Regions {
 	private ArrayList<Region> list = new ArrayList<Region>();
 	
 	public Regions() {

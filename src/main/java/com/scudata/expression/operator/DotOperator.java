@@ -1,5 +1,7 @@
 package com.scudata.expression.operator;
 
+import com.scudata.array.BoolArray;
+import com.scudata.array.IArray;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
@@ -22,17 +24,23 @@ public class DotOperator extends Operator {
 		priority = PRI_SUF;
 	}
 	
-	public Node optimize(Context ctx) {
+	/**
+	 * 检查表达式的有效性，无效则抛出异常
+	 */
+	public void checkValidity() {
 		if (left == null) {
 			MessageManager mm = EngineMessage.get();
-			throw new RQException("\".\"" + mm.getMessage("operator.missingleftOperation"));
-		}
-		
-		if (right == null) {
+			throw new RQException("\".\"" + mm.getMessage("operator.missingLeftOperation"));
+		} else if (right == null) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("\".\"" + mm.getMessage("operator.missingRightOperation"));
 		}
 		
+		left.checkValidity();
+		right.checkValidity();
+	}
+	
+	public Node optimize(Context ctx) {
 		// 如果右侧函数不会修改左侧对象的值并且左侧对象是序列常量则可以先产生序列
 		// 比如[1,2,3].contain(n)
 		if (!right.ifModifySequence()) {
@@ -64,7 +72,7 @@ public class DotOperator extends Operator {
 			return obj;
 		}
 	}
-
+	
 	public Object calculate(Context ctx) {
 		Object leftValue = getLeftObject(ctx);
 		if (leftValue == null) {
@@ -91,7 +99,7 @@ public class DotOperator extends Operator {
 		MessageManager mm = EngineMessage.get();
 		throw new RQException(mm.getMessage("dot.leftTypeError", Variant.getDataType(leftValue), fnName));
 	}
-
+	
 	public Object assign(Object value, Context ctx) {
 		Object result1 = getLeftObject(ctx);
 		if (result1 == null) {
@@ -140,5 +148,94 @@ public class DotOperator extends Operator {
 		
 		right.setDotLeftObject(result1);
 		return right.moves(node, ctx);
+	}
+	
+	/**
+	 * 计算出所有行的结果
+	 * @param ctx 计算上行文
+	 * @return IArray
+	 */
+	public IArray calculateAll(Context ctx) {
+		right.setLeft(left);
+		return right.calculateAll(ctx);
+		//return right.calculateAll(left, ctx);
+	}
+	
+	/**
+	 * 计算signArray中取值为sign的行
+	 * @param ctx
+	 * @param signArray 行标识数组
+	 * @param sign 标识
+	 * @return IArray
+	 */
+	public IArray calculateAll(Context ctx, IArray signArray, boolean sign) {
+		right.setLeft(left);
+		return right.calculateAll(ctx, signArray, sign);
+	}
+	
+	/**
+	 * 计算逻辑与运算符&&的右侧表达式
+	 * @param ctx 计算上行文
+	 * @param leftResult &&左侧表达式的计算结果
+	 * @return BoolArray
+	 */
+	public BoolArray calculateAnd(Context ctx, IArray leftResult) {
+		right.setLeft(left);
+		return right.calculateAnd(ctx, leftResult);
+
+		/*BoolArray result = leftResult.isTrue();
+		int size = result.size();
+		Current current = ctx.getComputeStack().getTopCurrent();
+		
+		for (int i = 1; i <= size; ++i) {
+			if (result.isTrue(i)) {
+				current.setCurrent(i);
+				Object value = calculate(ctx);
+				if (Variant.isFalse(value)) {
+					result.set(i, false);
+				}
+			}
+		}
+		
+		return result;*/
+	}
+	
+	/**
+	 * 判断给定的值域范围是否满足当前条件表达式
+	 * @param ctx 计算上行文
+	 * @return 取值参照Relation. -1：值域范围内没有满足条件的值，0：值域范围内有满足条件的值，1：值域范围的值都满足条件
+	 */
+	public int isValueRangeMatch(Context ctx) {
+		right.setLeft(left);
+		return right.isValueRangeMatch(ctx);
+		/*if (right instanceof MemberFunction) {
+			IArray array = left.calculateRange(ctx);
+			if (array instanceof ConstArray) {
+				Object obj = array.get(1);
+				return ((MemberFunction)right).isValueRangeMatch(obj, ctx);
+			} else {
+				return Relation.PARTICALMATCH;
+			}
+		} else {
+			return Relation.PARTICALMATCH;
+		}*/
+	}
+	
+	/**
+	 * 计算表达式的取值范围
+	 * @param ctx 计算上行文
+	 * @return
+	 */
+	public IArray calculateRange(Context ctx) {
+		right.setLeft(left);
+		return right.calculateRange(ctx);
+	}
+	
+	/**
+	 * 返回节点是否单调递增的
+	 * @return true：是单调递增的，false：不是
+	 */
+	public boolean isMonotone() {
+		return left.isMonotone() && right.isMonotone();
 	}
 }

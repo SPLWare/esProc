@@ -14,21 +14,25 @@ import com.scudata.resources.EngineMessage;
  */
 public class SyncFile extends Function {
 	public Node optimize(Context ctx) {
-		if (param != null) {
-			param.optimize(ctx);
-		}
-		
+		param.optimize(ctx);
 		return this;
+	}
+
+	/**
+	 * 检查表达式的有效性，无效则抛出异常
+	 */
+	public void checkValidity() {
+		if (param == null) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("sync" + mm.getMessage("function.missingParam"));
+		}
 	}
 
 	public Object calculate(Context ctx) {
 		Machines mcHS = new Machines();
 		String path = null;
 		
-		if (param == null) {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException("sync" + mm.getMessage("function.missingParam"));
-		} else if (param.isLeaf()) {
+		if (param.isLeaf()) {
 			Object obj = param.getLeafExpression().calculate(ctx);
 			mcHS.set(obj);
 		} else if (param.getSubSize() == 2) {

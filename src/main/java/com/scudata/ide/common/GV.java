@@ -118,6 +118,7 @@ public class GV {
 	public static FuncWindow getFuncWindow() {
 		if (funcWindow == null) {
 			funcWindow = new FuncWindow();
+			funcWindow.setVisible(true);
 		}
 		return funcWindow;
 	}

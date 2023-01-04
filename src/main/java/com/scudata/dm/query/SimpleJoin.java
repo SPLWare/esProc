@@ -26,6 +26,7 @@ import com.scudata.common.IOUtils;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.common.UUID;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Context;
 import com.scudata.dm.DataStruct;
 import com.scudata.dm.Env;
@@ -44,9 +45,7 @@ import com.scudata.dm.op.Join;
 import com.scudata.dm.op.New;
 import com.scudata.dm.op.Select;
 import com.scudata.dm.query.utils.ExpressionTranslator;
-import com.scudata.dm.query.utils.FileUtil;
-import com.scudata.dw.ColumnGroupTable;
-import com.scudata.dw.TableMetaData;
+import com.scudata.dw.PhyTable;
 import com.scudata.excel.ExcelTool;
 import com.scudata.expression.Expression;
 import com.scudata.resources.ParseMessage;
@@ -96,7 +95,7 @@ public class SimpleJoin
 		protected int stamp = Memory_Join;
 		protected boolean parallel = false;
 		protected String tableFile = null;
-		protected TableMetaData metaData = null;
+		protected PhyTable metaData = null;
 		protected String topFilter = null;
 		
 		public JoinNode getLeft() 
@@ -140,12 +139,12 @@ public class SimpleJoin
 		{
 		}
 		
-		public TableMetaData getTableMetaData()
+		public PhyTable getTableMetaData()
 		{
 			return null;
 		}
 		
-		public void setTableMetaData(TableMetaData metaData)
+		public void setTableMetaData(PhyTable metaData)
 		{
 		}
 		
@@ -663,7 +662,7 @@ public class SimpleJoin
 								}
 								else
 								{
-									if(!(seq.get(1) instanceof Record) || seq.dataStruct() == null || seq.dataStruct().getFieldCount() != 1)
+									if(!(seq.get(1) instanceof BaseRecord) || seq.dataStruct() == null || seq.dataStruct().getFieldCount() != 1)
 									{
 										MessageManager mm = ParseMessage.get();
 										throw new RQException(mm.getMessage("syntax.error") + ":executeJoin, IN中子查询结果异常");
@@ -676,7 +675,7 @@ public class SimpleJoin
 										{
 											newName += ",";
 										}
-										Object value = ((Record)seq.get(m)).getFieldValue(0);
+										Object value = ((BaseRecord)seq.get(m)).getFieldValue(0);
 										newName += getSQLValue(value);
 									}
 									newName += ")";
@@ -727,13 +726,13 @@ public class SimpleJoin
 								if(icur != null)
 								{
 									seq = icur.fetch();
-									if(seq == null || seq.length() != 1 || !(seq.get(1) instanceof Record) || seq.dataStruct() == null || seq.dataStruct().getFieldCount() != 1)
+									if(seq == null || seq.length() != 1 || !(seq.get(1) instanceof BaseRecord) || seq.dataStruct() == null || seq.dataStruct().getFieldCount() != 1)
 									{
 										MessageManager mm = ParseMessage.get();
 										throw new RQException(mm.getMessage("syntax.error") + ":executeJoin, WHERE中子查询结果异常");
 									}
 								}
-								newName = getSQLValue(((Record)seq.get(1)).getFieldValue(0));
+								newName = getSQLValue(((BaseRecord)seq.get(1)).getFieldValue(0));
 							}
 						}
 						
@@ -1644,7 +1643,7 @@ public class SimpleJoin
 			this.tableFile = file;
 		}
 		
-		public JoinTable(TableMetaData metaData)
+		public JoinTable(PhyTable metaData)
 		{
 			this();
 			this.metaData = metaData;
@@ -1667,12 +1666,12 @@ public class SimpleJoin
 			this.tableFile = file;
 		}
 		
-		public TableMetaData getTableMetaData()
+		public PhyTable getTableMetaData()
 		{
 			return this.metaData;
 		}
 		
-		public void setTableMetaData(TableMetaData metaData)
+		public void setTableMetaData(PhyTable metaData)
 		{
 			this.metaData = metaData;
 		}
@@ -1811,17 +1810,17 @@ public class SimpleJoin
 				
 				for(int i=1, x=tab.getMems().size(); i<=x; i++)
 				{
-					Record rd = new Record(this.tabDs);
+					BaseRecord rd = new Record(this.tabDs);
 					Object obj1 = tab.getMems().get(i);
-					if(obj1 instanceof Record)
+					if(obj1 instanceof BaseRecord)
 					{
-						Record rd1 = (Record) obj1;
+						BaseRecord rd1 = (Record) obj1;
 						for(int j=0, y=2; j<y; j++)
 						{
 							Object obj2 = rd1.getFieldValue(j);
-							if(obj2 instanceof Record)
+							if(obj2 instanceof BaseRecord)
 							{
-								Record rd2 = (Record) obj2;
+								BaseRecord rd2 = (BaseRecord) obj2;
 								for(int k=0, z=(j==0?l:r); k<z; k++)
 								{
 									Object obj = rd2.getFieldValue(k);
@@ -1934,17 +1933,17 @@ public class SimpleJoin
 				
 				for(int i=1, x=tab.getMems().size(); i<=x; i++)
 				{
-					Record rd = new Record(this.tabDs);
+					BaseRecord rd = new Record(this.tabDs);
 					Object obj1 = tab.getMems().get(i);
-					if(obj1 instanceof Record)
+					if(obj1 instanceof BaseRecord)
 					{
-						Record rd1 = (Record) obj1;
+						BaseRecord rd1 = (BaseRecord) obj1;
 						for(int j=0, y=2; j<y; j++)
 						{
 							Object obj2 = rd1.getFieldValue(j);
-							if(obj2 instanceof Record)
+							if(obj2 instanceof BaseRecord)
 							{
-								Record rd2 = (Record) obj2;
+								BaseRecord rd2 = (BaseRecord) obj2;
 								for(int k=0, z=(j==0?l:r); k<z; k++)
 								{
 									Object obj = rd2.getFieldValue(k);
@@ -2057,17 +2056,17 @@ public class SimpleJoin
 				
 				for(int i=1, x=tab.getMems().size(); i<=x; i++)
 				{
-					Record rd = new Record(this.tabDs);
+					BaseRecord rd = new Record(this.tabDs);
 					Object obj1 = tab.getMems().get(i);
-					if(obj1 instanceof Record)
+					if(obj1 instanceof BaseRecord)
 					{
-						Record rd1 = (Record) obj1;
+						BaseRecord rd1 = (BaseRecord) obj1;
 						for(int j=0, y=2; j<y; j++)
 						{
 							Object obj2 = rd1.getFieldValue(j);
-							if(obj2 instanceof Record)
+							if(obj2 instanceof BaseRecord)
 							{
-								Record rd2 = (Record) obj2;
+								BaseRecord rd2 = (BaseRecord) obj2;
 								for(int k=0, z=(j==0?l:r); k<z; k++)
 								{
 									Object obj = rd2.getFieldValue(k);
@@ -2180,17 +2179,17 @@ public class SimpleJoin
 				
 				for(int i=1, x=tab.getMems().size(); i<=x; i++)
 				{
-					Record rd = new Record(this.tabDs);
+					BaseRecord rd = new Record(this.tabDs);
 					Object obj1 = tab.getMems().get(i);
-					if(obj1 instanceof Record)
+					if(obj1 instanceof BaseRecord)
 					{
-						Record rd1 = (Record) obj1;
+						BaseRecord rd1 = (BaseRecord) obj1;
 						for(int j=0, y=2; j<y; j++)
 						{
 							Object obj2 = rd1.getFieldValue(j);
-							if(obj2 instanceof Record)
+							if(obj2 instanceof BaseRecord)
 							{
-								Record rd2 = (Record) obj2;
+								BaseRecord rd2 = (BaseRecord) obj2;
 								for(int k=0, z=(j==0?l:r); k<z; k++)
 								{
 									Object obj = rd2.getFieldValue(k);
@@ -2325,12 +2324,12 @@ public class SimpleJoin
 					for(int m = 1; m <= tab.getMems().size(); m++)
 					{
 						Object obj = tab.getMems().get(m);
-						if(!(obj instanceof Record))
+						if(!(obj instanceof BaseRecord))
 						{
 							MessageManager mm = ParseMessage.get();
 							throw new RQException(mm.getMessage("syntax.error") + ":SubQueryCursor.get, 查询结果序列必须由记录组成");
 						}
-						Record rec = (Record) obj;
+						BaseRecord rec = (BaseRecord) obj;
 						
 						int index = 0;
 						List<Token> subQueryList = new ArrayList<Token>();
@@ -2362,30 +2361,30 @@ public class SimpleJoin
 							}
 							else if(this.type == SubQueryCursor.Select_Type || this.type == SubQueryCursor.Where_Type)
 							{
-								if(sq.length() != 1 || !(sq.get(1) instanceof Record) || sq.dataStruct() == null || sq.dataStruct().getFieldCount() != 1)
+								if(sq.length() != 1 || !(sq.get(1) instanceof BaseRecord) || sq.dataStruct() == null || sq.dataStruct().getFieldCount() != 1)
 								{
 									MessageManager mm = ParseMessage.get();
 									throw new RQException(mm.getMessage("syntax.error") + ":SubQueryCursor.get, SELECT/WHERE子句中子查询结果异常");
 								}
-								val = ((Record)sq.get(1)).getFieldValue(0);
+								val = ((BaseRecord)sq.get(1)).getFieldValue(0);
 							}
 							else if(this.type == SubQueryCursor.In_Type)
 							{
 								Sequence v = new Sequence();
 								for(int p = 1, q = sq.length(); p <= q; p++)
 								{
-									if(!(sq.get(1) instanceof Record) || sq.dataStruct() == null || sq.dataStruct().getFieldCount() != 1)
+									if(!(sq.get(1) instanceof BaseRecord) || sq.dataStruct() == null || sq.dataStruct().getFieldCount() != 1)
 									{
 										MessageManager mm = ParseMessage.get();
 										throw new RQException(mm.getMessage("syntax.error") + ":SubQueryCursor.get, IN子句中子查询结果异常");
 									}
-									v.add(((Record)sq.get(p)).getFieldValue(0));
+									v.add(((BaseRecord)sq.get(p)).getFieldValue(0));
 								}
 								val = v;
 							}
 						}
 						
-						Record newRec = new Record(struct);
+						BaseRecord newRec = new Record(struct);
 						newRec.set(rec);
 						newRec.set(init + i, val);
 						res.add(newRec);
@@ -2652,9 +2651,9 @@ public class SimpleJoin
 						DataStruct struct = ((Table)obj).dataStruct();
 						node = new JoinTable(cursor, struct);
 					}
-					else if(obj instanceof TableMetaData)
+					else if(obj instanceof PhyTable)
 					{
-						node = new JoinTable((TableMetaData)obj);
+						node = new JoinTable((PhyTable)obj);
 					}
 					else
 					{
@@ -2793,9 +2792,9 @@ public class SimpleJoin
 						DataStruct struct = ((Table)obj).dataStruct();
 						node = new JoinTable(cursor, struct);
 					}
-					else if(obj instanceof TableMetaData)
+					else if(obj instanceof PhyTable)
 					{
-						node = new JoinTable((TableMetaData)obj);
+						node = new JoinTable((PhyTable)obj);
 					}
 					else
 					{
@@ -4528,7 +4527,7 @@ public class SimpleJoin
 							}
 							else
 							{
-								if(!(seq.get(1) instanceof Record) || seq.dataStruct() == null || seq.dataStruct().getFieldCount() != 1)
+								if(!(seq.get(1) instanceof BaseRecord) || seq.dataStruct() == null || seq.dataStruct().getFieldCount() != 1)
 								{
 									MessageManager mm = ParseMessage.get();
 									throw new RQException(mm.getMessage("syntax.error") + ":getNewTokens, IN中子查询结果异常");
@@ -4555,7 +4554,7 @@ public class SimpleJoin
 										tokenList.add(tk);
 									}
 									
-									String valStr = getSQLValue(((Record)seq.get(p)).getFieldValue(0));
+									String valStr = getSQLValue(((BaseRecord)seq.get(p)).getFieldValue(0));
 									Token[] valTokens = Tokenizer.parse(valStr + " ");
 									tokenList.addAll(Arrays.asList(valTokens));
 								}
@@ -4654,7 +4653,7 @@ public class SimpleJoin
 							}
 							else
 							{
-								if(!(seq.get(1) instanceof Record) || seq.dataStruct() == null || seq.dataStruct().getFieldCount() != 1)
+								if(!(seq.get(1) instanceof BaseRecord) || seq.dataStruct() == null || seq.dataStruct().getFieldCount() != 1)
 								{
 									MessageManager mm = ParseMessage.get();
 									throw new RQException(mm.getMessage("syntax.error") + ":getNewTokens, IN中子查询结果异常");
@@ -4677,7 +4676,7 @@ public class SimpleJoin
 										tokenList.add(tk);
 									}
 									
-									String valStr = getSQLValue(((Record)seq.get(p)).getFieldValue(0));
+									String valStr = getSQLValue(((BaseRecord)seq.get(p)).getFieldValue(0));
 									Token[] valTokens = Tokenizer.parse(valStr + " ");
 									tokenList.addAll(Arrays.asList(valTokens));
 								}
@@ -4783,13 +4782,13 @@ public class SimpleJoin
 							{
 								seq = cursor.fetch(2);
 							}
-							if(seq == null || seq.length() != 1 || !(seq.get(1) instanceof Record) || seq.dataStruct() == null || seq.dataStruct().getFieldCount() != 1)
+							if(seq == null || seq.length() != 1 || !(seq.get(1) instanceof BaseRecord) || seq.dataStruct() == null || seq.dataStruct().getFieldCount() != 1)
 							{
 								MessageManager mm = ParseMessage.get();
 								throw new RQException(mm.getMessage("syntax.error") + ":getNewTokens, 在SELECT/WHERE子句中子查询结果异常");
 							}
 							
-							Object val = ((Record)seq.get(1)).getFieldValue(0);
+							Object val = ((BaseRecord)seq.get(1)).getFieldValue(0);
 							Token[] valTokens = Tokenizer.parse(getSQLValue(val) + " ");
 							tokenList.addAll(Arrays.asList(valTokens));
 						}
@@ -5669,9 +5668,9 @@ public class SimpleJoin
 					DataStruct struct = ((Table)obj).dataStruct();
 					tableNode = new JoinTable(cursor, struct);
 				}
-				else if(obj instanceof TableMetaData)
+				else if(obj instanceof PhyTable)
 				{
-					tableNode = new JoinTable((TableMetaData)obj);
+					tableNode = new JoinTable((PhyTable)obj);
 				}
 				else
 				{

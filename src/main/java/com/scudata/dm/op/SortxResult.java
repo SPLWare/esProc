@@ -4,10 +4,10 @@ import java.util.ArrayList;
 
 import com.scudata.common.Logger;
 import com.scudata.common.MessageManager;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Context;
 import com.scudata.dm.Env;
 import com.scudata.dm.FileObject;
-import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.cursor.BFileCursor;
 import com.scudata.dm.cursor.ICursor;
@@ -53,8 +53,8 @@ public class SortxResult implements IResult {
 		if (capacity < 1) {
 			Object obj = table.get(1);
 			int fcount = 1;
-			if (obj instanceof Record) {
-				fcount = ((Record)obj).getFieldCount();
+			if (obj instanceof BaseRecord) {
+				fcount = ((BaseRecord)obj).getFieldCount();
 			}
 			
 			capacity = EnvUtil.getCapacity(fcount);
@@ -79,6 +79,13 @@ public class SortxResult implements IResult {
 			
 			data = new Sequence();
 		}
+	}
+	
+	/**
+	 * 数据推送结束时调用
+	 * @param ctx 计算上下文
+	 */
+	public void finish(Context ctx) {
 	}
 	
 	/**

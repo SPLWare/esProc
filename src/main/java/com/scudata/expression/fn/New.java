@@ -1,12 +1,15 @@
 package com.scudata.expression.fn;
 
+import com.scudata.common.MessageManager;
+import com.scudata.common.RQException;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Context;
-import com.scudata.dm.Record;
 import com.scudata.dm.Table;
 import com.scudata.expression.Expression;
 import com.scudata.expression.Function;
 import com.scudata.expression.Node;
 import com.scudata.expression.ParamInfo2;
+import com.scudata.resources.EngineMessage;
 
 /**
  * 生成一条记录
@@ -16,11 +19,18 @@ import com.scudata.expression.ParamInfo2;
  */
 public class New extends Function {
 	public Node optimize(Context ctx) {
-		if (param != null) {
-			param.optimize(ctx);
-		}
-		
+		param.optimize(ctx);
 		return this;
+	}
+	
+	/**
+	 * 检查表达式的有效性，无效则抛出异常
+	 */
+	public void checkValidity() {
+		if (param == null) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("new" + mm.getMessage("function.missingParam"));
+		}
 	}
 
 	public Object calculate(Context ctx) {
@@ -39,7 +49,7 @@ public class New extends Function {
 		}
 
 		Table table = new Table(names, 1);
-		Record r = table.newLast();
+		BaseRecord r = table.newLast();
 		r.setStart(0, vals);
 
 		return option == null || option.indexOf('t') == -1 ? r : table;

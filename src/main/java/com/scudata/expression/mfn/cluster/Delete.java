@@ -4,7 +4,7 @@ import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
 import com.scudata.dm.Sequence;
-import com.scudata.expression.ClusterTableMetaDataFunction;
+import com.scudata.expression.ClusterPhyTableFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
@@ -13,7 +13,7 @@ import com.scudata.resources.EngineMessage;
  * @author RunQian
  *
  */
-public class Delete extends ClusterTableMetaDataFunction {
+public class Delete extends ClusterPhyTableFunction {
 	public Object calculate(Context ctx) {
 		if (param == null) {
 			MessageManager mm = EngineMessage.get();

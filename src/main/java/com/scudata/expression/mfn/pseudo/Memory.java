@@ -5,7 +5,6 @@ import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
 import com.scudata.dm.cursor.ICursor;
 import com.scudata.dm.op.Select;
-import com.scudata.dw.IColumnCursorUtil;
 import com.scudata.dw.MemoryTable;
 import com.scudata.dw.pseudo.IPseudo;
 import com.scudata.expression.Expression;
@@ -45,16 +44,6 @@ public class Memory extends PseudoFunction {
 			pseudo = (IPseudo) pseudo.addOperation(new Select(filter, null), ctx);
 		}
 		
-		//列式内表
-		if (option != null && option.indexOf('v') != -1 && IColumnCursorUtil.util != null) {
-			String opt = option;
-			opt = opt.replace("v", "");
-			opt += 'm';
-			
-			ICursor cursor = CreateCursor.createCursor("memory", pseudo, param, opt, ctx);
-			return IColumnCursorUtil.util.createMemoryTable(cursor, null, option);
-		}
-		
 		ICursor cursor = CreateCursor.createCursor("memory", pseudo, param, null, ctx);
 		if (cursor instanceof ClusterCursor) {
 			return ((ClusterCursor)cursor).memory(null, ctx);
@@ -81,12 +70,6 @@ public class Memory extends PseudoFunction {
 		}
 		if (pseudo instanceof ClusterPseudo) {
 			return ((ClusterPseudo)pseudo).memory(option, ctx);
-		}
-		
-		//列式内表
-		if (option != null && option.indexOf('v') != -1 && IColumnCursorUtil.util != null) {
-			ICursor cursor = pseudo.cursor(exps, names);
-			return IColumnCursorUtil.util.createMemoryTable(cursor, null, option);
 		}
 		
 		ICursor cursor = pseudo.cursor(exps, names);

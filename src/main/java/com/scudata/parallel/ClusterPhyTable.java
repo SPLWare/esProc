@@ -4,15 +4,16 @@ import java.util.HashMap;
 
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.ComputeStack;
 import com.scudata.dm.Context;
+import com.scudata.dm.Current;
 import com.scudata.dm.DataStruct;
 import com.scudata.dm.Env;
 import com.scudata.dm.FileObject;
 import com.scudata.dm.IResource;
 import com.scudata.dm.JobSpace;
 import com.scudata.dm.JobSpaceManager;
-import com.scudata.dm.Record;
 import com.scudata.dm.ResourceManager;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
@@ -21,16 +22,15 @@ import com.scudata.dm.cursor.ICursor;
 import com.scudata.dm.cursor.MemoryCursor;
 import com.scudata.dm.cursor.MultipathCursors;
 import com.scudata.dw.Cuboid;
-import com.scudata.dw.IColumnCursorUtil;
 import com.scudata.dw.ITableIndex;
-import com.scudata.dw.ITableMetaData;
+import com.scudata.dw.IPhyTable;
 import com.scudata.dw.JoinCursor;
 import com.scudata.dw.MemoryTable;
 import com.scudata.dw.TableFulltextIndex;
 import com.scudata.dw.TableHashIndex;
 import com.scudata.dw.TableKeyValueIndex;
-import com.scudata.dw.TableMetaData;
-import com.scudata.dw.TableMetaDataIndex;
+import com.scudata.dw.PhyTable;
+import com.scudata.dw.PhyTableIndex;
 import com.scudata.expression.Expression;
 import com.scudata.expression.mfn.file.Structure;
 import com.scudata.resources.EngineMessage;
@@ -42,7 +42,7 @@ import com.scudata.util.Variant;
  * @author RunQian
  *
  */
-public class ClusterTableMetaData implements IClusterObject, IResource {
+public class ClusterPhyTable implements IClusterObject, IResource {
 	public static final int TYPE_TABLE = 0;
 	public static final int TYPE_NEW = 1;
 	public static final int TYPE_NEWS = 2;
@@ -55,7 +55,7 @@ public class ClusterTableMetaData implements IClusterObject, IResource {
 	private Expression distribute; // 分布表达式
 	private Context ctx;
 
-	public ClusterTableMetaData(ClusterFile clusterFile, int[] tmdProxyIds, Context ctx) {
+	public ClusterPhyTable(ClusterFile clusterFile, int[] tmdProxyIds, Context ctx) {
 		this.clusterFile = clusterFile;
 		this.tmdProxyIds = tmdProxyIds;
 		this.ctx = ctx;
@@ -87,7 +87,7 @@ public class ClusterTableMetaData implements IClusterObject, IResource {
 		Cluster cluster = getCluster();
 		int count = cluster.getUnitCount();
 		int[] mcsIds = mcs.getCursorProxyIds();
-		if (mcsIds.length != count || !(mcs.getSource() instanceof ClusterTableMetaData)) {
+		if (mcsIds.length != count || !(mcs.getSource() instanceof ClusterPhyTable)) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("cursor" + mm.getMessage("function.invalidParam"));
 		}
@@ -180,8 +180,8 @@ public class ClusterTableMetaData implements IClusterObject, IResource {
 		try {
 			JobSpace js = JobSpaceManager.getSpace(jobSpaceID);
 			ResourceManager rm = js.getResourceManager();
-			TableMetaDataProxy tmdp = (TableMetaDataProxy) rm.getProxy(tmdProxyId.intValue());
-			ITableMetaData tableMetaData = tmdp.getTableMetaData();
+			PhyTableProxy tmdp = (PhyTableProxy) rm.getProxy(tmdProxyId.intValue());
+			IPhyTable tableMetaData = tmdp.getTableMetaData();
 			CursorProxy cp = (CursorProxy) rm.getProxy(mcsId.intValue());
 			ICursor mcs = cp.getCursor();
 			
@@ -345,8 +345,8 @@ public class ClusterTableMetaData implements IClusterObject, IResource {
 		try {
 			JobSpace js = JobSpaceManager.getSpace(jobSpaceID);
 			ResourceManager rm = js.getResourceManager();
-			TableMetaDataProxy tmd = (TableMetaDataProxy) rm.getProxy(tmdProxyId.intValue());
-			ITableMetaData tableMetaData = tmd.getTableMetaData();
+			PhyTableProxy tmd = (PhyTableProxy) rm.getProxy(tmdProxyId.intValue());
+			IPhyTable tableMetaData = tmd.getTableMetaData();
 			Context ctx = ClusterUtil.createContext(js, attributes, "cursor", null);
 			Expression exp = filter == null ? null : new Expression(ctx, filter);
 			
@@ -457,15 +457,15 @@ public class ClusterTableMetaData implements IClusterObject, IResource {
 		Integer tmdProxyId = (Integer) attributes.get("tmdProxyId");
 		String []fields = (String[]) attributes.get("fields");
 		String filter = (String) attributes.get("filter");
-		String option = (String) attributes.get("option");
+		//String option = (String) attributes.get("option");
 		Integer unit = (Integer) attributes.get("unit");
 
 		try {
 			JobSpace js = JobSpaceManager.getSpace(jobSpaceID);
 			ResourceManager rm = js.getResourceManager();
 
-			TableMetaDataProxy tmdProxy = (TableMetaDataProxy) rm.getProxy(tmdProxyId.intValue());
-			ITableMetaData tmd = tmdProxy.getTableMetaData();
+			PhyTableProxy tmdProxy = (PhyTableProxy) rm.getProxy(tmdProxyId.intValue());
+			IPhyTable tmd = tmdProxy.getTableMetaData();
 			Context ctx = ClusterUtil.createContext(js, attributes);
 			Expression exp = filter == null ? null : new Expression(ctx, filter);
 
@@ -473,23 +473,18 @@ public class ClusterTableMetaData implements IClusterObject, IResource {
 			IProxy proxy;
 			MemoryTable memoryTable;
 			
-			//列式内表
-			if (option != null && option.indexOf('v') != -1 && IColumnCursorUtil.util != null) {
-				memoryTable = (MemoryTable) IColumnCursorUtil.util.createMemoryTable(cursor, fields, option);
+			Sequence seq = cursor.fetch();
+			Table table;
+			if (seq instanceof Table) {
+				table = (Table)seq;
 			} else {
-				Sequence seq = cursor.fetch();
-				Table table;
-				if (seq instanceof Table) {
-					table = (Table)seq;
-				} else {
-					table = seq.derive("o");
-				}
-				memoryTable = new MemoryTable(table);
+				table = seq.derive("o");
 			}
+			memoryTable = new MemoryTable(table);
 
-			if (tmd instanceof TableMetaData) {
+			if (tmd instanceof PhyTable) {
 				String distribute = tmd.getDistribute();
-				Integer partition = ((TableMetaData)tmd).getGroupTable().getPartition();
+				Integer partition = ((PhyTable)tmd).getGroupTable().getPartition();
 				if (partition != null) {
 					memoryTable.setDistribute(distribute);
 					memoryTable.setPart(partition);
@@ -569,7 +564,7 @@ public class ClusterTableMetaData implements IClusterObject, IResource {
 		try {
 			JobSpace js = JobSpaceManager.getSpace(jobSpaceID);
 			ResourceManager rm = js.getResourceManager();
-			TableMetaDataProxy tmd = (TableMetaDataProxy) rm.getProxy(tmdProxyId.intValue());
+			PhyTableProxy tmd = (PhyTableProxy) rm.getProxy(tmdProxyId.intValue());
 			Context ctx = ClusterUtil.createContext(js, attributes);
 			Expression exp = filter == null ? null : new Expression(ctx, filter);
 
@@ -589,7 +584,7 @@ public class ClusterTableMetaData implements IClusterObject, IResource {
 	 * @param tableName 附表名
 	 * @return 集群组表
 	 */
-	public ClusterTableMetaData getTableMetaData(String tableName) {
+	public ClusterPhyTable getTableMetaData(String tableName) {
 		ClusterFile clusterFile = this.clusterFile;
 		int count = tmdProxyIds.length;
 		int []tableProxyIds = new int[count];
@@ -610,7 +605,7 @@ public class ClusterTableMetaData implements IClusterObject, IResource {
 			}
 		}
 		
-		ClusterTableMetaData table = new ClusterTableMetaData(clusterFile, tableProxyIds, ctx);
+		ClusterPhyTable table = new ClusterPhyTable(clusterFile, tableProxyIds, ctx);
 		table.setDistribute(distribute);
 		return table;
 	}
@@ -628,9 +623,9 @@ public class ClusterTableMetaData implements IClusterObject, IResource {
 		try {
 			JobSpace js = JobSpaceManager.getSpace(jobSpaceID);
 			ResourceManager rm = js.getResourceManager();
-			TableMetaDataProxy table = (TableMetaDataProxy)rm.getProxy(tmdProxyId.intValue());
+			PhyTableProxy table = (PhyTableProxy)rm.getProxy(tmdProxyId.intValue());
 			
-			IProxy proxy = new TableMetaDataProxy(table.attach(tableName));
+			IProxy proxy = new PhyTableProxy(table.attach(tableName));
 			rm.addProxy(proxy);
 			return new Response(new Integer(proxy.getProxyId()));
 		} catch (Exception e) {
@@ -655,7 +650,7 @@ public class ClusterTableMetaData implements IClusterObject, IResource {
 		}
 		
 		ComputeStack stack = ctx.getComputeStack();
-		Sequence.Current current = seq.new Current();
+		Current current = new Current(seq);
 		stack.push(current);
 
 		try {
@@ -856,7 +851,7 @@ public class ClusterTableMetaData implements IClusterObject, IResource {
 					command.setAttribute("tmdProxyId", new Integer(tmdProxyIds[i]));
 					
 					Response response = client.send(command);
-					Record record = (Record) response.checkResult();
+					BaseRecord record = (BaseRecord) response.checkResult();
 					firstKeyValues[i] = record.getFieldValues();
 					if (keys == null) {
 						keys = record.dataStruct().getFieldNames();
@@ -918,7 +913,7 @@ public class ClusterTableMetaData implements IClusterObject, IResource {
 		try {
 			JobSpace js = JobSpaceManager.getSpace(jobSpaceID);
 			ResourceManager rm = js.getResourceManager();
-			TableMetaDataProxy tmd = (TableMetaDataProxy) rm.getProxy(tmdProxyId.intValue());
+			PhyTableProxy tmd = (PhyTableProxy) rm.getProxy(tmdProxyId.intValue());
 			CursorProxy csProxy = (CursorProxy)rm.getProxy(csProxyId.intValue());
 			tmd.getTableMetaData().append(csProxy.getCursor());
 			return new Response();
@@ -941,8 +936,8 @@ public class ClusterTableMetaData implements IClusterObject, IResource {
 		try {
 			JobSpace js = JobSpaceManager.getSpace(jobSpaceID);
 			ResourceManager rm = js.getResourceManager();
-			TableMetaDataProxy tmd = (TableMetaDataProxy) rm.getProxy(tmdProxyId.intValue());
-			ITableMetaData table = tmd.getTableMetaData();
+			PhyTableProxy tmd = (PhyTableProxy) rm.getProxy(tmdProxyId.intValue());
+			IPhyTable table = tmd.getTableMetaData();
 			ICursor cursor = table.cursor(table.getAllSortedColNames());
 			
 			Sequence seq = cursor.peek(1);
@@ -956,7 +951,7 @@ public class ClusterTableMetaData implements IClusterObject, IResource {
 			//tmd.setTempFile(fo);
 			
 			cursor.close();
-			Record record = (Record) seq.get(1);
+			BaseRecord record = (BaseRecord) seq.get(1);
 			return new Response(record);
 		} catch (Exception e) {
 			Response response = new Response();
@@ -979,7 +974,7 @@ public class ClusterTableMetaData implements IClusterObject, IResource {
 		try {
 			JobSpace js = JobSpaceManager.getSpace(jobSpaceID);
 			ResourceManager rm = js.getResourceManager();
-			TableMetaDataProxy tmd = (TableMetaDataProxy) rm.getProxy(tmdProxyId.intValue());
+			PhyTableProxy tmd = (PhyTableProxy) rm.getProxy(tmdProxyId.intValue());
 
 			Context ctx = ClusterUtil.createContext(js, attributes);
 			if (seq == 0) {
@@ -1009,7 +1004,7 @@ public class ClusterTableMetaData implements IClusterObject, IResource {
 		
 		int fcount = names.length;
 		int []findex = new int[fcount];
-		DataStruct ds = ((Record)seq.getMem(1)).dataStruct();
+		DataStruct ds = ((BaseRecord)seq.getMem(1)).dataStruct();
 		for (int f = 0; f < fcount; ++f) {
 			findex[f] = ds.getFieldIndex(names[f]);
 			if (findex[f] == -1) {
@@ -1023,7 +1018,7 @@ public class ClusterTableMetaData implements IClusterObject, IResource {
 		
 		int len = seq.length();
 		for (int i = 1; i <= len; ++i) {
-			Record r = (Record)seq.getMem(i);
+			BaseRecord r = (BaseRecord)seq.getMem(i);
 			for (int f = 0; f < fcount; ++f) {
 				curVals[f] = r.getNormalFieldValue(findex[f]);
 			}
@@ -1096,7 +1091,7 @@ public class ClusterTableMetaData implements IClusterObject, IResource {
 					command.setAttribute("tmdProxyId", new Integer(tmdProxyIds[i]));
 					
 					Response response = client.send(command);
-					Record record = (Record) response.checkResult();
+					BaseRecord record = (BaseRecord) response.checkResult();
 					firstKeyValues[i] = record.getFieldValues();
 					if (keys == null) {
 						keys = record.dataStruct().getFieldNames();
@@ -1156,7 +1151,7 @@ public class ClusterTableMetaData implements IClusterObject, IResource {
 		try {
 			JobSpace js = JobSpaceManager.getSpace(jobSpaceID);
 			ResourceManager rm = js.getResourceManager();
-			TableMetaDataProxy tmd = (TableMetaDataProxy) rm.getProxy(tmdProxyId.intValue());
+			PhyTableProxy tmd = (PhyTableProxy) rm.getProxy(tmdProxyId.intValue());
 
 			Sequence result = tmd.getTableMetaData().update(data, opt);
 			return new Response(result);
@@ -1219,7 +1214,7 @@ public class ClusterTableMetaData implements IClusterObject, IResource {
 		try {
 			JobSpace js = JobSpaceManager.getSpace(jobSpaceID);
 			ResourceManager rm = js.getResourceManager();
-			TableMetaDataProxy tmd = (TableMetaDataProxy) rm.getProxy(tmdProxyId.intValue());
+			PhyTableProxy tmd = (PhyTableProxy) rm.getProxy(tmdProxyId.intValue());
 
 			Sequence result = tmd.getTableMetaData().delete(data, opt);
 			return new Response(result);
@@ -1273,7 +1268,7 @@ public class ClusterTableMetaData implements IClusterObject, IResource {
 		try {
 			JobSpace js = JobSpaceManager.getSpace(jobSpaceID);
 			ResourceManager rm = js.getResourceManager();
-			TableMetaDataProxy tmd = (TableMetaDataProxy) rm.getProxy(tmdProxyId.intValue());
+			PhyTableProxy tmd = (PhyTableProxy) rm.getProxy(tmdProxyId.intValue());
 
 			boolean result = tmd.getTableMetaData().deleteIndex(indexName);
 			return new Response(new Boolean(result));
@@ -1329,8 +1324,8 @@ public class ClusterTableMetaData implements IClusterObject, IResource {
 		try {
 			JobSpace js = JobSpaceManager.getSpace(jobSpaceID);
 			ResourceManager rm = js.getResourceManager();
-			TableMetaDataProxy tmd = (TableMetaDataProxy) rm.getProxy(tmdProxyId.intValue());
-			TableMetaData table = (TableMetaData)tmd.getTableMetaData();
+			PhyTableProxy tmd = (PhyTableProxy) rm.getProxy(tmdProxyId.intValue());
+			PhyTable table = (PhyTable)tmd.getTableMetaData();
 			Context ctx = ClusterUtil.createContext(js, attributes);
 			Expression w = exp == null ? null : new Expression(ctx, exp);
 			
@@ -1358,7 +1353,7 @@ public class ClusterTableMetaData implements IClusterObject, IResource {
 						}
 					}
 				} else {
-					TableMetaDataIndex index = new TableMetaDataIndex(table, I);
+					PhyTableIndex index = new PhyTableIndex(table, I);
 					index.create(fields, opt, ctx, w);
 				}
 			} else if (obj instanceof String[]) {
@@ -1411,8 +1406,8 @@ public class ClusterTableMetaData implements IClusterObject, IResource {
 		try {
 			JobSpace js = JobSpaceManager.getSpace(jobSpaceID);
 			ResourceManager rm = js.getResourceManager();
-			TableMetaDataProxy tmd = (TableMetaDataProxy) rm.getProxy(tmdProxyId.intValue());
-			ITableMetaData table = tmd.getTableMetaData();
+			PhyTableProxy tmd = (PhyTableProxy) rm.getProxy(tmdProxyId.intValue());
+			IPhyTable table = tmd.getTableMetaData();
 			String []pkeys = table.getAllSortedColNames();
 			return new Response(pkeys);
 		} catch (Exception e) {
@@ -1457,8 +1452,8 @@ public class ClusterTableMetaData implements IClusterObject, IResource {
 		try {
 			JobSpace js = JobSpaceManager.getSpace(jobSpaceID);
 			ResourceManager rm = js.getResourceManager();
-			TableMetaDataProxy tmd = (TableMetaDataProxy) rm.getProxy(tmdProxyId.intValue());
-			ITableMetaData table = tmd.getTableMetaData();
+			PhyTableProxy tmd = (PhyTableProxy) rm.getProxy(tmdProxyId.intValue());
+			IPhyTable table = tmd.getTableMetaData();
 			String []names = table.getAllColNames();
 			return new Response(names);
 		} catch (Exception e) {
@@ -1587,7 +1582,7 @@ public class ClusterTableMetaData implements IClusterObject, IResource {
 			Expression filter = filterStr == null ? null : new Expression(ctx, filterStr);
 			
 			ResourceManager rm = js.getResourceManager();
-			TableMetaDataProxy tmd = (TableMetaDataProxy) rm.getProxy(tmdProxyId.intValue());
+			PhyTableProxy tmd = (PhyTableProxy) rm.getProxy(tmdProxyId.intValue());
 			ICursor cursor = null;
 			if (isSeq) {
 				TableProxy tableProxy = (TableProxy)rm.getProxy(cs2ProxyId.intValue());
@@ -1656,7 +1651,7 @@ public class ClusterTableMetaData implements IClusterObject, IResource {
 		try {
 			JobSpace js = JobSpaceManager.getSpace(jobSpaceID);
 			ResourceManager rm = js.getResourceManager();
-			TableMetaDataProxy tmd = (TableMetaDataProxy)rm.getProxy(tmdProxyId.intValue());
+			PhyTableProxy tmd = (PhyTableProxy)rm.getProxy(tmdProxyId.intValue());
 			tmd.close();
 			return new Response();
 		} catch (Exception e) {
@@ -1716,8 +1711,8 @@ public class ClusterTableMetaData implements IClusterObject, IResource {
 		try {
 			JobSpace js = JobSpaceManager.getSpace(jobSpaceID);
 			ResourceManager rm = js.getResourceManager();
-			TableMetaDataProxy tmd = (TableMetaDataProxy) rm.getProxy(tmdProxyId.intValue());
-			TableMetaData srcTable = (TableMetaData) tmd.getTableMetaData();
+			PhyTableProxy tmd = (PhyTableProxy) rm.getProxy(tmdProxyId.intValue());
+			PhyTable srcTable = (PhyTable) tmd.getTableMetaData();
 			Context ctx = ClusterUtil.createContext(js, attributes);
 			
 			String []expNames = (String[])attributes.get("expNames");
@@ -1738,9 +1733,9 @@ public class ClusterTableMetaData implements IClusterObject, IResource {
 		}
 	}
 	
-	public Record getStructure() {
+	public BaseRecord getStructure() {
 		ClusterFile clusterFile = getClusterFile();
-		Record result = null;
+		BaseRecord result = null;
 		UnitClient client = new UnitClient(clusterFile.getHost(0), clusterFile.getPort(0));
 
 		try {
@@ -1748,7 +1743,7 @@ public class ClusterTableMetaData implements IClusterObject, IResource {
 			command.setAttribute("jobSpaceId", clusterFile.getJobSpaceId());
 			command.setAttribute("tmdProxyId", new Integer(tmdProxyIds[0]));
 			Response response = client.send(command);
-			result = (Record)response.checkResult();
+			result = (BaseRecord)response.checkResult();
 		} finally {
 			client.close();
 		}
@@ -1764,9 +1759,9 @@ public class ClusterTableMetaData implements IClusterObject, IResource {
 		try {
 			JobSpace js = JobSpaceManager.getSpace(jobSpaceID);
 			ResourceManager rm = js.getResourceManager();
-			TableMetaDataProxy tmd = (TableMetaDataProxy) rm.getProxy(tmdProxyId.intValue());
-			ITableMetaData table = tmd.getTableMetaData();
-			return new Response(Structure.getTableStruct((TableMetaData)table, opt));
+			PhyTableProxy tmd = (PhyTableProxy) rm.getProxy(tmdProxyId.intValue());
+			IPhyTable table = tmd.getTableMetaData();
+			return new Response(Structure.getTableStruct((PhyTable)table, opt));
 		} catch (Exception e) {
 			Response response = new Response();
 			response.setException(e);

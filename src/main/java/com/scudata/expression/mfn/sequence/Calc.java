@@ -16,17 +16,20 @@ import com.scudata.resources.EngineMessage;
  *
  */
 public class Calc extends SequenceFunction {
-	public Object calculate(Context ctx) {
+	/**
+	 * 检查表达式的有效性，无效则抛出异常
+	 */
+	public void checkValidity() {
 		if (param == null) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("calc" + mm.getMessage("function.missingParam"));
-		}
-
-		if (param.getSubSize() != 2) {
+		} else if (param.getSubSize() != 2) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("calc" + mm.getMessage("function.invalidParam"));
 		}
-		
+	}
+
+	public Object calculate(Context ctx) {
 		IParam sub1 = param.getSub(0);
 		IParam sub2 = param.getSub(1);
 		if (sub1 == null || sub2 == null) {

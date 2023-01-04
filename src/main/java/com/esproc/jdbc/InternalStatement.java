@@ -532,16 +532,7 @@ public abstract class InternalStatement implements java.sql.Statement {
 					throw new SQLException(e.getMessage(), e);
 				}
 			}
-			if (execThread != null) {
-				try {
-					execThread.stop();
-				} catch (Throwable t1) {
-				}
-				try {
-					execThread.destroy();
-				} catch (Throwable t1) {
-				}
-			}
+			AppUtil.destroyThread(execThread);
 			execThread = null;
 		}
 	}

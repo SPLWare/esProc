@@ -115,4 +115,10 @@ public interface IParam {
 	 * @return IParam 新参数
 	 */
 	IParam create(int start, int end);
+
+	/**
+	 * 判断是否可以计算全部的值，有赋值运算时只能一行行计算
+	 * @return
+	 */
+	boolean canCalculateAll();
 }

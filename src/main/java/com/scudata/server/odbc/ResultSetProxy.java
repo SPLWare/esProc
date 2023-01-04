@@ -52,8 +52,8 @@ public class ResultSetProxy extends IProxy {
 					columns = row.dataStruct().getFieldNames();
 				}else{
 					Object tmp = row.get(1);
-					if(tmp instanceof Record){
-						Record rec = (Record)tmp;
+					if(tmp instanceof BaseRecord){
+						BaseRecord rec = (BaseRecord)tmp;
 						columns = rec.getFieldNames();
 					}
 				}

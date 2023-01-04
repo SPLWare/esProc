@@ -3,6 +3,8 @@ package com.scudata.dw;
 import java.io.IOException;
 import java.io.InputStream;
 
+import com.scudata.dm.Sequence;
+
 public class BlockLinkReader extends InputStream {
 	private BlockLink blockLink;
 	private IBlockStorage storage;
@@ -18,6 +20,9 @@ public class BlockLinkReader extends InputStream {
 	private LZ4Util lz4 = LZ4Util.instance();
 	private byte []decompressBuffer;
 	
+	private boolean isPureStorage;//是新版本的纯列存储格式
+	private Sequence dict;
+	
 	public BlockLinkReader(BlockLink blockLink) {
 		this(blockLink, 0);
 	}
@@ -29,6 +34,7 @@ public class BlockLinkReader extends InputStream {
 		blockSize = storage.getBlockSize();
 		pointerPos = blockSize - IBlockStorage.POS_SIZE;
 		block = new byte[blockSize];
+		isPureStorage = storage.isPureFormat();
 	}
 	
 	public void close() {
@@ -115,16 +121,22 @@ public class BlockLinkReader extends InputStream {
 		int srcCount = readInt32();
 		if (storage.isCompress()) {
 			int count = readInt32();
-			byte []buffer = new byte[count];
-			
-			readFully(buffer, 0, count);
-
-			if (srcCount > decompressBuffer.length) {
-				decompressBuffer = new byte[srcCount];
+			if (count > 0) {
+				byte []buffer = new byte[count];
+				
+				readFully(buffer, 0, count);
+	
+				if (srcCount > decompressBuffer.length) {
+					decompressBuffer = new byte[srcCount];
+				}
+				
+				lz4.decompress(buffer, decompressBuffer, srcCount);
+				return decompressBuffer;
+			} else {
+				byte []buffer = new byte[srcCount];
+				readFully(buffer, 0, srcCount);
+				return buffer;
 			}
-			
-			lz4.decompress(buffer, decompressBuffer, srcCount);
-			return decompressBuffer;
 		} else {
 			byte []buffer = new byte[srcCount];
 			readFully(buffer, 0, srcCount);
@@ -181,13 +193,40 @@ public class BlockLinkReader extends InputStream {
 		}
 	}
 	
-	public BufferReader readBlockData() throws IOException {
+	//给行式游标用
+	public BufferReader readBlockData(int recordCount) throws IOException {
+		return getBufferReader(readDataBlock(), recordCount);
+	}
+	
+	//给行式游标用
+	public BufferReader readBlockData(long pos, int recordCount) throws IOException {
+		byte[] buffer = readDataBlock(pos);
+		return getBufferReader(buffer, recordCount);
+	}
+	
+	//给列式游标用
+	public BufferReader readPureBlockData(int recordCount) throws IOException {
 		return new BufferReader(storage.getStructManager(), readDataBlock());
 	}
 	
-	public BufferReader readBlockData(long pos) throws IOException {
+	//给列式游标用
+	public BufferReader readPureBlockData(long pos, int recordCount) throws IOException {
 		return new BufferReader(storage.getStructManager(), readDataBlock(pos));
-
+	}
+	
+	//给行式游标用
+	private BufferReader getBufferReader(byte[] buffer, int recordCount) {
+		if (isPureStorage) {
+			if (PureBufferReader.canUseBufferReader(buffer, 0)) {
+				BufferReader reader = new BufferReader(storage.getStructManager(), buffer);
+				reader.index++;
+				return reader;
+			} else {
+				return new PureBufferReader(storage.getStructManager(), buffer, recordCount, dict);
+			}
+		} else {
+			return new BufferReader(storage.getStructManager(), buffer);
+		}
 	}
 	
 	//不压缩读取
@@ -216,5 +255,13 @@ public class BlockLinkReader extends InputStream {
 	
 	public IBlockStorage getStorage() {
 		return storage;
+	}
+	
+	public Sequence getDict() {
+		return dict;
+	}
+
+	public void setDict(Sequence dict) {
+		this.dict = dict;
 	}
 }

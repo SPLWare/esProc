@@ -113,8 +113,8 @@ public class PanelConsole extends JPanel {
 		jTextArea1.setEditable(false);
 		jTextArea1.setBackground(Color.WHITE);
 		if (isSPL) {
-			jBCopy.setPreferredSize(new Dimension(55, 25));
-			jBClean.setPreferredSize(new Dimension(55, 25));
+			jBCopy.setPreferredSize(new Dimension(65, 25));
+			jBClean.setPreferredSize(new Dimension(65, 25));
 		}
 		add(new JScrollPane(jTextArea1), BorderLayout.CENTER);
 		JPanel panelNorth = new JPanel(new GridBagLayout());

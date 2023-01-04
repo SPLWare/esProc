@@ -6,6 +6,7 @@ import java.io.UnsupportedEncodingException;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.BFileReader;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Context;
 import com.scudata.dm.DataStruct;
 import com.scudata.dm.FileObject;
@@ -190,8 +191,8 @@ public class ISelect extends FileFunction {
 			int len = table.length();
 			Table selTable = new Table(selFields, len);
 			for (int i = 1; i <= len; ++i) {
-				Record nr = selTable.newLast();
-				Record r = (Record)table.get(i);
+				BaseRecord nr = selTable.newLast();
+				BaseRecord r = (BaseRecord)table.get(i);
 				for (int f = 0; f < fcount; ++f) {
 					if (index[f] >= 0) {
 						nr.setNormalFieldValue(f, r.getFieldValue(index[f]));
@@ -319,7 +320,6 @@ public class ISelect extends FileFunction {
 		LineImporter importer = null;
 		Object []line = null;
 		long start = 0;
-		
 		Record rec = null;
 
 		try {
@@ -327,12 +327,6 @@ public class ISelect extends FileFunction {
 			line = importer.readLine();
 			if (line == null) {
 				return null;
-			}
-			
-			// 初始化记录变量
-			String[] fields = new String[line.length];
-			for (int i = 0; i < line.length; i++) {
-				fields[i] = line[i].toString();
 			}
 			
 			byte []colTypes = new byte[line.length];
@@ -437,7 +431,7 @@ public class ISelect extends FileFunction {
 								if (objs.length <= fcount) {
 									table.newLast(objs);
 								} else {
-									Record r = table.newLast();
+									BaseRecord r = table.newLast();
 									for (int f = 0; f < fcount; ++f) {
 										r.setNormalFieldValue(f, objs[f]);
 									}
@@ -480,7 +474,7 @@ public class ISelect extends FileFunction {
 	}
 	
 	private static long iselect_i(LineImporter importer, Table table,long pos,
-			Expression exp, Record rec, Object key, int fcount, long size, Context ctx)
+			Expression exp, BaseRecord rec, Object key, int fcount, long size, Context ctx)
 					throws IOException {
 		long lastpos;
 		while (true)
@@ -501,7 +495,7 @@ public class ISelect extends FileFunction {
 					if (objs.length <= fcount) {
 						table.newLast(objs);
 					} else {
-						Record r = table.newLast();
+						BaseRecord r = table.newLast();
 						for (int f = 0; f < fcount; ++f) {
 							r.setNormalFieldValue(f, objs[f]);
 						}
@@ -554,15 +548,16 @@ public class ISelect extends FileFunction {
 			byte []colTypes = new byte[line.length];
 			importer.setColTypes(colTypes, null);
 			
-			if (isTitle) {
-				low = importer.getCurrentPosition() - 2;
-			}
-			
 			// 初始化记录变量
 			String[] fields = new String[line.length];
-			for (int i = 0; i < line.length; i++) {
-				fields[i] = line[i].toString();
+			if (isTitle) {
+				low = importer.getCurrentPosition() - 2;
+				for (int i = 0; i < line.length; i++) {
+					fields[i] = Variant.toString(line[i]);
+				}
 			}
+			
+			
 			DataStruct ds = new DataStruct(fields);
 			Record rec = new Record(ds);
 			

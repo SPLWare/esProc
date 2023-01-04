@@ -22,7 +22,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.text.JTextComponent;
 
-import com.scudata.cellset.ICellSet;
+import com.scudata.cellset.datamodel.PgmCellSet;
 import com.scudata.common.IntArrayList;
 import com.scudata.common.StringUtils;
 import com.scudata.dm.Context;
@@ -41,6 +41,7 @@ import com.scudata.ide.common.function.ParamUtil;
 import com.scudata.ide.common.swing.FreeConstraints;
 import com.scudata.ide.common.swing.FreeLayout;
 import com.scudata.ide.common.swing.JListEx;
+import com.scudata.ide.spl.GVSpl;
 
 /**
  * 函数窗口
@@ -65,11 +66,6 @@ public class FuncWindow extends JWindow {
 	private JTextPane textDesc = new JTextPane();
 
 	/**
-	 * 网格对象
-	 */
-	private ICellSet cellSet;
-
-	/**
 	 * 函数管理器
 	 */
 	private FuncManager funcManager = FuncManager.getManager();
@@ -77,7 +73,7 @@ public class FuncWindow extends JWindow {
 	/**
 	 * 是否可用
 	 */
-	private boolean isEnabled;
+	private boolean isEnabled = false;
 
 	/**
 	 * 是否阻止执行动作
@@ -189,15 +185,6 @@ public class FuncWindow extends JWindow {
 	 */
 	public boolean isDisplay() {
 		return isEnabled && isDisplay;
-	}
-
-	/**
-	 * 设置当前网格对象
-	 * 
-	 * @param cellSet
-	 */
-	public void setCellSet(ICellSet cellSet) {
-		this.cellSet = cellSet;
 	}
 
 	/**
@@ -377,6 +364,14 @@ public class FuncWindow extends JWindow {
 		});
 
 		matchedMap.clear();
+		PgmCellSet cellSet = null;
+		if (GVSpl.splEditor != null) {
+			cellSet = GVSpl.splEditor.getComponent().cellSet;
+		}
+		if (cellSet == null) {
+			hideWindow();
+			return;
+		}
 		efi = ParamUtil.getEditingFunc(textExp, cellSet, ctx);
 		if (efi == null) {
 			hideWindow();
@@ -664,10 +659,10 @@ public class FuncWindow extends JWindow {
 	}
 
 	public static String getFuncString(FuncInfo fi, String efo,
-			FuncParam activeParam, int paramCaret, boolean hasPostfix) {
+			FuncParam activeParam, int paramCaret, boolean getFullString) {
 		ArrayList<FuncParam> params = fi.getParams();
 		StringBuffer sb = new StringBuffer();
-		if (hasPostfix) {
+		if (getFullString) {
 			if (StringUtils.isValidString(fi.getPostfix())) {
 				sb.append(fi.getPostfix());
 			}
@@ -676,19 +671,20 @@ public class FuncWindow extends JWindow {
 		ArrayList<FuncOption> options = fi.getOptions();
 		FuncOption fo;
 		String optChar;
-		if (options != null && options.size() > 0) {
-			sb.append("@");
-			for (int i = 0; i < options.size(); i++) {
-				fo = options.get(i);
-				optChar = fo.getOptionChar();
-				if (StringUtils.isValidString(efo)) {
-					if (efo.indexOf(optChar) > -1) {
-						optChar = "<b>" + optChar + "</b>"; // 当前选项加粗
+		if (getFullString)
+			if (options != null && options.size() > 0) {
+				sb.append("@");
+				for (int i = 0; i < options.size(); i++) {
+					fo = options.get(i);
+					optChar = fo.getOptionChar();
+					if (StringUtils.isValidString(efo)) {
+						if (efo.indexOf(optChar) > -1) {
+							optChar = "<b>" + optChar + "</b>"; // 当前选项加粗
+						}
 					}
+					sb.append(optChar);
 				}
-				sb.append(optChar);
 			}
-		}
 		sb.append("(");
 		if (params != null && params.size() != 0) {
 			FuncParam fp, fpNext;

@@ -5,11 +5,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
+import com.scudata.array.IArray;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
 import com.scudata.dm.DataStruct;
-import com.scudata.dm.ListBase1;
 import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
@@ -32,7 +32,7 @@ import com.scudata.resources.EngineMessage;
  *
  */
 public class JoinTableCursor extends IDWCursor{
-	ColumnTableMetaData table;//本表
+	ColPhyTable table;//本表
 	private int seqs[][];//每个表里取出字段的位置
 	
 	private TableCursor tableCursor[];//取数游标（包含基表，附表的）
@@ -84,7 +84,7 @@ public class JoinTableCursor extends IDWCursor{
 	 * @param table
 	 * @return
 	 */
-	public static ICursor createAnnexCursor(ColumnTableMetaData table) {
+	public static ICursor createAnnexCursor(ColPhyTable table) {
 		return parseFilterAndFields(null, table, null, null, null, null, null, null);
 	}
 	
@@ -94,7 +94,7 @@ public class JoinTableCursor extends IDWCursor{
 	 * @param fields 取出字段
 	 * @return
 	 */
-	public static ICursor createAnnexCursor(ColumnTableMetaData table, String []fields) {
+	public static ICursor createAnnexCursor(ColPhyTable table, String []fields) {
 		return parseFilterAndFields(fields, table, null, null, null, null, null, null);
 	}
 	
@@ -108,7 +108,7 @@ public class JoinTableCursor extends IDWCursor{
 	 * @param ctx 上下文
 	 * @return
 	 */
-	public static ICursor createAnnexCursor(ColumnTableMetaData table, String []fields, 
+	public static ICursor createAnnexCursor(ColPhyTable table, String []fields, 
 			Expression exp, String []fkNames, Sequence []codes, Context ctx) {
 		return parseFilterAndFields(null, table, exp, fkNames, codes, null, null, ctx);
 	}
@@ -124,14 +124,14 @@ public class JoinTableCursor extends IDWCursor{
 	 * @param ctx 上下文
 	 * @return
 	 */
-	public static ICursor createAnnexCursor(ColumnTableMetaData table, Expression []exps, String []names, 
+	public static ICursor createAnnexCursor(ColPhyTable table, Expression []exps, String []names, 
 			Expression exp, String []fkNames, Sequence []codes, Context ctx) {
 		return parseFilterAndFields(null, table, exp, fkNames, codes, exps, names, ctx);
 	}
 	
-	private static ICursor parseFilterAndFields(String []fields, ColumnTableMetaData table, Expression exp, 
+	private static ICursor parseFilterAndFields(String []fields, ColPhyTable table, Expression exp, 
 			String []fkNames, Sequence []codes, Expression []exps, String []names, Context ctx) {
-		ColumnTableMetaData ptable = (ColumnTableMetaData) table.parent;
+		ColPhyTable ptable = (ColPhyTable) table.parent;
 		if (ptable == null) {
 			return null;
 		}
@@ -168,7 +168,7 @@ public class JoinTableCursor extends IDWCursor{
 		String tableFields[];
 		IFilter tableFilter[];
 		
-		ArrayList<ColumnTableMetaData> tableList = new ArrayList<ColumnTableMetaData>(2);
+		ArrayList<ColPhyTable> tableList = new ArrayList<ColPhyTable>(2);
 		tableList.add(ptable);
 		tableList.add(table);
 		int count = 2;
@@ -179,13 +179,14 @@ public class JoinTableCursor extends IDWCursor{
 		
 		//提取表达式的filter
 		if (exp != null) {
-			for (ColumnTableMetaData t : tableList) {
+			for (ColPhyTable t : tableList) {
 				Object obj = Cursor.parseFilter(t, exp, ctx);
 				
 				if (obj instanceof IFilter) {
 					filterList.add((IFilter)obj);
 					fieldsList.add(((IFilter)obj).getColumn().getColName());
 				} else if (obj instanceof ArrayList) {
+					@SuppressWarnings("unchecked")
 					ArrayList<Object> list = (ArrayList<Object>)obj;
 					Node node = null;
 					
@@ -223,7 +224,7 @@ public class JoinTableCursor extends IDWCursor{
 			
 			Next:
 			for (int f = 0; f < fcount; ++f) {
-				ColumnTableMetaData tempTable = table;
+				ColPhyTable tempTable = table;
 				ColumnMetaData column = tempTable.getColumn(fkNames[f]);
 				if (column == null) {
 					tempTable = ptable;
@@ -231,7 +232,7 @@ public class JoinTableCursor extends IDWCursor{
 				}
 				
 				int pri = tempTable.getColumnFilterPriority(column);
-				FindFilter find = new FindFilter(column, pri, codes[f]);
+				FindFilter find = new FindFilter(column, pri, codes[f], null);
 				for (int i = 0; i < fltCount; ++i) {
 					IFilter filter = filterList.get(i);
 					if (filter.isSameColumn(find)) {
@@ -367,7 +368,7 @@ public class JoinTableCursor extends IDWCursor{
 		boolean hasFilter = false;
 		
 		for (int i = 0; i < count; ++i) {
-			TableMetaData tb = tableList.get(i);
+			PhyTable tb = tableList.get(i);
 			String []colNames = tb.getColNames();//这里只能要子表自己的字段
 			ArrayList<String> tempFieldsList = new ArrayList<String>();
 			ArrayList<IFilter> tempFilterList = new ArrayList<IFilter>();
@@ -445,7 +446,7 @@ public class JoinTableCursor extends IDWCursor{
 		for (int i = 0; i < tableCount; ++i) {
 			String []fieldArray = fieldArrays[i];
 			if (fieldArray != null) {
-				tableCursor[c] = new TableCursor((ColumnTableMetaData) tableList.get(tableId[i]), fieldArray, filterArrays[i], ctx);
+				tableCursor[c] = new TableCursor((ColPhyTable) tableList.get(tableId[i]), fieldArray, filterArrays[i], ctx);
 				int len = fieldArray.length;
 				seqs[c] = new int[len];
 				
@@ -556,7 +557,7 @@ public class JoinTableCursor extends IDWCursor{
 		return cs;
 	}
 	
-	public ColumnTableMetaData getColumnTableMetaData() {
+	public ColPhyTable getColumnTableMetaData() {
 		return table;
 	}
 	
@@ -614,7 +615,7 @@ public class JoinTableCursor extends IDWCursor{
 				int len = appendData.length();
 				if (n > len - appendIndex + 1) {
 					Table table = new Table(ds, len - appendIndex + 1);
-					ListBase1 mems = table.getMems();
+					IArray mems = table.getMems();
 					for (int i = appendIndex; i <= len; ++i) {
 						Record r = (Record)appendData.getMem(i);
 						r.setDataStruct(ds);
@@ -625,7 +626,7 @@ public class JoinTableCursor extends IDWCursor{
 					return table;
 				} else {
 					Table table = new Table(ds, n);
-					ListBase1 mems = table.getMems();
+					IArray mems = table.getMems();
 					int appendIndex = this.appendIndex;
 					for (int i = 0; i < n; ++i, ++appendIndex) {
 						Record r = (Record)appendData.getMem(appendIndex);
@@ -645,7 +646,7 @@ public class JoinTableCursor extends IDWCursor{
 				int len = appendData.length();
 				int rest = len - appendIndex + 1;
 				if (diff > rest) {
-					ListBase1 mems = seq.getMems();
+					IArray mems = seq.getMems();
 					for (int i = appendIndex; i <= len; ++i) {
 						Record r = (Record)appendData.getMem(i);
 						r.setDataStruct(ds);
@@ -655,7 +656,7 @@ public class JoinTableCursor extends IDWCursor{
 					appendIndex = 0;
 					return seq;
 				} else {
-					ListBase1 mems = seq.getMems();
+					IArray mems = seq.getMems();
 					int appendIndex = this.appendIndex;
 					for (int i = 0; i < diff; ++i, ++appendIndex) {
 						Record r = (Record)appendData.getMem(appendIndex);
@@ -692,7 +693,7 @@ public class JoinTableCursor extends IDWCursor{
 		
 		int curBlock = this.curBlock;
 		int endBlock = this.endBlock;
-		ListBase1 mems = cache.getMems();
+		IArray mems = cache.getMems();
 		this.cache = null;
 		TableCursor tableCursor[] = this.tableCursor;
 		int tableCount = tableCursor.length;
@@ -929,7 +930,7 @@ public class JoinTableCursor extends IDWCursor{
 		return true;
 	}
 	
-	public TableMetaData getTableMetaData() {
+	public PhyTable getTableMetaData() {
 		return table;
 	}
 	
@@ -943,6 +944,20 @@ public class JoinTableCursor extends IDWCursor{
 			this.cache = cache;
 		} else {
 			this.cache = cache;	
+		}
+	}
+	
+	protected Sequence getStartBlockData(int n) {
+		// 只取第一块的记录，如果第一块没有满足条件的就返回
+		int startBlock = this.startBlock;
+		int endBlock = this.endBlock;
+		try {
+			setEndBlock(startBlock + 1);
+			Sequence seq = getData(n);
+			isFirstSkip = false;
+			return seq;
+		} finally {
+			setEndBlock(endBlock);
 		}
 	}
 }

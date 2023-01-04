@@ -4,11 +4,11 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import com.scudata.array.IArray;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
 import com.scudata.dm.DataStruct;
-import com.scudata.dm.ListBase1;
 import com.scudata.dm.LongArray;
 import com.scudata.dm.ObjectReader;
 import com.scudata.dm.ObjectWriter;
@@ -38,7 +38,7 @@ import com.scudata.util.Variant;
  * @author runqian
  *
  */
-public class RowTableMetaData extends TableMetaData {
+public class RowPhyTable extends PhyTable {
 	protected transient String []sortedColNames; // 排序字段(维字段)
 	private transient String []allSortedColNames; // 排序字段(维字段) 含主表
 	protected transient String []allKeyColNames; // key字段
@@ -56,7 +56,7 @@ public class RowTableMetaData extends TableMetaData {
 	 * 用于序列化
 	 * @param groupTable
 	 */
-	public RowTableMetaData(GroupTable groupTable) {
+	public RowPhyTable(ComTable groupTable) {
 		this.groupTable = groupTable;
 		dataBlockLink = new BlockLink(groupTable);
 		segmentBlockLink = new BlockLink(groupTable);
@@ -69,7 +69,7 @@ public class RowTableMetaData extends TableMetaData {
 	 * @param groupTable
 	 * @param parent
 	 */
-	public RowTableMetaData(GroupTable groupTable, RowTableMetaData parent) {
+	public RowPhyTable(ComTable groupTable, RowPhyTable parent) {
 		this.groupTable = groupTable;
 		this.parent = parent;
 		dataBlockLink = new BlockLink(groupTable);
@@ -84,7 +84,7 @@ public class RowTableMetaData extends TableMetaData {
 	 * @param colNames
 	 * @throws IOException
 	 */
-	public RowTableMetaData(GroupTable groupTable, String []colNames) throws IOException {
+	public RowPhyTable(ComTable groupTable, String []colNames) throws IOException {
 		// 创建新数组，否则文件组时可能影响到其它分区组表的创建
 		String []tmp = new String[colNames.length];
 		System.arraycopy(colNames, 0, tmp, 0, colNames.length);
@@ -129,7 +129,7 @@ public class RowTableMetaData extends TableMetaData {
 			hasPrimaryKey = false;
 			isSorted = false;
 		}
-		tableList = new ArrayList<TableMetaData>();
+		tableList = new ArrayList<PhyTable>();
 	}
 	
 	/**
@@ -141,8 +141,8 @@ public class RowTableMetaData extends TableMetaData {
 	 * @param parent 主表对象
 	 * @throws IOException
 	 */
-	public RowTableMetaData(GroupTable groupTable, String []colNames, int []serialBytesLen,
-			String tableName, RowTableMetaData parent) throws IOException {
+	public RowPhyTable(ComTable groupTable, String []colNames, int []serialBytesLen,
+			String tableName, RowPhyTable parent) throws IOException {
 		// 创建新数组，否则文件组时可能影响到其它分区组表的创建
 		String []tmp = new String[colNames.length];
 		System.arraycopy(colNames, 0, tmp, 0, colNames.length);
@@ -184,7 +184,7 @@ public class RowTableMetaData extends TableMetaData {
 				throw new RQException(mm.getMessage("ds.dsNotMatch"));
 			}
 			
-			TableMetaData primaryTable = parent;
+			PhyTable primaryTable = parent;
 			String []primarySortedColNames = primaryTable.getSortedColNames();
 			String []primaryColNames = primaryTable.getColNames();
 			ArrayList<String> collist = new ArrayList<String>();
@@ -207,7 +207,7 @@ public class RowTableMetaData extends TableMetaData {
 			sortedColStartIndex = primarySortedColNames.length;
 		}
 		
-		tableList = new ArrayList<TableMetaData>();
+		tableList = new ArrayList<PhyTable>();
 	}
 	
 	/**
@@ -217,7 +217,7 @@ public class RowTableMetaData extends TableMetaData {
 	 * @param src 提供结构的源基表
 	 * @throws IOException
 	 */
-	public RowTableMetaData(GroupTable groupTable, RowTableMetaData parent, RowTableMetaData src) throws IOException {
+	public RowPhyTable(ComTable groupTable, RowPhyTable parent, RowPhyTable src) throws IOException {
 		this.groupTable = groupTable;
 		this.parent = parent;
 		
@@ -243,9 +243,9 @@ public class RowTableMetaData extends TableMetaData {
 			isSorted = false;
 		}
 		
-		tableList = new ArrayList<TableMetaData>();
-		for (TableMetaData srcSub : src.tableList) {
-			tableList.add(new RowTableMetaData(groupTable, this, (RowTableMetaData)srcSub));
+		tableList = new ArrayList<PhyTable>();
+		for (PhyTable srcSub : src.tableList) {
+			tableList.add(new RowPhyTable(groupTable, this, (RowPhyTable)srcSub));
 		}
 	}
 
@@ -279,7 +279,7 @@ public class RowTableMetaData extends TableMetaData {
 		}
 		
 		if (parent != null) {
-			TableMetaData primaryTable = parent;
+			PhyTable primaryTable = parent;
 			String []primarySortedColNames = primaryTable.getAllSortedColNames();
 			sortedColStartIndex = primarySortedColNames.length;
 
@@ -348,7 +348,7 @@ public class RowTableMetaData extends TableMetaData {
 		
 		colWriter = new BlockLinkWriter(dataBlockLink, true);
 		segmentWriter = new BlockLinkWriter(segmentBlockLink, true);
-		objectWriter = new ObjectWriter(segmentWriter, groupTable.getBlockSize() - GroupTable.POS_SIZE);
+		objectWriter = new ObjectWriter(segmentWriter, groupTable.getBlockSize() - ComTable.POS_SIZE);
 	}
 	
 	/**
@@ -438,9 +438,9 @@ public class RowTableMetaData extends TableMetaData {
 		init();
 		
 		count = reader.readInt();
-		tableList = new ArrayList<TableMetaData>(count);
+		tableList = new ArrayList<PhyTable>(count);
 		for (int i = 0; i < count; ++i) {
-			TableMetaData table = new RowTableMetaData(groupTable, this);
+			PhyTable table = new RowPhyTable(groupTable, this);
 			table.readExternal(reader);
 			tableList.add(table);
 		}
@@ -510,7 +510,7 @@ public class RowTableMetaData extends TableMetaData {
 		writer.flush();
 		writer.writeInt(segmentSerialLen);
 		
-		ArrayList<TableMetaData> tableList = this.tableList;
+		ArrayList<PhyTable> tableList = this.tableList;
 		count = tableList.size();
 		writer.writeInt(count);
 		for (int i = 0; i < count; ++i) {
@@ -678,7 +678,7 @@ public class RowTableMetaData extends TableMetaData {
 	 * @throws IOException
 	 */
 	private void appendAttached(ICursor cursor) throws IOException {
-		TableMetaData primaryTable = parent;
+		PhyTable primaryTable = parent;
 		int pBlockCount = primaryTable.getDataBlockCount();//主表的已有总块数
 		int curBlockCount = dataBlockCount;//要追加的开始块号
 		int pkeyEndIndex = sortedColStartIndex;
@@ -710,7 +710,7 @@ public class RowTableMetaData extends TableMetaData {
 		int pkeyIndex = 1;
 
 		int pkeyDataLen = pkeyData.length();
-		GroupTableRecord curPkey = (GroupTableRecord) pkeyData.get(1);
+		ComTableRecord curPkey = (ComTableRecord) pkeyData.get(1);
 		Object []curPkeyVals = curPkey.getFieldValues();
 
 		String []allSortedColNames = getAllSortedColNames();
@@ -765,7 +765,7 @@ public class RowTableMetaData extends TableMetaData {
 							pkeyIndex = 1;
 							pkeyDataLen = pkeyData.length();
 						}
-						curPkey = (GroupTableRecord) pkeyData.get(pkeyIndex);
+						curPkey = (ComTableRecord) pkeyData.get(pkeyIndex);
 						curPkeyVals = curPkey.getFieldValues();
 					} else if (cmp > 0) {
 						//不应该出现，抛异常
@@ -955,7 +955,7 @@ public class RowTableMetaData extends TableMetaData {
 				if (recCount >= MAX_BLOCK_RECORD_COUNT) {
 					//这时提交一半
 					appendDataBlock(seq, 1, MAX_BLOCK_RECORD_COUNT/2);
-					seq = seq.get(MAX_BLOCK_RECORD_COUNT/2 + 1, seq.length() + 1);
+					seq = (Sequence) seq.get(MAX_BLOCK_RECORD_COUNT/2 + 1, seq.length() + 1);
 					recCount = seq.length(); 
 				} else if (recCount >= MIN_BLOCK_RECORD_COUNT){
 					boolean doAppend = true;
@@ -1127,7 +1127,7 @@ public class RowTableMetaData extends TableMetaData {
 	public ICursor cursor() {
 		getGroupTable().checkReadable();
 		ICursor cs = new RowCursor(this);
-		TableMetaData tmd = getSupplementTable(false);
+		PhyTable tmd = getSupplementTable(false);
 		if (tmd == null) {
 			return cs;
 		} else {
@@ -1139,7 +1139,7 @@ public class RowTableMetaData extends TableMetaData {
 	public ICursor cursor(String []fields) {
 		getGroupTable().checkReadable();
 		ICursor cs = new RowCursor(this, fields);
-		TableMetaData tmd = getSupplementTable(false);
+		PhyTable tmd = getSupplementTable(false);
 		if (tmd == null) {
 			return cs;
 		} else {
@@ -1151,7 +1151,7 @@ public class RowTableMetaData extends TableMetaData {
 	public ICursor cursor(String []fields, Expression exp, Context ctx) {
 		getGroupTable().checkReadable();
 		ICursor cs = new RowCursor(this, fields, exp, ctx);
-		TableMetaData tmd = getSupplementTable(false);
+		PhyTable tmd = getSupplementTable(false);
 		if (tmd == null) {
 			return cs;
 		} else {
@@ -1163,7 +1163,7 @@ public class RowTableMetaData extends TableMetaData {
 	public ICursor cursor(Expression[] exps, String[] fields, Expression filter, Context ctx) {
 		getGroupTable().checkReadable();
 		ICursor cs = new RowCursor(this, null, filter, exps, fields, ctx);
-		TableMetaData tmd = getSupplementTable(false);
+		PhyTable tmd = getSupplementTable(false);
 		if (tmd == null) {
 			return cs;
 		} else {
@@ -1314,7 +1314,7 @@ public class RowTableMetaData extends TableMetaData {
 	 * @return
 	 * @throws IOException
 	 */
-	private Sequence update(TableMetaData stmd, Sequence data, String opt) throws IOException {
+	private Sequence update(PhyTable stmd, Sequence data, String opt) throws IOException {
 		boolean isUpdate = true, isInsert = true;
 		Sequence result = null;
 		if (opt != null) {
@@ -1385,7 +1385,7 @@ public class RowTableMetaData extends TableMetaData {
 			}
 		} else {
 			recNum  = new long[len + 1];//子表对应到主表的伪号，0表示在主表补区
-			RowTableMetaData baseTable = (RowTableMetaData) this.groupTable.baseTable;
+			RowPhyTable baseTable = (RowPhyTable) this.groupTable.baseTable;
 			RowRecordSeqSearcher baseSearcher = new RowRecordSeqSearcher(baseTable);
 			RowRecordSeqSearcher2 searcher = new RowRecordSeqSearcher2(this);
 			if (keyCount == 1) {
@@ -1600,9 +1600,9 @@ public class RowTableMetaData extends TableMetaData {
 		
 		if (isPrimaryTable && needUpdateSubTable) {
 			//主表有insert，就必须更新所有子表补区
-			ArrayList<TableMetaData> tableList = getTableList();
+			ArrayList<PhyTable> tableList = getTableList();
 			for (int i = 0, size = tableList.size(); i < size; ++i) {
-				RowTableMetaData t = ((RowTableMetaData)tableList.get(i));
+				RowPhyTable t = ((RowPhyTable)tableList.get(i));
 				boolean needSave = t.update(modifyRecords);
 				if (needSave) {
 					t.saveModifyRecords();
@@ -1630,9 +1630,9 @@ public class RowTableMetaData extends TableMetaData {
 			throw new RQException(mm.getMessage("dw.lessKey"));
 		}
 		
-		GroupTable groupTable = getGroupTable();
+		ComTable groupTable = getGroupTable();
 		groupTable.checkWritable();
-		TableMetaData tmd = getSupplementTable(false);
+		PhyTable tmd = getSupplementTable(false);
 		if (tmd != null) {
 			return update(tmd, data, opt);
 		}
@@ -1722,7 +1722,7 @@ public class RowTableMetaData extends TableMetaData {
 			}
 		} else {
 			recNum  = new long[len + 1];//子表对应到主表的伪号，0表示在主表补区
-			RowTableMetaData baseTable = (RowTableMetaData) this.groupTable.baseTable;
+			RowPhyTable baseTable = (RowPhyTable) this.groupTable.baseTable;
 			RowRecordSeqSearcher baseSearcher = new RowRecordSeqSearcher(baseTable);
 			RowRecordSeqSearcher2 searcher = new RowRecordSeqSearcher2(this);
 			if (keyCount == 1) {
@@ -2018,9 +2018,9 @@ public class RowTableMetaData extends TableMetaData {
 		
 		if (isPrimaryTable && needUpdateSubTable) {
 			//主表有insert，就必须更新所有子表补区
-			ArrayList<TableMetaData> tableList = getTableList();
+			ArrayList<PhyTable> tableList = getTableList();
 			for (int i = 0, size = tableList.size(); i < size; ++i) {
-				RowTableMetaData t = ((RowTableMetaData)tableList.get(i));
+				RowPhyTable t = ((RowPhyTable)tableList.get(i));
 				boolean needSave = t.update(modifyRecords);
 				if (needSave) {
 					t.saveModifyRecords();
@@ -2044,15 +2044,15 @@ public class RowTableMetaData extends TableMetaData {
 			throw new RQException(mm.getMessage("dw.lessKey"));
 		}
 		
-		GroupTable groupTable = getGroupTable();
+		ComTable groupTable = getGroupTable();
 		groupTable.checkWritable();
 		
 		Sequence result1 = null;
-		TableMetaData tmd = getSupplementTable(false);
+		PhyTable tmd = getSupplementTable(false);
 		if (tmd != null) {
 			// 有补文件时先删除补文件中的数据，补文件中不存在的再在源文件中删除
 			result1 = tmd.delete(data, "n");
-			data = data.diff(result1, false);
+			data = (Sequence) data.diff(result1, false);
 		}
 		
 		appendCache();
@@ -2298,17 +2298,17 @@ public class RowTableMetaData extends TableMetaData {
 		if (modified) {
 			if (isPrimaryTable) {
 				//主表有delete，就必须同步delete子表
-				ArrayList<TableMetaData> tableList = getTableList();
+				ArrayList<PhyTable> tableList = getTableList();
 				int size = tableList.size();
 				for (int i = 0; i < size; ++i) {
-					RowTableMetaData t = ((RowTableMetaData)tableList.get(i));
+					RowPhyTable t = ((RowPhyTable)tableList.get(i));
 					t.delete(data, "s");//删除子表列区
 					t.delete(data);//删除子表补区
 				}
 				
 				//主表有删除，补区的位置会变化，还要同步子表补区
 				for (int i = 0; i < size; ++i) {
-					RowTableMetaData t = ((RowTableMetaData)tableList.get(i));
+					RowPhyTable t = ((RowPhyTable)tableList.get(i));
 					t.update(this.modifyRecords);
 					t.saveModifyRecords();
 				}
@@ -2464,7 +2464,7 @@ public class RowTableMetaData extends TableMetaData {
 		BlockLinkReader segmentReader = new BlockLinkReader(segmentBlockLink);
 		try {
 			segmentReader.loadFirstBlock();
-			return new ObjectReader(segmentReader, groupTable.getBlockSize() - GroupTable.POS_SIZE);
+			return new ObjectReader(segmentReader, groupTable.getBlockSize() - ComTable.POS_SIZE);
 		} catch (IOException e) {
 			segmentReader.close();
 			throw new RQException(e.getMessage(), e);
@@ -2643,9 +2643,9 @@ public class RowTableMetaData extends TableMetaData {
 		String key0 = keys[0];
 		Object obj = values.get(1);
 		if (obj instanceof Sequence) {
-			ListBase1 mem = values.getMems();
+			IArray mem = values.getMems();
 			Sequence newSeq = new Sequence(mem.size());
-			ListBase1 newMem = newSeq.getMems();
+			IArray newMem = newSeq.getMems();
 			for (int i = 1; i < mem.size(); i++) {
 				Sequence seq = (Sequence) mem.get(i);
 				Object obj1 = seq.get(1);
@@ -2756,7 +2756,7 @@ public class RowTableMetaData extends TableMetaData {
 	public void append(ICursor cursor, String opt) throws IOException {
 		if (isSorted && opt != null) {
 			if (opt.indexOf('a') != -1) {
-				RowTableMetaData ctmd = (RowTableMetaData)getSupplementTable(true);
+				RowPhyTable ctmd = (RowPhyTable)getSupplementTable(true);
 				ctmd.mergeAppend(cursor, opt);
 			} else if (opt.indexOf('m') != -1) {
 				mergeAppend(cursor, opt);
@@ -2804,7 +2804,7 @@ public class RowTableMetaData extends TableMetaData {
 		}
 				
 		// 归并读的数据先保存到临时文件
-		RowGroupTable groupTable = (RowGroupTable)getGroupTable();
+		RowComTable groupTable = (RowComTable)getGroupTable();
 		File srcFile = groupTable.getFile();
 		File tmpFile = File.createTempFile("tmpdata", "", srcFile.getParentFile());
 		try {
@@ -2815,11 +2815,11 @@ public class RowTableMetaData extends TableMetaData {
 					colNames[i] = "#" + colNames[i];
 				}
 			}
-			RowGroupTable tmpGroupTable = new RowGroupTable(tmpFile, colNames, groupTable.getDistribute(), null, ctx);
+			RowComTable tmpGroupTable = new RowComTable(tmpFile, colNames, groupTable.getDistribute(), null, ctx);
 			tmpGroupTable.writePswHash = groupTable.writePswHash;
 			tmpGroupTable.readPswHash = groupTable.readPswHash;
 			
-			TableMetaData baseTable = tmpGroupTable.getBaseTable();
+			PhyTable baseTable = tmpGroupTable.getBaseTable();
 			if (segmentCol != null) {
 				baseTable.setSegmentCol(segmentCol, segmentSerialLen);
 			}
@@ -2900,7 +2900,7 @@ public class RowTableMetaData extends TableMetaData {
 			return cursor(exps, fields, filter, fkNames, codes, opts, ctx);
 		}
 		
-		TableMetaData tmd = getSupplementTable(false);
+		PhyTable tmd = getSupplementTable(false);
 		int blockCount = getDataBlockCount();
 		if (blockCount == 0) {
 			if (tmd == null) {
@@ -3074,7 +3074,7 @@ public class RowTableMetaData extends TableMetaData {
 		
 		int colCount = getAllColNames().length;
 		int blockCount = getDataBlockCount();
-		Object max = null, min = null, obj;
+		Object max = null, min = null;
 		
 		segmentReader.readLong40();
 		for (int c = 0; c < colCount; c++) {
@@ -3095,7 +3095,7 @@ public class RowTableMetaData extends TableMetaData {
 					if (Variant.compare(minValue, min) < 0) {
 						min = minValue;
 					}
-					obj = segmentReader.readObject();
+					segmentReader.readObject();
 					if (Variant.compare(maxValue, max) > 0) {
 						max = maxValue;
 					}

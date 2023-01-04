@@ -3,13 +3,15 @@ package com.scudata.dm;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.cursor.BFileCursor;
 import com.scudata.dm.cursor.ICursor;
-import com.scudata.dw.ColumnTableMetaData;
+import com.scudata.dw.ColPhyTable;
 import com.scudata.dw.Cursor;
 import com.scudata.dw.MemoryTable;
 import com.scudata.expression.Expression;
+import com.scudata.resources.EngineMessage;
 
 //用于多个线程同步从组表、集文件、游标取数
 public class SyncReader {
@@ -35,10 +37,9 @@ public class SyncReader {
 
 	private void init() {
 		int size = countList.size();
-		if (srcObj instanceof ColumnTableMetaData) {
+		if (srcObj instanceof ColPhyTable) {
 			size = countList.size() / 2;
 		}
-		
 		datas = new Sequence[size];
 		fetched = new int[size];
 		threads = new Thread[size];
@@ -51,9 +52,14 @@ public class SyncReader {
 		}
 	}
 	
-	public SyncReader(ColumnTableMetaData table, String[] fields, int n) {
+	public SyncReader(ColPhyTable table, String[] fields, int n) {
 		try {
-			table.getSegmentInfo2(table.getAllSortedColNames(), countList, values, n);
+			String[] keys = table.getAllSortedColNames();
+			if (keys == null) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException(mm.getMessage("ds.lessKey"));
+			}
+			table.getSegmentInfo2(keys, countList, values, n);
 		} catch (IOException e) {
 			throw new RQException(e);
 		}
@@ -89,9 +95,9 @@ public class SyncReader {
 			keys[j] = exps[j].toString();
 		}
 		
-		ColumnTableMetaData tempTable;
+		ColPhyTable tempTable;
 		try {
-			tempTable = (ColumnTableMetaData) ((Cursor)cursor).getTableMetaData();
+			tempTable = (ColPhyTable) ((Cursor)cursor).getTableMetaData();
 			tempTable.getSegmentInfo2(keys, countList, values, n);
 		} catch (IOException e) {
 			throw new RQException(e);
@@ -101,8 +107,13 @@ public class SyncReader {
 	}
 	
 	public void loadData(int index) {
-		if (srcObj instanceof ColumnTableMetaData) {
-			Cursor cursor = (Cursor) ((ColumnTableMetaData) srcObj).cursor(fields);
+		if (srcObj instanceof ColPhyTable) {
+			int len = fields.length;
+			Expression[] fieldExps = new Expression[len];
+			for (int i = 0; i < len; i++) {
+				fieldExps[i] = new Expression(fields[i]);
+			}
+			Cursor cursor = (Cursor) ((ColPhyTable) srcObj).cursor(fieldExps, null, null, null, null, null, null);
 			cursor.setSegment(false);
 			cursor.reset();
 			cursor.setSegment(countList.get(index * 2), countList.get(index * 2 + 1));
@@ -118,8 +129,8 @@ public class SyncReader {
 		if (index >= datas.length) {
 			return;
 		}
-		if (srcObj instanceof ColumnTableMetaData) {
-			Cursor cursor = (Cursor) ((ColumnTableMetaData) srcObj).cursor(fields);
+		if (srcObj instanceof ColPhyTable) {
+			Cursor cursor = (Cursor) ((ColPhyTable) srcObj).cursor(fields);
 			cursor.setSegment(false);
 			cursor.reset();
 			cursor.setSegment(countList.get(index * 2), countList.get(index * 2 + 1));
@@ -186,6 +197,9 @@ public class SyncReader {
 	}
 	
 	public void setParallCount(int parallCount) {
+		if (SYNC_THREAD_NUM < parallCount) {
+			parallCount = SYNC_THREAD_NUM;
+		}
 		this.parallCount = parallCount;
 		
 		if (parallCount == 1) return;

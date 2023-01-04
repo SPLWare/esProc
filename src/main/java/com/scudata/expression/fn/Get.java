@@ -2,13 +2,14 @@ package com.scudata.expression.fn;
 
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.ComputeStack;
 import com.scudata.dm.Context;
+import com.scudata.dm.Current;
 import com.scudata.dm.DataStruct;
 import com.scudata.dm.IComputeItem;
 import com.scudata.dm.KeyWord;
 import com.scudata.dm.LinkEntry;
-import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 import com.scudata.expression.Function;
 import com.scudata.expression.IParam;
@@ -127,12 +128,12 @@ public class Get extends Function {
 			}
 		} else {
 			// get(level,F;a:b)
-			if (!(item instanceof Sequence.Current)) {
+			if (!(item instanceof Current)) {
 				MessageManager mm = EngineMessage.get();
 				throw new RQException("get" + mm.getMessage("function.invalidParam"));
 			}
 			
-			Sequence.Current current = (Sequence.Current)item;
+			Current current = (Current)item;
 			if (moveParam.isLeaf()) {
 				int pos = Move.calculateIndex(current, moveParam, ctx);
 				if (fieldName == null) {
@@ -173,8 +174,8 @@ public class Get extends Function {
 	
 	// È¡objµÄfieldName×Ö¶ÎÖµ
 	private Object getFieldValue(Object obj) {
-		if (obj instanceof Record) {
-			Record cur = (Record)obj;
+		if (obj instanceof BaseRecord) {
+			BaseRecord cur = (BaseRecord)obj;
 			if (prevDs != cur.dataStruct()) {
 				prevDs = cur.dataStruct();
 				col = prevDs.getFieldIndex(fieldName);
@@ -192,8 +193,8 @@ public class Get extends Function {
 			}
 			
 			obj = ((Sequence)obj).get(1);
-			if (obj instanceof Record) {
-				Record cur = (Record)obj;
+			if (obj instanceof BaseRecord) {
+				BaseRecord cur = (BaseRecord)obj;
 				if (prevDs != cur.dataStruct()) {
 					prevDs = cur.dataStruct();
 					col = prevDs.getFieldIndex(fieldName);

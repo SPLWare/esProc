@@ -1,10 +1,14 @@
 package com.scudata.dm.op;
 
+import java.util.Comparator;
+
 import com.scudata.dm.ComputeStack;
 import com.scudata.dm.Context;
+import com.scudata.dm.Current;
 import com.scudata.dm.Env;
 import com.scudata.dm.ListBase1;
 import com.scudata.dm.Sequence;
+import com.scudata.dm.comparator.BaseComparator;
 import com.scudata.dm.cursor.ICursor;
 import com.scudata.expression.Expression;
 import com.scudata.util.HashUtil;
@@ -17,15 +21,17 @@ import com.scudata.util.HashUtil;
 public class IDResult implements IResult {
 	private Expression[] exps; // 去重字段表达式数组
 	private int count; // 保留的结果数量，省略保留所有
+	private String opt;
 	private Context ctx; // 计算上下文
 	
 	private HashUtil hashUtil; // 提供哈希运算的哈希类
 	private ListBase1 [][]allGroups; // 哈希表
 	private Sequence []outs;
 
-	public IDResult(Expression []exps, int count, Context ctx) {
+	public IDResult(Expression []exps, int count, String opt, Context ctx) {
 		this.exps = exps;
 		this.count = count;
+		this.opt = opt;
 		this.ctx = ctx;
 		
 		if (count == Integer.MAX_VALUE) {
@@ -49,10 +55,22 @@ public class IDResult implements IResult {
 	 */
 	public Sequence getResultSequence() {
 		if (exps.length == 1) {
+			if (opt == null || opt.indexOf('u') == -1) {
+				Comparator<Object> comparator = new BaseComparator();
+				outs[0].getMems().sort(comparator);
+			}
+			
 			return outs[0];
 		} else {
 			return new Sequence(outs);
 		}
+	}
+	
+	/**
+	 * 数据推送结束时调用
+	 * @param ctx 计算上下文
+	 */
+	public void finish(Context ctx) {
 	}
 	
 	/**
@@ -99,7 +117,7 @@ public class IDResult implements IResult {
 		int fcount = exps.length;
 
 		ComputeStack stack = ctx.getComputeStack();
-		Sequence.Current current = table.new Current();
+		Current current = new Current(table);
 		stack.push(current);
 
 		try {

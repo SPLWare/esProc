@@ -13,13 +13,13 @@ import com.scudata.common.DateFactory;
 import com.scudata.common.DateFormatFactory;
 import com.scudata.common.Escape;
 import com.scudata.common.MessageManager;
+import com.scudata.common.ObjectCache;
 import com.scudata.common.RQException;
 import com.scudata.common.Sentence;
 import com.scudata.common.Types;
-import com.scudata.dm.Record;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.SerialBytes;
-import com.scudata.dw.IAssignable;
 import com.scudata.resources.EngineMessage;
 
 /**
@@ -37,9 +37,6 @@ public class Variant {
 	public static final int DT_LONG = 2; // Long
 	public static final int DT_DOUBLE = 3; // Double
 	public static final int DT_DECIMAL = 4; // BigDecimal
-
-	public static final int FT_MD = 1; // M月d日
-	public static final int FT_HM = 2; // 12:12
 
 	static final long BASEDATE; // 1992年之前有的日期不能被86400000整除
 	static {
@@ -68,6 +65,22 @@ public class Variant {
 	}
 
 	/**
+	 * 计算指定日期相隔指定天数的日期
+	 * @param date 日期
+	 * @param n 天数
+	 * @return Date
+	 */
+	public static Date add(Date date, int n) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(date);
+		calendar.add(Calendar.DATE, n);
+
+		Date result = (Date)date.clone();
+		result.setTime(calendar.getTimeInMillis());
+		return result;
+	}
+	
+	/**
 	 * 返回o1和o2的和
 	 * @param o1 Object Number或String
 	 * @param o2 Object Number或String
@@ -84,6 +97,15 @@ public class Variant {
 				Number n2 = parseNumber((String)o2);
 				if (n2 == null) return o1;
 				return addNum((Number)o1, n2);
+			} else if (o2 instanceof Date) {
+				Date date1 = (Date)o2;
+				Calendar calendar = Calendar.getInstance();
+				calendar.setTime(date1);
+				calendar.add(Calendar.DATE, ((Number)o1).intValue());
+	
+				Date date = (Date)date1.clone();
+				date.setTime(calendar.getTimeInMillis());
+				return date;
 			}
 		} else if (o1 instanceof Date) {
 			if (o2 instanceof Number) {
@@ -103,10 +125,6 @@ public class Variant {
 				Number n1 = parseNumber((String)o1);
 				if (n1 == null) return o2;
 				return addNum(n1, (Number)o2);
-			}
-		} else if (o1 instanceof SerialBytes) {
-			if (o2 instanceof SerialBytes) {
-				return ((SerialBytes)o1).add((SerialBytes)o2);
 			}
 		}
 
@@ -160,26 +178,6 @@ public class Variant {
 	}
 
 	/**
-	 * 返回序列成员和构成的序列，元素个数需相同
-	 * @param s1 Sequence
-	 * @param s2 Sequence
-	 * @return Sequence
-	 */
-	public static Sequence memAdd(Sequence s1, Sequence s2) {
-		int len = s1.length();
-		if (s2.length() != len) {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException(mm.getMessage("engine.memCountNotMatch"));
-		}
-
-		Sequence retSeries = new Sequence(len);
-		for (int i = 1; i <= len; ++i) {
-			retSeries.add(add(s1.getMem(i), s2.getMem(i)));
-		}
-		return retSeries;
-	}
-
-	/**
 	 * 返回o1 - o2
 	 * @param o1 Object Number
 	 * @param o2 Object Number
@@ -228,26 +226,6 @@ public class Variant {
 	}
 
 	/**
-	 * 返回序列成员和构成的序列，元素个数需相同
-	 * @param s1 Sequence
-	 * @param s2 Sequence
-	 * @return Sequence
-	 */
-	public static Sequence memSubtract(Sequence s1, Sequence s2) {
-		int len = s1.length();
-		if (s2.length() != len) {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException(mm.getMessage("engine.memCountNotMatch"));
-		}
-
-		Sequence retSeries = new Sequence(len);
-		for (int i = 1; i <= len; ++i) {
-			retSeries.add(subtract(s1.getMem(i), s2.getMem(i)));
-		}
-		return retSeries;
-	}
-
-	/**
 	 * 返回对象的平方
 	 * @param obj Object
 	 * @return Object
@@ -281,74 +259,45 @@ public class Variant {
 	 * @return Object
 	 */
 	public static Object multiply(Object o1, Object o2) {
-		if (o1 == null || o2 == null) {
-			return null;
-		} else if (o1 instanceof Number && o2 instanceof Number) {
-			int type = getMaxNumberType(o1, o2);
-			switch (type) {
-			case DT_INT: // 为了防止溢出转成long计算
-				//return new Integer(((Number)o1).intValue() * ((Number)o2).intValue());
-			case DT_LONG:
-				return new Long(((Number)o1).longValue() * ((Number)o2).longValue());
-			case DT_DOUBLE:
-				return new Double(((Number)o1).doubleValue() *
-								  ((Number)o2).doubleValue());
-			case DT_DECIMAL:
-				return toBigDecimal((Number)o1).multiply(toBigDecimal((Number)o2));
-			default:
-				throw new RQException();
-			}
-		} else if (o1 instanceof Number) {
-			if (o2 instanceof Sequence) {
-				Sequence src = (Sequence)o2;
-				int m = ((Number)o1).intValue();
-				Sequence retSeries = new Sequence(src.length() * m);
-				for (int i = 0; i < m; ++i) {
-					retSeries.addAll(src);
+		if (o1 instanceof Number) {
+			if (o2 instanceof Number) {
+				int type = getMaxNumberType(o1, o2);
+				switch (type) {
+				case DT_INT: // 为了防止溢出转成long计算
+				case DT_LONG:
+					return new Long(((Number)o1).longValue() * ((Number)o2).longValue());
+				case DT_DOUBLE:
+					return new Double(((Number)o1).doubleValue() *
+									  ((Number)o2).doubleValue());
+				case DT_DECIMAL:
+					return toBigDecimal((Number)o1).multiply(toBigDecimal((Number)o2));
+				default:
+					throw new RQException();
 				}
-				return retSeries;
+			} else if (o2 instanceof Sequence) {
+				return ((Sequence)o2).multiply(((Number)o1).intValue());
+			} else if (o2 == null) {
+				return null;
 			}
 		} else if (o1 instanceof Sequence) {
 			if (o2 instanceof Number) {
-				Sequence src = (Sequence) o1;
-				int m = ((Number)o2).intValue();
-				Sequence retSeries = new Sequence(src.length() * m);
-				for (int i = 0; i < m; ++i) {
-					retSeries.addAll(src);
-				}
-				return retSeries;
+				return ((Sequence)o1).multiply(((Number)o2).intValue());
+			} else if (o2 == null) {
+				return null;
 			}
+		} else if (o1 == null) {
+			return null;
 		}
-
+		
 		MessageManager mm = EngineMessage.get();
 		throw new RQException(getDataType(o1) + mm.getMessage("Variant2.with") +
 							  getDataType(o2) + mm.getMessage("Variant2.illMultiply"));
 	}
 
 	/**
-	 * 返回序列成员积构成的序列，元素个数需相同
-	 * @param s1 Sequence
-	 * @param s2 Sequence
-	 * @return Sequence
-	 */
-	public static Sequence memMultiply(Sequence s1, Sequence s2) {
-		int len = s1.length();
-		if (s2.length() != len) {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException(mm.getMessage("engine.memCountNotMatch"));
-		}
-
-		Sequence retSeries = new Sequence(len);
-		for (int i = 1; i <= len; ++i) {
-			retSeries.add(multiply(s1.getMem(i), s2.getMem(i)));
-		}
-		return retSeries;
-	}
-
-	/**
-	 * 取余
-	 * @param o1 Object
-	 * @param o2 Object
+	 * 计算两个数的取余
+	 * @param o1 左值
+	 * @param o2 右值
 	 * @return Object
 	 */
 	public static Object mod(Object o1, Object o2) {
@@ -371,6 +320,26 @@ public class Variant {
 		MessageManager mm = EngineMessage.get();
 		throw new RQException(getDataType(o1) + mm.getMessage("Variant2.with") +
 							  getDataType(o2) + mm.getMessage("Variant2.illMod"));
+	}
+	
+	/**
+	 * 计算两个数的取余
+	 * @param n1 左值
+	 * @param n2 右值
+	 * @return Number
+	 */
+	public static Number mod(Number n1, Number n2) {
+		int type = getMaxNumberType(n1, n2);
+		switch (type) {
+		case DT_INT:
+			return ObjectCache.getInteger(n1.intValue() % n2.intValue());
+		case DT_LONG:
+			return new Long(n1.longValue() % n2.longValue());
+		case DT_DOUBLE:
+			return new Double(n1.doubleValue() % n2.doubleValue());
+		default://case DT_DECIMAL:
+			return new BigDecimal(toBigInteger(n1).mod(toBigInteger(n2)));
+		}
 	}
 	
 	/**
@@ -454,26 +423,6 @@ public class Variant {
 		d1 -= d2;
 		return d1 > -0.0000001 && d1 < 0.0000001;
 	}
-	
-	/**
-	 * 返回序列成员取余构成的序列，元素个数需相同
-	 * @param s1 Sequence
-	 * @param s2 Sequence
-	 * @return Sequence
-	 */
-	public static Sequence memMod(Sequence s1, Sequence s2) {
-		int len = s1.length();
-		if (s2.length() != len) {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException(mm.getMessage("engine.memCountNotMatch"));
-		}
-
-		Sequence retSeries = new Sequence(len);
-		for (int i = 1; i <= len; ++i) {
-			retSeries.add(mod(s1.getMem(i), s2.getMem(i)));
-		}
-		return retSeries;
-	}
 
 	/**
 	 * 返回o1 / o2
@@ -547,9 +496,9 @@ public class Variant {
 
 	/**
 	 * 返回两个数的整除
-	 * @param o1 数
-	 * @param o2 数
-	 * @return 整数或长整数
+	 * @param o1 左值
+	 * @param o2 右值
+	 * @return Number
 	 */
 	public static Number intDivide(Object o1, Object o2) {
 		if (o1 == null || o2 == null) {
@@ -571,45 +520,24 @@ public class Variant {
 		throw new RQException(getDataType(o1) + mm.getMessage("Variant2.with") +
 							  getDataType(o2) + mm.getMessage("Variant2.illDivide"));
 	}
-
+	
 	/**
-	 * 返回序列成员商构成的序列，元素个数需相同
-	 * @param s1 Sequence
-	 * @param s2 Sequence
-	 * @return Sequence
+	 * 返回两个数的整除值
+	 * @param n1 左值
+	 * @param n2 右值
+	 * @return Number
 	 */
-	public static Sequence memDivide(Sequence s1, Sequence s2) {
-		int len = s1.length();
-		if (s2.length() != len) {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException(mm.getMessage("engine.memCountNotMatch"));
+	public static Number intDivide(Number n1, Number n2) {
+		int type = getMaxNumberType(n1, n2);
+		switch (type) {
+		case DT_INT:
+			return ObjectCache.getInteger(n1.intValue() / n2.intValue());
+		case DT_LONG:
+		case DT_DOUBLE:
+			return new Long(n1.longValue() / n2.longValue());
+		default:// DT_DECIMAL:
+			return new BigDecimal(toBigInteger(n1).divide(toBigInteger(n2)));
 		}
-
-		Sequence retSeries = new Sequence(len);
-		for (int i = 1; i <= len; ++i) {
-			retSeries.add(divide(s1.getMem(i), s2.getMem(i)));
-		}
-		return retSeries;
-	}
-
-	/**
-	 * 返回序列成员整除构成的序列，元素个数需相同
-	 * @param s1 Sequence
-	 * @param s2 Sequence
-	 * @return Sequence
-	 */
-	public static Sequence memIntDivide(Sequence s1, Sequence s2) {
-		int len = s1.length();
-		if (s2.length() != len) {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException(mm.getMessage("engine.memCountNotMatch"));
-		}
-
-		Sequence retSeries = new Sequence(len);
-		for (int i = 1; i <= len; ++i) {
-			retSeries.add(intDivide(s1.getMem(i), s2.getMem(i)));
-		}
-		return retSeries;
 	}
 
 	/**
@@ -627,6 +555,22 @@ public class Variant {
 			throw new RuntimeException(getDataType(o) + mm.getMessage("Variant2.illAbs"));
 		}
 
+		int type = getNumberType(o);
+		switch (type) {
+		case DT_INT:
+			return new Integer(Math.abs(((Number)o).intValue()));
+		case DT_LONG:
+			return new Long(Math.abs(((Number)o).longValue()));
+		case DT_DOUBLE:
+			return new Double(Math.abs(((Number)o).doubleValue()));
+		case DT_DECIMAL:
+			return toBigDecimal((Number)o).abs();
+		default:
+			throw new RQException();
+		}
+	}
+	
+	public static Number abs(Number o) {
 		int type = getNumberType(o);
 		switch (type) {
 		case DT_INT:
@@ -805,12 +749,12 @@ public class Variant {
 		}
 
 		if (o1 instanceof Sequence && o2 instanceof Sequence) {
-			return ((Sequence)o1).cmp((Sequence)o2);
+			return ((Sequence)o1).compareTo((Sequence)o2);
 		}
 
 		// 为了保证group、id、join等能正常工作，但大小没意义
-		if (o1 instanceof Record && o2 instanceof Record) {
-			return ((Record)o1).compareTo((Record)o2);
+		if (o1 instanceof BaseRecord && o2 instanceof BaseRecord) {
+			return ((BaseRecord)o1).compareTo((BaseRecord)o2);
 		}
 
 		if (o1 instanceof byte[] && o2 instanceof byte[]) {
@@ -832,7 +776,7 @@ public class Variant {
 			return getType(o1) < getType(o2) ? -1 : 1;
 		}
 	}
-	
+
 	/**
 	 * 比较两个对象的大小，不能比较时抛出异常，null当最大处理
 	 * @param o1 左对象
@@ -881,11 +825,11 @@ public class Variant {
 		}
 
 		if (o1 instanceof Sequence && o2 instanceof Sequence) {
-			return ((Sequence)o1).cmp_0((Sequence)o2);
+			return ((Sequence)o1).compareTo((Sequence)o2);
 		}
 		
 		// 为了保证group、id、join等能正常工作，但大小没意义
-		if (o1 instanceof Record && o2 instanceof Record) {
+		if (o1 instanceof BaseRecord && o2 instanceof BaseRecord) {
 			int h1 = o1.hashCode();
 			int h2 = o2.hashCode();
 			if (h1 < h2) {
@@ -893,7 +837,7 @@ public class Variant {
 			} else if (h1 > h2) {
 				return 1;
 			} else {
-				return compare_0(((Record)o1).value(), ((Record)o2).value());
+				return compare_0(((BaseRecord)o1).value(), ((BaseRecord)o2).value());
 			}
 		}
 
@@ -975,12 +919,12 @@ public class Variant {
 		}
 
 		if (o1 instanceof Sequence && o2 instanceof Sequence) {
-			return ((Sequence)o1).cmp((Sequence)o2, locCmp);
+			return ((Sequence)o1).compareTo((Sequence)o2, locCmp);
 		}
 		
 		// 为了保证group、id、join等能正常工作，但大小没意义
-		if (o1 instanceof Record && o2 instanceof Record) {
-			return ((Record)o1).compareTo((Record)o2);
+		if (o1 instanceof BaseRecord && o2 instanceof BaseRecord) {
+			return ((BaseRecord)o1).compareTo((BaseRecord)o2);
 		}
 		
 		if (o1 instanceof byte[] && o2 instanceof byte[]) {
@@ -1048,11 +992,11 @@ public class Variant {
 		}
 
 		if (o1 instanceof Sequence && o2 instanceof Sequence) {
-			return ((Sequence)o1).cmp_0((Sequence)o2, locCmp);
+			return ((Sequence)o1).compareTo((Sequence)o2, locCmp);
 		}
 		
 		// 为了保证group、id、join等能正常工作，但大小没意义
-		if (o1 instanceof Record && o2 instanceof Record) {
+		if (o1 instanceof BaseRecord && o2 instanceof BaseRecord) {
 			int h1 = o1.hashCode();
 			int h2 = o2.hashCode();
 			if (h1 < h2) {
@@ -1060,7 +1004,7 @@ public class Variant {
 			} else if (h1 > h2) {
 				return 1;
 			} else {
-				return compare_0(((Record)o1).value(), ((Record)o2).value(), locCmp);
+				return compare_0(((BaseRecord)o1).value(), ((BaseRecord)o2).value(), locCmp);
 			}
 		}
 		
@@ -1234,8 +1178,54 @@ public class Variant {
 			throw new RQException();
 		}
 	}
+	
+	/**
+	 * 返回负值
+	 * @param o Number
+	 * @return Number
+	 */
+	public static Number negate(Number o) {
+		int type = getNumberType(o);
+		switch (type) {
+		case DT_INT:
+			return new Integer(-((Number)o).intValue());
+		case DT_LONG:
+			return new Long(-((Number)o).longValue());
+		case DT_DOUBLE:
+			return new Double(-((Number)o).doubleValue());
+		case DT_DECIMAL:
+			return toBigDecimal((Number)o).negate();
+		default:
+			throw new RQException();
+		}
+	}
 
-	private static int compare(boolean b1, boolean b2) {
+	/**
+	 * 对字符串求负
+	 * @param str
+	 * @return
+	 */
+	public static String negate(String str) {
+		char []chars = str.toCharArray();
+		for (int i = 0, len = chars.length; i < len; ++i) {
+			chars[i] = (char)(0xFFFF - chars[i]);
+		}
+
+		return new String(chars);
+	}
+
+	/**
+	 * 对字符串求负
+	 * @param str
+	 * @return
+	 */
+	public static Date negate(Date date) {
+		Date result = (Date)date.clone();
+		result.setTime(-date.getTime());
+		return result;
+	}
+	
+	public static int compare(boolean b1, boolean b2) {
 		if (b1) {
 			return b2 ? 0 : 1;
 		} else {
@@ -1256,8 +1246,6 @@ public class Variant {
 			return DT_DECIMAL;
 		} else if (o instanceof Float) {
 			return DT_DOUBLE;
-		} else if (o instanceof IAssignable) {
-			return ((IAssignable)o).getDataType();
 		} else if (o instanceof Number) { // Byte  Short
 			return DT_INT;
 		} else {
@@ -1266,7 +1254,7 @@ public class Variant {
 		}
 	}
 
-	private static int getMaxNumberType(Object o1, Object o2) {
+	public static int getMaxNumberType(Object o1, Object o2) {
 		int type1 = getNumberType(o1);
 		int type2 = getNumberType(o2);
 
@@ -1274,7 +1262,7 @@ public class Variant {
 	}
 
 	// 将数转成BigDecimal
-	public static BigDecimal toBigDecimal(Number o) {
+	private static BigDecimal toBigDecimal(Number o) {
 		if (o instanceof BigDecimal) {
 			return (BigDecimal)o;
 		} else if (o instanceof BigInteger) {
@@ -1338,8 +1326,8 @@ public class Variant {
 			return JSONUtil.toJSON((Sequence)o);
 		} else if (o instanceof byte[]) {
 			return new String( (byte[]) o);
-		} else if (o instanceof Record) {
-			return JSONUtil.toJSON((Record)o);
+		} else if (o instanceof BaseRecord) {
+			return JSONUtil.toJSON((BaseRecord)o);
 		} else {
 			return o.toString();
 		}
@@ -1370,8 +1358,8 @@ public class Variant {
 			return JSONUtil.toJSON((Sequence)o);
 		} else if (o instanceof byte[]) {
 			return new String( (byte[]) o);
-		} else if (o instanceof Record) {
-			return JSONUtil.toJSON((Record)o);
+		} else if (o instanceof BaseRecord) {
+			return JSONUtil.toJSON((BaseRecord)o);
 		} else {
 			return o.toString();
 		}
@@ -1383,7 +1371,7 @@ public class Variant {
 	 * @return boolean
 	 */
 	public static boolean canConvertToString(Object obj) {
-		if (obj instanceof Record) return false;
+		if (obj instanceof BaseRecord) return false;
 		if (obj instanceof Sequence && ((Sequence)obj).hasRecord()) return false;
 		return true;
 	}
@@ -2024,38 +2012,6 @@ public class Variant {
 	}
 
 	/**
-	 * 返回串的格式化类型
-	 * @param text String
-	 * @return int FT_MD
-	 */
-	public static int getFormatType(String text) {
-		if (text == null ) return -1;
-
-		int index = text.indexOf('-');
-		if (index != -1 || (index = text.indexOf('/')) != -1) {
-			int month = parseUnsignedInt(text.substring(0, index));
-			if (month < 1 || month > 12) return -1;
-
-			int day = parseUnsignedInt(text.substring(index + 1));
-			if (day < 1 || day > 31) return -1;
-
-			long cur = System.currentTimeMillis();
-			Calendar calendar = Calendar.getInstance();
-			calendar.setTimeInMillis(cur);
-			calendar.set(calendar.get(Calendar.YEAR), month - 1, 1, 0, 0, 0);
-			if (calendar.getActualMaximum(Calendar.DAY_OF_MONTH) < day) return -1;
-
-			return FT_MD;
-		}
-
-		DateFormatFactory dff = DateFormatFactory.get();
-		Date date = dff.getFormatX("HH:mm").parse(text);
-		if (date != null) return FT_HM;
-
-		return -1;
-	}
-
-	/**
 	 * 将字符串转成数值，如果不能转换则返回空。（int，long，double）
 	 * @param s String
 	 * @return Number
@@ -2129,7 +2085,7 @@ public class Variant {
 		if ( o instanceof Boolean ) return mm.getMessage("DataType.Boolean");
 		if ( o instanceof BigDecimal ) return mm.getMessage("DataType.BigDecimal");
 		if ( o instanceof Sequence ) return mm.getMessage("DataType.Series");
-		if ( o instanceof Record ) return mm.getMessage("DataType.Record");
+		if ( o instanceof BaseRecord ) return mm.getMessage("DataType.Record");
 		if ( o instanceof byte[] ) return mm.getMessage("DataType.ByteArray");
 		if ( o instanceof java.sql.Date ) return mm.getMessage("DataType.Date");
 		if ( o instanceof java.sql.Time ) return mm.getMessage("DataType.Time");
@@ -2457,6 +2413,20 @@ public class Variant {
 			return new Long(-result);
 		}
 	}
+	
+	/**
+	 * 计算指定日期相隔指定天数的日期
+	 * @param date 日期
+	 * @param n 天数
+	 * @return Date
+	 */
+	public static Date dayElapse(Calendar calendar, Date date, int n) {
+		calendar.setTime(date);
+		calendar.add(Calendar.DATE, n);
+		date = (Date)date.clone();
+		date.setTime(calendar.getTimeInMillis());
+		return date;
+	}
 
 	/**
 	 * 返回指定日期间隔指定时间后的日期
@@ -2599,6 +2569,16 @@ public class Variant {
 	 */
 	public static long dayInterval(Date date1, Date date2) {
 		return (date2.getTime() - BASEDATE) / 86400000 - (date1.getTime() - BASEDATE) / 86400000;
+	}
+	
+	/**
+	 * 返回两个日期间隔多少天
+	 * @param date1 Date
+	 * @param date2 Date
+	 * @return long 天数
+	 */
+	public static long dayInterval(long date1, long date2) {
+		return (date2 - BASEDATE) / 86400000 - (date1 - BASEDATE) / 86400000;
 	}
 
 	/**

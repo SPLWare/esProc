@@ -266,7 +266,7 @@ class OdbcWorker extends Thread {
 			case 1050:
 				connId = DataTypes.readInt(is);
 				String filter = DataTypes.readString(is);
-				Map<String,String> m = com.esproc.jdbc.Server.getSplList(filter);
+				Map<String,String> m = com.esproc.jdbc.JDBCUtil.getSplList(filter);
 				String spCols = "PROCEDURE_CAT,PROCEDURE_SCHEM,PROCEDURE_NAME,NUM_INPUT_PARAMS,NUM_OUTPUT_PARAMS,NUM_RESULT_SETS,REMARKS,PROCEDURE_TYPE";
 				StringTokenizer st = new StringTokenizer(spCols, ",");
 				ArrayList<String> cols = new ArrayList<String>();

@@ -3,6 +3,7 @@ package com.scudata.expression.fn.string;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
+import com.scudata.expression.Expression;
 import com.scudata.expression.Function;
 import com.scudata.expression.IParam;
 import com.scudata.resources.EngineMessage;
@@ -13,15 +14,22 @@ import com.scudata.resources.EngineMessage;
  *
  */
 public class Pad extends Function {
-	public Object calculate(Context ctx) {
-		if (param == null || param.isLeaf()) {
+	private Expression exp1;
+	private Expression exp2;
+	private Expression exp3;
+
+	/**
+	 * 检查表达式的有效性，无效则抛出异常
+	 */
+	public void checkValidity() {
+		if (param == null) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("pad" + mm.getMessage("function.missingParam"));
 		} else if (param.getSubSize() != 3) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("pad" + mm.getMessage("function.invalidParam"));
 		}
-
+		
 		IParam sub1 = param.getSub(0);
 		IParam sub2 = param.getSub(1);
 		IParam sub3 = param.getSub(2);
@@ -29,20 +37,26 @@ public class Pad extends Function {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("pad" + mm.getMessage("function.invalidParam"));
 		}
+		
+		exp1 = sub1.getLeafExpression();
+		exp2 = sub2.getLeafExpression();
+		exp3 = sub3.getLeafExpression();
+	}
 
-		Object o1 = sub1.getLeafExpression().calculate(ctx);
+	public Object calculate(Context ctx) {
+		Object o1 = exp1.calculate(ctx);
 		if (!(o1 instanceof String)) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("pad" + mm.getMessage("function.paramTypeError"));
 		}
 
-		Object o2 = sub2.getLeafExpression().calculate(ctx);
+		Object o2 = exp2.calculate(ctx);
 		if (!(o2 instanceof String)) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("pad" + mm.getMessage("function.paramTypeError"));
 		}
 
-		Object o3 = sub3.getLeafExpression().calculate(ctx);
+		Object o3 = exp3.calculate(ctx);
 		if (!(o3 instanceof Number)) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("pad" + mm.getMessage("function.paramTypeError"));

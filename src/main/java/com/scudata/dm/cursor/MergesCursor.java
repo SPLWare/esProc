@@ -2,6 +2,7 @@ package com.scudata.dm.cursor;
 
 import com.scudata.dm.ComputeStack;
 import com.scudata.dm.Context;
+import com.scudata.dm.Current;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.op.Operation;
 import com.scudata.expression.Expression;
@@ -45,7 +46,7 @@ public class MergesCursor extends ICursor {
 	private Object NULL = this;
 
 	private Context []ctxs; // 每个表计算exps用自己的上下文，每个表取出数据后先压栈
-	private Sequence.Current []currents;
+	private Current []currents;
 	private Expression[][] dupExps;
 	
 	/**
@@ -98,7 +99,7 @@ public class MergesCursor extends ICursor {
 	
 	// 并行计算时需要改变上下文
 	// 继承类如果用到了表达式还需要用新上下文重新解析表达式
-	protected void resetContext(Context ctx) {
+	public void resetContext(Context ctx) {
 		if (this.ctx != ctx) {
 			for (ICursor cursor : cursors) {
 				cursor.resetContext(ctx);
@@ -143,7 +144,7 @@ public class MergesCursor extends ICursor {
 				return items[0] != -1;
 			}
 
-			currents[item] = table.new Current(1);
+			currents[item] = new Current(table, 1);
 			stack.push(currents[item]);
 			tables[item] = table;
 			next = 1;
@@ -183,7 +184,7 @@ public class MergesCursor extends ICursor {
 					
 					tables[i] = cursors[i].fuzzyFetch(FETCHCOUNT_M);
 					if (tables[i] != null && tables[i].length() > 0) {
-						currents[i] = tables[i].new Current(1);
+						currents[i] = new Current(tables[i], 1);
 						stack.push(currents[i]);
 
 						calc(dupExps[i], ctxs[i], values[i]);
@@ -256,7 +257,7 @@ public class MergesCursor extends ICursor {
 
 						tables[i] = cursors[i].fuzzyFetch(FETCHCOUNT_M);
 						if (tables[i] != null && tables[i].length() > 0) {
-							currents[i] = tables[i].new Current(1);
+							currents[i] = new Current(tables[i], 1);
 							stack.push(currents[i]);
 
 							calc(dupExps[i], ctxs[i], values[i]);
@@ -367,7 +368,7 @@ public class MergesCursor extends ICursor {
 		seqs = new int[tcount];
 		
 		ctxs = new Context[tcount];
-		currents = new Sequence.Current[tcount];
+		currents = new Current[tcount];
 		dupExps = new Expression[tcount][];
 		
 		if (type == 'c') {
@@ -378,7 +379,7 @@ public class MergesCursor extends ICursor {
 				Sequence table = cursors[i].fuzzyFetch(FETCHCOUNT_M);
 				if (table != null && table.length() > 0) {
 					Object []curValues = new Object[exps.length];
-					currents[i] = table.new Current(1);
+					currents[i] = new Current(table, 1);
 					ctxs[i].getComputeStack().push(currents[i]);
 					calc(dupExps[i], ctxs[i], curValues);
 					
@@ -413,7 +414,7 @@ public class MergesCursor extends ICursor {
 				Sequence table = cursors[i].fuzzyFetch(FETCHCOUNT_M);
 				if (table != null && table.length() > 0) {
 					Object []curValues = new Object[exps.length];
-					currents[i] = table.new Current(1);
+					currents[i] = new Current(table, 1);
 					ctxs[i].getComputeStack().push(currents[i]);
 					calc(dupExps[i], ctxs[i], curValues);
 

@@ -3,12 +3,12 @@ package com.scudata.vdb;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import com.scudata.array.IArray;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.ComputeStack;
 import com.scudata.dm.Context;
 import com.scudata.dm.DataStruct;
-import com.scudata.dm.ListBase1;
 import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
@@ -393,7 +393,7 @@ abstract class ISection {
 		
 		if (selCount == 0) return false;
 		
-		ListBase1 mems = seq.getMems();
+		IArray mems = seq.getMems();
 		for (int i = 1, len = seq.length(); i <= len; ++i) {
 			Record r = (Record)mems.get(i);
 			for (int f = 0; f < selCount; ++f) {
@@ -440,7 +440,7 @@ abstract class ISection {
 		
 		if (selCount == 0) return false;
 		
-		ListBase1 mems = seq.getMems();
+		IArray mems = seq.getMems();
 		Record newRecord = new Record(table.dataStruct());
 		ComputeStack stack = ctx.getComputeStack();
 		stack.push(newRecord);

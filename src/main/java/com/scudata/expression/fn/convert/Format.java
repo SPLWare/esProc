@@ -14,12 +14,20 @@ import com.scudata.resources.EngineMessage;
  *
  */
 public class Format extends Function {
-	public Object calculate(Context ctx) {
-		if (param == null || param.isLeaf()) {
+	/**
+	 * 检查表达式的有效性，无效则抛出异常
+	 */
+	public void checkValidity() {
+		if (param == null) {
 			MessageManager mm = EngineMessage.get();
-			throw new RQException("format"+mm.getMessage("function.missingParam"));
+			throw new RQException("format" + mm.getMessage("function.missingParam"));
+		} else if (param.isLeaf()) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("format" + mm.getMessage("function.invalidParam"));
 		}
-		
+	}
+
+	public Object calculate(Context ctx) {
 		IParam sub0 = param.getSub(0);
 		if (sub0 == null) {
 			MessageManager mm = EngineMessage.get();

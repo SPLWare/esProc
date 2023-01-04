@@ -7,15 +7,17 @@ import com.scudata.common.RQException;
 import com.scudata.dm.Context;
 import com.scudata.dm.Env;
 import com.scudata.dm.Sequence;
+import com.scudata.dm.cursor.ConjxCursor;
 import com.scudata.dm.cursor.ICursor;
+import com.scudata.dm.cursor.MergeCursor2;
 import com.scudata.dm.cursor.MultipathCursors;
-import com.scudata.dw.IColumnCursorUtil;
-import com.scudata.dw.ITableMetaData;
+import com.scudata.dw.IDWCursor;
+import com.scudata.dw.IPhyTable;
 import com.scudata.expression.Expression;
 import com.scudata.expression.IParam;
 import com.scudata.expression.Node;
 import com.scudata.expression.ParamInfo2;
-import com.scudata.expression.TableMetaDataFunction;
+import com.scudata.expression.PhyTableFunction;
 import com.scudata.expression.operator.And;
 import com.scudata.resources.EngineMessage;
 
@@ -25,9 +27,13 @@ import com.scudata.resources.EngineMessage;
  * @author RunQian
  *
  */
-public class CreateCursor extends TableMetaDataFunction {
+public class CreateCursor extends PhyTableFunction {
 	public Object calculate(Context ctx) {
-		return createCursor(table, param, option, ctx);
+		ICursor cs = createCursor(table, param, option, ctx);
+		if (option != null && option.indexOf('x') != -1) {
+			setOptionX(cs, option);
+		}
+		return cs;
 	}
 	
 	private static void parseFilterParam(IParam param, ArrayList<Expression> expList, 
@@ -75,13 +81,33 @@ public class CreateCursor extends TableMetaDataFunction {
 		}
 	}
 	
-	public static ICursor createCursor(ITableMetaData table, IParam param, String opt, Context ctx) {
+	public static void setOptionX(ICursor cs, String opt) {
+		if (cs instanceof IDWCursor) {
+			((IDWCursor) cs).setOption(opt);
+		} else if (cs instanceof MultipathCursors) {
+			MultipathCursors mcs = (MultipathCursors) cs;
+			ICursor[] cursors = mcs.getCursors();
+			for (ICursor cursor : cursors) {
+				setOptionX(cursor, opt);
+			}
+		} else if (cs instanceof MergeCursor2) {
+			MergeCursor2 mcs = (MergeCursor2) cs;
+			setOptionX(mcs.getCursor1(), opt);
+			setOptionX(mcs.getCursor2(), opt);
+		} else if (cs instanceof ConjxCursor) {
+			ConjxCursor mcs = (ConjxCursor) cs;
+			ICursor[] cursors = mcs.getCursors();
+			for (ICursor cursor : cursors) {
+				setOptionX(cursor, opt);
+			}
+		}
+	}
+	
+	public static ICursor createCursor(IPhyTable table, IParam param, String opt, Context ctx) {
 		// 是否产生多路游标
 		boolean isMultiThread = opt != null && opt.indexOf('m') != -1;
-		boolean hasV = opt != null && opt.indexOf('v') != -1 && IColumnCursorUtil.util != null;//列式游标
 		
 		if (param == null && !isMultiThread) {
-			if (hasV) return IColumnCursorUtil.util.cursor(table);
 			return table.cursor();
 		}
 		
@@ -224,20 +250,6 @@ public class CreateCursor extends TableMetaDataFunction {
 			exps = pi.getExpressions1();
 			names = pi.getExpressionStrs2();
 		}
-
-		if (hasV) {
-			if (mcs != null) {
-				return IColumnCursorUtil.util.cursor(table, exps, names, filter, fkNames, codes, opts, mcs, opt, ctx);
-			} else if (isMultiThread && segCount > 1) {
-				return IColumnCursorUtil.util.cursor(table, exps, names, filter, fkNames, codes, opts, segCount, ctx);
-			} else {
-				if (segSeq < 1) {
-					return IColumnCursorUtil.util.cursor(table, exps, names, filter, fkNames, codes, opts, ctx);
-				} else {
-					return IColumnCursorUtil.util.cursor(table, exps, names, filter, fkNames, codes, opts, segSeq, segCount, ctx);
-				}
-			}
-		}
 		
 		if (mcs != null) {
 			return table.cursor(exps, names, filter, fkNames, codes, opts, mcs, opt, ctx);
@@ -250,5 +262,15 @@ public class CreateCursor extends TableMetaDataFunction {
 				return table.cursor(exps, names, filter, fkNames, codes, opts, segSeq, segCount, ctx);
 			}
 		}
+	}
+	
+	public boolean isLeftTypeMatch(Object obj) {
+		if (obj instanceof IPhyTable) {
+			if (option != null && option.indexOf('v') != -1)
+				return false;
+			return true;
+		}
+		
+		return false;
 	}
 }

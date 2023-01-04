@@ -12,12 +12,12 @@ import java.util.List;
 import com.scudata.common.DateFactory;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Context;
 import com.scudata.dm.DataStruct;
 import com.scudata.dm.Env;
 import com.scudata.dm.FileObject;
 import com.scudata.dm.ObjectReader;
-import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
 import com.scudata.dm.cursor.ICursor;
@@ -43,7 +43,7 @@ import com.scudata.expression.operator.NotSmaller;
 import com.scudata.expression.operator.Or;
 import com.scudata.expression.operator.Smaller;
 import com.scudata.parallel.ClusterCursor;
-import com.scudata.parallel.ClusterTableMetaData;
+import com.scudata.parallel.ClusterPhyTable;
 import com.scudata.resources.EngineMessage;
 import com.scudata.util.EnvUtil;
 import com.scudata.util.Variant;
@@ -54,7 +54,7 @@ import com.scudata.util.Variant;
  * @author runqian
  *
  */
-public class Cuboid extends RowGroupTable {
+public class Cuboid extends RowComTable {
 	public static final String CUBE_PREFIX = "_CUBOID@";//立方体文件前缀
 	private static final int FIXED_OBJ_LEN = 9;//定长字段的长度
 	//文件头增加以下内容
@@ -277,7 +277,7 @@ public class Cuboid extends RowGroupTable {
 	 * @param ctx 上下文
 	 * @return
 	 */
-	private static ICursor makeCursor(TableMetaData srcTable, Expression []exps, Expression []newExps,
+	private static ICursor makeCursor(PhyTable srcTable, Expression []exps, Expression []newExps,
 			Expression w, boolean hasM, int n, Context ctx) {
 		List<String> list = new ArrayList<String>();
 		if (exps != null) {
@@ -315,7 +315,7 @@ public class Cuboid extends RowGroupTable {
 	 * @return
 	 */
 	public static Sequence cgroups(String []expNames, String []names, String []newExpNames, String []newNames,
-			TableMetaData srcTable, Expression w, boolean hasM, int n, String option,  Context ctx) {
+			PhyTable srcTable, Expression w, boolean hasM, int n, String option,  Context ctx) {
 		//注意，cgroups_得到的是包含补文件cuboid的
 		
 		return cgroups_(expNames, names, newExpNames, newNames, srcTable, w, hasM, n, option, ctx);
@@ -350,7 +350,7 @@ public class Cuboid extends RowGroupTable {
 	}
 	
 	private static Sequence cgroups_(String []expNames, String []names, String []newExpNames, String []newNames,
-			TableMetaData srcTable,	Expression w, boolean hasM, int n, String option,  Context ctx) {
+			PhyTable srcTable,	Expression w, boolean hasM, int n, String option,  Context ctx) {
 		Expression []exps = null;
 		if (expNames != null) {
 			int len = expNames.length;
@@ -386,7 +386,7 @@ public class Cuboid extends RowGroupTable {
 			if (obj instanceof ArrayList) {
 				//有多个预分组立方体
 				@SuppressWarnings("unchecked")
-				ArrayList<TableMetaData> tableList = (ArrayList<TableMetaData>) obj;
+				ArrayList<PhyTable> tableList = (ArrayList<PhyTable>) obj;
 				int size = tableList.size();
 				if (size == 0) {
 					//没有预分组立方体
@@ -422,7 +422,7 @@ public class Cuboid extends RowGroupTable {
 						} catch (Exception e) {
 							if (table != null)
 								table.close();
-							for (TableMetaData tbl : tableList) {
+							for (PhyTable tbl : tableList) {
 								tbl.close();
 							}
 							throw new RQException(e.getMessage(), e);
@@ -556,7 +556,7 @@ public class Cuboid extends RowGroupTable {
 					}
 				}
 			} else {
-				TableMetaData table = (TableMetaData) obj;
+				PhyTable table = (PhyTable) obj;
 				Expression[] fieldExps = new Expression[fcount];
 				for (int i = exps.length; i < fcount; i++) {
 					fieldExps[i] = new Expression("'" + newExpNames[i - exps.length] + "'");
@@ -606,12 +606,12 @@ public class Cuboid extends RowGroupTable {
 			if (obj != null) {
 				if (obj instanceof ArrayList) {
 					@SuppressWarnings("unchecked")
-					ArrayList<TableMetaData> tableList = (ArrayList<TableMetaData>) obj;
-					for (TableMetaData table : tableList) {
+					ArrayList<PhyTable> tableList = (ArrayList<PhyTable>) obj;
+					for (PhyTable table : tableList) {
 						table.close();
 					}
 				} else {
-					TableMetaData table = (TableMetaData) obj;
+					PhyTable table = (PhyTable) obj;
 					table.close();
 				}
 				
@@ -634,7 +634,7 @@ public class Cuboid extends RowGroupTable {
 	 * @return
 	 */
 	public static Sequence cgroups(String []expNames, String []names, String []newExpNames, String []newNames,
-			ClusterTableMetaData srcTable,	Expression w, boolean hasM, int n, String option,  Context ctx) {
+			ClusterPhyTable srcTable,	Expression w, boolean hasM, int n, String option,  Context ctx) {
 		Expression []exps = null;
 		if (expNames != null) {
 			int len = expNames.length;
@@ -670,7 +670,7 @@ public class Cuboid extends RowGroupTable {
 			if (obj instanceof ArrayList) {
 				//有多个预分组立方体
 				@SuppressWarnings("unchecked")
-				ArrayList<TableMetaData> tableList = (ArrayList<TableMetaData>) obj;
+				ArrayList<PhyTable> tableList = (ArrayList<PhyTable>) obj;
 				int size = tableList.size();
 				if (size == 0) {
 					//没有预分组立方体
@@ -753,7 +753,7 @@ public class Cuboid extends RowGroupTable {
 					}
 				}
 			} else {
-				TableMetaData table = (TableMetaData) obj;
+				PhyTable table = (PhyTable) obj;
 				Expression[] fieldExps = new Expression[fcount];
 				for (int i = exps.length; i < fcount; i++) {
 					fieldExps[i] = new Expression("'" + newExpNames[i - exps.length] + "'");
@@ -803,12 +803,12 @@ public class Cuboid extends RowGroupTable {
 			if (obj != null) {
 				if (obj instanceof ArrayList) {
 					@SuppressWarnings("unchecked")
-					ArrayList<TableMetaData> tableList = (ArrayList<TableMetaData>) obj;
-					for (TableMetaData table : tableList) {
+					ArrayList<PhyTable> tableList = (ArrayList<PhyTable>) obj;
+					for (PhyTable table : tableList) {
 						table.close();
 					}
 				} else {
-					TableMetaData table = (TableMetaData) obj;
+					PhyTable table = (PhyTable) obj;
 					table.close();
 				}
 				
@@ -828,7 +828,7 @@ public class Cuboid extends RowGroupTable {
 	 * @param ctx
 	 * @return
 	 */
-	public static Sequence cgroups(IParam sub0, IParam sub1, TableMetaData srcTable,
+	public static Sequence cgroups(IParam sub0, IParam sub1, PhyTable srcTable,
 			Expression w, boolean hasM, int n, String opt, Context ctx) {
 		String []expNames = null;
 		String []names = null;
@@ -873,7 +873,7 @@ public class Cuboid extends RowGroupTable {
 	 * @param w 过滤表达式
 	 * @return
 	 */
-	public static Object findCuboid(TableMetaData srcTable, String names[], String expNames[], Expression w) {
+	public static Object findCuboid(PhyTable srcTable, String names[], String expNames[], Expression w) {
 		return findCuboid(srcTable, names, expNames, w, null);
 	}
 	
@@ -886,13 +886,13 @@ public class Cuboid extends RowGroupTable {
 	 * @param ctx
 	 * @return
 	 */
-	public static Object findCuboid(TableMetaData srcTable, String names[], String expNames[], 
+	public static Object findCuboid(PhyTable srcTable, String names[], String expNames[], 
 			Expression w, Context ctx) {
 		String dir = srcTable.getGroupTable().getFile().getAbsolutePath() + "_";
 		String cuboids[] = srcTable.getCuboids();
-		ArrayList<TableMetaData> tableList = new ArrayList<TableMetaData>();
+		ArrayList<PhyTable> tableList = new ArrayList<PhyTable>();
 		if (cuboids == null) return tableList;
-		ArrayList<TableMetaData> tableList2 = new ArrayList<TableMetaData>();
+		ArrayList<PhyTable> tableList2 = new ArrayList<PhyTable>();
 		
 		//检查exps，avg不能做再聚合
 		boolean flag = false;//表示不能再聚合
@@ -914,11 +914,11 @@ public class Cuboid extends RowGroupTable {
 				continue;
 			}
 			File file = fo.getLocalFile().file();
-			RowGroupTable table = null;
+			RowComTable table = null;
 			try {
 				table = new Cuboid(file, null);
 				table.checkPassword("cuboid");
-				TableMetaData baseTable = table.getBaseTable();
+				PhyTable baseTable = table.getBaseTable();
 				String fields[] = baseTable.getAllColNames();
 				if (w != null) {
 					filterFields = new ArrayList<String>();
@@ -935,10 +935,10 @@ public class Cuboid extends RowGroupTable {
 					tableList2.add(baseTable);
 				} else if (match == 3) {
 					//最匹配，返回表对象
-					for (TableMetaData tbl : tableList) {
+					for (PhyTable tbl : tableList) {
 						tbl.close();
 					}
-					for (TableMetaData tbl : tableList2) {
+					for (PhyTable tbl : tableList2) {
 						tbl.close();
 					}
 					return baseTable;
@@ -947,7 +947,7 @@ public class Cuboid extends RowGroupTable {
 				}
 			} catch (Exception e) {
 				if (table != null) table.close();
-				for (TableMetaData tbl : tableList) {
+				for (PhyTable tbl : tableList) {
 					tbl.close();
 				}
 				throw new RQException(e.getMessage(), e);
@@ -956,7 +956,7 @@ public class Cuboid extends RowGroupTable {
 
 		//去掉匹配度低的（如果有2的，则去掉1的）
 		if (tableList2.size() != 0) {
-			for (TableMetaData tbl : tableList) {
+			for (PhyTable tbl : tableList) {
 				tbl.close();
 			}
 			return tableList2;
@@ -973,12 +973,12 @@ public class Cuboid extends RowGroupTable {
 	 * @param ctx
 	 * @return
 	 */
-	public static Object findCuboid(ClusterTableMetaData srcTable, String names[], String expNames[], 
+	public static Object findCuboid(ClusterPhyTable srcTable, String names[], String expNames[], 
 			Expression w, Context ctx) {
 		List<String> cuboids = getCuboids(srcTable);
-		ArrayList<TableMetaData> tableList = new ArrayList<TableMetaData>();
+		ArrayList<PhyTable> tableList = new ArrayList<PhyTable>();
 		if (cuboids == null) return tableList;
-		ArrayList<TableMetaData> tableList2 = new ArrayList<TableMetaData>();
+		ArrayList<PhyTable> tableList2 = new ArrayList<PhyTable>();
 		
 		//检查exps，avg不能做再聚合
 		for (String exp : expNames) {
@@ -999,11 +999,11 @@ public class Cuboid extends RowGroupTable {
 				continue;
 			}
 			File file = fo.getLocalFile().file();
-			RowGroupTable table = null;
+			RowComTable table = null;
 			try {
 				table = new Cuboid(file, null);
 				table.checkPassword("cuboid");
-				TableMetaData baseTable = table.getBaseTable();
+				PhyTable baseTable = table.getBaseTable();
 				String fields[] = baseTable.getAllColNames();
 				if (w != null) {
 					filterFields = new ArrayList<String>();
@@ -1020,10 +1020,10 @@ public class Cuboid extends RowGroupTable {
 					tableList2.add(baseTable);
 				} else if (match == 3) {
 					//最匹配，返回表对象
-					for (TableMetaData tbl : tableList) {
+					for (PhyTable tbl : tableList) {
 						tbl.close();
 					}
-					for (TableMetaData tbl : tableList2) {
+					for (PhyTable tbl : tableList2) {
 						tbl.close();
 					}
 					return baseTable;
@@ -1032,7 +1032,7 @@ public class Cuboid extends RowGroupTable {
 				}
 			} catch (Exception e) {
 				if (table != null) table.close();
-				for (TableMetaData tbl : tableList) {
+				for (PhyTable tbl : tableList) {
 					tbl.close();
 				}
 				throw new RQException(e.getMessage(), e);
@@ -1041,7 +1041,7 @@ public class Cuboid extends RowGroupTable {
 		
 		//去掉匹配度低的（如果有2的，则去掉1的）
 		if (tableList2.size() != 0) {
-			for (TableMetaData tbl : tableList) {
+			for (PhyTable tbl : tableList) {
 				tbl.close();
 			}
 			return tableList2;
@@ -1158,7 +1158,7 @@ public class Cuboid extends RowGroupTable {
 	 * @param table
 	 * @param list 输出{字段名，分组层次} 分组层次:1 year ,2 month,3 day
 	 */
-	private static void getDateFields(TableMetaData table, ArrayList<Object> list) {
+	private static void getDateFields(PhyTable table, ArrayList<Object> list) {
 		String[] fields = table.getAllSortedColNames();
 		ArrayList<String> flist = new ArrayList<String>();
 		for (String f : fields) {
@@ -1744,7 +1744,7 @@ public class Cuboid extends RowGroupTable {
 	 * @param srcTable
 	 * @throws IOException
 	 */
-	public void update(TableMetaData srcTable) throws IOException {
+	public void update(PhyTable srcTable) throws IOException {
 		//1 把原表里未汇总的部分进行汇总
 		
 		//得到要汇总的条数
@@ -1804,7 +1804,7 @@ public class Cuboid extends RowGroupTable {
 		}
 		int idx = 1;
 		int len = data.length();
-		Record record = (Record) data.get(idx);
+		BaseRecord record = (BaseRecord) data.get(idx);
 		Object vals[] = record.getFieldValues();
 		
 		//定义读写定长字段的reader writer
@@ -1813,7 +1813,7 @@ public class Cuboid extends RowGroupTable {
 		RowBufferWriter bufferWriter = new RowBufferWriter(null, bytes);
 		
 		RandomAccessFile rafile = raf;//new RandomAccessFile(file, "rw");
-		ObjectReader reader = new ObjectReader(rowReader, blockSize - GroupTable.POS_SIZE);;
+		ObjectReader reader = new ObjectReader(rowReader, blockSize - ComTable.POS_SIZE);;
 		//遍历每一块进行处理
 		NEXT:
 		for(int i = 0; i < totalBlockCount; i++) {
@@ -1855,7 +1855,7 @@ public class Cuboid extends RowGroupTable {
 							idx = 1;
 							len = data.length();
 						}
-						record = (Record) data.get(idx);
+						record = (BaseRecord) data.get(idx);
 						vals = record.getFieldValues();
 					} else if (cmp == 0) {
 						//找到了，更新，读下一条record，读本块下一条
@@ -1882,7 +1882,7 @@ public class Cuboid extends RowGroupTable {
 							idx = 1;
 							len = data.length();
 						}
-						record = (Record) data.get(idx);
+						record = (BaseRecord) data.get(idx);
 						vals = record.getFieldValues();
 						
 						//读本块下一条
@@ -1970,7 +1970,7 @@ public class Cuboid extends RowGroupTable {
 		headerBlockLink = new BlockLink(this);
 		headerBlockLink.setFirstBlockPos(applyNewBlock());
 		
-		baseTable = new CuboidTable(this, null, (RowTableMetaData)src.baseTable);
+		baseTable = new CuboidTable(this, null, (RowPhyTable)src.baseTable);
 		super.baseTable = baseTable;
 		
 		exps = src.exps;
@@ -2057,7 +2057,7 @@ public class Cuboid extends RowGroupTable {
 			String []srcColNames = baseTable.getColNames();
 			int len = srcColNames.length;
 			String []colNames = new String[len];
-			boolean[] isDim = ((RowTableMetaData)baseTable).getDimIndex();
+			boolean[] isDim = ((RowPhyTable)baseTable).getDimIndex();
 			for (int i = 0; i < len; i++) {
 				if (isDim[i]) {
 					colNames[i] = "#" + srcColNames[i];
@@ -2080,7 +2080,7 @@ public class Cuboid extends RowGroupTable {
 	 * @param srcTable
 	 * @return
 	 */
-    public static List<String> getCuboids(ClusterTableMetaData srcTable) {
+    public static List<String> getCuboids(ClusterPhyTable srcTable) {
     	String folderPath = Env.getMainPath();
     	String queryStr = srcTable.getClusterFile().getFileName() + Cuboid.CUBE_PREFIX;
         List<String> fileNameList = new ArrayList<String>();//文件名列表
@@ -2108,7 +2108,7 @@ public class Cuboid extends RowGroupTable {
      * @param srcTable
      * @param ctx
      */
-    public static void update(ClusterTableMetaData srcTable, Context ctx) {
+    public static void update(ClusterPhyTable srcTable, Context ctx) {
     	 List<String> cuboids =  getCuboids(srcTable);
     	 if (cuboids != null) {
     		 for (String C : cuboids) {
@@ -2117,11 +2117,11 @@ public class Cuboid extends RowGroupTable {
     					continue;
     				}
     				File file = fo.getLocalFile().file();
-    				RowGroupTable table = null;
+    				RowComTable table = null;
     				try {
     					table = new Cuboid(file, null);
     					table.checkPassword("cuboid");
-    					TableMetaData baseTable = table.getBaseTable();
+    					PhyTable baseTable = table.getBaseTable();
     					String fields[] = baseTable.getAllColNames();
     					String expNames[] = baseTable.getSortedColNames();
     					
@@ -2200,12 +2200,12 @@ public class Cuboid extends RowGroupTable {
  * @author runqian
  *
  */
-class CuboidTable extends RowTableMetaData {
-	public CuboidTable(GroupTable groupTable, RowTableMetaData parent) {
+class CuboidTable extends RowPhyTable {
+	public CuboidTable(ComTable groupTable, RowPhyTable parent) {
 		super(groupTable, parent);
 	}
 	
-	public CuboidTable(GroupTable groupTable, RowTableMetaData parent, RowTableMetaData src) throws IOException {
+	public CuboidTable(ComTable groupTable, RowPhyTable parent, RowPhyTable src) throws IOException {
 		super(groupTable, parent, src);
 	}
 	
@@ -2277,7 +2277,7 @@ class CuboidTable extends RowTableMetaData {
 	}
 	
 	protected void appendDataBlock(Sequence data, int start, int end) throws IOException {
-		Record r;
+		BaseRecord r;
 		int count = colNames.length;
 		boolean isDim[] = getDimIndex();
 		Object []minValues = null;//一块的最小维值
@@ -2292,7 +2292,7 @@ class CuboidTable extends RowTableMetaData {
 		long recNum = totalRecordCount;
 		
 		for (int i = start; i <= end; ++i) {
-			r = (Record) data.get(i);
+			r = (BaseRecord) data.get(i);
 			Object[] vals = r.getFieldValues();
 			//把一条的所有列写到buffer
 			bufferWriter.writeObject(++recNum);//行存要先写一个伪号

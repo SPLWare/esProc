@@ -234,7 +234,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 	 * 构造SPL编辑器
 	 */
 	protected SplEditor newSplEditor() {
-		return new SplEditor(this, splCtx);
+		return new SplEditor(this);
 	}
 
 	/**
@@ -878,11 +878,10 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 	 * @param replace boolean 是否是替换对话框
 	 */
 	public void dialogSearch(boolean replace) {
-		if (GVSpl.searchDialog != null) {
-			GVSpl.searchDialog.setVisible(false);
+		if (GVSpl.searchDialog == null) {
+			GVSpl.searchDialog = new DialogSearch();
 		}
-		GVSpl.searchDialog = new DialogSearch();
-		GVSpl.searchDialog.setControl(splEditor, replace);
+		GVSpl.searchDialog.setConfig(replace);
 		GVSpl.searchDialog.setVisible(true);
 	}
 
@@ -1155,7 +1154,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 	protected void setValue(INormalCell nc, boolean caseLock) {
 		Object value = nc.getValue();
 		if (caseLock) {
-			GVSpl.panelValue.tableValue.setValue(value);
+			GVSpl.panelValue.tableValue.setValue(value, nc.getCellId());
 		} else {
 			GVSpl.panelValue.tableValue.setValue1(value, nc.getCellId());
 		}
@@ -1324,6 +1323,18 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 	 * 重置网格
 	 */
 	protected void resetCellSet() {
+		if (splCtx != null) {
+			ParamList pl = splCtx.getParamList();
+			if (pl != null) {
+				for (int i = 0; i < pl.count(); i++) {
+					Param p = pl.get(i);
+					if (p != null) {
+						p.setValue(null);
+						p.setEditValue(null);
+					}
+				}
+			}
+		}
 		splCtx = new Context();
 		Context pCtx = GMSpl.prepareParentContext();
 		splCtx.setParent(pCtx);
@@ -2592,6 +2603,11 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 		GVSpl.panelValue.tableValue.setCellId(null);
 		GVSpl.panelValue.tableValue.setValue(null);
 		GVSpl.panelValue.setCellSet(null);
+
+		GVSpl.tabParam.resetParamList(null, listSpaceParams(),
+				getEnvParamList());
+		GVSpl.panelSplWatch.watch(null);
+
 		storeBreakPoints();
 		GM.setWindowDimension(this);
 		dispose();
@@ -2948,6 +2964,8 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 			break;
 		case GCSpl.iRESET:
 			reset();
+			refresh();
+			splControl.repaint();
 			break;
 		case GCSpl.iEXEC:
 			run();
@@ -3291,6 +3309,9 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 		splEditor.setDataChanged(isChanged);
 	}
 
+	protected void sheetDeactivated() {
+	}
+
 	/**
 	 * 当前页监听器
 	 *
@@ -3318,6 +3339,10 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 			// 用线程启动以等待别的窗口彻底关闭才激活该窗口
 			SwingUtilities.invokeLater(new Runnable() {
 				public void run() {
+					boolean isSheetChanged = false;
+					if (GV.appSheet == null || GV.appSheet != sheet) {
+						isSheetChanged = true;
+					}
 					GV.appSheet = sheet;
 
 					GVSpl.splEditor = sheet.splEditor;
@@ -3337,7 +3362,11 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 						return;
 					}
 					((ToolBarProperty) GV.toolBarProperty).init();
-					sheet.refresh();
+					if (isSheetChanged) {
+						sheet.refreshParams();
+					} else {
+						sheet.refresh();
+					}
 					sheet.resetRunState();
 					((SPL) GV.appFrame).resetTitle();
 					GV.toolWin.refreshSheet(sheet);
@@ -3345,11 +3374,11 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 					GVSpl.panelSplWatch.setCellSet(sheet.splControl.cellSet);
 					GVSpl.panelSplWatch.watch();
 					GVSpl.panelValue.setCellSet(sheet.splControl.cellSet);
-					if (GVSpl.searchDialog != null
-							&& GVSpl.searchDialog.isVisible()) {
-						if (splEditor != null)
-							GVSpl.searchDialog.setControl(splEditor);
-					}
+					// if (GVSpl.searchDialog != null
+					// && GVSpl.searchDialog.isVisible()) {
+					// if (splEditor != null)
+					// GVSpl.searchDialog.setConfig();
+					// }
 				}
 			});
 		}
@@ -3360,6 +3389,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 		public void internalFrameClosing(InternalFrameEvent e) {
 			GVSpl.appFrame.closeSheet(sheet);
 			GV.toolBarProperty.setEnabled(false);
+			((ToolBarProperty) GV.toolBarProperty).removeCellEditingListeners();
 		}
 
 		/**
@@ -3370,11 +3400,9 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 			// 活动格的文本没有绘制，窗口不活动时刷新一下
 			sheet.splControl.repaint();
 			GV.toolBarProperty.setEnabled(false);
+			((ToolBarProperty) GV.toolBarProperty).removeCellEditingListeners();
 			GVSpl.panelSplWatch.setCellSet(null);
-			if (GVSpl.matchWindow != null) {
-				GVSpl.matchWindow.dispose();
-				GVSpl.matchWindow = null;
-			}
+			sheetDeactivated();
 		}
 	}
 

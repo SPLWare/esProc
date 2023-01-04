@@ -3,7 +3,7 @@ package com.scudata.expression.mfn.cluster;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
-import com.scudata.expression.ClusterTableMetaDataFunction;
+import com.scudata.expression.ClusterPhyTableFunction;
 import com.scudata.expression.Expression;
 import com.scudata.expression.IParam;
 import com.scudata.resources.EngineMessage;
@@ -14,7 +14,7 @@ import com.scudata.resources.EngineMessage;
  * @author RunQian
  *
  */
-public class Index extends ClusterTableMetaDataFunction {
+public class Index extends ClusterPhyTableFunction {
 	public Object calculate(Context ctx) {
 		String option = this.option;
 		IParam param = this.param;

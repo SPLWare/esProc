@@ -140,7 +140,7 @@ public class MenuSpl extends AppMenu {
 		}
 		menu.add(menuRedo);
 		menu.addSeparator();
-		copyMenu = getSplMenuItem(GCSpl.COPY, 'C', false);
+		copyMenu = getSplMenuItem(GCSpl.COPY_MENU, 'C', false);
 		copyMenu.add(newSplMenuItem(GCSpl.iCOPY, GCSpl.COPY, 'C',
 				ActionEvent.CTRL_MASK, true));
 		copyMenu.add(newSplMenuItem(GCSpl.iCOPYVALUE, GCSpl.COPYVALUE, 'C',
@@ -162,7 +162,7 @@ public class MenuSpl extends AppMenu {
 				ActionEvent.CTRL_MASK, true));
 		menu.add(copyMenu);
 
-		pasteMenu = getSplMenuItem(GCSpl.PASTE, 'V', false);
+		pasteMenu = getSplMenuItem(GCSpl.PASTE_MENU, 'P', false);
 		pasteMenu.add(newSplMenuItem(GCSpl.iPASTE, GCSpl.PASTE, 'V',
 				ActionEvent.CTRL_MASK, true));
 		pasteMenu.add(newSplMenuItem(GCSpl.iPASTE_ADJUST, GCSpl.PASTE_ADJUST,
@@ -352,8 +352,8 @@ public class MenuSpl extends AppMenu {
 		menuTemp = newSplMenuItem(GCSpl.iSTOP, GCSpl.STOP, 'T', GC.NO_MASK,
 				true);
 		menu.add(menuTemp);
-		menuTemp = newSplMenuItem(GCSpl.iBREAKPOINTS, GCSpl.BREAKPOINTS,
-				(char) KeyEvent.VK_F3, 0, true);
+		menuTemp = newSplMenuItem(GCSpl.iBREAKPOINTS, GCSpl.BREAKPOINTS, 'B',
+				ActionEvent.CTRL_MASK, true);
 		menu.add(menuTemp);
 		menu.addSeparator();
 		JMenuItem calcArea = newSplMenuItem(GCSpl.iCALC_AREA, GCSpl.CALC_AREA,

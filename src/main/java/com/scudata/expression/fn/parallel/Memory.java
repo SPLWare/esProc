@@ -14,10 +14,14 @@ import com.scudata.resources.EngineMessage;
 // memory(h,v)
 public class Memory extends Function {
 	public Node optimize(Context ctx) {
+		param.optimize(ctx);
 		return this;
 	}
-
-	public Object calculate(Context ctx) {
+	
+	/**
+	 * 检查表达式的有效性，无效则抛出异常
+	 */
+	public void checkValidity() {
 		if (param == null) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("memory" + mm.getMessage("function.missingParam"));
@@ -25,7 +29,9 @@ public class Memory extends Function {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("memory" + mm.getMessage("function.invalidParam"));
 		}
+	}
 
+	public Object calculate(Context ctx) {
 		IParam hubParam = param.getSub(0);
 		IParam varParam = param.getSub(1);
 		if (hubParam == null || varParam == null) {

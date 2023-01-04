@@ -7,8 +7,8 @@ import com.scudata.common.RQException;
 import com.scudata.dm.Context;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.cursor.ICursor;
-import com.scudata.dw.ColumnTableMetaData;
-import com.scudata.expression.TableMetaDataFunction;
+import com.scudata.dw.ColPhyTable;
+import com.scudata.expression.PhyTableFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
@@ -17,8 +17,16 @@ import com.scudata.resources.EngineMessage;
  * @author RunQian
  *
  */
-public class Update extends TableMetaDataFunction {
+public class Update extends PhyTableFunction {
 	public Object calculate(Context ctx) {
+		if (table instanceof ColPhyTable) {
+			ColPhyTable colTable = (ColPhyTable) table;
+			if (!colTable.getGroupTable().isPureFormat()) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException(mm.getMessage("dw.oldVersion2"));
+			}
+		}
+		
 		String opt = option;
 		if (param == null) {
 			MessageManager mm = EngineMessage.get();
@@ -39,7 +47,7 @@ public class Update extends TableMetaDataFunction {
 			} catch (IOException e) {
 				throw new RQException(e);
 			}
-		} else if (hasW && obj instanceof ICursor && table instanceof ColumnTableMetaData) {
+		} else if (hasW && obj instanceof ICursor && table instanceof ColPhyTable) {
 			try {
 				ICursor cs = (ICursor)obj;
 				/**
@@ -49,7 +57,7 @@ public class Update extends TableMetaDataFunction {
 				if (opt != null && opt.indexOf('i') != -1) {
 					opt = opt.replace("i", "");
 				}
-				((ColumnTableMetaData)table).update(cs, opt);
+				((ColPhyTable)table).update(cs, opt);
 				return table;
 			} catch (IOException e) {
 				throw new RQException(e);

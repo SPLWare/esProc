@@ -5,7 +5,6 @@ import com.scudata.common.RQException;
 import com.scudata.dm.Context;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.op.Operation;
-import com.scudata.dm.op.Switch;
 import com.scudata.dm.op.SwitchRemote;
 import com.scudata.expression.Expression;
 import com.scudata.expression.IParam;
@@ -68,7 +67,8 @@ public class AttachSwitch extends OperableFunction {
 		if (hasClusterTable) {
 			op = new SwitchRemote(this, fkNames, codes, exps, option);
 		} else {
-			op = new Switch(this, fkNames, timeFkNames, seqs, exps, timeExps, option);
+			//op = new Switch(this, fkNames, timeFkNames, seqs, exps, timeExps, option);
+			return operable.switchFk(this, fkNames, timeFkNames, seqs, exps, timeExps, option, ctx);
 		}
 		
 		if (cs != null) {
