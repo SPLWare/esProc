@@ -14,7 +14,6 @@ import com.scudata.dm.DataStruct;
 import com.scudata.dm.ObjectReader;
 import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
-import com.scudata.dm.SerialBytes;
 import com.scudata.dm.Table;
 import com.scudata.dm.cursor.ICursor;
 import com.scudata.dm.cursor.MultipathCursors;
