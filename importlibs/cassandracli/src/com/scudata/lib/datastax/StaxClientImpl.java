@@ -19,7 +19,7 @@ import com.datastax.driver.core.Session;
 import com.datastax.driver.core.UDTValue;
 import com.scudata.dm.Context;
 import com.scudata.dm.IResource;
-import com.scudata.dm.Record;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
 import com.scudata.dm.cursor.ICursor;
@@ -125,7 +125,7 @@ stax_close(staxClient)
   		t = new Table(al);
   		Row row = rs.one();
 	    while (row != null) {
-	  		Record r = t.insert(0);
+	  		BaseRecord r = t.insert(0);
 	    	for(int i=0;i<al.length;i++){
 	  			Object o=row.getObject(i);
 	  			//Logger.debug(o);
@@ -198,7 +198,7 @@ stax_close(staxClient)
 			while (iter.hasNext()) {
 				Object om = iter.next();
 				Object vm = m.get(om);
-				Record r = t.insert(0);
+				BaseRecord r = t.insert(0);
 				r.set("k", getValue(om));
 				r.set("v", getValue(vm));
 			}
