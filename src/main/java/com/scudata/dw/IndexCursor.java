@@ -385,11 +385,7 @@ public class IndexCursor extends ICursor {
 				serialBytesLen = baseTable.getSerialBytesLen();
 				rowDataReader.skipObject();//Î±ºÅ
 				for (int f = 0; f < baseCount; ++f) {
-					if (serialBytesLen[f] > 0) {
-						baseValues[f] = new SerialBytes((Long) rowDataReader.readObject(), serialBytesLen[f]);
-					} else {
-						baseValues[f] = rowDataReader.readObject();
-					}
+					baseValues[f] = rowDataReader.readObject();
 				}
 				for (int f = 0; f < colCount; ++f) {
 					if (isBaseIndex[f]) {
@@ -409,11 +405,7 @@ public class IndexCursor extends ICursor {
 			serialBytesLen = table.getSerialBytesLen();
 			if (serialBytesLen != null) {
 				for (int f = 0; f < allCount; ++f) {
-					if (serialBytesLen[f] > 0) {
-						values[f + baseKeyCount] = new SerialBytes((Long) rowDataReader.readObject(), serialBytesLen[f]);
-					} else {
-						values[f + baseKeyCount] = rowDataReader.readObject();
-					}
+					values[f + baseKeyCount] = rowDataReader.readObject();
 				}
 			} else {
 				for (int f = 0; f < allCount; ++f) {
@@ -434,11 +426,7 @@ public class IndexCursor extends ICursor {
 			values = new Object[allCount];
 			if (serialBytesLen != null) {
 				for (int f = 0; f < allCount; ++f) {
-					if (serialBytesLen[f] > 0) {
-						values[f] = new SerialBytes((Long) rowDataReader.readObject(), serialBytesLen[f]);
-					} else {
-						values[f] = rowDataReader.readObject();
-					}
+					values[f] = rowDataReader.readObject();
 				}
 			} else {
 				for (int f = 0; f < allCount; ++f) {

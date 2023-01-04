@@ -12,7 +12,6 @@ import com.scudata.dm.DataStruct;
 import com.scudata.dm.ObjectReader;
 import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
-import com.scudata.dm.SerialBytes;
 import com.scudata.dm.Table;
 import com.scudata.dm.cursor.ICursor;
 import com.scudata.dm.op.New;
@@ -962,7 +961,6 @@ public class RowCursor extends IDWCursor {
 		int allCount = table.getAllColNames().length;
 		int keyCount = table.getAllSortedColNamesLength();
 		Object []values = new Object[allCount];
-		int []serialBytesLen = table.getTotalSerialBytesLen();
 		int []findex = this.findex;
 		boolean []needRead = this.needRead;
 		BlockLinkReader rowReader = this.rowReader;
@@ -1066,11 +1064,7 @@ public class RowCursor extends IDWCursor {
 						for (int f = 0; f < allCount; ++f) {
 							if (f >= baseKeyCount) {
 								if (needRead[f]) {
-									if (serialBytesLen[f] > 0) {
-										values[f] = new SerialBytes(((Number)bufReader.readObject()).longValue(), serialBytesLen[f]);
-									} else {
-										values[f] = bufReader.readObject();
-									}
+									values[f] = bufReader.readObject();
 								} else {
 									bufReader.skipObject();
 								}
@@ -1150,11 +1144,7 @@ public class RowCursor extends IDWCursor {
 						for (int f = 0; f < allCount; ++f) {
 							if (f >= baseKeyCount) {
 								if (needRead[f]) {
-									if (serialBytesLen[f] > 0) {
-										values[f] = new SerialBytes(((Number)bufReader.readObject()).longValue(), serialBytesLen[f]);
-									} else {
-										values[f] = bufReader.readObject();
-									}
+									values[f] = bufReader.readObject();
 								} else {
 									bufReader.skipObject();
 								}
@@ -1232,11 +1222,7 @@ public class RowCursor extends IDWCursor {
 						for (int f = 0; f < allCount; ++f) {
 								if (f >= baseKeyCount) {
 									if (needRead[f]) {
-										if (serialBytesLen[f] > 0) {
-											values[f] = new SerialBytes(((Number)bufReader.readObject()).longValue(), serialBytesLen[f]);
-										} else {
-											values[f] = bufReader.readObject();
-										}
+										values[f] = bufReader.readObject();
 									} else {
 										bufReader.skipObject();
 									}
@@ -1349,7 +1335,6 @@ public class RowCursor extends IDWCursor {
 		int colCount = fields.length;
 		int allCount = table.getAllColNames().length;
 		Object []values = new Object[allCount];
-		int []serialBytesLen = table.getTotalSerialBytesLen();
 		
 		RowBufferReader bufReader;
 		DataStruct ds = this.ds;
@@ -1420,11 +1405,7 @@ public class RowCursor extends IDWCursor {
 						}
 						for (int f = 0; f < allCount; ++f) {
 							if (f >= baseKeyCount) {
-								if (serialBytesLen[f] > 0) {
-									values[f] = new SerialBytes((Long) bufReader.readObject(), serialBytesLen[f]);
-								} else {
-									values[f] = bufReader.readObject();
-								}
+								values[f] = bufReader.readObject();
 							}
 						}
 						
@@ -1558,11 +1539,7 @@ public class RowCursor extends IDWCursor {
 							//读出来一整行
 							for (int f = 0; f < allCount; ++f) {
 								if (f >= baseKeyCount) {
-									if (serialBytesLen[f] > 0) {
-										values[f] = new SerialBytes((Long) bufReader.readObject(), serialBytesLen[f]);
-									} else {
-										values[f] = bufReader.readObject();
-									}
+									values[f] = bufReader.readObject();
 								}
 							}
 							
@@ -1663,7 +1640,6 @@ public class RowCursor extends IDWCursor {
 		int colCount = fields.length;
 		int allCount = table.getAllColNames().length;
 		Object []values = new Object[allCount];
-		int []serialBytesLen = table.getTotalSerialBytesLen();
 		
 		RowBufferReader bufReader;
 		DataStruct ds = this.ds;
@@ -1745,11 +1721,7 @@ public class RowCursor extends IDWCursor {
 						}
 						for (int f = 0; f < allCount; ++f) {
 							if (f >= baseKeyCount) {
-								if (serialBytesLen[f] > 0) {
-									values[f] = new SerialBytes((Long) bufReader.readObject(), serialBytesLen[f]);
-								} else {
-									values[f] = bufReader.readObject();
-								}
+								values[f] = bufReader.readObject();
 							}
 						}
 						
@@ -1900,11 +1872,7 @@ public class RowCursor extends IDWCursor {
 							}
 							for (int f = 0; f < allCount; ++f) {
 								if (f >= baseKeyCount) {
-									if (serialBytesLen[f] > 0) {
-										values[f] = new SerialBytes((Long) bufReader.readObject(), serialBytesLen[f]);
-									} else {
-										values[f] = bufReader.readObject();
-									}
+									values[f] = bufReader.readObject();
 								}
 							}
 							

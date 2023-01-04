@@ -3156,4 +3156,12 @@ public class SerialBytesArray implements IArray {
 			return result;
 		}
 	}
+	
+	public long[] getDatas1() {
+		return datas1;
+	}
+
+	public long[] getDatas2() {
+		return datas2;
+	}
 }

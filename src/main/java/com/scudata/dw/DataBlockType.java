@@ -6,6 +6,7 @@ import java.util.Date;
 import com.scudata.array.ObjectArray;
 import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Sequence;
+import com.scudata.dm.SerialBytes;
 import com.scudata.dm.Table;
 
 public class DataBlockType {
@@ -37,6 +38,7 @@ public class DataBlockType {
 	public static final int TABLE = 0x43;
 	public static final int RECORD = 0x44;
 	public static final int DECIMAL = 0x45;
+	public static final int SERIALBYTES = 0x46;
 	public static final int STRING = 0x50;
 	public static final int STRING_ASSIC = 0x51;//都是由ASSIC字符组成的字符串，且长度小于128
 	
@@ -114,6 +116,8 @@ public class DataBlockType {
 			type = checkRecordBlockType(seq, start, end);
 		} else if (obj instanceof BigDecimal) {
 			type = checkDecimalBlockType(seq, start, end);
+		} else if (obj instanceof SerialBytes) {
+			type = checkSerialBytesBlockType(seq, start, end);
 		} else {
 			type = new DataBlockType(OBJECT, false);
 		}
@@ -453,6 +457,22 @@ public class DataBlockType {
 		return new DataBlockType(OBJECT, DECIMAL, hasNull);
 	}
 	
+	private static DataBlockType checkSerialBytesBlockType(Sequence data, int start, int end) {
+		boolean hasNull = false;
+		
+		for (int i = start; i <= end; ++i) {
+			Object obj = data.get(i);
+			if (obj == null) {
+				hasNull = true;
+				continue;
+			}
+			if (!(obj instanceof SerialBytes)) {
+				return new DataBlockType(OBJECT, hasNull);
+			}
+		}
+		return new DataBlockType(SERIALBYTES, hasNull);
+	}
+	
 	public boolean isHasNull() {
 		return hasNull;
 	}
@@ -515,6 +535,8 @@ public class DataBlockType {
 			return "BigDecimal";
 		case EMPTY:
 			return "Empty";
+		case SERIALBYTES:
+			return "SerialBytes";
 		case 0:
 			return "Unknown";
 		default:
@@ -546,6 +568,8 @@ public class DataBlockType {
 		case DOUBLE:
 		case DATE:
 			return "VAR";	
+		case SERIALBYTES:
+			return "128";
 		default:
 			return "";	
 		}
@@ -621,6 +645,14 @@ public class DataBlockType {
 				strArray[i] = (String) obj;
 			}
 			resultArray = strArray;
+			break;
+		case DataBlockType.SERIALBYTES:
+			SerialBytes[] serArray = new SerialBytes[size + 1];
+			for (int i = 1; i <= size; i++) {
+				Object obj = dict.getMem(i);
+				serArray[i] = (SerialBytes) obj;
+			}
+			resultArray = serArray;
 			break;
 		default:
 			return ((ObjectArray)dict.getMems()).getDatas();

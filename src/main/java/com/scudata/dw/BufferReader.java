@@ -703,12 +703,14 @@ public class BufferReader {
 		case BufferWriter.SERIALBYTES:
 			int len = b & 0x0F;
 			if (len == 0) {
-				len = 16;
+				long v1 = readLong64();
+				long v2 = readLong64();
+				return new SerialBytes(v1, v2);
+			} else {
+				byte []bytes = new byte[len];
+				read(bytes);
+				return new SerialBytes(bytes, len);
 			}
-			
-			byte []bytes = new byte[len];
-			read(bytes);
-			return new SerialBytes(bytes, len);
 		default:
 			throw new RuntimeException();
 		}
