@@ -7,26 +7,22 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.hadoop.io.IntWritable;
+import org.apache.hadoop.io.Text;
 import org.apache.spark.SparkConf;
-import org.apache.spark.SparkContext;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaSparkContext;
+import org.apache.spark.api.java.function.PairFunction;
 import org.apache.spark.sql.DataFrameReader;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
-import org.apache.spark.sql.RuntimeConfig;
 import org.apache.spark.sql.SparkSession;
 import org.apache.spark.sql.catalyst.expressions.GenericRowWithSchema;
-
 import com.scudata.common.Logger;
 import com.scudata.common.RQException;
-import com.scudata.dm.Context;
-import com.scudata.dm.DataStruct;
-import com.scudata.dm.IResource;
-import com.scudata.dm.Record;
-import com.scudata.dm.Sequence;
-import com.scudata.dm.Table;
+import com.scudata.dm.*;
 import com.scudata.dm.cursor.ICursor;
+import scala.Tuple2;
 import scala.collection.mutable.WrappedArray;
 
 //dfsUrl = "hdfs://master:9000/user/hive/warehouse";
@@ -43,7 +39,7 @@ public class SparkCli implements IResource{
 	// local
 	public SparkCli(Context ctx) {
 		initEnv();
-		SparkConf conf = new SparkConf().setAppName("Spark Raqsoft").setMaster("local");
+		SparkConf conf = new SparkConf().setAppName("SparkRaqsoft").setMaster("local[2]");
 		sc = new JavaSparkContext(conf);
 		
 		spark = SparkSession
@@ -189,6 +185,7 @@ public class SparkCli implements IResource{
 		try {
 			String sKey = "org.apache.hadoop.io.Text";
 			String sVal = "org.apache.hadoop.io.IntWritable";
+			String sep = ",";
 			if (map.containsKey("k")) {
 				sKey = map.get("k");
 			}
@@ -197,14 +194,24 @@ public class SparkCli implements IResource{
 				sVal = map.get("k");
 			}
 			
-			tbl = new Table(new String[]{"Key","Val"});
+			if (map.containsKey("v")) {
+				sVal = map.get("k");
+			}
+			
+			//tbls[0] = new Table(new String[]{"Key","Val"});
 			Class clzKey = Class.forName(sKey);
 			Class clzVal = Class.forName(sVal);
 			JavaPairRDD input = sc.sequenceFile(strVal, clzKey, clzVal, 1);
-			input.foreach(f-> {
-             	System.out.println(f.toString());
-             	}
-             );
+			
+			//JavaPairRDD input = sc.sequenceFile(strVal, Text.class,IntWritable.class);
+			// input.foreach(f->System.out.println(f));
+			JavaPairRDD<String ,Integer> outRdd = input.mapToPair(new PairFunction<Tuple2<Text, IntWritable>, String, Integer>() {
+	            @Override
+	            public Tuple2<String, Integer> call(Tuple2<Text, IntWritable> textIntWritableTuple2) throws Exception {
+	                return new Tuple2<String, Integer>(textIntWritableTuple2._1.toString(),textIntWritableTuple2._2.get());
+	            }
+	        });
+	        outRdd.foreach(f-> System.out.println(f.toString()));
 		} catch (Exception e) {
 			Logger.error(e.getMessage());
 		}
@@ -328,7 +335,7 @@ public class SparkCli implements IResource{
 		System.out.println();
 		// print tableData
 		for(i=0; i<table.length(); i++){
-			Record rc = table.getRecord(i+1);
+			BaseRecord rc = table.getRecord(i+1);
 			Object []objs = rc.getFieldValues();
 			for (Object o : objs){
 				System.out.printf(o + "\t");
@@ -397,7 +404,7 @@ public class SparkCli implements IResource{
 				vs[i] = doWrappedArray((WrappedArray)vs[i]);
 			}
 		}
-		Record rcd = new Record(new DataStruct(fs), vs);
+		BaseRecord rcd = new Record(new DataStruct(fs), vs);
 		return rcd;
 	}
 	

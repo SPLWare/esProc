@@ -14,7 +14,7 @@ import com.scudata.dm.Env;
 import com.scudata.dm.FileObject;
 import com.scudata.dm.IFile;
 import com.scudata.dm.RandomOutputStream;
-import com.scudata.dm.Record;
+import com.scudata.dm.BaseRecord;
 import com.scudata.expression.Function;
 import com.scudata.expression.IParam;
 import com.scudata.expression.Node;
@@ -267,10 +267,10 @@ public class WebHdfsFile extends Function implements IFile {
 			String s = WebHdfs.stringResult(url+"?op=GETFILESTATUS"+params,"GET");
 			Object o = JSONUtil.parseJSON(s.toCharArray(), 0, s.length()-1);
 			if (o!=null) {
-				Record rc = (Record)o;
+				BaseRecord rc = (BaseRecord)o;
 				Object o2 = rc.getFieldValue("FileStatus");
 				if (o2!=null) {
-					Record rc2 = (Record)o2;
+					BaseRecord rc2 = (BaseRecord)o2;
 					Object o3 = rc2.getFieldValue("length");
 					return (Long)o3;
 				}
@@ -291,7 +291,7 @@ public class WebHdfsFile extends Function implements IFile {
 			String s = WebHdfs.stringResult(url+"?op=DELETE"+params,"DELETE");
 			Object o = JSONUtil.parseJSON(s.toCharArray(), 0, s.length()-1);
 			if (o!=null) {
-				Record rc = (Record)o;
+				BaseRecord rc = (BaseRecord)o;
 				String o2 = rc.getFieldValue("boolean").toString();
 				return ("true".equals(o2));
 			}
@@ -336,10 +336,10 @@ public class WebHdfsFile extends Function implements IFile {
 			String s = WebHdfs.stringResult(url+"?op=GETFILESTATUS"+params,"GET");
 			Object o = JSONUtil.parseJSON(s.toCharArray(), 0, s.length()-1);
 			if (o!=null) {
-				Record rc = (Record)o;
+				BaseRecord rc = (BaseRecord)o;
 				Object o2 = rc.getFieldValue("FileStatus");
 				if (o2!=null) {
-					Record rc2 = (Record)o2;
+					BaseRecord rc2 = (BaseRecord)o2;
 					Object o3 = rc2.getFieldValue("modificationTime");
 					return (Long)o3;
 				}

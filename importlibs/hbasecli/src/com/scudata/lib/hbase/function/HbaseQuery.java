@@ -18,7 +18,7 @@ import com.scudata.common.Logger;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
-import com.scudata.dm.Record;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Table;
 import com.scudata.expression.Expression;
 import com.scudata.expression.Function;
@@ -433,7 +433,7 @@ public class HbaseQuery extends Function {
   			
    			objs = new Object[colNames.length];  
   			objs[0] = rowkey;
-  			Record r = table.newLast(objs);
+  			BaseRecord r = table.newLast(objs);
   			List<Cell> cells = res.listCells();
   	        for (Cell c : cells) {
   				//System.out.println("val = "+Bytes.toString(kv.getValue()));
@@ -502,7 +502,7 @@ public class HbaseQuery extends Function {
   				objs[0] = Bytes.toString(res.getRow());
   			}
 			nCol = 0;
-  			Record r = table.newLast(objs);
+  			BaseRecord r = table.newLast(objs);
   			
   			List<Cell> cells = res.listCells();
   	        for (Cell c : cells) {

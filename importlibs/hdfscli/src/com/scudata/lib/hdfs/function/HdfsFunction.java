@@ -8,6 +8,7 @@ import org.apache.hadoop.fs.FileSystem;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
+import com.scudata.dm.Table;
 import com.scudata.expression.Function;
 import com.scudata.expression.IParam;
 import com.scudata.expression.Node;
@@ -61,7 +62,7 @@ public class HdfsFunction extends Function {
 			}else{
 				if (param.getSub(i).isLeaf()){
 					o = param.getSub(i).getLeafExpression().calculate(ctx);
-					if (o!=null && o instanceof String){
+					if (o!=null && (o instanceof String || o instanceof Table)){
 						ls.add(o);
 					}else{
 						throw new RQException("hdfs param " + o + " type is not String");

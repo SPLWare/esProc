@@ -4,14 +4,18 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.RandomAccessFile;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+
+import org.apache.hadoop.fs.FSDataOutputStream;
 import org.apache.hadoop.fs.FileStatus;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
@@ -22,6 +26,7 @@ import org.apache.hadoop.io.compress.CompressionCodecFactory;
 import com.scudata.common.Logger;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
+import com.scudata.dm.FileRandomOutputStream;
 import com.scudata.dm.IFile;
 import com.scudata.dm.RandomOutputStream;
 
@@ -29,6 +34,7 @@ public class HdfsFileImpl implements IFile {
 	private FileSystem hdfs;
 	private String fileName;
 	private CompressionCodec codec;
+	private ImRandomOutputStream ost = null;
 	
 	public HdfsFileImpl() {}
 	
@@ -188,20 +194,20 @@ public class HdfsFileImpl implements IFile {
 	public void uploadFile( String localFile, String hdFile ) throws Exception {
 		try {
 			//System.out.println("upload localFile="+localFile+"  hdFile="+hdFile);
-			String removeFile = new String(hdFile);
+			String remoteFile = new String(hdFile);
 			boolean bDir = isRemoveDir(hdFile);
 			if (bDir){
 				File f = new File(localFile);
 				String name = f.getName();
 				if (hdFile.endsWith("/")){
-					removeFile += name;
+					remoteFile += name;
 				}else{
-					removeFile += "/"+name;
+					remoteFile += "/"+name;
 				}				
 			}
-			System.out.println("upload2 localFile="+localFile+"  removeFile="+removeFile);
-			hdfs.copyFromLocalFile(new Path(localFile), new Path(removeFile));
-//			initFile(removeFile);
+			System.out.println("upload2 localFile="+localFile+"  remoteFile="+remoteFile);
+			hdfs.copyFromLocalFile(new Path(localFile), new Path(remoteFile));
+//			initFile(remoteFile);
 //
 //			OutputStream output = getOutputStream( false );
 //			InputStream input = new FileInputStream(localFile);
@@ -323,7 +329,7 @@ public class HdfsFileImpl implements IFile {
 	        	lFile = localDir + "/"+lFile;
 	        	initFile(f);
 	        	InputStream input = getInputStream();
-				OutputStream output = new FileOutputStream(lFile);
+	        	OutputStream output = new FileOutputStream(lFile);
 				//copyByte
 			    IOUtils.copyBytes(input,output,1024,true);
 	        }
@@ -348,7 +354,73 @@ public class HdfsFileImpl implements IFile {
 	}
 
 	public RandomOutputStream getRandomOutputStream(boolean isAppend) {
-		throw new RQException( "HDFS files cannot be written randomly" );
+		return new ImRandomOutputStream(isAppend);
+	}
+	
+	class ImRandomOutputStream extends RandomOutputStream{
+		Path path = null;
+		FSDataOutputStream fsDataOutputStream = null;
+		Object lock = null;
+		
+		public ImRandomOutputStream(boolean isAppend){
+			try{
+				lock = new Object();
+				path = new Path(fileName);				
+				if(hdfs.exists(path) && isAppend)
+	            {
+		           	 long size = hdfs.getFileStatus(path).getLen();
+		           	 fsDataOutputStream = hdfs.append(path, (int)size);
+	            }else{
+		            //输出流对象，将数据输出到HDFS文件系统
+		            fsDataOutputStream = hdfs.create(path);
+	            }
+			}catch(Exception e){
+				Logger.error(e.getMessage());
+			}
+		}
+		
+		public void close(){
+			try{
+				if (fsDataOutputStream != null){
+					fsDataOutputStream.close();
+				}
+			}catch(Exception e){
+				
+			}
+		}
+		
+		@Override
+		public long position() throws IOException {
+			// TODO Auto-generated method stub
+			long size = fsDataOutputStream.getPos();
+			return size;
+		}
+
+		@Override
+		public void position(long l) throws IOException {
+			//由于hdfs不支持随机写，因此不能定位
+		}
+
+		@Override
+		public boolean tryLock() throws IOException {
+			// TODO Auto-generated method stub
+			
+			return true;
+		}
+
+		@Override
+		public void write(int i) throws IOException {
+			// TODO Auto-generated method stub
+			fsDataOutputStream.write(i);
+		}
+		
+		public void write(byte[] b) throws IOException {
+			write(b, 0, b.length);
+		}
+
+		public void write(byte[] b, int off, int len) throws IOException {
+			fsDataOutputStream.write(b, off, len);
+		}		
 	}
 	
 	//list all files

@@ -14,7 +14,7 @@ import com.jcraft.jsch.Session;
 import com.scudata.common.Logger;
 import com.scudata.dm.Context;
 import com.scudata.dm.IResource;
-import com.scudata.dm.Record;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
 
@@ -138,7 +138,7 @@ public class SFtpClientImpl extends Table implements IResource {
 				e.printStackTrace();
 			}
 			
-			Record r2 = result.insert(0);
+			BaseRecord r2 = result.insert(0);
 			r2.set("folder",dirs.get(i));
 			r2.set("result",r?"success":"fail");
 			r2.set("cause",msg);
@@ -160,7 +160,7 @@ public class SFtpClientImpl extends Table implements IResource {
 				msg = e.getMessage();
 				e.printStackTrace();
 			}
-			Record r2 = result.insert(0);
+			BaseRecord r2 = result.insert(0);
 			r2.set("folder",dirs.get(i));
 			r2.set("result",r?"success":"fail");
 			r2.set("cause",msg);

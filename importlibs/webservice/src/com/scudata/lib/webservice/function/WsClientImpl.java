@@ -27,7 +27,7 @@ import org.jdom.input.SAXBuilder;
 import com.scudata.common.Logger;
 import com.scudata.common.StringUtils;
 import com.scudata.dm.Context;
-import com.scudata.dm.Record;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
 import com.scudata.expression.Expression;
@@ -84,7 +84,7 @@ public class WsClientImpl extends Table {
 			
 			//uri
 			String fs[] = t.dataStruct().getFieldNames();
-			Record r1 = t.getRecord(1);
+			BaseRecord r1 = t.getRecord(1);
 			for (int i=0; i<fs.length; i++) {
 				if (!fs[i].startsWith(XML_ATTR)) continue;
 				String fsi[] = fs[i].split(":");
@@ -324,14 +324,14 @@ public class WsClientImpl extends Table {
 			Context c1 = new Context();
 			c1.setParamValue("xmlStr", s);
 			Object r = new Expression("xml(xmlStr)").calculate(c1);
-			Record rec = (Record)r;
+			BaseRecord rec = (BaseRecord)r;
 		    Object enve = rec.getFieldValue(0);
 		    if (enve == null) return null;
-		    String ns[] = ((Record)enve).getFieldNames();
+		    String ns[] = ((BaseRecord)enve).getFieldNames();
 		    for (int i=0; i<ns.length; i++) {
 		    	if (ns[i].indexOf("ody")>=0) {//body
-		    		Object ody = ((Record)enve).getFieldValue(i);
-		    		return ((Record)((Record)ody).getFieldValue(0)).getFieldValue(0);
+		    		Object ody = ((BaseRecord)enve).getFieldValue(i);
+		    		return ((BaseRecord)((BaseRecord)ody).getFieldValue(0)).getFieldValue(0);
 		    	}
 		    }
 		} catch (Exception e) {
@@ -374,14 +374,14 @@ public class WsClientImpl extends Table {
 			Context c1 = new Context();
 			c1.setParamValue("xmlStr", s);
 			Object r = new Expression("xml(xmlStr)").calculate(c1);
-			Record rec = (Record)r;
+			BaseRecord rec = (BaseRecord)r;
 		    Object enve = rec.getFieldValue(0);
 		    if (enve == null) return null;
-		    String ns[] = ((Record)enve).getFieldNames();
+		    String ns[] = ((BaseRecord)enve).getFieldNames();
 		    for (int i=0; i<ns.length; i++) {
 		    	if (ns[i].indexOf("ody")>=0) {//body
-		    		Object ody = ((Record)enve).getFieldValue(i);
-		    		return ((Record)((Record)ody).getFieldValue(0)).getFieldValue(0);
+		    		Object ody = ((BaseRecord)enve).getFieldValue(i);
+		    		return ((BaseRecord)((BaseRecord)ody).getFieldValue(0)).getFieldValue(0);
 		    	}
 		    }
 		} catch (Exception e) {
@@ -521,7 +521,7 @@ public class WsClientImpl extends Table {
 		}
 			
 		Table t = new Table(names.toArray(new String[names.size()]));
-		Record r = t.insert(0);
+		BaseRecord r = t.insert(0);
 		for (int i=0; i<names.size(); i++) r.set(names.get(i), objs.get(i));
 		//Logger.debug("table = " + t);
 		return t;

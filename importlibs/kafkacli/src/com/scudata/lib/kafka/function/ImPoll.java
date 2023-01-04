@@ -146,28 +146,6 @@ public class ImPoll extends ImFunction {
 	
 	// 对不带分区的消费者的offset进行设置
 	@SuppressWarnings("unchecked")
-	private void setComsumerOffset(){		
-		Param param = m_ctx.getParam("offset_val");
-		if (param!=null){
-			if (param.getValue() instanceof Map){
-				Map<Integer, Integer> map = (Map<Integer, Integer>)param.getValue();
-				for (TopicPartition topicPartition : m_topicPartition) {					
-	        		if (map.containsKey(topicPartition.partition()) ){
-	        			m_conn.m_consumer.seek(topicPartition, map.get(topicPartition.partition()));
-	        		}
-		        }
-			}else if(param.getValue() instanceof Integer){
-				Integer nOffset = (Integer)param.getValue();
-				for (TopicPartition topicPartition : m_topicPartition) {
-		        	m_conn.m_consumer.seek(topicPartition, nOffset);
-		        }
-			}
-			m_ctx.setParamValue("offset_val", null);
-		}
-	}
-	
-	// 对带分区的消费者的offset进行设置
-	@SuppressWarnings("unchecked")
 	private void setComsumerOffset(List<Integer> partitions){	
 		Param param = m_ctx.getParam("offset_val");
 		if (param!=null){

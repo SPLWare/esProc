@@ -30,26 +30,20 @@ public class HiveBase {
 	public Table selectData( String sql) {
 		Table tb = null;
 		try {
-			do{
-				if (!queryData(sql)){
-					break;
-				}
-				if(!driver.getResults(result)){
-					System.out.println("queryData driver getResult false");
-					break;
-				}			
-				//doPrint(result);
-				
-				if (result.size()==0){
-					System.out.println("no data");
-					break;
-				}
-				tb = toTable(Utils.resultsConvertDList(result), colNames);
-				if (tb==null){
-					System.out.println("no data");
-					break;
-				}				
-			}while(false);
+			if (!queryData(sql)){
+				return tb;
+			}
+			if(!driver.getResults(result)){
+				System.out.println("queryData driver getResult false");
+				return tb;
+			}			
+			//doPrint(result);
+			
+			tb = toTable(Utils.resultsConvertDList(result), colNames);
+			if (tb==null){
+				System.out.println("no data");
+			}				
+		
 		} catch (IOException e) {
 			Logger.error(e.getStackTrace());
 		}
@@ -134,7 +128,7 @@ public class HiveBase {
 			}else{
 				bRet = true;
 			}
-			System.out.println("time = "+( System.currentTimeMillis()-nStart));
+			//System.out.println("time = "+( System.currentTimeMillis()-nStart));
 		} catch (Exception e) {
 			Logger.error(e.getStackTrace());
 		}

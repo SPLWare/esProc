@@ -4,7 +4,7 @@ import com.scudata.common.Logger;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
 import com.scudata.dm.DataStruct;
-import com.scudata.dm.Record;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
 import com.scudata.dm.cursor.ICursor;
@@ -78,7 +78,7 @@ public class ImCursorImpl extends ICursor {
 
         int nCount = 0;
         do{
-        	Record r = tb.newLast();
+        	BaseRecord r = tb.newLast();
         	nCount++;
         	for(int j=0; j<colSize; j++){        	  
         	  r.setNormalFieldValue(j, m_jcoTable.getValue(j));

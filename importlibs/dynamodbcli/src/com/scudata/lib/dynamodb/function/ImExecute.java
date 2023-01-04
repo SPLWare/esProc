@@ -9,7 +9,7 @@ import com.amazonaws.services.dynamodbv2.model.BatchExecuteStatementRequest;
 import com.amazonaws.services.dynamodbv2.model.BatchExecuteStatementResult;
 import com.amazonaws.services.dynamodbv2.model.BatchStatementRequest;
 import com.scudata.common.Logger;
-import com.scudata.dm.Record;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
 import com.scudata.dm.cursor.ICursor;
@@ -79,7 +79,7 @@ public class ImExecute extends ImFunction {
 				
 				for(int i=0; i<table.length(); i++){
 					Object o = table.get(i+1);
-					Record r = (Record)o;
+					BaseRecord r = (BaseRecord)o;
 					List<AttributeValue> parameters = new ArrayList<AttributeValue>();
 					
 					// for params

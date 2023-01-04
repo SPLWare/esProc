@@ -18,7 +18,7 @@ import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
 import com.scudata.dm.FileObject;
-import com.scudata.dm.Record;
+import com.scudata.dm.BaseRecord;
 import com.scudata.expression.Function;
 import com.scudata.expression.Node;
 import com.scudata.resources.EngineMessage;
@@ -264,7 +264,7 @@ public class WebHdfs extends Function {
 			String s = WebHdfs.stringResult(url+"?op=DELETE"+params,"DELETE");
 			Object o = JSONUtil.parseJSON(s.toCharArray(), 0, s.length()-1);
 			if (o!=null) {
-				Record rc = (Record)o;
+				BaseRecord rc = (BaseRecord)o;
 				Object o2 = rc.getFieldValue("boolean");
 				System.out.println(o2);
 			}

@@ -7,6 +7,7 @@ import org.apache.hadoop.hive.ql.Driver;
 import org.apache.hadoop.hive.ql.QueryState;
 import org.apache.hadoop.hive.ql.session.SessionState;
 
+import com.scudata.lib.hive.HiveConfProxy;
 import com.scudata.lib.hive.function.HiveBase;
 import com.scudata.lib.hive.function.HiveDriverCli;
 import com.scudata.lib.hive.function.Utils;
@@ -65,8 +66,8 @@ public class HiveDriverCli implements IResource{
 				
 				System.setProperty("java.library.path",envPath);
 			}
-			//System.out.println("debug 1000");
-			HiveConf conf = new HiveConf(HiveDriverCli.class);
+
+			HiveConfProxy conf = new HiveConfProxy(HiveDriverCli.class);			
 
 			if (opt!=null){
 				if (opt.equals("p")){
@@ -76,8 +77,6 @@ public class HiveDriverCli implements IResource{
 					conf.setBoolean("hive.enforce.bucketing", true);
 					conf.set("hive.exec.dynamic.partition.mode", "nonstrict");
 					conf.set("hive.txn.manager", "org.apache.hadoop.hive.ql.lockmgr.DbTxnManager");
-					//conf.setBoolean("hive.compactor.initiator.on", true);
-					//conf.setInt("hive.compactor.worker.threads", 1);
 				}
 			}
 			conf.set("fs.default.name", sUrl);
@@ -104,11 +103,10 @@ public class HiveDriverCli implements IResource{
 			//conf.set("hive.metastore.warehouse.dir", wareHouse);
 			//conf.set(HiveConf.ConfVars.METASTOREWAREHOUSE.varname, wareHouse);
 //			conf.setVar(HiveConf.ConfVars.HIVEINPUTFORMAT, HiveInputFormat.class.getName());
-		   
-			//System.out.println("debug 1002");
+
 			SessionState ss = SessionState.start(conf);
 			//ss.applyAuthorizationPolicy();
-			//System.out.println("debug 1003");
+
 			Driver driver = new Driver(new QueryState.Builder().withHiveConf(conf).nonIsolated().build(), null);
 			driver.setMaxRows(ICursor.INITSIZE);
 			//System.out.println("debug 1004");

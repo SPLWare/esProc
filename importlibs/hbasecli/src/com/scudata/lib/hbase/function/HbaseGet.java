@@ -17,7 +17,7 @@ import org.apache.hadoop.hbase.filter.*;
 import org.apache.hadoop.hbase.util.Bytes;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
-import com.scudata.dm.Record;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
 import com.scudata.expression.Node;
@@ -147,7 +147,7 @@ public class HbaseGet extends HbaseQuery {
   			
    			objs = new Object[colNames.length];  
   			objs[0] = rowkey;
-  			Record r = table.newLast(objs);
+  			BaseRecord r = table.newLast(objs);
   			List<Cell> cells = res.listCells();
   	        for (Cell c : cells) {
   	        	//System.out.println(c.getTimestamp());

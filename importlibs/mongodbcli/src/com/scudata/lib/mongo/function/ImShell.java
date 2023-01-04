@@ -41,7 +41,7 @@ public class ImShell extends ImFunction {
 			}
 			
 			//游标的实现
-			Record rootNode = null;
+			BaseRecord rootNode = null;
 			if (option!=null && option.contains("d")){
 				if (option.contains("c")){
 					return doCursorData(mongo, docs);
@@ -73,7 +73,7 @@ public class ImShell extends ImFunction {
 	//将当前的数据缓存后放入序表中
 	private Object doNormalData(ImMongo mongo, Document cur) {
 		Object obj = null;		
-		Record rcd = ImCursor.parse(cur);
+		BaseRecord rcd = ImCursor.parse(cur);
 		
 		if (rcd.dataStruct().getFieldIndex("firstBatch")>-1){
 			obj = rcd.getFieldValue("firstBatch");
@@ -103,7 +103,7 @@ public class ImShell extends ImFunction {
 	
 	//将当前的数据缓存后放入游标中
 	private Object doCursorData(ImMongo mongo, Document docs) {
-		Record r = null;
+		BaseRecord r = null;
 		Object obj = null;
 		Document cur = (Document)docs.get("cursor");
 				

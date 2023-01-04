@@ -4,7 +4,7 @@ import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
 import com.scudata.dm.DataStruct;
-import com.scudata.dm.Record;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Table;
 import com.scudata.expression.Node;
 import com.scudata.resources.EngineMessage;
@@ -69,7 +69,7 @@ public class ImGetParam extends ImFunction {
 	        		m_colNames[i] = meta.getName(i);	        	
 	        	}
 	        	
-	        	Record r = tb.newLast();
+	        	BaseRecord r = tb.newLast();
 	        	for(int i=0; i<structure.getFieldCount(); i++){
 	        		r.setNormalFieldValue(i, structure.getValue(i));	 
 	        	}
@@ -78,7 +78,7 @@ public class ImGetParam extends ImFunction {
                 DataStruct ds = new DataStruct(m_colNames);
          		tb = new Table(ds, m_colNames.length);
          		
-         		Record r = tb.newLast();         		
+         		BaseRecord r = tb.newLast();         		
      	        r.setNormalFieldValue(0, val);	    
             }	           	
 		}while(false);

@@ -15,7 +15,7 @@ import com.scudata.common.Logger;
 import com.scudata.dm.Context;
 import com.scudata.dm.FileObject;
 import com.scudata.dm.IResource;
-import com.scudata.dm.Record;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
 
@@ -330,7 +330,7 @@ public class FtpClientImpl extends Table implements IResource {
 		if (!ignore && !overwrite) {
 			if (existCount>0) {
 				result = new Table(new String[]{"errorCode","localExistFiles"});
-				Record r = result.insert(0);
+				BaseRecord r = result.insert(0);
 				r.set("errorCode", 1);
 				Sequence seq = new Sequence();
 				//for (int i=0; i<localExists.)
@@ -376,7 +376,7 @@ public class FtpClientImpl extends Table implements IResource {
 		}
 
 		result = new Table(new String[]{"success","overwrite","ignore","fail"});
-		Record r = result.insert(0);
+		BaseRecord r = result.insert(0);
 		r.set("success",sucs);
 		r.set("overwrite",overwrites);
 		r.set("ignore",ignores);
@@ -452,7 +452,7 @@ public class FtpClientImpl extends Table implements IResource {
 		if (!ignore && !overwrite) {
 			if (existCount>0) {
 				result = new Table(new String[]{"errorCode","remoteExistFiles"});
-				Record r = result.insert(0);
+				BaseRecord r = result.insert(0);
 				r.set("errorCode", 1);
 				Sequence seq = new Sequence();
 				//for (int i=0; i<localExists.)
@@ -501,7 +501,7 @@ public class FtpClientImpl extends Table implements IResource {
 		}
 
 		result = new Table(new String[]{"success","overwrite","ignore","fail"});
-		Record r = result.insert(0);
+		BaseRecord r = result.insert(0);
 		r.set("success",sucs);
 		r.set("overwrite",overwrites);
 		r.set("ignore",ignores);
@@ -550,7 +550,7 @@ public class FtpClientImpl extends Table implements IResource {
 				}
 				Logger.warn("mkdir dir ¡°"+dir+"¡± failed");
 			}
-			Record r2 = result.insert(0);
+			BaseRecord r2 = result.insert(0);
 			r2.set("folder",this.getFullPath(dirs.get(i)));
 			r2.set("result",r?"success":"fail");
 			r2.set("cause",r?"":msg);
@@ -578,7 +578,7 @@ public class FtpClientImpl extends Table implements IResource {
 				Logger.debug("delete dir success : " + dir);
 				//this.dir = dir;
 			} else Logger.warn("delete dir ¡°"+dir+"¡± failed");
-			Record r2 = result.insert(0);
+			BaseRecord r2 = result.insert(0);
 			r2.set("folder",this.getFullPath(dirs.get(i)));
 			r2.set("result",r?"success":"fail");
 			r2.set("cause",r?"":"folder not exist or not empty");

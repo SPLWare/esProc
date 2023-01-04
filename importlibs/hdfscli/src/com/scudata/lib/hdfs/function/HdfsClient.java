@@ -82,6 +82,8 @@ public class HdfsClient implements IResource
 		Thread.currentThread().setContextClassLoader(classLoader);
 		conf.setClassLoader(classLoader);
 		conf.set("fs.hdfs.impl",org.apache.hadoop.hdfs.DistributedFileSystem.class.getName());  
+        conf.set("dfs.client.block.write.replace-datanode-on-failure.policy", "NEVER");
+        conf.setBoolean("dfs.support.append", true);
 		m_ctx.setParamValue("classLoader", m_classLoader);
 		
 		FileSystem fs = null;

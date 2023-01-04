@@ -8,7 +8,9 @@ import java.util.Set;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.bson.Document;
+import org.bson.types.ObjectId;
 import com.mongodb.client.MongoDatabase;
+import com.scudata.array.IArray;
 import com.scudata.common.*;
 import com.scudata.dm.*;
 import com.scudata.dm.cursor.ICursor;
@@ -179,12 +181,12 @@ public class ImCursor extends ICursor {
 			String[] newCols = mergeColumns(vTbl.dataStruct().getFieldNames(), 
 											bufTbl.dataStruct().getFieldNames());
 			Table tmpTable = new Table(newCols);
-			ListBase1 mems = vTbl.getMems();
+			IArray mems = vTbl.getMems();
 			
 			// oldData
-			Record r = null;
+			BaseRecord r = null;
 			for(int i=0; i<mems.size(); i++){
-				r = (Record)mems.get(i+1);
+				r = (BaseRecord)mems.get(i+1);
 				tmpTable.newLast(r.getFieldValues());
 			}
 			vTbl.clear();
@@ -200,7 +202,7 @@ public class ImCursor extends ICursor {
 		
 		if (bufTbl.length()>n){ //2.1 有足够缓存
 			for(int i=0; i<n; i++){
-				Record r = bufTbl.getRecord(i+1);
+				BaseRecord r = bufTbl.getRecord(i+1);
 				vTbl.newLast(r.getFieldValues());
 			}
 			for(int i=n; i>0; i--){
@@ -233,7 +235,7 @@ public class ImCursor extends ICursor {
 		String[] cols = oldTbl.dataStruct().getFieldNames();
 		subLine = new Object[newCols.length];
 		for(int i=0; i<oldTbl.length(); i++){
-			Record rcd = oldTbl.getRecord(i+1);
+			BaseRecord rcd = oldTbl.getRecord(i+1);
 			for(int j=0; j<newCols.length; j++){	
 				if (ArrayUtils.contains(cols, newCols[j])) {
 					 subLine[j] = rcd.getFieldValue(newCols[j]);
@@ -260,7 +262,7 @@ public class ImCursor extends ICursor {
 			}
 			Document cur = (Document)docs.get("cursor");
 			cursorId = cur.getLong("id");
-			Record rcd = parse(cur);
+			BaseRecord rcd = parse(cur);
 
 			if (rcd.dataStruct().getFieldIndex("firstBatch")>-1){
 				obj = rcd.getFieldValue("firstBatch");
@@ -280,7 +282,7 @@ public class ImCursor extends ICursor {
 		return tbl;
 	}
 	
-	public static Record parse(Document doc){
+	public static BaseRecord parse(Document doc){
 		int idx = 0;
 		Set<String>set = doc.keySet();
 		String[] curCols = set.toArray(new String[set.size()]);
@@ -302,7 +304,7 @@ public class ImCursor extends ICursor {
 				// List<Document>结构
 				if (o instanceof Document){
 					Table subNode = null;
-					Record subRec = null;
+					BaseRecord subRec = null;
 					List<Document> dlist = (List<Document>)val;
 					
 					for(Document sub:dlist){
@@ -318,15 +320,24 @@ public class ImCursor extends ICursor {
 					line[idx++] = subNode;
 				}else{ // List<Object>结构
 					Object[] objs = list.toArray(new Object[list.size()]);
+					for(int i=0;i<objs.length; i++ ){
+						if (objs[i] instanceof ObjectId){
+							objs[i] = objs[i].toString();
+						}
+					}
 					Sequence seq = new Sequence(objs);					
 					line[idx++] = seq;
 				}
 			}else{
-				line[idx++] = val;				
+				if (val instanceof ObjectId){
+					line[idx++] = val.toString();	
+				}else{
+					line[idx++] = val;	
+				}
 			}
 		}
 
-		Record rcd = new Record(ds1,line);
+		BaseRecord rcd = new Record(ds1,line);
 		return rcd;
 	}
 	
@@ -365,7 +376,7 @@ public class ImCursor extends ICursor {
 	}
 	
 	//序表与记录合并，字段不一致时字段数据对齐
-	private static Table doRecord(Table subNode, Record subRec) {
+	private static Table doRecord(Table subNode, BaseRecord subRec) {
 		Table ret = null;
 		// 1.结构相同。
 		if (subNode.dataStruct().isCompatible(subRec.dataStruct())){
@@ -381,12 +392,12 @@ public class ImCursor extends ICursor {
 			String[] newCols = mergeColumns(subNode.dataStruct().getFieldNames(), 
 									 subRec.dataStruct().getFieldNames());
 			Table newTable = new Table(newCols);
-			ListBase1 mems = subNode.getMems();
+			IArray mems = subNode.getMems();
 			
 			// oldData
-			Record r = null;
+			BaseRecord r = null;
 			for(int i=0; i<mems.size(); i++){
-				r = (Record)mems.get(i+1);
+				r = (BaseRecord)mems.get(i+1);
 				newTable.newLast(r.getFieldValues());
 			}
 			// newData
@@ -408,7 +419,7 @@ public class ImCursor extends ICursor {
 	}
 	
 	//表结构包括记录结构情况下，将记录追加到表中，
-	private static void appendRecord(Table vTbl, Record subRec){
+	private static void appendRecord(Table vTbl, BaseRecord subRec){
 		Object[] subLine = null;
 		String[] fullCols = vTbl.dataStruct().getFieldNames();
 

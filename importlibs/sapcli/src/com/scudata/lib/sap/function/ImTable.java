@@ -5,7 +5,7 @@ import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
 import com.scudata.dm.DataStruct;
-import com.scudata.dm.Record;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Table;
 import com.scudata.expression.Node;
 import com.scudata.resources.EngineMessage;
@@ -80,7 +80,7 @@ public class ImTable extends ImFunction {
 
 	        for (int i = 0; i < bt.getNumRows(); i++) {
 	            bt.setRow(i);
-	    		Record r = tb.newLast();
+	    		BaseRecord r = tb.newLast();
 	            for(int j=0; j<colSize; j++){
 	        		r.setNormalFieldValue(j, bt.getValue(j));
 	        	}

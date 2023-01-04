@@ -41,7 +41,7 @@ public class SparkRead extends ImFunction {
 	    Object ret = null;
 	    if (option!=null && option.contains("c")){ //for cursor
 	    	ret =  client.cursorRead((String)objs[1], map, m_ctx);
-	    }else if(option!=null && option.contains("q")){	  
+	    }else if(option!=null && option.contains("s")){	  
 		    ret =  client.readSequenceFile((String)objs[1], map);
 	    }else{
 			ret =  client.read((String)objs[1], map);	    	

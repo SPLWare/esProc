@@ -4,8 +4,8 @@ import com.scudata.common.RQException;
 
 /*** @author 
  * hdfs_exists(hd, dst)
- * dst: removeFile/removePath
- * 选项d,dst:removePath文件夹
+ * dst: remoteFile/remotePath
+ * 选项d,dst:remotePath文件夹
  */
 public class HdfsExists extends HdfsFunction {
 	public Object doQuery( Object[] objs){

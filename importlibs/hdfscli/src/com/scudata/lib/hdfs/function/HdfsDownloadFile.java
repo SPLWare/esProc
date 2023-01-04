@@ -24,8 +24,8 @@ public class HdfsDownloadFile extends HdfsFunction {
 					bDirCopy = true;
 				}				
 			}
-			String hdFile = objs[0].toString();
-			String localFile = objs[1].toString();
+			String localFile = objs[0].toString();
+			String hdFile = objs[1].toString();
 		
 			HdfsFileImpl hfile = new HdfsFileImpl(m_hdfs);
 			if (bDirCopy){

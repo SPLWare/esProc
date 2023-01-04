@@ -7,7 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import com.scudata.common.RQException;
 import com.scudata.dm.DataStruct;
-import com.scudata.dm.Record;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Table;
 
 public class Utils {
@@ -103,7 +103,7 @@ public class Utils {
 		System.out.println();
 		// print tableData
 		for (i = 0; i < table.length(); i++) {
-			Record rc = table.getRecord(i + 1);
+			BaseRecord rc = table.getRecord(i + 1);
 			Object[] objs = rc.getFieldValues();
 			for (Object o : objs) {
 				System.out.printf(o + "\t");
