@@ -2061,17 +2061,31 @@ public class ColPhyTable extends PhyTable {
 			Sequence []codes,  String []opts, MultipathCursors mcs, String opt, Context ctx) {
 		getGroupTable().checkReadable();
 		
-		boolean hasK = false;
-		if (opt != null && opt.indexOf('k') != -1) {
-			hasK = true;
-		}
-		String []names = getSegmentFields(mcs, hasK);
-		if (names == null) {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException("cursor" + mm.getMessage("dw.needMCursor"));
+		ICursor []srcCursors = mcs.getParallelCursors();
+		int segCount = srcCursors.length;
+		Object [][]minValues = new Object [segCount][];
+		int fcount = -1;
+		
+		for (int i = 1; i < segCount; ++i) {
+			minValues[i] = srcCursors[i].getSegmentStartValues();
+			if (minValues[i] != null) {
+				if (fcount == -1) {
+					fcount = minValues[i].length;
+				} else if (fcount != minValues[i].length) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException(mm.getMessage("dw.segFieldNotMatch"));
+				}
+			}
 		}
 		
-		int fcount = names.length;
+		if (fcount == -1) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException(mm.getMessage("dw.segFieldNotMatch"));
+		} else if (opt != null && opt.indexOf('k') != -1) {
+			// 有k选项是以首字段做为同步分段字段
+			fcount = 1;
+		}
+		
 		ColumnMetaData[] sortedCols = getAllSortedColumns();
 		if (sortedCols.length < fcount) {
 			MessageManager mm = EngineMessage.get();
@@ -2082,35 +2096,7 @@ public class ColPhyTable extends PhyTable {
 		for (int f = 0; f < fcount; ++f) {
 			dimFields[f] = sortedCols[f].getColName();
 		}
-		
-		ICursor []srcCursors = mcs.getParallelCursors();
-		int segCount = srcCursors.length;
-		Object [][]minValues = new Object [segCount][];
-		
-		for (int i = 1; i < segCount; ++i) {
-			Sequence seq = srcCursors[i].peek(1);
-			if (seq == null) {
-				// 当前分段经过过滤后可能没有满足条件的记录
-				continue;
-				/*dataSegCount = i;
-				for (++i; i < segCount; ++i) {
-					if (srcCursors[i].peek(1) != null) {
-						MessageManager mm = EngineMessage.get();
-						throw new RQException("cursor" + mm.getMessage("dw.needMCursor"));
-					}
-				}
 				
-				break;*/
-			}
-
-			BaseRecord r = (BaseRecord)seq.get(1);
-			Object []vals = new Object[fcount];
-			minValues[i] = vals;
-			for (int f = 0; f < fcount; ++f) {
-				vals[f] = r.getFieldValue(names[f]);
-			}
-		}
-		
 		int blockCount = getDataBlockCount();
 		ICursor []cursors = new ICursor[segCount];
 		int startBlock = 0;
