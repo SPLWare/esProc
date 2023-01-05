@@ -137,7 +137,12 @@ public class DataBlockType {
 	}
 	
 	private static DataBlockType checkDict(Sequence data, int start, int end) {
-		Sequence seq = (Sequence) data.id("u");
+		Sequence seq;
+		try {
+			seq = (Sequence) data.id("u");
+		} catch (Exception e) {
+			return null;
+		}
 		int len = seq.length();
 		if (len > MAX_DICT_NUMBER) {
 			return null;
