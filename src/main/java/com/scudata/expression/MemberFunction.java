@@ -603,7 +603,10 @@ public abstract class MemberFunction extends Function {
 	 * @return IArray
 	 */
 	public IArray calculateAll(Context ctx, IArray signArray, boolean sign) {
-		Node left = this.left;
+		IArray leftArray = left.calculateAll(ctx, signArray, sign);
+		return calculateAll(leftArray, ctx, signArray, sign);
+
+		/*Node left = this.left;
 		int size = signArray.size();
 		ObjectArray result = new ObjectArray(size);
 		result.setTemporary(true);
@@ -645,7 +648,7 @@ public abstract class MemberFunction extends Function {
 			}
 		}
 		
-		return result;
+		return result;*/
 	}
 	
 	/**
@@ -655,7 +658,10 @@ public abstract class MemberFunction extends Function {
 	 * @return BoolArray
 	 */
 	public BoolArray calculateAnd(Context ctx, IArray leftResult) {
-		Node left = this.left;
+		IArray leftArray = left.calculateAll(ctx, leftResult, true);
+		return calculateAnd(leftArray, ctx, leftResult);
+		
+		/*Node left = this.left;
 		BoolArray result = leftResult.isTrue();
 		int size = result.size();
 		Current current = ctx.getComputeStack().getTopCurrent();
@@ -697,7 +703,7 @@ public abstract class MemberFunction extends Function {
 			}
 		}
 		
-		return result;
+		return result;*/
 	}
 		
 	/**

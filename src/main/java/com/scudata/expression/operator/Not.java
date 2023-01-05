@@ -1,5 +1,6 @@
 package com.scudata.expression.operator;
 
+import com.scudata.array.BoolArray;
 import com.scudata.array.IArray;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
@@ -62,5 +63,24 @@ public class Not extends Operator {
 	public IArray calculateAll(Context ctx, IArray signArray, boolean sign) {
 		IArray rightArray = right.calculateAll(ctx, signArray, sign);
 		return rightArray.not();
+	}
+	
+	/**
+	 * 计算逻辑与运算符&&的右侧表达式
+	 * @param ctx 计算上行文
+	 * @param leftResult &&左侧表达式的计算结果
+	 * @return BoolArray
+	 */
+	public BoolArray calculateAnd(Context ctx, IArray leftResult) {
+		BoolArray result = leftResult.isTrue();
+		IArray rightArray = right.calculateAll(ctx, result, true);
+		
+		for (int i = 1, size = result.size(); i <= size; ++i) {
+			if (result.isTrue(i) && rightArray.isTrue(i)) {
+				result.set(i, false);
+			}
+		}
+		
+		return result;
 	}
 }

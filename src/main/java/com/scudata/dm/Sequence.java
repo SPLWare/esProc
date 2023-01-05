@@ -197,6 +197,14 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	public IArray getMems() {
 		return mems;
 	}
+	
+	/**
+	 * 取序列当前成员组成的数组，用于~的计算
+	 * @return
+	 */
+	public IArray getCurrentMems() {
+		return mems;
+	}
 
 	/**
 	 * 设置序列的成员数组

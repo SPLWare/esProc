@@ -100,7 +100,7 @@ public class CurrentElement extends Node {
 			Sequence sequence = item.getCurrentSequence();
 			
 			if (sequence != null) {
-				return sequence.getMems();
+				return sequence.getCurrentMems();
 			} else {
 				sequence = stack.getTopSequence();
 				Object value = item.getCurrent();
@@ -121,7 +121,7 @@ public class CurrentElement extends Node {
 			
 			Sequence sequence = (Sequence)leftValue;			
 			if (topSequence == sequence) {
-				return sequence.getMems();
+				return sequence.getCurrentMems();
 			} else {
 				// A.(B.(A.~))
 				Object value = stack.getCurrentValue(sequence);
