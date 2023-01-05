@@ -8,7 +8,7 @@ import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
 import com.scudata.dm.FileObject;
-import com.scudata.dm.Record;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
 import com.scudata.dm.cursor.BFileCursor;
@@ -19,7 +19,7 @@ import com.scudata.resources.EngineMessage;
 import com.scudata.common.Logger;
 
 /**
- *  1、分红�?�配数据
+ *  1、分红�?�配数据
  * 
  * **********************************/
 public class ImDownloadXrxd extends ImFunction {
@@ -43,7 +43,7 @@ public class ImDownloadXrxd extends ImFunction {
 				tocken = objs[0].toString();
 			}
 			
-			//如果后后�?为btx或csv则为文件名，否则为目
+			//如果后后�?为btx或csv则为文件名，否则为目
 			if (objs[1] instanceof String){
 				String path = null;
 				String tmp = objs[1].toString().toLowerCase();
@@ -113,7 +113,7 @@ public class ImDownloadXrxd extends ImFunction {
 			//遍历数据
 			String sFilter = "";
 			for(int n=0; n<stockTbl.length(); n++) {
-				Record r = stockTbl.getRecord(n+1);
+				BaseRecord r = stockTbl.getRecord(n+1);
 				code = r.getFieldValue("code").toString();
 				name = r.getFieldValue("display_name").toString();
 				sFilter = String.format("finance.STK_XR_XD.code#=#%s&finance.STK_XR_XD.report_date#>=#1991-01-01", code);

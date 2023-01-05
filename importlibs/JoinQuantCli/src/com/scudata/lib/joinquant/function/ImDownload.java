@@ -11,7 +11,7 @@ import com.scudata.common.RQException;
 import com.scudata.dm.Context;
 import com.scudata.dm.FileObject;
 import com.scudata.dm.ListBase1;
-import com.scudata.dm.Record;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
 import com.scudata.dm.cursor.BFileCursor;
@@ -21,6 +21,7 @@ import com.scudata.expression.Expression;
 import com.scudata.expression.Node;
 import com.scudata.resources.EngineMessage;
 import com.scudata.util.Variant;
+import com.scudata.array.IArray;
 import com.scudata.common.Logger;
 
 /**
@@ -75,7 +76,7 @@ public class ImDownload extends ImFunction {
 			if (objs[0] instanceof String){
 				tocken = objs[0].toString();
 			}
-			//如果后后�?为btx或csv则为文件名，否则为目
+			//如果后后�?为btx或csv则为文件名，否则为目
 			if (objs[1] instanceof String){
 				String path = null;
 				String tmp = objs[1].toString().toLowerCase();
@@ -194,14 +195,14 @@ public class ImDownload extends ImFunction {
 					cursor = new FileCursor(fo, 1, 1, null, null, null, "tc", new Context());
 				}
 			}
-			//查找�?新下载位
+			//查找�?新下载位
 			String endTime = paramMap.get("end_date").toString();
 			int n = getLastStockPos(startTime, endTime);
 			String code=null, name = null; 
 			String info=null;
 			//遍历数据
 			for(; n<stockTbl.length(); n++) {
-				Record r = stockTbl.getRecord(n+1);
+				BaseRecord r = stockTbl.getRecord(n+1);
 				code = r.getFieldValue("code").toString();
 				name = r.getFieldValue("display_name").toString();
 				paramMap.put("code", code);	
@@ -229,11 +230,11 @@ public class ImDownload extends ImFunction {
 				info=String.format("index=%d; code=%s; name=%s; len=%d", n, code, name, tbl.length());
 				//System.out.println(info);
 				Logger.info(info);
-				//下载数据量不足时�?
+				//下载数据量不足时�?
 				if (m_leftSize-nDownloadSize<4000) break;
 				//if (n>last+10) break; // for test
 			}
-			// 此片段经(某条件下)的数据下载完后再汇�?�汇总数, 对已经汇总过的数据不再汇�?.
+			// 此片段经(某条件下)的数据下载完后再汇�?�汇总数, 对已经汇总过的数据不再汇�?.
 			if (m_bCollect && n==stockTbl.length() && !m_storageFile.equals(m_lastFile)) {
 				File file = new File(sAllFile);
 				if (!file.exists()) {
@@ -266,7 +267,7 @@ public class ImDownload extends ImFunction {
 		return ret;
 	}
 	
-	//从日志中获取�?新下载位
+	//从日志中获取�?新下载位
 	private int getLastStockPos(String startDate, String endDate) {
 		try {
 			String sFile = String.format("%s/download_%s_last_info.txt", m_storagePath, m_typeName);
@@ -319,19 +320,19 @@ public class ImDownload extends ImFunction {
 
 			int[] index = null;
 			
-			ListBase1 mems = tbl.getMems();
+			IArray mems = tbl.getMems();
 			int delCount = 0;
 
-			ListBase1 delMems = series.getMems();
+			IArray delMems = series.getMems();
 			int count = delMems.size();
 			index = new int[count];
 
 			for (int i = 1; i <= count; ++i) {
 				Object obj = delMems.get(i);
-				if (obj instanceof Record) {
-					Record t = (Record)obj;
+				if (obj instanceof BaseRecord) {
+					BaseRecord t = (BaseRecord)obj;
 					for (int j = 1, size = mems.size(); j <= size; ++j) {
-						Record r = (Record)mems.get(j);
+						BaseRecord r = (BaseRecord)mems.get(j);
 						if (r.getFieldValue("date").toString().compareTo( t.getFieldValue("date").toString())==0) {
 							index[delCount] = j;
 							delCount++;
@@ -446,7 +447,7 @@ public class ImDownload extends ImFunction {
 		return seq;
 	}
 	
-	//从�?�数据文件中查找记录(filter: code+date)
+	//从�?�数据文件中查找记录(filter: code+date)
 	private  Table getFilterData(ICursor cur, String sRegex) {
 		if (cur==null) return null;
 		

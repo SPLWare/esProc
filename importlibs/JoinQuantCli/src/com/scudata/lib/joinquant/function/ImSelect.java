@@ -6,7 +6,7 @@ import java.util.Map;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
-import com.scudata.dm.Record;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Table;
 import com.scudata.expression.Node;
 import com.scudata.resources.EngineMessage;
@@ -40,8 +40,8 @@ public class ImSelect extends ImFunction {
 				json.remove("token");
 				json.put("token", tocken);
 				body = JQNetWork.GetNetArrayData(json.toString());
-			}else if(objs[1] instanceof Record) {
-				Record r = (Record)objs[1];
+			}else if(objs[1] instanceof BaseRecord) {
+				BaseRecord r = (BaseRecord)objs[1];
 				String[] cols = r.dataStruct().getFieldNames();
 				Object[] vs = r.getFieldValues();
 				int n = 0;

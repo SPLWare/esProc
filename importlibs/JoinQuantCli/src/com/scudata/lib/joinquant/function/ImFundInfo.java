@@ -7,7 +7,7 @@ import com.scudata.common.Logger;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
-import com.scudata.dm.Record;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Table;
 import com.scudata.expression.Node;
 import com.scudata.resources.EngineMessage;
@@ -52,8 +52,8 @@ public class ImFundInfo extends ImFunction {
 			String ret = JQNetWork.GetNetData(paramMap);
 			if (ImUtils.isJsonFormat(ret)) {
 				Object o = Variant.parse(ret);
-				if (o instanceof Record) {
-					tbl = DataType.toTableFromRecord((Record)o);
+				if (o instanceof BaseRecord) {
+					tbl = DataType.toTableFromRecord((BaseRecord)o);
 				}else {
 					Logger.warn("Get result is not Record Type");
 				}

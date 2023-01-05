@@ -8,7 +8,7 @@ import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
 import com.scudata.dm.FileObject;
-import com.scudata.dm.Record;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
 import com.scudata.dm.cursor.BFileCursor;
@@ -113,7 +113,7 @@ public class ImDownloadPostFq extends ImFunction {
 			Table allTable=new Table(new String[] {"code", "name", "date", "fq"});
 			//遍历数据
 			for(int n=0; n<stockTbl.length(); n++) {
-				Record r = stockTbl.getRecord(n+1);
+				BaseRecord r = stockTbl.getRecord(n+1);
 				code = r.getFieldValue("code").toString();
 				name = r.getFieldValue("display_name").toString();
 				paramMap.put("code", code);	

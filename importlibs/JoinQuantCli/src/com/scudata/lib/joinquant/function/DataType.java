@@ -1,6 +1,6 @@
 package com.scudata.lib.joinquant.function;
 
-import com.scudata.dm.Record;
+import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Table;
 import com.scudata.util.Variant;
 
@@ -135,7 +135,7 @@ public class DataType {
 	}
 	
 	//首行为header
-	static Table toTableFromRecord(Record r) {
+	static Table toTableFromRecord(BaseRecord r) {
 		if (r == null )
 			return null;
 
