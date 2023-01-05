@@ -755,15 +755,10 @@ public class RowBufferWriter {
 			writeBytes((byte[])obj);
 		} else if (obj instanceof SerialBytes) {
 			SerialBytes sb = (SerialBytes)obj;
-			int len = sb.length();
-			if (len < 16) {
-				write(SERIALBYTES | len);
-			} else {
-				// 0表示长度16
-				write(SERIALBYTES);
-			}
-			
-			write(sb.toByteArray());
+			// 长度固定是16
+			write(SERIALBYTES);
+			writeLong64(sb.getValue1());
+			writeLong64(sb.getValue2());
 		} else {
 			throw new RQException("error type: " + obj.getClass().getName());
 		}
@@ -808,21 +803,16 @@ public class RowBufferWriter {
 			write(0);
 		} else if (obj instanceof SerialBytes) {
 			SerialBytes sb = (SerialBytes)obj;
-			
-			//扩大为长度16的排号
-			byte[] arr = new byte[16];
-			int len = sb.length();
-			System.arraycopy(sb.toByteArray(), 16 - len, arr, 0, len);
-			
-			write(SERIALBYTES);//长度16
-			write(arr);
+			// 长度固定是16
+			write(SERIALBYTES);
+			writeLong64(sb.getValue1());
+			writeLong64(sb.getValue2());
 		} else {
 			throw new RQException("error type: " + obj.getClass().getName());
 		}
 	}
 	
 	public void writeNone() throws IOException {
-		
 		write(NONE);
 	}
 	

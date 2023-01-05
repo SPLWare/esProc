@@ -6,6 +6,7 @@ import com.scudata.array.IArray;
 import com.scudata.common.RQException;
 import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Sequence;
+import com.scudata.dm.SerialBytes;
 import com.scudata.thread.Job;
 import com.scudata.util.Variant;
 
@@ -223,6 +224,17 @@ public class DataBlockWriterJob  extends Job {
 					}
 				}
 				break;
+			case DataBlockType.SERIALBYTES:
+				writeNull = true;
+				for (int i = 0; i < 7; i++)
+					bufferWriter.writeNone();
+				for (int i = start; i <= end; ++i) {
+					r = (BaseRecord) mems.get(i);
+					SerialBytes sb = (SerialBytes) r.getNormalFieldValue(col);
+					bufferWriter.writeLong64(sb.getValue1());
+					bufferWriter.writeLong64(sb.getValue2());
+				}
+				break;
 			case DataBlockType.STRING_ASSIC:
 				for (int i = start; i <= end; ++i) {
 					r = (BaseRecord) mems.get(i);
@@ -264,14 +276,22 @@ public class DataBlockWriterJob  extends Job {
 			
 			Object obj = r.getNormalFieldValue(col);
 
-			if (Variant.compare(obj, maxValues[col], true) > 0)
-				maxValues[col] = obj;
+			try {
+				if (Variant.compare(obj, maxValues[col], true) > 0)
+					maxValues[col] = obj;
+			} catch (RQException e) {
+				maxValues[col] = null;
+			}
 			if (i == start) {
 				minValues[col] = obj;//第一个要赋值，因为null表示最小
 				startValues[col] = obj;
 			}
-			if (Variant.compare(obj, minValues[col], true) < 0)
-				minValues[col] = obj;
+			try {
+				if (Variant.compare(obj, minValues[col], true) < 0)
+					minValues[col] = obj;
+			} catch (RQException e) {
+				maxValues[col] = null;
+			}
 		}
 		writeDataBlock(bufferWriter, data, dict, col, start, end, dataType);
 	}

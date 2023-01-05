@@ -716,15 +716,10 @@ public class BufferWriter {
 			writeBytes((byte[])obj);
 		} else if (obj instanceof SerialBytes) {
 			SerialBytes sb = (SerialBytes)obj;
-			int len = sb.length();
-			if (len < 16) {
-				write(SERIALBYTES | len);
-			} else {
-				// 0表示长度16
-				write(SERIALBYTES);
-			}
-			
-			write(sb.toByteArray());
+			// 长度固定是16
+			write(SERIALBYTES);
+			writeLong64(sb.getValue1());
+			writeLong64(sb.getValue2());
 		} else {
 			throw new RQException("error type: " + obj.getClass().getName());
 		}

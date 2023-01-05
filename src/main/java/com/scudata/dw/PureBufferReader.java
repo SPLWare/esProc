@@ -10,9 +10,11 @@ import com.scudata.array.IArray;
 import com.scudata.array.IntArray;
 import com.scudata.array.LongArray;
 import com.scudata.array.ObjectArray;
+import com.scudata.array.SerialBytesArray;
 import com.scudata.array.StringArray;
 import com.scudata.common.RQException;
 import com.scudata.dm.Sequence;
+import com.scudata.dm.SerialBytes;
 
 /**
  * 新版本组表时的读取处理类
@@ -87,6 +89,9 @@ public class PureBufferReader extends BufferReader {
 				}
 				this.index = idx;
 				this.pos = len;
+				break;
+			case DataBlockType.SERIALBYTES:
+				dataSize = 16;
 				break;
 			case DataBlockType.DICT:
 				if (read() == DataBlockType.DICT_PUBLIC) {
@@ -252,6 +257,17 @@ public class PureBufferReader extends BufferReader {
 				}
 			}
 			return readLittleEndianLongDouble64();
+		case DataBlockType.SERIALBYTES:
+			if (isNull != null) {
+				dataIndex++;
+				if (isNull[dataIndex]) {
+					index += 16;
+					return null;
+				}
+			}
+			long v1 = readLong64();
+			long v2 = readLong64();
+			return new SerialBytes(v1, v2);
 		case DataBlockType.STRING_ASSIC:
 			dataIndex++;
 			int len = pos[dataIndex];
@@ -305,6 +321,12 @@ public class PureBufferReader extends BufferReader {
 				dataIndex++;
 			}
 			index += 8;
+			return;
+		case DataBlockType.SERIALBYTES:
+			if (isNull != null) {
+				dataIndex++;
+			}
+			index += 16;
 			return;
 		case DataBlockType.STRING_ASSIC:
 			dataIndex++;
@@ -426,6 +448,19 @@ public class PureBufferReader extends BufferReader {
 			}
 			((DoubleArray)array).setDouble(index, readLittleEndianLongDouble64());
 			return;
+		case DataBlockType.SERIALBYTES:
+			if (isNull != null) {
+				dataIndex++;
+				if (isNull[dataIndex]) {
+					index += 16;
+					array.set(index, null);
+					return;
+				}
+			}
+			long v1 = readLong64();
+			long v2 = readLong64();
+			((SerialBytesArray)array).set(index, new SerialBytes(v1, v2));
+			return;
 		case DataBlockType.STRING_ASSIC:
 			dataIndex++;
 			int len = pos[dataIndex];
@@ -500,6 +535,8 @@ public class PureBufferReader extends BufferReader {
 		case DataBlockType.DOUBLE:
 		case DataBlockType.DOUBLE64:
 			return new DoubleArray(count);
+		case DataBlockType.SERIALBYTES:
+			return new SerialBytesArray(count);
 		case DataBlockType.STRING:
 		case DataBlockType.STRING_ASSIC:
 			return new StringArray(count);
@@ -527,6 +564,10 @@ public class PureBufferReader extends BufferReader {
 		} else if (value instanceof Date) {
 			DateArray result = new DateArray(capacity);
 			result.pushDate((Date)value);
+			return result;
+		} else if (value instanceof SerialBytes) {
+			SerialBytesArray result = new SerialBytesArray(capacity);
+			result.push((SerialBytes)value);
 			return result;
 		} else if (value instanceof String) {
 			StringArray result = new StringArray(capacity);
