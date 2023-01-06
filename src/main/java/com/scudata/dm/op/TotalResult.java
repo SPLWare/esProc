@@ -1,9 +1,7 @@
 package com.scudata.dm.op;
 
 import com.scudata.dm.BaseRecord;
-import com.scudata.dm.ComputeStack;
 import com.scudata.dm.Context;
-import com.scudata.dm.Current;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
 import com.scudata.dm.cursor.ICursor;
@@ -18,13 +16,12 @@ import com.scudata.expression.Node;
 public class TotalResult implements IResult {
 	private Expression []calcExps; // 汇总表达式数组
 	private Context ctx; // 计算上下文
-	private Node []gathers; // 汇总表达式中的汇总函数
-	private Object []calcValues; // 汇总值数组
+	private IGroupsResult groupsResult;
 	
-	public TotalResult(Expression[] calcExps, Context ctx) {
+	public TotalResult(Expression[] calcExps, Context ctx, IGroupsResult groupsResult) {
 		this.calcExps = calcExps;
 		this.ctx = ctx;	
-		gathers = Sequence.prepareGatherMethods(calcExps, ctx);
+		this.groupsResult = groupsResult;
 	}
 	
 	public Expression[] getCalcExps() {
@@ -43,52 +40,22 @@ public class TotalResult implements IResult {
 	  * @return
 	  */
 	public Object result() {
-		if (calcValues == null) {
+		Table table = groupsResult.getResultTable();
+		if (table == null || table.length() == 0) {
 			return null;
-		}
-
-		int len = calcValues.length;
-		for (int i = 0; i < len; ++i) {
-			if (gathers[i].needFinish()) {
-				calcValues[i] = gathers[i].finish(calcValues[i]);
-			}
-		}
-		
-		if (len == 1) {
-			Object val = calcValues[0];
-			calcValues = null;
-			return val;
 		} else {
-			Sequence seq = new Sequence(calcValues);
-			calcValues = null;
-			return seq;
-		}
-	}
-	
-	/**
-	 * 并行运算时，取出每个线程的中间计算结果，还需要进行二次汇总
-	 * @return 中间汇总结果
-	 */
-	public Object getTempResult() {
-		if (calcValues == null) {
-			return null;
-		}
-
-		int len = calcValues.length;
-		for (int i = 0; i < len; ++i) {
-			if (gathers[i].needFinish1()) {
-				calcValues[i] = gathers[i].finish1(calcValues[i]);
+			BaseRecord r = table.getRecord(1);
+			int count = calcExps.length;
+			if (count == 1) {
+				return r.getNormalFieldValue(0);
+			} else {
+				Sequence seq = new Sequence(count);
+				for (int i = 0; i < count; ++i) {
+					seq.add(r.getNormalFieldValue(i));
+				}
+				
+				return seq;
 			}
-		}
-		
-		if (len == 1) {
-			Object val = calcValues[0];
-			calcValues = null;
-			return val;
-		} else {
-			Sequence seq = new Sequence(calcValues);
-			calcValues = null;
-			return seq;
 		}
 	}
 	
@@ -99,7 +66,7 @@ public class TotalResult implements IResult {
 	 */
 	public void push(Sequence table, Context ctx) {
 		if (table == null || table.length() == 0) return;
-		addGroups_1(table, ctx);
+		groupsResult.push(table, ctx);
 	}
 
 	/**
@@ -107,51 +74,12 @@ public class TotalResult implements IResult {
 	 * @param cursor 游标数据
 	 */
 	public void push(ICursor cursor) {
-		Context ctx = this.ctx;
-		while (true) {
-			Sequence src = cursor.fuzzyFetch(ICursor.FETCHCOUNT);
-			if (src == null || src.length() == 0) break;
-			
-			addGroups_1(src, ctx);
-		}
-	}
-	
-	private void addGroups_1(Sequence table, Context ctx) {
-		ComputeStack stack = ctx.getComputeStack();
-		Current current = new Current(table);
-		stack.push(current);
-		int i = 1;
-		
-		Node []gathers = this.gathers;
-		Object []values = this.calcValues;
-		int valCount = gathers.length;
-
-		if (values == null) {
-			values = new Object[valCount];
-			calcValues = values;
-			
-			current.setCurrent(1);
-			i++;
-			
-			for (int v = 0; v < valCount; ++v) {
-				values[v] = gathers[v].gather(ctx);
-			}
-		}
-		
-		try {
-			for (int len = table.length(); i <= len; ++i) {
-				current.setCurrent(i);
-				for (int v = 0; v < valCount; ++v) {
-					values[v] = gathers[v].gather(values[v], ctx);
-				}
-			}
-		} finally {
-			stack.pop();
-		}
+		groupsResult.push(cursor);
 	}
 		
 	public Object combineResult(Object []results) {
 		Expression []calcExps = this.calcExps;
+		Node []gathers = Sequence.prepareGatherMethods(calcExps, ctx);
 		int valCount = gathers.length;
 		String []names = new String[valCount];
 		Table table = new Table(names);

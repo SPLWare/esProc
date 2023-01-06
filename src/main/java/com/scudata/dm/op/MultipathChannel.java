@@ -9,7 +9,7 @@ import com.scudata.dm.Table;
 import com.scudata.dm.cursor.ICursor;
 import com.scudata.dm.cursor.MultipathCursors;
 import com.scudata.expression.Expression;
-import com.scudata.expression.Node;
+import com.scudata.expression.Function;
 
 /**
  * 多路管道对象，管道可以附加多种运算，但只能定义一种结果集运算
@@ -25,15 +25,7 @@ public class MultipathChannel extends Channel {
 	 * @param mcs 多路游标
 	 */
 	public MultipathChannel(Context ctx, MultipathCursors mcs) {
-		super(ctx);
-		
-		ICursor []cursors = mcs.getCursors();
-		int count = cursors.length;
-		channels = new Channel[count];
-		
-		for (int i = 0; i < count; ++i) {
-			channels[i] = new Channel(cursors[i].getContext(), cursors[i]);
-		}
+		this(ctx, mcs, true);
 	}
 	
 	/**
@@ -50,14 +42,8 @@ public class MultipathChannel extends Channel {
 		int count = cursors.length;
 		channels = new Channel[count];
 		
-		if (doPush) {
-			for (int i = 0; i < count; ++i) {
-				channels[i] = new Channel(cursors[i].getContext(), cursors[i]);
-			}
-		} else {
-			for (int i = 0; i < count; ++i) {
-				channels[i] = new Channel(cursors[i].getContext());
-			}
+		for (int i = 0; i < count; ++i) {
+			channels[i] = cursors[i].newChannel(cursors[i].getContext(), doPush);
 		}
 	}
 	
@@ -87,6 +73,311 @@ public class MultipathChannel extends Channel {
 		for (Channel channel : channels) {
 			ctx = channel.getContext();
 			channel.addOperation(op.duplicate(ctx), ctx);
+		}
+		
+		return this;
+	}
+	/**
+	 * 过滤
+	 * @param function 对应的函数
+	 * @param fltExp 过滤条件
+	 * @param opt 选项
+	 * @param ctx 计算上下文
+	 * @return Operable
+	 */
+	public Operable select(Function function, Expression fltExp, String opt, Context ctx) {
+		checkResultChannel();
+		
+		for (Channel channel : channels) {
+			ctx = channel.getContext();
+			Expression curFilter = Operation.dupExpression(fltExp, ctx);
+			channel.select(function, curFilter, opt, ctx);
+		}
+		
+		return this;
+	}
+	
+	/**
+	 * 过滤
+	 * @param function 对应的函数
+	 * @param fltExp 过滤条件
+	 * @param opt 选项
+	 * @param pipe 用于处理不满足条件的成员
+	 * @param ctx 计算上下文
+	 * @return Operable
+	 */
+	public Operable select(Function function, Expression fltExp, String opt, IPipe pipe, Context ctx) {
+		checkResultChannel();
+		
+		for (Channel channel : channels) {
+			ctx = channel.getContext();
+			Expression curFilter = Operation.dupExpression(fltExp, ctx);
+			channel.select(function, curFilter, opt, pipe, ctx);
+		}
+		
+		return this;
+	}
+	
+	/**
+	 * 进行连接过滤，保留能关联上的
+	 * @param function 对应的函数
+	 * @param exps 当前表关联字段表达式数组
+	 * @param codes 维表数组
+	 * @param dataExps 维表关联字段表达式数组
+	 * @param opt 选项
+	 * @param ctx 计算上下文
+	 * @return Operable
+	 */
+	public Operable filterJoin(Function function, Expression[][] exps, Sequence[] codes, Expression[][] dataExps, String opt, Context ctx) {
+		checkResultChannel();
+		
+		for (Channel channel : channels) {
+			ctx = channel.getContext();
+			Expression [][]curExps = Operation.dupExpressions(exps, ctx);
+			Expression [][]curDataExps = Operation.dupExpressions(dataExps, ctx);
+			channel.filterJoin(function, curExps, codes, curDataExps, opt, ctx);
+		}
+		
+		return this;
+	}
+	
+	/**
+	 * 进行连接过滤，保留能关联不上的
+	 * @param function 对应的函数
+	 * @param exps 当前表关联字段表达式数组
+	 * @param codes 维表数组
+	 * @param dataExps 维表关联字段表达式数组
+	 * @param opt 选项
+	 * @param ctx 计算上下文
+	 * @return Operable
+	 */
+	public Operable diffJoin(Function function, Expression[][] exps, Sequence[] codes, Expression[][] dataExps, String opt, Context ctx) {
+		checkResultChannel();
+		
+		for (Channel channel : channels) {
+			ctx = channel.getContext();
+			Expression [][]curExps = Operation.dupExpressions(exps, ctx);
+			Expression [][]curDataExps = Operation.dupExpressions(dataExps, ctx);
+			channel.diffJoin(function, curExps, codes, curDataExps, opt, ctx);
+		}
+		
+		return this;
+	}
+	
+	/**
+	 * 做连接
+	 * @param function 对应的函数
+	 * @param fname
+	 * @param exps 当前表关联字段表达式数组
+	 * @param codes 维表数组
+	 * @param dataExps 维表关联字段表达式数组
+	 * @param newExps
+	 * @param newNames
+	 * @param opt 选项
+	 * @param ctx 计算上下文
+	 * @return Operable
+	 */
+	public Operable join(Function function, String fname, Expression[][] exps, Sequence[] codes,
+			  Expression[][] dataExps, Expression[][] newExps, String[][] newNames, String opt, Context ctx) {
+		checkResultChannel();
+		
+		for (Channel channel : channels) {
+			ctx = channel.getContext();
+			Expression [][]curExps = Operation.dupExpressions(exps, ctx);
+			Expression [][]curDataExps = Operation.dupExpressions(dataExps, ctx);
+			Expression [][]curNewExps = Operation.dupExpressions(newExps, ctx);
+			channel.join(function, fname, curExps, codes, curDataExps, curNewExps, newNames, opt, ctx);
+		}
+		
+		return this;
+	}
+	
+	/**
+	 * 与远程表做连接
+	 * @param function 对应的函数
+	 * @param fname
+	 * @param exps 当前表关联字段表达式数组
+	 * @param codes 维表数组
+	 * @param dataExps 维表关联字段表达式数组
+	 * @param newExps
+	 * @param newNames
+	 * @param opt 选项
+	 * @param ctx 计算上下文
+	 * @return Operable
+	 */
+	public Operable joinRemote(Function function, String fname, Expression[][] exps, 
+			Object[] codes, Expression[][] dataExps, 
+			Expression[][] newExps, String[][] newNames, String opt, Context ctx) {
+		checkResultChannel();
+		
+		for (Channel channel : channels) {
+			ctx = channel.getContext();
+			Expression [][]curExps = Operation.dupExpressions(exps, ctx);
+			Expression [][]curDataExps = Operation.dupExpressions(dataExps, ctx);
+			Expression [][]curNewExps = Operation.dupExpressions(newExps, ctx);
+			channel.joinRemote(function, fname, curExps, codes, curDataExps, curNewExps, newNames, opt, ctx);
+		}
+		
+		return this;
+	}
+	
+	/**
+	 * 添加计算列
+	 * @param function 对应的函数
+	 * @param exps 计算表达式数组
+	 * @param names 字段名数组
+	 * @param opt 选项
+	 * @param level
+	 * @param ctx 计算上下文
+	 * @return Operable
+	 */
+	public Operable derive(Function function, Expression []exps, String []names, String opt, int level, Context ctx) {
+		checkResultChannel();
+		
+		for (Channel channel : channels) {
+			ctx = channel.getContext();
+			Expression []curExps = Operation.dupExpressions(exps, ctx);
+			channel.derive(function, curExps, names, opt, level, ctx);
+		}
+		
+		return this;
+	}
+	
+	/**
+	 * 产生新序表
+	 * @param function 对应的函数
+	 * @param newExps 计算表达式数组
+	 * @param names 字段名数组
+	 * @param opt 选项
+	 * @param ctx 计算上下文
+	 * @return Operable
+	 */
+	public Operable newTable(Function function, Expression []newExps, String []names, String opt, Context ctx) {
+		checkResultChannel();
+		
+		for (Channel channel : channels) {
+			ctx = channel.getContext();
+			Expression []curExps = Operation.dupExpressions(newExps, ctx);
+			channel.newTable(function, curExps, names, opt, ctx);
+		}
+		
+		return this;
+	}
+	
+	/**
+	 * 附加有序分组运算
+	 * @param function 对应的函数
+	 * @param exps 分组表达式数组
+	 * @param opt 选项
+	 * @param ctx 计算上下文
+	 * @return Operable
+	 */
+	public Operable group(Function function, Expression []exps, String opt, Context ctx) {
+		checkResultChannel();
+		
+		for (Channel channel : channels) {
+			ctx = channel.getContext();
+			Expression []curExps = Operation.dupExpressions(exps, ctx);
+			channel.group(function, curExps, opt, ctx);
+		}
+		
+		return this;
+	}
+	
+	/**
+	 * 附加有序分组运算
+	 * @param function 对应的函数
+	 * @param exps 前半部分有序的分组字段表达式
+	 * @param sortExps 后半部分无序的分组字段表达式
+	 * @param opt 选项
+	 * @param ctx 计算上下文
+	 * @return Operable
+	 */
+	public Operable group(Function function, Expression []exps, Expression []sortExps, String opt, Context ctx) {
+		checkResultChannel();
+		
+		for (Channel channel : channels) {
+			ctx = channel.getContext();
+			Expression []curExps = Operation.dupExpressions(exps, ctx);
+			Expression []curSortExps = Operation.dupExpressions(sortExps, ctx);
+			channel.group(function, curExps, curSortExps, opt, ctx);
+		}
+		
+		return this;
+	}
+	
+	/**
+	 * 附加有序分组运算
+	 * @param function 对应的函数
+	 * @param exps 分组字段表达式数组
+	 * @param names 分组字段名数组
+	 * @param newExps 汇总表达式
+	 * @param newNames 汇总字段名数组
+	 * @param opt 选项
+	 * @param ctx 计算上下文
+	 * @return Operable
+	 */
+	public Operable group(Function function, Expression[] exps, String []names, 
+			Expression[] newExps, String []newNames, String opt, Context ctx) {
+		checkResultChannel();
+		
+		for (Channel channel : channels) {
+			ctx = channel.getContext();
+			Expression []curExps = Operation.dupExpressions(exps, ctx);
+			Expression []curNewExps = Operation.dupExpressions(newExps, ctx);
+			channel.group(function, curExps, names, curNewExps, newNames, opt, ctx);
+		}
+		
+		return this;
+	}
+	
+	/**
+	 * 附加有序分组运算
+	 * @param function 对应的函数
+	 * @param exps 前半部分有序的分组字段表达式
+	 * @param names 字段名数组
+	 * @param sortExps 后半部分无序的分组字段表达式
+	 * @param sortNames 字段名数组
+	 * @param newExps 汇总表达式
+	 * @param newNames 汇总字段名数组
+	 * @param opt 选项
+	 * @param ctx 计算上下文
+	 * @return Operable
+	 */
+	public Operable group(Function function, Expression[] exps, String []names, 
+			Expression[] sortExps, String []sortNames, 
+			Expression[] newExps, String []newNames, String opt, Context ctx) {
+		checkResultChannel();
+		
+		for (Channel channel : channels) {
+			ctx = channel.getContext();
+			Expression []curExps = Operation.dupExpressions(exps, ctx);
+			Expression []curSortExps = Operation.dupExpressions(sortExps, ctx);
+			Expression []curNewExps = Operation.dupExpressions(newExps, ctx);
+			channel.group(function, curExps, names, curSortExps, sortNames, curNewExps, newNames, opt, ctx);
+		}
+		
+		return this;
+	}
+
+	/**
+	 * 连接计算
+	 * @param function 所属的函数对象
+	 * @param fkNames 外键字段名数组
+	 * @param timeFkNames 时间外键名数组
+	 * @param codes 维表数组
+	 * @param exps 维表主键数组
+	 * @param timeExps 维表的时间更新键数组
+	 * @param opt 选项
+	 */
+	public Operable switchFk(Function function, String[] fkNames, String[] timeFkNames, Sequence[] codes, Expression[] exps, Expression[] timeExps, String opt, Context ctx) {
+		checkResultChannel();
+		
+		for (Channel channel : channels) {
+			ctx = channel.getContext();
+			Expression []curexps = Operation.dupExpressions(exps, ctx);
+			Expression []curTimeExps = Operation.dupExpressions(timeExps, ctx);
+			channel.switchFk(function, fkNames, timeFkNames, codes, curexps, curTimeExps, opt, ctx);
 		}
 		
 		return this;
@@ -129,90 +420,47 @@ public class MultipathChannel extends Channel {
 	 */
 	public Object result() {
 		if (result instanceof IGroupsResult) {
-			Table value = null;
-			for (Channel channel : channels) {
-				IGroupsResult groups = (IGroupsResult)channel.getResult();
-				if (value == null) {
-					value = groups.getTempResult();
-				} else {
-					value.addAll(groups.getTempResult());
-				}
+			int count = channels.length;
+			IGroupsResult groupsResult = (IGroupsResult)channels[0].getResult();
+			IGroupsResult []groupsResults = new IGroupsResult[count - 1];
+			
+			for (int i = 1; i < count; ++i) {
+				groupsResults[i - 1] = (IGroupsResult)channels[i].getResult();
 			}
 			
-			IGroupsResult gr = (IGroupsResult)result;
-			result = null;
-			if (value == null || gr.isSortedGroup()) {
-				return value;
-			}
-			
-			String []names = gr.getNames();
-			Expression []calcExps = gr.getCalcExps();
-			String []calcNames = gr.getCalcNames();
-			String opt = gr.getOption();
-			int keyCount = names == null ? 0 : names.length;
-			Expression []keyExps = null;
-			if (keyCount > 0) {
-				keyExps = new Expression[keyCount];
-				for (int i = 0, q = 1; i < keyCount; ++i, ++q) {
-					keyExps[i] = new Expression(ctx, "#" + q);
-				}
-			}
-
-			int valCount = calcExps == null ? 0 : calcExps.length;
-			Expression []valExps = null;
-			if (valCount > 0) {
-				valExps = new Expression[valCount];
-				for (int i = 0, q = keyCount + 1; i < valCount; ++i, ++q) {
-					Node gather = calcExps[i].getHome();
-					gather.prepare(ctx);
-					valExps[i] = gather.getRegatherExpression(q);
-				}
-			}
-
-			value = value.groups(keyExps, names, valExps, calcNames, opt, ctx);
+			Table value = groupsResult.combineGroupsResult(groupsResults, ctx);
 			if (resultNew != null) {
 				return resultNew.process(value, ctx);
 			} else {
 				return value;
 			}
 		} else if (result instanceof TotalResult) {
-			TotalResult tr = (TotalResult)result;
-			Expression []calcExps = tr.getCalcExps();
-			int valCount = calcExps.length;
-			int channelCount = channels.length;
-			Table value;
-			if (valCount == 1) {
-				String []fnames = new String[]{"_1"};
-				value = new Table(fnames, channelCount);
-				for (Channel channel : channels) {
-					TotalResult total = (TotalResult)channel.getResult();
-					BaseRecord r = value.newLast();
-					r.setNormalFieldValue(0, total.getTempResult());
-				}
+			int count = channels.length;
+			IGroupsResult groupsResult = (IGroupsResult)channels[0].getResult();
+			IGroupsResult []groupsResults = new IGroupsResult[count - 1];
+			
+			for (int i = 1; i < count; ++i) {
+				groupsResults[i - 1] = (IGroupsResult)channels[i].getResult();
+			}
+			
+			Table table = groupsResult.combineGroupsResult(groupsResults, ctx);
+			if (table == null || table.length() == 0) {
+				return null;
 			} else {
-				String []fnames = new String[valCount];
-				for (int i = 1; i < valCount; ++i) {
-					fnames[i - 1] = "_" + i;
-				}
-				
-				value = new Table(fnames, channelCount);
-				for (Channel channel : channels) {
-					TotalResult total = (TotalResult)channel.getResult();
-					Sequence seq = (Sequence)total.getTempResult();
-					value.newLast(seq.toArray());
+				TotalResult total = (TotalResult)result;
+				BaseRecord r = table.getRecord(1);
+				int valCount = total.getCalcExps().length;
+				if (valCount == 1) {
+					return r.getNormalFieldValue(0);
+				} else {
+					Sequence seq = new Sequence(valCount);
+					for (int i = 0; i < valCount; ++i) {
+						seq.add(r.getNormalFieldValue(i));
+					}
+					
+					return seq;
 				}
 			}
-			
-			Expression []valExps = new Expression[valCount];
-			for (int i = 0; i < valCount; ++i) {
-				Node gather = calcExps[i].getHome();
-				gather.prepare(ctx);
-				valExps[i] = gather.getRegatherExpression(i + 1);
-			}
-			
-			TotalResult total = new TotalResult(valExps, ctx);
-			total.push(value, ctx);
-			return total.result();
 		} else if (result != null) {
 			Object val = result.result();
 			result = null;
@@ -288,12 +536,12 @@ public class MultipathChannel extends Channel {
 	 */
 	public Channel total(Expression[] calcExps) {
 		checkResultChannel();
-		result = new TotalResult(calcExps, ctx);
+		result = new TotalResult(calcExps, ctx, null);
 		
 		for (Channel channel : channels) {
 			Context ctx = channel.getContext();
 			calcExps = Operation.dupExpressions(calcExps, ctx);
-			channel.total(calcExps);
+			channel.groups(null, null, calcExps, null, null);
 		}
 
 		return this;

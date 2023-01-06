@@ -7,8 +7,10 @@ import com.scudata.dm.Env;
 import com.scudata.dm.GroupsSyncReader;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
+import com.scudata.dm.op.Channel;
 import com.scudata.dm.op.IGroupsResult;
 import com.scudata.dm.op.IPipe;
+import com.scudata.dm.op.MultipathChannel;
 import com.scudata.dm.op.Operable;
 import com.scudata.dm.op.Operation;
 import com.scudata.expression.Expression;
@@ -822,4 +824,13 @@ public class MultipathCursors extends ICursor implements IMultipath {
 		return this;
 	}
 
+	/**
+	 * 创建一个与当前游标相匹配的管道
+	 * @param ctx 计算上下文
+	 * @param doPush 是否对游标生成push操作
+	 * @return Channel
+	 */
+	public Channel newChannel(Context ctx, boolean doPush) {
+		return new MultipathChannel(ctx, this, doPush);
+	}
 }

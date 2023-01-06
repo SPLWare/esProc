@@ -15,6 +15,7 @@ import com.scudata.dm.Param;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
 import com.scudata.dm.Current;
+import com.scudata.dm.op.Channel;
 import com.scudata.dm.op.GroupxResult;
 import com.scudata.dm.op.IDResult;
 import com.scudata.dm.op.IGroupsResult;
@@ -1263,5 +1264,19 @@ abstract public class ICursor extends Operable implements IResource {
 	 */
 	public Object[] getSegmentStartValues() {
 		throw new RQException();
+	}
+	
+	/**
+	 * 创建一个与当前游标相匹配的管道
+	 * @param ctx 计算上下文
+	 * @param doPush 是否对游标生成push操作
+	 * @return Channel
+	 */
+	public Channel newChannel(Context ctx, boolean doPush) {
+		if (doPush) {
+			return new Channel(ctx, this);
+		} else {
+			return new Channel(ctx);
+		}
 	}
 }

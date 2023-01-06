@@ -197,8 +197,8 @@ public class Channel extends Operable implements IPipe {
 	 * @return
 	 */
 	public Channel total(Expression[] calcExps) {
-		checkResultChannel();
-		result = new TotalResult(calcExps, ctx);
+		groups(null, null, calcExps, null, null);
+		result = new TotalResult(calcExps, ctx, (IGroupsResult)result);
 		return this;
 	}
 	

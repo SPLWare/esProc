@@ -35,7 +35,6 @@ import com.scudata.dm.Sequence;
 import com.scudata.dm.cursor.ICursor;
 import com.scudata.dm.cursor.MultipathCursors;
 import com.scudata.dm.op.Channel;
-import com.scudata.dm.op.MultipathChannel;
 import com.scudata.dm.query.SimpleSQL;
 import com.scudata.expression.Expression;
 import com.scudata.expression.IParam;
@@ -1519,11 +1518,6 @@ public class PgmCellSet extends CellSet {
 		}
 
 		ICursor cs = (ICursor) obj;
-		MultipathCursors mcs = null;
-		if (cs instanceof MultipathCursors) {
-			mcs = (MultipathCursors) cs;
-		}
-
 		CellLocation curLct = this.curLct;
 		int row = curLct.getRow();
 		int col = curLct.getCol();
@@ -1535,13 +1529,7 @@ public class PgmCellSet extends CellSet {
 
 		// 定义完管道的运算再给游标附件push运算，因为游标可能调用fetch@0缓存了一部分数据
 		// 如果还没定义完管道的运算，则游标缓存的数据则不会执行管道后来附加的运算
-		Channel channel;
-		if (mcs == null) {
-			channel = new Channel(ctx); // , cs
-		} else {
-			channel = new MultipathChannel(ctx, mcs, false);
-		}
-
+		Channel channel = cs.newChannel(ctx, false);
 		cell.setValue(channel);
 		cellList.add(cell);
 		setNext(row, col + 1, false);
@@ -1561,12 +1549,7 @@ public class PgmCellSet extends CellSet {
 			}
 
 			endRow = getCodeBlockEndRow(row, col);
-			if (mcs == null) {
-				channel = new Channel(ctx); // , cs
-			} else {
-				channel = new MultipathChannel(ctx, mcs, false);
-			}
-
+			channel = cs.newChannel(ctx, false);
 			cell.setValue(channel);
 			cellList.add(cell);
 
@@ -1579,13 +1562,8 @@ public class PgmCellSet extends CellSet {
 		}
 
 		// 遍历游标数据
-		if (mcs == null) {
-			while (true) {
-				Sequence src = cs.fuzzyFetch(ICursor.FETCHCOUNT);
-				if (src == null || src.length() == 0)
-					break;
-			}
-		} else {
+		if (cs instanceof MultipathCursors) {
+			MultipathCursors mcs = (MultipathCursors) cs;
 			ICursor[] cursors = mcs.getCursors();
 			int csCount = cursors.length;
 			ThreadPool pool = ThreadPool.newInstance(csCount);
@@ -1602,6 +1580,12 @@ public class PgmCellSet extends CellSet {
 				}
 			} finally {
 				pool.shutdown();
+			}
+		} else {
+			while (true) {
+				Sequence src = cs.fuzzyFetch(ICursor.FETCHCOUNT);
+				if (src == null || src.length() == 0)
+					break;
 			}
 		}
 

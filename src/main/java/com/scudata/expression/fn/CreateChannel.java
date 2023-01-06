@@ -3,9 +3,8 @@ package com.scudata.expression.fn;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
-import com.scudata.dm.cursor.MultipathCursors;
+import com.scudata.dm.cursor.ICursor;
 import com.scudata.dm.op.Channel;
-import com.scudata.dm.op.MultipathChannel;
 import com.scudata.dm.op.Operable;
 import com.scudata.dm.op.Push;
 import com.scudata.expression.Function;
@@ -33,8 +32,8 @@ public class CreateChannel extends Function {
 				return new ClusterChannel((ClusterChannel)obj, ctx);
 			} else if (obj instanceof ClusterCursor) {
 				return new ClusterChannel((ClusterCursor)obj, ctx);
-			} else if (obj instanceof MultipathCursors) {
-				return new MultipathChannel(ctx, (MultipathCursors)obj);
+			} else if (obj instanceof ICursor) {
+				return ((ICursor)obj).newChannel(ctx, true);
 			} else if (obj instanceof Operable) {
 				Channel channel = new Channel(ctx);
 				Push push = new Push(this, channel);
