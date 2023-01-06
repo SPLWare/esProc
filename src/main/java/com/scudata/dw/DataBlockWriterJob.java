@@ -226,8 +226,6 @@ public class DataBlockWriterJob  extends Job {
 				break;
 			case DataBlockType.SERIALBYTES:
 				writeNull = true;
-				for (int i = 0; i < 7; i++)
-					bufferWriter.writeNone();
 				for (int i = start; i <= end; ++i) {
 					r = (BaseRecord) mems.get(i);
 					SerialBytes sb = (SerialBytes) r.getNormalFieldValue(col);
