@@ -1614,7 +1614,12 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 					}
 					setExeLocation(null);
 					splControl.contentView.repaint();
+					long runStart = System.currentTimeMillis();
 					exeLocation = runCellSet(curCellSet);
+					long runEnd = System.currentTimeMillis();
+					// {0}计算完成，总用时：{1}毫秒。
+					Logger.debug(IdeSplMessage.get().getMessage(
+							"sheetspl.runtime", filePath, runEnd - runStart));
 				} while (exeLocation != null);
 			} catch (ThreadDeath td) {
 				isThreadDeath = true;
