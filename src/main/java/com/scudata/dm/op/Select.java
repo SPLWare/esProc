@@ -44,6 +44,14 @@ public class Select extends Operation {
 	}
 	
 	/**
+	 * 用于判断当前过滤是否可以和后面的运算合并计算
+	 * @return
+	 */
+	public boolean canCombineCalc() {
+		return pipe == null && isContinuous == false;
+	}
+	
+	/**
 	 * 取过滤表达式
 	 * @return
 	 */

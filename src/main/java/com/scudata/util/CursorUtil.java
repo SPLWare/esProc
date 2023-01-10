@@ -2686,13 +2686,13 @@ public final class CursorUtil {
 				
 				if (psign) {
 					// 分段时不会将第一字段相同记录分到两段
-					Record record = (Record)data.get(end - 1);
+					BaseRecord record = (BaseRecord)data.get(end - 1);
 					Object value = record.getNormalFieldValue(0);
 					int next = end;
 					end = len + 1;
 					
 					for (; next <= len; ++next) {
-						record = (Record)data.get(next);
+						record = (BaseRecord)data.get(next);
 						if (!Variant.isEquals(record.getNormalFieldValue(0), value)) {
 							end = next;
 							break;
@@ -2760,13 +2760,13 @@ public final class CursorUtil {
 				}
 				
 				// 分段时不会将第一字段相同记录分到两段
-				Record record = (Record)data.get(end - 1);
+				BaseRecord record = (BaseRecord)data.get(end - 1);
 				Object value = record.getNormalFieldValue(0);
 				int next = end;
 				end = len + 1;
 				
 				for (; next <= len; ++next) {
-					record = (Record)data.get(next);
+					record = (BaseRecord)data.get(next);
 					if (!Variant.isEquals(record.getNormalFieldValue(0), value)) {
 						end = next;
 						break;

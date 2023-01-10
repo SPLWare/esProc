@@ -3836,6 +3836,64 @@ public class BoolArray implements IArray {
 	}
 	
 	/**
+	 * 取某一区段标识数组取值为真的行组成新数组
+	 * @param start 起始位置（包括）
+	 * @param end 结束位置（不包括）
+	 * @param signArray 标识数组
+	 * @return IArray
+	 */
+	public IArray select(int start, int end, IArray signArray) {
+		boolean []d1 = this.datas;
+		boolean []s1 = this.signs;
+		boolean []resultDatas = new boolean[end - start + 1];
+		int resultSize = 0;
+		
+		if (s1 == null) {
+			if (signArray instanceof BoolArray) {
+				BoolArray array = (BoolArray)signArray;
+				boolean []d2 = array.getDatas();
+				boolean []s2 = array.getSigns();
+				
+				if (s2 == null) {
+					for (int i = start; i < end; ++i) {
+						if (d2[i]) {
+							resultDatas[++resultSize] = d1[i];
+						}
+					}
+				} else {
+					for (int i = start; i < end; ++i) {
+						if (!s2[i] && d2[i]) {
+							resultDatas[++resultSize] = d1[i];
+						}
+					}
+				}
+			} else {
+				for (int i = start; i < end; ++i) {
+					if (signArray.isTrue(i)) {
+						resultDatas[++resultSize] = d1[i];
+					}
+				}
+			}
+			
+			return new BoolArray(resultDatas, null, resultSize);
+		} else {
+			boolean []resultSigns = new boolean[end - start + 1];
+			for (int i = start; i < end; ++i) {
+				if (signArray.isTrue(i)) {
+					++resultSize;
+					if (s1[i]) {
+						resultSigns[resultSize] = true;
+					} else {
+						resultDatas[resultSize] = d1[i];
+					}
+				}
+			}
+			
+			return new BoolArray(resultDatas, resultSigns, resultSize);
+		}
+	}
+	
+	/**
 	 * 把array的指定元素加到当前数组的指定元素上
 	 * @param curIndex 当前数组的元素的索引
 	 * @param array 要相加的数组

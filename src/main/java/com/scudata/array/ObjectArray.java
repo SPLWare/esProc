@@ -3214,6 +3214,47 @@ public class ObjectArray implements IArray {
 	}
 
 	/**
+	 * 取某一区段标识数组取值为真的行组成新数组
+	 * @param start 起始位置（包括）
+	 * @param end 结束位置（不包括）
+	 * @param signArray 标识数组
+	 * @return IArray
+	 */
+	public IArray select(int start, int end, IArray signArray) {
+		Object []d1 = this.datas;
+		Object []resultDatas = new Object[end - start + 1];
+		int count = 0;
+		
+		if (signArray instanceof BoolArray) {
+			BoolArray array = (BoolArray)signArray;
+			boolean []d2 = array.getDatas();
+			boolean []s2 = array.getSigns();
+			
+			if (s2 == null) {
+				for (int i = start; i < end; ++i) {
+					if (d2[i]) {
+						resultDatas[++count] = d1[i];
+					}
+				}
+			} else {
+				for (int i = start; i < end; ++i) {
+					if (!s2[i] && d2[i]) {
+						resultDatas[++count] = d1[i];
+					}
+				}
+			}
+		} else {
+			for (int i = start; i < end; ++i) {
+				if (signArray.isTrue(i)) {
+					resultDatas[++count] = d1[i];
+				}
+			}
+		}
+		
+		return new ObjectArray(resultDatas, count);
+	}
+
+	/**
 	 * 把成员转成对象数组返回
 	 * @return 对象数组
 	 */

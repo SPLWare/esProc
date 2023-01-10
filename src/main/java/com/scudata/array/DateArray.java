@@ -2456,6 +2456,47 @@ public class DateArray implements IArray {
 	}
 	
 	/**
+	 * 取某一区段标识数组取值为真的行组成新数组
+	 * @param start 起始位置（包括）
+	 * @param end 结束位置（不包括）
+	 * @param signArray 标识数组
+	 * @return IArray
+	 */
+	public IArray select(int start, int end, IArray signArray) {
+		Date []d1 = this.datas;
+		Date []resultDatas = new Date[end - start + 1];
+		int count = 0;
+		
+		if (signArray instanceof BoolArray) {
+			BoolArray array = (BoolArray)signArray;
+			boolean []d2 = array.getDatas();
+			boolean []s2 = array.getSigns();
+			
+			if (s2 == null) {
+				for (int i = start; i < end; ++i) {
+					if (d2[i]) {
+						resultDatas[++count] = d1[i];
+					}
+				}
+			} else {
+				for (int i = start; i < end; ++i) {
+					if (!s2[i] && d2[i]) {
+						resultDatas[++count] = d1[i];
+					}
+				}
+			}
+		} else {
+			for (int i = start; i < end; ++i) {
+				if (signArray.isTrue(i)) {
+					resultDatas[++count] = d1[i];
+				}
+			}
+		}
+		
+		return new DateArray(resultDatas, count);
+	}
+	
+	/**
 	 * 把array的指定元素加到当前数组的指定元素上
 	 * @param curIndex 当前数组的元素的索引
 	 * @param array 要相加的数组

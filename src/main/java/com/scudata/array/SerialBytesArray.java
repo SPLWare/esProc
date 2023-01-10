@@ -2428,6 +2428,55 @@ public class SerialBytesArray implements IArray {
 		
 		return new SerialBytesArray(newDatas1, newDatas2, count);
 	}
+	
+	/**
+	 * 取某一区段标识数组取值为真的行组成新数组
+	 * @param start 起始位置（包括）
+	 * @param end 结束位置（不包括）
+	 * @param signArray 标识数组
+	 * @return IArray
+	 */
+	public IArray select(int start, int end, IArray signArray) {
+		long []datas1 = this.datas1;
+		long []datas2 = this.datas2;
+		long []newDatas1 = new long[end - start + 1];
+		long []newDatas2 = new long[end - start + 1];
+		int count = 0;
+		
+		if (signArray instanceof BoolArray) {
+			BoolArray array = (BoolArray)signArray;
+			boolean []d2 = array.getDatas();
+			boolean []s2 = array.getSigns();
+			
+			if (s2 == null) {
+				for (int i = start; i < end; ++i) {
+					if (d2[i]) {
+						++count;
+						newDatas1[count] = datas1[i];
+						newDatas2[count] = datas2[i];
+					}
+				}
+			} else {
+				for (int i = start; i < end; ++i) {
+					if (!s2[i] && d2[i]) {
+						++count;
+						newDatas1[count] = datas1[i];
+						newDatas2[count] = datas2[i];
+					}
+				}
+			}
+		} else {
+			for (int i = start; i < end; ++i) {
+				if (signArray.isTrue(i)) {
+					++count;
+					newDatas1[count] = datas1[i];
+					newDatas2[count] = datas2[i];
+				}
+			}
+		}
+		
+		return new SerialBytesArray(newDatas1, newDatas2, count);
+	}
 
 	/**
 	 * 判断两个数组的指定元素是否相同

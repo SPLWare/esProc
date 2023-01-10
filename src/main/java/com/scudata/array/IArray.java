@@ -240,7 +240,7 @@ public interface IArray extends Externalizable, IRecord, Comparable<IArray> {
 	void setSize(int size);
 	
 	/**
-	 * 返回数组的非空元素数目
+	 * 返回数组布尔判断取值为真的元素数目
 	 * @return 非空元素数目
 	 */
 	int count();
@@ -575,6 +575,15 @@ public interface IArray extends Externalizable, IRecord, Comparable<IArray> {
 	 * @return IArray
 	 */
 	IArray select(IArray signArray);
+	
+	/**
+	 * 取某一区段标识数组取值为真的行组成新数组
+	 * @param start 起始位置（包括）
+	 * @param end 结束位置（不包括）
+	 * @param signArray 标识数组
+	 * @return IArray
+	 */
+	IArray select(int start, int end, IArray signArray);
 	
 	/**
 	 * 判断两个数组的指定元素是否相同
