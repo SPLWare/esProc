@@ -94,7 +94,8 @@ public class DataBlockType {
 		
 		if (obj == null) {
 			//整个块都是null
-			return new DataBlockType(NULL, true);
+			return new DataBlockType(DICT, seq);
+			//return new DataBlockType(NULL, true);
 		}
 		
 		DataBlockType type = null;
@@ -529,6 +530,7 @@ public class DataBlockType {
 		case DATE:
 			return "Date";
 		case STRING:
+		case STRING_ASSIC:
 			return "String";
 		case SEQUENCE:
 			return "Sequence";
@@ -644,6 +646,7 @@ public class DataBlockType {
 			resultArray = dateArray;
 			break;
 		case DataBlockType.STRING:
+		case DataBlockType.STRING_ASSIC:
 			String[] strArray = new String[size + 1];
 			for (int i = 1; i <= size; i++) {
 				Object obj = dict.getMem(i);

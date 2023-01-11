@@ -321,7 +321,7 @@ public class ColumnMetaData {
 	 */
 	public void adjustDataType(int newType) {
 		int curType = dataType;
-		if (curType == newType) {
+		if (curType == newType || newType == DataBlockType.NULL) {
 			return;
 		}
 		
