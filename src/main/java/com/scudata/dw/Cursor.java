@@ -2862,9 +2862,13 @@ public class Cursor extends IDWCursor {
 				throw new RQException(e.getMessage(), e);
 			}
 			
+			if (appendData != null) {
+				count += appendData.length();
+			}
+			
 			this.curBlock = curBlock;
 			return count;
-		} else if (filters == null && !hasModify() && isFirstSkip  && !isSegment && gathers == null) {
+		} else if (filters == null && !hasModify() && isFirstSkip  && !isSegment && gathers == null && appendData == null) {
 			//对没有过滤的情况优化
 			
 			//处理cache
