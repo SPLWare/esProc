@@ -1,7 +1,7 @@
 package com.scudata.dw.util;
 
 public class BufferUtilNormal extends BufferUtil {
-	public void parseShort(byte[] in, int[] out, int len) {
+	public static void parseShort(byte[] in, int[] out, int len) {
 		int offset = 0;
 		len = len * 2;
 		
@@ -10,7 +10,7 @@ public class BufferUtilNormal extends BufferUtil {
 		}
 	}
 	
-	public void parseShort(byte[] in, long[] out, int len) {
+	public static void parseShort(byte[] in, long[] out, int len) {
 		int offset = 0;
 		len = len * 2;
 		
@@ -19,11 +19,11 @@ public class BufferUtilNormal extends BufferUtil {
 		}
 	}
 	
-	public int parseShort(byte[] in, int offset) {
+	public static int parseShort(byte[] in, int offset) {
 		return ((in[offset + 1]) << 8) | (in[offset] & 0xff);
 	}
 	
-	public void parseInt(byte[] in, int[] out, int len) {
+	public static void parseInt(byte[] in, int[] out, int len) {
 		int offset = 0;
 		len = len * 4;
 		
@@ -33,7 +33,7 @@ public class BufferUtilNormal extends BufferUtil {
 		}
 	}
 
-	public void parseInt(byte[] in, long[] out, int len) {
+	public static void parseInt(byte[] in, long[] out, int len) {
 		int offset = 0;
 		len = len * 4;
 		
@@ -43,12 +43,12 @@ public class BufferUtilNormal extends BufferUtil {
 		}
 	}
 	
-	public int parseInt(byte[] in, int offset) {
+	public static int parseInt(byte[] in, int offset) {
 		return (in[offset + 3] << 24) + ((in[offset + 2] & 0xff) << 16) +
 		((in[offset + 1] & 0xff) << 8) + (in[offset] & 0xff);
 	}
 
-	public void parseLong(byte[] in, long[] out, int len) {
+	public static void parseLong(byte[] in, long[] out, int len) {
 		int offset = 0;
 		len = len * 8;
 		
@@ -64,7 +64,7 @@ public class BufferUtilNormal extends BufferUtil {
 		}
 	}
 
-	public long parseLong(byte[] in, int offset) {
+	public static long parseLong(byte[] in, int offset) {
 		return (((long)in[offset + 7] << 56) +
 				((long)(in[offset + 6] & 0xff) << 48) +
 				((long)(in[offset + 5] & 0xff) << 40) +
@@ -75,7 +75,7 @@ public class BufferUtilNormal extends BufferUtil {
 				(in[offset] & 0xff));
 	}
 
-	public void parseDouble(byte[] in, double[] out, int len) {
+	public static void parseDouble(byte[] in, double[] out, int len) {
 		int offset = 0;
 		len = len * 8;
 		
@@ -92,7 +92,7 @@ public class BufferUtilNormal extends BufferUtil {
 		}
 	}
 
-	public double parseDouble(byte[] in, int offset) {
+	public static double parseDouble(byte[] in, int offset) {
 		long v = (((long)in[offset + 7] << 56) +
 				((long)(in[offset + 6] & 0xff) << 48) +
 				((long)(in[offset + 5] & 0xff) << 40) +

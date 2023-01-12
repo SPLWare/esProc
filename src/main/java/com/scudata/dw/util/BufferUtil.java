@@ -1,7 +1,7 @@
 package com.scudata.dw.util;
 
 public abstract class BufferUtil {
-	public static BufferUtil util = new BufferUtilNormal();
+	public static BufferUtil util;
 	
 //	static {
 //		try {
@@ -23,66 +23,65 @@ public abstract class BufferUtil {
 //		} catch (IllegalAccessException e) {
 //			util = new BufferUtilNormal();
 //		}
-//		util = new BufferUtilNormal();
 //	}
 
-	public abstract void parseShort(byte[] in, int[] out, int len);
+//	public abstract void parseShort(byte[] in, int[] out, int len);
+//	
+//	public abstract void parseShort(byte[] in, long[] out, int len);
+//	
+//	public abstract int parseShort(byte[] in, int offset);
+//	
+//	public abstract void parseInt(byte[] in, int[] out, int len);
+//	
+//	public abstract void parseInt(byte[] in, long[] out, int len);
+//	
+//	public abstract int parseInt(byte[] in, int offset);
+//	
+//	public abstract void parseLong(byte[] in, long[] out, int len);
+//	
+//	public abstract long parseLong(byte[] in, int offset);
+//	
+//	public abstract void parseDouble(byte[] in, double[] out, int len);
+//	
+//	public abstract double parseDouble(byte[] in, int offset);
 	
-	public abstract void parseShort(byte[] in, long[] out, int len);
-	
-	public abstract int parseShort(byte[] in, int offset);
-	
-	public abstract void parseInt(byte[] in, int[] out, int len);
-	
-	public abstract void parseInt(byte[] in, long[] out, int len);
-	
-	public abstract int parseInt(byte[] in, int offset);
-	
-	public abstract void parseLong(byte[] in, long[] out, int len);
-	
-	public abstract long parseLong(byte[] in, int offset);
-	
-	public abstract void parseDouble(byte[] in, double[] out, int len);
-	
-	public abstract double parseDouble(byte[] in, int offset);
-	
-	public static void parseByteToShortArray(byte[] in, int[] out, int len) {
-		util.parseShort(in, out, len);
-	}
-
-	public static void parseByteToShortArray(byte[] in, long[] out, int len) {
-		util.parseShort(in, out, len);
-	}
-	
-	public static void parseByteToIntArray(byte[] in, int[] out, int len) {
-		util.parseInt(in, out, len);
-	}
-	
-	public static void parseByteToIntArray(byte[] in, long[] out, int len) {
-		util.parseInt(in, out, len);
-	}
-	
-	public static void parseByteToLongArray(byte[] in, long[] out, int len) {
-		util.parseLong(in, out, len);
-	}
-	
-	public static void parseByteToDoubleArray(byte[] in, double[] out, int len) {
-		util.parseDouble(in, out, len);
-	}
-	
-	public static int parseToShort(byte[] in, int offset) {
-		return util.parseShort(in, offset);
-	}
-	
-	public static int parseToInt(byte[] in, int offset) {
-		return util.parseInt(in, offset);
-	}
-	
-	public static long parseToLong(byte[] in, int offset) {
-		return util.parseLong(in, offset);
-	}
-	
-	public static double parseToDouble(byte[] in, int offset) {
-		return util.parseDouble(in, offset);
-	}
+//	public static void parseByteToShortArray(byte[] in, int[] out, int len) {
+//		util.parseShort(in, out, len);
+//	}
+//
+//	public static void parseByteToShortArray(byte[] in, long[] out, int len) {
+//		util.parseShort(in, out, len);
+//	}
+//	
+//	public static void parseByteToIntArray(byte[] in, int[] out, int len) {
+//		util.parseInt(in, out, len);
+//	}
+//	
+//	public static void parseByteToIntArray(byte[] in, long[] out, int len) {
+//		util.parseInt(in, out, len);
+//	}
+//	
+//	public static void parseByteToLongArray(byte[] in, long[] out, int len) {
+//		util.parseLong(in, out, len);
+//	}
+//	
+//	public static void parseByteToDoubleArray(byte[] in, double[] out, int len) {
+//		util.parseDouble(in, out, len);
+//	}
+//	
+//	public static int parseToShort(byte[] in, int offset) {
+//		return util.parseShort(in, offset);
+//	}
+//	
+//	public static int parseToInt(byte[] in, int offset) {
+//		return util.parseInt(in, offset);
+//	}
+//	
+//	public static long parseToLong(byte[] in, int offset) {
+//		return util.parseLong(in, offset);
+//	}
+//	
+//	public static double parseToDouble(byte[] in, int offset) {
+//		return util.parseDouble(in, offset);
+//	}
 }
