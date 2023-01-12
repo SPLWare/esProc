@@ -967,9 +967,19 @@ public class FileObject implements Externalizable {
 				return retSeries;
 			} else {
 				byte []bts = read(in, start, end);
-				if (bts == null) return null;
+				if (bts == null) {
+					return null;
+				}
 
-				String str = new String(bts, charset);
+				// È¥µôbomÍ·
+				String str;
+				if (start == 0 && bts.length > 3 && bts[0] == (byte)0xEF && bts[1] == (byte)0xBB && bts[2] == (byte)0xBF) {
+					charset = "UTF-8";
+					str = new String(bts, 3, bts.length - 3, charset);
+				} else {
+					str = new String(bts, charset);
+				}
+				
 				if (isValue) {
 					return Variant.parse(str, false);
 				} else {
