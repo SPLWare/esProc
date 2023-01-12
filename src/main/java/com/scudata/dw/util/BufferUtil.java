@@ -1,29 +1,30 @@
 package com.scudata.dw.util;
 
 public abstract class BufferUtil {
-	public static BufferUtil util;
+	public static BufferUtil util = new BufferUtilNormal();
 	
-	static {
-		try {
-			Class<?> cls = Class.forName("com.scudata.dw.util.BufferUtilNoVerify");
-			util = (BufferUtil) cls.newInstance();
-			if (util == null) {
-				util = new BufferUtilNormal();
-			} else {
-				byte[] buf = {0x34,0x12};
-				if (0x1234 != util.parseShort(buf, 0))
-					util = new BufferUtilNormal();
-			}
-		} catch (VerifyError e) {
-			util = new BufferUtilNormal();
-		} catch (ClassNotFoundException e) {
-			util = new BufferUtilNormal();
-		} catch (InstantiationException e) {
-			util = new BufferUtilNormal();
-		} catch (IllegalAccessException e) {
-			util = new BufferUtilNormal();
-		}
-	}
+//	static {
+//		try {
+//			Class<?> cls = Class.forName("com.scudata.dw.util.BufferUtilNoVerify");
+//			util = (BufferUtil) cls.newInstance();
+//			if (util == null) {
+//				util = new BufferUtilNormal();
+//			} else {
+//				byte[] buf = {0x34,0x12};
+//				if (0x1234 != util.parseShort(buf, 0))
+//					util = new BufferUtilNormal();
+//			}
+//		} catch (VerifyError e) {
+//			util = new BufferUtilNormal();
+//		} catch (ClassNotFoundException e) {
+//			util = new BufferUtilNormal();
+//		} catch (InstantiationException e) {
+//			util = new BufferUtilNormal();
+//		} catch (IllegalAccessException e) {
+//			util = new BufferUtilNormal();
+//		}
+//		util = new BufferUtilNormal();
+//	}
 
 	public abstract void parseShort(byte[] in, int[] out, int len);
 	
