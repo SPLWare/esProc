@@ -84,13 +84,14 @@ public class NotFindFilter extends FindFilter {
 		IArray key = right.calculateAll(ctx);
 		int[] pos = it.findAllPos(key, left);
 		int len = key.size();
-		boolean[] result = new boolean[len + 1];
+		boolean[] resultDatas = left.getDatas();
 		for (int i = 1; i <= len; i++) {
-			result[i] = pos[i] == 0;
+			if (resultDatas[i])
+				resultDatas[i] = pos[i] == 0;
 		}
 		
 		this.pos = pos;
-		BoolArray resultArray = new BoolArray(result, len);
+		BoolArray resultArray = new BoolArray(resultDatas, len);
 		resultArray.setTemporary(true);
 		return resultArray;
 	}
