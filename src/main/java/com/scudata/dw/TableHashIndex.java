@@ -337,7 +337,11 @@ public class TableHashIndex  implements ITableIndex {
 			}
 			
 			this.curBlock = curBlock;
-			return cache;
+			if (cache.length() > 0) {
+				return cache;
+			} else {
+				return null;
+			}
 		}
 		
 		protected long skipOver(long n) {
@@ -859,7 +863,11 @@ public class TableHashIndex  implements ITableIndex {
 			}
 			
 			this.curBlock = curBlock;
-			return cache;
+			if (cache.length() > 0) {
+				return cache;
+			} else {
+				return null;
+			}
 		}
 		
 		protected long skipOver(long n) {
@@ -1458,7 +1466,7 @@ public class TableHashIndex  implements ITableIndex {
 			
 			//检查是否是对主键建立索引
 			keyNames = srcTable.getSortedColNames();
-			if (srcTable.isSorted && keyNames != null) {
+			if (srcTable.isSorted && keyNames != null && fields.length == keyNames.length) {
 				boolean isKeyField = true;
 				for (int i = 0, len = fields.length; i < len; ++i) {
 					if (!fields[i].equals(keyNames[i])) {

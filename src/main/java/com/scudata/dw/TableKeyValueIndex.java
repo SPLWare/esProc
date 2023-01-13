@@ -348,7 +348,11 @@ public class TableKeyValueIndex implements ITableIndex {
 			}
 			
 			this.curBlock = curBlock;
-			return cache;
+			if (cache.length() > 0) {
+				return cache;
+			} else {
+				return null;
+			}
 		}
 		
 		protected long skipOver(long n) {
@@ -775,7 +779,11 @@ public class TableKeyValueIndex implements ITableIndex {
 			}
 			
 			this.curBlock = curBlock;
-			return cache;
+			if (cache.length() > 0) {
+				return cache;
+			} else {
+				return null;
+			}
 		}
 		
 		protected long skipOver(long n) {
