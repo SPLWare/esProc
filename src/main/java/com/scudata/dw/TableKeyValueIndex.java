@@ -973,6 +973,7 @@ public class TableKeyValueIndex implements ITableIndex {
 		boolean isAdd = true;//是否需要添加索引到table
 		boolean isReset = false;//重建
 		
+		valueFields = checkValueFields(fields, valueFields);
 		if (indexFile.size() > 0) {
 			if ((opt == null) ||(opt != null && opt.indexOf('a') == -1)) {
 				MessageManager mm = EngineMessage.get();
@@ -1095,6 +1096,23 @@ public class TableKeyValueIndex implements ITableIndex {
 		}
 	}
 
+	private String[] checkValueFields(String[] ifields, String[] vfields) {
+		ArrayList<String> list = new ArrayList<String>();
+		Next:
+		for (String vfield : vfields) {
+			for (String ifield : ifields) {
+				if (vfield.equals(ifield)) 
+					continue Next;
+			}
+			list.add(vfield);
+		}
+
+		int count = list.size();
+		String[] retFields = new String[count];
+		list.toArray(retFields);
+		return retFields;
+	}
+	
 	//获得mems里连续的个数
 	private int getGroupNum(IArray mems, int from, int fcount) {
 		int len = mems.size();
@@ -1298,6 +1316,9 @@ public class TableKeyValueIndex implements ITableIndex {
 				writer.writeInt(BLOCK_END);
 			}
 		} catch (IOException e) {
+			if (indexFile != null) {
+				indexFile.delete();
+			}
 			throw new RQException(e.getMessage(), e);
 		} finally {
 			try {
