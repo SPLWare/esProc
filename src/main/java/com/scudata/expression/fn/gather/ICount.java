@@ -116,6 +116,7 @@ public class ICount extends Gather {
 			count++;
 			int count = this.count;
 			if (count == linkArray.length) {
+				this.linkArray.setSize(count - 1);
 				elementArray.ensureCapacity(count);
 				this.linkArray.ensureCapacity(count);
 				linkArray = this.linkArray.getDatas();
@@ -130,7 +131,7 @@ public class ICount extends Gather {
 			int[] elementArray = ((IntArray) this.elementArray).getDatas();
 			int[] linkArray = this.linkArray.getDatas();
 			int[] entries = this.entries;
-			int hash = key % INIT_SIZE;//hashUtil.hashCode(key);
+			int hash = hashUtil.hashCode(key);//key % INIT_SIZE;//
 			int seq = entries[hash];
 			
 			while (seq != 0) {
@@ -144,6 +145,8 @@ public class ICount extends Gather {
 			count++;
 			int count = this.count;
 			if (count == linkArray.length) {
+				this.elementArray.setSize(count - 1);
+				this.linkArray.setSize(count - 1);
 				this.elementArray.ensureCapacity(count);
 				this.linkArray.ensureCapacity(count);
 				elementArray = ((IntArray) this.elementArray).getDatas();
@@ -184,6 +187,7 @@ public class ICount extends Gather {
 				count++;
 				if (count == linkArray.length) {
 					elementArray.ensureCapacity(count);
+					this.linkArray.setSize(count - 1);
 					this.linkArray.ensureCapacity(count);
 					linkArray = this.linkArray.getDatas();
 				}
@@ -827,7 +831,9 @@ public class ICount extends Gather {
 			for (int i = 1, len = result2.size(); i <= len; ++i) {
 				if (seqs[i] != 0) {
 					ICountHashSet value1 = (ICountHashSet) result.get(seqs[i]);
-					ICountHashSet value2 = (ICountHashSet) result.get(i);
+					ICountHashSet value2 = (ICountHashSet) result2.get(i);
+					value1.elementArray.setSize(value1.count);
+					value2.elementArray.setSize(value2.count);
 					value1.addAll(value2.elementArray);
 				}
 			}
