@@ -1530,7 +1530,8 @@ public class TableHashIndex  implements ITableIndex {
 			
 			return cursorList;
 		} finally {
-			srcCursor.close();
+			if (srcCursor != null) 
+				srcCursor.close();
 		}
 	}
 
