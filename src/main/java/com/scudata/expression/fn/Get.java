@@ -1,5 +1,8 @@
 package com.scudata.expression.fn;
 
+import com.scudata.array.ConstArray;
+import com.scudata.array.IArray;
+import com.scudata.array.ObjectArray;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.BaseRecord;
@@ -217,5 +220,46 @@ public class Get extends Function {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException(mm.getMessage("Expression.unknownExpression") + fieldName);
 		}
+	}
+	
+	/**
+	 * 计算出所有行的结果
+	 * @param ctx 计算上行文
+	 * @return IArray
+	 */
+	public IArray calculateAll(Context ctx) {
+		if (level == -1) {
+			prepare(param, ctx);
+		}
+		
+		Current current = ctx.getComputeStack().getTopCurrent();
+		int len = current.length();
+
+		if (level != 0 && moveParam == null) {
+			Object value = calculate(ctx);
+			return new ConstArray(value, len);
+		} else {
+			ObjectArray array = new ObjectArray(len);
+			array.setTemporary(true);
+			
+			for (int i = 1; i <= len; ++i) {
+				current.setCurrent(i);
+				Object value = calculate(ctx);
+				array.push(value);
+			}
+			
+			return array;
+		}
+	}
+
+	/**
+	 * 计算signArray中取值为sign的行
+	 * @param ctx
+	 * @param signArray 行标识数组
+	 * @param sign 标识
+	 * @return IArray
+	 */
+	public IArray calculateAll(Context ctx, IArray signArray, boolean sign) {
+		return calculateAll(ctx);
 	}
 }

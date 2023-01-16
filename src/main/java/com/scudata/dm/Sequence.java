@@ -6919,7 +6919,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		}
 	}
 	
-	private void deleteNull(boolean emptySeq) {
+	public void deleteNull(boolean emptySeq) {
 		IArray mems = getMems();
 		int len = mems.size();
 		int nullCount = 0;
