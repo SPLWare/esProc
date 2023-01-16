@@ -837,6 +837,14 @@ public class ICount extends Gather {
 					value1.addAll(value2.elementArray);
 				}
 			}
+		} else {
+			for (int i = 1, len = result2.size(); i <= len; ++i) {
+				if (seqs[i] != 0) {
+					ICountInfo value1 = (ICountInfo) result.get(seqs[i]);
+					ICountInfo value2 = (ICountInfo) result2.get(i);
+					value1.put(value2);
+				}
+			}
 		}
 	}
 }
