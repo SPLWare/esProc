@@ -51,8 +51,8 @@ public abstract class InternalCStatement extends InternalPStatement implements
 	 * @param sql
 	 *            The SQL string
 	 */
-	public InternalCStatement(InternalConnection con, int id, String sql) {
-		super(con, id, sql);
+	public InternalCStatement(int id, String sql) {
+		super(id, sql);
 		JDBCUtil.log("InternalCStatement-2");
 	}
 

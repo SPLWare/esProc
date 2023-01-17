@@ -65,11 +65,6 @@ public class InternalConnection implements Connection, Serializable {
 	private List<InternalStatement> stats = new ArrayList<InternalStatement>();
 
 	/**
-	 * Last visit time
-	 */
-	private long lastVisitTime;
-
-	/**
 	 * DatabaseMetaData object
 	 */
 	private DatabaseMetaData metaData;
@@ -133,7 +128,6 @@ public class InternalConnection implements Connection, Serializable {
 	public InternalConnection(InternalDriver driver, RaqsoftConfig config)
 			throws SQLException {
 		JDBCUtil.log("InternalConnection-2");
-		lastVisitTime = System.currentTimeMillis();
 		closed = false;
 		raqsoftConfig = config;
 		this.driverName = driver.getClass().getName();
@@ -150,7 +144,7 @@ public class InternalConnection implements Connection, Serializable {
 	 * 
 	 * @return int
 	 */
-	private synchronized int nextId() {
+	private synchronized int nextStatementId() {
 		JDBCUtil.log("InternalConnection-1");
 		if (stMaxId == Integer.MAX_VALUE)
 			stMaxId = 1;
@@ -256,26 +250,6 @@ public class InternalConnection implements Connection, Serializable {
 	}
 
 	/**
-	 * Update last access time
-	 * 
-	 * @param time
-	 */
-	public void updateLastVisitTime(long time) {
-		JDBCUtil.log("InternalConnection-8");
-		this.lastVisitTime = time;
-	}
-
-	/**
-	 * Get the last visit time
-	 * 
-	 * @return long
-	 */
-	public long getLastVisitTime() {
-		JDBCUtil.log("InternalConnection-47");
-		return lastVisitTime;
-	}
-
-	/**
 	 * Get the list of the statements
 	 * 
 	 * @return StatementList
@@ -287,6 +261,18 @@ public class InternalConnection implements Connection, Serializable {
 			throw new SQLException(JDBCMessage.get().getMessage(
 					"error.conclosed"));
 		return stats;
+	}
+
+	public void closeStatement(InternalStatement st) throws SQLException {
+		JDBCUtil.log("InternalConnection-47");
+		if (st == null)
+			return;
+		if (closed)
+			throw new SQLException(JDBCMessage.get().getMessage(
+					"error.conclosed"));
+		synchronized (stats) {
+			stats.remove(st);
+		}
 	}
 
 	/**
@@ -587,8 +573,7 @@ public class InternalConnection implements Connection, Serializable {
 		if (closed)
 			throw new SQLException(JDBCMessage.get().getMessage(
 					"error.conclosed"));
-		lastVisitTime = System.currentTimeMillis();
-		InternalStatement st = new InternalStatement(this, nextId()) {
+		InternalStatement st = new InternalStatement(nextStatementId()) {
 
 			public InternalConnection getConnection() {
 				return InternalConnection.this;
@@ -613,8 +598,7 @@ public class InternalConnection implements Connection, Serializable {
 		if (closed)
 			throw new SQLException(JDBCMessage.get().getMessage(
 					"error.conclosed"));
-		this.lastVisitTime = System.currentTimeMillis();
-		InternalPStatement st = new InternalPStatement(this, this.nextId(), sql) {
+		InternalPStatement st = new InternalPStatement(nextStatementId(), sql) {
 
 			public InternalConnection getConnection() {
 				return InternalConnection.this;
@@ -641,8 +625,7 @@ public class InternalConnection implements Connection, Serializable {
 		if (closed)
 			throw new SQLException(JDBCMessage.get().getMessage(
 					"error.conclosed"));
-		this.lastVisitTime = System.currentTimeMillis();
-		InternalCStatement st = new InternalCStatement(this, this.nextId(), sql) {
+		InternalCStatement st = new InternalCStatement(nextStatementId(), sql) {
 			private static final long serialVersionUID = 1L;
 
 			public InternalConnection getConnection() {
@@ -727,8 +710,10 @@ public class InternalConnection implements Connection, Serializable {
 	 */
 	public void close() throws SQLException {
 		JDBCUtil.log("InternalConnection-14");
-		for (int i = 0; i < this.stats.size(); i++) {
-			stats.get(i).close();
+		synchronized (stats) {
+			for (int i = 0; i < this.stats.size(); i++) {
+				stats.get(i).close();
+			}
 		}
 		/* Close automatically opened connections */
 		Map<String, DBSession> map = ctx.getDBSessionMap();

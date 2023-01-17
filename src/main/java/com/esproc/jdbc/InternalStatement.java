@@ -3,9 +3,7 @@ package com.esproc.jdbc;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.SQLWarning;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,12 +38,7 @@ public abstract class InternalStatement implements java.sql.Statement {
 	/**
 	 * The statement ID
 	 */
-	protected int ID;
-
-	/**
-	 * Last access time
-	 */
-	protected long lastVisitTime;
+	protected int id;
 
 	/**
 	 * The query result
@@ -90,11 +83,9 @@ public abstract class InternalStatement implements java.sql.Statement {
 	 * @param con The connection object
 	 * @param id  The statement ID
 	 */
-	public InternalStatement(InternalConnection con, int id) {
+	public InternalStatement(int id) {
 		JDBCUtil.log("InternalStatement-1");
-		lastVisitTime = System.currentTimeMillis();
-		con.updateLastVisitTime(lastVisitTime);
-		this.ID = id;
+		this.id = id;
 	}
 
 	public abstract InternalConnection getConnection();
@@ -176,11 +167,6 @@ public abstract class InternalStatement implements java.sql.Statement {
 			return result;
 		}
 		return !isCanceled;
-	}
-
-	private static String getCurrentTimeString() {
-		SimpleDateFormat format = new SimpleDateFormat("hh:mm:ss");
-		return format.format(Calendar.getInstance().getTime());
 	}
 
 	/**
@@ -405,6 +391,11 @@ public abstract class InternalStatement implements java.sql.Statement {
 	 */
 	public void close() throws SQLException {
 		JDBCUtil.log("InternalStatement-4");
+		InternalConnection connt = getConnection();
+		if (connt == null || connt.isClosed()) {
+			throw new SQLException(JDBCMessage.get().getMessage(
+					"error.conclosed"));
+		}
 		if (result != null) {
 			if (result instanceof IResource) {
 				((IResource) result).close();
@@ -415,6 +406,7 @@ public abstract class InternalStatement implements java.sql.Statement {
 		}
 		this.result = null;
 		this.set = null;
+		connt.closeStatement(this);
 	}
 
 	/**
@@ -592,8 +584,6 @@ public abstract class InternalStatement implements java.sql.Statement {
 			throw new SQLException(JDBCMessage.get().getMessage(
 					"error.conclosed"));
 		}
-		lastVisitTime = System.currentTimeMillis();
-		connt.updateLastVisitTime(lastVisitTime);
 		this.sql = sql;
 		boolean isSucc = executeJDBC(null);
 		if (!isSucc)
@@ -619,8 +609,6 @@ public abstract class InternalStatement implements java.sql.Statement {
 		}
 		if (set != null)
 			set.close();
-		lastVisitTime = System.currentTimeMillis();
-		connt.updateLastVisitTime(lastVisitTime);
 		if (result == null)
 			return null;
 		if (result instanceof PgmCellSet || result instanceof MultiResult) {
@@ -666,8 +654,6 @@ public abstract class InternalStatement implements java.sql.Statement {
 			throw new SQLException(JDBCMessage.get().getMessage(
 					"error.conclosed"));
 		}
-		lastVisitTime = System.currentTimeMillis();
-		connt.updateLastVisitTime(lastVisitTime);
 		if (result == null)
 			return false;
 		if (result instanceof PgmCellSet) {
@@ -1120,17 +1106,7 @@ public abstract class InternalStatement implements java.sql.Statement {
 	 */
 	public int getID() {
 		JDBCUtil.log("InternalStatement-51");
-		return ID;
-	}
-
-	/**
-	 * Set the statement ID
-	 * 
-	 * @param id
-	 */
-	public void setID(int id) {
-		JDBCUtil.log("InternalStatement-52");
-		ID = id;
+		return id;
 	}
 
 	/**

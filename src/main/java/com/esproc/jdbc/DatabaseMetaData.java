@@ -238,8 +238,9 @@ public abstract class DatabaseMetaData implements java.sql.DatabaseMetaData {
 	public boolean usesLocalFiles() throws SQLException {
 		JDBCUtil.log("DatabaseMetaData-18");
 		InternalConnection connt = getConnection();
-		if (connt == null)
-			return false;
+		if (connt == null || connt.isClosed())
+			throw new SQLException(JDBCMessage.get().getMessage(
+					"error.conclosed"));
 		return !connt.isOnlyServer();
 	}
 
@@ -1394,7 +1395,8 @@ public abstract class DatabaseMetaData implements java.sql.DatabaseMetaData {
 		JDBCUtil.log("DatabaseMetaData-121-" + procedureNamePattern);
 		InternalConnection connt = getConnection();
 		if (connt == null || connt.isClosed()) {
-			throw new SQLException("The connection is closed.");
+			throw new SQLException(JDBCMessage.get().getMessage(
+					"error.conclosed"));
 		}
 		procedureNamePattern = getRealPattern(schemaPattern,
 				procedureNamePattern);
@@ -1427,7 +1429,8 @@ public abstract class DatabaseMetaData implements java.sql.DatabaseMetaData {
 				+ columnNamePattern);
 		InternalConnection connt = getConnection();
 		if (connt == null || connt.isClosed()) {
-			throw new SQLException("The connection is closed.");
+			throw new SQLException(JDBCMessage.get().getMessage(
+					"error.conclosed"));
 		}
 		procedureNamePattern = getRealPattern(schemaPattern,
 				procedureNamePattern);
@@ -1461,7 +1464,8 @@ public abstract class DatabaseMetaData implements java.sql.DatabaseMetaData {
 		JDBCUtil.log("DatabaseMetaData-123-" + tableNamePattern);
 		InternalConnection connt = getConnection();
 		if (connt == null || connt.isClosed()) {
-			throw new SQLException("The connection is closed.");
+			throw new SQLException(JDBCMessage.get().getMessage(
+					"error.conclosed"));
 		}
 		tableNamePattern = getRealPattern(schemaPattern, tableNamePattern);
 		return connt.getTables(tableNamePattern);
@@ -1552,7 +1556,8 @@ public abstract class DatabaseMetaData implements java.sql.DatabaseMetaData {
 				+ columnNamePattern);
 		InternalConnection connt = getConnection();
 		if (connt == null || connt.isClosed()) {
-			throw new SQLException("The connection is closed.");
+			throw new SQLException(JDBCMessage.get().getMessage(
+					"error.conclosed"));
 		}
 		tableNamePattern = getRealPattern(schemaPattern, tableNamePattern);
 		return connt.getColumns(tableNamePattern, columnNamePattern);

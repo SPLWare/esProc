@@ -52,8 +52,8 @@ public abstract class InternalPStatement extends InternalStatement implements
 	 * @param sql
 	 *            The SQL string
 	 */
-	public InternalPStatement(InternalConnection con, int id, String sql) {
-		super(con, id);
+	public InternalPStatement(int id, String sql) {
+		super(id);
 		this.sql = sql;
 		JDBCUtil.log("InternalPStatement-2");
 	}
@@ -144,8 +144,6 @@ public abstract class InternalPStatement extends InternalStatement implements
 		if (connt == null || connt.isClosed())
 			throw new SQLException(JDBCMessage.get().getMessage(
 					"error.conclosed"));
-		lastVisitTime = System.currentTimeMillis();
-		connt.updateLastVisitTime(lastVisitTime);
 		boolean isSucc;
 		if (JDBCUtil.isCallsStatement(sql)) {
 			isSucc = executeJDBC(callsParameters);
@@ -176,8 +174,6 @@ public abstract class InternalPStatement extends InternalStatement implements
 		if (sql.startsWith(">"))
 			throw new SQLException(JDBCMessage.get().getMessage(
 					"error.cantreturnrs"));
-		lastVisitTime = System.currentTimeMillis();
-		connt.updateLastVisitTime(lastVisitTime);
 		boolean isSucc;
 		if (JDBCUtil.isCallsStatement(sql)) {
 			if (callsParameters.isEmpty()) {
@@ -219,8 +215,6 @@ public abstract class InternalPStatement extends InternalStatement implements
 		if (connt == null || connt.isClosed())
 			throw new SQLException(JDBCMessage.get().getMessage(
 					"error.conclosed"));
-		lastVisitTime = System.currentTimeMillis();
-		connt.updateLastVisitTime(lastVisitTime);
 		updateCount = executeUpdateJDBC(parameters);
 		return updateCount;
 	}
