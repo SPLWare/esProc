@@ -104,10 +104,7 @@ public class XMLFile {
 	 * @throws Exception
 	 */
 	private void loadXMLFile(InputStream is) throws Exception {
-		DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory
-				.newInstance();
-		DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();
-		xmlDocument = docBuilder.parse(is);
+		xmlDocument = parseXml(is);
 	}
 
 	/**
@@ -657,5 +654,12 @@ public class XMLFile {
 			return false;
 		}
 		return true;
+	}
+
+	public static Document parseXml(InputStream is) throws Exception {
+		DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory
+				.newInstance();
+		DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();
+		return docBuilder.parse(is);
 	}
 }
