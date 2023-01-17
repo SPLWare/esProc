@@ -1,5 +1,7 @@
 package com.scudata.expression.mfn.sequence;
 
+import java.util.ArrayList;
+
 import com.scudata.array.ArrayUtil;
 import com.scudata.array.BoolArray;
 import com.scudata.array.ConstArray;
@@ -10,9 +12,12 @@ import com.scudata.common.RQException;
 import com.scudata.dm.Context;
 import com.scudata.dm.IndexTable;
 import com.scudata.dm.Sequence;
+import com.scudata.expression.Expression;
+import com.scudata.expression.Function;
 import com.scudata.expression.IParam;
 import com.scudata.expression.Relation;
 import com.scudata.expression.SequenceFunction;
+import com.scudata.expression.ValueList;
 import com.scudata.resources.EngineMessage;
 import com.scudata.util.Variant;
 
@@ -91,8 +96,21 @@ public class Find extends SequenceFunction {
 					indexTable = srcSequence.newIndexTable();
 				}
 				
-				IArray array = param.getLeafExpression().calculateAll(ctx);
-				int []index = indexTable.findAllPos(array);
+				int []index;
+				Expression exp = param.getLeafExpression();
+				if (exp.getHome() instanceof ValueList) {
+					Expression[] list = ((Function) exp.getHome()).getParamExpressions(null, true);
+					int size = list.length;
+					IArray[] arrays = new IArray[size];
+					for (int  i = 0; i < size; i++) {
+						arrays[i] = list[i].calculateAll(ctx);
+					}
+					index = indexTable.findAllPos(arrays);
+				} else {
+					IArray array = exp.calculateAll(ctx);
+					index = indexTable.findAllPos(array);
+				}
+				
 				int len = index.length;
 				Object []rs = new Object[len];
 				for (int i = 1; i < len; ++i) {
@@ -128,8 +146,20 @@ public class Find extends SequenceFunction {
 				}
 				
 				BoolArray boolArray = ArrayUtil.booleanValue(signArray, sign);
-				IArray array = param.getLeafExpression().calculateAll(ctx, boolArray, true);
-				int []index = indexTable.findAllPos(array, boolArray);
+				int []index;
+				Expression exp = param.getLeafExpression();
+				if (exp.getHome() instanceof ValueList) {
+					Expression[] list = ((Function) exp.getHome()).getParamExpressions(null, true);
+					int size = list.length;
+					IArray[] arrays = new IArray[size];
+					for (int  i = 0; i < size; i++) {
+						arrays[i] = list[i].calculateAll(ctx, boolArray, true);
+					}
+					index = indexTable.findAllPos(arrays);
+				} else {
+					IArray array = exp.calculateAll(ctx, boolArray, true);
+					index = indexTable.findAllPos(array);
+				}
 				
 				int len = index.length;
 				Object []rs = new Object[len];
@@ -166,9 +196,21 @@ public class Find extends SequenceFunction {
 				}
 				
 				BoolArray result = leftResult.isTrue();
-				IArray array = param.getLeafExpression().calculateAll(ctx, result, true);
-				int []index = indexTable.findAllPos(array, result);
-
+				int []index;
+				Expression exp = param.getLeafExpression();
+				if (exp.getHome() instanceof ValueList) {
+					Expression[] list = ((Function) exp.getHome()).getParamExpressions(null, true);
+					int size = list.length;
+					IArray[] arrays = new IArray[size];
+					for (int  i = 0; i < size; i++) {
+						arrays[i] = list[i].calculateAll(ctx, result, true);
+					}
+					index = indexTable.findAllPos(arrays);
+				} else {
+					IArray array = exp.calculateAll(ctx, result, true);
+					index = indexTable.findAllPos(array);
+				}
+				
 				for (int i = 1, len = index.length; i < len; ++i) {
 					if (index[i] < 1) {
 						result.set(i, false);
