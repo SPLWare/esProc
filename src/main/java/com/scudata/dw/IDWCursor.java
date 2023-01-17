@@ -3,6 +3,7 @@ package com.scudata.dw;
 import java.io.IOException;
 
 import com.scudata.common.RQException;
+import com.scudata.dm.DataStruct;
 import com.scudata.dm.ObjectReader;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.cursor.ICursor;
@@ -43,47 +44,58 @@ public abstract class IDWCursor extends ICursor {
 		ColPhyTable table = (ColPhyTable) getTableMetaData();
 		int startBlock = getStartBlock();
 		String segmentCol = table.getSegmentCol();
-		try {
-			if (segmentCol != null) {
-				Object[] startValues = new Object[1];
-				ObjectReader reader = table.getColumn(segmentCol).getSegmentReader();
-				for (int i = 0; i < startBlock; ++i) {
-					reader.readLong40();
-					reader.skipObject();
-					reader.skipObject();
-					reader.skipObject();
-				}
-				reader.readLong40();
-				reader.skipObject();
-				reader.skipObject();
-				startValues[0] = reader.readObject(); //startValue
-				return startValues;
+		
+		ColumnMetaData[] cols;
+		DataStruct ds = getDataStruct();
+		if (segmentCol != null) {
+			if (ds.getFieldIndex(segmentCol) == -1) {
+				return null;
 			} else {
-				ColumnMetaData[] cols = table.getSortedColumns();
-				int colCount = cols.length;
-				Object[] startValues = new Object[colCount];
-				ObjectReader []readers = new ObjectReader[colCount];
-				for (int f = 0; f < colCount; ++f) {
-					readers[f] = cols[f].getSegmentReader();
+				cols = new ColumnMetaData[] {table.getColumn(segmentCol)};
+			}
+		} else {
+			ColumnMetaData[] tempCols = table.getSortedColumns();
+			int count = 0;
+			for (ColumnMetaData col : tempCols) {
+				if (ds.getFieldIndex(col.getColName()) != -1) {
+					count++;
+				} else {
+					break;
 				}
-				
-				for (int i = 0; i < startBlock; ++i) {
-					for (int f = 0; f < colCount; ++f) {
-						readers[f].readLong40();
-						readers[f].skipObject();
-						readers[f].skipObject();
-						readers[f].skipObject();
-					}
-					
-				}
+			}
+			
+			if (count == 0) return  null;
+			cols = new ColumnMetaData[count];
+			for (int i = 0; i < count; i++) {
+				cols[i] = tempCols[i];
+			}
+		}
+		
+		try {
+			int colCount = cols.length;
+			Object[] startValues = new Object[colCount];
+			ObjectReader []readers = new ObjectReader[colCount];
+			for (int f = 0; f < colCount; ++f) {
+				readers[f] = cols[f].getSegmentReader();
+			}
+			
+			for (int i = 0; i < startBlock; ++i) {
 				for (int f = 0; f < colCount; ++f) {
 					readers[f].readLong40();
 					readers[f].skipObject();
 					readers[f].skipObject();
-					startValues[f] = readers[f].readObject();
+					readers[f].skipObject();
 				}
-				return startValues;
+				
 			}
+			for (int f = 0; f < colCount; ++f) {
+				readers[f].readLong40();
+				readers[f].skipObject();
+				readers[f].skipObject();
+				startValues[f] = readers[f].readObject();
+			}
+			return startValues;
+		
 		} catch (IOException e) {
 			throw new RQException(e.getMessage(), e);
 		}
