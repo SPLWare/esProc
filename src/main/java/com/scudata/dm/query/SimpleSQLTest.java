@@ -6,12 +6,16 @@ import com.scudata.dm.Context;
 
 public class SimpleSQLTest {
 	public static void main(String args[]){
+		System.out.println(333);
 		try {
-			ConfigUtil.load("d:\\esProcData\\raqsoftConfig.xml");
+			//ConfigUtil.load("d:\\esProcData\\raqsoftConfig.xml");
+			System.out.println(444);
 			Context ctx = new Context();
 			ctx.setParamValue("intofile", "d:/test/intof1,d:/test/intof2,d:/test/intof3");
 			Object o = null;
-//			o = AppUtil.executeSql("select * from d:/test/emps.txt", null, ctx);
+			System.out.println(111);
+			//o = AppUtil.executeSql("select * from d:/test/emps.txt", null, ctx);
+			System.out.println(222);
 			//			o = AppUtil.executeSql("select _size,first_name,gender,_file from d:/test/emps1*.txt", null, ctx);
 			//o = AppUtil.executeSql("select gender,first_name from d:/test/emps1*.txt", null, ctx);
 			//			o = AppUtil.executeSql("select _size,first_name,gender,_file from d:/test/emps1*.xlsx", null, ctx);
@@ -19,7 +23,10 @@ public class SimpleSQLTest {
 //			o = AppUtil.executeSql("select _file,_size,gender from d:/test/emps1*.xlsx", null, ctx);
 //			o = AppUtil.executeSql("select _file from d:/test/emps1*.xlsx", null, ctx);
 //			o = AppUtil.executeSql("select gender into d:/empresult2.txt from d:/emps.txt group by gender", null, ctx);			
-			o = AppUtil.executeSql("select gender into ${intofile}.txt from d:/emps.txt group by gender", null, ctx);			
+//			o = AppUtil.executeSql("select gender into ${intofile}.txt from d:/emps.txt group by gender", null, ctx);			
+			o = AppUtil.executeSql("select * from {T(\"D:/雇员.csv\")} as a join {T(\"D:/雇员.csv\")} as b on a.雇员ID=b.雇员ID", null, ctx);			
+//			o = AppUtil.executeSql("select * from D:/雇员.csv as a join D:/雇员.csv as b on a.雇员ID=b.雇员ID", null, ctx);			
+//				o = AppUtil.executeSql("select * from {T(\"D:/雇员.csv\")} as a", null, ctx);			
 			
 			//Object o = AppUtil.executeSql("select gender,max(emp_no) from d:/emps.txt group by gender", null, ctx);
 			//Object o = AppUtil.executeSql("select gender,max(hire_date) from d:/emps.txt group by gender", null, ctx);

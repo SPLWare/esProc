@@ -43,6 +43,7 @@ import com.scudata.dm.cursor.SyncCursor;
 import com.scudata.dm.cursor.XJoinxCursor;
 import com.scudata.dm.op.Join;
 import com.scudata.dm.op.New;
+import com.scudata.dm.op.Operation;
 import com.scudata.dm.op.Select;
 import com.scudata.dm.query.utils.ExpressionTranslator;
 import com.scudata.dw.PhyTable;
@@ -1864,6 +1865,17 @@ public class SimpleJoin
 			return tab;
 		}
 		
+		/**
+		 * 返回剩余的记录并关闭游标
+		 * @return Sequence
+		 */
+		public Sequence fetch() {
+			Sequence result = this.get(Integer.MAX_VALUE);
+			
+			close();
+			return result;
+		}
+
 		public DataStruct getDataStruct()
 		{
 			return this.ds;
@@ -1986,7 +1998,18 @@ public class SimpleJoin
 			
 			return tab;
 		}
-		
+
+		/**
+		 * 返回剩余的记录并关闭游标
+		 * @return Sequence
+		 */
+		public Sequence fetch() {
+			Sequence result = this.get(Integer.MAX_VALUE);
+			
+			close();
+			return result;
+		}
+
 		public DataStruct getDataStruct()
 		{
 			return this.ds;
@@ -2108,6 +2131,16 @@ public class SimpleJoin
 			}
 			
 			return tab;
+		}
+		/**
+		 * 返回剩余的记录并关闭游标
+		 * @return Sequence
+		 */
+		public Sequence fetch() {
+			Sequence result = this.get(Integer.MAX_VALUE);
+			
+			close();
+			return result;
 		}
 		
 		public DataStruct getDataStruct()
@@ -2231,6 +2264,16 @@ public class SimpleJoin
 			}
 			
 			return tab;
+		}
+		/**
+		 * 返回剩余的记录并关闭游标
+		 * @return Sequence
+		 */
+		public Sequence fetch() {
+			Sequence result = this.get(Integer.MAX_VALUE);
+			
+			close();
+			return result;
 		}
 		
 		public DataStruct getDataStruct()
@@ -2395,6 +2438,16 @@ public class SimpleJoin
 			}
 			
 			return tab;
+		}
+		/**
+		 * 返回剩余的记录并关闭游标
+		 * @return Sequence
+		 */
+		public Sequence fetch() {
+			Sequence result = this.get(Integer.MAX_VALUE);
+			
+			close();
+			return result;
 		}
 		
 		public DataStruct getDataStruct()
