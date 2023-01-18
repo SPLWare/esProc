@@ -6,6 +6,8 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Writer;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 import java.util.StringTokenizer;
 
@@ -656,10 +658,66 @@ public class XMLFile {
 		return true;
 	}
 
+	/**
+	 * 解析XML
+	 * @param is
+	 * @return
+	 * @throws Exception
+	 */
 	public static Document parseXml(InputStream is) throws Exception {
 		DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory
 				.newInstance();
 		DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();
 		return docBuilder.parse(is);
 	}
+
+	/**
+	 * 按名称取子节点
+	 * @param parent
+	 * @param childName
+	 * @return
+	 */
+	public static Element getChild(Node parent, String childName) {
+		NodeList list = parent.getChildNodes();
+		if (list == null) {
+			return null;
+		}
+		Node node;
+		for (int i = 0; i < list.getLength(); i++) {
+			node = list.item(i);
+			if (node != null && node.getNodeType() == Node.ELEMENT_NODE) {
+				if (childName.equalsIgnoreCase(node.getNodeName())) {
+					return (Element) node;
+				}
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * 按名字取多个子节点
+	 * @param parent
+	 * @param childName
+	 * @return
+	 */
+	public static List<Element> getChildren(Node parent, String childName) {
+		NodeList list = parent.getChildNodes();
+		if (list == null) {
+			return null;
+		}
+		List<Element> childList = new ArrayList<Element>();
+		Node node;
+		for (int i = 0; i < list.getLength(); i++) {
+			node = list.item(i);
+			if (node != null && node.getNodeType() == Node.ELEMENT_NODE) {
+				if (childName.equalsIgnoreCase(node.getNodeName())) {
+					childList.add((Element) node);
+				}
+			}
+		}
+		if (childList.isEmpty())
+			return null;
+		return childList;
+	}
+
 }
