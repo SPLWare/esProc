@@ -217,6 +217,14 @@ public class FileObject implements Externalizable {
 	}
 	
 	/**
+	 * 取创建文件时指定的选项
+	 * @return
+	 */
+	public String getOption() {
+		return opt;
+	}
+
+	/**
 	 * 设置选项
 	 * @param opt
 	 */

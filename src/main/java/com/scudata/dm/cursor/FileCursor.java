@@ -160,6 +160,22 @@ public class FileCursor extends ICursor {
 		this.fmts = fmts;
 	}
 	
+	/**
+	 * 取文件游标对应的文件对象
+	 * @return FileObject
+	 */
+	public FileObject getFileObject() {
+		return fileObject;
+	}
+
+	/**
+	 * 取游标的选项
+	 * @return String
+	 */
+	public String getOption() {
+		return opt;
+	}
+
 	private LineImporter open() {
 		if (importer != null) {
 			return importer;
