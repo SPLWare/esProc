@@ -43,7 +43,7 @@ public class New extends Function {
 		for (int i = 0; i < colCount; ++i) {
 			if (names[i] == null || names[i].length() == 0) {
 				if (exps[i] != null) {
-					names[i] = exps[i].getIdentifierName();
+					names[i] = exps[i].getFieldName();
 				}
 			}
 		}

@@ -158,6 +158,7 @@ public class Iterate extends Gather {
 
 	public Object calculate(Context ctx) {
 		if (valParam == null) {
+			// 初次执行
 			prepare(param, ctx);
 			
 			Object oldVal = valParam.getValue();
@@ -179,31 +180,49 @@ public class Iterate extends Gather {
 			valParam.setValue(oldVal);
 		} else {
 			Object oldVal = valParam.getValue();
-			if (gexps == null) {
-				valParam.setValue(prevVal);
-			} else {
-				boolean isSame = true;
-				int gcount = gexps.length;
-				for (int i = 0; i < gcount; ++i) {
-					Object val = gexps[i].calculate(ctx);
-					if (!Variant.isEquals(prevGroupVals[i], val)) {
-						isSame = false;
-						prevGroupVals[i] = val;
-						
-						for (++i; i < gcount; ++i) {
-							prevGroupVals[i] = gexps[i].calculate(ctx);
-						}
-						
-						break;
-					}
-				}
-				
-				if (isSame) {
-					valParam.setValue(prevVal);
-				} else if (initExp == null) {
+			Current current = ctx.getComputeStack().getTopCurrent();
+
+			// 判断栈顶的序列的当前序号是否是1，如果是则设置初始值
+			if (current != null && current.getCurrentIndex() == 1) {
+				if (initExp == null) {
 					valParam.setValue(null);
 				} else {
 					valParam.setValue(initExp.calculate(ctx));
+				}
+				
+				if (gexps != null) {
+					int gcount = gexps.length;
+					for (int i = 0; i < gcount; ++i) {
+						prevGroupVals[i] = gexps[i].calculate(ctx);
+					}
+				}
+			} else {
+				if (gexps == null) {
+					valParam.setValue(prevVal);
+				} else {
+					boolean isSame = true;
+					int gcount = gexps.length;
+					for (int i = 0; i < gcount; ++i) {
+						Object val = gexps[i].calculate(ctx);
+						if (!Variant.isEquals(prevGroupVals[i], val)) {
+							isSame = false;
+							prevGroupVals[i] = val;
+							
+							for (++i; i < gcount; ++i) {
+								prevGroupVals[i] = gexps[i].calculate(ctx);
+							}
+							
+							break;
+						}
+					}
+					
+					if (isSame) {
+						valParam.setValue(prevVal);
+					} else if (initExp == null) {
+						valParam.setValue(null);
+					} else {
+						valParam.setValue(initExp.calculate(ctx));
+					}
 				}
 			}
 			
