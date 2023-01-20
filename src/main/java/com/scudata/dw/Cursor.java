@@ -2912,6 +2912,9 @@ public class Cursor extends IDWCursor {
 					}
 					
 					if (count + recordCount == n) {
+						for (int f = 0; f < colCount; ++f) {
+							colReaders[f].readBlockData(positions[f], recordCount);
+						}
 						this.curBlock = curBlock;
 						return n;
 					} else if (count + recordCount > n) {
@@ -2972,9 +2975,8 @@ public class Cursor extends IDWCursor {
 				
 				rest -= data.length();
 			}
+			return count;
 		}
-
-		return count;
 	}
 	
 	public void close() {
