@@ -29,7 +29,7 @@ public class MergesCursor extends ICursor {
 	/** 多路游标，游标归并规则。 **/
 	private char type = 'c'; // c:conj  u:union  i:isect  d:diff x:xor
 	/** 数据缓冲区，缓冲各路游标的数据 **/
-	private Sequence []tables;	// 数据缓冲区，用于缓冲各个yo
+	private Sequence []tables;	// 数据缓冲区，用于缓冲各个游标
 	/** 当前数据根据表达式的计算结果 **/
 	private Object [][]values;
 	/** 当前处理的数据在各自缓冲区的索引 **/
@@ -352,8 +352,7 @@ public class MergesCursor extends ICursor {
 	}
 	
 	/**
-	 * 填充各个游标的缓冲区
-	 * 		若缓冲区内有数据则直接返回。
+	 * 填充各个游标的缓冲区，若缓冲区内有数据则直接返回。
 	 */
 	private void getData() {
 		if (tables != null) return;
