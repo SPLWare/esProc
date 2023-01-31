@@ -2,6 +2,7 @@ package com.scudata.dm;
 
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.RandomAccessFile;
 
 /**
  * 文件接口
@@ -80,4 +81,10 @@ public interface IFile {
 	 * @return String 返回绝对路径文件名
 	 */
 	String createTempFile(String prefix);
+	
+	/**
+	 * 取随机访问文件对象，如果不支持则返回null
+	 * @return RandomAccessFile
+	 */
+	RandomAccessFile getRandomAccessFile();
 }

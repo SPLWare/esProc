@@ -1,10 +1,7 @@
 package com.scudata.expression.mfn.file;
 
-import java.io.File;
-
 import com.scudata.dm.Context;
 import com.scudata.dw.ComTable;
-import com.scudata.dw.PhyTable;
 import com.scudata.expression.FileFunction;
 import com.scudata.parallel.ClusterFile;
 
@@ -26,16 +23,7 @@ public class Open extends FileFunction {
 			ClusterFile cf = new ClusterFile(host, port, fileName, p, ctx);
 			return cf.openGroupTable(ctx);
 		} else {
-			// 本地文件
-			File f = file.getLocalFile().file();
-			PhyTable table = ComTable.openBaseTable(f, ctx);
-			
-			Integer partition = file.getPartition();
-			if (partition != null && partition.intValue() > 0) {
-				table.getGroupTable().setPartition(partition);
-			}
-			
-			return table;
+			return ComTable.openBaseTable(file, ctx);
 		}
 	}
 }

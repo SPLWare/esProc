@@ -13,6 +13,7 @@ import java.io.InputStreamReader;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 import java.io.OutputStream;
+import java.io.RandomAccessFile;
 import java.nio.channels.FileChannel;
 import java.nio.channels.FileLock;
 import java.nio.channels.OverlappingFileLockException;
@@ -1513,5 +1514,13 @@ public class FileObject implements Externalizable {
 		FileObject fo = new FileObject();
 		fo.setIsSimpleSQL(true);
 		return fo;
+	}
+	
+	/**
+	 * 取随机访问文件对象，如果不支持则返回null
+	 * @return RandomAccessFile
+	 */
+	public RandomAccessFile getRandomAccessFile() {
+		return getFile().getRandomAccessFile();
 	}
 }

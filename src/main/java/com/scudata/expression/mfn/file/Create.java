@@ -79,8 +79,6 @@ public class Create extends FileFunction {
 			int p = partition == null ? -1 : partition.intValue();
 			ClusterFile cf = new ClusterFile(host, port, fileName, p, ctx);
 			return cf.createGroupTable(cols, distributeExp, option, ctx);
-		} else {
-			
 		}
 		
 		FileObject fo = file;

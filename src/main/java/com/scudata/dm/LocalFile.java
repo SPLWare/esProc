@@ -675,4 +675,17 @@ public class LocalFile implements IFile {
 	public Integer getPartition() {
 		return partition;
 	}
+	
+	/**
+	 * 取随机访问文件对象，如果不支持则返回null
+	 * @return RandomAccessFile
+	 */
+	public RandomAccessFile getRandomAccessFile() {
+		File file = file();
+		try {
+			return new RandomAccessFile(file, "rw");
+		} catch (FileNotFoundException e) {
+			throw new RQException(e.getMessage(), e);
+		}
+	}
 }

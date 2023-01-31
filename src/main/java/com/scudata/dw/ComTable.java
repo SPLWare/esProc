@@ -13,6 +13,8 @@ import com.scudata.dm.Context;
 import com.scudata.dm.DataStruct;
 import com.scudata.dm.FileGroup;
 import com.scudata.dm.FileObject;
+import com.scudata.dm.IFile;
+import com.scudata.dm.LocalFile;
 import com.scudata.dm.LongArray;
 import com.scudata.dm.cursor.ICursor;
 import com.scudata.resources.EngineMessage;
@@ -102,7 +104,9 @@ abstract public class ComTable implements IBlockStorage {
 	 * @return
 	 */
 	public ComTable getSupplement(boolean isCreate) {
-		if (sfGroupTable == null) {
+		if (file == null) {
+			return null;
+		} else if (sfGroupTable == null) {
 			File sf = getSupplementFile(file);
 			if (sf.exists()) {
 				try {
@@ -184,6 +188,48 @@ abstract public class ComTable implements IBlockStorage {
 		} catch (IOException e) {
 			throw new RQException(e.getMessage(), e);
 		}
+	}
+	
+	/**
+	 * 打开基表
+	 * @param file
+	 * @param ctx
+	 * @return
+	 */
+	public static PhyTable openBaseTable(FileObject fo, Context ctx) {
+		IFile ifile = fo.getFile();
+		if (!ifile.exists()) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException(mm.getMessage("file.fileNotExist", fo.getFileName()));
+		}
+		
+		ComTable comTable;
+		RandomAccessFile raf;
+		File file = null;
+		
+		if (ifile instanceof LocalFile) {
+			// 本地文件
+			file = ((LocalFile)ifile).file();
+		}
+		
+		try {
+			raf = ifile.getRandomAccessFile();
+			raf.seek(6);
+			if (raf.read() == 'r') {
+				comTable = new RowComTable(file, raf, ctx);
+			} else {
+				comTable = new ColComTable(file, raf, ctx);
+			}
+		} catch (IOException e) {
+			throw new RQException(e.getMessage(), e);
+		}
+		
+		Integer partition = fo.getPartition();
+		if (partition != null && partition.intValue() > 0) {
+			comTable.setPartition(partition);
+		}
+		
+		return comTable.getBaseTable();
 	}
 
 	/**
@@ -1117,7 +1163,11 @@ abstract public class ComTable implements IBlockStorage {
 	}
 	
 	Object getSyncObject() {
-		return FileSyncManager.getSyncObject(file);
+		if (file != null) {
+			return FileSyncManager.getSyncObject(file);
+		} else {
+			return raf;
+		}
 	}
 	
 	// 取分布表达式串

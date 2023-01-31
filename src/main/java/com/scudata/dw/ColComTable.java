@@ -19,6 +19,21 @@ import com.scudata.resources.EngineMessage;
  *
  */
 public class ColComTable extends ComTable {
+	/**
+	 * 打开已经存在的组表
+	 * @param file
+	 * @param raf
+	 * @param ctx
+	 * @throws IOException
+	 */
+	public ColComTable(File file, RandomAccessFile raf, Context ctx) throws IOException {
+		this.file = file;
+		this.raf = raf;
+		this.ctx = ctx;
+		if (ctx != null) 
+			ctx.addResource(this);
+		readHeader();
+	}
 
 	/**
 	 * 打开已经存在的组表

@@ -593,4 +593,12 @@ public class RemoteFile implements IFile {
 	public boolean deleteDir() {
 		return false;
 	}
+	
+	/**
+	 * 取随机访问文件对象，如果不支持则返回null
+	 * @return RandomAccessFile
+	 */
+	public RandomAccessFile getRandomAccessFile() {
+		return null;
+	}
 }

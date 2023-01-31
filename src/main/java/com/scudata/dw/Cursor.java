@@ -1,5 +1,6 @@
 package com.scudata.dw;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -3159,7 +3160,11 @@ public class Cursor extends IDWCursor {
 	
 	public int hashCode() {
 		ArrayList<String> vals = new ArrayList<String>(10);
-		vals.add(this.table.groupTable.getFile().getName());
+		File file = table.groupTable.getFile();
+		if (file != null) {
+			vals.add(file.getName());
+		}
+		
 		for (ColumnMetaData col : columns) {
 			vals.add(col.getColName());
 		}

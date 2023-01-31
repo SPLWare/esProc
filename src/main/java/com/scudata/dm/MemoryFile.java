@@ -3,6 +3,7 @@ package com.scudata.dm;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.RandomAccessFile;
 
 import com.scudata.common.IOUtils;
 import com.scudata.common.RQException;
@@ -232,6 +233,14 @@ public class MemoryFile implements IFile {
 	}
 	
 	public String createTempFile(String prefix) {
+		return null;
+	}
+	
+	/**
+	 * 取随机访问文件对象，如果不支持则返回null
+	 * @return RandomAccessFile
+	 */
+	public RandomAccessFile getRandomAccessFile() {
 		return null;
 	}
 }
