@@ -4905,6 +4905,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			if (opt.indexOf('a') != -1)isAll = true;
 			if (opt.indexOf('z') != -1)isFirst = false;
 			if (opt.indexOf('n') != -1)isNull = false;
+			if (opt.indexOf('0') != -1)isZero = true;
 			if (opt.indexOf('b') != -1)isSorted = true;
 			if (opt.indexOf('s') != -1) {
 				isSorted = true;
