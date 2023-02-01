@@ -1,5 +1,10 @@
 package com.scudata.dw;
 
+import com.scudata.array.BoolArray;
+import com.scudata.array.IArray;
+import com.scudata.dm.Context;
+import com.scudata.expression.Relation;
+
 public class ColumnOr extends IFilter {
 	private ColumnsOr or;
 	private int i;
@@ -69,5 +74,60 @@ public class ColumnOr extends IFilter {
 	// 是否是多字段or
 	public boolean isMultiFieldOr() {
 		return true;
+	}
+	
+	public IArray calculateAll(Context ctx) {
+		if (i == 0) {
+			or.signArray = (BoolArray) filter.calculateAll(ctx);
+			return new BoolArray(true, or.signArray.size());//此时必须返回全true
+		} else {
+			BoolArray signArray = or.signArray;
+			int size = signArray.size();
+			boolean hasFalse = false;
+			for (int i = 1; i <= size; i++) {
+				if (signArray.isFalse(i)) {
+					hasFalse = true;
+					break;
+				}
+			}
+			
+			if (hasFalse) {
+				BoolArray newSignArray = (BoolArray) filter.calculateAll(ctx);
+				or.signArray = signArray.calcRelation(newSignArray, Relation.OR);
+				if (lastCol) {
+					return or.signArray;
+				} else {
+					return new BoolArray(true, or.signArray.size());//此时必须返回全true
+				}
+			} else {
+				return signArray;
+			}
+		}
+	}
+	
+	public IArray calculateAnd(Context ctx, IArray leftResult) {
+		return calculateAll(ctx);//ColumnsOr时，不是与的关系
+	}
+	
+	public int isValueRangeMatch(Context ctx) {
+		if (i == 0) {
+			or.sign = filter.isValueRangeMatch(ctx) >= 0;
+			return 0;
+		} else {
+			if (or.sign) {
+				return 0;
+			} else {
+				if (filter.isValueRangeMatch(ctx) >= 0) {
+					or.sign = true;
+					return 0;
+				} else {
+					if (lastCol) {
+						return -1;
+					} else {
+						return 0;
+					}
+				}
+			}
+		}
 	}
 }
