@@ -11,6 +11,8 @@ import com.scudata.dm.Sequence;
 import com.scudata.dm.comparator.BaseComparator;
 import com.scudata.dm.cursor.ICursor;
 import com.scudata.expression.Expression;
+import com.scudata.expression.fn.gather.ICount.ICountBitSet;
+import com.scudata.expression.fn.gather.ICount.ICountPositionSet;
 import com.scudata.util.HashUtil;
 
 /**
@@ -19,33 +21,54 @@ import com.scudata.util.HashUtil;
  *
  */
 public class IDResult implements IResult {
+	
 	private Expression[] exps; // 去重字段表达式数组
 	private int count; // 保留的结果数量，省略保留所有
 	private String opt;
 	private Context ctx; // 计算上下文
 	
+	private boolean optB;
+	private boolean optN;
+	
 	private HashUtil hashUtil; // 提供哈希运算的哈希类
 	private ListBase1 [][]allGroups; // 哈希表
 	private Sequence []outs;
-
+	
+	private ICountBitSet bitSet;
+	private ICountPositionSet posSet;
+	
 	public IDResult(Expression []exps, int count, String opt, Context ctx) {
 		this.exps = exps;
 		this.count = count;
 		this.opt = opt;
 		this.ctx = ctx;
 		
+		if (opt != null) {
+			 optB = opt.indexOf('b') != -1;
+			 optN = opt.indexOf('n') != -1;
+		}
+		
 		if (count == Integer.MAX_VALUE) {
 			count = Env.getDefaultHashCapacity();
 		}
 		
-		hashUtil = new HashUtil(count);
 		int fcount = exps.length;
-		outs = new Sequence[fcount];
-		allGroups = new ListBase1[fcount][];
+		if (optB) {
+			bitSet = new ICountBitSet();
+		} else if (optN) {
+			posSet = new ICountPositionSet();
+		} else {
+			hashUtil = new HashUtil(count);
+			allGroups = new ListBase1[fcount][];
 
+			for (int i = 0; i < fcount; ++i) {
+				allGroups[i] = new ListBase1[hashUtil.getCapacity()];
+			}
+		}
+
+		outs = new Sequence[fcount];
 		for (int i = 0; i < fcount; ++i) {
 			outs[i] = new Sequence(count);
-			allGroups[i] = new ListBase1[hashUtil.getCapacity()];
 		}
 	}
 
@@ -98,11 +121,27 @@ public class IDResult implements IResult {
 	 */
 	public void push(ICursor cursor) {
 		Context ctx = this.ctx;
-		while (true) {
-			Sequence src = cursor.fuzzyFetch(ICursor.FETCHCOUNT);
-			if (src == null || src.length() == 0) break;
-			
-			addGroups(src, ctx);
+		if (optB) {
+			while (true) {
+				Sequence src = cursor.fuzzyFetch(ICursor.FETCHCOUNT);
+				if (src == null || src.length() == 0) break;
+				
+				addGroups_b(src, ctx);
+			}
+		} else if (optN) {
+			while (true) {
+				Sequence src = cursor.fuzzyFetch(ICursor.FETCHCOUNT);
+				if (src == null || src.length() == 0) break;
+				
+				addGroups_n(src, ctx);
+			}
+		} else {
+			while (true) {
+				Sequence src = cursor.fuzzyFetch(ICursor.FETCHCOUNT);
+				if (src == null || src.length() == 0) break;
+				
+				addGroups(src, ctx);
+			}
 		}
 	}
 	
@@ -154,6 +193,77 @@ public class IDResult implements IResult {
 		}
 	}
 
+	private void addGroups_b(Sequence table, Context ctx) {
+		ICountBitSet set = this.bitSet;
+		Sequence []outs = this.outs;
+		
+		Expression[] exps = this.exps;
+		int count = this.count;
+		int fcount = exps.length;
+
+		ComputeStack stack = ctx.getComputeStack();
+		Current current = new Current(table);
+		stack.push(current);
+
+		try {
+			for (int i = 1, len = table.length(); i <= len; ++i) {
+				current.setCurrent(i);
+				boolean sign = false;
+				for (int f = 0; f < fcount; ++f) {
+					Sequence out = outs[f];
+					if (out.length() < count) {
+						sign = true;
+						Object val = exps[f].calculate(ctx);
+						if (val instanceof Number && set.add(((Number)val).intValue())) {
+							out.add(val);
+						}
+					}
+				}
+				
+				if (!sign) {
+					break;
+				}
+			}
+		} finally {
+			stack.pop();
+		}
+	}
+	
+	private void addGroups_n(Sequence table, Context ctx) {
+		ICountPositionSet set = this.posSet;
+		Sequence []outs = this.outs;
+		
+		Expression[] exps = this.exps;
+		int count = this.count;
+		int fcount = exps.length;
+
+		ComputeStack stack = ctx.getComputeStack();
+		Current current = new Current(table);
+		stack.push(current);
+
+		try {
+			for (int i = 1, len = table.length(); i <= len; ++i) {
+				current.setCurrent(i);
+				boolean sign = false;
+				for (int f = 0; f < fcount; ++f) {
+					Sequence out = outs[f];
+					if (out.length() < count) {
+						sign = true;
+						Object val = exps[f].calculate(ctx);
+						if (val instanceof Number && set.add(((Number)val).intValue())) {
+							out.add(val);
+						}
+					}
+				}
+				
+				if (!sign) {
+					break;
+				}
+			}
+		} finally {
+			stack.pop();
+		}
+	}
 	/**
 	 * 不支持并行运算
 	 */
