@@ -9709,6 +9709,25 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @param calcNames String[] 汇总字段在结果序表中的字段名
 	 * @param opt String o：只和相邻的对比，n：分组表达式取值为组号，u：结果集不排序，h：先排序再用@o计算
 	 * @param ctx Context
+	 * @param hashCapacity hash空间长度
+	 * @return Table
+	 */
+	public Table groups(Expression[] exps, String[] names, Expression[] calcExps,
+			String[] calcNames, String opt, Context ctx, int hashCapacity) {
+		if (opt != null && opt.indexOf('z') != -1) {
+			throw new RuntimeException();
+		}
+		return groups(exps, names, calcExps, calcNames, opt, ctx);
+	}
+	
+	/**
+	 * 分组统计
+	 * @param exps Expression[] 分组表达式
+	 * @param names String[] 分组字段在结果序表中的字段名
+	 * @param calcExps Expression[] 汇总表达式
+	 * @param calcNames String[] 汇总字段在结果序表中的字段名
+	 * @param opt String o：只和相邻的对比，n：分组表达式取值为组号，u：结果集不排序，h：先排序再用@o计算
+	 * @param ctx Context
 	 * @return Table
 	 */
 	public Table groups(Expression[] exps, String[] names, Expression[] calcExps,

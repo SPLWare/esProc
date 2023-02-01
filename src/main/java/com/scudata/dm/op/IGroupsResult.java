@@ -1,5 +1,6 @@
 package com.scudata.dm.op;
 
+import com.scudata.array.IntArray;
 import com.scudata.dm.Context;
 import com.scudata.dm.DataStruct;
 import com.scudata.dm.GroupsSyncReader;
@@ -208,6 +209,10 @@ abstract public class IGroupsResult implements IResult {
 	 * @param reader 游标数据
 	 */
 	public void push(GroupsSyncReader reader, int hashStart, int hashEnd) {
+		throw new RuntimeException();
+	}
+	
+	public void push(Sequence table, Object key, IntArray hashValue, int hashStart, int hashEnd) {
 		throw new RuntimeException();
 	}
 	
