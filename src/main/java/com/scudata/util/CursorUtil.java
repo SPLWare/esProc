@@ -41,6 +41,8 @@ import com.scudata.dw.PhyTable;
 import com.scudata.expression.CurrentSeq;
 import com.scudata.expression.Expression;
 import com.scudata.expression.Node;
+import com.scudata.expression.fn.gather.ICount.ICountBitSet;
+import com.scudata.expression.fn.gather.ICount.ICountPositionSet;
 import com.scudata.parallel.ClusterCursor;
 import com.scudata.resources.EngineMessage;
 import com.scudata.thread.GroupsJob;
@@ -533,27 +535,47 @@ public final class CursorUtil {
 		if (len == 0) {
 			return new Sequence();
 		}
-
-		final int INIT_GROUPSIZE = HashUtil.getInitGroupSize();
+		
 		HashUtil hashUtil = new HashUtil(len / 2);
 		Sequence out = new Sequence(len);
-		ListBase1 []groups = new ListBase1[hashUtil.getCapacity()];
-
-		for (int i = 1; i <= len; ++i) {
-			Object item = src.getMem(i);
-			int hash = hashUtil.hashCode(item);
-			if (groups[hash] == null) {
-				groups[hash] = new ListBase1(INIT_GROUPSIZE);
-				groups[hash].add(item);
-				out.add(item);
-			} else {
-				int index = groups[hash].binarySearch(item);
-				if (index < 1) {
-					groups[hash].add(-index, item);
+		
+		if (opt != null && opt.indexOf('n') != -1) {
+			ICountPositionSet set = new ICountPositionSet();
+			for (int i = 1; i <= len; ++i) {
+				Object item = src.getMem(i);
+				if (item instanceof Number && set.add(((Number)item).intValue())) {
 					out.add(item);
 				}
 			}
+		} else if (opt != null && opt.indexOf('b') != -1) {
+			ICountBitSet set = new ICountBitSet();
+			for (int i = 1; i <= len; ++i) {
+				Object item = src.getMem(i);
+				if (item instanceof Number && set.add(((Number)item).intValue())) {
+					out.add(item);
+				}
+			}
+		} else {
+			final int INIT_GROUPSIZE = HashUtil.getInitGroupSize();
+			ListBase1 []groups = new ListBase1[hashUtil.getCapacity()];
+
+			for (int i = 1; i <= len; ++i) {
+				Object item = src.getMem(i);
+				int hash = hashUtil.hashCode(item);
+				if (groups[hash] == null) {
+					groups[hash] = new ListBase1(INIT_GROUPSIZE);
+					groups[hash].add(item);
+					out.add(item);
+				} else {
+					int index = groups[hash].binarySearch(item);
+					if (index < 1) {
+						groups[hash].add(-index, item);
+						out.add(item);
+					}
+				}
+			}
 		}
+
 
 		if (opt == null || opt.indexOf('u') == -1) {
 			Comparator<Object> comparator = new BaseComparator();
