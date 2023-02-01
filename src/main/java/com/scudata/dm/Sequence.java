@@ -48,6 +48,8 @@ import com.scudata.expression.Gather;
 import com.scudata.expression.Node;
 import com.scudata.expression.UnknownSymbol;
 import com.scudata.expression.ValueList;
+import com.scudata.expression.fn.gather.ICount.ICountBitSet;
+import com.scudata.expression.fn.gather.ICount.ICountPositionSet;
 import com.scudata.expression.operator.And;
 import com.scudata.expression.operator.DotOperator;
 import com.scudata.expression.operator.Equals;
@@ -2560,7 +2562,27 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	public int icount(String opt) {
 		IArray mems = getMems();
 		int size = mems.size();
-		if (opt == null || opt.indexOf('o') == -1) {
+		if (opt != null && opt.indexOf('b') != -1) {
+			ICountBitSet  set = new ICountBitSet();
+			for (int i = 1; i <= size; ++i) {
+				Object obj = mems.get(i);
+				if (Variant.isTrue(obj) && obj instanceof Number) {
+					set.add(((Number)obj).intValue());
+				}
+			}
+			
+			return set.size();
+		} else if (opt != null && opt.indexOf('n') != -1) {
+			ICountPositionSet  set = new ICountPositionSet();
+			for (int i = 1; i <= size; ++i) {
+				Object obj = mems.get(i);
+				if (Variant.isTrue(obj) && obj instanceof Number) {
+					set.add(((Number)obj).intValue());
+				}
+			}
+			
+			return set.size();
+		} else if (opt == null || opt.indexOf('o') == -1) {
 			HashSet<Object> set = new HashSet<Object>(size);
 			for (int i = 1; i <= size; ++i) {
 				Object obj = mems.get(i);

@@ -205,6 +205,7 @@ public class ICount extends Gather {
 		}
 	}
 	
+	//按bit位判断是否重复
 	public static class ICountBitSet implements Serializable {
 		private static final long serialVersionUID = 1L;
 		
@@ -224,10 +225,10 @@ public class ICount extends Gather {
 		public boolean add(int num) {
 			//IntArray elementArray = this.elementArray;
 			int idx = (num / 64);
-			long bit = (1L << (num % 8));
+			long bit = (1L << (num % 64));
 			
 			long[] bitArray = this.bitArray;
-			if (idx > bitArray.length) {
+			if (idx >= bitArray.length) {
 				int newSize = idx + idx / 3;
 				long[] newBitArray = new long[newSize];
 				System.arraycopy(bitArray, 0, newBitArray, 0, bitArray.length);
@@ -310,6 +311,64 @@ public class ICount extends Gather {
 		public void addAll(ICountBitSet set) {
 			long[] newBits = set.bitArray;
 			addAll(newBits);
+		}
+	}
+	
+	//用位置判断是否重复
+	public static class ICountPositionSet implements Serializable {
+		private static final long serialVersionUID = 1L;
+		
+		private static final int INIT_SIZE = 65536;
+		private int count = 0;
+		private boolean[] posArray;
+		
+		public ICountPositionSet() {
+			posArray = new boolean[INIT_SIZE];
+		}
+		
+		public boolean add(int num) {
+			boolean[] posArray = this.posArray;
+			if (num >= posArray.length) {
+				int newSize = num + num / 3;
+				boolean[] newPosArray = new boolean[newSize];
+				System.arraycopy(posArray, 0, newPosArray, 0, posArray.length);
+				posArray = this.posArray = newPosArray;
+			}
+			
+			if (posArray[num]) {
+				return false;
+			} else {
+				posArray[num] = true;
+				count++;
+			}
+			
+			return true;
+		}
+		
+		public boolean add(IArray array, int index) {
+			int num = array.getInt(index);
+			
+			boolean[] posArray = this.posArray;
+			if (num >= posArray.length) {
+				int newSize = num + num / 3;
+				boolean[] newPosArray = new boolean[newSize];
+				System.arraycopy(posArray, 0, newPosArray, 0, posArray.length);
+				posArray = this.posArray = newPosArray;
+			}
+			
+			if (posArray[num]) {
+				return false;
+			} else {
+				posArray[num] = true;
+				count++;;
+			}
+			
+			return true;
+		}
+		
+		
+		public int size() {
+			return count;
 		}
 	}
 	
