@@ -77,16 +77,22 @@ public class IDResult implements IResult {
 	 * @return Sequence
 	 */
 	public Sequence getResultSequence() {
+		Sequence result;
 		if (exps.length == 1) {
 			if (opt == null || opt.indexOf('u') == -1) {
 				Comparator<Object> comparator = new BaseComparator();
 				outs[0].getMems().sort(comparator);
 			}
 			
-			return outs[0];
+			result = outs[0];
 		} else {
-			return new Sequence(outs);
+			result = new Sequence(outs);
 		}
+		
+		if (opt != null && opt.indexOf('0') != -1) {
+			result.deleteNull(false);
+		}
+		return result;
 	}
 	
 	/**

@@ -23,7 +23,11 @@ public class Id extends SequenceFunction {
 		} else if (param.isLeaf()) {
 			Expression exp = param.getLeafExpression();
 			Sequence series = srcSequence.calc(exp, ctx);
-			return series.id(option);
+			series = series.id(option);
+			if (option != null && option.indexOf('0') != -1) {
+				series.deleteNull(false);
+			}
+			return series;
 		}
 		
 		// 没有设置n参数则取出所有
