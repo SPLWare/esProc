@@ -536,6 +536,10 @@ public final class CursorUtil {
 			return new Sequence();
 		}
 		
+		if (opt != null && opt.indexOf('m') != -1) {
+			return MultithreadUtil.hashId(src, opt);
+		}
+		
 		HashUtil hashUtil = new HashUtil(len / 2);
 		Sequence out = new Sequence(len);
 		

@@ -15,6 +15,7 @@ import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
 import com.scudata.expression.Expression;
 import com.scudata.resources.EngineMessage;
+import com.scudata.util.CursorUtil;
 import com.scudata.util.Variant;
 
 /**
@@ -1152,5 +1153,54 @@ public final class MultithreadUtil {
 				dest[i] = src[q++];
 			}
 		}
+	}
+	
+	/**
+	 * 多线程对序列进行HASH去重
+	 * @param src 源序列
+	 * @param opt 选项
+	 * @return 结果集序表
+	 */
+	public static Sequence hashId(Sequence src, String opt) {
+		int len = src.length();
+		int parallelNum = getParallelNum();
+
+		if (len <= SINGLE_PROSS_COUNT || parallelNum < 2) {
+			opt = opt.replace('m', ' ');
+			return CursorUtil.hashId(src, opt);
+		}
+
+		int threadCount = (len - 1) / SINGLE_PROSS_COUNT + 1;
+		if (threadCount > parallelNum) {
+			threadCount = parallelNum;
+		}
+		
+		ThreadPool pool = ThreadPool.instance();
+		int singleCount = len / threadCount;
+		HashIdJob []jobs = new HashIdJob[threadCount];
+		
+		int start = 1;
+		int end; // 不包括
+		for (int i = 0; i < threadCount; ++i) {
+			if (i + 1 == threadCount) {
+				end = len + 1;
+			} else {
+				end = start + singleCount;
+			}
+
+			jobs[i] = new HashIdJob(src, start, end, opt);
+			pool.submit(jobs[i]); // 提交任务
+			start = end;
+		}
+
+		// 等待任务执行完毕并取出结果
+		Sequence result = new Sequence(len);
+		for (int i = 0; i < threadCount; ++i) {
+			jobs[i].join();
+			jobs[i].getResult(result);
+		}
+		
+		opt = opt.replace('m', ' ');
+		return CursorUtil.hashId(result, opt);
 	}
 }
