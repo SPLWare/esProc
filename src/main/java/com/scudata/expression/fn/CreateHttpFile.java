@@ -14,8 +14,9 @@ import com.scudata.resources.EngineMessage;
 
 /**
  * 将url的返回结果封装成文件流
- * httpfile(url:cs, post:cs, content; property:value,....)
- * httpfile(url:cs,post:cs)httpfile(url,post,contenttype)
+ * httpfile(url:cs, post:cs:method, content; property:value,....)
+ * httpfile(url:cs, post:cs:method)
+ * httpfile(url,post,contenttype)
  * @author runqian
  *
  */
@@ -146,6 +147,7 @@ public class CreateHttpFile extends Function {
 		if (postParam != null) {
 			String post = null;
 			String pcs = null;
+			String method = null;
 			if (postParam.isLeaf()) {
 				Object obj = postParam.getLeafExpression().calculate(ctx);
 				if (!(obj instanceof String)) {
@@ -155,7 +157,7 @@ public class CreateHttpFile extends Function {
 
 				post = (String)obj;
 			} else {
-				if (postParam.getSubSize() != 2) {
+				if (postParam.getSubSize() > 3) {
 					MessageManager mm = EngineMessage.get();
 					throw new RQException("httpfile" + mm.getMessage("function.invalidParam"));
 				}
@@ -181,9 +183,21 @@ public class CreateHttpFile extends Function {
 
 					pcs = (String)csObj;
 				}
+				
+				if( postParam.getSubSize() == 3 ) {
+					IParam sub2 = postParam.getSub(2);
+					if (sub2 != null) {
+						Object mObj = sub2.getLeafExpression().calculate(ctx);
+						if (!(mObj instanceof String)) {
+							MessageManager mm = EngineMessage.get();
+							throw new RQException("httpfile" + mm.getMessage("function.paramTypeError"));
+						}
+						method = (String)mObj;
+					}
+				}
 			}
 			
-			file.setPostParams(post, pcs);
+			file.setPostParams(post, pcs, method);
 		}
 		
 		if (headerParam != null) {
