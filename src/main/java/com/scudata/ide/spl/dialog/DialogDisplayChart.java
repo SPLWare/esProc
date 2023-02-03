@@ -39,7 +39,7 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import org.apache.batik.anim.dom.SAXSVGDocumentFactory;
+import org.apache.batik.dom.svg.SAXSVGDocumentFactory;
 import org.apache.batik.dom.svg.SVGDocumentFactory;
 import org.apache.batik.swing.JSVGCanvas;
 import org.w3c.dom.svg.SVGDocument;
