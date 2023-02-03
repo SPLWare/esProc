@@ -9715,7 +9715,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	public Table groups(Expression[] exps, String[] names, Expression[] calcExps,
 			String[] calcNames, String opt, Context ctx, int hashCapacity) {
 		if (opt != null && opt.indexOf('z') != -1) {
-			throw new RuntimeException();
+			return CursorUtil.groups_z(this, exps, names, calcExps, calcNames, opt, ctx, hashCapacity);
 		}
 		return groups(exps, names, calcExps, calcNames, opt, ctx);
 	}
