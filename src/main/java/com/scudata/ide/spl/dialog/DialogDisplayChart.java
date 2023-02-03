@@ -39,7 +39,7 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import org.apache.batik.dom.svg.SAXSVGDocumentFactory;
+import org.apache.batik.anim.dom.SAXSVGDocumentFactory;
 import org.apache.batik.dom.svg.SVGDocumentFactory;
 import org.apache.batik.swing.JSVGCanvas;
 import org.w3c.dom.svg.SVGDocument;
@@ -80,7 +80,7 @@ public class DialogDisplayChart extends JDialog {
 	public static String MAX = "max";
 	public static String MIN = "min";
 
-	private Engine engine = null, animateEngine=null;
+	private Engine engine = null, animateEngine = null;
 	private ImageIcon ii = null;
 	private byte[] imageBytes = null;
 
@@ -97,26 +97,28 @@ public class DialogDisplayChart extends JDialog {
 	private JComboBox<String> cbValue = new JComboBox<String>();
 	private JLabel labelAccumulate = new JLabel("聚合函数");
 	private JComboBoxEx cbAccumulate = new JComboBoxEx();
-	
+
 	private JButton settings = new JButton("设置");
 	private Table data = null;
 	int sliderScale = 1;
-	private HashMap<String,Object> properties = new HashMap<String,Object>();
-	
+	private HashMap<String, Object> properties = new HashMap<String, Object>();
+
 	MessageManager splMM = IdeSplMessage.get();
 	MessageManager mm = ChartMessage.get();
-	
+
 	/************动画****************/
 	private JLabel labelFrameCount = new JLabel("动画帧数");
 	int defCount = 24;
-	private JSpinner spFrameCount = new JSpinner(new SpinnerNumberModel(defCount,2, 10240, 1));
+	private JSpinner spFrameCount = new JSpinner(new SpinnerNumberModel(
+			defCount, 2, 10240, 1));
 	private JLabel labelFrameDelay = new JLabel("帧间延时(毫秒)");
-	private JSpinner spFrameDelay = new JSpinner(new SpinnerNumberModel(100,10, 10000, 10));
+	private JSpinner spFrameDelay = new JSpinner(new SpinnerNumberModel(100,
+			10, 10000, 10));
 	private JCheckBox cbLoop = new JCheckBox("循环");
-	JSlider slider = new JSlider( JSlider.HORIZONTAL,1,defCount,1 );
-	private JButton play= new JButton("播放");
+	JSlider slider = new JSlider(JSlider.HORIZONTAL, 1, defCount, 1);
+	private JButton play = new JButton("播放");
 	boolean stop = false;
-	
+
 	/**
 	 * 构造函数
 	 * @param imageBytes 图像数据
@@ -146,7 +148,7 @@ public class DialogDisplayChart extends JDialog {
 		super(GV.appFrame, "Chart Display", true);
 		try {
 			this.engine = new Engine(canvas.getChartElements());
-			if(engine.isAnimate()){
+			if (engine.isAnimate()) {
 				animateEngine = engine;
 				initAnimate();
 			}
@@ -160,7 +162,7 @@ public class DialogDisplayChart extends JDialog {
 			}.start();
 		}
 	}
-	
+
 	/**
 	 * 构造函数
 	 * @param data 数据表
@@ -198,15 +200,19 @@ public class DialogDisplayChart extends JDialog {
 		close.setText(splMM.getMessage("button.close")); // 关闭
 		saveAs.setText(splMM.getMessage("button.saveas")); // 另存为
 		copy.setText(splMM.getMessage("button.copy")); // 复制
-		labelGraphType.setText(splMM.getMessage("dialogdisplaychart.graphType"));
+		labelGraphType
+				.setText(splMM.getMessage("dialogdisplaychart.graphType"));
 		labelCategory.setText(splMM.getMessage("dialogdisplaychart.category"));
 		labelSeries.setText(splMM.getMessage("dialogdisplaychart.series"));
 		labelValue.setText(splMM.getMessage("dialogdisplaychart.value"));
-		labelAccumulate.setText(splMM.getMessage("dialogdisplaychart.accumulate"));
+		labelAccumulate.setText(splMM
+				.getMessage("dialogdisplaychart.accumulate"));
 		settings.setText(splMM.getMessage("dialogdisplaychart.settings"));
 
-		labelFrameCount.setText(splMM.getMessage("dialogdisplaychart.framecount"));
-		labelFrameDelay.setText(splMM.getMessage("dialogdisplaychart.frameDelay"));
+		labelFrameCount.setText(splMM
+				.getMessage("dialogdisplaychart.framecount"));
+		labelFrameDelay.setText(splMM
+				.getMessage("dialogdisplaychart.frameDelay"));
 		cbLoop.setText(splMM.getMessage("dialogdisplaychart.loop"));
 		play.setText(splMM.getMessage("dialogdisplaychart.play"));
 	}
@@ -227,32 +233,32 @@ public class DialogDisplayChart extends JDialog {
 		}
 		return null;
 	}
-	
-	private void refresh(){
+
+	private void refresh() {
 		refreshEngine();
 		imageDisplay.repaint();
 	}
 
-	private void refreshAnimate(){
-		int frameCount = (Integer)spFrameCount.getValue();
-		int frameIndex = slider.getValue()-1;
+	private void refreshAnimate() {
+		int frameCount = (Integer) spFrameCount.getValue();
+		int frameIndex = slider.getValue() - 1;
 		engine = animateEngine.getFrameEngine(frameCount, frameIndex);
 		imageDisplay.repaint();
 	}
-	
+
 	/**
 	 * 获取属性映射表
 	 * @return 属性值映射表
 	 */
-	public HashMap<String,Object> getProperties(){
+	public HashMap<String, Object> getProperties() {
 		return properties;
 	}
-	
+
 	/**
 	 * 设置属性值映射表
 	 * @param properties 属性值
 	 */
-	public void setProperties(HashMap<String,Object> properties){
+	public void setProperties(HashMap<String, Object> properties) {
 		this.properties = properties;
 		refresh();
 	}
@@ -274,16 +280,17 @@ public class DialogDisplayChart extends JDialog {
 		String sexp;
 		Sequence tmpSeq;
 		Table tmpData = data;
-		
-		if(isNeedAccumulate()){
+
+		if (isNeedAccumulate()) {
 			String groupExp = getAccumulateExp();
-			String accumuExp = (String)cbAccumulate.x_getSelectedItem()+"("+valueCol+"):"+valueCol;
-			sexp = "A.groups("+groupExp+";"+accumuExp+")";
-			tmpSeq = (Sequence)calculate(sexp);
+			String accumuExp = (String) cbAccumulate.x_getSelectedItem() + "("
+					+ valueCol + "):" + valueCol;
+			sexp = "A.groups(" + groupExp + ";" + accumuExp + ")";
+			tmpSeq = (Sequence) calculate(sexp);
 			tmpData = tmpSeq.derive("o");
 		}
 		int rows = tmpData.length();
-		
+
 		Sequence categoryData = new Sequence();
 		Sequence valueData = new Sequence();
 		BaseRecord rec = tmpData.getRecord(1);
@@ -308,10 +315,10 @@ public class DialogDisplayChart extends JDialog {
 		cp = new ChartParam("values", valueData);
 		graph.add(cp);
 		Iterator<String> it = properties.keySet().iterator();
-		while(it.hasNext()){
+		while (it.hasNext()) {
 			String key = it.next();
 			Object val = properties.get(key);
-			cp = new ChartParam(key,val);
+			cp = new ChartParam(key, val);
 			graph.add(cp);
 		}
 
@@ -333,7 +340,7 @@ public class DialogDisplayChart extends JDialog {
 					}
 				}
 			};
-			if (engine != null && engine.isAnimate() ) {
+			if (engine != null && engine.isAnimate()) {
 				JPanel top = new JPanel(new BorderLayout());
 
 				JPanel tmp = new JPanel(new GridBagLayout());
@@ -342,8 +349,8 @@ public class DialogDisplayChart extends JDialog {
 				tmp.add(labelFrameDelay, GM.getGBC(1, 3));
 				tmp.add(spFrameDelay, GM.getGBC(1, 4, true));
 				tmp.add(cbLoop, GM.getGBC(1, 5));
-				
-				GridBagConstraints gbc = GM.getGBC(2, 1,true);
+
+				GridBagConstraints gbc = GM.getGBC(2, 1, true);
 				gbc.gridwidth = 5;
 				tmp.add(slider, gbc);
 
@@ -361,7 +368,7 @@ public class DialogDisplayChart extends JDialog {
 				tmp.add(cbCategory, GM.getGBC(1, 4, true));
 				tmp.add(labelSeries, GM.getGBC(1, 5));
 				tmp.add(cbSeries, GM.getGBC(1, 6, true));
-				
+
 				tmp.add(labelValue, GM.getGBC(2, 3));
 				tmp.add(cbValue, GM.getGBC(2, 4, true));
 				tmp.add(labelAccumulate, GM.getGBC(2, 5));
@@ -447,25 +454,28 @@ public class DialogDisplayChart extends JDialog {
 				byte[] streamBytes = null;
 				if (engine == null) {
 					streamBytes = imageBytes;
-				}else if(animateEngine!=null){
+				} else if (animateEngine != null) {
 					AnimatedGifEncoder age = new AnimatedGifEncoder();
-					int delay = (Integer)spFrameDelay.getValue();
-					if( cbLoop.isSelected() ){
-						age.setRepeat( delay );
+					int delay = (Integer) spFrameDelay.getValue();
+					if (cbLoop.isSelected()) {
+						age.setRepeat(delay);
 					}
 					try {
 						FileOutputStream fos = new FileOutputStream(saveFile);
-						age.start( fos );
-						age.setDelay( delay );
+						age.start(fos);
+						age.setDelay(delay);
 						int count = slider.getMaximum();
-						for( int i=0; i<=count; i++){
-							Engine tmpe = animateEngine.getFrameEngine(count, i);
-							BufferedImage bi = tmpe.calcBufferedImage(imageDisplay.getWidth(), imageDisplay.getHeight(),
-									Consts.IMAGE_JPG);
+						for (int i = 0; i <= count; i++) {
+							Engine tmpe = animateEngine
+									.getFrameEngine(count, i);
+							BufferedImage bi = tmpe.calcBufferedImage(
+									imageDisplay.getWidth(),
+									imageDisplay.getHeight(), Consts.IMAGE_JPG);
 							age.addFrame(bi);
 						}
 						age.finish();
-						GM.showException(splMM.getMessage("dialogdisplaychart.saveinfo",saveFile));
+						GM.showException(splMM.getMessage(
+								"dialogdisplaychart.saveinfo", saveFile));
 					} catch (Exception x) {
 						GM.showException(x);
 					}
@@ -511,30 +521,30 @@ public class DialogDisplayChart extends JDialog {
 			}
 		});
 		panelEast.add(copy);
-		
-		if(data!=null){
+
+		if (data != null) {
 			panelEast.add(new JLabel(" "));
 			panelEast.add(settings);
-		}else if(engine!=null && engine.isAnimate()){
+		} else if (engine != null && engine.isAnimate()) {
 			panelEast.add(new JLabel(" "));
-			panelEast.add( play );
+			panelEast.add(play);
 		}
 
 		return panelEast;
 	}
 
-	private Object getFirstValid(String field){
+	private Object getFirstValid(String field) {
 		int c = data.length();
-		for(int r=1;r<=c;r++){
+		for (int r = 1; r <= c; r++) {
 			BaseRecord rec = data.getRecord(r);
 			Object tmp = rec.getFieldValue(field);
-			if(tmp!=null){
+			if (tmp != null) {
 				return tmp;
 			}
 		}
 		return null;
 	}
-		
+
 	private void initTable() {
 		Vector<String> code = new Vector<String>();
 		Vector<String> disp = new Vector<String>();
@@ -543,105 +553,105 @@ public class DialogDisplayChart extends JDialog {
 		code.add(AVG);
 		code.add(MAX);
 		code.add(MIN);
-		
+
 		disp.add(mm.getMessage(SUM));
 		disp.add(mm.getMessage(COUNT));
 		disp.add(mm.getMessage(AVG));
 		disp.add(mm.getMessage(MAX));
 		disp.add(mm.getMessage(MIN));
-		
+
 		cbAccumulate.x_setData(code, disp);
-		
+
 		String[] fieldNames = data.dataStruct().getFieldNames();
 		cbSeries.addItem("");
-		for(int i=0;i<fieldNames.length;i++){
+		for (int i = 0; i < fieldNames.length; i++) {
 			String field = fieldNames[i];
 			Object tmp = getFirstValid(field);
-			
+
 			cbCategory.addItem(field);
 			cbSeries.addItem(field);
-			
-			if(tmp instanceof Number){
+
+			if (tmp instanceof Number) {
 				cbValue.addItem(field);
 			}
 		}
-		
-		String defCat = (String)cbCategory.getSelectedItem();
+
+		String defCat = (String) cbCategory.getSelectedItem();
 		int c = cbValue.getItemCount();
-		for(int i=0;i<c;i++){
-			String defVal = (String)cbValue.getItemAt(i);
-			if(!defCat.equals(defVal)){
+		for (int i = 0; i < c; i++) {
+			String defVal = (String) cbValue.getItemAt(i);
+			if (!defCat.equals(defVal)) {
 				cbValue.setSelectedIndex(i);
 				break;
 			}
 		}
-		
-		cbGraphType.addActionListener(new ActionListener(){
+
+		cbGraphType.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				refresh();
 			}
 		});
-		cbCategory.addActionListener(new ActionListener(){
+		cbCategory.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setCategory();
 				refresh();
 			}
 		});
-		cbSeries.addActionListener(new ActionListener(){
+		cbSeries.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setSeries();
 				refresh();
 			}
 		});
-		cbValue.addActionListener(new ActionListener(){
+		cbValue.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setValue();
 				refresh();
 			}
 		});
-		cbAccumulate.addActionListener(new ActionListener(){
+		cbAccumulate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				refresh();
 			}
 		});
-		
+
 		final DialogDisplayChart ddc = this;
-		settings.addActionListener(new ActionListener(){
+		settings.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				DialogGraphEdit dge = new DialogGraphEdit(ddc);
 				dge.setVisible(true);
 			}
 		});
 	}
-	
+
 	private void initAnimate() {
-		spFrameCount.addChangeListener(new ChangeListener(){
+		spFrameCount.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
-				int maximum = (Integer)spFrameCount.getValue();
-				slider.setMaximum(maximum+1);
+				int maximum = (Integer) spFrameCount.getValue();
+				slider.setMaximum(maximum + 1);
 				refreshAnimate();
 			}
 		});
 		final String PLAY = splMM.getMessage("dialogdisplaychart.play");
 		final String STOP = splMM.getMessage("dialogdisplaychart.stop");
-		play.addActionListener(new ActionListener(){
+		play.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(play.getText().equals(PLAY)){
-					Thread animateThread = new Thread(){
-						public void run(){
+				if (play.getText().equals(PLAY)) {
+					Thread animateThread = new Thread() {
+						public void run() {
 							play.setText(STOP);
 							int count = slider.getMaximum();
-							int delay = (Integer)spFrameDelay.getValue();
-							for( int i=0; i<=count; i++){
+							int delay = (Integer) spFrameDelay.getValue();
+							for (int i = 0; i <= count; i++) {
 								slider.setValue(i);
 								try {
 									Thread.sleep(delay);
 								} catch (InterruptedException e) {
 								}
-								if( cbLoop.isSelected() && i==count){
-									i=1;
+								if (cbLoop.isSelected() && i == count) {
+									i = 1;
 								}
-								if(stop){
+								if (stop) {
 									break;
 								}
 							}
@@ -650,78 +660,78 @@ public class DialogDisplayChart extends JDialog {
 						}
 					};
 					animateThread.start();
-				}else{
+				} else {
 					stop = true;
 				}
-				
+
 			}
 		});
-		
-		slider.addChangeListener(new ChangeListener(){
+
+		slider.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				refreshAnimate();
 			}
 		});
 	}
-	
-	private String getAccumulateExp(){
-		//检查当前的分类，系列字段的值是否唯一，不唯一的话，需要聚合统计
-		String sCategory = (String)cbCategory.getSelectedItem();
-		if(sCategory==null){
+
+	private String getAccumulateExp() {
+		// 检查当前的分类，系列字段的值是否唯一，不唯一的话，需要聚合统计
+		String sCategory = (String) cbCategory.getSelectedItem();
+		if (sCategory == null) {
 			return null;
 		}
-		String exp = Escape.addEscAndQuote(sCategory,false);
-		String sSeries = (String)cbSeries.getSelectedItem();
-		if(StringUtils.isValidString(sSeries)){
-			exp += ","+Escape.addEscAndQuote(sSeries,false);
+		String exp = Escape.addEscAndQuote(sCategory, false);
+		String sSeries = (String) cbSeries.getSelectedItem();
+		if (StringUtils.isValidString(sSeries)) {
+			exp += "," + Escape.addEscAndQuote(sSeries, false);
 		}
-		
+
 		return exp;
 	}
-	
-	private boolean isNeedAccumulate(){
+
+	private boolean isNeedAccumulate() {
 		String exp = getAccumulateExp();
-		if(exp==null){
+		if (exp == null) {
 			return false;
 		}
 		int originalLen = data.length();
-		
-		String sexp = "A.groups("+exp+")";
-		
-		Sequence seq = (Sequence)calculate(sexp);
-		return seq.length()!=originalLen;
+
+		String sexp = "A.groups(" + exp + ")";
+
+		Sequence seq = (Sequence) calculate(sexp);
+		return seq.length() != originalLen;
 	}
-	
-	private void enableAccumulate(){
+
+	private void enableAccumulate() {
 		boolean needAccumulate = isNeedAccumulate();
 		labelAccumulate.setEnabled(needAccumulate);
 		cbAccumulate.setEnabled(needAccumulate);
 	}
-	
-	private void setCategory(){
+
+	private void setCategory() {
 		String XTITLE = "xTitle";
 		Object value = cbCategory.getSelectedItem();
 		properties.put(XTITLE, value);
 		enableAccumulate();
 	}
-	
-	private void setSeries(){
+
+	private void setSeries() {
 		enableAccumulate();
 	}
-	
-	private void setValue(){
+
+	private void setValue() {
 		String YTITLE = "yTitle";
-		String valueCol = (String)cbValue.getSelectedItem();
-			properties.put(YTITLE, valueCol);
+		String valueCol = (String) cbValue.getSelectedItem();
+		properties.put(YTITLE, valueCol);
 	}
 
-	private Object calculate(String sexp){
+	private Object calculate(String sexp) {
 		Context ctx = new Context();
 		ctx.setParamValue("A", data);
-		Expression exp = new Expression(ctx,sexp);
+		Expression exp = new Expression(ctx, sexp);
 		return exp.calculate(ctx);
 	}
-	
+
 	private void init() throws Exception {
 		JPanel panel = new JPanel(new BorderLayout());
 		panel.add(getCenter(), BorderLayout.CENTER);
@@ -734,7 +744,7 @@ public class DialogDisplayChart extends JDialog {
 			}
 		});
 
-		if (engine != null || data!=null) {
+		if (engine != null || data != null) {
 			this.setSize(800, 600);
 		} else if (ii.getIconWidth() != -1) {
 			int w = ii.getIconWidth() + 100;
@@ -751,8 +761,8 @@ public class DialogDisplayChart extends JDialog {
 
 		resetLangText();
 		GM.setDialogDefaultButton(this, close, close);
-		if(data!=null){//直接用数据表绘图时，往左边空出属性设置窗口
-			setLocation(getX()-200, getY());
+		if (data != null) {// 直接用数据表绘图时，往左边空出属性设置窗口
+			setLocation(getX() - 200, getY());
 		}
 	}
 
