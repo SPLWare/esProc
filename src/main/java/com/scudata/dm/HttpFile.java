@@ -37,7 +37,7 @@ public class HttpFile implements IFile {
 	private HashMap headers;
 	private Map<String,List<String>> responseHeaders;
 	private int timeout = -1;   //读取超时时间，以秒为单位
-	private String sendParamMethod = "POST";    //传送参数的方法
+	private String sendParamMethod = "POST";    //传送参数的方法 
 	
 	static {
         HostnameVerifier ignoreHostnameVerifier = new HostnameVerifier() {
