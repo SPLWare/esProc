@@ -1520,7 +1520,16 @@ public class SPL extends AppFrame {
 	 * @param frame
 	 */
 	public static void showFrame(SPL frame) {
-		String port = GMSpl.getConfigValue("esproc_port");
+		showFrame(frame, "esproc_port");
+	}
+
+	/**
+	 * ÏÔÊ¾IDEÖ÷Ãæ°å
+	 * 
+	 * @param frame
+	 */
+	public static void showFrame(SPL frame, String portKey) {
+		String port = GMSpl.getConfigValue(portKey);
 		if (StringUtils.isValidString(port)) {
 			int iport = -1001;
 			try {
