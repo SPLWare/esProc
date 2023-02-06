@@ -1,7 +1,9 @@
 package com.scudata.thread;
 
+import com.scudata.array.IntArray;
 import com.scudata.dm.Context;
 import com.scudata.dm.GroupsSyncReader;
+import com.scudata.dm.Sequence;
 import com.scudata.dm.cursor.ICursor;
 import com.scudata.dm.op.IGroupsResult;
 import com.scudata.expression.Expression;
@@ -12,6 +14,10 @@ import com.scudata.expression.Expression;
  *
  */
 public class GroupsJob2 extends Job {
+	private Sequence data;// 数据
+	private Object key; // 数据的key (data是列式时才有意义)
+	private IntArray hashValue; // 数据的key的hash (data是列式时才有意义)
+	
 	private GroupsSyncReader reader; // 数据游标
 	
 	private Expression[] exps; // 分组字段表达式数组
@@ -39,6 +45,20 @@ public class GroupsJob2 extends Job {
 		this.capacity = capacity;
 	}
 	
+	public GroupsJob2(Sequence data, Object key, IntArray hashValue, Expression[] exps, String[] names,
+			Expression[] calcExps, String[] calcNames, String opt, Context ctx, int capacity) {
+		this.data = data;
+		this.key = key;
+		this.hashValue = hashValue;
+		this.exps = exps;
+		this.names = names;
+		this.calcExps = calcExps;
+		this.calcNames = calcNames;
+		this.opt = opt;
+		this.ctx = ctx;
+		this.capacity = capacity;
+	}
+	
 	/**
 	 * 取分组对象
 	 * @return IGroupsResult
@@ -48,6 +68,12 @@ public class GroupsJob2 extends Job {
 	}
 
 	public void run() {
+		if (data != null) {
+			groupsResult = data.getGroupsResult(exps, names, calcExps, calcNames, opt, ctx);
+			groupsResult.setCapacity(capacity);
+			groupsResult.push(data, key, hashValue, hashStart, hashEnd);
+			return;
+		}
 		ICursor cursor = reader.getCursor();
 		groupsResult = cursor.getGroupsResult(exps, names, calcExps, calcNames, opt, ctx);
 		groupsResult.setCapacity(capacity);

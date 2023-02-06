@@ -41,9 +41,12 @@ import com.scudata.dw.PhyTable;
 import com.scudata.expression.CurrentSeq;
 import com.scudata.expression.Expression;
 import com.scudata.expression.Node;
+import com.scudata.expression.fn.gather.ICount.ICountBitSet;
+import com.scudata.expression.fn.gather.ICount.ICountPositionSet;
 import com.scudata.parallel.ClusterCursor;
 import com.scudata.resources.EngineMessage;
 import com.scudata.thread.GroupsJob;
+import com.scudata.thread.GroupsJob2;
 import com.scudata.thread.GroupxJob;
 import com.scudata.thread.MultithreadUtil;
 import com.scudata.thread.ThreadPool;
@@ -177,7 +180,72 @@ public final class CursorUtil {
 			return result;
 		}
 	}
+	/**
+	 * 对序列进行并行分组
+	 * @param src 序列
+	 * @param exps 分组字段表达式数组
+	 * @param names 分组字段名数组
+	 * @param calcExps 汇总字段表达式数组
+	 * @param calcNames 汇总字段名数组
+	 * @param opt 选项
+	 * @param ctx 计算上下文
+	 * @param hashCapacity 哈希表容量
+	 * @returns
+	 */
+	public static Table groups_z(Sequence src, Expression[] exps, String[] names, Expression[] calcExps,
+			String[] calcNames, String opt, Context ctx, int hashCapacity) {
+		int capacity = hashCapacity > 0 ? hashCapacity :Env.getDefaultHashCapacity();
+		HashUtil hashUtil = new HashUtil(capacity);
+		capacity = hashUtil.getCapacity();
 		
+		// 生成分组任务并提交给线程池
+		int parallelNum = Env.getParallelNum();
+		ThreadPool pool = ThreadPool.newInstance(parallelNum);
+		GroupsJob2 []jobs = new GroupsJob2[parallelNum];
+		Table groupsResult = null;
+
+		try {
+			for (int i = 0; i < parallelNum; ++i) {
+				Context tmpCtx = ctx.newComputeContext();
+				Expression []tmpExps = Operation.dupExpressions(exps, tmpCtx);
+				Expression []tmpCalcExps = Operation.dupExpressions(calcExps, tmpCtx);
+				
+				GroupsJob2 job = new GroupsJob2(src, hashUtil, null, tmpExps, names, tmpCalcExps, calcNames, opt, tmpCtx, capacity);
+				job.setHashStart(i);
+				job.setHashEnd(parallelNum);
+				jobs[i] = job;
+				
+				pool.submit(jobs[i]);
+			}
+			
+			// 等待分组任务执行完毕，并把结果添加到一个序表
+			for (int i = 0; i < parallelNum; ++i) {
+				jobs[i].join();
+				
+				if (i == 0) {
+					groupsResult = jobs[i].getGroupsResult().getResultTable();
+				} else {
+					Table t = jobs[i].getGroupsResult().getResultTable();
+					groupsResult.addAll(t);
+				}
+			}
+		} finally {
+			pool.shutdown();
+		}
+		
+		if (opt == null || opt.indexOf('u') == -1) {
+			int keyCount = exps.length;
+			int []fields = new int[keyCount];
+			for (int i = 0; i < keyCount; ++i) {
+				fields[i] = i;
+			}
+
+			groupsResult.sortFields(fields);
+		}
+		return groupsResult;
+	
+	}
+	
 	/**
 	 * 设定最大分组数，当分组数达到这个值则停止分组
 	 * @param cursor 游标
@@ -533,27 +601,51 @@ public final class CursorUtil {
 		if (len == 0) {
 			return new Sequence();
 		}
-
-		final int INIT_GROUPSIZE = HashUtil.getInitGroupSize();
+		
+		if (opt != null && opt.indexOf('m') != -1) {
+			return MultithreadUtil.hashId(src, opt);
+		}
+		
 		HashUtil hashUtil = new HashUtil(len / 2);
 		Sequence out = new Sequence(len);
-		ListBase1 []groups = new ListBase1[hashUtil.getCapacity()];
-
-		for (int i = 1; i <= len; ++i) {
-			Object item = src.getMem(i);
-			int hash = hashUtil.hashCode(item);
-			if (groups[hash] == null) {
-				groups[hash] = new ListBase1(INIT_GROUPSIZE);
-				groups[hash].add(item);
-				out.add(item);
-			} else {
-				int index = groups[hash].binarySearch(item);
-				if (index < 1) {
-					groups[hash].add(-index, item);
+		
+		if (opt != null && opt.indexOf('n') != -1) {
+			ICountPositionSet set = new ICountPositionSet();
+			for (int i = 1; i <= len; ++i) {
+				Object item = src.getMem(i);
+				if (item instanceof Number && set.add(((Number)item).intValue())) {
 					out.add(item);
 				}
 			}
+		} else if (opt != null && opt.indexOf('b') != -1) {
+			ICountBitSet set = new ICountBitSet();
+			for (int i = 1; i <= len; ++i) {
+				Object item = src.getMem(i);
+				if (item instanceof Number && set.add(((Number)item).intValue())) {
+					out.add(item);
+				}
+			}
+		} else {
+			final int INIT_GROUPSIZE = HashUtil.getInitGroupSize();
+			ListBase1 []groups = new ListBase1[hashUtil.getCapacity()];
+
+			for (int i = 1; i <= len; ++i) {
+				Object item = src.getMem(i);
+				int hash = hashUtil.hashCode(item);
+				if (groups[hash] == null) {
+					groups[hash] = new ListBase1(INIT_GROUPSIZE);
+					groups[hash].add(item);
+					out.add(item);
+				} else {
+					int index = groups[hash].binarySearch(item);
+					if (index < 1) {
+						groups[hash].add(-index, item);
+						out.add(item);
+					}
+				}
+			}
 		}
+
 
 		if (opt == null || opt.indexOf('u') == -1) {
 			Comparator<Object> comparator = new BaseComparator();

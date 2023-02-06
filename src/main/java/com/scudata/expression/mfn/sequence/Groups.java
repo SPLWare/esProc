@@ -39,7 +39,8 @@ public class Groups extends SequenceFunction {
 		String[] names = null; // 分组表达式的新名字
 		Expression[] calcExps = null; // 聚合表达式数组
 		String[] calcNames = null; // 聚合字段的名字
-
+		int hashCapacity = -1;	
+		
 		//	把groups的参数分解成 分组表达式、分组表达式的名字、统计表达式、统计表达式的名字
 		char type = param.getType();
 		if (type == IParam.Normal) { // 只有一个参数
@@ -64,7 +65,19 @@ public class Groups extends SequenceFunction {
 			exps = pi.getExpressions1();
 			names = pi.getExpressionStrs2();
 		} else { // ;
-			if (param.getSubSize() > 2) {
+			int size = param.getSubSize();
+			if (size == 3) {
+				IParam sub2 = param.getSub(2);
+				if (sub2 != null) {
+					Object val = sub2.getLeafExpression().calculate(ctx);
+					if (!(val instanceof Number)) {
+						MessageManager mm = EngineMessage.get();
+						throw new RQException("groups" + mm.getMessage("function.paramTypeError"));
+					}
+					
+					hashCapacity = ((Number)val).intValue();
+				}
+			} else if (size > 3) {
 				MessageManager mm = EngineMessage.get();
 				throw new RQException("groups" + mm.getMessage("function.invalidParam"));
 			}
@@ -184,7 +197,7 @@ public class Groups extends SequenceFunction {
 			}
 		}
 		
-		Sequence result = srcSequence.groups(exps, names, tempExps, tempNames, option, ctx);		
+		Sequence result = srcSequence.groups(exps, names, tempExps, tempNames, option, ctx, hashCapacity);		
 		if (senNames != null && result != null) {
 			result = result.newTable(senNames, senExps, ctx);
 			if (!bopt && elen > 0 && result instanceof Table) {

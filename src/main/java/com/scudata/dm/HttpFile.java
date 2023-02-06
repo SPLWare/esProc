@@ -5,10 +5,13 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.RandomAccessFile;
+import java.lang.reflect.Field;
 import java.net.URL;
 import java.net.URLConnection;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -34,6 +37,7 @@ public class HttpFile implements IFile {
 	private HashMap headers;
 	private Map<String,List<String>> responseHeaders;
 	private int timeout = -1;   //读取超时时间，以秒为单位
+	private String sendParamMethod = "POST";    //传送参数的方法 
 	
 	static {
         HostnameVerifier ignoreHostnameVerifier = new HostnameVerifier() {
@@ -61,13 +65,17 @@ public class HttpFile implements IFile {
 	 * 设置post方法传送的参数
 	 * @param params 参数，格式为: key1=value1&key2=value2......
 	 * @param paramsEncoding  参数字符集,如GBK，UTF-8
+	 * @param method  传送参数的方法，post或get
 	 */
-	public void setPostParams( String params, String paramsEncoding ) {
-		if( params != null && params.length() > 0 ) {
-			this.params = params;
+	public void setPostParams( String params, String paramsEncoding, String method ) {
+		if( params != null && params.trim().length() > 0 ) {
+			this.params = params.trim();
 		}
-		if( paramsEncoding != null && paramsEncoding.length() > 0 ) {
-			this.paramsEncoding = paramsEncoding;
+		if( paramsEncoding != null && paramsEncoding.trim().length() > 0 ) {
+			this.paramsEncoding = paramsEncoding.trim();
+		}
+		if( method != null && method.trim().length() > 0 ) {
+			this.sendParamMethod = method.trim();
 		}
 	}
 	
@@ -138,6 +146,21 @@ public class HttpFile implements IFile {
 	            }
 	            if( params != null ) {
 		            OutputStream os = conn.getOutputStream();
+		            //jdk中调用conn.getOutputStream()方法时，会强行将传参方法改为post，要使用get方法传参，则要使用下面这段反射程序将conn的方法修改为get
+		            if( "GET".equalsIgnoreCase( sendParamMethod ) ) {
+		            	List<Field> fields = new ArrayList<Field>() ;
+		                Class tempClass = conn.getClass();
+		                while( tempClass != null ) {//当父类为null的时候说明到达了最上层的父类(Object类).
+		                    fields.addAll(Arrays.asList(tempClass.getDeclaredFields()));
+		                    tempClass = tempClass.getSuperclass(); //得到父类,然后赋给自己
+		                }
+		                for (Field field : fields) {
+		                    if("method".equals(field.getName())){
+		                        field.setAccessible(true);
+		                        field.set(conn,"GET");
+		                    }
+		                }
+		            }
 		            os.write( params.getBytes( paramsEncoding ) );
 		            os.flush();
 	            }

@@ -3,6 +3,7 @@ package com.scudata.dw;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import com.scudata.array.BoolArray;
 import com.scudata.expression.Node;
 
 public class ColumnsOr {
@@ -10,6 +11,7 @@ public class ColumnsOr {
 
 	private Node node;
 	public boolean sign;
+	public BoolArray signArray;
 	
 	public ArrayList<IFilter> getFilterList() {
 		return filterList;
