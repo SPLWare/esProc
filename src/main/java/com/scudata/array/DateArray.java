@@ -270,6 +270,48 @@ public class DateArray implements IArray {
 	/**
 	 * 追加一组元素，如果类型不兼容则抛出异常
 	 * @param array 元素数组
+	 * @param index 要加入的数据的起始位置
+	 * @param count 数量
+	 */
+	public void addAll(IArray array, int index, int count) {
+		if (array instanceof DateArray) {
+			DateArray dateArray = (DateArray)array;
+			ensureCapacity(size + count);
+			
+			System.arraycopy(dateArray.datas, index, datas, size + 1, count);
+			size += count;
+		} else if (array instanceof ConstArray) {
+			Object obj = array.get(1);
+			if (obj instanceof Date) {
+				ensureCapacity(size + count);
+				Date v = (Date)obj;
+				Date []datas = this.datas;
+				
+				for (int i = 0; i < count; ++i) {
+					datas[++size] = v;
+				}
+			} else if (obj == null) {
+				ensureCapacity(size + count);
+				Date []datas = this.datas;
+				
+				for (int i = 0; i < count; ++i) {
+					datas[++size] = null;
+				}
+			} else {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException(mm.getMessage("pdm.arrayTypeError", 
+						mm.getMessage("DataType.Date"), array.getDataType()));
+			}
+		} else {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException(mm.getMessage("pdm.arrayTypeError", 
+					mm.getMessage("DataType.Date"), array.getDataType()));
+		}
+	}
+	
+	/**
+	 * 追加一组元素，如果类型不兼容则抛出异常
+	 * @param array 元素数组
 	 */
 	public void addAll(Object []array) {
 		for (Object obj : array) {

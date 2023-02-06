@@ -260,6 +260,48 @@ public class StringArray implements IArray {
 	/**
 	 * 追加一组元素，如果类型不兼容则抛出异常
 	 * @param array 元素数组
+	 * @param index 要加入的数据的起始位置
+	 * @param count 数量
+	 */
+	public void addAll(IArray array, int index, int count) {
+		if (array instanceof StringArray) {
+			StringArray stringArray = (StringArray)array;
+			ensureCapacity(size + count);
+			
+			System.arraycopy(stringArray.datas, index, datas, size + 1, count);
+			size += count;
+		} else if (array instanceof ConstArray) {
+			Object obj = array.get(1);
+			if (obj instanceof String) {
+				ensureCapacity(size + count);
+				String v = (String)obj;
+				String []datas = this.datas;
+				
+				for (int i = 0; i < count; ++i) {
+					datas[++size] = v;
+				}
+			} else if (obj == null) {
+				ensureCapacity(size + count);
+				String []datas = this.datas;
+				
+				for (int i = 0; i < count; ++i) {
+					datas[++size] = null;
+				}
+			} else {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException(mm.getMessage("pdm.arrayTypeError", 
+						mm.getMessage("DataType.String"), array.getDataType()));
+			}
+		} else {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException(mm.getMessage("pdm.arrayTypeError", 
+					mm.getMessage("DataType.String"), array.getDataType()));
+		}
+	}
+	
+	/**
+	 * 追加一组元素，如果类型不兼容则抛出异常
+	 * @param array 元素数组
 	 */
 	public void addAll(Object []array) {
 		for (Object obj : array) {

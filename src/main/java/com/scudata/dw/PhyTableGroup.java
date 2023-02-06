@@ -59,6 +59,14 @@ public class PhyTableGroup implements IPhyTable {
 		}
 	}
 	
+	/**
+	 * 返回组表是否是按列存储的
+	 * @return true：是，false：不是
+	 */
+	public boolean isColumnStored() {
+		return tables[0] instanceof ColPhyTable;
+	}
+	
 	public IPhyTable createAnnexTable(String []colNames, int []serialBytesLen, String tableName) throws IOException {
 		int count = tables.length;
 		IPhyTable []annexTables = new IPhyTable[count];
@@ -537,7 +545,7 @@ public class PhyTableGroup implements IPhyTable {
 		int fcount = sortFields.length;
 		int []fields = new int[fcount];
 		for (int i = 0; i < fcount; ++i) {
-			fields[i] = 0;
+			fields[i] = i;
 		}
 		
 		return new MergeCursor(cursors, fields, null, ctx);

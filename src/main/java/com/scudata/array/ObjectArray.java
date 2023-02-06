@@ -214,6 +214,29 @@ public class ObjectArray implements IArray {
 	/**
 	 * 追加一组元素，如果类型不兼容则抛出异常
 	 * @param array 元素数组
+	 * @param index 要加入的数据的起始位置
+	 * @param count 数量
+	 */
+	public void addAll(IArray array, int index, int count) {
+		if (array instanceof ObjectArray) {
+			ObjectArray objectArray = (ObjectArray)array;
+			ensureCapacity(size + count);
+			
+			System.arraycopy(objectArray.datas, index, datas, size + 1, count);
+			size += count;
+		} else {
+			ensureCapacity(size + count);
+			Object []datas = this.datas;
+			
+			for (int i = 1; i <= count; ++i, ++index) {
+				datas[++size] = array.get(index);
+			}
+		}
+	}
+	
+	/**
+	 * 追加一组元素，如果类型不兼容则抛出异常
+	 * @param array 元素数组
 	 */
 	public void addAll(Object []array) {
 		int size2 = array.length;

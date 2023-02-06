@@ -187,6 +187,16 @@ public class ByteBufferArray implements IArray {
 	/**
 	 * 追加一组元素，如果类型不兼容则抛出异常
 	 * @param array 元素数组
+	 * @param index 要加入的数据的起始位置
+	 * @param count 数量
+	 */
+	public void addAll(IArray array, int index, int count) {
+		throw new RuntimeException();
+	}
+	
+	/**
+	 * 追加一组元素，如果类型不兼容则抛出异常
+	 * @param array 元素数组
 	 */
 	public void addAll(Object []array) {
 		throw new RuntimeException();

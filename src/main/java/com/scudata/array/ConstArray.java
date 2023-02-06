@@ -108,6 +108,21 @@ public class ConstArray implements IArray {
 	/**
 	 * 追加一组元素，如果类型不兼容则抛出异常
 	 * @param array 元素数组
+	 * @param index 要加入的数据的起始位置
+	 * @param count 数量
+	 */
+	public void addAll(IArray array, int index, int count) {
+		if (array instanceof ConstArray && Variant.isEquals(data, array.get(1))) {
+			size += count;
+		}
+		
+		MessageManager mm = EngineMessage.get();
+		throw new RQException(mm.getMessage("pdm.modifyConstArrayError"));
+	}
+	
+	/**
+	 * 追加一组元素，如果类型不兼容则抛出异常
+	 * @param array 元素数组
 	 */
 	public void addAll(Object []array) {
 		MessageManager mm = EngineMessage.get();
