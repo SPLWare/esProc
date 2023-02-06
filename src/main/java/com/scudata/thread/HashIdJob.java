@@ -4,7 +4,6 @@ import java.util.Comparator;
 
 import com.scudata.dm.ListBase1;
 import com.scudata.dm.Sequence;
-import com.scudata.dm.Table;
 import com.scudata.dm.comparator.BaseComparator;
 import com.scudata.expression.fn.gather.ICount.ICountBitSet;
 import com.scudata.expression.fn.gather.ICount.ICountPositionSet;

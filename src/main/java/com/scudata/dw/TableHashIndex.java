@@ -33,7 +33,7 @@ import com.scudata.util.Variant;
  * @author runqian
  *
  */
-public class TableHashIndex  implements ITableIndex {
+public class TableHashIndex implements ITableIndex {
 
 	private static final int BUFFER_SIZE = 1024;
 	private static final int POSITION_SIZE = 5;
