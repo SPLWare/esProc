@@ -297,7 +297,7 @@ public final class FunctionLib {
 		addFunction("syncfile", "com.scudata.expression.fn.parallel.SyncFile");
 		//addFunction("zone", "com.scudata.expression.fn.parallel.Zone");
 
-		// series function
+		// ÐòÁÐº¯Êý
 		addMemberFunction("step", "com.scudata.expression.mfn.sequence.Step");
 		addMemberFunction("inv", "com.scudata.expression.mfn.sequence.Inv");
 		addMemberFunction("p", "com.scudata.expression.mfn.sequence.PosConvert");
@@ -373,6 +373,7 @@ public final class FunctionLib {
 		
 		addMemberFunction("r", "com.scudata.expression.mfn.RowField");
 		addMemberFunction("median", "com.scudata.expression.mfn.sequence.Median");
+		addMemberFunction("bits", "com.scudata.expression.mfn.sequence.Bits");
 		
 		// ÐÞ¸Ä
 		addMemberFunction("modify", "com.scudata.expression.mfn.sequence.Modify");

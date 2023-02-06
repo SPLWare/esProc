@@ -11812,4 +11812,65 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	public ICursor cursor(int start, int end) {
 		return new MemoryCursor(this, start, end);
 	}
+	
+	/**
+	 * 把位值序列转成long值序列
+	 * @param opt m：并行计算
+	 * @return Sequence
+	 */
+	public Sequence bits(String opt) {
+		IArray mems = getMems();
+		int len = mems.size();
+		if (len == 0) {
+			return new Sequence(0);
+		}
+		
+		int q = 1;
+		int numCount = len / 64;
+		Sequence result;
+		
+		if (len % 64 == 0) {
+			result = new Sequence(numCount);
+		} else {
+			result = new Sequence(numCount + 1);
+		}
+		
+		for (int i = 0; i < numCount; ++i) {
+			long value = 0;
+			for (int j = 63; j >= 0; --j, ++q) {
+				value += mems.getLong(q) << j;
+			}
+			
+			result.add(value);
+		}
+		
+		if (q <= len) {
+			long value = 0;
+			for (int j = 63; q <= len; --j, ++q) {
+				value += mems.getLong(q) << j;
+			}
+			
+			result.add(value);
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * 判断指定位的值是不是1
+	 * @param n 位号
+	 * @param opt
+	 * @return true：是1，false：不是
+	 */
+	public boolean bits(int n, String opt) {
+		int q = (n - 1) / 64 + 1;
+		IArray mems = getMems();
+		
+		if (q <= mems.size()) {
+			long value = mems.getLong(q);
+			return (value & (1 << (n - 1) % 64)) != 0;
+		} else {
+			return false;
+		}
+	}
 }
