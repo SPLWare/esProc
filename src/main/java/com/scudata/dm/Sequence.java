@@ -11838,6 +11838,10 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @return Sequence
 	 */
 	public Sequence bits(String opt) {
+		if (opt != null && opt.indexOf('m') != -1) {
+			return MultithreadUtil.bits(this, opt);
+		}
+		
 		IArray mems = getMems();
 		int len = mems.size();
 		if (len == 0) {
@@ -11854,22 +11858,111 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			result = new Sequence(numCount + 1);
 		}
 		
-		for (int i = 0; i < numCount; ++i) {
-			long value = 0;
-			for (int j = 63; j >= 0; --j, ++q) {
-				value += mems.getLong(q) << j;
+		if (opt == null || opt.indexOf('n') == -1) {
+			for (int i = 0; i < numCount; ++i) {
+				long value = 0;
+				for (int j = 63; j >= 0; --j, ++q) {
+					value += mems.getLong(q) << j;
+				}
+				
+				result.add(value);
 			}
 			
-			result.add(value);
+			if (q <= len) {
+				long value = 0;
+				for (int j = 63; q <= len; --j, ++q) {
+					value += mems.getLong(q) << j;
+				}
+				
+				result.add(value);
+			}
+		} else {
+			for (int i = 0; i < numCount; ++i) {
+				long value = 0;
+				for (int j = 63; j >= 0; --j, ++q) {
+					if (mems.isTrue(q)) {
+						value += 1L << j;
+					}
+				}
+				
+				result.add(value);
+			}
+			
+			if (q <= len) {
+				long value = 0;
+				for (int j = 63; q <= len; --j, ++q) {
+					if (mems.isTrue(q)) {
+						value += 1L << j;
+					}
+				}
+				
+				result.add(value);
+			}
 		}
 		
-		if (q <= len) {
-			long value = 0;
-			for (int j = 63; q <= len; --j, ++q) {
-				value += mems.getLong(q) << j;
+		return result;
+	}
+	
+	/**
+	 * 把位值序列转成long值序列
+	 * @param start 起始位置（包含）
+	 * @param end 结束位置（不包含）
+	 * @param opt m：并行计算，n：成员取值为真假
+	 * @return Sequence
+	 */
+	public Sequence bits(int start, int end, String opt) {
+		IArray mems = getMems();
+		int count = end - start;
+		int numCount = count / 64;
+		Sequence result;
+		int q = start;
+		
+		if (count % 64 == 0) {
+			result = new Sequence(numCount);
+		} else {
+			result = new Sequence(numCount + 1);
+		}
+		
+		if (opt == null || opt.indexOf('n') == -1) {
+			for (int i = 0; i < numCount; ++i) {
+				long value = 0;
+				for (int j = 63; j >= 0; --j, ++q) {
+					value += mems.getLong(q) << j;
+				}
+				
+				result.add(value);
 			}
 			
-			result.add(value);
+			if (q < end) {
+				long value = 0;
+				for (int j = 63; q < end; --j, ++q) {
+					value += mems.getLong(q) << j;
+				}
+				
+				result.add(value);
+			}
+		} else {
+			for (int i = 0; i < numCount; ++i) {
+				long value = 0;
+				for (int j = 63; j >= 0; --j, ++q) {
+					if (mems.isTrue(q)) {
+						value += 1L << j;
+					}
+				}
+				
+				result.add(value);
+			}
+			
+			if (q < end) {
+				long value = 0;
+				for (int j = 63; q < end; --j, ++q) {
+					if (mems.isTrue(q)) {
+						value += 1L << j;
+					}
+				}
+				
+				result.add(value);
+			}
 		}
 		
 		return result;

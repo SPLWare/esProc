@@ -1203,4 +1203,55 @@ public final class MultithreadUtil {
 		opt = opt.replace('m', ' ');
 		return CursorUtil.hashId(result, opt);
 	}
+
+	/**
+	 * 多线程计算序列bits函数
+	 * @param src 源序列
+	 * @param opt n：成员取值为真假
+	 * @return Sequence
+	 */
+	public static Sequence bits(Sequence src, String opt) {
+		opt = opt.replace('m', ' ');
+		int len = src.length();
+		int parallelNum = getParallelNum();
+
+		if (len <= SINGLE_PROSS_COUNT || parallelNum < 2) {
+			return src.bits(opt);
+		}
+		
+		int threadCount = (len - 1) / SINGLE_PROSS_COUNT + 1;
+		if (threadCount > parallelNum) {
+			threadCount = parallelNum;
+		}
+		
+		// 生成new任务并提交给线程池
+		ThreadPool pool = ThreadPool.instance();
+		int singleCount = len / threadCount;
+		singleCount -= singleCount % 64;
+		BitsJob []jobs = new BitsJob[threadCount];
+
+		int start = 1;
+		int end; // 不包括
+		for (int i = 0; i < threadCount; ++i) {
+			if (i + 1 == threadCount) {
+				end = len + 1;
+			} else {
+				end = start + singleCount;
+			}
+
+			jobs[i] = new BitsJob(src, start, end, opt);
+			pool.submit(jobs[i]); // 提交任务
+			start = end;
+		}
+
+		// 等待任务执行完毕并取出结果
+		jobs[0].join();
+		Sequence result = jobs[0].getResult();
+		for (int i = 1; i < threadCount; ++i) {
+			jobs[i].join();
+			result.append(jobs[i].getResult());
+		}
+
+		return result;
+	}
 }
