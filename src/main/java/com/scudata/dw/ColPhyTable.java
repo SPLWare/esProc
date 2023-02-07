@@ -3468,6 +3468,9 @@ public class ColPhyTable extends PhyTable {
 			blockLink = col.getDataBlockLink();//数据块
 			blockLink.setFirstBlockPos(blockLink.firstBlockPos);
 			blockLink.freeIndex = 0;
+			
+			col.getDict().clear();
+			col.initDictArray();
 		}
 		
 		/**
@@ -3481,56 +3484,29 @@ public class ColPhyTable extends PhyTable {
 		Object []minValues = new Object[columnCount];
 		Object []maxValues = new Object[columnCount];
 		Object []startValues = new Object[columnCount];
+		int[] dataTypeInfo = new int[columnCount];
 		
 		/**
 		 * 循环写入新数据
 		 */
 		for (long count : recordCountArray) {
-			for (int i = 0; i < columnCount; i++) {
-				bufferWriters[i] = columns[i].getColDataBufferWriter();
-			}
-			
-			/**
-			 * 计算每列的最值
-			 */
 			Sequence data = cursor.fetch((int) count);
-			IArray mems = data.getMems();
-			int len = mems.size();
-			for (int i = 1; i <= len; ++i) {
-				BaseRecord r = (BaseRecord) mems.get(i);
-				mems.set(i, null);
+			int end = data.length();
+			for (int i = 0; i < columnCount; i++) {
+				//写新数据到每个列块
+				bufferWriters[i] = columns[i].getColDataBufferWriter();
+				Sequence dict = columns[i].getDict();
+				DataBlockWriterJob.writeDataBlock(bufferWriters[i], data, dict, i, 1, end, 
+						maxValues, minValues, startValues, dataTypeInfo);
 				
-				/**
-				 * 把这一条记录的数据写到各列的bufferWriter
-				 */
-				Object[] vals = r.getFieldValues();
-				for (int j = 0; j < columnCount; j++) {
-					Object obj = vals[j];
-					bufferWriters[j].writeObject(obj);
-					if (columns[j].isDim()) {
-						if (Variant.compare(obj, maxValues[j], true) > 0)
-							maxValues[j] = obj;
-						if (i == 1) {
-							minValues[j] = obj;//第一次赋值
-							startValues[j] = obj;
-						}
-						if (Variant.compare(obj, minValues[j], true) < 0)
-							minValues[j] = obj;
-					}
-				}
+				//统计列数据类型
+				columns[i].adjustDataType(dataTypeInfo[i]);
+				columns[i].initDictArray();
+				
+				//提交每个列块buffer
+				columns[i].appendColBlock(bufferWriters[i].finish(), minValues[i], maxValues[i], startValues[i]);
 			}
 			
-			/**
-			 * 写新数据到每个列块
-			 */
-			for (int j = 0; j < columnCount; j++) {
-				byte[] buf = bufferWriters[j].finish();
-				if (!columns[j].isDim()) {
-					columns[j].appendColBlock(buf);//追加列块
-				} else {
-					columns[j].appendColBlock(buf, minValues[j], maxValues[j], startValues[j]);//追加维块
-				}
-			}
 		}
 		
 		/**
