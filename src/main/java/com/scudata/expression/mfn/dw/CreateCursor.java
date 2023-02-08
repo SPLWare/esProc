@@ -108,7 +108,7 @@ public class CreateCursor extends PhyTableFunction {
 		boolean isMultiThread = opt != null && opt.indexOf('m') != -1;
 		
 		if (param == null && !isMultiThread) {
-			return table.cursor();
+			return table.cursor(null, null, null, null, null, null, opt, ctx);
 		}
 		
 		IParam fieldParam = null; // 选出字段参数
