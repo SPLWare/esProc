@@ -375,6 +375,9 @@ public final class FunctionLib {
 		addMemberFunction("median", "com.scudata.expression.mfn.sequence.Median");
 		addMemberFunction("bits", "com.scudata.expression.mfn.sequence.Bits");
 		
+		//内表函数
+		addMemberFunction("icursor", "com.scudata.expression.mfn.table.Icursor");
+		
 		// 修改
 		addMemberFunction("modify", "com.scudata.expression.mfn.sequence.Modify");
 		addMemberFunction("modify", "com.scudata.expression.mfn.record.Modify");

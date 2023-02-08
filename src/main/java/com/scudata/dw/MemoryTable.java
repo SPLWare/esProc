@@ -1,6 +1,8 @@
 package com.scudata.dw;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import com.scudata.array.IArray;
 import com.scudata.common.IntArrayList;
@@ -18,6 +20,12 @@ import com.scudata.dm.cursor.ICursor;
 import com.scudata.dm.cursor.MemoryCursor;
 import com.scudata.dm.cursor.MultipathCursors;
 import com.scudata.dw.compress.ColumnList;
+import com.scudata.expression.Expression;
+import com.scudata.expression.IParam;
+import com.scudata.expression.Node;
+import com.scudata.expression.fn.string.Like;
+import com.scudata.expression.mfn.sequence.Contain;
+import com.scudata.expression.operator.DotOperator;
 import com.scudata.resources.EngineMessage;
 
 /**
@@ -33,6 +41,7 @@ public class MemoryTable extends Table {
 	private int part = -1; // 所属的分表
 	
 	private int []segmentFields; // 生成多路游标时用于分段的字段
+	private List<MemoryTableIndex> indexs;
 	
 	/**
 	 * 序列化时使用
@@ -548,5 +557,136 @@ public class MemoryTable extends Table {
 			
 			return new MemoryCursor(this, start, end);
 		}
+	}
+	
+	public MemoryTableIndex getIndex(String name) {
+		List<MemoryTableIndex> indexs = this.indexs;
+		if (indexs == null || indexs.size() == 0) {
+			return null;
+		}
+		for (MemoryTableIndex index : indexs) {
+			if (index.getByName(name)) {
+				return index;
+			}
+		}
+		return null;
+	}
+	/**
+	 * 新建索引
+	 * @param I 索引名称
+	 * @param fields 字段名称
+	 * @param obj 当KV索引时表示值字段名称，当hash索引时表示hash密度
+	 * @param opt 包含'a'时表示追加, 包含'r'时表示重建索引
+	 * @param w 建立时的过滤条件
+	 * @param ctx 上下文
+	 */
+	public void createIMemoryTableIndex(String I, String []fields, Object obj, String opt, Expression w, Context ctx) {
+		if (getIndex(I) != null) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException(I + " " + mm.getMessage("dw.indexNameAlreadyExist"));
+		}
+		
+		List<MemoryTableIndex> indexs = this.indexs;
+		if (indexs == null) {
+			this.indexs = indexs = new ArrayList<MemoryTableIndex>();
+		}
+		if (obj == null) {
+			if  (opt != null) {
+				//全文
+				if  (opt.indexOf('w') != -1) {
+					MemoryTableIndex index = new MemoryTableIndex(I, this, fields, w, 0, MemoryTableIndex.TYPE_FULLTEXT, ctx);
+					indexs.add(index);
+					return;
+				}
+				MessageManager mm = EngineMessage.get();
+				throw new RQException("index" + mm.getMessage("function.invalidParam"));
+			}
+			
+			//排序
+			MemoryTableIndex index = new MemoryTableIndex(I, this, fields, w, 0, MemoryTableIndex.TYPE_SORT, ctx);
+			indexs.add(index);
+		} else if (obj instanceof String[]) {
+			//KV
+			MemoryTableIndex index = new MemoryTableIndex(I, this, fields, w, 0, MemoryTableIndex.TYPE_SORT, ctx);
+			indexs.add(index);
+		} else if (obj instanceof Integer) {
+			//hash
+			MemoryTableIndex index = new MemoryTableIndex(I, this, fields, w, (Integer) obj, MemoryTableIndex.TYPE_HASH, ctx);
+			indexs.add(index);
+		}
+	}
+	
+	/**
+	 * 根据要处理的字段选择一个合适的索引的名字，没有合适的则返回空
+	 * @param fieldNames
+	 * @return
+	 */
+	private String chooseIndex(String[] fieldNames) {
+		if (fieldNames == null || indexs == null)
+			return null;
+		ArrayList<String> list = new ArrayList<String>();
+		int count = indexs.size();
+		int fcount = fieldNames.length;
+		for (int i = 0; i < count; i++) {
+			String[] ifields = indexs.get(i).getIfields();
+			int cnt = ifields.length;
+			if (cnt < fcount)
+				continue;
+			list.clear();
+			for (int j = 0; j < fcount; j++) {
+				list.add(ifields[j]);
+			}
+			for (String str : fieldNames) {
+				list.remove(str);
+			}
+			if (list.isEmpty()) {
+				return indexs.get(i).getName();
+			}
+		}
+		return null;
+	}
+	
+	/**
+	 * 索引查询函数icursor的入口
+	 */
+	public ICursor icursor(String []fields, Expression filter, String iname, String opt, Context ctx) {
+		MemoryTableIndex index = null;
+		if (iname != null) {
+			index = this.getIndex(iname);
+			if (index == null) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException("icursor" + mm.getMessage("dw.indexNotExist") + " : " + iname);
+			}
+		} else {
+			String[] indexFields;
+			if (filter.getHome() instanceof DotOperator) {
+				Node right = filter.getHome().getRight();
+				if (!(right instanceof Contain)) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException("icursor" + mm.getMessage("function.invalidParam"));
+				}
+				String str = ((Contain)right).getParamString();
+				str = str.replaceAll("\\[", "");
+				str = str.replaceAll("\\]", "");
+				str = str.replaceAll(" ", "");
+				indexFields = str.split(",");
+			} else if (filter.getHome() instanceof Like) {
+				IParam sub1 = ((Like) filter.getHome()).getParam().getSub(0);
+				String f = (String) sub1.getLeafExpression().getIdentifierName();
+				indexFields = new String[]{f};
+			} else {
+				indexFields = PhyTable.getExpFields(filter, ds.getFieldNames());
+			}
+			String indexName = chooseIndex(indexFields);
+			if (indexFields == null || indexName == null) {
+				//filter中不包含任何字段 or 索引不存在
+				MessageManager mm = EngineMessage.get();
+				throw new RQException("icursor" + mm.getMessage("function.invalidParam"));
+			}
+			index = getIndex(indexName);
+		}
+
+		ICursor cursor = index.select(filter, fields, opt, ctx);
+		return cursor;
 	}
 }

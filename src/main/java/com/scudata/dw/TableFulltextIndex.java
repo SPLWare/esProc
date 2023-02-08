@@ -295,7 +295,7 @@ public class TableFulltextIndex extends PhyTableIndex {
 					}
 				}
 				
-				table = null;;
+				table = null;
 				EnvUtil.runGC(rt);
 			}
 

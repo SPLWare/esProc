@@ -1,6 +1,7 @@
 package com.scudata.dw;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.scudata.array.IArray;
 import com.scudata.array.IntArray;
@@ -16,6 +17,8 @@ import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
 import com.scudata.dm.cursor.ICursor;
 import com.scudata.dm.cursor.MemoryCursor;
+import com.scudata.dm.op.New;
+import com.scudata.dm.op.Select;
 import com.scudata.expression.Expression;
 import com.scudata.expression.FieldId;
 import com.scudata.expression.IParam;
@@ -48,9 +51,12 @@ public class MemoryTableIndex {
 	private static final int LE = 3; // 小于等于
 	private static final int LT = 4; // 小于
 	
+	private static final int LIMIT = 1000000;//高频词限制数，超过这个值就抛弃
+	public static final int TEMP_FILE_SIZE = 100 * 1024 * 1024;//排序时的缓冲文件大小
 	private static final int MIN_HASH_SIZE = 4096;
-	private static final int TYPE_SORT = 0;
-	private static final int TYPE_HASH = 1;
+	public static final int TYPE_SORT = 0;
+	public static final int TYPE_HASH = 1;
+	public static final int TYPE_FULLTEXT = 2;
 	private static final String SORT_FIELD_NAME = "SORT_FIELD_NAME";
 	
 	private Table srcTable;
@@ -78,16 +84,27 @@ public class MemoryTableIndex {
 			} else {
 				createSortIndex(fields, ctx);
 			}
-		} else {
+		} else if (type == TYPE_HASH) {
 			createHashIndex(fields, capacity, ctx);
+		} else {
+			createFullTextIndex(fields[0], capacity, ctx);
 		}
+		if (avgNums == 0) avgNums = 8;
 	}
 	
-	public MemoryTableIndex getByName(String name) {
+	public String[] getIfields() {
+		return ifields;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	
+	public boolean getByName(String name) {
 		if (this.name.equals(name)) {
-			return this;
+			return true;
 		}
-		return null;
+		return false;
 	}
 	
 	private class FieldFilter {
@@ -100,17 +117,55 @@ public class MemoryTableIndex {
 	private void createHashIndex(String[] fields, int capacity, Context ctx) {
 		type = TYPE_HASH;
 		int len = srcTable.length();
-		if (capacity > len) {
-			capacity = len;
-		}
 		if (capacity < MIN_HASH_SIZE) {
 			capacity = MIN_HASH_SIZE;
 		}
+		if (capacity > len) {
+			capacity = len;
+		}
 		
-		srcTable.createIndexTable(capacity, null);
+		int flen = fields.length;
+		Expression[] exp = new Expression[flen];
+		Expression[] exps = new Expression[flen + 1];
+		String[] names = new String[flen + 1];
+		String[] names2 = new String[flen];
+		for (int i = 0; i < flen; i++) {
+			exp[i] = exps[i] = new Expression(fields[i]);
+			names[i] = names2[i] = fields[i];
+		}
+		exps[flen] = new Expression("#");
+		names[flen] = SORT_FIELD_NAME;
+		
+		Sequence table = srcTable.newTable(names, exps, null, ctx);
+		table = table.sort(exp, null, "o", ctx);
+		table = table.group(exp, "o", ctx);
+		
+		len = table.length();
+		Table indexData = new Table(names2, len);
+		IntArray[] recordNums = new IntArray[len + 1]; 
+		
+		for (int i = 1; i <= len; i++) {
+			Sequence seq = (Sequence) table.getMem(i);
+			BaseRecord rec = (BaseRecord) seq.getMem(1);
+			int size = seq.length();
+			IntArray recNum = new IntArray(size);
+			for (int j = 1; j <= size; j++) {
+				BaseRecord record = (BaseRecord) seq.getMem(j);
+				Integer value = (Integer) record.getNormalFieldValue(1);
+				recNum.pushInt(value);
+			}
+			Object[] objs = new Object[] {rec.getNormalFieldValue(0)};
+			indexData.newLast(objs);
+			recordNums[i] = recNum;
+			avgNums += recNum.size();
+		}
+		indexData.dataStruct().setPrimary(names2);
+		indexData.createIndexTable(capacity, null);
+		this.indexData = indexData;
 		this.indexTable = indexData.getIndexTable();
-		this.ifields = fields;
-		this.avgNums = 8;
+		this.recordNums = recordNums;
+		this.ifields = names2;
+		this.avgNums = avgNums / len;
 	}
 	
 	private void createSortIndex(String field, Context ctx) {
@@ -157,7 +212,7 @@ public class MemoryTableIndex {
 		Expression[] exp = new Expression[flen];
 		Expression[] exps = new Expression[flen + 1];
 		String[] names = new String[flen + 1];
-		String[] names2 = new String[flen + 1];
+		String[] names2 = new String[flen];
 		for (int i = 0; i < flen; i++) {
 			exp[i] = exps[i] = new Expression(fields[i]);
 			names[i] = names2[i] = fields[i];
@@ -195,6 +250,176 @@ public class MemoryTableIndex {
 		this.recordNums = recordNums;
 		this.ifields = names2;
 		this.avgNums = avgNums / len;
+	}
+	
+	private void createFullTextIndex(String field, int capacity, Context ctx) {
+		type = TYPE_FULLTEXT;
+		Expression exp = new Expression(field);
+		Expression[] exps = new Expression[] {exp, new Expression("#")};
+		String[] names = new String[] {field, SORT_FIELD_NAME};
+		Sequence table = srcTable.newTable(names, exps, null, ctx);
+		table = fullTextSort(table, field);//table.sort(exp, null, "o", ctx);
+		table = table.group(exp, "o", ctx);
+
+		int len = table.length();
+		names = new String[] {field};
+		Table indexData = new Table(names, len);
+		IntArray[] recordNums = new IntArray[len + 1]; 
+		for (int i = 1; i <= len; i++) {
+			Sequence seq = (Sequence) table.getMem(i);
+			BaseRecord rec = (BaseRecord) seq.getMem(1);
+			int size = seq.length();
+			IntArray recNum = new IntArray(size);
+			for (int j = 1; j <= size; j++) {
+				BaseRecord record = (BaseRecord) seq.getMem(j);
+				Integer value = (Integer) record.getNormalFieldValue(1);
+				recNum.pushInt(value);
+			}
+			Object[] objs = new Object[] {rec.getNormalFieldValue(0)};
+			indexData.newLast(objs);
+			recordNums[i] = recNum;
+		}
+		table = null;
+		indexData.dataStruct().setPrimary(names);
+		indexData.createIndexTable(len, "b");
+		this.indexData = indexData;
+		this.indexTable = indexData.getIndexTable();
+		this.recordNums = recordNums;
+		this.ifields = names;
+		this.avgNums = 8;
+	}
+	
+	/**
+	 * 检查字符key出现的次数
+	 * @param strCounters
+	 * @param key
+	 * @return
+	 */
+	private boolean checkStringCount(HashMap<String, Long> strCounters, String key) {
+		
+		if (strCounters.containsKey(key)) {
+			Long  cnt = strCounters.get(key) + 1;
+			if (cnt >= LIMIT) {
+				return true;
+			}
+			strCounters.put(key, cnt);
+		} else {
+			strCounters.put(key, (long) 1);
+		}
+		return false;
+	}
+	
+	private boolean checkAlpha(char word) {
+		if (word >= '0' && word <= 'z') {
+			return true;
+		}
+		return false;
+	}
+	
+	private Sequence fullTextSort(Sequence indexData, String field) {
+		DataStruct ds = indexData.dataStruct();
+		
+		//check field
+		int id = ds.getFieldIndex(field);
+		if (id == -1) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException(field + mm.getMessage("ds.fieldNotExist"));
+		}
+
+		HashMap<String, Long> strCounters = new HashMap<String, Long>();//记录每个字符出现的次数
+		int fieldsCount = ds.getFieldCount();
+		ArrayList<String> list = new ArrayList<String>();
+		Sequence table;
+		Table subTable;		
+
+		table = indexData;
+		if (table.length() <= 0) return indexData;
+
+		ds = table.dataStruct();
+		subTable = new Table(ds);
+		IArray mems = table.getMems();
+		int length = table.length();
+		for (int i = 1; i <= length; i++) {
+			Record r = (Record) mems.get(i);
+			Object []objs = r.getFieldValues();
+			if (objs[0] == null) {
+				continue;
+			}
+			if (!(objs[0] instanceof String)) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException("index" + mm.getMessage("function.paramTypeError"));
+			}
+			String ifield = (String) objs[0];
+			
+			list.clear();//用于判断重复的字符，例如"宝宝巴士"，重复的"宝"字不能被重复索引
+			int strLen = ifield.length();
+			for (int j = 0; j < strLen; j++) {
+				char ch1 = ifield.charAt(j);
+				if (ch1 == ' ') {
+					continue;//空格
+				}
+				
+				if (checkAlpha(ch1)) {
+					//英文要连续取3个、4个字母
+					if (j + 2 < strLen) {
+						char ch2 = ifield.charAt(j + 1);
+						char ch3 = ifield.charAt(j + 2);
+						if (checkAlpha(ch2) && checkAlpha(ch3)) {
+							Object []vals = new Object[fieldsCount];
+							for (int f = 1; f < fieldsCount; f++) {
+								vals[f] = objs[f];
+							}
+							String str3 = new String("" + ch1 + ch2 + ch3);
+							if (!list.contains(str3) && !checkStringCount(strCounters, str3)) {
+								vals[0] = str3;
+								subTable.newLast(vals);
+								list.add(str3);
+							}
+							
+							if (j + 3 < strLen) {
+								char ch4 = ifield.charAt(j + 3);
+								if (checkAlpha(ch4)) {
+									String str4 =  new String(str3 + ch4);
+									if (!list.contains(str4)) {
+										vals = new Object[fieldsCount];
+										for (int f = 1; f < fieldsCount; f++) {
+											vals[f] = objs[f];
+										}
+										vals[0] = str4;
+										subTable.newLast(vals);
+										list.add(str4);
+									}
+								}
+							}
+						}
+					}
+				} else if (ch1 > 255) {
+					String str = new String("" + ch1);
+					if (list.contains(str)) {
+						continue;//已经存在
+					}				
+					//处理计数器
+					if (checkStringCount(strCounters, str)) {
+						continue;
+					}
+					
+					Object []vals = new Object[fieldsCount];
+					for (int f = 1; f < fieldsCount; f++) {
+						vals[f] = objs[f];
+					}
+					vals[0] = str;
+					subTable.newLast(vals);
+					list.add(str);
+				}
+				
+			}
+		}
+
+		if (subTable != null && subTable.length() != 0) {
+			subTable.sortFields(new int[] {0});
+		}
+		
+		return subTable;
 	}
 	
 	private boolean equalField(int fieldIndex, Node node) {
@@ -515,10 +740,10 @@ public class MemoryTableIndex {
 	//icount 字段个数
 	//isStart 是否是找开始
 	//index[] 输出找到的记录号
-	private void searchValue(Object[] key, int icount, boolean isStart, int[] index) {
+	private int searchValue(Object[] key, int icount, boolean isStart) {
 		int i;
 		
-		index[0] = -1;
+		int index = -1;
 		
 		while (true) {
 			if (icount == 1) {
@@ -532,32 +757,49 @@ public class MemoryTableIndex {
 					break;
 				}
 			}
-			index[0] = i;
+			index = i;
 			break;
 		}
+		return index;
 	}
 	
 	/**
 	 * 按表达式exp查询
 	 */
 	public ICursor select(Expression exp, String []fields, String opt, Context ctx) {
-		IntArray recNums;
-		if (type == TYPE_SORT)
-			recNums = select_sort(exp, opt, ctx);
-		else 
-			recNums = select_hash(exp, opt, ctx);
-		
-		if (recNums == null || recNums.size() == 0) {
-			return new MemoryCursor(null);
+		IntArray recNums = null;
+		ICursor cs;
+		if (type == TYPE_FULLTEXT) {
+			cs = select_fulltext(exp, fields, opt, ctx);
+		} else {
+			if (type == TYPE_SORT)
+				recNums = select_sort(exp, opt, ctx);
+			else if (type == TYPE_HASH)
+				recNums = select_hash(exp, opt, ctx);
+			
+			if (recNums == null || recNums.size() == 0) {
+				return new MemoryCursor(null);
+			}
+			
+			Table srcTable = this.srcTable;
+			Table result = new Table(srcTable.dataStruct());
+			for (int i = 1, len = recNums.size(); i <= len; i++) {
+				BaseRecord rec = srcTable.getRecord(recNums.getInt(i));
+				result.add(rec);
+			}
+			cs = new MemoryCursor(result);
 		}
 		
-		Table srcTable = this.srcTable;
-		Table result = new Table(srcTable.dataStruct());
-		for (int i = 1, len = recNums.size(); i <= len; i++) {
-			BaseRecord rec = srcTable.getRecord(recNums.getInt(i));
-			result.add(rec);
+		if (fields != null) {
+			int len = fields.length;
+			Expression[] exps = new Expression[len];
+			for (int i = 0; i < len; i++) {
+				exps[i] = new Expression(fields[i]);
+			}
+			New op = new New(exps, fields, null);
+			cs.addOperation(op, ctx);
 		}
-		return new MemoryCursor(result);
+		return cs;
 	}
 	
 	/**
@@ -697,59 +939,58 @@ public class MemoryTableIndex {
 			}
 		}
 		
-		int start[] = new int[2];
-		int end[] = new int[2];
+		int start;
+		int end;
 		
-		start[0] = 1;
-		end[0] = indexData.length();
+		start = 1;
+		end = indexData.length();
 		int eqCount = vals.length();
 		
 		if (eqCount == 0) {
 			if (ff != null && ff.startSign != NULL) {
 				Object []keys = new Object[]{ff.startVal};
-				searchValue(keys, icount, true, start);
-				if (start[0] < 0 && start[1] < 0) return null;
+				start = searchValue(keys, icount, true);
+				if (start < 0) return null;
 			}
 			
 			if (ff != null && ff.endSign != NULL) {
 				Object []keys = new Object[]{ff.endVal};
-				searchValue(keys, icount, false, end);
-				if (end[0] < 0) end[0] = indexData.length();//(int) (this.internalBlockCount - 1);
+				end = searchValue(keys, icount, false);
+				if (end < 0) end = indexData.length();
 			}
 		} else {
 			if (ff == null || ff.startSign == NULL) {
 				Object []keys = vals.toArray();
-				searchValue(keys, icount, true, start);
+				start = searchValue(keys, icount, true);
 			} else {
 				Object []keys = new Object[eqCount + 1];
 				vals.toArray(keys);
 				keys[eqCount] = ff.startVal;
-				searchValue(keys, eqCount + 1, true, start);
+				start = searchValue(keys, eqCount + 1, true);
 			}
 			
-			if (start[0] < 0) return null;
+			if (start < 0) return null;
 			
 			if (ff == null || ff.endSign == NULL) {
 				if (icount == 1) {
-					end[0] = start[0];
-					end[1] = start[1];
+					end = start;
 				} else {
 					Object []keys = vals.toArray();
-					searchValue(keys, icount, false, end);
+					end = searchValue(keys, icount, false);
 				}
 			} else {
 				Object []keys = new Object[eqCount + 1];
 				vals.toArray(keys);
 				keys[eqCount] = ff.endVal;
-				searchValue(keys, icount, false, end);
+				end = searchValue(keys, icount, false);
 			}
 
-			if (end[0] < 0) end[0] = indexData.length();//(int) (this.internalBlockCount - 1);
+			if (end < 0) end = indexData.length();//(int) (this.internalBlockCount - 1);
 		}
 		
 		IntArray recNum = null;
-		if (start[0] >= 0) {
-			recNum = select(start[0], end[0], exp, ctx);
+		if (start >= 0) {
+			recNum = select(start, end, exp, ctx);
 		}
 		return recNum;
 	}
@@ -851,18 +1092,18 @@ public class MemoryTableIndex {
 				return new IntArray();
 			}
 
-			int start[] = new int[2];
-			int end[] = new int[2];
+			int start;
+			int end;
 			
-			searchValue(startVals, icount, true, start);
-			if (start[0] < 0 && start[1] < 0) return new IntArray();
-			searchValue(endVals, icount, false, end);
+			start = searchValue(startVals, icount, true);
+			if (start < 0) return new IntArray();
+			end = searchValue(endVals, icount, false);
 			
-			if (start[0] >= 0) {
-				if (end[0] < 0) {
-					srcPos = readPos(startVals, start[0], le ? GE : GT);
+			if (start >= 0) {
+				if (end < 0) {
+					srcPos = readPos(startVals, start, le ? GE : GT);
 				} else {
-					srcPos = readPos(startVals, start[0], le, endVals, end[0], re);
+					srcPos = readPos(startVals, start, le, endVals, end, re);
 				}
 			}
 		}
@@ -949,14 +1190,13 @@ public class MemoryTableIndex {
 	 * @return	地址(伪号)数组
 	 */
 	private IntArray select(String []key, Expression exp, String opt, Context ctx) {
-		int start[] = new int[2];
+		int start = 0;
 		IntArray srcPos = null;
-		start[0] = start[1] = 0;
 		
-		searchValue(key, 1, true, start);
-		if (start[0] < 0) return new IntArray();
-		if (start[0] >= 0) {
-			readPos_like(start[0], exp, ctx);
+		start = searchValue(key, 1, true);
+		if (start < 0) return new IntArray();
+		if (start >= 0) {
+			readPos_like(start, exp, ctx);
 		}
 		return srcPos;
 	}
@@ -1079,5 +1319,164 @@ public class MemoryTableIndex {
 				recNum.addAll(recordNums[i]);
 		}
 		return recNum;
+	}
+	
+	private ICursor toCursor(Sequence srcTable, Expression exp, Context ctx) {
+		return (ICursor) new MemoryCursor(srcTable).select(null, exp, null, ctx);
+	}
+	private ICursor select_fulltext(Expression exp, String []fields, String opt, Context ctx) {
+		int icount = ifields.length;
+		if (icount == 0) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException(mm.getMessage("Expression.unknownExpression") + exp.toString());
+		}
+
+		Node home = exp.getHome();
+		//处理like(F,"*xxx*")表达式
+		while (home instanceof Like) {
+			if (((Like) home).getParam().getSubSize() != 2) {
+				break;
+			}
+			IParam sub1 = ((Like) home).getParam().getSub(0);
+			IParam sub2 = ((Like) home).getParam().getSub(1);
+			String f = (String) sub1.getLeafExpression().getIdentifierName();
+			if (!f.equals(ifields[0])) {
+				break;
+			}
+			
+			//必须是like("*关键字*")格式的。否则按照普通的处理
+			String fmtExp = (String) sub2.getLeafExpression().calculate(ctx);
+			int idx = fmtExp.indexOf("*");
+			if (idx != 0) {
+				//return srcTable.cursor(fields, exp, ctx);
+				return toCursor(srcTable, exp, ctx);
+			}
+			
+			fmtExp = fmtExp.substring(1);
+			idx = fmtExp.indexOf("*");
+			if (idx != fmtExp.length() - 1) {
+				//return srcTable.cursor(fields, exp, ctx);
+				return toCursor(srcTable, exp, ctx);
+			}
+			
+			fmtExp = fmtExp.substring(0, fmtExp.length() - 1);
+			idx = fmtExp.indexOf("*");
+			if (idx >= 0) {
+				//return srcTable.cursor(fields, exp, ctx);
+				return toCursor(srcTable, exp, ctx);
+			}
+			
+			String regex = "[a-zA-Z0-9]+";
+			if (fmtExp.matches(regex) && fmtExp.length() < 3) {
+				//return srcTable.cursor(fields, exp, ctx);
+				return toCursor(srcTable, exp, ctx);
+			}
+			IntArray recNums = select_fulltext(exp, opt, ctx);
+			
+			if (recNums != null && recNums.size() > 0) {
+				Table srcTable = this.srcTable;
+				Table result = new Table(srcTable.dataStruct());
+				for (int i = 1, len = recNums.size(); i <= len; i++) {
+					BaseRecord rec = srcTable.getRecord(recNums.getInt(i));
+					result.add(rec);
+				}
+				ICursor cs = new MemoryCursor(result);
+				Select select = new Select(exp, null);
+				cs.addOperation(select, ctx);
+				return cs;
+			} else {
+				return null;
+			}
+		}
+		return toCursor(srcTable, exp, ctx);//return srcTable.cursor(fields, exp, ctx);
+	}
+	
+	private static IntArray intArrayUnite(IntArray a, IntArray b) {
+		int lenB = b.size();
+		
+		if (a == null) {
+			IntArray c = new IntArray(lenB);
+			c.addAll(b);
+			return c;
+		}
+		
+		int lenA = a.size();
+		if (lenB == 0) {
+			return a;
+		}
+
+		IntArray c = new IntArray(Math.min(lenA, lenB));
+		int i = 1, j = 1;
+		while (i <= lenA && j <= lenB) {
+			int longA = a.getInt(i);
+			int longB = a.getInt(j);
+			if (longA < longB) {
+				i++;
+			} else if (longB < longA) {
+				j++;
+			} else {
+				c.add(a.getInt(i));
+				i++;
+				j++;	
+			}
+		}
+		return c;
+	}
+	
+	private IntArray select_fulltext(Expression exp, String opt, Context ctx) {
+		String f = ifields[0];
+		IParam sub2 = ((Like) exp.getHome()).getParam().getSub(1);
+		String fmtExp = (String) sub2.getLeafExpression().calculate(ctx);
+		fmtExp = fmtExp.substring(1, fmtExp.length() - 1);
+		
+//		boolean isRow = srcTable instanceof RowPhyTable;
+//		long recCountOfSegment[] = null;
+//		if (!isRow) {
+//			recCountOfSegment = ((ColPhyTable)srcTable).getSegmentInfo();
+//		}
+		
+		//对每个关键字符进行过滤，求交集
+		String regex = "[a-zA-Z0-9]+";
+		String search = "";
+		IntArray tempPos = null;
+		int strLen = fmtExp.length();
+		int j;
+		int p = 0;//表示处理到的位置
+		for (j = 0; j < strLen; ) {
+			String str = fmtExp.substring(j, j + 1);
+			p = j + 1;
+			if (str.matches(regex)) {
+				//英文
+				//尝试连续取4个字母
+				if (j + 3 < strLen) {
+					String str4 = fmtExp.substring(j, j + 4);
+					if (str4.matches(regex)) {
+						str = str4;
+						p = j + 4;
+					}
+				} else if (j + 2 < strLen) {//尝试连续取3个字母
+					String str3 = fmtExp.substring(j, j + 3);
+					if (str3.matches(regex)) {
+						str = str3;
+						p = j + 3;
+					}
+				}
+			}
+			j++;
+			if (search.indexOf(str) >= 0) {
+				continue;//重复的不再查询
+			}
+			search = fmtExp.substring(0, p);
+			Expression tempExp = new Expression(f + "==\"" + str + "\"");
+			IntArray srcPos =  select_sort(tempExp, opt, null);
+			if (srcPos == null || srcPos.size() == 0) {
+				tempPos = null;
+				break;
+			}
+			
+			//排序，归并求交集
+			tempPos = intArrayUnite(tempPos, srcPos);
+		}
+		return tempPos;
 	}
 }
