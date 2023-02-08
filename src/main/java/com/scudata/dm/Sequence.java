@@ -2645,6 +2645,8 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			return result;
 		} else if (opt.indexOf('u') != -1) {
 			return CursorUtil.hashId(this, opt);
+		} else if (opt.indexOf('n') != -1 || opt.indexOf('b') != -1) {
+			return CursorUtil.hashId(this, opt);
 		} else {
 			if (length() > SORT_HASH_LEN) {
 				return CursorUtil.hashId(this, opt);
