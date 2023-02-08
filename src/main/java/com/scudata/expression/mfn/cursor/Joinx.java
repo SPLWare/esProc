@@ -160,7 +160,7 @@ public class Joinx extends CursorFunction {
 	private static ICursor toCursor(Object obj, Expression []dataExps, Expression []newExps ,Context ctx) {
 		if (obj instanceof ColPhyTable) {
 			String fields[] = makeFields(dataExps, newExps, ctx);
-			return (Cursor) ((ColPhyTable) obj).cursor(null, fields, null, null, null, null, ctx);
+			return (Cursor) ((ColPhyTable) obj).cursor(null, fields, null, null, null, null, null, ctx);
 		} else if (obj instanceof FileObject) {
 			return new BFileCursor((FileObject) obj, null, null, null);
 		} else if (obj instanceof ICursor) {

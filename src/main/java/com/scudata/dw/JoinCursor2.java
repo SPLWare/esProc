@@ -161,7 +161,7 @@ public class JoinCursor2 extends ICursor {
 		}
 		
 		if (table instanceof IPhyTable) {
-			this.cursor1 = ((IPhyTable) table).cursor(allExps, null, filter, null, null, null, ctx);
+			this.cursor1 = ((IPhyTable) table).cursor(allExps, null, filter, null, null, null, null, ctx);
 		}
 		
 		if (isNew || isNews) {

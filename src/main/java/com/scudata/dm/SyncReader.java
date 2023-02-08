@@ -113,7 +113,7 @@ public class SyncReader {
 			for (int i = 0; i < len; i++) {
 				fieldExps[i] = new Expression(fields[i]);
 			}
-			Cursor cursor = (Cursor) ((ColPhyTable) srcObj).cursor(fieldExps, null, null, null, null, null, null);
+			Cursor cursor = (Cursor) ((ColPhyTable) srcObj).cursor(fieldExps, null, null, null, null, null, null, null);
 			cursor.setSegment(false);
 			cursor.reset();
 			cursor.setSegment(countList.get(index * 2), countList.get(index * 2 + 1));

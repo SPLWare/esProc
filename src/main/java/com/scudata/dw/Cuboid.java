@@ -294,7 +294,7 @@ public class Cuboid extends RowComTable {
 		list.toArray(fields);
 		
 		if (hasM) {
-			return srcTable.cursor(null, fields, w, null, null, null, n, ctx);
+			return srcTable.cursor(null, fields, w, null, null, null, n, null, ctx);
 		} else {
 			return srcTable.cursor(fields, w, ctx);
 		}
@@ -591,9 +591,9 @@ public class Cuboid extends RowComTable {
 				}
 				Sequence result;
 				if (hasM) {
-					result = table.cursor(fieldExps, fieldNames, w, null, null, null, n, ctx).fetch();
+					result = table.cursor(fieldExps, fieldNames, w, null, null, null, n, null, ctx).fetch();
 				} else {
-					result = table.cursor(fieldExps, fieldNames, w, null, null, null, ctx).fetch();
+					result = table.cursor(fieldExps, fieldNames, w, null, null, null, null, ctx).fetch();
 				}
 				if (!(result instanceof Table)) {
 					Table seq = new Table(result.dataStruct());
@@ -788,9 +788,9 @@ public class Cuboid extends RowComTable {
 				}
 				Sequence result;
 				if (hasM) {
-					result = table.cursor(fieldExps, fieldNames, w, null, null, null, n, ctx).fetch();
+					result = table.cursor(fieldExps, fieldNames, w, null, null, null, n, null, ctx).fetch();
 				} else {
-					result = table.cursor(fieldExps, fieldNames, w, null, null, null, ctx).fetch();
+					result = table.cursor(fieldExps, fieldNames, w, null, null, null, null, ctx).fetch();
 				}
 				if (!(result instanceof Table)) {
 					Table seq = new Table(result.dataStruct());

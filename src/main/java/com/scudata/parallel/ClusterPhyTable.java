@@ -217,7 +217,7 @@ public class ClusterPhyTable implements IClusterObject, IResource {
 			if (mcs instanceof MultipathCursors) {
 				cursor = tableMetaData.cursor(exps, fields, exp, fkNames, codes, opts, (MultipathCursors)mcs, opt, ctx);
 			} else {
-				cursor = tableMetaData.cursor(exps, fields, exp, fkNames, codes, opts, ctx);
+				cursor = tableMetaData.cursor(exps, fields, exp, fkNames, codes, opts, opt, ctx);
 			}
 			
 			IProxy proxy = new CursorProxy(cursor, unit);
@@ -386,12 +386,12 @@ public class ClusterPhyTable implements IClusterObject, IResource {
 			ICursor cursor;
 			if (isSeg) {
 				// 节点机间需要进行切分数据
-				cursor = tableMetaData.cursor(exps, fields, exp, fkNames, codes, opts, unit + 1, unitCount, segCount, ctx);
+				cursor = tableMetaData.cursor(exps, fields, exp, fkNames, codes, opts, unit + 1, unitCount, segCount, opt, ctx);
 			} else {
 				if (segCount > 1) {
-					cursor = tableMetaData.cursor(exps, fields, exp, fkNames, codes, opts, segCount, ctx);
+					cursor = tableMetaData.cursor(exps, fields, exp, fkNames, codes, opts, segCount, opt, ctx);
 				} else {
-					cursor = tableMetaData.cursor(exps, fields, exp, fkNames, codes, opts, ctx);
+					cursor = tableMetaData.cursor(exps, fields, exp, fkNames, codes, opts, opt, ctx);
 				}
 			}
 			

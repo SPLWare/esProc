@@ -142,7 +142,7 @@ public class CSJoinxCursor3 extends ICursor {
 	private ICursor toCursor(Object obj) {
 		if (obj instanceof ColPhyTable) {
 			String fields[] = makeFields(keys, exps, ctx);
-			return (Cursor) ((ColPhyTable) obj).cursor(null, fields, null, null, null, null, ctx);
+			return (Cursor) ((ColPhyTable) obj).cursor(null, fields, null, null, null, null, null, ctx);
 		} else if (obj instanceof FileObject) {
 			return new BFileCursor((FileObject) obj, null, null, null);
 		} else if (obj instanceof ICursor) {

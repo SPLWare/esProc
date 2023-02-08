@@ -283,32 +283,32 @@ public class PhyTableGroup implements IPhyTable {
 	}
 	
 	public ICursor cursor() {
-		return cursor(null, null, null, null, null, null, ctx);
+		return cursor(null, null, null, null, null, null, null, ctx);
 	}
 	
 	public ICursor cursor(String []fields) {
-		return cursor(null, fields, null, null, null, null, ctx);
+		return cursor(null, fields, null, null, null, null, null, ctx);
 	}
 	
 	public ICursor cursor(String []fields, Expression filter, Context ctx) {
-		return cursor(null, fields, filter, null, null, null, ctx);
+		return cursor(null, fields, filter, null, null, null, null, ctx);
 	}
 	
 	public ICursor cursor(Expression []exps, String []fields, Expression filter, 
-			String []fkNames, Sequence []codes, String[] opts, Context ctx) {
+			String []fkNames, Sequence []codes, String[] opts, String opt, Context ctx) {
 		int count = tables.length;
 		ICursor []cursors = new ICursor[count];
 		for (int i = 0; i < count; ++i) {
-			cursors[i] = tables[i].cursor(exps, fields, filter, fkNames, codes, opts, ctx);
+			cursors[i] = tables[i].cursor(exps, fields, filter, fkNames, codes, opts, opt, ctx);
 		}
 		
 		return new ConjxCursor(cursors);
 	}
 	
 	public ICursor cursor(Expression []exps, String []fields, Expression filter, 
-			String []fkNames, Sequence []codes, String[] opts, int pathCount, Context ctx) {
+			String []fkNames, Sequence []codes, String[] opts, int pathCount, String opt, Context ctx) {
 		if (pathCount < 2) {
-			return cursor(exps, fields, filter, fkNames, codes, opts, ctx);
+			return cursor(exps, fields, filter, fkNames, codes, opts, opt, ctx);
 		}
 		
 		// 把每个文件分成pathCount路，然后所有的i路合成一个游标，最后再组成多路游标
@@ -319,7 +319,7 @@ public class PhyTableGroup implements IPhyTable {
 		}
 		
 		for (int i = 0; i < tableCount; ++i) {
-			ICursor cursor = tables[i].cursor(exps, fields, filter, fkNames, codes, opts, pathCount, ctx);
+			ICursor cursor = tables[i].cursor(exps, fields, filter, fkNames, codes, opts, pathCount, opt, ctx);
 			if (cursor instanceof MultipathCursors) {
 				MultipathCursors mcs = (MultipathCursors)cursor;
 				ICursor []cursors = mcs.getCursors();
@@ -356,15 +356,15 @@ public class PhyTableGroup implements IPhyTable {
 	}
 	
 	public ICursor cursor(Expression []exps, String []fields, Expression filter, 
-			String []fkNames, Sequence []codes, String[] opts, int segSeq, int segCount, Context ctx) {
+			String []fkNames, Sequence []codes, String[] opts, int segSeq, int segCount, String opt, Context ctx) {
 		if (segCount < 2) {
-			return cursor(exps, fields, filter, fkNames, codes, opts, ctx);
+			return cursor(exps, fields, filter, fkNames, codes, opts, opt, ctx);
 		}
 		
 		int count = tables.length;
 		ArrayList<ICursor> list = new ArrayList<ICursor>(count);
 		for (int i = 0; i < count; ++i) {
-			ICursor cursor = tables[i].cursor(exps, fields, filter, fkNames, codes, opts, segSeq, segCount, ctx);
+			ICursor cursor = tables[i].cursor(exps, fields, filter, fkNames, codes, opts, segSeq, segCount, opt, ctx);
 			if (cursor != null) {
 				list.add(cursor);
 			}
@@ -376,7 +376,7 @@ public class PhyTableGroup implements IPhyTable {
 	}
 	
 	public ICursor cursor(Expression []exps, String []fields, Expression filter, 
-			String []fkNames, Sequence []codes, String[] opts, int pathSeq, int pathCount, int pathCount2, Context ctx) {
+			String []fkNames, Sequence []codes, String[] opts, int pathSeq, int pathCount, int pathCount2, String opt, Context ctx) {
 		throw new RQException("'mcursor' function is unimplemented in file group!");
 	}
 	

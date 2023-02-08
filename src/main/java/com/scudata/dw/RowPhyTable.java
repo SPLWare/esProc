@@ -1167,7 +1167,7 @@ public class RowPhyTable extends PhyTable {
 		if (tmd == null) {
 			return cs;
 		} else {
-			ICursor cs2 = tmd.cursor(exps, fields, filter, null, null, null, ctx);
+			ICursor cs2 = tmd.cursor(exps, fields, filter, null, null, null, null, ctx);
 			return merge(cs, cs2);
 		}
 	}
@@ -1271,7 +1271,7 @@ public class RowPhyTable extends PhyTable {
 	}
 	
 	public ICursor cursor(Expression []exps, String []fields, Expression filter, String []fkNames, Sequence []codes,
-			String []opts, Context ctx) {
+			String []opts, String opt, Context ctx) {
 		if (fkNames == null) {
 			return cursor(exps, fields, filter, ctx);
 		} else {
@@ -2624,7 +2624,7 @@ public class RowPhyTable extends PhyTable {
 	}
 	
 	public ICursor cursor(Expression[] exps, String[] fields, Expression filter, Context ctx, int pathCount) {
-		return cursor(exps, fields, filter, null, null, null, pathCount, ctx);
+		return cursor(exps, fields, filter, null, null, null, pathCount, null, ctx);
 	}
 	
 	public Table finds(Sequence values) throws IOException {
@@ -2890,14 +2890,14 @@ public class RowPhyTable extends PhyTable {
 	}
 
 	public ICursor cursor(Expression[] exps, String[] fields, Expression filter, String[] fkNames, 
-			Sequence[] codes,String []opts, int pathCount, Context ctx) {
+			Sequence[] codes,String []opts, int pathCount, String opt, Context ctx) {
 		if (fkNames != null || codes != null) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("cursor" + mm.getMessage("dw.needMCursor"));
 		}
 		
 		if (pathCount < 2) {
-			return cursor(exps, fields, filter, fkNames, codes, opts, ctx);
+			return cursor(exps, fields, filter, fkNames, codes, opts, opt, ctx);
 		}
 		
 		PhyTable tmd = getSupplementTable(false);
@@ -2906,7 +2906,7 @@ public class RowPhyTable extends PhyTable {
 			if (tmd == null) {
 				return new MemoryCursor(null);
 			} else {
-				return tmd.cursor(exps, fields, filter, fkNames, codes,  opts, pathCount, ctx);
+				return tmd.cursor(exps, fields, filter, fkNames, codes,  opts, pathCount, opt, ctx);
 			}
 		}
 		
@@ -2948,17 +2948,17 @@ public class RowPhyTable extends PhyTable {
 		
 		String []sortFields = ((IDWCursor)cursors[0]).getSortFields();
 		if (sortFields != null) {
-			ICursor cs2 = tmd.cursor(exps, fields, filter, fkNames, codes,  opts, mcs, null, ctx);
+			ICursor cs2 = tmd.cursor(exps, fields, filter, fkNames, codes,  opts, mcs, opt, ctx);
 			return merge(mcs, (MultipathCursors)cs2, sortFields);
 		} else {
-			ICursor cs2 = tmd.cursor(exps, fields, filter, fkNames, codes,  opts, pathCount, ctx);
+			ICursor cs2 = tmd.cursor(exps, fields, filter, fkNames, codes,  opts, pathCount, opt, ctx);
 			return conj(mcs, cs2);
 		}
 	
 	}
 
 	public ICursor cursor(Expression[] exps, String[] fields, Expression filter, String[] fkNames, 
-			Sequence[] codes,String []opts, int segSeq, int segCount, Context ctx) {
+			Sequence[] codes,String []opts, int segSeq, int segCount, String opt, Context ctx) {
 
 		getGroupTable().checkReadable();
 		
@@ -3012,7 +3012,7 @@ public class RowPhyTable extends PhyTable {
 	}
 
 	public ICursor cursor(Expression[] exps, String[] fields, Expression filter, String[] fkNames, 
-			Sequence[] codes,String []opts, int pathSeq, int pathCount, int pathCount2, Context ctx) {
+			Sequence[] codes,String []opts, int pathSeq, int pathCount, int pathCount2, String opt, Context ctx) {
 		//行存不支持多路
 		MessageManager mm = EngineMessage.get();
 		throw new RQException("cursor" + mm.getMessage("dw.needMCursor"));

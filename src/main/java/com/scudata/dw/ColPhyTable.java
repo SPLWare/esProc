@@ -1739,10 +1739,12 @@ public class ColPhyTable extends PhyTable {
 	 * @param filter 过滤表达式
 	 * @param fkNames 指定FK过滤的字段名称
 	 * @param codes 指定FK过滤的数据序列
+	 * @param opts 关联字段进行关联的选项
+	 * @param opt 选项
 	 * @param ctx 上下文
 	 */
 	public ICursor cursor(Expression []exps, String []fields, Expression filter, 
-			String []fkNames, Sequence []codes, String []opts, Context ctx) {
+			String []fkNames, Sequence []codes, String []opts, String opt, Context ctx) {
 		ComTable groupTable = getGroupTable();
 		groupTable.checkReadable();
 		
@@ -1755,7 +1757,7 @@ public class ColPhyTable extends PhyTable {
 		if (tmd == null) {
 			return cs;
 		} else {
-			ICursor cs2 = tmd.cursor(exps, fields, filter, fkNames, codes, opts, ctx);
+			ICursor cs2 = tmd.cursor(exps, fields, filter, fkNames, codes, opts, opt, ctx);
 			return merge(cs, cs2);
 		}
 	}
@@ -1795,12 +1797,13 @@ public class ColPhyTable extends PhyTable {
 	 * @param fkNames 指定FK过滤的字段名称
 	 * @param codes 指定FK过滤的数据序列
 	 * @param pathCount 路数
+	 * @param opt 选项
 	 * @param ctx 上下文
 	 */
 	public ICursor cursor(Expression []exps, String []fields, Expression filter, String []fkNames, 
-			Sequence []codes, String []opts, int pathCount, Context ctx) {
+			Sequence []codes, String []opts, int pathCount, String opt, Context ctx) {
 		if (pathCount < 2) {
-			return cursor(exps, fields, filter, fkNames, codes, opts, ctx);
+			return cursor(exps, fields, filter, fkNames, codes, opts, opt, ctx);
 		}
 		
 		PhyTable tmd = getSupplementTable(false);
@@ -1809,7 +1812,7 @@ public class ColPhyTable extends PhyTable {
 			if (tmd == null) {
 				return new MemoryCursor(null);
 			} else {
-				return tmd.cursor(exps, fields, filter, fkNames, codes, opts, pathCount, ctx);
+				return tmd.cursor(exps, fields, filter, fkNames, codes, opts, pathCount, opt, ctx);
 			}
 		}
 		
@@ -1924,7 +1927,7 @@ public class ColPhyTable extends PhyTable {
 			ICursor cs2 = tmd.cursor(exps, fields, filter, fkNames, codes, opts, mcs, null, ctx);
 			return merge(mcs, (MultipathCursors)cs2, sortFields);
 		} else {
-			ICursor cs2 = tmd.cursor(exps, fields, filter, fkNames, codes, opts, pathCount, ctx);
+			ICursor cs2 = tmd.cursor(exps, fields, filter, fkNames, codes, opts, pathCount, opt, ctx);
 			return conj(mcs, cs2);
 		}
 	}
@@ -1938,10 +1941,11 @@ public class ColPhyTable extends PhyTable {
 	 * @param codes 指定FK过滤的数据序列
 	 * @param segSeq 第几段
 	 * @param segCount  分段数
+	 * @param opt 选项
 	 * @param ctx 上下文
 	 */
 	public ICursor cursor(Expression []exps, String []fields, Expression filter, String []fkNames, 
-			Sequence []codes, String []opts, int segSeq, int segCount, Context ctx) {
+			Sequence []codes, String []opts, int segSeq, int segCount, String opt, Context ctx) {
 		getGroupTable().checkReadable();
 		
 		if (filter != null) {
@@ -2138,7 +2142,7 @@ public class ColPhyTable extends PhyTable {
 				}
 				
 				if (nextMinValue == null) {
-					cursors[s] = cursor(exps, fields, filter, fkNames, codes, opts, ctx);
+					cursors[s] = cursor(exps, fields, filter, fkNames, codes, opts, opt, ctx);
 					((IDWCursor)cursors[s]).setSegment(startBlock, blockCount);
 					startBlock = blockCount;
 					continue;
@@ -2147,7 +2151,7 @@ public class ColPhyTable extends PhyTable {
 				while (currentBlock < blockCount) {
 					int cmp = Variant.compareArrays(blockMinVals, nextMinValue);
 					if (cmp > 0) {
-						cursors[s] = cursor(exps, fields, filter, fkNames, codes, opts, ctx);
+						cursors[s] = cursor(exps, fields, filter, fkNames, codes, opts, opt, ctx);
 						
 						if (currentBlock > 0) {
 							((IDWCursor)cursors[s]).setSegment(startBlock, currentBlock - 1);
@@ -2159,7 +2163,7 @@ public class ColPhyTable extends PhyTable {
 						
 						continue Next;
 					} else if (cmp == 0) {
-						cursors[s] = cursor(exps, fields, filter, fkNames, codes, opts, ctx);
+						cursors[s] = cursor(exps, fields, filter, fkNames, codes, opts, opt, ctx);
 						((IDWCursor)cursors[s]).setSegment(startBlock, currentBlock);
 						startBlock = currentBlock;
 						continue Next;
@@ -2176,7 +2180,7 @@ public class ColPhyTable extends PhyTable {
 					}
 				}
 				
-				cursors[s] = cursor(exps, fields, filter, fkNames, codes, opts, ctx);
+				cursors[s] = cursor(exps, fields, filter, fkNames, codes, opts, opt, ctx);
 				((IDWCursor)cursors[s]).setSegment(startBlock, blockCount);
 				startBlock = blockCount;
 			}
@@ -4805,14 +4809,15 @@ public class ColPhyTable extends PhyTable {
 	 * @param pathSeq 第几段
 	 * @param pathCount 节点机数
 	 * @param pathCount2 节点机上指定的块数
+	 * @param opt 选项
 	 * @param ctx 上下文
 	 * @return
 	 */
 	public ICursor cursor(Expression []exps, String[] fields, Expression filter, String[] fkNames, 
-			Sequence[] codes, String[] opts, int pathSeq, int pathCount, int pathCount2, Context ctx) {
+			Sequence[] codes, String[] opts, int pathSeq, int pathCount, int pathCount2, String opt, Context ctx) {
 		if (dataBlockCount < pathCount || pathCount2 < 2) {
 			//如果块数少于节点机数或者节点机上指定的块数少于2
-			return cursor(exps, fields, filter, fkNames, codes, opts, pathSeq, pathCount, ctx);
+			return cursor(exps, fields, filter, fkNames, codes, opts, pathSeq, pathCount, opt, ctx);
 		}
 				
 		ICursor []cursors = new ICursor[pathCount2];
@@ -4834,7 +4839,7 @@ public class ColPhyTable extends PhyTable {
 					filter = filter.newExpression(ctx);
 				}
 
-				cursors[i] = cursor(exps, fields, filter, fkNames, codes, opts, ctx);
+				cursors[i] = cursor(exps, fields, filter, fkNames, codes, opts, opt, ctx);
 				((IDWCursor) cursors[i]).setSegment(offset + i, offset + i + 1);
 			}
 			
@@ -4844,7 +4849,7 @@ public class ColPhyTable extends PhyTable {
 					filter = filter.newExpression(ctx);
 				}
 
-				cursors[i] = cursor(exps, fields, filter, fkNames, codes, opts, ctx);
+				cursors[i] = cursor(exps, fields, filter, fkNames, codes, opts, opt, ctx);
 				((IDWCursor) cursors[i]).setSegment(0, -1);
 			}
 		} else {
@@ -4856,7 +4861,7 @@ public class ColPhyTable extends PhyTable {
 					filter = filter.newExpression(ctx);
 				}
 				
-				cursors[i] = cursor(exps, fields, filter, fkNames, codes, opts, ctx);
+				cursors[i] = cursor(exps, fields, filter, fkNames, codes, opts, opt, ctx);
 				if (i != pathCount2 - 1) {
 					((IDWCursor) cursors[i]).setSegment(offset + avg2 * i, offset + avg2 * (i + 1));
 				} else {
@@ -4879,11 +4884,12 @@ public class ColPhyTable extends PhyTable {
 	 * @param cursor 参考游标
 	 * @param seg 节点机号
 	 * @param endValues 尾部要追加的记录
+	 * @param opt 选项
 	 * @param ctx
 	 * @return
 	 */
 	public ICursor cursor(Expression []exps, String[] fields, Expression filter, String[] fkNames, 
-			Sequence[] codes, String[] opts, ICursor cursor, int seg, Object [][]endValues, Context ctx) {
+			Sequence[] codes, String[] opts, ICursor cursor, int seg, Object [][]endValues, String opt, Context ctx) {
 		getGroupTable().checkReadable();
 		
 		ArrayList<ICursor> csList = new ArrayList<ICursor>();
@@ -5028,7 +5034,7 @@ public class ColPhyTable extends PhyTable {
 				
 				int cmp = Variant.compareArrays(blockMinVals, minValues[s]);
 				if (cmp > 0) {
-					ICursor cs = cursor(exps, fields, filter, fkNames, codes, opts, ctx);
+					ICursor cs = cursor(exps, fields, filter, fkNames, codes, opts, opt, ctx);
 					cursors[s - 1] = cs;
 					if (b > 0) {
 						((IDWCursor) cs).setSegment(startBlock, b - 1);
@@ -5041,7 +5047,7 @@ public class ColPhyTable extends PhyTable {
 					isEquals[s] = false;
 					s++;
 				} else if (cmp == 0) {
-					ICursor cs = cursor(exps, fields, filter, fkNames, codes, opts, ctx);
+					ICursor cs = cursor(exps, fields, filter, fkNames, codes, opts, opt, ctx);
 					cursors[s - 1] = cs;
 					((IDWCursor) cs).setSegment(startBlock, b);
 					startBlock = b;
@@ -5057,7 +5063,7 @@ public class ColPhyTable extends PhyTable {
 					filter = filter.newExpression(ctx);
 				}
 				
-				ICursor cs = cursor(exps, fields, filter, fkNames, codes, opts, ctx);
+				ICursor cs = cursor(exps, fields, filter, fkNames, codes, opts, opt, ctx);
 				cursors[s - 1] = cs;
 				((IDWCursor) cs).setSegment(startBlock, blockCount);
 				
@@ -5074,7 +5080,7 @@ public class ColPhyTable extends PhyTable {
 					filter = filter.newExpression(ctx);
 				}
 				
-				ICursor cs = cursor(exps, fields, filter, fkNames, codes, opts, ctx);
+				ICursor cs = cursor(exps, fields, filter, fkNames, codes, opts, opt, ctx);
 				cursors[s - 1] = cs;
 				((IDWCursor) cs).setSegment(startBlock, blockCount - 1);
 				
