@@ -53,7 +53,6 @@ import com.scudata.ide.common.ConfigOptions;
 import com.scudata.ide.common.ConfigUtilIde;
 import com.scudata.ide.common.DataSource;
 import com.scudata.ide.common.DataSourceListModel;
-import com.scudata.ide.common.GC;
 import com.scudata.ide.common.GM;
 import com.scudata.ide.common.GV;
 import com.scudata.ide.common.IPrjxSheet;
@@ -1451,8 +1450,10 @@ public class SPL extends AppFrame {
 		if (StringUtils.isValidString(splashFile)) {
 			splashFile = GM.getAbsolutePath(splashFile);
 		} else {
-			splashFile = GC.IMAGES_PATH + "esproc" + GM.getLanguageSuffix()
-					+ ".png";
+			// 在DialogSplash中按产品找，这里返回null
+			return null;
+			// splashFile = GC.IMAGES_PATH + "esproc" + GM.getLanguageSuffix()
+			// + ".png";
 		}
 		return splashFile;
 	}
