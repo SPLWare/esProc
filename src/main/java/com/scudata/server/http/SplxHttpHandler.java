@@ -51,7 +51,7 @@ import com.sun.net.httpserver.HttpHandler;
  * 1  http://..../splx()
  * 2  http://..../splx(arg1,arg2,...)
  * 3  http://localhost:.../splx1(...)splx2.splx
- * 4  http://localhost:.../.../splx?arg1=v1&arg2=v2
+ * 4  http://localhost:.../.../splx?arg1=v1&arg2=v2  不能带扩展名，否则读不到问号后的参数
  * HTTP服务的url串格式，分两种情况：
  * 1、只有一个splx文件。如果splx有参数，则在括号里依次写参数值，值间用逗号分隔；
  * 如果没有参数，则写个空括号。 计算结果按系统默认格式转化成字符串返回
