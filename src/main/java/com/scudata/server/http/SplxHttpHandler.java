@@ -9,6 +9,7 @@ import java.io.OutputStream;
 import java.io.PrintStream;
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
@@ -20,6 +21,7 @@ import com.scudata.common.ArgumentTokenizer;
 import com.scudata.common.FileUtils;
 import com.scudata.common.Logger;
 import com.scudata.common.MessageManager;
+import com.scudata.common.SegmentSet;
 import com.scudata.common.StringUtils;
 import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Context;
@@ -28,12 +30,10 @@ import com.scudata.dm.FileObject;
 import com.scudata.dm.JobSpaceManager;
 import com.scudata.dm.Param;
 import com.scudata.dm.ParamList;
-import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
 import com.scudata.expression.mfn.sequence.Export;
 import com.scudata.ide.spl.Esprocx;
-import com.scudata.parallel.Task;
 import com.scudata.resources.ParallelMessage;
 import com.scudata.server.IServer;
 import com.scudata.thread.Job;
@@ -51,6 +51,7 @@ import com.sun.net.httpserver.HttpHandler;
  * 1  http://..../splx1.splx()
  * 2  http://..../splx1.splx(arg1,arg2,...)
  * 3  http://localhost:.../splx1.splx(...)splx2.splx
+ * 4  http://localhost:.../.../splx?arg1=v1&arg2=v2
  * HTTP服务的url串格式，分两种情况：
  * 1、只有一个splx文件。如果splx有参数，则在括号里依次写参数值，值间用逗号分隔；
  * 如果没有参数，则写个空括号。 计算结果按系统默认格式转化成字符串返回
@@ -213,12 +214,12 @@ public class SplxHttpHandler implements HttpHandler {
 						}
 						String fileName = "";
 						String splx2 = "";
-						String params = "";
+						String params = "";   //仅有参数值，用于记录spl格式的()中写的参数值
+						HashMap<String,String> paramsMap = new HashMap<String,String>();
 						int pos = path.indexOf( "(" );
 						if( pos > 0 ) { 
 							if( path.indexOf(".splx") < 0 && path.indexOf(".spl") < 0 && path.indexOf(".dfx") < 0 )
-								throw new Exception(
-										mm.getMessage("DfxHttpHandler.errorurl"));
+								throw new Exception( mm.getMessage("DfxHttpHandler.errorurl") );
 							path = path.trim();
 							pos = path.lastIndexOf(")");
 							if (pos < 0)
@@ -237,37 +238,62 @@ public class SplxHttpHandler implements HttpHandler {
 						else {
 							//path中没有()，说明是sap的restful格式的url: http://..../sapPath/dfx/argvalue1/argvalue2/...
 							//其中argvalue是参数名与值合在一起书写，参数名全是字母，参数值全是数字开头
+							//或者是常规url格式 http://localhost:.../.../splx?arg1=v1&arg2=v2
 							//没有dfx2
 							path = path.trim();
-							ArrayList<String> saps = SplxServerInIDE.getInstance().getContext().getSapPath();
-							String prefix = "";
-							for( int k = 0; k < saps.size(); k++ ) {
-								String sap = saps.get( k );
-								if( !sap.startsWith( "/" ) ) sap = "/" + sap;
-								if( path.startsWith( sap ) ) {
-									if( sap.length() > prefix.length() ) prefix = sap;
+							int flag = path.indexOf( "?" );
+							if( flag < 0 ) {   //sap的restful
+								ArrayList<String> saps = SplxServerInIDE.getInstance().getContext().getSapPath();
+								String prefix = "";
+								for( int k = 0; k < saps.size(); k++ ) {
+									String sap = saps.get( k );
+									if( !sap.startsWith( "/" ) ) sap = "/" + sap;
+									if( path.startsWith( sap ) ) {
+										if( sap.length() > prefix.length() ) prefix = sap;
+									}
+								}
+								path = path.substring( prefix.length() );
+								pos = path.indexOf( "/", 1 );
+								String path1 = path;   //splx文件路径
+								String args = "";
+								if( pos > 0 ) {
+									path1 = path.substring( 0, pos );
+									args = path.substring( pos + 1 );
+								}
+								path1 = prefix + path1;
+								fileName = path1.substring(1).trim();
+								if( !fileName.toLowerCase().endsWith( ".splx" ) ) fileName += ".splx";
+								if( args.length() > 0 ) {
+									ArgumentTokenizer at = new ArgumentTokenizer( args, '/' );
+									while( at.hasMoreTokens() ) {
+										String tmp = at.nextToken().trim();
+										int split = -1;
+										for( int k = 0; k < tmp.length(); k++ ) {
+											if( Character.isDigit( tmp.charAt( k ) ) ) {
+												split = k;
+												break;
+											}
+										}
+										String paramName = tmp.substring( 0, split );
+										String paramValue = tmp.substring( split );
+										paramsMap.put( paramName, paramValue );
+									}
 								}
 							}
-							path = path.substring( prefix.length() );
-							pos = path.indexOf( "/", 1 );
-							String path1 = path;
-							String args = "";
-							if( pos > 0 ) {
-								path1 = path.substring( 0, pos );
-								args = path.substring( pos + 1 );
-							}
-							path1 = prefix + path1;
-							fileName = path1.substring(1).trim();
-							if( !fileName.toLowerCase().endsWith( ".splx" ) ) fileName += ".splx";
-							if( args.length() > 0 ) {
-								ArgumentTokenizer at = new ArgumentTokenizer( args, '/' );
-								while( at.hasMoreTokens() ) {
-									String tmp = at.nextToken().trim();
-									while( tmp.length() > 0 && !Character.isDigit( tmp.charAt( 0 ) ) ) {
-										tmp = tmp.substring( 1 );
+							else {   //常规url格式
+								fileName = path.substring( 1, flag );
+								if( !fileName.endsWith(".splx") && !fileName.endsWith(".spl") && !fileName.endsWith(".dfx") ) {
+									fileName += ".splx";
+								}
+								String args = path.substring( flag + 1 ).trim();
+								if( args.length() > 0 ) {
+									SegmentSet segs = new SegmentSet( args, '&' );
+									Iterator it = segs.keySet().iterator();
+									while( it.hasNext() ) {
+										String paramName = (String)it.next();
+										String paramValue = segs.get( paramName );
+										paramsMap.put( paramName, paramValue );
 									}
-									if( params.length() > 0 ) params += ",";
-									params += tmp;
 								}
 							}
 						}
@@ -300,6 +326,14 @@ public class SplxHttpHandler implements HttpHandler {
 								//if (pvalue == null || pvalue.trim().length() == 0) continue;
 								Param p = (Param) list.get(i);
 								ctx1.setParamValue(p.getName(), Variant.parse(pvalue));
+							}
+							if( paramsMap.size() > 0 && list != null ) {
+								Iterator<String> it = paramsMap.keySet().iterator();
+								while( it.hasNext() ) {
+									String paramName = it.next();
+									String paramValue = paramsMap.get( paramName );
+									ctx1.setParamValue( paramName, Variant.parse( paramValue ) );
+								}
 							}
 							//读取post内容
 							if( hasPost ) {
