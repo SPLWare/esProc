@@ -48,9 +48,9 @@ import com.sun.net.httpserver.HttpHandler;
  * Http服务处理器
  * 
  * 支持的url写法:
- * 1  http://..../splx1.splx()
- * 2  http://..../splx1.splx(arg1,arg2,...)
- * 3  http://localhost:.../splx1.splx(...)splx2.splx
+ * 1  http://..../splx()
+ * 2  http://..../splx(arg1,arg2,...)
+ * 3  http://localhost:.../splx1(...)splx2.splx
  * 4  http://localhost:.../.../splx?arg1=v1&arg2=v2
  * HTTP服务的url串格式，分两种情况：
  * 1、只有一个splx文件。如果splx有参数，则在括号里依次写参数值，值间用逗号分隔；
@@ -218,8 +218,6 @@ public class SplxHttpHandler implements HttpHandler {
 						HashMap<String,String> paramsMap = new HashMap<String,String>();
 						int pos = path.indexOf( "(" );
 						if( pos > 0 ) { 
-							if( path.indexOf(".splx") < 0 && path.indexOf(".spl") < 0 && path.indexOf(".dfx") < 0 )
-								throw new Exception( mm.getMessage("DfxHttpHandler.errorurl") );
 							path = path.trim();
 							pos = path.lastIndexOf(")");
 							if (pos < 0)
@@ -241,8 +239,8 @@ public class SplxHttpHandler implements HttpHandler {
 							//或者是常规url格式 http://localhost:.../.../splx?arg1=v1&arg2=v2
 							//没有dfx2
 							path = path.trim();
-							int flag = path.indexOf( "?" );
-							if( flag < 0 ) {   //sap的restful
+							String queryParams = uri.getQuery();
+							if( queryParams == null || queryParams.trim().length() == 0 ) {   //sap的restful
 								ArrayList<String> saps = SplxServerInIDE.getInstance().getContext().getSapPath();
 								String prefix = "";
 								for( int k = 0; k < saps.size(); k++ ) {
@@ -262,7 +260,6 @@ public class SplxHttpHandler implements HttpHandler {
 								}
 								path1 = prefix + path1;
 								fileName = path1.substring(1).trim();
-								if( !fileName.toLowerCase().endsWith( ".splx" ) ) fileName += ".splx";
 								if( args.length() > 0 ) {
 									ArgumentTokenizer at = new ArgumentTokenizer( args, '/' );
 									while( at.hasMoreTokens() ) {
@@ -281,11 +278,8 @@ public class SplxHttpHandler implements HttpHandler {
 								}
 							}
 							else {   //常规url格式
-								fileName = path.substring( 1, flag );
-								if( !fileName.endsWith(".splx") && !fileName.endsWith(".spl") && !fileName.endsWith(".dfx") ) {
-									fileName += ".splx";
-								}
-								String args = path.substring( flag + 1 ).trim();
+								fileName = path.substring( 1 );
+								String args = queryParams.trim();
 								if( args.length() > 0 ) {
 									SegmentSet segs = new SegmentSet( args, '&' );
 									Iterator it = segs.keySet().iterator();
@@ -300,6 +294,21 @@ public class SplxHttpHandler implements HttpHandler {
 						PgmCellSet pcs1 = null;
 						try {
 							FileObject fo = new FileObject(fileName, "s");
+							if( !fo.isExists() ) {
+								String fn = fileName.toLowerCase();
+								if( !fn.endsWith(".splx") && !fn.endsWith(".spl") && !fn.endsWith(".dfx") ) {
+									fo = new FileObject(fileName + ".splx", "s");
+									if( !fo.isExists() ) {
+										fo = new FileObject(fileName + ".spl", "s");
+									}
+									if( !fo.isExists() ) {
+										fo = new FileObject(fileName + ".dfx", "s");
+									}
+								}
+							}
+							if( !fo.isExists() ) {
+								throw new Exception( "File " + fileName + " is not exist." );
+							}
 							pcs1 = fo.readPgmCellSet();
 						}
 						catch( Throwable th ) {
