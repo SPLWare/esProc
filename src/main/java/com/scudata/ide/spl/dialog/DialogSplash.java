@@ -78,11 +78,19 @@ public class DialogSplash extends JDialog {
 			}
 		}
 		if (ii == null) {
-			String imgPath = "/com/scudata/ide/common/resources/esproc"
-					+ GM.getLanguageSuffix() + ".png";
+			String imgPath = "/com/scudata/ide/common/resources/"
+					+ getDefaultImageName() + GM.getLanguageSuffix() + ".png";
 			ii = GM.getImageIcon(imgPath);
 		}
 		return ii;
+	}
+
+	/**
+	 * 默认的图标文件名
+	 * @return
+	 */
+	protected String getDefaultImageName() {
+		return "esproc";
 	}
 
 	/**
