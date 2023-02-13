@@ -3983,25 +3983,37 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		if (exp == null) {
 			return this;
 		}
-
-		int size = length();
-		Sequence result = new Sequence(size);
-		IArray resultMems = result.getMems();
-
+		
 		ComputeStack stack = ctx.getComputeStack();
 		Current current = new Current(this);
-		stack.push(current);
 
-		try {
-			for (int i = 1; i <= size; ++i) {
-				current.setCurrent(i);
-				resultMems.add(exp.calculate(ctx));
+		if (mems instanceof ObjectArray) {
+			int size = length();
+			Sequence result = new Sequence(size);
+			IArray resultMems = result.getMems();
+			stack.push(current);
+
+			try {
+				for (int i = 1; i <= size; ++i) {
+					current.setCurrent(i);
+					resultMems.add(exp.calculate(ctx));
+				}
+			} finally {
+				stack.pop();
 			}
-		} finally {
-			stack.pop();
-		}
 
-		return result;
+			return result;
+		} else {
+			stack.push(current);
+
+			try {
+				IArray array = exp.calculateAll(ctx);
+				array = array.reserve(false);
+				return new Sequence(array);
+			} finally {
+				stack.pop();
+			}
+		}
 	}
 
 	private Sequence calc(Expression []exps, Context ctx) {
