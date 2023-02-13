@@ -152,15 +152,9 @@ public class To extends SequenceFunction {
 			// 平均分成end段，取出第start
 			if (option != null && option.indexOf('z') != -1) {
 				return getSeg(srcSequence, start, end);
+			} else {
+				return srcSequence.get(start, end + 1);
 			}
-			
-			Sequence srcSequence = this.srcSequence;
-			Sequence result = new Sequence(end - start + 1);
-			for (; start <= end; ++start) {
-				result.add(srcSequence.getMem(start));
-			}
-
-			return result;
 		} else {
 			Sequence srcSequence = this.srcSequence;
 			Sequence result = new Sequence(start - end + 1);
