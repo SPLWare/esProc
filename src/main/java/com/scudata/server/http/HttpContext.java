@@ -22,6 +22,7 @@ import com.scudata.common.Logger;
 import com.scudata.common.MessageManager;
 import com.scudata.common.StringUtils;
 import com.scudata.common.Logger.FileHandler;
+import com.scudata.dm.Env;
 import com.scudata.parallel.UnitClient;
 import com.scudata.parallel.UnitContext;
 import com.scudata.parallel.XmlUtil;
@@ -143,12 +144,29 @@ public class HttpContext extends ConfigWriter {
 			maxLinks = Integer.parseInt(buf);
 		}
 
-		buf = XmlUtil.getAttribute(root, "sapPath");
+		File main = new File( Env.getMainPath() );
+		if( main.exists() ) {
+			String mainPath = main.getAbsolutePath();
+			addSubdir2Sappath( main, mainPath );
+		}
+		/*buf = XmlUtil.getAttribute(root, "sapPath");
 		if (StringUtils.isValidString(buf)) {
 			ArgumentTokenizer at = new ArgumentTokenizer(buf, ',');
 			while (at.hasMoreTokens()) {
 				sapPath.add(at.nextToken().trim());
 			}
+		}*/
+	}
+	
+	private void addSubdir2Sappath( File main, String mainPath ) {
+		File[] fs = main.listFiles();
+		for( int i = 0; i < fs.length; i++ ) {
+			if( !fs[i].isDirectory() ) continue;
+			String path = fs[i].getAbsolutePath();
+			path = path.substring( mainPath.length() );
+			path = StringUtils.replace( path, "\\", "/" );
+			sapPath.add( path );
+			addSubdir2Sappath( fs[i], mainPath );
 		}
 	}
 
