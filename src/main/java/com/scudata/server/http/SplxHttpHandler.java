@@ -52,6 +52,7 @@ import com.sun.net.httpserver.HttpHandler;
  * 2  http://..../splx(arg1,arg2,...)
  * 3  http://localhost:.../splx1(...)splx2.splx
  * 4  http://localhost:.../.../splx?arg1=v1&arg2=v2  不能带扩展名，否则读不到问号后的参数
+ * 5  http://localhost:.../.../splx/arg1/arg2/...    restful风格，arg1开始都是参数值，按顺序与splx中的参数对应
  * HTTP服务的url串格式，分两种情况：
  * 1、只有一个splx文件。如果splx有参数，则在括号里依次写参数值，值间用逗号分隔；
  * 如果没有参数，则写个空括号。 计算结果按系统默认格式转化成字符串返回
@@ -234,13 +235,13 @@ public class SplxHttpHandler implements HttpHandler {
 							fileName = path1.substring(1, start).trim();
 						}
 						else {
-							//path中没有()，说明是sap的restful格式的url: http://..../sapPath/dfx/argvalue1/argvalue2/...
-							//其中argvalue是参数名与值合在一起书写，参数名全是字母，参数值全是数字开头
+							//path中没有()，说明是restful格式的url: http://..../sapPath/splx/argvalue1/argvalue2/...
+							//其中argvalue是参数值，按照顺序与splx中的参数对应
 							//或者是常规url格式 http://localhost:.../.../splx?arg1=v1&arg2=v2
-							//没有dfx2
+							//没有splx2
 							path = path.trim();
 							String queryParams = uri.getQuery();
-							if( queryParams == null || queryParams.trim().length() == 0 ) {   //sap的restful
+							if( queryParams == null || queryParams.trim().length() == 0 ) {   //restful
 								ArrayList<String> saps = SplxServerInIDE.getInstance().getContext().getSapPath();
 								String prefix = "";
 								for( int k = 0; k < saps.size(); k++ ) {
@@ -252,7 +253,7 @@ public class SplxHttpHandler implements HttpHandler {
 								}
 								path = path.substring( prefix.length() );
 								pos = path.indexOf( "/", 1 );
-								String path1 = path;   //splx文件路径
+								String path1 = path;   //path1代表splx文件路径
 								String args = "";
 								if( pos > 0 ) {
 									path1 = path.substring( 0, pos );
@@ -262,18 +263,12 @@ public class SplxHttpHandler implements HttpHandler {
 								fileName = path1.substring(1).trim();
 								if( args.length() > 0 ) {
 									ArgumentTokenizer at = new ArgumentTokenizer( args, '/' );
+									int k = 0;
 									while( at.hasMoreTokens() ) {
 										String tmp = at.nextToken().trim();
-										int split = -1;
-										for( int k = 0; k < tmp.length(); k++ ) {
-											if( Character.isDigit( tmp.charAt( k ) ) ) {
-												split = k;
-												break;
-											}
-										}
-										String paramName = tmp.substring( 0, split );
-										String paramValue = tmp.substring( split );
-										paramsMap.put( paramName, paramValue );
+										if( k > 0 ) params += ",";
+										params += tmp;
+										k++;
 									}
 								}
 							}
@@ -334,6 +329,7 @@ public class SplxHttpHandler implements HttpHandler {
 								String pvalue = at.nextToken();
 								//if (pvalue == null || pvalue.trim().length() == 0) continue;
 								Param p = (Param) list.get(i);
+								if( p == null ) continue;
 								ctx1.setParamValue(p.getName(), Variant.parse(pvalue));
 							}
 							if( paramsMap.size() > 0 && list != null ) {
