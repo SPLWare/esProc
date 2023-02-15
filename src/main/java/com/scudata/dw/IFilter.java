@@ -145,4 +145,8 @@ public abstract class IFilter implements Comparable<IFilter> {
 	
 	public void initExp() {
 	}
+	
+	public Expression getExp() {
+		return exp;
+	}
 }
