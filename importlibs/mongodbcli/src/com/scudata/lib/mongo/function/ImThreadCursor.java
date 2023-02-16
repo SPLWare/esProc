@@ -9,37 +9,60 @@ import java.util.Set;
 import org.apache.commons.lang.ArrayUtils;
 import org.bson.Document;
 import org.bson.types.ObjectId;
+
+import com.mongodb.MongoClient;
 import com.mongodb.client.MongoDatabase;
 import com.scudata.array.IArray;
 import com.scudata.common.*;
 import com.scudata.dm.*;
 import com.scudata.dm.cursor.ICursor;
 
-public class ImCursor extends ICursor {
-	private String[] m_cmd;
+//获取数据时获取db
+public class ImThreadCursor extends ICursor {
+	private String m_cmd;
+	private String m_dbName;
+	
 	private MongoDatabase m_db;
+	private MongoClient m_client;
 	private String[] m_cols;
 	private Table m_bufTable;
 	private long cursorId = 1; //若为0，则无数据了。
+	private static Object m_lock = new Object();
 	
-	public ImCursor(MongoDatabase db, String[] cmd, Table buf, Context ctx) {
-		m_cmd = cmd;
-		m_db = db;
+	public ImThreadCursor(MongoClient client, String dbName, String cmd, Context ctx) {
+		m_client = client;
 		this.ctx = ctx;
-		m_bufTable = buf;
-		//System.out.println("thread:"+Thread.currentThread().getId()+"; db="+m_db+"; cmd="+cmd[0]);
-		if (m_bufTable!=null){
-			m_cols = m_bufTable.dataStruct().getFieldNames();
-		}
+		m_cmd = cmd;
+		m_dbName = dbName;
+		m_db = null;
 		if (ctx != null) {
 			ctx.addResource(this);
 		}		
 	}
-
+	
+	@Override
 	protected long skipOver(long n) {
-		if (m_db == null || n == 0 ){
+		if ( n == 0 ){
 			return 0;
 		}
+
+		if (m_db == null){
+			Document docs = null;
+			
+			m_db = m_client.getDatabase(m_dbName);
+			Document command = Document.parse(m_cmd);
+			synchronized (m_lock){
+				docs = m_db.runCommand(command);
+			}
+			double dVal = docs.getDouble("ok");
+			if (dVal==0){
+				System.out.println("no data");
+				return 0;
+			}
+		
+			doCursorData(m_db, docs);
+		}
+		
 		long fetchSize = n;
 		long count = 0;
 		//1。有缓存情况
@@ -59,8 +82,10 @@ public class ImCursor extends ICursor {
 		//2.查询新数据
 		int cur = 0;
 		String cmd = null;
-		while (m_cmd[0]!=null && fetchSize>0 && cursorId>0) {
-			cmd = m_cmd[0].replace("batchSize:101", "batchSize:"+(fetchSize>1024?1024:fetchSize));
+	
+		while (m_cmd!=null && fetchSize>0 && cursorId>0) {
+			cmd = m_cmd.replace("batchSize:101", "batchSize:"+(fetchSize>1024?1024:fetchSize));
+			//System.out.println(Thread.currentThread().getId()+";cmd="+cmd);
 			cur = runCommandSkip(m_db, cmd);
 			fetchSize -= cur;
 			count+=cur;
@@ -68,11 +93,12 @@ public class ImCursor extends ICursor {
 		
 		return count;
 	}
-	
+
 	//还不清楚getMore关闭cursor方法，而不是断开连接.
 	public synchronized void close() {
 		m_cols = null;
 		m_db = null;
+		m_client = null;
 		m_bufTable = null;
 		super.close();
 		
@@ -81,12 +107,29 @@ public class ImCursor extends ICursor {
 		}			
 		cursorId = 0;
 	}
-
-	protected Sequence get(int n) {		
+	
+	protected  Sequence get(int n) {		
 		Table vTbl = null;
 		Table[] vTables = new Table[1];
 		
-		if (m_db == null || n < 1) {
+		if (m_db == null){
+			Document docs = null;
+			synchronized (m_lock)
+			{
+				m_db = m_client.getDatabase(m_dbName);
+				Document command = Document.parse(m_cmd);
+				docs = m_db.runCommand(command);
+			}
+			double dVal = docs.getDouble("ok");
+			if (dVal==0){
+				System.out.println("no data");
+				return null;
+			}
+			
+			doCursorData(m_db, docs);
+		}
+		
+		if ( n < 1) {
 			if (m_cols!=null){
 				return new Table(m_cols);
 			}else{
@@ -115,8 +158,8 @@ public class ImCursor extends ICursor {
 		
 		//2. 查询新数据。
 		int bufSize = 0;
-		while (m_cmd[0]!=null && n > 0 && cursorId>0) {
-			Table buf = runCommand(m_db, m_cmd[0]);
+		while (m_cmd!=null && n > 0 && cursorId>0) {
+			Table buf = runCommand(m_db, m_cmd);			
 			if (buf==null){
 				break;
 			}
@@ -144,6 +187,40 @@ public class ImCursor extends ICursor {
 
 		return vTbl;
 	}
+	
+	private void doCursorData(MongoDatabase db, Document docs) {
+		BaseRecord r = null;
+		Object obj = null;
+		Document cur = (Document)docs.get("cursor");
+				
+		if (cur==null){
+			r = ImCursor.parse(docs);
+		}else{
+			r = ImCursor.parse(cur);
+		}
+		
+		if (r.dataStruct().getFieldIndex("firstBatch")>-1){
+			obj = r.getFieldValue("firstBatch");
+			if (obj instanceof Sequence){
+				if ( ((Sequence)obj).length()==0){
+					obj = r;
+				}
+			}
+		}
+		
+		long pid = cur.getLong("id");
+		if (obj!=null && pid>0){
+			String collectName = cur.getString("ns");
+			collectName= collectName.replace(db.getName()+".", "");
+			m_cmd = String.format("{'getMore':NumberLong('%d'), 'collection':'%s', batchSize:101 }", pid, collectName);
+			//cmd[1] = String.format("{'killCursors':'%s', 'cursors':[ NumberLong('%d')]}", collectName, pid);
+		}
+		
+		if (obj instanceof Table){
+			m_bufTable = (Table)obj;
+		}
+	}
+	
 	
 	//序表与序表合并，字段不一致时字段数据对齐
 	//将bufTbl合并到vTbls中,先将两表结构调整为一致，再过滤数据。
@@ -234,19 +311,27 @@ public class ImCursor extends ICursor {
 			return 0;
 		}
 
-		Document command = null;
-		command = Document.parse(cmd);
-		//System.out.println("skip thread:"+Thread.currentThread().getId()+"; db="+db+"; cmd="+cmd+"; pid="+cursorId);
-		Document docs = db.runCommand( command);
-		double dVal = docs.getDouble("ok");
-		if (dVal==0){
-			return 0;
+		try{
+			Document command = null;
+			command = Document.parse(cmd);
+			//System.out.println("skip thread:"+Thread.currentThread().getId()+"; db="+db+"; cmd="+cmd+"; pid="+cursorId);
+			Document docs = null;
+			synchronized (m_lock){
+				docs = db.runCommand( command);			
+			}
+			double dVal = docs.getDouble("ok");
+			if (dVal==0){
+				return 0;
+			}
+			Document cur = (Document)docs.get("cursor");
+			cursorId = cur.getLong("id");
+			
+			return getDocumentCount(cur);
+		}catch(Exception e){
+			Logger.error(e.getMessage());
 		}
-	
-		Document cur = (Document)docs.get("cursor");
-		cursorId = cur.getLong("id");
 		
-		return getDocumentCount(cur);
+		return 0;
 	} 
 	
 	public Table runCommand(MongoDatabase db, String cmd) {
@@ -259,8 +344,13 @@ public class ImCursor extends ICursor {
 			Object obj = null;
 			Document command = null;
 			command = Document.parse(cmd);
-			//System.out.println("thread:"+Thread.currentThread()+"; db="+db+"; cmd="+cmd+"; pid="+cursorId);
-			Document docs = db.runCommand(command);
+			
+			//System.out.println("work thread:"+Thread.currentThread().getId()+"; db="+db+"; cmd="+cmd+"; pid="+cursorId);
+			
+			Document docs = null;
+			synchronized (m_lock){
+				docs = db.runCommand(command);
+			}
 			double dVal = docs.getDouble("ok");
 			if (dVal==0){
 				return tbl;
