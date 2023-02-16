@@ -2944,6 +2944,7 @@ public class ColPhyTable extends PhyTable {
 		if (append.length() > 0) {
 			ICursor cursor = new MemoryCursor(append);
 			append(cursor);
+			appendCache();
 		} else {
 			groupTable.save();
 		}
@@ -3614,7 +3615,6 @@ public class ColPhyTable extends PhyTable {
 		Sequence seqListData = null;
 		if (deleteByBaseKey) {
 			seqList = new LongArray(len * 10);
-			seqList.add(0);
 			seqListData = new Sequence(len);
 		}
 		
@@ -3671,7 +3671,7 @@ public class ColPhyTable extends PhyTable {
 		}
 		
 		if (deleteByBaseKey) {
-			len = seqList.size() - 1;
+			len = seqList.size();
 			if (0 == len) {
 				return result;
 			}
@@ -5157,6 +5157,12 @@ public class ColPhyTable extends PhyTable {
 			}
 		}
 		
+		PhyTable tmd = getSupplementTable(false);
+		if (tmd != null) {
+			// 有补文件时先删除补文件中的
+			tmd.addColumn(colName, exp, ctx);
+		}
+		
 		//新建立一个列
 		ColumnMetaData col = new ColumnMetaData(this, colName, false, false);
 		ICursor cursor = cursor();
@@ -5226,6 +5232,12 @@ public class ColPhyTable extends PhyTable {
 	}
 	
 	public void deleteColumn(String colName) {
+		PhyTable tmd = getSupplementTable(false);
+		if (tmd != null) {
+			// 有补文件时先删除补文件中的
+			tmd.deleteColumn(colName);
+		}
+		
 		ColumnMetaData col = getColumn(colName);
 		
 		//检查列是否存在

@@ -140,6 +140,7 @@ public class UnknownNodeFilter extends IFilter {
 	}
 	
 	public int isValueRangeMatch(Context ctx) {
+		if (colCount == 0) return 1;
 		return 0;
 		//if (colCount == 0) return 0;
 		//return exp.isValueRangeMatch(ctx);
