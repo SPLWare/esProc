@@ -10,8 +10,10 @@ import java.awt.event.WindowEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -1368,21 +1370,6 @@ public class SPL extends AppFrame {
 	}
 
 	/**
-	 * 可供API调用的程序主函数
-	 * 
-	 * @param args
-	 * @return
-	 * @throws Throwable
-	 */
-	public static SPL main0(String args[]) throws Throwable {
-		String openRaq = prepareEnv(args);
-		SPL frame = new SPL(openRaq);
-		frame.setSize(Toolkit.getDefaultToolkit().getScreenSize());
-		frame.setExtendedState(MAXIMIZED_BOTH);
-		return frame;
-	}
-
-	/**
 	 * 程序主函数
 	 * 
 	 * @param args JVM参数
@@ -1493,12 +1480,7 @@ public class SPL extends AppFrame {
 	 */
 	public static void initLNF() {
 		try {
-			boolean isHighVersionJDK = false;
-			String javaVersion = System.getProperty("java.version");
-			if (javaVersion.compareTo("1.9") > 0) {
-				isHighVersionJDK = true;
-			}
-			if (!isHighVersionJDK) {
+			if (isSubstanceUIEnabled()) {
 				UIManager.setLookAndFeel(LookAndFeelManager
 						.getLookAndFeelName());
 				if (GM.isMacOS()) {
@@ -1687,6 +1669,81 @@ public class SPL extends AppFrame {
 
 		public boolean isStopped() {
 			return isStopped;
+		}
+	}
+
+	/**
+	 * 第三方Substance UI是否可用
+	 * @return
+	 */
+	private static boolean isSubstanceUIEnabled() {
+		// 高版本jdk不支持
+		String javaVersion = System.getProperty("java.version");
+		if (javaVersion.compareTo("1.9") > 0) {
+			return false;
+		}
+		// SUSE系统不支持
+		if (isSUSEOS()) {
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * 通过java取os信息，无法取到SUSE系统名，只能执行linux命令来执行了
+	 * @return
+	 */
+	private static boolean isSUSEOS() {
+		try {
+			String osName = System.getProperty("os.name");
+			if (osName == null)
+				return false;
+			osName = osName.toLowerCase();
+			if (osName.indexOf("suse") > -1)
+				return true;
+			if (!"linux".equalsIgnoreCase(osName)) {
+				// SUSE系统的os.name是Linux
+				return false;
+			}
+			Runtime runtime = Runtime.getRuntime();
+			Process process = runtime.exec("cat /etc/os-release");
+			RuntimeReceiver g1 = new RuntimeReceiver(process.getErrorStream());
+			RuntimeReceiver g2 = new RuntimeReceiver(process.getInputStream());
+			g1.start();
+			g2.start();
+
+			int n = process.waitFor();
+			g1.join();
+			g2.join();
+
+			if (g1.isSuse || g2.isSuse) {
+				return true;
+			}
+		} catch (Throwable e) {
+		}
+		return false;
+	}
+
+	static class RuntimeReceiver extends Thread {
+		InputStream in;
+		boolean isSuse = false;
+
+		public RuntimeReceiver(InputStream in) {
+			this.in = in;
+		}
+
+		public void run() {
+			try {
+				InputStreamReader isr = new InputStreamReader(in);
+				BufferedReader br = new BufferedReader(isr);
+				String line;
+				while ((line = br.readLine()) != null) {
+					if (line.toLowerCase().indexOf("suse") > -1) {
+						isSuse = true;
+					}
+				}
+			} catch (Exception e) {
+			}
 		}
 	}
 }
