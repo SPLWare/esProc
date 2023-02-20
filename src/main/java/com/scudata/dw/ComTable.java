@@ -42,7 +42,12 @@ abstract public class ComTable implements IBlockStorage {
 	protected transient int enlargeSize; // 扩大文件时的增幅
 	protected BlockLink headerBlockLink;
 	
-	protected byte []reserve = new byte[32]; // 保留，字节1存放版本，字节2存放是否压缩，0：压缩，1：不压缩
+	/**
+	 * 保留，字节1存放版本，
+	 * 字节2存放是否压缩，0：压缩，1：不压缩，
+	 * 字节3存放是否检查数据纯，0：不检查，1：检查，
+	 */
+	protected byte []reserve = new byte[32]; 
 	protected long freePos = 0; // 空闲位置
 	protected long fileSize; // 文件总大小
 	
@@ -1186,6 +1191,20 @@ abstract public class ComTable implements IBlockStorage {
 			reserve[1] = 0;
 		} else {
 			reserve[1] = 1;
+		}
+	}
+	
+	// 返回是否检查数据纯
+	public boolean isCheckDataPure() {
+		return reserve[2] == 1;
+	}
+	
+	// 设置是否检查数据纯
+	public void setCheckDataPure(boolean isCheck) {
+		if (isCheck) {
+			reserve[2] = 1;
+		} else {
+			reserve[2] = 0;
 		}
 	}
 	

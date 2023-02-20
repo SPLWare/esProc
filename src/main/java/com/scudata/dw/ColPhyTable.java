@@ -871,9 +871,10 @@ public class ColPhyTable extends PhyTable {
 		}
 		
 		//统计列数据类型
+		boolean doCheck = groupTable.isCheckDataPure();
 		for (int j = 0; j < count; j++) {
 			if (!isMyCol[j]) continue;
-			columns[j].adjustDataType(dataTypeInfo[j]);
+			columns[j].adjustDataType(dataTypeInfo[j], doCheck);
 			columns[j].initDictArray();
 		}
 
@@ -1046,8 +1047,9 @@ public class ColPhyTable extends PhyTable {
 		}
 		
 		//统计列数据类型
+		boolean doCheck = groupTable.isCheckDataPure();
 		for (int j = 0; j < count; j++) {
-			columns[j].adjustDataType(dataTypeInfo[j]);
+			columns[j].adjustDataType(dataTypeInfo[j], doCheck);
 			columns[j].initDictArray();
 		}
 		
@@ -3505,7 +3507,8 @@ public class ColPhyTable extends PhyTable {
 						maxValues, minValues, startValues, dataTypeInfo);
 				
 				//统计列数据类型
-				columns[i].adjustDataType(dataTypeInfo[i]);
+				boolean doCheck = groupTable.isCheckDataPure();
+				columns[i].adjustDataType(dataTypeInfo[i], doCheck);
 				columns[i].initDictArray();
 				
 				//提交每个列块buffer
@@ -5196,7 +5199,8 @@ public class ColPhyTable extends PhyTable {
 				DataBlockWriterJob.writeDataBlock(bufferWriter, data, dict, 0, 1, len, maxValues, minValues, startValues, dataTypeInfo);
 				
 				//统计列数据类型
-				col.adjustDataType(dataTypeInfo[0]);
+				boolean doCheck = groupTable.isCheckDataPure();
+				col.adjustDataType(dataTypeInfo[0], doCheck);
 				
 				//提交列块buffer
 				col.appendColBlock(bufferWriter.finish(), minValues[0], maxValues[0], startValues[0]);
