@@ -1,13 +1,14 @@
 package com.scudata.ide.spl.dialog;
 
+import java.awt.Cursor;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.io.File;
 
 import javax.swing.ImageIcon;
-import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JRootPane;
+import javax.swing.JWindow;
 
 import com.scudata.common.StringUtils;
 import com.scudata.ide.common.GM;
@@ -17,7 +18,7 @@ import com.scudata.ide.common.swing.FreeLayout;
  * 集算器显示启动图片窗口
  * 
  */
-public class DialogSplash extends JDialog {
+public class DialogSplash extends JWindow {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -27,14 +28,15 @@ public class DialogSplash extends JDialog {
 	 */
 	public DialogSplash(String splashImage) {
 		try {
-			this.setUndecorated(true);
+			// this.setUndecorated(true);
+			setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR)); // 设置光标
 			this.getRootPane().setWindowDecorationStyle(JRootPane.NONE);
 			this.getRootPane().setBorder(null);
 			this.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
-			this.setResizable(false);
+			// this.setResizable(false);
 			initUI(splashImage);
 			GM.centerWindow(this);
-			this.setModal(false);
+			// this.setModal(false);
 		} catch (Exception e) {
 			GM.writeLog(e);
 		}
