@@ -44,7 +44,11 @@ public class Esprocx {
 
 	public static void loadDataSource(Context ctx) throws Exception {
 		// 加载系统数据源
-		XMLFile configFile = ConfigFile.getSystemConfigFile().xmlFile();
+		ConfigFile cf = ConfigFile.getSystemConfigFile();
+		if(cf==null) {
+			return;
+		}
+		XMLFile configFile = cf.xmlFile();
 		Section ss = new Section(); // 异常导致无法加demo数据源，挪到下面
 		ss = configFile.listElement(ConfigFile.PATH_DATASOURCE);
 		String sId, name;
