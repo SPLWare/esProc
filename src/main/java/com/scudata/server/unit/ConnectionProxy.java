@@ -88,6 +88,7 @@ public class ConnectionProxy extends IProxy
 	 * 关掉当前连接代理器
 	 */
 	public void close() {
+		JobSpaceManager.closeSpace(spaceId);
 		closed = true;
 		Logger.debug(this+" closed.");
 	}

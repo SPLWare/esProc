@@ -84,6 +84,7 @@ public class SplxServerInIDE implements IServer {
 			httpServer = HttpServer.create(inetSock, ctx.getMaxLinks());
 			LinksPool.setMaxLinks( ctx.getMaxLinks() );
 		}catch(java.net.BindException ex){
+			ex.printStackTrace();
 			throw new Exception(ParallelMessage.get().getMessage("SplxServerInIDE.portbind",port));
 		}
 		SplxHttpHandler dhh = new SplxHttpHandler();

@@ -144,10 +144,15 @@ public class HttpContext extends ConfigWriter {
 			maxLinks = Integer.parseInt(buf);
 		}
 
-		File main = new File( Env.getMainPath() );
-		if( main.exists() ) {
-			String mainPath = main.getAbsolutePath();
-			addSubdir2Sappath( main, mainPath );
+		String mp = Env.getMainPath();
+		if(!StringUtils.isValidString( mp )) {
+			Logger.info("Main path is empty.");
+		}else {
+			File main = new File( Env.getMainPath() );
+			if( main.exists() ) {
+				String mainPath = main.getAbsolutePath();
+				addSubdir2Sappath( main, mainPath );
+			}
 		}
 		/*buf = XmlUtil.getAttribute(root, "sapPath");
 		if (StringUtils.isValidString(buf)) {
