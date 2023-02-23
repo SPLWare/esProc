@@ -511,6 +511,7 @@ public class ConfigUtil {
 						continue;
 					try {
 						ISessionFactory sf = springDB.createSessionFactory();
+						Env.setDBSessionFactory(name, sf);
 						if (calcInitSpl && autoConnectList != null
 								&& autoConnectList.contains(name)) {
 							ctx.setDBSessionFactory(name, sf);

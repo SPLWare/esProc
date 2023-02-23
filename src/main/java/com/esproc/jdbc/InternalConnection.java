@@ -102,11 +102,6 @@ public class InternalConnection implements Connection, Serializable {
 	private int unitConnectionId;
 
 	/**
-	 * The JobSpace object
-	 */
-	private JobSpace jobSpace = null;
-
-	/**
 	 * The RaqsoftConfig object loaded from raqsoftConfig.xml.
 	 */
 	private RaqsoftConfig raqsoftConfig = null;
@@ -116,6 +111,11 @@ public class InternalConnection implements Connection, Serializable {
 	 * distinct types.
 	 */
 	private Map<String, Class<?>> typeMap;
+
+	/**
+	 * The JobSpace object
+	 */
+	private JobSpace jobSpace = null;
 
 	/**
 	 * Constructor
@@ -153,19 +153,6 @@ public class InternalConnection implements Connection, Serializable {
 	}
 
 	/**
-	 * Get the JobSpace
-	 * 
-	 * @return JobSpace
-	 */
-	protected synchronized JobSpace getJobSpace() {
-		if (jobSpace == null) {
-			String uuid = UUID.randomUUID().toString();
-			jobSpace = JobSpaceManager.getSpace(uuid);
-		}
-		return jobSpace;
-	}
-
-	/**
 	 * Get the RaqsoftConfig object
 	 * 
 	 * @return RaqsoftConfig
@@ -182,8 +169,20 @@ public class InternalConnection implements Connection, Serializable {
 		ctx.setJobSpace(getJobSpace());
 		if (raqsoftConfig != null) {
 			autoConnect(raqsoftConfig.getAutoConnectList(), ctx);
-			autoConnect(Server.getInstance().getJNDIAutoConnects(), ctx);
 		}
+	}
+
+	/**
+	 * Get the JobSpace
+	 * 
+	 * @return JobSpace
+	 */
+	private synchronized JobSpace getJobSpace() {
+		if (jobSpace == null) {
+			String uuid = UUID.randomUUID().toString();
+			jobSpace = JobSpaceManager.getSpace(uuid);
+		}
+		return jobSpace;
 	}
 
 	/**
@@ -270,6 +269,14 @@ public class InternalConnection implements Connection, Serializable {
 		if (closed)
 			throw new SQLException(JDBCMessage.get().getMessage(
 					"error.conclosed"));
+		if (unitClient != null) {
+			try {
+				unitClient.JDBCCloseStatement(unitConnectionId,
+						st.getUnitStatementID());
+			} catch (Throwable e) {
+				Logger.warn(e.getMessage(), e);
+			}
+		}
 		synchronized (stats) {
 			stats.remove(st);
 		}
@@ -362,8 +369,9 @@ public class InternalConnection implements Connection, Serializable {
 						unitClient = new UnitClient(ip, port);
 						if (unitClient.isAlive()) {
 							try {
-								unitConnectionId = unitClient
-										.JDBCConnect(getJobSpace().getID());
+								// 参数好像没用？
+								unitConnectionId = unitClient.JDBCConnect(UUID
+										.randomUUID().toString());
 							} catch (Exception e) {
 								throw new SQLException(e.getMessage(), e);
 							}
@@ -748,7 +756,15 @@ public class InternalConnection implements Connection, Serializable {
 		}
 		/* Close the JobSpace */
 		if (jobSpace != null) {
+			jobSpace.closeResource();
 			JobSpaceManager.closeSpace(jobSpace.getID());
+		}
+		if (unitClient != null) {
+			try {
+				unitClient.JDBCCloseConnection(unitConnectionId);
+			} catch (Exception e) {
+				Logger.warn(e.getMessage(), e);
+			}
 		}
 		closed = true;
 	}

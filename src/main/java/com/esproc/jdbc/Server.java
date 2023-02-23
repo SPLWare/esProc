@@ -21,10 +21,6 @@ import com.scudata.dm.LocalFile;
  */
 public class Server {
 	/**
-	 * JNDI automatic connection list
-	 */
-	private List<String> jndiAutoConnects = new ArrayList<String>();
-	/**
 	 * The host names
 	 */
 	private List<String> hostNames = new ArrayList<String>();
@@ -63,15 +59,6 @@ public class Server {
 			}
 		}
 		return instance;
-	}
-
-	/**
-	 * Get JNDI automatic connection list
-	 * 
-	 * @return JNDI automatic connection list
-	 */
-	public List<String> getJNDIAutoConnects() {
-		return jndiAutoConnects;
 	}
 
 	/**
