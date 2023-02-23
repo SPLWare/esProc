@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -121,12 +122,8 @@ public class JDBCUtil {
 		if (sql.startsWith(">")) {
 			hasReturn = false;
 		} else if (sql.startsWith("=")) {
-			isGrid = AppUtil.isGrid(sql);
 			sql = sql.substring(1);
-			if (!isGrid)
-				if (Command.isCommand(sql)) { // 单个表达式也可能是网格表达式
-					isGrid = true;
-				}
+			isGrid = AppUtil.isGrid(sql);
 		} else if (sql.toLowerCase().startsWith(JDBCConsts.KEY_CALLS)) {
 			String[] nameParam = getCallsNameParam(sql, parameters);
 			splName = nameParam[0];
@@ -599,6 +596,16 @@ public class JDBCUtil {
 			Object[] os = (Object[]) obj;
 			for (int j = 0; j < os.length; j++)
 				s.add(os[j]);
+			return s;
+		} else if (obj instanceof List<?>) {
+			List<?> list = (List<?>) obj;
+			for (int j = 0; j < list.size(); j++)
+				s.add(list.get(j));
+			return s;
+		} else if (obj instanceof Vector<?>) {
+			Vector<?> vec = (Vector<?>) obj;
+			for (int j = 0; j < vec.size(); j++)
+				s.add(vec.get(j));
 			return s;
 		} else if (obj instanceof short[]) {
 			short[] os = (short[]) obj;

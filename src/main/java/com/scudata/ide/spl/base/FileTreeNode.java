@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.tree.DefaultMutableTreeNode;
 
+import com.scudata.ide.common.GC;
 import com.scudata.ide.common.GM;
 
 /**
@@ -123,7 +124,7 @@ public class FileTreeNode extends DefaultMutableTreeNode {
 	 * @return
 	 */
 	public ImageIcon getDispIcon() {
-		String imgPath = "/com/scudata/ide/common/resources/";
+		String imgPath = GC.IMAGES_PATH;
 		if (this.getLevel() == 0) {
 			imgPath += "tree0.gif";
 		} else if (this.getLevel() == 1) { // 本地资源和服务器资源根目录的图标

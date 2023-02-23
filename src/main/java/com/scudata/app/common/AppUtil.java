@@ -110,9 +110,6 @@ public class AppUtil {
 			cmd = cmd.substring(1);
 			isExp = true;
 			isGrid = isGrid(cmd);
-			if (!isGrid && Command.isCommand(cmd)) { // 单个表达式也可能是网格表达式
-				isGrid = true;
-			}
 		}
 		// cmd = cmd.trim();
 		if (escape)
@@ -270,6 +267,9 @@ public class AppUtil {
 		final char colSeparator = '\t';
 		if (sql.indexOf(colSeparator) > -1)
 			return true;
+		if (Command.isCommand(sql)) { // 单个表达式也可能是网格表达式
+			return true;
+		}
 		return false;
 	}
 
@@ -973,7 +973,7 @@ public class AppUtil {
 		}
 		return baos.toString();
 	}
-	
+
 	public static void destroyThread(Thread runThread) {
 		if (runThread != null) {
 			try {

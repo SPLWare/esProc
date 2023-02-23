@@ -91,6 +91,14 @@ public abstract class InternalStatement implements java.sql.Statement {
 	public abstract InternalConnection getConnection();
 
 	/**
+	 * 获取节点机上的Statement ID
+	 * @return
+	 */
+	public int getUnitStatementID() {
+		return unitStateId;
+	}
+
+	/**
 	 * Execute JDBC statement
 	 * 
 	 * @param parameters The parameter list
@@ -197,10 +205,9 @@ public abstract class InternalStatement implements java.sql.Statement {
 				// 仅简单SQL和SQL支持update语句
 				return null;
 			}
+			// 重新创建计算上下文
 			Context ctx = con.getCtx();
-			if (ctx != null) {
-				ctx = ctx.newComputeContext();
-			}
+
 			RaqsoftConfig config = Server.getInstance().getConfig();
 			if (config != null
 					&& StringUtils.isValidString(config.getGateway())) {
@@ -211,7 +218,7 @@ public abstract class InternalStatement implements java.sql.Statement {
 				 */
 				try {
 					return executeGateway(sql, (ArrayList<Object>) parameters,
-							con, config);
+							ctx, config);
 				} catch (RetryException re) {
 					/*
 					 * If the gateway throws a RetryException, it will be
@@ -265,6 +272,8 @@ public abstract class InternalStatement implements java.sql.Statement {
 				Sequence seq = uc.JDBCExecute(connId, unitStateId);
 				result = new MultiResult(seq);
 			} else {
+				// 本地如果是网格计算，复制当前上下文生成新的上下文来计算
+				ctx = prepareContext(ctx, sql, sqlType);
 				result = JDBCUtil.execute(sql, parameters, ctx, false);
 			}
 			if (sqlType == JDBCConsts.TYPE_EXE) {
@@ -291,17 +300,39 @@ public abstract class InternalStatement implements java.sql.Statement {
 	}
 
 	/**
+	 * 准备上下文。当执行本地网格时，重新创建上下文
+	 * @param ctx
+	 * @param sql
+	 * @param sqlType
+	 * @return
+	 */
+	private Context prepareContext(Context ctx, String sql, byte sqlType) {
+		boolean isGrid = false; // 是否执行网格
+		if (sqlType == JDBCConsts.TYPE_CALL || sqlType == JDBCConsts.TYPE_CALLS
+				|| sqlType == JDBCConsts.TYPE_SPL) {
+			isGrid = true;
+		} else if (sqlType == JDBCConsts.TYPE_EXP) {
+			sql = sql.substring(1);
+			isGrid = AppUtil.isGrid(sql);
+		}
+		if (isGrid) {
+			ctx = ctx.newComputeContext();
+		}
+		return ctx;
+	}
+
+	/**
 	 * Execute the gateway spl file. The gateway is configured in raqsoftConfig.xml.
 	 * 
 	 * @param sql        The SQL string
 	 * @param parameters The parameter list
-	 * @param con        The connection object
+	 * @param ctx        The Context object
 	 * @param config     The RaqsoftConfig object
 	 * @return The result of execution
 	 * @throws SQLException
 	 */
 	private Object executeGateway(String sql, ArrayList<Object> parameters,
-			InternalConnection con, RaqsoftConfig config) throws SQLException {
+			Context ctx, RaqsoftConfig config) throws SQLException {
 		/*
 		 * After the gateway is configured, the statements are parsed by spl and
 		 * the table sequence or cursor is returned. spl only has parameters sql
@@ -309,7 +340,6 @@ public abstract class InternalStatement implements java.sql.Statement {
 		 */
 		String gateway = config.getGateway();
 		Sequence args = JDBCUtil.prepareArg(parameters);
-		Context ctx = con.getCtx();
 
 		// FileObject fo = new FileObject(gateway, "s", ctx);
 		PgmCellSet cellSet;
@@ -391,11 +421,6 @@ public abstract class InternalStatement implements java.sql.Statement {
 	 */
 	public void close() throws SQLException {
 		JDBCUtil.log("InternalStatement-4");
-		InternalConnection connt = getConnection();
-		if (connt == null || connt.isClosed()) {
-			throw new SQLException(JDBCMessage.get().getMessage(
-					"error.conclosed"));
-		}
 		if (result != null) {
 			if (result instanceof IResource) {
 				((IResource) result).close();
@@ -406,6 +431,12 @@ public abstract class InternalStatement implements java.sql.Statement {
 		}
 		this.result = null;
 		this.set = null;
+
+		InternalConnection connt = getConnection();
+		if (connt == null || connt.isClosed()) {
+			throw new SQLException(JDBCMessage.get().getMessage(
+					"error.conclosed"));
+		}
 		connt.closeStatement(this);
 	}
 

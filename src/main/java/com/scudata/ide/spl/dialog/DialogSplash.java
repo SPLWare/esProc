@@ -11,6 +11,7 @@ import javax.swing.JRootPane;
 import javax.swing.JWindow;
 
 import com.scudata.common.StringUtils;
+import com.scudata.ide.common.GC;
 import com.scudata.ide.common.GM;
 import com.scudata.ide.common.swing.FreeLayout;
 
@@ -80,8 +81,8 @@ public class DialogSplash extends JWindow {
 			}
 		}
 		if (ii == null) {
-			String imgPath = "/com/scudata/ide/common/resources/"
-					+ getDefaultImageName() + GM.getLanguageSuffix() + ".png";
+			String imgPath = GC.IMAGES_PATH + getDefaultImageName()
+					+ GM.getLanguageSuffix() + ".png";
 			ii = GM.getImageIcon(imgPath);
 		}
 		return ii;
