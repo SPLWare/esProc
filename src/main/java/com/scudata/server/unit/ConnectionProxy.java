@@ -89,7 +89,7 @@ public class ConnectionProxy extends IProxy
 	 */
 	public void close() {
 		JobSpaceManager.closeSpace(spaceId);
-		closed = true;
+		closed =  true;
 		Logger.debug(this+" closed.");
 	}
 
