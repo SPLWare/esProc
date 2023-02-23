@@ -1479,4 +1479,26 @@ public class MemoryTableIndex {
 		}
 		return tempPos;
 	}
+	
+	/**
+	 * 根据KEY值查询记录号
+	 * @param seq key值序列
+	 * @param opt 选项
+	 * @param ctx
+	 * @return 记录号序列
+	 */
+	public Sequence ifind(Sequence seq, String opt, Context ctx) {
+		IntArray recNums = null;
+		
+		if (type == TYPE_FULLTEXT) {
+			return (Sequence) srcTable.pos(seq, null);
+		} else {
+			if (type == TYPE_SORT)
+				recNums = select(seq, opt, ctx);
+			else if (type == TYPE_HASH)
+				recNums = select(seq, opt, ctx);
+			
+			return new Sequence(recNums);
+		}
+	}
 }

@@ -689,4 +689,17 @@ public class MemoryTable extends Table {
 		ICursor cursor = index.select(filter, fields, opt, ctx);
 		return cursor;
 	}
+	
+	/**
+	 * 索引查询函数ifind的入口
+	 */
+	public Sequence ifind(Sequence seq, String iname, String opt, Context ctx) {
+		MemoryTableIndex index = null;
+		index = this.getIndex(iname);
+		if (index == null) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("icursor" + mm.getMessage("dw.indexNotExist") + " : " + iname);
+		}
+		return index.ifind(seq, opt, ctx);
+	}
 }

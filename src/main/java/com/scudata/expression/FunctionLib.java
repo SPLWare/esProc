@@ -377,6 +377,7 @@ public final class FunctionLib {
 		
 		//内表函数
 		addMemberFunction("icursor", "com.scudata.expression.mfn.table.Icursor");
+		addMemberFunction("ifind", "com.scudata.expression.mfn.table.Ifind");
 		
 		// 修改
 		addMemberFunction("modify", "com.scudata.expression.mfn.sequence.Modify");
