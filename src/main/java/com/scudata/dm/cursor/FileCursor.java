@@ -409,7 +409,7 @@ public class FileCursor extends ICursor {
 			}
 		}
 		
-		if (importer.getCurrentPosition() > end) {
+		if (end > 0 && importer.getCurrentPosition() > end) {
 			return null;
 		}
 		
