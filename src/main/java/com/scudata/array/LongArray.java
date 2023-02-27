@@ -5319,7 +5319,7 @@ public class LongArray implements NumberArray {
 	public boolean isEquals(int curIndex, Object value) {
 		if (signs == null || !signs[curIndex]) {
 			if (value instanceof Long || value instanceof Integer) {
-				return ((Integer)value).longValue() == datas[curIndex];
+				return ((Number)value).longValue() == datas[curIndex];
 			} else if (value instanceof BigDecimal) {
 				return new BigDecimal(datas[curIndex]).equals(value);
 			} else if (value instanceof BigInteger) {
