@@ -41,7 +41,7 @@ public class Ifind extends TableFunction {
 			}
 			
 			String iname = param.getSub(1).getLeafExpression().getIdentifierName();
-			return ((MemoryTable)srcTable).ifind(seq, iname, null, ctx);
+			return ((MemoryTable)srcTable).ifind(seq, iname, option, ctx);
 		} else {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("ifind" + mm.getMessage("function.missingParam"));
