@@ -136,9 +136,8 @@ public class MemoryTableIndex {
 		exps[flen] = new Expression("#");
 		names[flen] = SORT_FIELD_NAME;
 		
-		Sequence table = srcTable.newTable(names, exps, null, ctx);
-		table = table.sort(exp, null, "o", ctx);
-		table = table.group(exp, "o", ctx);
+		Sequence table = srcTable.newTable(names, exps, "m", ctx);
+		table = table.group(exp, "u", ctx);
 		
 		len = table.length();
 		Table indexData = new Table(names2, len);
@@ -160,7 +159,7 @@ public class MemoryTableIndex {
 			avgNums += recNum.size();
 		}
 		indexData.dataStruct().setPrimary(names2);
-		indexData.createIndexTable(capacity, null);
+		indexData.createIndexTable(capacity, "m");
 		this.indexData = indexData;
 		this.indexTable = indexData.getIndexTable();
 		this.recordNums = recordNums;
