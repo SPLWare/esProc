@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
-import com.scudata.dm.Sequence;
 import com.scudata.dw.MemoryTable;
 import com.scudata.expression.Expression;
 import com.scudata.expression.IParam;
@@ -35,13 +34,24 @@ public class Ifind extends TableFunction {
 			if (sub == null) return null;
 			ArrayList<Expression> list = new ArrayList<Expression>();
 			sub.getAllLeafExpression(list);
-			Sequence seq = new Sequence();
-			for (Expression exp : list) {
-				seq.add(exp.calculate(ctx));
+			
+			Object key;
+			int size = list.size();
+			if (size == 0) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException("ifind" + mm.getMessage("function.invalidParam"));
+			} else if (size == 1) {
+				key = list.get(0).calculate(ctx);
+			} else {
+				Object[] keys = new Object[size];
+				for (int i = 0; i < size; i++) {
+					keys[i] = list.get(i).calculate(ctx);
+				}
+				key = keys;
 			}
 			
 			String iname = param.getSub(1).getLeafExpression().getIdentifierName();
-			return ((MemoryTable)srcTable).ifind(seq, iname, option, ctx);
+			return ((MemoryTable)srcTable).ifind(key, iname, option, ctx);
 		} else {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("ifind" + mm.getMessage("function.missingParam"));
