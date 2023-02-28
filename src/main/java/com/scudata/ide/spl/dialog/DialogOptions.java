@@ -423,7 +423,7 @@ public class DialogOptions extends JDialog {
 			}
 			initUI();
 			load();
-			int dialogWidth = 800;
+			int dialogWidth = 830;
 			if (GC.LANGUAGE == GC.ASIAN_CHINESE && !isUnit) {
 				dialogWidth = 700;
 			}
