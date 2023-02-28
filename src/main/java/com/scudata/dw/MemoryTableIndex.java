@@ -1120,19 +1120,31 @@ public class MemoryTableIndex {
 	 */
 	private IntArray select(Sequence vals, String opt, Context ctx) {
 		if (vals == null || vals.length() == 0) return null;
-
+		boolean first = opt != null && opt.indexOf('1') != -1;
+		
 		IArray mems = vals.getMems();
 		int len = vals.length();
 		IntArray recNum = new IntArray(len * avgNums);
 		IntArray[] recordNums = this.recordNums;
-		for (int i = 1; i <= len; i++) {
-			Object srcVal = mems.get(i);
-			int pos = indexTable.findPos(srcVal);
-			if (pos != 0) {
-				recNum.addAll(recordNums[pos]);
+		
+		if (first) {
+			for (int i = 1; i <= len; i++) {
+				Object srcVal = mems.get(i);
+				int pos = indexTable.findPos(srcVal);
+				if (pos != 0) {
+					recNum.add(recordNums[pos], 1);
+					break;
+				}
+			}
+		} else {
+			for (int i = 1; i <= len; i++) {
+				Object srcVal = mems.get(i);
+				int pos = indexTable.findPos(srcVal);
+				if (pos != 0) {
+					recNum.addAll(recordNums[pos]);
+				}
 			}
 		}
-		
 		return recNum;
 	}
 	
