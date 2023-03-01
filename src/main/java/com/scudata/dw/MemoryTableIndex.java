@@ -1555,12 +1555,11 @@ public class MemoryTableIndex {
 				recNums = select_hash(key, hasOpt1, ctx);
 		}
 		
+		if (recNums == null) return null;
+		
 		if (hasOptP) {
 			//·µ»ØÐòºÅ
-			if (recNums != null)
-				return new Sequence(recNums);
-			else
-				return null;
+			return new Sequence(recNums);
 		} else {
 			//·µ»Ø¼ÇÂ¼
 			Table srcTable = this.srcTable;

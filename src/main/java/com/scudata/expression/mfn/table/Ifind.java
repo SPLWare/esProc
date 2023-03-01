@@ -1,6 +1,8 @@
 package com.scudata.expression.mfn.table;
 
 import java.util.ArrayList;
+import java.util.List;
+
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
@@ -17,7 +19,6 @@ import com.scudata.resources.EngineMessage;
  *
  */
 public class Ifind extends TableFunction {
-
 	public Object calculate(Context ctx) {
 		if (param == null) {
 			MessageManager mm = EngineMessage.get();
@@ -60,5 +61,14 @@ public class Ifind extends TableFunction {
 	
 	public boolean isLeftTypeMatch(Object obj) {
 		return obj instanceof MemoryTable;
+	}
+	
+	public void getUsedFields(Context ctx, List<String> resultList) {
+		if (param.getType() == IParam.Semicolon) {
+			if (param.getSubSize() == 2) {
+				IParam sub = param.getSub(0);
+				sub.getUsedFields(ctx, resultList);
+			}
+		}
 	}
 }

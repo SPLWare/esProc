@@ -179,8 +179,12 @@ class HashArrayIndexTable extends IndexTable {
 		}
 	}
 	
-	// 合并哈希表
 	private static void combineHashGroups(Entry []result, Entry []entries) {
+		combineHashGroups(result, entries, true);
+	}
+	
+	// 合并哈希表
+	private static void combineHashGroups(Entry []result, Entry []entries, boolean checkDupKey) {
 		int len = result.length;
 		for (int i = 0; i < len; ++i) {
 			if (result[i] == null) {
@@ -260,7 +264,7 @@ class HashArrayIndexTable extends IndexTable {
 					if (entries == null) {
 						entries = jobs[i].entries;
 					} else {
-						combineHashGroups(entries, jobs[i].entries);
+						combineHashGroups(entries, jobs[i].entries, checkDupKey);
 					}
 				}
 			} finally {

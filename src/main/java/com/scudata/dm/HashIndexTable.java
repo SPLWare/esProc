@@ -199,8 +199,12 @@ public class HashIndexTable extends IndexTable {
 		}
 	}
 	
-	// 合并哈希表
 	private static void combineHashGroups(Entry []result, Entry []entries) {
+		combineHashGroups(result, entries, true);
+	}
+	
+	// 合并哈希表
+	private static void combineHashGroups(Entry []result, Entry []entries, boolean checkDupKey) {
 		int len = result.length;
 		for (int i = 0; i < len; ++i) {
 			if (result[i] == null) {
@@ -210,7 +214,7 @@ public class HashIndexTable extends IndexTable {
 				while (true) {
 					// 比较哈希值相同的元素是否值也相同
 					for (Entry resultEntry = result[i]; resultEntry != null; resultEntry = resultEntry.next) {
-						if (Variant.isEquals(entry.key, resultEntry.key)) {
+						if (checkDupKey && Variant.isEquals(entry.key, resultEntry.key)) {
 							MessageManager mm = EngineMessage.get();
 							throw new RQException(Variant.toString(entry.key) + mm.getMessage("engine.dupKeys"));
 						}
@@ -270,7 +274,7 @@ public class HashIndexTable extends IndexTable {
 					if (entries == null) {
 						entries = jobs[i].entries;
 					} else {
-						combineHashGroups(entries, jobs[i].entries);
+						combineHashGroups(entries, jobs[i].entries, checkDupKey);
 					}
 				}
 			} finally {
