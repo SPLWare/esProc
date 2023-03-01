@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>Chapter12 Charts</title>
+<title>12.2.1 Coordinate systems and axes</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,16 +13,81 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h1 style='mso-list:l17 level1 lfo1'><span lang=EN-US
-style='font-family:"Times New Roman",serif;mso-fareast-font-family:"Times New Roman"'><span
-style='mso-list:Ignore'>Chapter12<span style='font:7.0pt "Times New Roman"'> </span></span></span><span
-lang=EN-US style='font-family:"Times New Roman",serif'><span
-style='mso-spacerun:yes'>&nbsp;</span>Charts</span></h1></div>
+	<div id="centent-title"><h3 style='margin:0cm;margin-bottom:.0001pt;text-indent:0cm;line-height:normal;
+mso-list:none;tab-stops:-179.95pt 64.2pt'><span lang=EN-US style='font-size:
+14.0pt;mso-bidi-font-size:10.0pt'>12.2.1 Coordinate systems and axes
+</span></h3></div>
 	<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>The aim of data analysis and computation is helping organizations
-make informed decisions. A clear and beautifully presented chart makes data
-intuitive and expressive. This chapter explains how to present and visualize
-data in esProc.</span></p>
+lang=EN-US>esProc provides two commonly used coordinate systems &#8211; <b
+style='mso-bidi-font-weight:normal'>Cartesian coordinate</b> <b
+style='mso-bidi-font-weight:normal'>system</b> and <b style='mso-bidi-font-weight:
+normal'>polar coordinate system</b>. </span></p>
+
+<p class=T-Par style='margin-bottom:0cm;margin-bottom:.0001pt;mso-add-space:
+auto;text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
+lang=EN-US>Different coordinate systems have different types of coordinate axes
+&#8211; <b style='mso-bidi-font-weight:normal'>x-axis</b> and <b style='mso-bidi-font-weight:
+normal'>y-axis</b>, or <b style='mso-bidi-font-weight:normal'>polar axis</b> and
+<b style='mso-bidi-font-weight:normal'>radial axis</b>. Each type of axis has its
+own plotting properties with which the corresponding coordinate transformation
+operation is handled. </span></p>
+
+<p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
+line-height:normal'><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:12.0pt;font-family:"Times New Roman",serif'>Cartesian
+coordinate system</span></b></p>
+
+<p class=T-Par0372CxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>A
+Cartesian coordinate system has two mutually perpendicular axes, denoted the
+x-axis and y-axis. The logical coordinates on the horizontal x-axis determine
+the horizontal location of the chart, and those on the vertical y-axis
+determine the vertical location of the chart. Actually, in a Cartesian
+coordinate system the abscissa and ordinate of physical coordinates can be calculated
+individually based on their corresponding logical axes, without any mutual
+influences. </span></p>
+
+<p class=T-Par0372CxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>In all
+the examples we have cited, the system of Cartesian coordinates is used to
+position chart elements. The native physical axes on the canvas also belong to a
+Cartesian coordinate system. The system is used in plotting most of the charts
+such as column chart, line chart, area chart, scatter chart, bubble chart and
+stock chart. </span></p>
+
+<p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
+line-height:normal'><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:12.0pt;font-family:"Times New Roman",serif'>Polar coordinate
+system</span></b></p>
+
+<p class=T-Par0372CxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>The
+axes in a polar coordinate system are polar axis and radial axis. For the polar
+axis, you need to define the <b style='mso-bidi-font-weight:normal'>pole</b>
+position and the <b style='mso-bidi-font-weight:normal'>polar axis length</b>;
+and for the radial axis, the <b style='mso-bidi-font-weight:normal'>start angle</b>
+and <b style='mso-bidi-font-weight:normal'>end angle</b> of the polar
+coordinates. Conventionally the angle horizontally from the pole to the right
+is 0&#61616; and the counterclockwise angle from the polar axis is positive. By
+default the start angle of a polar coordinate system is 0 and the end angle is
+360.</span></p>
+
+<p class=T-Par0372CxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>The
+system of polar coordinates is used to plot pie chart, doughnut chart, radar chart
+and etc. </span></p>
+
+<p class=T-Par0372CxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=EN-US style='mso-bidi-font-family:"Times New Roman"'>When
+performing coordinate transformation operation with polar coordinates, a
+point’s line segment length is calculated from the coordinates on the polar
+axis and its polar angle is calculated from the coordinates on the radial axis.
+</span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="271.html">Next</a></div>
@@ -30,17 +95,7 @@ data in esProc.</span></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="271.html">12.1 The Basics</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="275.html">12.2 Coordinate Systems and Transformation</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="278.html">12.3 Coordinate Axes</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="284.html">12.4 The Axis Element</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="291.html">12.5 The Dot Element</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="296.html">12.6 The Line Element</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="301.html">12.7 The Column Element</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="307.html">12.8 The Sector Element</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="311.html">12.9 Text Element &amp; Background Element</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="317.html">12.10 Web Integration and Hyperlink</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="321.html">12.11 Using Ready-made Graphs</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="269.html">12.2 Coordinate Systems and Transformation</a></span></li>
 </div>
 	</div>
 	<div id="footer">	

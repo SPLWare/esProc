@@ -119,5 +119,6 @@ tree.setIconPath("images/");
  tree.nodes["1_118"] = "text:Automatically Install Excel Add-in;url:topics/116.html";
  tree.nodes["1_119"] = "text:Enable function prompt;url:topics/117.html";
  tree.nodes["1_120"] = "text:Prompt when serial number will expire soon;url:topics/118.html";
+ tree.nodes["1_121"] = "text:Serial number;url:topics/119.html";
 tree.setTarget("mainFrame");
 document.write(tree.toString());

@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>db.error()</title>
+<title>dyna_open()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,255 +13,147 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h3 style='text-align:justify;text-justify:inter-ideograph'><a name="db_error"></a><span
-class=code><span lang=EN-US style='font-size:15.0pt;line-height:172%;
-font-family:"Times New Roman",serif'>db.error()</span></span><span
-class=code><span lang=EN-US style='font-size:15.0pt;line-height:172%;
-font-family:"Times New Roman",serif;font-weight:normal'></span></span></h3></div>
-	<p class=af style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Description:</span></p>
+	<div id="centent-title"><h2 style='mso-pagination:widow-orphan'><span lang=EN-US style='mso-fareast-font-family:
+宋体'>dyna_open()<a name="dyna_open"></a></span></h2></div>
+	<p class=MsoNormal><b><span lang=EN-US style='font-size:14.0pt'>Description:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Obtain the last
-error information from a database connection.</span></p>
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US>Connect to Amazon DynamoDB.</span></p>
 
-<p class=af style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Syntax: </span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><span class=var1><span
-lang=EN-US>db</span></span><span lang=EN-US>.</span><span class=code><span
-lang=EN-US style='font-family:"Times New Roman",serif'>error</span></span><span
-lang=EN-US>()</span></p>
-
-<p class=af style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Note: </span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>The function returns
-the error information corresponding to the previous command related to the
-database. </span><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-font-weight:normal'>0</span></span><span lang=EN-US> indicates error free;
-otherwise, the error code is returned. The error message can only be called one
-time. </span></p>
-
-<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-line-height:200%'>Parameters:</span></b></p>
+<p class=MsoNormal><b><span lang=EN-US style='font-size:14.0pt'>Syntax: </span></b></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ style='margin-left:21.3pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'>
-  <td width=62 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><i
-  style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt'>db</span></i></b><span class=var1><span lang=EN-US></span></span></p>
+  <td width=474 valign=top style='width:284.3pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><b><span lang=EN-US style='mso-fareast-font-family:黑体'>dyna_open(</span></b><i><span
+  lang=EN-US>dyna_url,region,AccessKey,SecretKey</span></i><b><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>)</span></b></p>
   </td>
-  <td width=740 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-size:10.5pt'>Database
-  connection</span></p>
-  </td>
- </tr>
-</table>
-
-<p class=af style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Options: </span></p>
-
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'>
-  <td width=62 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>@m</span></span><span
-  class=var1><span lang=EN-US></span></span></p>
-  </td>
-  <td width=740 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Use this option to return information in
-  string.</span></p>
-  </td>
- </tr>
-</table>
-
-<p class=af style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Example:</span></p>
-
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
- style='margin-left:.25pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
- mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=28 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
-  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></span></p>
-  </td>
-  <td width=425 valign=top style='width:212.6pt;border:solid #A6A6A6 1.0pt;
-  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>A</span></span></p>
-  </td>
-  <td width=383 valign=top style='width:191.4pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <td width=156 valign=top style='width:93.55pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal><b><span lang=EN-US style='font-size:14.0pt'>Note:</span></b></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt'>The external library function
+connects to </span><span lang=EN-US>DynamoDB and returns result as a cursor.</span><b><span
+lang=EN-US style='font-size:14.0pt'></span></b></p>
+
+<p class=MsoNormal><b><span lang=EN-US style='font-size:14.0pt'>Parameter: </span></b></p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:21.3pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=106 valign=top style='width:63.75pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US>dyna_url</span></i></p>
+  </td>
+  <td width=537 valign=top style='width:322.3pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>URL for accessing DynamoDB; the format is</span><span
+  lang=EN-US style='mso-bidi-font-family:等线'>
+  http(s)://host[:port][/[database]]</span><span lang=EN-US> </span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=28 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>1</span></span></p>
+  <td width=106 valign=top style='width:63.75pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US>region</span></i></p>
   </td>
-  <td width=425 valign=top style='width:212.6pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=file(&quot;D://files//student.txt&quot;)</span></span></p>
-  </td>
-  <td width=383 valign=top style='width:191.4pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Data in the file </span><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>student.txt </span></span><span
-  lang=EN-US>is not correct</span><span lang=EN-US style='mso-ansi-language:
-  #0400;mso-fareast-language:#0400'> </span><span lang=zh-CN style='mso-ansi-language:
-  #0400;mso-fareast-language:#0400'><img border=0 width=303 height=95
-  src="Function_Reference.files/image493.jpg" v:shapes="_x0000_i1301"></span></p>
+  <td width=537 valign=top style='width:322.3pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>The AWS service region for use</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:2'>
-  <td width=28 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>2</span></span></p>
+  <td width=106 valign=top style='width:63.75pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US>AccessKey</span></i></p>
   </td>
-  <td width=425 valign=top style='width:212.6pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=A1.import@t()</span></span></p>
-  </td>
-  <td width=383 valign=top style='width:191.4pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  <td width=537 valign=top style='width:322.3pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Access Key for accessing DynamoDB; can be
+  omitted</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:3'>
-  <td width=28 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>3</span></span></p>
+ <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
+  <td width=106 valign=top style='width:63.75pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US>SecretKey</span></i></p>
   </td>
-  <td width=425 valign=top style='width:212.6pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=connect@e(&quot;demo&quot;)</span></span></p>
-  </td>
-  <td width=383 valign=top style='width:191.4pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Create a connection and auto-control the
-  commit and rollback operations</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:4'>
-  <td width=28 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>4</span></span></p>
-  </td>
-  <td width=425 valign=top style='width:212.6pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>&gt;A3.execute@k(A2,&quot;update
-  STUDENTS2 set NAME=?,GENDER=?,AGE=? where ID=?&quot;,NAME,GENDER,AGE,ID)</span></span></p>
-  </td>
-  <td width=383 valign=top style='width:191.4pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>The transaction is not committed</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:5'>
-  <td width=28 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>5</span></span></p>
-  </td>
-  <td width=425 valign=top style='width:212.6pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=A3.error@m()</span></span></p>
-  </td>
-  <td width=383 valign=top style='width:191.4pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Return the error message corresponding to
-  sql command execution </span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:6'>
-  <td width=28 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>6</span></span></p>
-  </td>
-  <td width=425 valign=top style='width:212.6pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>&gt;file(&quot;D:\\log.txt&quot;).write@a(A5)</span></span></p>
-  </td>
-  <td width=383 valign=top style='width:191.4pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Append error message to the log</span></p>
-  <p class=MsoNormal><span lang=EN-US style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'><span style='mso-spacerun:yes'>&nbsp;</span></span><span
-  lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=368 height=42
-  src="Function_Reference.files/image495.jpg" v:shapes="图片_x0020_55"></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:7;mso-yfti-lastrow:yes'>
-  <td width=28 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>7</span></span></p>
-  </td>
-  <td width=425 valign=top style='width:212.6pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>&gt;A3.close()</span></span></p>
-  </td>
-  <td width=383 valign=top style='width:191.4pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Close the connection</span></p>
+  <td width=537 valign=top style='width:322.3pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Secret Key for accessing DynamoDB; can be
+  omitted</span></p>
   </td>
  </tr>
 </table>
 
-<p class=af style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Related functions: </span></p>
+<p class=MsoNormal><b><span lang=EN-US style='font-size:14.0pt'>Return value: </span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US><a  href="135.html"><span style='mso-bidi-font-size:
-10.5pt;font-style:normal'>db</span><span style='mso-bidi-font-size:12.0pt;
-font-style:normal'>.cl<span style='mso-bookmark:_Hlt415047773'>o</span>s<span
-style='mso-bookmark:_Hlt414995559'>e</span>()</span></a><a
-name="_Hlt414995559"></a><a name="_Hlt415047773"></a></span></i></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>A cursor</span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US style='mso-bidi-font-size:12.0pt'><a  href="152.html"><span
-style='font-style:normal'>conn<span style='mso-bookmark:_Hlt414995264'>e</span>ct()</span></a><a
-name="_Hlt414995264"></a></span></i></p>
+<p class=MsoNormal><b><span lang=EN-US style='font-size:14.0pt'>Example: </span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US><a  href="142.html"><span style='mso-bidi-font-size:
-10.5pt;font-style:normal'>db</span><span style='mso-bidi-font-size:12.0pt;
-font-style:normal'>.co<span style='mso-bookmark:_Hlt415047833'>m</span><span
-style='mso-bookmark:_Hlt414995841'>m</span><span style='mso-bookmark:_Hlt414995385'>i</span>t()</span></a><a
-name="_Hlt414995385"></a><a name="_Hlt414995841"></a><a name="_Hlt415047833"></a></span></i></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><i style='mso-bidi-font-style:
-normal'><span lang=EN-US><a  href="743.html"><span style='mso-bidi-font-size:
-10.5pt;font-style:normal'>db</span><span style='mso-bidi-font-size:12.0pt;
-font-style:normal'>.rollba<span style='mso-bookmark:_Hlt414995881'>c</span>k()</span></a><a
-name="_Hlt414995881"></a></span></i></p>
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=845
+ style='margin-left:22.65pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
+ mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=27 valign=top style='width:16.25pt;border:solid #A6A6A6 1.0pt;
+  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span lang=EN-US>&nbsp;</span></p>
+  </td>
+  <td width=396 valign=top style='width:237.8pt;border:solid #A6A6A6 1.0pt;
+  border-left:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-bottom-alt:
+  solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;background:#BFBFBF;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><b><span
+  lang=EN-US style='mso-fareast-font-family:黑体'>A</span></b></p>
+  </td>
+  <td width=421 valign=top style='width:252.8pt;border:none;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=EN-US>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;height:7.9pt'>
+  <td width=27 valign=top style='width:16.25pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:7.9pt'>
+  <p class=MsoNormal><b><span lang=EN-US style='mso-fareast-font-family:黑体'>1</span></b></p>
+  </td>
+  <td width=396 valign=top style='width:237.8pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm;height:7.9pt'>
+  <p class=MsoNormal><b><span lang=EN-US style='mso-fareast-font-family:黑体'>=dyna_open(&quot;http://localhost:8000&quot;,
+  &quot;us-east-2&quot;,&quot;AKIAQTM4UQLTMFHKDNFG&quot;,&quot;YkoSW0STTXUUxokW2cb3rVfs1tFB1rtIkebW6eB/&quot;)</span></b></p>
+  </td>
+  <td width=421 valign=top style='width:252.8pt;border:none;padding:0cm 0cm 0cm 0cm;
+  height:7.9pt'>
+  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=EN-US>Access
+  cloud database</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes;height:7.9pt'>
+  <td width=27 valign=top style='width:16.25pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:7.9pt'>
+  <p class=MsoNormal><b><span lang=EN-US style='mso-fareast-font-family:黑体'>2</span></b></p>
+  </td>
+  <td width=396 valign=top style='width:237.8pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm;height:7.9pt'>
+  <p class=MsoNormal><b><span lang=EN-US style='mso-fareast-font-family:黑体'>=dyna_open(&quot;http://localhost:8000&quot;,
+  &quot;us-east-2&quot;)</span></b></p>
+  </td>
+  <td width=421 valign=top style='width:252.8pt;border:none;padding:0cm 0cm 0cm 0cm;
+  height:7.9pt'>
+  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=EN-US>Access a
+  local database</span></p>
+  </td>
+ </tr>
+</table>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="244.html">Next</a></div>
@@ -269,13 +161,13 @@ name="_Hlt414995881"></a></span></i></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="242.html">error()</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="45.html">Functions</a></span></li>
 </div>
 	</div>
 	<div id="footer">	
 		
 		
-    <div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+    <div class="copyright"> Copyright&reg; 2021 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
       </a></div>
 	</div>
 </div>

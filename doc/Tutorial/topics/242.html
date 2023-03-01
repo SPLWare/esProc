@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>10.1.1 esProc server cluster</title>
+<title>10.2.2 Maintaining clustered files</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,61 +13,440 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h3 style='margin:0cm;margin-bottom:.0001pt;text-indent:0cm;line-height:normal;
-mso-list:none;tab-stops:-179.95pt 64.2pt'><span lang=EN-US style='font-size:
-14.0pt;mso-bidi-font-size:10.0pt'>10.1.1 esProc server cluster</span></h3></div>
-	<p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>A cluster computing system usually consists of
-multiple nodes. There is a <b style='mso-bidi-font-weight:normal'>main node</b>
-at the highest level of all processes that controls the computing jobs on all
-nodes. A running node receives computing tasks, computes <b style='mso-bidi-font-weight:
-normal'>local cellset files</b> and returns results to the main node. In a
-cluster network, nodes may run on multiple machines or a single machine. Each
-node is identified through the IP address and the port number. In a cluster
-system, one computational transaction is called an <b>assignment</b>; each
-assignment consists of one or more <b>task</b>s. Tasks are assigned to nodes by
-the main node for execution. One node can perform multiple tasks concurrently.
-All running nodes form a cluster system for parallel processing. </span></p>
+	<div id="centent-title"><h3 style='margin-left:0cm;text-indent:0cm;mso-list:none;tab-stops:21.0pt'><span
+lang=EN-US>10.2.2 Maintaining clustered files</span></h3></div>
+	<p class=T-Par style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:exactly'><span
+lang=EN-US>We do not need to specifically access the main paths or search paths
+of clustered files on nodes in order to manipulate them. Instead, we handle
+them using functions, as shown below:</span></p>
 
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>esProc provides the server class &#8211; </span><span
-class=T-CodeChar><i><span lang=EN-US style='font-family:"Times New Roman",serif;
-font-weight:normal;mso-bidi-font-weight:bold'>com.scudata.ide.spl.ServerConsole</span></i></span><i
-style='mso-bidi-font-style:normal'><span lang=EN-US> </span></i><span
-lang=EN-US>&#8211; to get addresses and ports according to the configuration files
-and to launch clustered servers.</span></p>
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='margin-left:20.35pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:
+ #B2B2B2;mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
+ .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:.5pt solid #B2B2B2;
+ mso-border-insidev:.5pt solid #B2B2B2'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=42 valign=top style='width:31.2pt;border:solid black 1.0pt;
+  mso-border-alt:solid black .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US>&nbsp;</span></p>
+  </td>
+  <td width=189 style='width:5.0cm;border-top:solid black 1.0pt;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
+  mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-bottom-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US>A</span></p>
+  </td>
+  <td width=189 style='width:5.0cm;border-top:solid black 1.0pt;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid black 1.0pt;
+  mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-bottom-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US>B</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US>1</span></p>
+  </td>
+  <td width=189 style='width:5.0cm;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid windowtext .5pt;
+  mso-border-left-alt:solid windowtext .5pt;mso-border-top-alt:windowtext;
+  mso-border-left-alt:windowtext;mso-border-bottom-alt:#B2B2B2;mso-border-right-alt:
+  #B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:.5pt;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabCodepink style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>192.168.1.112:8281</span></p>
+  </td>
+  <td width=189 style='width:5.0cm;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid windowtext 1.0pt;mso-border-top-alt:
+  solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;mso-border-bottom-alt:solid #B2B2B2 .5pt;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabCodepink style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>192.168.1.112:8282</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US>2</span></p>
+  </td>
+  <td width=189 style='width:5.0cm;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:
+  14.15pt'>
+  <p class=TabCodepink style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>PersonnelInfo.txt</span></p>
+  </td>
+  <td width=189 style='width:5.0cm;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid windowtext 1.0pt;mso-border-top-alt:
+  solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;mso-border-top-alt:
+  #B2B2B2;mso-border-left-alt:windowtext;mso-border-bottom-alt:#B2B2B2;
+  mso-border-right-alt:windowtext;mso-border-style-alt:solid;mso-border-width-alt:
+  .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCodepink style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;page-break-inside:avoid;height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US>3</span></p>
+  </td>
+  <td width=189 style='width:5.0cm;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:
+  14.15pt'>
+  <p class=TabCodepink style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>PersonnelInfo_n1.txt</span></p>
+  </td>
+  <td width=189 style='width:5.0cm;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid windowtext 1.0pt;mso-border-top-alt:
+  solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;mso-border-top-alt:
+  #B2B2B2;mso-border-left-alt:windowtext;mso-border-bottom-alt:#B2B2B2;
+  mso-border-right-alt:windowtext;mso-border-style-alt:solid;mso-border-width-alt:
+  .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCodepink style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>PersonnelInfo_n2.txt</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4;page-break-inside:avoid;height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US>4</span></p>
+  </td>
+  <td width=189 style='width:5.0cm;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid windowtext .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>=movefile@c(A2;&quot;/&quot;,B1)</span></p>
+  </td>
+  <td width=189 style='width:5.0cm;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid windowtext 1.0pt;mso-border-top-alt:
+  solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;mso-border-top-alt:
+  #B2B2B2;mso-border-left-alt:windowtext;mso-border-bottom-alt:#B2B2B2;
+  mso-border-right-alt:windowtext;mso-border-style-alt:solid;mso-border-width-alt:
+  .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>=movefile(A3,A1;&quot;/&quot;,B1)</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:5;page-break-inside:avoid;height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US>5</span></p>
+  </td>
+  <td width=189 style='width:5.0cm;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid windowtext .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>=movefile(A2,B1;B3)</span></p>
+  </td>
+  <td width=189 style='width:5.0cm;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid windowtext 1.0pt;mso-border-top-alt:
+  solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;mso-border-top-alt:
+  #B2B2B2;mso-border-left-alt:windowtext;mso-border-bottom-alt:#B2B2B2;
+  mso-border-right-alt:windowtext;mso-border-style-alt:solid;mso-border-width-alt:
+  .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>=movefile@c(A2;&quot;/&quot;,[A1:B1])</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:6;page-break-inside:avoid;height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US>6</span></p>
+  </td>
+  <td width=189 style='width:5.0cm;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid windowtext .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>=movefile(A2;,[A1:B1])</span></p>
+  </td>
+  <td width=189 style='width:5.0cm;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid windowtext 1.0pt;mso-border-top-alt:
+  solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;mso-border-top-alt:
+  #B2B2B2;mso-border-left-alt:windowtext;mso-border-bottom-alt:#B2B2B2;
+  mso-border-right-alt:windowtext;mso-border-style-alt:solid;mso-border-width-alt:
+  .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>=movefile@c(A3,B1;&quot;/&quot;,A1)</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:7;mso-yfti-lastrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=42 style='width:31.2pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLaEnd style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US>7</span></p>
+  </td>
+  <td width=189 style='width:5.0cm;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid #B2B2B2 .5pt;
+  mso-border-left-alt:solid windowtext .5pt;background:blue;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>=movefile(A3,A1;&quot;/&quot;,B1)</span></p>
+  </td>
+  <td width=189 style='width:5.0cm;border-top:none;border-left:none;border-bottom:
+  solid #B2B2B2 1.0pt;border-right:solid windowtext 1.0pt;mso-border-top-alt:
+  solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;mso-border-top-alt:
+  #B2B2B2;mso-border-left-alt:windowtext;mso-border-bottom-alt:#B2B2B2;
+  mso-border-right-alt:windowtext;mso-border-style-alt:solid;mso-border-width-alt:
+  .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman",serif'>&nbsp;</span></p>
+  </td>
+ </tr>
+</table>
 
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>esProc parallel system <b style='mso-bidi-font-weight:
-normal'>hasn’t a certain single &quot;manager&quot; node centrally conducting a
-group of &quot;worker&quot; nodes. An available computer is designated to serve
-as the provisional node for execution of each parallel task.</b></span></p>
+<p class=T-ParCxSpFirst style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:exactly'><span
+lang=EN-US>This cellset file defines two nodes started in one computer. Node Ⅰ
+is 192.168.1.112:8281 and its main path is <i>D:/files/node1</i>. Node Ⅱ is
+192.168.1.112:8282 and its main path is <i>D:/files/node2</i>. At the
+beginning, the main paths on the two nodes contain files as follows:</span></p>
 
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>Yet each assignment has its logical center &#8211; the main
-node &#8211; from which instructions are given and to which results are returned for
-being combined. The task usually fails if a node malfunctions; in certain
-cases, <b style='mso-bidi-font-weight:normal'>the main node will redistribute
-the subtask</b> to another capable one. To know more about the execution of
-parallel tasks in esProc, see <i style='mso-bidi-font-style:normal'><a
- href="249.html">Cluster computations</a></i>.</span></p>
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=zh-CN style='border:solid #F2F2F2 1.0pt;
+mso-border-alt:solid #F2F2F2 .5pt;padding:0cm;mso-ansi-language:#0400;
+mso-fareast-language:#0400'><img border=0 width=260 height=35
+src="Tutorial.files/image948.png" v:shapes="图片_x0020_1024"></span><span
+lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><span
+style='mso-spacerun:yes'>&nbsp;</span><span style='border:solid #F2F2F2 1.0pt;
+mso-border-alt:solid #F2F2F2 .5pt;padding:0cm'><img border=0 width=260 height=35
+src="Tutorial.files/image949.png" v:shapes="图片_x0020_1025"></span></span></p>
 
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>&nbsp;</span></p>
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:exactly'><span
+lang=EN-US>We execute the above code step by step. A4 uses <span class=T-Bold>movefile@c(<i
+style='mso-bidi-font-style:normal'>fn</i>; <i style='mso-bidi-font-style:normal'>p</i>,
+<i style='mso-bidi-font-style:normal'>hs</i>) </span>function to copy local
+file <span class=T-Bold><i style='mso-bidi-font-style:normal'>fn </i></span>into
+directory <span class=T-Bold><i style='mso-bidi-font-style:normal'>p </i></span>on
+clustered server <span class=T-Bold><i style='mso-bidi-font-style:normal'>hs</i></span>.
+The @c option enables a copy operation. Here only node Ⅱ is specified in the
+function to copy the target file to the node’s main path. After the code
+executed, the main paths on the two nodes contain files as follows:</span></p>
 
-<p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>Data can be also stored on a Network File System
-(NFS), such as HDFS, over which it can be accessed by the computing nodes. The
-NFS redundancy management is simpler than the strategy of storing data on
-certain computing nodes for fault-tolerance. But compared with accessing files
-stored locally, it may sacrifice some performance due to the network
-transmission.</span></p>
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
+#0400'><img border=0 width=260 height=35
+src="Tutorial.files/image948.png" v:shapes="图片_x0020_1026"><span
+style='mso-spacerun:yes'>&nbsp;</span><img border=0 width=260 height=35
+src="Tutorial.files/image950.png" v:shapes="图片_x0020_1027"></span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:exactly'><span
+lang=EN-US>A file is uploaded to the main path of node Ⅱ. The related
+information will be displayed to the clustered server’s output window:</span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
+#0400'><img border=0 width=400 height=45
+src="Tutorial.files/image951.png" v:shapes="图片_x0020_3"></span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:exactly'><span
+lang=EN-US>B4 uses <span class=T-Bold>movefile(<i style='mso-bidi-font-style:
+normal'>fn</i>, <i style='mso-bidi-font-style:normal'>h</i>; <i
+style='mso-bidi-font-style:normal'>p</i>, <i style='mso-bidi-font-style:normal'>hs</i>)
+</span>function to copy file <span class=T-Bold><i style='mso-bidi-font-style:
+normal'>fn </i></span><span class=T-Bold><span style='font-weight:normal;
+mso-bidi-font-weight:bold;mso-bidi-font-style:italic'>on clustered server</span><i
+style='mso-bidi-font-style:normal'> h </i></span>into path <span class=T-Bold><i
+style='mso-bidi-font-style:normal'>p </i></span>on clustered server <span
+class=T-Bold><i style='mso-bidi-font-style:normal'>hs</i></span>. Here <i>PersonnelInfo_n1.txt</i>
+is moved from Node Ⅰ to Node Ⅱ’s main path. As no corresponding is used, the
+original file is deleted and directory <i>D:/files/node1</i> becomes empty
+after the move operation is executed. Now there are files in directory <i>D:/files/node2</i>
+as follows:</span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=zh-CN style='border:solid #F2F2F2 1.0pt;
+mso-border-alt:solid #F2F2F2 .5pt;padding:0cm;mso-ansi-language:#0400;
+mso-fareast-language:#0400'><img border=0 width=260 height=35
+src="Tutorial.files/image949.png" v:shapes="图片_x0020_1029"><span
+style='mso-spacerun:yes'>&nbsp;</span></span><span lang=zh-CN style='mso-ansi-language:
+#0400;mso-fareast-language:#0400'><img border=0 width=351 height=60
+src="Tutorial.files/image952.png" v:shapes="图片_x0020_2"></span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
+#0400'>The two nodes’ system output windows display information as follows:</span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
+#0400'><img border=0 width=400 height=45
+src="Tutorial.files/image953.png" v:shapes="图片_x0020_5"><span
+style='mso-spacerun:yes'>&nbsp;</span><img border=0 width=400 height=45
+src="Tutorial.files/image954.png" v:shapes="图片_x0020_4"></span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:exactly'><span
+lang=EN-US>In A5, <span class=T-Bold>movefile(<i style='mso-bidi-font-style:
+normal'>fn</i>, <i style='mso-bidi-font-style:normal'>h</i>; <i
+style='mso-bidi-font-style:normal'>p</i>, <i style='mso-bidi-font-style:normal'>hs</i>)
+</span>function does not specify the target node parameter <span class=T-Bold><i
+style='mso-bidi-font-style:normal'>hs</i></span>, and file <span class=T-Bold><i
+style='mso-bidi-font-style:normal'>fn</i></span> will be renamed <span
+class=T-Bold><i style='mso-bidi-font-style:normal'>p</i></span>. In this case, <span
+class=T-Bold><i style='mso-bidi-font-style:normal'>p </i></span>does not
+represent a target path any more, instead it is the new file name. Still, there
+are no files in directory <i>D:/files/node1</i>after execution, and <i>D:/files/node2
+</i>has the following files:</span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=zh-CN style='border:solid #F2F2F2 1.0pt;
+mso-border-alt:solid #F2F2F2 .5pt;padding:0cm;mso-ansi-language:#0400;
+mso-fareast-language:#0400'><img border=0 width=260 height=35
+src="Tutorial.files/image949.png" v:shapes="图片_x0020_1033"><span
+style='mso-spacerun:yes'>&nbsp;</span></span><span lang=zh-CN style='mso-ansi-language:
+#0400;mso-fareast-language:#0400'><img border=0 width=260 height=55
+src="Tutorial.files/image955.png" v:shapes="图片_x0020_7"></span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:exactly'><span
+lang=EN-US>Similar to A4, B5 copies the local file <i>PersonnelInfo.txt</i>,
+but it uses a sequence to specify multilple target nodes, two which the file
+will be copied. After execution the main paths of the two nodes have the
+following files:</span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
+#0400'><img border=0 width=260 height=35
+src="Tutorial.files/image950.png" v:shapes="图片_x0020_1035"><span
+style='border:solid #F2F2F2 1.0pt;mso-border-alt:solid #F2F2F2 .5pt;padding:
+0cm'><span style='mso-spacerun:yes'>&nbsp;</span></span><img border=0 width=260 height=75
+src="Tutorial.files/image956.png" v:shapes="图片_x0020_9"></span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:exactly'><span
+lang=EN-US>The two clustered servers’ system output windows display same
+information at file copy:</span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
+#0400'><img border=0 width=400 height=45
+src="Tutorial.files/image957.png" v:shapes="图片_x0020_10"><span
+style='mso-spacerun:yes'>&nbsp;</span><img border=0 width=400 height=45
+src="Tutorial.files/image957.png" v:shapes="图片_x0020_1038"></span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:exactly'><span
+lang=EN-US>In A5, <span class=T-Bold>movefile(<i style='mso-bidi-font-style:
+normal'>fn</i>, <i style='mso-bidi-font-style:normal'>h</i>; <i
+style='mso-bidi-font-style:normal'>p</i>, <i style='mso-bidi-font-style:normal'>hs</i>)
+</span>function does not specify the target path parameter <span class=T-Bold><i
+style='mso-bidi-font-style:normal'>p</i></span> and thus, deletes the file.
+Below are the files in the main paths of the two nodes after execution:</span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=zh-CN style='border:solid #F2F2F2 1.0pt;
+mso-border-alt:solid #F2F2F2 .5pt;padding:0cm;mso-ansi-language:#0400;
+mso-fareast-language:#0400'><img border=0 width=260 height=35
+src="Tutorial.files/image949.png" v:shapes="图片_x0020_1039"><span
+style='mso-spacerun:yes'>&nbsp;</span></span><span lang=zh-CN style='mso-ansi-language:
+#0400;mso-fareast-language:#0400'><img border=0 width=260 height=55
+src="Tutorial.files/image955.png" v:shapes="图片_x0020_1040"></span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:exactly'><span
+lang=EN-US>Yet A5 specifies the target node parameter <span class=T-Bold><i
+style='mso-bidi-font-style:normal'>hs </i></span>and, deletes the file from all
+involved nodes. In this case the node <span class=T-Bold><i style='mso-bidi-font-style:
+normal'>h </i></span>holding the source file should be absent in order to avoid
+deleting the source file. If you specifies source node <span class=T-Bold><i
+style='mso-bidi-font-style:normal'>h </i></span>but does not specify the target
+node parameter <span class=T-Bold><i style='mso-bidi-font-style:normal'>hs</i></span>,
+the function will delete the file from the specified node.</span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:exactly'><span
+lang=EN-US>The deletion operation information will be displayed in the two
+nodes’ output sytem windows. The two have same information as follows:</span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
+#0400'><img border=0 width=400 height=45
+src="Tutorial.files/image958.png" v:shapes="图片_x0020_11"></span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:exactly'><span
+lang=EN-US>B6 copies <i>PersonnelInfo_n1.txt</i> on node Ⅱ to node Ⅰ. Now there
+are the following files in the main paths of the two nodes:</span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
+#0400'><img border=0 width=260 height=35
+src="Tutorial.files/image948.png" v:shapes="图片_x0020_1042"><span
+style='border:solid #F2F2F2 1.0pt;mso-border-alt:solid #F2F2F2 .5pt;padding:
+0cm'><span style='mso-spacerun:yes'>&nbsp;</span></span><img border=0 width=260 height=55
+src="Tutorial.files/image955.png" v:shapes="图片_x0020_1043"></span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:exactly'><span
+lang=EN-US>Now error occurs when A7 is trying to move <i>PersonnelInfo_n1.txt</i>
+from node Ⅰ to node Ⅱ:</span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:exactly'><span
+lang=EN-US>&nbsp;</span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
+#0400'><img border=0 width=396 height=95
+src="Tutorial.files/image959.png" v:shapes="图片_x0020_1044"></span></p>
+
+<p class=T-ParCxSpLast style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US>This is because there is already a
+namesake file in the target directory. To avoid the error and the incurred
+termination of execution, we use @y option in movefile() function to force
+overwriting a namesake file in the target path at file moving or copy.</span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="243.html">Next</a></div>
@@ -75,7 +454,7 @@ transmission.</span></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="241.html">10.1 The Server Cluster</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="240.html">10.2 Clustered files</a></span></li>
 </div>
 	</div>
 	<div id="footer">	

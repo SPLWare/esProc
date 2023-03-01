@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>6.6.2 Launching ODBC service</title>
+<title>7.1.1 What is cursor</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -14,83 +14,59 @@
 <div id="content-bg">
 	<div id="centent">
 	<div id="centent-title"><h3 style='margin:0cm;margin-bottom:.0001pt;text-indent:0cm;line-height:normal;
-mso-list:none;tab-stops:-179.95pt 64.2pt'><span lang=EN-US>6.6.2 Launching ODBC
-service
+mso-list:none;tab-stops:-179.95pt 64.2pt'><span lang=EN-US style='font-size:
+14.0pt;mso-bidi-font-size:10.0pt'>7.1.1 What is cursor
 </span></h3></div>
-	<p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
-line-height:normal'><span lang=EN-US style='font-size:12.0pt;font-family:"Times New Roman",serif;
-mso-bidi-font-weight:bold'>Starting the GUI console</span><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US style='font-size:12.0pt;font-family:"Times New Roman",serif'></span></b></p>
-
-<p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
+	<p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>In esProc’s <i style='mso-bidi-font-style:normal'>[installation
-root directory]\esProc\bin</i>, double click the <i style='mso-bidi-font-style:
-normal'>esprocs.exe</i> file (Under Linux, execute <i style='mso-bidi-font-style:
-normal'>ServerConsole.sh</i>) to pop up the <b style='mso-bidi-font-weight:
-normal'>Odbc Server</b> window:</span></p>
+21.0pt'><span lang=EN-US>Using cursor on the database enables returning data in
+batches, without having to retrieve all of it into the memory at a time. A
+cursor is like a pointer, retrieving one row each time from the result set by
+moving its position. This mechanism of retrieving data in a row-wise manner is
+usually used to process the big data table, which cannot be entirely loaded into
+the memory that has the capacity limit.</span></p>
 
 <p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
-#0400'><img border=0 width=864 height=357
-src="Tutorial.files/image1501.jpg" v:shapes="_x0000_i1835"></span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>Select <b style='mso-bidi-font-weight:normal'>Odbc
-Server</b> and click <b style='mso-bidi-font-weight:normal'>Config</b> to open
-the <b style='mso-bidi-font-weight:normal'>ODBC Server</b> window:</span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
-#0400'><img border=0 width=864 height=277
-src="Tutorial.files/image1503.jpg" v:shapes="_x0000_i1836"></span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>On the above window, you can configure port number,
-temporary file timeout, maximum connection number, connection timeout and check
-interval. The middle part of the window is user management, where you can
-configure the authorized users and their passwords. Below is an example:</span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
-#0400'><img border=0 width=864 height=277
-src="Tutorial.files/image1505.jpg" v:shapes="_x0000_i1837"></span></p>
+21.0pt'><span lang=EN-US>Compared with directly returning the whole result, the
+database cursor is flexible enough to avoid the memory overflow but is
+relatively slow in handling data retrieval. </span></p>
 
 <p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>Click <b style='mso-bidi-font-weight:normal'>OK</b>
-and esProc will automatically configure the <i style='mso-bidi-font-style:normal'>OdbcServer.xml</i>
-file according to the configured information under <i style='mso-bidi-font-style:
-normal'>[installation root directory]\esProc config</i>. Then click <b
-style='mso-bidi-font-weight:normal'>Start</b> to launch the esProc ODBC
-service. To stop the service, just click <b style='mso-bidi-font-weight:normal'>Stop</b>.</span></p>
+21.0pt'><span lang=EN-US>There are differences, however, between an esProc
+cursor and a database cursor: </span></p>
 
-<p class=TabCode style='text-align:justify;text-justify:inter-ideograph;
-line-height:normal'><span lang=EN-US style='font-size:12.0pt;font-family:"Times New Roman",serif;
-mso-bidi-font-weight:bold'>Starting the non-GUI console</span><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:12.0pt;
-font-family:"Times New Roman",serif'></span></b></p>
+<p class=T-StepsCxSpFirst style='margin-top:0cm;margin-right:0cm;margin-bottom:
+0cm;margin-left:39.0pt;margin-bottom:.0001pt;mso-add-space:auto;text-align:
+justify;text-justify:inter-ideograph;text-indent:-18.0pt;mso-list:l30 level1 lfo43'><span
+lang=EN-US style='mso-fareast-font-family:"Times New Roman"'><span
+style='mso-list:Ignore'>1)<span style='font:7.0pt "Times New Roman"'>&nbsp;
+</span></span></span><span lang=EN-US>An esProc cursor is only used
+to fetch data but won’t modify a result set. </span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-mso-pagination:widow-orphan'><span lang=EN-US style='mso-bidi-font-size:11.0pt'>Use
-the non-GUI console under Linux, here is how to start it: execute the command <i
-style='mso-bidi-font-style:normal'>./ServerConsole.sh &nbsp;-o</i> in the <i
-style='mso-bidi-font-style:normal'>esProc\bin</i> directory under the
-installation root directory to start the ODBC service. </span><span lang=EN-US>After
-the configuration for ODBC service is finished, we can establish an ODBC
-connection through esProc-ODBC.</span><span lang=EN-US style='mso-bidi-font-size:
-11.0pt'></span></p>
+<p class=T-StepsCxSpMiddle style='margin-top:0cm;margin-right:0cm;margin-bottom:
+0cm;margin-left:39.0pt;margin-bottom:.0001pt;mso-add-space:auto;text-align:
+justify;text-justify:inter-ideograph;text-indent:-18.0pt;mso-list:l30 level1 lfo43'><span
+lang=EN-US style='mso-fareast-font-family:"Times New Roman"'><span
+style='mso-list:Ignore'>2)<span style='font:7.0pt "Times New Roman"'>&nbsp;
+</span></span></span><span lang=EN-US>An esProc cursor traverses data
+only once in forward direction, which is similar to the setting of
+TYPE_FORWARD_ONLY in JDBC. </span></p>
+
+<p class=T-StepsCxSpLast style='margin-top:0cm;margin-right:0cm;margin-bottom:
+0cm;margin-left:39.0pt;margin-bottom:.0001pt;mso-add-space:auto;text-align:
+justify;text-justify:inter-ideograph;text-indent:-18.0pt;mso-list:l30 level1 lfo43'><span
+lang=EN-US style='mso-fareast-font-family:"Times New Roman"'><span
+style='mso-list:Ignore'>3)<span style='font:7.0pt "Times New Roman"'>&nbsp;
+</span></span></span><span lang=EN-US>An esProc cursor can be created
+based on either the database table or the data file, or the in-memory record
+sequence. </span></p>
 
 <p class=T-Par style='margin-bottom:0cm;margin-bottom:.0001pt;mso-add-space:
-auto;text-align:justify;text-justify:inter-ideograph;text-indent:21.1pt'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US>Note</span></b><span
-lang=EN-US>: esProc ODBC service can be only enabled on the server side under
-Linux.</span></p>
+auto;text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
+lang=EN-US>Different types of esProc cursors have similar uses and can be used
+together to suit requirements. </span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="180.html">Next</a></div>
@@ -98,7 +74,7 @@ Linux.</span></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="177.html">6.6 Deploying ODBC</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="178.html">7.1 The Concept of Cursor</a></span></li>
 </div>
 	</div>
 	<div id="footer">	

@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>T.cursor( x,…;wi,... )</title>
+<title>f.create( C ,…; x )</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,128 +13,125 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h3 style='text-align:justify;text-justify:inter-ideograph'><span lang=EN-US
-style='mso-bidi-font-weight:bold'>T.cursor(<i style='mso-bidi-font-style:normal'>x,…;wi,...</i>)<a
-name="T_cursor_x_C_w"></a></span></h3></div>
+	<div id="centent-title"><h3 style='text-align:justify;text-justify:inter-ideograph;tab-stops:-179.95pt'><a
+name="_Hlt513763979"></a><a name="f_create_c"></a><a
+name="f_create_cb_kb_pw_pr1"></a><a name="f_create1"></a><a name="f_create2"></a><span
+lang=EN-US>f.create(<i style='mso-bidi-font-style:normal'>C</i>,…;<a
+name="_Hlt85533381"></a><i style='mso-bidi-font-style:normal'>x</i>)<a
+name="f_create_C_x"></a></span></h3></div>
 	<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
 style='font-size:14.0pt'>Description:</span></b></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>Return the specified column(s) in a cluster entity table/cluster
-memory table as a cluster cursor.</span></p>
+lang=EN-US>Create a composite table based on a file.</span></p>
 
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Syntax:</span></b></p>
+<p class=MsoNormal><a name="_Hlt85533627"></a><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US style='font-size:14.0pt'>Syntax:</span></b></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><i><span
-lang=EN-US>T.</span></i><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US style='mso-bidi-font-size:10.5pt;mso-bidi-font-style:italic'>cursor</span></b><span
-lang=EN-US>(x<i>,…;wi,...</i>)</span></p>
+lang=EN-US style='mso-bidi-font-weight:bold'>f</span><span lang=EN-US>.</span></i><span
+class=17><span lang=EN-US style='font-family:"Times New Roman","serif"'>create</span></span><span
+lang=EN-US>(<i>C,…;x</i>)</span></p>
 
 <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
 style='font-size:14.0pt'>Note:</span></b></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>The function computes data in a cluster entity table/cluster memory
-table with expression <i style='mso-bidi-font-style:normal'>x</i> and the
-filtering condition <i style='mso-bidi-font-style:normal'>w</i> and returns the
-results as a cluster cursor. By default a duplicate table is distributed among
-nodes.</span></p>
+lang=EN-US>The function creates a composite table using composite table<i
+style='mso-bidi-font-style:normal'> </i>file <i style='mso-bidi-font-style:
+normal'>f</i>, and generates a multi-zone composite table if <i
+style='mso-bidi-font-style:normal'>f</i> is a homo-name files group. Parameter <i>C</i>
+is a column, which is a dimension if it is preceded by #, of the would-be
+composite table, and parameter <i>x</i> is a zone table expression. The
+dimension and all fields before it must be ordered.<span class=T-Bold><span
+style='font-weight:normal'></span></span></span></p>
 
 <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Options:</span></b></p>
+style='font-size:14.0pt'>Parameter:</span></b></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:19.85pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ style='margin-left:8.8pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'>
-  <td width=62 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-bidi-font-size:10.5pt;mso-bidi-font-style:italic'>@m</span></b><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:黑体;
-  mso-bidi-font-weight:bold'></span></p>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=47 valign=top style='width:1.0cm;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US>f</span></i></p>
   </td>
-  <td width=740 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p style='text-align:justify;text-justify:inter-ideograph'><span lang=EN-US
-  style='font-size:10.5pt;font-family:"Times New Roman",serif'>The function
-  with this option generates a cluster multicursor synchronously segmented into
-  <i style='mso-bidi-font-style:normal'>n</i> parts and splits a duplicate
-  table on two levels. <i style='mso-bidi-font-style:normal'>n</i> is a
-  positive integer representing the number of segments to be divided; the
-  function returns an ordinary cursor if <i style='mso-bidi-font-style:normal'>n</i>&lt;2;
-  use the <span style='mso-bidi-font-style:italic'>value of</span></span><span
-  style='font-size:10.5pt;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:
-  "Times New Roman";mso-bidi-font-family:"Times New Roman";mso-bidi-font-style:
-  italic'>【</span><span lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman",serif;
-  mso-bidi-font-style:italic'>Default number of subcursors in a multicursor</span><span
-  style='font-size:10.5pt;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:
-  "Times New Roman";mso-bidi-font-family:"Times New Roman";mso-bidi-font-style:
-  italic'>】</span><span lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman",serif'>set
-  in</span><span style='font-size:10.5pt;mso-ascii-font-family:"Times New Roman";
-  mso-hansi-font-family:"Times New Roman";mso-bidi-font-family:"Times New Roman"'>【</span><span
-  lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman",serif'>Tool</span><span
-  style='font-size:10.5pt;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:
-  "Times New Roman";mso-bidi-font-family:"Times New Roman"'>】</span><span
-  lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman",serif'>-</span><span
-  style='font-size:10.5pt;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:
-  "Times New Roman";mso-bidi-font-family:"Times New Roman"'>【</span><span
-  lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman",serif'>Options</span><span
-  style='font-size:10.5pt;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:
-  "Times New Roman";mso-bidi-font-family:"Times New Roman"'>】</span><span
-  lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman",serif'>if <i
-  style='mso-bidi-font-style:normal'>n</i> is absent. </span></p>
+  <td width=969 valign=top style='width:581.15pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>A composite table file or a homo-name
+  files group</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=47 valign=top style='width:1.0cm;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US>C</span></i><span class=15><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'></span></span></p>
+  </td>
+  <td width=969 valign=top style='width:581.15pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>A column of the would-be composite table</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes'>
+  <td width=47 valign=top style='width:1.0cm;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US>x</span></i></p>
+  </td>
+  <td width=969 valign=top style='width:581.15pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>A zone table expression</span></p>
   </td>
  </tr>
 </table>
 
 <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Parameters:</span></b></p>
+style='font-size:14.0pt'>Option: </span></b></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:19.85pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ style='margin-left:8.8pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=62 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i><span lang=EN-US>T</span></i></p>
+  <td width=59 valign=top style='width:35.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>@u</span></span><span
+  class=var1><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-bidi-font-size:11.0pt;mso-fareast-font-family:黑体;font-style:normal'></span></b></span></p>
   </td>
-  <td width=740 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>A cluster entity table/cluster memory
-  table</span><span lang=EN-US style='mso-fareast-font-family:等线'></span></p>
+  <td width=583 valign=top style='width:349.5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Do not compress the file; default is to
+  compress it</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=62 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i><span lang=EN-US>x</span></i></p>
+  <td width=59 valign=top style='width:35.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>@r</span></span></p>
   </td>
-  <td width=740 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Expression</span></p>
+  <td width=583 valign=top style='width:349.5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Generate a row-wise file while default is
+  columnar storage, which does not support the multicursor</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes'>
-  <td width=62 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i><span lang=EN-US>wi</span></i></p>
+ <tr style='mso-yfti-irow:2'>
+  <td width=59 valign=top style='width:35.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>@y</span></span></p>
   </td>
-  <td width=740 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
-  <p class=MsoNormal><span lang=EN-US>Filtering condition; multiple conditions
-  are separated by comma(s) and their relationships are AND.</span></p>
-  <p class=MsoNormal><span lang=EN-US>You can use the following three types of
-  syntax in a filtering condition:</span></p>
-  <p class=MsoNormal><span lang=EN-US>1.<i style='mso-bidi-font-style:normal'>
-  K:Ti<span style='mso-spacerun:yes'>&nbsp; </span>K</i> is a field in the
-  entity table; <i style='mso-bidi-font-style:normal'>Ti</i> is a table
-  sequence whose primary key is <i style='mso-bidi-font-style:normal'>K</i><span
-  style='mso-bidi-font-style:italic'>. The expression filters away </span>records
-  where <i style='mso-bidi-font-style:normal'>K=Ti.find(K)</i> is false. When <i
-  style='mso-bidi-font-style:normal'>K</i> is not a selected field to be
-  output, just do the filtering as usuall.</span></p>
-  <p class=MsoNormal><span lang=EN-US>2.<i>K:Ti:null</i><span
-  style='mso-spacerun:yes'>&nbsp; </span>Filter away all records that can be
-  found.</span></p>
-  <p class=MsoNormal><span lang=EN-US>3.<i>K:Ti:#</i><span
-  style='mso-spacerun:yes'>&nbsp; </span><i>K=Ti(K)</i>; locate corresponding
-  records using sequence numbers and delete those out-of-range ones and those
-  where <i>Ti(K) </i>is false or null.</span></p>
+  <td width=583 valign=top style='width:349.5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'>Force to re-create the file even if the target
+  file already exists; defalut is to terminate computation and report error</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3'>
+  <td width=59 valign=top style='width:35.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>@p</span></span></p>
+  </td>
+  <td width=583 valign=top style='width:349.5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Use the first field as the grouping key</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes'>
+  <td width=59 valign=top style='width:35.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>@v</span></span></p>
+  </td>
+  <td width=583 valign=top style='width:349.5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>When columnar storage is used to generate
+  the composite table, check whether each of its columns is pure during data
+  maintenance and save the data type</span></p>
   </td>
  </tr>
 </table>
@@ -142,242 +139,278 @@ style='font-size:14.0pt'>Parameters:</span></b></p>
 <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
 style='font-size:14.0pt'>Return value:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>A cluster
-(multi)cursor</span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>A composite
+table or a homo-name files group</span></p>
 
 <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
 style='font-size:14.0pt'>Example:</span></b></p>
 
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:19.85pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=1130
+ style='margin-left:16.6pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 0cm 0cm 0cm'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=32 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
+  <td width=18 valign=top style='width:11.05pt;border:solid #A6A6A6 1.0pt;
   mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b><span lang=EN-US style='mso-bidi-font-size:10.5pt;
-  mso-fareast-font-family:黑体'>&nbsp;</span></b></p>
+  <p class=MsoNormal><span class=17><span lang=EN-US style='font-family:"Times New Roman","serif"'>&nbsp;</span></span></p>
   </td>
-  <td width=695 valign=top style='width:347.3pt;border:solid #A6A6A6 1.0pt;
+  <td width=550 valign=top style='width:329.9pt;border:solid #A6A6A6 1.0pt;
   border-left:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-bottom-alt:
   solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;background:#BFBFBF;
   padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><b><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:黑体'>A</span></b></p>
+  <p class=MsoNormal align=center style='text-align:center'><span class=17><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>A</span></span></p>
   </td>
-  <td width=401 valign=top style='width:200.3pt;padding:0cm 0cm 0cm 0cm'>
+  <td width=561 valign=top style='width:336.8pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=32 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
+  <td width=18 valign=top style='width:11.05pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b><span lang=EN-US style='mso-bidi-font-size:10.5pt;
-  mso-fareast-font-family:黑体'>1</span></b></p>
+  <p class=MsoNormal><span class=17><span lang=EN-US style='font-family:"Times New Roman","serif"'>1</span></span></p>
   </td>
-  <td width=695 valign=top style='width:347.3pt;border-top:none;border-left:
+  <td width=550 valign=top style='width:329.9pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
   mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
   padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>=file(“D:/tb4.ctx”<span class=code><span
-  style='font-family:"Times New Roman",serif'>:[1]</span></span>,“169.254.121.62:8281”)</span></b><b><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:黑体'></span></b></p>
+  <p class=MsoNormal><span class=17><span lang=EN-US style='font-family:"Times New Roman","serif"'>=file(&quot;employee1.ctx&quot;)</span></span></p>
   </td>
-  <td width=401 valign=top style='width:200.3pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span lang=EN-US>Open
-  a cluster table file</span></p>
+  <td width=561 valign=top style='width:336.8pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Generate composite table file <i>employee1.ctx</i></span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:2'>
-  <td width=32 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
+  <td width=18 valign=top style='width:11.05pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b><span lang=EN-US style='mso-bidi-font-size:10.5pt;
-  mso-fareast-font-family:黑体'>2</span></b></p>
+  <p class=MsoNormal><span class=17><span lang=EN-US style='font-family:"Times New Roman","serif"'>2</span></span></p>
   </td>
-  <td width=695 valign=top style='width:347.3pt;border-top:none;border-left:
+  <td width=550 valign=top style='width:329.9pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
   mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
   padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>=A1.open()</span></b></p>
+  <p class=MsoNormal><span class=17><span lang=EN-US style='font-family:"Times New Roman","serif"'>=A1.create(#EID,NAME,GENDER)</span></span></p>
   </td>
-  <td width=401 valign=top style='width:200.3pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Return a cluster composite table</span></p>
+  <td width=561 valign=top style='width:336.8pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Create A1’s base table whose columns are
+  EID, NAME and GENDER; EID is the dimension </span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:3'>
-  <td width=32 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
+  <td width=18 valign=top style='width:11.05pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b><span lang=EN-US style='mso-bidi-font-size:10.5pt;
-  mso-fareast-font-family:黑体'>3</span></b></p>
+  <p class=MsoNormal><span class=17><span lang=EN-US style='font-family:"Times New Roman","serif"'>3</span></span></p>
   </td>
-  <td width=695 valign=top style='width:347.3pt;border-top:none;border-left:
+  <td width=550 valign=top style='width:329.9pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
   mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
   padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>=A2.attach(table3)</span></b></p>
+  <p class=MsoNormal><span class=17><span lang=EN-US style='font-family:"Times New Roman","serif"'>=connect(&quot;demo&quot;).cursor(&quot;select
+  EID,NAME,GENDER,SALARY<span style='mso-spacerun:yes'>&nbsp; </span>from
+  employee where GENDER='M' order by SALARY&quot;)</span></span></p>
   </td>
-  <td width=401 valign=top style='width:200.3pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Retrieve cluster entity table <i
-  style='mso-bidi-font-style:normal'>table3</i></span></p>
+  <td width=561 valign=top style='width:336.8pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:4'>
-  <td width=32 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
+  <td width=18 valign=top style='width:11.05pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b><span lang=EN-US style='mso-bidi-font-size:10.5pt;
-  mso-fareast-font-family:黑体'>4</span></b></p>
+  <p class=MsoNormal><span class=17><span lang=EN-US style='font-family:"Times New Roman","serif"'>4</span></span></p>
   </td>
-  <td width=695 valign=top style='width:347.3pt;border-top:none;border-left:
+  <td width=550 valign=top style='width:329.9pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
   mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
   padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>=A2.cursor()</span></b></p>
+  <p class=MsoNormal><span class=17><span lang=EN-US style='font-family:"Times New Roman","serif"'>=connect(&quot;demo&quot;).cursor(&quot;select
+  EID,NAME,GENDER,SALARY<span style='mso-spacerun:yes'>&nbsp; </span>from
+  employee where GENDER='F' order by SALARY&quot;)</span></span></p>
   </td>
-  <td width=401 valign=top style='width:200.3pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Return a cluster cursor</span></p>
+  <td width=561 valign=top style='width:336.8pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:5'>
-  <td width=32 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
+  <td width=18 valign=top style='width:11.05pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b><span lang=EN-US style='mso-bidi-font-size:10.5pt;
-  mso-fareast-font-family:黑体'>5</span></b></p>
+  <p class=MsoNormal><span class=17><span lang=EN-US style='font-family:"Times New Roman","serif"'>5</span></span></p>
   </td>
-  <td width=695 valign=top style='width:347.3pt;border-top:none;border-left:
+  <td width=550 valign=top style='width:329.9pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
   mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
   padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>=A3.cursor(NAME,GENDER;EID&lt;6)</span></b></p>
+  <p class=MsoNormal><span class=17><span lang=EN-US style='font-family:"Times New Roman","serif"'>=[A3,A4].mcursor()</span></span></p>
   </td>
-  <td width=401 valign=top style='width:200.3pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US><span
-  style='mso-spacerun:yes'>&nbsp;</span>Return NAME field and GENER field where
-  EID&lt;6 as a cluster cursor</span></p>
+  <td width=561 valign=top style='width:336.8pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Return a multicursor</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:6'>
-  <td width=32 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
+  <td width=18 valign=top style='width:11.05pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=170><span lang=EN-US style='font-family:"Times New Roman",serif'>6</span></span></p>
+  <p class=MsoNormal><span class=17><span lang=EN-US style='font-family:"Times New Roman","serif"'>6</span></span></p>
   </td>
-  <td width=695 valign=top style='width:347.3pt;border-top:none;border-left:
+  <td width=550 valign=top style='width:329.9pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
   mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
   padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>=file(“tb5.ctx”</span><span lang=EN-US>:[2]</span></b><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
-  黑体'>,“192.168.31.72:8281”)</span></b></p>
+  <p class=MsoNormal><span class=17><span lang=EN-US style='font-family:"Times New Roman","serif"'>=file(&quot;emp.ctx&quot;:[1,2])</span></span></p>
   </td>
-  <td width=401 valign=top style='width:200.3pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  <td width=561 valign=top style='width:336.8pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Generate a homo-name files group, which
+  contains two files <i>1.emp.ctx</i> and <i>2.emp.ctx</i></span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:7'>
-  <td width=32 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
+  <td width=18 valign=top style='width:11.05pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=170><span lang=EN-US style='font-family:"Times New Roman",serif'>7</span></span></p>
+  <p class=MsoNormal><span class=17><span lang=EN-US style='font-family:"Times New Roman","serif"'>7</span></span></p>
   </td>
-  <td width=695 valign=top style='width:347.3pt;border-top:none;border-left:
+  <td width=550 valign=top style='width:329.9pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
   mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
   padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>=A6.open()</span></b></p>
+  <p class=MsoNormal><span class=17><span lang=EN-US style='font-family:"Times New Roman","serif"'>=A6.create@y(#EID,NAME,GENDER,SALARY;if(GENDER==&quot;F&quot;,1,2))</span></span></p>
   </td>
-  <td width=401 valign=top style='width:200.3pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  <td width=561 valign=top style='width:336.8pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Create a multi-zone composite table;
+  if(GENDER==&quot;F&quot;,1,2) is zone table expression and @y forces to
+  re-create the target file even if it already exists</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:8'>
-  <td width=32 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
+  <td width=18 valign=top style='width:11.05pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=170><span lang=EN-US style='font-family:"Times New Roman",serif'>8</span></span></p>
+  <p class=MsoNormal><span class=17><span lang=EN-US style='font-family:"Times New Roman","serif"'>8</span></span></p>
   </td>
-  <td width=695 valign=top style='width:347.3pt;border-top:none;border-left:
+  <td width=550 valign=top style='width:329.9pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
   mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
   padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>=A7.cursor@m(;;3)</span></b></p>
+  <p class=MsoNormal><span class=17><span lang=EN-US style='font-family:"Times New Roman","serif"'>=A7.append@i(A5)</span></span></p>
   </td>
-  <td width=401 valign=top style='width:200.3pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Generate a cluster multicursor that is
-  segmented into 3 parts</span></p>
+  <td width=561 valign=top style='width:336.8pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Append data in A5’s multicursor to A7’s
+  multi-zone composite table; each part of the multicursor uniquely corresponds
+  to A7’s one zone table </span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:9'>
-  <td width=32 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
+  <td width=18 valign=top style='width:11.05pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=170><span lang=EN-US style='font-family:"Times New Roman",serif'>9</span></span></p>
+  <p class=MsoNormal><span class=17><span lang=EN-US style='font-family:"Times New Roman","serif"'>9</span></span></p>
   </td>
-  <td width=695 valign=top style='width:347.3pt;border-top:none;border-left:
+  <td width=550 valign=top style='width:329.9pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
   mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
   padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>=A7.cursor()</span></b></p>
+  <p class=MsoNormal><span class=17><span lang=EN-US style='font-family:"Times New Roman","serif"'>=file(&quot;1.emp.ctx&quot;).open().cursor().fetch()</span></span></p>
   </td>
-  <td width=401 valign=top style='width:200.3pt;padding:0cm 0cm 0cm 0cm'>
+  <td width=561 valign=top style='width:336.8pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>View data in zone table <i>1.emp.ctx</i> </span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:10;mso-yfti-lastrow:yes'>
+  <td width=18 valign=top style='width:11.05pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=17><span lang=EN-US style='font-family:"Times New Roman","serif"'>10</span></span></p>
+  </td>
+  <td width=550 valign=top style='width:329.9pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=17><span lang=EN-US style='font-family:"Times New Roman","serif"'>=file(&quot;2.emp.ctx&quot;).open().cursor().fetch()</span></span></p>
+  </td>
+  <td width=561 valign=top style='width:336.8pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>View data in zone table <i>2.emp.ctx</i> </span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal><a name="f_create_cb_kb_pw_pr"></a><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>&nbsp;</span></b></p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:15.6pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ mso-padding-alt:0cm 0cm 0cm 0cm'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=20 valign=top style='width:11.95pt;border:solid #A6A6A6 1.0pt;
+  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=17><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>&nbsp;</span></span></p>
+  </td>
+  <td width=417 valign=top style='width:250.35pt;border:solid #A6A6A6 1.0pt;
+  border-left:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-bottom-alt:
+  solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;background:#BFBFBF;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=17><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>A</span></span></p>
+  </td>
+  <td width=353 valign=top style='width:211.55pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:10'>
-  <td width=32 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:1'>
+  <td width=20 valign=top style='width:11.95pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=170><span lang=EN-US style='font-family:"Times New Roman",serif'>10</span></span></p>
+  <p class=MsoNormal align=center style='text-align:center'><span class=17><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>1</span></span></p>
   </td>
-  <td width=695 valign=top style='width:347.3pt;border-top:none;border-left:
+  <td width=417 valign=top style='width:250.35pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
   mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
   padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>=A9.memory()</span></b></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=file(&quot;CITIES.ctx&quot;)</span></b><span
+  class=17><span lang=EN-US style='font-family:"Times New Roman","serif";
+  font-weight:normal;mso-bidi-font-weight:bold'></span></span></p>
   </td>
-  <td width=401 valign=top style='width:200.3pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Generate a cluser memory table</span></p>
+  <td width=353 valign=top style='width:211.55pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Generate composite table file <span
+  style='mso-bidi-font-weight:bold'>CITIES.ctx</span></span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:11;mso-yfti-lastrow:yes'>
-  <td width=32 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes'>
+  <td width=20 valign=top style='width:11.95pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=170><span lang=EN-US style='font-family:"Times New Roman",serif'>11</span></span></p>
+  <p class=MsoNormal align=center style='text-align:center'><span class=17><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>2</span></span></p>
   </td>
-  <td width=695 valign=top style='width:347.3pt;border-top:none;border-left:
+  <td width=417 valign=top style='width:250.35pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
   mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
   padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>=A10.cursor()</span></b></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=A1.create@p(STATEID,#CID,NAME,POPULATION)</span></b><span
+  class=17><span lang=EN-US style='font-family:"Times New Roman","serif";
+  font-weight:normal;mso-bidi-font-weight:bold'></span></span></p>
   </td>
-  <td width=401 valign=top style='width:200.3pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Return a cluster cursor</span></p>
+  <td width=353 valign=top style='width:211.55pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Create the base table of <span
+  style='mso-bidi-font-weight:bold'>CITIES.ctx and use</span> @p option to make
+  the first field STATEID the grouping key; when the option is absent, use
+  dimension field CID as the default grouping field</span></p>
   </td>
  </tr>
 </table>
@@ -388,13 +421,13 @@ style='font-size:14.0pt'>Example:</span></b></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="175.html">cursor()</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="179.html">create()</a></span></li>
 </div>
 	</div>
 	<div id="footer">	
 		
 		
-    <div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+    <div class="copyright"> Copyright&reg; 2021 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
       </a></div>
 	</div>
 </div>

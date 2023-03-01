@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>n.f( x )</title>
+<title>mongo_open()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,191 +13,310 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h2><a name="n_f_x"></a><span lang=EN-US>n.f(<i style='mso-bidi-font-style:
-normal'>x</i>)</span></h2></div>
-	<p class=af style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Description:</span></p>
+	<div id="centent-title"><h2><a name="mongo_open"></a><a name="mongo_insert"></a><span lang=EN-US>mongo_open()</span></h2></div>
+	<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt;mso-font-kerning:0pt'>Description:</span></b><span
+lang=EN-US style='mso-font-kerning:0pt'> <br>
+<span style='mso-spacerun:yes'>&nbsp; </span></span><span lang=EN-US>Connect
+to the MongoDB server.</span><span lang=EN-US style='mso-font-kerning:0pt'></span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Perform a loop
-operation by declaring an integer</span><span class=var1><span lang=EN-US
-style='font-style:normal;mso-bidi-font-style:italic'> loop variable.</span></span></p>
+<p class=MsoNormal style='mso-pagination:widow-orphan'><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US style='font-size:14.0pt;mso-font-kerning:0pt'>Syntax:<br>
+<span style='mso-tab-count:1'>&nbsp; </span></span></b><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+黑体'>mongo_open</span></b><span lang=EN-US style='mso-bidi-font-size:10.5pt;
+mso-font-kerning:0pt'>(</span><i><span lang=EN-US style='mso-bidi-font-size:
+10.5pt'>url<span class=var1>,keyStory:keyStoryPasswd</span></span></i><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;mso-font-kerning:0pt'>)</span></p>
 
-<p class=af style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Note:</span></p>
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt;mso-font-kerning:0pt'>Note:</span></b><span lang=EN-US
+style='mso-font-kerning:0pt'> </span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>The function performs
-a loop operation with integer </span><span class=var1><span lang=EN-US>n</span></span><span
-class=var1><span lang=EN-US style='font-style:normal;mso-bidi-font-style:italic'>
-as the loop variable.</span></span></p>
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US style='mso-font-kerning:0pt'>The </span><span lang=EN-US>external
+library</span><span lang=EN-US style='mso-font-kerning:0pt'> function
+establishes a connection to the MongoDB server. If parameter <i>username</i> is
+absent, parameter <i>password</i> can be omitted. </span><span lang=EN-US>When
+using SSL/TLS to connect the server, ssl=true can be omitted if parameters </span><span
+class=var1><span lang=EN-US>keyStory</span></span><span lang=EN-US> and </span><span
+class=var1><span lang=EN-US>keyStoryPasswd</span></span><span lang=EN-US> are
+present.</span><span lang=EN-US style='mso-font-kerning:0pt'></span></p>
 
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=90 valign=top style='width:45.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US>n</span></span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>.(</span></span><span
-  class=var1><span lang=EN-US>x</span></span><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'>)</span></span><span class=var1><span
-  lang=EN-US></span></span></p>
-  </td>
-  <td width=716 valign=top style='width:358.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Equivalent to </span><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>to(</span></span><span
-  class=var1><span lang=EN-US>n</span></span><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'>).(</span></span><span
-  class=var1><span lang=EN-US>x</span></span><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'>)</span></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
-  <td width=90 valign=top style='width:45.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US>n</span></span><span
-  lang=EN-US>.</span><span class=var1><span lang=EN-US>f</span></span><span
-  lang=EN-US>(</span><span class=var1><span lang=EN-US>x</span></span><span
-  lang=EN-US>)</span><span class=var1><span lang=EN-US></span></span></p>
-  </td>
-  <td width=716 valign=top style='width:358.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Equivalent to </span><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>to(</span></span><span
-  class=var1><span lang=EN-US>n</span></span><span class=code><span lang=EN-US
-  style='font-family:"Times New Roman",serif'>),</span></span><span class=var1><span
-  lang=EN-US>f</span></span><span class=code><span lang=EN-US style='font-family:
-  "Times New Roman",serif'>(</span></span><span class=var1><span lang=EN-US>x</span></span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>)</span></span></p>
-  </td>
- </tr>
-</table>
-
-<p class=MsoNormal style='line-height:200%'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US style='font-size:14.0pt;line-height:200%'>Parameters:</span></b></p>
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt;mso-font-kerning:0pt'>Parameter:</span></b></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ style='margin-left:6.2pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=62 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US>n</span></span></p>
+  <td width=179 valign=top style='width:107.2pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>url<span
+  style='mso-tab-count:1'>&nbsp; </span></span></i></p>
   </td>
-  <td width=740 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>An integer</span></p>
+  <td width=490 valign=top style='width:293.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto'><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-font-kerning:0pt'>mongodb://[<i
+  style='mso-bidi-font-style:normal'>username</i>:<i style='mso-bidi-font-style:
+  normal'>password</i>@]<i style='mso-bidi-font-style:normal'>host1</i>[:<i
+  style='mso-bidi-font-style:normal'>port1</i>]<span
+  style='mso-spacerun:yes'>&nbsp; </span>[,<i
+  style='mso-bidi-font-style:normal'>host2</i>[:<i style='mso-bidi-font-style:
+  normal'>port2</i>],...[,<i style='mso-bidi-font-style:normal'>hostN</i>[:<i
+  style='mso-bidi-font-style:normal'>portN</i>]]]/<i style='mso-bidi-font-style:
+  normal'>database</i>[?<i style='mso-bidi-font-style:normal'>options/?rows</i>]</span><i
+  style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-font-kerning:
+  0pt'>/?</span></i><i style='mso-bidi-font-style:normal'><span lang=EN-US
+  style='mso-bidi-font-size:10.5pt;mso-bidi-font-family:宋体;mso-font-kerning:
+  0pt'>maxPoolSize</span></i><span lang=EN-US style='mso-bidi-font-size:10.5pt;
+  mso-font-kerning:0pt'></span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=62 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US>x</span></span></p>
+  <td width=179 valign=top style='width:107.2pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>username</span></i><i><span
+  style='mso-bidi-font-size:10.5pt;font-family:宋体;mso-ascii-font-family:"Times New Roman";
+  mso-hansi-font-family:"Times New Roman"'>：</span></i><i><span lang=EN-US
+  style='mso-bidi-font-size:10.5pt'>password</span></i></p>
   </td>
-  <td width=740 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US style='font-style:normal;
-  mso-bidi-font-style:italic'>An expression</span></span></p>
+  <td width=490 valign=top style='width:293.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='mso-fareast-font-family:等线'>Username
+  and password; can be omitted</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes'>
-  <td width=62 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US>f</span></span></p>
+ <tr style='mso-yfti-irow:2'>
+  <td width=179 valign=top style='width:107.2pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>host</span></i></p>
   </td>
-  <td width=740 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>The function name</span></p>
+  <td width=490 valign=top style='width:293.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-size:11.0pt;
+  mso-fareast-font-family:等线'>The host name or IP of to-be-connected MongoDB
+  server; at least one value needs to be specified; to connect a replica set,
+  specify multiple host machine IPs</span><span lang=EN-US style='mso-fareast-font-family:
+  等线'></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3'>
+  <td width=179 valign=top style='width:107.2pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>port</span></i></p>
+  </td>
+  <td width=490 valign=top style='width:293.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='mso-fareast-font-family:等线'>Port
+  number</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4'>
+  <td width=179 valign=top style='width:107.2pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>database</span></i></p>
+  </td>
+  <td width=490 valign=top style='width:293.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='mso-fareast-font-family:等线'>Database
+  name</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:5'>
+  <td width=179 valign=top style='width:107.2pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>options</span></i></p>
+  </td>
+  <td width=490 valign=top style='width:293.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-size:10.5pt;
+  mso-fareast-font-family:等线;color:#333333;mso-bidi-font-weight:bold'>MongoDB
+  connection in standard format; can bet omitted</span><span lang=EN-US
+  style='mso-fareast-font-family:等线'></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:6'>
+  <td width=179 valign=top style='width:107.2pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>rows</span></i></p>
+  </td>
+  <td width=490 valign=top style='width:293.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='color:#333333;mso-bidi-font-weight:
+  bold'>Number of rows for sampling, which is used to count fields in a table
+  and whose default is 100</span><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;mso-fareast-font-family:等线;color:#333333;mso-bidi-font-weight:bold'></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:7'>
+  <td width=179 valign=top style='width:107.2pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US
+  style='mso-bidi-font-size:10.5pt;mso-bidi-font-family:宋体;mso-font-kerning:
+  0pt'>maxPoolSize</span></i><i><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt'></span></i></p>
+  </td>
+  <td width=490 valign=top style='width:293.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='color:#333333;mso-bidi-font-weight:
+  bold'>The size of connection pool, whose value is 10 by default</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:8'>
+  <td width=179 valign=top style='width:107.2pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=var1><span lang=EN-US>keyStory</span></span><i><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt'></span></i></p>
+  </td>
+  <td width=490 valign=top style='width:293.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='color:#333333;mso-bidi-font-weight:
+  bold'>Set <i>keyStory</i> when using SSL/TLS to connect MongoDB server,
+  meaning it is a trusted certificate</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:9;mso-yfti-lastrow:yes'>
+  <td width=179 valign=top style='width:107.2pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=var1><span lang=EN-US>keyStoryPasswd</span></span><i><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt'></span></i></p>
+  </td>
+  <td width=490 valign=top style='width:293.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='color:#333333;mso-bidi-font-weight:
+  bold'>Password of <i>keyStory</i></span></p>
   </td>
  </tr>
 </table>
 
-<p class=af style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Example:</span></p>
+<p class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+margin-left:21.1pt;text-indent:-21.1pt;mso-char-indent-count:-1.5;mso-pagination:
+widow-orphan'><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt;mso-font-kerning:0pt'>Return value: </span></b><span
+lang=EN-US style='mso-font-kerning:0pt'><br>
+</span><span lang=EN-US>MongoDB connection object</span><span lang=EN-US
+style='mso-bidi-font-size:10.5pt;mso-font-kerning:0pt'></span></p>
 
-<p class=MsoNormal style='margin-left:18.0pt;text-indent:-18.0pt;mso-list:l17 level1 lfo17'><span
-lang=EN-US style='font-family:Wingdings;mso-fareast-font-family:Wingdings;
-mso-bidi-font-family:Wingdings'><span style='mso-list:Ignore'>&Oslash;<span
-style='font:7.0pt "Times New Roman"'>&nbsp; </span></span></span><span
-class=var1><span lang=EN-US>n</span></span><span class=code><span lang=EN-US
-style='font-family:"Times New Roman",serif'>.(</span></span><span class=var1><span
-lang=EN-US>x</span></span><span class=code><span lang=EN-US style='font-family:
-"Times New Roman",serif'>)</span></span></p>
+<p class=MsoNormal style='tab-stops:18.0pt'><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:10.0pt'>Example:</span></b><b
+style='mso-bidi-font-weight:normal'><span lang=FR style='font-size:14.0pt;
+mso-bidi-font-size:10.0pt;mso-ansi-language:FR'></span></b></p>
 
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
- style='margin-left:18.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=697
+ style='margin-left:-1.05pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
  mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=35 valign=top style='width:17.35pt;border:solid #A6A6A6 1.0pt;
+  <td width=25 valign=top style='width:14.85pt;border:solid #A6A6A6 1.0pt;
   mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
   </td>
-  <td width=478 valign=top style='width:239.1pt;border:solid #A6A6A6 1.0pt;
+  <td width=402 valign=top style='width:240.95pt;border:solid #A6A6A6 1.0pt;
   border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>A</span></span></p>
+  <p class=MsoNormal align=center style='text-align:center'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'>A</span></b></p>
   </td>
-  <td width=282 valign=top style='width:141.1pt;border:none;mso-border-left-alt:
+  <td width=271 valign=top style='width:162.4pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
-  <td width=35 valign=top style='width:17.35pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:1'>
+  <td width=25 valign=top style='width:14.85pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>1</span></span></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>1</span></b></p>
   </td>
-  <td width=478 valign=top style='width:239.1pt;border-top:none;border-left:
+  <td width=402 valign=top style='width:240.95pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=3.(~*2)</span></span></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>=mongo_open(&quot;mongodb://root:sa@localhost:27017/col&quot;)</span></b></p>
   </td>
-  <td width=282 valign=top style='width:141.1pt;border:none;mso-border-left-alt:
+  <td width=271 valign=top style='width:162.4pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  font-weight:normal'>[2,4,6]</span></span></p>
+  <p class=MsoNormal><span lang=EN-US style='font-size:10.0pt;mso-fareast-font-family:
+  等线;color:#333333'>With username <i style='mso-bidi-font-style:normal'>root</i>,
+  password <i style='mso-bidi-font-style:normal'>sa</i>, host name <i
+  style='mso-bidi-font-style:normal'>localhost</i>, and port number <i
+  style='mso-bidi-font-style:normal'>27017</i>, connect to database <i
+  style='mso-bidi-font-style:normal'>col</i> on MongoDB server</span></p>
   </td>
  </tr>
-</table>
-
-<p class=MsoNormal style='margin-left:18.0pt;text-indent:-18.0pt;mso-list:l17 level1 lfo17'><span
-class=var1><span lang=EN-US style='font-family:Wingdings;mso-fareast-font-family:
-Wingdings;mso-bidi-font-family:Wingdings;font-style:normal;mso-bidi-font-style:
-italic'><span style='mso-list:Ignore'>&Oslash;<span style='font:7.0pt "Times New Roman"'>&nbsp;
-</span></span></span></span><span class=var1><span lang=EN-US>n.f</span></span><span
-class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>(</span></span><span
-class=var1><span lang=EN-US>x</span></span><span class=code><span lang=EN-US
-style='font-family:"Times New Roman",serif'>)</span></span><span class=var1><span
-lang=EN-US></span></span></p>
-
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
- style='margin-left:18.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
- mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=35 valign=top style='width:17.35pt;border:solid #A6A6A6 1.0pt;
-  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
-  </td>
-  <td width=479 valign=top style='width:239.55pt;border:solid #A6A6A6 1.0pt;
-  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>A</span></span></p>
-  </td>
-  <td width=281 valign=top style='width:140.65pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
-  <td width=35 valign=top style='width:17.35pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:2'>
+  <td width=25 valign=top style='width:14.85pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>1</span></span></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>2</span></b></p>
   </td>
-  <td width=479 valign=top style='width:239.55pt;border-top:none;border-left:
+  <td width=402 valign=top style='width:240.95pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif'>=3.sum(~*2)</span></span></p>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>=mongo_open(&quot;mongodb://127.0.0.1:27017/mydb&quot;)</span></b></p>
   </td>
-  <td width=281 valign=top style='width:140.65pt;border:none;mso-border-left-alt:
+  <td width=271 valign=top style='width:162.4pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman",serif;
-  font-weight:normal'>12</span></span></p>
+  <p class=MsoNormal><span lang=EN-US style='font-size:10.0pt;mso-fareast-font-family:
+  等线;color:#333333'>With </span><span lang=EN-US>IP:</span><b style='mso-bidi-font-weight:
+  normal'><span lang=EN-US style='mso-fareast-font-family:黑体'> </span></b><i
+  style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'>127.0.0.1</span></i><span lang=EN-US style='mso-fareast-font-family:黑体'> </span><span
+  lang=EN-US style='font-size:10.0pt;mso-fareast-font-family:等线;color:#333333'>and
+  port number <i style='mso-bidi-font-style:normal'>27017</i>, connect to
+  database <i style='mso-bidi-font-style:normal'>mydb</i> on MongoDB server; no
+  username and password</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3'>
+  <td width=25 valign=top style='width:14.85pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>3</span></b></p>
+  </td>
+  <td width=402 valign=top style='width:240.95pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>=mongo_open(&quot;mongodb://127.0.0.1/mydb?safe=true;
+  wtimeoutMS=2000&quot;)</span></b></p>
+  </td>
+  <td width=271 valign=top style='width:162.4pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US style='font-size:10.0pt;mso-fareast-font-family:
+  等线;color:#333333'>Conncet to database <i style='mso-bidi-font-style:normal'>mydb</i>
+  on MongoDB server via </span><span lang=EN-US>IP:</span><b style='mso-bidi-font-weight:
+  normal'><span lang=EN-US style='mso-fareast-font-family:黑体'> </span></b><i
+  style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'>127.0.0.1<b style='mso-bidi-font-weight:normal'> </b></span></i><span
+  lang=EN-US style='font-size:10.0pt;mso-fareast-font-family:等线;color:#333333'>in
+  the safe mode; no port number; timeout value is 2 seconds</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4'>
+  <td width=25 valign=top style='width:14.85pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>4</span></b></p>
+  </td>
+  <td width=402 valign=top style='width:240.95pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=mongo_open(&quot;mongodb://127.0.0.1:27017/mydb?ssl=true&quot;,&quot;mongoStore.ts&quot;:&quot;123456&quot;)</span></b></p>
+  </td>
+  <td width=271 valign=top style='width:162.4pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Use SSL/TLS to connect to MongoDB; the
+  trusted certificate is mongoStore.tsf and the password is 123456</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:5;mso-yfti-lastrow:yes'>
+  <td width=25 valign=top style='width:14.85pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>5</span></b></p>
+  </td>
+  <td width=402 valign=top style='width:240.95pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=mongo_open(&quot;mongodb://127.0.0.1:27017/mydb&quot;,&quot;mongoStore.ts&quot;:&quot;123456&quot;)</span></b></p>
+  </td>
+  <td width=271 valign=top style='width:162.4pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>As both <i>keyStory</i> and <i>keyStoryPasswd</i>
+  are present, ssl=ture is omitted</span></p>
   </td>
  </tr>
 </table>
@@ -214,7 +333,7 @@ lang=EN-US></span></span></p>
 	<div id="footer">	
 		
 		
-    <div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+    <div class="copyright"> Copyright&reg; 2021 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
       </a></div>
 	</div>
 </div>
