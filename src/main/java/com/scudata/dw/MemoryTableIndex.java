@@ -125,45 +125,52 @@ public class MemoryTableIndex {
 		}
 		
 		int flen = fields.length;
-		Expression[] exp = new Expression[flen];
-		Expression[] exps = new Expression[flen + 1];
-		String[] names = new String[flen + 1];
-		String[] names2 = new String[flen];
+//		Expression[] exp = new Expression[flen];
+//		Expression[] exps = new Expression[flen + 1];
+//		String[] names = new String[flen + 1];
+//		String[] names2 = new String[flen];
+//		for (int i = 0; i < flen; i++) {
+//			exp[i] = exps[i] = new Expression(fields[i]);
+//			names[i] = names2[i] = fields[i];
+//		}
+//		exps[flen] = new Expression("#");
+//		names[flen] = SORT_FIELD_NAME;
+		
+//		Sequence table = srcTable.newTable(names, exps, "m", ctx);
+//		table = table.group(exp, "u", ctx);
+//		
+//		len = table.length();
+//		Table indexData = new Table(names2, len);
+//		IntArray[] recordNums = new IntArray[len + 1]; 
+//		
+//		for (int i = 1; i <= len; i++) {
+//			Sequence seq = (Sequence) table.getMem(i);
+//			BaseRecord rec = (BaseRecord) seq.getMem(1);
+//			int size = seq.length();
+//			IntArray recNum = new IntArray(size);
+//			for (int j = 1; j <= size; j++) {
+//				BaseRecord record = (BaseRecord) seq.getMem(j);
+//				Integer value = (Integer) record.getNormalFieldValue(1);
+//				recNum.pushInt(value);
+//			}
+//			Object[] objs = new Object[] {rec.getNormalFieldValue(0)};
+//			indexData.newLast(objs);
+//			recordNums[i] = recNum;
+//			avgNums += recNum.size();
+//		}
+//		indexData.dataStruct().setPrimary(names2);
+//		indexData.createIndexTable(capacity, "mU");
+		//this.indexData = indexData;
+//		this.indexTable = indexData.getIndexTable();
+		//this.recordNums = recordNums;
+		
+		DataStruct ds = srcTable.dataStruct();
+		int[] findex = new int[flen];
 		for (int i = 0; i < flen; i++) {
-			exp[i] = exps[i] = new Expression(fields[i]);
-			names[i] = names2[i] = fields[i];
+			findex[i] = ds.getFieldIndex(fields[i]);
 		}
-		exps[flen] = new Expression("#");
-		names[flen] = SORT_FIELD_NAME;
-		
-		Sequence table = srcTable.newTable(names, exps, "m", ctx);
-		table = table.group(exp, "u", ctx);
-		
-		len = table.length();
-		Table indexData = new Table(names2, len);
-		IntArray[] recordNums = new IntArray[len + 1]; 
-		
-		for (int i = 1; i <= len; i++) {
-			Sequence seq = (Sequence) table.getMem(i);
-			BaseRecord rec = (BaseRecord) seq.getMem(1);
-			int size = seq.length();
-			IntArray recNum = new IntArray(size);
-			for (int j = 1; j <= size; j++) {
-				BaseRecord record = (BaseRecord) seq.getMem(j);
-				Integer value = (Integer) record.getNormalFieldValue(1);
-				recNum.pushInt(value);
-			}
-			Object[] objs = new Object[] {rec.getNormalFieldValue(0)};
-			indexData.newLast(objs);
-			recordNums[i] = recNum;
-			avgNums += recNum.size();
-		}
-		indexData.dataStruct().setPrimary(names2);
-		indexData.createIndexTable(capacity, "m");
-		this.indexData = indexData;
-		this.indexTable = indexData.getIndexTable();
-		this.recordNums = recordNums;
-		this.ifields = names2;
+		this.indexTable = srcTable.newIndexTable(findex, capacity, "mU");
+		this.ifields = fields;
 		this.avgNums = avgNums / len;
 	}
 	
@@ -782,10 +789,18 @@ public class MemoryTableIndex {
 			
 			Table srcTable = this.srcTable;
 			Table result = new Table(srcTable.dataStruct());
-			for (int i = 1, len = recNums.size(); i <= len; i++) {
-				BaseRecord rec = srcTable.getRecord(recNums.getInt(i));
-				result.add(rec);
+			if (type == TYPE_HASH) {
+				for (int i = recNums.size(); i > 0; i--) {
+					BaseRecord rec = srcTable.getRecord(recNums.getInt(i));
+					result.add(rec);
+				}
+			} else {
+				for (int i = 1, len = recNums.size(); i <= len; i++) {
+					BaseRecord rec = srcTable.getRecord(recNums.getInt(i));
+					result.add(rec);
+				}
 			}
+			
 			cs = new MemoryCursor(result);
 		}
 		
@@ -1035,7 +1050,7 @@ public class MemoryTableIndex {
 				throw new RQException("icursor" + mm.getMessage("function.invalidParam"));
 			}
 			// series.sort("o");
-			return select(series, opt, ctx);
+			return select_hash(series, opt, ctx);
 		}
 
 		ArrayList<Object> objs = new ArrayList<Object>();
@@ -1049,7 +1064,7 @@ public class MemoryTableIndex {
 				objs.toArray(vals);
 			}
 
-			return select(vals, opt, ctx);
+			return select_hash(vals, opt, ctx);
 		}
 		MessageManager mm = EngineMessage.get();
 		throw new RQException("icursor" + mm.getMessage("function.invalidParam"));
@@ -1136,6 +1151,21 @@ public class MemoryTableIndex {
 		return recNum;
 	}
 	
+	private IntArray select_hash(Sequence vals, String opt, Context ctx) {
+		if (vals == null || vals.length() == 0) return null;
+		
+		IArray mems = vals.getMems();
+		int len = vals.length();
+		IntArray recNum = new IntArray(len * avgNums);
+		
+		for (int i = len; i > 0; i--) {
+			Object srcVal = mems.get(i);
+			indexTable.findPos(srcVal, recNum);
+		}
+	
+		return recNum;
+	}
+	
 	private IntArray select(Object key, boolean isFirst, Context ctx) {
 		if (key == null) return null;
 		IntArray recNum = new IntArray(avgNums);
@@ -1154,6 +1184,30 @@ public class MemoryTableIndex {
 		}
 	}
 	
+	private IntArray select_hash(Object key, boolean isFirst, Context ctx) {
+		if (key == null) return null;
+		IntArray recNum = new IntArray(avgNums);
+		
+		indexTable.findPos(key, recNum);
+		int size = recNum.size();
+		if (size == 0) return null;
+		if (isFirst && size != 1) {
+			int val = recNum.getInt(size);
+			recNum.setSize(1);
+			recNum.setInt(1, val);
+			return recNum;
+		} else {
+			//×öµ¹Ðò
+			int[] arr = recNum.getDatas();
+			for (int i = 1, len = size / 2; i <= len; i++) {
+				int temp = arr[i];
+				arr[i] = arr[size - i + 1];
+				arr[size - i + 1] = temp;
+			}
+			return recNum;
+		}
+	}
+	
 	private IntArray select(Object[] vals, String opt, Context ctx) {
 		if (vals == null || vals.length == 0) return null;
 
@@ -1165,6 +1219,18 @@ public class MemoryTableIndex {
 			if (pos != 0) {
 				recNum.addAll(recordNums[pos]);
 			}
+		}
+		
+		return recNum;
+	}
+	
+	private IntArray select_hash(Object[] vals, String opt, Context ctx) {
+		if (vals == null || vals.length == 0) return null;
+
+		int len = vals.length;
+		IntArray recNum = new IntArray(len * avgNums);
+		for (int i = len - 1; i >= 0; i--) {
+			indexTable.findPos(vals[i], recNum);
 		}
 		
 		return recNum;
@@ -1522,7 +1588,7 @@ public class MemoryTableIndex {
 			if (type == TYPE_SORT)
 				recNums = select(key, hasOpt1, ctx);
 			else if (type == TYPE_HASH)
-				recNums = select(key, hasOpt1, ctx);
+				recNums = select_hash(key, hasOpt1, ctx);
 		}
 		
 		if (hasOptP) {
@@ -1539,6 +1605,7 @@ public class MemoryTableIndex {
 				BaseRecord rec = srcTable.getRecord(recNums.getInt(i));
 				result.add(rec);
 			}
+			
 			return result;
 		}
 	}

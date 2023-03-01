@@ -11751,13 +11751,15 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @return IndexTable
 	 */
 	public IndexTable newIndexTable(int []fields, int capacity, String opt) {
+		boolean checkDupKey = (opt == null || opt.indexOf('U') == -1);
+		
 		if (fields.length == 1) {
 			DataStruct ds = dataStruct();
 			if ((ds != null && ds.isSeqKey()) || (opt != null && opt.indexOf('n') != -1)) {
 				return new SeqIndexTable(this, fields[0]);
 			} else {
 				HashIndexTable it = new HashIndexTable(capacity, opt);
-				it.create(this, fields[0]);
+				it.create(this, fields[0], checkDupKey);
 				return it;
 			}
 		} else {
@@ -11769,7 +11771,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			}
 			
 			HashArrayIndexTable it = new HashArrayIndexTable(capacity, opt);
-			it.create(this, fields);
+			it.create(this, fields, checkDupKey);
 			return it;
 		}
 	}
