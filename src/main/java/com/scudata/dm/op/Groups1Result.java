@@ -52,6 +52,7 @@ public class Groups1Result extends IGroupsResult {
 	private boolean iOpt;
 	private boolean nOpt;
 	private boolean hOpt;
+	private boolean eOpt;
 
 	/**
 	 * 初始化参数
@@ -114,6 +115,8 @@ public class Groups1Result extends IGroupsResult {
 			} else if (opt.indexOf('h') != -1) {
 				hOpt = true;
 			}
+			
+			if (valCount == 1 && opt.indexOf('e') != -1) eOpt = true;
 		}
 		
 		if (hOpt) {
@@ -297,7 +300,11 @@ public class Groups1Result extends IGroupsResult {
 				table.deleteNullFieldRecord(0);
 			}
 			
-			table.trimToSize();
+			if (eOpt) {
+				table = table.fieldValues(ds.getFieldCount() - 1).derive("o");
+			}
+			
+			//table.trimToSize();
 		} else if (opt == null || opt.indexOf('t') == -1) {
 			table = null;
 		}
@@ -714,7 +721,7 @@ public class Groups1Result extends IGroupsResult {
 		//HashUtil hashUtil = (HashUtil) obj;
 		ObjectArray keyArray = (ObjectArray) obj;
 		ListBase1 []groups = this.groups;
-		Expression gexp = this.gexp;
+		//Expression gexp = this.gexp;
 		int valCount = null == gathers ? 0 : gathers.length;
 
 		Node []gathers = this.gathers;
