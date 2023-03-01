@@ -117,6 +117,9 @@ public class MemoryTableIndex {
 	private void createHashIndex(String[] fields, int capacity, Context ctx) {
 		type = TYPE_HASH;
 		int len = srcTable.length();
+		if (capacity == 0) {
+			capacity = len / 2;
+		}
 		if (capacity < MIN_HASH_SIZE) {
 			capacity = MIN_HASH_SIZE;
 		}
@@ -125,45 +128,6 @@ public class MemoryTableIndex {
 		}
 		
 		int flen = fields.length;
-//		Expression[] exp = new Expression[flen];
-//		Expression[] exps = new Expression[flen + 1];
-//		String[] names = new String[flen + 1];
-//		String[] names2 = new String[flen];
-//		for (int i = 0; i < flen; i++) {
-//			exp[i] = exps[i] = new Expression(fields[i]);
-//			names[i] = names2[i] = fields[i];
-//		}
-//		exps[flen] = new Expression("#");
-//		names[flen] = SORT_FIELD_NAME;
-		
-//		Sequence table = srcTable.newTable(names, exps, "m", ctx);
-//		table = table.group(exp, "u", ctx);
-//		
-//		len = table.length();
-//		Table indexData = new Table(names2, len);
-//		IntArray[] recordNums = new IntArray[len + 1]; 
-//		
-//		for (int i = 1; i <= len; i++) {
-//			Sequence seq = (Sequence) table.getMem(i);
-//			BaseRecord rec = (BaseRecord) seq.getMem(1);
-//			int size = seq.length();
-//			IntArray recNum = new IntArray(size);
-//			for (int j = 1; j <= size; j++) {
-//				BaseRecord record = (BaseRecord) seq.getMem(j);
-//				Integer value = (Integer) record.getNormalFieldValue(1);
-//				recNum.pushInt(value);
-//			}
-//			Object[] objs = new Object[] {rec.getNormalFieldValue(0)};
-//			indexData.newLast(objs);
-//			recordNums[i] = recNum;
-//			avgNums += recNum.size();
-//		}
-//		indexData.dataStruct().setPrimary(names2);
-//		indexData.createIndexTable(capacity, "mU");
-		//this.indexData = indexData;
-//		this.indexTable = indexData.getIndexTable();
-		//this.recordNums = recordNums;
-		
 		DataStruct ds = srcTable.dataStruct();
 		int[] findex = new int[flen];
 		for (int i = 0; i < flen; i++) {
