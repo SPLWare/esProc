@@ -136,9 +136,8 @@ public class MemoryTableIndex {
 		exps[flen] = new Expression("#");
 		names[flen] = SORT_FIELD_NAME;
 		
-		Sequence table = srcTable.newTable(names, exps, null, ctx);
-		table = table.sort(exp, null, "o", ctx);
-		table = table.group(exp, "o", ctx);
+		Sequence table = srcTable.newTable(names, exps, "m", ctx);
+		table = table.group(exp, "u", ctx);
 		
 		len = table.length();
 		Table indexData = new Table(names2, len);
@@ -160,7 +159,7 @@ public class MemoryTableIndex {
 			avgNums += recNum.size();
 		}
 		indexData.dataStruct().setPrimary(names2);
-		indexData.createIndexTable(capacity, null);
+		indexData.createIndexTable(capacity, "m");
 		this.indexData = indexData;
 		this.indexTable = indexData.getIndexTable();
 		this.recordNums = recordNums;
@@ -1120,32 +1119,39 @@ public class MemoryTableIndex {
 	 */
 	private IntArray select(Sequence vals, String opt, Context ctx) {
 		if (vals == null || vals.length() == 0) return null;
-		boolean first = opt != null && opt.indexOf('1') != -1;
 		
 		IArray mems = vals.getMems();
 		int len = vals.length();
 		IntArray recNum = new IntArray(len * avgNums);
 		IntArray[] recordNums = this.recordNums;
 		
-		if (first) {
-			for (int i = 1; i <= len; i++) {
-				Object srcVal = mems.get(i);
-				int pos = indexTable.findPos(srcVal);
-				if (pos != 0) {
-					recNum.add(recordNums[pos], 1);
-					break;
-				}
-			}
-		} else {
-			for (int i = 1; i <= len; i++) {
-				Object srcVal = mems.get(i);
-				int pos = indexTable.findPos(srcVal);
-				if (pos != 0) {
-					recNum.addAll(recordNums[pos]);
-				}
+		for (int i = 1; i <= len; i++) {
+			Object srcVal = mems.get(i);
+			int pos = indexTable.findPos(srcVal);
+			if (pos != 0) {
+				recNum.addAll(recordNums[pos]);
 			}
 		}
+	
 		return recNum;
+	}
+	
+	private IntArray select(Object key, boolean isFirst, Context ctx) {
+		if (key == null) return null;
+		IntArray recNum = new IntArray(avgNums);
+		
+		int pos = indexTable.findPos(key);
+		if (pos != 0) {
+			IntArray[] recordNums = this.recordNums;
+			if (isFirst) {
+				recNum.add(recordNums[pos].get(1));
+			} else {
+				recNum.addAll(recordNums[pos]);
+			}
+			return recNum;
+		} else {
+			return null;
+		}
 	}
 	
 	private IntArray select(Object[] vals, String opt, Context ctx) {
@@ -1494,23 +1500,46 @@ public class MemoryTableIndex {
 	
 	/**
 	 * 根据KEY值查询记录号
-	 * @param seq key值序列
+	 * @param key key值
 	 * @param opt 选项
 	 * @param ctx
-	 * @return 记录号序列
+	 * @return 记录(号)序列
 	 */
-	public Sequence ifind(Sequence seq, String opt, Context ctx) {
+	public Sequence ifind(Object key, String opt, Context ctx) {
 		IntArray recNums = null;
+		boolean hasOpt1 = false;
+		boolean hasOptP = false;
+		if (opt != null) {
+			hasOpt1 = opt.indexOf('1') != -1;
+			hasOptP = opt.indexOf('p') != -1;
+		}
 		
 		if (type == TYPE_FULLTEXT) {
-			return (Sequence) srcTable.pos(seq, null);
+			String option = "p";
+			if (hasOpt1) option += "z";
+			return (Sequence) srcTable.pos(key, option);
 		} else {
 			if (type == TYPE_SORT)
-				recNums = select(seq, opt, ctx);
+				recNums = select(key, hasOpt1, ctx);
 			else if (type == TYPE_HASH)
-				recNums = select(seq, opt, ctx);
-			
-			return new Sequence(recNums);
+				recNums = select(key, hasOpt1, ctx);
+		}
+		
+		if (hasOptP) {
+			//返回序号
+			if (recNums != null)
+				return new Sequence(recNums);
+			else
+				return null;
+		} else {
+			//返回记录
+			Table srcTable = this.srcTable;
+			Table result = new Table(srcTable.dataStruct());
+			for (int i = 1, len = recNums.size(); i <= len; i++) {
+				BaseRecord rec = srcTable.getRecord(recNums.getInt(i));
+				result.add(rec);
+			}
+			return result;
 		}
 	}
 }
