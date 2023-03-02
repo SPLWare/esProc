@@ -1535,7 +1535,7 @@ public class MemoryTableIndex {
 	 * @param ctx
 	 * @return ¼ÇÂ¼(ºÅ)ÐòÁÐ
 	 */
-	public Sequence ifind(Object key, String opt, Context ctx) {
+	public Object ifind(Object key, String opt, Context ctx) {
 		IntArray recNums = null;
 		boolean hasOpt1 = false;
 		boolean hasOptP = false;
@@ -1559,9 +1559,15 @@ public class MemoryTableIndex {
 		
 		if (hasOptP) {
 			//·µ»ØÐòºÅ
-			return new Sequence(recNums);
+			if (hasOpt1)
+				return recNums.getInt(1);
+			else
+				return new Sequence(recNums);
 		} else {
 			//·µ»Ø¼ÇÂ¼
+			if (hasOpt1) {
+				return srcTable.getRecord(recNums.getInt(1));
+			}
 			Table srcTable = this.srcTable;
 			Table result = new Table(srcTable.dataStruct());
 			for (int i = 1, len = recNums.size(); i <= len; i++) {

@@ -693,7 +693,7 @@ public class MemoryTable extends Table {
 	/**
 	 * 索引查询函数ifind的入口
 	 */
-	public Sequence ifind(Object key, String iname, String opt, Context ctx) {
+	public Object ifind(Object key, String iname, String opt, Context ctx) {
 		MemoryTableIndex index = null;
 		index = this.getIndex(iname);
 		if (index == null) {

@@ -199,10 +199,6 @@ public class HashIndexTable extends IndexTable {
 		}
 	}
 	
-	private static void combineHashGroups(Entry []result, Entry []entries) {
-		combineHashGroups(result, entries, true);
-	}
-	
 	// ºÏ²¢¹þÏ£±í
 	private static void combineHashGroups(Entry []result, Entry []entries, boolean checkDupKey) {
 		int len = result.length;
