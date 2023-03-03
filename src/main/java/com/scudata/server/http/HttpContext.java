@@ -148,7 +148,7 @@ public class HttpContext extends ConfigWriter {
 		if(!StringUtils.isValidString( mp )) {
 			Logger.info("Main path is empty.");
 		}else {
-			File main = new File( Env.getMainPath() );
+			File main = new File( mp );
 			if( main.exists() ) {
 				String mainPath = main.getAbsolutePath();
 				addSubdir2Sappath( main, mainPath );
