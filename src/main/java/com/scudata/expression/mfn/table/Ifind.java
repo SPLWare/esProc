@@ -146,11 +146,17 @@ public class Ifind extends TableFunction {
 						IArray array = exp.calculateAll(ctx);
 						index = hashIndexTable.findAllFirstPos(array);
 					}
-					
+
+					int len = index.length;
 					if (hasP) {
-						return new IntArray(index, null, index.length - 1);
+						boolean[] signArr = new boolean[len];
+						for (int i = 1; i < len; ++i) {
+							if (index[i] <= 0) {
+								signArr[i] = true;
+							}
+						}
+						return new IntArray(index, signArr, index.length - 1);
 					} else {
-						int len = index.length;
 						Object []rs = new Object[len];
 						for (int i = 1; i < len; ++i) {
 							if (index[i] > 0) {
@@ -202,10 +208,17 @@ public class Ifind extends TableFunction {
 						index = hashIndexTable.findAllFirstPos(array);
 					}
 					
+					int len = index.length;
 					if (hasP) {
-						return new IntArray(index, null, index.length - 1);
+						boolean[] signArr = new boolean[len];
+						for (int i = 1; i < len; ++i) {
+							if (index[i] <= 0) {
+								signArr[i] = true;
+							}
+						}
+						return new IntArray(index, signArr, index.length - 1);
 					} else {
-						int len = index.length;
+						
 						Object []rs = new Object[len];
 						for (int i = 1; i < len; ++i) {
 							if (index[i] > 0) {
