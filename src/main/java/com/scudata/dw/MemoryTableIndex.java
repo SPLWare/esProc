@@ -1555,7 +1555,7 @@ public class MemoryTableIndex {
 				recNums = select_hash(key, hasOpt1, ctx);
 		}
 		
-		if (recNums == null) return null;
+		if (recNums == null || recNums.size() == 0) return null;
 		
 		if (hasOptP) {
 			//·µ»ØÐòºÅ
@@ -1577,5 +1577,13 @@ public class MemoryTableIndex {
 			
 			return result;
 		}
+	}
+	
+	public int getType() {
+		return type;
+	}
+	
+	public IndexTable getIndexTable() {
+		return indexTable;
 	}
 }

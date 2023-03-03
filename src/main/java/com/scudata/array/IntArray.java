@@ -5565,7 +5565,7 @@ public class IntArray implements NumberArray {
 			if (value instanceof Integer) {
 				return ((Integer)value).intValue() == datas[curIndex];
 			} else if (value instanceof Long) {
-				return ((Integer)value).longValue() == datas[curIndex];
+				return ((Long)value).longValue() == datas[curIndex];
 			} else if (value instanceof BigDecimal) {
 				return new BigDecimal(datas[curIndex]).equals(value);
 			} else if (value instanceof BigInteger) {

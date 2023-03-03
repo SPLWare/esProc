@@ -17,7 +17,7 @@ import com.scudata.util.Variant;
  * @author WangXiaoJun
  *
  */
-class HashArrayIndexTable extends IndexTable {
+public class HashArrayIndexTable extends IndexTable {
 	// 用于存放哈希表里的元素，哈希值相同的元素用链表存储
 	private static class Entry {
 		Object []keys;
@@ -433,6 +433,65 @@ class HashArrayIndexTable extends IndexTable {
 				pos[i] =  entry.seq;
 				break;
 			}
+		}
+		
+		return pos;
+	}
+	
+	public int[] findAllFirstPos(IArray[] keys) {
+		Entry []entries = this.entries;
+		HashUtil hashUtil = this.hashUtil;
+		int keyCount = keys.length;
+		int len = keys[0].size();
+		int []pos = new int[len + 1];
+		
+		for (int i = 1; i <= len; ++i) {
+			int hash = hashUtil.hashCode(keys, i, keyCount);
+			int seq = 0;
+			
+			Next:
+			for (Entry entry = entries[hash]; entry != null; entry = entry.next) {
+				Object []keyValues = entry.keys;
+				for (int k = 0; k < keyCount; ++k) {
+					if (!keys[k].isEquals(i, keyValues[k])) {
+						continue Next;
+					}
+				}
+				
+				seq =  entry.seq;
+			}
+			pos[i] = seq;
+		}
+		
+		return pos;
+	}
+	
+	public int[] findAllFirstPos(IArray[] keys, BoolArray signArray) {
+		Entry []entries = this.entries;
+		HashUtil hashUtil = this.hashUtil;
+		int keyCount = keys.length;
+		int len = keys[0].size();
+		int []pos = new int[len + 1];
+		
+		for (int i = 1; i <= len; ++i) {
+			if (signArray.isFalse(i)) {
+				continue;
+			}
+			int hash = hashUtil.hashCode(keys, i, keyCount);
+			int seq = 0;
+			
+			Next:
+			for (Entry entry = entries[hash]; entry != null; entry = entry.next) {
+				Object []keyValues = entry.keys;
+				for (int k = 0; k < keyCount; ++k) {
+					if (!keys[k].isEquals(i, keyValues[k])) {
+						continue Next;
+					}
+				}
+				
+				seq =  entry.seq;
+			}
+			pos[i] = seq;
 		}
 		
 		return pos;

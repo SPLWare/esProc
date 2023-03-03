@@ -1,7 +1,5 @@
 package com.scudata.expression.mfn.sequence;
 
-import java.util.ArrayList;
-
 import com.scudata.array.ArrayUtil;
 import com.scudata.array.BoolArray;
 import com.scudata.array.ConstArray;

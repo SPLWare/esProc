@@ -479,4 +479,52 @@ public class HashIndexTable extends IndexTable {
 			}
 		}
 	}
+	
+	//只招原序里出现的第一个的位置
+	public int[] findAllFirstPos(IArray keys) {
+		Entry []entries = this.entries;
+		HashUtil hashUtil = this.hashUtil;
+		int len = keys.size();
+		int[] pos = new int[len + 1];
+		
+		for (int i = 1; i <= len; i++) {
+			int hash = hashUtil.hashCode(keys.hashCode(i));
+			for (Entry entry = entries[hash]; entry != null; entry = entry.next) {
+				if (keys.isEquals(i, entry.key)) {
+					pos[i] =  entry.seq;
+				}
+			}
+		}
+		
+		return pos;
+	}
+
+	public int[] findAllFirstPos(IArray[] keys) {
+		return findAllFirstPos(keys[0]);
+	}
+
+	public int[] findAllFirstPos(IArray keys, BoolArray signArray) {
+		Entry []entries = this.entries;
+		HashUtil hashUtil = this.hashUtil;
+		int len = keys.size();
+		int[] pos = new int[len + 1];
+		
+		for (int i = 1; i <= len; i++) {
+			if (signArray.isFalse(i)) {
+				continue;
+			}
+			int hash = hashUtil.hashCode(keys.hashCode(i));
+			for (Entry entry = entries[hash]; entry != null; entry = entry.next) {
+				if (keys.isEquals(i, entry.key)) {
+					pos[i] =  entry.seq;
+				}
+			}
+		}
+		
+		return pos;
+	}
+
+	public int[] findAllFirstPos(IArray[] keys, BoolArray signArray) {
+		return findAllFirstPos(keys[0], signArray);
+	}
 }
