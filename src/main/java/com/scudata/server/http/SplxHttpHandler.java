@@ -258,7 +258,7 @@ public class SplxHttpHandler implements HttpHandler {
 								if( pos > 0 ) {
 									path1 = path.substring( 0, pos );
 									args = path.substring( pos + 1 );
-								}
+								} 
 								path1 = prefix + path1;
 								fileName = path1.substring(1).trim();
 								if( args.length() > 0 ) {
