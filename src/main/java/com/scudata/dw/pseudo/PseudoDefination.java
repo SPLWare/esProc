@@ -258,7 +258,9 @@ public class PseudoDefination implements Cloneable, ICloneable {
 		if (partitions == null) {
 			FileObject fo = new FileObject(fn, null, null, ctx);
 			File f = fo.getLocalFile().file();
-			tables.add(ComTable.openBaseTable(f, ctx));
+			PhyTable t = ComTable.openBaseTable(f, ctx);
+			tables.add(t);
+			ctx.removeResource(t.getGroupTable());
 		} else {
 			int pcount = partitions.length;
 			for (int i = 0; i < pcount; ++i) {
