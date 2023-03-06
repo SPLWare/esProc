@@ -10,7 +10,6 @@ import java.io.OutputStream;
 import java.net.Socket;
 import java.net.SocketAddress;
 
-import com.scudata.common.Logger;
 import com.scudata.dm.Env;
 
 /**

@@ -78,6 +78,11 @@ public abstract class InternalStatement implements java.sql.Statement {
 	private int fetchSize = JDBCConsts.DEFAULT_FETCH_SIZE;
 
 	/**
+	 * 查询时的连接超时时长，单位秒
+	 */
+	protected int queryTimeout = JDBCConsts.DEFAULT_CONNECT_TIMEOUT;
+
+	/**
 	 * Constructor
 	 * 
 	 * @param con The connection object
@@ -254,7 +259,7 @@ public abstract class InternalStatement implements java.sql.Statement {
 			}
 			Object result;
 			if (isRemote) {
-				UnitClient uc = con.getUnitClient();
+				UnitClient uc = con.getUnitClient(queryTimeout * 1000);
 				int connId = con.getUnitConnectionId();
 				Sequence args;
 				if (sqlType == JDBCConsts.TYPE_CALLS) {
@@ -515,7 +520,7 @@ public abstract class InternalStatement implements java.sql.Statement {
 	 */
 	public int getQueryTimeout() throws SQLException {
 		JDBCUtil.log("InternalStatement-10");
-		return 0;
+		return queryTimeout;
 	}
 
 	/**
@@ -530,8 +535,7 @@ public abstract class InternalStatement implements java.sql.Statement {
 	 */
 	public void setQueryTimeout(int seconds) throws SQLException {
 		JDBCUtil.log("InternalStatement-11");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
-				"setQueryTimeout(int seconds)"));
+		this.queryTimeout = seconds;
 	}
 
 	/**
@@ -547,7 +551,7 @@ public abstract class InternalStatement implements java.sql.Statement {
 				throw new SQLException(JDBCMessage.get().getMessage(
 						"error.conclosed"));
 			}
-			UnitClient uc = connt.getUnitClient();
+			UnitClient uc = connt.getUnitClient(queryTimeout * 1000);
 			if (uc != null) {
 				try {
 					uc.JDBCCancel(connt.getUnitConnectionId(), unitStateId);

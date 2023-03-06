@@ -337,7 +337,8 @@ public class InternalConnection implements Connection, Serializable {
 	 * @return UnitClient
 	 * @throws SQLException
 	 */
-	public synchronized UnitClient getUnitClient() throws SQLException {
+	public synchronized UnitClient getUnitClient(int timeoutMS)
+			throws SQLException {
 		if (unitClient == null) {
 			List<String> hosts = Server.getInstance().getHostNames();
 			if (hosts == null || hosts.isEmpty()) {
@@ -367,6 +368,7 @@ public class InternalConnection implements Connection, Serializable {
 											sport));
 						}
 						unitClient = new UnitClient(ip, port);
+						unitClient.setConnectTimeout(timeoutMS);
 						if (unitClient.isAlive()) {
 							try {
 								// 参数好像没用？
@@ -393,6 +395,7 @@ public class InternalConnection implements Connection, Serializable {
 				}
 			}
 		}
+		unitClient.setConnectTimeout(timeoutMS);
 		return unitClient;
 	}
 
@@ -450,7 +453,7 @@ public class InternalConnection implements Connection, Serializable {
 
 		Table t;
 		if (isOnlyServer()) {
-			UnitClient uc = getUnitClient();
+			UnitClient uc = getUnitClient(connectTimeout);
 			int unitConnectionId = getUnitConnectionId();
 			try {
 				t = uc.JDBCGetProcedures(unitConnectionId,
@@ -483,7 +486,7 @@ public class InternalConnection implements Connection, Serializable {
 		JDBCUtil.log("InternalConnection-18");
 		Table t;
 		if (isOnlyServer()) {
-			UnitClient uc = getUnitClient();
+			UnitClient uc = getUnitClient(connectTimeout);
 			int connId = getUnitConnectionId();
 			try {
 				t = uc.JDBCGetProcedureColumns(connId, procedureNamePattern,
@@ -515,7 +518,7 @@ public class InternalConnection implements Connection, Serializable {
 		JDBCUtil.log("InternalConnection-19");
 		Table t;
 		if (isOnlyServer()) {
-			UnitClient uc = getUnitClient();
+			UnitClient uc = getUnitClient(connectTimeout);
 			int unitConnectionId = getUnitConnectionId();
 			try {
 				t = uc.JDBCGetTables(unitConnectionId, tableNamePattern, false);
@@ -547,7 +550,7 @@ public class InternalConnection implements Connection, Serializable {
 		JDBCUtil.log("InternalConnection-20");
 		Table t;
 		if (isOnlyServer()) {
-			UnitClient uc = getUnitClient();
+			UnitClient uc = getUnitClient(connectTimeout);
 			int connId = getUnitConnectionId();
 			try {
 				t = uc.JDBCGetColumns(connId, tableNamePattern,
@@ -588,6 +591,7 @@ public class InternalConnection implements Connection, Serializable {
 			}
 
 		};
+		st.setQueryTimeout(connectTimeout);
 		stats.add(st);
 		return st;
 	}
@@ -613,6 +617,7 @@ public class InternalConnection implements Connection, Serializable {
 			}
 
 		};
+		st.setQueryTimeout(connectTimeout);
 		stats.add(st);
 		return st;
 	}
@@ -641,6 +646,7 @@ public class InternalConnection implements Connection, Serializable {
 			}
 
 		};
+		st.setQueryTimeout(connectTimeout);
 		stats.add(st);
 		return st;
 	}
@@ -759,6 +765,14 @@ public class InternalConnection implements Connection, Serializable {
 			jobSpace.closeResource();
 			JobSpaceManager.closeSpace(jobSpace.getID());
 		}
+		closeUnitClient();
+		closed = true;
+	}
+
+	/**
+	 * 关闭节点机连接
+	 */
+	private void closeUnitClient() {
 		if (unitClient != null) {
 			try {
 				unitClient.JDBCCloseConnection(unitConnectionId);
@@ -766,7 +780,7 @@ public class InternalConnection implements Connection, Serializable {
 				Logger.warn(e.getMessage(), e);
 			}
 		}
-		closed = true;
+		unitClient = null;
 	}
 
 	/**
@@ -1501,6 +1515,8 @@ public class InternalConnection implements Connection, Serializable {
 				"abort(Executor executor)"));
 	}
 
+	private int connectTimeout = JDBCConsts.DEFAULT_CONNECT_TIMEOUT * 1000;
+
 	/**
 	 * Sets the maximum period a Connection or objects created from the Connection
 	 * will wait for the database to reply to any one request. If any request
@@ -1522,8 +1538,9 @@ public class InternalConnection implements Connection, Serializable {
 	public void setNetworkTimeout(Executor executor, int milliseconds)
 			throws SQLException {
 		JDBCUtil.log("InternalConnection-71");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
-				"setNetworkTimeout(Executor executor, int milliseconds)"));
+		this.connectTimeout = milliseconds;
+		// Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+		// "setNetworkTimeout(Executor executor, int milliseconds)"));
 	}
 
 	/**
@@ -1535,6 +1552,6 @@ public class InternalConnection implements Connection, Serializable {
 	 */
 	public int getNetworkTimeout() throws SQLException {
 		JDBCUtil.log("InternalConnection-72");
-		return 0;
+		return connectTimeout;
 	}
 }

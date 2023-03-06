@@ -90,4 +90,9 @@ public class JDBCConsts {
 	 */
 	public static final int DEFAULT_TYPE = java.sql.Types.NULL;
 
+	/**
+	 * 缺省的连接超时时长，单位秒
+	 */
+	public static final int DEFAULT_CONNECT_TIMEOUT = 5;
+
 }
