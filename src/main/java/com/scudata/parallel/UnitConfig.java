@@ -35,6 +35,7 @@ public class UnitConfig extends ConfigWriter {
 	private int tempTimeOut = 12; // 临时文件存活时间，秒为单位，0为永生，单位都是小时。
 	private int proxyTimeOut = 12; // 文件以及游标代理的过期时间，秒为单位，0为永生，单位都是小时。
 	private int interval = 30 * 60; // 检查代理或者临时文件过期的时间间隔，0为不检查过期。单位秒
+	private int backlog = 10; // 服务器最大并发连接，操作系统缺省最大为50，限定范围1到50
 	boolean autoStart=false;
 	private List<Host> hosts = null;
 	
@@ -133,6 +134,14 @@ public class UnitConfig extends ConfigWriter {
 				interval = t;// 设置不正确时，使用缺省检查间隔
 		}
 
+		subNode = XmlUtil.findSonNode(root, "backlog");
+		buf = XmlUtil.getNodeValue(subNode);
+		if (StringUtils.isValidString(buf)) {
+			int t = Integer.parseInt(buf);
+			if (t > 0)
+				backlog = t;
+		}
+
 		subNode = XmlUtil.findSonNode(root, "autostart");
 		buf = XmlUtil.getNodeValue(subNode);
 		if (StringUtils.isValidString(buf)) {
@@ -226,6 +235,7 @@ public class UnitConfig extends ConfigWriter {
 		level = 1;
 		writeAttribute("TempTimeOut", tempTimeOut + "");
 		writeAttribute("Interval", interval + "");
+		writeAttribute("Backlog", backlog + "");
 		writeAttribute("AutoStart", autoStart + "");
 		writeAttribute("ProxyTimeOut", proxyTimeOut + "");
 
@@ -350,6 +360,22 @@ public class UnitConfig extends ConfigWriter {
 	 */
 	public void setInterval(int interval) {
 		this.interval = interval;
+	}
+
+	/**
+	 * 获取服务端的并发连接数
+	 * @return 并发数
+	 */
+	public int getBacklog() {
+		return backlog;
+	}
+	
+	/**
+	 * 设置服务器并发连接数
+	 * @param backlog 并发连接数
+	 */
+	public void setBacklog(int backlog) {
+		this.backlog = backlog;
 	}
 
 	/**
