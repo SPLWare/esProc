@@ -1605,4 +1605,16 @@ public class StringUtils {
 
 		return any || pos1 == len1;
 	}
+	
+	public static boolean isAssicString(String str) {
+		if (str == null) return false;
+		int len = str.length();
+		if (len == 0) return false;
+		for (int i = 0; i < len; i++) {
+			char ch = str.charAt(i);
+			if (ch < 0 || ch >= 0x80)
+				return false;
+		}
+		return true;
+	}
 }

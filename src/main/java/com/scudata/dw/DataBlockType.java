@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 import com.scudata.array.ObjectArray;
+import com.scudata.common.StringUtils;
 import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.SerialBytes;
@@ -387,9 +388,7 @@ public class DataBlockType {
 			
 			if (isAssic) {
 				String str = (String) obj;
-				byte[] ba = str.getBytes();
-				int bytesLen = ba.length;
-				isAssic = bytesLen < 128 && str.length() == bytesLen;
+				isAssic = StringUtils.isAssicString(str) && str.length() < 128;
 			}
 			
 		}
