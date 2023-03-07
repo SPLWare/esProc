@@ -83,6 +83,55 @@ public class HashIndexTable extends IndexTable {
 		}
 	}
 	
+	// 用于多线程创建哈希表(用于ifind)
+	private static class CreateJob2 extends Job {
+		private HashUtil hashUtil;
+		private Sequence code;
+		private int field;
+		private int start; // 起始位置，包括
+		private int end; // 结束位置，不包括
+		
+		Entry []entries; // 按hash值分组
+		
+		public CreateJob2(HashUtil hashUtil, Sequence code, int field, int start, int end) {
+			this.hashUtil = hashUtil;
+			this.code = code;
+			this.field = field;
+			this.start = start;
+			this.end = end;
+		}
+
+		public void run() {
+			HashUtil hashUtil = this.hashUtil;
+			Sequence code = this.code;
+			int field = this.field;
+			Entry []groups = new Entry[hashUtil.getCapacity()];
+			this.entries = groups;
+			Object key;
+			BaseRecord r;
+
+			for (int i = start, end = this.end; i < end; ++i) {
+				r = (BaseRecord)code.getMem(i);
+				key = r.getNormalFieldValue(field);
+
+				int hash = hashUtil.hashCode(key);
+				
+				if (groups[hash] == null) {
+					groups[hash] = new Entry(key, i, null);
+				} else {
+					Entry entry = groups[hash];
+					while (true) {
+						if (entry.next == null) {
+							break;
+						}
+						entry = entry.next;
+					}
+					entry.next = new Entry(key, i, null);
+				}
+			}
+		}
+	}
+	
 	private Sequence code; // 源表，哈希表存放的是元素的位置，需要根据位置到源表取元素
 	protected HashUtil hashUtil; // 用于计算哈希值
 	protected Entry []entries; // 按hash值分组
@@ -228,6 +277,27 @@ public class HashIndexTable extends IndexTable {
 		}
 	}
 
+	// 合并哈希表(ifind)
+	private static void combineHashGroups_i(Entry []result, Entry []entries) {
+		int len = result.length;
+		for (int i = 0; i < len; ++i) {
+			if (result[i] == null) {
+				result[i] = entries[i];
+			} else if (entries[i] != null) {
+				Entry entry = result[i];
+				while (true) {
+					
+					if (entry.next == null) {
+						entry.next = entries[i];
+						break;
+					} else {
+						entry = entry.next;
+					}
+				}
+			}
+		}
+	}
+	
 	/**
 	 * 由排列的指定字段为键创建哈希表
 	 * @param code 源排列
@@ -283,6 +353,51 @@ public class HashIndexTable extends IndexTable {
 		}
 	}
 
+	/**
+	 * 由排列的指定字段为键创建哈希表 (用于ifind)
+	 * @param code 源排列
+	 * @param field 字段索引
+	 */
+	public void create_i(Sequence code, int field) {
+		this.code = code;
+		int len = code.length();
+		if (useMultithread && len > MultithreadUtil.SINGLE_PROSS_COUNT && Env.getParallelNum() > 1) {
+			int threadCount = Env.getParallelNum();
+			int singleCount = len / threadCount;
+			CreateJob2 []jobs = new CreateJob2[threadCount];
+			ThreadPool pool = ThreadPool.newInstance(threadCount);
+
+			try {
+				for (int i = 0, start = 1; i < threadCount; ++i) {
+					if (i + 1 == threadCount) {
+						jobs[i] = new CreateJob2(hashUtil, code, field, start, len + 1);
+					} else {
+						jobs[i] = new CreateJob2(hashUtil, code, field, start, start + singleCount);
+						start += singleCount;
+					}
+					
+					pool.submit(jobs[i]);
+				}
+				
+				for (int i = 0; i < threadCount; ++i) {
+					jobs[i].join();
+					
+					if (entries == null) {
+						entries = jobs[i].entries;
+					} else {
+						combineHashGroups_i(entries, jobs[i].entries);
+					}
+				}
+			} finally {
+				pool.shutdown();
+			}
+		} else {
+			CreateJob2 job = new CreateJob2(hashUtil, code, field, 1, len + 1);
+			job.run();
+			entries = job.entries;
+		}
+	}
+	
 	/**
 	 * 由键查找元素，找不到返回空
 	 * @param key 键值
@@ -480,7 +595,7 @@ public class HashIndexTable extends IndexTable {
 		}
 	}
 	
-	//只招原序里出现的第一个的位置
+	//只找原序里出现的第一个的位置
 	public int[] findAllFirstPos(IArray keys) {
 		Entry []entries = this.entries;
 		HashUtil hashUtil = this.hashUtil;
@@ -492,6 +607,7 @@ public class HashIndexTable extends IndexTable {
 			for (Entry entry = entries[hash]; entry != null; entry = entry.next) {
 				if (keys.isEquals(i, entry.key)) {
 					pos[i] =  entry.seq;
+					break;
 				}
 			}
 		}
@@ -517,6 +633,7 @@ public class HashIndexTable extends IndexTable {
 			for (Entry entry = entries[hash]; entry != null; entry = entry.next) {
 				if (keys.isEquals(i, entry.key)) {
 					pos[i] =  entry.seq;
+					break;
 				}
 			}
 		}

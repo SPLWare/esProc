@@ -11,6 +11,9 @@ import com.scudata.dm.BaseRecord;
 import com.scudata.dm.ComputeStack;
 import com.scudata.dm.Context;
 import com.scudata.dm.DataStruct;
+import com.scudata.dm.Env;
+import com.scudata.dm.HashArrayIndexTable;
+import com.scudata.dm.HashIndexTable;
 import com.scudata.dm.IndexTable;
 import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
@@ -36,6 +39,8 @@ import com.scudata.expression.operator.NotSmaller;
 import com.scudata.expression.operator.Or;
 import com.scudata.expression.operator.Smaller;
 import com.scudata.resources.EngineMessage;
+import com.scudata.thread.MultithreadUtil;
+import com.scudata.thread.ThreadPool;
 import com.scudata.util.Variant;
 
 /**
@@ -133,7 +138,14 @@ public class MemoryTableIndex {
 		for (int i = 0; i < flen; i++) {
 			findex[i] = ds.getFieldIndex(fields[i]);
 		}
-		this.indexTable = srcTable.newIndexTable(findex, capacity, "mU");
+		
+		if (flen == 1) {
+			HashIndexTable it = new HashIndexTable(capacity, "m");
+			it.create_i(srcTable, findex[0]);
+			this.indexTable = it;
+		} else {
+			this.indexTable = srcTable.newIndexTable(findex, capacity, "mU");
+		}
 		this.ifields = fields;
 		this.avgNums = avgNums / len;
 	}
@@ -1156,18 +1168,9 @@ public class MemoryTableIndex {
 		int size = recNum.size();
 		if (size == 0) return null;
 		if (isFirst && size != 1) {
-			int val = recNum.getInt(size);
 			recNum.setSize(1);
-			recNum.setInt(1, val);
 			return recNum;
 		} else {
-			//×öµ¹Ðò
-			int[] arr = recNum.getDatas();
-			for (int i = 1, len = size / 2; i <= len; i++) {
-				int temp = arr[i];
-				arr[i] = arr[size - i + 1];
-				arr[size - i + 1] = temp;
-			}
 			return recNum;
 		}
 	}
