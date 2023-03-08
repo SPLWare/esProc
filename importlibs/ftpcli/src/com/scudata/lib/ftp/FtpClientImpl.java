@@ -19,7 +19,7 @@ import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
 
-public class FtpClientImpl extends Table implements IResource {
+public class FtpClientImpl implements IResource {
 //	package com.scudata.lib.ftp;
 //	public class FtpClient implements IResource
 //	{
@@ -56,9 +56,10 @@ public class FtpClientImpl extends Table implements IResource {
 	ftp_dir(client, 带通配符的remoteFiles) 列出文件，path支持通配符吗？
 
 	*/
-	public String toString() {
+	public String toString() {		
 		return info;
 	}
+	
 	public FTPClient ftp = null;
 	private Context ctx = null;
 	private String info = "";
