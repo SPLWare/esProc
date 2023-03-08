@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.elasticsearch.client.Response;
 import com.scudata.common.RQException;
+import com.scudata.common.Logger;
 
 /*
  * ImHeader(index, type, doc)

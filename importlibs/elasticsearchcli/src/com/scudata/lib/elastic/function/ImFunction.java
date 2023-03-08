@@ -65,13 +65,14 @@ public class ImFunction extends Function {
 		Object cli = new Object();
 		Object objs[] = new Object[size - 1];
 		for (int i = 0; i < size; i++) {
-			if (param.getSub(i) == null) {
+			IParam pp = param.getSub(i);
+			if (pp == null) {
 				MessageManager mm = EngineMessage.get();
 				throw new RQException("client" + mm.getMessage("function.invalidParam"));
 			}
 
 			if (i == 0) {
-				cli = param.getSub(i).getLeafExpression().calculate(ctx);
+				cli = pp.getLeafExpression().calculate(ctx);
 				if ((cli instanceof RestConn)) {
 					m_restConn = (RestConn) cli;
 				} else {
@@ -79,7 +80,11 @@ public class ImFunction extends Function {
 					throw new RQException("client" + mm.getMessage("function.paramTypeError"));
 				}
 			} else {
-				objs[i - 1] = param.getSub(i).getLeafExpression().calculate(ctx);
+				if (pp.getType()==IParam.Colon) {
+					objs[i - 1] = pp;
+				}else {
+					objs[i - 1] = pp.getLeafExpression().calculate(ctx);
+				}
 			}
 		}
 

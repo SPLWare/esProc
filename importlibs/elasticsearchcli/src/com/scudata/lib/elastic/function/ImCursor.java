@@ -131,7 +131,7 @@ public class ImCursor extends ICursor {
 					response = m_restConn.m_restClient.performRequest(request);
 					v = EntityUtils.toString(response.getEntity());
 					int len = searchData(v);
-					m_current += n;
+					m_current += len;
 					nTotal += len;
 					if (nTotal > n) {
 						break;
