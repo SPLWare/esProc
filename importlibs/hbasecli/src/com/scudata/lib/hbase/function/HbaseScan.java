@@ -7,6 +7,7 @@ import org.apache.hadoop.hbase.client.Scan;
 import com.scudata.dm.Context;
 import com.scudata.dm.Table;
 import com.scudata.expression.Node;
+import com.scudata.common.Logger;
 
 public class HbaseScan extends HbaseQuery {
 	public Node optimize(Context ctx) {
@@ -21,7 +22,7 @@ public class HbaseScan extends HbaseQuery {
 		try {
 			return super.calculate(ctx);
 		} catch (NumberFormatException e) {
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		} 
 		
 		return null;
@@ -63,7 +64,7 @@ public class HbaseScan extends HbaseQuery {
             scanner = null;
             table.close();
         } catch (IOException e) {            
-            e.printStackTrace();
+            Logger.error(e.getMessage());
         }
 	   	 
 	   	return tb;
@@ -83,7 +84,7 @@ public class HbaseScan extends HbaseQuery {
              table.close();
              scanner = null;
          } catch (IOException e) {            
-             e.printStackTrace();
+             Logger.error(e.getMessage());
          }
     	 
     	 return tbl;
@@ -100,7 +101,7 @@ public class HbaseScan extends HbaseQuery {
 	   		m_tableInfo.setTableName((String)obj[1]);
 		   	return client.queryRange(m_ctx, scan, m_tableInfo);      
         } catch (Exception e) {            
-            e.printStackTrace();
+            Logger.error(e.getMessage());
         }
 	   	 
 	   	 return null;
@@ -113,7 +114,7 @@ public class HbaseScan extends HbaseQuery {
 			 HbaseDriverCli client = (HbaseDriverCli)tb.m_connect;
 			 return client.queryRange(m_ctx, scan, tb);            
 		 } catch (Exception e) {            
-		     e.printStackTrace();
+		     Logger.error(e.getMessage());
 		 }
     	 
 		return null;

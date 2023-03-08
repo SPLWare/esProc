@@ -16,6 +16,7 @@ import org.apache.hadoop.hbase.client.Get;
 import org.apache.hadoop.hbase.filter.*;
 import org.apache.hadoop.hbase.util.Bytes;
 import com.scudata.common.RQException;
+import com.scudata.common.Logger;
 import com.scudata.dm.Context;
 import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Sequence;
@@ -35,7 +36,7 @@ public class HbaseGet extends HbaseQuery {
 		try {
 			return super.calculate(ctx);
 		} catch (NumberFormatException e) {
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		} 
 		
 		return null;
@@ -73,7 +74,7 @@ public class HbaseGet extends HbaseQuery {
              ImUtils.format(res);
              System.out.println();                         
          } catch (IOException e) {            
-             e.printStackTrace();
+             Logger.error(e.getMessage());
          }
     }
 
@@ -116,7 +117,7 @@ public class HbaseGet extends HbaseQuery {
 			}
 			table.close();
 		} catch (IOException e) {
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		}
 
 		return tb;
@@ -236,7 +237,7 @@ public class HbaseGet extends HbaseQuery {
              
              tbl = toTable(res, tb);                     
          } catch (IOException e) {            
-             e.printStackTrace();
+             Logger.error(e.getMessage());
          }
     	 
     	 return tbl;
