@@ -23,12 +23,12 @@ public class ImOpen extends Function {
 	public Object calculate(Context ctx) {
 		if (param == null) {
 			MessageManager mm = EngineMessage.get();
-			throw new RQException("ali_client" + mm.getMessage("function.missingParam"));
+			throw new RQException("olap_open " + mm.getMessage("function.missingParam"));
 		}
 		int nSize = param.getSubSize();
 		if (nSize < 2) {
 			MessageManager mm = EngineMessage.get();
-			throw new RQException("ali_client" + mm.getMessage("function.invalidParam"));
+			throw new RQException("olap_open " + mm.getMessage("function.invalidParam"));
 		}
 		
 		IParam sub0 = param.getSub(0);
@@ -36,7 +36,7 @@ public class ImOpen extends Function {
 		
 		if (sub0 == null || sub1 == null ) {
 			MessageManager mm = EngineMessage.get();
-			throw new RQException("ali_client" + mm.getMessage("function.invalidParam"));
+			throw new RQException("olap_open " + mm.getMessage("function.invalidParam"));
 		}
 		
 		String user="",pwd="";
@@ -61,7 +61,7 @@ public class ImOpen extends Function {
 		
 		if (!(url instanceof String) ) {
 			MessageManager mm = EngineMessage.get();
-			throw new RQException("olap_client" + mm.getMessage("function.paramTypeError"));
+			throw new RQException("olap_open " + mm.getMessage("function.paramTypeError"));
 		}
 				
 		// String server, String catalog, String user, String password, int retry
@@ -70,7 +70,7 @@ public class ImOpen extends Function {
 			OlapConnection conn = mdx.getOlapConn(ctx, url.toString(), catalog.toString(), user, pwd, 1);
 			if (conn==null){
 				MessageManager mm = EngineMessage.get();
-				throw new RQException("olap_client" + mm.getMessage("Connect server false"));
+				throw new RQException("olap_open " + mm.getMessage("Connect server false"));
 			}
 		}
 		
