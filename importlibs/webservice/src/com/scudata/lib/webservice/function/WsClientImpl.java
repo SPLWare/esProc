@@ -191,7 +191,7 @@ public class WsClientImpl extends Table {
 			//Logger.debug(o);
 			
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		}
 	}
 	
@@ -319,7 +319,7 @@ public class WsClientImpl extends Table {
         response.writeTo(baos);
         String s = baos.toString();
         baos.close();
-		Logger.debug("web service response:"+s);
+        Logger.debug("web service response:"+s);
         try {
 			Context c1 = new Context();
 			c1.setParamValue("xmlStr", s);
@@ -335,7 +335,7 @@ public class WsClientImpl extends Table {
 		    	}
 		    }
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 			//Logger.debug("web service response:"+s);
 			throw new Exception("web service response soap not support");
 		}
@@ -365,11 +365,11 @@ public class WsClientImpl extends Table {
         }
         String url = portObj.location;//"http://www.webxml.com.cn/WebServices/WeatherWebService.asmx";//
         String soap = getRequestSoap(portObj.binding.bindingOperations.get(functionName).operation,values);
- 		Logger.debug("web service request:"+soap);
+        Logger.debug("web service request:"+soap);
         //String s = accessService(this.url,soap,"text/xml; charset=UTF-8");//
         //String s = HttpRequest.sendPost(this.url, soap);
         String s = Http.httpsRequest(url, "POST", soap);
- 		Logger.debug("web service response:"+s);
+        Logger.debug("web service response:"+s);
         try {
 			Context c1 = new Context();
 			c1.setParamValue("xmlStr", s);
@@ -385,7 +385,7 @@ public class WsClientImpl extends Table {
 		    	}
 		    }
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 			throw new Exception("web service response soap not support");
 		}
 
@@ -451,7 +451,7 @@ public class WsClientImpl extends Table {
 //            	return postMethod.getResponseBodyAsString();
 //            }    
 //        } catch (Exception e) {    
-//            e.printStackTrace();    
+//            Logger.error(e.getMessage());    
 //        } finally{    
 //            if(is!=null){    
 //                is.close();    
@@ -592,7 +592,7 @@ public class WsClientImpl extends Table {
 			//System.out.println(wc.call2("SayHiServiceImplService", "SayHiServiceImplPort", "SayHi", new String[]{"aa:name"}));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		}
 //		System.out.println("aa:bb".split(":").length);
 //		System.out.println("aa".split(":").length);

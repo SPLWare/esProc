@@ -12,6 +12,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.web.StandPageItem;
 import com.web.StandPipeline;
+import com.scudata.common.Logger;
 
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Request;
@@ -88,7 +89,7 @@ public class UrlsProcessor implements PageProcessor {
 			 }
 			 
 		}catch(Exception e){
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		}
 	}
 	
@@ -184,7 +185,7 @@ public class UrlsProcessor implements PageProcessor {
 	    	StandPageItem stand = (StandPageItem)b.newInstance();
 	    	stand.parse(p);
     	} catch (Exception e) {
-	    	e.printStackTrace();
+	    	Logger.error(e.getMessage());
     	}
     }
     
@@ -195,7 +196,7 @@ public class UrlsProcessor implements PageProcessor {
 	    	stand = (StandPipeline)b.newInstance();
 	    	stand.setArgv(argv);
     	} catch (Exception e) {
-	    	e.printStackTrace();
+	    	Logger.error(e.getMessage());
     	}
     	
     	return stand;

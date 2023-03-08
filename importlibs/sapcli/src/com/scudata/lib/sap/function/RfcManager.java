@@ -108,7 +108,7 @@ public final class RfcManager {
         try {
             function.execute(getDestination());
         } catch (JCoException e) {
-            e.printStackTrace();
+            Logger.error(e.getMessage());
         }
     }
 
@@ -117,9 +117,9 @@ public final class RfcManager {
         try {
             function = getDestination().getRepository().getFunctionTemplate(functionName).getFunction();
         } catch (JCoException e) {
-        	e.printStackTrace();
+        	Logger.error(e.getMessage());
         } catch (NullPointerException e) {
-        	e.printStackTrace();
+        	Logger.error(e.getMessage());
         }
         return function;
     }

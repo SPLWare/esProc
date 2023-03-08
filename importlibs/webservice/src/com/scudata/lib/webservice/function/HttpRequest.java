@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.URL;
 import java.net.URLConnection;
+import com.scudata.common.Logger;
 
 public class HttpRequest {
     /**
@@ -49,7 +50,7 @@ public class HttpRequest {
             }
         } catch (Exception e) {
             System.out.println("发送GET请求出现异常！" + e);
-            e.printStackTrace();
+            Logger.error(e.getMessage());
         }
         // 使用finally块来关闭输入流
         finally {
@@ -103,7 +104,7 @@ public class HttpRequest {
             result = new String(bs,"UTF-8");
         } catch (Exception e) {
             System.out.println("发送 POST 请求出现异常！"+e);
-            e.printStackTrace();
+            Logger.error(e.getMessage());
         }
         //使用finally块来关闭输出流、输入流
         finally{
@@ -147,7 +148,7 @@ public class HttpRequest {
 //			String sr2=HttpRequest.sendGet(url, "");
 //			System.out.println(sr2);
 //		} catch (Exception e) {
-//			e.printStackTrace();
+//			Logger.error(e.getMessage());
 //		}
 
     }
