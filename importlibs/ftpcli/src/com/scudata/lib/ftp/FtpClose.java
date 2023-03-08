@@ -46,7 +46,6 @@ public class FtpClose  extends Function {
 			if (client != null) client.close();
 			else sclient.close();
 		} catch (Exception e) {
-			e.printStackTrace();
 			throw new RQException("ftp_close : " + e.getMessage());
 		}
 		return "close success!";

@@ -3,8 +3,7 @@ package com.scudata.lib.ftp;
 import java.io.File;  
 import java.util.Properties;  
   
-import org.apache.commons.logging.Log;  
-import org.apache.commons.logging.LogFactory;  
+import com.scudata.common.Logger;
 import com.jcraft.jsch.Channel;  
 import com.jcraft.jsch.ChannelSftp;  
 import com.jcraft.jsch.JSch;  
@@ -58,8 +57,7 @@ public class FtpUtil {
         try {  
             chSftp.get(ftpFilePath, localPath);  
         } catch (Exception e) {  
-            e.printStackTrace();  
-            logger.info("download error.");  
+            Logger.error("download error.");  
         } finally {  
             chSftp.quit();  
             channel.disconnect();  
@@ -77,8 +75,7 @@ public class FtpUtil {
 			System.out.println(f.getAbsolutePath());
 			//FtpUtil.downloadSftpFile("123.57.218.190", "root", "Carrygame888", 22, "/var/log/", "d:/test/ftp1.txt", "secure");
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		}
 		
 	}

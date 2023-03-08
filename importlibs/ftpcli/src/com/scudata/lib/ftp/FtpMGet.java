@@ -69,7 +69,6 @@ public class FtpMGet  extends Function {
 			if (client != null) r = client.mget(localFolder,remoteFolder,remoteFiles,overwrite,ignore);
 			else throw new RQException("ftp_mget for sftp is not implementing.");//r = sclient.mget(remote,localFile.getLocalFile().file().getAbsolutePath());
 		} catch (Exception e) {
-			e.printStackTrace();
 			throw new RQException("ftp_mget : " + e.getMessage());
 		}
 		return r;

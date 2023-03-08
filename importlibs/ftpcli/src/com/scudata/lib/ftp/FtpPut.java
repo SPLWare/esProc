@@ -66,7 +66,6 @@ public class FtpPut  extends Function {
 			else r = sclient.put(remote, fo.getLocalFile().file().getAbsolutePath());
 			Logger.debug("put local ["+fo.getLocalFile().file().getAbsolutePath()+"] to remote ["+remote+"] " + (r?"success":"failed"));
 		} catch (Exception e) {
-			e.printStackTrace();
 			throw new RQException("ftp_put : " + e.getMessage());
 		}
 		return "upload file to remote ["+remote+"] "+(r?"success":"failed");

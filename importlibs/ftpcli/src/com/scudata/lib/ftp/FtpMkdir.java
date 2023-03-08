@@ -59,7 +59,6 @@ public class FtpMkdir  extends Function {
 			if (client != null) s = client.mkdir(dirs);
 			//else sclient.changeRemoteDir(path);
 		} catch (Exception e) {
-			e.printStackTrace();
 			throw new RQException("ftp_mkdir : " + e.getMessage());
 		}
 		return s;

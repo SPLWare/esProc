@@ -60,7 +60,6 @@ public class FtpGet extends Function {
 			if (client != null) r = client.get(remote,localFile,overwrite);
 			else r = sclient.get(remote,localFile.getLocalFile().file().getAbsolutePath());
 		} catch (Exception e) {
-			e.printStackTrace();
 			throw new RQException("ftp_get : " + e.getMessage());
 		}
 		return "get remote file ["+remote+"] "+(r?"success":"failed");

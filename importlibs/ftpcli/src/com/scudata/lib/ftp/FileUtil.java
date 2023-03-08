@@ -39,7 +39,7 @@ public class FileUtil {
 			if ( os != null )return os;
 		}
 		catch ( Throwable e ) {
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		}
 		return null;
 	}
@@ -75,7 +75,6 @@ public class FileUtil {
 			return new String(b, charset);
 		} catch (Exception e) {
 			Logger.error(new String("read file error:[" + f.getPath() + "]"),e);
-			e.printStackTrace();
 		} finally {
 			try {fis.close();} catch(Exception e) {};
 		}

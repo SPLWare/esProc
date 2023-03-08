@@ -39,6 +39,7 @@ import org.apache.commons.net.ftp.FTPSClient;
 import org.apache.commons.net.io.CopyStreamEvent;
 import org.apache.commons.net.io.CopyStreamListener;
 import org.apache.commons.net.util.TrustManagerUtils;
+import com.scudata.common.Logger;
 
 /**
  * This is an example program demonstrating how to use the FTPClient class.
@@ -355,7 +356,7 @@ public final class FTPClientExample
                 }
             }
             System.err.println("Could not connect to server.");
-            e.printStackTrace();
+            Logger.error(e.getMessage());
             System.exit(1);
         }
 
@@ -509,12 +510,12 @@ __main:
         {
             error = true;
             System.err.println("Server closed connection.");
-            e.printStackTrace();
+            Logger.error(e.getMessage());
         }
         catch (IOException e)
         {
             error = true;
-            e.printStackTrace();
+            Logger.error(e.getMessage());
         }
         finally
         {

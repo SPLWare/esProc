@@ -61,7 +61,6 @@ public class FtpCd  extends Function {
 			if (client != null) r = client.changeRemoteDir(path);
 			else r = sclient.changeRemoteDir(path);
 		} catch (Exception e) {
-			e.printStackTrace();
 			throw new RQException("ftp_cd : " + e.getMessage());
 		}
 		return "change directory ["+path+"] " + (r?"success":"falied");

@@ -116,7 +116,7 @@ public class SFtpClientImpl extends Table implements IResource {
     		Logger.debug("put ["+remoteFileName+"] success");
             return true;
         } catch (Exception e) {  
-            e.printStackTrace();  
+            Logger.error(e.getMessage());
     		Logger.debug("put ["+remoteFileName+"] failed");
             return false;
         }  
@@ -135,7 +135,7 @@ public class SFtpClientImpl extends Table implements IResource {
 			} catch (Exception e) {
 				r = false;
 				msg = e.getMessage();
-				e.printStackTrace();
+				Logger.error(e.getMessage());
 			}
 			
 			BaseRecord r2 = result.insert(0);
@@ -158,7 +158,7 @@ public class SFtpClientImpl extends Table implements IResource {
 			} catch (Exception e) {
 				r = false;
 				msg = e.getMessage();
-				e.printStackTrace();
+				Logger.error(e.getMessage());
 			}
 			BaseRecord r2 = result.insert(0);
 			r2.set("folder",dirs.get(i));
@@ -184,13 +184,6 @@ public class SFtpClientImpl extends Table implements IResource {
 	public String getCurrentDir(){
 		return ftpPath;
 		
-//		try {
-//			return chSftp.pwd();
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		
-//		return "";
 	}
 
 	
@@ -431,8 +424,8 @@ public class SFtpClientImpl extends Table implements IResource {
     		Logger.debug("get ["+remoteFileName+"] success");
             return true;
         } catch (Exception e) {  
-            e.printStackTrace();  
-    		Logger.debug("get ["+remoteFileName+"] failed");
+            Logger.error(e.getMessage());
+    				Logger.debug("get ["+remoteFileName+"] failed");
             return false;
         }  
 	}
@@ -505,8 +498,6 @@ public class SFtpClientImpl extends Table implements IResource {
 			
 		} catch (Exception e) {
 			Logger.error("", e);
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 		
 	}

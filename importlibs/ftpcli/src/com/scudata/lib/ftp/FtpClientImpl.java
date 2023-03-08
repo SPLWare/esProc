@@ -371,7 +371,7 @@ public class FtpClientImpl extends Table implements IResource {
 				}
 			} catch (IOException e) {
 				fails.add(remotes.get(i));
-				e.printStackTrace();
+				Logger.error(e.getMessage());
 			}
 		}
 
@@ -496,7 +496,7 @@ public class FtpClientImpl extends Table implements IResource {
 				}
 			} catch (IOException e) {
 				fails.add(remotes.get(i));
-				e.printStackTrace();
+				Logger.error(e.getMessage());
 			}
 		}
 
@@ -527,7 +527,7 @@ public class FtpClientImpl extends Table implements IResource {
 		try {
 			return ftp.printWorkingDirectory();
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		}
 		
 		return "";
@@ -633,8 +633,7 @@ public class FtpClientImpl extends Table implements IResource {
 			ftp = null;
 			ctx.removeResource(this);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		}
 	}
 
@@ -749,8 +748,6 @@ public class FtpClientImpl extends Table implements IResource {
 			
 		} catch (Exception e) {
 			Logger.error("", e);
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 		
 	}

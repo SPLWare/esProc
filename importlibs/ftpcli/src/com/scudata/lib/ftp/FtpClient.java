@@ -2,6 +2,7 @@ package com.scudata.lib.ftp;
 
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
+import com.scudata.common.Logger;
 import com.scudata.dm.Context;
 import com.scudata.expression.Expression;
 import com.scudata.expression.Function;
@@ -91,10 +92,9 @@ public class FtpClient  extends Function {
 				return client;
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
+			Logger.error(e.getMessage());			
 		}
-		
+		return null;
 	}
 
 }

@@ -82,7 +82,6 @@ public class FtpDir  extends Function {
 				//s = sclient.dirList(path, patterns,onlyDir,fullPath);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
 			throw new RQException("ftp_dir : " + e.getMessage());
 		}
 		return s;
