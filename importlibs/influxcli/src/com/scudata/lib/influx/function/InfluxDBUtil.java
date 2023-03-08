@@ -14,6 +14,7 @@ import org.influxdb.dto.Point.Builder;
 import org.influxdb.dto.Pong;
 import org.influxdb.dto.Query;
 import org.influxdb.dto.QueryResult;
+import com.scudata.common.Logger;
 
 /**
  * InfluxDB数据库连接操作类
@@ -81,7 +82,7 @@ public class InfluxDBUtil {
 			isConnected = (pong != null);
 			
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		}
 		return isConnected;
 	}
@@ -104,7 +105,7 @@ public class InfluxDBUtil {
 			// }
 		} catch (Exception e) {
 			// 该数据库可能设置动态代理，不支持创建数据库
-			// e.printStackTrace();
+			// Logger.error(e.getMessage());
 		} finally {
 			influxDB.setRetentionPolicy(retentionPolicy);
 		}

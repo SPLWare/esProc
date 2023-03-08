@@ -302,7 +302,7 @@ public class ImCursor extends ICursor {
 			    doParseLine(jobs, m_buffer, 1);
 			}	
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		}
 		
 		return nRet;
