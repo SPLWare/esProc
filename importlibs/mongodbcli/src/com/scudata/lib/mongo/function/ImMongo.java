@@ -70,9 +70,7 @@ public class ImMongo implements IResource {
 			MongoClientURI conn = new MongoClientURI(str, optionsBuilder);
 			m_dbName = conn.getDatabase();
 			m_client = new MongoClient(conn);	
-			m_client.getMongoClientOptions().builder()
-				  .connectionsPerHost(50).build();//每个主机的连接数
-			//m_client.startSession();
+			MongoClientOptions.builder().connectionsPerHost(50).build();//每个主机的连接数
 			
 			if (ctx != null) ctx.addResource(this);
 		} catch (Exception e) {

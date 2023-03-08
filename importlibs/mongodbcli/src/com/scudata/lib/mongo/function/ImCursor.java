@@ -5,10 +5,11 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
 import org.apache.commons.lang.ArrayUtils;
 import org.bson.Document;
 import org.bson.types.ObjectId;
+
+import com.mongodb.client.ClientSession;
 import com.mongodb.client.MongoDatabase;
 import com.scudata.array.IArray;
 import com.scudata.common.*;
@@ -18,16 +19,17 @@ import com.scudata.dm.cursor.ICursor;
 public class ImCursor extends ICursor {
 	private String[] m_cmd;
 	private MongoDatabase m_db;
+	private ClientSession m_session;
 	private String[] m_cols;
 	private Table m_bufTable;
 	private long cursorId = 1; //若为0，则无数据了。
 	
-	public ImCursor(MongoDatabase db, String[] cmd, Table buf, Context ctx) {
+	public ImCursor(MongoDatabase db, ClientSession session, String[] cmd, Table buf, Context ctx) {
 		m_cmd = cmd;
 		m_db = db;
+		m_session = session;
 		this.ctx = ctx;
 		m_bufTable = buf;
-		//System.out.println("thread:"+Thread.currentThread().getId()+"; db="+m_db+"; cmd="+cmd[0]);
 		if (m_bufTable!=null){
 			m_cols = m_bufTable.dataStruct().getFieldNames();
 		}
@@ -61,7 +63,7 @@ public class ImCursor extends ICursor {
 		String cmd = null;
 		while (m_cmd[0]!=null && fetchSize>0 && cursorId>0) {
 			cmd = m_cmd[0].replace("batchSize:101", "batchSize:"+(fetchSize>1024?1024:fetchSize));
-			cur = runCommandSkip(m_db, cmd);
+			cur = workCommandSkip(m_db, m_session, cmd);
 			fetchSize -= cur;
 			count+=cur;
 		}
@@ -116,7 +118,7 @@ public class ImCursor extends ICursor {
 		//2. 查询新数据。
 		int bufSize = 0;
 		while (m_cmd[0]!=null && n > 0 && cursorId>0) {
-			Table buf = runCommand(m_db, m_cmd[0]);
+			Table buf = workCommand(m_db, m_session, m_cmd[0]);
 			if (buf==null){
 				break;
 			}
@@ -229,7 +231,7 @@ public class ImCursor extends ICursor {
 		}
 	}
 	
-	private int runCommandSkip(MongoDatabase db, String cmd){
+	private int workCommandSkip(MongoDatabase db, ClientSession session, String cmd){
 		if (cmd==null) {
 			return 0;
 		}
@@ -237,7 +239,7 @@ public class ImCursor extends ICursor {
 		Document command = null;
 		command = Document.parse(cmd);
 		//System.out.println("skip thread:"+Thread.currentThread().getId()+"; db="+db+"; cmd="+cmd+"; pid="+cursorId);
-		Document docs = db.runCommand( command);
+		Document docs = db.runCommand( session, command);
 		double dVal = docs.getDouble("ok");
 		if (dVal==0){
 			return 0;
@@ -249,7 +251,7 @@ public class ImCursor extends ICursor {
 		return getDocumentCount(cur);
 	} 
 	
-	public Table runCommand(MongoDatabase db, String cmd) {
+	public Table workCommand(MongoDatabase db, ClientSession session, String cmd) {
 		Table tbl = null;
 		try{		
 			if (cmd==null) {
@@ -260,7 +262,7 @@ public class ImCursor extends ICursor {
 			Document command = null;
 			command = Document.parse(cmd);
 			//System.out.println("thread:"+Thread.currentThread()+"; db="+db+"; cmd="+cmd+"; pid="+cursorId);
-			Document docs = db.runCommand(command);
+			Document docs = db.runCommand(session, command);
 			double dVal = docs.getDouble("ok");
 			if (dVal==0){
 				return tbl;
@@ -268,7 +270,6 @@ public class ImCursor extends ICursor {
 	
 			Document cur = (Document)docs.get("cursor");
 			cursorId = cur.getLong("id");
-			//System.out.println("db="+db+"; cmd="+cmd+"; pid="+cursorId);
 			BaseRecord rcd = parse(cur);
 
 			if (rcd.dataStruct().getFieldIndex("firstBatch")>-1){
