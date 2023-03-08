@@ -47,10 +47,9 @@ public class StaxClose  extends Function {
 		
 			stax.close();
 		} catch (Exception e) {
-			e.printStackTrace();
 			throw new RQException("stax_close : " + e.getMessage());
 		}
-		return "close success";
+		return null;
 		
 	}
 }

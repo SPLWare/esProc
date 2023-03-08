@@ -65,7 +65,6 @@ public class StaxQuery  extends Function {
 		
 			return stax.query(cql, values);
 		} catch (Exception e) {
-			e.printStackTrace();
 			throw new RQException("stax_query : " + e.getMessage());
 		}
 		

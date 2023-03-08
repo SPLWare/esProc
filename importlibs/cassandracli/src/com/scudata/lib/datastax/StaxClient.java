@@ -115,7 +115,6 @@ public class StaxClient  extends Function {
 				return stax;
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
 			throw new RQException("stax_client : " + e.getMessage());
 		}
 		
