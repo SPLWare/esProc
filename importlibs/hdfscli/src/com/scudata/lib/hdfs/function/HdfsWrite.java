@@ -3,6 +3,7 @@ package com.scudata.lib.hdfs.function;
 import org.apache.hadoop.fs.FileSystem;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
+import com.scudata.common.Logger;
 import com.scudata.dm.Context;
 import com.scudata.dm.FileObject;
 import com.scudata.dm.Sequence;
@@ -126,7 +127,7 @@ public class HdfsWrite extends FileFunction {
 			
 			return true;
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		}
 		return false;
 	}

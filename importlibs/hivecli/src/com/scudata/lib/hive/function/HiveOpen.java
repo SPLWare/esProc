@@ -3,6 +3,7 @@ package com.scudata.lib.hive.function;
 import com.scudata.lib.hive.function.HiveDriverCli;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
+import com.scudata.common.Logger;
 import com.scudata.dm.Context;
 import com.scudata.expression.Function;
 import com.scudata.expression.Node;
@@ -76,7 +77,7 @@ public class HiveOpen extends Function {
 				return new HiveDriverCli(ctx, (String)objs[0], (String)objs[1],(String)objs[2],(String)objs[3], this.option);
 			}
 		}catch(Exception e){
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		}
 		
 		return null;

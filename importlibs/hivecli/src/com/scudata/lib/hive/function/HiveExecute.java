@@ -3,6 +3,7 @@ package com.scudata.lib.hive.function;
 import com.scudata.dm.Context;
 import com.scudata.expression.Node;
 import com.scudata.lib.hive.function.HiveFunction;
+import com.scudata.common.Logger;
 
 public class HiveExecute extends HiveFunction {
 	public Node optimize(Context ctx) {
@@ -21,7 +22,7 @@ public class HiveExecute extends HiveFunction {
 		try {
 			return m_hiveBase.execSql(sql);
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		}
 		return true;
 	}

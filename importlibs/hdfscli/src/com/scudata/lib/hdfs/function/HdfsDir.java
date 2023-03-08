@@ -49,7 +49,7 @@ public class HdfsDir extends HdfsFunction {
 			// for d, p, default option.
 			return getData(name, option);
 		} catch (IOException e) {
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		}
 		return null;
 	}
@@ -92,7 +92,7 @@ public class HdfsDir extends HdfsFunction {
 				}
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		}
 		
 		return filesTable;

@@ -1,7 +1,7 @@
 package com.scudata.lib.hdfs.function;
 
 import com.scudata.common.RQException;
-
+import com.scudata.common.Logger;
 /*** @author 
  * hdfs_exists(hd, dst)
  * dst: remoteFile/remotePath
@@ -21,7 +21,7 @@ public class HdfsExists extends HdfsFunction {
 			
 			return hfile.exists();			
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		}
 		return false;
 	}

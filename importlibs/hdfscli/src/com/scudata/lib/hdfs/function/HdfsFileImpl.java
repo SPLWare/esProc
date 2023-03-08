@@ -431,7 +431,7 @@ public class HdfsFileImpl implements IFile {
         	
 			return hdfs.listStatus(f);
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		}
         
         return null;         
@@ -462,7 +462,7 @@ public class HdfsFileImpl implements IFile {
 				}
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		}		
 		
 		return ret;
@@ -476,7 +476,7 @@ public class HdfsFileImpl implements IFile {
     			ret = fp.isDirectory();
     		}
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		}		
 		
 		return ret;
@@ -593,7 +593,7 @@ public class HdfsFileImpl implements IFile {
 			}
 		}
 		catch( Exception e ) {
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		}
 	}
    

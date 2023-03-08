@@ -135,7 +135,7 @@ public class HiveDriverCli implements IResource{
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		} 
 	}
 
