@@ -55,7 +55,7 @@ public class ImQuery extends ImFunction {
 				}	
 			}
 		}catch(Exception e) {
-			Logger.error(e.getStackTrace());
+			Logger.error("doExec: "+e.getMessage());
 		}
 		return null;
 	}
@@ -226,7 +226,7 @@ public class ImQuery extends ImFunction {
 				ret = Integer.valueOf(val);
 			}
 		}catch(Exception e){
-			Logger.error(e.getStackTrace());
+			Logger.error("parseNumber: "+e.getStackTrace());
 		}
 		return ret;
 	}
