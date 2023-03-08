@@ -4,6 +4,7 @@ import java.io.IOException;
 import org.apache.http.util.EntityUtils;
 import org.elasticsearch.client.Response;
 import com.scudata.common.RQException;
+import com.scudata.common.Logger;
 
 /*
  * ImPut(index, type, doc)
@@ -24,7 +25,7 @@ public class ImPut extends ImFunction {
 					return parseResponse(result, subModel);	
 				}		
 		} catch (IOException e) {
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		}
 		return null;
 	}

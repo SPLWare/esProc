@@ -18,6 +18,7 @@ import org.elasticsearch.client.RestClient;
 import org.elasticsearch.client.RestClientBuilder;
 import com.scudata.dm.Context;
 import com.scudata.dm.IResource;
+import com.scudata.common.Logger;
 import net.sf.json.JSONObject;
 
 public class RestConn implements IResource {
@@ -36,15 +37,13 @@ public class RestConn implements IResource {
 	}
 
 	public void close() {
-		// TODO Auto-generated method stub
 		try {
 			if (m_restClient!=null){
 				m_restClient.close();
 				m_restClient = null;
 			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		}
 	}
 
@@ -97,7 +96,6 @@ public class RestConn implements IResource {
 			String key = s+(i+1);
 			if (map.containsKey(key)){
 				String url = map.get(key).toString();
-				//System.out.println(url);
 				if (!bScheme && url.indexOf("https")>-1){ //for https
 					getHostByUrl(url, ls, true);
 				}else if (bScheme && url.indexOf("http")>-1){ //for https
@@ -124,10 +122,8 @@ public class RestConn implements IResource {
 			JSONObject job = JSONObject.fromString(ret);
 			String ver = job.getJSONObject("version").getString("number");
 			m_version = ver.substring(0, ver.lastIndexOf("."));
-			//System.out.println(ret);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		}
 	}
 }

@@ -8,6 +8,7 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 
 import net.sf.json.JSONObject;
+import com.scudata.common.Logger;
 
 public class ImUtils {
 	public static boolean isJson(String content){
@@ -41,8 +42,9 @@ public class ImUtils {
             jsonStr = sb.toString();
             return jsonStr;
         } catch (IOException e) {
-            e.printStackTrace();
-            return null;
+            Logger.error(e.getMessage());           
         }
+        
+        return null;
     }
 }

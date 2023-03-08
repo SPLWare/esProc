@@ -27,7 +27,7 @@ public class ImHead extends ImFunction {
 			}		
 		
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		}
 		return null;
 	}

@@ -18,6 +18,7 @@ import org.elasticsearch.client.Response;
 
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
+import com.scudata.common.Logger;
 import com.scudata.dm.Context;
 import com.scudata.dm.Table;
 import com.scudata.expression.Function;
@@ -94,7 +95,7 @@ public class ImFunction extends Function {
 					objs[1] = ImUtils.readJsonFile(s);
 				}
 			} catch (Exception e) {
-				e.printStackTrace();
+				Logger.error(e.getMessage());
 			}
 		}
 
@@ -183,7 +184,7 @@ public class ImFunction extends Function {
 				ls.add(objs);
 			}
 		}catch(Exception e){
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		}
 	}
 	
@@ -224,7 +225,7 @@ public class ImFunction extends Function {
 			}
 		}while(false);
 		}catch(Exception e){
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		}
 	}
 	
@@ -265,7 +266,7 @@ public class ImFunction extends Function {
 			}
 		}while(false);
 		}catch(	Exception e){
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		}
 	
 		return ls;
@@ -357,7 +358,7 @@ public class ImFunction extends Function {
 				response = m_restConn.m_restClient.performRequest(request);
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		}
 		
 		return response;

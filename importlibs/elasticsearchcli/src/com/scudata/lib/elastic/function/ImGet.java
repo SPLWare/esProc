@@ -4,6 +4,7 @@ import java.io.IOException;
 import org.apache.http.util.EntityUtils;
 import org.elasticsearch.client.Response;
 import com.scudata.common.RQException;
+import com.scudata.common.Logger;
 
 /*
  * ImGet(index, type, doc)
@@ -49,7 +50,7 @@ public class ImGet extends ImFunction {
 				}
 			}		
 		} catch (IOException e) {
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		}
 		
 		return null;
