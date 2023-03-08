@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.scudata.dm.Table;
+import com.scudata.common.Logger;
 import com.sforce.soap.enterprise.EnterpriseConnection;
 import com.sforce.soap.enterprise.SearchRecord;
 import com.sforce.soap.enterprise.SearchResult;
@@ -15,16 +16,16 @@ import com.sforce.ws.bind.XMLizable;
 
 public class ImWsdlEnterpriceFind {
 	private EnterpriseConnection m_conn = null;
-	private Map<String, List<String>> m_colMap = new HashMap<String, List<String>>(); //用于记录表及其字�?
-	private Map<String, Map<String, Method>> m_map; //记录表及其方�?
+	private Map<String, List<String>> m_colMap = new HashMap<String, List<String>>(); //用于记录表及其字欿
+	private Map<String, Map<String, Method>> m_map; //记录表及其方汿
 	
 	public ImWsdlEnterpriceFind(EnterpriseConnection c) {
 		m_conn = c;
 		m_map = new HashMap<String, Map<String, Method>>();
 	}
 
-	/*****功能：执行查�?*****
-	 * 1、返回returning给定的字�?
+	/*****功能：执行查譿*****
+	 * 1、返回returning给定的字欿
 	 * 2、若Table无对应的字段则返回Id,但Id可能重复.
 	 * 
 	 * */
@@ -99,13 +100,13 @@ public class ImWsdlEnterpriceFind {
 				}
 			}
 		}catch(Exception e){
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		}
 		
 	    return tbl;
 	}
 	
-	//通过SearchRecord获取N个表对应的方�?
+	//通过SearchRecord获取N个表对应的方汿
 	public void doMapMethod( SearchRecord[] rds) {
 		try {
 			m_map.clear();
@@ -117,7 +118,7 @@ public class ImWsdlEnterpriceFind {
 				String sName = ImWsdlCommon.getClassName(so);
 				if (!omap.containsKey(sName)){
 					omap.put(sName, so);
-					//无字段的表处�?
+					//无字段的表处玿
 					if (!m_colMap.containsKey(sName)){
 						List<String> vals = new ArrayList<String>(){{add("Id");}};
 						m_colMap.put(sName, vals);
@@ -133,7 +134,7 @@ public class ImWsdlEnterpriceFind {
 				Map<String, Method> map = new HashMap<>();
 				Class<?> catClass = Class.forName(mapValue.getClass().getName());
 		        Method[] methods = catClass.getMethods();
-		        // 循环查找想要的方�?
+		        // 循环查找想要的方汿
 		        String key = null;
 		        for(Method method : methods) {
 		        	if (method.getName().startsWith("get")) {
@@ -147,7 +148,7 @@ public class ImWsdlEnterpriceFind {
 			}
 	        
 		}catch(Exception e) {
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		}
 		//System.out.println();
 	}

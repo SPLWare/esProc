@@ -91,7 +91,7 @@ public class JedisOpen extends Function {
 			
 			return new RedisTool(appCtx, stringRedisTemplate);
 		}catch(Exception e){
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		}
 		
 		return null;

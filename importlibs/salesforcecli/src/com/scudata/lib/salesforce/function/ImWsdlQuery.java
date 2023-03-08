@@ -4,6 +4,7 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 import com.scudata.common.RQException;
+import com.scudata.common.Logger;
 import com.scudata.dm.Table;
 import com.sforce.soap.enterprise.QueryResult;
 import com.sforce.soap.enterprise.sobject.SObject;
@@ -82,7 +83,7 @@ public class ImWsdlQuery extends ImFunction {
 						//根据函数方法查询对应的value
 						if (md!=null) {
 							Object val = md.invoke(res);
-							if (val instanceof XMLizable) {	//嵌套字记�?
+							if (val instanceof XMLizable) {	//嵌套字记�?
 								line[n++]=ImWsdlCommon.getSubRecordOfClass(val);
 							}else {
 								line[n++]=val;
@@ -95,7 +96,7 @@ public class ImWsdlQuery extends ImFunction {
 				}
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		}
 		
 		return tbl;
