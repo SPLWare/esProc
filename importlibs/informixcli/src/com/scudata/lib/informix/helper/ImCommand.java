@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.InputStreamReader;
+import com.scudata.common.Logger;
 
 //uage: ImCommand.exeCmd("sh /tmp/crt_ext.sh lineitem");  
 public class ImCommand extends Thread {
@@ -26,13 +27,13 @@ public class ImCommand extends Thread {
 			}
 			System.out.println(sb.toString());
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		} finally {
 			if (br != null) {
 				try {
 					br.close();
 				} catch (Exception e) {
-					e.printStackTrace();
+					Logger.error(e.getMessage());
 				}
 			}
 		}
@@ -42,7 +43,7 @@ public class ImCommand extends Thread {
 		try {
 			return Runtime.getRuntime().exec(commandStr);
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		}
 		return null;
 	}
@@ -57,7 +58,7 @@ public class ImCommand extends Thread {
 			}
 			br.close();
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		}
 		return result.toString();
 	}

@@ -7,6 +7,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import com.scudata.common.Logger;
 
 public class ImUtils {
 	public static byte[] bean2Byte(Object obj) {
@@ -18,7 +19,7 @@ public class ImUtils {
 			outputStream.flush();
 			bb = byteArray.toByteArray();
 		} catch (IOException e) {
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		}
 		
 		return bb;
@@ -37,7 +38,7 @@ public class ImUtils {
 			ObjectInputStream inputStream = new ObjectInputStream(in)) {
 			readObject = inputStream.readObject();
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		}
 		
 		return readObject;

@@ -6,6 +6,7 @@ import java.lang.reflect.Method;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import com.scudata.common.Logger;
 
 /**
  * Implementation of {@link Cube}
@@ -107,7 +108,7 @@ class XmlaOlap4jCubeProxy extends XmlaOlap4jCube
 	        	Method md = ((Class<?>)rawReader[0]).getDeclaredMethod("lookupMemberByUniqueName", String.class);
 	        	return (XmlaOlap4jMember)md.invoke(rawReader[1], memberUniqueName);
 	    	}catch(Exception e){
-	    		e.printStackTrace();
+	    		Logger.error(e.getMessage());
 	    	}
 	    	return null;
         }
@@ -141,7 +142,7 @@ class XmlaOlap4jCubeProxy extends XmlaOlap4jCube
 	        	Method md = ((Class<?>)rawReader[0]).getDeclaredMethod("mondrianMembersLookup", List.class, Map.class);
 	        	md.invoke(rawReader[1], memberUniqueNames, memberMap);
 	    	}catch(Exception e){
-	    		e.printStackTrace();
+	    		Logger.error(e.getMessage());
 	    	}
         }
 
@@ -233,7 +234,7 @@ class XmlaOlap4jCubeProxy extends XmlaOlap4jCube
 						String.class, List.class);
 				md.invoke(rawReader[1], treeOps, memberUniqueName, list);
 			} catch (Exception e) {
-				e.printStackTrace();
+				Logger.error(e.getMessage());
 			}
 		}
 
@@ -242,7 +243,7 @@ class XmlaOlap4jCubeProxy extends XmlaOlap4jCube
 				Method md = ((Class<?>) rawReader[0]).getDeclaredMethod("getLevelMembers", XmlaOlap4jLevel.class);
 				return (List<XmlaOlap4jMember>) md.invoke(rawReader[1], level);
 			} catch (Exception e) {
-				e.printStackTrace();
+				Logger.error(e.getMessage());
 			}
 			return null;
 		}

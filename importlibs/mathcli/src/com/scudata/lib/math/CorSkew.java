@@ -387,7 +387,7 @@ public class CorSkew extends SequenceFunction {
 				try {
 					tab = (Table) fo.importSeries("b");
 				} catch (IOException e) {
-					e.printStackTrace();
+					Logger.error(e.getMessage());
 					throw new RQException(e);
 				}
 				Record rec = tab.getRecord(1);

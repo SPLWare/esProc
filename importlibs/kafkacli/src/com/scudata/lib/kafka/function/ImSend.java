@@ -90,7 +90,7 @@ public class ImSend extends ImFunction {
 				Thread.sleep(10);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		}
 		
 		return null;
@@ -112,7 +112,7 @@ public class ImSend extends ImFunction {
 			reader.close();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		}		
 	}
 	
@@ -184,7 +184,7 @@ public class ImSend extends ImFunction {
 				record = new ProducerRecord<Object, Object>(m_conn.getTopic(),nPart, objs[1], oVal);
 			}		
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		}
 		
 		return record;
