@@ -221,7 +221,11 @@ public class DBTypeEx extends DBTypes {
 	public static String[] getDBSampleDriver(String dbTitle) {
 		XMLFile file;
 		try {
-			file = ConfigFile.getSystemConfigFile().xmlFile();
+			ConfigFile sysConfig = ConfigFile.getSystemConfigFile();
+			if (sysConfig == null) {
+				return getFixedDriver(dbTitle);
+			}
+			file = sysConfig.xmlFile();
 			if (file == null) {
 				return getFixedDriver(dbTitle);
 			}
@@ -255,7 +259,11 @@ public class DBTypeEx extends DBTypes {
 	public static String[] getDBSampleURL(String dbTitle) {
 		XMLFile file;
 		try {
-			file = ConfigFile.getSystemConfigFile().xmlFile();
+			ConfigFile sysConfig = ConfigFile.getSystemConfigFile();
+			if (sysConfig == null) {
+				return getFixedURL(dbTitle);
+			}
+			file = sysConfig.xmlFile();
 			if (file == null) {
 				return getFixedURL(dbTitle);
 			}
@@ -286,13 +294,16 @@ public class DBTypeEx extends DBTypes {
 	 */
 	public static String[] listDBTitles() {
 		try {
-			XMLFile file = ConfigFile.getSystemConfigFile().xmlFile();
-			if (file != null) {
-				String PATH = "RAQSOFT/DATABASE/titles";
-				String buff = file.getAttribute(PATH);
-				Section urls = new Section(buff);
-				if (urls.size() > 0) {
-					return urls.toStringArray();
+			ConfigFile sysConfig = ConfigFile.getSystemConfigFile();
+			if (sysConfig != null) {
+				XMLFile file = sysConfig.xmlFile();
+				if (file != null) {
+					String PATH = "RAQSOFT/DATABASE/titles";
+					String buff = file.getAttribute(PATH);
+					Section urls = new Section(buff);
+					if (urls.size() > 0) {
+						return urls.toStringArray();
+					}
 				}
 			}
 		} catch (Exception x) {
@@ -307,17 +318,21 @@ public class DBTypeEx extends DBTypes {
 	 */
 	public static int[] listDBTypes() {
 		try {
-			XMLFile file = ConfigFile.getSystemConfigFile().xmlFile();
-			if (file != null) {
-				String PATH = "RAQSOFT/DATABASE/types";
-				String buff = file.getAttribute(PATH);
-				StringTokenizer st = new StringTokenizer(buff, ",");
-				IntArrayList typeList = new IntArrayList();
-				while (st.hasMoreElements()) {
-					typeList.addInt(Integer.parseInt((String) st.nextElement()));
+			ConfigFile sysConfig = ConfigFile.getSystemConfigFile();
+			if (sysConfig != null) {
+				XMLFile file = sysConfig.xmlFile();
+				if (file != null) {
+					String PATH = "RAQSOFT/DATABASE/types";
+					String buff = file.getAttribute(PATH);
+					StringTokenizer st = new StringTokenizer(buff, ",");
+					IntArrayList typeList = new IntArrayList();
+					while (st.hasMoreElements()) {
+						typeList.addInt(Integer.parseInt((String) st
+								.nextElement()));
+					}
+					if (typeList.size() > 0)
+						return typeList.toIntArray();
 				}
-				if (typeList.size() > 0)
-					return typeList.toIntArray();
 			}
 		} catch (Exception x) {
 		}
@@ -333,7 +348,12 @@ public class DBTypeEx extends DBTypes {
 	public static String getErrorMessage(String dbTitle) {
 		XMLFile file;
 		try {
-			file = ConfigFile.getSystemConfigFile().xmlFile();
+			ConfigFile sysConfig = ConfigFile.getSystemConfigFile();
+			if (sysConfig == null)
+				return null;
+			file = sysConfig.xmlFile();
+			if (file == null)
+				return null;
 			String PATH = "RAQSOFT/DATABASE/" + dbTitle + "/errormessage";
 			String buff = file.getAttribute(PATH);
 			if (!StringUtils.isValidString(buff)) {

@@ -132,7 +132,7 @@ public class ConfigFile {
 	/**
 	 * Get systemconfig file object
 	 * 
-	 * @return
+	 * @return 文件不存在时会返回null
 	 */
 	public static ConfigFile getSystemConfigFile() {
 		String file = GC.PATH_CONFIG + "/systemconfig" + GM.getLanguageSuffix()
@@ -142,8 +142,6 @@ public class ConfigFile {
 			File f = new File(filePath);
 			if (f.exists()) {
 				return new ConfigFile(new XMLFile(filePath));
-			} else {
-				throw new Exception();
 			}
 		} catch (Throwable x) {
 			GM.writeLog(x);
