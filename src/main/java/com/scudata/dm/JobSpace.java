@@ -22,7 +22,6 @@ public class JobSpace {
 	
 	 public JobSpace(String ID) {
 		this.id = ID;
-		System.out.println("生成JobSpace:" + ID);
 	}
 
 	public String toString(){
@@ -200,7 +199,6 @@ public class JobSpace {
 	}
 	
 	private void close(boolean paramCleared){
-		System.out.println("关闭JobSpace:" + id + "; paramCleared=" + paramCleared);
 		//主程序如果调用了callx(h)，需要将分配过的h记在space，用于此处通知分机关闭空间
 		//分机主进程调用分进程产生的空间不记载分机Units信息，由主进程在关闭空间时，从HostManager找出自己的units再关闭		
 		for (int i = 0; i < unitClients.size(); i++) {
