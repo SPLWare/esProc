@@ -13,6 +13,7 @@ import com.scudata.parallel.ITask;
 import com.scudata.parallel.RemoteCursor;
 import com.scudata.parallel.RemoteCursorProxy;
 import com.scudata.parallel.RemoteCursorProxyManager;
+import com.scudata.parallel.TaskManager;
 import com.scudata.parallel.UnitContext;
 import com.scudata.server.IProxy;
 
@@ -136,6 +137,7 @@ public class StatementProxy extends IProxy implements ITask {
 	 * 关闭当前代理器
 	 */
 	public void close() {
+		TaskManager.delTask(getId());
 	}
 
 	/**

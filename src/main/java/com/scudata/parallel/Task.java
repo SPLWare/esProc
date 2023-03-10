@@ -272,6 +272,7 @@ public class Task extends Job implements IResource, ITask {
 	 * 准备计算前的上下文环境 
 	 * @return 计算上下文
 	 */
+	
 	public static Context prepareEnv() throws Exception{
 		Context context = new Context();
 		if (connectedDsNames == null) {

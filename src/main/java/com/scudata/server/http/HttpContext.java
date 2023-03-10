@@ -165,6 +165,9 @@ public class HttpContext extends ConfigWriter {
 	
 	private void addSubdir2Sappath( File main, String mainPath ) {
 		File[] fs = main.listFiles();
+		if(fs==null) {
+			return;
+		}
 		for( int i = 0; i < fs.length; i++ ) {
 			if( !fs[i].isDirectory() ) continue;
 			String path = fs[i].getAbsolutePath();
