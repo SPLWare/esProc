@@ -2073,7 +2073,7 @@ public class ColPhyTable extends PhyTable {
 		int fcount = -1;
 		
 		for (int i = 1; i < segCount; ++i) {
-			minValues[i] = srcCursors[i].getSegmentStartValues();
+			minValues[i] = srcCursors[i].getSegmentStartValues(opt);
 			if (minValues[i] != null) {
 				if (fcount == -1) {
 					fcount = minValues[i].length;

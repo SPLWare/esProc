@@ -1262,7 +1262,7 @@ abstract public class ICursor extends Operable implements IResource {
 	 * 取分段游标的起始值，如果有分段字段则返回分段字段的值，没有则返回维字段的值
 	 * @return 分段游标首条记录的分段字段的值，如果当前段数为0则返回null
 	 */
-	public Object[] getSegmentStartValues() {
+	public Object[] getSegmentStartValues(String option) {
 		throw new RQException();
 	}
 	
