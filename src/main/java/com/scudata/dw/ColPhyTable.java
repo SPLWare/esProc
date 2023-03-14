@@ -2069,6 +2069,12 @@ public class ColPhyTable extends PhyTable {
 		
 		ICursor []srcCursors = mcs.getParallelCursors();
 		int segCount = srcCursors.length;
+		if (segCount == 1) {
+			ICursor cs = cursor(exps, fields, filter, fkNames, codes, opts, opt, ctx);
+			ICursor []cursors = new ICursor[] {cs};
+			return new MultipathCursors(cursors, ctx);
+		}
+		
 		Object [][]minValues = new Object [segCount][];
 		int fcount = -1;
 		
@@ -2087,22 +2093,34 @@ public class ColPhyTable extends PhyTable {
 		if (fcount == -1) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException(mm.getMessage("dw.segFieldNotMatch"));
-		} else if (opt != null && opt.indexOf('k') != -1) {
-			// 有k选项是以首字段做为同步分段字段
+		}
+
+		String []dimFields;
+		ColumnMetaData[] sortedCols;
+		if (opt != null && opt.indexOf('k') != -1) {
+			// 有k选项时以首键做为同步分段字段
+			String []keys = getAllKeyColNames();
+			if (keys == null) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException(mm.getMessage("dw.segFieldNotMatch"));
+			}
+			
 			fcount = 1;
+			dimFields = new String[] {keys[0]};
+			sortedCols = new ColumnMetaData[] {getColumn(keys[0])};
+		} else {
+			sortedCols = getAllSortedColumns();
+			if (sortedCols.length < fcount) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException(mm.getMessage("dw.segFieldNotMatch"));
+			}
+			
+			dimFields = new String[fcount];
+			for (int f = 0; f < fcount; ++f) {
+				dimFields[f] = sortedCols[f].getColName();
+			}
 		}
 		
-		ColumnMetaData[] sortedCols = getAllSortedColumns();
-		if (sortedCols.length < fcount) {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException(mm.getMessage("dw.segFieldNotMatch"));
-		}
-		
-		String []dimFields = new String[fcount];
-		for (int f = 0; f < fcount; ++f) {
-			dimFields[f] = sortedCols[f].getColName();
-		}
-				
 		int blockCount = getDataBlockCount();
 		ICursor []cursors = new ICursor[segCount];
 		int startBlock = 0;
