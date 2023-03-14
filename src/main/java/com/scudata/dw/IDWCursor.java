@@ -46,9 +46,9 @@ public abstract class IDWCursor extends ICursor {
 		int startBlock = getStartBlock();
 		String segmentCol = null;
 		if (hasK) {
-			ColumnMetaData[] tempCols = table.getSortedColumns();
+			String[] tempCols = table.getAllKeyColNames();
 			if (tempCols != null)
-				segmentCol = tempCols[0].getColName();
+				segmentCol = tempCols[0];
 		} else {
 			segmentCol = table.getSegmentCol();
 		}
