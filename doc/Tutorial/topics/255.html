@@ -17,11 +17,11 @@
 lang=EN-US>11.7.1 Basic uses</span></h3></div>
 	<p class=T-Par style='text-align:justify;text-justify:inter-ideograph;
 text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:exactly'><span
-lang=EN-US>For the conveniene of illustration, we first generate three composite
-tables. The <i>employee</i> table consisting of fields of employee ID,
-department ID, gender, marital status and name, among which gender and marital
-status are stored together in one field named Bools. Both of the other two
-tables store orders in fields of salespeople ID, order code, datetime and
+lang=EN-US>For the conveniene of illustration, we first generate three
+composite tables. The <i>employee</i> table consisting of fields of employee
+ID, department ID, gender, marital status and name, among which gender and
+marital status are stored together in one field named Bools. Both of the other
+two tables store orders in fields of salespeople ID, order code, datetime and
 amount. Below is the code for generating the composite tables:</span></p>
 
 <table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
@@ -560,7 +560,7 @@ unmarried and 1 means married. A8 generates employee data as follows:</span></p>
 <p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
 text-indent:21.0pt'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
 #0400'><img border=0 width=460 height=251
-src="Tutorial.files/image1058.png" v:shapes="_x0000_i2159"></span></p>
+src="Tutorial.files/image1057.png" v:shapes="_x0000_i2158"></span></p>
 
 <p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
 text-indent:21.0pt'><span lang=EN-US>Below are orders data tables of years 2020
@@ -568,12 +568,12 @@ and 2021 A12 and A13 generate respectively:</span></p>
 
 <p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
 text-indent:21.0pt'><span lang=EN-US style='mso-no-proof:yes'><img border=0 width=460 height=234
-src="Tutorial.files/image1059.png" v:shapes="_x0000_i2160"></span><span
+src="Tutorial.files/image1058.png" v:shapes="_x0000_i2159"></span><span
 lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'></span></p>
 
 <p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
 text-indent:21.0pt'><span lang=EN-US style='mso-no-proof:yes'><img border=0 width=460 height=234
-src="Tutorial.files/image1060.png" v:shapes="_x0000_i2161"></span></p>
+src="Tutorial.files/image1059.png" v:shapes="_x0000_i2160"></span></p>
 
 <p class=T-ParCxSpLast style='text-align:justify;text-justify:inter-ideograph;
 text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:exactly'><span
@@ -670,8 +670,8 @@ backup them in case data is modified later during the testing.</span></p>
   mso-border-alt:solid #B2B2B2 .5pt;mso-border-left-alt:solid windowtext .5pt;
   background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
   <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
-  lang=EN-US style='font-family:"Times New Roman",serif'>=create(file, zone).record([&quot;pseudo/orders.ctx&quot;,
-  [1,2]])</span></p>
+  lang=EN-US style='font-family:"Times New Roman",serif'>=create(file,
+  zone).record([&quot;pseudo/orders.ctx&quot;, [1,2]])</span></p>
   </td>
   <td width=76 style='width:2.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
@@ -700,7 +700,7 @@ above code, A1 generates a pseudo table definition record as follows:</span></p>
 <p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
 text-indent:21.0pt'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
 #0400'><img border=0 width=324 height=41
-src="Tutorial.files/image1061.png" v:shapes="Í¼Æ¬_x0020_1144"></span></p>
+src="Tutorial.files/image1060.png" v:shapes="Í¼Æ¬_x0020_1144"></span></p>
 
 <p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
 text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:exactly'><span
@@ -718,20 +718,20 @@ pseudo table definition:</span></p>
 <p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
 text-indent:21.0pt'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
 #0400'><img border=0 width=324 height=41
-src="Tutorial.files/image1062.png" v:shapes="Í¼Æ¬_x0020_1145"></span></p>
+src="Tutorial.files/image1061.png" v:shapes="Í¼Æ¬_x0020_1145"></span></p>
 
 <p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
 text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:exactly'><span
 lang=EN-US>Like a composite table file, a pseudo table definition feeds data
 using <span class=T-Bold><i style='mso-bidi-font-style:normal'>T</i>.cursor() </span>function
 that generates a cursor or <b style='mso-bidi-font-weight:normal'><i
-style='mso-bidi-font-style:normal'>T</i>.import() </b>function that retrieves all
-data. C1 retreives the first 100 records using the cursor:</span></p>
+style='mso-bidi-font-style:normal'>T</i>.import() </b>function that retrieves
+all data. C1 retreives the first 100 records using the cursor:</span></p>
 
 <p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
 text-indent:21.0pt'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
 #0400'><img border=0 width=460 height=251
-src="Tutorial.files/image1063.png" v:shapes="_x0000_i2164"></span></p>
+src="Tutorial.files/image1062.png" v:shapes="_x0000_i2163"></span></p>
 
 <p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
 text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:exactly'><span
@@ -741,7 +741,7 @@ follows:</span></p>
 
 <p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
 text-indent:21.0pt'><span lang=EN-US style='mso-no-proof:yes'><img border=0 width=320 height=41
-src="Tutorial.files/image1064.png" v:shapes="_x0000_i2165"></span><span
+src="Tutorial.files/image1063.png" v:shapes="_x0000_i2164"></span><span
 lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'></span></p>
 
 <p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
@@ -750,7 +750,7 @@ lang=EN-US>C2 retrieves data from this pseudo table:</span></p>
 
 <p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
 text-indent:21.0pt'><span lang=EN-US style='mso-no-proof:yes'><img border=0 width=507 height=236
-src="Tutorial.files/image1065.png" v:shapes="_x0000_i2166"></span><span
+src="Tutorial.files/image1064.png" v:shapes="_x0000_i2165"></span><span
 lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'></span></p>
 
 <p class=T-ParCxSpMiddle style='text-indent:21.0pt;line-height:16.0pt;
@@ -981,7 +981,7 @@ below:</span></p>
 <p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
 text-indent:21.0pt'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
 #0400'><img border=0 width=441 height=63
-src="Tutorial.files/image1066.png" v:shapes="_x0000_i2167"></span></p>
+src="Tutorial.files/image1065.png" v:shapes="_x0000_i2166"></span></p>
 
 <p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
 text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:exactly'><span
@@ -991,20 +991,20 @@ class=T-Bold><i style='mso-bidi-font-style:normal'>P </i></span>to the pseudo
 table using <span class=T-Bold><i style='mso-bidi-font-style:normal'>T</i>.update(<i
 style='mso-bidi-font-style:normal'>P</i>)</span> function. Keep in mind that,
 when you use <span class=T-Bold>delete/update/append </span>funcitons to
-maintain a pseudo table, you must <b>first define a dimension for the corresponding
-composite table</b>, because all these operations are performed based on the
-composite table¡¯s dimension. With the modification, A4 and B4 get the following
-results:</span></p>
+maintain a pseudo table, you must <b>first define a dimension for the
+corresponding composite table</b>, because all these operations are performed
+based on the composite table¡¯s dimension. With the modification, A4 and B4 get
+the following results:</span></p>
 
 <p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
 text-indent:21.0pt'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
 #0400'><img border=0 width=460 height=251
-src="Tutorial.files/image1067.png" v:shapes="_x0000_i2168"></span></p>
+src="Tutorial.files/image1066.png" v:shapes="_x0000_i2167"></span></p>
 
 <p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
 text-indent:21.0pt'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
 #0400'><img border=0 width=441 height=63
-src="Tutorial.files/image1068.png" v:shapes="_x0000_i2169"></span></p>
+src="Tutorial.files/image1067.png" v:shapes="_x0000_i2168"></span></p>
 
 <p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
 text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:exactly'><span
@@ -1024,7 +1024,7 @@ composite table¡¯s dimension. Then B5 gets records from the pseudo table:</span>
 <p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
 text-indent:21.0pt'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
 #0400'><img border=0 width=460 height=251
-src="Tutorial.files/image1069.png" v:shapes="_x0000_i2170"></span></p>
+src="Tutorial.files/image1068.png" v:shapes="_x0000_i2169"></span></p>
 
 <p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
 text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:exactly'><span
@@ -1042,20 +1042,21 @@ data of the cursor to the original pseudo table. Below is A7¡¯s result:</span></
 <p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
 text-indent:21.0pt'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:
 #0400'><img border=0 width=460 height=251
-src="Tutorial.files/image1070.png" v:shapes="_x0000_i2171"></span></p>
+src="Tutorial.files/image1069.png" v:shapes="_x0000_i2170"></span></p>
 
 <p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
 text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:exactly'><span
 lang=EN-US>We see that the newly-added records are placed <b>at the end </b>of
 the composite table. When there are multiple source composite tables for a
 pseudo table, the appending operation will add records to the <b>last composite
-table</b>. And, if EID values of the newly-added records are not modified, dimension
-of the composite table containing these records cannot remain ordered and the
-pseudo table cannot be updated.</span></p>
+table</b>. And, if EID values of the newly-added records are not modified,
+dimension of the composite table containing these records cannot remain ordered
+and the pseudo table cannot be updated.</span></p>
 
 <p class=T-ParCxSpLast style='text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:
 exactly'><span lang=EN-US>We can also generate a pseudo table from one or more
-bin files using the same way of generating one from composite table. For example:</span></p>
+bin files using the same way of generating one from composite table. For
+example:</span></p>
 
 <table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
  style='margin-left:21.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
@@ -1139,7 +1140,7 @@ bin files using the same way of generating one from composite table. For example
   mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
   mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
-  <p class=TabLaEnd style='margin-left:262.5pt'><span lang=EN-US>3</span></p>
+  <p class=TabLaEnd style='margin-left:231.0pt'><span lang=EN-US>3</span></p>
   </td>
   <td width=283 style='width:212.6pt;border-top:none;border-left:none;
   border-bottom:solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;
@@ -1164,7 +1165,7 @@ B1¡¯s pseudo table and returns the following result:</span></p>
 
 <p class=T-ParCxSpMiddle style='text-indent:21.0pt'><span lang=zh-CN
 style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=519 height=252
-src="Tutorial.files/image1071.png" v:shapes="_x0000_i2172"></span><span
+src="Tutorial.files/image1070.png" v:shapes="_x0000_i2171"></span><span
 lang=zh-CN style='font-family:ËÎÌå;mso-bidi-font-family:ËÎÌå;mso-ansi-language:
 #0400;mso-fareast-language:#0400'></span></p>
 
@@ -1175,7 +1176,7 @@ returns result as follows:</span></p>
 
 <p class=T-ParCxSpLast style='text-indent:21.0pt'><span lang=zh-CN
 style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=500 height=121
-src="Tutorial.files/image1072.png" v:shapes="_x0000_i2173"></span><span
+src="Tutorial.files/image1071.png" v:shapes="_x0000_i2172"></span><span
 lang=zh-CN style='font-family:ËÎÌå;mso-bidi-font-family:ËÎÌå;mso-ansi-language:
 #0400;mso-fareast-language:#0400'></span></p>
 	</div>

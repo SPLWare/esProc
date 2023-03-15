@@ -27,12 +27,13 @@ can deal with grouping and aggregation on big result sets.</span></p>
 
 <p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>The big result set means both the source data for computation
-and the result set are huge. The huge result set can¡¯t be entirely read into
-the memory at once, but has to be retrieved step by step. Real-world business
-cases include the monthly bill of each customer issued by the telecommunication
-company and the sales of each product on a B2C website. The statistical data of
-both probably contain more than several millions of records.</span></p>
+21.0pt'><span lang=EN-US>The big result set means both the source data for
+computation and the result set are huge. The huge result set can¡¯t be entirely
+read into the memory at once, but has to be retrieved step by step. Real-world
+business cases include the monthly bill of each customer issued by the
+telecommunication company and the sales of each product on a B2C website. The
+statistical data of both probably contain more than several millions of
+records.</span></p>
 
 <p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
@@ -279,18 +280,18 @@ table sequence. Then A8~A11 retrieves data out step by step. Here¡¯re their
 results:</span></p>
 
 <p class=MsoNormalCxSpFirst style='text-indent:21.0pt;mso-char-indent-count:
-2.0'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=245 height=258
-src="Tutorial.files/image764.png" v:shapes="_x0000_i1870"></span><span
-lang=zh-CN><span style='mso-spacerun:yes'>&nbsp;</span></span><span lang=zh-CN
-style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=245 height=258
-src="Tutorial.files/image765.png" v:shapes="_x0000_i1871"></span></p>
+2.0'><span lang=EN-US style='mso-no-proof:yes'><img border=0 width=276 height=262
+src="Tutorial.files/image767.png" v:shapes="_x0000_i1869"></span><span
+lang=EN-US><span style='mso-spacerun:yes'>&nbsp;</span><span style='mso-no-proof:
+yes'><img border=0 width=276 height=262
+src="Tutorial.files/image768.png" v:shapes="_x0000_i1870"></span></span></p>
 
 <p class=MsoNormalCxSpLast style='text-indent:21.0pt;mso-char-indent-count:
-2.0'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=245 height=258
-src="Tutorial.files/image766.png" v:shapes="_x0000_i1872"></span><span
-lang=zh-CN><span style='mso-spacerun:yes'>&nbsp;</span></span><span lang=zh-CN
-style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=245 height=258
-src="Tutorial.files/image767.png" v:shapes="_x0000_i1873"></span></p>
+2.0'><span lang=EN-US style='mso-no-proof:yes'><img border=0 width=276 height=262
+src="Tutorial.files/image769.png" v:shapes="_x0000_i1871"></span><span
+lang=EN-US><span style='mso-spacerun:yes'>&nbsp;</span><span style='mso-no-proof:
+yes'><img border=0 width=276 height=262
+src="Tutorial.files/image770.png" v:shapes="_x0000_i1872"></span></span></p>
 
 <p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
@@ -307,15 +308,15 @@ normal'>groupx</b> function means that the memory can hold 100 records at most;
 thus data needs to be buffered when the number of records in the memory reaches
 100. In real-time coding, the parameter isn¡¯t needed because esProc will
 automatically estimate the number of records the available memory can hold to
-judge whether buffering should be performed or not. Thus, when executed, A7 fetches
-records from A6¡¯s cursor and meanwhile, summarizes and aggregates them. Once
-the result of aggregating 100 records is produced, it will be buffered to a
-temporary file. The rest is done in the same manner. A7¡¯s result is a cursor
+judge whether buffering should be performed or not. Thus, when executed, A7
+fetches records from A6¡¯s cursor and meanwhile, summarizes and aggregates them.
+Once the result of aggregating 100 records is produced, it will be buffered to
+a temporary file. The rest is done in the same manner. A7¡¯s result is a cursor
 composed of a group of temporary files: </span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
 lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=319 height=69
-src="Tutorial.files/image768.png" v:shapes="_x0000_i1874"></span></p>
+src="Tutorial.files/image771.png" v:shapes="_x0000_i1873"></span></p>
 
 <p class=T-Par style='margin-bottom:0cm;margin-bottom:.0001pt;mso-add-space:
 auto;text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
@@ -324,7 +325,7 @@ viewed in the system temporary directory after A7 is executed: </span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
 lang=EN-US><img border=0 width=416 height=190
-src="Tutorial.files/image769.png" v:shapes="_x0000_i1875"></span></p>
+src="Tutorial.files/image772.png" v:shapes="_x0000_i1874"></span></p>
 
 <p class=T-Par style='margin-bottom:0cm;margin-bottom:.0001pt;mso-add-space:
 auto;text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
@@ -437,11 +438,11 @@ auto;text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
 lang=EN-US>Below are results of A1 and A3:</span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=245 height=258
-src="Tutorial.files/image770.png" v:shapes="_x0000_i1876"></span><span
-lang=zh-CN><span style='mso-spacerun:yes'>&nbsp;</span></span><span lang=zh-CN
-style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=245 height=258
-src="Tutorial.files/image771.png" v:shapes="_x0000_i1877"></span></p>
+lang=EN-US style='mso-no-proof:yes'><img border=0 width=276 height=262
+src="Tutorial.files/image773.png" v:shapes="_x0000_i1875"></span><span
+lang=EN-US><span style='mso-spacerun:yes'>&nbsp;</span><span style='mso-no-proof:
+yes'><img border=0 width=276 height=262
+src="Tutorial.files/image774.png" v:shapes="_x0000_i1876"></span></span></p>
 
 <p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:

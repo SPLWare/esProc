@@ -33,17 +33,17 @@ computation. </span></p>
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
 21.0pt'><span lang=EN-US>For big data processing, however, records can¡¯t be
 loaded into the memory all togerther for grouping; sometimes the groups are big
-and the grouping and aggregation result can¡¯t be returned all at once. Both occasions
-require the use of external memory grouping.</span></p>
+and the grouping and aggregation result can¡¯t be returned all at once. Both
+occasions require the use of external memory grouping.</span></p>
 
 <p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
 21.0pt'><span lang=EN-US>Let¡¯s create a big, simple data table for containing
 employee information, which includes three fields: employee ID, state and
-birthday. The employee IDs will be generated sequentially; the states are entered
-in abbreviations obtained arbitrarily from the STATES table of demo database; birthdays
-are the dates selected arbitrarily within 10,000 days before 1994-1-1.The data
-table will be stored as a bin file for convenience. </span></p>
+birthday. The employee IDs will be generated sequentially; the states are
+entered in abbreviations obtained arbitrarily from the STATES table of demo
+database; birthdays are the dates selected arbitrarily within 10,000 days
+before 1994-1-1.The data table will be stored as a bin file for convenience. </span></p>
 
 <table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
  style='margin-left:21.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
@@ -135,7 +135,8 @@ table will be stored as a bin file for convenience. </span></p>
   mso-border-left-alt:solid windowtext .5pt;mso-border-alt:solid #B2B2B2 .5pt;
   mso-border-left-alt:solid windowtext .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;
   height:14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=file(&quot;BirthStateRecord&quot;)</span></p>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=file(&quot;BirthStateRecord</span><span
+  lang=EN-US>.btx</span><span lang=EN-US style='font-size:9.0pt'>&quot;)</span></p>
   </td>
   <td width=151 style='width:4.0cm;border-top:none;border-left:none;border-bottom:
   solid #B2B2B2 1.0pt;border-right:solid #B2B2B2 1.0pt;mso-border-top-alt:solid #B2B2B2 .5pt;
@@ -442,7 +443,7 @@ from the 50,001th to the 51,000th with cursor: </span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
 lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=419 height=230
-src="Tutorial.files/image786.png" v:shapes="_x0000_i1892"></span></p>
+src="Tutorial.files/image789.png" v:shapes="_x0000_i1891"></span></p>
 
 <p class=T-Par style='margin-bottom:0cm;margin-bottom:.0001pt;mso-add-space:
 auto;text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
@@ -493,7 +494,8 @@ accomplish it:</span></p>
   mso-border-top-alt:windowtext;mso-border-left-alt:windowtext;mso-border-bottom-alt:
   #B2B2B2;mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
   .5pt;background:#FFFF99;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=file(&quot;BirthStateRecord&quot;)</span></p>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=file(&quot;BirthStateRecord</span><span
+  lang=EN-US>.btx</span><span lang=EN-US style='font-size:9.0pt'>&quot;)</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
@@ -558,8 +560,8 @@ auto;text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
 lang=EN-US>A3 gets the grouping and aggregation results:</span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=419 height=230
-src="Tutorial.files/image787.png" v:shapes="_x0000_i1893"></span></p>
+lang=EN-US style='mso-no-proof:yes'><img border=0 width=301 height=234
+src="Tutorial.files/image790.png" v:shapes="_x0000_i1892"></span></p>
 
 <p class=T-Par style='margin-bottom:0cm;margin-bottom:.0001pt;mso-add-space:
 auto;text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
@@ -709,12 +711,12 @@ cursor-based operations, <b style='mso-bidi-font-weight:normal'>groupx</b>
 function is used for both grouping and aggregation with result sets stored in
 external memory and the grouping with group numbers directly specified. The
 difference of the two operations lies in the parameters. A3 groups records by
-Birthday to calculate the number of employees born on each of the dates. A3 returns
-a cursor as follows:</span></p>
+Birthday to calculate the number of employees born on each of the dates. A3
+returns a cursor as follows:</span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
 lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=300 height=41
-src="Tutorial.files/image788.png" v:shapes="_x0000_i1894"></span></p>
+src="Tutorial.files/image791.png" v:shapes="_x0000_i1893"></span></p>
 
 <p class=T-Par style='margin-bottom:0cm;margin-bottom:.0001pt;mso-add-space:
 auto;text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
@@ -723,7 +725,7 @@ directory of temporary files:</span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
 lang=EN-US><img border=0 width=261 height=217
-src="Tutorial.files/image789.png" v:shapes="Í¼Æ¬_x0020_2410"></span></p>
+src="Tutorial.files/image792.png" v:shapes="Í¼Æ¬_x0020_2410"></span></p>
 
 <p class=T-Par style='margin-bottom:0cm;margin-bottom:.0001pt;mso-add-space:
 auto;text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
@@ -817,8 +819,8 @@ auto;text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
 lang=EN-US>Here¡¯s the data that A2 imports:</span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=419 height=230
-src="Tutorial.files/image790.png" v:shapes="_x0000_i1896"></span></p>
+lang=EN-US style='mso-no-proof:yes'><img border=0 width=301 height=234
+src="Tutorial.files/image793.png" v:shapes="_x0000_i1895"></span></p>
 
 <p class=T-Par style='margin-bottom:0cm;margin-bottom:.0001pt;mso-add-space:
 auto;text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
@@ -826,7 +828,7 @@ lang=EN-US>Below is A3¡¯s result:</span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
 lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=100 height=41
-src="Tutorial.files/image791.png" v:shapes="_x0000_i1897"></span></p>
+src="Tutorial.files/image794.png" v:shapes="_x0000_i1896"></span></p>
 
 <p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
@@ -845,8 +847,8 @@ fetches the first 1,000 birthdays from the cursor generated in A3 and counts
 the employees born on each birth date: </span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=419 height=230
-src="Tutorial.files/image792.png" v:shapes="_x0000_i1898"></span></p>
+lang=EN-US style='mso-no-proof:yes'><img border=0 width=301 height=234
+src="Tutorial.files/image795.png" v:shapes="_x0000_i1897"></span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="194.html">Next</a></div>

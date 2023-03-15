@@ -22,8 +22,9 @@ lang=EN-US>Channel</span></h2></div>
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
 21.0pt'><span lang=EN-US style='background:aqua;mso-highlight:aqua'>This
 section explains how to use esProc channel-related functions. You can choose to
-skip this section if you are not a professional programmer. It won¡¯t affect your
-learning about the other contents of this <i style='mso-bidi-font-style:normal'>Tutorial</i>.</span></p>
+skip this section if you are not a professional programmer. It won¡¯t affect
+your learning about the other contents of this <i style='mso-bidi-font-style:
+normal'>Tutorial</i>.</span></p>
 
 <p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
@@ -38,33 +39,34 @@ the other cursors generated during the computation can¡¯t fetch data any more.</
 
 <p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>At some occasions, you need to compute several different
-values at once during one data retrieval process. Then you can use channel,
-which is similar to cursor. esProc offers <b style='mso-bidi-font-weight:normal'>channel()</b>
-function to create a channel and uses <b style='mso-bidi-font-weight:normal'>cs.push(ch)</b>
-function to add the channel to cursor cs; or use <b style='mso-bidi-font-weight:
-normal'>ch2.push(ch</b>) function to add it to another channel ch2. A
-newly-created channel only stores the computational actions to-be-performed until
-the fetch operation is actually performed over the cursor when the actions are
-performed and results recorded. The channel supports multiple operations
-through corresponding functions that are similar to what the cursor supports,
-including <b style='mso-bidi-font-weight:normal'>ch.select()</b>, <b
-style='mso-bidi-font-weight:normal'>ch.new()</b>, <b style='mso-bidi-font-weight:
-normal'>ch.derive()</b>, <b style='mso-bidi-font-weight:normal'>ch.()</b>, <b
-style='mso-bidi-font-weight:normal'>ch.news()</b>, <b style='mso-bidi-font-weight:
-normal'>ch.run()</b>, <b style='mso-bidi-font-weight:normal'>ch.switch()</b>, <b
-style='mso-bidi-font-weight:normal'>ch.join()</b>, <b style='mso-bidi-font-weight:
-normal'>ch.conj()</b>, and <b style='mso-bidi-font-weight:normal'>ch.group()</b>.
-A channel function can define many types of result set. <b style='mso-bidi-font-weight:
-normal'>ch.fetch()</b> function defines returning all data from the channel; <b
-style='mso-bidi-font-weight:normal'>ch.id()</b> function defines returning a
-result set where duplicate members are removed; <b style='mso-bidi-font-weight:
-normal'>ch.sortx()</b> function defines returning a sorted result set; and <b
-style='mso-bidi-font-weight:normal'>ch.groupx()</b> and <b style='mso-bidi-font-weight:
-normal'>ch.groups()</b> functions define returning a grouped result set. Also,
-we can use <span class=T-Var><b style='mso-bidi-font-weight:normal'>ch</b></span></span><span
-class=T-CodeChar><span lang=EN-US style='font-family:"Times New Roman",serif'>.joinx()
-</span></span><span class=T-CodeChar><span lang=EN-US style='font-family:"Times New Roman",serif;
+21.0pt'><span lang=EN-US>At some occasions, you need to compute several
+different values at once during one data retrieval process. Then you can use
+channel, which is similar to cursor. esProc offers <b style='mso-bidi-font-weight:
+normal'>channel()</b> function to create a channel and uses <b
+style='mso-bidi-font-weight:normal'>cs.push(ch)</b> function to add the channel
+to cursor cs; or use <b style='mso-bidi-font-weight:normal'>ch2.push(ch</b>)
+function to add it to another channel ch2. A newly-created channel only stores
+the computational actions to-be-performed until the fetch operation is actually
+performed over the cursor when the actions are performed and results recorded.
+The channel supports multiple operations through corresponding functions that
+are similar to what the cursor supports, including <b style='mso-bidi-font-weight:
+normal'>ch.select()</b>, <b style='mso-bidi-font-weight:normal'>ch.new()</b>, <b
+style='mso-bidi-font-weight:normal'>ch.derive()</b>, <b style='mso-bidi-font-weight:
+normal'>ch.()</b>, <b style='mso-bidi-font-weight:normal'>ch.news()</b>, <b
+style='mso-bidi-font-weight:normal'>ch.run()</b>, <b style='mso-bidi-font-weight:
+normal'>ch.switch()</b>, <b style='mso-bidi-font-weight:normal'>ch.join()</b>, <b
+style='mso-bidi-font-weight:normal'>ch.conj()</b>, and <b style='mso-bidi-font-weight:
+normal'>ch.group()</b>. A channel function can define many types of result set.
+<b style='mso-bidi-font-weight:normal'>ch.fetch()</b> function defines
+returning all data from the channel; <b style='mso-bidi-font-weight:normal'>ch.id()</b>
+function defines returning a result set where duplicate members are removed; <b
+style='mso-bidi-font-weight:normal'>ch.sortx()</b> function defines returning a
+sorted result set; and <b style='mso-bidi-font-weight:normal'>ch.groupx()</b>
+and <b style='mso-bidi-font-weight:normal'>ch.groups()</b> functions define
+returning a grouped result set. Also, we can use <span class=T-Var><b
+style='mso-bidi-font-weight:normal'>ch</b></span></span><span class=T-CodeChar><span
+lang=EN-US style='font-family:"Times New Roman",serif'>.joinx() </span></span><span
+class=T-CodeChar><span lang=EN-US style='font-family:"Times New Roman",serif;
 font-weight:normal'>function to join data in a channel to a segmentable bin
 file. So we know that there are two kinds of channel functions. One is for
 attaching an operation to a channel, and the other is for getting the final
@@ -369,15 +371,15 @@ traversal of cursor data. Here are results of A6, B6 and C6:</span></p>
 
 <p class=MsoNormalCxSpFirst style='text-indent:21.0pt;mso-char-indent-count:
 2.0'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=500 height=230
-src="Tutorial.files/image859.png" v:shapes="_x0000_i1964"></span></p>
+src="Tutorial.files/image859.png" v:shapes="_x0000_i1963"></span></p>
 
 <p class=MsoNormalCxSpMiddle style='text-indent:21.0pt;mso-char-indent-count:
 2.0'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=500 height=230
-src="Tutorial.files/image860.png" v:shapes="_x0000_i1965"></span></p>
+src="Tutorial.files/image860.png" v:shapes="_x0000_i1964"></span></p>
 
 <p class=MsoNormalCxSpLast style='text-indent:21.0pt;mso-char-indent-count:
 2.0'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=481 height=181
-src="Tutorial.files/image861.png" v:shapes="_x0000_i1966"></span></p>
+src="Tutorial.files/image861.png" v:shapes="_x0000_i1965"></span></p>
 
 <p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
@@ -405,8 +407,8 @@ last function that returns the final result. </span></p>
 <p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
 21.0pt'><span lang=EN-US>Besides <b style='mso-bidi-font-weight:normal'>ch.fetch()</b>
-function that fetchs all data out, you can perform sorting, grouping and aggregation
-in a channel. For example:</span></p>
+function that fetchs all data out, you can perform sorting, grouping and
+aggregation in a channel. For example:</span></p>
 
 <table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
  style='margin-left:21.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
@@ -668,12 +670,12 @@ will still flow through the channel to get the aggregagte result. Here are
 results of B5 and D5:</span></p>
 
 <p class=MsoNormalCxSpFirst style='text-indent:21.0pt;mso-char-indent-count:
-2.0'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=500 height=230
-src="Tutorial.files/image862.png" v:shapes="_x0000_i1967"></span></p>
+2.0'><span lang=EN-US style='mso-no-proof:yes'><img border=0 width=506 height=234
+src="Tutorial.files/image862.png" v:shapes="_x0000_i1966"></span></p>
 
 <p class=MsoNormalCxSpLast style='text-indent:21.0pt;mso-char-indent-count:
 2.0'><span lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=500 height=230
-src="Tutorial.files/image863.png" v:shapes="_x0000_i1968"></span></p>
+src="Tutorial.files/image863.png" v:shapes="_x0000_i1967"></span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="213.html">Next</a></div>

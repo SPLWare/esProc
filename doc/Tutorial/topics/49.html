@@ -20,7 +20,7 @@ mso-list:none;tab-stops:-179.95pt 64.2pt'><span lang=EN-US style='font-size:
 	<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
 lang=EN-US>Obviously, if each step of computation performed on a table sequence
 generates a new table sequence, a great deal of memory space will be used. For
-instance, a table sequence,</span><span class=25><span lang=EN-US
+instance, a table sequence,</span><span class=26><span lang=EN-US
 style='font-size:9.0pt;mso-bidi-font-size:10.0pt'> </span></span><span
 class=T-Bold><i style='mso-bidi-font-style:normal'><span lang=EN-US>Order_Books</span></i></span><span
 lang=EN-US>, has 50,000 records, and 30,000 records are obtained by query. If a
@@ -36,11 +36,11 @@ style='font-size:12.0pt;font-family:"Times New Roman",serif'>Transparency of
 RSeqs</span></b></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>Usually, it¡¯s not necessary to differentiate between a record sequence
-and a table sequence, as there¡¯re also uncessary to distinguish between
-references and physical data. For instance, operations like query, sort and
-intersection in the previous example can be performed on both record sequences
-and table sequences with the same syntax:</span></p>
+lang=EN-US>Usually, it¡¯s not necessary to differentiate between a record
+sequence and a table sequence, as there¡¯re also uncessary to distinguish
+between references and physical data. For instance, operations like query, sort
+and intersection in the previous example can be performed on both record
+sequences and table sequences with the same syntax:</span></p>
 
 <table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
  style='margin-left:21.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
@@ -187,10 +187,10 @@ from TSeqs to RSeqs </span></b></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
 lang=EN-US>Different table sequences hold different physical records, so
-modifying a table sequence will not affect the other ones. But, a record sequence
-is the references of the records of a table sequence and uses the latter¡¯s
-physical data as its source; any change of the source table sequence will
-affect the corresponding record sequence. For example:</span></p>
+modifying a table sequence will not affect the other ones. But, a record
+sequence is the references of the records of a table sequence and uses the
+latter¡¯s physical data as its source; any change of the source table sequence
+will affect the corresponding record sequence. For example:</span></p>
 
 <table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
  style='margin-left:21.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
@@ -276,8 +276,9 @@ affect the corresponding record sequence. For example:</span></p>
 </table>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-mso-layout-grid-align:none;text-autospace:none'><span lang=EN-US>Click <img border=0 width=20 height=20
-src="Tutorial.files/image153.jpg" v:shapes="Í¼Æ¬_x0020_91"><span
+mso-layout-grid-align:none;text-autospace:none'><span lang=EN-US>Click <span
+style='mso-no-proof:yes'><img border=0 width=23 height=26
+src="Tutorial.files/image156.png" v:shapes="_x0000_i1201"></span><span
 style='mso-spacerun:yes'>&nbsp;</span>on the toolbar </span><a
 name="OLE_LINK135"></a><a name="OLE_LINK136"></a><a name="OLE_LINK137"></a><a
 name="OLE_LINK140"><span style='mso-bookmark:OLE_LINK137'><span
@@ -290,7 +291,7 @@ auto;text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
 style='mso-bookmark:OLE_LINK140'><span style='mso-bookmark:OLE_LINK137'><span
 style='mso-bookmark:OLE_LINK136'><span style='mso-bookmark:OLE_LINK135'><span
 lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=500 height=230
-src="Tutorial.files/image154.png" v:shapes="_x0000_i1204"></span></span></span></span></span></p>
+src="Tutorial.files/image157.png" v:shapes="_x0000_i1202"></span></span></span></span></span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
 style='mso-bookmark:OLE_LINK140'><span style='mso-bookmark:OLE_LINK137'><span
@@ -304,21 +305,22 @@ auto;text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
 style='mso-bookmark:OLE_LINK140'><span style='mso-bookmark:OLE_LINK137'><span
 style='mso-bookmark:OLE_LINK136'><span style='mso-bookmark:OLE_LINK135'><span
 lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=500 height=230
-src="Tutorial.files/image155.png" v:shapes="_x0000_i1205"></span></span></span></span></span></p>
+src="Tutorial.files/image158.png" v:shapes="_x0000_i1203"></span></span></span></span></span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
 style='mso-bookmark:OLE_LINK140'><span style='mso-bookmark:OLE_LINK137'><span
 style='mso-bookmark:OLE_LINK136'><span style='mso-bookmark:OLE_LINK135'><span
-lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'>A3 modifies
-SalesID of the third record of A1¡¯s table sequence by reassigning 1 to it. Then
-check the table sequence and you can see that the third record is modified:</span></span></span></span></span></p>
+lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'>A3
+modifies SalesID of the third record of A1¡¯s table sequence by reassigning 1 to
+it. Then check the table sequence and you can see that the third record is
+modified:</span></span></span></span></span></p>
 
 <p class=T-Par style='margin-bottom:0cm;margin-bottom:.0001pt;mso-add-space:
 auto;text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
 style='mso-bookmark:OLE_LINK140'><span style='mso-bookmark:OLE_LINK137'><span
 style='mso-bookmark:OLE_LINK136'><span style='mso-bookmark:OLE_LINK135'><span
 lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=500 height=230
-src="Tutorial.files/image156.png" v:shapes="_x0000_i1206"></span></span></span></span></span></p>
+src="Tutorial.files/image159.png" v:shapes="_x0000_i1204"></span></span></span></span></span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
 style='mso-bookmark:OLE_LINK140'><span style='mso-bookmark:OLE_LINK137'><span
@@ -333,7 +335,7 @@ auto;text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
 style='mso-bookmark:OLE_LINK140'><span style='mso-bookmark:OLE_LINK137'><span
 style='mso-bookmark:OLE_LINK136'><span style='mso-bookmark:OLE_LINK135'><span
 lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=500 height=230
-src="Tutorial.files/image157.png" v:shapes="_x0000_i1207"></span></span></span></span></span></p>
+src="Tutorial.files/image160.png" v:shapes="_x0000_i1205"></span></span></span></span></span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
 style='mso-bookmark:OLE_LINK140'><span style='mso-bookmark:OLE_LINK137'><span
@@ -348,8 +350,8 @@ style='mso-bookmark:OLE_LINK140'><span style='mso-bookmark:OLE_LINK137'><span
 style='mso-bookmark:OLE_LINK136'><span style='mso-bookmark:OLE_LINK135'><span
 lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'>But in
 many cases, this isn¡¯t what a programmer wants to see. Take the above case as
-an example. Because A3¡¯s modification to the table sequence happens after A2 selects
-out the desired data (In this case, the corresponding reference hasn¡¯t
+an example. Because A3¡¯s modification to the table sequence happens after A2
+selects out the desired data (In this case, the corresponding reference hasn¡¯t
 changed), in the selected data in A2 there is a record whose SalesID isn¡¯t 363.
 This might cause an error in business.</span></span></span></span></span></p>
 
@@ -515,7 +517,7 @@ auto;text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
 style='mso-bookmark:OLE_LINK140'><span style='mso-bookmark:OLE_LINK137'><span
 style='mso-bookmark:OLE_LINK136'><span style='mso-bookmark:OLE_LINK135'><span
 lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=500 height=230
-src="Tutorial.files/image158.png" v:shapes="_x0000_i1208"></span></span></span></span></span></p>
+src="Tutorial.files/image161.png" v:shapes="_x0000_i1206"></span></span></span></span></span></p>
 
 <span style='mso-bookmark:OLE_LINK135'></span><span style='mso-bookmark:OLE_LINK136'></span><span
 style='mso-bookmark:OLE_LINK137'></span><span style='mso-bookmark:OLE_LINK140'></span>
