@@ -3,6 +3,7 @@ package com.scudata.dw;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import com.scudata.array.IArray;
 import com.scudata.array.LongArray;
@@ -1792,6 +1793,55 @@ public class ColPhyTable extends PhyTable {
 	}
 	
 	/**
+	 * 把表达式按列进行拆分
+	 * @param exp 表达式
+	 * @param ctx 计算上下文
+	 * @return
+	 */
+	public IFilter[] getSortedFieldFilters(Expression exp, Context ctx) {
+		Object obj = Cursor.parseFilter(this, exp, ctx);
+		if (obj instanceof IFilter) {
+			IFilter filter = (IFilter)obj;
+			if (filter.isMultiFieldOr()) {
+				return null;
+			}
+			
+			ColumnMetaData column = filter.getColumn();
+			if (column == null || !column.hasMaxMinValues()) {
+				return null;
+			} else {
+				return new IFilter[] {filter};
+			}
+		} else if (obj instanceof ArrayList) {
+			ArrayList<Object> list = (ArrayList<Object>)obj;
+			ArrayList<IFilter> filterList = new ArrayList<IFilter>();
+			
+			for (Object f : list) {
+				if (f instanceof IFilter) {
+					IFilter filter = (IFilter)f;
+					if (!filter.isMultiFieldOr()) {
+						ColumnMetaData column = filter.getColumn();
+						if (column != null && column.hasMaxMinValues()) {
+							filterList.add(filter);
+						}
+					}
+				}
+			}
+			
+			if (filterList.size() > 0) {
+				IFilter []filters = new IFilter[filterList.size()];
+				filterList.toArray(filters);
+				Arrays.sort(filters);
+				return filters;
+			} else {
+				return null;
+			}
+		} else {
+			return null;
+		}
+	}
+	
+	/**
 	 * 返回这个基表的多路游标
 	 * @param exps 取出字段表达式，（当exps为null时按照fields取出）
 	 * @param fields 取出字段的新名称
@@ -1820,13 +1870,19 @@ public class ColPhyTable extends PhyTable {
 		
 		// 如果是主表并且有维字段，则找出过滤表达式中关于第一个维的条件
 		// 用第一个维的条件过滤出满足条件的块再拆分成多路游标
-		IFilter dimFilter = null;
-		if (filter != null && parent == null && getSortedColumns() != null) {
-			dimFilter = getFirstDimFilter(filter, ctx);
+		//IFilter dimFilter = null;
+		//if (filter != null && parent == null && getSortedColumns() != null) {
+		//	dimFilter = getFirstDimFilter(filter, ctx);
+		//}
+		
+		// 先按过滤字段找出满足条件的数据块，再进行分段
+		IFilter []filters = null;
+		if (filter != null && parent == null && (opt == null || opt.indexOf('w') == -1)) {
+			filters = getSortedFieldFilters(filter, ctx);
 		}
 		
 		ICursor []cursors;
-		if (dimFilter == null) {
+		if (filters == null) {
 			int avg = blockCount / pathCount;
 			if (avg < 1) {
 				avg = 1;
@@ -1864,16 +1920,29 @@ public class ColPhyTable extends PhyTable {
 			}
 		} else {
 			IntArrayList list = new IntArrayList();
-			ColumnMetaData firstDim = dimFilter.getColumn();
-			ObjectReader reader = firstDim.getSegmentReader();
+			int filterCount = filters.length;
+			ObjectReader []readers = new ObjectReader[filterCount];
+			
+			for (int f = 0; f < filterCount; ++f) {
+				ColumnMetaData column = filters[f].getColumn();
+				readers[f] = column.getSegmentReader();
+			}
 			
 			try {
 				for (int i = 0; i < blockCount; ++i) {
-					reader.readLong40();
-					Object minValue = reader.readObject();
-					Object maxValue = reader.readObject();
-					reader.skipObject();
-					if (dimFilter.match(minValue, maxValue)) {
+					boolean match = true;
+					for (int f = 0; f < filterCount; ++f) {
+						readers[f].readLong40();
+						Object minValue = readers[f].readObject();
+						Object maxValue = readers[f].readObject();
+						readers[f].skipObject();
+						
+						if (match && !filters[f].match(minValue, maxValue)) {
+							match = false;
+						}
+					}
+					
+					if (match) {
 						list.addInt(i);
 					}
 				}
