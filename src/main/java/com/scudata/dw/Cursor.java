@@ -2748,7 +2748,7 @@ public class Cursor extends IDWCursor {
 	protected long skipOver(long n) {
 		if (isClosed) {
 			return 0;
-		} else if (isFirstSkip && n == MAXSKIPSIZE && filter == null && !isSegment) {
+		} else if (isFirstSkip && n == MAXSKIPSIZE && filter == null && fkNames == null && !isSegment) {
 			return table.getActualRecordCount();
 		}
 		
