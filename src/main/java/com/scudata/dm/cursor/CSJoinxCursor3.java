@@ -9,6 +9,7 @@ import com.scudata.dm.op.Operation;
 import com.scudata.dw.ColPhyTable;
 import com.scudata.dw.Cursor;
 import com.scudata.expression.Expression;
+import com.scudata.parallel.ClusterCursor;
 import com.scudata.resources.EngineMessage;
 import com.scudata.util.CursorUtil;
 
@@ -86,9 +87,117 @@ public class CSJoinxCursor3 extends ICursor {
 			}
 		}
 		Expression joinKeys[][] = {fields, keys};
-		mergeCursor = CursorUtil.joinx(cursors, names, joinKeys, option, ctx);
+		mergeCursor = joinx(cursors, names, joinKeys, option, ctx);
 	}
 
+	/**
+	 * 游标对关联字段有序，做有序归并连接
+	 * @param cursors 游标数组
+	 * @param names 结果集字段名数组
+	 * @param exps 关联字段表达式数组
+	 * @param opt 选项
+	 * @param ctx Context 计算上下文
+	 * @return ICursor 结果集游标
+	 */
+	private static ICursor joinx(ICursor []cursors, String []names, Expression [][]exps, String opt, Context ctx) {
+		boolean isPJoin = false, isIsect = false, isDiff = false;
+		if (opt != null) {
+			if (opt.indexOf('p') != -1) {
+				isPJoin = true;
+			} else if (opt.indexOf('i') != -1) {
+				isIsect = true;
+			} else if (opt.indexOf('d') != -1) {
+				isDiff = true;
+			}
+		}
+		
+		int count = cursors.length;
+		boolean isCluster = true; // 是否有集群游标
+		boolean isMultipath = false; // 是否是多路游标连接
+		int pathCount = 1;
+		
+		for (int i = 0; i < count; ++i) {
+			if (cursors[i] instanceof IMultipath) {
+				if (i == 0) {
+					isMultipath = true;
+					pathCount = ((IMultipath)cursors[i]).getPathCount();
+				} else if (pathCount != ((IMultipath)cursors[i]).getPathCount()) {
+					isMultipath = false;
+				}
+			} else {
+				isMultipath = false;
+			}
+			
+			if (!(cursors[i] instanceof ClusterCursor)) {
+				isCluster = false;
+			}
+		}
+		
+		if (isCluster) {
+			ClusterCursor []tmp = new ClusterCursor[count];
+			System.arraycopy(cursors, 0, tmp, 0, count);
+			return ClusterCursor.joinx(tmp, exps, names, opt, ctx);
+		} else if (isMultipath && pathCount > 1) {
+			// 多路游标会做同步分段，只要每个表的相应路做连接即可
+			ICursor []result = new ICursor[pathCount];
+			ICursor [][]multiCursors = new ICursor[count][];
+			for (int i = 0; i < count; ++i) {
+				IMultipath multipath = (IMultipath)cursors[i];
+				multiCursors[i] = multipath.getParallelCursors();
+			}
+			
+			for (int i = 0; i < pathCount; ++i) {
+				if (isPJoin) {
+					ICursor []curs = new ICursor[count];
+					for (int c = 0; c < count; ++c) {
+						curs[c] = multiCursors[c][i];
+					}
+
+					result[i] = new PJoinCursor(curs, names);
+				} else if (isIsect || isDiff) {
+					ICursor []curs = new ICursor[count];
+					for (int c = 0; c < count; ++c) {
+						curs[c] = multiCursors[c][i];
+					}
+					
+					Context tmpCtx = ctx.newComputeContext();
+					Expression [][]tmpExps = Operation.dupExpressions(exps, tmpCtx);
+					result[i] = new MergeFilterCursor(curs, tmpExps, opt, tmpCtx);
+				} else {
+					if (count == 2 && exps[0].length == 1) {
+						Context tmpCtx = ctx.newComputeContext();
+						Expression exp1 = Operation.dupExpression(exps[0][0], tmpCtx);
+						Expression exp2 = Operation.dupExpression(exps[1][0], tmpCtx);
+						result[i] = new JoinxCursor3(multiCursors[0][i], exp1, multiCursors[1][i], exp2, names, opt, tmpCtx);
+					} else {
+						ICursor []curs = new ICursor[count];
+						for (int c = 0; c < count; ++c) {
+							curs[c] = multiCursors[c][i];
+						}
+						
+						Context tmpCtx = ctx.newComputeContext();
+						Expression [][]tmpExps = Operation.dupExpressions(exps, tmpCtx);
+						result[i] = new JoinxCursor(curs, tmpExps, names, opt, tmpCtx);
+					}
+				}
+			}
+			
+			// 每一路的关联结果再组成多路游标
+			return new MultipathCursors(result, ctx);
+		} else if (isPJoin) {
+			return new PJoinCursor(cursors, names);
+		} else if (isIsect || isDiff) {
+			return new MergeFilterCursor(cursors, exps, opt, ctx);
+		} else {
+			if (count == 2 && exps[0].length == 1) {
+				// 对关联字段个数为1的两表连接做优化
+				return new JoinxCursor2(cursors[0], exps[0][0], cursors[1], exps[1][0], names, opt, ctx);
+			} else {
+				return new JoinxCursor(cursors, exps, names, opt, ctx);
+			}
+		}
+	}
+	
 	void init() {
 		//组织数据结构
 		if (option !=null && (option.indexOf('i') != -1 || option.indexOf('d') != -1)) {
