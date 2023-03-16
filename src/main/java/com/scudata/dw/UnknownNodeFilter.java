@@ -6,7 +6,9 @@ import java.util.List;
 import com.scudata.dm.Context;
 import com.scudata.dm.Param;
 import com.scudata.expression.Expression;
+import com.scudata.expression.FieldRef;
 import com.scudata.expression.Node;
+import com.scudata.expression.Operator;
 import com.scudata.util.Variant;
 
 public class UnknownNodeFilter extends IFilter {
@@ -57,10 +59,27 @@ public class UnknownNodeFilter extends IFilter {
 		this.ctx = ctx;
 		init(table, exp.getHome(), exps, names, ctx);
 	}
+
+	private static void getUsedFields(Node node, Context ctx, List<String> resultList) {
+		if (node instanceof Operator) {
+			Node left = node.getLeft();
+			Node right = node.getRight();
+			if (left != null) getUsedFields(left, ctx, resultList);
+			if (right != null) getUsedFields(right, ctx, resultList);
+			return;
+		} else {
+			if (node instanceof FieldRef) {
+				return;
+			} else {
+				node.getUsedFields(ctx, resultList);
+			}
+		}
+		
+	}
 	
 	private void init(ColPhyTable table, Node node, Expression[] exps, String[] names, Context ctx) {
 		List<String> resultList = new ArrayList<String>();
-		node.getUsedFields(ctx, resultList);
+		getUsedFields(node, ctx, resultList);
 		int size = resultList.size();
 		if (size > 0) {
 			List<ColumnMetaData> columns = new ArrayList<ColumnMetaData>(size);
