@@ -3496,11 +3496,19 @@ public class DatabaseUtil {
 				Sequence se_add = populate(rs, dbCharset, tranContent, toCharset, dbType, false, null, false, -1, null);
 				mul_dataset.add(se_add);
 
-				while (pst.getMoreResults() || pst.getUpdateCount() != -1) {
+				// edited by bd, 2023.3.16, 返回数据集多于2个时无法正常返回到结果中，怀疑可能是判断有问题
+				boolean more = pst.getMoreResults();
+				while (more || pst.getUpdateCount() != -1) {
+					if (!more) {
+						// edited by bd, 2023.3.16, 如果more为false，说明当前返回结果并非结果集
+						more = pst.getMoreResults();
+						continue;
+					}
+				/*while (pst.getMoreResults() || pst.getUpdateCount() != -1) {
 					if (pst.getUpdateCount() == -1) {
 						pst.getMoreResults();
 						continue;
-					}
+					}*/
 					if (rs != null) {
 						try {
 							rs.close();
@@ -3511,6 +3519,8 @@ public class DatabaseUtil {
 					rs = pst.getResultSet();
 					se_add = populate(rs, dbCharset, tranContent, toCharset, dbType, false, null, false, -1, null);
 					mul_dataset.add(se_add);
+					// edited by bd, 2023.3.16, 获取当前结果集后，判断下个结果
+					more = pst.getMoreResults();
 				}
 				if (mul_dataset.length() > 1) {
 					return mul_dataset;
