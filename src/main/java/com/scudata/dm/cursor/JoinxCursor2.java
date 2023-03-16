@@ -142,21 +142,17 @@ public class JoinxCursor2 extends ICursor {
 					}
 					
 					if (cur2 < len2) {
-						//data2是维表，不该有重复的。（这和过去光头joinx规则不一样）
-//						BaseRecord next = (BaseRecord)data2.getMem(cur2 + 1);
-//						if (Variant.isEquals(value2, next.getNormalFieldValue(col2))) {
-//							cur2++;
-//							r2 = next;
-//							if (addData != null) {
-//								addData.insert(1, r1);
-//								data1 = addData;
-//								len1 = data1.length();
-//								cur1 = 1;
-//							}
-//						} else 
-						
-						
-						if (!hasEquals) {
+						BaseRecord next = (BaseRecord)data2.getMem(cur2 + 1);
+						if (Variant.isEquals(value2, next.getNormalFieldValue(col2))) {
+							cur2++;
+							r2 = next;
+							if (addData != null) {
+								addData.insert(1, r1);
+								data1 = addData;
+								len1 = data1.length();
+								cur1 = 1;
+							}
+						} else if (!hasEquals) {
 							cur2++;
 							if (addData != null) {
 								data1 = addData;
@@ -173,27 +169,26 @@ public class JoinxCursor2 extends ICursor {
 								break;
 							}
 							
-							r2 = (BaseRecord)data2.getMem(cur2);//r2 = next;
+							r2 = next;
 							value2 = r2.getNormalFieldValue(col2);
 						}
 					} else {
 						Sequence data = cursor2.fuzzyFetch(FETCHCOUNT);
 						if (data != null && data.length() > 0) {
-//							BaseRecord next = (BaseRecord)data.getMem(1);
-//							if (Variant.isEquals(value2, next.getNormalFieldValue(col2))) {
-//								data2 = data;
-//								len2 = data.length();
-//								cur2 = 1;
-//								r2 = next;
-//								
-//								if (addData != null) {
-//									addData.insert(1, r1);
-//									data1 = addData;
-//									len1 = data1.length();
-//									cur1 = 1;
-//								}
-//							} else 
-							if (!hasEquals) {
+							BaseRecord next = (BaseRecord)data.getMem(1);
+							if (Variant.isEquals(value2, next.getNormalFieldValue(col2))) {
+								data2 = data;
+								len2 = data.length();
+								cur2 = 1;
+								r2 = next;
+								
+								if (addData != null) {
+									addData.insert(1, r1);
+									data1 = addData;
+									len1 = data1.length();
+									cur1 = 1;
+								}
+							} else if (!hasEquals) {
 								data2 = data;
 								len2 = data2.length();
 								cur2 = 1;
@@ -213,7 +208,7 @@ public class JoinxCursor2 extends ICursor {
 									break;
 								}
 								
-								r2 = (BaseRecord)data2.getMem(cur2);//r2 = next;
+								r2 = next;
 								value2 = r2.getNormalFieldValue(col2);
 							} else {
 								data.insert(1, r2);
@@ -397,18 +392,17 @@ public class JoinxCursor2 extends ICursor {
 					}
 					
 					if (cur2 < len2) {
-//						BaseRecord next = (BaseRecord)data2.getMem(cur2 + 1);
-//						if (Variant.isEquals(value2, next.getNormalFieldValue(col2))) {
-//							cur2++;
-//							r2 = next;
-//							if (addData != null) {
-//								addData.insert(1, r1);
-//								data1 = addData;
-//								len1 = data1.length();
-//								cur1 = 1;
-//							}
-//						} else 
-						if (!hasEquals) {
+						BaseRecord next = (BaseRecord)data2.getMem(cur2 + 1);
+						if (Variant.isEquals(value2, next.getNormalFieldValue(col2))) {
+							cur2++;
+							r2 = next;
+							if (addData != null) {
+								addData.insert(1, r1);
+								data1 = addData;
+								len1 = data1.length();
+								cur1 = 1;
+							}
+						} else if (!hasEquals) {
 							cur2++;
 							if (addData != null) {
 								data1 = addData;
@@ -425,27 +419,26 @@ public class JoinxCursor2 extends ICursor {
 								break;
 							}
 							
-							r2 = (BaseRecord)data2.getMem(cur2);//r2 = next;
+							r2 = next;
 							value2 = r2.getNormalFieldValue(col2);
 						}
 					} else {
 						Sequence data = cursor2.fuzzyFetch(FETCHCOUNT);
 						if (data != null && data.length() > 0) {
-//							BaseRecord next = (BaseRecord)data.getMem(1);
-//							if (Variant.isEquals(value2, next.getNormalFieldValue(col2))) {
-//								data2 = data;
-//								len2 = data.length();
-//								cur2 = 1;
-//								r2 = next;
-//								
-//								if (addData != null) {
-//									addData.insert(1, r1);
-//									data1 = addData;
-//									len1 = data1.length();
-//									cur1 = 1;
-//								}
-//							} else 
-							if (!hasEquals) {
+							BaseRecord next = (BaseRecord)data.getMem(1);
+							if (Variant.isEquals(value2, next.getNormalFieldValue(col2))) {
+								data2 = data;
+								len2 = data.length();
+								cur2 = 1;
+								r2 = next;
+								
+								if (addData != null) {
+									addData.insert(1, r1);
+									data1 = addData;
+									len1 = data1.length();
+									cur1 = 1;
+								}
+							} else if (!hasEquals) {
 								data2 = data;
 								len2 = data2.length();
 								cur2 = 1;
@@ -465,7 +458,7 @@ public class JoinxCursor2 extends ICursor {
 									break;
 								}
 								
-								r2 = (BaseRecord)data2.getMem(cur2);//r2 = next;
+								r2 = next;
 								value2 = r2.getNormalFieldValue(col2);
 							} else {
 								data.insert(1, r2);
