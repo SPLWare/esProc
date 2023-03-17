@@ -2,6 +2,7 @@ package com.scudata.expression.fn.datetime;
 
 import java.util.Date;
 
+import com.scudata.common.DateFactory;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
@@ -52,10 +53,19 @@ public class Elapse extends Function {
 			result1 = new java.sql.Timestamp(System.currentTimeMillis());
 		} else if (result1 instanceof String) {
 			result1 = Variant.parseDate((String)result1);
+			if (!(result1 instanceof Date)) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException("interval" + mm.getMessage("function.paramTypeError"));
+			}
+		} else if (result1 instanceof Integer) {
+			result1 = DateFactory.toDate(((Integer)result1).intValue());
+		} else if (!(result1 instanceof Date)) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("interval" + mm.getMessage("function.paramTypeError"));
 		}
 
 		Object result2 = sub2.getLeafExpression().calculate(ctx);
-		if (!(result1 instanceof Date) || !(result2 instanceof Number)) {
+		if (!(result2 instanceof Number)) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("elapse" + mm.getMessage("function.paramTypeError"));
 		}

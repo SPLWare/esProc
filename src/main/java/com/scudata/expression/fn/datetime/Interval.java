@@ -7,6 +7,7 @@ import com.scudata.array.DateArray;
 import com.scudata.array.DoubleArray;
 import com.scudata.array.IArray;
 import com.scudata.array.LongArray;
+import com.scudata.common.DateFactory;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
@@ -57,13 +58,26 @@ public class Interval extends Function {
 
 		if (result1 instanceof String) {
 			result1 = Variant.parseDate((String)result1);
+			if (!(result1 instanceof Date)) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException("interval" + mm.getMessage("function.paramTypeError"));
+			}
+		} else if (result1 instanceof Integer) {
+			result1 = DateFactory.toDate(((Integer)result1).intValue());
+		} else if (!(result1 instanceof Date)) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("interval" + mm.getMessage("function.paramTypeError"));
 		}
 
 		if (result2 instanceof String) {
 			result2 = Variant.parseDate((String)result2);
-		}
-
-		if (!(result1 instanceof Date) || !(result2 instanceof Date)) {
+			if (!(result2 instanceof Date)) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException("interval" + mm.getMessage("function.paramTypeError"));
+			}
+		} else if (result2 instanceof Integer) {
+			result2 = DateFactory.toDate(((Integer)result2).intValue());
+		} else if (!(result2 instanceof Date)) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("interval" + mm.getMessage("function.paramTypeError"));
 		}
@@ -287,13 +301,26 @@ public class Interval extends Function {
 	private long interval(Object result1, Object result2) {
 		if (result1 instanceof String) {
 			result1 = Variant.parseDate((String)result1);
+			if (!(result1 instanceof Date)) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException("interval" + mm.getMessage("function.paramTypeError"));
+			}
+		} else if (result1 instanceof Integer) {
+			result1 = DateFactory.toDate(((Integer)result1).intValue());
+		} else if (!(result1 instanceof Date)) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("interval" + mm.getMessage("function.paramTypeError"));
 		}
 
 		if (result2 instanceof String) {
 			result2 = Variant.parseDate((String)result2);
-		}
-
-		if (!(result1 instanceof Date) || !(result2 instanceof Date)) {
+			if (!(result2 instanceof Date)) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException("interval" + mm.getMessage("function.paramTypeError"));
+			}
+		} else if (result2 instanceof Integer) {
+			result2 = DateFactory.toDate(((Integer)result2).intValue());
+		} else if (!(result2 instanceof Date)) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("interval" + mm.getMessage("function.paramTypeError"));
 		}
