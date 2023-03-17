@@ -7,6 +7,7 @@ import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.common.Sentence;
 import com.scudata.dm.Context;
+import com.scudata.dm.Sequence;
 import com.scudata.expression.Expression;
 import com.scudata.expression.Function;
 import com.scudata.expression.IParam;
@@ -57,7 +58,35 @@ public class Replace extends Function {
 		}
 
 		Object str2 = exp2.calculate(ctx);
-		if (str2 == null) {
+		if (str2 instanceof Sequence) {
+			Object obj3 = exp3.calculate(ctx);
+			if (!(obj3 instanceof Sequence)) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException("replace" + mm.getMessage("function.paramTypeError"));
+			}
+			
+			int flag = Sentence.IGNORE_PARS;
+			if (option != null) {
+				if (option.indexOf('q') == -1) {
+					//引号里面的字符也需要变换
+					flag += Sentence.IGNORE_QUOTE;
+				}
+				
+				if (option.indexOf('1') != -1) {
+					// 只替换第一个
+					flag += Sentence.ONLY_FIRST;
+				}
+				
+				if (option.indexOf('c') != -1) {
+					// 忽略大小写
+					flag += Sentence.IGNORE_CASE;
+				}
+			} else {
+				flag += Sentence.IGNORE_QUOTE;
+			}
+			
+			return replace((String)str1, (Sequence)str2, (Sequence)obj3, flag);
+		} else if (str2 == null) {
 			return null;
 		} else if (!(str2 instanceof String)) {
 			MessageManager mm = EngineMessage.get();
@@ -74,6 +103,10 @@ public class Replace extends Function {
 		
 		int flag = Sentence.IGNORE_PARS;
 		if (option != null) {
+			if (option.indexOf('s') != -1) {
+				return replaceChars((String)str1, (String)str2, (String)str3);
+			}
+			
 			if (option.indexOf('q') == -1) {
 				//引号里面的字符也需要变换
 				flag += Sentence.IGNORE_QUOTE;
@@ -95,6 +128,29 @@ public class Replace extends Function {
 		return Sentence.replace((String)str1, 0, (String)str2, (String)str3, flag);
 	}
 
+	private static String replace(String src, Sequence regexSequence, Sequence replaceSequence, int flag) {
+		int len = regexSequence.length();
+		for (int i = 1; i <= len; ++i) {
+			String regex = (String)regexSequence.get(i);
+			String replacement = (String)replaceSequence.get(i);
+			src = Sentence.replace(src, regex, replacement, flag);
+		}
+		
+		return src;
+	}
+	
+	private static String replaceChars(String src, String regex, String replacement) {
+		char []chars = src.toCharArray();
+		for (int i = 0, len = chars.length; i < len; ++i) {
+			int index = regex.indexOf(chars[i]);
+			if (index != -1) {
+				chars[i] = replacement.charAt(index);
+			}
+		}
+		
+		return new String(chars);
+	}
+	
 	/**
 	 * 计算出所有行的结果
 	 * @param ctx 计算上行文
@@ -107,7 +163,13 @@ public class Replace extends Function {
 		int size = array1.size();
 
 		int flag = Sentence.IGNORE_PARS;
+		boolean isChars = false;
+		
 		if (option != null) {
+			if (option.indexOf('s') != -1) {
+				isChars = true;
+			}
+			
 			if (option.indexOf('q') == -1) {
 				//引号里面的字符也需要变换
 				flag += Sentence.IGNORE_QUOTE;
@@ -128,64 +190,132 @@ public class Replace extends Function {
 		
 		if (array2 instanceof ConstArray && array3 instanceof ConstArray) {
 			Object obj = array2.get(1);
-			if (!(obj instanceof String)) {
-				MessageManager mm = EngineMessage.get();
-				throw new RQException("replace" + mm.getMessage("function.paramTypeError"));
-			}
-			
-			String str2 = (String)obj;
-			obj = array3.get(1);
-			if (!(obj instanceof String)) {
-				MessageManager mm = EngineMessage.get();
-				throw new RQException("replace" + mm.getMessage("function.paramTypeError"));
-			}
-			
-			String str3 = (String)obj;
-			if (array1 instanceof StringArray) {
-				StringArray stringArray = (StringArray)array1;
-				StringArray result = new StringArray(size);
-				result.setTemporary(true);
-				
-				for (int i = 1; i <= size; ++i) {
-					String str = stringArray.getString(i);
-					if (str != null) {
-						str = Sentence.replace(str, 0, str2, str3, flag);
-						result.push(str);
-					} else {
-						result.push(null);
-					}
-				}
-				
-				return result;
-			} else if (array1 instanceof ConstArray) {
-				obj = array1.get(1);
-				String str = null;
-				if (obj instanceof String) {
-					str = Sentence.replace((String)obj, 0, str2, str3, flag);
-				} else if (obj != null) {
+			if (obj instanceof String) {
+				String str2 = (String)obj;
+				obj = array3.get(1);
+				if (!(obj instanceof String)) {
 					MessageManager mm = EngineMessage.get();
 					throw new RQException("replace" + mm.getMessage("function.paramTypeError"));
 				}
 				
-				return new ConstArray(str, size);
-			} else {
-				StringArray result = new StringArray(size);
-				result.setTemporary(true);
-				
-				for (int i = 1; i <= size; ++i) {
-					obj = array1.get(i);
+				String str3 = (String)obj;
+				if (array1 instanceof StringArray) {
+					StringArray stringArray = (StringArray)array1;
+					StringArray result = new StringArray(size);
+					result.setTemporary(true);
+					
+					for (int i = 1; i <= size; ++i) {
+						String str = stringArray.getString(i);
+						if (str != null) {
+							if (isChars) {
+								str = replaceChars(str, str2, str3);
+							} else {
+								str = Sentence.replace(str, 0, str2, str3, flag);
+							}
+							
+							result.push(str);
+						} else {
+							result.push(null);
+						}
+					}
+					
+					return result;
+				} else if (array1 instanceof ConstArray) {
+					obj = array1.get(1);
 					String str = null;
 					if (obj instanceof String) {
-						str = Sentence.replace((String)obj, 0, str2, str3, flag);
+						if (isChars) {
+							str = replaceChars((String)obj, str2, str3);
+						} else {
+							str = Sentence.replace((String)obj, 0, str2, str3, flag);
+						}
 					} else if (obj != null) {
 						MessageManager mm = EngineMessage.get();
 						throw new RQException("replace" + mm.getMessage("function.paramTypeError"));
 					}
 					
-					result.push(str);
+					return new ConstArray(str, size);
+				} else {
+					StringArray result = new StringArray(size);
+					result.setTemporary(true);
+					
+					for (int i = 1; i <= size; ++i) {
+						obj = array1.get(i);
+						String str = null;
+						if (obj instanceof String) {
+							if (isChars) {
+								str = replaceChars((String)obj, str2, str3);
+							} else {
+								str = Sentence.replace((String)obj, 0, str2, str3, flag);
+							}
+						} else if (obj != null) {
+							MessageManager mm = EngineMessage.get();
+							throw new RQException("replace" + mm.getMessage("function.paramTypeError"));
+						}
+						
+						result.push(str);
+					}
+					
+					return result;
+				}
+			} else if (obj instanceof Sequence) {
+				Sequence seq2 = (Sequence)obj;
+				obj = array3.get(1);
+				if (!(obj instanceof Sequence)) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException("replace" + mm.getMessage("function.paramTypeError"));
 				}
 				
-				return result;
+				Sequence seq3 = (Sequence)obj;
+				if (array1 instanceof StringArray) {
+					StringArray stringArray = (StringArray)array1;
+					StringArray result = new StringArray(size);
+					result.setTemporary(true);
+					
+					for (int i = 1; i <= size; ++i) {
+						String str = stringArray.getString(i);
+						if (str != null) {
+							str = replace(str, seq2, seq3, flag);
+							result.push(str);
+						} else {
+							result.push(null);
+						}
+					}
+					
+					return result;
+				} else if (array1 instanceof ConstArray) {
+					obj = array1.get(1);
+					String str = null;
+					if (obj instanceof String) {
+						str = replace((String)obj, seq2, seq3, flag);
+					} else if (obj != null) {
+						MessageManager mm = EngineMessage.get();
+						throw new RQException("replace" + mm.getMessage("function.paramTypeError"));
+					}
+					
+					return new ConstArray(str, size);
+				} else {
+					StringArray result = new StringArray(size);
+					result.setTemporary(true);
+					
+					for (int i = 1; i <= size; ++i) {
+						obj = array1.get(i);
+						String str = null;
+						if (obj instanceof String) {
+							str = replace((String)obj, seq2, seq3, flag);
+						} else if (obj != null) {
+							MessageManager mm = EngineMessage.get();
+							throw new RQException("replace" + mm.getMessage("function.paramTypeError"));
+						}
+						
+						result.push(str);
+					}
+					
+					return result;
+				}
+			} else {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException("replace" + mm.getMessage("function.paramTypeError"));
 			}
 		} else {
 			StringArray result = new StringArray(size);
@@ -197,12 +327,18 @@ public class Replace extends Function {
 				if (obj instanceof String) {
 					Object obj2 = array2.get(i);
 					Object obj3 = array3.get(i);
-					if (!(obj2 instanceof String) || !(obj3 instanceof String)) {
+					if ((obj2 instanceof String) && (obj3 instanceof String)) {
+						if (isChars) {
+							str = replaceChars((String)obj, (String)obj2, (String)obj3);
+						} else {
+							str = Sentence.replace((String)obj, 0, (String)obj2, (String)obj3, flag);
+						}
+					} else if ((obj2 instanceof Sequence) && (obj3 instanceof Sequence)) {
+						str = replace((String)obj, (Sequence)obj2, (Sequence)obj3, flag);
+					} else {
 						MessageManager mm = EngineMessage.get();
 						throw new RQException("replace" + mm.getMessage("function.paramTypeError"));
 					}
-					
-					str = Sentence.replace((String)obj, 0, (String)obj2, (String)obj3, flag);
 				} else if (obj != null) {
 					MessageManager mm = EngineMessage.get();
 					throw new RQException("replace" + mm.getMessage("function.paramTypeError"));
@@ -236,7 +372,13 @@ public class Replace extends Function {
 		int size = array1.size();
 	
 		int flag = Sentence.IGNORE_PARS;
+		boolean isChars = false;
+		
 		if (option != null) {
+			if (option.indexOf('s') != -1) {
+				isChars = true;
+			}
+			
 			if (option.indexOf('q') == -1) {
 				//引号里面的字符也需要变换
 				flag += Sentence.IGNORE_QUOTE;
@@ -257,74 +399,152 @@ public class Replace extends Function {
 		
 		if (array2 instanceof ConstArray && array3 instanceof ConstArray) {
 			Object obj = array2.get(1);
-			if (!(obj instanceof String)) {
-				MessageManager mm = EngineMessage.get();
-				throw new RQException("replace" + mm.getMessage("function.paramTypeError"));
-			}
-			
-			String str2 = (String)obj;
-			obj = array3.get(1);
-			if (!(obj instanceof String)) {
-				MessageManager mm = EngineMessage.get();
-				throw new RQException("replace" + mm.getMessage("function.paramTypeError"));
-			}
-			
-			String str3 = (String)obj;
-			if (array1 instanceof StringArray) {
-				StringArray stringArray = (StringArray)array1;
-				StringArray result = new StringArray(size);
-				result.setTemporary(true);
-				
-				for (int i = 1; i <= size; ++i) {
-					if (signDatas[i] == false) {
-						result.pushNull();
-						continue;
-					}
-					
-					String str = stringArray.getString(i);
-					if (str != null) {
-						str = Sentence.replace(str, 0, str2, str3, flag);
-						result.push(str);
-					} else {
-						result.push(null);
-					}
-				}
-				
-				return result;
-			} else if (array1 instanceof ConstArray) {
-				obj = array1.get(1);
-				String str = null;
-				if (obj instanceof String) {
-					str = Sentence.replace((String)obj, 0, str2, str3, flag);
-				} else if (obj != null) {
+			if (obj instanceof String) {
+				String str2 = (String)obj;
+				obj = array3.get(1);
+				if (!(obj instanceof String)) {
 					MessageManager mm = EngineMessage.get();
 					throw new RQException("replace" + mm.getMessage("function.paramTypeError"));
 				}
 				
-				return new ConstArray(str, size);
-			} else {
-				StringArray result = new StringArray(size);
-				result.setTemporary(true);
-				
-				for (int i = 1; i <= size; ++i) {
-					if (signDatas[i] == false) {
-						result.pushNull();
-						continue;
+				String str3 = (String)obj;
+				if (array1 instanceof StringArray) {
+					StringArray stringArray = (StringArray)array1;
+					StringArray result = new StringArray(size);
+					result.setTemporary(true);
+					
+					for (int i = 1; i <= size; ++i) {
+						if (signDatas[i] == false) {
+							result.pushNull();
+							continue;
+						}
+						
+						String str = stringArray.getString(i);
+						if (str != null) {
+							if (isChars) {
+								str = replaceChars(str, str2, str3);
+							} else {
+								str = Sentence.replace(str, 0, str2, str3, flag);
+							}
+							
+							result.push(str);
+						} else {
+							result.push(null);
+						}
 					}
 					
-					obj = array1.get(i);
+					return result;
+				} else if (array1 instanceof ConstArray) {
+					obj = array1.get(1);
 					String str = null;
 					if (obj instanceof String) {
-						str = Sentence.replace((String)obj, 0, str2, str3, flag);
+						if (isChars) {
+							str = replaceChars((String)obj, str2, str3);
+						} else {
+							str = Sentence.replace((String)obj, 0, str2, str3, flag);
+						}
 					} else if (obj != null) {
 						MessageManager mm = EngineMessage.get();
 						throw new RQException("replace" + mm.getMessage("function.paramTypeError"));
 					}
 					
-					result.push(str);
+					return new ConstArray(str, size);
+				} else {
+					StringArray result = new StringArray(size);
+					result.setTemporary(true);
+					
+					for (int i = 1; i <= size; ++i) {
+						if (signDatas[i] == false) {
+							result.pushNull();
+							continue;
+						}
+						
+						obj = array1.get(i);
+						String str = null;
+						if (obj instanceof String) {
+							if (isChars) {
+								str = replaceChars((String)obj, str2, str3);
+							} else {
+								str = Sentence.replace((String)obj, 0, str2, str3, flag);
+							}
+						} else if (obj != null) {
+							MessageManager mm = EngineMessage.get();
+							throw new RQException("replace" + mm.getMessage("function.paramTypeError"));
+						}
+						
+						result.push(str);
+					}
+					
+					return result;
+				}
+			} else if (obj instanceof Sequence) {
+				Sequence seq2 = (Sequence)obj;
+				obj = array3.get(1);
+				if (!(obj instanceof Sequence)) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException("replace" + mm.getMessage("function.paramTypeError"));
 				}
 				
-				return result;
+				Sequence seq3 = (Sequence)obj;
+				if (array1 instanceof StringArray) {
+					StringArray stringArray = (StringArray)array1;
+					StringArray result = new StringArray(size);
+					result.setTemporary(true);
+					
+					for (int i = 1; i <= size; ++i) {
+						if (signDatas[i] == false) {
+							result.pushNull();
+							continue;
+						}
+						
+						String str = stringArray.getString(i);
+						if (str != null) {
+							str = replace(str, seq2, seq3, flag);
+							result.push(str);
+						} else {
+							result.push(null);
+						}
+					}
+					
+					return result;
+				} else if (array1 instanceof ConstArray) {
+					obj = array1.get(1);
+					String str = null;
+					if (obj instanceof String) {
+						str = replace((String)obj, seq2, seq3, flag);
+					} else if (obj != null) {
+						MessageManager mm = EngineMessage.get();
+						throw new RQException("replace" + mm.getMessage("function.paramTypeError"));
+					}
+					
+					return new ConstArray(str, size);
+				} else {
+					StringArray result = new StringArray(size);
+					result.setTemporary(true);
+					
+					for (int i = 1; i <= size; ++i) {
+						if (signDatas[i] == false) {
+							result.pushNull();
+							continue;
+						}
+						
+						obj = array1.get(i);
+						String str = null;
+						if (obj instanceof String) {
+							str = replace((String)obj, seq2, seq3, flag);
+						} else if (obj != null) {
+							MessageManager mm = EngineMessage.get();
+							throw new RQException("replace" + mm.getMessage("function.paramTypeError"));
+						}
+						
+						result.push(str);
+					}
+					
+					return result;
+				}
+			} else {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException("replace" + mm.getMessage("function.paramTypeError"));
 			}
 		} else {
 			StringArray result = new StringArray(size);
@@ -341,12 +561,18 @@ public class Replace extends Function {
 				if (obj instanceof String) {
 					Object obj2 = array2.get(i);
 					Object obj3 = array3.get(i);
-					if (!(obj2 instanceof String) || !(obj3 instanceof String)) {
+					if ((obj2 instanceof String) && (obj3 instanceof String)) {
+						if (isChars) {
+							str = replaceChars((String)obj, (String)obj2, (String)obj3);
+						} else {
+							str = Sentence.replace((String)obj, 0, (String)obj2, (String)obj3, flag);
+						}
+					} else if ((obj2 instanceof Sequence) && (obj3 instanceof Sequence)) {
+						str = replace((String)obj, (Sequence)obj2, (Sequence)obj3, flag);
+					} else {
 						MessageManager mm = EngineMessage.get();
 						throw new RQException("replace" + mm.getMessage("function.paramTypeError"));
 					}
-					
-					str = Sentence.replace((String)obj, 0, (String)obj2, (String)obj3, flag);
 				} else if (obj != null) {
 					MessageManager mm = EngineMessage.get();
 					throw new RQException("replace" + mm.getMessage("function.paramTypeError"));
