@@ -2766,6 +2766,7 @@ public class Cursor extends IDWCursor {
 			int endBlock = this.endBlock;
 			BlockLinkReader rowCountReader = this.rowCountReader;
 			IFilter []filters = this.filters;
+			int colCount = colReaders.length;
 			
 			try {
 				if (filters == null) {
@@ -2807,7 +2808,7 @@ public class Cursor extends IDWCursor {
 					BufferReader []bufReaders = new BufferReader[filterCount];
 					ColumnMetaData []columns = this.columns;
 					ObjectReader []segmentReaders = this.segmentReaders;
-					long []positions = new long[filterCount];
+					long []positions = new long[colCount];
 					
 					while (curBlock < endBlock) {
 						curBlock++;
@@ -2825,6 +2826,15 @@ public class Cursor extends IDWCursor {
 									sign = false;
 									break;
 								}
+							}
+						}
+						
+						for (; f < colCount; ++f) {
+							positions[f] = segmentReaders[f].readLong40();
+							if (columns[f].hasMaxMinValues()) {
+								segmentReaders[f].skipObject();
+								segmentReaders[f].skipObject();
+								segmentReaders[f].skipObject();
 							}
 						}
 						
