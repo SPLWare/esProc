@@ -7,7 +7,7 @@ import com.scudata.array.DateArray;
 import com.scudata.array.DoubleArray;
 import com.scudata.array.IArray;
 import com.scudata.array.LongArray;
-import com.scudata.common.DateFactory;
+import com.scudata.array.NumberArray;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
@@ -56,38 +56,10 @@ public class Interval extends Function {
 			return null;
 		}
 
-		if (result1 instanceof String) {
-			result1 = Variant.parseDate((String)result1);
-			if (!(result1 instanceof Date)) {
-				MessageManager mm = EngineMessage.get();
-				throw new RQException("interval" + mm.getMessage("function.paramTypeError"));
-			}
-		} else if (result1 instanceof Integer) {
-			result1 = DateFactory.toDate(((Integer)result1).intValue());
-		} else if (!(result1 instanceof Date)) {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException("interval" + mm.getMessage("function.paramTypeError"));
-		}
-
-		if (result2 instanceof String) {
-			result2 = Variant.parseDate((String)result2);
-			if (!(result2 instanceof Date)) {
-				MessageManager mm = EngineMessage.get();
-				throw new RQException("interval" + mm.getMessage("function.paramTypeError"));
-			}
-		} else if (result2 instanceof Integer) {
-			result2 = DateFactory.toDate(((Integer)result2).intValue());
-		} else if (!(result2 instanceof Date)) {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException("interval" + mm.getMessage("function.paramTypeError"));
-		}
-
-		Date date1 = (Date)result1;
-		Date date2 = (Date)result2;
 		if (option == null || option.indexOf('r') == -1) {
-			return new Long(Variant.interval(date1, date2, option));
+			return new Long(interval(result1, result2));
 		} else {
-			return new Double(Variant.realInterval(date1, date2, option));
+			return new Double(realInterval(result1, result2));
 		}
 	}
 	
@@ -140,6 +112,39 @@ public class Interval extends Function {
 					Date date1 = dateArray1.getDate(i);
 					Date date2 = dateArray2.getDate(i);
 					if (date1 != null && date2 != null) {
+						result.pushDouble(Variant.realInterval(date1, date2, option));
+					} else {
+						result.pushNull();
+					}
+				}
+				
+				return result;
+			}
+		} else if (array1 instanceof NumberArray && array2 instanceof NumberArray) {
+			NumberArray dateArray1 = (NumberArray)array1;
+			NumberArray dateArray2 = (NumberArray)array2;
+			
+			if (isInterval) {
+				LongArray result = new LongArray(size);
+				result.setTemporary(true);
+				for (int i = 1; i <= size; ++i) {
+					if (!dateArray1.isNull(i) && !dateArray2.isNull(i)) {
+						int date1 = dateArray1.getInt(i);
+						int date2 = dateArray2.getInt(i);
+						result.pushLong(Variant.interval(date1, date2, option));
+					} else {
+						result.pushNull();
+					}
+				}
+				
+				return result;
+			} else {
+				DoubleArray result = new DoubleArray(size);
+				result.setTemporary(true);
+				for (int i = 1; i <= size; ++i) {
+					if (!dateArray1.isNull(i) && !dateArray2.isNull(i)) {
+						int date1 = dateArray1.getInt(i);
+						int date2 = dateArray2.getInt(i);
 						result.pushDouble(Variant.realInterval(date1, date2, option));
 					} else {
 						result.pushNull();
@@ -257,6 +262,47 @@ public class Interval extends Function {
 				
 				return result;
 			}
+		} else if (array1 instanceof NumberArray && array2 instanceof NumberArray) {
+			NumberArray dateArray1 = (NumberArray)array1;
+			NumberArray dateArray2 = (NumberArray)array2;
+			
+			if (isInterval) {
+				LongArray result = new LongArray(size);
+				result.setTemporary(true);
+				for (int i = 1; i <= size; ++i) {
+					if (signDatas[i]) {
+						if (!dateArray1.isNull(i) && !dateArray2.isNull(i)) {
+							int date1 = dateArray1.getInt(i);
+							int date2 = dateArray2.getInt(i);
+							result.pushLong(Variant.interval(date1, date2, option));
+						} else {
+							result.pushNull();
+						}
+					} else {
+						result.pushLong(0);
+					}
+				}
+				
+				return result;
+			} else {
+				DoubleArray result = new DoubleArray(size);
+				result.setTemporary(true);
+				for (int i = 1; i <= size; ++i) {
+					if (signDatas[i]) {
+						if (!dateArray1.isNull(i) && !dateArray2.isNull(i)) {
+							int date1 = dateArray1.getInt(i);
+							int date2 = dateArray2.getInt(i);
+							result.pushDouble(Variant.realInterval(date1, date2, option));
+						} else {
+							result.pushNull();
+						}
+					} else {
+						result.pushDouble(0);
+					}
+				}
+				
+				return result;
+			}
 		} else {
 			if (isInterval) {
 				LongArray result = new LongArray(size);
@@ -306,7 +352,12 @@ public class Interval extends Function {
 				throw new RQException("interval" + mm.getMessage("function.paramTypeError"));
 			}
 		} else if (result1 instanceof Integer) {
-			result1 = DateFactory.toDate(((Integer)result1).intValue());
+			if (!(result2 instanceof Integer)) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException("interval" + mm.getMessage("function.paramTypeError"));
+			}
+			
+			return Variant.interval(((Integer)result1).intValue(), ((Integer)result2).intValue(), option);
 		} else if (!(result1 instanceof Date)) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("interval" + mm.getMessage("function.paramTypeError"));
@@ -318,8 +369,6 @@ public class Interval extends Function {
 				MessageManager mm = EngineMessage.get();
 				throw new RQException("interval" + mm.getMessage("function.paramTypeError"));
 			}
-		} else if (result2 instanceof Integer) {
-			result2 = DateFactory.toDate(((Integer)result2).intValue());
 		} else if (!(result2 instanceof Date)) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("interval" + mm.getMessage("function.paramTypeError"));
@@ -331,13 +380,29 @@ public class Interval extends Function {
 	private double realInterval(Object result1, Object result2) {
 		if (result1 instanceof String) {
 			result1 = Variant.parseDate((String)result1);
+			if (!(result1 instanceof Date)) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException("interval" + mm.getMessage("function.paramTypeError"));
+			}
+		} else if (result1 instanceof Integer) {
+			if (!(result2 instanceof Integer)) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException("interval" + mm.getMessage("function.paramTypeError"));
+			}
+			
+			return Variant.realInterval(((Integer)result1).intValue(), ((Integer)result2).intValue(), option);
+		} else if (!(result1 instanceof Date)) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("interval" + mm.getMessage("function.paramTypeError"));
 		}
 
 		if (result2 instanceof String) {
 			result2 = Variant.parseDate((String)result2);
-		}
-
-		if (!(result1 instanceof Date) || !(result2 instanceof Date)) {
+			if (!(result2 instanceof Date)) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException("interval" + mm.getMessage("function.paramTypeError"));
+			}
+		} else if (!(result2 instanceof Date)) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("interval" + mm.getMessage("function.paramTypeError"));
 		}
