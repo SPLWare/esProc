@@ -728,7 +728,7 @@ public class SimpleSelect
 				this.where = where; //还原提前过滤
 			}
 			
-			System.out.println("this.struct="+Arrays.toString(this.struct.getFieldNames()));
+			//System.out.println("this.struct="+Arrays.toString(this.struct.getFieldNames()));
 			
 			return this.struct;
 		}
