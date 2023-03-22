@@ -11,6 +11,7 @@ import java.util.regex.Pattern;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
+import com.scudata.common.Logger;
 
 public class ImUtils {
 	
@@ -31,7 +32,7 @@ public class ImUtils {
 		return bret;
 	}
 	
-	//通过value of map �?测是否符合规则�??
+	//通过value of map �?测是否符合规则�??
 	public static boolean hasValueOfMap(String url, Map<String, Object> mReg) {      
 		boolean bRet = false;
 		try{
@@ -42,13 +43,13 @@ public class ImUtils {
 			     if (bRet) break;
 			}
 		}catch(Exception e){
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		}
        
 		return bRet;
 	}
 	
-	//通过key of map �?测是否符合规则�??
+	//通过key of map �?测是否符合规则�??
 	public static boolean hasKeyOfMap(String url, Map<String, Object> mReg) {      
 		boolean bRet = false;
 		try{
@@ -59,7 +60,7 @@ public class ImUtils {
 			     if (bRet) break;
 			}
 		}catch(Exception e){
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		}
        
 		return bRet;
@@ -85,7 +86,7 @@ public class ImUtils {
 				}
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		}
 
 		return bRet;
@@ -107,7 +108,7 @@ public class ImUtils {
 			     }
 			}
 		}catch(Exception e){
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		}
        
 		return ret;
@@ -179,7 +180,7 @@ public class ImUtils {
 	 }
 	
 	public static String getOsSystem() {
-		String osName = System.getProperty("os.name");//获取指定键（即os.name）的系统属�??,如：Windows 7�?
+		String osName = System.getProperty("os.name");//获取指定键（即os.name）的系统属�??,如：Windows 7�?
 		String OSname=null;
 		if (Pattern.matches("Linux.*", osName)) {
 			OSname="linux";

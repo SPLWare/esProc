@@ -198,7 +198,7 @@ public class ImZip extends Function {
 				}
 			}			
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		}
 		
 		return tbl;
@@ -223,7 +223,7 @@ public class ImZip extends Function {
 			
 			return tbl;
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		}
 		return null;
 	}

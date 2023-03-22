@@ -20,7 +20,7 @@ public class ImOpen extends Function {
 	public Object calculate(Context ctx) {
 		if (param == null) {
 			MessageManager mm = EngineMessage.get();
-			throw new RQException("hive_client" + mm.getMessage("function.missingParam"));
+			throw new RQException("sap_client " + mm.getMessage("function.missingParam"));
 		}
 		Object objs[] = null;
 		String opt = this.getOption();
@@ -30,19 +30,19 @@ public class ImOpen extends Function {
 			size = param.getSubSize();
 			if (size < 6 && size != 2) {
 				MessageManager mm = EngineMessage.get();
-				throw new RQException("hive_client" + mm.getMessage("function.invalidParam"));
+				throw new RQException("sap_client " + mm.getMessage("function.invalidParam"));
 			}
 			
 			objs = new Object[size];
 			for(int i=0; i<size; i++){
 				if (param.getSub(i) == null ) {
 					MessageManager mm = EngineMessage.get();
-					throw new RQException("hive_client" + mm.getMessage("function.invalidParam"));
+					throw new RQException("sap_client " + mm.getMessage("function.invalidParam"));
 				}
 				objs[i] = (String)param.getSub(i).getLeafExpression().calculate(ctx);
 				if (!(objs[i] instanceof String)) {
 					MessageManager mm = EngineMessage.get();
-					throw new RQException("hive_client" + mm.getMessage("function.paramTypeError"));
+					throw new RQException("sap_client " + mm.getMessage("function.paramTypeError"));
 				}
 			}
 			// ImDriverCli(String user, String passwd, String ashost, String sysnr,String client, String lang)

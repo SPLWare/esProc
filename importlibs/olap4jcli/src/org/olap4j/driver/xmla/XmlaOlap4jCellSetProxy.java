@@ -11,6 +11,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.*;
+import com.scudata.common.Logger;
 
 import static org.olap4j.driver.xmla.XmlaOlap4jUtil.*;
 
@@ -194,7 +195,7 @@ abstract class XmlaOlap4jCellSetProxy extends FactoryJdbc4Plus.AbstractCellSet {
         	axisListEx = null;
 	        
         }catch(Exception e){
-        	e.printStackTrace();
+        	Logger.error(e.getMessage());
         }
     }
     
@@ -204,7 +205,7 @@ abstract class XmlaOlap4jCellSetProxy extends FactoryJdbc4Plus.AbstractCellSet {
 			listField.setAccessible(true); // ÈÆ¹ýÈ¨ÏÞ¼ì²â£¡
 			listField.set(clsObj, newValue);
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		}
 	}
     
@@ -228,7 +229,7 @@ abstract class XmlaOlap4jCellSetProxy extends FactoryJdbc4Plus.AbstractCellSet {
 			method.setAccessible(true);
 			ret = method.invoke(objCls, arg);
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		}
 		
 		return ret;
@@ -260,7 +261,7 @@ abstract class XmlaOlap4jCellSetProxy extends FactoryJdbc4Plus.AbstractCellSet {
 				ret[1] = con.newInstance(arg);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		}
 
 		return ret;
@@ -280,7 +281,7 @@ abstract class XmlaOlap4jCellSetProxy extends FactoryJdbc4Plus.AbstractCellSet {
 				ret[1] = con.newInstance(objCls, arg);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		}
 
 		return ret;

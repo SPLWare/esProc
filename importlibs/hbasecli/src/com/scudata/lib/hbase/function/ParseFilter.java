@@ -16,6 +16,7 @@ import org.apache.hadoop.hbase.util.Bytes;
 import org.apache.hadoop.hbase.util.Pair;
 
 import com.scudata.common.RQException;
+import com.scudata.common.Logger;
 import com.scudata.dm.Context;
 import com.scudata.dm.Sequence;
 
@@ -548,7 +549,7 @@ public class ParseFilter {
 //			}
 			return new FuzzyRowFilter( fuzzyKeysData );
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		}
 		
 		return null;
@@ -582,7 +583,7 @@ public class ParseFilter {
 			}
 			return new TimestampsFilter( list, (boolean)vals[1] );
 		}catch(Exception e){
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		}
 		return null;
 	}
@@ -642,7 +643,7 @@ public class ParseFilter {
 			
 			filter = new MultiRowRangeFilter( range );
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		}
 		
 		return filter;
@@ -670,7 +671,7 @@ public class ParseFilter {
 			
 			filter = new ColumnValueFilter( family, qualifier, op, bval );
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		}
 		
 		return filter;

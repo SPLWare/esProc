@@ -7,6 +7,7 @@ import java.io.OutputStream;
 import java.net.ConnectException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import com.scudata.common.Logger;
 
 public class Http {
     public static String httpsRequest(String requestUrl, String requestMethod, String outputStr) {    
@@ -45,7 +46,7 @@ public class Http {
             return buffer.toString();    
         } catch (Exception e) {    
             System.out.println("http«Î«Û“Ï≥££∫{}"+ e);
-            e.printStackTrace();
+            Logger.error(e.getMessage());
         }    
         return null;    
       }    
@@ -72,7 +73,7 @@ public class Http {
 //            	return postMethod.getResponseBodyAsString();
 //            }    
 //        } catch (Exception e) {    
-//            e.printStackTrace();    
+//            Logger.error(e.getMessage());    
 //        } finally{    
 //            if(is!=null){    
 //                is.close();    

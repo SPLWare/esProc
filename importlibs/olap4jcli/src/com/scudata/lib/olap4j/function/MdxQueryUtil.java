@@ -30,7 +30,7 @@ public class MdxQueryUtil implements IResource {
                     try {  
                         Thread.sleep(1000 * 2);  
                     } catch (InterruptedException e) {  
-                        e.printStackTrace();  
+                        Logger.error(e.getMessage());  
                     }  
                 }  
 //                String info = String.format("server=%s, catalog=%s, user=%s, password=%s", server, catalog, user, password);

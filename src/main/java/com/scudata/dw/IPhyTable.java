@@ -100,11 +100,12 @@ public interface IPhyTable extends IResource {
 	 * @param fkNames 指定FK过滤的字段名称
 	 * @param codes 指定FK过滤的数据序列
 	 * @param opts 关联字段进行关联的选项
+	 * @param opt 选项
 	 * @param ctx
 	 * @return
 	 */
 	ICursor cursor(Expression []exps, String []fields, Expression filter, 
-			String []fkNames, Sequence []codes, String []opts, Context ctx);
+			String []fkNames, Sequence []codes, String []opts, String opt, Context ctx);
 	
 	/**
 	 * 返回多路游标，pathCount为1时返回普通游标
@@ -115,11 +116,13 @@ public interface IPhyTable extends IResource {
 	 * @param codes 指定FK过滤的数据序列
 	 * @param opts 关联字段进行关联的选项
 	 * @param pathCount 路数
+	 * @param opt 选项
 	 * @param ctx
 	 * @return
 	 */
 	ICursor cursor(Expression []exps, String []fields, Expression filter, 
-			String []fkNames, Sequence []codes, String []opts, int pathCount, Context ctx);
+			String []fkNames, Sequence []codes, String []opts, 
+			int pathCount, String opt, Context ctx);
 	
 	/**
 	 * 返回分段游标
@@ -131,11 +134,13 @@ public interface IPhyTable extends IResource {
 	 * @param opts 关联字段进行关联的选项
 	 * @param segSeq 第几段
 	 * @param segCount  分段总数
+	 * @param opt 选项
 	 * @param ctx 上下文
 	 * @return
 	 */
 	ICursor cursor(Expression []exps, String []fields, Expression filter, 
-			String []fkNames, Sequence []codes, String []opts, int pathSeq, int pathCount, Context ctx);
+			String []fkNames, Sequence []codes, String []opts, 
+			int pathSeq, int pathCount, String opt, Context ctx);
 	
 	/**
 	 * 返回与mcs同步分段的多路游标
@@ -151,7 +156,8 @@ public interface IPhyTable extends IResource {
 	 * @return
 	 */
 	ICursor cursor(Expression []exps, String []fields, Expression filter, 
-			String []fkNames, Sequence []codes, String []opts, MultipathCursors mcs, String opt, Context ctx);
+			String []fkNames, Sequence []codes, String []opts, 
+			MultipathCursors mcs, String opt, Context ctx);
 
 	/**
 	 * 二次分段的游标
@@ -165,11 +171,13 @@ public interface IPhyTable extends IResource {
 	 * @param pathSeq 第几段
 	 * @param pathCount 节点机数
 	 * @param pathCount2 节点机上指定的块数
+	 * @param opt 选项
 	 * @param ctx 上下文
 	 * @return
 	 */
 	ICursor cursor(Expression []exps, String []fields, Expression filter, 
-			String []fkNames, Sequence []codes, String []opts, int pathSeq, int pathCount, int pathCount2, Context ctx);
+			String []fkNames, Sequence []codes, String []opts, 
+			int pathSeq, int pathCount, int pathCount2, String opt, Context ctx);
 	
 	/**
 	 * 根据主键查找记录

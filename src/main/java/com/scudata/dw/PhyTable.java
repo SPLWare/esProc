@@ -1941,15 +1941,15 @@ abstract public class PhyTable implements IPhyTable {
 	}
 
 	public ICursor cursor() {
-		return cursor(null, null, null, null, null, null, groupTable.ctx);
+		return cursor(null, null, null, null, null, null, null, groupTable.ctx);
 	}
 	
 	public ICursor cursor(String []fields) {
-		return cursor(null, fields, null, null, null,null,  groupTable.ctx);
+		return cursor(null, fields, null, null, null, null, null, groupTable.ctx);
 	}
 	
 	public ICursor cursor(String []fields, Expression filter, Context ctx) {
-		return cursor(null, fields, filter, null, null, null, ctx);
+		return cursor(null, fields, filter, null, null, null, null, ctx);
 	}
 	
 	/**

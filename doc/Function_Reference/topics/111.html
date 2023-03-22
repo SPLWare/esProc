@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>callx()</title>
+<title>call()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,9 +13,205 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h2><span lang=EN-US>callx()<a name=callx></a></span></h2></div>
-	<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>Here’s how to use the callx() function.</span></p>
+	<div id="centent-title"><h2><a name=call></a><a name="_A.countif()"></a><span lang=EN-US>call()</span></h2></div>
+	<p class=ad style='line-height:200%'><span lang=EN-US>Description:</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Call a script
+file and return the first result set. </span></p>
+
+<p class=ad style='line-height:200%'><span lang=EN-US>Syntax:</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span class=code><span
+lang=EN-US style='font-family:"Times New Roman","serif"'>call(</span></span><span
+class=var1><span lang=EN-US>spl</span></span><span lang=EN-US>,<span
+class=var0>arg1</span>,…</span><span class=code><span lang=EN-US
+style='font-family:"Times New Roman","serif"'>)</span></span></p>
+
+<p class=ad style='line-height:200%'><span lang=EN-US>Note:</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:
+exactly'><span lang=EN-US>The function calls script file <i>.</i></span><span
+class=var1><span lang=EN-US style='mso-bidi-font-style:normal'>dfx</span></span><span
+class=var1><span lang=EN-US style='font-style:normal;mso-bidi-font-style:italic'>/</span></span><span
+class=var1><span lang=EN-US style='mso-bidi-font-style:normal'>.splx</span></span><span
+lang=EN-US> while passing in the parameter <span class=var0><span
+style='mso-bidi-font-style:normal'>arg1</span></span><span class=var0><span
+style='font-style:normal'>,</span></span>…, returns the first value that <i
+style='mso-bidi-font-style:normal'>dfx</i> returns, and ends the invocation. It
+is a non-cellset function and so can be used outside the cellset. The function
+will automatically use the @s option to search for the <i>.</i><i
+style='mso-bidi-font-style:normal'>dfx</i></span><span class=var1><span
+lang=EN-US style='font-style:normal;mso-bidi-font-style:italic'>/</span></span><span
+class=var1><span lang=EN-US style='mso-bidi-font-style:normal'>.splx</span></span><i
+style='mso-bidi-font-style:normal'><span lang=EN-US> </span></i><span
+lang=EN-US>among the file names with non-absolute paths in a specified order:
+Class path -&gt; Search path -&gt; Main path. The default main path is the
+current path. </span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:
+exactly'><span lang=EN-US>When calling the </span><span class=code><span
+lang=EN-US style='font-family:"Times New Roman","serif"'>call</span></span><span
+lang=EN-US> function, parameters <i style='mso-bidi-font-style:normal'>arg1</i>,...
+will be assigned to <i>.</i></span><span class=var1><span lang=EN-US>dfx</span></span><span
+class=var1><span lang=EN-US style='font-style:normal;mso-bidi-font-style:italic'>/</span></span><span
+class=var1><span lang=EN-US style='mso-bidi-font-style:normal'>.splx</span></span><span
+class=var1><span lang=EN-US style='font-style:normal;mso-bidi-font-style:italic'>’s
+parameters</span></span><span lang=EN-US> in order, which is irrelevant to the
+parameter names in <i>.</i></span><span class=var1><span lang=EN-US>dfx</span></span><span
+class=var1><span lang=EN-US style='font-style:normal;mso-bidi-font-style:italic'>/</span></span><span
+class=var1><span lang=EN-US style='mso-bidi-font-style:normal'>.splx</span></span><span
+class=var1><span lang=EN-US style='font-style:normal;mso-bidi-font-style:italic'>’s</span></span><span
+lang=EN-US> parameter list.</span></p>
+
+<p class=ad style='line-height:200%'><span lang=EN-US>Parameter:</span></p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=111 valign=top style='width:66.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=var1><span lang=EN-US>spl</span></span></p>
+  </td>
+  <td width=571 valign=top style='width:342.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>A script file <i>.</i></span><span
+  class=var1><span lang=EN-US style='mso-bidi-font-style:normal'>dfx</span></span><span
+  class=var1><span lang=EN-US style='font-style:normal;mso-bidi-font-style:
+  italic'>/</span></span><span class=var1><span lang=EN-US style='mso-bidi-font-style:
+  normal'>.splx</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
+  <td width=111 valign=top style='width:66.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=var0><span lang=EN-US>arg1</span></span><span
+  lang=EN-US>,</span><span class=var1><span lang=EN-US>…</span></span></p>
+  </td>
+  <td width=571 valign=top style='width:342.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Parameters</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=ad style='line-height:200%'><span lang=EN-US>Option:</span></p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:19.85pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'>
+  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>@r</span></span><span
+  class=var1><span lang=EN-US></span></span></p>
+  </td>
+  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Disable the default buffer call</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=ad style='line-height:200%'><span lang=EN-US>Example:</span></p>
+
+<p class=MsoNormal><span lang=EN-US>Below are the contents of script file<i
+style='mso-bidi-font-style:normal'> C:\\test.dfx</i> where <i style='mso-bidi-font-style:
+normal'>arg1</i> is the cellset parameter:</span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='margin-left:7.35pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
+ mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=20 valign=top style='width:12.2pt;border:solid #A6A6A6 1.0pt;
+  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  </td>
+  <td width=392 valign=top style='width:235.3pt;border:solid #A6A6A6 1.0pt;
+  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>A</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=20 valign=top style='width:12.2pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>1</span></span></p>
+  </td>
+  <td width=392 valign=top style='width:235.3pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=connect(&quot;demo&quot;).query(&quot;select
+  * from Students1 where Age&gt;?&quot;,arg1)</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes'>
+  <td width=20 valign=top style='width:12.2pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>2</span></span></p>
+  </td>
+  <td width=392 valign=top style='width:235.3pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>return
+  A1</span></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='margin-left:7.35pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
+ mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=21 valign=top style='width:12.75pt;border:solid #A6A6A6 1.0pt;
+  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  </td>
+  <td width=247 valign=top style='width:147.9pt;border:solid #A6A6A6 1.0pt;
+  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>A</span></span></p>
+  </td>
+  <td width=413 valign=top style='width:247.55pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
+  <td width=21 valign=top style='width:12.75pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>1</span></span></p>
+  </td>
+  <td width=247 style='width:147.9pt;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=call(&quot;C:\\test.dfx&quot;,15)</span></span></p>
+  </td>
+  <td width=413 style='width:247.55pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Call the script file, and return the
+  first returned value. Query the data of students who are above 15 years old </span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=af3CxSpFirst style='text-align:justify;text-justify:inter-ideograph;
+text-indent:0cm;mso-char-indent-count:0'><b style='mso-bidi-font-weight:normal'><span
+lang=EN-US>&nbsp;</span></b></p>
+
+<p class=af3CxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:0cm;mso-char-indent-count:0'><b style='mso-bidi-font-weight:normal'><span
+lang=EN-US>Note: </span></b></p>
+
+<p class=af3CxSpLast style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US>Use the comma to separate the multiple
+results returned. E.g. return A1,B2. <b style='mso-bidi-font-weight:normal'></b></span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="112.html">Next</a></div>
@@ -24,13 +220,12 @@ lang=EN-US>Here’s how to use the callx() function.</span></p>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
 		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="45.html">Functions</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="112.html">callx( spl,...;hs;rdfx )</a></span></li>
 </div>
 	</div>
 	<div id="footer">	
 		
 		
-    <div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+    <div class="copyright"> Copyright&reg; 2021 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
       </a></div>
 	</div>
 </div>

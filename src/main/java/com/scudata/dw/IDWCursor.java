@@ -40,10 +40,19 @@ public abstract class IDWCursor extends ICursor {
 	 * 取分段游标的起始值，如果有分段字段则返回分段字段的值，没有则返回维字段的值
 	 * @return 分段游标首条记录的分段字段的值，如果当前段数为0则返回null
 	 */
-	public Object[] getSegmentStartValues() {
+	public Object[] getSegmentStartValues(String option) {
+		boolean hasK = option != null && option.indexOf('k') != -1;
 		ColPhyTable table = (ColPhyTable) getTableMetaData();
 		int startBlock = getStartBlock();
-		String segmentCol = table.getSegmentCol();
+		String segmentCol = null;
+		if (hasK) {
+			String[] tempCols = table.getAllKeyColNames();
+			if (tempCols != null)
+				segmentCol = tempCols[0];
+		} else {
+			segmentCol = table.getSegmentCol();
+		}
+		
 		
 		ColumnMetaData[] cols;
 		DataStruct ds = getDataStruct();

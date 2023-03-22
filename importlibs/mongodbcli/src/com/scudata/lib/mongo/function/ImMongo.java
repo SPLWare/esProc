@@ -1,57 +1,28 @@
 package com.scudata.lib.mongo.function;
 
 import java.io.File;
-
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientOptions;
 import com.mongodb.MongoClientURI;
-import com.mongodb.client.ClientSession;
-import com.mongodb.client.MongoDatabase;
 import com.scudata.common.Logger;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
 import com.scudata.dm.IResource;
-import com.scudata.dm.Sequence;
 
 public class ImMongo implements IResource {
+	private Context m_ctx;
 	public MongoClient m_client;
-	public MongoDatabase m_db;
-	private Context ctx;
+	public String m_dbName;
 	
 	// mongodb://[user:pwd@]ip:port/db?arg=v
 	public ImMongo(Object[] objs, Context ctx) {
-		this.ctx = ctx;
+		this.m_ctx = ctx;
 
 		try {
 			String str = objs[0].toString();
-			MongoClientOptions.Builder optionsBuilder = MongoClientOptions.builder();
-//			if (objs.length>=2 && objs[1] instanceof Sequence){
-//				Sequence seq = (Sequence)objs[1];
-//				for(int i=0; i<seq.length(); i++){
-//					Object item = seq.get(i+1);
-//					if (i==0){
-//						if (item instanceof Integer){						
-//							optionsBuilder.connectTimeout(Integer.parseInt(item.toString()));
-//						}else{
-//							optionsBuilder.connectTimeout(3000);
-//						}
-//					}else if (i==1){
-//						if (item instanceof Integer){						
-//							optionsBuilder.socketTimeout(Integer.parseInt(item.toString()));
-//						}else{
-//							optionsBuilder.socketTimeout(3000);
-//						}
-//					}else if (i==2){
-//						if (item instanceof Integer){						
-//							optionsBuilder.serverSelectionTimeout(Integer.parseInt(item.toString()));
-//						}else{
-//							optionsBuilder.serverSelectionTimeout(3000);
-//						}
-//					}
-//				}				
-//			}
-			
 			char SEP = File.separatorChar;
+			MongoClientOptions.Builder optionsBuilder = MongoClientOptions.builder();
+			
 			if (objs.length>=2 ){
 				String skey = null;
 				String sval = null;
@@ -95,23 +66,37 @@ public class ImMongo implements IResource {
 			if (str.toLowerCase().contains("ssl=true")){
 				optionsBuilder.sslEnabled(true).sslInvalidHostNameAllowed(true);
 			}
-			MongoClientURI conn = new MongoClientURI(str, optionsBuilder);
 			
-			m_client = new MongoClient(conn);		
-			m_client.startSession();
-		
-			m_db = m_client.getDatabase(conn.getDatabase());
+			MongoClientURI conn = new MongoClientURI(str, optionsBuilder);
+			m_dbName = conn.getDatabase();
+			m_client = new MongoClient(conn);	
+			MongoClientOptions.builder().connectionsPerHost(50).build();//每个主机的连接数
+			
 			if (ctx != null) ctx.addResource(this);
 		} catch (Exception e) {
 			throw new RQException(e);
 		}
 	}
 
-	@Override
 	public void close() {
-		if (ctx != null){
-			ctx.removeResource(this);
+		try {
+			if (m_ctx != null){
+				m_ctx.removeResource(this);
+				m_ctx = null;
+			}
+		} catch (Exception e) {
+			Logger.error(e.getStackTrace());
 		}
-		m_client.close();		
+	}
+	
+	public void dbClose() {
+		try {
+			if(m_client!=null){
+				m_client.close();
+				m_client = null;
+			}
+		} catch (Exception e) {
+			Logger.error(e.getStackTrace());
+		}
 	}
 }

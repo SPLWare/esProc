@@ -8,6 +8,7 @@ import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Context;
 import com.scudata.dm.DataStruct;
 import com.scudata.dm.Sequence;
+import com.scudata.expression.Constant;
 import com.scudata.expression.Expression;
 import com.scudata.expression.Node;
 import com.scudata.resources.EngineMessage;
@@ -37,7 +38,8 @@ public class NotFindFilter extends FindFilter {
 				throw new RQException(mm.getMessage("engine.needPmt"));
 			}
 		}
-				if (node != null) exp = new Expression(node);
+		
+		if (node != null) exp = new Expression(node);
 		if (node != null) {
 			exp = new Expression(node);
 		}
@@ -102,7 +104,10 @@ public class NotFindFilter extends FindFilter {
 	
 	public void initExp() {
 		if (exp == null) {
-			throw new RuntimeException();
+			String s = "!(null.find(" + column.getColName() + "))";
+			exp = new Expression(s);
+			
+			exp.getHome().getRight().setLeft(new Constant(code));
 		}
 	}
 }

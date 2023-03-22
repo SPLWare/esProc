@@ -409,6 +409,10 @@ public class FileCursor extends ICursor {
 			}
 		}
 		
+		if (end > 0 && importer.getCurrentPosition() > end) {
+			return null;
+		}
+		
 		int fcount;
 		if (ds == null) {
 			// 首次读且没有标题

@@ -14,6 +14,7 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 
 import com.scudata.common.RQException;
+import com.scudata.common.Logger;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
 import com.scudata.dm.sql.SQLUtil;
@@ -97,7 +98,7 @@ public class ImQuery extends ImFunction {
 				}				
 			}
 		}catch(Exception e) {
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		}
 		return ret;
 	}
@@ -106,7 +107,7 @@ public class ImQuery extends ImFunction {
 	    System.out.println("****************Case QUERY**************");
 	    Table tbl = null;
 	    try {
-	    	Map<String, List<String>> tblMap = null; 	//记录子表名及其字�?
+	    	Map<String, List<String>> tblMap = null; 	//记录子表名及其字欿
 	    	String finalURI = null;
 	    	if(sVal!=null) {
 		    	String val = sVal;
@@ -214,7 +215,7 @@ public class ImQuery extends ImFunction {
 	    return tbl;
 	  }
 		
-	// 过滤表字�?.
+	// 过滤表字欿.
 	private String[] doFilterCols(String[] cols, Map<String, List<String>> tblMap) {
 		List<String> ls = new ArrayList<String>();
 		List<String> mls = tblMap.get("_MainTable_");
@@ -243,7 +244,7 @@ public class ImQuery extends ImFunction {
 				  subT.newLast(oSub);
 			  }
 		} catch (JSONException e) {
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		}
 		  
 		return subT;

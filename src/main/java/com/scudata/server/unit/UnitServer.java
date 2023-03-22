@@ -374,7 +374,7 @@ public class UnitServer implements IServer {
 			checkContext();
 			String host = unitContext.getLocalHost();
 			InetAddress add = InetAddress.getByName(host);
-			serverSocket = new ServerSocket(unitContext.getLocalPort(), 10, add);
+			serverSocket = new ServerSocket(unitContext.getLocalPort(), unitContext.getBacklog(), add);
 			int timeOut = 3;
 			serverSocket.setSoTimeout(timeOut * 1000);
 		} catch (Exception x) {

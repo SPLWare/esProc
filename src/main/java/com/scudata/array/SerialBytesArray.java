@@ -259,7 +259,7 @@ public class SerialBytesArray implements IArray {
 				size++;
 				Object obj = array.get(i);
 				if (obj instanceof SerialBytes) {
-					SerialBytes sb = (SerialBytes)array.get(i);
+					SerialBytes sb = (SerialBytes)obj;
 					datas1[size] = sb.getValue1();
 					datas2[size] = sb.getValue2();
 				} else if (obj == null) {
@@ -275,7 +275,47 @@ public class SerialBytesArray implements IArray {
 			this.size = size;
 		}
 	}
-
+	
+	/**
+	 * 追加一组元素，如果类型不兼容则抛出异常
+	 * @param array 元素数组
+	 * @param index 要加入的数据的起始位置
+	 * @param count 数量
+	 */
+	public void addAll(IArray array, int index, int count) {
+		if (array instanceof SerialBytesArray) {
+			ensureCapacity(size + count);
+			SerialBytesArray sba = (SerialBytesArray)array;
+			System.arraycopy(sba.datas1, index, datas1, size + 1, count);
+			System.arraycopy(sba.datas2, index, datas2, size + 1, count);
+			size += count;
+		} else {
+			int size = this.size;
+			ensureCapacity(size + count);
+			long []datas1 = this.datas1;
+			long []datas2 = this.datas2;
+			
+			for (int i = 1; i <= count; ++i, ++index) {
+				size++;
+				Object obj = array.get(index);
+				if (obj instanceof SerialBytes) {
+					SerialBytes sb = (SerialBytes)obj;
+					datas1[size] = sb.getValue1();
+					datas2[size] = sb.getValue2();
+				} else if (obj == null) {
+					datas1[size] = NULL;
+					datas2[size] = NULL;
+				} else {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException(mm.getMessage("pdm.arrayTypeError", 
+							mm.getMessage("DataType.SerialBytes"), Variant.getDataType(obj)));
+				}
+			}
+			
+			this.size = size;
+		}
+	}
+	
 	/**
 	 * 插入元素，如果类型不兼容则抛出异常
 	 * @param index 插入位置，从1开始计数

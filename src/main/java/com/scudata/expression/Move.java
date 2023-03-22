@@ -2,6 +2,8 @@ package com.scudata.expression;
 
 import java.util.List;
 
+import com.scudata.array.ConstArray;
+import com.scudata.array.IArray;
 import com.scudata.cellset.INormalCell;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
@@ -306,5 +308,63 @@ public class Move extends Function {
 		}
 
 		return result;
+	}
+	
+	/**
+	 * 计算出所有行的结果
+	 * @param ctx 计算上行文
+	 * @return IArray
+	 */
+	public IArray calculateAll(Context ctx) {
+		if (param.isLeaf()) {
+			IArray posArray = param.getLeafExpression().calculateAll(ctx);
+			if (posArray instanceof ConstArray) {
+				int move = posArray.getInt(1);
+				IArray array = left.calculateAll(ctx);
+				int len = array.size();
+				
+				if (move > 0) {
+					if (move < len) {
+						IArray result = array.newInstance(len);
+						result.addAll(array, move + 1, len - move);
+						for (int i = result.size(); i <= len; ++i) {
+							result.pushNull();
+						}
+						
+						return result;
+					} else {
+						return new ConstArray(null, len);
+					}
+				} else if (move < 0) {
+					int end = len + move;
+					if (end > 0) {
+						IArray result = array.newInstance(len);
+						for (int i = end + 1; i <= len; ++i) {
+							result.pushNull();
+						}
+						
+						result.addAll(array, end);
+						return result;
+					} else {
+						return new ConstArray(null, len);
+					}
+				} else {
+					return array;
+				}
+			}
+		}
+
+		return super.calculateAll(ctx);
+	}
+	
+	/**
+	 * 计算signArray中取值为sign的行
+	 * @param ctx
+	 * @param signArray 行标识数组
+	 * @param sign 标识
+	 * @return IArray
+	 */
+	public IArray calculateAll(Context ctx, IArray signArray, boolean sign) {
+		return calculateAll(ctx);
 	}
 }

@@ -12,6 +12,7 @@ import java.util.regex.Pattern;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
 import com.scudata.dm.sql.SQLUtil;
+import com.scudata.common.Logger;
 import com.sforce.soap.enterprise.sobject.SObject;
 
 public class ImWsdlCommon {
@@ -33,22 +34,22 @@ public class ImWsdlCommon {
 		        //System.out.println(k+": " + ret+"; ");
 			}
 		}catch(Exception e) {
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		}
 
 		return ret;
 	}
 	
-	//根据类实现返回getXXX()的方�?.
+	//根据类实现返回getXXX()的方汿.
 	public static void doMapMethod(Map<String, Method> mmap, SObject sobj) {
 		try {
 			mmap.clear();
 			Class<?> catClass = Class.forName(sobj.getClass().getName());
 			if (catClass==null) return;
 			
-	        // 获得这个类的�?有方�?
+	        // 获得这个类的懿有方汿
 	        Method[] methods = catClass.getMethods();
-	        // 循环查找想要的方�?
+	        // 循环查找想要的方汿
 	        String key = null;
 	        for(Method method : methods) {
 	        	if (method.getName().startsWith("get")) {
@@ -57,7 +58,7 @@ public class ImWsdlCommon {
 	        	}
 	        }	        
 		}catch(Exception e) {
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		}
 	}
 	
@@ -66,9 +67,9 @@ public class ImWsdlCommon {
 		Table ret = null;
 		try {
 			Class<?> catClass = Class.forName(sobj.getClass().getName());
-	        // 获得这个类的�?有方�?
+	        // 获得这个类的懿有方汿
 	        Method[] methods = catClass.getMethods();
-	        // 循环查找想要的方�?
+	        // 循环查找想要的方汿
 	        List<String> ks = new ArrayList<String>();
 	        List<Object> vs = new ArrayList<Object>();
 
@@ -86,21 +87,21 @@ public class ImWsdlCommon {
 	        ret = new Table(ks.toArray(new String[ks.size()]));
 	        ret.newLast(vs.toArray(new Object[vs.size()]));
 		}catch(Exception e) {
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		}
 		
 		return ret;
 	}
 	
 	/**
-	 * @功能�? 解析 find下returning中N个Table返回值字�?
-	 * 若Table无返回�?�，则不记录.
+	 * @功能ﺿ 解析 find下returning中N个Table返回值字欿
+	 * 若Table无返回㿼，则不记录.
 	 * @param sql 
 	 * 		查询的sql语句
 	 * 测试参数：String sql = "FIND {United Oil*} IN ALL FIELDS  RETURNING Account, Contact( name,email ),Goods, 
 	 *						Opportunity( name  , StageName )";
 	 * @param map
-	 * 		用于记录表及其字�?
+	 * 		用于记录表及其字欿
 	 *******************/
 	public static void doReturning(String sql, Map<String, List<String>> map){
 		 if( sql==null ||sql.isEmpty())return;
@@ -133,7 +134,7 @@ public class ImWsdlCommon {
 						 vals.add(s);
 					 }
 				 }else{
-					 //形如format(AA) aa格式�? format(current(AA)) aa格式
+					 //形如format(AA) aa格式憿 format(current(AA)) aa格式
 					 String reg = "\\(([\\w\\(\\)]+)\\)\\s+(\\w+)"; 
 					 Matcher m = Pattern.compile(reg).matcher(s);
 					 if (m.find()) {

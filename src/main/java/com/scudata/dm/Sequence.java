@@ -2645,6 +2645,8 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			return result;
 		} else if (opt.indexOf('u') != -1) {
 			return CursorUtil.hashId(this, opt);
+		} else if (opt.indexOf('n') != -1 || opt.indexOf('b') != -1) {
+			return CursorUtil.hashId(this, opt);
 		} else {
 			if (length() > SORT_HASH_LEN) {
 				return CursorUtil.hashId(this, opt);
@@ -3981,25 +3983,37 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		if (exp == null) {
 			return this;
 		}
-
-		int size = length();
-		Sequence result = new Sequence(size);
-		IArray resultMems = result.getMems();
-
+		
 		ComputeStack stack = ctx.getComputeStack();
 		Current current = new Current(this);
-		stack.push(current);
 
-		try {
-			for (int i = 1; i <= size; ++i) {
-				current.setCurrent(i);
-				resultMems.add(exp.calculate(ctx));
+		if (mems instanceof ObjectArray) {
+			int size = length();
+			Sequence result = new Sequence(size);
+			IArray resultMems = result.getMems();
+			stack.push(current);
+
+			try {
+				for (int i = 1; i <= size; ++i) {
+					current.setCurrent(i);
+					resultMems.add(exp.calculate(ctx));
+				}
+			} finally {
+				stack.pop();
 			}
-		} finally {
-			stack.pop();
-		}
 
-		return result;
+			return result;
+		} else {
+			stack.push(current);
+
+			try {
+				IArray array = exp.calculateAll(ctx);
+				array = array.reserve(false);
+				return new Sequence(array);
+			} finally {
+				stack.pop();
+			}
+		}
 	}
 
 	private Sequence calc(Expression []exps, Context ctx) {
@@ -9715,7 +9729,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	public Table groups(Expression[] exps, String[] names, Expression[] calcExps,
 			String[] calcNames, String opt, Context ctx, int hashCapacity) {
 		if (opt != null && opt.indexOf('z') != -1) {
-			throw new RuntimeException();
+			return CursorUtil.groups_z(this, exps, names, calcExps, calcNames, opt, ctx, hashCapacity);
 		}
 		return groups(exps, names, calcExps, calcNames, opt, ctx);
 	}
@@ -11736,14 +11750,14 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @param opt m：并行创建，n：基本键是序号
 	 * @return IndexTable
 	 */
-	public IndexTable newIndexTable(int []fields, int capacity, String opt) {
+	public IndexTable newIndexTable(int []fields, int capacity, String opt) {		
 		if (fields.length == 1) {
 			DataStruct ds = dataStruct();
 			if ((ds != null && ds.isSeqKey()) || (opt != null && opt.indexOf('n') != -1)) {
 				return new SeqIndexTable(this, fields[0]);
 			} else {
 				HashIndexTable it = new HashIndexTable(capacity, opt);
-				it.create(this, fields[0]);
+				it.create(this, fields[0], true);
 				return it;
 			}
 		} else {
@@ -11755,7 +11769,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			}
 			
 			HashArrayIndexTable it = new HashArrayIndexTable(capacity, opt);
-			it.create(this, fields);
+			it.create(this, fields, true);
 			return it;
 		}
 	}
@@ -11830,5 +11844,159 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 */
 	public ICursor cursor(int start, int end) {
 		return new MemoryCursor(this, start, end);
+	}
+	
+	/**
+	 * 把位值序列转成long值序列
+	 * @param opt m：并行计算
+	 * @return Sequence
+	 */
+	public Sequence bits(String opt) {
+		if (opt != null && opt.indexOf('m') != -1) {
+			return MultithreadUtil.bits(this, opt);
+		}
+		
+		IArray mems = getMems();
+		int len = mems.size();
+		if (len == 0) {
+			return new Sequence(0);
+		}
+		
+		int q = 1;
+		int numCount = len / 64;
+		Sequence result;
+		
+		if (len % 64 == 0) {
+			result = new Sequence(numCount);
+		} else {
+			result = new Sequence(numCount + 1);
+		}
+		
+		if (opt == null || opt.indexOf('n') == -1) {
+			for (int i = 0; i < numCount; ++i) {
+				long value = 0;
+				for (int j = 63; j >= 0; --j, ++q) {
+					value += mems.getLong(q) << j;
+				}
+				
+				result.add(value);
+			}
+			
+			if (q <= len) {
+				long value = 0;
+				for (int j = 63; q <= len; --j, ++q) {
+					value += mems.getLong(q) << j;
+				}
+				
+				result.add(value);
+			}
+		} else {
+			for (int i = 0; i < numCount; ++i) {
+				long value = 0;
+				for (int j = 63; j >= 0; --j, ++q) {
+					if (mems.isTrue(q)) {
+						value += 1L << j;
+					}
+				}
+				
+				result.add(value);
+			}
+			
+			if (q <= len) {
+				long value = 0;
+				for (int j = 63; q <= len; --j, ++q) {
+					if (mems.isTrue(q)) {
+						value += 1L << j;
+					}
+				}
+				
+				result.add(value);
+			}
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * 把位值序列转成long值序列
+	 * @param start 起始位置（包含）
+	 * @param end 结束位置（不包含）
+	 * @param opt m：并行计算，n：成员取值为真假
+	 * @return Sequence
+	 */
+	public Sequence bits(int start, int end, String opt) {
+		IArray mems = getMems();
+		int count = end - start;
+		int numCount = count / 64;
+		Sequence result;
+		int q = start;
+		
+		if (count % 64 == 0) {
+			result = new Sequence(numCount);
+		} else {
+			result = new Sequence(numCount + 1);
+		}
+		
+		if (opt == null || opt.indexOf('n') == -1) {
+			for (int i = 0; i < numCount; ++i) {
+				long value = 0;
+				for (int j = 63; j >= 0; --j, ++q) {
+					value += mems.getLong(q) << j;
+				}
+				
+				result.add(value);
+			}
+			
+			if (q < end) {
+				long value = 0;
+				for (int j = 63; q < end; --j, ++q) {
+					value += mems.getLong(q) << j;
+				}
+				
+				result.add(value);
+			}
+		} else {
+			for (int i = 0; i < numCount; ++i) {
+				long value = 0;
+				for (int j = 63; j >= 0; --j, ++q) {
+					if (mems.isTrue(q)) {
+						value += 1L << j;
+					}
+				}
+				
+				result.add(value);
+			}
+			
+			if (q < end) {
+				long value = 0;
+				for (int j = 63; q < end; --j, ++q) {
+					if (mems.isTrue(q)) {
+						value += 1L << j;
+					}
+				}
+				
+				result.add(value);
+			}
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * 判断指定位的值是不是1
+	 * @param n 位号
+	 * @param opt
+	 * @return true：是1，false：不是
+	 */
+	public boolean bits(int n, String opt) {
+		int q = (n - 1) / 64 + 1;
+		IArray mems = getMems();
+		
+		if (q <= mems.size()) {
+			long value = mems.getLong(q);
+			return (value & (1 << (n - 1) % 64)) != 0;
+		} else {
+			return false;
+		}
 	}
 }

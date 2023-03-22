@@ -9,6 +9,7 @@ import java.io.OutputStream;
 import java.io.PrintStream;
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
@@ -20,6 +21,7 @@ import com.scudata.common.ArgumentTokenizer;
 import com.scudata.common.FileUtils;
 import com.scudata.common.Logger;
 import com.scudata.common.MessageManager;
+import com.scudata.common.SegmentSet;
 import com.scudata.common.StringUtils;
 import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Context;
@@ -28,12 +30,10 @@ import com.scudata.dm.FileObject;
 import com.scudata.dm.JobSpaceManager;
 import com.scudata.dm.Param;
 import com.scudata.dm.ParamList;
-import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
 import com.scudata.expression.mfn.sequence.Export;
 import com.scudata.ide.spl.Esprocx;
-import com.scudata.parallel.Task;
 import com.scudata.resources.ParallelMessage;
 import com.scudata.server.IServer;
 import com.scudata.thread.Job;
@@ -48,9 +48,11 @@ import com.sun.net.httpserver.HttpHandler;
  * Http服务处理器
  * 
  * 支持的url写法:
- * 1  http://..../splx1.splx()
- * 2  http://..../splx1.splx(arg1,arg2,...)
- * 3  http://localhost:.../splx1.splx(...)splx2.splx
+ * 1  http://..../splx()
+ * 2  http://..../splx(arg1,arg2,...)
+ * 3  http://localhost:.../splx1(...)splx2.splx
+ * 4  http://localhost:.../.../splx?arg1=v1&arg2=v2  不能带扩展名，否则读不到问号后的参数
+ * 5  http://localhost:.../.../splx/arg1/arg2/...    restful风格，arg1开始都是参数值，按顺序与splx中的参数对应
  * HTTP服务的url串格式，分两种情况：
  * 1、只有一个splx文件。如果splx有参数，则在括号里依次写参数值，值间用逗号分隔；
  * 如果没有参数，则写个空括号。 计算结果按系统默认格式转化成字符串返回
@@ -213,12 +215,10 @@ public class SplxHttpHandler implements HttpHandler {
 						}
 						String fileName = "";
 						String splx2 = "";
-						String params = "";
+						String params = "";   //仅有参数值，用于记录spl格式的()中写的参数值
+						HashMap<String,String> paramsMap = new HashMap<String,String>();
 						int pos = path.indexOf( "(" );
 						if( pos > 0 ) { 
-							if( path.indexOf(".splx") < 0 && path.indexOf(".spl") < 0 && path.indexOf(".dfx") < 0 )
-								throw new Exception(
-										mm.getMessage("DfxHttpHandler.errorurl"));
 							path = path.trim();
 							pos = path.lastIndexOf(")");
 							if (pos < 0)
@@ -235,45 +235,75 @@ public class SplxHttpHandler implements HttpHandler {
 							fileName = path1.substring(1, start).trim();
 						}
 						else {
-							//path中没有()，说明是sap的restful格式的url: http://..../sapPath/dfx/argvalue1/argvalue2/...
-							//其中argvalue是参数名与值合在一起书写，参数名全是字母，参数值全是数字开头
-							//没有dfx2
+							//path中没有()，说明是restful格式的url: http://..../sapPath/splx/argvalue1/argvalue2/...
+							//其中argvalue是参数值，按照顺序与splx中的参数对应
+							//或者是常规url格式 http://localhost:.../.../splx?arg1=v1&arg2=v2
+							//没有splx2
 							path = path.trim();
-							ArrayList<String> saps = SplxServerInIDE.getInstance().getContext().getSapPath();
-							String prefix = "";
-							for( int k = 0; k < saps.size(); k++ ) {
-								String sap = saps.get( k );
-								if( !sap.startsWith( "/" ) ) sap = "/" + sap;
-								if( path.startsWith( sap ) ) {
-									if( sap.length() > prefix.length() ) prefix = sap;
+							String queryParams = uri.getQuery();
+							if( queryParams == null || queryParams.trim().length() == 0 ) {   //restful
+								ArrayList<String> saps = SplxServerInIDE.getInstance().getContext().getSapPath();
+								String prefix = "";
+								for( int k = 0; k < saps.size(); k++ ) {
+									String sap = saps.get( k );
+									if( !sap.startsWith( "/" ) ) sap = "/" + sap;
+									if( path.startsWith( sap ) ) {
+										if( sap.length() > prefix.length() ) prefix = sap;
+									}
+								}
+								path = path.substring( prefix.length() );
+								pos = path.indexOf( "/", 1 );
+								String path1 = path;   //path1代表splx文件路径
+								String args = "";
+								if( pos > 0 ) {
+									path1 = path.substring( 0, pos );
+									args = path.substring( pos + 1 );
+								} 
+								path1 = prefix + path1;
+								fileName = path1.substring(1).trim();
+								if( args.length() > 0 ) {
+									ArgumentTokenizer at = new ArgumentTokenizer( args, '/' );
+									int k = 0;
+									while( at.hasMoreTokens() ) {
+										String tmp = at.nextToken().trim();
+										if( k > 0 ) params += ",";
+										params += tmp;
+										k++;
+									}
 								}
 							}
-							path = path.substring( prefix.length() );
-							pos = path.indexOf( "/", 1 );
-							String path1 = path;
-							String args = "";
-							if( pos > 0 ) {
-								path1 = path.substring( 0, pos );
-								args = path.substring( pos + 1 );
-							}
-							path1 = prefix + path1;
-							fileName = path1.substring(1).trim();
-							if( !fileName.toLowerCase().endsWith( ".splx" ) ) fileName += ".splx";
-							if( args.length() > 0 ) {
-								ArgumentTokenizer at = new ArgumentTokenizer( args, '/' );
-								while( at.hasMoreTokens() ) {
-									String tmp = at.nextToken().trim();
-									while( tmp.length() > 0 && !Character.isDigit( tmp.charAt( 0 ) ) ) {
-										tmp = tmp.substring( 1 );
+							else {   //常规url格式
+								fileName = path.substring( 1 );
+								String args = queryParams.trim();
+								if( args.length() > 0 ) {
+									SegmentSet segs = new SegmentSet( args, '&' );
+									Iterator it = segs.keySet().iterator();
+									while( it.hasNext() ) {
+										String paramName = (String)it.next();
+										String paramValue = segs.get( paramName );
+										paramsMap.put( paramName, paramValue );
 									}
-									if( params.length() > 0 ) params += ",";
-									params += tmp;
 								}
 							}
 						}
 						PgmCellSet pcs1 = null;
 						try {
 							FileObject fo = new FileObject(fileName, "s");
+							if( !fo.isExists() ) {
+								String fn = fileName.toLowerCase();
+								if( !fn.endsWith(".splx") && !fn.endsWith(".spl") && !fn.endsWith(".dfx") ) {
+									fo = new FileObject(fileName + ".splx", "s");
+									if( !fo.isExists() ) {
+										fo = new FileObject(fileName + ".spl", "s");
+									}
+									if( !fo.isExists() ) {
+										fo = new FileObject(fileName + ".dfx", "s");
+									}
+								}
+							}
+							if( !fo.isExists() ) {
+								throw new Exception( "File " + fileName + " is not exist." );
+							}
 							pcs1 = fo.readPgmCellSet();
 						}
 						catch( Throwable th ) {
@@ -299,7 +329,16 @@ public class SplxHttpHandler implements HttpHandler {
 								String pvalue = at.nextToken();
 								//if (pvalue == null || pvalue.trim().length() == 0) continue;
 								Param p = (Param) list.get(i);
+								if( p == null ) continue;
 								ctx1.setParamValue(p.getName(), Variant.parse(pvalue));
+							}
+							if( paramsMap.size() > 0 && list != null ) {
+								Iterator<String> it = paramsMap.keySet().iterator();
+								while( it.hasNext() ) {
+									String paramName = it.next();
+									String paramValue = paramsMap.get( paramName );
+									ctx1.setParamValue( paramName, Variant.parse( paramValue ) );
+								}
 							}
 							//读取post内容
 							if( hasPost ) {

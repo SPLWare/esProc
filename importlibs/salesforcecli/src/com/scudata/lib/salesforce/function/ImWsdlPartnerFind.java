@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.scudata.dm.Table;
+import com.scudata.common.Logger;
 import com.sforce.soap.partner.PartnerConnection;
 import com.sforce.soap.partner.SearchRecord;
 import com.sforce.soap.partner.SearchResult;
@@ -15,14 +16,14 @@ import com.sforce.ws.bind.XmlObject;
 
 public class ImWsdlPartnerFind {
 	private PartnerConnection m_conn = null;
-	private Map<String, List<String>> m_ls = new HashMap<String, List<String>>(); //记录表及其字�?
+	private Map<String, List<String>> m_ls = new HashMap<String, List<String>>(); //记录表及其字欿
 	
 	public ImWsdlPartnerFind(PartnerConnection c) {
 		m_conn = c;
 	}
 
-	/*****功能：执行查�?*****
-	 * 1、返回returning给定的字�?
+	/*****功能：执行查譿*****
+	 * 1、返回returning给定的字欿
 	 * 2、若Table无对应的字段则返回Id,但Id可能重复.
 	 * 3.
 	 * 
@@ -35,7 +36,7 @@ public class ImWsdlPartnerFind {
 			SearchRecord[] rds=ret.getSearchRecords();
 			List<Table> ls = new ArrayList<Table>();		//记录要返回的多个Table		
 			List<String> keys = new ArrayList<String>();	//字段
-			List<Object> vals = new ArrayList<Object>();	//字段�?, 注意：若用map则与keys顺序可能不对�?
+			List<Object> vals = new ArrayList<Object>();	//字段便, 注意：若用map则与keys顺序可能不对帿
 			
 			String lastKey = "";
 			String sKey = "";
@@ -83,7 +84,7 @@ public class ImWsdlPartnerFind {
 					
 					//System.out.println(xo.getName().getLocalPart()+": "+xo.getValue());
 				}
-				if (bTable){	//绑定表字�?
+				if (bTable){	//绑定表字欿
 					String[] cols = null;					
 					if (lls!=null && lls.size()>0){
 						cols = lls.toArray(new String[0]);
@@ -113,7 +114,7 @@ public class ImWsdlPartnerFind {
 				}
 			}
 		}catch(Exception e) {
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		}
 		
 	    return tbl;

@@ -30,6 +30,10 @@ public class UnitClient implements Serializable {
 	boolean isDispatchUC = false;
 	// 取消长
 	transient SocketData socketData = null;
+	/**
+	 * 连接超时时长，单位ms
+	 */
+	private int connectTimeout = 5000;
 
 	/**
 	 * 根据地址和端口构造一个分机客户端
@@ -214,6 +218,14 @@ public class UnitClient implements Serializable {
 	public Object read() throws Exception {
 		return socketData.read();
 	}
+	
+	/**
+	 * 设置连接超时时长，单位毫秒
+	 * @param timeout
+	 */
+	public void setConnectTimeout(int timeout){
+		this.connectTimeout = timeout;
+	}
 
 	/**
 	 * 创建一个新的通讯套接字
@@ -224,7 +236,7 @@ public class UnitClient implements Serializable {
 		Socket s = new Socket();
 		SocketData sd = new SocketData(s);
 		InetSocketAddress isa = new InetSocketAddress(host, port);
-		sd.connect(isa, 5000);
+		sd.connect(isa, connectTimeout);
 
 		return sd;
 	}

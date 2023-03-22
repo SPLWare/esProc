@@ -191,7 +191,7 @@ public class ImInsert extends ImFunction {
 				ll = Long.parseLong(timestamp);
 			}
 		} catch (ParseException e) {
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		}
 		
 		long ret = ll;

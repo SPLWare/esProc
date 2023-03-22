@@ -647,6 +647,8 @@ public class JTableValue extends JTableEx {
 	 * @param isFirst 是否第一次设置值
 	 */
 	public void resetData(int index, boolean isFirst) {
+		if (index <= 0)
+			index = 1;
 		dispStartIndex = index;
 		if (resetThread != null) {
 			resetThread.stopThread();

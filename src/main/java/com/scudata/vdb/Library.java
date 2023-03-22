@@ -34,7 +34,7 @@ public class Library {
 	public static final int ENLARGE_BLOCKCOUNT = 1024 * 8; // 文件太小时每次增加的块数
 	
 	// 后台性能优化线程的睡眠时间
-	private static final long SLEEPTIME = 2 * 60 * 1000; // 2分钟
+	private static final long SLEEPTIME = 5 * 60 * 1000; // 5分钟
 	
 	// 扫描物理块使用情况的间隔时间
 	private static final long SCANFILEINTERVAL = 60 * 60 * 1000; // 1小时
@@ -77,7 +77,6 @@ public class Library {
 		 */
 		public void setUserOn() {
 			userOn = true;
-			
 			if (manager != null) {
 				// 停止扫描物理块
 				manager.stop();
@@ -97,24 +96,25 @@ public class Library {
 		}
 		
 		private void doWork() throws IOException {
-			boolean sign = false;
 			synchronized(vdbList) {
 				// 如果没有连接则执行清理条件判断
 				if (vdbList.size() == 0) {
+					// 释放内存中的节点
+					rootSection.releaseSubSection();
+					userOn = false;
+					
 					long now = System.currentTimeMillis();
-					sign = now - lastConnectTime > SLEEPTIME && lastConnectTime - scanTime > SCANFILEINTERVAL;
-					if (sign) {
-						userOn = false;
-						manager = new BlockManager(Library.this);
-					} else {
-						// 释放内存中的节点
-						rootSection.releaseSubSection();
+					if (now - lastConnectTime < SLEEPTIME || lastConnectTime - scanTime < SCANFILEINTERVAL) {
 						return;
 					}
+				} else {
+					return;
 				}
 			}
 			
+			manager = new BlockManager(Library.this);
 			manager.doThreadScan();
+			
 			synchronized(vdbList) {
 				if (vdbList.size() == 0) {
 					// 释放内存中的节点
@@ -122,7 +122,7 @@ public class Library {
 					
 					// 扫描期间没有新的连接则扫描成功完成
 					if (!userOn) {
-						scanTime = lastConnectTime;
+						scanTime = System.currentTimeMillis();
 						blockManager = manager;
 					}
 				}

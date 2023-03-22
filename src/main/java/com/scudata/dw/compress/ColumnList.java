@@ -484,72 +484,69 @@ public class ColumnList implements IArray {
 	public Column[] getColumns() {
 		return columns;
 	}
-
 	
 	public void writeExternal(ObjectOutput out) throws IOException {
 		// TODO Auto-generated method stub
 		
 	}
-
 	
 	public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
 		// TODO Auto-generated method stub
 		
 	}
-
 	
 	public byte[] serialize() throws IOException {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 	
 	public void fillRecord(byte[] bytes) throws IOException, ClassNotFoundException {
 		// TODO Auto-generated method stub
 		
 	}
-
 	
 	public String getDataType() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 	
 	public void add(Object o) {
 		// TODO Auto-generated method stub
 	}
-
 	
 	public void addAll(Object[] array) {
 		// TODO Auto-generated method stub
 	}
-
 	
 	public void addAll(IArray array) {
 		// TODO Auto-generated method stub
 	}
-
 	
 	public void addAll(IArray array, int count) {
 		// TODO Auto-generated method stub
 	}
 
+	/**
+	 * 追加一组元素，如果类型不兼容则抛出异常
+	 * @param array 元素数组
+	 * @param index 要加入的数据的起始位置
+	 * @param count 数量
+	 */
+	public void addAll(IArray array, int index, int count) {
+		// TODO Auto-generated method stub
+	}
 	
 	public void insert(int index, Object o) {
 		// TODO Auto-generated method stub
 	}
-
 	
 	public void insertAll(int pos, IArray array) {
 		// TODO Auto-generated method stub
 	}
-
 	
 	public void insertAll(int pos, Object[] array) {
 		// TODO Auto-generated method stub
 	}
-
 	
 	public void push(Object o) {
 		// TODO Auto-generated method stub

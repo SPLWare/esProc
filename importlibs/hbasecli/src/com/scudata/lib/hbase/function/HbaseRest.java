@@ -11,6 +11,7 @@ import java.util.Map;
 
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
+import com.scudata.common.Logger;
 import com.scudata.dm.Context;
 import com.scudata.dm.Table;
 import com.scudata.expression.Expression;
@@ -85,8 +86,7 @@ public class HbaseRest extends Function {
 		try {
 			return downLoadFromUrl(url,charset,method,content,headers);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		}
 		return null;
 	}

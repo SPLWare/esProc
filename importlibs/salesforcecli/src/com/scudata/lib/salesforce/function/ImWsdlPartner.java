@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import com.scudata.common.RQException;
+import com.scudata.common.Logger;
 import com.scudata.dm.Table;
 import com.sforce.soap.partner.PartnerConnection;
 import com.sforce.soap.partner.QueryResult;
@@ -131,7 +132,7 @@ public class ImWsdlPartner {
 			    }
 			}
 		}catch(Exception e) {
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		}
 		
 	    return tbl;

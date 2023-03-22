@@ -2728,8 +2728,8 @@ public class GM {
 		htmlStr = replaceHtmlTag(htmlStr, "<p\\s*/?>", " ");
 		/* Replace <p> or img with spaces */
 		htmlStr = replaceHtmlTag(htmlStr, "&lt;(?i)(p|img)\\s*/?&gt;", " ");
-		/* Replace <br><br/> with \r */
-		htmlStr = replaceHtmlTag(htmlStr, "<br\\s*/?>", "\r");
+		/* Replace <br><br/> with \n */
+		htmlStr = replaceHtmlTag(htmlStr, "<br\\s*/?>", "\n");
 		/* Filter head tags */
 		htmlStr = replaceHtmlTag(htmlStr, "<head\\s*>[\\s\\S]*?</\\s*head>");
 		/* Filter script tags */

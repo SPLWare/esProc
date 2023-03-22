@@ -11,6 +11,7 @@ import com.alibaba.fastjson.JSON;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
 import com.scudata.dm.sql.SQLUtil;
+import com.scudata.common.Logger;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.FileInputStream;
@@ -21,7 +22,7 @@ import java.io.InputStreamReader;
 public class ImUtils {
 	private static String m_os = System.getProperty("os.name");  
 	/**
-	 * 是否有特定字�?*�??
+	 * 是否有特定字符 *?
 	 * 
 	 * @param src
 	 *            String
@@ -113,13 +114,13 @@ public class ImUtils {
              }
              reader.close();
          }catch(IOException e){
-             e.printStackTrace();
+             Logger.error(e.getMessage());
          }finally{
              if(reader != null){
                  try {
                      reader.close();
                  } catch (IOException e) {
-                     e.printStackTrace();
+                     Logger.error(e.getMessage());
                  }
              }
          }
@@ -148,13 +149,13 @@ public class ImUtils {
  			  subT.newLast(oSub);
  		} catch (JSONException e) {
  			// TODO Auto-generated catch block
- 			e.printStackTrace();
+ 			Logger.error(e.getMessage());
  		}
  		  
  		return subT;
  	}
  	
-	// 获取子记录返�?
+	// 获取子记录返噿
 	public static Table getSubRecords( JSONObject sub, String tblName, String[] cols) {
 		Table subT = null;
 		try {
@@ -174,7 +175,7 @@ public class ImUtils {
 			 }			
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		}
 
 		return subT;
@@ -206,7 +207,7 @@ public class ImUtils {
 				}
 			}
 		}catch(Exception e) {
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		}
 		
 		return cols;

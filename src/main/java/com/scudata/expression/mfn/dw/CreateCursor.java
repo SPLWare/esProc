@@ -108,7 +108,7 @@ public class CreateCursor extends PhyTableFunction {
 		boolean isMultiThread = opt != null && opt.indexOf('m') != -1;
 		
 		if (param == null && !isMultiThread) {
-			return table.cursor();
+			return table.cursor(null, null, null, null, null, null, opt, ctx);
 		}
 		
 		IParam fieldParam = null; // 选出字段参数
@@ -254,12 +254,12 @@ public class CreateCursor extends PhyTableFunction {
 		if (mcs != null) {
 			return table.cursor(exps, names, filter, fkNames, codes, opts, mcs, opt, ctx);
 		} else if (isMultiThread && segCount > 1) {
-			return table.cursor(exps, names, filter, fkNames, codes, opts, segCount, ctx);
+			return table.cursor(exps, names, filter, fkNames, codes, opts, segCount, opt, ctx);
 		} else {
 			if (segSeq < 1) {
-				return table.cursor(exps, names, filter, fkNames, codes, opts, ctx);
+				return table.cursor(exps, names, filter, fkNames, codes, opts, opt, ctx);
 			} else {
-				return table.cursor(exps, names, filter, fkNames, codes, opts, segSeq, segCount, ctx);
+				return table.cursor(exps, names, filter, fkNames, codes, opts, segSeq, segCount, opt, ctx);
 			}
 		}
 	}

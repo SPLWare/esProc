@@ -26,7 +26,7 @@ public class HdfsClient implements IResource
 			m_fileSys = HdfsConfigure(xmlfiles, uri, hdfUser);
 			ctx.addResource(this);
 		} catch (IOException e) {
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		}
 	}
 	

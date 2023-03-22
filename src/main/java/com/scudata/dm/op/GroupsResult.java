@@ -52,6 +52,7 @@ public class GroupsResult extends IGroupsResult {
 	private boolean nOpt;
 	private boolean hOpt;
 	public boolean XOpt;//使用动态编译优化，留作将来使用
+	private boolean eOpt;
 
 	/**
 	 * 初始化参数
@@ -135,6 +136,8 @@ public class GroupsResult extends IGroupsResult {
 			} else if (opt.indexOf('X') != -1) {
 				XOpt = true;
 			}
+			
+			if (valCount == 1 && opt.indexOf('e') != -1) eOpt = true;
 		}
 		
 		if (hOpt) {
@@ -342,7 +345,11 @@ public class GroupsResult extends IGroupsResult {
 				table.deleteNullFieldRecord(0);
 			}
 			
-			table.trimToSize();
+			if (eOpt) {
+				table = table.fieldValues(ds.getFieldCount() - 1).derive("o");
+			}
+			
+			//table.trimToSize();
 		} else if (opt == null || opt.indexOf('t') == -1) {
 			table = null;
 		}

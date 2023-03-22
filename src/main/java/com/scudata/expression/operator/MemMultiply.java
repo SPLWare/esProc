@@ -1,5 +1,6 @@
 package com.scudata.expression.operator;
 
+import com.scudata.array.ConstArray;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
@@ -35,18 +36,20 @@ public class MemMultiply extends Operator {
 	}
 
 	public Object calculate(Context ctx) {
-		Object o1 = left.calculate(ctx);
-		if (!(o1 instanceof Sequence)) {
+		Object obj = left.calculate(ctx);
+		if (!(obj instanceof Sequence)) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("\"**\"" + mm.getMessage("function.paramTypeError"));
 		}
 
-		Object o2 = right.calculate(ctx);
-		if (!(o2 instanceof Sequence)) {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException("\"**\"" + mm.getMessage("function.paramTypeError"));
+		Sequence seq = (Sequence)obj;
+		obj = right.calculate(ctx);
+
+		if (obj instanceof Sequence) {
+			return seq.memberMultiply((Sequence)obj);
+		} else {
+			ConstArray array = new ConstArray(obj, seq.length());
+			return seq.memberMultiply(new Sequence(array));
 		}
-		
-		return ((Sequence)o1).memberMultiply((Sequence)o2);
 	}
 }

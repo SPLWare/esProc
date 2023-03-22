@@ -329,6 +329,59 @@ public class BoolArray implements IArray {
 	/**
 	 * 追加一组元素，如果类型不兼容则抛出异常
 	 * @param array 元素数组
+	 * @param index 要加入的数据的起始位置
+	 * @param count 数量
+	 */
+	public void addAll(IArray array, int index, int count) {
+		if (array instanceof BoolArray) {
+			BoolArray boolArray = (BoolArray)array;
+			ensureCapacity(size + count);
+			
+			System.arraycopy(boolArray.datas, index, datas, size + 1, count);
+			if (boolArray.signs != null) {
+				if (signs == null) {
+					signs = new boolean[datas.length];
+				}
+				
+				System.arraycopy(boolArray.signs, index, signs, size + 1, count);
+			}
+			
+			size += count;
+		} else if (array instanceof ConstArray) {
+			Object obj = array.get(1);
+			if (obj instanceof Boolean) {
+				ensureCapacity(size + count);
+				boolean v = ((Boolean)obj).booleanValue();
+				boolean []datas = this.datas;
+				
+				for (int i = 0; i < count; ++i) {
+					datas[++size] = v;
+				}
+			} else if (obj == null) {
+				ensureCapacity(size + count);
+				boolean []signs = this.signs;
+				if (signs == null) {
+					this.signs = signs = new boolean[datas.length];
+				}
+				
+				for (int i = 0; i < count; ++i) {
+					signs[++size] = true;
+				}
+			} else {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException(mm.getMessage("pdm.arrayTypeError", 
+						mm.getMessage("DataType.Boolean"), array.getDataType()));
+			}
+		} else {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException(mm.getMessage("pdm.arrayTypeError", 
+					mm.getMessage("DataType.Boolean"), array.getDataType()));
+		}
+	}
+	
+	/**
+	 * 追加一组元素，如果类型不兼容则抛出异常
+	 * @param array 元素数组
 	 */
 	public void addAll(Object []array) {
 		for (Object obj : array) {

@@ -76,6 +76,9 @@ public class DialogUnitConfig extends JDialog {
 			mm.getMessage("dialogunitconfig.checkinterval")); // 检查过期间隔(秒)
 	private JSpinner jSInterval = new JSpinner(new SpinnerNumberModel(0, 0,
 			Integer.MAX_VALUE, 1));
+	private JLabel labelBacklog = new JLabel(
+			mm.getMessage("dialogunitconfig.backlog")); // 并发连接数
+	private JSpinner jSBacklog = new JSpinner(new SpinnerNumberModel(10, 1,	50, 1));//操作系统的缺省最大连接数目为50，超过它没有意义
 
 	private JLabel labelHost = new JLabel(
 			mm.getMessage("dialogunitconfig.hostlist"));
@@ -187,6 +190,7 @@ public class DialogUnitConfig extends JDialog {
 			jSTempTimeOut.setValue(new Integer(uc.getTempTimeOutHour()));
 			jSProxyTimeOut.setValue(new Integer(uc.getProxyTimeOutHour()));
 			jSInterval.setValue(new Integer(uc.getInterval()));
+			jSBacklog.setValue(new Integer(uc.getBacklog()));
 			cbAutoStart.setSelected(uc.isAutoStart());
 
 			List<Host> hosts = uc.getHosts();
@@ -273,6 +277,7 @@ public class DialogUnitConfig extends JDialog {
 		uc.setTempTimeOutHour(((Integer) jSTempTimeOut.getValue()).intValue());
 		uc.setProxyTimeOutHour(((Integer) jSProxyTimeOut.getValue()).intValue());
 		uc.setInterval(((Integer) jSInterval.getValue()).intValue());
+		uc.setBacklog(((Integer) jSBacklog.getValue()).intValue());
 		uc.setAutoStart(cbAutoStart.isSelected());
 
 		tableHosts.acceptText();
@@ -362,6 +367,8 @@ public class DialogUnitConfig extends JDialog {
 		panelUnit.add(jSProxyTimeOut, GM.getGBC(1, 4, true));
 		panelUnit.add(labelInterval, GM.getGBC(2, 1));
 		panelUnit.add(jSInterval, GM.getGBC(2, 2, true));
+		panelUnit.add(labelBacklog, GM.getGBC(2, 3));
+		panelUnit.add(jSBacklog, GM.getGBC(2, 4, true));
 		GridBagConstraints gbc = GM.getGBC(3, 1, true);
 		gbc.gridwidth = 4;
 		panelUnit.add(cbAutoStart, gbc);

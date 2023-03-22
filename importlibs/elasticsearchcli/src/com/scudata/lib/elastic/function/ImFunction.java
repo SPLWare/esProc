@@ -18,6 +18,7 @@ import org.elasticsearch.client.Response;
 
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
+import com.scudata.common.Logger;
 import com.scudata.dm.Context;
 import com.scudata.dm.Table;
 import com.scudata.expression.Function;
@@ -64,13 +65,14 @@ public class ImFunction extends Function {
 		Object cli = new Object();
 		Object objs[] = new Object[size - 1];
 		for (int i = 0; i < size; i++) {
-			if (param.getSub(i) == null) {
+			IParam pp = param.getSub(i);
+			if (pp == null) {
 				MessageManager mm = EngineMessage.get();
 				throw new RQException("client" + mm.getMessage("function.invalidParam"));
 			}
 
 			if (i == 0) {
-				cli = param.getSub(i).getLeafExpression().calculate(ctx);
+				cli = pp.getLeafExpression().calculate(ctx);
 				if ((cli instanceof RestConn)) {
 					m_restConn = (RestConn) cli;
 				} else {
@@ -78,7 +80,11 @@ public class ImFunction extends Function {
 					throw new RQException("client" + mm.getMessage("function.paramTypeError"));
 				}
 			} else {
-				objs[i - 1] = param.getSub(i).getLeafExpression().calculate(ctx);
+				if (pp.getType()==IParam.Colon) {
+					objs[i - 1] = pp;
+				}else {
+					objs[i - 1] = pp.getLeafExpression().calculate(ctx);
+				}
 			}
 		}
 
@@ -94,7 +100,7 @@ public class ImFunction extends Function {
 					objs[1] = ImUtils.readJsonFile(s);
 				}
 			} catch (Exception e) {
-				e.printStackTrace();
+				Logger.error(e.getMessage());
 			}
 		}
 
@@ -183,7 +189,7 @@ public class ImFunction extends Function {
 				ls.add(objs);
 			}
 		}catch(Exception e){
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		}
 	}
 	
@@ -224,7 +230,7 @@ public class ImFunction extends Function {
 			}
 		}while(false);
 		}catch(Exception e){
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		}
 	}
 	
@@ -265,7 +271,7 @@ public class ImFunction extends Function {
 			}
 		}while(false);
 		}catch(	Exception e){
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		}
 	
 		return ls;
@@ -357,7 +363,7 @@ public class ImFunction extends Function {
 				response = m_restConn.m_restClient.performRequest(request);
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		}
 		
 		return response;

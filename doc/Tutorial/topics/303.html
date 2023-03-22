@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>12.7.2 Width of columns</title>
+<title>12.8.2 Appearance properties</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -15,82 +15,88 @@
 	<div id="centent">
 	<div id="centent-title"><h3 style='margin:0cm;margin-bottom:.0001pt;text-indent:0cm;line-height:normal;
 mso-list:none;tab-stops:-179.95pt 64.2pt'><span lang=EN-US style='font-size:
-14.0pt;mso-bidi-font-size:10.0pt'>12.7.2 Width of columns</span></h3></div>
+14.0pt;mso-bidi-font-size:10.0pt'>12.8.2 Appearance properties</span></h3></div>
 	<p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>The width of columns in a column chart has a default
-value. No columns will be plotted wider than this value, which is determined by
-the number of columns and the <b style='mso-bidi-font-weight:normal'>Gap ratio</b>
-property of the enumeration axis. The gap ratio is the ratio of <b
-style='mso-bidi-font-weight:normal'>space</b> <b style='mso-bidi-font-weight:
-normal'>width </b>between columns in different categories to the <b
-style='mso-bidi-font-weight:normal'>default column width</b>. The default ratio
-is 1.5, which means the former is 1.5 times wider than the latter. </span></p>
+21.0pt'><span lang=EN-US>As can be seen from the chart above, the result of
+chart plotting with the sector element is sectors with fill colors. This means
+the appearance properties of the sector element will include fill color, border
+style, border weight and border color. By default, the fill color is
+automatically generated with lighting effects. Now modify A6’s code into </span><span
+class=T-CodeChar><span lang=EN-US style='font-family:"Times New Roman",serif'>=A1.plot(&quot;Sector&quot;,&quot;borderWeight&quot;:1,&quot;borderColor&quot;:-16724839,&quot;fillColor&quot;:[[&quot;ChartColor&quot;,0,true,-52429,-13057,0],[&quot;ChartColor&quot;,0,true,-10066177,-3355393,0],[&quot;ChartColor&quot;,0,true,-13369345,-1,0]],&quot;text&quot;:A2.(NAME),&quot;axis1&quot;:&quot;x&quot;,&quot;data1&quot;:A2.(NAME),&quot;axis2&quot;:&quot;y&quot;,&quot;data2&quot;:A2.(SCORE))</span></span><span
+lang=EN-US>. By doing so, the appearance properties will be changed as follows:
+</span></p>
 
 <p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US><img border=0 width=339 height=216
-src="Tutorial.files/image2537.jpg" v:shapes="图片_x0020_1743"><span
-style='mso-spacerun:yes'>&nbsp;</span></span></p>
+21.0pt'><span lang=EN-US><img border=0 width=527 height=161
+src="Tutorial.files/image1322.png" v:shapes="图片_x0020_1801"></span></p>
 
 <p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>Note: This property of enumeration axis will affect
-the plotting result of the column element that uses this axis. By editing the
-chart parameters to modify the property in A4, you can adjust the width of columns.
-For example, modifying this enumeration axis property in the clustered column
-chart as follows:</span></p>
+21.0pt'><span lang=EN-US>Set the color for border line as turquoise and the
+weight as 1, and specify a sequence of fill colors for the sectors. Thus the
+plotting result is: </span></p>
 
 <p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US><img border=0 width=339 height=216
-src="Tutorial.files/image2539.jpg" v:shapes="图片_x0020_1744"></span></p>
+21.0pt'><span lang=EN-US><img border=0 width=400 height=300
+src="Tutorial.files/image1323.png" v:shapes="图片_x0020_1802"></span></p>
 
 <p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>Set <b style='mso-bidi-font-weight:normal'>Gap ratio</b>
-as 1 to make the space smaller and equal to the column width. The plotting
-result would be this after the modification: </span></p>
+21.0pt'><span lang=EN-US>As you can see, the appearance of the pie chart has
+changed. The default lighting effects of the fill colors have vanished and the
+gradient color has been applied to the entire circle area to achieve harmony
+among the fill colors. </span></p>
 
 <p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US><img border=0 width=675 height=300
-src="Tutorial.files/image2541.png" v:shapes="图片_x0020_1746"></span></p>
+21.0pt'><span lang=EN-US>And, the pie chart’s data labels, different from those
+in other styles of charts, are presented by lines drew from the center of each
+sector. So you need to specify the appearance properties for these leader lines
+as well, besides those for data label texts. Modify the sector element’s chart
+properties by editing A6’s code:</span></p>
 
 <p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>The space between different groups of columns has
-become smaller, making the column width comparatively bigger. Actually the
-default column width is collectively decided by the gap ratio on the
-enumeration axis as well as the number of columns and their categories. </span></p>
+21.0pt'><span lang=EN-US><img border=0 width=331 height=105
+src="Tutorial.files/image1324.png" v:shapes="图片_x0020_1804"></span></p>
 
 <p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>Besides the default width, the width of the column is
-affected by appearance properties of the column element as well, such as <b
-style='mso-bidi-font-weight:normal'>Column width</b>. The value of <b
-style='mso-bidi-font-weight:normal'>Column width</b> is the proportion of
-column width to the default width. When the value is 1, column width is equal
-to the default width. The default value is 0.9, meaning the ratio between the
-column width and the default width is 0.9. Seen from the above plotting result,
-columns within the same group in this case still have space between each other.
-If the chart properties are modified as follows: </span></p>
+21.0pt'><span lang=EN-US>Then the plotting result is:</span></p>
 
 <p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US><img border=0 width=339 height=82
-src="Tutorial.files/image2543.jpg" v:shapes="图片_x0020_1745"></span></p>
+21.0pt'><span lang=EN-US><img border=0 width=400 height=300
+src="Tutorial.files/image1325.png" v:shapes="图片_x0020_1803"></span></p>
 
 <p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>Since the <b style='mso-bidi-font-weight:normal'>Column
-width</b> value becomes smaller, the width of each column becomes smaller, with
-following plotting result produced:</span></p>
+21.0pt'><span lang=EN-US>Now let’s see the text properties. The above plotting
+algorithm sets the data labels as names of the athletes. Modify A6 to change
+the chart properties of the sector element:</span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=EN-US><img border=0 width=331 height=155
+src="Tutorial.files/image1326.png" v:shapes="图片_x0020_1805"></span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=EN-US>Here the text font, text style, text size and text
+color for the data label texts are modified, and the plotting result is: </span></p>
+
+<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
+mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt'><span lang=EN-US><img border=0 width=400 height=300
+src="Tutorial.files/image1327.png" v:shapes="图片_x0020_1806"></span></p>
 
 <p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
 mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US><img border=0 width=675 height=300
-src="Tutorial.files/image2545.png" v:shapes="图片_x0020_1747"></span></p>
+21.0pt'><span lang=EN-US>It can be seen that the text properties apply in both
+the texts on the pie and those using leader lines. </span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="304.html">Next</a></div>
@@ -98,7 +104,7 @@ src="Tutorial.files/image2545.png" v:shapes="图片_x0020_1747"></span></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="301.html">12.7 The Column Element</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="301.html">12.8 The Sector Element</a></span></li>
 </div>
 	</div>
 	<div id="footer">	

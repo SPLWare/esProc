@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>11.7 Pseudo Table</title>
+<title>11.8.2 Defining a pseudo table</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,17 +13,54 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h2 style='margin-left:1.0cm;mso-para-margin-left:0gd;text-indent:-1.0cm;
-mso-list:l1 level2 lfo49'><span lang=EN-US
-style='mso-fareast-font-family:"Times New Roman"'><span style='mso-list:Ignore'>11.7
-<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span
-lang=EN-US>Pseudo Table</span></h2></div>
-	<p class=T-Par style='text-align:justify;text-justify:inter-ideograph;
-text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:exactly'><span
-lang=EN-US>We can use data in a composite table by not only accessing it directly
-but by defining a <b>pseudo table</b>. A pseudo table is not a physical table
-but one that retrieves data from an existing composite table according to the
-current definition.</span></p>
+	<div id="centent-title"><h3 style='margin-left:39.0pt;text-indent:-39.0pt;mso-list:l26 level3 lfo55;
+tab-stops:21.0pt'><span lang=EN-US style='mso-fareast-font-family:
+"Times New Roman"'><span style='mso-list:Ignore'>11.8.2<span style='font:7.0pt "Times New Roman"'>&nbsp;
+</span></span></span><span lang=EN-US>Defining a pseudo table</span></h3></div>
+	<p class=T-ParCxSpFirst style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US>The first thing in metadata definition is
+to define the pseudo table a future DQL query will use. The pseudo table should
+be generated based on a composite table or a bin file. Click “Add pseudo table”
+icon <span style='mso-no-proof:yes'><img border=0 width=27 height=26
+src="Tutorial.files/image1112.png" v:shapes="_x0000_i2212"><span
+style='mso-spacerun:yes'>&nbsp;</span></span>or select Edit-&gt;Add pseudo
+table on the menu bar to add a pseudo table definition in metadata:</span><span
+lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'></span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US style='mso-no-proof:yes'><img border=0 width=554 height=252
+src="Tutorial.files/image1114.jpg" v:shapes="_x0000_i2213"></span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US>Click “Select” button to select the data
+file from which the pseudo table will be generated. The variable name the
+pseudo table will use in the future DQL query can be changed as needed:</span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US style='mso-no-proof:yes'><img border=0 width=554 height=252
+src="Tutorial.files/image1116.jpg" v:shapes="_x0000_i2214"></span></p>
+
+<p class=T-ParCxSpMiddle style='text-align:justify;text-justify:inter-ideograph;
+text-indent:21.0pt'><span lang=EN-US>Here the original composite table file is <i>emps.ctx</i>.
+Defining a user-defined field for a pseudo table is similar to the pseudo table
+field definition explained in the previous section, except that we need to add one
+or more fields to the field list and modify the fields in <b>column</b>
+definition record. In the following window, we add enumerated pseudo field Dept
+and binary dimension pseudo fields IfMarried and IfLady:</span></p>
+
+<p class=T-ParCxSpMiddle style='margin-left:26.25pt;mso-add-space:auto;
+mso-para-margin-left:1.5gd;mso-add-space:auto;text-align:justify;text-justify:
+inter-ideograph;text-indent:-10.5pt;mso-char-indent-count:-1.0'><span
+lang=EN-US style='mso-no-proof:yes'><img border=0 width=553 height=239
+src="Tutorial.files/image1118.jpg" v:shapes="_x0000_i2215"></span></p>
+
+<p class=T-ParCxSpLast style='margin-left:15.75pt;mso-add-space:auto;
+mso-para-margin-left:1.5gd;mso-add-space:auto;text-align:justify;text-justify:
+inter-ideograph;text-indent:0cm;mso-char-indent-count:0'><span lang=EN-US>In
+the DQL tool we set a user-defined field for the pseudo table through specific
+and detailed field names, like Enum dim value sequence for enum field defined
+with an expression and Binary dimension pseudo field for bits field defined
+with an expression. </span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="261.html">Next</a></div>
@@ -31,10 +68,7 @@ current definition.</span></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="253.html">Chapter11 Composite Tables</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="261.html">11.7.1 Basic uses</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="262.html">11.7.2 Pseudo table merge</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="263.html">11.7.3 User-defined fields</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="258.html">11.8 A sketch of DQL</a></span></li>
 </div>
 	</div>
 	<div id="footer">	

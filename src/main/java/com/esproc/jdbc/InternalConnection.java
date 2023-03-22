@@ -102,11 +102,6 @@ public class InternalConnection implements Connection, Serializable {
 	private int unitConnectionId;
 
 	/**
-	 * The JobSpace object
-	 */
-	private JobSpace jobSpace = null;
-
-	/**
 	 * The RaqsoftConfig object loaded from raqsoftConfig.xml.
 	 */
 	private RaqsoftConfig raqsoftConfig = null;
@@ -116,6 +111,11 @@ public class InternalConnection implements Connection, Serializable {
 	 * distinct types.
 	 */
 	private Map<String, Class<?>> typeMap;
+
+	/**
+	 * The JobSpace object
+	 */
+	private JobSpace jobSpace = null;
 
 	/**
 	 * Constructor
@@ -153,19 +153,6 @@ public class InternalConnection implements Connection, Serializable {
 	}
 
 	/**
-	 * Get the JobSpace
-	 * 
-	 * @return JobSpace
-	 */
-	protected synchronized JobSpace getJobSpace() {
-		if (jobSpace == null) {
-			String uuid = UUID.randomUUID().toString();
-			jobSpace = JobSpaceManager.getSpace(uuid);
-		}
-		return jobSpace;
-	}
-
-	/**
 	 * Get the RaqsoftConfig object
 	 * 
 	 * @return RaqsoftConfig
@@ -182,8 +169,20 @@ public class InternalConnection implements Connection, Serializable {
 		ctx.setJobSpace(getJobSpace());
 		if (raqsoftConfig != null) {
 			autoConnect(raqsoftConfig.getAutoConnectList(), ctx);
-			autoConnect(Server.getInstance().getJNDIAutoConnects(), ctx);
 		}
+	}
+
+	/**
+	 * Get the JobSpace
+	 * 
+	 * @return JobSpace
+	 */
+	private synchronized JobSpace getJobSpace() {
+		if (jobSpace == null) {
+			String uuid = UUID.randomUUID().toString();
+			jobSpace = JobSpaceManager.getSpace(uuid);
+		}
+		return jobSpace;
 	}
 
 	/**
@@ -270,6 +269,14 @@ public class InternalConnection implements Connection, Serializable {
 		if (closed)
 			throw new SQLException(JDBCMessage.get().getMessage(
 					"error.conclosed"));
+		if (unitClient != null) {
+			try {
+				unitClient.JDBCCloseStatement(unitConnectionId,
+						st.getUnitStatementID());
+			} catch (Throwable e) {
+				Logger.warn(e.getMessage(), e);
+			}
+		}
 		synchronized (stats) {
 			stats.remove(st);
 		}
@@ -330,7 +337,8 @@ public class InternalConnection implements Connection, Serializable {
 	 * @return UnitClient
 	 * @throws SQLException
 	 */
-	public synchronized UnitClient getUnitClient() throws SQLException {
+	public synchronized UnitClient getUnitClient(int timeoutMS)
+			throws SQLException {
 		if (unitClient == null) {
 			List<String> hosts = Server.getInstance().getHostNames();
 			if (hosts == null || hosts.isEmpty()) {
@@ -360,10 +368,12 @@ public class InternalConnection implements Connection, Serializable {
 											sport));
 						}
 						unitClient = new UnitClient(ip, port);
+						unitClient.setConnectTimeout(timeoutMS);
 						if (unitClient.isAlive()) {
 							try {
-								unitConnectionId = unitClient
-										.JDBCConnect(getJobSpace().getID());
+								// 参数好像没用？
+								unitConnectionId = unitClient.JDBCConnect(UUID
+										.randomUUID().toString());
 							} catch (Exception e) {
 								throw new SQLException(e.getMessage(), e);
 							}
@@ -385,6 +395,7 @@ public class InternalConnection implements Connection, Serializable {
 				}
 			}
 		}
+		unitClient.setConnectTimeout(timeoutMS);
 		return unitClient;
 	}
 
@@ -442,7 +453,7 @@ public class InternalConnection implements Connection, Serializable {
 
 		Table t;
 		if (isOnlyServer()) {
-			UnitClient uc = getUnitClient();
+			UnitClient uc = getUnitClient(connectTimeout);
 			int unitConnectionId = getUnitConnectionId();
 			try {
 				t = uc.JDBCGetProcedures(unitConnectionId,
@@ -475,7 +486,7 @@ public class InternalConnection implements Connection, Serializable {
 		JDBCUtil.log("InternalConnection-18");
 		Table t;
 		if (isOnlyServer()) {
-			UnitClient uc = getUnitClient();
+			UnitClient uc = getUnitClient(connectTimeout);
 			int connId = getUnitConnectionId();
 			try {
 				t = uc.JDBCGetProcedureColumns(connId, procedureNamePattern,
@@ -507,7 +518,7 @@ public class InternalConnection implements Connection, Serializable {
 		JDBCUtil.log("InternalConnection-19");
 		Table t;
 		if (isOnlyServer()) {
-			UnitClient uc = getUnitClient();
+			UnitClient uc = getUnitClient(connectTimeout);
 			int unitConnectionId = getUnitConnectionId();
 			try {
 				t = uc.JDBCGetTables(unitConnectionId, tableNamePattern, false);
@@ -539,7 +550,7 @@ public class InternalConnection implements Connection, Serializable {
 		JDBCUtil.log("InternalConnection-20");
 		Table t;
 		if (isOnlyServer()) {
-			UnitClient uc = getUnitClient();
+			UnitClient uc = getUnitClient(connectTimeout);
 			int connId = getUnitConnectionId();
 			try {
 				t = uc.JDBCGetColumns(connId, tableNamePattern,
@@ -580,6 +591,7 @@ public class InternalConnection implements Connection, Serializable {
 			}
 
 		};
+		st.setQueryTimeout(connectTimeout);
 		stats.add(st);
 		return st;
 	}
@@ -605,6 +617,7 @@ public class InternalConnection implements Connection, Serializable {
 			}
 
 		};
+		st.setQueryTimeout(connectTimeout);
 		stats.add(st);
 		return st;
 	}
@@ -633,6 +646,7 @@ public class InternalConnection implements Connection, Serializable {
 			}
 
 		};
+		st.setQueryTimeout(connectTimeout);
 		stats.add(st);
 		return st;
 	}
@@ -748,9 +762,25 @@ public class InternalConnection implements Connection, Serializable {
 		}
 		/* Close the JobSpace */
 		if (jobSpace != null) {
+			jobSpace.closeResource();
 			JobSpaceManager.closeSpace(jobSpace.getID());
 		}
+		closeUnitClient();
 		closed = true;
+	}
+
+	/**
+	 * 关闭节点机连接
+	 */
+	private void closeUnitClient() {
+		if (unitClient != null) {
+			try {
+				unitClient.JDBCCloseConnection(unitConnectionId);
+			} catch (Exception e) {
+				Logger.warn(e.getMessage(), e);
+			}
+		}
+		unitClient = null;
 	}
 
 	/**
@@ -1485,6 +1515,8 @@ public class InternalConnection implements Connection, Serializable {
 				"abort(Executor executor)"));
 	}
 
+	private int connectTimeout = JDBCConsts.DEFAULT_CONNECT_TIMEOUT * 1000;
+
 	/**
 	 * Sets the maximum period a Connection or objects created from the Connection
 	 * will wait for the database to reply to any one request. If any request
@@ -1506,8 +1538,9 @@ public class InternalConnection implements Connection, Serializable {
 	public void setNetworkTimeout(Executor executor, int milliseconds)
 			throws SQLException {
 		JDBCUtil.log("InternalConnection-71");
-		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
-				"setNetworkTimeout(Executor executor, int milliseconds)"));
+		this.connectTimeout = milliseconds;
+		// Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
+		// "setNetworkTimeout(Executor executor, int milliseconds)"));
 	}
 
 	/**
@@ -1519,6 +1552,6 @@ public class InternalConnection implements Connection, Serializable {
 	 */
 	public int getNetworkTimeout() throws SQLException {
 		JDBCUtil.log("InternalConnection-72");
-		return 0;
+		return connectTimeout;
 	}
 }

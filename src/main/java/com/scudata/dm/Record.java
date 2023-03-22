@@ -271,7 +271,7 @@ public class Record extends BaseRecord implements Externalizable, IRecord {
 	public Object getFieldValue(String name) {
 		int index = dataStruct().getFieldIndex(name);
 		if (index != -1) {
-			return getFieldValue(index);
+			return values[index];
 		} else {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException(name + mm.getMessage("ds.fieldNotExist"));

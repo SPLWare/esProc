@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.elasticsearch.client.Response;
 import com.scudata.common.RQException;
+import com.scudata.common.Logger;
 
 /*
  * ImHeader(index, type, doc)
@@ -27,7 +28,7 @@ public class ImHead extends ImFunction {
 			}		
 		
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		}
 		return null;
 	}

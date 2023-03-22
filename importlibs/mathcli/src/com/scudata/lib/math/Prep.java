@@ -301,7 +301,7 @@ public class Prep extends SequenceFunction {
 		catch (Exception e) {
 			MessageManager mm = EngineMessage.get();
 			Logger.error(mm.getMessage("prep.varError", cn));
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		}
 		return null;
 	}

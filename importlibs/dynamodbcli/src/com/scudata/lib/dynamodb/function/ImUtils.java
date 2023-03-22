@@ -3,7 +3,6 @@ package com.scudata.lib.dynamodb.function;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collection;
@@ -21,6 +20,7 @@ import com.amazonaws.services.dynamodbv2.model.BatchExecuteStatementRequest;
 import com.amazonaws.services.dynamodbv2.model.BatchExecuteStatementResult;
 import com.amazonaws.services.dynamodbv2.model.ExecuteStatementRequest;
 import com.amazonaws.services.dynamodbv2.model.ExecuteStatementResult;
+import com.scudata.common.Logger;
 
 public class ImUtils {
 	public static void writeString(String file, String content) {
@@ -31,7 +31,7 @@ public class ImUtils {
 			bos.flush();
 			bos.close();
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		}
 	}
 
@@ -50,7 +50,7 @@ public class ImUtils {
 			bis.close();
 			return content;
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		}
 
 		return null;
@@ -87,7 +87,7 @@ public class ImUtils {
 				return String.format("%s%sraqsoft%sjq_%s_token.txt", tempFilePath, File.separator, File.separator, mod);
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		}
 		return null;
 	}

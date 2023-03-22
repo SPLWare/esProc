@@ -7,6 +7,7 @@ import com.influxdb.client.InfluxDBClient;
 import com.influxdb.client.WriteApi;
 import com.influxdb.client.domain.WritePrecision;
 import com.scudata.common.RQException;
+import com.scudata.common.Logger;
 import com.scudata.dm.Sequence;
 
 public class Influx2Write extends ImFunction {
@@ -26,7 +27,7 @@ public class Influx2Write extends ImFunction {
 		
         try {
         	WriteApi writeApi = m_influxDB.makeWriteApi();
-        			List<String> records = new ArrayList<String>();
+        	List<String> records = new ArrayList<String>();
         	if (objs[1] instanceof Sequence) {
         		Sequence seq = (Sequence)objs[1];
         		for (int i=1; i<=seq.length(); i++) records.add(seq.get(i).toString());
@@ -37,7 +38,7 @@ public class Influx2Write extends ImFunction {
             writeApi.writeRecords(WritePrecision.NS, records);
             return "write success";
         } catch(Exception e) {
-        	e.printStackTrace();
+        	Logger.error(e.getMessage());
         }
 		
         return "write fail";

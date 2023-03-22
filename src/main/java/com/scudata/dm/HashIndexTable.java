@@ -2,6 +2,7 @@ package com.scudata.dm;
 
 import com.scudata.array.BoolArray;
 import com.scudata.array.IArray;
+import com.scudata.array.IntArray;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.expression.Expression;
@@ -43,10 +44,56 @@ public class HashIndexTable extends IndexTable {
 		private int field;
 		private int start; // 起始位置，包括
 		private int end; // 结束位置，不包括
+		private boolean checkDupKey; // 检查重值
 		
 		Entry []entries; // 按hash值分组
 		
-		public CreateJob(HashUtil hashUtil, Sequence code, int field, int start, int end) {
+		public CreateJob(HashUtil hashUtil, Sequence code, int field, int start, int end, boolean checkDupKey) {
+			this.hashUtil = hashUtil;
+			this.code = code;
+			this.field = field;
+			this.start = start;
+			this.end = end;
+			this.checkDupKey = checkDupKey;
+		}
+
+		public void run() {
+			HashUtil hashUtil = this.hashUtil;
+			Sequence code = this.code;
+			int field = this.field;
+			Entry []groups = new Entry[hashUtil.getCapacity()];
+			this.entries = groups;
+			Object key;
+			BaseRecord r;
+
+			for (int i = start, end = this.end; i < end; ++i) {
+				r = (BaseRecord)code.getMem(i);
+				key = r.getNormalFieldValue(field);
+
+				int hash = hashUtil.hashCode(key);
+				for (Entry entry = groups[hash]; entry != null; entry = entry.next) {
+					if (checkDupKey && Variant.isEquals(entry.key, key)) {
+						MessageManager mm = EngineMessage.get();
+						throw new RQException(Variant.toString(key) + mm.getMessage("engine.dupKeys"));
+					}
+				}
+				
+				groups[hash] = new Entry(key, i, groups[hash]);
+			}
+		}
+	}
+	
+	// 用于多线程创建哈希表(用于ifind)
+	private static class CreateJob2 extends Job {
+		private HashUtil hashUtil;
+		private Sequence code;
+		private int field;
+		private int start; // 起始位置，包括
+		private int end; // 结束位置，不包括
+		
+		Entry []entries; // 按hash值分组
+		
+		public CreateJob2(HashUtil hashUtil, Sequence code, int field, int start, int end) {
 			this.hashUtil = hashUtil;
 			this.code = code;
 			this.field = field;
@@ -68,14 +115,19 @@ public class HashIndexTable extends IndexTable {
 				key = r.getNormalFieldValue(field);
 
 				int hash = hashUtil.hashCode(key);
-				for (Entry entry = groups[hash]; entry != null; entry = entry.next) {
-					if (Variant.isEquals(entry.key, key)) {
-						MessageManager mm = EngineMessage.get();
-						throw new RQException(Variant.toString(key) + mm.getMessage("engine.dupKeys"));
-					}
-				}
 				
-				groups[hash] = new Entry(key, i, groups[hash]);
+				if (groups[hash] == null) {
+					groups[hash] = new Entry(key, i, null);
+				} else {
+					Entry entry = groups[hash];
+					while (true) {
+						if (entry.next == null) {
+							break;
+						}
+						entry = entry.next;
+					}
+					entry.next = new Entry(key, i, null);
+				}
 			}
 		}
 	}
@@ -197,7 +249,7 @@ public class HashIndexTable extends IndexTable {
 	}
 	
 	// 合并哈希表
-	private static void combineHashGroups(Entry []result, Entry []entries) {
+	private static void combineHashGroups(Entry []result, Entry []entries, boolean checkDupKey) {
 		int len = result.length;
 		for (int i = 0; i < len; ++i) {
 			if (result[i] == null) {
@@ -207,7 +259,7 @@ public class HashIndexTable extends IndexTable {
 				while (true) {
 					// 比较哈希值相同的元素是否值也相同
 					for (Entry resultEntry = result[i]; resultEntry != null; resultEntry = resultEntry.next) {
-						if (Variant.isEquals(entry.key, resultEntry.key)) {
+						if (checkDupKey && Variant.isEquals(entry.key, resultEntry.key)) {
 							MessageManager mm = EngineMessage.get();
 							throw new RQException(Variant.toString(entry.key) + mm.getMessage("engine.dupKeys"));
 						}
@@ -225,12 +277,43 @@ public class HashIndexTable extends IndexTable {
 		}
 	}
 
+	// 合并哈希表(ifind)
+	private static void combineHashGroups_i(Entry []result, Entry []entries) {
+		int len = result.length;
+		for (int i = 0; i < len; ++i) {
+			if (result[i] == null) {
+				result[i] = entries[i];
+			} else if (entries[i] != null) {
+				Entry entry = result[i];
+				while (true) {
+					
+					if (entry.next == null) {
+						entry.next = entries[i];
+						break;
+					} else {
+						entry = entry.next;
+					}
+				}
+			}
+		}
+	}
+	
 	/**
 	 * 由排列的指定字段为键创建哈希表
 	 * @param code 源排列
 	 * @param field 字段索引
 	 */
 	public void create(Sequence code, int field) {
+		create(code, field, true);
+	}
+	
+	/**
+	 * 由排列的指定字段为键创建哈希表
+	 * @param code 源排列
+	 * @param field 字段索引
+	 * @param checkDupKey 检查冲重值
+	 */
+	public void create(Sequence code, int field, boolean checkDupKey) {
 		this.code = code;
 		int len = code.length();
 		if (useMultithread && len > MultithreadUtil.SINGLE_PROSS_COUNT && Env.getParallelNum() > 1) {
@@ -242,9 +325,9 @@ public class HashIndexTable extends IndexTable {
 			try {
 				for (int i = 0, start = 1; i < threadCount; ++i) {
 					if (i + 1 == threadCount) {
-						jobs[i] = new CreateJob(hashUtil, code, field, start, len + 1);
+						jobs[i] = new CreateJob(hashUtil, code, field, start, len + 1, checkDupKey);
 					} else {
-						jobs[i] = new CreateJob(hashUtil, code, field, start, start + singleCount);
+						jobs[i] = new CreateJob(hashUtil, code, field, start, start + singleCount, checkDupKey);
 						start += singleCount;
 					}
 					
@@ -257,19 +340,64 @@ public class HashIndexTable extends IndexTable {
 					if (entries == null) {
 						entries = jobs[i].entries;
 					} else {
-						combineHashGroups(entries, jobs[i].entries);
+						combineHashGroups(entries, jobs[i].entries, checkDupKey);
 					}
 				}
 			} finally {
 				pool.shutdown();
 			}
 		} else {
-			CreateJob job = new CreateJob(hashUtil, code, field, 1, len + 1);
+			CreateJob job = new CreateJob(hashUtil, code, field, 1, len + 1, checkDupKey);
 			job.run();
 			entries = job.entries;
 		}
 	}
 
+	/**
+	 * 由排列的指定字段为键创建哈希表 (用于ifind)
+	 * @param code 源排列
+	 * @param field 字段索引
+	 */
+	public void create_i(Sequence code, int field) {
+		this.code = code;
+		int len = code.length();
+		if (useMultithread && len > MultithreadUtil.SINGLE_PROSS_COUNT && Env.getParallelNum() > 1) {
+			int threadCount = Env.getParallelNum();
+			int singleCount = len / threadCount;
+			CreateJob2 []jobs = new CreateJob2[threadCount];
+			ThreadPool pool = ThreadPool.newInstance(threadCount);
+
+			try {
+				for (int i = 0, start = 1; i < threadCount; ++i) {
+					if (i + 1 == threadCount) {
+						jobs[i] = new CreateJob2(hashUtil, code, field, start, len + 1);
+					} else {
+						jobs[i] = new CreateJob2(hashUtil, code, field, start, start + singleCount);
+						start += singleCount;
+					}
+					
+					pool.submit(jobs[i]);
+				}
+				
+				for (int i = 0; i < threadCount; ++i) {
+					jobs[i].join();
+					
+					if (entries == null) {
+						entries = jobs[i].entries;
+					} else {
+						combineHashGroups_i(entries, jobs[i].entries);
+					}
+				}
+			} finally {
+				pool.shutdown();
+			}
+		} else {
+			CreateJob2 job = new CreateJob2(hashUtil, code, field, 1, len + 1);
+			job.run();
+			entries = job.entries;
+		}
+	}
+	
 	/**
 	 * 由键查找元素，找不到返回空
 	 * @param key 键值
@@ -437,5 +565,83 @@ public class HashIndexTable extends IndexTable {
 
 	public int[] findAllPos(IArray[] keys, BoolArray signArray) {
 		return findAllPos(keys[0], signArray);
+	}
+	
+	/**
+	 * 根据键查找对应的值的位置,包括重复的值
+	 * @param key 键
+	 * @param out
+	 */
+	public void findPos(Object key, IntArray out) {
+		int hash = hashUtil.hashCode(key);
+		for (Entry entry = entries[hash]; entry != null; entry = entry.next) {
+			if (Variant.compare(entry.key, key, true) == 0) {
+				out.addInt(entry.seq);
+			}
+		}
+	}
+	
+	/**
+	 * 根据键查找对应的值的位置,包括重复的值
+	 * @param key 键
+	 * @param out
+	 */
+	public void findPos(Object[] keys, IntArray out) {
+		int hash = hashUtil.hashCode(keys[0]);
+		for (Entry entry = entries[hash]; entry != null; entry = entry.next) {
+			if (Variant.compare(entry.key, keys[0], true) == 0) {
+				out.addInt(entry.seq);
+			}
+		}
+	}
+	
+	//只找原序里出现的第一个的位置
+	public int[] findAllFirstPos(IArray keys) {
+		Entry []entries = this.entries;
+		HashUtil hashUtil = this.hashUtil;
+		int len = keys.size();
+		int[] pos = new int[len + 1];
+		
+		for (int i = 1; i <= len; i++) {
+			int hash = hashUtil.hashCode(keys.hashCode(i));
+			for (Entry entry = entries[hash]; entry != null; entry = entry.next) {
+				if (keys.isEquals(i, entry.key)) {
+					pos[i] =  entry.seq;
+					break;
+				}
+			}
+		}
+		
+		return pos;
+	}
+
+	public int[] findAllFirstPos(IArray[] keys) {
+		return findAllFirstPos(keys[0]);
+	}
+
+	public int[] findAllFirstPos(IArray keys, BoolArray signArray) {
+		Entry []entries = this.entries;
+		HashUtil hashUtil = this.hashUtil;
+		int len = keys.size();
+		int[] pos = new int[len + 1];
+		
+		for (int i = 1; i <= len; i++) {
+			if (signArray.isFalse(i)) {
+				continue;
+			}
+			int hash = hashUtil.hashCode(keys.hashCode(i));
+			for (Entry entry = entries[hash]; entry != null; entry = entry.next) {
+				if (keys.isEquals(i, entry.key)) {
+					pos[i] =  entry.seq;
+					break;
+				}
+			}
+		}
+		
+		return pos;
+	}
+
+	public int[] findAllFirstPos(IArray[] keys, BoolArray signArray) {
+		return findAllFirstPos(keys[0], signArray);
 	}
 }

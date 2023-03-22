@@ -1,6 +1,8 @@
 package com.scudata.dm.op;
 
 import com.scudata.array.IArray;
+import com.scudata.array.IntArray;
+import com.scudata.array.ObjectArray;
 import com.scudata.common.MessageManager;
 import com.scudata.common.ObjectCache;
 import com.scudata.common.RQException;
@@ -10,6 +12,7 @@ import com.scudata.dm.Context;
 import com.scudata.dm.Current;
 import com.scudata.dm.DataStruct;
 import com.scudata.dm.Env;
+import com.scudata.dm.GroupsSyncReader;
 import com.scudata.dm.ListBase1;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
@@ -49,6 +52,7 @@ public class Groups1Result extends IGroupsResult {
 	private boolean iOpt;
 	private boolean nOpt;
 	private boolean hOpt;
+	private boolean eOpt;
 
 	/**
 	 * 初始化参数
@@ -111,6 +115,8 @@ public class Groups1Result extends IGroupsResult {
 			} else if (opt.indexOf('h') != -1) {
 				hOpt = true;
 			}
+			
+			if (valCount == 1 && opt.indexOf('e') != -1) eOpt = true;
 		}
 		
 		if (hOpt) {
@@ -294,7 +300,11 @@ public class Groups1Result extends IGroupsResult {
 				table.deleteNullFieldRecord(0);
 			}
 			
-			table.trimToSize();
+			if (eOpt) {
+				table = table.fieldValues(ds.getFieldCount() - 1).derive("o");
+			}
+			
+			//table.trimToSize();
 		} else if (opt == null || opt.indexOf('t') == -1) {
 			table = null;
 		}
@@ -685,5 +695,137 @@ public class Groups1Result extends IGroupsResult {
 		}
 
 		return result.groups(exps2, new String[]{gname}, calcExps2, calcNames, opt, ctx);
+	}
+	
+	//用于实现@z
+	public void push(GroupsSyncReader reader, int hashStart, int hashEnd) {
+		Context ctx = this.ctx;
+		int index = 1;
+		while (true) {
+			Object[] objs = reader.getData(index++);
+			if (objs == null) {
+				break;
+			}
+			addGroups_z((Sequence)objs[0], objs[1], (IntArray)objs[2], hashStart, hashEnd, ctx);
+		}
+	}
+	
+	//用于实现@z
+	public void push(Sequence table, Object key, IntArray hashValue, int hashStart, int hashEnd) {
+		addGroups_z(table, key, hashStart, hashEnd, ctx);
+	}
+	
+	// 哈希法分组
+	private void addGroups_z(Sequence table, Object obj, IntArray hashValue, int hashStart, int hashEnd, Context ctx) {
+		final int INIT_GROUPSIZE = HashUtil.getInitGroupSize();
+		//HashUtil hashUtil = (HashUtil) obj;
+		ObjectArray keyArray = (ObjectArray) obj;
+		ListBase1 []groups = this.groups;
+		//Expression gexp = this.gexp;
+		int valCount = null == gathers ? 0 : gathers.length;
+
+		Node []gathers = this.gathers;
+		Table result = this.result;
+		Object key;
+		ComputeStack stack = ctx.getComputeStack();
+		Current current = new Current(table);
+		stack.push(current);
+
+		try {
+			for (int i = 1, len = table.length(); i <= len; ++i) {
+				current.setCurrent(i);
+				//key = gexp.calculate(ctx);
+				key = keyArray.get(i);
+				int hash = hashValue.getInt(i);
+
+				BaseRecord r;
+				if ((hash % hashEnd) != hashStart) continue;
+				if (groups[hash] == null) {
+					groups[hash] = new ListBase1(INIT_GROUPSIZE);
+					r = result.newLast();
+					r.setNormalFieldValue(0, key);
+					groups[hash].add(r);
+					for (int v = 0; v < valCount; ++v) {
+						Object val = gathers[v].gather(ctx);
+						r.setNormalFieldValue(v + 1, val);
+					}
+				} else {
+					int index = HashUtil.bsearch_r(groups[hash], key);
+					if (index < 1) {
+						r = result.newLast();
+						r.setNormalFieldValue(0, key);
+						groups[hash].add(-index, r);
+						for (int v = 0; v < valCount; ++v) {
+							Object val = gathers[v].gather(ctx);
+							r.setNormalFieldValue(v + 1, val);
+						}
+					} else {
+						r = (BaseRecord)groups[hash].get(index);
+						for (int f = 1; f <= valCount; ++f) {
+							Object val = gathers[f - 1].gather(r.getNormalFieldValue(f), ctx);
+							r.setNormalFieldValue(f, val);
+						}
+					}
+				}
+			}
+		} finally {
+			stack.pop();
+		}
+	}
+		
+	// 哈希法分组
+	private void addGroups_z(Sequence table, Object obj, int hashStart, int hashEnd, Context ctx) {
+		final int INIT_GROUPSIZE = HashUtil.getInitGroupSize();
+		HashUtil hashUtil = (HashUtil) obj;
+		ListBase1 []groups = this.groups;
+		Expression gexp = this.gexp;
+		int valCount = null == gathers ? 0 : gathers.length;
+
+		Node []gathers = this.gathers;
+		Table result = this.result;
+		Object key;
+		ComputeStack stack = ctx.getComputeStack();
+		Current current = new Current(table);
+		stack.push(current);
+
+		try {
+			for (int i = 1, len = table.length(); i <= len; ++i) {
+				current.setCurrent(i);
+				key = gexp.calculate(ctx);
+
+				BaseRecord r;
+				int hash = hashUtil.hashCode(key);
+				if ((hash % hashEnd) != hashStart) continue;
+				if (groups[hash] == null) {
+					groups[hash] = new ListBase1(INIT_GROUPSIZE);
+					r = result.newLast();
+					r.setNormalFieldValue(0, key);
+					groups[hash].add(r);
+					for (int v = 0; v < valCount; ++v) {
+						Object val = gathers[v].gather(ctx);
+						r.setNormalFieldValue(v + 1, val);
+					}
+				} else {
+					int index = HashUtil.bsearch_r(groups[hash], key);
+					if (index < 1) {
+						r = result.newLast();
+						r.setNormalFieldValue(0, key);
+						groups[hash].add(-index, r);
+						for (int v = 0; v < valCount; ++v) {
+							Object val = gathers[v].gather(ctx);
+							r.setNormalFieldValue(v + 1, val);
+						}
+					} else {
+						r = (BaseRecord)groups[hash].get(index);
+						for (int f = 1; f <= valCount; ++f) {
+							Object val = gathers[f - 1].gather(r.getNormalFieldValue(f), ctx);
+							r.setNormalFieldValue(f, val);
+						}
+					}
+				}
+			}
+		} finally {
+			stack.pop();
+		}
 	}
 }

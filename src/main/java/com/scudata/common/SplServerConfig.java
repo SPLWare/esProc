@@ -14,6 +14,7 @@ import com.scudata.parallel.XmlUtil;
 <SERVER>
     <TempTimeOut>12</TempTimeOut>
     <Interval>0</Interval>
+    <Backlog>10</Backlog>
     <ProxyTimeOut>12</ProxyTimeOut>
     <SplConfig>d:/path/raqsofCofig.xml</SplConfig>
     <LogPath>d:/sp.log</LogPath>
@@ -22,7 +23,7 @@ import com.scudata.parallel.XmlUtil;
 </SERVER>
 **/
 public class SplServerConfig {
-	public String tempTimeOut,interval,proxyTimeOut,splConfig,logPath;
+	public String tempTimeOut,interval,backlog,proxyTimeOut,splConfig,logPath;
 	public String splHome,JVMArgs;
 	
 	public static SplServerConfig getCfg(InputStream is) throws Exception {
@@ -65,6 +66,10 @@ public class SplServerConfig {
 		subNode = XmlUtil.findSonNode(root, "Interval");
 		if(subNode!=null) {
 			ssc.interval = XmlUtil.getNodeValue(subNode);
+		}
+		subNode = XmlUtil.findSonNode(root, "Backlog");
+		if(subNode!=null) {
+			ssc.backlog = XmlUtil.getNodeValue(subNode);
 		}
 		subNode = XmlUtil.findSonNode(root, "LogPath");
 		if(subNode!=null) {

@@ -3,6 +3,7 @@ package org.olap4j.driver.xmla;
 import java.sql.*;
 import java.util.*;
 import org.olap4j.driver.xmla.proxy.XmlaOlap4jProxy;
+import com.scudata.common.Logger;
 
 public class XmlaOlap4jDriverProxy extends XmlaOlap4jDriver {
 
@@ -12,9 +13,9 @@ public class XmlaOlap4jDriverProxy extends XmlaOlap4jDriver {
         try {
             register();
         } catch (SQLException e) {
-            e.printStackTrace();
+            Logger.error(e.getMessage());
         } catch (RuntimeException e) {
-            e.printStackTrace();
+            Logger.error(e.getMessage());
             throw e;
         }
     }

@@ -17,6 +17,7 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 import com.alibaba.fastjson.JSON;
 import com.scudata.common.RQException;
+import com.scudata.common.Logger;
 
 public class ImOpen extends ImFunction {
 	private String m_loginurl = "https://login.salesforce.com";
@@ -65,7 +66,7 @@ public class ImOpen extends ImFunction {
 				ret = (com.alibaba.fastjson.JSONObject)o;
 			}
 		}catch(Exception e) {
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		}
 		return ret;
 	}
@@ -112,13 +113,9 @@ public class ImOpen extends ImFunction {
 
 		try {
 			httpResponse = httpclient.execute(m_httpPost);
-		} catch (ClientProtocolException clientProtocolException) {
-			clientProtocolException.printStackTrace();
-		} catch (IOException ioException) {
-			ioException.printStackTrace();
-		} catch (Exception exception) {
-			exception.printStackTrace();
-		}
+		} catch (Exception e) {
+			Logger.error(e.getMessage());
+		} 
 
 		final int statusCode = httpResponse.getStatusLine().getStatusCode();
 		if (statusCode != HttpStatus.SC_OK) {
@@ -129,8 +126,8 @@ public class ImOpen extends ImFunction {
 		String httpMessage = null;
 		try {
 			httpMessage = EntityUtils.toString(httpResponse.getEntity());
-		} catch (IOException ioException) {
-			ioException.printStackTrace();
+		} catch (Exception e) {
+			Logger.error(e.getMessage());
 		}
 
 		JSONObject jsonObject = null;
@@ -141,8 +138,8 @@ public class ImOpen extends ImFunction {
 			m_instanceUrl = jsonObject.getString(m_instanceurl);
 			//System.out.println("accessToken:" + accessToken);
 			//System.out.println("instanceUrl:" + m_instanceUrl);
-		} catch (JSONException jsonException) {
-			jsonException.printStackTrace();
+		} catch (JSONException e) {
+			Logger.error(e.getMessage());
 		}
 
 		m_oAuthHeader = new BasicHeader("Authorization", "OAuth " + accessToken);

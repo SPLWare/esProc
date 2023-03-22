@@ -10,6 +10,7 @@ import com.scudata.expression.Function;
 import com.scudata.expression.IParam;
 import com.scudata.expression.Node;
 import com.scudata.resources.EngineMessage;
+import com.scudata.common.Logger;
 
 public class WsCall  extends Function {
 
@@ -77,7 +78,6 @@ public class WsCall  extends Function {
 		try {
 			return client.call(service, port, func, values.size()>0?values.toArray(new String[values.size()]):new String[]{});
 		} catch (Exception e) {
-			e.printStackTrace();
 			throw new RQException("ws_call : " + e.getMessage());
 		}
 	}

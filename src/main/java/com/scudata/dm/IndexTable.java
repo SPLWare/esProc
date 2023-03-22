@@ -2,6 +2,7 @@ package com.scudata.dm;
 
 import com.scudata.array.BoolArray;
 import com.scudata.array.IArray;
+import com.scudata.array.IntArray;
 
 /**
  * 内存索引表基类
@@ -66,4 +67,22 @@ abstract public class IndexTable {
 	 * @return
 	 */
 	abstract public int findPos(Object []keys);
+	
+	/**
+	 * 根据键查找对应的值的位置,包括重复的值
+	 * @param key 键
+	 * @param out
+	 */
+	public void findPos(Object key, IntArray out) {
+		throw new RuntimeException();
+	}
+	
+	/**
+	 * 根据键查找对应的值的位置,包括重复的值
+	 * @param key 键
+	 * @param out
+	 */
+	public void findPos(Object[] keys, IntArray out) {
+		throw new RuntimeException();
+	}
 }

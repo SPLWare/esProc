@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
+import com.scudata.common.Logger;
 import com.scudata.dm.Context;
 import com.scudata.expression.Function;
 import com.scudata.expression.Node;
@@ -55,7 +56,6 @@ public class StaxCursor  extends Function {
 		
 			return stax.cursor(cql, values);
 		} catch (Exception e) {
-			e.printStackTrace();
 			throw new RQException("stax_cursor : " + e.getMessage());
 		}
 		

@@ -10,12 +10,9 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-//import net.sf.json.JSONObject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
+import com.scudata.common.Logger;
 import com.scudata.dm.Context;
 import com.scudata.dm.FileObject;
 import com.scudata.dm.BaseRecord;
@@ -42,8 +39,6 @@ public class WebHdfs extends Function {
 		//m_paramSize = paramSize;
 	}
 
-	private static final Logger logger = LoggerFactory.getLogger(WebHdfs.class);
-
     /**
      * @param webhdfs
      * @param stream       the InputStream of file to upload
@@ -65,8 +60,7 @@ public class WebHdfs extends Function {
             con.getInputStream();
             con.disconnect();
         } catch (IOException e) {
-            logger.info(e.getMessage());
-            e.printStackTrace();
+            Logger.error(e.getMessage());
         }
         stream.close();
     }
@@ -103,7 +97,7 @@ public class WebHdfs extends Function {
             con.setDoOutput(true);
             con.setUseCaches(false);
         } catch (IOException e) {
-            logger.error("eeee", e);
+            Logger.error(e.getMessage());
         }
         return con;
     }
@@ -231,7 +225,7 @@ public class WebHdfs extends Function {
             }
         } catch (Exception e) {
             System.out.println("发送GET请求出现异常！" + e);
-            e.printStackTrace();
+            Logger.error(e.getMessage());
         }
         // 使用finally块来关闭输入流
         finally {
@@ -270,7 +264,7 @@ public class WebHdfs extends Function {
 			}
 			System.out.println(s);
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		}
     }
 
@@ -369,7 +363,7 @@ public class WebHdfs extends Function {
 				return stringResult(url,method);
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 			throw new RQException("webhdfs : " + e.getMessage());
 		}
 

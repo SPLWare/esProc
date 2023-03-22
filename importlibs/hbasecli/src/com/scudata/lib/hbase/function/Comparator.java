@@ -17,6 +17,7 @@ import org.apache.hadoop.hbase.util.Bytes;
 
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
+import com.scudata.common.Logger;
 import com.scudata.dm.Context;
 import com.scudata.expression.Function;
 import com.scudata.expression.IParam;
@@ -110,7 +111,7 @@ public class Comparator extends Function {
 							return new BitComparator(Bytes.toBytes(s), ImUtils.GetBitwiseOp((String)obj1));
 						}					
 					} catch (Exception e) {
-						e.printStackTrace();
+						Logger.error(e.getMessage());
 					}
 				}else if (option.equals("c")){ //BinaryComponentComparator
 					byte[] bt  = null;
@@ -136,7 +137,7 @@ public class Comparator extends Function {
 				}
 			}
 		}catch(Exception e){
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		}
 		return null;
 	}

@@ -373,15 +373,25 @@ public class DateFactory {
 	}
 	
 	/**
+	 * 把日期变成基于1970年的天数
+	 * @param y 从1开始计数
+	 * @param m 从0开始计数
+	 * @param d 从1开始计数
+	 * @return int
+	 */
+	public static int toDays(int y, int m, int d) {
+		return ((y - 1970) * 12 + m) * 32 + d;
+	}
+	
+	/**
 	 * 把基于1970年的天数变成日期
 	 * @param days
 	 * @return Date
 	 */
 	public static Date toDate(int days) {
 		if (days < 0) {
-			int ym = days / 32 - 1;
-			int y = ym / 12 + 1969;
-			int m = ym % 12 + 12;
+			int y = days / 384 + 1969;
+			int m = days / 32 % 12 + 11;
 			int d = days % 32 + 32;
 			
 			Calendar calendar = get().calendar;
@@ -389,9 +399,8 @@ public class DateFactory {
 			calendar.set(Calendar.MILLISECOND, 0);
 			return new java.sql.Date(calendar.getTimeInMillis());
 		} else {
-			int ym = days / 32;
-			int y = ym / 12 + 1970;
-			int m = ym % 12;
+			int y = days / 384 + 1970;
+			int m = days / 32 % 12;
 			int d = days % 32;
 			
 			Calendar calendar = get().calendar;
@@ -408,8 +417,7 @@ public class DateFactory {
 	 */
 	public static int toYear(int days) {
 		if (days < 0) {
-			int ym = days / 32 - 1;
-			return ym / 12 + 1969;
+			return days / 384 + 1969;
 		} else {
 			return days / 384 + 1970;
 		}
@@ -422,8 +430,7 @@ public class DateFactory {
 	 */
 	public static int toMonth(int days) {
 		if (days < 0) {
-			int ym = days / 32 - 1;
-			return ym % 12 + 13;
+			return days / 32 % 12 + 12;
 		} else {
 			return days / 32 % 12 + 1;
 		}
@@ -436,9 +443,8 @@ public class DateFactory {
 	 */
 	public static int toYearMonth(int days) {
 		if (days < 0) {
-			int ym = days / 32 - 1;
-			int y = ym / 12 + 1969;
-			int m = ym % 12 + 13;
+			int y = days / 384 + 1969;
+			int m = days / 32 % 12 + 12;
 			return y * 100 + m;
 		} else {
 			int ym = days / 32;

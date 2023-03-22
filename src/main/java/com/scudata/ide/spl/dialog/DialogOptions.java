@@ -3,6 +3,7 @@ package com.scudata.ide.spl.dialog;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -422,7 +423,7 @@ public class DialogOptions extends JDialog {
 			}
 			initUI();
 			load();
-			int dialogWidth = 800;
+			int dialogWidth = 830;
 			if (GC.LANGUAGE == GC.ASIAN_CHINESE && !isUnit) {
 				dialogWidth = 700;
 			}
@@ -912,10 +913,6 @@ public class DialogOptions extends JDialog {
 			panelMid.add(jSCursorParallelNum, GM.getGBC(3, 4, true));
 			panelMid.add(jLUndoCount, GM.getGBC(4, 1));
 			panelMid.add(jSUndoCount, GM.getGBC(4, 2, true));
-			if (showXmx) {
-				panelMid.add(jLXmx, GM.getGBC(4, 3));
-				panelMid.add(jTFXmx, GM.getGBC(4, 4, true));
-			}
 		} else {
 			panelMid.add(jLabelLevel, GM.getGBC(1, 1));
 			panelMid.add(jCBLevel, GM.getGBC(1, 2, true));
@@ -938,6 +935,9 @@ public class DialogOptions extends JDialog {
 		jSUndoCount.setToolTipText(IdeSplMessage.get().getMessage(
 				"dialogoptions.undocountcause"));
 		jLUndoCount.setForeground(Color.BLUE);
+
+		jLabel9.setPreferredSize(new Dimension(60, 25));
+
 		FlowLayout fl1 = new FlowLayout(FlowLayout.LEFT);
 		fl1.setHgap(0);
 		JPanel jPanelTimeout = new JPanel();
@@ -945,10 +945,15 @@ public class DialogOptions extends JDialog {
 		jPanelTimeout.add(jSConnectTimeout);
 		jPanelTimeout.add(jLabel9); // √Î
 
-		panelMid.add(jLabelTimeout, GM.getGBC(5, 1));
-		panelMid.add(jPanelTimeout, GM.getGBC(5, 2, true));
+		panelMid.add(jLabelTimeout, GM.getGBC(4, 3));
+		panelMid.add(jPanelTimeout, GM.getGBC(4, 4, true));
 
-		// GridBagConstraints gbc;
+		if (showXmx) {
+			panelMid.add(jLXmx, GM.getGBC(5, 1));
+			panelMid.add(jTFXmx, GM.getGBC(5, 2, true));
+		}
+
+		jLAutoSaveMinutes.setPreferredSize(new Dimension(60, 25));
 
 		JPanel panelAutoSave = new JPanel(new GridBagLayout());
 		panelAutoSave.add(jCBAutoOpen, GM.getGBC(0, 0, false, false, 0));

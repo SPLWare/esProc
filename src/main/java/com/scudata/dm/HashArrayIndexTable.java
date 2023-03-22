@@ -17,7 +17,7 @@ import com.scudata.util.Variant;
  * @author WangXiaoJun
  *
  */
-class HashArrayIndexTable extends IndexTable {
+public class HashArrayIndexTable extends IndexTable {
 	// 用于存放哈希表里的元素，哈希值相同的元素用链表存储
 	private static class Entry {
 		Object []keys;
@@ -43,15 +43,17 @@ class HashArrayIndexTable extends IndexTable {
 		private int []fields;
 		private int start; // 起始位置，包括
 		private int end; // 结束位置，不包括
+		private boolean checkDupKey;// 检查重值
 		
 		Entry []entries; // 按hash值分组
 		
-		public CreateJob(HashUtil hashUtil, Sequence code, int []fields, int start, int end) {
+		public CreateJob(HashUtil hashUtil, Sequence code, int []fields, int start, int end, boolean checkDupKey) {
 			this.hashUtil = hashUtil;
 			this.code = code;
 			this.fields = fields;
 			this.start = start;
 			this.end = end;
+			this.checkDupKey = checkDupKey;
 		}
 
 		public void run() {
@@ -74,7 +76,7 @@ class HashArrayIndexTable extends IndexTable {
 
 				int hash = hashUtil.hashCode(keys, keyCount);
 				for (Entry entry = groups[hash]; entry != null; entry = entry.next) {
-					if (Variant.compareArrays(entry.keys, keys, keyCount) == 0) {
+					if (checkDupKey && Variant.compareArrays(entry.keys, keys, keyCount) == 0) {
 						MessageManager mm = EngineMessage.get();
 						String str = "[";
 						for (int k = 0; k < keyCount; ++k) {
@@ -178,7 +180,7 @@ class HashArrayIndexTable extends IndexTable {
 	}
 	
 	// 合并哈希表
-	private static void combineHashGroups(Entry []result, Entry []entries) {
+	private static void combineHashGroups(Entry []result, Entry []entries, boolean checkDupKey) {
 		int len = result.length;
 		for (int i = 0; i < len; ++i) {
 			if (result[i] == null) {
@@ -222,6 +224,16 @@ class HashArrayIndexTable extends IndexTable {
 	 * @param fields 字段索引组成的数组
 	 */
 	public void create(Sequence code, int []fields) {
+		create(code , fields, true);
+	}
+	
+	/**
+	 * 由排列的指定字段为键创建哈希表
+	 * @param code 源排列
+	 * @param fields 字段索引组成的数组
+	 * @param checkDupKey 检查冲重值
+	 */
+	public void create(Sequence code, int []fields, boolean checkDupKey) {
 		this.code = code;
 		int len = code.length();
 		if (useMultithread && len > MultithreadUtil.SINGLE_PROSS_COUNT && Env.getParallelNum() > 1) {
@@ -233,9 +245,9 @@ class HashArrayIndexTable extends IndexTable {
 			try {
 				for (int i = 0, start = 1; i < threadCount; ++i) {
 					if (i + 1 == threadCount) {
-						jobs[i] = new CreateJob(hashUtil, code, fields, start, len + 1);
+						jobs[i] = new CreateJob(hashUtil, code, fields, start, len + 1, checkDupKey);
 					} else {
-						jobs[i] = new CreateJob(hashUtil, code, fields, start, start + singleCount);
+						jobs[i] = new CreateJob(hashUtil, code, fields, start, start + singleCount, checkDupKey);
 						start += singleCount;
 					}
 					
@@ -248,14 +260,14 @@ class HashArrayIndexTable extends IndexTable {
 					if (entries == null) {
 						entries = jobs[i].entries;
 					} else {
-						combineHashGroups(entries, jobs[i].entries);
+						combineHashGroups(entries, jobs[i].entries, checkDupKey);
 					}
 				}
 			} finally {
 				pool.shutdown();
 			}
 		} else {
-			CreateJob job = new CreateJob(hashUtil, code, fields, 1, len + 1);
+			CreateJob job = new CreateJob(hashUtil, code, fields, 1, len + 1, checkDupKey);
 			job.run();
 			entries = job.entries;
 		}
@@ -421,6 +433,65 @@ class HashArrayIndexTable extends IndexTable {
 				pos[i] =  entry.seq;
 				break;
 			}
+		}
+		
+		return pos;
+	}
+	
+	public int[] findAllFirstPos(IArray[] keys) {
+		Entry []entries = this.entries;
+		HashUtil hashUtil = this.hashUtil;
+		int keyCount = keys.length;
+		int len = keys[0].size();
+		int []pos = new int[len + 1];
+		
+		for (int i = 1; i <= len; ++i) {
+			int hash = hashUtil.hashCode(keys, i, keyCount);
+			int seq = 0;
+			
+			Next:
+			for (Entry entry = entries[hash]; entry != null; entry = entry.next) {
+				Object []keyValues = entry.keys;
+				for (int k = 0; k < keyCount; ++k) {
+					if (!keys[k].isEquals(i, keyValues[k])) {
+						continue Next;
+					}
+				}
+				
+				seq =  entry.seq;
+			}
+			pos[i] = seq;
+		}
+		
+		return pos;
+	}
+	
+	public int[] findAllFirstPos(IArray[] keys, BoolArray signArray) {
+		Entry []entries = this.entries;
+		HashUtil hashUtil = this.hashUtil;
+		int keyCount = keys.length;
+		int len = keys[0].size();
+		int []pos = new int[len + 1];
+		
+		for (int i = 1; i <= len; ++i) {
+			if (signArray.isFalse(i)) {
+				continue;
+			}
+			int hash = hashUtil.hashCode(keys, i, keyCount);
+			int seq = 0;
+			
+			Next:
+			for (Entry entry = entries[hash]; entry != null; entry = entry.next) {
+				Object []keyValues = entry.keys;
+				for (int k = 0; k < keyCount; ++k) {
+					if (!keys[k].isEquals(i, keyValues[k])) {
+						continue Next;
+					}
+				}
+				
+				seq =  entry.seq;
+			}
+			pos[i] = seq;
 		}
 		
 		return pos;

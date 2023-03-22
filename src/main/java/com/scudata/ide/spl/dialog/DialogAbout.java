@@ -270,17 +270,20 @@ public class DialogAbout extends JDialog {
 	 */
 	protected void placeLogo() {
 		final int LABEL1_WIDTH = getTopLabel1Width();
+		final int LABEL2_WIDTH = 200;
 		panelTop.add(jLabelLogo, new FreeConstraints(GAP, 2, IMAGE_SIZE,
 				IMAGE_SIZE));
 		x1 = IMAGE_SIZE + GAP * 3;
 		y1 = GAP;
-		panelTop.add(jLProductName1, new FreeConstraints(x1, y1, -1, -1));
+		panelTop.add(jLProductName1, new FreeConstraints(x1, y1, LABEL1_WIDTH,
+				-1));
 		panelTop.add(jLProductName2, new FreeConstraints(x1 + LABEL1_WIDTH, y1,
-				-1, -1));
+				LABEL2_WIDTH, -1));
 		y1 += ROW_HEIGHT;
-		panelTop.add(jLReleaseDate1, new FreeConstraints(x1, y1, -1, -1));
+		panelTop.add(jLReleaseDate1, new FreeConstraints(x1, y1, LABEL1_WIDTH,
+				-1));
 		panelTop.add(jLReleaseDate2, new FreeConstraints(x1 + LABEL1_WIDTH, y1,
-				-1, -1));
+				LABEL2_WIDTH, -1));
 	}
 
 	protected int placeCenter() {
@@ -292,17 +295,20 @@ public class DialogAbout extends JDialog {
 	 */
 	protected void placeLongLogo() {
 		final int LABEL1_WIDTH = getTopLabel1Width();
+		final int LABEL2_WIDTH = 200;
 		panelTop.add(jLabelLogo, new FreeConstraints(GAP, 2, DIALOG_WIDTH - GAP
 				* 2, 50));
 		x1 = GAP;
 		y1 = 60;
-		panelTop.add(jLProductName1, new FreeConstraints(x1, y1, -1, -1));
+		panelTop.add(jLProductName1, new FreeConstraints(x1, y1, LABEL1_WIDTH,
+				-1));
 		panelTop.add(jLProductName2, new FreeConstraints(x1 + LABEL1_WIDTH, y1,
-				-1, -1));
+				LABEL2_WIDTH, -1));
 		y1 += ROW_HEIGHT;
-		panelTop.add(jLReleaseDate1, new FreeConstraints(x1, y1, -1, -1));
+		panelTop.add(jLReleaseDate1, new FreeConstraints(x1, y1, LABEL1_WIDTH,
+				-1));
 		panelTop.add(jLReleaseDate2, new FreeConstraints(x1 + LABEL1_WIDTH, y1,
-				-1, -1));
+				LABEL2_WIDTH, -1));
 	}
 
 	protected void placeBottom(int x1, int x2, int bottomY) {
@@ -416,7 +422,8 @@ public class DialogAbout extends JDialog {
 					BOTTOM_L2, -1));
 		}
 		bottomY += ROW_HEIGHT;
-		panelTop.add(jLTel, new FreeConstraints(BOTTOM_X1, bottomY, -1, -1));
+		panelTop.add(jLTel, new FreeConstraints(BOTTOM_X1, bottomY, BOTTOM_L1,
+				-1));
 		panelTop.add(jLTel2, new FreeConstraints(BOTTOM_X2, bottomY, BOTTOM_L2,
 				-1));
 		placeBottom(BOTTOM_X1, BOTTOM_X2, bottomY + ROW_HEIGHT);

@@ -25,6 +25,7 @@ import com.scudata.dm.Table;
 import com.scudata.dm.cursor.ICursor;
 import com.scudata.expression.Expression;
 import com.scudata.expression.IParam;
+import com.scudata.common.Logger;
 
 public class StaxClientImpl implements IResource {
 //	package com.scudata.lib.datastax;
@@ -221,7 +222,7 @@ stax_close(staxClient)
 		try {
 		    if (cluster != null) cluster.close();
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		}
 	}
 

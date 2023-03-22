@@ -437,7 +437,7 @@ public class ImZipUtil {
            zipFile.close();
            return zFile;  
        } catch (Exception e) {  
-           e.printStackTrace();  
+           Logger.error(e.getMessage());  
        }  
        return null;  
    }  
@@ -750,7 +750,7 @@ public class ImZipUtil {
 			zfile.close();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			//e.printStackTrace();
+			//Logger.error(e.getMessage());
 		}
 		
 		return bRet;
@@ -792,7 +792,7 @@ public class ImZipUtil {
     	 
     	 
      } catch (Exception e) {  
-         e.printStackTrace();  
+         Logger.error(e.getMessage());  
      }  
    }  
 }  

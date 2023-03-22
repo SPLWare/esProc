@@ -90,6 +90,10 @@ public class ColComTable extends ComTable {
 		if (opt != null && opt.indexOf('u') != -1) {
 			setCompress(false);
 		}
+		// 是否检查数据类型纯
+		if (opt != null && opt.indexOf('v') != -1) {
+			setCheckDataPure(true);
+		}
 		
 		setBlockSize(Env.getBlockSize());
 		enlargeSize = blockSize * 16;

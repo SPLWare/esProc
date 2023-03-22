@@ -1579,6 +1579,14 @@ public class PhyTableIndex implements ITableIndex {
 			//this.recordCount = recordCount + index1RecordCount;
 			
 			int size = cursorList.size();
+			if (size == 0) {
+				if (table != null && table.length() > 0) {
+					table.sortFields(sortFields);
+					MemoryCursor mc = new MemoryCursor(table);
+					cursorList.add(mc);
+				}
+				return cursorList;
+			}
 			if (size > 1) {
 				int bufSize = Env.getMergeFileBufSize(size);
 				for (int i = 0; i < size; ++i) {

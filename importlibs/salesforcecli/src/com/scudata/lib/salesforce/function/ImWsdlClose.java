@@ -2,6 +2,7 @@ package com.scudata.lib.salesforce.function;
 
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
+import com.scudata.common.Logger;
 import com.scudata.dm.Context;
 import com.scudata.expression.Node;
 import com.scudata.resources.EngineMessage;
@@ -32,7 +33,7 @@ public class ImWsdlClose extends ImFunction {
 				throw new RQException("sf_close " + mm.getMessage("HttpPost releaseConnection false"));
 			}
 		}catch(Exception e) {
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		}
 		return null;
 	}

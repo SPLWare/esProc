@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import java.util.Set;
-
+import com.scudata.common.Logger;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 
 /*
@@ -37,7 +37,7 @@ public class ImTopic extends ImFunction {
 	        return ImFunction.toTable(new String[]{"title"}, ls);
 	        
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		}
 		return null;
 	}

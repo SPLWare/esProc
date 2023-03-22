@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>Multithreading</title>
+<title>9.1 Excel files</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,31 +13,498 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h2><span lang=EN-US><span style='mso-spacerun:yes'>&nbsp;</span>Multithreading<a
-name=Multithreading></a></span></h2></div>
-	<p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US style='background:aqua;mso-highlight:aqua'>This
-section explains how to perform a multithreaded computation using the <i
-style='mso-bidi-font-style:normal'>fork</i> statement. You can choose to skip
-this section if you are not a professional programmer. It won’t affect your
-learning about the other contents of this <i style='mso-bidi-font-style:normal'>Tutorial</i>.
+	<div id="centent-title"><h2 style='margin-left:18.75pt;mso-para-margin-left:0gd;text-indent:-18.75pt;
+mso-list:l25 level2 lfo45'><span lang=EN-US
+style='mso-fareast-font-family:"Times New Roman"'><span style='mso-list:Ignore'>9.1<span
+style='font:7.0pt "Times New Roman"'> </span></span></span><span
+lang=EN-US>Excel files</span></h2></div>
+	<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US>esProc supports using an Excel file as the data source, importing
+data from it and writing data to it. </span><span lang=EN-US style='mso-bidi-font-size:
+11.0pt'>Two simple examples will show how this works. </span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US style='mso-bidi-font-size:11.0pt'>First let’s look at data
+importing. The target files are <i style='mso-bidi-font-style:normal'>data.xlsx</i>
+and <i style='mso-bidi-font-style:normal'>data.xls</i> (excel97-2000 format).
+They respectively contain <i style='mso-bidi-font-style:normal'>sheet0</i>
+named <i style='mso-bidi-font-style:normal'>employee</i> and <i
+style='mso-bidi-font-style:normal'>sheet1</i> named <i style='mso-bidi-font-style:
+normal'>orders</i>. The following is <i style='mso-bidi-font-style:normal'>employee</i>:
 </span></p>
 
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>Sequential computation is the simplest and most
-intuitive processing method in handling computational tasks. Contemporary
-servers and PCs, however, have gained the multi-tasking ability with multi-core
-CPUs. Under the circumstances, sequential computation cannot make the most use
-of the computational power the CPU offers. Parallel computation is thus a
-better choice for implementing complex computational tasks and processing big
-data using multiple threads, or even multicomputers. </span></p>
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=zh-CN style='mso-bidi-font-size:11.0pt;mso-ansi-language:#0400;mso-fareast-language:
+#0400'><img border=0 width=553 height=173
+src="Tutorial.files/image880.jpg" v:shapes="图片_x0020_624"></span></p>
 
-<p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>We’ll discuss multithreading &#8211; the most basic form of parallel
-computing &#8211; in this chapter. </span></p>
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US style='mso-bidi-font-size:11.0pt'>And this is <i style='mso-bidi-font-style:
+normal'>orders</i>:</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=zh-CN style='mso-bidi-font-size:11.0pt;mso-ansi-language:#0400;mso-fareast-language:
+#0400'><img border=0 width=404 height=225
+src="Tutorial.files/image881.png" v:shapes="图片_x0020_625"></span><span
+lang=EN-US style='mso-bidi-font-size:11.0pt'></span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US style='mso-bidi-font-size:11.0pt'>esProc script for importing data
+from the Excel files:</span><span lang=EN-US> </span><span lang=EN-US
+style='mso-bidi-font-size:11.0pt'></span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='margin-left:26.7pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-alt:solid windowtext .5pt;mso-padding-alt:0cm 5.4pt 0cm 5.4pt;
+ mso-border-insideh:.5pt solid windowtext;mso-border-insidev:.5pt solid windowtext'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=28 valign=top style='width:21.25pt;border:solid windowtext 1.0pt;
+  mso-border-alt:solid windowtext .5pt;background:#BFBFBF;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='text-indent:21.1pt;mso-char-indent-count:2.0'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
+  11.0pt'>&nbsp;</span></b></p>
+  </td>
+  <td width=504 valign=top style='width:378.15pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#BFBFBF;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph;
+  text-indent:18.0pt;mso-char-indent-count:2.0'><span lang=EN-US
+  style='font-size:9.0pt'>A</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=28 valign=top style='width:21.25pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  background:#BFBFBF;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US>1</span></p>
+  </td>
+  <td width=504 valign=top style='width:378.15pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=file(&quot;D:/files/work/excel/data.xlsx&quot;)</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=28 valign=top style='width:21.25pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  background:#BFBFBF;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US>2</span></p>
+  </td>
+  <td width=504 valign=top style='width:378.15pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=file(&quot;D:/files/work/excel/data.xls&quot;)</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3'>
+  <td width=28 valign=top style='width:21.25pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  background:#BFBFBF;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US>3</span></p>
+  </td>
+  <td width=504 valign=top style='width:378.15pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=A1.
+  xlsimport@tx()</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes'>
+  <td width=28 valign=top style='width:21.25pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  background:#BFBFBF;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=TabLaEnd style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US>4</span></p>
+  </td>
+  <td width=504 valign=top style='width:378.15pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=A2.xlsimport@t(ORDERID,SELLERID,AMOUNT,ORDERDATE;&quot;orders&quot;,3:-3)</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US style='mso-bidi-font-size:11.0pt'>A1: Define a file object; the path
+and name is <i style='mso-bidi-font-style:normal'>D:/files/work/excel/data.xlsx</i>.</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US style='mso-bidi-font-size:11.0pt'>A2: Define a file object; the path
+and name is <i style='mso-bidi-font-style:normal'>D:/files/work/excel/data.xls</i>.</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US style='mso-bidi-font-size:11.0pt'>A3: Import data from A1’s file
+object using the xls<b style='mso-bidi-font-weight:normal'>import</b> function.
+<b style='mso-bidi-font-weight:normal'>@tx</b> are function options. <b
+style='mso-bidi-font-weight:normal'>@t</b> makes the first row the column
+names; without it, esProc will name the columns “_1,_2…” automatically. <b
+style='mso-bidi-font-weight:normal'>@x</b> represents an xlsx file format;
+without it, esProc will try to determine the format according to the filename
+extension; if it fails to determine the format, it will import the file as <i
+style='mso-bidi-font-style:normal'>xls</i> format. Here without input
+parameters, the xls<b style='mso-bidi-font-weight:normal'>import</b> function
+imports all data from the first sheet: </span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=zh-CN style='mso-bidi-font-size:11.0pt;mso-ansi-language:#0400;mso-fareast-language:
+#0400'><img border=0 width=554 height=163
+src="Tutorial.files/image883.jpg" v:shapes="图片_x0020_626"></span><span
+lang=EN-US style='mso-bidi-font-size:11.0pt'></span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US style='mso-bidi-font-size:11.0pt'>A4: Import data from A2’s file
+object using the xls<b style='mso-bidi-font-weight:normal'>import</b> function.
+<b style='mso-bidi-font-weight:normal'>@t</b> makes the first row the column
+names. The input parameters (ORDERID, SELLERID, AMOUNT and ORDERDATE) specifiy
+that the correponding columns will be imported. The parameter “orders”
+specifies the name of the to-be-imported sheet. Parameter “3:-3” specifies
+importing data from the third row to the third-last row. Similarly, you can
+import data from the 3<sup>rd</sup> row to the 100<sup>th</sup> row, which is
+3:100. Note: When setting the starting row for the import, the use of @t option
+will position headers on the starting row. In this instance, the header row
+needs to be the third row; otherwise there’ll be error about the table
+structure. The resulting table sequence is as follows:</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=zh-CN style='mso-bidi-font-size:11.0pt;mso-ansi-language:#0400;mso-fareast-language:
+#0400'><img border=0 width=363 height=177
+src="Tutorial.files/image884.png" v:shapes="图片_x0020_627"></span><span
+lang=EN-US style='mso-bidi-font-size:11.0pt'></span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US style='mso-bidi-font-size:11.0pt'>Then let’s look at how to write
+data into an Excel file. Suppose the results of A3 and A4 in the above will be
+written into the <i style='mso-bidi-font-style:normal'>re-emp</i> sheet of the <i
+style='mso-bidi-font-style:normal'>result1.xlsx </i>file, and the <i
+style='mso-bidi-font-style:normal'>r-orders re-emp</i> sheet of the<i
+style='mso-bidi-font-style:normal'> result2.xls</i> file respectively. esProc
+script for writing them into the Excel files:</span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='margin-left:26.7pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-alt:solid windowtext .5pt;mso-padding-alt:0cm 5.4pt 0cm 5.4pt;
+ mso-border-insideh:.5pt solid windowtext;mso-border-insidev:.5pt solid windowtext'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=28 valign=top style='width:21.25pt;border:solid windowtext 1.0pt;
+  mso-border-alt:solid windowtext .5pt;background:#BFBFBF;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='text-indent:21.1pt;mso-char-indent-count:2.0'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-bidi-font-size:
+  11.0pt'>&nbsp;</span></b></p>
+  </td>
+  <td width=504 valign=top style='width:378.15pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#BFBFBF;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0'><span
+  lang=EN-US style='font-size:9.0pt'>A</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=28 valign=top style='width:21.25pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  background:#BFBFBF;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0'><span
+  lang=EN-US style='font-size:9.0pt'>1</span></p>
+  </td>
+  <td width=504 valign=top style='width:378.15pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=file(&quot;D:/files/work/excel/data.xlsx&quot;)</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=28 valign=top style='width:21.25pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  background:#BFBFBF;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0'><span
+  lang=EN-US style='font-size:9.0pt'>2</span></p>
+  </td>
+  <td width=504 valign=top style='width:378.15pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=file(&quot;D:/files/work/excel/data.xls&quot;)</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3'>
+  <td width=28 valign=top style='width:21.25pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  background:#BFBFBF;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0'><span
+  lang=EN-US style='font-size:9.0pt'>3</span></p>
+  </td>
+  <td width=504 valign=top style='width:378.15pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=A1.xlsimport@tx()</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4'>
+  <td width=28 valign=top style='width:21.25pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  background:#BFBFBF;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0'><span
+  lang=EN-US style='font-size:9.0pt'>4</span></p>
+  </td>
+  <td width=504 valign=top style='width:378.15pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=A2.xlsimport@t(ORDERID,SELLERID,AMOUNT,ORDERDATE;&quot;orders&quot;,3:-3)</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:5'>
+  <td width=28 valign=top style='width:21.25pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  background:#BFBFBF;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0'><span
+  lang=EN-US style='font-size:9.0pt'>5</span></p>
+  </td>
+  <td width=504 valign=top style='width:378.15pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=file(&quot;D:/files/work/excel/result1.xlsx&quot;)</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:6'>
+  <td width=28 valign=top style='width:21.25pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  background:#BFBFBF;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0'><span
+  lang=EN-US style='font-size:9.0pt'>6</span></p>
+  </td>
+  <td width=504 valign=top style='width:378.15pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=file(&quot;D:/files/work/excel/result2.xls&quot;)</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:7'>
+  <td width=28 valign=top style='width:21.25pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  background:#BFBFBF;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0'><span
+  lang=EN-US style='font-size:9.0pt'>7</span></p>
+  </td>
+  <td width=504 valign=top style='width:378.15pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=A5.xlsexport@tx(A3,EID:EMPLOYEEID,NAME;&quot;r-emp&quot;)</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:8;mso-yfti-lastrow:yes'>
+  <td width=28 valign=top style='width:21.25pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  background:#BFBFBF;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='text-indent:18.0pt;mso-char-indent-count:2.0'><span
+  lang=EN-US style='font-size:9.0pt'>8</span></p>
+  </td>
+  <td width=504 valign=top style='width:378.15pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=A6.xlsexport
+  (A4;&quot;r-orders&quot;)</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US style='mso-bidi-font-size:11.0pt'>A5, A6: Define two file objects as
+required.</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US style='mso-bidi-font-size:11.0pt'>A7: Export the result of A3 to
+A5’s file object using xls<b style='mso-bidi-font-weight:normal'>export</b>
+function. <b style='mso-bidi-font-weight:normal'>@tx</b> options mean the
+exported file format is <i style='mso-bidi-font-style:normal'>xlsx</i> and the
+first exported row is the field names. The input parameter A3 is the
+to-be-exported table sequence. The parameters &#8211; EID:EMPLOYEEID and NAME &#8211;
+specify the to-be-exported fields, in which EID:EMPLOYEEID means EID field will
+be renamed EMPLOYEEID when exported. Parameter &quot;r-emp&quot; specifies the
+name of the exported sheet. Here’s the exported Excel file:</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=zh-CN style='mso-bidi-font-size:11.0pt;mso-ansi-language:#0400;mso-fareast-language:
+#0400'><img border=0 width=200 height=219
+src="Tutorial.files/image885.png" v:shapes="图片_x0020_628"></span><span
+lang=EN-US style='mso-bidi-font-size:11.0pt'></span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US style='mso-bidi-font-size:11.0pt'>A8: Export the result of A4 to
+A6’s file object using xls<b style='mso-bidi-font-weight:normal'>export</b>
+function. Without the <b style='mso-bidi-font-weight:normal'>@tx</b> options,
+the exported file format will be <i style='mso-bidi-font-style:normal'>xls</i>
+determined by the filename extension and the first row won’t be exported. The
+input parameter A4 is the to-be-exported table sequence. All fields will be
+exported as none is specified. The parameter &quot;r-orders&quot; specifies the
+name of the to-be-exported sheet. Here’s the exported Excel file:</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=zh-CN style='mso-bidi-font-size:11.0pt;mso-ansi-language:#0400;mso-fareast-language:
+#0400'><img border=0 width=337 height=238
+src="Tutorial.files/image886.png" v:shapes="图片_x0020_629"></span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US>esProc also support exporting data from cursor to an Excel file. For
+example:</span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='margin-left:26.7pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-alt:solid windowtext .5pt;mso-padding-alt:0cm 5.4pt 0cm 5.4pt;
+ mso-border-insideh:.5pt solid windowtext;mso-border-insidev:.5pt solid windowtext'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=28 valign=top style='width:21.25pt;border:solid windowtext 1.0pt;
+  mso-border-alt:solid windowtext .5pt;background:#BFBFBF;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='text-indent:21.1pt;mso-char-indent-count:2.0'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>&nbsp;</span></b></p>
+  </td>
+  <td width=540 valign=top style='width:404.85pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#BFBFBF;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+  lang=EN-US>A</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=28 valign=top style='width:21.25pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  background:#BFBFBF;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>1</span></p>
+  </td>
+  <td width=540 valign=top style='width:404.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=file(&quot;D:/files/work/excel/data.xlsx&quot;)</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=28 valign=top style='width:21.25pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  background:#BFBFBF;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>2</span></p>
+  </td>
+  <td width=540 valign=top style='width:404.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=demo.cursor(&quot;select
+  * from EMPLOYEE&quot;)</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
+  <td width=28 valign=top style='width:21.25pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  background:#BFBFBF;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>3</span></p>
+  </td>
+  <td width=540 valign=top style='width:404.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=A5.xlsexport@txs(A2;&quot;employee2&quot;)</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US>Since cursor is often used to handle a great amount of data, xls<b
+style='mso-bidi-font-weight:normal'>export () </b>function uses @s option to
+handle the data export in a stream style. But as a data import will precede the
+export to an Excel file, the to-be-exported <i style='mso-bidi-font-style:normal'>xlsx</i>
+file shouldn’t be too large. Besides, Excel imposes a restriction on the number
+of records written from an Excel file to an Excel sheet, which is 1000,000.
+Once the maximum is reached, the export will stop automatically. </span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US>esProc also provides the <b style='mso-bidi-font-weight:normal'>xo.xlscell(a:b,s,t)</b>
+function to update a sheet named <i style='mso-bidi-font-style:normal'>s</i>
+with string <i style='mso-bidi-font-style:normal'>t </i>starting from cell<i
+style='mso-bidi-font-style:normal'> c</i>. The text of <i style='mso-bidi-font-style:
+normal'>t</i> is separated by Tab to represent multiple columns, or by carriage
+returns to represent multiple rows. For example:</span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='margin-left:26.7pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-alt:solid windowtext .5pt;mso-padding-alt:0cm 5.4pt 0cm 5.4pt;
+ mso-border-insideh:.5pt solid windowtext;mso-border-insidev:.5pt solid windowtext'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=28 valign=top style='width:21.25pt;border:solid windowtext 1.0pt;
+  mso-border-alt:solid windowtext .5pt;background:#BFBFBF;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='text-indent:21.1pt;mso-char-indent-count:2.0'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>&nbsp;</span></b></p>
+  </td>
+  <td width=540 valign=top style='width:404.85pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#BFBFBF;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+  lang=EN-US>A</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=28 valign=top style='width:21.25pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  background:#BFBFBF;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>1</span></p>
+  </td>
+  <td width=540 valign=top style='width:404.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=file(&quot;D:/files/work/excel/data.xls&quot;)</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=28 valign=top style='width:21.25pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  background:#BFBFBF;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>2</span></p>
+  </td>
+  <td width=540 valign=top style='width:404.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=A1.xlsopen()</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
+  <td width=28 valign=top style='width:21.25pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  background:#BFBFBF;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>3</span></p>
+  </td>
+  <td width=540 valign=top style='width:404.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt'>=A2
+  .xlscell(&quot;A1&quot;:&quot;employee&quot;,&quot;COL1\tCOL2\nV1\tV2&quot;)</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US>A3 modifies page <i style='mso-bidi-font-style:normal'>employee</i>
+of the <i style='mso-bidi-font-style:normal'>data.xls</i> file starting from
+cell A1. The string <i style='mso-bidi-font-style:normal'>t</i> includes tabs
+and carriage returns. After execution, values of A1, B1, A2, and B2 are all
+changed:</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=263 height=62
+src="Tutorial.files/image887.png" v:shapes="_x0000_i1989"></span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="224.html">Next</a></div>
@@ -45,10 +512,7 @@ computing &#8211; in this chapter. </span></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="219.html">Chapter8 Parallel Computing</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="224.html">8.2.1 Multithreaded execution with fork statement</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="225.html">8.2.2 Performance advantage of multithreading</a></span></li>
-<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="226.html">8.2.3 Setting the reasonable number of threads</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="222.html">Chapter9 Heterogeneous Data Sources</a></span></li>
 </div>
 	</div>
 	<div id="footer">	

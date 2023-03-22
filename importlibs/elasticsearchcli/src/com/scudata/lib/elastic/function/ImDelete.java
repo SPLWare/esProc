@@ -4,6 +4,7 @@ import java.io.IOException;
 import org.apache.http.util.EntityUtils;
 import org.elasticsearch.client.Response;
 import com.scudata.common.RQException;
+import com.scudata.common.Logger;
 
 /*
  * ImDelete(index, type, doc)
@@ -26,8 +27,7 @@ public class ImDelete extends ImFunction {
 				return parseResponse(result, subModel);	
 			}			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		}
 		return null;
 	}

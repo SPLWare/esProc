@@ -472,22 +472,22 @@ public class PseudoTable extends Pseudo {
 					cursor = table.cursor(null, this.names, filter, fkNames, codes, null, (MultipathCursors)mcs, null, ctx);
 				} else {
 					if (exps == null) {
-						cursor = table.cursor(null, this.names, filter, fkNames, codes, null, ctx);
+						cursor = table.cursor(null, this.names, filter, fkNames, codes, null, null, ctx);
 					} else {
-						cursor = table.cursor(this.exps, this.names, filter, fkNames, codes, null, ctx);
+						cursor = table.cursor(this.exps, this.names, filter, fkNames, codes, null, null, ctx);
 					}
 				}
 			} else if (pathCount > 1) {
 				if (exps == null) {
-					cursor = table.cursor(null, this.names, filter, fkNames, codes, null, pathCount, ctx);
+					cursor = table.cursor(null, this.names, filter, fkNames, codes, null, pathCount, null, ctx);
 				} else {
-					cursor = table.cursor(this.exps, this.names, filter, fkNames, codes, null, pathCount, ctx);
+					cursor = table.cursor(this.exps, this.names, filter, fkNames, codes, null, pathCount, null, ctx);
 				}
 			} else {
 				if (exps == null) {
-					cursor = table.cursor(null, this.names, filter, fkNames, codes, null, ctx);
+					cursor = table.cursor(null, this.names, filter, fkNames, codes, null, null, ctx);
 				} else {
-					cursor = table.cursor(this.exps, this.names, filter, fkNames, codes, null, ctx);
+					cursor = table.cursor(this.exps, this.names, filter, fkNames, codes, null, null, ctx);
 				}
 			}
 		} else {
@@ -498,20 +498,20 @@ public class PseudoTable extends Pseudo {
 					if (exps == null) {
 						cursor = table.cursor(this.names, filter, ctx);
 					} else {
-						cursor = table.cursor(this.exps, this.names, filter, null, null, null, ctx);
+						cursor = table.cursor(this.exps, this.names, filter, null, null, null, null, ctx);
 					}
 				}
 			} else if (pathCount > 1) {
 				if (exps == null) {
-					cursor = table.cursor(null, this.names, filter, null, null, null, pathCount, ctx);
+					cursor = table.cursor(null, this.names, filter, null, null, null, pathCount, null, ctx);
 				} else {
-					cursor = table.cursor(this.exps, this.names, filter, null, null, null, pathCount, ctx);
+					cursor = table.cursor(this.exps, this.names, filter, null, null, null, pathCount, null, ctx);
 				}
 			} else {
 				if (exps == null) {
 					cursor = table.cursor(this.names, filter, ctx);
 				} else {
-					cursor = table.cursor(this.exps, this.names, filter, null, null, null, ctx);
+					cursor = table.cursor(this.exps, this.names, filter, null, null, null, null, ctx);
 				}
 			}
 		}
@@ -753,7 +753,7 @@ public class PseudoTable extends Pseudo {
 	//用于获取多路游标
 	private ICursor cursor() {
 		List<IPhyTable> tables = getPd().getTables();
-		return tables.get(0).cursor(null, null, null, null, null, null, pathCount, ctx);
+		return tables.get(0).cursor(null, null, null, null, null, null, pathCount, null, ctx);
 	}
 
 	public Object clone(Context ctx) throws CloneNotSupportedException {
@@ -1215,7 +1215,7 @@ public class PseudoTable extends Pseudo {
 	 */
 	public byte[] getFieldTypes() {
 		List<IPhyTable> tables = getPd().getTables();
-		ICursor cursor = tables.get(0).cursor(null, null, null, null, null, null, 1, ctx);
+		ICursor cursor = tables.get(0).cursor(null, null, null, null, null, null, 1, null, ctx);
 		Sequence data = cursor.fetch(1);
 		cursor.close();
 		

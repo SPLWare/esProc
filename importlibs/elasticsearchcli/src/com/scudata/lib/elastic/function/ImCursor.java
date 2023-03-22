@@ -19,6 +19,7 @@ import com.scudata.dm.Context;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
 import com.scudata.dm.cursor.ICursor;
+import com.scudata.common.Logger;
 import com.scudata.util.JSONUtil;
 
 import net.sf.json.JSONArray;
@@ -79,8 +80,7 @@ public class ImCursor extends ICursor {
 			}
 		    m_current = Integer.parseInt( map.get("ret").toString());
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		}
 	}
 
@@ -131,7 +131,7 @@ public class ImCursor extends ICursor {
 					response = m_restConn.m_restClient.performRequest(request);
 					v = EntityUtils.toString(response.getEntity());
 					int len = searchData(v);
-					m_current += n;
+					m_current += len;
 					nTotal += len;
 					if (nTotal > n) {
 						break;
@@ -145,7 +145,7 @@ public class ImCursor extends ICursor {
 					n--;
 				}
 			} catch (IOException e) {
-				e.printStackTrace();
+				Logger.error(e.getMessage());
 			}
 		}
 
@@ -203,7 +203,7 @@ public class ImCursor extends ICursor {
 					n--;
 				}
 			} catch (IOException e) {
-				e.printStackTrace();
+				Logger.error(e.getMessage());
 			}
 		}
 
@@ -223,7 +223,7 @@ public class ImCursor extends ICursor {
 				parseHeaderHits(result.getJSONObject("hits"), map);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		}
 	}
 	
@@ -245,7 +245,7 @@ public class ImCursor extends ICursor {
 		    }
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		}
 	}
 	
@@ -268,7 +268,7 @@ public class ImCursor extends ICursor {
 			}
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		}
 	}
 	
@@ -286,7 +286,7 @@ public class ImCursor extends ICursor {
 				
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		}
 		
 		return nRet;
@@ -302,7 +302,7 @@ public class ImCursor extends ICursor {
 			    doParseLine(jobs, m_buffer, 1);
 			}	
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		}
 		
 		return nRet;
@@ -318,7 +318,7 @@ public class ImCursor extends ICursor {
 			    doParseLine(jobs, m_buffer, 1);
 			}	
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		}
 		
 		return nRet;

@@ -261,6 +261,8 @@ SPL focuses on the mainstream embedded and Java application architecture. SPL sc
 
 *   More detail materials can be found at http://c.raqsoft.com
 
+*   [How to Get Open-source esProc for Eclipse through Git](http://c.raqsoft.com/article/1677815008127) 
+
 ## License
 
 esProc is under the Apache 2.0 license. See the [LICENSE](./LICENSE) file for details.

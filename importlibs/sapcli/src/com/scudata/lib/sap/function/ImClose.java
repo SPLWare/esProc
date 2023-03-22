@@ -16,7 +16,7 @@ public class ImClose extends Function {
 	public Object calculate(Context ctx) {
 		if (param == null) {
 			MessageManager mm = EngineMessage.get();
-			throw new RQException("hive_close" + mm.getMessage("function.missingParam"));
+			throw new RQException("sap_close " + mm.getMessage("function.missingParam"));
 		}
 
 		Object client = param.getLeafExpression().calculate(ctx);
@@ -24,7 +24,7 @@ public class ImClose extends Function {
 		
 		if (!(client instanceof RfcManager)) {
 			MessageManager mm = EngineMessage.get();
-			throw new RQException("hive_close" + mm.getMessage("function.paramTypeError"));
+			throw new RQException("sap_close " + mm.getMessage("function.paramTypeError"));
 		}
 		
 		((RfcManager)client).close();

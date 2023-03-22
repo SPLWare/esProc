@@ -5,10 +5,11 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
 import org.apache.commons.lang.ArrayUtils;
 import org.bson.Document;
 import org.bson.types.ObjectId;
+
+import com.mongodb.client.ClientSession;
 import com.mongodb.client.MongoDatabase;
 import com.scudata.array.IArray;
 import com.scudata.common.*;
@@ -16,15 +17,17 @@ import com.scudata.dm.*;
 import com.scudata.dm.cursor.ICursor;
 
 public class ImCursor extends ICursor {
-	private String m_cmd;
-	private ImMongo m_mongo;
-	private static String[] m_cols;
+	private String[] m_cmd;
+	private MongoDatabase m_db;
+	private ClientSession m_session;
+	private String[] m_cols;
 	private Table m_bufTable;
 	private long cursorId = 1; //若为0，则无数据了。
 	
-	public ImCursor(ImMongo mongo, String cmd, Table buf, Context ctx) {
+	public ImCursor(MongoDatabase db, ClientSession session, String[] cmd, Table buf, Context ctx) {
 		m_cmd = cmd;
-		m_mongo = mongo;
+		m_db = db;
+		m_session = session;
 		this.ctx = ctx;
 		m_bufTable = buf;
 		if (m_bufTable!=null){
@@ -36,7 +39,7 @@ public class ImCursor extends ICursor {
 	}
 
 	protected long skipOver(long n) {
-		if (m_mongo == null || n == 0){
+		if (m_db == null || n == 0 ){
 			return 0;
 		}
 		long fetchSize = n;
@@ -56,26 +59,13 @@ public class ImCursor extends ICursor {
 			}
 		}
 		//2.查询新数据
-		while (fetchSize>0 && cursorId>0) {
-			Table buf = runCommand(m_mongo.m_db, m_cmd);
-			if (buf==null){
-				break;
-			}
-			
-			if (buf.length()>fetchSize){ //2.1 有足够缓存
-				for(int i=(int)fetchSize; i>0; i--){
-					buf.delete(i);
-				}
-				//2.2剩余存入缓冲.
-				m_bufTable = new Table(buf.dataStruct());
-				m_bufTable.addAll(buf);
-				return n;
-			}else{			//2.3  缓存数不足	
-				count+=buf.length();
-				fetchSize -= buf.length();
-				buf.clear();
-				buf = null;
-			}			
+		int cur = 0;
+		String cmd = null;
+		while (m_cmd[0]!=null && fetchSize>0 && cursorId>0) {
+			cmd = m_cmd[0].replace("batchSize:101", "batchSize:"+(fetchSize>1024?1024:fetchSize));
+			cur = workCommandSkip(m_db, m_session, cmd);
+			fetchSize -= cur;
+			count+=cur;
 		}
 		
 		return count;
@@ -84,25 +74,21 @@ public class ImCursor extends ICursor {
 	//还不清楚getMore关闭cursor方法，而不是断开连接.
 	public synchronized void close() {
 		m_cols = null;
-//		super.close();
-//		
-//		try {
-//			if (ctx != null) ctx.removeResource(this);			
-//			cursorId = 0;
-//			if (m_mongo != null) {
-//				m_mongo.close();
-//				m_mongo = null;
-//			}
-//		} catch (Exception e) {
-//			throw new RQException(e.getMessage(), e);
-//		}
+		m_db = null;
+		m_bufTable = null;
+		super.close();
+		
+		if (ctx != null) {
+			ctx.removeResource(this);	
+		}			
+		cursorId = 0;
 	}
 
 	protected Sequence get(int n) {		
 		Table vTbl = null;
 		Table[] vTables = new Table[1];
 		
-		if (m_mongo == null || n < 1) {
+		if (m_db == null || n < 1) {
 			if (m_cols!=null){
 				return new Table(m_cols);
 			}else{
@@ -131,8 +117,8 @@ public class ImCursor extends ICursor {
 		
 		//2. 查询新数据。
 		int bufSize = 0;
-		while (n > 0 && cursorId>0) {
-			Table buf = runCommand(m_mongo.m_db, m_cmd);
+		while (m_cmd[0]!=null && n > 0 && cursorId>0) {
+			Table buf = workCommand(m_db, m_session, m_cmd[0]);
 			if (buf==null){
 				break;
 			}
@@ -245,7 +231,27 @@ public class ImCursor extends ICursor {
 		}
 	}
 	
-	public Table runCommand(MongoDatabase db, String cmd) {
+	private int workCommandSkip(MongoDatabase db, ClientSession session, String cmd){
+		if (cmd==null) {
+			return 0;
+		}
+
+		Document command = null;
+		command = Document.parse(cmd);
+		//System.out.println("skip thread:"+Thread.currentThread().getId()+"; db="+db+"; cmd="+cmd+"; pid="+cursorId);
+		Document docs = db.runCommand( session, command);
+		double dVal = docs.getDouble("ok");
+		if (dVal==0){
+			return 0;
+		}
+	
+		Document cur = (Document)docs.get("cursor");
+		cursorId = cur.getLong("id");
+		
+		return getDocumentCount(cur);
+	} 
+	
+	public Table workCommand(MongoDatabase db, ClientSession session, String cmd) {
 		Table tbl = null;
 		try{		
 			if (cmd==null) {
@@ -255,11 +261,13 @@ public class ImCursor extends ICursor {
 			Object obj = null;
 			Document command = null;
 			command = Document.parse(cmd);
-			Document docs = db.runCommand(command);
+			//System.out.println("thread:"+Thread.currentThread()+"; db="+db+"; cmd="+cmd+"; pid="+cursorId);
+			Document docs = db.runCommand(session, command);
 			double dVal = docs.getDouble("ok");
 			if (dVal==0){
 				return tbl;
 			}
+	
 			Document cur = (Document)docs.get("cursor");
 			cursorId = cur.getLong("id");
 			BaseRecord rcd = parse(cur);
@@ -339,6 +347,28 @@ public class ImCursor extends ICursor {
 
 		BaseRecord rcd = new Record(ds1,line);
 		return rcd;
+	}
+	
+	//doc对应的记录数
+	private int getDocumentCount(Document doc){
+		int idx = 0;
+		Object val = null;
+		if (doc.containsKey("nextBatch")){
+			val = doc.get("nextBatch");	
+		}else if (doc.containsKey("firstBatch")){
+			val = doc.get("firstBatch");	
+		}
+				
+		if (val instanceof Document){				
+			idx++;
+		}else if(val instanceof List){
+			List<?> list = (List<?>)val;
+			idx+=list.size();
+		}else{
+			idx++;
+		}
+		
+		return idx;
 	}
 	
 	//按数组原顺序去重合并数组

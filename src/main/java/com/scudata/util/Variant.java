@@ -38,6 +38,10 @@ public class Variant {
 	public static final int DT_DOUBLE = 3; // Double
 	public static final int DT_DECIMAL = 4; // BigDecimal
 
+	// 每月的天数
+	private static final int []DAYS = new int[] {31,28,31,30,31,30,31,31,30,31,30,31};
+	private static final int []LEEPYEARDAYS = new int[] {31,29,31,30,31,30,31,31,30,31,30,31};
+	
 	static final long BASEDATE; // 1992年之前有的日期不能被86400000整除
 	static {
 		Calendar calendar = Calendar.getInstance();
@@ -2475,6 +2479,187 @@ public class Variant {
 		date.setTime(c.getTimeInMillis());
 		return date;
 	}
+
+	private static int dayElapse(int date, int diff) {
+		int y, m, d;
+		if (date < 0) {
+			y = date / 384 + 1969;
+			m = date / 32 % 12 + 11;
+			d = date % 32 + 32;
+		} else {
+			y = date / 384 + 1970;
+			m = date / 32 % 12;
+			d = date % 32;
+		}
+		
+		if (diff > 0) {
+			while (true) {
+				int maxDay;
+				if (y % 400 == 0 || (y % 4 == 0 && y % 100 != 0)) {
+					maxDay = LEEPYEARDAYS[m];
+				} else {
+					maxDay = DAYS[m];
+				}
+				
+				int n = d + diff;
+				if (n <= maxDay) {
+					d = n;
+					break;
+				} else {
+					diff -= (maxDay - d + 1);
+					d = 1;
+					m++;
+					
+					if (m == 12) {
+						m = 0;
+						y++;
+					}
+				}
+			}
+		} else {
+			diff = -diff;
+			while (true) {
+				if (d > diff) {
+					d -= diff;
+					break;
+				} else {
+					diff -= d;
+					m--;
+					
+					if (m < 0) {
+						m = 11;
+						y--;
+					}
+					
+					if (y % 400 == 0 || (y % 4 == 0 && y % 100 != 0)) {
+						d = LEEPYEARDAYS[m];
+					} else {
+						d = DAYS[m];
+					}
+				}
+			}
+		}
+		
+		return DateFactory.toDays(y, m, d);
+	}
+	
+	private static int yearElapse(int date, int diff, boolean adjustEnd) {
+		int y, m, d;
+		if (date < 0) {
+			y = date / 384 + 1969;
+			m = date / 32 % 12 + 11;
+			d = date % 32 + 32;
+		} else {
+			y = date / 384 + 1970;
+			m = date / 32 % 12;
+			d = date % 32;
+		}
+		
+		y += diff;
+		if (adjustEnd) {
+			if (y % 400 == 0 || (y % 4 == 0 && y % 100 != 0)) {
+				d = LEEPYEARDAYS[m];
+			} else {
+				d = DAYS[m];
+			}
+		} else {
+			if (y % 400 == 0 || (y % 4 == 0 && y % 100 != 0)) {
+				if (d > LEEPYEARDAYS[m]) {
+					d = LEEPYEARDAYS[m];
+				}
+			} else {
+				if (d > DAYS[m]) {
+					d = DAYS[m];
+				}
+			}
+		}
+		
+		return DateFactory.toDays(y, m, d);
+	}
+	
+	private static int monthElapse(int date, int diff, boolean adjustEnd) {
+		int y, m, d;
+		if (date < 0) {
+			y = date / 384 + 1969;
+			m = date / 32 % 12 + 11;
+			d = date % 32 + 32;
+		} else {
+			y = date / 384 + 1970;
+			m = date / 32 % 12;
+			d = date % 32;
+		}
+		
+		if (diff > 0) {
+			while (true) {
+				int n = m + diff;
+				if (n < 12) {
+					m = n;
+					break;
+				} else {
+					diff -= (12 - m);
+					m = 0;
+					y++;
+				}
+			}
+		} else {
+			diff = -diff;
+			while (true) {
+				if (m >= diff) {
+					m -= diff;
+					break;
+				} else {
+					diff -= (m + 1);
+					m = 11;
+					y--;
+				}
+			}
+		}
+		
+		if (adjustEnd) {
+			if (y % 400 == 0 || (y % 4 == 0 && y % 100 != 0)) {
+				d = LEEPYEARDAYS[m];
+			} else {
+				d = DAYS[m];
+			}
+		} else {
+			if (y % 400 == 0 || (y % 4 == 0 && y % 100 != 0)) {
+				if (d > LEEPYEARDAYS[m]) {
+					d = LEEPYEARDAYS[m];
+				}
+			} else {
+				if (d > DAYS[m]) {
+					d = DAYS[m];
+				}
+			}
+		}
+		
+		return DateFactory.toDays(y, m, d);
+	}
+	
+	/**
+	 * 返回指定日期间隔指定时间后的日期
+	 * @param date date@o计算出来的日期
+	 * @param diff 间隔长度
+	 * @param opt 选项，y：间隔单位为年，q：间隔单位为季，m：间隔单位为月，e：不调整月底，缺省将把月调整成月底，与@yqm配合
+	 * @return int
+	 */
+	public static int elapse(int date, int diff, String opt) {
+		if (diff == 0) {
+			return date;
+		}
+		
+		if (opt == null) {
+			return dayElapse(date, diff);
+		} else if (opt.indexOf('y') != -1) {
+			return yearElapse(date, diff, opt.indexOf('e') == -1);
+		} else if (opt.indexOf('q') != -1) { // 季
+			return monthElapse(date, diff * 3, opt.indexOf('e') == -1);
+		} else if (opt.indexOf('m') != -1) {
+			return monthElapse(date, diff, opt.indexOf('e') == -1);
+		} else {
+			return dayElapse(date, diff);
+		}
+	}
 	
 	private static long yearInterval(Date date1, Date date2) {
 		DateFactory df = DateFactory.get();
@@ -2483,20 +2668,37 @@ public class Variant {
 
 	private static long quaterInterval(Date date1, Date date2) {
 		DateFactory df = DateFactory.get();
-		int yearDiff = df.year(date2) - df.year(date1);
-		int m2 = df.month(date2);
-		if (m2 <= 3) {
-			m2 = 3;
-		} else if (m2 <= 6) {
-			m2 = 6;
-		} else if (m2 <= 9) {
-			m2 = 9;
+		Calendar calendar = df.getCalendar();
+		
+		calendar.setTime(date1);
+		int y1 = calendar.get(Calendar.YEAR);
+		int m1 = calendar.get(Calendar.MONTH);
+		
+		calendar.setTime(date2);
+		int y2 = calendar.get(Calendar.YEAR);
+		int m2 = calendar.get(Calendar.MONTH);
+
+		if (m1 < 3) {
+			m1 = 1;
+		} else if (m1 < 6) {
+			m1 = 2;
+		} else if (m1 < 9) {
+			m1 = 3;
 		} else {
-			m2 = 12;
+			m1 = 4;
 		}
 
-		int monthDiff = m2 - df.month(date1);
-		return yearDiff * 4 + monthDiff / 3;
+		if (m2 < 3) {
+			m2 = 1;
+		} else if (m2 < 6) {
+			m2 = 2;
+		} else if (m2 < 9) {
+			m2 = 3;
+		} else {
+			m2 = 4;
+		}
+
+		return (y2 - y1) * 4 + (m2 - m1);
 	}
 
 	private static long monthInterval(Date date1, Date date2) {
@@ -2581,6 +2783,147 @@ public class Variant {
 		return (date2 - BASEDATE) / 86400000 - (date1 - BASEDATE) / 86400000;
 	}
 
+	private static int innerDayInterval(int date1, int date2) {
+		if (date1 < date2) {
+			int y1, m1, d1, y2, m2, d2;
+			if (date1 < 0) {
+				y1 = date1 / 384 + 1969;
+				m1 = date1 / 32 % 12 + 11;
+				d1 = date1 % 32 + 32;
+			} else {
+				y1 = date1 / 384 + 1970;
+				m1 = date1 / 32 % 12;
+				d1 = date1 % 32;
+			}
+			
+			if (date2 < 0) {
+				y2 = date2 / 384 + 1969;
+				m2 = date2 / 32 % 12 + 11;
+				d2 = date2 % 32 + 32;
+			} else {
+				y2 = date2 / 384 + 1970;
+				m2 = date2 / 32 % 12;
+				d2 = date2 % 32;
+			}
+			
+			int interval = 0;
+			for (int y = y1; y < y2; ++y) {
+				if (y % 400 == 0 || (y % 4 == 0 && y % 100 != 0)) {
+					interval += 366;
+				} else {
+					interval += 365;
+				}
+			}
+			
+			interval -= d1;
+			if (y1 % 400 == 0 || (y1 % 4 == 0 && y1 % 100 != 0)) {
+				for (int m = 0; m < m1; ++m) {
+					interval -= LEEPYEARDAYS[m];
+				}
+			} else {
+				for (int m = 0; m < m1; ++m) {
+					interval -= DAYS[m];
+				}
+			}
+			
+			interval += d2;
+			if (y2 % 400 == 0 || (y2 % 4 == 0 && y2 % 100 != 0)) {
+				for (int m = 0; m < m2; ++m) {
+					interval += LEEPYEARDAYS[m];
+				}
+			} else {
+				for (int m = 0; m < m2; ++m) {
+					interval += DAYS[m];
+				}
+			}
+			
+			return interval;
+		} else if (date1 == date2) {
+			return 0;
+		} else {
+			return -innerDayInterval(date2, date1);
+		}
+	}
+	
+	private static int innerYearInterval(int date1, int date2) {
+		int y1, y2;
+		if (date1 < 0) {
+			y1 = date1 / 384 + 1969;
+		} else {
+			y1 = date1 / 384 + 1970;
+		}
+		
+		if (date2 < 0) {
+			y2 = date2 / 384 + 1969;
+		} else {
+			y2 = date2 / 384 + 1970;
+		}
+		
+		return y2 - y1;
+	}
+	
+	private static int innerMonthInterval(int date1, int date2) {
+		int y1, m1, y2, m2;
+		if (date1 < 0) {
+			y1 = date1 / 384 + 1969;
+			m1 = date1 / 32 % 12 + 11;
+		} else {
+			y1 = date1 / 384 + 1970;
+			m1 = date1 / 32 % 12;
+		}
+		
+		if (date2 < 0) {
+			y2 = date2 / 384 + 1969;
+			m2 = date2 / 32 % 12 + 11;
+		} else {
+			y2 = date2 / 384 + 1970;
+			m2 = date2 / 32 % 12;
+		}
+		
+		return (y2 - y1) * 12 + (m2 - m1);
+	}
+	
+	private static long innerQuaterInterval(int date1, int date2) {
+		int y1, m1, y2, m2;
+		if (date1 < 0) {
+			y1 = date1 / 384 + 1969;
+			m1 = date1 / 32 % 12 + 11;
+		} else {
+			y1 = date1 / 384 + 1970;
+			m1 = date1 / 32 % 12;
+		}
+		
+		if (date2 < 0) {
+			y2 = date2 / 384 + 1969;
+			m2 = date2 / 32 % 12 + 11;
+		} else {
+			y2 = date2 / 384 + 1970;
+			m2 = date2 / 32 % 12;
+		}
+		
+		if (m1 < 3) {
+			m1 = 1;
+		} else if (m1 < 6) {
+			m1 = 2;
+		} else if (m1 < 9) {
+			m1 = 3;
+		} else {
+			m1 = 4;
+		}
+
+		if (m2 < 3) {
+			m2 = 1;
+		} else if (m2 < 6) {
+			m2 = 2;
+		} else if (m2 < 9) {
+			m2 = 3;
+		} else {
+			m2 = 4;
+		}
+
+		return (y2 - y1) * 4 + (m2 - m1);
+	}
+	
 	/**
 	 * 返回两个日期间隔多少秒
 	 * @param date1 Date
@@ -2632,6 +2975,58 @@ public class Variant {
 		}
 	}
 
+	/**
+	 * 返回两个日期的差，后面的减前面的
+	 * @param date1 date@o计算出来的日期
+	 * @param date2 date@o计算出来的日期
+	 * @param opt String y：年，q：季，m：月，s：秒，ms：毫秒
+	 * @return long
+	 */
+	public static long interval(int date1, int date2, String opt) {
+		if (opt == null) {
+			return innerDayInterval(date1, date2);
+		} else if (opt.indexOf('y') != -1) { // 年
+			return innerYearInterval(date1, date2);
+		} else if (opt.indexOf('q') != -1) { // 季
+			return innerQuaterInterval(date1, date2);
+		} else if (opt.indexOf('m') != -1) { // 月
+			return innerMonthInterval(date1, date2);
+		} else if (opt.indexOf('w') != -1) { // 周
+			return weekInterval(DateFactory.toDate(date1), DateFactory.toDate(date2));
+		} else if (opt.indexOf('7') != -1) { // 周
+			return weekInterval_7(DateFactory.toDate(date1), DateFactory.toDate(date2));
+		} else if (opt.indexOf('1') != -1) { // 周
+			return weekInterval_1(DateFactory.toDate(date1), DateFactory.toDate(date2));
+		} else {
+			return innerDayInterval(date1, date2);
+		}
+	}
+	
+	/**
+	 * 返回两个日期的精确差，后面的减前面的
+	 * @param date1 date@o计算出来的日期
+	 * @param date2 date@o计算出来的日期
+	 * @param opt String y：年，q：季，m：月，s：秒，ms：毫秒
+	 * @return long
+	 */
+	public static double realInterval(int date1, int date2, String opt) {
+		double dayDiff = innerDayInterval(date1, date2);
+		
+		if (opt == null) {
+			return dayDiff;
+		} else if (opt.indexOf('y') != -1) { // 年
+			return dayDiff / 365;
+		} else if (opt.indexOf('q') != -1) { // 季
+			return dayDiff / 90;
+		} else if (opt.indexOf('m') != -1) { // 月
+			return dayDiff / 30;
+		} else if (opt.indexOf('w') != -1) { // 周
+			return dayDiff / 7;
+		} else {
+			return dayDiff;
+		}
+	}
+	
 	/**
 	 * 返回两个日期的精确差，后面的减前面的
 	 * @param date1 Date

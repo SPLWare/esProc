@@ -73,6 +73,9 @@ public class DialogMemory extends JDialog {
 		this(GV.appFrame);
 	}
 
+	private static final int DIALOG_WIDTH = 400;
+	private static final int DIALOG_HEIGHT = 332;
+
 	/**
 	 * 构造函数
 	 */
@@ -80,8 +83,6 @@ public class DialogMemory extends JDialog {
 		super(parent, "内存清理 - 单位：[字节]", true);
 		try {
 			initUI();
-			pack();
-			GM.setDialogDefaultButton(this, jBCancel, jBCancel);
 			refreshMemory();
 
 			WindowListener l = new WindowAdapter() {
@@ -100,6 +101,8 @@ public class DialogMemory extends JDialog {
 			this.addWindowListener(l);
 			jPanel1.surf.start();
 			resetLangText();
+			setSize(DIALOG_WIDTH, DIALOG_HEIGHT);
+			GM.setDialogDefaultButton(this, jBCancel, jBCancel);
 		} catch (Exception ex) {
 			GM.showException(ex);
 		}
@@ -162,15 +165,29 @@ public class DialogMemory extends JDialog {
 		this.setResizable(false);
 		this.addWindowListener(new DialogMemory_this_windowAdapter(this));
 		getContentPane().add(panel1);
-		panel1.add(jTFFree, new FreeConstraints(140, 54, 150, -1));
-		panel1.add(jLabel1, new FreeConstraints(15, 14, -1, -1));
-		panel1.add(jLabel2, new FreeConstraints(15, 35, -1, -1));
-		panel1.add(jLabel3, new FreeConstraints(15, 56, -1, -1));
-		panel1.add(jBCancel, new FreeConstraints(301, 13, 85, -1));
-		panel1.add(jTFMax, new FreeConstraints(140, 33, 150, -1));
-		panel1.add(jTFTotal, new FreeConstraints(140, 14, 150, -1));
-		panel1.add(jPanel1, new FreeConstraints(12, 89, 375, 197));
-		panel1.add(jBClean, new FreeConstraints(301, 49, 85, -1));
+		final int X1 = 10;
+		final int X2 = 140;
+		final int X3 = 297;
+		int y = 14;
+		final int LABEL_WIDTH1 = 150;
+		final int LABEL_WIDTH2 = 85;
+		final int ROW_HEIGHT = 21;
+		panel1.add(jLabel1, new FreeConstraints(X1, y, LABEL_WIDTH1, -1));
+		panel1.add(jTFTotal, new FreeConstraints(X2, y, LABEL_WIDTH1, -1));
+		panel1.add(jBCancel, new FreeConstraints(X3, y - 1, LABEL_WIDTH2, -1));
+
+		y += ROW_HEIGHT;
+		panel1.add(jLabel2, new FreeConstraints(X1, y, LABEL_WIDTH1, -1));
+		panel1.add(jTFMax, new FreeConstraints(X2, y, LABEL_WIDTH1, -1));
+
+		y += ROW_HEIGHT;
+		panel1.add(jLabel3, new FreeConstraints(X1, y, LABEL_WIDTH1, -1));
+		panel1.add(jTFFree, new FreeConstraints(X2, y, LABEL_WIDTH1, -1));
+		panel1.add(jBClean, new FreeConstraints(X3, y - 2, LABEL_WIDTH2, -1));
+
+		y += ROW_HEIGHT + 10;
+		panel1.add(jPanel1, new FreeConstraints(X1 - 2, y, DIALOG_WIDTH - 22,
+				200));
 	}
 
 	/**

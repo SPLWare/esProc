@@ -7,7 +7,6 @@ import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 
 import com.scudata.app.common.AppUtil;
 import com.scudata.app.config.ConfigUtil;
@@ -33,6 +32,8 @@ public class UnitContext {
 
 	int tempTimeOut = 0; // 临时文件存活时间，小时为单位，0为不检查超时
 	private int interval = 5, proxyTimeOut = 0; // 检查代理或者临时文件过期的时间间隔，0为不检查过期。文件以及游标代理的过期时间
+	private int backlog = 10; // 服务器最大并发连接，操作系统缺省最大为50，限定范围1到50
+
 	private RaqsoftConfig raqsoftConfig = null;
 	private boolean checkClient = false,autoStart=false;
 	private List<String> enabledClientsStart = null;
@@ -281,6 +282,10 @@ public class UnitContext {
 		if (t > 0)
 			interval = t;// 设置不正确时，使用缺省检查间隔
 
+		t = uc.getBacklog();
+		if (t > 0)
+			backlog = t;
+
 		proxyTimeOut = uc.getProxyTimeOut();
 	}
 
@@ -314,6 +319,10 @@ public class UnitContext {
 			interval = Integer.parseInt(ssc.interval);
 		}
 		
+		if(StringUtils.isValidString(ssc.backlog)) {
+			backlog = Integer.parseInt(ssc.backlog);
+		}
+
 		if(StringUtils.isValidString(ssc.splConfig)) {
 			InputStream is = new FileInputStream( ssc.splConfig );
 			raqsoftConfig = ConfigUtil.load(is,true);
@@ -364,6 +373,13 @@ public class UnitContext {
 		return interval;
 	}
 
+	/**
+	 * 获取连接并发数
+	 * @return 并发连接数
+	 */
+	public int getBacklog() {
+		return backlog;
+	}
 	/**
 	 * 取代理超时
 	 * @return 代理超时时间

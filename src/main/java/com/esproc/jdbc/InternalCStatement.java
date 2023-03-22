@@ -86,7 +86,7 @@ public abstract class InternalCStatement extends InternalPStatement implements
 							"error.conclosed"));
 				Table t;
 				if (connt.isOnlyServer()) { // ШЅЗўЮёЦїев
-					UnitClient uc = connt.getUnitClient();
+					UnitClient uc = connt.getUnitClient(queryTimeout * 1000);
 					int connId = connt.getUnitConnectionId();
 					t = uc.JDBCGetSplParams(connId, splName, false);
 				} else {
@@ -97,7 +97,7 @@ public abstract class InternalCStatement extends InternalPStatement implements
 						if (hosts != null && !hosts.isEmpty()) {
 							UnitClient uc = null;
 							try {
-								uc = connt.getUnitClient();
+								uc = connt.getUnitClient(queryTimeout * 1000);
 							} catch (Exception ex) {
 								Logger.error(ex);
 							}

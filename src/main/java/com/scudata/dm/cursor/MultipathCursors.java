@@ -397,6 +397,7 @@ public class MultipathCursors extends ICursor implements IMultipath {
 		
 		// 生成分组任务并提交给线程池
 		int cursorCount = cursors.length / 2;
+		if (cursorCount < 2) cursorCount = 2;
 		ThreadPool pool = ThreadPool.newInstance(cursorCount);
 		GroupsJob2 []jobs = new GroupsJob2[cursorCount];
 		
@@ -431,6 +432,15 @@ public class MultipathCursors extends ICursor implements IMultipath {
 			pool.shutdown();
 		}
 		
+		if (opt == null || opt.indexOf('u') == -1) {
+			int keyCount = exps.length;
+			int []fields = new int[keyCount];
+			for (int i = 0; i < keyCount; ++i) {
+				fields[i] = i;
+			}
+
+			groupsResult.sortFields(fields);
+		}
 		return groupsResult;
 	}
 	

@@ -46,6 +46,7 @@ import com.scudata.expression.fn.gather.ICount.ICountPositionSet;
 import com.scudata.parallel.ClusterCursor;
 import com.scudata.resources.EngineMessage;
 import com.scudata.thread.GroupsJob;
+import com.scudata.thread.GroupsJob2;
 import com.scudata.thread.GroupxJob;
 import com.scudata.thread.MultithreadUtil;
 import com.scudata.thread.ThreadPool;
@@ -179,7 +180,72 @@ public final class CursorUtil {
 			return result;
 		}
 	}
+	/**
+	 * 对序列进行并行分组
+	 * @param src 序列
+	 * @param exps 分组字段表达式数组
+	 * @param names 分组字段名数组
+	 * @param calcExps 汇总字段表达式数组
+	 * @param calcNames 汇总字段名数组
+	 * @param opt 选项
+	 * @param ctx 计算上下文
+	 * @param hashCapacity 哈希表容量
+	 * @returns
+	 */
+	public static Table groups_z(Sequence src, Expression[] exps, String[] names, Expression[] calcExps,
+			String[] calcNames, String opt, Context ctx, int hashCapacity) {
+		int capacity = hashCapacity > 0 ? hashCapacity :Env.getDefaultHashCapacity();
+		HashUtil hashUtil = new HashUtil(capacity);
+		capacity = hashUtil.getCapacity();
 		
+		// 生成分组任务并提交给线程池
+		int parallelNum = Env.getParallelNum();
+		ThreadPool pool = ThreadPool.newInstance(parallelNum);
+		GroupsJob2 []jobs = new GroupsJob2[parallelNum];
+		Table groupsResult = null;
+
+		try {
+			for (int i = 0; i < parallelNum; ++i) {
+				Context tmpCtx = ctx.newComputeContext();
+				Expression []tmpExps = Operation.dupExpressions(exps, tmpCtx);
+				Expression []tmpCalcExps = Operation.dupExpressions(calcExps, tmpCtx);
+				
+				GroupsJob2 job = new GroupsJob2(src, hashUtil, null, tmpExps, names, tmpCalcExps, calcNames, opt, tmpCtx, capacity);
+				job.setHashStart(i);
+				job.setHashEnd(parallelNum);
+				jobs[i] = job;
+				
+				pool.submit(jobs[i]);
+			}
+			
+			// 等待分组任务执行完毕，并把结果添加到一个序表
+			for (int i = 0; i < parallelNum; ++i) {
+				jobs[i].join();
+				
+				if (i == 0) {
+					groupsResult = jobs[i].getGroupsResult().getResultTable();
+				} else {
+					Table t = jobs[i].getGroupsResult().getResultTable();
+					groupsResult.addAll(t);
+				}
+			}
+		} finally {
+			pool.shutdown();
+		}
+		
+		if (opt == null || opt.indexOf('u') == -1) {
+			int keyCount = exps.length;
+			int []fields = new int[keyCount];
+			for (int i = 0; i < keyCount; ++i) {
+				fields[i] = i;
+			}
+
+			groupsResult.sortFields(fields);
+		}
+		return groupsResult;
+	
+	}
+	
 	/**
 	 * 设定最大分组数，当分组数达到这个值则停止分组
 	 * @param cursor 游标

@@ -2,11 +2,13 @@ package com.scudata.dw;
 
 import java.io.IOException;
 
+import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.array.LongArray;
 import com.scudata.dm.ObjectReader;
 import com.scudata.dm.ObjectWriter;
 import com.scudata.dm.Sequence;
+import com.scudata.resources.EngineMessage;
 
 // 字段元数据
 public class ColumnMetaData {
@@ -318,8 +320,17 @@ public class ColumnMetaData {
 	/**
 	 * 根据新的类型做调整
 	 * @param dataType
+	 * @param checkDataPure 检查类型是否纯
 	 */
-	public void adjustDataType(int newType) {
+	public void adjustDataType(int newType, boolean checkDataPure) {
+		if (checkDataPure) {
+			if (!checkDataPure(newType)) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException(mm.getMessage("pdm.arrayTypeError", 
+						DataBlockType.getTypeName(dataType), DataBlockType.getTypeName(newType)));
+			}
+		}
+		
 		int curType = dataType;
 		if (curType == newType || newType == DataBlockType.NULL) {
 			return;
@@ -387,6 +398,71 @@ public class ColumnMetaData {
 		}
 	}
 
+	/**
+	 * 检查更新的数据类型是否纯
+	 * @param newType
+	 * @return true: 数据纯, false:数据不纯
+	 */
+	private boolean checkDataPure(int newType) {
+		int curType = dataType;
+		if (curType == newType || newType == DataBlockType.NULL) {
+			return true;
+		}
+		
+		switch (curType) {
+		case DataBlockType.EMPTY:
+			break;
+		case DataBlockType.OBJECT:
+			break;
+		case DataBlockType.RECORD:
+		case DataBlockType.DATE:
+		case DataBlockType.DECIMAL:
+		case DataBlockType.STRING:
+			return false;
+		case DataBlockType.SEQUENCE:
+			if (newType != DataBlockType.TABLE)
+				return false;
+		case DataBlockType.TABLE:
+			if (newType == DataBlockType.SEQUENCE)
+				return false;
+			break;
+		case DataBlockType.INT:
+		case DataBlockType.INT8:
+		case DataBlockType.INT16:
+		case DataBlockType.INT32:
+			if ((newType & 0xF0) == DataBlockType.INT) {
+				break;
+			} else {
+				return false;
+			}
+		case DataBlockType.LONG:
+		case DataBlockType.LONG8:
+		case DataBlockType.LONG16:
+		case DataBlockType.LONG32:
+		case DataBlockType.LONG64:
+			if ((newType & 0xF0) == DataBlockType.LONG) {
+				break;
+			} else {
+				return false;
+			}
+		case DataBlockType.DOUBLE:
+			if (newType == DataBlockType.DOUBLE64) {
+				break;
+			} else {
+				return false;
+			}
+		case DataBlockType.DOUBLE64:
+			if (newType == DataBlockType.DOUBLE) {
+				break;
+			} else {
+				return false;
+			}
+		default:
+			return false;
+		}
+		return true;
+	}
+	
 	public Object getDictArray() {
 		return dictArray;
 	}

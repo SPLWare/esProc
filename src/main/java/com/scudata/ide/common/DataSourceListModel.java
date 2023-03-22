@@ -142,8 +142,9 @@ public class DataSourceListModel extends DefaultListModel<DataSource> implements
 		 * is overwritten.
 		 */
 		try {
-			ConfigFile.getSystemConfigFile().loadDataSource(this,
-					DataSource.FROM_SYSTEM);
+			ConfigFile sysConfig = ConfigFile.getSystemConfigFile();
+			if (sysConfig != null)
+				sysConfig.loadDataSource(this, DataSource.FROM_SYSTEM);
 		} catch (Exception x) {
 		}
 

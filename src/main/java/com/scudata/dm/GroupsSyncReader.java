@@ -146,18 +146,18 @@ public class GroupsSyncReader {
 }
 
 class CursorReadJob extends Job {
-	private ICursor cursor; // 要取数的游标
-	private int fetchCount; // 每次读取的数据量
-	private boolean isClosed;
+	protected ICursor cursor; // 要取数的游标
+	protected int fetchCount; // 每次读取的数据量
+	protected boolean isClosed;
 	
-	private Expression[] exps;// 计算hash的列
-	private int keyCount;
-	private Context ctx;
-	private HashUtil hashUtil;
-	private int []hashCodes; // 用于保存每个分组字段的哈希值
+	protected Expression[] exps;// 计算hash的列
+	protected int keyCount;
+	protected Context ctx;
+	protected HashUtil hashUtil;
+	protected int []hashCodes; // 用于保存每个分组字段的哈希值
 	
-	private Queue<Object[]> readyDatas;
-	private int maxCacheSize;
+	protected Queue<Object[]> readyDatas;
+	protected int maxCacheSize;
 	/**
 	 * 创建从游标取数的任务，使用getTable得到取数结果
 	 * @param threadPool 线程池

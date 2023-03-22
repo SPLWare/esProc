@@ -45,6 +45,14 @@ public interface IArray extends Externalizable, IRecord, Comparable<IArray> {
 	void addAll(IArray array, int count);
 	
 	/**
+	 * 追加一组元素，如果类型不兼容则抛出异常
+	 * @param array 元素数组
+	 * @param index 要加入的数据的起始位置
+	 * @param count 数量
+	 */
+	void addAll(IArray array, int index, int count);
+	
+	/**
 	 * 插入元素，如果类型不兼容则抛出异常
 	 * @param index 插入位置，从1开始计数
 	 * @param o 元素值

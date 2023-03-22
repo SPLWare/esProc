@@ -8,6 +8,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
+import com.scudata.common.Logger;
 import com.scudata.dm.Context;
 import com.scudata.expression.Function;
 import com.scudata.expression.Node;
@@ -90,7 +91,7 @@ public class JedisOpen extends Function {
 			
 			return new RedisTool(appCtx, stringRedisTemplate);
 		}catch(Exception e){
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		}
 		
 		return null;

@@ -62,7 +62,7 @@ public class GC {
 		} else if (local.equals(Locale.KOREA) || local.equals(Locale.KOREAN)) {
 			LANGUAGE = ASIAN_KOREA;
 		} else {
-			LANGUAGE = 4;
+			LANGUAGE = ENGLISH;
 		}
 	}
 

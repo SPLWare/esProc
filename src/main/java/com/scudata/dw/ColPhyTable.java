@@ -3,6 +3,7 @@ package com.scudata.dw;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import com.scudata.array.IArray;
 import com.scudata.array.LongArray;
@@ -871,9 +872,10 @@ public class ColPhyTable extends PhyTable {
 		}
 		
 		//统计列数据类型
+		boolean doCheck = groupTable.isCheckDataPure();
 		for (int j = 0; j < count; j++) {
 			if (!isMyCol[j]) continue;
-			columns[j].adjustDataType(dataTypeInfo[j]);
+			columns[j].adjustDataType(dataTypeInfo[j], doCheck);
 			columns[j].initDictArray();
 		}
 
@@ -1046,8 +1048,9 @@ public class ColPhyTable extends PhyTable {
 		}
 		
 		//统计列数据类型
+		boolean doCheck = groupTable.isCheckDataPure();
 		for (int j = 0; j < count; j++) {
-			columns[j].adjustDataType(dataTypeInfo[j]);
+			columns[j].adjustDataType(dataTypeInfo[j], doCheck);
 			columns[j].initDictArray();
 		}
 		
@@ -1739,10 +1742,12 @@ public class ColPhyTable extends PhyTable {
 	 * @param filter 过滤表达式
 	 * @param fkNames 指定FK过滤的字段名称
 	 * @param codes 指定FK过滤的数据序列
+	 * @param opts 关联字段进行关联的选项
+	 * @param opt 选项
 	 * @param ctx 上下文
 	 */
 	public ICursor cursor(Expression []exps, String []fields, Expression filter, 
-			String []fkNames, Sequence []codes, String []opts, Context ctx) {
+			String []fkNames, Sequence []codes, String []opts, String opt, Context ctx) {
 		ComTable groupTable = getGroupTable();
 		groupTable.checkReadable();
 		
@@ -1755,7 +1760,7 @@ public class ColPhyTable extends PhyTable {
 		if (tmd == null) {
 			return cs;
 		} else {
-			ICursor cs2 = tmd.cursor(exps, fields, filter, fkNames, codes, opts, ctx);
+			ICursor cs2 = tmd.cursor(exps, fields, filter, fkNames, codes, opts, opt, ctx);
 			return merge(cs, cs2);
 		}
 	}
@@ -1788,6 +1793,55 @@ public class ColPhyTable extends PhyTable {
 	}
 	
 	/**
+	 * 把表达式按列进行拆分
+	 * @param exp 表达式
+	 * @param ctx 计算上下文
+	 * @return
+	 */
+	public IFilter[] getSortedFieldFilters(Expression exp, Context ctx) {
+		Object obj = Cursor.parseFilter(this, exp, ctx);
+		if (obj instanceof IFilter) {
+			IFilter filter = (IFilter)obj;
+			if (filter.isMultiFieldOr()) {
+				return null;
+			}
+			
+			ColumnMetaData column = filter.getColumn();
+			if (column == null || !column.hasMaxMinValues()) {
+				return null;
+			} else {
+				return new IFilter[] {filter};
+			}
+		} else if (obj instanceof ArrayList) {
+			ArrayList<Object> list = (ArrayList<Object>)obj;
+			ArrayList<IFilter> filterList = new ArrayList<IFilter>();
+			
+			for (Object f : list) {
+				if (f instanceof IFilter) {
+					IFilter filter = (IFilter)f;
+					if (!filter.isMultiFieldOr()) {
+						ColumnMetaData column = filter.getColumn();
+						if (column != null && column.hasMaxMinValues()) {
+							filterList.add(filter);
+						}
+					}
+				}
+			}
+			
+			if (filterList.size() > 0) {
+				IFilter []filters = new IFilter[filterList.size()];
+				filterList.toArray(filters);
+				Arrays.sort(filters);
+				return filters;
+			} else {
+				return null;
+			}
+		} else {
+			return null;
+		}
+	}
+	
+	/**
 	 * 返回这个基表的多路游标
 	 * @param exps 取出字段表达式，（当exps为null时按照fields取出）
 	 * @param fields 取出字段的新名称
@@ -1795,12 +1849,13 @@ public class ColPhyTable extends PhyTable {
 	 * @param fkNames 指定FK过滤的字段名称
 	 * @param codes 指定FK过滤的数据序列
 	 * @param pathCount 路数
+	 * @param opt 选项
 	 * @param ctx 上下文
 	 */
 	public ICursor cursor(Expression []exps, String []fields, Expression filter, String []fkNames, 
-			Sequence []codes, String []opts, int pathCount, Context ctx) {
+			Sequence []codes, String []opts, int pathCount, String opt, Context ctx) {
 		if (pathCount < 2) {
-			return cursor(exps, fields, filter, fkNames, codes, opts, ctx);
+			return cursor(exps, fields, filter, fkNames, codes, opts, opt, ctx);
 		}
 		
 		PhyTable tmd = getSupplementTable(false);
@@ -1809,19 +1864,25 @@ public class ColPhyTable extends PhyTable {
 			if (tmd == null) {
 				return new MemoryCursor(null);
 			} else {
-				return tmd.cursor(exps, fields, filter, fkNames, codes, opts, pathCount, ctx);
+				return tmd.cursor(exps, fields, filter, fkNames, codes, opts, pathCount, opt, ctx);
 			}
 		}
 		
 		// 如果是主表并且有维字段，则找出过滤表达式中关于第一个维的条件
 		// 用第一个维的条件过滤出满足条件的块再拆分成多路游标
-		IFilter dimFilter = null;
-		if (filter != null && parent == null && getSortedColumns() != null) {
-			dimFilter = getFirstDimFilter(filter, ctx);
+		//IFilter dimFilter = null;
+		//if (filter != null && parent == null && getSortedColumns() != null) {
+		//	dimFilter = getFirstDimFilter(filter, ctx);
+		//}
+		
+		// 先按过滤字段找出满足条件的数据块，再进行分段
+		IFilter []filters = null;
+		if (filter != null && parent == null && (opt == null || opt.indexOf('w') == -1)) {
+			filters = getSortedFieldFilters(filter, ctx);
 		}
 		
 		ICursor []cursors;
-		if (dimFilter == null) {
+		if (filters == null) {
 			int avg = blockCount / pathCount;
 			if (avg < 1) {
 				avg = 1;
@@ -1859,16 +1920,29 @@ public class ColPhyTable extends PhyTable {
 			}
 		} else {
 			IntArrayList list = new IntArrayList();
-			ColumnMetaData firstDim = dimFilter.getColumn();
-			ObjectReader reader = firstDim.getSegmentReader();
+			int filterCount = filters.length;
+			ObjectReader []readers = new ObjectReader[filterCount];
+			
+			for (int f = 0; f < filterCount; ++f) {
+				ColumnMetaData column = filters[f].getColumn();
+				readers[f] = column.getSegmentReader();
+			}
 			
 			try {
 				for (int i = 0; i < blockCount; ++i) {
-					reader.readLong40();
-					Object minValue = reader.readObject();
-					Object maxValue = reader.readObject();
-					reader.skipObject();
-					if (dimFilter.match(minValue, maxValue)) {
+					boolean match = true;
+					for (int f = 0; f < filterCount; ++f) {
+						readers[f].readLong40();
+						Object minValue = readers[f].readObject();
+						Object maxValue = readers[f].readObject();
+						readers[f].skipObject();
+						
+						if (match && !filters[f].match(minValue, maxValue)) {
+							match = false;
+						}
+					}
+					
+					if (match) {
 						list.addInt(i);
 					}
 				}
@@ -1924,7 +1998,7 @@ public class ColPhyTable extends PhyTable {
 			ICursor cs2 = tmd.cursor(exps, fields, filter, fkNames, codes, opts, mcs, null, ctx);
 			return merge(mcs, (MultipathCursors)cs2, sortFields);
 		} else {
-			ICursor cs2 = tmd.cursor(exps, fields, filter, fkNames, codes, opts, pathCount, ctx);
+			ICursor cs2 = tmd.cursor(exps, fields, filter, fkNames, codes, opts, pathCount, opt, ctx);
 			return conj(mcs, cs2);
 		}
 	}
@@ -1938,10 +2012,11 @@ public class ColPhyTable extends PhyTable {
 	 * @param codes 指定FK过滤的数据序列
 	 * @param segSeq 第几段
 	 * @param segCount  分段数
+	 * @param opt 选项
 	 * @param ctx 上下文
 	 */
 	public ICursor cursor(Expression []exps, String []fields, Expression filter, String []fkNames, 
-			Sequence []codes, String []opts, int segSeq, int segCount, Context ctx) {
+			Sequence []codes, String []opts, int segSeq, int segCount, String opt, Context ctx) {
 		getGroupTable().checkReadable();
 		
 		if (filter != null) {
@@ -2063,11 +2138,17 @@ public class ColPhyTable extends PhyTable {
 		
 		ICursor []srcCursors = mcs.getParallelCursors();
 		int segCount = srcCursors.length;
+		if (segCount == 1) {
+			ICursor cs = cursor(exps, fields, filter, fkNames, codes, opts, opt, ctx);
+			ICursor []cursors = new ICursor[] {cs};
+			return new MultipathCursors(cursors, ctx);
+		}
+		
 		Object [][]minValues = new Object [segCount][];
 		int fcount = -1;
 		
 		for (int i = 1; i < segCount; ++i) {
-			minValues[i] = srcCursors[i].getSegmentStartValues();
+			minValues[i] = srcCursors[i].getSegmentStartValues(opt);
 			if (minValues[i] != null) {
 				if (fcount == -1) {
 					fcount = minValues[i].length;
@@ -2081,22 +2162,34 @@ public class ColPhyTable extends PhyTable {
 		if (fcount == -1) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException(mm.getMessage("dw.segFieldNotMatch"));
-		} else if (opt != null && opt.indexOf('k') != -1) {
-			// 有k选项是以首字段做为同步分段字段
+		}
+
+		String []dimFields;
+		ColumnMetaData[] sortedCols;
+		if (opt != null && opt.indexOf('k') != -1) {
+			// 有k选项时以首键做为同步分段字段
+			String []keys = getAllKeyColNames();
+			if (keys == null) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException(mm.getMessage("dw.segFieldNotMatch"));
+			}
+			
 			fcount = 1;
+			dimFields = new String[] {keys[0]};
+			sortedCols = new ColumnMetaData[] {getColumn(keys[0])};
+		} else {
+			sortedCols = getAllSortedColumns();
+			if (sortedCols.length < fcount) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException(mm.getMessage("dw.segFieldNotMatch"));
+			}
+			
+			dimFields = new String[fcount];
+			for (int f = 0; f < fcount; ++f) {
+				dimFields[f] = sortedCols[f].getColName();
+			}
 		}
 		
-		ColumnMetaData[] sortedCols = getAllSortedColumns();
-		if (sortedCols.length < fcount) {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException(mm.getMessage("dw.segFieldNotMatch"));
-		}
-		
-		String []dimFields = new String[fcount];
-		for (int f = 0; f < fcount; ++f) {
-			dimFields[f] = sortedCols[f].getColName();
-		}
-				
 		int blockCount = getDataBlockCount();
 		ICursor []cursors = new ICursor[segCount];
 		int startBlock = 0;
@@ -2138,7 +2231,7 @@ public class ColPhyTable extends PhyTable {
 				}
 				
 				if (nextMinValue == null) {
-					cursors[s] = cursor(exps, fields, filter, fkNames, codes, opts, ctx);
+					cursors[s] = cursor(exps, fields, filter, fkNames, codes, opts, opt, ctx);
 					((IDWCursor)cursors[s]).setSegment(startBlock, blockCount);
 					startBlock = blockCount;
 					continue;
@@ -2147,7 +2240,7 @@ public class ColPhyTable extends PhyTable {
 				while (currentBlock < blockCount) {
 					int cmp = Variant.compareArrays(blockMinVals, nextMinValue);
 					if (cmp > 0) {
-						cursors[s] = cursor(exps, fields, filter, fkNames, codes, opts, ctx);
+						cursors[s] = cursor(exps, fields, filter, fkNames, codes, opts, opt, ctx);
 						
 						if (currentBlock > 0) {
 							((IDWCursor)cursors[s]).setSegment(startBlock, currentBlock - 1);
@@ -2159,7 +2252,7 @@ public class ColPhyTable extends PhyTable {
 						
 						continue Next;
 					} else if (cmp == 0) {
-						cursors[s] = cursor(exps, fields, filter, fkNames, codes, opts, ctx);
+						cursors[s] = cursor(exps, fields, filter, fkNames, codes, opts, opt, ctx);
 						((IDWCursor)cursors[s]).setSegment(startBlock, currentBlock);
 						startBlock = currentBlock;
 						continue Next;
@@ -2176,7 +2269,7 @@ public class ColPhyTable extends PhyTable {
 					}
 				}
 				
-				cursors[s] = cursor(exps, fields, filter, fkNames, codes, opts, ctx);
+				cursors[s] = cursor(exps, fields, filter, fkNames, codes, opts, opt, ctx);
 				((IDWCursor)cursors[s]).setSegment(startBlock, blockCount);
 				startBlock = blockCount;
 			}
@@ -2940,6 +3033,7 @@ public class ColPhyTable extends PhyTable {
 		if (append.length() > 0) {
 			ICursor cursor = new MemoryCursor(append);
 			append(cursor);
+			appendCache();
 		} else {
 			groupTable.save();
 		}
@@ -3468,6 +3562,9 @@ public class ColPhyTable extends PhyTable {
 			blockLink = col.getDataBlockLink();//数据块
 			blockLink.setFirstBlockPos(blockLink.firstBlockPos);
 			blockLink.freeIndex = 0;
+			
+			col.getDict().clear();
+			col.initDictArray();
 		}
 		
 		/**
@@ -3481,56 +3578,30 @@ public class ColPhyTable extends PhyTable {
 		Object []minValues = new Object[columnCount];
 		Object []maxValues = new Object[columnCount];
 		Object []startValues = new Object[columnCount];
+		int[] dataTypeInfo = new int[columnCount];
 		
 		/**
 		 * 循环写入新数据
 		 */
 		for (long count : recordCountArray) {
-			for (int i = 0; i < columnCount; i++) {
-				bufferWriters[i] = columns[i].getColDataBufferWriter();
-			}
-			
-			/**
-			 * 计算每列的最值
-			 */
 			Sequence data = cursor.fetch((int) count);
-			IArray mems = data.getMems();
-			int len = mems.size();
-			for (int i = 1; i <= len; ++i) {
-				BaseRecord r = (BaseRecord) mems.get(i);
-				mems.set(i, null);
+			int end = data.length();
+			for (int i = 0; i < columnCount; i++) {
+				//写新数据到每个列块
+				bufferWriters[i] = columns[i].getColDataBufferWriter();
+				Sequence dict = columns[i].getDict();
+				DataBlockWriterJob.writeDataBlock(bufferWriters[i], data, dict, i, 1, end, 
+						maxValues, minValues, startValues, dataTypeInfo);
 				
-				/**
-				 * 把这一条记录的数据写到各列的bufferWriter
-				 */
-				Object[] vals = r.getFieldValues();
-				for (int j = 0; j < columnCount; j++) {
-					Object obj = vals[j];
-					bufferWriters[j].writeObject(obj);
-					if (columns[j].isDim()) {
-						if (Variant.compare(obj, maxValues[j], true) > 0)
-							maxValues[j] = obj;
-						if (i == 1) {
-							minValues[j] = obj;//第一次赋值
-							startValues[j] = obj;
-						}
-						if (Variant.compare(obj, minValues[j], true) < 0)
-							minValues[j] = obj;
-					}
-				}
+				//统计列数据类型
+				boolean doCheck = groupTable.isCheckDataPure();
+				columns[i].adjustDataType(dataTypeInfo[i], doCheck);
+				columns[i].initDictArray();
+				
+				//提交每个列块buffer
+				columns[i].appendColBlock(bufferWriters[i].finish(), minValues[i], maxValues[i], startValues[i]);
 			}
 			
-			/**
-			 * 写新数据到每个列块
-			 */
-			for (int j = 0; j < columnCount; j++) {
-				byte[] buf = bufferWriters[j].finish();
-				if (!columns[j].isDim()) {
-					columns[j].appendColBlock(buf);//追加列块
-				} else {
-					columns[j].appendColBlock(buf, minValues[j], maxValues[j], startValues[j]);//追加维块
-				}
-			}
 		}
 		
 		/**
@@ -3634,7 +3705,6 @@ public class ColPhyTable extends PhyTable {
 		Sequence seqListData = null;
 		if (deleteByBaseKey) {
 			seqList = new LongArray(len * 10);
-			seqList.add(0);
 			seqListData = new Sequence(len);
 		}
 		
@@ -3691,7 +3761,7 @@ public class ColPhyTable extends PhyTable {
 		}
 		
 		if (deleteByBaseKey) {
-			len = seqList.size() - 1;
+			len = seqList.size();
 			if (0 == len) {
 				return result;
 			}
@@ -4829,14 +4899,15 @@ public class ColPhyTable extends PhyTable {
 	 * @param pathSeq 第几段
 	 * @param pathCount 节点机数
 	 * @param pathCount2 节点机上指定的块数
+	 * @param opt 选项
 	 * @param ctx 上下文
 	 * @return
 	 */
 	public ICursor cursor(Expression []exps, String[] fields, Expression filter, String[] fkNames, 
-			Sequence[] codes, String[] opts, int pathSeq, int pathCount, int pathCount2, Context ctx) {
+			Sequence[] codes, String[] opts, int pathSeq, int pathCount, int pathCount2, String opt, Context ctx) {
 		if (dataBlockCount < pathCount || pathCount2 < 2) {
 			//如果块数少于节点机数或者节点机上指定的块数少于2
-			return cursor(exps, fields, filter, fkNames, codes, opts, pathSeq, pathCount, ctx);
+			return cursor(exps, fields, filter, fkNames, codes, opts, pathSeq, pathCount, opt, ctx);
 		}
 				
 		ICursor []cursors = new ICursor[pathCount2];
@@ -4858,7 +4929,7 @@ public class ColPhyTable extends PhyTable {
 					filter = filter.newExpression(ctx);
 				}
 
-				cursors[i] = cursor(exps, fields, filter, fkNames, codes, opts, ctx);
+				cursors[i] = cursor(exps, fields, filter, fkNames, codes, opts, opt, ctx);
 				((IDWCursor) cursors[i]).setSegment(offset + i, offset + i + 1);
 			}
 			
@@ -4868,7 +4939,7 @@ public class ColPhyTable extends PhyTable {
 					filter = filter.newExpression(ctx);
 				}
 
-				cursors[i] = cursor(exps, fields, filter, fkNames, codes, opts, ctx);
+				cursors[i] = cursor(exps, fields, filter, fkNames, codes, opts, opt, ctx);
 				((IDWCursor) cursors[i]).setSegment(0, -1);
 			}
 		} else {
@@ -4880,7 +4951,7 @@ public class ColPhyTable extends PhyTable {
 					filter = filter.newExpression(ctx);
 				}
 				
-				cursors[i] = cursor(exps, fields, filter, fkNames, codes, opts, ctx);
+				cursors[i] = cursor(exps, fields, filter, fkNames, codes, opts, opt, ctx);
 				if (i != pathCount2 - 1) {
 					((IDWCursor) cursors[i]).setSegment(offset + avg2 * i, offset + avg2 * (i + 1));
 				} else {
@@ -4903,11 +4974,12 @@ public class ColPhyTable extends PhyTable {
 	 * @param cursor 参考游标
 	 * @param seg 节点机号
 	 * @param endValues 尾部要追加的记录
+	 * @param opt 选项
 	 * @param ctx
 	 * @return
 	 */
 	public ICursor cursor(Expression []exps, String[] fields, Expression filter, String[] fkNames, 
-			Sequence[] codes, String[] opts, ICursor cursor, int seg, Object [][]endValues, Context ctx) {
+			Sequence[] codes, String[] opts, ICursor cursor, int seg, Object [][]endValues, String opt, Context ctx) {
 		getGroupTable().checkReadable();
 		
 		ArrayList<ICursor> csList = new ArrayList<ICursor>();
@@ -5052,7 +5124,7 @@ public class ColPhyTable extends PhyTable {
 				
 				int cmp = Variant.compareArrays(blockMinVals, minValues[s]);
 				if (cmp > 0) {
-					ICursor cs = cursor(exps, fields, filter, fkNames, codes, opts, ctx);
+					ICursor cs = cursor(exps, fields, filter, fkNames, codes, opts, opt, ctx);
 					cursors[s - 1] = cs;
 					if (b > 0) {
 						((IDWCursor) cs).setSegment(startBlock, b - 1);
@@ -5065,7 +5137,7 @@ public class ColPhyTable extends PhyTable {
 					isEquals[s] = false;
 					s++;
 				} else if (cmp == 0) {
-					ICursor cs = cursor(exps, fields, filter, fkNames, codes, opts, ctx);
+					ICursor cs = cursor(exps, fields, filter, fkNames, codes, opts, opt, ctx);
 					cursors[s - 1] = cs;
 					((IDWCursor) cs).setSegment(startBlock, b);
 					startBlock = b;
@@ -5081,7 +5153,7 @@ public class ColPhyTable extends PhyTable {
 					filter = filter.newExpression(ctx);
 				}
 				
-				ICursor cs = cursor(exps, fields, filter, fkNames, codes, opts, ctx);
+				ICursor cs = cursor(exps, fields, filter, fkNames, codes, opts, opt, ctx);
 				cursors[s - 1] = cs;
 				((IDWCursor) cs).setSegment(startBlock, blockCount);
 				
@@ -5098,7 +5170,7 @@ public class ColPhyTable extends PhyTable {
 					filter = filter.newExpression(ctx);
 				}
 				
-				ICursor cs = cursor(exps, fields, filter, fkNames, codes, opts, ctx);
+				ICursor cs = cursor(exps, fields, filter, fkNames, codes, opts, opt, ctx);
 				cursors[s - 1] = cs;
 				((IDWCursor) cs).setSegment(startBlock, blockCount - 1);
 				
@@ -5175,6 +5247,12 @@ public class ColPhyTable extends PhyTable {
 			}
 		}
 		
+		PhyTable tmd = getSupplementTable(false);
+		if (tmd != null) {
+			// 有补文件时先删除补文件中的
+			tmd.addColumn(colName, exp, ctx);
+		}
+		
 		//新建立一个列
 		ColumnMetaData col = new ColumnMetaData(this, colName, false, false);
 		ICursor cursor = cursor();
@@ -5208,7 +5286,8 @@ public class ColPhyTable extends PhyTable {
 				DataBlockWriterJob.writeDataBlock(bufferWriter, data, dict, 0, 1, len, maxValues, minValues, startValues, dataTypeInfo);
 				
 				//统计列数据类型
-				col.adjustDataType(dataTypeInfo[0]);
+				boolean doCheck = groupTable.isCheckDataPure();
+				col.adjustDataType(dataTypeInfo[0], doCheck);
 				
 				//提交列块buffer
 				col.appendColBlock(bufferWriter.finish(), minValues[0], maxValues[0], startValues[0]);
@@ -5244,6 +5323,12 @@ public class ColPhyTable extends PhyTable {
 	}
 	
 	public void deleteColumn(String colName) {
+		PhyTable tmd = getSupplementTable(false);
+		if (tmd != null) {
+			// 有补文件时先删除补文件中的
+			tmd.deleteColumn(colName);
+		}
+		
 		ColumnMetaData col = getColumn(colName);
 		
 		//检查列是否存在

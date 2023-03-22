@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>6.6.1 Installing ODBC driver</title>
+<title>7.1 The Concept of Cursor</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,62 +13,19 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h3 style='margin:0cm;margin-bottom:.0001pt;text-indent:0cm;line-height:normal;
-mso-list:none;tab-stops:-179.95pt 64.2pt'><span lang=EN-US>6.6.1 Installing
-ODBC driver</span></h3></div>
-	<p class=T-ParCxSpFirst style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>To enable esProc-ODBC, first we need to install ODBC
-driver at the client-side. In the <i style='mso-bidi-font-style:normal'>esProc
-installation/bin</i> directory, execute esprocOdbcinst.exe under the
-administrator privilege to install the esProc-ODBC driver. If the ODBC dynamic
-library can’t be implemented due to the lack of the related dependent library,
-execute <i style='mso-bidi-font-style:normal'>VCredit.exe</i> to install it.</span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>Then we can add the ODBC data sources. Select EsprocOdbc
-ODBC Driver to connect to the esProc ODBC to create ODBC data sources:</span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US><img border=0 width=717 height=529
-src="Tutorial.files/image1493.jpg" v:shapes="图片_x0020_1159"></span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>In the pop-up window, set the <b style='mso-bidi-font-weight:
-normal'>connection parameters</b> for esProc-ODBC:</span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US><img border=0 width=735 height=501
-src="Tutorial.files/image1495.jpg" v:shapes="图片_x0020_1160"></span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>Click <b style='mso-bidi-font-weight:normal'>Connect
-Test</b> to check whether the connection is correctly established:</span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US><img border=0 width=315 height=257
-src="Tutorial.files/image1497.jpg" v:shapes="图片_x0020_1161"></span></p>
-
-<p class=T-ParCxSpMiddle style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US>Click <b style='mso-bidi-font-weight:normal'>OK</b> to
-view the newly-created esProc-ODBC data source in system’s <b style='mso-bidi-font-weight:
-normal'>ODBC data source manager</b>:</span></p>
-
-<p class=T-ParCxSpLast style='margin-bottom:0cm;margin-bottom:.0001pt;
-mso-add-space:auto;text-align:justify;text-justify:inter-ideograph;text-indent:
-21.0pt'><span lang=EN-US><img border=0 width=706 height=580
-src="Tutorial.files/image1499.jpg" v:shapes="图片_x0020_1162"></span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>esProc-ODBC data sources can be accessed through both User DSN and
-System DSN.</span></p>
+	<div id="centent-title"><h2 style='margin-left:36.0pt;mso-para-margin-left:0gd;text-indent:-36.0pt;
+mso-list:l11 level2 lfo42'><span lang=EN-US
+style='mso-fareast-font-family:"Times New Roman"'><span style='mso-list:Ignore'>7.1<span
+style='font:7.0pt "Times New Roman"'> </span></span></span><span
+lang=EN-US><span style='mso-spacerun:yes'>&nbsp;</span>The Concept of Cursor<a
+name="Concept_of_Cursor"></a></span></h2></div>
+	<p class=T-Par style='margin-bottom:0cm;margin-bottom:.0001pt;mso-add-space:
+auto;text-align:justify;text-justify:inter-ideograph;text-indent:21.0pt'><span
+lang=EN-US>The concept of cursor is very important for the database. Cursor
+enables a more flexible manipulation of data, returning data from a table row
+by row. esProc supports many types of cursor, like database cursor, file cursor
+and in-memory record sequence cursor, to satisfy various needs in data fetching
+and processing. Here let’s learn about esProc cursor and its three types. </span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="179.html">Next</a></div>
@@ -76,7 +33,10 @@ System DSN.</span></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="177.html">6.6 Deploying ODBC</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="177.html">Chapter7 External Memory Computations</a></span></li>
+<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="179.html">7.1.1 What is cursor</a></span></li>
+<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="180.html">7.1.2 Database cursor</a></span></li>
+<li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="181.html">7.1.3 External file cursor</a></span></li>
 </div>
 	</div>
 	<div id="footer">	

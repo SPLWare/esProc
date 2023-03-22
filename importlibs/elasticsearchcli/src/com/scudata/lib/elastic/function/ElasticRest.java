@@ -24,6 +24,7 @@ import javax.net.ssl.X509TrustManager;
 
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
+import com.scudata.common.Logger;
 import com.scudata.dm.Context;
 import com.scudata.dm.Table;
 import com.scudata.expression.Expression;
@@ -91,8 +92,8 @@ public class ElasticRest extends Function {
 				if (param.getSubSize()>2) content = param.getSub(2).getLeafExpression().calculate(ctx).toString();
 			}
 		} catch (Exception e) {
+			Logger.error(e.getMessage());
 			MessageManager mm = EngineMessage.get();
-			e.printStackTrace();
 			throw new RQException("influx rest param error" + mm.getMessage(Integer.toString(param.getSubSize())));
 		}		
 		
@@ -100,8 +101,7 @@ public class ElasticRest extends Function {
 			if (url.indexOf("https:")>=0) return Http4SPL.downLoadFromHttps(url,charset,method,content,headers);
 			else return Http4SPL.downLoadFromHttp(url,charset,method,content,headers);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		}
 		return null;
 	}

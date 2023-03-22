@@ -358,7 +358,7 @@ public class SimpleSelect
 								ICursor []cursors = new ICursor[parallelNumber];
 								for (int i = 0; i < parallelNumber; ++i) 
 								{
-									cursors[i] = meta.cursor(null, fields, where, null, null, null, i+1, parallelNumber, ctx);
+									cursors[i] = meta.cursor(null, fields, where, null, null, null, i+1, parallelNumber, null, ctx);
 								}
 								cursors2[z] = new MultipathCursors(cursors, ctx);
 							}

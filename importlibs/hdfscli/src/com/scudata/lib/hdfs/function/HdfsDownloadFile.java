@@ -1,7 +1,7 @@
 package com.scudata.lib.hdfs.function;
 
 import com.scudata.common.RQException;
-
+import com.scudata.common.Logger;
 /*** @author 
  * hdfs_upload@d(hd, localFile, remoteFile/remotePath)
  * remotePath时，路径必须存在.
@@ -36,7 +36,7 @@ public class HdfsDownloadFile extends HdfsFunction {
 
 			return true;
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger.error(e.getMessage());
 		}
 		return false;
 	}
