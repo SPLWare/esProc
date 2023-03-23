@@ -3603,7 +3603,8 @@ public class SimpleSelect
 				while(pos < tableNext)
 				{
 					tableName = tableName + tokens[pos].getOriginString();
-					tableName = tableName + tokens[pos].getSpaces();
+					//xingjl 20230323  from D://test/1集算器/emps.txt，去掉1后面空格
+					//tableName = tableName + tokens[pos].getSpaces();
 					pos++;
 				}
 				tableName = tableName.trim();
