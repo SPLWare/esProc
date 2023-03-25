@@ -4292,12 +4292,16 @@ public class DatabaseUtil {
 						if (updateRecords.length() > 0) {
 							//Logger.debug("Auto update, preparing update records: "+update_sql);
 							Logger.debug(mm.getMessage("info.autoUpdate", update_sql));
-							executeBatchSql(fetchSeq, update_sql, updateParams, updateTypes, ctx, dbs);
+							// edited by bd, 2023.3.24, 更新时不应该用全数据
+							//executeBatchSql(fetchSeq, update_sql, updateParams, updateTypes, ctx, dbs);
+							executeBatchSql(updateRecords, update_sql, updateParams, updateTypes, ctx, dbs);
 						}
 						if (insertRecords.length() > 0) {
 							//Logger.debug("Auto insert, preparing insert records: "+insert_sql);
 							Logger.debug(mm.getMessage("info.autoInsert", insert_sql));
-							executeBatchSql(fetchSeq, insert_sql, insertParams, insertTypes, ctx, dbs);
+							// edited by bd, 2023.3.24, 更新时不应该用全数据
+							//executeBatchSql(fetchSeq, insert_sql, insertParams, insertTypes, ctx, dbs);
+							executeBatchSql(insertRecords, insert_sql, insertParams, insertTypes, ctx, dbs);
 						}
 					}
 
