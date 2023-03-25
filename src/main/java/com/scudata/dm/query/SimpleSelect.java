@@ -99,8 +99,8 @@ public class SimpleSelect
 	abstract class Node 
 	{
 		abstract public boolean hasGather();
-		abstract public boolean hasField(Boolean isOrder); //ÓÃÓÚgroup byºÍorder by×Ó¾äÅĞ¶ÏÊÇ·ñ°üº¬×Ö¶Î£¬¾ÛºÏº¯ÊıÓëÒ»°ãº¯ÊıÎŞ²î±ğ
-		abstract public boolean hasField(String fieldName); //ÓÃÓÚselect×Ó¾äÅĞ¶ÏÊÇ·ñ°üº¬Ä³×Ö¶Î£¬¾ÛºÏº¯ÊıĞèÇø±ğÓÚÒ»°ãº¯Êı
+		abstract public boolean hasField(Boolean isOrder); //ç”¨äºgroup byå’Œorder byå­å¥åˆ¤æ–­æ˜¯å¦åŒ…å«å­—æ®µï¼Œèšåˆå‡½æ•°ä¸ä¸€èˆ¬å‡½æ•°æ— å·®åˆ«
+		abstract public boolean hasField(String fieldName); //ç”¨äºselectå­å¥åˆ¤æ–­æ˜¯å¦åŒ…å«æŸå­—æ®µï¼Œèšåˆå‡½æ•°éœ€åŒºåˆ«äºä¸€èˆ¬å‡½æ•°
 		abstract public boolean hasFieldNotGroup();
 		abstract public void optimize();
 		abstract public void collect();
@@ -171,13 +171,13 @@ public class SimpleSelect
 			if(fileObject == null)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":TableNode.TableNode, ÎÄ¼ş¶ÔÏó²»ÄÜÎª¿ÕÖµ");
+				throw new RQException(mm.getMessage("syntax.error") + ":TableNode.TableNode, æ–‡ä»¶å¯¹è±¡ä¸èƒ½ä¸ºç©ºå€¼");
 			}
 
 			if(type == TableNode.TYPE_ICR)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":TableNode.TableNode, ±íÎÄ¼şÀàĞÍÒì³£");
+				throw new RQException(mm.getMessage("syntax.error") + ":TableNode.TableNode, è¡¨æ–‡ä»¶ç±»å‹å¼‚å¸¸");
 			}
 			else
 			{
@@ -240,7 +240,7 @@ public class SimpleSelect
 			if(this.name == null)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":TableNode.getName, ÎŞĞ§µÄ±í½Úµã");
+				throw new RQException(mm.getMessage("syntax.error") + ":TableNode.getName, æ— æ•ˆçš„è¡¨èŠ‚ç‚¹");
 			}
 			return this.name;
 		}
@@ -250,7 +250,7 @@ public class SimpleSelect
 			if(this.alias == null)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":TableNode.getAlias, ÎŞĞ§µÄ±í½Úµã");
+				throw new RQException(mm.getMessage("syntax.error") + ":TableNode.getAlias, æ— æ•ˆçš„è¡¨èŠ‚ç‚¹");
 			}
 			return this.alias;
 		}
@@ -260,7 +260,7 @@ public class SimpleSelect
 			return this.type;
 		}
 		
-		public void setWhere(String whereExp) // ×é±í×¨ÓÃÌáÇ°¹ıÂË
+		public void setWhere(String whereExp) // ç»„è¡¨ä¸“ç”¨æå‰è¿‡æ»¤
 		{
 			if(whereExp != null && !whereExp.isEmpty())
 			{
@@ -298,7 +298,7 @@ public class SimpleSelect
 					//return new FileCursor(new FileObject("d:/test/fileAttr.txt"), 1, 1, this.fields, null, null, "t", ctx);
 				}
 				
-				if(this.type == TableNode.TYPE_GTB)	// ×é±íÎÄ¼ş
+				if(this.type == TableNode.TYPE_GTB)	// ç»„è¡¨æ–‡ä»¶
 				{
 					ICursor []cursors2 = new ICursor[this.files.size()];
 					metas = new ArrayList<PhyTable>(); 
@@ -313,14 +313,14 @@ public class SimpleSelect
 						catch (Exception e) 
 						{
 							MessageManager mm = ParseMessage.get();
-							throw new RQException(mm.getMessage("syntax.error") + ":TableNode.getCursor, ´ò¿ª×é±íÎÄ¼şÊ§°Ü", e);
+							throw new RQException(mm.getMessage("syntax.error") + ":TableNode.getCursor, æ‰“å¼€ç»„è¡¨æ–‡ä»¶å¤±è´¥", e);
 						}
 						
 						PhyTable meta = group.getBaseTable();
 						if(meta == null)
 						{
 							MessageManager mm = ParseMessage.get();
-							throw new RQException(mm.getMessage("syntax.error") + ":TableNode.getCursor, ×é±íÖĞÃ»ÓĞ´´½¨»ù±í");
+							throw new RQException(mm.getMessage("syntax.error") + ":TableNode.getCursor, ç»„è¡¨ä¸­æ²¡æœ‰åˆ›å»ºåŸºè¡¨");
 						}
 						metas.add(meta);
 	
@@ -358,7 +358,7 @@ public class SimpleSelect
 								ICursor []cursors = new ICursor[parallelNumber];
 								for (int i = 0; i < parallelNumber; ++i) 
 								{
-									cursors[i] = meta.cursor(null, fields, where, null, null, null, i+1, parallelNumber, null, ctx);
+									cursors[i] = meta.cursor(null, fields, where, null, null, null, i+1, parallelNumber, (Integer) null, ctx);
 								}
 								cursors2[z] = new MultipathCursors(cursors, ctx);
 							}
@@ -367,11 +367,11 @@ public class SimpleSelect
 					if (this.files.size() == 1) icursor = cursors2[0];
 					else icursor = new ConjxCursor(cursors2);
 				}
-				else if(this.type == TableNode.TYPE_BIN) // ¼¯ÎÄ¼ş
+				else if(this.type == TableNode.TYPE_BIN) // é›†æ–‡ä»¶
 				{
 					ICursor []cursors2 = new ICursor[this.files.size()];
 					for (int z=0; z<this.files.size(); z++) {
-						//·Ç·Ö¶Î¶ş½øÖÆÎÄ¼ş²»ÄÜ²¢ĞĞ¶ÁÈ¡
+						//éåˆ†æ®µäºŒè¿›åˆ¶æ–‡ä»¶ä¸èƒ½å¹¶è¡Œè¯»å–
 						if(parallelNumber == 1 || SimpleSQL.checkParallel(this.file) == BFileWriter.TYPE_NORMAL)
 						{
 							FileObject foi = this.files.get(z);
@@ -413,7 +413,7 @@ public class SimpleSelect
 					if (this.files.size() == 1) icursor = cursors2[0];
 					else icursor = new ConjxCursor(cursors2);
 				}
-				else if(this.type == TableNode.TYPE_CSV)// CSVÎÄ¼ş
+				else if(this.type == TableNode.TYPE_CSV)// CSVæ–‡ä»¶
 				{
 					ICursor []cursors = new ICursor[this.files.size()];
 					for (int i=0; i<this.files.size(); i++) {
@@ -443,7 +443,7 @@ public class SimpleSelect
 					if (this.files.size() == 1) icursor = cursors[0];
 					else icursor = new ConjxCursor(cursors);
 				}
-				else if(this.type == TableNode.TYPE_TXT)// TXTÎÄ¼ş
+				else if(this.type == TableNode.TYPE_TXT)// TXTæ–‡ä»¶
 				{
 					ICursor []cursors = new ICursor[this.files.size()];
 					for (int i=0; i<this.files.size(); i++) {
@@ -473,7 +473,7 @@ public class SimpleSelect
 					if (this.files.size() == 1) icursor = cursors[0];
 					else icursor = new ConjxCursor(cursors);
 				}
-				else if(this.type == TableNode.TYPE_XLS || this.type == TableNode.TYPE_XLSX)// XLSÎÄ¼ş
+				else if(this.type == TableNode.TYPE_XLS || this.type == TableNode.TYPE_XLSX)// XLSæ–‡ä»¶
 				{
 					ICursor []cursors = new ICursor[this.files.size()];
 					for (int z=0; z<this.files.size(); z++) {
@@ -512,7 +512,7 @@ public class SimpleSelect
 //									if(index == -1)
 //									{
 //										MessageManager mm = ParseMessage.get();
-//										throw new RQException(mm.getMessage("syntax.error") + ":TableNode.getCursor, Òª²éÑ¯µÄ×Ö¶ÎÃû²»ÔÚÁÙÊ±±íÖĞ");
+//										throw new RQException(mm.getMessage("syntax.error") + ":TableNode.getCursor, è¦æŸ¥è¯¢çš„å­—æ®µåä¸åœ¨ä¸´æ—¶è¡¨ä¸­");
 //									}
 //									colExps[i] = new Expression(String.format("#%d", index+1));
 //								}
@@ -522,7 +522,7 @@ public class SimpleSelect
 						catch(IOException e)
 						{
 							MessageManager mm = ParseMessage.get();
-							throw new RQException(mm.getMessage("syntax.error") + ":TableNode.getCursor, ¶ÁÈ¡XLS¸ñÊ½µÄ±íÎÄ¼şÊ§°Ü", e);
+							throw new RQException(mm.getMessage("syntax.error") + ":TableNode.getCursor, è¯»å–XLSæ ¼å¼çš„è¡¨æ–‡ä»¶å¤±è´¥", e);
 						}
 						finally 
 						{
@@ -540,7 +540,7 @@ public class SimpleSelect
 							catch (IOException e) 
 							{
 								MessageManager mm = ParseMessage.get();
-								throw new RQException(mm.getMessage("syntax.error") + ":TableNode.getCursor, ¹Ø±ÕXLSÎÄ¼şÊ§°Ü", e);
+								throw new RQException(mm.getMessage("syntax.error") + ":TableNode.getCursor, å…³é—­XLSæ–‡ä»¶å¤±è´¥", e);
 							}
 						}
 					}
@@ -576,7 +576,7 @@ public class SimpleSelect
 							FileObject foi = this.files.get(i);
 							if (!(seq instanceof Table)) {
 								MessageManager mm = ParseMessage.get();
-								throw new RQException(mm.getMessage("syntax.error") + ":TableNode.getCursor, ¶ÁÈ¡ÎÄ¼şÊı¾İÊ§°Ü");
+								throw new RQException(mm.getMessage("syntax.error") + ":TableNode.getCursor, è¯»å–æ–‡ä»¶æ•°æ®å¤±è´¥");
 							}
 							Table t2 = (Table)seq;
 							t2 = t2.derive(new String[]{"_file","_ext","_date","_size"}, new Expression[]{new Expression("\""+foi.getFileName()+"\"")
@@ -598,11 +598,11 @@ public class SimpleSelect
 					catch(Exception e) 
 					{
 						MessageManager mm = ParseMessage.get();
-						throw new RQException(mm.getMessage("syntax.error") + ":TableNode.getCursor, ¶ÁÈ¡JSONÎÄ¼şÊ§°Ü", e);
+						throw new RQException(mm.getMessage("syntax.error") + ":TableNode.getCursor, è¯»å–JSONæ–‡ä»¶å¤±è´¥", e);
 					}
 				}
 			}
-			else if(this.cursor != null) //×Ó²éÑ¯ÁÙÊ±±í
+			else if(this.cursor != null) //å­æŸ¥è¯¢ä¸´æ—¶è¡¨
 			{
 				if(this.cursor instanceof MemoryCursor)
 				{
@@ -630,7 +630,7 @@ public class SimpleSelect
 						if(index == -1)
 						{
 							MessageManager mm = ParseMessage.get();
-							throw new RQException(mm.getMessage("syntax.error") + ":TableNode.getCursor, Òª²éÑ¯µÄ×Ö¶ÎÃû²»ÔÚÁÙÊ±±íÖĞ");
+							throw new RQException(mm.getMessage("syntax.error") + ":TableNode.getCursor, è¦æŸ¥è¯¢çš„å­—æ®µåä¸åœ¨ä¸´æ—¶è¡¨ä¸­");
 						}
 						colExps[i] = new Expression(String.format("#%d", index+1));
 					}
@@ -640,10 +640,10 @@ public class SimpleSelect
 			else
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":TableNode.getCursor, ±í½Úµã½á¹¹Òì³£");
+				throw new RQException(mm.getMessage("syntax.error") + ":TableNode.getCursor, è¡¨èŠ‚ç‚¹ç»“æ„å¼‚å¸¸");
 			}
 			
-			this.fields = null;//setAccessColumnÖ»ÄÜÆğÒ»´Î×÷ÓÃ
+			this.fields = null;//setAccessColumnåªèƒ½èµ·ä¸€æ¬¡ä½œç”¨
 			
 			if(isMemory && !(icursor instanceof MemoryCursor))
 			{
@@ -655,22 +655,22 @@ public class SimpleSelect
 		
 		public void setAccessColumn(String[] colNames)
 		{
-			this.fields = colNames;//getCursorºóÖÃnull
+			this.fields = colNames;//getCursoråç½®null
 		}
 		
-		public DataStruct dataStruct() //Õâ¸öÊÇÇóÔ­Ê¼±íµÄÊı¾İ½á¹¹¶ø²»ÊÇ×îÖÕÓÎ±êµÄ
+		public DataStruct dataStruct() //è¿™ä¸ªæ˜¯æ±‚åŸå§‹è¡¨çš„æ•°æ®ç»“æ„è€Œä¸æ˜¯æœ€ç»ˆæ¸¸æ ‡çš„
 		{
 			if(this.struct == null)
 			{
-				String[] fields = this.fields;//±¸·İ
-				Expression where = this.where;//±¸·İ
+				String[] fields = this.fields;//å¤‡ä»½
+				Expression where = this.where;//å¤‡ä»½
 				
-				this.fields = null;//setAccessColumn²»Ó¦¸ÃÓ°ÏìdataStruct
-				this.where = null;//·ÀÖ¹ÌáÇ°¹ıÂËÔì³ÉfetchÎª¿ÕÊ±»ñÈ¡²»µ½Êı¾İ½á¹¹
+				this.fields = null;//setAccessColumnä¸åº”è¯¥å½±å“dataStruct
+				this.where = null;//é˜²æ­¢æå‰è¿‡æ»¤é€ æˆfetchä¸ºç©ºæ—¶è·å–ä¸åˆ°æ•°æ®ç»“æ„
 				
 				if(this.file != null || this.meta != null || this.cursor != null)
 				{
-					if(this.type == TableNode.TYPE_GTB)	// ×é±íÎÄ¼ş
+					if(this.type == TableNode.TYPE_GTB)	// ç»„è¡¨æ–‡ä»¶
 					{
 						if(this.meta != null)
 						{
@@ -686,14 +686,14 @@ public class SimpleSelect
 							catch (Exception e) 
 							{
 								MessageManager mm = ParseMessage.get();
-								throw new RQException(mm.getMessage("syntax.error") + ":TableNode.dataStruct, ´ò¿ª×é±íÎÄ¼şÊ§°Ü", e);
+								throw new RQException(mm.getMessage("syntax.error") + ":TableNode.dataStruct, æ‰“å¼€ç»„è¡¨æ–‡ä»¶å¤±è´¥", e);
 							}
 							
 							PhyTable table = group.getBaseTable();
 							if(table == null)
 							{
 								MessageManager mm = ParseMessage.get();
-								throw new RQException(mm.getMessage("syntax.error") + ":TableNode.dataStruct, ×é±íÖĞÃ»ÓĞ´´½¨»ù±í");
+								throw new RQException(mm.getMessage("syntax.error") + ":TableNode.dataStruct, ç»„è¡¨ä¸­æ²¡æœ‰åˆ›å»ºåŸºè¡¨");
 							}
 							
 							this.struct = new DataStruct(table.getColNames());
@@ -705,7 +705,7 @@ public class SimpleSelect
 						if(icursor != null)
 						{
 							Sequence seq = icursor.peek(1);
-							System.out.println(seq);
+							//System.out.println(seq);
 							if(seq != null)
 							{
 								this.struct = seq.dataStruct();
@@ -724,8 +724,8 @@ public class SimpleSelect
 					}
 				}
 				
-				this.fields = fields;//»¹Ô­setAccessColumn
-				this.where = where; //»¹Ô­ÌáÇ°¹ıÂË
+				this.fields = fields;//è¿˜åŸsetAccessColumn
+				this.where = where; //è¿˜åŸæå‰è¿‡æ»¤
 			}
 			
 			//System.out.println("this.struct="+Arrays.toString(this.struct.getFieldNames()));
@@ -738,7 +738,7 @@ public class SimpleSelect
 			if(this.alias == null)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":TableNode.isIdentic, ÎŞĞ§µÄ±í½Úµã");
+				throw new RQException(mm.getMessage("syntax.error") + ":TableNode.isIdentic, æ— æ•ˆçš„è¡¨èŠ‚ç‚¹");
 			}
 			
 			if(symbol == null)
@@ -759,14 +759,14 @@ public class SimpleSelect
 			if(icursor == null)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":TableNode.toExpression, ÎŞĞ§µÄ±í½Úµã");
+				throw new RQException(mm.getMessage("syntax.error") + ":TableNode.toExpression, æ— æ•ˆçš„è¡¨èŠ‚ç‚¹");
 			}
 			
 			Sequence sequence = icursor.peek(1);
 			if(sequence == null || sequence.length() != 1 || sequence.dataStruct() == null ||sequence.dataStruct().getFieldCount() != 1)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":TableNode.toExpression, ·ÇIN/EXISTS×Ó¾äµÄ×Ó²éÑ¯±ØĞëÄÜ½âÎöÎªµ¥Ò»Öµ");
+				throw new RQException(mm.getMessage("syntax.error") + ":TableNode.toExpression, éIN/EXISTSå­å¥çš„å­æŸ¥è¯¢å¿…é¡»èƒ½è§£æä¸ºå•ä¸€å€¼");
 			}
 			else
 			{
@@ -807,18 +807,18 @@ public class SimpleSelect
 				else
 				{
 					MessageManager mm = ParseMessage.get();
-					throw new RQException(mm.getMessage("function.paramError") + ":scanExp, ÉĞ²»Ö§³ÖµÄÊı¾İÀàĞÍ");
+					throw new RQException(mm.getMessage("function.paramError") + ":scanExp, å°šä¸æ”¯æŒçš„æ•°æ®ç±»å‹");
 				}
 				return value;
 			}
 		}
 
-		public boolean hasGather()  //²»»á±»select²»¿¼ÂÇ
+		public boolean hasGather()  //ä¸ä¼šè¢«selectä¸è€ƒè™‘
 		{
 			return false;
 		}
 
-		public boolean hasFieldNotGroup()  //²»»á±»select²»¿¼ÂÇ
+		public boolean hasFieldNotGroup()  //ä¸ä¼šè¢«selectä¸è€ƒè™‘
 		{
 			return false;
 		}
@@ -874,7 +874,7 @@ public class SimpleSelect
 			if(this.name == null)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":FieldNode.getName, ÎŞĞ§µÄ×Ö¶Î½Úµã");
+				throw new RQException(mm.getMessage("syntax.error") + ":FieldNode.getName, æ— æ•ˆçš„å­—æ®µèŠ‚ç‚¹");
 			}
 			
 			return this.name;
@@ -885,7 +885,7 @@ public class SimpleSelect
 			if(this.original == null)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":FieldNode.getOriginal, ÎŞĞ§µÄ×Ö¶Î½Úµã");
+				throw new RQException(mm.getMessage("syntax.error") + ":FieldNode.getOriginal, æ— æ•ˆçš„å­—æ®µèŠ‚ç‚¹");
 			}
 			
 			return this.original;
@@ -896,7 +896,7 @@ public class SimpleSelect
 			if(this.name == null)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":FieldNode.optimize, ÎŞĞ§µÄ×Ö¶Î½Úµã");
+				throw new RQException(mm.getMessage("syntax.error") + ":FieldNode.optimize, æ— æ•ˆçš„å­—æ®µèŠ‚ç‚¹");
 			}
 			
 			String name = this.name.toLowerCase();
@@ -911,7 +911,7 @@ public class SimpleSelect
 			if(this.name == null)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":FieldNode.toExpression, ÎŞĞ§µÄ×Ö¶Î½Úµã");
+				throw new RQException(mm.getMessage("syntax.error") + ":FieldNode.toExpression, æ— æ•ˆçš„å­—æ®µèŠ‚ç‚¹");
 			}
 			
 			return "'"+this.name+"'";
@@ -927,7 +927,7 @@ public class SimpleSelect
 			if(this.name == null)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":FieldNode.isIdentic, ÎŞĞ§µÄ×Ö¶Î½Úµã");
+				throw new RQException(mm.getMessage("syntax.error") + ":FieldNode.isIdentic, æ— æ•ˆçš„å­—æ®µèŠ‚ç‚¹");
 			}
 			
 			return this.name.equalsIgnoreCase(fieldName);
@@ -938,7 +938,7 @@ public class SimpleSelect
 			if(this.name == null)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":FieldNode.hasFieldNotGroup, ÎŞĞ§µÄ×Ö¶Î½Úµã");
+				throw new RQException(mm.getMessage("syntax.error") + ":FieldNode.hasFieldNotGroup, æ— æ•ˆçš„å­—æ®µèŠ‚ç‚¹");
 			}
 			
 			if(groupList == null && groupList.size() == 0)
@@ -994,7 +994,7 @@ public class SimpleSelect
 			if(this.value == null)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":NormalNode.getValue, ÎŞĞ§µÄ³£Êı½Úµã");
+				throw new RQException(mm.getMessage("syntax.error") + ":NormalNode.getValue, æ— æ•ˆçš„å¸¸æ•°èŠ‚ç‚¹");
 			}
 			
 			return this.value;
@@ -1009,7 +1009,7 @@ public class SimpleSelect
 			if(this.value == null)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":NormalNode.toExpression, ÎŞĞ§µÄ³£Êı½Úµã");
+				throw new RQException(mm.getMessage("syntax.error") + ":NormalNode.toExpression, æ— æ•ˆçš„å¸¸æ•°èŠ‚ç‚¹");
 			}
 			
 			return this.value;
@@ -1044,7 +1044,7 @@ public class SimpleSelect
 				if(this.value == null)
 				{
 					MessageManager mm = ParseMessage.get();
-					throw new RQException(mm.getMessage("syntax.error") + ":NormalNode.hasField, ÎŞĞ§µÄ³£Êı½Úµã");
+					throw new RQException(mm.getMessage("syntax.error") + ":NormalNode.hasField, æ— æ•ˆçš„å¸¸æ•°èŠ‚ç‚¹");
 				}
 				if(aliasList != null)
 				{
@@ -1081,7 +1081,7 @@ public class SimpleSelect
 			if(this.list == null)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":ExpressionNode.getNodeList, ÎŞĞ§µÄ±í´ïÊ½½Úµã");
+				throw new RQException(mm.getMessage("syntax.error") + ":ExpressionNode.getNodeList, æ— æ•ˆçš„è¡¨è¾¾å¼èŠ‚ç‚¹");
 			}
 			
 			return this.list;
@@ -1092,7 +1092,7 @@ public class SimpleSelect
 			if(this.list == null)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":ExpressionNode.hasGather, ÎŞĞ§µÄ±í´ïÊ½½Úµã");
+				throw new RQException(mm.getMessage("syntax.error") + ":ExpressionNode.hasGather, æ— æ•ˆçš„è¡¨è¾¾å¼èŠ‚ç‚¹");
 			}
 			
 			for(int i=0,z=this.list.size();i<z;i++)
@@ -1112,7 +1112,7 @@ public class SimpleSelect
 			if(this.list == null)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":ExpressionNode.hasFieldNotGroup, ÎŞĞ§µÄ±í´ïÊ½½Úµã");
+				throw new RQException(mm.getMessage("syntax.error") + ":ExpressionNode.hasFieldNotGroup, æ— æ•ˆçš„è¡¨è¾¾å¼èŠ‚ç‚¹");
 			}
 			
 			for(int i=0,z=this.list.size();i<z;i++)
@@ -1132,7 +1132,7 @@ public class SimpleSelect
 			if(this.list == null)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":ExpressionNode.optimize, ÎŞĞ§µÄ±í´ïÊ½½Úµã");
+				throw new RQException(mm.getMessage("syntax.error") + ":ExpressionNode.optimize, æ— æ•ˆçš„è¡¨è¾¾å¼èŠ‚ç‚¹");
 			}
 			
 			for(int i = 0, z = this.list.size(); i < z; i++)
@@ -1150,7 +1150,7 @@ public class SimpleSelect
 			if(this.list == null)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":ExpressionNode.toExpression, ÎŞĞ§µÄ±í´ïÊ½½Úµã");
+				throw new RQException(mm.getMessage("syntax.error") + ":ExpressionNode.toExpression, æ— æ•ˆçš„è¡¨è¾¾å¼èŠ‚ç‚¹");
 			}
 			
 			StringBuffer sb = new StringBuffer();
@@ -1159,7 +1159,7 @@ public class SimpleSelect
 				Node node = this.list.get(i);
 				if(node != null)
 				{
-					//Õë¶Ôcoalesceº¯ÊıµÄ¾Ö²¿ÓÅ»¯
+					//é’ˆå¯¹coalesceå‡½æ•°çš„å±€éƒ¨ä¼˜åŒ–
 					boolean optimize = false;
 					if(node instanceof FunctionNode && ((FunctionNode)node).getName().equalsIgnoreCase("coalesce"))
 					{
@@ -1217,7 +1217,7 @@ public class SimpleSelect
 							}
 						}
 					}
-					//ÓÅ»¯½áÊø
+					//ä¼˜åŒ–ç»“æŸ
 					if(!optimize)
 					{
 						sb.append(node.toExpression());
@@ -1232,7 +1232,7 @@ public class SimpleSelect
 			if(this.list == null)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":ExpressionNode.setFromHaving, ÎŞĞ§µÄ±í´ïÊ½½Úµã");
+				throw new RQException(mm.getMessage("syntax.error") + ":ExpressionNode.setFromHaving, æ— æ•ˆçš„è¡¨è¾¾å¼èŠ‚ç‚¹");
 			}
 			
 			for(int i = 0, z = this.list.size(); i < z; i++)
@@ -1250,7 +1250,7 @@ public class SimpleSelect
 			if(this.list == null)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":ExpressionNode.setFromWhere, ÎŞĞ§µÄ±í´ïÊ½½Úµã");
+				throw new RQException(mm.getMessage("syntax.error") + ":ExpressionNode.setFromWhere, æ— æ•ˆçš„è¡¨è¾¾å¼èŠ‚ç‚¹");
 			}
 			
 			for(int i = 0, z = this.list.size(); i < z; i++)
@@ -1268,7 +1268,7 @@ public class SimpleSelect
 			if(this.list == null)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":ExpressionNode.collect, ÎŞĞ§µÄ±í´ïÊ½½Úµã");
+				throw new RQException(mm.getMessage("syntax.error") + ":ExpressionNode.collect, æ— æ•ˆçš„è¡¨è¾¾å¼èŠ‚ç‚¹");
 			}
 			
 			for(int i = 0, z = this.list.size(); i < z; i++)
@@ -1286,7 +1286,7 @@ public class SimpleSelect
 			if(this.list == null)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":ExpressionNode.hasField, ÎŞĞ§µÄ±í´ïÊ½½Úµã");
+				throw new RQException(mm.getMessage("syntax.error") + ":ExpressionNode.hasField, æ— æ•ˆçš„è¡¨è¾¾å¼èŠ‚ç‚¹");
 			}
 			
 			for(int i=0,z=this.list.size();i<z;i++)
@@ -1306,7 +1306,7 @@ public class SimpleSelect
 			if(this.list == null)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":ExpressionNode.hasField, ÎŞĞ§µÄ±í´ïÊ½½Úµã");
+				throw new RQException(mm.getMessage("syntax.error") + ":ExpressionNode.hasField, æ— æ•ˆçš„è¡¨è¾¾å¼èŠ‚ç‚¹");
 			}
 			
 			for(int i=0,z=this.list.size();i<z;i++)
@@ -1336,7 +1336,7 @@ public class SimpleSelect
 			if(this.node == null)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":ParenNode.getNode, ÎŞĞ§µÄÀ¨ºÅ½Úµã");
+				throw new RQException(mm.getMessage("syntax.error") + ":ParenNode.getNode, æ— æ•ˆçš„æ‹¬å·èŠ‚ç‚¹");
 			}
 			
 			return this.node;
@@ -1347,7 +1347,7 @@ public class SimpleSelect
 			if(this.node == null)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":ParenNode.hasGather, ÎŞĞ§µÄÀ¨ºÅ½Úµã");
+				throw new RQException(mm.getMessage("syntax.error") + ":ParenNode.hasGather, æ— æ•ˆçš„æ‹¬å·èŠ‚ç‚¹");
 			}
 			
 			return this.node.hasGather();
@@ -1358,7 +1358,7 @@ public class SimpleSelect
 			if(this.node == null)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":ParenNode.optimize, ÎŞĞ§µÄÀ¨ºÅ½Úµã");
+				throw new RQException(mm.getMessage("syntax.error") + ":ParenNode.optimize, æ— æ•ˆçš„æ‹¬å·èŠ‚ç‚¹");
 			}
 			
 			this.node.optimize();
@@ -1369,7 +1369,7 @@ public class SimpleSelect
 			if(this.node == null)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":ParenNode.toExpression, ÎŞĞ§µÄÀ¨ºÅ½Úµã");
+				throw new RQException(mm.getMessage("syntax.error") + ":ParenNode.toExpression, æ— æ•ˆçš„æ‹¬å·èŠ‚ç‚¹");
 			}
 			
 			StringBuffer sb = new StringBuffer();
@@ -1385,7 +1385,7 @@ public class SimpleSelect
 			if(this.node == null)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":ParenNode.hasFieldNotGroup, ÎŞĞ§µÄÀ¨ºÅ½Úµã");
+				throw new RQException(mm.getMessage("syntax.error") + ":ParenNode.hasFieldNotGroup, æ— æ•ˆçš„æ‹¬å·èŠ‚ç‚¹");
 			}
 			
 			return this.node.hasFieldNotGroup();
@@ -1396,7 +1396,7 @@ public class SimpleSelect
 			if(this.node == null)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":ParenNode.setFromHaving, ÎŞĞ§µÄÀ¨ºÅ½Úµã");
+				throw new RQException(mm.getMessage("syntax.error") + ":ParenNode.setFromHaving, æ— æ•ˆçš„æ‹¬å·èŠ‚ç‚¹");
 			}
 			
 			this.node.setFromHaving();
@@ -1407,7 +1407,7 @@ public class SimpleSelect
 			if(this.node == null)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":ParenNode.setFromWhere, ÎŞĞ§µÄÀ¨ºÅ½Úµã");
+				throw new RQException(mm.getMessage("syntax.error") + ":ParenNode.setFromWhere, æ— æ•ˆçš„æ‹¬å·èŠ‚ç‚¹");
 			}
 			
 			this.node.setFromWhere();
@@ -1418,7 +1418,7 @@ public class SimpleSelect
 			if(this.node == null)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":ParenNode.collect, ÎŞĞ§µÄÀ¨ºÅ½Úµã");
+				throw new RQException(mm.getMessage("syntax.error") + ":ParenNode.collect, æ— æ•ˆçš„æ‹¬å·èŠ‚ç‚¹");
 			}
 			
 			this.node.collect();;
@@ -1429,7 +1429,7 @@ public class SimpleSelect
 			if(this.node == null)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":ParenNode.hasField, ÎŞĞ§µÄÀ¨ºÅ½Úµã");
+				throw new RQException(mm.getMessage("syntax.error") + ":ParenNode.hasField, æ— æ•ˆçš„æ‹¬å·èŠ‚ç‚¹");
 			}
 			
 			return this.node.hasField(isOrder);
@@ -1440,7 +1440,7 @@ public class SimpleSelect
 			if(this.node == null)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":ParenNode.hasField, ÎŞĞ§µÄÀ¨ºÅ½Úµã");
+				throw new RQException(mm.getMessage("syntax.error") + ":ParenNode.hasField, æ— æ•ˆçš„æ‹¬å·èŠ‚ç‚¹");
 			}
 			
 			return this.node.hasField(fieldName);
@@ -1467,7 +1467,7 @@ public class SimpleSelect
 			if(this.name == null)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":GatherNode.getName, ÎŞĞ§µÄ¾ÛºÏ½Úµã");
+				throw new RQException(mm.getMessage("syntax.error") + ":GatherNode.getName, æ— æ•ˆçš„èšåˆèŠ‚ç‚¹");
 			}
 			
 			return this.name;
@@ -1478,7 +1478,7 @@ public class SimpleSelect
 			if(this.node == null)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":GatherNode.getParamNode, ÎŞĞ§µÄ¾ÛºÏ½Úµã");
+				throw new RQException(mm.getMessage("syntax.error") + ":GatherNode.getParamNode, æ— æ•ˆçš„èšåˆèŠ‚ç‚¹");
 			}
 			
 			return this.node;
@@ -1491,7 +1491,7 @@ public class SimpleSelect
 			if(this.node == null)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":GatherNode.setParamNode, ²ÎÊı²»¿ÉÎª¿Õ");
+				throw new RQException(mm.getMessage("syntax.error") + ":GatherNode.setParamNode, å‚æ•°ä¸å¯ä¸ºç©º");
 			}
 		}
 
@@ -1500,7 +1500,7 @@ public class SimpleSelect
 			if(this.node == null)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":GatherNode.optimize, ÎŞĞ§µÄ¾ÛºÏ½Úµã");
+				throw new RQException(mm.getMessage("syntax.error") + ":GatherNode.optimize, æ— æ•ˆçš„èšåˆèŠ‚ç‚¹");
 			}
 			
 			this.node.optimize();
@@ -1511,7 +1511,7 @@ public class SimpleSelect
 			if(this.name == null || this.node == null)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":GatherNode.toExpression, ÎŞĞ§µÄ¾ÛºÏ½Úµã");
+				throw new RQException(mm.getMessage("syntax.error") + ":GatherNode.toExpression, æ— æ•ˆçš„èšåˆèŠ‚ç‚¹");
 			}
 			
 			StringBuffer sb = new StringBuffer();
@@ -1528,13 +1528,13 @@ public class SimpleSelect
 			if(this.node == null)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":GatherNode.setFromHaving, ÎŞĞ§µÄ¾ÛºÏ½Úµã");
+				throw new RQException(mm.getMessage("syntax.error") + ":GatherNode.setFromHaving, æ— æ•ˆçš„èšåˆèŠ‚ç‚¹");
 			}
 			
 			if(this.node.hasGather())
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":GatherNode.hasGather, ¾ÛºÏº¯Êı²ÎÊıÖĞ²»ÔÊĞíÇ¶Ì×¾ÛºÏº¯Êı");
+				throw new RQException(mm.getMessage("syntax.error") + ":GatherNode.hasGather, èšåˆå‡½æ•°å‚æ•°ä¸­ä¸å…è®¸åµŒå¥—èšåˆå‡½æ•°");
 			}
 			
 			return true;
@@ -1550,7 +1550,7 @@ public class SimpleSelect
 			if(this.node == null)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":GatherNode.setFromHaving, ÎŞĞ§µÄ¾ÛºÏ½Úµã");
+				throw new RQException(mm.getMessage("syntax.error") + ":GatherNode.setFromHaving, æ— æ•ˆçš„èšåˆèŠ‚ç‚¹");
 			}
 			
 			this.node.setFromHaving();
@@ -1559,7 +1559,7 @@ public class SimpleSelect
 		public void setFromWhere() 
 		{
 			MessageManager mm = ParseMessage.get();
-			throw new RQException(mm.getMessage("syntax.error") + ":GatherNode.setFromWhere, where×Ó¾äÖĞ²»Ó¦°üº¬¾ÛºÏº¯Êı");
+			throw new RQException(mm.getMessage("syntax.error") + ":GatherNode.setFromWhere, whereå­å¥ä¸­ä¸åº”åŒ…å«èšåˆå‡½æ•°");
 		}
 		
 		public void collect()
@@ -1597,7 +1597,7 @@ public class SimpleSelect
 			if(this.level == null)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":DimNode.getLevel, ÎŞĞ§µÄÎ¬½Úµã");
+				throw new RQException(mm.getMessage("syntax.error") + ":DimNode.getLevel, æ— æ•ˆçš„ç»´èŠ‚ç‚¹");
 			}
 			
 			return this.level;
@@ -1640,7 +1640,7 @@ public class SimpleSelect
 			if(this.expression.hasGather())
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":DimNode.hasGather, Î¬½Úµã±í´ïÊ½ÖĞ²»ÔÊĞí³öÏÖ¾ÛºÏº¯Êı");
+				throw new RQException(mm.getMessage("syntax.error") + ":DimNode.hasGather, ç»´èŠ‚ç‚¹è¡¨è¾¾å¼ä¸­ä¸å…è®¸å‡ºç°èšåˆå‡½æ•°");
 			}
 			
 			return false;
@@ -1673,7 +1673,7 @@ public class SimpleSelect
 			if(this.level == null || this.field == null)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":DimNode.isIdentic, ÎŞĞ§µÄÎ¬½Úµã");
+				throw new RQException(mm.getMessage("syntax.error") + ":DimNode.isIdentic, æ— æ•ˆçš„ç»´èŠ‚ç‚¹");
 			}
 			
 			return this.level.equalsIgnoreCase(levelName) && this.field.equalsIgnoreCase(fieldName);
@@ -1684,7 +1684,7 @@ public class SimpleSelect
 			if(this.level == null || this.field == null)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":DimNode.hasFieldNotGroup, ÎŞĞ§µÄÎ¬½Úµã");
+				throw new RQException(mm.getMessage("syntax.error") + ":DimNode.hasFieldNotGroup, æ— æ•ˆçš„ç»´èŠ‚ç‚¹");
 			}
 			
 			if(groupList == null && groupList.size() == 0)
@@ -1749,7 +1749,7 @@ public class SimpleSelect
 			if(this.node == null)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":InNode.getNode, ÎŞĞ§µÄIn½Úµã");
+				throw new RQException(mm.getMessage("syntax.error") + ":InNode.getNode, æ— æ•ˆçš„InèŠ‚ç‚¹");
 			}
 			
 			return this.node;
@@ -1760,7 +1760,7 @@ public class SimpleSelect
 			if(this.param == null)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":InNode.getNodeList, ÎŞĞ§µÄIn½Úµã");
+				throw new RQException(mm.getMessage("syntax.error") + ":InNode.getNodeList, æ— æ•ˆçš„InèŠ‚ç‚¹");
 			}
 			
 			return this.param;
@@ -1776,7 +1776,7 @@ public class SimpleSelect
 			if(this.node == null)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":InNode.optimize, ÎŞĞ§µÄIn½Úµã");
+				throw new RQException(mm.getMessage("syntax.error") + ":InNode.optimize, æ— æ•ˆçš„InèŠ‚ç‚¹");
 			}
 			
 			this.node.optimize();
@@ -1788,13 +1788,13 @@ public class SimpleSelect
 			if(this.node == null || this.param == null)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":InNode.toExpression, ÎŞĞ§µÄIn½Úµã");
+				throw new RQException(mm.getMessage("syntax.error") + ":InNode.toExpression, æ— æ•ˆçš„InèŠ‚ç‚¹");
 			}
 			
 			String expression = this.node.toExpression();
-			if(this.param.getNodeList().size() == 1 && this.param.getNodeList().get(0) instanceof TableNode)//×Ó²éÑ¯Ê½In×Ó¾ä
+			if(this.param.getNodeList().size() == 1 && this.param.getNodeList().get(0) instanceof TableNode)//å­æŸ¥è¯¢å¼Inå­å¥
 			{
-				//×Ó²éÑ¯Ä¬ÈÏÉæ¼°±í¶¼¿ÉÒÔÄÚ´æ»¯
+				//å­æŸ¥è¯¢é»˜è®¤æ¶‰åŠè¡¨éƒ½å¯ä»¥å†…å­˜åŒ–
 				TableNode tbn = (TableNode) this.param.getNodeList().get(0);
 				String[] names = new String[]{tbn.dataStruct().getFieldName(0)};
 				tbn.setAccessColumn(names);
@@ -1822,7 +1822,7 @@ public class SimpleSelect
 					if(!(tab.get(1) instanceof BaseRecord) || tab.dataStruct() == null || tab.dataStruct().getFieldCount() != 1)
 					{
 						MessageManager mm = ParseMessage.get();
-						throw new RQException(mm.getMessage("syntax.error") + ":toExpression, INÖĞ×Ó²éÑ¯½á¹ûÒì³£");
+						throw new RQException(mm.getMessage("syntax.error") + ":toExpression, INä¸­å­æŸ¥è¯¢ç»“æœå¼‚å¸¸");
 					}
 					
 					StringBuffer sb = new StringBuffer();
@@ -1865,7 +1865,7 @@ public class SimpleSelect
 					}
 					else
 					{
-						seq = seq.sort("o");//×¼±¸ÓÃ¶ş·Ö·¨²éÕÒËùÒÔÏÈÅÅĞò
+						seq = seq.sort("o");//å‡†å¤‡ç”¨äºŒåˆ†æ³•æŸ¥æ‰¾æ‰€ä»¥å…ˆæ’åº
 						sb.append("(");
 						sb.append("[");
 						for(int i = 1; i <= size; i++)
@@ -1892,7 +1892,7 @@ public class SimpleSelect
 						sb.append(")");
 					}
 					
-					//Õë¶Ôcoalesceº¯ÊıµÄ¾Ö²¿ÓÅ»¯
+					//é’ˆå¯¹coalesceå‡½æ•°çš„å±€éƒ¨ä¼˜åŒ–
 					String expStr = sb.toString();
 					if(this.node.getNodeList().size() == 1  
 					&& this.node.getNodeList().get(0) instanceof FunctionNode
@@ -1918,22 +1918,22 @@ public class SimpleSelect
 							}
 						}
 					}
-					//ÓÅ»¯½áÊø
+					//ä¼˜åŒ–ç»“æŸ
 					expStr = expStr.replace("$?", expression);
 					return expStr;
 				}
 			}
-			else //ÆÕÍ¨ĞòÁĞÊ½µÄIN×Ó¾ä£¬»òº¬Ö÷²éÑ¯×Ö¶ÎµÄ×Ó²éÑ¯µÄIN×Ó¾ä
+			else //æ™®é€šåºåˆ—å¼çš„INå­å¥ï¼Œæˆ–å«ä¸»æŸ¥è¯¢å­—æ®µçš„å­æŸ¥è¯¢çš„INå­å¥
 			{
 				String paramStr = this.param.toExpression().trim();
 				
-				//·Çjoin´«ÈëµÄ×Ó²éÑ¯×Ö¶ÎÒòÎªÊÇºóÌí¼ÓµÄ
-				//²»Ëã×÷Ñ¡³ö×Ö¶Î¹Ê²»ĞèÒªÈ¥³ıµ¥ÒıºÅ
+				//éjoinä¼ å…¥çš„å­æŸ¥è¯¢å­—æ®µå› ä¸ºæ˜¯åæ·»åŠ çš„
+				//ä¸ç®—ä½œé€‰å‡ºå­—æ®µæ•…ä¸éœ€è¦å»é™¤å•å¼•å·
 				if(subQueryOfInMap.containsValue(paramStr))
 				{
-					//¶ş·Ö·¨ËÑË÷²»ÔÙÊÊºÏ£¬ÒòÎªĞèÒª¶ÔËÑË÷ÖµÅÅĞò
-					//¶øËæÖ÷²éÑ¯×Ö¶ÎÖµ²»Í¬£¬ËÑËØÖµ·¶Î§Ò²»á±ä»¯
-					//¹ÊÃ¿ĞĞÊı¾İ¶¼ĞèÒªÅÅĞòÔÙËÑË÷£¬¸ü¼ÓÀË·ÑÊ±¼ä
+					//äºŒåˆ†æ³•æœç´¢ä¸å†é€‚åˆï¼Œå› ä¸ºéœ€è¦å¯¹æœç´¢å€¼æ’åº
+					//è€Œéšä¸»æŸ¥è¯¢å­—æ®µå€¼ä¸åŒï¼Œæœç´ å€¼èŒƒå›´ä¹Ÿä¼šå˜åŒ–
+					//æ•…æ¯è¡Œæ•°æ®éƒ½éœ€è¦æ’åºå†æœç´¢ï¼Œæ›´åŠ æµªè´¹æ—¶é—´
 					StringBuffer sb = new StringBuffer();
 					if(this.not)
 					{
@@ -1943,16 +1943,16 @@ public class SimpleSelect
 					sb.append(".contain(");
 					sb.append(expression);
 					sb.append(")");
-					//Õë¶Ôcoalesceº¯ÊıµÄ¾Ö²¿ÓÅ»¯ÕâÀïÒ²²»ÄÜÊ¹ÓÃ
-					//ÒòÎªËæÖ÷²éÑ¯×Ö¶ÎÖµ²»Í¬ËÑËØ·¶Î§Ò²»á±ä»¯
-					//¹Ê²»ÄÜÈ·¶¨coalesceµÚ¶ş¸ö²ÎÊıÊÇ·ñ±»°üº¬
+					//é’ˆå¯¹coalesceå‡½æ•°çš„å±€éƒ¨ä¼˜åŒ–è¿™é‡Œä¹Ÿä¸èƒ½ä½¿ç”¨
+					//å› ä¸ºéšä¸»æŸ¥è¯¢å­—æ®µå€¼ä¸åŒæœç´ èŒƒå›´ä¹Ÿä¼šå˜åŒ–
+					//æ•…ä¸èƒ½ç¡®å®šcoalesceç¬¬äºŒä¸ªå‚æ•°æ˜¯å¦è¢«åŒ…å«
 					String expStr = sb.toString();
 					return expStr;
 				}
 				else if(paramStr.startsWith("(") && paramStr.endsWith(")"))
 				{
-					//½âÎöÊ±Îª·½±ã¼æÈİ×Ó²éÑ¯Á÷³Ì¶à¼ÓÁËÒ»¸öÀ¨ºÅĞèÒªÔÚ´ËÈ¥³ı,
-					//Í¬Ê±ÕâÒ²×÷ÎªÇø±ğº¬Ö÷²éÑ¯×Ö¶ÎµÄ×Ó²éÑ¯µÄ±êÊ¶·ûµÄ±êÖ¾
+					//è§£ææ—¶ä¸ºæ–¹ä¾¿å…¼å®¹å­æŸ¥è¯¢æµç¨‹å¤šåŠ äº†ä¸€ä¸ªæ‹¬å·éœ€è¦åœ¨æ­¤å»é™¤,
+					//åŒæ—¶è¿™ä¹Ÿä½œä¸ºåŒºåˆ«å«ä¸»æŸ¥è¯¢å­—æ®µçš„å­æŸ¥è¯¢çš„æ ‡è¯†ç¬¦çš„æ ‡å¿—
 					paramStr = paramStr.substring(1, paramStr.length()-1);
 					
 					StringBuffer sb = new StringBuffer();
@@ -1999,7 +1999,7 @@ public class SimpleSelect
 							valueMap.put(obj, value);
 							seq.add(obj);
 						}
-						seq.sort("o");//×¼±¸ÓÃ¶ş·Ö·¨²éÕÒËùÒÔÏÈÅÅĞò
+						seq.sort("o");//å‡†å¤‡ç”¨äºŒåˆ†æ³•æŸ¥æ‰¾æ‰€ä»¥å…ˆæ’åº
 						StringBuffer tmp = new StringBuffer();
 						for(int i = 1; i <= seq.length(); i++)
 						{
@@ -2027,7 +2027,7 @@ public class SimpleSelect
 						sb.append("null");
 						sb.append(")");
 					}
-					//Õë¶Ôcoalesceº¯ÊıµÄ¾Ö²¿ÓÅ»¯
+					//é’ˆå¯¹coalesceå‡½æ•°çš„å±€éƒ¨ä¼˜åŒ–
 					String expStr = sb.toString();
 					if(this.node.getNodeList().size() == 1  
 					&& this.node.getNodeList().get(0) instanceof FunctionNode
@@ -2053,19 +2053,19 @@ public class SimpleSelect
 							}
 						}
 					}
-					//ÓÅ»¯½áÊø
+					//ä¼˜åŒ–ç»“æŸ
 					expStr = expStr.replace("$?", expression);
 					return expStr;
 				}
 				else
 				{
-					//µ±joinµ÷ÓÃscanExp½âÎöwhereÊ±»á½øÈë´Ë´¦
-					//´«ÈëµÄ×Ó²éÑ¯×Ö¶ÎÒòÎªÒÑ¾­´æÔÚËùÒÔËã×÷Ñ¡³ö×Ö¶Î
+					//å½“joinè°ƒç”¨scanExpè§£æwhereæ—¶ä¼šè¿›å…¥æ­¤å¤„
+					//ä¼ å…¥çš„å­æŸ¥è¯¢å­—æ®µå› ä¸ºå·²ç»å­˜åœ¨æ‰€ä»¥ç®—ä½œé€‰å‡ºå­—æ®µ
 					if(paramStr.startsWith("'$") && paramStr.endsWith("'"))
 					{
-						//¶ş·Ö·¨ËÑË÷²»ÔÙÊÊºÏ£¬ÒòÎªĞèÒª¶ÔËÑË÷ÖµÅÅĞò
-						//¶øËæÖ÷²éÑ¯×Ö¶ÎÖµ²»Í¬£¬ËÑËØÖµ·¶Î§Ò²»á±ä»¯
-						//¹ÊÃ¿ĞĞÊı¾İ¶¼ĞèÒªÅÅĞòÔÙËÑË÷£¬¸ü¼ÓÀË·ÑÊ±¼ä
+						//äºŒåˆ†æ³•æœç´¢ä¸å†é€‚åˆï¼Œå› ä¸ºéœ€è¦å¯¹æœç´¢å€¼æ’åº
+						//è€Œéšä¸»æŸ¥è¯¢å­—æ®µå€¼ä¸åŒï¼Œæœç´ å€¼èŒƒå›´ä¹Ÿä¼šå˜åŒ–
+						//æ•…æ¯è¡Œæ•°æ®éƒ½éœ€è¦æ’åºå†æœç´¢ï¼Œæ›´åŠ æµªè´¹æ—¶é—´
 						StringBuffer sb = new StringBuffer();
 						if(this.not)
 						{
@@ -2075,27 +2075,27 @@ public class SimpleSelect
 						sb.append(".contain(");
 						sb.append(expression);
 						sb.append(")");
-						//Õë¶Ôcoalesceº¯ÊıµÄ¾Ö²¿ÓÅ»¯ÕâÀïÒ²²»ÄÜÊ¹ÓÃ
-						//ÒòÎªËæÖ÷²éÑ¯×Ö¶ÎÖµ²»Í¬ËÑËØ·¶Î§Ò²»á±ä»¯
-						//¹Ê²»ÄÜÈ·¶¨coalesceµÚ¶ş¸ö²ÎÊıÊÇ·ñ±»°üº¬
+						//é’ˆå¯¹coalesceå‡½æ•°çš„å±€éƒ¨ä¼˜åŒ–è¿™é‡Œä¹Ÿä¸èƒ½ä½¿ç”¨
+						//å› ä¸ºéšä¸»æŸ¥è¯¢å­—æ®µå€¼ä¸åŒæœç´ èŒƒå›´ä¹Ÿä¼šå˜åŒ–
+						//æ•…ä¸èƒ½ç¡®å®šcoalesceç¬¬äºŒä¸ªå‚æ•°æ˜¯å¦è¢«åŒ…å«
 						String expStr = sb.toString();
 						return expStr;
 					}
 					else
 					{
 						MessageManager mm = ParseMessage.get();
-						throw new RQException(mm.getMessage("syntax.error") + ":InNode.toExpression, ÎŞ·¨Ê¶±ğµÄIN×Ó¾ä");
+						throw new RQException(mm.getMessage("syntax.error") + ":InNode.toExpression, æ— æ³•è¯†åˆ«çš„INå­å¥");
 					}
 				}
 			}
 		}
 
-		public boolean hasGather() //²»»á±»select²»¿¼ÂÇ
+		public boolean hasGather() //ä¸ä¼šè¢«selectä¸è€ƒè™‘
 		{
 			return false;
 		}
 		
-		public boolean hasFieldNotGroup()  //²»»á±»select²»¿¼ÂÇ
+		public boolean hasFieldNotGroup()  //ä¸ä¼šè¢«selectä¸è€ƒè™‘
 		{
 			return false;
 		}
@@ -2115,7 +2115,7 @@ public class SimpleSelect
 			if(this.node == null)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":InNode.collect, ÎŞĞ§µÄIn½Úµã");
+				throw new RQException(mm.getMessage("syntax.error") + ":InNode.collect, æ— æ•ˆçš„InèŠ‚ç‚¹");
 			}
 			
 			this.node.collect();
@@ -2124,13 +2124,13 @@ public class SimpleSelect
 		public boolean hasField(Boolean isOrder) 
 		{
 			MessageManager mm = ParseMessage.get();
-			throw new RQException(mm.getMessage("syntax.error") + ":InNode.hasField, In×Ó¾ä²»¿ÉÓÃÓÚ·Ö×é×Ö¶Î");
+			throw new RQException(mm.getMessage("syntax.error") + ":InNode.hasField, Inå­å¥ä¸å¯ç”¨äºåˆ†ç»„å­—æ®µ");
 		}
 		
 		public boolean hasField(String fieldName)
 		{
 			MessageManager mm = ParseMessage.get();
-			throw new RQException(mm.getMessage("syntax.error") + ":InNode.hasField, In×Ó¾ä²»¿ÉÓÃÓÚ²éÑ¯×Ö¶Î");
+			throw new RQException(mm.getMessage("syntax.error") + ":InNode.hasField, Inå­å¥ä¸å¯ç”¨äºæŸ¥è¯¢å­—æ®µ");
 		}
 	}
 	
@@ -2159,7 +2159,7 @@ public class SimpleSelect
 			if(this.token == null)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":LikeNode.getPattern, ÎŞĞ§µÄLike½Úµã");
+				throw new RQException(mm.getMessage("syntax.error") + ":LikeNode.getPattern, æ— æ•ˆçš„LikeèŠ‚ç‚¹");
 			}
 			return this.token.getString();
 		}
@@ -2174,7 +2174,7 @@ public class SimpleSelect
 			if(this.node == null)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":LikeNode.optimize, ÎŞĞ§µÄLike½Úµã");
+				throw new RQException(mm.getMessage("syntax.error") + ":LikeNode.optimize, æ— æ•ˆçš„LikeèŠ‚ç‚¹");
 			}
 			
 			this.node.optimize();
@@ -2185,7 +2185,7 @@ public class SimpleSelect
 			if(this.node == null || this.token == null)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":LikeNode.toExpression, ÎŞĞ§µÄLike½Úµã");
+				throw new RQException(mm.getMessage("syntax.error") + ":LikeNode.toExpression, æ— æ•ˆçš„LikeèŠ‚ç‚¹");
 			}
 			
 			String pattern = "\""+this.token.toString()+"\"";
@@ -2202,7 +2202,7 @@ public class SimpleSelect
 				else
 				{
 					MessageManager mm = ParseMessage.get();
-					throw new RQException(mm.getMessage("syntax.error") + ":scanExp, ²ÎÊıÕ¼Î»·û½âÎö´íÎó");
+					throw new RQException(mm.getMessage("syntax.error") + ":scanExp, å‚æ•°å ä½ç¬¦è§£æé”™è¯¯");
 				}
 				
 				pattern = paramNode.toExpression();
@@ -2226,12 +2226,12 @@ public class SimpleSelect
 			return "like@c(" + this.node.toExpression() +"," + pattern + ")";
 		}
 
-		public boolean hasGather()  //²»»á±»select²»¿¼ÂÇ
+		public boolean hasGather()  //ä¸ä¼šè¢«selectä¸è€ƒè™‘
 		{
 			return false;
 		}
 		
-		public boolean hasFieldNotGroup()  //²»»á±»select²»¿¼ÂÇ
+		public boolean hasFieldNotGroup()  //ä¸ä¼šè¢«selectä¸è€ƒè™‘
 		{
 			return false;
 		}
@@ -2251,7 +2251,7 @@ public class SimpleSelect
 			if(this.node == null)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":LikeNode.collect, ÎŞĞ§µÄLike½Úµã");
+				throw new RQException(mm.getMessage("syntax.error") + ":LikeNode.collect, æ— æ•ˆçš„LikeèŠ‚ç‚¹");
 			}
 			
 			this.node.collect();
@@ -2260,13 +2260,13 @@ public class SimpleSelect
 		public boolean hasField(Boolean isOrder) 
 		{
 			MessageManager mm = ParseMessage.get();
-			throw new RQException(mm.getMessage("syntax.error") + ":LikeNode.hasField, Like×Ó¾ä²»¿ÉÓÃÓÚ·Ö×é×Ö¶Î");
+			throw new RQException(mm.getMessage("syntax.error") + ":LikeNode.hasField, Likeå­å¥ä¸å¯ç”¨äºåˆ†ç»„å­—æ®µ");
 		}
 		
 		public boolean hasField(String fieldName)
 		{
 			MessageManager mm = ParseMessage.get();
-			throw new RQException(mm.getMessage("syntax.error") + ":LikeNode.hasField, Like×Ó¾ä²»¿ÉÓÃÓÚ²éÑ¯×Ö¶Î");
+			throw new RQException(mm.getMessage("syntax.error") + ":LikeNode.hasField, Likeå­å¥ä¸å¯ç”¨äºæŸ¥è¯¢å­—æ®µ");
 		}
 	}
 	
@@ -2284,7 +2284,7 @@ public class SimpleSelect
 			if(this.list == null)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":CaseNode.getNodeList, ÎŞĞ§µÄCase½Úµã");
+				throw new RQException(mm.getMessage("syntax.error") + ":CaseNode.getNodeList, æ— æ•ˆçš„CaseèŠ‚ç‚¹");
 			}
 			return this.list;
 		}
@@ -2294,7 +2294,7 @@ public class SimpleSelect
 			if(this.list == null)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":CaseNode.optimize, ÎŞĞ§µÄCase½Úµã");
+				throw new RQException(mm.getMessage("syntax.error") + ":CaseNode.optimize, æ— æ•ˆçš„CaseèŠ‚ç‚¹");
 			}
 			
 			for(int i = 0, z = this.list.size(); i < z; i++)
@@ -2333,7 +2333,7 @@ public class SimpleSelect
 			if(this.list == null)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":CaseNode.hasGather, ÎŞĞ§µÄ±í´ïÊ½½Úµã");
+				throw new RQException(mm.getMessage("syntax.error") + ":CaseNode.hasGather, æ— æ•ˆçš„è¡¨è¾¾å¼èŠ‚ç‚¹");
 			}
 			
 			for(int i=0,z=this.list.size();i<z;i++)
@@ -2353,7 +2353,7 @@ public class SimpleSelect
 			if(this.list == null)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":CaseNode.hasFieldNotGroup, ÎŞĞ§µÄ±í´ïÊ½½Úµã");
+				throw new RQException(mm.getMessage("syntax.error") + ":CaseNode.hasFieldNotGroup, æ— æ•ˆçš„è¡¨è¾¾å¼èŠ‚ç‚¹");
 			}
 			
 			for(int i=0,z=this.list.size();i<z;i++)
@@ -2373,7 +2373,7 @@ public class SimpleSelect
 			if(this.list == null)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":CaseNode.setFromHaving, ÎŞĞ§µÄ±í´ïÊ½½Úµã");
+				throw new RQException(mm.getMessage("syntax.error") + ":CaseNode.setFromHaving, æ— æ•ˆçš„è¡¨è¾¾å¼èŠ‚ç‚¹");
 			}
 			
 			for(int i = 0, z = this.list.size(); i < z; i++)
@@ -2391,7 +2391,7 @@ public class SimpleSelect
 			if(this.list == null)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":CaseNode.setFromWhere, ÎŞĞ§µÄ±í´ïÊ½½Úµã");
+				throw new RQException(mm.getMessage("syntax.error") + ":CaseNode.setFromWhere, æ— æ•ˆçš„è¡¨è¾¾å¼èŠ‚ç‚¹");
 			}
 			
 			for(int i = 0, z = this.list.size(); i < z; i++)
@@ -2409,7 +2409,7 @@ public class SimpleSelect
 			if(this.list == null)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":CaseNode.collect, ÎŞĞ§µÄ±í´ïÊ½½Úµã");
+				throw new RQException(mm.getMessage("syntax.error") + ":CaseNode.collect, æ— æ•ˆçš„è¡¨è¾¾å¼èŠ‚ç‚¹");
 			}
 			
 			for(int i = 0, z = this.list.size(); i < z; i++)
@@ -2427,7 +2427,7 @@ public class SimpleSelect
 			if(this.list == null)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":CaseNode.hasField, ÎŞĞ§µÄ±í´ïÊ½½Úµã");
+				throw new RQException(mm.getMessage("syntax.error") + ":CaseNode.hasField, æ— æ•ˆçš„è¡¨è¾¾å¼èŠ‚ç‚¹");
 			}
 			
 			for(int i=0,z=this.list.size();i<z;i++)
@@ -2447,7 +2447,7 @@ public class SimpleSelect
 			if(this.list == null)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":CaseNode.hasField, ÎŞĞ§µÄ±í´ïÊ½½Úµã");
+				throw new RQException(mm.getMessage("syntax.error") + ":CaseNode.hasField, æ— æ•ˆçš„è¡¨è¾¾å¼èŠ‚ç‚¹");
 			}
 			
 			for(int i=0,z=this.list.size();i<z;i++)
@@ -2505,7 +2505,7 @@ public class SimpleSelect
 			if(this.node == null || this.floor == null || this.ceil == null)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":BetweenNode.optimize, ÎŞĞ§µÄBetween½Úµã");
+				throw new RQException(mm.getMessage("syntax.error") + ":BetweenNode.optimize, æ— æ•ˆçš„BetweenèŠ‚ç‚¹");
 			}
 			
 			this.node.optimize();
@@ -2518,7 +2518,7 @@ public class SimpleSelect
 			if(this.node == null || this.floor == null || this.ceil == null)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":BetweenNode.toExpression, ÎŞĞ§µÄBetween½Úµã");
+				throw new RQException(mm.getMessage("syntax.error") + ":BetweenNode.toExpression, æ— æ•ˆçš„BetweenèŠ‚ç‚¹");
 			}
 			
 			String x = this.node.toExpression();
@@ -2536,12 +2536,12 @@ public class SimpleSelect
 			return exp;
 		}
 		
-		public boolean hasGather() //²»»á±»select²»ÓÃ¿¼ÂÇ
+		public boolean hasGather() //ä¸ä¼šè¢«selectä¸ç”¨è€ƒè™‘
 		{
 			return false;
 		}
 		
-		public boolean hasFieldNotGroup()  //²»»á±»select²»ÓÃ¿¼ÂÇ
+		public boolean hasFieldNotGroup()  //ä¸ä¼šè¢«selectä¸ç”¨è€ƒè™‘
 		{
 			return false;
 		}
@@ -2561,7 +2561,7 @@ public class SimpleSelect
 			if(this.node == null || this.floor == null || this.ceil == null)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":BetweenNode.collect, ÎŞĞ§µÄBetween½Úµã");
+				throw new RQException(mm.getMessage("syntax.error") + ":BetweenNode.collect, æ— æ•ˆçš„BetweenèŠ‚ç‚¹");
 			}
 			
 			this.node.collect();
@@ -2572,13 +2572,13 @@ public class SimpleSelect
 		public boolean hasField(Boolean isOrder) 
 		{
 			MessageManager mm = ParseMessage.get();
-			throw new RQException(mm.getMessage("syntax.error") + ":BetweenNode.hasField, Between×Ó¾ä²»¿ÉÓÃÓÚ·Ö×é×Ö¶Î");
+			throw new RQException(mm.getMessage("syntax.error") + ":BetweenNode.hasField, Betweenå­å¥ä¸å¯ç”¨äºåˆ†ç»„å­—æ®µ");
 		}
 		
 		public boolean hasField(String fieldName)
 		{
 			MessageManager mm = ParseMessage.get();
-			throw new RQException(mm.getMessage("syntax.error") + ":BetweenNode.hasField, Between×Ó¾ä²»¿ÉÓÃÓÚ²éÑ¯×Ö¶Î");
+			throw new RQException(mm.getMessage("syntax.error") + ":BetweenNode.hasField, Betweenå­å¥ä¸å¯ç”¨äºæŸ¥è¯¢å­—æ®µ");
 		}
 	}
 	
@@ -2600,12 +2600,12 @@ public class SimpleSelect
 			this.index = paramIndex - 1;
 		}
 		
-		public boolean hasGather()  //²»»á±»select²»¿¼ÂÇ
+		public boolean hasGather()  //ä¸ä¼šè¢«selectä¸è€ƒè™‘
 		{
 			return false;
 		}
 
-		public boolean hasFieldNotGroup()  //²»»á±»select²»¿¼ÂÇ
+		public boolean hasFieldNotGroup()  //ä¸ä¼šè¢«selectä¸è€ƒè™‘
 		{
 			return false;
 		}
@@ -2636,13 +2636,13 @@ public class SimpleSelect
 		public boolean hasField(Boolean isOrder) 
 		{
 			MessageManager mm = ParseMessage.get();
-			throw new RQException(mm.getMessage("syntax.error") + ":ParamNode.hasField, '?'Õ¼Î»·û²»¿ÉÓÃÓÚ·Ö×é×Ö¶Î");
+			throw new RQException(mm.getMessage("syntax.error") + ":ParamNode.hasField, '?'å ä½ç¬¦ä¸å¯ç”¨äºåˆ†ç»„å­—æ®µ");
 		}
 		
 		public boolean hasField(String fieldName)
 		{
 			MessageManager mm = ParseMessage.get();
-			throw new RQException(mm.getMessage("syntax.error") + ":ParamNode.hasField, '?'Õ¼Î»·û²»¿ÉÓÃÓÚ²éÑ¯×Ö¶Î");
+			throw new RQException(mm.getMessage("syntax.error") + ":ParamNode.hasField, '?'å ä½ç¬¦ä¸å¯ç”¨äºæŸ¥è¯¢å­—æ®µ");
 		}
 	}
 	
@@ -2665,7 +2665,7 @@ public class SimpleSelect
 			if(this.name == null)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":OtherNode.getName, ÎŞĞ§µÄÆäËûº¯Êı½Úµã");
+				throw new RQException(mm.getMessage("syntax.error") + ":OtherNode.getName, æ— æ•ˆçš„å…¶ä»–å‡½æ•°èŠ‚ç‚¹");
 			}
 			
 			return this.name;
@@ -2676,7 +2676,7 @@ public class SimpleSelect
 			if(this.node == null)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":OtherNode.getParamNode, ÎŞĞ§µÄÆäËûº¯Êı½Úµã");
+				throw new RQException(mm.getMessage("syntax.error") + ":OtherNode.getParamNode, æ— æ•ˆçš„å…¶ä»–å‡½æ•°èŠ‚ç‚¹");
 			}
 			
 			return this.node;
@@ -2689,7 +2689,7 @@ public class SimpleSelect
 			if(this.node == null)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":OtherNode.setParamNode, ²ÎÊı²»¿ÉÎª¿Õ");
+				throw new RQException(mm.getMessage("syntax.error") + ":OtherNode.setParamNode, å‚æ•°ä¸å¯ä¸ºç©º");
 			}
 		}
 
@@ -2698,7 +2698,7 @@ public class SimpleSelect
 			if(this.node == null)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":OtherNode.optimize, ÎŞĞ§µÄÆäËûº¯Êı½Úµã");
+				throw new RQException(mm.getMessage("syntax.error") + ":OtherNode.optimize, æ— æ•ˆçš„å…¶ä»–å‡½æ•°èŠ‚ç‚¹");
 			}
 			
 			this.node.optimize();
@@ -2709,7 +2709,7 @@ public class SimpleSelect
 			if(this.node == null)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":OtherNode.hasGather, ÎŞĞ§µÄÆäËûº¯Êı½Úµã");
+				throw new RQException(mm.getMessage("syntax.error") + ":OtherNode.hasGather, æ— æ•ˆçš„å…¶ä»–å‡½æ•°èŠ‚ç‚¹");
 			}
 			
 			return this.node.hasGather();
@@ -2720,7 +2720,7 @@ public class SimpleSelect
 			if(this.node == null)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":OtherNode.hasFieldNotGroup, ÎŞĞ§µÄÆäËûº¯Êı½Úµã");
+				throw new RQException(mm.getMessage("syntax.error") + ":OtherNode.hasFieldNotGroup, æ— æ•ˆçš„å…¶ä»–å‡½æ•°èŠ‚ç‚¹");
 			}
 			
 			return this.node.hasFieldNotGroup();
@@ -2731,7 +2731,7 @@ public class SimpleSelect
 			if(this.node == null)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":OtherNode.setFromHaving, ÎŞĞ§µÄÆäËûº¯Êı½Úµã");
+				throw new RQException(mm.getMessage("syntax.error") + ":OtherNode.setFromHaving, æ— æ•ˆçš„å…¶ä»–å‡½æ•°èŠ‚ç‚¹");
 			}
 			
 			this.node.setFromHaving();
@@ -2742,7 +2742,7 @@ public class SimpleSelect
 			if(this.node == null)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":OtherNode.setFromWhere, ÎŞĞ§µÄÆäËûº¯Êı½Úµã");
+				throw new RQException(mm.getMessage("syntax.error") + ":OtherNode.setFromWhere, æ— æ•ˆçš„å…¶ä»–å‡½æ•°èŠ‚ç‚¹");
 			}
 			
 			this.node.setFromWhere();
@@ -2753,7 +2753,7 @@ public class SimpleSelect
 			if(this.node == null)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":OtherNode.collect, ÎŞĞ§µÄÆäËûº¯Êı½Úµã");
+				throw new RQException(mm.getMessage("syntax.error") + ":OtherNode.collect, æ— æ•ˆçš„å…¶ä»–å‡½æ•°èŠ‚ç‚¹");
 			}
 			
 			this.node.collect();;
@@ -2774,7 +2774,7 @@ public class SimpleSelect
 			if(this.name == null || this.node == null)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":OtherNode.toExpression, ÎŞĞ§µÄÆäËûº¯Êı½Úµã");
+				throw new RQException(mm.getMessage("syntax.error") + ":OtherNode.toExpression, æ— æ•ˆçš„å…¶ä»–å‡½æ•°èŠ‚ç‚¹");
 			}
 			
 			String[] paramsStr = getParams(this.node.toExpression());
@@ -2791,10 +2791,10 @@ public class SimpleSelect
 	
 	class SubQueryCursor extends SyncCursor
 	{
-		public static final int Exist_Type = 0; //²»ĞèÒªÇó³öÖµÖ¤Ã÷´æÔÚ¼´¿É£¬exists
-		public static final int Select_Type = 1; //ĞèÒªÇó³öÈ·ÇĞÖµÇÒÖµ±ØĞëÎ¨Ò»£¬select
-		public static final int In_Type = 2; //ĞèÒªÇó³öÈ·ÇĞÖµÇÒÖµ¿É²»Î¨Ò», in
-		public static final int Where_Type = 3; //ĞèÒªÇó³öÈ·ÇĞÖµÇÒÖµ±ØĞëÎ¨Ò», where
+		public static final int Exist_Type = 0; //ä¸éœ€è¦æ±‚å‡ºå€¼è¯æ˜å­˜åœ¨å³å¯ï¼Œexists
+		public static final int Select_Type = 1; //éœ€è¦æ±‚å‡ºç¡®åˆ‡å€¼ä¸”å€¼å¿…é¡»å”¯ä¸€ï¼Œselect
+		public static final int In_Type = 2; //éœ€è¦æ±‚å‡ºç¡®åˆ‡å€¼ä¸”å€¼å¯ä¸å”¯ä¸€, in
+		public static final int Where_Type = 3; //éœ€è¦æ±‚å‡ºç¡®åˆ‡å€¼ä¸”å€¼å¿…é¡»å”¯ä¸€, where
 		
 		private int type = -1;
 		private ICellSet ics = null;
@@ -2812,7 +2812,7 @@ public class SimpleSelect
 			if(this.type != Exist_Type && this.type != Select_Type && this.type != In_Type && this.type != Where_Type)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("function.paramError") + ":SubQueryCursor, ×Ó²éÑ¯ÓÎ±ê³õÊ¼»¯²ÎÊı´íÎó");
+				throw new RQException(mm.getMessage("function.paramError") + ":SubQueryCursor, å­æŸ¥è¯¢æ¸¸æ ‡åˆå§‹åŒ–å‚æ•°é”™è¯¯");
 			}
 			this.ics = ics;
 			this.paramList = paramList;
@@ -2820,19 +2820,19 @@ public class SimpleSelect
 			if(this.subQueryListListList == null)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("function.paramError") + ":SubQueryCursor, ×Ó²éÑ¯ÓÎ±ê³õÊ¼»¯²ÎÊı´íÎó");
+				throw new RQException(mm.getMessage("function.paramError") + ":SubQueryCursor, å­æŸ¥è¯¢æ¸¸æ ‡åˆå§‹åŒ–å‚æ•°é”™è¯¯");
 			}
 			this.fieldNameListList = fieldNameListList;
 			if(this.fieldNameListList == null)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("function.paramError") + ":SubQueryCursor, ×Ó²éÑ¯ÓÎ±ê³õÊ¼»¯²ÎÊı´íÎó");
+				throw new RQException(mm.getMessage("function.paramError") + ":SubQueryCursor, å­æŸ¥è¯¢æ¸¸æ ‡åˆå§‹åŒ–å‚æ•°é”™è¯¯");
 			}
 			this.colNameList = colNameList;
 			if(this.colNameList == null)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("function.paramError") + ":SubQueryCursor, ×Ó²éÑ¯ÓÎ±ê³õÊ¼»¯²ÎÊı´íÎó");
+				throw new RQException(mm.getMessage("function.paramError") + ":SubQueryCursor, å­æŸ¥è¯¢æ¸¸æ ‡åˆå§‹åŒ–å‚æ•°é”™è¯¯");
 			}
 			this.ctx = ctx;
 			
@@ -2866,7 +2866,7 @@ public class SimpleSelect
 						if(!(obj instanceof BaseRecord))
 						{
 							MessageManager mm = ParseMessage.get();
-							throw new RQException(mm.getMessage("syntax.error") + ":SubQueryCursor.get, ²éÑ¯½á¹ûĞòÁĞ±ØĞëÓÉ¼ÇÂ¼×é³É");
+							throw new RQException(mm.getMessage("syntax.error") + ":SubQueryCursor.get, æŸ¥è¯¢ç»“æœåºåˆ—å¿…é¡»ç”±è®°å½•ç»„æˆ");
 						}
 						BaseRecord rec = (BaseRecord) obj;
 						
@@ -2903,7 +2903,7 @@ public class SimpleSelect
 								if(sq.length() != 1 || !(sq.get(1) instanceof BaseRecord) || sq.dataStruct() == null || sq.dataStruct().getFieldCount() != 1)
 								{
 									MessageManager mm = ParseMessage.get();
-									throw new RQException(mm.getMessage("syntax.error") + ":SubQueryCursor.get, SELECT/WHERE×Ó¾äÖĞ×Ó²éÑ¯½á¹ûÒì³£");
+									throw new RQException(mm.getMessage("syntax.error") + ":SubQueryCursor.get, SELECT/WHEREå­å¥ä¸­å­æŸ¥è¯¢ç»“æœå¼‚å¸¸");
 								}
 								val = ((BaseRecord)sq.get(1)).getFieldValue(0);
 							}
@@ -2915,7 +2915,7 @@ public class SimpleSelect
 									if(sq.length() == 0 ||!(sq.get(1) instanceof BaseRecord) || sq.dataStruct() == null || sq.dataStruct().getFieldCount() != 1)
 									{
 										MessageManager mm = ParseMessage.get();
-										throw new RQException(mm.getMessage("syntax.error") + ":SubQueryCursor.get, IN×Ó¾äÖĞ×Ó²éÑ¯½á¹ûÒì³£");
+										throw new RQException(mm.getMessage("syntax.error") + ":SubQueryCursor.get, INå­å¥ä¸­å­æŸ¥è¯¢ç»“æœå¼‚å¸¸");
 									}
 									v.add(((BaseRecord)sq.get(p)).getFieldValue(0));
 								}
@@ -3013,7 +3013,7 @@ public class SimpleSelect
 		if(levelName == null || levelName.trim().isEmpty() || levelFunction == null || levelFunction.trim().isEmpty())
 		{
 			MessageManager mm = ParseMessage.get();
-			throw new RQException(mm.getMessage("function.paramError") + ":setLevelFunction, ²ÎÊı²»ÄÜÎª¿ÕÖµ");
+			throw new RQException(mm.getMessage("function.paramError") + ":setLevelFunction, å‚æ•°ä¸èƒ½ä¸ºç©ºå€¼");
 		}
 		levelName = levelName.toLowerCase();
 		levelFunction = levelFunction.toLowerCase();
@@ -3037,7 +3037,7 @@ public class SimpleSelect
 		if(levelName == null || levelName.trim().isEmpty())
 		{
 			MessageManager mm = ParseMessage.get();
-			throw new RQException(mm.getMessage("function.paramError") + ":getLevelFunction, ²ÎÊı²»ÄÜÎª¿ÕÖµ");
+			throw new RQException(mm.getMessage("function.paramError") + ":getLevelFunction, å‚æ•°ä¸èƒ½ä¸ºç©ºå€¼");
 		}
 		String function = this.levelMap.get(levelName.toLowerCase());
 		if(function == null)
@@ -3124,7 +3124,7 @@ public class SimpleSelect
 		else
 		{
 			MessageManager mm = ParseMessage.get();
-			throw new RQException(mm.getMessage("function.paramError") + ":setSQLParameters, ÉĞ²»Ö§³ÖµÄ²ÎÊıÀàĞÍ");
+			throw new RQException(mm.getMessage("function.paramError") + ":setSQLParameters, å°šä¸æ”¯æŒçš„å‚æ•°ç±»å‹");
 		}
 	}
 	
@@ -3217,13 +3217,13 @@ public class SimpleSelect
 		else
 		{
 			MessageManager mm = ParseMessage.get();
-			throw new RQException(mm.getMessage("syntax.error") + ":scanSelect, SQLÓï¾ä±ØĞëÒÔSELECT¹Ø¼ü×Ö¿ªÍ·");
+			throw new RQException(mm.getMessage("syntax.error") + ":scanSelect, SQLè¯­å¥å¿…é¡»ä»¥SELECTå…³é”®å­—å¼€å¤´");
 		}
 		
 		if (start >= next) 
 		{
 			MessageManager mm = ParseMessage.get();
-			throw new RQException(mm.getMessage("syntax.error") + ":scanSelect, ÆğÊ¼Î»ÖÃ³¬³ö½áÊøÎ»ÖÃ");
+			throw new RQException(mm.getMessage("syntax.error") + ":scanSelect, èµ·å§‹ä½ç½®è¶…å‡ºç»“æŸä½ç½®");
 		}
 		
 		start = scanQuantifies(tokens, start, next);
@@ -3265,7 +3265,7 @@ public class SimpleSelect
 					break;
 				}
 			}
-			else if (token.getType() == Tokenizer.LPAREN) // Ìø¹ı()
+			else if (token.getType() == Tokenizer.LPAREN) // è·³è¿‡()
 			{
 				i = Tokenizer.scanParen(tokens, i, next);
 			}
@@ -3321,7 +3321,7 @@ public class SimpleSelect
 				if (c >= next) 
 				{
 					MessageManager mm = ParseMessage.get();
-					throw new RQException(mm.getMessage("syntax.error") + ":scanQuantifies, ÆğÊ¼Î»ÖÃ³¬³ö½áÊøÎ»ÖÃ");
+					throw new RQException(mm.getMessage("syntax.error") + ":scanQuantifies, èµ·å§‹ä½ç½®è¶…å‡ºç»“æŸä½ç½®");
 				}
 				
 				this.hasDistinct = true;
@@ -3343,14 +3343,14 @@ public class SimpleSelect
 				catch(NumberFormatException nfe)
 				{
 					MessageManager mm = ParseMessage.get();
-					throw new RQException(mm.getMessage("syntax.error") + ":scanQuantifies, TOP¹Ø¼ü×ÖºóÃæ±ØĞë½Ó·Ç¸ºÕûÊı", nfe);
+					throw new RQException(mm.getMessage("syntax.error") + ":scanQuantifies, TOPå…³é”®å­—åé¢å¿…é¡»æ¥éè´Ÿæ•´æ•°", nfe);
 				}
 				
 				c++;
 				if (c >= next) 
 				{
 					MessageManager mm = ParseMessage.get();
-					throw new RQException(mm.getMessage("syntax.error") + ":scanQuantifies, ÆğÊ¼Î»ÖÃ³¬³ö½áÊøÎ»ÖÃ");
+					throw new RQException(mm.getMessage("syntax.error") + ":scanQuantifies, èµ·å§‹ä½ç½®è¶…å‡ºç»“æŸä½ç½®");
 				}
 			}
 			
@@ -3371,7 +3371,7 @@ public class SimpleSelect
 			if (c >= next) 
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":scanLimit, ÆğÊ¼Î»ÖÃ³¬³ö½áÊøÎ»ÖÃ");
+				throw new RQException(mm.getMessage("syntax.error") + ":scanLimit, èµ·å§‹ä½ç½®è¶…å‡ºç»“æŸä½ç½®");
 			}
 			try
 			{
@@ -3391,7 +3391,7 @@ public class SimpleSelect
 			catch(NumberFormatException nfe)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":scanLimit, Limit¹Ø¼ü×ÖºóÃæ±ØĞë½Ó·Ç¸ºÕûÊı", nfe);
+				throw new RQException(mm.getMessage("syntax.error") + ":scanLimit, Limitå…³é”®å­—åé¢å¿…é¡»æ¥éè´Ÿæ•´æ•°", nfe);
 			}
 		}
 	}
@@ -3405,7 +3405,7 @@ public class SimpleSelect
 			if (c >= next) 
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":scanOffset, ÆğÊ¼Î»ÖÃ³¬³ö½áÊøÎ»ÖÃ");
+				throw new RQException(mm.getMessage("syntax.error") + ":scanOffset, èµ·å§‹ä½ç½®è¶…å‡ºç»“æŸä½ç½®");
 			}
 			try
 			{
@@ -3418,7 +3418,7 @@ public class SimpleSelect
 			catch(NumberFormatException nfe)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":scanOffset, Offset¹Ø¼ü×ÖºóÃæ±ØĞë½Ó·Ç¸ºÕûÊı", nfe);
+				throw new RQException(mm.getMessage("syntax.error") + ":scanOffset, Offsetå…³é”®å­—åé¢å¿…é¡»æ¥éè´Ÿæ•´æ•°", nfe);
 			}
 		}
 	}
@@ -3436,7 +3436,7 @@ public class SimpleSelect
 			if (start >= tableNext) 
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":scanFrom, ÆğÊ¼Î»ÖÃ³¬³ö½áÊøÎ»ÖÃ");
+				throw new RQException(mm.getMessage("syntax.error") + ":scanFrom, èµ·å§‹ä½ç½®è¶…å‡ºç»“æŸä½ç½®");
 			}
 
 			if(tokens[start].getString().equals("{"))
@@ -3445,7 +3445,7 @@ public class SimpleSelect
 				if(pos == tableNext)
 				{
 					MessageManager mm = ParseMessage.get();
-					throw new RQException(mm.getMessage("syntax.error") + ":scanFrom, ¼¯ËãÆ÷±í´ïÊ½ÆğÊ¼Î»ÖÃ³¬³ö½áÊøÎ»ÖÃ");
+					throw new RQException(mm.getMessage("syntax.error") + ":scanFrom, é›†ç®—å™¨è¡¨è¾¾å¼èµ·å§‹ä½ç½®è¶…å‡ºç»“æŸä½ç½®");
 				}
 				
 				int end = Tokenizer.scanBrace(tokens, start, tableNext);
@@ -3470,7 +3470,7 @@ public class SimpleSelect
 				else
 				{
 					MessageManager mm = ParseMessage.get();
-					throw new RQException(mm.getMessage("syntax.error") + ":scanFrom, ¼¯ËãÆ÷±í´ïÊ½µÄ½áÎ²´¦ÓĞÎó");
+					throw new RQException(mm.getMessage("syntax.error") + ":scanFrom, é›†ç®—å™¨è¡¨è¾¾å¼çš„ç»“å°¾å¤„æœ‰è¯¯");
 				}
 				
 				if(aliasName == null)
@@ -3495,7 +3495,7 @@ public class SimpleSelect
 				catch(Exception ex)
 				{
 					MessageManager mm = ParseMessage.get();
-					throw new RQException(mm.getMessage("syntax.error") + ":scanFrom, Òì³£µÄ±íÃû(×¢Òâ±íÃû²»ÄÜÎª¹Ø¼ü×Ö»òÒÔÊı×Ö¿ªÍ·):"+expStr);
+					throw new RQException(mm.getMessage("syntax.error") + ":scanFrom, å¼‚å¸¸çš„è¡¨å(æ³¨æ„è¡¨åä¸èƒ½ä¸ºå…³é”®å­—æˆ–ä»¥æ•°å­—å¼€å¤´):"+expStr);
 				}
 
 				if(obj instanceof ICursor)
@@ -3526,7 +3526,7 @@ public class SimpleSelect
 				else
 				{
 					MessageManager mm = ParseMessage.get();
-					throw new RQException(mm.getMessage("syntax.error") + ":scanFrom, ²»Ö§³ÖµÄ±í±äÁ¿ÀàĞÍ");
+					throw new RQException(mm.getMessage("syntax.error") + ":scanFrom, ä¸æ”¯æŒçš„è¡¨å˜é‡ç±»å‹");
 				}
 			}
 			else if(tokens[start].getType() == Tokenizer.LPAREN)
@@ -3535,7 +3535,7 @@ public class SimpleSelect
 				if(pos == tableNext)
 				{
 					MessageManager mm = ParseMessage.get();
-					throw new RQException(mm.getMessage("syntax.error") + ":scanFrom, ÁÙÊ±±í×Ó¾äÆğÊ¼Î»ÖÃ³¬³ö½áÊøÎ»ÖÃ");
+					throw new RQException(mm.getMessage("syntax.error") + ":scanFrom, ä¸´æ—¶è¡¨å­å¥èµ·å§‹ä½ç½®è¶…å‡ºç»“æŸä½ç½®");
 				}
 				
 				int end = Tokenizer.scanParen(tokens, start, tableNext);
@@ -3555,7 +3555,7 @@ public class SimpleSelect
 				else
 				{
 					MessageManager mm = ParseMessage.get();
-					throw new RQException(mm.getMessage("syntax.error") + ":scanFrom, ÁÙÊ±±í×Ó¾äµÄ½áÎ²´¦ÓĞÎó");
+					throw new RQException(mm.getMessage("syntax.error") + ":scanFrom, ä¸´æ—¶è¡¨å­å¥çš„ç»“å°¾å¤„æœ‰è¯¯");
 				}
 				
 				if(aliasName == null)
@@ -3568,7 +3568,7 @@ public class SimpleSelect
 					if(pos + 1 != end)
 					{
 						MessageManager mm = ParseMessage.get();
-						throw new RQException(mm.getMessage("syntax.error") + ":scanFrom, ÁÙÊ±±íÕ¼Î»·û¸ñÊ½´íÎó");
+						throw new RQException(mm.getMessage("syntax.error") + ":scanFrom, ä¸´æ—¶è¡¨å ä½ç¬¦æ ¼å¼é”™è¯¯");
 					}
 					if(this.ds != null)
 					{
@@ -3603,7 +3603,8 @@ public class SimpleSelect
 				while(pos < tableNext)
 				{
 					tableName = tableName + tokens[pos].getOriginString();
-					tableName = tableName + tokens[pos].getSpaces();
+					//xingjl 20230323 from D://test/1é›†ç®—å™¨/emps.txtï¼Œå»æ‰1åé¢ç©ºæ ¼ 
+					//tableName = tableName + tokens[pos].getSpaces();
 					pos++;
 				}
 				tableName = tableName.trim();
@@ -3666,7 +3667,7 @@ public class SimpleSelect
 				}
 				if (fs == null || fs.length == 0) {
 					MessageManager mm = ParseMessage.get();
-					throw new RQException("not found data file["+tableName+"]¡¢["+Env.getMainPath()+"/"+tableName+"]");
+					throw new RQException("not found data file["+tableName+"]ã€["+Env.getMainPath()+"/"+tableName+"]");
 				}
 				//System.out.println("fs.length " + fs.length);
 				FileObject fileObject = new FileObject(fs[0].getAbsolutePath(), null, "s", this.ctx);
@@ -3675,7 +3676,7 @@ public class SimpleSelect
 				if(!fileObject.isExists())
 				{
 					String password = null;
-					int index = tableName.lastIndexOf(":"); //¿ÉÄÜÓĞÃÜÂë£¬³¢ÊÔÈ¥³ı
+					int index = tableName.lastIndexOf(":"); //å¯èƒ½æœ‰å¯†ç ï¼Œå°è¯•å»é™¤
 					if(index != -1)
 					{
 						String newName = tableName.substring(0, index).trim();
@@ -3713,7 +3714,7 @@ public class SimpleSelect
 						if(!password.startsWith("'") || !password.endsWith("'"))
 						{
 							MessageManager mm = ParseMessage.get();
-							throw new RQException(mm.getMessage("syntax.error") + ":scanFrom, ÎÄ¼şÃÜÂë±ØĞëÊ¹ÓÃµ¥ÒıºÅÀ¨ÆğÀ´");
+							throw new RQException(mm.getMessage("syntax.error") + ":scanFrom, æ–‡ä»¶å¯†ç å¿…é¡»ä½¿ç”¨å•å¼•å·æ‹¬èµ·æ¥");
 						}
 						this.password = password.substring(1, password.length() - 1);
 						tableName = fileObject.getFileName();
@@ -3786,7 +3787,7 @@ public class SimpleSelect
 					catch(Exception ex)
 					{
 						MessageManager mm = ParseMessage.get();
-						throw new RQException(mm.getMessage("syntax.error") + ":scanFrom, Òì³£µÄ±íÃû(×¢Òâ±íÃû²»ÄÜÎª¹Ø¼ü×Ö»òÒÔÊı×Ö¿ªÍ·):"+paramStr);
+						throw new RQException(mm.getMessage("syntax.error") + ":scanFrom, å¼‚å¸¸çš„è¡¨å(æ³¨æ„è¡¨åä¸èƒ½ä¸ºå…³é”®å­—æˆ–ä»¥æ•°å­—å¼€å¤´):"+paramStr);
 					}
 					
 					if(obj instanceof ICursor)
@@ -3817,10 +3818,10 @@ public class SimpleSelect
 					else
 					{
 						MessageManager mm = ParseMessage.get();
-						throw new RQException(mm.getMessage("syntax.error") + ":scanFrom, ²»Ö§³ÖµÄ±í±äÁ¿ÀàĞÍ");
+						throw new RQException(mm.getMessage("syntax.error") + ":scanFrom, ä¸æ”¯æŒçš„è¡¨å˜é‡ç±»å‹");
 					}
 				}
-				else if(tokens[start].getType() == Tokenizer.IDENT) // ³¢ÊÔ½âÎöÎªÖ±½ÓĞ´±äÁ¿ÃûµÄĞÎÊ½£¬·ñÔòÅ×³öÒì³£
+				else if(tokens[start].getType() == Tokenizer.IDENT) // å°è¯•è§£æä¸ºç›´æ¥å†™å˜é‡åçš„å½¢å¼ï¼Œå¦åˆ™æŠ›å‡ºå¼‚å¸¸
 				{
 					pos = start + 1;
 					if(pos == tableNext)
@@ -3841,7 +3842,7 @@ public class SimpleSelect
 					else
 					{
 						MessageManager mm = ParseMessage.get();
-						throw new RQException(mm.getMessage("syntax.error") + ":scanFrom, Òì³£µÄ±íÃû(×¢Òâ±íÃû²»ÄÜÎª¹Ø¼ü×Ö»òÒÔÊı×Ö¿ªÍ·):"+tokens[start].getOriginString());
+						throw new RQException(mm.getMessage("syntax.error") + ":scanFrom, å¼‚å¸¸çš„è¡¨å(æ³¨æ„è¡¨åä¸èƒ½ä¸ºå…³é”®å­—æˆ–ä»¥æ•°å­—å¼€å¤´):"+tokens[start].getOriginString());
 					}
 					
 					if(aliasName == null)
@@ -3857,7 +3858,7 @@ public class SimpleSelect
 					catch(Exception ex)
 					{
 						MessageManager mm = ParseMessage.get();
-						throw new RQException(mm.getMessage("syntax.error") + ":scanFrom, Òì³£µÄ±íÃû(×¢Òâ±íÃû²»ÄÜÎª¹Ø¼ü×Ö»òÒÔÊı×Ö¿ªÍ·):"+tableName);
+						throw new RQException(mm.getMessage("syntax.error") + ":scanFrom, å¼‚å¸¸çš„è¡¨å(æ³¨æ„è¡¨åä¸èƒ½ä¸ºå…³é”®å­—æˆ–ä»¥æ•°å­—å¼€å¤´):"+tableName);
 					}
 					
 					if(obj instanceof ICursor)
@@ -3888,13 +3889,13 @@ public class SimpleSelect
 					else
 					{
 						MessageManager mm = ParseMessage.get();
-						throw new RQException(mm.getMessage("syntax.error") + ":scanFrom, ²»Ö§³ÖµÄ±í±äÁ¿ÀàĞÍ");
+						throw new RQException(mm.getMessage("syntax.error") + ":scanFrom, ä¸æ”¯æŒçš„è¡¨å˜é‡ç±»å‹");
 					}
 				}
 				else
 				{
 					MessageManager mm = ParseMessage.get();
-					throw new RQException(mm.getMessage("syntax.error") + ":scanFrom, Òì³£µÄ±íÃû(×¢Òâ±íÃû²»ÄÜÎª¹Ø¼ü×Ö»òÒÔÊı×Ö¿ªÍ·):"+tokens[start].getOriginString());
+					throw new RQException(mm.getMessage("syntax.error") + ":scanFrom, å¼‚å¸¸çš„è¡¨å(æ³¨æ„è¡¨åä¸èƒ½ä¸ºå…³é”®å­—æˆ–ä»¥æ•°å­—å¼€å¤´):"+tokens[start].getOriginString());
 				}
 				
 				if (this.tableNode != null) this.tableNode.setFiles(objs);
@@ -3919,7 +3920,7 @@ public class SimpleSelect
 			MessageManager mm = ParseMessage.get();
 			String n = ":";
 			try {n += tokens[start].getString();}catch(Exception e){}
-			throw new RQException(mm.getMessage("syntax.error") + ":scanFrom, Òì³£µÄ±íÃû(×¢Òâ±íÃû²»ÄÜÎª¹Ø¼ü×Ö»òÒÔÊı×Ö¿ªÍ·):"+n);
+			throw new RQException(mm.getMessage("syntax.error") + ":scanFrom, å¼‚å¸¸çš„è¡¨å(æ³¨æ„è¡¨åä¸èƒ½ä¸ºå…³é”®å­—æˆ–ä»¥æ•°å­—å¼€å¤´):"+n);
 		}
 	}
 	
@@ -3941,7 +3942,7 @@ public class SimpleSelect
 				if (start >= next) 
 				{
 					MessageManager mm = ParseMessage.get();
-					throw new RQException(mm.getMessage("syntax.error") + ":scanColumns, ÆğÊ¼Î»ÖÃ³¬³ö½áÊøÎ»ÖÃ");
+					throw new RQException(mm.getMessage("syntax.error") + ":scanColumns, èµ·å§‹ä½ç½®è¶…å‡ºç»“æŸä½ç½®");
 				}
 			}
 		}
@@ -3952,7 +3953,7 @@ public class SimpleSelect
 		if (start >= next) 
 		{
 			MessageManager mm = ParseMessage.get();
-			throw new RQException(mm.getMessage("syntax.error") + ":scanColumn, ÆğÊ¼Î»ÖÃ³¬³ö½áÊøÎ»ÖÃ");
+			throw new RQException(mm.getMessage("syntax.error") + ":scanColumn, èµ·å§‹ä½ç½®è¶…å‡ºç»“æŸä½ç½®");
 		}
 		
 		if (start + 1 == next && tokens[start].equals("*")) 
@@ -4043,7 +4044,7 @@ public class SimpleSelect
 					if(end + 2 == next)
 					{
 						MessageManager mm = ParseMessage.get();
-						throw new RQException(mm.getMessage("syntax.error") + ":scanColumn, As¹Ø¼ü×ÖºóÃæÈ±ÉÙÁĞ±ğÃû");
+						throw new RQException(mm.getMessage("syntax.error") + ":scanColumn, Aså…³é”®å­—åé¢ç¼ºå°‘åˆ—åˆ«å");
 					}
 					begin = end + 2;
 				}
@@ -4106,7 +4107,7 @@ public class SimpleSelect
 					if(seq == null || seq.length() != 1 || seq.dataStruct() == null || seq.dataStruct().getFieldCount() != 1)
 					{
 						MessageManager mm = ParseMessage.get();
-						throw new RQException(mm.getMessage("syntax.error") + ":scanColumn, ÔÚSELECT×Ó¾äÖĞ·µ»Ø³£ÊıÖµµÄ×Ó²éÑ¯Ö»ÄÜÎªµ¥ĞĞµ¥ÁĞ");
+						throw new RQException(mm.getMessage("syntax.error") + ":scanColumn, åœ¨SELECTå­å¥ä¸­è¿”å›å¸¸æ•°å€¼çš„å­æŸ¥è¯¢åªèƒ½ä¸ºå•è¡Œå•åˆ—");
 					}
 					Object val = seq.get(1);
 					if(val instanceof BaseRecord)
@@ -4120,7 +4121,7 @@ public class SimpleSelect
 				else
 				{
 					MessageManager mm = ParseMessage.get();
-					throw new RQException(mm.getMessage("syntax.error") + ":scanColumn, ·µ»Ø³£ÊıÖµµÄ×Ó²éÑ¯Ö»ÄÜÎªµ¥ÁĞ");
+					throw new RQException(mm.getMessage("syntax.error") + ":scanColumn, è¿”å›å¸¸æ•°å€¼çš„å­æŸ¥è¯¢åªèƒ½ä¸ºå•åˆ—");
 				}
 			}
 			
@@ -4145,7 +4146,7 @@ public class SimpleSelect
 					else
 					{
 						MessageManager mm = ParseMessage.get();
-						throw new RQException(mm.getMessage("syntax.error") + ":scanColumn, ĞÂÆğÁĞ±ğÃû²»Ó¦Îª´¿Êı×Ö»òÌØÊâ×Ö·û");
+						throw new RQException(mm.getMessage("syntax.error") + ":scanColumn, æ–°èµ·åˆ—åˆ«åä¸åº”ä¸ºçº¯æ•°å­—æˆ–ç‰¹æ®Šå­—ç¬¦");
 					}
 				} 
 				else if (!prevToken.canHaveRightExp()) 
@@ -4158,7 +4159,7 @@ public class SimpleSelect
 					else if (alias.getType() != Tokenizer.KEYWORD && alias.getType() != Tokenizer.RPAREN && alias.getType() != Tokenizer.LEVELMARK && alias.getType() != Tokenizer.TABLEMARK)
 					{
 						MessageManager mm = ParseMessage.get();
-						throw new RQException(mm.getMessage("syntax.error") + ":scanColumn, Ä³¸ö´ı²éÑ¯ÁĞµÄ±í´ïÊ½Óï·¨´íÎó");
+						throw new RQException(mm.getMessage("syntax.error") + ":scanColumn, æŸä¸ªå¾…æŸ¥è¯¢åˆ—çš„è¡¨è¾¾å¼è¯­æ³•é”™è¯¯");
 					}
 				}
 			}
@@ -4167,7 +4168,7 @@ public class SimpleSelect
 			if(expNode.getNodeList() == null || expNode.getNodeList().size() == 0)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":scanColumn, Ä³¸ö´ı²éÑ¯ÁĞµÄ±í´ïÊ½Îª¿ÕÖµ");
+				throw new RQException(mm.getMessage("syntax.error") + ":scanColumn, æŸä¸ªå¾…æŸ¥è¯¢åˆ—çš„è¡¨è¾¾å¼ä¸ºç©ºå€¼");
 			}
 			
 			if(aliasName != null)
@@ -4201,7 +4202,7 @@ public class SimpleSelect
 	
 	public static String scanExp(Token []tokens, List<Object> paramList)
 	{
-		SimpleSelect sdql = new SimpleSelect(null, null);//½öÓÃÓÚ½âÎö¶ø²»»ñÈ¡ÓÎ±ê£¬²»ĞèÒªÉÏÏÂÎÄ¶ÔÏó
+		SimpleSelect sdql = new SimpleSelect(null, null);//ä»…ç”¨äºè§£æè€Œä¸è·å–æ¸¸æ ‡ï¼Œä¸éœ€è¦ä¸Šä¸‹æ–‡å¯¹è±¡
 		sdql.setSQLParameters(paramList);
 		SimpleSelect.ExpressionNode expNode = sdql.scanExp(tokens, 0, tokens.length);
 		expNode.setFromWhere();
@@ -4250,12 +4251,12 @@ public class SimpleSelect
 					if (pos == next) 
 					{
 						MessageManager mm = ParseMessage.get();
-						throw new RQException(mm.getMessage("syntax.error") + ":scanExp, ÆğÊ¼Î»ÖÃ³¬³ö½áÊøÎ»ÖÃ");
+						throw new RQException(mm.getMessage("syntax.error") + ":scanExp, èµ·å§‹ä½ç½®è¶…å‡ºç»“æŸä½ç½®");
 					}
 					else if (pos + 1 < next && tokens[pos + 1].getType() == Tokenizer.LPAREN) // T.sum(exp)
 					{
 						MessageManager mm = ParseMessage.get();
-						throw new RQException(mm.getMessage("syntax.error") + ":scanExp, º¯Êı±í´ïÊ½²»Ö§³ÖÕâÖÖĞ´·¨");
+						throw new RQException(mm.getMessage("syntax.error") + ":scanExp, å‡½æ•°è¡¨è¾¾å¼ä¸æ”¯æŒè¿™ç§å†™æ³•");
 					}
 					else // T.F
 					{
@@ -4264,7 +4265,7 @@ public class SimpleSelect
 						if (tokens[begin + 2].getType() != Tokenizer.IDENT) 
 						{
 							MessageManager mm = ParseMessage.get();
-							throw new RQException(mm.getMessage("syntax.error") + ":scanExp, Ä³´ı²éÑ¯ÁĞ±íÃûºó½Ó·Ç×Ö¶ÎÀàĞÍ");
+							throw new RQException(mm.getMessage("syntax.error") + ":scanExp, æŸå¾…æŸ¥è¯¢åˆ—è¡¨ååæ¥éå­—æ®µç±»å‹");
 						}
 						
 						int fieldNext = begin + 3;
@@ -4444,14 +4445,14 @@ public class SimpleSelect
 										if(isCountIf || !functionName.equalsIgnoreCase("COUNT"))
 										{
 											MessageManager mm = ParseMessage.get();
-											throw new RQException(mm.getMessage("syntax.error") + ":scanExp, ·ÇCOUNT¾ÛºÏº¯ÊıµÄ²ÎÊı²»Ö§³ÖDISTINCT");
+											throw new RQException(mm.getMessage("syntax.error") + ":scanExp, éCOUNTèšåˆå‡½æ•°çš„å‚æ•°ä¸æ”¯æŒDISTINCT");
 										}
 										
 										String fieldName = paramNode.toExpression();
 										if(fieldName == null)
 										{
 											MessageManager mm = ParseMessage.get();
-											throw new RQException(mm.getMessage("syntax.error") + ":scanExp, COUNT(DISTINCT)µÄ²ÎÊı¸ñÊ½´íÎó");
+											throw new RQException(mm.getMessage("syntax.error") + ":scanExp, COUNT(DISTINCT)çš„å‚æ•°æ ¼å¼é”™è¯¯");
 										}
 										
 										functionName = "icount";
@@ -4476,7 +4477,7 @@ public class SimpleSelect
 									else
 									{
 										MessageManager mm = ParseMessage.get();
-										throw new RQException(mm.getMessage("syntax.error") + ":scanExp, Ä³¾ÛºÏº¯ÊıµÄ²ÎÊı¸öÊı´íÎó");
+										throw new RQException(mm.getMessage("syntax.error") + ":scanExp, æŸèšåˆå‡½æ•°çš„å‚æ•°ä¸ªæ•°é”™è¯¯");
 									}
 								}
 							}
@@ -4490,7 +4491,7 @@ public class SimpleSelect
 						if (size == 0) 
 						{
 							MessageManager mm = ParseMessage.get();
-							throw new RQException(mm.getMessage("function.paramError") + ":scanExp, ¾ÛºÏº¯ÊıµÄ²ÎÊı½ÚµãÊı²»ÄÜÎªÁã");
+							throw new RQException(mm.getMessage("function.paramError") + ":scanExp, èšåˆå‡½æ•°çš„å‚æ•°èŠ‚ç‚¹æ•°ä¸èƒ½ä¸ºé›¶");
 						}
 						
 						expList.add(new GatherNode(functionName, paramNode));
@@ -4591,7 +4592,7 @@ public class SimpleSelect
 				else
 				{
 					MessageManager mm = ParseMessage.get();
-					throw new RQException(mm.getMessage("syntax.error") + ":scanExp, ×Ö¶ÎÃûºó½ÓÁË·Ç·¨µÄ×Ö·û");
+					throw new RQException(mm.getMessage("syntax.error") + ":scanExp, å­—æ®µååæ¥äº†éæ³•çš„å­—ç¬¦");
 				}
 			} 
 			else if (type == Tokenizer.LPAREN) 
@@ -4642,7 +4643,7 @@ public class SimpleSelect
 								String uuid = UUID.randomUUID().toString().replace("-", "_");
 								
 								ArrayList<Node> list = new ArrayList<Node>();
-								list.add(new NormalNode("$" + uuid)); //·Çjoin´«ÈëµÄ×Ó²éÑ¯×Ö¶ÎÒòÎªÊÇºóÌí¼ÓµÄ²»Ëã×÷Ñ¡³ö×Ö¶Î
+								list.add(new NormalNode("$" + uuid)); //éjoinä¼ å…¥çš„å­æŸ¥è¯¢å­—æ®µå› ä¸ºæ˜¯åæ·»åŠ çš„ä¸ç®—ä½œé€‰å‡ºå­—æ®µ
 								ExpressionNode expNode = new ExpressionNode(list);
 								expList.add(expNode);
 								
@@ -4657,7 +4658,7 @@ public class SimpleSelect
 								String dollar_uuid = this.subQueryOfInMap.get(checkList.toString());
 								
 								ArrayList<Node> list = new ArrayList<Node>();
-								list.add(new NormalNode(dollar_uuid));//·Çjoin´«ÈëµÄ×Ó²éÑ¯×Ö¶ÎÒòÎªÊÇºóÌí¼ÓµÄ²»Ëã×÷Ñ¡³ö×Ö¶Î
+								list.add(new NormalNode(dollar_uuid));//éjoinä¼ å…¥çš„å­æŸ¥è¯¢å­—æ®µå› ä¸ºæ˜¯åæ·»åŠ çš„ä¸ç®—ä½œé€‰å‡ºå­—æ®µ
 								ExpressionNode expNode = new ExpressionNode(list);
 								expList.add(expNode);
 							}
@@ -4669,7 +4670,7 @@ public class SimpleSelect
 								String uuid = UUID.randomUUID().toString().replace("-", "_");
 								
 								ArrayList<Node> list = new ArrayList<Node>();
-								list.add(new NormalNode("$" + uuid));//·Çjoin´«ÈëµÄ×Ó²éÑ¯×Ö¶ÎÒòÎªÊÇºóÌí¼ÓµÄ²»Ëã×÷Ñ¡³ö×Ö¶Î
+								list.add(new NormalNode("$" + uuid));//éjoinä¼ å…¥çš„å­æŸ¥è¯¢å­—æ®µå› ä¸ºæ˜¯åæ·»åŠ çš„ä¸ç®—ä½œé€‰å‡ºå­—æ®µ
 								ExpressionNode expNode = new ExpressionNode(list);
 								expList.add(expNode);
 								
@@ -4684,7 +4685,7 @@ public class SimpleSelect
 								String dollar_uuid = this.subQueryOfWhereMap.get(checkList.toString());
 								
 								ArrayList<Node> list = new ArrayList<Node>();
-								list.add(new NormalNode(dollar_uuid));//·Çjoin´«ÈëµÄ×Ó²éÑ¯×Ö¶ÎÒòÎªÊÇºóÌí¼ÓµÄ²»Ëã×÷Ñ¡³ö×Ö¶Î
+								list.add(new NormalNode(dollar_uuid));//éjoinä¼ å…¥çš„å­æŸ¥è¯¢å­—æ®µå› ä¸ºæ˜¯åæ·»åŠ çš„ä¸ç®—ä½œé€‰å‡ºå­—æ®µ
 								ExpressionNode expNode = new ExpressionNode(list);
 								expList.add(expNode);
 							}
@@ -4703,13 +4704,13 @@ public class SimpleSelect
 						else
 						{
 							MessageManager mm = ParseMessage.get();
-							throw new RQException(mm.getMessage("syntax.error") + ":scanExp, ·µ»Ø³£ÊıÖµµÄ×Ó²éÑ¯Ö»ÄÜÎªµ¥ÁĞ");
+							throw new RQException(mm.getMessage("syntax.error") + ":scanExp, è¿”å›å¸¸æ•°å€¼çš„å­æŸ¥è¯¢åªèƒ½ä¸ºå•åˆ—");
 						}
 					}
 				}
 				else
 				{
-					expList.add(new ParenNode(scanExp(subQueryTokens, 0, subQueryTokens.length)));//Êµ¼ÊÉÏ²»ÊÇ×Ó²éÑ¯
+					expList.add(new ParenNode(scanExp(subQueryTokens, 0, subQueryTokens.length)));//å®é™…ä¸Šä¸æ˜¯å­æŸ¥è¯¢
 				}
 				
 				i = end;
@@ -4745,7 +4746,7 @@ public class SimpleSelect
 				if (pos == next || tokens[pos].getType() != Tokenizer.LPAREN && tokens[pos].getType() != Tokenizer.IDENT) 
 				{
 					MessageManager mm = ParseMessage.get();
-					throw new RQException(mm.getMessage("syntax.error") + ":scanExp, IN×Ó¾ä´Ó¾äµÄ¸ñÊ½´íÎó");
+					throw new RQException(mm.getMessage("syntax.error") + ":scanExp, INå­å¥ä»å¥çš„æ ¼å¼é”™è¯¯");
 				}
 				
 				ArrayList<Node> tempList = new ArrayList<Node>();
@@ -4768,7 +4769,7 @@ public class SimpleSelect
 				if(tokens[pos].getType() == Tokenizer.LPAREN)
 				{
 					int end = Tokenizer.scanParen(tokens, pos, next);
-					ExpressionNode paramNode = scanExp(tokens, pos, end + 1);//±ØĞë°üº¬×óÓÒÀ¨ºÅÒÔ½øÈë×Ó²éÑ¯½âÎö
+					ExpressionNode paramNode = scanExp(tokens, pos, end + 1);//å¿…é¡»åŒ…å«å·¦å³æ‹¬å·ä»¥è¿›å…¥å­æŸ¥è¯¢è§£æ
 					expList.add(new InNode(expNode, paramNode, hasNot));
 					i = end;
 				}
@@ -4781,7 +4782,7 @@ public class SimpleSelect
 					{
 						theFieldName = theFieldName.substring(1, theFieldName.length() - 1);
 					}
-					paramList.add(new FieldNode(theFieldName));//join´«ÈëµÄ×Ó²éÑ¯×Ö¶ÎÒòÎªÒÑ¾­´æÔÚËùÒÔËã×÷Ñ¡³ö×Ö¶Î
+					paramList.add(new FieldNode(theFieldName));//joinä¼ å…¥çš„å­æŸ¥è¯¢å­—æ®µå› ä¸ºå·²ç»å­˜åœ¨æ‰€ä»¥ç®—ä½œé€‰å‡ºå­—æ®µ
 					ExpressionNode paramNode = new ExpressionNode(paramList);
 					expList.add(new InNode(expNode, paramNode, hasNot));
 					i = pos;
@@ -4798,7 +4799,7 @@ public class SimpleSelect
 				if (pos == next) 
 				{
 					MessageManager mm = ParseMessage.get();
-					throw new RQException(mm.getMessage("syntax.error") + ":scanExp, Like×Ó¾äµÄ¸ñÊ½´íÎó");
+					throw new RQException(mm.getMessage("syntax.error") + ":scanExp, Likeå­å¥çš„æ ¼å¼é”™è¯¯");
 				}
 				else 
 				{
@@ -4808,12 +4809,12 @@ public class SimpleSelect
 //							|| tokens[pos].getString().substring(1, tokens[pos].getString().length()-1).indexOf("\"") != -1)
 //						{
 //							MessageManager mm = ParseMessage.get();
-//							throw new RQException(mm.getMessage("syntax.error") + ":scanExp, Like×Ó¾äµÄÌ×Ê½ÀàĞÍ´íÎó");
+//							throw new RQException(mm.getMessage("syntax.error") + ":scanExp, Likeå­å¥çš„å¥—å¼ç±»å‹é”™è¯¯");
 //						}
 //					}
 				}
 				
-//				String pattern = tokens[pos].getString().substring(1, tokens[pos].getString().length() - 1);//ÍÑ""»ò''ÒÔ±ãÓÚ²Ù×÷,×îºóÔÙ¼ÓÉÏ
+//				String pattern = tokens[pos].getString().substring(1, tokens[pos].getString().length() - 1);//è„±""æˆ–''ä»¥ä¾¿äºæ“ä½œ,æœ€åå†åŠ ä¸Š
 				
 				ArrayList<Node> tempList = new ArrayList<Node>();
 				for(int x = expList.size() - 1; x >= 0; x--)
@@ -4855,7 +4856,7 @@ public class SimpleSelect
 					int whenPos = Tokenizer.scanCaseWhen(tokens, pos, elsePos == -1 ? endPos : elsePos);
 					if(whenPos == -1)
 					{
-						throw new RQException("CASEÓï¾äÈ±ÉÙWHEN¹Ø¼ü×Ö");
+						throw new RQException("CASEè¯­å¥ç¼ºå°‘WHENå…³é”®å­—");
 					}
 					ExpressionNode caseNode = scanExp(tokens, pos, whenPos);
 					nodeList.add(caseNode);
@@ -4931,7 +4932,7 @@ public class SimpleSelect
 				if(andPos == -1)
 				{
 					MessageManager mm = ParseMessage.get();
-					throw new RQException(mm.getMessage("syntax.error") + ":scanExp, BetweenºóÃæÈ±ÉÙ¹Ø¼ü×Öand");
+					throw new RQException(mm.getMessage("syntax.error") + ":scanExp, Betweenåé¢ç¼ºå°‘å…³é”®å­—and");
 				}
 				ExpressionNode floorValue = scanExp(tokens, i + 1, andPos);
 				
@@ -4962,7 +4963,7 @@ public class SimpleSelect
 				if (pos + 1 >= next || tokens[pos].getType() != Tokenizer.LPAREN || !tokens[pos + 1].isKeyWord("SELECT")) 
 				{
 					MessageManager mm = ParseMessage.get();
-					throw new RQException(mm.getMessage("syntax.error") + ":scanExp, Exists×Ó¾ä´Ó¾äµÄ¸ñÊ½´íÎó");
+					throw new RQException(mm.getMessage("syntax.error") + ":scanExp, Existså­å¥ä»å¥çš„æ ¼å¼é”™è¯¯");
 				}
 				
 				int end = Tokenizer.scanParen(tokens, pos, next);
@@ -5094,7 +5095,7 @@ public class SimpleSelect
 				else
 				{
 					MessageManager mm = ParseMessage.get();
-					throw new RQException(mm.getMessage("syntax.error") + ":scanExp, ²ÎÊıÕ¼Î»·û½âÎö´íÎó");
+					throw new RQException(mm.getMessage("syntax.error") + ":scanExp, å‚æ•°å ä½ç¬¦è§£æé”™è¯¯");
 				}
 				expList.add(paramNode);
 			}
@@ -5108,7 +5109,7 @@ public class SimpleSelect
 						if (i == start)
 						{
 							MessageManager mm = ParseMessage.get();
-							throw new RQException(mm.getMessage("syntax.error") + ":scanExp, ±í´ïÊ½²»ÄÜÒÔ'='ºÅ¿ªÍ·");
+							throw new RQException(mm.getMessage("syntax.error") + ":scanExp, è¡¨è¾¾å¼ä¸èƒ½ä»¥'='å·å¼€å¤´");
 						}
 						else if(tokens[i-1].getType() != Tokenizer.OPERATOR) 
 						{
@@ -5127,7 +5128,7 @@ public class SimpleSelect
 						if (i + 1 == next)
 						{
 							MessageManager mm = ParseMessage.get();
-							throw new RQException(mm.getMessage("syntax.error") + ":scanExp, ±í´ïÊ½²»ÄÜÒÔ'>'ºÅ½áÎ²");
+							throw new RQException(mm.getMessage("syntax.error") + ":scanExp, è¡¨è¾¾å¼ä¸èƒ½ä»¥'>'å·ç»“å°¾");
 						}
 						else if(tokens[i + 1].getType() == Tokenizer.OPERATOR) 
 						{
@@ -5142,7 +5143,7 @@ public class SimpleSelect
 							else
 							{
 								MessageManager mm = ParseMessage.get();
-								throw new RQException(mm.getMessage("syntax.error") + ":scanExp, Ä³±í´ïÊ½ÖĞÊ¹ÓÃÁË²»Ö§³ÖµÄ²Ù×÷·û");
+								throw new RQException(mm.getMessage("syntax.error") + ":scanExp, æŸè¡¨è¾¾å¼ä¸­ä½¿ç”¨äº†ä¸æ”¯æŒçš„æ“ä½œç¬¦");
 							}
 						}
 						else
@@ -5158,7 +5159,7 @@ public class SimpleSelect
 						if (i + 1 == next)
 						{
 							MessageManager mm = ParseMessage.get();
-							throw new RQException(mm.getMessage("syntax.error") + ":scanExp, ±í´ïÊ½²»ÄÜÒÔ'<'ºÅ½áÎ²");
+							throw new RQException(mm.getMessage("syntax.error") + ":scanExp, è¡¨è¾¾å¼ä¸èƒ½ä»¥'<'å·ç»“å°¾");
 						}
 						else if(tokens[i + 1].getType() == Tokenizer.OPERATOR) 
 						{
@@ -5186,7 +5187,7 @@ public class SimpleSelect
 							else
 							{
 								MessageManager mm = ParseMessage.get();
-								throw new RQException(mm.getMessage("syntax.error") + ":scanExp, Ä³±í´ïÊ½ÖĞÊ¹ÓÃÁË²»Ö§³ÖµÄ²Ù×÷·û");
+								throw new RQException(mm.getMessage("syntax.error") + ":scanExp, æŸè¡¨è¾¾å¼ä¸­ä½¿ç”¨äº†ä¸æ”¯æŒçš„æ“ä½œç¬¦");
 							}
 						}
 						else
@@ -5202,7 +5203,7 @@ public class SimpleSelect
 						if (i + 1 == next)
 						{
 							MessageManager mm = ParseMessage.get();
-							throw new RQException(mm.getMessage("syntax.error") + ":scanExp, ±í´ïÊ½²»ÄÜÒÔ'!'ºÅ½áÎ²");
+							throw new RQException(mm.getMessage("syntax.error") + ":scanExp, è¡¨è¾¾å¼ä¸èƒ½ä»¥'!'å·ç»“å°¾");
 						}
 						else if(tokens[i + 1].getType() == Tokenizer.OPERATOR) 
 						{
@@ -5217,13 +5218,13 @@ public class SimpleSelect
 							else
 							{
 								MessageManager mm = ParseMessage.get();
-								throw new RQException(mm.getMessage("syntax.error") + ":scanExp, Ä³±í´ïÊ½ÖĞÊ¹ÓÃÁË²»Ö§³ÖµÄ²Ù×÷·û");
+								throw new RQException(mm.getMessage("syntax.error") + ":scanExp, æŸè¡¨è¾¾å¼ä¸­ä½¿ç”¨äº†ä¸æ”¯æŒçš„æ“ä½œç¬¦");
 							}
 						}
 						else
 						{
 							MessageManager mm = ParseMessage.get();
-							throw new RQException(mm.getMessage("syntax.error") + ":scanExp, ±í´ïÊ½ÖĞ'!'²»ÄÜµ¥¶ÀÊ¹ÓÃ");
+							throw new RQException(mm.getMessage("syntax.error") + ":scanExp, è¡¨è¾¾å¼ä¸­'!'ä¸èƒ½å•ç‹¬ä½¿ç”¨");
 						}
 					}
 					
@@ -5252,7 +5253,7 @@ public class SimpleSelect
 						if (i + 1 == next)
 						{
 							MessageManager mm = ParseMessage.get();
-							throw new RQException(mm.getMessage("syntax.error") + ":scanExp, Is¹Ø¼ü×ÖÓÃ·¨´íÎó");
+							throw new RQException(mm.getMessage("syntax.error") + ":scanExp, Iså…³é”®å­—ç”¨æ³•é”™è¯¯");
 						}
 						else if(tokens[i + 1].getType() == Tokenizer.KEYWORD) 
 						{
@@ -5261,7 +5262,7 @@ public class SimpleSelect
 								if (i + 2 == next)
 								{
 									MessageManager mm = ParseMessage.get();
-									throw new RQException(mm.getMessage("syntax.error") + ":scanExp, Is Not¹Ø¼ü×ÖÓÃ·¨´íÎó");
+									throw new RQException(mm.getMessage("syntax.error") + ":scanExp, Is Notå…³é”®å­—ç”¨æ³•é”™è¯¯");
 								}
 								
 								if(tokens[i + 2].getType() == Tokenizer.KEYWORD)
@@ -5273,15 +5274,15 @@ public class SimpleSelect
 									else
 									{
 										MessageManager mm = ParseMessage.get();
-										throw new RQException(mm.getMessage("syntax.error") + ":scanExp, Is Not¹Ø¼ü×ÖÖ»ÄÜºó½Ónull");
+										throw new RQException(mm.getMessage("syntax.error") + ":scanExp, Is Notå…³é”®å­—åªèƒ½åæ¥null");
 									}
 								}
 								else
 								{
 									MessageManager mm = ParseMessage.get();
-									throw new RQException(mm.getMessage("syntax.error") + ":scanExp, Is Not¹Ø¼ü×ÖÖ»ÄÜºó½Ónull");
+									throw new RQException(mm.getMessage("syntax.error") + ":scanExp, Is Notå…³é”®å­—åªèƒ½åæ¥null");
 								}
-								i = i + 1; //Ìø¹ınot·ÀÖ¹Ó°ÏìºóÃæµÄÌõ¼ş
+								i = i + 1; //è·³è¿‡noté˜²æ­¢å½±å“åé¢çš„æ¡ä»¶
 							}
 							else if(tokens[i + 1].getString().equalsIgnoreCase("NULL"))
 							{
@@ -5290,13 +5291,13 @@ public class SimpleSelect
 							else
 							{
 								MessageManager mm = ParseMessage.get();
-								throw new RQException(mm.getMessage("syntax.error") + ":scanExp, Is¹Ø¼ü×ÖÖ»ÄÜºó½Ónull");
+								throw new RQException(mm.getMessage("syntax.error") + ":scanExp, Iså…³é”®å­—åªèƒ½åæ¥null");
 							}
 						}
 						else
 						{
 							MessageManager mm = ParseMessage.get();
-							throw new RQException(mm.getMessage("syntax.error") + ":scanExp, Is¹Ø¼ü×ÖÓÃ·¨´íÎó");
+							throw new RQException(mm.getMessage("syntax.error") + ":scanExp, Iså…³é”®å­—ç”¨æ³•é”™è¯¯");
 						}
 					}
 					else if(value.equalsIgnoreCase("NULL"))
@@ -5319,7 +5320,7 @@ public class SimpleSelect
 					else
 					{
 						MessageManager mm = ParseMessage.get();
-						throw new RQException(mm.getMessage("syntax.error") + ":scanExp, ²»Ö§³ÖµÄ¹Ø¼ü×ÖÓÃ·¨:" + value);
+						throw new RQException(mm.getMessage("syntax.error") + ":scanExp, ä¸æ”¯æŒçš„å…³é”®å­—ç”¨æ³•:" + value);
 					}
 				}
 				else if(token.getType() == Tokenizer.STRING)
@@ -5350,7 +5351,7 @@ public class SimpleSelect
 			if (start == next) 
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":scanBy, ÆğÊ¼Î»ÖÃ³¬³ö½áÊøÎ»ÖÃ");
+				throw new RQException(mm.getMessage("syntax.error") + ":scanBy, èµ·å§‹ä½ç½®è¶…å‡ºç»“æŸä½ç½®");
 			}
 			
 			int end = Tokenizer.scanComma(tokens, start, next);
@@ -5366,7 +5367,7 @@ public class SimpleSelect
 				if(expNode.getNodeList() == null || expNode.getNodeList().size() == 0)
 				{
 					MessageManager mm = ParseMessage.get();
-					throw new RQException(mm.getMessage("syntax.error") + ":scanBy, ·Ö×éÏî²»ÄÜÎª¿ÕÖµ");
+					throw new RQException(mm.getMessage("syntax.error") + ":scanBy, åˆ†ç»„é¡¹ä¸èƒ½ä¸ºç©ºå€¼");
 				}
 				Node node = null;
 				if(expNode.getNodeList().size() == 1)
@@ -5387,21 +5388,21 @@ public class SimpleSelect
 				if(node == null)
 				{
 					MessageManager mm = ParseMessage.get();
-					throw new RQException(mm.getMessage("syntax.error") + ":scanBy, ·Ö×éÏîµÄÀàĞÍ²»¶Ô");
+					throw new RQException(mm.getMessage("syntax.error") + ":scanBy, åˆ†ç»„é¡¹çš„ç±»å‹ä¸å¯¹");
 				}
 				this.groupList.add(node);
 			} 
 			else //not support 'AT'
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":scanBy, ²»Ö§³ÖAtÓï¾ä");
+				throw new RQException(mm.getMessage("syntax.error") + ":scanBy, ä¸æ”¯æŒAtè¯­å¥");
 			}
 			start = end;
 		}
 		if(this.groupList == null || this.groupList.size() == 0)
 		{
 			MessageManager mm = ParseMessage.get();
-			throw new RQException(mm.getMessage("syntax.error") + ":scanBy, Ã»ÓĞËÑË÷µ½ÈÎºÎ·Ö×éÁĞ");
+			throw new RQException(mm.getMessage("syntax.error") + ":scanBy, æ²¡æœ‰æœç´¢åˆ°ä»»ä½•åˆ†ç»„åˆ—");
 		}
 	}
 	
@@ -5411,7 +5412,7 @@ public class SimpleSelect
 		if (start == next || !tokens[start].isKeyWord("BY")) 
 		{
 			MessageManager mm = ParseMessage.get();
-			throw new RQException(mm.getMessage("syntax.error") + ":scanOrders, Order×Ó¾ä¸ñÊ½´íÎó");
+			throw new RQException(mm.getMessage("syntax.error") + ":scanOrders, Orderå­å¥æ ¼å¼é”™è¯¯");
 		}
 
 		while (start < next) 
@@ -5420,7 +5421,7 @@ public class SimpleSelect
 			if (start == next) 
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":scanOrders, ÆğÊ¼Î»ÖÃ³¬³ö½áÊøÎ»ÖÃ");
+				throw new RQException(mm.getMessage("syntax.error") + ":scanOrders, èµ·å§‹ä½ç½®è¶…å‡ºç»“æŸä½ç½®");
 			}
 			
 			int end = Tokenizer.scanComma(tokens, start, next);
@@ -5459,7 +5460,7 @@ public class SimpleSelect
 			if(node == null)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":scanOrders, ÅÅĞòÏîµÄÀàĞÍ²»¶Ô");
+				throw new RQException(mm.getMessage("syntax.error") + ":scanOrders, æ’åºé¡¹çš„ç±»å‹ä¸å¯¹");
 			}
 			
 			if(desc)
@@ -5478,7 +5479,7 @@ public class SimpleSelect
 		if (this.sortList == null || this.sortList.size() == 0) 
 		{
 			MessageManager mm = ParseMessage.get();
-			throw new RQException(mm.getMessage("syntax.error") + ":scanOrders, ÅÅĞò×Ö¶Î²»ÄÜÎª¿ÕÖµ");
+			throw new RQException(mm.getMessage("syntax.error") + ":scanOrders, æ’åºå­—æ®µä¸èƒ½ä¸ºç©ºå€¼");
 		}
 	}
 	
@@ -5510,13 +5511,13 @@ public class SimpleSelect
 							if(colNo <= 0 || colNo > this.columnList.size())
 							{
 								MessageManager mm = ParseMessage.get();
-								throw new RQException(mm.getMessage("syntax.error") + ":execute, ·Ö×éÏîÈ¡µÄÁĞºÅ²»¶Ô");
+								throw new RQException(mm.getMessage("syntax.error") + ":execute, åˆ†ç»„é¡¹å–çš„åˆ—å·ä¸å¯¹");
 							}
 						}
 						catch(NumberFormatException ex)
 						{
 							MessageManager mm = ParseMessage.get();
-							throw new RQException(mm.getMessage("syntax.error") + ":execute, ·Ö×éÏîµÄÀàĞÍ²»¶Ô", ex);
+							throw new RQException(mm.getMessage("syntax.error") + ":execute, åˆ†ç»„é¡¹çš„ç±»å‹ä¸å¯¹", ex);
 						}
 						grpNode = this.columnList.get(colNo - 1);
 					}
@@ -5776,7 +5777,7 @@ public class SimpleSelect
 					|| ((BaseRecord)tab.get(1)).getFieldCount() != 1 || !(((BaseRecord)tab.get(1)).getFieldValue(0) instanceof Sequence))
 					{
 						MessageManager mm = ParseMessage.get();
-						throw new RQException(mm.getMessage("syntax.error") + ":execute, topÓÅ»¯½á¹ûÒì³£");
+						throw new RQException(mm.getMessage("syntax.error") + ":execute, topä¼˜åŒ–ç»“æœå¼‚å¸¸");
 					}
 					
 					Table res = null;
@@ -5788,7 +5789,7 @@ public class SimpleSelect
 						if(!(obj instanceof BaseRecord))
 						{
 							MessageManager mm = ParseMessage.get();
-							throw new RQException(mm.getMessage("syntax.error") + ":execute, topÓÅ»¯½á¹ûÒì³£");
+							throw new RQException(mm.getMessage("syntax.error") + ":execute, topä¼˜åŒ–ç»“æœå¼‚å¸¸");
 						}
 						
 						BaseRecord rec = (BaseRecord)obj;
@@ -5844,7 +5845,7 @@ public class SimpleSelect
 						if(expNode.hasFieldNotGroup())
 						{
 							MessageManager mm = ParseMessage.get();
-							throw new RQException(mm.getMessage("syntax.error") + ":execute, Í¬Ò»±í´ïÊ½ÖĞ²»ÄÜÍ¬Ê±³öÏÖ·Ç·Ö×é×Ö¶ÎºÍ¾ÛºÏº¯Êı");
+							throw new RQException(mm.getMessage("syntax.error") + ":execute, åŒä¸€è¡¨è¾¾å¼ä¸­ä¸èƒ½åŒæ—¶å‡ºç°éåˆ†ç»„å­—æ®µå’Œèšåˆå‡½æ•°");
 						}
 						gatherSign = true;
 						expNode.collect();
@@ -5860,7 +5861,7 @@ public class SimpleSelect
 			if(gatherSign && fieldNotGroupSign)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":execute, ´ı²éÑ¯×Ö¶ÎÖĞ²»ÄÜÍ¬Ê±³öÏÖ·Ç·Ö×é×Ö¶ÎºÍ¾ÛºÏº¯Êı");
+				throw new RQException(mm.getMessage("syntax.error") + ":execute, å¾…æŸ¥è¯¢å­—æ®µä¸­ä¸èƒ½åŒæ—¶å‡ºç°éåˆ†ç»„å­—æ®µå’Œèšåˆå‡½æ•°");
 			}
 			
 			if(gatherSign || this.groupList != null && this.groupList.size() != 0)
@@ -6081,12 +6082,12 @@ public class SimpleSelect
 						if(this.topNumber >= 0 && this.limitNumber >= 0)
 						{
 							MessageManager mm = ParseMessage.get();
-							throw new RQException(mm.getMessage("syntax.error") + ":execute, Top¹Ø¼ü×ÖÓëLimit¹Ø¼ü×Ö²»ÄÜÍ¬Ê±Ê¹ÓÃ");
+							throw new RQException(mm.getMessage("syntax.error") + ":execute, Topå…³é”®å­—ä¸Limitå…³é”®å­—ä¸èƒ½åŒæ—¶ä½¿ç”¨");
 						}
 						else if(this.topNumber >= 0 && this.offsetNumber >= 0)
 						{
 							MessageManager mm = ParseMessage.get();
-							throw new RQException(mm.getMessage("syntax.error") + ":execute, Top¹Ø¼ü×ÖÓëOffset¹Ø¼ü×Ö²»ÄÜÍ¬Ê±Ê¹ÓÃ");
+							throw new RQException(mm.getMessage("syntax.error") + ":execute, Topå…³é”®å­—ä¸Offsetå…³é”®å­—ä¸èƒ½åŒæ—¶ä½¿ç”¨");
 						}
 						
 						limit = this.topNumber >= 0 ? this.topNumber : this.limitNumber;
@@ -6117,14 +6118,14 @@ public class SimpleSelect
 								if(colNo <= 0 || colNo > this.columnList.size())
 								{
 									MessageManager mm = ParseMessage.get();
-									throw new RQException(mm.getMessage("syntax.error") + ":execute, ÅÅĞòÏîÈ¡µÄÁĞºÅ²»¶Ô");
+									throw new RQException(mm.getMessage("syntax.error") + ":execute, æ’åºé¡¹å–çš„åˆ—å·ä¸å¯¹");
 								}
 								ordExp = "#" + colNo;
 							}
 							catch(NumberFormatException ex)
 							{
 								MessageManager mm = ParseMessage.get();
-								throw new RQException(mm.getMessage("syntax.error") + ":execute, ÅÅĞòÏîµÄÀàĞÍ²»¶Ô", ex);
+								throw new RQException(mm.getMessage("syntax.error") + ":execute, æ’åºé¡¹çš„ç±»å‹ä¸å¯¹", ex);
 							}
 						}
 						else
@@ -6282,12 +6283,12 @@ public class SimpleSelect
 							if(this.topNumber >= 0 && this.limitNumber >= 0)
 							{
 								MessageManager mm = ParseMessage.get();
-								throw new RQException(mm.getMessage("syntax.error") + ":execute, Top¹Ø¼ü×ÖÓëLimit¹Ø¼ü×Ö²»ÄÜÍ¬Ê±Ê¹ÓÃ");
+								throw new RQException(mm.getMessage("syntax.error") + ":execute, Topå…³é”®å­—ä¸Limitå…³é”®å­—ä¸èƒ½åŒæ—¶ä½¿ç”¨");
 							}
 							else if(this.topNumber >= 0 && this.offsetNumber >= 0)
 							{
 								MessageManager mm = ParseMessage.get();
-								throw new RQException(mm.getMessage("syntax.error") + ":execute, Top¹Ø¼ü×ÖÓëOffset¹Ø¼ü×Ö²»ÄÜÍ¬Ê±Ê¹ÓÃ");
+								throw new RQException(mm.getMessage("syntax.error") + ":execute, Topå…³é”®å­—ä¸Offsetå…³é”®å­—ä¸èƒ½åŒæ—¶ä½¿ç”¨");
 							}
 							limit = this.topNumber >= 0 ? this.topNumber : this.limitNumber;
 							offset = this.offsetNumber > 0 ? this.offsetNumber : 0;
@@ -6316,14 +6317,14 @@ public class SimpleSelect
 									if(colNo <= 0 || colNo > this.columnList.size())
 									{
 										MessageManager mm = ParseMessage.get();
-										throw new RQException(mm.getMessage("syntax.error") + ":execute, ÅÅĞòÏîÈ¡µÄÁĞºÅ²»¶Ô");
+										throw new RQException(mm.getMessage("syntax.error") + ":execute, æ’åºé¡¹å–çš„åˆ—å·ä¸å¯¹");
 									}
 									ordExp = "#" + colNo;
 								}
 								catch(NumberFormatException ex)
 								{
 									MessageManager mm = ParseMessage.get();
-									throw new RQException(mm.getMessage("syntax.error") + ":execute, ÅÅĞòÏîµÄÀàĞÍ²»¶Ô", ex);
+									throw new RQException(mm.getMessage("syntax.error") + ":execute, æ’åºé¡¹çš„ç±»å‹ä¸å¯¹", ex);
 								}
 							}
 							else
@@ -6409,12 +6410,12 @@ public class SimpleSelect
 							if(this.topNumber >= 0 && this.limitNumber >= 0)
 							{
 								MessageManager mm = ParseMessage.get();
-								throw new RQException(mm.getMessage("syntax.error") + ":execute, Top¹Ø¼ü×ÖÓëLimit¹Ø¼ü×Ö²»ÄÜÍ¬Ê±Ê¹ÓÃ");
+								throw new RQException(mm.getMessage("syntax.error") + ":execute, Topå…³é”®å­—ä¸Limitå…³é”®å­—ä¸èƒ½åŒæ—¶ä½¿ç”¨");
 							}
 							else if(this.topNumber >= 0 && this.offsetNumber >= 0)
 							{
 								MessageManager mm = ParseMessage.get();
-								throw new RQException(mm.getMessage("syntax.error") + ":execute, Top¹Ø¼ü×ÖÓëOffset¹Ø¼ü×Ö²»ÄÜÍ¬Ê±Ê¹ÓÃ");
+								throw new RQException(mm.getMessage("syntax.error") + ":execute, Topå…³é”®å­—ä¸Offsetå…³é”®å­—ä¸èƒ½åŒæ—¶ä½¿ç”¨");
 							}
 							limit = this.topNumber >= 0 ? this.topNumber : this.limitNumber;
 							offset = this.offsetNumber > 0 ? this.offsetNumber : 0;
@@ -6444,14 +6445,14 @@ public class SimpleSelect
 									if(colNo <= 0 || colNo > this.columnList.size())
 									{
 										MessageManager mm = ParseMessage.get();
-										throw new RQException(mm.getMessage("syntax.error") + ":execute, ÅÅĞòÏîÈ¡µÄÁĞºÅ²»¶Ô");
+										throw new RQException(mm.getMessage("syntax.error") + ":execute, æ’åºé¡¹å–çš„åˆ—å·ä¸å¯¹");
 									}
 									ordExp = "#" + colNo;
 								}
 								catch(NumberFormatException ex)
 								{
 									MessageManager mm = ParseMessage.get();
-									throw new RQException(mm.getMessage("syntax.error") + ":execute, ÅÅĞòÏîµÄÀàĞÍ²»¶Ô", ex);
+									throw new RQException(mm.getMessage("syntax.error") + ":execute, æ’åºé¡¹çš„ç±»å‹ä¸å¯¹", ex);
 								}
 							}
 							else
@@ -6548,12 +6549,12 @@ public class SimpleSelect
 			if(this.topNumber >= 0 && this.limitNumber >= 0)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":execute, Top¹Ø¼ü×ÖÓëLimit¹Ø¼ü×Ö²»ÄÜÍ¬Ê±Ê¹ÓÃ");
+				throw new RQException(mm.getMessage("syntax.error") + ":execute, Topå…³é”®å­—ä¸Limitå…³é”®å­—ä¸èƒ½åŒæ—¶ä½¿ç”¨");
 			}
 			else if(this.topNumber >= 0 && this.offsetNumber >= 0)
 			{
 				MessageManager mm = ParseMessage.get();
-				throw new RQException(mm.getMessage("syntax.error") + ":execute, Top¹Ø¼ü×ÖÓëOffset¹Ø¼ü×Ö²»ÄÜÍ¬Ê±Ê¹ÓÃ");
+				throw new RQException(mm.getMessage("syntax.error") + ":execute, Topå…³é”®å­—ä¸Offsetå…³é”®å­—ä¸èƒ½åŒæ—¶ä½¿ç”¨");
 			}
 			else if(this.topNumber >= 0)
 			{	
@@ -6640,13 +6641,13 @@ public class SimpleSelect
 				}
 				else
 				{
-					throw new RQException("º¯Êı²ÎÊı²»ÄÜÎª¿Õ");
+					throw new RQException("å‡½æ•°å‚æ•°ä¸èƒ½ä¸ºç©º");
 				}
 				start = comma + 1;
 				if(start >= next)
 				{
 					MessageManager mm = ParseMessage.get();
-					throw new RQException(mm.getMessage("function.paramError") + ":getParams, ²ÎÊı¸ñÊ½ÓĞÎó");
+					throw new RQException(mm.getMessage("function.paramError") + ":getParams, å‚æ•°æ ¼å¼æœ‰è¯¯");
 				}
 			}
 		}
@@ -6666,7 +6667,7 @@ public class SimpleSelect
 		else if(topFilter != null)
 		{
 			MessageManager mm = ParseMessage.get();
-			throw new RQException(mm.getMessage("syntax.error") + ":optimizeWhere, WHERE×Ó¾ä±»ÖØ¸´·ÖÎö");
+			throw new RQException(mm.getMessage("syntax.error") + ":optimizeWhere, WHEREå­å¥è¢«é‡å¤åˆ†æ");
 		}
 		return pw.getTokens(true);
 	}
@@ -6708,7 +6709,7 @@ public class SimpleSelect
 		else
 		{
 			MessageManager mm = ParseMessage.get();
-			throw new RQException(mm.getMessage("function.paramError") + ":getSQLValue, ²»Ö§³ÖµÄÊı¾İÀàĞÍ");
+			throw new RQException(mm.getMessage("function.paramError") + ":getSQLValue, ä¸æ”¯æŒçš„æ•°æ®ç±»å‹");
 		}
 	}
 	
@@ -6749,7 +6750,7 @@ public class SimpleSelect
 		else
 		{
 			MessageManager mm = ParseMessage.get();
-			throw new RQException(mm.getMessage("function.paramError") + ":getProcValue, ²»Ö§³ÖµÄÊı¾İÀàĞÍ");
+			throw new RQException(mm.getMessage("function.paramError") + ":getProcValue, ä¸æ”¯æŒçš„æ•°æ®ç±»å‹");
 		}
 	}
 	
@@ -6763,7 +6764,7 @@ public class SimpleSelect
 		if(ds == null)
 		{
 			MessageManager mm = ParseMessage.get();
-			throw new RQException(mm.getMessage("syntax.error") + ":fillSubQueryField, ²éÑ¯½á¹ûĞòÁĞÈ±ÉÙÊı¾İ½á¹¹");
+			throw new RQException(mm.getMessage("syntax.error") + ":fillSubQueryField, æŸ¥è¯¢ç»“æœåºåˆ—ç¼ºå°‘æ•°æ®ç»“æ„");
 		}
 		
 		if(subQueryEntryList.isEmpty())
@@ -6787,13 +6788,13 @@ public class SimpleSelect
 				if(fromPos <= 0)
 				{
 					MessageManager mm = ParseMessage.get();
-					throw new RQException(mm.getMessage("syntax.error") + ":fillSubQueryField, FROM¹Ø¼ü×ÖÈ±Ê§");
+					throw new RQException(mm.getMessage("syntax.error") + ":fillSubQueryField, FROMå…³é”®å­—ç¼ºå¤±");
 				}
 				int wherePos = Tokenizer.scanKeyWord("WHERE", subQueryTokens, 0, subQueryTokens.length);
 				if(wherePos >= 0 && wherePos < fromPos)
 				{
 					MessageManager mm = ParseMessage.get();
-					throw new RQException(mm.getMessage("syntax.error") + ":fillSubQueryField, WHERE¹Ø¼ü×ÖµÄÎ»ÖÃ²»ÕıÈ·");
+					throw new RQException(mm.getMessage("syntax.error") + ":fillSubQueryField, WHEREå…³é”®å­—çš„ä½ç½®ä¸æ­£ç¡®");
 				}
 				if(wherePos < 0)
 				{
@@ -6804,35 +6805,35 @@ public class SimpleSelect
 				if(groupPos >= 0 && groupPos < wherePos)
 				{
 					MessageManager mm = ParseMessage.get();
-					throw new RQException(mm.getMessage("syntax.error") + ":fillSubQueryField, GROUP¹Ø¼ü×ÖµÄÎ»ÖÃ²»ÕıÈ·");
+					throw new RQException(mm.getMessage("syntax.error") + ":fillSubQueryField, GROUPå…³é”®å­—çš„ä½ç½®ä¸æ­£ç¡®");
 				}
 				minPos = pos(groupPos, minPos);
 				int havingPos = Tokenizer.scanKeyWord("HAVING", subQueryTokens, 0, subQueryTokens.length);
 				if(havingPos >= 0 && havingPos < groupPos)
 				{
 					MessageManager mm = ParseMessage.get();
-					throw new RQException(mm.getMessage("syntax.error") + ":fillSubQueryField, HAVING¹Ø¼ü×ÖµÄÎ»ÖÃ²»ÕıÈ·");
+					throw new RQException(mm.getMessage("syntax.error") + ":fillSubQueryField, HAVINGå…³é”®å­—çš„ä½ç½®ä¸æ­£ç¡®");
 				}
 				minPos = pos(havingPos, minPos);
 				int orderPos = Tokenizer.scanKeyWord("ORDER", subQueryTokens, 0, subQueryTokens.length);
 				if(orderPos >= 0 && orderPos < minPos)
 				{
 					MessageManager mm = ParseMessage.get();
-					throw new RQException(mm.getMessage("syntax.error") + ":fillSubQueryField, ORDER¹Ø¼ü×ÖµÄÎ»ÖÃ²»ÕıÈ·");
+					throw new RQException(mm.getMessage("syntax.error") + ":fillSubQueryField, ORDERå…³é”®å­—çš„ä½ç½®ä¸æ­£ç¡®");
 				}
 				minPos = pos(orderPos , minPos);
 				int limitPos = Tokenizer.scanKeyWord("LIMIT", subQueryTokens, 0, subQueryTokens.length);
 				if(limitPos >= 0 && limitPos < minPos)
 				{
 					MessageManager mm = ParseMessage.get();
-					throw new RQException(mm.getMessage("syntax.error") + ":fillSubQueryField, LIMIT¹Ø¼ü×ÖµÄÎ»ÖÃ²»ÕıÈ·");
+					throw new RQException(mm.getMessage("syntax.error") + ":fillSubQueryField, LIMITå…³é”®å­—çš„ä½ç½®ä¸æ­£ç¡®");
 				}
 				minPos = pos(limitPos , minPos);
 				int offsetPos = Tokenizer.scanKeyWord("OFFSET", subQueryTokens, 0, subQueryTokens.length);
 				if(offsetPos >= 0 && offsetPos < minPos)
 				{
 					MessageManager mm = ParseMessage.get();
-					throw new RQException(mm.getMessage("syntax.error") + ":fillSubQueryField, OFFSET¹Ø¼ü×ÖµÄÎ»ÖÃ²»ÕıÈ·");
+					throw new RQException(mm.getMessage("syntax.error") + ":fillSubQueryField, OFFSETå…³é”®å­—çš„ä½ç½®ä¸æ­£ç¡®");
 				}
 				int byStart = pos(groupPos, wherePos, fromPos);
 				int byEnd = pos(havingPos, orderPos, limitPos, offsetPos, subQueryTokens.length);
@@ -6840,12 +6841,12 @@ public class SimpleSelect
 				if(byPos < 0 && groupPos > 0)
 				{
 					MessageManager mm = ParseMessage.get();
-					throw new RQException(mm.getMessage("syntax.error") + ":fillSubQueryField, ¹Ø¼ü×ÖGROUPºóÃæÈ±ÉÙ¹Ø¼ü×ÖBY");
+					throw new RQException(mm.getMessage("syntax.error") + ":fillSubQueryField, å…³é”®å­—GROUPåé¢ç¼ºå°‘å…³é”®å­—BY");
 				}
 				else if(havingPos > 0 && byPos > havingPos)
 				{
 					MessageManager mm = ParseMessage.get();
-					throw new RQException(mm.getMessage("syntax.error") + ":fillSubQueryField, ·Ö×é¹Ø¼ü×ÖBYÎ»ÖÃÓ¦¸ÃÔÚHAVINGÖ®Ç°");
+					throw new RQException(mm.getMessage("syntax.error") + ":fillSubQueryField, åˆ†ç»„å…³é”®å­—BYä½ç½®åº”è¯¥åœ¨HAVINGä¹‹å‰");
 				}
 				
 				int whereEnd = pos(groupPos, byPos, havingPos, orderPos, limitPos, offsetPos, subQueryTokens.length);
@@ -6853,28 +6854,28 @@ public class SimpleSelect
 				if(intoPos >= fromPos)
 				{
 					MessageManager mm = ParseMessage.get();
-					throw new RQException(mm.getMessage("syntax.error") + ":fillSubQueryField, INTO¹Ø¼ü×ÖµÄÎ»ÖÃ²»ÕıÈ·");
+					throw new RQException(mm.getMessage("syntax.error") + ":fillSubQueryField, INTOå…³é”®å­—çš„ä½ç½®ä¸æ­£ç¡®");
 				}
 				int columnEnd = pos(intoPos, fromPos);
 				int selectPos = Tokenizer.scanKeyWord("SELECT", subQueryTokens, 0, subQueryTokens.length);
 				if(selectPos < 0)
 				{
 					MessageManager mm = ParseMessage.get();
-					throw new RQException(mm.getMessage("syntax.error") + ":fillSubQueryField, SELECT¹Ø¼ü×ÖÈ±Ê§");
+					throw new RQException(mm.getMessage("syntax.error") + ":fillSubQueryField, SELECTå…³é”®å­—ç¼ºå¤±");
 				}
 				int columnStart = selectPos;
 				int distinctPos = Tokenizer.scanKeyWord("DISTINCT", subQueryTokens, 0, subQueryTokens.length);
 				if(distinctPos >= 0 && distinctPos < selectPos)
 				{
 					MessageManager mm = ParseMessage.get();
-					throw new RQException(mm.getMessage("syntax.error") + ":fillSubQueryField, DISTINCT¹Ø¼ü×ÖµÄÎ»ÖÃ²»ÕıÈ·");
+					throw new RQException(mm.getMessage("syntax.error") + ":fillSubQueryField, DISTINCTå…³é”®å­—çš„ä½ç½®ä¸æ­£ç¡®");
 				}
 				columnStart = pos(distinctPos, columnStart);
 				int topPos = Tokenizer.scanKeyWord("TOP", subQueryTokens, 0, subQueryTokens.length);
 				if(topPos >= 0 && topPos < columnStart)
 				{
 					MessageManager mm = ParseMessage.get();
-					throw new RQException(mm.getMessage("syntax.error") + ":fillSubQueryField, TOP¹Ø¼ü×ÖµÄÎ»ÖÃ²»ÕıÈ·");
+					throw new RQException(mm.getMessage("syntax.error") + ":fillSubQueryField, TOPå…³é”®å­—çš„ä½ç½®ä¸æ­£ç¡®");
 				}
 				columnStart = pos(topPos, columnStart);
 				if(columnStart == topPos)
@@ -6906,7 +6907,7 @@ public class SimpleSelect
 						if(Tokenizer.scanComma(columnTokens, 0, columnTokens.length) != -1)
 						{
 							MessageManager mm = ParseMessage.get();
-							throw new RQException(mm.getMessage("syntax.error") + ":fillSubQueryField, ×Ó²éÑ¯ÖĞSELECT×Ö¶Î±ØĞëµ¥ÁĞ");
+							throw new RQException(mm.getMessage("syntax.error") + ":fillSubQueryField, å­æŸ¥è¯¢ä¸­SELECTå­—æ®µå¿…é¡»å•åˆ—");
 						}
 						if(columnTokens[columnTokens.length - 1].getSpaces().isEmpty())
 						{
@@ -7007,15 +7008,15 @@ public class SimpleSelect
 						if(fltExps.length != 2)
 						{
 							MessageManager mm = ParseMessage.get();
-							throw new RQException(mm.getMessage("syntax.error")+":fillSubQueryField, µÈÖµ²¼¶û±í´ïÊ½Óï·¨´íÎó");
+							throw new RQException(mm.getMessage("syntax.error")+":fillSubQueryField, ç­‰å€¼å¸ƒå°”è¡¨è¾¾å¼è¯­æ³•é”™è¯¯");
 						}
 						
-						if(outerFieldSet.contains(fltExps[0].trim().toLowerCase())) //Íâ²¿×Ö¶Î
+						if(outerFieldSet.contains(fltExps[0].trim().toLowerCase())) //å¤–éƒ¨å­—æ®µ
 						{
 							String numberCode = ExpressionTranslator.translateExp(fltExps[0].trim().toLowerCase(), fn2cnMap);
 							outerExpsList.add(new Expression(numberCode));
 						}
-						else if(innerFieldSet.contains(fltExps[0].trim().toLowerCase())) //ÄÚ²¿×Ö¶Î
+						else if(innerFieldSet.contains(fltExps[0].trim().toLowerCase())) //å†…éƒ¨å­—æ®µ
 						{
 							String numberCode = ExpressionTranslator.translateExp(fltExps[0].trim().toLowerCase(), fn2cnMap);
 							innerExpsList.add(new Expression(numberCode));
@@ -7023,15 +7024,15 @@ public class SimpleSelect
 						else
 						{
 							MessageManager mm = ParseMessage.get();
-							throw new RQException(mm.getMessage("syntax.error")+":fillSubQueryField, Î´ÖªµÄ×Ö¶Î");
+							throw new RQException(mm.getMessage("syntax.error")+":fillSubQueryField, æœªçŸ¥çš„å­—æ®µ");
 						}
 						
-						if(outerFieldSet.contains(fltExps[1].trim().toLowerCase())) //Íâ²¿×Ö¶Î
+						if(outerFieldSet.contains(fltExps[1].trim().toLowerCase())) //å¤–éƒ¨å­—æ®µ
 						{
 							String numberCode = ExpressionTranslator.translateExp(fltExps[1].trim().toLowerCase(), fn2cnMap);
 							outerExpsList.add(new Expression(numberCode));
 						}
-						else if(innerFieldSet.contains(fltExps[1].trim().toLowerCase())) //ÄÚ²¿×Ö¶Î
+						else if(innerFieldSet.contains(fltExps[1].trim().toLowerCase())) //å†…éƒ¨å­—æ®µ
 						{
 							String numberCode = ExpressionTranslator.translateExp(fltExps[1].trim().toLowerCase(), fn2cnMap);
 							innerExpsList.add(new Expression(numberCode));
@@ -7039,7 +7040,7 @@ public class SimpleSelect
 						else
 						{
 							MessageManager mm = ParseMessage.get();
-							throw new RQException(mm.getMessage("syntax.error")+":fillSubQueryField, Î´ÖªµÄ×Ö¶Î");
+							throw new RQException(mm.getMessage("syntax.error")+":fillSubQueryField, æœªçŸ¥çš„å­—æ®µ");
 						}
 					}
 					
