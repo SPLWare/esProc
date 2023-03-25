@@ -705,7 +705,7 @@ public class SimpleSelect
 						if(icursor != null)
 						{
 							Sequence seq = icursor.peek(1);
-							System.out.println(seq);
+							//System.out.println(seq);
 							if(seq != null)
 							{
 								this.struct = seq.dataStruct();
