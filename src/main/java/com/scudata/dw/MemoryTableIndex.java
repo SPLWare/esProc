@@ -75,7 +75,7 @@ public class MemoryTableIndex {
 	private IntArray[] recordNums;// 跟排序后的数据相对应的记录号 
 	private IndexTable indexTable;//索引表（用于等值查找）
 	
-	public MemoryTableIndex(String name, MemoryTable srcTable, String[] fields, Expression filter, 
+	public MemoryTableIndex(String name, Table srcTable, String[] fields, Expression filter, 
 			int capacity, int type, Context ctx) {
 		this.name = name;
 		if (filter != null) {

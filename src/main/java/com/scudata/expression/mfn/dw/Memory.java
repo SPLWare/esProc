@@ -4,6 +4,7 @@ import com.scudata.dm.Context;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
 import com.scudata.dm.cursor.ICursor;
+import com.scudata.dw.IPhyTable;
 import com.scudata.dw.MemoryTable;
 import com.scudata.dw.PhyTable;
 import com.scudata.expression.PhyTableFunction;
@@ -49,5 +50,15 @@ public class Memory extends PhyTableFunction {
 		}
 		
 		return result;
+	}
+	
+	public boolean isLeftTypeMatch(Object obj) {
+		if (obj instanceof IPhyTable) {
+			if (option != null && option.indexOf('v') != -1)
+				return false;
+			return true;
+		}
+		
+		return false;
 	}
 }
