@@ -19,7 +19,7 @@ public class Mode extends SequenceFunction {
 			return srcSequence.mode();
 		} else if (param.isLeaf()) {
 			Expression exp = param.getLeafExpression();
-			return srcSequence.calc(exp, ctx).mode();
+			return srcSequence.calc(exp, "o", ctx).mode();
 		} else {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("mode" + mm.getMessage("function.invalidParam"));

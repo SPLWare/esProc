@@ -44,7 +44,7 @@ public class Rank extends SequenceFunction {
 			}
 			
 			value = sub0.getLeafExpression().calculate(ctx);
-			seq = seq.calc(sub1.getLeafExpression(), ctx);
+			seq = seq.calc(sub1.getLeafExpression(), "o", ctx);
 		}
 		
 		return seq.rank(value, option);

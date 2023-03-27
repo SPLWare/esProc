@@ -19,7 +19,7 @@ public class ICount extends SequenceFunction {
 			return srcSequence.icount(option);
 		} else if (param.isLeaf()) {
 			Expression exp = param.getLeafExpression();
-			return srcSequence.calc(exp, ctx).icount(option);
+			return srcSequence.calc(exp, "o", ctx).icount(option);
 		} else {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("icount" + mm.getMessage("function.invalidParam"));

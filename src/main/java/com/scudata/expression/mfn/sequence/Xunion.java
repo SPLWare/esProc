@@ -19,7 +19,7 @@ public class Xunion extends SequenceFunction {
 			return srcSequence.xor();
 		} else if (param.isLeaf()) {
 			Expression exp = param.getLeafExpression();
-			return srcSequence.calc(exp, ctx).xor();
+			return srcSequence.calc(exp, "o", ctx).xor();
 		} else {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("xunion" + mm.getMessage("function.invalidParam"));

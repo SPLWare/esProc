@@ -19,7 +19,7 @@ public class Isect extends SequenceFunction {
 			return srcSequence.isect(option);
 		} else if (param.isLeaf()) {
 			Expression exp = param.getLeafExpression();
-			return srcSequence.calc(exp, ctx).isect(option);
+			return srcSequence.calc(exp, "o", ctx).isect(option);
 		} else {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("isect" + mm.getMessage("function.invalidParam"));

@@ -19,7 +19,7 @@ public class Avg extends SequenceFunction {
 			return srcSequence.average();
 		} else if (param.isLeaf()) {
 			Expression exp = param.getLeafExpression();
-			return srcSequence.calc(exp, ctx).average();
+			return srcSequence.calc(exp, "o", ctx).average();
 		} else {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("avg" + mm.getMessage("function.invalidParam"));

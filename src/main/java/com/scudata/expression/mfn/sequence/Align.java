@@ -89,7 +89,7 @@ public class Align extends SequenceFunction {
 
 			IParam sub1 = tgtParam.getSub(1);
 			if (sub1 != null) {
-				tgtSeries = tgtSeries.calc(sub1.getLeafExpression(), ctx);
+				tgtSeries = tgtSeries.calc(sub1.getLeafExpression(), "o", ctx);
 			}
 		}
 

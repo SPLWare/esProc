@@ -20,7 +20,7 @@ public class Max extends SequenceFunction {
 			return srcSequence.max();
 		} else if (param.isLeaf()) {
 			Expression exp = param.getLeafExpression();
-			return srcSequence.calc(exp, ctx).max();
+			return srcSequence.calc(exp, "o", ctx).max();
 		} else {
 			if (param.getSubSize() != 2) {
 				MessageManager mm = EngineMessage.get();
@@ -45,7 +45,7 @@ public class Max extends SequenceFunction {
 				return srcSequence.max(count);
 			} else {
 				Expression exp = param0.getLeafExpression();
-				return srcSequence.calc(exp, ctx).max(count);
+				return srcSequence.calc(exp, "o", ctx).max(count);
 			}
 		}
 	}

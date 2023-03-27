@@ -19,7 +19,7 @@ public class Diff extends SequenceFunction {
 			return srcSequence.diff(option);
 		} else if (param.isLeaf()) {
 			Expression exp = param.getLeafExpression();
-			return srcSequence.calc(exp, ctx).diff(option);
+			return srcSequence.calc(exp, "o", ctx).diff(option);
 		}
 
 		MessageManager mm = EngineMessage.get();

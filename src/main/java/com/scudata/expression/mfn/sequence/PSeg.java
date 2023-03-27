@@ -38,7 +38,7 @@ public class PSeg extends SequenceFunction {
 				throw new RQException("pseg" + mm.getMessage("function.invalidParam"));
 			}
 			
-			Sequence seq = srcSequence.calc(sub0.getLeafExpression(), ctx);
+			Sequence seq = srcSequence.calc(sub0.getLeafExpression(), "o", ctx);
 			Object value = sub1.getLeafExpression().calculate(ctx);
 			return seq.pseg(value, option);
 		} else {

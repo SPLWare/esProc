@@ -19,7 +19,7 @@ public class Sum extends SequenceFunction {
 			return srcSequence.sum();
 		} else if (param.isLeaf()) {
 			Expression exp = param.getLeafExpression();
-			return srcSequence.calc(exp, ctx).sum();
+			return srcSequence.calc(exp, "o", ctx).sum();
 		} else {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("sum" + mm.getMessage("function.invalidParam"));

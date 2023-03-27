@@ -19,7 +19,7 @@ public class Ranks extends SequenceFunction {
 			return srcSequence.ranks(option);
 		} else if (param.isLeaf()) {
 			Expression exp = param.getLeafExpression();
-			return srcSequence.calc(exp, ctx).ranks(option);
+			return srcSequence.calc(exp, "o", ctx).ranks(option);
 		} else {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("ranks" + mm.getMessage("function.invalidParam"));

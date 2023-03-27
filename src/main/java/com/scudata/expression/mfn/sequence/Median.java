@@ -131,7 +131,7 @@ public class Median extends SequenceFunction  {
 			Sequence seq = null;	// 序列经过表达式x计算后的序列
 			try {
 				// 对序列计算表达式x
-				seq = srcSequence.calc(sub1.getLeafExpression(), ctx);
+				seq = srcSequence.calc(sub1.getLeafExpression(), "o", ctx);
 				
 				if (null != sub00) {
 					value1 = (int)Variant.longValue(sub00.getLeafExpression().calculate(ctx));

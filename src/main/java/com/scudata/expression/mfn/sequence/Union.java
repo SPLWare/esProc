@@ -19,7 +19,7 @@ public class Union extends SequenceFunction {
 			return srcSequence.union(option);
 		} else if (param.isLeaf()) {
 			Expression exp = param.getLeafExpression();
-			return srcSequence.calc(exp, ctx).union(option);
+			return srcSequence.calc(exp, "o", ctx).union(option);
 		} else {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("union" + mm.getMessage("function.invalidParam"));

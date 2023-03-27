@@ -20,7 +20,7 @@ public class Min extends SequenceFunction {
 			return srcSequence.min(option);
 		} else if (param.isLeaf()) {
 			Expression exp = param.getLeafExpression();
-			return srcSequence.calc(exp, ctx).min(option);
+			return srcSequence.calc(exp, "o", ctx).min(option);
 		} else {
 			if (param.getSubSize() != 2) {
 				MessageManager mm = EngineMessage.get();
@@ -45,7 +45,7 @@ public class Min extends SequenceFunction {
 				return srcSequence.min(count);
 			} else {
 				Expression exp = param0.getLeafExpression();
-				return srcSequence.calc(exp, ctx).min(count);
+				return srcSequence.calc(exp, "o", ctx).min(count);
 			}
 		}
 	}

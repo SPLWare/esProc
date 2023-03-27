@@ -133,7 +133,7 @@ public class Regex extends SequenceFunction {
 
 		Sequence strs;
 		if (exp != null) {
-			strs = srcSequence.calc(exp, ctx);
+			strs = srcSequence.calc(exp, "o", ctx);
 		} else {
 			strs = srcSequence;
 		}

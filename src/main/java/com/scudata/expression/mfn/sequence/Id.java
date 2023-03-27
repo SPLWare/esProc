@@ -22,7 +22,7 @@ public class Id extends SequenceFunction {
 			return srcSequence.id(option);
 		} else if (param.isLeaf()) {
 			Expression exp = param.getLeafExpression();
-			Sequence series = srcSequence.calc(exp, ctx);
+			Sequence series = srcSequence.calc(exp, "o", ctx);
 			series = series.id(option);
 			if (option != null && option.indexOf('0') != -1) {
 				series.deleteNull(false);
