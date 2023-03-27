@@ -124,6 +124,7 @@ public class Minp extends Gather {
 	public IArray gather(IArray result, int []resultSeqs, Context ctx) {
 		ComputeStack computeStack = ctx.getComputeStack();
 		Sequence src = computeStack.getTopSequence();
+		IArray mems = src.getMems();
 		int fieldIndex = this.fieldIndex;
 		needFinish = false;
 		
@@ -146,32 +147,32 @@ public class Minp extends Gather {
 					if (array.isNull(i)) {
 						result.add(null);
 					} else if (isOne) {
-						result.add(src.getMem(i));
+						result.add(mems.get(i));
 					} else {
 						Sequence seq = new Sequence();
-						seq.add(src.getMem(i));
+						seq.add(mems.get(i));
 						result.add(seq);
 					}
 				} else if (!array.isNull(i)) {
 					if (isOne) {
 						BaseRecord r = (BaseRecord)result.get(resultSeqs[i]);
 						if (r == null || r.compare(fieldIndex, array, i) > 0) {
-							result.set(resultSeqs[i], src.getMem(i));
+							result.set(resultSeqs[i], mems.get(i));
 						}
 					} else {
 						Sequence seq = (Sequence)result.get(resultSeqs[i]);
 						if (seq == null) {
 							seq = new Sequence();
-							seq.add(src.getMem(i));
+							seq.add(mems.get(i));
 							result.set(resultSeqs[i], seq);
 						} else {
 							BaseRecord r = (BaseRecord)seq.get(1);
 							int cmp = r.compare(fieldIndex, array, i);
 							if(cmp > 0) {
 								seq.clear();
-								seq.add(src.getMem(i));
+								seq.add(mems.get(i));
 							} else if (cmp == 0) {
-								seq.add(src.getMem(i));
+								seq.add(mems.get(i));
 							}
 						}
 					}
@@ -184,32 +185,32 @@ public class Minp extends Gather {
 					if (array.isNull(i)) {
 						result.add(null);
 					} else if (isOne) {
-						result.add(src.getMem(i));
+						result.add(mems.get(i));
 					} else {
 						Sequence seq = new Sequence();
-						seq.add(src.getMem(i));
+						seq.add(mems.get(i));
 						result.add(seq);
 					}
 				} else if (!array.isNull(i)) {
 					if (isOne) {
 						BaseRecord r = (BaseRecord)result.get(resultSeqs[i]);
 						if (r == null || array.compareTo(i, r.calc(exp, ctx)) < 0) {
-							result.set(resultSeqs[i], src.getMem(i));
+							result.set(resultSeqs[i], mems.get(i));
 						}
 					} else {
 						Sequence seq = (Sequence)result.get(resultSeqs[i]);
 						if (seq == null) {
 							seq = new Sequence();
-							seq.add(src.getMem(i));
+							seq.add(mems.get(i));
 							result.set(resultSeqs[i], seq);
 						} else {
 							BaseRecord r = (BaseRecord)seq.get(1);
 							int cmp = array.compareTo(i, r.calc(exp, ctx));
 							if(cmp < 0) {
 								seq.clear();
-								seq.add(src.getMem(i));
+								seq.add(mems.get(i));
 							} else if (cmp == 0) {
-								seq.add(src.getMem(i));
+								seq.add(mems.get(i));
 							}
 						}
 					}
