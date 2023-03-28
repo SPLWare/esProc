@@ -720,6 +720,7 @@ public final class FunctionLib {
 		addFunction("isdigit", "com.scudata.expression.fn.convert.IsDigit");
 		addFunction("islower", "com.scudata.expression.fn.convert.IsLower");
 		addFunction("isupper", "com.scudata.expression.fn.convert.IsUpper");
+		addFunction("uuid", "com.scudata.expression.fn.CreateUUID");
 
 		addFunction("bool", "com.scudata.expression.fn.convert.ToBool");
 		addFunction("int", "com.scudata.expression.fn.convert.ToInteger");
