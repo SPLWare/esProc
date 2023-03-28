@@ -3,6 +3,7 @@ package com.scudata.expression.mfn.db;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
+import com.scudata.dm.DBObject;
 import com.scudata.dm.cursor.DBCursor;
 import com.scudata.expression.DBFunction;
 import com.scudata.expression.IParam;
@@ -77,5 +78,13 @@ public class CreateCursor extends DBFunction {
 		}
 
 		return new DBCursor(strSql, sqlParams, types, db, option, ctx);
+	}
+	
+	public boolean isLeftTypeMatch(Object obj) {
+		if (obj instanceof DBObject) {
+			return option == null || option.indexOf('v') == -1;
+		} else {
+			return false;
+		}
 	}
 }

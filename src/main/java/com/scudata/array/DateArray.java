@@ -55,6 +55,15 @@ public class DateArray implements IArray {
 		}
 	}
 	
+	private static int compare(Date d1, long t2) {
+		if (d1 != null) {
+			long t1 = d1.getTime();
+			return (t1 < t2 ? -1 : (t1 > t2 ? 1 : 0));
+		} else {
+			return 0;
+		}
+	}
+	
 	private static int compare(Date d1, Object d2) {
 		if (d2 == null) {
 			return d1 == null ? 0 : 1;
@@ -1683,36 +1692,37 @@ public class DateArray implements IArray {
 		int size = this.size;
 		Date []d1 = this.datas;
 		boolean []resultDatas = new boolean[size + 1];
+		long time = value.getTime();
 		
 		if (relation == Relation.EQUAL) {
 			// 是否等于判断
 			for (int i = 1; i <= size; ++i) {
-				resultDatas[i] = compare(d1[i], value) == 0;
+				resultDatas[i] = compare(d1[i], time) == 0;
 			}
 		} else if (relation == Relation.GREATER) {
 			// 是否大于判断
 			for (int i = 1; i <= size; ++i) {
-				resultDatas[i] = compare(d1[i], value) > 0;
+				resultDatas[i] = compare(d1[i], time) > 0;
 			}
 		} else if (relation == Relation.GREATER_EQUAL) {
 			// 是否大于等于判断
 			for (int i = 1; i <= size; ++i) {
-				resultDatas[i] = compare(d1[i], value) >= 0;
+				resultDatas[i] = compare(d1[i], time) >= 0;
 			}
 		} else if (relation == Relation.LESS) {
 			// 是否小于判断
 			for (int i = 1; i <= size; ++i) {
-				resultDatas[i] = compare(d1[i], value) < 0;
+				resultDatas[i] = compare(d1[i], time) < 0;
 			}
 		} else if (relation == Relation.LESS_EQUAL) {
 			// 是否小于等于判断
 			for (int i = 1; i <= size; ++i) {
-				resultDatas[i] = compare(d1[i], value) <= 0;
+				resultDatas[i] = compare(d1[i], time) <= 0;
 			}
 		} else if (relation == Relation.NOT_EQUAL) {
 			// 是否不等于判断
 			for (int i = 1; i <= size; ++i) {
-				resultDatas[i] = compare(d1[i], value) != 0;
+				resultDatas[i] = compare(d1[i], time) != 0;
 			}
 		} else if (relation == Relation.AND) {
 			for (int i = 1; i <= size; ++i) {
@@ -2143,48 +2153,49 @@ public class DateArray implements IArray {
 		int size = this.size;
 		Date []d1 = this.datas;
 		boolean []resultDatas = result.getDatas();
+		long time = value.getTime();
 		
 		if (isAnd) {
 			// 与左侧结果执行&&运算
 			if (relation == Relation.EQUAL) {
 				// 是否等于判断
 				for (int i = 1; i <= size; ++i) {
-					if (resultDatas[i] && compare(d1[i], value) != 0) {
+					if (resultDatas[i] && compare(d1[i], time) != 0) {
 						resultDatas[i] = false;
 					}
 				}
 			} else if (relation == Relation.GREATER) {
 				// 是否大于判断
 				for (int i = 1; i <= size; ++i) {
-					if (resultDatas[i] && compare(d1[i], value) <= 0) {
+					if (resultDatas[i] && compare(d1[i], time) <= 0) {
 						resultDatas[i] = false;
 					}
 				}
 			} else if (relation == Relation.GREATER_EQUAL) {
 				// 是否大于等于判断
 				for (int i = 1; i <= size; ++i) {
-					if (resultDatas[i] && compare(d1[i], value) < 0) {
+					if (resultDatas[i] && compare(d1[i], time) < 0) {
 						resultDatas[i] = false;
 					}
 				}
 			} else if (relation == Relation.LESS) {
 				// 是否小于判断
 				for (int i = 1; i <= size; ++i) {
-					if (resultDatas[i] && compare(d1[i], value) >= 0) {
+					if (resultDatas[i] && compare(d1[i], time) >= 0) {
 						resultDatas[i] = false;
 					}
 				}
 			} else if (relation == Relation.LESS_EQUAL) {
 				// 是否小于等于判断
 				for (int i = 1; i <= size; ++i) {
-					if (resultDatas[i] && compare(d1[i], value) > 0) {
+					if (resultDatas[i] && compare(d1[i], time) > 0) {
 						resultDatas[i] = false;
 					}
 				}
 			} else if (relation == Relation.NOT_EQUAL) {
 				// 是否不等于判断
 				for (int i = 1; i <= size; ++i) {
-					if (resultDatas[i] && compare(d1[i], value) == 0) {
+					if (resultDatas[i] && compare(d1[i], time) == 0) {
 						resultDatas[i] = false;
 					}
 				}
@@ -2196,42 +2207,42 @@ public class DateArray implements IArray {
 			if (relation == Relation.EQUAL) {
 				// 是否等于判断
 				for (int i = 1; i <= size; ++i) {
-					if (!resultDatas[i] && compare(d1[i], value) == 0) {
+					if (!resultDatas[i] && compare(d1[i], time) == 0) {
 						resultDatas[i] = true;
 					}
 				}
 			} else if (relation == Relation.GREATER) {
 				// 是否大于判断
 				for (int i = 1; i <= size; ++i) {
-					if (!resultDatas[i] && compare(d1[i], value) > 0) {
+					if (!resultDatas[i] && compare(d1[i], time) > 0) {
 						resultDatas[i] = true;
 					}
 				}
 			} else if (relation == Relation.GREATER_EQUAL) {
 				// 是否大于等于判断
 				for (int i = 1; i <= size; ++i) {
-					if (!resultDatas[i] && compare(d1[i], value) >= 0) {
+					if (!resultDatas[i] && compare(d1[i], time) >= 0) {
 						resultDatas[i] = true;
 					}
 				}
 			} else if (relation == Relation.LESS) {
 				// 是否小于判断
 				for (int i = 1; i <= size; ++i) {
-					if (!resultDatas[i] && compare(d1[i], value) < 0) {
+					if (!resultDatas[i] && compare(d1[i], time) < 0) {
 						resultDatas[i] = true;
 					}
 				}
 			} else if (relation == Relation.LESS_EQUAL) {
 				// 是否小于等于判断
 				for (int i = 1; i <= size; ++i) {
-					if (!resultDatas[i] && compare(d1[i], value) <= 0) {
+					if (!resultDatas[i] && compare(d1[i], time) <= 0) {
 						resultDatas[i] = true;
 					}
 				}
 			} else if (relation == Relation.NOT_EQUAL) {
 				// 是否不等于判断
 				for (int i = 1; i <= size; ++i) {
-					if (!resultDatas[i] && compare(d1[i], value) != 0) {
+					if (!resultDatas[i] && compare(d1[i], time) != 0) {
 						resultDatas[i] = true;
 					}
 				}
