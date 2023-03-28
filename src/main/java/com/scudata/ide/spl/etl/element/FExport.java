@@ -82,7 +82,7 @@ public class FExport extends ObjectElement {
 		if(t){
 			options.append("t");
 		}
-		if(a && !t){//a t »¥³â
+		if(a){
 			options.append("a");
 		}
 		if(b){
