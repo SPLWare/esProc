@@ -8,7 +8,6 @@ import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
-import java.util.Properties;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 import java.util.regex.Matcher;
@@ -20,6 +19,8 @@ import com.scudata.common.RQException;
 import com.scudata.dm.Context;
 import com.scudata.expression.operator.DotOperator;
 import com.scudata.resources.EngineMessage;
+import com.scudata.util.Properties;
+import com.scudata.util.Property;
 
 /**
  * 函数库，用于系统函数的加载和查找
@@ -808,19 +809,19 @@ public final class FunctionLib {
 	 */
 	public static void loadCustomFunctions(InputStream is) {
 		try {
-			Properties pt = new Properties();
-			pt.load(is);
-			for (Enumeration<?> e = pt.propertyNames(); e.hasMoreElements(); ) {
-				Object key = e.nextElement();
-				String value = (String) pt.get(key);
+			Properties properties = new Properties();
+			properties.load(is);
+			for (Property property : properties) {
+				String name = property.getName();
+				String value = property.getValue();
 				int pos = value.indexOf(',');
 				String type = value.substring(0, pos).trim();
 				String cls = value.substring(pos + 1, value.length()).trim();
 
 				if (type.equals("1")) {
-					addMemberFunction( (String) key, cls);
+					addMemberFunction(name, cls);
 				} else if (type.equals("0")) {
-					addFunction( (String) key, cls);
+					addFunction(name, cls);
 				}
 
 			} //for
@@ -831,32 +832,32 @@ public final class FunctionLib {
 	}
 	
 	private static void loadExt(InputStream is, ClassLoader loader) throws Exception {
-		Properties pt = new Properties();
-		pt.load(is);
+		Properties properties = new Properties();
+		properties.load(is);
 		HashMap<String, Class<? extends Function>> m0 = new HashMap<String, Class<? extends Function>>();
 		ArrayList<String> mfnNames = new ArrayList<String>();
 		ArrayList<Class<? extends MemberFunction>> mfns = new ArrayList<Class<? extends MemberFunction>>();
 		
-		for (Enumeration<?> e = pt.propertyNames(); e.hasMoreElements(); ) {
-			String key = (String)e.nextElement();
-			String value = (String) pt.get(key);
+		for (Property property : properties) {
+			String name = property.getName();
+			String value = property.getValue();
 			int pos = value.indexOf(',');
 			String type = value.substring(0, pos).trim();
 			String clsName = value.substring(pos + 1, value.length()).trim();
 
 			if (type.equals("0")) {
 				// 全局函数不允许重名
-				if (fnMap.containsKey(key)) {
+				if (fnMap.containsKey(name)) {
 					MessageManager mm = EngineMessage.get();
-					throw new RuntimeException(mm.getMessage("FunctionLib.repeatedFunction") + key);
+					throw new RuntimeException(mm.getMessage("FunctionLib.repeatedFunction") + name);
 				}
 				
 				Class<? extends Function> cls = (Class<? extends Function>)loader.loadClass(clsName);
-				m0.put(key, cls);
+				m0.put(name, cls);
 			} else if (type.equals("1")) {
 				// 成员函数可以重名
 				Class<? extends MemberFunction> cls = (Class<? extends MemberFunction>)loader.loadClass(clsName);
-				mfnNames.add(key);
+				mfnNames.add(name);
 				mfns.add(cls);
 			}
 		}

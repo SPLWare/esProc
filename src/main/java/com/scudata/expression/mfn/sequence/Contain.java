@@ -27,6 +27,15 @@ public class Contain extends SequenceFunction {
 	private HashIndexSequence hashIndex;
 	private boolean isSorted;
 	
+	public void setDotLeftObject(Object obj) {
+		srcSequence = (Sequence)obj;
+		
+		if (option != null && option.indexOf('h') != -1 && prevSequence != srcSequence) {
+			prevSequence = srcSequence;
+			hashIndex = new HashIndexSequence(srcSequence);
+		}
+	}
+	
 	public boolean ifModifySequence() {
 		return false;
 	}
@@ -46,9 +55,29 @@ public class Contain extends SequenceFunction {
 	public Object calculate(Context ctx) {
 		if (param.isLeaf()) {
 			Object obj = param.getLeafExpression().calculate(ctx);
+			if (hashIndex != null) {
+				return hashIndex.findPos(obj) > 0;
+			}
+			
 			return srcSequence.contains(obj, option != null && option.indexOf('b') != -1);
 		} else {
 			int size = param.getSubSize();
+			if (hashIndex != null) {
+				for (int i = 0; i < size; ++i) {
+					IParam sub = param.getSub(i);
+					Object val = null;
+					if (sub != null) {
+						val = sub.getLeafExpression().calculate(ctx);
+					}
+					
+					if (hashIndex.findPos(val) < 1) {
+						return false;
+					}
+				}
+
+				return true;
+			}
+			
 			for (int i = 0; i < size; ++i) {
 				IParam sub = param.getSub(i);
 				Object val = null;

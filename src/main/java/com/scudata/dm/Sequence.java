@@ -3966,11 +3966,17 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @return Sequence
 	 */
 	public Sequence calc(Expression exp, String opt, Context ctx) {
-		if (opt == null || opt.indexOf('m') == -1) {
-			return calc(exp, ctx);
-		} else {
-			return MultithreadUtil.calc(this, exp, ctx);
+		if (opt != null) {
+			if (opt.indexOf('m') != -1) {
+				return MultithreadUtil.calc(this, exp, ctx);
+			} else if (opt.indexOf('v') != -1) {
+				Sequence result = calc(exp, ctx);
+				result.mems = result.mems.toPureArray();
+				return result;
+			}
 		}
+		
+		return calc(exp, ctx);
 	}
 	
 	/**
@@ -5511,6 +5517,11 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @return Sequence
 	 */
 	public Object minp(Expression exp, String opt, Context ctx) {
+		int len = length();
+		if (exp == null) {
+			return len > 0 ? getMem(1) : null;
+		}
+		
 		boolean bAll = false, bLast = false, ignoreNull = true;
 		if (opt != null) {
 			if (opt.indexOf('a') != -1) bAll = true; // 选择所有的
@@ -5518,7 +5529,6 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			if (opt.indexOf('0') != -1) ignoreNull = false;
 		}
 
-		int len = length();
 		if (len == 0) {
 			return bAll ? new Sequence(0) : null;
 		}
@@ -5555,13 +5565,17 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	 * @return Sequence
 	 */
 	public Object maxp(Expression exp, String opt, Context ctx) {
+		int len = length();
+		if (exp == null) {
+			return len > 0 ? getMem(len) : null;
+		}
+		
 		boolean bAll = false, bLast = false;
 		if (opt != null) {
 			if (opt.indexOf('a') != -1)bAll = true; // 选择所有的
 			if (opt.indexOf('z') != -1)bLast = true; // 从后开始
 		}
 
-		int len = length();
 		if (len == 0) {
 			return bAll ? new Sequence(0) : null;
 		}

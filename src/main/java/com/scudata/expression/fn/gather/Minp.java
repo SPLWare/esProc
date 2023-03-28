@@ -33,19 +33,27 @@ public class Minp extends Gather {
 	}
 
 	public void prepare(Context ctx) {
-		if (param == null || !param.isLeaf()) {
+		if (param == null) {
+			needFinish = false;
+		} else if (param.isLeaf()) {
+			exp = param.getLeafExpression();
+		} else {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("minp" + mm.getMessage("function.invalidParam"));
 		}
-
-		exp = param.getLeafExpression();
+		
 		isOne = option == null || option.indexOf('a') == -1;
 	}
 
 	public Expression getRegatherExpression(int q) {
+		String f = "#" + q;
+		if (exp == null) {
+			String str = "top@1(1, 1," + f + ")";
+			return new Expression(str);
+		}
+		
 		//minp(x):f
 		//top@1(1,~.x,f)
-		String f = "#" + q;
 		if (isOne) {
 			String str = "top@1(1," + "~.(" + exp.toString() + ")," + f + ")";
 			return new Expression(str);
@@ -74,6 +82,10 @@ public class Minp extends Gather {
 	}
 	
 	public Object gather(Context ctx) {
+		if (exp == null) {
+			return ctx.getComputeStack().getTopObject().getCurrent();
+		}
+		
 		Object val = exp.calculate(ctx);
 		Object r = ctx.getComputeStack().getTopObject().getCurrent();
 		
@@ -87,6 +99,10 @@ public class Minp extends Gather {
 	}
 
 	public Object gather(Object oldValue, Context ctx) {
+		if (exp == null) {
+			return oldValue;
+		}
+		
 		Object val = exp.calculate(ctx);
 		if (val == null) {
 			return oldValue;
@@ -122,12 +138,26 @@ public class Minp extends Gather {
 	 * @return IArray 结果数组
 	 */
 	public IArray gather(IArray result, int []resultSeqs, Context ctx) {
+		if (result == null) {
+			result = new ObjectArray(Env.INITGROUPSIZE);
+		}
+		
 		ComputeStack computeStack = ctx.getComputeStack();
 		Sequence src = computeStack.getTopSequence();
 		IArray mems = src.getMems();
-		int fieldIndex = this.fieldIndex;
 		needFinish = false;
 		
+		if (exp == null) {
+			for (int i = 1, len = mems.size(); i <= len; ++i) {
+				if (result.size() < resultSeqs[i]) {
+					result.add(mems.get(i));
+				}
+			}
+			
+			return result;
+		}
+		
+		int fieldIndex = this.fieldIndex;
 		if (fieldIndex == Integer.MIN_VALUE) {
 			DataStruct ds = src.dataStruct();
 			if (ds != null) {
@@ -137,9 +167,6 @@ public class Minp extends Gather {
 		
 		boolean isOne = this.isOne;
 		IArray array = exp.calculateAll(ctx);
-		if (result == null) {
-			result = new ObjectArray(Env.INITGROUPSIZE);
-		}
 		
 		if (fieldIndex > -1) {
 			for (int i = 1, len = array.size(); i <= len; ++i) {
@@ -231,7 +258,15 @@ public class Minp extends Gather {
 	 */
 	public void gather2(IArray result, IArray result2, int []seqs, Context ctx) {
 		int fieldIndex = this.fieldIndex;
-		if (fieldIndex > -1) {
+		if (exp == null) {
+			for (int i = 1, len = result2.size(); i <= len; ++i) {
+				if (seqs[i] != 0) {
+					if (result.get(seqs[i]) == null) {
+						result.set(seqs[i], result2.get(i));
+					}
+				}
+			}
+		} else if (fieldIndex > -1) {
 			if (isOne) {
 				for (int i = 1, len = result2.size(); i <= len; ++i) {
 					if (seqs[i] != 0) {

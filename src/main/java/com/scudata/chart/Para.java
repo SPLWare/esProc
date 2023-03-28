@@ -10,7 +10,8 @@ import com.scudata.cellset.graph.config.Palette;
 import com.scudata.chart.element.IMapAxis;
 import com.scudata.common.Logger;
 import com.scudata.dm.*;
-import com.scudata.util.*;
+import com.scudata.util.Variant;
+
 /**
  * 需要定义多个数据的顺序属性，且属性可以循环对应时，使用该类
  *
