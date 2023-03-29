@@ -195,6 +195,8 @@ public class DialogDataSourcePara extends JDialog {
 	 */
 	private Vector<String> existNames;
 
+	private static final int TAB_EXTEND = 1;
+
 	/**
 	 * ¹¹Ôìº¯Êý
 	 */
@@ -440,11 +442,11 @@ public class DialogDataSourcePara extends JDialog {
 		tableExtend.acceptText();
 		StringBuffer sb = new StringBuffer();
 		for (int i = 0; i < tableExtend.getRowCount(); i++) {
-			String key = (String) tableExtend.data.getValueAt(i, COL_NAME);
+			Object key = tableExtend.data.getValueAt(i, COL_NAME);
 			if (!StringUtils.isValidString(key)) {
 				continue;
 			}
-			String val = (String) tableExtend.data.getValueAt(i, COL_VALUE);
+			Object val = tableExtend.data.getValueAt(i, COL_VALUE);
 			if (!StringUtils.isValidString(val)) {
 				continue;
 			}
@@ -565,63 +567,59 @@ public class DialogDataSourcePara extends JDialog {
 	void jTabbedPaneAttr_stateChanged(ChangeEvent e) {
 		try {
 			int newIndex = jTabbedPaneAttr.getSelectedIndex();
-			if (newIndex == 1) {
-				if (!StringUtils.isValidString(jComboBoxDriver
-						.getSelectedItem())) {
-					return;
-				}
-				String driver = (String) jComboBoxDriver.getSelectedItem();
-				if (!StringUtils.isValidString(jComboBoxURL.getSelectedItem())) {
-					return;
-				}
-				String url = (String) jComboBoxURL.getSelectedItem();
+			if (newIndex != TAB_EXTEND)
+				return;
+			if (!StringUtils.isValidString(jComboBoxDriver.getSelectedItem())) {
+				return;
+			}
+			String driver = (String) jComboBoxDriver.getSelectedItem();
+			if (!StringUtils.isValidString(jComboBoxURL.getSelectedItem())) {
+				return;
+			}
+			String url = (String) jComboBoxURL.getSelectedItem();
 
-				Driver d = (Driver) Class.forName(driver).newInstance();
-				DriverPropertyInfo[] dpi;
-				dpi = d.getPropertyInfo(url, new Properties());
-				boolean isDL = driver.startsWith("com.datalogic");
-
-				int r = -1;
-				if (dpi.length > 2) {
-					tableExtend.data.setRowCount(isDL ? dpi.length
-							: dpi.length - 2);
-					tableExtend.resetIndex();
-					for (int i = 0; i < dpi.length; i++) {
-						if (!isDL) {
-							if (dpi[i].name.equalsIgnoreCase("user")) {
-								continue;
-							}
-							if (dpi[i].name.equalsIgnoreCase("password")) {
-								continue;
-							}
-						}
-						r++;
-						tableExtend.data.setValueAt(dpi[i].name, r, COL_NAME);
-						tableExtend.data.setValueAt(
-								new Boolean(dpi[i].required), r, COL_ISNEED);
-					}
+			Driver d = (Driver) Class.forName(driver).newInstance();
+			DriverPropertyInfo[] dpi = d.getPropertyInfo(url, new Properties());
+			// boolean isDL = driver.startsWith("com.datalogic");
+			// tableExtend.data.setRowCount(isDL ? dpi.length : dpi.length - 2);
+			// tableExtend.resetIndex();
+			tableExtend.removeAllRows();
+			tableExtend.clearSelection();
+			tableExtend.acceptText();
+			for (int i = 0; i < dpi.length; i++) {
+				if (dpi[i].name.equalsIgnoreCase("user")) {
+					continue;
 				}
-
-				String tmpSeg, key, val;
-				tmpSeg = extend;
-				if (!StringUtils.isValidString(tmpSeg)) {
-					tmpSeg = "";
+				if (dpi[i].name.equalsIgnoreCase("password")) {
+					continue;
 				}
-				StringTokenizer st = new StringTokenizer(tmpSeg, ";");
-				int index;
-				while (st.hasMoreTokens()) {
-					tmpSeg = st.nextToken();
-					index = tmpSeg.indexOf("=");
-					key = tmpSeg.substring(0, index);
-					val = tmpSeg.substring(index + 1);
-					r = tableExtend.searchValue(key, COL_NAME);
-					if (r == -1) {
-						r = tableExtend.addRow();
-						tableExtend.data.setValueAt(key, r, COL_NAME);
-						tableExtend.data.setValueAt(val, r, COL_VALUE);
-					} else {
-						tableExtend.data.setValueAt(val, r, COL_VALUE);
-					}
+				int row = tableExtend.addRow(false);
+				tableExtend.data.setValueAt(dpi[i].name, row, COL_NAME);
+				tableExtend.data.setValueAt(new Boolean(dpi[i].required), row,
+						COL_ISNEED);
+			}
+			tableExtend.resetIndex();
+
+			String tmpSeg, key, val;
+			tmpSeg = extend;
+			if (!StringUtils.isValidString(tmpSeg)) {
+				tmpSeg = "";
+			}
+			StringTokenizer st = new StringTokenizer(tmpSeg, ";");
+			int index;
+			int r;
+			while (st.hasMoreTokens()) {
+				tmpSeg = st.nextToken();
+				index = tmpSeg.indexOf("=");
+				key = tmpSeg.substring(0, index);
+				val = tmpSeg.substring(index + 1);
+				r = tableExtend.searchValue(key, COL_NAME);
+				if (r == -1) {
+					r = tableExtend.addRow();
+					tableExtend.data.setValueAt(key, r, COL_NAME);
+					tableExtend.data.setValueAt(val, r, COL_VALUE);
+				} else {
+					tableExtend.data.setValueAt(val, r, COL_VALUE);
 				}
 			}
 		} catch (Exception t) {
