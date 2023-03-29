@@ -1519,6 +1519,31 @@ public class JTableEx extends JTable implements MouseListener,
 	}
 
 	/**
+	 * 在表格的SearchColumn列里面查找Name
+	 * 
+	 * @param name        String
+	 * @param searchColumn int
+	 * @return int, 找到该对象返回对象所在的行号,否则返回-1
+	 */
+	public int searchName(String name, int searchColumn, boolean caseSens) {
+		Object o;
+		for (int i = 0; i < getRowCount(); i++) {
+			o = getValueAt(i, searchColumn);
+			if (caseSens) {
+				if (name.equals(o)) {
+					return i;
+				}
+			} else {
+				if (StringUtils.isValidString(o)
+						&& name.equalsIgnoreCase((String) o)) {
+					return i;
+				}
+			}
+		}
+		return -1;
+	}
+
+	/**
 	 * 追加行
 	 * 
 	 * @return

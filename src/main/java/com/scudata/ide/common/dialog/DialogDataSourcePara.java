@@ -441,6 +441,7 @@ public class DialogDataSourcePara extends JDialog {
 
 		tableExtend.acceptText();
 		StringBuffer sb = new StringBuffer();
+		Properties porps = new Properties();
 		for (int i = 0; i < tableExtend.getRowCount(); i++) {
 			Object key = tableExtend.data.getValueAt(i, COL_NAME);
 			if (!StringUtils.isValidString(key)) {
@@ -450,8 +451,10 @@ public class DialogDataSourcePara extends JDialog {
 			if (!StringUtils.isValidString(val)) {
 				continue;
 			}
+			porps.put((String) key, (String) val);
 			sb.append(";" + key + "=" + val);
 		}
+		config.setInfo(porps);
 		if (sb.length() > 1) {
 			config.setExtend(sb.substring(1));
 		} else {
@@ -569,6 +572,9 @@ public class DialogDataSourcePara extends JDialog {
 			int newIndex = jTabbedPaneAttr.getSelectedIndex();
 			if (newIndex != TAB_EXTEND)
 				return;
+			tableExtend.removeAllRows();
+			tableExtend.clearSelection();
+			tableExtend.acceptText();
 			if (!StringUtils.isValidString(jComboBoxDriver.getSelectedItem())) {
 				return;
 			}
@@ -583,9 +589,6 @@ public class DialogDataSourcePara extends JDialog {
 			// boolean isDL = driver.startsWith("com.datalogic");
 			// tableExtend.data.setRowCount(isDL ? dpi.length : dpi.length - 2);
 			// tableExtend.resetIndex();
-			tableExtend.removeAllRows();
-			tableExtend.clearSelection();
-			tableExtend.acceptText();
 			for (int i = 0; i < dpi.length; i++) {
 				if (dpi[i].name.equalsIgnoreCase("user")) {
 					continue;
@@ -613,7 +616,7 @@ public class DialogDataSourcePara extends JDialog {
 				index = tmpSeg.indexOf("=");
 				key = tmpSeg.substring(0, index);
 				val = tmpSeg.substring(index + 1);
-				r = tableExtend.searchValue(key, COL_NAME);
+				r = tableExtend.searchName(key, COL_NAME, false);
 				if (r == -1) {
 					r = tableExtend.addRow();
 					tableExtend.data.setValueAt(key, r, COL_NAME);
