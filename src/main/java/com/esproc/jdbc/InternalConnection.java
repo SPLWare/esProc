@@ -73,10 +73,6 @@ public class InternalConnection implements Connection, Serializable {
 	private int driverMajorVersion, driverMinorVersion;
 
 	/**
-	 * The user name
-	 */
-	private String username = null;
-	/**
 	 * The esProc context
 	 */
 	private Context ctx;
@@ -280,26 +276,6 @@ public class InternalConnection implements Connection, Serializable {
 		synchronized (stats) {
 			stats.remove(st);
 		}
-	}
-
-	/**
-	 * Get the user name
-	 * 
-	 * @return String
-	 */
-	public String getUsername() {
-		JDBCUtil.log("InternalConnection-48");
-		return username;
-	}
-
-	/**
-	 * Set the user name
-	 * 
-	 * @param username
-	 */
-	public void setUsername(String username) {
-		JDBCUtil.log("InternalConnection-49");
-		this.username = username;
 	}
 
 	/**
@@ -810,7 +786,7 @@ public class InternalConnection implements Connection, Serializable {
 			throw new SQLException(JDBCMessage.get().getMessage(
 					"error.conclosed"));
 		if (metaData == null) {
-			metaData = new DatabaseMetaData(url, username, driverName,
+			metaData = new DatabaseMetaData(url, driverName,
 					driverMajorVersion, driverMinorVersion) {
 
 				public InternalConnection getConnection() {

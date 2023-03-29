@@ -56,11 +56,10 @@ public abstract class DatabaseMetaData implements java.sql.DatabaseMetaData {
 	 * @param driverMinorVersion The minor version of the driver
 	 * @throws SQLException
 	 */
-	public DatabaseMetaData(String url, String userName, String driverName,
+	public DatabaseMetaData(String url, String driverName,
 			int driverMajorVersion, int driverMinorVersion) throws SQLException {
 		JDBCUtil.log("DatabaseMetaData-2");
 		this.url = url;
-		this.userName = userName;
 		this.driverName = driverName;
 		this.driverMajorVersion = driverMajorVersion;
 		this.driverMinorVersion = driverMinorVersion;

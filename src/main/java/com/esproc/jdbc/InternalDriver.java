@@ -76,20 +76,17 @@ public class InternalDriver implements java.sql.Driver, Serializable {
 			throw new SQLException(JDBCMessage.get().getMessage(
 					"jdbcdriver.incorrecturl", DEMO_URL));
 		}
-		String username = info.getProperty("user");
-		/* The password is currently not used. */
-		// String password = info.getProperty("password");
-		String config = info.getProperty("config");
-		String sonlyServer = info.getProperty("onlyServer");
+		String config = info.getProperty(KEY_CONFIG);
+		String sonlyServer = info.getProperty(KEY_ONLY_SERVER);
 		String sdebugmode = info.getProperty("debugmode");
 		String[] parts = url.split("&");
 		for (int i = 0; i < parts.length; i++) {
-			int i1 = parts[i].toLowerCase().indexOf("username=");
-			int i3 = parts[i].toLowerCase().indexOf("config=");
-			int i4 = parts[i].toLowerCase().indexOf("onlyserver=");
-			int i6 = parts[i].toLowerCase().indexOf("debugmode=");
-			if (i1 >= 0)
-				username = parts[i].substring(i1 + 9);
+			int i3 = parts[i].toLowerCase().indexOf(
+					KEY_CONFIG.toLowerCase() + "=");
+			int i4 = parts[i].toLowerCase().indexOf(
+					KEY_ONLY_SERVER.toLowerCase() + "=");
+			int i6 = parts[i].toLowerCase().indexOf(
+					KEY_DEBUGMODE.toLowerCase() + "=");
 			if (i3 >= 0)
 				config = parts[i].substring(i3 + 7);
 			if (i4 >= 0)
@@ -104,7 +101,7 @@ public class InternalDriver implements java.sql.Driver, Serializable {
 			} catch (Exception e) {
 				Logger.warn("Invalid onlyServer parameter: " + sonlyServer);
 			}
-		JDBCUtil.log("onlyserver=" + isOnlyServer);
+		JDBCUtil.log(KEY_ONLY_SERVER + "=" + isOnlyServer);
 		boolean isDebugMode = false;
 		if (StringUtils.isValidString(sdebugmode)) {
 			try {
@@ -117,7 +114,6 @@ public class InternalDriver implements java.sql.Driver, Serializable {
 		server.initConfig(rc, config);
 		InternalConnection con = server.connect(this);
 		if (con != null) {
-			con.setUsername(username);
 			con.setUrl(url);
 			con.setClientInfo(info);
 			con.setOnlyServer(isOnlyServer);
@@ -164,7 +160,10 @@ public class InternalDriver implements java.sql.Driver, Serializable {
 	public DriverPropertyInfo[] getPropertyInfo(String url, Properties info)
 			throws SQLException {
 		JDBCUtil.log("InternalDriver-5");
-		return new DriverPropertyInfo[0];
+		DriverPropertyInfo[] dpis = new DriverPropertyInfo[2];
+		dpis[0] = new DriverPropertyInfo(KEY_CONFIG, null);
+		dpis[1] = new DriverPropertyInfo(KEY_ONLY_SERVER, "false");
+		return dpis;
 	}
 
 	/**
@@ -216,4 +215,10 @@ public class InternalDriver implements java.sql.Driver, Serializable {
 				"getParentLogger()"));
 		return null;
 	}
+
+	private static final String KEY_CONFIG = "config";
+	private static final String KEY_ONLY_SERVER = "onlyServer";
+
+	// ½öµ÷ÊÔÓÃ
+	private static final String KEY_DEBUGMODE = "debugmode";
 }
