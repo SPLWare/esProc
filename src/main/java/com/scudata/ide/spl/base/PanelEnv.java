@@ -298,19 +298,19 @@ public abstract class PanelEnv extends JPanel {
 		int buffer = ConfigUtil.parseBufferSize(textFileBuffer.getText());
 		if (buffer == -1) {
 			selectEnvTab();
-			JOptionPane.showMessageDialog(parent,
+			GM.messageDialog(parent,
 					mm.getMessage("dialogoptions.emptyfilebuffer"));
 			textFileBuffer.setText(Env.getFileBufSize() + "");
 			return false;
 		} else if (buffer == -2) {
 			selectEnvTab();
-			JOptionPane.showMessageDialog(parent,
+			GM.messageDialog(parent,
 					mm.getMessage("dialogoptions.invalidfilebuffer"));
 			textFileBuffer.setText(Env.getFileBufSize() + "");
 			return false;
 		} else if (buffer < GC.MIN_BUFF_SIZE) {
 			selectEnvTab();
-			JOptionPane.showMessageDialog(parent,
+			GM.messageDialog(parent,
 					mm.getMessage("dialogoptions.minfilebuffer"));
 			textFileBuffer.setText(GC.MIN_BUFF_SIZE + "");
 			return false;
@@ -332,24 +332,29 @@ public abstract class PanelEnv extends JPanel {
 		int blockSize = ConfigUtil.parseBufferSize(sBlockSize);
 		if (blockSize == -1) {
 			selectEnvTab();
-			JOptionPane.showMessageDialog(parent, IdeSplMessage.get()
-					.getMessage("dialogoptions.emptyblocksize"));
+			GM.messageDialog(
+					parent,
+					IdeSplMessage.get().getMessage(
+							"dialogoptions.emptyblocksize"));
 			// 请输入简表区块大小。
 			// Please input the block size.
 			textBlockSize.setText(Env.getBlockSize() + "");
 			return false;
 		} else if (blockSize == -2) {
 			selectEnvTab();
-			JOptionPane.showMessageDialog(parent, IdeSplMessage.get()
-					.getMessage("dialogoptions.invalidblocksize"));
+			GM.messageDialog(
+					parent,
+					IdeSplMessage.get().getMessage(
+							"dialogoptions.invalidblocksize"));
 			// 简表区块大小应为正整数，且是4096字节的整数倍。
 			// The block size should be an integer multiple of 4096b.
 			textBlockSize.setText(Env.getBlockSize() + "");
 			return false;
 		} else if (blockSize < GC.MIN_BUFF_SIZE) {
 			selectEnvTab();
-			JOptionPane.showMessageDialog(parent, IdeSplMessage.get()
-					.getMessage("dialogoptions.minblocksize"));
+			GM.messageDialog(parent,
+					IdeSplMessage.get()
+							.getMessage("dialogoptions.minblocksize"));
 			textBlockSize.setText(GC.MIN_BUFF_SIZE + "");
 			// 简表区块大小不能低于4096字节。
 			// The file buffer size cannot less than 4096 bytes.
@@ -360,8 +365,10 @@ public abstract class PanelEnv extends JPanel {
 				size = 1;
 			blockSize = (size + 1) * 4096;
 			selectEnvTab();
-			JOptionPane.showMessageDialog(parent, IdeSplMessage.get()
-					.getMessage("dialogoptions.invalidblocksize"));
+			GM.messageDialog(
+					parent,
+					IdeSplMessage.get().getMessage(
+							"dialogoptions.invalidblocksize"));
 			textBlockSize.setText(ConfigUtil.getUnitBlockSize(blockSize,
 					sBlockSize));
 			return false;
@@ -543,7 +550,7 @@ public abstract class PanelEnv extends JPanel {
 		// Integer.parseInt(sLocalPort);
 		// } catch (Exception ex) {
 		// selectEnvTab();
-		// JOptionPane.showMessageDialog(parent,
+		// GM.messageDialog(parent,
 		// mm.getMessage("dialogoptions.localport"));
 		// return false;
 		// }
@@ -559,13 +566,13 @@ public abstract class PanelEnv extends JPanel {
 					int fetchCount = Integer.parseInt(sFetchCount);
 					if (fetchCount <= 0) {
 						selectEnvTab();
-						JOptionPane.showMessageDialog(parent, mm
+						GM.messageDialog(parent, mm
 								.getMessage("dialogoptions.invalidfetchcount"));
 						return false;
 					}
 				} catch (Exception ex) {
 					selectEnvTab();
-					JOptionPane.showMessageDialog(parent,
+					GM.messageDialog(parent,
 							mm.getMessage("dialogoptions.invalidfetchcount"));
 					return false;
 				}

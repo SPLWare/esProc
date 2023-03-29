@@ -8,7 +8,6 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 /**
@@ -89,7 +88,7 @@ public class TcpServer extends Thread {
 			final String error = e.getMessage();
 			SwingUtilities.invokeLater(new Thread() {
 				public void run() {
-					JOptionPane.showMessageDialog(null, "Socket port: " + port
+					GM.messageDialog(null, "Socket port: " + port
 							+ " creation failed: " + error);
 					System.exit(0);
 				}

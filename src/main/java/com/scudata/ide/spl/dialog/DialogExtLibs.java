@@ -229,8 +229,8 @@ public class DialogExtLibs extends JDialog implements ActionListener {
 		File extLibsDir = new File(extLibsPath);
 		if (!extLibsDir.exists() || !extLibsDir.isDirectory()) {
 			if (showException)
-				JOptionPane.showMessageDialog(GV.appFrame, AppMessage.get()
-						.getMessage("configutil.noextpath"));
+				GM.messageDialog(GV.appFrame,
+						AppMessage.get().getMessage("configutil.noextpath"));
 			else
 				return;
 		}
@@ -396,13 +396,13 @@ public class DialogExtLibs extends JDialog implements ActionListener {
 			if (isUploadMode) {
 				String path = getExtLibsPath();
 				if (!StringUtils.isValidString(path)) {
-					JOptionPane.showMessageDialog(parent,
+					GM.messageDialog(parent,
 							mm.getMessage("dialogextlibs.emptypath")); // 请选择外部库目录。
 					return;
 				}
 				List<String> libs = getExtLibs();
 				if (libs == null || libs.isEmpty()) {
-					JOptionPane.showMessageDialog(parent,
+					GM.messageDialog(parent,
 							mm.getMessage("dialogextlibs.emptylib")); // 请选择外部库。
 					return;
 				}

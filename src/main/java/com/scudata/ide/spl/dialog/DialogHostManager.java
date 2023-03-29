@@ -285,7 +285,7 @@ public class DialogHostManager extends JDialog implements ActionListener {
 						try {
 							Integer.parseInt((String) port);
 						} catch (Exception ex) {
-							JOptionPane.showMessageDialog(GV.appFrame, mm
+							GM.messageDialog(GV.appFrame, mm
 									.getMessage(
 											"dialoghostmanager.invalidport", i
 													+ 1 + ""));

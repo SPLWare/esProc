@@ -22,7 +22,6 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerDateModel;
@@ -376,7 +375,7 @@ public class DatetimeChooser extends JDialog {
 	 */
 	private void okActionPerformed() {
 		if (monthCalendar.getSelectedIndex() < 0) {
-			JOptionPane.showMessageDialog(GV.appFrame,
+			GM.messageDialog(GV.appFrame,
 					mm.getMessage("datetimechooser.notselect"));
 			return;
 		}

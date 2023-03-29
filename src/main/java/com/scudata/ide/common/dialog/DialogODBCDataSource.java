@@ -322,7 +322,7 @@ public class DialogODBCDataSource extends JDialog {
 			}
 			if (existNames != null) {
 				if (existNames.contains(jDSName.getText())) {
-					JOptionPane.showMessageDialog(GV.appFrame,
+					GM.messageDialog(GV.appFrame,
 							mm.getMessage("dialogdatasource.existdsname")
 									+ jDSName.getText(),
 							mm.getMessage("public.note"),

@@ -24,7 +24,6 @@ import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
@@ -164,7 +163,7 @@ public abstract class ToolBarPropertyBase extends ToolbarGradient {
 						}
 					}
 					if (StringUtils.isValidString(error))
-						JOptionPane.showMessageDialog(GV.appFrame, error);
+						GM.messageDialog(GV.appFrame, error);
 					if (!hasSet)
 						cellName.setText(getActiveCellId());
 				} catch (Exception ex) {

@@ -70,22 +70,24 @@ public class DialogExecCmd extends RQDialog {
 		String splFile = textSpl.getText();
 		if (!StringUtils.isValidString(splFile)) {
 			// 请选择要执行的SPL文件。
-			JOptionPane.showMessageDialog(GV.appFrame, IdeSplMessage.get()
-					.getMessage("dialogexeccmd.emptydfx"));
+			GM.messageDialog(GV.appFrame,
+					IdeSplMessage.get().getMessage("dialogexeccmd.emptydfx"));
 			return false;
 		}
 		final File f = new File(splFile);
 		if (!f.isFile() || !f.exists()) {
 			// 文件：{0}不存在。
-			JOptionPane.showMessageDialog(GV.appFrame, IdeSplMessage.get()
-					.getMessage("dialogexeccmd.dfxnotexist", splFile));
+			GM.messageDialog(
+					GV.appFrame,
+					IdeSplMessage.get().getMessage("dialogexeccmd.dfxnotexist",
+							splFile));
 			return false;
 		}
 		String startHome = System.getProperty("start.home");
 		File binDir = new File(startHome, "bin");
 		if (!binDir.exists() || !binDir.isDirectory()) {
 			// 目录：{0}不存在。
-			JOptionPane.showMessageDialog(
+			GM.messageDialog(
 					GV.appFrame,
 					IdeSplMessage.get().getMessage("dialogexeccmd.binnotexist",
 							binDir.getAbsolutePath()));
@@ -100,7 +102,7 @@ public class DialogExecCmd extends RQDialog {
 		final File exeFile = new File(binDir, "esprocx." + suffix);
 		if (!exeFile.isFile() || !exeFile.exists()) {
 			// 可执行文件：{0}不存在。
-			JOptionPane.showMessageDialog(
+			GM.messageDialog(
 					GV.appFrame,
 					IdeSplMessage.get().getMessage("dialogexeccmd.exenotexist",
 							exeFile.getAbsolutePath()));

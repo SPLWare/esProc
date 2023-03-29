@@ -17,7 +17,6 @@ import javax.swing.JInternalFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import javax.swing.JSeparator;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -676,14 +675,12 @@ public abstract class AppMenu extends JMenuBar {
 						refreshRecentMainPath(sdir);
 						if (GVSpl.fileTree != null)
 							GVSpl.fileTree.changeMainPath(sdir);
-						JOptionPane.showMessageDialog(
-								GV.appFrame,
-								IdeCommonMessage.get().getMessage(
-										"prjxappmenu.setmainpath", sdir));
+						GM.messageDialog(GV.appFrame, IdeCommonMessage.get()
+								.getMessage("prjxappmenu.setmainpath", sdir));
 					} else {
 						File f = new File(tt.getText());
 						if (!f.exists() || !f.isDirectory()) {
-							JOptionPane.showMessageDialog(
+							GM.messageDialog(
 									GV.appFrame,
 									IdeCommonMessage.get().getMessage(
 											"prjxappmenu.nomainpath",
@@ -697,7 +694,7 @@ public abstract class AppMenu extends JMenuBar {
 								GVSpl.fileTree.changeMainPath(sdir);
 							ConfigUtilIde.writeConfig();
 							refreshRecentMainPath(sdir);
-							JOptionPane.showMessageDialog(
+							GM.messageDialog(
 									GV.appFrame,
 									IdeCommonMessage.get().getMessage(
 											"prjxappmenu.setmainpath", sdir));

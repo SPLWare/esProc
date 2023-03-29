@@ -216,13 +216,11 @@ public class DialogDataSource extends JDialog implements IDataSourceEditor {
 		int size = dsModel.getSize();
 		// ÅĞ¶ÏÊÇ·ñÖØÃû
 		if (dsModel.existDSName(ds.getName())) {
-			JOptionPane
-					.showMessageDialog(
-							GV.appFrame,
-							mm.getMessage("dialogdatasource.existdsname",
-									ds.getName()),
-							mm.getMessage("public.closenote"),
-							JOptionPane.ERROR_MESSAGE);
+			GM.messageDialog(
+					GV.appFrame,
+					mm.getMessage("dialogdatasource.existdsname", ds.getName()),
+					mm.getMessage("public.closenote"),
+					JOptionPane.ERROR_MESSAGE);
 			return;
 		}
 
@@ -247,16 +245,12 @@ public class DialogDataSource extends JDialog implements IDataSourceEditor {
 		if (index > -1 && index < size) {
 			DataSource ds = (DataSource) dsModel.get(index);
 			if (ds.isSystem()) {
-				JOptionPane
-						.showMessageDialog(
-								GV.appFrame,
-								mm.getMessage("dialogdatasource.notdelds",
-										ds.getName()),
-								mm.getMessage("public.note"),
-								JOptionPane.WARNING_MESSAGE);
+				GM.messageDialog(GV.appFrame, mm.getMessage(
+						"dialogdatasource.notdelds", ds.getName()), mm
+						.getMessage("public.note"), JOptionPane.WARNING_MESSAGE);
 				return;
 			} else if (ds.isRemote()) {
-				JOptionPane.showMessageDialog(
+				GM.messageDialog(
 						GV.appFrame,
 						mm.getMessage("dialogdatasource.delremote",
 								ds.getName()), mm.getMessage("public.note"),
@@ -264,12 +258,12 @@ public class DialogDataSource extends JDialog implements IDataSourceEditor {
 				return;
 			}
 
-			Object[] options = { mm.getMessage("button.delete"),
-					mm.getMessage("button.cancel") };
-			int i = JOptionPane.showOptionDialog(GV.appFrame,
+			Object[] options = { mm.getMessage("public.delete"),
+					mm.getMessage("public.cancel") };
+			int i = GM.optionDialog(GV.appFrame,
 					mm.getMessage("dialogdatasource.mustdelds", ds.getName()),
 					mm.getMessage("public.note"), JOptionPane.OK_CANCEL_OPTION,
-					JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
+					JOptionPane.QUESTION_MESSAGE, options);
 			if (0 == i) {
 				dsModel.removeElementAt(index);
 			}
@@ -389,7 +383,7 @@ public class DialogDataSource extends JDialog implements IDataSourceEditor {
 	public static boolean isLocalDataSource(DataSource ds, boolean showMessage) {
 		if (ds.isSystem()) {
 			if (showMessage) {
-				JOptionPane.showMessageDialog(
+				GM.messageDialog(
 						GV.appFrame,
 						IdeCommonMessage.get().getMessage(
 								"dialogdatasource.canteditds", ds.getName()),
@@ -399,7 +393,7 @@ public class DialogDataSource extends JDialog implements IDataSourceEditor {
 			return false;
 		} else if (ds.isRemote()) {
 			if (showMessage) {
-				JOptionPane.showMessageDialog(
+				GM.messageDialog(
 						GV.appFrame,
 						IdeCommonMessage.get().getMessage(
 								"dialogdatasource.editremote", ds.getName()),

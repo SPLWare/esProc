@@ -605,7 +605,7 @@ public class SplEditor {
 			rect = new CellRect(1, (int) 1, 1, (int) cc);
 		} else {
 			if (isMultiRectSelected()) {
-				JOptionPane.showMessageDialog(GV.appFrame,
+				GM.messageDialog(GV.appFrame,
 						mm.getMessage("dfxeditor.insertmore"));
 				return false;
 			}
@@ -1271,8 +1271,7 @@ public class SplEditor {
 	 */
 	public void moveCopy(short key) {
 		if (this.isMultiRectSelected()) {
-			JOptionPane.showMessageDialog(GV.appFrame,
-					mm.getMessage("dfxeditor.copymore"));
+			GM.messageDialog(GV.appFrame, mm.getMessage("dfxeditor.copymore"));
 			return;
 		}
 		CellLocation activeCell = control.getActiveCell();
@@ -1368,7 +1367,7 @@ public class SplEditor {
 					(int) 1);
 		} else {
 			if (isMultiRectSelected()) {
-				JOptionPane.showMessageDialog(GV.appFrame,
+				GM.messageDialog(GV.appFrame,
 						mm.getMessage("dfxeditor.insertmore"));
 				return false;
 			}
@@ -1384,8 +1383,7 @@ public class SplEditor {
 	 */
 	public void dupRow(boolean isAdjust) {
 		if (isMultiRectSelected()) {
-			JOptionPane.showMessageDialog(GV.appFrame,
-					mm.getMessage("dfxeditor.insertmore"));
+			GM.messageDialog(GV.appFrame, mm.getMessage("dfxeditor.insertmore"));
 			return;
 		}
 		CellRect rect = getSelectedRect();
@@ -1560,7 +1558,7 @@ public class SplEditor {
 		int TOTAL_COLS = (int) cellSet.getColCount();
 		if (cmd == GCSpl.iDELETE_COL) {
 			if (TOTAL_COLS == selectedCols.size()) {
-				JOptionPane.showMessageDialog(GV.appFrame,
+				GM.messageDialog(GV.appFrame,
 						mm.getMessage("dfxeditor.notdelallcol"),
 						mm.getMessage("public.prompt"),
 						JOptionPane.WARNING_MESSAGE);
@@ -1568,7 +1566,7 @@ public class SplEditor {
 			}
 		} else if (cmd == GCSpl.iDELETE_ROW) {
 			if (TOTAL_ROWS == selectedRows.size()) {
-				JOptionPane.showMessageDialog(GV.appFrame,
+				GM.messageDialog(GV.appFrame,
 						mm.getMessage("dfxeditor.notdelallrow"),
 						mm.getMessage("public.prompt"),
 						JOptionPane.WARNING_MESSAGE);
@@ -1609,11 +1607,8 @@ public class SplEditor {
 	public boolean note() {
 		if (isMultiRectSelected()) {
 			// 不能注释多片区域。
-			JOptionPane
-					.showMessageDialog(GV.appFrame,
-							mm.getMessage("dfxeditor.notemore"),
-							mm.getMessage("public.prompt"),
-							JOptionPane.WARNING_MESSAGE);
+			GM.messageDialog(GV.appFrame, mm.getMessage("dfxeditor.notemore"),
+					mm.getMessage("public.prompt"), JOptionPane.WARNING_MESSAGE);
 			return false;
 		}
 		control.getContentPanel().submitEditor();
@@ -1687,11 +1682,8 @@ public class SplEditor {
 	public boolean cut() {
 		if (isMultiRectSelected()) {
 			// 不能剪切多片区域。
-			JOptionPane
-					.showMessageDialog(GV.appFrame,
-							mm.getMessage("dfxeditor.cutmore"),
-							mm.getMessage("public.prompt"),
-							JOptionPane.WARNING_MESSAGE);
+			GM.messageDialog(GV.appFrame, mm.getMessage("dfxeditor.cutmore"),
+					mm.getMessage("public.prompt"), JOptionPane.WARNING_MESSAGE);
 			return false;
 		}
 		return copy(true, false);
@@ -1718,8 +1710,7 @@ public class SplEditor {
 			return false;
 		}
 		if (isMultiRectSelected()) {
-			JOptionPane.showMessageDialog(GV.appFrame,
-					mm.getMessage("dfxeditor.copymore"));
+			GM.messageDialog(GV.appFrame, mm.getMessage("dfxeditor.copymore"));
 			return false;
 		}
 		CellRect cr = getSelectedRect();
@@ -1778,8 +1769,7 @@ public class SplEditor {
 			return false;
 		}
 		if (isMultiRectSelected()) {
-			JOptionPane.showMessageDialog(GV.appFrame,
-					mm.getMessage("dfxeditor.copymore"));
+			GM.messageDialog(GV.appFrame, mm.getMessage("dfxeditor.copymore"));
 			return false;
 		}
 		CellRect cr = getSelectedRect();
@@ -2014,8 +2004,7 @@ public class SplEditor {
 			return false;
 		}
 		if (isMultiRectSelected()) {
-			JOptionPane.showMessageDialog(GV.appFrame,
-					mm.getMessage("dfxeditor.copymore"));
+			GM.messageDialog(GV.appFrame, mm.getMessage("dfxeditor.copymore"));
 			return false;
 		}
 		CellRect cr = getSelectedRect();
@@ -2104,8 +2093,7 @@ public class SplEditor {
 		}
 
 		if (isMultiRectSelected()) {
-			JOptionPane.showMessageDialog(GV.appFrame,
-					mm.getMessage("dfxeditor.pastemore"));
+			GM.messageDialog(GV.appFrame, mm.getMessage("dfxeditor.pastemore"));
 			return false;
 		}
 
@@ -2124,8 +2112,7 @@ public class SplEditor {
 					try {
 						cmds = executePasteOption(targetArea, pasteOption);
 					} catch (Exception e) {
-						JOptionPane.showMessageDialog(GV.appFrame,
-								e.getMessage());
+						GM.messageDialog(GV.appFrame, e.getMessage());
 						return false;
 					}
 				}
@@ -2144,8 +2131,7 @@ public class SplEditor {
 					try {
 						cmds = executePasteOption(targetArea, pasteOption);
 					} catch (Exception e) {
-						JOptionPane.showMessageDialog(GV.appFrame,
-								e.getMessage());
+						GM.messageDialog(GV.appFrame, e.getMessage());
 						return false;
 					}
 				}
@@ -2215,7 +2201,7 @@ public class SplEditor {
 		}
 		CellRect targetRect = getSelectedRect();
 		if (targetRect == null) {
-			JOptionPane.showMessageDialog(GV.appFrame,
+			GM.messageDialog(GV.appFrame,
 					mm.getMessage("dfxeditor.notselecttarget"));
 			return false;
 		}
@@ -2362,7 +2348,7 @@ public class SplEditor {
 	private boolean pasteValue(Vector<IAtomicCmd> cmds) {
 		CellRect targetRect = getSelectedRect();
 		if (targetRect == null) {
-			JOptionPane.showMessageDialog(GV.appFrame,
+			GM.messageDialog(GV.appFrame,
 					mm.getMessage("dfxeditor.notselecttarget"));
 			return false;
 		}

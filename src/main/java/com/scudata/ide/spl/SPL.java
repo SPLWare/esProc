@@ -1362,8 +1362,7 @@ public class SPL extends AppFrame {
 		if (sTmp.compareTo("1.4.1") < 0) {
 			String t1 = mm.getMessage("prjx.jdkversion", "", sPath, sTmp);
 			String t2 = mm.getMessage("public.prompt");
-			JOptionPane.showMessageDialog(null, t1, t2,
-					JOptionPane.ERROR_MESSAGE);
+			GM.messageDialog(null, t1, t2, JOptionPane.ERROR_MESSAGE);
 			System.exit(0);
 		}
 		return openSpl;

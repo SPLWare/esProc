@@ -1444,7 +1444,7 @@ public class DialogSQLEditor extends JDialog {
 			}
 			rs.close();
 			Collections.sort(colNames);
-//			GM.sort(colNames, true);
+			// GM.sort(colNames, true);
 			return colNames;
 		} catch (Throwable ex) {
 			GM.showException(ex);
@@ -1793,8 +1793,7 @@ public class DialogSQLEditor extends JDialog {
 	 *            提示信息
 	 */
 	void messageBox(String text) {
-		JOptionPane.showMessageDialog(this, text,
-				mm.getMessage("dialogsqlsrcdata.prompt"), // 提示
+		GM.messageDialog(this, text, mm.getMessage("dialogsqlsrcdata.prompt"), // 提示
 				JOptionPane.WARNING_MESSAGE);
 	}
 

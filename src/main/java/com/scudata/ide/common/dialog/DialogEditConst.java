@@ -657,14 +657,14 @@ public class DialogEditConst extends DialogMaxmizable {
 		for (int i = 0; i < count; i++) {
 			name = (String) tableConst.data.getValueAt(i, COL_NAME);
 			if (usedNames.contains(name)) {
-				JOptionPane.showMessageDialog(GV.appFrame, mm.getMessage(
+				GM.messageDialog(GV.appFrame, mm.getMessage(
 						"dialogeditconst.existname", i + 1 + "", name)); // 第{0}行参数名：{1}已经存在。
 				return false;
 			}
 			kind = ((Byte) tableConst.data.getValueAt(i, COL_KIND)).byteValue();
 			val = tableConst.data.getValueAt(i, COL_VALUE);
 			if (val == null) {
-				JOptionPane.showMessageDialog(GV.appFrame,
+				GM.messageDialog(GV.appFrame,
 						mm.getMessage("dialogeditconst.emptyval", i + 1 + "")); // 第{0}行参数值为空。
 				return false;
 			}
@@ -691,21 +691,19 @@ public class DialogEditConst extends DialogMaxmizable {
 						val = PgmNormalCell.parseConstValue((String) val);
 					}
 					if (!(val instanceof Sequence)) {
-						JOptionPane.showMessageDialog(GV.appFrame, message
-								+ STR_SERIES); // 第{0}行参数值类型应该为：序列
+						GM.messageDialog(GV.appFrame, message + STR_SERIES); // 第{0}行参数值类型应该为：序列
 						return false;
 					}
 					break;
 				case GC.KIND_TABLE:
 					if (!(val instanceof Table)) {
-						JOptionPane.showMessageDialog(GV.appFrame, message
-								+ STR_TABLE); // 第{0}行参数值类型应该为：序表
+						GM.messageDialog(GV.appFrame, message + STR_TABLE); // 第{0}行参数值类型应该为：序表
 						return false;
 					}
 					break;
 				}
 			} catch (Exception e) {
-				JOptionPane.showMessageDialog(GV.appFrame, message + strKind);
+				GM.messageDialog(GV.appFrame, message + strKind);
 				return false;
 			}
 		}

@@ -406,7 +406,7 @@ public class PanelEditTable extends JPanel {
 				key = (String) tableNormal.data.getValueAt(i, COL_NAME);
 				if (!StringUtils.isValidString(key)) {
 					jTabMain.setSelectedIndex(TAB_NORMAL);
-					JOptionPane.showMessageDialog(
+					GM.messageDialog(
 							GV.appFrame,
 							mm.getMessage("paneledittable.emptyname",
 									String.valueOf(i + 1))); // 第：{0}行字段名为空。
@@ -414,7 +414,7 @@ public class PanelEditTable extends JPanel {
 				}
 				if (keys.contains(key)) {
 					jTabMain.setSelectedIndex(TAB_NORMAL);
-					JOptionPane.showMessageDialog(
+					GM.messageDialog(
 							GV.appFrame,
 							mm.getMessage("paneledittable.existname",
 									String.valueOf(i + 1))); // 第：{0}行字段名重复。
@@ -423,22 +423,16 @@ public class PanelEditTable extends JPanel {
 				keys.add(key);
 			}
 		} else {
-			int option = JOptionPane.showOptionDialog(
-					GV.appFrame,
+			int option = GM.optionDialog(GV.appFrame,
 					mm.getMessage("paneledittable.norow"), // 表结构至少得有一个字段，是否增加缺省字段？
 					mm.getMessage("public.prompt"), // 提示
-					JOptionPane.YES_NO_OPTION,
-					JOptionPane.QUESTION_MESSAGE,
-					null,
-					new String[] { mm.getMessage("public.ok"),
-							mm.getMessage("public.cancel") } // 确定,取消
-					, mm.getMessage("public.ok"));
+					JOptionPane.OK_CANCEL_OPTION);
 			switch (option) {
-			case JOptionPane.YES_OPTION:
+			case JOptionPane.OK_OPTION:
 				jTabMain.setSelectedIndex(TAB_NORMAL);
 				addRow();
 				break;
-			case JOptionPane.NO_OPTION:
+			case JOptionPane.CANCEL_OPTION:
 				return false;
 			default:
 				return false;
@@ -602,7 +596,7 @@ public class PanelEditTable extends JPanel {
 
 		if (editingTable.equals(tableNormal)) {
 			if (tableNormal.getRowCount() == 1) {
-				JOptionPane.showMessageDialog(GV.appFrame,
+				GM.messageDialog(GV.appFrame,
 						mm.getMessage("paneledittable.atleastonerow")); // 表结构至少得有一个字段。
 				// 数据结构的字段数目不能为0
 				return;

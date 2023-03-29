@@ -15,7 +15,6 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -94,31 +93,31 @@ public abstract class DialogFileReplace extends RQDialog {
 	private List<File> getFiles() {
 		String sDir = jTFDir.getText();
 		if (!StringUtils.isValidString(sDir)) {
-			JOptionPane.showMessageDialog(owner,
+			GM.messageDialog(owner,
 					mm.getMessage("dialogfilereplace.selectdir")); // 请选择文件所在目录。
 			return null;
 		}
 		File dir = new File(sDir);
 		if (!dir.exists()) {
-			JOptionPane.showMessageDialog(owner,
+			GM.messageDialog(owner,
 					mm.getMessage("dialogfilereplace.dirnotexists", sDir)); // 目录：{0}不存在。
 			return null;
 		}
 		if (!dir.isDirectory()) {
-			JOptionPane.showMessageDialog(owner,
+			GM.messageDialog(owner,
 					mm.getMessage("dialogfilereplace.notdir", sDir)); // {0}不是一个目录。
 			return null;
 		}
 		File[] subFiles = dir.listFiles();
 		if (subFiles == null || subFiles.length == 0) {
-			JOptionPane.showMessageDialog(owner,
+			GM.messageDialog(owner,
 					mm.getMessage("dialogfilereplace.nofilefound")); // 目录下没有查找到文件。
 			return null;
 		}
 		List<File> files = new ArrayList<File>();
 		getSubFiles(dir, files, jCBSub.isSelected());
 		if (files.isEmpty()) {
-			JOptionPane.showMessageDialog(owner,
+			GM.messageDialog(owner,
 					mm.getMessage("dialogfilereplace.nofilefound")); // 目录下没有查找到文件。
 			return null;
 		}
@@ -179,7 +178,7 @@ public abstract class DialogFileReplace extends RQDialog {
 	private void search(boolean isReplace) {
 		setSearchConfig();
 		if (searchString == null || "".equals(searchString)) {
-			JOptionPane.showMessageDialog(owner,
+			GM.messageDialog(owner,
 					mm.getMessage("dialogfilereplace.searchnull")); // 查找内容不能为空。
 			return;
 		}

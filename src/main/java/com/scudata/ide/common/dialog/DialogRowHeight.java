@@ -160,7 +160,7 @@ public class DialogRowHeight extends JDialog {
 				|| !(jSPSize.getValue() instanceof Number)) {
 			String exp = isRow ? mm.getMessage("dialogrowheight.rowheight")
 					: mm.getMessage("dialogrowheight.colwidth");
-			JOptionPane.showMessageDialog(this,
+			GM.messageDialog(this,
 					mm.getMessage("dialogrowheight.validval", exp)); // 不合法的{0}
 			return;
 		}

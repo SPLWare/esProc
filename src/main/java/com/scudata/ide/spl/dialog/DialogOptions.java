@@ -1191,8 +1191,7 @@ public class DialogOptions extends JDialog {
 		if (buffer == -1) {
 			return true; // 不填就不设置了
 		} else if (buffer == -2) {
-			JOptionPane.showMessageDialog(parent,
-					mm.getMessage("dialogoptions.invalidxmx"));
+			GM.messageDialog(parent, mm.getMessage("dialogoptions.invalidxmx"));
 			return false;
 		}
 		return true;
@@ -1222,8 +1221,7 @@ public class DialogOptions extends JDialog {
 			} catch (Exception ex) {
 				if (!isUnit)
 					tabMain.setSelectedIndex(TAB_ENV);
-				JOptionPane.showMessageDialog(DialogOptions.this,
-						ex.getMessage());
+				GM.messageDialog(DialogOptions.this, ex.getMessage());
 			}
 			if (save()) {
 				GM.setWindowDimension(this);

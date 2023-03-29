@@ -211,8 +211,7 @@ public class DialogFTP extends JDialog implements ActionListener {
 		int[] indexes = tableHost.getSelectedIndexes();
 		if (indexes == null || indexes.length == 0) {
 			// 请选择要保存到的主机。
-			JOptionPane.showMessageDialog(GV.appFrame,
-					mm.getMessage("dialogftp.savetohost"));
+			GM.messageDialog(GV.appFrame, mm.getMessage("dialogftp.savetohost"));
 			return;
 		}
 		boolean[] successed = new boolean[indexes.length];

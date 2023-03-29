@@ -46,6 +46,7 @@ import com.scudata.common.ArgumentTokenizer;
 import com.scudata.common.MessageManager;
 import com.scudata.common.Sentence;
 import com.scudata.common.StringUtils;
+import com.scudata.ide.common.GM;
 import com.scudata.ide.common.GV;
 import com.scudata.ide.common.resources.IdeCommonMessage;
 
@@ -1226,17 +1227,13 @@ public class JTableEx extends JTable implements MouseListener,
 			Object tmp = data.getValueAt(i, colIndex);
 			key = tmp != null ? tmp.toString() : null;
 			if (caseNull && !StringUtils.isValidString(key)) {
-				JOptionPane
-						.showMessageDialog(
-								parent,
-								mm.getMessage("jtableex.null",
-										String.valueOf((i + 1)), colDesc),
-								mm.getMessage("public.note"),
-								JOptionPane.WARNING_MESSAGE); // 第：{0}行的{1}为空。
+				GM.messageDialog(parent, mm.getMessage("jtableex.null",
+						String.valueOf((i + 1)), colDesc), mm
+						.getMessage("public.note"), JOptionPane.WARNING_MESSAGE); // 第：{0}行的{1}为空。
 				return false;
 			}
 			if (caseRepeat && keys.contains(key)) {
-				JOptionPane.showMessageDialog(parent,
+				GM.messageDialog(parent,
 						mm.getMessage("jtableex.repeat", colDesc, key),
 						mm.getMessage("public.note"),
 						JOptionPane.WARNING_MESSAGE);
@@ -1246,12 +1243,9 @@ public class JTableEx extends JTable implements MouseListener,
 				nullCount++;
 			}
 			if (caseRepeat && nullCount > 1) { // 为了让空值也不能重复
-				JOptionPane
-						.showMessageDialog(parent,
-								mm.getMessage("jtableex.repeat") + colDesc
-										+ ": " + key,
-								mm.getMessage("public.note"),
-								JOptionPane.WARNING_MESSAGE);
+				GM.messageDialog(parent, mm.getMessage("jtableex.repeat")
+						+ colDesc + ": " + key, mm.getMessage("public.note"),
+						JOptionPane.WARNING_MESSAGE);
 				return false;
 			}
 			keys.add(key);

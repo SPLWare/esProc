@@ -16,7 +16,6 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
@@ -593,7 +592,7 @@ public class DialogSearch extends JDialog {
 		setSearchConfig((String) jCBSearch.getSelectedItem(), "");
 		if (search()) {
 		} else {
-			JOptionPane.showMessageDialog(
+			GM.messageDialog(
 					GV.appFrame,
 					splMM.getMessage("dialogsearch.cantfindword",
 							jCBSearch.getSelectedItem()));
@@ -619,7 +618,7 @@ public class DialogSearch extends JDialog {
 
 		if (replace()) {
 		} else {
-			JOptionPane.showMessageDialog(
+			GM.messageDialog(
 					GV.appFrame,
 					splMM.getMessage("dialogsearch.cantfindword",
 							jCBSearch.getSelectedItem()));
@@ -639,7 +638,7 @@ public class DialogSearch extends JDialog {
 		replace = (String) jCBReplace.getSelectedItem();
 		setSearchConfig(search, replace);
 		int i = replaceAll();
-		JOptionPane.showMessageDialog(GV.appFrame,
+		GM.messageDialog(GV.appFrame,
 				splMM.getMessage("dialogsearch.totalreplace", i + ""));
 
 	}

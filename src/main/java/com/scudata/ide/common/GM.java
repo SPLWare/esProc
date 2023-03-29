@@ -1465,8 +1465,8 @@ public class GM {
 			}
 			dit.setVisible(true);
 		} else {
-			JOptionPane.showMessageDialog(frame, msg, IdeCommonMessage.get()
-					.getMessage("gm.errorprompt"),
+			GM.messageDialog(frame, msg,
+					IdeCommonMessage.get().getMessage("gm.errorprompt"),
 					JOptionPane.INFORMATION_MESSAGE);
 		}
 
@@ -1985,16 +1985,16 @@ public class GM {
 	 */
 	public static boolean canSaveAsFile(String saveAsFile) {
 		if (!StringUtils.isValidString(saveAsFile)) {
-			JOptionPane.showMessageDialog(GV.appFrame, IdeCommonMessage.get()
-					.getMessage("gm.inputfilename"));
+			GM.messageDialog(GV.appFrame,
+					IdeCommonMessage.get().getMessage("gm.inputfilename"));
 			return false;
 		}
 
 		File saveFile = new File(saveAsFile);
 		if (saveFile.exists()) {
-			int r = JOptionPane.showConfirmDialog(GV.appFrame, IdeCommonMessage
-					.get().getMessage("gm.existfile", saveAsFile),
-					IdeCommonMessage.get().getMessage("public.note"),
+			int r = optionDialog(GV.appFrame, IdeCommonMessage.get()
+					.getMessage("gm.existfile", saveAsFile), IdeCommonMessage
+					.get().getMessage("public.note"),
 					JOptionPane.OK_CANCEL_OPTION);
 			if (r == JOptionPane.CANCEL_OPTION) {
 				return false;
@@ -3272,8 +3272,10 @@ public class GM {
 	 */
 	public static boolean isExistDataSource(DataSource ds) {
 		if (GV.dsModel.existDSName(ds.getName())) {
-			JOptionPane.showMessageDialog(GV.appFrame, IdeCommonMessage.get()
-					.getMessage("dialogdatasource.existdsname", ds.getName()),
+			GM.messageDialog(
+					GV.appFrame,
+					IdeCommonMessage.get().getMessage(
+							"dialogdatasource.existdsname", ds.getName()),
 					IdeCommonMessage.get().getMessage("public.note"),
 					JOptionPane.ERROR_MESSAGE);
 			return true;
@@ -3912,4 +3914,74 @@ public class GM {
 
 		return list.toArray(new File[list.size()]);
 	}
+
+	/**
+	 * JOptionPane的按钮，在language中文但是系统英文时，显示成英文按钮。统一修改一下。
+	 * @param parentComponent
+	 * @param message
+	 */
+	public static void messageDialog(Component parentComponent, Object message) {
+		messageDialog(parentComponent, message, null,
+				JOptionPane.INFORMATION_MESSAGE);
+	}
+
+	/**
+	 * JOptionPane的按钮，在language中文但是系统英文时，显示成英文按钮。统一修改一下。
+	 * @param parentComponent
+	 * @param message
+	 * @param title
+	 * @param messageType
+	 */
+	public static void messageDialog(Component parentComponent, Object message,
+			String title, int messageType) {
+		optionDialog(parentComponent, message, title,
+				JOptionPane.DEFAULT_OPTION, messageType, null);
+	}
+
+	/**
+	 * JOptionPane的按钮，在language中文但是系统英文时，显示成英文按钮。统一修改一下。
+	 * @param parentComponent
+	 * @param message
+	 * @param title
+	 * @param optionType
+	 * @return
+	 */
+	public static int optionDialog(Component parentComponent, Object message,
+			String title, int optionType) {
+		return optionDialog(parentComponent, message, title, optionType,
+				JOptionPane.QUESTION_MESSAGE, null);
+	}
+
+	public static int optionDialog(Component parentComponent, Object message,
+			String title, int optionType, int messageType, Object[] options) {
+		MessageManager mm = IdeCommonMessage.get();
+		Object initialValue;
+		if (options == null) {
+			if (optionType == JOptionPane.DEFAULT_OPTION) {
+				options = new Object[] { mm.getMessage("public.ok") };
+				initialValue = options[0];
+			} else if (optionType == JOptionPane.OK_CANCEL_OPTION) {
+				options = new Object[] { mm.getMessage("public.ok"),
+						mm.getMessage("public.cancel") };
+				initialValue = options[1];
+			} else if (optionType == JOptionPane.YES_NO_OPTION) {
+				options = new Object[] { mm.getMessage("public.yes"),
+						mm.getMessage("public.no") };
+				initialValue = options[1];
+			} else if (optionType == JOptionPane.YES_NO_CANCEL_OPTION) {
+				options = new Object[] { mm.getMessage("public.yes"),
+						mm.getMessage("public.no"),
+						mm.getMessage("public.cancel") };
+				initialValue = options[2];
+			} else {
+				options = null;
+				initialValue = null;
+			}
+		} else {
+			initialValue = options[options.length - 1];
+		}
+		return JOptionPane.showOptionDialog(parentComponent, message, title,
+				optionType, messageType, null, options, initialValue);
+	}
+
 }

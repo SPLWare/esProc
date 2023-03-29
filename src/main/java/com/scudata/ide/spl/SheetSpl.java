@@ -288,7 +288,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 	// if (f == null)
 	// return false;
 	// if (f.exists() && !f.canWrite()) {
-	// JOptionPane.showMessageDialog(GV.appFrame,
+	// GM.messageDialog(GV.appFrame,
 	// IdeCommonMessage.get().getMessage("public.readonly", filePath));
 	// return false;
 	// }
@@ -299,7 +299,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 	// GM.showException(e);
 	// return false;
 	// }
-	// JOptionPane.showMessageDialog(GV.appFrame,
+	// GM.messageDialog(GV.appFrame,
 	// IdeSplMessage.get().getMessage("public.exportsucc", filePath));
 	// return true;
 	// }
@@ -352,8 +352,8 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 				return false;
 			File f = new File(filePath);
 			if (f.exists() && !f.canWrite()) {
-				JOptionPane.showMessageDialog(GV.appFrame, IdeCommonMessage
-						.get().getMessage("public.readonly", filePath));
+				GM.messageDialog(GV.appFrame, IdeCommonMessage.get()
+						.getMessage("public.readonly", filePath));
 				return false;
 			}
 
@@ -2559,8 +2559,8 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 							IdeCommonMessage.get().getMessage("public.file"),
 							filePath);
 					t2 = IdeCommonMessage.get().getMessage("public.save");
-					int option = JOptionPane.showConfirmDialog(GV.appFrame, t1,
-							t2, JOptionPane.YES_NO_CANCEL_OPTION);
+					int option = GM.optionDialog(GV.appFrame, t1, t2,
+							JOptionPane.YES_NO_CANCEL_OPTION);
 					switch (option) {
 					case JOptionPane.YES_OPTION:
 						if (!save())
@@ -2710,24 +2710,24 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 			return;
 		try {
 			if (isNewGrid()) { // 新建
-				JOptionPane.showMessageDialog(GV.appFrame, ERROR_NOT_SAVE);
+				GM.messageDialog(GV.appFrame, ERROR_NOT_SAVE);
 				return;
 			}
 			File f = new File(filePath);
 			if (!f.isFile() || !f.exists()) {
-				JOptionPane.showMessageDialog(GV.appFrame, ERROR_NOT_SAVE);
+				GM.messageDialog(GV.appFrame, ERROR_NOT_SAVE);
 				return;
 			}
 			synchronized (threadLock) {
 				if (debugThread != null) {
 					// 有未执行完成的任务，是否中断执行？
-					int option = JOptionPane.showOptionDialog(
+					int option = GM.optionDialog(
 							GV.appFrame,
 							IdeSplMessage.get().getMessage(
-									"sheetdfx.queryclosethread"), IdeSplMessage
-									.get().getMessage("sheetdfx.closethread"),
-							JOptionPane.YES_NO_OPTION,
-							JOptionPane.QUESTION_MESSAGE, null, null, null);
+									"sheetdfx.queryclosethread"),
+							IdeSplMessage.get().getMessage(
+									"sheetdfx.closethread"),
+							JOptionPane.OK_CANCEL_OPTION);
 					if (option == JOptionPane.OK_OPTION) {
 						debugThread.closeThread();
 						try {
@@ -2903,24 +2903,24 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 	public void reloadFile() {
 		try {
 			if (isNewGrid()) { // 新建
-				JOptionPane.showMessageDialog(GV.appFrame, ERROR_NOT_SAVE);
+				GM.messageDialog(GV.appFrame, ERROR_NOT_SAVE);
 				return;
 			}
 			File f = new File(filePath);
 			if (!f.isFile() || !f.exists()) {
-				JOptionPane.showMessageDialog(GV.appFrame, ERROR_NOT_SAVE);
+				GM.messageDialog(GV.appFrame, ERROR_NOT_SAVE);
 				return;
 			}
 			synchronized (threadLock) {
 				if (debugThread != null) {
 					// 有未执行完成的任务，是否中断执行？
-					int option = JOptionPane.showOptionDialog(
+					int option = GM.optionDialog(
 							GV.appFrame,
 							IdeSplMessage.get().getMessage(
-									"sheetdfx.queryclosethread"), IdeSplMessage
-									.get().getMessage("sheetdfx.closethread"),
-							JOptionPane.YES_NO_OPTION,
-							JOptionPane.QUESTION_MESSAGE, null, null, null);
+									"sheetdfx.queryclosethread"),
+							IdeSplMessage.get().getMessage(
+									"sheetdfx.closethread"),
+							JOptionPane.OK_CANCEL_OPTION);
 					if (option == JOptionPane.OK_OPTION) {
 						debugThread.closeThread();
 						try {
@@ -3234,7 +3234,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 			t1 = IdeCommonMessage.get().getMessage("public.querysave",
 					IdeCommonMessage.get().getMessage("public.file"), filePath);
 			t2 = IdeCommonMessage.get().getMessage("public.save");
-			int option = JOptionPane.showConfirmDialog(GV.appFrame, t1, t2,
+			int option = GM.optionDialog(GV.appFrame, t1, t2,
 					JOptionPane.YES_NO_CANCEL_OPTION);
 			switch (option) {
 			case JOptionPane.YES_OPTION:

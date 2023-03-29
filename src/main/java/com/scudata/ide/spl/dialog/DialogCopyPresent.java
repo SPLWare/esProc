@@ -65,7 +65,8 @@ public class DialogCopyPresent extends RQDialog {
 			if (sep == null || "".equals(sep)) {
 				if (showException)
 					// 请定义列分隔符。
-					JOptionPane.showMessageDialog(this, mm.getMessage("dialogcopypresent.emptycolsep"));
+					GM.messageDialog(this,
+							mm.getMessage("dialogcopypresent.emptycolsep"));
 				return false;
 			}
 			ConfigOptions.sCopyPresentSep = sep;
@@ -160,7 +161,8 @@ public class DialogCopyPresent extends RQDialog {
 		// 单元格表达式
 		jTAPreview.setToolTipText(mm.getMessage("toolbarproperty.cellexp"));
 		jTAPreview.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_SQL);
-		jCBLineWrap.setSelected(ConfigOptions.bTextEditorLineWrap.booleanValue());
+		jCBLineWrap.setSelected(ConfigOptions.bTextEditorLineWrap
+				.booleanValue());
 		jTAPreview.setLineWrap(jCBLineWrap.isSelected());
 
 		jCBType.x_setSelectedCodeItem(ConfigOptions.iCopyPresentType);
@@ -187,8 +189,12 @@ public class DialogCopyPresent extends RQDialog {
 		Object editor = jCBSep.getEditor().getEditorComponent();
 		if (editor instanceof JTextComponent) {
 			final JTextComponent textSplitChar = (JTextComponent) editor;
-			textSplitChar.setFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS, Collections.EMPTY_SET);
-			textSplitChar.setFocusTraversalKeys(KeyboardFocusManager.BACKWARD_TRAVERSAL_KEYS, Collections.EMPTY_SET);
+			textSplitChar.setFocusTraversalKeys(
+					KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS,
+					Collections.EMPTY_SET);
+			textSplitChar.setFocusTraversalKeys(
+					KeyboardFocusManager.BACKWARD_TRAVERSAL_KEYS,
+					Collections.EMPTY_SET);
 			textSplitChar.addKeyListener(new KeyListener() {
 
 				public void keyTyped(KeyEvent e) {
@@ -204,14 +210,15 @@ public class DialogCopyPresent extends RQDialog {
 				}
 			});
 		}
-		jCBSep.getEditor().getEditorComponent().addKeyListener(new KeyAdapter() {
-			public void keyPressed(KeyEvent e) {
-				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-					e.consume();
-					preview();
-				}
-			}
-		});
+		jCBSep.getEditor().getEditorComponent()
+				.addKeyListener(new KeyAdapter() {
+					public void keyPressed(KeyEvent e) {
+						if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+							e.consume();
+							preview();
+						}
+					}
+				});
 		jCBSep.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
@@ -267,7 +274,8 @@ public class DialogCopyPresent extends RQDialog {
 	/** 类型控件 */
 	private JComboBoxEx jCBType = new JComboBoxEx();
 	/** 是否复制行列号控件 */
-	private JCheckBox jCBHeader = new JCheckBox(mm.getMessage("dialogcopypresent.copyheader"));
+	private JCheckBox jCBHeader = new JCheckBox(
+			mm.getMessage("dialogcopypresent.copyheader"));
 	/** 列分隔符 */
 	private JLabel jLSep = new JLabel(mm.getMessage("dialogcopypresent.colsep"));
 
@@ -288,7 +296,8 @@ public class DialogCopyPresent extends RQDialog {
 	/**
 	 * 预览
 	 */
-	private JLabel jLPreview = new JLabel(mm.getMessage("dialogcopypresent.preview"));
+	private JLabel jLPreview = new JLabel(
+			mm.getMessage("dialogcopypresent.preview"));
 	/**
 	 * 预览的文本控件
 	 */
@@ -310,5 +319,6 @@ public class DialogCopyPresent extends RQDialog {
 	/**
 	 * 是否自动换行
 	 */
-	private JCheckBox jCBLineWrap = new JCheckBox(mm.getMessage("dialogtexteditor.linewrap"));
+	private JCheckBox jCBLineWrap = new JCheckBox(
+			mm.getMessage("dialogtexteditor.linewrap"));
 }
