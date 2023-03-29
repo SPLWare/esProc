@@ -6,6 +6,8 @@ import java.sql.DriverManager;
 import java.sql.DriverPropertyInfo;
 import java.sql.SQLException;
 import java.sql.SQLFeatureNotSupportedException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 import com.scudata.app.config.RaqsoftConfig;
@@ -76,24 +78,10 @@ public class InternalDriver implements java.sql.Driver, Serializable {
 			throw new SQLException(JDBCMessage.get().getMessage(
 					"jdbcdriver.incorrecturl", DEMO_URL));
 		}
-		String config = info.getProperty(KEY_CONFIG);
-		String sonlyServer = info.getProperty(KEY_ONLY_SERVER);
-		String sdebugmode = info.getProperty("debugmode");
-		String[] parts = url.split("&");
-		for (int i = 0; i < parts.length; i++) {
-			int i3 = parts[i].toLowerCase().indexOf(
-					KEY_CONFIG.toLowerCase() + "=");
-			int i4 = parts[i].toLowerCase().indexOf(
-					KEY_ONLY_SERVER.toLowerCase() + "=");
-			int i6 = parts[i].toLowerCase().indexOf(
-					KEY_DEBUGMODE.toLowerCase() + "=");
-			if (i3 >= 0)
-				config = parts[i].substring(i3 + 7);
-			if (i4 >= 0)
-				sonlyServer = parts[i].substring(i4 + 11);
-			if (i6 >= 0)
-				sdebugmode = parts[i].substring(i6 + 10);
-		}
+		Map<String, String> propMap = getPropertyMap(url, info);
+		String config = propMap.get(KEY_CONFIG);
+		String sonlyServer = propMap.get(KEY_ONLY_SERVER);
+		String sdebugmode = propMap.get(KEY_DEBUGMODE);
 		boolean isOnlyServer = false;
 		if (StringUtils.isValidString(sonlyServer))
 			try {
@@ -160,9 +148,11 @@ public class InternalDriver implements java.sql.Driver, Serializable {
 	public DriverPropertyInfo[] getPropertyInfo(String url, Properties info)
 			throws SQLException {
 		JDBCUtil.log("InternalDriver-5");
+		Map<String, String> propMap = getPropertyMap(url, info);
 		DriverPropertyInfo[] dpis = new DriverPropertyInfo[2];
-		dpis[0] = new DriverPropertyInfo(KEY_CONFIG, null);
-		dpis[1] = new DriverPropertyInfo(KEY_ONLY_SERVER, "false");
+		dpis[0] = new DriverPropertyInfo(KEY_CONFIG, propMap.get(KEY_CONFIG));
+		dpis[1] = new DriverPropertyInfo(KEY_ONLY_SERVER,
+				propMap.get(KEY_ONLY_SERVER));
 		return dpis;
 	}
 
@@ -214,6 +204,38 @@ public class InternalDriver implements java.sql.Driver, Serializable {
 		Logger.debug(JDBCMessage.get().getMessage("error.methodnotimpl",
 				"getParentLogger()"));
 		return null;
+	}
+
+	private Map<String, String> getPropertyMap(String url, Properties info) {
+		if (info == null)
+			info = new Properties();
+		String config = info.getProperty(KEY_CONFIG);
+		String sonlyServer = info.getProperty(KEY_ONLY_SERVER);
+		String sdebugmode = info.getProperty("debugmode");
+		if (url != null) {
+			String[] parts = url.split("&");
+			for (int i = 0; i < parts.length; i++) {
+				int i1 = parts[i].toLowerCase().indexOf(
+						KEY_CONFIG.toLowerCase() + "=");
+				int i2 = parts[i].toLowerCase().indexOf(
+						KEY_ONLY_SERVER.toLowerCase() + "=");
+				int i3 = parts[i].toLowerCase().indexOf(
+						KEY_DEBUGMODE.toLowerCase() + "=");
+				if (i1 >= 0)
+					config = parts[i].substring(i1 + KEY_CONFIG.length() + 1);
+				if (i2 >= 0)
+					sonlyServer = parts[i].substring(i2
+							+ KEY_ONLY_SERVER.length() + 1);
+				if (i3 >= 0)
+					sdebugmode = parts[i].substring(i3 + KEY_DEBUGMODE.length()
+							+ 1);
+			}
+		}
+		Map<String, String> map = new HashMap<String, String>();
+		map.put(KEY_CONFIG, config);
+		map.put(KEY_ONLY_SERVER, sonlyServer);
+		map.put(KEY_DEBUGMODE, sdebugmode);
+		return map;
 	}
 
 	private static final String KEY_CONFIG = "config";
