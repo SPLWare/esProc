@@ -960,15 +960,14 @@ public final class CursorUtil {
 		Sequence []tmpSeqs = new Sequence[next];
 		Expression[][] tmpExps = new Expression[next][];
 		String[] tmpNames = new String[next];
-		int tmpExpCount = prevExps.length;
 		
 		for (int i = 0; i < next; ++i) {
-			Expression []curExps = new Expression[tmpExpCount];
+			Expression []curExps = new Expression[prevLen];
 			tmpSeqs[i] = srcs[i];
 			tmpExps[i] = curExps;
 			tmpNames[i] = names[i];
 			Expression []srcExps = exps[i];
-			for (int j = 0; j < tmpExpCount; ++j) {
+			for (int j = 0; j < prevLen; ++j) {
 				curExps[j] = srcExps[seqList.getInt(j)];
 			}
 		}
@@ -995,7 +994,7 @@ public final class CursorUtil {
 			Expression []exps1 = new Expression[keyCount];
 			Expression []exps2 = new Expression[keyCount];
 			
-			for (int j = 0; j < tmpExpCount; ++j) {
+			for (int j = 0; j < prevLen; ++j) {
 				exps1[j] = exps[0][seqList.getInt(j)];
 				exps2[j] = exps[next][seqList.getInt(j)];
 			}
