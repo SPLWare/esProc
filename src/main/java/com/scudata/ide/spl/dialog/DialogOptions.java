@@ -145,7 +145,7 @@ public class DialogOptions extends JDialog {
 	 * 数据库连接超时时间
 	 */
 	private JSpinner jSConnectTimeout = new JSpinner(new SpinnerNumberModel(10,
-			1, 120, 1));
+			0, Integer.MAX_VALUE, 1));
 
 	/**
 	 * 字体大小控件
@@ -824,6 +824,7 @@ public class DialogOptions extends JDialog {
 		// jCBLogException.setText("将异常写入日志文件");
 		jLabelTimeout.setText("连接到数据库时最长等待");
 		jSConnectTimeout.setBorder(BorderFactory.createLoweredBevelBorder());
+		jSConnectTimeout.setPreferredSize(new Dimension(80, 25));
 
 		jLXmx.setForeground(Color.BLUE);
 
@@ -936,7 +937,7 @@ public class DialogOptions extends JDialog {
 				"dialogoptions.undocountcause"));
 		jLUndoCount.setForeground(Color.BLUE);
 
-		jLabel9.setPreferredSize(new Dimension(60, 25));
+		// jLabel9.setPreferredSize(new Dimension(45, 25));
 
 		FlowLayout fl1 = new FlowLayout(FlowLayout.LEFT);
 		fl1.setHgap(0);
