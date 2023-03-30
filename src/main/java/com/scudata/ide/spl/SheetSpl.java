@@ -3222,10 +3222,19 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 	}
 
 	/**
+	 * 是否有未保存的编辑
+	 * @return
+	 */
+	public boolean isDataChanged() {
+		((EditControl) splEditor.getComponent()).acceptText();
+		return splEditor.isDataChanged();
+	}
+
+	/**
 	 * 提示保存
 	 * @return
 	 */
-	protected boolean querySave() {
+	public boolean querySave() {
 		// 先停止所有编辑器的编辑
 		((EditControl) splEditor.getComponent()).acceptText();
 		boolean isChanged = splEditor.isDataChanged();
