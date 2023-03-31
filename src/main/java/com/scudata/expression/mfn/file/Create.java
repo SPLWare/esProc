@@ -18,7 +18,7 @@ import com.scudata.resources.EngineMessage;
 
 /**
  * 创建组表文件
- * f.create(C,…;x)
+ * f.create(C,…;x;b)
  * @author RunQian
  *
  */
@@ -32,10 +32,11 @@ public class Create extends FileFunction {
 		IParam colParam = param;
 		Expression distributeExp = null; // 分布表达式
 		String distribute = null;
+		Integer blockSize = null;
 		
 		if (param.getType() == IParam.Semicolon) {
 			int size = param.getSubSize();
-			if (size != 2) {
+			if (size != 2 && size != 3) {
 				MessageManager mm = EngineMessage.get();
 				throw new RQException("create" + mm.getMessage("function.invalidParam"));
 			}
@@ -50,6 +51,15 @@ public class Create extends FileFunction {
 			if (expParam != null) {
 				distributeExp = expParam.getLeafExpression();
 				distribute = distributeExp.toString();
+			}
+			
+			IParam blockSizeParam = param.getSub(2);
+			if (blockSizeParam != null) {
+				String b = blockSizeParam.getLeafExpression().calculate(ctx).toString();
+				try {
+					blockSize = Integer.parseInt(b);
+				} catch (NumberFormatException e) {
+				}
 			}
 		}
 		
@@ -101,9 +111,9 @@ public class Create extends FileFunction {
 		try {
 			ComTable table;
 			if (opt != null && opt.indexOf('r') != -1) {
-				table = new RowComTable(file, cols, distribute, opt, ctx);
+				table = new RowComTable(file, cols, distribute, opt, blockSize, ctx);
 			} else {
-				table = new ColComTable(file, cols, distribute, opt, ctx);
+				table = new ColComTable(file, cols, distribute, opt, blockSize, ctx);
 			}
 			
 			table.setPartition(partition);

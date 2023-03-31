@@ -33,6 +33,7 @@ import com.scudata.util.FileSyncManager;
 abstract public class ComTable implements IBlockStorage {
 	// 补文件后缀由_SF改为.ext
 	public static final String SF_SUFFIX = ".ext"; //补文件后缀
+	protected static int MIN_BLOCK_SIZE = 1024 * 4;
 	
 	protected File file;
 	protected RandomAccessFile raf;

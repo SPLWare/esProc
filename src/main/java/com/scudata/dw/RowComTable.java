@@ -70,6 +70,20 @@ public class RowComTable extends ComTable {
 	 * @throws IOException
 	 */
 	public RowComTable(File file, String []colNames, String distribute, String opt, Context ctx) throws IOException {
+		this(file, colNames, distribute, opt, null, ctx);
+	}
+	
+	/**
+	 * 创建组表
+	 * @param file 表文件
+	 * @param colNames 列名称
+	 * @param distribute 分布
+	 * @param opt p：按第一字段分段
+	 * @param blockSize 区块大小
+	 * @param ctx 上下文
+	 * @throws IOException
+	 */
+	public RowComTable(File file, String []colNames, String distribute, String opt, Integer blockSize, Context ctx) throws IOException {
 		file.delete();
 		File parent = file.getParentFile();
 		if (parent != null) {
@@ -82,7 +96,17 @@ public class RowComTable extends ComTable {
 		this.ctx = ctx;
 		ctx.addResource(this);
 		
-		setBlockSize(Env.getBlockSize());
+		if (blockSize == null)
+			blockSize = Env.getBlockSize();
+		else {
+			int tempSize = blockSize % MIN_BLOCK_SIZE;
+			if (tempSize != 0) 
+				blockSize = blockSize - tempSize + MIN_BLOCK_SIZE;//4K对齐
+			if (blockSize < MIN_BLOCK_SIZE)
+				blockSize = MIN_BLOCK_SIZE;
+		}
+		setBlockSize(blockSize);
+		
 		enlargeSize = blockSize * 16;
 		headerBlockLink = new BlockLink(this);
 		headerBlockLink.setFirstBlockPos(applyNewBlock());
