@@ -60,7 +60,7 @@ public class Reset extends FileFunction {
 			}
 			
 			int size = param.getSubSize();
-			if (size != 2) {
+			if (size != 2 && size != 3) {
 				MessageManager mm = EngineMessage.get();
 				throw new RQException("reset" + mm.getMessage("function.invalidParam"));
 			}
@@ -68,6 +68,7 @@ public class Reset extends FileFunction {
 			File f = null;
 			FileGroup fg = null;
 			String distribute = null;
+			Integer blockSize = null;
 			IParam sub0 = param.getSub(0);
 			if (sub0 != null) {
 				obj = sub0.getLeafExpression().calculate(ctx);
@@ -86,19 +87,28 @@ public class Reset extends FileFunction {
 				distribute = expParam.getLeafExpression().toString();
 			}
 			
+			IParam blockSizeParam = param.getSub(2);
+			if (blockSizeParam != null) {
+				String b = blockSizeParam.getLeafExpression().calculate(ctx).toString();
+				try {
+					blockSize = Integer.parseInt(b);
+				} catch (NumberFormatException e) {
+				}
+			}
+			
 			FileObject fo = (FileObject) this.file;
 			File file = fo.getLocalFile().file();
 
 			try {
 				ComTable gt = ComTable.open(file, ctx);
 				if (f != null) {
-					return gt.reset(f, option, ctx, distribute);
+					return gt.reset(f, option, ctx, distribute, blockSize);
 				} else {
 					if (distribute == null) {
 						MessageManager mm = EngineMessage.get();
 						throw new RQException("reset" + mm.getMessage("function.invalidParam"));
 					}
-					return gt.resetFileGroup(fg, option, ctx, distribute);
+					return gt.resetFileGroup(fg, option, ctx, distribute, blockSize);
 				}
 			} catch (IOException e) {
 				throw new RQException(e.getMessage(), e);

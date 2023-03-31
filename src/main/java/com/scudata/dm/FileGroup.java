@@ -102,11 +102,12 @@ public class FileGroup implements Externalizable {
 	 * @param colNames 字段名数组
 	 * @param distribute 分布表达式
 	 * @param opt 选项
+	 * @param blockSize 区块大小
 	 * @param ctx 计算上下文
 	 * @return
 	 * @throws IOException
 	 */
-	public PhyTableGroup create(String []colNames, String distribute, String opt, Context ctx) throws IOException {
+	public PhyTableGroup create(String []colNames, String distribute, String opt, Integer blockSize, Context ctx) throws IOException {
 		int pcount = partitions.length;
 		PhyTable []tables = new PhyTable[pcount];
 		boolean yopt = opt != null && opt.indexOf('y') != -1;
@@ -130,9 +131,9 @@ public class FileGroup implements Externalizable {
 			
 			ComTable table;
 			if (ropt) {
-				table = new RowComTable(file, colNames, distribute, opt, ctx);
+				table = new RowComTable(file, colNames, distribute, opt, blockSize, ctx);
 			} else {
-				table = new ColComTable(file, colNames, distribute, opt, ctx);
+				table = new ColComTable(file, colNames, distribute, opt, blockSize, ctx);
 			}
 			
 			table.setPartition(partitions[i]);
@@ -145,15 +146,16 @@ public class FileGroup implements Externalizable {
 	/**
 	 * 整理组表数据
 	 * @param opt 选项
+	 * @param blockSize 区块大小
 	 * @param ctx计算上下文
 	 * @return true：成功，false：失败
 	 */
-	public boolean resetGroupTable(String opt, Context ctx) {
+	public boolean resetGroupTable(String opt, Integer blockSize, Context ctx) {
 		int pcount = partitions.length;
 		for (int i = 0; i < pcount; ++i) {
 			File file = Env.getPartitionFile(partitions[i], fileName);
 			PhyTable tmd = ComTable.openBaseTable(file, ctx);
-			boolean result = tmd.getGroupTable().reset(null, opt, ctx, null);
+			boolean result = tmd.getGroupTable().reset(null, opt, ctx, null, blockSize);
 			if (!result) {
 				return false;
 			}
@@ -166,10 +168,11 @@ public class FileGroup implements Externalizable {
 	 * 把复组表整理成单组表
 	 * @param newFile 新组表对应的文件
 	 * @param opt 选项
+	 * @param blockSize 区块大小
 	 * @param ctx计算上下文
 	 * @return true：成功，false：失败
 	 */
-	public boolean resetGroupTable(File newFile, String opt, Context ctx) {
+	public boolean resetGroupTable(File newFile, String opt, Integer blockSize, Context ctx) {
 		PhyTableGroup tableGroup = open(null, ctx);
 		PhyTable baseTable = (PhyTable) tableGroup.getTables()[0];
 		
@@ -239,7 +242,7 @@ public class FileGroup implements Externalizable {
 		try {
 			//生成新组表文件
 			if (isCol) {
-				newGroupTable = new ColComTable(newFile, colNames, null, newOpt, ctx);
+				newGroupTable = new ColComTable(newFile, colNames, null, newOpt, blockSize, ctx);
 				if (compress) {
 					newGroupTable.setCompress(true);
 				} else if (uncompress) {
@@ -248,7 +251,7 @@ public class FileGroup implements Externalizable {
 					newGroupTable.setCompress(baseTable.getGroupTable().isCompress());
 				}
 			} else {
-				newGroupTable = new RowComTable(newFile, colNames, null, newOpt, ctx);
+				newGroupTable = new RowComTable(newFile, colNames, null, newOpt, blockSize, ctx);
 			}
 			
 			//处理分段
@@ -326,10 +329,11 @@ public class FileGroup implements Externalizable {
 	 * @param newFileGroup 新文件组
 	 * @param opt 选项
 	 * @param distribute 分布表达式
+	 * @param blockSize 区块大小
 	 * @param ctx计算上下文
 	 * @return true：成功，false：失败
 	 */
-	public boolean resetGroupTable(FileGroup newFileGroup, String opt, String distribute, Context ctx) {
+	public boolean resetGroupTable(FileGroup newFileGroup, String opt, String distribute, Integer blockSize, Context ctx) {
 		if (distribute == null || distribute.length() == 0) {
 			// 分布不变
 			int pcount = partitions.length;
@@ -412,7 +416,7 @@ public class FileGroup implements Externalizable {
 			}
 			try {
 				//写基表
-				PhyTableGroup newTableGroup = newFileGroup.create(colNames, distribute, newOpt, ctx);
+				PhyTableGroup newTableGroup = newFileGroup.create(colNames, distribute, newOpt, blockSize, ctx);
 				ICursor cs = tableGroup.merge(ctx);
 				newTableGroup.append(cs, "xi");
 				

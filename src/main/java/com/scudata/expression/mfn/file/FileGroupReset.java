@@ -20,11 +20,13 @@ import com.scudata.resources.EngineMessage;
 public class FileGroupReset extends FileGroupFunction {
 	public Object calculate(Context ctx) {
 		if (param == null) {
-			return fg.resetGroupTable(option, ctx);
+			return fg.resetGroupTable(option, null, ctx);
 		}
 
 		Object obj = null; // 新文件名、新文件对象或者新文件组
 		String distribute = null; // 分布表达式
+		Integer blockSize = null;
+		
 		if (param.isLeaf()) {
 			obj = param.getLeafExpression().calculate(ctx);
 		} else {
@@ -34,7 +36,7 @@ public class FileGroupReset extends FileGroupFunction {
 			}
 
 			int size = param.getSubSize();
-			if (size != 2) {
+			if (size != 2 && size != 3) {
 				MessageManager mm = EngineMessage.get();
 				throw new RQException("reset" + mm.getMessage("function.invalidParam"));
 			}
@@ -48,19 +50,28 @@ public class FileGroupReset extends FileGroupFunction {
 			if (expParam != null) {
 				distribute = expParam.getLeafExpression().toString();
 			}
+			
+			IParam blockSizeParam = param.getSub(2);
+			if (blockSizeParam != null) {
+				String b = blockSizeParam.getLeafExpression().calculate(ctx).toString();
+				try {
+					blockSize = Integer.parseInt(b);
+				} catch (NumberFormatException e) {
+				}
+			}
 		}
 		
 		if (obj == null) {
-			return fg.resetGroupTable(option, ctx);
+			return fg.resetGroupTable(option, blockSize, ctx);
 		} else if (obj instanceof FileObject) {
 			File newFile = ((FileObject)obj).getLocalFile().file();
-			return fg.resetGroupTable(newFile, option, ctx);
+			return fg.resetGroupTable(newFile, option, blockSize, ctx);
 		} else if (obj instanceof String) {
 			FileObject fileObject = new FileObject((String)obj);
 			File newFile = fileObject.getLocalFile().file();
-			return fg.resetGroupTable(newFile, option, ctx);
+			return fg.resetGroupTable(newFile, option, blockSize, ctx);
 		} else if (obj instanceof FileGroup) {
-			return fg.resetGroupTable((FileGroup)obj, option, distribute, ctx);
+			return fg.resetGroupTable((FileGroup)obj, option, distribute, blockSize, ctx);
 		} else {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("reset" + mm.getMessage("function.paramTypeError"));

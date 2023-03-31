@@ -24,10 +24,11 @@ public class FileGroupCreate extends FileGroupFunction {
 
 		IParam colParam = param;
 		String distribute = null;
+		Integer blockSize = null;
 		
 		if (param.getType() == IParam.Semicolon) {
 			int size = param.getSubSize();
-			if (size != 2) {
+			if (size != 2 && size != 3) {
 				MessageManager mm = EngineMessage.get();
 				throw new RQException("create" + mm.getMessage("function.invalidParam"));
 			}
@@ -41,6 +42,15 @@ public class FileGroupCreate extends FileGroupFunction {
 			IParam expParam = param.getSub(1);
 			if (expParam != null) {
 				distribute = expParam.getLeafExpression().toString();
+			}
+			
+			IParam blockSizeParam = param.getSub(2);
+			if (blockSizeParam != null) {
+				String b = blockSizeParam.getLeafExpression().calculate(ctx).toString();
+				try {
+					blockSize = Integer.parseInt(b);
+				} catch (NumberFormatException e) {
+				}
 			}
 		}
 		String []cols;
@@ -61,7 +71,7 @@ public class FileGroupCreate extends FileGroupFunction {
 		}
 
 		try {
-			return fg.create(cols, distribute, option, ctx);
+			return fg.create(cols, distribute, option, blockSize, ctx);
 		} catch (IOException e) {
 			throw new RQException(e.getMessage(), e);
 		}

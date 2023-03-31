@@ -460,6 +460,18 @@ abstract public class ComTable implements IBlockStorage {
 	 * @return
 	 */
 	public boolean reset(File file, String opt, Context ctx, String distribute) {
+		return reset(file, opt, ctx, distribute, null);
+	}
+	/**
+	 * 重置组表
+	 * @param file 组表文件
+	 * @param opt r,重置为行存。c,重置为列存。
+	 * @param ctx
+	 * @param distribute 新的分布表达式，省略则用原来的
+	 * @param blockSize 新的区块大小
+	 * @return
+	 */
+	public boolean reset(File file, String opt, Context ctx, String distribute, Integer blockSize) {
 		checkWritable();
 		if (distribute == null) {
 			distribute = this.distribute;
@@ -513,7 +525,7 @@ abstract public class ComTable implements IBlockStorage {
 		ComTable sgt = getSupplement(false);
 		if (hasQ) {
 			if (sgt != null) {
-				sgt.reset(file, opt, ctx, distribute);
+				sgt.reset(file, opt, ctx, distribute, blockSize);
 				sgt.close();
 				sgt = null;
 			}
@@ -564,7 +576,7 @@ abstract public class ComTable implements IBlockStorage {
 		try {
 			//生成新组表文件
 			if (isCol) {
-				newGroupTable = new ColComTable(newFile, colNames, distribute, newOpt, ctx);
+				newGroupTable = new ColComTable(newFile, colNames, distribute, newOpt, blockSize, ctx);
 				if (compress) {
 					newGroupTable.setCompress(true);
 				} else if (uncompress) {
@@ -573,7 +585,7 @@ abstract public class ComTable implements IBlockStorage {
 					newGroupTable.setCompress(isCompress());
 				}
 			} else {
-				newGroupTable = new RowComTable(newFile, colNames, distribute, newOpt, ctx);
+				newGroupTable = new RowComTable(newFile, colNames, distribute, newOpt, blockSize, ctx);
 			}
 			
 			//处理分段
@@ -809,9 +821,10 @@ abstract public class ComTable implements IBlockStorage {
 	 * @param opt r,重置为行存。c,重置为列存。
 	 * @param ctx
 	 * @param distribute 新的分布表达式，省略则用原来的
+	 * @param blockSize 新的区块大小
 	 * @return
 	 */
-	public boolean resetFileGroup(FileGroup fileGroup, String opt, Context ctx, String distribute) {
+	public boolean resetFileGroup(FileGroup fileGroup, String opt, Context ctx, String distribute, Integer blockSize) {
 		if (distribute == null) {
 			distribute = this.distribute;
 		}
@@ -875,7 +888,7 @@ abstract public class ComTable implements IBlockStorage {
 		}
 		try {
 			//写基表
-			PhyTableGroup newTableGroup = fileGroup.create(colNames, distribute, newOpt, ctx);
+			PhyTableGroup newTableGroup = fileGroup.create(colNames, distribute, newOpt, blockSize, ctx);
 			ICursor cs = baseTable.cursor();
 			newTableGroup.append(cs, "xi");
 			

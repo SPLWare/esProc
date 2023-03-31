@@ -532,9 +532,10 @@ public class ClusterFile implements IClusterObject {
 	 * @param file 新组表对应的文件，省略则覆盖源文件
 	 * @param option 选项
 	 * @param distribute 新分布表达式
+	 * @param blockSize 区块大小
 	 * @return 结果序列
 	 */
-	public Sequence resetGroupTable(String file, String option, String distribute) {
+	public Sequence resetGroupTable(String file, String option, String distribute, Integer blockSize) {
 		if (!isDistributedFile()) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException(mm.getMessage("dw.needDistributed"));
@@ -543,7 +544,7 @@ public class ClusterFile implements IClusterObject {
 		Sequence result = new Sequence();
 		int count = pfs.length;
 		for (int i = 0; i < count; ++i) {
-			result.add(pfs[i].resetGroupTable(file, option, distribute));
+			result.add(pfs[i].resetGroupTable(file, option, distribute, blockSize));
 		}
 		
 		return result;

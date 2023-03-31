@@ -18,7 +18,7 @@ public class Reset extends ClusterFileFunction {
 	public Object calculate(Context ctx) {
 		Object obj = null;
 		if (param == null) {
-			return file.resetGroupTable(null, option, null);
+			return file.resetGroupTable(null, option, null, null);
 		} else if (param.isLeaf()) {
 			obj = param.getLeafExpression().calculate(ctx);
 			String fname = null;
@@ -31,7 +31,7 @@ public class Reset extends ClusterFileFunction {
 				throw new RQException("reset" + mm.getMessage("function.paramTypeError"));
 			}
 			
-			return file.resetGroupTable(fname, option, null);
+			return file.resetGroupTable(fname, option, null, null);
 		} else {
 			if (param.getType() != IParam.Semicolon) {
 				MessageManager mm = EngineMessage.get();
@@ -39,13 +39,14 @@ public class Reset extends ClusterFileFunction {
 			}
 			
 			int size = param.getSubSize();
-			if (size != 2) {
+			if (size != 2 && size != 3) {
 				MessageManager mm = EngineMessage.get();
 				throw new RQException("reset" + mm.getMessage("function.invalidParam"));
 			}
 			
 			String fname = null;
 			String distribute = null;
+			Integer blockSize = null;
 			IParam sub0 = param.getSub(0);
 			if (sub0 != null) {
 				obj = sub0.getLeafExpression().calculate(ctx);
@@ -63,8 +64,16 @@ public class Reset extends ClusterFileFunction {
 			if (expParam != null) {
 				distribute = expParam.getLeafExpression().toString();
 			}
-
-			return file.resetGroupTable(fname, option, distribute);
+			
+			IParam blockSizeParam = param.getSub(2);
+			if (blockSizeParam != null) {
+				String b = blockSizeParam.getLeafExpression().calculate(ctx).toString();
+				try {
+					blockSize = Integer.parseInt(b);
+				} catch (NumberFormatException e) {
+				}
+			}
+			return file.resetGroupTable(fname, option, distribute, blockSize);
 		}
 	}
 }

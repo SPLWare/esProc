@@ -302,9 +302,10 @@ class PartitionFile {
 	 * @param file 新组表对应的文件，省略则覆盖源文件
 	 * @param option 选项
 	 * @param distribute 新分布表达式
+	 * @param blockSize 新区块大小
 	 * @return true：成功，false：失败
 	 */
-	public boolean resetGroupTable(String file, String option, String distribute) {
+	public boolean resetGroupTable(String file, String option, String distribute, Integer blockSize) {
 		UnitClient client = new UnitClient(host, port);
 		
 		try {
@@ -316,6 +317,7 @@ class PartitionFile {
 			command.setAttribute("option", option);
 			command.setAttribute("jobSpaceId", clusterFile.getJobSpaceId());
 			command.setAttribute("distribute", distribute);
+			command.setAttribute("blockSize", blockSize);
 			
 			Response response = client.send(command);
 			Boolean result = (Boolean)response.checkResult();
@@ -338,7 +340,7 @@ class PartitionFile {
 		String option = (String)attributes.get("option");
 		String jobSpaceID = (String)attributes.get("jobSpaceId");
 		String distribute = (String)attributes.get("distribute");
-		
+		Integer blockSize = (Integer)attributes.get("blockSize");
 		try {
 			JobSpace js = JobSpaceManager.getSpace(jobSpaceID);
 			Context ctx = ClusterUtil.createContext(js);
@@ -364,10 +366,10 @@ class PartitionFile {
 			} else {
 				FileGroup fileGroup = new FileGroup(fileName, parts);
 				if (file == null) {
-					result = fileGroup.resetGroupTable(option, ctx);
+					result = fileGroup.resetGroupTable(option, blockSize, ctx);
 				} else {
 					FileGroup newFileGroup = new FileGroup(file, parts);
-					result = fileGroup.resetGroupTable(newFileGroup, option, distribute, ctx);
+					result = fileGroup.resetGroupTable(newFileGroup, option, distribute, blockSize, ctx);
 				}
 			}
 			
