@@ -55,9 +55,14 @@ public class PanelValue extends JPanel {
 	 */
 	public boolean preventChange = false;
 	/**
-	 * 调试执行时间
+	 * 单元格调试执行时间
 	 */
-	private JLabel jLTime = new JLabel();
+	private JLabel jLCellTime = new JLabel();
+
+	/**
+	 * 单元格调试执行时间间隔
+	 */
+	private JLabel jLInterval = new JLabel();
 
 	private JLabel jLDispRows1 = new JLabel(IdeSplMessage.get().getMessage(
 			"panelvalue.disprows1"));
@@ -105,14 +110,21 @@ public class PanelValue extends JPanel {
 		});
 		this.add(sbValue, BorderLayout.EAST);
 		tableValue.setValue(null);
-		JPanel panelDebug = new JPanel(new GridBagLayout());
-		panelDebug.add(jLTime, GM.getGBC(0, 0, true, false, 4));
-		panelDebug.add(jLDispRows1, GM.getGBC(0, 2, false, false, 2));
-		panelDebug.add(jSDispRows, GM.getGBC(0, 3, false, false, 0));
-		panelDebug.add(jLDispRows2, GM.getGBC(0, 4, false, false, 2));
-		panelDebug.add(jBCursorFetch, GM.getGBC(0, 5));
 
-		panelSouth.add(CARD_DEBUG, panelDebug);
+		panelDebug.add(jLCellTime, GM.getGBC(0, 0, true, false, 2));
+		panelDebug.add(jLInterval, GM.getGBC(0, 1, true));
+
+		panelCursor.add(jLDispRows1, GM.getGBC(0, 0, false, false, 2));
+		panelCursor.add(jSDispRows, GM.getGBC(0, 1, false, false, 0));
+		panelCursor.add(jLDispRows2, GM.getGBC(0, 2, false, false, 2));
+		panelCursor.add(jBCursorFetch, GM.getGBC(0, 3));
+		panelCursor.add(new JPanel(), GM.getGBC(0, 4, true));
+
+		JPanel panelAction = new JPanel(new GridBagLayout());
+		panelAction.add(panelCursor, GM.getGBC(0, 0, true));
+		panelAction.add(panelDebug, GM.getGBC(1, 0, true));
+
+		panelSouth.add(CARD_DEBUG, panelAction);
 		panelSouth.add(CARD_EMPTY, new JPanel());
 		cl.show(panelSouth, CARD_EMPTY);
 		panelSouth.setVisible(false);
@@ -136,6 +148,7 @@ public class PanelValue extends JPanel {
 		jSDispRows.setVisible(isCursor);
 		jLDispRows2.setVisible(isCursor);
 		jBCursorFetch.setVisible(isCursor);
+		panelCursor.setVisible(isCursor);
 	}
 
 	/** 调试面板 */
@@ -150,6 +163,9 @@ public class PanelValue extends JPanel {
 	 * 调试面板。不调试时切换为空面板
 	 */
 	private JPanel panelSouth = new JPanel(cl);
+
+	private JPanel panelDebug = new JPanel(new GridBagLayout());
+	private JPanel panelCursor = new JPanel(new GridBagLayout());
 
 	/**
 	 * 设置网格
@@ -172,12 +188,21 @@ public class PanelValue extends JPanel {
 	 * 
 	 * @param time
 	 */
-	public void setDebugTime(Long time) {
-		if (time == null) {
-			jLTime.setText(null);
+	public void setDebugTime(String cellId, Long time) {
+		if (cellId == null || time == null) {
+			jLCellTime.setText(null);
 		} else {
-			jLTime.setText(IdeSplMessage.get().getMessage(
-					"panelvalue.debugtime", time));
+			jLCellTime.setText(IdeSplMessage.get().getMessage(
+					"panelvalue.debugtime", cellId, time));
+		}
+	}
+
+	public void setInterval(String cellId1, String cellId2, Long interval) {
+		if (cellId1 == null || cellId2 == null) {
+			jLInterval.setText(null);
+		} else {
+			jLInterval.setText(IdeSplMessage.get().getMessage(
+					"panelvalue.cellinterval", cellId1, cellId2, interval));
 		}
 	}
 

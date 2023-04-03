@@ -94,21 +94,14 @@ public class ControlUtilsBase {
 	 * @return
 	 */
 	public static Vector<CellLocation> listSelectedCells(
-			Vector<Object> selectedAreas) {
+			Vector<CellRect> selectedAreas) {
 		Vector<CellLocation> cells = new Vector<CellLocation>();
 		for (int i = 0; i < selectedAreas.size(); i++) {
-			Object areaOrRect = selectedAreas.get(i);
-			if (areaOrRect == null) {
+			CellRect rect = selectedAreas.get(i);
+			if (rect == null) {
 				continue;
 			}
-			Area area;
-			if (areaOrRect instanceof CellRect) {
-				area = ((CellRect) areaOrRect).getArea();
-			} else if (areaOrRect instanceof Area) {
-				area = (Area) areaOrRect;
-			} else {
-				continue;
-			}
+			Area area = rect.getArea();
 			cells.addAll(listSelectedCells(area));
 		}
 		return cells;

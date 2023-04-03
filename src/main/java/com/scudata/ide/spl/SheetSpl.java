@@ -121,7 +121,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 	/**
 	 * 调试执行时间的映射表。键是单元格名，值是执行时间（毫秒）
 	 */
-	private Map<String, Long> debugTimeMap = new HashMap<String, Long>();
+	private Map<String, Long[]> debugTimeMap = new HashMap<String, Long[]>();
 
 	/**
 	 * 正在执行的单元格坐标
@@ -639,7 +639,15 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 					lockOtherCell = true;
 					setValue(nc, true);
 				}
-				GVSpl.panelValue.setDebugTime(debugTimeMap.get(nc.getCellId()));
+				String cellId = nc.getCellId();
+				GVSpl.panelValue.setDebugTime(cellId, getCellDebugTime(cellId));
+				Object[] cellInterval = getCellInterval();
+				if (cellInterval == null || cellInterval.length != 3) {
+					GVSpl.panelValue.setInterval(null, null, null);
+				} else {
+					GVSpl.panelValue.setInterval((String) cellInterval[0],
+							(String) cellInterval[1], (Long) cellInterval[2]);
+				}
 			}
 
 			if (lockOtherCell && GVSpl.panelValue.tableValue.isLocked()) {
@@ -853,7 +861,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 				runCell(row, col);
 				long t2 = System.currentTimeMillis();
 				String cellId = CellLocation.getCellId(row, col);
-				debugTimeMap.put(cellId, t2 - t1);
+				debugTimeMap.put(cellId, new Long[] { t1, t2 });
 				NormalCell nc = (NormalCell) splControl.cellSet.getCell(row,
 						col);
 				if (nc != null) {
@@ -1280,6 +1288,13 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 	 * 执行到光标
 	 */
 	protected void stepCursor() {
+		CellLocation activeCell = splControl.getActiveCell();
+		if (activeCell == null) {
+			// 请选择要执行到的单元格。
+			GM.messageDialog(GV.appFrame,
+					IdeSplMessage.get().getMessage("sheetspl.noselectcell"));
+			return;
+		}
 		debug(DebugThread.CURSOR);
 	}
 
@@ -1809,15 +1824,15 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 							}
 							exeLocation = runNext(curCellSet);
 						}
-						if (hasReturn(curCellSet)) {
-							exeLocation = null;
-							break;
-						}
 						if (isDebugMode && pnc != null) {
 							long end = System.currentTimeMillis();
 							String cellId = CellLocation.getCellId(
 									pnc.getRow(), pnc.getCol());
-							debugTimeMap.put(cellId, end - start);
+							debugTimeMap.put(cellId, new Long[] { start, end });
+						}
+						if (hasReturn(curCellSet)) {
+							exeLocation = null;
+							break;
 						}
 					}
 					if (isDebugMode) {
@@ -2037,6 +2052,67 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 					GM.showException(ex);
 			}
 		});
+	}
+
+	/**
+	 * 取单元格调试执行时间
+	 * @param cellId
+	 * @return
+	 */
+	private Long getCellDebugTime(String cellId) {
+		Long[] times = debugTimeMap.get(cellId);
+		if (times == null || times.length != 2)
+			return null;
+		Long start = times[0];
+		Long end = times[1];
+		if (start == null || end == null)
+			return null;
+		return end - start;
+	}
+
+	private Object[] getCellInterval() {
+		Vector<CellRect> cellRects = splEditor.getSelectedRects();
+		if (cellRects == null || cellRects.isEmpty())
+			return null;
+		Long start = null;
+		Long end = null;
+		String cellId1 = null;
+		String cellId2 = null;
+		for (CellRect rect : cellRects) {
+			for (int r = rect.getBeginRow(); r <= rect.getEndRow(); r++) {
+				for (int c = rect.getBeginCol(); c <= rect.getEndCol(); c++) {
+					String cellId = CellLocation.getCellId(r, c);
+					Long[] times = debugTimeMap.get(cellId);
+					if (times == null || times.length != 2)
+						continue;
+					Long tmpStart = times[0];
+					Long tmpEnd = times[1];
+					if (tmpStart == null || tmpEnd == null) {
+						continue;
+					}
+					if (start == null || end == null) {
+						cellId1 = cellId;
+						cellId2 = cellId;
+						start = tmpStart;
+						end = tmpEnd;
+					} else {
+						if (tmpStart < start) {
+							cellId1 = cellId;
+							start = tmpStart;
+						} else if (tmpEnd >= end) {
+							cellId2 = cellId;
+							end = tmpEnd;
+						}
+					}
+				}
+			}
+		}
+		if (start == null || end == null || cellId1 == null || cellId2 == null) {
+			return null;
+		}
+		if (cellId1.equals(cellId2))
+			return null;
+		return new Object[] { cellId1, cellId2, end - start };
 	}
 
 	/**

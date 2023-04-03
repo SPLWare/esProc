@@ -113,7 +113,7 @@ public class SplEditor {
 	/**
 	 * 选中的格子矩形
 	 */
-	public Vector<Object> selectedRects = new Vector<Object>();
+	public Vector<CellRect> selectedRects = new Vector<CellRect>();
 
 	/**
 	 * 选中的列号
@@ -662,7 +662,7 @@ public class SplEditor {
 	 * 
 	 * @return
 	 */
-	public Vector<Object> getSelectedRects() {
+	public Vector<CellRect> getSelectedRects() {
 		return selectedRects;
 	}
 
@@ -1643,7 +1643,7 @@ public class SplEditor {
 	 * 设置单元格提示
 	 */
 	public void setTips() {
-		Vector<Object> rects = getSelectedRects();
+		Vector<CellRect> rects = getSelectedRects();
 		if (rects == null) {
 			return;
 		}
