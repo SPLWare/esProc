@@ -394,7 +394,9 @@ public class DataStruct implements Externalizable, IRecord {
 	 * @param newFields
 	 */
 	public void rename(String []srcFields, String []newFields) {
-		if (srcFields == null) return;
+		if (srcFields == null) {
+			return;
+		}
 		
 		String[] fieldNames = this.fieldNames; // ÆÕÍ¨×Ö¶Î
 		for (int i = 0, count = srcFields.length; i < count; ++i) {
@@ -408,6 +410,15 @@ public class DataStruct implements Externalizable, IRecord {
 				fieldNames[f] = newFields[i];
 			} else {
 				fieldNames[f] = DefNamePrefix + (f + 1);
+			}
+			
+			if (pkIndex != null) {
+				for (int k = 0; k < pkIndex.length; ++k) {
+					if (pkIndex[k] == f) {
+						primary[k] = fieldNames[f];
+						break;
+					}
+				}
 			}
 		}
 	}
