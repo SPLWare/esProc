@@ -1034,6 +1034,8 @@ public class Cursor extends IDWCursor {
 				Record sr = mr.getRecord();
 				if (Variant.isTrue(sr.calc(filter, ctx))) {
 					list.add(mr);
+				} else {
+					list.add(new ModifyRecord(mr.getRecordSeq()));
 				}
 			}
 			if (list.size() == 0) {
