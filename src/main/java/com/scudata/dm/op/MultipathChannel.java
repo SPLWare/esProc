@@ -222,6 +222,31 @@ public class MultipathChannel extends Channel {
 	}
 	
 	/**
+	 * 做外键式连接
+	 * @param function
+	 * @param dimExps 连接表达式数组
+	 * @param aliasNames 维表记录别名
+	 * @param newExps 新产生字段表达式数组
+	 * @param newNames 新产生字段名数组
+	 * @param opt 选项，i：做交连接
+	 * @param ctx
+	 * @return
+	 */
+	public Operable fjoin(Function function, Expression[] dimExps, String []aliasNames, 
+			Expression[][] newExps, String[][] newNames, String opt, Context ctx) {
+		checkResultChannel();
+		
+		for (Channel channel : channels) {
+			ctx = channel.getContext();
+			Expression []curDimExps = Operation.dupExpressions(dimExps, ctx);
+			Expression [][]curNewExps = Operation.dupExpressions(newExps, ctx);
+			channel.fjoin(function, curDimExps, aliasNames, curNewExps, newNames, opt, ctx);
+		}
+		
+		return this;
+	}
+	
+	/**
 	 * 添加计算列
 	 * @param function 对应的函数
 	 * @param exps 计算表达式数组

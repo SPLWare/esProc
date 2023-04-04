@@ -117,6 +117,23 @@ public abstract class Operable {
 	}
 	
 	/**
+	 * 做外键式连接
+	 * @param function
+	 * @param dimExps 连接表达式数组
+	 * @param aliasNames 维表记录别名
+	 * @param newExps 新产生字段表达式数组
+	 * @param newNames 新产生字段名数组
+	 * @param opt 选项，i：做交连接
+	 * @param ctx
+	 * @return
+	 */
+	public Operable fjoin(Function function, Expression[] dimExps, String []aliasNames, 
+			Expression[][] newExps, String[][] newNames, String opt, Context ctx) {
+		ForeignJoin op = new ForeignJoin(function, dimExps, aliasNames, newExps, newNames, opt);
+		return addOperation(op, ctx);
+	}
+	
+	/**
 	 * 与游标做有序归并连接
 	 * @param function 对应的函数
 	 * @param exps 当前表关联字段表达式数组

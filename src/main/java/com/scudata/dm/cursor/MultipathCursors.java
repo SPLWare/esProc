@@ -608,6 +608,30 @@ public class MultipathCursors extends ICursor implements IMultipath {
 	}
 	
 	/**
+	 * 做外键式连接
+	 * @param function
+	 * @param dimExps 连接表达式数组
+	 * @param aliasNames 维表记录别名
+	 * @param newExps 新产生字段表达式数组
+	 * @param newNames 新产生字段名数组
+	 * @param opt 选项，i：做交连接
+	 * @param ctx
+	 * @return
+	 */
+	public Operable fjoin(Function function, Expression[] dimExps, String []aliasNames, 
+			Expression[][] newExps, String[][] newNames, String opt, Context ctx) {
+		for (ICursor subCursor : cursors) {
+			// 复制表达式
+			ctx = subCursor.getContext();
+			Expression []curDimExps = Operation.dupExpressions(dimExps, ctx);
+			Expression [][]curNewExps = Operation.dupExpressions(newExps, ctx);
+			subCursor.fjoin(function, curDimExps, aliasNames, curNewExps, newNames, opt, ctx);
+		}
+		
+		return this;
+	}
+	
+	/**
 	 * 进行连接过滤，保留能关联上的
 	 * @param function 对应的函数
 	 * @param exps 当前表关联字段表达式数组
