@@ -377,7 +377,7 @@ public class RowCursor extends IDWCursor {
 					Object obj = filterList2.get(i);
 					if (obj instanceof IFilter) {
 						IFilter filter = (IFilter)obj;
-						for (int j = 0; j < size; ++i) {
+						for (int j = 0; j < size; ++j) {
 							obj = filterList.get(j);
 							if (obj instanceof IFilter && filter.isSameColumn((IFilter)obj)) {
 								LogicAnd and = new LogicAnd((IFilter)obj, filter, filter.columnName);
@@ -386,7 +386,7 @@ public class RowCursor extends IDWCursor {
 							}
 						}
 						
-						filterList.add(obj);
+						filterList.add(filter);
 					} else {
 						filterList.add(obj);
 					}
