@@ -3,6 +3,9 @@ package com.scudata.dw;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
+import com.scudata.expression.Expression;
+import com.scudata.expression.Node;
+import com.scudata.expression.fn.math.And;
 import com.scudata.util.Variant;
 
 /**
@@ -29,6 +32,16 @@ public class AndFilter extends IFilter {
 		this.operator = operator;
 		this.andValue = (Number) andValue;
 		this.rightValue = (Number) rightValue;
+		
+		optimize();
+	}
+	
+	public AndFilter(ColumnMetaData column, int priority, int operator, Object andValue, Object rightValue, Node node) {
+		super(column, priority);
+		this.operator = operator;
+		this.andValue = (Number) andValue;
+		this.rightValue = (Number) rightValue;
+		if (node != null) exp = new Expression(node);
 		
 		optimize();
 	}
@@ -106,5 +119,4 @@ public class AndFilter extends IFilter {
 	public boolean match(Object minValue, Object maxValue) {
 		return true;
 	}
-
 }
