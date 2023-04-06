@@ -1856,7 +1856,7 @@ abstract public class PhyTable implements IPhyTable {
 			}
 		} else {
 			result[0] = new ConjxCursor(new ICursor[]{cursors1[0], cs2});
-			System.arraycopy(cursors1, 1, result, 1, count);
+			System.arraycopy(cursors1, 1, result, 1, count - 1);
 		}
 		
 		return new MultipathCursors(result, ctx);
