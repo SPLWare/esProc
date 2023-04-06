@@ -5,7 +5,6 @@ import java.math.BigInteger;
 
 import com.scudata.expression.Expression;
 import com.scudata.expression.Node;
-import com.scudata.expression.fn.math.And;
 import com.scudata.util.Variant;
 
 /**
