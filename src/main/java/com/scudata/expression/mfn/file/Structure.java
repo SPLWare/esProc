@@ -28,7 +28,7 @@ import com.scudata.parallel.ClusterPhyTable;
  *
  */
 public class Structure extends FileFunction {
-	private static final String FIELD_NAMES[] = { "field", "key", "row", "zip", "seg", "zonex", "index", "cuboid", "attach", "blockSize" };
+	private static final String FIELD_NAMES[] = { "field", "key", "row", "zip", "seg", "zonex", "index", "cuboid", "attach", "block" };
 	private static final String ATTACH_FIELD_NAMES[] = { "name", "field", "key", "row", "zip", "seg", "zonex", "index", "cuboid", "attach" };
 	private static final String COL_FIELD_FIELD_NAMES[] = {"name", "dim", "type", "type-len", "dict"};
 	private static final String ROW_FIELD_FIELD_NAMES[] = {"name", "dim"};
@@ -120,8 +120,10 @@ public class Structure extends FileFunction {
 			rec.setNormalFieldValue(idx, seq);
 		}
 		
-		idx++;
-		rec.setNormalFieldValue(idx, table.getGroupTable().getBlockSize());
+		if (table.isBaseTable()) {
+			idx++;
+			rec.setNormalFieldValue(idx, table.getGroupTable().getBlockSize());
+		}
 		return rec;
 	}
 	
