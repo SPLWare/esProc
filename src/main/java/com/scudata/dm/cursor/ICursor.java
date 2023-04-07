@@ -1236,7 +1236,8 @@ abstract public class ICursor extends Operable implements IResource {
 			ICursor []cursors, Expression[][] codeExps, 
 			Expression[][] newExps, String[][] newNames, String opt, Context ctx) {
 		//TODO 稍后要修改为Operable
-		return CSJoinxCursor3.MergeJoinx(this, exps, cursors, codeExps, newExps, newNames, null, ctx, FETCHCOUNT, opt);
+		//return CSJoinxCursor3.MergeJoinx(this, exps, cursors, codeExps, newExps, newNames, null, ctx, FETCHCOUNT, opt);
+		return new MergeJoinxCursor(this, exps, cursors, codeExps, newExps, newNames, opt, ctx);
 	}
 	
 	/**
