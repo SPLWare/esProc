@@ -1095,7 +1095,8 @@ public class SPL extends AppFrame {
 							}
 						}
 					} else {
-						openSheetFile(filePath);
+						if (filePath.indexOf(":") < 0)
+							openSheetFile(filePath);
 					}
 				} catch (Throwable x) {
 					Logger.error(x);
