@@ -555,6 +555,73 @@ public final class MultithreadUtil {
 	}
 	
 	/**
+	 * 计算排列的字段值合并生成新序表
+	 * @param src 源排列
+	 * @param gexp 返回值为序列的表达式
+	 * @param exps 结果集表达式数组
+	 * @param ds 结果集数据结构
+	 * @param opt 1：gexp为空时生成一条记录，默认不生成
+	 * @param ctx 计算上下文
+	 * @return 序表
+	 */
+	public static Table newTables(Sequence src, Expression gexp, Expression[] exps, DataStruct ds, String opt, Context ctx) {
+		int len = src.length();
+		int parallelNum = getParallelNum();
+
+		if (len <= SINGLE_PROSS_COUNT || parallelNum < 2) {
+			return src.newTables(gexp, exps, ds, opt, ctx);
+		}
+		
+		int threadCount = (len - 1) / SINGLE_PROSS_COUNT + 1;
+		if (threadCount > parallelNum) {
+			threadCount = parallelNum;
+		}
+		
+		// 生成new任务并提交给线程池
+		ThreadPool pool = ThreadPool.instance();
+		int singleCount = len / threadCount;
+		NewsJob []jobs = new NewsJob[threadCount];
+		int expCount = exps.length;
+		
+		int start = 1;
+		int end; // 不包括
+		for (int i = 0; i < threadCount; ++i) {
+			if (i + 1 == threadCount) {
+				end = len + 1;
+			} else {
+				end = start + singleCount;
+			}
+
+			Context tmpCtx = ctx.newComputeContext();
+			Expression tmpGExp = gexp.newExpression(tmpCtx);
+			Expression []tmpExps = new Expression[expCount];
+			for (int k = 0; k < expCount; ++k) {
+				tmpExps [k] = exps[k].newExpression(tmpCtx);
+			}
+
+			jobs[i] = new NewsJob(src, start, end, tmpGExp, tmpExps, ds, opt, tmpCtx);
+			pool.submit(jobs[i]); // 提交任务
+			start = end;
+		}
+
+		// 等待任务执行完毕并取出结果
+		int totalLen = 0;
+		for (int i = 0; i < threadCount; ++i) {
+			jobs[i].join();
+			Table curResult = jobs[i].getResult();
+			totalLen += curResult.length();
+		}
+
+		Table result = new Table(ds, totalLen);
+		for (int i = 0; i < threadCount; ++i) {
+			Table curResult = jobs[i].getResult();
+			result.getMems().addAll(curResult.getMems());
+		}
+		
+		return result;
+	}
+	
+	/**
 	 * 多线程对序列执行derive计算
 	 * @param src 源序列
 	 * @param names 字段名数组

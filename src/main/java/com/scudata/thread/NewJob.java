@@ -41,6 +41,7 @@ class NewJob extends Job {
 		int start = this.start;
 		int end = this.end;
 		DataStruct ds = this.ds;
+		Expression[] exps = this.exps;
 		Context ctx = this.ctx;
 		
 		Table table = new Table(ds, end - start);

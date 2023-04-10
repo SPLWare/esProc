@@ -7793,7 +7793,11 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		}
 		
 		DataStruct ds = new DataStruct(names);
-		return newTables(gexp, exps, ds, opt, ctx);
+		if (opt == null || opt.indexOf('m') == -1) {
+			return newTables(gexp, exps, ds, opt, ctx);
+		} else {
+			return MultithreadUtil.newTables(this, gexp, exps, ds, opt, ctx);
+		}
 	}
 
 	/**
