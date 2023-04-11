@@ -2078,6 +2078,7 @@ public class Cursor extends IDWCursor {
 			} else {
 				ColumnMetaData []columns = this.columns;
 				int []seqs = this.seqs;
+				FindFilter[] findFilters = this.findFilters;
 				ObjectReader []segmentReaders = this.segmentReaders;
 				int filterCount = filters.length;
 				long []positions = new long[colCount];
@@ -2137,6 +2138,10 @@ public class Cursor extends IDWCursor {
 									if (matchCount == 0) {
 										break;
 									}
+								} else {
+									if (seqs[f] != -1 && findFilters != null && findFilters[f] != null) {
+										curValues[i] = findFilters[f].getFindResult();
+									}
 								}
 							} else {
 								reader.skipObject();
@@ -2195,7 +2200,7 @@ public class Cursor extends IDWCursor {
 						if (isInsert && matchs[i]) {
 							matchCount--;
 							Record r = new Record(ds);
-							for (f = 0; f < filterCount; ++f) {
+							for (f = 0; f < filterCount; ++f) {								
 								if (seqs[f] != -1) {
 									r.setNormalFieldValue(seqs[f], filterValues[f][i]);
 								}
