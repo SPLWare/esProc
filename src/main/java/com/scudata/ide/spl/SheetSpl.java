@@ -126,7 +126,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 	/**
 	 * 正在执行的单元格坐标
 	 */
-	private transient CellLocation exeLocation = null;
+	protected transient CellLocation exeLocation = null;
 
 	/**
 	 * 网格选择的状态
@@ -909,7 +909,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 	/**
 	 * 加载断点
 	 */
-	private void loadBreakPoints() {
+	protected void loadBreakPoints() {
 		ConfigFile cf = null;
 		try {
 			cf = ConfigFile.getConfigFile();
@@ -1390,7 +1390,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 	/**
 	 * 中断执行
 	 */
-	protected void interruptCellSet(PgmCellSet cellSet) {
+	protected void interruptRun(PgmCellSet cellSet) {
 		cellSet.interrupt();
 	}
 
@@ -1654,7 +1654,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 		 */
 		public void pause() {
 			super.pause();
-			interruptCellSet(curCellSet);
+			interruptRun(curCellSet);
 		}
 
 		/**
@@ -1758,8 +1758,12 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 						} catch (Exception e) {
 						}
 					}
+					boolean isRunTo = false;
+					if (debugType == DEBUG || debugType == CURSOR) {
+						isRunTo = runTo(debugType == DEBUG ? null : clCursor);
+					}
 
-					if (debugType != STEP_INTO_WAIT) {
+					if (!isRunTo && debugType != STEP_INTO_WAIT) {
 						long start = System.currentTimeMillis();
 						PgmNormalCell pnc = null;
 						if (exeLocation != null) {
@@ -2009,6 +2013,10 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 			pause();
 			closeResource();
 		}
+	}
+
+	protected boolean runTo(CellLocation toCell) {
+		return false;
 	}
 
 	/**

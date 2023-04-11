@@ -1659,7 +1659,11 @@ public class SPL extends AppFrame {
 				}
 				if (isStopped)
 					break;
-				autoSaveAll();
+				SwingUtilities.invokeLater(new Runnable() {
+					public void run() {
+						autoSaveAll();
+					}
+				});
 			}
 		}
 
