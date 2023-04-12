@@ -225,6 +225,26 @@ public class MergeJoinxCursor extends ICursor {
 					stack.pop();
 				}
 			} else {
+				int joinFieldCount = exps[t].length;
+				Expression []curKeyExps = codeExps != null ? codeExps[t] : null;
+				
+				Expression []curAllExps;
+				if (curNewExps != null) {
+					curAllExps = new Expression[joinFieldCount + curNewExps.length];
+					if (curKeyExps != null) {
+						System.arraycopy(curKeyExps, 0, curAllExps, 0, joinFieldCount);
+					}
+					
+					System.arraycopy(curNewExps, 0, curAllExps, joinFieldCount, curNewExps.length);
+				} else {
+					if (curKeyExps != null) {
+						curAllExps = curKeyExps;
+					} else {
+						curAllExps = new Expression[joinFieldCount];
+					}
+				}
+				
+				codeAllExps[t] = curAllExps;
 				containNull = true;
 				if (isIsect) {
 					isEnd = true;
@@ -395,6 +415,7 @@ public class MergeJoinxCursor extends ICursor {
 				
 				Expression []curExps = exps[t];
 				int joinFieldCount = curExps.length;
+				
 				if (codeArrays[t] != null) {
 					// 当前维表游标还没有遍历完
 					ObjectArray []fkArrays = new ObjectArray[joinFieldCount];
@@ -410,8 +431,9 @@ public class MergeJoinxCursor extends ICursor {
 					}
 					
 					leftJoin(fkArrays, t, result, findex);
-					findex += codeAllExps[t].length - joinFieldCount;
 				}
+				
+				findex += codeAllExps[t].length - joinFieldCount;
 			}
 		} finally {
 			stack.pop();
