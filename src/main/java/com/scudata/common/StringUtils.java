@@ -1607,9 +1607,9 @@ public class StringUtils {
 	}
 	
 	public static boolean isAssicString(String str) {
-		if (str == null) return false;
+		if (str == null) return true;
 		int len = str.length();
-		if (len == 0) return false;
+		if (len == 0) return true;
 		for (int i = 0; i < len; i++) {
 			char ch = str.charAt(i);
 			if (ch < 0 || ch >= 0x80)

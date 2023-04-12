@@ -336,6 +336,13 @@ public class ColumnMetaData {
 			return;
 		}
 		
+		if (curType == DataBlockType.STRING && newType == DataBlockType.STRING_ASSIC) {
+			return;
+		}
+		if (newType == DataBlockType.STRING && curType == DataBlockType.STRING_ASSIC) {
+			return;
+		}
+		
 		switch (curType) {
 		case DataBlockType.EMPTY:
 			dataType = newType;
