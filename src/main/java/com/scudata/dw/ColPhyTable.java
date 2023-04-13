@@ -4806,7 +4806,7 @@ public class ColPhyTable extends PhyTable {
 	 */
 	long[] checkDim(String field, Node node, Context ctx) {
 		ColumnMetaData col = getColumn(field);
-		if (!col.isDim()) {
+		if (col == null || !col.isDim()) {
 			return null;
 		}
 		
