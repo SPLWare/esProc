@@ -82,7 +82,7 @@ public class MergeJoinxCursor extends ICursor {
 	
 	private void fetchDimTableData(int t) {
 		seqs[t] = 1;
-		Sequence codeData = cursors[t].fetch(ICursor.FETCHCOUNT);
+		Sequence codeData = cursors[t].fuzzyFetch(ICursor.FETCHCOUNT);
 		
 		if (codeData != null && codeData.length() > 0) {
 			Expression []curAllExps = codeAllExps[t];
@@ -158,7 +158,7 @@ public class MergeJoinxCursor extends ICursor {
 			seqs[t] = 1;
 			Sequence codeData = null;
 			if (cursors[t] != null) {
-				codeData = cursors[t].fetch(ICursor.FETCHCOUNT);
+				codeData = cursors[t].fuzzyFetch(ICursor.FETCHCOUNT);
 			}
 			
 			if (codeData != null && codeData.length() > 0) {

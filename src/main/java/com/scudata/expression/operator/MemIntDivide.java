@@ -37,19 +37,39 @@ public class MemIntDivide extends Operator {
 
 	public Object calculate(Context ctx) {
 		Object obj = left.calculate(ctx);
-		if (!(obj instanceof Sequence)) {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException("\"\\\\\"" + mm.getMessage("function.paramTypeError"));
-		}
-
-		Sequence seq = (Sequence)obj;
-		obj = right.calculate(ctx);
-
 		if (obj instanceof Sequence) {
-			return seq.memberIntDivide((Sequence)obj);
+			Sequence seq = (Sequence)obj;
+			obj = right.calculate(ctx);
+
+			if (obj instanceof Sequence) {
+				return seq.memberIntDivide((Sequence)obj);
+			} else {
+				ConstArray array = new ConstArray(obj, seq.length());
+				return seq.memberIntDivide(new Sequence(array));
+			}
+		} else if (obj == null) {
+			Object obj2 = right.calculate(ctx);
+			if (obj2 instanceof Sequence) {
+				Sequence seq2 = (Sequence)obj2;
+				ConstArray array = new ConstArray(null, seq2.length());
+				Sequence seq = new Sequence(array);
+				return seq.memberIntDivide(seq2);
+			} else {
+				return null;
+			}
 		} else {
-			ConstArray array = new ConstArray(obj, seq.length());
-			return seq.memberIntDivide(new Sequence(array));
+			Object obj2 = right.calculate(ctx);
+			if (obj2 instanceof Sequence) {
+				Sequence seq2 = (Sequence)obj2;
+				ConstArray array = new ConstArray(obj, seq2.length());
+				Sequence seq = new Sequence(array);
+				return seq.memberIntDivide(seq2);
+			} else if (obj2 == null) {
+				return null;
+			} else {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException("\"\\\\\"" + mm.getMessage("function.paramTypeError"));
+			}
 		}
 	}
 }

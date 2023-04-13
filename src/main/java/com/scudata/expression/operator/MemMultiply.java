@@ -37,19 +37,37 @@ public class MemMultiply extends Operator {
 
 	public Object calculate(Context ctx) {
 		Object obj = left.calculate(ctx);
-		if (!(obj instanceof Sequence)) {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException("\"**\"" + mm.getMessage("function.paramTypeError"));
-		}
-
-		Sequence seq = (Sequence)obj;
-		obj = right.calculate(ctx);
-
 		if (obj instanceof Sequence) {
-			return seq.memberMultiply((Sequence)obj);
+			Sequence seq = (Sequence)obj;
+			obj = right.calculate(ctx);
+	
+			if (obj instanceof Sequence) {
+				return seq.memberMultiply((Sequence)obj);
+			} else {
+				ConstArray array = new ConstArray(obj, seq.length());
+				return seq.memberMultiply(new Sequence(array));
+			}
+		} else if (obj == null) {
+			Object obj2 = right.calculate(ctx);
+			if (obj2 instanceof Sequence) {
+				Sequence seq2 = (Sequence)obj2;
+				ConstArray array = new ConstArray(obj, seq2.length());
+				return new Sequence(array);
+			} else {
+				return null;
+			}
 		} else {
-			ConstArray array = new ConstArray(obj, seq.length());
-			return seq.memberMultiply(new Sequence(array));
+			Object obj2 = right.calculate(ctx);
+			if (obj2 instanceof Sequence) {
+				Sequence seq = (Sequence)obj2;
+				ConstArray array = new ConstArray(obj, seq.length());
+				return seq.memberMultiply(new Sequence(array));
+			} else if (obj2 == null) {
+				return null;
+			} else {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException("\"**\"" + mm.getMessage("function.paramTypeError"));
+			}
 		}
 	}
 }

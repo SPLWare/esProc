@@ -37,19 +37,39 @@ public class MemSubtract extends Operator {
 
 	public Object calculate(Context ctx) {
 		Object obj = left.calculate(ctx);
-		if (!(obj instanceof Sequence)) {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException("\"--\"" + mm.getMessage("function.paramTypeError"));
-		}
-
-		Sequence seq = (Sequence)obj;
-		obj = right.calculate(ctx);
-		
 		if (obj instanceof Sequence) {
-			return seq.memberSubtract((Sequence)obj);
+			Sequence seq = (Sequence)obj;
+			obj = right.calculate(ctx);
+			
+			if (obj instanceof Sequence) {
+				return seq.memberSubtract((Sequence)obj);
+			} else {
+				ConstArray array = new ConstArray(obj, seq.length());
+				return seq.memberSubtract(new Sequence(array));
+			}
+		} else if (obj == null) {
+			Object obj2 = right.calculate(ctx);
+			if (obj2 instanceof Sequence) {
+				Sequence seq2 = (Sequence)obj2;
+				ConstArray array = new ConstArray(null, seq2.length());
+				Sequence seq = new Sequence(array);
+				return seq.memberSubtract(seq2);
+			} else {
+				return null;
+			}
 		} else {
-			ConstArray array = new ConstArray(obj, seq.length());
-			return seq.memberSubtract(new Sequence(array));
+			Object obj2 = right.calculate(ctx);
+			if (obj2 instanceof Sequence) {
+				Sequence seq2 = (Sequence)obj2;
+				ConstArray array = new ConstArray(obj, seq2.length());
+				Sequence seq = new Sequence(array);
+				return seq.memberSubtract(seq2);
+			} else if (obj2 == null) {
+				return null;
+			} else {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException("\"--\"" + mm.getMessage("function.paramTypeError"));
+			}
 		}
 	}
 }
