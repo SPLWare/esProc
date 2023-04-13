@@ -379,7 +379,7 @@ public class DataBlockType {
 			Object obj = data.get(i);
 			if (obj == null) {
 				hasNull = true;
-				//isAssic = false;
+				isAssic = false;
 				continue;
 			}
 			if (!(obj instanceof String)) {
