@@ -216,6 +216,104 @@ public class ElementRef extends Function {
 		}
 	}
 	
+	public IArray getFieldArray(Context ctx, FieldRef fieldRef) {
+		IArray sequenceArray = left.calculateAll(ctx);
+		IArray posArray = param.getLeafExpression().calculateAll(ctx);
+		int len = sequenceArray.size();
+		
+		if (sequenceArray instanceof ConstArray) {
+			Object obj = sequenceArray.get(1);
+			if (obj instanceof Sequence) {
+				return ((Sequence)obj).getFieldValueArray(posArray, fieldRef.getName());
+			} else if (obj == null) {
+				return new ConstArray(null, len);
+			} else {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException("()" + mm.getMessage("dot.seriesLeft"));
+			}
+		} else {
+			IArray result = new ObjectArray(len);
+			for (int i = 1; i <= len; ++i) {
+				Object obj = sequenceArray.get(i);
+				if (obj == null) {
+					result.push(null);
+					continue;
+				} else if (!(obj instanceof Sequence)) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException("()" + mm.getMessage("dot.seriesLeft"));
+				}
+				
+				Sequence sequence = (Sequence)obj;
+				if (posArray instanceof NumberArray) {
+					obj = sequence.get(posArray.getInt(i));
+				} else {
+					obj = posArray.get(i);
+					if (obj instanceof Number) {
+						obj = sequence.get(((Number)obj).intValue());
+					} else if (obj instanceof Sequence) {
+						obj = sequence.get((Sequence)obj);
+					} else if (obj != null) {
+						MessageManager mm = EngineMessage.get();
+						throw new RQException("()" + mm.getMessage("function.paramTypeError"));
+					}
+				}
+				
+				result.push(obj);
+			}
+			
+			return fieldRef.getFieldArray(result);
+		}
+	}
+	
+	public IArray getFieldArray(Context ctx, FieldId fieldId) {
+		IArray sequenceArray = left.calculateAll(ctx);
+		IArray posArray = param.getLeafExpression().calculateAll(ctx);
+		int len = sequenceArray.size();
+		
+		if (sequenceArray instanceof ConstArray) {
+			Object obj = sequenceArray.get(1);
+			if (obj instanceof Sequence) {
+				return ((Sequence)obj).getFieldValueArray(posArray, fieldId.getFieldIndex());
+			} else if (obj == null) {
+				return new ConstArray(null, len);
+			} else {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException("()" + mm.getMessage("dot.seriesLeft"));
+			}
+		} else {
+			IArray result = new ObjectArray(len);
+			for (int i = 1; i <= len; ++i) {
+				Object obj = sequenceArray.get(i);
+				if (obj == null) {
+					result.push(null);
+					continue;
+				} else if (!(obj instanceof Sequence)) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException("()" + mm.getMessage("dot.seriesLeft"));
+				}
+				
+				Sequence sequence = (Sequence)obj;
+				if (posArray instanceof NumberArray) {
+					obj = sequence.get(posArray.getInt(i));
+				} else {
+					obj = posArray.get(i);
+					if (obj instanceof Number) {
+						obj = sequence.get(((Number)obj).intValue());
+					} else if (obj instanceof Sequence) {
+						obj = sequence.get((Sequence)obj);
+					} else if (obj != null) {
+						MessageManager mm = EngineMessage.get();
+						throw new RQException("()" + mm.getMessage("function.paramTypeError"));
+					}
+				}
+				
+				result.push(obj);
+			}
+			
+			return fieldId.getFieldArray(ctx, result);
+		}
+	}
+	
 	/**
 	 * 计算出所有行的结果
 	 * @param ctx 计算上行文

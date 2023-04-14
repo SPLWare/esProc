@@ -580,7 +580,7 @@ public class ColumnList implements IArray {
 		return null;
 	}
 	
-	public IArray get(NumberArray indexArray) {
+	public IArray get(IArray indexArray) {
 		// TODO Auto-generated method stub
 		return null;
 	}

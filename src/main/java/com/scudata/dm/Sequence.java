@@ -11648,6 +11648,139 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 
 		return result;
 	}
+	
+	/**
+	 * 取指定字段的值数组
+	 * @param posArray 位置数组
+	 * @param fieldName 字段名
+	 * @return IArray
+	 */
+	public IArray getFieldValueArray(IArray posArray, String fieldName) {
+		int len = posArray.size();
+		if (len == 0) {
+			return new ObjectArray(0);
+		}
+		
+		IArray mems = getMems();
+		int col = -1; // 字段在上一条记录的索引
+		Object obj;
+		BaseRecord r = null;
+		DataStruct prevDs = null;
+		IArray result = null;
+		int i = 1;
+		
+		while (i <= len) {
+			int index = posArray.getInt(i++);
+			obj = mems.get(index);
+			if (obj instanceof BaseRecord) {
+				r = (BaseRecord)obj;
+				col = r.getFieldIndex(fieldName);
+				if (col < 0) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException(fieldName + mm.getMessage("ds.fieldNotExist"));
+				}
+				
+				prevDs = r.dataStruct();
+				result = r.createFieldValueArray(col, len);
+				
+				// i已经加过1了，所以从2开始
+				for (int n = 2; n < i; ++n) {
+					result.pushNull();
+				}
+				
+				r.getNormalFieldValue(col, result);
+				break;
+			} else if (obj != null) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException(mm.getMessage("engine.needPmt"));
+			}
+		}
+		
+		if (result == null) {
+			// 成员全部为空
+			Object []datas = new Object[len + 1];
+			result = new ObjectArray(datas, len);
+			return result;
+		}
+		
+		for (; i <= len; ++i) {
+			int index = posArray.getInt(i);
+			obj = mems.get(index);
+			if (obj instanceof BaseRecord) {
+				r = (BaseRecord)obj;
+				if (r.dataStruct() != prevDs) {
+					prevDs = r.dataStruct();
+					col = prevDs.getFieldIndex(fieldName);
+					if (col < 0) {
+						MessageManager mm = EngineMessage.get();
+						throw new RQException(fieldName + mm.getMessage("ds.fieldNotExist"));
+					}
+				}
+				
+				r.getNormalFieldValue(col, result);
+			} else if (obj == null) {
+				result.pushNull();
+			} else {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException(mm.getMessage("engine.needPmt"));
+			}
+		}
+
+		return result;
+	}
+	
+	/**
+	 * 取指定字段的值数组
+	 * @param posArray 位置数组
+	 * @param field 字段索引，从0开始计数
+	 * @return IArray
+	 */
+	public IArray getFieldValueArray(IArray posArray, int field) {
+		int len = posArray.size();
+		if (len == 0) {
+			return new ObjectArray(0);
+		}
+		
+		IArray mems = getMems();
+		BaseRecord r = null;
+		IArray result = null;
+		int i = 1;
+		
+		while (i <= len) {
+			int index = posArray.getInt(i++);
+			r = (BaseRecord)mems.get(index);
+			if (r != null) {
+				result = r.createFieldValueArray(field, len);
+				
+				// i已经加过1了，所以从2开始
+				for (int n = 2; n < i; ++n) {
+					result.pushNull();
+				}
+				
+				r.getNormalFieldValue(field, result);
+				break;
+			}
+		}
+		
+		if (result == null) {
+			// 成员全部为空
+			Object []datas = new Object[len + 1];
+			result = new ObjectArray(datas, len);
+			return result;
+		}
+		
+		for (; i <= len; ++i) {
+			int index = posArray.getInt(i);
+			r = (BaseRecord)mems.get(index);
+			if (r != null) {
+				r.getNormalFieldValue(field, result);
+			} else {
+				result.pushNull();
+			}
+		}
+
+		return result;
+	}
 
 	/**
 	 * 取指定行列的值

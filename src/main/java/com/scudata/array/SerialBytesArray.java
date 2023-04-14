@@ -596,10 +596,10 @@ public class SerialBytesArray implements IArray {
 
 	/**
 	 * 取指定位置元素组成新数组
-	 * @param NumberArray 位置数组
+	 * @param IArray 位置数组
 	 * @return IArray
 	 */
-	public IArray get(NumberArray indexArray) {
+	public IArray get(IArray indexArray) {
 		long []datas1 = this.datas1;
 		long []datas2 = this.datas2;
 		int len = indexArray.size();

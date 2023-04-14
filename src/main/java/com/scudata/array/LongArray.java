@@ -818,10 +818,10 @@ public class LongArray implements NumberArray {
 	
 	/**
 	 * 取指定位置元素组成新数组
-	 * @param NumberArray 位置数组
+	 * @param IArray 位置数组
 	 * @return IArray
 	 */
-	public IArray get(NumberArray indexArray) {
+	public IArray get(IArray indexArray) {
 		long []datas = this.datas;
 		boolean []signs = this.signs;
 		int len = indexArray.size();
@@ -2795,6 +2795,8 @@ public class LongArray implements NumberArray {
 			return memberDivide(array.get(1));
 		} else if (array instanceof ObjectArray) {
 			return memberDivide((ObjectArray)array);
+		} else if (array instanceof StringArray) {
+			return memberDivide((StringArray)array);
 		} else {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException(getDataType() + mm.getMessage("Variant2.with") +
@@ -3039,6 +3041,44 @@ public class LongArray implements NumberArray {
 		}
 		
 		return result;
+	}
+	
+	private StringArray memberDivide(StringArray array) {
+		int size = this.size;
+		long []d1 = this.datas;
+		boolean []s1 = this.signs;
+		String []d2 = array.getDatas();
+		
+		if (array.isTemporary()) {
+			for (int i = 1; i <= size; ++i) {
+				if (s1 == null || !s1[i]) {
+					if (d2[i] != null) {
+						d2[i] = d1[i] + d2[i];
+					} else {
+						d2[i] = Long.toString(d1[i]);
+					}
+				}
+			}
+			
+			return array;
+		} else {
+			String []resultDatas = new String[size + 1];
+			for (int i = 1; i <= size; ++i) {
+				if (d2[i] != null) {
+					if (s1 == null || !s1[i]) {
+						resultDatas[i] = d1[i] + d2[i];
+					} else {
+						resultDatas[i] = d2[i];
+					}
+				} else if (s1 == null || !s1[i]) {
+					resultDatas[i] = Long.toString(d1[i]);
+				}
+			}
+			
+			StringArray result = new StringArray(resultDatas, size);
+			result.setTemporary(true);
+			return result;
+		}
 	}
 	
 	private ObjectArray memberDivide(ObjectArray array) {

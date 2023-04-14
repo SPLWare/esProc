@@ -785,10 +785,10 @@ public class BoolArray implements IArray {
 	
 	/**
 	 * 取指定位置元素组成新数组
-	 * @param NumberArray 位置数组
+	 * @param IArray 位置数组
 	 * @return IArray
 	 */
-	public IArray get(NumberArray indexArray) {
+	public IArray get(IArray indexArray) {
 		boolean []datas = this.datas;
 		boolean []signs = this.signs;
 		int len = indexArray.size();
@@ -1675,11 +1675,53 @@ public class BoolArray implements IArray {
 	 * @return 商数组
 	 */
 	public IArray memberDivide(IArray array) {
-		MessageManager mm = EngineMessage.get();
-		throw new RQException(getDataType() + mm.getMessage("Variant2.with") +
-				array.getDataType() + mm.getMessage("Variant2.illDivide"));
+		if (array instanceof StringArray) {
+			return memberDivide((StringArray)array);
+		} else {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException(getDataType() + mm.getMessage("Variant2.with") +
+					array.getDataType() + mm.getMessage("Variant2.illDivide"));
+		}
 	}
-
+	
+	private StringArray memberDivide(StringArray array) {
+		int size = this.size;
+		boolean []d1 = this.datas;
+		boolean []s1 = this.signs;
+		String []d2 = array.getDatas();
+		
+		if (array.isTemporary()) {
+			for (int i = 1; i <= size; ++i) {
+				if (s1 == null || !s1[i]) {
+					if (d2[i] != null) {
+						d2[i] = d1[i] + d2[i];
+					} else {
+						d2[i] = Boolean.toString(d1[i]);
+					}
+				}
+			}
+			
+			return array;
+		} else {
+			String []resultDatas = new String[size + 1];
+			for (int i = 1; i <= size; ++i) {
+				if (d2[i] != null) {
+					if (s1 == null || !s1[i]) {
+						resultDatas[i] = d1[i] + d2[i];
+					} else {
+						resultDatas[i] = d2[i];
+					}
+				} else if (s1 == null || !s1[i]) {
+					resultDatas[i] = Boolean.toString(d1[i]);
+				}
+			}
+			
+			StringArray result = new StringArray(resultDatas, size);
+			result.setTemporary(true);
+			return result;
+		}
+	}
+	
 	/**
 	 * 计算两个数组的相对应的数成员取余或序列成员异或列
 	 * @param array 右侧数组

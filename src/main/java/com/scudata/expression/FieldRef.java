@@ -233,6 +233,8 @@ public class FieldRef extends Node {
 			ComputeStack stack = ctx.getComputeStack();
 			IComputeItem item = stack.getTopObject();
 			return item.getCurrentSequence().getFieldValueArray(name);
+		} else if (left instanceof ElementRef) {
+			return ((ElementRef)left).getFieldArray(ctx, this);
 		}
 		
 		// A.f
@@ -240,8 +242,12 @@ public class FieldRef extends Node {
 		if (leftArray instanceof ConstArray) {
 			Object leftObj = leftArray.get(1);
 			return getField(leftObj, ctx);
+		} else {
+			return getFieldArray(leftArray);
 		}
-
+	}
+	
+	public IArray getFieldArray(IArray leftArray) {
 		// 可能是外键式引用fk.f或A.f
 		int len = leftArray.size();
 		Object src = leftArray.get(1);

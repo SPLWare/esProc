@@ -140,10 +140,10 @@ public interface IArray extends Externalizable, IRecord, Comparable<IArray> {
 	
 	/**
 	 * 取指定位置元素组成新数组
-	 * @param NumberArray 位置数组
+	 * @param IArray 位置数组
 	 * @return IArray
 	 */
-	IArray get(NumberArray indexArray);
+	IArray get(IArray indexArray);
 	
 	/**
 	 * 取指定位置元素的整数值

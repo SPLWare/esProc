@@ -122,9 +122,8 @@ public class FieldId extends Node {
 	 * @return IArray
 	 */
 	public IArray calculateAll(Context ctx) {
-		ComputeStack stack = ctx.getComputeStack();
-		
 		if (left == null) {
+			ComputeStack stack = ctx.getComputeStack();
 			IComputeItem item = stack.getTopObject();
 			Sequence sequence = item.getCurrentSequence();
 			if (sequence != null) {
@@ -136,6 +135,7 @@ public class FieldId extends Node {
 			}
 		} else if (left instanceof CurrentElement) {
 			// ~.#f
+			ComputeStack stack = ctx.getComputeStack();
 			IComputeItem item = stack.getTopObject();
 			Sequence sequence = item.getCurrentSequence();
 			if (sequence != null) {
@@ -145,10 +145,17 @@ public class FieldId extends Node {
 				sequence = stack.getTopSequence();
 				return new ConstArray(r.getFieldValue(index), sequence.length());
 			}
+		} else if (left instanceof ElementRef) {
+			return ((ElementRef)left).getFieldArray(ctx, this);
+		} else {
+			// A.#f
+			IArray leftValues = left.calculateAll(ctx);
+			return getFieldArray(ctx, leftValues);
 		}
+	}
 
-		// A.#f
-		IArray leftValues = left.calculateAll(ctx);
+	public IArray getFieldArray(Context ctx, IArray leftValues) {
+		ComputeStack stack = ctx.getComputeStack();
 		if (leftValues instanceof ConstArray) {
 			Sequence top = stack.getTopSequence();
 			Object leftObj = leftValues.get(1);
@@ -240,7 +247,7 @@ public class FieldId extends Node {
 			return result;
 		}
 	}
-
+	
 	// '=' 对字段进行赋值
 	public Object assign(Object value, Context ctx) {
 		if (src == null) { // #1

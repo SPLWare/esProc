@@ -280,10 +280,10 @@ public class ConstArray implements IArray {
 	
 	/**
 	 * 取指定位置元素组成新数组
-	 * @param NumberArray 位置数组
+	 * @param IArray 位置数组
 	 * @return IArray
 	 */
-	public IArray get(NumberArray indexArray) {
+	public IArray get(IArray indexArray) {
 		return new ConstArray(data, indexArray.size());
 	}
 	
@@ -1232,10 +1232,47 @@ public class ConstArray implements IArray {
 			return new ConstArray(value, size);
 		} else if (array instanceof ObjectArray) {
 			return memberDivide((ObjectArray)array);
+		} else if (array instanceof StringArray) {
+			return memberDivide((StringArray)array);
 		} else {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException(getDataType() + mm.getMessage("Variant2.with") +
 					array.getDataType() + mm.getMessage("Variant2.illDivide"));
+		}
+	}
+	
+	private StringArray memberDivide(StringArray array) {
+		if (data == null) {
+			return array;
+		}
+		
+		String str = data.toString();
+		int size = this.size;
+		String []d2 = array.getDatas();
+
+		if (isTemporary()) {
+			for (int i = 1; i <= size; ++i) {
+				if (d2[i] != null) {
+					d2[i] = str + d2[i];
+				} else {
+					d2[i] = str;
+				}
+			}
+			
+			return array;
+		} else {
+			String []resultDatas = new String[size + 1];
+			for (int i = 1; i <= size; ++i) {
+				if (d2[i] != null) {
+					resultDatas[i] = str + d2[i];
+				} else {
+					resultDatas[i] = str;
+				}
+			}
+			
+			StringArray result = new StringArray(resultDatas, size);
+			result.setTemporary(true);
+			return result;
 		}
 	}
 	
