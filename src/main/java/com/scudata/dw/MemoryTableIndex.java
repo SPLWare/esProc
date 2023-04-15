@@ -220,7 +220,10 @@ public class MemoryTableIndex {
 				Integer value = (Integer) record.getNormalFieldValue(1);
 				recNum.pushInt(value);
 			}
-			Object[] objs = new Object[] {rec.getNormalFieldValue(0)};
+			Object[] objs = new Object[flen];
+			for (int f = 0; f < flen; f++) {
+				objs[f] = rec.getNormalFieldValue(f);
+			}
 			indexData.newLast(objs);
 			recordNums[i] = recNum;
 			avgNums += recNum.size();
@@ -1146,8 +1149,13 @@ public class MemoryTableIndex {
 		if (key == null) return null;
 		IntArray recNum = new IntArray(avgNums);
 		
-		int pos = indexTable.findPos(key);
-		if (pos != 0) {
+		int pos;
+		if (key instanceof Object[]) {
+			pos = indexTable.findPos((Object[])key);
+		} else {
+			pos = indexTable.findPos(key);
+		}
+		if (pos > 0) {
 			IntArray[] recordNums = this.recordNums;
 			if (isFirst) {
 				recNum.add(recordNums[pos].get(1));
