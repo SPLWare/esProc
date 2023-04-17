@@ -160,9 +160,14 @@ public class New extends PhyTableFunction {
 				MessageManager mm = EngineMessage.get();
 				throw new RQException("new" + mm.getMessage("function.invalidParam"));
 			}
-			IParam newParam = csParam.create(1, csParam.getSubSize());
-			ParamInfo2 pi = ParamInfo2.parse(newParam, "new", false, false);
-			csNames = pi.getExpressionStrs1();
+			int size = csParam.getSubSize();
+			if (size > 1) {
+				size--;
+				csNames = new String[size];
+				for (int i = 0; i < size; i++) {
+					csNames[i] = csParam.getSub(i + 1).getLeafExpression().getIdentifierName();
+				}
+			}
 		}
 		
 		objs[0] = obj;
