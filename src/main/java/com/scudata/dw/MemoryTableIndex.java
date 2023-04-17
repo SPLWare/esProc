@@ -217,7 +217,7 @@ public class MemoryTableIndex {
 			IntArray recNum = new IntArray(size);
 			for (int j = 1; j <= size; j++) {
 				BaseRecord record = (BaseRecord) seq.getMem(j);
-				Integer value = (Integer) record.getNormalFieldValue(1);
+				Integer value = (Integer) record.getNormalFieldValue(flen);
 				recNum.pushInt(value);
 			}
 			Object[] objs = new Object[flen];
