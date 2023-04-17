@@ -12,6 +12,7 @@ import com.scudata.common.IntArrayList;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.comparator.RecordFieldComparator;
+import com.scudata.dw.MemoryTable;
 import com.scudata.expression.Expression;
 import com.scudata.resources.EngineMessage;
 import com.scudata.util.Variant;
@@ -2035,5 +2036,20 @@ public class Table extends Sequence {
 	 */
 	public DataStruct getFirstRecordDataStruct() {
 		return ds;
+	}
+	
+	/**
+	 * 生成内表
+	 * @param option 生成属性
+	 * @return
+	 */
+	public Sequence memory(String option) {
+		Table srcTable = this;
+		if (option != null && option.indexOf('o') != -1) {
+			return new MemoryTable(srcTable);
+		} else {
+			Table table = srcTable.derive("o");
+			return new MemoryTable(table);
+		}
 	}
 }
