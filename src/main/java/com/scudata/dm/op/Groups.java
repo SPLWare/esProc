@@ -36,6 +36,7 @@ public class Groups extends Operation {
 	private String opt; // 选项
 	private boolean iopt = false; // 是否是@i选项
 	private boolean sopt = false; // 是否是@s选项，用累积方式计算
+	private boolean eopt = false; // 是否是@e选项
 	
 	// 有序时采用累积法分组使用
 	private Record r; // 当前分组汇总到的记录
@@ -109,6 +110,7 @@ public class Groups extends Operation {
 		if (opt != null) {
 			if (opt.indexOf('i') != -1) iopt = true;
 			if (opt.indexOf('s') != -1) sopt = true;
+			if (opt.indexOf('e') != -1) eopt = true;
 			if (newCount > 0 && opt.indexOf('b') != -1) {
 				alterFields = newNames;
 			}
@@ -194,6 +196,7 @@ public class Groups extends Operation {
 		if (opt != null) {
 			if (opt.indexOf('i') != -1) iopt = true;
 			if (opt.indexOf('s') != -1) sopt = true;
+			if (opt.indexOf('e') != -1) eopt = true;
 			if (newCount > 0 && opt.indexOf('b') != -1) {
 				alterFields = newNames;
 			}
@@ -269,16 +272,7 @@ public class Groups extends Operation {
 			Table result = new Table(r.dataStruct(), 1);
 			result.getMems().add(r);
 			r = null;
-			
-			if (gathers != null) {
-				result.finishGather(gathers);
-			}
-			
-			if (alterFields != null) {
-				result.alter(alterFields, null);
-			}
-			
-			return result;
+			return finishGroupsResult(result);
 		} else if (data != null && data.length() > 0) {
 			Table result = new Table(newDs);
 			if (sortExps == null) {
@@ -287,7 +281,9 @@ public class Groups extends Operation {
 				group(data, groupExps, newExps, ctx, result);
 			}
 			
-			if (alterFields != null) {
+			if (eopt) {
+				result = result.fieldValues(result.getFieldCount() - 1).derive("o");
+			} else if (alterFields != null) {
 				result.alter(alterFields, null);
 			}
 			
@@ -300,13 +296,28 @@ public class Groups extends Operation {
 			groups = null;
 			
 			result.sortFields(sortFields);
-			result.finishGather(gathers);
-			return result;
+			return finishGroupsResult(result);
 		} else {
 			return null;
 		}
 	}
 
+	private Sequence finishGroupsResult(Table result) {
+		if (gathers != null) {
+			result.finishGather(gathers);
+		}
+		
+		if (eopt) {
+			return result.fieldValues(result.getFieldCount() - 1).derive("o");
+		}
+
+		if (alterFields != null) {
+			result.alter(alterFields, null);
+		}
+		
+		return result;
+	}
+	
 	private Sequence groups_i(Sequence seq, Context ctx) {
 		DataStruct newDs = this.newDs;
 		Expression boolExp = exps[0];
@@ -351,15 +362,7 @@ public class Groups extends Operation {
 
 		this.r = r;
 		if (result.length() > 0) {
-			if (gathers != null) {
-				result.finishGather(gathers);
-			}
-			
-			if (alterFields != null) {
-				result.alter(alterFields, null);
-			}
-			
-			return result;
+			return finishGroupsResult(result);
 		} else {
 			return null;
 		}
@@ -436,7 +439,9 @@ public class Groups extends Operation {
 		}
 
 		if (result.length() > 0) {
-			if (alterFields != null) {
+			if (eopt) {
+				result = result.fieldValues(result.getFieldCount() - 1).derive("o");
+			} else if (alterFields != null) {
 				result.alter(alterFields, null);
 			}
 
@@ -495,15 +500,7 @@ public class Groups extends Operation {
 
 		this.r = r;
 		if (result.length() > 0) {
-			if (gathers != null) {
-				result.finishGather(gathers);
-			}
-
-			if (alterFields != null) {
-				result.alter(alterFields, null);
-			}
-
-			return result;
+			return finishGroupsResult(result);
 		} else {
 			return null;
 		}
@@ -603,7 +600,9 @@ public class Groups extends Operation {
 		}
 
 		if (result.length() > 0) {
-			if (alterFields != null) {
+			if (eopt) {
+				result = result.fieldValues(result.getFieldCount() - 1).derive("o");
+			} else if (alterFields != null) {
 				result.alter(alterFields, null);
 			}
 
@@ -699,7 +698,9 @@ public class Groups extends Operation {
 		}
 
 		if (result.length() > 0) {
-			if (alterFields != null) {
+			if (eopt) {
+				result = result.fieldValues(result.getFieldCount() - 1).derive("o");
+			} else if (alterFields != null) {
 				result.alter(alterFields, null);
 			}
 

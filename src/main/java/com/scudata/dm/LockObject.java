@@ -12,7 +12,7 @@ class LockObject implements IResource {
 	}
 	
 	public synchronized void close() {
-		if (thread == Thread.currentThread()) {
+		if (thread != null) { // Thread.currentThread()
 			thread = null;
 			notify();
 		}
