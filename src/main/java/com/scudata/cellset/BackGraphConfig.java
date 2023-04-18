@@ -165,6 +165,19 @@ public class BackGraphConfig implements Externalizable, ICloneable, Cloneable,
 	public byte[] getImageBytes() {
 		return this.imageBytes;
 	}
+	
+	public BufferedImage getBufferedImage() {
+		if (imageBytes==null) return null;
+		try {
+			ByteArrayInputStream bis = new ByteArrayInputStream(
+					imageBytes);
+			return ImageIO.read(bis);
+		} catch (IOException e) {
+			Logger.error(e);
+			return null;
+		}
+	}
+
 
 	/**
 	 * ¸ù¾Ý¿í¸ß£¬°´ÕÕ±³¾°Í¼ÅäÖÃ£¬Éú³É±³¾°Í¼
@@ -220,15 +233,19 @@ public class BackGraphConfig implements Externalizable, ICloneable, Cloneable,
 			ih;// Í¼Æ¬³ß´ç
 			Image image;
 			if (graphChanged) {
-				BufferedImage bimage = null;
-				try {
-					ByteArrayInputStream bis = new ByteArrayInputStream(
-							imageBytes);
-					bimage = ImageIO.read(bis);
-				} catch (IOException e) {
-					Logger.error(e);
+				BufferedImage bimage = getBufferedImage();
+				if(bimage==null) {
 					return;
 				}
+//				BufferedImage bimage = null;
+//				try {
+//					ByteArrayInputStream bis = new ByteArrayInputStream(
+//							imageBytes);
+//					bimage = ImageIO.read(bis);
+//				} catch (IOException e) {
+//					Logger.error(e);
+//					return;
+//				}
 				iw = bimage.getWidth(null);
 				ih = bimage.getHeight(null);
 				if (iw * ih <= 0) {
