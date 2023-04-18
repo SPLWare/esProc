@@ -207,6 +207,7 @@ public class MemoryTableIndex {
 		table = table.group(exp, "o", ctx);
 		
 		int len = table.length();
+		int avgNums = 0;
 		Table indexData = new Table(names2, len);
 		IntArray[] recordNums = new IntArray[len + 1]; 
 		

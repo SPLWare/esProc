@@ -53,12 +53,14 @@ public class Create extends FileFunction {
 				distribute = distributeExp.toString();
 			}
 			
-			IParam blockSizeParam = param.getSub(2);
-			if (blockSizeParam != null) {
-				String b = blockSizeParam.getLeafExpression().calculate(ctx).toString();
-				try {
-					blockSize = Integer.parseInt(b);
-				} catch (NumberFormatException e) {
+			if (size == 3) {
+				IParam blockSizeParam = param.getSub(2);
+				if (blockSizeParam != null) {
+					String b = blockSizeParam.getLeafExpression().calculate(ctx).toString();
+					try {
+						blockSize = Integer.parseInt(b);
+					} catch (NumberFormatException e) {
+					}
 				}
 			}
 		}
