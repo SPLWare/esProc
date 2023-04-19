@@ -698,7 +698,7 @@ public class MemoryTable extends Table {
 		index = this.getIndex(iname);
 		if (index == null) {
 			MessageManager mm = EngineMessage.get();
-			throw new RQException("icursor" + mm.getMessage("dw.indexNotExist") + " : " + iname);
+			throw new RQException("ifind" + mm.getMessage("dw.indexNotExist") + " : " + iname);
 		}
 		return index.ifind(key, opt, ctx);
 	}
