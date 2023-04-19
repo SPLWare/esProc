@@ -89,6 +89,7 @@ public class ConnectionProxy extends IProxy
 	 */
 	public void close() {
 		JobSpaceManager.closeSpace(spaceId);
+		DatabaseUtil.closeAutoDBs(context);
 		closed =  true;
 		Logger.debug(this+" closed.");
 	}

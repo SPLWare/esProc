@@ -31,7 +31,7 @@ public class StatementProxy extends IProxy {
 	String dfx = null;
 	List args = null;
 	Task task = null;
-
+	transient Context context;
 	/**
 	 * 创建Statement代理器
 	 * @param cp 连接代理
@@ -190,7 +190,7 @@ public class StatementProxy extends IProxy {
 		} else {
 			Context context = Task.prepareEnv();
 
-			try{
+//			try{
 				ICursor cursor;
 				Object obj;
 				if(params!=null && params.size()>0){
@@ -214,9 +214,10 @@ public class StatementProxy extends IProxy {
 				resultIds[0] = resultId;
 				ResultSetProxy rsp = new ResultSetProxy(this, resultId, cursor);
 				addProxy(rsp);
-			}finally{
-				DatabaseUtil.closeAutoDBs(context);
-			}
+//				不能立刻关闭连接，游标还没取数
+//			}finally{
+//				DatabaseUtil.closeAutoDBs(context);
+//			}
 		}
 		return resultIds;
 	}
@@ -283,6 +284,12 @@ public class StatementProxy extends IProxy {
 	 * 关闭当前代理
 	 */
 	public void close() {
+		if(task!=null) {
+			task.close();
+		}
+		if(context!=null) {
+			DatabaseUtil.closeAutoDBs(context);
+		}
 	}
 
 	/**

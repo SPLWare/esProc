@@ -18,7 +18,6 @@ import com.scudata.dm.JobSpace;
 import com.scudata.dm.JobSpaceManager;
 import com.scudata.dm.ParallelCaller;
 import com.scudata.dm.ParallelProcess;
-import com.scudata.dm.Record;
 import com.scudata.dm.RetryException;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
@@ -69,7 +68,7 @@ public class Task extends Job implements IResource, ITask {
 	private long lastAccessTime = -1;
 	private static List connectedDsNames = null;// 如果是IDE端执行，由IDE设置该变量；否则从UnitContext中ConfigBean中取
 	private String cancelCause = null;
-
+	transient Context context;
 	MessageManager mm = ParallelMessage.get();
 
 	/**
@@ -105,7 +104,7 @@ public class Task extends Job implements IResource, ITask {
 		this.reduce = reduce;
 		this.accumulateLocation = accumulateLocation;
 		this.currentLocation = currentLocation;
-	}
+}
 
 
 	/**
@@ -146,7 +145,7 @@ public class Task extends Job implements IResource, ITask {
 			rcpm.destroy();
 			rcpm = null;
 		}
-		
+		DatabaseUtil.closeAutoDBs(context);
 		isClosed = true;
 	}
 
@@ -270,6 +269,7 @@ public class Task extends Job implements IResource, ITask {
 
 	/**
 	 * 准备计算前的上下文环境 
+	 * 当前环境可能产生自动连接，注意引用后，必须配对调用DatabaseUtil.closeAutoDbs
 	 * @return 计算上下文
 	 */
 	
@@ -296,7 +296,7 @@ public class Task extends Job implements IResource, ITask {
 	}
 
 	private Sequence executeTask() throws Exception {
-		Context context = prepareEnv();
+		context = prepareEnv();
 		PgmCellSet pcs = getPgmCellSet(context);
 		tasker = pcs;
 
