@@ -48,11 +48,22 @@ public class DateTime extends Function {
 			} else if (result1 instanceof Date) {
 				Calendar calendar = Calendar.getInstance();
 				calendar.setTime((Date)result1);
-				if (option != null && option.indexOf('s') != -1) {
-					calendar.set(Calendar.MILLISECOND, 0);
-				} else if (option != null && option.indexOf('m') != -1) {
-					calendar.set(Calendar.SECOND, 0);
-					calendar.set(Calendar.MILLISECOND, 0);
+				if (option != null) {
+					if (option.indexOf('s') != -1) {
+						calendar.set(Calendar.MILLISECOND, 0);
+					} else if (option.indexOf('m') != -1) {
+						calendar.set(Calendar.SECOND, 0);
+						calendar.set(Calendar.MILLISECOND, 0);
+					} else if (option.indexOf('h') != -1) {
+						calendar.set(Calendar.MINUTE, 0);
+						calendar.set(Calendar.SECOND, 0);
+						calendar.set(Calendar.MILLISECOND, 0);
+					} else {
+						calendar.set(Calendar.HOUR_OF_DAY, 0);
+						calendar.set(Calendar.MINUTE, 0);
+						calendar.set(Calendar.SECOND, 0);
+						calendar.set(Calendar.MILLISECOND, 0);
+					}
 				} else {
 					calendar.set(Calendar.HOUR_OF_DAY, 0);
 					calendar.set(Calendar.MINUTE, 0);
