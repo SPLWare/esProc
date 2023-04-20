@@ -251,6 +251,7 @@ public class FileObject implements Externalizable {
 	 */
 	public void setPartition(Integer p) {
 		this.partition = p;
+		this.file = null;
 	}
 
 	/**

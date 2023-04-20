@@ -5,6 +5,7 @@ import com.scudata.common.RQException;
 import com.scudata.dm.Context;
 import com.scudata.dm.FileObject;
 import com.scudata.dm.Machines;
+import com.scudata.dm.Sequence;
 import com.scudata.expression.Function;
 import com.scudata.expression.IParam;
 import com.scudata.expression.Node;
@@ -71,6 +72,7 @@ public class MoveFile extends Function {
 		}
 		
 		FileObject file;
+		Object partObj = null;
 		if (fnParam.isLeaf()) {
 			Object pathObj = fnParam.getLeafExpression().calculate(ctx);
 			if (pathObj instanceof FileObject) {
@@ -102,19 +104,54 @@ public class MoveFile extends Function {
 			file = new FileObject((String)pathObj, null, ctx);
 			IParam sub1 = fnParam.getSub(1);
 			if (sub1 != null) {
-				Object obj = sub1.getLeafExpression().calculate(ctx);
-				if (obj instanceof Number) {
-					int part = ((Number)obj).intValue();
-					if (part > 0) {
-						file.setPartition(part);
-					}
-				} else if (obj != null) {
-					MessageManager mm = EngineMessage.get();
-					throw new RQException("movefile" + mm.getMessage("function.invalidParam"));
-				}
+				partObj = sub1.getLeafExpression().calculate(ctx);
 			}
 		}
 		
+		if (partObj instanceof Sequence) {
+			Sequence partSeq = (Sequence)partObj;
+			int []parts = partSeq.toIntArray();
+			boolean result = true;
+			
+			if (path == null || path.length() == 0) {
+				for (int part : parts) {
+					if (part > 0) {
+						file.setPartition(part);
+					}
+					
+					if (option == null || option.indexOf('y') == -1) {
+						if (!file.delete()) {
+							result = false;
+						}
+					} else {
+						if (!file.deleteDir()) {
+							result = false;
+						}
+					}
+				}
+			} else {
+				for (int part : parts) {
+					if (part > 0) {
+						file.setPartition(part);
+					}
+					
+					if (!file.move(path, option)) {
+						result = false;
+					}
+				}
+			}
+			
+			return Boolean.valueOf(result);
+		} else if (partObj instanceof Number) {
+			int part = ((Number)partObj).intValue();
+			if (part > 0) {
+				file.setPartition(part);
+			}
+		} else if (partObj != null) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("movefile" + mm.getMessage("function.invalidParam"));
+		}
+
 		if (path == null || path.length() == 0) {
 			if (option == null || option.indexOf('y') == -1) {
 				return Boolean.valueOf(file.delete());

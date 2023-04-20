@@ -528,6 +528,25 @@ public class LocalFile implements IFile {
 		}
 
 		File destFile = new File(dest);
+		boolean isDir = destFile.isDirectory();
+		
+		if (!isDir && partition != null && partition.intValue() > 0) {
+			// 找出文件名的起始位置
+			int index = dest.lastIndexOf('\\');
+			if (index == -1) {
+				index = dest.lastIndexOf('/');
+			}
+			
+			if (index == -1) {
+				dest = partition.toString() + "." + dest;
+			} else {
+				dest = dest.substring(0, index + 1) + 
+						partition.toString() + "." + dest.substring(index + 1);
+			}
+			
+			destFile = new File(dest);
+		}
+		
 		if (!destFile.isAbsolute()) {
 			if (isMain) {
 				File appHome = getAppHome();
@@ -551,7 +570,7 @@ public class LocalFile implements IFile {
 		}
 
 		// 如果不带文件名，自动用源文件名
-		if (destFile.isDirectory() && !file.isDirectory()) {
+		if (isDir && !file.isDirectory()) {
 			destFile = new File(destFile, file.getName());
 		}
 		
