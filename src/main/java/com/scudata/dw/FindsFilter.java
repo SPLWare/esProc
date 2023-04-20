@@ -31,14 +31,20 @@ public class FindsFilter extends FindFilter {
 	
 	public boolean match(Object value) {
 		if (pfind) {
-			findResult = it.findPos(value);
+			int pos = it.findPos(value);
+			findResult = pos;
+			if (doFilter)
+				return pos > 0;
+			else
+				return true;
 		} else {
 			findResult = it.find(value);
+			if (doFilter)
+				return findResult != null;
+			else
+				return true;
 		}
-		if (doFilter)
-			return findResult != null;
-		else
-			return true;
+		
 	}
 	
 	public Object getFindResult() {

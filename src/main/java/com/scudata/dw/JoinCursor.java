@@ -136,6 +136,19 @@ public class JoinCursor extends ICursor {
 			parseSwitch((ColPhyTable) table, ctx);
 		}
 		
+		//把filters里的ki=wi放到FindFilters里
+		if (filters != null) {
+			int len = filters.length;
+			for (int i = 0; i < len; i++) {
+				if (filters[i] instanceof FindsFilter) {
+					if (findFilters == null) {
+						findFilters = new FindFilter[len];
+					}
+					findFilters[i] = (FindsFilter) filters[i];
+				}
+			}
+		}
+		
 		init();
 	}
 	

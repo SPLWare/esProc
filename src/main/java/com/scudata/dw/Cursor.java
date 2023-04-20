@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import com.scudata.array.IArray;
 import com.scudata.common.MessageManager;
@@ -19,6 +20,7 @@ import com.scudata.dm.op.New;
 import com.scudata.dm.op.Operation;
 import com.scudata.dm.op.Select;
 import com.scudata.dm.op.Switch;
+import com.scudata.expression.Constant;
 import com.scudata.expression.CurrentElement;
 import com.scudata.expression.CurrentSeq;
 import com.scudata.expression.ElementRef;
@@ -33,8 +35,11 @@ import com.scudata.expression.fn.Between;
 import com.scudata.expression.fn.gather.Top;
 import com.scudata.expression.mfn.sequence.Contain;
 import com.scudata.expression.mfn.sequence.Find;
+import com.scudata.expression.mfn.sequence.PFind;
 import com.scudata.expression.mfn.serial.Sbs;
 import com.scudata.expression.operator.And;
+import com.scudata.expression.operator.Assign;
+import com.scudata.expression.operator.Comma;
 import com.scudata.expression.operator.DotOperator;
 import com.scudata.expression.operator.Equals;
 import com.scudata.expression.operator.Greater;
@@ -700,6 +705,98 @@ public class Cursor extends IDWCursor {
 		}
 	}
 	
+	private static Object parseAssign(ColPhyTable table, Node node, Context ctx, boolean isFilter) {
+		Node unknown = node.getLeft();
+		Node dotoperator = node.getRight();
+		if (unknown instanceof UnknownSymbol && dotoperator instanceof DotOperator) {
+			Node left = dotoperator.getLeft();
+			Node right = dotoperator.getRight();
+			if (right instanceof Find) {
+				Find find = (Find)right;
+				IParam param = find.getParam();
+				if (param == null || !param.isLeaf()) {
+					return node;
+				}
+				
+				ColumnMetaData column = getColumn(table, param.getLeafExpression().getHome());
+				if (column == null) {
+					return node;
+				}
+				
+				try {
+					Object val = left.calculate(ctx);
+					if (val instanceof Sequence) {
+						int pri = table.getColumnFilterPriority(column);
+						return new FindsFilter(column, pri, (Sequence)val, dotoperator, false, isFilter);
+					} else {
+						return node;
+					}
+				} catch (Exception e) {
+					return node;
+				}
+			} else if (right instanceof PFind) {
+				PFind find = (PFind)right;
+				IParam param = find.getParam();
+				if (param == null || !param.isLeaf()) {
+					return node;
+				}
+				
+				ColumnMetaData column = getColumn(table, param.getLeafExpression().getHome());
+				if (column == null) {
+					return node;
+				}
+				
+				try {
+					Object val = left.calculate(ctx);
+					if (val instanceof Sequence) {
+						int pri = table.getColumnFilterPriority(column);
+						return new FindsFilter(column, pri, (Sequence)val, dotoperator, true, isFilter);
+					} else {
+						return node;
+					}
+				} catch (Exception e) {
+					return node;
+				}
+			}
+		}
+		return null;
+	}
+	
+	private static void parseComma(ColPhyTable table, Node node, Context ctx, List<Object> out) {
+		Node left = node.getLeft();
+		if (left instanceof Comma) {
+			parseComma(table, left, ctx, out);
+		} else {
+			if (left instanceof Assign) {
+				Object obj = parseAssign(table, left, ctx, false);
+				if (obj == null)
+					throw new RuntimeException();
+				else 
+					out.add(obj);
+			} else {
+				throw new RuntimeException();
+			}
+		}
+		
+		Node right = node.getRight();
+		if (right instanceof Assign) {
+			Object obj = parseAssign(table, right, ctx, false);
+			if (obj == null)
+				throw new RuntimeException();
+			else 
+				out.add(obj);
+			return;
+		}
+
+		if (right instanceof Constant) {
+			if (Variant.isTrue(right.calculate(ctx))) {
+				return;
+			}
+		} else {
+			out.add(right);
+		}
+	}
+	
 	private static IFilter createFindFilter(ColumnMetaData column, int pri, Sequence data, boolean isNot) {
 		if (data.length() > ContainFilter.BINARYSEARCH_COUNT) {
 			if (isNot) {
@@ -815,6 +912,20 @@ public class Cursor extends IDWCursor {
 				} catch (Exception e) {
 					return node;
 				}
+			}
+		}else if (node instanceof Assign) {
+			//ki=wi
+			Object obj = parseAssign(table, node, ctx, true);
+			if (obj != null) 
+				return obj;
+		} else if (node instanceof Comma) {
+			//(ki=wi,……,w)
+			ArrayList<Object> list = new ArrayList<Object>();
+			try {
+				parseComma(table, node, ctx, list);
+				return list;
+			} catch (Exception e) {
+				return node;
 			}
 		}
 		
@@ -941,6 +1052,19 @@ public class Cursor extends IDWCursor {
 		}
 		if (fkNames != null) {
 			parseSwitch(table, ctx);
+		}
+		
+		//把filters里的ki=wi放到FindFilters里
+		if (filters != null) {
+			int len = filters.length;
+			for (int i = 0; i < len; i++) {
+				if (filters[i] instanceof FindsFilter) {
+					if (findFilters == null) {
+						findFilters = new FindFilter[len];
+					}
+					findFilters[i] = (FindsFilter) filters[i];
+				}
+			}
 		}
 		
 		endBlock = table.getDataBlockCount();
