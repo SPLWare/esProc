@@ -89,7 +89,7 @@ public class PureBufferReader extends BufferReader {
 				}
 				this.index = idx;
 				this.pos = len;
-				break;
+				return;
 			case DataBlockType.SERIALBYTES:
 				dataSize = 16;
 				break;
