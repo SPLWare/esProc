@@ -9,10 +9,12 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.RandomAccessFile;
 import java.nio.channels.FileChannel;
+import java.util.List;
 
 import com.scudata.common.IOUtils;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
+import com.scudata.dw.ComTable;
 import com.scudata.resources.EngineMessage;
 
 /**
@@ -406,12 +408,35 @@ public class LocalFile implements IFile {
 	}
 
 	/**
+	 * 删除组表相关的文件
+	 * @param file
+	 * @return
+	 */
+	private boolean deleteCtxFiles(File file) {
+		if (fileName.endsWith(".ctx")) {
+			try {
+				ComTable table = ComTable.open(file, ctx);
+				List<File> files = table.getFiles(false);
+				table.close();
+				for (File f : files) {
+					f.delete();
+				}
+			} catch (IOException e) {
+				return false;
+			}
+			return true;
+		}
+		return false;
+	}
+	
+	/**
 	 * 删除文件，返回是否成功
 	 * @return boolean
 	 */
 	public boolean delete() {
 		File file = getFile();
 		if (file != null) {
+			deleteCtxFiles(file);
 			return file.delete();
 		} else {
 			return false;
@@ -440,6 +465,48 @@ public class LocalFile implements IFile {
 		}
 		
 		return file.delete();
+	}
+	
+	/**
+	 * 移动组表相关的所有文件
+	 * @param file
+	 * @param destFile
+	 * @param isCopy
+	 */
+	private void moveCtxFiles(File file, File destFile, boolean isCopy) {
+		if (file.isDirectory()) {
+			return;
+		}
+		
+		if (fileName.endsWith(".ctx")) {
+			try {
+				ComTable table = ComTable.open(file, ctx);
+				List<File> files = table.getFiles(false);
+				table.close();
+				
+				int fcount = files.size();
+				if (fcount == 0) return;
+				File[] destFiles = new File[fcount];
+				String dest = destFile.getAbsolutePath();
+				int pos = file.getAbsolutePath().length();
+				
+				for (int i = 0; i < fcount; i++) {
+					String name = files.get(i).getAbsolutePath().substring(pos);
+					destFiles[i] = new File(dest + name);
+				}
+				
+				for (int i = 0; i < fcount; i++) {
+					if (isCopy) {
+						copyFile(files.get(i), destFiles[i]);
+					} else {
+						destFiles[i].delete();
+						files.get(i).renameTo(destFiles[i]);
+					}
+				}
+			} catch (IOException e) {
+				throw new RQException(e);
+			}
+		}
 	}
 	
 	/**
@@ -495,6 +562,8 @@ public class LocalFile implements IFile {
 		File parent = destFile.getParentFile();
 		if (parent != null) parent.mkdirs();
 
+		moveCtxFiles(file, destFile, isCopy);
+		
 		if (isCopy) {
 			if (file.isDirectory()) {
 				return copyDirectory(file, destFile);

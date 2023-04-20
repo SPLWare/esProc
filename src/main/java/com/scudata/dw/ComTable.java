@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import com.scudata.common.MD5;
 import com.scudata.common.MessageManager;
@@ -1249,5 +1250,47 @@ abstract public class ComTable implements IBlockStorage {
 				close();
 			}
 		}
+	}
+	
+	/**
+	 * 得到组表的所有相关文件，包括补文件、索引和cuboid
+	 * @param self 包含自身
+	 * @return
+	 */
+	public List<File> getFiles(boolean self) {
+		List<File> files = null;
+		ComTable sgt = getSupplement(false);
+		if (sgt != null) {
+			files = sgt.getFiles(true);
+		}
+		
+		if (files == null) {
+			files = new ArrayList<File>();
+		}
+		PhyTable table = getBaseTable();
+		String dir = getFile().getAbsolutePath() + "_";
+		String tableName = table.tableName;
+		
+		//indexs
+		if (table.indexNames != null) {
+			for (String name : table.indexNames) {
+				File tmpFile = new File(dir + tableName + "_" + name);
+				files.add(tmpFile);
+			}
+		}
+		
+		//cuboids
+		if (table.cuboids != null) {
+			for (String name : table.cuboids) {
+				File tmpFile = new File(dir + tableName + Cuboid.CUBE_PREFIX + name);
+				files.add(tmpFile);
+			}
+		}
+		
+		if (self) {
+			files.add(getFile());
+		}
+		
+		return files;
 	}
 }
