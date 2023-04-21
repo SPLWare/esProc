@@ -167,6 +167,10 @@ public class BackGraphConfig implements Externalizable, ICloneable, Cloneable,
 	}
 	
 	public BufferedImage getBufferedImage() {
+		return getBufferedImage(imageBytes);
+	}
+	
+	public static BufferedImage getBufferedImage(byte[] imageBytes) {
 		if (imageBytes==null) return null;
 		try {
 			ByteArrayInputStream bis = new ByteArrayInputStream(
@@ -233,7 +237,7 @@ public class BackGraphConfig implements Externalizable, ICloneable, Cloneable,
 			ih;// Í¼Æ¬³ß´ç
 			Image image;
 			if (graphChanged) {
-				BufferedImage bimage = getBufferedImage();
+				BufferedImage bimage = getBufferedImage(imageBytes);
 				if(bimage==null) {
 					return;
 				}
