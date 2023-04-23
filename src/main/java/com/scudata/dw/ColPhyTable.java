@@ -5238,6 +5238,11 @@ public class ColPhyTable extends PhyTable {
 	 * @param ctx 
 	 */
 	public void addColumn(String colName, Expression exp, Context ctx) {
+		//如果有补区，则先reset
+		if (getModifyRecords() != null) {
+			groupTable.reset(null, null, ctx, null);
+		}
+		
 		//检查列是否已经存在
 		ColumnMetaData existCol = getColumn(colName);
 		if (null != existCol) {
@@ -5249,7 +5254,7 @@ public class ColPhyTable extends PhyTable {
 		
 		PhyTable tmd = getSupplementTable(false);
 		if (tmd != null) {
-			// 有补文件时先删除补文件中的
+			// 有补文件时先处理补文件
 			tmd.addColumn(colName, exp, ctx);
 		}
 		
@@ -5323,6 +5328,11 @@ public class ColPhyTable extends PhyTable {
 	}
 	
 	public void deleteColumn(String colName) {
+		//如果有补区，则先reset
+		if (getModifyRecords() != null) {
+			groupTable.reset(null, null, new Context(), null);
+		}
+				
 		PhyTable tmd = getSupplementTable(false);
 		if (tmd != null) {
 			// 有补文件时先删除补文件中的
