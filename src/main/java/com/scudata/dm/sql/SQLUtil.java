@@ -671,29 +671,26 @@ public final class SQLUtil {
 	// f(), f(p1,...) next «')'µƒŒª÷√
 	private static String scanFunction(String sql, Token []tokens, int start, int next, String dbType) {
 		String name = tokens[start].getString();
-
 		start += 2;
+		if (start == next) {
+			return FunInfoManager.getFunctionExp(dbType, name, new String[0]);
+		}
+		
 		int pcount;
 		int commaCount;
-		IntArrayList commaList;
-		
-		if (start < next) {
-			commaList = new IntArrayList();
-			for (int i = start; i < next;) {
-				int p = Tokenizer.scanComma(tokens, i, next);
-				if (p > 0) {
-					commaList.addInt(p);
-					i = p + 1;
-				} else {
-					break;
-				}
+		IntArrayList commaList = new IntArrayList();
+		for (int i = start; i < next;) {
+			int p = Tokenizer.scanComma(tokens, i, next);
+			if (p > 0) {
+				commaList.addInt(p);
+				i = p + 1;
+			} else {
+				break;
 			}
-	
-			commaCount = commaList.size();
-			pcount = commaCount + 1;
-		} else {
-			return null;
 		}
+
+		commaCount = commaList.size();
+		pcount = commaCount + 1;
 		
 //		FixedParamFunInfo funInfo = FunInfoManager.getFixedParamFunInfo(name, pcount);
 //		if (funInfo == null) {
