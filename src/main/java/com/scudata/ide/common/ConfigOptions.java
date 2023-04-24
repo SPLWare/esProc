@@ -677,11 +677,13 @@ public class ConfigOptions {
 		String sLogLevel = GV.config.getLogLevel();
 		if (logPath != null) {
 			props.put("IDE_LOGFILE", logPath);
-			props.put("IDE_LOGFILE.Level", sLogLevel);
+			if (sLogLevel != null)
+				props.put("IDE_LOGFILE.Level", sLogLevel);
 			props.put("IDE_LOGFILE.Encoding", "UTF-8");
 		}
 		props.put("IDE_CONSOLE", "Console");
-		props.put("IDE_CONSOLE.Level", sLogLevel);
+		if (sLogLevel != null)
+			props.put("IDE_CONSOLE.Level", sLogLevel);
 		props.put("IDE_CONSOLE.Encoding", "UTF-8");
 		return props;
 	}
