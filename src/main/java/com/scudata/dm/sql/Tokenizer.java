@@ -56,7 +56,7 @@ public final class Tokenizer {
 		"MINUS",
 		"NOT","NULL",
 		"ON","ONLY","OR","ORDER",
-		"ROWS",
+		"ROWS", "RIGHT",
 		"SELECT",
 		"THEN","TO","TOP","TABLE","TEMPORARY","TEMP",
 		"UNION",

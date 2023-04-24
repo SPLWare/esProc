@@ -575,21 +575,20 @@ public final class SQLUtil {
 		StringBuffer sb = new StringBuffer(sql.length() * 2);
 		for (int i = 0, last = count - 1; i < last; ++i) {
 			Token token = tokens[i];
-			if (token.getType() == Tokenizer.IDENT) {
-				if (tokens[i + 1].getType() == Tokenizer.LPAREN) {
-					int match = Tokenizer.scanParen(tokens, i + 1, count);
-					String exp = scanFunction(sql, tokens, i, match, dbType);
-					if (exp != null) {
-						sb.append(sql.substring(prevPos, token.getPos()));
-						sb.append(exp);
-						prevPos = tokens[match].getPos() + 1;
-						i = match;
-					} else {
-						i++;
-					}
+			if (tokens[i + 1].getType() == Tokenizer.LPAREN && 
+					FunInfoManager.isFunction(dbType, token.getString())) {
+				int match = Tokenizer.scanParen(tokens, i + 1, count);
+				String exp = scanFunction(sql, tokens, i, match, dbType);
+				if (exp != null) {
+					sb.append(sql.substring(prevPos, token.getPos()));
+					sb.append(exp);
+					prevPos = tokens[match].getPos() + 1;
+					i = match;
+				} else {
+					i++;
 				}
 			} else if (token.isKeyWord("TOP")) {
-				// TODO：根据数据库类型转换成相应的语法
+				// 根据数据库类型转换成相应的语法
 				if (tokens[i + 1].getType() == Tokenizer.NUMBER) {
 					if ("ORACLE".endsWith(dbType) || "DB2".endsWith(dbType) || "MYSQL".endsWith(dbType)
 							 || "HSQL".endsWith(dbType) || "POSTGRES".endsWith(dbType) || "HIVE".endsWith(dbType)
@@ -608,8 +607,7 @@ public final class SQLUtil {
 						prevPos = tokens[i].getPos() + tokens[i].getString().length();
 					}
 				}
-			} //else if (token.isKeyWord("BOTTOM")) {
-			//}
+			}
 		}
 		
 		if (sb.length() == 0) {

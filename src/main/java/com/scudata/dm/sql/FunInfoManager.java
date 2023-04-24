@@ -232,6 +232,20 @@ public class FunInfoManager {
 		return funMap.values();
 	}
 	
+	/**
+	 * 判断是否存在指定名称的函数
+	 * @param dbtype 数据库类型
+	 * @param name 函数名
+	 * @return
+	 */
+	public static boolean isFunction(String dbtype, String name) {
+		Map<String, Map<Integer, String>> db = dbMap.get(dbtype.toUpperCase());
+		if (db == null) {
+			return false;
+		} else {
+			return db.get(name.toLowerCase()) != null;
+		}
+	}
 	
 	public static String getFunctionExp(String dbtype, String name, String[] params)
 	{
