@@ -356,13 +356,14 @@ public class MenuSpl extends AppMenu {
 				ActionEvent.CTRL_MASK, true);
 		menu.add(menuTemp);
 		menu.addSeparator();
+		// 启用计算单元格，并赋予快捷键ALT-ENTER
 		JMenuItem calcArea = newSplMenuItem(GCSpl.iCALC_AREA, GCSpl.CALC_AREA,
-				'0', GC.NO_MASK, true);
-		calcArea.setVisible(false);
-		calcArea.setEnabled(false);
+				(char) KeyEvent.VK_ENTER, ActionEvent.ALT_MASK, true);
+		// calcArea.setVisible(false);
+		// calcArea.setEnabled(false);
 		menu.add(calcArea);
 		menu.add(newSplMenuItem(GCSpl.iCALC_LOCK, GCSpl.CALC_LOCK,
-				(char) KeyEvent.VK_ENTER, ActionEvent.SHIFT_MASK, true));
+				(char) KeyEvent.VK_ENTER, ActionEvent.SHIFT_MASK)); // , true
 		menu.add(newSplMenuItem(GCSpl.iSHOW_VALUE, GCSpl.SHOW_VALUE,
 				(char) KeyEvent.VK_F4, 0));
 		menu.add(newSplMenuItem(GCSpl.iCLEAR_VALUE, GCSpl.CLEAR_VALUE, 'C',

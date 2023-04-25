@@ -72,6 +72,8 @@ public class CellEditingListener implements KeyListener {
 			}
 			if (e.isAltDown()) {
 				stopMatch();
+				((SheetSpl) GVSpl.appSheet).calcActiveCell(false);
+				break;
 			} else if (e.isControlDown()) {
 				stopMatch();
 				JTextComponent ta = getSource(e);
