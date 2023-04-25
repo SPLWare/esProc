@@ -644,7 +644,8 @@ public final class SQLUtil {
 		
 		for (int i = start; i < end; ++i) {
 			Token token = tokens[i];
-			if (token.getType() == Tokenizer.IDENT && tokens[i + 1].getType() == Tokenizer.LPAREN) {
+			if (tokens[i + 1].getType() == Tokenizer.LPAREN && 
+					FunInfoManager.isFunction(dbType, token.getString())) {
 				int match = Tokenizer.scanParen(tokens, i + 1, end);
 				String exp = scanFunction(sql, tokens, i, match, dbType);
 				if (exp != null) {
@@ -690,16 +691,6 @@ public final class SQLUtil {
 		commaCount = commaList.size();
 		pcount = commaCount + 1;
 		
-//		FixedParamFunInfo funInfo = FunInfoManager.getFixedParamFunInfo(name, pcount);
-//		if (funInfo == null) {
-//			return null;
-//		}
-//		
-//		String exp = funInfo.getInfo(dbType);
-//		if (exp == null || exp.length() == 0 || exp.equalsIgnoreCase(FixedParamFunInfo.NONSUPPORT)) {
-//			return null;
-//		}
-
 		String []params = new String[pcount];
 		for (int i = 0; i < commaCount; ++i) {
 			int pos = commaList.getInt(i);
