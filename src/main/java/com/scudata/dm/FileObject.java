@@ -726,9 +726,10 @@ public class FileObject implements Externalizable {
 
 			if (s instanceof String) {
 				String str = (String)s;
-				if (str.length() > 0) {
+				// 长度为0时表示不要分割符
+				//if (str.length() > 0) {
 					colSeparator = str.getBytes(charset);
-				}
+				//}
 			} else if (s != null) {
 				MessageManager mm = EngineMessage.get();
 				throw new RQException("import" + mm.getMessage("function.paramTypeError"));
@@ -810,9 +811,10 @@ public class FileObject implements Externalizable {
 
 			if (s instanceof String) {
 				String str = (String)s;
-				if (str.length() > 0) {
+				// 长度为0时表示不要分割符
+				//if (str.length() > 0) {
 					colSeparator = str.getBytes(charset);
-				}
+				//}
 			} else if (s != null) {
 				MessageManager mm = EngineMessage.get();
 				throw new RQException("import" + mm.getMessage("function.paramTypeError"));
