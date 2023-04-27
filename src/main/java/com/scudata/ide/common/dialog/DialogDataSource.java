@@ -260,17 +260,20 @@ public class DialogDataSource extends JDialog implements IDataSourceEditor {
 
 			Object[] options = { mm.getMessage("public.delete"),
 					mm.getMessage("public.cancel") };
-			int i = GM.optionDialog(GV.appFrame,
+			int option = GM.optionDialog(GV.appFrame,
 					mm.getMessage("dialogdatasource.mustdelds", ds.getName()),
 					mm.getMessage("public.note"), JOptionPane.OK_CANCEL_OPTION,
 					JOptionPane.QUESTION_MESSAGE, options);
-			if (0 == i) {
+			if (option == JOptionPane.OK_OPTION) {
 				dsModel.removeElementAt(index);
+				size = dsModel.size();
+				if (index < size) {
+					jListDS.setSelectedIndex(index);
+				} else {
+					jListDS.setSelectedIndex(size - 1);
+				}
+				Env.deleteDBSessionFactory(ds.getName());
 			}
-			if (index > -1 && index < size) {
-				jListDS.setSelectedIndex(index);
-			}
-			Env.deleteDBSessionFactory(ds.getName());
 		}
 	}
 
