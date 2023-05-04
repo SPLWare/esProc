@@ -134,6 +134,29 @@ public abstract class Operable {
 	}
 	
 	/**
+	 * 游标按主键做有序连接
+	 * @param function
+	 * @param srcKeyExps 连接表达式数组
+	 * @param srcNewExps
+	 * @param srcNewNames
+	 * @param cursors 关联游标数组
+	 * @param options 关联选项
+	 * @param keyExps 连接表达式数组
+	 * @param newExps
+	 * @param newNames
+	 * @param opt
+	 * @param ctx
+	 * @return
+	 */
+	public Operable pjoin(Function function, Expression []srcKeyExps, Expression []srcNewExps, String []srcNewNames, 
+			ICursor []cursors, String []options, Expression [][]keyExps, 
+			Expression [][]newExps, String [][]newNames, String opt, Context ctx) {
+		PrimaryJoin op = new PrimaryJoin(function, srcKeyExps, srcNewExps, srcNewNames, 
+				cursors, options, keyExps, newExps, newNames, opt, ctx);
+		return addOperation(op, ctx);
+	}
+	
+	/**
 	 * 与游标做有序归并连接
 	 * @param function 对应的函数
 	 * @param exps 当前表关联字段表达式数组

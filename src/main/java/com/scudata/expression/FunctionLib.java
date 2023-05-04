@@ -530,6 +530,7 @@ public final class FunctionLib {
 		addMemberFunction("join", "com.scudata.expression.mfn.sequence.JoinFK");
 		addMemberFunction("fjoin", "com.scudata.expression.mfn.sequence.FJoin");
 		addMemberFunction("fjoin", "com.scudata.expression.mfn.op.AttachFJoin");
+		addMemberFunction("pjoin", "com.scudata.expression.mfn.op.AttachPJoin");
 		addMemberFunction("joinx", "com.scudata.expression.mfn.cursor.Joinx");
 		addMemberFunction("joinx", "com.scudata.expression.mfn.sequence.Joinx");
 		addMemberFunction("joinx", "com.scudata.expression.mfn.channel.Joinx");
