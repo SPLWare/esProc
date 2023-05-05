@@ -3284,7 +3284,8 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 			}
 			break;
 		case GCSpl.iEXEC_CMD:
-			if (!querySave())
+			int option = querySave(JOptionPane.YES_NO_CANCEL_OPTION);
+			if (option == JOptionPane.CANCEL_OPTION)
 				return;
 			DialogExecCmd dec = new DialogExecCmd();
 			if (StringUtils.isValidString(filePath)) {
@@ -3318,7 +3319,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 	 * 提示保存
 	 * @return
 	 */
-	public boolean querySave() {
+	public int querySave(int optionType) {
 		// 先停止所有编辑器的编辑
 		((EditControl) splEditor.getComponent()).acceptText();
 		boolean isChanged = splEditor.isDataChanged();
@@ -3327,20 +3328,19 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 			t1 = IdeCommonMessage.get().getMessage("public.querysave",
 					IdeCommonMessage.get().getMessage("public.file"), filePath);
 			t2 = IdeCommonMessage.get().getMessage("public.save");
-			int option = GM.optionDialog(GV.appFrame, t1, t2,
-					JOptionPane.YES_NO_CANCEL_OPTION);
+			int option = GM.optionDialog(GV.appFrame, t1, t2, optionType);
 			switch (option) {
 			case JOptionPane.YES_OPTION:
 				if (!save())
-					return false;
-				break;
+					return JOptionPane.CANCEL_OPTION;
+				return JOptionPane.YES_OPTION;
 			case JOptionPane.NO_OPTION:
-				break;
+				return JOptionPane.NO_OPTION;
 			default:
-				return false;
+				return JOptionPane.CANCEL_OPTION;
 			}
 		}
-		return true;
+		return JOptionPane.YES_OPTION;
 	}
 
 	/**
