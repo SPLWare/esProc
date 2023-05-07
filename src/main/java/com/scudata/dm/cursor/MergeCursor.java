@@ -471,4 +471,8 @@ public class MergeCursor extends ICursor {
 	public String[] getSortFields() {
 		return cursors[0].getSortFields();
 	}
+	
+	public ICursor[] getCursors() {
+		return cursors;
+	}
 }

@@ -9,6 +9,7 @@ import com.scudata.dm.Env;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.cursor.ConjxCursor;
 import com.scudata.dm.cursor.ICursor;
+import com.scudata.dm.cursor.MergeCursor;
 import com.scudata.dm.cursor.MergeCursor2;
 import com.scudata.dm.cursor.MultipathCursors;
 import com.scudata.dw.IDWCursor;
@@ -94,6 +95,12 @@ public class CreateCursor extends PhyTableFunction {
 			MergeCursor2 mcs = (MergeCursor2) cs;
 			setOptionX(mcs.getCursor1(), opt);
 			setOptionX(mcs.getCursor2(), opt);
+		} else if (cs instanceof MergeCursor) {
+			MergeCursor mcs = (MergeCursor) cs;
+			ICursor[] cursors = mcs.getCursors();
+			for (ICursor cursor : cursors) {
+				setOptionX(cursor, opt);
+			}
 		} else if (cs instanceof ConjxCursor) {
 			ConjxCursor mcs = (ConjxCursor) cs;
 			ICursor[] cursors = mcs.getCursors();
