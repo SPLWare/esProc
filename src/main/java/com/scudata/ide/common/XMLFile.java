@@ -27,6 +27,7 @@ import org.w3c.dom.NodeList;
 
 import com.scudata.app.common.Section;
 import com.scudata.common.MessageManager;
+import com.scudata.common.StringUtils;
 import com.scudata.ide.common.resources.IdeCommonMessage;
 
 /**
@@ -432,6 +433,9 @@ public class XMLFile {
 	 * @throws Exception
 	 */
 	public void save(String file) throws Exception {
+		// 去除空行
+		if (xmlDocument != null)
+			trimWhitespace(xmlDocument.getDocumentElement());
 		writeNodeToFile(xmlDocument, file);
 	}
 
@@ -457,6 +461,9 @@ public class XMLFile {
 	 * @throws Exception
 	 */
 	public void save(OutputStream os) throws Exception {
+		// 去除空行
+		if (xmlDocument != null)
+			trimWhitespace(xmlDocument.getDocumentElement());
 		outputDocument(xmlDocument, os);
 	}
 
@@ -507,6 +514,27 @@ public class XMLFile {
 
 		DOMSource source = new DOMSource(node);
 		transformer.transform(source, result);
+	}
+
+	public static void trimWhitespace(Node node) {
+		if (node == null)
+			return;
+		try {
+			NodeList children = node.getChildNodes();
+			for (int i = 0; i < children.getLength(); ++i) {
+				Node child = children.item(i);
+				if (child == null)
+					continue;
+				if (child.getNodeType() == Node.TEXT_NODE) {
+					String content = child.getTextContent();
+					// 去除空行
+					if (content != null && !StringUtils.isValidString(content))
+						child.setTextContent("");
+				}
+				trimWhitespace(child);
+			}
+		} catch (Throwable t) {
+		}
 	}
 
 	/**
