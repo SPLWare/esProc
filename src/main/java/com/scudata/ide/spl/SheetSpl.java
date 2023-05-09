@@ -507,195 +507,200 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 		if (!(GV.appMenu instanceof MenuSpl)) {
 			return;
 		}
-		// Menu
-		MenuSpl md = (MenuSpl) GV.appMenu;
-		md.setEnable(md.getMenuItems(), true);
+		try {
+			// Menu
+			MenuSpl md = (MenuSpl) GV.appMenu;
+			md.setEnable(md.getMenuItems(), true);
 
-		boolean isDataChanged = splEditor.isDataChanged();
-		md.setMenuEnabled(GCSpl.iSAVE, isDataChanged);
-		md.setMenuEnabled(GCSpl.iSAVEAS, true);
-		md.setMenuEnabled(GCSpl.iSAVEALL, true);
-		md.setMenuEnabled(GCSpl.iSAVE_FTP, true);
+			boolean isDataChanged = splEditor.isDataChanged();
+			md.setMenuEnabled(GCSpl.iSAVE, isDataChanged);
+			md.setMenuEnabled(GCSpl.iSAVEAS, true);
+			md.setMenuEnabled(GCSpl.iSAVEALL, true);
+			md.setMenuEnabled(GCSpl.iSAVE_FTP, true);
 
-		md.setMenuEnabled(GCSpl.iREDO, splEditor.canRedo());
-		md.setMenuEnabled(GCSpl.iUNDO, splEditor.canUndo());
+			md.setMenuEnabled(GCSpl.iREDO, splEditor.canRedo());
+			md.setMenuEnabled(GCSpl.iUNDO, splEditor.canUndo());
 
-		boolean canCopy = selectState != GCSpl.SELECT_STATE_NONE;
-		md.setMenuEnabled(GCSpl.iCOPY, canCopy);
-		md.setMenuEnabled(GCSpl.iCOPYVALUE, canCopy);
-		md.setMenuEnabled(GCSpl.iCODE_COPY, canCopy);
-		md.setMenuEnabled(GCSpl.iCOPY_HTML, canCopy);
+			boolean canCopy = selectState != GCSpl.SELECT_STATE_NONE;
+			md.setMenuEnabled(GCSpl.iCOPY, canCopy);
+			md.setMenuEnabled(GCSpl.iCOPYVALUE, canCopy);
+			md.setMenuEnabled(GCSpl.iCODE_COPY, canCopy);
+			md.setMenuEnabled(GCSpl.iCOPY_HTML, canCopy);
 
-		md.setMenuEnabled(GCSpl.iCUT, canCopy);
+			md.setMenuEnabled(GCSpl.iCUT, canCopy);
 
-		md.setMenuEnabled(GCSpl.iMOVE_COPY_UP,
-				selectState != GCSpl.SELECT_STATE_NONE);
-		md.setMenuEnabled(GCSpl.iMOVE_COPY_DOWN,
-				selectState != GCSpl.SELECT_STATE_NONE);
-		md.setMenuEnabled(GCSpl.iMOVE_COPY_LEFT,
-				selectState != GCSpl.SELECT_STATE_NONE);
-		md.setMenuEnabled(GCSpl.iMOVE_COPY_RIGHT,
-				selectState != GCSpl.SELECT_STATE_NONE);
+			md.setMenuEnabled(GCSpl.iMOVE_COPY_UP,
+					selectState != GCSpl.SELECT_STATE_NONE);
+			md.setMenuEnabled(GCSpl.iMOVE_COPY_DOWN,
+					selectState != GCSpl.SELECT_STATE_NONE);
+			md.setMenuEnabled(GCSpl.iMOVE_COPY_LEFT,
+					selectState != GCSpl.SELECT_STATE_NONE);
+			md.setMenuEnabled(GCSpl.iMOVE_COPY_RIGHT,
+					selectState != GCSpl.SELECT_STATE_NONE);
 
-		boolean canPaste = GMSpl.canPaste()
-				&& selectState != GCSpl.SELECT_STATE_NONE;
-		md.setMenuEnabled(GCSpl.iPASTE, canPaste);
-		md.setMenuEnabled(GCSpl.iPASTE_ADJUST, canPaste);
-		md.setMenuEnabled(GCSpl.iPASTE_SPECIAL, canPaste);
+			boolean canPaste = GMSpl.canPaste()
+					&& selectState != GCSpl.SELECT_STATE_NONE;
+			md.setMenuEnabled(GCSpl.iPASTE, canPaste);
+			md.setMenuEnabled(GCSpl.iPASTE_ADJUST, canPaste);
+			md.setMenuEnabled(GCSpl.iPASTE_SPECIAL, canPaste);
 
-		md.setMenuEnabled(GCSpl.iCTRL_ENTER,
-				selectState != GCSpl.SELECT_STATE_NONE);
-		md.setMenuEnabled(GCSpl.iDUP_ROW,
-				selectState != GCSpl.SELECT_STATE_NONE);
-		md.setMenuEnabled(GCSpl.iDUP_ROW_ADJUST,
-				selectState != GCSpl.SELECT_STATE_NONE);
-		md.setMenuEnabled(GCSpl.iCTRL_INSERT,
-				selectState != GCSpl.SELECT_STATE_NONE);
-		md.setMenuEnabled(GCSpl.iALT_INSERT,
-				selectState != GCSpl.SELECT_STATE_NONE);
+			md.setMenuEnabled(GCSpl.iCTRL_ENTER,
+					selectState != GCSpl.SELECT_STATE_NONE);
+			md.setMenuEnabled(GCSpl.iDUP_ROW,
+					selectState != GCSpl.SELECT_STATE_NONE);
+			md.setMenuEnabled(GCSpl.iDUP_ROW_ADJUST,
+					selectState != GCSpl.SELECT_STATE_NONE);
+			md.setMenuEnabled(GCSpl.iCTRL_INSERT,
+					selectState != GCSpl.SELECT_STATE_NONE);
+			md.setMenuEnabled(GCSpl.iALT_INSERT,
+					selectState != GCSpl.SELECT_STATE_NONE);
 
-		md.setMenuEnabled(GCSpl.iCLEAR, selectState != GCSpl.SELECT_STATE_NONE);
-		md.setMenuEnabled(GCSpl.iFULL_CLEAR,
-				selectState != GCSpl.SELECT_STATE_NONE);
-		md.setMenuEnabled(GCSpl.iBREAKPOINTS,
-				selectState != GCSpl.SELECT_STATE_NONE);
-		md.setMenuEnabled(GCSpl.iDELETE_ROW,
-				selectState != GCSpl.SELECT_STATE_NONE);
-		md.setMenuEnabled(GCSpl.iDELETE_COL,
-				selectState != GCSpl.SELECT_STATE_NONE);
-		md.setMenuEnabled(GCSpl.iCTRL_BACK,
-				selectState != GCSpl.SELECT_STATE_NONE);
-		md.setMenuEnabled(GCSpl.iCTRL_DELETE,
-				selectState != GCSpl.SELECT_STATE_NONE);
+			md.setMenuEnabled(GCSpl.iCLEAR,
+					selectState != GCSpl.SELECT_STATE_NONE);
+			md.setMenuEnabled(GCSpl.iFULL_CLEAR,
+					selectState != GCSpl.SELECT_STATE_NONE);
+			md.setMenuEnabled(GCSpl.iBREAKPOINTS,
+					selectState != GCSpl.SELECT_STATE_NONE);
+			md.setMenuEnabled(GCSpl.iDELETE_ROW,
+					selectState != GCSpl.SELECT_STATE_NONE);
+			md.setMenuEnabled(GCSpl.iDELETE_COL,
+					selectState != GCSpl.SELECT_STATE_NONE);
+			md.setMenuEnabled(GCSpl.iCTRL_BACK,
+					selectState != GCSpl.SELECT_STATE_NONE);
+			md.setMenuEnabled(GCSpl.iCTRL_DELETE,
+					selectState != GCSpl.SELECT_STATE_NONE);
 
-		md.setMenuRowColEnabled(selectState == GCSpl.SELECT_STATE_ROW
-				|| selectState == GCSpl.SELECT_STATE_COL);
-		md.setMenuVisible(GCSpl.iROW_HEIGHT,
-				selectState == GCSpl.SELECT_STATE_ROW);
-		md.setMenuVisible(GCSpl.iROW_ADJUST,
-				selectState == GCSpl.SELECT_STATE_ROW);
-		md.setMenuVisible(GCSpl.iROW_HIDE,
-				selectState == GCSpl.SELECT_STATE_ROW);
-		md.setMenuVisible(GCSpl.iROW_VISIBLE,
-				selectState == GCSpl.SELECT_STATE_ROW);
+			md.setMenuRowColEnabled(selectState == GCSpl.SELECT_STATE_ROW
+					|| selectState == GCSpl.SELECT_STATE_COL);
+			md.setMenuVisible(GCSpl.iROW_HEIGHT,
+					selectState == GCSpl.SELECT_STATE_ROW);
+			md.setMenuVisible(GCSpl.iROW_ADJUST,
+					selectState == GCSpl.SELECT_STATE_ROW);
+			md.setMenuVisible(GCSpl.iROW_HIDE,
+					selectState == GCSpl.SELECT_STATE_ROW);
+			md.setMenuVisible(GCSpl.iROW_VISIBLE,
+					selectState == GCSpl.SELECT_STATE_ROW);
 
-		md.setMenuVisible(GCSpl.iCOL_WIDTH,
-				selectState == GCSpl.SELECT_STATE_COL);
-		md.setMenuVisible(GCSpl.iCOL_ADJUST,
-				selectState == GCSpl.SELECT_STATE_COL);
-		md.setMenuVisible(GCSpl.iCOL_HIDE,
-				selectState == GCSpl.SELECT_STATE_COL);
-		md.setMenuVisible(GCSpl.iCOL_VISIBLE,
-				selectState == GCSpl.SELECT_STATE_COL);
+			md.setMenuVisible(GCSpl.iCOL_WIDTH,
+					selectState == GCSpl.SELECT_STATE_COL);
+			md.setMenuVisible(GCSpl.iCOL_ADJUST,
+					selectState == GCSpl.SELECT_STATE_COL);
+			md.setMenuVisible(GCSpl.iCOL_HIDE,
+					selectState == GCSpl.SELECT_STATE_COL);
+			md.setMenuVisible(GCSpl.iCOL_VISIBLE,
+					selectState == GCSpl.SELECT_STATE_COL);
 
-		md.setMenuEnabled(GCSpl.iTEXT_EDITOR,
-				selectState != GCSpl.SELECT_STATE_NONE);
-		md.setMenuEnabled(GCSpl.iNOTE, selectState != GCSpl.SELECT_STATE_NONE);
-		md.setMenuEnabled(GCSpl.iTIPS, selectState != GCSpl.SELECT_STATE_NONE);
-		md.setMenuEnabled(GCSpl.iSEARCH, selectState != GCSpl.SELECT_STATE_NONE);
-		md.setMenuEnabled(GCSpl.iREPLACE,
-				selectState != GCSpl.SELECT_STATE_NONE);
+			md.setMenuEnabled(GCSpl.iTEXT_EDITOR,
+					selectState != GCSpl.SELECT_STATE_NONE);
+			md.setMenuEnabled(GCSpl.iNOTE,
+					selectState != GCSpl.SELECT_STATE_NONE);
+			md.setMenuEnabled(GCSpl.iTIPS,
+					selectState != GCSpl.SELECT_STATE_NONE);
+			md.setMenuEnabled(GCSpl.iSEARCH,
+					selectState != GCSpl.SELECT_STATE_NONE);
+			md.setMenuEnabled(GCSpl.iREPLACE,
+					selectState != GCSpl.SELECT_STATE_NONE);
 
-		md.setMenuEnabled(GCSpl.iEDIT_CHART,
-				selectState != GCSpl.SELECT_STATE_NONE);
-		md.setMenuEnabled(GCSpl.iFUNC_ASSIST,
-				selectState != GCSpl.SELECT_STATE_NONE);
-		md.setMenuEnabled(GCSpl.iSHOW_VALUE,
-				selectState != GCSpl.SELECT_STATE_NONE);
-		md.setMenuEnabled(GCSpl.iCLEAR_VALUE,
-				selectState != GCSpl.SELECT_STATE_NONE);
+			md.setMenuEnabled(GCSpl.iEDIT_CHART,
+					selectState != GCSpl.SELECT_STATE_NONE);
+			md.setMenuEnabled(GCSpl.iFUNC_ASSIST,
+					selectState != GCSpl.SELECT_STATE_NONE);
+			md.setMenuEnabled(GCSpl.iSHOW_VALUE,
+					selectState != GCSpl.SELECT_STATE_NONE);
+			md.setMenuEnabled(GCSpl.iCLEAR_VALUE,
+					selectState != GCSpl.SELECT_STATE_NONE);
 
-		md.setMenuEnabled(GCSpl.iDRAW_CHART,
-				GVSpl.panelValue.tableValue.canDrawChart());
-		md.setMenuVisible(GCSpl.iEDIT_CHART, true);
-		md.setMenuVisible(GCSpl.iDRAW_CHART, true);
-		// Toolbar
-		GVSpl.appTool.setBarEnabled(true);
-		GVSpl.appTool.setButtonEnabled(GCSpl.iSAVE, isDataChanged);
-		GVSpl.appTool.setButtonEnabled(GCSpl.iCLEAR,
-				selectState != GCSpl.SELECT_STATE_NONE);
-		GVSpl.appTool.setButtonEnabled(GCSpl.iBREAKPOINTS,
-				selectState != GCSpl.SELECT_STATE_NONE && !isStepStop);
-		GVSpl.appTool.setButtonEnabled(GCSpl.iUNDO, splEditor.canUndo());
-		GVSpl.appTool.setButtonEnabled(GCSpl.iREDO, splEditor.canRedo());
+			md.setMenuEnabled(GCSpl.iDRAW_CHART,
+					GVSpl.panelValue.tableValue.canDrawChart());
+			md.setMenuVisible(GCSpl.iEDIT_CHART, true);
+			md.setMenuVisible(GCSpl.iDRAW_CHART, true);
+			// Toolbar
+			GVSpl.appTool.setBarEnabled(true);
+			GVSpl.appTool.setButtonEnabled(GCSpl.iSAVE, isDataChanged);
+			GVSpl.appTool.setButtonEnabled(GCSpl.iCLEAR,
+					selectState != GCSpl.SELECT_STATE_NONE);
+			GVSpl.appTool.setButtonEnabled(GCSpl.iBREAKPOINTS,
+					selectState != GCSpl.SELECT_STATE_NONE && !isStepStop);
+			GVSpl.appTool.setButtonEnabled(GCSpl.iUNDO, splEditor.canUndo());
+			GVSpl.appTool.setButtonEnabled(GCSpl.iREDO, splEditor.canRedo());
 
-		if (splEditor != null && selectState != GCSpl.SELECT_STATE_NONE) {
-			NormalCell nc = splEditor.getDisplayCell();
-			boolean lockOtherCell = false;
-			if (nc != null) {
-				IByteMap values = splEditor.getProperty();
-				GV.toolBarProperty.refresh(selectState, values);
-				// Object value = null;
-				// try {
-				// value = getCellValue(nc.getRow(), nc.getCol());
-				// } catch (Exception ex) {
-				// Logger.error(ex);
-				// }
-				GVSpl.panelValue.tableValue.setCellId(nc.getCellId());
-				String oldId = GVSpl.panelValue.tableValue.getCellId();
-				if (nc.getCellId().equals(oldId)) { // refresh
-					setValue(nc, false);
-				} else {
-					lockOtherCell = true;
-					setValue(nc, true);
+			if (splEditor != null && selectState != GCSpl.SELECT_STATE_NONE) {
+				NormalCell nc = splEditor.getDisplayCell();
+				boolean lockOtherCell = false;
+				if (nc != null) {
+					IByteMap values = splEditor.getProperty();
+					GV.toolBarProperty.refresh(selectState, values);
+					GVSpl.panelValue.tableValue.setCellId(nc.getCellId());
+					String oldId = GVSpl.panelValue.tableValue.getCellId();
+					if (nc.getCellId().equals(oldId)) { // refresh
+						setValue(nc, false);
+					} else {
+						lockOtherCell = true;
+						setValue(nc, true);
+					}
+					String cellId = nc.getCellId();
+					GVSpl.panelValue.setDebugTime(cellId,
+							getCellDebugTime(cellId));
+					Object[] cellInterval = getCellInterval();
+					if (cellInterval == null || cellInterval.length != 3) {
+						GVSpl.panelValue.setInterval(null, null, null);
+					} else {
+						GVSpl.panelValue.setInterval((String) cellInterval[0],
+								(String) cellInterval[1],
+								(Long) cellInterval[2]);
+					}
 				}
-				String cellId = nc.getCellId();
-				GVSpl.panelValue.setDebugTime(cellId, getCellDebugTime(cellId));
-				Object[] cellInterval = getCellInterval();
-				if (cellInterval == null || cellInterval.length != 3) {
-					GVSpl.panelValue.setInterval(null, null, null);
-				} else {
-					GVSpl.panelValue.setInterval((String) cellInterval[0],
-							(String) cellInterval[1], (Long) cellInterval[2]);
-				}
-			}
 
-			if (lockOtherCell && GVSpl.panelValue.tableValue.isLocked()) {
-				String cellId = GVSpl.panelValue.tableValue.getCellId();
-				if (StringUtils.isValidString(cellId)) {
-					try {
-						INormalCell lockCell = splControl.cellSet
-								.getCell(cellId);
-						boolean isValChanged = isValueChanged(cellId);
-						if (isValChanged)
-							setValue(lockCell, false);
-					} catch (Exception e) {
+				if (lockOtherCell && GVSpl.panelValue.tableValue.isLocked()) {
+					String cellId = GVSpl.panelValue.tableValue.getCellId();
+					if (StringUtils.isValidString(cellId)) {
+						try {
+							INormalCell lockCell = splControl.cellSet
+									.getCell(cellId);
+							boolean isValChanged = isValueChanged(cellId);
+							if (isValChanged)
+								setValue(lockCell, false);
+						} catch (Exception e) {
+						}
 					}
 				}
 			}
-		}
 
-		GV.toolBarProperty.setEnabled(selectState != GCSpl.SELECT_STATE_NONE);
-		if (refreshParams) {
-			Object[] allParams = getAllParams();
-			ParamList ctxParams = null;
-			HashMap<String, Param[]> spaceParams = null;
-			ParamList envParams = null;
-			if (allParams != null) {
-				ctxParams = (ParamList) allParams[0];
-				spaceParams = (HashMap<String, Param[]>) allParams[1];
-				envParams = (ParamList) allParams[2];
+			GV.toolBarProperty
+					.setEnabled(selectState != GCSpl.SELECT_STATE_NONE);
+			if (refreshParams) {
+				Object[] allParams = getAllParams();
+				ParamList ctxParams = null;
+				HashMap<String, Param[]> spaceParams = null;
+				ParamList envParams = null;
+				if (allParams != null) {
+					ctxParams = (ParamList) allParams[0];
+					spaceParams = (HashMap<String, Param[]>) allParams[1];
+					envParams = (ParamList) allParams[2];
+				}
+				GVSpl.tabParam
+						.resetParamList(ctxParams, spaceParams, envParams);
 			}
-			GVSpl.tabParam.resetParamList(ctxParams, spaceParams, envParams);
-		}
 
-		if (GVSpl.panelValue.tableValue.isLocked1()) {
-			GVSpl.panelValue.tableValue.setLocked1(false);
-		}
-
-		md.setMenuEnabled(GCSpl.iVIEW_CONSOLE,
-				ConfigOptions.bIdeConsole.booleanValue());
-		if (stepInfo != null) {
-			// 中断单步调试以后,当前网格是call(spl)时菜单可用
-			if (!isStepStopCall()) {
-				md.setMenuEnabled(md.getAllMenuItems(), false);
-				GVSpl.appTool.setButtonEnabled(GCSpl.iCLEAR, false);
-				GVSpl.appTool.setButtonEnabled(GCSpl.iBREAKPOINTS, false);
-				GV.toolBarProperty.setEnabled(false);
+			if (GVSpl.panelValue.tableValue.isLocked1()) {
+				GVSpl.panelValue.tableValue.setLocked1(false);
 			}
-		}
-		resetRunState(isRefreshState, false);
 
+			md.setMenuEnabled(GCSpl.iVIEW_CONSOLE,
+					ConfigOptions.bIdeConsole.booleanValue());
+			if (stepInfo != null) {
+				// 中断单步调试以后,当前网格是call(spl)时菜单可用
+				if (!isStepStopCall()) {
+					md.setMenuEnabled(md.getAllMenuItems(), false);
+					GVSpl.appTool.setButtonEnabled(GCSpl.iCLEAR, false);
+					GVSpl.appTool.setButtonEnabled(GCSpl.iBREAKPOINTS, false);
+					GV.toolBarProperty.setEnabled(false);
+				}
+			}
+			resetRunState(isRefreshState, false);
+		} catch (Exception ex) {
+			Logger.error(ex);
+		}
 	}
 
 	/**
@@ -2682,19 +2687,19 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 			}
 		}
 		try {
+			if (stepInfo != null && stepInfo.isCall())
+				finishCall();
 			closeSpace();
+			GVSpl.tabParam.resetParamList(null, listSpaceParams(),
+					getEnvParamList());
 		} catch (Throwable t) {
 			GM.showException(t);
 		}
-		if (stepInfo != null && stepInfo.isCall())
-			finishCall();
 		GVSpl.panelValue.tableValue.setLocked1(false);
 		GVSpl.panelValue.tableValue.setCellId(null);
 		GVSpl.panelValue.tableValue.setValue(null);
 		GVSpl.panelValue.setCellSet(null);
 
-		GVSpl.tabParam.resetParamList(null, listSpaceParams(),
-				getEnvParamList());
 		GVSpl.panelSplWatch.watch(null);
 
 		storeBreakPoints();
