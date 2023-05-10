@@ -330,6 +330,7 @@ public class DataBlockWriterJob  extends Job {
 	
 	private static boolean checkSame(byte[] pos) {
 		int len = pos.length;
+		if (len == 0) return false;
 		byte p = pos[0];
 		for (int i = 0; i < len; i++) {
 			if (p != pos[i]) return false;
