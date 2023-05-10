@@ -34,9 +34,14 @@ public class Select extends SequenceFunction {
 					table.createIndexTable(null);
 				}
 			} else if (result instanceof Sequence) {
-				Table table = ((Sequence)result).derive("o");
-				table.createIndexTable(null);
-				result = table;
+				Sequence seq = (Sequence)result;
+				if (seq.length() == 0) {
+					return seq;
+				} else {
+					Table table = seq.derive("o");
+					table.createIndexTable(null);
+					return table;
+				}
 			}
 		}
 		
