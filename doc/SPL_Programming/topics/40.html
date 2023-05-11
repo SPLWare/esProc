@@ -1,0 +1,1922 @@
+<!--create by iword1.0 pro, http://www.voland.com.cn-->
+<!-- saved from url=(0026)http://www.runqian.com.cn/ -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>8.4 Loop functions</title>
+<link rel="stylesheet" href="../images/template.css" type="text/css" />
+<link rel="stylesheet" href="document.css" type="text/css" />
+<script language="JavaScript" src="../resource/url.js"></script>
+</head>
+
+<body>
+
+<div id="content-bg">
+	<div id="centent">
+	<div id="centent-title"><h2 style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;margin-left:
+0cm;text-indent:0cm;line-height:normal;mso-list:l11 level2 lfo12;tab-stops:
+list 36.0pt left 42.55pt'><span lang=EN-US
+style='mso-fareast-font-family:"Times New Roman"'><span style='mso-list:Ignore'>8.4<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><span lang=EN-US>Loop functions</span></h2></div>
+	<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>Since record sequences (a table sequence is
+also a record sequence) can be regarded as sequences, we should also be able to
+use loop functions for these objects. We have used new() and derive(). Let's
+try the loop functions we learned before and continue to use the table sequence
+of 100 records created with new().</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>Calculate the average height, maximum weight
+and minimum BMI of these people.</span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=801
+ style='border-collapse:collapse;mso-table-layout-alt:fixed;border:none;
+ mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:#B2B2B2;
+ mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
+ .5pt;mso-yfti-tbllook:1184;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:
+ .5pt solid #B2B2B2;mso-border-insidev:.5pt solid #B2B2B2'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=42 valign=top style='width:24.95pt;border:solid black 1.0pt;
+  border-right:solid windowtext 1.0pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>&nbsp;</span></p>
+  </td>
+  <td width=388 valign=top style='width:232.65pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>A</span></p>
+  </td>
+  <td width=372 valign=top style='width:223.2pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>B</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
+  <td width=42 style='width:24.95pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>1</span></p>
+  </td>
+  <td width=760 colspan=2 valign=top style='width:455.85pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=aff style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+  margin-left:0cm;text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>=100.new(string(~):name,</span><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
+  mso-fareast-font-family:楷体;font-weight:normal;mso-bidi-font-weight:bold'>if(rand()&lt;0.5,&quot;Male&quot;,&quot;Female&quot;):sex,50+rand(50):weight,1.5+rand(40)/100:height)</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
+  <td width=42 style='width:24.95pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>2</span></p>
+  </td>
+  <td width=388 valign=top style='width:232.65pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=aff style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+  margin-left:0cm;text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>=A1.(height).avg()</span></p>
+  </td>
+  <td width=372 valign=top style='width:223.2pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=aff style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+  margin-left:0cm;text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>=A1.avg(height)</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;page-break-inside:avoid;height:14.15pt'>
+  <td width=42 style='width:24.95pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>3</span></p>
+  </td>
+  <td width=388 valign=top style='width:232.65pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=aff style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+  margin-left:0cm;text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>=A1.(weight).max()</span></p>
+  </td>
+  <td width=372 valign=top style='width:223.2pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=aff style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+  margin-left:0cm;text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>=A1.max(weight)</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=42 style='width:24.95pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>4</span></p>
+  </td>
+  <td width=760 colspan=2 valign=top style='width:455.85pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=aff style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+  margin-left:0cm;text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>=A1.min(weight/height/height)</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>Taking a record sequence as a sequence, the
+A.(x) operation can be performed normally. It is often used to get the sequence
+composed of values of a field. Structured data has multiple fields, so it is
+easy to form some expressions with business significance. Therefore,
+aggregation functions based on record sequence will often be calculated
+directly with an expression (B2, B3 and A4 here).</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>The selection function for structured data
+will also be more business meaningful than for conventional data.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>Find the person with the largest weight and
+the person with the smallest BMI:</span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=555
+ style='border-collapse:collapse;mso-table-layout-alt:fixed;border:none;
+ mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:#B2B2B2;
+ mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
+ .5pt;mso-yfti-tbllook:1184;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:
+ .5pt solid #B2B2B2;mso-border-insidev:.5pt solid #B2B2B2'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=35 valign=top style='width:21.25pt;border:solid black 1.0pt;
+  border-right:solid windowtext 1.0pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>&nbsp;</span></p>
+  </td>
+  <td width=260 valign=top style='width:155.9pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>A</span></p>
+  </td>
+  <td width=260 valign=top style='width:155.95pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>B</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
+  <td width=35 style='width:21.25pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>1</span></p>
+  </td>
+  <td width=520 colspan=2 valign=top style='width:11.0cm;border-top:none;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=aff style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+  margin-left:0cm;text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>…</span><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
+  mso-fareast-font-family:楷体;font-weight:normal;mso-bidi-font-weight:bold'></span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
+  <td width=35 style='width:21.25pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>2</span></p>
+  </td>
+  <td width=260 valign=top style='width:155.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=aff style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+  margin-left:0cm;text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>=A1.maxp(weight)</span></p>
+  </td>
+  <td width=260 valign=top style='width:155.95pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=aff style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+  margin-left:0cm;text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>=A1.maxp@a(weight)</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=35 style='width:21.25pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>3</span></p>
+  </td>
+  <td width=520 colspan=2 valign=top style='width:11.0cm;border-top:none;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=aff style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+  margin-left:0cm;text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>=A1.minp(weight/height/height)</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>A2 only finds the first and return, and B2 uses
+@a to find all the records that maximize the weight.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>This is often what we are more concerned
+about, that is, the record corresponding to the maximum and minimum value,
+rather than the maximum and minimum value itself.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>The records selected by conditions can also
+perform various set operations, as well as further aggregation and selection
+operations:</span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=591
+ style='border-collapse:collapse;mso-table-layout-alt:fixed;border:none;
+ mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:#B2B2B2;
+ mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
+ .5pt;mso-yfti-tbllook:1184;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:
+ .5pt solid #B2B2B2;mso-border-insidev:.5pt solid #B2B2B2'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=35 valign=top style='width:21.25pt;border:solid black 1.0pt;
+  border-right:solid windowtext 1.0pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>&nbsp;</span></p>
+  </td>
+  <td width=213 valign=top style='width:127.55pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>A</span></p>
+  </td>
+  <td width=343 valign=top style='width:205.55pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>B</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
+  <td width=35 style='width:21.25pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>1</span></p>
+  </td>
+  <td width=555 colspan=2 valign=top style='width:333.1pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=aff style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+  margin-left:0cm;text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>…</span><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
+  mso-fareast-font-family:楷体;font-weight:normal;mso-bidi-font-weight:bold'></span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
+  <td width=35 style='width:21.25pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>2</span></p>
+  </td>
+  <td width=213 valign=top style='width:127.55pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=aff style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+  margin-left:0cm;text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>=A1.select(height&gt;=1.7)</span></p>
+  </td>
+  <td width=343 valign=top style='width:205.55pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=aff style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+  margin-left:0cm;text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>=A1.select(sex==&quot;Female&quot;)</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;page-break-inside:avoid;height:14.15pt'>
+  <td width=35 style='width:21.25pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>3</span></p>
+  </td>
+  <td width=213 valign=top style='width:127.55pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=aff style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+  margin-left:0cm;text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>=A2^B2</span></p>
+  </td>
+  <td width=343 valign=top style='width:205.55pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=aff style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+  margin-left:0cm;text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>=A1.select(height&gt;=1.7
+  &amp;&amp; sex==&quot;Female&quot;)</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4;page-break-inside:avoid;height:14.15pt'>
+  <td width=35 style='width:21.25pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>4</span></p>
+  </td>
+  <td width=213 valign=top style='width:127.55pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=aff style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+  margin-left:0cm;text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>=A2\B2</span></p>
+  </td>
+  <td width=343 valign=top style='width:205.55pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=aff style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+  margin-left:0cm;text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>=A1.select(height&gt;=1.7
+  &amp;&amp; sex!=&quot;Female&quot;)</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:5;page-break-inside:avoid;height:14.15pt'>
+  <td width=35 style='width:21.25pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>5</span></p>
+  </td>
+  <td width=213 valign=top style='width:127.55pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=aff style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+  margin-left:0cm;text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>=A2.maxp@a(weight)</span></p>
+  </td>
+  <td width=343 valign=top style='width:205.55pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=aff style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+  margin-left:0cm;text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>=B2.minp(weight/height/height)</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:6;mso-yfti-lastrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=35 style='width:21.25pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>6</span></p>
+  </td>
+  <td width=213 valign=top style='width:127.55pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=aff style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+  margin-left:0cm;text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>=A3.avg(height)</span></p>
+  </td>
+  <td width=343 valign=top style='width:205.55pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=aff style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+  margin-left:0cm;text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>=A4.max(weight)</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>A2 selects the persons whose height is not
+less than 1.7 and B2 selects the females. A3 calculates the intersection of the
+two, B3 uses logical operation to express the same calculation result as A3. It
+is the similar case with A4 and B4. A5 and B5 do further selection to the
+selected record sequence, and A6 and B6 continue to do aggregation to the
+selected record sequence.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>Sorting is also a common operation:</span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=591
+ style='border-collapse:collapse;mso-table-layout-alt:fixed;border:none;
+ mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:#B2B2B2;
+ mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
+ .5pt;mso-yfti-tbllook:1184;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:
+ .5pt solid #B2B2B2;mso-border-insidev:.5pt solid #B2B2B2'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=35 valign=top style='width:21.25pt;border:solid black 1.0pt;
+  border-right:solid windowtext 1.0pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>&nbsp;</span></p>
+  </td>
+  <td width=260 valign=top style='width:155.9pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>A</span></p>
+  </td>
+  <td width=295 valign=top style='width:177.2pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>B</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
+  <td width=35 style='width:21.25pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>1</span></p>
+  </td>
+  <td width=555 colspan=2 valign=top style='width:333.1pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=aff style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+  margin-left:0cm;text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>…</span><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
+  mso-fareast-font-family:楷体;font-weight:normal;mso-bidi-font-weight:bold'></span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
+  <td width=35 style='width:21.25pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>2</span></p>
+  </td>
+  <td width=260 valign=top style='width:155.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=aff style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+  margin-left:0cm;text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>=A1.sort(height)</span></p>
+  </td>
+  <td width=295 valign=top style='width:177.2pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=aff style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+  margin-left:0cm;text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;page-break-inside:avoid;height:14.15pt'>
+  <td width=35 style='width:21.25pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>3</span></p>
+  </td>
+  <td width=260 valign=top style='width:155.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=aff style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+  margin-left:0cm;text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>=A1.select(sex==&quot;Female&quot;)</span></p>
+  </td>
+  <td width=295 valign=top style='width:177.2pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=aff style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+  margin-left:0cm;text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>=A3.sort(-weight)</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4;page-break-inside:avoid;height:14.15pt'>
+  <td width=35 style='width:21.25pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>4</span></p>
+  </td>
+  <td width=260 valign=top style='width:155.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=aff style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+  margin-left:0cm;text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>=A1.sort(height,-weight)</span></p>
+  </td>
+  <td width=295 valign=top style='width:177.2pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=aff style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+  margin-left:0cm;text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:5;page-break-inside:avoid;height:14.15pt'>
+  <td width=35 style='width:21.25pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>5</span></p>
+  </td>
+  <td width=260 valign=top style='width:155.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=aff style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+  margin-left:0cm;text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>=A1.top(-3,weight)</span></p>
+  </td>
+  <td width=295 valign=top style='width:177.2pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=aff style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+  margin-left:0cm;text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>=A1.top(-3;weight)</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:6;mso-yfti-lastrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=35 style='width:21.25pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>6</span></p>
+  </td>
+  <td width=260 valign=top style='width:155.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=aff style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+  margin-left:0cm;text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>=A1.ranks(height)</span></p>
+  </td>
+  <td width=295 valign=top style='width:177.2pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=aff style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+  margin-left:0cm;text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>=A1.derive(A6(#):hrank)</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>We know that the default sorting direction of
+the sort() function is from small to large, and we can use @z to reverse the
+order. However, when it comes to structured data, there are often multiple
+fields to sort, and the sorting directions of these parameters are different.
+In this case, there is no way to use only one @z to control. The method given
+by SPL is to write the parameters as opposite numbers (plus a negative sign),
+so that if we continue to sort from small to large, we will realize the reverse
+order of the original values. The method of writing negative signs into
+opposite numbers is also applicable to string and date time data.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>In this way, A2 sorts by height from low to
+high, and B3 sorts females by weight from large to small. A4 will sort by
+height from small to large first, and those with the same height will be sorted
+by weight from large to small.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>Using negative numbers in the top() function
+is another way to represent the reverse order, which is equivalent to getting
+the last few after sorting (if positive numbers, the first few). A5 and B5 will
+calculate the three largest weights and the three individuals with largest
+weights respectively. The calculation result of A5 is a sequence composed of
+three numbers, while B5 returns a record sequence composed of three records.
+SPL also supports ranking function. A6's ranks function can calculate everyone's
+ranking by height.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>We feel that using Male and Female to
+represent gender is too long. Just use one letter M and F. In the future, it
+will be shorter when writing comparative expressions. It can be done with the
+run() function.</span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=591
+ style='border-collapse:collapse;mso-table-layout-alt:fixed;border:none;
+ mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:#B2B2B2;
+ mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
+ .5pt;mso-yfti-tbllook:1184;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:
+ .5pt solid #B2B2B2;mso-border-insidev:.5pt solid #B2B2B2'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=35 valign=top style='width:21.25pt;border:solid black 1.0pt;
+  border-right:solid windowtext 1.0pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>&nbsp;</span></p>
+  </td>
+  <td width=555 valign=top style='width:333.1pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>A</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
+  <td width=35 style='width:21.25pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>1</span></p>
+  </td>
+  <td width=555 valign=top style='width:333.1pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=aff style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+  margin-left:0cm;text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>…</span><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
+  mso-fareast-font-family:楷体;font-weight:normal;mso-bidi-font-weight:bold'></span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=35 style='width:21.25pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>2</span></p>
+  </td>
+  <td width=555 valign=top style='width:333.1pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=aff style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+  margin-left:0cm;text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>&gt;A1.run(sex=left(sex,1))</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>When using the loop function to assign a value
+to a field, we can also directly use the field name to represent the field of
+the current record instead of writing as ~.sex.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>derive() can be used to append fields to
+generate a new table sequence. Sometimes we need to append multiple fields, and
+the field to be appended later needs to be calculated from the field to be
+appended first. For example, we need to add a BMI field, and then add a flag
+field for obesity according to the value of BMI. With derive(), it will be
+written as follows:</span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=591
+ style='border-collapse:collapse;mso-table-layout-alt:fixed;border:none;
+ mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:#B2B2B2;
+ mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
+ .5pt;mso-yfti-tbllook:1184;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:
+ .5pt solid #B2B2B2;mso-border-insidev:.5pt solid #B2B2B2'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=35 valign=top style='width:21.25pt;border:solid black 1.0pt;
+  border-right:solid windowtext 1.0pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>&nbsp;</span></p>
+  </td>
+  <td width=555 valign=top style='width:333.1pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>A</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
+  <td width=35 style='width:21.25pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>1</span></p>
+  </td>
+  <td width=555 valign=top style='width:333.1pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=aff style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+  margin-left:0cm;text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>…</span><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
+  mso-fareast-font-family:楷体;font-weight:normal;mso-bidi-font-weight:bold'></span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
+  <td width=35 style='width:21.25pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>2</span></p>
+  </td>
+  <td width=555 valign=top style='width:333.1pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=aff style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+  margin-left:0cm;text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>=A1.derive(weight/height/height:bmi)</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=35 style='width:21.25pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>3</span></p>
+  </td>
+  <td width=555 valign=top style='width:333.1pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=aff style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+  margin-left:0cm;text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>=A2.derive(if(bmi&gt;25,&quot;FAT&quot;,&quot;OK&quot;):flag)</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>However, the calculation of derive() is very
+complex. It needs to create new records and table sequence and copy the
+original data. The performance is poor. In principle, it should be used as
+little as possible. A better way is to use derive() and run() to complete the
+task:</span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=591
+ style='border-collapse:collapse;mso-table-layout-alt:fixed;border:none;
+ mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:#B2B2B2;
+ mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
+ .5pt;mso-yfti-tbllook:1184;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:
+ .5pt solid #B2B2B2;mso-border-insidev:.5pt solid #B2B2B2'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=35 valign=top style='width:21.25pt;border:solid black 1.0pt;
+  border-right:solid windowtext 1.0pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>&nbsp;</span></p>
+  </td>
+  <td width=555 valign=top style='width:333.1pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>A</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
+  <td width=35 style='width:21.25pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>1</span></p>
+  </td>
+  <td width=555 valign=top style='width:333.1pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=aff style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+  margin-left:0cm;text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>…</span><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
+  mso-fareast-font-family:楷体;font-weight:normal;mso-bidi-font-weight:bold'></span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
+  <td width=35 style='width:21.25pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>2</span></p>
+  </td>
+  <td width=555 valign=top style='width:333.1pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=aff style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+  margin-left:0cm;text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>=A1.derive(weight/height/height:bmi,:flag)</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=35 style='width:21.25pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>3</span></p>
+  </td>
+  <td width=555 valign=top style='width:333.1pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=aff style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+  margin-left:0cm;text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>=A2.run(flag
+  =if(bmi&gt;25,&quot;FAT&quot;,&quot;OK&quot;))</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>Append both fields at one time in A2, and
+then use run() in A3 to calculate the value of flag field. The derive()
+function is executed only once, and the actions of creating and copying table
+sequence are reduced, and the operation performance can be improved a lot.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>From these examples, we can realize once
+again that multiple fields of structured data are easy to form many calculation
+expressions with business significance. There are many operations on field
+expressions in loop functions, but they are relatively uncommon in single value
+sequence calculation.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>Combined with the functions of reading and
+writing Excel files, we can now use program code to merge, filter, add
+calculation results, sort and perform other operations on a batch of Excel
+files.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>Similar to the loop function of a sequence,
+the record sequence will also have multi-layer nesting.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>For example, we want to calculate the minimum
+height difference between males and females in this group:</span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=591
+ style='border-collapse:collapse;mso-table-layout-alt:fixed;border:none;
+ mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:#B2B2B2;
+ mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
+ .5pt;mso-yfti-tbllook:1184;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:
+ .5pt solid #B2B2B2;mso-border-insidev:.5pt solid #B2B2B2'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=35 valign=top style='width:21.25pt;border:solid black 1.0pt;
+  border-right:solid windowtext 1.0pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>&nbsp;</span></p>
+  </td>
+  <td width=248 valign=top style='width:148.85pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>A</span></p>
+  </td>
+  <td width=307 valign=top style='width:184.25pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>B</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
+  <td width=35 style='width:21.25pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>1</span></p>
+  </td>
+  <td width=555 colspan=2 valign=top style='width:333.1pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=aff style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+  margin-left:0cm;text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>…</span><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
+  mso-fareast-font-family:楷体;font-weight:normal;mso-bidi-font-weight:bold'></span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
+  <td width=35 style='width:21.25pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>2</span></p>
+  </td>
+  <td width=248 valign=top style='width:148.85pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=aff style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+  margin-left:0cm;text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>=A1.select(sex==&quot;Male&quot;)</span></p>
+  </td>
+  <td width=307 valign=top style='width:184.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=aff style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+  margin-left:0cm;text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>=A1.select(sex==&quot;Female&quot;)</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=35 style='width:21.25pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>3</span></p>
+  </td>
+  <td width=555 colspan=2 valign=top style='width:333.1pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=aff style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+  margin-left:0cm;text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>=A2.min(B2.min(abs(height-A2.height)))</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>When the inner layer needs to reference the
+record field of the outer loop, the corresponding variable name of the outer
+loop function should also be written to represent the current record, still it
+is not necessary to write ~.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>To find out which pairs of male and female
+make the minimum height difference true, it is more troublesome.</span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=602
+ style='border-collapse:collapse;mso-table-layout-alt:fixed;border:none;
+ mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:#B2B2B2;
+ mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
+ .5pt;mso-yfti-tbllook:1184;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:
+ .5pt solid #B2B2B2;mso-border-insidev:.5pt solid #B2B2B2'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=35 valign=top style='width:21.25pt;border:solid black 1.0pt;
+  border-right:solid windowtext 1.0pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>&nbsp;</span></p>
+  </td>
+  <td width=213 valign=top style='width:127.6pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>A</span></p>
+  </td>
+  <td width=354 valign=top style='width:212.6pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>B</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
+  <td width=35 style='width:21.25pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>1</span></p>
+  </td>
+  <td width=567 colspan=2 valign=top style='width:12.0cm;border-top:none;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=aff style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+  margin-left:0cm;text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>…</span><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
+  mso-fareast-font-family:楷体;font-weight:normal;mso-bidi-font-weight:bold'></span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
+  <td width=35 style='width:21.25pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>2</span></p>
+  </td>
+  <td width=213 valign=top style='width:127.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=aff style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+  margin-left:0cm;text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>=A1.select(sex==&quot;Male&quot;)</span></p>
+  </td>
+  <td width=354 valign=top style='width:212.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=aff style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+  margin-left:0cm;text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>=A1.select(sex==&quot;Female&quot;)</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=35 style='width:21.25pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>3</span></p>
+  </td>
+  <td width=213 valign=top style='width:127.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=aff style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+  margin-left:0cm;text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>=A2.conj(B2.([A2.~,~]))</span></p>
+  </td>
+  <td width=354 valign=top style='width:212.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=aff style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+  margin-left:0cm;text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>=A3.minp@a(abs(~(1).height-~(2).height))</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>Here, we need to use ~ to keep the record,
+form a male and female pair, and then find it with the selection function. A3
+in B3 is no longer a record sequence, and it is meaningless to reference field
+names if ~ is omitted.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>The members of a record sequence are records
+with multiple fields, and the information content is relatively rich. The
+result obtained by the selection function is also a record sequence composed of
+these records. Therefore, the information contained in the position returned by
+positioning functions such as pselect, pmax and pmin is seldom needed, but the
+position still needs to be obtained when it comes to order related
+calculations.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>Now let's discuss the loop functions related
+to order and regenerate a date related table sequence.</span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=591
+ style='border-collapse:collapse;mso-table-layout-alt:fixed;border:none;
+ mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:#B2B2B2;
+ mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
+ .5pt;mso-yfti-tbllook:1184;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:
+ .5pt solid #B2B2B2;mso-border-insidev:.5pt solid #B2B2B2'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=35 valign=top style='width:21.25pt;border:solid black 1.0pt;
+  border-right:solid windowtext 1.0pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>&nbsp;</span></p>
+  </td>
+  <td width=555 valign=top style='width:333.1pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>A</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
+  <td width=35 style='width:21.25pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>1</span></p>
+  </td>
+  <td width=555 valign=top style='width:333.1pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=aff style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+  margin-left:0cm;text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>=100.new(date(now())-100+~:dt,rand()*100:price)</span><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
+  mso-fareast-font-family:楷体;font-weight:normal;mso-bidi-font-weight:bold'></span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=35 style='width:21.25pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>2</span></p>
+  </td>
+  <td width=555 valign=top style='width:333.1pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=aff style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+  margin-left:0cm;text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>=A1.select(day@w(dt)&gt;1
+  &amp;&amp; day@w(dt)&lt;7)</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>Randomly generate a price table of a stock
+from 100 days ago to today. dt field is the date and price field is the price.
+Because there is no transaction on weekends, filter out the weekend dates after
+generating the data, and use this A2 in the future. The day@w() function
+returns the weekday of a date, but note that its return value is 1 on Sunday
+and 7 on Saturday. For historical reasons, the computer system uses the habit
+of Westerners. Sunday is the first day of the week.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>First, we want to calculate the daily
+increase and moving average price:</span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=591
+ style='border-collapse:collapse;mso-table-layout-alt:fixed;border:none;
+ mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:#B2B2B2;
+ mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
+ .5pt;mso-yfti-tbllook:1184;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:
+ .5pt solid #B2B2B2;mso-border-insidev:.5pt solid #B2B2B2'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=35 valign=top style='width:21.25pt;border:solid black 1.0pt;
+  border-right:solid windowtext 1.0pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>&nbsp;</span></p>
+  </td>
+  <td width=555 valign=top style='width:333.1pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>A</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
+  <td width=35 style='width:21.25pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>…</span></p>
+  </td>
+  <td width=555 valign=top style='width:333.1pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=aff style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+  margin-left:0cm;text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>… </span><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
+  mso-fareast-font-family:楷体;font-weight:normal;mso-bidi-font-weight:bold'></span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
+  <td width=35 style='width:21.25pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>3</span></p>
+  </td>
+  <td width=555 valign=top style='width:333.1pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=aff style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+  margin-left:0cm;text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>=A2.derive(price-price[-1]:gain)</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=35 style='width:21.25pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>4</span></p>
+  </td>
+  <td width=555 valign=top style='width:333.1pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=aff style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+  margin-left:0cm;text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>=A2.derive(price[-1:1].avg():mavg)</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>In the loop functions of a record sequence,
+we can add [±i] after the field to refer to the field of an adjacent record,
+and add </span><span class=Charf9><span lang=EN-US style='font-family:"Times New Roman","serif"'>[a:b]</span></span><span
+lang=EN-US> to refer to the sequence composed of the field values of adjacent
+records. These are the same as the loop functions of the sequence.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>Calculate the maximum consecutive rising days
+of this stock:</span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=591
+ style='border-collapse:collapse;mso-table-layout-alt:fixed;border:none;
+ mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:#B2B2B2;
+ mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
+ .5pt;mso-yfti-tbllook:1184;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:
+ .5pt solid #B2B2B2;mso-border-insidev:.5pt solid #B2B2B2'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=35 valign=top style='width:21.25pt;border:solid black 1.0pt;
+  border-right:solid windowtext 1.0pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>&nbsp;</span></p>
+  </td>
+  <td width=555 valign=top style='width:333.1pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>A</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
+  <td width=35 style='width:21.25pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>…</span></p>
+  </td>
+  <td width=555 valign=top style='width:333.1pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=aff style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+  margin-left:0cm;text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>… </span><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
+  mso-fareast-font-family:楷体;font-weight:normal;mso-bidi-font-weight:bold'></span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
+  <td width=35 style='width:21.25pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>3</span></p>
+  </td>
+  <td width=555 valign=top style='width:333.1pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=aff style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+  margin-left:0cm;text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>=0</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=35 style='width:21.25pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>4</span></p>
+  </td>
+  <td width=555 valign=top style='width:333.1pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=aff style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+  margin-left:0cm;text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>=A2.(if(price&gt;price[-1],A3+=1,A3=0)).max()</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>According to natural thinking, first fill in
+0, add 1 if it rises one day, and clear to 0 if it does not rise. We can
+calculate the days of continuous rise to one day, and then get the maximum
+value.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>Calculate the increase on the day when the
+stock price is the highest:</span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=591
+ style='border-collapse:collapse;mso-table-layout-alt:fixed;border:none;
+ mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:#B2B2B2;
+ mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
+ .5pt;mso-yfti-tbllook:1184;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:
+ .5pt solid #B2B2B2;mso-border-insidev:.5pt solid #B2B2B2'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=35 valign=top style='width:21.25pt;border:solid black 1.0pt;
+  border-right:solid windowtext 1.0pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>&nbsp;</span></p>
+  </td>
+  <td width=555 valign=top style='width:333.1pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>A</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
+  <td width=35 style='width:21.25pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>…</span></p>
+  </td>
+  <td width=555 valign=top style='width:333.1pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=aff style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+  margin-left:0cm;text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>… </span><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
+  mso-fareast-font-family:楷体;font-weight:normal;mso-bidi-font-weight:bold'></span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
+  <td width=35 style='width:21.25pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>3</span></p>
+  </td>
+  <td width=555 valign=top style='width:333.1pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=aff style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+  margin-left:0cm;text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>=A2.pmax(price)</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=35 style='width:21.25pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>4</span></p>
+  </td>
+  <td width=555 valign=top style='width:333.1pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=aff style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+  margin-left:0cm;text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>=A2(A3).price-A2.m(A3-1).price</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>Here, use the positioning function pmax() to
+calculate the sequence number where the maximum value is located, and then use
+this sequence number to calculate the increase. If we need to consider that the
+highest price may appear on multiple dates, use the @a option.</span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=591
+ style='border-collapse:collapse;mso-table-layout-alt:fixed;border:none;
+ mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:#B2B2B2;
+ mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
+ .5pt;mso-yfti-tbllook:1184;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:
+ .5pt solid #B2B2B2;mso-border-insidev:.5pt solid #B2B2B2'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=35 valign=top style='width:21.25pt;border:solid black 1.0pt;
+  border-right:solid windowtext 1.0pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>&nbsp;</span></p>
+  </td>
+  <td width=555 valign=top style='width:333.1pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>A</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
+  <td width=35 style='width:21.25pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>…</span></p>
+  </td>
+  <td width=555 valign=top style='width:333.1pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=aff style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+  margin-left:0cm;text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>… </span><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
+  mso-fareast-font-family:楷体;font-weight:normal;mso-bidi-font-weight:bold'></span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
+  <td width=35 style='width:21.25pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>3</span></p>
+  </td>
+  <td width=555 valign=top style='width:333.1pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=aff style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+  margin-left:0cm;text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>=A2.pmax@a(price)</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=35 style='width:21.25pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>4</span></p>
+  </td>
+  <td width=555 valign=top style='width:333.1pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=aff style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+  margin-left:0cm;text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>=A3.new(A2(~).dt,A2(~).price-A2.m(~-1).price:gain)</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>First calculate the sequence composed of the
+record sequence numbers where the maximum value is located, and then generate a
+two field sequence with new() based on this sequence, taking the date and gain
+as the fields. In this case, </span><span class=Charf9><span lang=EN-US
+style='font-family:"Times New Roman","serif"'>new()</span></span><span
+lang=EN-US> can also omit the field name. You can see what the field names of
+the generated table sequence will be.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>Similarly, calculate the average increase on
+the days when the stock price exceeds 90 yuan:</span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=591
+ style='border-collapse:collapse;mso-table-layout-alt:fixed;border:none;
+ mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:#B2B2B2;
+ mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
+ .5pt;mso-yfti-tbllook:1184;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:
+ .5pt solid #B2B2B2;mso-border-insidev:.5pt solid #B2B2B2'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=35 valign=top style='width:21.25pt;border:solid black 1.0pt;
+  border-right:solid windowtext 1.0pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>&nbsp;</span></p>
+  </td>
+  <td width=555 valign=top style='width:333.1pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>A</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
+  <td width=35 style='width:21.25pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>…</span></p>
+  </td>
+  <td width=555 valign=top style='width:333.1pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=aff style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+  margin-left:0cm;text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>… </span><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
+  mso-fareast-font-family:楷体;font-weight:normal;mso-bidi-font-weight:bold'></span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
+  <td width=35 style='width:21.25pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>3</span></p>
+  </td>
+  <td width=555 valign=top style='width:333.1pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=aff style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+  margin-left:0cm;text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>=A2.pselect@a(price&gt;90)</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=35 style='width:21.25pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>4</span></p>
+  </td>
+  <td width=555 valign=top style='width:333.1pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=aff style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+  margin-left:0cm;text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>=A3.new(A2(~).dt,A2(~).price-A2.m(~-1).price:gain)</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>For this cross-row calculation for a certain
+position, SPL provides a positioning calculation function. The previous code
+can also be written as follows:</span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=591
+ style='border-collapse:collapse;mso-table-layout-alt:fixed;border:none;
+ mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:#B2B2B2;
+ mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
+ .5pt;mso-yfti-tbllook:1184;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:
+ .5pt solid #B2B2B2;mso-border-insidev:.5pt solid #B2B2B2'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=35 valign=top style='width:21.25pt;border:solid black 1.0pt;
+  border-right:solid windowtext 1.0pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>&nbsp;</span></p>
+  </td>
+  <td width=555 valign=top style='width:333.1pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>A</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
+  <td width=35 style='width:21.25pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>…</span></p>
+  </td>
+  <td width=555 valign=top style='width:333.1pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=aff style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+  margin-left:0cm;text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>… </span><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
+  mso-fareast-font-family:楷体;font-weight:normal;mso-bidi-font-weight:bold'></span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
+  <td width=35 style='width:21.25pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>3</span></p>
+  </td>
+  <td width=555 valign=top style='width:333.1pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=aff style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+  margin-left:0cm;text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>=A2.pmax(price)</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=35 style='width:21.25pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>4</span></p>
+  </td>
+  <td width=555 valign=top style='width:333.1pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=aff style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+  margin-left:0cm;text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>=A2.calc(A3,price-price[-1])</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>The positioning calculation function calc()
+allows the syntax of ~, #, [] and so on in the loop function to be used in the
+non loop function.</span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=591
+ style='border-collapse:collapse;mso-table-layout-alt:fixed;border:none;
+ mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:#B2B2B2;
+ mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
+ .5pt;mso-yfti-tbllook:1184;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:
+ .5pt solid #B2B2B2;mso-border-insidev:.5pt solid #B2B2B2'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=35 valign=top style='width:21.25pt;border:solid black 1.0pt;
+  border-right:solid windowtext 1.0pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>&nbsp;</span></p>
+  </td>
+  <td width=555 valign=top style='width:333.1pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>A</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
+  <td width=35 style='width:21.25pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>…</span></p>
+  </td>
+  <td width=555 valign=top style='width:333.1pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=aff style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+  margin-left:0cm;text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>… </span><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
+  mso-fareast-font-family:楷体;font-weight:normal;mso-bidi-font-weight:bold'></span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
+  <td width=35 style='width:21.25pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>3</span></p>
+  </td>
+  <td width=555 valign=top style='width:333.1pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=aff style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+  margin-left:0cm;text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>=A2.pmax@a(price)</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;page-break-inside:avoid;height:14.15pt'>
+  <td width=35 style='width:21.25pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>4</span></p>
+  </td>
+  <td width=555 valign=top style='width:333.1pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=aff style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+  margin-left:0cm;text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>=A2.calc(A3,price-price[-1])</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=35 style='width:21.25pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>5</span></p>
+  </td>
+  <td width=555 valign=top style='width:333.1pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=aff style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+  margin-left:0cm;text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>=A3.new(A2(~).dt,A4(#):gain)</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>The calc() function can also be used for
+sequences, but there are few business-meaningful scenarios when structured data
+is not involved, so we give some examples here.</span></p>
+	</div>
+	<div id="previous-next">
+		<div id="next"><a href="41.html">Next</a></div>
+		<div id="previous"><a href="39.html">Previous</a></div>		
+	</div>
+	<div id="related">
+		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="36.html">8 Data table</a></span></li>
+</div>
+	</div>
+	<div id="footer">	
+		
+		
+    <div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+      </a></div>
+	</div>
+</div>
+
+</body>
+</html>

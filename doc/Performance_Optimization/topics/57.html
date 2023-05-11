@@ -1,0 +1,329 @@
+<!--create by iword1.0 pro, http://www.voland.com.cn-->
+<!-- saved from url=(0026)http://www.runqian.com.cn/ -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>8.1 Partial pre-aggregation</title>
+<link rel="stylesheet" href="../images/template.css" type="text/css" />
+<link rel="stylesheet" href="document.css" type="text/css" />
+<script language="JavaScript" src="../resource/url.js"></script>
+</head>
+
+<body>
+
+<div id="content-bg">
+	<div id="centent">
+	<div id="centent-title"><h2 style='margin-top:8.15pt;margin-right:0cm;margin-bottom:8.15pt;margin-left:
+0cm;text-indent:0cm;mso-list:l0 level2 lfo1'><span
+lang=EN-US style='mso-fareast-font-family:"Times New Roman"'><span
+style='mso-list:Ignore'>8.1<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><span lang=EN-US>Partial pre-aggregation</span></h2></div>
+	<p class=MsoNormal><span class=jlqj4b><span lang=EN style='mso-bidi-font-size:
+10.5pt;color:black;mso-ansi-language:EN'>Essentially, the backend operation of
+the multi-dimensional analysis is the grouping and aggregating calculation, and
+the grouping methods mentioned earlier can all be used. However, when the
+amount of data is very large, it is not easy to achieve instant response.</span></span></p>
+
+<p class=MsoNormal><span class=jlqj4b><span lang=EN style='mso-bidi-font-size:
+10.5pt;color:black;mso-ansi-language:EN'>To solve this problem, an easy way to
+think of is the pre-aggregation, that is, calculate the aggregation results in
+advance so as to return them directly when requested by the frontend. In other
+words, this method is to trade space for time, which is equivalent to converting
+the traversal problem to a search problem, and can achieve the instant response
+theoretically.</span></span></p>
+
+<p class=MsoNormal><span class=jlqj4b><span lang=EN style='mso-bidi-font-size:
+10.5pt;color:black;mso-ansi-language:EN'>However, the full pre-aggregation is
+basically infeasible, and we can know the reason through simple calculations.</span></span></p>
+
+<p class=MsoNormal><span class=jlqj4b><span lang=EN style='mso-bidi-font-size:
+10.5pt;color:black;mso-ansi-language:EN'>To do the full pre-aggregation for 50
+dimensions, 2<sup>50</sup> intermediate result sets will be required, and a
+conservative estimate on the required capacity is over one million terabytes, hence
+it is not operable. Even if only 10 dimensions are pre-aggregated (10 dimensions
+are not large in number since we need to pre-aggregate both the observation and
+slice dimensions), it still requires at least hundreds of terabytes of storage
+space, therefore, the practicality is very poor.</span></span></p>
+
+<p class=MsoNormal><span class=jlqj4b><span lang=EN style='mso-bidi-font-size:
+10.5pt;color:black;mso-ansi-language:EN'>What we can do is only the partial pre-aggregation,
+that is, only pre-aggregate the combination of some dimensions. When the
+front-end requests, search the pre-aggregation data under a certain condition
+first, and then do the aggregation. In this way, the performance can probably be
+improved by dozens of times on average, and it can often meet the requirements.</span></span></p>
+
+<p class=MsoNormal><span class=jlqj4b><span lang=EN style='mso-bidi-font-size:
+10.5pt;color:black;mso-ansi-language:EN'>Which dimension combinations to pre-aggregate
+generally depends on practical experience. In addition, the engineering means
+can also be used to determine which combinations to pre-aggregate. For example,
+you can either record the historical query requests and do the statistical
+analysis, or dynamically generate new ones and delete the infrequently used ones.
+When it comes to the algorithm, there is not much to discuss.</span></span></p>
+
+<p class=MsoNormal><span class=jlqj4b><span lang=EN style='mso-bidi-font-size:
+10.5pt;color:black;mso-ansi-language:EN'>If there are multiple pre-aggregated
+data, which one to choose to respond to frontend request?</span></span></p>
+
+<p class=MsoNormal><span class=jlqj4b><span lang=EN style='mso-bidi-font-size:
+10.5pt;color:black;mso-ansi-language:EN'>Suppose that the frontend requests the
+statistical values for the dimensions </span></span><span lang=EN-US>A,B</span><span
+class=jlqj4b><span lang=EN style='mso-bidi-font-size:10.5pt;color:black;
+mso-ansi-language:EN'>, it needs to search the pre-aggregated data that
+includes dimensions </span></span><span lang=EN-US>A,B</span><span
+class=jlqj4b><span lang=EN style='mso-bidi-font-size:10.5pt;color:black;
+mso-ansi-language:EN'>. If there are multiple pre-aggregated data that meet the
+criterion, just select the one with the smallest amount of data and then
+calculate.</span></span></p>
+
+<p class=MsoNormal><span class=jlqj4b><span lang=EN style='mso-bidi-font-size:
+10.5pt;color:black;mso-ansi-language:EN'>These logics are relatively simple.</span></span></p>
+
+<p class=MsoNormal><span class=jlqj4b><span lang=EN style='mso-bidi-font-size:
+10.5pt;color:black;mso-ansi-language:EN'>SPL provides partial pre-aggregation
+functions for the composite table:</span></span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=482
+ style='border-collapse:collapse;mso-table-layout-alt:fixed;border:none;
+ mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:#B2B2B2;
+ mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
+ .5pt;mso-yfti-tbllook:1184;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:
+ .5pt solid #B2B2B2;mso-border-insidev:.5pt solid #B2B2B2'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=47 style='width:1.0cm;border:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-alt:solid black .5pt;mso-border-right-alt:solid windowtext .5pt;
+  background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>&nbsp;</span></p>
+  </td>
+  <td width=445 valign=top style='width:266.9pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span lang=EN-US>A</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
+  <td width=47 style='width:1.0cm;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>1</span></p>
+  </td>
+  <td width=445 valign=top style='width:266.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal'>=file(&quot;T.ctx&quot;).open()</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
+  <td width=47 style='width:1.0cm;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>2</span></p>
+  </td>
+  <td width=445 valign=top style='width:266.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal'>=A1.cuboid(Cube1,D1,…;sum(M1),…)</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;page-break-inside:avoid;height:14.15pt'>
+  <td width=47 style='width:1.0cm;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>3</span></p>
+  </td>
+  <td width=445 valign=top style='width:266.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal'>=A1.cuboid(Cube2,D1,…;sum(M1),…)</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=47 style='width:1.0cm;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>&nbsp;</span></p>
+  </td>
+  <td width=445 valign=top style='width:266.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal'>…</span></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal><span class=jlqj4b><span lang=EN style='mso-bidi-font-size:
+10.5pt;color:black;mso-ansi-language:EN'>Using the cuboid() function can create
+the pre-aggregation data. You need to give a name, and the remaining parameters
+are the same as that of grouping and aggregating algorithm.</span></span></p>
+
+<p class=MsoNormal><span class=jlqj4b><span lang=EN style='mso-bidi-font-size:
+10.5pt;color:black;mso-ansi-language:EN'>It is also very simple to use:</span></span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=482
+ style='border-collapse:collapse;mso-table-layout-alt:fixed;border:none;
+ mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:#B2B2B2;
+ mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
+ .5pt;mso-yfti-tbllook:1184;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:
+ .5pt solid #B2B2B2;mso-border-insidev:.5pt solid #B2B2B2'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=47 style='width:1.0cm;border:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-alt:solid black .5pt;mso-border-right-alt:solid windowtext .5pt;
+  background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>&nbsp;</span></p>
+  </td>
+  <td width=445 valign=top style='width:266.9pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span lang=EN-US>A</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
+  <td width=47 style='width:1.0cm;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>1</span></p>
+  </td>
+  <td width=445 valign=top style='width:266.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal'>=file(&quot;T.ctx&quot;).open()</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=47 style='width:1.0cm;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>2</span></p>
+  </td>
+  <td width=445 valign=top style='width:266.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal'>=A1.cgroups(D1,…;sum(M1),…)</span></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal><span class=jlqj4b><span lang=EN style='mso-bidi-font-size:
+10.5pt;color:black;mso-ansi-language:EN'>The cgroups() function will
+automatically search the most appropriate pre-aggregation data according to the
+above logic before calculation.</span></span><span lang=EN style='mso-ansi-language:
+EN'></span></p>
+
+<p class=MsoNormal><span class=jlqj4b><span lang=EN style='mso-bidi-font-size:
+10.5pt;color:black;mso-ansi-language:EN'>The pre-aggregation scheme is quite simple,
+but it is limited by the capacity and has many application limitations. Thus, it
+can only deal with the most common situations.</span></span></p>
+
+<p class=MsoNormal><span class=jlqj4b><span lang=EN style='mso-bidi-font-size:
+10.5pt;color:black;mso-ansi-language:EN'>It is difficult to fully apply the pre-aggregation
+scheme in the following situations:</span></span></p>
+
+<p class=MsoNormal><span class=jlqj4b><span lang=EN style='mso-bidi-font-size:
+10.5pt;color:black;mso-ansi-language:EN'>1) Unconventional aggregation: in
+addition to the common </span></span><span class=jlqj4b><span lang=EN
+style='color:black;mso-ansi-language:EN'>summation</span></span><span
+class=jlqj4b><span lang=EN style='mso-bidi-font-size:10.5pt;color:black;
+mso-ansi-language:EN'> and count operations, some unconventional aggregations
+such as count unique, median and variance, are likely to be omitted and cannot
+be calculated from other aggregation values.</span></span><span class=viiyi><span
+lang=EN style='mso-bidi-font-size:10.5pt;color:black;mso-ansi-language:EN'> </span></span><span
+class=jlqj4b><span lang=EN style='mso-bidi-font-size:10.5pt;color:black;
+mso-ansi-language:EN'>In theory, there are countless kinds of aggregation
+operations, and it is impossible to pre-aggregate them all.</span></span><span
+lang=EN-US style='mso-font-kerning:0pt'></span></p>
+
+<p class=MsoNormal><span class=jlqj4b><span lang=EN style='mso-bidi-font-size:
+10.5pt;color:black;mso-ansi-language:EN'>2) Aggregation combinations: the
+aggregation operations may be combined.</span></span><span class=jlqj4b><span
+lang=EN style='mso-bidi-font-size:10.5pt'> </span></span><span class=jlqj4b><span
+lang=EN style='mso-bidi-font-size:10.5pt;color:black;mso-ansi-language:EN'>For
+example, we may want to know the average monthly sales, which is calculated by
+adding up the daily sales of a month and then calculating the average.</span></span><span
+class=jlqj4b><span lang=EN style='mso-bidi-font-size:10.5pt'> </span></span><span
+class=jlqj4b><span lang=EN style='mso-bidi-font-size:10.5pt;color:black;
+mso-ansi-language:EN'>This operation is not a simply counting and averaging
+operation, but a combination of two aggregation operations at different
+dimension levels.</span></span><span class=jlqj4b><span lang=EN
+style='mso-bidi-font-size:10.5pt'> </span></span><span class=jlqj4b><span
+lang=EN style='mso-bidi-font-size:10.5pt;color:black;mso-ansi-language:EN'>Such
+operations are also unlikely to be pre-aggregated in advance.</span></span></p>
+
+<p class=MsoNormal><span class=jlqj4b><span lang=EN style='color:black;
+mso-ansi-language:EN'>3) Conditions on metrics: the metrics may also have
+conditions during the statistics. For instance, we want to know the total sales
+of orders with transaction amount greater than 100 yuan. This information
+cannot be processed during pre-</span></span><span class=jlqj4b><span lang=EN
+style='mso-bidi-font-size:10.5pt;color:black;mso-ansi-language:EN'>aggregation</span></span><span
+class=jlqj4b><span lang=EN style='color:black;mso-ansi-language:EN'>, because
+100 will be a temporarily entered parameter.</span></span></p>
+
+<p class=MsoNormal><span class=jlqj4b><span lang=EN style='color:black;
+mso-ansi-language:EN'>4) Time period statistics: time is a special dimension,
+which can be either enumerated or sliced in a continuous interval. The starting
+and ending points of query interval may be fine-grained (for example, to a
+certain day), in this case, the fine-grained data must be used for re-counting,
+rather than using the higher-level pre-</span></span><span class=jlqj4b><span
+lang=EN style='mso-bidi-font-size:10.5pt;color:black;mso-ansi-language:EN'>aggregation</span></span><span
+class=jlqj4b><span lang=EN style='color:black;mso-ansi-language:EN'> data
+directly.</span></span></p>
+	</div>
+	<div id="previous-next">
+		<div id="next"><a href="58.html">Next</a></div>
+		<div id="previous"><a href="56.html">Previous</a></div>		
+	</div>
+	<div id="related">
+		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="56.html">8 Multi-dimensional analysis</a></span></li>
+</div>
+	</div>
+	<div id="footer">	
+		
+		
+    <div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+      </a></div>
+	</div>
+</div>
+
+</body>
+</html>

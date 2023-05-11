@@ -1,0 +1,1587 @@
+<!--create by iword1.0 pro, http://www.voland.com.cn-->
+<!-- saved from url=(0026)http://www.runqian.com.cn/ -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>5.5 Positioning and selection</title>
+<link rel="stylesheet" href="../images/template.css" type="text/css" />
+<link rel="stylesheet" href="document.css" type="text/css" />
+<script language="JavaScript" src="../resource/url.js"></script>
+</head>
+
+<body>
+
+<div id="content-bg">
+	<div id="centent">
+	<div id="centent-title"><h2 style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;margin-left:
+0cm;text-indent:0cm;line-height:normal;mso-list:l11 level2 lfo12;tab-stops:
+list 36.0pt left 42.55pt'><span lang=EN-US
+style='mso-fareast-font-family:"Times New Roman"'><span style='mso-list:Ignore'>5.5<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><span lang=EN-US>Positioning and selection</span></h2></div>
+	<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>It is a common operation to extract a subsequence
+from a sequence (that is, to extract a subset from a set). We have learned to
+use the </span><span lang=EN-US style='mso-fareast-font-family:楷体'>to()</span><span
+lang=EN-US> function and sequence of numbers to extract a subsequence according
+to the position of members.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>Sometimes we want to get members from the end
+of a sequence in the reverse order. Of course, we can use the length of the
+sequence to calculate the sequence number, but it's a bit troublesome. SPL
+provides functions that can use the reverse order.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>The function </span><span class=Charf9><span
+lang=EN-US style='font-family:"Times New Roman","serif"'>A.m(i)</span></span><span
+lang=EN-US> will get the i-th member of A. if i&lt;0, it will get the -i member
+counting from the end, that is</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>A.m(i)=A(if(i&gt;0,i,i+A.len()-1))</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>Similarly, when p is a sequence of length k
+with negative members, there is a function</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>A.m(p)=[A.m(p(1)),…,A.m(p(k))]</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span class=Charf9><span lang=EN-US style='font-family:"Times New Roman","serif"'>A.m(-1)</span></span><span
+lang=EN-US> is often used to get the last member of A. Pascal triangle can be
+simplified a little bit:</span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=354
+ style='border-collapse:collapse;mso-table-layout-alt:fixed;border:none;
+ mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:#B2B2B2;
+ mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
+ .5pt;mso-yfti-tbllook:1184;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:
+ .5pt solid #B2B2B2;mso-border-insidev:.5pt solid #B2B2B2'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=35 valign=top style='width:21.25pt;border:solid black 1.0pt;
+  border-right:solid windowtext 1.0pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>&nbsp;</span></p>
+  </td>
+  <td width=106 valign=top style='width:63.8pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>A</span></p>
+  </td>
+  <td width=213 valign=top style='width:127.6pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>B</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
+  <td width=35 style='width:21.25pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>1</span></p>
+  </td>
+  <td width=106 valign=top style='width:63.8pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>5</span></span></p>
+  </td>
+  <td width=213 valign=top style='width:127.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>=[[1],[1,1]]</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
+  <td width=35 style='width:21.25pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>2</span></p>
+  </td>
+  <td width=106 valign=top style='width:63.8pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>for A1-1</span></span></p>
+  </td>
+  <td width=213 valign=top style='width:127.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>=B1.m(-1).(~+~[-1])</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=35 style='width:21.25pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>3</span></p>
+  </td>
+  <td width=106 valign=top style='width:63.8pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>&nbsp;</span></span></p>
+  </td>
+  <td width=213 valign=top style='width:127.6pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>&gt;B1|=[B2|1]</span></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>We can also select members by a certain step
+size:</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>A.step(k,i)=[A(i),A(i+k),A(i+2*k),…]</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>Starting from the i-th member, select one
+every k.</span><span class=Charf9><span lang=EN-US style='font-family:"Times New Roman","serif"'></span></span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span class=Charf9><span lang=EN-US style='font-family:"Times New Roman","serif"'>A.step(2,1)</span></span><span
+lang=EN-US> will select the odd numbered members, and </span><span
+class=Charf9><span lang=EN-US style='font-family:"Times New Roman","serif"'>A.step(2,2</span></span><span
+lang=EN-US>) will select the even numbered members.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>Of course, it is more common to select
+members that meet a certain condition:</span><span class=Charf9><span
+lang=EN-US style='font-family:"Times New Roman","serif"'></span></span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span class=Charf9><span lang=EN-US style='font-family:"Times New Roman","serif"'>A.select(x)</span></span><span
+lang=EN-US> returns a sequence of members in A that make x true, where x can
+use the symbols allowed in loop functions such as ~ and #. The <span
+style='mso-bidi-font-weight:bold'>select() function</span> is called a <b
+style='mso-bidi-font-weight:normal'>selection function</b>, and is also a loop
+function.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>The select() function is very common. Let's
+give some examples:</span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=484
+ style='border-collapse:collapse;mso-table-layout-alt:fixed;border:none;
+ mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:#B2B2B2;
+ mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
+ .5pt;mso-yfti-tbllook:1184;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:
+ .5pt solid #B2B2B2;mso-border-insidev:.5pt solid #B2B2B2'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=35 valign=top style='width:21.25pt;border:solid black 1.0pt;
+  border-right:solid windowtext 1.0pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>&nbsp;</span></p>
+  </td>
+  <td width=272 valign=top style='width:163.0pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>A</span></p>
+  </td>
+  <td width=177 valign=top style='width:106.35pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>B</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
+  <td width=35 style='width:21.25pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>1</span></p>
+  </td>
+  <td width=272 valign=top style='width:163.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>[13,30,45,23,42,98,61]</span></span></p>
+  </td>
+  <td width=177 valign=top style='width:106.35pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>&nbsp;</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
+  <td width=35 style='width:21.25pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>2</span></p>
+  </td>
+  <td width=272 valign=top style='width:163.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>=A1.select(~%2==0)</span></span></p>
+  </td>
+  <td width=177 valign=top style='width:106.35pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>[30,42,98]</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;page-break-inside:avoid;height:14.15pt'>
+  <td width=35 style='width:21.25pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>3</span></p>
+  </td>
+  <td width=272 valign=top style='width:163.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>=A1.select(~&gt;30)</span></span></p>
+  </td>
+  <td width=177 valign=top style='width:106.35pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>[45,42,98,61]</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4;page-break-inside:avoid;height:14.15pt'>
+  <td width=35 style='width:21.25pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>4</span></p>
+  </td>
+  <td width=272 valign=top style='width:163.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>=A1.select(~&gt;~[-1])</span></span></p>
+  </td>
+  <td width=177 valign=top style='width:106.35pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>[13,30,45,42,98]</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:5;mso-yfti-lastrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=35 style='width:21.25pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>5</span></p>
+  </td>
+  <td width=272 valign=top style='width:163.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>=A3.select((~-~[-1])%2==0)</span></span></p>
+  </td>
+  <td width=177 valign=top style='width:106.35pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>[98]</span></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>The constant sequence of column B is the
+result of the select() function in column A, and A5 is further selected on the
+basis of A3.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>In fact, A.step() can also be represented by
+select() function, that is</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>A.step(k,i)==A.select( #-i&gt;0 &amp;&amp;
+(#-i)%k==0 )</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>The sequence number is used as a condition to
+achieve the result of selection.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>Using these functions, we calculate the prime
+numbers below 1000:</span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=555
+ style='border-collapse:collapse;mso-table-layout-alt:fixed;border:none;
+ mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:#B2B2B2;
+ mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
+ .5pt;mso-yfti-tbllook:1184;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:
+ .5pt solid #B2B2B2;mso-border-insidev:.5pt solid #B2B2B2'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=35 valign=top style='width:21.25pt;border:solid black 1.0pt;
+  border-right:solid windowtext 1.0pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>&nbsp;</span></p>
+  </td>
+  <td width=142 valign=top style='width:3.0cm;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>A</span></p>
+  </td>
+  <td width=284 valign=top style='width:6.0cm;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>B</span></p>
+  </td>
+  <td width=95 valign=top style='width:2.0cm;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>C</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
+  <td width=35 style='width:21.25pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>1</span></p>
+  </td>
+  <td width=142 valign=top style='width:3.0cm;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>=to(1000)</span></span></p>
+  </td>
+  <td width=284 valign=top style='width:6.0cm;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>&gt;A1(1)=0</span></span></p>
+  </td>
+  <td width=95 valign=top style='width:2.0cm;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>&nbsp;</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
+  <td width=35 style='width:21.25pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>2</span></p>
+  </td>
+  <td width=142 valign=top style='width:3.0cm;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>for 2,31</span></span></p>
+  </td>
+  <td width=284 valign=top style='width:6.0cm;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>if A1(A2)==0</span></span></p>
+  </td>
+  <td width=95 valign=top style='width:2.0cm;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>next</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;page-break-inside:avoid;height:14.15pt'>
+  <td width=35 style='width:21.25pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>3</span></p>
+  </td>
+  <td width=142 valign=top style='width:3.0cm;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>&nbsp;</span></span></p>
+  </td>
+  <td width=378 colspan=2 valign=top style='width:8.0cm;border-top:none;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>&gt;A1.step(A2,2*A2).select(~&gt;0).run(A1(~)=0)</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=35 style='width:21.25pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>4</span></p>
+  </td>
+  <td width=142 valign=top style='width:3.0cm;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>=A1.select(~&gt;0)</span></span></p>
+  </td>
+  <td width=378 colspan=2 valign=top style='width:8.0cm;border-top:none;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>=A4.select(~[1]-~==2).([~,~+2])</span></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>A composite number below 1000 always has a
+prime factor of no more than </span><span
+lang=EN-US><span style='position:relative;top:4.0pt;mso-text-raise:-4.0pt'><img border=0 width=50 height=27
+src="SPL_Programming.files/image067.png" v:shapes="_x0000_i1085"></span></span><span
+lang=EN-US><span style='mso-spacerun:yes'>&nbsp;</span>(&lt;32). We only need
+to use the integers below 32 to filter the sequence to(1000), and exclude all
+the multiples of these numbers (fill in the corresponding members as 0). The
+remaining members that are not 0 must be prime numbers.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>A1 generates the target sequence, B1 excludes
+1(1 is not prime), that is, fill the member of the position with 0. Then A2
+loops from 2 to 31, if the member at this position is already 0, it means that
+it is a composite number, leave it alone, skip to the next cycle. If it's a prime
+number, pick out the positions of all its multiples, that is, </span><span
+class=Charf9><span lang=EN-US style='font-family:"Times New Roman","serif"'>A1.step(A2,A2*2)</span></span><span
+lang=EN-US>. Pay attention to start from A2*2 and skip A2 itself, because A2 is
+a prime number and needs to be kept. Then, the members in these positions may
+have 0, which indicates that they have been screened out in the previous round.
+To exclude them, use </span><span class=Charf9><span lang=EN-US
+style='font-family:"Times New Roman","serif"'>select(~&gt;0)</span></span><span
+lang=EN-US> to keep those that are not 0. The members in these positions are
+multiples of A2, that is, composite numbers. Set the members in these positions
+to 0, and then enter the next round.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>At the end of the loop, select the remaining
+non-zero members, which are all prime numbers. By the way, B4 calculates all
+twin prime pairs (prime numbers with difference of 2) on this basis, using the
+select() function and A.() that we’ve learned, and the result is a two-layer
+sequence.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>The selection function will get members out
+of the sequence. In the other way round, we will also care about whether a data
+is in the sequence and its position in the sequence.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>The function A.pos(x) will return the
+position of x in A. More strictly, it is to find an i such that </span><span
+class=Charf9><span lang=EN-US style='font-family:"Times New Roman","serif"'>A(i)==x</span></span><span
+lang=EN-US>. If multiple </span><span class=Charf9><span lang=EN-US
+style='font-family:"Times New Roman","serif"'>A(i)</span></span><span
+lang=EN-US> are the same as x, it will return the first one. If not, it will
+return null. The latter case is more commonly used, that is, whether the return
+value of pos function is null is used to determine whether a data is in the
+sequence.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>Similarly, there is an </span><span
+class=Charf9><span lang=EN-US style='font-family:"Times New Roman","serif"'>A.pseg(x)</span></span><span
+lang=EN-US> function. For a sequence A with increasing member value, that is, </span><span
+class=Charf9><span lang=EN-US style='font-family:"Times New Roman","serif"'>A(i)&lt;A(i+1)</span></span><span
+lang=EN-US>, the function will return the segment where x belongs, that is, if </span><span
+class=Charf9><span lang=EN-US style='font-family:"Times New Roman","serif"'>A(i)&lt;=x&lt;A(i+1)</span></span><span
+lang=EN-US>, pseg() will return i; If </span><span class=Charf9><span
+lang=EN-US style='font-family:"Times New Roman","serif"'>x&lt;A(1)</span></span><span
+lang=EN-US>, it will return 0; If </span><span class=Charf9><span lang=EN-US
+style='font-family:"Times New Roman","serif"'>A.m(-1)&lt;x</span></span><span
+lang=EN-US>, </span><span class=Charf9><span lang=EN-US style='font-family:
+"Times New Roman","serif"'>A.len()</span></span><span lang=EN-US> is returned.
+We take the increasing sequence as an example to explain the principle, actually
+it also works for decreasing sequence, but these less than signs should be
+changed to greater than signs.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>In our daily work, we often need segmented
+statistics, such as age, sales amount, etc. We can use the pseg() function in
+these cases, but we will give these examples after we have learned structured
+data.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>In theory, there may be duplicated values in
+the previous example of digital black hole, that is, a becomes b, b becomes c,
+and c becomes a again. In this case, it will lead to endless loop, but our
+current program can't discover this situation. Only because we have done our
+homework in advance, we know for sure that there is only one single black hole
+in the four digits, so the code is written like that, but it may not be the
+case for other digits.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>The pos() function can be used to find this
+kind of loop, and the pseg() function and insert() function can also be used to
+improve the sorting.</span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=626
+ style='border-collapse:collapse;mso-table-layout-alt:fixed;border:none;
+ mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:#B2B2B2;
+ mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
+ .5pt;mso-yfti-tbllook:1184;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:
+ .5pt solid #B2B2B2;mso-border-insidev:.5pt solid #B2B2B2'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=36 valign=top style='width:21.3pt;border:solid black 1.0pt;
+  border-right:solid windowtext 1.0pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>&nbsp;</span></p>
+  </td>
+  <td width=47 valign=top style='width:28.4pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>A</span></p>
+  </td>
+  <td width=71 valign=top style='width:42.45pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>B</span></p>
+  </td>
+  <td width=130 valign=top style='width:77.95pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>C</span></p>
+  </td>
+  <td width=343 valign=top style='width:205.55pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>D</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
+  <td width=36 style='width:21.3pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>1</span></p>
+  </td>
+  <td width=47 valign=top style='width:28.4pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>5</span></span></p>
+  </td>
+  <td width=71 valign=top style='width:42.45pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>12345</span></span></p>
+  </td>
+  <td width=473 colspan=2 valign=top style='width:10.0cm;border-top:none;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>=A1.run(~=if(#&gt;1,~[-1]*10,1))</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
+  <td width=36 style='width:21.3pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>2</span></p>
+  </td>
+  <td width=47 valign=top style='width:28.4pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>for</span></span></p>
+  </td>
+  <td width=71 valign=top style='width:42.45pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>=[]</span></span></p>
+  </td>
+  <td width=130 valign=top style='width:77.95pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>=C1.(B1\~%10)</span></span></p>
+  </td>
+  <td width=343 valign=top style='width:205.55pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>&nbsp;</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;page-break-inside:avoid;height:14.15pt'>
+  <td width=36 style='width:21.3pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>3</span></p>
+  </td>
+  <td width=47 valign=top style='width:28.4pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>&nbsp;</span></span></p>
+  </td>
+  <td width=71 valign=top style='width:42.45pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>for C2</span></span></p>
+  </td>
+  <td width=130 valign=top style='width:77.95pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>=B2.pseg(B3)</span></span></p>
+  </td>
+  <td width=343 valign=top style='width:205.55pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>&gt;B2.insert(if(C3==B2.len(),0,C3+1),B3)</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4;page-break-inside:avoid;height:14.15pt'>
+  <td width=36 style='width:21.3pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>4</span></p>
+  </td>
+  <td width=47 valign=top style='width:28.4pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>&nbsp;</span></span></p>
+  </td>
+  <td width=201 colspan=2 valign=top style='width:120.4pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>=C1.sum(B2(#)*~)</span></span></p>
+  </td>
+  <td width=343 valign=top style='width:205.55pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>=C1.sum(B2.m(-#)*~)</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:5;page-break-inside:avoid;height:14.15pt'>
+  <td width=36 style='width:21.3pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>5</span></p>
+  </td>
+  <td width=47 valign=top style='width:28.4pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>&nbsp;</span></span></p>
+  </td>
+  <td width=71 valign=top style='width:42.45pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>=@|B1</span></span></p>
+  </td>
+  <td width=130 valign=top style='width:77.95pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>&gt;output(B1)</span></span></p>
+  </td>
+  <td width=343 valign=top style='width:205.55pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>&gt;B1=B4-D4</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:6;mso-yfti-lastrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=36 style='width:21.3pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>6</span></p>
+  </td>
+  <td width=47 valign=top style='width:28.4pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>&nbsp;</span></span></p>
+  </td>
+  <td width=201 colspan=2 valign=top style='width:120.4pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>if B5.pos(B1)</span></span></p>
+  </td>
+  <td width=343 valign=top style='width:205.55pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>Break</span></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>This program can find the digital black hole
+of any number of digits. A1 is the number of digits and B1 is the starting value.
+</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>Here we use the various techniques we have
+learned before, C1 uses run() to calculate a sequence </span><span
+class=Charf9><span lang=EN-US style='font-family:"Times New Roman","serif"'>[1,10,100,…]</span></span><span
+lang=EN-US>, C2 uses it to get the number of each digit. Sorting needs only one
+line now, and the current result is saved in B2. B3 loops for each digit. In
+C3, pseg() is used to find out where the new digit should be inserted. In D3,
+insert() function is used to insert it. At the end of the loop, B2 is the
+sequence sorted from small to large. B4 and D4 use C1 again to calculate the
+large number and small number. The @ in B5 stands for itself. When the program
+starts to run, it will automatically clear all the cell values. The expression
+will continuously accumulate the calculated numbers and record them in a
+sequence. In B6, if it is found that the newly calculated number is already in
+the sequence, it means that the duplicated value appears and the program should
+be stopped.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>It should be noted that pos() and pseg() are
+not loop functions, and the symbols such as ~, # can not and need not be used
+in the x of their parameters. If they are used, they are considered to belong
+to the loop function of the upper layer (these functions may be nested in a
+loop function).</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>These principles will be further explained at
+the end of this chapter.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>We care about the members that meet the
+conditions, but sometimes we also care about the positions of those members.
+For example, we want to find out in which months the sales amount has increased
+from a sequence of 12-month sales amount. Using the select() function can only
+find the growing members, but not the positions of the growing members.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>The</span><span class=a3><span lang=EN-US
+style='font-size:9.0pt'> </span></span><span class=Charf9><span lang=EN-US
+style='font-family:"Times New Roman","serif"'>A.pselect(x)</span></span><span
+lang=EN-US> function can help us by returning the sequence numbers of members
+that make x true. In terms of the symbols of a loop function, select() will
+return a sequence of ~ and pselect() will return the corresponding #. pselect()
+is called the<b> positioning function</b>.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>Let's try:</span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=508
+ style='border-collapse:collapse;mso-table-layout-alt:fixed;border:none;
+ mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:#B2B2B2;
+ mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
+ .5pt;mso-yfti-tbllook:1184;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:
+ .5pt solid #B2B2B2;mso-border-insidev:.5pt solid #B2B2B2'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=35 valign=top style='width:21.25pt;border:solid black 1.0pt;
+  border-right:solid windowtext 1.0pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>&nbsp;</span></p>
+  </td>
+  <td width=272 valign=top style='width:163.0pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>A</span></p>
+  </td>
+  <td width=201 valign=top style='width:120.5pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>B</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
+  <td width=35 style='width:21.25pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>1</span></p>
+  </td>
+  <td width=272 valign=top style='width:163.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>[13,30,45,23,42,98,61]</span></span></p>
+  </td>
+  <td width=201 valign=top style='width:120.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>&nbsp;</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
+  <td width=35 style='width:21.25pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>2</span></p>
+  </td>
+  <td width=272 valign=top style='width:163.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>=A1.pselect(~%2==0)</span></span></p>
+  </td>
+  <td width=201 valign=top style='width:120.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>[2,5,6]</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;page-break-inside:avoid;height:14.15pt'>
+  <td width=35 style='width:21.25pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>3</span></p>
+  </td>
+  <td width=272 valign=top style='width:163.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>=A1.pselect(~&gt;30)</span></span></p>
+  </td>
+  <td width=201 valign=top style='width:120.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>[3,5,6,7]</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=35 style='width:21.25pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>4</span></p>
+  </td>
+  <td width=272 valign=top style='width:163.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>=A1.pselect(~&gt;~[-1])</span></span></p>
+  </td>
+  <td width=201 valign=top style='width:120.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>[1,2,3,5,6]</span></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>We expect the result of column A to be the
+value of column B, but it is not? A2, A3 and A4 return 2, 3 and 1 respectively,
+which is only the first value in the sequence of column B. </span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>What's going on?</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>It turns out that the pselect() function is
+defined as such, it only returns the first # that satisfies the condition.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>So, what should we do if we want to return
+all the qualified #, like select?</span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=508
+ style='border-collapse:collapse;mso-table-layout-alt:fixed;border:none;
+ mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:#B2B2B2;
+ mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
+ .5pt;mso-yfti-tbllook:1184;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:
+ .5pt solid #B2B2B2;mso-border-insidev:.5pt solid #B2B2B2'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=35 valign=top style='width:21.25pt;border:solid black 1.0pt;
+  border-right:solid windowtext 1.0pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>&nbsp;</span></p>
+  </td>
+  <td width=272 valign=top style='width:163.0pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>A</span></p>
+  </td>
+  <td width=201 valign=top style='width:120.5pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>B</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
+  <td width=35 style='width:21.25pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>1</span></p>
+  </td>
+  <td width=272 valign=top style='width:163.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>[13,30,45,23,42,98,61]</span></span></p>
+  </td>
+  <td width=201 valign=top style='width:120.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>&nbsp;</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
+  <td width=35 style='width:21.25pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>2</span></p>
+  </td>
+  <td width=272 valign=top style='width:163.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>=A1.pselect@a(~%2==0)</span></span></p>
+  </td>
+  <td width=201 valign=top style='width:120.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>[2,5,6]</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;page-break-inside:avoid;height:14.15pt'>
+  <td width=35 style='width:21.25pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>3</span></p>
+  </td>
+  <td width=272 valign=top style='width:163.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>=A1.pselect@a(~&gt;30)</span></span></p>
+  </td>
+  <td width=201 valign=top style='width:120.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>[3,5,6,7]</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=35 style='width:21.25pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>4</span></p>
+  </td>
+  <td width=272 valign=top style='width:163.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>=A1.pselect@a(~&gt;~[-1])</span></span></p>
+  </td>
+  <td width=201 valign=top style='width:120.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>[1,2,3,5,6]</span></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>Just add @a after the function name.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>What is this?</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>The writing method of </span><span
+class=Charf9><span lang=EN-US style='font-family:"Times New Roman","serif"'>@a</span></span><span
+lang=EN-US> is invented by SPL, which is called <b>function option</b>. In
+theory, pselect and pselect@a are two unrelated different functions, but these
+two functions are very similar. They are both for sequences, and the parameters
+are the same. Although the functions are not exactly the same, they are very
+similar. In this case, we are more willing to regard one of them as a variant
+of the other, and use similar names when naming, which will be more convenient
+for understanding and memorizing.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>But these two functions are still different
+and need to be distinguished. In SPL, we use the same name to name these two
+functions, and use the character after @ to distinguish them. It seems that a
+function has different modes: when there is no @a, pselect only returns the
+first one, and when there is @a, pselect will return all values.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>There are many functions with options in SPL,
+and there are often more than one options. For example, pselect() also has a @z
+option, which means to search from the end and in reverse direction. In the
+above example, </span><span class=Charf9><span lang=EN-US style='font-family:
+"Times New Roman","serif"'>A1.pselect@z(~%2==0)</span></span><span lang=EN-US>
+will return 6. Moreover, these options may be used in combination, </span><span
+class=Charf9><span lang=EN-US style='font-family:"Times New Roman","serif"'>A1.pselect@az(~%2==0)
+</span></span><span lang=EN-US>means to find all the # that meet the condition
+from the end and in reverse direction, and the result will return [6,5,2].</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>There is no order in the writing of options,
+pselect@az and pselect@za are the same.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>Correspondingly, the select() function has a
+@1 option, which means that the first member satisfying the condition will be
+returned. The reason for this design is that it is more common for select() to
+return all values, while it is more common for pselect() to return the first.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>SPL function options can greatly simplify the
+code. At present, there is no such syntax in other programming languages, and
+the function of some languages also has the concept of option, but it generally
+exists as an independent parameter. We will see later that in structured data
+processing, parameters are very complicated, and it is not convenient to pass
+option information as parameters.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>We use the max() function to find the maximum
+value of the sequence members. Similarly, we may also care about the position
+of the maximum value. SPL also provides </span><span class=Charf9><span
+lang=EN-US style='font-family:"Times New Roman","serif"'>A.pmax()</span></span><span
+lang=EN-US> function to return the position of the maximum value in sequence A.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>The maximum value of a sequence is unique,
+but there may be more than one member with the maximum value. Therefore, pmax()
+is similar to pselect(), by default it returns the position of the first maximum
+value. If the option @a is added, it will return all positions, and @z will
+search from the back to the front.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>The pmax() function is not difficult to
+understand, so we don’t give examples here. And, of course, there is also
+pmin() function.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>We mention pmax() here to deepen the
+understanding of positioning function. pmax() is also a positioning function.
+Positioning is a common operation, but there is no corresponding library
+function in many programming languages. SPL pays special attention to this kind
+of operation.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>Forget to mention that the pos() function
+also has @a and @z options.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>It's easy to ignore that there is another selection
+function maxp() that is related to max().</span><span class=Charf9><span
+lang=EN-US style='font-family:"Times New Roman","serif"'></span></span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span class=Charf9><span lang=EN-US style='font-family:"Times New Roman","serif"'>A.maxp()</span></span><span
+lang=EN-US> is defined as </span><span class=Charf9><span lang=EN-US
+style='font-family:"Times New Roman","serif"'>A(A.pmax())</span></span><span
+lang=EN-US>, which is the member that returns the maximum value.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>If you think about it, isn't it </span><span
+class=Charf9><span lang=EN-US style='font-family:"Times New Roman","serif"'>A.max()</span></span><span
+lang=EN-US>? Why create a new function?</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>It's still different. In a simple way, </span><span
+class=Charf9><span lang=EN-US style='font-family:"Times New Roman","serif"'>A.pmax()</span></span><span
+lang=EN-US> has the @a option, which may return multiple values, so that </span><span
+class=Charf9><span lang=EN-US style='font-family:"Times New Roman","serif"'>A.maxp@a()
+</span></span><span lang=EN-US>may also return a sequence, but </span><span
+class=Charf9><span lang=EN-US style='font-family:"Times New Roman","serif"'>A.max()</span></span><span
+lang=EN-US> will not.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>However, even if </span><span class=Charf9><span
+lang=EN-US style='font-family:"Times New Roman","serif"'>A.maxp@a() is</span></span><span
+lang=EN-US> a sequence, the members are all the same. It doesn't seem very
+interesting.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>The bigger difference is in the case of with
+parameters. </span><span class=Charf9><span lang=EN-US style='font-family:"Times New Roman","serif"'>A.max(x)</span></span><span
+lang=EN-US> returns the maximum x, while</span><span class=a3><span lang=EN-US
+style='font-size:9.0pt'> </span></span><span class=Charf9><span lang=EN-US
+style='font-family:"Times New Roman","serif"'>A.maxp(x)</span></span><span
+lang=EN-US> returns the member that maximizes x. For example:</span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=449
+ style='border-collapse:collapse;mso-table-layout-alt:fixed;border:none;
+ mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:#B2B2B2;
+ mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
+ .5pt;mso-yfti-tbllook:1184;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:
+ .5pt solid #B2B2B2;mso-border-insidev:.5pt solid #B2B2B2'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=35 valign=top style='width:21.25pt;border:solid black 1.0pt;
+  border-right:solid windowtext 1.0pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>&nbsp;</span></p>
+  </td>
+  <td width=272 valign=top style='width:163.0pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>A</span></p>
+  </td>
+  <td width=142 valign=top style='width:3.0cm;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>B</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
+  <td width=35 style='width:21.25pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>1</span></p>
+  </td>
+  <td width=272 valign=top style='width:163.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>[13,30,45,23,42,98,61]</span></span></p>
+  </td>
+  <td width=142 valign=top style='width:3.0cm;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>&nbsp;</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
+  <td width=35 style='width:21.25pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>2</span></p>
+  </td>
+  <td width=272 valign=top style='width:163.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>=A1.max(~%10)</span></span></p>
+  </td>
+  <td width=142 valign=top style='width:3.0cm;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>8</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=35 style='width:21.25pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>3</span></p>
+  </td>
+  <td width=272 valign=top style='width:163.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>=A1.maxp(~%10)</span></span></p>
+  </td>
+  <td width=142 valign=top style='width:3.0cm;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>98</span></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>See the difference?</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>We know that </span><span class=Charf9><span
+lang=EN-US style='font-family:"Times New Roman","serif"'>A.max(x)</span></span><span
+lang=EN-US> is </span><span class=Charf9><span lang=EN-US style='font-family:
+"Times New Roman","serif"'>A.(x).max()</span></span><span lang=EN-US>, </span><span
+class=Charf9><span lang=EN-US style='font-family:"Times New Roman","serif"'>A.pmax(x)</span></span><span
+lang=EN-US> is also equal to </span><span class=Charf9><span lang=EN-US
+style='font-family:"Times New Roman","serif"'>A.(x).pmax()</span></span><span
+lang=EN-US>, but</span><span class=a3><span lang=EN-US style='font-size:9.0pt'>
+</span></span><span class=Charf9><span lang=EN-US style='font-family:"Times New Roman","serif"'>A.maxp(x)</span></span><span
+lang=EN-US> is not </span><span class=Charf9><span lang=EN-US style='font-family:
+"Times New Roman","serif"'>A.(x).maxp()</span></span><span lang=EN-US>, it is
+still defined as</span><span class=a3><span lang=EN-US style='font-size:9.0pt'>
+</span></span><span class=Charf9><span lang=EN-US style='font-family:"Times New Roman","serif"'>A(A.pmax(x))</span></span><span
+lang=EN-US>.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>max() returns the maximum value itself, while
+maxp() returns the member that makes the maximum value appear. For just a
+sequence, they are the same, but with an expression, you can find their
+difference. In the structured data processing that will be covered later, this
+kind of calculation is very common. For example, we often care more about the
+product that leads to the highest sales amount than the highest sales amount
+itself.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>max() is not a selection function, it returns
+a value. maxp() returns a member(or sequence of members), and is a selection
+function. Like positioning function, selection function is also a big kind of
+operation.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>Of course, there is also minp() function.</span></p>
+	</div>
+	<div id="previous-next">
+		<div id="next"><a href="26.html">Next</a></div>
+		<div id="previous"><a href="24.html">Previous</a></div>		
+	</div>
+	<div id="related">
+		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="20.html">5 Sequence as a whole</a></span></li>
+</div>
+	</div>
+	<div id="footer">	
+		
+		
+    <div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+      </a></div>
+	</div>
+</div>
+
+</body>
+</html>

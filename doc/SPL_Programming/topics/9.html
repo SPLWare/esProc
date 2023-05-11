@@ -1,0 +1,1277 @@
+<!--create by iword1.0 pro, http://www.voland.com.cn-->
+<!-- saved from url=(0026)http://www.runqian.com.cn/ -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>2.3 Comments and jumps</title>
+<link rel="stylesheet" href="../images/template.css" type="text/css" />
+<link rel="stylesheet" href="document.css" type="text/css" />
+<script language="JavaScript" src="../resource/url.js"></script>
+</head>
+
+<body>
+
+<div id="content-bg">
+	<div id="centent">
+	<div id="centent-title"><h2 style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;margin-left:
+0cm;text-indent:0cm;line-height:normal;mso-list:l11 level2 lfo12;tab-stops:
+list 36.0pt left 42.55pt'><span lang=EN-US
+style='mso-fareast-font-family:"Times New Roman"'><span style='mso-list:Ignore'>2.3<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><span lang=EN-US>Comments and jumps</span></h2></div>
+	<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>The program code may not always be written
+correctly. When there is no expected result, we often can't figure out the
+reason. At this time, we need to debug the program to locate the error.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>In the early days, the primitive debugging
+method was to output the intermediate results of the program to see which step
+was wrong. The development environment of modern programming language basically
+provides perfect debugging function, which can execute code step by step to see
+whether the direction of the program is consistent with the expectation, and
+whether the intermediate results are consistent with the expectation.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>esProc also provides these functions, all on
+the program menu. It's difficult to describe the use of debugging functions in
+words. You can find it out quickly after trying several times. We won't
+elaborate here. SPL codes are written in the cells, and each execution unit is
+a cell. It’s easy to check the value of cells and variables midway, and it’s
+naturally very convenient for debugging.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>Now that we have learned the branching
+structure, the program is no longer always going from top to bottom. It may go
+through different paths under different data. You can use the program debugging
+function to observe the direction of the above programs.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>In the process of debugging, sometimes we
+want to see the running effect when a piece of code is skipped and not executed.
+However, if we delete this code, we may need to add it back later, which is
+troublesome.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>In this case, comments can be used. Almost
+all programming languages provide comment statements or functions. In SPL, if a
+cell starts with /, it is considered as a <b>comment cell</b>. This cell will
+be automatically ignored and skipped during execution. If a cell starts with
+//, the cell and its code block will be ignored and skipped.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>You can try to add / or // to some cells to
+see what changes will occur in the code display.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>In the following code, A7:D7 and D5 will be
+ignored and skipped, that is, the second solution will not be calculated, and
+the case that B1 is not 0 will not be handled.</span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=656
+ style='border-collapse:collapse;mso-table-layout-alt:fixed;border:none;
+ mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:#B2B2B2;
+ mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
+ .5pt;mso-yfti-tbllook:1184;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:
+ .5pt solid #B2B2B2;mso-border-insidev:.5pt solid #B2B2B2'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=36 valign=top style='width:21.3pt;border:solid black 1.0pt;
+  border-right:solid windowtext 1.0pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>&nbsp;</span></p>
+  </td>
+  <td width=142 valign=top style='width:3.0cm;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>A</span></p>
+  </td>
+  <td width=142 valign=top style='width:3.0cm;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>B</span></p>
+  </td>
+  <td width=160 valign=top style='width:95.7pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>C</span></p>
+  </td>
+  <td width=177 valign=top style='width:106.3pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>D</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
+  <td width=36 style='width:21.3pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>1</span></p>
+  </td>
+  <td width=142 valign=top style='width:3.0cm;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>3</span></span></p>
+  </td>
+  <td width=142 valign=top style='width:3.0cm;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>8</span></span></p>
+  </td>
+  <td width=160 valign=top style='width:95.7pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>4</span></span></p>
+  </td>
+  <td width=177 valign=top style='width:106.3pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>&nbsp;</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
+  <td width=36 style='width:21.3pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>2</span></p>
+  </td>
+  <td width=142 valign=top style='width:3.0cm;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>&nbsp;</span></span></p>
+  </td>
+  <td width=142 valign=top style='width:3.0cm;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>&nbsp;</span></span></p>
+  </td>
+  <td width=160 valign=top style='width:95.7pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>&nbsp;</span></span></p>
+  </td>
+  <td width=177 valign=top style='width:106.3pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>&nbsp;</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;page-break-inside:avoid;height:14.15pt'>
+  <td width=36 style='width:21.3pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>3</span></p>
+  </td>
+  <td width=142 valign=top style='width:3.0cm;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>if A1!=0</span></span></p>
+  </td>
+  <td width=142 valign=top style='width:3.0cm;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>=B1*B1-4*A1*C1</span></span></p>
+  </td>
+  <td width=160 valign=top style='width:95.7pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>&nbsp;</span></span></p>
+  </td>
+  <td width=177 valign=top style='width:106.3pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>&nbsp;</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4;page-break-inside:avoid;height:14.15pt'>
+  <td width=36 style='width:21.3pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>4</span></p>
+  </td>
+  <td width=142 valign=top style='width:3.0cm;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>&nbsp;</span></span></p>
+  </td>
+  <td width=142 valign=top style='width:3.0cm;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>if B3&gt;0</span></span></p>
+  </td>
+  <td width=160 valign=top style='width:95.7pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>=sqrt(B3)</span></span></p>
+  </td>
+  <td width=177 valign=top style='width:106.3pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>&nbsp;</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:5;page-break-inside:avoid;height:14.15pt'>
+  <td width=36 style='width:21.3pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>5</span></p>
+  </td>
+  <td width=142 valign=top style='width:3.0cm;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>&nbsp;</span></span></p>
+  </td>
+  <td width=142 valign=top style='width:3.0cm;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>&nbsp;</span></span></p>
+  </td>
+  <td width=160 valign=top style='width:95.7pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>&gt;A2=(-B1+C4)/2/A1</span></span></p>
+  </td>
+  <td width=177 valign=top style='width:106.3pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>/&gt;B2=(-B1-C4)/2/A1</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:6;page-break-inside:avoid;height:14.15pt'>
+  <td width=36 style='width:21.3pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>6</span></p>
+  </td>
+  <td width=142 valign=top style='width:3.0cm;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>&nbsp;</span></span></p>
+  </td>
+  <td width=142 valign=top style='width:3.0cm;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>else if B3==0</span></span></p>
+  </td>
+  <td width=160 valign=top style='width:95.7pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>&gt;A2=-B1/2/A1</span></span></p>
+  </td>
+  <td width=177 valign=top style='width:106.3pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>&nbsp;</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:7;page-break-inside:avoid;height:14.15pt'>
+  <td width=36 style='width:21.3pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>7</span></p>
+  </td>
+  <td width=142 valign=top style='width:3.0cm;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>//else if B1!=0</span></span></p>
+  </td>
+  <td width=142 valign=top style='width:3.0cm;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>&gt;A2=-C1/B1</span></span></p>
+  </td>
+  <td width=160 valign=top style='width:95.7pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>&nbsp;</span></span></p>
+  </td>
+  <td width=177 valign=top style='width:106.3pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>&nbsp;</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:8;mso-yfti-lastrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=36 style='width:21.3pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>8</span></p>
+  </td>
+  <td width=142 valign=top style='width:3.0cm;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>else if C1==0</span></span></p>
+  </td>
+  <td width=142 valign=top style='width:3.0cm;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>&gt;output(&quot;Any&quot;)</span></span></p>
+  </td>
+  <td width=160 valign=top style='width:95.7pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>&nbsp;</span></span></p>
+  </td>
+  <td width=177 valign=top style='width:106.3pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>&nbsp;</span></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>It's very convenient to use comments to
+control debugging. You can change this code into comments when you don't need
+to execute it, and change it back when you need to execute it again. The main
+body of the code doesn't need to be deleted.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>The original intention of the invention of
+comments is to enable programmers to write some code related notes in case they
+can't understand the code after a long time. Of course, this role still exists,
+good program codes always have detailed and clear comments. In SPL, the text
+written directly will be regarded as a constant cell, which does not affect the
+execution of the program. It can play the role of comments, and the role of a
+comment cell is more used to facilitate debugging.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>if statement can change the direction of the
+program, many programming languages also provide a more simple and crude way to
+change the program flow, that is, goto statement. Let's rewrite the code of
+solving quadratic equation to feel it (only consider the case that A1 is not
+0):</span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=561
+ style='border-collapse:collapse;mso-table-layout-alt:fixed;border:none;
+ mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:#B2B2B2;
+ mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
+ .5pt;mso-yfti-tbllook:1184;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:
+ .5pt solid #B2B2B2;mso-border-insidev:.5pt solid #B2B2B2'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=38 valign=top style='width:22.5pt;border:solid black 1.0pt;
+  border-right:solid windowtext 1.0pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>&nbsp;</span></p>
+  </td>
+  <td width=140 valign=top style='width:83.8pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>A</span></p>
+  </td>
+  <td width=183 valign=top style='width:109.9pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>B</span></p>
+  </td>
+  <td width=201 valign=top style='width:120.5pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>C</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
+  <td width=38 style='width:22.5pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>1</span></p>
+  </td>
+  <td width=140 valign=top style='width:83.8pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>3</span></span></p>
+  </td>
+  <td width=183 valign=top style='width:109.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>8</span></span></p>
+  </td>
+  <td width=201 valign=top style='width:120.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>4</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
+  <td width=38 style='width:22.5pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>2</span></p>
+  </td>
+  <td width=140 valign=top style='width:83.8pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>&nbsp;</span></span></p>
+  </td>
+  <td width=183 valign=top style='width:109.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>&nbsp;</span></span></p>
+  </td>
+  <td width=201 valign=top style='width:120.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>&nbsp;</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;page-break-inside:avoid;height:14.15pt'>
+  <td width=38 style='width:22.5pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>3</span></p>
+  </td>
+  <td width=140 valign=top style='width:83.8pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>=B1*B1-4*A1*C1</span></span></p>
+  </td>
+  <td width=183 valign=top style='width:109.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>if A3&lt;0</span></span></p>
+  </td>
+  <td width=201 valign=top style='width:120.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>goto A6</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4;page-break-inside:avoid;height:14.15pt'>
+  <td width=38 style='width:22.5pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>4</span></p>
+  </td>
+  <td width=140 valign=top style='width:83.8pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>if A3==0</span></span></p>
+  </td>
+  <td width=183 valign=top style='width:109.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>&gt;A2=-B1/2/A1</span></span></p>
+  </td>
+  <td width=201 valign=top style='width:120.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>goto A6</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:5;page-break-inside:avoid;height:14.15pt'>
+  <td width=38 style='width:22.5pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>5</span></p>
+  </td>
+  <td width=140 valign=top style='width:83.8pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>=sqrt(A3)</span></span></p>
+  </td>
+  <td width=183 valign=top style='width:109.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>&gt;A2=(-B1+A5)/2/A1</span></span></p>
+  </td>
+  <td width=201 valign=top style='width:120.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>&gt;B2=(-B1-A5)/2/A1</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:6;mso-yfti-lastrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=38 style='width:22.5pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>6</span></p>
+  </td>
+  <td width=140 valign=top style='width:83.8pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>&nbsp;</span></span></p>
+  </td>
+  <td width=183 valign=top style='width:109.9pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>&nbsp;</span></span></p>
+  </td>
+  <td width=201 valign=top style='width:120.5pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>&nbsp;</span></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>There is an extra empty line in the code, but
+the logic seems very clear, avoiding the long if... else block.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>A more complete case can also be rewritten
+with goto:</span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=608
+ style='border-collapse:collapse;mso-table-layout-alt:fixed;border:none;
+ mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:#B2B2B2;
+ mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
+ .5pt;mso-yfti-tbllook:1184;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:
+ .5pt solid #B2B2B2;mso-border-insidev:.5pt solid #B2B2B2'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=36 valign=top style='width:21.3pt;border:solid black 1.0pt;
+  border-right:solid windowtext 1.0pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>&nbsp;</span></p>
+  </td>
+  <td width=142 valign=top style='width:3.0cm;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>A</span></p>
+  </td>
+  <td width=165 valign=top style='width:99.2pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>B</span></p>
+  </td>
+  <td width=165 valign=top style='width:99.2pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>C</span></p>
+  </td>
+  <td width=101 valign=top style='width:60.3pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>D</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
+  <td width=36 style='width:21.3pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>1</span></p>
+  </td>
+  <td width=142 valign=top style='width:3.0cm;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>3</span></span></p>
+  </td>
+  <td width=165 valign=top style='width:99.2pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>8</span></span></p>
+  </td>
+  <td width=165 valign=top style='width:99.2pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>4</span></span></p>
+  </td>
+  <td width=101 valign=top style='width:60.3pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>&nbsp;</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
+  <td width=36 style='width:21.3pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>2</span></p>
+  </td>
+  <td width=142 valign=top style='width:3.0cm;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>&nbsp;</span></span></p>
+  </td>
+  <td width=165 valign=top style='width:99.2pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>&nbsp;</span></span></p>
+  </td>
+  <td width=165 valign=top style='width:99.2pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>&nbsp;</span></span></p>
+  </td>
+  <td width=101 valign=top style='width:60.3pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>&nbsp;</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;page-break-inside:avoid;height:14.15pt'>
+  <td width=36 style='width:21.3pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>3</span></p>
+  </td>
+  <td width=142 valign=top style='width:3.0cm;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>if A1==0</span></span></p>
+  </td>
+  <td width=165 valign=top style='width:99.2pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>if B1==0</span></span></p>
+  </td>
+  <td width=165 valign=top style='width:99.2pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>if C1==0</span></span></p>
+  </td>
+  <td width=101 valign=top style='width:60.3pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>goto A9</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4;page-break-inside:avoid;height:14.15pt'>
+  <td width=36 style='width:21.3pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>4</span></p>
+  </td>
+  <td width=142 valign=top style='width:3.0cm;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>&nbsp;</span></span></p>
+  </td>
+  <td width=165 valign=top style='width:99.2pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>&nbsp;</span></span></p>
+  </td>
+  <td width=165 valign=top style='width:99.2pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>&gt;output(&quot;Any&quot;)</span></span></p>
+  </td>
+  <td width=101 valign=top style='width:60.3pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>goto A9</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:5;page-break-inside:avoid;height:14.15pt'>
+  <td width=36 style='width:21.3pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>5</span></p>
+  </td>
+  <td width=142 valign=top style='width:3.0cm;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>&nbsp;</span></span></p>
+  </td>
+  <td width=165 valign=top style='width:99.2pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>&gt;A2=-C1/B1</span></span></p>
+  </td>
+  <td width=165 valign=top style='width:99.2pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>goto A9</span></span></p>
+  </td>
+  <td width=101 valign=top style='width:60.3pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>&nbsp;</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:6;page-break-inside:avoid;height:14.15pt'>
+  <td width=36 style='width:21.3pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>6</span></p>
+  </td>
+  <td width=142 valign=top style='width:3.0cm;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>=B1*B1-4*A1*C1</span></span></p>
+  </td>
+  <td width=165 valign=top style='width:99.2pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>if B6&lt;0</span></span></p>
+  </td>
+  <td width=165 valign=top style='width:99.2pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>goto A9</span></span></p>
+  </td>
+  <td width=101 valign=top style='width:60.3pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>&nbsp;</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:7;page-break-inside:avoid;height:14.15pt'>
+  <td width=36 style='width:21.3pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>7</span></p>
+  </td>
+  <td width=142 valign=top style='width:3.0cm;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>if B6==0</span></span></p>
+  </td>
+  <td width=165 valign=top style='width:99.2pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>&gt;A2=-B1/2/A1</span></span></p>
+  </td>
+  <td width=165 valign=top style='width:99.2pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>goto A9</span></span></p>
+  </td>
+  <td width=101 valign=top style='width:60.3pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>&nbsp;</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:8;page-break-inside:avoid;height:14.15pt'>
+  <td width=36 style='width:21.3pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>8</span></p>
+  </td>
+  <td width=142 valign=top style='width:3.0cm;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>=sqrt(B6)</span></span></p>
+  </td>
+  <td width=165 valign=top style='width:99.2pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>&gt;A2=(-B1+A8)/2/A1</span></span></p>
+  </td>
+  <td width=165 valign=top style='width:99.2pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>&gt;B2=(-B1-A8)/2/A1</span></span></p>
+  </td>
+  <td width=101 valign=top style='width:60.3pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>&nbsp;</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:9;mso-yfti-lastrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=36 style='width:21.3pt;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span lang=EN-US style='mso-bidi-font-size:10.5pt'>9</span></p>
+  </td>
+  <td width=142 valign=top style='width:3.0cm;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>&nbsp;</span></span></p>
+  </td>
+  <td width=165 valign=top style='width:99.2pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>&nbsp;</span></span></p>
+  </td>
+  <td width=165 valign=top style='width:99.2pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>&nbsp;</span></span></p>
+  </td>
+  <td width=101 valign=top style='width:60.3pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm'><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal;mso-bidi-font-weight:bold'>&nbsp;</span></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>The goto statement has been controversial
+since it came into being. Many computer scientists complain that it can mess up
+the flow of programs. When a program is running normally, we don’t know what
+will happen when a goto statement appears, and it is very difficult to debug
+when the program goes wrong. Therefore, some programming languages simply do
+not provide goto statement, and do not allow casual jumping.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>However, sometimes when the program level is
+deep, when the conditions are appropriate, jumping out with a goto statement
+will make the code clearer. If goto is not used, it is likely to make repeated
+judgments to avoid executing statements that should not be executed. Our
+attitude towards goto should be: don't ban it, but use it carefully. Generally
+speaking, we can keep this principle: always jump out from the depth of
+multi-layer code (for example, SPL code blocks have obvious levels), not jump
+in; Jump forward, not backward (though not forbidden).</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>goto is always userd with if, that is, jump
+when a condition holds (or does not hold). goto, when it has nothing to do with
+if, is meaningless. Jumping forward will make the code in the middle useless
+(instead, it can be used for debugging, playing the role of comments mentioned
+earlier); Jump backward and the program will never end.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>However, in SPL, if you accidentally write a
+program that will not end, don't worry. When the code is running, the
+development environment is not dead. You can use the debugging function to
+terminate the program.</span></p>
+	</div>
+	<div id="previous-next">
+		<div id="next"><a href="10.html">Next</a></div>
+		<div id="previous"><a href="8.html">Previous</a></div>		
+	</div>
+	<div id="related">
+		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="6.html">2 Doing judgement</a></span></li>
+</div>
+	</div>
+	<div id="footer">	
+		
+		
+    <div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+      </a></div>
+	</div>
+</div>
+
+</body>
+</html>

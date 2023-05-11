@@ -1,0 +1,425 @@
+<!--create by iword1.0 pro, http://www.voland.com.cn-->
+<!-- saved from url=(0026)http://www.runqian.com.cn/ -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>7.3 Association location</title>
+<link rel="stylesheet" href="../images/template.css" type="text/css" />
+<link rel="stylesheet" href="document.css" type="text/css" />
+<script language="JavaScript" src="../resource/url.js"></script>
+</head>
+
+<body>
+
+<div id="content-bg">
+	<div id="centent">
+	<div id="centent-title"><h2 style='margin-top:8.15pt;margin-right:0cm;margin-bottom:8.15pt;margin-left:
+0cm;text-indent:0cm;mso-list:l0 level2 lfo1'><span
+lang=EN-US style='mso-fareast-font-family:"Times New Roman"'><span
+style='mso-list:Ignore'>7.3<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><span lang=EN-US>Association location</span></h2></div>
+	<p class=MsoNormal><span class=jlqj4b><span lang=EN style='mso-bidi-font-size:
+10.5pt;color:black;mso-ansi-language:EN'>What we discussed in the previous two
+sections is the full-table traversal. In real tasks, the association tables are
+often filtered with conditions. Of course, we can filter after the association,
+but it will traverse all the </span></span><span lang=EN-US>association </span><span
+class=jlqj4b><span lang=EN style='mso-bidi-font-size:10.5pt;color:black;
+mso-ansi-language:EN'>tables, and will take a lot of time in case of large
+table. Sometimes the filter can be performed quickly, and the remaining result
+set after filtering may be very small. The two tables are associated by the primary
+key, hence using the primary key of the filtered table to search the records of
+</span></span><span lang=EN-US>association </span><span class=jlqj4b><span
+lang=EN style='mso-bidi-font-size:10.5pt;color:black;mso-ansi-language:EN'>table
+can avoid full-table traversal and obtain better performance.</span></span></p>
+
+<p class=MsoNormal><span class=jlqj4b><span lang=EN style='mso-bidi-font-size:
+10.5pt;color:black;mso-ansi-language:EN'>The logic of this algorithm is somewhat
+like the foreign key association between a small fact table and a large dimension
+table. However, we can take advantage of the characteristic that both the
+primary keys of two tables are ordered to deal with the larger filtered result
+set.</span></span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=545
+ style='border-collapse:collapse;mso-table-layout-alt:fixed;border:none;
+ mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:#B2B2B2;
+ mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
+ .5pt;mso-yfti-tbllook:1184;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:
+ .5pt solid #B2B2B2;mso-border-insidev:.5pt solid #B2B2B2'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=47 style='width:1.0cm;border:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-alt:solid black .5pt;mso-border-right-alt:solid windowtext .5pt;
+  background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>&nbsp;</span></p>
+  </td>
+  <td width=201 valign=top style='width:120.35pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span lang=EN-US>A</span></p>
+  </td>
+  <td width=307 valign=top style='width:184.25pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span lang=EN-US>B</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
+  <td width=47 style='width:1.0cm;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>1</span></p>
+  </td>
+  <td width=201 valign=top style='width:120.35pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal'>=file(&quot;A.ctx&quot;).open()</span></span></p>
+  </td>
+  <td width=307 valign=top style='width:184.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal'>=file(&quot;B.ctx&quot;).open()</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
+  <td width=47 style='width:1.0cm;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>2</span></p>
+  </td>
+  <td width=201 valign=top style='width:120.35pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal'>=A1.cursor(;…)</span></span></p>
+  </td>
+  <td width=307 valign=top style='width:184.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal'>&nbsp;</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;page-break-inside:avoid;height:14.15pt'>
+  <td width=47 style='width:1.0cm;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>3</span></p>
+  </td>
+  <td width=201 valign=top style='width:120.35pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal'>for A2,1000</span></span></p>
+  </td>
+  <td width=307 valign=top style='width:184.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal'>=B1.find(A3.(id))</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4;page-break-inside:avoid;height:14.15pt'>
+  <td width=47 style='width:1.0cm;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>4</span></p>
+  </td>
+  <td width=201 valign=top style='width:120.35pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal'>&nbsp;</span></span></p>
+  </td>
+  <td width=307 valign=top style='width:184.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal'>=join(A3,id;B3,id)</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:5;mso-yfti-lastrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=47 style='width:1.0cm;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>5</span></p>
+  </td>
+  <td width=201 valign=top style='width:120.35pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal'>&nbsp;</span></span></p>
+  </td>
+  <td width=307 valign=top style='width:184.25pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal'>…</span></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal><span class=jlqj4b><span lang=EN style='mso-bidi-font-size:
+10.5pt;color:black;mso-ansi-language:EN'>In B3, the primary key from A3 is used
+to take out data. Since the primary key of the records taken out from A3 is
+ordered, there will be no duplicate record taken out from B1. Moreover, table B
+is always scanned from front to back, which will be at worst traversed only once.
+As a result, the repeated traversals that may be caused by adopting this method
+that we assumed while discussing the large fact table and large dimension table
+will not occur.</span></span></p>
+
+<p class=MsoNormal><span class=jlqj4b><span lang=EN style='mso-bidi-font-size:
+10.5pt;color:black;mso-ansi-language:EN'>However, this code is only an example
+to describe the algorithm process. In fact, the find() function cannot be used
+in such a simply way because it will search from the beginning every time, and
+will not take advantage of the results of the last search (it only needs to
+search forward from the last location point). This algorithm that uses the association
+to locate cannot be implemented easily, and its code is more complicated. Moreover,
+the cost of this algorithm itself is not low, which may offset the advantage of
+smaller reading</span></span><span lang=EN> </span><span lang=EN-US>amount. For
+the </span><span class=jlqj4b><span lang=EN style='mso-bidi-font-size:10.5pt;
+color:black;mso-ansi-language:EN'>specific application scenario, testing is necessary.</span></span></p>
+
+<p class=MsoNormal><span class=jlqj4b><span lang=EN style='mso-bidi-font-size:
+10.5pt;color:black;mso-ansi-language:EN'>SPL encapsulates these operations.</span></span><span
+class=jlqj4b><span lang=EN style='mso-bidi-font-size:10.5pt'> </span></span><span
+class=jlqj4b><span lang=EN style='mso-bidi-font-size:10.5pt;color:black;
+mso-ansi-language:EN'>Let's take the primary-sub table as an example.</span></span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=634
+ style='border-collapse:collapse;mso-table-layout-alt:fixed;border:none;
+ mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:#B2B2B2;
+ mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
+ .5pt;mso-yfti-tbllook:1184;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:
+ .5pt solid #B2B2B2;mso-border-insidev:.5pt solid #B2B2B2'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=47 style='width:1.0cm;border:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-alt:solid black .5pt;mso-border-right-alt:solid windowtext .5pt;
+  background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>&nbsp;</span></p>
+  </td>
+  <td width=596 valign=top style='width:357.75pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span lang=EN-US>A</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
+  <td width=47 style='width:1.0cm;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>1</span></p>
+  </td>
+  <td width=596 valign=top style='width:357.75pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal'>=file(&quot;orders.ctx&quot;).open().cursor(dt;area==&quot;CA&quot;)</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
+  <td width=47 style='width:1.0cm;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>2</span></p>
+  </td>
+  <td width=596 valign=top style='width:357.75pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal'>=file(&quot;details.ctx&quot;).open().news(A1,dt,price,quantity)</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=47 style='width:1.0cm;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>3</span></p>
+  </td>
+  <td width=596 valign=top style='width:357.75pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal'>=A2.groups(dt;sum(price*quantity))</span></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal><span class=jlqj4b><span lang=EN style='mso-bidi-font-size:
+10.5pt;color:black;mso-ansi-language:EN'>After the primary table is filtered,
+use the filtered primary table to take out the records of associated sub-table.
+Because the primary table has a one-to-many relationship with sub-table, the news()
+should be used here to indicate that each record taken from the primary table
+may correspond to multiple sub-table records. At this time, the field of primary
+table will be </span></span><span lang=EN-US>duplicate</span><span
+class=jlqj4b><span lang=EN style='mso-bidi-font-size:10.5pt;color:black;
+mso-ansi-language:EN'>d according to the number of the records of associated
+sub-table, this action is equivalent to executing joinx().</span></span></p>
+
+<p class=MsoNormal><span class=jlqj4b><span lang=EN style='mso-bidi-font-size:
+10.5pt;color:black;mso-ansi-language:EN'>Alternately, the sub-table can be
+filtered first, and then take out the records of the associated primary table.</span></span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=634
+ style='border-collapse:collapse;mso-table-layout-alt:fixed;border:none;
+ mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:#B2B2B2;
+ mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
+ .5pt;mso-yfti-tbllook:1184;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:
+ .5pt solid #B2B2B2;mso-border-insidev:.5pt solid #B2B2B2'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=47 style='width:1.0cm;border:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-alt:solid black .5pt;mso-border-right-alt:solid windowtext .5pt;
+  background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>&nbsp;</span></p>
+  </td>
+  <td width=596 valign=top style='width:357.75pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span lang=EN-US>A</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
+  <td width=47 style='width:1.0cm;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>1</span></p>
+  </td>
+  <td width=596 valign=top style='width:357.75pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal'>=file(&quot;details.ctx&quot;).open().cursor(price,quantity;quanity&gt;10)</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
+  <td width=47 style='width:1.0cm;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>2</span></p>
+  </td>
+  <td width=596 valign=top style='width:357.75pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal'>=file(&quot;orders.ctx&quot;).open().new(A1,dt,sum(price*quantity):amount)</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=47 style='width:1.0cm;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>3</span></p>
+  </td>
+  <td width=596 valign=top style='width:357.75pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal'>=A2.groups(dt;sum(amount))</span></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal><span class=jlqj4b><span lang=EN style='mso-bidi-font-size:
+10.5pt;color:black;mso-ansi-language:EN'>By default, the returned cursor is
+based on the latter association table (if there is no any filter condition, the
+number of records in the returned cursor is the same as that in the associated
+table), in this code, the latter table is the primary table, and the records of
+the sub-table need to be aggregated first.</span></span></p>
+
+<p class=MsoNormal><span class=jlqj4b><span lang=EN style='mso-bidi-font-size:
+10.5pt;color:black;mso-ansi-language:EN'>These functions can be applied to
+multi-cursor.</span></span></p>
+	</div>
+	<div id="previous-next">
+		<div id="next"><a href="55.html">Next</a></div>
+		<div id="previous"><a href="53.html">Previous</a></div>		
+	</div>
+	<div id="related">
+		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="51.html">7 Merge and join</a></span></li>
+</div>
+	</div>
+	<div id="footer">	
+		
+		
+    <div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+      </a></div>
+	</div>
+</div>
+
+</body>
+</html>

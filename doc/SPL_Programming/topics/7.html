@@ -1,0 +1,275 @@
+<!--create by iword1.0 pro, http://www.voland.com.cn-->
+<!-- saved from url=(0026)http://www.runqian.com.cn/ -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>2.1 Logic operation</title>
+<link rel="stylesheet" href="../images/template.css" type="text/css" />
+<link rel="stylesheet" href="document.css" type="text/css" />
+<script language="JavaScript" src="../resource/url.js"></script>
+</head>
+
+<body>
+
+<div id="content-bg">
+	<div id="centent">
+	<div id="centent-title"><h2 style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;margin-left:
+0cm;text-indent:0cm;line-height:normal;mso-list:l11 level2 lfo12;tab-stops:
+list 36.0pt left 42.55pt'><span lang=EN-US
+style='mso-fareast-font-family:"Times New Roman"'><span style='mso-list:Ignore'>2.1<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><span lang=EN-US>Logic operation</span></h2></div>
+	<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>If we want to calculate the absolute value of
+a number (in fact, SPL has an abs() function, but here we use other methods to
+try), we need to judge whether the number is greater than 0 or less than 0. We
+introduce the if() function to achieve this:</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>=if(x&gt;0,x,-x)</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>if(a,b,c) function has three parameters,
+where a is a condition. If the condition holds, b is returned, otherwise c is
+returned.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>Using if function, max(x,y) can also be
+realized:</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>=if(x&gt;y,x,y)</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>Most modern programming languages have a data
+type called <b>boolean</b>. It has only two values: true and false.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>Conditional judgment, such as the above </span><span
+class=Charf9><span lang=EN-US style='font-family:"Times New Roman","serif"'>x&gt;0</span></span><span
+lang=EN-US> or </span><span class=Charf9><span lang=EN-US style='font-family:
+"Times New Roman","serif"'>x&gt;y</span></span><span lang=EN-US>, is also
+understood as a kind of calculation expression in programming language, just
+like our conventional arithmetic expression, except that its calculation result
+is a boolean value. When this condition holds, its calculation result is true,
+otherwise the calculation result is false.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>The stricter description of if(a,b,c)
+function is as follows: if a is true, b is returned; otherwise, c is returned.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>To convert a data of other types into
+boolean, you can use the bool(x) function. If x is not null, it will return
+true, otherwise it will return false. In fact, there is no distinction between
+null and false in SPL.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>Since Boolean value is also a kind of data,
+it should be able to participate in operation. Let's take a more complicated
+example: given a year, calculate how many days there are in that year.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>We know that there are 365 days in a normal
+year and 366 days in a leap year, so we just need to judge whether the year is
+a leap year or not. The complete rule is this: if a year is divisible by 4 and
+cannot be divisible by 100, or it is divisible by 400, it is a leap year. For
+example, 2004 is a leap year (divisible by 4 but not by 100), 2000 is a leap
+year (divisible by 400), 1900 is not a leap year (divisible by 4 but also by
+100). The SPL expression is as follows (y is the year to be judged):</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>=if(y%4==0 &amp;&amp; y%100!=0 ||
+y%400==0,366,365)</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>The last two parameters are easy to
+understand. Let's explain the first parameter, that is, </span><span
+class=Charf9><span lang=EN-US style='font-family:"Times New Roman","serif"'>y%4==0
+&amp;&amp; y%100!=0 || y%400==0 .</span></span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>% is used to calculate the remainder of the
+division operation,</span><span class=a3><span lang=EN-US style='font-size:
+9.0pt'> </span></span><span class=Charf9><span lang=EN-US style='font-family:
+"Times New Roman","serif"'>== is </span></span><span lang=EN-US>used to
+determine whether the operands are equal, </span><span class=Charf9><span
+lang=EN-US style='font-family:"Times New Roman","serif"'>y%4==0</span></span><span
+lang=EN-US> indicates whether the remainder of y divided by 4 is equal to 0,
+that is, whether y can be divisible by 4. If y can be divisible by 4, then the
+result of </span><span class=Charf9><span lang=EN-US style='font-family:"Times New Roman","serif"'>y%4==0</span></span><span
+lang=EN-US> is true, otherwise it is false. For example, </span><span
+class=Charf9><span lang=EN-US style='font-family:"Times New Roman","serif"'>2004%4==0</span></span><span
+lang=EN-US> is true, while </span><span class=Charf9><span lang=EN-US
+style='font-family:"Times New Roman","serif"'>1998%4==0</span></span><span
+lang=EN-US> is false.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>SPL retained the habit of C language, using </span><span
+class=Charf9><span lang=EN-US style='font-family:"Times New Roman","serif"'>!=</span></span><span
+lang=EN-US> to indicate “not equal to” , while many programming languages use
+&lt;&gt; to indicate “not equal to”. Other comparison operators in SPL, such as
+&gt;=, &lt;= and so on, are the same as most programs.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>So, </span><span class=Charf9><span
+lang=EN-US style='font-family:"Times New Roman","serif"'>y%100!=0</span></span><span
+lang=EN-US> can determine whether y can not be divisible by 100. Similarly, </span><span
+class=Charf9><span lang=EN-US style='font-family:"Times New Roman","serif"'>1900%100!=0</span></span><span
+lang=EN-US> is false, while </span><span class=Charf9><span lang=EN-US
+style='font-family:"Times New Roman","serif"'>1998%100!=0</span></span><span
+lang=EN-US> is true. Similarly, </span><span class=Charf9><span lang=EN-US
+style='font-family:"Times New Roman","serif"'>y%400==0</span></span><span
+lang=EN-US> will be used to determine whether y can be divisible by 400.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>What are the remaining </span><span
+class=Charf9><span lang=EN-US style='font-family:"Times New Roman","serif"'>&amp;&amp;</span></span><span
+lang=EN-US> and </span><span class=Charf9><span lang=EN-US style='font-family:
+"Times New Roman","serif"'>|| </span></span><span lang=EN-US>?</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>These are the boolean operators, </span><span
+class=Charf9><span lang=EN-US style='font-family:"Times New Roman","serif"'>&amp;&amp;</span></span><span
+lang=EN-US> stands for &quot;and&quot;, which is usually called <b>AND</b> in
+programming; || stands for &quot;or&quot;, which is called <b>OR</b> in
+programming. Both </span><span class=Charf9><span lang=EN-US style='font-family:
+"Times New Roman","serif"'>&amp;&amp;</span></span><span lang=EN-US> and </span><span
+class=Charf9><span lang=EN-US style='font-family:"Times New Roman","serif"'>||</span></span><span
+lang=EN-US> are binary operators, that is, like addition, they have two
+operands. The operation rules of </span><span class=Charf9><span lang=EN-US
+style='font-family:"Times New Roman","serif"'>&amp;&amp;</span></span><span
+lang=EN-US> and </span><span class=Charf9><span lang=EN-US style='font-family:
+"Times New Roman","serif"'>||</span></span><span lang=EN-US> are as follows:</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>true &amp;&amp; true = true</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>true &amp;&amp; false = false</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>false &amp;&amp; true = false</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>false &amp;&amp; false = false</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>true || true = true</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>true || false = true</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>false || true = true</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>false || false = false</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>In fact, they are the normal meanings of
+&quot;and&quot; and &quot;or&quot;. The priority of </span><span class=Charf9><span
+lang=EN-US style='font-family:"Times New Roman","serif"'>&amp;&amp; </span></span><span
+lang=EN-US>is higher than </span><span class=Charf9><span lang=EN-US
+style='font-family:"Times New Roman","serif"'>||, </span></span><span
+lang=EN-US>that is to say, if there are no parentheses, </span><span
+class=Charf9><span lang=EN-US style='font-family:"Times New Roman","serif"'>&amp;&amp;</span></span><span
+lang=EN-US> will be calculated first and then </span><span class=Charf9><span
+lang=EN-US style='font-family:"Times New Roman","serif"'>||</span></span><span
+lang=EN-US>, just like multiplication and division before addition and
+subtraction. If this expression is written as </span><span class=Charf9><span
+lang=EN-US style='font-family:"Times New Roman","serif"'>y%400==0 || y%4==0
+&amp;&amp; y%100!=0, it</span></span><span lang=EN-US> will get the same
+result.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>There is also a very common operator ! with
+single operand, meaning “not”, and the operation rules are as follows:</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>!true = false</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>!false = true</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>! is a little bit like the minus sign “</span><span
+class=Charf9><span lang=EN-US style='font-family:"Times New Roman","serif"'>-“ </span></span><span
+lang=EN-US>in arithmetic, and its priority is higher than </span><span
+class=Charf9><span lang=EN-US style='font-family:"Times New Roman","serif"'>&amp;&amp;</span></span><span
+lang=EN-US>.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>SPL retained the C language operators, while
+some programming languages directly use the words AND and OR and NOT to express
+&amp;&amp;, </span><span class=Charf9><span lang=EN-US style='font-family:"Times New Roman","serif"'>||</span></span><span
+lang=EN-US> and !.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>Now, we can understand </span><span
+class=Charf9><span lang=EN-US style='font-family:"Times New Roman","serif"'>y%4==0
+&amp;&amp; y%100!=0 || y%400==0</span></span><span lang=EN-US>, it really
+correctly expresses the rule of leap year judgment.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>Here's another question. Why do we use two
+equal signs ==, instead of using one equal sign as in arithmetic expressions?</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>This is because SPL retained the habit of C
+language, and considers the assignment statement such as </span><span
+class=Charf9><span lang=EN-US style='font-family:"Times New Roman","serif"'>a=x</span></span><span
+lang=EN-US> as an operation expression, which also has a calculation result,
+that is, x. For example, if we write </span><span class=Charf9><span
+lang=EN-US style='font-family:"Times New Roman","serif"'>=a=5</span></span><span
+lang=EN-US> in cell A1, SPL will not report an error but will execute normally,
+and we can see that not only variable a has a value of 5, but also cell A1
+itself has a value of 5. Because a=5 is also understood as a calculation
+formula, its calculation result is 5, which can be assigned to cell A1.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>But after such an agreement, if we also use =
+to judge equality, we can't distinguish it. Therefore, the C language
+stipulates that two equal signs == should be used to judge equality, so it will
+not be confused with assignment operation. SPL also applies this rule.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>After getting used to it, we will see the
+advantages of this convention, which can make the code much simpler. But there
+is also a risk. It's easy to write = when it's time to write </span><span
+class=Charf9><span lang=EN-US style='font-family:"Times New Roman","serif"'>==</span></span><span
+lang=EN-US>. Originally, we want to judge the equality, but we made an assignment
+instead. We should pay special attention to it when writing codes.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>It should be noted that not all programming
+languages are regulated in this way. For example, BASIC language does not
+regard assignment as an operator. </span><span class=Charf9><span lang=EN-US
+style='font-family:"Times New Roman","serif"'>a=5</span></span><span
+lang=EN-US> only completes assignment without a calculation result. It also
+uses one equal sign to judge equality. The advantage is that it's not easy to
+make mistakes, but the code can be cumbersome sometimes.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>Still, there is no perfect thing of the kind.
+</span></p>
+	</div>
+	<div id="previous-next">
+		<div id="next"><a href="8.html">Next</a></div>
+		<div id="previous"><a href="6.html">Previous</a></div>		
+	</div>
+	<div id="related">
+		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="6.html">2 Doing judgement</a></span></li>
+</div>
+	</div>
+	<div id="footer">	
+		
+		
+    <div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+      </a></div>
+	</div>
+</div>
+
+</body>
+</html>

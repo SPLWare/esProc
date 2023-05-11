@@ -1,0 +1,173 @@
+<!--create by iword1.0 pro, http://www.voland.com.cn-->
+<!-- saved from url=(0026)http://www.runqian.com.cn/ -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>5.7 Index sorting</title>
+<link rel="stylesheet" href="../images/template.css" type="text/css" />
+<link rel="stylesheet" href="document.css" type="text/css" />
+<script language="JavaScript" src="../resource/url.js"></script>
+</head>
+
+<body>
+
+<div id="content-bg">
+	<div id="centent">
+	<div id="centent-title"><h2 style='margin-top:8.15pt;margin-right:0cm;margin-bottom:8.15pt;margin-left:
+0cm;text-indent:0cm;mso-list:l0 level2 lfo1'><span
+lang=EN-US style='mso-fareast-font-family:"Times New Roman"'><span
+style='mso-list:Ignore'>5.7<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><span lang=EN-US>Index sorting</span></h2></div>
+	<p class=MsoNormal><span class=jlqj4b><span lang=EN style='mso-bidi-font-size:
+10.5pt;color:black;mso-ansi-language:EN'>We know that the index is essentially
+the sorting. If we want to sort the data table by the to-be-searched key (TBS key),
+is it possible to take advantage of the index that has already been built?</span></span></p>
+
+<p class=MsoNormal><span class=jlqj4b><span lang=EN style='mso-bidi-font-size:
+10.5pt;color:black;mso-ansi-language:EN'>Unfortunately, this method has no
+effect in most cases.</span></span></p>
+
+<p class=MsoNormal><span class=jlqj4b><span lang=EN style='mso-bidi-font-size:
+10.5pt;color:black;mso-ansi-language:EN'>If the original data table is not
+sorted by the TBS key, even if the index has been built, and the physical location
+of each record can be read out in order from the index, and no sorting
+operation is required, the index sorting algorithm will not have much advantage
+over directly performing the big sorting algorithm. The reason is that although
+the big sorting algorithm needs to perform sort operation, its access to
+external storage data tables is basically continuous, and a large number of
+data can be read and written each time; while if the index is used to read data
+in order, although the sort operation does not need to be performed, the
+physical position of the data in external storage is often discontinuous, which
+may lead to a large amount of unnecessary reading actions. On a whole, the
+index sorting is very likely to perform worse than big sorting.</span></span></p>
+
+<p class=MsoNormal><span class=jlqj4b><span lang=EN style='mso-bidi-font-size:
+10.5pt;color:black;mso-ansi-language:EN'>In fact, the index has no effect on
+most traversal-pattern operations, and it is mainly used for situations where there
+are very few returned result sets.</span></span></p>
+
+<p class=MsoNormal><span class=jlqj4b><span lang=EN style='mso-bidi-font-size:
+10.5pt;color:black;mso-ansi-language:EN'>However, although the overall sorting
+time with a ready-made index is not necessarily faster than that of big sorting
+algorithm, it has one advantage</span></span><span lang=EN> </span><span
+class=jlqj4b><span lang=EN style='mso-bidi-font-size:10.5pt;color:black;
+mso-ansi-language:EN'>that can quickly start data output. On the contrary, the big
+sorting algorithm needs to traverse all the data and generate the buffer files
+before it starts outputting data, resulting in a longer waiting time.</span></span></p>
+
+<p class=MsoNormal><span class=jlqj4b><span lang=EN style='mso-bidi-font-size:
+10.5pt;color:black;mso-ansi-language:EN'>Which application scenarios will use
+index sorting to quickly start data output?</span></span></p>
+
+<p class=MsoNormal><span class=jlqj4b><span lang=EN style='mso-bidi-font-size:
+10.5pt;color:black;mso-ansi-language:EN'>For example, when the big data needs
+to be transmitted in order, the remote transmission itself is very slow and often
+not much faster than big sorting.</span></span><span class=jlqj4b><span
+lang=EN style='mso-bidi-font-size:10.5pt;mso-ansi-language:EN'> <span
+style='color:black'>If the data can be transmitted earlier, a lot of time will
+be saved. To achieve it, using the index sorting algorithms will be more advantageous,
+which can immediately start returning data for transmission without waiting.</span></span></span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='border-collapse:collapse;mso-table-layout-alt:fixed;border:none;
+ mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:#B2B2B2;
+ mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
+ .5pt;mso-yfti-tbllook:1184;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:
+ .5pt solid #B2B2B2;mso-border-insidev:.5pt solid #B2B2B2'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=47 style='width:1.0cm;border:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-alt:solid black .5pt;mso-border-right-alt:solid windowtext .5pt;
+  background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>&nbsp;</span></p>
+  </td>
+  <td width=407 valign=top style='width:244.05pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span lang=EN-US>A</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
+  <td width=47 style='width:1.0cm;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>1</span></p>
+  </td>
+  <td width=407 valign=top style='width:244.05pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal'>=file(&quot;data.ctx&quot;).open()</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
+  <td width=47 style='width:1.0cm;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>2</span></p>
+  </td>
+  <td width=407 valign=top style='width:244.05pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal'>=A1.index(IDS;ID;…)</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=47 style='width:1.0cm;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>3</span></p>
+  </td>
+  <td width=407 valign=top style='width:244.05pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal'>=A1.icursor@s(…;,IDS)</span></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal><span class=jlqj4b><span lang=EN style='mso-bidi-font-size:
+10.5pt;color:black;mso-ansi-language:EN'>The icursor@s() will ensure that the
+data sorted by specified index is returned (the order will not be ensured when
+there is no option, but it is generally sorted by physical location, which is
+faster). The data will also be returned as a cursor, and taken out by fetch()
+(for transmission).</span></span></p>
+	</div>
+	<div id="previous-next">
+		<div id="next"><a href="42.html">Next</a></div>
+		<div id="previous"><a href="40.html">Previous</a></div>		
+	</div>
+	<div id="related">
+		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="34.html">5 Ordered traversal</a></span></li>
+</div>
+	</div>
+	<div id="footer">	
+		
+		
+    <div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+      </a></div>
+	</div>
+</div>
+
+</body>
+</html>

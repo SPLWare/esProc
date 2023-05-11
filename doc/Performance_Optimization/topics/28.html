@@ -1,0 +1,422 @@
+<!--create by iword1.0 pro, http://www.voland.com.cn-->
+<!-- saved from url=(0026)http://www.runqian.com.cn/ -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>4.3 Parallel traversal</title>
+<link rel="stylesheet" href="../images/template.css" type="text/css" />
+<link rel="stylesheet" href="document.css" type="text/css" />
+<script language="JavaScript" src="../resource/url.js"></script>
+</head>
+
+<body>
+
+<div id="content-bg">
+	<div id="centent">
+	<div id="centent-title"><h2 style='margin-top:8.15pt;margin-right:0cm;margin-bottom:8.15pt;margin-left:
+0cm;text-indent:0cm;mso-list:l0 level2 lfo1'><span
+lang=EN-US style='mso-fareast-font-family:"Times New Roman"'><span
+style='mso-list:Ignore'>4.3<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><span lang=EN-US>Parallel traversal</span></h2></div>
+	<p class=MsoNormal><span lang=EN-US>We discussed a method for segmentation of external
+storage data set in Chapter 2. Such method can not only be used for binary
+search, but more importantly, for the parallel computing in segment. By letting
+multiple CPUs share the amount of computation, it is often possible to
+implement a performance improvement close to linear growth.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>SPL provides a convenient parallel
+computing syntax:</span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=585
+ style='border-collapse:collapse;mso-table-layout-alt:fixed;border:none;
+ mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:#B2B2B2;
+ mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
+ .5pt;mso-yfti-tbllook:1184;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:
+ .5pt solid #B2B2B2;mso-border-insidev:.5pt solid #B2B2B2'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=47 valign=top style='width:1.0cm;border:solid black 1.0pt;
+  border-right:solid windowtext 1.0pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>&nbsp;</span></p>
+  </td>
+  <td width=175 valign=top style='width:104.75pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>A</span></p>
+  </td>
+  <td width=373 valign=top style='width:223.55pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>B</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
+  <td width=47 style='width:1.0cm;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>1</span></p>
+  </td>
+  <td width=175 valign=top style='width:104.75pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal'>=file(&quot;orders.txt&quot;)</span></span></p>
+  </td>
+  <td width=373 valign=top style='width:223.55pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal'>&nbsp;</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
+  <td width=47 style='width:1.0cm;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>2</span></p>
+  </td>
+  <td width=175 valign=top style='width:104.75pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal'>fork to(4)</span></span></p>
+  </td>
+  <td width=373 valign=top style='width:223.55pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal'>=A1.cursor@t(area,amount;A2:4)</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;page-break-inside:avoid;height:14.15pt'>
+  <td width=47 style='width:1.0cm;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>3</span></p>
+  </td>
+  <td width=175 valign=top style='width:104.75pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal'>&nbsp;</span></span></p>
+  </td>
+  <td width=373 valign=top style='width:223.55pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal'>return B2.groups(area;sum(amount):amount)</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=47 style='width:1.0cm;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>4</span></p>
+  </td>
+  <td width=547 colspan=2 valign=top style='width:328.3pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal'>=A2.conj().groups(area;sum(amount))</span></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal><span lang=EN-US>The fork statement will start multiple
+threads to execute their own code blocks in parallel. The number of threads is
+determined by the length of the parameter sequence after fork. At the same
+time, fork will assign these parameters to each thread in turn. Accordingly,
+the value in code block, which is quoted from the cell where fork is located,
+can be obtained. When the execution of all threads ends, the calculation result
+of each thread (the value of return in the code block) will be collected into
+the cell where fork is located, and assembled into a sequence in the order of
+threads. Then the code continues to execute.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>In this example, A2 will generate four
+threads, each thread will get 1,2,3 and 4 as parameter respectively, and a corresponding
+segment cursor will be generated in B2 to perform the grouping and aggregating
+calculations. After all the four threads are executed, the return value of each
+thread (actually, a table sequence) will be collected in the cell of fork (A2),
+then these table sequences will be concatenated to perform an aggregation
+again, after that, the grouping and aggregating result for original data table
+is obtained.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>Besides the data table segmentation, it can
+also be used for the parallel computing of multiple files. For example, orders
+are placed in 12 files (one file each month), let’s calculate the number of
+orders with an amount of more than 50 in each region:</span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=585
+ style='border-collapse:collapse;mso-table-layout-alt:fixed;border:none;
+ mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:#B2B2B2;
+ mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
+ .5pt;mso-yfti-tbllook:1184;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:
+ .5pt solid #B2B2B2;mso-border-insidev:.5pt solid #B2B2B2'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=47 valign=top style='width:1.0cm;border:solid black 1.0pt;
+  border-right:solid windowtext 1.0pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>&nbsp;</span></p>
+  </td>
+  <td width=175 valign=top style='width:104.75pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>A</span></p>
+  </td>
+  <td width=373 valign=top style='width:223.55pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>B</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
+  <td width=47 style='width:1.0cm;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>1</span></p>
+  </td>
+  <td width=175 valign=top style='width:104.75pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal'>fork to(12)</span></span></p>
+  </td>
+  <td width=373 valign=top style='width:223.55pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal'>=file(&quot;orders&quot;\A2\&quot;.txt&quot;)</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
+  <td width=47 style='width:1.0cm;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>2</span></p>
+  </td>
+  <td width=175 valign=top style='width:104.75pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal'>&nbsp;</span></span></p>
+  </td>
+  <td width=373 valign=top style='width:223.55pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal'>=B1.cursor@t(area,amount;A2:4)</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;page-break-inside:avoid;height:14.15pt'>
+  <td width=47 style='width:1.0cm;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>3</span></p>
+  </td>
+  <td width=175 valign=top style='width:104.75pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal'>&nbsp;</span></span></p>
+  </td>
+  <td width=373 valign=top style='width:223.55pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal'>=B2.select(amount&gt;=50)</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4;page-break-inside:avoid;height:14.15pt'>
+  <td width=47 style='width:1.0cm;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>4</span></p>
+  </td>
+  <td width=175 valign=top style='width:104.75pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal'>&nbsp;</span></span></p>
+  </td>
+  <td width=373 valign=top style='width:223.55pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal'>return B2.groups(area;count(1):quantity)</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:5;mso-yfti-lastrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=47 style='width:1.0cm;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>5</span></p>
+  </td>
+  <td width=547 colspan=2 valign=top style='width:328.3pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal'>=A1.conj().groups(area;sum(quantity))</span></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal><span lang=EN-US>It will start 12 thread calculations. Note
+that sum() should used outside the thread instead of count() when count() is
+used inside the thread.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>SPL simplifies the mechanism of parallel
+computing, assuming that all threads are started at the same time, and the
+whole task is completed only when all threads are executed. Although it can not
+be used to deal with system-level complex parallel tasks, the syntax and code are
+much simpler, which is enough for most structured data computing.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>When executing in parallel, we should first
+set the number of parallels in esProc options:</span></p>
+
+<p class=MsoNormal><span lang=EN-US><img width=708 height=475
+src="Performance_Optimization.files/image007.jpg" v:shapes="_x0000_i1026"></span></p>
+
+<p class=MsoNormal><span lang=EN-US>After setting, SPL will physically generate
+the threads with a number up to the set value. If the parameter sequence after fork
+is longer, serial execution will be forced. For example, in the previous example,
+the sequence length of fork parameter is 12, while the number of parallels set
+here is 4, in this case, SPL will actually only start 4 threads, and put the
+first four tasks of fork into the threads to execute in turn. When a thread
+becomes idle after execution, fill in a task that has not been executed, and
+repeat according to this rule until all tasks are executed. In this way, there
+seems to be 12 threads logically, but only 4 threads in fact.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>Under this mechanism, splitting the task
+will be beneficial. Since the actual execution time of each task is not always
+same, if each thread physically executes only one task, the fast-executing
+thread, after execution, has to wait for other slow-executing threads. If the
+task is split, the fast thread can execute more tasks, the total waiting time
+will be less, the load will be more balanced, and the overall performance will
+be better. However, the disadvantage of task splitting is that it will occupy
+more memory to store the results returned by threads, and there are also some
+costs generated from thread switching and scheduling, therefore it is not the
+case “more task splitting, the better performance”, and it depends on the
+actual situation to determine an appropriate value.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>Typically, each thread is executed by a
+corresponding CPU. If the number of threads generated exceeds the number of
+CPUs, the operating system will use time-sharing technology to switch different
+threads on the CPUs. These mechanisms will consume CPU and memory resources,
+resulting in a decline in the overall performance, hence the maximum number of
+parallels should be set to a value that does not exceed the number of CPUs,
+usually slightly less, as some CPUs also need to perform other tasks such as operating
+system processes.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>Some servers have a lot of CPUs, perhaps as
+many as dozens, but sometimes we find that setting more parallel numbers cannot
+achieve better performance. One reason is that the scheduling cost rises with
+the number of threads, and the more likely reason is that the hard disk does
+not have a same parallel computing capability. Since multiple threads will
+share same set of hard disks, and the data also need to be read from hard disk
+while performing external storage calculations, and the total throughput
+capacity of hard disk is definite, there is no way to allow hard disk to run
+faster once its capacity limit is reached, resulting in the occurrence of a
+phenomenon that CPU is idle waiting for the hard disk. Especially for
+mechanical hard disks, parallel reading will also cause more severe head runout,
+leading in a significant decrease in performance of hard disk, and it is very
+likely to result in &quot;the more parallel reading, the worse
+performance&quot;.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>Server's CPU and hard disk configuration
+should be balanced to adapt to the computing tasks. Some servers have many
+high-class CPUs, but such servers are equipped with low-speed mechanical hard
+disks for large capacity purpose, as a result, they often fail to give full
+play to the efficiency of the CPU and cause waste. If the money spent on CPUs
+is used to buy memory or high-speed SSDs, it is likely to spend less and get
+better performance.</span></p>
+	</div>
+	<div id="previous-next">
+		<div id="next"><a href="29.html">Next</a></div>
+		<div id="previous"><a href="27.html">Previous</a></div>		
+	</div>
+	<div id="related">
+		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="25.html">4 Traversal technology</a></span></li>
+</div>
+	</div>
+	<div id="footer">	
+		
+		
+    <div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+      </a></div>
+	</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,386 @@
+<!--create by iword1.0 pro, http://www.voland.com.cn-->
+<!-- saved from url=(0026)http://www.runqian.com.cn/ -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>4.6 Grouping and aggregating</title>
+<link rel="stylesheet" href="../images/template.css" type="text/css" />
+<link rel="stylesheet" href="document.css" type="text/css" />
+<script language="JavaScript" src="../resource/url.js"></script>
+</head>
+
+<body>
+
+<div id="content-bg">
+	<div id="centent">
+	<div id="centent-title"><h2 style='margin-top:8.15pt;margin-right:0cm;margin-bottom:8.15pt;margin-left:
+0cm;text-indent:0cm;mso-list:l0 level2 lfo1'><span
+lang=EN-US style='mso-fareast-font-family:"Times New Roman"'><span
+style='mso-list:Ignore'>4.6<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><span lang=EN-US>Grouping and aggregating</span></h2></div>
+	<p class=MsoNormal><span lang=EN-US>Grouping is a common traversal type
+operation, which needs to read and calculate all records participating in
+grouping. For this type of operation that needs the participation of the whole
+set, the index makes little sense (useful only in very few scenarios, we will
+discuss in the next chapter). Since some programmers do not understand the
+principle of grouping, they will add indexes to the database tables in case of
+slow grouping, doing so will only increase the load of database.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>Grouping process is typically divided into
+the following steps: firstly, generate an empty grouped result set; secondly,
+traverse each original data; thirdly, calculate the grouping key value of each
+original data; and lastly, search the grouped subset corresponding to the key value
+in grouped result set, and add this record to grouped subset. If the grouped
+subset cannot be found, add a new grouped subset composed of this record.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>During this operation process, the
+occurrence times of some actions like reading the records from original data,
+calculating the grouping key values of records, and adding the records to
+grouped subset, are definite (equal to the record number of original data).
+Since there is no way to reduce the occurrence times, the only method to reduce
+operations is to find the grouped subset in the grouped result set. This method
+is a standard search operation, which generally adopts the hash method in case
+no special conditions are available. The hash method works in a way that the
+grouped subsets are arranged according to the hash value of their corresponding
+grouping key values (equivalent to sequence number positioning), and the grouping
+key values and hash values are calculated when there is a new record, which can
+quickly find its own group in a small number of grouped subsets with same hash
+value. This grouping algorithm is also called <b>hash grouping</b>.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>The sum of grouped subsets is as large as
+original data set. If the memory cannot store the data due to too-large data amount,
+then, nor the grouped subset does, therefore, this method only applies to in-memory
+data sets. However, in most cases, grouping always comes with aggregation, we
+do not need to keep grouped subsets, but only need to calculate the aggregation
+value of grouped subsets, and these aggregation values can often be achieved by
+cumulative methods such as summing, counting, computing maximum / minimum
+value. In this way, the grouped subset can be discarded, and just keeping the
+grouping key value and corresponding aggregated value will work (it is equivalent
+to a table sequence rather than a set of sets), as a result, the result set
+will be much smaller, and it is also possible to get a small grouped result set
+that can be stored in memory even if the amount of original data is large. In this
+process, it still needs to find the target record to do accumulation, and it
+also needs to use hash scheme, this kind of grouping and aggregating is still
+called hash grouping.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>Sometimes, even if only the aggregation
+value is needed, the grouped result sets may still be too large to be stored in
+memory, that means the number of grouping key values is very large. This
+situation is called <b>big grouping</b>, while another situation where the
+result set is small enough to be stored in memory, is called <b>small grouping</b>.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>When dealing with big grouping, it is necessary
+to extend hash grouping algorithm to external storage. To do this, we need to
+expand the range of hash values first to let the grouping key values be
+dispersedly under different hash values to the utmost extend, resulting in a
+situation that not many grouping key values correspond to the same hash value.
+Since the range of hash function is known in advance, divide this range into
+several intervals that can be stored in memory (simple equal division is OK).
+In the process of data traversing, every time a batch of records is read,
+calculate the hash value of its grouping key value, and write to different buffer
+files based on the interval in which it is located, and then release the memory
+space to read the next batch of records until the end of traversal. After that,
+read the data from each buffer file separately, and do hash grouping again.
+Since the hash values of data in each buffer file fall within one of intervals,
+and they can definitely be stored in memory, separate data read and hash
+grouping can be performed without causing out of memory.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>SPL designs two functions for the
+aggregation of big grouping and small grouping respectively. Small grouping
+will directly return the result set, while big group will return a cursor. This
+cursor is based on the above-mentioned buffer file, and the second round of
+grouping and aggregating will be performed during data fetching.</span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=585
+ style='border-collapse:collapse;mso-table-layout-alt:fixed;border:none;
+ mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:#B2B2B2;
+ mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
+ .5pt;mso-yfti-tbllook:1184;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:
+ .5pt solid #B2B2B2;mso-border-insidev:.5pt solid #B2B2B2'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=47 valign=top style='width:1.0cm;border:solid black 1.0pt;
+  border-right:solid windowtext 1.0pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>&nbsp;</span></p>
+  </td>
+  <td width=547 valign=top style='width:328.3pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>A</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
+  <td width=47 style='width:1.0cm;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>1</span></p>
+  </td>
+  <td width=547 valign=top style='width:328.3pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal'>=file(&quot;orders.btx&quot;).cursor@b(area,amount)</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
+  <td width=47 style='width:1.0cm;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>2</span></p>
+  </td>
+  <td width=547 valign=top style='width:328.3pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal'>=A1.groups(area;sum(amount):amount)</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=47 style='width:1.0cm;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>3</span></p>
+  </td>
+  <td width=547 valign=top style='width:328.3pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal'>=A1.groupx@u(area;sum(amount):amount).fetch()</span></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal><span lang=EN-US>Both functions have same parameter rules.
+The groups() function of small grouping will directly use hash algorithm, while
+the groupx() function of big grouping will use hash algorithm only after adding
+@u option.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>Small grouping does not need to generate buffer
+files, while big grouping certainly does. When the function of big grouping is
+used to achieve small grouping, a lot of time will be wasted for writing buffer
+file, even if the final grouping result is small. It is very important to
+predict the size of the grouped result set in advance and select an appropriate
+function. Therefore, SPL provides two grouping functions, you can compare the
+calculation time of A2 and A3 respectively.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>We also find that the order of grouped result
+sets returned by groupx() is disordered, it seems that it has nothing to do
+with the grouping key value as well as the order of original data set. In fact,
+this is exactly the characteristic of hash grouping, and the reason why it
+looks disordered is that the result set of hash grouping is sorted according to
+the hash value of grouping key value. On the contrary, SPL will perform a sort
+according to grouping key value before the groups() function of small grouping
+is returned, therefore, it looks that the key values are ordered. If you use groups@u,
+same result will occur.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>There is another method to achieve big
+grouping, and this method can achieve big sorting as well.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>This method works in a way that traverse each
+record in turn, and perform the hash grouping method described at the beginning
+of this section (hash range cannot be too large), but what is different is that
+this method needs to constantly monitor the number of effective grouping key
+values in the grouped result set in the memory. Once the number reaches a threshold,
+the following steps should be performed, first, sort the current grouped result
+set according to grouping key value; second, write it to a buffer file; and
+then clear and release the memory space occupied by the grouped result set; and
+lastly, continue to traverse the remaining records. Repeat these steps until
+the traversal is completed, and you will finally obtain a batch of buffer
+files. Since the data in these files are arranged in an orderly manner according
+to grouping key value, you only need to perform two operations, namely, ordered
+merge algorithm as well as ordered grouping and aggregating. Both these two
+operations can be achieved with only a small amount of memory. This kind of grouping
+algorithm is called <b>sort grouping</b>.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>Similarly, the result from this kind of big
+grouping is also a cursor based on buffer files, and the second round of
+merging as well as grouping and aggregating are performed in the process of
+cursor data-fetching.</span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=585
+ style='border-collapse:collapse;mso-table-layout-alt:fixed;border:none;
+ mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:#B2B2B2;
+ mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
+ .5pt;mso-yfti-tbllook:1184;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:
+ .5pt solid #B2B2B2;mso-border-insidev:.5pt solid #B2B2B2'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=47 valign=top style='width:1.0cm;border:solid black 1.0pt;
+  border-right:solid windowtext 1.0pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>&nbsp;</span></p>
+  </td>
+  <td width=547 valign=top style='width:328.3pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>A</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
+  <td width=47 style='width:1.0cm;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>1</span></p>
+  </td>
+  <td width=547 valign=top style='width:328.3pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal'>=file(&quot;orders.btx&quot;).cursor@b(area,amount)</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=47 style='width:1.0cm;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>2</span></p>
+  </td>
+  <td width=547 valign=top style='width:328.3pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal'>=A1.groupx(area;sum(amount):amount).fetch()</span></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal><span lang=EN-US>The groupx() without options works
+according to this algorithm.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>Compared with hash grouping, sort grouping
+has some advantages. The grouped result set of sort grouping is directly
+ordered according to grouping key values, which may be used in the next round
+of calculation, more conveniently, big grouping algorithms (and functions) can
+be used to achieve small grouping. After carefully studying the above algorithm
+process, you will find that if the actual result set is small, it will not
+really trigger the action of writing buffer files, because the grouped result
+set in memory will never be large enough to the threshold at which the buffer
+files should be written.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>Another advantage of sort grouping is that
+it is more stable. Since there are some cases where you are unlucky with the
+hash function, these cases just lead to a waste of time for in-memory search,
+while for big grouping, it may happen that there are too many grouping key
+values under a hash value, and cannot be stored in the memory, in this case, a
+second round of hashing is needed, which is very troublesome and low in
+performance.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>Therefore, the big grouping provided by SPL
+by default is sort grouping (no options).</span></p>
+
+<p class=MsoNormal><span lang=EN-US>However, when you are sure that it is a large
+grouped result set (buffer files will definitely be written), and you are lucky
+with the hash function, then the hash grouping is more efficient than sort
+grouping. The reason is that the sort itself is relatively slow, and multiple buffer
+files need to be read at the same time when merging in second round, resulting
+in the concurrent read of more hard disks. The second round of hash grouping,
+however, only needs to read one buffer file at a time, which will not cause
+concurrent read of hard disk. Therefore, SPL also provides the method of
+hashing big grouping.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>Database usually uses an optimized hash
+grouping method. This method will first try a small range of hash functions. If
+too many grouping key values are found, it will do the second hashing and
+perform buffering. In this way, the phenomenon that buffer data is always
+written can be avoided. This method has better performance in case of small
+grouping, but its algorithm process is much more troublesome, and its
+performance will decline seriously in case of big grouping.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>However, even if the sort grouping can be
+adaptively to both small grouping and big grouping, groupx() is still more
+complex and a little worse in performance in comparison with groups() in practice.
+More importantly, the parallel effect of big grouping is not good.
+Specifically, multiple threads will accumulate to the same intermediate result
+set at the same time, and will often deal with the waiting state because of the
+preemption of write rights. On the other hand, if each thread has its own
+intermediate result set, it will result in the split of memory (each thread can
+only use a fraction of memory), furthermore, when there may be no need to write
+buffer files (the whole memory is enough to store grouped result set), the
+phenomenon of writing buffer files will also occur (as a fraction of memory is
+not enough), in this case, the hard disk will read and write very slowly, and
+it's easy to offset the benefits of CPU’s parallel operation. Even if in the
+case that buffer files are definitely needed, and multiple threads write buffer
+files at the same time, it will cause concurrent write to the hard disk, and
+often seriously affects the performance. Therefore, groupx() function does not
+necessarily achieve better performance for multi-cursor operation.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>As a result, if you clearly know that the
+result set is small, you still need to use groups() to get the best
+performance. In case you can predict the size of result set, you can also
+choose an appropriate number of parallels. When the size of result set is not
+clear, using groupx() will be more secure, and the performance loss in case of
+single thread is not large.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>Following the understanding sort grouping,
+big data sorting will also be relatively simple, which can be described as the
+following simple steps: order the data after a batch of data is read, and then
+write them to buffer files, and finally perform the merge algorithm to sort
+these buffer files. The size of the result set of sort operation is same as
+that of original data set, and it will not become smaller like grouping, so big
+sorting will definitely generate buffer files.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>Similarly, it is not easy to obtain a
+linear performance improvement for parallel computing of big sorting. Although
+sorting in the memory can be faster, the concurrent writing of multiple threads
+to hard disk may offset the advantage.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>SPL does not directly provide a hash
+grouping style big sorting algorithm; you can work out the algorithm yourself after
+understanding the program cursor technology as well as serial number segmentation
+mechanism in the next chapter. Usually, big sorting is only used in the data
+preparation stage, and the merge algorithm can be performed in most cases, and
+there are not many cases where sorting is performed to original big data.</span></p>
+	</div>
+	<div id="previous-next">
+		<div id="next"><a href="32.html">Next</a></div>
+		<div id="previous"><a href="30.html">Previous</a></div>		
+	</div>
+	<div id="related">
+		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="25.html">4 Traversal technology</a></span></li>
+</div>
+	</div>
+	<div id="footer">	
+		
+		
+    <div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+      </a></div>
+	</div>
+</div>
+
+</body>
+</html>

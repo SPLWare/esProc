@@ -1,0 +1,242 @@
+<!--create by iword1.0 pro, http://www.voland.com.cn-->
+<!-- saved from url=(0026)http://www.runqian.com.cn/ -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>3.3 Sorting index</title>
+<link rel="stylesheet" href="../images/template.css" type="text/css" />
+<link rel="stylesheet" href="document.css" type="text/css" />
+<script language="JavaScript" src="../resource/url.js"></script>
+</head>
+
+<body>
+
+<div id="content-bg">
+	<div id="centent">
+	<div id="centent-title"><h2 style='margin-top:8.15pt;margin-right:0cm;margin-bottom:8.15pt;margin-left:
+0cm;text-indent:0cm;mso-list:l0 level2 lfo1'><span
+lang=EN-US style='mso-fareast-font-family:"Times New Roman"'><span
+style='mso-list:Ignore'>3.3<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><span lang=EN-US>Sorting index</span></h2></div>
+	<p class=MsoNormal><b><span lang=EN-US>Sorting index</span></b><span
+lang=EN-US> is more common in external storage.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>The hash index can only do equivalence
+search for the search value, that is, the judgment condition is equal, not
+interval search, that is, the judgment condition is that the to-be-searched key
+(TBS key) is in a specified interval. Moreover, the hash index may have two
+rounds of hash when it is unlucky, and its performance is not stable enough.
+Sorting index can solve these problems.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>The principle of sorting index is to store
+the TBS key values in order in the index, and then use binary search to find
+the physical position of the target value corresponding to the searched value.
+This scheme can do equivalence search or interval search.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>In practice, we cannot simply do binary
+search to the index directly. It is still similar to hash index, we need to
+divide the index into several segments and establish a small index for these
+segments. First read out the small index, find the index segment corresponding
+to the searched value using binary search, and then read out the index segment
+to find the physical position of the target value. The small index can also
+reside in memory to reduce the amount of reading.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>Similarly, when the amount of data is huge,
+the index will be divided into levels. However, the sorting index can determine
+the number of records stored in each index segment in advance, and the second
+round of hash caused by bad luck with hash index will not happen here. If 1K
+values are stored in each level, four levels can correspond to the huge scale
+of 1K*1K*1K*1K=1T records, which is more than enough. Generally, three levels
+are enough.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>Sorting index is usually a little slower
+than hash index for equivalence search, but the difference is not great. Because
+it has a wider adaptability, most external storage indexes are sorting indexes.
+Hash index will be used only in individual scenarios that have extreme performance
+requirements and only need to realize equivalence search. The external storage
+index mentioned later in this book refers to the sorting index if not stated
+otherwise.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>The SPL default index is the sorting index.</span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='border-collapse:collapse;mso-table-layout-alt:fixed;border:none;
+ mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:#B2B2B2;
+ mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
+ .5pt;mso-yfti-tbllook:1184;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:
+ .5pt solid #B2B2B2;mso-border-insidev:.5pt solid #B2B2B2'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=47 valign=top style='width:1.0cm;border:solid black 1.0pt;
+  border-right:solid windowtext 1.0pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>&nbsp;</span></p>
+  </td>
+  <td width=407 valign=top style='width:244.05pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>A</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
+  <td width=47 style='width:1.0cm;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>1</span></p>
+  </td>
+  <td width=407 valign=top style='width:244.05pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal'>=file(&quot;data.ctx&quot;).open()</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
+  <td width=47 style='width:1.0cm;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>2</span></p>
+  </td>
+  <td width=407 valign=top style='width:244.05pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal'>=A1.index(IDS;ID)</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;page-break-inside:avoid;height:14.15pt'>
+  <td width=47 style='width:1.0cm;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>3</span></p>
+  </td>
+  <td width=407 valign=top style='width:244.05pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal'>=A1.icursor(;ID==123456).fetch()</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=47 style='width:1.0cm;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>4</span></p>
+  </td>
+  <td width=407 valign=top style='width:244.05pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal'>=A1.icursor(;ID&gt;=123456 &amp;&amp; ID&lt;=654321)</span></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal><span lang=EN-US>If the hash range is not specified in the index()
+function, it is considered to establish the sorting index. Interval search can
+also be performed based on the sorting index, and it is not necessary to
+specify which index to use.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>Why do we make a sorting index instead of
+sorting the original data table directly by the TBS key?</span></p>
+
+<p class=MsoNormal><span lang=EN-US>This is mainly a size problem. There are
+only the TBS key and physical position in the index, which is equivalent to a
+data table with two fields. The original data table often has dozens or even
+hundreds of fields, which is much larger than the index. If the whole table is
+sorted, it will occupy at least twice as much storage space.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>Moreover, even if the data is ordered, the
+performance of performing binary search to the original data table is still not
+as good as that of using index. As mentioned earlier, direct binary search has
+no multi-level index, cannot locate precisely, and has many futile reading
+actions. Simple binary search is usually used in scenarios where performance
+requirements are not very high and you do not want to maintain indexes.
+Although the index is smaller than the original data, it still occupies
+considerable storage space, and it needs to be updated at the same time when
+the data is appended.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>The essence of index is sorting, which is
+also the principle in database. Therefore, it is very slow to build an index
+for a big data table in the database, and the addition, deletion and
+modification of a table with index will be much slower, because an orderly
+index should be maintained at the same time. After understanding this
+principle, indexes should be consciously established and avoided in database project.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>Sometimes we need to use two fields as the TBS
+key. Theoretically, this is no different from a single field, only the
+comparison action is a little complicated. However, after understanding the
+essence of index is sorting, it can also guide the establishment of this index.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>For example, there are two fields A and B
+as the TBS key, so how do we build the index? Do we need to build an index for A
+and B respectively, or do we build a joint index of (A,B)? The cost of building
+an index is not low, so we should build as few indexes as possible.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>If it is ordered for A, it is generally not
+ordered for B. While if it is ordered for (A,B), it must be ordered for A, not
+necessarily for B. We can draw the following conclusions:</span></p>
+
+<p class=MsoNormal><span lang=EN-US>1) Building separate indexes for A and B
+will be helpful for (A,B) joint search, but only one index can be used. For example,
+using the index of A will traverse the conditions of B in the records that meet
+the relevant conditions of A, but cannot use the index of B after meeting the
+relevant conditions of A.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>2) The joint index of (A,B) can also be used
+for the search of A, but it cannot be used for the search of B, let alone for
+the search of (B,A). Indexing is built in a clear order.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>If we are allowed to build two indexes, we
+should build indexes for (A,B) and (B,A). In this way, the search conditions
+for A, B, (A,B) and (B,A) can all use the indexes. The effect of building
+indexes only for A and B is much worse.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>SPL implements these strategies to
+automatically find the best index. These principles are also valid for
+databases. Good commercial databases can all intelligently find the most appropriate
+index.</span></p>
+	</div>
+	<div id="previous-next">
+		<div id="next"><a href="19.html">Next</a></div>
+		<div id="previous"><a href="17.html">Previous</a></div>		
+	</div>
+	<div id="related">
+		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="15.html">3 Search in external storage</a></span></li>
+</div>
+	</div>
+	<div id="footer">	
+		
+		
+    <div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+      </a></div>
+	</div>
+</div>
+
+</body>
+</html>

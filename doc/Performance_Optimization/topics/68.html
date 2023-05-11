@@ -1,0 +1,320 @@
+<!--create by iword1.0 pro, http://www.voland.com.cn-->
+<!-- saved from url=(0026)http://www.runqian.com.cn/ -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>9.5 Redundancy-pattern fault tolerance</title>
+<link rel="stylesheet" href="../images/template.css" type="text/css" />
+<link rel="stylesheet" href="document.css" type="text/css" />
+<script language="JavaScript" src="../resource/url.js"></script>
+</head>
+
+<body>
+
+<div id="content-bg">
+	<div id="centent">
+	<div id="centent-title"><h2 style='margin-top:8.15pt;margin-right:0cm;margin-bottom:8.15pt;margin-left:
+0cm;text-indent:0cm;mso-list:l0 level2 lfo1'><span
+lang=EN-US style='mso-fareast-font-family:"Times New Roman"'><span
+style='mso-list:Ignore'>9.5<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><span lang=EN-US>Redundancy-pattern fault
+tolerance</span></h2></div>
+	<p class=MsoNormal><span lang=EN-US>While performing the cluster operation, the
+fault tolerance must be considered. For the single machine operation, if the
+machine fails, the operation fails. For the cluster operation, however, the
+failure of only a few nodes may not affect the cluster to continue working.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>To be fault tolerant, redundancy must be
+used. If, as the situations discussed in the previous sections, each node only holds
+the data of one zone, then the failure of any node will cause the data to be
+incomplete, thereby making it impossible to perform proper calculation.</span></p>
+
+<p class=MsoNormal><span class=jlqj4b><span lang=EN style='mso-bidi-font-size:
+10.5pt;color:black;mso-ansi-language:EN'>The esProc server</span></span><span
+lang=EN-US> can store the data of multiple zones</span><span class=jlqj4b><span
+lang=EN-US style='mso-bidi-font-size:10.5pt;color:black;mso-ansi-language:EN'> </span></span><span
+lang=EN-US>at the same time. When a node fails, if all zones can be found on
+the remaining nodes, then the calculation can still proceed. However, it will
+increase the amount of tasks executed by some nodes, and the overall computing performance
+may also decrease.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>Still, we take four zones as an example, and
+let each node hold two zones as follows:</span></p>
+
+<p class=MsoNormal><span lang=FR style='mso-ansi-language:FR'>101: zone 1, 2; 102:
+zone 2, 3; 103: zone 3, 4; 104: zone 4, 1</span></p>
+
+<p class=MsoNormal><span lang=FR style='mso-ansi-language:FR'>Let’s examine the
+previous code:</span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=642
+ style='border-collapse:collapse;mso-table-layout-alt:fixed;border:none;
+ mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:#B2B2B2;
+ mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
+ .5pt;mso-yfti-tbllook:1184;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:
+ .5pt solid #B2B2B2;mso-border-insidev:.5pt solid #B2B2B2'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=47 valign=top style='width:1.0cm;border:solid black 1.0pt;
+  border-right:solid windowtext 1.0pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=FR style='font-family:"Times New Roman","serif";
+  mso-ansi-language:FR'>&nbsp;</span></p>
+  </td>
+  <td width=605 valign=top style='width:362.95pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>A</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
+  <td width=47 style='width:1.0cm;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>1</span></p>
+  </td>
+  <td width=605 valign=top style='width:362.95pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal'>[&quot;192.168.0.101:8281&quot;,&quot;192.168.0.102:8281&quot;,…,
+  &quot;192.168.0.104:8281&quot;]</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
+  <td width=47 style='width:1.0cm;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>2</span></p>
+  </td>
+  <td width=605 valign=top style='width:362.95pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal'>=file(&quot;orders.ctx&quot;:[1,2,3,4],A1)</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=47 style='width:1.0cm;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>…</span></p>
+  </td>
+  <td width=605 valign=top style='width:362.95pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal'>…</span></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal><span lang=EN-US>If all nodes run normally, the file()
+function in A2 will take zone 1 on 101, take zone 2 on 102,..., and take zone 4
+on 104 to constitute a cluster file. If 103 fails, resulting in the failure in
+searching zone 3 on 103, it will continue to search on 104. If zone 3 is still not
+found, it will turn back to 101 to search, and will eventually find and take
+zone 3 on 102, and then take zone 4 on 104. As a result, the four zones of this
+cluster file will be taken from 101, 102, 102, and 104 respectively, and 102
+will execute the operation of two zones.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>Such scheme using the data by multiple times
+to implement fault tolerance is called the <b>redundancy-pattern fault
+tolerance</b>.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>There is a problem here. According to our previous
+assumption that when each node holds only one zone, each zone of the multi-zone
+composite table of cluster can only correspond to unique node. But if there are
+redundant zones on the node, this correspondence is not unique. For example, we
+can take out four zones from 101, 102, 103 and 104 respectively, and we can
+also take the same zones from 104, 101, 102 and 103. For the single-table
+operation, how zones are distributed will not affect the calculation results,
+but for the multi-table association operation (like the </span><span
+class=jlqj4b><span lang=EN style='mso-bidi-font-size:10.5pt;color:black;
+mso-ansi-language:EN'>homo-dimension tables association</span></span><span
+lang=EN-US>), a same zone distribution method is required to continue the
+operation, because zone 1 on 101 and zone 1 on 104 cannot be associated.</span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=642
+ style='border-collapse:collapse;mso-table-layout-alt:fixed;border:none;
+ mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:#B2B2B2;
+ mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
+ .5pt;mso-yfti-tbllook:1184;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:
+ .5pt solid #B2B2B2;mso-border-insidev:.5pt solid #B2B2B2'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=47 valign=top style='width:1.0cm;border:solid black 1.0pt;
+  border-right:solid windowtext 1.0pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>&nbsp;</span></p>
+  </td>
+  <td width=605 valign=top style='width:362.95pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>A</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
+  <td width=47 style='width:1.0cm;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>1</span></p>
+  </td>
+  <td width=605 valign=top style='width:362.95pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal'>[&quot;192.168.0.101:8281&quot;,&quot;192.168.0.102:8281&quot;,…,
+  &quot;192.168.0.104:8281&quot;]</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
+  <td width=47 style='width:1.0cm;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>2</span></p>
+  </td>
+  <td width=605 valign=top style='width:362.95pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal'>=file(&quot;A.ctx&quot;:[1,2,3,4],A1)</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;page-break-inside:avoid;height:14.15pt'>
+  <td width=47 style='width:1.0cm;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>3</span></p>
+  </td>
+  <td width=605 valign=top style='width:362.95pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal'>=file(&quot;B.ctx&quot;,A2)</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=47 style='width:1.0cm;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>…</span></p>
+  </td>
+  <td width=605 valign=top style='width:362.95pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal'>…</span></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal><span lang=EN-US>The file() function can generate a new
+cluster file according to the known zone distribution scheme of a certain cluster
+file, and A3 will adopt the same zone distribution as A2. In this way, the
+association calculation can be performed based on the constituted cluster table.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>Let’s continue to examine the distribution
+scheme just mentioned:</span></p>
+
+<p class=MsoNormal><span lang=EN-US>101: zone 1, 2; 102: zone 2, 3; 103: zone 3,
+4; 104: zone 4, 1</span></p>
+
+<p class=MsoNormal><span lang=EN-US>If both 103 and 104 fail, not all zones can
+be found on 101 and 102, which makes it impossible to continue to calculate. In
+other words, such redundant distribution scheme only tolerates the failure of
+one node. It is found after a closer analysis that this scheme can continue to
+work when any node fails, but can't work once any two nodes fail.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>We call the <b>fault tolerance</b> of this
+distribution scheme as 1, while for the scheme with only one zone for one node in
+the previous example, its fault tolerance is 0. For the cluster with n nodes,
+if each node has all data, its fault tolerance is n-1. When the fault tolerance
+is k (the operation can still be performed after any k nodes fail; the cluster fails
+when k+1 nodes fail), the data is required to be duplicated by k times (that
+is, in addition to one original data, k more copies should be stored). The fault
+tolerance is sometimes called <b>redundancy</b>.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>For the cluster with n nodes, we can simply
+use the <b>loop distribution </b>scheme to achieve k fault tolerance:</span></p>
+
+<p class=MsoNormal><span lang=FR style='mso-ansi-language:FR'>Node 1: zone 1, zone
+2,…, zone k+1</span></p>
+
+<p class=MsoNormal><span lang=FR style='mso-ansi-language:FR'>Node 2: zone 2, zone
+3,…, zone k+2</span></p>
+
+<p class=MsoNormal><span lang=EN-US>…</span></p>
+
+<p class=MsoNormal><span lang=EN-US>Node i: zone i, zone i+1,…, zone i+k</span></p>
+
+<p class=MsoNormal><span lang=FR style='mso-ansi-language:FR'>…</span></p>
+
+<p class=MsoNormal><span lang=FR style='mso-ansi-language:FR'>Node n: zone n, zone
+1,…, zone k</span></p>
+
+<p class=MsoNormal><span lang=EN-US>where, zone m is equivalent to zone m-n
+when m&gt;n.<span class=jlqj4b></span></span></p>
+	</div>
+	<div id="previous-next">
+		<div id="next"><a href="69.html">Next</a></div>
+		<div id="previous"><a href="67.html">Previous</a></div>		
+	</div>
+	<div id="related">
+		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="63.html">9 Cluster</a></span></li>
+</div>
+	</div>
+	<div id="footer">	
+		
+		
+    <div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+      </a></div>
+	</div>
+</div>
+
+</body>
+</html>

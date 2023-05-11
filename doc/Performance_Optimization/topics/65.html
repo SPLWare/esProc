@@ -1,0 +1,391 @@
+<!--create by iword1.0 pro, http://www.voland.com.cn-->
+<!-- saved from url=(0026)http://www.runqian.com.cn/ -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>9.2 Multi-zone composite table of cluster</title>
+<link rel="stylesheet" href="../images/template.css" type="text/css" />
+<link rel="stylesheet" href="document.css" type="text/css" />
+<script language="JavaScript" src="../resource/url.js"></script>
+</head>
+
+<body>
+
+<div id="content-bg">
+	<div id="centent">
+	<div id="centent-title"><h2 style='margin-top:8.15pt;margin-right:0cm;margin-bottom:8.15pt;margin-left:
+0cm;text-indent:0cm;mso-list:l0 level2 lfo1'><span
+lang=EN-US style='mso-fareast-font-family:"Times New Roman"'><span
+style='mso-list:Ignore'>9.2<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><span lang=EN-US>Multi-zone composite table of cluster</span></h2></div>
+	<p class=MsoNormal><span lang=EN-US>For the conventional operations on the data
+table, coding with fork is a bit </span><span lang=EN-US style='font-size:11.0pt;
+mso-font-kerning:0pt'>troublesome</span><span lang=EN-US>. SPL also provides the
+cluster table and cluster cursor to simplify the code, but the situation is a
+little more complicated than that of a single machine.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>Let's review the concept of multi-zone
+composite table in Chapter 2. For the ease of deleting the old data, the multi-zone
+composite table can be composed of multiple physical files, that is, the zones;
+each physical file will have a number, i.e., zone number.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>The zones of multi-zone composite table can
+also be distributed on the nodes of the cluster. Let's start with simple
+situation: the number of zones of multi-zone composite table is the same as that
+of nodes in a cluster, and each node has one zone.</span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=642
+ style='border-collapse:collapse;mso-table-layout-alt:fixed;border:none;
+ mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:#B2B2B2;
+ mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
+ .5pt;mso-yfti-tbllook:1184;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:
+ .5pt solid #B2B2B2;mso-border-insidev:.5pt solid #B2B2B2'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=47 valign=top style='width:1.0cm;border:solid black 1.0pt;
+  border-right:solid windowtext 1.0pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>&nbsp;</span></p>
+  </td>
+  <td width=605 valign=top style='width:362.95pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>A</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
+  <td width=47 style='width:1.0cm;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>1</span></p>
+  </td>
+  <td width=605 valign=top style='width:362.95pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal'>[&quot;192.168.0.101:8281&quot;,&quot;192.168.0.102:8281&quot;,…,
+  &quot;192.168.0.104:8281&quot;]</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
+  <td width=47 style='width:1.0cm;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>2</span></p>
+  </td>
+  <td width=605 valign=top style='width:362.95pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal'>=file@w(&quot;orders.ctx&quot;:to(4),A1)</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;page-break-inside:avoid;height:14.15pt'>
+  <td width=47 style='width:1.0cm;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>3</span></p>
+  </td>
+  <td width=605 valign=top style='width:362.95pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal'>=A2.create(…;(day(dt)-1)%4+1)</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=47 style='width:1.0cm;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>4</span></p>
+  </td>
+  <td width=605 valign=top style='width:362.95pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal'>=A3.append(…)</span></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal><span lang=EN-US>Using the file@w() to create a writable
+cluster file, making the four zones correspond to the nodes one by one, in this
+way, the i<sup>th</sup> zone file will be generated on the i<sup>th</sup> node.
+Then, create the cluster composite table, and finally, append the data. Note
+that one zone expression is needed for the multi-zone composite table (the same
+as for a single machine).</span></p>
+
+<p class=MsoNormal><span lang=EN-US>Except for the different file created
+during calculation, other syntax is basically the same as that for a single
+machine:</span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=642
+ style='border-collapse:collapse;mso-table-layout-alt:fixed;border:none;
+ mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:#B2B2B2;
+ mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
+ .5pt;mso-yfti-tbllook:1184;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:
+ .5pt solid #B2B2B2;mso-border-insidev:.5pt solid #B2B2B2'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=47 valign=top style='width:1.0cm;border:solid black 1.0pt;
+  border-right:solid windowtext 1.0pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>&nbsp;</span></p>
+  </td>
+  <td width=605 valign=top style='width:362.95pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>A</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
+  <td width=47 style='width:1.0cm;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>1</span></p>
+  </td>
+  <td width=605 valign=top style='width:362.95pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal'>[&quot;192.168.0.101:8281&quot;,&quot;192.168.0.102:8281&quot;,…,
+  &quot;192.168.0.104:8281&quot;]</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
+  <td width=47 style='width:1.0cm;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>2</span></p>
+  </td>
+  <td width=605 valign=top style='width:362.95pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal'>=file(&quot;orders.ctx&quot;:[1,2,3,4],A1)</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;page-break-inside:avoid;height:14.15pt'>
+  <td width=47 style='width:1.0cm;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>3</span></p>
+  </td>
+  <td width=605 valign=top style='width:362.95pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal'>=A2.open()</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4;page-break-inside:avoid;height:14.15pt'>
+  <td width=47 style='width:1.0cm;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>4</span></p>
+  </td>
+  <td width=605 valign=top style='width:362.95pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal'>=A3.cursor@m(area,amount;dt&gt;=arg1 &amp;&amp;
+  dt&lt;arg2;4)</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:5;mso-yfti-lastrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=47 style='width:1.0cm;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>5</span></p>
+  </td>
+  <td width=605 valign=top style='width:362.95pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal'>=A4.groups(area;sum(amount))</span></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal><span lang=EN-US>When the <b>cluster file</b> is created in A2,
+the zone number also needs to be written because the multi-zone composite table
+allows not using all zones. SPL will search the corresponding zone on each node
+according to certain rules. The composite table and the cursor created based on
+the cluster file are called <b>cluster table</b> and <b>cluster cursor </b>respectively.
+To this point, related operations can be performed.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>Let’s review the multi-machine parallel
+computing framework described in the previous section, that is, the node will
+calculate separately, and then transmit the calculation result to the master
+computer for aggregating; during the calculation of node, there is no data
+exchange between the nodes. When this framework is performed based on the zone mechanism
+of cluster table, each node only needs to process the data of its own zone, and
+does not depend on other nodes, and hence it is almost the same as single machine
+operation. As a result, many operations can be simply transplanted from a
+single machine to a cluster. Moreover, by means of the syntax of cluster table,
+the code writing is also very similar to that of a single machine operation.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>We briefly explain the working principles
+of these common operations, and will not give detailed examples here.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>The search without index can directly use
+this framework and syntax.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>There are two ways to deal with the index. The
+simple way is to create a separate index for each node, so this framework can
+still be used. In this way, each node is independent when searching, and the
+results will be searched respectively and returned to the master computer for aggregating.
+However, all nodes will be used for every search, it will result in consuming more
+resources. The complex way is to create a multi-zone-based index and then sort
+by zone. By this way, according to the search value, it can immediately locate
+the zone of the index and find the location of target value. For the accurate
+search (there is only one returned result set), only two nodes are involved (the
+zone where the index is located and the zone where the target value is located),
+as a result, it will consume less resources. In short, for a single task, there
+is almost no performance difference between the two ways, but for the scenarios
+where more concurrency exists and the extreme performance is required, the
+latter will have more advantages.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>For the filtering and conventional small
+grouping, this framework and syntax can also be used directly.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>When the ordered grouping (and other
+various ordered traversals) is performed, attention should be given that the
+records with the same grouping key value cannot be assigned to different zones,
+this requirement is usually easy to achieve.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>Under this framework, using the sorting
+algorithm will be easier for the big grouping (big sorting). After the nodes
+are grouped (sorted) respectively, being ordered by the grouping keys (sorting
+expression) should be kept while aggregating to the master computer, and then
+do the final merging. The hash method for big grouping can also be used on the node,
+but the results still need to be transmitted to the master computer for merging,
+and a certain order is still required. Although the final merging can also be implemented
+by using the order of hash values and then sorting by the grouping key in case
+of same hash values, it is relatively troublesome. The disadvantage of this framework
+is that it will put the burden of final merging calculation on the master
+computer, causing master computer's computing power and network capacity to
+become a bottleneck.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>For the single table operations described
+above, it is relatively easy to implement the distributed computing. Except for
+the final operation result of the node to be transmitted to the master computer
+at the end, the nodes are independent during most of the operation time and there
+is no data transmission between them. Expanding the cluster size will not
+increase the network burden, but can effectively share the amount of calculation.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>Usually, for the distributed database, the clusterization
+of single-table operation also uses this method, it will not cause excessive
+network transmission between nodes. However, some databases adopt the hash
+method when the big grouping is performed, and the data will be distributed
+between nodes (distribute the records with the same hash value to the same node
+and then perform the single machine grouping). The advantage is that the nodes
+will share the amount of aggregating calculation (equivalent to the final
+merging action in the above framework). However, its disadvantage is that a
+large amount of network transmission will limit the cluster size. When a certain
+limit is reached, more nodes will not increase the computing performance.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>As for the join operation, it should be
+discussed based on specific association. The </span><span class=jlqj4b><span
+lang=EN style='mso-bidi-font-size:10.5pt;color:black;mso-ansi-language:EN'>homo-dimension
+tables association and the primary-sub table association are relatively simple.
+As long as the data is properly distributed to make the data with the same
+primary key in the association table be assigned to the same zone number, it
+can ensure that the associated data is in the same zone (i.e., in the same node),
+and there is no need to transmit the data between nodes. The data distribution
+required here is only related to the primary key, which is similar to the
+requirement for ordering the primary key, and can be easily processed and
+achieved during data sorting and appending. Once the data is properly
+distributed, the operation code is still the same as that of a single machine.</span></span></p>
+
+<p class=MsoNormal><span lang=EN-US>Since the dimension table in the foreign
+key association needs to be accessed randomly, the situation will be more complicated.
+We will discuss it in the following two sections. <span
+style='mso-spacerun:yes'>&nbsp;</span></span></p>
+
+<p class=MsoNormal><span class=jlqj4b><span lang=EN style='mso-bidi-font-size:
+10.5pt;color:black;mso-ansi-language:EN'>The database does not distinguish
+various situations of join operation. A common method is to extend the hash
+method from single machine to the cluster, that is, each node distributes its
+own data to all nodes (forming the buffer file) according to the hash value to
+ensure that the associated data are in the same node, and then perform the single
+machine join operation on each node. The previous distribution process of this
+algorithm will generate a large amount of network transmission, and also cause the
+phenomenon of limited cluster size. As a result, the performance improved by
+multi-machine sharing of calculation will be completely offset by the
+performance decrease caused by the transmission, in this case, the performance
+will not be improved even if more nodes are added. The join operation has been
+a difficulty for the distributed database.</span></span></p>
+	</div>
+	<div id="previous-next">
+		<div id="next"><a href="66.html">Next</a></div>
+		<div id="previous"><a href="64.html">Previous</a></div>		
+	</div>
+	<div id="related">
+		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="63.html">9 Cluster</a></span></li>
+</div>
+	</div>
+	<div id="footer">	
+		
+		
+    <div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+      </a></div>
+	</div>
+</div>
+
+</body>
+</html>

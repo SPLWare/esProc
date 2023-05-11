@@ -1,0 +1,258 @@
+<!--create by iword1.0 pro, http://www.voland.com.cn-->
+<!-- saved from url=(0026)http://www.runqian.com.cn/ -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>5.7 Lambda syntax *</title>
+<link rel="stylesheet" href="../images/template.css" type="text/css" />
+<link rel="stylesheet" href="document.css" type="text/css" />
+<script language="JavaScript" src="../resource/url.js"></script>
+</head>
+
+<body>
+
+<div id="content-bg">
+	<div id="centent">
+	<div id="centent-title"><h2 style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;margin-left:
+0cm;text-indent:0cm;line-height:normal;mso-list:l11 level2 lfo12;tab-stops:
+list 36.0pt left 42.55pt'><span lang=EN-US
+style='mso-fareast-font-family:"Times New Roman"'><span style='mso-list:Ignore'>5.7<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><span lang=EN-US>Lambda syntax<sup>*</sup></span></h2></div>
+	<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>Looking back at the two functions</span><span
+class=a3><span lang=EN-US style='font-size:9.0pt'> </span></span><span
+class=Charf9><span lang=EN-US style='font-family:"Times New Roman","serif"'>A.pos(x)</span></span><span
+lang=EN-US> and A.select(x), we say that the former is not a loop function, and
+the symbols ~, # can't be used in the parameter x, while the latter is a loop
+function, and the symbols ~, # can be used in the parameter. In fact, in the
+calculation process of these two functions, both of them will traverse A, that
+is, they will process the members of A one by one. What is the difference
+between the parameters of these two functions?</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>Before the introduction of loop function, all
+functions f(x) has one characteristic. If its parameter x is a calculation
+expression, it will be calculated before calculating this function f(). For
+example, </span><span class=Charf9><span lang=EN-US style='font-family:"Times New Roman","serif"'>max(3+5,2+1)</span></span><span
+lang=EN-US>, when the computer calculates max() function, the parameters
+obtained are already 8 and 3. It’s the same case even if there may be variables
+in the parameters. The calculation expression of max(x+5,y+3) cannot be
+calculated when x and y are not assigned, and after x and y are assigned, x+5
+and y+3 will be calculated first and then transferred to max function for
+calculation.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>That's OK. That's what we learned about
+functions in math class. So is the parameter of </span><span class=Charf9><span
+lang=EN-US style='font-family:"Times New Roman","serif"'>A.pos(x)</span></span><span
+lang=EN-US>.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>However, </span><span class=Charf9><span
+lang=EN-US style='font-family:"Times New Roman","serif"'>A.select(x)</span></span><span
+lang=EN-US> is different. This x may not be calculated before calculating the
+select() function. It can be calculated only in the process of calculating the
+select() function. For example, </span><span class=Charf9><span lang=EN-US
+style='font-family:"Times New Roman","serif"'>A.select(~%2==0)</span></span><span
+lang=EN-US>, we can't calculate </span><span class=Charf9><span lang=EN-US
+style='font-family:"Times New Roman","serif"'>~%2==0</span></span><span
+lang=EN-US> before calculating the select() function. There is an unknown ~,
+which can only be determined in the process of looping A, and then we can
+calculate this expression.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>For the function of sequence, its parameter
+is an expression to be calculated, which can only be calculated in the process
+of looping the sequence. The function with this characteristic is called loop
+function. Therefore, </span><span class=Charf9><span lang=EN-US
+style='font-family:"Times New Roman","serif"'>A.pos(x)</span></span><span
+lang=EN-US> and</span><span class=a3><span lang=EN-US style='font-size:9.0pt'> </span></span><span
+class=Charf9><span lang=EN-US style='font-family:"Times New Roman","serif"'>A.pseg(x)</span></span><span
+lang=EN-US> are not loop functions, while A.(x), A.run (x), A.select(x) and
+A.max(x) are loop functions.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>For non-loop functions, even if the
+parameters are written as expressions, they will be calculated as specific
+values when they are passed in.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>For a loop function, the parameter to be
+passed into the function is an expression, which contains some unknown
+variables such as ~, #. In fact, this expression can be regarded as a function
+with these unknown variables as parameters. In other words, the parameter of a
+loop function is essentially another function, not a simple value.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>This is the essential difference between a
+loop function and non-loop function, it takes function as parameter.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>The earliest programming languages did not
+support functions as parameters, and people were still inexperienced at that
+time. They simply used the experience of functions in mathematics (in fact,
+mathematicians have been engaged in functional analysis and studying functions
+of functions for a long time, but they are relatively abstruse after all).
+Later, in order to make code reuse more convenient, people introduced the
+concept of function pointer, and passed the function as a parameter to another
+function, so that the former can be called by the latter. However, it is still
+necessary to clearly define the called function with a piece of code. The code
+is complex and difficult to understand.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>For example, </span><span class=Charf9><span
+lang=EN-US style='font-family:"Times New Roman","serif"'>A.select(~%2==0) </span></span><span
+lang=EN-US>in our example, the traditional syntax is divided into two steps:
+first, define a function f(x) as </span><span class=Charf9><span lang=EN-US
+style='font-family:"Times New Roman","serif"'>x%2==0</span></span><span
+lang=EN-US>, and then use </span><span class=Charf9><span lang=EN-US
+style='font-family:"Times New Roman","serif"'>A.select(f)</span></span><span
+lang=EN-US> to calculate. In the loop calculation of the select() function, the
+current member of A is passed into the function f() as a parameter. After
+calculation, the return value is obtained, and it is decided whether to add
+this member to the return value of select().</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>In fact, the calculation logic of many
+functions that need to be used as parameters is not complex. It can be
+described clearly by a simple expression, for example, this </span><span
+class=Charf9><span lang=EN-US style='font-family:"Times New Roman","serif"'>x%2==0</span></span><span
+lang=EN-US> is very simple. It's too troublesome to define an f function for
+such a matter.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>Therefore, people further invented the
+programming syntax to define a function directly with an expression. Instead of
+defining the f function in advance, it can be directly writen into the
+parameter of the select() function:</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>A.select( f(x):{x%2==0} )</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>This method of temporarily defining functions
+in parameters is called <b>lambda syntax</b> in the industry.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>With lambda syntax, code writing is much
+easier. Now many programming languages have begun to support this syntax.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>There are still problems.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>The function to be passed in must be a
+function with parameters, which are used to refer to some variables (the
+members of A here) generated in the calculation process of the host function
+(the select() in this example). Otherwise, if there are no parameters, it
+should have been calculated before calling the host function.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>Therefore, in the above </span><span
+class=Charf9><span lang=EN-US style='font-family:"Times New Roman","serif"'>f(x):{x%2==0}</span></span><span
+lang=EN-US> syntax, there must be a way to specify the parameter. Use x in f(x)
+to tell the computer that x in </span><span class=Charf9><span lang=EN-US
+style='font-family:"Times New Roman","serif"'>x%2==0</span></span><span
+lang=EN-US> is the parameter of the function as the parameter(a bit
+roundabout), and is waitting for the host function to pass the value in. If we
+only write </span><span class=Charf9><span lang=EN-US style='font-family:"Times New Roman","serif"'>x%2==0</span></span><span
+lang=EN-US>, the computer doesn't know what x is, or is it a variable somewhere
+else?</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>It's still a bit cumbersome and confusing to
+understand, but this is the status quo of most programming languages that
+support lambda syntax.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>It's not over yet.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>The sequence number (that is #) of A’s
+members may also be used in the host function of select(). It is not enough for
+the function f() to have only one parameter, because the select() function
+needs to accept all kinds of functions as parameters, and the parameters of
+these functions must be unified, otherwise the select() function cannot call
+them.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>Therefore, this function must have at least
+two parameters, and the syntax must be written as follows:</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>A.select( f(x,y):{x%2==0} )</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>In this example, we don't use the y parameter
+prepared for the sequence number (that is #), but we have to write it in the
+definition.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>However, we know that select() may also use
+~[-1] and so on. How much more will be passed in? These parameters need to be
+defined as parameters of f() in advance. It's too troublesome. Just pass in the
+whole A and then the current sequence number. Anyway, it can be calculated.
+Finally, it may be as follows:</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>A.select( f(x,y):{x(y)%2==0} )</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>The parameter x represents the sequence to be
+calculated by the host function, and the parameter y represents the sequence
+number of the member being calculated by the host function. The rest is written
+in this definition.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>But that's inconvenient again.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>In fact, most of the programming languages
+that support lambda syntax do not come to this stage, and they only support to
+the level of </span><span class=Charf9><span lang=EN-US style='font-family:
+"Times New Roman","serif"'>f(x):{x%2==0}</span></span><span lang=EN-US>. In
+other words, there is no way to refer to sequence numbers and make adjacent
+references in expressions.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>So, how can we make the code simple and
+descriptive?</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>That's what SPL does now.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>SPL simplifies this matter by using the
+symbols of ~ and # and [] to represent the parameters of the function as a
+parameter. Therefore, it is OK to write </span><span class=Charf9><span
+lang=EN-US style='font-family:"Times New Roman","serif"'>~%2==0</span></span><span
+lang=EN-US> instead of writing f(x) to specify the parameter name.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>In this way, writing and understanding are
+simple, and because of these rich symbols, the description ability is also
+strengthened.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>&nbsp;</span></p>
+	</div>
+	<div id="previous-next">
+		<div id="next"><a href="28.html">Next</a></div>
+		<div id="previous"><a href="26.html">Previous</a></div>		
+	</div>
+	<div id="related">
+		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="20.html">5 Sequence as a whole</a></span></li>
+</div>
+	</div>
+	<div id="footer">	
+		
+		
+    <div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+      </a></div>
+	</div>
+</div>
+
+</body>
+</html>

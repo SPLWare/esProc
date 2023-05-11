@@ -1,0 +1,228 @@
+<!--create by iword1.0 pro, http://www.voland.com.cn-->
+<!-- saved from url=(0026)http://www.runqian.com.cn/ -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>3.6 Batch search</title>
+<link rel="stylesheet" href="../images/template.css" type="text/css" />
+<link rel="stylesheet" href="document.css" type="text/css" />
+<script language="JavaScript" src="../resource/url.js"></script>
+</head>
+
+<body>
+
+<div id="content-bg">
+	<div id="centent">
+	<div id="centent-title"><h2 style='margin-top:8.15pt;margin-right:0cm;margin-bottom:8.15pt;margin-left:
+0cm;text-indent:0cm;mso-list:l0 level2 lfo1'><span
+lang=EN-US style='mso-fareast-font-family:"Times New Roman"'><span
+style='mso-list:Ignore'>3.6<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><span lang=EN-US>Batch search</span></h2></div>
+	<p class=MsoNormal><span lang=EN-US>The search discussed above is mainly for a
+single search value. If there are multiple search values at the same time, should
+we simply repeat it many times?</span></p>
+
+<p class=MsoNormal><span lang=EN-US>For in-memory search, it’s OK to do this.
+Although some intermediate results may be reused in the two searches to reduce
+the amount of computation, more complex code is also required to determine
+which information can be reused (thus increasing the amount of computation). On
+the whole, better performance may not be obtained.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>For external storage search, because the
+time to read the file is much slower compared to processing judgment, if the later
+search can reuse the results already read in the previous search, it is often
+worthwhile even if the code is complex, resulting in more judgment time. More
+detailed optimization methods are needed for multiple search values.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>Let's examine the sorting index search of
+external storage. The multi-level index will form a tree structure. We assume
+that it is a K-ary tree (the K in SPL is 1024). Given the search value k<sub>1</sub>,...,
+k<sub>n</sub>, if the search starts from the root node every time, the number
+of index segments to be read is n*log<sub>K</sub>N times. If we cache all the
+index segments we have read, we can reuse these cached data and reduce the
+number of reads when looking for the subsequent search values.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>However, when n is large, we will find that
+we may need to cache a lot of index segments, because we can't predict which
+cached index segments will be used in the future. Too much cached data will
+occupy a lot of memory. Sometimes, we may be forced to discard part of the
+cache. As a result, we may repeatedly read an index segment during subsequent
+searches.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>This phenomenon can be avoided if k<sub>1</sub>,…,k<sub>n</sub>
+are sorted and then searched in turn. If the index segments read to find k<sub>i</sub>
+are not used when searching for k<sub>i+1</sub>, they can be discarded. These
+index segments will not be used again when searching for k<sub>i+2</sub>,….</span></p>
+
+<p class=MsoNormal><span lang=EN-US><img width=596 height=316
+src="Performance_Optimization.files/image005.jpg" v:shapes="_x0000_i1025"></span></p>
+
+<p class=MsoNormal><span lang=EN-US>When searching for 6, if the index segments
+read out for searching for 4 are not used</span></p>
+
+<p class=MsoNormal><span lang=EN-US>they will not be used when searching for 9</span></p>
+
+<p class=MsoNormal><span lang=EN-US>In this way, few index segments need to be
+cached when searching for these batch of values (there are only log<sub>K</sub>N
+segments at most at the same time, that is, the number from the root node to
+the leaf node, and there will not be too many even when N is large). It is easy
+to put them in memory, so as to ensure that repeated reads caused by discarding
+will not occur. The more search values per batch, the greater the overall advantage.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>The case of binary search is similar. When
+there is no index, more data needs to be read, and the reuse effect of read
+data will be more obvious.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>After finding the position of each target
+value using the index, we can't read the data in the original data table
+immediately. We have to wait to find the positions of all target values, and
+then sort the positions before reading the data in the original data table.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>The reason is similar. The original data
+table is usually stored in blocks and one data block is read at a time. If two
+target values are in the same data block, it can be read only once. After
+sorting by position, it is easy to reuse the data blocks of the target values.
+Otherwise, the data blocks in the original data table may be read repeatedly,
+resulting in a waste of time.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>Many performance optimizations are focused
+on details, and many savings together may achieve considerable performance
+improvement.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>Such an algorithm has been built in SPL.
+You can directly use contain as a condition in the function. If the search
+value is a sequence, the icursor() function will sort it first and then execute
+the above method.</span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='border-collapse:collapse;mso-table-layout-alt:fixed;border:none;
+ mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:#B2B2B2;
+ mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
+ .5pt;mso-yfti-tbllook:1184;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:
+ .5pt solid #B2B2B2;mso-border-insidev:.5pt solid #B2B2B2'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=47 valign=top style='width:1.0cm;border:solid black 1.0pt;
+  border-right:solid windowtext 1.0pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>&nbsp;</span></p>
+  </td>
+  <td width=407 valign=top style='width:244.05pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>A</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
+  <td width=47 style='width:1.0cm;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>1</span></p>
+  </td>
+  <td width=407 valign=top style='width:244.05pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal'>=file(&quot;data.ctx&quot;).open()</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
+  <td width=47 style='width:1.0cm;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>2</span></p>
+  </td>
+  <td width=407 valign=top style='width:244.05pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal'>=10000.id(rand(1000*10000)+1)</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=47 style='width:1.0cm;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>3</span></p>
+  </td>
+  <td width=407 valign=top style='width:244.05pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal'>=A1.icursor(…;A2.contain(ID)).fetch()</span></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal><span lang=EN-US>You can compare the time difference between
+performing multiple single value searches and one batch search.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>In addition, even if the preloaded index of
+SPL is used, it is still meaningful to sort the search values for the scenario
+with a huge amount of data (the fourth level index segment is required). The
+first three levels are preloaded and will not be read repeatedly. The fourth
+level index segments can only be read temporarily (there are too many segments
+in this level). After they are used, they will be discarded to reduce the memory
+occupation (the first three levels already occupy a lot of memory). Repeated
+reads may still occur when the search values are out of order. Since the first
+three levels have been cached, the proportion of this time in the whole search
+process will be more obvious.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>Multiple search values may also occur in
+multiple concurrent scenarios. Each task has only one search value, but
+hundreds or thousands of tasks may be concurrent at the same time. These tasks
+are independent of each other and need to be searched separately, which will
+also lead to a long total time. If these tasks can be aggregated and multiple values
+can be searched at one time, the total time will be much shorter than the sum
+of each search time.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>It can be processed at the application level.
+The concurrent search values in a time interval (such as 0.5 second) can be
+collected, sorted, searched together, and then returned to their respective
+requesters. In this way, each task will wait up to 0.5 second plus batch search
+time, and the front-end users will not have an obvious sense of waiting. If we
+search separately, when the number of tasks is large, the tasks behind may have
+an obvious sense of waiting.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>However, this mechanism should be
+implemented in the interface stage of the application, and the relevant examples
+cannot be given here.</span></p>
+	</div>
+	<div id="previous-next">
+		<div id="next"><a href="22.html">Next</a></div>
+		<div id="previous"><a href="20.html">Previous</a></div>		
+	</div>
+	<div id="related">
+		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="15.html">3 Search in external storage</a></span></li>
+</div>
+	</div>
+	<div id="footer">	
+		
+		
+    <div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+      </a></div>
+	</div>
+</div>
+
+</body>
+</html>

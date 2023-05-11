@@ -1,0 +1,120 @@
+<!--create by iword1.0 pro, http://www.voland.com.cn-->
+<!-- saved from url=(0026)http://www.runqian.com.cn/ -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>8.3 Redundant sorting</title>
+<link rel="stylesheet" href="../images/template.css" type="text/css" />
+<link rel="stylesheet" href="document.css" type="text/css" />
+<script language="JavaScript" src="../resource/url.js"></script>
+</head>
+
+<body>
+
+<div id="content-bg">
+	<div id="centent">
+	<div id="centent-title"><h2 style='margin-top:8.15pt;margin-right:0cm;margin-bottom:8.15pt;margin-left:
+0cm;text-indent:0cm;mso-list:l0 level2 lfo1'><span
+lang=EN-US style='mso-fareast-font-family:"Times New Roman"'><span
+style='mso-list:Ignore'>8.3<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><span lang=EN-US>Redundant sorting</span></h2></div>
+	<p class=MsoNormal><span class=jlqj4b><span lang=EN style='mso-bidi-font-size:
+10.5pt;color:black;mso-ansi-language:EN'>The aggregation operation without the
+slicing condition always involves all data.</span></span><span class=viiyi><span
+lang=EN style='mso-bidi-font-size:10.5pt;color:black;mso-ansi-language:EN'> </span></span><span
+class=jlqj4b><span lang=EN style='mso-bidi-font-size:10.5pt;color:black;
+mso-ansi-language:EN'>If the data is not pre-aggregated, there is no way to
+reduce the amount of calculation.</span></span><span class=viiyi><span lang=EN
+style='mso-bidi-font-size:10.5pt;color:black;mso-ansi-language:EN'> </span></span><span
+class=jlqj4b><span lang=EN style='mso-bidi-font-size:10.5pt;color:black;
+mso-ansi-language:EN'>However, when there are slicing conditions, if the data are
+organized reasonably, it may not be necessary to traverse all the data.</span></span><span
+lang=EN-US style='background:white;mso-font-kerning:0pt'></span></p>
+
+<p class=MsoNormal><span class=jlqj4b><span lang=EN style='mso-bidi-font-size:
+10.5pt;color:black;mso-ansi-language:EN'>By simply creating an index on the dimension
+will have some effect, but just a little. </span></span><span class=jlqj4b><span
+lang=EN style='color:black;mso-ansi-language:EN'>Although using the index can
+quickly locate the records that meet the condition, if the physical storage
+location of these data is not continuous, there will still be a lot of waste while
+reading. When the target data are too scattered, using index may not be much
+better than full traversal. The reason is that in multidimensional analysis
+operation, even if slicing is performed, the amount of data to be read is still
+very large. The main application scenario of index is often to select a small
+amount of data.</span></span></p>
+
+<p class=MsoNormal><span class=jlqj4b><span lang=EN style='color:black;
+mso-ansi-language:EN'>If the data are stored orderly by a certain dimension, the
+slicing condition of this dimension can be used to limit the target data to a
+continuous storage area, in this way, there is no need to traverse all the
+data, and the amount of reading can be effectively reduced. However, each
+dimension may have a slicing condition in theory, if the data are sorted by
+each dimension, it is equivalent to being copied several times, as a result,
+the cost of such storage is somewhat high.</span></span></p>
+
+<p class=MsoNormal><span class=jlqj4b><span lang=EN style='color:black;
+mso-ansi-language:EN'>A compromise is to store two copies of data sets, that
+is, one copy is sorted by dimensions D1,...,Dn and stored, and the other copy
+is sorted by Dn,...,D1 and stored. In this way, although the amount of data
+will be doubled, it is still acceptable.</span></span><span class=jlqj4b><span
+lang=EN style='mso-ansi-language:EN'> <span style='color:black'>For any
+dimension D, there will always be a data set that makes D in the first half of
+its sorted dimension list. If it is not the first dimension, the data after
+slicing will generally not be concatenated into a single area, but the data are
+also composed of some relatively large</span> <span style='color:black'>continuous
+areas. The closer to the top the position of dimension in the sorted dimension
+list, the higher the degree of physical order of data after slicing will be.</span></span></span><span
+class=jlqj4b><span lang=EN-US style='mso-bidi-font-size:10.5pt;background:white;
+mso-font-kerning:0pt'></span></span></p>
+
+<p class=MsoNormal><span class=jlqj4b><span lang=EN style='color:black;
+mso-ansi-language:EN'>While calculating, it is enough to use one dimension's
+slicing condition to filter, and the conditions of other dimensions are still used
+for traversal calculation. In multidimensional analysis, the slice on a certain
+dimension can often reduce the amount of data involved by several times or tens
+of times. It will be of little significance to reuse the slicing condition on
+other dimensions, and it is also very difficult to implement. When multiple
+dimensions have slicing conditions, we usually choose the dimension whose range
+is smaller than the total value range after slicing, which often means that the
+filtered amount of data is smaller.</span></span><span lang=EN
+style='mso-ansi-language:EN'></span></p>
+
+<p class=MsoNormal><span class=jlqj4b><span lang=EN style='color:black;
+mso-ansi-language:EN'>The cgroups() function implements this selection. If there
+are multiple pre-aggregated data sorted by different dimensions and there are multiple
+slicing conditions, the most appropriate pre-aggregated data will be selected. When
+cuboid() creates the pre-aggregated data, the order of grouped dimensions is meaningful
+as different pre-aggregated data will be created for different dimension
+orders.</span></span></p>
+
+<p class=MsoNormal><span class=jlqj4b><span lang=EN style='color:black;
+mso-ansi-language:EN'>It is also possible to manually select a properly sorted
+data set with code, and store more sorted data sets.</span></span></p>
+
+<p class=MsoNormal><span class=jlqj4b><span lang=EN style='color:black;
+mso-ansi-language:EN'>The redundant sorting method is not only appropriate for
+multidimensional analysis, but also for the conventional traversal with filter
+condition. The reason for taking multidimensional analysis as an example is
+that the relevant features of this method will be more obvious while slicing
+the dimensions in multi-dimensional analysis, and it is more suitable to
+explain.</span></span></p>
+	</div>
+	<div id="previous-next">
+		<div id="next"><a href="60.html">Next</a></div>
+		<div id="previous"><a href="58.html">Previous</a></div>		
+	</div>
+	<div id="related">
+		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="56.html">8 Multi-dimensional analysis</a></span></li>
+</div>
+	</div>
+	<div id="footer">	
+		
+		
+    <div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+      </a></div>
+	</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!--create by iword1.0 pro, http://www.voland.com.cn-->
+<!-- saved from url=(0026)http://www.runqian.com.cn/ -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>3.8 Merging multi indexes</title>
+<link rel="stylesheet" href="../images/template.css" type="text/css" />
+<link rel="stylesheet" href="document.css" type="text/css" />
+<script language="JavaScript" src="../resource/url.js"></script>
+</head>
+
+<body>
+
+<div id="content-bg">
+	<div id="centent">
+	<div id="centent-title"><h2 style='margin-top:8.15pt;margin-right:0cm;margin-bottom:8.15pt;margin-left:
+0cm;text-indent:0cm;mso-list:l0 level2 lfo1'><span
+lang=EN-US style='mso-fareast-font-family:"Times New Roman"'><span
+style='mso-list:Ignore'>3.8<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><span lang=EN-US>Merging multi indexes</span></h2></div>
+	<p class=MsoNormal><span lang=EN-US>In the previous sections, we explained that
+multiple indexes cannot be used at the same time. After establishing indexes
+for two fields respectively, only one index can be used in the joint condition
+query for the two fields, and the conditions of the other field still need to
+be traversed.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>In fact, this statement is not always true.
+Some optimization of index query algorithm can still make multiple indexes work
+together to a certain extent.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>For the convenience of narration, we record
+the record set satisfying x as S(x). Assuming that there are indexes for fields
+A and B respectively in the table, we need to find S(A==a &amp;&amp; B==b).
+Using the index of A can quickly locate S(A==a), but if we want to find the
+records belonging to S(B==b) from them, we can't use the index of B any more. And
+vice versa, we can use the index of B to quickly find S(B==b), but we can't
+continue to use the index of A for them.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>Generally, the physical positions of
+records stored in the index are also ordered, that is, in the index of A, the
+physical positions of records stored in S(A==a) are sorted from small to large;
+B's index is similar. This is easy to meet when building an index, or even
+naturally, because the original order of members with the same value is
+generally not changed during sorting.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>Using this, we can use the indexes of A and
+B at the same time when searching S(A==a &amp;&amp; B==b).</span></p>
+
+<p class=MsoNormal><span lang=EN-US>The process is not complicated. Use the
+index of A to obtain the cursor based on S(A==a) and use the index of B to obtain
+the cursor based on S(B==b). Both cursors are orderly for the physical position
+of records. Then, we can use the merge algorithm to calculate their
+intersection to get S(A==a &amp;&amp; B==b). This is equivalent to traversing
+both S(A==a) and S(B==b) once, and both indexes can be used at the same time.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>However, this algorithm does not
+necessarily have more advantages in complexity than traversing and calculating
+whether B==b is true in S(A==a), because the latter only needs to traverse one
+set of S(A==a), while the previous algorithm needs to traverse two sets of S(A==a)
+and S(B==b).</span></p>
+
+<p class=MsoNormal><span lang=EN-US>The advantage of this method is in practice.
+To get the intersection using merging, there is no need to read out the records
+of the original data table to calculate whether B==b is true, just compare the
+index. The index blocks may already be stored in memory, or even in external storage,
+they are stored continuously, only have two columns (to-be-searched key and
+physical position) and in row-based storage format. The reading performance is
+much better than the original dataset with multiple fields, discontinuous
+storage and columnar storage. In this way, the performance of merging and
+comparison will be better than that of reading records and then doing judgment.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>If we choose the smaller one of S(A==a) and
+S(B==b) as the criterion to merge the larger one, we can stop merging as long
+as the smaller one has been traversed, and the members in the larger one that
+have not been traversed can be abandoned. In this way, the total number of traversing
+will not be very large. When building an index, we can usually know the number
+of records of S(A==a).</span></p>
+
+<p class=MsoNormal><span lang=EN-US>Of course, this method is also applicable
+to the case where there are conditions on more fields.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>This mechanism has been implemented in SPL.
+For multi field conditions written on the cursor, such as A==a &amp;&amp; B==b
+&amp;&amp; …, SPL will automatically find the available indexes and merge them
+without programmer intervention.</span></p>
+	</div>
+	<div id="previous-next">
+		<div id="next"><a href="24.html">Next</a></div>
+		<div id="previous"><a href="22.html">Previous</a></div>		
+	</div>
+	<div id="related">
+		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="15.html">3 Search in external storage</a></span></li>
+</div>
+	</div>
+	<div id="footer">	
+		
+		
+    <div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+      </a></div>
+	</div>
+</div>
+
+</body>
+</html>

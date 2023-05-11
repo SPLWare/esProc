@@ -1,0 +1,281 @@
+<!--create by iword1.0 pro, http://www.voland.com.cn-->
+<!-- saved from url=(0026)http://www.runqian.com.cn/ -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>8.1 Structured data</title>
+<link rel="stylesheet" href="../images/template.css" type="text/css" />
+<link rel="stylesheet" href="document.css" type="text/css" />
+<script language="JavaScript" src="../resource/url.js"></script>
+</head>
+
+<body>
+
+<div id="content-bg">
+	<div id="centent">
+	<div id="centent-title"><h2 style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;margin-left:
+0cm;text-indent:0cm;line-height:normal;mso-list:l11 level2 lfo12;tab-stops:
+list 36.0pt left 42.55pt'><span lang=EN-US
+style='mso-fareast-font-family:"Times New Roman"'><span style='mso-list:Ignore'>8.1<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><span lang=EN-US>Structured data</span></h2></div>
+	<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>From this chapter, we begin to learn the tabular
+data and its processing methods that we deal with every day in our daily work.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>In the previous example of merging Excel
+files, we have seen this kind of table:</span></p>
+
+<p class=MsoNormal align=left style='margin-top:7.8pt;margin-right:0cm;
+margin-bottom:7.8pt;margin-left:0cm;text-align:left'><span lang=EN-US
+style='mso-no-proof:yes'><img border=0 width=536 height=206
+src="SPL_Programming.files/image087.jpg" v:shapes="图片_x0020_16"></span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>The first row is the title, explaining what
+is stored in each column. Each row is an item of data, which may correspond to
+a person, an organization, an order, an event. …</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>This kind of data has a professional term,
+which is called <b>structured data</b>. This is the most common data type in
+modern data processing.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>The data of the whole table is referred to as
+a <b>data table</b>, in which each row (except the title) is called a <b>record</b>,
+the column is called a<b> field</b>, and the string in the title is called a <b>field
+name</b>. There are 9 records in the visible part of the above table,
+corresponding to row 2 to 10 of the Excel; There are also six fields. The field
+names are ID, Company, Area, OrderDate, Amount and Phone. Field names are
+different from each other and can uniquely identify a column. These fields
+(including name and order) are called the <b>data structure</b> of the data
+table, or <b>structure</b> for short.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>Structured data is data with data structure.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>A2:F9 in the table is the data in the data
+table. We will say what is the value of a field of a record. For example, the
+ID field of the second record is 10248, and the area field of the eighth record
+is &quot;Center&quot;. Each field of each record in the data table will have a
+value.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>Note that only fields in the data table have
+names, and records have no names. We will talk about how to identify and
+distinguish records later.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>There can be various data tables, and the
+data structure of different data tables can of course be different. A data
+table must have a set of data structure, and there can only be one. Sometimes
+we also say the record structure, which means the structure of the data table
+where the record is located.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>Because structured data is often presented in
+the form of this row-column style table, we will also intuitively call records
+and fields <b>rows</b> and <b>columns</b>. This is a common term in the
+database industry, not a popular term invented in this book. Even, sometimes
+there are no obvious rows and columns when the data table is presented (we will
+talk about such an example soon), people still use the terms row and column to
+represent record and field.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>Structured data in the form of tables is very
+common in reality, and most readers will have this experience. It is not
+difficult to understand the concepts of records and fields by looking at a
+table. We won't give more examples here.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>However, structured data is not always
+presented in the form of the above table, it may also be something else.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>For example:</span></p>
+
+<p class=MsoNormal align=left style='margin-top:7.8pt;margin-right:0cm;
+margin-bottom:7.8pt;margin-left:0cm;text-align:left'><span lang=EN-US
+style='mso-no-proof:yes'><img border=0 width=572 height=183
+src="SPL_Programming.files/image089.jpg" v:shapes="图片_x0020_12"></span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>The data from row 5 can be regarded as a data
+table, but what are the fields? It seems that the contents in row 3 and 4 are
+the field names, but the string with a space in the middle, Item Code, is
+usually not suitable for the field name (in fact, SPL supports it, but it is
+rarely used, and this book does not intend to cover it), and it is unclear
+whether the field names in columns F and G on the right are the contents of F4
+and G4.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>In fact, the contents of row 3 and 4 here can
+only be regarded as a description of the fields. The real data structure
+(mainly the field name) is not necessarily the content of the title row seen in
+the table, but can also be described and set separately.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>There is also this form:</span></p>
+
+<p class=MsoNormal align=left style='margin-top:7.8pt;margin-right:0cm;
+margin-bottom:7.8pt;margin-left:0cm;text-align:left'><span lang=EN-US
+style='mso-no-proof:yes'><img border=0 width=386 height=410
+src="SPL_Programming.files/image090.png" v:shapes="图片_x0020_27"></span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>This is no longer in the form of row-column
+table, but it can still form a data table with 2 records. The fields can be ID,
+Name, Sex, Position, Birthday, Phone, Address and Postcode.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>So, what is structured data and data table?</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>Look at the above examples. The data in the
+same Excel describes the same kind of things, such as a person, an order, etc.
+These things have the same attributes. For example, people have common
+attributes such as Name,Sex,Birthday, and orders also have common attributes
+such as customer, date and amount. Each thing is a record, and these attributes
+are fields. A batch of things with the same attributes constitute a data table,
+that is, the data table has multiple records and fields.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>Data table, record and field are abstract
+concepts, which essentially correspond to something and its attributes. They are
+not the same as the Excel table. The data table does not have a fixed rendering
+style that must be observed, but for easy recognition, it is usually rendered
+as a row-column table and filled with field names in the title.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>For the data in Excel table, as long as the
+attributes used to describe a certain kind of things can be extracted, and if
+there are multiple similar things with the same attributes, it can be
+considered as structured data. As for what the title content of the table is,
+whether there is a title, or even whether the table is in row-column form, it
+is not an important factor. The key is only whether a class of things with
+(common) attributes is described.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>Look at another table:</span></p>
+
+<p class=MsoNormal align=left style='margin-top:7.8pt;margin-right:0cm;
+margin-bottom:7.8pt;margin-left:0cm;text-align:left'><span lang=EN-US
+style='mso-no-proof:yes'><img border=0 width=571 height=212
+src="SPL_Programming.files/image092.jpg" v:shapes="图片_x0020_19"></span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>Can we find structured data from here? In
+other words, can we extract things described by attributes?</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>Yes, but there are two data tables here. The
+first is in the upper part, describing the basic information of an employee,
+and the fields include Name, Sex, Birthday, Nation, IDCard, …; The second is in
+the lower part, describing the employee's family members, and the fields
+include Name, Relation, Workplace, Phone. Employees themselves and family
+members are two different things with different attributes. A data table can
+only have one set of data structure and can only describe one kind of things.
+To fully describe the information of an employee, two data tables (employee and
+family members) are required.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>There is another case like this:<span
+style='mso-no-proof:yes'></span></span></p>
+
+<p class=MsoNormal align=left style='margin-top:7.8pt;margin-right:0cm;
+margin-bottom:7.8pt;margin-left:0cm;text-align:left'><span lang=EN-US><img border=0 width=630 height=257
+src="SPL_Programming.files/image094.png" alt=imagepng v:shapes="_x0000_i1104"></span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>This looks like a row table, and it should be
+easy to extract structured data. But what is the data structure?</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>Simply put, we can take each column as a
+field name, that is, Type, West, East, …. This is indeed a method, but it is
+not convenient. The computing ability of structured data in the direction of
+rows and columns (records and fields) is different. When we want to calculate
+the sum of various regions, it is troublesome to list the fields one by one,
+while the statistics on records is much easier.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>In order to facilitate statistics, for this
+cross table, we usually design a data table with three fields: Type, Area,
+Amount. In this way, the statistics in both directions will be relatively
+simple, and if necessary, the table can be displayed in another way. For
+example, put Area on the row and Type on the column, which does not affect the
+data structure.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>However, to design the structure like above
+is not inevitable. It should be determined according to the calculation
+objectives of the next step. Sometimes it is still designed as Type, West,
+East, …, which will be more convenient.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>To find out structured data from chaotic
+tables, we call this work <b>structure analysis.</b> It is not a very obvious
+and easy task. We need to design a reasonable data structure according to
+different conditions and objectives. Structure analysis is also a very important
+work. If the data is not structured, it is difficult to implement further
+calculation, and the data that cannot be calculated is meaningless.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>Of course, structured data is not always
+stored as Excel files (conversely, the data stored in Excel is not always
+structured data). In fact, the most structured data is stored in the database.
+However, the knowledge of database is too professional to be covered in this
+book.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>In daily work, in addition to Excel files,
+text files are also commonly used to store structured data. There are two
+common formats: txt and csv. Text files usually correspond to one record per
+line. Usually, the first line will be the title, usually the field names. The
+columns of txt files are separated by tabs(\t), while csv files are separated
+by commas.</span></p>
+
+<p class=MsoNormal align=left style='margin-top:7.8pt;margin-right:0cm;
+margin-bottom:7.8pt;margin-left:0cm;text-align:left'><span lang=EN-US
+style='mso-no-proof:yes'><img border=0 width=598 height=153
+src="SPL_Programming.files/image096.jpg" v:shapes="图片_x0020_20"></span></p>
+
+<p class=MsoNormal align=left style='margin-top:7.8pt;margin-right:0cm;
+margin-bottom:7.8pt;margin-left:0cm;text-align:left'><span lang=EN-US>A txt
+file separated by tab</span></p>
+
+<p class=MsoNormal align=left style='margin-top:7.8pt;margin-right:0cm;
+margin-bottom:7.8pt;margin-left:0cm;text-align:left'><span lang=EN-US
+style='mso-no-proof:yes'><img border=0 width=584 height=144
+src="SPL_Programming.files/image098.jpg" v:shapes="图片_x0020_21"></span></p>
+
+<p class=MsoNormal align=left style='margin-top:7.8pt;margin-right:0cm;
+margin-bottom:7.8pt;margin-left:0cm;text-align:left'><span lang=EN-US>A csv
+file separated by comma</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>The text file is obviously not as neat as
+Excel in display, but it will not cause the field dislocation of the record. </span></p>
+	</div>
+	<div id="previous-next">
+		<div id="next"><a href="38.html">Next</a></div>
+		<div id="previous"><a href="36.html">Previous</a></div>		
+	</div>
+	<div id="related">
+		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="36.html">8 Data table</a></span></li>
+</div>
+	</div>
+	<div id="footer">	
+		
+		
+    <div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+      </a></div>
+	</div>
+</div>
+
+</body>
+</html>

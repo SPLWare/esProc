@@ -1,0 +1,192 @@
+<!--create by iword1.0 pro, http://www.voland.com.cn-->
+<!-- saved from url=(0026)http://www.runqian.com.cn/ -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>3.9 Full-text searching</title>
+<link rel="stylesheet" href="../images/template.css" type="text/css" />
+<link rel="stylesheet" href="document.css" type="text/css" />
+<script language="JavaScript" src="../resource/url.js"></script>
+</head>
+
+<body>
+
+<div id="content-bg">
+	<div id="centent">
+	<div id="centent-title"><h2 style='margin-top:8.15pt;margin-right:0cm;margin-bottom:8.15pt;margin-left:
+0cm;text-indent:0cm;mso-list:l0 level2 lfo1'><span
+lang=EN-US style='mso-fareast-font-family:"Times New Roman"'><span
+style='mso-list:Ignore'>3.9<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><span lang=EN-US>Full-text searching</span></h2></div>
+	<p class=MsoNormal><span lang=EN-US>In structured data query, we often query
+records where a string field contains a certain substring. If the condition is like(X,&quot;abc*&quot;),
+that is, the substring is located in the front of the searched field, we can
+use the index of the field to locate quickly. Because records that meet the condition
+like(X,&quot;abc*&quot;) must be stored continuously in the sorting index of X,
+we can quickly locate the first record using the substring abc (or we can
+quickly judge that none of them exist), and then continue to traverse until the
+original condition is no longer satisfied. This mechanism is implemented in SPL,
+when this condition is found, it will check whether X has a sorting index and
+take advantage of it.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>If the substring is located in the middle
+of the field to be searched, that is, the condition in the form of like(X,&quot;*abc*&quot;),
+we can no longer use the various indexes mentioned above, and we need to
+establish an index for text.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>Search oriented full-text retrieval can
+certainly solve this problem, but its index is too large (because it also faces
+a larger amount of data), and it may also involve very professional natural language
+understanding and word segmentation technology, and is not suitable to be introduced
+into structured data computing tasks.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>The scale of structured data is also much
+smaller than the web pages faced by search, and the search scope will generally
+be limited to a certain field, so the amount of data involved will be smaller.
+Moreover, the string as the field content is usually a few characters to a sentence,
+and it is rarely a whole article like a web page. In this case, a simpler
+technology can be used.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>Take apart the characters of the field
+(string type) and get all combinations of the two (or three) characters that
+have appeared. For example, from the string abcd, we can get the combination of
+ab, bc and cd. Then, establish a sorting index for these extracted combinations.
+The to-be-searched key value is these character combinations, corresponding to
+the record of the field where the character combination has appeared.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>The index built in this way will not be
+very large. There are about thousands of commonly used characters (Chinese
+characters and English characters). If only two characters are taken, the
+maximum number of such combinations is thousands by thousands, about one million
+to ten million, which is not very large. If we get three characters, it will be
+several billion to ten billion, and modern better servers can support it.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>Let's look at how to do the search. Take
+the combination of two characters as an example, and continue to use the symbols
+in the previous section.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>It is easy to prove that S(like(X,&quot;*abc*&quot;))</span><span
+lang=EN-US style='font-family:Symbol;mso-ascii-font-family:"Times New Roman";
+mso-hansi-font-family:"Times New Roman";mso-char-type:symbol;mso-symbol-font-family:
+Symbol'><span style='mso-char-type:symbol;mso-symbol-font-family:Symbol'>&Iacute;</span></span><span
+lang=EN-US>S(like(X,&quot;*ab*&quot;))</span><span lang=EN-US style='font-family:
+Symbol;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman";
+mso-char-type:symbol;mso-symbol-font-family:Symbol'><span style='mso-char-type:
+symbol;mso-symbol-font-family:Symbol'>&Ccedil;</span></span><span lang=EN-US>S(like(X,&quot;*bc*&quot;)).
+Using this index, we can easily find S(like(X,&quot;*ab*&quot;)) and S(like(X,&quot;*bc*&quot;)).
+Then we can find S(like(X,&quot;*ab*&quot;))</span><span lang=EN-US
+style='font-family:Symbol;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:
+"Times New Roman";mso-char-type:symbol;mso-symbol-font-family:Symbol'><span
+style='mso-char-type:symbol;mso-symbol-font-family:Symbol'>&Ccedil;</span></span><span
+lang=EN-US>S(like(X,&quot;*bc*&quot;)) by using the index merging technology in
+the previous section, and then further check whether the condition like(X,&quot;*abc*&quot;)
+is true in this set to find the final target values (the target values are
+included in this set, and they not necessarily equal). But in any case, this
+can make the computation much less than hard traversal, and does not need
+high-cost full-text retrieval technology.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>This simplified full-text indexing is
+implemented in SPL:</span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=589
+ style='border-collapse:collapse;mso-table-layout-alt:fixed;border:none;
+ mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:#B2B2B2;
+ mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
+ .5pt;mso-yfti-tbllook:1184;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:
+ .5pt solid #B2B2B2;mso-border-insidev:.5pt solid #B2B2B2'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=47 valign=top style='width:1.0cm;border:solid black 1.0pt;
+  border-right:solid windowtext 1.0pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>&nbsp;</span></p>
+  </td>
+  <td width=552 valign=top style='width:331.1pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>A</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
+  <td width=47 style='width:1.0cm;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>1</span></p>
+  </td>
+  <td width=552 valign=top style='width:331.1pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal'>=file(&quot;data.ctx&quot;).open()</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
+  <td width=47 style='width:1.0cm;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>2</span></p>
+  </td>
+  <td width=552 valign=top style='width:331.1pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal'>=A1.index@w(IDW;X)</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=47 style='width:1.0cm;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>3</span></p>
+  </td>
+  <td width=552 valign=top style='width:331.1pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal'>=A1.icursor(like(X,&quot;*abc*&quot;))</span></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal><span lang=EN-US>Using index@w() will establish this index. At
+present, the two-character scheme is used, which is also sufficient in many
+scenarios. When searching, you can directly use like as a condition.</span></p>
+	</div>
+	<div id="previous-next">
+		<div id="next"><a href="25.html">Next</a></div>
+		<div id="previous"><a href="23.html">Previous</a></div>		
+	</div>
+	<div id="related">
+		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="15.html">3 Search in external storage</a></span></li>
+</div>
+	</div>
+	<div id="footer">	
+		
+		
+    <div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+      </a></div>
+	</div>
+</div>
+
+</body>
+</html>

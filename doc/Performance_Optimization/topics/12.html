@@ -1,0 +1,386 @@
+<!--create by iword1.0 pro, http://www.voland.com.cn-->
+<!-- saved from url=(0026)http://www.runqian.com.cn/ -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>2.4 Composite table and columnar storage</title>
+<link rel="stylesheet" href="../images/template.css" type="text/css" />
+<link rel="stylesheet" href="document.css" type="text/css" />
+<script language="JavaScript" src="../resource/url.js"></script>
+</head>
+
+<body>
+
+<div id="content-bg">
+	<div id="centent">
+	<div id="centent-title"><h2 style='margin-top:8.15pt;margin-right:0cm;margin-bottom:8.15pt;margin-left:
+0cm;text-indent:0cm;mso-list:l0 level2 lfo1'><span
+lang=EN-US style='mso-fareast-font-family:"Times New Roman"'><span
+style='mso-list:Ignore'>2.4<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><span lang=EN-US>Composite table and columnar
+storage</span></h2></div>
+	<p class=MsoNormal><span lang=EN-US>Text files and bin files store each record
+in turn. This method is called <b>row-based storage</b>.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>Most operations do not use all fields of
+the data table. Because the hard disk must be read in blocks, almost the whole
+record must be read out no matter how many fields are read in the row-based
+storage mode. The optimization that can be done is not to process (such as
+generating corresponding data objects) after reading, but the reading time of
+the hard disk is indispensable.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>If <b>columnar storage</b> is used,
+redundant reading can be avoided.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>The so-called columnar storage is to
+continuously store the values of the same field of each record in the data
+table. In this way, if only a few fields are used in the operation, only the
+data corresponding to these fields will be read, which can reduce the amount of
+reading and effectively improve the performance.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>However, considering that the data will be
+appended, columnar storage will be much more troublesome than row-based
+storage. Data is usually appended by records. In case of row-based storage, we
+only need to append records to the end. In case of columnar storage, we can't
+do so simply. We need to append the field values behind their respective areas,
+which requires that there is a reserved space in the field storage area,
+otherwise it is difficult to ensure the continuity of data of the same field.
+However, we don't know how many records there are in total, let alone the space
+occupied by each field, so we can't reserve appropriate space.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>The general processing method adopts
+blocking, and the whole data area is composed of some data blocks with a
+certain size. The values of the same field will be stored in the same data
+block. When the data block is full, a new data block will be generated to continue
+storing. In this way, a field will occupy several data blocks, and it is
+discontinuous between the blocks, but the field values inside the data block
+are stored continuously. As long as the data block is large enough (more than 1M
+of modern hard disk is basically enough), the excess reading of hard disk
+caused by discontinuity between data blocks can be ignored.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>Now that blocks are used, we can conveniently
+make a <b>minmax</b> index on the data block, that is, record the maximum and
+minimum values of the field values in the block to the block header, which does
+not take up much space. When performing filtering, if it is found that the
+field value to be compared is not within the maximum and minimum value range of
+the current block, the whole block can be directly skipped without reading and
+parsing, which can further reduce the amount of reading and calculation.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>Another trouble with columnar storage is
+the synchronization of segments.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>The number of field values stored in each
+data block is different. Except for the first data block of each field, any
+other data block of two different fields cannot guarantee that they store the
+fields of the same batch of records. The columnar storage realized by simply
+using data blocks cannot realize segmentation.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>The commonly used method in the industry is
+to batch the data by records. For example, every 1M records are used as a batch,
+and the columnar storage is used in the above block mode. The segmentation can
+only be based on the whole batch, and it cannot be carried out within the
+batch.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>This method is relatively effective when
+the amount of data is very large. Because a batch must be large enough so that
+the data blocks in columnar storage can continuously store enough data. The
+number of batches should also be large enough, otherwise the segmentation will
+be limited, because the segmentation can only be based on each batch. This method
+is suitable only when the number of records reaches 100 million or even
+greater.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>This problem can be solved by using the double
+increment segmentation method.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>The data is no longer batched, but the a fore
+mentioned index area is established for the data area (composed of multiple
+data blocks) of each field, and the starting data block of each segment and the
+position in the block are recorded in the index area. When adding records, all index
+areas will be filled and double-increased synchronously to ensure consistency.
+The number of records (actually the number of field values) corresponding to all
+the index blocks in the index area is the same. In this way, it can also ensure
+that the segment with the same serial number of different fields will always correspond
+to the field values of the same records. Good segmentation effect can be
+obtained without a large amount of data.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>The columnar storage file of SPL is called the
+<b>composite table</b>, which implements the above data storing, minmax index
+and double increment segmentation mechanism.</span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=637
+ style='border-collapse:collapse;mso-table-layout-alt:fixed;border:none;
+ mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:#B2B2B2;
+ mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
+ .5pt;mso-yfti-tbllook:1184;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:
+ .5pt solid #B2B2B2;mso-border-insidev:.5pt solid #B2B2B2'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=47 valign=top style='width:1.0cm;border:solid black 1.0pt;
+  border-right:solid windowtext 1.0pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>&nbsp;</span></p>
+  </td>
+  <td width=187 valign=top style='width:112.0pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>A</span></p>
+  </td>
+  <td width=224 valign=top style='width:134.65pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>B</span></p>
+  </td>
+  <td width=189 valign=top style='width:113.2pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>C</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:14.15pt'>
+  <td width=47 style='width:1.0cm;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>1</span></p>
+  </td>
+  <td width=187 valign=top style='width:112.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal'>=file(&quot;data.ctx&quot;)</span></span></p>
+  </td>
+  <td width=224 valign=top style='width:134.65pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal'>=file(&quot;date.btx&quot;)</span></span></p>
+  </td>
+  <td width=189 valign=top style='width:113.2pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal'>&nbsp;</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:14.15pt'>
+  <td width=47 style='width:1.0cm;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>2</span></p>
+  </td>
+  <td width=187 valign=top style='width:112.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal'>=A1.create(…)</span></span></p>
+  </td>
+  <td width=224 valign=top style='width:134.65pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal'>=A2.append(B1.cursor@b())</span></span></p>
+  </td>
+  <td width=189 valign=top style='width:113.2pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal'>&nbsp;</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;page-break-inside:avoid;height:14.15pt'>
+  <td width=47 style='width:1.0cm;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>3</span></p>
+  </td>
+  <td width=187 valign=top style='width:112.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal'>=A1.open()</span></span></p>
+  </td>
+  <td width=224 valign=top style='width:134.65pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal'>&nbsp;</span></span></p>
+  </td>
+  <td width=189 valign=top style='width:113.2pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal'>&nbsp;</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4;page-break-inside:avoid;height:14.15pt'>
+  <td width=47 style='width:1.0cm;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>4</span></p>
+  </td>
+  <td width=187 valign=top style='width:112.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal'>=A3.cursor(…;;4:10)</span></span></p>
+  </td>
+  <td width=224 valign=top style='width:134.65pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal'>=A3.cursor(…;;5:10)</span></span></p>
+  </td>
+  <td width=189 valign=top style='width:113.2pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal'>=A3.cursor(…;23:100)</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:5;mso-yfti-lastrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=47 style='width:1.0cm;border-top:none;border-left:solid black 1.0pt;
+  border-bottom:solid black 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  mso-border-right-alt:solid windowtext .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='margin-top:8.15pt;margin-right:0cm;margin-bottom:
+  8.15pt;margin-left:0cm'><span lang=EN-US style='font-family:"Times New Roman","serif"'>5</span></p>
+  </td>
+  <td width=187 valign=top style='width:112.0pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal'>=A4.fetch(1)</span></span></p>
+  </td>
+  <td width=224 valign=top style='width:134.65pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal'>=B4.fetch(100)</span></span></p>
+  </td>
+  <td width=189 valign=top style='width:113.2pt;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  10.5pt;font-family:"Times New Roman","serif";mso-fareast-font-family:楷体;
+  font-weight:normal'>=C4.fetch()</span></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal><span lang=EN-US>Unlike bin files, a composite table needs
+to be created before appending data (A2 creates, B2 appends data). When
+creating a composite table, we need to first specify the data structure
+(part... in A2), which is somewhat similar to the need to CREATE TABLE for tables
+in the database. A4, B4 and C4 generate the cursors of different segments. Note
+that one more semicolon should be written. When creating a composite table, columnar
+storage will be used by default. When reading, specify the field names to be
+used in the parameters (... in A4, B4, C4), so as to take advantage of columnar
+storage to reduce the amount of reading.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>The encoding method of structured data is
+generally not very compact (even if the optimization method mentioned in the
+previous section is used), so there is often some room for compression. After
+the data is compressed, the space occupation of the hard disk can be reduced,
+so as to reduce the reading time, but decompression will increase the amount of
+CPU computing and consume more computing time. The compression effect is also
+related to the algorithm used. Algorithms with high compression rate usually
+occupy more CPU time during decompression. Therefore, whether to compress or not
+is not a definite choice. It can only be determined according to the actual
+situation or even after certain tests.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>Columnar storage is more conducive to data
+compression than row-based storage. In structured data, the data type of the
+same field is generally the same, and even the values are very close in some
+cases. The data blocks composed of such a batch of data usually have a good
+compression rate.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>Columnar storage and compression are used
+by default when creating a composite table. SPL provides options for the user
+to choose row-based storage or no compression.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>When column storage is adopted, if a field
+in the data table is orderly, it means that the field values of adjacent
+records are more likely to be the same. In this way, only the number of duplicates
+and one value can be stored instead of storing the same value many times, and
+the saved space is considerable.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>In order to use this scheme, we can sort the
+data in advance and then store it in the file. However, a data table can only
+have one sort scheme. When it is ordered by field A, it cannot be ordered by
+field B at the same time. Which field should be preferred in sorting?</span></p>
+
+<p class=MsoNormal><span lang=EN-US>If we do not need to consider other
+factors, we can generally choose the field with more repetition to be listed
+first. To be precise, if T.id(A).len() is less than T.id(B).len(), then sort by
+A first and then by B, the space occupied is usually less.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>When the ordered data is appended to the
+columnar storage composite table, SPL will automatically execute the above
+scheme, only record the value once and number of repetitions, without user intervention.</span></p>
+	</div>
+	<div id="previous-next">
+		<div id="next"><a href="13.html">Next</a></div>
+		<div id="previous"><a href="11.html">Previous</a></div>		
+	</div>
+	<div id="related">
+		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="8.html">2 Dataset in external storage</a></span></li>
+</div>
+	</div>
+	<div id="footer">	
+		
+		
+    <div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+      </a></div>
+	</div>
+</div>
+
+</body>
+</html>

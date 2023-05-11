@@ -1,0 +1,145 @@
+<!--create by iword1.0 pro, http://www.voland.com.cn-->
+<!-- saved from url=(0026)http://www.runqian.com.cn/ -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>5.4 Iterative function *</title>
+<link rel="stylesheet" href="../images/template.css" type="text/css" />
+<link rel="stylesheet" href="document.css" type="text/css" />
+<script language="JavaScript" src="../resource/url.js"></script>
+</head>
+
+<body>
+
+<div id="content-bg">
+	<div id="centent">
+	<div id="centent-title"><h2 style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;margin-left:
+0cm;text-indent:0cm;line-height:normal;mso-list:l11 level2 lfo12;tab-stops:
+list 36.0pt left 42.55pt'><span lang=EN-US
+style='mso-fareast-font-family:"Times New Roman"'><span style='mso-list:Ignore'>5.4<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><span lang=EN-US>Iterative function<sup>*</sup></span></h2></div>
+	<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>We can also use more basic <b>iterative function</b>
+to complete the calculation of <i style='mso-bidi-font-style:normal'>e</i>
+without using a temporary variable.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>Iterative function</span><span class=a3><span
+lang=EN-US style='font-size:9.0pt'> </span></span><span class=Charf9><span
+lang=EN-US style='font-family:"Times New Roman","serif"'>A.iterate@a(x,a)</span></span><span
+lang=EN-US> of sequence A has two parameters x and a. We’ll neglect the @a here
+for the moment, simply think that @a is a part of the function name, i.e., the
+function name is iterate@a. We'll talk about this @ soon.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>As a loop function, </span><span
+class=Charf9><span lang=EN-US style='font-family:"Times New Roman","serif"'>A.iterate@a(x,a)</span></span><span
+lang=EN-US> will calculate x for each member of A, ~ and # can be used in
+expression x to represent the current member and sequence number of A in the
+loop, which is the same as other loop functions. The difference is that the
+symbol ~~ is also provided in the iterative function, which is used to
+represent the x calculated in the previous cycle. When the loop starts, the initial
+value of ~~ is the parameter a. After all members loop, return the sequence of
+~~, which has the same length as A.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>The function A.iterate (x,a) without @a is
+defined as the last member of </span><span class=Charf9><span lang=EN-US
+style='font-family:"Times New Roman","serif"'>A.iterate@a(x,a)</span></span><span
+lang=EN-US>, that is, the intermediate process is no longer integrated into the
+sequence, only retain the last ~~.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>Let's go through a few examples:</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>1. A.iterate(~~+~,0)</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>The initial ~~ is 0, the current member ~
+will be added to ~~ in each round of the loop, and finally we’ll get the sum of
+all members, namely A.sum().</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>2.</span><span class=a3><span lang=EN-US
+style='font-size:9.0pt'> </span></span><span class=Charf9><span lang=EN-US
+style='font-family:"Times New Roman","serif"'>A.iterate@a(~~+~,0)</span></span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>@a retains the results of each round of
+calculation, that is, the cumulative value from the beginning to the current
+member, which is equivalent to </span><span class=Charf9><span lang=EN-US
+style='font-family:"Times New Roman","serif"'>A.([:0].sum())</span></span><span
+lang=EN-US>.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>3. </span><span class=Charf9><span
+lang=EN-US style='font-family:"Times New Roman","serif"'>A.iterate(if(~~&lt;~,~,~~),-inf())</span></span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>inf() is infinity, -inf() is negative infinity,
+which is the minimum number. In each cycle, if the current member ~ is larger
+than ~~, ~~ is replaced by ~, and the final result is A.max().</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>4. A.iterate(if(~~&gt;~,~,~~),inf())</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>This is similar to the previous one, and will
+get A.min().</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>5. A.iterate(if(~,~~+1,~~),0)</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>After analysis, we can see that it will be
+calculated as A.count().</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>It seems that the iterative function is the
+&quot;parent function&quot; of these aggregate functions, which can be defined
+by the iterative function. It is easy to define an operation of successive
+multiplication of sequence members with iterative function: </span><span
+class=Charf9><span lang=EN-US style='font-family:"Times New Roman","serif"'>A.iterate(~~*~,1)</span></span><span
+lang=EN-US>. Factorial operation is a special case: </span><span class=Charf9><span
+lang=EN-US style='font-family:"Times New Roman","serif"'>n.iterate(~~*~,1)</span></span><span
+lang=EN-US>.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>In fact, A.(x) can also be interpreted as </span><span
+class=Charf9><span lang=EN-US style='font-family:"Times New Roman","serif"'>A.iterate(~~|[x],[])</span></span><span
+lang=EN-US> or </span><span class=Charf9><span lang=EN-US style='font-family:
+"Times New Roman","serif"'>A.iterate@a(x,null).</span></span><span lang=EN-US>
+Iterative function is indeed the &quot;parent function&quot; of other loop functions.</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>Now we can calculate <i style='mso-bidi-font-style:
+normal'>e</i> in one line:</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>=1+20.iterate@a(~~*~,1).sum(1/~)</span></p>
+
+<p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;
+margin-left:0cm'><span lang=EN-US>The iterative function in the middle will
+also be calculated as a sequence of factorial values.</span></p>
+	</div>
+	<div id="previous-next">
+		<div id="next"><a href="25.html">Next</a></div>
+		<div id="previous"><a href="23.html">Previous</a></div>		
+	</div>
+	<div id="related">
+		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="20.html">5 Sequence as a whole</a></span></li>
+</div>
+	</div>
+	<div id="footer">	
+		
+		
+    <div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+      </a></div>
+	</div>
+</div>
+
+</body>
+</html>
