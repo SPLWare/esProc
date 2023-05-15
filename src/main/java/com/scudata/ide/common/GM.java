@@ -7,7 +7,6 @@ import java.awt.Cursor;
 import java.awt.Desktop;
 import java.awt.Dialog;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Frame;
 import java.awt.GraphicsEnvironment;
@@ -44,7 +43,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
@@ -1719,17 +1717,18 @@ public class GM {
 	/**
 	 * Font map. Key:Font name, Value:Font object
 	 */
-	private static HashMap<String, Font> fontMap = new HashMap<String, Font>();
+	// private static HashMap<String, Font> fontMap = new HashMap<String,
+	// Font>();
 	/**
 	 * Statically load the font map
 	 */
-	static {
-		String[] fonts = GM.getFontNames();
-		for (int i = 0; i < fonts.length; i++) {
-			String font = fonts[i];
-			fontMap.put(font, new Font(font, Font.PLAIN, 9));
-		}
-	}
+	// static {
+	// String[] fonts = GM.getFontNames();
+	// for (int i = 0; i < fonts.length; i++) {
+	// String font = fonts[i];
+	// fontMap.put(font, new Font(font, Font.PLAIN, 9));
+	// }
+	// }
 
 	/**
 	 * Return the font object based on the font name.
@@ -1737,9 +1736,9 @@ public class GM {
 	 * @param fontName Font name
 	 * @return
 	 */
-	public static Font getFont(String fontName) {
-		return (Font) fontMap.get(fontName);
-	}
+	// public static Font getFont(String fontName) {
+	// return (Font) fontMap.get(fontName);
+	// }
 
 	/**
 	 * Get the font of the current user's machine environment. Return according to
