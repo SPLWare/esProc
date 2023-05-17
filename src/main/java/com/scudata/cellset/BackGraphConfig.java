@@ -167,11 +167,11 @@ public class BackGraphConfig implements Externalizable, ICloneable, Cloneable,
 		return this.imageBytes;
 	}
 	
-	public Image getBufferedImage() {
+	public BufferedImage getBufferedImage() {
 		return getBufferedImage(imageBytes);
 	}
 	
-	public static Image getBufferedImage(byte[] imageBytes) {
+	public static BufferedImage getBufferedImage(byte[] imageBytes) {
 		try {
 			ByteArrayInputStream bis = new ByteArrayInputStream(
 					imageBytes);
