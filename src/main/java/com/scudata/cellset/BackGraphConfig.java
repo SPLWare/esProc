@@ -20,6 +20,7 @@ import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 import com.scudata.chart.Utils;
 import com.scudata.common.ByteArrayInputRecord;
@@ -166,12 +167,11 @@ public class BackGraphConfig implements Externalizable, ICloneable, Cloneable,
 		return this.imageBytes;
 	}
 	
-	public BufferedImage getBufferedImage() {
+	public Image getBufferedImage() {
 		return getBufferedImage(imageBytes);
 	}
 	
-	public static BufferedImage getBufferedImage(byte[] imageBytes) {
-		if (imageBytes==null) return null;
+	public static Image getBufferedImage(byte[] imageBytes) {
 		try {
 			ByteArrayInputStream bis = new ByteArrayInputStream(
 					imageBytes);
@@ -225,7 +225,7 @@ public class BackGraphConfig implements Externalizable, ICloneable, Cloneable,
 		drawImage(g, w, h, scale, x1, y1, x2, y2, 0, 0);
 	}
 
-	public void drawImage(Graphics g, int w, int h, float scale, int x1,
+	public synchronized void drawImage(Graphics g, int w, int h, float scale, int x1,
 			int y1, int x2, int y2, int dx, int dy) {
 		switch (imgSource) {
 		case SOURCE_PICTURE:
@@ -236,20 +236,12 @@ public class BackGraphConfig implements Externalizable, ICloneable, Cloneable,
 			int iw,
 			ih;// 图片尺寸
 			Image image;
+			
 			if (graphChanged) {
-				BufferedImage bimage = getBufferedImage(imageBytes);
+				Image bimage = getBufferedImage(imageBytes);
 				if(bimage==null) {
 					return;
 				}
-//				BufferedImage bimage = null;
-//				try {
-//					ByteArrayInputStream bis = new ByteArrayInputStream(
-//							imageBytes);
-//					bimage = ImageIO.read(bis);
-//				} catch (IOException e) {
-//					Logger.error(e);
-//					return;
-//				}
 				iw = bimage.getWidth(null);
 				ih = bimage.getHeight(null);
 				if (iw * ih <= 0) {
@@ -257,6 +249,7 @@ public class BackGraphConfig implements Externalizable, ICloneable, Cloneable,
 				}
 				iw = (int) (iw * scale);
 				ih = (int) (ih * scale);
+				
 				if (scale != 1.0f) {
 					image = bimage.getScaledInstance(iw, ih,
 							java.awt.Image.SCALE_SMOOTH);
@@ -280,17 +273,18 @@ public class BackGraphConfig implements Externalizable, ICloneable, Cloneable,
 				try {
 					g.setClip(x1, y1, x2 - x1, y2 - y1); // 图片不能超出绘制范围
 					g.drawImage(image, dx, dy, iw, ih, null);
-				} finally {
+				}catch(Exception x) {
+				}finally {
 					g.setClip(oldClip);
 				}
-				// image = ImageUtils.drawAndReturnFixImage(g, image, 0, 0, w,
-				// h);
 				break;
 			case MODE_FILL:
 				try {
 					g.setClip(x1, y1, x2 - x1, y2 - y1); // 图片不能超出绘制范围
 					g.drawImage(image, dx, dy, w, h, null);
-				} finally {
+				}catch(Exception x) {//不明原因，PDF插件中打印预览带背景图时，同样的图形仅在插件绘制时报错，前端能在别的线程出图
+//				此处忽略掉绘制错误异常
+				}finally {
 					g.setClip(oldClip);
 				}
 				break;
@@ -317,6 +311,7 @@ public class BackGraphConfig implements Externalizable, ICloneable, Cloneable,
 						}
 						x += iw;
 					}
+				}catch(Exception x) {
 				} finally {
 					g.setClip(oldClip);
 				}
