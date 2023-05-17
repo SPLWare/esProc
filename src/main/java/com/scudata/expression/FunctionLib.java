@@ -582,15 +582,6 @@ public final class FunctionLib {
 		addMemberFunction("structure", "com.scudata.expression.mfn.file.Structure");
 		addMemberFunction("structure", "com.scudata.expression.mfn.file.FileGroupStructure");
 		
-		//Ðé±í
-		addMemberFunction("import", "com.scudata.expression.mfn.pseudo.Import");
-		addMemberFunction("memory", "com.scudata.expression.mfn.pseudo.Memory");
-		addMemberFunction("cursor", "com.scudata.expression.mfn.pseudo.CreateCursor");
-		addMemberFunction("append", "com.scudata.expression.mfn.pseudo.Append");
-		addMemberFunction("update", "com.scudata.expression.mfn.pseudo.Update");
-		addMemberFunction("delete", "com.scudata.expression.mfn.pseudo.Delete");
-		addMemberFunction("groups", "com.scudata.expression.mfn.pseudo.Groups");
-		
 		//¼¯Èº
 		addMemberFunction("create", "com.scudata.expression.mfn.cluster.Create");
 		addMemberFunction("open", "com.scudata.expression.mfn.cluster.Open");
