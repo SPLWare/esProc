@@ -168,6 +168,9 @@ public class BackGraphConfig implements Externalizable, ICloneable, Cloneable,
 	}
 	
 	public BufferedImage getBufferedImage() {
+		if(imageBytes==null) {
+			return null;
+		}
 		return getBufferedImage(imageBytes);
 	}
 	
@@ -176,7 +179,7 @@ public class BackGraphConfig implements Externalizable, ICloneable, Cloneable,
 			ByteArrayInputStream bis = new ByteArrayInputStream(
 					imageBytes);
 			return ImageIO.read(bis);
-		} catch (IOException e) {
+		} catch (Exception e) {
 			Logger.error(e);
 			return null;
 		}
