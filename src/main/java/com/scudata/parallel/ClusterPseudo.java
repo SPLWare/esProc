@@ -13,7 +13,6 @@ import com.scudata.dm.Sequence;
 import com.scudata.dm.cursor.ICursor;
 import com.scudata.dm.op.Operable;
 import com.scudata.dm.op.Operation;
-import com.scudata.dw.MemoryTable;
 import com.scudata.dw.pseudo.IPseudo;
 import com.scudata.dw.pseudo.PseudoDefination;
 import com.scudata.dw.pseudo.PseudoDerive;
@@ -23,7 +22,6 @@ import com.scudata.dw.pseudo.PseudoTable;
 import com.scudata.expression.Expression;
 import com.scudata.expression.Function;
 import com.scudata.expression.FunctionLib;
-import com.scudata.expression.mfn.pseudo.Memory;
 import com.scudata.thread.ThreadPool;
 
 public class ClusterPseudo extends IPseudo implements IClusterObject {
@@ -484,42 +482,43 @@ public class ClusterPseudo extends IPseudo implements IClusterObject {
 	 * @return Response 给主机的回应
 	 */
 	public static Response executeMemory(HashMap<String, Object> attributes) {
-		String jobSpaceID = (String) attributes.get("jobSpaceId");
-		Integer pseudoProxyId = (Integer) attributes.get("pseudoProxyId");
-		String option = (String) attributes.get("option");
-		Integer unit = (Integer) attributes.get("unit");
-
-		try {
-			JobSpace js = JobSpaceManager.getSpace(jobSpaceID);
-			ResourceManager rm = js.getResourceManager();
-
-			PseudoProxy pseudoProxy = (PseudoProxy) rm.getProxy(pseudoProxyId.intValue());
-			IPseudo pseudo = pseudoProxy.getPseudo();
-			Context ctx = ClusterUtil.createContext(js, attributes);
-			IProxy proxy;
-			
-			Object table = Memory.createMemory(pseudo, null, option, ctx);
-			MemoryTable memoryTable = (MemoryTable) table;
-			
-			if (pseudo instanceof PseudoTable) {
-				PseudoTable ptable = (PseudoTable) pseudo;
-				String distribute = ptable.getPd().getDistribute();
-				Integer partition = ptable.getPd().getPartition();
-				if (partition != null) {
-					memoryTable.setDistribute(distribute);
-					memoryTable.setPart(partition);
-				}
-			}
-
-			proxy = new TableProxy(memoryTable, unit);
-			rm.addProxy(proxy);
-			RemoteMemoryTable rmt = ClusterMemoryTable.newRemoteMemoryTable(proxy.getProxyId(), memoryTable);
-			return new Response(rmt);
-		} catch (Exception e) {
-			Response response = new Response();
-			response.setException(e);
-			return response;
-		}
+		throw new RuntimeException();
+//		String jobSpaceID = (String) attributes.get("jobSpaceId");
+//		Integer pseudoProxyId = (Integer) attributes.get("pseudoProxyId");
+//		String option = (String) attributes.get("option");
+//		Integer unit = (Integer) attributes.get("unit");
+//
+//		try {
+//			JobSpace js = JobSpaceManager.getSpace(jobSpaceID);
+//			ResourceManager rm = js.getResourceManager();
+//
+//			PseudoProxy pseudoProxy = (PseudoProxy) rm.getProxy(pseudoProxyId.intValue());
+//			IPseudo pseudo = pseudoProxy.getPseudo();
+//			Context ctx = ClusterUtil.createContext(js, attributes);
+//			IProxy proxy;
+//			
+//			Object table = Memory.createMemory(pseudo, null, option, ctx);
+//			MemoryTable memoryTable = (MemoryTable) table;
+//			
+//			if (pseudo instanceof PseudoTable) {
+//				PseudoTable ptable = (PseudoTable) pseudo;
+//				String distribute = ptable.getPd().getDistribute();
+//				Integer partition = ptable.getPd().getPartition();
+//				if (partition != null) {
+//					memoryTable.setDistribute(distribute);
+//					memoryTable.setPart(partition);
+//				}
+//			}
+//
+//			proxy = new TableProxy(memoryTable, unit);
+//			rm.addProxy(proxy);
+//			RemoteMemoryTable rmt = ClusterMemoryTable.newRemoteMemoryTable(proxy.getProxyId(), memoryTable);
+//			return new Response(rmt);
+//		} catch (Exception e) {
+//			Response response = new Response();
+//			response.setException(e);
+//			return response;
+//		}
 	}
 
 	public Sequence Import(Expression[] exps, String[] names) {
