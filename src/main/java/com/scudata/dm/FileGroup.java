@@ -156,6 +156,7 @@ public class FileGroup implements Externalizable {
 			File file = Env.getPartitionFile(partitions[i], fileName);
 			PhyTable tmd = ComTable.openBaseTable(file, ctx);
 			boolean result = tmd.getGroupTable().reset(null, opt, ctx, null, blockSize);
+			tmd.close();
 			if (!result) {
 				return false;
 			}
@@ -197,11 +198,13 @@ public class FileGroup implements Externalizable {
 			}
 			
 			if (compress && uncompress) {
+				tableGroup.close();
 				MessageManager mm = EngineMessage.get();
 				throw new RQException(opt + mm.getMessage("engine.optConflict"));
 			}
 			
 			if (newFile == null) {
+				tableGroup.close();
 				MessageManager mm = EngineMessage.get();
 				throw new RQException("reset" + mm.getMessage("function.invalidParam"));
 			}
@@ -301,6 +304,8 @@ public class FileGroup implements Externalizable {
 			if (newGroupTable != null) newGroupTable.close();
 			newFile.delete();
 			throw new RQException(e.getMessage(), e);
+		} finally {
+			tableGroup.close();
 		}
 
 		newGroupTable.close();
@@ -348,6 +353,7 @@ public class FileGroup implements Externalizable {
 				
 				PhyTable tmd = ComTable.openBaseTable(file, ctx);
 				boolean result = tmd.getGroupTable().reset(newFile, opt, ctx, null);
+				tmd.close();
 				if (!result) {
 					return false;
 				}
