@@ -288,8 +288,7 @@ public final class FunctionLib {
 		addFunction("range", "com.scudata.expression.fn.Range");
 		addFunction("blob", "com.scudata.expression.fn.Blob");
 		addFunction("jdbccall", "com.scudata.expression.fn.JDBCCall");
-		
-		addFunction("pseudo", "com.scudata.expression.fn.CreatePseudo");
+
 		addFunction("splserver", "com.scudata.expression.fn.SplServer");
 		
 		// ²¢ÐÐ
