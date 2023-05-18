@@ -33,7 +33,9 @@ public class Reset extends FileFunction {
 				throw new RQException(e.getMessage(), e);
 			}
 			
-			return gt.reset(null, option, ctx, null);
+			boolean result = gt.reset(null, option, ctx, null);
+			gt.close();
+			return result;
 		} else if (param.isLeaf()) {
 			obj = param.getLeafExpression().calculate(ctx);
 			File f = null;
@@ -49,7 +51,9 @@ public class Reset extends FileFunction {
 			
 			try {
 				ComTable gt = ComTable.open(file, ctx);
-				return gt.reset(f, option, ctx, null);
+				boolean result =  gt.reset(f, option, ctx, null);
+				gt.close();
+				return result;
 			} catch (IOException e) {
 				throw new RQException(e.getMessage(), e);
 			}
@@ -104,13 +108,17 @@ public class Reset extends FileFunction {
 			try {
 				ComTable gt = ComTable.open(file, ctx);
 				if (f != null) {
-					return gt.reset(f, option, ctx, distribute, blockSize);
+					boolean result =  gt.reset(f, option, ctx, distribute, blockSize);
+					gt.close();
+					return result;
 				} else {
 					if (distribute == null) {
 						MessageManager mm = EngineMessage.get();
 						throw new RQException("reset" + mm.getMessage("function.invalidParam"));
 					}
-					return gt.resetFileGroup(fg, option, ctx, distribute, blockSize);
+					boolean result =  gt.resetFileGroup(fg, option, ctx, distribute, blockSize);
+					gt.close();
+					return result;
 				}
 			} catch (IOException e) {
 				throw new RQException(e.getMessage(), e);
