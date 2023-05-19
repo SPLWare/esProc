@@ -430,8 +430,7 @@ public class MenuSpl extends AppMenu {
 				GCSpl.iROW_HIDE, GCSpl.iROW_VISIBLE, GCSpl.iCOL_WIDTH,
 				GCSpl.iCOL_ADJUST, GCSpl.iCOL_HIDE, GCSpl.iCOL_VISIBLE,
 				GCSpl.iEDIT_CHART, GCSpl.iFUNC_ASSIST, GCSpl.iSEARCH,
-				GCSpl.iREPLACE,
-				GCSpl.iMOVE_COPY_UP,
+				GCSpl.iREPLACE, GCSpl.iMOVE_COPY_UP,
 				GCSpl.iMOVE_COPY_DOWN,
 				GCSpl.iMOVE_COPY_LEFT,
 				GCSpl.iMOVE_COPY_RIGHT,
@@ -440,7 +439,8 @@ public class MenuSpl extends AppMenu {
 				GCSpl.iCALC_LOCK, GCSpl.iSTEP_NEXT, GCSpl.iSTEP_CURSOR,
 				GCSpl.iSTOP, GCSpl.iSHOW_VALUE, GCSpl.iCLEAR_VALUE,
 				GCSpl.iPAUSE, GCSpl.iBREAKPOINTS, GCSpl.iDRAW_CHART,
-				GCSpl.iCONST };
+				// ¹¤¾ß
+				GC.iPROPERTY, GCSpl.iCONST };
 		return menus;
 	}
 
