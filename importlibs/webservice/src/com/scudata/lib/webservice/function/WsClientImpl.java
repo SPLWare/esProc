@@ -32,7 +32,7 @@ import com.scudata.dm.Sequence;
 import com.scudata.dm.Table;
 import com.scudata.expression.Expression;
 
-public class WsClientImpl extends Table {
+public class WsClientImpl {
 
 	private String url;
 	
@@ -74,8 +74,8 @@ public class WsClientImpl extends Table {
 			//xml = "<aa><a1>ttt</a1></aa>";
 			t = xml2Table(xml);
 			
-			super.ds = t.dataStruct();
-			super.mems = t.getMems();
+			//super.ds = t.dataStruct();
+			//super.mems = t.getMems();
 			
 			Object o = getXmlValue(t,new String[]{attr("targetNamespace")},new int[]{});
 			if (o == null || !(o instanceof String)) throw new Exception("wsdl targetNamespace not find");
