@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>A .field( F )</title>
+<title>file( fn : cs )</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,301 +13,198 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h3 style='text-align:justify;text-justify:inter-ideograph'><a name="A_field_i"></a><i
-style='mso-bidi-font-style:normal'><span lang=EN-US>A</span></i><span
-lang=EN-US>.field(<i style='mso-bidi-font-style:normal'>F</i>)</span></h3></div>
-	<p class=ad style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
+	<div id="centent-title"><h3 style='text-align:justify;text-justify:inter-ideograph'><a name="file_fn_cs"></a><span
+lang=EN-US>file(<i style='mso-bidi-font-style:normal'>fn</i>:<i
+style='mso-bidi-font-style:normal'>cs</i>)</span></h3></div>
+	<p class=af style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
 14.0pt;line-height:200%'>Description:</span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Get values <span
-style='mso-bidi-font-style:italic'>of </span>a specified field of a sequence.</span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Open a file with
+the specified name. </span></p>
 
-<p class=ad style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Syntax:</span></p>
+<p class=af style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
+14.0pt;line-height:200%'>Syntax: </span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span class=var1><span
-lang=EN-US>A</span></span><span class=code><span lang=EN-US style='font-family:
-"Times New Roman","serif"'>.field(</span></span><span class=var1><span
-lang=EN-US>F</span></span><span class=code><span lang=EN-US style='font-family:
-"Times New Roman","serif"'>)</span></span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US>file</span></b><span lang=EN-US>(<i style='mso-bidi-font-style:
+normal'> </i></span><span class=var1><span lang=EN-US>fn</span></span><span
+lang=EN-US>{:cs})</span></p>
 
-<p class=ad style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Note:</span></p>
+<p class=af style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
+14.0pt;line-height:200%'>Note: </span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>The function loops
-through parameter <i style='mso-bidi-font-style:normal'>A</i> to get the value
-of the <i style='mso-bidi-font-style:normal'>F</i><sup>th</sup> field from each
-record, or the value of every string parameter <i style='mso-bidi-font-style:
-normal'>F</i>, and returns a sequence consisting of these values. Count
-backward if <i style='mso-bidi-font-style:normal'>F</i>&lt;0. Return null if <i
-style='mso-bidi-font-style:normal'>F</i> exceeds the boundary number of the
-fields or it does not exist.</span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>The function
+opens a file named <i>fn</i>. </span></p>
 
-<p class=ad style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Parameter:</span></p>
+<p class=af style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
+14.0pt;line-height:200%'>Parameter: </span></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
  style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
   <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US>A</span></span></p>
+  <p class=MsoNormal><span class=var1><span lang=EN-US>fn</span></span></p>
   </td>
   <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>A sequence</span></p>
+  <p class=MsoNormal><span lang=EN-US>Name of the file to load. Both the
+  absolute path and the relative path are acceptable. If using the relative
+  path, then it is relative to the main path, which is the one configured on
+  the option menu of esProc, and which by default is the current directory (the
+  directory holding the <span style='mso-bidi-font-style:italic'>script </span>file)
+  </span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
   <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US>F</span></span></p>
+  <p class=MsoNormal><span class=var1><span lang=EN-US>cs</span></span></p>
   </td>
   <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>The sequence number of a field, or the
-  string parameter in which a variable can be used to reference the field name.</span></p>
+  <p class=MsoNormal><span lang=EN-US>Character&nbsp;set, which
+  supports&nbsp;jvm's&nbsp;built-in&nbsp;character&nbsp;set and which by
+  default is the default value set by OS</span></p>
   </td>
  </tr>
 </table>
 
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Option:</span></b></p>
+<p class=af style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
+14.0pt;line-height:200%'>Option: </span></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:9.05pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
   <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体;mso-bidi-language:AR'>@r</span></b></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>@s</span></span><span
+  class=var1><span lang=EN-US></span></span></p>
   </td>
   <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US style='mso-bidi-language:AR'>When the
-  return value is a record or record sequence, loop its members iteratively to
-  get desired values</span></p>
-  </td>
- </tr>
-</table>
-
-<p class=ad style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Return value:</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>A sequence</span></p>
-
-<p class=ad style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Example:</span></p>
-
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
- style='margin-left:18.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
- mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=26 valign=top style='width:15.35pt;border:solid #A6A6A6 1.0pt;
-  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=var1><span
-  lang=EN-US>&nbsp;</span></span></p>
-  </td>
-  <td width=252 valign=top style='width:151.2pt;border:solid #A6A6A6 1.0pt;
-  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman","serif"'>A</span></span></p>
-  </td>
-  <td width=385 valign=top style='width:231.0pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span lang=EN-US>&nbsp;</span></p>
+  <p class=MsoNormal><span lang=EN-US>Search the file names on the non-absolute
+  paths in a specified order: Class path -&gt; Search path-&gt; Main path. The
+  search path is the one configured on the option menu of esProc, and the
+  default main path is the current directory. With this option, the function
+  returns the name of a read-only file </span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=26 valign=top style='width:15.35pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>1</span></span></p>
+  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>@t</span></span></p>
   </td>
-  <td width=252 valign=top style='width:151.2pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=demo.query(&quot;select
-  * from EMPLOYEE&quot;)</span></span></p>
-  </td>
-  <td width=385 valign=top style='width:231.0pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Generate a temporary file under the
+  directory of <i style='mso-bidi-font-style:normal'>fn</i> file. Without the <i
+  style='mso-bidi-font-style:normal'>fn</i> file, create the temporary file
+  through the Temporary directory, one of esProc options under the Tool menu. When
+  the relative path is used to point to the temporary directory, it is relative
+  to the configured main directory<span style='mso-spacerun:yes'>&nbsp; </span></span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:2'>
-  <td width=26 valign=top style='width:15.35pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>2</span></span></p>
+  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>@a</span></span></p>
   </td>
-  <td width=252 valign=top style='width:151.2pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=A1.field(2)</span></span></p>
-  </td>
-  <td width=385 valign=top style='width:231.0pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Return a sequence composed of values of
-  the second field.</span></p>
+  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Make the write action wait when sharing
+  violation happens</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:3'>
-  <td width=26 valign=top style='width:15.35pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>3</span></span></p>
+ <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
+  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
+  mso-fareast-font-family:宋体'>@i</span></span><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'></span></span></p>
   </td>
-  <td width=252 valign=top style='width:151.2pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=A1.field(-2)</span></span></p>
-  </td>
-  <td width=385 valign=top style='width:231.0pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Return a sequence comprising values of
-  the second-to-last field </span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:4'>
-  <td width=26 valign=top style='width:15.35pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>4</span></span></p>
-  </td>
-  <td width=252 valign=top style='width:151.2pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=A1.field(&quot;NAME&quot;)</span></span></p>
-  </td>
-  <td width=385 valign=top style='width:231.0pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Return a sequence composed of values of
-  NAME field</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:5'>
-  <td width=26 valign=top style='width:15.35pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>5</span></span></p>
-  </td>
-  <td width=252 valign=top style='width:151.2pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>&gt;arg1=&quot;NAME&quot;</span></span></p>
-  </td>
-  <td width=385 valign=top style='width:231.0pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:6'>
-  <td width=26 valign=top style='width:15.35pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>6</span></span></p>
-  </td>
-  <td width=252 valign=top style='width:151.2pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=A1.field(arg1)</span></span></p>
-  </td>
-  <td width=385 valign=top style='width:231.0pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Same as A4</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:7'>
-  <td width=26 valign=top style='width:15.35pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>7</span></span></p>
-  </td>
-  <td width=252 valign=top style='width:151.2pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>=demo.query(&quot;select * from EMPLOYEE
-  where EID &lt; 20&quot;)<span class=code><span style='font-family:"Times New Roman","serif"'></span></span></span></b></p>
-  </td>
-  <td width=385 valign=top style='width:231.0pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:8'>
-  <td width=26 valign=top style='width:15.35pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>8</span></span></p>
-  </td>
-  <td width=252 valign=top style='width:151.2pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>=A7.group(STATE;~.avg(SALARY):avg,~:group)<span
-  class=code><span style='font-family:"Times New Roman","serif"'></span></span></span></b></p>
-  </td>
-  <td width=385 valign=top style='width:231.0pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US><img border=0 width=391 height=243
-  src="Function_Reference.files/image599.jpg" v:shapes="图片_x0020_1037"></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:9;mso-yfti-lastrow:yes'>
-  <td width=26 valign=top style='width:15.35pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>9</span></span></p>
-  </td>
-  <td width=252 valign=top style='width:151.2pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>=A8.field@r(3)<span class=code><span
-  style='font-family:"Times New Roman","serif"'></span></span></span></b></p>
-  </td>
-  <td width=385 valign=top style='width:231.0pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>After A8’s 3<sup>rd</sup> column is
-  returned, go on to return the 3<sup>rd</sup> column of the return value</span></p>
-  <p class=MsoNormal><span lang=EN-US><img border=0 width=384 height=342
-  src="Function_Reference.files/image600.png" v:shapes="图片_x0020_1038"></span></p>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Import file into the memory and generate
+  a file object; the in-memory file is read-only</span></p>
   </td>
  </tr>
 </table>
 
-<p class=ad style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Related function:</span></p>
+<p class=af style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
+14.0pt;line-height:200%'>Return value: </span></p>
 
-<p class=MsoNormal style='text-indent:21.75pt'><i style='mso-bidi-font-style:
-normal'><u><span lang=EN-US><a  href="rfieldf.html#r_field"><span style='mso-bidi-font-size:
-10.5pt;font-style:normal'>r</span><span style='mso-bidi-font-size:12.0pt;
-font-style:normal'>.fie<span style='mso-bookmark:_Hlt414981570'>l</span>d<span
-style='mso-bookmark:_Hlt414981575'><span style='mso-bookmark:_Hlt414981611'>(</span></span></span><span
-style='mso-bookmark:_Hlt414981611'></span><span style='mso-bookmark:_Hlt414981575'></span><span
-style='mso-bidi-font-size:10.5pt;font-style:normal'>F</span><span
-style='mso-bidi-font-size:12.0pt;font-style:normal'>)</span></a><a
-name="_Hlt414981611"></a><a name="_Hlt414981575"></a><a name="_Hlt414981570"></a></span></u></i><span
-class=var1><u><span lang=EN-US style='mso-bidi-font-size:12.0pt;font-style:
-normal;mso-bidi-font-style:italic'></span></u></span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>A file object</span></p>
 
-<p class=MsoNormal style='text-indent:21.75pt'><u><span lang=EN-US
-style='color:blue'><a  href="rfieldfx.html#r_field_i_x">r.field(<span style='mso-bookmark:
-_Hlt414981504'><span style='mso-bookmark:_Hlt414981616'>F,</span></span>x)</a><a
-name="_Hlt414981616"></a><a name="_Hlt414981504"></a></span></u></p>
+<p class=af style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
+14.0pt;line-height:200%'>Example: </span></p>
 
-<p class=MsoNormal style='text-indent:21.75pt'><u><span lang=EN-US
-style='color:blue'><a  href="afieldfx.html#A_field_i_x">A.field(F,x)</a></span></u></p>
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=288 valign=top style='width:172.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=aff style='margin-left:10.55pt;text-align:justify;text-justify:inter-ideograph;
+  tab-stops:48.75pt'><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>file(&quot;D:/Area.txt&quot;:</span></span><span
+  class=var1><span lang=EN-US style='font-style:normal;mso-bidi-font-style:
+  italic'>&quot;</span></span><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman","serif"'>UTF-8</span></span><span
+  class=var1><span lang=EN-US style='font-style:normal;mso-bidi-font-style:
+  italic'>&quot;</span></span><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman","serif"'>)</span></span><span
+  class=var1><span lang=EN-US></span></span></p>
+  </td>
+  <td width=394 valign=top style='width:236.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Load the <i style='mso-bidi-font-style:
+  normal'>Area.txt</i> file from the directory <b>&quot;</b></span><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
+  font-weight:normal;mso-bidi-font-weight:bold'>D</span></span><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>:\</span></span><span
+  lang=EN-US>&quot;; character set is </span><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman","serif";font-weight:normal;mso-bidi-font-weight:
+  bold'>UTF-8</span></span><span lang=EN-US>. </span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=288 valign=top style='width:172.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=aff style='margin-left:10.55pt;text-align:justify;text-justify:inter-ideograph;
+  tab-stops:48.75pt'><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>file(&quot;Area.txt&quot;)</span></span></p>
+  </td>
+  <td width=394 valign=top style='width:236.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Load the <i style='mso-bidi-font-style:
+  normal'>Area.txt</i></span><span class=CharChar3><span lang=EN-US
+  style='font-family:"Times New Roman","serif"'> </span></span><span
+  lang=EN-US>file under the main path.</span><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman","serif"'></span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=288 valign=top style='width:172.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=aff style='margin-left:10.55pt;text-align:justify;text-justify:inter-ideograph;
+  tab-stops:48.75pt'><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>file@s(&quot;data/
+  Area.txt&quot;)</span></span></p>
+  </td>
+  <td width=394 valign=top style='width:236.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Search the class path first; if not
+  found, then search throughout the list of search paths; lastly, search the
+  main path if not found in the search paths. <span class=code><span
+  style='font-family:"Times New Roman","serif";mso-fareast-font-family:宋体;
+  font-weight:normal'></span></span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3'>
+  <td width=288 valign=top style='width:172.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=aff style='margin-left:10.55pt;text-align:justify;text-justify:inter-ideograph;
+  tab-stops:48.75pt'><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>file@t(&quot;data/Area.txt&quot;)</span></span></p>
+  </td>
+  <td width=394 valign=top style='width:236.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Create a temporary file under the
+  directory <i style='mso-bidi-font-style:normal'>data/</i></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes'>
+  <td width=288 valign=top style='width:172.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=aff style='margin-left:10.55pt;text-align:justify;text-justify:inter-ideograph;
+  tab-stops:48.75pt'><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
+  mso-fareast-font-family:宋体'>file@i(&quot;Area.txt&quot;)</span></span><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'></span></span></p>
+  </td>
+  <td width=394 valign=top style='width:236.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Generate an in-memory read-only file
+  object</span></p>
+  </td>
+ </tr>
+</table>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="296.html">Next</a></div>
@@ -315,14 +212,17 @@ style='color:blue'><a  href="afieldfx.html#A_field_i_x">A.field(F,x)</a></span><
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="292.html">field()</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="294.html">file()</a></span></li>
 </div>
 	</div>
 	<div id="footer">	
 		
-		
-    <div class="copyright"> Copyright&reg; 2021 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+		<div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">Scudata Inc. 
+      </a></div> 
+        <!--
+		<div class="copyright"> Copyright&reg; 2017 <a href="http://www.yimming.com" target="_Blank"> Beijing Yimming Ltd. Co. 
       </a></div>
+	  -->
 	</div>
 </div>
 

@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>mae()</title>
+<title>median()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,24 +13,29 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h2><span lang=EN-US>mae()<a name=mae></a></span></h2></div>
+	<div id="centent-title"><h2><a name="A_median"></a><span lang=EN-US>median()</span></h2></div>
 	<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
 style='font-size:14.0pt'>Description:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Calculate the
-mean absolute error between two vectors.</span></p>
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US>Divide a sequence into multiple segments and return the specified
+bordering member(s).</span></p>
 
 <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
 style='font-size:14.0pt'>Syntax:</span></b></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:9.05pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ style='margin-left:19.85pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'>
-  <td width=165 valign=top style='width:99.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal style='text-indent:10.55pt;mso-char-indent-count:1.0'><span
-  class=var1><b><span lang=EN-US style='font-style:normal'>mae</span></b><span
-  lang=EN-US>(A,B)</span></span></p>
+  <td width=141 valign=top style='width:84.8pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-weight:bold'>A</span><span
+  lang=EN-US>.</span></i><span class=160><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US style='font-style:normal;mso-bidi-font-style:italic'>median</span></b></span><span
+  lang=EN-US>(<i>k:n,x</i>)<i></i></span></p>
+  </td>
+  <td width=527 valign=top style='width:316.1pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
   </td>
  </tr>
 </table>
@@ -38,23 +43,71 @@ style='font-size:14.0pt'>Syntax:</span></b></p>
 <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
 style='font-size:14.0pt'>Note:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:
-exactly'><span lang=EN-US>The function calculates the average absolute
-difference between vector <i style='mso-bidi-font-style:normal'>A</i> and
-vector <i style='mso-bidi-font-style:normal'>B</i>.</span></p>
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US>Divide sequence <i style='mso-bidi-font-style:normal'>A</i> into <i
+style='mso-bidi-font-style:normal'>n</i> segments evenly according to its length
+and return the bordering member between the<i style='mso-bidi-font-style:normal'>
+k<sup>th</sup></i> segment and the <i style='mso-bidi-font-style:normal'>(k+1)<sup>th</sup></i>
+segment. When parameter <i>x</i> is present, compute the expression with
+members of <i>A</i> and then segment the sequence.</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US>When parameter <i>k</i> is absent while parameter <i>n</i> is
+present, return a sequence of bordering members of all segments.</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US>When parameters <i style='mso-bidi-font-style:normal'>k,n</i> are
+absent, if the length of the sequence is an odd, return the median member
+value; if it is an even, return the average value of the two members in the
+middle. Perform a logical division if the length of the sequence is
+indivisible.<span style='color:red'></span></span></p>
 
 <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
 style='font-size:14.0pt'>Parameter:</span></b></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:9.05pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ style='margin-left:19.85pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
   <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US>A/B</span></span></p>
+  <p class=MsoNormal><i><span lang=EN-US>A</span></i></p>
   </td>
   <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Vectors</span></p>
+  <p class=MsoNormal><span lang=EN-US>A sequence</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US>k</span></i></p>
+  </td>
+  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>The <i style='mso-bidi-font-style:normal'>k</i><sup>th</sup>
+  segment (1=&lt;<i style='mso-bidi-font-style:normal'>k</i>&lt;=<i
+  style='mso-bidi-font-style:normal'>n</i>); return the bordering members
+  between every two segments as a sequence when<i> k</i> is absent </span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US>n</span></i></p>
+  </td>
+  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>The number of to-be-divided segments, which
+  is greater than 1 and whose default is 2; can be omitted when parmeter <i
+  style='mso-bidi-font-style:normal'>k</i> is absent</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
+  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US>x</span></i></p>
+  </td>
+  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>An expression; parameters <i
+  style='mso-bidi-font-style:normal'>k,n </i><span style='mso-bidi-font-style:
+  italic'>cannot be omitted</span> this parameter is present</span></p>
   </td>
  </tr>
 </table>
@@ -62,87 +115,310 @@ style='font-size:14.0pt'>Parameter:</span></b></p>
 <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
 style='font-size:14.0pt'>Return value:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Numeric value</span></p>
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US>A number or a sequence</span></p>
 
 <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
 style='font-size:14.0pt'>Example:</span></b></p>
 
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
- style='margin-left:18.55pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
- mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>When <i>A</i> is
+a sequence:</span></p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:15.6pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ mso-padding-alt:0cm 0cm 0cm 0cm'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
   <td width=38 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
   mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span lang=EN-US>&nbsp;</span></p>
+  <p class=MsoNormal align=center style='text-align:center'><span class=150><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>&nbsp;</span></span></p>
   </td>
-  <td width=287 valign=top style='width:171.95pt;border:solid #A6A6A6 1.0pt;
-  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
+  <td width=366 valign=top style='width:219.3pt;border:solid #A6A6A6 1.0pt;
+  border-left:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-bottom-alt:
+  solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;background:#BFBFBF;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=150><span
   lang=EN-US style='font-family:"Times New Roman","serif"'>A</span></span></p>
   </td>
-  <td width=354 valign=top style='width:212.3pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span lang=EN-US>&nbsp;</span></p>
+  <td width=736 valign=top style='width:441.8pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1'>
   <td width=38 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
+  <p class=MsoNormal align=center style='text-align:center'><span class=150><span
   lang=EN-US style='font-family:"Times New Roman","serif"'>1</span></span></p>
   </td>
-  <td width=287 valign=top style='width:171.95pt;border-top:none;border-left:
+  <td width=366 valign=top style='width:219.3pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>[3,5,2,8]</span></span></p>
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
+  mso-fareast-font-family:宋体;mso-bidi-font-weight:bold'>=[1,2,3,4,5,6,7,8]</span></span></p>
   </td>
-  <td width=354 valign=top style='width:212.3pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=PT-BR style='mso-ansi-language:PT-BR'>&nbsp;</span></p>
+  <td width=736 valign=top style='width:441.8pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:2'>
   <td width=38 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
+  <p class=MsoNormal align=center style='text-align:center'><span class=150><span
   lang=EN-US style='font-family:"Times New Roman","serif"'>2</span></span></p>
   </td>
-  <td width=287 valign=top style='width:171.95pt;border-top:none;border-left:
+  <td width=366 valign=top style='width:219.3pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>[4,6,2,4]</span></span></p>
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
+  mso-fareast-font-family:宋体;mso-bidi-font-weight:bold'>=A1.median()</span></span></p>
   </td>
-  <td width=354 valign=top style='width:212.3pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>&nbsp;</span></span></p>
+  <td width=736 valign=top style='width:441.8pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-weight:bold'>As all
+  parameters are absent and the length of sequence is an even number, the
+  function returns average value of the two members in the middle, which is </span><span
+  lang=EN-US>(4+5)/2, that is, 4.5</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
+ <tr style='mso-yfti-irow:3'>
   <td width=38 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
+  <p class=MsoNormal align=center style='text-align:center'><span class=150><span
   lang=EN-US style='font-family:"Times New Roman","serif"'>3</span></span></p>
   </td>
-  <td width=287 valign=top style='width:171.95pt;border-top:none;border-left:
+  <td width=366 valign=top style='width:219.3pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=mae(A1,A2)</span></span></p>
-  </td>
-  <td width=354 valign=top style='width:212.3pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-  font-weight:normal;mso-bidi-font-weight:bold'>1.5</span></span></p>
+  mso-fareast-font-family:宋体;mso-bidi-font-weight:bold'>=A1.median(2:3)</span></span></p>
+  </td>
+  <td width=736 valign=top style='width:441.8pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>The sequence is divided as follows:</span></p>
+  <p class=MsoNormal><span lang=EN-US><img border=0 width=307 height=60
+  src="Function_Reference.files/image1390.jpg" v:shapes="_x0000_i1884"></span></p>
+  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-weight:bold'>Divide
+  the sequence into 3 segments and return bordering value between the 2<sup>nd</sup>
+  segment and the 3<sup>rd</sup> segment, which is 6</span><b style='mso-bidi-font-weight:
+  normal'><span lang=EN-US></span></b></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4'>
+  <td width=38 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=150><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>4</span></span></p>
+  </td>
+  <td width=366 valign=top style='width:219.3pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
+  mso-fareast-font-family:宋体;mso-bidi-font-weight:bold'>=A1.median(:3)</span></span></p>
+  </td>
+  <td width=736 valign=top style='width:441.8pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-weight:bold'>As
+  parameter <i>k</i> is absent, return a sequence of bordering values between
+  every two segments, which is [3,6]</span><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US></span></b></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:5'>
+  <td width=38 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=150><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>5</span></span></p>
+  </td>
+  <td width=366 valign=top style='width:219.3pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
+  mso-fareast-font-family:宋体;mso-bidi-font-weight:bold'>=A1.median(:10)</span></span></p>
+  </td>
+  <td width=736 valign=top style='width:441.8pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>The sequence is divided as follows:</span></p>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=307 height=51
+  src="Function_Reference.files/image1392.jpg" v:shapes="图片_x0020_1004"></span></p>
+  <p class=MsoNormal><span lang=EN-US>Result is [1,2,3,4,4.5,5,6,7,8]</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:6'>
+  <td width=38 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=150><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>6</span></span></p>
+  </td>
+  <td width=366 valign=top style='width:219.3pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
+  mso-fareast-font-family:宋体;mso-bidi-font-weight:bold'>=A1.median(:,~%2)</span></span></p>
+  </td>
+  <td width=736 valign=top style='width:441.8pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-weight:bold'>Divide
+  each member of the sequence by 2 and get remainder, sort members in ascending
+  order and generate new sequence </span><span lang=EN-US>[0,0,0,0,1,1,1,1]; as
+  both parameter <i><span style='mso-bidi-font-weight:bold'>k</span></i> and parameter
+  <i><span style='mso-bidi-font-weight:bold'>n</span></i> are absent and the
+  length of sequence is an even number, the function returns average value of
+  the two members in the middle, which is (0+1)/2, that is, 0.5</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:7;mso-yfti-lastrow:yes'>
+  <td width=38 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=150><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>7</span></span></p>
+  </td>
+  <td width=366 valign=top style='width:219.3pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
+  mso-fareast-font-family:宋体;mso-bidi-font-weight:bold'>=A1.median(2:3,~%2)</span></span></p>
+  </td>
+  <td width=736 valign=top style='width:441.8pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-weight:bold'>Divide
+  the new sequence into 3 segments and return bordering values between the 2<sup>nd</sup>
+  segment and the 3<sup>rd</sup> segment, which is 1</span></p>
   </td>
  </tr>
 </table>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>When <i>A</i> is
+a table sequence or a record sequence:</span></p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:15.6pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ mso-padding-alt:0cm 0cm 0cm 0cm'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=38 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
+  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=150><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>&nbsp;</span></span></p>
+  </td>
+  <td width=585 valign=top style='width:351.05pt;border:solid #A6A6A6 1.0pt;
+  border-left:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-bottom-alt:
+  solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;background:#BFBFBF;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=150><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>A</span></span></p>
+  </td>
+  <td width=517 valign=top style='width:310.05pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=38 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=150><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>1</span></span></p>
+  </td>
+  <td width=585 valign=top style='width:351.05pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=demo.query(&quot;select<span
+  style='mso-spacerun:yes'>&nbsp; </span>top 10 EID,NAME,GENDER from
+  EMPLOYEE&quot;)</span></b><span class=code><span lang=EN-US style='font-family:
+  "Times New Roman","serif";mso-fareast-font-family:宋体;font-weight:normal;
+  mso-bidi-font-weight:bold'></span></span></p>
+  </td>
+  <td width=517 valign=top style='width:310.05pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=238 height=279
+  src="Function_Reference.files/image1394.jpg" v:shapes="图片_x0020_1005"></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=38 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=150><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>2</span></span></p>
+  </td>
+  <td width=585 valign=top style='width:351.05pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=A1.median(,EID)</span></b><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
+  mso-fareast-font-family:宋体;font-weight:normal;mso-bidi-font-weight:bold'></span></span></p>
+  </td>
+  <td width=517 valign=top style='width:310.05pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Result is <span style='mso-bidi-font-weight:
+  bold'>5.5</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3'>
+  <td width=38 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=150><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>3</span></span></p>
+  </td>
+  <td width=585 valign=top style='width:351.05pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=A1.median(2:6,EID)</span></b><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
+  mso-fareast-font-family:宋体;font-weight:normal;mso-bidi-font-weight:bold'></span></span></p>
+  </td>
+  <td width=517 valign=top style='width:310.05pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Result is<span style='mso-bidi-font-weight:
+  bold'> 4</span><b style='mso-bidi-font-weight:normal'></b></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes'>
+  <td width=38 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=150><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>4</span></span></p>
+  </td>
+  <td width=585 valign=top style='width:351.05pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>=A1.median(:6,EID)</span></b><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
+  mso-fareast-font-family:宋体;font-weight:normal;mso-bidi-font-weight:bold'></span></span></p>
+  </td>
+  <td width=517 valign=top style='width:310.05pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Result is<span style='mso-bidi-font-weight:
+  bold'> [2,4,5.5,7,9]</span><b style='mso-bidi-font-weight:normal'></b></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt'>&nbsp;</span></b></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="548.html">Next</a></div>
@@ -155,9 +431,12 @@ style='font-size:14.0pt'>Example:</span></b></p>
 	</div>
 	<div id="footer">	
 		
-		
-    <div class="copyright"> Copyright&reg; 2021 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+		<div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">Scudata Inc. 
+      </a></div> 
+        <!--
+		<div class="copyright"> Copyright&reg; 2017 <a href="http://www.yimming.com" target="_Blank"> Beijing Yimming Ltd. Co. 
       </a></div>
+	  -->
 	</div>
 </div>
 

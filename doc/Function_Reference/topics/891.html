@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>var()</title>
+<title>f. xlsexport()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,170 +13,605 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h2 style='margin:0cm;margin-bottom:.0001pt;line-height:normal'><a
-name="A_variance_x"></a><a name="A_variance"></a><a name="cs_v"></a><span
-lang=EN-US>var()<a name=var></a></span></h2></div>
-	<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Description:</span></b></p>
+	<div id="centent-title"><h3 style='text-align:justify;text-justify:inter-ideograph'><i
+style='mso-bidi-font-style:normal'><span lang=EN-US>f.</span></i><span
+lang=EN-US>xlsexport()<a name="f_xlsexport"></a><i
+style='mso-bidi-font-style:normal'></i></span></h3></div>
+	<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%;mso-fareast-font-family:等线'>Description:</span></b></p>
 
-<p class=af5 style='text-indent:21.0pt'><span lang=EN-US style='font-family:
-"Times New Roman","serif"'>Calculate the generalized variance of a vector
-(sequence).</span></p>
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US>Write a table sequence or a cursor to an Excel file.</span><span
+lang=EN-US style='mso-fareast-font-family:等线'></span></p>
 
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Syntax:</span></b></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%;mso-fareast-font-family:等线'>Syntax: </span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span class=code><span
-lang=EN-US style='font-family:"Times New Roman","serif"'>var(</span></span><span
-class=code><i><span lang=EN-US style='font-family:"Times New Roman","serif";
-font-weight:normal;mso-bidi-font-weight:bold'>V</span></i></span><span
-class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>)</span></span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><i><span lang=EN-US
+style='mso-bidi-font-size:10.5pt'>f</span></i><span lang=EN-US
+style='mso-fareast-font-family:等线'>.</span><b style='mso-bidi-font-weight:normal'><span
+lang=EN-US style='mso-bidi-font-size:11.0pt;mso-fareast-font-family:黑体'>xls</span></b><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+黑体'>export</span></b><span lang=EN-US style='mso-fareast-font-family:等线'>(</span><i><span
+lang=EN-US style='mso-bidi-font-size:10.5pt'>A</span></i><span lang=EN-US
+style='mso-fareast-font-family:等线'>,<i style='mso-bidi-font-style:normal'>x:</i></span><i><span
+lang=EN-US style='mso-bidi-font-size:10.5pt'>F</span></i><span lang=EN-US
+style='mso-fareast-font-family:等线'>,…</span><i><span lang=EN-US
+style='mso-bidi-font-size:10.5pt'>;s;p</span></i><span lang=EN-US
+style='mso-bidi-font-size:10.5pt;mso-bidi-font-style:italic'>)</span><span
+lang=EN-US style='mso-fareast-font-family:等线'></span></p>
 
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Note:</span></b></p>
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%;mso-fareast-font-family:等线'>Note: </span></b></p>
 
-<p class=af5 style='text-indent:21.0pt'><span lang=EN-US style='font-family:
-"Times New Roman","serif"'>The function computes the generalized variance of
-vector <i style='mso-bidi-font-style:normal'>V</i>.</span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>The function
+writes table sequence/cursor <i>A</i><span style='mso-bidi-font-style:italic'>
+to Excel file <i>f</i>. Export all fields if no <i>x</i> is specified. The
+program will create the file <i>f</i> (cannot create path directory
+automatically) automatically. </span></span></p>
 
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Option:</span></b></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>If there isn’t a
+sheet s in <i style='mso-bidi-font-style:normal'>f</i>, the program will create
+one automatically. If sheet <i style='mso-bidi-font-style:normal'>s</i> already
+exists, it will receive the imported data in its format.</span></p>
+
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%;mso-fareast-font-family:等线'>Option: </span></b></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:14.45pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ style='margin-left:6.2pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'>
-  <td width=51 valign=top style='width:30.65pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>@s</span></b></p>
-  </td>
-  <td width=579 valign=top style='width:347.5pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Calculate sample variance of a vector by
-  dividing by <i style='mso-bidi-font-style:normal'>n</i>-1</span></p>
-  </td>
- </tr>
-</table>
-
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Parameter:</span></b></p>
-
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:14.45pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
   <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US>V</span></span></p>
+  <p class=MsoNormal><b><span lang=EN-US style='mso-fareast-font-family:黑体'>@t</span></b><b><i><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt'></span></i></b></p>
   </td>
   <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>A vector</span></p>
-  </td>
- </tr>
-</table>
-
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Return value:</span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Numeric value</span></p>
-
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Example:</span></b></p>
-
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
- style='margin-left:19.2pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
- mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=50 valign=top style='width:30.05pt;border:solid #A6A6A6 1.0pt;
-  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span lang=EN-US>&nbsp;</span></p>
-  </td>
-  <td width=334 valign=top style='width:200.3pt;border:solid #A6A6A6 1.0pt;
-  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman","serif"'>A</span></span></p>
-  </td>
-  <td width=224 valign=top style='width:134.65pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span lang=EN-US>&nbsp;</span></p>
+  <p class=MsoNormal><span lang=EN-US>Write the first record as the header into
+  a file; when a namesake file with content already exists, the last non-empty
+  row will be treated as the header row</span><span lang=EN-US
+  style='mso-fareast-font-family:等线'></span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=50 valign=top style='width:30.05pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman","serif"'>1</span></span></p>
+  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><b><span lang=EN-US style='mso-fareast-font-family:黑体'>@c</span></b></p>
   </td>
-  <td width=334 valign=top style='width:200.3pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>[4,8,12,21]</span></span></p>
-  </td>
-  <td width=224 style='width:134.65pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US style='font-size:12.0pt;mso-bidi-font-size:
-  10.0pt'>&nbsp;</span></p>
+  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Import a whole big file (but shouldn’t be
+  too big) with stream style</span><span lang=EN-US style='mso-fareast-font-family:
+  等线'></span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:2'>
-  <td width=50 valign=top style='width:30.05pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman","serif"'>2</span></span></p>
-  </td>
-  <td width=334 valign=top style='width:200.3pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=var([3,8])</span></span></p>
-  </td>
-  <td width=224 valign=top style='width:134.65pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-  font-weight:normal;mso-bidi-font-weight:bold'>6.25</span></span></p>
+  mso-bidi-font-weight:bold'>@a</span></span></p>
+  </td>
+  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Write data after the last row according to
+  the current format if the Excel file exists</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:3'>
-  <td width=50 valign=top style='width:30.05pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman","serif"'>3</span></span></p>
-  </td>
-  <td width=334 valign=top style='width:200.3pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=var(A1)</span></span></p>
-  </td>
-  <td width=224 valign=top style='width:134.65pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-  font-weight:normal;mso-bidi-font-weight:bold'>39.6875</span></span></p>
+  mso-bidi-font-weight:bold'>@w</span></span></p>
+  </td>
+  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Use this option when parameter </span><i><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt'>A</span></i><span lang=EN-US> is
+  a sequence of sequences or a string delimited by /tab; it cannot work with
+  both @t and @c, and requires the absence of parameters <i style='mso-bidi-font-style:
+  normal'>x:F</i></span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes'>
-  <td width=50 valign=top style='width:30.05pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman","serif"'>4</span></span></p>
-  </td>
-  <td width=334 valign=top style='width:200.3pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=var@s(A1)</span></span></p>
-  </td>
-  <td width=224 valign=top style='width:134.65pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-  font-weight:normal;mso-bidi-font-weight:bold'>52.916666666666664</span></span></p>
+  mso-bidi-font-weight:bold'>@p</span></span></p>
+  </td>
+  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>If the table sequence/cursor to be
+  exported is a sequence of sequence, use this option to transpose rows to columns
+  before writing data to a target Excel file; the option must work with @w
+  option</span></p>
   </td>
  </tr>
 </table>
+
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%;mso-fareast-font-family:等线'>Parameter:
+</span></b></p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:6.2pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>f</span></i></p>
+  </td>
+  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>A file</span><span lang=EN-US
+  style='mso-fareast-font-family:等线'></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>A</span></i></p>
+  </td>
+  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Table sequence/cursor to be exported</span><span
+  lang=EN-US style='mso-fareast-font-family:等线'></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>x</span></i></p>
+  </td>
+  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Fields to be exported. If omitted, then
+  export all fields which can be textualized in the record sequence </span><span
+  class=a4><span lang=EN-US style='font-family:"Times New Roman","serif"'>A</span></span><span
+  lang=EN-US>/cursor. The sign # is used to represent a field with a ordinal
+  number</span><span lang=EN-US style='mso-fareast-font-family:等线'></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3'>
+  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US
+  style='mso-fareast-font-family:等线'>F</span></i><i><span lang=EN-US
+  style='mso-bidi-font-size:10.5pt'></span></i></p>
+  </td>
+  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Resulting field name; if omitted, then
+  use the original field names</span><span lang=EN-US style='mso-fareast-font-family:
+  等线'></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4'>
+  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>s</span></i></p>
+  </td>
+  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Sheet name<a name="_Hlk104214874">, which
+  should not exceed 31 characters and contain special characters []:/\?*, </a>or
+  sheet number; when omitted, the exported data will be appended to the first
+  sheet</span><span lang=EN-US style='mso-fareast-font-family:等线'></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:5;mso-yfti-lastrow:yes'>
+  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>p</span></i></p>
+  </td>
+  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='mso-fareast-font-family:等线'>The password
+  for opening the exported Excel file</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%;mso-fareast-font-family:等线'>Example:
+</span></b></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=691
+ style='margin-left:16.7pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
+ mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=32 valign=top style='width:19.0pt;border:solid #A6A6A6 1.0pt;
+  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>&nbsp;</span></b></p>
+  </td>
+  <td width=304 valign=top style='width:182.6pt;border:solid #A6A6A6 1.0pt;
+  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'>A</span></b></p>
+  </td>
+  <td width=355 valign=top style='width:213.1pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US style='mso-fareast-font-family:等线'>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=32 valign=top style='width:19.0pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>1</span></b></p>
+  </td>
+  <td width=304 valign=top style='width:182.6pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>=demo.query(&quot;select EID,NAME,SURNAME
+  from EMPLOYEE&quot;)</span></b></p>
+  </td>
+  <td width=355 valign=top style='width:213.1pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US style='mso-fareast-font-family:等线'>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=32 valign=top style='width:19.0pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>2</span></b></p>
+  </td>
+  <td width=304 valign=top style='width:182.6pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>=file(&quot;D:\\EMPLOYEE1.xls&quot;).xlsexport(A1;&quot;employee&quot;<span
+  class=code><span style='font-family:"Times New Roman","serif"'>;&quot;123</span>&quot;</span>)</span></b></p>
+  </td>
+  <td width=355 valign=top style='width:213.1pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=zh-CN style='mso-fareast-font-family:等线;
+  mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=208 height=115
+  src="Function_Reference.files/image2255.jpg" v:shapes="_x0000_i2392"></span></p>
+  <p class=MsoNormal><span lang=EN-US style='mso-fareast-font-family:等线'>Write
+  data to an <i style='mso-bidi-font-style:normal'>xls</i> file with an opening
+  password; the password is 123</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;height:97.45pt'>
+  <td width=32 valign=top style='width:19.0pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:97.45pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>3</span></b></p>
+  </td>
+  <td width=304 valign=top style='width:182.6pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:97.45pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>=file(&quot;D:\\EMPLOYEE2.xls&quot;).xlsexport@t(A1;&quot;employee&quot;)</span></b></p>
+  </td>
+  <td width=355 valign=top style='width:213.1pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:97.45pt'>
+  <p class=MsoNormal><span lang=zh-CN style='mso-fareast-font-family:等线;
+  mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=221 height=113
+  src="Function_Reference.files/image2257.jpg" v:shapes="_x0000_i2393"><span
+  style='mso-spacerun:yes'>&nbsp;</span></span></p>
+  <p class=MsoNormal><span lang=EN-US>With</span><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'> @t</span></span><span
+  lang=EN-US> option, write the 1st row into the file as the header</span><span
+  lang=EN-US style='mso-fareast-font-family:等线'></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4;height:41.7pt'>
+  <td width=32 valign=top style='width:19.0pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:41.7pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>4</span></b></p>
+  </td>
+  <td width=304 valign=top style='width:182.6pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:41.7pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>=file(&quot;D:\\</span></b><span
+  lang=EN-US style='mso-bidi-font-size:12.0pt;mso-fareast-font-family:等线'> </span><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'>EMPLOYEE4.xls&quot;).xlsexport@t(A1,EID,NAME:name;&quot;employee&quot;)</span></b></p>
+  </td>
+  <td width=355 valign=top style='width:213.1pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:41.7pt'>
+  <p class=MsoNormal style='mso-pagination:widow-orphan'><span lang=zh-CN
+  style='mso-fareast-font-family:等线;mso-ansi-language:#0400;mso-fareast-language:
+  #0400'><img border=0 width=199 height=159
+  src="Function_Reference.files/image2259.jpg" v:shapes="_x0000_i2394"></span><span
+  lang=zh-CN style='font-size:12.0pt;mso-bidi-font-size:10.0pt;mso-fareast-font-family:
+  等线;mso-font-kerning:0pt;mso-ansi-language:#0400;mso-fareast-language:#0400'></span></p>
+  <p class=MsoNormal style='mso-pagination:widow-orphan'><span lang=EN-US
+  style='mso-bidi-font-size:10.5pt;mso-font-kerning:0pt'>Specify and export
+  fields to the sheet of</span><span lang=EN-US style='font-size:12.0pt;
+  mso-bidi-font-size:10.0pt;mso-font-kerning:0pt'> </span><span lang=EN-US
+  style='mso-bidi-font-size:10.5pt;mso-font-kerning:0pt'>&quot;</span><span
+  class=code><i style='mso-bidi-font-style:normal'><span lang=EN-US
+  style='mso-bidi-font-size:10.5pt;font-family:"Times New Roman","serif";
+  font-weight:normal'>employee</span></i></span><span lang=EN-US
+  style='mso-bidi-font-size:10.5pt;mso-font-kerning:0pt'>&quot;</span><span
+  lang=EN-US style='font-size:12.0pt;mso-bidi-font-size:10.0pt;mso-fareast-font-family:
+  等线;mso-font-kerning:0pt'></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:5;height:16.1pt'>
+  <td width=32 valign=top style='width:19.0pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:16.1pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>5</span></b></p>
+  </td>
+  <td width=304 valign=top style='width:182.6pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.1pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>=file(&quot;D:\\EMPLOYEE4.xl&quot;).xlsexport@t(A1;&quot;employee&quot;)</span></b></p>
+  </td>
+  <td width=355 valign=top style='width:213.1pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.1pt'>
+  <p class=MsoNormal><span lang=EN-US>Cannot determine the file extension, so
+  export data as <span style='color:black'>xls format to</span></span><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:方正姚体;
+  mso-font-kerning:0pt'>&quot;<i style='mso-bidi-font-style:normal'>EMPLOYEE4.xl</i>&quot;</span><span
+  lang=EN-US> sheet</span><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US style='mso-fareast-font-family:等线'></span></b></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:6;height:16.1pt'>
+  <td width=32 valign=top style='width:19.0pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:16.1pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>6</span></b></p>
+  </td>
+  <td width=304 valign=top style='width:182.6pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.1pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>=demo.cursor(&quot;select EID,NAME,SURNAME
+  from EMPLOYEE&quot;)</span></b></p>
+  </td>
+  <td width=355 valign=top style='width:213.1pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.1pt'>
+  <p class=MsoNormal><span lang=EN-US style='mso-fareast-font-family:等线'>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:7;height:16.1pt'>
+  <td width=32 valign=top style='width:19.0pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:16.1pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>7</span></b></p>
+  </td>
+  <td width=304 valign=top style='width:182.6pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.1pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>=file(&quot;D:\\EMPLOYEE5.xls&quot;).xlsexport(A6;&quot;employee&quot;)</span></b></p>
+  </td>
+  <td width=355 valign=top style='width:213.1pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.1pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>A6</span></b><span lang=EN-US
+  style='mso-fareast-font-family:等线'> is a cursor</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:8;height:16.1pt'>
+  <td width=32 valign=top style='width:19.0pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:16.1pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>8</span></b></p>
+  </td>
+  <td width=304 valign=top style='width:182.6pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.1pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>=file(&quot;D:\\EMPLOYEE2.xls&quot;).xlsexport@t(A1)</span></b></p>
+  </td>
+  <td width=355 valign=top style='width:213.1pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.1pt'>
+  <p class=MsoNormal><span lang=EN-US>Append the file content after the first
+  page when <i style='mso-bidi-font-style:normal'>sheet</i> name isn’t
+  supplied, with the last existing non-empty row overwritten as the header row</span><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'></span></b></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:9;height:16.1pt'>
+  <td width=32 valign=top style='width:19.0pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:16.1pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>9</span></b></p>
+  </td>
+  <td width=304 valign=top style='width:182.6pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.1pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>=file(&quot;D:\\EMPLOYEE7.xls&quot;).xlsexport(A1;#1,#2)</span></b></p>
+  </td>
+  <td width=355 valign=top style='width:213.1pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.1pt'>
+  <p class=MsoNormal><span lang=EN-US>Export the first two columns</span><span
+  lang=EN-US style='mso-fareast-font-family:等线'></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:10;height:16.1pt'>
+  <td width=32 valign=top style='width:19.0pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:16.1pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>10</span></span></p>
+  </td>
+  <td width=304 valign=top style='width:182.6pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.1pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=demo.query(&quot;select
+  * from DEPT where DEPTID &lt;=5&quot;)</span></span></p>
+  </td>
+  <td width=355 valign=top style='width:213.1pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.1pt'>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:11;height:16.1pt'>
+  <td width=32 valign=top style='width:19.0pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:16.1pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>11</span></span></p>
+  </td>
+  <td width=304 valign=top style='width:182.6pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.1pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=file(&quot;D:\\DEPT.xls&quot;).xlsexport@a(A1)</span></span></p>
+  </td>
+  <td width=355 valign=top style='width:213.1pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.1pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
+  mso-fareast-font-family:宋体;font-weight:normal;mso-bidi-font-weight:bold'>In <i>DEPT.xls</i>
+  file, format is set for column C. Here’s its original content:</span></span></p>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=275 height=159
+  src="Function_Reference.files/image2260.png" v:shapes="_x0000_i2395"></span></p>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'>Content after data appending usijng @a option:</span></p>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=274 height=247
+  src="Function_Reference.files/image2261.png" v:shapes="图片_x0020_1465"></span></p>
+  <p class=MsoNormal><span lang=EN-US>Write records after the last row to the
+  existing Excel file according to its format</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:12;height:16.1pt'>
+  <td width=32 valign=top style='width:19.0pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:16.1pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>12</span></span></p>
+  </td>
+  <td width=304 valign=top style='width:182.6pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.1pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=file(&quot;emp.xls&quot;).xlsimport@w()</span></span></p>
+  </td>
+  <td width=355 valign=top style='width:213.1pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.1pt'>
+  <p class=MsoNormal><span lang=EN-US>A12’s result is a sequence of sequences</span></p>
+  <p class=MsoNormal><span lang=EN-US><img border=0 width=377 height=216
+  src="Function_Reference.files/image2263.jpg" v:shapes="图片_x0020_1104"></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:13;height:16.1pt'>
+  <td width=32 valign=top style='width:19.0pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:16.1pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>13</span></span></p>
+  </td>
+  <td width=304 valign=top style='width:182.6pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.1pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=file(&quot;expfile1.xls&quot;).xlsexport@w(A12)</span></span></p>
+  </td>
+  <td width=355 valign=top style='width:213.1pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.1pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
+  mso-fareast-font-family:宋体;font-weight:normal'>Write A12’s data to <i
+  style='mso-bidi-font-style:normal'>expfile1.xls</i>; the content is as
+  follows: </span></span></p>
+  <p class=MsoNormal><span lang=EN-US><img border=0 width=378 height=105
+  src="Function_Reference.files/image2265.jpg" v:shapes="图片_x0020_1105"></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:14;height:16.1pt'>
+  <td width=32 valign=top style='width:19.0pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:16.1pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>14</span></span></p>
+  </td>
+  <td width=304 valign=top style='width:182.6pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.1pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=file(&quot;emp.xls&quot;).xlsimport@s()</span></span></p>
+  </td>
+  <td width=355 valign=top style='width:213.1pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.1pt'>
+  <p class=MsoNormal><span lang=EN-US>The content of A14 is as follows:</span></p>
+  <p class=MsoNormal><span lang=EN-US><img border=0 width=377 height=216
+  src="Function_Reference.files/image2267.jpg" v:shapes="图片_x0020_1106"></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:15;height:16.1pt'>
+  <td width=32 valign=top style='width:19.0pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:16.1pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>15</span></span></p>
+  </td>
+  <td width=304 valign=top style='width:182.6pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.1pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=file(&quot;expfile2.xls&quot;).xlsexport@w(A14)</span></span></p>
+  </td>
+  <td width=355 valign=top style='width:213.1pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.1pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
+  mso-fareast-font-family:宋体;font-weight:normal'>Write A14’s data to <i
+  style='mso-bidi-font-style:normal'>expfile2.xls</i>; the content is as
+  follows:</span></span></p>
+  <p class=MsoNormal><span lang=EN-US><img border=0 width=378 height=105
+  src="Function_Reference.files/image2265.jpg" v:shapes="图片_x0020_1107"></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:16;mso-yfti-lastrow:yes;height:16.1pt'>
+  <td width=32 valign=top style='width:19.0pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:16.1pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>16</span></span></p>
+  </td>
+  <td width=304 valign=top style='width:182.6pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.1pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=file(&quot;exp_p.xls&quot;).xlsexport@wp(A12)</span></span></p>
+  </td>
+  <td width=355 valign=top style='width:213.1pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:16.1pt'>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'>Perform transposition on A12’s table before
+  writing it to Excel</span></p>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=378 height=89
+  src="Function_Reference.files/image2269.jpg" v:shapes="_x0000_i2401"></span><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
+  mso-fareast-font-family:宋体;font-weight:normal'></span></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%;mso-fareast-font-family:等线'>Related
+function:</span></b></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:等线'><a
+ href="fexportaxfs.html#f_export_A_x_F_s">f<span style='mso-bidi-font-size:10.0pt;mso-fareast-font-family:
+黑体'>.export()</span></a></span><span lang=EN-US style='mso-fareast-font-family:
+等线'></span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><u><span lang=EN-US
+style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:等线;color:blue'><a
+ href="fxlsimport.html#f_xlsimport">f<span style='mso-bidi-font-size:10.0pt;mso-fareast-font-family:
+黑体'>.xlsim<span style='mso-bookmark:_Hlt510192676'>p</span><span
+style='mso-bookmark:_Hlt510192448'><span style='mso-bookmark:_Hlt510192447'>o</span></span>rt()</span></a><a
+name="_Hlt510192447"></a><a name="_Hlt510192448"></a><a name="_Hlt510192676"></a></span></u></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="892.html">Next</a></div>
@@ -184,14 +619,17 @@ style='font-size:14.0pt'>Example:</span></b></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="45.html">Functions</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="890.html">xlsexport()</a></span></li>
 </div>
 	</div>
 	<div id="footer">	
 		
-		
-    <div class="copyright"> Copyright&reg; 2021 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+		<div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">Scudata Inc. 
+      </a></div> 
+        <!--
+		<div class="copyright"> Copyright&reg; 2017 <a href="http://www.yimming.com" target="_Blank"> Beijing Yimming Ltd. Co. 
       </a></div>
+	  -->
 	</div>
 </div>
 

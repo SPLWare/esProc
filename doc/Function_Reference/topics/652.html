@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>T.paste()</title>
+<title>pls()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,251 +13,340 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h3 style='text-align:justify;text-justify:inter-ideograph'><a name="T_paste"></a><span
-lang=EN-US>T.paste()</span></h3></div>
-	<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-mso-bidi-font-size:12.0pt;line-height:200%'>Description:</span></b></p>
+	<div id="centent-title"><h2><a name=pjoin></a><a name="r_pkey"></a><a name=plsFit></a><a name="CS_pjoin"></a><span
+lang=EN-US style='mso-fareast-font-family:宋体;color:black'>pls()<a name=pls></a></span></h2></div>
+	<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt;color:black'>Description:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Loop through the
-records of a sequence to modify the specified field of a table sequence in
-order. <span style='mso-bidi-font-style:italic'></span></span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='color:black'>External library function; fit together matrices using PLS
+technique.</span></p>
 
-<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-mso-bidi-font-size:12.0pt;line-height:200%'>Syntax:</span></b></p>
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt;color:black'>Syntax:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><i><span lang=EN-US
-style='mso-bidi-font-size:10.5pt'>T</span></i><span lang=EN-US
-style='mso-bidi-font-style:italic'>.</span><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US style='mso-fareast-font-family:黑体'>paste</span></b><span lang=EN-US>(<i>A<sub>i</sub></i><span
-style='mso-bidi-font-style:italic'>:<i>F<sub>i</sub></i>,…;<i>k</i></span><i
-style='mso-bidi-font-style:normal'>)</i></span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span class=code><span
+lang=EN-US style='font-family:"Times New Roman","serif";color:black'>pls(</span></span><span
+class=var1><span lang=EN-US style='color:black'>A,Y,n</span></span><span
+class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
+color:black'>)<span style='mso-spacerun:yes'>&nbsp; </span></span></span><span
+lang=EN-US style='color:black'>Fit matrix <i style='mso-bidi-font-style:normal'>A
+</i>and matrix/vector <i style='mso-bidi-font-style:normal'>Y </i><span
+style='mso-bidi-font-style:italic'>using the PLS technique</span>; matrix <i>A</i>
+contains more than one row and both <i>A</i> and <i>Y</i> should have same
+number of rows; <i style='mso-bidi-font-style:normal'>n </i>is the number of
+principal components. The type of result is determined by </span><span
+class=var1><span lang=EN-US style='color:black'>Y</span></span><span
+lang=EN-US style='color:black'>, that is to say, the function returns a matrix
+when</span><span class=var1><span lang=EN-US style='color:black'> Y</span></span><span
+lang=EN-US style='color:black'> is a matix and a vector when </span><span
+class=var1><span lang=EN-US style='color:black'>Y</span></span><span
+lang=EN-US style='color:black'> is a vector. The return result can be used as
+parameter</span><span class=var1><span lang=EN-US style='color:black'> F</span></span><span
+lang=EN-US style='color:black'> in </span><span class=code><span lang=EN-US
+style='font-family:"Times New Roman","serif";color:black'>pls(</span></span><span
+class=var1><span lang=EN-US style='color:black'>A</span></span><i><span
+lang=EN-US>’</span></i><span class=var1><span lang=EN-US style='color:black'>,F</span></span><span
+class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
+color:black'>) </span></span><span class=code><span lang=EN-US
+style='font-family:"Times New Roman","serif";color:black;font-weight:normal;
+mso-bidi-font-weight:bold'>to perform a fitting</span><span lang=EN-US
+style='color:black'></span></span></p>
 
-<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-mso-bidi-font-size:12.0pt;line-height:200%'>Note:</span></b></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span class=code><span
+lang=EN-US style='font-family:"Times New Roman","serif";color:black'>pls(</span></span><span
+class=var1><span lang=EN-US style='color:black'>A’,F</span></span><span
+class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
+color:black'>)<span style='mso-spacerun:yes'>&nbsp; </span></span></span><span
+lang=EN-US style='color:black'>Get fitting object of matrices having same
+number of columns, that is, perform prediction on </span><span class=var1><span
+lang=EN-US style='color:black'>A</span></span><span class=var1><span
+lang=EN-US style='color:black;font-style:normal;mso-bidi-font-style:italic'>’ </span></span><span
+lang=EN-US style='color:black'>using coefficient information in a fitting
+result</span><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
+color:black'></span></span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:
-exactly'><span lang=EN-US>The function loops through the records of sequence </span><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-size:
-10.5pt;mso-fareast-font-family:黑体'>A<sub>i </sub></span></i><span lang=EN-US>to
-modify the values of <i>F<sub>i </sub></i>field of table sequence <i
-style='mso-bidi-font-style:normal'>T</i> from the <i style='mso-bidi-font-style:
-normal'>k<sup>th</sup></i> record. </span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;line-height:16.0pt;mso-line-height-rule:
-exactly'><span lang=EN-US>The number of records to be modified is decided by
-the smaller one between </span><i><span lang=EN-US style='mso-bidi-font-size:
-10.5pt'>A</span></i><i style='mso-bidi-font-style:normal'><sub><span
-lang=EN-US style='mso-bidi-font-size:10.5pt;mso-fareast-font-family:黑体'>i</span></sub></i><span
-lang=EN-US>’s length and <i>T</i>’s length. The modification will stop once the
-limit is reached. </span></p>
-
-<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-mso-bidi-font-size:12.0pt;line-height:200%'>Parameter:</span></b></p>
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt;color:black'>Parameters:</span></b></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ style='margin-left:21.3pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>T</span></i></p>
+  <td width=52 valign=top style='width:31.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=var1><span lang=EN-US style='color:black'>A</span></span></p>
   </td>
   <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>A table sequence</span></p>
+  <p class=MsoNormal><span lang=EN-US style='color:black'>A matrix</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>A</span></i><i
-  style='mso-bidi-font-style:normal'><sub><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-fareast-font-family:黑体'>i</span></sub></i><i><span lang=EN-US
-  style='mso-bidi-font-size:10.5pt'></span></i></p>
+  <td width=52 valign=top style='width:31.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=var1><span lang=EN-US style='color:black'>Y</span></span></p>
   </td>
   <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>A table sequence/record
-  sequence/sequence, whose records/members will be values of <i
-  style='mso-bidi-font-style:normal'>F<sub>i </sub></i>field</span></p>
+  <p class=MsoNormal><span lang=EN-US style='color:black'>A matrix/vector</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:2'>
-  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>F<sub>i</sub></span></i></p>
+  <td width=52 valign=top style='width:31.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=var1><span lang=EN-US style='color:black'>n</span></span></p>
   </td>
   <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>The field to be modified; when it isn’t
-  supplied, modify the<i style='mso-bidi-font-style:normal'> i<sup>th</sup></i>
-  field of <i style='mso-bidi-font-style:normal'>T</i></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
-  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>k</span></i></p>
-  </td>
-  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>The position the modification starts. The
-  default is 0, in which case records or members will be appended at the end. </span></p>
-  </td>
- </tr>
-</table>
-
-<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-mso-bidi-font-size:12.0pt;line-height:200%'>Option:</span></b></p>
-
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'>
-  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>@i</span></b><i><span lang=EN-US
-  style='mso-bidi-font-size:10.5pt'></span></i></p>
-  </td>
-  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Insert values to <i>F<sub>i </sub></i>field
-  of table sequence <i style='mso-bidi-font-style:normal'>T</i> starting from
-  the <i style='mso-bidi-font-style:normal'>k<sup>th</sup></i> record</span></p>
-  </td>
- </tr>
-</table>
-
-<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-mso-bidi-font-size:12.0pt;line-height:200%'>Return value:</span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>A table sequence</span></p>
-
-<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-mso-bidi-font-size:12.0pt;line-height:200%'>Example:</span></b></p>
-
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
- style='margin-left:.25pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
- mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=24 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
-  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
-  </td>
-  <td width=260 valign=top style='width:155.9pt;border:solid #A6A6A6 1.0pt;
-  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>A</span></b></p>
-  </td>
-  <td width=402 valign=top style='width:241.0pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:1'>
-  <td width=24 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>1</span></b></p>
-  </td>
-  <td width=260 valign=top style='width:155.9pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>=demo.query(&quot;select * from
-  DEPARTMENT&quot;).keys(DEPT)</span></b></p>
-  </td>
-  <td width=402 valign=top style='width:241.0pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:2'>
-  <td width=24 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>2</span></b></p>
-  </td>
-  <td width=260 valign=top style='width:155.9pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>=A1.modify(1,&quot;Sales&quot;,5)</span></b></p>
-  </td>
-  <td width=402 valign=top style='width:241.0pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  <p class=MsoNormal><span lang=EN-US style='color:black'>Number of principal
+  components; the range of its values is </span><span class=var1><span
+  lang=EN-US style='font-style:normal'>1&lt;=n&lt;=min(row count -1,column
+  count). When the parameter is absent or out of range, its value will be
+  automatically configured as the maximum in the above range</span></span><span
+  lang=EN-US style='color:black'></span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:3'>
-  <td width=24 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>3</span></b></p>
+  <td width=52 valign=top style='width:31.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=var1><span lang=EN-US style='color:black'>A’</span></span></p>
   </td>
-  <td width=260 valign=top style='width:155.9pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>=demo.query(&quot;select * from
-  DEPARTMENT&quot;)</span></b></p>
-  </td>
-  <td width=402 valign=top style='width:241.0pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='color:black'>A matrix/vector</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:4'>
-  <td width=24 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>4</span></b></p>
+ <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes'>
+  <td width=52 valign=top style='width:31.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=var1><span lang=EN-US style='color:black'>F</span></span></p>
   </td>
-  <td width=260 valign=top style='width:155.9pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>=A3.paste(A1:DEPT,[20,10,20]:MANAGER;3)</span></b></p>
-  </td>
-  <td width=402 valign=top style='width:241.0pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'><img border=0 width=147 height=174
-  src="Function_Reference.files/image1609.png" v:shapes="_x0000_i2031"></span></p>
-  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'>Modify values of records according to different
-  fields </span></p>
+  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
+  color:black;font-weight:normal'>A </span></span><span lang=EN-US
+  style='color:black'>matrix/</span><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman","serif";color:black;font-weight:normal'>vector,
+  the result returned by</span></span><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman","serif";color:black;mso-bidi-font-weight:
+  bold'> </span></span><span class=code><span lang=EN-US style='font-family:
+  "Times New Roman","serif";color:black'>pls(</span></span><span class=var1><span
+  lang=EN-US style='color:black'>A,Y,n</span></span><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman","serif";color:black'>)</span></span><span
+  lang=EN-US style='color:black'></span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:5;mso-yfti-lastrow:yes'>
-  <td width=24 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+</table>
+
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt;color:black'>Return value:</span></b></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='color:black'>A vector/single value/matrix</span></p>
+
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt;color:black'>Example:</span></b></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='margin-left:17.9pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
+ mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=38 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
+  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US style='color:black'>&nbsp;</span></p>
+  </td>
+  <td width=340 valign=top style='width:204.25pt;border:solid #A6A6A6 1.0pt;
+  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman","serif";color:black'>A</span></span></p>
+  </td>
+  <td width=331 valign=top style='width:7.0cm;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=EN-US
+  style='color:black'>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=38 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>5</span></b></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
+  color:black'>1</span></span></p>
   </td>
-  <td width=260 valign=top style='width:155.9pt;border-top:none;border-left:
+  <td width=340 valign=top style='width:204.25pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>=A3.paste@i(A1:DEPT,[20,10,20]:MANAGER;3)</span></b></p>
+  <p class=MsoNormal><span class=var1><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US style='color:black;font-style:normal'>[[4,6,2,4],[2,3,1,2],[1,1,1,-1]]</span></b></span></p>
   </td>
-  <td width=402 valign=top style='width:241.0pt;border:none;mso-border-left-alt:
+  <td width=331 valign=top style='width:7.0cm;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'><img border=0 width=155 height=222
-  src="Function_Reference.files/image1611.jpg" v:shapes="_x0000_i2032"></span></p>
-  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'>Insert values according to different fields. </span></p>
+  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=EN-US
+  style='color:black'>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=38 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
+  color:black'>2</span></span></p>
+  </td>
+  <td width=340 valign=top style='width:204.25pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b><span lang=EN-US>[1,0,-4]</span></b><span class=var1><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='color:black;
+  font-style:normal'></span></b></span></p>
+  </td>
+  <td width=331 valign=top style='width:7.0cm;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=EN-US
+  style='color:black'>Here parameter <i>Y</i> is a vector</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;height:17.25pt'>
+  <td width=38 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:17.25pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
+  color:black'>3</span></span></p>
+  </td>
+  <td width=340 valign=top style='width:204.25pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:17.25pt'>
+  <p class=MsoNormal><span class=var1><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US style='color:black;font-style:normal'>=pls(A1,A2,2)</span></b></span></p>
+  </td>
+  <td width=331 valign=top style='width:7.0cm;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:17.25pt'>
+  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=zh-CN
+  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=229 height=139
+  src="Function_Reference.files/image1781.jpg" v:shapes="_x0000_i2108"><span
+  style='color:black'></span></span></p>
+  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=zh-CN
+  style='color:black;mso-ansi-language:#0400;mso-fareast-language:#0400'>Fit
+  matrix A1 and vector A2 using the PLS technique and return a vector; the number
+  of principle components is 2</span></p>
+  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=zh-CN
+  style='color:black;mso-ansi-language:#0400;mso-fareast-language:#0400'>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4;height:17.25pt'>
+  <td width=38 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:17.25pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
+  color:black'>4</span></span></p>
+  </td>
+  <td width=340 valign=top style='width:204.25pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:17.25pt'>
+  <p class=MsoNormal><b><span lang=EN-US>[[3,5,-2,8],[2,4,3,3]]</span></b><span
+  class=var1><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='color:black;font-style:normal'></span></b></span></p>
+  </td>
+  <td width=331 valign=top style='width:7.0cm;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:17.25pt'>
+  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=EN-US
+  style='color:black'>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:5;height:17.25pt'>
+  <td width=38 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:17.25pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
+  color:black'>5</span></span></p>
+  </td>
+  <td width=340 valign=top style='width:204.25pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:17.25pt'>
+  <p class=MsoNormal><b><span lang=EN-US>=pls(A4,A3)</span></b><span
+  class=var1><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='color:black;font-style:normal'></span></b></span></p>
+  </td>
+  <td width=331 valign=top style='width:7.0cm;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:17.25pt'>
+  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=zh-CN
+  style='color:black;mso-ansi-language:#0400;mso-fareast-language:#0400'>&nbsp;</span></p>
+  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=zh-CN
+  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=331 height=63
+  src="Function_Reference.files/image1783.jpg" v:shapes="_x0000_i2109"><span
+  style='color:black'></span></span></p>
+  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=zh-CN
+  style='color:black;mso-ansi-language:#0400;mso-fareast-language:#0400'>Perform
+  prediction on A4 using fitting result returned by A3</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:6;height:17.25pt'>
+  <td width=38 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:17.25pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
+  color:black'>6</span></span></p>
+  </td>
+  <td width=340 valign=top style='width:204.25pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:17.25pt'>
+  <p class=MsoNormal><b><span lang=EN-US>[[1,-2,1],[0,2,-8],[-4,5,9]]</span></b><span
+  class=var1><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='color:black;font-style:normal'></span></b></span></p>
+  </td>
+  <td width=331 valign=top style='width:7.0cm;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:17.25pt'>
+  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=EN-US
+  style='color:black'>Here parameter <i>Y</i> is a matrix</span><span
+  lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:7;height:17.25pt'>
+  <td width=38 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:17.25pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
+  color:black'>7</span></span></p>
+  </td>
+  <td width=340 valign=top style='width:204.25pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:17.25pt'>
+  <p class=MsoNormal><b><span lang=EN-US>=pls(A1,A6,2)</span></b><span
+  class=var1><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='color:black;font-style:normal'></span></b></span></p>
+  </td>
+  <td width=331 valign=top style='width:7.0cm;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:17.25pt'>
+  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=zh-CN
+  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=331 height=126
+  src="Function_Reference.files/image1785.jpg" v:shapes="图片_x0020_106"></span></p>
+  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=zh-CN
+  style='mso-ansi-language:#0400;mso-fareast-language:#0400'>Fit together
+  matrix A1 and matrix A6 using PLS technique, with the principle component is
+  2, and return the fitting coefficient matrix</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:8;mso-yfti-lastrow:yes;height:17.25pt'>
+  <td width=38 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:17.25pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
+  color:black'>8</span></span></p>
+  </td>
+  <td width=340 valign=top style='width:204.25pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:17.25pt'>
+  <p class=MsoNormal><b><span lang=EN-US>=pls(A4,A7)</span></b></p>
+  </td>
+  <td width=331 valign=top style='width:7.0cm;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:17.25pt'>
+  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=zh-CN
+  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=331 height=126
+  src="Function_Reference.files/image1786.jpg" v:shapes="_x0000_i2111"></span></p>
+  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=zh-CN
+  style='color:black;mso-ansi-language:#0400;mso-fareast-language:#0400'>Perform
+  prediction on A4 using fitting result returned by A7 and return prediction
+  result</span></p>
   </td>
  </tr>
 </table>
@@ -268,14 +357,17 @@ mso-bidi-font-size:12.0pt;line-height:200%'>Example:</span></b></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="651.html">paste()</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="45.html">Functions</a></span></li>
 </div>
 	</div>
 	<div id="footer">	
 		
-		
-    <div class="copyright"> Copyright&reg; 2021 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+		<div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">Scudata Inc. 
+      </a></div> 
+        <!--
+		<div class="copyright"> Copyright&reg; 2017 <a href="http://www.yimming.com" target="_Blank"> Beijing Yimming Ltd. Co. 
       </a></div>
+	  -->
 	</div>
 </div>
 

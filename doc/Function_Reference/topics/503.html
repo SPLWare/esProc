@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>cs .join()</title>
+<title>cs.joinx()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,251 +13,211 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h3 style='text-align:justify;text-justify:inter-ideograph'><a name="cs_join"></a><i
-style='mso-bidi-font-style:normal'><span lang=EN-US>cs</span></i><span
-lang=EN-US>.join()<i
-style='mso-bidi-font-style:normal'></i></span></h3></div>
-	<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-mso-bidi-font-size:10.0pt;line-height:200%'>Description:</span></b><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:12.0pt;
-mso-bidi-font-size:10.0pt;line-height:200%'></span></b></p>
+	<div id="centent-title"><h3 style='text-align:justify;text-justify:inter-ideograph'><span lang=EN-US>cs.joinx()</span><a
+name="cs_joinx2"></a></h3></div>
+	<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt'>Description:</span></b></p>
 
-<p class=MsoNormal style='text-indent:15.75pt;mso-char-indent-count:1.5'><span
-lang=EN-US>A foreign-key-style join between a cursor and a table
-sequence/record sequence.<span style='mso-spacerun:yes'>&nbsp; </span></span></p>
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US style='mso-bidi-font-size:10.5pt'>Join up a cursor and an entity
+table by the foreign key.</span></p>
 
-<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-mso-bidi-font-size:10.0pt;line-height:200%'>Syntax:</span></b></p>
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt'>Syntax:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-size:
-10.5pt;mso-font-kerning:0pt'>cs</span></i><span lang=EN-US style='mso-bidi-font-size:
-10.5pt;mso-font-kerning:0pt'>.<b style='mso-bidi-font-weight:normal'>join</b>(</span><i><span
-lang=EN-US style='mso-bidi-font-size:10.5pt'>C:.,T:K,x:F,…; …;…</span></i><span
-lang=EN-US style='mso-bidi-font-size:10.5pt;mso-font-kerning:0pt'>)</span><span
-lang=EN-US style='mso-bidi-font-size:10.5pt'></span></p>
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><i><span
+lang=EN-US style='mso-bidi-font-size:10.5pt'>cs</span></i><span lang=EN-US
+style='mso-bidi-font-size:10.5pt'>.<b>joinx</b>(<i>C:…,T:K:…,x:F,…;…;…;n</i>) </span></p>
 
-<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-mso-bidi-font-size:10.0pt;line-height:200%'>Note:</span></b></p>
-
-<p class=MsoNormal style='text-indent:15.75pt;mso-char-indent-count:1.5;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US
-style='mso-bidi-font-size:10.5pt'>The function matches foreign key field<i
-style='mso-bidi-font-style:normal'> C</i> of cursor <i style='mso-bidi-font-style:
-normal'>cs</i> with the key of parameter <i style='mso-bidi-font-style:normal'>T</i>
-to find the corresponding records in <i style='mso-bidi-font-style:normal'>T</i>.
-Add an <i style='mso-bidi-font-style:normal'>F</i> field represented by <i
-style='mso-bidi-font-style:normal'>x</i>, which is <i style='mso-bidi-font-style:
-normal'>T</i>’s field expression, to <i style='mso-bidi-font-style:normal'>cs </i>and
-return the original cursor. <span style='mso-bidi-font-style:italic'></span></span></p>
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt'>Note:</span></b></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly;tab-stops:18.0pt'><i
+line-height:16.0pt;mso-line-height-rule:exactly;tab-stops:0cm'><span
+lang=EN-US style='mso-bidi-font-style:italic'>The function matches the foreign
+key fields </span><i style='mso-bidi-font-style:normal'><span lang=EN-US
+style='mso-bidi-font-size:10.5pt'>C<span style='mso-bidi-font-style:italic'>,</span>…
+</span></i><span lang=EN-US style='mso-bidi-font-style:italic'>in cursor </span><i><span
+lang=EN-US style='mso-bidi-font-size:10.5pt'>cs </span></i><span lang=EN-US
+style='mso-bidi-font-style:italic'>with the key <i>K</i> in entity table </span><i
 style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-size:
-10.5pt'>K</span></i><span lang=EN-US style='mso-bidi-font-size:10.5pt'> can be
-omitted or represented by <i style='mso-bidi-font-style:normal'>#</i>. When
-omitted, <i style='mso-bidi-font-style:normal'>K</i> is <i style='mso-bidi-font-style:
-normal'>T</i>’s key by default; when written as <i style='mso-bidi-font-style:
-normal'>#</i>, <i style='mso-bidi-font-style:normal'>K</i> is the ordinal
-number of a record of table <i style='mso-bidi-font-style:normal'>T</i>, which
-means foreign key numberization. </span><span lang=EN-US>Simply put, primary
-key values of the dimension table are natural numbers starting from 1, which
-are row numbers corresponding to table records. In this case, we can directly
-locate dimension table records according to key values by row numbers. This
-helps speed up association with the dimension table and increase performance.</span><span
-lang=EN-US style='mso-bidi-font-size:10.5pt'></span></p>
+10.5pt'>T</span></i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>, which
+is ordered by </span><i><span lang=EN-US>K</span></i><span lang=EN-US
+style='mso-bidi-font-size:10.5pt'>,<i style='mso-bidi-font-style:normal'> </i></span><span
+lang=EN-US style='mso-bidi-font-style:italic'>to find the corresponding record
+in </span><i style='mso-bidi-font-style:normal'><span lang=EN-US
+style='mso-bidi-font-size:10.5pt'>T</span></i><span lang=EN-US
+style='mso-bidi-font-style:italic'>, and makes the record’s expression <i>x</i>
+a new field <i>F</i> and adds it to <i>cs</i> to generate a new cursor. The
+value corresponding to a mismatched record will be recorded as null. </span></p>
 
-<p class=MsoNormal style='text-indent:15.75pt;mso-char-indent-count:1.5;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>If there is
-an </span><i style='mso-bidi-font-style:normal'><span lang=EN-US
-style='mso-bidi-font-size:10.5pt'>F</span></i><span lang=EN-US
-style='mso-bidi-font-size:10.5pt'> field</span><span lang=EN-US> in </span><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-size:
-10.5pt'>cs</span></i><span lang=EN-US>, just modify the existing field of </span><i
-style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-font-size:
-10.5pt'>ch</span></i><span lang=EN-US>. Use the latest time calculated through
-now() when time key value is not specified.</span><span lang=EN-US
-style='mso-bidi-font-size:10.5pt;mso-bidi-font-style:italic'></span></p>
-
-<p class=MsoNormal style='text-indent:15.75pt;mso-char-indent-count:1.5;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US
-style='mso-bidi-font-size:10.5pt;mso-bidi-font-style:italic'>It supports the
-multicursor.<i><span style='mso-spacerun:yes'>&nbsp; </span></i></span></p>
-
-<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-mso-bidi-font-size:10.0pt;line-height:200%'>Parameter:</span></b></p>
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt'>Option:</span></b></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ style='margin-left:19.85pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=168 valign=top style='width:100.65pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>@i</span></b><span
+  lang=EN-US style='mso-bidi-font-size:10.5pt;mso-bidi-font-style:italic'></span></p>
+  </td>
+  <td width=508 valign=top style='width:304.75pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-style:italic'>Discard
+  the records whose foreign key values can’t be matched</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=168 valign=top style='width:100.65pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-bidi-font-style:italic'>@d</span></b><span lang=EN-US
+  style='mso-bidi-font-style:italic'></span></p>
+  </td>
+  <td width=508 valign=top style='width:304.75pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-style:italic'>When
+  parameters x:F are absent, discard the records whose foreign key values are
+  matching</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=168 valign=top style='width:100.65pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-bidi-font-style:italic'>@q</span></b></p>
+  </td>
+  <td width=508 valign=top style='width:304.75pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-style:italic'>Speed
+  up the matching action according to a certain order when the cursor contains
+  a relatively small amount of data or it is a sequence </span><span
+  lang=EN-US>cs Speed up the join when the cursor contains relatively small
+  amount of data or is a sequence<span style='mso-bidi-font-style:italic'></span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3'>
+  <td width=168 valign=top style='width:100.65pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-bidi-font-style:italic'>@c</span></b></p>
+  </td>
+  <td width=508 valign=top style='width:304.75pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-style:italic'>Speed
+  up the matching action if the cursor is ordered by the first foreign key
+  field; </span><span lang=EN-US>when the cursor is ordered by the first field
+  of its foreign key, use it to speed up the join; can work with @q<span
+  style='mso-bidi-font-style:italic'></span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes'>
+  <td width=168 valign=top style='width:100.65pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-bidi-font-style:italic'>@u</span></b></p>
+  </td>
+  <td width=508 valign=top style='width:304.75pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-style:italic'>Speed
+  up the matching operation by shuffling records in the cursor</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt'>Parameter:</span></b></p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:19.85pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
   <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i><span lang=EN-US>cs</span></i><span class=var1><span
-  lang=EN-US></span></span></p>
+  <p class=MsoNormal><i><span lang=EN-US>cs</span></i></p>
   </td>
   <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
   <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-style:italic'>A
-  cursor</span><span lang=EN-US>/A multicursor</span></p>
+  cursor/multicursor</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1'>
   <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>C<span
-  class=var1></span></span></i></p>
+  <p class=MsoNormal><i><span lang=EN-US>C</span></i></p>
   </td>
   <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-style:italic'>Cursor<i>
-  cs</i>’s foreign key;<i> </i></span><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt'>separate multiple fields in a composite key with the colon</span></p>
+  <p class=MsoNormal><i><span lang=EN-US>cs</span></i><span lang=EN-US
+  style='mso-bidi-font-style:italic'>’s foreign key</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:2'>
   <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>T<span
-  class=var1></span></span></i></p>
+  <p class=MsoNormal><i><span lang=EN-US>T</span></i></p>
   </td>
   <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>A table sequence/A record sequence</span></p>
+  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-style:italic'>An
+  entity table</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:3'>
   <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>K<span
-  class=var1></span></span></i></p>
+  <p class=MsoNormal><i><span lang=EN-US>K</span></i></p>
   </td>
   <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US
-  style='mso-bidi-font-size:10.5pt'>T</span></i><span lang=EN-US
-  style='mso-bidi-font-size:10.5pt'>’s key</span></p>
+  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-style:italic'>The
+  entity table’s key</span><span lang=EN-US style='mso-bidi-font-size:10.5pt'>;
+  it is treated as row number when written as #</span><span lang=EN-US
+  style='mso-bidi-font-style:italic'></span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:4'>
   <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>x<span
-  class=var1></span></span></i></p>
+  <p class=MsoNormal><i><span lang=EN-US>x</span></i></p>
   </td>
   <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US
-  style='mso-bidi-font-size:10.5pt'>T</span></i><span lang=EN-US
-  style='mso-bidi-font-size:10.5pt'>’s field expression<i> </i></span></p>
+  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-style:italic'>An
+  expression of the field of <i>T</i></span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:5;mso-yfti-lastrow:yes'>
+ <tr style='mso-yfti-irow:5'>
   <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><a name="_Hlt494491808"><i style='mso-bidi-font-style:
-  normal'><span lang=EN-US>F</span></i></a><span style='mso-bookmark:_Hlt494491808'><span
-  class=var1><span lang=EN-US></span></span></span></p>
+  <p class=MsoNormal><i><span lang=EN-US>F</span></i></p>
   </td>
-  <span style='mso-bookmark:_Hlt494491808'></span>
   <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span style='mso-bookmark:_Hlt494491808'><span lang=EN-US
-  style='mso-bidi-font-size:10.5pt'>Field name in expression <i
-  style='mso-bidi-font-style:normal'>x</i></span><i style='mso-bidi-font-style:
-  normal'><span lang=EN-US>.</span></i></span></p>
-  </td>
-  <span style='mso-bookmark:_Hlt494491808'></span>
- </tr>
-</table>
-
-<span style='mso-bookmark:_Hlt494491808'></span>
-
-<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-mso-bidi-font-size:10.0pt;line-height:200%'>Option:</span></b></p>
-
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=89 valign=top style='width:53.25pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>@i</span></b><span class=var1><span
-  lang=EN-US></span></span></p>
-  </td>
-  <td width=593 valign=top style='width:355.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-style:italic'>Delete
-  a record with a non-matching foreign key value; by default, a non-matching
-  record will be represented by null</span></p>
+  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-style:italic'>Name
+  of the field of expression <i>x</i></span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:1'>
-  <td width=89 valign=top style='width:53.25pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>@o(F;…)</span></b></p>
+ <tr style='mso-yfti-irow:6;mso-yfti-lastrow:yes'>
+  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US>n</span></i></p>
   </td>
-  <td width=593 valign=top style='width:355.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Use the record as the value of <i
-  style='mso-bidi-font-style:normal'>F</i> field to generate a new record; here
-  expression <i style='mso-bidi-font-style:normal'>x</i> can be written as ~,
-  which represents the whole record of <i>cs</i></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:2'>
-  <td width=89 valign=top style='width:53.25pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>@d</span></b></p>
-  </td>
-  <td width=593 valign=top style='width:355.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>If parameters <i style='mso-bidi-font-style:
-  normal'>x:F</i> are absent, only perform a filtering over the cursor by
-  deleting its records where the foreign key is matched </span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
-  <td width=89 valign=top style='width:53.25pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>@m</span></b></p>
-  </td>
-  <td width=593 valign=top style='width:355.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Enable a merge join when <i>cs</i> is
-  ordered by </span><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>C</span></i><span
-  lang=EN-US> and </span><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>T</span></i><span
-  lang=EN-US> is ordered by </span><i><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt'>K</span></i></p>
+  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-style:italic'>Number
+  of buffer rows</span></p>
   </td>
  </tr>
 </table>
-
-<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-mso-bidi-font-size:10.0pt;line-height:200%'>Return value:</span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=DA style='mso-bidi-font-size:10.5pt;mso-ansi-language:DA'>The orignal
-cursor</span><span lang=FR style='mso-bidi-font-size:10.5pt;mso-ansi-language:
-FR'></span></p>
-
-<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-mso-bidi-font-size:10.0pt;line-height:200%'>Example:</span></b></p>
 
 <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>&nbsp;</span></b></p>
+style='font-size:14.0pt'>Return value:</span></b></p>
 
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=1187
- style='margin-left:16.75pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=DA style='mso-bidi-font-size:10.5pt;mso-ansi-language:DA'>A cursor</span><span
+lang=FR style='mso-bidi-font-size:10.5pt;mso-ansi-language:FR'></span></p>
+
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt'>Example:</span></b></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=745
+ style='margin-left:19.85pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
  mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
   <td width=38 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
   mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US>&nbsp;</span></b></p>
+  <p class=MsoNormal align=center style='text-align:center'><span lang=EN-US>&nbsp;</span></p>
   </td>
-  <td width=641 valign=top style='width:384.65pt;border:solid #A6A6A6 1.0pt;
+  <td width=366 valign=top style='width:219.7pt;border:solid #A6A6A6 1.0pt;
   border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><b
   style='mso-bidi-font-weight:normal'><span lang=EN-US>A</span></b></p>
   </td>
-  <td width=508 valign=top style='width:304.8pt;border:none;mso-border-left-alt:
+  <td width=340 valign=top style='width:204.25pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span lang=zh-CN
-  style='mso-ansi-language:#0400;mso-fareast-language:#0400'>&nbsp;</span></p>
+  <p class=MsoNormal align=center style='text-align:center'><span lang=EN-US>&nbsp;</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1'>
@@ -267,22 +227,21 @@ style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>&nbsp;</span></b></p>
   <p class=MsoNormal align=center style='text-align:center'><b
   style='mso-bidi-font-weight:normal'><span lang=EN-US>1</span></b></p>
   </td>
-  <td width=641 valign=top style='width:384.65pt;border-top:none;border-left:
+  <td width=366 valign=top style='width:219.7pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=left style='text-align:left'><b style='mso-bidi-font-weight:
-  normal'><span lang=EN-US>=connect(&quot;demo&quot;).cursor(&quot;SELECT *
-  FROM CITIES&quot;)</span></b></p>
+  <p class=MsoNormal><b><span lang=EN-US>=demo.cursor(&quot;select
+  EID,NAME,DEPT,SALARY from </span></b></p>
+  <p class=MsoNormal><b><span lang=EN-US>EMPLOYEE where EID&lt;10 order by<span
+  style='mso-spacerun:yes'>&nbsp; </span>EID&quot; )</span></b><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US></span></b></p>
   </td>
-  <td width=508 valign=top style='width:304.8pt;border:none;mso-border-left-alt:
+  <td width=340 valign=top style='width:204.25pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=left style='text-align:left'><span lang=zh-CN
-  style='mso-ansi-language:#0400;mso-fareast-language:#0400'>Below is data of
-  CITIES table:</span></p>
-  <p class=MsoNormal align=left style='text-align:left'><span lang=zh-CN
-  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=426 height=415
-  src="Function_Reference.files/image1223.jpg" v:shapes="_x0000_i1759"></span></p>
+  <p class=MsoNormal><span lang=EN-US>Return a data retrieval cursor:</span></p>
+  <p class=MsoNormal><span lang=EN-US><img border=0 width=261 height=240
+  src="Function_Reference.files/image1318.jpg" v:shapes="_x0000_i1828"></span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:2'>
@@ -292,22 +251,16 @@ style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>&nbsp;</span></b></p>
   <p class=MsoNormal align=center style='text-align:center'><b
   style='mso-bidi-font-weight:normal'><span lang=EN-US>2</span></b></p>
   </td>
-  <td width=641 valign=top style='width:384.65pt;border-top:none;border-left:
+  <td width=366 valign=top style='width:219.7pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=left style='text-align:left'><b style='mso-bidi-font-weight:
-  normal'><span lang=EN-US>=connect(&quot;demo&quot;).query(&quot;SELECT * FROM
-  STATECAPITAL where STATEID&lt;30&quot;).keys(STATEID) </span></b></p>
+  <p class=MsoNormal><b><span lang=EN-US>=file(&quot;D:\\PERFORMANCE3.ctx&quot;)</span></b></p>
   </td>
-  <td width=508 valign=top style='width:304.8pt;border:none;mso-border-left-alt:
+  <td width=340 valign=top style='width:204.25pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=left style='text-align:left'><span lang=zh-CN
-  style='mso-ansi-language:#0400;mso-fareast-language:#0400'>Below is data of
-  STATECAPITAL table:</span></p>
-  <p class=MsoNormal align=left style='text-align:left'><span lang=zh-CN
-  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=268 height=404
-  src="Function_Reference.files/image1224.jpg" v:shapes="图片_x0020_752"></span></p>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'>&nbsp;</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:3'>
@@ -317,33 +270,18 @@ style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>&nbsp;</span></b></p>
   <p class=MsoNormal align=center style='text-align:center'><b
   style='mso-bidi-font-weight:normal'><span lang=EN-US>3</span></b></p>
   </td>
-  <td width=641 valign=top style='width:384.65pt;border-top:none;border-left:
+  <td width=366 valign=top style='width:219.7pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=left style='text-align:left'><b style='mso-bidi-font-weight:
-  normal'><span lang=EN-US>=A1.join(STATEID,A2,CAPITAL)</span></b></p>
+  <p class=MsoNormal><b><span lang=EN-US>=A2.open()</span></b></p>
   </td>
-  <td width=508 valign=top style='width:304.8pt;border:none;mso-border-left-alt:
+  <td width=340 valign=top style='width:204.25pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=left style='text-align:left'><span lang=zh-CN
-  style='mso-ansi-language:#0400;mso-fareast-language:#0400'>Associate CITIES
-  table and STATECAPITAL</span></p>
-  <p class=MsoNormal align=left style='text-align:left'><span lang=zh-CN
-  style='mso-ansi-language:#0400;mso-fareast-language:#0400'>table through the
-  foreign key &#8211; parameter <i>K</i> is</span></p>
-  <p class=MsoNormal align=left style='text-align:left'><span lang=zh-CN
-  style='mso-ansi-language:#0400;mso-fareast-language:#0400'>by default
-  STATEID, STATECAPITAL’s key,</span></p>
-  <p class=MsoNormal align=left style='text-align:left'><span lang=zh-CN
-  style='mso-ansi-language:#0400;mso-fareast-language:#0400'>and add
-  STATECAPITAL table’s CAPTITAL</span></p>
-  <p class=MsoNormal align=left style='text-align:left'><span lang=zh-CN
-  style='mso-ansi-language:#0400;mso-fareast-language:#0400'>field to result to
-  generate a new table sequence</span></p>
-  <p class=MsoNormal align=left style='text-align:left'><span lang=zh-CN
-  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=486 height=475
-  src="Function_Reference.files/image1225.jpg" v:shapes="图片_x0020_753"></span></p>
+  <p class=MsoNormal><span lang=EN-US>Open an entity table:</span></p>
+  <p class=MsoNormal><span lang=EN-US><img border=0 width=249 height=155
+  src="Function_Reference.files/image1320.jpg" v:shapes="_x0000_i1829"></span><span
+  lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'></span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:4'>
@@ -353,21 +291,17 @@ style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>&nbsp;</span></b></p>
   <p class=MsoNormal align=center style='text-align:center'><b
   style='mso-bidi-font-weight:normal'><span lang=EN-US>4</span></b></p>
   </td>
-  <td width=641 valign=top style='width:384.65pt;border-top:none;border-left:
+  <td width=366 valign=top style='width:219.7pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=left style='text-align:left'><b style='mso-bidi-font-weight:
-  normal'><span lang=EN-US>=A1.join(STATEID,A2:#,CAPITAL)</span></b></p>
+  <p class=MsoNormal><b><span lang=EN-US>=A1.joinx(EID,A3:EMPLOYEEID,BONUS+1:SALARY1;5)</span></b></p>
   </td>
-  <td width=508 valign=top style='width:304.8pt;border:none;mso-border-left-alt:
+  <td width=340 valign=top style='width:204.25pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=left style='text-align:left'><span lang=zh-CN
-  style='mso-ansi-language:#0400;mso-fareast-language:#0400'>STATEID field
-  values are natural numbers starting from 1, which correspond to ordinal
-  numbers of records of STATECAPITAL table, so we can write parameter <i>K</i>
-  as # to use ordinal numbers in STATECAPITAL table so that efficiency can be
-  boosted; return same result as A3</span></p>
+  <p class=MsoNormal><span lang=EN-US>Normal join; use null to represent the
+  records whose foreign key values are mismatched</span><span lang=zh-CN
+  style='mso-ansi-language:#0400;mso-fareast-language:#0400'></span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:5'>
@@ -377,22 +311,17 @@ style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>&nbsp;</span></b></p>
   <p class=MsoNormal align=center style='text-align:center'><b
   style='mso-bidi-font-weight:normal'><span lang=EN-US>5</span></b></p>
   </td>
-  <td width=641 valign=top style='width:384.65pt;border-top:none;border-left:
+  <td width=366 valign=top style='width:219.7pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=left style='text-align:left'><b style='mso-bidi-font-weight:
-  normal'><span lang=EN-US>=A1.join@i(STATEID,A2,CAPITAL)</span></b></p>
+  <p class=MsoNormal><b><span lang=EN-US>=A4.fetch()</span></b></p>
   </td>
-  <td width=508 valign=top style='width:304.8pt;border:none;mso-border-left-alt:
+  <td width=340 valign=top style='width:204.25pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=left style='text-align:left'><span lang=zh-CN
-  style='mso-ansi-language:#0400;mso-fareast-language:#0400'>Use @i option to
-  delete records where foreign key values are non-matching; by default write
-  the records as nulls</span></p>
-  <p class=MsoNormal align=left style='text-align:left'><span lang=zh-CN
-  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=495 height=439
-  src="Function_Reference.files/image1226.jpg" v:shapes="图片_x0020_754"></span></p>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=269 height=206
+  src="Function_Reference.files/image1321.png" v:shapes="_x0000_i1830"></span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:6'>
@@ -402,21 +331,17 @@ style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>&nbsp;</span></b></p>
   <p class=MsoNormal align=center style='text-align:center'><b
   style='mso-bidi-font-weight:normal'><span lang=EN-US>6</span></b></p>
   </td>
-  <td width=641 valign=top style='width:384.65pt;border-top:none;border-left:
+  <td width=366 valign=top style='width:219.7pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=left style='text-align:left'><b style='mso-bidi-font-weight:
-  normal'><span lang=EN-US>=A1.join@i(STATEID,A2)</span></b></p>
+  <p class=MsoNormal><b><span lang=EN-US>=A1.joinx@i(EID,A3:EMPLOYEEID,BONUS+1:SALARY1;5)</span></b></p>
   </td>
-  <td width=508 valign=top style='width:304.8pt;border:none;mso-border-left-alt:
+  <td width=340 valign=top style='width:204.25pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=left style='text-align:left'><span lang=zh-CN
-  style='mso-ansi-language:#0400;mso-fareast-language:#0400'>Use @i option to
-  perform filtering only on CITIES table when parameters<i> x:F</i> are absent</span></p>
-  <p class=MsoNormal align=left style='text-align:left'><span lang=zh-CN
-  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=421 height=421
-  src="Function_Reference.files/image1227.jpg" v:shapes="图片_x0020_755"></span></p>
+  <p class=MsoNormal><span lang=EN-US>Discard the records whose foreign key
+  values are mismatched</span><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'></span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:7'>
@@ -426,22 +351,17 @@ style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>&nbsp;</span></b></p>
   <p class=MsoNormal align=center style='text-align:center'><b
   style='mso-bidi-font-weight:normal'><span lang=EN-US>7</span></b></p>
   </td>
-  <td width=641 valign=top style='width:384.65pt;border-top:none;border-left:
+  <td width=366 valign=top style='width:219.7pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=left style='text-align:left'><b style='mso-bidi-font-weight:
-  normal'><span lang=EN-US>=A1.join@d(STATEID,A2)</span></b></p>
+  <p class=MsoNormal><b><span lang=EN-US>=A6.fetch()</span></b></p>
   </td>
-  <td width=508 valign=top style='width:304.8pt;border:none;mso-border-left-alt:
+  <td width=340 valign=top style='width:204.25pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=left style='text-align:left'><span lang=zh-CN
-  style='mso-ansi-language:#0400;mso-fareast-language:#0400'>Use @d option to
-  delete records matching the foreign key when parameters <i>x:F</i> are absent
-  and perform filtering only on CITIES table</span></p>
-  <p class=MsoNormal align=left style='text-align:left'><span lang=zh-CN
-  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=423 height=444
-  src="Function_Reference.files/image1228.jpg" v:shapes="图片_x0020_756"></span></p>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=301 height=145
+  src="Function_Reference.files/image1322.png" v:shapes="_x0000_i1831"></span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:8'>
@@ -451,21 +371,18 @@ style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>&nbsp;</span></b></p>
   <p class=MsoNormal align=center style='text-align:center'><b
   style='mso-bidi-font-weight:normal'><span lang=EN-US>8</span></b></p>
   </td>
-  <td width=641 valign=top style='width:384.65pt;border-top:none;border-left:
+  <td width=366 valign=top style='width:219.7pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=left style='text-align:left'><b style='mso-bidi-font-weight:
-  normal'><span lang=EN-US>=A1.join(STATEID,A2,abc)</span></b></p>
+  <p class=MsoNormal><b><span lang=EN-US>=A1.joinx@d(EID,A3:EMPLOYEEID;5)</span></b></p>
   </td>
-  <td width=508 valign=top style='width:304.8pt;border:none;mso-border-left-alt:
+  <td width=340 valign=top style='width:204.25pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=left style='text-align:left'><span lang=zh-CN
-  style='mso-ansi-language:#0400;mso-fareast-language:#0400'>Write a record as
-  null when parameter <i>x</i> cannot be found in A2</span></p>
-  <p class=MsoNormal align=left style='text-align:left'><span lang=zh-CN
-  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=456 height=436
-  src="Function_Reference.files/image1229.jpg" v:shapes="图片_x0020_757"></span></p>
+  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-style:italic'>Keep
+  records whose foreign key values are<span style='mso-spacerun:yes'>&nbsp;
+  </span>mismatched when parameters <i>x</i>:<i>F </i>are absent</span><span
+  lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'></span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:9'>
@@ -475,23 +392,17 @@ style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>&nbsp;</span></b></p>
   <p class=MsoNormal align=center style='text-align:center'><b
   style='mso-bidi-font-weight:normal'><span lang=EN-US>9</span></b></p>
   </td>
-  <td width=641 valign=top style='width:384.65pt;border-top:none;border-left:
+  <td width=366 valign=top style='width:219.7pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=left style='text-align:left'><b style='mso-bidi-font-weight:
-  normal'><span lang=EN-US>=A1.join@k(STATEID,A2,~:STATES)</span></b></p>
+  <p class=MsoNormal><b><span lang=EN-US>=A8.fetch()</span></b></p>
   </td>
-  <td width=508 valign=top style='width:304.8pt;border:none;mso-border-left-alt:
+  <td width=340 valign=top style='width:204.25pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=left style='text-align:left'><span lang=zh-CN
-  style='mso-ansi-language:#0400;mso-fareast-language:#0400'>Use @k option to
-  record correspondence relationship between STATES and STATEID in result table
-  sequence to identify foreign key for pre-association when parameter <i>x</i>
-  is written as ~</span></p>
-  <p class=MsoNormal align=left style='text-align:left'><span lang=zh-CN
-  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=456 height=400
-  src="Function_Reference.files/image1230.jpg" v:shapes="图片_x0020_758"></span></p>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=279 height=89
+  src="Function_Reference.files/image1325.png" v:shapes="_x0000_i1832"></span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:10'>
@@ -501,60 +412,141 @@ style='font-size:12.0pt;mso-bidi-font-size:10.0pt'>&nbsp;</span></b></p>
   <p class=MsoNormal align=center style='text-align:center'><b
   style='mso-bidi-font-weight:normal'><span lang=EN-US>10</span></b></p>
   </td>
-  <td width=641 valign=top style='width:384.65pt;border-top:none;border-left:
+  <td width=366 valign=top style='width:219.7pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=left style='text-align:left'><b style='mso-bidi-font-weight:
-  normal'><span lang=EN-US>=A1.join@o(cities;STATEID,A2,CAPITAL)</span></b></p>
+  <p class=MsoNormal><b><span lang=EN-US>=A1.joinx@q(EID,A3:EMPLOYEEID,BONUS+1:SALARY1;5)</span></b></p>
   </td>
-  <td width=508 valign=top style='width:304.8pt;border:none;mso-border-left-alt:
+  <td width=340 valign=top style='width:204.25pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=left style='text-align:left'><span lang=zh-CN
-  style='mso-ansi-language:#0400;mso-fareast-language:#0400'>Use @o option to
-  make the whole original record cities value to generate a new record; this is
-  equivalent to writing parameter <i>x</i> as ~</span></p>
-  <p class=MsoNormal align=left style='text-align:left'><span lang=zh-CN
-  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=425 height=440
-  src="Function_Reference.files/image1231.jpg" v:shapes="图片_x0020_759"></span></p>
+  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-style:italic'>Retrieve
+  corresponding records efficiently from the entity table in order to match
+  with the foreign key</span><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'></span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:11;mso-yfti-lastrow:yes'>
+ <tr style='mso-yfti-irow:11'>
   <td width=38 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><b
   style='mso-bidi-font-weight:normal'><span lang=EN-US>11</span></b></p>
   </td>
-  <td width=641 valign=top style='width:384.65pt;border-top:none;border-left:
+  <td width=366 valign=top style='width:219.7pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=left style='text-align:left'><b style='mso-bidi-font-weight:
-  normal'><span lang=EN-US>=A1.join(STATEID,A2,CAPITAL:NAME)</span></b></p>
+  <p class=MsoNormal><b><span lang=EN-US>=A10.fetch()</span></b></p>
   </td>
-  <td width=508 valign=top style='width:304.8pt;border:none;mso-border-left-alt:
+  <td width=340 valign=top style='width:204.25pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=left style='text-align:left'><span lang=zh-CN
-  style='mso-ansi-language:#0400;mso-fareast-language:#0400'>Modify the
-  existing field as NAME already exists in CITIES table</span></p>
-  <p class=MsoNormal align=left style='text-align:left'><span lang=zh-CN
-  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=403 height=413
-  src="Function_Reference.files/image1232.jpg" v:shapes="图片_x0020_760"></span></p>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=269 height=206
+  src="Function_Reference.files/image1321.png" v:shapes="_x0000_i1833"></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:12'>
+  <td width=38 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>12</span></b></p>
+  </td>
+  <td width=366 valign=top style='width:219.7pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b><span lang=EN-US style='mso-bidi-font-size:11.0pt'>=A1.joinx(EID,A3:#,BONUS+1:SALARY1;5)</span><span
+  lang=EN-US></span></b></p>
+  </td>
+  <td width=340 valign=top style='width:204.25pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Take A1’s EID as the record number to
+  join with A3’s records</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:13'>
+  <td width=38 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>13</span></b></p>
+  </td>
+  <td width=366 valign=top style='width:219.7pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b><span lang=EN-US style='mso-bidi-font-size:11.0pt'>=A12.fetch()</span><span
+  lang=EN-US></span></b></p>
+  </td>
+  <td width=340 valign=top style='width:204.25pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US><img border=0 width=269 height=206
+  src="Function_Reference.files/image1321.png" v:shapes="图片_x0020_1024"></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:14'>
+  <td width=38 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>14</span></b></p>
+  </td>
+  <td width=366 valign=top style='width:219.7pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b><span lang=EN-US style='mso-bidi-font-size:11.0pt'>=file(&quot;D:\\emp1.ctx&quot;)</span><span
+  lang=EN-US></span></b></p>
+  </td>
+  <td width=340 valign=top style='width:204.25pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:15'>
+  <td width=38 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>15</span></b></p>
+  </td>
+  <td width=366 valign=top style='width:219.7pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b><span lang=EN-US style='mso-bidi-font-size:11.0pt'>=A14.</span></b><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>open</span></b><b><span
+  lang=EN-US style='mso-bidi-font-size:11.0pt'>()</span><span lang=EN-US></span></b></p>
+  </td>
+  <td width=340 valign=top style='width:204.25pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:16;mso-yfti-lastrow:yes'>
+  <td width=38 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US>16</span></b></p>
+  </td>
+  <td width=366 valign=top style='width:219.7pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><b><span lang=EN-US style='mso-bidi-font-size:11.0pt'>=A1.joinx@qc(EID:DEPT,A15:EID:DEPT,STATE:EMPSTATE;5)</span><span
+  lang=EN-US></span></b></p>
+  </td>
+  <td width=340 valign=top style='width:204.25pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  <p class=MsoNormal><span lang=EN-US>Use @qc options to get matching records efficiently
+  and quickly</span></p>
   </td>
  </tr>
 </table>
-
-<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-mso-bidi-font-size:10.0pt;line-height:200%'>Related function:</span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><u><span lang=EN-US
-style='mso-fareast-font-family:黑体;color:blue'><a  href="joinaifixi.html#join">join<span
-style='mso-bookmark:_Hlt415040566'><span style='mso-fareast-font-family:宋体'>(</span></span><span
-style='mso-fareast-font-family:宋体'>)</span></a><a
-name="_Hlt415040566"></a></span></u><span lang=EN-US
-style='mso-bidi-font-size:10.5pt;color:blue'> </span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="504.html">Next</a></div>
@@ -562,14 +554,17 @@ style='mso-bidi-font-size:10.5pt;color:blue'> </span></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="499.html">join()</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="498.html">joinx()</a></span></li>
 </div>
 	</div>
 	<div id="footer">	
 		
-		
-    <div class="copyright"> Copyright&reg; 2021 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+		<div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">Scudata Inc. 
+      </a></div> 
+        <!--
+		<div class="copyright"> Copyright&reg; 2017 <a href="http://www.yimming.com" target="_Blank"> Beijing Yimming Ltd. Co. 
       </a></div>
+	  -->
 	</div>
 </div>
 

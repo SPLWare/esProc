@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>A.smooth()</title>
+<title>spearman()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,329 +13,170 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h3 style='text-align:justify;text-justify:inter-ideograph'><span lang=EN-US>A.smooth()<a
-name="A_smooth"></a></span></h3></div>
-	<p class=MsoNormal style='line-height:21.0pt;mso-pagination:widow-orphan'><b><span
-lang=EN-US style='font-size:14.0pt;color:#333333;mso-font-kerning:0pt'>Description:</span></b></p>
+	<div id="centent-title"><h2><span lang=EN-US style='mso-fareast-font-family:宋体;color:black'>spearman()<a
+name=spearman></a></span></h2></div>
+	<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt;color:black'>Description:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt;line-height:21.0pt;mso-pagination:
-widow-orphan'><span lang=EN-US>The external library function performs smoothing
-on a sequence type variable during modeling. </span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='color:black'>Calculate Spearman’s correlation coefficient between two
+vector<span style='mso-bidi-font-style:italic'>s.</span></span></p>
 
-<p class=MsoNormal style='line-height:21.0pt;mso-pagination:widow-orphan'><b><span
-lang=EN-US style='font-size:14.0pt;color:#333333;mso-font-kerning:0pt'>Syntax:</span></b></p>
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt;color:black'>Syntax:</span></b></p>
 
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
- style='margin-left:5.55pt;border-collapse:collapse;border:none;mso-border-alt:
- solid #F2F2F2 .25pt;mso-padding-alt:0cm 0cm 0cm 0cm'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;height:31.95pt'>
-  <td width=279 valign=top style='width:167.45pt;border:solid #F2F2F2 1.0pt;
-  mso-border-top-alt:.25pt;mso-border-left-alt:.25pt;mso-border-bottom-alt:
-  .75pt;mso-border-right-alt:.75pt;mso-border-color-alt:#F2F2F2;mso-border-style-alt:
-  solid;background:white;padding:0cm 5.4pt 0cm 5.4pt;height:31.95pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><b style='mso-bidi-font-weight:
-  normal'><span lang=EN-US>A.smooth(T)</span></b><span lang=EN-US
-  style='font-size:10.0pt;color:#333333;mso-font-kerning:0pt'></span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span class=code><span
+lang=EN-US style='font-family:"Times New Roman","serif";color:black'>spearman(</span></span><span
+class=var1><span lang=EN-US style='color:black'>A,B</span></span><span
+class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
+color:black'>)</span></span><span lang=EN-US style='color:black'></span></p>
+
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt;color:black'>Note:</span></b></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='color:black'>The function calculates the Spearman’s correlation
+coefficient between vector <i style='mso-bidi-font-style:normal'>A </i>and
+vector <i style='mso-bidi-font-style:normal'>B</i>. Default value of parameter <i
+style='mso-bidi-font-style:normal'>B </i>is to(<i style='mso-bidi-font-style:
+normal'>A.</i>len()). </span></p>
+
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt;color:black'>Parameter:</span></b></p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:21.3pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=59 valign=top style='width:35.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=var1><span lang=EN-US style='color:black'>A</span></span></p>
   </td>
-  <td width=431 valign=top style='width:258.65pt;border:solid #F2F2F2 1.0pt;
-  border-left:none;mso-border-top-alt:solid #F2F2F2 .25pt;mso-border-bottom-alt:
-  solid #F2F2F2 .75pt;mso-border-right-alt:solid #F2F2F2 .75pt;background:white;
-  padding:0cm 5.4pt 0cm 5.4pt;height:31.95pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span lang=EN-US
-  style='color:#333333;mso-font-kerning:0pt'>During modeling, perform smoothing
-  on high-frequency categorical enumerated variable <i>A</i> and return a
-  binary sequence containing the smoothing result and the smoothing records <i>Rec</i></span></p>
+  <td width=586 valign=top style='width:351.8pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='color:black'>A vector</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes;height:34.1pt'>
-  <td width=279 valign=top style='width:167.45pt;border:solid #F2F2F2 1.0pt;
-  border-top:none;mso-border-left-alt:solid #F2F2F2 .25pt;mso-border-bottom-alt:
-  solid #F2F2F2 .75pt;mso-border-right-alt:solid #F2F2F2 .75pt;background:white;
-  padding:0cm 5.4pt 0cm 5.4pt;height:34.1pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><b style='mso-bidi-font-weight:
-  normal'><span lang=EN-US>A.smooth@r(Rec)</span></b><span lang=EN-US
-  style='font-size:10.0pt;color:#333333;mso-font-kerning:0pt'></span></p>
+ <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
+  <td width=59 valign=top style='width:35.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=var1><span lang=EN-US style='color:black'>B</span></span></p>
   </td>
-  <td width=431 valign=top style='width:258.65pt;border-top:none;border-left:
-  none;border-bottom:solid #F2F2F2 1.0pt;border-right:solid #F2F2F2 1.0pt;
-  mso-border-bottom-alt:solid #F2F2F2 .75pt;mso-border-right-alt:solid #F2F2F2 .75pt;
-  background:white;padding:0cm 5.4pt 0cm 5.4pt;height:34.1pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span lang=EN-US
-  style='color:#333333;mso-font-kerning:0pt'>During scoring, perform smoothing
-  on multiclassification enumerated variable <i>A</i> according to <i>Rec</i>,
-  the smoothing process records, and return the smoothing result</span></p>
+  <td width=586 valign=top style='width:351.8pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='color:black'>A vector</span></p>
   </td>
  </tr>
 </table>
 
-<p class=MsoNormal style='line-height:21.0pt;mso-pagination:widow-orphan'><b><span
-lang=EN-US style='font-size:14.0pt;color:#333333;mso-font-kerning:0pt'>Parameter:</span></b></p>
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt;color:black'>Return value:</span></b></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
+style='color:black'>A numeric value</span></p>
+
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+style='font-size:14.0pt;color:black'>Example:</span></b></p>
 
 <table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
- style='margin-left:-1.75pt;border-collapse:collapse;border:none;mso-border-alt:
- solid #F2F2F2 .25pt;mso-padding-alt:0cm 0cm 0cm 0cm'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;height:28.5pt'>
-  <td width=52 valign=top style='width:30.95pt;border:solid #F2F2F2 1.0pt;
-  border-bottom:none;mso-border-top-alt:solid #F2F2F2 .25pt;mso-border-left-alt:
-  solid #F2F2F2 .25pt;mso-border-right-alt:solid #F2F2F2 .75pt;background:white;
-  padding:0cm 5.4pt 0cm 5.4pt;height:28.5pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><i style='mso-bidi-font-style:
-  normal'><span lang=EN-US>A</span></i><span lang=EN-US style='color:#333333;
-  mso-font-kerning:0pt'></span></p>
+ style='margin-left:17.9pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
+ mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=38 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
+  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US style='color:black'>&nbsp;</span></p>
   </td>
-  <td width=617 valign=top style='width:369.95pt;border-top:solid #F2F2F2 1.0pt;
-  border-left:none;border-bottom:none;border-right:solid #F2F2F2 1.0pt;
-  mso-border-top-alt:solid #F2F2F2 .25pt;mso-border-right-alt:solid #F2F2F2 .75pt;
-  background:white;padding:0cm 5.4pt 0cm 5.4pt;height:28.5pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span lang=EN-US
-  style='color:#333333;mso-font-kerning:0pt'>A sequence containing
-  high-frequency categorical enumerated varaibles</span></p>
+  <td width=340 valign=top style='width:204.25pt;border:solid #A6A6A6 1.0pt;
+  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman","serif";color:black'>A</span></span></p>
   </td>
- </tr>
- <tr style='mso-yfti-irow:1;height:28.5pt'>
-  <td width=52 valign=top style='width:30.95pt;border-top:none;border-left:
-  solid #F2F2F2 1.0pt;border-bottom:none;border-right:solid #F2F2F2 1.0pt;
-  mso-border-left-alt:solid #F2F2F2 .25pt;mso-border-right-alt:solid #F2F2F2 .75pt;
-  background:white;padding:0cm 5.4pt 0cm 5.4pt;height:28.5pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><i style='mso-bidi-font-style:
-  normal'><span lang=EN-US>T</span></i></p>
-  </td>
-  <td width=617 valign=top style='width:369.95pt;border:none;border-right:solid #F2F2F2 1.0pt;
-  mso-border-right-alt:solid #F2F2F2 .75pt;background:white;padding:0cm 5.4pt 0cm 5.4pt;
-  height:28.5pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span lang=EN-US
-  style='color:#333333;mso-font-kerning:0pt'>A sequence of target variable
-  values</span></p>
+  <td width=331 valign=top style='width:7.0cm;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=EN-US
+  style='color:black'>&nbsp;</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes;height:28.5pt'>
-  <td width=52 valign=top style='width:30.95pt;border:solid #F2F2F2 1.0pt;
-  border-top:none;mso-border-left-alt:solid #F2F2F2 .25pt;mso-border-bottom-alt:
-  solid #F2F2F2 .25pt;mso-border-right-alt:solid #F2F2F2 .75pt;background:white;
-  padding:0cm 5.4pt 0cm 5.4pt;height:28.5pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><i style='mso-bidi-font-style:
-  normal'><span lang=EN-US>Rec</span></i></p>
+ <tr style='mso-yfti-irow:1'>
+  <td width=38 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
+  color:black'>1</span></span></p>
   </td>
-  <td width=617 valign=top style='width:369.95pt;border-top:none;border-left:
-  none;border-bottom:solid #F2F2F2 1.0pt;border-right:solid #F2F2F2 1.0pt;
-  mso-border-bottom-alt:solid #F2F2F2 .25pt;mso-border-right-alt:solid #F2F2F2 .75pt;
-  background:white;padding:0cm 5.4pt 0cm 5.4pt;height:28.5pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span lang=EN-US
-  style='color:#333333;mso-font-kerning:0pt'>A sequence of smoothing process
-  records</span></p>
+  <td width=340 valign=top style='width:204.25pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=var1><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US style='color:black;font-style:normal'>=[3,5,2,8]</span></b></span></p>
   </td>
- </tr>
-</table>
-
-<p class=MsoNormal style='line-height:21.0pt;mso-pagination:widow-orphan'><b><span
-lang=EN-US style='font-size:14.0pt;color:#333333;mso-font-kerning:0pt'>Option:</span></b></p>
-
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
- style='margin-left:-1.75pt;border-collapse:collapse;border:none;mso-border-alt:
- solid #F2F2F2 .25pt;mso-padding-alt:0cm 0cm 0cm 0cm'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;height:28.5pt'>
-  <td width=75 valign=top style='width:44.8pt;border:solid #F2F2F2 1.0pt;
-  mso-border-alt:solid #F2F2F2 .25pt;mso-border-right-alt:solid #F2F2F2 .75pt;
-  background:white;padding:0cm 5.4pt 0cm 5.4pt;height:28.5pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span lang=EN-US
-  style='color:#333333;mso-font-kerning:0pt'>@c</span></p>
-  </td>
-  <td width=617 valign=top style='width:369.95pt;border:solid #F2F2F2 1.0pt;
-  border-left:none;mso-border-top-alt:solid #F2F2F2 .25pt;mso-border-bottom-alt:
-  solid #F2F2F2 .25pt;mso-border-right-alt:solid #F2F2F2 .75pt;background:white;
-  padding:0cm 5.4pt 0cm 5.4pt;height:28.5pt'>
-  <p class=MsoNormal style='margin-bottom:7.5pt;mso-pagination:widow-orphan'><span
-  lang=EN-US style='color:#333333;mso-font-kerning:0pt'>Modify the original
-  data to the smoothing result after execution</span></p>
+  <td width=331 valign=top style='width:7.0cm;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=EN-US
+  style='color:black'>&nbsp;</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes;height:28.5pt'>
-  <td width=75 valign=top style='width:44.8pt;border:solid #F2F2F2 1.0pt;
-  border-top:none;mso-border-left-alt:solid #F2F2F2 .25pt;mso-border-bottom-alt:
-  solid #F2F2F2 .25pt;mso-border-right-alt:solid #F2F2F2 .75pt;background:white;
-  padding:0cm 5.4pt 0cm 5.4pt;height:28.5pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span lang=EN-US
-  style='color:#333333;mso-font-kerning:0pt'>@bnie</span></p>
+ <tr style='mso-yfti-irow:2'>
+  <td width=38 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
+  color:black'>2</span></span></p>
   </td>
-  <td width=617 valign=top style='width:369.95pt;border-top:none;border-left:
-  none;border-bottom:solid #F2F2F2 1.0pt;border-right:solid #F2F2F2 1.0pt;
-  mso-border-bottom-alt:solid #F2F2F2 .25pt;mso-border-right-alt:solid #F2F2F2 .75pt;
-  background:white;padding:0cm 5.4pt 0cm 5.4pt;height:28.5pt'>
-  <p class=MsoNormal style='margin-bottom:7.5pt;mso-pagination:widow-orphan'><span
-  lang=EN-US style='color:#333333;mso-font-kerning:0pt'>Each option specifies a
-  target type, and options are mutual-exclusive; automatically judge the type
-  when no option is used; the order of priorities of the options is binary, numeric,
-  integer and enumerated</span></p>
+  <td width=340 valign=top style='width:204.25pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=var1><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US style='color:black;font-style:normal'>=[4,6,2,4]</span></b></span></p>
   </td>
- </tr>
-</table>
-
-<p class=MsoNormal style='line-height:21.0pt;mso-pagination:widow-orphan'><b><span
-lang=EN-US style='font-size:14.0pt;color:#333333;mso-font-kerning:0pt'>Return
-value:</span></b><span lang=EN-US style='font-size:14.0pt;color:#333333;
-mso-font-kerning:0pt'></span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;line-height:21.0pt;mso-pagination:
-widow-orphan'><span lang=EN-US style='color:#333333;mso-font-kerning:0pt'>A
-sequence</span></p>
-
-<p class=MsoNormal style='line-height:21.0pt;mso-pagination:widow-orphan'><b><span
-lang=EN-US style='font-size:14.0pt;color:#333333;mso-font-kerning:0pt'>Example:</span></b><span
-lang=EN-US style='font-size:14.0pt;color:#333333;mso-font-kerning:0pt'></span></p>
-
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
- style='margin-left:20.35pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- border:none;mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:
- #B2B2B2;mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
- .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:.5pt solid #B2B2B2;
- mso-border-insidev:.5pt solid #B2B2B2'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
-  height:14.15pt'>
-  <td width=52 valign=top style='width:31.2pt;border:solid #A5A5A5 1.0pt;
-  mso-border-alt:solid #A5A5A5 .5pt;background:#DDDDDD;padding:0cm 0cm 0cm 0cm;
-  height:14.15pt'>
-  <p class=TabLabel><b><span lang=EN-US style='font-size:10.5pt'>&nbsp;</span></b></p>
-  </td>
-  <td width=244 valign=top style='width:146.65pt;border:solid #A5A5A5 1.0pt;
-  border-left:none;mso-border-left-alt:solid #A5A5A5 .5pt;mso-border-alt:solid #A5A5A5 .5pt;
-  background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=TabLabel><b><span lang=EN-US style='font-size:10.5pt'>A</span></b></p>
-  </td>
-  <td width=319 valign=top style='width:191.4pt;border:none;mso-border-left-alt:
-  solid #A5A5A5 .5pt;padding:0cm 0cm 0cm 0cm;height:14.15pt'>
-  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph'><span
-  lang=EN-US style='font-size:10.5pt'>&nbsp;</span></p>
+  <td width=331 valign=top style='width:7.0cm;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=EN-US
+  style='color:black'>&nbsp;</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:33.1pt'>
-  <td width=52 style='width:31.2pt;border:solid #A5A5A5 1.0pt;border-top:none;
-  mso-border-top-alt:solid #A5A5A5 .5pt;mso-border-alt:solid #A5A5A5 .5pt;
-  background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:33.1pt'>
-  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph'><b><span
-  lang=EN-US style='font-size:10.5pt'>1</span></b></p>
+ <tr style='mso-yfti-irow:3;height:17.25pt'>
+  <td width=38 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:17.25pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
+  color:black'>3</span></span></p>
   </td>
-  <td width=244 valign=top style='width:146.65pt;border-top:none;border-left:
-  none;border-bottom:solid #A5A5A5 1.0pt;border-right:solid #A5A5A5 1.0pt;
-  mso-border-top-alt:solid #A5A5A5 .5pt;mso-border-left-alt:solid #A5A5A5 .5pt;
-  mso-border-alt:solid #A5A5A5 .5pt;padding:0cm 0cm 0cm 0cm;height:33.1pt'>
-  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
-  lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman","serif";
-  mso-bidi-font-weight:bold'>[a,d,f,g,y,j,y,k,l,v,x,,w,t,j,c,,z,h,y,j,e,e,s,d,q,ad,gr,hy,ki,lo,ss,df,afd,ju,li,ol]</span><span
-  lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman","serif";
-  font-weight:normal;mso-bidi-font-weight:bold'></span></p>
+  <td width=340 valign=top style='width:204.25pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:17.25pt'>
+  <p class=MsoNormal><span class=var1><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US style='color:black;font-style:normal'>=spearman (A1,A2)</span></b></span></p>
   </td>
-  <td width=319 valign=top style='width:191.4pt;border:none;mso-border-left-alt:
-  solid #A5A5A5 .5pt;padding:0cm 0cm 0cm 0cm;height:33.1pt'>
-  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
-  lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman","serif";
-  font-weight:normal'>Input a sequence of high-frequency categorical variables</span></p>
+  <td width=331 valign=top style='width:7.0cm;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:17.25pt'>
+  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=zh-CN
+  style='color:black;mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=156 height=54
+  src="Function_Reference.files/image2033.jpg" v:shapes="_x0000_i2263"></span><span
+  lang=EN-US style='color:black'></span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:2;page-break-inside:avoid;height:20.8pt'>
-  <td width=52 style='width:31.2pt;border:solid #A5A5A5 1.0pt;border-top:none;
-  mso-border-top-alt:solid #A5A5A5 .5pt;mso-border-alt:solid #A5A5A5 .5pt;
-  background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:20.8pt'>
-  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph'><b><span
-  lang=EN-US style='font-size:10.5pt'>2</span></b></p>
+ <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes;height:17.25pt'>
+  <td width=38 valign=top style='width:22.95pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:17.25pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
+  color:black'>4</span></span></p>
   </td>
-  <td width=244 valign=top style='width:146.65pt;border-top:none;border-left:
-  none;border-bottom:solid #A5A5A5 1.0pt;border-right:solid #A5A5A5 1.0pt;
-  mso-border-top-alt:solid #A5A5A5 .5pt;mso-border-left-alt:solid #A5A5A5 .5pt;
-  mso-border-alt:solid #A5A5A5 .5pt;padding:0cm 0cm 0cm 0cm;height:20.8pt'>
-  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
-  lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman","serif";
-  mso-bidi-font-weight:bold'>=A1.len().(rand(100))</span><span lang=EN-US
-  style='font-size:10.5pt;font-family:"Times New Roman","serif";font-weight:
-  normal;mso-bidi-font-weight:bold'></span></p>
+  <td width=340 valign=top style='width:204.25pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:17.25pt'>
+  <p class=MsoNormal><span class=var1><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US style='color:black;font-style:normal'>=spearman (A1)</span></b></span></p>
   </td>
-  <td width=319 valign=top style='width:191.4pt;border:none;mso-border-left-alt:
-  solid #A5A5A5 .5pt;padding:0cm 0cm 0cm 0cm;height:20.8pt'>
-  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
-  lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman","serif";
-  font-weight:normal'>Generate a sequence of integers of same length as A1</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:3;page-break-inside:avoid;height:20.55pt'>
-  <td width=52 style='width:31.2pt;border:solid #A5A5A5 1.0pt;border-top:none;
-  mso-border-top-alt:solid #A5A5A5 .5pt;mso-border-alt:solid #A5A5A5 .5pt;
-  background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:20.55pt'>
-  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph'><b><span
-  lang=EN-US style='font-size:10.5pt'>3</span></b></p>
-  </td>
-  <td width=244 valign=top style='width:146.65pt;border-top:none;border-left:
-  none;border-bottom:solid #A5A5A5 1.0pt;border-right:solid #A5A5A5 1.0pt;
-  mso-border-top-alt:solid #A5A5A5 .5pt;mso-border-left-alt:solid #A5A5A5 .5pt;
-  mso-border-alt:solid #A5A5A5 .5pt;padding:0cm 0cm 0cm 0cm;height:20.55pt'>
-  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
-  lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman","serif";
-  mso-bidi-font-weight:bold'>=A1.setenum@c()</span><span lang=EN-US
-  style='font-size:10.5pt;font-family:"Times New Roman","serif";font-weight:
-  normal;mso-bidi-font-weight:bold'></span></p>
-  </td>
-  <td width=319 valign=top style='width:191.4pt;border:none;mso-border-left-alt:
-  solid #A5A5A5 .5pt;padding:0cm 0cm 0cm 0cm;height:20.55pt'>
-  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
-  lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman","serif";
-  font-weight:normal'>Map A1 as integers and modify the original data</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:4;page-break-inside:avoid;height:59.15pt'>
-  <td width=52 style='width:31.2pt;border:solid #A5A5A5 1.0pt;border-top:none;
-  mso-border-top-alt:solid #A5A5A5 .5pt;mso-border-alt:solid #A5A5A5 .5pt;
-  background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:59.15pt'>
-  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph'><b><span
-  lang=EN-US style='font-size:10.5pt'>4</span></b></p>
-  </td>
-  <td width=244 valign=top style='width:146.65pt;border-top:none;border-left:
-  none;border-bottom:solid #A5A5A5 1.0pt;border-right:solid #A5A5A5 1.0pt;
-  mso-border-top-alt:solid #A5A5A5 .5pt;mso-border-left-alt:solid #A5A5A5 .5pt;
-  mso-border-alt:solid #A5A5A5 .5pt;padding:0cm 0cm 0cm 0cm;height:59.15pt'>
-  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
-  lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman","serif";
-  mso-bidi-font-weight:bold'>=A1.smooth(A2)</span><span lang=EN-US
-  style='font-size:10.5pt;font-family:"Times New Roman","serif";font-weight:
-  normal;mso-bidi-font-weight:bold'></span></p>
-  </td>
-  <td width=319 valign=top style='width:191.4pt;border:none;mso-border-left-alt:
-  solid #A5A5A5 .5pt;padding:0cm 0cm 0cm 0cm;height:59.15pt'>
-  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
-  lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman","serif";
-  font-weight:normal'><img border=0 width=319 height=69
-  src="Function_Reference.files/image1876.png" v:shapes="图片_x0020_1306"></span></p>
-  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
-  lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman","serif";
-  font-weight:normal'>Take A2 as the target variable, perform smoothing on A1,
-  and return smoothing result and smoothing process records <i>Rec</i></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:5;mso-yfti-lastrow:yes;page-break-inside:avoid;
-  height:59.15pt'>
-  <td width=52 style='width:31.2pt;border:solid #A5A5A5 1.0pt;border-top:none;
-  mso-border-top-alt:solid #A5A5A5 .5pt;mso-border-alt:solid #A5A5A5 .5pt;
-  background:#DDDDDD;padding:0cm 0cm 0cm 0cm;height:59.15pt'>
-  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph'><b><span
-  lang=EN-US style='font-size:10.5pt'>5</span></b></p>
-  </td>
-  <td width=244 valign=top style='width:146.65pt;border-top:none;border-left:
-  none;border-bottom:solid #A5A5A5 1.0pt;border-right:solid #A5A5A5 1.0pt;
-  mso-border-top-alt:solid #A5A5A5 .5pt;mso-border-left-alt:solid #A5A5A5 .5pt;
-  mso-border-alt:solid #A5A5A5 .5pt;padding:0cm 0cm 0cm 0cm;height:59.15pt'>
-  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
-  lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman","serif";
-  mso-bidi-font-weight:bold'>=A1.smooth@r(A3(2))</span><span lang=EN-US
-  style='font-size:10.5pt;font-family:"Times New Roman","serif";font-weight:
-  normal;mso-bidi-font-weight:bold'></span></p>
-  </td>
-  <td width=319 valign=top style='width:191.4pt;border:none;mso-border-left-alt:
-  solid #A5A5A5 .5pt;padding:0cm 0cm 0cm 0cm;height:59.15pt'>
-  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
-  lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman","serif";
-  font-weight:normal'><img border=0 width=319 height=254
-  src="Function_Reference.files/image1878.png" v:shapes="图片_x0020_1307"></span></p>
-  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
-  lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman","serif";
-  font-weight:normal'>Perform smoothing on A1 according to A3’s smoothing
-  process records; often used to smooth the score data</span></p>
+  <td width=331 valign=top style='width:7.0cm;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:17.25pt'>
+  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=zh-CN
+  style='color:black;mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=156 height=54
+  src="Function_Reference.files/image2035.jpg" v:shapes="_x0000_i2264"></span><span
+  lang=EN-US style='color:black'></span></p>
   </td>
  </tr>
 </table>
@@ -346,14 +187,17 @@ lang=EN-US style='font-size:14.0pt;color:#333333;mso-font-kerning:0pt'></span></
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="815.html">smooth()</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="45.html">Functions</a></span></li>
 </div>
 	</div>
 	<div id="footer">	
 		
-		
-    <div class="copyright"> Copyright&reg; 2021 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+		<div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">Scudata Inc. 
+      </a></div> 
+        <!--
+		<div class="copyright"> Copyright&reg; 2017 <a href="http://www.yimming.com" target="_Blank"> Beijing Yimming Ltd. Co. 
       </a></div>
+	  -->
 	</div>
 </div>
 

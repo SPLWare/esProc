@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>func fn(arg,…)</title>
+<title>get()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,76 +13,85 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h3 align=left style='text-align:left;tab-stops:-179.95pt'><a name="_Fv()"></a><span
-lang=EN-US>func fn(arg,…)<a name="func_fn_arg_"></a></span></h3></div>
+	<div id="centent-title"><h2><a name="_gcd()"></a><span lang=EN-US>get()<a name="get_level_F_a_b"></a></span></h2></div>
 	<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
 style='font-size:14.0pt'>Description:</span></b></p>
 
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>Define a named function block.</span><span lang=PT-BR
-style='mso-ansi-language:PT-BR'></span></p>
+lang=EN-US>Get information about base members at a superior level in a
+multilayer loop function.</span></p>
 
 <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Syntax:</span></b></p>
+style='font-size:14.0pt'>Syntax:</span></b><b style='mso-bidi-font-weight:normal'><span
+lang=EN-US style='font-size:12.0pt;mso-bidi-font-size:10.0pt'> </span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span class=code><span
-lang=PT-BR style='font-family:"Times New Roman","serif";mso-hansi-font-family:
-"Arial Narrow";mso-ansi-language:PT-BR'>func fn(arg,...)</span></span></p>
-
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Note:</span></b></p>
+<p class=MsoNormal style='text-indent:21.0pt'><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US>get</span></b><span lang=EN-US>(<i style='mso-bidi-font-style:
+normal'>level,F;a:b</i>) </span></p>
 
 <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:12.0pt;mso-bidi-font-size:10.0pt'><span style='mso-tab-count:
-1'>&nbsp; </span></span></b><span lang=EN-US>The
-function defines a function block (a subprogram) whose name is <i>fn</i> while
-specifying parameters that will not be entered into cell, and returns a result
-or not. The </span><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-mso-hansi-font-family:"Arial Narrow";font-weight:normal;mso-bidi-font-weight:
-bold'>return</span></span><span lang=EN-US> statement is used to return the
-result set of executing the function and close the function block. When the
-subprogram is successfully executed, value of the last cell in the function
-block will be returned by default if there isn’t a </span><span class=code><span
-lang=EN-US style='font-family:"Times New Roman","serif";mso-hansi-font-family:
-"Arial Narrow";font-weight:normal;mso-bidi-font-weight:bold'>return</span></span><span
-lang=EN-US> statement.</span><b style='mso-bidi-font-weight:normal'><span
-lang=EN-US style='font-size:12.0pt;mso-bidi-font-size:10.0pt'></span></b></p>
+style='font-size:14.0pt'>Note: </span></b></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US>The function, only valid with a loop function, gets information
+about base members at a superior level in a multilayer loop function. Parameter
+<i style='mso-bidi-font-style:normal'>a:b</i> can be treated as […].</span></p>
 
 <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Parameter:</span></b></p>
+style='font-size:14.0pt'>Parameter: </span></b></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
  style='margin-left:-1.75pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=105 valign=top style='width:62.75pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal style='text-indent:5.25pt;mso-char-indent-count:.5'><i
-  style='mso-bidi-font-style:normal'><span lang=EN-US>fn</span></i><span
-  class=var1><span lang=EN-US></span></span></p>
+  <td width=83 valign=top style='width:49.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>level</span><span class=var1><span
+  lang=EN-US></span></span></p>
   </td>
-  <td width=761 valign=top style='width:456.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-weight:bold'>Function
-  name</span></p>
+  <td width=585 valign=top style='width:351.2pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>The number of levels between the current
+  level, which is recorded as 0, and the desired superior level</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
-  <td width=105 valign=top style='width:62.75pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal style='text-indent:5.25pt;mso-char-indent-count:.5'><i
-  style='mso-bidi-font-style:normal'><span lang=EN-US>arg,…</span></i><span
-  class=var1><span lang=EN-US></span></span></p>
+ <tr style='mso-yfti-irow:1'>
+  <td width=83 valign=top style='width:49.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>F</span><span class=var1><span
+  lang=EN-US></span></span></p>
   </td>
-  <td width=761 valign=top style='width:456.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-weight:bold'>Specified
-  parameters</span></p>
+  <td width=585 valign=top style='width:351.2pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=var1><span lang=EN-US style='font-style:normal;
+  mso-bidi-font-style:italic'>Field name, which is sometimes represented by #,
+  denoting the ordial number of a field; get members directly when it is absent</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=83 valign=top style='width:49.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>a</span></p>
+  </td>
+  <td width=585 valign=top style='width:351.2pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=var1><span lang=EN-US style='font-style:normal;
+  mso-bidi-font-style:italic'>Expression of the ordinal number of a member; can
+  be omitted</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
+  <td width=83 valign=top style='width:49.7pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>b</span></p>
+  </td>
+  <td width=585 valign=top style='width:351.2pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=var1><span lang=EN-US style='font-style:normal;
+  mso-bidi-font-style:italic'>Expression of the ordinal number of a member; can
+  be omitted</span></span></p>
   </td>
  </tr>
 </table>
 
 <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Return value:</span></b></p>
+style='font-size:14.0pt'>Return value:</span></b><b style='mso-bidi-font-weight:
+normal'><span lang=EN-US style='font-size:12.0pt;mso-bidi-font-size:10.0pt'> </span></b></p>
 
-<p class=MsoNormal style='text-indent:21.2pt;mso-char-indent-count:2.02'><span
-lang=EN-US>Result of executing a program</span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>A member value
+in a sequence or a sequence of values</span></p>
 
 <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
 style='font-size:14.0pt'>Example:</span></b></p>
@@ -95,26 +104,17 @@ style='font-size:14.0pt'>Example:</span></b></p>
   <td width=26 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
   mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman","serif";mso-hansi-font-family:
-  "Arial Narrow"'>&nbsp;</span></span></p>
+  lang=EN-US style='font-family:"Times New Roman","serif"'>&nbsp;</span></span></p>
   </td>
-  <td width=193 valign=top style='width:116.0pt;border:solid #A6A6A6 1.0pt;
+  <td width=347 valign=top style='width:208.15pt;border:solid #A6A6A6 1.0pt;
   border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman","serif";mso-hansi-font-family:
-  "Arial Narrow"'>A</span></span></p>
+  lang=EN-US style='font-family:"Times New Roman","serif"'>A</span></span></p>
   </td>
-  <td width=177 valign=top style='width:106.3pt;border:solid #A6A6A6 1.0pt;
-  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman","serif";mso-hansi-font-family:
-  "Arial Narrow"'>B</span></span></p>
-  </td>
-  <td width=288 valign=top style='width:172.95pt;border:none;mso-border-left-alt:
+  <td width=755 valign=top style='width:452.95pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span lang=EN-US>&nbsp;</span></p>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1'>
@@ -122,62 +122,98 @@ style='font-size:14.0pt'>Example:</span></b></p>
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman","serif";mso-hansi-font-family:
-  "Arial Narrow"'>1</span></span></p>
+  lang=EN-US style='font-family:"Times New Roman","serif"'>1</span></span></p>
   </td>
-  <td width=193 valign=top style='width:116.0pt;border-top:none;border-left:
+  <td width=347 valign=top style='width:208.15pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-  mso-hansi-font-family:"Arial Narrow"'>func test(num1,num2)</span></span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>[1,2,3]</span></span></p>
   </td>
-  <td width=177 valign=top style='width:106.3pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-  mso-hansi-font-family:"Arial Narrow"'>&nbsp;</span></span></p>
-  </td>
-  <td width=288 rowspan=2 valign=top style='width:172.95pt;border:none;
+  <td width=755 rowspan=2 valign=top style='width:452.95pt;border:none;
   mso-border-left-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Define a subprogram, whose parameters
-  passed in is a sequence, and return the concatenation of members of the
-  sequence</span></p>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  <p class=MsoNormal><span lang=EN-US>Calculate the maximum distance from each
+  value to the others</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes'>
+ <tr style='mso-yfti-irow:2'>
   <td width=26 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman","serif";mso-hansi-font-family:
-  "Arial Narrow"'>2</span></span></p>
+  lang=EN-US style='font-family:"Times New Roman","serif"'>2</span></span></p>
   </td>
-  <td width=193 valign=top style='width:116.0pt;border-top:none;border-left:
+  <td width=347 valign=top style='width:208.15pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-  mso-hansi-font-family:"Arial Narrow"'>&nbsp;</span></span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=A1.(A1.max(abs(~-get(1))))</span></span></p>
   </td>
-  <td width=177 valign=top style='width:106.3pt;border-top:none;border-left:
+ </tr>
+ <tr style='mso-yfti-irow:3'>
+  <td width=26 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>3</span></span></p>
+  </td>
+  <td width=347 valign=top style='width:208.15pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-  mso-hansi-font-family:"Arial Narrow"'>return num1*num2</span></span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=A1.(A1.([~,get(1;0:2)]))</span></span></p>
+  </td>
+  <td width=755 valign=top style='width:452.95pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Get members at the second loop level, and
+  members at the parent level corresponding to index items from the current one
+  to the one two items after it<span style='mso-bidi-font-weight:bold'></span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4'>
+  <td width=26 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>4</span></span></p>
+  </td>
+  <td width=347 valign=top style='width:208.15pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=demo.query(&quot;select
+  * from employee&quot;)</span></span></p>
+  </td>
+  <td width=755 valign=top style='width:452.95pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-weight:bold'>Query
+  the employee table where the highest salary is 13000 and the lowest is 3000</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:5;mso-yfti-lastrow:yes'>
+  <td width=26 valign=top style='width:15.85pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>5</span></span></p>
+  </td>
+  <td width=347 valign=top style='width:208.15pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=A4.derive(A4.max(abs(SALARY-get(1,SALARY;1:5))):MaxDiffSALARY)</span></span></p>
+  </td>
+  <td width=755 valign=top style='width:452.95pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=203 height=248
+  src="Function_Reference.files/image674.png" v:shapes="_x0000_i1428"></span></p>
+  <p class=MsoNormal><span lang=EN-US>Calculate the maximum salary difference
+  for each employee compared with every other employee</span></p>
   </td>
  </tr>
 </table>
-
-<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-style='font-size:14.0pt'>Related function:</span></b></p>
-
-<p class=MsoNormal style='text-indent:15.75pt;mso-char-indent-count:1.5'><i><u><span
-lang=EN-US style='color:blue'><a  href="funccxi.html#func"><span style='font-style:normal'>func()</span></a></span></u></i><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:12.0pt;
-mso-bidi-font-size:10.0pt'></span></b></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="355.html">Next</a></div>
@@ -185,14 +221,17 @@ mso-bidi-font-size:10.0pt'></span></b></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="351.html">func()</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="45.html">Functions</a></span></li>
 </div>
 	</div>
 	<div id="footer">	
 		
-		
-    <div class="copyright"> Copyright&reg; 2021 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+		<div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">Scudata Inc. 
+      </a></div> 
+        <!--
+		<div class="copyright"> Copyright&reg; 2017 <a href="http://www.yimming.com" target="_Blank"> Beijing Yimming Ltd. Co. 
       </a></div>
+	  -->
 	</div>
 </div>
 

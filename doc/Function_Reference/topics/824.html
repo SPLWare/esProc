@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>spark_open()</title>
+<title>stax_open()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,107 +13,104 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h2><a name="spark_client"><span lang=EN-US>spark_open()</span></a></h2></div>
+	<div id="centent-title"><h2><span lang=EN-US>stax_open()<a name="stax_open"></a></span></h2></div>
 	<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
 mso-bidi-font-size:12.0pt;line-height:200%'>Description:</span></b></p>
 
 <p class=MsoNormal style='text-indent:15.75pt;mso-char-indent-count:1.5'><span
-lang=EN-US>Create a Spark database connection.</span></p>
+lang=EN-US>Create connection to the Cassandra database.</span></p>
 
 <p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-mso-bidi-font-size:12.0pt;line-height:200%'>Syntax:</span></b></p>
+mso-bidi-font-size:12.0pt;line-height:200%'>Syntax: </span></b></p>
 
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='border-collapse:collapse;mso-table-layout-alt:fixed;mso-padding-alt:
- 0cm 5.4pt 0cm 5.4pt;mso-border-insideh:.5pt solid windowtext;mso-border-insidev:
- .5pt solid windowtext'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=303 valign=top style='width:181.75pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=16><span lang=EN-US>spark_open</span></span><span
-  lang=EN-US>()</span><span lang=EN-US style='font-family:"Calibri","sans-serif";
-  mso-bidi-font-family:"Times New Roman"'></span></p>
-  </td>
-  <td width=407 valign=top style='width:244.35pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Create a local connection</span><span
-  lang=EN-US style='font-family:"Calibri","sans-serif";mso-bidi-font-family:
-  "Times New Roman"'></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:1'>
-  <td width=303 valign=top style='width:181.75pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=16><span lang=EN-US style='mso-bidi-font-family:
-  "Arial Narrow"'>spark_open(</span></span><span class=16><b><span lang=EN-US
-  style='mso-bidi-font-family:"Arial Narrow";font-style:normal'>hdfsUrl</span></b></span><span
-  class=16><span lang=EN-US style='mso-bidi-font-family:"Arial Narrow"'>)</span></span><span
-  lang=EN-US style='font-family:"Calibri","sans-serif";mso-bidi-font-family:
-  "Times New Roman"'></span></p>
-  </td>
-  <td width=407 valign=top style='width:244.35pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Create an HDFS connection</span><span
-  lang=EN-US style='font-family:"Calibri","sans-serif";mso-bidi-font-family:
-  "Times New Roman"'></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes'>
-  <td width=303 valign=top style='width:181.75pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=16><span lang=EN-US style='mso-bidi-font-family:
-  "Arial Narrow"'>spark_open(</span></span><span class=16><b><span lang=EN-US
-  style='mso-bidi-font-family:"Arial Narrow";font-style:normal'>hdfsUrl,thriftUrl,dbname</span></b></span><span
-  class=16><span lang=EN-US style='mso-bidi-font-family:"Arial Narrow"'>)</span></span><span
-  lang=EN-US style='font-family:"Calibri","sans-serif";mso-bidi-font-family:
-  "Times New Roman"'></span></p>
-  </td>
-  <td width=407 valign=top style='width:244.35pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Connect to Spark database</span><span
-  lang=EN-US style='font-family:"Calibri","sans-serif";mso-bidi-font-family:
-  "Times New Roman"'></span></p>
-  </td>
- </tr>
-</table>
+<p class=MsoNormal style='margin-left:21.0pt;mso-para-margin-left:2.0gd'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+黑体'>stax_open</span></b><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>(<span
+class=var1>nodes[:port][,keyspace][,user:pwd][,compressor][,version:verX][,clusterName:nameX][,queryOptions:optionX]</span>)<span
+style='mso-spacerun:yes'>&nbsp; </span></span></i></p>
 
 <p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-mso-bidi-font-size:12.0pt;line-height:200%'>Note: </span></b></p>
+mso-bidi-font-size:12.0pt;line-height:200%'>Note:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>This external library function connects to a Spark database. </span></p>
+<p class=MsoNormal style='text-indent:15.75pt;mso-char-indent-count:1.5'><span
+lang=EN-US style='mso-bidi-font-style:italic'>It is an external library
+function. The username and password are not required if the Cassandra database
+is started under the </span><i style='mso-bidi-font-style:normal'><span
+lang=EN-US>PasswordAuthenticator</span></i><span lang=EN-US> mode; but required
+if <span style='mso-bidi-font-style:italic'>the Cassandra database is started
+under the </span><i style='mso-bidi-font-style:normal'>authorizer: AllowAllAuthorizer</i>
+mode.<span style='mso-bidi-font-style:italic'>Use keyspace.table format in a
+CQL query when parameter </span></span><span class=var1><span lang=EN-US>keyspace</span></span><span
+lang=EN-US style='mso-bidi-font-style:italic'> is absent.</span></p>
 
 <p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
 mso-bidi-font-size:12.0pt;line-height:200%'>Parameter: </span></b></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ style='margin-left:11.6pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=122 valign=top style='width:73.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US>hdfsUrl</span></span><i><span
-  lang=EN-US style='mso-bidi-font-size:10.5pt'></span></i></p>
+  <td width=169 valign=top style='width:101.55pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>nodes</span></i></p>
   </td>
-  <td width=546 valign=top style='width:327.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>HDFS file connection information; the
-  format is hdfs://ip:port, which represents the HDFS file’s IP and port number
+  <td width=519 valign=top style='width:311.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>The to-be-connected database’s IP address
   </span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=122 valign=top style='width:73.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US>thriftUrl</span></span></p>
+  <td width=169 valign=top style='width:101.55pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>port</span></i></p>
   </td>
-  <td width=546 valign=top style='width:327.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Thrift file connection information; the
-  format is thrift://ip:port, which represents the Thrift file’s IP and port
-  number</span></p>
+  <td width=519 valign=top style='width:311.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Port number; can be omitted</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes'>
-  <td width=122 valign=top style='width:73.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>dbname</span></i></p>
+ <tr style='mso-yfti-irow:2'>
+  <td width=169 valign=top style='width:101.55pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>user:pwd</span></i></p>
   </td>
-  <td width=546 valign=top style='width:327.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>A database name.</span></p>
+  <td width=519 valign=top style='width:311.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>User name and password; can be omitted</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3'>
+  <td width=169 valign=top style='width:101.55pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>keyspace</span></i></p>
+  </td>
+  <td width=519 valign=top style='width:311.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>The keyspace name; can be omitted</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4'>
+  <td width=169 valign=top style='width:101.55pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>compressor</span></i></p>
+  </td>
+  <td width=519 valign=top style='width:311.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>A compression algorithm, which is LZ4,
+  Snappy and none; default is none</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:5'>
+  <td width=169 valign=top style='width:101.55pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>version</span></i></p>
+  </td>
+  <td width=519 valign=top style='width:311.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Protocol version information; can be
+  absent</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:6;mso-yfti-lastrow:yes'>
+  <td width=169 valign=top style='width:101.55pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>queryOptions</span></i></p>
+  </td>
+  <td width=519 valign=top style='width:311.4pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>A query option, which includes ANY, ONE,
+  TOW, THREE, ALL and QUORUM; there are details in Cssandra documentation</span></p>
   </td>
  </tr>
 </table>
@@ -122,115 +119,142 @@ mso-bidi-font-size:12.0pt;line-height:200%'>Parameter: </span></b></p>
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
 mso-bidi-font-size:12.0pt;line-height:200%'>Return value: </span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>A cursor</span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>The database connection</span></p>
 
 <p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-mso-bidi-font-size:12.0pt;line-height:200%'>Example:</span></b></p>
+mso-bidi-font-size:12.0pt;line-height:200%'>Example: </span></b></p>
 
 <table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
- style='margin-left:18.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ style='margin-left:17.35pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
  mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=25 valign=top style='width:14.95pt;border:solid #A6A6A6 1.0pt;
+  <td width=28 valign=top style='width:16.6pt;border:solid #A6A6A6 1.0pt;
   mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
-  黑体'>&nbsp;</span></b></p>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
   </td>
-  <td width=548 valign=top style='width:328.8pt;border:solid #A6A6A6 1.0pt;
+  <td width=369 valign=top style='width:221.45pt;border:solid #A6A6A6 1.0pt;
   border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><b
   style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
   黑体'>A</span></b></p>
   </td>
-  <td width=153 valign=top style='width:92.0pt;border:none;mso-border-left-alt:
+  <td width=330 valign=top style='width:197.7pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:1'>
-  <td width=25 valign=top style='width:14.95pt;border:solid #A6A6A6 1.0pt;
+  <td width=28 valign=top style='width:16.6pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
   style='mso-fareast-font-family:黑体'>1</span></b></p>
   </td>
-  <td width=548 style='width:328.8pt;border-top:none;border-left:none;
-  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  <td width=369 valign=top style='width:221.45pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=spark_open</span></span><b
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=stax_open(&quot;127.0.0.1&quot;:9042,
+  &quot;mycasdb&quot;,&quot;cassandra&quot;:&quot;cassandra&quot;)</span></span><b
   style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
   黑体'></span></b></p>
   </td>
-  <td width=153 style='width:92.0pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Create a local connection<span
-  style='mso-spacerun:yes'>&nbsp; </span></span><span lang=EN-US
-  style='font-size:12.0pt;mso-bidi-font-size:10.0pt'></span></p>
+  <td width=330 valign=top style='width:197.7pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Cassandra database connection under <span
+  style='mso-bidi-font-style:italic'>the </span><i style='mso-bidi-font-style:
+  normal'>authorizer: AllowAllAuthorizer</i> mode</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:2'>
-  <td width=25 valign=top style='width:14.95pt;border:solid #A6A6A6 1.0pt;
+  <td width=28 valign=top style='width:16.6pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
   style='mso-fareast-font-family:黑体'>2</span></b></p>
   </td>
-  <td width=548 style='width:328.8pt;border-top:none;border-left:none;
+  <td width=369 style='width:221.45pt;border-top:none;border-left:none;
   border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=15><span lang=EN-US style='font-family:"Times New Roman","serif"'>=spark_open(&quot;hdfs://192.168.0.8:9000&quot;)</span></span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'></span></span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=stax_open(&quot;127.0.0.1&quot;:9042,
+  &quot;mycasdb&quot;)</span></span><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US style='mso-fareast-font-family:黑体'></span></b></p>
   </td>
-  <td width=153 style='width:92.0pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Create an HDFS connection</span></p>
+  <td width=330 valign=top style='width:197.7pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Cassandra database connection under <span
+  style='mso-bidi-font-style:italic'>the </span><i style='mso-bidi-font-style:
+  normal'>PasswordAuthenticator</i> mode</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
-  <td width=25 valign=top style='width:14.95pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:3'>
+  <td width=28 valign=top style='width:16.6pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>3</span></b></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>3</span></span><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'></span></b></p>
   </td>
-  <td width=548 style='width:328.8pt;border-top:none;border-left:none;
+  <td width=369 style='width:221.45pt;border-top:none;border-left:none;
   border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=15><span lang=EN-US style='font-family:"Times New Roman","serif"'>=spark_open(&quot;hdfs://192.168.0.8:9000&quot;,&quot;thrift://192.168.0.8:9083&quot;,&quot;aa&quot;)</span></span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'></span></span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=stax_open(&quot;127.0.0.1&quot;:9042,
+  &quot;mycasdb&quot;,&quot;cassandra&quot;:&quot;cassandra&quot;:&quot;lz4&quot;)</span></span></p>
   </td>
-  <td width=153 style='width:92.0pt;border:none;mso-border-left-alt:solid #A6A6A6 .5pt;
-  padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Connect to Spark database</span></p>
+  <td width=330 valign=top style='width:197.7pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Set compression algorithm as LZ4</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4'>
+  <td width=28 valign=top style='width:16.6pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>4</span></span><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'></span></b></p>
+  </td>
+  <td width=369 style='width:221.45pt;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=stax_open(&quot;127.0.0.1&quot;:9042)</span></span></p>
+  </td>
+  <td width=330 valign=top style='width:197.7pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Parameter </span><span class=var1><span
+  lang=EN-US>keyspace</span></span><span lang=EN-US> is absent</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:5;mso-yfti-lastrow:yes'>
+  <td width=28 valign=top style='width:16.6pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>5</span></span><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
+  黑体'></span></b></p>
+  </td>
+  <td width=369 style='width:221.45pt;border-top:none;border-left:none;
+  border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=stax_query(A1,&quot;select
+  * from mycasdb.user&quot;)</span></span></p>
+  </td>
+  <td width=330 valign=top style='width:197.7pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Use <span style='mso-bidi-font-style:
+  italic'>keyspace.table format in the CQL query</span></span></p>
   </td>
  </tr>
 </table>
 
-<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
-style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-mso-bidi-font-size:12.0pt;line-height:200%'>Related function: </span></b></p>
-
-<p class=MsoNormal style='text-indent:10.5pt;mso-char-indent-count:1.0'><span
-lang=EN-US><a  href="sparkclose.html#spark_close">spark_clo<span style='mso-bookmark:_Hlt474163064'>s</span><span
-style='mso-bookmark:_Hlt474163082'><span style='mso-bookmark:_Hlt474163078'>e</span></span>()</a><a
-name="_Hlt474163078"></a><a name="_Hlt474163082"></a><a name="_Hlt474163064"></a></span></p>
-
-<p class=MsoNormal style='text-indent:10.5pt;mso-char-indent-count:1.0'><span
-lang=EN-US><a  href="sparkcursor.html#spark_cursor">spark_curs<span style='mso-bookmark:_Hlt474163096'><span
-style='mso-bookmark:_Hlt474163069'>o</span></span>r()</a><a
-name="_Hlt474163069"></a><a name="_Hlt474163096"></a></span></p>
-
-<p class=MsoNormal style='text-indent:10.5pt;mso-char-indent-count:1.0'><span
-lang=EN-US><a  href="sparkquery.html#spark_query">spark_que<span style='mso-bookmark:_Hlt474163110'>r</span>y<span
-style='mso-bookmark:_Hlt474163073'>(</span>)</a><a
-name="_Hlt474163073"></a><a name="_Hlt474163110"></a></span></p>
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="825.html">Next</a></div>
@@ -243,9 +267,12 @@ name="_Hlt474163073"></a><a name="_Hlt474163110"></a></span></p>
 	</div>
 	<div id="footer">	
 		
-		
-    <div class="copyright"> Copyright&reg; 2021 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+		<div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">Scudata Inc. 
+      </a></div> 
+        <!--
+		<div class="copyright"> Copyright&reg; 2017 <a href="http://www.yimming.com" target="_Blank"> Beijing Yimming Ltd. Co. 
       </a></div>
+	  -->
 	</div>
 </div>
 

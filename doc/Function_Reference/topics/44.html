@@ -18,8 +18,6 @@ SQL</span></a><span
 lang=EN-US style='font-family:"Times New Roman","serif"'></span></h1></div>
 	<p class=MsoNormal><span lang=EN-US>Here¡¯s how to use simple SQL.</span></p>
 
-<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
-
 <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
 style='font-size:14.0pt'>Concept:</span></b></p>
 
@@ -141,9 +139,9 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'></
   considered to have headers; use a relative path, which is relative to esProc
   main directory, or an absolute path to access file <i>fn</i>.</span></p>
   <p class=MsoNormal><span lang=EN-US>Support using wild character in the file
-  name, where * matches zero or multile characters and ? matches a single
-  character; <i>T</i> can correspond to multiple files and be treated as the
-  union of multiple same-structure data files; do not support accessing the
+  name, where * matches zero or multile characters and ? matches a single character;
+  <i>T</i> can correspond to multiple files and be treated as the union of
+  multiple same-structure data files; do not support accessing the
   subdirectory.</span></p>
   </td>
  </tr>
@@ -1299,6 +1297,17 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'></
  </tr>
 </table>
 
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>&nbsp;</span></b></p>
+
+<p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>Note:</span></b></p>
+
+<p class=MsoNormal><span lang=EN-US>In a simple SQL statement, a string used
+for field name, file path, file name or alias should be enclosed by double
+quotation marks when it contains one or more special identifiers or has a
+non-underline or non-letter beginning character, otherwise error will be
+reported. When using quotation marks, make sure they are escaped if needed.</span><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt'></span></b></p>
+
 <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
 style='font-size:14.0pt'>Example:</span></b></p>
 
@@ -1395,8 +1404,8 @@ style='font-size:14.0pt'>Example:</span></b></p>
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:5.25pt'>
   <p class=MsoListParagraph style='text-indent:0cm;mso-char-indent-count:0'><span
   class=code><span lang=EN-US style='font-size:10.5pt;mso-bidi-font-size:10.0pt;
-  font-family:"Times New Roman","serif"'>=A1.query(&quot;select Id_P,
-  sum(OrderNo) from Orders.csv group by 1 &quot;)</span></span></p>
+  font-family:"Times New Roman","serif"'>=A1.query(&quot;select Id_P, sum(OrderNo)
+  from Orders.csv group by 1 &quot;)</span></span></p>
   </td>
   <td width=591 valign=top style='width:354.4pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:5.25pt'>
@@ -1517,10 +1526,10 @@ style='font-size:14.0pt'>Example:</span></b></p>
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:5.25pt'>
   <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=zh-CN
   style='mso-ansi-language:#0400;mso-fareast-language:#0400'>Perform a query
-  over <i style='mso-bidi-font-style:normal'>Persons.btx</i>, name the result
-  set <i style='mso-bidi-font-style:normal'>persons</i>, and perform a second
-  query over <i style='mso-bidi-font-style:normal'>persons</i>; this can
-  optimize SQL huge data processing</span></p>
+  over <i style='mso-bidi-font-style:normal'>Persons.btx</i>, name the result set
+  <i style='mso-bidi-font-style:normal'>persons</i>, and perform a second query
+  over <i style='mso-bidi-font-style:normal'>persons</i>; this can optimize SQL
+  huge data processing</span></p>
   <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=zh-CN
   style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=322 height=94
   src="Function_Reference.files/image011.jpg" v:shapes="Í¼Æ¬_x0020_299"></span><span
@@ -1560,12 +1569,12 @@ style='font-size:14.0pt'>Example:</span></b></p>
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:5.25pt'>
   <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=A1.query(&quot;select<span
-  style='mso-spacerun:yes'>&nbsp; </span>*<span style='mso-spacerun:yes'>&nbsp;
-  </span>from Persons.txt<span style='mso-spacerun:yes'>&nbsp; </span>P<span
-  style='mso-spacerun:yes'>&nbsp; </span>join Orders.txt<span
-  style='mso-spacerun:yes'>&nbsp; </span>O<span style='mso-spacerun:yes'>&nbsp;
-  </span>on P.Id_P = O.Id_P<span style='mso-spacerun:yes'>&nbsp;
-  </span>&quot;)</span></span></p>
+  style='mso-spacerun:yes'>&nbsp; </span>* <span
+  style='mso-spacerun:yes'>&nbsp;</span>from Persons.txt<span
+  style='mso-spacerun:yes'>&nbsp; </span>P<span style='mso-spacerun:yes'>&nbsp;
+  </span>join Orders.txt<span style='mso-spacerun:yes'>&nbsp; </span>O<span
+  style='mso-spacerun:yes'>&nbsp; </span>on P.Id_P = O.Id_P<span
+  style='mso-spacerun:yes'>&nbsp; </span>&quot;)</span></span></p>
   </td>
   <td width=591 valign=top style='width:354.4pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:5.25pt'>
@@ -1746,8 +1755,8 @@ style='font-size:14.0pt'>Example:</span></b></p>
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:5.25pt'>
   <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=A1.query(&quot;select
-  * from Persons.btx<span style='mso-spacerun:yes'>&nbsp; </span>where
-  Name<span style='mso-spacerun:yes'>&nbsp; </span>like<span
+  * from Persons.btx<span style='mso-spacerun:yes'>&nbsp; </span>where Name<span
+  style='mso-spacerun:yes'>&nbsp; </span>like<span
   style='mso-spacerun:yes'>&nbsp; </span>'%[^s]%' &quot;)</span></span></p>
   </td>
   <td width=591 valign=top style='width:354.4pt;border:none;mso-border-left-alt:
@@ -2003,7 +2012,7 @@ lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'></span></p
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:18.6pt'>
   <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>$select<span
   style='mso-spacerun:yes'>&nbsp; </span>*<span style='mso-spacerun:yes'>&nbsp;
-  </span>from Persons.txt<span style='mso-spacerun:yes'>&nbsp; </span>P<span
+  </span>from Persons.txt <span style='mso-spacerun:yes'>&nbsp;</span>P<span
   style='mso-spacerun:yes'>&nbsp; </span>join Orders.txt<span
   style='mso-spacerun:yes'>&nbsp; </span>O<span style='mso-spacerun:yes'>&nbsp;
   </span>on P.Id_P = O.Id_P</span></span></p>
@@ -2199,6 +2208,102 @@ lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'></span></p
  </tr>
 </table>
 
+<p class=MsoNormal><span lang=EN-US>When there is/are special identifiers or a
+string has non-underline or non-letter character in a simple SQL statement:</span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
+ style='margin-left:14.95pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
+ mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=27 valign=top style='width:16.25pt;border:solid #A6A6A6 1.0pt;
+  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>&nbsp;</span></span></p>
+  </td>
+  <td width=581 valign=top style='width:348.85pt;border:solid #A6A6A6 1.0pt;
+  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>A</span></span></p>
+  </td>
+  <td width=473 valign=top style='width:10.0cm;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center;mso-line-height-alt:
+  0pt'><span lang=EN-US>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;height:7.9pt'>
+  <td width=27 valign=top style='width:16.25pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:7.9pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>1</span></span></p>
+  </td>
+  <td width=581 valign=top style='width:348.85pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:7.9pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=connect().query(&quot;select
+  * from \&quot;D:/2f/cities.txt\&quot; &quot;)</span></span></p>
+  </td>
+  <td width=473 valign=top style='width:10.0cm;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:7.9pt'>
+  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=zh-CN
+  style='mso-ansi-language:#0400;mso-fareast-language:#0400'>As the first
+  character of the file path is a letter, the path is enclosed by double
+  quotation marks; since there are also another pair of double quotation marks in
+  the outermost layer, this double quotation marks are escaped</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;height:15.3pt'>
+  <td width=27 valign=top style='width:16.25pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:15.3pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>2</span></span></p>
+  </td>
+  <td width=581 valign=top style='width:348.85pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:15.3pt'>
+  <p class=MsoListParagraph style='text-indent:0cm;mso-char-indent-count:0'><span
+  class=code><span lang=EN-US style='font-size:10.5pt;mso-bidi-font-size:10.0pt;
+  font-family:"Times New Roman","serif"'>$select * from
+  &quot;D:/1cities.txt&quot;</span></span></p>
+  </td>
+  <td width=473 valign=top style='width:10.0cm;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:15.3pt'>
+  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=zh-CN
+  style='mso-ansi-language:#0400;mso-fareast-language:#0400'>As the first
+  character of the file name is neither an undeline nor a letter, the name is
+  enclosed by double quotation marks; no need to escape the quotation marks
+  here</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes;height:5.25pt'>
+  <td width=27 valign=top style='width:16.25pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:5.25pt'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>3</span></span></p>
+  </td>
+  <td width=581 valign=top style='width:348.85pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:5.25pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>$select
+  &quot;@ID&quot; from D:/cities.txt</span></span></p>
+  </td>
+  <td width=473 valign=top style='width:10.0cm;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:5.25pt'>
+  <p class=MsoNormal style='mso-line-height-alt:0pt'><span lang=EN-US>As the
+  field name contains a special character, it is enclosed by double quotation
+  marks</span></p>
+  </td>
+ </tr>
+</table>
+
 <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
 	</div>
 	<div id="previous-next">
@@ -2211,9 +2316,12 @@ lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'></span></p
 	</div>
 	<div id="footer">	
 		
-		
-    <div class="copyright"> Copyright&reg; 2021 <a href="http://www.scudata.com" target="_Blank">SCUDATA Inc. 
+		<div class="copyright"> Copyright&reg; 2021-2023 <a href="http://www.scudata.com" target="_Blank">Scudata Inc. 
+      </a></div> 
+        <!--
+		<div class="copyright"> Copyright&reg; 2017 <a href="http://www.yimming.com" target="_Blank"> Beijing Yimming Ltd. Co. 
       </a></div>
+	  -->
 	</div>
 </div>
 
