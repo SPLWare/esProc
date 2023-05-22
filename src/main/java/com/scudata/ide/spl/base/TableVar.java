@@ -104,9 +104,14 @@ public abstract class TableVar extends JPanel {
 		if (!isRefresh) {
 			vl = null;
 		}
-		tableVar.acceptText();
-		tableVar.removeAllRows();
-		tableVar.clearSelection();
+		try {
+			preventChange = true;
+			tableVar.acceptText();
+			tableVar.removeAllRows();
+			tableVar.clearSelection();
+		} finally {
+			preventChange = false;
+		}
 		if (pl == null) {
 			if (jPSouth.isVisible())
 				jPSouth.setVisible(false);
@@ -292,23 +297,24 @@ public abstract class TableVar extends JPanel {
 			}
 			// ParamList varList = new ParamList();
 			// vl.getAllVarParams(varList);
-			Param p = vl.get(row);
-			if (col == COL_NAME) {
-				p.setName(value == null ? null : (String) value);
-			} else {
-				if (value == null) {
-					p.setValue(null);
-				} else if (StringUtils.isValidString(value)) {
-					String str = value.toString();
-					Object val = Variant.parse(str);
-					p.setValue(val);
-					preventChange = true;
-					data.setValueAt(val, row, col);
-					preventChange = false;
+			if (vl != null) {
+				Param p = vl.get(row);
+				if (col == COL_NAME) {
+					p.setName(value == null ? null : (String) value);
 				} else {
-					p.setValue(value);
+					if (value == null) {
+						p.setValue(null);
+					} else if (StringUtils.isValidString(value)) {
+						String str = value.toString();
+						Object val = Variant.parse(str);
+						p.setValue(val);
+						preventChange = true;
+						data.setValueAt(val, row, col);
+						preventChange = false;
+					} else {
+						p.setValue(value);
+					}
 				}
-
 			}
 		}
 
