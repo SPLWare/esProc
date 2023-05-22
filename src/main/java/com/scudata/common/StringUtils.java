@@ -1364,7 +1364,367 @@ public class StringUtils {
 		// 由于字体放大后，只取整数部分，会造成部分接近Ceiling的一些字号会偏小，所以加上0.3以后，再取整
 		return (int) (size * scale + 0.3f);
 	}
+	
+	private static boolean startsWithIgnoreCase(String source, String target) {
+		int targetCount = target.length();
+		if (targetCount == 0) {
+			return true;
+		}
+		
+		int sourceCount = source.length();
+		if (sourceCount < targetCount) {
+			return false;
+		}
+		
+		for (int j = 0, k = 0; k < targetCount; ++j, ++k) {
+			if (source.charAt(j) != target.charAt(k) && Character.toUpperCase(source.charAt(j)) != Character.toUpperCase(target.charAt(k))) {
+				return false;
+			}
+		}
+		
+		return true;
+	}
+	
+	private static boolean endsWithIgnoreCase(String source, String target) {
+		int targetCount = target.length();
+		if (targetCount == 0) {
+			return true;
+		}
+		
+		int sourceCount = source.length();
+		if (sourceCount < targetCount) {
+			return false;
+		}
+		
+		for (int j = sourceCount - targetCount, k = 0; k < targetCount; ++j, ++k) {
+			if (source.charAt(j) != target.charAt(k) && Character.toUpperCase(source.charAt(j)) != Character.toUpperCase(target.charAt(k))) {
+				return false;
+			}
+		}
+		
+		return true;
+	}
 
+	/**
+	 * 查找子串在源串中的位置
+	 * @param source 源串
+	 * @param target 子串
+	 * @param fromIndex 源串的起始查找位置
+	 * @param ignoreCase 是否忽略大小写
+	 * @param headOnly 是否只比较头部
+	 * @param isLast 是否从后开始找
+	 * @param skipQuotation 是否跳过引号内的字符
+	 * @return 位置，找不到返回-1
+	 */
+	public static int pos(String source, String target, int fromIndex, 
+			boolean ignoreCase, boolean headOnly, boolean isLast, boolean skipQuotation) {
+		if (ignoreCase) {
+			if (headOnly) {
+				if (isLast) {
+					if (endsWithIgnoreCase(source, target)) {
+						return source.length() - target.length();
+					} else {
+						return -1;
+					}
+				} else {
+					if (startsWithIgnoreCase(source, target)) {
+						return 0;
+					} else {
+						return -1;
+					}
+				}
+			} else if (skipQuotation) {
+				if (isLast) {
+					return lastIndexOf(source, target, fromIndex, true, true);
+				} else {
+					return indexOf(source, target, fromIndex, true, true);
+				}
+			} else if (isLast) {
+				return lastIndexOf(source, target, fromIndex, true, false);
+			} else {
+				return indexOf(source, target, fromIndex, true, false);
+			}
+		} else if (skipQuotation) {
+			if (isLast) {
+				if (headOnly) {
+					int index = source.length() - target.length();
+					if (source.startsWith(target, index)) {
+						return index;
+					} else {
+						return -1;
+					}
+				} else {
+					return lastIndexOf(source, target, fromIndex, false, true);
+				}
+			} else if (headOnly) {
+				if (source.startsWith(target, 0)) {
+					return 0;
+				} else {
+					return -1;
+				}
+			} else {
+				return indexOf(source, target, fromIndex, false, true);
+			}
+		} else if (isLast) {
+			if (headOnly) {
+				int index = source.length() - target.length();
+				if (source.startsWith(target, index)) {
+					return index;
+				} else {
+					return -1;
+				}
+			} else {
+				return source.lastIndexOf(target, fromIndex);
+			}
+		} else if (headOnly) {
+			if (source.startsWith(target, 0)) {
+				return 0;
+			} else {
+				return -1;
+			}
+		} else {
+			return source.indexOf(target, fromIndex);
+		}
+	}
+	
+	private static int indexOf(String source, String target, int fromIndex, 
+			boolean ignoreCase, boolean skipQuotation) {
+		int sourceCount = source.length();
+		int targetCount = target.length();
+		if (fromIndex >= sourceCount) {
+			return (targetCount == 0 ? sourceCount : -1);
+		}
+
+		if (fromIndex < 0) {
+			fromIndex = 0;
+		}
+
+		if (targetCount == 0) {
+			return fromIndex;
+		}
+
+		char first = target.charAt(0);
+		int max = sourceCount - targetCount;
+		
+		if (ignoreCase) {
+			char upFirst = Character.toUpperCase(first);
+
+			if (skipQuotation) {
+				Next:
+				for (int i = fromIndex; i <= max; ++i) {
+					// Look for first character.
+					while(true) {
+						char c = source.charAt(i);
+						if (c == first || Character.toUpperCase(c) == upFirst) {
+							break;
+						} else if (c == '"' || c == '\'') {
+							i = source.indexOf(c, i + 1);
+							if (i == -1) {
+								return -1;
+							} else if (++i > max) {
+								return -1;
+							}
+						} else if (++i > max) {
+							return -1;
+						}
+					}
+
+					// Found first character, now look at the rest of v2
+					for (int j = i + 1, k = 1; k < targetCount; ++j, ++k) {
+						if (source.charAt(j) != target.charAt(k)
+								&& Character.toUpperCase(source.charAt(j)) != Character
+										.toUpperCase(target.charAt(k))) {
+							continue Next;
+						}
+					}
+
+					// Found whole string.
+					return i;
+				}
+
+				return -1;
+			} else {
+				Next:
+				for (int i = fromIndex; i <= max; ++i) {
+					// Look for first character.
+					while (source.charAt(i) != first
+							&& Character.toUpperCase(source.charAt(i)) != upFirst) {
+						if (++i > max) {
+							return -1;
+						}
+					}
+
+					// Found first character, now look at the rest of v2
+					for (int j = i + 1, k = 1; k < targetCount; ++j, ++k) {
+						if (source.charAt(j) != target.charAt(k)
+								&& Character.toUpperCase(source.charAt(j)) != Character
+										.toUpperCase(target.charAt(k))) {
+							continue Next;
+						}
+					}
+
+					// Found whole string.
+					return i;
+				}
+
+				return -1;
+			}
+		} else { // skipQuotation为true
+			Next:
+			for (int i = fromIndex; i <= max; ++i) {
+				// Look for first character.
+				while(true) {
+					char c = source.charAt(i);
+					if (c == first) {
+						break;
+					} else if (c == '"' || c == '\'') {
+						i = source.indexOf(c, i + 1);
+						if (i == -1) {
+							return -1;
+						} else if (++i > max) {
+							return -1;
+						}
+					} else if (++i > max) {
+						return -1;
+					}
+				}
+
+				// Found first character, now look at the rest of v2
+				for (int j = i + 1, k = 1; k < targetCount; ++j, ++k) {
+					if (source.charAt(j) != target.charAt(k)) {
+						continue Next;
+					}
+				}
+
+				// Found whole string.
+				return i;
+			}
+
+			return -1;
+		}
+	}
+	
+	private static int lastIndexOf(String source, String target, int fromIndex, 
+			boolean ignoreCase, boolean skipQuotation) {
+		if (fromIndex < 0) {
+			return -1;
+		}
+		
+		int targetCount = target.length();
+		int sourceCount = source.length();
+		int rightIndex = sourceCount - targetCount;
+		
+		if (fromIndex > rightIndex) {
+			fromIndex = rightIndex;
+		}
+		
+		if (targetCount == 0) {
+			return fromIndex;
+		}
+		
+		int lastIndex = targetCount - 1;
+		char lastChar = target.charAt(lastIndex);
+		int i = lastIndex + fromIndex;
+		
+		if (ignoreCase) {
+			char upLast = Character.toUpperCase(lastChar);
+			if (skipQuotation) {
+		        startSearchForLastChar:
+		        while (i >= lastIndex) {
+		        	while(true) {
+		        		char c = source.charAt(i);
+						if (c == lastChar || Character.toUpperCase(c) == upLast) {
+							break;
+						} else if (c == '"' || c == '\'') {
+							i = source.lastIndexOf(c, i - 1);
+							if (i == -1) {
+								return -1;
+							} else if (--i < lastIndex) {
+								return -1;
+							}
+						} else if (--i < lastIndex) {
+							return -1;
+						}
+		        	}
+		        	
+		        	int j = i;
+		        	int k = lastIndex;
+					while (k > 0) {
+						char s = source.charAt(--j);
+						char t = target.charAt(--k);
+						if (s != t && Character.toUpperCase(s) != Character.toUpperCase(t)) {
+							--i;
+							continue startSearchForLastChar;
+						}
+					}
+					
+		            return j;
+		        }
+		        
+		        return -1;
+			} else {
+		        startSearchForLastChar:
+		        while (i >= lastIndex) {
+		        	while(true) {
+		        		char c = source.charAt(i);
+						if (c == lastChar || Character.toUpperCase(c) == upLast) {
+							break;
+						} else if (--i < lastIndex) {
+							return -1;
+						}
+		        	}
+		        	
+		        	int j = i;
+		        	int k = lastIndex;
+					while (k > 0) {
+						char s = source.charAt(--j);
+						char t = target.charAt(--k);
+						if (s != t && Character.toUpperCase(s) != Character.toUpperCase(t)) {
+							--i;
+							continue startSearchForLastChar;
+						}
+					}
+					
+		            return j;
+		        }
+		        
+		        return -1;
+			}
+		} else { // skipQuotation为true
+	        startSearchForLastChar:
+	        while (i >= lastIndex) {
+	        	while(true) {
+	        		char c = source.charAt(i);
+					if (c == lastChar) {
+						break;
+					} else if (c == '"' || c == '\'') {
+						i = source.lastIndexOf(c, i - 1);
+						if (i == -1) {
+							return -1;
+						} else if (--i < lastIndex) {
+							return -1;
+						}
+					} else if (--i < lastIndex) {
+						return -1;
+					}
+	        	}
+	        	
+	        	int j = i;
+	        	int k = lastIndex;
+				while (k > 0) {
+					if (source.charAt(--j) != target.charAt(--k)) {
+						--i;
+						continue startSearchForLastChar;
+					}
+				}
+				
+	            return j;
+	        }
+	        
+	        return -1;
+		}
+	}
+	
 	/**
 	 * 查找子串的位置，忽略大小写
 	 * @param source 源串
@@ -1372,8 +1732,7 @@ public class StringUtils {
 	 * @param fromIndex 源串的起始查找位置
 	 * @return 位置，找不到返回-1
 	 */
-	public static int indexOfIgnoreCase(String source, String target,
-			int fromIndex) {
+	public static int indexOfIgnoreCase(String source, String target, int fromIndex) {
 		int sourceCount = source.length();
 		int targetCount = target.length();
 		if (fromIndex >= sourceCount) {
@@ -1392,7 +1751,8 @@ public class StringUtils {
 		char upFirst = Character.toUpperCase(first);
 		int max = sourceCount - targetCount;
 
-		Next: for (int i = fromIndex; i <= max; ++i) {
+		Next:
+		for (int i = fromIndex; i <= max; ++i) {
 			// Look for first character.
 			while (source.charAt(i) != first
 					&& Character.toUpperCase(source.charAt(i)) != upFirst) {

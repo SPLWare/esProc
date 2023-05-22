@@ -65,14 +65,15 @@ public class Pos extends Function {
 		}
 
 		String str2 = (String)obj;
-		boolean isFirst = true, ignoreCase = false, headOnly = false;
+		boolean isLast = false, ignoreCase = false, headOnly = false, skipQuotation = false;
 		if (option != null) {
-			if (option.indexOf('z') != -1) isFirst = false;
+			if (option.indexOf('z') != -1) isLast = true;
 			if (option.indexOf('c') != -1) ignoreCase = true;
 			if (option.indexOf('h') != -1) headOnly = true;
+			if (option.indexOf('q') != -1) skipQuotation = true;
 		}
 
-		int begin = isFirst ? 0 : str1.length() - 1;
+		int begin = isLast ? str1.length() - 1 : 0;
 		if (param.getSubSize() > 2) {
 			IParam sub3 = param.getSub(2);
 			if (sub3 == null) {
@@ -91,219 +92,10 @@ public class Pos extends Function {
 			}
 		}
 		
-		if (ignoreCase) {
-			if (isFirst) {
-				if (headOnly) {
-					if (startsWithIgnoreCase(str1, str2)) {
-						return ObjectCache.getInteger(1);
-					} else {
-						return null;
-					}
-				} else {
-					int index = StringUtils.indexOfIgnoreCase(str1, str2, begin);
-					return index < 0 ? null : ObjectCache.getInteger(index + 1);
-				}
-			} else {
-				if (headOnly) {
-					if (endsWithIgnoreCase(str1, str2)) {
-						return ObjectCache.getInteger(str1.length() - str2.length() + 1);
-					} else {
-						return null;
-					}
-				} else {
-					int index = StringUtils.indexOfIgnoreCase(str1, str2, begin);
-					return index < 0 ? null : ObjectCache.getInteger(index + 1);
-				}
-			}
-		} else {
-			if (isFirst) {
-				if (headOnly) {
-					if (str1.startsWith(str2, 0)) {
-						return ObjectCache.getInteger(1);
-					} else {
-						return null;
-					}
-				} else {
-					int index = str1.indexOf(str2, begin);
-					return index < 0 ? null : ObjectCache.getInteger(index + 1);
-				}
-			} else {
-				if (headOnly) {
-					int index = str1.length() - str2.length();
-					if (str1.startsWith(str2, index)) {
-						return ObjectCache.getInteger(index + 1);
-					} else {
-						return null;
-					}
-				} else {
-					int index = str1.lastIndexOf(str2, begin);
-					return index < 0 ? null : ObjectCache.getInteger(index + 1);
-				}
-			}
-		}
+		int pos = StringUtils.pos(str1, str2, begin, ignoreCase, headOnly, isLast, skipQuotation);
+		return pos < 0 ? null : ObjectCache.getInteger(pos + 1);
 	}
-	
-	private static boolean startsWithIgnoreCase(String source, String target) {
-		int targetCount = target.length();
-		if (targetCount == 0) {
-			return true;
-		}
-		
-		int sourceCount = source.length();
-		if (sourceCount < targetCount) {
-			return false;
-		}
-		
-		for (int j = 0, k = 0; k < targetCount; ++j, ++k) {
-			if (source.charAt(j) != target.charAt(k) && Character.toUpperCase(source.charAt(j)) != Character.toUpperCase(target.charAt(k))) {
-				return false;
-			}
-		}
-		
-		return true;
-	}
-	
-	private static boolean endsWithIgnoreCase(String source, String target) {
-		int targetCount = target.length();
-		if (targetCount == 0) {
-			return true;
-		}
-		
-		int sourceCount = source.length();
-		if (sourceCount < targetCount) {
-			return false;
-		}
-		
-		for (int j = sourceCount - targetCount, k = 0; k < targetCount; ++j, ++k) {
-			if (source.charAt(j) != target.charAt(k) && Character.toUpperCase(source.charAt(j)) != Character.toUpperCase(target.charAt(k))) {
-				return false;
-			}
-		}
-		
-		return true;
-	}
-
-	// 如果能找到返回值大于0
-	private static int pos(String str1, String str2, int begin, String option) {
-		boolean isFirst = true, ignoreCase = false, headOnly = false;
-		if (option != null) {
-			if (option.indexOf('z') != -1) isFirst = false;
-			if (option.indexOf('c') != -1) ignoreCase = true;
-			if (option.indexOf('h') != -1) headOnly = true;
-		}
-		
-		if (ignoreCase) {
-			if (isFirst) {
-				if (headOnly) {
-					if (startsWithIgnoreCase(str1, str2)) {
-						return 1;
-					} else {
-						return 0;
-					}
-				} else {
-					int index = StringUtils.indexOfIgnoreCase(str1, str2, begin);
-					return index + 1;
-				}
-			} else {
-				if (headOnly) {
-					if (endsWithIgnoreCase(str1, str2)) {
-						return str1.length() - str2.length() + 1;
-					} else {
-						return 0;
-					}
-				} else {
-					int index = StringUtils.indexOfIgnoreCase(str1, str2, begin);
-					return index + 1;
-				}
-			}
-		} else {
-			if (isFirst) {
-				if (headOnly) {
-					if (str1.startsWith(str2, 0)) {
-						return 1;
-					} else {
-						return 0;
-					}
-				} else {
-					int index = str1.indexOf(str2, begin);
-					return index + 1;
-				}
-			} else {
-				if (headOnly) {
-					int index = str1.length() - str2.length();
-					if (str1.startsWith(str2, index)) {
-						return index + 1;
-					} else {
-						return 0;
-					}
-				} else {
-					int index = str1.lastIndexOf(str2, begin);
-					return index + 1;
-				}
-			}
-		}
-	}
-	
-	private static int pos(String str1, String str2, String option) {
-		boolean isFirst = true, ignoreCase = false, headOnly = false;
-		if (option != null) {
-			if (option.indexOf('z') != -1) isFirst = false;
-			if (option.indexOf('c') != -1) ignoreCase = true;
-			if (option.indexOf('h') != -1) headOnly = true;
-		}
-		
-		if (ignoreCase) {
-			if (isFirst) {
-				if (headOnly) {
-					if (startsWithIgnoreCase(str1, str2)) {
-						return 1;
-					} else {
-						return 0;
-					}
-				} else {
-					int index = StringUtils.indexOfIgnoreCase(str1, str2, 0);
-					return index + 1;
-				}
-			} else {
-				if (headOnly) {
-					if (endsWithIgnoreCase(str1, str2)) {
-						return str1.length() - str2.length() + 1;
-					} else {
-						return 0;
-					}
-				} else {
-					int index = StringUtils.indexOfIgnoreCase(str1, str2, 0);
-					return index + 1;
-				}
-			}
-		} else {
-			if (isFirst) {
-				if (headOnly) {
-					if (str1.startsWith(str2, 0)) {
-						return 1;
-					} else {
-						return 0;
-					}
-				} else {
-					int index = str1.indexOf(str2, 0);
-					return index + 1;
-				}
-			} else {
-				if (headOnly) {
-					int index = str1.length() - str2.length();
-					if (str1.startsWith(str2, index)) {
-						return index + 1;
-					} else {
-						return 0;
-					}
-				} else {
-					int index = str1.lastIndexOf(str2, str1.length() - 1);
-					return index + 1;
-				}
-			}
-		}
-	}
-	
+			
 	/**
 	 * 计算出所有行的结果
 	 * @param ctx 计算上行文
@@ -320,6 +112,14 @@ public class Pos extends Function {
 		IArray array1 = sub1.getLeafExpression().calculateAll(ctx);
 		IArray array2 = sub2.getLeafExpression().calculateAll(ctx);
 		int size = array1.size();
+		
+		boolean isLast = false, ignoreCase = false, headOnly = false, skipQuotation = false;
+		if (option != null) {
+			if (option.indexOf('z') != -1) isLast = true;
+			if (option.indexOf('c') != -1) ignoreCase = true;
+			if (option.indexOf('h') != -1) headOnly = true;
+			if (option.indexOf('q') != -1) skipQuotation = true;
+		}
 				
 		if (param.getSubSize() > 2) {
 			IParam sub3 = param.getSub(2);
@@ -358,9 +158,9 @@ public class Pos extends Function {
 				for (int i = 1; i <= size; ++i) {
 					String str = stringArray.getString(i);
 					if (str != null) {
-						int pos = pos(str, str2, begin, option);
-						if (pos > 0) {
-							result.pushInt(pos);
+						int pos = StringUtils.pos(str, str2, begin, ignoreCase, headOnly, isLast, skipQuotation);
+						if (pos != -1) {
+							result.pushInt(pos + 1);
 						} else {
 							result.pushNull();
 						}
@@ -384,9 +184,9 @@ public class Pos extends Function {
 				if (obj1 instanceof String && obj2 instanceof String) {
 					String str1 = (String)obj1;
 					String str2 = (String)obj2;
-					int pos = pos(str1, str2, begin, option);
-					if (pos > 0) {
-						value = ObjectCache.getInteger(pos);
+					int pos = StringUtils.pos(str1, str2, begin, ignoreCase, headOnly, isLast, skipQuotation);
+					if (pos != -1) {
+						value = ObjectCache.getInteger(pos + 1);
 					}
 				} else if (obj1 != null && obj2 != null) {
 					MessageManager mm = EngineMessage.get();
@@ -415,9 +215,9 @@ public class Pos extends Function {
 						String str1 = (String)obj1;
 						String str2 = (String)obj2;
 						int begin = array3.getInt(i) - 1;
-						int pos = pos(str1, str2, begin, option);
-						if (pos > 0) {
-							result.pushInt(pos);
+						int pos = StringUtils.pos(str1, str2, begin, ignoreCase, headOnly, isLast, skipQuotation);
+						if (pos != -1) {
+							result.pushInt(pos + 1);
 						} else {
 							result.pushNull();
 						}
@@ -449,9 +249,10 @@ public class Pos extends Function {
 				for (int i = 1; i <= size; ++i) {
 					String str = stringArray.getString(i);
 					if (str != null) {
-						int pos = pos(str, str2, option);
-						if (pos > 0) {
-							result.pushInt(pos);
+						int begin = isLast ? str.length() - 1 : 0;
+						int pos = StringUtils.pos(str, str2, begin, ignoreCase, headOnly, isLast, skipQuotation);
+						if (pos != -1) {
+							result.pushInt(pos + 1);
 						} else {
 							result.pushNull();
 						}
@@ -468,9 +269,10 @@ public class Pos extends Function {
 				if (obj1 instanceof String && obj2 instanceof String) {
 					String str1 = (String)obj1;
 					String str2 = (String)obj2;
-					int pos = pos(str1, str2, option);
-					if (pos > 0) {
-						value = ObjectCache.getInteger(pos);
+					int begin = isLast ? str1.length() - 1 : 0;
+					int pos = StringUtils.pos(str1, str2, begin, ignoreCase, headOnly, isLast, skipQuotation);
+					if (pos != -1) {
+						value = ObjectCache.getInteger(pos + 1);
 					}
 				} else if (obj1 != null && obj2 != null) {
 					MessageManager mm = EngineMessage.get();
@@ -488,9 +290,10 @@ public class Pos extends Function {
 					if (obj1 instanceof String && obj2 instanceof String) {
 						String str1 = (String)obj1;
 						String str2 = (String)obj2;
-						int pos = pos(str1, str2, option);
-						if (pos > 0) {
-							result.pushInt(pos);
+						int begin = isLast ? str1.length() - 1 : 0;
+						int pos = StringUtils.pos(str1, str2, begin, ignoreCase, headOnly, isLast, skipQuotation);
+						if (pos != -1) {
+							result.pushInt(pos + 1);
 						} else {
 							result.pushNull();
 						}
@@ -533,6 +336,14 @@ public class Pos extends Function {
 		IArray array2 = sub2.getLeafExpression().calculateAll(ctx, signArray, sign);
 		int size = array1.size();
 		
+		boolean isLast = false, ignoreCase = false, headOnly = false, skipQuotation = false;
+		if (option != null) {
+			if (option.indexOf('z') != -1) isLast = true;
+			if (option.indexOf('c') != -1) ignoreCase = true;
+			if (option.indexOf('h') != -1) headOnly = true;
+			if (option.indexOf('q') != -1) skipQuotation = true;
+		}
+		
 		if (param.getSubSize() > 2) {
 			IParam sub3 = param.getSub(2);
 			if (sub3 == null) {
@@ -575,9 +386,9 @@ public class Pos extends Function {
 					
 					String str = stringArray.getString(i);
 					if (str != null) {
-						int pos = pos(str, str2, begin, option);
-						if (pos > 0) {
-							result.pushInt(pos);
+						int pos = StringUtils.pos(str, str2, begin, ignoreCase, headOnly, isLast, skipQuotation);
+						if (pos != -1) {
+							result.pushInt(pos + 1);
 						} else {
 							result.pushNull();
 						}
@@ -601,9 +412,9 @@ public class Pos extends Function {
 				if (obj1 instanceof String && obj2 instanceof String) {
 					String str1 = (String)obj1;
 					String str2 = (String)obj2;
-					int pos = pos(str1, str2, begin, option);
-					if (pos > 0) {
-						value = ObjectCache.getInteger(pos);
+					int pos = StringUtils.pos(str1, str2, begin, ignoreCase, headOnly, isLast, skipQuotation);
+					if (pos != -1) {
+						value = ObjectCache.getInteger(pos + 1);
 					}
 				} else if (obj1 != null && obj2 != null) {
 					MessageManager mm = EngineMessage.get();
@@ -637,9 +448,9 @@ public class Pos extends Function {
 						String str1 = (String)obj1;
 						String str2 = (String)obj2;
 						int begin = array3.getInt(i) - 1;
-						int pos = pos(str1, str2, begin, option);
-						if (pos > 0) {
-							result.pushInt(pos);
+						int pos = StringUtils.pos(str1, str2, begin, ignoreCase, headOnly, isLast, skipQuotation);
+						if (pos != -1) {
+							result.pushInt(pos + 1);
 						} else {
 							result.pushNull();
 						}
@@ -676,9 +487,10 @@ public class Pos extends Function {
 					
 					String str = stringArray.getString(i);
 					if (str != null) {
-						int pos = pos(str, str2, option);
-						if (pos > 0) {
-							result.pushInt(pos);
+						int begin = isLast ? str.length() - 1 : 0;
+						int pos = StringUtils.pos(str, str2, begin, ignoreCase, headOnly, isLast, skipQuotation);
+						if (pos != -1) {
+							result.pushInt(pos + 1);
 						} else {
 							result.pushNull();
 						}
@@ -695,9 +507,10 @@ public class Pos extends Function {
 				if (obj1 instanceof String && obj2 instanceof String) {
 					String str1 = (String)obj1;
 					String str2 = (String)obj2;
-					int pos = pos(str1, str2, option);
-					if (pos > 0) {
-						value = ObjectCache.getInteger(pos);
+					int begin = isLast ? str1.length() - 1 : 0;
+					int pos = StringUtils.pos(str1, str2, begin, ignoreCase, headOnly, isLast, skipQuotation);
+					if (pos != -1) {
+						value = ObjectCache.getInteger(pos + 1);
 					}
 				} else if (obj1 != null && obj2 != null) {
 					MessageManager mm = EngineMessage.get();
@@ -720,9 +533,10 @@ public class Pos extends Function {
 					if (obj1 instanceof String && obj2 instanceof String) {
 						String str1 = (String)obj1;
 						String str2 = (String)obj2;
-						int pos = pos(str1, str2, option);
-						if (pos > 0) {
-							result.pushInt(pos);
+						int begin = isLast ? str1.length() - 1 : 0;
+						int pos = StringUtils.pos(str1, str2, begin, ignoreCase, headOnly, isLast, skipQuotation);
+						if (pos != -1) {
+							result.pushInt(pos + 1);
 						} else {
 							result.pushNull();
 						}
@@ -759,6 +573,14 @@ public class Pos extends Function {
 		IArray array1 = sub1.getLeafExpression().calculateAll(ctx, result, true);
 		IArray array2 = sub2.getLeafExpression().calculateAll(ctx, result, true);
 		int size = result.size();
+		
+		boolean isLast = false, ignoreCase = false, headOnly = false, skipQuotation = false;
+		if (option != null) {
+			if (option.indexOf('z') != -1) isLast = true;
+			if (option.indexOf('c') != -1) ignoreCase = true;
+			if (option.indexOf('h') != -1) headOnly = true;
+			if (option.indexOf('q') != -1) skipQuotation = true;
+		}
 				
 		if (param.getSubSize() > 2) {
 			IParam sub3 = param.getSub(2);
@@ -800,8 +622,8 @@ public class Pos extends Function {
 					if (signDatas[i]) {
 						String str = stringArray.getString(i);
 						if (str != null) {
-							int pos = pos(str, str2, begin, option);
-							if (pos < 1) {
+							int pos = StringUtils.pos(str, str2, begin, ignoreCase, headOnly, isLast, skipQuotation);
+							if (pos == -1) {
 								signDatas[i] = false;
 							}
 						} else {
@@ -819,17 +641,17 @@ public class Pos extends Function {
 				}
 				
 				int begin = ((Number)obj3).intValue() - 1;
-				int pos = 0;
+				int pos = -1;
 				if (obj1 instanceof String && obj2 instanceof String) {
 					String str1 = (String)obj1;
 					String str2 = (String)obj2;
-					pos = pos(str1, str2, begin, option);
+					pos = StringUtils.pos(str1, str2, begin, ignoreCase, headOnly, isLast, skipQuotation);
 				} else if (obj1 != null && obj2 != null) {
 					MessageManager mm = EngineMessage.get();
 					throw new RQException("pos" + mm.getMessage("function.paramTypeError"));
 				}
 				
-				if (pos < 1) {
+				if (pos == -1) {
 					for (int i = 1; i <= size; ++i) {
 						signDatas[i] = false;
 					}
@@ -853,8 +675,8 @@ public class Pos extends Function {
 							String str1 = (String)obj1;
 							String str2 = (String)obj2;
 							int begin = array3.getInt(i) - 1;
-							int pos = pos(str1, str2, begin, option);
-							if (pos < 1) {
+							int pos = StringUtils.pos(str1, str2, begin, ignoreCase, headOnly, isLast, skipQuotation);
+							if (pos == -1) {
 								signDatas[i] = false;
 							}
 						} else if (obj1 != null && obj2 != null) {
@@ -887,8 +709,9 @@ public class Pos extends Function {
 					if (signDatas[i]) {
 						String str = stringArray.getString(i);
 						if (str != null) {
-							int pos = pos(str, str2, option);
-							if (pos < 1) {
+							int begin = isLast ? str.length() - 1 : 0;
+							int pos = StringUtils.pos(str, str2, begin, ignoreCase, headOnly, isLast, skipQuotation);
+							if (pos == -1) {
 								signDatas[i] = false;
 							}
 						} else {
@@ -899,17 +722,18 @@ public class Pos extends Function {
 			} else if (array1 instanceof ConstArray && array2 instanceof ConstArray) {
 				Object obj1 = array1.get(1);
 				Object obj2 = array2.get(1);
-				int pos = 0;
+				int pos = -1;
 				if (obj1 instanceof String && obj2 instanceof String) {
 					String str1 = (String)obj1;
 					String str2 = (String)obj2;
-					pos = pos(str1, str2, option);
+					int begin = isLast ? str1.length() - 1 : 0;
+					pos = StringUtils.pos(str1, str2, begin, ignoreCase, headOnly, isLast, skipQuotation);
 				} else if (obj1 != null && obj2 != null) {
 					MessageManager mm = EngineMessage.get();
 					throw new RQException("pos" + mm.getMessage("function.paramTypeError"));
 				}
 				
-				if (pos < 1) {
+				if (pos == -1) {
 					for (int i = 1; i <= size; ++i) {
 						signDatas[i] = false;
 					}
@@ -922,8 +746,9 @@ public class Pos extends Function {
 						if (obj1 instanceof String && obj2 instanceof String) {
 							String str1 = (String)obj1;
 							String str2 = (String)obj2;
-							int pos = pos(str1, str2, option);
-							if (pos < 1) {
+							int begin = isLast ? str1.length() - 1 : 0;
+							int pos = StringUtils.pos(str1, str2, begin, ignoreCase, headOnly, isLast, skipQuotation);
+							if (pos == -1) {
 								signDatas[i] = false;
 							}
 						} else if (obj1 != null && obj2 != null) {

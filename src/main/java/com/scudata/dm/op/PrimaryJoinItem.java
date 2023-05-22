@@ -21,7 +21,7 @@ class PrimaryJoinItem {
 	private Current current; // 当前计算对象，用于压栈
 	private Sequence data; // 游标取出的数据
 	private Object []keyValues;
-	private Object []srcKeyValues;
+	private Object []prevKeyValues; // 上一条记录的键值，用于带汇总的关联
 	
 	private int keyCount = 0;
 	private int newCount = 0; // new字段数
@@ -50,7 +50,7 @@ class PrimaryJoinItem {
 		
 		keyCount = keyExps.length;
 		keyValues = new Object[keyCount];
-		srcKeyValues = new Object[keyCount];
+		prevKeyValues = new Object[keyCount];
 		cacheData();
 	}
 	
@@ -149,9 +149,9 @@ class PrimaryJoinItem {
 			
 			Expression []keyExps = this.keyExps;
 			Object []keyValues = this.keyValues;
-			Object []srcKeyValues = this.srcKeyValues;
+			Object []prevKeyValues = this.prevKeyValues;
 			int keyCount = this.keyCount;
-			System.arraycopy(srcKeyValues, 0, keyValues, 0, keyCount);
+			System.arraycopy(keyValues, 0, prevKeyValues, 0, keyCount);
 			
 			while (true) {
 				seq++;
@@ -167,7 +167,7 @@ class PrimaryJoinItem {
 					}
 				}
 				
-				if (Variant.compareArrays(srcKeyValues, keyValues, keyCount) == 0) {
+				if (Variant.compareArrays(prevKeyValues, keyValues, keyCount) == 0) {
 					for (int i = 0; i < newCount; ++i) {
 						resultValues[fieldIndex + i] = gathers[i].gather(resultValues[fieldIndex + i], ctx);
 					}
