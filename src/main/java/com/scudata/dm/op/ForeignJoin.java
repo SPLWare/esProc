@@ -56,8 +56,11 @@ public class ForeignJoin extends Operation {
 		
 		for (int i = 0; i < count; ++i) {
 			Expression []curExps = newExps[i];
+			if (curExps == null) {
+				continue;
+			}
+			
 			int curLen = curExps.length;
-
 			if (newNames[i] == null) {
 				newNames[i] = new String[curLen];
 			}
@@ -110,6 +113,10 @@ public class ForeignJoin extends Operation {
 		
 		for (int i = 0; i < dcount; ++i) {
 			String []curNames = newNames[i];
+			if (curNames == null) {
+				continue;
+			}
+			
 			int curLen = curNames.length;
 			int []tmp = new int[curLen];
 			tgtIndexs[i] = tmp;
@@ -166,62 +173,70 @@ public class ForeignJoin extends Operation {
 
 		try {
 			for (int fk = 0, fkCount = dimExps.length; fk < fkCount; ++fk) {
-				Sequence dimData = new Sequence(len);
-				IArray mems = dimData.getMems();
 				Expression dimExp = dimExps[fk];
 				int []tgtIndexs = this.tgtIndexs[fk];
 				
-				for (int i = 1; i <= len; ++i) {
-					current.setCurrent(i);
-					mems.push(dimExp.calculate(ctx));
-				}
-				
-				Param param = null;
-				Object oldValue = null;
-				if (aliasNames != null && aliasNames[fk] != null) {
-					param = ctx.getParam(aliasNames[fk]);
-					if (param == null) {
-						param = new Param(aliasNames[fk], Param.VAR, dimData);
-						ctx.addParam(param);
-					} else {
-						oldValue = param.getValue();
-						param.setValue(dimData);
+				if (tgtIndexs == null) {
+					for (int i = 1; i <= len; ++i) {
+						current.setCurrent(i);
+						dimExp.calculate(ctx);
 					}
-				}
-				
-				Expression []curNewExps = newExps[fk];
-				int newCount = curNewExps.length;
-				
-				try {
-					Current dimCurrent = new Current(dimData);
-					stack.push(dimCurrent);
+				} else {
+					Sequence dimData = new Sequence(len);
+					IArray mems = dimData.getMems();
 					
-					if (param == null) {
-						for (int i = 1; i <= len; ++i) {
-							current.setCurrent(i);
-							dimCurrent.setCurrent(i);
-							
-							BaseRecord r = (BaseRecord)result.getMem(i);
-							for (int f = 0; f < newCount; ++f) {
-								r.setNormalFieldValue(tgtIndexs[f], curNewExps[f].calculate(ctx));
-							}
-						}
-					} else {
-						for (int i = 1; i <= len; ++i) {
-							current.setCurrent(i);
-							dimCurrent.setCurrent(i);
-							param.setValue(mems.get(i));
-							
-							BaseRecord r = (BaseRecord)result.getMem(i);
-							for (int f = 0; f < newCount; ++f) {
-								r.setNormalFieldValue(tgtIndexs[f], curNewExps[f].calculate(ctx));
-							}
+					for (int i = 1; i <= len; ++i) {
+						current.setCurrent(i);
+						mems.push(dimExp.calculate(ctx));
+					}
+					
+					Param param = null;
+					Object oldValue = null;
+					if (aliasNames != null && aliasNames[fk] != null) {
+						param = ctx.getParam(aliasNames[fk]);
+						if (param == null) {
+							param = new Param(aliasNames[fk], Param.VAR, dimData);
+							ctx.addParam(param);
+						} else {
+							oldValue = param.getValue();
+							param.setValue(dimData);
 						}
 					}
-				} finally {
-					stack.pop();
-					if (param != null) {
-						param.setValue(oldValue);
+					
+					Expression []curNewExps = newExps[fk];
+					int newCount = curNewExps.length;
+					
+					try {
+						Current dimCurrent = new Current(dimData);
+						stack.push(dimCurrent);
+						
+						if (param == null) {
+							for (int i = 1; i <= len; ++i) {
+								current.setCurrent(i);
+								dimCurrent.setCurrent(i);
+								
+								BaseRecord r = (BaseRecord)result.getMem(i);
+								for (int f = 0; f < newCount; ++f) {
+									r.setNormalFieldValue(tgtIndexs[f], curNewExps[f].calculate(ctx));
+								}
+							}
+						} else {
+							for (int i = 1; i <= len; ++i) {
+								current.setCurrent(i);
+								dimCurrent.setCurrent(i);
+								param.setValue(mems.get(i));
+								
+								BaseRecord r = (BaseRecord)result.getMem(i);
+								for (int f = 0; f < newCount; ++f) {
+									r.setNormalFieldValue(tgtIndexs[f], curNewExps[f].calculate(ctx));
+								}
+							}
+						}
+					} finally {
+						stack.pop();
+						if (param != null) {
+							param.setValue(oldValue);
+						}
 					}
 				}
 			}
@@ -252,75 +267,88 @@ public class ForeignJoin extends Operation {
 
 		try {
 			for (int fk = 0, fkCount = dimExps.length; fk < fkCount; ++fk) {
-				Sequence dimData = new Sequence(len);
-				IArray mems = dimData.getMems();
 				Expression dimExp = dimExps[fk];
 				int []tgtIndexs = this.tgtIndexs[fk];
 				
-				for (int i = 1; i <= len; ++i) {
-					if (signs[i]) {
-						current.setCurrent(i);
-						Object dr = dimExp.calculate(ctx);
-						mems.push(dr);
-						
-						if (Variant.isFalse(dr)) {
-							signs[i] = false;
+				if (tgtIndexs == null) {
+					for (int i = 1; i <= len; ++i) {
+						if (signs[i]) {
+							current.setCurrent(i);
+							Object dr = dimExp.calculate(ctx);
+							if (Variant.isFalse(dr)) {
+								signs[i] = false;
+							}
 						}
-					} else {
-						mems.pushNull();
 					}
-				}
-				
-				Param param = null;
-				Object oldValue = null;
-				if (aliasNames != null && aliasNames[fk] != null) {
-					param = ctx.getParam(aliasNames[fk]);
-					if (param == null) {
-						param = new Param(aliasNames[fk], Param.VAR, dimData);
-						ctx.addParam(param);
-					} else {
-						oldValue = param.getValue();
-						param.setValue(dimData);
-					}
-				}
-				
-				Expression []curNewExps = newExps[fk];
-				int newCount = curNewExps.length;
-				
-				try {
-					Current dimCurrent = new Current(dimData);
-					stack.push(dimCurrent);
+				} else {
+					Sequence dimData = new Sequence(len);
+					IArray mems = dimData.getMems();
 					
-					if (param == null) {
-						for (int i = 1; i <= len; ++i) {
-							if (signs[i]) {
-								current.setCurrent(i);
-								dimCurrent.setCurrent(i);
-								
-								BaseRecord r = (BaseRecord)result.getMem(i);
-								for (int f = 0; f < newCount; ++f) {
-									r.setNormalFieldValue(tgtIndexs[f], curNewExps[f].calculate(ctx));
-								}
+					for (int i = 1; i <= len; ++i) {
+						if (signs[i]) {
+							current.setCurrent(i);
+							Object dr = dimExp.calculate(ctx);
+							mems.push(dr);
+							
+							if (Variant.isFalse(dr)) {
+								signs[i] = false;
 							}
-						}
-					} else {
-						for (int i = 1; i <= len; ++i) {
-							if (signs[i]) {
-								current.setCurrent(i);
-								dimCurrent.setCurrent(i);
-								param.setValue(mems.get(i));
-								
-								BaseRecord r = (BaseRecord)result.getMem(i);
-								for (int f = 0; f < newCount; ++f) {
-									r.setNormalFieldValue(tgtIndexs[f], curNewExps[f].calculate(ctx));
-								}
-							}
+						} else {
+							mems.pushNull();
 						}
 					}
-				} finally {
-					stack.pop();
-					if (param != null) {
-						param.setValue(oldValue);
+					
+					Param param = null;
+					Object oldValue = null;
+					if (aliasNames != null && aliasNames[fk] != null) {
+						param = ctx.getParam(aliasNames[fk]);
+						if (param == null) {
+							param = new Param(aliasNames[fk], Param.VAR, dimData);
+							ctx.addParam(param);
+						} else {
+							oldValue = param.getValue();
+							param.setValue(dimData);
+						}
+					}
+					
+					Expression []curNewExps = newExps[fk];
+					int newCount = curNewExps.length;
+					
+					try {
+						Current dimCurrent = new Current(dimData);
+						stack.push(dimCurrent);
+						
+						if (param == null) {
+							for (int i = 1; i <= len; ++i) {
+								if (signs[i]) {
+									current.setCurrent(i);
+									dimCurrent.setCurrent(i);
+									
+									BaseRecord r = (BaseRecord)result.getMem(i);
+									for (int f = 0; f < newCount; ++f) {
+										r.setNormalFieldValue(tgtIndexs[f], curNewExps[f].calculate(ctx));
+									}
+								}
+							}
+						} else {
+							for (int i = 1; i <= len; ++i) {
+								if (signs[i]) {
+									current.setCurrent(i);
+									dimCurrent.setCurrent(i);
+									param.setValue(mems.get(i));
+									
+									BaseRecord r = (BaseRecord)result.getMem(i);
+									for (int f = 0; f < newCount; ++f) {
+										r.setNormalFieldValue(tgtIndexs[f], curNewExps[f].calculate(ctx));
+									}
+								}
+							}
+						}
+					} finally {
+						stack.pop();
+						if (param != null) {
+							param.setValue(oldValue);
+						}
 					}
 				}
 			}
