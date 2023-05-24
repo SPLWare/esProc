@@ -1255,13 +1255,14 @@ abstract public class ComTable implements IBlockStorage {
 	/**
 	 * 得到组表的所有相关文件，包括补文件、索引和cuboid
 	 * @param self 包含自身
+	 * @param auto 包含索引文件
 	 * @return
 	 */
-	public List<File> getFiles(boolean self) {
+	public List<File> getFiles(boolean self, boolean auto) {
 		List<File> files = null;
 		ComTable sgt = getSupplement(false);
 		if (sgt != null) {
-			files = sgt.getFiles(true);
+			files = sgt.getFiles(true, auto);
 		}
 		
 		if (files == null) {
@@ -1271,21 +1272,24 @@ abstract public class ComTable implements IBlockStorage {
 		String dir = getFile().getAbsolutePath() + "_";
 		String tableName = table.tableName;
 		
-		//indexs
-		if (table.indexNames != null) {
-			for (String name : table.indexNames) {
-				File tmpFile = new File(dir + tableName + "_" + name);
-				files.add(tmpFile);
+		if (auto) {
+			//indexs
+			if (table.indexNames != null) {
+				for (String name : table.indexNames) {
+					File tmpFile = new File(dir + tableName + "_" + name);
+					files.add(tmpFile);
+				}
+			}
+			
+			//cuboids
+			if (table.cuboids != null) {
+				for (String name : table.cuboids) {
+					File tmpFile = new File(dir + tableName + Cuboid.CUBE_PREFIX + name);
+					files.add(tmpFile);
+				}
 			}
 		}
-		
-		//cuboids
-		if (table.cuboids != null) {
-			for (String name : table.cuboids) {
-				File tmpFile = new File(dir + tableName + Cuboid.CUBE_PREFIX + name);
-				files.add(tmpFile);
-			}
-		}
+
 		
 		if (self) {
 			files.add(getFile());

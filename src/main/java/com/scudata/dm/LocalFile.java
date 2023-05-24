@@ -416,7 +416,7 @@ public class LocalFile implements IFile {
 		if (fileName.endsWith(".ctx")) {
 			try {
 				ComTable table = ComTable.open(file, ctx);
-				List<File> files = table.getFiles(false);
+				List<File> files = table.getFiles(false, true);
 				table.close();
 				for (File f : files) {
 					f.delete();
@@ -472,8 +472,9 @@ public class LocalFile implements IFile {
 	 * @param file
 	 * @param destFile
 	 * @param isCopy
+	 * @param auto 自动处理索引文件
 	 */
-	private void moveCtxFiles(File file, File destFile, boolean isCopy) {
+	private void moveCtxFiles(File file, File destFile, boolean isCopy, boolean auto) {
 		if (file.isDirectory()) {
 			return;
 		}
@@ -481,7 +482,7 @@ public class LocalFile implements IFile {
 		if (fileName.endsWith(".ctx")) {
 			try {
 				ComTable table = ComTable.open(file, ctx);
-				List<File> files = table.getFiles(false);
+				List<File> files = table.getFiles(false, auto);
 				table.close();
 				
 				int fcount = files.size();
@@ -520,11 +521,12 @@ public class LocalFile implements IFile {
 		File file = getFile();
 		if (file == null || !file.exists()) return false;
 
-		boolean isCover = false, isCopy = false, isMain = false;
+		boolean isCover = false, isCopy = false, isMain = false, auto = false;
 		if (opt != null) {
 			if (opt.indexOf('y') != -1) isCover = true;
 			if (opt.indexOf('c') != -1) isCopy = true;
 			if (opt.indexOf('p') != -1) isMain = true;
+			if (opt.indexOf('a') != -1) auto = true;
 		}
 
 		File destFile = new File(dest);
@@ -581,7 +583,7 @@ public class LocalFile implements IFile {
 		File parent = destFile.getParentFile();
 		if (parent != null) parent.mkdirs();
 
-		moveCtxFiles(file, destFile, isCopy);
+		moveCtxFiles(file, destFile, isCopy, auto);
 		
 		if (isCopy) {
 			if (file.isDirectory()) {
