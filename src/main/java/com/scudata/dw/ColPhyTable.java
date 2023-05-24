@@ -4108,7 +4108,7 @@ public class ColPhyTable extends PhyTable {
 			throw new RQException(mm.getMessage("dw.lessKey"));
 		}
 		
-		if (parent != null) {
+		if (parent != null || getModifyRecords() != null) {
 			String []keys = getAllSortedColNames();
 			String key0 = keys[0];
 			Object obj = values.get(1);
