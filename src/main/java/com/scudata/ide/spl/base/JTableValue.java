@@ -581,6 +581,10 @@ public class JTableValue extends JTableEx {
 		}
 		ICursor cursor = (ICursor) originalValue;
 		Sequence data = cursor.peek(dispRows); // 不实际从游标取数
+
+		redo.clear();
+		undo.push(getUndoObject());
+		value = data;
 		forceSetValue(data);
 	}
 
@@ -1071,7 +1075,7 @@ public class JTableValue extends JTableEx {
 			}
 		}
 		this.originalValue = value;
-		setValue(value, false, true);
+		setValue(value, false, true, null, true);
 		this.cellId = id;
 	}
 
@@ -1117,6 +1121,11 @@ public class JTableValue extends JTableEx {
 	 */
 	private synchronized void setValue(Object value, boolean editable,
 			final boolean forceSetValue, UndoObject uo) {
+		setValue(value, editable, forceSetValue, uo, !forceSetValue);
+	}
+
+	private synchronized void setValue(Object value, boolean editable,
+			final boolean forceSetValue, UndoObject uo, final boolean resetUndo) {
 		if (isLocked && !forceSetValue) {
 			return;
 		}
@@ -1154,7 +1163,7 @@ public class JTableValue extends JTableEx {
 		final Object aValue = value;
 		SwingUtilities.invokeLater(new Thread() {
 			public void run() {
-				resetValue(forceSetValue, aValue, dispStartIndex);
+				resetValue(resetUndo, aValue, dispStartIndex);
 			}
 		});
 	}
@@ -1181,11 +1190,11 @@ public class JTableValue extends JTableEx {
 	 * @param aValue
 	 *            值
 	 */
-	private synchronized void resetValue(boolean forceSetValue, Object aValue,
+	private synchronized void resetValue(boolean resetUndo, Object aValue,
 			int dispStartIndex) {
 		try {
 			initJTable();
-			if (!forceSetValue) {
+			if (resetUndo) {
 				undo.clear();
 				redo.clear();
 			}
