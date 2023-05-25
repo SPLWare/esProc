@@ -110,7 +110,7 @@ public class PseudoNew extends Pseudo {
 		} else if (JoinCursor.isColTable(table)) {
 			result = (ICursor) New._new((ColPhyTable)table, cursor, cursor, csNames, filter, exps,	names, fkNames, codes, opts, option, ctx);
 		} else {
-			result = (ICursor) New._new((IPhyTable)table, cursor, cursor, filter, exps,	names, fkNames, codes, opts, ctx);
+			result = (ICursor) New._new((IPhyTable)table, cursor, cursor, null, filter, exps,	names, fkNames, codes, opts, ctx);
 		}
 		ArrayList<Operation> opList = this.opList;
 		if (opList != null) {

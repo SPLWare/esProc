@@ -193,9 +193,9 @@ public class Derive extends PhyTableFunction {
 	public static Object derive(IPhyTable table, ICursor cursor, Object obj, Expression filter, Expression []exps,
 			String[] names, String []fkNames, Sequence []codes, String[] opts, Context ctx) {
 		if (cursor instanceof MultipathCursors) {
-			return JoinCursor2.makeMultiJoinCursor(table, exps, names, (MultipathCursors)cursor, filter, fkNames, codes, opts, 2, ctx);
+			return JoinCursor2.makeMultiJoinCursor(table, exps, names, (MultipathCursors)cursor, null, filter, fkNames, codes, opts, 2, ctx);
 		}
-		ICursor cs = new JoinCursor2(table, exps, names, cursor, filter, fkNames, codes, opts, 0, ctx);
+		ICursor cs = new JoinCursor2(table, exps, names, cursor, null, filter, fkNames, codes, opts, 0, ctx);
 		if (obj instanceof Sequence) {
 			return cs.fetch();
 		} else {

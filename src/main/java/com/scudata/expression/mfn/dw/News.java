@@ -125,7 +125,7 @@ public class News extends PhyTableFunction {
 		if (JoinCursor.isColTable(table)) {
 			return news((ColPhyTable)table, cursor, obj, csNames, filter, exps,	names, fkNames, codes, opts, option, ctx);
 		} else {
-			return news(table, cursor, obj, filter, exps, names, fkNames, codes, opts, ctx);
+			return news(table, cursor, obj, csNames, filter, exps, names, fkNames, codes, opts, ctx);
 		}
 	}
 	
@@ -204,12 +204,12 @@ public class News extends PhyTableFunction {
 		}
 	}
 	
-	public static Object news(IPhyTable table, ICursor cursor, Object obj, Expression filter, Expression []exps,
+	public static Object news(IPhyTable table, ICursor cursor, Object obj, String[] csNames, Expression filter, Expression []exps,
 			String[] names, String []fkNames, Sequence []codes, String[] opts, Context ctx) {
 		if (cursor instanceof MultipathCursors) {
-			return JoinCursor2.makeMultiJoinCursor(table, exps, names, (MultipathCursors)cursor, filter, fkNames, codes, opts, 2, ctx);
+			return JoinCursor2.makeMultiJoinCursor(table, exps, names, (MultipathCursors)cursor, csNames, filter, fkNames, codes, opts, 2, ctx);
 		}
-		ICursor cs = new JoinCursor2(table, exps, names, cursor, filter, fkNames, codes, opts, 2, ctx);
+		ICursor cs = new JoinCursor2(table, exps, names, cursor, csNames, filter, fkNames, codes, opts, 2, ctx);
 		if (obj instanceof Sequence) {
 			return cs.fetch();
 		} else {

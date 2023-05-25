@@ -46,6 +46,7 @@ public class JoinCursor2 extends ICursor {
 	private ICursor cursor1;//T的游标
 	private Sequence cache1;
 	private ICursor cursor2;//A/cs
+	private String[] csNames;//A/cs:K的K，用于指定A/cs参与连接的字段
 	private Sequence cache2;
 
 	private int cur1 = -1;
@@ -69,7 +70,7 @@ public class JoinCursor2 extends ICursor {
 	 * @param opt	0:derive; 1:new; 2:news
 	 * @param ctx
 	 */
-	public JoinCursor2(Object table, Expression []exps, String []fields, ICursor cursor2, Expression filter,
+	public JoinCursor2(Object table, Expression []exps, String []fields, ICursor cursor2, String[] csNames, Expression filter,
 			String []fkNames, Sequence []codes, String[] opts, int opt, Context ctx) {
 		this.isNew = opt == 1;
 		this.isNews = opt == 2;
@@ -83,14 +84,67 @@ public class JoinCursor2 extends ICursor {
 		}
 		
 		this.cursor2 = cursor2;
+		this.csNames = csNames;
 		Sequence seq = cursor2.peek(1);
 		if (seq == null) {
 			isClosed = true;
 			return;
 		}
 		DataStruct ds2 = ((Record) seq.get(1)).dataStruct();
-		keyIndex2 = ds2.getPKIndex();
-		keyCount = keyIndex2.length;
+		
+		String []joinNames = keyNames;//join字段，默认取T的主键
+		if (isNew) {
+			//new时就是T的主键
+			if (joinNames == null) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException(mm.getMessage("ds.lessKey"));
+			}
+			keyCount = joinNames.length;
+			keyIndex2 = new int[keyCount];
+			if (csNames == null) {
+				for (int i = 0; i < keyCount; i++) {
+					keyIndex2[i] = i;
+				}
+			} else {
+				if (csNames.length > keyCount) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException(mm.getMessage("ds.lessKey"));
+				}
+				for (int i = 0; i < keyCount; i++) {
+					keyIndex2[i] = ds2.getFieldIndex(csNames[i]);
+				}
+			}
+		} else {
+			//news时取cs的主键
+			
+			//1.得到cs主键的下标
+			if (csNames == null) {
+				keyIndex2 = ds2.getPKIndex();
+			} else {
+				int csNamesLen = csNames.length;
+				keyIndex2 = new int[csNamesLen];
+				for (int i = 0; i < csNamesLen; i++) {
+					keyIndex2[i] = ds2.getFieldIndex(csNames[i]);
+				}
+			}
+			if (keyIndex2 == null) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException(mm.getMessage("ds.lessKey"));
+			}
+			keyCount = keyIndex2.length;
+			
+			//2.取T前面的字段
+			joinNames = new String[keyCount];//此时不是T的主键
+			String[] allNames;
+			if (table instanceof IPhyTable) {
+				allNames = ((IPhyTable) table).getAllColNames();
+			} else {
+				allNames = ((ClusterPhyTable) table).getAllColNames();
+			}
+			for (int i = 0; i < keyCount; i++) {
+				joinNames[i] = allNames[i];
+			}
+		}
 		
 		ArrayList<String> keyList = new ArrayList<String>();//临时使用
 		for (int i = 0; i < keyCount; i++) {
@@ -219,7 +273,7 @@ public class JoinCursor2 extends ICursor {
 	}
 	
 	public static MultipathCursors makeMultiJoinCursor(Object table, Expression []exps, String []fields, 
-			MultipathCursors cursor2, Expression filter, String []fkNames, Sequence []codes, String[] opts, int opt, Context ctx) {
+			MultipathCursors cursor2, String[] csNames, Expression filter, String []fkNames, Sequence []codes, String[] opts, int opt, Context ctx) {
 		boolean isNew = opt == 1;
 		boolean isNews = opt == 2;
 		boolean hasExps = false;
@@ -235,8 +289,61 @@ public class JoinCursor2 extends ICursor {
 		}
 		
 		DataStruct ds2 = (cursor2.getCursors()[0]).getDataStruct();
-		int []keyIndex2 = ds2.getPKIndex();
-		int keyCount = keyIndex2.length;
+		int []keyIndex2;
+		int keyCount;
+		String []joinNames = keyNames;//join字段，默认取T的主键
+		if (isNew) {
+			//new时就是T的主键
+			if (joinNames == null) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException(mm.getMessage("ds.lessKey"));
+			}
+			keyCount = joinNames.length;
+			keyIndex2 = new int[keyCount];
+			if (csNames == null) {
+				for (int i = 0; i < keyCount; i++) {
+					keyIndex2[i] = i;
+				}
+			} else {
+				if (csNames.length > keyCount) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException(mm.getMessage("ds.lessKey"));
+				}
+				for (int i = 0; i < keyCount; i++) {
+					keyIndex2[i] = ds2.getFieldIndex(csNames[i]);
+				}
+			}
+		} else {
+			//news时取cs的主键
+			
+			//1.得到cs主键的下标
+			if (csNames == null) {
+				keyIndex2 = ds2.getPKIndex();
+			} else {
+				int csNamesLen = csNames.length;
+				keyIndex2 = new int[csNamesLen];
+				for (int i = 0; i < csNamesLen; i++) {
+					keyIndex2[i] = ds2.getFieldIndex(csNames[i]);
+				}
+			}
+			if (keyIndex2 == null) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException(mm.getMessage("ds.lessKey"));
+			}
+			keyCount = keyIndex2.length;
+			
+			//2.取T前面的字段
+			joinNames = new String[keyCount];//此时不是T的主键
+			String[] allNames;
+			if (table instanceof IPhyTable) {
+				allNames = ((IPhyTable) table).getAllColNames();
+			} else {
+				allNames = ((ClusterPhyTable) table).getAllColNames();
+			}
+			for (int i = 0; i < keyCount; i++) {
+				joinNames[i] = allNames[i];
+			}
+		}
 		
 		ArrayList<String> keyList = new ArrayList<String>();//临时使用
 		for (int i = 0; i < keyCount; i++) {
