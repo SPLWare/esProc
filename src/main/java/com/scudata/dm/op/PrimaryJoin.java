@@ -84,9 +84,13 @@ public class PrimaryJoin extends Operation {
 			if (option == null) {
 				joinTypes[t] = 0;
 			} else if (opt.equals("null")) {
-				joinTypes[t] = 1;
-			} else if (opt.equals("0")) {
-				joinTypes[t] = 2;
+				if (newExps[t] != null && newExps[t].length > 0) {
+					joinTypes[t] = 1;
+				} else {
+					joinTypes[t] = 2;
+				}
+			//} else if (opt.equals("0")) {
+			//	joinTypes[t] = 2;
 			} else {
 				joinTypes[t] = 0;
 			}

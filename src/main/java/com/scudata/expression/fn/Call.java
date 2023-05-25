@@ -5,15 +5,19 @@ import java.io.File;
 import com.scudata.cellset.datamodel.PgmCellSet;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
+import com.scudata.common.UUID;
 import com.scudata.dm.Context;
 import com.scudata.dm.DfxManager;
 import com.scudata.dm.FileObject;
+import com.scudata.dm.JobSpace;
+import com.scudata.dm.JobSpaceManager;
 import com.scudata.dm.Param;
 import com.scudata.dm.ParamList;
 import com.scudata.expression.Function;
 import com.scudata.expression.IParam;
 import com.scudata.expression.Node;
 import com.scudata.resources.EngineMessage;
+import com.scudata.thread.CallJob;
 
 /**
  * 调用指定网格，返回网格的返回值，多返回值拼成序列
@@ -39,8 +43,19 @@ public class Call extends Function {
 
 	public Object calculate(Context ctx) {
 		PgmCellSet pcs = getCallPgmCellSet(ctx);
-		Object val = pcs.execute();
+		if (option != null && option.indexOf('n') != -1) {
+			// 产生新线程执行脚本，直接返回
+			String uuid = UUID.randomUUID().toString();
+			JobSpace jobSpace = JobSpaceManager.getSpace(uuid);
+			pcs.getContext().setJobSpace(jobSpace);
+			
+			CallJob job = new CallJob(pcs, option);
+			Thread thread = new Thread(job);
+			thread.start();
+			return null;
+		}
 		
+		Object val = pcs.execute();
 		if (option == null || option.indexOf('r') == -1) {
 			pcs.reset();
 			DfxManager.getInstance().putDfx(pcs);
