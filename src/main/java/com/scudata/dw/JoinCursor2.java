@@ -232,7 +232,7 @@ public class JoinCursor2 extends ICursor {
 			int len = exps.length;
 			fieldIndex1 = new int[len];
 			for (i = 0; i < len; i++) {
-				fieldIndex1[i] = cursor1.getDataStruct().getFieldIndex(fields[i]);
+				fieldIndex1[i] = cursor1.getDataStruct().getFieldIndex(exps[i].getIdentifierName());
 			}
 		}
 		
