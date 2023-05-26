@@ -2618,17 +2618,19 @@ public class ColPhyTable extends PhyTable {
 	 * 更新基表
 	 */
 	public Sequence update(Sequence data, String opt) throws IOException {
-		if (!hasPrimaryKey) {
-			MessageManager mm = EngineMessage.get();
-			if (isSorted) {
-				throw new RQException(mm.getMessage("dw.lessKey"));
-			} else {
-				throw new RQException(mm.getMessage("ds.lessKey"));
-			}
-		}
-		
 		if (data != null) {
 			data = new Sequence(data);
+		}
+		
+		if (!hasPrimaryKey) {
+			//没有维时进行append
+			boolean hasY = opt != null && opt.indexOf('y') != -1;
+			if (hasY) {
+				append_y(data);
+			} else {
+				append(new MemoryCursor(data));
+			}
+			return data;
 		}
 		
 		ComTable groupTable = getGroupTable();
@@ -3625,12 +3627,8 @@ public class ColPhyTable extends PhyTable {
 		}
 		
 		if (!hasPrimaryKey && !deleteByBaseKey) {
-			MessageManager mm = EngineMessage.get();
-			if (hasPrimaryKey) {
-				throw new RQException(mm.getMessage("dw.lessKey"));
-			} else {
-				throw new RQException(mm.getMessage("ds.lessKey"));
-			}
+			//没有维时不处理
+			return null;
 		}
 		
 		if (data != null) {

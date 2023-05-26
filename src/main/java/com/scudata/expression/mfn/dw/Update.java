@@ -89,7 +89,7 @@ public class Update extends PhyTableFunction {
 		//´¦ÀíÉ¾³ý
 		if (obj2 != null) {
 			try {
-				Sequence result2 = table.delete((Sequence)obj2, option);
+				Sequence result2 = table.delete((Sequence)obj2, opt);
 				if (hasN) {
 					((Sequence)result).addAll(result2);
 				}

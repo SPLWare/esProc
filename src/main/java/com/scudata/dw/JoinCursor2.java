@@ -1,13 +1,11 @@
 package com.scudata.dw;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import com.scudata.array.IArray;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.BaseRecord;
-import com.scudata.dm.ComputeStack;
 import com.scudata.dm.Context;
 import com.scudata.dm.DataStruct;
 import com.scudata.dm.Record;
@@ -785,6 +783,7 @@ public class JoinCursor2 extends ICursor {
 		}
 		
 		int cur1 = this.cur1;
+		Sequence cache1 = this.cache1;
 		int len1 = this.cache1.length();
 		IArray mems1 = cache1.getMems();
 		
@@ -804,7 +803,6 @@ public class JoinCursor2 extends ICursor {
 
 		Table tempTable = new Table(cache2.dataStruct());//ÓÃÓÚ»ã×Ü
 		
-		EXIT:
 		while (true) {
 			BaseRecord record1 = (BaseRecord) mems1.get(cur1);
 			BaseRecord record2 = (BaseRecord) mems2.get(cur2);
