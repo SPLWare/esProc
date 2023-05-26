@@ -8,12 +8,13 @@ import com.scudata.dm.Context;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.cursor.ICursor;
 import com.scudata.dw.ColPhyTable;
+import com.scudata.expression.IParam;
 import com.scudata.expression.PhyTableFunction;
 import com.scudata.resources.EngineMessage;
 
 /**
  * 更新组表数据，新键值则插入，保持键有序，组表需有主键
- * T.update(P)
+ * T.update(P:D)
  * @author RunQian
  *
  */
@@ -35,15 +36,27 @@ public class Update extends PhyTableFunction {
 		
 		boolean hasN = opt != null && opt.indexOf('n') != -1;
 		boolean hasW = opt != null && opt.indexOf('w') != -1;
+		Object result = null;
+		Object obj, obj2 = null;
 		
-		Object obj = param.getLeafExpression().calculate(ctx);
+		if (param.getType() == IParam.Colon) {
+			IParam sub0 = param.getSub(0);
+			IParam sub1 = param.getSub(1);
+			obj = sub0.getLeafExpression().calculate(ctx);
+			obj2 = sub1 == null ? null : sub1.getLeafExpression().calculate(ctx);
+			
+		} else {
+			obj = param.getLeafExpression().calculate(ctx);
+		}
+		
 		if (obj instanceof Sequence) {
 			try {
 				if (!hasN) {
 					table.update((Sequence)obj, opt);
-					return table;
+					result = table;
+				} else {
+					result = table.update((Sequence)obj, opt);
 				}
-				return table.update((Sequence)obj, opt);
 			} catch (IOException e) {
 				throw new RQException(e);
 			}
@@ -58,7 +71,7 @@ public class Update extends PhyTableFunction {
 					opt = opt.replace("i", "");
 				}
 				((ColPhyTable)table).update(cs, opt);
-				return table;
+				result = table;
 			} catch (IOException e) {
 				throw new RQException(e);
 			}
@@ -67,10 +80,23 @@ public class Update extends PhyTableFunction {
 			throw new RQException("update" + mm.getMessage("function.paramTypeError"));
 		} else {
 			if (!hasN) {
-				return table;
+				result = table;
 			} else {
-				return null;
+				result = null;
 			}
 		}
+		
+		//处理删除
+		if (obj2 != null) {
+			try {
+				Sequence result2 = table.delete((Sequence)obj2, option);
+				if (hasN) {
+					((Sequence)result).addAll(result2);
+				}
+			} catch (IOException e) {
+				throw new RQException(e);
+			}
+		}
+		return result;
 	}
 }

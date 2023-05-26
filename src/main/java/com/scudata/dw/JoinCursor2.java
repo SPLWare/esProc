@@ -1,11 +1,13 @@
 package com.scudata.dw;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import com.scudata.array.IArray;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.BaseRecord;
+import com.scudata.dm.ComputeStack;
 import com.scudata.dm.Context;
 import com.scudata.dm.DataStruct;
 import com.scudata.dm.Record;
@@ -46,7 +48,7 @@ public class JoinCursor2 extends ICursor {
 	private ICursor cursor1;//T的游标
 	private Sequence cache1;
 	private ICursor cursor2;//A/cs
-	private String[] csNames;//A/cs:K的K，用于指定A/cs参与连接的字段
+	//private String[] csNames;//A/cs:K的K，用于指定A/cs参与连接的字段
 	private Sequence cache2;
 
 	private int cur1 = -1;
@@ -55,6 +57,7 @@ public class JoinCursor2 extends ICursor {
 	private int keyCount;
 	private int csFieldsCount;//A/cs的字段个数
 	private int []keyIndex2;//A/cs的主键下标
+	private int []fieldIndex2;//A/cs取出字段的下标
 	
 	private int []fieldIndex1;//T取出字段的下标
 	
@@ -84,7 +87,7 @@ public class JoinCursor2 extends ICursor {
 		}
 		
 		this.cursor2 = cursor2;
-		this.csNames = csNames;
+		//this.csNames = csNames;
 		Sequence seq = cursor2.peek(1);
 		if (seq == null) {
 			isClosed = true;
@@ -166,7 +169,8 @@ public class JoinCursor2 extends ICursor {
 			
 			Node home = exp.getHome();
 			if (home instanceof UnknownSymbol) {
-				if (!keyList.contains(exp.getFieldName()))
+				String f = exp.getFieldName();
+				if (!keyList.contains(f) && ds2.getFieldIndex(f) < 0)
 						fetchExps.add(exp);
 			} else {
 				hasExps = true;
@@ -190,7 +194,7 @@ public class JoinCursor2 extends ICursor {
 					}
 				} else {
 					String field = ((Function)home).getParamString();
-					if (!keyList.contains(field))
+					if (!keyList.contains(field) && ds2.getFieldIndex(field) < 0)
 						fetchExps.add(new Expression(field));
 				}
 			}
@@ -228,12 +232,13 @@ public class JoinCursor2 extends ICursor {
 			ds = new DataStruct(fieldNames);
 		}
 		
-		if (!hasExps) {
-			int len = exps.length;
-			fieldIndex1 = new int[len];
-			for (i = 0; i < len; i++) {
-				fieldIndex1[i] = cursor1.getDataStruct().getFieldIndex(exps[i].getIdentifierName());
-			}
+		int len = exps.length;
+		fieldIndex1 = new int[len];
+		fieldIndex2 = new int[len];
+		DataStruct ds1 = cursor1.getDataStruct();
+		for (i = 0; i < len; i++) {
+			fieldIndex1[i] = ds1.getFieldIndex(exps[i].getIdentifierName());
+			fieldIndex2[i] = ds2.getFieldIndex(exps[i].getIdentifierName());
 		}
 		
 		init();
@@ -265,9 +270,6 @@ public class JoinCursor2 extends ICursor {
 	}
 	
 	void init() {
-		if (hasExps) {
-			return;
-		}
 		cache1 = cursor1.fetch(FETCHCOUNT);
 		cur1 = 1;
 	}
@@ -493,7 +495,7 @@ public class JoinCursor2 extends ICursor {
 		}
 
 		if (hasExps) {
-			return getData(n);
+			return getDataForNew(n);
 		}
 		
 		int keyCount = this.keyCount;
@@ -514,6 +516,7 @@ public class JoinCursor2 extends ICursor {
 		int len1 = cache1.length();
 		int len2 = cache2.length();
 		int []fieldIndex1 = this.fieldIndex1;
+		int []fieldIndex2 = this.fieldIndex2;
 		int []keyIndex2 = this.keyIndex2;
 		boolean isNew = this.isNew;
 		boolean isNews = this.isNews;
@@ -544,9 +547,17 @@ public class JoinCursor2 extends ICursor {
 					cur2++;
 				}
 				BaseRecord record = newTable.newLast();
+				Object [] objs2 = record2.getFieldValues();
 				if (isNew || isNews) {
 					for (int i = 0; i < len; i++) {
-						record.setNormalFieldValue(i, keys1[fieldIndex1[i]]);
+						int idx = fieldIndex1[i];
+						if (idx >= 0) {
+							record.setNormalFieldValue(i, keys1[idx]);
+						}
+						else {
+							idx = fieldIndex2[i];
+							record.setNormalFieldValue(i, objs2[idx]);
+						}
 					}
 				} else {
 					Object []vals = record2.getFieldValues();
@@ -750,6 +761,181 @@ public class JoinCursor2 extends ICursor {
 		} else {
 			return null;
 		}
+	}
+	
+	//有表达式
+	private Sequence getDataForNew(int n) {
+		if (isClosed || n < 1) {
+			return null;
+		}
+
+		int keyCount = this.keyCount;
+		int len = ds.getFieldCount();
+		
+		Object []keys2 = new Object[keyCount];
+		
+		//取出来一段cs的数据
+		if (cache2 == null || cache2.length() == 0) {
+			cache2 = cursor2.fetch(ICursor.FETCHCOUNT);
+			cur2 = 1;
+			BaseRecord record2 = (BaseRecord) cache2.get(1);
+			for (int i = 0; i < keyCount; i++) {
+				keys2[i] = record2.getFieldValue(keyIndex2[i]);
+			}
+		}
+		
+		int cur1 = this.cur1;
+		int len1 = this.cache1.length();
+		IArray mems1 = cache1.getMems();
+		
+		int cur2 = this.cur2;
+		Sequence cache2 = this.cache2;
+		IArray mems2 = cache2.getMems();
+		int len2 = cache2.length();
+		int []keyIndex2 = this.keyIndex2;
+		ICursor cursor2 = this.cursor2;
+		
+		Table newTable;
+		if (n > INITSIZE) {
+			newTable = new Table(ds, INITSIZE);
+		} else {
+			newTable = new Table(ds, n);
+		}
+
+		Table tempTable = new Table(cache2.dataStruct());//用于汇总
+		
+		EXIT:
+		while (true) {
+			BaseRecord record1 = (BaseRecord) mems1.get(cur1);
+			BaseRecord record2 = (BaseRecord) mems2.get(cur2);
+			for (int i = 0; i < keyCount; i++) {
+				keys2[i] = record2.getFieldValue(keyIndex2[i]);
+			}
+			Object []keys1 = record1.getFieldValues();
+			
+			int cmp = Variant.compareArrays(keys2, keys1);
+			if (cmp == 0) {
+				//把这一条加入临时汇总table
+				tempTable.add(record2);
+				
+				cur2++;
+				if (cur2 > len2) {
+					cur2 = 1;
+					cache2 = cursor2.fetch(ICursor.FETCHCOUNT);
+					if (cache2 == null || cache2.length() == 0) {
+						isClosed = true;
+						close();
+						break;
+					}
+					mems2 = cache2.getMems();
+					len2 = cache2.length();
+				}
+				record2 = (BaseRecord) mems2.get(cur2);
+				for (int i = 0; i < keyCount; i++) {
+					keys2[i] = record2.getFieldValue(keyIndex2[i]);
+				}
+				
+				if (0 != Variant.compareArrays(keys2, keys1)) {
+					//如果不相等，表示这一组取完了，计算临时汇总数据
+					BaseRecord record = newTable.newLast();
+					calcExpsForNew(record, tempTable, record1, len);
+					
+					//取出下一条符合条件的
+					cur1++;
+					if (cur1 > len1) {
+						cur1 = 1;
+						cache1 = cursor1.fetch(FETCHCOUNT);
+						if (cache1 == null || cache1.length() == 0) {
+							isClosed = true;
+							close();
+							break;
+						}
+						mems1 = cache1.getMems();
+						len1 = cache1.length();
+					}
+				}
+			} else if (cmp > 0) {
+				//取出下一条符合条件的
+				cur1++;
+				if (cur1 > len1) {
+					cur1 = 1;
+					cache1 = cursor1.fetch(FETCHCOUNT);
+					if (cache1 == null || cache1.length() == 0) {
+						isClosed = true;
+						close();
+						break;
+					}
+					mems1 = cache1.getMems();
+					len1 = cache1.length();
+				}
+			} else if (cmp < 0) {
+				cur2++;
+				if (cur2 > len2) {
+					cur2 = 1;
+					cache2 = cursor2.fetch(ICursor.FETCHCOUNT);
+					if (cache2 == null || cache2.length() == 0) {
+						isClosed = true;
+						close();
+						break;
+					}
+					mems2 = cache2.getMems();
+					len2 = cache2.length();
+				}
+				record2 = (BaseRecord) mems2.get(cur2);
+				for (int i = 0; i < keyCount; i++) {
+					keys2[i] = record2.getFieldValue(keyIndex2[i]);
+				}
+			}
+			
+			if (newTable.length() == n) {
+				break;
+			}
+		}
+		
+		BaseRecord record1 = (BaseRecord) mems1.get(cur1);
+		if (isClosed && tempTable != null && tempTable.length() != 0) {
+			//如果不相等，表示这一组取完了，计算临时汇总数据
+			BaseRecord record = newTable.newLast();
+			calcExpsForNew(record, tempTable, record1, len);
+		}
+		
+		this.cache1 = cache1;
+		this.cache2 = cache2;
+		this.cur1 = cur1;
+		this.cur2 = cur2;
+		
+		if (newTable.length() > 0) {
+			return newTable;
+		} else {
+			return null;
+		}
+	}
+
+	/**
+	 * 基于两个记录（以及同组数据）计算表达式
+	 * @param record
+	 * @param tempTable 主键相同的一组数据
+	 * @param r
+	 * @param len
+	 */
+	private void calcExpsForNew(BaseRecord record, Table tempTable, BaseRecord r, int len) {
+		Node nodes[] = this.nodes;
+		int fieldIndex2[] = this.fieldIndex2;
+		for (int i = 0; i < len; i++) {
+			Node node = nodes[i];
+			if (node instanceof FieldRef) {
+				if (fieldIndex2[i] < 0) {
+					node.setDotLeftObject(r);
+				} else {
+					node.setDotLeftObject(tempTable.get(1));
+				}
+			} else {
+				node.setDotLeftObject(tempTable);
+			}
+			record.setNormalFieldValue(i, node.calculate(ctx));
+		}
+	
+		tempTable.clear();
 	}
 	
 	private static Node parseNode(Expression exp, Context ctx) {
