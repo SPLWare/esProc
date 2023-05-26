@@ -1,8 +1,14 @@
 package com.scudata.ide.spl.base;
 
 import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.HashMap;
 
+import javax.swing.JButton;
+import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
 import com.scudata.common.MessageManager;
@@ -59,6 +65,17 @@ public abstract class JTabbedParam extends JTabbedPane {
 	private final String STR_CONSOLE = IdeSplMessage.get().getMessage(
 			"dfx.tabconsole");
 
+	private JPanel jPCsVar = new JPanel(new GridBagLayout());
+	private JPanel jPSpaceVar = new JPanel(new GridBagLayout());
+	private JPanel jPGbVar = new JPanel(new GridBagLayout());
+
+	private JButton jBCsRefresh = new JButton(IdeSplMessage.get().getMessage(
+			"public.refresh"));
+	private JButton jBSpaceRefresh = new JButton(IdeSplMessage.get()
+			.getMessage("public.refresh"));
+	private JButton jBGbRefresh = new JButton(IdeSplMessage.get().getMessage(
+			"public.refresh"));
+
 	/**
 	 * 变量表控件
 	 */
@@ -105,12 +122,8 @@ public abstract class JTabbedParam extends JTabbedPane {
 	 * 构造函数
 	 */
 	public JTabbedParam() {
-		this.setMinimumSize(new Dimension(0, 0));
 		try {
-			addTab(STR_CS_VAR, tableCsVar);
-			addTab(STR_SPACE_VAR, tableSpaceVar);
-			addTab(STR_GB_VAR, tableGbVar);
-			addTab(STR_WATCH, GVSpl.panelSplWatch);
+			initUI();
 			resetEnv();
 		} catch (Exception e) {
 			GM.showException(e);
@@ -212,6 +225,12 @@ public abstract class JTabbedParam extends JTabbedPane {
 	 */
 	public abstract void selectVar(Object val, String varName, String spaceName);
 
+	public abstract ParamList getCellSetParamList();
+
+	public abstract HashMap<String, Param[]> getSpaceParams();
+
+	public abstract ParamList getEnvParamList();
+
 	/**
 	 * 重置参数列表
 	 * 
@@ -224,4 +243,54 @@ public abstract class JTabbedParam extends JTabbedPane {
 		tableGbVar.setParamList(envParamList);
 	}
 
+	private void initUI() {
+		this.setMinimumSize(new Dimension(0, 0));
+		GridBagConstraints gbc;
+		jPCsVar.add(new JPanel(), GM.getGBC(0, 0, true));
+		jPCsVar.add(jBCsRefresh, GM.getGBC(0, 1));
+		gbc = GM.getGBC(1, 0, true, true);
+		gbc.gridwidth = 2;
+		jPCsVar.add(tableCsVar, gbc);
+
+		jPSpaceVar.add(new JPanel(), GM.getGBC(0, 0, true));
+		jPSpaceVar.add(jBSpaceRefresh, GM.getGBC(0, 1));
+		gbc = GM.getGBC(1, 0, true, true);
+		gbc.gridwidth = 2;
+		jPSpaceVar.add(tableSpaceVar, gbc);
+
+		jPGbVar.add(new JPanel(), GM.getGBC(0, 0, true));
+		jPGbVar.add(jBGbRefresh, GM.getGBC(0, 1));
+		gbc = GM.getGBC(1, 0, true, true);
+		gbc.gridwidth = 2;
+		jPGbVar.add(tableGbVar, gbc);
+
+		addTab(STR_CS_VAR, jPCsVar);
+		addTab(STR_SPACE_VAR, jPSpaceVar);
+		addTab(STR_GB_VAR, jPGbVar);
+		addTab(STR_WATCH, GVSpl.panelSplWatch);
+
+		jBCsRefresh.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				ParamList pl = getCellSetParamList();
+				tableCsVar.setParamList(pl);
+			}
+		});
+
+		jBSpaceRefresh.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				HashMap<String, Param[]> hm = getSpaceParams();
+				tableSpaceVar.setJobSpaces(hm);
+			}
+		});
+
+		jBGbRefresh.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				ParamList pl = getEnvParamList();
+				tableGbVar.setParamList(pl);
+			}
+		});
+	}
 }

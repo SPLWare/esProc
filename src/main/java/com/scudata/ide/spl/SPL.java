@@ -15,6 +15,7 @@ import java.io.File;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -47,6 +48,9 @@ import com.scudata.common.StringUtils;
 import com.scudata.dm.Context;
 import com.scudata.dm.Env;
 import com.scudata.dm.FileObject;
+import com.scudata.dm.JobSpaceManager;
+import com.scudata.dm.Param;
+import com.scudata.dm.ParamList;
 import com.scudata.ide.common.AppFrame;
 import com.scudata.ide.common.AppMenu;
 import com.scudata.ide.common.AppToolBar;
@@ -306,6 +310,30 @@ public class SPL extends AppFrame {
 				public void selectVar(Object val, String varName,
 						String spaceName) {
 					selectParam(varName, val, spaceName);
+				}
+
+				public ParamList getCellSetParamList() {
+					IPrjxSheet sheet = GV.appSheet;
+					if (sheet != null && sheet instanceof SheetSpl) {
+						return ((SheetSpl) sheet).getContextParamList();
+					}
+					return null;
+				}
+
+				public HashMap<String, Param[]> getSpaceParams() {
+					IPrjxSheet sheet = GV.appSheet;
+					if (sheet != null && sheet instanceof SheetSpl) {
+						return ((SheetSpl) sheet).listSpaceParams();
+					}
+					return JobSpaceManager.listSpaceParams();
+				}
+
+				public ParamList getEnvParamList() {
+					IPrjxSheet sheet = GV.appSheet;
+					if (sheet != null && sheet instanceof SheetSpl) {
+						return ((SheetSpl) sheet).getEnvParamList();
+					}
+					return Env.getParamList();
 				}
 			};
 			GVSpl.tabParam = tabParam;

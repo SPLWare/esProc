@@ -1307,7 +1307,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 	 * 取网格变量列表
 	 * @return ParamList
 	 */
-	protected ParamList getContextParamList() {
+	public ParamList getContextParamList() {
 		return splCtx.getParamList();
 	}
 
@@ -1315,7 +1315,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 	 * 取任务空间变量列表
 	 * @return HashMap<String, Param[]>
 	 */
-	protected HashMap<String, Param[]> listSpaceParams() {
+	public HashMap<String, Param[]> listSpaceParams() {
 		return JobSpaceManager.listSpaceParams();
 	}
 
@@ -1323,7 +1323,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 	 * 取全局变量列表
 	 * @return ParamList
 	 */
-	protected ParamList getEnvParamList() {
+	public ParamList getEnvParamList() {
 		return Env.getParamList();
 	}
 
@@ -1331,7 +1331,7 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 	 * 取网格、任务空间和全局变量
 	 * @return
 	 */
-	protected Object[] getAllParams() {
+	public Object[] getAllParams() {
 		Object[] params = new Object[3];
 		params[0] = getContextParamList();
 		params[1] = listSpaceParams();

@@ -193,17 +193,17 @@ public class FileTree extends JTree {
 				localRoot.setTitle(null);
 			}
 		} else {
-			if (StringUtils.isValidString(localRoot.getUserObject())) {
-				localRoot.setDir(true);
-				localRoot.setUserObject("");
-				if (ConfigOptions.bFileTreeDemo) {
-					localRoot.setTitle(NO_DEMO_DIR);
-				} else {
-					localRoot.setTitle(NO_MAIN_PATH);
-				}
-				nodeStructureChanged(localRoot);
-				return;
+			// if (StringUtils.isValidString(localRoot.getUserObject())) {
+			localRoot.setDir(true);
+			localRoot.setUserObject("");
+			if (ConfigOptions.bFileTreeDemo) {
+				localRoot.setTitle(NO_DEMO_DIR);
+			} else {
+				localRoot.setTitle(NO_MAIN_PATH);
 			}
+			nodeStructureChanged(localRoot);
+			return;
+			// }
 		}
 		localRoot.setExpanded(true);
 		loadSubNode(localRoot);
