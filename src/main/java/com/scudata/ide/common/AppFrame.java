@@ -205,13 +205,15 @@ public abstract class AppFrame extends JFrame implements IAppFrame {
 		return fixTitle;
 	}
 
+	public static final String RELEASE_DATE = "2023-05-20";
+
 	/**
 	 * 取发布时间
 	 * 
 	 * @return
 	 */
 	public String getReleaseDate() {
-		return "2023-05-20";
+		return RELEASE_DATE;
 	}
 
 	/**
