@@ -6,18 +6,17 @@ import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-import com.scudata.app.config.ConfigUtil;
 import com.scudata.app.config.RaqsoftConfig;
 import com.scudata.common.Logger;
 import com.scudata.common.StringUtils;
 import com.scudata.dm.Env;
+import com.scudata.ide.common.AppFrame;
 import com.scudata.parallel.TempFileMonitor;
 import com.scudata.parallel.UnitContext;
 import com.scudata.resources.ParallelMessage;
 import com.scudata.server.ConnectionProxyManager;
 import com.scudata.server.IServer;
 import com.scudata.server.StartUnitListener;
-import com.scudata.server.unit.UnitServer;
 
 /**
  * odbc服务器，实现对odbc接口的服务
@@ -143,6 +142,7 @@ public class OdbcServer implements IServer {
 	 */
 	public void run() {
 		ServerSocket ss = null;
+		Logger.info("Release date:"+AppFrame.RELEASE_DATE);
 		Logger.info(ParallelMessage.get().getMessage("OdbcServer.run1"));
 		Logger.info(ParallelMessage.get().getMessage("UnitServer.run2", getHome()));
 		try {

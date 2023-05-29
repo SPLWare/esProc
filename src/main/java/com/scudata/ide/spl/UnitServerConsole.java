@@ -35,6 +35,7 @@ import com.scudata.dm.JobSpace;
 import com.scudata.dm.JobSpaceManager;
 import com.scudata.dm.Param;
 import com.scudata.dm.ParamList;
+import com.scudata.ide.common.AppFrame;
 import com.scudata.ide.common.ConfigOptions;
 import com.scudata.ide.common.Console;
 import com.scudata.ide.common.GC;
@@ -487,6 +488,7 @@ public class UnitServerConsole extends JFrame implements StartUnitListener {
 			public void actionPerformed(ActionEvent e) {
 				StringBuffer sb = new StringBuffer();
 
+				sb.append("Release date:"+AppFrame.RELEASE_DATE+"\r\n\r\n");
 				sb.append("Databases:\r\n");
 				Map dbs = Env.getDBSessionFactories();
 				if (dbs != null && dbs.size() > 0) {
