@@ -24,6 +24,7 @@ import com.scudata.dm.cursor.ICursor;
 import com.scudata.dm.cursor.MemoryCursor;
 import com.scudata.dm.cursor.MergesCursor;
 import com.scudata.dm.cursor.MultipathCursors;
+import com.scudata.expression.Constant;
 import com.scudata.expression.Expression;
 import com.scudata.expression.Node;
 import com.scudata.expression.UnknownSymbol;
@@ -3069,13 +3070,13 @@ public class ColPhyTable extends PhyTable {
 				
 		BaseRecord r1 = (BaseRecord)data.get(1);
 		String []pks = getAllSortedColNames();
-		int keyCount = pks.length;
+		int keyCount = pks == null ? 0 : pks.length;
 		int []keyIndex = new int[keyCount];
 		for (int i = 0; i < keyCount; ++i) {
 			keyIndex[i] = ds.getFieldIndex(pks[i]);
 		}
 		
-		if (maxValues != null && r1.compare(keyIndex, maxValues) < 0) {
+		if (keyCount > 0 && maxValues != null && r1.compare(keyIndex, maxValues) < 0) {
 			// ÐèÒª¹é²¢
 			long []seqs = new long[len + 1];
 			RecordSeqSearcher searcher = new RecordSeqSearcher(this);
@@ -4108,22 +4109,25 @@ public class ColPhyTable extends PhyTable {
 		
 		if (parent != null || getModifyRecords() != null) {
 			String []keys = getAllSortedColNames();
-			String key0 = keys[0];
-			Object obj = values.get(1);
-			if (obj instanceof Sequence) {
-				IArray mem = values.getMems();
-				Sequence newSeq = new Sequence(mem.size());
-				IArray newMem = newSeq.getMems();
-				for (int i = 1; i < mem.size(); i++) {
-					Sequence seq = (Sequence) mem.get(i);
-					Object obj1 = seq.get(1);
-					newMem.set(i, obj1);
+			int keyCount = keys.length;
+			Expression exp;
+			
+			if (keyCount == 1) {
+				exp = new Expression("null.contain(" + keys[0] + ")"); 
+			} else {
+				String str = "null.contain([";
+				for (int i = 0; i < keyCount; i++) {
+					str += keys[i];
+					if (i != keyCount - 1) {
+						str += ",";
+					}
 				}
-				values = newSeq;
+				str += "])";
+				exp = new Expression(str); 
 			}
+
 			Context ctx = new Context();
-			ctx.addParam(new Param("values", Param.VAR, values));
-			Expression exp = new Expression("values.contain(" + key0 + ")"); 
+			exp.getHome().setLeft(new Constant(values));
 			Sequence result = cursor(selFields, exp, ctx).fetch();
 			if (result == null) return null;
 			Table table = new Table(result.dataStruct());
