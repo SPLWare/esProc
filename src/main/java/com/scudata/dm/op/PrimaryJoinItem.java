@@ -106,7 +106,7 @@ class PrimaryJoinItem {
 				if (seq > data.length()) {
 					cacheData();
 					if (seq == -1) {
-						return;
+						break;
 					}
 				} else {
 					current.setCurrent(seq);
@@ -120,8 +120,12 @@ class PrimaryJoinItem {
 						resultValues[fieldIndex + i] = gathers[i].gather(resultValues[fieldIndex + i], ctx);
 					}
 				} else {
-					return;
+					break;
 				}
+			}
+			
+			for (int i = 0; i < newCount; ++i) {
+				resultValues[fieldIndex + i] = gathers[i].finish(resultValues[fieldIndex + i]);
 			}
 		} else {
 			Expression []newExps = this.newExps;
@@ -158,7 +162,7 @@ class PrimaryJoinItem {
 				if (seq > data.length()) {
 					cacheData();
 					if (seq == -1) {
-						return;
+						break;
 					}
 				} else {
 					current.setCurrent(seq);
@@ -172,8 +176,12 @@ class PrimaryJoinItem {
 						resultValues[fieldIndex + i] = gathers[i].gather(resultValues[fieldIndex + i], ctx);
 					}
 				} else {
-					return;
+					break;
 				}
+			}
+			
+			for (int i = 0; i < newCount; ++i) {
+				resultValues[fieldIndex + i] = gathers[i].finish(resultValues[fieldIndex + i]);
 			}
 		} else {
 			Expression []newExps = this.newExps;
