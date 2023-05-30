@@ -83,13 +83,13 @@ public class PrimaryJoin extends Operation {
 			String option = options[t];
 			if (option == null) {
 				joinTypes[t] = 0;
-			} else if (opt.equals("null")) {
+			} else if (option.equals("null")) {
 				if (newExps[t] != null && newExps[t].length > 0) {
 					joinTypes[t] = 1;
 				} else {
 					joinTypes[t] = 2;
 				}
-			//} else if (opt.equals("0")) {
+			//} else if (option.equals("0")) {
 			//	joinTypes[t] = 2;
 			} else {
 				joinTypes[t] = 0;
@@ -386,7 +386,7 @@ public class PrimaryJoin extends Operation {
 									resultValues[f] = srcNewExps[f].calculate(ctx);
 								}
 							} else {
-								BaseRecord r = (BaseRecord)seq.getMem(1);
+								BaseRecord r = (BaseRecord)seq.getMem(i);
 								Object []vals = r.getFieldValues();
 								System.arraycopy(vals, 0, resultValues, 0, srcRefCount);
 							}
@@ -400,7 +400,7 @@ public class PrimaryJoin extends Operation {
 									resultValues[f] = srcNewExps[f].calculate(ctx);
 								}
 							} else {
-								BaseRecord r = (BaseRecord)seq.getMem(1);
+								BaseRecord r = (BaseRecord)seq.getMem(i);
 								Object []vals = r.getFieldValues();
 								System.arraycopy(vals, 0, resultValues, 0, srcRefCount);
 							}
@@ -494,7 +494,7 @@ public class PrimaryJoin extends Operation {
 									resultValues[f] = srcNewExps[f].calculate(ctx);
 								}
 							} else {
-								BaseRecord r = (BaseRecord)seq.getMem(1);
+								BaseRecord r = (BaseRecord)seq.getMem(i);
 								Object []vals = r.getFieldValues();
 								System.arraycopy(vals, 0, resultValues, 0, srcRefCount);
 							}
@@ -508,7 +508,7 @@ public class PrimaryJoin extends Operation {
 									resultValues[f] = srcNewExps[f].calculate(ctx);
 								}
 							} else {
-								BaseRecord r = (BaseRecord)seq.getMem(1);
+								BaseRecord r = (BaseRecord)seq.getMem(i);
 								Object []vals = r.getFieldValues();
 								System.arraycopy(vals, 0, resultValues, 0, srcRefCount);
 							}
