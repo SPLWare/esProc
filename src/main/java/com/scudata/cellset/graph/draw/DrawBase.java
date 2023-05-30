@@ -2337,7 +2337,8 @@ public abstract class DrawBase implements IGraph {
 	 * 创建纵坐标的值标签,如果是时间序列图，则创建x轴的时间刻度值
 	 */
 	public void createCoorValue() {
-		createCoorValue(true);
+		boolean isUserValue = egp.isUserSetYEndValue1();
+		createCoorValue(!isUserValue);
 	}
 
 	// 堆积图的最大值仍然没法设置，因为有正有负，此处调整为合理最大值
@@ -2381,7 +2382,8 @@ public abstract class DrawBase implements IGraph {
 		}
 
 		if (egp.is2YGraph()) {
-			createCoorValue2(adjustMaxValue);
+			boolean isUserValue2 = egp.isUserSetYEndValue2();
+			createCoorValue2(!isUserValue2);
 		}
 
 		double doubleTmp = 0.0;
