@@ -4111,9 +4111,29 @@ public class ColPhyTable extends PhyTable {
 			String []keys = getAllSortedColNames();
 			int keyCount = keys.length;
 			Expression exp;
+			Sequence keyValues = values;
 			
 			if (keyCount == 1) {
 				exp = new Expression("null.contain(" + keys[0] + ")"); 
+				Object obj = values.getMem(1);
+				int valueLen = values.length();
+				if (valueLen == 0) {
+					return null;
+				}
+				if (obj instanceof Sequence) {
+					Sequence seq = (Sequence)obj;
+					int dimCount = seq.length();
+					if (dimCount > keyCount) {
+						MessageManager mm = EngineMessage.get();
+						throw new RQException("find" + mm.getMessage("function.invalidParam"));
+					}
+					
+					keyValues = new Sequence();
+					for (int i = 1; i <= valueLen; ++i) {
+						seq = (Sequence)values.getMem(i);
+						keyValues.add(seq.getMem(1));
+					}
+				}
 			} else {
 				String str = "null.contain([";
 				for (int i = 0; i < keyCount; i++) {
@@ -4127,7 +4147,7 @@ public class ColPhyTable extends PhyTable {
 			}
 
 			Context ctx = new Context();
-			exp.getHome().setLeft(new Constant(values));
+			exp.getHome().setLeft(new Constant(keyValues));
 			Sequence result = cursor(selFields, exp, ctx).fetch();
 			if (result == null) return null;
 			Table table = new Table(result.dataStruct());
