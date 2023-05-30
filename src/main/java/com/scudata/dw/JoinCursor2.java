@@ -62,6 +62,8 @@ public class JoinCursor2 extends ICursor {
 	private boolean hasExps;//
 	private Node nodes[];
 	
+	private boolean hasR;
+	
 	/**
 	 * 
 	 * @param table
@@ -72,10 +74,11 @@ public class JoinCursor2 extends ICursor {
 	 * @param ctx
 	 */
 	public JoinCursor2(Object table, Expression []exps, String []fields, ICursor cursor2, String[] csNames, Expression filter,
-			String []fkNames, Sequence []codes, String[] opts, int opt, Context ctx) {
+			String []fkNames, Sequence []codes, String[] opts, int opt, String option, Context ctx) {
 		this.isNew = opt == 1;
 		this.isNews = opt == 2;
 		this.ctx = ctx;
+		hasR = option != null && option.indexOf("r") != -1;
 		
 		String []keyNames;
 		if (table instanceof IPhyTable) {
@@ -172,7 +175,6 @@ public class JoinCursor2 extends ICursor {
 						fetchExps.add(exp);
 			} else {
 				hasExps = true;
-				isNews = false;//有表达式时不能用news
 				if (home instanceof Moves) {
 					IParam fieldParam = ((Moves) exp.getHome()).getParam();
 					ParamInfo2 pi = ParamInfo2.parse(fieldParam, "cursor", false, false);
@@ -269,11 +271,16 @@ public class JoinCursor2 extends ICursor {
 	
 	void init() {
 		cache1 = cursor1.fetch(FETCHCOUNT);
+		if (cache1 == null || cache1.length() == 0) {
+			isClosed = true;
+			close();
+			return;
+		}
 		cur1 = 1;
 	}
 	
-	public static MultipathCursors makeMultiJoinCursor(Object table, Expression []exps, String []fields, 
-			MultipathCursors cursor2, String[] csNames, Expression filter, String []fkNames, Sequence []codes, String[] opts, int opt, Context ctx) {
+	public static MultipathCursors makeMultiJoinCursor(Object table, Expression []exps, String []fields, MultipathCursors cursor2, 
+			String[] csNames, Expression filter, String []fkNames, Sequence []codes, String[] opts, int opt, String option, Context ctx) {
 		boolean isNew = opt == 1;
 		boolean isNews = opt == 2;
 		boolean hasExps = false;
@@ -451,6 +458,7 @@ public class JoinCursor2 extends ICursor {
 		ICursor cursors1[] = ((MultipathCursors) cursor1).getParallelCursors();
 		ICursor cursors2[] = cursor2.getParallelCursors();
 		ICursor cursors[] = new ICursor[len];
+		boolean hasR = option != null && option.indexOf("r") != -1;
 		for (i = 0; i < len; i++) {
 			JoinCursor2 cs = new JoinCursor2(cursors1[i], cursors2[i], ctx);
 			cs.ds = ds;
@@ -462,6 +470,7 @@ public class JoinCursor2 extends ICursor {
 			cs.keyIndex2 = keyIndex2;
 			cs.keyCount = keyCount;
 			cs.nodes = nodes;
+			cs.hasR = hasR;
 			cs.init();
 			if (fkNames != null) {
 				int fkCount = fkNames.length;
@@ -492,6 +501,10 @@ public class JoinCursor2 extends ICursor {
 			return null;
 		}
 
+		if (isNews) {
+			return getDataForNews(n);
+		}
+		
 		if (hasExps) {
 			return getDataForNew(n);
 		}
@@ -910,6 +923,188 @@ public class JoinCursor2 extends ICursor {
 	}
 
 	/**
+	 * T.news的取数
+	 * @param n
+	 * @return
+	 */
+	private Sequence getDataForNews(int n) {
+		if (isClosed || n < 1) {
+			return null;
+		}
+
+		int keyCount = this.keyCount;
+		int len = ds.getFieldCount();
+		
+		
+		Object []keys2 = new Object[keyCount];
+		//Object []keys1 = this.keys1;
+		
+		if (cache2 == null || cache2.length() == 0) {
+			cache2 = cursor2.fetch(ICursor.FETCHCOUNT);
+			cur2 = 1;
+			BaseRecord record2 = (BaseRecord) cache2.get(1);
+			for (int i = 0; i < keyCount; i++) {
+				keys2[i] = record2.getFieldValue(keyIndex2[i]);
+			}
+		}
+		
+		int cur1 = this.cur1;
+		Sequence cache1 = this.cache1;
+		int len1 = this.cache1.length();
+		IArray mems1 = cache1.getMems();
+		
+		int cur2 = this.cur2;
+		Sequence cache2 = this.cache2;
+		IArray mems2 = cache2.getMems();
+		int len2 = cache2.length();
+		int []fieldIndex1 = this.fieldIndex1;
+		int []fieldIndex2 = this.fieldIndex2;
+		int []keyIndex2 = this.keyIndex2;
+		boolean hasR = this.hasR;
+		boolean hasExps = this.hasExps;
+		ICursor cursor2 = this.cursor2;
+		
+		Table newTable;
+		if (n > INITSIZE) {
+			newTable = new Table(ds, INITSIZE);
+		} else {
+			newTable = new Table(ds, n);
+		}
+		Table tempTable = new Table(cache1.dataStruct());//用于汇总
+		BaseRecord record1 = (BaseRecord) mems1.get(cur1);
+		BaseRecord record2 = (BaseRecord) mems2.get(cur2);
+		for (int i = 0; i < keyCount; i++) {
+			keys2[i] = record2.getFieldValue(keyIndex2[i]);
+		}
+		Object []keys1 = record1.getFieldValues();
+		
+		while (true) {
+			int cmp = Variant.compareArrays(keys2, keys1);
+			if (cmp == 0) {
+				BaseRecord record = newTable.newLast();
+				if (hasExps) {
+					tempTable.newLast(keys1);//添加到临时汇总
+				} else {
+					for (int i = 0; i < len; i++) {
+						int idx = fieldIndex1[i];
+						if (idx < 0)
+							record.setNormalFieldValue(i, record2.getFieldValue(fieldIndex2[i]));
+						else 
+							record.setNormalFieldValue(i, keys1[idx]);
+					}
+				}
+				
+				cur1++;
+				if (cur1 > len1) {
+					cur1 = 1;
+					cache1 = cursor1.fetch(FETCHCOUNT);
+					if (cache1 == null || cache1.length() == 0) {
+						isClosed = true;
+						close();
+						break;
+					}
+					mems1 = cache1.getMems();
+					len1 = cache1.length();
+				}
+				record1 = (BaseRecord) mems1.get(cur1);
+				keys1 = record1.getFieldValues();
+				
+				if (hasR) {
+					if (hasExps) {
+						//把这一组取完
+						while(Variant.compareArrays(keys2, keys1) == 0) {
+							record1 = (BaseRecord) mems1.get(cur1);
+							keys1 = record1.getFieldValues();
+							tempTable.newLast(keys1);//添加到临时汇总
+							cur1++;
+							if (cur1 > len1) {
+								cur1 = 1;
+								cache1 = cursor1.fetch(FETCHCOUNT);
+								if (cache1 == null || cache1.length() == 0) {
+									isClosed = true;
+									close();
+									break;
+								}
+								mems1 = cache1.getMems();
+								len1 = cache1.length();
+							}
+							record1 = (BaseRecord) mems1.get(cur1);
+							keys1 = record1.getFieldValues();
+						}
+						
+						calcExpsForNews(record, tempTable, record2, len);
+					}
+					
+					//按照cs对齐
+					cur2++;
+					if (cur2 > len2) {
+						cur2 = 1;
+						cache2 = cursor2.fetch(ICursor.FETCHCOUNT);
+						if (cache2 == null || cache2.length() == 0) {
+							isClosed = true;
+							close();
+							break;
+						}
+						mems2 = cache2.getMems();
+						len2 = cache2.length();
+					}
+					record2 = (BaseRecord) mems2.get(cur2);
+					for (int i = 0; i < keyCount; i++) {
+						keys2[i] = record2.getFieldValue(keyIndex2[i]);
+					}
+				}
+			} else if (cmp > 0) {
+				cur1++;
+				if (cur1 > len1) {
+					cur1 = 1;
+					cache1 = cursor1.fetch(FETCHCOUNT);
+					if (cache1 == null || cache1.length() == 0) {
+						isClosed = true;
+						close();
+						break;
+					}
+					mems1 = cache1.getMems();
+					len1 = cache1.length();
+				}
+				record1 = (BaseRecord) mems1.get(cur1);
+				keys1 = record1.getFieldValues();
+			} else if (cmp < 0) {
+				cur2++;
+				if (cur2 > len2) {
+					cur2 = 1;
+					cache2 = cursor2.fetch(ICursor.FETCHCOUNT);
+					if (cache2 == null || cache2.length() == 0) {
+						isClosed = true;
+						close();
+						break;
+					}
+					mems2 = cache2.getMems();
+					len2 = cache2.length();
+				}
+				record2 = (BaseRecord) mems2.get(cur2);
+				for (int i = 0; i < keyCount; i++) {
+					keys2[i] = record2.getFieldValue(keyIndex2[i]);
+				}
+			}
+			
+			if (newTable.length() >= n) {
+				break;
+			}
+		}
+		
+		this.cache1 = cache1;
+		this.cache2 = cache2;
+		this.cur1 = cur1;
+		this.cur2 = cur2;
+		
+		if (newTable.length() > 0) {
+			return newTable;
+		} else {
+			return null;
+		}
+	}
+	
+	/**
 	 * 基于两个记录（以及同组数据）计算表达式
 	 * @param record
 	 * @param tempTable 主键相同的一组数据
@@ -927,6 +1122,21 @@ public class JoinCursor2 extends ICursor {
 				} else {
 					node.setDotLeftObject(tempTable.get(1));
 				}
+			} else {
+				node.setDotLeftObject(tempTable);
+			}
+			record.setNormalFieldValue(i, node.calculate(ctx));
+		}
+	
+		tempTable.clear();
+	}
+	
+	private void calcExpsForNews(BaseRecord record, Table tempTable, BaseRecord r, int len) {
+		Node nodes[] = this.nodes;
+		for (int i = 0; i < len; i++) {
+			Node node = nodes[i];
+			if (node instanceof FieldRef) {
+				node.setDotLeftObject(r);
 			} else {
 				node.setDotLeftObject(tempTable);
 			}

@@ -105,7 +105,7 @@ public class PseudoNews extends Pseudo {
 		} else if (JoinCursor.isColTable(table)) {
 			result = (ICursor) News.news((ColPhyTable)table, cursor, cursor, csNames, filter, exps,	names, fkNames, codes, opts, option, ctx);
 		} else {
-			result = (ICursor) News.news((IPhyTable)table, cursor, cursor, null, filter, exps,	names, fkNames, codes, opts, ctx);
+			result = (ICursor) News.news((IPhyTable)table, cursor, cursor, null, filter, exps,	names, fkNames, codes, opts, null, ctx);
 		}
 		ArrayList<Operation> opList = this.opList;
 		if (opList != null) {

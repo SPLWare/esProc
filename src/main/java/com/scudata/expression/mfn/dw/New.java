@@ -207,9 +207,9 @@ public class New extends PhyTableFunction {
 	public static Object _new(IPhyTable table, ICursor cursor, Object obj, String[] csNames, Expression filter, Expression []exps,
 			String[] names, String []fkNames, Sequence []codes, String[] opts, Context ctx) {
 		if (cursor instanceof MultipathCursors) {
-			return JoinCursor2.makeMultiJoinCursor(table, exps, names, (MultipathCursors)cursor, csNames, filter, fkNames, codes, opts, 1, ctx);
+			return JoinCursor2.makeMultiJoinCursor(table, exps, names, (MultipathCursors)cursor, csNames, filter, fkNames, codes, opts, 1, null, ctx);
 		}
-		ICursor cs = new JoinCursor2(table, exps, names, cursor, csNames, filter, fkNames, codes, opts, 1, ctx);
+		ICursor cs = new JoinCursor2(table, exps, names, cursor, csNames, filter, fkNames, codes, opts, 1, null, ctx);
 		if (obj instanceof Sequence) {
 			return cs.fetch();
 		} else {
