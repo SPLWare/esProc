@@ -20,6 +20,7 @@ import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.XMLReaderFactory;
 
 import com.scudata.app.config.ConfigUtil;
+import com.scudata.common.Logger;
 import com.scudata.common.RQException;
 import com.scudata.common.StringUtils;
 import com.scudata.dm.Env;
@@ -69,12 +70,13 @@ public class XlsxSImporter implements ILineInput {
 	 * The file is closed
 	 */
 	private boolean isClosed = false;
-	
+
 	public static final int QUEUE_SIZE = 500;
 	/**
 	 * Queue for buffering data
 	 */
-	private final ArrayBlockingQueue<Object> que = new ArrayBlockingQueue<Object>(QUEUE_SIZE);
+	private final ArrayBlockingQueue<Object> que = new ArrayBlockingQueue<Object>(
+			QUEUE_SIZE);
 
 	/**
 	 * Object is used to mark the end
@@ -91,7 +93,8 @@ public class XlsxSImporter implements ILineInput {
 	 * @param s          Sheet serial number or sheet name
 	 * @param opt        Options
 	 */
-	public XlsxSImporter(FileObject fo, String[] fields, int startRow, int endRow, Object s, String opt) {
+	public XlsxSImporter(FileObject fo, String[] fields, int startRow,
+			int endRow, Object s, String opt) {
 		this(fo, fields, startRow, endRow, s, opt, null);
 	}
 
@@ -107,7 +110,8 @@ public class XlsxSImporter implements ILineInput {
 	 * @param opt        Options
 	 * @param pwd        Excel password
 	 */
-	public XlsxSImporter(FileObject fo, String[] fields, int startRow, int endRow, Object s, String opt, String pwd) {
+	public XlsxSImporter(FileObject fo, String[] fields, int startRow,
+			int endRow, Object s, String opt, String pwd) {
 		InputStream is = null, in = null;
 		POIFSFileSystem pfs = null;
 		BufferedInputStream bis = null;
@@ -128,9 +132,11 @@ public class XlsxSImporter implements ILineInput {
 				is = fo.getInputStream();
 				if (pwd != null) {
 					// xlsimport函数中已经判断了
-					// if (filePath != null && filePath.toLowerCase().endsWith(".xls")) {
+					// if (filePath != null &&
+					// filePath.toLowerCase().endsWith(".xls")) {
 					// MessageManager mm = AppMessage.get();
-					// throw new RQException("xlsimport" + mm.getMessage("xlsfile.needxlsx"));
+					// throw new RQException("xlsimport" +
+					// mm.getMessage("xlsfile.needxlsx"));
 					// }
 					pfs = new POIFSFileSystem(is);
 					in = ExcelUtils.decrypt(pfs, pwd);
@@ -144,15 +150,18 @@ public class XlsxSImporter implements ILineInput {
 				if (pwd != null) {
 					is = new FileInputStream(filePath);
 					// xlsimport函数中已经判断了
-					// if (filePath != null && filePath.toLowerCase().endsWith(".xls")) {
+					// if (filePath != null &&
+					// filePath.toLowerCase().endsWith(".xls")) {
 					// MessageManager mm = AppMessage.get();
-					// throw new RQException("xlsimport" + mm.getMessage("xlsfile.needxlsx"));
+					// throw new RQException("xlsimport" +
+					// mm.getMessage("xlsfile.needxlsx"));
 					// }
 					pfs = new POIFSFileSystem(is);
 					in = ExcelUtils.decrypt(pfs, pwd);
 					this.xlsxPackage = OPCPackage.open(in);
 				} else {
-					this.xlsxPackage = OPCPackage.open(filePath, PackageAccess.READ);
+					this.xlsxPackage = OPCPackage.open(filePath,
+							PackageAccess.READ);
 				}
 			}
 			process(s);
@@ -196,11 +205,13 @@ public class XlsxSImporter implements ILineInput {
 	 * @throws OpenXML4JException
 	 * @throws SAXException
 	 */
-	private void process(Object sheet) throws IOException, OpenXML4JException, SAXException {
+	private void process(Object sheet) throws IOException, OpenXML4JException,
+			SAXException {
 		XSSFReader xssfReader = new XSSFReader(this.xlsxPackage);
 		SharedStringsTable sst = xssfReader.getSharedStringsTable();
 		StylesTable styles = xssfReader.getStylesTable();
-		XSSFReader.SheetIterator iter = (XSSFReader.SheetIterator) xssfReader.getSheetsData();
+		XSSFReader.SheetIterator iter = (XSSFReader.SheetIterator) xssfReader
+				.getSheetsData();
 		int index = 0;
 		boolean findSheet = false;
 		while (iter.hasNext()) {
@@ -228,10 +239,12 @@ public class XlsxSImporter implements ILineInput {
 		if (!findSheet) {
 			if (sheet != null) {
 				if (StringUtils.isValidString(sheet)) {
-					throw new RQException(AppMessage.get().getMessage("excel.nosheetname", sheet));
+					throw new RQException(AppMessage.get().getMessage(
+							"excel.nosheetname", sheet));
 				} else if (sheet instanceof Number) {
-					throw new RQException(
-							AppMessage.get().getMessage("excel.nosheetindex", (((Number) sheet).intValue() + "")));
+					throw new RQException(AppMessage.get().getMessage(
+							"excel.nosheetindex",
+							(((Number) sheet).intValue() + "")));
 				}
 			}
 		}
@@ -246,23 +259,23 @@ public class XlsxSImporter implements ILineInput {
 	 * @throws IOException
 	 * @throws SAXException
 	 */
-	private void processSheet(StylesTable styles, SharedStringsTable sst, final InputStream sheetInputStream)
-			throws IOException, SAXException {
+	private void processSheet(StylesTable styles, SharedStringsTable sst,
+			final InputStream sheetInputStream) throws IOException,
+			SAXException {
 		final InputSource sheetSource = new InputSource(sheetInputStream);
 		try {
 			final XMLReader parser = XMLReaderFactory.createXMLReader();
-			ContentHandler handler = new SheetHandler(styles, sst, fields, startRow, endRow, false, bTitle, que);
+			ContentHandler handler = new SheetHandler(styles, sst, fields,
+					startRow, endRow, false, bTitle, que);
 			parser.setContentHandler(handler);
 			Thread parseThread = new Thread() {
 				public void run() {
 					try {
 						parser.parse(sheetSource);
-					} catch (java.util.zip.ZipException e1) {
-						if (!isClosed) {
-							throw new RuntimeException(e1);
-						}
 					} catch (Exception e) {
-						throw new RuntimeException(e);
+						if (!isClosed) {
+							throw new RuntimeException(e);
+						}
 					} finally {
 						if (sheetInputStream != null)
 							try {
@@ -336,8 +349,8 @@ public class XlsxSImporter implements ILineInput {
 		isClosed = true;
 		try {
 			xlsxPackage.close();
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch (Exception e) {
+			Logger.error(e);
 		}
 	}
 
