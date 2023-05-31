@@ -347,7 +347,7 @@ public class SplxHttpHandler implements HttpHandler {
 								InputStream reqis = null;
 								try {
 									reqis = httpExchange.getRequestBody();
-									BufferedReader br = new BufferedReader( new InputStreamReader( reqis, "UTF-8" ) );
+									BufferedReader br = new BufferedReader( new InputStreamReader( reqis, "UTF-8" ) ); 
 									StringBuffer sb = new StringBuffer();
 									String line = null;
 									while( ( line = br.readLine() ) != null ) {
