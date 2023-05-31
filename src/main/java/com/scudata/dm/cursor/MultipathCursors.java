@@ -637,7 +637,7 @@ public class MultipathCursors extends ICursor implements IMultipath {
 	 * @param srcKeyExps 连接表达式数组
 	 * @param srcNewExps
 	 * @param srcNewNames
-	 * @param cursors 关联游标数组
+	 * @param joinCursors 关联游标数组
 	 * @param options 关联选项
 	 * @param keyExps 连接表达式数组
 	 * @param newExps
@@ -647,23 +647,23 @@ public class MultipathCursors extends ICursor implements IMultipath {
 	 * @return
 	 */
 	public Operable pjoin(Function function, Expression []srcKeyExps, Expression []srcNewExps, String []srcNewNames, 
-			ICursor []cursors, String []options, Expression [][]keyExps, 
+			ICursor []joinCursors, String []options, Expression [][]keyExps, 
 			Expression [][]newExps, String [][]newNames, String opt, Context ctx) {
-		int tableCount = cursors.length;
 		int pathCount = cursors.length;
+		int tableCount = joinCursors.length;
 		
 		for (int p = 0; p < pathCount; ++p) {
 			ICursor []curCursors = new ICursor[tableCount];
 			for (int t = 0; t < tableCount; ++t) {
 				// 主子表需要同步分段，同一路的做连接
-				if (cursors[t] == null) {
+				if (joinCursors[t] == null) {
 					continue;
-				} else if (!(cursors[t] instanceof MultipathCursors)) {
+				} else if (!(joinCursors[t] instanceof MultipathCursors)) {
 					MessageManager mm = EngineMessage.get();
 					throw new RQException( mm.getMessage("dw.mcsNotMatch"));
 				}
 				
-				MultipathCursors mcs = (MultipathCursors)cursors[t];
+				MultipathCursors mcs = (MultipathCursors)joinCursors[t];
 				if (mcs.getPathCount() != pathCount) {
 					MessageManager mm = EngineMessage.get();
 					throw new RQException( mm.getMessage("dw.mcsNotMatch"));
