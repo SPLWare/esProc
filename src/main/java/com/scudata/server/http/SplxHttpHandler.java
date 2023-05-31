@@ -172,9 +172,11 @@ public class SplxHttpHandler implements HttpHandler {
 			String headers = null;
 			int status = 200;     //«Î«ÛœÏ”¶¬Î
 			Context ctx1 = null;
+			Headers reqHeaders = null;
 			try {
 				URI uri = httpExchange.getRequestURI();
 				String path = uri.getPath().trim();
+				reqHeaders = httpExchange.getRequestHeaders();
 
 				if (path.equals("/")) {
 					String url = SplxServerInIDE.getInstance().getContext().getDefaultUrl();
@@ -345,7 +347,7 @@ public class SplxHttpHandler implements HttpHandler {
 								InputStream reqis = null;
 								try {
 									reqis = httpExchange.getRequestBody();
-									BufferedReader br = new BufferedReader( new InputStreamReader( reqis ) );
+									BufferedReader br = new BufferedReader( new InputStreamReader( reqis, "UTF-8" ) );
 									StringBuffer sb = new StringBuffer();
 									String line = null;
 									while( ( line = br.readLine() ) != null ) {
