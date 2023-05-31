@@ -632,6 +632,60 @@ public class MultipathCursors extends ICursor implements IMultipath {
 	}
 	
 	/**
+	 * 游标按主键做有序连接
+	 * @param function
+	 * @param srcKeyExps 连接表达式数组
+	 * @param srcNewExps
+	 * @param srcNewNames
+	 * @param cursors 关联游标数组
+	 * @param options 关联选项
+	 * @param keyExps 连接表达式数组
+	 * @param newExps
+	 * @param newNames
+	 * @param opt
+	 * @param ctx
+	 * @return
+	 */
+	public Operable pjoin(Function function, Expression []srcKeyExps, Expression []srcNewExps, String []srcNewNames, 
+			ICursor []cursors, String []options, Expression [][]keyExps, 
+			Expression [][]newExps, String [][]newNames, String opt, Context ctx) {
+		int tableCount = cursors.length;
+		int pathCount = cursors.length;
+		
+		for (int p = 0; p < pathCount; ++p) {
+			ICursor []curCursors = new ICursor[tableCount];
+			for (int t = 0; t < tableCount; ++t) {
+				// 主子表需要同步分段，同一路的做连接
+				if (cursors[t] == null) {
+					continue;
+				} else if (!(cursors[t] instanceof MultipathCursors)) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException( mm.getMessage("dw.mcsNotMatch"));
+				}
+				
+				MultipathCursors mcs = (MultipathCursors)cursors[t];
+				if (mcs.getPathCount() != pathCount) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException( mm.getMessage("dw.mcsNotMatch"));
+				}
+				
+				curCursors[t] = mcs.getPathCursor(p);
+			}
+			
+			// 复制表达式
+			ctx = cursors[p].getContext();
+			Expression []curSrcKeyExps = Operation.dupExpressions(srcKeyExps, ctx);
+			Expression []curSrcNewExps = Operation.dupExpressions(srcNewExps, ctx);
+			Expression [][]curKeyExps = Operation.dupExpressions(keyExps, ctx);
+			Expression [][]curNewExps = Operation.dupExpressions(newExps, ctx);
+			cursors[p].pjoin(function, curSrcKeyExps, curSrcNewExps, srcNewNames, 
+					curCursors, options, curKeyExps, curNewExps, newNames, opt, ctx);
+		}
+		
+		return this;
+	}
+	
+	/**
 	 * 进行连接过滤，保留能关联上的
 	 * @param function 对应的函数
 	 * @param exps 当前表关联字段表达式数组

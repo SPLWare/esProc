@@ -36,6 +36,7 @@ import com.scudata.dm.cursor.ICursor;
 import com.scudata.dm.cursor.MemoryCursor;
 import com.scudata.dm.op.IGroupsResult;
 import com.scudata.dm.op.Operation;
+import com.scudata.dm.op.PrimaryJoin;
 import com.scudata.dm.op.Switch;
 import com.scudata.dm.op.SwitchRemote;
 import com.scudata.dw.IFilter;
@@ -12148,6 +12149,50 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			return (value & (1 << (n - 1) % 64)) != 0;
 		} else {
 			return false;
+		}
+	}
+	
+	/**
+	 * 对排列做主键式关连
+	 * @param srcKeyExps 关连键表达式
+	 * @param srcNewExps 选出字段表达式数组，空则选出所有
+	 * @param srcNewNames 选出字段名数组
+	 * @param sequences 关连表数组
+	 * @param options 关连选项数组
+	 * @param keyExps 关连表的键表达式数组
+	 * @param newExps 关连表的选出字段表达式数组
+	 * @param newNames 关连表的 选出字段名数组
+	 * @param opt 选项，o：表按关联字段有序，f：full join
+	 * @param ctx 计算上下文
+	 * @return Sequence
+	 */
+	public Sequence pjoin(Expression []srcKeyExps, Expression []srcNewExps, String []srcNewNames, 
+			Sequence []sequences, String []options, Expression [][]keyExps, 
+			Expression [][]newExps, String [][]newNames, String opt, Context ctx) {
+		if (opt != null && opt.indexOf('o') != -1) {
+			int tableCount = sequences.length;
+			ICursor []cursors = new ICursor[tableCount];
+			for (int i = 0; i < tableCount; ++i) {
+				cursors[i] = sequences[i].cursor();
+			}
+			
+			PrimaryJoin op = new PrimaryJoin(null, srcKeyExps, srcNewExps, srcNewNames, 
+					cursors, options, keyExps, newExps, newNames, opt, ctx);
+			Sequence result = op.process(this, ctx);
+			Sequence result2 = op.finish(ctx);
+			if (result2 != null && result2.length() > 0) {
+				if (result != null && result.length() > 0) {
+					return result.append(result2);
+				} else {
+					return result2;
+				}
+			} else {
+				return result;
+			}
+		} else {
+			HashPrimaryJoin hashTable = new HashPrimaryJoin(this, srcKeyExps, srcNewExps, srcNewNames, 
+					sequences, options, keyExps, newExps, newNames, opt, ctx);
+			return hashTable.result();
 		}
 	}
 }
