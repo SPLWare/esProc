@@ -46,7 +46,7 @@ class LockObject implements IResource {
 				thread = cur;
 				ctx.addResource(this);
 				return true;
-			} catch (InterruptedException e) {
+			} catch (Exception e) {
 				return false;
 			}
 		}
