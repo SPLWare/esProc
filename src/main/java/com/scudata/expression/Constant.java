@@ -89,4 +89,8 @@ public class Constant extends Node {
 	public boolean isMonotone() {
 		return true;
 	}
+
+	public void setValue(Object value) {
+		this.value = value;
+	}
 }

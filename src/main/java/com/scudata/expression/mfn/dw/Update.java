@@ -42,7 +42,7 @@ public class Update extends PhyTableFunction {
 		if (param.getType() == IParam.Colon) {
 			IParam sub0 = param.getSub(0);
 			IParam sub1 = param.getSub(1);
-			obj = sub0.getLeafExpression().calculate(ctx);
+			obj = sub0 == null ? null : sub0.getLeafExpression().calculate(ctx);
 			obj2 = sub1 == null ? null : sub1.getLeafExpression().calculate(ctx);
 			
 		} else {
