@@ -36,6 +36,9 @@ class LockObject implements IResource {
 			try {
 				if (ms >= 0) {
 					wait(ms); 
+					if (thread != null) {
+						return false;
+					}
 				} else {
 					// 监视器所有者线程调用unlock后可能又进入了lock后此线程的wait才被唤醒
 					do {
