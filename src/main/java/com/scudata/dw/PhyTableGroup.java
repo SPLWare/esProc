@@ -302,7 +302,7 @@ public class PhyTableGroup implements IPhyTable {
 			cursors[i] = tables[i].cursor(exps, fields, filter, fkNames, codes, opts, opt, ctx);
 		}
 		
-		if (opt != null && opt.indexOf('z') != -1) {
+		if (opt == null || opt.indexOf('o') == -1) {
 			String []sortFields = cursors[0].getSortFields();
 			DataStruct ds = cursors[0].getDataStruct();
 			if (ds == null || sortFields == null) {
@@ -331,7 +331,7 @@ public class PhyTableGroup implements IPhyTable {
 		int tableCount = tables.length;
 		ArrayList<ICursor> []lists = new ArrayList[pathCount];
 		
-		if (opt != null && opt.indexOf('z') != -1) {
+		if (opt == null || opt.indexOf('o') == -1) {
 			ICursor cs = tables[0].cursor(exps, fields, filter, fkNames, codes, opts, pathCount, opt, ctx);
 			MultipathCursors mcs = (MultipathCursors)cs;
 			ICursor []cursors = mcs.getCursors();
