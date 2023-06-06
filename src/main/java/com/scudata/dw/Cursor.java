@@ -7,9 +7,13 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.scudata.array.IArray;
+import com.scudata.array.ObjectArray;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
+import com.scudata.dm.BaseRecord;
+import com.scudata.dm.ComputeStack;
 import com.scudata.dm.Context;
+import com.scudata.dm.Current;
 import com.scudata.dm.DataStruct;
 import com.scudata.dm.ObjectReader;
 import com.scudata.dm.Record;
@@ -3332,12 +3336,226 @@ public class Cursor extends IDWCursor {
 		}
 	}
 	
+	public IArray[] getSkipBlockInfo(String key) {
+		int curBlock = this.curBlock;
+		int endBlock = this.endBlock;
+		int initSize = endBlock - curBlock + 1;
+		
+		IFilter []filters = this.filters;
+		int filterCount = filters.length;
+		ColumnMetaData []columns = this.columns;
+		int colCount = columns.length;
+		
+		int keyIndex = -1;
+		for (int i = 0; i < colCount; i++) {
+			if (columns[i].getColName().equals(key)) {
+				keyIndex = i;
+			}
+		}
+		
+		ObjectArray minArray = new ObjectArray(initSize);
+		ObjectArray maxArray = new ObjectArray(initSize);
+		if (cache != null) {
+			DataStruct tempDs = new DataStruct(fields);
+			int idx = tempDs.getFieldIndex(key);
+			Sequence cacheData = this.cache;
+			int len = cacheData.length();
+			minArray.add(((BaseRecord)cacheData.get(1)).getNormalFieldValue(idx));
+			maxArray.add(((BaseRecord)cacheData.get(len)).getNormalFieldValue(idx));
+		}
+		
+		//克隆分段reader
+		ObjectReader[] segmentReaders = new ObjectReader[colCount];
+		for (int i = 0; i < colCount; i++) {
+			ObjectReader segmentReader = new ObjectReader(this.segmentReaders[i]);
+			BlockLinkReader reader = (BlockLinkReader) segmentReader.getInputStream();
+			segmentReader.setInputStream(new BlockLinkReader(reader));
+			segmentReaders[i] = segmentReader;
+		}
+		
+		boolean hasSkip = false;
+		try {
+			Object keyMinValue = null;
+			Object keyMaxValue = null;
+			while (curBlock < endBlock) {
+				curBlock++;
+				boolean sign = true;
+				int f = 0;
+				for (; f < filterCount; ++f) {
+					segmentReaders[f].readLong40();
+					if (columns[f].hasMaxMinValues()) {
+						Object minValue = segmentReaders[f].readObject();
+						Object maxValue = segmentReaders[f].readObject();
+						segmentReaders[f].skipObject();
+						if (f == keyIndex) {
+							keyMinValue = minValue;
+							keyMaxValue = maxValue;
+						}
+						if (!filters[f].match(minValue, maxValue)) {
+							++f;
+							sign = false;
+							break;
+						}
+					}
+				}
+				
+				for (; f < colCount; ++f) {
+					if (f == keyIndex) {
+						segmentReaders[f].readLong40();
+						if (columns[f].hasMaxMinValues()) {
+							keyMinValue = segmentReaders[f].readObject();
+							keyMaxValue = segmentReaders[f].readObject();
+							segmentReaders[f].skipObject();
+						}
+					} else {
+						segmentReaders[f].readLong40();
+						if (columns[f].hasMaxMinValues()) {
+							segmentReaders[f].skipObject();
+							segmentReaders[f].skipObject();
+							segmentReaders[f].skipObject();
+						}
+					}
+				}
+				
+				if (sign) {
+					//没跳段
+					minArray.add(keyMinValue);
+					maxArray.add(keyMaxValue);
+				} else {
+					hasSkip = true;
+				}
+			}
+			
+			for (int i = 0; i < colCount; i++) {
+				segmentReaders[i].close();
+			}
+			
+		} catch (IOException e) {
+			throw new RQException(e.getMessage(), e);
+		}
+		
+		if (!hasSkip) {
+			//如果没有跳段，则没有意义
+			return null;
+		}
+		
+		if (appendData != null) {
+			DataStruct tempDs = new DataStruct(fields);
+			int idx = tempDs.getFieldIndex(key);
+			Sequence appendData = this.appendData;
+			int len = appendData.length();
+			minArray.add(((BaseRecord)appendData.get(1)).getNormalFieldValue(idx));
+			maxArray.add(((BaseRecord)appendData.get(len)).getNormalFieldValue(idx));
+		}
+		
+		if (minArray.size() == 0) {
+			//如果跳过了所有段，则没有意义
+			return null;
+		}
+		
+		IArray[] result = new IArray[] {minArray, maxArray};
+		return result;
+	}
+	
 	/**
-	 * 是否可以动态优化 （目前不启用）
-	 * @return
+	 * 将游标设置为按照key条块 （pjoin时使用）
+	 * 设置后，游标会按照values里的值进行跳块。
+	 * @param key 维字段名
+	 * @param values [minValue, maxValue] 
 	 */
-	public boolean canDynamic() {
-		return false;
+	public void setSkipBlockInfo(String key, IArray[] values) {
+		if (values == null || key == null) {
+			return;
+		}
+		int idx = ds.getFieldIndex(key);
+		if (idx < 0) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException(key + mm.getMessage("ds.fieldNotExist"));
+		}
+		
+		ColumnMetaData col = table.getColumn(key); 
+		IFilter filter = new BlockFilter(col, values);
+
+		if (filters == null) {
+			filters = new IFilter[] { filter };
+			
+			//把维列提到最前面
+			ColumnMetaData []columns = this.columns;
+			ColumnMetaData tempCol = columns[0];
+			columns[0] = columns[idx];
+			columns[idx] = tempCol;
+			
+			BlockLinkReader[] columnReaders = this.colReaders;
+			BlockLinkReader temp = columnReaders[0];
+			columnReaders[0] = columnReaders[idx];
+			columnReaders[idx] = temp;
+		} else {
+			int size = filters.length;
+			
+			//如果可以合并到已有filter
+			for (int i = 0; i < size; i++) {
+				IFilter f = filters[i];
+				if (f.isSameColumn(filter)) {
+					filters[i] = new LogicAnd(f, filter);
+					filters[i].initExp();
+					return;
+				}
+			}
+			
+			//找到目前的位置
+			ColumnMetaData []columns = this.columns;
+			BlockLinkReader []columnReaders = this.colReaders;
+			int len = columnReaders.length;
+			String colName = key;
+			for (int i = 0; i < len; i++) {
+				if (columns[i].getColName().equals(colName)) {
+					idx = i;
+					break;
+				}
+			}
+			
+			//插入到filters中
+			IFilter[] filters = this.filters;
+			FindFilter[] findFilters = this.findFilters;
+			IFilter[] newFilters = new IFilter[size + 1];
+			FindFilter[] newFindFilters = null;
+			if (findFilters != null) {
+				newFindFilters = new FindFilter[size + 1];
+			}
+			
+			for (int i = 0; i < size; i++) {
+				if (newFindFilters != null) {
+					newFindFilters[i + 1] = findFilters[i];
+				}
+				newFilters[i + 1] = filters[i];				
+			}
+			newFilters[0] = filter;
+			
+			this.filters = newFilters;
+			this.findFilters = newFindFilters;
+			
+			//调整列的位置
+			BlockLinkReader temp = columnReaders[idx];
+			System.arraycopy(columnReaders, 0, columnReaders, 1, idx);
+			columnReaders[0] = temp;
+			
+			ColumnMetaData tempCol = columns[idx];
+			System.arraycopy(columns, 0, columns, 1, idx);
+			columns[0] = tempCol;
+			
+			ObjectReader []segmentReaders = this.segmentReaders;
+			ObjectReader tempReader = segmentReaders[idx];
+			System.arraycopy(segmentReaders, 0, segmentReaders, 1, idx);
+			segmentReaders[0] = tempReader;
+			
+			DataStruct ds = new DataStruct(fields);
+			int colCount = columns.length;
+			int[] seqs = new int [colCount];
+			for (int i = 0; i < colCount; ++i) {
+				seqs[i] = ds.getFieldIndex(columns[i].getColName());
+			}
+			this.seqs = seqs;
+		}
 	}
 	
 	protected Sequence getStartBlockData(int n) {

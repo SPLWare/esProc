@@ -1108,4 +1108,20 @@ public class ObjectReader extends InputStream implements ObjectInput {
 			}
 		}
 	}
+	
+	public InputStream getInputStream() {
+		return in;
+	}
+	
+	public void setInputStream(InputStream in) {
+		this.in = in;
+	}
+	
+	public ObjectReader(ObjectReader reader) {
+		in = reader.in; 
+		buffer = reader.buffer.clone(); // 每次读入的字节缓存
+		index = reader.index; // 下一字节在buffer中的索引
+		count = reader.count; // 读入buffer的实际字节数目
+		position = reader.position;
+	}
 }

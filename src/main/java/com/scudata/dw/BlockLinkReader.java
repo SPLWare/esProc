@@ -2,6 +2,7 @@ package com.scudata.dw;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Arrays;
 
 import com.scudata.dm.Sequence;
 
@@ -35,6 +36,19 @@ public class BlockLinkReader extends InputStream {
 		pointerPos = blockSize - IBlockStorage.POS_SIZE;
 		block = new byte[blockSize];
 		isPureStorage = storage.isPureFormat();
+	}
+	
+	public BlockLinkReader(BlockLinkReader blockLinkReader) {
+		blockLink = blockLinkReader.blockLink;
+		storage = blockLinkReader.storage;
+		blockSize = blockLinkReader.blockSize;
+		pointerPos = blockLinkReader.pointerPos;
+		currentBlockPos = blockLinkReader.currentBlockPos;
+		block = Arrays.copyOf(blockLinkReader.block, blockSize);
+		caret = blockLinkReader.caret;
+		decompressBuffer = new byte[4096];
+		isPureStorage = storage.isPureFormat();
+		dict = blockLinkReader.dict;
 	}
 	
 	public void close() {
