@@ -565,31 +565,36 @@ public class JDBCUtil {
 		Sequence s = new Sequence();
 		if (obj instanceof Object[][]) {
 			Object[][] oss = (Object[][]) obj;
-			Table t = null;
-			if (oss.length >= 1) {
-				String[] fields = new String[oss[0].length];
-				String[] descs = new String[oss[0].length];
-				DataStruct ds = new DataStruct();
-				for (int j = 0; j < oss[0].length; j++) {
-					Object o = oss[0][j];
-					if (o != null) {
-						fields[j] = o.toString();
-						descs[j] = o.toString();
-					} else {
-						fields[j] = "";
-						descs[j] = "";
-					}
-				}
-				ds = new DataStruct(fields);
-				t = new Table(ds);
-			} else {
-				t = new Table();
+			int rowCount = oss.length;
+			if (rowCount < 1) {
+				return null;
 			}
-			for (int j = 1; j < oss.length; j++) {
-				BaseRecord r = t.newLast();
-				for (int k = 0; k < oss[j].length; k++) {
-					r.set(k, oss[j][k]);
+			Object[] firstRow = oss[0];
+			int colCount = firstRow.length;
+			if (colCount < 1) {
+				return null;
+			}
+
+			String[] fields = new String[colCount];
+			DataStruct ds = new DataStruct();
+			for (int c = 0; c < colCount; c++) {
+				Object o = firstRow[c];
+				if (o != null && (o instanceof String)) {
+					fields[c] = o.toString();
+				} else {
+					fields = null;
+					break;
 				}
+			}
+			int dataStart = 1;
+			if (fields == null) {
+				fields = new String[colCount]; // 数据结构会自动生成字段名
+				dataStart = 0;
+			}
+			ds = new DataStruct(fields);
+			Table t = new Table(ds);
+			for (int r = dataStart; r < rowCount; r++) {
+				t.newLast(oss[r]);
 			}
 			return t;
 		} else if (obj instanceof Object[]) {
