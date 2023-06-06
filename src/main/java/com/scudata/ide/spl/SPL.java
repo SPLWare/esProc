@@ -3,6 +3,7 @@ package com.scudata.ide.spl;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.GraphicsEnvironment;
 import java.awt.Toolkit;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
@@ -1431,6 +1432,7 @@ public class SPL extends AppFrame {
 	public static void mainInit() {
 		resetInstallDirectories();
 		GMSpl.setOptionLocale();
+		GraphicsEnvironment.getLocalGraphicsEnvironment().getAllFonts();
 		try {
 			GV.config = ConfigUtilIde.loadConfig(true);
 		} catch (Throwable e) {
