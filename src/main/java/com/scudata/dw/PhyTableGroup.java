@@ -306,8 +306,7 @@ public class PhyTableGroup implements IPhyTable {
 			String []sortFields = cursors[0].getSortFields();
 			DataStruct ds = cursors[0].getDataStruct();
 			if (ds == null || sortFields == null) {
-				MessageManager mm = EngineMessage.get();
-				throw new RQException(mm.getMessage("grouptable.dataNeedSorted"));
+				return new ConjxCursor(cursors);
 			}
 			
 			int fcount = sortFields.length;
@@ -330,53 +329,73 @@ public class PhyTableGroup implements IPhyTable {
 		
 		int tableCount = tables.length;
 		ArrayList<ICursor> []lists = new ArrayList[pathCount];
+		ICursor cs = tables[0].cursor(exps, fields, filter, fkNames, codes, opts, pathCount, opt, ctx);
 		
 		if (opt == null || opt.indexOf('o') == -1) {
-			ICursor cs = tables[0].cursor(exps, fields, filter, fkNames, codes, opts, pathCount, opt, ctx);
-			MultipathCursors mcs = (MultipathCursors)cs;
-			ICursor []cursors = mcs.getCursors();
-			pathCount = cursors.length;
-			
-			String []sortFields = cursors[0].getSortFields();
-			DataStruct ds = cursors[0].getDataStruct();
-			if (ds == null || sortFields == null) {
-				MessageManager mm = EngineMessage.get();
-				throw new RQException(mm.getMessage("grouptable.dataNeedSorted"));
-			}
-			
-			int fcount = sortFields.length;
-			int []findex = new int[fcount];
-			for (int i = 0; i < fcount; ++i) {
-				findex[i] = ds.getFieldIndex(sortFields[i]);
-			}
-			
-			for (int p = 0; p < pathCount; ++p) {
-				lists[p] = new ArrayList<ICursor>(tableCount);
-				lists[p].add(cursors[p]);
-			}
-			
-			for (int i = 1; i < tableCount; ++i) {
-				MultipathCursors mcs2 = (MultipathCursors)tables[i].cursor(exps, fields, 
-						filter, fkNames, codes, opts, mcs, opt, ctx);
-				cursors = mcs2.getCursors();
-				for (int p = 0; p < pathCount; ++p) {
-					lists[p].add(cursors[p]);
+			if (cs instanceof MultipathCursors) {
+				MultipathCursors mcs = (MultipathCursors)cs;
+				ICursor []cursors = mcs.getCursors();
+				pathCount = cursors.length;
+				String []sortFields = cursors[0].getSortFields();
+				DataStruct ds = cursors[0].getDataStruct();
+				
+				if (ds != null && sortFields != null) {
+					int fcount = sortFields.length;
+					int []findex = new int[fcount];
+					for (int i = 0; i < fcount; ++i) {
+						findex[i] = ds.getFieldIndex(sortFields[i]);
+					}
+					
+					for (int p = 0; p < pathCount; ++p) {
+						lists[p] = new ArrayList<ICursor>(tableCount);
+						lists[p].add(cursors[p]);
+					}
+					
+					for (int i = 1; i < tableCount; ++i) {
+						MultipathCursors mcs2 = (MultipathCursors)tables[i].cursor(exps, fields, 
+								filter, fkNames, codes, opts, mcs, opt, ctx);
+						cursors = mcs2.getCursors();
+						for (int p = 0; p < pathCount; ++p) {
+							lists[p].add(cursors[p]);
+						}
+					}
+					
+					ICursor []resultCursors = new ICursor[pathCount];
+					for (int i = 0; i < pathCount; ++i) {
+						int size = lists[i].size();
+						if (size > 1) {
+							cursors = new ICursor[size];
+							lists[i].toArray(cursors);
+							resultCursors[i] = new MergeCursor(cursors, findex, null, ctx);
+						} else if (size == 1) {
+							resultCursors[i] = lists[i].get(0);
+						}
+					}
+					
+					return new MultipathCursors(resultCursors, ctx);
 				}
-			}
-			
-			ICursor []resultCursors = new ICursor[pathCount];
-			for (int i = 0; i < pathCount; ++i) {
-				int size = lists[i].size();
-				if (size > 1) {
-					cursors = new ICursor[size];
-					lists[i].toArray(cursors);
-					resultCursors[i] = new MergeCursor(cursors, findex, null, ctx);
-				} else if (size == 1) {
-					resultCursors[i] = lists[i].get(0);
+			} else {
+				ICursor []cursors = new ICursor[tableCount];
+				cursors[0] = cs;
+				
+				for (int i = 1; i < tableCount; ++i) {
+					cursors[i] = tables[i].cursor(exps, fields, filter, fkNames, codes, opts, opt, ctx);
 				}
+				
+				String []sortFields = cursors[0].getSortFields();
+				DataStruct ds = cursors[0].getDataStruct();
+				if (ds == null || sortFields == null) {
+					return new ConjxCursor(cursors);
+				}
+				
+				int fcount = sortFields.length;
+				int []findex = new int[fcount];
+				for (int i = 0; i < fcount; ++i) {
+					findex[i] = ds.getFieldIndex(sortFields[i]);
+				}
+				
+				return new MergeCursor(cursors, findex, null, ctx);
 			}
-			
-			return new MultipathCursors(resultCursors, ctx);
 		}
 		
 		// 把每个文件分成pathCount路，然后所有的i路合成一个游标，最后再组成多路游标
@@ -384,16 +403,26 @@ public class PhyTableGroup implements IPhyTable {
 			lists[i] = new ArrayList<ICursor>(tableCount);
 		}
 		
-		for (int i = 0; i < tableCount; ++i) {
-			ICursor cursor = tables[i].cursor(exps, fields, filter, fkNames, codes, opts, pathCount, opt, ctx);
-			if (cursor instanceof MultipathCursors) {
-				MultipathCursors mcs = (MultipathCursors)cursor;
+		if (cs instanceof MultipathCursors) {
+			MultipathCursors mcs = (MultipathCursors)cs;
+			ICursor []cursors = mcs.getCursors();
+			for (int c = 0; c < cursors.length; ++c) {
+				lists[c].add(cursors[c]);
+			}
+		} else {
+			lists[0].add(cs);
+		}
+		
+		for (int i = 1; i < tableCount; ++i) {
+			cs = tables[i].cursor(exps, fields, filter, fkNames, codes, opts, pathCount, opt, ctx);
+			if (cs instanceof MultipathCursors) {
+				MultipathCursors mcs = (MultipathCursors)cs;
 				ICursor []cursors = mcs.getCursors();
 				for (int c = 0; c < cursors.length; ++c) {
 					lists[c].add(cursors[c]);
 				}
 			} else {
-				lists[0].add(cursor);
+				lists[0].add(cs);
 			}
 		}
 		
@@ -438,7 +467,24 @@ public class PhyTableGroup implements IPhyTable {
 		
 		ICursor []cursors = new ICursor[list.size()];
 		list.toArray(cursors);
-		return new ConjxCursor(cursors);
+		
+		if (opt == null || opt.indexOf('o') == -1) {
+			String []sortFields = cursors[0].getSortFields();
+			DataStruct ds = cursors[0].getDataStruct();
+			if (ds == null || sortFields == null) {
+				return new ConjxCursor(cursors);
+			}
+			
+			int fcount = sortFields.length;
+			int []findex = new int[fcount];
+			for (int i = 0; i < fcount; ++i) {
+				findex[i] = ds.getFieldIndex(sortFields[i]);
+			}
+			
+			return new MergeCursor(cursors, findex, null, ctx);
+		} else {
+			return new ConjxCursor(cursors);
+		}
 	}
 	
 	public ICursor cursor(Expression []exps, String []fields, Expression filter, 
