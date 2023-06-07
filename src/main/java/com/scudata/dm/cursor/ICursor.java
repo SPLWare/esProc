@@ -1280,4 +1280,30 @@ abstract public class ICursor extends Operable implements IResource {
 			return new Channel(ctx);
 		}
 	}
+	
+	/**
+	 * 游标是否可以跳块
+	 * @return
+	 */
+	public boolean canSkipBlock() {
+		return false;
+	}
+	
+	/**
+	 * 得到游标结果所在块的范围
+	 * @param key
+	 * @return
+	 */
+	public IArray[] getSkipBlockInfo(String key) {
+		return null;
+	}
+	
+	/**
+	 * 将游标设置为按照key字段跳块 （pjoin时使用）
+	 * 设置后，游标会按照values里的值进行跳块。
+	 * @param key 维字段名
+	 * @param values [minValue, maxValue] 
+	 */
+	public void setSkipBlockInfo(String key, IArray[] values) {
+	}
 }
