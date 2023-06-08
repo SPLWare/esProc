@@ -7,6 +7,7 @@ import com.scudata.common.RQException;
 import com.scudata.dm.Context;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.cursor.ICursor;
+import com.scudata.dm.cursor.MemoryCursor;
 import com.scudata.dw.ColPhyTable;
 import com.scudata.expression.IParam;
 import com.scudata.expression.PhyTableFunction;
@@ -20,6 +21,7 @@ import com.scudata.resources.EngineMessage;
  */
 public class Update extends PhyTableFunction {
 	public Object calculate(Context ctx) {
+		//旧格式的组表不支持更新
 		if (table instanceof ColPhyTable) {
 			ColPhyTable colTable = (ColPhyTable) table;
 			if (!colTable.getGroupTable().isPureFormat()) {
@@ -35,7 +37,7 @@ public class Update extends PhyTableFunction {
 		}
 		
 		boolean hasN = opt != null && opt.indexOf('n') != -1;
-		boolean hasW = opt != null && opt.indexOf('w') != -1;
+		boolean hasW = opt != null && opt.indexOf('w') != -1 && table instanceof ColPhyTable;
 		Object result = null;
 		Object obj, obj2 = null;
 		
@@ -49,41 +51,37 @@ public class Update extends PhyTableFunction {
 			obj = param.getLeafExpression().calculate(ctx);
 		}
 		
-		if (obj instanceof Sequence) {
-			try {
-				if (!hasN) {
-					table.update((Sequence)obj, opt);
-					result = table;
-				} else {
-					result = table.update((Sequence)obj, opt);
-				}
-			} catch (IOException e) {
-				throw new RQException(e);
-			}
-		} else if (hasW && obj instanceof ICursor && table instanceof ColPhyTable) {
-			try {
-				ICursor cs = (ICursor)obj;
-				/**
-				 * 用游标更新时不能增加记录,
-				 * 所以不能出现@i
-				 */
-				if (opt != null && opt.indexOf('i') != -1) {
-					opt = opt.replace("i", "");
-				}
-				((ColPhyTable)table).update(cs, opt);
-				result = table;
-			} catch (IOException e) {
-				throw new RQException(e);
-			}
-		} else if (obj != null) {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException("update" + mm.getMessage("function.paramTypeError"));
-		} else {
+		//处理更新
+		if (obj == null) {
 			if (!hasN) {
 				result = table;
 			} else {
 				result = null;
 			}
+		} else if (obj instanceof Sequence) {
+			if (hasW) {
+				ICursor cs = new MemoryCursor((Sequence)obj);
+				updateColumn(cs, opt);
+				result = table;
+			} else {
+				try {
+					if (!hasN) {
+						table.update((Sequence)obj, opt);
+						result = table;
+					} else {
+						result = table.update((Sequence)obj, opt);
+					}
+				} catch (IOException e) {
+					throw new RQException(e);
+				}
+			}
+		} else if (hasW && obj instanceof ICursor ) {
+			ICursor cs = (ICursor)obj;
+			updateColumn(cs, opt);
+			result = table;
+		} else {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("update" + mm.getMessage("function.paramTypeError"));
 		}
 		
 		//处理删除
@@ -98,5 +96,20 @@ public class Update extends PhyTableFunction {
 			}
 		}
 		return result;
+	}
+	
+	private void updateColumn(ICursor cs, String opt) {
+		try {
+			/**
+			 * 用游标更新时不能增加记录,
+			 * 所以不能出现@i
+			 */
+			if (opt != null && opt.indexOf('i') != -1) {
+				opt = opt.replace("i", "");
+			}
+			((ColPhyTable)table).update(cs, opt);
+		} catch (IOException e) {
+			throw new RQException(e);
+		}
 	}
 }
