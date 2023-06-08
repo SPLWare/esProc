@@ -108,7 +108,11 @@ public class ColComTable extends ComTable {
 		if (opt != null && opt.indexOf('v') != -1) {
 			setCheckDataPure(true);
 		}
-		
+		// 是否有时间键
+		if (opt != null && opt.indexOf('t') != -1) {
+			setTimeKey(true);
+		}
+				
 		if (blockSize == null)
 			blockSize = Env.getBlockSize();
 		else {

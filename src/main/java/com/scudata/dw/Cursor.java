@@ -3336,6 +3336,13 @@ public class Cursor extends IDWCursor {
 		}
 	}
 	
+	public boolean canSkipBlock() {
+		if (filters != null)
+			return true;
+		else
+			return false;
+	}
+	
 	public IArray[] getSkipBlockInfo(String key) {
 		int curBlock = this.curBlock;
 		int endBlock = this.endBlock;
@@ -3473,8 +3480,8 @@ public class Cursor extends IDWCursor {
 			throw new RQException(key + mm.getMessage("ds.fieldNotExist"));
 		}
 		
-		ColumnMetaData col = table.getColumn(key); 
-		IFilter filter = new BlockFilter(col, values);
+		ColumnMetaData column = table.getColumn(key); 
+		IFilter filter = new BlockFilter(column, values);
 
 		if (filters == null) {
 			filters = new IFilter[] { filter };
@@ -3489,6 +3496,48 @@ public class Cursor extends IDWCursor {
 			BlockLinkReader temp = columnReaders[0];
 			columnReaders[0] = columnReaders[idx];
 			columnReaders[idx] = temp;
+
+			int colCount = columnReaders.length;
+			ObjectReader []segmentReaders = new ObjectReader[colCount];
+			for (int i = 0; i < colCount; ++i) {
+				if (columns[i] != null) {
+					segmentReaders[i] = columns[i].getSegmentReader();
+				}
+			}
+			seqs = new int [colCount];
+			DataStruct ds = new DataStruct(fields);
+			for (int i = 0; i < colCount; ++i) {
+				ColumnMetaData col = columns[i];
+				if (col != null) {
+					seqs[i] = ds.getFieldIndex(col.getColName());
+				} else {
+					seqs[i] = -1;
+				}
+			}
+			
+			int startBlock = this.startBlock;
+			long prevRecordSeq = 0;
+			BlockLinkReader rowCountReader = this.rowCountReader;
+			
+			try {
+				for (int i = 0; i < startBlock; ++i) {
+					prevRecordSeq += rowCountReader.readInt32();
+					for (int f = 0; f < colCount; ++f) {
+						if (segmentReaders[f] != null) {
+							segmentReaders[f].readLong40();
+							if (columns[f].hasMaxMinValues()) {
+								segmentReaders[f].skipObject();
+								segmentReaders[f].skipObject();
+								segmentReaders[f].skipObject();
+							}
+						}
+					}
+				}
+				this.segmentReaders = segmentReaders;
+				this.prevRecordSeq = prevRecordSeq;
+			} catch (IOException e) {
+				throw new RQException(e.getMessage(), e);
+			}
 		} else {
 			int size = filters.length;
 			

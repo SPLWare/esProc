@@ -48,6 +48,7 @@ abstract public class ComTable implements IBlockStorage {
 	 * 保留，字节1存放版本，
 	 * 字节2存放是否压缩，0：压缩，1：不压缩，
 	 * 字节3存放是否检查数据纯，0：不检查，1：检查，
+	 * 字节4存放是否有时间键，0：没有，1：有，
 	 */
 	protected byte []reserve = new byte[32]; 
 	protected long freePos = 0; // 空闲位置
@@ -1220,6 +1221,20 @@ abstract public class ComTable implements IBlockStorage {
 			reserve[2] = 1;
 		} else {
 			reserve[2] = 0;
+		}
+	}
+	
+	// 返回是否有时间键
+	public boolean hasTimeKey() {
+		return reserve[3] == 1;
+	}
+	
+	// 设置是否存在时间键
+	public void setTimeKey(boolean hasTimeKey) {
+		if (hasTimeKey) {
+			reserve[3] = 1;
+		} else {
+			reserve[3] = 0;
 		}
 	}
 	
