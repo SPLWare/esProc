@@ -2246,6 +2246,13 @@ public class Cursor extends IDWCursor {
 					if (!sign) {
 						prevRecordSeq += recordCount;
 						mindex = getModifyRecord(mindex, prevRecordSeq, cache);
+						if (mindex < mcount) {
+							mr = modifyRecords.get(mindex);
+							mseq = mr.getRecordSeq();
+						} else {
+							mr = null;
+							mseq = -1;
+						}
 						continue;
 					}
 					
@@ -2283,6 +2290,13 @@ public class Cursor extends IDWCursor {
 					if (matchCount < 1) {
 						prevRecordSeq += recordCount;
 						mindex = getModifyRecord(mindex, prevRecordSeq, cache);
+						if (mindex < mcount) {
+							mr = modifyRecords.get(mindex);
+							mseq = mr.getRecordSeq();
+						} else {
+							mr = null;
+							mseq = -1;
+						}
 						continue;
 					}
 					
@@ -2662,6 +2676,13 @@ public class Cursor extends IDWCursor {
 					if (!sign) {
 						prevRecordSeq += recordCount;
 						mindex = getModifyRecord(mindex, prevRecordSeq, cache);
+						if (mindex < mcount) {
+							mr = modifyRecords.get(mindex);
+							mseq = mr.getRecordSeq();
+						} else {
+							mr = null;
+							mseq = -1;
+						}
 						for (TableGather gather : gathers) {
 							if (gather != null) {
 								gather.skip();
@@ -2700,6 +2721,13 @@ public class Cursor extends IDWCursor {
 					if (matchCount < 1) {
 						prevRecordSeq += recordCount;
 						mindex = getModifyRecord(mindex, prevRecordSeq, cache);
+						if (mindex < mcount) {
+							mr = modifyRecords.get(mindex);
+							mseq = mr.getRecordSeq();
+						} else {
+							mr = null;
+							mseq = -1;
+						}
 						for (TableGather gather : gathers) {
 							if (gather != null) {
 								gather.skip();
