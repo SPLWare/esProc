@@ -1287,7 +1287,10 @@ public class Cursor extends IDWCursor {
 				int size = pkeyList.size();
 				String[] pkeys = new String[size];
 				pkeyList.toArray(pkeys);
-				ds.setPrimary(pkeys);
+				if (table.getGroupTable().hasTimeKey())
+					ds.setPrimary(pkeys, "t");
+				else
+					ds.setPrimary(pkeys);
 			}
 
 			int size = sortedFieldList.size();
