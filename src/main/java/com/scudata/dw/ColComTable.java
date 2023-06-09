@@ -112,6 +112,10 @@ public class ColComTable extends ComTable {
 		if (opt != null && opt.indexOf('t') != -1) {
 			setTimeKey(true);
 		}
+		// ÊÇ·ñÓÐÉ¾³ý¼ü
+		if (opt != null && opt.indexOf('d') != -1) {
+			setDeleteKey(true);
+		}
 				
 		if (blockSize == null)
 			blockSize = Env.getBlockSize();

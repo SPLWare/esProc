@@ -718,4 +718,8 @@ public class PhyTableGroup implements IPhyTable {
 			}
 			return result.groups(exps, names, newExps, newNames, option, ctx);
 	}
+
+	public int getDeleteFieldIndex(Expression[] exps, String[] fields) {
+		return tables[0].getDeleteFieldIndex(exps, fields);
+	}
 }

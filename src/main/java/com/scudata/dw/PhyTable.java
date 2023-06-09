@@ -2004,4 +2004,37 @@ abstract public class PhyTable implements IPhyTable {
 	}
 	
 	abstract public Object[] getMaxMinValue(String column) throws IOException;
+	
+	public int getDeleteFieldIndex(Expression []exps, String []fields) {
+		if (getGroupTable().hasDeleteKey()) {
+			//删除键在主键后面
+			String[] colNames = this.colNames;
+			String[] keyNames = getAllKeyColNames();
+			if (keyNames == null) return -1;
+			int keyCount = keyNames.length;
+			int colCount = colNames.length;
+			if (keyCount >= colCount) return -1;
+			String deleteKey = colNames[keyCount];
+			
+			if (exps == null) {
+				//此时以fields为准
+				if (fields == null) {
+					//全取出情况
+					return keyCount;
+				}
+				for (int i = 0, len = fields.length; i < len; i++) {
+					if (fields[i] != null && fields[i].equals(deleteKey)) {
+						return i;
+					}
+				}
+			} else {
+				for (int i = 0, len = exps.length; i < len; i++) {
+					if (exps[i] != null && exps[i].getHome() instanceof UnknownSymbol && exps[i].getIdentifierName().equals(deleteKey)) {
+						return i;
+					}
+				}
+			}
+		}
+		return -1;
+	}
 }
