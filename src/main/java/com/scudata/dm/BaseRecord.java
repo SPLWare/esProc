@@ -117,14 +117,14 @@ public abstract class BaseRecord implements IComputeItem, Externalizable, IRecor
 	 * @return int
 	 */
 	public int compare(BaseRecord r, int []fields) {
-		if (r == this) {
+		/*if (r == this) {
 			return 0;
 		} else if (r == null) {
 			return 1;
-		}
+		}*/
 
 		for (int f : fields) {
-			int result = Variant.compare(getFieldValue(f), r.getFieldValue(f), true);
+			int result = Variant.compare(getNormalFieldValue(f), r.getNormalFieldValue(f), true);
 			if (result != 0) {
 				return result;
 			}
@@ -140,7 +140,7 @@ public abstract class BaseRecord implements IComputeItem, Externalizable, IRecor
 	 * @return int
 	 */
 	public int compare(BaseRecord r, int field) {
-		return Variant.compare(getFieldValue(field), r.getFieldValue(field), true);
+		return Variant.compare(getNormalFieldValue(field), r.getNormalFieldValue(field), true);
 	}
 
 	/**
