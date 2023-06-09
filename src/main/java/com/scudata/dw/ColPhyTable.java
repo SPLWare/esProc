@@ -14,7 +14,6 @@ import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Context;
 import com.scudata.dm.DataStruct;
 import com.scudata.dm.ObjectReader;
-import com.scudata.dm.Param;
 import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.SerialBytes;

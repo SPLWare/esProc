@@ -19,6 +19,7 @@ import com.scudata.dm.cursor.ICursor;
 import com.scudata.dm.cursor.MergeCursor;
 import com.scudata.dm.cursor.MergeCursor2;
 import com.scudata.dm.cursor.MultipathCursors;
+import com.scudata.dm.cursor.UpdateMergeCursor;
 import com.scudata.expression.Expression;
 import com.scudata.resources.EngineMessage;
 
@@ -275,7 +276,101 @@ public class PhyTableGroup implements IPhyTable {
 	
 	public ICursor cursor(Expression []exps, String []fields, Expression filter, 
 			String []fkNames, Sequence []codes, String []opts, MultipathCursors mcs, String opt, Context ctx) {
-		throw new RQException("'mcursor' function is unimplemented in file group!");
+		ICursor []cursors = mcs.getCursors();
+		int pathCount = cursors.length;
+		int tableCount = tables.length;
+		ArrayList<ICursor> []lists = new ArrayList[pathCount];
+		
+		if (opt != null && opt.indexOf('w') != -1) {
+			MultipathCursors mcs2 = (MultipathCursors)tables[0].cursor(exps, fields, 
+					filter, fkNames, codes, opts, mcs, opt, ctx);
+			
+			int deleteField = getDeleteFieldIndex(exps, fields);
+			cursors = mcs2.getCursors();
+			DataStruct ds = cursors[0].getDataStruct();
+			if (ds == null) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException(mm.getMessage("ds.lessKey"));
+			}
+			
+			int []pkIndex = ds.getPKIndex();
+			if (pkIndex == null) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException(mm.getMessage("ds.lessKey"));
+			}
+			
+			for (int p = 0; p < cursors.length; ++p) {
+				lists[p] = new ArrayList<ICursor>(tableCount);
+				lists[p].add(cursors[p]);
+			}
+			
+			for (int i = 1; i < tableCount; ++i) {
+				mcs2 = (MultipathCursors)tables[i].cursor(exps, fields, 
+						filter, fkNames, codes, opts, mcs, opt, ctx);
+				cursors = mcs2.getCursors();
+				for (int p = 0; p < cursors.length; ++p) {
+					lists[p].add(cursors[p]);
+				}
+			}
+			
+			ICursor []resultCursors = new ICursor[pathCount];
+			for (int i = 0; i < pathCount; ++i) {
+				int size = lists[i].size();
+				if (size > 1) {
+					cursors = new ICursor[size];
+					lists[i].toArray(cursors);
+					resultCursors[i] = new UpdateMergeCursor(cursors, pkIndex, deleteField, ctx);
+				} else if (size == 1) {
+					resultCursors[i] = lists[i].get(0);
+				}
+			}
+			
+			return new MultipathCursors(resultCursors, ctx);
+		} else {
+			MultipathCursors mcs2 = (MultipathCursors)tables[0].cursor(exps, fields, 
+					filter, fkNames, codes, opts, mcs, opt, ctx);
+			cursors = mcs2.getCursors();
+			String []sortFields = cursors[0].getSortFields();
+			DataStruct ds = cursors[0].getDataStruct();
+			if (ds == null || sortFields == null) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException(mm.getMessage("grouptable.dataNeedSorted"));
+			}
+			
+			int fcount = sortFields.length;
+			int []findex = new int[fcount];
+			for (int i = 0; i < fcount; ++i) {
+				findex[i] = ds.getFieldIndex(sortFields[i]);
+			}
+			
+			for (int p = 0; p < cursors.length; ++p) {
+				lists[p] = new ArrayList<ICursor>(tableCount);
+				lists[p].add(cursors[p]);
+			}
+			
+			for (int i = 1; i < tableCount; ++i) {
+				mcs2 = (MultipathCursors)tables[i].cursor(exps, fields, 
+						filter, fkNames, codes, opts, mcs, opt, ctx);
+				cursors = mcs2.getCursors();
+				for (int p = 0; p < cursors.length; ++p) {
+					lists[p].add(cursors[p]);
+				}
+			}
+			
+			ICursor []resultCursors = new ICursor[pathCount];
+			for (int i = 0; i < pathCount; ++i) {
+				int size = lists[i].size();
+				if (size > 1) {
+					cursors = new ICursor[size];
+					lists[i].toArray(cursors);
+					resultCursors[i] = new MergeCursor(cursors, findex, null, ctx);
+				} else if (size == 1) {
+					resultCursors[i] = lists[i].get(0);
+				}
+			}
+			
+			return new MultipathCursors(resultCursors, ctx);
+		}
 	}
 	
 	public void rename(String[] srcFields, String[] newFields, Context ctx) throws IOException {
@@ -302,7 +397,31 @@ public class PhyTableGroup implements IPhyTable {
 			cursors[i] = tables[i].cursor(exps, fields, filter, fkNames, codes, opts, opt, ctx);
 		}
 		
-		if (opt == null || opt.indexOf('o') == -1) {
+		boolean isUpdate = false, isMerge = true;
+		if (opt != null) {
+			if (opt.indexOf('w') != -1) {
+				isUpdate = true;
+			} else if (opt.indexOf('o') != -1) {
+				isMerge = false;
+			}
+		}
+		
+		if (isUpdate) {
+			DataStruct ds = cursors[0].getDataStruct();
+			if (ds == null) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException(mm.getMessage("ds.lessKey"));
+			}
+			
+			int []pkIndex = ds.getPKIndex();
+			if (pkIndex == null) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException(mm.getMessage("ds.lessKey"));
+			}
+			
+			int deleteField = getDeleteFieldIndex(exps, fields);
+			return new UpdateMergeCursor(cursors, pkIndex, deleteField, ctx);
+		} else if (isMerge) {
 			String []sortFields = cursors[0].getSortFields();
 			DataStruct ds = cursors[0].getDataStruct();
 			if (ds == null || sortFields == null) {
@@ -331,7 +450,83 @@ public class PhyTableGroup implements IPhyTable {
 		ArrayList<ICursor> []lists = new ArrayList[pathCount];
 		ICursor cs = tables[0].cursor(exps, fields, filter, fkNames, codes, opts, pathCount, opt, ctx);
 		
-		if (opt == null || opt.indexOf('o') == -1) {
+		boolean isUpdate = false, isMerge = true;
+		if (opt != null) {
+			if (opt.indexOf('w') != -1) {
+				isUpdate = true;
+			} else if (opt.indexOf('o') != -1) {
+				isMerge = false;
+			}
+		}
+		
+		if (isUpdate) {
+			int deleteField = getDeleteFieldIndex(exps, fields);
+			if (cs instanceof MultipathCursors) {
+				MultipathCursors mcs = (MultipathCursors)cs;
+				ICursor []cursors = mcs.getCursors();
+				pathCount = cursors.length;
+				DataStruct ds = cursors[0].getDataStruct();
+				if (ds == null) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException(mm.getMessage("ds.lessKey"));
+				}
+				
+				int []pkIndex = ds.getPKIndex();
+				if (pkIndex == null) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException(mm.getMessage("ds.lessKey"));
+				}
+				
+				for (int p = 0; p < pathCount; ++p) {
+					lists[p] = new ArrayList<ICursor>(tableCount);
+					lists[p].add(cursors[p]);
+				}
+				
+				for (int i = 1; i < tableCount; ++i) {
+					MultipathCursors mcs2 = (MultipathCursors)tables[i].cursor(exps, fields, 
+							filter, fkNames, codes, opts, mcs, opt, ctx);
+					cursors = mcs2.getCursors();
+					for (int p = 0; p < cursors.length; ++p) {
+						lists[p].add(cursors[p]);
+					}
+				}
+				
+				ICursor []resultCursors = new ICursor[pathCount];
+				for (int i = 0; i < pathCount; ++i) {
+					int size = lists[i].size();
+					if (size > 1) {
+						cursors = new ICursor[size];
+						lists[i].toArray(cursors);
+						resultCursors[i] = new UpdateMergeCursor(cursors, pkIndex, deleteField, ctx);
+					} else if (size == 1) {
+						resultCursors[i] = lists[i].get(0);
+					}
+				}
+				
+				return new MultipathCursors(resultCursors, ctx);
+			} else {
+				DataStruct ds = cs.getDataStruct();
+				if (ds == null) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException(mm.getMessage("ds.lessKey"));
+				}
+				
+				int []pkIndex = ds.getPKIndex();
+				if (pkIndex == null) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException(mm.getMessage("ds.lessKey"));
+				}
+				
+				ICursor []cursors = new ICursor[tableCount];
+				cursors[0] = cs;
+				
+				for (int i = 1; i < tableCount; ++i) {
+					cursors[i] = tables[i].cursor(exps, fields, filter, fkNames, codes, opts, opt, ctx);
+				}
+								
+				return new UpdateMergeCursor(cursors, pkIndex, deleteField, ctx);
+			}
+		} else if (isMerge) {
 			if (cs instanceof MultipathCursors) {
 				MultipathCursors mcs = (MultipathCursors)cs;
 				ICursor []cursors = mcs.getCursors();
@@ -355,7 +550,7 @@ public class PhyTableGroup implements IPhyTable {
 						MultipathCursors mcs2 = (MultipathCursors)tables[i].cursor(exps, fields, 
 								filter, fkNames, codes, opts, mcs, opt, ctx);
 						cursors = mcs2.getCursors();
-						for (int p = 0; p < pathCount; ++p) {
+						for (int p = 0; p < cursors.length; ++p) {
 							lists[p].add(cursors[p]);
 						}
 					}

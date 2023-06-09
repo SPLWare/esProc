@@ -11,9 +11,7 @@ import com.scudata.array.ObjectArray;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.BaseRecord;
-import com.scudata.dm.ComputeStack;
 import com.scudata.dm.Context;
-import com.scudata.dm.Current;
 import com.scudata.dm.DataStruct;
 import com.scudata.dm.ObjectReader;
 import com.scudata.dm.Record;
@@ -3640,6 +3638,13 @@ public class Cursor extends IDWCursor {
 	
 	protected Sequence getStartBlockData(int n) {
 		// 只取第一块的记录，如果第一块没有满足条件的就返回
+		if (startBlock >= endBlock) {
+			Sequence result = appendData;
+			appendData = null;
+			appendIndex = 0;
+			return result;
+		}
+		
 		int startBlock = this.startBlock;
 		int endBlock = this.endBlock;
 		try {
