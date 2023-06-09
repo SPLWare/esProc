@@ -49,6 +49,7 @@ abstract public class ComTable implements IBlockStorage {
 	 * 字节2存放是否压缩，0：压缩，1：不压缩，
 	 * 字节3存放是否检查数据纯，0：不检查，1：检查，
 	 * 字节4存放是否有时间键，0：没有，1：有，
+	 * 字节5存放是否有删除键，0：没有，1：有，
 	 */
 	protected byte []reserve = new byte[32]; 
 	protected long freePos = 0; // 空闲位置
@@ -1235,6 +1236,20 @@ abstract public class ComTable implements IBlockStorage {
 			reserve[3] = 1;
 		} else {
 			reserve[3] = 0;
+		}
+	}
+	
+	// 返回是否有删除键
+	public boolean hasDeleteKey() {
+		return reserve[4] == 1;
+	}
+	
+	// 设置是否存在删除键
+	public void setDeleteKey(boolean hasDeleteKey) {
+		if (hasDeleteKey) {
+			reserve[4] = 1;
+		} else {
+			reserve[4] = 0;
 		}
 	}
 	

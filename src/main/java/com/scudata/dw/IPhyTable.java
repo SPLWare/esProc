@@ -272,4 +272,12 @@ public interface IPhyTable extends IResource {
 	 * @param colName 列名
 	 */
 	void deleteColumn(String colName);
+	
+	/**
+	 * 取得删除字段所在的列号
+	 * @param exps 取出表达式
+	 * @param fields 取出别名
+	 * @return
+	 */
+	int getDeleteFieldIndex(Expression []exps, String []fields);
 }

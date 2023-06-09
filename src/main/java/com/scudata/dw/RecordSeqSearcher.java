@@ -220,7 +220,7 @@ class RecordSeqSearcher {
 				this.curIndex = curRecordCount;
 				return prevRecordCount + curRecordCount;
 			} else {
-				//loadKeyValues();
+				loadKeyValues();
 				this.curIndex = 1;
 				return findNext(keyValues);
 			}
