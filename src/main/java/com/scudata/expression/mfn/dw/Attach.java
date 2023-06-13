@@ -5,6 +5,7 @@ import java.io.IOException;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
+import com.scudata.dw.ColPhyTable;
 import com.scudata.dw.IPhyTable;
 import com.scudata.expression.IParam;
 import com.scudata.expression.PhyTableFunction;
@@ -35,6 +36,12 @@ public class Attach extends PhyTableFunction {
 		
 		IParam sub0 = param.getSub(0);
 		if (sub0 == null) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("attach" + mm.getMessage("function.invalidParam"));
+		}
+		
+		//有时间键时不能建立附表
+		if (table instanceof ColPhyTable && ((ColPhyTable)table).getGroupTable().hasTimeKey()) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("attach" + mm.getMessage("function.invalidParam"));
 		}
