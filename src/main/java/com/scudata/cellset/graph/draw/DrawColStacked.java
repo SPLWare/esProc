@@ -320,7 +320,8 @@ public class DrawColStacked extends DrawBase {
 							&& gp.dispValueType == IGraphProperty.DISPDATA_NAME_PERCENTAGE) {
 						sval = getDispName(egc, egs, serNum) + "," + sval;
 					}
-				}else{
+				}else if(egc != null
+						&& gp.dispValueType != IGraphProperty.DISPDATA_NONE){
 					sval = db.getDispValue(egc,egs,gp.serNum);
 				}
 
@@ -339,7 +340,8 @@ public class DrawColStacked extends DrawBase {
 							&& gp.dispValueType == IGraphProperty.DISPDATA_NAME_PERCENTAGE) {
 						sval = getDispName(egc, egs, serNum) + "," + sval;
 					}
-				}else{
+				}else if(egc != null
+						&& gp.dispValueType != IGraphProperty.DISPDATA_NONE){
 					sval = db.getDispValue(egc,egs,gp.serNum);
 				}
 				if (StringUtils.isValidString(sval)) {

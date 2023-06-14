@@ -148,7 +148,7 @@ public class PartitionUtil {
 		return option!=null && option.indexOf("y")>-1;
 	}
 	/**
-	 * movefile@yc(fn:h,p:hs)	将分机h上的文件fn移到hs分机的p路径下，hs可是序列；h省略本机
+	 * movefile(fn:z,h;p,hs)	将分机h上的文件fn移到hs分机的p路径下，hs可是序列；h省略本机
 	 * hs省略为改名
 	 * p:hs省略删除
 	 * h和p省略但hs不空则删除hs下的文件
