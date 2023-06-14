@@ -80,6 +80,7 @@ public class PgmCellSet extends CellSet {
 
 	// func fn(arg,…)
 	transient private HashMap<String, FuncInfo> fnMap; // [函数名, 函数信息]映射
+	transient private ForkCmdCode forkCmdCode; // 当前执行的fork代码块
 
 	private String isvHash; // 有功能点14（KIT）时，写出dfx时需要写出授权文件中isv的MD5值
 
@@ -120,7 +121,16 @@ public class PgmCellSet extends CellSet {
 			this.seq = n;
 		}
 	}
+	
+	private static class ForkCmdCode extends CmdCode {
+		protected int seq = 0; // fork线程序号
 
+		public ForkCmdCode(int r, int c, int endRow, int seq) {
+			super(Command.FORK, r, c, endRow);
+			this.seq = seq;
+		}
+	}
+	
 	private static class EndlessForCmdCode extends ForCmdCode {
 		public EndlessForCmdCode(int r, int c, int endRow) {
 			super(r, c, endRow);
@@ -791,6 +801,10 @@ public class PgmCellSet extends CellSet {
 			}
 		}
 
+		if (forkCmdCode != null && forkCmdCode.row == r && forkCmdCode.col == c) {
+			return forkCmdCode.seq;
+		}
+		
 		MessageManager mm = EngineMessage.get();
 		throw new RQException("#" + CellLocation.getCellId(r, c)
 				+ mm.getMessage("engine.needInFor"));
@@ -1454,6 +1468,8 @@ public class PgmCellSet extends CellSet {
 			for (int i = 0; i < mcount; ++i) {
 				// 如果是游标重新设置一下上下文，否则游标里附加的运算用同一个上下文会受影响
 				PgmCellSet pcs = newForkPgmCellSet(row, col, endRow, ctx, true);
+				pcs.forkCmdCode = new ForkCmdCode(row, col, endRow, i + 1);
+				
 				Context newCtx = pcs.getContext();
 
 				Object val;

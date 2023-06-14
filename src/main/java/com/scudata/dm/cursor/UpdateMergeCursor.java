@@ -6,29 +6,29 @@ import com.scudata.dm.Sequence;
 import com.scudata.util.Variant;
 
 /**
- * 纯结构的多个游标做有序归并运算形成的游标
- * CS.mergex(xi,…)
+ * 用于组表及其更新分表做有序合并
+ * T.cursor@w(...)
  * @author RunQian
  *
  */
 public class UpdateMergeCursor extends ICursor {
 	private ICursor []cursors; // 游标内数据已经按归并字段升序排序
 	private int []fields; // 归并字段
-	private int deleteField; // 删除标志字段
+	private int deleteField; // 删除标识字段，如果没有删除标识字段则为-1
 	
 	private int field = -1; // 单字段归并时使用
 	private ICursor cs1;
-	private ICursor cs2;
+	private ICursor cs2; // 后面的游标先归并成一个游标
 	private Sequence data1; // 游标1缓存的数据
 	private Sequence data2; // 游标2缓存的数据
 	private int cur1; // 游标1当前记录在缓存数据中的索引
 	private int cur2; // 游标2当前记录在缓存数据中的索引
 	
 	/**
-	 * 构建有效归并游标
+	 * 构建组表及其更新分表组成的游标
 	 * @param cursors 游标数组
 	 * @param fields 关联字段索引
-	 * @param opt 选项
+	 * @param deleteField 删除标识字段索引
 	 * @param ctx 计算上下文
 	 */
 	public UpdateMergeCursor(ICursor []cursors, int []fields, int deleteField, Context ctx) {
@@ -58,7 +58,7 @@ public class UpdateMergeCursor extends ICursor {
 	}
 	
 	/**
-	 * 填充各个游标的缓冲区，若缓冲区内有数据则直接返回。
+	 * 做初始化动作
 	 */
 	private void init() {
 		int count = cursors.length;
@@ -67,6 +67,7 @@ public class UpdateMergeCursor extends ICursor {
 		if (count == 2) {
 			cs2 = cursors[1];
 		} else {
+			// 如果游标数多于两个，则后面的游标先归并成一个游标
 			ICursor []subs = new ICursor[count - 1];
 			System.arraycopy(cursors, 1, subs, 0, count - 1);
 			cs2 = new UpdateMergeCursor(subs, fields, deleteField, ctx);
@@ -121,6 +122,7 @@ public class UpdateMergeCursor extends ICursor {
 		}
 	}
 	
+	// 单字段主键没有删除标识字段时的合并
 	private Sequence merge(int n, int field, Sequence table) {
 		Sequence data1 = this.data1;
 		Sequence data2 = this.data2;
@@ -264,6 +266,7 @@ public class UpdateMergeCursor extends ICursor {
 		}
 	}
 	
+	// 多字段主键没有删除标识字段时的合并
 	private Sequence merge(int n, int []fields, Sequence table) {
 		Sequence data1 = this.data1;
 		Sequence data2 = this.data2;
@@ -407,6 +410,7 @@ public class UpdateMergeCursor extends ICursor {
 		}
 	}
 
+	// 单字段主键且有删除标识字段时的合并
 	private Sequence merge(int n, int field, int deleteField, Sequence table) {
 		Sequence data1 = this.data1;
 		Sequence data2 = this.data2;
@@ -556,6 +560,7 @@ public class UpdateMergeCursor extends ICursor {
 		}
 	}
 
+	// 多字段主键且有删除标识字段时的合并
 	private Sequence merge(int n, int []fields, int deleteField, Sequence table) {
 		Sequence data1 = this.data1;
 		Sequence data2 = this.data2;
