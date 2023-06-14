@@ -10,6 +10,7 @@ import com.scudata.dm.Context;
 import com.scudata.expression.Function;
 import com.scudata.expression.IParam;
 import com.scudata.resources.EngineMessage;
+import com.scudata.util.Variant;
 
 /**
  * 将字符串、数字或日期转换成64位长整数
@@ -68,11 +69,7 @@ public class ToLong extends Function {
 				throw new RQException("long" + mm.getMessage("function.paramTypeError"));
 			}
 			
-			try {
-				return Long.parseLong((String)str, ((Number)radix).intValue());
-			} catch (NumberFormatException e) {
-				return null;
-			}
+			return Variant.parseLong((String)str, ((Number)radix).intValue());
 		} else {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException("long" + mm.getMessage("function.invalidParam"));
@@ -146,7 +143,7 @@ public class ToLong extends Function {
 			for (int i = 1; i <= len; ++i) {
 				Object str = array.get(i);
 				if (str instanceof String) {
-					result.pushLong(Long.parseLong((String)str, radix));
+					result.pushLong(Variant.parseLongValue((String)str, radix));
 				} else if (str == null) {
 					result.pushNull();
 				} else {

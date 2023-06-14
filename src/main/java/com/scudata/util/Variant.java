@@ -2365,56 +2365,127 @@ public class Variant {
 		}
 	}
 
-	private static Long parseLong(String s, int radix) {
-		long result = 0;
-		boolean negative = false;
-		int i = 0, max = s.length();
-		long limit;
-		long multmin;
-		int digit;
-
-		if (max > 0) {
-			if (s.charAt(0) == '-') {
-				negative = true;
-				limit = Long.MIN_VALUE;
-				i++;
-			} else {
-				limit = -Long.MAX_VALUE;
+	/**
+	 * 解析指定进制的长整数
+	 * @param s 长整数字符串
+	 * @param radix 进制
+	 * @return Long
+	 */
+	public static Long parseLong(String s, int radix) {
+		int len = s.length();
+		if (len == 0) {
+			return null;
+		} else if (s.charAt(0) == '-') {
+			if (len == 1) {
+				return null;
 			}
-			multmin = limit / radix;
-			if (i < max) {
-				digit = Character.digit(s.charAt(i++), radix);
-				if (digit < 0) {
-					return null;
-				} else {
-					result = -digit;
-				}
-			} while (i < max) {
+			
+			long result = 0;
+			int digit = Character.digit(s.charAt(1), radix);
+			if (digit < 0) {
+				return null;
+			} else {
+				result = -digit;
+			}
+			
+			long limit = Long.MIN_VALUE;
+			long multmin = limit / radix;
+			
+			for (int i = 2; i < len; ++i) {
 				// Accumulating negatively avoids surprises near MAX_VALUE
-				digit = Character.digit(s.charAt(i++), radix);
+				digit = Character.digit(s.charAt(i), radix);
 				if (digit < 0) {
 					return null;
-				}
-				if (result < multmin) {
+				} else if (result < multmin) {
 					return null;
 				}
+				
 				result *= radix;
 				if (result < limit + digit) {
 					return null;
 				}
 				result -= digit;
 			}
+			
+			return result;
 		} else {
-			return null;
-		}
-		if (negative) {
-			if (i > 1) {
-				return new Long(result);
-			} else { /* Only got "-" */
+			long result = Character.digit(s.charAt(0), radix);
+			if (result < 0) {
 				return null;
 			}
+			
+			for (int i = 1; i < len; ++i) {
+				int digit = Character.digit(s.charAt(i), radix);
+				if (digit < 0) {
+					return null;
+				}
+				
+				result = result * radix + digit;
+			}
+			
+			return result;
+		}
+	}
+	
+	/**
+	 * 解析指定进制的长整数
+	 * @param s 长整数字符串
+	 * @param radix 进制
+	 * @return long如果格式不对则抛出NumberFormatException异常
+	 */
+	public static long parseLongValue(String s, int radix) {
+		int len = s.length();
+		if (len == 0) {
+			throw new NumberFormatException("null");
+		} else if (s.charAt(0) == '-') {
+			if (len == 1) {
+				 throw new NumberFormatException(s);
+			}
+			
+			long result = 0;
+			int digit = Character.digit(s.charAt(1), radix);
+			if (digit < 0) {
+				throw new NumberFormatException(s);
+			} else {
+				result = -digit;
+			}
+			
+			long limit = Long.MIN_VALUE;
+			long multmin = limit / radix;
+			
+			for (int i = 2; i < len; ++i) {
+				// Accumulating negatively avoids surprises near MAX_VALUE
+				digit = Character.digit(s.charAt(i), radix);
+				if (digit < 0) {
+					throw new NumberFormatException(s);
+				} else if (result < multmin) {
+					throw new NumberFormatException(s);
+				}
+				
+				result *= radix;
+				if (result < limit + digit) {
+					throw new NumberFormatException(s);
+				}
+				result -= digit;
+			}
+			
+			return result;
 		} else {
-			return new Long(-result);
+			long result = Character.digit(s.charAt(0), radix);
+			if (result < 0) {
+				throw new NumberFormatException(s);
+			}
+			
+			for (int i = 1; i < len; ++i) {
+				int digit = Character.digit(s.charAt(i), radix);
+				if (digit < 0) {
+					throw new NumberFormatException(s);
+				}
+				
+				result = result * radix + digit;
+			}
+			
+			return result;
 		}
 	}
 	
