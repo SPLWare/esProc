@@ -40,8 +40,19 @@ public class ConfigConsts {
 	 */
 	/** Database configuration list */
 	public static String DB_LIST = "DBList";
+	/**
+	 * 加密级别
+	 */
+	/** 明文 */
+	public static final byte ENCRYPT_NONE = 0;
+	/** 密码加密 */
+	public static final byte ENCRYPT_PASSWORD = 1;
+	/** URL、用户和密码加密 */
+	public static final byte ENCRYPT_URL_USER_PASSWORD = 2;
 	/** Encrypt level */
 	public static String ENCRYPT_LEVEL = "encryptLevel";
+	/** 加密解密实现类 */
+	public static String PWD_CLASS = "pwdClass";
 	/** Database node */
 	public static String DB = "DB";
 	/** Database property */

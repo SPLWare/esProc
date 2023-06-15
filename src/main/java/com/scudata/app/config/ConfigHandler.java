@@ -12,6 +12,7 @@ import com.scudata.common.DBConfig;
 import com.scudata.common.DBTypes;
 import com.scudata.common.JNDIConfig;
 import com.scudata.common.Logger;
+import com.scudata.common.PwdUtils;
 import com.scudata.common.SpringDBConfig;
 import com.scudata.common.StringUtils;
 
@@ -74,6 +75,44 @@ public class ConfigHandler extends DefaultHandler {
 		} else if (qName.equalsIgnoreCase(ConfigConsts.DB_LIST)) {
 			config.setDBList(new ArrayList<DBConfig>());
 			activeNode = RUNTIME_DB;
+			String sEncryptLevel = null;
+			try {
+				sEncryptLevel = attributes.getValue(ConfigConsts.ENCRYPT_LEVEL);
+			} catch (Exception e) {
+			}
+			if (StringUtils.isValidString(sEncryptLevel))
+				try {
+					byte encryptLevel = Byte.parseByte(sEncryptLevel);
+					switch (encryptLevel) {
+					case ConfigConsts.ENCRYPT_NONE:
+					case ConfigConsts.ENCRYPT_PASSWORD:
+					case ConfigConsts.ENCRYPT_URL_USER_PASSWORD:
+						config.setEncryptLevel(encryptLevel);
+						break;
+					default:
+						Logger.debug("Invalid " + ConfigConsts.ENCRYPT_LEVEL
+								+ ": " + sEncryptLevel);
+						break;
+					}
+				} catch (Exception ex) {
+					Logger.debug("Invalid " + ConfigConsts.ENCRYPT_LEVEL + ": "
+							+ sEncryptLevel);
+				}
+			String pwdClass = null;
+			try {
+				pwdClass = attributes.getValue(ConfigConsts.PWD_CLASS);
+			} catch (Exception e) {
+			}
+			if (StringUtils.isValidString(pwdClass)) {
+				config.setPwdClass(pwdClass);
+				try {
+					ConfigUtil.setPwdClass(pwdClass);
+				} catch (Exception e) {
+					Logger.debug("Invalid " + ConfigConsts.PWD_CLASS + ": "
+							+ pwdClass);
+					Logger.error(e);
+				}
+			}
 		} else if (qName.equalsIgnoreCase(ConfigConsts.XMLA_LIST)) {
 			config.setXmlaList(new ArrayList<Xmla>());
 			activeNode = RUNTIME_XMLA;
@@ -117,6 +156,17 @@ public class ConfigHandler extends DefaultHandler {
 					if (name != null && name.trim().length() > 0
 							&& value != null && value.trim().length() > 0) {
 						if (name.equalsIgnoreCase(ConfigConsts.DB_URL)) {
+							byte encryptLevel = config.getEncryptLevel();
+							if (encryptLevel == ConfigConsts.ENCRYPT_URL_USER_PASSWORD) {
+								try {
+									value = PwdUtils.decrypt(value);
+								} catch (Exception e) {
+									Logger.debug("Invalid "
+											+ ConfigConsts.DB_URL + ": "
+											+ value);
+									Logger.error(e);
+								}
+							}
 							db.setUrl(value);
 						} else if (name
 								.equalsIgnoreCase(ConfigConsts.DB_DRIVER)) {
@@ -129,9 +179,32 @@ public class ConfigHandler extends DefaultHandler {
 								db.setDBType(DBTypes.getDBType(value));
 							}
 						} else if (name.equalsIgnoreCase(ConfigConsts.DB_USER)) {
+							byte encryptLevel = config.getEncryptLevel();
+							if (encryptLevel == ConfigConsts.ENCRYPT_URL_USER_PASSWORD) {
+								try {
+									value = PwdUtils.decrypt(value);
+								} catch (Exception e) {
+									Logger.debug("Invalid "
+											+ ConfigConsts.DB_USER + ": "
+											+ value);
+									Logger.error(e);
+								}
+							}
 							db.setUser(value);
 						} else if (name
 								.equalsIgnoreCase(ConfigConsts.DB_PASSWORD)) {
+							byte encryptLevel = config.getEncryptLevel();
+							if (encryptLevel == ConfigConsts.ENCRYPT_PASSWORD
+									|| encryptLevel == ConfigConsts.ENCRYPT_URL_USER_PASSWORD) {
+								try {
+									value = PwdUtils.decrypt(value);
+								} catch (Exception e) {
+									Logger.debug("Invalid "
+											+ ConfigConsts.DB_PASSWORD + ": "
+											+ value);
+									Logger.error(e);
+								}
+							}
 							db.setPassword(value);
 						} else if (name
 								.equalsIgnoreCase(ConfigConsts.DB_BATCH_SIZE)) {

@@ -21,6 +21,7 @@ import org.xml.sax.helpers.AttributesImpl;
 import com.scudata.app.common.Segment;
 import com.scudata.common.DBConfig;
 import com.scudata.common.JNDIConfig;
+import com.scudata.common.PwdUtils;
 import com.scudata.common.SpringDBConfig;
 import com.scudata.common.StringUtils;
 import com.scudata.parallel.UnitConfig;
@@ -182,8 +183,11 @@ public class ConfigWriter {
 		List<DBConfig> dbList = config.getDBList();
 		List<String> autoConnectedList = config.getAutoConnectList();
 		level = 2;
-		startElement(ConfigConsts.DB_LIST, null);
+		startElement(ConfigConsts.DB_LIST, getAttributesImpl(new String[] {
+				ConfigConsts.ENCRYPT_LEVEL, config.getEncryptLevel() + "",
+				ConfigConsts.PWD_CLASS, config.getPwdClass() }));
 		if (dbList != null) {
+			byte encryptLevel = config.getEncryptLevel();
 			DBConfig dbConfig;
 			for (int i = 0, size = dbList.size(); i < size; i++) {
 				dbConfig = dbList.get(i);
@@ -191,13 +195,25 @@ public class ConfigWriter {
 				startElement(ConfigConsts.DB, getAttributesImpl(new String[] {
 						ConfigConsts.NAME, dbConfig.getName() }));
 				level = 4;
-				writeNameValueElement(ConfigConsts.DB_URL, dbConfig.getUrl());
+				String url = dbConfig.getUrl();
+				if (encryptLevel == ConfigConsts.ENCRYPT_URL_USER_PASSWORD) {
+					url = PwdUtils.encrypt(url);
+				}
+				writeNameValueElement(ConfigConsts.DB_URL, url);
 				writeNameValueElement(ConfigConsts.DB_DRIVER,
 						dbConfig.getDriver());
 				writeNameValueElement(ConfigConsts.DB_TYPE,
 						dbConfig.getDBType() + "");
-				writeNameValueElement(ConfigConsts.DB_USER, dbConfig.getUser());
+				String user = dbConfig.getUser();
+				if (encryptLevel == ConfigConsts.ENCRYPT_URL_USER_PASSWORD) {
+					user = PwdUtils.encrypt(user);
+				}
+				writeNameValueElement(ConfigConsts.DB_USER, user);
 				String pwd = dbConfig.getPassword();
+				if (encryptLevel == ConfigConsts.ENCRYPT_PASSWORD
+						|| encryptLevel == ConfigConsts.ENCRYPT_URL_USER_PASSWORD) {
+					pwd = PwdUtils.encrypt(pwd);
+				}
 				writeNameValueElement(ConfigConsts.DB_PASSWORD, pwd);
 				writeNameValueElement(ConfigConsts.DB_BATCH_SIZE,
 						dbConfig.getBatchSize() + "");

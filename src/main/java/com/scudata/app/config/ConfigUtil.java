@@ -27,9 +27,12 @@ import com.scudata.common.ArgumentTokenizer;
 import com.scudata.common.DBConfig;
 import com.scudata.common.Escape;
 import com.scudata.common.IOUtils;
+import com.scudata.common.IPwd;
 import com.scudata.common.ISessionFactory;
 import com.scudata.common.JNDIConfig;
 import com.scudata.common.Logger;
+import com.scudata.common.Pwd;
+import com.scudata.common.PwdUtils;
 import com.scudata.common.RQException;
 import com.scudata.common.SpringDBConfig;
 import com.scudata.common.StringUtils;
@@ -908,4 +911,12 @@ public class ConfigUtil {
 		return IOUtils.getPath(home, path);
 	}
 
+	public static void setPwdClass(String pwdClass) throws Exception {
+		if (StringUtils.isValidString(pwdClass)) {
+			IPwd pwdClz = (IPwd) Class.forName(pwdClass).newInstance();
+			PwdUtils.set(pwdClz);
+		} else {
+			PwdUtils.set(new Pwd());
+		}
+	}
 }

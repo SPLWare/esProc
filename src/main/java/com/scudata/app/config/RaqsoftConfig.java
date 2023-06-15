@@ -21,6 +21,14 @@ public class RaqsoftConfig implements Cloneable, Externalizable {
 	/** Runtime */
 	/** Database configuration list */
 	private List<DBConfig> dbList = null;
+	/**
+	 * Encrypt Level. ConfigConstsEE.ENCRYPT_NONE,
+	 * ConfigConstsEE.ENCRYPT_PASSWORD,ConfigConstsEE.ENCRYPT_URL_USER_PASSWORD
+	 */
+	private byte encryptLevel = ConfigConsts.ENCRYPT_NONE;
+
+	private String pwdClass = null; // 加密解密工具类
+
 	/** Esproc */
 	/** Main path */
 	private String mainPath = null;
@@ -115,6 +123,42 @@ public class RaqsoftConfig implements Cloneable, Externalizable {
 	 */
 	public void setDBList(List<DBConfig> dbList) {
 		this.dbList = dbList;
+	}
+
+	/**
+	 * Get encrypt Level. ConfigConstsReport.ENCRYPT_NONE,
+	 * ConfigConstsReport.ENCRYPT_PASSWORD,ConfigConstsEE.ENCRYPT_URL_USER_PASSWORD
+	 * 
+	 * @return
+	 */
+	public byte getEncryptLevel() {
+		return encryptLevel;
+	}
+
+	/**
+	 * Set encrypt Level. ConfigConstsReport.ENCRYPT_NONE,
+	 * ConfigConstsReport.ENCRYPT_PASSWORD,ConfigConstsEE.ENCRYPT_URL_USER_PASSWORD
+	 * 
+	 * @param encryptLevel
+	 */
+	public void setEncryptLevel(byte encryptLevel) {
+		this.encryptLevel = encryptLevel;
+	}
+
+	/**
+	 * 加密解密工具类
+	 * @return the pwdClass
+	 */
+	public String getPwdClass() {
+		return pwdClass;
+	}
+
+	/**
+	 * 加密解密工具类
+	 * @param pwdClass the pwdClass to set
+	 */
+	public void setPwdClass(String pwdClass) {
+		this.pwdClass = pwdClass;
 	}
 
 	/**
@@ -701,6 +745,8 @@ public class RaqsoftConfig implements Cloneable, Externalizable {
 			}
 			config.setDBList(cloneDBList);
 		}
+		config.setEncryptLevel(encryptLevel);
+		config.setPwdClass(pwdClass);
 		config.setMainPath(mainPath);
 		if (splPathList != null) {
 			List<String> cloneSplPathList = new ArrayList<String>();
@@ -775,7 +821,7 @@ public class RaqsoftConfig implements Cloneable, Externalizable {
 	 */
 	public void writeExternal(ObjectOutput out) throws IOException {
 		/* Version type */
-		out.writeByte(4);
+		out.writeByte(5);
 		out.writeObject(dbList);
 		out.writeObject(mainPath);
 		out.writeObject(splPathList);
@@ -808,6 +854,8 @@ public class RaqsoftConfig implements Cloneable, Externalizable {
 		out.writeObject(customFunctionFile);
 		out.writeObject(springDBList);
 		out.writeObject(esprocSerialNo);
+		out.writeByte(encryptLevel);
+		out.writeObject(pwdClass);
 	}
 
 	/**
@@ -856,6 +904,10 @@ public class RaqsoftConfig implements Cloneable, Externalizable {
 		}
 		if (version > 3) {
 			esprocSerialNo = (String) in.readObject();
+		}
+		if (version > 4) {
+			encryptLevel = in.readByte();
+			pwdClass = (String) in.readObject();
 		}
 	}
 
