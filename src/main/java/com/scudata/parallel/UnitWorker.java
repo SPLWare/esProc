@@ -1,5 +1,7 @@
 package com.scudata.parallel;
 
+import java.io.Serializable;
+
 import com.scudata.common.MessageManager;
 import com.scudata.dm.Env;
 import com.scudata.dm.ZoneManager;
@@ -114,7 +116,6 @@ public class UnitWorker extends Thread {
 					setName("UnitWorker[execute cmd]:"+req);
 					response = UnitServer.getInstance().execute(req);
 				}
-
 				socketData.write(response);
 			}
 		} catch (Exception x) {

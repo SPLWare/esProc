@@ -1,5 +1,6 @@
 package com.scudata.parallel;
 
+import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +27,7 @@ import com.scudata.dm.cursor.MemoryCursor;
 import com.scudata.ide.spl.Esprocx;
 import com.scudata.resources.ParallelMessage;
 import com.scudata.server.odbc.OdbcServer;
+import com.scudata.server.unit.JdbcTask;
 import com.scudata.server.unit.UnitServer;
 import com.scudata.thread.Job;
 import com.scudata.util.CellSetUtil;
@@ -335,7 +337,7 @@ public class Task extends Job implements IResource, ITask {
 		}
 
 		while (pcs.hasNextResult()) {
-			Object tmp = pcs.nextResult();
+			Object tmp = JdbcTask.checkResult( pcs.nextResult() );
 			if (!isLocalExecute && (tmp instanceof ICursor)) {
 				int proxyId = UnitServer.nextId();
 				RemoteCursorProxyManager rcpm = getCursorManager();

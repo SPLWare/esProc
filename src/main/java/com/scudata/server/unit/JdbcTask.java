@@ -1,5 +1,6 @@
 package com.scudata.server.unit;
 
+import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Map;
@@ -51,14 +52,22 @@ public class JdbcTask {
 		if (result instanceof PgmCellSet) {
 			PgmCellSet cs = (PgmCellSet) result;
 			while (cs.hasNextResult()) {
-				seq.add(cs.nextResult());
+				seq.add(checkResult(cs.nextResult()));
 			}
 		} else {
-			seq.add(result);
+			seq.add(checkResult(result));
 		}
 		return seq;
 	}
 
+	public static Object checkResult(Object r) throws Exception{
+		if(!(r instanceof Serializable)) {
+			throw new Exception("Return result "+r.getClass().getName()+" is not supportted.");
+		}
+		return r;
+	}
+
+	
 	/**
 	 * 取消当前任务
 	 * @return 成功取消返回true
