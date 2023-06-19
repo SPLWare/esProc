@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 
 import com.scudata.common.MessageManager;
+import com.scudata.common.ObjectCache;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
 import com.scudata.dm.Sequence;
@@ -379,7 +380,9 @@ public class Bits extends Function {
 		int radix = 2; // 默认2进制
 		boolean isBool = false, returnString = false, returnDecimal = false, bigEnding = false;
 		if (option != null) {
-			if (option.indexOf('h') != -1) {
+			if (option.indexOf('1') != -1) {
+				return ObjectCache.getInteger(bitCount(param, ctx));
+			} else if (option.indexOf('h') != -1) {
 				radix = 16;
 			} else if (option.indexOf('d') != -1) {
 				radix = 10;
@@ -455,6 +458,46 @@ public class Bits extends Function {
 			return bi;
 		} else {
 			return toLong(param, ctx, radix, isBool, bigEnding);
+		}
+	}
+	
+	// 取数的二进制位是1的个数
+	private static int bitCount(Object obj) {
+		if (obj instanceof Long) {
+			return Long.bitCount((Long)obj);
+		} else if (obj instanceof BigInteger) {
+			return ((BigInteger)obj).bitCount();
+		} else if (obj instanceof Number) {
+			return Integer.bitCount(((Number)obj).intValue());
+		} else if (obj == null) {
+			return 0;
+		} else {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("bits" + mm.getMessage("function.paramTypeError"));
+		}
+	}
+	
+	// 取数的二进制位是1的个数
+	private static int bitCount(IParam param, Context ctx) {
+		if (param.isLeaf()) {
+			Object obj = param.getLeafExpression().calculate(ctx);
+			return bitCount(obj);
+		} else {
+			int size = param.getSubSize();
+			int count = 0;
+			
+			for (int i = 0; i < size; ++i) {
+				IParam sub = param.getSub(i);
+				if (sub == null || !sub.isLeaf()) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException("bits" + mm.getMessage("function.invalidParam"));
+				}
+				
+				Object obj = sub.getLeafExpression().calculate(ctx);
+				count += bitCount(obj);
+			}
+			
+			return count;
 		}
 	}
 }
