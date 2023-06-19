@@ -2188,7 +2188,11 @@ public class SimpleSelect
 				throw new RQException(mm.getMessage("syntax.error") + ":LikeNode.toExpression, 无效的Like节点");
 			}
 			
-			String pattern = "\""+this.token.toString()+"\"";
+			//xingjl 20230619
+			String tt = this.token.toString();
+			if (tt.indexOf("'") == 0 && tt.lastIndexOf("'") == tt.length() - 1) tt = tt.substring(1,tt.length()-1);
+			
+			String pattern = "\""+tt+"\"";
 			
 			if (token.getType() == Tokenizer.PARAMMARK) {
 				ParamNode paramNode = new ParamNode();
