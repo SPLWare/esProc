@@ -586,7 +586,7 @@ public class DialogDataSource extends JDialog implements IDataSourceEditor {
 			jListDS = new DataSourceList(dslm);
 			initUI();
 			resetLangText();
-			setSize(400, 300);
+			setSize(GM.isChineseLanguage() ? 400 : 500, 300);
 			GM.setDialogDefaultButton(this, jBConnect, jBClose);
 			setResizable(true);
 		} catch (Exception ex) {
