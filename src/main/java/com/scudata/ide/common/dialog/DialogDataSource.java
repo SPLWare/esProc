@@ -488,24 +488,24 @@ public class DialogDataSource extends JDialog implements IDataSourceEditor {
 			encryptLevel = ConfigConsts.ENCRYPT_NONE;
 		}
 		RaqsoftConfig config = (RaqsoftConfig) GV.config;
-		int oldEncryptLevel = config.getEncryptLevel();
-		String oldPwdClass = config.getPwdClass();
+		// int oldEncryptLevel = config.getEncryptLevel();
+		// String oldPwdClass = config.getPwdClass();
 		config.setEncryptLevel(encryptLevel);
 
 		String pwdClass = jTFPwdClass.getText();
-		boolean pwdClassChanged = false;
-		if (oldEncryptLevel == ConfigConsts.ENCRYPT_PASSWORD
-				|| oldEncryptLevel == ConfigConsts.ENCRYPT_URL_USER_PASSWORD) {
-			if (StringUtils.isValidString(pwdClass)) {
-				pwdClassChanged = !pwdClass.equals(oldPwdClass);
-			} else {
-				pwdClassChanged = StringUtils.isValidString(oldPwdClass);
-			}
-		}
-		// 如果加密算法换了，先要用之前的加密算法，给密码解密，再用新算法加密
-		if (pwdClassChanged) {
-			decryptDataSource();
-		}
+		// boolean pwdClassChanged = false;
+		// if (oldEncryptLevel == ConfigConsts.ENCRYPT_PASSWORD
+		// || oldEncryptLevel == ConfigConsts.ENCRYPT_URL_USER_PASSWORD) {
+		// if (StringUtils.isValidString(pwdClass)) {
+		// pwdClassChanged = !pwdClass.equals(oldPwdClass);
+		// } else {
+		// pwdClassChanged = StringUtils.isValidString(oldPwdClass);
+		// }
+		// }
+		// 如果加密算法换了，先要用之前的算法解密
+		// if (pwdClassChanged) {
+		// decryptDataSource();
+		// }
 		if (StringUtils.isValidString(pwdClass)) {
 			try {
 				ConfigUtil.setPwdClass(pwdClass);
@@ -516,14 +516,15 @@ public class DialogDataSource extends JDialog implements IDataSourceEditor {
 				} else {
 					GM.showException(e);
 				}
-				if (pwdClassChanged) { // 如果新加密工具出错，用之前的加密算法重新加密
-					encryptDataSource();
-				}
+				// if (pwdClassChanged) { // 如果新加密工具出错，用之前的加密算法重新加密
+				// encryptDataSource();
+				// }
 				return false;
 			}
-			if (pwdClassChanged) {
-				encryptDataSource();
-			}
+			// if (encryptLevel == ConfigConsts.ENCRYPT_PASSWORD
+			// || encryptLevel == ConfigConsts.ENCRYPT_URL_USER_PASSWORD) {
+			// encryptDataSource();
+			// }
 			GV.config.setPwdClass(jTFPwdClass.getText());
 		} else {
 			try {
@@ -531,37 +532,38 @@ public class DialogDataSource extends JDialog implements IDataSourceEditor {
 			} catch (Exception e) {
 				GM.showException(e);
 			}
-			if (pwdClassChanged) {
-				encryptDataSource();
-			}
+			// if (encryptLevel == ConfigConsts.ENCRYPT_PASSWORD
+			// || encryptLevel == ConfigConsts.ENCRYPT_URL_USER_PASSWORD) {
+			// encryptDataSource();
+			// }
 			GV.config.setPwdClass(null);
 		}
 		return true;
 	}
 
-	private void decryptDataSource() {
-		for (int i = 0; i < GV.dsModel.getSize(); i++) {
-			DataSource ds = GV.dsModel.getDataSource(i);
-			DBConfig dbConfig = ds.getDBConfig();
-			String pwd = dbConfig.getPassword();
-			if (StringUtils.isValidString(pwd)) {
-				pwd = PwdUtils.decrypt(pwd);
-				dbConfig.setPassword(pwd);
-			}
-		}
-	}
+	// private void decryptDataSource() {
+	// for (int i = 0; i < GV.dsModel.getSize(); i++) {
+	// DataSource ds = GV.dsModel.getDataSource(i);
+	// DBConfig dbConfig = ds.getDBConfig();
+	// String pwd = dbConfig.getPassword();
+	// if (StringUtils.isValidString(pwd)) {
+	// pwd = PwdUtils.decrypt(pwd);
+	// dbConfig.setPassword(pwd);
+	// }
+	// }
+	// }
 
-	private void encryptDataSource() {
-		for (int i = 0; i < GV.dsModel.getSize(); i++) {
-			DataSource ds = GV.dsModel.getDataSource(i);
-			DBConfig dbConfig = ds.getDBConfig();
-			String pwd = dbConfig.getPassword();
-			if (StringUtils.isValidString(pwd)) {
-				pwd = PwdUtils.encrypt(pwd);
-				dbConfig.setPassword(pwd);
-			}
-		}
-	}
+	// private void encryptDataSource() {
+	// for (int i = 0; i < GV.dsModel.getSize(); i++) {
+	// DataSource ds = GV.dsModel.getDataSource(i);
+	// DBConfig dbConfig = ds.getDBConfig();
+	// String pwd = dbConfig.getPassword();
+	// if (StringUtils.isValidString(pwd)) {
+	// pwd = PwdUtils.encrypt(pwd);
+	// dbConfig.setPassword(pwd);
+	// }
+	// }
+	// }
 
 	private void encryptLevelChanged() {
 		int level = jCBEncryptLevel.getSelectedIndex();

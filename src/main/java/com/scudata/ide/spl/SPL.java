@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GraphicsEnvironment;
+import java.awt.GridBagLayout;
 import java.awt.Toolkit;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
@@ -23,6 +24,7 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -149,6 +151,12 @@ public class SPL extends AppFrame {
 	 * 资源树控件
 	 */
 	protected FileTree fileTree;
+
+	protected JPanel jPFileTree = new JPanel(new BorderLayout());
+
+	protected JPanel jPFileTreeMessage = new JPanel(new GridBagLayout());
+
+	protected JLabel jLFileTreeMessage = new JLabel();
 
 	/**
 	 * 集算器资源管理器
@@ -301,8 +309,11 @@ public class SPL extends AppFrame {
 			JTabbedPane jTPRight = new JTabbedPane();
 			jTPRight.setMinimumSize(new Dimension(0, 0));
 
-			jTPLeft.addTab(mm.getMessage("public.file"), new JScrollPane(
-					fileTree));
+			jPFileTree.add(new JScrollPane(fileTree), BorderLayout.CENTER);
+			jPFileTree.add(jPFileTreeMessage, BorderLayout.SOUTH);
+			jPFileTreeMessage.add(jLFileTreeMessage, GM.getGBC(0, 0, true));
+			jPFileTreeMessage.setVisible(false);
+			jTPLeft.addTab(mm.getMessage("public.file"), jPFileTree);
 
 			jTPRight.addTab(mm.getMessage("dfx.tabvalue"), panelValue);
 			tabParam = new JTabbedParam() {
