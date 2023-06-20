@@ -434,7 +434,7 @@ public class SimpleSelect
 						if (this.fields != null) {
 							Expression[] exps2 = new Expression[fields.length];
 							for (int m=0; m<fields.length; m++) {
-								exps2[m] = new Expression("'"+fields[m]+"'");
+								exps2[m] = new Expression("'"+fields[m]+"'"); 
 							}
 
 							cursors[i].addOperation(new New(null, exps2, this.fields, null), ctx);
