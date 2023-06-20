@@ -57,6 +57,9 @@ public class LogicAnd extends IFilter {
 		And and = new And();
 		left.initExp();
 		right.initExp();
+		if (left.exp == null || right.exp == null) {
+			return;
+		}
 		and.setLeft(left.exp.getHome());
 		and.setRight(right.exp.getHome());
 		exp = new Expression(and);

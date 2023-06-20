@@ -59,22 +59,33 @@ public class Update extends PhyTableFunction {
 				result = null;
 			}
 		} else if (obj instanceof Sequence) {
-			if (hasW) {
-				ICursor cs = new MemoryCursor((Sequence)obj);
-				updateColumn(cs, opt);
-				result = table;
+			Sequence seq = (Sequence) obj;
+			if (seq.length() == 0) {
+				if (!hasN) {
+					result = table;
+				} else {
+					result = null;
+				}
 			} else {
-				try {
-					if (!hasN) {
-						table.update((Sequence)obj, opt);
-						result = table;
-					} else {
-						result = table.update((Sequence)obj, opt);
+				if (hasW) {
+					ICursor cs = new MemoryCursor(seq);
+					updateColumn(cs, opt);
+					result = table;
+				} else {
+					try {
+						if (!hasN) {
+							table.update(seq, opt);
+							result = table;
+						} else {
+							result = table.update(seq, opt);
+						}
+					} catch (IOException e) {
+						throw new RQException(e);
 					}
-				} catch (IOException e) {
-					throw new RQException(e);
 				}
 			}
+			
+
 		} else if (hasW && obj instanceof ICursor ) {
 			ICursor cs = (ICursor)obj;
 			updateColumn(cs, opt);

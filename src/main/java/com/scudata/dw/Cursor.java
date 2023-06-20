@@ -3575,7 +3575,6 @@ public class Cursor extends IDWCursor {
 				IFilter f = filters[i];
 				if (f.isSameColumn(filter)) {
 					filters[i] = new LogicAnd(f, filter);
-					filters[i].initExp();
 					return;
 				}
 			}

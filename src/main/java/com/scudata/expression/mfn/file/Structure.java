@@ -1,16 +1,20 @@
 package com.scudata.expression.mfn.file;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
+import com.scudata.common.RQException;
 import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Context;
 import com.scudata.dm.DataStruct;
 import com.scudata.dm.FileObject;
+import com.scudata.dm.ObjectReader;
 import com.scudata.dm.Record;
 import com.scudata.dm.Sequence;
 import com.scudata.dw.Cuboid;
 import com.scudata.dw.DataBlockType;
+import com.scudata.dw.BlockLinkReader;
 import com.scudata.dw.ColPhyTable;
 import com.scudata.dw.ColumnMetaData;
 import com.scudata.dw.ComTable;
@@ -34,6 +38,7 @@ public class Structure extends FileFunction {
 	private static final String ROW_FIELD_FIELD_NAMES[] = {"name", "dim"};
 	private static final String CUBOID_FIELD_NAMES[] = { "name", "keys", "aggr" };
 	private static final String CUBOID_AGGR_FIELD_NAMES[] = { "name", "exp" };
+	private static final String BLOCK_INFO_FIELD_NAMES[] = {"min", "max", "count", "pos"};
 	
 	public Object calculate(Context ctx) {
 		if (file.isRemoteFile()) {
@@ -58,6 +63,11 @@ public class Structure extends FileFunction {
 			if (partition != null && partition.intValue() > 0) {
 				table.getGroupTable().setPartition(partition);
 			}
+			
+			if (table instanceof ColPhyTable && option !=null && option.indexOf("b") != -1) {
+				return getTableBlockInfo((ColPhyTable) table);
+			}
+			
 			Sequence seq = new Sequence();
 			seq.add(getTableStruct(table, option));
 			table.close();
@@ -234,4 +244,72 @@ public class Structure extends FileFunction {
 		}
 		return seq;
 	}
+	
+	private Sequence getTableBlockInfo(ColPhyTable table) {
+		String[] keys = table.getAllKeyColNames();
+		if (keys == null) return null;
+		ColumnMetaData[] cols = table.getColumns(keys);
+		int curBlock = 0;
+		int endBlock = table.getDataBlockCount();
+		int fcount = keys.length;
+		ObjectReader[] segmentReaders = new ObjectReader[fcount];
+		for (int i = 0; i < fcount; i++) {
+			segmentReaders[i] = cols[i].getSegmentReader();
+		}
+		
+		BlockLinkReader rowCountReader = table.getSegmentReader();
+		
+		Sequence result = new Sequence();
+		String dsFields[] = BLOCK_INFO_FIELD_NAMES.clone();
+		for (int i = 0; i < fcount; i++) {
+			dsFields[0] += "-" + cols[i].getColName();
+		}
+		
+		
+		try {
+			while (curBlock < endBlock) {
+				curBlock++;
+				int recordCount = rowCountReader.readInt32();
+				Sequence minSeq = new Sequence(), maxSeq = new Sequence(), posSeq = new Sequence();
+				for (int i = 0; i < fcount; i++) {
+					long pos = segmentReaders[i].readLong40();
+					Object minValue = null;
+					Object maxValue = null;
+					if (cols[i].hasMaxMinValues()) {
+						minValue = segmentReaders[i].readObject();
+						maxValue = segmentReaders[i].readObject();
+						segmentReaders[i].skipObject();
+					}
+					minSeq.add(minValue);
+					maxSeq.add(maxValue);
+					posSeq.add(pos);
+				}
+				Record rec = new Record(new DataStruct(dsFields));
+				if (fcount == 1) {
+					rec.setNormalFieldValue(0, minSeq.get(1));
+					rec.setNormalFieldValue(1, maxSeq.get(1));
+					rec.setNormalFieldValue(2, recordCount);
+					rec.setNormalFieldValue(3, posSeq.get(1));
+				} else {
+					rec.setNormalFieldValue(0, minSeq);
+					rec.setNormalFieldValue(1, maxSeq);
+					rec.setNormalFieldValue(2, recordCount);
+					rec.setNormalFieldValue(3, posSeq);
+				}
+				result.add(rec);
+			}
+			
+		} catch (IOException e) {
+			throw new RQException(e.getMessage(), e);
+		} finally {
+			try {
+				for (int i = 0; i < fcount; i++) {
+					segmentReaders[i].close();
+				}
+				rowCountReader.close();
+			} catch (IOException e) {;
+			}
+		}
+		return result;
+	} 
 }
