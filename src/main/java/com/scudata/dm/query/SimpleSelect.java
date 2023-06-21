@@ -434,7 +434,7 @@ public class SimpleSelect
 						if (this.fields != null) {
 							Expression[] exps2 = new Expression[fields.length];
 							for (int m=0; m<fields.length; m++) {
-								exps2[m] = new Expression(fields[m]);
+								exps2[m] = new Expression("'"+fields[m]+"'"); 
 							}
 
 							cursors[i].addOperation(new New(null, exps2, this.fields, null), ctx);
@@ -2188,7 +2188,7 @@ public class SimpleSelect
 				throw new RQException(mm.getMessage("syntax.error") + ":LikeNode.toExpression, 无效的Like节点");
 			}
 			
-			//xingjl 20230619
+			//
 			String tt = this.token.toString();
 			if (tt.indexOf("'") == 0 && tt.lastIndexOf("'") == tt.length() - 1) tt = tt.substring(1,tt.length()-1);
 			

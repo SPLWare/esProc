@@ -3,6 +3,9 @@ package com.scudata.expression.fn.math;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
+import com.scudata.array.IArray;
+import com.scudata.array.IntArray;
+import com.scudata.array.LongArray;
 import com.scudata.common.MessageManager;
 import com.scudata.common.ObjectCache;
 import com.scudata.common.RQException;
@@ -499,5 +502,97 @@ public class Bits extends Function {
 			
 			return count;
 		}
+	}
+	
+	/**
+	 * 计算出所有行的结果
+	 * @param ctx 计算上行文
+	 * @return IArray
+	 */
+	public IArray calculateAll(Context ctx) {
+		if (!param.isLeaf() || option == null || option.indexOf('1') == -1) {
+			return super.calculateAll(ctx);
+		}
+		
+		IArray array = param.getLeafExpression().calculateAll(ctx);
+		int len = array.size();
+		IntArray result = new IntArray(len);
+
+		if (array instanceof IntArray) {
+			IntArray intArray = (IntArray)array;
+			for (int i = 1; i <= len; ++i) {
+				if (intArray.isNull(i)) {
+					result.pushInt(0);
+				} else {
+					result.pushInt(Integer.bitCount(intArray.getInt(i)));
+				}
+			}
+		} else if (array instanceof LongArray) {
+			LongArray longArray = (LongArray)array;
+			for (int i = 1; i <= len; ++i) {
+				if (longArray.isNull(i)) {
+					result.pushInt(0);
+				} else {
+					result.pushInt(Long.bitCount(longArray.getLong(i)));
+				}
+			}
+		} else {
+			for (int i = 1; i <= len; ++i) {
+				result.pushInt(bitCount(array.get(i)));
+			}
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * 计算signArray中取值为sign的行
+	 * @param ctx
+	 * @param signArray 行标识数组
+	 * @param sign 标识
+	 * @return IArray
+	 */
+	public IArray calculateAll(Context ctx, IArray signArray, boolean sign) {
+		if (!param.isLeaf() || option == null || option.indexOf('1') == -1) {
+			return super.calculateAll(ctx, signArray, sign);
+		}
+		
+		IArray array = param.getLeafExpression().calculateAll(ctx);
+		int len = array.size();
+		IntArray result = new IntArray(len);
+
+		if (array instanceof IntArray) {
+			IntArray intArray = (IntArray)array;
+			for (int i = 1; i <= len; ++i) {
+				if (intArray.isNull(i)) {
+					result.pushInt(0);
+				} else if (signArray.isTrue(i) == sign) {
+					result.pushInt(Integer.bitCount(intArray.getInt(i)));
+				} else {
+					result.pushInt(0);
+				}
+			}
+		} else if (array instanceof LongArray) {
+			LongArray longArray = (LongArray)array;
+			for (int i = 1; i <= len; ++i) {
+				if (longArray.isNull(i)) {
+					result.pushInt(0);
+				} else if (signArray.isTrue(i) == sign) {
+					result.pushInt(Long.bitCount(longArray.getLong(i)));
+				} else {
+					result.pushInt(0);
+				}
+			}
+		} else {
+			for (int i = 1; i <= len; ++i) {
+				if (signArray.isTrue(i) == sign) {
+					result.pushInt(bitCount(array.get(i)));
+				} else {
+					result.pushInt(0);
+				}
+			}
+		}
+		
+		return result;
 	}
 }
