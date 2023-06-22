@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>exp()</title>
+<title>f .export( A , x : F ,…; s )</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,113 +13,790 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h2><a name=exp></a><a name="_exp()"></a><span lang=EN-US>exp()</span></h2></div>
-	<p class=af style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
+	<div id="centent-title"><h3 style='text-align:justify;text-justify:inter-ideograph'><a
+name="f_export_A_x_F_s"></a><i style='mso-bidi-font-style:normal'><span
+lang=EN-US>f</span></i><span lang=EN-US>.export(<i style='mso-bidi-font-style:
+normal'>A</i>,<i style='mso-bidi-font-style:normal'>x</i>:<i style='mso-bidi-font-style:
+normal'>F</i>,…;<i style='mso-bidi-font-style:normal'>s</i>)</span></h3></div>
+	<p class=ad style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
 14.0pt;line-height:200%'>Description:</span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><a name="_Hlk129761871"><span
-lang=EN-US>Compute<i style='mso-bidi-font-style:normal'> e</i> to the <i
-style='mso-bidi-font-style:normal'>n<sup>th</sup></i> power.</span></a><span
-lang=EN-US> </span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Write a sequence/table
+sequence/record sequence into a file.</span></p>
 
-<p class=af style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
+<p class=ad style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
 14.0pt;line-height:200%'>Syntax: </span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span class=code><span
-lang=EN-US style='font-family:"Times New Roman","serif"'>exp(</span></span><span
-class=var1><span lang=EN-US>n</span></span><span class=code><span lang=EN-US
-style='font-family:"Times New Roman","serif"'>)</span></span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span class=var1><span
+lang=EN-US>f</span></span><span lang=EN-US>.</span><span class=code><span
+lang=EN-US style='font-family:"Times New Roman","serif"'>export</span></span><span
+lang=EN-US>( </span><span class=var1><span lang=EN-US>A</span></span><span
+lang=EN-US>,<i style='mso-bidi-font-style:normal'> x:</i></span><span
+class=var1><span lang=EN-US>F</span></span><span lang=EN-US>,…</span><span
+class=var1><span lang=EN-US>;s)</span></span></p>
 
-<p class=af style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Note:</span></p>
+<p class=ad style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
+14.0pt;line-height:200%'>Note: </span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>The function computes
-<a name="_Hlk129761928"><i style='mso-bidi-font-style:normal'>e<sup>n</sup></i></a>.<i
-style='mso-bidi-font-style:normal'></i></span></p>
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
+mso-pagination:widow-orphan'><span lang=EN-US style='mso-bidi-font-style:italic'><span
+style='mso-spacerun:yes'>&nbsp;</span></span><span lang=EN-US>The function
+writes sequence/table sequence/record sequence <i style='mso-bidi-font-style:
+normal'>A</i> into file <i>f</i> in the form of text; it will auto-create an <i
+style='mso-bidi-font-style:normal'>f</i>, which is in the text format by
+default, if the file doesn’t exist (but the path can’t be auto-created). </span></p>
 
-<p class=af style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
+mso-pagination:widow-orphan'><span lang=EN-US>If <i style='mso-bidi-font-style:
+normal'>A</i> is a table sequence or a record sequence, write all fields into
+the file if parameter <i style='mso-bidi-font-style:normal'>x</i> is absent. If
+the values of a to-be-exported field are referenced records, just write their
+primary key values into <i style='mso-bidi-font-style:normal'>f</i>. The
+unexportable fields in <i style='mso-bidi-font-style:normal'>A</i> can’t be
+written into <i style='mso-bidi-font-style:normal'>f</i>. </span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
+mso-pagination:widow-orphan'><i style='mso-bidi-font-style:normal'><span
+lang=EN-US>A</span></i><span lang=EN-US style='mso-bidi-font-style:italic'>
+must be sequence consisting of records of same data structure when it is a
+sequence. A one-field text file without field name will be written to file </span><i
+style='mso-bidi-font-style:normal'><span lang=EN-US>f</span></i><span
+lang=EN-US style='mso-bidi-font-style:italic'> when parameter <i>x</i> is
+absent.</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
+mso-pagination:widow-orphan'><span lang=EN-US>By default, it writes data as
+JSON strings when members of <i>A</i> is sequence/record/table sequence. If <i
+style='mso-bidi-font-style:normal'>A</i> contains a serial byte field, the
+serial byte values will be written as hexadecimal strings. Use the original
+data type with the binary export.</span></p>
+
+<p class=ad style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
 14.0pt;line-height:200%'>Parameter: </span></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
  style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'>
-  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US>n</span></span></p>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=63 valign=top style='width:38.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US
+  style='mso-bidi-font-weight:bold'>f</span></i><span class=var1><span
+  lang=EN-US></span></span></p>
   </td>
-  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>The exponent</span></p>
+  <td width=605 valign=top style='width:362.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>A file</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=63 valign=top style='width:38.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=var1><span lang=EN-US>A</span></span></p>
+  </td>
+  <td width=605 valign=top style='width:362.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>The table sequence/record
+  sequence/sequence to be exported; use separators to export when members are
+  sequences</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=63 valign=top style='width:38.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=var1><span lang=EN-US>x</span></span></p>
+  </td>
+  <td width=605 valign=top style='width:362.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>The field to be exported. If omitted, all
+  the fields of <i style='mso-bidi-font-style:normal'>A</i> that can be
+  textualized will be exported. The sign # is used to represent a field with a
+  ordinal number</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3'>
+  <td width=63 valign=top style='width:38.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US>F</span></i><span
+  class=var1><span lang=EN-US></span></span></p>
+  </td>
+  <td width=605 valign=top style='width:362.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Resulting field name. If omitted, then
+  use the original field name</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes'>
+  <td width=63 valign=top style='width:38.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=var1><span lang=EN-US>s</span></span></p>
+  </td>
+  <td width=605 valign=top style='width:362.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>The user-defined separator used in the
+  text file, and the default separator is tab</span></p>
   </td>
  </tr>
 </table>
 
-<p class=af style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Return value: </span></p>
+<p class=ad style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
+14.0pt;line-height:200%'>Option: </span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Numeric type</span></p>
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=122 valign=top style='width:73.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>@t</span></span><span
+  class=var1><span lang=EN-US></span></span></p>
+  </td>
+  <td width=559 valign=top style='width:335.65pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Export field description, or the headers,
+  as the first row of the file </span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=122 valign=top style='width:73.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=var1><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US style='font-style:normal;mso-bidi-font-style:italic'>@a</span></b><span
+  lang=EN-US></span></span></p>
+  </td>
+  <td width=559 valign=top style='width:335.65pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Append. The appended records and the
+  original records should be of the same structure, otherwise error will be
+  reported. Ignore @t option if the there is data in the original file;
+  overwrite the original file by default</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=122 valign=top style='width:73.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US>@b</span></b><span
+  class=var1><span lang=EN-US></span></span></p>
+  </td>
+  <td width=559 valign=top style='width:335.65pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Convert into binary file to speed up the
+  processing and ignore @t options; won’t segment <i>A</i> if it is small
+  enough, otherwise it will be segmented when being converted into the binary
+  format; <i>A</i> is ordered by <i>s </i>when the latter is present and create
+  a new segment whenever <i>s</i> is changed; <i>s</i> should be different for
+  the newly-added data at append </span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3'>
+  <td width=122 valign=top style='width:73.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
+  mso-fareast-font-family:宋体'>@c</span></span></p>
+  </td>
+  <td width=559 valign=top style='width:335.65pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=var1><span lang=EN-US style='mso-bidi-font-size:
+  10.0pt;font-style:normal'>Use comma as the separator when parameter </span></span><span
+  class=var1><span lang=EN-US style='mso-bidi-font-size:10.0pt;mso-bidi-font-style:
+  normal'>s</span></span><span class=var1><span lang=EN-US style='mso-bidi-font-size:
+  10.0pt;font-style:normal'> is absent, but the user-defined separator </span></span><span
+  class=var1><span lang=EN-US style='mso-bidi-font-size:10.0pt;mso-bidi-font-style:
+  normal'>s</span></span><span class=var1><span lang=EN-US style='mso-bidi-font-size:
+  10.0pt;font-style:normal'> should take priority when the parameter is present</span></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4'>
+  <td width=122 valign=top style='width:73.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
+  mso-fareast-font-family:宋体'>@w</span></span></p>
+  </td>
+  <td width=559 valign=top style='width:335.65pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-size:10.5pt'>Use
+  Windows-style \r\n line break; by default, the line break is specified by the
+  operating system; export a sequence of sequences as structured data where the
+  first row is field names when @b option is also present</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:5'>
+  <td width=122 valign=top style='width:73.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=var1><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US style='mso-bidi-font-size:10.0pt;font-style:normal'>@q</span></b></span></p>
+  </td>
+  <td width=559 valign=top style='width:335.65pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US style='mso-bidi-font-size:10.5pt'>Enclose
+  the exported text field values and headers with quotation marks </span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:6;mso-yfti-lastrow:yes'>
+  <td width=122 valign=top style='width:73.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span class=var1><b style='mso-bidi-font-weight:normal'><span
+  lang=EN-US style='mso-bidi-font-size:10.0pt;font-style:normal'>@o</span></b></span></p>
+  </td>
+  <td width=559 valign=top style='width:335.65pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Perform escaping according to the Excel
+  rule, which identifies two double quotation marks as one and does not escape
+  the other characters </span><span lang=EN-US style='mso-bidi-font-size:10.5pt'></span></p>
+  </td>
+ </tr>
+</table>
 
-<p class=af style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Example:</span></p>
+<p class=ad style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
+14.0pt;line-height:200%'>Example: </span></p>
 
-<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
- style='margin-left:19.85pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+<p class=afd style='text-align:justify;text-justify:inter-ideograph;text-indent:
+21.0pt;mso-char-indent-count:2.0'><span lang=EN-US style='font-family:"Times New Roman","serif"'>Write
+a record sequence into a txt file.</span></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=691
+ style='margin-left:18.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
  mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=36 valign=top style='width:21.5pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-row-margin-right:14.25pt'>
+  <td width=30 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
   mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span lang=EN-US><span
-  style='mso-tab-count:1'>&nbsp; </span></span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>&nbsp;</span></span></p>
   </td>
-  <td width=360 valign=top style='width:216.1pt;border:solid #A6A6A6 1.0pt;
+  <td width=319 valign=top style='width:191.35pt;border:solid #A6A6A6 1.0pt;
   border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman","serif";mso-fareast-font-family:
-  宋体'>A</span></span></p>
+  lang=EN-US style='font-family:"Times New Roman","serif"'>A</span></span></p>
   </td>
-  <td width=267 valign=top style='width:159.95pt;border:none;mso-border-left-alt:
+  <td width=319 valign=top style='width:191.4pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span lang=EN-US>&nbsp;</span></p>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
   </td>
+  <td style='mso-cell-special:placeholder;border:none;padding:0cm 0cm 0cm 0cm'
+  width=24><p class='MsoNormal'>&nbsp;</td>
  </tr>
- <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
-  <td width=36 valign=top style='width:21.5pt;border:solid #A6A6A6 1.0pt;
+ <tr style='mso-yfti-irow:1;mso-row-margin-right:14.25pt'>
+  <td width=30 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman","serif";mso-fareast-font-family:
-  宋体'>1</span></span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>1</span></span></p>
   </td>
-  <td width=360 valign=top style='width:216.1pt;border-top:none;border-left:
+  <td width=319 valign=top style='width:191.35pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-  mso-fareast-font-family:宋体'>=exp(4.3)</span></span></p>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=demo.query(&quot;select
+  * from DEPARTMENT&quot;)</span></span></p>
   </td>
-  <td width=267 valign=top style='width:159.95pt;border:none;mso-border-left-alt:
+  <td width=319 valign=top style='width:191.4pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  </td>
+  <td style='mso-cell-special:placeholder;border:none;padding:0cm 0cm 0cm 0cm'
+  width=24><p class='MsoNormal'>&nbsp;</td>
+ </tr>
+ <tr style='mso-yfti-irow:2;mso-row-margin-right:14.25pt'>
+  <td width=30 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>2</span></span></p>
+  </td>
+  <td width=319 valign=top style='width:191.35pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=file(&quot;D:\\Department.txt&quot;).export(A1)</span></span></p>
+  </td>
+  <td width=319 valign=top style='width:191.4pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=183 height=169
+  src="Function_Reference.files/image554.jpg" v:shapes="_x0000_i1359"></span></p>
+  </td>
+  <td style='mso-cell-special:placeholder;border:none;padding:0cm 0cm 0cm 0cm'
+  width=24><p class='MsoNormal'>&nbsp;</td>
+ </tr>
+ <tr style='mso-yfti-irow:3;mso-row-margin-right:14.25pt'>
+  <td width=30 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>3</span></span></p>
+  </td>
+  <td width=319 valign=top style='width:191.35pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=file(&quot;D:\\Department.txt&quot;).export@t(A1)</span></span></p>
+  </td>
+  <td width=319 valign=top style='width:191.4pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Use </span><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>@t</span></span><span
+  lang=EN-US> to export field headers in the first row as the title</span><span
+  lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'></span></p>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=181 height=186
+  src="Function_Reference.files/image556.jpg" v:shapes="_x0000_i1360"></span></p>
+  </td>
+  <td style='mso-cell-special:placeholder;border:none;padding:0cm 0cm 0cm 0cm'
+  width=24><p class='MsoNormal'>&nbsp;</td>
+ </tr>
+ <tr style='mso-yfti-irow:4;height:41.7pt;mso-row-margin-right:14.25pt'>
+  <td width=30 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:41.7pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>4</span></span></p>
+  </td>
+  <td width=319 valign=top style='width:191.35pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:41.7pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=file(&quot;D:\\Department2.txt&quot;).export(A1;
+  </span></span><b><span lang=EN-US>&quot;</span></b><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>|</span></span><b><span
+  lang=EN-US>&quot;</span></b><span class=code><span lang=EN-US
+  style='font-family:"Times New Roman","serif"'>)</span></span></p>
+  </td>
+  <td width=319 valign=top style='width:191.4pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:41.7pt'>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=165 height=163
+  src="Function_Reference.files/image558.jpg" v:shapes="_x0000_i1361"></span></p>
+  </td>
+  <td style='mso-cell-special:placeholder;border:none;padding:0cm 0cm 0cm 0cm'
+  width=24><p class='MsoNormal'>&nbsp;</td>
+ </tr>
+ <tr style='mso-yfti-irow:5;height:41.7pt;mso-row-margin-right:14.25pt'>
+  <td width=30 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:41.7pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>5</span></span></p>
+  </td>
+  <td width=319 valign=top style='width:191.35pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:41.7pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=file(&quot;D:\\Department2.txt&quot;).export(A1;)</span></span></p>
+  </td>
+  <td width=319 valign=top style='width:191.4pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:41.7pt'>
+  <p class=MsoNormal style='mso-pagination:widow-orphan'><span lang=zh-CN
+  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=183 height=169
+  src="Function_Reference.files/image559.jpg" v:shapes="_x0000_i1362"></span><span
+  lang=EN-US style='font-size:12.0pt;mso-bidi-font-size:10.0pt;mso-font-kerning:
+  0pt'></span></p>
+  </td>
+  <td style='mso-cell-special:placeholder;border:none;padding:0cm 0cm 0cm 0cm'
+  width=24><p class='MsoNormal'>&nbsp;</td>
+ </tr>
+ <tr style='mso-yfti-irow:6;height:41.7pt;mso-row-margin-right:14.25pt'>
+  <td width=30 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:41.7pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>6</span></span></p>
+  </td>
+  <td width=319 valign=top style='width:191.35pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:41.7pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=file(&quot;D:\\Department2.txt&quot;).export@a(A1)</span></span></p>
+  </td>
+  <td width=319 valign=top style='width:191.4pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:41.7pt'>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=181 height=324
+  src="Function_Reference.files/image561.jpg" v:shapes="_x0000_i1363"></span><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US></span></b></p>
+  <p class=MsoNormal><span lang=EN-US>Still the above example, append the
+  contents from A1 to the contents of the file</span></p>
+  </td>
+  <td style='mso-cell-special:placeholder;border:none;padding:0cm 0cm 0cm 0cm'
+  width=24><p class='MsoNormal'>&nbsp;</td>
+ </tr>
+ <tr style='mso-yfti-irow:7;height:20.1pt;mso-row-margin-right:14.25pt'>
+  <td width=30 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:20.1pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>7</span></span></p>
+  </td>
+  <td width=319 valign=top style='width:191.35pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:20.1pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=file(&quot;D:\\Department3.txt&quot;).export@b(A1)</span></span></p>
+  </td>
+  <td width=319 valign=top style='width:191.4pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:20.1pt'>
+  <p class=MsoNormal><span lang=EN-US>Export the file content in binary format </span><b
+  style='mso-bidi-font-weight:normal'><span lang=zh-CN style='mso-ansi-language:
+  #0400;mso-fareast-language:#0400'></span></b></p>
+  </td>
+  <td style='mso-cell-special:placeholder;border:none;padding:0cm 0cm 0cm 0cm'
+  width=24><p class='MsoNormal'>&nbsp;</td>
+ </tr>
+ <tr style='mso-yfti-irow:8;height:41.7pt;mso-row-margin-right:14.25pt'>
+  <td width=30 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:41.7pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>8</span></span></p>
+  </td>
+  <td width=319 valign=top style='width:191.35pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:41.7pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=file(&quot;D:\\Department4.txt&quot;).export@t(A1,DEPT:Dept1;&quot;|&quot;)</span></span></p>
+  </td>
+  <td width=319 valign=top style='width:191.4pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:41.7pt'>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=147 height=183
+  src="Function_Reference.files/image562.png" v:shapes="_x0000_i1364"></span></p>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'>If not omitting <i style='mso-bidi-font-style:
+  normal'>x</i>, then only export the specified field</span></p>
+  </td>
+  <td style='mso-cell-special:placeholder;border:none;padding:0cm 0cm 0cm 0cm'
+  width=24><p class='MsoNormal'>&nbsp;</td>
+ </tr>
+ <tr style='mso-yfti-irow:9;height:41.7pt;mso-row-margin-right:14.25pt'>
+  <td width=30 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:41.7pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>9</span></span></p>
+  </td>
+  <td width=319 valign=top style='width:191.35pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:41.7pt'>
   <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-  mso-fareast-font-family:宋体'>73.69979369959579</span></span></p>
+  mso-fareast-font-family:宋体'>=file(&quot;D:\\dept1.txt&quot;).export@ta(A1)</span></span><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'></span></span></p>
+  </td>
+  <td width=319 valign=top style='width:191.4pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:41.7pt'>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=190 height=176
+  src="Function_Reference.files/image563.png" v:shapes="_x0000_i1365"><span
+  style='mso-spacerun:yes'>&nbsp;</span></span></p>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'>Since <i style='mso-bidi-font-style:normal'>dept1.txt</i>
+  does not exist, create it after the execution begins and then import the
+  first row as the title</span></p>
+  </td>
+  <td style='mso-cell-special:placeholder;border:none;padding:0cm 0cm 0cm 0cm'
+  width=24><p class='MsoNormal'>&nbsp;</td>
+ </tr>
+ <tr style='mso-yfti-irow:10;height:41.7pt;mso-row-margin-right:14.25pt'>
+  <td width=30 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:41.7pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>10</span></span></p>
+  </td>
+  <td width=319 valign=top style='width:191.35pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:41.7pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>[a,s,d,f]</span></span></p>
+  </td>
+  <td width=319 valign=top style='width:191.4pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:41.7pt'>
+  <p class=MsoNormal><span lang=EN-US style='mso-fareast-font-family:黑体'>&nbsp;</span></p>
+  </td>
+  <td style='mso-cell-special:placeholder;border:none;padding:0cm 0cm 0cm 0cm'
+  width=24><p class='MsoNormal'>&nbsp;</td>
+ </tr>
+ <tr style='mso-yfti-irow:11;height:41.7pt;mso-row-margin-right:14.25pt'>
+  <td width=30 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:41.7pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>11</span></span></p>
+  </td>
+  <td width=319 valign=top style='width:191.35pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:41.7pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=file(&quot;D:\\myfile.txt&quot;).export(A10)</span></span></p>
+  </td>
+  <td width=319 valign=top style='width:191.4pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:41.7pt'>
+  <p class=MsoNormal><span class=code><i style='mso-bidi-font-style:normal'><span
+  lang=EN-US style='font-family:"Times New Roman","serif";font-weight:normal'>myfile.txt</span></i></span><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
+  font-weight:normal'> is a one-field file without a field name</span></span><span
+  lang=EN-US style='mso-fareast-font-family:黑体'> </span></p>
+  </td>
+  <td style='mso-cell-special:placeholder;border:none;padding:0cm 0cm 0cm 0cm'
+  width=24><p class='MsoNormal'>&nbsp;</td>
+ </tr>
+ <tr style='mso-yfti-irow:12;height:41.7pt;mso-row-margin-right:14.25pt'>
+  <td width=30 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:41.7pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>12</span></span></p>
+  </td>
+  <td width=319 valign=top style='width:191.35pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:41.7pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=file(&quot;D:\\Department6.txt&quot;).export@c(A1)</span></span></p>
+  </td>
+  <td width=319 valign=top style='width:191.4pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:41.7pt'>
+  <p class=MsoNormal><span lang=EN-US style='mso-fareast-font-family:黑体'><img border=0 width=154 height=101
+  src="Function_Reference.files/image565.jpg" v:shapes="_x0000_i1366"><span
+  class=code><span style='font-family:"Times New Roman","serif";font-weight:
+  normal'></span></span></span></p>
+  </td>
+  <td style='mso-cell-special:placeholder;border:none;padding:0cm 0cm 0cm 0cm'
+  width=24><p class='MsoNormal'>&nbsp;</td>
+ </tr>
+ <tr style='mso-yfti-irow:13;height:41.7pt;mso-row-margin-right:14.25pt'>
+  <td width=30 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:41.7pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>13</span></span></p>
+  </td>
+  <td width=319 valign=top style='width:191.35pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:41.7pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=demo.query(&quot;select
+  * from EMPLOYEE order by GENDER&quot;)</span></span></p>
+  </td>
+  <td width=319 valign=top style='width:191.4pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:41.7pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
+  font-weight:normal'>Sort by GENDER</span></span><span lang=EN-US
+  style='mso-fareast-font-family:黑体'></span></p>
+  </td>
+  <td style='mso-cell-special:placeholder;border:none;padding:0cm 0cm 0cm 0cm'
+  width=24><p class='MsoNormal'>&nbsp;</td>
+ </tr>
+ <tr style='mso-yfti-irow:14;height:41.7pt;mso-row-margin-right:14.25pt'>
+  <td width=30 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:41.7pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>14</span></span></p>
+  </td>
+  <td width=319 valign=top style='width:191.35pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:41.7pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=file(&quot;D:\\EMPLOYEE.btx&quot;).export@b(A13,EID,NAME,SURNAME,GENDER,SALARY;GENDER)</span></span></p>
+  </td>
+  <td width=319 valign=top style='width:191.4pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:41.7pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
+  font-weight:normal'>Export the result returned by A13, which is by default
+  ordered by GENDER to <i style='mso-bidi-font-style:normal'>EMPLOYEE.btx</i></span></span><span
+  lang=EN-US style='mso-fareast-font-family:黑体'></span></p>
+  </td>
+  <td style='mso-cell-special:placeholder;border:none;padding:0cm 0cm 0cm 0cm'
+  width=24><p class='MsoNormal'>&nbsp;</td>
+ </tr>
+ <tr style='mso-yfti-irow:15;height:26.9pt'>
+  <td width=30 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:26.9pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>15</span></span></p>
+  </td>
+  <td width=319 valign=top style='width:191.35pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:26.9pt'>
+  <p class=MsoNormal style='tab-stops:116.25pt'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>=file(&quot;D:\\EMPLOYEE.txt&quot;).export@w(A1)</span></span></p>
+  </td>
+  <td width=343 colspan=2 valign=top style='width:205.65pt;border:none;
+  mso-border-left-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:26.9pt'>
+  <p class=MsoNormal><span lang=EN-US>Use Windows-style \r\n line break</span><span
+  lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:16;height:26.9pt'>
+  <td width=30 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:26.9pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>16</span></span></p>
+  </td>
+  <td width=319 valign=top style='width:191.35pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:26.9pt'>
+  <p class=MsoNormal style='tab-stops:116.25pt'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>=demo.query(&quot;select
+  * from DEPARTMENT&quot;).keys(MANAGER)</span></span></p>
+  </td>
+  <td width=343 colspan=2 valign=top style='width:205.65pt;border:none;
+  mso-border-left-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:26.9pt'>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:17;height:26.9pt'>
+  <td width=30 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:26.9pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>17</span></span></p>
+  </td>
+  <td width=319 valign=top style='width:191.35pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:26.9pt'>
+  <p class=MsoNormal style='tab-stops:116.25pt'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>=A13.switch(DEPT,A16:DEPT)</span></span></p>
+  </td>
+  <td width=343 colspan=2 valign=top style='width:205.65pt;border:none;
+  mso-border-left-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:26.9pt'>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=316 height=104
+  src="Function_Reference.files/image567.jpg" v:shapes="_x0000_i1367"></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:18;height:26.9pt'>
+  <td width=30 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:26.9pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>18</span></span></p>
+  </td>
+  <td width=319 valign=top style='width:191.35pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:26.9pt'>
+  <p class=MsoNormal style='tab-stops:116.25pt'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>=file(&quot;D:\\EMPLOYEE1.txt&quot;).export@t(A16)</span></span></p>
+  </td>
+  <td width=343 colspan=2 valign=top style='width:205.65pt;border:none;
+  mso-border-left-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:26.9pt'>
+  <p class=MsoNormal><span lang=EN-US>Values of DEPT field in A16 are
+  referenced records; in this case the primary key of the table sequence need
+  to be exported</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:19;height:26.9pt'>
+  <td width=30 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:26.9pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>19</span></span></p>
+  </td>
+  <td width=319 valign=top style='width:191.35pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:26.9pt'>
+  <p class=MsoNormal style='tab-stops:116.25pt'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>=demo.query(&quot;select
+  * from DEPARTMENT&quot;)</span></span></p>
+  </td>
+  <td width=343 colspan=2 valign=top style='width:205.65pt;border:none;
+  mso-border-left-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:26.9pt'>
+  <p class=MsoNormal><span lang=EN-US><img border=0 width=245 height=199
+  src="Function_Reference.files/image569.jpg" v:shapes="_x0000_i1368"></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:20;height:26.9pt'>
+  <td width=30 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:26.9pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>20</span></span></p>
+  </td>
+  <td width=319 valign=top style='width:191.35pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:26.9pt'>
+  <p class=MsoNormal style='tab-stops:116.25pt'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>=file(&quot;D:\\Department7.txt&quot;).export(A19,#1)</span></span></p>
+  </td>
+  <td width=343 colspan=2 valign=top style='width:205.65pt;border:none;
+  mso-border-left-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:26.9pt'>
+  <p class=MsoNormal><span lang=EN-US><img border=0 width=150 height=169
+  src="Function_Reference.files/image571.jpg" v:shapes="_x0000_i1369"></span></p>
+  <p class=MsoNormal><span lang=EN-US>#1 represents the first column, so only
+  that column of data is exported</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:21;height:26.9pt'>
+  <td width=30 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:26.9pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>21</span></span></p>
+  </td>
+  <td width=319 valign=top style='width:191.35pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:26.9pt'>
+  <p class=MsoNormal style='tab-stops:116.25pt'><span class=code><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>=file(&quot;D:\\Dep1.txt&quot;).export@q(A19,#1)</span></span></p>
+  </td>
+  <td width=343 colspan=2 valign=top style='width:205.65pt;border:none;
+  mso-border-left-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:26.9pt'>
+  <p class=MsoNormal><span lang=EN-US><img border=0 width=165 height=174
+  src="Function_Reference.files/image573.jpg" v:shapes="图片_x0020_638"></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:22;height:26.9pt'>
+  <td width=30 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:26.9pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>22</span></span></p>
+  </td>
+  <td width=319 valign=top style='width:191.35pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:26.9pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='mso-bidi-font-size:
+  11.0pt;font-family:"Times New Roman","serif";mso-hansi-font-family:"Arial Narrow"'>f1,f2,f3</span></span></p>
+  <p class=MsoNormal style='tab-stops:116.25pt'><span class=code><span
+  lang=EN-US style='mso-bidi-font-size:11.0pt;font-family:"Times New Roman","serif";
+  mso-hansi-font-family:"Arial Narrow"'>2,&quot;dd&quot;&quot;ff&quot;,3</span></span><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'></span></span></p>
+  </td>
+  <td width=343 colspan=2 valign=top style='width:205.65pt;border:none;
+  mso-border-left-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:26.9pt'>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:23;height:26.9pt'>
+  <td width=30 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:26.9pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>23</span></span></p>
+  </td>
+  <td width=319 valign=top style='width:191.35pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:26.9pt'>
+  <p class=MsoNormal style='tab-stops:116.25pt'><span class=code><span
+  lang=EN-US style='mso-bidi-font-size:11.0pt;font-family:"Times New Roman","serif";
+  mso-hansi-font-family:"Arial Narrow"'>=A22.import@coq()</span></span><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'></span></span></p>
+  </td>
+  <td width=343 colspan=2 valign=top style='width:205.65pt;border:none;
+  mso-border-left-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:26.9pt'>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=232 height=88
+  src="Function_Reference.files/image575.jpg" v:shapes="_x0000_i1371"></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:24;mso-yfti-lastrow:yes;height:26.9pt'>
+  <td width=30 valign=top style='width:17.7pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:26.9pt'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>24</span></span></p>
+  </td>
+  <td width=319 valign=top style='width:191.35pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:26.9pt'>
+  <p class=MsoNormal style='tab-stops:116.25pt'><span class=code><span
+  lang=EN-US style='mso-bidi-font-size:11.0pt;font-family:"Times New Roman","serif";
+  mso-hansi-font-family:"Arial Narrow"'>=file(&quot;D://t5.txt&quot;).export@coq(A23)</span></span><span
+  class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'></span></span></p>
+  </td>
+  <td width=343 colspan=2 valign=top style='width:205.65pt;border:none;
+  mso-border-left-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:26.9pt'>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'>With @o option, two double quotation marks in
+  each string are treated as one; the exported content in<i> t5.txt</i> is as
+  follows:</span></p>
+  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
+  mso-fareast-language:#0400'><img border=0 width=186 height=78
+  src="Function_Reference.files/image576.png" v:shapes="_x0000_i1372"></span></p>
   </td>
  </tr>
 </table>
 
-<p class=af style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Related function:</span></p>
+<p class=ad style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
+14.0pt;line-height:200%'>Note:</span></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US><a  href="power.html#power"><span style='mso-fareast-font-family:
-黑体;font-weight:normal'>power<span style='mso-bookmark:_Hlt414971299'>(</span></span><span
-style='mso-bookmark:_Hlt414971299'></span><span style='mso-bidi-font-size:10.5pt;
-mso-fareast-font-family:黑体;font-weight:normal'>x</span><span style='mso-bookmark:
-_Hlt414994554'><span style='mso-fareast-font-family:黑体;font-weight:normal'>,</span></span><span
-style='mso-bookmark:_Hlt414994554'></span><span style='mso-bidi-font-size:10.5pt;
-mso-fareast-font-family:黑体;font-weight:normal'>n</span><span style='mso-fareast-font-family:
-黑体;font-weight:normal'>)</span></a><a
-name="_Hlt414971299"></a><a name="_Hlt414994554"></a></span></b><span
-class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'></span></span></p>
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US>Format of text file: Separate records by carriage return, and fields
+by the user-defined separator. The default separator is tab. </span></p>
+
+<p class=ad style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
+14.0pt;line-height:200%'>Related functions:</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt'><i style='mso-bidi-font-style:
+normal'><span lang=EN-US><a  href="fimport.html#f_import"><span style='mso-bidi-font-size:
+10.5pt;font-style:normal'>f</span><span style='mso-bidi-font-size:12.0pt;
+font-style:normal'>.im<span style='mso-bookmark:_Hlt414994510'>p</span>ort()</span></a><a
+name="_Hlt414994510"></a></span></i><span class=var1><span
+lang=EN-US></span></span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="269.html">Next</a></div>
@@ -127,7 +804,7 @@ class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'></span
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="45.html">Functions</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="266.html">export()</a></span></li>
 </div>
 	</div>
 	<div id="footer">	

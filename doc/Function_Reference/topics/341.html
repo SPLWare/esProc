@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>ftp_close()</title>
+<title>ftp_open()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,21 +13,21 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h2><a name="ftp_close"></a><span lang=EN-US>ftp_close()</span></h2></div>
+	<div id="centent-title"><h2><a name="ftp_client"></a><span lang=EN-US>ftp_open()</span></h2></div>
 	<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
 mso-bidi-font-size:12.0pt;line-height:200%'>Description:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Exit an FTP
-client program.</span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Create an FTP
+client.</span></p>
 
 <p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
 mso-bidi-font-size:12.0pt;line-height:200%'>Syntax:</span></b></p>
 
 <p class=MsoNormal style='text-indent:21.0pt'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US style='mso-fareast-font-family:黑体'>ftp_close(</span></b><i><span
-lang=EN-US style='mso-bidi-font-size:10.5pt'>client</span></i><b
+normal'><span lang=EN-US style='mso-fareast-font-family:黑体'>ftp_open(</span></b><i><span
+lang=EN-US style='mso-bidi-font-size:10.5pt'>server:port,user,pwd</span></i><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
 黑体'>)</span></b></p>
 
@@ -35,8 +35,36 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-fam
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
 mso-bidi-font-size:12.0pt;line-height:200%'>Note:</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>This external
-library function closes an FTP connection.</span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>External library
+function. By default, the FTP server operates in an active mode.</span></p>
+
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
+mso-bidi-font-size:12.0pt;line-height:200%'>Option:</span></b></p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:11.6pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>@d</span></b><i><span lang=EN-US
+  style='mso-bidi-font-size:10.5pt'></span></i></p>
+  </td>
+  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Start the FTP passive mode</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
+  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>@s</span></b></p>
+  </td>
+  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Create an SFTP client</span></p>
+  </td>
+ </tr>
+</table>
 
 <p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
@@ -45,12 +73,37 @@ mso-bidi-font-size:12.0pt;line-height:200%'>Parameter:</span></b></p>
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
  style='margin-left:11.6pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
   <td width=86 valign=top style='width:51.65pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>client</span></i></p>
+  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>server</span></i></p>
   </td>
   <td width=596 valign=top style='width:357.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>An FTP client object</span></p>
+  <p class=MsoNormal><span lang=EN-US>An FTP server’s IP address</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=86 valign=top style='width:51.65pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>port</span></i></p>
+  </td>
+  <td width=596 valign=top style='width:357.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>An FTP server’s port number, which is by
+  default 21 and can be omitted</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=86 valign=top style='width:51.65pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>user</span></i></p>
+  </td>
+  <td width=596 valign=top style='width:357.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>The username to access an FTP server</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
+  <td width=86 valign=top style='width:51.65pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>pwd</span></i></p>
+  </td>
+  <td width=596 valign=top style='width:357.45pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>The password to access an FTP server</span></p>
   </td>
  </tr>
 </table>
@@ -69,13 +122,13 @@ mso-bidi-font-size:12.0pt;line-height:200%'>Example:</span></b></p>
   <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
   style='mso-fareast-font-family:黑体'>&nbsp;</span></b></p>
   </td>
-  <td width=379 valign=top style='width:227.45pt;border:solid #A6A6A6 1.0pt;
+  <td width=462 valign=top style='width:277.05pt;border:solid #A6A6A6 1.0pt;
   border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
   style='mso-fareast-font-family:黑体'>A</span></b></p>
   </td>
-  <td width=271 valign=top style='width:162.35pt;border:none;mso-border-left-alt:
+  <td width=188 valign=top style='width:112.75pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
   </td>
@@ -87,14 +140,14 @@ mso-bidi-font-size:12.0pt;line-height:200%'>Example:</span></b></p>
   <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
   style='mso-fareast-font-family:黑体'>1</span></b></p>
   </td>
-  <td width=379 valign=top style='width:227.45pt;border-top:none;border-left:
+  <td width=462 valign=top style='width:277.05pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
   style='mso-fareast-font-family:黑体'>=ftp_open(&quot;192.168.75.1&quot;:21,&quot;Administrator&quot;,&quot;admin&quot;)</span></b></p>
   </td>
-  <td width=271 valign=top style='width:162.35pt;border:none;mso-border-left-alt:
+  <td width=188 valign=top style='width:112.75pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span lang=EN-US>Create an FTP client</span></p>
   </td>
@@ -106,14 +159,14 @@ mso-bidi-font-size:12.0pt;line-height:200%'>Example:</span></b></p>
   <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
   style='mso-fareast-font-family:黑体'>2</span></b></p>
   </td>
-  <td width=379 valign=top style='width:227.45pt;border-top:none;border-left:
+  <td width=462 valign=top style='width:277.05pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>=ftp_cd(A1,&quot;/folder1&quot;)</span></b></p>
+  style='mso-fareast-font-family:黑体'>=ftp_cd(A1,&quot;/workPath&quot;)</span></b></p>
   </td>
-  <td width=271 valign=top style='width:162.35pt;border:none;mso-border-left-alt:
+  <td width=188 valign=top style='width:112.75pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
   </td>
@@ -125,16 +178,16 @@ mso-bidi-font-size:12.0pt;line-height:200%'>Example:</span></b></p>
   <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
   style='mso-fareast-font-family:黑体'>3</span></b></p>
   </td>
-  <td width=379 valign=top style='width:227.45pt;border-top:none;border-left:
+  <td width=462 valign=top style='width:277.05pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>=ftp_put(A1,&quot;Test1.docx&quot;,&quot;G:/Test.docx&quot;)</span></b></p>
+  style='mso-fareast-font-family:黑体'>=ftp_put(A1,&quot;test.txt&quot;,&quot;G:/Test.txt&quot;)</span></b></p>
   </td>
-  <td width=271 valign=top style='width:162.35pt;border:none;mso-border-left-alt:
+  <td width=188 valign=top style='width:112.75pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Upload a file to the FTP server</span></p>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes'>
@@ -144,16 +197,16 @@ mso-bidi-font-size:12.0pt;line-height:200%'>Example:</span></b></p>
   <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
   style='mso-fareast-font-family:黑体'>4</span></b></p>
   </td>
-  <td width=379 valign=top style='width:227.45pt;border-top:none;border-left:
+  <td width=462 valign=top style='width:277.05pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
   style='mso-fareast-font-family:黑体'>&gt;ftp_close(A1)</span></b></p>
   </td>
-  <td width=271 valign=top style='width:162.35pt;border:none;mso-border-left-alt:
+  <td width=188 valign=top style='width:112.75pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>Exit the FTP client program</span></p>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
   </td>
  </tr>
 </table>
@@ -163,8 +216,9 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
 mso-bidi-font-size:12.0pt;line-height:200%'>Related function:</span></b></p>
 
 <p class=MsoNormal style='text-indent:21.0pt'><u><span lang=EN-US
-style='mso-fareast-font-family:黑体;color:blue'><a  href="ftpclient.html#ftp_client"><span
-style='text-decoration:none;text-underline:none'>ftp_open()</span></a></span></u></p>
+style='mso-fareast-font-family:黑体;color:blue'><a  href="ftpclose.html#ftp_close">ftp_clos<span
+style='mso-bookmark:_Hlt499910426'>e</span>()</a><a
+name="_Hlt499910426"></a></span></u></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="342.html">Next</a></div>

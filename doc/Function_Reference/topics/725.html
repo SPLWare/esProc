@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>report_exportPdf()</title>
+<title>report_exportHtml()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,36 +13,31 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h2><a name="report_exportPdf"></a><a name="_Hlt490810802"></a><span
-style='mso-bookmark:report_exportPdf'><span lang=EN-US>report_exportPdf()</span></span><span
-style='mso-bookmark:report_exportPdf'></span><span
-style='mso-bookmark:report_exportPdf'></span></h2></div>
-	<span style='mso-bookmark:report_exportPdf'></span>
-
-<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
+	<div id="centent-title"><h2><span lang=EN-US>report_exportHtml()<a name="report_exportHtml"></a></span></h2></div>
+	<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
 mso-bidi-font-size:12.0pt;line-height:200%'>Description:</span></b></p>
 
 <p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Export a report
-as a PDF file. </span></p>
+as a HTML file or an MHT file. </span></p>
 
 <p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
 mso-bidi-font-size:12.0pt;line-height:200%'>Syntax: </span></b></p>
 
 <p class=MsoNormal style='text-indent:21.0pt'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US style='mso-fareast-font-family:黑体'>report_exportPdf</span></b><span
+normal'><span lang=EN-US style='mso-fareast-font-family:黑体'>report_exportHtml</span></b><span
 lang=EN-US>(</span><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>rpt</span></i><span
-lang=EN-US>, </span><i><span lang=EN-US style='mso-bidi-font-size:10.5pt'>filePath</span></i><span
-lang=EN-US>)</span></p>
+lang=EN-US style='mso-bidi-font-size:10.5pt;mso-bidi-font-style:italic'>,<i>
+filePath</i></span><span lang=EN-US>)</span></p>
 
 <p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
 mso-bidi-font-size:12.0pt;line-height:200%'>Note: </span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>This external
-library function exports a report file into a PDF format. A report file that
-isn’t computed will be exported as a template. </span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>By default, this
+external library function exports a report into the HTML format. A report file
+that isn’t computed will be exported as a template.</span></p>
 
 <p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
@@ -79,18 +74,20 @@ mso-bidi-font-size:12.0pt;line-height:200%'>Option:</span></b></p>
  style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes'>
-  <td width=99 valign=top style='width:59.25pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><b><span lang=EN-US style='mso-bidi-font-size:10.5pt'>@p</span></b></p>
+  <td width=52 valign=top style='width:30.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>@x</span></b><i><span lang=EN-US
+  style='mso-bidi-font-size:10.5pt'></span></i></p>
   </td>
-  <td width=583 valign=top style='width:349.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Export a report as a paginated PDF</span></p>
+  <td width=617 valign=top style='width:369.95pt;padding:0cm 5.4pt 0cm 5.4pt'>
+  <p class=MsoNormal><span lang=EN-US>Export the report file into an MHT format</span></p>
   </td>
  </tr>
 </table>
 
 <p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
-mso-bidi-font-size:12.0pt;line-height:200%'>Return value:</span></b></p>
+mso-bidi-font-size:12.0pt;line-height:200%'>Return value: </span></b></p>
 
 <p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>An exported file
 path</span></p>
@@ -190,15 +187,15 @@ mso-bidi-font-size:12.0pt;line-height:200%'>Example:</span></b></p>
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:15.75pt'>
   <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>=report_exportPdf(A2,&quot;D:\\test.pdf&quot;)</span></b></p>
+  style='mso-fareast-font-family:黑体'>=report_exportHtml(A2,&quot;D:\\test&quot;)</span></b></p>
   </td>
   <td width=283 valign=top style='width:170.0pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:15.75pt'>
   <p class=MsoNormal><span lang=EN-US>Export as <i style='mso-bidi-font-style:
-  normal'>test.pdf</i></span></p>
+  normal'>test.html</i></span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:5;mso-yfti-lastrow:yes;height:15.75pt'>
+ <tr style='mso-yfti-irow:5;height:15.75pt'>
   <td width=21 valign=top style='width:12.4pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:15.75pt'>
@@ -210,12 +207,32 @@ mso-bidi-font-size:12.0pt;line-height:200%'>Example:</span></b></p>
   mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
   mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:15.75pt'>
   <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
-  style='mso-fareast-font-family:黑体'>=report_exportPdf(A2,&quot;test.pdf&quot;)</span></b></p>
+  style='mso-fareast-font-family:黑体'>=report_exportHtml@x(A2,&quot;D:\\test.mht&quot;)</span></b></p>
+  </td>
+  <td width=283 valign=top style='width:170.0pt;border:none;mso-border-left-alt:
+  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:15.75pt'>
+  <p class=MsoNormal><span lang=EN-US>Export as <i style='mso-bidi-font-style:
+  normal'>test.mht</i></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:6;mso-yfti-lastrow:yes;height:15.75pt'>
+  <td width=21 valign=top style='width:12.4pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:15.75pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>6</span></b></p>
+  </td>
+  <td width=368 valign=top style='width:221.0pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
+  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:15.75pt'>
+  <p class=MsoNormal><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='mso-fareast-font-family:黑体'>=report_exportHtml(A2,&quot;test&quot;)</span></b></p>
   </td>
   <td width=283 valign=top style='width:170.0pt;border:none;mso-border-left-alt:
   solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:15.75pt'>
   <p class=MsoNormal><span lang=EN-US>With a relative path parameter, the
-  exported file path is <i style='mso-bidi-font-style:normal'>D:\test.pdf</i>
+  exported file path is <i style='mso-bidi-font-style:normal'>D:\test.html</i>
   if the path set for &lt;home&gt; in the configuration file is “D:\”</span></p>
   </td>
  </tr>
@@ -226,21 +243,20 @@ style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
 mso-bidi-font-size:12.0pt;line-height:200%'>Related function:</span></b></p>
 
 <p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
-style='mso-fareast-font-family:黑体'><a  href="reportconfig.html#report_config">report_con<span
-style='mso-bookmark:_Hlt490810561'>f</span>ig()</a><a
-name="_Hlt490810561"></a></span></p>
+style='mso-fareast-font-family:黑体'><a  href="reportconfig.html#report_config">report_config<span
+style='mso-bookmark:_Hlt490810488'><span style='mso-bookmark:_Hlt490810487'>(</span></span>)<span
+style='mso-fareast-font-family:宋体'></span></a><a
+name="_Hlt490810487"></a><a name="_Hlt490810488"></a></span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
-style='mso-fareast-font-family:黑体'><a  href="reportopen.html#report_open">report_open(<span
-style='mso-bookmark:_Hlt490810579'>)</span><span style='mso-bookmark:_Hlt490810579'></span><span
-style='mso-fareast-font-family:宋体'></span></a><a
-name="_Hlt490810579"></a></span></p>
+style='mso-fareast-font-family:黑体'><a  href="reportopen.html#report_open">report_ope<span
+style='mso-bookmark:_Hlt490810491'>n</span>()<span style='mso-fareast-font-family:
+宋体'></span></a><a name="_Hlt490810491"></a></span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US
-style='mso-fareast-font-family:黑体'><a  href="reportrun.html#report_run">report_run(<span
-style='mso-bookmark:_Hlt490810597'>)</span><span style='mso-bookmark:_Hlt490810597'></span><span
-style='mso-fareast-font-family:宋体'></span></a><a
-name="_Hlt490810597"></a></span></p>
+style='mso-fareast-font-family:黑体'><a  href="reportrun.html#report_run">report<span
+style='mso-bookmark:_Hlt490810514'>_</span>run()</a><a
+name="_Hlt490810514"></a></span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="726.html">Next</a></div>

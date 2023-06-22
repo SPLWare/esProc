@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>Line</title>
+<title>TimeAxis</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,240 +13,86 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h3 style='margin-left:1.0cm;text-align:justify;text-justify:inter-ideograph;
-text-indent:-1.0cm'><span lang=EN-US>Line </span></h3></div>
+	<div id="centent-title"><h3 style='text-align:justify;text-justify:inter-ideograph'><span lang=EN-US>TimeAxis</span></h3></div>
 	<p class=MsoNormal style='text-indent:21.0pt'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US>endToHead </span></b></p>
+normal'><span lang=EN-US>name</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>Whether it is
-an end-to-end closed polyline or not. To be one, check the closedArea property.</span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Time axis name.</span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US>closedArea</span></b></p>
+normal'><span lang=EN-US>autoCalcValueRange</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>Whether it is
-a closed area or not. When its value is true, a closed area will be formed by
-the polyline and the x-axis. But by checking endToHead property, the closed
-area will be formed by linking the start and end points of the polyline. </span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US>areaColor</span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The fill
-color of the closed area. The color can be pure or gradient. </span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Whether or not
+the value range of coordinate’s axis will be computed automatically according
+to the coordinates of a point. If the <b style='mso-bidi-font-weight:normal'>autoCalcValueRange</b>
+is set as true, then the value range of time axis will be set automatically
+according to the coordinates of the axis.</span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US>stackType</span></b></p>
+normal'><span lang=EN-US>keepTrack</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>Types of
-stacking include no stack, stacked by percent and stacked by value. Data series
-of the same category will be plotted by stacking in sequence. </span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Keep track of
+the motion trail of data points when a video is streaming.</span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US>radiateLine</span></b></p>
+normal'><span lang=EN-US>beginTime</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>Radiate lines
-or not. If set as true, radiate lines will be plotted by connecting the
-original point to each of other points.</span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>The beginning
+time, which is a number or a date string.</span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US>stairLine</span></b></p>
+normal'><span lang=EN-US>endTime</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>Stair lines
-or not. If set as true, start from the original point to connect to the next
-point with stair-like lines. Thus the final chart will be a stair line. </span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>The ending time,
+which is a number or a date string.</span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US>transparent </span></b></p>
+normal'><span lang=EN-US>displayMark</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The degree of
-transparency for polyline. The value range for it is [0,1], in which the 0
-represents the 100% transparency (i.e. totally transparent), and the 1
-represents full opaqueness. The values higher than 1 give the same total opaque
-effect as 1, and the values less than 0 represent the total transparency as
-well.</span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Display time
+stamp as a video is streaming when it is set as true.</span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US>textOverlapping </span></b></p>
+normal'><span lang=EN-US>textFont</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>Whether the
-text overlapping is allowed or not. If it is checked, the text can be displayed
-with overlaps. Otherwise, the overlapping text will be overridden and hidden.</span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>Font used in a
+time stamp.</span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US>shadow </span></b></p>
+normal'><span lang=EN-US>textSize</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The shadow
-effect for line chart element</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US>visible </span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>Whether the
-line chart element is visible or not.</span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>The size of a
+time stamp.</span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US>htmlLink</span></b></p>
+normal'><span lang=EN-US>textColor</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>Hyperlinks to
-polylines.</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US>tipTitle</span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>Hyperlink
-tips to polylines.</span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>The color of a
+time stamp.</span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US>linkTarget</span></b></p>
+normal'><span lang=EN-US>backColor</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The hyperlink
-destination. You can use_blank, _self, _parent and _top to open a hyperlink.</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US>markerStyle</span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The shape of
-markers on a polyline.</span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>The background
+color of a time stamp.</span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US>lineStyle </span></b></p>
+normal'><span lang=EN-US>format</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>Style of
-outline of the closed area formed with a polyline.</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US>lineWeight</span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>Thickness of
-the outline.</span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>The format of a
+time stamp, such as YYYY-MM-dd HH:mm:ss.</span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US>lineColor </span></b></p>
+normal'><span lang=EN-US>markX</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>Color of the
-outline.</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US>markerColor </span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>Fill color of
-the markers on a polyline.</span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>The position of
+a time stamp on X axis.</span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US>markerWeight</span></b></p>
+normal'><span lang=EN-US>markY</span></b></p>
 
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>Sizes of the
-markers which are measured by pixels.</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US>radius1</span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>Marker radius
-relative to axis1 and measured by percent of the axis. It determines the shape
-of markers along with radius2.</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US>radius2</span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>Marker radius
-relative to axis2 and measured by percent of the axis. It determines the shape
-of markers along with radius1.</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US>text </span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>Label text of
-markers on a polyline.</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US>textFont </span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>Label font.</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US>textStyle </span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The label
-text font style. Please refer to textStyle of column chart/histogram.</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US>textSize </span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>Label text
-size</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US>textColor </span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>Label text
-color</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US>axis1 </span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The name of
-axis 1, which corresponds to numeric axis, enum axis, or date axis.</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US>data1/x </span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>A sequence
-composed of the logical coordinate values on axis 1. When plotting, the logical
-coordinate values will be automatically converted to the physical coordinate
-values. When both axis1 and axis are absent, its value is the abscissa X of the
-canvas pixels.</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US>axis2</span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The name of
-axis 2, which correspond to numeric axis, enum axis, or date axis.</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><b style='mso-bidi-font-weight:
-normal'><span lang=EN-US>data2/y </span></b></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>The sequence composed
-of the logical coordinate values on axis 2. When plotting, the logical coordinate
-values will be automatically converted to the physical coordinate values. When
-both axis1 and axis are absent, its value is the ordinate Y of the canvas
-pixels; in this case the canvas’ origin is located in the top left corner.</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US>&nbsp;</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0;
-line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>&nbsp;</span></p>
+<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>The position of
+a time stamp on Y axis.<span style='mso-bidi-font-weight:bold'></span></span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="968.html">Next</a></div>
@@ -254,7 +100,7 @@ line-height:16.0pt;mso-line-height-rule:exactly'><span lang=EN-US>&nbsp;</span><
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="961.html">Chart Element Parameters</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="964.html">Chart Element Parameters</a></span></li>
 </div>
 	</div>
 	<div id="footer">	
