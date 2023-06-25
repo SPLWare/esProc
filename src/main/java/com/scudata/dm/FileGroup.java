@@ -179,6 +179,7 @@ public class FileGroup implements Externalizable {
 		
 		boolean isCol = baseTable.getGroupTable() instanceof ColComTable;
 		boolean hasN = false;
+		boolean hasW = false;
 		boolean compress = false; // 压缩
 		boolean uncompress = false; // 不压缩
 		
@@ -195,6 +196,10 @@ public class FileGroup implements Externalizable {
 			
 			if (opt.indexOf('z') != -1) {
 				compress = true;
+			}
+			
+			if (opt.indexOf('w') != -1) {
+				hasW = true;
 			}
 			
 			if (compress && uncompress) {
@@ -270,7 +275,12 @@ public class FileGroup implements Externalizable {
 			
 			//新基表
 			PhyTable newBaseTable = newGroupTable.getBaseTable();
-			ICursor cs = tableGroup.merge(ctx);
+			ICursor cs;
+			if (hasW) {
+				cs = tableGroup.cursor(null, null, null, null, null, null, "w", ctx);
+			} else {
+				cs = tableGroup.merge(ctx);
+			}
 
 			newBaseTable.append(cs);
 			newBaseTable.appendCache();
