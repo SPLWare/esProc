@@ -2209,6 +2209,13 @@ public class SplEditor {
 		if (cs == null) {
 			return false;
 		}
+		if (cs.isCutStatus()) {
+			if (cs.srcCellSet != control.getCellSet()) {
+				GM.messageDialog(GV.appFrame,
+						mm.getMessage("spleditor.notcutothersheet"));
+				return false;
+			}
+		}
 		CellSetParser parser = new CellSetParser(control.getCellSet());
 		cs.setAdjustSelf(isAdjustSelf);
 

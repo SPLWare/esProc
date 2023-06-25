@@ -122,5 +122,6 @@ tree.setIconPath("images/");
  tree.nodes["1_121"] = "text:Prompt when serial number will expire soon;url:topics/119.html";
  tree.nodes["1_122"] = "text:Serial number;url:topics/120.html";
  tree.nodes["1_123"] = "text:Remote Services;url:topics/121.html";
+ tree.nodes["1_124"] = "text:Encrypt Data Source;url:topics/122.html";
 tree.setTarget("mainFrame");
 document.write(tree.toString());

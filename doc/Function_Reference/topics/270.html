@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>A .export()</title>
+<title>eye()</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,615 +13,195 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h3 style='text-align:justify;text-justify:inter-ideograph'><a name="A_export"></a><i
-style='mso-bidi-font-style:normal'><span lang=EN-US>A</span></i><span
-lang=EN-US>.export()</span></h3></div>
-	<p class=af style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Description:</span><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%;font-weight:normal'></span></p>
+	<div id="centent-title"><h2><a name="f_exportxls"></a><a name="F_export"></a><a name="f_export_cs_x_F"></a><span
+lang=EN-US>eye()<a name=eye></a></span></h2></div>
+	<p class=MsoNormal style='line-height:21.0pt;mso-pagination:widow-orphan'><b><span
+lang=EN-US style='font-size:14.0pt;color:#333333;mso-font-kerning:0pt'>Description:</span></b></p>
 
-<p class=MsoNormal style='text-indent:26.25pt;mso-char-indent-count:2.5'><span
-lang=EN-US>Convert a sequence into a string.</span></p>
+<p class=MsoNormal style='text-indent:21.0pt;line-height:21.0pt;mso-pagination:
+widow-orphan'><span lang=EN-US>Create a matrix whose major diagonal element is
+1 and other elements are 0.</span><span lang=EN-US style='color:#333333;
+mso-font-kerning:0pt'></span></p>
 
-<p class=af style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Syntax:</span><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%;font-weight:normal'> </span><span lang=EN-US
-style='mso-bidi-font-size:14.0pt;line-height:200%'><span
-style='mso-spacerun:yes'>&nbsp;</span></span><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%;font-weight:normal'></span></p>
+<p class=MsoNormal style='line-height:21.0pt;mso-pagination:widow-orphan'><b><span
+lang=EN-US style='font-size:14.0pt;color:#333333;mso-font-kerning:0pt'>Syntax:</span></b></p>
 
-<p class=MsoNormal style='text-indent:26.35pt;mso-char-indent-count:2.5'><span
-class=code><i style='mso-bidi-font-style:normal'><span lang=EN-US
-style='font-family:"Times New Roman","serif"'>A</span></i></span><span
-class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>.export</span></span><span
-lang=EN-US>(<i style='mso-bidi-font-style:normal'>x:</i></span><span
-class=var1><span lang=EN-US>F</span></span><span lang=EN-US>,…</span><span
-class=var1><span lang=EN-US>;s</span></span><span class=var1><span lang=EN-US
-style='font-style:normal;mso-bidi-font-style:italic'>)</span></span></p>
+<p class=MsoNormal style='text-indent:21.1pt;line-height:21.0pt;mso-pagination:
+widow-orphan'><b><span lang=EN-US>eye</span></b><span lang=EN-US>(<i>n<sub>1</sub></i>,<i>n<sub>2</sub></i>)</span><span
+lang=EN-US style='color:#333333;mso-font-kerning:0pt'></span></p>
 
-<p class=af style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Note:</span><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%;font-weight:normal'></span></p>
+<p class=MsoNormal style='line-height:21.0pt;mso-pagination:widow-orphan'><b><span
+lang=EN-US style='font-size:14.0pt;color:#333333;mso-font-kerning:0pt'>Note:</span></b></p>
 
-<p class=af style='text-indent:21.0pt;mso-char-indent-count:2.0;tab-stops:0cm'><span
-lang=EN-US style='font-size:10.5pt;mso-bidi-font-size:10.0pt;font-weight:normal'>The
-function separates each selected fields <i style='mso-bidi-font-style:normal'>x</i>
-of records in table sequence/record sequence/sequence <i style='mso-bidi-font-style:
-normal'>A</i> with the user-defined separator and returns the result as a
-string. The name of the resulting field in the string is <i style='mso-bidi-font-style:
-normal'>F</i>. If <i style='mso-bidi-font-style:normal'>x</i> isn’t specified,
-then export all fields. Return a one-field string without a field name if <i
-style='mso-bidi-font-style:normal'>A</i> is a simple sequence; use separator
-when <i>A</i>’s members are sequences. A serial byte value is stored as an
-integer.</span></p>
+<p class=MsoNormal style='text-indent:21.0pt;line-height:21.0pt;mso-pagination:
+widow-orphan'><span lang=EN-US>The external library function creats a new
+matrix according to parameter <i>n<sub>1 </sub></i>and parameter <i>n<sub>2 </sub></i>that
+define the dimensions. When only one parameter is present, the function creates
+a unit matrix of size <i>n</i>.</span><span lang=EN-US style='color:#333333;
+mso-font-kerning:0pt'></span></p>
 
-<p class=af style='text-indent:21.0pt;mso-char-indent-count:2.0;tab-stops:0cm'><span
-lang=EN-US style='font-size:10.5pt;mso-bidi-font-size:10.0pt;font-weight:normal'><span
-style='mso-spacerun:yes'>&nbsp;</span>If parameters <i style='mso-bidi-font-style:
-normal'>x:F</i> are absent and if <i style='mso-bidi-font-style:normal'>A</i>
-is a sequence of record, then these records should be of same structure.</span></p>
-
-<p class=MsoNormal><span lang=EN-US><span
-style='mso-spacerun:yes'>&nbsp;</span><span
-style='mso-spacerun:yes'>&nbsp; </span>The function returns JSON
-strings when records or members of <i>A</i> is record, sequence or table
-sequence; and returns a hexadecimal string when records or members of <i>A</i>
-are serial byte keys. </span></p>
-
-<p class=af style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Parameter:</span><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%;font-weight:normal'> </span><span lang=EN-US
-style='mso-bidi-font-size:14.0pt;line-height:200%'><span
-style='mso-spacerun:yes'>&nbsp;</span></span></p>
+<p class=MsoNormal style='line-height:21.0pt;mso-pagination:widow-orphan'><b><span
+lang=EN-US style='font-size:14.0pt;color:#333333;mso-font-kerning:0pt'>Parameter:</span></b></p>
 
 <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=63 valign=top style='width:38.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US>A</span></span></p>
+ style='margin-left:-1.75pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ mso-padding-alt:0cm 0cm 0cm 0cm'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes;
+  height:28.5pt'>
+  <td width=97 valign=top style='width:58.45pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:28.5pt'>
+  <p class=MsoNormal style='text-indent:4.9pt;line-height:21.0pt;mso-pagination:
+  widow-orphan'><i><span lang=EN-US>n<sub>1/</sub> n<sub>2</sub></span></i><span
+  lang=EN-US style='font-size:10.0pt;color:#333333;mso-font-kerning:0pt'></span></p>
   </td>
-  <td width=605 valign=top style='width:362.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>A table sequence/record sequence/sequence
-  to be exported</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:1'>
-  <td width=63 valign=top style='width:38.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US>x</span></span></p>
-  </td>
-  <td width=605 valign=top style='width:362.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Fields to be exported. If omitted, then
-  export all fields of </span><span class=a4><span lang=EN-US style='font-family:
-  "Times New Roman","serif"'>A</span></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:2'>
-  <td width=63 valign=top style='width:38.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><i style='mso-bidi-font-style:normal'><span lang=EN-US>F</span></i><span
-  class=var1><span lang=EN-US></span></span></p>
-  </td>
-  <td width=605 valign=top style='width:362.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Name of the resulting field in the
-  string. If omitted, then use the original field name</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
-  <td width=63 valign=top style='width:38.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US>s</span></span></p>
-  </td>
-  <td width=605 valign=top style='width:362.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>User-defined field separator. The default
-  is tab</span></p>
+  <td width=571 valign=top style='width:342.45pt;padding:0cm 5.4pt 0cm 5.4pt;
+  height:28.5pt'>
+  <p class=MsoNormal style='text-indent:4.9pt;line-height:21.0pt;mso-pagination:
+  widow-orphan'><span lang=EN-US style='font-size:10.0pt;color:#333333;
+  mso-font-kerning:0pt'>Positive integers</span></p>
   </td>
  </tr>
 </table>
 
-<p class=af style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Option:</span><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%;font-weight:normal'> </span><span lang=EN-US
-style='mso-bidi-font-size:14.0pt;line-height:200%'><span
-style='mso-spacerun:yes'>&nbsp;</span></span></p>
+<p class=MsoNormal style='line-height:21.0pt;mso-pagination:widow-orphan'><b><span
+lang=EN-US style='font-size:14.0pt;color:#333333;mso-font-kerning:0pt'>Return
+value</span></b><b><span style='font-size:14.0pt;font-family:宋体;mso-ascii-font-family:
+"Times New Roman";mso-hansi-font-family:"Times New Roman";color:#333333;
+mso-font-kerning:0pt'>：</span></b><b><span lang=EN-US style='font-size:14.0pt;
+color:#333333;mso-font-kerning:0pt'></span></b></p>
 
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
- style='margin-left:17.0pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- mso-padding-alt:0cm 5.4pt 0cm 5.4pt'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=63 valign=top style='width:38.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>@t</span></span><span
-  class=var1><span lang=EN-US></span></span></p>
-  </td>
-  <td width=605 valign=top style='width:362.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>The column names will be written to the
-  string as the first record</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:1'>
-  <td width=63 valign=top style='width:38.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>@c</span></span></p>
-  </td>
-  <td width=605 valign=top style='width:362.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><span lang=EN-US style='mso-bidi-font-size:
-  10.0pt;font-style:normal'>Use comma as the separator when the parameter </span></span><span
-  class=var1><span lang=EN-US style='mso-bidi-font-size:10.0pt;mso-bidi-font-style:
-  normal'>s</span></span><span class=var1><span lang=EN-US style='mso-bidi-font-size:
-  10.0pt;font-style:normal'> is absent, but the user-defined separator </span></span><span
-  class=var1><span lang=EN-US style='mso-bidi-font-size:10.0pt;mso-bidi-font-style:
-  normal'>s</span></span><span class=var1><span lang=EN-US style='mso-bidi-font-size:
-  10.0pt;font-style:normal'> should take priority when there are both </span></span><span
-  class=var1><span lang=EN-US style='mso-bidi-font-size:10.0pt;mso-bidi-font-style:
-  normal'>s</span></span><span class=var1><span lang=EN-US style='mso-bidi-font-size:
-  10.0pt;font-style:normal'> and @c option</span></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:2'>
-  <td width=63 valign=top style='width:38.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>@w</span></span></p>
-  </td>
-  <td width=605 valign=top style='width:362.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Use Windows-style \r\n line break; by
-  default, the line break is specified by the operating system. </span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:3'>
-  <td width=63 valign=top style='width:38.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><b style='mso-bidi-font-weight:normal'><span
-  lang=EN-US style='font-style:normal;mso-bidi-font-style:italic'>@q</span></b></span></p>
-  </td>
-  <td width=605 valign=top style='width:362.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US>Enclose the exported text field values
-  and headers with quotation marks </span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes'>
-  <td width=63 valign=top style='width:38.05pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span class=var1><b style='mso-bidi-font-weight:normal'><span
-  lang=EN-US style='font-style:normal;mso-bidi-font-style:italic'>@o</span></b></span></p>
-  </td>
-  <td width=605 valign=top style='width:362.85pt;padding:0cm 5.4pt 0cm 5.4pt'>
-  <p class=MsoNormal><span lang=EN-US style='mso-bidi-language:AR'>Perform
-  escaping according to the Excel rule, which treats two double quotation marks
-  as one and does not escape the other characters </span><span lang=EN-US>Need
-  to work with @q</span></p>
-  </td>
- </tr>
-</table>
+<p class=MsoNormal style='text-indent:21.0pt;line-height:21.0pt;mso-pagination:
+widow-orphan'><span lang=EN-US style='color:#333333;mso-font-kerning:0pt'>A
+sequence</span></p>
 
-<p class=af style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Return value:</span><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%;font-weight:normal'></span></p>
-
-<p class=MsoNormal style='margin-left:84.0pt;mso-para-margin-left:2.0gd;
-text-indent:-63.0pt;mso-char-indent-count:-6.0'><span lang=EN-US>String.</span></p>
-
-<p class=af style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Example:</span></p>
+<p class=MsoNormal style='line-height:21.0pt;mso-pagination:widow-orphan'><b><span
+lang=EN-US style='font-size:14.0pt;color:#333333;mso-font-kerning:0pt'>Example:</span></b><span
+lang=EN-US style='font-size:14.0pt;color:#333333;mso-font-kerning:0pt'></span></p>
 
 <table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0
- style='margin-left:-7.5pt;border-collapse:collapse;mso-table-layout-alt:fixed;
- border:none;mso-border-alt:solid #A6A6A6 .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;
- mso-border-insideh:.5pt solid #A6A6A6;mso-border-insidev:.5pt solid #A6A6A6'>
- <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
-  <td width=36 valign=top style='width:21.3pt;border:solid #A6A6A6 1.0pt;
-  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>&nbsp;</span></span></p>
+ style='margin-left:25.75pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-top-alt:black;mso-border-left-alt:black;mso-border-bottom-alt:
+ #B2B2B2;mso-border-right-alt:#B2B2B2;mso-border-style-alt:solid;mso-border-width-alt:
+ .5pt;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:.5pt solid #B2B2B2;
+ mso-border-insidev:.5pt solid #B2B2B2'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;page-break-inside:avoid;
+  height:14.15pt'>
+  <td width=52 valign=top style='width:31.2pt;border:solid #A6A6A6 1.0pt;
+  mso-border-alt:solid #A6A6A6 .5pt;background:#A6A6A6;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:10.5pt'>&nbsp;</span></b></p>
   </td>
-  <td width=342 valign=top style='width:205.15pt;border:solid #A6A6A6 1.0pt;
-  border-left:none;mso-border-left-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman","serif"'>A</span></span></p>
+  <td width=232 valign=top style='width:139.25pt;border:solid #A6A6A6 1.0pt;
+  border-left:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-bottom-alt:
+  solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;background:#A6A6A6;
+  padding:0cm 0cm 0cm 0cm;height:14.15pt'>
+  <p class=TabLabel><b style='mso-bidi-font-weight:normal'><span lang=EN-US
+  style='font-size:10.5pt'>A</span></b></p>
   </td>
-  <td width=355 valign=top style='width:213.1pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:1'>
-  <td width=36 valign=top style='width:21.3pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>1</span></span></p>
-  </td>
-  <td width=342 valign=top style='width:205.15pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=demo.query(&quot;select
-  EID,NAME from EMPLOYEE&quot;)</span></span></p>
-  </td>
-  <td width=355 valign=top style='width:213.1pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  <td width=331 valign=top style='width:198.8pt;border:none;padding:0cm 0cm 0cm 0cm;
+  height:14.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-size:10.5pt'>&nbsp;</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:2'>
-  <td width=36 valign=top style='width:21.3pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>2</span></span></p>
+ <tr style='mso-yfti-irow:1;page-break-inside:avoid;height:49.8pt'>
+  <td width=52 style='width:31.2pt;border:solid #A6A6A6 1.0pt;border-top:none;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#A6A6A6;padding:0cm 0cm 0cm 0cm;height:49.8pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:10.5pt'>1</span></b></p>
   </td>
-  <td width=342 valign=top style='width:205.15pt;border-top:none;border-left:
+  <td width=232 valign=top style='width:139.25pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=A1.export()</span></span></p>
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm;height:49.8pt'>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman","serif"'>=eye(4,3)</span></p>
   </td>
-  <td width=355 valign=top style='width:213.1pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'><img border=0 width=354 height=48
-  src="Function_Reference.files/image538.jpg" v:shapes="_x0000_i1349"></span></p>
-  <p class=MsoNormal><span lang=EN-US>Parameters <i style='mso-bidi-font-style:
-  normal'>x</i><span style='color:black'>, <i style='mso-bidi-font-style:normal'>F</i>,
-  and <i style='mso-bidi-font-style:normal'>s</i> are omitted</span></span></p>
+  <td width=331 valign=top style='width:198.8pt;border:none;padding:0cm 0cm 0cm 0cm;
+  height:49.8pt'>
+  <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+   style='mso-cellspacing:0cm;mso-table-layout-alt:fixed;mso-padding-alt:0cm 0cm 0cm 0cm'>
+   <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-row-margin-right:24.0pt'>
+    <td width=12 style='width:7.2pt;padding:0cm 0cm 0cm 0cm'>
+    <p class=MsoNormal style='mso-pagination:widow-orphan'><span lang=EN-US
+    style='font-size:12.0pt;mso-font-kerning:0pt'>&nbsp;</span></p>
+    </td>
+    <td style='mso-cell-special:placeholder;border:none;padding:0cm 0cm 0cm 0cm'
+    width=40><p class='MsoNormal'>&nbsp;</td>
+   </tr>
+   <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
+    <td width=12 style='width:7.2pt;padding:0cm 0cm 0cm 0cm'>
+    <p class=MsoNormal style='mso-pagination:widow-orphan'><span lang=EN-US
+    style='font-size:12.0pt;mso-font-kerning:0pt'>&nbsp;</span></p>
+    </td>
+    <td width=40 style='width:24.0pt;padding:0cm 0cm 0cm 0cm'>
+    <p class=MsoNormal style='mso-pagination:widow-orphan'><span lang=EN-US
+    style='font-size:12.0pt;mso-font-kerning:0pt'><img border=0 width=414 height=154
+    src="Function_Reference.files/image599.jpg" v:shapes="图片_x0020_388"></span></p>
+    </td>
+   </tr>
+  </table>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman","serif";
+  font-weight:normal'>Create a 4*3 matrix with the length of diagonal line
+  being 1</span></p>
   </td>
  </tr>
- <tr style='mso-yfti-irow:3'>
-  <td width=36 valign=top style='width:21.3pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>3</span></span></p>
+ <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes;page-break-inside:avoid;
+  height:59.15pt'>
+  <td width=52 style='width:31.2pt;border:solid #A6A6A6 1.0pt;border-top:none;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#A6A6A6;padding:0cm 0cm 0cm 0cm;height:59.15pt'>
+  <p class=TabLabel style='text-align:justify;text-justify:inter-ideograph'><b
+  style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:10.5pt'>2</span></b></p>
   </td>
-  <td width=342 valign=top style='width:205.15pt;border-top:none;border-left:
+  <td width=232 valign=top style='width:139.25pt;border-top:none;border-left:
   none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=A1.export(;&quot;|&quot;)</span></span></p>
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm;height:59.15pt'>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman","serif"'>=eye(3)</span></p>
   </td>
-  <td width=355 valign=top style='width:213.1pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'><img border=0 width=354 height=48
-  src="Function_Reference.files/image540.jpg" v:shapes="_x0000_i1350"></span></p>
-  <p class=MsoNormal><span lang=EN-US>Specify the separator as &quot;|&quot;</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:4;height:41.7pt'>
-  <td width=36 valign=top style='width:21.3pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:41.7pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>4</span></span></p>
-  </td>
-  <td width=342 valign=top style='width:205.15pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:41.7pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=A1.export@t(EID:id,NAME:name;&quot;,&quot;)</span></span></p>
-  </td>
-  <td width=355 valign=top style='width:213.1pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:41.7pt'>
-  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'><img border=0 width=354 height=48
-  src="Function_Reference.files/image542.jpg" v:shapes="_x0000_i1351"></span></p>
-  <p class=MsoNormal><span lang=EN-US>Specify to-be-exported fields and the
-  separator; make column names the first record and write it at the beginning
-  of the exported string</span><span lang=EN-US style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'> </span><span lang=zh-CN style='mso-ansi-language:
-  #0400;mso-fareast-language:#0400'></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:5;height:41.7pt'>
-  <td width=36 valign=top style='width:21.3pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:41.7pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>5</span></span></p>
-  </td>
-  <td width=342 valign=top style='width:205.15pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:41.7pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-  mso-hansi-font-family:"Arial Narrow"'>[1,23,34,45]</span></span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'></span></span></p>
-  </td>
-  <td width=355 valign=top style='width:213.1pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:41.7pt'>
-  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'>&nbsp;</span></p>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span lang=zh-CN
-  style='mso-ansi-language:#0400;mso-fareast-language:#0400'>A sequence</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:6;height:41.7pt'>
-  <td width=36 valign=top style='width:21.3pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:41.7pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>6</span></span></p>
-  </td>
-  <td width=342 valign=top style='width:205.15pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:41.7pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-  mso-hansi-font-family:"Arial Narrow"'>=A5.export()</span></span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'></span></span></p>
-  </td>
-  <td width=355 valign=top style='width:213.1pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:41.7pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span lang=EN-US><img border=0 width=181 height=197
-  src="Function_Reference.files/image543.png" v:shapes="图片_x0020_1422"></span><span
-  lang=EN-US style='font-size:12.0pt;mso-bidi-font-size:10.0pt;mso-font-kerning:
-  0pt'></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:7;height:41.7pt'>
-  <td width=36 valign=top style='width:21.3pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:41.7pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>7</span></span></p>
-  </td>
-  <td width=342 valign=top style='width:205.15pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:41.7pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-  mso-hansi-font-family:"Arial Narrow"'>=A1.export@c()</span></span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'></span></span></p>
-  </td>
-  <td width=355 valign=top style='width:213.1pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:41.7pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span lang=zh-CN
-  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=354 height=49
-  src="Function_Reference.files/image545.jpg" v:shapes="_x0000_i1353"><span
-  style='mso-spacerun:yes'>&nbsp;</span>With @c option, use default separator
-  comma when parameter s is absent</span><span lang=EN-US style='mso-bidi-font-size:
-  10.5pt;mso-font-kerning:0pt'></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:8;height:41.7pt'>
-  <td width=36 valign=top style='width:21.3pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:41.7pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>8</span></span></p>
-  </td>
-  <td width=342 valign=top style='width:205.15pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:41.7pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-  mso-hansi-font-family:"Arial Narrow"'>=A1.export@w()</span></span><b
-  style='mso-bidi-font-weight:normal'><span lang=EN-US style='mso-fareast-font-family:
-  黑体'> <span class=code><span style='font-family:"Times New Roman","serif"'></span></span></span></b></p>
-  </td>
-  <td width=355 valign=top style='width:213.1pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:41.7pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span lang=EN-US
-  style='font-size:12.0pt;mso-bidi-font-size:10.0pt;mso-font-kerning:0pt'>&nbsp;</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:9;height:41.7pt'>
-  <td width=36 valign=top style='width:21.3pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:41.7pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>9</span></span></p>
-  </td>
-  <td width=342 valign=top style='width:205.15pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:41.7pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-  mso-hansi-font-family:"Arial Narrow"'>=[&quot;12\r34&quot;,&quot;aa\nbb&quot;]</span></span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'></span></span></p>
-  </td>
-  <td width=355 valign=top style='width:213.1pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:41.7pt'>
-  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'>&nbsp;</span></p>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span lang=EN-US
-  style='font-size:12.0pt;mso-bidi-font-size:10.0pt;mso-font-kerning:0pt'>&nbsp;</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:10;height:41.7pt'>
-  <td width=36 valign=top style='width:21.3pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:41.7pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>10</span></span></p>
-  </td>
-  <td width=342 valign=top style='width:205.15pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:41.7pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-  mso-hansi-font-family:"Arial Narrow"'>=A9.export()</span></span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'></span></span></p>
-  </td>
-  <td width=355 valign=top style='width:213.1pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:41.7pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span lang=EN-US><img border=0 width=113 height=29
-  src="Function_Reference.files/image547.jpg" v:shapes="图片_x0020_635"><span
-  style='mso-spacerun:yes'>&nbsp;</span></span><span lang=EN-US
-  style='font-size:12.0pt;mso-bidi-font-size:10.0pt;mso-font-kerning:0pt'></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:11;height:41.7pt'>
-  <td width=36 valign=top style='width:21.3pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:41.7pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>11</span></span></p>
-  </td>
-  <td width=342 valign=top style='width:205.15pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:41.7pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-  mso-hansi-font-family:"Arial Narrow"'>=A9.export@q()</span></span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'></span></span></p>
-  </td>
-  <td width=355 valign=top style='width:213.1pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:41.7pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span lang=EN-US><img border=0 width=130 height=29
-  src="Function_Reference.files/image549.jpg" v:shapes="图片_x0020_636"><span
-  style='mso-spacerun:yes'>&nbsp;</span>With @q option, the exported content
-  contains quotation marks</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:12;height:41.7pt'>
-  <td width=36 valign=top style='width:21.3pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:41.7pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>12</span></span></p>
-  </td>
-  <td width=342 valign=top style='width:205.15pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:41.7pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-  mso-hansi-font-family:"Arial Narrow"'>&lt;xml&gt;&lt;row&gt;&lt;DEPTID&gt;1&lt;/DEPTID&gt;&lt;DEPTNAME&gt;sale&lt;/DEPTNAME&gt;&lt;FATHER&gt;12&lt;/FATHER&gt;&lt;/row&gt;&lt;row&gt;&lt;DEPTID&gt;10&lt;/DEPTID&gt;&lt;DEPTNAME&gt;create&lt;/DEPTNAME&gt;&lt;FATHER&gt;12&lt;/FATHER&gt;&lt;/row&gt;&lt;/xml&gt;</span></span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'></span></span></p>
-  </td>
-  <td width=355 valign=top style='width:213.1pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:41.7pt'>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span lang=EN-US>&nbsp;</span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:13;height:41.7pt'>
-  <td width=36 valign=top style='width:21.3pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:41.7pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-  mso-hansi-font-family:"Arial Narrow"'>13</span></span><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman","serif"'></span></span></p>
-  </td>
-  <td width=342 valign=top style='width:205.15pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:41.7pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-  mso-hansi-font-family:"Arial Narrow"'>=xml(A12)</span></span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'></span></span></p>
-  </td>
-  <td width=355 valign=top style='width:213.1pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:41.7pt'>
-  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'>Return a sequence of table sequences:</span></p>
-  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'><img border=0 width=212 height=52
-  src="Function_Reference.files/image550.png" v:shapes="_x0000_i1356"></span></p>
-  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'>Expand members of the sequence as follows:</span></p>
-  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'><img border=0 width=215 height=56
-  src="Function_Reference.files/image551.png" v:shapes="_x0000_i1357"></span></p>
-  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'>Then expand sub-members of the sequecne as
-  follows:</span></p>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span lang=zh-CN
-  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=394 height=74
-  src="Function_Reference.files/image553.jpg" v:shapes="_x0000_i1358"></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:14;height:41.7pt'>
-  <td width=36 valign=top style='width:21.3pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:41.7pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-  mso-hansi-font-family:"Arial Narrow"'>14</span></span><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman","serif"'></span></span></p>
-  </td>
-  <td width=342 valign=top style='width:205.15pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:41.7pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-  mso-hansi-font-family:"Arial Narrow"'>=A13.export()</span></span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'></span></span></p>
-  </td>
-  <td width=355 valign=top style='width:213.1pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:41.7pt'>
-  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'>Return JSON strings</span></p>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span lang=zh-CN
-  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=575 height=41
-  src="Function_Reference.files/image555.jpg" v:shapes="_x0000_i1359"></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:15;height:41.7pt'>
-  <td width=36 valign=top style='width:21.3pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:41.7pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-  mso-hansi-font-family:"Arial Narrow"'>15</span></span><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman","serif"'></span></span></p>
-  </td>
-  <td width=342 valign=top style='width:205.15pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:41.7pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-  mso-hansi-font-family:"Arial Narrow"'>=file(&quot;D://t4.txt&quot;).import@coq()</span></span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'></span></span></p>
-  </td>
-  <td width=355 valign=top style='width:213.1pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:41.7pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-  mso-fareast-font-family:宋体;font-weight:normal;mso-bidi-font-weight:bold'>Below
-  is content of <i>t4.txt</i>:</span></span><b><span lang=EN-US
-  style='mso-ansi-language:#0400;mso-fareast-language:#0400'> </span></b><b><span
-  lang=zh-CN style='mso-ansi-language:#0400;mso-fareast-language:#0400'></span></b></p>
-  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'><img border=0 width=116 height=57
-  src="Function_Reference.files/image556.png" v:shapes="_x0000_i1360"></span></p>
-  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'>A15’s result:</span></p>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span lang=zh-CN
-  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=238 height=82
-  src="Function_Reference.files/image558.jpg" v:shapes="_x0000_i1361"></span></p>
-  </td>
- </tr>
- <tr style='mso-yfti-irow:16;mso-yfti-lastrow:yes;height:41.7pt'>
-  <td width=36 valign=top style='width:21.3pt;border:solid #A6A6A6 1.0pt;
-  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
-  background:#BFBFBF;padding:0cm 0cm 0cm 0cm;height:41.7pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-  mso-hansi-font-family:"Arial Narrow"'>16</span></span><span class=code><span
-  lang=EN-US style='font-family:"Times New Roman","serif"'></span></span></p>
-  </td>
-  <td width=342 valign=top style='width:205.15pt;border-top:none;border-left:
-  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
-  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-left-alt:solid #A6A6A6 .5pt;
-  mso-border-alt:solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:41.7pt'>
-  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif";
-  mso-hansi-font-family:"Arial Narrow"'>=A15.export@coq()</span></span><span
-  class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'></span></span></p>
-  </td>
-  <td width=355 valign=top style='width:213.1pt;border:none;mso-border-left-alt:
-  solid #A6A6A6 .5pt;padding:0cm 0cm 0cm 0cm;height:41.7pt'>
-  <p class=MsoNormal><span lang=zh-CN style='mso-ansi-language:#0400;
-  mso-fareast-language:#0400'>With @o option, two double quotation marks are
-  treated as one</span></p>
-  <p class=MsoNormal style='mso-pagination:widow-orphan'><span lang=zh-CN
-  style='mso-ansi-language:#0400;mso-fareast-language:#0400'><img border=0 width=277 height=71
-  src="Function_Reference.files/image560.jpg" v:shapes="_x0000_i1362"></span></p>
+  <td width=331 valign=top style='width:198.8pt;border:none;padding:0cm 0cm 0cm 0cm;
+  height:59.15pt'>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-size:12.0pt;font-family:"Times New Roman","serif";
+  mso-font-kerning:0pt;font-weight:normal'><img border=0 width=414 height=121
+  src="Function_Reference.files/image601.jpg" v:shapes="图片_x0020_389"></span></p>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman","serif";
+  font-weight:normal'>Create a unit matrix of size 3</span></p>
+  <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+   style='mso-cellspacing:0cm;mso-table-layout-alt:fixed;mso-padding-alt:0cm 0cm 0cm 0cm'>
+   <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-row-margin-right:24.0pt'>
+    <td width=12 style='width:7.2pt;padding:0cm 0cm 0cm 0cm'>
+    <p class=MsoNormal style='mso-pagination:widow-orphan'><span lang=EN-US
+    style='font-size:12.0pt;mso-font-kerning:0pt'>&nbsp;</span></p>
+    </td>
+    <td style='mso-cell-special:placeholder;border:none;padding:0cm 0cm 0cm 0cm'
+    width=40><p class='MsoNormal'>&nbsp;</td>
+   </tr>
+   <tr style='mso-yfti-irow:1;mso-yfti-lastrow:yes'>
+    <td width=12 style='width:7.2pt;padding:0cm 0cm 0cm 0cm'>
+    <p class=MsoNormal style='mso-pagination:widow-orphan'><span lang=EN-US
+    style='font-size:12.0pt;mso-font-kerning:0pt'>&nbsp;</span></p>
+    </td>
+    <td width=40 style='width:24.0pt;padding:0cm 0cm 0cm 0cm'>
+    <p class=MsoNormal style='mso-pagination:widow-orphan'><span lang=EN-US
+    style='font-size:12.0pt;mso-font-kerning:0pt'>&nbsp;</span></p>
+    </td>
+   </tr>
+  </table>
+  <p class=TabCode style='text-align:justify;text-justify:inter-ideograph'><span
+  lang=EN-US style='font-size:10.5pt;font-family:"Times New Roman","serif";
+  font-weight:normal'></span></p>
   </td>
  </tr>
 </table>
-
-<p class=af style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Note:</span><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%;font-weight:normal'></span></p>
-
-<p class=af7 style='text-indent:21.0pt;mso-char-indent-count:0;line-height:
-16.0pt;mso-line-height-rule:exactly'><span lang=EN-US style='font-family:"Times New Roman","serif"'>Format
-of the string: Separate the records by space, and the fields by the
-user-defined separator. The default separator is <span style='color:black'>tab.</span>
-</span></p>
-
-<p class=af style='line-height:200%'><span lang=EN-US style='mso-bidi-font-size:
-14.0pt;line-height:200%'>Related function:</span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
-lang=EN-US style='mso-bidi-font-size:10.5pt'><a  href="fimport.html#f_import">f<span
-style='mso-bidi-font-size:10.0pt;mso-fareast-font-family:黑体'>.im<span
-style='mso-bookmark:_Hlt436925179'><span style='mso-bookmark:_Hlt436925178'>p</span></span>o<span
-style='mso-bookmark:_Hlt414994516'>r</span>t()</span></a><a
-name="_Hlt414994516"></a><a name="_Hlt436925178"></a><a name="_Hlt436925179"></a></span><span
-lang=EN-US style='mso-fareast-font-family:黑体'></span></p>
-
-<p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US><a
- href="fexportaxfs.html#f_export_A_x_F_s">f.exp<span style='mso-bookmark:_Hlt478050379'>o</span>rt()</a><a
-name="_Hlt478050379"></a></span><i style='mso-bidi-font-style:normal'><span
-lang=EN-US style='font-size:15.0pt'></span></i></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="271.html">Next</a></div>
@@ -629,7 +209,7 @@ lang=EN-US style='font-size:15.0pt'></span></i></p>
 	</div>
 	<div id="related">
 		<div class="related-title"><div class="related-title-left"></div>   Related :</div>
-		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="269.html">export()</a></span></li>
+		<div class="related-list"><li><span style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'><a href="45.html">Functions</a></span></li>
 </div>
 	</div>
 	<div id="footer">	

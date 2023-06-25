@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<title>2.15 Redis</title>
+<title>2.17 Redis</title>
 <link rel="stylesheet" href="../images/template.css" type="text/css" />
 <link rel="stylesheet" href="document.css" type="text/css" />
 <script language="JavaScript" src="../resource/url.js"></script>
@@ -13,16 +13,17 @@
 
 <div id="content-bg">
 	<div id="centent">
-	<div id="centent-title"><h2 style='margin-left:36.0pt;text-indent:-36.0pt;mso-list:l1 level2 lfo11'><span
-lang=EN-US style='mso-fareast-font-family:"Times New Roman"'><span
-style='mso-list:Ignore'>2.15<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;
-</span></span></span><span lang=EN-US>Redis</span></h2></div>
+	<div id="centent-title"><h2 style='mso-list:l2 level2 lfo1'><span lang=EN-US
+style='mso-fareast-font-family:"Times New Roman"'><span style='mso-list:Ignore'>2.17<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span
+lang=EN-US>Redis</span></h2></div>
 	<p class=MsoNormal><span lang=EN-US style='mso-bidi-font-size:11.0pt;
 mso-bidi-language:AR'>1. </span><span lang=EN-US>The directory containing files
 of this external library is: <i style='mso-bidi-font-style:normal'>installation
 directory\esProc\extlib\RedisCli</i>. The Raqsoft core jar for this external
 library is <i>scu-</i></span><i><span lang=EN-US style='mso-bidi-font-size:
-11.0pt'>redis-cli-3.6</span><span lang=EN-US>.jar</span></i><span lang=EN-US>. </span></p>
+11.0pt'>redis-cli-2.10</span><span lang=EN-US>.jar</span></i><span lang=EN-US>.
+</span></p>
 
 <p class=MsoNormal style='text-indent:21.0pt'><span lang=EN-US>aopalliance-1.0.jar</span></p>
 
@@ -63,7 +64,7 @@ style='mso-bidi-language:AR'>Note</span></b><span lang=EN-US style='mso-bidi-lan
 AR'>: The third-party jars are encapsulated in the package and users can choose
 appropriate ones for specific scenarios.</span></p>
 
-<p class=12 style='margin-left:10.5pt;text-indent:-10.5pt;mso-char-indent-count:
+<p class=11 style='margin-left:10.5pt;text-indent:-10.5pt;mso-char-indent-count:
 -1.0'><span lang=EN-US style='font-family:"Times New Roman","serif";mso-bidi-language:
 AR'>&nbsp;</span></p>
 
@@ -75,16 +76,16 @@ requirements, and then configure java_home in <i>config.txt</i> under
 installation directory <i>\esProc\bin</i>. Just skip this step if the JRE
 version is adequate.</span></p>
 
-<p class=12 style='text-indent:0cm;mso-char-indent-count:0'><span lang=EN-US
+<p class=11 style='text-indent:0cm;mso-char-indent-count:0'><span lang=EN-US
 style='font-family:"Times New Roman","serif"'>&nbsp;</span></p>
 
 <p class=MsoNormal><span lang=EN-US>3. Users can manually change the size of
 memory if the default size isn’t large enough for needs. Two ways to manage
 memory under Windows are available: Change the memory settings in <i
-style='mso-bidi-font-style:normal'>config.txt</i> when starting esProc through the
-executable file; and in the <i style='mso-bidi-font-style:normal'>.bat</i> file
-when starting the application through the batch file. Under Linux, change the
-memory size in the <i style='mso-bidi-font-style:normal'>.sh</i> file.</span></p>
+style='mso-bidi-font-style:normal'>config.txt</i> when starting esProc through
+the executable file; and in the <i style='mso-bidi-font-style:normal'>.bat</i>
+file when starting the application through the batch file. Under Linux, change
+the memory size in the <i style='mso-bidi-font-style:normal'>.sh</i> file.</span></p>
 
 <p class=MsoNormal><span lang=EN-US>Below is the method of changing memory
 settings in <i style='mso-bidi-font-style:normal'>config.txt </i>under Windows:</span></p>
@@ -93,7 +94,7 @@ settings in <i style='mso-bidi-font-style:normal'>config.txt </i>under Windows:<
 style='mso-bidi-font-weight:normal'>-Xms256m -XX:PermSize=256M
 -XX:MaxPermSize=512M -Xmx9783m</b> -Duser.language=zh</span></p>
 
-<p class=12 style='margin-left:21.0pt;text-indent:0cm;mso-char-indent-count:
+<p class=11 style='margin-left:21.0pt;text-indent:0cm;mso-char-indent-count:
 0'><span lang=EN-US style='font-family:"Times New Roman","serif"'>&nbsp;</span></p>
 
 <p class=MsoNormal><span lang=EN-US>4. On the machine where esProc is
@@ -104,9 +105,9 @@ and <i style='mso-bidi-font-style:normal'>masters</i> respectively, here are
 the settings:</span></p>
 
 <p class=MsoNormal><span lang=EN-US><img border=0 width=630 height=139
-src="External_library_guide.files/image002.jpg" v:shapes="图片_x0020_4"></span></p>
+src="External_library_guide.files/image098.jpg" v:shapes="图片_x0020_4"></span></p>
 
-<p class=12 style='text-indent:0cm;mso-char-indent-count:0'><span lang=EN-US
+<p class=11 style='text-indent:0cm;mso-char-indent-count:0'><span lang=EN-US
 style='font-family:"Times New Roman","serif"'>&nbsp;</span></p>
 
 <p class=MsoNormal><span lang=EN-US style='mso-bidi-language:AR'>5. </span><span
@@ -114,7 +115,7 @@ lang=EN-US>esProc provides a number of external library functions, including </s
 style='mso-bidi-font-style:normal'><span lang=EN-US style='mso-bidi-language:
 AR'>redis_open()</span></i><span lang=EN-US style='mso-bidi-language:AR'>, <i
 style='mso-bidi-font-style:normal'>redis_command()</i>, <i style='mso-bidi-font-style:
-normal'>redis_close()</i>,</span><span lang=EN-US> to access Redis. Look them
+normal'>redis_close()</i>,</span><span lang=EN-US> for using Redis. Look them
 up in</span><b style='mso-bidi-font-weight:normal'><span style='font-family:
 宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:"Times New Roman"'>【</span><span
 lang=EN-US>Help</span></b><b style='mso-bidi-font-weight:normal'><span
@@ -125,8 +126,6 @@ mso-hansi-font-family:"Times New Roman"'>【</span><span lang=EN-US>Function
 reference</span></b><b style='mso-bidi-font-weight:normal'><span
 style='font-family:宋体;mso-ascii-font-family:"Times New Roman";mso-hansi-font-family:
 "Times New Roman"'>】</span></b><span lang=EN-US>to find their uses.</span></p>
-
-<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
 	</div>
 	<div id="previous-next">
 		<div id="next"><a href="20.html">Next</a></div>

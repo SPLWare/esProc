@@ -35,6 +35,7 @@ import com.scudata.dm.comparator.*;
 import com.scudata.dm.cursor.ICursor;
 import com.scudata.dm.cursor.MemoryCursor;
 import com.scudata.dm.op.IGroupsResult;
+import com.scudata.dm.op.Join;
 import com.scudata.dm.op.Operation;
 import com.scudata.dm.op.PrimaryJoin;
 import com.scudata.dm.op.Switch;
@@ -11340,6 +11341,24 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				throw new RQException(mm.getMessage("engine.needPmt"));
 			}
 		}
+	}
+	
+	/**
+	 * 计算A.join(C:.,T:K,x:F,…;…;…)
+	 * @param exps 左侧表关联字段表达式数组
+	 * @param codes 右侧关联表数组
+	 * @param dataExps 右侧表关联字段表达式数组
+	 * @param newExps 右侧表引用字段表达式数组
+	 * @param newNames 右侧表引用字段名数组
+	 * @param opt 选项
+	 * @param ctx 计算上下文
+	 * @return Sequence
+	 */
+	public Sequence Join(Expression[][] exps, Sequence[] codes,
+			  Expression[][] dataExps, Expression[][] newExps,
+			  String[][] newNames, String opt, Context ctx) {
+		Join join = new Join(null, exps, codes, dataExps, newExps, newNames, null);
+		return join.process(this, ctx);
 	}
 
 	public void sortFields(String []cols) {

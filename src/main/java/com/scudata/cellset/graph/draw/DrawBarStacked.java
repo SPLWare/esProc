@@ -238,10 +238,9 @@ public class DrawBarStacked extends DrawBase {
 							&& gp.dispValueType == IGraphProperty.DISPDATA_NAME_PERCENTAGE) {
 						sval = getDispName(egc, egs, serNum) + "," + sval;
 					}
-				}else{
+				}else if(egc != null
+						&& gp.dispValueType != IGraphProperty.DISPDATA_NONE){
 					sval = db.getDispValue(egc,egs,gp.serNum);
-//				}else if(gp.dispValueType == IGraphProperty.DISPDATA_TITLE){
-//					sval = egs.getTips();
 				}
 				
 				if(StringUtils.isValidString( sval )){

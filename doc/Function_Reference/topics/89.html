@@ -43,9 +43,21 @@ mso-bidi-font-size:12.0pt;line-height:200%'>Note:</span></b></p>
 <p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
 lang=EN-US>The function adds attached table <i style='mso-bidi-font-style:normal'>T¡¯
 </i>to a composite table¡¯s base table <i>T</i>. A composite table can have one
-or multiple attached tables. The attached table¡¯s dimensions include the
-dimensions of its base table; its column names should be different from the
-base table¡¯s column names. </span></p>
+or multiple attached tables. The attached table¡¯s dimensions include dimensions
+of its base table; its column names should be different from the base table¡¯s
+column names. </span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US>Return entity table <i>T</i>¡¯s attached table and can update and
+modify the attached table when parameter <i style='mso-bidi-font-style:normal'>C</i>
+is absent.</span></p>
+
+<p class=MsoNormal style='text-indent:21.0pt;mso-char-indent-count:2.0'><span
+lang=EN-US>When primary key value of an attached table record does not have a
+match among primary key values of the base table records, the function cannot
+read a record from the base table; the correspondence between attached table
+key values and base table key values won¡¯t be checked for update or
+modification of the attached table.</span></p>
 
 <p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><b
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
@@ -97,20 +109,24 @@ table</span></p>
 style='mso-bidi-font-weight:normal'><span lang=EN-US style='font-size:14.0pt;
 mso-bidi-font-size:12.0pt;line-height:200%'>Example:</span></b></p>
 
-<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+<p class=MsoNormal style='line-height:200%;tab-stops:18.0pt'><span lang=EN-US>Add
+an attached table to the base table:</span><b style='mso-bidi-font-weight:normal'><span
+lang=EN-US style='font-size:14.0pt;mso-bidi-font-size:12.0pt;line-height:200%'></span></b></p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=863
  style='margin-left:11.05pt;border-collapse:collapse;mso-table-layout-alt:fixed;
  mso-padding-alt:0cm 0cm 0cm 0cm'>
  <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
   <td width=16 valign=top style='width:9.5pt;border:solid #A6A6A6 1.0pt;
   mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=170><span
+  <p class=MsoNormal align=center style='text-align:center'><span class=17><span
   lang=EN-US style='font-family:"Times New Roman","serif"'>&nbsp;</span></span></p>
   </td>
   <td width=284 valign=top style='width:170.45pt;border:solid #A6A6A6 1.0pt;
   border-left:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-bottom-alt:
   solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;background:#BFBFBF;
   padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=170><span
+  <p class=MsoNormal align=center style='text-align:center'><span class=17><span
   lang=EN-US style='font-family:"Times New Roman","serif"'>A</span></span></p>
   </td>
   <td width=563 valign=top style='width:337.6pt;padding:0cm 0cm 0cm 0cm'>
@@ -121,7 +137,7 @@ mso-bidi-font-size:12.0pt;line-height:200%'>Example:</span></b></p>
   <td width=16 valign=top style='width:9.5pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=170><span
+  <p class=MsoNormal align=center style='text-align:center'><span class=17><span
   lang=EN-US style='font-family:"Times New Roman","serif"'>1</span></span></p>
   </td>
   <td width=284 valign=top style='width:170.45pt;border-top:none;border-left:
@@ -139,7 +155,7 @@ mso-bidi-font-size:12.0pt;line-height:200%'>Example:</span></b></p>
   <td width=16 valign=top style='width:9.5pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=170><span
+  <p class=MsoNormal align=center style='text-align:center'><span class=17><span
   lang=EN-US style='font-family:"Times New Roman","serif"'>2</span></span></p>
   </td>
   <td width=284 valign=top style='width:170.45pt;border-top:none;border-left:
@@ -158,7 +174,7 @@ mso-bidi-font-size:12.0pt;line-height:200%'>Example:</span></b></p>
   <td width=16 valign=top style='width:9.5pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=170><span
+  <p class=MsoNormal align=center style='text-align:center'><span class=17><span
   lang=EN-US style='font-family:"Times New Roman","serif"'>3</span></span></p>
   </td>
   <td width=284 valign=top style='width:170.45pt;border-top:none;border-left:
@@ -170,15 +186,15 @@ mso-bidi-font-size:12.0pt;line-height:200%'>Example:</span></b></p>
   </td>
   <td width=563 valign=top style='width:337.6pt;padding:0cm 0cm 0cm 0cm'>
   <p class=MsoNormal><span lang=EN-US>Add attached table <i style='mso-bidi-font-style:
-  normal'>table2</i> to A2¡¯s base table; k1 and k2 are the attached table¡¯s dimensions
-  and v1 and v2 are its columns</span></p>
+  normal'>table2</i> to A2¡¯s base table; k1 and k2 are the attached table¡¯s
+  dimensions and v1 and v2 are its columns</span></p>
   </td>
  </tr>
  <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes'>
   <td width=16 valign=top style='width:9.5pt;border:solid #A6A6A6 1.0pt;
   border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
   background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
-  <p class=MsoNormal align=center style='text-align:center'><span class=170><span
+  <p class=MsoNormal align=center style='text-align:center'><span class=17><span
   lang=EN-US style='font-family:"Times New Roman","serif"'>4</span></span></p>
   </td>
   <td width=284 valign=top style='width:170.45pt;border-top:none;border-left:
@@ -192,6 +208,106 @@ mso-bidi-font-size:12.0pt;line-height:200%'>Example:</span></b></p>
   <p class=MsoNormal><span lang=EN-US>Add attached table <i style='mso-bidi-font-style:
   normal'>table3</i> to A2¡¯s base table; k1 is the attached table¡¯s dimension
   and v1 and v3 are its columns</span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal><a name="ch_attach"></a><span lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>Return an attached table:</span></p>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0
+ style='margin-left:15.6pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ mso-padding-alt:0cm 0cm 0cm 0cm'>
+ <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes'>
+  <td width=24 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+  mso-border-alt:solid #A6A6A6 .5pt;background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=17><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>&nbsp;</span></span></p>
+  </td>
+  <td width=335 valign=top style='width:201.15pt;border:solid #A6A6A6 1.0pt;
+  border-left:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-bottom-alt:
+  solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;background:#BFBFBF;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=17><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>A</span></span></p>
+  </td>
+  <td width=638 valign=top style='width:382.75pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=24 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=17><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>1</span></span></p>
+  </td>
+  <td width=335 valign=top style='width:201.15pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=file(&quot;D:/ctb.ctx&quot;).open()</span></span></p>
+  </td>
+  <td width=638 valign=top style='width:382.75pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=24 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=17><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>2</span></span></p>
+  </td>
+  <td width=335 valign=top style='width:201.15pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=A1.attach(table2)</span></span></p>
+  </td>
+  <td width=638 valign=top style='width:382.75pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Return attached table <i>table2</i> in
+  the entity table</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3'>
+  <td width=24 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=17><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>3</span></span></p>
+  </td>
+  <td width=335 valign=top style='width:201.15pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=create(k1,k2,v2).record([4,2,&quot;d&quot;])</span></span></p>
+  </td>
+  <td width=638 valign=top style='width:382.75pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:4;mso-yfti-lastrow:yes'>
+  <td width=24 valign=top style='width:14.2pt;border:solid #A6A6A6 1.0pt;
+  border-top:none;mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-alt:solid #A6A6A6 .5pt;
+  background:#BFBFBF;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal align=center style='text-align:center'><span class=17><span
+  lang=EN-US style='font-family:"Times New Roman","serif"'>4</span></span></p>
+  </td>
+  <td width=335 valign=top style='width:201.15pt;border-top:none;border-left:
+  none;border-bottom:solid #A6A6A6 1.0pt;border-right:solid #A6A6A6 1.0pt;
+  mso-border-top-alt:solid #A6A6A6 .5pt;mso-border-top-alt:solid #A6A6A6 .5pt;
+  mso-border-bottom-alt:solid #A6A6A6 .5pt;mso-border-right-alt:solid #A6A6A6 .5pt;
+  padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span class=code><span lang=EN-US style='font-family:"Times New Roman","serif"'>=A2.update()</span></span></p>
+  </td>
+  <td width=638 valign=top style='width:382.75pt;padding:0cm 0cm 0cm 0cm'>
+  <p class=MsoNormal><span lang=EN-US>Update data of A3¡¯s table sequence to
+  attached table <i>table2</i></span></p>
   </td>
  </tr>
 </table>
