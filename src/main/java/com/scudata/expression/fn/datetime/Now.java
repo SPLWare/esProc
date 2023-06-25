@@ -27,7 +27,15 @@ public class Now extends Function {
 				calendar.set(Calendar.MILLISECOND, 0);
 				return new java.sql.Date(calendar.getTimeInMillis());
 			} else if (option.indexOf('t') != -1) {
-				if (option.indexOf('m') != -1) {
+				if (option.indexOf('h') != -1) {
+					Calendar calendar = Calendar.getInstance();
+					calendar.setTimeInMillis(System.currentTimeMillis());
+					calendar.set(1970, Calendar.JANUARY, 1);
+					calendar.set(Calendar.MINUTE, 0);
+					calendar.set(Calendar.SECOND, 0);
+					calendar.set(Calendar.MILLISECOND, 0);
+					return new java.sql.Time(calendar.getTimeInMillis());
+				} else if (option.indexOf('m') != -1) {
 					Calendar calendar = Calendar.getInstance();
 					calendar.setTimeInMillis(System.currentTimeMillis());
 					calendar.set(1970, Calendar.JANUARY, 1);
@@ -47,6 +55,13 @@ public class Now extends Function {
 					calendar.set(Calendar.MILLISECOND, 0);
 					return new java.sql.Time(calendar.getTimeInMillis());
 				}
+			} else if (option.indexOf('h') != -1) {
+				Calendar calendar = Calendar.getInstance();
+				calendar.setTimeInMillis(System.currentTimeMillis());
+				calendar.set(Calendar.MINUTE, 0);
+				calendar.set(Calendar.SECOND, 0);
+				calendar.set(Calendar.MILLISECOND, 0);
+				return new java.sql.Timestamp(calendar.getTimeInMillis());
 			} else if (option.indexOf('m') != -1) {
 				Calendar calendar = Calendar.getInstance();
 				calendar.setTimeInMillis(System.currentTimeMillis());
