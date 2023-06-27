@@ -37,7 +37,9 @@ public class Append extends PhyTableFunction {
 		Object obj = param.getLeafExpression().calculate(ctx);
 		if (obj instanceof ICursor) {
 			try {
-				table.append((ICursor)obj, option);
+				synchronized(table) {
+					table.append((ICursor)obj, option);
+				}
 			} catch (IOException e) {
 				throw new RQException(e.getMessage(), e);
 			}
