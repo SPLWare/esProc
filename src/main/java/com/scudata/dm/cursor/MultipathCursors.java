@@ -1,5 +1,7 @@
 package com.scudata.dm.cursor;
 
+import com.scudata.array.IArray;
+import com.scudata.array.ObjectArray;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
@@ -920,5 +922,52 @@ public class MultipathCursors extends ICursor implements IMultipath {
 	 */
 	public Channel newChannel(Context ctx, boolean doPush) {
 		return new MultipathChannel(ctx, this, doPush);
+	}
+	
+	/**
+	 * 游标是否可以跳块
+	 * @return
+	 */
+	public boolean canSkipBlock() {
+		if (cursors != null) {
+			for (ICursor subCursor : cursors) {
+				if (!subCursor.canSkipBlock()) {
+					return false;
+				}
+			}
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * 得到游标结果所在块的范围
+	 * @param key
+	 * @return
+	 */
+	public IArray[] getSkipBlockInfo(String key) {
+		int count = cursors.length;
+		ObjectArray[] result = new ObjectArray[] {new ObjectArray(count)};
+		for (int i = 0; i < count; i++) {
+			Object obj = cursors[i].getSkipBlockInfo(key);
+			result[0].add(obj);
+		}
+		return result;
+	}
+	
+	/**
+	 * 将游标设置为按照key字段跳块 （pjoin时使用）
+	 * 设置后，游标会按照values里的值进行跳块。
+	 * @param key 维字段名
+	 * @param values [[minValue, maxValue],[minValue, maxValue],……] 
+	 */
+	public void setSkipBlockInfo(String key, IArray[] values) {
+		if (key == null || values == null) return;
+		ObjectArray valueArray = (ObjectArray) values[0];
+		int count = cursors.length;
+		for (int i = 0; i < count; i++) {
+			IArray[] val = (IArray[]) valueArray.get(i + 1);
+			cursors[i].setSkipBlockInfo(key, val);
+		}
 	}
 }

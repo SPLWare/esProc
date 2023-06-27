@@ -172,4 +172,8 @@ public class Select extends Operation {
 		
 		return null;
 	}
+	
+	public boolean hasPipe() {
+		return pipe != null;
+	}
 }
