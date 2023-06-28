@@ -21,7 +21,7 @@ class PrimaryJoinItem {
 	private Current current; // 当前计算对象，用于压栈
 	private Sequence data; // 游标取出的数据
 	private Object []keyValues;
-	private Object []prevKeyValues; // 上一条记录的键值，用于带汇总的关联
+	private Object []cacheKeyValues; // 上一条记录的键值，用于带时间键或汇总的关联
 	
 	private int keyCount = 0;
 	private int newCount = 0; // new字段数
@@ -50,7 +50,7 @@ class PrimaryJoinItem {
 		
 		keyCount = keyExps.length;
 		keyValues = new Object[keyCount];
-		prevKeyValues = new Object[keyCount];
+		cacheKeyValues = new Object[keyCount];
 		cacheData();
 	}
 	
@@ -153,7 +153,7 @@ class PrimaryJoinItem {
 			
 			Expression []keyExps = this.keyExps;
 			Object []keyValues = this.keyValues;
-			Object []prevKeyValues = this.prevKeyValues;
+			Object []prevKeyValues = this.cacheKeyValues;
 			int keyCount = this.keyCount;
 			System.arraycopy(keyValues, 0, prevKeyValues, 0, keyCount);
 			
@@ -256,6 +256,121 @@ class PrimaryJoinItem {
 			} else {
 				resetNewValues(resultValues, fieldIndex);
 				return joinType != 0;
+			}
+		}
+	}
+	
+	public boolean timeKeyJoin(Object []srcKeyValues, Object []resultValues, int fieldIndex) {
+		int keyCount = this.keyCount;
+		int timeIndex = keyCount - 1;
+		Expression []keyExps = this.keyExps;
+		Object []keyValues = this.keyValues;
+		
+		while (true) {
+			// 先比较除去时间键之外其它字段的大小
+			int cmp = Variant.compareArrays(srcKeyValues, keyValues, timeIndex);
+			if (cmp < 0) {
+				// 没有能关连上的
+				resetNewValues(resultValues, fieldIndex);
+				return joinType != 0;
+			} else if (cmp > 0) {
+				// 维表值小，跳到下一条记录
+				seq++;
+				if (seq > data.length()) {
+					cacheData();
+					if (seq == -1) {
+						resetNewValues(resultValues, fieldIndex);
+						return joinType != 0;
+					}
+				} else {
+					current.setCurrent(seq);
+					for (int i = 0; i < keyCount; ++i) {
+						keyValues[i] = keyExps[i].calculate(ctx);
+					}
+				}
+				
+				continue;
+			}
+			
+			// 能匹配上，比较时间键的大小
+			cmp = Variant.compare(srcKeyValues[timeIndex], keyValues[timeIndex], true);
+			if (cmp < 0) {
+				// 时间键没有能匹配的
+				resetNewValues(resultValues, fieldIndex);
+				return joinType != 0;
+			} else if (cmp == 0) {
+				if (joinType == 2) {
+					resetNewValues(resultValues, fieldIndex);
+					return false;
+				} else {
+					calcNewValues(srcKeyValues, resultValues, fieldIndex);
+					return true;
+				}
+			}
+			
+			// 找到时间最近的
+			Next:
+			while (true) {
+				int len = data.length();
+				for (int q = seq + 1; q <= len; ++q) {
+					current.setCurrent(q);
+					for (int i = 0; i < timeIndex; ++i) {
+						if (!Variant.isEquals(keyValues[i], keyExps[i].calculate(ctx))) {
+							seq = q - 1;
+							current.setCurrent(seq);
+							break Next;
+						}
+					}
+					
+					Object time = keyExps[timeIndex].calculate(ctx);
+					cmp = Variant.compare(srcKeyValues[timeIndex], time, true);
+					if (cmp < 0) {
+						seq = q - 1;
+						current.setCurrent(seq);
+						break Next;
+					} else if (cmp == 0) {
+						seq = q;
+						keyValues[timeIndex] = time;
+						break Next;
+					} else {
+						keyValues[timeIndex] = time;
+					}
+				}
+				
+				Sequence prevData = data;
+				int prevSeq = len;
+				System.arraycopy(keyValues, 0, cacheKeyValues, 0, keyCount);
+				cacheData();
+				
+				if (seq == -1) {
+					data = prevData;
+					seq = prevSeq;
+					System.arraycopy(cacheKeyValues, 0, keyValues, 0, keyCount);
+					break;
+				} else {
+					cmp = Variant.compareArrays(srcKeyValues, keyValues, keyCount);
+					if (cmp < 0) {
+						data.insert(1, prevData.getMem(prevSeq));
+						System.arraycopy(cacheKeyValues, 0, keyValues, 0, keyCount);
+						break;
+					} else if (cmp == 0) {
+						if (joinType == 2) {
+							resetNewValues(resultValues, fieldIndex);
+							return false;
+						} else {
+							calcNewValues(srcKeyValues, resultValues, fieldIndex);
+							return true;
+						}
+					}
+				}
+			}
+
+			if (joinType == 2) {
+				resetNewValues(resultValues, fieldIndex);
+				return false;
+			} else {
+				calcNewValues(srcKeyValues, resultValues, fieldIndex);
+				return true;
 			}
 		}
 	}

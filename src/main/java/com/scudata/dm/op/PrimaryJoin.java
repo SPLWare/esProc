@@ -53,8 +53,8 @@ public class PrimaryJoin extends Operation {
 	private boolean hasNew = false;
 	private boolean isPrevMatch = false;
 	//private boolean hasGather = false; // 计算表达式是否包含汇总表达式
-	private boolean isFullJoin;
-	
+	private boolean isFullJoin = false;
+	private boolean hasTimeKey = false;
 	
 	public PrimaryJoin(Function function, Expression []srcKeyExps, Expression []srcNewExps, String []srcNewNames, 
 			ICursor []cursors, String []options, Expression [][]keyExps, 
@@ -70,7 +70,14 @@ public class PrimaryJoin extends Operation {
 		this.newNames = newNames;
 		this.opt = opt;
 		
-		isFullJoin = opt != null && opt.indexOf('f') != -1;
+		if (opt != null) {
+			if (opt.indexOf('f') != -1) {
+				isFullJoin = true;
+			} else if (opt.indexOf('t') != -1) {
+				hasTimeKey = true;
+			}
+		}
+		
 		tableCount = cursors.length;
 		joinItems = new PrimaryJoinItem [tableCount];
 		joinTypes = new int[tableCount];
@@ -219,6 +226,12 @@ public class PrimaryJoin extends Operation {
 				return fullJoin1(seq, ctx);
 			} else {
 				return fullJoin(seq, ctx);
+			}
+		} else if (hasTimeKey) {
+			if (hasNew) {
+				return timeKeyJoin(seq, ctx);
+			} else {
+				return timeKeyFilterJoin(seq, ctx);
 			}
 		} else if (hasNew) {
 			return join(seq, ctx);
@@ -721,6 +734,105 @@ public class PrimaryJoin extends Operation {
 		}
 		
 		this.isPrevMatch = isPrevMatch;
+		return result;
+	}
+
+	private Sequence timeKeyJoin(Sequence seq, Context ctx) {
+		boolean isFirst = resultDs == null;
+		if (isFirst) {
+			init(seq, ctx);
+		}
+		
+		Expression []srcKeyExps = this.srcKeyExps;
+		Expression []srcNewExps = this.srcNewExps;
+		int srcNewCount = srcNewExps == null ? 0 : srcNewExps.length;
+		Object []srcKeyValues = this.srcKeyValues;
+		int keyCount = srcKeyValues.length;
+		Object []resultValues = this.resultValues;
+		int []newSeqs = this.newSeqs;
+		PrimaryJoinItem []joinItems = this.joinItems;
+		int tableCount = joinItems.length;
+		
+		int len = seq.length();
+		Table result = new Table(resultDs, len);
+		
+		ComputeStack stack = ctx.getComputeStack();
+		Current current = new Current(seq);
+		stack.push(current);
+		
+		try {
+			Next:
+			for (int i = 1; i <= len; ++i) {
+				current.setCurrent(i);
+				for (int k = 0; k < keyCount; ++k) {
+					srcKeyValues[k] = srcKeyExps[k].calculate(ctx);
+				}
+				
+				for (int t = 0; t < tableCount; ++t) {
+					if (!joinItems[t].timeKeyJoin(srcKeyValues, resultValues, newSeqs[t])) {
+						continue Next;
+					}
+				}
+				
+				if (srcNewCount > 0) {
+					for (int f = 0; f < srcNewCount; ++f) {
+						resultValues[f] = srcNewExps[f].calculate(ctx);
+					}
+				} else {
+					BaseRecord r = (BaseRecord)seq.getMem(i);
+					Object []vals = r.getFieldValues();
+					System.arraycopy(vals, 0, resultValues, 0, vals.length);
+				}
+				
+				result.newLast(resultValues);
+			}
+		} finally {
+			stack.pop();
+		}
+		
+		return result;
+	}
+
+	private Sequence timeKeyFilterJoin(Sequence seq, Context ctx) {
+		boolean isFirst = resultDs == null;
+		if (isFirst) {
+			init(seq, ctx);
+		}
+		
+		Expression []srcKeyExps = this.srcKeyExps;
+		Object []srcKeyValues = this.srcKeyValues;
+		int keyCount = srcKeyValues.length;
+		PrimaryJoinItem []joinItems = this.joinItems;
+		int tableCount = joinItems.length;
+		
+		int len = seq.length();
+		Sequence result = new Sequence(len);
+		IArray array = result.getMems();
+		
+		ComputeStack stack = ctx.getComputeStack();
+		Current current = new Current(seq);
+		stack.push(current);
+		
+		try {
+			Next:
+			for (int i = 1; i <= len; ++i) {
+				current.setCurrent(i);
+				for (int k = 0; k < keyCount; ++k) {
+					srcKeyValues[k] = srcKeyExps[k].calculate(ctx);
+				}
+				
+				for (int t = 0; t < tableCount; ++t) {
+					if (!joinItems[t].timeKeyJoin(srcKeyValues, null, -1)) {
+						continue Next;
+					}
+				}
+				
+				array.push(seq.getMem(i));
+			}
+		} finally {
+			stack.pop();
+		}
+		
 		return result;
 	}
 }
