@@ -583,7 +583,8 @@ public class SPL extends AppFrame {
 		}
 		if (isQuit && sheet instanceof SheetSpl) { // ¹Ø±ÕÈ«²¿
 			SheetSpl ss = (SheetSpl) sheet;
-			ss.close(true);
+			if (!ss.close(isQuit))
+				return false;
 		} else if (!((IPrjxSheet) sheet).close()) {
 			return false;
 		}
