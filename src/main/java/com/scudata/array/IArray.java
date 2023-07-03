@@ -477,6 +477,26 @@ public interface IArray extends Externalizable, IRecord, Comparable<IArray> {
 	IArray bitwiseAnd(IArray array);
 	
 	/**
+	 * 计算两个数组的相对应的成员的按位或
+	 * @param array 右侧数组
+	 * @return 按位或结果数组
+	 */
+	IArray bitwiseOr(IArray array);
+	
+	/**
+	 * 计算两个数组的相对应的成员的按位异或
+	 * @param array 右侧数组
+	 * @return 按位异或结果数组
+	 */
+	IArray bitwiseXOr(IArray array);
+	
+	/**
+	 * 计算数组成员的按位取反
+	 * @return 成员按位取反结果数组
+	 */
+	IArray bitwiseNot();
+	
+	/**
 	 * 计算数组的2个成员的比较值
 	 * @param index1 成员1
 	 * @param index2 成员2

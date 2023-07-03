@@ -18,6 +18,9 @@ import com.scudata.dm.DataStruct;
 import com.scudata.dm.Sequence;
 import com.scudata.expression.Relation;
 import com.scudata.expression.fn.math.And;
+import com.scudata.expression.fn.math.Not;
+import com.scudata.expression.fn.math.Or;
+import com.scudata.expression.fn.math.Xor;
 import com.scudata.resources.EngineMessage;
 import com.scudata.thread.MultithreadUtil;
 import com.scudata.util.CursorUtil;
@@ -3220,7 +3223,7 @@ public class ObjectArray implements IArray {
 			}
 			
 			return result;
-		} else if (array instanceof ObjectArray) {
+		} else {
 			Object []d2 = ((ObjectArray)array).datas;
 			ObjectArray result = new ObjectArray(size);
 			result.setTemporary(true);
@@ -3230,11 +3233,105 @@ public class ObjectArray implements IArray {
 			}
 			
 			return result;
+		}
+	}
+	
+	/**
+	 * 计算两个数组的相对应的成员的按位或
+	 * @param array 右侧数组
+	 * @return 按位或结果数组
+	 */
+	public IArray bitwiseOr(IArray array) {
+		int size = this.size;
+		Object []datas = this.datas;
+		
+		if (array instanceof ConstArray) {
+			Object value = array.get(1);
+			if (value == null) {
+				return new ConstArray(null, size);
+			}
+			
+			ObjectArray result = new ObjectArray(size);
+			result.setTemporary(true);
+			
+			for (int i = 1; i <= size; ++i) {
+				result.push(Or.or(datas[i], value));
+			}
+			
+			return result;
 		} else {
-			return array.bitwiseAnd(this);
+			ObjectArray result = new ObjectArray(size);
+			result.setTemporary(true);
+			
+			for (int i = 1; i <= size; ++i) {
+				result.push(Or.or(datas[i], array.get(i)));
+			}
+			
+			return result;
 		}
 	}
 
+	/**
+	 * 计算两个数组的相对应的成员的按位异或
+	 * @param array 右侧数组
+	 * @return 按位异或结果数组
+	 */
+	public IArray bitwiseXOr(IArray array) {
+		int size = this.size;
+		Object []datas = this.datas;
+		
+		if (array instanceof ConstArray) {
+			Object value = array.get(1);
+			if (value == null) {
+				return new ConstArray(null, size);
+			}
+			
+			ObjectArray result = new ObjectArray(size);
+			result.setTemporary(true);
+			
+			for (int i = 1; i <= size; ++i) {
+				result.push(Xor.xor(datas[i], value));
+			}
+			
+			return result;
+		} else {
+			ObjectArray result = new ObjectArray(size);
+			result.setTemporary(true);
+			
+			for (int i = 1; i <= size; ++i) {
+				result.push(Xor.xor(datas[i], array.get(i)));
+			}
+			
+			return result;
+		}
+	}
+	
+	/**
+	 * 计算数组成员的按位取反
+	 * @return 成员按位取反结果数组
+	 */
+	public IArray bitwiseNot() {
+		int size = this.size;
+		Object []datas = this.datas;
+		
+		if (isTemporary()) {
+			for (int i = 1; i <= size; ++i) {
+				datas[i] = Not.not(datas[i]);
+			}
+			
+			return this;
+		} else {
+			Object []resultDatas = new Object[size + 1];
+			for (int i = 1; i <= size; ++i) {
+				resultDatas[i] = Not.not(datas[i]);
+			}
+			
+			IArray result = new ObjectArray(resultDatas, size);
+			result.setTemporary(true);
+			return result;
+		}
+	}
+	
 	/**
 	 * 取出标识数组取值为真的行对应的数据，组成新数组
 	 * @param signArray 标识数组

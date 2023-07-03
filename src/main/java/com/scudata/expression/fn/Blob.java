@@ -62,7 +62,7 @@ public class Blob extends Function {
 				}
 				
 				Sequence seq = new Sequence(len / 4);
-				if (opt.indexOf('s') == -1) {
+				if (opt.indexOf('r') == -1) {
 					for (int index = 0; index < len; index += 4) {
 						int n = (bytes[index] << 24) + ((bytes[index + 1] & 0xff) << 16) +
 								((bytes[index + 2] & 0xff) << 8) + (bytes[index + 3] & 0xff);
@@ -84,7 +84,7 @@ public class Blob extends Function {
 				}
 				
 				Sequence seq = new Sequence(len / 8);
-				if (opt.indexOf('s') == -1) {
+				if (opt.indexOf('r') == -1) {
 					for (int index = 0; index < len; index += 8) {
 						long n = (((long)bytes[index] << 56) +
 								((long)(bytes[index + 1] & 0xff) << 48) +
@@ -118,7 +118,7 @@ public class Blob extends Function {
 				}
 				
 				Sequence seq = new Sequence(len / 4);
-				if (opt.indexOf('s') == -1) {
+				if (opt.indexOf('r') == -1) {
 					for (int index = 0; index < len; index += 4) {
 						int n = (bytes[index] << 24) + ((bytes[index + 1] & 0xff) << 16) +
 								((bytes[index + 2] & 0xff) << 8) + (bytes[index + 3] & 0xff);
@@ -140,7 +140,7 @@ public class Blob extends Function {
 				}
 				
 				Sequence seq = new Sequence(len / 8);
-				if (opt.indexOf('s') == -1) {
+				if (opt.indexOf('r') == -1) {
 					for (int index = 0; index < len; index += 8) {
 						long n = (((long)bytes[index] << 56) +
 								((long)(bytes[index + 1] & 0xff) << 48) +
@@ -189,7 +189,7 @@ public class Blob extends Function {
 				byte []bytes = new byte[len * 4];
 				int index = 0;
 				
-				if (opt.indexOf('s') == -1) {
+				if (opt.indexOf('r') == -1) {
 					for (int i = 1; i <= len; ++i) {
 						Object obj = seq.getMem(i);
 						if (!(obj instanceof Number)) {
@@ -224,7 +224,7 @@ public class Blob extends Function {
 				byte []bytes = new byte[len * 8];
 				int index = 0;
 				
-				if (opt.indexOf('s') == -1) {
+				if (opt.indexOf('r') == -1) {
 					for (int i = 1; i <= len; ++i) {
 						Object obj = seq.getMem(i);
 						if (!(obj instanceof Number)) {
@@ -267,7 +267,7 @@ public class Blob extends Function {
 				byte []bytes = new byte[len * 4];
 				int index = 0;
 				
-				if (opt.indexOf('s') == -1) {
+				if (opt.indexOf('r') == -1) {
 					for (int i = 1; i <= len; ++i) {
 						Object obj = seq.getMem(i);
 						if (!(obj instanceof Number)) {
@@ -302,7 +302,7 @@ public class Blob extends Function {
 				byte []bytes = new byte[len * 8];
 				int index = 0;
 				
-				if (opt.indexOf('s') == -1) {
+				if (opt.indexOf('r') == -1) {
 					for (int i = 1; i <= len; ++i) {
 						Object obj = seq.getMem(i);
 						if (!(obj instanceof Number)) {

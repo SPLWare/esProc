@@ -2433,7 +2433,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	public boolean cor() {
 		IArray mems = getMems();
 		for (int i = 1, len = mems.size(); i <= len; ++i) {
-			if (Variant.isTrue(mems.get(i))) {
+			if (mems.isTrue(i)) {
 				return true;
 			}
 		}

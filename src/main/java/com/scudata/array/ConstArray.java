@@ -17,6 +17,8 @@ import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Sequence;
 import com.scudata.expression.Relation;
 import com.scudata.expression.fn.math.And;
+import com.scudata.expression.fn.math.Or;
+import com.scudata.expression.fn.math.Xor;
 import com.scudata.resources.EngineMessage;
 import com.scudata.util.Variant;
 
@@ -2581,7 +2583,57 @@ public class ConstArray implements IArray {
 			return array.bitwiseAnd(this);
 		}
 	}
+	
+	/**
+	 * 计算两个数组的相对应的成员的按位或
+	 * @param array 右侧数组
+	 * @return 按位或结果数组
+	 */
+	public IArray bitwiseOr(IArray array) {
+		if (array instanceof ConstArray) {
+			Object value = Or.or(data, array.get(1));
+			return new ConstArray(value, size);
+		} else {
+			return array.bitwiseOr(this);
+		}
+	}
+	
+	/**
+	 * 计算两个数组的相对应的成员的按位异或
+	 * @param array 右侧数组
+	 * @return 按位异或结果数组
+	 */
+	public IArray bitwiseXOr(IArray array) {
+		if (array instanceof ConstArray) {
+			Object value = Xor.xor(data, array.get(1));
+			return new ConstArray(value, size);
+		} else {
+			return array.bitwiseXOr(this);
+		}
+	}
 
+	/**
+	 * 计算数组成员的按位取反
+	 * @return 成员按位取反结果数组
+	 */
+	public IArray bitwiseNot() {
+		if (data instanceof BigDecimal) {
+			BigInteger bi = ((BigDecimal)data).toBigInteger().not();
+			return new ConstArray(bi, size);
+		} else if (data instanceof BigInteger) {
+			BigInteger bi = ((BigInteger)data).not();
+			return new ConstArray(bi, size);
+		} else if (data instanceof Number) {
+			long v = ~((Number)data).longValue();
+			return new ConstArray(v, size);
+		} else if (data == null) {
+			return new ConstArray(null, size);
+		} else {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("not" + mm.getMessage("function.paramTypeError"));
+		}
+	}
+	
 	/**
 	 * 取出标识数组取值为真的行对应的数据，组成新数组
 	 * @param signArray 标识数组

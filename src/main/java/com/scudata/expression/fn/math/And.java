@@ -5,6 +5,7 @@ import java.math.BigInteger;
 
 import com.scudata.array.ConstArray;
 import com.scudata.array.IArray;
+import com.scudata.array.ObjectArray;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
@@ -250,19 +251,42 @@ public class And extends Function {
 	 * @return IArray
 	 */
 	public IArray calculateAll(Context ctx) {
-		if (param.getSubSize() == 2) {
-			IParam sub0 = param.getSub(0);
-			IParam sub1 = param.getSub(1);
-			if (sub0 == null || sub0 == null) {
+		if (param.isLeaf()) {
+			IArray array = param.getLeafExpression().calculateAll(ctx);
+			int len = array.size();
+			IArray result = new ObjectArray(len);
+			
+			
+			for (int i = 1; i <= len; ++i) {
+				Object obj = array.get(i);
+				if (obj instanceof Sequence) {
+					result.push(and((Sequence)obj));
+				} else {
+					result.push(obj);
+				}
+			}
+			
+			return result;
+		} else {
+			IParam sub = param.getSub(0);
+			if (sub == null) {
 				MessageManager mm = EngineMessage.get();
 				throw new RQException("and" + mm.getMessage("function.invalidParam"));
 			}
 			
-			IArray array0 = sub0.getLeafExpression().calculateAll(ctx);
-			IArray array1 = sub1.getLeafExpression().calculateAll(ctx);
-			return array0.bitwiseAnd(array1);
-		} else {
-			return super.calculateAll(ctx);
+			IArray result = sub.getLeafExpression().calculateAll(ctx);
+			for (int i = 1, size = param.getSubSize(); i < size; ++i) {
+				sub = param.getSub(i);
+				if (sub == null) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException("and" + mm.getMessage("function.invalidParam"));
+				}
+				
+				IArray array = sub.getLeafExpression().calculateAll(ctx);
+				result = result.bitwiseAnd(array);
+			}
+			
+			return result;
 		}
 	}
 	

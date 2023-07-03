@@ -641,6 +641,7 @@ public final class FunctionLib {
 		addFunction("atanh", "com.scudata.expression.fn.math.Arctanh");
 		addFunction("bin","com.scudata.expression.fn.math.Bin");
 		addFunction("bits","com.scudata.expression.fn.math.Bits");
+		addFunction("bit1", "com.scudata.expression.fn.math.Bit1");
 		addFunction("ceil", "com.scudata.expression.fn.math.Ceiling");
 		addFunction("combin","com.scudata.expression.fn.math.Combin");
 		addFunction("cos", "com.scudata.expression.fn.math.Cos");

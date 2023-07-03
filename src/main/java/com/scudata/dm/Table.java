@@ -1897,8 +1897,7 @@ public class Table extends Sequence {
 		}
 		
 		int []index = ds.getPKIndex();
-		String field = exp.getIdentifierName();
-		if (index != null && index.length == 1 && index[0] == ds.getFieldIndex(field)) {
+		if (index != null && index.length == 1 && index[0] == exp.getFieldIndex(ds)) {
 			return indexTable;
 		} else {
 			return null;
@@ -1925,8 +1924,7 @@ public class Table extends Sequence {
 		}
 		
 		for (int i = 0; i < keyCount; ++i) {
-			String field = exps[i].getIdentifierName();
-			if (index[i] != ds.getFieldIndex(field)) {
+			if (index[i] != exps[i].getFieldIndex(ds)) {
 				return null;
 			}
 		}

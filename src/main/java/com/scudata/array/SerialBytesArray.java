@@ -2123,6 +2123,35 @@ public class SerialBytesArray implements IArray {
 		MessageManager mm = EngineMessage.get();
 		throw new RQException("and" + mm.getMessage("function.paramTypeError"));
 	}
+	
+	/**
+	 * 计算两个数组的相对应的成员的按位或
+	 * @param array 右侧数组
+	 * @return 按位或结果数组
+	 */
+	public IArray bitwiseOr(IArray array) {
+		MessageManager mm = EngineMessage.get();
+		throw new RQException("or" + mm.getMessage("function.paramTypeError"));
+	}
+	
+	/**
+	 * 计算两个数组的相对应的成员的按位异或
+	 * @param array 右侧数组
+	 * @return 按位异或结果数组
+	 */
+	public IArray bitwiseXOr(IArray array) {
+		MessageManager mm = EngineMessage.get();
+		throw new RQException("xor" + mm.getMessage("function.paramTypeError"));
+	}
+	
+	/**
+	 * 计算数组成员的按位取反
+	 * @return 成员按位取反结果数组
+	 */
+	public IArray bitwiseNot() {
+		MessageManager mm = EngineMessage.get();
+		throw new RQException("not" + mm.getMessage("function.paramTypeError"));
+	}
 
 	/**
 	 * 计算数组的2个成员的比较值

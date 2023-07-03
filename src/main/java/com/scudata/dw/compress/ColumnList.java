@@ -9,7 +9,6 @@ import java.util.Comparator;
 import com.scudata.array.BoolArray;
 import com.scudata.array.IArray;
 import com.scudata.array.IntArray;
-import com.scudata.array.NumberArray;
 import com.scudata.array.ObjectArray;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
@@ -809,6 +808,35 @@ public class ColumnList implements IArray {
 		return null;
 	}
 	
+	/**
+	 * 计算两个数组的相对应的成员的按位或
+	 * @param array 右侧数组
+	 * @return 按位或结果数组
+	 */
+	public IArray bitwiseOr(IArray array) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	/**
+	 * 计算两个数组的相对应的成员的按位异或
+	 * @param array 右侧数组
+	 * @return 按位异或结果数组
+	 */
+	public IArray bitwiseXOr(IArray array) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	/**
+	 * 计算数组成员的按位取反
+	 * @return 成员按位取反结果数组
+	 */
+	public IArray bitwiseNot() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	public int memberCompare(int index1, int index2) {
 		// TODO Auto-generated method stub
 		return 0;

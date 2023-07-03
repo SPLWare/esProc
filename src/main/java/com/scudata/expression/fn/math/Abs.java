@@ -36,4 +36,16 @@ public class Abs extends Function {
 		IArray array = param.getLeafExpression().calculateAll(ctx);
 		return array.abs();
 	}
+	
+	/**
+	 * 计算signArray中取值为sign的行
+	 * @param ctx
+	 * @param signArray 行标识数组
+	 * @param sign 标识
+	 * @return IArray
+	 */
+	public IArray calculateAll(Context ctx, IArray signArray, boolean sign) {
+		IArray array = param.getLeafExpression().calculateAll(ctx);
+		return array.abs();
+	}
 }

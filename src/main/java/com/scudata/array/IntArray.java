@@ -7791,7 +7791,30 @@ public class IntArray implements NumberArray {
 		int []datas = this.datas;
 		boolean []signs = this.signs;
 		
-		if (array instanceof ConstArray) {
+		if (array instanceof IntArray) {
+			IntArray result = new IntArray(size);
+			result.setTemporary(true);
+			
+			if (signs == null) {
+				for (int i = 1; i <= size; ++i) {
+					if (array.isNull(i)) {
+						result.pushNull();
+					} else {
+						result.pushInt(datas[i] & array.getInt(i));
+					}
+				}
+			} else {
+				for (int i = 1; i <= size; ++i) {
+					if (signs[i] || array.isNull(i)) {
+						result.pushNull();
+					} else {
+						result.pushInt(datas[i] & array.getInt(i));
+					}
+				}
+			}
+			
+			return result;
+		} else if (array instanceof ConstArray) {
 			Object value = array.get(1);
 			if (value == null) {
 				return new ConstArray(null, size);
@@ -7819,7 +7842,22 @@ public class IntArray implements NumberArray {
 			}
 			
 			return result;
-		} else if (array.isNumberArray()) {
+		} else {
+			return array.bitwiseAnd(this);
+		}
+	}
+	
+	/**
+	 * 计算两个数组的相对应的成员的按位或
+	 * @param array 右侧数组
+	 * @return 按位或结果数组
+	 */
+	public IArray bitwiseOr(IArray array) {
+		int size = this.size;
+		int []datas = this.datas;
+		boolean []signs = this.signs;
+		
+		if (array instanceof IntArray) {
 			IntArray result = new IntArray(size);
 			result.setTemporary(true);
 			
@@ -7828,7 +7866,7 @@ public class IntArray implements NumberArray {
 					if (array.isNull(i)) {
 						result.pushNull();
 					} else {
-						result.pushInt(datas[i] & array.getInt(i));
+						result.pushInt(datas[i] | array.getInt(i));
 					}
 				}
 			} else {
@@ -7836,15 +7874,156 @@ public class IntArray implements NumberArray {
 					if (signs[i] || array.isNull(i)) {
 						result.pushNull();
 					} else {
-						result.pushInt(datas[i] & array.getInt(i));
+						result.pushInt(datas[i] | array.getInt(i));
+					}
+				}
+			}
+			
+			return result;
+		} else if (array instanceof ConstArray) {
+			Object value = array.get(1);
+			if (value == null) {
+				return new ConstArray(null, size);
+			} else if (!(value instanceof Number)) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException("or" + mm.getMessage("function.paramTypeError"));
+			}
+			
+			int n = ((Number)value).intValue();
+			IntArray result = new IntArray(size);
+			result.setTemporary(true);
+			
+			if (signs == null) {
+				for (int i = 1; i <= size; ++i) {
+					result.pushInt(datas[i] | n);
+				}
+			} else {
+				for (int i = 1; i <= size; ++i) {
+					if (signs[i]) {
+						result.pushNull();
+					} else {
+						result.pushInt(datas[i] | n);
 					}
 				}
 			}
 			
 			return result;
 		} else {
-			MessageManager mm = EngineMessage.get();
-			throw new RQException("and" + mm.getMessage("function.paramTypeError"));
+			return array.bitwiseOr(this);
+		}
+	}
+
+	/**
+	 * 计算两个数组的相对应的成员的按位异或
+	 * @param array 右侧数组
+	 * @return 按位异或结果数组
+	 */
+	public IArray bitwiseXOr(IArray array) {
+		int size = this.size;
+		int []datas = this.datas;
+		boolean []signs = this.signs;
+		
+		if (array instanceof IntArray) {
+			IntArray result = new IntArray(size);
+			result.setTemporary(true);
+			
+			if (signs == null) {
+				for (int i = 1; i <= size; ++i) {
+					if (array.isNull(i)) {
+						result.pushNull();
+					} else {
+						result.pushInt(datas[i] ^ array.getInt(i));
+					}
+				}
+			} else {
+				for (int i = 1; i <= size; ++i) {
+					if (signs[i] || array.isNull(i)) {
+						result.pushNull();
+					} else {
+						result.pushInt(datas[i] ^ array.getInt(i));
+					}
+				}
+			}
+			
+			return result;
+		} else if (array instanceof ConstArray) {
+			Object value = array.get(1);
+			if (value == null) {
+				return new ConstArray(null, size);
+			} else if (!(value instanceof Number)) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException("xor" + mm.getMessage("function.paramTypeError"));
+			}
+			
+			int n = ((Number)value).intValue();
+			IntArray result = new IntArray(size);
+			result.setTemporary(true);
+			
+			if (signs == null) {
+				for (int i = 1; i <= size; ++i) {
+					result.pushInt(datas[i] ^ n);
+				}
+			} else {
+				for (int i = 1; i <= size; ++i) {
+					if (signs[i]) {
+						result.pushNull();
+					} else {
+						result.pushInt(datas[i] ^ n);
+					}
+				}
+			}
+			
+			return result;
+		} else {
+			return array.bitwiseXOr(this);
+		}
+	}
+	
+	/**
+	 * 计算数组成员的按位取反
+	 * @return 成员按位取反结果数组
+	 */
+	public IArray bitwiseNot() {
+		int size = this.size;
+		int []datas = this.datas;
+		boolean []signs = this.signs;
+		
+		if (isTemporary()) {
+			if (signs == null) {
+				for (int i = 1; i <= size; ++i) {
+					datas[i] = ~datas[i];
+				}
+			} else {
+				for (int i = 1; i <= size; ++i) {
+					if (!signs[i]) {
+						datas[i] = ~datas[i];
+					}
+				}
+			}
+			
+			return this;
+		} else {
+			int []resultDatas = new int[size + 1];
+			boolean []resultSigns = null;
+			
+			if (signs == null) {
+				for (int i = 1; i <= size; ++i) {
+					resultDatas[i] = ~datas[i];
+				}
+			} else {
+				resultSigns = new boolean[size + 1];
+				System.arraycopy(signs, 1, resultSigns, 1, size);
+				
+				for (int i = 1; i <= size; ++i) {
+					if (!signs[i]) {
+						resultDatas[i] = ~datas[i];
+					}
+				}
+			}
+			
+			IArray result = new IntArray(resultDatas, resultSigns, size);
+			result.setTemporary(true);
+			return result;
 		}
 	}
 	
