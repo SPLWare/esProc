@@ -25,6 +25,7 @@ public class ValuePoint {
 	public ValuePoint(Point2D.Double p, Color bc) {
 		this.p = p;
 		this.borderColor = bc;
+		this.fillColor = bc;
 	}
 
 	/**
@@ -37,7 +38,6 @@ public class ValuePoint {
 	 */
 	public ValuePoint(Point2D.Double p, Color bc,Color fillColor, int shape, int radius) {
 		this(p, bc);
-		this.fillColor = fillColor;
 		this.shape = shape;
 		this.radius = radius;
 	}
