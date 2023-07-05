@@ -450,22 +450,23 @@ public class IntArray implements NumberArray {
 	}
 	
 	/**
-	 * 插入元素，如果类型不兼容则返回新数组
+	 * 插入元素
 	 * @param index 插入位置，从1开始计数
 	 * @param o 元素值
-	 * @return 如果类型兼容则返回源数组，否则返回新数组
+	 * @return 返回源数组
 	 */
 	public IArray insertInt(int index, int o) {
 		ensureCapacity(size + 1);
 		
 		size++;
 		System.arraycopy(datas, index, datas, index + 1, size - index);
+		datas[index] = o;
 		
 		if (signs != null) {
 			System.arraycopy(signs, index, signs, index + 1, size - index);
+			signs[index] = false;
 		}
 		
-		datas[index] = o;
 		return this;
 	}
 	
@@ -480,12 +481,12 @@ public class IntArray implements NumberArray {
 			
 			size++;
 			System.arraycopy(datas, index, datas, index + 1, size - index);
+			datas[index] = ((Integer)o).intValue();
 			
 			if (signs != null) {
 				System.arraycopy(signs, index, signs, index + 1, size - index);
+				signs[index] = false;
 			}
-			
-			datas[index] = ((Integer)o).intValue();
 		} else if (o == null) {
 			ensureCapacity(size + 1);
 			

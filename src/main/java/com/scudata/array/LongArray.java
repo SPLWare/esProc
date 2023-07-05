@@ -442,12 +442,12 @@ public class LongArray implements NumberArray {
 			
 			size++;
 			System.arraycopy(datas, index, datas, index + 1, size - index);
+			datas[index] = ((Long)o).intValue();
 			
 			if (signs != null) {
 				System.arraycopy(signs, index, signs, index + 1, size - index);
+				signs[index] = false;
 			}
-			
-			datas[index] = ((Long)o).intValue();
 		} else if (o == null) {
 			ensureCapacity(size + 1);
 			
@@ -460,11 +460,31 @@ public class LongArray implements NumberArray {
 				System.arraycopy(signs, index, signs, index + 1, size - index);
 			}
 			
+			datas[index] = 0;
 			signs[index] = true;
 		} else {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException(mm.getMessage("pdm.arrayTypeError", 
 					mm.getMessage("DataType.Long"), Variant.getDataType(o)));
+		}
+	}
+	
+	/**
+	 * 插入元素
+	 * @param index 插入位置，从1开始计数
+	 * @param o 元素值
+	 * @return 返回源数组
+	 */
+	public void insertLong(int index, long o) {
+		ensureCapacity(size + 1);
+		
+		size++;
+		System.arraycopy(datas, index, datas, index + 1, size - index);
+		datas[index] = o;
+		
+		if (signs != null) {
+			System.arraycopy(signs, index, signs, index + 1, size - index);
+			signs[index] = false;
 		}
 	}
 	
@@ -7942,7 +7962,7 @@ public class LongArray implements NumberArray {
 						}
 						
 						if (index <= count) {
-							valueArray.insert(index, datas[i]);
+							valueArray.insertLong(index, datas[i]);
 							posArray.insertInt(index, i);
 							if (valueArray.size() == next) {
 								valueArray.removeLast();
@@ -8044,7 +8064,7 @@ public class LongArray implements NumberArray {
 						}
 						
 						if (index <= count) {
-							valueArray.insert(index, datas[i]);
+							valueArray.insertLong(index, datas[i]);
 							posArray.insertInt(index, i);
 							if (valueArray.size() == next) {
 								valueArray.remove(next);
@@ -8153,7 +8173,7 @@ public class LongArray implements NumberArray {
 						}
 						
 						if (index <= count) {
-							valueArray.insert(index, datas[i]);
+							valueArray.insertLong(index, datas[i]);
 							posArray.insertInt(index, i);
 							if (valueArray.size() == next) {
 								valueArray.removeLast();
@@ -8262,7 +8282,7 @@ public class LongArray implements NumberArray {
 						}
 						
 						if (index <= count) {
-							valueArray.insert(index, datas[i]);
+							valueArray.insertLong(index, datas[i]);
 							posArray.insertInt(index, i);
 							if (valueArray.size() == next) {
 								valueArray.remove(next);
