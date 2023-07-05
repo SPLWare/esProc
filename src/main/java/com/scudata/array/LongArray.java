@@ -447,7 +447,7 @@ public class LongArray implements NumberArray {
 				System.arraycopy(signs, index, signs, index + 1, size - index);
 			}
 			
-			datas[index] = ((Integer)o).intValue();
+			datas[index] = ((Long)o).intValue();
 		} else if (o == null) {
 			ensureCapacity(size + 1);
 			
