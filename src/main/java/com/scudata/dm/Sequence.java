@@ -1262,6 +1262,30 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	/**
+	 * 把两个序列连接起来
+	 * @param seq 另一个序列
+	 * @param resultCapacity 结果集容量
+	 * @return
+	 */
+	public Sequence conj(Sequence seq, int resultCapacity) {
+		IArray mems = this.getMems();
+		IArray mems2 = seq.getMems();
+		IArray resultMems;
+		
+		if (mems.getClass() == mems2.getClass()) {
+			resultMems = mems.newInstance(resultCapacity);
+			resultMems.addAll(mems);
+			resultMems.addAll(mems2);
+		} else {
+			resultMems = new ObjectArray(resultCapacity);
+			resultMems.addAll(mems);
+			resultMems.addAll(mems2);
+		}
+		
+		return new Sequence(resultMems);
+	}
+	
+	/**
 	 * 返回两个序列的和列(连列)+
 	 * @param seq Sequence
 	 * @param bMerge boolean true: 表明两序列同序，用归并算法实现
@@ -1277,11 +1301,12 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 		IArray mems2 = seq.getMems();
 		int len = mems.size();
 		int len2 = mems2.size();
-
-		Sequence result = new Sequence(len + len2);
-		IArray resultMems = result.getMems();
-
+		Sequence result;
+		
 		if (bMerge) {
+			result = new Sequence(len + len2);
+			IArray resultMems = result.getMems();
+	
 			// 归并两个序列
 			int s = 1, t = 1;
 			while (s <= len && t <= len2) {
@@ -1307,8 +1332,17 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				t++;
 			}
 		} else {
-			resultMems.addAll(mems);
-			resultMems.addAll(mems2);
+			if (mems.getClass() == mems2.getClass()) {
+				IArray resultMems = mems.newInstance(len + len2);
+				resultMems.addAll(mems);
+				resultMems.addAll(mems2);
+				result = new Sequence(resultMems);
+			} else {
+				result = new Sequence(len + len2);
+				IArray resultMems = result.getMems();
+				resultMems.addAll(mems);
+				resultMems.addAll(mems2);
+			}
 		}
 		
 		return result;
@@ -3558,6 +3592,36 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				}
 				
 				return result;
+			} else if (opt.indexOf('v') != -1) {
+				int total = 0;
+				boolean isSeq = true;
+				
+				for (int i = 1; i <= size; ++i) {
+					Object obj = mems.get(i);
+					if (obj instanceof Sequence) {
+						total += ((Sequence)obj).length();
+					} else {
+						isSeq = false;
+						break;
+					}
+				}
+				
+				if (isSeq) {
+					Sequence result = (Sequence)mems.get(1);
+					if (size == 1) {
+						return result;
+					}
+					
+					Sequence seq = (Sequence)mems.get(2);
+					result = result.conj(seq, total);
+					
+					for (int i = 3; i <= size; ++i) {
+						 seq = (Sequence)mems.get(i);
+						 result = result.append(seq);
+					}
+					
+					return result;
+				}
 			}
 		}
 

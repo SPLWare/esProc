@@ -98,10 +98,6 @@ public class Bit1 extends Function {
 	 * @return IArray
 	 */
 	public IArray calculateAll(Context ctx, IArray signArray, boolean sign) {
-		if (!param.isLeaf() || option == null || option.indexOf('1') == -1) {
-			return super.calculateAll(ctx, signArray, sign);
-		}
-		
 		IArray array = param.getLeafExpression().calculateAll(ctx);
 		int len = array.size();
 		IntArray result = new IntArray(len);
