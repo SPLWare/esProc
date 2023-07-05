@@ -236,7 +236,7 @@ public class T extends Function {
 				sopt = "@t";
 			}
 			if (A == null) { // 导入
-				buf.append("create().cursor" + sopt + "(");
+				buf.append("open().cursor" + sopt + "(");
 				if (fields != null) {
 					buf.append(fields);
 				}
@@ -245,7 +245,7 @@ public class T extends Function {
 					buf.append(".fetch()");
 				}
 			} else {// 导出
-				buf.append("create(");
+				buf.append("open(");
 				if (fields != null) {
 					buf.append(fields);
 				} else {
