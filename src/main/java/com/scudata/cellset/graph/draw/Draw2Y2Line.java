@@ -181,7 +181,7 @@ public class Draw2Y2Line extends DrawBase {
 						backColor = db.getColor(j);
 					}
 
-					ValuePoint vp = new ValuePoint(endPoint, backColor, null, Consts.PT_SQUARE,-1);
+					ValuePoint vp = new ValuePoint(endPoint, backColor,null, Consts.PT_SQUARE,-1);
 					pointList.add( vp );
 					db.htmlLink(xx, yy, ww, hh, htmlLink, egc.getNameString(), egs);
 				}
