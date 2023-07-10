@@ -1306,4 +1306,61 @@ abstract public class ICursor extends Operable implements IResource {
 	 */
 	public void setSkipBlockInfo(String key, IArray[] values) {
 	}
+
+	/**
+	 * 设置跳块信息
+	 * @param srcKeyExps 连接表达式数组
+	 * @param cursors 关联游标数组
+	 * @param options 关联选项
+	 * @param keyExps 连接表达式数组
+	 * @param newExps
+	 * @param opt
+	 */
+	public void setSkipBlock(Expression []srcKeyExps, ICursor []cursors, String []options, Expression [][]keyExps, Expression [][]newExps, String option) {
+		int tableCount = srcKeyExps.length;
+		String key = srcKeyExps[0].getFieldName();
+		if (option == null || option.indexOf('f') == -1) {
+			if ((option == null || option.indexOf('r') == -1) && canSkipBlock()) {
+				// 右面游标跟随左面游标进行跳块
+				IArray []values = null;
+				boolean isGet = false;
+				
+				for (int t = 0; t < tableCount; ++t) {
+					if (cursors[t] == null) {
+						continue;
+					}
+					
+					String opt = options[t];
+					if (opt == null || !opt.equals("null") || newExps[t] != null) {
+						if (!isGet) {
+							isGet = true;
+							values = getSkipBlockInfo(key);
+							if (values == null) {
+								break;
+							}
+						}
+						
+						cursors[t].setSkipBlockInfo(keyExps[t][0].getFieldName(), values);
+					}
+				}
+			} else {
+				// 左面游标跟随右面游标进行跳块
+				IArray []values = null;
+				for (int t = 0; t < tableCount; ++t) {
+					if (cursors[t] == null || !cursors[t].canSkipBlock()) {
+						continue;
+					}
+					
+					String opt = options[t];
+					if (opt == null || !opt.equals("null")) {
+						values = cursors[t].getSkipBlockInfo(keyExps[t][0].getFieldName());
+						if (values != null) {
+							setSkipBlockInfo(key, values);
+							break;
+						}
+					}
+				}
+			}
+		}
+	}
 }
