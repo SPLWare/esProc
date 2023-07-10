@@ -151,6 +151,12 @@ public abstract class Operable {
 	public Operable pjoin(Function function, Expression []srcKeyExps, Expression []srcNewExps, String []srcNewNames, 
 			ICursor []cursors, String []options, Expression [][]keyExps, 
 			Expression [][]newExps, String [][]newNames, String opt, Context ctx) {
+		// …Ë÷√Ã¯øÈ–≈œ¢
+		if (this instanceof ICursor) {
+			ICursor cs = (ICursor)this;
+			cs.setSkipBlock(srcKeyExps, cursors, options, keyExps, newExps, opt);
+		}
+		
 		PrimaryJoin op = new PrimaryJoin(function, srcKeyExps, srcNewExps, srcNewNames, 
 				cursors, options, keyExps, newExps, newNames, opt, ctx);
 		return addOperation(op, ctx);
