@@ -1,6 +1,5 @@
 package com.scudata.expression.mfn.op;
 
-import com.scudata.array.IArray;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
