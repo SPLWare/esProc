@@ -207,53 +207,6 @@ public class AttachPJoin extends OperableFunction {
 			}
 		}
 		
-		// 设置跳块信息，全连接不能跳块
-		String key = srcKeyExps[0].getFieldName();
-		if (operable instanceof ICursor && (option == null || option.indexOf('f') == -1)) {
-			ICursor cs = (ICursor)operable;
-			if ((option == null || option.indexOf('r') == -1) && cs.canSkipBlock()) {
-				// 右面游标跟随左面游标进行跳块
-				IArray []values = null;
-				boolean isGet = false;
-				
-				for (int t = 0; t < tableCount; ++t) {
-					if (cursors[t] == null) {
-						continue;
-					}
-					
-					String opt = options[t];
-					if (opt == null || !opt.equals("null") || newExps[t] != null) {
-						if (!isGet) {
-							isGet = true;
-							values = cs.getSkipBlockInfo(key);
-							if (values == null) {
-								break;
-							}
-						}
-						
-						cursors[t].setSkipBlockInfo(keyExps[t][0].getFieldName(), values);
-					}
-				}
-			} else {
-				// 左面游标跟随右面游标进行跳块
-				IArray []values = null;
-				for (int t = 0; t < tableCount; ++t) {
-					if (cursors[t] == null || !cursors[t].canSkipBlock()) {
-						continue;
-					}
-					
-					String opt = options[t];
-					if (opt == null || !opt.equals("null")) {
-						values = cursors[t].getSkipBlockInfo(keyExps[t][0].getFieldName());
-						if (values != null) {
-							cs.setSkipBlockInfo(key, values);
-							break;
-						}
-					}
-				}
-			}
-		}
-		
 		return operable.pjoin(this, srcKeyExps, srcNewExps, srcNewNames, 
 				cursors, options, keyExps, newExps, newNames, option, ctx);
 	}
