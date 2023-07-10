@@ -56,7 +56,7 @@ public class LocalFile implements IFile {
 		this.fileName = fileName;
 		this.opt = opt;
 		
-		if (partition != null && partition.intValue() > 0) {
+		if (partition != null && partition.intValue() >= 0) {
 			this.partition = partition;
 			//parent = Env.getMappingPath(partition);
 			
@@ -532,7 +532,7 @@ public class LocalFile implements IFile {
 		File destFile = new File(dest);
 		boolean isDir = destFile.isDirectory();
 		
-		if (!isDir && partition != null && partition.intValue() > 0) {
+		if (!isDir && partition != null && partition.intValue() >= 0) {
 			// 找出文件名的起始位置
 			int index = dest.lastIndexOf('\\');
 			if (index == -1) {

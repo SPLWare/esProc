@@ -63,7 +63,7 @@ public class Create extends PhyTableFunction{
 
 			PhyTable table = ComTable.openBaseTable(file, ctx);
 			Integer partition = ((FileObject) fo).getPartition();
-			if (partition != null && partition.intValue() > 0) {
+			if (partition != null && partition.intValue() >= 0) {
 				table.getGroupTable().setPartition(partition);
 			}
 			

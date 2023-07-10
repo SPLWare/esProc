@@ -234,7 +234,7 @@ abstract public class ComTable implements IBlockStorage {
 		}
 		
 		Integer partition = fo.getPartition();
-		if (partition != null && partition.intValue() > 0) {
+		if (partition != null && partition.intValue() >= 0) {
 			comTable.setPartition(partition);
 		}
 		

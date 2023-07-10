@@ -142,7 +142,7 @@ public class CreateFile extends Function {
 		FileObject fo;
 		if (clusterFile != null) {
 			int []partitions;
-			if (part > 0) {
+			if (part >= 0) {
 				partitions = new int[]{part};
 			} else {
 				partitions = partSeq.toIntArray();
@@ -155,7 +155,7 @@ public class CreateFile extends Function {
 				return new ClusterFile(cluster, pathName, partSeq, option);
 			} else if (option != null && option.indexOf('w') != -1) {
 				Cluster cluster = new Cluster(mc.getHosts(), mc.getPorts(), ctx);
-				if (part > 0) {
+				if (part >= 0) {
 					return new ClusterFile(cluster, pathName, new int[]{part}, option);
 				} else {
 					return new ClusterFile(cluster, pathName, option);
@@ -178,7 +178,7 @@ public class CreateFile extends Function {
 					}
 				} else {
 					fo = new FileObject(pathName, cs, option, ctx);
-					if (part > 0) {
+					if (part >= 0) {
 						fo.setPartition(part);
 					}
 				}
