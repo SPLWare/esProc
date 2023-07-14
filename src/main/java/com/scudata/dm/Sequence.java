@@ -4341,11 +4341,6 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			throw new RQException("run" + mm.getMessage("function.invalidParam"));
 		}
 
-		Object []lastOptVals = new Object[colCount];
-		for (int i = 0; i < colCount; ++i) {
-			lastOptVals[i] = new Object();
-		}
-
 		ComputeStack stack = ctx.getComputeStack();
 		Current current = new Current(this);
 		stack.push(current);
