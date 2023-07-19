@@ -208,7 +208,7 @@ public class ParallelProcess implements IResource{
 		if (b)
 			return true;
 		String lowDfx = dfx.toLowerCase();
-		b = lowDfx.endsWith(".dfx") || lowDfx.endsWith(".splx");
+		b = lowDfx.endsWith(".dfx") || lowDfx.endsWith(".splx") || lowDfx.endsWith(".spl");
 		return !b;// 形如 123 串当脚本处理
 	}
 

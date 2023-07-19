@@ -16,7 +16,6 @@ import com.scudata.expression.fn.Eval;
 import com.scudata.parallel.Response;
 import com.scudata.parallel.Task;
 import com.scudata.server.IProxy;
-import com.scudata.server.unit.UnitServer;
 import com.scudata.util.DatabaseUtil;
 
 /**
@@ -96,17 +95,11 @@ public class StatementProxy extends IProxy {
 			throw new RuntimeException(cmd+" must end with ')'");
 
 		String name = tmp.substring(5, left).trim();
-		
-		dfx = standardizeDfx(name);
+		dfx = AppUtil.searchSplFilePath( name );
 		String strparams = tmp.substring(left+1,tmp.length()-1);
 		args = standardizeArg(strparams);
 	}
 
-	private String standardizeDfx(String dfxName) {
-		if (!dfxName.toLowerCase().endsWith(".dfx"))
-			dfxName += ".dfx";
-		return dfxName;
-	}
 	
 //¼æÈÝµ¥£¬Ë«ÒýºÅ
 	private static String adjustQuote(String args){

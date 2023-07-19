@@ -15,7 +15,6 @@ import java.util.StringTokenizer;
 import com.esproc.jdbc.JDBCUtil;
 import com.scudata.cellset.datamodel.PgmCellSet;
 import com.scudata.common.Logger;
-import com.scudata.common.SegmentSet;
 import com.scudata.common.StringUtils;
 import com.scudata.dm.Context;
 import com.scudata.dm.ParamList;
