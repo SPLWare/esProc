@@ -31,6 +31,10 @@ public class BufferWriter {
 	public static final int FLOAT16 = 0x15;
 	public static final int FLOAT32 = 0x16;
 	public static final int FLOAT64 = 0x17;
+	public static final int INT16_SEQUENCE = 0x18;
+	public static final int INT32_SEQUENCE = 0x19;
+	public static final int LONG64_SEQUENCE = 0x1A;
+	public static final int FLOAT64_SEQUENCE = 0x1B;
 
 	public static final int MARK2 = 0x20;
 	static final int DECIMAL = 0x20;
@@ -638,10 +642,58 @@ public class BufferWriter {
 
 		DataStruct ds = seq.dataStruct();
 		if (ds == null) {
-			write(SEQUENCE);
-			writeInt(len);
-			for (int i = 1; i <= len; ++i) {
-				innerWriteObject(mems.get(i));
+			int type = DataBlockType.getSequenceDataType(seq, 1, len);
+			if (type != DataBlockType.NULL && len <= 0xFFFF) {
+				//是纯类型序列
+				if (type == DataBlockType.INT16) {
+					write(INT16_SEQUENCE);
+					write(len >>> 8);
+					write(len & 0xFF);
+					for (int i = 1; i <= len; ++i) {
+						int value = (Integer)mems.get(i);
+						write(value >>> 8);
+						write(value & 0xFF);
+					}
+				} else if (type == DataBlockType.INT32) {
+					write(INT32_SEQUENCE);
+					write(len >>> 8);
+					write(len & 0xFF);
+					for (int i = 1; i <= len; ++i) {
+						int value = (Integer)mems.get(i);
+						writeInt32(value);
+					}
+				} else if (type == DataBlockType.LONG64) {
+					write(LONG64_SEQUENCE);
+					write(len >>> 8);
+					write(len & 0xFF);
+					for (int i = 1; i <= len; ++i) {
+						long value = (Long)mems.get(i);
+						writeLong64(value);
+					}
+				} else if (type == DataBlockType.DOUBLE64) {
+					write(FLOAT64_SEQUENCE);
+					write(len >>> 8);
+					write(len & 0xFF);
+					for (int i = 1; i <= len; ++i) {
+						double value = (Double)mems.get(i);
+						long v = Double.doubleToLongBits(value);
+						writeLong64(v);
+					}
+				} else {
+					//普通序列
+					write(SEQUENCE);
+					writeInt(len);
+					for (int i = 1; i <= len; ++i) {
+						innerWriteObject(mems.get(i));
+					}
+				}
+			} else {
+				//普通序列
+				write(SEQUENCE);
+				writeInt(len);
+				for (int i = 1; i <= len; ++i) {
+					innerWriteObject(mems.get(i));
+				}
 			}
 		} else {
 			int fcount = ds.getFieldCount();

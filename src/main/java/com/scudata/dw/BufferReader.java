@@ -4,7 +4,10 @@ import java.io.*;
 import java.math.*;
 import java.sql.Date;
 
+import com.scudata.array.DoubleArray;
 import com.scudata.array.IArray;
+import com.scudata.array.IntArray;
+import com.scudata.array.LongArray;
 import com.scudata.array.ObjectArray;
 import com.scudata.common.DateCache;
 import com.scudata.common.ObjectCache;
@@ -540,6 +543,14 @@ public class BufferReader {
 			return new Long(readUInt16());
 		case BufferWriter.LONG32:
 			return new Long(readInt32());
+		case BufferWriter.INT16_SEQUENCE:
+			return readInt16Sequence();
+		case BufferWriter.INT32_SEQUENCE:
+			return readInt32Sequence();
+		case BufferWriter.LONG64_SEQUENCE:
+			return readLong64Sequence();
+		case BufferWriter.FLOAT64_SEQUENCE:
+			return readDouble64Sequence();
 		default:
 			return new Long(readLong64());
 		}
@@ -556,6 +567,16 @@ public class BufferReader {
 		case BufferWriter.FLOAT32:
 		case BufferWriter.LONG32:
 			index += 4;
+			break;
+		case BufferWriter.INT16_SEQUENCE:
+			skip16Sequence();
+			break;
+		case BufferWriter.INT32_SEQUENCE:
+			skip32Sequence();
+			break;
+		case BufferWriter.LONG64_SEQUENCE:
+		case BufferWriter.FLOAT64_SEQUENCE:
+			skip64Sequence();
 			break;
 		default: // FLOAT64 LONG64
 			index += 8;
@@ -1222,5 +1243,60 @@ public class BufferReader {
 	 */
 	public IArray getEmptyArray(int count) {
 		return new ObjectArray(count);
+	}
+	
+	private Sequence readInt16Sequence() throws IOException {
+		int len = readUInt16();
+		IntArray array = new IntArray(len);
+		for (int i = 0; i < len; ++i) {
+			array.pushInt(readUInt16());
+		}
+		Sequence seq = new Sequence(array);
+		return seq;
+	}
+	
+	private Sequence readInt32Sequence() throws IOException {
+		int len = readUInt16();
+		IntArray array = new IntArray(len);
+		for (int i = 0; i < len; ++i) {
+			array.pushInt(readInt32());
+		}
+		Sequence seq = new Sequence(array);
+		return seq;
+	}
+	
+	private Sequence readLong64Sequence() throws IOException {
+		int len = readUInt16();
+		LongArray array = new LongArray(len);
+		for (int i = 0; i < len; ++i) {
+			array.pushLong(readLong64());
+		}
+		Sequence seq = new Sequence(array);
+		return seq;
+	}
+	
+	private Sequence readDouble64Sequence() throws IOException {
+		int len = readUInt16();
+		DoubleArray array = new DoubleArray(len);
+		for (int i = 0; i < len; ++i) {
+			array.pushDouble(Double.longBitsToDouble(readLong64()));
+		}
+		Sequence seq = new Sequence(array);
+		return seq;
+	}
+	
+	private void skip16Sequence() throws IOException {
+		int len = readUInt16();
+		index += 2 * len;
+	}
+	
+	private void skip32Sequence() throws IOException {
+		int len = readUInt16();
+		index += 4 * len;
+	}
+	
+	private void skip64Sequence() throws IOException {
+		int len = readUInt16();
+		index += 8 * len;
 	}
 }

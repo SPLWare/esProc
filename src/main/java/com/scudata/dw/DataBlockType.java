@@ -32,6 +32,7 @@ public class DataBlockType {
 	public static final int LONG64 = LONG | TYPE_LENGTH_64;
 	
 	public static final int DOUBLE = 0x30;
+	public static final int DOUBLE32 = DOUBLE | TYPE_LENGTH_32;
 	public static final int DOUBLE64 = DOUBLE | TYPE_LENGTH_64;
 	
 	public static final int DATE = 0x40;
@@ -135,6 +136,32 @@ public class DataBlockType {
 			return dictType;
 		} else {
 			return type;
+		}
+	}
+	
+	/**
+	 * 计算序列的数据类型，精确到长度
+	 * @param seq 数据序列
+	 * @param col 列号
+	 * @param start 开始位置
+	 * @param end 结束位置
+	 * @return 
+	 */
+	public static int getSequenceDataType(Sequence seq, int start, int end) {
+		Object obj = null;
+		for (int i = start; i <= end; ++i) {
+			obj = seq.get(i);
+			if (obj != null) break;
+		}
+
+		if (obj instanceof Integer) {
+			return checkIntBlockType16or32(seq, start, end);
+		} else if (obj instanceof Long) {
+			return checkLongBlockType64(seq, start, end);
+		} else if (obj instanceof Double) {
+			return checkDoubleBlockType64(seq, start, end);
+		} else {
+			return NULL;
 		}
 	}
 	
@@ -335,7 +362,7 @@ public class DataBlockType {
 			Double val = (Double) obj;
 			int tl = getDoubleTypeLength(val);
 			typeLength |= tl;
-			if (tl  == DOUBLE64) {
+			if (tl  == TYPE_LENGTH_64) {
 				typeLengthCount++;
 			}
 		}
@@ -665,5 +692,105 @@ public class DataBlockType {
 			return ((ObjectArray)dict.getMems()).getDatas();
 		}
 		return resultArray;
+	}
+	
+
+	/**
+	 * 检查是否是double32
+	 * @param data
+	 * @param start
+	 * @param end
+	 * @return
+	 */
+//	private static int checkDoubleBlockType32(Sequence data, int start, int end) {
+//		for (int i = start; i <= end; ++i) {
+//			Object obj = data.get(i);
+//			if (obj == null) {
+//				return NULL;
+//			}
+//			if (!(obj instanceof Double)) {
+//				return NULL;
+//			}
+//			
+//			Double val = (Double) obj;
+//			int tl = getDoubleTypeLength(val);
+//			if (tl  == TYPE_LENGTH_64) {
+//				return NULL;
+//			}
+//		}
+//		return DOUBLE32;
+//	}
+	
+	/**
+	 * 检查是否是double64
+	 * @param data
+	 * @param start
+	 * @param end
+	 * @return
+	 */
+	private static int checkDoubleBlockType64(Sequence data, int start, int end) {
+		for (int i = start; i <= end; ++i) {
+			Object obj = data.get(i);
+			if (obj == null) {
+				return NULL;
+			}
+			if (!(obj instanceof Double)) {
+				return NULL;
+			}
+		}
+		return DOUBLE64;
+	}
+	
+	/**
+	 * 检查是否是long64
+	 * @param data
+	 * @param start
+	 * @param end
+	 * @return
+	 */
+	private static int checkLongBlockType64(Sequence data, int start, int end) {
+		for (int i = start; i <= end; ++i) {
+			Object obj = data.get(i);
+			if (obj == null) {
+				return NULL;
+			}
+			if (!(obj instanceof Long)) {
+				return NULL;
+			}
+		}
+		return LONG64;
+	}
+	
+	/**
+	 * 检查是否是int16或int32
+	 * @param data
+	 * @param start
+	 * @param end
+	 * @return
+	 */
+	private static int checkIntBlockType16or32(Sequence data, int start, int end) {
+		boolean has32 = false;
+		for (int i = start; i <= end; ++i) {
+			Object obj = data.get(i);
+			if (obj == null) {
+				return NULL;
+			}
+			if (!(obj instanceof Integer)) {
+				return NULL;
+			}
+			
+			Integer val = (Integer) obj;
+			int tl = getIntTypeLength(val);
+			if (tl == TYPE_LENGTH_64) {
+				return NULL;
+			} else if (tl == TYPE_LENGTH_32) {
+				has32 = true;
+			}
+		}
+		
+		if (has32) 
+			return INT32;
+		else
+			return INT16;
 	}
 }
