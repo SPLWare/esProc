@@ -3255,4 +3255,14 @@ public class DateArray implements IArray {
 			return result;
 		}
 	}
+	
+	/**
+	 * 返回指定数组的成员在当前数组中的位置
+	 * @param array 待查找的数组
+	 * @param opt 选项，b：同序归并法查找，i：返回单递增数列，c：连续出现
+	 * @return 位置或者位置序列
+	 */
+	public Object pos(IArray array, String opt) {
+		return ArrayUtil.pos(this, array, opt);
+	}
 }

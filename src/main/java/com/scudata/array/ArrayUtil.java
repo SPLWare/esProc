@@ -485,4 +485,123 @@ public final class ArrayUtil {
 		throw new RQException(Variant.getDataType(o1) + mm.getMessage("Variant2.with") +
 				Variant.getDataType(o2) + mm.getMessage("Variant2.illDivide"));
 	}
+	
+	/**
+	 * 返回指定数组的成员在当前数组中的位置
+	 * @param src 源数组
+	 * @param array 待查找的数组
+	 * @param opt 选项，b：同序归并法查找，i：返回单递增数列，c：连续出现
+	 * @return 位置或者位置序列
+	 */
+	public static Object pos(IArray src, IArray array, String opt) {
+		int len = src.size();
+		int subLen = array.size();
+		if (len < subLen) {
+			return null;
+		}
+
+		boolean isSorted = false, isIncre = false, isContinuous = false;
+		if (opt != null) {
+			if (opt.indexOf('b') != -1) isSorted = true;
+			if (opt.indexOf('i') != -1) isIncre = true;
+			if (opt.indexOf('c') != -1) isContinuous = true;
+		}
+
+		// 元素依次出现在源序列中
+		if (isIncre) {
+			Sequence result = new Sequence(subLen);
+			IArray resultMems = result.getMems();
+
+			if (isSorted) { // 源序列有序
+				int pos = 1;
+				for (int t = 1; t <= subLen; ++t) {
+					pos = src.binarySearch(array.get(t), pos, len);
+					if (pos > 0) {
+						resultMems.add(pos);
+						pos++;
+					} else {
+						return null;
+					}
+				}
+			} else {
+				int pos = 1;
+				for (int t = 1; t <= subLen; ++t) {
+					pos = src.firstIndexOf(array.get(t), pos);
+					if (pos > 0) {
+						resultMems.add(pos);
+						pos++;
+					} else {
+						return null;
+					}
+				}
+			}
+
+			return result;
+		} else if (isContinuous) {
+			int maxCandidate = len - subLen + 1; // 比较的次数
+			if (isSorted) {
+				Object o1 = array.get(1);
+				int candidate = 1;
+
+				// 找到第一个相等的元素的序号
+				Next:
+				while (candidate <= maxCandidate) {
+					int result = Variant.compare(o1, src.get(candidate), true);
+
+					if (result > 0) {
+						candidate++;
+					} else if (result == 0) {
+						for (int i = 2, j = candidate + 1; i <= subLen; ++i, ++j) {
+							if (!Variant.isEquals(array.get(i), src.get(j))) {
+								candidate++;
+								continue Next;
+							}
+						}
+
+						return candidate;
+					} else {
+						return null;
+					}
+				}
+			} else {
+				nextCand:
+				for (int candidate = 1; candidate <= maxCandidate; ++candidate) {
+					for (int i = 1, j = candidate; i <= subLen; ++i, ++j) {
+						if (!Variant.isEquals(array.get(i), src.get(j))) {
+							continue nextCand;
+						}
+					}
+
+					return candidate;
+				}
+			}
+
+			return null;
+		} else {
+			Sequence result = new Sequence(subLen);
+			IArray resultMems = result.getMems();
+
+			if (isSorted) { // 源序列有序
+				for (int t = 1; t <= subLen; ++t) {
+					int pos = src.binarySearch(array.get(t));
+					if (pos > 0) {
+						resultMems.add(pos);
+					} else {
+						return null;
+					}
+				}
+			} else {
+				for (int t = 1; t <= subLen; ++t) {
+					int pos = src.firstIndexOf(array.get(t), 1);
+					if (pos > 0) {
+						resultMems.add(pos);
+					} else {
+						return null;
+					}
+				}
+			}
+
+			return result;
+		}
+	}
 }

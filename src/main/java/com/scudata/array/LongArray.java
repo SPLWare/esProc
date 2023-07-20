@@ -1342,6 +1342,35 @@ public class LongArray implements NumberArray {
 		}
 	}
 	
+	private int binarySearch(long v, int low, int high) {
+		long []datas = this.datas;
+		boolean []signs = this.signs;
+		
+		if (signs != null) {
+			// 跳过null
+			while (low <= high) {
+				if (signs[low]) {
+					low++;
+				} else {
+					break;
+				}
+			}
+		}
+		
+		while (low <= high) {
+			int mid = (low + high) >> 1;
+			if (datas[mid] < v) {
+				low = mid + 1;
+			} else if (datas[mid] > v) {
+				high = mid - 1;
+			} else {
+				return mid; // key found
+			}
+		}
+
+		return -low; // key not found
+	}
+	
 	public int binarySearch(long v) {
 		long []datas = this.datas;
 		boolean []signs = this.signs;
@@ -1578,6 +1607,28 @@ public class LongArray implements NumberArray {
 		} else {
 			return 0;
 		}
+	}
+	
+	private int firstIndexOf(long v, int start) {
+		long []datas = this.datas;
+		boolean []signs = this.signs;
+		int size = this.size;
+		
+		if (signs == null) {
+			for (int i = start; i <= size; ++i) {
+				if (datas[i] == v) {
+					return i;
+				}
+			}
+		} else {
+			for (int i = start; i <= size; ++i) {
+				if (!signs[i] && datas[i] == v) {
+					return i;
+				}
+			}
+		}
+		
+		return 0;
 	}
 
 	/**
@@ -8628,5 +8679,145 @@ public class LongArray implements NumberArray {
 		
 		result.setTemporary(true);
 		return result;
+	}
+
+	/**
+	 * 返回指定数组的成员在当前数组中的位置
+	 * @param array 待查找的数组
+	 * @param opt 选项，b：同序归并法查找，i：返回单递增数列，c：连续出现
+	 * @return 位置或者位置序列
+	 */
+	public Object pos(IArray array, String opt) {
+		if (array instanceof LongArray || array instanceof IntArray) {
+			int len = this.size;
+			int subLen = array.size();
+			if (len < subLen) {
+				return null;
+			}
+			
+			boolean isSorted = false, isIncre = false, isContinuous = false;
+			if (opt != null) {
+				if (opt.indexOf('b') != -1) isSorted = true;
+				if (opt.indexOf('i') != -1) isIncre = true;
+				if (opt.indexOf('c') != -1) isContinuous = true;
+			}
+
+			// 元素依次出现在源序列中
+			if (isIncre) {
+				IntArray result = new IntArray(subLen);
+
+				if (isSorted) { // 源序列有序
+					int pos = 1;
+					for (int t = 1; t <= subLen; ++t) {
+						if (array.isNull(t)) {
+							pos = binarySearch(null, pos, len);
+						} else {
+							pos = binarySearch(array.getLong(t), pos, len);
+						}
+						
+						if (pos > 0) {
+							result.pushInt(pos);
+							pos++;
+						} else {
+							return null;
+						}
+					}
+				} else {
+					int pos = 1;
+					for (int t = 1; t <= subLen; ++t) {
+						if (array.isNull(t)) {
+							pos = firstIndexOf(null, pos);
+						} else {
+							pos = firstIndexOf(array.getLong(t), pos);
+						}
+						
+						if (pos > 0) {
+							result.pushInt(pos);
+							pos++;
+						} else {
+							return null;
+						}
+					}
+				}
+
+				return new Sequence(result);
+			} else if (isContinuous) {
+				int maxCandidate = len - subLen + 1; // 比较的次数
+				if (isSorted) {
+					int candidate = 1;
+
+					// 找到第一个相等的元素的序号
+					Next:
+					while (candidate <= maxCandidate) {
+						int result = compareTo(candidate, array, 1);
+
+						if (result < 0) {
+							candidate++;
+						} else if (result == 0) {
+							for (int i = 2, j = candidate + 1; i <= subLen; ++i, ++j) {
+								if (!isEquals(j, array, i)) {
+									candidate++;
+									continue Next;
+								}
+							}
+
+							return candidate;
+						} else {
+							return null;
+						}
+					}
+				} else {
+					nextCand:
+					for (int candidate = 1; candidate <= maxCandidate; ++candidate) {
+						for (int i = 1, j = candidate; i <= subLen; ++i, ++j) {
+							if (!isEquals(j, array, i)) {
+								continue nextCand;
+							}
+						}
+
+						return candidate;
+					}
+				}
+
+				return null;
+			} else {
+				IntArray result = new IntArray(subLen);
+				int pos;
+				
+				if (isSorted) { // 源序列有序
+					for (int t = 1; t <= subLen; ++t) {
+						if (array.isNull(t)) {
+							pos = binarySearch(null);
+						} else {
+							pos = binarySearch(array.getLong(t));
+						}
+
+						if (pos > 0) {
+							result.pushInt(pos);
+						} else {
+							return null;
+						}
+					}
+				} else {
+					for (int t = 1; t <= subLen; ++t) {
+						if (array.isNull(t)) {
+							pos = firstIndexOf(null, 1);
+						} else {
+							pos = firstIndexOf(array.getLong(t), 1);
+						}
+						
+						if (pos > 0) {
+							result.pushInt(pos);
+						} else {
+							return null;
+						}
+					}
+				}
+
+				return new Sequence(result);
+			}
+		} else {
+			return ArrayUtil.pos(this, array, opt);
+		}
 	}
 }

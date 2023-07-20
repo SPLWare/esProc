@@ -4362,122 +4362,13 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	}
 
 	private Object subPos(Sequence sub, String opt) {
-		if (sub.length() == 0) {
+		IArray subMems = sub.getMems();
+		if (subMems.size() == 0) {
 			return null;
 		}
 
 		IArray mems = getMems();
-		IArray subMems = sub.getMems();
-
-		int len = mems.size();
-		int subLen = subMems.size();
-		if (len < subLen) {
-			return null;
-		}
-
-		boolean isSorted = false, isIncre = false, isContinuous = false;
-		if (opt != null) {
-			if (opt.indexOf('b') != -1) isSorted = true;
-			if (opt.indexOf('i') != -1) isIncre = true;
-			if (opt.indexOf('c') != -1) isContinuous = true;
-		}
-
-		// 元素依次出现在源序列中
-		if (isIncre) {
-			Sequence result = new Sequence(subLen);
-			IArray resultMems = result.getMems();
-
-			if (isSorted) { // 源序列有序
-				int pos = 1;
-				for (int t = 1; t <= subLen; ++t) {
-					pos = mems.binarySearch(subMems.get(t), pos, len);
-					if (pos > 0) {
-						resultMems.add(pos);
-						pos++;
-					} else {
-						return null;
-					}
-				}
-			} else {
-				int pos = 1;
-				for (int t = 1; t <= subLen; ++t) {
-					pos = mems.firstIndexOf(subMems.get(t), pos);
-					if (pos > 0) {
-						resultMems.add(pos);
-						pos++;
-					} else {
-						return null;
-					}
-				}
-			}
-
-			return result;
-		} else if (isContinuous) {
-			int maxCandidate = len - subLen + 1; // 比较的次数
-			if (isSorted) {
-				Object o1 = subMems.get(1);
-				int candidate = 1;
-
-				// 找到第一个相等的元素的序号
-				Next:
-				while (candidate <= maxCandidate) {
-					int result = Variant.compare(o1, mems.get(candidate), true);
-
-					if (result > 0) {
-						candidate++;
-					} else if (result == 0) {
-						for (int i = 2, j = candidate + 1; i <= subLen; ++i, ++j) {
-							if (!Variant.isEquals(subMems.get(i), mems.get(j))) {
-								candidate++;
-								continue Next;
-							}
-						}
-
-						return candidate;
-					} else {
-						return null;
-					}
-				}
-			} else {
-				nextCand:
-				for (int candidate = 1; candidate <= maxCandidate; ++candidate) {
-					for (int i = 1, j = candidate; i <= subLen; ++i, ++j) {
-						if (!Variant.isEquals(subMems.get(i), mems.get(j))) {
-							continue nextCand;
-						}
-					}
-
-					return candidate;
-				}
-			}
-
-			return null;
-		} else {
-			Sequence result = new Sequence(subLen);
-			IArray resultMems = result.getMems();
-
-			if (isSorted) { // 源序列有序
-				for (int t = 1; t <= subLen; ++t) {
-					int pos = mems.binarySearch(subMems.get(t));
-					if (pos > 0) {
-						resultMems.add(pos);
-					} else {
-						return null;
-					}
-				}
-			} else {
-				for (int t = 1; t <= subLen; ++t) {
-					int pos = mems.firstIndexOf(subMems.get(t), 1);
-					if (pos > 0) {
-						resultMems.add(pos);
-					} else {
-						return null;
-					}
-				}
-			}
-
-			return result;
-		}
+		return mems.pos(subMems, opt);
 	}
 
 	/**

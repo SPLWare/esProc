@@ -6,6 +6,7 @@ import java.io.ObjectOutput;
 import java.math.*;
 import java.util.Comparator;
 
+import com.scudata.array.ArrayUtil;
 import com.scudata.array.BoolArray;
 import com.scudata.array.IArray;
 import com.scudata.array.IntArray;
@@ -1028,5 +1029,15 @@ public class ColumnList implements IArray {
 	public IArray combine(IArray signArray, Object value) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	/**
+	 * 返回指定数组的成员在当前数组中的位置
+	 * @param array 待查找的数组
+	 * @param opt 选项，b：同序归并法查找，i：返回单递增数列，c：连续出现
+	 * @return 位置或者位置序列
+	 */
+	public Object pos(IArray array, String opt) {
+		return ArrayUtil.pos(this, array, opt);
 	}
 }
