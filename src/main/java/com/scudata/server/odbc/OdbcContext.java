@@ -41,7 +41,7 @@ public class OdbcContext extends ConfigWriter {
 	private int conMax = 10;
 	private int conTimeOut = 2;// 连接存活时间，小时为单位，0为不检查超时
 	private int conPeriod = 5; // 检查代理或者临时文件过期的时间间隔，0为不检查过期。文件以及游标代理的过期时间,单位秒
-	private boolean autoStart=false,enabled = true;
+	private boolean autoStart=false;
 	
 	private List<User> users = null;
 
@@ -95,11 +95,6 @@ public class OdbcContext extends ConfigWriter {
 		buf = XmlUtil.getAttribute(root, "autostart");
 		if (StringUtils.isValidString(buf)) {
 			autoStart = Boolean.parseBoolean(buf);
-		}
-
-		buf = XmlUtil.getAttribute(root, "enabled");
-		if (StringUtils.isValidString(buf)) {
-			enabled = Boolean.parseBoolean(buf);
 		}
 
 		// 固定输出日志到控制台， 和 start.home/nodes/[ip_port]/log 目录下
@@ -182,7 +177,7 @@ public class OdbcContext extends ConfigWriter {
 		// 设置根节点和版本
 		handler.startElement("", "", "Server", getAttributesImpl(new String[] {
 				ConfigConsts.VERSION, "1", "host", host, "port", port + "","autostart", autoStart + "",
-				"enabled", enabled + "","timeout", timeOut + ""})); 
+				"timeout", timeOut + ""})); 
 
 		level = 1;
 		startElement("Connection", null);
@@ -259,13 +254,6 @@ public class OdbcContext extends ConfigWriter {
 		return autoStart;
 	}
 	
-	public boolean isEnabled() {
-		return enabled;
-	}
-	public void setEnabled(boolean en) {
-		enabled = en;
-	}
-
 	/**
 	 * 获取连接超时的时间
 	 * @return 超时时间

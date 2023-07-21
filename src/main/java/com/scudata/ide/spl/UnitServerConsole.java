@@ -36,6 +36,7 @@ import com.scudata.dm.JobSpaceManager;
 import com.scudata.dm.Param;
 import com.scudata.dm.ParamList;
 import com.scudata.ide.common.AppFrame;
+import com.scudata.ide.common.ConfigFile;
 import com.scudata.ide.common.ConfigOptions;
 import com.scudata.ide.common.Console;
 import com.scudata.ide.common.GC;
@@ -184,11 +185,27 @@ public class UnitServerConsole extends JFrame implements StartUnitListener {
 	}
 
 	private void autoStart() {
+		ConfigFile sysConfig = ConfigFile.getSystemConfigFile();
+		String nodeEnabled = null,odbcEnabled = null, httpEnabled=null;
+		if(sysConfig!=null) {
+			nodeEnabled = sysConfig.getAttrValue("nodeEnabled");
+			odbcEnabled = sysConfig.getAttrValue("odbcEnabled");
+			httpEnabled = sysConfig.getAttrValue("httpEnabled");
+		}
+		boolean nb=true,ob=true,hb=true;
+		if(StringUtils.isValidString(nodeEnabled)) {
+			nb = Boolean.parseBoolean(nodeEnabled);
+		}
+		if(StringUtils.isValidString(odbcEnabled)) {
+			ob = Boolean.parseBoolean(odbcEnabled);
+		}
+		if(StringUtils.isValidString(httpEnabled)) {
+			hb = Boolean.parseBoolean(httpEnabled);
+		}
 		// 每个服务器的启动状态，要设置到当前的界面，比如显示端口号；所以下面的启动服务器，只能串行，一个启动完成后，才能启动下一个服务。
 		try {
 			httpServer = SplxServerInIDE.getInstance();
-			tabServer.setEnabledAt(2,httpServer.isEnabled());
-			if(httpServer.isEnabled()) {
+			if(hb) {
 				if (httpServer.isAutoStart()) {
 					doStart();
 				}
@@ -201,13 +218,12 @@ public class UnitServerConsole extends JFrame implements StartUnitListener {
 			while (isServerStarting) {
 				Thread.yield();
 			}
-			odbcServer = OdbcServer.getInstance();
-			tabServer.setEnabledAt(1,odbcServer.isEnabled());
-			if(odbcServer.isEnabled()) {
-				if (odbcServer.isAutoStart()) {
+			unitServer = UnitServer.getInstance(specifyHost, specifyPort);
+			if(nb) {
+				if (unitServer.isAutoStart()) {
 					doStart();
 				}
-				tabServer.setSelectedIndex(1);
+				tabServer.setSelectedIndex(0);
 			}
 		} catch (Exception e) {
 		}
@@ -216,17 +232,17 @@ public class UnitServerConsole extends JFrame implements StartUnitListener {
 			while (isServerStarting) {
 				Thread.yield();
 			}
-			unitServer = UnitServer.getInstance(specifyHost, specifyPort);
-			tabServer.setEnabledAt(0,unitServer.isEnabled());
-			if(unitServer.isEnabled()) {
-				if (unitServer.isAutoStart()) {
+			odbcServer = OdbcServer.getInstance();
+			if(ob) {
+				if (odbcServer.isAutoStart()) {
 					doStart();
 				}
-				tabServer.setSelectedIndex(0);
+				tabServer.setSelectedIndex(1);
 			}
 		} catch (Exception e) {
 		}
-		boolean b = unitServer.isEnabled() || odbcServer.isEnabled() || httpServer.isEnabled();
+
+		boolean b = nb || ob || hb;
 		jBStart.setEnabled(b);
 	}
 

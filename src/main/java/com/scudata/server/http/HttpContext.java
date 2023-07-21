@@ -43,7 +43,7 @@ public class HttpContext extends ConfigWriter {
 	private String host = UnitContext.getDefaultHost();// "127.0.0.1";
 	private int port = 8508;
 	private int maxLinks = 50;
-	private boolean autoStart=false,enabled=true;
+	private boolean autoStart=false;
 
 	private ArrayList<String> sapPath = new ArrayList<String>();
 
@@ -122,11 +122,6 @@ public class HttpContext extends ConfigWriter {
 			autoStart = Boolean.parseBoolean(buf);
 		}
 
-		buf = XmlUtil.getAttribute(root, "enabled");
-		if (StringUtils.isValidString(buf)) {
-			enabled = Boolean.parseBoolean(buf);
-		}
-
 		// 固定输出日志到控制台， 和 start.home/nodes/[ip_port]/log 目录下
 		String home = UnitServer.getHome();
 		String file = "http/" + UnitClient.getHostPath(host) + "_" + port + "/log/log.txt";
@@ -196,7 +191,7 @@ public class HttpContext extends ConfigWriter {
 		}
 		handler.startElement("", "", "Server", getAttributesImpl(new String[] {
 				ConfigConsts.VERSION, "1", "host", host, "port", port + "", "autostart", autoStart + "",
-				"enabled", enabled + "","maxlinks", maxLinks + "",  //parallelNum + "",
+				"maxlinks", maxLinks + "",  //parallelNum + "",
 				"sapPath", paths }));
 
 		handler.endElement("", "", "Server");
@@ -226,14 +221,6 @@ public class HttpContext extends ConfigWriter {
 
 	public void setAutoStart(boolean as) {
 		this.autoStart = as;
-	}
-
-	public boolean isEnabled() {
-		return enabled;
-	}
-
-	public void setEnabled(boolean en) {
-		this.enabled = en;
 	}
 
 	public int getMaxLinks() {

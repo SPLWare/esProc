@@ -251,10 +251,4 @@ public class OdbcServer implements IServer {
 		return ctx.isAutoStart();
 	}
 
-	public boolean isEnabled() {
-		if(ctx==null){
-			ctx = new OdbcContext();
-		}
-		return ctx.isEnabled();
-	}
 }
