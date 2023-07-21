@@ -24,7 +24,7 @@ import com.scudata.resources.EngineMessage;
  *
  */
 public class IndexCursor extends ICursor {
-	private int BUFFER_SIZE = 4096;
+	private int BUFFER_SIZE = 1024 * 32;
 	
 	private PhyTable table;
 	private String []fields;//取出字段
@@ -203,15 +203,18 @@ public class IndexCursor extends ICursor {
 			findex[i] = srcDs.getFieldIndex(fields[i]);
 		}
 		
-		boolean flag = false;
-		for (int i = 0; i < colCount; ++i) {
-			if (findex[i] == i) {
-				flag = true;
-			} else {
-				flag = false;
-				break;
+		boolean flag = colCount == srcDs.getFieldCount();
+		if (flag) {
+			for (int i = 0; i < colCount; ++i) {
+				if (findex[i] == i) {
+					flag = true;
+				} else {
+					flag = false;
+					break;
+				}
 			}
 		}
+		
 		if (flag && isPrimaryTable && modifyRecordList == null) {
 			//不需要findex
 			findex = null;
