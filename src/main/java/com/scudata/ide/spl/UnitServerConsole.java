@@ -241,7 +241,9 @@ public class UnitServerConsole extends JFrame implements StartUnitListener {
 			}
 		} catch (Exception e) {
 		}
-
+		tabServer.setEnabledAt(0, nb);
+		tabServer.setEnabledAt(1, ob);
+		tabServer.setEnabledAt(2, hb);
 		boolean b = nb || ob || hb;
 		jBStart.setEnabled(b);
 	}
