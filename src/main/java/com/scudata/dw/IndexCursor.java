@@ -24,7 +24,7 @@ import com.scudata.resources.EngineMessage;
  *
  */
 public class IndexCursor extends ICursor {
-	private int BUFFER_SIZE = 4096 * 4;
+	private int BUFFER_SIZE = 1024 * 32;
 	
 	private PhyTable table;
 	private String []fields;//È¡³ö×Ö¶Î
