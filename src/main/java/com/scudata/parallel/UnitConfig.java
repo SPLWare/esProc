@@ -36,7 +36,7 @@ public class UnitConfig extends ConfigWriter {
 	private int proxyTimeOut = 12; // 文件以及游标代理的过期时间，秒为单位，0为永生，单位都是小时。
 	private int interval = 30 * 60; // 检查代理或者临时文件过期的时间间隔，0为不检查过期。单位秒
 	private int backlog = 10; // 服务器最大并发连接，操作系统缺省最大为50，限定范围1到50
-	boolean autoStart=false;
+	boolean autoStart=false,enabled = true;
 	private List<Host> hosts = null;
 	
 //	客户端白名单
@@ -115,8 +115,13 @@ public class UnitConfig extends ConfigWriter {
 
 		// version 3
 		// Server 配置
+		String buf = XmlUtil.getAttribute(root, "enabled");
+		if (StringUtils.isValidString(buf)) {
+			enabled = Boolean.parseBoolean(buf);//enabled支持两处写法， attribute和节点设置
+		}
+		
 		Node subNode = XmlUtil.findSonNode(root, "tempTimeout");
-		String buf = XmlUtil.getNodeValue(subNode);
+		buf = XmlUtil.getNodeValue(subNode);
 		if (StringUtils.isValidString(buf)) {
 			tempTimeOut = Integer.parseInt(buf);
 			if (tempTimeOut > 0) {
@@ -146,6 +151,12 @@ public class UnitConfig extends ConfigWriter {
 		buf = XmlUtil.getNodeValue(subNode);
 		if (StringUtils.isValidString(buf)) {
 			autoStart = new Boolean(buf);
+		}
+
+		subNode = XmlUtil.findSonNode(root, "enabled");
+		buf = XmlUtil.getNodeValue(subNode);
+		if (StringUtils.isValidString(buf)) {
+			enabled = new Boolean(buf);
 		}
 
 		subNode = XmlUtil.findSonNode(root, "proxyTimeout");
@@ -237,6 +248,7 @@ public class UnitConfig extends ConfigWriter {
 		writeAttribute("Interval", interval + "");
 		writeAttribute("Backlog", backlog + "");
 		writeAttribute("AutoStart", autoStart + "");
+		writeAttribute("enabled", enabled + "");
 		writeAttribute("ProxyTimeOut", proxyTimeOut + "");
 
 		startElement("Hosts", null);
@@ -321,6 +333,13 @@ public class UnitConfig extends ConfigWriter {
 	}
 	public void setAutoStart(boolean as){
 		autoStart = as;
+	}
+
+	public boolean isEnabled(){
+		return enabled;
+	}
+	public void setEnabled(boolean en){
+		enabled = en;
 	}
 	/**
 	 * 取代理对象生存时间（单位为小时）

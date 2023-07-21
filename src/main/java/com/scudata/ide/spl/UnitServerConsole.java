@@ -187,9 +187,12 @@ public class UnitServerConsole extends JFrame implements StartUnitListener {
 		// 每个服务器的启动状态，要设置到当前的界面，比如显示端口号；所以下面的启动服务器，只能串行，一个启动完成后，才能启动下一个服务。
 		try {
 			httpServer = SplxServerInIDE.getInstance();
-			if (httpServer.isAutoStart()) {
+			tabServer.setEnabledAt(2,httpServer.isEnabled());
+			if(httpServer.isEnabled()) {
+				if (httpServer.isAutoStart()) {
+					doStart();
+				}
 				tabServer.setSelectedIndex(2);
-				doStart();
 			}
 		} catch (Exception e) {
 		}
@@ -199,9 +202,12 @@ public class UnitServerConsole extends JFrame implements StartUnitListener {
 				Thread.yield();
 			}
 			odbcServer = OdbcServer.getInstance();
-			if (odbcServer.isAutoStart()) {
+			tabServer.setEnabledAt(1,odbcServer.isEnabled());
+			if(odbcServer.isEnabled()) {
+				if (odbcServer.isAutoStart()) {
+					doStart();
+				}
 				tabServer.setSelectedIndex(1);
-				doStart();
 			}
 		} catch (Exception e) {
 		}
@@ -211,12 +217,17 @@ public class UnitServerConsole extends JFrame implements StartUnitListener {
 				Thread.yield();
 			}
 			unitServer = UnitServer.getInstance(specifyHost, specifyPort);
-			if (unitServer.isAutoStart()) {
+			tabServer.setEnabledAt(0,unitServer.isEnabled());
+			if(unitServer.isEnabled()) {
+				if (unitServer.isAutoStart()) {
+					doStart();
+				}
 				tabServer.setSelectedIndex(0);
-				doStart();
 			}
 		} catch (Exception e) {
 		}
+		boolean b = unitServer.isEnabled() || odbcServer.isEnabled() || httpServer.isEnabled();
+		jBStart.setEnabled(b);
 	}
 
 	private static ImageIcon getImageIcon() {

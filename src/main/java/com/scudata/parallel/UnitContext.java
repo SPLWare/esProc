@@ -35,7 +35,7 @@ public class UnitContext {
 	private int backlog = 10; // 服务器最大并发连接，操作系统缺省最大为50，限定范围1到50
 
 	private RaqsoftConfig raqsoftConfig = null;
-	private boolean checkClient = false,autoStart=false;
+	private boolean checkClient = false,autoStart=false,enabled=true;
 	private List<String> enabledClientsStart = null;
 	private List<String> enabledClientsEnd = null;
 
@@ -76,6 +76,9 @@ public class UnitContext {
 	 */
 	public boolean isAutoStart() {
 		return autoStart;
+	}
+	public boolean isEnabled() {
+		return enabled;
 	}
 
 	private static boolean between(String ip, String start, String end) {
@@ -262,6 +265,7 @@ public class UnitContext {
 
 		checkClient = uc.isCheckClients();
 		autoStart = uc.isAutoStart();
+		enabled = uc.isEnabled();
 		enabledClientsStart = uc.getEnabledClientsStart();
 		enabledClientsEnd = uc.getEnabledClientsEnd();
 

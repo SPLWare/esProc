@@ -577,4 +577,13 @@ public class UnitServer implements IServer {
 		}
 	}
 
+	public boolean isEnabled() {
+		try{
+			checkContext();
+			return unitContext.isEnabled();
+		}catch(Exception x){
+			return true;
+		}
+	}
+
 }

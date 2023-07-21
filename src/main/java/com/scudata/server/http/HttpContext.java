@@ -17,7 +17,6 @@ import org.xml.sax.SAXException;
 
 import com.scudata.app.config.ConfigConsts;
 import com.scudata.app.config.ConfigWriter;
-import com.scudata.common.ArgumentTokenizer;
 import com.scudata.common.Logger;
 import com.scudata.common.MessageManager;
 import com.scudata.common.StringUtils;
@@ -44,7 +43,7 @@ public class HttpContext extends ConfigWriter {
 	private String host = UnitContext.getDefaultHost();// "127.0.0.1";
 	private int port = 8508;
 	private int maxLinks = 50;
-	private boolean autoStart=false;
+	private boolean autoStart=false,enabled=true;
 
 	private ArrayList<String> sapPath = new ArrayList<String>();
 
@@ -123,6 +122,11 @@ public class HttpContext extends ConfigWriter {
 			autoStart = Boolean.parseBoolean(buf);
 		}
 
+		buf = XmlUtil.getAttribute(root, "enabled");
+		if (StringUtils.isValidString(buf)) {
+			enabled = Boolean.parseBoolean(buf);
+		}
+
 		// 固定输出日志到控制台， 和 start.home/nodes/[ip_port]/log 目录下
 		String home = UnitServer.getHome();
 		String file = "http/" + UnitClient.getHostPath(host) + "_" + port + "/log/log.txt";
@@ -192,7 +196,7 @@ public class HttpContext extends ConfigWriter {
 		}
 		handler.startElement("", "", "Server", getAttributesImpl(new String[] {
 				ConfigConsts.VERSION, "1", "host", host, "port", port + "", "autostart", autoStart + "",
-				"maxlinks", maxLinks + "",  //parallelNum + "",
+				"enabled", enabled + "","maxlinks", maxLinks + "",  //parallelNum + "",
 				"sapPath", paths }));
 
 		handler.endElement("", "", "Server");
@@ -224,13 +228,13 @@ public class HttpContext extends ConfigWriter {
 		this.autoStart = as;
 	}
 
-//	public int getParallelNum() {
-//		return parallelNum;
-//	}
-//
-//	public void setParallelNum(int num) {
-//		this.parallelNum = num;
-//	}
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean en) {
+		this.enabled = en;
+	}
 
 	public int getMaxLinks() {
 		return maxLinks;

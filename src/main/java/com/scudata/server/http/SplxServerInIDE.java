@@ -170,4 +170,11 @@ public class SplxServerInIDE implements IServer {
 		return ctx.isAutoStart();
 	}
 
+	public boolean isEnabled() {
+		if(ctx==null){
+			ctx = new HttpContext(true);
+		}
+		return ctx.isEnabled();
+	}
+	
 }
