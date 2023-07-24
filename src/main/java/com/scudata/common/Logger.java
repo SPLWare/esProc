@@ -10,6 +10,7 @@ import java.io.StringWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Properties;
 import java.util.StringTokenizer;
 
@@ -415,6 +416,7 @@ public class Logger {
 		return formatter.format(new Date());
 	}
 
+	private ArrayList<String> bufFiles = new ArrayList<String>();
 	private Object[] getLogFile(String fileName, boolean isFixedFileName) {
 		Object[] files = new Object[2];//第0返回工作File，第1返回绝对路径
 		File f = new File(fileName);
@@ -455,8 +457,14 @@ public class Logger {
 			currentMark = getDateMark();
 			filePath = pattern + "_" + currentMark + ".log";
 		}
-		System.err
-				.println("Raqsoft is using log file:\r\n" + filePath + "\r\n");
+		if(!bufFiles.contains(filePath)) {
+			System.err
+					.println("Raqsoft is using log file:\r\n" + filePath + "\r\n");
+			bufFiles.add(filePath);
+			if(bufFiles.size()>1024) {
+				bufFiles.clear();
+			}
+		}
 
 		f = new File(filePath);
 		File p = f.getParentFile();

@@ -150,7 +150,8 @@ public class HttpContext extends ConfigWriter {
 			File main = new File( mp );
 			if( main.exists() ) {
 				String mainPath = main.getAbsolutePath();
-				addSubdir2Sappath( main, mainPath );
+//				addSubdir2Sappath( main, mainPath );改为不加载目录到sappath，由服务器自动加载
+//				一旦这个路径设置为硬盘根目录时，这个sappath太大了，且没意义，但会导致编辑时卡机 xq 2023年7月24日
 			}
 		}
 		/*buf = XmlUtil.getAttribute(root, "sapPath");
@@ -173,6 +174,7 @@ public class HttpContext extends ConfigWriter {
 			path = path.substring( mainPath.length() );
 			path = StringUtils.replace( path, "\\", "/" );
 			sapPath.add( path );
+			
 			addSubdir2Sappath( fs[i], mainPath );
 		}
 	}
