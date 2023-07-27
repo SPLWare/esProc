@@ -24,7 +24,7 @@ import com.scudata.resources.EngineMessage;
  *
  */
 public class IndexCursor extends ICursor {
-	private int BUFFER_SIZE = 1024 * 32;
+	private int BUFFER_SIZE = 1024 * 512;
 	
 	private PhyTable table;
 	private String []fields;//È¡³ö×Ö¶Î
@@ -772,8 +772,11 @@ public class IndexCursor extends ICursor {
 					}
 				}
 			}
-						
-			return table;
+
+			if (table.length() == 0)
+				return null;
+			else 
+				return table;
 		} catch (IOException e) {
 			close();
 			throw new RQException(e.getMessage(), e);
