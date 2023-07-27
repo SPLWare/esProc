@@ -4,6 +4,7 @@ import com.scudata.dm.Context;
 import com.scudata.expression.Expression;
 import com.scudata.expression.ParamInfo2;
 import com.scudata.expression.SequenceFunction;
+import com.scudata.thread.MultithreadUtil;
 
 /**
  * 针对序列计算表达式，返回序列本身
@@ -22,7 +23,13 @@ public class Run extends SequenceFunction {
 			ParamInfo2 pi = ParamInfo2.parse(param, "run", true, false);
 			Expression []exps = pi.getExpressions1();
 			Expression []assignExps = pi.getExpressions2();
-			srcSequence.run(assignExps, exps, ctx);
+			
+			String opt = option;
+			if (opt == null || opt.indexOf('m') == -1) {
+				srcSequence.run(assignExps, exps, ctx);
+			} else {
+				MultithreadUtil.run(srcSequence, assignExps, exps, ctx);
+			}
 		}
 
 		return srcSequence;

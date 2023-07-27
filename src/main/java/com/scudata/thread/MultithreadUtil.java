@@ -386,6 +386,71 @@ public final class MultithreadUtil {
 	}
 	
 	/**
+	 * 多线程对序列执行run运算
+	 * @param src 源序列
+	 * @param assignExps Expression[] 赋值表达式
+	 * @param exps Expression[] 值表达式
+	 * @param ctx Context
+	 */
+	public static void run(Sequence src, Expression[] assignExps, Expression[] exps, Context ctx) {
+		if (exps == null || exps.length == 0) {
+			return;
+		}
+
+		int colCount = exps.length;
+		if (assignExps == null) {
+			assignExps = new Expression[colCount];
+		} else if (assignExps.length != colCount) {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("run" + mm.getMessage("function.invalidParam"));
+		}
+		
+		int len = src.length();
+		int parallelNum = getParallelNum();
+
+		if (len <= SINGLE_PROSS_COUNT || parallelNum < 2) {
+			src.run(assignExps, exps, ctx);
+			return;
+		}
+		
+		int threadCount = (len - 1) / SINGLE_PROSS_COUNT + 1;
+		if (threadCount > parallelNum) {
+			threadCount = parallelNum;
+		}
+		
+		ThreadPool pool = ThreadPool.instance();
+		int singleCount = len / threadCount;
+		RunJob []jobs = new RunJob[threadCount];
+
+		int start = 1;
+		int end; // 不包括
+		for (int i = 0; i < threadCount; ++i) {
+			if (i + 1 == threadCount) {
+				end = len + 1;
+			} else {
+				end = start + singleCount;
+			}
+
+			Context tmpCtx = ctx.newComputeContext();
+			Expression []tempAssignExps = new Expression[colCount];
+			Expression []tmpExps = new Expression[colCount];
+			for (int k = 0; k < colCount; ++k) {
+				tempAssignExps [k] = assignExps[k].newExpression(tmpCtx);
+				tmpExps [k] = exps[k].newExpression(tmpCtx);
+			}
+			
+			jobs[i] = new RunJob(src, start, end, tempAssignExps, tmpExps, tmpCtx);
+			pool.submit(jobs[i]); // 提交任务
+			start = end;
+		}
+		
+		// 等待任务执行完毕
+		for (int i = 0; i < threadCount; ++i) {
+			jobs[i].join();
+		}
+	}
+	
+	/**
 	 * 多线程对序列执行过滤运算
 	 * @param src 源序列
 	 * @param exp 过滤表达式
