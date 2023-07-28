@@ -805,7 +805,6 @@ public class JoinCursor extends ICursor {
 							cache2 = cursor2.fetch(ICursor.FETCHCOUNT);
 							if (cache2 == null || cache2.length() == 0) {
 								isClosed = true;
-								close();
 								break;
 							}
 							mems2 = cache2.getMems();
@@ -831,7 +830,6 @@ public class JoinCursor extends ICursor {
 								cache2 = cursor2.fetch(ICursor.FETCHCOUNT);
 								if (cache2 == null || cache2.length() == 0) {
 									isClosed = true;
-									close();
 									break;
 								}
 								mems2 = cache2.getMems();
@@ -851,7 +849,6 @@ public class JoinCursor extends ICursor {
 						colReaders = this.colReaders;
 						if (len1 < 0) {
 							isClosed = true;
-							close();
 							break;
 						}
 					}
@@ -870,7 +867,6 @@ public class JoinCursor extends ICursor {
 						colReaders = this.colReaders;
 						if (len1 < 0) {
 							isClosed = true;
-							close();
 							break;
 						}
 					}
@@ -885,7 +881,6 @@ public class JoinCursor extends ICursor {
 						cache2 = cursor2.fetch(ICursor.FETCHCOUNT);
 						if (cache2 == null || cache2.length() == 0) {
 							isClosed = true;
-							close();
 							break;
 						}
 						mems2 = cache2.getMems();
@@ -1054,7 +1049,6 @@ public class JoinCursor extends ICursor {
 						colReaders = this.colReaders;
 						if (len1 < 0) {
 							isClosed = true;
-							close();
 							return null;
 						}
 					}
@@ -1091,7 +1085,6 @@ public class JoinCursor extends ICursor {
 							cache2 = cursor2.fetch(ICursor.FETCHCOUNT);
 							if (cache2 == null || cache2.length() == 0) {
 								isClosed = true;
-								close();
 								break;
 							}
 							mems2 = cache2.getMems();
@@ -1117,7 +1110,6 @@ public class JoinCursor extends ICursor {
 								cache2 = cursor2.fetch(ICursor.FETCHCOUNT);
 								if (cache2 == null || cache2.length() == 0) {
 									isClosed = true;
-									close();
 									break;
 								}
 								mems2 = cache2.getMems();
@@ -1140,7 +1132,6 @@ public class JoinCursor extends ICursor {
 							colReaders = this.colReaders;
 							if (len1 < 0) {
 								isClosed = true;
-								close();
 								break EXIT;
 							}
 						}
@@ -1196,7 +1187,6 @@ public class JoinCursor extends ICursor {
 							colReaders = this.colReaders;
 							if (len1 < 0) {
 								isClosed = true;
-								close();
 								break EXIT;
 							}
 						}
@@ -1245,7 +1235,6 @@ public class JoinCursor extends ICursor {
 						cache2 = cursor2.fetch(ICursor.FETCHCOUNT);
 						if (cache2 == null || cache2.length() == 0) {
 							isClosed = true;
-							close();
 							break;
 						}
 						mems2 = cache2.getMems();
@@ -1415,7 +1404,6 @@ public class JoinCursor extends ICursor {
 						colReaders = this.colReaders;
 						if (len1 < 0) {
 							isClosed = true;
-							close();
 							return null;
 						}
 					}
@@ -1439,7 +1427,6 @@ public class JoinCursor extends ICursor {
 						cache2 = cursor2.fetch(ICursor.FETCHCOUNT);
 						if (cache2 == null || cache2.length() == 0) {
 							isClosed = true;
-							close();
 							break;
 						}
 						mems2 = cache2.getMems();
@@ -1468,7 +1455,6 @@ public class JoinCursor extends ICursor {
 								colReaders = this.colReaders;
 								if (len1 < 0) {
 									isClosed = true;
-									close();
 									break EXIT;
 								}
 							}
@@ -1525,7 +1511,6 @@ public class JoinCursor extends ICursor {
 							colReaders = this.colReaders;
 							if (len1 < 0) {
 								isClosed = true;
-								close();
 								break EXIT;
 							}
 						}
@@ -1574,7 +1559,6 @@ public class JoinCursor extends ICursor {
 						cache2 = cursor2.fetch(ICursor.FETCHCOUNT);
 						if (cache2 == null || cache2.length() == 0) {
 							isClosed = true;
-							close();
 							break;
 						}
 						mems2 = cache2.getMems();
@@ -1726,7 +1710,6 @@ public class JoinCursor extends ICursor {
 						colReaders = this.colReaders;
 						if (len1 < 0) {
 							isClosed = true;
-							close();
 							break;
 						}
 					}
@@ -1749,7 +1732,6 @@ public class JoinCursor extends ICursor {
 									colReaders = this.colReaders;
 									if (len1 < 0) {
 										isClosed = true;
-										close();
 										break;
 									}
 								}
@@ -1768,7 +1750,6 @@ public class JoinCursor extends ICursor {
 							cache2 = cursor2.fetch(ICursor.FETCHCOUNT);
 							if (cache2 == null || cache2.length() == 0) {
 								isClosed = true;
-								close();
 								break;
 							}
 							mems2 = cache2.getMems();
@@ -1790,7 +1771,6 @@ public class JoinCursor extends ICursor {
 						colReaders = this.colReaders;
 						if (len1 < 0) {
 							isClosed = true;
-							close();
 							break;
 						}
 					}
@@ -1805,7 +1785,6 @@ public class JoinCursor extends ICursor {
 						cache2 = cursor2.fetch(ICursor.FETCHCOUNT);
 						if (cache2 == null || cache2.length() == 0) {
 							isClosed = true;
-							close();
 							break;
 						}
 						mems2 = cache2.getMems();
@@ -1976,7 +1955,6 @@ public class JoinCursor extends ICursor {
 						colReaders = this.colReaders;
 						if (len1 < 0) {
 							isClosed = true;
-							close();
 							return null;
 						}
 					}
@@ -2018,7 +1996,6 @@ public class JoinCursor extends ICursor {
 							colReaders = this.colReaders;
 							if (len1 < 0) {
 								isClosed = true;
-								close();
 								break EXIT;
 							}
 						}
@@ -2079,7 +2056,6 @@ public class JoinCursor extends ICursor {
 										colReaders = this.colReaders;
 										if (len1 < 0) {
 											isClosed = true;
-											close();
 											break EXIT;
 										}
 									}
@@ -2132,7 +2108,6 @@ public class JoinCursor extends ICursor {
 							cache2 = cursor2.fetch(ICursor.FETCHCOUNT);
 							if (cache2 == null || cache2.length() == 0) {
 								isClosed = true;
-								close();
 								break;
 							}
 							mems2 = cache2.getMems();
@@ -2157,7 +2132,6 @@ public class JoinCursor extends ICursor {
 							colReaders = this.colReaders;
 							if (len1 < 0) {
 								isClosed = true;
-								close();
 								break EXIT;
 							}
 						}
@@ -2206,7 +2180,6 @@ public class JoinCursor extends ICursor {
 						cache2 = cursor2.fetch(ICursor.FETCHCOUNT);
 						if (cache2 == null || cache2.length() == 0) {
 							isClosed = true;
-							close();
 							break;
 						}
 						mems2 = cache2.getMems();

@@ -273,7 +273,6 @@ public class JoinCursor2 extends ICursor {
 		cache1 = cursor1.fetch(FETCHCOUNT);
 		if (cache1 == null || cache1.length() == 0) {
 			isClosed = true;
-			close();
 			return;
 		}
 		cur1 = 1;
@@ -588,7 +587,6 @@ public class JoinCursor2 extends ICursor {
 				cache1 = cursor1.fetch(FETCHCOUNT);
 				if (cache1 == null || cache1.length() == 0) {
 					isClosed = true;
-					close();
 					break;
 				}
 				mems1 = cache1.getMems();
@@ -599,7 +597,6 @@ public class JoinCursor2 extends ICursor {
 				cache2 = cursor2.fetch(n - newTable.length());
 				if (cache2 == null || cache2.length() == 0) {
 					isClosed = true;
-					close();
 					break;
 				}
 				mems2 = cache2.getMems();
@@ -704,7 +701,6 @@ public class JoinCursor2 extends ICursor {
 			Sequence seq1 = cursor1.fetchGroup(keysIndex);
 			if (seq1 == null || seq1.length() == 0) {
 				isClosed = true;
-				close();
 				break;
 			}
 			
@@ -754,7 +750,6 @@ public class JoinCursor2 extends ICursor {
 				cache2 = cursor2.fetch(n - newTable.length());
 				if (cache2 == null || cache2.length() == 0) {
 					isClosed = true;
-					close();
 					break;
 				}
 			}
@@ -835,7 +830,6 @@ public class JoinCursor2 extends ICursor {
 					cache2 = cursor2.fetch(ICursor.FETCHCOUNT);
 					if (cache2 == null || cache2.length() == 0) {
 						isClosed = true;
-						close();
 						break;
 					}
 					mems2 = cache2.getMems();
@@ -858,7 +852,6 @@ public class JoinCursor2 extends ICursor {
 						cache1 = cursor1.fetch(FETCHCOUNT);
 						if (cache1 == null || cache1.length() == 0) {
 							isClosed = true;
-							close();
 							break;
 						}
 						mems1 = cache1.getMems();
@@ -873,7 +866,6 @@ public class JoinCursor2 extends ICursor {
 					cache1 = cursor1.fetch(FETCHCOUNT);
 					if (cache1 == null || cache1.length() == 0) {
 						isClosed = true;
-						close();
 						break;
 					}
 					mems1 = cache1.getMems();
@@ -886,7 +878,6 @@ public class JoinCursor2 extends ICursor {
 					cache2 = cursor2.fetch(ICursor.FETCHCOUNT);
 					if (cache2 == null || cache2.length() == 0) {
 						isClosed = true;
-						close();
 						break;
 					}
 					mems2 = cache2.getMems();
@@ -1000,7 +991,6 @@ public class JoinCursor2 extends ICursor {
 					cache1 = cursor1.fetch(FETCHCOUNT);
 					if (cache1 == null || cache1.length() == 0) {
 						isClosed = true;
-						close();
 						break;
 					}
 					mems1 = cache1.getMems();
@@ -1022,7 +1012,6 @@ public class JoinCursor2 extends ICursor {
 								cache1 = cursor1.fetch(FETCHCOUNT);
 								if (cache1 == null || cache1.length() == 0) {
 									isClosed = true;
-									close();
 									break;
 								}
 								mems1 = cache1.getMems();
@@ -1042,7 +1031,6 @@ public class JoinCursor2 extends ICursor {
 						cache2 = cursor2.fetch(ICursor.FETCHCOUNT);
 						if (cache2 == null || cache2.length() == 0) {
 							isClosed = true;
-							close();
 							break;
 						}
 						mems2 = cache2.getMems();
@@ -1060,7 +1048,6 @@ public class JoinCursor2 extends ICursor {
 					cache1 = cursor1.fetch(FETCHCOUNT);
 					if (cache1 == null || cache1.length() == 0) {
 						isClosed = true;
-						close();
 						break;
 					}
 					mems1 = cache1.getMems();
@@ -1075,7 +1062,6 @@ public class JoinCursor2 extends ICursor {
 					cache2 = cursor2.fetch(ICursor.FETCHCOUNT);
 					if (cache2 == null || cache2.length() == 0) {
 						isClosed = true;
-						close();
 						break;
 					}
 					mems2 = cache2.getMems();
