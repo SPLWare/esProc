@@ -72,13 +72,21 @@ public class Maxp extends Gather {
 	}
 	
 	public Object finish1(Object val) {
-		Object []array = (Object[])val;
-		return array[1];
+		if (val != null) {
+			Object []array = (Object[])val;
+			return array[1];
+		} else {
+			return null;
+		}
 	}
 	
 	public Object finish(Object val) {
-		Object []array = (Object[])val;
-		return array[1];
+		if (val != null) {
+			Object []array = (Object[])val;
+			return array[1];
+		} else {
+			return null;
+		}
 	}
 	
 	public Object gather(Context ctx) {
