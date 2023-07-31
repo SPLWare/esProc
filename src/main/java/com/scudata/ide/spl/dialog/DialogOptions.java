@@ -152,24 +152,6 @@ public class DialogOptions extends JDialog {
 	 */
 	private JSpinner jSFontSize = new JSpinner(new SpinnerNumberModel(12, 1,
 			36, 1));
-	/**
-	 * 最优并行数标签
-	 */
-	private JLabel labelParallelNum = new JLabel("最优并行数");
-
-	/**
-	 * 最优并行数控件
-	 */
-	private JSpinner jSParallelNum = new JSpinner();
-	/**
-	 * 多路游标缺省路数标签
-	 */
-	private JLabel labelCursorParallelNum = new JLabel("多路游标缺省路数");
-
-	/**
-	 * 多路游标缺省路数控件
-	 */
-	private JSpinner jSCursorParallelNum = new JSpinner();
 
 	/**
 	 * 将异常写入日志文件控件
@@ -427,7 +409,7 @@ public class DialogOptions extends JDialog {
 			if (GC.LANGUAGE == GC.ASIAN_CHINESE && !isUnit) {
 				dialogWidth = 700;
 			}
-			setSize(dialogWidth, 530);
+			setSize(dialogWidth, 550);
 			if (isUnit) {
 				ConfigOptions.bWindowSize = Boolean.FALSE;
 			}
@@ -540,9 +522,6 @@ public class DialogOptions extends JDialog {
 		jCBAutoSizeRowHeight.setText(mm
 				.getMessage("dialogoptions.autosizerowheight")); // 自动调整行高
 		jCBShowDBStruct.setText(mm.getMessage("dialogoptions.showdbstruct"));
-		labelParallelNum.setText(mm.getMessage("dialogoptions.parnum")); // 最优并行数
-		labelCursorParallelNum
-				.setText(mm.getMessage("dialogoptions.curparnum"));
 
 		jCBMultiLineExpEditor.setText(mm.getMessage("dialogoptions.multiline")); // 自增长表达式编辑框
 		jCBStepLastLocation.setText(mm
@@ -601,9 +580,6 @@ public class DialogOptions extends JDialog {
 		ConfigOptions.bAutoSizeRowHeight = new Boolean(
 				jCBAutoSizeRowHeight.isSelected());
 		ConfigOptions.bShowDBStruct = new Boolean(jCBShowDBStruct.isSelected());
-		ConfigOptions.iParallelNum = (Integer) jSParallelNum.getValue();
-		ConfigOptions.iCursorParallelNum = (Integer) jSCursorParallelNum
-				.getValue();
 
 		ConfigOptions.iRowCount = (Integer) jSPRowCount.getValue();
 		ConfigOptions.iColCount = (Integer) jSPColCount.getValue();
@@ -693,19 +669,6 @@ public class DialogOptions extends JDialog {
 		jCBAdjustNoteCell.setSelected(ConfigOptions.bAdjustNoteCell
 				.booleanValue());
 		jCBAdjustNoteCell.setSelected(Env.isAdjustNoteCell());
-
-		jSParallelNum.setModel(new SpinnerNumberModel(1, 1, Integer.MAX_VALUE,
-				1));
-		int parallelNum = ConfigOptions.iParallelNum.intValue();
-		if (parallelNum < 1)
-			parallelNum = 1;
-		jSParallelNum.setValue(new Integer(parallelNum));
-		jSCursorParallelNum.setModel(new SpinnerNumberModel(1, 1,
-				Integer.MAX_VALUE, 1));
-		int cursorParallelNum = ConfigOptions.iCursorParallelNum;
-		if (cursorParallelNum < 1)
-			cursorParallelNum = 1;
-		jSCursorParallelNum.setValue(cursorParallelNum);
 
 		jCBLevel.x_setSelectedCodeItem(Logger.getLevelName(Logger.getLevel()));
 		jCBLNF.x_setSelectedCodeItem(LookAndFeelManager
@@ -908,10 +871,6 @@ public class DialogOptions extends JDialog {
 			panelMid.add(jCBLocale, GM.getGBC(2, 2, true));
 			panelMid.add(labelFontName, GM.getGBC(2, 3));
 			panelMid.add(jCBFontName, GM.getGBC(2, 4, true));
-			panelMid.add(labelParallelNum, GM.getGBC(3, 1));
-			panelMid.add(jSParallelNum, GM.getGBC(3, 2, true));
-			panelMid.add(labelCursorParallelNum, GM.getGBC(3, 3));
-			panelMid.add(jSCursorParallelNum, GM.getGBC(3, 4, true));
 			panelMid.add(jLUndoCount, GM.getGBC(4, 1));
 			panelMid.add(jSUndoCount, GM.getGBC(4, 2, true));
 		} else {
@@ -923,10 +882,6 @@ public class DialogOptions extends JDialog {
 			panelMid.add(jCBFontName, GM.getGBC(2, 2, true));
 			panelMid.add(jLXmx, GM.getGBC(2, 3));
 			panelMid.add(jTFXmx, GM.getGBC(2, 4, true));
-			panelMid.add(labelParallelNum, GM.getGBC(3, 1));
-			panelMid.add(jSParallelNum, GM.getGBC(3, 2, true));
-			panelMid.add(labelCursorParallelNum, GM.getGBC(3, 3));
-			panelMid.add(jSCursorParallelNum, GM.getGBC(3, 4, true));
 			panelMid.add(jLUndoCount, GM.getGBC(4, 1));
 			panelMid.add(jSUndoCount, GM.getGBC(4, 2, true));
 		}
@@ -1041,10 +996,6 @@ public class DialogOptions extends JDialog {
 		jSPRowHeight = new JSpinner(new SpinnerNumberModel(25f, 1f, 100f, 1f));
 		jSPColWidth = new JSpinner(new SpinnerNumberModel(150f, 1f, 1000f, 1f));
 
-		jSParallelNum.setModel(new SpinnerNumberModel(1, 1, Integer.MAX_VALUE,
-				1));
-		jSCursorParallelNum.setModel(new SpinnerNumberModel(1, 1,
-				Integer.MAX_VALUE, 1));
 		constFColor = new ColorComboBox();
 		constBColor = new ColorComboBox();
 		noteFColor = new ColorComboBox();

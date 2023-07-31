@@ -22,7 +22,9 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JSpinner;
 import javax.swing.JTextField;
+import javax.swing.SpinnerNumberModel;
 
 import com.scudata.app.common.AppConsts;
 import com.scudata.app.config.ConfigUtil;
@@ -138,6 +140,10 @@ public abstract class PanelEnv extends JPanel {
 		ConfigOptions.sNullStrings = textNullStrings.getText();
 		ConfigOptions.sCustomFunctionFile = jTextCustomFunctionFile.getText();
 
+		ConfigOptions.iParallelNum = (Integer) jSParallelNum.getValue();
+		ConfigOptions.iCursorParallelNum = (Integer) jSCursorParallelNum
+				.getValue();
+
 		RaqsoftConfig config = GV.config;
 		if (config == null) {
 			config = new RaqsoftConfig();
@@ -214,6 +220,19 @@ public abstract class PanelEnv extends JPanel {
 		textBlockSize.setText(ConfigOptions.sBlockSize);
 		textNullStrings.setText(ConfigOptions.sNullStrings);
 		jTextCustomFunctionFile.setText(ConfigOptions.sCustomFunctionFile);
+
+		jSParallelNum.setModel(new SpinnerNumberModel(1, 1, Integer.MAX_VALUE,
+				1));
+		int parallelNum = ConfigOptions.iParallelNum.intValue();
+		if (parallelNum < 1)
+			parallelNum = 1;
+		jSParallelNum.setValue(new Integer(parallelNum));
+		jSCursorParallelNum.setModel(new SpinnerNumberModel(1, 1,
+				Integer.MAX_VALUE, 1));
+		int cursorParallelNum = ConfigOptions.iCursorParallelNum;
+		if (cursorParallelNum < 1)
+			cursorParallelNum = 1;
+		jSCursorParallelNum.setValue(cursorParallelNum);
 	}
 
 	public void setConfig(RaqsoftConfig config) {
@@ -466,6 +485,11 @@ public abstract class PanelEnv extends JPanel {
 		// panelOpt.add(jLabelLocalPort, GM.getGBC(3, 3));
 		// panelOpt.add(jTextLocalPort, GM.getGBC(3, 4, true));
 		// }
+		panelOpt.add(labelParallelNum, GM.getGBC(3, 1));
+		panelOpt.add(jSParallelNum, GM.getGBC(3, 2, true));
+		panelOpt.add(labelCursorParallelNum, GM.getGBC(3, 3));
+		panelOpt.add(jSCursorParallelNum, GM.getGBC(3, 4, true));
+
 		panelOpt.add(labelFileBuffer, GM.getGBC(5, 1));
 		panelOpt.add(textFileBuffer, GM.getGBC(5, 2, true));
 		panelOpt.add(labelNullStrings, GM.getGBC(5, 3));
@@ -661,6 +685,11 @@ public abstract class PanelEnv extends JPanel {
 				}
 			}
 		});
+		jSParallelNum.setModel(new SpinnerNumberModel(1, 1, Integer.MAX_VALUE,
+				1));
+		jSCursorParallelNum.setModel(new SpinnerNumberModel(1, 1,
+				Integer.MAX_VALUE, 1));
+
 	}
 
 	/**
@@ -817,4 +846,26 @@ public abstract class PanelEnv extends JPanel {
 	 * 外部库列表
 	 */
 	private List<String> extLibs = new ArrayList<String>();
+
+	/**
+	 * 最优并行数标签
+	 */
+	private JLabel labelParallelNum = new JLabel(
+			mm.getMessage("dialogoptions.parnum"));// 最优并行数
+
+	/**
+	 * 最优并行数控件
+	 */
+	private JSpinner jSParallelNum = new JSpinner();
+	/**
+	 * 多路游标缺省路数标签
+	 */
+	private JLabel labelCursorParallelNum = new JLabel(
+			mm.getMessage("dialogoptions.curparnum")); // 多路游标缺省路数
+
+	/**
+	 * 多路游标缺省路数控件
+	 */
+	private JSpinner jSCursorParallelNum = new JSpinner();
+
 }
