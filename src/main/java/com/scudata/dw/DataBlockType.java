@@ -3,6 +3,10 @@ package com.scudata.dw;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import com.scudata.array.DoubleArray;
+import com.scudata.array.IArray;
+import com.scudata.array.IntArray;
+import com.scudata.array.LongArray;
 import com.scudata.array.ObjectArray;
 import com.scudata.common.StringUtils;
 import com.scudata.dm.BaseRecord;
@@ -148,17 +152,12 @@ public class DataBlockType {
 	 * @return 
 	 */
 	public static int getSequenceDataType(Sequence seq, int start, int end) {
-		Object obj = null;
-		for (int i = start; i <= end; ++i) {
-			obj = seq.get(i);
-			if (obj != null) break;
-		}
-
-		if (obj instanceof Integer) {
+		IArray mems = seq.getMems();
+		if (mems instanceof IntArray) {
 			return checkIntBlockType16or32(seq, start, end);
-		} else if (obj instanceof Long) {
+		} else if (mems instanceof LongArray) {
 			return checkLongBlockType64(seq, start, end);
-		} else if (obj instanceof Double) {
+		} else if (mems instanceof DoubleArray) {
 			return checkDoubleBlockType64(seq, start, end);
 		} else {
 			return NULL;
