@@ -3265,4 +3265,13 @@ public class DateArray implements IArray {
 	public Object pos(IArray array, String opt) {
 		return ArrayUtil.pos(this, array, opt);
 	}
+	
+	/**
+	 * 返回数组成员的二进制表示时1的个数和
+	 * @return
+	 */
+	public int bit1() {
+		MessageManager mm = EngineMessage.get();
+		throw new RQException("bit1" + mm.getMessage("function.paramTypeError"));
+	}
 }

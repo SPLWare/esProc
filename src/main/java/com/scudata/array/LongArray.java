@@ -8820,4 +8820,29 @@ public class LongArray implements NumberArray {
 			return ArrayUtil.pos(this, array, opt);
 		}
 	}
+	
+	/**
+	 * 返回数组成员的二进制表示时1的个数和
+	 * @return
+	 */
+	public int bit1() {
+		long []datas = this.datas;
+		boolean []signs = this.signs;
+		int size = this.size;
+		int sum = 0;
+		
+		if (signs == null) {
+			for (int i = 1; i <= size; ++i) {
+				sum += Long.bitCount(datas[i]);
+			}
+		} else {
+			for (int i = 1; i <= size; ++i) {
+				if (!signs[i]) {
+					sum += Long.bitCount(datas[i]);
+				}
+			}
+		}
+		
+		return sum;
+	}
 }

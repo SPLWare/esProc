@@ -737,4 +737,10 @@ public interface IArray extends Externalizable, IRecord, Comparable<IArray> {
 	 * @return 位置或者位置序列
 	 */
 	Object pos(IArray array, String opt);
+	
+	/**
+	 * 返回数组成员的二进制表示时1的个数和
+	 * @return
+	 */
+	int bit1();
 }

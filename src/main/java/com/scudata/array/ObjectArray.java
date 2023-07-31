@@ -18,6 +18,7 @@ import com.scudata.dm.DataStruct;
 import com.scudata.dm.Sequence;
 import com.scudata.expression.Relation;
 import com.scudata.expression.fn.math.And;
+import com.scudata.expression.fn.math.Bit1;
 import com.scudata.expression.fn.math.Not;
 import com.scudata.expression.fn.math.Or;
 import com.scudata.expression.fn.math.Xor;
@@ -4092,5 +4093,21 @@ public class ObjectArray implements IArray {
 	 */
 	public Object pos(IArray array, String opt) {
 		return ArrayUtil.pos(this, array, opt);
+	}
+
+	/**
+	 * 返回数组成员的二进制表示时1的个数和
+	 * @return
+	 */
+	public int bit1() {
+		Object []datas = this.datas;
+		int size = this.size;
+		int sum = 0;
+		
+		for (int i = 1; i <= size; ++i) {
+			sum += Bit1.bitCount(datas[i]);
+		}
+		
+		return sum;
 	}
 }
