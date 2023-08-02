@@ -77,7 +77,7 @@ public class XlsImport extends FileFunction {
 
 				if (isCursor) {
 					XlsxSImporter importer = new XlsxSImporter(file, null, 0,
-							-1, new Integer(1), opt);
+							0, new Integer(1), opt);
 					String cursorOpt = "";
 					if (hasTitle)
 						cursorOpt += "t";
