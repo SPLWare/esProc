@@ -950,7 +950,8 @@ public class ExcelTool implements ILineInput, ILineOutput {
 						for (int f = 0; f < fcount; ++f) {
 							lineObjs[f] = exps[f].calculate(ctx);
 							if (lineObjs[f] instanceof BaseRecord) {
-								lineObjs[f] = ((BaseRecord) lineObjs[f]).value();
+								lineObjs[f] = ((BaseRecord) lineObjs[f])
+										.value();
 							}
 						}
 

@@ -109,7 +109,7 @@ public class XlsImport extends FileFunction {
 		String[] fields = null;
 		Object s = null;
 		int start = 0;
-		int end = -1;
+		int end = 0;
 
 		IParam fieldParam;
 		String pwd = null;

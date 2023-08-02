@@ -117,16 +117,24 @@ public class XlsxSImporter implements ILineInput {
 		BufferedInputStream bis = null;
 		try {
 			this.fields = fields;
-			this.startRow = startRow;
-			this.endRow = endRow;
 			bTitle = opt != null && opt.indexOf('t') != -1;
 			isN = opt != null && opt.indexOf("n") != -1;
 			if (startRow > 0) {
-				if (bTitle)
-					startRow--;
+				startRow--;
 			} else if (startRow < 0) {
 				startRow = 0;
 			}
+			this.startRow = startRow;
+			if (endRow > 0) {
+				endRow--;
+			} else if (endRow == 0) {
+				endRow = IExcelTool.MAX_XLSX_LINECOUNT;
+			} else if (endRow < 0) {
+				// End row must be a positive integer.
+				throw new RQException("xlsimport"
+						+ AppMessage.get().getMessage("filexls.eerror"));
+			}
+			this.endRow = endRow;
 
 			String filePath = fo.getFileName();
 			if (fo.isRemoteFile()) {
