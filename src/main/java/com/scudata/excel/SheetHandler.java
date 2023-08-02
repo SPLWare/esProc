@@ -142,7 +142,7 @@ public class SheetHandler extends DefaultHandler {
 		this.sst = sst;
 		this.styles = styles;
 		this.fields = fields;
-		this.startRow = startRow;
+		this.startRow = startRow + 1;
 		this.endRow = endRow;
 		this.removeBlank = removeBlank;
 		this.bTitle = bTitle;
