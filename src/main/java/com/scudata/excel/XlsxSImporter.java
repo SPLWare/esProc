@@ -117,15 +117,16 @@ public class XlsxSImporter implements ILineInput {
 		BufferedInputStream bis = null;
 		try {
 			this.fields = fields;
-			if (startRow > 0) {
-				startRow--;
-			} else if (startRow < 0) {
-				startRow = 0;
-			}
 			this.startRow = startRow;
 			this.endRow = endRow;
 			bTitle = opt != null && opt.indexOf('t') != -1;
 			isN = opt != null && opt.indexOf("n") != -1;
+			if (startRow > 0) {
+				if (bTitle)
+					startRow--;
+			} else if (startRow < 0) {
+				startRow = 0;
+			}
 
 			String filePath = fo.getFileName();
 			if (fo.isRemoteFile()) {
