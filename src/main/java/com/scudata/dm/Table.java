@@ -1429,7 +1429,46 @@ public class Table extends Sequence {
 		
 		return result;
 	}
+	/**
+	 * 循环序列元素，计算表达式并进行赋值
+	 * @param assignExps Expression[] 赋值表达式
+	 * @param exps Expression[] 值表达式
+	 * @param ctx Context
+	 */
+	public void run(Expression[] assignExps, Expression[] exps, Context ctx) {
+		int colCount = exps.length;
+		int []fields = new int[colCount];
 
+		for (int i = 0; i < colCount; ++i) {
+			if (assignExps[i] != null) {
+				fields[i] = assignExps[i].getFieldIndex(ds);
+				if (fields[i] != -1) {
+					continue;
+				}
+			}
+			
+			super.run(assignExps, exps, ctx);
+			return;
+		}
+		
+		ComputeStack stack = ctx.getComputeStack();
+		Current current = new Current(this);
+		stack.push(current);
+		IArray mems = getMems();
+
+		try {
+			for (int i = 1, len = length(); i <= len; ++i) {
+				current.setCurrent(i);
+				BaseRecord r = (BaseRecord)mems.get(i);
+				for (int c = 0; c < colCount; ++c) {
+					r.setNormalFieldValue(fields[c], exps[c].calculate(ctx));
+				}
+			}
+		} finally {
+			stack.pop();
+		}
+	}
+	
 	/**
 	 * 把序列的元素作为字段值生成记录插入到序表中
 	 * @param pos int 位置，0表示追加

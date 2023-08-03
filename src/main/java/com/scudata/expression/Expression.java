@@ -245,7 +245,12 @@ public class Expression {
 	 * @return 字段索引，如果不是字段表达式则返回-1
 	 */
 	public int getFieldIndex(DataStruct ds) {
-		return getFieldIndex(home, ds);
+		int index = ds.getFieldIndex(expStr);
+		if (index != -1) {
+			return index;
+		} else {
+			return getFieldIndex(home, ds);
+		}
 	}
 	
 	private static int getFieldIndex(Node home, DataStruct ds) {
