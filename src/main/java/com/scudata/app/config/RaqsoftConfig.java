@@ -72,8 +72,10 @@ public class RaqsoftConfig implements Cloneable, Externalizable {
 	private String customFunctionFile = null;
 	/** Esproc serial number */
 	private String esprocSerialNo = null;
-	/** Remote store json */
-	private String remoteStoreJson = null;
+	/** Remote store list */
+	private List<RemoteStoreConfig> remoteStoreList = null;
+	/** Default remote store */
+	private String defaultRemoteStore = null;
 
 	/** Server **/
 	/** Default data source **/
@@ -398,17 +400,31 @@ public class RaqsoftConfig implements Cloneable, Externalizable {
 	}
 
 	/**
-	 * @return the remoteStoreJson
+	 * @return the remoteStoreList
 	 */
-	public String getRemoteStoreJson() {
-		return remoteStoreJson;
+	public List<RemoteStoreConfig> getRemoteStoreList() {
+		return remoteStoreList;
 	}
 
 	/**
-	 * @param remoteStoreJson the remoteStoreJson to set
+	 * @param remoteStoreList the remoteStoreList to set
 	 */
-	public void setRemoteStoreJson(String remoteStoreJson) {
-		this.remoteStoreJson = remoteStoreJson;
+	public void setRemoteStoreList(List<RemoteStoreConfig> remoteStoreList) {
+		this.remoteStoreList = remoteStoreList;
+	}
+
+	/**
+	 * @return the defaultRemoteStore
+	 */
+	public String getDefaultRemoteStore() {
+		return defaultRemoteStore;
+	}
+
+	/**
+	 * @param defaultRemoteStore the defaultRemoteStore to set
+	 */
+	public void setDefaultRemoteStore(String defaultRemoteStore) {
+		this.defaultRemoteStore = defaultRemoteStore;
 	}
 
 	/**
@@ -796,7 +812,15 @@ public class RaqsoftConfig implements Cloneable, Externalizable {
 		config.setExtLibsPath(extLibsPath);
 		config.setCustomFunctionFile(customFunctionFile);
 		config.setEsprocSerialNo(esprocSerialNo);
-		config.setRemoteStoreJson(remoteStoreJson);
+
+		if (remoteStoreList != null) {
+			List<RemoteStoreConfig> cloneRemoteStoreList = new ArrayList<RemoteStoreConfig>();
+			for (RemoteStoreConfig rs : remoteStoreList) {
+				cloneRemoteStoreList.add((RemoteStoreConfig) rs.deepClone());
+			}
+			config.setRemoteStoreList(cloneRemoteStoreList);
+		}
+		config.setDefaultRemoteStore(defaultRemoteStore);
 
 		config.setDefDataSource(defDataSource);
 		if (jndiList != null) {
@@ -873,7 +897,8 @@ public class RaqsoftConfig implements Cloneable, Externalizable {
 		out.writeObject(esprocSerialNo);
 		out.writeByte(encryptLevel);
 		out.writeObject(pwdClass);
-		out.writeObject(remoteStoreJson);
+		out.writeObject(remoteStoreList);
+		out.writeObject(defaultRemoteStore);
 	}
 
 	/**
@@ -928,7 +953,8 @@ public class RaqsoftConfig implements Cloneable, Externalizable {
 			pwdClass = (String) in.readObject();
 		}
 		if (version > 5) {
-			remoteStoreJson = (String) in.readObject();
+			remoteStoreList = (List<RemoteStoreConfig>) in.readObject();
+			defaultRemoteStore = (String) in.readObject();
 		}
 	}
 

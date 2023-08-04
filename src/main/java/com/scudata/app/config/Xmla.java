@@ -5,10 +5,12 @@ import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
+import com.scudata.common.ICloneable;
+
 /**
  * XML for Analysis configuration
  */
-public class Xmla implements Cloneable, Externalizable {
+public class Xmla implements Cloneable, ICloneable, Externalizable {
 	/**
 	 * Xmla name
 	 */

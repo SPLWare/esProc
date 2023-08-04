@@ -72,9 +72,17 @@ public class ConfigHandler extends DefaultHandler {
 			return;
 		} else if (qName.equalsIgnoreCase(ConfigConsts.RUNTIME)) {
 			activeNode = RUNTIME;
+		} else if (qName.equalsIgnoreCase(ConfigConsts.REMOTE_STORES)) {
+			config.setRemoteStoreList(new ArrayList<RemoteStoreConfig>());
 		} else if (qName.equalsIgnoreCase(ConfigConsts.REMOTE_STORE)) {
-			String json = attributes.getValue(ConfigConsts.JSON);
-			config.setRemoteStoreJson(json);
+			RemoteStoreConfig rs = new RemoteStoreConfig();
+			rs.setName(attributes.getValue(ConfigConsts.NAME));
+			rs.setType(attributes.getValue(ConfigConsts.TYPE));
+			rs.setOption(attributes.getValue(ConfigConsts.OPTION));
+			if (config.getRemoteStoreList() == null) {
+				config.setRemoteStoreList(new ArrayList<RemoteStoreConfig>());
+			}
+			config.getRemoteStoreList().add(rs);
 		} else if (qName.equalsIgnoreCase(ConfigConsts.DB_LIST)) {
 			config.setDBList(new ArrayList<DBConfig>());
 			activeNode = RUNTIME_DB;

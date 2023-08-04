@@ -899,6 +899,9 @@ public class AppUtil {
 			if (bis != null)
 				bis.close();
 		}
+		if (cs != null) {
+			cs.setName(filePath);
+		}
 		return cs;
 	}
 

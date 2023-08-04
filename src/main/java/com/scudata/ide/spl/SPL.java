@@ -945,7 +945,10 @@ public class SPL extends AppFrame {
 		if (CellSetUtil.isEncrypted(filePath))
 			throw new RQException(IdeSplMessage.get().getMessage(
 					"spl.errorsplfile", filePath));
-		return CellSetUtil.readPgmCellSet(is);
+		PgmCellSet cellSet = CellSetUtil.readPgmCellSet(is);
+		if (cellSet != null && filePath != null)
+			cellSet.setName(filePath);
+		return cellSet;
 	}
 
 	/**

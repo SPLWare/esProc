@@ -218,6 +218,9 @@ public abstract class DialogFileReplace extends RQDialog {
 				}
 				if (cellSet == null)
 					continue;
+				if (filePath != null) {
+					cellSet.setName(filePath);
+				}
 				int searchCount = 0;
 				int rc = cellSet.getRowCount();
 				int cc = cellSet.getColCount();

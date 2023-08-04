@@ -268,31 +268,28 @@ public class ConfigWriter {
 	 */
 	protected void writeXmlaList(RaqsoftConfig config) throws SAXException {
 		List<Xmla> xmlaList = config.getXmlaList();
-		if (xmlaList == null)
+		if (xmlaList == null || xmlaList.isEmpty())
 			return;
 		level = 2;
 		startElement(ConfigConsts.XMLA_LIST, null);
-		if (xmlaList != null) {
-			Xmla xmla;
-			for (int i = 0, size = xmlaList.size(); i < size; i++) {
-				xmla = xmlaList.get(i);
-				level = 3;
-				startElement(ConfigConsts.XMLA, getAttributesImpl(new String[] {
-						ConfigConsts.NAME, xmla.getName() }));
-				level = 4;
-				writeNameValueElement(ConfigConsts.XMLA_TYPE, xmla.getType());
-				writeNameValueElement(ConfigConsts.XMLA_URL, xmla.getUrl());
-				writeNameValueElement(ConfigConsts.XMLA_CATALOG,
-						xmla.getCatalog());
-				writeNameValueElement(ConfigConsts.XMLA_USER, xmla.getUser());
-				writeNameValueElement(ConfigConsts.XMLA_PASSWORD,
-						xmla.getPassword());
-				level = 3;
-				endElement(ConfigConsts.XMLA);
-			}
-			level = 2;
-			endElement(ConfigConsts.XMLA_LIST);
+		Xmla xmla;
+		for (int i = 0, size = xmlaList.size(); i < size; i++) {
+			xmla = xmlaList.get(i);
+			level = 3;
+			startElement(ConfigConsts.XMLA, getAttributesImpl(new String[] {
+					ConfigConsts.NAME, xmla.getName() }));
+			level = 4;
+			writeNameValueElement(ConfigConsts.XMLA_TYPE, xmla.getType());
+			writeNameValueElement(ConfigConsts.XMLA_URL, xmla.getUrl());
+			writeNameValueElement(ConfigConsts.XMLA_CATALOG, xmla.getCatalog());
+			writeNameValueElement(ConfigConsts.XMLA_USER, xmla.getUser());
+			writeNameValueElement(ConfigConsts.XMLA_PASSWORD,
+					xmla.getPassword());
+			level = 3;
+			endElement(ConfigConsts.XMLA);
 		}
+		level = 2;
+		endElement(ConfigConsts.XMLA_LIST);
 	}
 
 	/**
@@ -337,11 +334,36 @@ public class ConfigWriter {
 		writeAttribute(ConfigConsts.CUSTOM_FUNCTION_FILE,
 				config.getCustomFunctionFile());
 		writeAttribute(ConfigConsts.SERIAL_NO, config.getEsprocSerialNo());
-		startElement(ConfigConsts.REMOTE_STORE, getAttributesImpl(new String[] {
-				ConfigConsts.JSON, config.getRemoteStoreJson() }));
-		endEmptyElement(ConfigConsts.REMOTE_STORE);
+
+		writeRemoteStoreList(config);
 		level = 2;
 		endElement(ConfigConsts.ESPROC);
+	}
+
+	/**
+	 * Write the Xmla list node
+	 * 
+	 * @param config
+	 * @throws SAXException
+	 */
+	protected void writeRemoteStoreList(RaqsoftConfig config)
+			throws SAXException {
+		List<RemoteStoreConfig> list = config.getRemoteStoreList();
+		if (list == null || list.isEmpty())
+			return;
+		level = 3;
+		startElement(ConfigConsts.REMOTE_STORES, null);
+		for (RemoteStoreConfig rs : list) {
+			level = 4;
+			startElement(
+					ConfigConsts.REMOTE_STORE,
+					getAttributesImpl(new String[] { ConfigConsts.NAME,
+							rs.getName(), ConfigConsts.TYPE, rs.getType(),
+							ConfigConsts.OPTION, rs.getOption() }));
+			endEmptyElement(ConfigConsts.REMOTE_STORE);
+		}
+		level = 3;
+		endElement(ConfigConsts.REMOTE_STORES);
 	}
 
 	/**
