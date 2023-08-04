@@ -1418,11 +1418,16 @@ public class FileObject implements Externalizable {
 		InputStream is = getInputStream();
 		try {
 			is = new BufferedInputStream(is);
+			PgmCellSet pcs;
 			if (fileName.toLowerCase().endsWith("." + AppConsts.FILE_SPL)) {
-				return AppUtil.readSPL(is);
+				pcs = AppUtil.readSPL(is);
 			} else {
-				return CellSetUtil.readPgmCellSet(is);
+				pcs = CellSetUtil.readPgmCellSet(is);
 			}
+			
+			File file = new File(fileName);
+			pcs.setName(file.getName());
+			return pcs;
 		} catch (Exception e) {
 			if (e instanceof RQException) {
 				throw (RQException)e;

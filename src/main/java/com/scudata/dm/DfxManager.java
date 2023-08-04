@@ -102,7 +102,6 @@ public class DfxManager {
 	 */
 	public PgmCellSet readDfx(FileObject fo, Context ctx) {
 		PgmCellSet dfx = fo.readPgmCellSet();
-		dfx.setName(fo.getFileName());
 		dfx.resetParam();
 		
 		// 不再共享ctx中的变量
