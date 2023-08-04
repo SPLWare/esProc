@@ -141,6 +141,10 @@ public class ConfigConsts {
 	public static String CUSTOM_FUNCTION_FILE = "customFunctionFile";
 	/** Serial number */
 	public static String SERIAL_NO = "serialNo";
+	/** Remote store */
+	public static String REMOTE_STORE = "remoteStore";
+	/** JSON */
+	public static String JSON = "json";
 
 	/**
 	 * Logger Configuration

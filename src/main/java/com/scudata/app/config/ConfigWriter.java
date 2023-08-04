@@ -337,6 +337,9 @@ public class ConfigWriter {
 		writeAttribute(ConfigConsts.CUSTOM_FUNCTION_FILE,
 				config.getCustomFunctionFile());
 		writeAttribute(ConfigConsts.SERIAL_NO, config.getEsprocSerialNo());
+		startElement(ConfigConsts.REMOTE_STORE, getAttributesImpl(new String[] {
+				ConfigConsts.JSON, config.getRemoteStoreJson() }));
+		endEmptyElement(ConfigConsts.REMOTE_STORE);
 		level = 2;
 		endElement(ConfigConsts.ESPROC);
 	}

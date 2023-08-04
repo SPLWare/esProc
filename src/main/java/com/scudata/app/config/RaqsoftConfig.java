@@ -72,6 +72,8 @@ public class RaqsoftConfig implements Cloneable, Externalizable {
 	private String customFunctionFile = null;
 	/** Esproc serial number */
 	private String esprocSerialNo = null;
+	/** Remote store json */
+	private String remoteStoreJson = null;
 
 	/** Server **/
 	/** Default data source **/
@@ -393,6 +395,20 @@ public class RaqsoftConfig implements Cloneable, Externalizable {
 	 */
 	public void setLogLevel(String logLevel) {
 		this.logLevel = logLevel;
+	}
+
+	/**
+	 * @return the remoteStoreJson
+	 */
+	public String getRemoteStoreJson() {
+		return remoteStoreJson;
+	}
+
+	/**
+	 * @param remoteStoreJson the remoteStoreJson to set
+	 */
+	public void setRemoteStoreJson(String remoteStoreJson) {
+		this.remoteStoreJson = remoteStoreJson;
 	}
 
 	/**
@@ -780,6 +796,7 @@ public class RaqsoftConfig implements Cloneable, Externalizable {
 		config.setExtLibsPath(extLibsPath);
 		config.setCustomFunctionFile(customFunctionFile);
 		config.setEsprocSerialNo(esprocSerialNo);
+		config.setRemoteStoreJson(remoteStoreJson);
 
 		config.setDefDataSource(defDataSource);
 		if (jndiList != null) {
@@ -821,7 +838,7 @@ public class RaqsoftConfig implements Cloneable, Externalizable {
 	 */
 	public void writeExternal(ObjectOutput out) throws IOException {
 		/* Version type */
-		out.writeByte(5);
+		out.writeByte(6);
 		out.writeObject(dbList);
 		out.writeObject(mainPath);
 		out.writeObject(splPathList);
@@ -856,6 +873,7 @@ public class RaqsoftConfig implements Cloneable, Externalizable {
 		out.writeObject(esprocSerialNo);
 		out.writeByte(encryptLevel);
 		out.writeObject(pwdClass);
+		out.writeObject(remoteStoreJson);
 	}
 
 	/**
@@ -908,6 +926,9 @@ public class RaqsoftConfig implements Cloneable, Externalizable {
 		if (version > 4) {
 			encryptLevel = in.readByte();
 			pwdClass = (String) in.readObject();
+		}
+		if (version > 5) {
+			remoteStoreJson = (String) in.readObject();
 		}
 	}
 

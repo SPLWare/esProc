@@ -72,6 +72,9 @@ public class ConfigHandler extends DefaultHandler {
 			return;
 		} else if (qName.equalsIgnoreCase(ConfigConsts.RUNTIME)) {
 			activeNode = RUNTIME;
+		} else if (qName.equalsIgnoreCase(ConfigConsts.REMOTE_STORE)) {
+			String json = attributes.getValue(ConfigConsts.JSON);
+			config.setRemoteStoreJson(json);
 		} else if (qName.equalsIgnoreCase(ConfigConsts.DB_LIST)) {
 			config.setDBList(new ArrayList<DBConfig>());
 			activeNode = RUNTIME_DB;
