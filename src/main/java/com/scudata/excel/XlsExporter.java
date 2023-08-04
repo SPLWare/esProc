@@ -387,7 +387,16 @@ public class XlsExporter implements IExcelTool {
 	 * 
 	 * @param name
 	 */
-	public void setSheet(String name) {
+	public void setSheet(String sheetName) {
+		currRow = 0;
+		int index = 1;
+		while (wb.getSheet(DEFAULT_SHEET_NAME_PRE + index) != null) {
+			index++;
+		}
+		String newName = DEFAULT_SHEET_NAME_PRE + index;
+		sheet = wb.createSheet();
+		int sheetIndex = wb.getSheetIndex(sheet);
+		wb.setSheetName(sheetIndex, newName);
 	}
 
 	/**

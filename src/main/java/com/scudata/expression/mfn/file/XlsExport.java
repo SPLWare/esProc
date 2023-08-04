@@ -29,6 +29,7 @@ import com.scudata.util.Variant;
  * @c 使用流式写出大文件，原文件要被全读入，不可太大
  * @w A是序列的序列或回车/Tab分隔的串，与@t@c互斥，无x:F参数
  * @p @w加转置，序列的序列是先列后行的，是串时忽略
+ * @m xlsx超过100万行时增加新的sheet写入
  */
 public class XlsExport extends FileFunction {
 
@@ -127,7 +128,7 @@ public class XlsExport extends FileFunction {
 		}
 
 		String opt = option;
-		boolean isXlsx = false, isTitle = false, isSsxxf = false, isAppend = false;
+		boolean isXlsx = false, isTitle = false, isSsxxf = false, isAppend = false, isM = false;
 		if (opt != null) {
 			if (opt.indexOf('t') != -1)
 				isTitle = true;
@@ -135,6 +136,8 @@ public class XlsExport extends FileFunction {
 				isSsxxf = true;
 			if (opt.indexOf('a') != -1)
 				isAppend = true;
+			if (opt.indexOf('m') != -1)
+				isM = true;
 		}
 		boolean isP = opt != null && opt.indexOf("p") > -1;
 
@@ -183,13 +186,32 @@ public class XlsExport extends FileFunction {
 		}
 		if (src == null) {
 			return null;
-		} else if (src instanceof Sequence) {
+		}
+		if (src instanceof Sequence) {
 			seq = (Sequence) src;
 			if (!isStr) {// 串不处理
 				if (isP) {
 					seq = ExcelUtils.transpose(seq);
+					src = seq;
 				}
 			}
+		}
+		if (isM) {
+			try {
+				xlsExportM(src, maxCount, et, s, exps, names, isTitle, isW, ctx);
+			} catch (Exception e) {
+				throw new RQException(e.getMessage(), e);
+			} finally {
+				try {
+					et.close();
+				} catch (IOException e) {
+					throw new RQException(e.getMessage(), e);
+				}
+			}
+			return null;
+		}
+
+		if (src instanceof Sequence) {
 			if (seq.length() > maxCount) {
 				cursor = new MemoryCursor(seq, 1, maxCount + 1);
 				seq = null;
@@ -209,7 +231,7 @@ public class XlsExport extends FileFunction {
 			} else {
 				et.fileXlsExport(cursor, exps, names, isTitle, isW, ctx);
 			}
-		} catch (IOException e) {
+		} catch (Exception e) {
 			throw new RQException(e.getMessage(), e);
 		} finally {
 			try {
@@ -220,6 +242,49 @@ public class XlsExport extends FileFunction {
 		}
 
 		return null;
+	}
+
+	private void xlsExportM(Object src, int maxCount, ExcelTool et, Object s,
+			Expression[] exps, String[] names, boolean isTitle, boolean isW,
+			Context ctx) throws Exception {
+		Sequence seq = null;
+		ICursor cursor = null;
+		if (src instanceof Sequence) {
+			seq = (Sequence) src;
+			int totalCount = seq.length();
+			if (totalCount > maxCount) {
+				String sheetName = s == null ? "Sheet" : (String) s;
+				int start = 1;
+				int index = 1;
+				while (totalCount > 0) {
+					cursor = new MemoryCursor(seq, start, start + maxCount);
+					if (index > 1)
+						et.setSheet(sheetName + index);
+					et.fileXlsExport(cursor, exps, names, isTitle, isW, ctx);
+					start += maxCount;
+					index++;
+					totalCount -= maxCount;
+				}
+			} else {
+				et.fileXlsExport(seq, exps, names, isTitle, isW, ctx);
+			}
+		} else if (src instanceof ICursor) {
+			cursor = (ICursor) src;
+			String sheetName = s == null ? "Sheet" : (String) s;
+			int index = 1;
+			ICursor subCursor;
+			while (cursor.peek(1) != null) {
+				subCursor = new SubCursor(cursor, maxCount);
+				if (index > 1)
+					et.setSheet(sheetName + index);
+				et.fileXlsExport(subCursor, exps, names, isTitle, isW, ctx);
+				index++;
+			}
+		} else {
+			MessageManager mm = EngineMessage.get();
+			throw new RQException("xlsexport"
+					+ mm.getMessage("function.paramTypeError"));
+		}
 	}
 
 	/**

@@ -135,7 +135,7 @@ public class XlsxExporter implements IExcelTool {
 					if (sheetCount <= 0) {
 						sheet = wb.createSheet();
 						int sheetIndex = wb.getSheetIndex(sheet);
-						wb.setSheetName(sheetIndex, "Sheet1");
+						wb.setSheetName(sheetIndex, DEFAULT_SHEET_NAME);
 					} else {
 						sheetExists = true;
 						sheet = wb.getSheetAt(0);
@@ -148,7 +148,7 @@ public class XlsxExporter implements IExcelTool {
 				int sheetIndex = wb.getSheetIndex(sheet);
 				wb.setSheetName(sheetIndex, StringUtils
 						.isValidString(sheetName) ? (String) sheetName
-						: "Sheet1");
+						: DEFAULT_SHEET_NAME);
 			}
 			int sheetIndex = wb.getSheetIndex(sheet);
 			wb.setActiveSheet(sheetIndex);
@@ -369,7 +369,16 @@ public class XlsxExporter implements IExcelTool {
 	 * 
 	 * @param name
 	 */
-	public void setSheet(String name) {
+	public void setSheet(String sheetName) {
+		currRow = 0;
+		int index = 1;
+		while (wb.getSheet(DEFAULT_SHEET_NAME_PRE + index) != null) {
+			index++;
+		}
+		String newName = DEFAULT_SHEET_NAME_PRE + index;
+		sheet = wb.createSheet();
+		int sheetIndex = wb.getSheetIndex(sheet);
+		wb.setSheetName(sheetIndex, newName);
 	}
 
 	/**

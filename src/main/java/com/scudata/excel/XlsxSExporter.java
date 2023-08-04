@@ -311,7 +311,16 @@ public class XlsxSExporter implements IExcelTool {
 	 * 
 	 * @param name
 	 */
-	public void setSheet(String name) {
+	public void setSheet(String sheetName) {
+		currRow = 0;
+		int index = 1;
+		while (wb.getSheet(DEFAULT_SHEET_NAME_PRE + index) != null) {
+			index++;
+		}
+		String newName = DEFAULT_SHEET_NAME_PRE + index;
+		sheet = wb.createSheet();
+		int sheetIndex = wb.getSheetIndex(sheet);
+		wb.setSheetName(sheetIndex, newName);
 	}
 
 	/**
@@ -405,7 +414,7 @@ public class XlsxSExporter implements IExcelTool {
 		XSSFWorkbook wbOld = null;
 		try {
 			if (!fo.isExists() || !isAppend) {
-				String name = "Sheet1";
+				String name = DEFAULT_SHEET_NAME;
 				if (StringUtils.isValidString(sheetName)) {
 					name = sheetName;
 				}
