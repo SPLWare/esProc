@@ -370,6 +370,8 @@ public class SheetSpl extends IPrjxSheet implements IEditorListener {
 				} else {
 					CellSetUtil.writePgmCellSet(filePath, splControl.cellSet);
 				}
+				if (splControl.cellSet != null)
+					splControl.cellSet.setName(filePath);
 				DfxManager.getInstance().clear();
 				((AppMenu) GV.appMenu).refreshRecentFile(filePath);
 			} catch (Throwable e) {
