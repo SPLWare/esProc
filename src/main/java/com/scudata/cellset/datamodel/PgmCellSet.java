@@ -405,6 +405,7 @@ public class PgmCellSet extends CellSet {
 		pcs.nullPswPrivilege = nullPswPrivilege;
 		Context ctx = getContext();
 		pcs.setContext(ctx.newComputeContext());
+		pcs.name = name;
 		return pcs;
 	}
 
@@ -471,6 +472,7 @@ public class PgmCellSet extends CellSet {
 		newPcs.setContext(getContext());
 		newPcs.setCurrent(cell);
 		newPcs.setNext(row, col + 1, false);
+		newPcs.name = name;
 		return newPcs;
 	}
 
@@ -513,6 +515,7 @@ public class PgmCellSet extends CellSet {
 
 		pcs.pswHash = pswHash;
 		pcs.nullPswPrivilege = nullPswPrivilege;
+		pcs.name = name;
 		return pcs;
 	}
 
@@ -523,11 +526,13 @@ public class PgmCellSet extends CellSet {
 	 */
 	public void writeExternal(ObjectOutput out) throws IOException {
 		super.writeExternal(out);
-		out.writeByte(1);
+		out.writeByte(2);
 		out.writeInt(sign); // 不与报表4集成
 		out.writeObject(customPropMap);
 		out.writeObject(pswHash);
 		out.writeInt(nullPswPrivilege);
+		
+		out.writeObject(name); // 版本2写出
 	}
 
 	/**
@@ -539,11 +544,15 @@ public class PgmCellSet extends CellSet {
 	public void readExternal(ObjectInput in) throws IOException,
 			ClassNotFoundException {
 		super.readExternal(in);
-		in.readByte();
+		int v = in.readByte();
 		sign = in.readInt();
 		customPropMap = (ByteMap) in.readObject();
 		pswHash = (String) in.readObject();
 		nullPswPrivilege = in.readInt();
+		
+		if (v > 1) {
+			name = (String)in.readObject();
+		}
 	}
 
 	public byte[] serialize() throws IOException {
@@ -1138,6 +1147,7 @@ public class PgmCellSet extends CellSet {
 			}
 		}
 
+		pcs.name = name;
 		return pcs;
 	}
 
