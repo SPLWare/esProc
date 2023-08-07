@@ -2046,6 +2046,10 @@ public class PgmCellSet extends CellSet {
 			}
 		} catch (Throwable e) {
 			String cellId = curLct.toString();
+			if (name != null) {
+				cellId = "[" + name + "]." + cellId;
+			}
+			
 			String msg = e.getMessage();
 			if (goCatch(msg)) {
 				MessageManager mm = EngineMessage.get();
