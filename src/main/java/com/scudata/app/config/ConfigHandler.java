@@ -74,6 +74,11 @@ public class ConfigHandler extends DefaultHandler {
 			activeNode = RUNTIME;
 		} else if (qName.equalsIgnoreCase(ConfigConsts.REMOTE_STORES)) {
 			config.setRemoteStoreList(new ArrayList<RemoteStoreConfig>());
+			String defaultName = attributes.getValue(ConfigConsts.DEFAULT);
+			if (StringUtils.isValidString(defaultName))
+				config.setDefaultRemoteStore(defaultName);
+			else
+				config.setDefaultRemoteStore(null);
 		} else if (qName.equalsIgnoreCase(ConfigConsts.REMOTE_STORE)) {
 			RemoteStoreConfig rs = new RemoteStoreConfig();
 			rs.setName(attributes.getValue(ConfigConsts.NAME));

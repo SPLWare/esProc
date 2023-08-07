@@ -352,7 +352,10 @@ public class ConfigWriter {
 		if (list == null || list.isEmpty())
 			return;
 		level = 3;
-		startElement(ConfigConsts.REMOTE_STORES, null);
+		startElement(
+				ConfigConsts.REMOTE_STORES,
+				getAttributesImpl(new String[] { ConfigConsts.DEFAULT,
+						config.getDefaultRemoteStore() }));
 		for (RemoteStoreConfig rs : list) {
 			level = 4;
 			startElement(

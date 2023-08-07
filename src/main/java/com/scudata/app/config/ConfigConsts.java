@@ -143,6 +143,8 @@ public class ConfigConsts {
 	public static String SERIAL_NO = "serialNo";
 	/** Remote stores */
 	public static String REMOTE_STORES = "RemoteStores";
+	/** Default remote store name */
+	public static String DEFAULT = "default";
 	/** Remote store */
 	public static String REMOTE_STORE = "RemoteStore";
 	/** Option JSON */
