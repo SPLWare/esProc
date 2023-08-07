@@ -155,7 +155,7 @@ public class FileGroup implements Externalizable {
 		for (int i = 0; i < pcount; ++i) {
 			File file = Env.getPartitionFile(partitions[i], fileName);
 			PhyTable tmd = ComTable.openBaseTable(file, ctx);
-			boolean result = tmd.getGroupTable().reset(null, opt, ctx, null, blockSize);
+			boolean result = tmd.getGroupTable().reset(null, opt, ctx, null, blockSize, null);
 			tmd.close();
 			if (!result) {
 				return false;

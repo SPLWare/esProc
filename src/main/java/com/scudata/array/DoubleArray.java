@@ -25,7 +25,7 @@ import com.scudata.util.Variant;
  */
 public class DoubleArray implements NumberArray {
 	private static final long serialVersionUID = 1L;
-	private static final byte NULL_SIGN = 60; // 用于序列化时表示signs是否为空
+	protected static final byte NULL_SIGN = 60; // 用于序列化时表示signs是否为空
 
 	private double []datas; // 第0个元素表示是否是临时数组
 	private boolean []signs; // 表示相应位置的元素是否是null，有null成员时才产生
@@ -51,7 +51,7 @@ public class DoubleArray implements NumberArray {
 	 * @param o2 右值
 	 * @return 1：左值大，0：同样大，-1：右值大
 	 */
-	private static int compare(double n1, Object o2) {
+	protected static int compare(double n1, Object o2) {
 		if (o2 instanceof BigDecimal) {
 			return new BigDecimal(n1).compareTo((BigDecimal)o2);
 		} else if (o2 instanceof BigInteger) {
@@ -1643,13 +1643,13 @@ public class DoubleArray implements NumberArray {
 			
 			if (signs == null) {
 				for (int i = start; i > 0; --i) {
-					if (datas[i] == v) {
+					if (Double.compare(datas[i], v) == 0) {
 						return i;
 					}
 				}
 			} else {
 				for (int i = start; i > 0; --i) {
-					if (!signs[i] && datas[i] == v) {
+					if (!signs[i] && Double.compare(datas[i], v) == 0) {
 						return i;
 					}
 				}

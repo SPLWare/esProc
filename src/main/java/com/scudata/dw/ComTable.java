@@ -17,7 +17,9 @@ import com.scudata.dm.FileObject;
 import com.scudata.dm.IFile;
 import com.scudata.dm.LocalFile;
 import com.scudata.dm.LongArray;
+import com.scudata.dm.cursor.ConjxCursor;
 import com.scudata.dm.cursor.ICursor;
+import com.scudata.dm.cursor.MergeCursor;
 import com.scudata.resources.EngineMessage;
 import com.scudata.util.FileSyncManager;
 
@@ -463,7 +465,7 @@ abstract public class ComTable implements IBlockStorage {
 	 * @return
 	 */
 	public boolean reset(File file, String opt, Context ctx, String distribute) {
-		return reset(file, opt, ctx, distribute, null);
+		return reset(file, opt, ctx, distribute, null, null);
 	}
 	/**
 	 * 重置组表
@@ -472,9 +474,10 @@ abstract public class ComTable implements IBlockStorage {
 	 * @param ctx
 	 * @param distribute 新的分布表达式，省略则用原来的
 	 * @param blockSize 新的区块大小
+	 * @param cursor 要归并的游标数据
 	 * @return
 	 */
-	public boolean reset(File file, String opt, Context ctx, String distribute, Integer blockSize) {
+	public boolean reset(File file, String opt, Context ctx, String distribute, Integer blockSize, ICursor cursor) {
 		checkWritable();
 		if (distribute == null) {
 			distribute = this.distribute;
@@ -507,12 +510,17 @@ abstract public class ComTable implements IBlockStorage {
 			}
 			
 			if (opt.indexOf('q') != -1) {
-				hasQ = true;
-				if (file != null) {
-					//有@q时不能有f'
-					MessageManager mm = EngineMessage.get();
-					throw new RQException("reset" + mm.getMessage("function.invalidParam"));
-				}
+//				hasQ = true;
+//				if (file != null) {
+//					//有@q时不能有f'
+//					MessageManager mm = EngineMessage.get();
+//					throw new RQException("reset" + mm.getMessage("function.invalidParam"));
+//				}
+//				
+//				//有归并的游标数据时时不能用@q
+//				if (cursor != null) {
+//					hasQ = false;
+//				}
 			}
 			
 			if (opt.indexOf('n') != -1) {
@@ -528,7 +536,7 @@ abstract public class ComTable implements IBlockStorage {
 		ComTable sgt = getSupplement(false);
 		if (hasQ) {
 			if (sgt != null) {
-				sgt.reset(file, opt, ctx, distribute, blockSize);
+				sgt.reset(file, opt, ctx, distribute, blockSize, null);
 				sgt.close();
 				sgt = null;
 			}
@@ -669,6 +677,29 @@ abstract public class ComTable implements IBlockStorage {
 					((Cursor) cs).setSegment(startBlock, baseTable.getDataBlockCount());
 				}
 			}
+			
+			if (cursor != null) {
+				// 检查归并的游标是否兼容
+				DataStruct ds1 = cs.getDataStruct();
+				DataStruct ds2 = cursor.peek(1).dataStruct();
+				for (int i = 0, count = ds1.getFieldCount(); i < count; i++) {
+					if (!ds1.getFieldName(i).equals(ds2.getFieldName(i))) {
+						MessageManager mm = EngineMessage.get();
+						throw new RQException("reset" + mm.getMessage("engine.dsNotMatch"));
+					}
+				}
+				
+				// 归并或者连接游标
+				if (newBaseTable.hasPrimaryKey()) {
+					ICursor[] cursors = new ICursor[] {cs, cursor};
+					cs = new MergeCursor(cursors, ds1.getPKIndex(), null, ctx);
+				} else {
+					ICursor[] cursors = new ICursor[] {cs, cursor};
+					cs = new ConjxCursor(cursors);
+				}
+			}
+			
+			//写数据到基表
 			newBaseTable.append(cs);
 			newBaseTable.appendCache();
 			
@@ -825,9 +856,10 @@ abstract public class ComTable implements IBlockStorage {
 	 * @param ctx
 	 * @param distribute 新的分布表达式，省略则用原来的
 	 * @param blockSize 新的区块大小
+	 * @param cursor 要归并的游标数据
 	 * @return
 	 */
-	public boolean resetFileGroup(FileGroup fileGroup, String opt, Context ctx, String distribute, Integer blockSize) {
+	public boolean resetFileGroup(FileGroup fileGroup, String opt, Context ctx, String distribute, Integer blockSize, ICursor cursor) {
 		if (distribute == null) {
 			distribute = this.distribute;
 		}
@@ -893,6 +925,28 @@ abstract public class ComTable implements IBlockStorage {
 			//写基表
 			PhyTableGroup newTableGroup = fileGroup.create(colNames, distribute, newOpt, blockSize, ctx);
 			ICursor cs = baseTable.cursor();
+			
+			// 检查归并的游标是否兼容
+			DataStruct ds1 = cs.getDataStruct();
+			DataStruct ds2 = cursor.getDataStruct();
+			for (int i = 0, count = ds1.getFieldCount(); i < count; i++) {
+				if (!ds1.getFieldName(i).equals(ds2.getFieldName(i))) {
+					MessageManager mm = EngineMessage.get();
+					throw new RQException("reset" + mm.getMessage("engine.dsNotMatch"));
+				}
+			}
+			
+			// 归并或者连接游标
+			if (cursor != null) {
+				if (baseTable.hasPrimaryKey()) {
+					ICursor[] cursors = new ICursor[] {cs, cursor};
+					cs = new MergeCursor(cursors, ds1.getPKIndex(), null, ctx);
+				} else {
+					ICursor[] cursors = new ICursor[] {cs, cursor};
+					cs = new ConjxCursor(cursors);
+				}	
+			}
+			
 			newTableGroup.append(cs, "xi");
 			
 			//写子表
