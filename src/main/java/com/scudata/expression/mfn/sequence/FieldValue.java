@@ -152,7 +152,7 @@ public class FieldValue extends SequenceFunction {
 
 		int i = 1;
 		while (i <= size) {
-			Object obj = src.getMem(i);
+			Object obj = src.getMem(i++);
 			if (obj != null) {
 				if (!(obj instanceof BaseRecord)) {
 					MessageManager mm = EngineMessage.get();
