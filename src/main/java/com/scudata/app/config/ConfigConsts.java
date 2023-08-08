@@ -149,6 +149,12 @@ public class ConfigConsts {
 	public static String REMOTE_STORE = "RemoteStore";
 	/** Option JSON */
 	public static String TYPE = "type";
+	/** Cache path */
+	public static String CACHE_PATH = "cachePath";
+	/** Min free space */
+	public static String MIN_FREE_SPACE = "minFreeSpace";
+	/** Block buffer size */
+	public static String BLOCK_BUFFER_SIZE = "blockBufferSize";
 	/** Option JSON */
 	public static String OPTION = "option";
 

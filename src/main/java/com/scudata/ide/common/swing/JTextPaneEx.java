@@ -120,6 +120,8 @@ public class JTextPaneEx extends JTextPane {
 				case KeyEvent.VK_RIGHT:
 				case KeyEvent.VK_UP:
 				case KeyEvent.VK_DOWN:
+					if (isMatching())
+						return;
 					if (getText() == null || getText().equals("")) {
 						return;
 					}
@@ -150,6 +152,10 @@ public class JTextPaneEx extends JTextPane {
 		StyleConstants.setBold(AS_BRACKET, true);
 		StyleConstants.setForeground(AS_BRACKET, COLOR_BRACKET);
 		StyleConstants.setForeground(AS_KEY, COLOR_KEY);
+	}
+	
+	protected boolean isMatching(){
+		return false;
 	}
 
 	/**

@@ -11,6 +11,9 @@ public class RemoteStoreConfig implements Cloneable, ICloneable, Externalizable 
 
 	private String name; // 名称
 	private String type; // 类型
+	private String cachePath; // 缓存路径
+	private long minFreeSpace = 0;// 最小空闲空间
+	private int blockBufferSize = 0;// 缓存块大小
 	private String option; // JSON格式
 
 	public RemoteStoreConfig() {
@@ -45,6 +48,48 @@ public class RemoteStoreConfig implements Cloneable, ICloneable, Externalizable 
 	}
 
 	/**
+	 * @return the cachePath
+	 */
+	public String getCachePath() {
+		return cachePath;
+	}
+
+	/**
+	 * @param cachePath the cachePath to set
+	 */
+	public void setCachePath(String cachePath) {
+		this.cachePath = cachePath;
+	}
+
+	/**
+	 * @return the minFreeSpace
+	 */
+	public long getMinFreeSpace() {
+		return minFreeSpace;
+	}
+
+	/**
+	 * @param minFreeSpace the minFreeSpace to set
+	 */
+	public void setMinFreeSpace(long minFreeSpace) {
+		this.minFreeSpace = minFreeSpace;
+	}
+
+	/**
+	 * @return the blockBufferSize
+	 */
+	public int getBlockBufferSize() {
+		return blockBufferSize;
+	}
+
+	/**
+	 * @param blockBufferSize the blockBufferSize to set
+	 */
+	public void setBlockBufferSize(int blockBufferSize) {
+		this.blockBufferSize = blockBufferSize;
+	}
+
+	/**
 	 * @return the option
 	 */
 	public String getOption() {
@@ -68,6 +113,9 @@ public class RemoteStoreConfig implements Cloneable, ICloneable, Externalizable 
 		rs.setName(name);
 		rs.setType(type);
 		rs.setOption(option);
+		rs.setCachePath(cachePath);
+		rs.setMinFreeSpace(minFreeSpace);
+		rs.setBlockBufferSize(blockBufferSize);
 		return rs;
 	}
 
@@ -77,6 +125,9 @@ public class RemoteStoreConfig implements Cloneable, ICloneable, Externalizable 
 		out.writeObject(name);
 		out.writeObject(type);
 		out.writeObject(option);
+		out.writeObject(cachePath);
+		out.writeLong(minFreeSpace);
+		out.writeInt(blockBufferSize);
 	}
 
 	public void readExternal(ObjectInput in) throws IOException,
@@ -86,6 +137,9 @@ public class RemoteStoreConfig implements Cloneable, ICloneable, Externalizable 
 		name = (String) in.readObject();
 		type = (String) in.readObject();
 		option = (String) in.readObject();
+		cachePath = (String) in.readObject();
+		minFreeSpace = in.readLong();
+		blockBufferSize = in.readInt();
 	}
 
 }

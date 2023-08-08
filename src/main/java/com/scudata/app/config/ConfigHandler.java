@@ -84,6 +84,32 @@ public class ConfigHandler extends DefaultHandler {
 			rs.setName(attributes.getValue(ConfigConsts.NAME));
 			rs.setType(attributes.getValue(ConfigConsts.TYPE));
 			rs.setOption(attributes.getValue(ConfigConsts.OPTION));
+			rs.setCachePath(attributes.getValue(ConfigConsts.CACHE_PATH));
+
+			String sMinFreeSpace = attributes
+					.getValue(ConfigConsts.MIN_FREE_SPACE);
+			if (StringUtils.isValidString(sMinFreeSpace)) {
+				try {
+					long minFreeSpace = Long.parseLong(sMinFreeSpace);
+					rs.setMinFreeSpace(minFreeSpace);
+				} catch (Exception ex) {
+					Logger.debug("Invalid " + ConfigConsts.MIN_FREE_SPACE
+							+ ": " + sMinFreeSpace);
+				}
+			}
+
+			String sBlockBufferSize = attributes
+					.getValue(ConfigConsts.BLOCK_BUFFER_SIZE);
+			if (StringUtils.isValidString(sBlockBufferSize)) {
+				try {
+					int blockBufferSize = Integer.parseInt(sBlockBufferSize);
+					rs.setBlockBufferSize(blockBufferSize);
+				} catch (Exception ex) {
+					Logger.debug("Invalid " + ConfigConsts.BLOCK_BUFFER_SIZE
+							+ ": " + sBlockBufferSize);
+				}
+			}
+
 			if (config.getRemoteStoreList() == null) {
 				config.setRemoteStoreList(new ArrayList<RemoteStoreConfig>());
 			}

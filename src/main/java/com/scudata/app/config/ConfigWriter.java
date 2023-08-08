@@ -362,7 +362,12 @@ public class ConfigWriter {
 					ConfigConsts.REMOTE_STORE,
 					getAttributesImpl(new String[] { ConfigConsts.NAME,
 							rs.getName(), ConfigConsts.TYPE, rs.getType(),
-							ConfigConsts.OPTION, rs.getOption() }));
+							ConfigConsts.CACHE_PATH, rs.getCachePath(),
+							ConfigConsts.MIN_FREE_SPACE,
+							rs.getMinFreeSpace() + "",
+							ConfigConsts.BLOCK_BUFFER_SIZE,
+							rs.getBlockBufferSize() + "", ConfigConsts.OPTION,
+							rs.getOption() }));
 			endEmptyElement(ConfigConsts.REMOTE_STORE);
 		}
 		level = 3;
