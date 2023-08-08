@@ -1,6 +1,8 @@
 package com.scudata.expression.fn;
 
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -75,7 +77,7 @@ public class CharDetect extends CharFunction {
 	{
 		File file = new File(sfile);
 		if (file.exists()){						
-			return UniversalDetector.detectCharset(file);
+			return getFileCharset(file);
 		}
 		String fullFile = null;
 		
@@ -85,7 +87,7 @@ public class CharDetect extends CharFunction {
 			fullFile = path+File.separatorChar+sfile;
 			file = new File(fullFile);
 			if (file.exists()){	
-				return UniversalDetector.detectCharset(file);
+				return getFileCharset(file);
 			}
 		}
 		
@@ -94,13 +96,13 @@ public class CharDetect extends CharFunction {
 		fullFile = path+File.separatorChar+"main"+File.separatorChar+sfile;
 		file = new File(fullFile);
 		if (file.exists()){	
-			return UniversalDetector.detectCharset(file);
+			return getFileCharset(file);
 		}
 		// 3. 系统自带的demo
 		fullFile = path+File.separatorChar+"demo"+File.separatorChar+sfile;
 		file = new File(fullFile);
 		if (file.exists()){	
-			return UniversalDetector.detectCharset(file);
+			return getFileCharset(file);
 		}else{
 			Logger.info("File: "+ sfile +" not existed.");
 		}
@@ -159,5 +161,24 @@ public class CharDetect extends CharFunction {
 		Matcher m = p.matcher(strUrl);
 		
 		return m.matches();
+	}
+	
+	private String getFileCharset(File file) throws IOException {
+	    byte[] buf = new byte[4096];
+	    BufferedInputStream ins = new BufferedInputStream(new FileInputStream(file));
+	    final UniversalDetector detector = new UniversalDetector(null);
+	    int nread;
+	    while ((nread = ins.read(buf)) > 0 && !detector.isDone()) {
+	    	detector.handleData(buf, 0, nread);
+	    }
+	    detector.dataEnd();
+	    String encoding = detector.getDetectedCharset();
+	    detector.reset();
+	    ins.close();
+	    if (encoding ==null){
+	    	encoding = CharEncodingDetectEx.getJavaEncode(file.getAbsolutePath());
+	    }
+	   
+	    return encoding;
 	}
 }
