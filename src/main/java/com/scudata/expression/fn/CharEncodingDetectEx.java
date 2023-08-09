@@ -1,4 +1,4 @@
-package com.scudata.lib.chardet.function;
+package com.scudata.expression.fn;
 
 
 import java.io.BufferedReader;
@@ -37,7 +37,7 @@ String fileContent=FileUtils.readFileToString(new File(filePath),fileEncode)
  * @since Create on 2010-01-27 11:19:00   
  * @version 1.0 
 */
-public class EncodingDetectEx {
+public class CharEncodingDetectEx {
     public static void main(String[] args) {
     	String s = "d:/tmp/charset/ascii.xml"; //ASCII; ok
     	s = "d:/tmp/charset/unicode-ascii.xml"; //ASCII; only ascii but not unicode

@@ -175,8 +175,25 @@ public class CharDetect extends CharFunction {
 	    String encoding = detector.getDetectedCharset();
 	    detector.reset();
 	    ins.close();
+
+	    //识别的编码尽可能在EncodingEx.htmlname范围中.
 	    if (encoding ==null){
 	    	encoding = CharEncodingDetectEx.getJavaEncode(file.getAbsolutePath());
+	    }else {
+	    	BytesEncodingDetect s = new BytesEncodingDetect(); 
+	    	boolean bExisted = false;
+	    	for(String name : EncodingEx.htmlname){
+	    		if (name.equals(encoding)){
+	    			bExisted = true;
+	    			break;
+	    		}
+	    	}
+	    	if (!bExisted){
+	    		String encode = CharEncodingDetectEx.getJavaEncode(file.getAbsolutePath());
+	    		if (encode!=null){
+	    			encoding = encode;
+	    		}
+	    	}
 	    }
 	   
 	    return encoding;
