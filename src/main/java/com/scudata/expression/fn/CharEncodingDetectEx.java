@@ -1,6 +1,5 @@
 package com.scudata.expression.fn;
 
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -9,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
+import com.scudata.common.RQException;
 
 /**
  * <Detect encoding .>
@@ -55,13 +55,23 @@ public class CharEncodingDetectEx {
     
     /**
      * 得到文件的编码
-     * @param filePath 文件路径
+     * @param Object参数支持File, URL及byte[]三种类型
      * @return 文件的编码
      */
-    public static String getJavaEncode(String filePath){
-        BytesEncodingDetect s = new BytesEncodingDetect(); 
-        String fileCode = BytesEncodingDetect.javaname[s.detectEncoding(new File(filePath))];
-        return fileCode;
+    public static String getJavaEncode(Object o){
+    	String sCode = null;
+    	BytesEncodingDetect s = new BytesEncodingDetect(); 
+    	if (o instanceof File){
+    		sCode = BytesEncodingDetect.javaname[s.detectEncoding((File)o)];
+    	}else if(o instanceof URL){
+    		sCode = BytesEncodingDetect.javaname[s.detectEncoding((URL)o)];
+    	}else if(o instanceof byte[]){
+    		sCode = BytesEncodingDetect.javaname[s.detectEncoding((byte[])o)];
+    	}else{
+    		throw new RQException(o + " type is error.");
+    	}
+    	
+        return sCode;
     }
     
     public static void readFile(String file, String code) {
