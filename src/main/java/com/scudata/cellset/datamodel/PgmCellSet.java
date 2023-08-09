@@ -24,6 +24,7 @@ import com.scudata.common.RQException;
 import com.scudata.dm.Context;
 import com.scudata.dm.DBObject;
 import com.scudata.dm.FileObject;
+import com.scudata.dm.IQueryable;
 import com.scudata.dm.JobSpace;
 import com.scudata.dm.KeyWord;
 import com.scudata.dm.Machines;
@@ -35,7 +36,6 @@ import com.scudata.dm.Sequence;
 import com.scudata.dm.cursor.ICursor;
 import com.scudata.dm.cursor.MultipathCursors;
 import com.scudata.dm.op.Channel;
-import com.scudata.dm.query.SimpleSQL;
 import com.scudata.expression.Expression;
 import com.scudata.expression.IParam;
 import com.scudata.expression.ParamInfo2;
@@ -1661,7 +1661,7 @@ public class PgmCellSet extends CellSet {
 				curDb = dbObj;
 			} else {
 				Object obj = dbExp.calculate(ctx);
-				if (!(obj instanceof DBObject) && !(obj instanceof FileObject)) {
+				if (!(obj instanceof DBObject) && !(obj instanceof IQueryable)) {
 					MessageManager mm = EngineMessage.get();
 					throw new RQException(command.getDb()
 							+ mm.getMessage("engine.dbsfNotExist"));
@@ -1731,19 +1731,7 @@ public class PgmCellSet extends CellSet {
 				val = ((DBObject) dbObj).execute(sql, paramVals, types, opt);
 			}
 		} else {
-			ArrayList<Object> list = null;
-			if (paramVals != null) {
-				list = new ArrayList<Object>(paramVals.length);
-				for (Object obj : paramVals) {
-					list.add(obj);
-				}
-			}
-
-			SimpleSQL lq = new SimpleSQL(this, sql, list, ctx);
-			val = lq.execute();
-			if (val instanceof ICursor) {
-				val = ((ICursor) val).fetch();
-			}
+			val = ((IQueryable)dbObj).query(sql, paramVals, this, ctx);
 		}
 
 		cell.setValue(val);
