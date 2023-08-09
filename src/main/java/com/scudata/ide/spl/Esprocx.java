@@ -22,6 +22,7 @@ import com.scudata.dm.Env;
 import com.scudata.dm.FileObject;
 import com.scudata.dm.JobSpace;
 import com.scudata.dm.JobSpaceManager;
+import com.scudata.dm.LocalFile;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.cursor.ICursor;
 import com.scudata.ide.common.ConfigFile;
@@ -373,7 +374,17 @@ public class Esprocx {
 					if (isDfx || isSplx) {
 						pcs = fo.readPgmCellSet();
 					}else if( isSpl ) {
-						pcs = GMSpl.readSPL(dfxFile);
+						Object f = fo.getFile();
+						if(f instanceof LocalFile) {
+							LocalFile lf = (LocalFile)f;
+							String path = lf.getFile().getAbsolutePath();
+							pcs = GMSpl.readSPL( path );
+						}else {
+							System.err.println("Unsupported file:"
+									+ fo.getFileName());
+							Thread.sleep(3000);
+							System.exit(0);
+						}
 					} else {
 						System.err.println("Unsupported file:"
 								+ fo.getFileName());
