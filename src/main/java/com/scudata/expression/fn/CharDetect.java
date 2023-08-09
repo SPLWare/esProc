@@ -27,20 +27,20 @@ import org.mozilla.universalchardet.UniversalDetector;
  * */
 
 public class CharDetect extends CharFunction {
-	Sequence m_codes = null;
+	List<String> m_codes = new ArrayList<String>();
 	protected Object doQuery(Object[] objs) {
 		List<String> result = null; 
 		try {
-			m_codes = null;
+			m_codes.clear();
 			if (objs==null || objs.length<1){
 				throw new Exception("chardet paramSize error!");
 			}
 			
 			if (objs.length>=2){
 				if (objs[1] instanceof Sequence){
-					m_codes = (Sequence)objs[1];
-					for(int i=1; i<=m_codes.length(); i++){
-						m_codes.set(i, m_codes.get(i).toString().toUpperCase());
+					Sequence seq = (Sequence)objs[1];
+					for(int i=1; i<=seq.length(); i++){
+						m_codes.add(seq.get(i).toString().toUpperCase());
 					}
 				}
 			}
@@ -60,21 +60,23 @@ public class CharDetect extends CharFunction {
 				
 				if (result==null){
 					String encoding = CharEncodingDetectEx.getJavaEncode(buf);
+					result = new ArrayList<String>();
 					result.add(encoding);
 				}
 
 				List<String> rep = new ArrayList<String>();
-				if (m_codes!=null){						
-					for(String item:result){						
-						if (m_codes.firstIndexOf(item)>-1){
+				if (m_codes.size()>0){						
+					for(String item:result){
+						//System.out.println("val = "+item);
+						if (m_codes.indexOf(item.toUpperCase())>-1){
 							rep.add(item);
 						}
 					}
 					if (rep.size()>0){
-						return new Sequence(result.toArray(new String[result.size()]));
+						return new Sequence(rep.toArray(new String[rep.size()]));
 					}
 				}else{
-					new Sequence(result.toArray(new String[result.size()]));
+					return new Sequence(result.toArray(new String[result.size()]));
 				}				
 			}else if(objs[0] instanceof String){ 
 				String sTmp = objs[0].toString();				
@@ -157,7 +159,7 @@ public class CharDetect extends CharFunction {
 	    }
 	    
 	    if (m_codes!=null){	
-	    	if (m_codes.firstIndexOf(encoding)!=-1){
+	    	if (m_codes.indexOf(encoding)!=-1){
 	    		return encoding;
 	    	}else{
 	    		return null;
