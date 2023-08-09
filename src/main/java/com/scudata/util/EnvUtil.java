@@ -1,7 +1,6 @@
 package com.scudata.util;
 
 import com.scudata.common.ISessionFactory;
-import com.scudata.dm.BaseRecord;
 import com.scudata.dm.Context;
 import com.scudata.dm.Env;
 import com.scudata.dm.JobSpace;
@@ -14,9 +13,14 @@ import com.scudata.dm.Sequence;
  *
  */
 public class EnvUtil {
-	private static final long G = 1024 * 1024 * 1024; // 1G的大小
+	//private static final long G = 1024 * 1024 * 1024; // 1G的大小
 	private static final int FIELDSIZE = 50; // 估算内存时每个字段占用的空间大小
 	private static final int MAXRECORDCOUNT = 20000000; // 内存中保存的最大记录数量
+	private static double MAX_USEDMEMORY_PERCENT = 0.4;
+	
+	public static void setMaxUsedMemoryPercent(double d) {
+		MAX_USEDMEMORY_PERCENT = d;
+	}
 	
 	// 取当前空闲内存可以大约再生成多少条记录
 	/**
@@ -41,35 +45,20 @@ public class EnvUtil {
 	 * 测试是否还有空闲内存继续从游标读数
 	 * @param rt Runtime
 	 * @param table 已读的数据
+	 * @param readSize 每次读的数据占的内存大小（不准确）
 	 * @return true：可以继续读，false：不可以再读了
 	 */
-	public static boolean memoryTest(Runtime rt, Sequence table) {
+	public static boolean memoryTest(Runtime rt, Sequence table, long readSize) {
 		int len = table.length();
 		if (len >= MAXRECORDCOUNT) return false;
 		
-		long freeMemory = rt.maxMemory() - rt.totalMemory() + rt.freeMemory();
-		if (freeMemory < 200000000L) { // 200m
+		long maxUseMemory = (long)(rt.maxMemory() * MAX_USEDMEMORY_PERCENT);
+		long usedMemory = rt.totalMemory() - rt.freeMemory();
+		
+		if (usedMemory > maxUseMemory || usedMemory + readSize > maxUseMemory) {
 			return false;
-		}
-		
-		int fcount = 1;
-		Object obj = table.get(1);
-		if (obj instanceof BaseRecord) {
-			fcount = ((BaseRecord)obj).getFieldCount();
-		}
-		
-		int recordCount = (int)G / (fcount * FIELDSIZE); // 1g内存大约能够容纳的记录数
-		
-		if (freeMemory < 300000000L) { // 300m
-			return len < recordCount / 10;
-		} else if (freeMemory < 500000000L) { // 500m
-			return len < recordCount / 5;
-		} else if (freeMemory < 700000000L) { // 700m
-			return len < recordCount / 3;
-		} else if (freeMemory < G){ // 1g
-			return len < recordCount / 2;
 		} else {
-			return len < recordCount * (freeMemory / G);
+			return true;
 		}
 	}
 	

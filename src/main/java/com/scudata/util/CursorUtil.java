@@ -1617,6 +1617,7 @@ public final class CursorUtil {
 	public static Sequence tryFetch(ICursor cursor) {
 		Runtime rt = Runtime.getRuntime();
 		EnvUtil.runGC(rt);
+		long usedMemory = rt.totalMemory() - rt.freeMemory();
 		
 		final int baseCount = ICursor.INITSIZE;
 		Sequence seq = cursor.fetch(baseCount);
@@ -1624,7 +1625,20 @@ public final class CursorUtil {
 			return null;
 		}
 
-		while (EnvUtil.memoryTest(rt, seq)) {
+		usedMemory = rt.totalMemory() - rt.freeMemory() - usedMemory;
+		int fcount = 1;
+		Object obj = seq.get(1);
+		if (obj instanceof BaseRecord) {
+			fcount = ((BaseRecord)obj).getFieldCount();
+		}
+		
+		obj = null;
+		long size = seq.length() * fcount * 48; // 估算当前数据占用的内存大小
+		if (size < usedMemory) {
+			size = usedMemory;
+		}
+		
+		while (EnvUtil.memoryTest(rt, seq, size)) {
 			Sequence seq2 = cursor.fetch(baseCount);
 			if (seq2 == null || seq2.length() == 0) {
 				break;
@@ -1635,7 +1649,7 @@ public final class CursorUtil {
 
 		return seq;
 	}
-	
+
 	/**
 	 * 对游标进行外存排序
 	 * @param cursor 游标
