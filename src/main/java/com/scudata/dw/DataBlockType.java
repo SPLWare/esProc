@@ -100,6 +100,8 @@ public class DataBlockType {
 		
 		if (obj == null) {
 			//整个块都是null
+			seq = new Sequence();
+			seq.add(null);
 			return new DataBlockType(DICT, seq);
 			//return new DataBlockType(NULL, true);
 		}
