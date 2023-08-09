@@ -358,27 +358,27 @@ public class Esprocx {
 			}
 
 			long workBegin = System.currentTimeMillis();
-			boolean isFile = false, isDfx = false, isEtl = false, isSplx = false;
+			boolean isFile = false, isDfx = false, isEtl = false, isSplx = false, isSpl = false;
 			if (dfxFile != null) {
 				String lower = dfxFile.toLowerCase();
 				isDfx = lower.endsWith("." + AppConsts.FILE_DFX);
 				isSplx = lower.endsWith("." + AppConsts.FILE_SPLX);
+				isSpl = lower.endsWith("." + AppConsts.FILE_SPL);
 				isEtl = lower.endsWith(".etl");
-				isFile = (isDfx || isEtl || isSplx);
+				isFile = (isDfx || isEtl || isSplx || isSpl);
 			}
 			if (isFile) {
-				if (isDfx || isEtl || isSplx) {
+				if (isDfx || isEtl || isSplx || isSpl) {
 					PgmCellSet pcs = null;
 					if (isDfx || isSplx) {
 						pcs = fo.readPgmCellSet();
+					}else if( isSpl ) {
+						pcs = GMSpl.readSPL(dfxFile);
 					} else {
 						System.err.println("Unsupported file:"
 								+ fo.getFileName());
 						Thread.sleep(3000);
 						System.exit(0);
-						// String etlFile = fo.getFileName();
-						// EtlSteps es = EtlSteps.readEtlSteps(etlFile);
-						// pcs = es.toDFX();
 					}
 
 					String argstr = fileArgs.toString();
