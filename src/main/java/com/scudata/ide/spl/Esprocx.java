@@ -22,6 +22,7 @@ import com.scudata.dm.Env;
 import com.scudata.dm.FileObject;
 import com.scudata.dm.JobSpace;
 import com.scudata.dm.JobSpaceManager;
+import com.scudata.dm.LocalFile;
 import com.scudata.dm.Sequence;
 import com.scudata.dm.cursor.ICursor;
 import com.scudata.ide.common.ConfigFile;
@@ -358,27 +359,37 @@ public class Esprocx {
 			}
 
 			long workBegin = System.currentTimeMillis();
-			boolean isFile = false, isDfx = false, isEtl = false, isSplx = false;
+			boolean isFile = false, isDfx = false, isEtl = false, isSplx = false, isSpl = false;
 			if (dfxFile != null) {
 				String lower = dfxFile.toLowerCase();
 				isDfx = lower.endsWith("." + AppConsts.FILE_DFX);
 				isSplx = lower.endsWith("." + AppConsts.FILE_SPLX);
+				isSpl = lower.endsWith("." + AppConsts.FILE_SPL);
 				isEtl = lower.endsWith(".etl");
-				isFile = (isDfx || isEtl || isSplx);
+				isFile = (isDfx || isEtl || isSplx || isSpl);
 			}
 			if (isFile) {
-				if (isDfx || isEtl || isSplx) {
+				if (isDfx || isEtl || isSplx || isSpl) {
 					PgmCellSet pcs = null;
 					if (isDfx || isSplx) {
 						pcs = fo.readPgmCellSet();
+					}else if( isSpl ) {
+						Object f = fo.getFile();
+						if(f instanceof LocalFile) {
+							LocalFile lf = (LocalFile)f;
+							String path = lf.getFile().getAbsolutePath();
+							pcs = GMSpl.readSPL( path );
+						}else {
+							System.err.println("Unsupported file:"
+									+ fo.getFileName());
+							Thread.sleep(3000);
+							System.exit(0);
+						}
 					} else {
 						System.err.println("Unsupported file:"
 								+ fo.getFileName());
 						Thread.sleep(3000);
 						System.exit(0);
-						// String etlFile = fo.getFileName();
-						// EtlSteps es = EtlSteps.readEtlSteps(etlFile);
-						// pcs = es.toDFX();
 					}
 
 					String argstr = fileArgs.toString();

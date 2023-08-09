@@ -18,12 +18,14 @@ import java.nio.channels.FileChannel;
 import java.nio.channels.FileLock;
 import java.nio.channels.OverlappingFileLockException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Properties;
 
 import com.scudata.app.common.AppConsts;
 import com.scudata.app.common.AppUtil;
+import com.scudata.cellset.ICellSet;
 import com.scudata.cellset.datamodel.PgmCellSet;
 import com.scudata.common.Escape;
 import com.scudata.common.MessageManager;
@@ -31,6 +33,7 @@ import com.scudata.common.RQException;
 import com.scudata.dm.cursor.BFileCursor;
 import com.scudata.dm.cursor.FileCursor;
 import com.scudata.dm.cursor.ICursor;
+import com.scudata.dm.query.SimpleSQL;
 import com.scudata.expression.Expression;
 import com.scudata.resources.EngineMessage;
 import com.scudata.util.CellSetUtil;
@@ -42,7 +45,7 @@ import com.scudata.util.Variant;
  * @author WangXiaoJun
  *
  */
-public class FileObject implements Externalizable {
+public class FileObject implements Externalizable, IQueryable {
 	public static final String TEMPFILE_PREFIX = "tmpdata"; // 长度必须大于3
 	
 	public static final int FILETYPE_TEXT = 0; // 文本
@@ -1515,6 +1518,14 @@ public class FileObject implements Externalizable {
 	}
 	
 	/**
+	 * 取随机访问文件对象，如果不支持则返回null
+	 * @return RandomAccessFile
+	 */
+	public RandomAccessFile getRandomAccessFile() {
+		return getFile().getRandomAccessFile();
+	}
+	
+	/**
 	 * 创建基于文件的简单SQL查询
 	 * @return FileObject
 	 */
@@ -1525,10 +1536,28 @@ public class FileObject implements Externalizable {
 	}
 	
 	/**
-	 * 取随机访问文件对象，如果不支持则返回null
-	 * @return RandomAccessFile
+	 * 执行查询语句
+	 * @param sql String 查询语句
+	 * @param params Object[] 参数值
+	 * @param cs ICellSet 网格对象
+	 * @param ctx Context
+	 * @return Object
 	 */
-	public RandomAccessFile getRandomAccessFile() {
-		return getFile().getRandomAccessFile();
+	public Object query(String sql, Object []params, ICellSet cs, Context ctx) {
+		ArrayList<Object> list = null;
+		if (params != null) {
+			list = new ArrayList<Object>(params.length);
+			for (Object obj : params) {
+				list.add(obj);
+			}
+		}
+
+		SimpleSQL lq = new SimpleSQL(cs, sql, list, ctx);
+		Object val = lq.execute();
+		if (val instanceof ICursor) {
+			return ((ICursor)val).fetch();
+		} else {
+			return val;
+		}
 	}
 }
