@@ -20,6 +20,7 @@ import com.scudata.dm.LongArray;
 import com.scudata.dm.cursor.ConjxCursor;
 import com.scudata.dm.cursor.ICursor;
 import com.scudata.dm.cursor.MergeCursor;
+import com.scudata.dm.cursor.UpdateMergeCursor;
 import com.scudata.resources.EngineMessage;
 import com.scudata.util.FileSyncManager;
 
@@ -151,10 +152,20 @@ abstract public class ComTable implements IBlockStorage {
 		RandomAccessFile raf = new RandomAccessFile(file, "rw");
 		try {
 			raf.seek(6);
-			if (raf.read() == 'r') {
+			
+			if (raf.length() == 0) {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException(mm.getMessage("license.fileFormatError"));
+			}
+			
+			int flag = raf.read(); 
+			if (flag == 'r') {
 				return new RowComTable(file, ctx);
-			} else {
+			} else if (flag == 'c' || flag == 'C'){
 				return new ColComTable(file, ctx);
+			} else {
+				MessageManager mm = EngineMessage.get();
+				throw new RQException(mm.getMessage("license.fileFormatError"));
 			}
 		} finally {
 			raf.close();
@@ -486,6 +497,8 @@ abstract public class ComTable implements IBlockStorage {
 		boolean isCol = this instanceof ColComTable;
 		boolean hasQ = false;
 		boolean hasN = false;
+		boolean hasW = false;
+		boolean onlyDataStruct = false; // 只复制文件结构
 		boolean compress = false; // 压缩
 		boolean uncompress = false; // 不压缩
 		
@@ -502,6 +515,14 @@ abstract public class ComTable implements IBlockStorage {
 			
 			if (opt.indexOf('z') != -1) {
 				compress = true;
+			}
+			
+			if (opt.indexOf('w') != -1) {
+				hasW = true;
+			}
+			
+			if (opt.indexOf('S') != -1) {
+				onlyDataStruct = true;
 			}
 			
 			if (compress && uncompress) {
@@ -651,7 +672,7 @@ abstract public class ComTable implements IBlockStorage {
 					cs = new RowCursor((RowPhyTable)baseTable);
 				}
 				
-			} else {
+			} else if (!onlyDataStruct) {
 				cs = baseTable.cursor();
 			}
 			
@@ -678,7 +699,7 @@ abstract public class ComTable implements IBlockStorage {
 				}
 			}
 			
-			if (cursor != null) {
+			if (cs != null && cursor != null) {
 				// 检查归并的游标是否兼容
 				DataStruct ds1 = cs.getDataStruct();
 				DataStruct ds2 = cursor.peek(1).dataStruct();
@@ -690,7 +711,11 @@ abstract public class ComTable implements IBlockStorage {
 				}
 				
 				// 归并或者连接游标
-				if (newBaseTable.hasPrimaryKey()) {
+				if (hasW) {
+					int deleteField = baseTable.getDeleteFieldIndex(null, ds1.getFieldNames());
+					ICursor[] cursors = new ICursor[] {cs, cursor};
+					cs = new UpdateMergeCursor(cursors, ds1.getPKIndex(), deleteField, ctx);
+				} else if (newBaseTable.hasPrimaryKey()) {
 					ICursor[] cursors = new ICursor[] {cs, cursor};
 					cs = new MergeCursor(cursors, ds1.getPKIndex(), null, ctx);
 				} else {
@@ -700,8 +725,10 @@ abstract public class ComTable implements IBlockStorage {
 			}
 			
 			//写数据到基表
-			newBaseTable.append(cs);
-			newBaseTable.appendCache();
+			if (cs != null) {
+				newBaseTable.append(cs);
+				newBaseTable.appendCache();
+			}
 			
 			//写数据到基表的子表
 			for (PhyTable t : tableList) {
@@ -865,6 +892,8 @@ abstract public class ComTable implements IBlockStorage {
 		}
 		boolean isCol = this instanceof ColComTable;
 		boolean uncompress = false; // 不压缩
+		boolean hasW = false;
+		
 		if (opt != null) {
 			if (opt.indexOf('r') != -1) {
 				isCol = false;
@@ -878,6 +907,10 @@ abstract public class ComTable implements IBlockStorage {
 			
 			if (opt.indexOf('z') != -1) {
 				uncompress = false;
+			}
+			
+			if (opt.indexOf('w') != -1) {
+				hasW = false;
 			}
 		}
 		
@@ -938,7 +971,11 @@ abstract public class ComTable implements IBlockStorage {
 			
 			// 归并或者连接游标
 			if (cursor != null) {
-				if (baseTable.hasPrimaryKey()) {
+				if (hasW) {
+					int deleteField = baseTable.getDeleteFieldIndex(null, ds1.getFieldNames());
+					ICursor[] cursors = new ICursor[] {cs, cursor};
+					cs = new UpdateMergeCursor(cursors, ds1.getPKIndex(), deleteField, ctx);
+				} else if (baseTable.hasPrimaryKey()) {
 					ICursor[] cursors = new ICursor[] {cs, cursor};
 					cs = new MergeCursor(cursors, ds1.getPKIndex(), null, ctx);
 				} else {

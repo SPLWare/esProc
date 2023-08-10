@@ -366,10 +366,10 @@ class PartitionFile {
 			} else {
 				FileGroup fileGroup = new FileGroup(fileName, parts);
 				if (file == null) {
-					result = fileGroup.resetGroupTable(option, blockSize, ctx);
+					result = fileGroup.resetGroupTable(option, blockSize, null, ctx);
 				} else {
 					FileGroup newFileGroup = new FileGroup(file, parts);
-					result = fileGroup.resetGroupTable(newFileGroup, option, distribute, blockSize, ctx);
+					result = fileGroup.resetGroupTable(newFileGroup, option, distribute, blockSize, null, ctx);
 				}
 			}
 			

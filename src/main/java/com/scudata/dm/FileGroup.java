@@ -11,6 +11,8 @@ import java.util.Arrays;
 import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.cursor.ICursor;
+import com.scudata.dm.cursor.MergeCursor;
+import com.scudata.dm.cursor.UpdateMergeCursor;
 import com.scudata.dw.ColComTable;
 import com.scudata.dw.ColumnMetaData;
 import com.scudata.dw.ColPhyTable;
@@ -144,24 +146,72 @@ public class FileGroup implements Externalizable {
 	}
 	
 	/**
+	 * 建立当前文件组的归并游标
+	 * @param tableGroup 当前复组表
+	 * @param hasW 更新方式归并
+	 * @param cursor 要归并的游标 
+	 * @return
+	 */
+	private ICursor makeCursor(PhyTableGroup tableGroup, boolean hasW, ICursor cursor, Context ctx) {
+		IPhyTable[] tables = tableGroup.getTables();
+		int tableCount = tables.length;
+		
+		if (tableCount == 0) {
+			return cursor;
+		}
+		
+		ICursor []cursors;
+		if (cursor != null) {
+			cursors = new ICursor[tableCount + 1];
+		} else {
+			cursors = new ICursor[tableCount];
+		}
+		
+		for (int i = 0; i < tableCount; ++i) {
+			cursors[i] = tables[i].cursor();
+		}
+		DataStruct ds1 = cursors[0].getDataStruct();
+				
+		if (cursor != null) {
+			cursors[tableCount] = cursor;			
+		}
+		
+		ICursor cs;
+		if (hasW) {
+			int deleteField = tableGroup.getDeleteFieldIndex(null, ds1.getFieldNames());
+			cs = new UpdateMergeCursor(cursors, ds1.getPKIndex(), deleteField, ctx);
+		} else {
+			cs = new MergeCursor(cursors, ds1.getPKIndex(), null, ctx);
+		}
+		return cs;
+	}
+	
+	/**
 	 * 整理组表数据
 	 * @param opt 选项
 	 * @param blockSize 区块大小
 	 * @param ctx计算上下文
+	 * @param 归并的游标
 	 * @return true：成功，false：失败
 	 */
-	public boolean resetGroupTable(String opt, Integer blockSize, Context ctx) {
-		int pcount = partitions.length;
-		for (int i = 0; i < pcount; ++i) {
-			File file = Env.getPartitionFile(partitions[i], fileName);
-			PhyTable tmd = ComTable.openBaseTable(file, ctx);
-			boolean result = tmd.getGroupTable().reset(null, opt, ctx, null, blockSize, null);
-			tmd.close();
-			if (!result) {
-				return false;
+	public boolean resetGroupTable(String opt, Integer blockSize, ICursor cursor, Context ctx) {
+		if (cursor != null) {
+			FileGroup tempFileGroup = createResetTempFileGroup(opt, blockSize, ctx);//得到一个同构的临时文件组
+			resetGroupTable(tempFileGroup, opt, null, blockSize, cursor, ctx);//把当前文件组reset到临时文件组
+			delete(ctx);//删除当前
+			tempFileGroup.rename(fileName, ctx);//改名
+		} else {
+			int pcount = partitions.length;
+			for (int i = 0; i < pcount; ++i) {
+				File file = Env.getPartitionFile(partitions[i], fileName);
+				PhyTable tmd = ComTable.openBaseTable(file, ctx);
+				boolean result = tmd.getGroupTable().reset(null, opt, ctx, null, blockSize, null);
+				tmd.close();
+				if (!result) {
+					return false;
+				}
 			}
 		}
-		
 		return true;
 	}
 	
@@ -170,10 +220,11 @@ public class FileGroup implements Externalizable {
 	 * @param newFile 新组表对应的文件
 	 * @param opt 选项
 	 * @param blockSize 区块大小
+	 * @param 归并的游标
 	 * @param ctx计算上下文
 	 * @return true：成功，false：失败
 	 */
-	public boolean resetGroupTable(File newFile, String opt, Integer blockSize, Context ctx) {
+	public boolean resetGroupTable(File newFile, String opt, Integer blockSize, ICursor cursor, Context ctx) {
 		PhyTableGroup tableGroup = open(null, ctx);
 		PhyTable baseTable = (PhyTable) tableGroup.getTables()[0];
 		
@@ -276,7 +327,9 @@ public class FileGroup implements Externalizable {
 			//新基表
 			PhyTable newBaseTable = newGroupTable.getBaseTable();
 			ICursor cs;
-			if (hasW) {
+			if (cursor != null) {
+				cs = makeCursor(tableGroup, hasW, cursor, ctx);
+			} else if (hasW) {
 				cs = tableGroup.cursor(null, null, null, null, null, null, "w", ctx);
 			} else {
 				cs = tableGroup.merge(ctx);
@@ -345,11 +398,12 @@ public class FileGroup implements Externalizable {
 	 * @param opt 选项
 	 * @param distribute 分布表达式
 	 * @param blockSize 区块大小
+	 * @param 归并的游标
 	 * @param ctx计算上下文
 	 * @return true：成功，false：失败
 	 */
-	public boolean resetGroupTable(FileGroup newFileGroup, String opt, String distribute, Integer blockSize, Context ctx) {
-		if (distribute == null || distribute.length() == 0) {
+	public boolean resetGroupTable(FileGroup newFileGroup, String opt, String distribute, Integer blockSize, ICursor cursor, Context ctx) {
+		if ((distribute == null || distribute.length() == 0) && cursor == null) {
 			// 分布不变
 			int pcount = partitions.length;
 			if (pcount != newFileGroup.partitions.length) {
@@ -374,6 +428,7 @@ public class FileGroup implements Externalizable {
 			PhyTable baseTable = (PhyTable) tableGroup.getTables()[0];
 			boolean isCol = baseTable.getGroupTable() instanceof ColComTable;
 			boolean uncompress = false; // 不压缩
+			boolean hasW = false;
 			if (opt != null) {
 				if (opt.indexOf('r') != -1) {
 					isCol = false;
@@ -387,6 +442,10 @@ public class FileGroup implements Externalizable {
 				
 				if (opt.indexOf('z') != -1) {
 					uncompress = false;
+				}
+				
+				if (opt.indexOf('w') != -1) {
+					hasW = true;
 				}
 			}
 			
@@ -433,7 +492,7 @@ public class FileGroup implements Externalizable {
 			try {
 				//写基表
 				PhyTableGroup newTableGroup = newFileGroup.create(colNames, distribute, newOpt, blockSize, ctx);
-				ICursor cs = tableGroup.merge(ctx);
+				ICursor cs = this.makeCursor(tableGroup, hasW, cursor, ctx);//tableGroup.merge(ctx);
 				newTableGroup.append(cs, "xi");
 				
 				//写子表
@@ -465,6 +524,7 @@ public class FileGroup implements Externalizable {
 					newTable.append(cs, "xi");
 				}
 
+				tableGroup.close();
 				newTableGroup.close();
 				return Boolean.TRUE;
 			} catch (IOException e) {
@@ -490,5 +550,85 @@ public class FileGroup implements Externalizable {
 	 */
 	public int getPartitionCount() {
 		return partitions.length;
+	}
+	
+	public void delete(Context ctx) {
+		int pcount = partitions.length;
+		for (int i = 0; i < pcount; ++i) {
+			File file = Env.getPartitionFile(partitions[i], fileName);
+			if (file.exists()) {
+				try {
+					ComTable table = ComTable.open(file, ctx);
+					table.delete();
+				} catch (IOException e) {
+					throw new RQException(e.getMessage(), e);
+				}
+			
+			}
+		}
+	}
+	
+	public void rename(String newName, Context ctx) {
+		int pcount = partitions.length;
+		
+		for (int i = 0; i < pcount; ++i) {
+			FileObject fo = new FileObject(fileName);
+			fo.setPartition(partitions[i]);
+			
+			FileObject file = new FileObject(newName);
+			file.setPartition(partitions[i]);
+
+			if (fo.isExists() && !file.isExists()) {
+				String path = file.getFileName();
+				fo.move(path, null);
+			} else {
+				throw new RuntimeException();
+			}
+		}
+	}
+	
+	/**
+	 * 根据当前文件组，得到一个临时文件组
+	 * @return
+	 */
+	public FileGroup createResetTempFileGroup(String opt, Integer blockSize, Context ctx) {
+		FileObject fo = new FileObject(fileName);
+		int pcount = partitions.length;
+		String tempFileName;
+		while (true) {
+			FileObject newFileObj = new FileObject(fo.createTempFile());
+			IFile f = newFileObj.getFile();
+			boolean exist = false;
+			
+			for (int i = 0; i < pcount; ++i) {
+				newFileObj.setPartition(partitions[i]);
+				if (newFileObj.isExists()) {
+					exist = true;
+					break;
+				}
+			}
+			
+			String name = newFileObj.getFileName();
+			f.delete();
+			
+			if (!exist) {
+				tempFileName = name;
+				break;
+			}
+		}
+		
+		String option = opt == null ? "" : opt;
+		option += "S";
+		for (int i = 0; i < pcount; ++i) {
+			File file = Env.getPartitionFile(partitions[i], fileName);
+			File newFile = Env.getPartitionFile(partitions[i], tempFileName);
+			PhyTable tmd = ComTable.openBaseTable(file, ctx);
+			boolean result = tmd.getGroupTable().reset(newFile, option, ctx, null, blockSize, null);
+			tmd.close();
+			if (!result) {
+				return null;
+			}
+		}
+		return new FileGroup(tempFileName, partitions);
 	}
 }

@@ -414,14 +414,15 @@ public class LocalFile implements IFile {
 	 */
 	private boolean deleteCtxFiles(File file) {
 		if (fileName.endsWith(".ctx")) {
+			ComTable table = null;
 			try {
-				ComTable table = ComTable.open(file, ctx);
+				table = ComTable.open(file, ctx);
 				List<File> files = table.getFiles(false, true);
 				table.close();
 				for (File f : files) {
 					f.delete();
 				}
-			} catch (IOException e) {
+			} catch (Exception e) {
 				return false;
 			}
 			return true;
