@@ -21,6 +21,7 @@ import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
 
+import com.scudata.common.Logger;
 import com.scudata.common.RQException;
 import com.scudata.common.StringUtils;
 import com.scudata.dm.Env;
@@ -59,6 +60,8 @@ public class XlsExporter implements IExcelTool {
 	 * Whether to append export
 	 */
 	private boolean isAppend;
+
+	private boolean isK;
 	/**
 	 * After the first row of data is written out, save the style and use it
 	 * directly later.
@@ -104,16 +107,18 @@ public class XlsExporter implements IExcelTool {
 	 *            Excel password
 	 */
 	public XlsExporter(FileObject fo, boolean hasTitle, boolean isAppend,
-			Object sheetName, String pwd) {
+			Object sheetName, String pwd, boolean isK) {
 		this.fo = fo;
 		this.hasTitle = hasTitle;
 		writeTitle = hasTitle;
 		this.isAppend = isAppend;
+		this.isK = isK;
 		this.pwd = pwd;
 		InputStream is = null;
 		try {
 			Biff8EncryptionKey.setCurrentUserPassword(pwd);
-			if (fo.isExists() && isAppend) { // The file exists and is appended.
+			if (fo.isExists() && (isAppend || isK)) { // The file exists and is
+														// appended.
 				is = fo.getInputStream();
 				wb = new HSSFWorkbook(is);
 				if (StringUtils.isValidString(sheetName)) { // Sheet specified
@@ -141,7 +146,7 @@ public class XlsExporter implements IExcelTool {
 						/* The original file does not have a sheet */
 						sheet = wb.createSheet();
 						int sheetIndex = wb.getSheetIndex(sheet);
-						wb.setSheetName(sheetIndex, "Sheet1");
+						wb.setSheetName(sheetIndex, DEFAULT_SHEET_NAME);
 					} else { // Export to the first sheet
 						sheetExists = true;
 						sheet = wb.getSheetAt(0);
@@ -158,7 +163,7 @@ public class XlsExporter implements IExcelTool {
 				int sheetIndex = wb.getSheetIndex(sheet);
 				wb.setSheetName(sheetIndex, StringUtils
 						.isValidString(sheetName) ? (String) sheetName
-						: "Sheet1");
+						: DEFAULT_SHEET_NAME);
 			}
 			int sheetIndex = wb.getSheetIndex(sheet);
 			wb.setActiveSheet(sheetIndex);
@@ -482,6 +487,14 @@ public class XlsExporter implements IExcelTool {
 	 * Load styles from sheet
 	 */
 	private void loadStyles() {
+		if (isAppend) {
+			loadStylesA();
+		} else if (isK) {
+			loadStylesK();
+		}
+	}
+
+	private void loadStylesA() {
 		if (sheet == null)
 			return;
 		try {
@@ -533,7 +546,55 @@ public class XlsExporter implements IExcelTool {
 			}
 
 		} catch (Exception e) { // 读不到就算了，保证导出正常，把错误信息打出来
-			e.printStackTrace();
+			Logger.error(e);
+		}
+	}
+
+	private void loadStylesK() {
+		if (sheet == null)
+			return;
+		try {
+			int lastRow = sheet.getLastRowNum();
+			if (lastRow < 0) { // 没有行
+				return;
+			}
+			HSSFRow hr;
+			HSSFCell cell;
+			int colCount = 0;
+			for (int r = lastRow; r >= 0; r--) {
+				hr = sheet.getRow(r);
+				if (hr == null)
+					continue;
+				int lastCol = hr.getLastCellNum();
+				colCount = Math.max(lastCol, colCount);
+				for (int c = 0; c <= lastCol; c++) {
+					// 清空单元格
+					cell = hr.getCell(c);
+					if (cell != null) {
+						cell.setBlank();
+						cell.removeCellComment();
+						cell.removeFormula();
+						cell.removeHyperlink();
+					}
+				}
+			}
+			currRow = 0;
+			// 确定标题行和数据行
+			if (hasTitle) {
+				dataStyle = getRowStyle(1); // 数据行是下一行
+			} else {
+				dataStyle = getRowStyle(0);
+			}
+
+			maxWriteCount -= currRow + 1; // 从currRow开始，可写的最大行数
+
+			colStyles = new HSSFCellStyle[colCount];
+			for (int c = 0; c < colCount; c++) {
+				colStyles[c] = sheet.getColumnStyle(c);
+			}
+
+		} catch (Exception e) { // 读不到就算了，保证导出正常，把错误信息打出来
+			Logger.error(e);
 		}
 	}
 }

@@ -84,7 +84,7 @@ public class ExcelTool implements ILineInput, ILineOutput {
 	 */
 	public ExcelTool(FileObject fo, boolean hasTitle, boolean isXlsx,
 			boolean isSsxxf, Object sheetName, String pwd) {
-		this(fo, hasTitle, isXlsx, isSsxxf, true, sheetName, pwd, false);
+		this(fo, hasTitle, isXlsx, isSsxxf, true, sheetName, pwd, false, false);
 	}
 
 	/**
@@ -107,16 +107,18 @@ public class ExcelTool implements ILineInput, ILineOutput {
 	 */
 	public ExcelTool(FileObject fo, boolean hasTitle, boolean isXlsx,
 			boolean isSsxxf, boolean isAppend, Object sheetName, String pwd,
-			boolean isW) {
+			boolean isW, boolean isK) {
 		if (isXlsx) {
 			checkVersion();
 			if (isSsxxf) {
-				impl = new XlsxSExporter(fo, hasTitle, isAppend, sheetName, pwd);
+				impl = new XlsxSExporter(fo, hasTitle, isAppend, sheetName,
+						pwd, isK);
 			} else {
-				impl = new XlsxExporter(fo, hasTitle, isAppend, sheetName, pwd);
+				impl = new XlsxExporter(fo, hasTitle, isAppend, sheetName, pwd,
+						isK);
 			}
 		} else {
-			impl = new XlsExporter(fo, hasTitle, isAppend, sheetName, pwd);
+			impl = new XlsExporter(fo, hasTitle, isAppend, sheetName, pwd, isK);
 		}
 	}
 

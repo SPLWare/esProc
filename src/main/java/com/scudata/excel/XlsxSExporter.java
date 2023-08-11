@@ -59,6 +59,8 @@ public class XlsxSExporter implements IExcelTool {
 	 * Whether to append export
 	 */
 	private boolean isAppend;
+
+	private boolean isK;
 	/**
 	 * After the first row of data is written out, save the style and use it
 	 * directly later.
@@ -104,11 +106,12 @@ public class XlsxSExporter implements IExcelTool {
 	 *            Excel password
 	 */
 	public XlsxSExporter(FileObject fo, boolean hasTitle, boolean isAppend,
-			Object sheetName, String pwd) {
+			Object sheetName, String pwd, boolean isK) {
 		this.fo = fo;
 		this.hasTitle = hasTitle;
 		writeTitle = hasTitle;
 		this.isAppend = isAppend;
+		this.isK = isK;
 		this.pwd = pwd;
 		try {
 			wb = new SXSSFWorkbook(500);
@@ -413,13 +416,7 @@ public class XlsxSExporter implements IExcelTool {
 		InputStream is = null;
 		XSSFWorkbook wbOld = null;
 		try {
-			if (!fo.isExists() || !isAppend) {
-				String name = DEFAULT_SHEET_NAME;
-				if (StringUtils.isValidString(sheetName)) {
-					name = sheetName;
-				}
-				wb.setSheetName(wb.getSheetIndex(sheet), name);
-			} else {
+			if (fo.isExists() && (isAppend || isK)) {
 				is = fo.getInputStream();
 				wbOld = new XSSFWorkbook(is);
 				XSSFSheet oldSheet = null;
@@ -436,8 +433,18 @@ public class XlsxSExporter implements IExcelTool {
 				if (oldSheet != null) {
 					sheetExists = true;
 					loadSheet(oldSheet);
-					loadStyles(oldSheet);
+					if (isAppend) {
+						loadStylesA(oldSheet);
+					} else if (isK) {
+						loadStylesK(oldSheet);
+					}
 				}
+			} else {
+				String name = DEFAULT_SHEET_NAME;
+				if (StringUtils.isValidString(sheetName)) {
+					name = sheetName;
+				}
+				wb.setSheetName(wb.getSheetIndex(sheet), name);
 			}
 		} catch (Exception e) {
 			Logger.error("Error while reading the file: " + fo.getFileName());
@@ -537,30 +544,12 @@ public class XlsxSExporter implements IExcelTool {
 	}
 
 	/**
-	 * Clone cell styles
-	 * 
-	 * @param styleMap
-	 * @param oldCellStyle
-	 * @return
-	 */
-	private CellStyle cloneCellStyle(HashMap<CellStyle, CellStyle> styleMap,
-			CellStyle oldCellStyle) {
-		CellStyle cellStyle = styleMap.get(oldCellStyle);
-		if (cellStyle == null) {
-			cellStyle = wb.createCellStyle();
-			cellStyle.cloneStyleFrom(oldCellStyle);
-			styleMap.put(oldCellStyle, cellStyle);
-		}
-		return cellStyle;
-	}
-
-	/**
 	 * Load styles from sheet
 	 * 
 	 * @param sheet
 	 *            XSSFSheet
 	 */
-	private void loadStyles(XSSFSheet sheet) {
+	private void loadStylesA(XSSFSheet sheet) {
 		if (sheet == null)
 			return;
 		try {
@@ -570,13 +559,13 @@ public class XlsxSExporter implements IExcelTool {
 			}
 			int lastContentRow = -1;
 			XSSFRow hr;
-			int colCount = 0;
+			// int colCount = 0;
 			for (int r = lastRow; r >= 0; r--) {
 				hr = sheet.getRow(r);
 				if (hr == null)
 					continue;
 				int lastCol = hr.getLastCellNum();
-				colCount = Math.max(lastCol, colCount);
+				// colCount = Math.max(lastCol, colCount);
 				if (!ExcelUtils.isEmptyRow(hr, lastCol)) {
 					lastContentRow = r;
 					break;
@@ -603,14 +592,57 @@ public class XlsxSExporter implements IExcelTool {
 
 			maxWriteCount -= currRow + 1;
 
-			colStyles = new CellStyle[colCount];
-			for (int c = 0; c < colCount; c++) {
-				colStyles[c] = sheet.getColumnStyle(c);
-			}
+			// colStyles = new CellStyle[colCount];
+			// for (int c = 0; c < colCount; c++) {
+			// colStyles[c] = sheet.getColumnStyle(c);
+			// }
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger.error(e);
 		}
 	}
 
+	/**
+	 * Clone cell styles
+	 * 
+	 * @param styleMap
+	 * @param oldCellStyle
+	 * @return
+	 */
+	private CellStyle cloneCellStyle(HashMap<CellStyle, CellStyle> styleMap,
+			CellStyle oldCellStyle) {
+		CellStyle cellStyle = styleMap.get(oldCellStyle);
+		if (cellStyle == null) {
+			cellStyle = wb.createCellStyle();
+			cellStyle.cloneStyleFrom(oldCellStyle);
+			styleMap.put(oldCellStyle, cellStyle);
+		}
+		return cellStyle;
+	}
+
+	/**
+	 * Load styles from sheet
+	 * 
+	 * @param sheet
+	 *            XSSFSheet
+	 */
+	private void loadStylesK(XSSFSheet sheet) {
+		if (sheet == null)
+			return;
+		try {
+			int lastRow = sheet.getLastRowNum();
+			if (lastRow < 0) {
+				return;
+			}
+			currRow = 0;
+			if (hasTitle) {
+				dataStyle = getRowStyle(1);
+			} else {
+				dataStyle = getRowStyle(0);
+			}
+			maxWriteCount -= currRow + 1;
+		} catch (Exception e) {
+			Logger.error(e);
+		}
+	}
 }

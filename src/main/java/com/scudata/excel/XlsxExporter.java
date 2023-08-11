@@ -17,6 +17,7 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import com.scudata.common.Logger;
 import com.scudata.common.RQException;
 import com.scudata.common.StringUtils;
 import com.scudata.dm.Env;
@@ -55,6 +56,8 @@ public class XlsxExporter implements IExcelTool {
 	 * Whether to append export
 	 */
 	private boolean isAppend;
+
+	private boolean isK;
 	/**
 	 * After the first row of data is written out, save the style and use it
 	 * directly later.
@@ -100,17 +103,18 @@ public class XlsxExporter implements IExcelTool {
 	 *            Excel password
 	 */
 	public XlsxExporter(FileObject fo, boolean hasTitle, boolean isAppend,
-			Object sheetName, String pwd) {
+			Object sheetName, String pwd, boolean isK) {
 		this.fo = fo;
 		this.hasTitle = hasTitle;
 		writeTitle = hasTitle;
 		this.isAppend = isAppend;
+		this.isK = isK;
 		this.pwd = pwd;
 		InputStream is = null;
 		POIFSFileSystem pfs = null;
 		InputStream in = null;
 		try {
-			if (fo.isExists() && isAppend) {
+			if (fo.isExists() && (isAppend || isK)) {
 				is = fo.getInputStream();
 				if (pwd != null) {
 					pfs = new POIFSFileSystem(is);
@@ -465,6 +469,14 @@ public class XlsxExporter implements IExcelTool {
 	 * Load styles from sheet
 	 */
 	private void loadStyles() {
+		if (isAppend) {
+			loadStylesA();
+		} else if (isK) {
+			loadStylesK();
+		}
+	}
+
+	private void loadStylesA() {
 		if (sheet == null)
 			return;
 		try {
@@ -513,7 +525,57 @@ public class XlsxExporter implements IExcelTool {
 			}
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger.error(e);
+		}
+	}
+
+	/**
+	 * Load styles from sheet
+	 */
+	private void loadStylesK() {
+		if (sheet == null)
+			return;
+		try {
+			int lastRow = sheet.getLastRowNum();
+			if (lastRow < 0) {
+				return;
+			}
+			XSSFRow hr;
+			XSSFCell cell;
+			int colCount = 0;
+			for (int r = lastRow; r >= 0; r--) {
+				hr = sheet.getRow(r);
+				if (hr == null)
+					continue;
+				int lastCol = hr.getLastCellNum();
+				colCount = Math.max(lastCol, colCount);
+				for (int c = 0; c <= lastCol; c++) {
+					// 清空单元格
+					cell = hr.getCell(c);
+					if (cell != null) {
+						cell.setBlank();
+						cell.removeCellComment();
+						cell.removeFormula();
+						cell.removeHyperlink();
+					}
+				}
+			}
+			currRow = 0;
+			if (hasTitle) {
+				dataStyle = getRowStyle(1);
+			} else {
+				dataStyle = getRowStyle(0);
+			}
+
+			maxWriteCount -= currRow + 1;
+
+			colStyles = new CellStyle[colCount];
+			for (int c = 0; c < colCount; c++) {
+				colStyles[c] = sheet.getColumnStyle(c);
+			}
+
+		} catch (Exception e) {
+			Logger.error(e);
 		}
 	}
 }

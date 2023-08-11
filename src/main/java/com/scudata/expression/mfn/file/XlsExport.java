@@ -140,6 +140,7 @@ public class XlsExport extends FileFunction {
 				isM = true;
 		}
 		boolean isP = opt != null && opt.indexOf("p") > -1;
+		boolean isK = opt != null && opt.indexOf("k") > -1;
 
 		boolean isW = opt != null && opt.indexOf("w") > -1;
 		if (isW) {
@@ -169,7 +170,7 @@ public class XlsExport extends FileFunction {
 		ExcelUtils.checkSheetName(s);
 
 		ExcelTool et = new ExcelTool(file, isTitle, isXlsx, isSsxxf, isAppend,
-				s, pwd, isW);
+				s, pwd, isW, isK);
 
 		int maxCount = et.getMaxLineCount();
 		if (isTitle)

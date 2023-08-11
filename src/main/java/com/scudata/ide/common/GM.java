@@ -3869,6 +3869,9 @@ public class GM {
 		int end = p;
 		for (int i = p - 1; i >= 0; i--) { // 从字符位置向前找
 			char c = str.charAt(i);
+			if ('@' == c) { // 前面是@符号，应该是选项，不匹配成函数
+				return null;
+			}
 			if (isSymbol(c)) {
 				start = i + 1;
 				break;
