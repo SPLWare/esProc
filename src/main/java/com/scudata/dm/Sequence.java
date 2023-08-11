@@ -11993,7 +11993,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			result = new Sequence(numCount + 1);
 		}
 		
-		if (opt == null || opt.indexOf('n') == -1) {
+		if (opt == null || opt.indexOf('b') == -1) {
 			for (int i = 0; i < numCount; ++i) {
 				long value = 0;
 				for (int j = 63; j >= 0; --j, ++q) {
@@ -12058,7 +12058,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 			result = new Sequence(numCount + 1);
 		}
 		
-		if (opt == null || opt.indexOf('n') == -1) {
+		if (opt == null || opt.indexOf('b') == -1) {
 			for (int i = 0; i < numCount; ++i) {
 				long value = 0;
 				for (int j = 63; j >= 0; --j, ++q) {
@@ -12106,18 +12106,32 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 	/**
 	 * 判断指定位的值是不是1
 	 * @param n 位号
-	 * @param opt
-	 * @return true：是1，false：不是
+	 * @param opt b：返回真假，true：是1，false：不是
+	 * @return Object
 	 */
-	public boolean bits(int n, String opt) {
+	public Object bits(int n, String opt) {
 		int q = (n - 1) / 64 + 1;
 		IArray mems = getMems();
 		
-		if (q <= mems.size()) {
-			long value = mems.getLong(q);
-			return (value & (1 << (n - 1) % 64)) != 0;
+		if (opt == null || opt.indexOf('b') == -1) {
+			if (q <= mems.size()) {
+				long value = mems.getLong(q);
+				value = (value >>> (64 - n % 64)) & 1L;
+				return ObjectCache.getInteger((int)value);
+			} else {
+				return ObjectCache.getInteger(0);
+			}
 		} else {
-			return false;
+			if (q <= mems.size()) {
+				long value = mems.getLong(q);
+				if (((value >>> (64 - n % 64)) & 1L) == 1L) {
+					return Boolean.TRUE;
+				} else {
+					return Boolean.FALSE;
+				}
+			} else {
+				return Boolean.FALSE;
+			}
 		}
 	}
 	

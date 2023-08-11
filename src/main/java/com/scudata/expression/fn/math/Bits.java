@@ -389,13 +389,13 @@ public class Bits extends Function {
 				radix = 16;
 			} else if (option.indexOf('d') != -1) {
 				radix = 10;
-			} else if (option.indexOf('n') != -1) {
+			} else if (option.indexOf('b') != -1) {
 				isBool = true;
 			}
 			
 			if (option.indexOf('s') != -1) {
 				returnString = true;
-			} else if (option.indexOf('l') != -1) {
+			} else if (option.indexOf('n') != -1) {
 				returnDecimal = true;
 			}
 			
