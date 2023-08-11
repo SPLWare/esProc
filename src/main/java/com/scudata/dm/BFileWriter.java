@@ -767,4 +767,114 @@ public class BFileWriter {
 
 		this.totalRecordCount += len;		
 	}
+	
+	/**
+	 * 按二进制导出数据
+	 * @param cursor 游标
+	 * @param exps 导出的字段表达式数组，省略则导出所有字段
+	 * @param names 字段名数组
+	 * @param ctx 计算上下文
+	 */
+	public void exportBinary(ICursor cursor, DataStruct ds, int fieldIndex, Context ctx) {
+		Sequence data = cursor.fetch(ICursor.FETCHCOUNT);
+		if (data == null || data.length() == 0) {
+			if (!isAppend) file.delete();
+			return;
+		}
+		
+		if (!isAppend) {
+			isBlock = true;
+		}
+
+		if (ds == null) {
+			ds = new DataStruct(new String[]{S_FIELDNAME});
+		}
+		
+		try {
+			prepareWrite(ds, false);
+			if (isAppend && !isBlock) {
+				if (data.length() + totalRecordCount > MINBLOCKRECORDCOUNT) {
+					close();
+					changeToSegmentFile(ctx);
+					isBlock = true;
+					prepareWrite(ds, false);
+				}
+			}
+			
+			if (isBlock) {
+				while (data != null && data.length() > 0) {
+					exportBinaryBlock(data, fieldIndex, ctx);
+					data = cursor.fetch(ICursor.FETCHCOUNT);
+				}
+			} else {
+				while (data != null && data.length() > 0) {
+					exportBinaryNormal(data, fieldIndex, ctx);
+					data = cursor.fetch(ICursor.FETCHCOUNT);
+				}
+			}
+			
+			writer.flush();
+			writeHeader(false);
+		} catch (Exception e) {
+			file.setFileSize(oldFileSize);
+			if (e instanceof RQException) {
+				throw (RQException)e;
+			} else {
+				throw new RQException(e);
+			}
+		} finally {
+			close();
+		}
+	}
+	
+	// 有分段信息的导出
+	private void exportBinaryBlock(Sequence data, int fieldIndex, Context ctx) throws IOException {
+		RandomObjectWriter writer = this.writer;
+		long []blocks = this.blocks;
+		int blockCount = blocks.length;
+		int lastBlock = this.lastBlock;
+		long blockRecordCount = this.blockRecordCount;
+		long lastRecordCount = this.lastRecordCount;
+		int len = data.length();
+		
+		for (int i = 1; i <= len; ++i) {
+			if (lastRecordCount == blockRecordCount) {
+				blocks[lastBlock++] = writer.position();
+				lastRecordCount = 0;
+				if (lastBlock == blockCount) {
+					blockRecordCount += blockRecordCount;
+					lastBlock = blockCount / 2;
+					for (int b = 0, j = 1; b < lastBlock; ++b, j += 2) {
+						blocks[b] = blocks[j];
+					}
+				}
+			}
+			
+			lastRecordCount++;
+			
+			BaseRecord r = (BaseRecord)data.getMem(i);
+			byte[] bytes = (byte[]) r.getNormalFieldValue(fieldIndex);
+			writer.write(bytes);
+		}
+		
+		blocks[lastBlock] = writer.position();
+		this.totalRecordCount += len;
+		this.lastBlock = lastBlock;
+		this.blockRecordCount = blockRecordCount;
+		this.lastRecordCount = lastRecordCount;
+	}
+	
+	// 没有分段信息的导出
+	private void exportBinaryNormal(Sequence data, int fieldIndex, Context ctx) throws IOException {
+		RandomObjectWriter writer = this.writer;
+		int len = data.length();
+		
+		for (int i = 1; i <= len; ++i) {
+			BaseRecord r = (BaseRecord)data.getMem(i);
+			byte[] bytes = (byte[]) r.getNormalFieldValue(fieldIndex);
+			writer.write(bytes);
+		}
+		
+		this.totalRecordCount += len;		
+	}
 }

@@ -454,7 +454,8 @@ public final class FunctionLib {
 		addMemberFunction("property", "com.scudata.expression.mfn.file.Property");
 		addMemberFunction("property", "com.scudata.expression.mfn.string.Property");
 		addMemberFunction("iselect", "com.scudata.expression.mfn.file.ISelect");
-
+		addMemberFunction("sortx", "com.scudata.expression.mfn.file.Sortx");
+		
 		// excel
 		addMemberFunction("xlsexport", "com.scudata.expression.mfn.file.XlsExport");
 		addMemberFunction("xlsexport", "com.scudata.expression.mfn.xo.XlsExport");

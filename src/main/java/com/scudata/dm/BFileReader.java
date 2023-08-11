@@ -1749,4 +1749,12 @@ public class BFileReader {
 		list.add(sum);//最后一个分段条数，有可能只有这一个
 		close();
 	}
+	
+	public int[] getReadIndex() {
+		return readIndex;
+	}
+	
+	public ObjectReader getImporter() {
+		return importer;
+	}
 }
