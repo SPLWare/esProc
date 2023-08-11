@@ -5941,7 +5941,15 @@ public class DatabaseUtil {
 					//o = nTbls.get(ri-1).get(locs[ri]);
 					// edited by bd, 2022.12.9, 自动判断空值时，防止nTbls中有可能未记录数据
 					Table ot = nTbls.get(ri-1);
-					o = ot == null ? null : ot.get(locs[ri]);
+					//o = ot == null ? null : ot.get(locs[ri]);
+					//edited by bd, 2023.8.11, 当结果序表中存在重复主键的情况时，暂时不知道会出现什么复杂的状况，先处理超出总数量的错误。
+					if (ot == null) o = null; 
+					else  {
+						if(locs[ri]>ot.length()) {
+							locs[ri] = ot.length();
+						}
+						o = ot.get(locs[ri]);
+					}	
 				}
 				result.add(o);
 			}
