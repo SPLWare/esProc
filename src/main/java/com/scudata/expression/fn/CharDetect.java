@@ -158,7 +158,7 @@ public class CharDetect extends CharFunction {
     		}	    	
 	    }
 	    
-	    if (m_codes!=null){	
+	    if (m_codes.size()>0){
 	    	if (m_codes.indexOf(encoding)!=-1){
 	    		return encoding;
 	    	}else{
