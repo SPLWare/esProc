@@ -7,6 +7,7 @@ import com.scudata.dm.Context;
 import com.scudata.dm.DataStruct;
 import com.scudata.dm.FileObject;
 import com.scudata.dm.Sequence;
+import com.scudata.dm.cursor.BFileFetchCursor;
 import com.scudata.dm.cursor.BFileSortxCursor;
 import com.scudata.dm.cursor.ConjxCursor;
 import com.scudata.dm.cursor.ICursor;
@@ -28,22 +29,30 @@ public class BFileUtil {
 	 * @param opt 选项(暂时无用)
 	 * @return 排好序的游标
 	 */
-	public static void sortx(FileObject file, FileObject outFile, String[] fields, Context ctx, String opt) {
+	public static Object sortx(FileObject file, FileObject outFile, String[] fields, Context ctx, String opt) {
 		int fcount = fields.length;
-		BFileSortxCursor cursor = new BFileSortxCursor(file, fields);
+		BFileFetchCursor cursor = new BFileFetchCursor(file, fields);
 		DataStruct ds  = cursor.getFileDataStruct();
 		
 		Expression[] tempExps = new Expression[fcount];
 		for (int i = 0; i < fcount; i++) {
 			tempExps[i] = new Expression(fields[i]);
 		}
+
+		double backup = EnvUtil.getMaxUsedMemoryPercent();
 		EnvUtil.setMaxUsedMemoryPercent(0.2);
 		ICursor cs = CursorUtil.sortx(cursor, tempExps, ctx, 0, opt);
-		EnvUtil.setMaxUsedMemoryPercent(0.4);
+		EnvUtil.setMaxUsedMemoryPercent(backup);
+		
+		if (outFile == null) {
+			return new BFileSortxCursor(cs, fcount, ds);
+		}
 		
 		BFileWriter writer = new BFileWriter(outFile, null);
 		writer.exportBinary(cs, ds, fcount, ctx);
 		writer.close();
+		
+		return Boolean.TRUE;
 	}
 	
 	/**
@@ -55,16 +64,16 @@ public class BFileUtil {
 	 * @param opt 选项(暂时无用)
 	 * @return 排好序的游标
 	 */
-	public static void sortx(Sequence files, FileObject outFile, String[] fields, Context ctx, String opt) {
+	public static Object sortx(Sequence files, FileObject outFile, String[] fields, Context ctx, String opt) {
 		int fcount = fields.length;
 		
 		int len = files.length();
-		BFileSortxCursor[] cursors = new BFileSortxCursor[len];
+		BFileFetchCursor[] cursors = new BFileFetchCursor[len];
 		for (int i = 1; i <= len; i++) {
 			Object obj = files.get(i);
 			if (obj instanceof FileObject) {
 				FileObject file = (FileObject) obj;
-				cursors[i] = new BFileSortxCursor(file, fields);
+				cursors[i - 1] = new BFileFetchCursor(file, fields);
 			} else {
 				MessageManager mm = EngineMessage.get();
 				throw new RQException("sortx" + mm.getMessage("function.invalidParam"));
@@ -77,13 +86,20 @@ public class BFileUtil {
 		for (int i = 0; i < fcount; i++) {
 			tempExps[i] = new Expression(fields[i]);
 		}
-		
+
+		double backup = EnvUtil.getMaxUsedMemoryPercent();
 		EnvUtil.setMaxUsedMemoryPercent(0.2);
 		ICursor cs = CursorUtil.sortx(cursor, tempExps, ctx, 0, opt);
-		EnvUtil.setMaxUsedMemoryPercent(0.4);
+		EnvUtil.setMaxUsedMemoryPercent(backup);
+		
+		if (outFile == null) {
+			return new BFileSortxCursor(cs, fcount, ds);
+		}
 		
 		BFileWriter writer = new BFileWriter(outFile, null);
 		writer.exportBinary(cs, ds, fcount, ctx);
 		writer.close();
+		
+		return Boolean.TRUE;
 	}
 }

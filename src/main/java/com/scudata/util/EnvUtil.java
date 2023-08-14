@@ -22,6 +22,10 @@ public class EnvUtil {
 		MAX_USEDMEMORY_PERCENT = d;
 	}
 	
+	public static double getMaxUsedMemoryPercent() {
+		return MAX_USEDMEMORY_PERCENT;
+	}
+	
 	// 取当前空闲内存可以大约再生成多少条记录
 	/**
 	 * 取当前空闲内存大约可以存放多少条记录
