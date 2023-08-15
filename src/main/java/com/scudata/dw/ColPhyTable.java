@@ -4086,6 +4086,34 @@ public class ColPhyTable extends PhyTable {
 	}
 	
 	/**
+	 * 检查是否是时间键find
+	 * @param values
+	 * @return
+	 */
+	private boolean checkFindsByTimekey(Sequence values) {
+		if (getGroupTable().hasTimeKey()) {
+			String []keys = getAllSortedColNames();
+			int keyCount = keys.length;
+			if (keyCount <= 1) {
+				return false;
+			}
+			
+			Object obj = values.getMem(1);
+			int valueLen = values.length();
+			if (valueLen == 0) {
+				return false;
+			}
+			if (obj instanceof Sequence) {
+				Sequence seq = (Sequence)obj;
+				int dimCount = seq.length();
+				if (dimCount == keyCount ) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	/**
 	 * 根据主键查找记录
 	 * @param values
 	 */
@@ -4104,6 +4132,32 @@ public class ColPhyTable extends PhyTable {
 		if (!hasPrimaryKey()) {
 			MessageManager mm = EngineMessage.get();
 			throw new RQException(mm.getMessage("dw.lessKey"));
+		}
+		
+		if (checkFindsByTimekey(values)) {
+			String []keys = getAllSortedColNames();
+			Expression exp = new Expression("null.contain(" + keys[0] + ")");
+			Sequence keyValues = new Sequence();
+			int valueLen = values.length();
+			keyValues = new Sequence();
+			for (int i = 1; i <= valueLen; ++i) {
+				Sequence seq = (Sequence)values.getMem(i);
+				keyValues.add(seq.getMem(1));
+			}
+			
+			Context ctx = new Context();
+			exp.getHome().setLeft(new Constant(keyValues));
+			Sequence temp = cursor(selFields, exp, ctx).fetch();
+			if (temp == null) return null;
+			
+			Sequence result = new Sequence(valueLen);
+			for (int i = 1; i <= valueLen; ++i) {
+				Sequence seq = (Sequence)values.getMem(i);
+				result.add(temp.findByKey(seq, false));
+			}
+			Table table = new Table(result.dataStruct());
+			table.addAll(result);
+			return table;
 		}
 		
 		if (parent != null || getModifyRecords() != null) {
