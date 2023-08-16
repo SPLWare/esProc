@@ -5336,8 +5336,8 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				throw new RQException(mm.getMessage("engine.needIntExp"));
 			}
 
-			int valFirst = ((Number)objFirst).intValue();
-			int valLast = ((Number)objLast).intValue();
+			double valFirst = ((Number)objFirst).doubleValue();
+			double valLast = ((Number)objLast).doubleValue();
 
 			// 如果最小值大于0或着最大值小于于0则没有满足条件的元素
 			if (valFirst > 0) {
@@ -5375,7 +5375,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 						throw new RQException(mm.getMessage("engine.needIntExp"));
 					}
 
-					int value = ((Number)obj).intValue();
+					double value = ((Number)obj).doubleValue();
 					if (value < 0) {
 						low = mid + 1;
 					} else if (value > 0) {
@@ -5407,7 +5407,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 							throw new RQException(mm.getMessage("engine.needIntExp"));
 						}
 
-						if (((Number)obj).intValue() == 0) {
+						if (((Number)obj).doubleValue() == 0) {
 							first--;
 						} else {
 							break;
@@ -5426,7 +5426,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 							throw new RQException(mm.getMessage("engine.needIntExp"));
 						}
 
-						if (((Number)obj).intValue() == 0) {
+						if (((Number)obj).doubleValue() == 0) {
 							last++;
 						} else {
 							break;
@@ -6049,8 +6049,8 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 				throw new RQException(mm.getMessage("engine.needIntExp"));
 			}
 
-			int valFirst = ((Number)objFirst).intValue();
-			int valLast = ((Number)objLast).intValue();
+			double valFirst = ((Number)objFirst).doubleValue();
+			double valLast = ((Number)objLast).doubleValue();
 
 			// 如果最小值大于0或着最大值小于于0则没有满足条件的元素
 			if (valFirst > 0 || valLast < 0) {
@@ -6088,7 +6088,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 						throw new RQException(mm.getMessage("engine.needIntExp"));
 					}
 
-					int value = ((Number)obj).intValue();
+					double value = ((Number)obj).doubleValue();
 					if (value < 0) {
 						low = mid + 1;
 					} else if (value > 0) {
@@ -6128,7 +6128,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 							throw new RQException(mm.getMessage("engine.needIntExp"));
 						}
 
-						if (((Number)obj).intValue() == 0) {
+						if (((Number)obj).doubleValue() == 0) {
 							first--;
 						} else {
 							break;
@@ -6147,7 +6147,7 @@ public class Sequence implements Externalizable, IRecord, Comparable<Sequence> {
 							throw new RQException(mm.getMessage("engine.needIntExp"));
 						}
 
-						if (((Number)obj).intValue() == 0) {
+						if (((Number)obj).doubleValue() == 0) {
 							last++;
 						} else {
 							break;
