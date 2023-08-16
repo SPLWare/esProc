@@ -6,6 +6,7 @@ import com.scudata.common.MessageManager;
 import com.scudata.common.RQException;
 import com.scudata.dm.Context;
 import com.scudata.dm.Sequence;
+import com.scudata.dm.Table;
 import com.scudata.expression.IParam;
 import com.scudata.expression.PhyTableFunction;
 import com.scudata.resources.EngineMessage;
@@ -91,7 +92,11 @@ public class Find extends PhyTableFunction {
 		}
 		
 		try {
-			return table.finds(keys, selFields);
+			Table result = table.finds(keys, selFields);
+			if (result != null && result.length() == 1)
+				return result.get(1);
+			else 
+				return result;
 		} catch (IOException e) {
 			throw new RQException(e.getMessage(), e);
 		}
