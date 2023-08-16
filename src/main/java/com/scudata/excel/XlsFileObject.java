@@ -307,6 +307,10 @@ public abstract class XlsFileObject extends Table {
 
 			pos1 = new CellLocation(Math.min(row1, row2), Math.min(col1, col2));
 			pos2 = new CellLocation(Math.max(row1, row2), Math.max(col1, col2));
+		} else {
+			SheetInfo sheetInfo = sheetObject.sheetInfo;
+			pos2 = new CellLocation(sheetInfo.getRowCount(),
+					sheetInfo.getColCount());
 		}
 		if (content == null) {
 			return sx.getCells(pos1, pos2, isGraph, isW, isP, isN);

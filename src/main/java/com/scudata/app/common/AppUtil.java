@@ -115,13 +115,14 @@ public class AppUtil {
 		if (escape)
 			cmd = Escape.removeEscAndQuote(cmd);
 		if (!isExp) {
-			if (isSQL(cmd)) {
-				if (cmd.startsWith("$")) {
-					cmd = cmd.substring(1);
-					cmd = cmd.trim();
-				}
-				return executeSql(cmd, sequence2List(args), ctx);
-			} else if (cmd.startsWith("$")) {
+			// if (isSQL(cmd)) {
+			// if (cmd.startsWith("$")) {
+			// cmd = cmd.substring(1);
+			// cmd = cmd.trim();
+			// }
+			// return executeSql(cmd, sequence2List(args), ctx);
+			// } else
+			if (cmd.startsWith("$")) {
 				String s = cmd;
 				s = s.substring(1).trim();
 				if (s.startsWith("(")) {
@@ -132,6 +133,12 @@ public class AppUtil {
 					}
 					cmd = prepareSql(cmd, args);
 					return AppUtil.execute(cmd, args, ctx);
+				} else if (isSQL(cmd)) {
+					if (cmd.startsWith("$")) {
+						cmd = cmd.substring(1);
+						cmd = cmd.trim();
+					}
+					return executeSql(cmd, sequence2List(args), ctx);
 				}
 			}
 		}
@@ -230,10 +237,10 @@ public class AppUtil {
 			sql = sql.trim();
 		}
 		sql = sql.trim();
-		while (sql.startsWith("(")) {
+		while (sql.startsWith("(") || sql.startsWith(")")) {
 			sql = sql.substring(1);
+			sql = sql.trim();
 		}
-		sql = sql.trim();
 		if (sql.toLowerCase().startsWith(JDBCConsts.KEY_SELECT)) {
 			sql = sql.substring(JDBCConsts.KEY_SELECT.length());
 			if (sql.length() > 1) {

@@ -751,7 +751,7 @@ public class SheetXls extends SheetObject {
 			if (pos2 != null) {
 				endRow = pos2.getRow() - 1;
 				endCol = pos2.getCol() - 1;
-			} else {
+			} else { // pos2应该总不是null了
 				endRow = startRow;
 				endCol = startCol;
 			}

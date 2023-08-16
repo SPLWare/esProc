@@ -203,12 +203,15 @@ public abstract class InternalStatement implements java.sql.Statement {
 			}
 			sql = JDBCUtil.trimSql(sql);
 			byte sqlType = JDBCUtil.getJdbcSqlType(sql);
-			if (sqlType == JDBCConsts.TYPE_NONE)
-				return null;
+			if (sqlType == JDBCConsts.TYPE_NONE) {
+				throw new SQLException(JDBCMessage.get().getMessage(
+						"statement.unsupportsql", sql));
+			}
 			if (isUpdate
 					&& (sqlType != JDBCConsts.TYPE_SQL && sqlType != JDBCConsts.TYPE_SIMPLE_SQL)) {
 				// 仅简单SQL和SQL支持update语句
-				return null;
+				throw new SQLException(JDBCMessage.get().getMessage(
+						"statement.updatesqlonly"));
 			}
 			// 重新创建计算上下文
 			Context ctx = con.getCtx();

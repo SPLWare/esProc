@@ -21,7 +21,7 @@ import com.scudata.common.StringUtils;
  * config=raqsoftConfig.xml指定配置文件名称。配置文件只会加载一次。
  * onlyserver=true/false。true在服务器执行，false先在本地执行，找不到时在配置的服务器上执行。
  * debugmode=true/false。true会输出调试信息，false不输出调试信息
- * 
+ * compatiblesql=true/false。简单SQL现在以$开头，true时兼容不以$开头的。兼容一段时间后取消此选项。
  */
 public class InternalDriver implements java.sql.Driver, Serializable {
 	private static final long serialVersionUID = 1L;
@@ -82,6 +82,7 @@ public class InternalDriver implements java.sql.Driver, Serializable {
 		String config = propMap.get(KEY_CONFIG);
 		String sonlyServer = propMap.get(KEY_ONLY_SERVER);
 		String sdebugmode = propMap.get(KEY_DEBUGMODE);
+		String scompatiblesql = propMap.get(KEY_COMPATIBLESQL);
 		boolean isOnlyServer = false;
 		if (StringUtils.isValidString(sonlyServer))
 			try {
@@ -90,6 +91,7 @@ public class InternalDriver implements java.sql.Driver, Serializable {
 				Logger.warn("Invalid onlyServer parameter: " + sonlyServer);
 			}
 		JDBCUtil.log(KEY_ONLY_SERVER + "=" + isOnlyServer);
+
 		boolean isDebugMode = false;
 		if (StringUtils.isValidString(sdebugmode)) {
 			try {
@@ -98,6 +100,16 @@ public class InternalDriver implements java.sql.Driver, Serializable {
 			}
 		}
 		JDBCUtil.isDebugMode = isDebugMode;
+
+		boolean isCompatiblesql = false;
+		if (StringUtils.isValidString(scompatiblesql)) {
+			try {
+				isCompatiblesql = Boolean.valueOf(scompatiblesql);
+			} catch (Exception e) {
+			}
+		}
+		JDBCUtil.isCompatiblesql = isCompatiblesql;
+
 		Server server = Server.getInstance();
 		server.initConfig(rc, config);
 		InternalConnection con = server.connect(this);
@@ -211,7 +223,8 @@ public class InternalDriver implements java.sql.Driver, Serializable {
 			info = new Properties();
 		String config = info.getProperty(KEY_CONFIG);
 		String sonlyServer = info.getProperty(KEY_ONLY_SERVER);
-		String sdebugmode = info.getProperty("debugmode");
+		String sdebugmode = info.getProperty(KEY_DEBUGMODE);
+		String scompatibleSql = info.getProperty(KEY_COMPATIBLESQL);
 		if (url != null) {
 			String[] parts = url.split("&");
 			for (int i = 0; i < parts.length; i++) {
@@ -221,6 +234,8 @@ public class InternalDriver implements java.sql.Driver, Serializable {
 						KEY_ONLY_SERVER.toLowerCase() + "=");
 				int i3 = parts[i].toLowerCase().indexOf(
 						KEY_DEBUGMODE.toLowerCase() + "=");
+				int i4 = parts[i].toLowerCase().indexOf(
+						KEY_COMPATIBLESQL.toLowerCase() + "=");
 				if (i1 >= 0)
 					config = parts[i].substring(i1 + KEY_CONFIG.length() + 1);
 				if (i2 >= 0)
@@ -229,12 +244,16 @@ public class InternalDriver implements java.sql.Driver, Serializable {
 				if (i3 >= 0)
 					sdebugmode = parts[i].substring(i3 + KEY_DEBUGMODE.length()
 							+ 1);
+				if (i4 >= 0)
+					scompatibleSql = parts[i].substring(i4
+							+ KEY_COMPATIBLESQL.length() + 1);
 			}
 		}
 		Map<String, String> map = new HashMap<String, String>();
 		map.put(KEY_CONFIG, config);
 		map.put(KEY_ONLY_SERVER, sonlyServer);
 		map.put(KEY_DEBUGMODE, sdebugmode);
+		map.put(KEY_COMPATIBLESQL, scompatibleSql);
 		return map;
 	}
 
@@ -243,4 +262,6 @@ public class InternalDriver implements java.sql.Driver, Serializable {
 
 	// 仅调试用
 	private static final String KEY_DEBUGMODE = "debugmode";
+	// 兼容之前简单SQL没有$开头时的用法
+	private static final String KEY_COMPATIBLESQL = "compatiblesql";
 }

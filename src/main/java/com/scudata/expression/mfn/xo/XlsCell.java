@@ -112,7 +112,7 @@ public class XlsCell extends XOFunction {
 
 			cell1 = (String) val;
 			cell1 = removeQuota(cell1);
-			cell2 = null; // :b都没有，表示a单格子
+			cell2 = cell1; // :b都没有，表示a单格子
 		} else {
 			IParam sub = param0.getSub(0);
 			if (sub == null) {

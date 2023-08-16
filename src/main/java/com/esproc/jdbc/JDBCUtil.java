@@ -72,9 +72,14 @@ public class JDBCUtil {
 				if (s.startsWith(")")) {
 					return JDBCConsts.TYPE_SIMPLE_SQL;
 				}
+				Command command = Command.parse(sql);
+				if (command.getType() == Command.SQL) {
+					return JDBCConsts.TYPE_SQL;
+				}
+			} else if (AppUtil.isSQL(sql)) {
+				return JDBCConsts.TYPE_SIMPLE_SQL;
 			}
-			return JDBCConsts.TYPE_SQL;
-		} else if (AppUtil.isSQL(sql)) {
+		} else if (AppUtil.isSQL(sql) && JDBCUtil.isCompatiblesql) {
 			return JDBCConsts.TYPE_SIMPLE_SQL;
 		}
 		return JDBCConsts.TYPE_NONE;
@@ -145,14 +150,18 @@ public class JDBCUtil {
 					return AppUtil.executeSql(sql,
 							(ArrayList<Object>) parameters, ctx);
 				}
+
+				Command command = Command.parse(sql);
+				if (command.getType() == Command.SQL) {
+					Sequence arg = prepareArg((ArrayList<Object>) parameters);
+					sql = AppUtil.prepareSql(sql, arg);
+					return AppUtil.execute(sql, arg, ctx);
+				}
+			} else if (AppUtil.isSQL(sql)) {
+				return AppUtil.executeSql(s, (ArrayList<Object>) parameters,
+						ctx);
 			}
-			Command command = Command.parse(sql);
-			if (command.getType() == Command.SQL) {
-				Sequence arg = prepareArg((ArrayList<Object>) parameters);
-				sql = AppUtil.prepareSql(sql, arg);
-				return AppUtil.execute(sql, arg, ctx);
-			}
-		} else if (AppUtil.isSQL(sql)) {
+		} else if (AppUtil.isSQL(sql) && JDBCUtil.isCompatiblesql) {
 			return AppUtil.executeSql(sql, (ArrayList<Object>) parameters, ctx);
 		} else {
 			sql = parseSpl(sql);
@@ -1567,6 +1576,8 @@ public class JDBCUtil {
 	 * information.
 	 */
 	public static boolean isDebugMode = false;
+
+	public static boolean isCompatiblesql = false;
 
 	/**
 	 * Output debugging information.
