@@ -72,11 +72,19 @@ public class CharDetect extends CharFunction {
 							rep.add(item);
 						}
 					}
-					if (rep.size()>0){
-						return new Sequence(rep.toArray(new String[rep.size()]));
+					if (rep.size()>0){						
+						if (option!=null && option.contains("a")){
+							return rep.get(0);
+						}else{
+							return new Sequence(rep.toArray(new String[rep.size()]));
+						}
 					}
 				}else{
-					return new Sequence(result.toArray(new String[result.size()]));
+					if (option!=null && option.contains("a")){
+						return result.get(0);
+					}else{
+						return new Sequence(result.toArray(new String[result.size()]));
+					}
 				}				
 			}else if(objs[0] instanceof String){ 
 				String sTmp = objs[0].toString();				

@@ -350,8 +350,8 @@ public class CharEncodingDetect extends Encoding {
 		rangeval = 50 * ((float) gbchars / (float) dbchars);
 		freqval = 50 * ((float) gbfreq / (float) totalfreq);
 		// For regular GB files, this would give the same score, so I handicap it slightly
-		System.out.println("gbk_probability::gbchars=" + gbchars + ";dbchars=" + dbchars + ";gbfreq=" + gbfreq
-				+ ";totalfreq=" + totalfreq + ";total=" + (rangeval + freqval));
+//		System.out.println("gbk_probability::gbchars=" + gbchars + ";dbchars=" + dbchars + ";gbfreq=" + gbfreq
+//				+ ";totalfreq=" + totalfreq + ";total=" + (rangeval + freqval));
 		return (int) (rangeval + freqval) - 1;
 	}
 
