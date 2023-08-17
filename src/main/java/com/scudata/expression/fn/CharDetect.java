@@ -74,16 +74,16 @@ public class CharDetect extends CharFunction {
 					}
 					if (rep.size()>0){						
 						if (option!=null && option.contains("a")){
-							return rep.get(0);
-						}else{
 							return new Sequence(rep.toArray(new String[rep.size()]));
+						}else{
+							return rep.get(0);
 						}
 					}
 				}else{
 					if (option!=null && option.contains("a")){
-						return result.get(0);
-					}else{
 						return new Sequence(result.toArray(new String[result.size()]));
+					}else{
+						return result.get(0);
 					}
 				}				
 			}else if(objs[0] instanceof String){ 
