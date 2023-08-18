@@ -196,17 +196,18 @@ public class Joinx extends CursorFunction {
 		int count = codes.length;
 		SyncReader[] readers = new SyncReader[count];
 		for (int i = 0; i < count; i++) {
-			String[] fields = makeFields(dataExps[i], newExps[i], ctx);//得到维表字段
-			
 			if (codes[i] instanceof ColPhyTable) {
+				String[] fields = makeFields(dataExps[i], newExps[i], ctx);//得到维表字段
 				readers[i] = new SyncReader((ColPhyTable)codes[i], fields, capacity);
 			} else if (codes[i] instanceof FileObject) {
 				readers[i] = new SyncReader((FileObject)codes[i], dataExps[i], capacity);
-			} else if (codes[i] instanceof Cursor) {
-				readers[i] = new SyncReader((Cursor)codes[i], dataExps[i], capacity);
+			} else if (codes[i] instanceof ICursor) {
+//				readers[i] = new SyncReader((Cursor)codes[i], dataExps[i], capacity);
+				MessageManager mm = EngineMessage.get();
+				throw new RQException("joinx:" + mm.getMessage("dw.dimTableError"));
 			} else {
 				MessageManager mm = EngineMessage.get();
-				throw new RQException("joinx" + mm.getMessage("dw.needMCursor"));
+				throw new RQException("joinx:" + mm.getMessage("dw.needMCursor"));
 			}
 		}
 		
