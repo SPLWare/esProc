@@ -966,7 +966,11 @@ public class SheetXls extends SheetObject {
 			int endRow = startRow + rowCount;
 			int endCol = startCol + matrix.getColSize();
 			if (pos2 != null) {
-				endRow = Math.min(pos2.getRow(), endRow);
+				int pos2Row = pos2.getRow();
+				if (isRowInsert) {
+					pos2Row++;
+				}
+				endRow = Math.min(pos2Row, endRow);
 				endCol = Math.min(pos2.getCol(), endCol);
 			}
 			for (int r = startRow; r < endRow; r++) {
